@@ -6384,6 +6384,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/43f22ea8bd">Translate Swahili text operations and variables</a>. Thanks to xet7.</summary>
+
+- Translate 34 English strings for text operations, variables and workspace
+  announcements, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including text
+  replacement scope, spaces, trim directions and workspace counts.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
