@@ -1042,6 +1042,14 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /ஒருபோதும் அனுப்பப்படாது/);
   assert.match(locale['rule-email-legacy-access-denied'], /உரிமை இனி இல்லை/);
   assert.match(locale['r-insert-variable'], /மாறியை/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
+    assert.notEqual(locale[key], english[key], `ta:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ta:${key}: tokens`);
+  }
+  assert.match(locale['scrum-report-help'], /பூஜ்ஜிய மதிப்பீடுகள் அல்ல/);
+  assert.match(locale['scrum-partial-report'], /உங்களுக்கு ஒதுக்கப்பட்ட அட்டைகள் மட்டுமே/);
+  assert.match(locale['scrum-daily-observations-help'], /ஒவ்வொரு மாற்றத்தையும் பதிவு செய்வதில்லை/);
+  assert.match(locale['scrum-daily-observations-export-help'], /தெரியாத மதிப்பீடுகள் பூஜ்ஜியம் அல்ல/);
   for (const key of Object.keys(english).filter(key =>
     /^(auto-archive-|filter-(recency|movement-range|date-range|due-|column-age|preset|card-text)|notification-activity-|due-reminder-|map-view-)/.test(key))) {
     assert.notEqual(locale[key], english[key], `ta:${key}: untranslated`);
