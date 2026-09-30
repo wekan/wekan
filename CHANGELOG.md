@@ -2107,6 +2107,16 @@ progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2913e6263">Translate Galician recovery messages and import guidance</a>. Thanks to xet7.</summary>
+
+Fill 90 strings across both Galician locale files. Completeness, placeholder,
+import-syntax and delivery-warning checks pass against the current English
+source. Existing translations are preserved and human-preference checks pass.
+Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
