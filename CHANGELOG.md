@@ -2096,6 +2096,17 @@ and human-preference checks pass. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b6ecc1309">Complete regional Arabic recovery and import translations</a>. Thanks to xet7.</summary>
+
+Fill 90 strings in the Algerian and Egyptian Arabic locale files, using the
+reviewed Modern Standard Arabic wording for matching source keys. Existing
+regional translations are preserved. Completeness, placeholder, import-syntax,
+delivery-warning and human-preference checks pass. Other languages remain in
+progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
