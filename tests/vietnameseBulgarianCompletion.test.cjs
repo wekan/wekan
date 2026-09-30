@@ -983,6 +983,15 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /কখনো পাঠানো হবে না/);
   assert.match(locale['rule-email-legacy-access-denied'], /আর প্রবেশাধিকার নেই/);
   assert.match(locale['r-insert-variable'], /ভেরিয়েবল/);
+  for (const key of Object.keys(english).filter(key =>
+    /^sync-(conflict-|preview-|source-|report-|recovery-|estimate-|original-time|remaining-time|time-estimate)/.test(key))) {
+    assert.notEqual(locale[key], english[key], `bn:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `bn:${key}: tokens`);
+  }
+  assert.match(locale['sync-conflict-hint'], /উৎস সিস্টেমে কিছুই পাঠানো হয় না/);
+  assert.match(locale['sync-report-partial'], /আবার শুরু করে না.*পরিবর্তন ফিরিয়ে নেয় না/);
+  assert.match(locale['sync-estimate-field-hint'], /null সংযুক্ত মান মুছে দেয়/);
+  assert.match(locale['sync-time-estimate-hint'], /ঠিক একটি মিলে যাওয়া ঘর/);
   for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
     assert.notEqual(locale[key], english[key], `bn:${key}: untranslated`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `bn:${key}: tokens`);
