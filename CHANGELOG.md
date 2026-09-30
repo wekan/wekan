@@ -3144,6 +3144,15 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d3f7a8545">Translate Thai Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+- Fill 84 Thai Scrum messages and update the language completion count.
+- Verify preserved translations, placeholders, partial-report warnings and
+  unknown-estimate semantics with translation and language registry checks.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
