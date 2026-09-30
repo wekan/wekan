@@ -5379,6 +5379,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0e5d05da135e46e752a981a811621e1ee941f10e">Translate Armenian workspace navigation messages</a>. Thanks to xet7.</summary>
+
+- Fill 30 English placeholders for workspace navigation and announcements,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including opposite
+  directions and composed announcements. Fluent-speaker and browser review
+  were not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
