@@ -31,6 +31,19 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const correctedSharingKeys = ["avatars-upload-blocked-description", "org-shared-templates", "team-shared-templates", "subtask-settings", "boardSubtaskSettingsPopup-title", "deposit-subtasks-list", "r-import-export", "r-import-json", "r-import-csv", "r-import-target", "r-import-workflow", "r-sort-list", "board-member-list", "shared-templates", "shared-templates-info", "myCardsSortChange-title", "myCardsSortChangePopup-title", "sort-cards", "sort-boards", "cardsSortPopup-title", "import-dependencies-parse-error", "custom-field-stringtemplate", "new-problems", "recovery-event"];
+  for (const key of correctedSharingKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /\b(Importa|Ordina|Elenco|Template|condivisi|nuovi|Evento|Impossibile|Sfoglia|Sono)\b/, `rm:${key}: no mixed-language seed`);
+  }
+  for (const key of ['org-shared-templates', 'team-shared-templates']) assert.equal(locale[key], locale['shared-templates']);
+  assert.equal(locale['subtask-settings'], locale['boardSubtaskSettingsPopup-title']);
+  assert.equal(locale['sort-cards'], locale['cardsSortPopup-title']);
+  assert.equal(locale['myCardsSortChange-title'], locale['myCardsSortChangePopup-title']);
+  assert.match(locale['avatars-upload-blocked-description'], /activads sco standard/);
+  assert.match(locale['shared-templates-info'], /betg vida/);
+  for (const format of ['JSON', 'CSV']) assert.ok(locale[`r-import-${format.toLowerCase()}`].includes(format));
+
   const correctedImportKeys = ["add-template", "app-is-offline", "template-container", "add-template-container", "importDependenciesPopup-title", "importSwimlanePopup-title", "importListPopup-title", "importCardPopup-title", "importBoardIntoPopup-title", "listsortPopup-title", "rulesImportExportPopup-title", "createTemplateContainerPopup-title", "chooseBoardSourcePopup-title", "export-card-attachment-uploaded-by", "export-card-attachment-uploaded-at", "list-sort-by", "import-board", "import-board-c", "trello-api-import", "trello-import-selected", "trello-import-more", "listImportCardPopup-title", "listImportCardsTsvPopup-title", "menu", "upload", "upload-avatar", "upload-completed", "import-usernames", "card-templates-swimlane", "list-templates-swimlane", "board-templates-swimlane"];
   for (const key of correctedImportKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
