@@ -2317,6 +2317,71 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedRuleActionKeys = [
+    "r-when-a-end-date-changed",
+    "r-when-a-received-date-changed",
+    "r-when-a-checklist",
+    "r-when-the-checklist",
+    "r-completed",
+    "r-when-a-item",
+    "r-when-the-item",
+    "r-top-of",
+    "r-bottom-of",
+    "r-label",
+    "r-checklist",
+    "r-check-all",
+    "r-uncheck-all",
+    "r-items-check",
+    "r-check",
+    "r-uncheck",
+    "r-item",
+    "r-of-checklist",
+    "r-to",
+    "r-of",
+    "r-subject",
+    "r-d-send-email-to",
+    "r-d-send-email-subject",
+    "r-d-send-email-message",
+    "r-in-list",
+    "r-in-swimlane",
+    "r-d-check-one",
+    "r-d-uncheck-one",
+    "r-d-check-of-list",
+    "r-by",
+    "r-with-items",
+    "r-items-list",
+    "r-board-note",
+    "r-checklist-note",
+    "r-set",
+    "r-update",
+    "r-datefield",
+    "r-df-start-at",
+    "r-df-due-at",
+    "r-df-end-at",
+    "r-df-received-at",
+    "r-to-current-datetime",
+    "r-remove-value-from",
+    "ldap",
+    "oauth2",
+    "cas",
+    "settings-group-url",
+    "settings-group-logo",
+    "custom-head-manifest-content",
+    "custom-assetlinks-content"
+  ];
+  for (const key of correctedRuleActionKeys) {
+    assert.doesNotMatch(locale[key], /— pò kaszëbskù/, `csb:${key}: language label is not a translation`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+  }
+  for (const key of ['ldap', 'oauth2', 'cas', 'settings-group-url']) assert.equal(locale[key], english[key]);
+  for (const key of ['r-when-a-end-date-changed', 'r-when-a-received-date-changed']) {
+    assert.match(locale[key], /nastawionô abò zmienionô/);
+  }
+  assert.match(locale['r-board-note'], /pòle pùsté.*kòżdi mòżlëwi wôrtnotë/);
+  assert.match(locale['r-checklist-note'], /òddzeloné przecënkama/);
+  assert.equal(locale['r-items-list'].split(',').length, 3);
+  assert.notEqual(locale['r-check'], locale['r-uncheck']);
+  assert.ok(locale['custom-assetlinks-content'].includes('assetlinks.json (JSON)'));
   const correctedScheduleKeys = [
     "r-workflow-format",
     "r-import-workflow-note",
