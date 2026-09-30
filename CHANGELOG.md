@@ -8476,6 +8476,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5636c0aeef2f0d4b55ccef91a0a5ffab134752e4">Translate Romansh activity recovery controls</a>. Thanks to xet7.</summary>
+
+- Translate 25 activity-recovery and rule-email strings, preserving existing
+  translations and replacement tokens.
+- Translation, registry and human-preference checks pass, covering distinct
+  states, pause and resume labels, and irreversible cancellation warnings.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
