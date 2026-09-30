@@ -4242,6 +4242,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ce6538dc6">Correct Occitan account and card action translations</a>. Thanks to xet7.</summary>
+
+- Correct 15 strings covering account anonymization, cancellation, board
+  restoration, timeline state, deletion warnings and member mapping.
+- Translation, registry and human-preference checks pass, including positive
+  and negative wording regressions and source-token preservation. Occitan
+  wording is lower confidence; browser layout and fluent-speaker review were
+  not run. The wider language audit continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
