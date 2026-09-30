@@ -2868,6 +2868,15 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/47bf59e4f">Translate Afrikaans Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+- Fill 84 Scrum planning, sprint and report messages in each Afrikaans locale.
+- Preserve existing translations and placeholders; check unknown estimates,
+  partial reports and observation limits. Update the translation coverage count.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
