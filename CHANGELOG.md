@@ -5247,6 +5247,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fbf6a40f9da9d24221d2d8d35885676dad45bc7d">Translate Albanian synchronization diagnostics</a>. Thanks to xet7.</summary>
+
+- Fill 40 English placeholders for synchronization diagnostics and email
+  queue guidance, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including retention,
+  partial changes and explicit null values. Fluent-speaker and browser review
+  were not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
