@@ -2991,6 +2991,15 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e0c1121f0">Translate Tamil email recovery and todo import messages</a>. Thanks to xet7.</summary>
+
+- Fill 45 Tamil recovery, variable and todo.txt import messages.
+- Verify preserved translations, placeholders, import syntax, duplicate-delivery
+  warnings and access restrictions with the translation regression checks.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
