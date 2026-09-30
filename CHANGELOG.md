@@ -6830,6 +6830,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d22d8c34c57ad2f1abd024c6b00c42574ac54712">Translate Tagalog sync diagnostics and delivery guidance</a>. Thanks to xet7.</summary>
+
+- Translate 30 English strings for sync reports and email delivery guidance,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including retention
+  periods, null handling and delivery recall limits.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
