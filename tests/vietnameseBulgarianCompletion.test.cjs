@@ -2317,6 +2317,16 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedSearchSyntaxKeys = ["advanced-filter-description", "globalSearch-instructions-heading", "globalSearch-instructions-description", "globalSearch-instructions-operator-board", "globalSearch-instructions-operator-list", "globalSearch-instructions-operator-swimlane", "globalSearch-instructions-operator-comment", "globalSearch-instructions-operator-label", "globalSearch-instructions-operator-hash", "globalSearch-instructions-operator-user", "globalSearch-instructions-operator-at", "globalSearch-instructions-operator-member", "globalSearch-instructions-operator-assignee", "globalSearch-instructions-operator-creator", "globalSearch-instructions-operator-org", "globalSearch-instructions-operator-team"];
+  for (const key of correctedSearchSyntaxKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.deepEqual(locale[key].match(/<[^>]+>/g), english[key].match(/<[^>]+>/g), `csb:${key}: example fields`);
+  }
+  for (const key of correctedSearchSyntaxKeys.filter(key => key !== 'advanced-filter-description')) {
+    assert.deepEqual(locale[key].match(/`[^`]+`/g), english[key].match(/`[^`]+`/g), `csb:${key}: literal examples`);
+  }
+  const advancedFilterExamples = ["== != <= >= && || ( )", "Field1 == Value1", "'Field 1' == 'Value 1'", "(' \\/)", "Field1 == I\\'m", "F1 == V1 || F1 == V2", "F1 == V1 && ( F2 == V2 || F2 == V3 )", "F1 == /Tes.*/i"];
+  for (const example of advancedFilterExamples) assert.ok(locale['advanced-filter-description'].includes(example), `csb:filter example: ${example}`);
   const correctedImportFormatKeys = ["import-board-instruction-todotxt", "import-board-instruction-jira", "import-board-instruction-wekan", "import-members-map", "import-members-map-note", "import-show-user-mapping", "import-board-zip", "import-not-wekan-export"];
   for (const key of correctedImportFormatKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
