@@ -8837,6 +8837,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0ed44da87d187c9466b6ad5c08a65a83511e5c65">Translate import and email recovery additions into Haitian Creole</a>. Thanks to xet7.</summary>
+
+- Fill 44 missing Haitian Creole strings for todo.txt imports and rule-email
+  recovery, preserving existing translations, placeholders and import syntax.
+- Translation, registry and human-preference checks pass, covering uncertain
+  delivery, duplicate delivery warnings and legacy email review actions.
+  Existing Haitian Creole translations remain unchanged.
+  Browser and fluent-speaker review were not run; translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
