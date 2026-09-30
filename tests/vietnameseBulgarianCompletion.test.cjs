@@ -31,6 +31,18 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const correctedCardKeys = ["card-due-on", "card-spent", "card-edit-attachments", "card-received", "card-received-on", "card-end", "card-end-on", "card-sorting-by-number", "card-sorting-by-number-on-minicard", "list-delete-pop", "list-delete-suggest-archive", "listDeletePopup-title", "board-delete-notice", "boardDeletePopup-title", "swimlaneDeletePopup-title", "swimlane-delete-pop", "board-title-not-found", "list-title-not-found", "archived-at", "card-dependencies", "filter-dependencies-label", "board-backgrounds", "board-background-delete-pop", "cardDetailsPopup-title", "board-status", "board-status-time-spent-total", "board-status-overtime-cards", "save-s3-settings", "card-show-lists", "card-show-lists-on-minicard"];
+  for (const key of correctedCardKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /\b(Puoi|Tempo|Ricevuta|Fine|Dipendenze|Dettagli|Stato|sulla|Stizzarre|trovata|sarann|verrann)\b/, `rm:${key}: no Italian seed`);
+  }
+  for (const key of ['list-delete-pop', 'swimlane-delete-pop']) assert.match(locale[key], /na po betg vegnir fatg enavos/);
+  assert.match(locale['board-delete-notice'], /permanent.*glistas, cartas ed acziuns/);
+  assert.match(locale['list-delete-suggest-archive'], /mantegnair l’activitad/);
+  assert.equal(locale['card-spent'], 'Temp impundì');
+  assert.equal(locale['card-dependencies'], 'Dependenzas');
+  assert.ok(locale['save-s3-settings'].includes('S3'));
+
   const correctedBoardKeys = ["board-members-same-org-only", "board-members-same-team-only", "archive-permanent-delete-disabled-hint", "list-width-shared-note", "list-width-personal-note", "swimlane-height-error-message", "board-change-color", "board-info-on-my-boards", "boardInfoOnMyBoardsPopup-title", "boardInfoOnMyBoards-title", "board_members", "card_members", "board_assignees", "card_assignees", "board-nb-stars", "board-not-found", "board-private-info", "board-public-info", "board-drag-drop-reorder-or-click-open", "board-open-and-move-between-remaining-and-workspaces", "boardChangeColorPopup-title", "boardChangeTitlePopup-title", "boardChangeVisibilityPopup-title", "boardChangeWatchPopup-title", "board-view-cal", "board-view-multiboard-cal", "board-view-collapse", "board-view-stats", "card-delete-notice", "card-delete-pop", "card-delete-suggest-archive"];
   for (const key of correctedBoardKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
