@@ -3784,6 +3784,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4fbe4af35">Fill remaining Aragonese notification and recovery placeholders</a>. Thanks to xet7.</summary>
+
+- Translate 82 Aragonese notification, recovery and navigation messages.
+  No flagged English placeholders remain, including pending keys. Retain
+  reviewed technical labels and shared vocabulary.
+- Translation, registry and human-preference checks pass, covering tokens,
+  preserved translations and irreversible recovery actions. Wording is lower
+  confidence; browser layout and fluent-speaker review were not run.
+  Older mixed-language values still require correction.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
