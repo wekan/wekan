@@ -7394,6 +7394,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c489a8bdf2b6ffea4ef241c2e685e9d7edb09924">Translate Luxembourgish rules and notifications</a>. Thanks to xet7.</summary>
+
+- Translate 30 missing or English strings for board visibility, rules and
+  notifications, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including rule
+  variables and visibility markup.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
