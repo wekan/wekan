@@ -3243,6 +3243,15 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/50499a68d">Translate Kannada Sync conflicts and recovery reports</a>. Thanks to xet7.</summary>
+
+- Fill 63 Kannada Sync conflict, preview, report and recovery messages.
+- Translation and registry checks verify placeholders, preserved translations,
+  partial-change warnings and explicit-null estimate handling.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
