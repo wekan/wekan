@@ -276,4 +276,18 @@ for (const code of ['fa', 'fa-IR']) {
   assert.match(locale['email-recovery-confirm-cancel'], /قابل بازیابی نیست/);
   assert.match(locale['history-request-hint'], /هرگز نمی‌تواند تغییر دیگری را برگرداند/);
 }
+for (const code of ['ms', 'ms-MY']) {
+  const locale = read(code);
+  for (const key of hiraganaBatchKeys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
+    assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve ${token}`);
+  }
+  assert.match(locale['rule-email-recovery-resend-confirm'], /dua kali/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /tidak akan dihantar selama-lamanya/);
+  assert.match(locale['r-insert-variable'], /pemboleh ubah/);
+  assert.match(locale['rule-email-legacy-access-denied'], /tidak lagi mempunyai akses/);
+}
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
