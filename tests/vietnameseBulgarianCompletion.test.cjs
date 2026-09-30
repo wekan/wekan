@@ -289,5 +289,19 @@ for (const code of ['ms', 'ms-MY']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /tidak akan dihantar selama-lamanya/);
   assert.match(locale['r-insert-variable'], /pemboleh ubah/);
   assert.match(locale['rule-email-legacy-access-denied'], /tidak lagi mempunyai akses/);
+  for (const key of Object.keys(english).filter(key =>
+    /^(auto-archive-|filter-(recency|movement-range|date-range|due-|column-age))/.test(key))) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  for (const token of ['@createdAt', '@receivedAt', '@startAt', '@dueAt', '@endAt', '@listEnteredAt', 'none']) {
+    assert.ok(locale['advanced-filter-card-dates-hint'].includes(token), `${code}: preserve ${token}`);
+  }
+  for (const token of ['{creator}', '{assignees}', '{members}', '{customField:Name}']) {
+    assert.ok(locale['r-trigger-vars-hint'].includes(token), `${code}: preserve ${token}`);
+  }
+  assert.ok(locale['r-vars-people-hint'].includes('{customField:Field name}'));
+  assert.match(locale['filter-column-age-hint'], /tidak menetapkan semula/);
+  assert.match(locale['instance-desc'], /tidak pernah ditunjukkan kepada orang yang belum log masuk/);
 }
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
