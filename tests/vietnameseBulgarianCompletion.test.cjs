@@ -31,6 +31,19 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Georgian filters and import guidance; other placeholders remain.
 {
   const locale = read('ka');
+  const reminderPresetKeys = ["notification-activity-customFields", "notification-activity-archive", "notification-activity-created", "due-reminder-heading", "due-reminder-days-label", "due-reminder-off", "due-reminder-webhook", "due-reminder-invalid", "due-reminder-saved", "dependency-type-duplicates", "dependency-type-is-duplicated-by", "custom-field-stringtemplate-context-hint", "filter-presets", "filter-preset-choose", "filter-preset-name", "filter-preset-save", "filter-preset-replace-hint", "filter-preset-saved", "filter-preset-applied", "filter-preset-deleted", "filter-preset-error", "filter-card-text-label", "import-report-heading", "import-report-description", "import-report-open-board"];
+  for (const key of reminderPresetKeys) {
+    assert.notEqual(locale[key], english[key], `ka:${key}: translated`);
+    assert.match(locale[key], /[\u10d0-\u10ff]/, `ka:${key}: Georgian script`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ka:${key}: tokens`);
+  }
+  assert.match(locale['due-reminder-days-label'], /0.*დადებითი.*მანამდე.*უარყოფითი.*შემდეგ/);
+  assert.match(locale['due-reminder-invalid'], /ათი.*-14.*14/);
+  assert.match(locale['filter-preset-replace-hint'], /მხოლოდ თქვენთვის.*იმავე სახელით.*ჩაანაცვლებს/);
+  assert.match(locale['import-report-description'], /დაფა შეიქმნა.*ვერ მოხერხდა/);
+  for (const key of ['admin-panel', 'problems', 'recoveryReportTitle']) assert.ok(locale['import-report-description'].includes(locale[key]));
+  for (const token of ['%{card.title}', '%{board.title}', '%{list.title}', '%{swimlane.title}', '%{value|urlencode}', '|urlencode']) assert.ok(locale['custom-field-stringtemplate-context-hint'].includes(token));
+  assert.notEqual(locale['dependency-type-duplicates'], locale['dependency-type-is-duplicated-by']);
   const accessRuleKeys = ["instance", "instance-desc", "board-instance-info", "automatic-linked-url-schemes-hint", "other-parent-cards", "add-parent-card", "remove-parent-card", "r-when-card-date", "r-trigger-vars-hint", "r-insert-variable", "r-vars-people-hint", "r-rule-any-trigger-help", "r-add-trigger-to-rule", "r-add-action-to-rule", "r-remove-rule-part", "notification-activity-heading", "notification-activity-description", "notification-activity-labels", "notification-activity-members", "notification-activity-assignees", "notification-activity-comments", "notification-activity-moves", "notification-activity-dates", "notification-activity-checklists", "notification-activity-attachments"];
   for (const key of accessRuleKeys) {
     assert.notEqual(locale[key], english[key], `ka:${key}: translated`);
