@@ -31,6 +31,18 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Georgian filters and import guidance; other placeholders remain.
 {
   const locale = read('ka');
+  const emailResolutionKeys = ["rule-email-recovery-recipients", "rule-email-recovery-recipient-accepted", "rule-email-recovery-recipient-unconfirmed", "rule-email-recovery-actions-hint", "rule-email-recovery-wait", "rule-email-recovery-resends", "rule-email-recovery-resend", "rule-email-recovery-mark-sent", "rule-email-recovery-drop", "rule-email-recovery-resend-confirm", "rule-email-recovery-mark-sent-confirm", "rule-email-recovery-drop-confirm", "rule-email-resolution-too-early", "rule-email-resolution-already-resolved", "rule-email-resolution-resend-in-flight", "rule-email-resolution-nothing-to-resend", "rule-email-resolution-resend-uncertain", "rule-email-resolution-busy", "rule-email-resolution-command-changed", "rule-email-resolution-attempt-invalid"];
+  for (const key of emailResolutionKeys) {
+    assert.notEqual(locale[key], english[key], `ka:${key}: translated`);
+    assert.match(locale[key], /[ა-ჿ]/, `ka:${key}: Georgian script`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ka:${key}: tokens`);
+  }
+  assert.match(locale['rule-email-recovery-actions-hint'], /თავისით არასოდეს აგზავნის ხელახლა/);
+  assert.match(locale['rule-email-recovery-resend-confirm'], /ორჯერ მიუვა/);
+  assert.match(locale['rule-email-recovery-drop-confirm'], /არ გაიგზავნება/);
+  assert.match(locale['rule-email-resolution-resend-uncertain'], /მივიდა ან არ მივიდა/);
+  assert.match(locale['rule-email-recovery-mark-sent-confirm'], /მხოლოდ მაშინ, თუ იცით/);
+  assert.notEqual(locale['rule-email-recovery-resend'], locale['rule-email-recovery-mark-sent']);
   const notificationControlKeys = ["activity-recovery-resume", "activity-recovery-paused", "activity-recovery-control-conflict", "activity-recovery-control-failed", "activity-recovery-status-cancelled", "activity-recovery-cancel", "activity-recovery-cancel-confirm", "rule-email-recovery-heading", "rule-email-recovery-description", "rule-email-recovery-all", "rule-email-recovery-unconfirmed", "rule-email-recovery-sent", "rule-email-recovery-invalid", "rule-email-recovery-identifiers", "rule-email-recovery-started", "rule-email-recovery-finished", "rule-email-recovery-empty", "rule-email-recovery-unavailable", "rule-email-recovery-dropped", "rule-email-recovery-review"];
   for (const key of notificationControlKeys) {
     assert.notEqual(locale[key], english[key], `ka:${key}: translated`);
