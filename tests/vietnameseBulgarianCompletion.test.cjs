@@ -2317,6 +2317,18 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
+    assert.notEqual(locale[key], english[key], `csb:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /— pò kaszëbskù/);
+  }
+  assert.match(locale['scrum-report-help'], /nie są òszacowaniama zerowima/);
+  assert.match(locale['scrum-report-help'], /zgódnëch jednoskach òszacowaniô i zasadach/);
+  assert.match(locale['scrum-partial-report'], /terô przëpisóné Tobie/);
+  assert.match(locale['scrum-daily-observations-help'], /nie zapisëją kòżdi zmianë/);
+  assert.match(locale['scrum-daily-observations-help'], /listwie nôrzãdzów ekspòrtëje rezultatë sprintu/);
+  assert.match(locale['scrum-daily-observations-export-help'], /Nieznóné òszacowania nie są zerã/);
+  assert.match(locale['scrum-import-pending'], /Edycjô Scrum i ekspòrt rapòrtów nie są przistãpné/);
   for (const key of Object.keys(english).filter(key => key.startsWith('sync-'))) {
     assert.notEqual(locale[key], english[key], `csb:${key}: untranslated`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
