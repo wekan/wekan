@@ -3910,6 +3910,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/16d3704da">Correct mixed-language Aragonese interface messages</a>. Thanks to xet7.</summary>
+
+- Correct 42 mixed-language navigation, account, import and settings messages.
+  Preserve all other translations and placeholders.
+- Translation, registry and human-preference checks pass. Regression coverage
+  includes Aragonese wording, permission limits, irreversible deletion and
+  retaining saved secrets. Wording is lower confidence; browser layout and
+  fluent-speaker review were not run. The wider language audit continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
