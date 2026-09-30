@@ -12,7 +12,7 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
   'de', 'de_DE', 'de-AT', 'de-CH', 'fr', 'fr-FR', 'fr-BE', 'fr-CA', 'fr-CH',
   'es', 'es-AR', 'es-LA', 'es-CL', 'es_CO', 'es-CO', 'es-PY', 'es-PE', 'es-MX', 'it',
   'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'nl', 'nl-NL', 'sv', 'fi', 'et-EE', 'da', 'nb', 'tr', 'id', 'ro', 'ro-RO', 'hu', 'sk', 'ja', 'ja-JP', 'ko', 'ko-KR',
-  'zh-CN', 'zh-Hans', 'zh', 'cmn', 'zh_SG', 'zh-GB', 'zh-Hant', 'zh-TW', 'zh-HK', 'ar', 'ar-DZ', 'ar-EG', 'gl', 'gl-ES', 'he', 'he-IL', 'fa', 'fa-IR', 'ms', 'ms-MY', 'sl', 'sl_SI', 'hr', 'sr', 'bs', 'mk', 'be', 'lt', 'lv', 'is', 'af', 'af_ZA', 'hi', 'hi-IN', 'bn', 'ta']) {
+  'zh-CN', 'zh-Hans', 'zh', 'cmn', 'zh_SG', 'zh-GB', 'zh-Hant', 'zh-TW', 'zh-HK', 'ar', 'ar-DZ', 'ar-EG', 'gl', 'gl-ES', 'he', 'he-IL', 'fa', 'fa-IR', 'ms', 'ms-MY', 'sl', 'sl_SI', 'hr', 'sr', 'bs', 'mk', 'be', 'lt', 'lv', 'is', 'af', 'af_ZA', 'hi', 'hi-IN', 'bn', 'ta', 'ne']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(english), `${code}: source key order`);
   for (const key of Object.keys(english)) {
@@ -1101,6 +1101,16 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /कहिल्यै पठाइने छैन/);
   assert.match(locale['rule-email-legacy-access-denied'], /पहुँच छैन/);
   assert.match(locale['r-insert-variable'], /चर राख्नुहोस्/);
+  for (const key of Object.keys(english).filter(key =>
+    /^(email-recovery-|email-failure-|activity-recovery-|rule-email-recovery-|history-request-)/.test(key))) {
+    assert.notEqual(locale[key], english[key], `ne:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ne:${key}: tokens`);
+  }
+  assert.match(locale['email-recovery-confirm-cancel'], /पुनर्स्थापित गर्न सकिने छैन.*नयाँ सन्देशहरू राखिन्छन्/);
+  assert.match(locale['activity-recovery-cancel-confirm'], /फेरि सुरु गर्न सकिँदैन.*फिर्ता लिइँदैनन्/);
+  assert.match(locale['activity-recovery-description'], /गतिविधि कहिल्यै पुनः सिर्जना हुँदैन/);
+  assert.match(locale['history-request-hint'], /दोस्रो परिवर्तन कहिल्यै उल्टाउन सक्दैन/);
+  assert.equal(locale['blockly-LOGIC_NULL'], 'मान छैन');
   for (const key of Object.keys(english).filter(key =>
     /^sync-(conflict-|preview-|source-|report-|recovery-|estimate-|original-time|remaining-time|time-estimate)/.test(key))) {
     assert.notEqual(locale[key], english[key], `ne:${key}: untranslated`);
