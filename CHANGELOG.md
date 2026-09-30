@@ -8151,6 +8151,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/90b401a416d6da0a104b9e88fc527261a7ead2d6">Translate Friulian rule email delivery</a>. Thanks to xet7.</summary>
+
+- Translate 25 notification-cancellation and rule-email recovery strings,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  recovery actions and recipient states. Friulian has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
