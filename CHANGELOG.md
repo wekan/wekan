@@ -5038,6 +5038,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/89f73c4ae1">Correct Kashubian activity detail messages</a>. Thanks to xet7.</summary>
+
+- Correct 20 activity messages. Preserve placeholder inventories and argument
+  order, including move source and destination details.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Other mixed-language text and languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
