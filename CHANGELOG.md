@@ -5845,6 +5845,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e388e0866d">Translate Georgian logic and arithmetic guidance</a>. Thanks to xet7.</summary>
+
+- Translate 41 English strings for Boolean values, comparisons, conditional
+  expressions, arithmetic and constants, preserving translations and tokens.
+- Translation, registry and human-preference checks pass, including comparison
+  boundaries, both-versus-either conditions and conditional field labels.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
