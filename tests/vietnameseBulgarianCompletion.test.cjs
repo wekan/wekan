@@ -2317,6 +2317,17 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedSearchLogicKeys = ["globalSearch-instructions-operator-due", "globalSearch-instructions-operator-created", "globalSearch-instructions-operator-modified", "globalSearch-instructions-status-archived", "globalSearch-instructions-status-all", "globalSearch-instructions-status-ended", "globalSearch-instructions-status-public", "globalSearch-instructions-status-private", "globalSearch-instructions-operator-has", "globalSearch-instructions-operator-sort", "globalSearch-instructions-operator-limit", "globalSearch-instructions-notes-2", "globalSearch-instructions-notes-3", "globalSearch-instructions-notes-4", "globalSearch-instructions-operator-number"];
+  for (const key of correctedSearchLogicKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.deepEqual(locale[key].match(/<[^>]+>/g), english[key].match(/<[^>]+>/g), `csb:${key}: example fields`);
+    assert.deepEqual(locale[key].match(/`[^`]+`/g), english[key].match(/`[^`]+`/g), `csb:${key}: literal examples`);
+  }
+  assert.match(locale['globalSearch-instructions-notes-2'], /\*OR\*.*chòc jednegò/s);
+  assert.match(locale['globalSearch-instructions-notes-3'], /\*AND\*.*wszëtczich/s);
+  assert.match(locale['globalSearch-instructions-status-all'], /zarchiwizowóné i niezarchiwizowóné/);
+  assert.match(locale['globalSearch-instructions-operator-limit'], /dodatną całkòwitą/);
+  assert.match(locale['globalSearch-instructions-operator-has'], /has:-due/);
   const correctedSearchSyntaxKeys = ["advanced-filter-description", "globalSearch-instructions-heading", "globalSearch-instructions-description", "globalSearch-instructions-operator-board", "globalSearch-instructions-operator-list", "globalSearch-instructions-operator-swimlane", "globalSearch-instructions-operator-comment", "globalSearch-instructions-operator-label", "globalSearch-instructions-operator-hash", "globalSearch-instructions-operator-user", "globalSearch-instructions-operator-at", "globalSearch-instructions-operator-member", "globalSearch-instructions-operator-assignee", "globalSearch-instructions-operator-creator", "globalSearch-instructions-operator-org", "globalSearch-instructions-operator-team"];
   for (const key of correctedSearchSyntaxKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
