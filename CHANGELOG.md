@@ -5192,6 +5192,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/594e37c1f3f6c92a43e4f94b395a65f5bdf38911">Translate Albanian block input and navigation labels</a>. Thanks to xet7.</summary>
+
+- Fill 61 English placeholders for inputs, list operations, comparisons and
+  keyboard navigation, preserving existing translations and variables.
+- Translation, registry and human-preference checks pass, including input
+  roles and inclusive comparisons. Fluent-speaker and browser review were
+  not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
