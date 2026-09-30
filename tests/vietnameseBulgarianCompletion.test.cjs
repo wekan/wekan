@@ -31,6 +31,21 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const mapKeyboardKeys = ["import-report-heading", "import-report-description", "import-report-open-board", "draggable", "board-view-map", "map-view-empty", "map-view-upload", "map-view-remove-image", "map-view-unplaced", "map-view-place-hint", "map-view-all-placed", "blockly-BACKSPACE_KEY", "blockly-CAPS_LOCK_KEY", "blockly-COMMAND_KEY", "blockly-CONTROL_KEY", "blockly-END_KEY", "blockly-ENTER_KEY", "blockly-ESCAPE", "blockly-HOME_KEY", "blockly-INSERT_KEY", "blockly-PAGE_DOWN_KEY", "blockly-PAGE_UP_KEY", "blockly-PAUSE_KEY", "blockly-SHIFT_KEY", "blockly-SHORTCUTS_GENERAL", "blockly-TAB_KEY", "blockly-UNNAMED_KEY", "admin-panel", "problems", "recoveryReportTitle"];
+  for (const key of mapKeyboardKeys) {
+    if (key === 'problems') assert.equal(locale[key], 'Problems');
+    else assert.notEqual(locale[key], english[key], `rm:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+  }
+  for (const key of ['admin-panel', 'problems', 'recoveryReportTitle']) {
+    assert.ok(locale['import-report-description'].includes(locale[key]), `rm: report navigation ${key}`);
+  }
+  assert.notEqual(locale['blockly-END_KEY'], locale['end-date']);
+  assert.match(locale['blockly-PAGE_DOWN_KEY'], /engiu/);
+  assert.match(locale['blockly-PAGE_UP_KEY'], /ensi/);
+  assert.match(locale['map-view-empty'], /administratur.*plan.*dissegn/);
+  assert.notEqual(locale['map-view-unplaced'], locale['map-view-all-placed']);
+
   const ruleReminderKeys = ["add-parent-card", "remove-parent-card", "r-when-card-date", "r-trigger-vars-hint", "r-insert-variable", "r-vars-people-hint", "r-rule-any-trigger-help", "r-add-trigger-to-rule", "r-add-action-to-rule", "r-remove-rule-part", "notification-activity-heading", "notification-activity-description", "notification-activity-labels", "notification-activity-members", "notification-activity-assignees", "notification-activity-comments", "notification-activity-moves", "notification-activity-dates", "notification-activity-checklists", "notification-activity-attachments", "notification-activity-customFields", "notification-activity-archive", "notification-activity-created", "due-reminder-heading", "due-reminder-days-label", "due-reminder-off", "due-reminder-webhook", "due-reminder-invalid", "due-reminder-saved", "dependency-type-duplicates", "dependency-type-is-duplicated-by", "custom-field-stringtemplate-context-hint", "filter-presets", "filter-preset-choose", "filter-preset-name", "filter-preset-save", "filter-preset-replace-hint", "filter-preset-saved", "filter-preset-applied", "filter-preset-deleted", "filter-preset-error", "filter-card-text-label"];
   for (const key of ruleReminderKeys) {
     assert.notEqual(locale[key], english[key], `rm:${key}: translated`);
