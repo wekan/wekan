@@ -6085,6 +6085,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9e93d568a0">Translate Swahili archive and date filter guidance</a>. Thanks to xet7.</summary>
+
+- Translate 20 English strings for automatic archiving and date filters,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including date
+  boundaries, numeric ranges, missing dates and template archive exceptions.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
