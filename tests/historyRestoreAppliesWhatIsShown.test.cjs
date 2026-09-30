@@ -131,9 +131,12 @@ test('and undo/redo still use their own directions', () => {
   const server = read('server/models/changeHistory.js');
   const undo = server.slice(methodAt(server, 'changeHistory.undoLast'),
     methodAt(server, 'changeHistory.redoLast'));
-  assert.match(undo, /applyRow\(row, 'undo'\)/,
+  // Undo/redo claim the row first and apply it through applyClaimed, which
+  // passes the same direction on to applyRow.
+  assert.match(undo, /applyClaimed\(row, 'undo', claim\)/,
     'Ctrl+Z reverses the last change and must not become a restore');
-  assert.match(server.slice(methodAt(server, 'changeHistory.redoLast')), /applyRow\(row, 'redo'\)/);
+  assert.match(server.slice(methodAt(server, 'changeHistory.redoLast')), /applyClaimed\(row, 'redo', claim\)/);
+  assert.match(server, /applied = await applyRow\(row, direction\);/);
 });
 
 // The display side of the same sentence. If this ever shows previousContent,

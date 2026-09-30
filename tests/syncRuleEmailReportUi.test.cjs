@@ -5,7 +5,10 @@ const fs = require('node:fs'), vm = require('node:vm');
 test('report ignores stale callbacks and destroyed views while sending the current filter', () => {
   const source = fs.readFileSync(require.resolve('../client/components/settings/adminProblems'), 'utf8');
   let created; const calls = [];
-  const context = { Template: { syncRuleEmailRecoveryReports: { onCreated(fn) { created = fn; }, helpers() {}, events() {} } },
+  // The legacy rule email review follows in the same file; it is exercised
+  // by tests/syncRuleEmailLegacy.test.cjs and the Playwright spec.
+  const context = { Template: { syncRuleEmailRecoveryReports: { onCreated(fn) { created = fn; }, helpers() {}, events() {} },
+    syncRuleEmailLegacyCommands: { onCreated() {}, helpers() {}, events() {} } },
     ReactiveVar: class { constructor(value) { this.value = value; } get() { return this.value; } set(value) { this.value = value; } },
     TAPi18n: { __: key => key }, Meteor: { call(method, query, callback) { calls.push({ method, query, callback }); } } };
   vm.runInNewContext(source.slice(source.indexOf('Template.syncRuleEmailRecoveryReports.onCreated')), context);

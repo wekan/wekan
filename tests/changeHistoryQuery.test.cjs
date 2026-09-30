@@ -177,6 +177,13 @@ test('rows are append-only apart from undo and superseded flags', () => {
   const server = fs.readFileSync(path.join(ROOT, 'server', 'models', 'changeHistory.js'), 'utf8');
   const updates = [...server.matchAll(/ChangeHistory\.updateAsync\([^;]*?\$set: \{([^}]*)\}/gs)]
     .map(m => m[1].trim());
+  // Undo and redo claim their row before applying it (claimReversal); the
+  // flag values it sets and restores are named objects, so read them there.
+  const claim = server.slice(server.indexOf('async function claimReversal'), server.indexOf('async function applyClaimed'));
+  assert.match(claim, /\$set: taken \}/);
+  assert.match(claim, /\$set: released \}/);
+  assert.doesNotMatch(claim.replace(/\$set: (taken|released) \}/g, ''), /\$set/, 'the claim sets nothing else');
+  updates.push(...[...claim.matchAll(/\{ (undone: [^}]*)\}/g)].map(m => m[1].trim()));
   assert.ok(updates.length > 0, 'the undo/redo stack does flip a flag');
   for (const fields of updates) {
     assert.match(fields, /^undone:/,
