@@ -8115,6 +8115,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2eb25afbb5f14f3d846b8a0de4b449dacbc7adea">Translate Friulian diagnostics and email queue</a>. Thanks to xet7.</summary>
+
+- Translate 18 diagnostic and email-queue strings, preserving existing
+  translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including retention
+  limits and technical literals. Friulian wording has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
