@@ -663,6 +663,14 @@ for (const code of ['sl', 'sl_SI']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /ніколі не будзе адпраўлены/);
   assert.match(locale['rule-email-legacy-access-denied'], /больш не мае доступу/);
   assert.match(locale['r-insert-variable'], /зменную/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('sync-'))) {
+    assert.notEqual(locale[key], english[key], `be:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `be:${key}: tokens`);
+  }
+  assert.match(locale['sync-conflict-hint'], /Нічога не адпраўляецца ў зыходную сістэму/);
+  assert.match(locale['sync-report-partial'], /не аднаўляюць і не адмяняюць/);
+  assert.match(locale['sync-estimate-field-hint'], /null ачышчае/);
+  assert.match(locale['sync-time-estimate-hint'], /роўна адно адпаведнае поле/);
   for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
     assert.notEqual(locale[key], english[key], `be: ${key} must be translated`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]));
