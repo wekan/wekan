@@ -229,9 +229,9 @@ Remaining, and why:
 
 - **Structural rule actions.** Twenty action types are durable now: email,
   archive and unarchive, colour, labels, completion, dates, members and
-  checklist toggles. A board with any other rule action keeps direct Sync. The rest
-  reshape the board rather than change a field: moves and list sorting (sort
-  order across lists or boards, with Card.move's own History), adding or
+  checklist toggles. A board with any other rule action keeps direct Sync. The
+  rest reshape the board rather than change a field: moves and list sorting
+  (sort order across lists or boards, with Card.move's own History), adding or
   removing checklists, and creating, copying or linking cards and swimlanes.
   Each needs its own saved command (server/lib/listSyncSteps.js).
 - **Atomicity.** Cards, History, activities and effects are coordinated by the
