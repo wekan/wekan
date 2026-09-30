@@ -5137,6 +5137,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ac53d6ee924675d298b5623eb387fb074125fceb">Translate Esperanto planning, synchronization and queue messages</a>. Thanks to xet7.</summary>
+
+- Fill 154 English placeholders for planning, reports, synchronization
+  diagnostics and email queue controls, preserving existing translations.
+- Translation, registry and human-preference checks pass, including variables,
+  partial results, retries and cancellation scope. Fluent-speaker and browser
+  review were not run. Remaining translation work is still in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
