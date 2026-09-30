@@ -8488,6 +8488,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f25e2ca17ecb00bbaf83fc275f9b6657c88be327">Translate Romansh rule email recovery actions</a>. Thanks to xet7.</summary>
+
+- Translate 25 rule-email recovery strings, preserving existing translations
+  and replacement tokens.
+- Translation, registry and human-preference checks pass, covering recipient
+  states, distinct actions, resend scope and duplicate-delivery warnings.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
