@@ -2475,6 +2475,16 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e4c6e9e56">Translate Croatian filters and notification controls</a>. Thanks to xet7.</summary>
+
+- Fill 81 Croatian placeholders for filters, automatic archiving,
+  notifications, reminders, imports, map views and rule controls.
+- Preserve existing translations and verify executable syntax, placeholders,
+  visibility restrictions and reminder timing.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
