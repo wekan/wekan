@@ -2317,6 +2317,17 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedBackupScopeKeys = ["backup-scope-description", "backup-now", "backup-done", "backup-schedule", "backup-frequency-daily", "backup-list", "backup-restore-add-missing", "backup-restore-select-first", "export-card", "export-card-pdf", "export-card-excel", "export-card-attachment-filename", "restore-all", "export-monitoring", "restore-list-swimlanes-done"];
+  for (const key of correctedBackupScopeKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /(?:Kopia zapasow|kopii zapasowych|Codziennié|Eksportuj|Przywrò|Najpierw wybierz)/);
+  }
+  assert.match(locale['backup-scope-description'], /bez kòntów brëkòwników i bez nastôwów instancëji/);
+  assert.match(locale['backup-scope-description'], /blós na tôflach nôleżącëch do ti òrganizacëji/);
+  assert.match(locale['backup-restore-add-missing'], /blós felëjącé/);
+  assert.match(locale['export-card-pdf'], /PDF/);
+  assert.match(locale['export-card-excel'], /Excel/);
+  assert.match(locale['export-monitoring'], /^Ekspòrtëjë/);
   const correctedStorageHelpKeys = ["uploading-files", "filter-invisible-filenames", "attachment-move-storage-fs", "move-all-attachments-to-fs", "move-all-attachments-of-board-to-fs", "move-storage-fs", "move-attachments-none-found", "move-storage-all", "calculate-file-counts", "mongodb-compact-description", "allowed-upload-filetypes", "allowed-avatar-filetypes", "sandstorm-delete-raw-mongodb-description", "disable-import-avatars-description", "backup-description", "backup-storage", "backup-restore-confirm", "gridfs-move-collectionfs-note", "s3-bucket-description", "writable-path-description", "attachment-storage-settings", "step-fix-avatar-urls"];
   for (const key of correctedStorageHelpKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
