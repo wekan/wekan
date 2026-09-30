@@ -7070,6 +7070,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/57112d38650e97bd5415977edc47b4d1b75858cb">Translate Maltese history and memory diagnostic labels</a>. Thanks to xet7.</summary>
+
+- Replace 35 prefixed English values with Maltese for loading indicators,
+  history, support and memory diagnostics, preserving translations and tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  history actions. Another 267 prefixed English values remain to translate.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
