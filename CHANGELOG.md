@@ -7790,6 +7790,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/780e60b53cf3c3b88292fb3bffae83b80c96b9e9">Translate Faroese archiving and date filters</a>. Thanks to xet7.</summary>
+
+- Translate 18 missing or English strings for archiving and date filters,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including date
+  ranges and recency values. Faroese wording has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
