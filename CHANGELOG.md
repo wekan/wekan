@@ -7142,6 +7142,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/326f2497666ccbbda666488efd66a4ce85de1d9e">Translate Maltese monitoring and migration controls</a>. Thanks to xet7.</summary>
+
+- Replace 35 prefixed English values with Maltese for job monitoring and
+  migration controls, preserving existing translations and tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  pause and stop labels. Another 57 prefixed English values remain to translate.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
