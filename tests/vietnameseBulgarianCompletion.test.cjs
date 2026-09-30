@@ -28,6 +28,37 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Punjabi and Odia additions for todo.txt import and email recovery.
+{
+  const keys = ["import-board-instruction-todotxt", "rule-email-recovery-dropped", "rule-email-recovery-review", "rule-email-recovery-recipients", "rule-email-recovery-recipient-accepted", "rule-email-recovery-recipient-unconfirmed", "rule-email-recovery-actions-hint", "rule-email-recovery-wait", "rule-email-recovery-resends", "rule-email-recovery-resend", "rule-email-recovery-mark-sent", "rule-email-recovery-drop", "rule-email-recovery-resend-confirm", "rule-email-recovery-mark-sent-confirm", "rule-email-recovery-drop-confirm", "rule-email-resolution-too-early", "rule-email-resolution-already-resolved", "rule-email-resolution-resend-in-flight", "rule-email-resolution-nothing-to-resend", "rule-email-resolution-resend-uncertain", "rule-email-resolution-busy", "rule-email-resolution-command-changed", "rule-email-resolution-attempt-invalid", "rule-email-resolution-failed", "rule-email-legacy-heading", "rule-email-legacy-description", "rule-email-legacy-source", "rule-email-legacy-mail", "rule-email-legacy-reason", "rule-email-legacy-reason-unbound", "rule-email-legacy-reason-details-snapshot", "rule-email-legacy-rebind", "rule-email-legacy-discard", "rule-email-legacy-rebind-confirm", "rule-email-legacy-discard-confirm", "rule-email-legacy-empty", "rule-email-legacy-unavailable", "rule-email-legacy-access-denied", "rule-email-legacy-source-changed", "rule-email-legacy-source-unavailable", "rule-email-legacy-plan-unavailable", "rule-email-legacy-attempt-exists", "rule-email-legacy-not-legacy", "rule-email-legacy-failed"];
+  for (const [code, script] of [['pa', /[\u0A00-\u0A7F]/u], ['or_IN', /[\u0B00-\u0B7F]/u]]) {
+    const locale = read(code);
+    for (const key of keys) {
+      assert.equal(typeof locale[key], 'string', `${code}:${key}: present`);
+      assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+      assert.match(locale[key], script, `${code}:${key}: native script`);
+      assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    }
+    for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:', 'Done']) {
+      assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: todo.txt token ${token}`);
+    }
+    assert.notEqual(locale['rule-email-legacy-rebind'], locale['rule-email-legacy-discard']);
+    assert.notEqual(locale['rule-email-recovery-recipient-accepted'], locale['rule-email-recovery-recipient-unconfirmed']);
+  }
+  const pa = read('pa');
+  assert.match(pa['rule-email-recovery-actions-hint'], /ਆਪਣੇ ਆਪ ਕਦੇ ਵੀ ਮੁੜ ਨਹੀਂ ਭੇਜਦਾ/);
+  assert.match(pa['rule-email-recovery-resend-confirm'], /ਦੋ ਵਾਰ ਮਿਲੇਗੀ/);
+  assert.match(pa['rule-email-resolution-resend-uncertain'], /ਪਹੁੰਚੀ ਵੀ ਹੋ ਸਕਦੀ ਹੈ ਜਾਂ ਨਹੀਂ ਵੀ/);
+  assert.match(pa['rule-email-legacy-description'], /ਲੇਖਕ ਕੋਲ ਅਜੇ ਵੀ ਪਹੁੰਚ ਹੋਣ ਦੀ ਜਾਂਚ/);
+  assert.match(pa['rule-email-legacy-discard-confirm'], /ਕਦੇ ਵੀ ਨਹੀਂ ਭੇਜੀ ਜਾਵੇਗੀ/);
+  const or = read('or_IN');
+  assert.match(or['rule-email-recovery-actions-hint'], /ନିଜେ କେବେବି ପୁଣି ପଠାଏ ନାହିଁ/);
+  assert.match(or['rule-email-recovery-resend-confirm'], /ଦୁଇଥର ପାଇବେ/);
+  assert.match(or['rule-email-resolution-resend-uncertain'], /ପହଞ୍ଚିଥାଇପାରେ କିମ୍ବା ପହଞ୍ଚିନଥାଇପାରେ/);
+  assert.match(or['rule-email-legacy-description'], /ଲେଖକଙ୍କର ଏବେବି ପ୍ରବେଶ ଅଧିକାର ଅଛି ବୋଲି ଯାଞ୍ଚ/);
+  assert.match(or['rule-email-legacy-discard-confirm'], /କେବେବି ପଠାଯିବ ନାହିଁ/);
+}
+
 // Kazakh and Mongolian additions for todo.txt import and email recovery.
 {
   const keys = ["import-board-instruction-todotxt", "rule-email-recovery-dropped", "rule-email-recovery-review", "rule-email-recovery-recipients", "rule-email-recovery-recipient-accepted", "rule-email-recovery-recipient-unconfirmed", "rule-email-recovery-actions-hint", "rule-email-recovery-wait", "rule-email-recovery-resends", "rule-email-recovery-resend", "rule-email-recovery-mark-sent", "rule-email-recovery-drop", "rule-email-recovery-resend-confirm", "rule-email-recovery-mark-sent-confirm", "rule-email-recovery-drop-confirm", "rule-email-resolution-too-early", "rule-email-resolution-already-resolved", "rule-email-resolution-resend-in-flight", "rule-email-resolution-nothing-to-resend", "rule-email-resolution-resend-uncertain", "rule-email-resolution-busy", "rule-email-resolution-command-changed", "rule-email-resolution-attempt-invalid", "rule-email-resolution-failed", "rule-email-legacy-heading", "rule-email-legacy-description", "rule-email-legacy-source", "rule-email-legacy-mail", "rule-email-legacy-reason", "rule-email-legacy-reason-unbound", "rule-email-legacy-reason-details-snapshot", "rule-email-legacy-rebind", "rule-email-legacy-discard", "rule-email-legacy-rebind-confirm", "rule-email-legacy-discard-confirm", "rule-email-legacy-empty", "rule-email-legacy-unavailable", "rule-email-legacy-access-denied", "rule-email-legacy-source-changed", "rule-email-legacy-source-unavailable", "rule-email-legacy-plan-unavailable", "rule-email-legacy-attempt-exists", "rule-email-legacy-not-legacy", "rule-email-legacy-failed"];
