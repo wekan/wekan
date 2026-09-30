@@ -4627,6 +4627,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3fb0eb931f">Correct Kashubian card voting and appearance controls</a>. Thanks to xet7.</summary>
+
+- Replace 65 Polish-seeded labels, restore plain poker numbers and the
+  uncertainty symbol, and preserve permanent-deletion warnings.
+- Translation, registry and human-preference checks pass, including token,
+  vote-value and warning coverage. Kashubian wording is lower confidence;
+  fluent-speaker and browser review were not run. Older mixed-language values
+  and other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
