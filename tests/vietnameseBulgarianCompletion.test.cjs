@@ -2159,6 +2159,17 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /Mewnosod newidyn/);
+  assert.equal(locale['import-map-members'], 'Mapio aelodau');
+  assert.equal(locale['email-templates-title'], 'Templedi ebost');
+  for (const kind of ['invite', 'activity']) {
+    assert.match(locale[`email-templates-${kind}-subject`], /^Pwnc yr ebost/);
+    assert.match(locale[`email-templates-${kind}-body`], /^Corff yr ebost/);
+    assert.doesNotMatch(locale[`email-templates-${kind}-subject`], /^Gwahodd|Ebost Pwnc/);
+  }
+  assert.match(locale['email-templates-activity-subject'], /hysbysu gweithgaredd/);
+  assert.match(locale['anonymize-account-confirm-popup'], /gwerthoedd amnewid dienw/);
+  assert.match(locale['anonymize-account-confirm-popup'], /yn barhaol/);
+  assert.doesNotMatch(locale['anonymize-account-confirm-popup'], /dros dro/);
   assert.match(locale['email-recovery-confirm-cancel'], /ni ellir ei adfer/);
   assert.match(locale['email-recovery-description'], /dosbarthiad ansicr gael ei ailadrodd/);
   assert.match(locale['activity-recovery-description'], /Nid yw ailgeisio byth yn ail-greu/);
