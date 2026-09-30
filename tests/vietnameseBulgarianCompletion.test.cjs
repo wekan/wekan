@@ -28,6 +28,25 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona export and selection controls replace prefixed English.
+{
+  const locale = read('sn');
+  const keys = ["email-sent", "export-ical-feed", "export-card-subtasks", "export-card-attachment-filename", "export-card-attachment-size", "export-card-attachment-type", "export-card-attachment-image-previews", "export-card-excel-free", "export-card-excel-needed", "sorted", "list-label-short-modifiedAt", "list-label-short-title", "list-label-short-sort", "filter-overdue", "filter-creator-label", "import-trello-zip-failed", "trello-api-token", "trello-parent-workspace-top", "running", "paused", "info", "check-version", "initials", "joined", "keyboard-shortcuts", "multi-selection", "multi-selection-off", "muted", "normal", "participating", "preview", "previewAttachedImagePopup-title", "previewClipboardImagePopup-title", "rules", "setWipLimitPopup-title"];
+  for (const key of keys) {
+    assert.doesNotMatch(locale[key], /Mashoko echiShona:/, `sn:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+    if (key.startsWith('list-label-short-')) assert.equal(locale[key], english[key], `sn:${key}: sort notation`);
+    else assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+  }
+  assert.equal(locale['export-card-subtasks'], locale.subtasks);
+  for (const key of ['previewAttachedImagePopup-title', 'previewClipboardImagePopup-title']) assert.equal(locale[key], locale.preview);
+  assert.ok(locale['export-ical-feed'].includes('(iCal)'));
+  assert.ok(locale['import-trello-zip-failed'].includes('.zip'));
+  assert.ok(locale['trello-api-token'].includes('Trello API'));
+  assert.match(locale['multi-selection-off'], /^Dzima/);
+  assert.notEqual(locale.running, locale.paused);
+}
+
 // Shona colors, fields and invitations replace prefixed English.
 {
   const locale = read('sn');
