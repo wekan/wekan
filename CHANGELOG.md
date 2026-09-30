@@ -6817,6 +6817,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/485e34faa12f2653c03731695c6e256b9ba434f9">Translate Tagalog sync conflicts and previews</a>. Thanks to xet7.</summary>
+
+- Translate 30 English strings for sync conflicts and previews, preserving
+  existing translations and replacement tokens. Update the README count to
+  123 languages above the 90 percent translated threshold.
+- Translation, registry and human-preference checks pass, including preserved
+  subcards and local versus source choices.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
