@@ -5115,6 +5115,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/607de044c5496ccbc97099a1fe3413a0ba6142d5">Translate Esperanto filters, notifications and accessibility</a>. Thanks to xet7.</summary>
+
+- Fill 129 English placeholders for filters, reminders, visibility, map
+  placement and accessible block editing, preserving existing translations.
+- Translation, registry and human-preference checks pass, including rule
+  variables, filter syntax, timing and opposite actions. Fluent-speaker and
+  browser review were not run. Other translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
