@@ -5478,6 +5478,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fec95a0b97">Fill remaining Armenian translation placeholders</a>. Thanks to xet7.</summary>
+
+- Translate 18 recovery, SAML and history strings. Retain standard key labels,
+  OS brands and short mathematical symbols as locale-specific invariants.
+- All 3,783 keys and replacement tokens pass completeness checks; no flagged
+  English prose remains. Registry and human-preference checks also pass.
+- Fluent-speaker and browser review were not run. Older vocabulary review
+  and the wider translation work remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
