@@ -8729,6 +8729,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/25eab73d5c659bcd5c57901e55fb3ec02f4af330">Correct Romansh import and list action translations</a>. Thanks to xet7.</summary>
+
+- Replace 16 mixed-language import, list and permission strings with
+  Romansh, preserving other translations and replacement tokens.
+- Translation, registry and human-preference checks pass, covering API
+  paths, JSON fields, archive navigation and irreversible label deletion.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider language cleanup remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
