@@ -2317,6 +2317,60 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedDependencyKeys = [
+    "dependency-icon",
+    "dependency-type-related-to",
+    "dependency-type-blocks",
+    "dependency-type-is-blocked-by",
+    "dependency-type-fixes",
+    "dependency-type-is-fixed-by",
+    "filter-dependencies-label",
+    "import-dependencies-file",
+    "import-dependencies-placeholder",
+    "import-dependencies-done",
+    "upload-background",
+    "board-background-delete-pop",
+    "location-address",
+    "location-latitude",
+    "location-longitude",
+    "location-detect-from-map",
+    "location-detect",
+    "location-open-map-at",
+    "map-region-usa",
+    "map-region-europe",
+    "map-region-asia",
+    "map-provider-saved",
+    "created-at-newest-first",
+    "created-at-oldest-first",
+    "links-heading",
+    "custom-field-stringtemplate-format",
+    "custom-field-stringtemplate-separator",
+    "reports",
+    "problems",
+    "securityReportTitle",
+    "speedReportTitle",
+    "testsReportTitle",
+    "cpuReportTitle",
+    "databaseReportTitle",
+    "acknowledge",
+    "rulesReportTitle",
+    "impersonationReportTitle",
+    "impersonation-admin",
+    "officeReportTitle",
+    "office-address"
+  ];
+  for (const key of correctedDependencyKeys) {
+    assert.doesNotMatch(locale[key], /— pò kaszëbskù/, `csb:${key}: language label is not a translation`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+  }
+  assert.equal(locale['map-region-usa'], 'USA');
+  for (const token of ['&#32;', '&nbsp;']) assert.ok(locale['custom-field-stringtemplate-separator'].includes(token));
+  assert.match(locale['dependency-type-is-blocked-by'], /przez$/);
+  assert.match(locale['dependency-type-is-fixed-by'], /przez$/);
+  assert.notEqual(locale['dependency-type-blocks'], locale['dependency-type-is-blocked-by']);
+  assert.notEqual(locale['location-latitude'], locale['location-longitude']);
+  assert.match(locale['created-at-newest-first'], /nônowszé nôprzód/);
+  assert.match(locale['created-at-oldest-first'], /nôstarszé nôprzód/);
   const correctedSearchHelpKeys = [
     "predicate-month",
     "predicate-quarter",
