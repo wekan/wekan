@@ -31,12 +31,12 @@ test('all effects and required adapters validate before any History or activity 
  const plan=createSyncEffectPlanner(options)(step,context);
  for(const damage of [p=>p.activities.rows[0].activity.value='Forged',p=>p.version=3,p=>p.activities.context.userId='other']){
   const bad=structuredClone(plan);damage(bad);let writes=0;
-  const store={admitHistoryWriter:({work})=>work({assertCurrent:async()=>{}}),findOneAsync:async()=>null,insertAsync:async()=>{writes++;},updateAsync:async()=>{writes++;}};
+  const store={admitHistoryWriter:({work})=>work({mode:'legacy',assertCurrent:async()=>{}}),appendSyncHistoryRow:async function({row}){if(await this.findOneAsync(row._id))return row._id;const saved={...row,previousHash:null};saved.integrityHash=require('../models/lib/changeHistoryIntegrity').hashHistoryRow(saved);await this.insertAsync(saved);return row._id;},findOneAsync:async()=>null,insertAsync:async()=>{writes++;},updateAsync:async()=>{writes++;}};
   await assert.rejects(persistSyncEffects({history:store,activities:store,plan:bad,step,effectId,assertCurrent:async()=>{},readPolicy:async()=>options.policy,completeDelivery:async()=>effectId}));
   assert.equal(writes,0);
  }
  let reads=0;
- const store={admitHistoryWriter:({work})=>work({assertCurrent:async()=>{}}),findOneAsync:async()=>{reads++;},insertAsync:async()=>{},updateAsync:async()=>{}};
+ const store={admitHistoryWriter:({work})=>work({mode:'legacy',assertCurrent:async()=>{}}),appendSyncHistoryRow:async function({row}){if(await this.findOneAsync(row._id))return row._id;const saved={...row,previousHash:null};saved.integrityHash=require('../models/lib/changeHistoryIntegrity').hashHistoryRow(saved);await this.insertAsync(saved);return row._id;},findOneAsync:async()=>{reads++;},insertAsync:async()=>{},updateAsync:async()=>{}};
  await assert.rejects(persistSyncEffects({history:store,activities:store,plan,step,effectId,assertCurrent:async()=>{},readPolicy:async()=>options.policy}),/sync-effects-invalid/);
  assert.equal(reads,0);
 });
@@ -60,7 +60,7 @@ test('captured feature policies preserve History while suppressing activities an
   input.policy.activities=!policy.activities;
   const plan=planner(step,context);assert.deepEqual(plan.policy,policy);
   const histories=new Map(),activities=new Map(),delivered=[];
-  const store=rows=>({admitHistoryWriter:({work})=>work({assertCurrent:async()=>{}}),findOneAsync:async id=>rows.get(id),insertAsync:async row=>rows.set(row._id,row),updateAsync:async()=>{}});
+  const store=rows=>({admitHistoryWriter:({work})=>work({mode:'legacy',assertCurrent:async()=>{}}),appendSyncHistoryRow:async function({row}){if(await this.findOneAsync(row._id))return row._id;const saved={...row,previousHash:null};saved.integrityHash=require('../models/lib/changeHistoryIntegrity').hashHistoryRow(saved);await this.insertAsync(saved);return row._id;},findOneAsync:async id=>rows.get(id),insertAsync:async row=>rows.set(row._id,row),updateAsync:async()=>{}});
   const args={history:store(histories),plan,step,effectId,assertCurrent:async()=>{},readPolicy:async()=>policy,
    ...(policy.activities?{activities:store(activities),completeDelivery:async event=>{delivered.push(event.policy);return event.effectId;}}:{})};
   await assert.rejects(persistSyncEffects({...args,readPolicy:async()=>({...policy,notifications:true})}),/policy-changed/);
@@ -77,7 +77,7 @@ test('captured feature policies preserve History while suppressing activities an
 test('old effect plans require live enabled defaults; they cannot silently adopt disabled settings',async()=>{
  const plan=createSyncEffectPlanner(options)(step,context);delete plan.policy;plan.version=1;
  assert.equal(validateSyncEffects(plan,step,effectId),true);
- let reads=0;const store={admitHistoryWriter:({work})=>work({assertCurrent:async()=>{}}),findOneAsync:async()=>{reads++;},insertAsync:async()=>{},updateAsync:async()=>{}};
+ let reads=0;const store={admitHistoryWriter:({work})=>work({mode:'legacy',assertCurrent:async()=>{}}),appendSyncHistoryRow:async function({row}){if(await this.findOneAsync(row._id))return row._id;const saved={...row,previousHash:null};saved.integrityHash=require('../models/lib/changeHistoryIntegrity').hashHistoryRow(saved);await this.insertAsync(saved);return row._id;},findOneAsync:async()=>{reads++;},insertAsync:async()=>{},updateAsync:async()=>{}};
  await assert.rejects(persistSyncEffects({history:store,activities:store,plan,step,effectId,assertCurrent:async()=>{},
   completeDelivery:async()=>effectId,readPolicy:async()=>({activities:false,notifications:false})}),/policy-changed/);
  assert.equal(reads,0);
@@ -90,7 +90,7 @@ test('the combined card adapter rejects incomplete delivery, foreign actors and 
   {readPolicy:async()=>({activities:false,notifications:false})},
   {effects:{...effects,activities:null}}]){
   let accessed=0;
-  const store={admitHistoryWriter:({work})=>work({assertCurrent:async()=>{}}),findOneAsync:async()=>null,insertAsync:async()=>{},updateAsync:async()=>{}};
+  const store={admitHistoryWriter:({work})=>work({mode:'legacy',assertCurrent:async()=>{}}),appendSyncHistoryRow:async function({row}){if(await this.findOneAsync(row._id))return row._id;const saved={...row,previousHash:null};saved.integrityHash=require('../models/lib/changeHistoryIntegrity').hashHistoryRow(saved);await this.insertAsync(saved);return row._id;},findOneAsync:async()=>null,insertAsync:async()=>{},updateAsync:async()=>{}};
   const cards={findOne:async()=>{accessed++;},insertOne:async()=>{accessed++;},updateOne:async()=>{accessed++;}};
   await assert.rejects(applySyncEffectsStep({cards,history:store,activities:store,step,effects,...context,userId:'user',
    assertCurrent:async()=>{},readPolicy:async()=>options.policy,completeDelivery:async()=>effectId,...change}));

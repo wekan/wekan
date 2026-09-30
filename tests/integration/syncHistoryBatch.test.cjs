@@ -31,7 +31,21 @@ test('persisted Sync History plans resume between event rows before journal comp
     previousHash: old.integrityHash, undone: false, undoneAt: null };
   later.integrityHash = hashHistoryRow(later); await events.insertOne(later);
   let inserts = 0, builds = 0, interrupt = true;
-  const history = { admitHistoryWriter: ({ work }) => work({ assertCurrent: async () => {} }), findOneAsync: query => events.findOne(typeof query === 'string' ? { _id: query } : query),
+  // Links each appended row after the board's newest hashed row, the legacy
+  // path's own rule (server/lib/storedHistoryChain.js), so the chain can be
+  // verified end to end below.
+  const history = { admitHistoryWriter: ({ work }) => work({ mode: 'legacy', assertCurrent: async () => {} }),
+    appendSyncHistoryRow: async function ({ row }) {
+      if (await events.findOne({ _id: row._id })) return row._id;
+      // The tip: from the newest hashed row, follow successors (rows of one
+      // batch share a createdAt, so "newest" alone is a tie).
+      let previous = await events.findOne({ boardId: row.boardId, integrityHash: { $nin: [null, ''] } }, { sort: { createdAt: -1 } });
+      for (let next; previous && (next = await events.findOne({ boardId: row.boardId, previousHash: previous.integrityHash }));) previous = next;
+      const saved = { ...row, previousHash: previous ? previous.integrityHash : null };
+      saved.integrityHash = hashHistoryRow(saved);
+      await this.insertAsync(saved); return row._id;
+    },
+    findOneAsync: query => events.findOne(typeof query === 'string' ? { _id: query } : query),
     updateAsync: async (...args) => { await events.updateOne(...args); },
     insertAsync: async row => {
       if (interrupt && inserts === 1) throw new Error('History interrupted');
@@ -45,7 +59,7 @@ test('persisted Sync History plans resume between event rows before journal comp
       builds++; await context.assertCurrent(); assert.equal(context.intentId, intentId); return planned;
     },
     prepareEffects: createSyncHistoryPlanner({ userId: 'author', createdAt: new Date(1000),
-      previousHash: later.integrityHash, redoRows: [old, legacy] }),
+      redoRows: [old, legacy] }),
     validateEffects: (plan, saved, context) => validateSyncFieldHistory(plan, saved,
       syncOperationEffectId(context.operationId, context.index)),
     apply: (saved, context) => applySyncOperationStep({ cards, step: saved, ...context,
@@ -60,7 +74,8 @@ test('persisted Sync History plans resume between event rows before journal comp
   assert.ok(stored.effects.rows.length);
   const middle = await steps.findOne({ index: 1 }), last = await steps.findOne({ index: 2 });
   assert.deepEqual(middle.effects.rows, []);
-  assert.equal(last.effects.rows[0].previousHash, stored.effects.rows.at(-1).integrityHash);
+  // Plans are content; rows are linked when appended (2026-09-30).
+  assert.ok([...stored.effects.rows, ...last.effects.rows].every(row => !('previousHash' in row) && !('integrityHash' in row)));
   assert.deepEqual(last.effects.redo, []);
   await steps.updateOne({ _id: stored._id }, { $unset: { effects: '' } });
   await assert.rejects(run(), /effects-invalid/); assert.equal(inserts, 1);
@@ -103,7 +118,7 @@ test('legacy redo invalidation resumes with exact snapshots and never manufactur
     const savedPlan = (await db.collection('plans').findOne({ _id: 'plan' })).plan;
     assert.deepEqual(savedPlan, plan);
     let interrupted = true;
-    const history = { admitHistoryWriter: ({ work }) => work({ assertCurrent: async () => {} }), findOneAsync: query => events.findOne(typeof query === 'string' ? { _id: query } : query),
+    const history = { admitHistoryWriter:({work})=>work({mode:'legacy',assertCurrent:async()=>{}}),appendSyncHistoryRow:async function({row}){if(await this.findOneAsync(row._id))return row._id;const saved={...row,previousHash:null};saved.integrityHash=require('../../models/lib/changeHistoryIntegrity').hashHistoryRow(saved);await this.insertAsync(saved);return row._id;}, findOneAsync: query => events.findOne(typeof query === 'string' ? { _id: query } : query),
       updateAsync: async (...args) => { await events.updateOne(...args); throw new Error('lost redo acknowledgement'); },
       insertAsync: async row => { if (interrupted) throw new Error('interrupted History'); await events.insertOne(row); } };
     const args = { history, plan: savedPlan, assertCurrent: async () => {} };

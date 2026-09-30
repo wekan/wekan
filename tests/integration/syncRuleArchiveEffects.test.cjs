@@ -1,6 +1,7 @@
 'use strict';
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
+const { linkingHistory } = require('./syncHistoryLinking.cjs');
 const { MongoClient, ObjectId } = require('mongodb');
 const { prepareRulePlan } = require('../../server/lib/syncRulePlan');
 const { ensureRuleArchiveCommand } = require('../../server/lib/syncRuleArchiveCommand');
@@ -23,11 +24,11 @@ test('stored History and activities resume after delivery interruption without d
   f.policy = { activities: true, notifications: false };
   const prepared = prepareRuleArchiveEffects({ ...f, username: 'Actor', lists: [{ _id: 'list', boardId: 'board', title: 'Saved list' }] });
   f.effects = await ensureRuleArchiveEffects({ ...f, effects: db.collection('effects'), build: async () => prepared });
-  const collectionAdapter = collection => ({ admitHistoryWriter: ({ work }) => work({ assertCurrent: async () => {} }),
+  const collectionAdapter = collection => ({ admitHistoryWriter:({work})=>work({mode:'legacy',assertCurrent:async()=>{}}),appendSyncHistoryRow:async function({row}){if(await this.findOneAsync(row._id))return row._id;const saved={...row,previousHash:null};saved.integrityHash=require('../../models/lib/changeHistoryIntegrity').hashHistoryRow(saved);await this.insertAsync(saved);return row._id;},
     findOneAsync: selector => collection.findOne(typeof selector === 'string' ? { _id: selector } : selector),
     insertAsync: async row => { await collection.insertOne(row); return row._id; },
     updateAsync: async (selector, modifier) => (await collection.updateOne(selector, modifier)).modifiedCount });
-  f.history = collectionAdapter(db.collection('history'));
+  f.history = linkingHistory(db.collection('history'));
   f.activities = collectionAdapter(db.collection('activities')); f.readPolicy = async () => f.policy;
   const writes = [], delivered = [];
   const wrap = collection => ({ findOne: (...args) => collection.findOne(...args),
@@ -47,7 +48,7 @@ test('stored History and activities resume after delivery interruption without d
   try {
     const next = restarted.db(db.databaseName);
     f.cards = wrap(next.collection('cards')); f.receipts = next.collection('receipts');
-    f.history = collectionAdapter(next.collection('history')); f.activities = collectionAdapter(next.collection('activities'));
+    f.history = linkingHistory(next.collection('history')); f.activities = collectionAdapter(next.collection('activities'));
     f.effects = await ensureRuleArchiveEffects({ ...f, effects: next.collection('effects'), build: () => assert.fail('must not rebuild') });
     f.completeDelivery = async ({ activity, effectId }) => { delivered.push(activity.cardId); return effectId; };
     assert.equal(await apply(f), f.command.invocationId);

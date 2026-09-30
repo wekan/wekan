@@ -1,24 +1,29 @@
 'use strict';
+// The stored rule archive runner used to need a board History reservation from
+// planning until its last row was written, because its History rows were hashed
+// into the chain when PLANNED. Maintainer decision of 2026-09-30: rows are
+// content, linked when appended, so the runner needs no reservation at all -
+// ordinary History is never blocked behind it. Its redo candidates are captured
+// once, when the effects are planned.
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs'), vm = require('node:vm');
-test('stored archive execution requires explicit History ownership before effects or writes', async () => {
-  const source = fs.readFileSync(require.resolve('../server/notifications/storedRulePlans'), 'utf8');
-  const marker = 'export async function runStoredSyncRuleArchive';
-  const context = { runStoredSyncActivityDelivery: async () => {},
-    archiveContext: async () => ({ guard: async () => {} }),
-    captureArchive: async () => ({ boardId: 'board' }),
-    ensureRuleArchiveEffects: async () => assert.fail('must not prepare effects without ownership') };
+const source = fs.readFileSync(require.resolve('../server/notifications/storedRulePlans'), 'utf8');
+const marker = 'export async function runStoredSyncRuleArchive';
+const body = source.slice(source.indexOf(marker), source.indexOf('\n}\n', source.indexOf(marker)));
+
+test('stored archive execution needs no History reservation, only a delivery adapter', async () => {
+  assert.doesNotMatch(body, /withHistoryReservation|previousHash/);
+  const context = { runStoredSyncActivityDelivery: undefined,
+    archiveContext: async () => assert.fail('must not start without a delivery adapter') };
   vm.runInNewContext(source.slice(source.indexOf(marker)).replace('export async function', 'async function'), context);
-  const run = context.runStoredSyncRuleArchive;
-  await assert.rejects(run({}), /history-reservation-required/);
-  for (const reservation of [null, {}, { assertCurrent: async () => {} },
-    { assertCurrent: async () => {}, previousHash: null, redoRows: null }]) {
-    await assert.rejects(run({ withHistoryReservation: async (boardId, work) => {
-      assert.equal(boardId, 'board'); return work(reservation);
-    } }), /history-reservation-required/);
-  }
-  await assert.rejects(run({ withHistoryReservation: async (boardId, work) => work({
-    previousHash: null, redoRows: [], assertCurrent: async () => { throw Error('History ownership lost'); },
-  }) }), /History ownership lost/);
+  await assert.rejects(context.runStoredSyncRuleArchive({}), /sync-rule-archive-delivery-required/);
+});
+
+test('redo candidates are read when the effects are planned, never on replay', () => {
+  const build = body.slice(body.indexOf('build: async () => {'), body.indexOf('} });', body.indexOf('build: async () => {')));
+  assert.match(build, /ChangeHistory\.find\(\{ boardId: command\.boardId, userId: command\.actorId, undone: true,\s*superseded: \{ \$ne: true \} \}/);
+  assert.match(build, /prepareRuleArchiveEffects\(\{ \.\.\.input, username: user\?\.username \|\| '', lists,\s*policy: options\.policy, redoRows \}\)/);
+  // Negative: outside the planning callback nothing reads redo rows again.
+  assert.equal((body.match(/undone: true/g) || []).length, 1);
 });

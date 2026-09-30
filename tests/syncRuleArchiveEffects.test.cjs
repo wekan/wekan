@@ -22,11 +22,15 @@ async function fixture() {
   return f;
 }
 function rehash(saved) { delete saved.checksum; saved.checksum = sha256(canonical(saved)); }
-test('archive effects retain captured metadata and chain through unchanged children', async () => {
+test('archive effects retain captured metadata; History rows are content, linked only when written', async () => {
   const f = await fixture(), rows = f.effects.rows;
   assert.equal(rows[0].history.rows.length, 0); assert.equal(rows[0].activities.rows.length, 0);
-  assert.equal(rows[1].history.rows[0].previousHash, null);
-  assert.equal(rows[2].history.rows[0].previousHash, rows[1].history.rows[0].integrityHash);
+  // Maintainer decision of 2026-09-30: no chain link is planned, so the runner
+  // needs no History reservation between planning and writing.
+  assert.equal(f.effects.version, 2); assert.equal(Object.hasOwn(f.effects, 'previousHash'), false);
+  for (const row of [rows[1].history.rows[0], rows[2].history.rows[0]]) {
+    assert.equal(Object.hasOwn(row, 'previousHash') || Object.hasOwn(row, 'integrityHash'), false);
+  }
   assert.equal(rows[1].activities.rows[0].activity.listName, 'Original list');
   assert.equal(rows[2].activities.rows[0].activity.cardTitle, 'root');
   assert.equal(rows[2].activities.context.createdAt.getTime(), 1000);
@@ -38,13 +42,14 @@ test('disabled activities preserve History while omitting activity delivery plan
   assert.ok(result.rows.every(row => row.activities === null));
   assert.equal(result.rows.flatMap(row => row.history.rows).length, 2);
 });
-test('identity, actor, timestamp, policy and cross-card History-chain corruption are refused', async () => {
+test('identity, actor, timestamp, policy and an old planned chain are refused', async () => {
   const f = await fixture();
   for (const change of [s => { s.commandHash = 'b'.repeat(64); }, s => s.rows.reverse(),
     s => { s.rows[1].history.userId = 'other'; }, s => { s.rows[1].activities.context.createdAt = new Date(2000); },
     s => { s.rows[1].policy.notifications = true; }, s => {
+      // A row planned with a chain link: the format before 2026-09-30.
       const row = s.rows[2].history.rows[0]; row.previousHash = null; row.integrityHash = hashHistoryRow(row);
-    }]) {
+    }, s => { s.version = 1; s.previousHash = null; }]) {
     const saved = structuredClone(f.effects); change(saved); rehash(saved);
     assert.throws(() => validate(saved, f.command, f));
   }

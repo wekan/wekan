@@ -241,47 +241,39 @@ export async function captureStoredSyncRuleArchiveCommand(options) {
   return captureArchive(await archiveContext(options));
 }
 
-// The owner must reserve the BOARD History chain across this entire callback,
-// supplying its captured head/redo rows and a live ownership check. There is
-// deliberately no no-op/default reservation: ordinary writers must participate
-// before manual/cron integration can enable this entry point.
-export async function runStoredSyncRuleArchive({ withHistoryReservation,
-  completeDelivery = runStoredSyncActivityDelivery, ...options }) {
-  if (typeof withHistoryReservation !== 'function' || typeof completeDelivery !== 'function') {
-    throw new Error('sync-rule-archive-history-reservation-required');
-  }
+// History rows are content, linked to the board's chain when each is appended
+// (maintainer decision of 2026-09-30), so this runner needs no History
+// reservation between planning and writing. The redo candidates - the rows an
+// ordinary edit by the same user would supersede - are captured once, when the
+// effects are planned; a replay reuses the saved plan and never re-reads them.
+export async function runStoredSyncRuleArchive({ completeDelivery = runStoredSyncActivityDelivery, ...options }) {
+  if (typeof completeDelivery !== 'function') throw new Error('sync-rule-archive-delivery-required');
   const captured = await archiveContext(options);
   const command = await captureArchive(captured);
-  return withHistoryReservation(command.boardId, async reservation => {
-    if (!reservation || typeof reservation.assertCurrent !== 'function' ||
-        !Object.hasOwn(reservation, 'previousHash') || !Array.isArray(reservation.redoRows)) {
-      throw new Error('sync-rule-archive-history-reservation-required');
-    }
-    const guard = async () => {
-      await reservation.assertCurrent(); await captured.guard(); await reservation.assertCurrent();
-    };
-    await guard();
-    const input = { command, plan: captured.plan, activity: captured.context.saved,
-      effectId: captured.context.effectId, index: captured.index, assertCurrent: guard };
-    const effects = await ensureRuleArchiveEffects({ ...input, effects: SyncRuleArchiveEffects.rawCollection(),
-      build: async () => {
-        await guard();
-        const user = await Meteor.users.findOneAsync(command.actorId);
-        const ids = [...new Set(command.cards.map(card => card.listId))];
-        const lists = await Lists.find({ _id: { $in: ids }, boardId: command.boardId }, { transform: null }).fetchAsync();
-        await guard();
-        return prepareRuleArchiveEffects({ ...input, username: user?.username || '', lists,
-          policy: options.policy, previousHash: reservation.previousHash, redoRows: reservation.redoRows });
-      } });
-    const withActor = (userId, work) => DDP._CurrentMethodInvocation.withValue({ userId, isSimulation: false }, work);
-    const result = await applyRuleArchiveEffects({ ...input, effects,
-      cards: createRuleArchiveCards({ ...input, cards: Cards, withActor }), history: ChangeHistory,
-      activities: createRuleArchiveActivities({ ...input, effects, activities: Activities, withActor }),
-      receipts: SyncRuleArchiveReceipts.rawCollection(), assertCard: captured.assertCard,
-      readPolicy: async () => syncEffectPolicy(getFeatureFlags()),
-      completeDelivery: context => completeDelivery({ ...context, trigger: options.trigger, assertCurrent: async () => {
-        await guard(); await context.assertCurrent(); await guard();
-      } }) });
-    await guard(); return result;
-  });
+  const guard = async () => { await captured.guard(); };
+  await guard();
+  const input = { command, plan: captured.plan, activity: captured.context.saved,
+    effectId: captured.context.effectId, index: captured.index, assertCurrent: guard };
+  const effects = await ensureRuleArchiveEffects({ ...input, effects: SyncRuleArchiveEffects.rawCollection(),
+    build: async () => {
+      await guard();
+      const user = await Meteor.users.findOneAsync(command.actorId);
+      const ids = [...new Set(command.cards.map(card => card.listId))];
+      const lists = await Lists.find({ _id: { $in: ids }, boardId: command.boardId }, { transform: null }).fetchAsync();
+      const redoRows = await ChangeHistory.find({ boardId: command.boardId, userId: command.actorId, undone: true,
+        superseded: { $ne: true } }, { transform: null, limit: 10000 }).fetchAsync();
+      await guard();
+      return prepareRuleArchiveEffects({ ...input, username: user?.username || '', lists,
+        policy: options.policy, redoRows });
+    } });
+  const withActor = (userId, work) => DDP._CurrentMethodInvocation.withValue({ userId, isSimulation: false }, work);
+  const result = await applyRuleArchiveEffects({ ...input, effects,
+    cards: createRuleArchiveCards({ ...input, cards: Cards, withActor }), history: ChangeHistory,
+    activities: createRuleArchiveActivities({ ...input, effects, activities: Activities, withActor }),
+    receipts: SyncRuleArchiveReceipts.rawCollection(), assertCard: captured.assertCard,
+    readPolicy: async () => syncEffectPolicy(getFeatureFlags()),
+    completeDelivery: context => completeDelivery({ ...context, trigger: options.trigger, assertCurrent: async () => {
+      await guard(); await context.assertCurrent(); await guard();
+    } }) });
+  await guard(); return result;
 }

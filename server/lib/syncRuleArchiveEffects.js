@@ -17,11 +17,13 @@ function stepFor(unit) {
 function validateRuleArchiveEffects(saved, command, context) {
   command = validateRuleArchiveCommand(command, context);
   const units = archiveUnits(command, context);
-  if (!saved || Object.keys(saved).sort().join(',') !== '_id,checksum,commandHash,previousHash,rows,version' ||
-      saved._id !== command._id || saved.version !== 1 || saved.commandHash !== command.checksum ||
-      (saved.previousHash !== null && !/^[a-f0-9]{64}$/.test(saved.previousHash)) ||
+  // Version 2: History rows are content, linked to the chain when appended
+  // (maintainer decision of 2026-09-30), so the saved effects carry no chain
+  // link and need no History reservation between planning and writing.
+  if (!saved || Object.keys(saved).sort().join(',') !== '_id,checksum,commandHash,rows,version' ||
+      saved._id !== command._id || saved.version !== 2 || saved.commandHash !== command.checksum ||
       !Array.isArray(saved.rows) || saved.rows.length !== units.length || calculateObjectSize(saved) > 14 * 1024 * 1024) fail();
-  let previousHash = saved.previousHash, changed = false;
+  let changed = false;
   for (let i = 0; i < units.length; i++) {
     const effects = saved.rows[i], unit = units[i];
     validateSyncEffects(effects, stepFor(unit), unit.effectId);
@@ -29,8 +31,9 @@ function validateRuleArchiveEffects(saved, command, context) {
         (i && canonical(effects.policy) !== canonical(saved.rows[0].policy))) fail();
     const history = effects.history;
     if (history.rows.length) {
-      if (history.rows[0].previousHash !== previousHash || (changed && history.redo.length)) fail();
-      previousHash = history.rows.at(-1).integrityHash; changed = true;
+      // The redo stack is cleared once, by the first card that records History.
+      if (changed && history.redo.length) fail();
+      changed = true;
     }
     if (history.rows.some(row => row.createdAt.getTime() !== command.createdAt.getTime()) ||
         (effects.activities && effects.activities.context.createdAt.getTime() !== command.createdAt.getTime())) fail();
@@ -40,7 +43,7 @@ function validateRuleArchiveEffects(saved, command, context) {
   return copy(saved);
 }
 function prepareRuleArchiveEffects({ command, plan, activity, effectId, index, username, lists,
-  previousHash = null, redoRows = [], policy }) {
+  redoRows = [], policy }) {
   const context = { plan, activity, effectId, index };
   command = validateRuleArchiveCommand(command, context);
   policy = validateSyncEffectPolicy(policy);
@@ -51,19 +54,18 @@ function prepareRuleArchiveEffects({ command, plan, activity, effectId, index, u
         typeof list.title !== 'string' || byId.has(list._id)) fail();
     byId.set(list._id, list);
   }
-  const saved = { _id: command._id, version: 1, commandHash: command.checksum, previousHash, rows: [] };
-  let head = previousHash, redo = redoRows, bytes = 0;
+  const saved = { _id: command._id, version: 2, commandHash: command.checksum, rows: [] };
+  let redo = redoRows, bytes = 0;
   for (const unit of archiveUnits(command, context)) {
     const step = stepFor(unit);
     const options = { step, effectId: unit.effectId, userId: command.actorId, createdAt: command.createdAt };
-    const history = prepareSyncFieldHistory({ ...options, previousHash: head, redoRows: redo });
+    const history = prepareSyncFieldHistory({ ...options, redoRows: redo });
     const activities = policy.activities ? prepareSyncUpdateActivities({ ...options, username,
       list: byId.get(unit.after.listId) }) : null;
     const row = { version: 2, policy: { ...policy }, history, activities };
     bytes += calculateObjectSize(row) + 32;
     if (bytes > 14 * 1024 * 1024) fail();
     saved.rows.push(row);
-    head = history.rows.at(-1)?.integrityHash ?? head;
     if (history.rows.length) redo = [];
   }
   saved.checksum = sha256(canonical(saved));

@@ -100,15 +100,11 @@ describe('Stored Sync rule selection', function () {
       await assert.rejects(captureStoredSyncRuleArchiveCommand(archiveInput), /configuration-changed/);
       await Actions.rawCollection().updateOne({ _id: actionId }, { $set: { actionType: 'archive' } });
       assert.deepEqual(await captureStoredSyncRuleArchiveCommand(archiveInput), archive);
-      await assert.rejects(runStoredSyncRuleArchive(archiveInput), /history-reservation-required/);
       const flags = getFeatureFlags(), oldFlags = { ...flags };
       try {
         flags.disableNotifications = true;
-        const run = { ...archiveInput, policy: { activities: true, notifications: false }, trigger: 'manual',
-          withHistoryReservation: async (id, work) => {
-            assert.equal(id, boardId);
-            return work({ previousHash: null, redoRows: [], assertCurrent: async () => {} });
-          } };
+        // No History reservation: rows are linked when appended (2026-09-30).
+        const run = { ...archiveInput, policy: { activities: true, notifications: false }, trigger: 'manual' };
         await assert.rejects(runStoredSyncRuleArchive({ ...run,
           completeDelivery: async () => { throw Error('delivery interrupted'); } }), /delivery interrupted/);
         assert.equal((await Cards.findOneAsync(childId)).archived, true);
@@ -120,6 +116,9 @@ describe('Stored Sync rule selection', function () {
         assert.equal((await Cards.findOneAsync(cardId)).archived, true);
         assert.equal((await Cards.findOneAsync(laterChildId)).archived, false);
         assert.equal(await ChangeHistory.find({ boardId }).countAsync(), 2);
+        const { verifyHistoryRows } = require('/models/lib/changeHistoryIntegrity');
+        assert.deepEqual(verifyHistoryRows(await ChangeHistory.find({ boardId }, { transform: null }).fetchAsync()), [],
+          'both rows were linked into one valid chain when written');
         assert.equal(await Activities.find({ boardId }).countAsync(), 3);
         assert.equal(await SyncRuleArchiveEffects.find({ _id: archive._id }).countAsync(), 1);
         assert.equal(await SyncRuleArchiveReceipts.find({ commandId: archive._id }).countAsync(), 3);

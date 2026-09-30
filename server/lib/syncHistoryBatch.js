@@ -1,6 +1,6 @@
 'use strict';
 const { diffFields, groupForField, valueFromContent } = require('../../models/lib/changeHistoryGroups');
-const { canonical, sha256, hashHistoryRow, rowHashIsValid } = require('../../models/lib/changeHistoryIntegrity');
+const { canonical, sha256, rowHashIsValid, PROTECTED } = require('../../models/lib/changeHistoryIntegrity');
 const { prepareSyncOperationMutation } = require('./syncOperationMutation');
 const { EJSON } = require('bson');
 const { syncOperationEffectId } = require('./syncOperationApply');
@@ -29,13 +29,18 @@ function redoTarget(row) {
 }
 
 // Prepare BEFORE mutation and persist this exact plan in the owning journal.
-// The caller supplies the observed chain head and redo candidates; retries
-// never select a new head or invalidate newly undone rows.
-function prepareSyncFieldHistory({ step, effectId, userId, createdAt, previousHash = null, redoRows = [] }) {
+// The caller supplies the redo candidates; retries never invalidate newly
+// undone rows.
+//
+// The rows are CONTENT only (maintainer decision of 2026-09-30): no
+// previousHash and no integrityHash. Each row is linked to the board's chain
+// when it is appended (persistSyncFieldHistory), exactly like an ordinary
+// edit, so a plan never holds the chain between planning and writing and
+// ordinary History is never blocked or queued behind a Sync batch.
+function prepareSyncFieldHistory({ step, effectId, userId, createdAt, redoRows = [], ...rest }) {
   prepareSyncOperationMutation(step);
-  if (!/^[a-f0-9]{64}$/.test(effectId) || typeof userId !== 'string' || !userId ||
-      !(createdAt instanceof Date) || !Number.isFinite(createdAt.getTime()) ||
-      (previousHash !== null && !/^[a-f0-9]{64}$/.test(previousHash))) fail();
+  if (Object.keys(rest).length || !/^[a-f0-9]{64}$/.test(effectId) || typeof userId !== 'string' || !userId ||
+      !(createdAt instanceof Date) || !Number.isFinite(createdAt.getTime())) fail();
   const after = step.after;
   const fields = [...new Set([...Object.keys(step.before || {}), ...Object.keys(after)])].sort();
   // Ordinary creation records an activity, not field-by-field History. Its
@@ -48,9 +53,7 @@ function prepareSyncFieldHistory({ step, effectId, userId, createdAt, previousHa
       changeType: change.changeType, previousContent: change.previousContent, newContent: change.newContent,
       userId, batchId: `sync-${effectId}`, restoredFromId: null, restoredByUserId: null,
       createdAt: new Date(createdAt), undone: false, undoneAt: null, superseded: false,
-      isCheckpoint: false, previousHash };
-    row.integrityHash = hashHistoryRow(row);
-    previousHash = row.integrityHash;
+      isCheckpoint: false };
     return row;
   });
   if (!Array.isArray(redoRows) || redoRows.length > 10000) fail();
@@ -64,21 +67,19 @@ function prepareSyncFieldHistory({ step, effectId, userId, createdAt, previousHa
 // persisted, replay reads these plans and never invokes the planner again.
 function createSyncHistoryPlanner(options) {
   const captured = copy(options);
-  let operationId, nextIndex, boardId, previousHash, redoRows;
+  let operationId, nextIndex, boardId, redoRows;
   return (step, context) => {
     const effectId = syncOperationEffectId(context.operationId, context.index);
     const first = context.index === 0;
     if (!first && (operationId !== context.operationId || nextIndex !== context.index ||
         boardId !== step.after?.boardId)) fail();
     const plan = prepareSyncFieldHistory({ ...captured, step, effectId,
-      previousHash: first ? captured.previousHash ?? null : previousHash,
       redoRows: first ? captured.redoRows ?? [] : redoRows });
-    // Advance only after successful validation. Baseline-only changes neither
-    // break the chain nor consume the original redo candidates.
+    // Advance only after successful validation. Baseline-only changes do not
+    // consume the original redo candidates.
     operationId = context.operationId;
     boardId = step.after.boardId;
     nextIndex = context.index + 1;
-    previousHash = plan.rows.at(-1)?.integrityHash ?? (first ? captured.previousHash ?? null : previousHash);
     redoRows = plan.rows.length ? [] : (first ? captured.redoRows ?? [] : redoRows);
     return plan;
   };
@@ -91,10 +92,9 @@ function validatePlan(plan) {
       !Array.isArray(plan.rows) || plan.rows.length > 16 || !Array.isArray(plan.redo) || plan.redo.length > 10000 ||
       (!plan.rows.length && plan.redo.length)) fail();
   const ids = new Set();
-  let previous;
   for (const row of plan.rows) {
     const field = row.newContent?.field || row.previousContent?.field;
-    const keys = '_id,batchId,boardId,cardId,changeType,createdAt,entityId,entityType,group,integrityHash,isCheckpoint,listId,newContent,previousContent,previousHash,restoredByUserId,restoredFromId,superseded,swimlaneId,undone,undoneAt,userId';
+    const keys = '_id,batchId,boardId,cardId,changeType,createdAt,entityId,entityType,group,isCheckpoint,listId,newContent,previousContent,restoredByUserId,restoredFromId,superseded,swimlaneId,undone,undoneAt,userId';
     if (Object.keys(row).sort().join(',') !== keys || !['title', 'description', 'spentTime', 'customFields', 'archived'].includes(field) ||
         !(row.createdAt instanceof Date) || !Number.isFinite(row.createdAt.getTime()) ||
         !['entityId', 'listId'].every(key => typeof row[key] === 'string' && row[key]) ||
@@ -103,16 +103,14 @@ function validatePlan(plan) {
         row.batchId !== `sync-${plan.effectId}` || row.entityType !== 'card' || row.cardId !== row.entityId ||
         row.group !== groupForField('card', field) || !['added', 'removed', 'edited'].includes(row.changeType) ||
         row.restoredFromId !== null || row.restoredByUserId !== null ||
-        (row.previousHash !== null && !/^[a-f0-9]{64}$/.test(row.previousHash)) ||
-        row.isCheckpoint !== false || row.undone !== false || row.undoneAt !== null || row.superseded !== false ||
-        !rowHashIsValid(row) || (previous && row.previousHash !== previous)) fail();
+        row.isCheckpoint !== false || row.undone !== false || row.undoneAt !== null || row.superseded !== false) fail();
     for (const content of [row.previousContent, row.newContent]) {
       if (content !== null) {
         if (content.field !== field) fail();
         valueFromContent(content);
       }
     }
-    ids.add(row._id); previous = row.integrityHash;
+    ids.add(row._id);
   }
   for (const row of plan.redo) {
     if (Object.keys(row).sort().join(',') !== (Object.hasOwn(row, 'legacyRow')
@@ -134,32 +132,34 @@ function validatePlan(plan) {
   if (Buffer.byteLength(EJSON.stringify(plan)) > 15 * 1024 * 1024) fail();
 }
 
-// Sync's rows are hashed when they are PLANNED (previousHash is fixed then),
-// so they may only be written as a writer the board's History gate admits:
-// history.admitHistoryWriter holds a legacy writer token for the whole batch,
-// which makes a chain migration wait for it, and it refuses on a board whose
-// chain is already coordinated instead of forking it. There is no default: an
-// adapter without it is refused, never silently written around the gate.
+// Sync writes only as a writer the board's History gate admits, and links each
+// planned row to the chain as it appends it (maintainer decision of
+// 2026-09-30). history.admitHistoryWriter decides the mode: on a board still
+// on the legacy path it holds a writer token for the whole batch, so a chain
+// migration waits for it; on a coordinated board each row is appended through
+// the chain head like any ordinary edit. history.appendSyncHistoryRow does the
+// linking and is idempotent by row _id. There is no default for either: an
+// adapter without them is refused, never silently written around the gate.
 async function persistSyncFieldHistory({ history, plan, assertCurrent }) {
   validatePlan(plan);
-  if (typeof assertCurrent !== 'function' || typeof history?.admitHistoryWriter !== 'function') fail();
+  if (typeof assertCurrent !== 'function' || typeof history?.admitHistoryWriter !== 'function' ||
+      typeof history?.appendSyncHistoryRow !== 'function') fail();
   // Do not let a collection adapter mutate the journal's verification inputs.
   plan = copy(plan);
-  return history.admitHistoryWriter({ boardId: plan.boardId, work: async ({ assertCurrent: writerCurrent }) => {
-    if (typeof writerCurrent !== 'function') fail();
-    return writeSyncFieldHistory({ history, plan, assertCurrent: async () => { await assertCurrent(); await writerCurrent(); } });
+  return history.admitHistoryWriter({ boardId: plan.boardId, work: async ({ mode, assertCurrent: writerCurrent }) => {
+    if (!['legacy', 'coordinated'].includes(mode) || typeof writerCurrent !== 'function') fail();
+    return writeSyncFieldHistory({ history, plan, mode,
+      assertCurrent: async () => { await assertCurrent(); await writerCurrent(); } });
   } });
 }
-async function writeSyncFieldHistory({ history, plan, assertCurrent }) {
-  if (plan.rows[0]?.previousHash) {
-    await assertCurrent();
-    const predecessor = await history.findOneAsync({ boardId: plan.boardId,
-      integrityHash: plan.rows[0].previousHash });
-    if (!rowHashIsValid(predecessor) || predecessor.boardId !== plan.boardId ||
-        predecessor.integrityHash !== plan.rows[0].previousHash) {
-      throw new Error('sync-history-predecessor-unconfirmed');
-    }
-  }
+// The saved row is this plan's row: its hash holds, its protected content is
+// the planned content (the chain link is whatever it was appended after), and
+// it is not a checkpoint. Mutable undo flags may have changed since.
+function isPlannedRow(saved, row) {
+  return !!saved && saved._id === row._id && rowHashIsValid(saved) && saved.isCheckpoint === row.isCheckpoint &&
+    PROTECTED.filter(key => key !== 'previousHash').every(key => canonical(saved[key]) === canonical(row[key]));
+}
+async function writeSyncFieldHistory({ history, plan, mode, assertCurrent }) {
   for (const target of plan.redo) {
     await assertCurrent();
     let error;
@@ -181,18 +181,13 @@ async function writeSyncFieldHistory({ history, plan, assertCurrent }) {
   }
   for (const row of plan.rows) {
     await assertCurrent();
-    let saved = await history.findOneAsync(row._id), error;
-    if (!saved) {
-      await assertCurrent();
-      try { await history.insertAsync(copy(row)); } catch (failure) { error = failure; }
-      await assertCurrent();
-      try { saved = await history.findOneAsync(row._id); } catch (failure) { throw error || failure; }
-    }
-    // Mutable undo flags may have changed since a previous successful attempt.
-    if (!saved || saved._id !== row._id || !rowHashIsValid(saved) ||
-        saved.integrityHash !== row.integrityHash || saved.isCheckpoint !== row.isCheckpoint) {
-      throw error || new Error('sync-history-event-unconfirmed');
-    }
+    let error;
+    try { await history.appendSyncHistoryRow({ row: copy(row), mode, assertCurrent }); }
+    catch (failure) { error = failure; }
+    await assertCurrent();
+    let saved;
+    try { saved = await history.findOneAsync(row._id); } catch (failure) { throw error || failure; }
+    if (!isPlannedRow(saved, row)) throw error || new Error('sync-history-event-unconfirmed');
   }
   await assertCurrent();
   return plan.effectId;
@@ -201,8 +196,8 @@ function validateSyncFieldHistory(plan, step, effectId) {
   validatePlan(plan);
   if (plan.effectId !== effectId || plan.boardId !== step.after?.boardId) fail();
   const expected = prepareSyncFieldHistory({ step, effectId, userId: plan.userId,
-    createdAt: plan.rows[0]?.createdAt || new Date(0), previousHash: plan.rows[0]?.previousHash || null });
+    createdAt: plan.rows[0]?.createdAt || new Date(0) });
   if (canonical(expected.rows) !== canonical(plan.rows)) fail();
   return true;
 }
-module.exports = { createSyncHistoryPlanner, prepareSyncFieldHistory, persistSyncFieldHistory, validateSyncFieldHistory };
+module.exports = { createSyncHistoryPlanner, prepareSyncFieldHistory, persistSyncFieldHistory, validateSyncFieldHistory, isPlannedRow };

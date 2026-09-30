@@ -7,6 +7,7 @@ const { EJSON } = require('bson');
 const { appendHistoryChain, historyChainId, validateHistoryChainHead } = require('./historyChainAppend');
 const { initializeHistoryChain } = require('./historyChainBootstrap');
 const { withHistoryWriter } = require('./historyWriterGate');
+const { hashHistoryRow } = require('../../models/lib/changeHistoryIntegrity');
 const { migrateHistoryChain } = require('./historyChainMigration');
 
 export const HistoryWriterGates = new Mongo.Collection('historyWriterGates');
@@ -72,13 +73,42 @@ ChangeHistory.withHistoryWriter = async ({ boardId, row, write, legacy }) => {
     writeCoordinated: () => write(() => appendStoredHistoryChain({ row: prepared, assertCurrent: async () => {} })) });
 };
 
-// Sync History (server/lib/syncHistoryBatch.js) writes rows it hashed when it
-// planned them. It holds a legacy writer token for the whole batch, so a
-// migration drains it; on a coordinated board it is refused rather than
-// appended around the head, until a multi-row chain reservation exists.
+// Sync History (server/lib/syncHistoryBatch.js) plans rows as content and links
+// each one when it is appended (maintainer decision of 2026-09-30). On a
+// legacy board the whole batch holds one writer token, so a migration drains
+// it; on a coordinated board each row goes through the chain head, like an
+// ordinary edit, so nothing is refused and nothing forks.
 ChangeHistory.admitHistoryWriter = ({ boardId, work }) => withHistoryWriter({
-  gates: HistoryWriterGates.rawCollection(), boardId, writeLegacy: work,
-  writeCoordinated: async () => { throw new Error('sync-history-coordination-required'); } });
+  gates: HistoryWriterGates.rawCollection(), boardId,
+  writeLegacy: ({ assertCurrent }) => work({ mode: 'legacy', assertCurrent }),
+  writeCoordinated: () => work({ mode: 'coordinated', assertCurrent: async () => {} }) });
+
+// Append one planned Sync row, idempotently by its _id: a retry that finds
+// the row returns it, and the caller checks it is the planned content.
+ChangeHistory.appendSyncHistoryRow = async ({ row, mode, assertCurrent }) => {
+  if (mode === 'coordinated') return appendStoredHistoryChain({ row, assertCurrent });
+  if (mode !== 'legacy') throw new Error('history-chain-mode-invalid');
+  const prepared = prepareStoredHistoryRow(row);
+  await assertCurrent();
+  if (await ChangeHistory.findOneAsync(prepared._id, { transform: null })) return prepared._id;
+  // After the chain's TIP: from the newest hashed row, follow its successors.
+  // A Sync batch's rows share one planned createdAt, so "newest" alone is a
+  // tie and would give an earlier batch row a second successor - a fork.
+  let previous = await ChangeHistory.findOneAsync(
+    { boardId: prepared.boardId, integrityHash: { $nin: [null, ''] } }, { sort: { createdAt: -1 }, transform: null });
+  for (let steps = 0; previous && steps < 10000; steps++) {
+    const next = await ChangeHistory.findOneAsync({ boardId: prepared.boardId, previousHash: previous.integrityHash },
+      { transform: null });
+    if (!next) break;
+    previous = next;
+  }
+  const saved = { ...prepared, previousHash: previous ? previous.integrityHash : null };
+  saved.integrityHash = hashHistoryRow(saved);
+  await assertCurrent();
+  try { await ChangeHistory.insertAsync(saved, { removeEmptyStrings: false, trimStrings: false }); }
+  catch (error) { if (!await ChangeHistory.findOneAsync(prepared._id, { transform: null })) throw error; }
+  return prepared._id;
+};
 
 // No automatic rollout: callers must prove older server versions cannot write.
 // Drain/resume uses the same durable migration UUID, never a timed takeover.

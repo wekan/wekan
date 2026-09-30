@@ -14,35 +14,90 @@ function redoRow() {
     undoneAt: new Date(10), superseded: false };
   row.integrityHash = hashHistoryRow(row); return row;
 }
-function fixture() {
+// The fake board links each appended row after its newest hashed row, like the
+// production legacy path (server/lib/storedHistoryChain.js), and reports the
+// mode the fake gate chose. A row already present is returned, not rewritten.
+function fixture({ mode = 'legacy' } = {}) {
   const redo = redoRow(), records = new Map([[redo._id, redo]]);
-  const plan = prepareSyncFieldHistory({ ...options, previousHash: redo.integrityHash, redoRows: [redo] });
+  const plan = prepareSyncFieldHistory({ ...options, redoRows: [redo] });
+  const modes = [];
   let inserts = 0;
-  return { plan, records, get inserts() { return inserts; }, assertCurrent: async () => {}, history: {
-    // Sync History writes only as a writer the board's History gate admits.
-    admitHistoryWriter: ({ work }) => work({ assertCurrent: async () => {} }),
+  const f = { plan, records, modes, get inserts() { return inserts; }, assertCurrent: async () => {}, history: {
+    admitHistoryWriter: ({ work }) => work({ mode, assertCurrent: async () => {} }),
+    appendSyncHistoryRow: async ({ row, mode: used }) => {
+      modes.push(used);
+      if (records.has(row._id)) return row._id;
+      // The chain's tip: the newest hashed row, then its successors.
+      let previous = [...records.values()].filter(r => r.boardId === row.boardId && r.integrityHash)
+        .sort((a, b) => b.createdAt - a.createdAt)[0];
+      for (let next; previous && (next = [...records.values()].find(r => r.boardId === row.boardId && r.previousHash === previous.integrityHash));) previous = next;
+      const saved = { ...structuredClone(row), previousHash: previous ? previous.integrityHash : null };
+      saved.integrityHash = hashHistoryRow(saved);
+      return f.history.insertAsync(saved);
+    },
     findOneAsync: async query => typeof query === 'string' ? records.get(query)
       : [...records.values()].find(row => row.boardId === query.boardId && row.integrityHash === query.integrityHash),
     updateAsync: async target => { const row = records.get(target._id); if (row && row.undoneAt.getTime() === target.undoneAt.getTime()) row.superseded = true; },
     insertAsync: async row => { inserts++; records.set(row._id, structuredClone(row)); return row._id; },
   } };
+  return f;
 }
-test('field History uses stable row IDs, a fixed chain and one batch', async () => {
+// Maintainer decision of 2026-09-30: the plan is content; rows are linked to
+// the board's chain when appended, so ordinary History is never held up.
+test('field History uses stable row IDs, links each row when it is written, and replays once', async () => {
   const f = fixture(); const snapshot = structuredClone(f.plan);
+  assert.ok(f.plan.rows.every(row => !Object.hasOwn(row, 'previousHash') && !Object.hasOwn(row, 'integrityHash')),
+    'a plan carries no chain link');
   assert.equal(await persistSyncFieldHistory(f), options.effectId);
   assert.equal(await persistSyncFieldHistory(f), options.effectId);
   assert.equal(f.inserts, 2); assert.deepEqual(f.plan, snapshot);
   assert.ok(f.records.get('old').superseded);
-  assert.equal(f.plan.rows[1].previousHash, f.plan.rows[0].integrityHash);
-  assert.ok(f.plan.rows.every(row => rowHashIsValid(row) && row.batchId === `sync-${options.effectId}`));
+  const [first, second] = f.plan.rows.map(row => f.records.get(row._id));
+  assert.equal(first.previousHash, f.records.get('old').integrityHash, 'linked after the newest row at write time');
+  assert.equal(second.previousHash, first.integrityHash);
+  assert.ok([first, second].every(row => rowHashIsValid(row) && row.batchId === `sync-${options.effectId}`));
+  assert.deepEqual([...new Set(f.modes)], ['legacy']);
 });
-test('lost inserts and false success replies require exact persisted evidence', async () => {
+test('ordinary History written between planning and writing is not blocked, and nothing forks', async () => {
+  const { verifyHistoryRows } = require('../models/lib/changeHistoryIntegrity');
+  const f = fixture();
+  // An ordinary edit lands after the Sync plan was made and before it is written.
+  const ordinary = { ...redoRow(), _id: 'ordinary', undone: false, undoneAt: null, createdAt: new Date(500),
+    previousHash: f.records.get('old').integrityHash };
+  delete ordinary.integrityHash; ordinary.integrityHash = hashHistoryRow(ordinary);
+  f.records.set('ordinary', ordinary);
+  await persistSyncFieldHistory(f);
+  assert.equal(f.records.get(f.plan.rows[0]._id).previousHash, ordinary.integrityHash);
+  const report = verifyHistoryRows([...f.records.values()]);
+  assert.deepEqual(report.filter(x => x.reason === 'history-fork'), [], 'one successor per row');
+});
+test('on a coordinated board every row is appended through the chain head', async () => {
+  const f = fixture({ mode: 'coordinated' });
+  await persistSyncFieldHistory(f);
+  assert.deepEqual(f.modes, ['coordinated', 'coordinated']);
+});
+test('an adapter without admission or linking, an unknown mode, or an old hashed plan is refused (negative)', async () => {
+  for (const drop of ['admitHistoryWriter', 'appendSyncHistoryRow']) {
+    const f = fixture(); delete f.history[drop];
+    await assert.rejects(persistSyncFieldHistory(f), /plan-invalid/); assert.equal(f.inserts, 0);
+  }
+  const g = fixture({ mode: 'other' });
+  await assert.rejects(persistSyncFieldHistory(g), /plan-invalid/); assert.equal(g.inserts, 0);
+  const old = fixture(); old.plan.rows[0].previousHash = null; old.plan.rows[0].integrityHash = 'a'.repeat(64);
+  await assert.rejects(persistSyncFieldHistory(old), /plan-invalid/, 'a plan made before rows were linked at write');
+  assert.throws(() => prepareSyncFieldHistory({ ...options, previousHash: null }), /plan-invalid/);
+});
+test('lost append replies and false success replies require exact persisted evidence', async () => {
   const f = fixture(); const insert = f.history.insertAsync;
   f.history.insertAsync = async row => { await insert(row); throw new Error('lost reply'); };
   await persistSyncFieldHistory(f); assert.equal(f.inserts, 2);
   for (const mode of ['missing', 'changed']) {
     const g = fixture();
-    g.history.insertAsync = async row => { if (mode === 'changed') g.records.set(row._id, { ...row, newContent: {} }); return row._id; };
+    g.history.appendSyncHistoryRow = async ({ row }) => {
+      if (mode === 'changed') { const saved = { ...row, newContent: { field: 'title', value: 'Tampered' }, previousHash: null };
+        saved.integrityHash = hashHistoryRow(saved); g.records.set(row._id, saved); }
+      return row._id;
+    };
     await assert.rejects(persistSyncFieldHistory(g), /event-unconfirmed/);
   }
 });
@@ -99,13 +154,6 @@ test('damaged redo snapshots and unexpected row fields fail before writes', asyn
     assert.equal(f.records.get('old').superseded, false); assert.equal(f.inserts, 0);
   }
 });
-test('a missing or damaged predecessor prevents partial timeline publication', async () => {
-  for (const damage of [f => f.records.delete('old'), f => f.records.get('old').entityId = 'tampered']) {
-    const f = fixture(); damage(f);
-    await assert.rejects(persistSyncFieldHistory(f), /predecessor-unconfirmed/);
-    assert.equal(f.inserts, 0);
-  }
-});
 test('cross-scope steps, explicit undefined snapshots and oversized redo plans are refused', () => {
   assert.throws(() => prepareSyncFieldHistory({ ...options, step: { ...step,
     before: { ...step.before, boardId: 'other' } } }), /outside-scope/);
@@ -142,11 +190,11 @@ test('legacy redo snapshots preserve missing/null/empty hashes and reject damage
   }
 });
 
-test('operation History planning chains cards across no-ops and consumes redo once', () => {
+test('operation History planning keeps identities across no-ops and consumes redo once', () => {
   const { createSyncHistoryPlanner } = require('../server/lib/syncHistoryBatch');
   const { randomUUID } = require('node:crypto');
   const operationId = randomUUID(), redo = redoRow();
-  const input = { userId: 'author', createdAt: new Date(1000), previousHash: redo.integrityHash, redoRows: [redo] };
+  const input = { userId: 'author', createdAt: new Date(1000), redoRows: [redo] };
   const planner = createSyncHistoryPlanner(input);
   input.redoRows.length = 0; input.createdAt.setTime(9999);
   const unchanged = { ...step, after: step.before };
@@ -154,11 +202,10 @@ test('operation History planning chains cards across no-ops and consumes redo on
   assert.deepEqual(noOp.rows, []); assert.deepEqual(noOp.redo, []);
   const first = planner(step, { operationId, index: 1 });
   assert.equal(first.redo.length, 1); assert.equal(first.rows[0].createdAt.getTime(), 1000);
-  assert.equal(first.rows[0].previousHash, redo.integrityHash);
+  assert.equal(Object.hasOwn(first.rows[0], 'previousHash'), false, 'linked when written, not when planned');
   const creation = planner({ ...step, kind: 'create', before: null }, { operationId, index: 2 });
   assert.deepEqual(creation.rows, []); assert.deepEqual(creation.redo, []);
   const next = planner(step, { operationId, index: 3 });
-  assert.equal(next.rows[0].previousHash, first.rows.at(-1).integrityHash);
   assert.deepEqual(next.redo, []);
   assert.notEqual(next.rows[0]._id, first.rows[0]._id);
   // Interrupted preparation may restart at zero; all identities stay stable.

@@ -10,7 +10,7 @@ const fail = () => { throw new Error('sync-effects-invalid'); };
 
 // Capture all display metadata before the journal begins applying cards.
 // Context changes during replay must not rewrite an already persisted event.
-function createSyncEffectPlanner({ userId, username, createdAt, list, swimlanes, previousHash = null, redoRows = [], policy }) {
+function createSyncEffectPlanner({ userId, username, createdAt, list, swimlanes, redoRows = [], policy }) {
   policy = validateSyncEffectPolicy(policy);
   const captured = copy({ userId, username, createdAt, list, swimlanes });
   if (!captured.list || !Array.isArray(captured.swimlanes) || captured.swimlanes.length > 10000) fail();
@@ -20,7 +20,8 @@ function createSyncEffectPlanner({ userId, username, createdAt, list, swimlanes,
         lane.boardId !== captured.list.boardId || typeof lane.title !== 'string') fail();
     lanes.set(lane._id, lane);
   }
-  const historyPlanner = createSyncHistoryPlanner({ userId, createdAt, previousHash, redoRows });
+  // History rows are linked when appended, not planned (syncHistoryBatch.js).
+  const historyPlanner = createSyncHistoryPlanner({ userId, createdAt, redoRows });
   return (step, context) => {
     const effectId = syncOperationEffectId(context.operationId, context.index);
     // Validate activities first: a failed reference must not advance the

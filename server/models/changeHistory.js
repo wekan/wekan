@@ -116,6 +116,9 @@ Meteor.startup(async () => {
   // undone.
   await ensureIndex(ChangeHistory, { userId: 1, boardId: 1, undone: 1, createdAt: -1 });
   await ensureIndex(ChangeHistory, { userId: 1, boardId: 1, undone: 1, undoneAt: -1 });
+  // Finding a row's successor: the legacy Sync append walks to the chain tip
+  // (server/lib/storedHistoryChain.js appendSyncHistoryRow).
+  await ensureIndex(ChangeHistory, { boardId: 1, previousHash: 1 });
 });
 
 const requireBoardVisible = async (userId, boardId) => {
