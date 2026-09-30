@@ -1635,7 +1635,7 @@ template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.12 2026-09-30 WeKan ® release
 
 **In short:** Administrators can now resolve rule emails WeKan could not
 confirm - **resend to unconfirmed recipients only, mark sent or drop** - and
