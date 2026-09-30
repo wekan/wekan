@@ -4707,6 +4707,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/57c5edcb6b">Correct Kashubian rule actions and settings labels</a>. Thanks to xet7.</summary>
+
+- Replace 50 Polish-seeded strings, preserving checklist syntax, empty-field
+  matching, date triggers and protocol names.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Older mixed-language values and other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
