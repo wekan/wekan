@@ -4751,6 +4751,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c6fbd1ec2b">Correct Kashubian dependency, map and report labels</a>. Thanks to xet7.</summary>
+
+- Replace 40 Polish-seeded strings, preserving relationship directions,
+  map coordinates, HTML entities and format tokens.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Older mixed-language values and other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
