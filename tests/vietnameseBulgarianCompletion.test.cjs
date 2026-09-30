@@ -1161,6 +1161,14 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /کبھی نہیں بھیجی جائے گی/);
   assert.match(locale['rule-email-legacy-access-denied'], /رسائی نہیں ہے/);
   assert.match(locale['r-insert-variable'], /متغیر داخل کریں/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
+    assert.notEqual(locale[key], english[key], `ur:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ur:${key}: tokens`);
+  }
+  assert.match(locale['scrum-report-help'], /صفر تخمینے نہیں ہیں/);
+  assert.match(locale['scrum-partial-report'], /صرف وہ کارڈز.*آپ کو تفویض/);
+  assert.match(locale['scrum-daily-observations-help'], /ہر تبدیلی درج نہیں کرتے/);
+  assert.match(locale['scrum-daily-observations-export-help'], /نامعلوم تخمینے صفر نہیں ہیں/);
   for (const key of Object.keys(english).filter(key =>
     /^(auto-archive-|filter-(recency|movement-range|date-range|due-|column-age|preset|card-text)|notification-activity-|due-reminder-|map-view-)/.test(key))) {
     assert.notEqual(locale[key], english[key], `ur:${key}: untranslated`);
