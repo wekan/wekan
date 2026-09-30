@@ -28,6 +28,37 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Malayalam and Telugu additions for todo.txt import and email recovery.
+{
+  const keys = ["import-board-instruction-todotxt", "rule-email-recovery-dropped", "rule-email-recovery-review", "rule-email-recovery-recipients", "rule-email-recovery-recipient-accepted", "rule-email-recovery-recipient-unconfirmed", "rule-email-recovery-actions-hint", "rule-email-recovery-wait", "rule-email-recovery-resends", "rule-email-recovery-resend", "rule-email-recovery-mark-sent", "rule-email-recovery-drop", "rule-email-recovery-resend-confirm", "rule-email-recovery-mark-sent-confirm", "rule-email-recovery-drop-confirm", "rule-email-resolution-too-early", "rule-email-resolution-already-resolved", "rule-email-resolution-resend-in-flight", "rule-email-resolution-nothing-to-resend", "rule-email-resolution-resend-uncertain", "rule-email-resolution-busy", "rule-email-resolution-command-changed", "rule-email-resolution-attempt-invalid", "rule-email-resolution-failed", "rule-email-legacy-heading", "rule-email-legacy-description", "rule-email-legacy-source", "rule-email-legacy-mail", "rule-email-legacy-reason", "rule-email-legacy-reason-unbound", "rule-email-legacy-reason-details-snapshot", "rule-email-legacy-rebind", "rule-email-legacy-discard", "rule-email-legacy-rebind-confirm", "rule-email-legacy-discard-confirm", "rule-email-legacy-empty", "rule-email-legacy-unavailable", "rule-email-legacy-access-denied", "rule-email-legacy-source-changed", "rule-email-legacy-source-unavailable", "rule-email-legacy-plan-unavailable", "rule-email-legacy-attempt-exists", "rule-email-legacy-not-legacy", "rule-email-legacy-failed"];
+  for (const [code, script] of [['ml', /[\u0D00-\u0D7F]/u], ['te-IN', /[\u0C00-\u0C7F]/u]]) {
+    const locale = read(code);
+    for (const key of keys) {
+      assert.equal(typeof locale[key], 'string', `${code}:${key}: present`);
+      assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+      assert.match(locale[key], script, `${code}:${key}: native script`);
+      assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    }
+    for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:', 'Done']) {
+      assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: todo.txt token ${token}`);
+    }
+    assert.notEqual(locale['rule-email-legacy-rebind'], locale['rule-email-legacy-discard']);
+    assert.notEqual(locale['rule-email-recovery-recipient-accepted'], locale['rule-email-recovery-recipient-unconfirmed']);
+  }
+  const ml = read('ml');
+  assert.match(ml['rule-email-recovery-actions-hint'], /സ്വയം വീണ്ടും അയയ്ക്കില്ല/);
+  assert.match(ml['rule-email-recovery-resend-confirm'], /രണ്ടുതവണ ലഭിക്കും/);
+  assert.match(ml['rule-email-resolution-resend-uncertain'], /എത്തിയിരിക്കാം അല്ലെങ്കിൽ എത്തിയിട്ടില്ലായിരിക്കാം/);
+  assert.match(ml['rule-email-legacy-description'], /രചയിതാവിന് ഇപ്പോഴും പ്രവേശനമുണ്ടെന്ന് പരിശോധിച്ച/);
+  assert.match(ml['rule-email-legacy-discard-confirm'], /ഒരിക്കലും അയയ്ക്കില്ല/);
+  const te = read('te-IN');
+  assert.match(te['rule-email-recovery-actions-hint'], /తనంతట తాను మళ్లీ పంపదు/);
+  assert.match(te['rule-email-recovery-resend-confirm'], /రెండుసార్లు అందుతుంది/);
+  assert.match(te['rule-email-resolution-resend-uncertain'], /చేరి ఉండవచ్చు లేదా చేరకపోయి ఉండవచ్చు/);
+  assert.match(te['rule-email-legacy-description'], /రచయితకు ఇంకా యాక్సెస్ ఉందని తనిఖీ చేసిన/);
+  assert.match(te['rule-email-legacy-discard-confirm'], /ఎప్పటికీ పంపబడదు/);
+}
+
 // Marathi additions for todo.txt import and rule-email recovery.
 {
   const locale = read('mr');
