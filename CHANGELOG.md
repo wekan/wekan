@@ -4895,6 +4895,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/98d007ccb7">Correct Kashubian job and storage result messages</a>. Thanks to xet7.</summary>
+
+- Correct 31 job, storage and error messages. Preserve scheduling failure
+  scope, distinct job states and all recoverable item types.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Other mixed-language text and languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
