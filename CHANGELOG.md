@@ -6313,6 +6313,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e74cc7ab4d">Translate Swahili math constants and operations</a>. Thanks to xet7.</summary>
+
+- Translate 15 English math strings, preserving formulas, coordinates and
+  replacement tokens, including inclusive numerical limits.
+- Translation, registry and human-preference checks pass.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
