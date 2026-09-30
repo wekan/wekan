@@ -7742,6 +7742,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6876fa2d66932a0951ed80998524eae466bd106a">Translate Luxembourgish activity notification controls</a>. Thanks to xet7.</summary>
+
+- Translate 21 missing or English strings for activity-notification recovery,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  delivery actions and missing/changed activity states.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
