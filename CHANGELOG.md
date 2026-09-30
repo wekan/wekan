@@ -8512,6 +8512,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/51d0005cd3424fc327826a049e2c2311c93c5a8e">Complete Romansh source-key translation coverage</a>. Thanks to xet7.</summary>
+
+- Translate 13 recovery, history and Blockly strings; recognize 21 additional
+  shared words, brands and mathematical symbols.
+- Translation, registry and human-preference checks pass, including all 3783
+  source keys and tokens. Older Italian and mixed-language values still need
+  correction; source coverage does not establish language quality.
+- Low-confidence wording needs fluent-speaker review. Browser review was not
+  run; wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
