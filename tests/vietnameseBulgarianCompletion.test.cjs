@@ -2317,6 +2317,76 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedImportKeys = [
+    "export-ical-feed",
+    "export-card-excel-fields",
+    "export-card-subtasks",
+    "export-card-field-dates",
+    "export-card-attachment-size",
+    "export-card-attachment-type",
+    "export-card-attachment-uploaded-by",
+    "export-card-attachment-uploaded-at",
+    "export-card-excel-free",
+    "export-card-excel-needed",
+    "sorted",
+    "list-label-modifiedAt",
+    "list-label-short-modifiedAt",
+    "list-label-short-title",
+    "list-label-short-sort",
+    "filter",
+    "filter-dates-label",
+    "filter-no-due-date",
+    "filter-overdue",
+    "filter-labels-label",
+    "filter-no-label",
+    "filter-assignee-label",
+    "filter-no-assignee",
+    "filter-on",
+    "other-filters-label",
+    "advanced-filter-label",
+    "show-activities",
+    "hide-activities",
+    "import-board-instruction-asana",
+    "import-board-instruction-csv",
+    "import-excel-file",
+    "import-json-placeholder",
+    "import-csv-placeholder",
+    "import-json-file",
+    "import-trello-json-file",
+    "import-trello-zip-file",
+    "trello-api-import",
+    "trello-api-key",
+    "trello-parent-workspace-top",
+    "trello-import-results",
+    "select-all",
+    "unselect-all",
+    "trello-import-progress",
+    "trello-clear-job",
+    "trello-import-errors",
+    "copy-to-clipboard",
+    "running",
+    "paused",
+    "info",
+    "check-version",
+    "initials",
+    "invalid-date",
+    "invalid-time",
+    "joined",
+    "label-default"
+  ];
+  for (const key of correctedImportKeys) {
+    assert.doesNotMatch(locale[key], /— pò kaszëbskù/, `csb:${key}: language label is not a translation`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+  }
+  for (const key of ['list-label-short-modifiedAt', 'list-label-short-title', 'list-label-short-sort']) {
+    assert.equal(locale[key], english[key], `csb:${key}: preserve compact label`);
+  }
+  for (const token of ['{ "data": [...] }', 'GET /tasks', 'memberships']) {
+    assert.ok(locale['import-board-instruction-asana'].includes(token), `csb: preserve Asana ${token}`);
+  }
+  assert.ok(locale['trello-api-key'].includes('https://trello.com/app-key'));
+  assert.match(locale['filter-no-assignee'], /Bez przëpisóny òsobë/);
+  assert.match(locale['export-card-field-dates'], /ùsôdzeniô, dostaniô, zaczãcô, terminu, skùńczeniô/);
   const correctedFieldKeys = [
     "font-size-largest",
     "changeAvatarPopup-title",
