@@ -4961,6 +4961,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8239218e69">Correct Kashubian filter instructions and query examples</a>. Thanks to xet7.</summary>
+
+- Correct 16 filtering instructions and restore literal query examples and
+  backslash escaping. Check example fields, operators and placeholders.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Other mixed-language text and languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
