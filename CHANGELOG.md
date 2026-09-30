@@ -8957,6 +8957,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/58357ab5da3bdadb124aff90386a5c59018fb8a7">Replace prefixed English in Shona board and display controls</a>. Thanks to xet7.</summary>
+
+- Translate 54 prefixed English entries and restore 11 numbers, symbols and
+  names. Preserve existing values outside this correction batch.
+- Translation, registry and human-preference checks pass, covering voting,
+  font sizes, zoom limits and exact placeholders.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Another 583 prefixed English entries remain; wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
