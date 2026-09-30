@@ -8741,6 +8741,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e00890a4c8d7af7abeea7d1751a419f37b48e836">Correct Romansh notification and board visibility messages</a>. Thanks to xet7.</summary>
+
+- Replace 20 mixed-language notification, visibility and board strings with
+  Romansh, preserving other translations and replacement tokens.
+- Translation, registry and human-preference checks pass, covering private
+  visibility, card scope, irreversible deletion and Butler import limits.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider language cleanup remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
