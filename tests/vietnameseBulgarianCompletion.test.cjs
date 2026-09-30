@@ -1663,5 +1663,13 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /Nunca no se ninviará/);
   assert.match(locale['rule-email-legacy-access-denied'], /ya no tiene acceso/);
   assert.match(locale['r-insert-variable'], /Fica una variable/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('sync-'))) {
+    assert.notEqual(locale[key], english[key], `an:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `an:${key}: tokens`);
+  }
+  assert.match(locale['sync-conflict-hint'], /No se ninvía cosa/);
+  assert.match(locale['sync-report-partial'], /no reprenen ni desfan/);
+  assert.match(locale['sync-estimate-field-hint'], /null explicito borra/);
+  assert.match(locale['sync-time-estimate-hint'], /exactament un campo/);
 }
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
