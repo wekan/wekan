@@ -31,6 +31,15 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Maltese filters and imports; remaining untranslated strings are filled separately.
 {
   const locale = read('mt');
+  const correctedRuleSchedulingKeys = ["r-import-done", "r-workflow-format", "r-format-auto", "r-set-scheduled-triggers", "r-set-button-triggers", "r-when-scheduled", "r-schedule-type", "r-schedule-once", "r-schedule-weekday", "r-schedule-at-time", "r-schedule-on-weekday", "r-schedule-on-date", "r-button-label", "r-run", "r-sort-due", "r-later", "r-unit-minutes", "r-unit-hours", "r-trigger", "r-when-a-attach", "r-when-a-due-date-changed", "r-when-a-end-date-changed", "r-when-a-received-date-changed", "r-completed", "r-made-incomplete", "r-checked", "r-unchecked", "r-label", "r-checklist", "r-check-all", "r-uncheck-all", "r-check", "r-uncheck", "r-item", "r-subject"];
+  for (const key of correctedRuleSchedulingKeys) {
+    assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
+    assert.doesNotMatch(locale[key], /Traduzzjoni Maltija:/, `mt:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `mt:${key}: tokens`);
+  }
+  assert.notEqual(locale['r-check'], locale['r-uncheck']);
+  assert.notEqual(locale['r-completed'], locale['r-made-incomplete']);
+  assert.match(locale['r-schedule-weekday'], /Tnejn.*Ġimgħa/);
   const correctedSystemWorkflowKeys = ["OS_Freemem", "OS_Loadavg", "OS_Platform", "OS_Release", "OS_Totalmem", "OS_Type", "OS_Uptime", "hours", "minutes", "seconds", "visibility", "createdAt", "modifiedAt", "verified", "org-shared-templates", "team-shared-templates", "card-received", "card-received-on", "card-end", "card-end-on", "assigned-by", "requested-by", "queue", "subtask-settings", "boardSubtaskSettingsPopup-title", "cover-image", "no-parent", "activity-unset-customfield", "r-rule", "r-unselect-all", "r-edit-rule-trigger-action", "r-workflow-view", "r-when", "r-drop-trigger", "r-drop-action"];
   for (const key of correctedSystemWorkflowKeys) {
     assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
