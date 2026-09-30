@@ -188,31 +188,10 @@ on the macOS machine used). The only non-translation node suites still failing
 are `calendarDateDisplay`, `multilineTitles` and `pomodoroTimer`, which wait
 on locale key order.
 
-**Needs a maintainer decision - the multi-row History reservation.** Sync and
-the rule archive runner hash their History rows when they PLAN them, so the
-board's History head must stay reserved from planning until the last row is
-written, across restarts, with no expiry, or the chain forks. Choose one:
-block (or queue) ordinary History on a board while a Sync batch holds it, or
-leave Sync rows unhashed until they are appended, which means redesigning
-the plan format (`validateSyncFieldHistory`, the archive plan's cross-card
-hash chain). Everything else in the Scrum/Sync handoff waits on this: the
-production `withHistoryReservation` for `runStoredSyncRuleArchive`, atomic
-coordination of cards, History, activities and effects, startup replay and
-calling the stored stages from manual and scheduled Sync. Two smaller steps
-were considered and deliberately not taken: re-sweeping redo supersedes after
-an append would, with clock skew between servers, irreversibly supersede a
-legitimate later undo; and a reservation field on the History head changes
-the head format every reader and the offline recovery tool validate, so it
-belongs with the decision above.
+The multi-row History reservation, Scrum deleted-versus-recreated and receipt
+retention were blockers here until the decisions below.
 
-Other remaining items and why: online writer-token recovery needs writer
-liveness and fencing tokens on History inserts (a protocol change; recovery is
-offline today); telling "this operation deleted it" from "someone deleted and
-recreated it" needs tombstones or incarnation ids on Scrum records and
-activities; retention of receipts and request IDs needs a per-collection
-compaction policy, because deleting them breaks retry idempotence.
-
-Maintainer decisions of 2026-09-30, answering the two paragraphs above:
+Maintainer decisions of 2026-09-30, answering those blockers:
 
 - **History reservation: link rows at write.** Sync and the rule archive
   runner plan their History rows without `previousHash`; each row is linked
@@ -233,6 +212,30 @@ Maintainer decisions of 2026-09-30, answering the two paragraphs above:
   dead can have its token taken without stopping servers and cannot write
   afterwards. The offline tool stays as the fallback. This changes the History
   writer protocol for every writer and for migration.
+
+Second pass of 2026-09-30 - built and tested (in Upcoming):
+
+- Sync and archive rows are linked at write, with no reservation.
+- Scrum sprints, releases and events carry incarnations.
+- Finished rule email commands are compacted after 90 days.
+
+Remaining, and why:
+
+- **Activities get no incarnation.** Their ids are deterministic, and recovery
+  compares their canonical content. A recreated activity with the same content
+  is the same activity, so an incarnation would never decide anything.
+- **90-day compaction of Scrum completions and requests and of Sync intents and
+  completions** waits on a completion timestamp. Those rows have none, so no
+  sweep can tell a 90-day-old receipt from a new one. Notification plans
+  already compact on completion.
+- **Online writer-token recovery** is not built yet. It changes the History
+  writer protocol for every writer and for migration.
+- **The rest of the Scrum/Sync handoff:** atomic coordination of cards,
+  History, activities and effects, startup replay, and calling the stored
+  stages from manual and scheduled Sync. The reservation no longer blocks these.
+- **Intermittent test.** The full-app "Activity notification recovery"
+  `pausedScan.skipped` case failed once in a full run and passed twice on its
+  own. It is not reproduced.
 
 Node suite health at this pass: 163 of 1445 suites fail; 162 already failed at
 the pass's starting commit (mostly translation-completeness suites, plus source
