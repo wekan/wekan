@@ -824,6 +824,14 @@ for (const code of ['sl', 'sl_SI']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /verður aldrei sendur/);
   assert.match(locale['rule-email-legacy-access-denied'], /ekki lengur aðgang/);
   assert.match(locale['r-insert-variable'], /breytu/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
+    assert.notEqual(locale[key], english[key], `is:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `is:${key}: tokens`);
+  }
+  assert.match(locale['scrum-report-help'], /ekki núllmat/);
+  assert.match(locale['scrum-partial-report'], /aðeins spjöld sem þér eru nú úthlutuð/);
+  assert.match(locale['scrum-daily-observations-help'], /skrá ekki hverja breytingu/);
+  assert.match(locale['scrum-daily-observations-export-help'], /ekki núll/);
   for (const key of Object.keys(english).filter(key =>
     /^(auto-archive-|filter-(recency|movement-range|date-range|due-|column-age|preset|card-text)|notification-activity-|due-reminder-|map-view-)/.test(key))) {
     assert.notEqual(locale[key], english[key], `is:${key}: untranslated`);
