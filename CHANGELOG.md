@@ -2767,6 +2767,15 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3fd55ec26">Translate Latvian filters, reminders and automation controls</a>. Thanks to xet7.</summary>
+
+- Fill 81 Latvian filter, reminder, automation, map and import messages.
+- Preserve existing translations and executable tokens; check board access,
+  reminder timing and list-age warnings.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
