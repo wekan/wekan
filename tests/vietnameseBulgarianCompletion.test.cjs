@@ -1487,4 +1487,19 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['sync-estimate-field-hint'], /null esplicitu sguassa/);
   assert.match(locale['sync-time-estimate-hint'], /esattamente un campu/);
 }
+{
+  const locale = read('sc');
+  assert.deepEqual(Object.keys(locale), Object.keys(english), 'sc: source key order');
+  for (const key of hiraganaBatchKeys) {
+    assert.notEqual(locale[key], english[key], `sc:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sc:${key}: tokens`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
+    assert.ok(locale['import-board-instruction-todotxt'].includes(token), `sc: preserve ${token}`);
+  }
+  assert.match(locale['rule-email-recovery-resend-confirm'], /duas bortas/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /Non at a èssere imbiadu mai/);
+  assert.match(locale['rule-email-legacy-access-denied'], /non tenet prus atzessu/);
+  assert.match(locale['r-insert-variable'], /Inserta una variàbile/);
+}
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
