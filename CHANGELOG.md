@@ -8813,6 +8813,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d6f03d6c5c057a83eb1368f1e9a4eab847aa9ef7">Translate import and email recovery additions into Punjabi and Odia</a>. Thanks to xet7.</summary>
+
+- Fill 44 missing strings in each locale for todo.txt imports and rule-email
+  recovery, preserving existing translations, placeholders and import syntax.
+- Translation, registry and human-preference checks pass, covering uncertain
+  delivery, duplicate delivery warnings and legacy email review actions.
+  Existing Punjabi and Odia translations remain unchanged.
+  Browser and fluent-speaker review were not run; translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
