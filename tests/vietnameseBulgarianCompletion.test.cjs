@@ -12,7 +12,7 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
   'de', 'de_DE', 'de-AT', 'de-CH', 'fr', 'fr-FR', 'fr-BE', 'fr-CA', 'fr-CH',
   'es', 'es-AR', 'es-LA', 'es-CL', 'es_CO', 'es-CO', 'es-PY', 'es-PE', 'es-MX', 'it',
   'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'nl', 'nl-NL', 'sv', 'fi', 'da', 'nb', 'tr', 'id', 'ro', 'hu', 'sk', 'ja', 'ja-JP', 'ko', 'ko-KR',
-  'zh-CN', 'zh-Hans', 'zh', 'cmn', 'zh_SG', 'zh-GB', 'zh-Hant', 'zh-TW', 'zh-HK', 'ar', 'ar-DZ', 'ar-EG', 'gl', 'gl-ES']) {
+  'zh-CN', 'zh-Hans', 'zh', 'cmn', 'zh_SG', 'zh-GB', 'zh-Hant', 'zh-TW', 'zh-HK', 'ar', 'ar-DZ', 'ar-EG', 'gl', 'gl-ES', 'he', 'he-IL']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(english), `${code}: source key order`);
   for (const key of Object.keys(english)) {
@@ -144,6 +144,15 @@ assert.match(hiragana['rule-email-recovery-resend-confirm'], /2かい とどき�
 assert.match(hiragana['rule-email-legacy-discard-confirm'], /こんご おくられることは ありません/);
 for (const code of ['he', 'he-IL']) {
   const locale = read(code);
+  assert.equal(locale['blockly-SPACE_KEY'], 'רווח');
+  assert.equal(locale['blockly-BACKSPACE_KEY'], 'מחיקה לאחור');
+  for (const key of ['blockly-ALT_KEY', 'blockly-COMMAND_KEY', 'blockly-CONTROL_KEY',
+    'blockly-OPTION_KEY', 'blockly-SHIFT_KEY', 'blockly-TAB_KEY',
+    'blockly-CHROME_OS', 'blockly-MAC_OS', 'blockly-WINDOWS', 'blockly-LOGIC_NULL',
+    'blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ASIN', 'blockly-MATH_TRIG_ATAN',
+    'blockly-MATH_TRIG_COS', 'blockly-MATH_TRIG_SIN', 'blockly-MATH_TRIG_TAN']) {
+    assert.equal(locale[key], english[key], `${code}:${key}: preserve technical notation`);
+  }
   for (const key of hiraganaBatchKeys) {
     assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
     assert.match(locale[key], /\p{Script=Hebrew}/u, `${code}:${key}: Hebrew text`);
