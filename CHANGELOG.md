@@ -6926,6 +6926,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3a3f074cad58c6f51b70b94d1327aeb1ce5033dc">Replace prefixed English Maltese interface labels</a>. Thanks to xet7.</summary>
+
+- Replace 35 prefixed English values with Maltese for navigation, calendars
+  and voting, preserving existing correct-language translations and tokens.
+- Translation, registry and human-preference checks pass, including movement
+  and voting labels. Another 687 prefixed English values remain to translate.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
