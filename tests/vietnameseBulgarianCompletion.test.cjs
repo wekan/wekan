@@ -930,6 +930,14 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /कभी नहीं भेजा जाएगा/);
   assert.match(locale['rule-email-legacy-access-denied'], /अब इस कार्ड की पहुँच नहीं है/);
   assert.match(locale['r-insert-variable'], /चर/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  assert.match(locale['scrum-report-help'], /शून्य अनुमान नहीं हैं/);
+  assert.match(locale['scrum-partial-report'], /केवल वे कार्ड.*अभी आपको नियुक्त/);
+  assert.match(locale['scrum-daily-observations-help'], /हर बदलाव दर्ज नहीं करते/);
+  assert.match(locale['scrum-daily-observations-export-help'], /शून्य नहीं हैं/);
   for (const key of Object.keys(english).filter(key =>
     /^(auto-archive-|filter-(recency|movement-range|date-range|due-|column-age|preset|card-text)|notification-activity-|due-reminder-|map-view-)/.test(key))) {
     assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
