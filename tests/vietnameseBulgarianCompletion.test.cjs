@@ -1663,6 +1663,18 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /Nunca no se ninviará/);
   assert.match(locale['rule-email-legacy-access-denied'], /ya no tiene acceso/);
   assert.match(locale['r-insert-variable'], /Fica una variable/);
+  for (const key of ['act-addAttachment', 'act-addSubtask', 'act-addLabel',
+    'act-addedLabel', 'act-addChecklist', 'act-addChecklistItem', 'act-createList',
+    'act-joinMember', 'activity-checklist-item-added']) {
+    assert.match(locale[key], /[Hh]a adhibiu/);
+    assert.doesNotMatch(locale[key], /añadid[oa]/);
+  }
+  assert.match(locale['act-editComment'], /ha editau o comentario/);
+  assert.match(locale['act-completeChecklist'], /ha rematau/);
+  assert.match(locale['act-uncompleteChecklist'], /como sin rematar/);
+  assert.match(locale['act-moveCard'], /dende a lista __oldList__.*ta la lista __list__/);
+  assert.match(locale['act-moveCardToOtherBoard'], /d'o tablero __oldBoard__.*d'o tablero __board__/);
+  assert.match(locale['activity-checklist-item-removed'], /ha sacau.*comprebación/);
   for (const key of ['multi-selection-active', 'click-to-enable-fixed-list-width',
     'click-to-disable-fixed-list-width', 'keyboard-shortcuts-enabled',
     'keyboard-shortcuts-disabled', 'board-open-and-move-between-remaining-and-workspaces',
