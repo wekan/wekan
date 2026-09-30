@@ -2364,6 +2364,17 @@ remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/05118c5e9">Translate Malay synchronization conflicts and reports</a>. Thanks to xet7.</summary>
+
+Fill 126 strings across both Malay locale files. Tests preserve placeholders
+and distinctions between local and source changes, missing and null values,
+and reports and recovery actions. Existing translations are preserved and
+human-preference checks pass. Each Malay locale still has 415 reported
+placeholders. Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
