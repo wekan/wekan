@@ -58,7 +58,13 @@ async function readState({ attempts, commands, outcomes, resolutions, commandId,
   if (!command || command.checksum !== attempt.commandHash || command.invocationId !== attempt.invocationId) {
     fail('command-changed');
   }
-  const recipients = ruleEmailRecipients(command.mail, MailComposer);
+  // A terminal attempt's command may be compacted after 90 days
+  // (server/lib/syncRuleEmailRetention.js): its mail is gone, and with it the
+  // recipient list. Only terminal attempts are compacted, and none of them can
+  // be resolved again, so an empty list is the honest answer.
+  const compacted = command.compactReceiptVersion === 1;
+  if (compacted && attempt.state === 'sending') fail('command-changed');
+  const recipients = compacted ? [] : ruleEmailRecipients(command.mail, MailComposer);
   const outcome = await outcomes.findOne({ _id: commandId });
   const accepted = outcome?.attemptId === attempt.attemptId && Array.isArray(outcome.accepted)
     ? recipients.filter(address => outcome.accepted.includes(address)) : [];
@@ -68,7 +74,7 @@ async function readState({ attempts, commands, outcomes, resolutions, commandId,
   ]);
   const resends = await resolutions.find({ decision: 'resend', commandId, attemptId: attempt.attemptId })
     .sort({ startedAt: 1 }).toArray();
-  return { attempt, command, recipients, accepted, decision, offline, resends };
+  return { attempt, command, recipients, accepted, decision, offline, resends, compacted };
 }
 
 function resendInFlight(resends, now) {
@@ -89,7 +95,7 @@ async function ruleEmailRecoveryDetail({ now = () => new Date(), ...options }) {
     resends: resends.map(row => ({ state: row.state, startedAt: row.startedAt, recipients: row.recipients.length,
       accepted: Array.isArray(row.accepted) ? row.accepted.length : 0 })),
     resolvable: attempt.state === 'sending' && +time >= +resolvableAt && !resendInFlight(resends, time),
-    resolvableAt,
+    resolvableAt, compacted: state.compacted,
   };
 }
 

@@ -40,7 +40,10 @@ async function readPlan(plans, command) {
 // What the administrator reviews: where it came from and what it would send.
 async function listLegacyRuleEmailCommands({ commands, plans, attempts, page = 0 }) {
   if (!Number.isSafeInteger(page) || page < 0) fail('invalid');
-  const candidates = await commands.find({ $or: [{ sourceBinding: { $exists: false } }, { 'sourceBinding.version': { $lt: 5 } }] },
+  // Compacted commands (syncRuleEmailRetention.js) have no sourceBinding either,
+  // but they are finished; they must not fill the scan limit.
+  const candidates = await commands.find({ compactReceiptVersion: { $exists: false },
+    $or: [{ sourceBinding: { $exists: false } }, { 'sourceBinding.version': { $lt: 5 } }] },
     { projection: { _id: 1, planId: 1, invocationId: 1, boardId: 1, cardId: 1, sourceBinding: 1, checksum: 1,
       'mail.to': 1, 'mail.subject': 1 } }).sort({ _id: 1 }).limit(SCAN_LIMIT).toArray();
   const rows = [];

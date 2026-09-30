@@ -24,6 +24,7 @@ const { isAssignedOnlyMember } = require('/models/lib/boardCardScope');
 const { validateSyncEffectPolicy, assertSyncEffectPolicy, syncEffectPolicy } = require('/server/lib/syncEffectPolicy');
 const { prepareRulePlan, ensureRulePlan } = require('/server/lib/syncRulePlan');
 const { dispatchRuleEmail } = require('/server/lib/syncRuleEmailDispatch');
+const { syncReceiptPolicy, createSyncRuleEmailRetention } = require('/server/lib/syncRuleEmailRetention');
 const { ruleEmailRecipients } = require('/server/lib/syncRuleEmailAcceptance');
 const { createEmailSendSlots } = require('/server/lib/emailSendSlots');
 const withEmailSlot = createEmailSendSlots(EmailSendSlots.rawCollection());
@@ -65,6 +66,16 @@ Meteor.startup(async () => {
   await ensureIndex(SyncRuleEmailCommands, { boardId: 1, cardId: 1 });
   await ensureIndex(SyncRuleEmailAttempts, { state: 1, startedAt: 1 });
   await ensureIndex(SyncRuleEmailResolutions, { commandId: 1, attemptId: 1, decision: 1 });
+  await ensureIndex(SyncRuleEmailAttempts, { finishedAt: 1, _id: 1 });
+  // Retention (maintainer decision of 2026-09-30): compact finished rule email
+  // commands after SYNC_RECEIPT_METADATA_DAYS (90). A failed pass is retried.
+  const { days, intervalMs } = syncReceiptPolicy();
+  const retention = createSyncRuleEmailRetention({ attempts: SyncRuleEmailAttempts.rawCollection(),
+    commands: SyncRuleEmailCommands.rawCollection(), outcomes: SyncRuleEmailOutcomes.rawCollection(),
+    receipts: SyncRuleReceipts.rawCollection(), days });
+  Meteor.setInterval(() => {
+    retention.sweep().catch(() => console.error('Rule email retention pass failed; it is retried on the next pass'));
+  }, intervalMs);
 });
 
 // Both capture and execution require the journal's list-incarnation,
