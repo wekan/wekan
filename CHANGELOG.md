@@ -4546,6 +4546,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2159b2f94">Correct Scottish Gaelic account anonymization warning</a>. Thanks to xet7.</summary>
+
+- Replace export instructions in account anonymization with its actual
+  permanent effects and correct five email-template labels.
+- Translation, registry and human-preference checks pass, including retained
+  history, disabled login and irreversibility. Scottish Gaelic wording is
+  lower confidence; fluent-speaker and browser review were not run.
+  Other languages and older wording remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
