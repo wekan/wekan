@@ -476,4 +476,20 @@ for (const code of ['sl', 'sl_SI']) {
   assert.match(locale['due-reminder-days-label'], /pozitivni.*prije njega.*negativni.*nakon njega/);
   assert.match(locale['notification-activity-description'], /uvijek stižu/);
 }
+{
+  const locale = read('sr');
+  assert.deepEqual(Object.keys(locale), Object.keys(english), 'sr: source key order');
+  for (const key of hiraganaBatchKeys) {
+    assert.notEqual(locale[key], english[key], `sr:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sr:${key}: tokens`);
+    assert.match(locale[key], /[А-Яа-я]/u, `sr:${key}: Serbian Cyrillic prose`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
+    assert.ok(locale['import-board-instruction-todotxt'].includes(token), `sr: preserve ${token}`);
+  }
+  assert.match(locale['rule-email-recovery-resend-confirm'], /примиће је двапут/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /Никада неће бити послата/);
+  assert.match(locale['rule-email-legacy-access-denied'], /више нема приступ/);
+  assert.match(locale['r-insert-variable'], /променљиву/);
+}
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
