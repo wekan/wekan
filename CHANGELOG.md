@@ -4569,6 +4569,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c54e53285">Translate Kashubian synchronization messages</a>. Thanks to xet7.</summary>
+
+- Translate 63 synchronization strings, preserving conflict choices,
+  missing versus null values and diagnostic report limitations.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Older Polish-seeded values and other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
