@@ -1,5 +1,5 @@
-// todo.txt (https://github.com/todotxt/todo.txt): one task per line, as
-// written and read by the todo.txt CLI and the many apps that share its file.
+// todo.txt (the todotxt/todo.txt format specification on GitHub): one task per
+// line, as written and read by the todo.txt CLI and the many apps that share it.
 // Import and export live together so tests/todoTxt.test.cjs runs the round
 // trip in plain Node - no Meteor import here.
 //
