@@ -4267,6 +4267,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/86431e8e0">Translate Breton synchronization messages</a>. Thanks to xet7.</summary>
+
+- Fill 63 entries for synchronization conflicts, previews, reports and Jira
+  estimates, preserving existing translations and tokens. Breton has 257
+  flagged entries remaining.
+- Translation, registry and human-preference checks pass, covering source
+  isolation, report limitations, local content retention and explicit null
+  handling. Breton wording is lower confidence; fluent-speaker and browser
+  review were not run. Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
