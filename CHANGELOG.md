@@ -1659,10 +1659,118 @@ template.
 
 # Upcoming WeKan ® release
 
-**In short:** Irish gains the rule email recovery and legacy review
-translations.
+**In short:** Fixes **ReplyBleed**: a reply to a notification email is now
+attributed only to the person it was sent to. Carries out three of the
+maintainer's 2026-09-30 decisions: **Scrum record incarnations**, **rule email
+compaction after 90 days**, and **Sync History rows linked when written**.
+Irish gains the rule email recovery and legacy review translations.
 
-This release updates the following translations:
+This release fixes the following CRITICAL SECURITY ISSUE of [ReplyBleed](https://wekan.fi/hall-of-fame/replybleed/):
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3151f8a81">Attribute email replies to the recipient the reply address was sent to</a>. Thanks to alex131125 and xet7.</summary>
+
+Reported privately in
+[GHSA-mc7c-cv99-64h7](https://github.com/wekan/wekan/security/advisories/GHSA-mc7c-cv99-64h7)
+(CWE-346, CVSS 4.3). The reply-by-email token signed only the card, so every
+recipient of a card's notification held the same Reply-To address, and the
+webhook took the comment author from the reply's From address - a field the
+sender controls. Anyone holding one card's reply address could comment on it
+as any user.
+
+Validation also found that `server/routes/inboundEmail.js` was never imported
+by `server/imports.js`, so released versions did not register
+`/api/inbound-email`: the documented feature did not work and the flaw could
+not be reached. The endpoint is registered now, together with the fix.
+
+- The reply address is `reply+<cardId>.<userId>.<expiry>.<mac>`, an
+  HMAC-SHA256 over the card, the recipient and the last valid day
+  (`INBOUND_EMAIL_REPLY_DAYS`, default 30).
+- The author is that recipient. The From address must be one of the
+  recipient's own addresses, and the recipient must be enabled and still allowed
+  to comment on the card, including the assigned-only restriction.
+- `INBOUND_EMAIL_WEBHOOK_SECRET`, when set, must be presented by the provider
+  as the `X-WeKan-Inbound-Secret` header or `?secret=`. It is compared in
+  constant time.
+- The old card-only token is refused.
+- A forged token, a spoofed sender and a wrong provider secret appear as
+  ReplyBleed in Admin Panel → Problems. Expired and pre-fix tokens and lost
+  access are refused without a record, because real users replying to old mail
+  reach them.
+
+Unit tests cover the token and reproduce the advisory's attack as data. A
+tree-wide negative test fails if any code picks an author from a From address.
+A full-app test posts over HTTP to the endpoint. Multipart provider payloads
+are still not parsed; JSON and URL-encoded ones are.
+
+</details>
+
+and adds the following new features:
+
+**Scrum History** - a record deleted and recreated under the same id is no
+longer mistaken for the one an undo planned against.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/20275418d">Give every Scrum record a lifetime incarnation and refuse retries against another lifetime</a>. Thanks to xet7.</summary>
+
+Scrum History treated "the record has the expected values and revision" as
+proof of which record it was. A record deleted and recreated under the same
+`_id`, for example restored by someone else, passed that test, so a retried
+undo could delete a record from another lifetime. Every Scrum sprint, release
+and event now carries a random incarnation, set where it is created. The
+History checkpoint records the incarnation each target has. For a record it
+creates, the checkpoint chooses the incarnation before writing, so a replay
+recognizes its own insert. History content never carries an incarnation, and
+older checkpoints keep their completion identity. Unit tests cover every state
+with and without incarnations. A full-app test replaces a sprint with an
+identical record of another lifetime mid-undo: the retry refuses and leaves it.
+
+</details>
+
+**Rule email** - finished commands no longer keep the whole mail forever.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1e342170b">Compact finished rule email commands after 90 days</a>. Thanks to xet7.</summary>
+
+A rule email command kept the whole mail, with body and attachments up to 12 MB,
+and its outcome row kept recipient addresses forever. A command is compacted
+once all of these hold:
+
+- its attempt is sent or dropped;
+- the attempt is older than `SYNC_RECEIPT_METADATA_DAYS` (default 90);
+- its rule invocation has a receipt, after which no replay reads the mail.
+
+Compaction replaces the command in place with its ids and checksum and removes
+the outcome row. The attempt row stays as the receipt a late retry finds. The
+recovery and legacy review readers accept the compact form. A MongoDB test
+covers what is compacted, what is left for later, idempotence and a command
+that no longer matches its attempt.
+
+</details>
+
+**Sync History** - Sync and stored rule archives append History like ordinary
+edits, so a board no longer has to hold still while a batch is written.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/76f6eba24">Link Sync History rows to the chain when they are written, not planned</a>. Thanks to xet7.</summary>
+
+Plans fixed each row's `previousHash` when planned. The board's History chain
+then had to stay unchanged until the last row was written, which needed a
+multi-row reservation that blocked edits, and a coordinated board refused Sync.
+Plans are now content only, and each row is linked when appended:
+
+- on a legacy board, after the chain's tip. Rows of one batch share a
+  `createdAt`, so the tip is found by walking successors; picking the newest
+  row alone forked the chain;
+- on a coordinated board, through the chain head.
+
+Appends are idempotent by row id. The archive runner needs no reservation.
+Plans in the old chained format are refused. Unit, MongoDB and full-app tests
+cover both modes, replay, and History written between planning and writing.
+
+</details>
+
+and updates the following translations:
 
 **Languages updated:** Irish.
 
@@ -3483,6 +3591,17 @@ placeholders. Other languages remain in progress.
   cancellation warnings and preserved translations and placeholders.
   Wording is lower confidence; browser layout and fluent-speaker review were
   not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5314cf856">Translate Sicilian rule email recovery and review messages</a>. Thanks to xet7.</summary>
+
+- Fill 45 Sicilian recovery, review, variable and todo.txt import messages.
+- Translation, registry and human-preference checks pass, including duplicate
+  delivery warnings, permanent discard warnings and preserved syntax tokens.
+  Existing translations are preserved. Wording is lower confidence; browser
+  layout and fluent-speaker review were not run.
 
 </details>
 
