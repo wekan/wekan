@@ -8271,6 +8271,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/76991d28e8c83524d19bd87c181d6dd5331ec80d">Translate Frisian sprint reports and events</a>. Thanks to xet7.</summary>
+
+- Translate 30 sprint-report and event strings in each of fy and fy-NL,
+  preserving translations and tokens. Update the README coverage count to 129.
+- Translation, registry and human-preference checks pass, including report
+  placeholders and distinct sprint states.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
