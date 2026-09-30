@@ -31,6 +31,19 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const scrumSettingsKeys = ["board-view-product-backlog", "board-view-sprints", "board-view-sprint-report", "board-view-velocity", "scrum-settings", "scrum-product-owner", "scrum-master", "scrum-developers", "scrum-working-days", "scrum-enabled", "scrum-product-goal", "scrum-definition-of-done", "scrum-estimate-source", "scrum-estimate-unit", "scrum-completion-policy", "scrum-source-poker", "scrum-source-customField", "scrum-policy-dueComplete", "scrum-policy-doneLists", "scrum-sprints", "scrum-sprint", "scrum-start-sprint", "scrum-close-sprint", "scrum-cancel-sprint", "scrum-rollover-sprint", "scrum-cancel-reason", "scrum-product-backlog", "scrum-edit-sprint", "scrum-sprint-goal", "scrum-capacity", "scrum-new-sprint", "scrum-releases", "scrum-release", "scrum-select-sprint", "scrum-backlog", "scrum-backlog-help", "scrum-estimate", "scrum-backlog-rank", "scrum-issue-type", "scrum-acceptance-criteria", "scrum-events", "scrum-event-kind", "scrum-timebox", "scrum-notes", "scrum-event-planning", "scrum-event-daily"];
+  for (const key of scrumSettingsKeys) {
+    assert.notEqual(locale[key], english[key], `rm:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+  }
+  assert.equal(locale['board-view-product-backlog'], locale['scrum-product-backlog']);
+  assert.equal(locale['board-view-sprints'], locale['scrum-sprints']);
+  assert.equal(new Set(['start', 'close', 'cancel'].map(action => locale[`scrum-${action}-sprint`])).size, 3);
+  assert.notEqual(locale['scrum-policy-dueComplete'], locale['scrum-policy-doneLists']);
+  assert.notEqual(locale['scrum-product-owner'], locale['scrum-master']);
+  assert.match(locale['scrum-timebox'], /minutas/);
+  assert.match(locale['scrum-rollover-sprint'], /betg terminadas/);
+
   const mapKeyboardKeys = ["import-report-heading", "import-report-description", "import-report-open-board", "draggable", "board-view-map", "map-view-empty", "map-view-upload", "map-view-remove-image", "map-view-unplaced", "map-view-place-hint", "map-view-all-placed", "blockly-BACKSPACE_KEY", "blockly-CAPS_LOCK_KEY", "blockly-COMMAND_KEY", "blockly-CONTROL_KEY", "blockly-END_KEY", "blockly-ENTER_KEY", "blockly-ESCAPE", "blockly-HOME_KEY", "blockly-INSERT_KEY", "blockly-PAGE_DOWN_KEY", "blockly-PAGE_UP_KEY", "blockly-PAUSE_KEY", "blockly-SHIFT_KEY", "blockly-SHORTCUTS_GENERAL", "blockly-TAB_KEY", "blockly-UNNAMED_KEY", "admin-panel", "problems", "recoveryReportTitle"];
   for (const key of mapKeyboardKeys) {
     if (key === 'problems') assert.equal(locale[key], 'Problems');
