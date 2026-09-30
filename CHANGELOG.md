@@ -8175,6 +8175,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a58ba9ecb71637a2708f9518ee9f1c25081388a5">Complete Friulian source-string coverage</a>. Thanks to xet7.</summary>
+
+- Translate the final 17 recovery, login and history strings. Friulian has
+  all 3,783 source keys, with no untranslated prose flagged by the checker.
+- Translation, registry and human-preference checks pass, including source
+  order and replacement tokens. Friulian wording has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation and language-quality work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
