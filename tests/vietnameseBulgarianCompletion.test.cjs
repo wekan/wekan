@@ -1997,6 +1997,23 @@ console.log('Completed translation batches: completeness, tokens, syntax and nat
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `br: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /Enlakaat ur varienn/);
+  assert.equal(locale['anonymize-account'], 'Dizanviñ ar gont');
+  for (const phrase of ['da vat', 'chomlec’h postel', 'skeudennig',
+    'diweredekaet e vo ar c’hevreañ', 'o istor', 'N’haller ket dizober']) {
+    assert.ok(locale['anonymize-account-confirm-popup'].includes(phrase), `br: anonymization ${phrase}`);
+  }
+  assert.doesNotMatch(locale['anonymize-account-confirm-popup'], /ezporzhiañ|user1|dre ziouer/);
+  assert.match(locale['close-board-pop'], /Dielloù.*An holl daolennoù/);
+  assert.doesNotMatch(locale['close-board-pop'], /degemer/);
+  assert.match(locale['board-view-timeline-showing'], /d’ar mare-mañ/);
+  assert.doesNotMatch(locale['board-view-timeline-showing'], /adalek/);
+  for (const kind of ['invite', 'activity']) {
+    assert.match(locale[`email-templates-${kind}-subject`], /^Danvez ar postel/);
+    assert.match(locale[`email-templates-${kind}-body`], /^Korf ar postel/);
+    assert.doesNotMatch(locale[`email-templates-${kind}-subject`], /Sujet|Inviter/);
+  }
+  assert.equal(locale['email-templates-title'], 'Patromoù postel');
+  assert.equal(locale['email-smtp-test-subject'], 'Postel amprouiñ SMTP');
   assert.match(locale['email-recovery-confirm-cancel'], /ne vo ket tu d'e adsevel/);
   assert.match(locale['email-recovery-description'], /c'has diasur bezañ graet div wech/);
   assert.match(locale['activity-recovery-description'], /Ne vez adkrouet obererezh ebet morse/);
