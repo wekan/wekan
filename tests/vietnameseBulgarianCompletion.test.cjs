@@ -2317,6 +2317,17 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedLoadingKeys = ["click-to-enable-auto-width", "click-to-disable-auto-width", "auto-list-width", "r-format-auto", "autoAddUsersWithDomainName", "recovery-report-desc", "maximize-card", "minimize-card", "list-width-shared-note", "cards-loading", "cards-loading-auto", "cards-loading-all", "cards-loading-lazy", "cards-loading-description", "cards-loading-lazy-note"];
+  for (const key of correctedLoadingKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /(?:Automatycz|szerokość|przeglądarki|każda|dotychczas)/);
+  }
+  for (const literal of ['CARDS_LOADING', 'CARDS_LOADING_LAZY_THRESHOLD', 'all/lazy/auto']) assert.ok(locale['cards-loading-description'].includes(literal));
+  assert.match(locale['cards-loading-description'], /Nick nie trzeba nastôwiac/);
+  assert.match(locale['cards-loading-lazy-note'], /WIP.*dokłôdné.*blós kôrtë dotąd wladóné/);
+  assert.doesNotMatch(locale['cards-loading-all'], /domyśl|domësl/);
+  assert.match(locale['click-to-enable-auto-width'], /wëłączonô.*włączëc/);
+  assert.match(locale['click-to-disable-auto-width'], /włączonô.*wëłączëc/);
   const correctedSearchLogicKeys = ["globalSearch-instructions-operator-due", "globalSearch-instructions-operator-created", "globalSearch-instructions-operator-modified", "globalSearch-instructions-status-archived", "globalSearch-instructions-status-all", "globalSearch-instructions-status-ended", "globalSearch-instructions-status-public", "globalSearch-instructions-status-private", "globalSearch-instructions-operator-has", "globalSearch-instructions-operator-sort", "globalSearch-instructions-operator-limit", "globalSearch-instructions-notes-2", "globalSearch-instructions-notes-3", "globalSearch-instructions-notes-4", "globalSearch-instructions-operator-number"];
   for (const key of correctedSearchLogicKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
