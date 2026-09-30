@@ -4473,6 +4473,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e96eb39ce">Correct Welsh account and email-template wording</a>. Thanks to xet7.</summary>
+
+- Correct seven entries in each Welsh locale covering member mapping,
+  email-template labels and an anonymization warning that incorrectly called
+  replacement values temporary. Other translations remain unchanged.
+- Translation, registry and human-preference checks pass, including positive
+  and negative wording regressions. Welsh wording is lower confidence;
+  fluent-speaker and browser review were not run. The wider audit continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
