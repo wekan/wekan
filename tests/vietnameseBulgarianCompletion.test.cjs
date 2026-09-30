@@ -31,6 +31,15 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Maltese filters and imports; remaining untranslated strings are filled separately.
 {
   const locale = read('mt');
+  const correctedBackupMigrationKeys = ["cron-error-severity", "cron-error-details", "cron-retry-failed", "cron-resume-paused", "cron-migrations-resumed", "cron-migrations-retried", "complete", "idle", "storage-read", "s3-force-path-style", "azure-account-key", "azure-connection-string", "azure-container", "database-migration", "database-migration-phase", "sandstorm-migration-status", "sandstorm-migration-success", "sandstorm-migration-failed", "sandstorm-migration-pending", "sandstorm-storage-item", "sandstorm-disk-usage", "sandstorm-raw-mongodb", "collections", "features", "features-performance", "features-security", "render-links-as-plain-text", "always-show-code-as-text", "backup", "backup-data", "backup-scope", "backup-scope-instance", "backup-now", "backup-done", "backup-schedule"];
+  for (const key of correctedBackupMigrationKeys) {
+    assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
+    assert.doesNotMatch(locale[key], /Traduzzjoni Maltija:/, `mt:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `mt:${key}: tokens`);
+  }
+  assert.notEqual(locale['sandstorm-migration-success'], locale['sandstorm-migration-failed']);
+  assert.match(locale['sandstorm-raw-mongodb'], /MongoDB 3/);
+  assert.notEqual(locale['backup-now'], locale['backup-schedule']);
   const correctedSupportLockoutKeys = ["progress", "password-again", "if-you-already-have-an-account", "Mongo_sessions_count", "allowed-upload-filetypes", "allowed-avatar-filetypes", "translation", "translation-text", "collapse", "collapse-checklist", "expand-checklist", "uncollapse", "support", "supportPopup-title", "support-page-enabled", "support-content", "accessibility", "accessibility-page-enabled", "accessibility-content", "accounts-lockout-settings", "accounts-lockout-failures-before", "accounts-lockout-period", "accounts-lockout-failure-window", "accounts-lockout-settings-updated", "accounts-lockout-failed-attempts", "accounts-lockout-status", "attachments-path", "avatars-path", "cron-jobs", "cron-migrations", "cron-job-paused", "cron-job-resumed", "cron-job-started", "cron-migration-errors", "cron-migration-warnings"];
   for (const key of correctedSupportLockoutKeys) {
     assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
