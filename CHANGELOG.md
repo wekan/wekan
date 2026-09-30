@@ -4332,6 +4332,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b17566396">Translate Basque rule email recovery messages</a>. Thanks to xet7.</summary>
+
+- Fill 56 entries for rule email delivery, resend and discard actions,
+  variable insertion and todo.txt import. Preserve existing translations,
+  source tokens and import syntax; 320 Basque entries remain flagged.
+- Translation, registry and human-preference checks pass, covering duplicate
+  delivery, access denial and discarded messages. Fluent-speaker and browser
+  review were not run. Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
