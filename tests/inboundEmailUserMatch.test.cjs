@@ -1,60 +1,105 @@
 'use strict';
 
-// Plain-Node unit test (no Meteor) for #2414 reply-by-email's sender-to-user
-// matching: server/lib/inboundEmailUserMatch.js.
+// Plain-Node unit test (no Meteor) for who authors an inbound reply (#2414):
+// server/lib/inboundEmailUserMatch.js, and a source guard over the webhook.
 // Run: node tests/inboundEmailUserMatch.test.cjs
 //
-// The inbound webhook must NEVER create an anonymous/unauthenticated comment:
-// a From address that matches no WeKan user is rejected, not attributed to
-// nobody. This pins the matcher in isolation, with a plain array standing in
-// for the Users collection.
+// ReplyBleed (GHSA-mc7c-cv99-64h7): the author used to be whichever user owned
+// the reply's From address - a field the sender controls. The reporter's
+// attack is reproduced here as data: a reply to Alice's token with Bob's From
+// address must be refused, not become Bob's comment.
 
 const assert = require('assert');
-const { normalizeEmail, matchSenderToUser } = require('../server/lib/inboundEmailUserMatch.js');
+const fs = require('fs');
+const path = require('path');
+const { normalizeEmail, senderIsUser, replyAuthorDecision } = require('../server/lib/inboundEmailUserMatch.js');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
-const USERS = [
-  { _id: 'user1', emails: [{ address: 'alice@example.com' }] },
-  { _id: 'user2', emails: [{ address: 'Bob@Example.com' }, { address: 'bob2@example.com' }] },
-  { _id: 'user3', emails: [] },
-];
+const ALICE = { _id: 'alice', emails: [{ address: 'Alice@Example.com' }, { address: 'alice2@example.com' }] };
+const BOB = { _id: 'bob', emails: [{ address: 'bob@example.com' }] };
+const member = (userId, extra = {}) => ({ userId, isActive: true, ...extra });
+const BOARD = { _id: 'board', members: [member('alice'), member('bob')] };
+const CARD = { _id: 'card', boardId: 'board', assignees: [] };
+const decide = (over = {}) => replyAuthorDecision({ user: ALICE, fromAddress: 'alice@example.com', card: CARD, board: BOARD, ...over });
 
-test('matches a bare address, case-insensitively', () => {
-  assert.strictEqual(matchSenderToUser('ALICE@EXAMPLE.COM', USERS)._id, 'user1');
+test('normalizeEmail handles bare and "Name <addr>" forms', () => {
+  assert.strictEqual(normalizeEmail('Alice <ALICE@example.com> '), 'alice@example.com');
+  assert.strictEqual(normalizeEmail(null), '');
 });
 
-test('matches a "Name <addr>" style From header', () => {
-  assert.strictEqual(matchSenderToUser('Alice Example <alice@example.com>', USERS)._id, 'user1');
+test('the recipient replying from any of their own addresses is accepted', () => {
+  assert.deepStrictEqual(decide(), { ok: true });
+  assert.deepStrictEqual(decide({ fromAddress: 'Alice <ALICE2@EXAMPLE.COM>' }), { ok: true });
 });
 
-test('matches a user with multiple email addresses on any of them', () => {
-  assert.strictEqual(matchSenderToUser('bob2@example.com', USERS)._id, 'user2');
+test('the advisory\'s attack: Alice\'s reply address, Bob\'s From -> refused and logged (negative)', () => {
+  const result = decide({ fromAddress: 'bob@example.com' });
+  assert.deepStrictEqual([result.ok, result.code, result.log], [false, 403, true]);
 });
 
-test('a user email stored mixed-case still matches a lowercase From', () => {
-  assert.strictEqual(matchSenderToUser('bob@example.com', USERS)._id, 'user2');
+test('an unknown or empty From is refused and logged (negative)', () => {
+  for (const from of ['mallory@evil.example', '', null, undefined]) {
+    const result = decide({ fromAddress: from });
+    assert.deepStrictEqual([result.ok, result.log], [false, true], String(from));
+  }
+  assert.strictEqual(senderIsUser('bob@example.com', ALICE), false);
+  assert.strictEqual(senderIsUser('bob@example.com', BOB), true);
 });
 
-test('NEGATIVE: an unknown sender address matches no user (must be rejected, not anonymous)', () => {
-  assert.strictEqual(matchSenderToUser('mallory@evil.example', USERS), null);
+test('a missing or disabled recipient is refused, quietly (negative)', () => {
+  assert.deepStrictEqual([decide({ user: null }).ok, decide({ user: null }).log], [false, false]);
+  const disabled = decide({ user: { ...ALICE, loginDisabled: true } });
+  assert.deepStrictEqual([disabled.ok, disabled.log], [false, false]);
 });
 
-test('NEGATIVE: empty/missing From matches nobody', () => {
-  assert.strictEqual(matchSenderToUser('', USERS), null);
-  assert.strictEqual(matchSenderToUser(null, USERS), null);
-  assert.strictEqual(matchSenderToUser(undefined, USERS), null);
+test('a recipient who can no longer comment is refused (negative)', () => {
+  const board = roles => ({ ...BOARD, members: [member('alice', roles)] });
+  assert.strictEqual(decide({ board: { ...BOARD, members: [] } }).ok, false, 'removed from the board');
+  assert.strictEqual(decide({ board: { ...BOARD, members: [member('alice', { isActive: false })] } }).ok, false, 'deactivated');
+  assert.strictEqual(decide({ board: board({ isNoComments: true }) }).ok, false, 'no-comments role');
+  assert.strictEqual(decide({ board: board({ isReadOnly: true }) }).ok, false, 'read-only role');
+  assert.strictEqual(decide({ board: board({ isCommentOnly: true }) }).ok, true, 'comment-only may comment');
 });
 
-test('NEGATIVE: a user with no email addresses can never match', () => {
-  assert.strictEqual(matchSenderToUser('user3@example.com', USERS), null);
+test('an assigned-only member may reply only on cards assigned to them', () => {
+  const board = { ...BOARD, members: [member('alice', { isCommentAssignedOnly: true })] };
+  assert.strictEqual(decide({ board }).ok, false);
+  assert.strictEqual(decide({ board, card: { ...CARD, assignees: ['alice'] } }).ok, true);
 });
 
-test('normalizeEmail extracts and lowercases the address', () => {
-  assert.strictEqual(normalizeEmail('Alice <ALICE@Example.com>'), 'alice@example.com');
-  assert.strictEqual(normalizeEmail('  alice@example.com  '), 'alice@example.com');
-  assert.strictEqual(normalizeEmail(42), '');
+test('a card whose board is not the one checked is refused (negative)', () => {
+  assert.strictEqual(decide({ board: { ...BOARD, _id: 'other' } }).ok, false);
+  assert.strictEqual(decide({ board: null }).ok, false);
+});
+
+// The fault must not exist anywhere: nothing chooses an author by searching
+// users for a From address, and the webhook takes its author from the token.
+test('no code picks a comment author from the From address (tree-wide negative)', () => {
+  const root = path.join(__dirname, '..');
+  const skip = new Set(['node_modules', '.meteor', '.tools', '_build', '.build', '.git', 'tests', 'old-CHANGELOG']);
+  const offenders = [];
+  (function walk(dir) {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      if (skip.has(entry.name) || entry.name.startsWith('_build')) continue;
+      const file = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(file);
+      else if (/\.(c|m)?js$/.test(entry.name)) {
+        const src = fs.readFileSync(file, 'utf8');
+        if (/matchSenderToUser/.test(src)) offenders.push(path.relative(root, file));
+      }
+    }
+  })(root);
+  assert.deepStrictEqual(offenders, []);
+  const route = fs.readFileSync(path.join(root, 'server/routes/inboundEmail.js'), 'utf8');
+  assert.ok(/findOneAsync\(verification\.userId/.test(route), 'the author is loaded by the token\'s userId');
+  assert.ok(/replyAuthorDecision\(/.test(route), 'the route asks replyAuthorDecision');
+  assert.ok(!/getUsers\(/.test(route), 'the route never searches all users');
+  assert.ok(/userId: user\._id/.test(route));
+  assert.ok(/INBOUND_EMAIL_WEBHOOK_SECRET/.test(route) && /timingSafeEqual/.test(route), 'the provider secret is compared in constant time');
+  const queue = fs.readFileSync(path.join(root, 'server/notifications/emailQueue.js'), 'utf8');
+  assert.ok(/buildReplyToAddress\(\{ cardId, userId,/.test(queue), 'every reply address names its recipient');
 });
 
 console.log(`inboundEmailUserMatch: ${passed} passed`);

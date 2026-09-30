@@ -134,14 +134,14 @@ const CATALOG = {
   'injection.sql':   { category: 'injection', bleed: 'EscapeBleed', severity: 'critical', cwe: 'CWE-89' },
   'integrity.history': { category: 'integrity', bleed: 'HistoryIntegrity', severity: 'critical', cwe: 'CWE-345' },
   'integrity.file': { category: 'integrity', bleed: 'StorageBleed', severity: 'high', cwe: 'CWE-353' },
-  // Reply-by-email (#2414): the /api/inbound-email webhook is unauthenticated
-  // by design (a mail provider, not a logged-in WeKan user, calls it), so the
-  // HMAC token in the recipient address is the only guard standing between a
-  // POST and a new card comment. A request whose token fails to verify, or
-  // whose From address matches no WeKan user, is refused - every refusal here
-  // is an ATTEMPT (a legitimate reply always carries a valid token from a mail
-  // WeKan itself sent, and a known sender address), so it is logged.
-  'authn.inbound-email': { category: 'authn', bleed: 'ReplyBleed', severity: 'medium', cwe: 'CWE-287' },
+  // Reply-by-email (#2414): a mail provider, not a logged-in user, calls
+  // /api/inbound-email, so the signed reply address is what authorizes a
+  // comment. Since ReplyBleed (GHSA-mc7c-cv99-64h7) it names the card and the
+  // one recipient, and the author is that recipient. Logged: a forged token, a
+  // From address that is not the recipient's, a wrong provider secret - none
+  // of which a real reply produces. NOT logged: an expired or pre-fix token, a
+  // disabled user or one who lost comment access - real people reach those.
+  'authn.inbound-email': { category: 'authn', bleed: 'ReplyBleed', severity: 'medium', cwe: 'CWE-346' },
 };
 
 const DEFAULT = { category: 'unknown', bleed: 'Generic', severity: 'info', cwe: '' };

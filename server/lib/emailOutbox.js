@@ -128,7 +128,7 @@ function createEmailOutbox({ jobs, leases, controls, getUser, send, replyTo, fro
             phase = 'smtp';
             const result = await send({ to: address.toLowerCase(), from: from(), subject: first.subject,
               html: batch.map(job => job.html).join('<br/>\n\n'), language: first.language,
-              userId, replyTo: replyTo(last?.cardId) });
+              userId, replyTo: replyTo(last?.cardId, userId) });
             // Meteor's development console output and hook-suppressed sends can
             // resolve without delivering mail. Only a transport's accepted
             // recipient is evidence sufficient to retire a queued digest.

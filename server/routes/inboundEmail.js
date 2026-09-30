@@ -12,24 +12,40 @@
 // See docs/Features/Reply-By-Email.md for the provider-side setup this
 // requires - it is genuinely outside WeKan's own code.
 //
-// Security: this endpoint is UNAUTHENTICATED BY DESIGN (a mail provider, not
-// a logged-in WeKan user, calls it) - see CLAUDE.md's security-logging
-// discipline. The HMAC token embedded in the recipient ("to") address by
-// server/notifications/email.js (via inboundEmailReplyToken.js) is the sole
-// guard standing between an arbitrary POST and a new card comment:
-//   - a missing/malformed/forged/tampered token is rejected;
-//   - a sender address that matches no WeKan user is rejected - no
-//     anonymous/unauthenticated comment is ever created;
-// both paths are logged via server/lib/securityLog with the
-// 'authn.inbound-email' catalog key, wrapped so logging can never break the
-// guard (models/lib/securityCategories.js).
+// Security: a mail provider, not a logged-in WeKan user, calls this endpoint.
+// What authorizes a comment is the reply address WeKan itself sent
+// (server/lib/inboundEmailReplyToken.js), and since ReplyBleed
+// (GHSA-mc7c-cv99-64h7) that address names the card AND the one recipient it
+// was sent to, and expires:
+//   - the comment's author is the token's recipient - NEVER the From address,
+//     which the sender controls; the From address must be one of that
+//     recipient's own addresses, or the reply is refused (a reply from someone
+//     else, e.g. a forwarded email, is not that recipient's comment);
+//   - the recipient must still be an enabled user allowed to comment on that
+//     card now, not merely when the email was sent;
+//   - when INBOUND_EMAIL_WEBHOOK_SECRET is set, the provider must present it
+//     (header x-wekan-inbound-secret or ?secret=), so only the provider can post.
+// Refusals that only an attempt produces (forged token, spoofed sender, wrong
+// webhook secret) are logged under 'authn.inbound-email'
+// (models/lib/securityCategories.js); an expired or pre-fix token and a member
+// who has lost access are refused quietly, since a real user replying to an
+// old email reaches them.
 import { WebApp } from 'meteor/webapp';
+import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import CardComments from '/models/cardComments';
 import { sendJsonResult } from '/server/apiMiddleware';
 const { verifyReplyToken } = require('/server/lib/inboundEmailReplyToken');
 const { stripQuotedReply } = require('/server/lib/inboundEmailQuoteStrip');
-const { matchSenderToUser } = require('/server/lib/inboundEmailUserMatch');
+const { replyAuthorDecision } = require('/server/lib/inboundEmailUserMatch');
+const crypto = require('crypto');
+
+// Timing-safe comparison of the optional provider secret.
+function secretMatches(given, expected) {
+  if (typeof given !== 'string' || !given) return false;
+  const a = Buffer.from(given), b = Buffer.from(expected);
+  return a.length === b.length && crypto.timingSafeEqual(a, b);
+}
 
 // Every common transactional-email-receiving provider's inbound webhook is
 // covered by reading a handful of alternative field names, rather than
@@ -105,6 +121,16 @@ WebApp.handlers.post('/api/inbound-email', async function inboundEmailHandler(re
       return;
     }
 
+    const webhookSecret = process.env.INBOUND_EMAIL_WEBHOOK_SECRET;
+    if (webhookSecret) {
+      const given = (req.headers && req.headers['x-wekan-inbound-secret']) || (req.query && req.query.secret);
+      if (!secretMatches(given, webhookSecret)) {
+        logRejectedInboundEmail(req, 'inbound webhook secret missing or wrong');
+        sendJsonResult(res, { code: 401, data: { error: 'Unauthorized' } });
+        return;
+      }
+    }
+
     const body = req.body || {};
     const { from, to, text } = extractInboundFields(body);
 
@@ -116,7 +142,11 @@ WebApp.handlers.post('/api/inbound-email', async function inboundEmailHandler(re
 
     const verification = verifyReplyToken(to, secret);
     if (!verification.valid) {
-      logRejectedInboundEmail(req, `invalid reply token (${verification.reason})`);
+      // A genuine but expired token, or the card-only form sent before
+      // ReplyBleed was fixed, is a real user replying to an old email.
+      if (!['expired', 'legacy-token'].includes(verification.reason)) {
+        logRejectedInboundEmail(req, `invalid reply token (${verification.reason})`);
+      }
       sendJsonResult(res, { code: 403, data: { error: 'Invalid or expired reply address' } });
       return;
     }
@@ -128,13 +158,16 @@ WebApp.handlers.post('/api/inbound-email', async function inboundEmailHandler(re
       return;
     }
 
-    const users = await ReactiveCache.getUsers({});
-    const user = matchSenderToUser(from, users);
-    if (!user) {
-      // Never create an anonymous/unauthenticated comment - an unmatched
-      // sender is rejected outright.
-      logRejectedInboundEmail(req, 'sender address matches no WeKan user');
-      sendJsonResult(res, { code: 403, data: { error: 'Unrecognized sender' } });
+    // The author is the recipient the reply address was minted for, never the
+    // From address; replyAuthorDecision says whether that recipient sent it
+    // and may still comment here.
+    const user = await Meteor.users.findOneAsync(verification.userId,
+      { fields: { _id: 1, emails: 1, loginDisabled: 1 } });
+    const board = await ReactiveCache.getBoard(card.boardId);
+    const decision = replyAuthorDecision({ user, fromAddress: from, card, board });
+    if (!decision.ok) {
+      if (decision.log) logRejectedInboundEmail(req, decision.detail);
+      sendJsonResult(res, { code: decision.code, data: { error: decision.error } });
       return;
     }
 
@@ -144,13 +177,6 @@ WebApp.handlers.post('/api/inbound-email', async function inboundEmailHandler(re
       return;
     }
 
-    // Note on authorization: assertCanMutateComment (imported above) is
-    // written for editing/deleting an EXISTING comment by its author, not for
-    // creating a new one, so it is not called here. A new comment's
-    // permission is "may this user comment on this board at all", which is
-    // exactly what matching the sender to an existing WeKan user (above)
-    // stands in for: only a real account can receive the notification email
-    // whose Reply-To this endpoint is validating in the first place.
     const commentId = await CardComments.direct.insertAsync({
       userId: user._id,
       text: commentText,

@@ -1,89 +1,102 @@
 'use strict';
 
-// Reply-by-email token: encode/verify a card-identifying token used as the
-// local part of a notification email's Reply-To address, so a reply sent
-// through a mail provider's inbound-parse webhook (server/routes/inboundEmail.js)
-// can be matched back to the right card - see docs/Features/Reply-By-Email.md
-// and https://github.com/wekan/wekan/issues/2414.
+// Reply-by-email token: the local part of a notification email's Reply-To
+// address, so a reply posted by a mail provider's inbound-parse webhook
+// (server/routes/inboundEmail.js) can be matched back to its card - see
+// docs/Features/Email/Reply-By-Email.md and https://github.com/wekan/wekan/issues/2414.
 //
-// Scope: this is the WEBHOOK-based approach (a mail provider such as Mailgun
-// Routes or SendGrid Inbound Parse POSTs parsed inbound mail to a WeKan HTTP
-// endpoint), not an IMAP-polling mail client - see the doc for why.
+// ReplyBleed (GHSA-mc7c-cv99-64h7): the token used to sign the CARD only, and
+// the comment author was whoever the inbound From address named - a field the
+// sender controls. Anyone holding a card's reply address could post a comment
+// attributed to any existing user. The token now binds the card AND the one
+// recipient the email was sent to, and expires:
 //
-// Token shape: `reply+<cardId>-<hex-hmac>` (the local part of
-// `reply+<cardId>-<hex-hmac>@<domain>`). The HMAC is keyed by a server-only
-// secret so the token cannot be forged or guessed from a card id alone - a
-// forged/tampered token must be REJECTED (see the negative test in
-// tests/inboundEmailReplyToken.test.cjs). Plain Node `crypto`, no new
-// dependency, the same approach as models/lib/oauth2ClientSecretJwt.js.
+//   reply+<cardId>.<userId>.<expiry>.<mac>@<domain>
+//
+//   expiry  the last valid day, in days since 1970-01-01, base 36
+//   mac     HMAC-SHA256 over "wekan-reply-v2", card, user and expiry, keyed by
+//           INBOUND_EMAIL_HMAC_SECRET, first 18 hex digits (72 bits)
+//
+// The author of the comment is the token's user, never the From address. With
+// two 17-character Meteor ids the local part is 64 characters, the SMTP limit;
+// the `reply+` prefix is kept so existing provider routes still match. A card
+// id or user id outside [A-Za-z0-9] gets no Reply-To at all rather than a token
+// that would not parse. The old card-only form (`reply+<cardId>-<mac>`) is
+// recognized and refused: it names no recipient.
 
 const crypto = require('crypto');
 
 const TOKEN_PREFIX = 'reply+';
-// crypto.timingSafeEqual requires equal-length buffers; a length mismatch is
-// itself a "not equal" rather than a thrown error.
+const DAY = 86400000;
+const MAC_HEX = 18;
+const ID = /^[A-Za-z0-9]{1,64}$/;
+const EXPIRY = /^[0-9a-z]{1,8}$/;
+
+// crypto.timingSafeEqual needs equal-length buffers; a length mismatch is
+// itself "not equal" rather than a thrown error.
 function safeEqualHex(a, b) {
-  if (typeof a !== 'string' || typeof b !== 'string') return false;
+  if (typeof a !== 'string' || typeof b !== 'string' || !/^[0-9a-f]+$/.test(a)) return false;
   const bufA = Buffer.from(a, 'hex');
   const bufB = Buffer.from(b, 'hex');
   if (bufA.length === 0 || bufA.length !== bufB.length) return false;
   return crypto.timingSafeEqual(bufA, bufB);
 }
 
-// Pure: compute the hex HMAC for a cardId under a given secret. No I/O.
-function computeCardReplyHmac(cardId, secret) {
-  if (!cardId || !secret) return '';
-  return crypto
-    .createHmac('sha256', secret)
-    .update(String(cardId))
-    .digest('hex')
-    .slice(0, 32); // 128 bits is plenty for this purpose and keeps addresses short
+function replyDays(env = process.env) {
+  const days = Number(env.INBOUND_EMAIL_REPLY_DAYS || 30);
+  if (!Number.isSafeInteger(days) || days < 1 || days > 365) throw new Error('INBOUND_EMAIL_REPLY_DAYS must be from 1 to 365');
+  return days;
 }
 
-// Pure: build the local part of the Reply-To address for a card, e.g.
-// "reply+abc123-9f8e...". Does not include "@domain" - the caller appends
-// the configured inbound-mail domain.
-function buildReplyToLocalPart(cardId, secret) {
-  const mac = computeCardReplyHmac(cardId, secret);
-  if (!mac) return '';
-  return `${TOKEN_PREFIX}${cardId}-${mac}`;
+// Pure: the MAC for one card, one recipient and one expiry.
+function computeReplyMac({ cardId, userId, expiry, secret }) {
+  if (!cardId || !userId || !expiry || !secret) return '';
+  return crypto.createHmac('sha256', secret)
+    .update(['wekan-reply-v2', cardId, userId, expiry].join('\0'))
+    .digest('hex').slice(0, MAC_HEX);
 }
 
-// Pure: build the full Reply-To address.
-function buildReplyToAddress(cardId, secret, domain) {
-  const local = buildReplyToLocalPart(cardId, secret);
+// Pure: the local part for one recipient of one card, valid for `days` days.
+function buildReplyToLocalPart({ cardId, userId, secret, now = new Date(), days = replyDays() }) {
+  if (!ID.test(cardId || '') || !ID.test(userId || '') || !secret ||
+      !(now instanceof Date) || !Number.isFinite(now.getTime()) || !Number.isSafeInteger(days) || days < 1) return '';
+  const expiry = (Math.floor(now.getTime() / DAY) + days).toString(36);
+  const mac = computeReplyMac({ cardId, userId, expiry, secret });
+  return mac ? `${TOKEN_PREFIX}${cardId}.${userId}.${expiry}.${mac}` : '';
+}
+
+// Pure: the full Reply-To address for one recipient.
+function buildReplyToAddress({ domain, ...options }) {
+  const local = buildReplyToLocalPart(options);
   if (!local || !domain) return '';
   return `${local}@${domain}`;
 }
 
-// Pure: parse and verify a reply token (either the bare local part, e.g.
-// "reply+abc123-9f8e...", or a full "local@domain" address - callers may pass
-// either the raw `to`/recipient field a mail provider sends, or an address
-// already split down to its local part).
-//
-// Returns { valid: true, cardId } when the token verifies, or
-// { valid: false, reason } otherwise. Never throws.
-function verifyReplyToken(token, secret) {
+// Pure: parse and verify a reply token - the bare local part or a full
+// address, as a provider's `to`/recipient field carries it. Returns
+// { valid: true, cardId, userId } or { valid: false, reason }. Never throws.
+function verifyReplyToken(token, secret, now = new Date()) {
   try {
-    if (!token || typeof token !== 'string' || !secret) {
-      return { valid: false, reason: 'missing-token-or-secret' };
-    }
-    const local = token.includes('@') ? token.split('@')[0] : token;
-    if (!local.startsWith(TOKEN_PREFIX)) {
-      return { valid: false, reason: 'bad-prefix' };
-    }
-    const rest = local.slice(TOKEN_PREFIX.length);
-    const lastDash = rest.lastIndexOf('-');
-    if (lastDash <= 0 || lastDash === rest.length - 1) {
+    if (!token || typeof token !== 'string' || !secret) return { valid: false, reason: 'missing-token-or-secret' };
+    // A provider may pass "Name <reply+...@domain>".
+    const angle = token.match(/<([^>]+)>/);
+    const address = (angle ? angle[1] : token).trim();
+    const local = address.includes('@') ? address.slice(0, address.lastIndexOf('@')) : address;
+    if (!local.startsWith(TOKEN_PREFIX)) return { valid: false, reason: 'bad-prefix' };
+    const parts = local.slice(TOKEN_PREFIX.length).split('.');
+    if (parts.length === 1 && parts[0].includes('-')) return { valid: false, reason: 'legacy-token' };
+    if (parts.length !== 4) return { valid: false, reason: 'malformed' };
+    const [cardId, userId, expiry, mac] = parts;
+    if (!ID.test(cardId) || !ID.test(userId) || !EXPIRY.test(expiry) || mac.length !== MAC_HEX) {
       return { valid: false, reason: 'malformed' };
     }
-    const cardId = rest.slice(0, lastDash);
-    const providedMac = rest.slice(lastDash + 1);
-    const expectedMac = computeCardReplyHmac(cardId, secret);
-    if (!expectedMac || !safeEqualHex(providedMac, expectedMac)) {
-      return { valid: false, reason: 'bad-hmac' };
+    const expected = computeReplyMac({ cardId, userId, expiry, secret });
+    if (!expected || !safeEqualHex(mac.toLowerCase(), expected)) return { valid: false, reason: 'bad-hmac' };
+    // Checked after the MAC, so an expired token is known to be genuine.
+    if (!(now instanceof Date) || Math.floor(now.getTime() / DAY) > parseInt(expiry, 36)) {
+      return { valid: false, reason: 'expired' };
     }
-    return { valid: true, cardId };
+    return { valid: true, cardId, userId };
   } catch (e) {
     return { valid: false, reason: 'exception' };
   }
@@ -91,7 +104,8 @@ function verifyReplyToken(token, secret) {
 
 module.exports = {
   TOKEN_PREFIX,
-  computeCardReplyHmac,
+  replyDays,
+  computeReplyMac,
   buildReplyToLocalPart,
   buildReplyToAddress,
   verifyReplyToken,

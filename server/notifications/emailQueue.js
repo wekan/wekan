@@ -36,10 +36,13 @@ export const emailOutbox = createEmailOutbox({
       boardOverride: board?.notifyOverrideEmail, memberOverride: user.profile?.notifyOverrideEmail });
   },
   from: () => Accounts.emailTemplates.from,
-  replyTo: cardId => {
+  // ReplyBleed (GHSA-mc7c-cv99-64h7): the address names the card AND this
+  // recipient, and expires, so a reply is attributed to the person it was
+  // sent to - never to whatever From address the reply claims.
+  replyTo: (cardId, userId) => {
     const secret = process.env.INBOUND_EMAIL_HMAC_SECRET, domain = process.env.INBOUND_EMAIL_DOMAIN;
-    if (!cardId || !secret || !domain) return '';
-    try { return buildReplyToAddress(cardId, secret, domain); } catch (error) { return ''; }
+    if (!cardId || !userId || !secret || !domain) return '';
+    try { return buildReplyToAddress({ cardId, userId, secret, domain }); } catch (error) { return ''; }
   },
 });
 

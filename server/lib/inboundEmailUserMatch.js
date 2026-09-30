@@ -1,12 +1,16 @@
 'use strict';
 
-// Match an inbound reply's From address to an existing WeKan user - used by
-// server/routes/inboundEmail.js (#2414). No match => the caller must reject
-// the reply rather than create an anonymous/unauthenticated comment (see the
-// route and its negative test).
+// Who wrote an inbound reply (#2414), decided without a database so the tests
+// can drive it: tests/inboundEmailUserMatch.test.cjs.
 //
-// Split into a pure matcher (testable with a plain array, no database) and a
-// thin server-side wrapper that reads the real Users collection.
+// ReplyBleed (GHSA-mc7c-cv99-64h7): this module used to pick the author by
+// searching EVERY user for the reply's From address - a field the sender
+// controls - so anyone holding a card's reply address could comment as anyone.
+// The author is now the recipient named in the signed reply token, and the From
+// address only has to agree with it.
+
+const { memberCan } = require('../../models/lib/boardRoleCapabilities');
+const { isAssignedOnlyMember } = require('../../models/lib/boardCardScope');
 
 function normalizeEmail(address) {
   if (typeof address !== 'string') return '';
@@ -16,21 +20,29 @@ function normalizeEmail(address) {
   return raw.trim().toLowerCase();
 }
 
-// Pure: given a From address and a list of { _id, emails: [{ address }] }
-// user docs (the shape ReactiveCache.getUsers() / Meteor.users documents
-// use), return the matching user doc or null. Never throws.
-function matchSenderToUser(fromAddress, users) {
+// Pure: is `fromAddress` one of THIS user's own addresses?
+function senderIsUser(fromAddress, user) {
   const email = normalizeEmail(fromAddress);
-  if (!email || !Array.isArray(users)) return null;
-  for (const user of users) {
-    const addrs = (user && Array.isArray(user.emails)) ? user.emails : [];
-    for (const e of addrs) {
-      if (e && typeof e.address === 'string' && e.address.toLowerCase() === email) {
-        return user;
-      }
-    }
-  }
-  return null;
+  if (!email || !user || !Array.isArray(user.emails)) return false;
+  return user.emails.some(e => e && typeof e.address === 'string' && e.address.toLowerCase() === email);
 }
 
-module.exports = { normalizeEmail, matchSenderToUser };
+// Pure: may the token's recipient `user` comment on `card` of `board` with a
+// reply from `fromAddress`? Returns { ok: true } or { ok: false, code, error,
+// log } - `log` is true only for what nothing but an attempt produces: a From
+// address that is not the recipient's. A disabled user or a member who has
+// lost access since the email was sent is a real person, so it is not logged.
+function replyAuthorDecision({ user, fromAddress, card, board }) {
+  if (!user || user.loginDisabled) return { ok: false, code: 403, error: 'Unrecognized sender', log: false };
+  if (!senderIsUser(fromAddress, user)) {
+    return { ok: false, code: 403, error: 'Unrecognized sender', log: true,
+      detail: 'sender address is not the reply address recipient' };
+  }
+  if (!card || !board || board._id !== card.boardId || !memberCan(board.members, user._id, 'comment') ||
+      (isAssignedOnlyMember(board, user._id) && !(card.assignees || []).includes(user._id))) {
+    return { ok: false, code: 403, error: 'Not allowed to comment on this card', log: false };
+  }
+  return { ok: true };
+}
+
+module.exports = { normalizeEmail, senderIsUser, replyAuthorDecision };

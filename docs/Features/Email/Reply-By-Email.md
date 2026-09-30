@@ -25,36 +25,57 @@ other way (a plain SMTP relay, your own Postfix), you would need to add one of
 these providers, or another one with an equivalent inbound webhook, purely for
 the reply-to address's domain.
 
-## How a reply is matched back to its card
+## How a reply is matched back to its card and its author
 
 Every outbound notification email's `Reply-To` header carries a token that
-encodes the card it is about:
+names the card it is about AND the one user it was sent to, and expires:
 
 ```
-Reply-To: reply+<cardId>-<hmac>@<your inbound domain>
+Reply-To: reply+<cardId>.<userId>.<expiry>.<mac>@<your inbound domain>
 ```
 
-The `<hmac>` is an HMAC-SHA256 of the card id, keyed by a server-only secret
-(`server/lib/inboundEmailReplyToken.js`). It cannot be forged or guessed from
-the card id alone — the inbound webhook recomputes it and rejects the request
-if it does not match (constant-time comparison, `crypto.timingSafeEqual`).
+`<expiry>` is the last valid day (days since 1970-01-01, base 36), 30 days
+after sending by default. `<mac>` is an HMAC-SHA256 over the card id, the user
+id and the expiry, keyed by a server-only secret
+(`server/lib/inboundEmailReplyToken.js`). None of the three can be changed
+without the webhook noticing (constant-time comparison,
+`crypto.timingSafeEqual`), so two recipients of the same card hold different
+addresses and neither can reply as the other.
 
 When a reply arrives at `/api/inbound-email`:
 
-1. the `to`/recipient field is parsed and its HMAC verified — an invalid,
-   tampered, or missing token is rejected (`403`);
-2. the target card is looked up by the id inside the token — a token for a
-   card that no longer exists is rejected (`404`);
-3. the sender's `from` address is matched against existing WeKan users' email
-   addresses — **no match means the request is rejected**, never turned into
-   an anonymous comment (`403`);
-4. the plain-text body is stripped of quoted reply text (see below) and, if
+1. if `INBOUND_EMAIL_WEBHOOK_SECRET` is set, the request must carry it, in the
+   `X-WeKan-Inbound-Secret` header or as `?secret=` in the webhook URL (`401`);
+2. the `to`/recipient field is parsed and its MAC verified — an invalid,
+   tampered, expired or missing token is rejected (`403`);
+3. the target card is looked up by the id inside the token (`404` if gone);
+4. **the author is the user named in the token.** The reply's `from` address
+   must be one of that user's own email addresses; a reply from any other
+   address — a forged `From`, or a forwarded email somebody else answered —
+   is rejected (`403`), never attributed to the sender it claims;
+5. that user must still be enabled and allowed to comment on that card now:
+   an active member of its board whose role may comment, and, for an
+   assigned-only role, assigned to the card (`403`);
+6. the plain-text body is stripped of quoted reply text (see below) and, if
    anything is left, inserted as a new `CardComments` document authored by
-   the matched user.
+   that user.
 
-Every rejection is logged through `server/lib/securityLog` under the
-`authn.inbound-email` catalog key (`models/lib/securityCategories.js`), so
-repeated forged or unmatched attempts are visible in **Admin Panel → Problems**.
+Refusals that only an attempt produces — a forged token, a `from` address
+that is not the recipient's, a wrong webhook secret — are logged through
+`server/lib/securityLog` under the `authn.inbound-email` catalog key
+(`models/lib/securityCategories.js`, ReplyBleed), so they are visible in
+**Admin Panel → Problems**. An expired token, a pre-fix token and a member who
+has lost access are refused without a log entry: a real person replying to an
+old email reaches those.
+
+### ReplyBleed (GHSA-mc7c-cv99-64h7)
+
+Before this was fixed the token signed only the card (`reply+<cardId>-<hmac>`)
+and the author was whichever user owned the reply's `from` address — a field
+the sender controls. Anyone holding one card's reply address could post a
+comment on that card as any user. Reply addresses in that old form are now
+refused; replies to notification emails sent before upgrading will bounce with
+`403`, and new notifications carry the new form.
 
 ### A digest email only carries one Reply-To
 
@@ -91,6 +112,8 @@ no `Reply-To` header at all — existing installs are unaffected.
 | --- | --- |
 | `INBOUND_EMAIL_HMAC_SECRET` | Server-only secret used to sign/verify the reply token. Generate a long random value once (e.g. `openssl rand -hex 32`) and never change it, or every previously-sent Reply-To address stops verifying. |
 | `INBOUND_EMAIL_DOMAIN` | The domain your inbound-parse provider receives mail for, e.g. `reply.yourwekan.example`. Used as the `@domain` part of the Reply-To address WeKan generates. |
+| `INBOUND_EMAIL_REPLY_DAYS` | Optional. How many days a reply address stays valid, 1 to 365; default 30. |
+| `INBOUND_EMAIL_WEBHOOK_SECRET` | Optional, recommended. A second random value that only your provider knows: add it to the webhook URL as `?secret=<value>` (or send it as the `X-WeKan-Inbound-Secret` header). With it set, a POST that does not carry it is refused before any token is read. |
 
 The endpoint also requires WeKan's REST API to be enabled
 (`WITH_API=true`), since it is served under `/api/`.
@@ -133,6 +156,6 @@ The endpoint also requires WeKan's REST API to be enabled
   complexity that would come with one.
 - It does not process HTML email bodies, attachments, or inline images in a
   reply — only the plain-text body.
-- It cannot attribute a reply to a WeKan user who does not already have an
-  account under the sending address; such a reply is rejected rather than
-  silently dropped or attributed to nobody.
+- It never attributes a reply to anyone but the user the email was sent to,
+  and only when the reply comes from one of that user's own account email
+  addresses.

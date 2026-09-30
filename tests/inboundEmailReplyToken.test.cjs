@@ -1,96 +1,102 @@
 'use strict';
 
-// Plain-Node unit test (no Meteor) for #2414 reply-by-email's HMAC reply
-// token: server/lib/inboundEmailReplyToken.js.
-// Run: node tests/inboundEmailReplyToken.test.cjs
+// Plain-Node unit test (no Meteor) for the reply-by-email token (#2414):
+// server/lib/inboundEmailReplyToken.js. Run: node tests/inboundEmailReplyToken.test.cjs
 //
-// The token is the ONLY guard on the unauthenticated inbound-email webhook
-// (server/routes/inboundEmail.js), so this pins: a valid token round-trips to
-// the right cardId, and a forged/tampered/malformed/wrong-secret token is
-// rejected outright (the negative tests).
+// ReplyBleed (GHSA-mc7c-cv99-64h7): the token used to sign only the card, so
+// every recipient of a card's notification held the same address, and the
+// comment author came from the From field. It now binds the card AND the one
+// recipient, and expires. This pins: a token round-trips to that card and
+// user; another recipient's token differs; tampering with the card, the user or
+// the expiry breaks the MAC; an expired or pre-fix token is refused.
 
 const assert = require('assert');
-
 const {
-  buildReplyToLocalPart,
-  buildReplyToAddress,
-  verifyReplyToken,
-  computeCardReplyHmac,
+  buildReplyToLocalPart, buildReplyToAddress, verifyReplyToken, computeReplyMac, replyDays,
 } = require('../server/lib/inboundEmailReplyToken.js');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
 const SECRET = 'test-secret-do-not-use-in-production';
-const CARD_ID = 'abc123CardId';
+const CARD = 'abc123CardId4567x';
+const ALICE = 'aliceUserId123456';
+const BOB = 'bobUserId12345678';
+const NOW = new Date('2026-09-30T12:00:00Z');
+const DAY = 86400000;
+const token = (userId = ALICE, cardId = CARD, now = NOW, days = 30) =>
+  buildReplyToLocalPart({ cardId, userId, secret: SECRET, now, days });
 
-test('a valid token round-trips to the same cardId', () => {
-  const local = buildReplyToLocalPart(CARD_ID, SECRET);
+test('a token round-trips to its card AND its recipient', () => {
+  const local = token();
   assert.ok(local.startsWith('reply+'));
-  const result = verifyReplyToken(local, SECRET);
-  assert.strictEqual(result.valid, true);
-  assert.strictEqual(result.cardId, CARD_ID);
+  assert.deepStrictEqual(verifyReplyToken(local, SECRET, NOW), { valid: true, cardId: CARD, userId: ALICE });
 });
 
-test('a full address (local@domain) also verifies', () => {
-  const address = buildReplyToAddress(CARD_ID, SECRET, 'reply.example.com');
-  assert.strictEqual(address, `${buildReplyToLocalPart(CARD_ID, SECRET)}@reply.example.com`);
-  const result = verifyReplyToken(address, SECRET);
-  assert.strictEqual(result.valid, true);
-  assert.strictEqual(result.cardId, CARD_ID);
+test('a full address, and a "Name <address>" recipient, verify too', () => {
+  const address = buildReplyToAddress({ cardId: CARD, userId: ALICE, secret: SECRET, now: NOW, days: 30, domain: 'reply.example.com' });
+  assert.strictEqual(address, `${token()}@reply.example.com`);
+  assert.strictEqual(verifyReplyToken(address, SECRET, NOW).userId, ALICE);
+  assert.strictEqual(verifyReplyToken(`WeKan <${address}>`, SECRET, NOW).userId, ALICE);
 });
 
-test('a different cardId produces a different token', () => {
-  const t1 = buildReplyToLocalPart('card-one', SECRET);
-  const t2 = buildReplyToLocalPart('card-two', SECRET);
-  assert.notStrictEqual(t1, t2);
+test('two Meteor ids fit the 64-character SMTP local-part limit', () => {
+  assert.ok(token().length <= 64, `${token().length} characters`);
 });
 
-// --- negative tests: a forged/tampered token must be rejected ---
-
-test('NEGATIVE: a tampered HMAC is rejected', () => {
-  const local = buildReplyToLocalPart(CARD_ID, SECRET);
-  const tampered = local.slice(0, -1) + (local.slice(-1) === '0' ? '1' : '0');
-  const result = verifyReplyToken(tampered, SECRET);
-  assert.strictEqual(result.valid, false);
+test('recipients of the same card get different addresses (negative)', () => {
+  assert.notStrictEqual(token(ALICE), token(BOB));
 });
 
-test('NEGATIVE: a token for one cardId cannot be reused for another', () => {
-  // Forging by swapping the cardId in an otherwise-valid token, keeping the
-  // original (now-mismatched) HMAC - the classic "change the id, keep the
-  // signature" forgery attempt.
-  const local = buildReplyToLocalPart('card-one', SECRET);
-  const mac = local.slice(local.lastIndexOf('-') + 1);
-  const forged = `reply+card-two-${mac}`;
-  const result = verifyReplyToken(forged, SECRET);
-  assert.strictEqual(result.valid, false);
+test('swapping the recipient into another user\'s token breaks the MAC (negative)', () => {
+  const [card, , expiry, mac] = token(ALICE).slice('reply+'.length).split('.');
+  assert.strictEqual(verifyReplyToken(`reply+${card}.${BOB}.${expiry}.${mac}`, SECRET, NOW).reason, 'bad-hmac');
 });
 
-test('NEGATIVE: a token verified against the wrong secret is rejected', () => {
-  const local = buildReplyToLocalPart(CARD_ID, SECRET);
-  const result = verifyReplyToken(local, 'a-completely-different-secret');
-  assert.strictEqual(result.valid, false);
+test('moving a token to another card breaks the MAC (negative)', () => {
+  const [, user, expiry, mac] = token().slice('reply+'.length).split('.');
+  assert.strictEqual(verifyReplyToken(`reply+otherCard12345678.${user}.${expiry}.${mac}`, SECRET, NOW).reason, 'bad-hmac');
 });
 
-test('NEGATIVE: a guessed/made-up token (no real HMAC) is rejected', () => {
-  const result = verifyReplyToken(`reply+${CARD_ID}-0000000000000000`, SECRET);
-  assert.strictEqual(result.valid, false);
+test('extending the expiry breaks the MAC (negative)', () => {
+  const [card, user, expiry, mac] = token().slice('reply+'.length).split('.');
+  const later = (parseInt(expiry, 36) + 365).toString(36);
+  assert.strictEqual(verifyReplyToken(`reply+${card}.${user}.${later}.${mac}`, SECRET, NOW).reason, 'bad-hmac');
 });
 
-test('NEGATIVE: malformed input (no prefix, empty, non-string) is rejected', () => {
-  assert.strictEqual(verifyReplyToken('not-a-reply-token@x.com', SECRET).valid, false);
-  assert.strictEqual(verifyReplyToken('', SECRET).valid, false);
-  assert.strictEqual(verifyReplyToken(null, SECRET).valid, false);
-  assert.strictEqual(verifyReplyToken(undefined, SECRET).valid, false);
-  assert.strictEqual(verifyReplyToken('reply+', SECRET).valid, false);
-  assert.strictEqual(verifyReplyToken('reply+noHyphenHere', SECRET).valid, false);
+test('a token is valid through its last day and refused after it', () => {
+  const local = token(ALICE, CARD, NOW, 30);
+  assert.strictEqual(verifyReplyToken(local, SECRET, new Date(NOW.getTime() + 30 * DAY)).valid, true);
+  assert.strictEqual(verifyReplyToken(local, SECRET, new Date(NOW.getTime() + 31 * DAY)).reason, 'expired');
 });
 
-test('NEGATIVE: no secret configured never validates (feature stays off)', () => {
-  const local = buildReplyToLocalPart(CARD_ID, SECRET);
-  assert.strictEqual(verifyReplyToken(local, '').valid, false);
-  assert.strictEqual(buildReplyToLocalPart(CARD_ID, ''), '');
-  assert.strictEqual(computeCardReplyHmac(CARD_ID, ''), '');
+test('the pre-fix card-only token is recognized and refused (negative)', () => {
+  assert.strictEqual(verifyReplyToken(`reply+${CARD}-0123456789abcdef`, SECRET, NOW).reason, 'legacy-token');
+});
+
+test('a wrong secret, a forged MAC and malformed input are refused (negative)', () => {
+  assert.strictEqual(verifyReplyToken(token(), 'another-secret', NOW).reason, 'bad-hmac');
+  const local = token();
+  const forged = local.slice(0, -1) + (local.endsWith('0') ? '1' : '0');
+  assert.strictEqual(verifyReplyToken(forged, SECRET, NOW).reason, 'bad-hmac');
+  for (const bad of ['not-a-reply-token@x.com', '', null, undefined, 'reply+', 'reply+a.b.c', 'reply+a.b.c.d.e', 42]) {
+    assert.strictEqual(verifyReplyToken(bad, SECRET, NOW).valid, false, String(bad));
+  }
+  assert.strictEqual(verifyReplyToken(local, '', NOW).valid, false);
+});
+
+test('nothing is minted without a secret, a recipient or a well-formed id (negative)', () => {
+  assert.strictEqual(buildReplyToLocalPart({ cardId: CARD, userId: ALICE, secret: '', now: NOW, days: 30 }), '');
+  assert.strictEqual(buildReplyToLocalPart({ cardId: CARD, secret: SECRET, now: NOW, days: 30 }), '');
+  assert.strictEqual(buildReplyToLocalPart({ cardId: 'a.b', userId: ALICE, secret: SECRET, now: NOW, days: 30 }), '');
+  assert.strictEqual(buildReplyToAddress({ cardId: CARD, userId: ALICE, secret: SECRET, now: NOW, days: 30 }), '');
+  assert.strictEqual(computeReplyMac({ cardId: CARD, secret: SECRET, expiry: '1' }), '');
+});
+
+test('INBOUND_EMAIL_REPLY_DAYS defaults to 30 and is bounded', () => {
+  assert.strictEqual(replyDays({}), 30);
+  assert.strictEqual(replyDays({ INBOUND_EMAIL_REPLY_DAYS: '7' }), 7);
+  for (const bad of ['0', '366', '1.5', 'x']) assert.throws(() => replyDays({ INBOUND_EMAIL_REPLY_DAYS: bad }));
 });
 
 console.log(`inboundEmailReplyToken: ${passed} passed`);
