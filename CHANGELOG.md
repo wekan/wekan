@@ -7670,6 +7670,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8d127d1bb4ad4a2fe8fb2aba0b6c07c13cf72079">Translate Luxembourgish sprint observation reports</a>. Thanks to xet7.</summary>
+
+- Translate 15 missing or English strings for sprint observations, imports
+  and Sync conflicts, preserving existing translations and tokens.
+- Translation, registry and human-preference checks pass, including UTC
+  wording, observation limits and unknown versus zero estimates.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
