@@ -28,6 +28,31 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona settings and mail labels replace prefixed English.
+{
+  const locale = read('sn');
+  const keys = ["shortcut-autocomplete-emoji", "subscribe", "overtime-hours", "overtime", "tracking", "type", "uploaded-avatar", "custom-top-left-corner-logo-image-url", "custom-top-left-corner-logo-link-url", "custom-login-logo-image-url", "custom-login-logo-link-url", "view-it", "watching", "welcome-swimlane", "welcome-list1", "wipLimitErrorPopup-title", "attachment-limits", "avatars-upload-blocked-label", "attachment-limit-mode-unlimited", "attachment-limit-mode-blocked", "attachment-limit-unit-gb", "attachment-limit-unit-mb", "attachment-limit-unit-bytes", "registration", "self-registration", "email-addresses", "smtp-host", "smtp-port", "smtp-tls", "email-templates-title", "email-templates-invite-subject", "email-templates-invite-body", "email-templates-activity-subject", "email-templates-activity-body", "invitation-code", "email-invite-register-subject", "email-smtp-test-subject", "email-smtp-test-text", "error-invitation-code-not-exist", "outgoing-webhooks"];
+  for (const key of keys) {
+    assert.doesNotMatch(locale[key], /Mashoko echiShona:/, `sn:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+    if (['attachment-limit-unit-gb', 'attachment-limit-unit-mb'].includes(key)) assert.equal(locale[key], english[key], `sn:${key}: units`);
+    else assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+  }
+  assert.equal(locale['email-invite-register-subject'], locale['email-invite-subject']);
+  assert.match(locale['error-invitation-code-not-exist'], /haipo/);
+  assert.match(locale['overtime-hours'], /maawa/);
+  assert.match(locale['smtp-tls'], /TLS/);
+  for (const key of ['smtp-host', 'smtp-port', 'email-smtp-test-subject']) assert.ok(locale[key].includes('SMTP'));
+  assert.notEqual(locale['attachment-limit-mode-unlimited'], locale['attachment-limit-mode-blocked']);
+  for (const place of ['top-left-corner', 'login']) {
+    const imageKey = `custom-${place}-logo-image-url`;
+    const linkKey = `custom-${place}-logo-link-url`;
+    assert.ok(locale[imageKey].includes('URL'));
+    assert.ok(locale[linkKey].includes('URL'));
+    assert.notEqual(locale[imageKey], locale[linkKey]);
+  }
+}
+
 // Shona export and selection controls replace prefixed English.
 {
   const locale = read('sn');
