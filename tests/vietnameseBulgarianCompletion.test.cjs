@@ -31,6 +31,15 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Maltese filters and imports; remaining untranslated strings are filled separately.
 {
   const locale = read('mt');
+  const correctedStorageKeys = ["Node_memory_usage_rss", "Node_memory_usage_heap_used", "Node_memory_usage_external", "to-create-organizations-contact-admin", "acceptance_of_our_legalNotice", "legalNotice", "copied", "originOrder", "move-source", "move-destination", "move-storage-fs", "attachment-last-move", "attachment-repair-locations", "attachment-repair-done", "attachment-repair-scanned", "attachment-repair-repaired", "attachment-repair-broken", "move-scope-avatars", "move-progress-pause", "move-progress-resume", "calculate-file-counts", "calculating-counts", "stats-scope", "stats-count", "avatars", "mongodb-compact-run", "mongodb-compact-success", "mongodb-compact-error", "path", "size", "storage", "board-status-time-spent-total", "uploading", "remaining_time", "speed"];
+  for (const key of correctedStorageKeys) {
+    assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
+    assert.doesNotMatch(locale[key], /Traduzzjoni Maltija:/, `mt:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `mt:${key}: tokens`);
+  }
+  assert.equal(locale.avatars, locale['move-scope-avatars']);
+  assert.notEqual(locale['move-source'], locale['move-destination']);
+  assert.notEqual(locale['mongodb-compact-success'], locale['mongodb-compact-error']);
   const correctedHistoryMemoryKeys = ["reason", "wait-spinner", "Bounce", "Cube", "Cube-Grid", "Dot", "Double-Bounce", "Rotateplane", "Scaleout", "Wave", "subject", "details", "ticket", "tickets", "pending", "closed", "resolved", "cancelled", "history", "history-change-removed", "history-change-edited", "history-change-moved", "history-change-restored", "request", "requests", "help-request", "Node_heap_total_heap_size", "Node_heap_total_heap_size_executable", "Node_heap_total_physical_size", "Node_heap_total_available_size", "Node_heap_used_heap_size", "Node_heap_heap_size_limit", "Node_heap_malloced_memory", "Node_heap_peak_malloced_memory", "Node_heap_does_zap_garbage"];
   for (const key of correctedHistoryMemoryKeys) {
     assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
