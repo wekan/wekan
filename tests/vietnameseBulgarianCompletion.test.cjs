@@ -31,6 +31,18 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const correctedBoardViewKeys = ["step-update-cards", "refresh", "refresh-monitoring", "multi-selection-active", "set-selected-starred", "set-selected-unstarred", "all-boards-hide", "and-n-other-card_plural", "auto-watch", "show-at-all-boards-page", "show-card-counter-per-list", "comment-only", "no-comments-desc", "read-only-desc", "worker-desc", "confirm-move-list-to-swimlane", "editNotificationPopup-title", "error-watch-disabled", "export-board-without-attachments", "filter-cards", "filter-on-desc", "import-board-instruction-kanboard", "import-board-instruction-deck"];
+  for (const key of correctedBoardViewKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /\b(ciartes|tabellai|notifiches|comenc|injuntes|Aggiorna)\b/, `rm:${key}: no mixed-language seed`);
+  }
+  assert.notEqual(locale['set-selected-starred'], locale['set-selected-unstarred']);
+  assert.match(locale['read-only-desc'], /Na po betg modifitgar/);
+  assert.match(locale['no-comments-desc'], /Na po betg vesair/);
+  assert.match(locale['worker-desc'], /mo spustar.*s’attribuir.*commentar/);
+  for (const token of ['"columns"', '"tasks"', 'title', 'description', 'column_name', 'swimlane_name', 'date_due', 'owner', 'tags']) assert.ok(locale['import-board-instruction-kanboard'].includes(token));
+  for (const token of ['NextCloud Deck', '"stacks"', '"cards"']) assert.ok(locale['import-board-instruction-deck'].includes(token));
+
   const correctedPrivacyKeys = ["fix-avatar-urls-migration-description", "fix-all-file-urls-migration-description", "migrations-admin-only", "run-restore-lost-cards-migration-confirm", "run-fix-avatar-urls-migration-confirm", "run-fix-all-file-urls-migration-confirm", "step-scan-users", "step-scan-files", "restrict-comment-editing", "default-avatar", "r-update", "cards-loading-all", "render-links-as-plain-text-description", "disable-all-import-description", "disable-all-export-description", "anonymize-export-users-description", "anonymize-account-confirm-popup", "disable-notifications-description"];
   for (const key of correctedPrivacyKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
