@@ -5777,6 +5777,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/763019d429">Translate Georgian editor actions and fields</a>. Thanks to xet7.</summary>
+
+- Translate 27 English strings for deletion, editing and bitmap fields,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including deletion
+  counts and pixel coordinates. Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
