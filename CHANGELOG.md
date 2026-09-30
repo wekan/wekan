@@ -4534,6 +4534,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/47b2a0a26">Complete flagged Scottish Gaelic recovery translations</a>. Thanks to xet7.</summary>
+
+- Translate 80 recovery and keyboard strings; retain 13 technical terms.
+  No flagged English placeholders remain in Scottish Gaelic.
+- Translation, registry and human-preference checks pass, including full
+  placeholder coverage and recovery warning checks. Scottish Gaelic wording
+  is lower confidence; older wording, fluent-speaker and browser review
+  remain outstanding. Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
