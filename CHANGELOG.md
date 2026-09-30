@@ -2176,6 +2176,17 @@ pass. Each Hebrew locale still has 167 reported placeholders remaining.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/302c689d9">Translate Hebrew synchronization conflicts and reports</a>. Thanks to xet7.</summary>
+
+Fill 120 strings across both Hebrew locale files. Tests preserve placeholders
+and distinctions between local and source changes, missing and null values,
+and reports and recovery actions. Existing translations are preserved;
+translation and human-preference checks pass. Each Hebrew locale still has
+107 reported placeholders remaining.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
