@@ -31,6 +31,16 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Luxembourgish filter and import translations; other batches remain.
 {
   const locale = read('lb');
+  const presetMapKeys = ["due-reminder-off", "due-reminder-webhook", "due-reminder-invalid", "due-reminder-saved", "dependency-type-duplicates", "dependency-type-is-duplicated-by", "custom-field-stringtemplate-context-hint", "filter-presets", "filter-preset-choose", "filter-preset-name", "filter-preset-save", "filter-preset-replace-hint", "filter-preset-saved", "filter-preset-applied", "filter-preset-deleted", "filter-preset-error", "filter-card-text-label", "import-report-heading", "import-report-description", "import-report-open-board", "draggable", "board-view-map", "map-view-empty", "map-view-upload", "map-view-remove-image"];
+  for (const key of presetMapKeys) {
+    assert.notEqual(locale[key], english[key], `lb:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `lb:${key}: tokens`);
+  }
+  assert.notEqual(locale['dependency-type-duplicates'], locale['dependency-type-is-duplicated-by']);
+  for (const key of ['admin-panel', 'problems', 'recoveryReportTitle']) {
+    assert.ok(locale['import-report-description'].includes(locale[key]), `lb: navigation ${key}`);
+  }
+  assert.deepEqual(locale['custom-field-stringtemplate-context-hint'].match(/%\{[^}]+\}/g), english['custom-field-stringtemplate-context-hint'].match(/%\{[^}]+\}/g));
   const ruleNotificationKeys = ["instance", "instance-desc", "board-instance-info", "automatic-linked-url-schemes-hint", "other-parent-cards", "add-parent-card", "remove-parent-card", "r-when-card-date", "r-trigger-vars-hint", "r-insert-variable", "r-vars-people-hint", "r-rule-any-trigger-help", "r-add-trigger-to-rule", "r-add-action-to-rule", "r-remove-rule-part", "notification-activity-heading", "notification-activity-description", "notification-activity-labels", "notification-activity-members", "notification-activity-assignees", "notification-activity-comments", "notification-activity-moves", "notification-activity-dates", "notification-activity-checklists", "notification-activity-attachments", "notification-activity-customFields", "notification-activity-archive", "notification-activity-created", "due-reminder-heading", "due-reminder-days-label"];
   for (const key of ruleNotificationKeys) {
     assert.notEqual(locale[key], english[key], `lb:${key}: translated`);
