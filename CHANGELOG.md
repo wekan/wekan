@@ -8211,6 +8211,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4dde2aa4ae2a2c384ecb009d497e043c9f67038c">Translate Frisian rules and notifications</a>. Thanks to xet7.</summary>
+
+- Translate 20 rule and notification strings in each of fy and fy-NL,
+  preserving existing translations, replacement tokens and rule variables.
+- Translation, registry and human-preference checks pass, including distinct
+  trigger, action and recipient labels.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
