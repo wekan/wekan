@@ -3773,6 +3773,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a31350f7b">Translate Aragonese filters, reminders and automation controls</a>. Thanks to xet7.</summary>
+
+- Fill 81 Aragonese filter, reminder, automation, map and import messages.
+- Translation, registry and human-preference checks pass, including preserved
+  translations, syntax tokens, visibility restrictions and reminder offsets.
+  Wording is lower confidence; browser layout and fluent-speaker review were
+  not run. Other translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
