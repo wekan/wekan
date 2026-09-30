@@ -31,6 +31,19 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const correctedStorageKeys = ["move-all-attachments", "attachment-repair-locations-description", "mongodb-compact-description", "import-board-zip", "hideCheckedChecklistItems", "hideAllChecklistItems", "support-info-only-for-logged-in-users", "accounts-lockout-show-locked-users", "admin-people-filter-all", "attachment-storage-configuration", "attachments-path", "avatars-path"];
+  for (const key of correctedStorageKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /\b(gli|degli|dello|Sposta|Trova|Dopo|Plata)\b/, `rm:${key}: no mixed-language seed`);
+  }
+  assert.equal(locale['admin-people-filter-all'], locale['dueCardsViewChange-choice-all']);
+  assert.notEqual(locale['hideCheckedChecklistItems'], locale['hideAllChecklistItems']);
+  assert.match(locale['mongodb-compact-description'], /betg automaticamain/);
+  assert.match(locale['mongodb-compact-description'], /mo suenter.*spustaments.*terminads/);
+  for (const token of ['MongoDB', 'GridFS', 'Compact']) assert.ok(locale['mongodb-compact-description'].includes(token));
+  for (const token of ['.zip', 'JSON']) assert.ok(locale['import-board-zip'].includes(token));
+  assert.match(locale['support-info-only-for-logged-in-users'], /mo per utilisaders annunziads/);
+
   const correctedSearchKeys = ["r-of-checklist", "r-d-check-all", "r-d-uncheck-all", "r-d-check-of-list", "roles-info", "dueCardsViewChange-choice-all", "globalSearchViewChange-choice-all-description", "globalSearch-instructions-description", "globalSearch-instructions-notes-3", "delete-org-warning-message", "newlineBecomesNewChecklistItem", "newlineBecomesNewChecklistItemOriginOrder", "move-all-attachments-of-board-to-fs", "move-all-attachments-of-board-to-gridfs", "move-all-attachments-of-board-to-s3"];
   for (const key of correctedSearchKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
