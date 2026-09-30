@@ -2198,6 +2198,17 @@ remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fc8859fe3">Complete Hebrew keyboard labels and review technical terms</a>. Thanks to xet7.</summary>
+
+Translate 22 keyboard labels across both Hebrew locale files and explicitly
+retain 16 reviewed keyboard legends, product names, null and mathematical
+symbols per locale. Both files pass current-source completeness checks,
+including pending strings, as well as placeholder and human-preference checks.
+Existing translations are preserved. Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
