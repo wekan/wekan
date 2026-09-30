@@ -28,6 +28,17 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Faroese date filters; remaining untranslated strings are filled separately.
+{
+  const locale = read('fo');
+  const keys = ["auto-archive-days", "auto-archive-off", "auto-archive-hint", "filter-recency-any", "filter-recency-day", "filter-recency-week", "filter-recency-month", "filter-recency-older", "filter-movement-range", "filter-date-range-field", "filter-date-range-from", "filter-date-range-to", "filter-date-range-missing", "filter-date-range-list-entry", "filter-date-range-invalid", "filter-due-any", "filter-due-previous-week", "filter-due-next-month"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `fo:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `fo:${key}: tokens`);
+  }
+  assert.notEqual(locale['filter-date-range-from'], locale['filter-date-range-to']);
+  for (const [key, n] of [['filter-recency-day', '24'], ['filter-recency-week', '7'], ['filter-recency-month', '30']]) assert.ok(locale[key].includes(n));
+}
 // Luxembourgish filter and import translations; other batches remain.
 {
   const locale = read('lb');
