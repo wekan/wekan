@@ -31,6 +31,17 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Faroese date filters; remaining untranslated strings are filled separately.
 {
   const locale = read('fo');
+  const reminderKeys = ["notification-activity-checklists", "notification-activity-attachments", "notification-activity-customFields", "notification-activity-archive", "notification-activity-created", "due-reminder-heading", "due-reminder-days-label", "due-reminder-off", "due-reminder-webhook", "due-reminder-invalid", "due-reminder-saved", "dependency-type-duplicates", "dependency-type-is-duplicated-by", "custom-field-stringtemplate-context-hint", "filter-presets", "filter-preset-choose"];
+  for (const key of reminderKeys) {
+    assert.notEqual(locale[key], english[key], `fo:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `fo:${key}: tokens`);
+  }
+  const contextKey = 'custom-field-stringtemplate-context-hint';
+  assert.deepEqual(locale[contextKey].match(/%\{[^}]+\}/g), english[contextKey].match(/%\{[^}]+\}/g));
+  assert.ok(locale[contextKey].includes('|urlencode'));
+  assert.ok(locale['due-reminder-days-label'].includes('0'));
+  assert.ok(locale['due-reminder-invalid'].includes('-14 til 14'));
+  assert.notEqual(locale['dependency-type-duplicates'], locale['dependency-type-is-duplicated-by']);
   const ruleNotificationKeys = ["add-parent-card", "remove-parent-card", "r-when-card-date", "r-trigger-vars-hint", "r-insert-variable", "r-vars-people-hint", "r-rule-any-trigger-help", "r-add-trigger-to-rule", "r-add-action-to-rule", "r-remove-rule-part", "notification-activity-heading", "notification-activity-description", "notification-activity-labels", "notification-activity-members", "notification-activity-assignees", "notification-activity-comments", "notification-activity-moves", "notification-activity-dates"];
   for (const key of ruleNotificationKeys) {
     assert.notEqual(locale[key], english[key], `fo:${key}: translated`);
