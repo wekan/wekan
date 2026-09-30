@@ -72,6 +72,12 @@ test('forecast inputs reach exports; invalid inputs and unauthorized reads are r
   await page.locator('[name=targetCount]').fill('7');
   await page.locator('[name=historyDays]').fill('30');
   await page.locator('.js-flow-options button').click();
+  // The export describes the chart that is SHOWN: its options come from the
+  // server's answer (data-report-options), not from the form. A table row that
+  // happens to contain a 7 can still be the previous answer, so wait for the
+  // answer that carries the new inputs before opening the export menu.
+  await expect(page.locator('.chart-export-buttons').first())
+    .toHaveAttribute('data-report-options', /"targetCount":"?7"?[,}]/);
   await expect(page.locator('.chart-data-table').first().locator('tbody tr').first()).toContainText('7');
   await page.locator('.js-export-chart').click();
   const url = await page.locator('.pop-over a').filter({ hasText: 'Excel' }).getAttribute('href');
