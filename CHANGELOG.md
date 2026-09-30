@@ -5545,6 +5545,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/635710f57e">Translate Azerbaijani block input labels</a>. Thanks to xet7.</summary>
+
+- Translate 42 English strings in each of three Azerbaijani locales for list,
+  loop, math and text inputs, preserving existing translations and tokens.
+- Translation, registry and human-preference checks pass, including division
+  operands and coordinates. Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
