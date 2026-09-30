@@ -4098,6 +4098,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5024486dc">Correct Asturian account and card guidance</a>. Thanks to xet7.</summary>
+
+- Correct 30 mixed-language messages and point board restoration to Archive
+  on All Boards. Preserve other translations and placeholders.
+- Translation, registry and human-preference checks pass, covering role
+  restrictions, linked-card deletion order and movement directions.
+  Wording is lower confidence; browser layout and fluent-speaker review were
+  not run. The wider language audit continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
