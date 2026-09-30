@@ -8392,6 +8392,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f7eb39c8209494af809121ad333ae964559a72cc">Translate Romansh maps, imports and keyboard controls</a>. Thanks to xet7.</summary>
+
+- Translate 27 map, import and keyboard strings and correct three report
+  navigation labels. Recognize the shared Romansh word Problems.
+- Translation, registry and human-preference checks pass, including tokens,
+  report navigation, keyboard direction and map placement states.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
