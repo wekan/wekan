@@ -8885,6 +8885,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1a9a3789b747b7cd54a71f397f4f8add9def0197">Translate import and email recovery additions into Turkmen</a>. Thanks to xet7.</summary>
+
+- Fill 44 missing Turkmen strings for todo.txt imports and rule-email recovery,
+  preserving existing translations, placeholders and import syntax.
+- Translation, registry and human-preference checks pass, covering uncertain
+  delivery, duplicate delivery warnings and legacy email review actions.
+  Lower-confidence Turkmen wording needs fluent-speaker review.
+  Browser review was not run; wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
