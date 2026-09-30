@@ -3162,6 +3162,15 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/08b0c8cbf">Complete Thai notification and keyboard translations</a>. Thanks to xet7.</summary>
+
+- Fill 90 Thai messages and labels; record 15 unchanged technical terms.
+- Thai has no flagged placeholders. Verify tokens, preserved translations,
+  cancellation warnings and language registration with translation checks.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
