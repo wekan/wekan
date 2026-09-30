@@ -31,6 +31,15 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Frisian date filters; further translation batches remain.
 for (const code of ['fy', 'fy-NL']) {
   const locale = read(code);
+  const scrumSettingKeys = ["board-view-product-backlog", "board-view-sprints", "board-view-sprint-report", "board-view-velocity", "scrum-settings", "scrum-product-owner", "scrum-master", "scrum-developers", "scrum-working-days", "scrum-enabled", "scrum-product-goal", "scrum-definition-of-done", "scrum-estimate-source", "scrum-estimate-unit", "scrum-completion-policy", "scrum-source-poker", "scrum-source-customField", "scrum-policy-dueComplete", "scrum-policy-doneLists", "scrum-sprints", "scrum-sprint", "scrum-start-sprint", "scrum-close-sprint", "scrum-cancel-sprint", "scrum-rollover-sprint", "scrum-cancel-reason", "scrum-product-backlog", "scrum-edit-sprint", "scrum-sprint-goal", "scrum-capacity"];
+  for (const key of scrumSettingKeys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  assert.equal(locale['board-view-product-backlog'], locale['scrum-product-backlog']);
+  assert.equal(locale['board-view-sprints'], locale['scrum-sprints']);
+  assert.equal(new Set(['start', 'close', 'cancel'].map(action => locale[`scrum-${action}-sprint`])).size, 3);
+  assert.notEqual(locale['scrum-policy-dueComplete'], locale['scrum-policy-doneLists']);
   const keyboardKeys = ["blockly-BACKSPACE_KEY", "blockly-CAPS_LOCK_KEY", "blockly-COMMAND_KEY", "blockly-CONTROL_KEY", "blockly-END_KEY", "blockly-ENTER_KEY", "blockly-ESCAPE", "blockly-HOME_KEY", "blockly-INSERT_KEY", "blockly-MATH_IS_EVEN", "blockly-OPTION_KEY", "blockly-PAGE_DOWN_KEY", "blockly-PAGE_UP_KEY", "blockly-PAUSE_KEY", "blockly-SHIFT_KEY", "blockly-TAB_KEY", "blockly-UNNAMED_KEY", "blockly-VARIABLES_DEFAULT_NAME", "blockly-LISTS_CREATE_WITH_ITEM_TITLE", "blockly-MATH_CHANGE_TITLE_ITEM", "blockly-TEXT_APPEND_VARIABLE", "blockly-TEXT_CREATE_JOIN_ITEM_TITLE_ITEM"];
   for (const key of keyboardKeys) {
     assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
