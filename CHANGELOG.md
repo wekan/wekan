@@ -4511,6 +4511,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3d09373fe">Translate Scottish Gaelic Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+- Translate 84 Scrum planning, reporting and navigation strings, preserving
+  unknown estimates, partial reports and daily observation limitations.
+- Translation, registry and human-preference checks pass, covering report
+  wording and placeholder preservation. Scottish Gaelic wording is lower
+  confidence; fluent-speaker and browser review were not run. Other languages
+  remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
