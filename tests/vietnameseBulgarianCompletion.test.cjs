@@ -31,6 +31,15 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Maltese filters and imports; remaining untranslated strings are filled separately.
 {
   const locale = read('mt');
+  const correctedRolesWeekdaysKeys = ["r-rule-details", "r-d-send-email-subject", "r-d-send-email-message", "r-d-check-one", "r-d-uncheck-one", "r-with-items", "r-items-list", "r-datefield", "r-df-start-at", "r-df-due-at", "r-df-end-at", "r-df-received-at", "authentication-method", "authentication-type", "layout", "error-undefined", "display-authentication-method", "previous_as", "act-newDue", "act-withDue", "help", "mark-all-as-read", "mark-all-as-unread", "allow-rename", "allowRenamePopup-title", "roles", "roles-status", "roles-status-sees-assigned", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+  for (const key of correctedRolesWeekdaysKeys) {
+    assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
+    assert.doesNotMatch(locale[key], /Traduzzjoni Maltija:/, `mt:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `mt:${key}: tokens`);
+  }
+  assert.equal(locale['allow-rename'], locale['allowRenamePopup-title']);
+  assert.notEqual(locale['mark-all-as-read'], locale['mark-all-as-unread']);
+  assert.equal(new Set(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map(key => locale[key])).size, 7);
   const correctedRuleSchedulingKeys = ["r-import-done", "r-workflow-format", "r-format-auto", "r-set-scheduled-triggers", "r-set-button-triggers", "r-when-scheduled", "r-schedule-type", "r-schedule-once", "r-schedule-weekday", "r-schedule-at-time", "r-schedule-on-weekday", "r-schedule-on-date", "r-button-label", "r-run", "r-sort-due", "r-later", "r-unit-minutes", "r-unit-hours", "r-trigger", "r-when-a-attach", "r-when-a-due-date-changed", "r-when-a-end-date-changed", "r-when-a-received-date-changed", "r-completed", "r-made-incomplete", "r-checked", "r-unchecked", "r-label", "r-checklist", "r-check-all", "r-uncheck-all", "r-check", "r-uncheck", "r-item", "r-subject"];
   for (const key of correctedRuleSchedulingKeys) {
     assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
