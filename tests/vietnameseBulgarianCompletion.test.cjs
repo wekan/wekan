@@ -31,6 +31,20 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const emailFailureKeys = ["email-recovery-pending", "email-recovery-empty", "email-recovery-unavailable", "email-recovery-busy", "email-recovery-failed", "email-recovery-superseded", "email-recovery-confirm-cancel", "email-recovery-attention", "email-recovery-stopped", "email-recovery-retry", "email-failure-smtp-temporary", "email-failure-smtp-rejected", "email-failure-smtp-authentication", "email-failure-smtp-configuration", "email-failure-recipient-unavailable", "email-failure-delivery-unconfirmed", "email-failure-acknowledgement-failed", "email-failure-delivery-failed", "email-failure-retry-limit", "sync-original-time", "sync-remaining-time", "sync-time-estimate-hint", "activity-recovery-heading", "activity-recovery-description", "activity-recovery-empty"];
+  for (const key of emailFailureKeys) {
+    assert.notEqual(locale[key], english[key], `rm:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+  }
+  assert.match(locale['email-recovery-confirm-cancel'], /na pon betg vegnir restabilids/);
+  assert.match(locale['email-recovery-confirm-cancel'], /suenter questa dumonda vegnan mantegnids/);
+  assert.match(locale['email-failure-smtp-temporary'], /temporara.*SMTP/);
+  assert.match(locale['email-failure-smtp-rejected'], /permanenta.*SMTP/);
+  assert.notEqual(locale['sync-original-time'], locale['sync-remaining-time']);
+  for (const token of ['Jira', 'null']) assert.ok(locale['sync-time-estimate-hint'].includes(token));
+  assert.match(locale['sync-time-estimate-hint'], /Exactamain in champ/);
+  assert.match(locale['activity-recovery-description'], /na recreescha mai/);
+
   const diagnosticEmailKeys = ["sync-report-completed", "sync-report-completed-with-warnings", "sync-report-skipped", "sync-report-review-only", "sync-report-unavailable", "sync-report-empty", "sync-recovery-heading", "sync-recovery-description", "sync-recovery-unavailable", "sync-recovery-all", "sync-estimate-field", "sync-estimate-field-hint", "email-recovery-heading", "email-recovery-description", "email-recovery-saving", "email-recovery-queued", "email-recovery-retrying", "email-recovery-attempts", "email-recovery-oldest", "email-recovery-next", "email-recovery-changed", "email-recovery-pause", "email-recovery-resume", "email-recovery-cancel", "email-recovery-paused"];
   for (const key of diagnosticEmailKeys) {
     assert.notEqual(locale[key], english[key], `rm:${key}: translated`);
