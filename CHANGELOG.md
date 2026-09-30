@@ -8367,6 +8367,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/55dbf1f8031a8bcc51cf74619aafc122d9622cf3">Translate Romansh date filters and correct archive messages</a>. Thanks to xet7.</summary>
+
+- Translate 30 date-filter, import and visibility strings; correct 16
+  Italian or mixed-language archive messages in the Romansh locale.
+- Translation, registry and human-preference checks pass, covering tokens,
+  import syntax, date expressions and archive visibility warnings.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run.
+  The wider translation and wrong-language cleanup remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
