@@ -31,6 +31,15 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Maltese filters and imports; remaining untranslated strings are filled separately.
 {
   const locale = read('mt');
+  const correctedSupportLockoutKeys = ["progress", "password-again", "if-you-already-have-an-account", "Mongo_sessions_count", "allowed-upload-filetypes", "allowed-avatar-filetypes", "translation", "translation-text", "collapse", "collapse-checklist", "expand-checklist", "uncollapse", "support", "supportPopup-title", "support-page-enabled", "support-content", "accessibility", "accessibility-page-enabled", "accessibility-content", "accounts-lockout-settings", "accounts-lockout-failures-before", "accounts-lockout-period", "accounts-lockout-failure-window", "accounts-lockout-settings-updated", "accounts-lockout-failed-attempts", "accounts-lockout-status", "attachments-path", "avatars-path", "cron-jobs", "cron-migrations", "cron-job-paused", "cron-job-resumed", "cron-job-started", "cron-migration-errors", "cron-migration-warnings"];
+  for (const key of correctedSupportLockoutKeys) {
+    assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
+    assert.doesNotMatch(locale[key], /Traduzzjoni Maltija:/, `mt:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `mt:${key}: tokens`);
+  }
+  assert.equal(locale.support, locale['supportPopup-title']);
+  assert.notEqual(locale['collapse-checklist'], locale['expand-checklist']);
+  assert.match(locale['accounts-lockout-period'], /sekondi/);
   const correctedStorageKeys = ["Node_memory_usage_rss", "Node_memory_usage_heap_used", "Node_memory_usage_external", "to-create-organizations-contact-admin", "acceptance_of_our_legalNotice", "legalNotice", "copied", "originOrder", "move-source", "move-destination", "move-storage-fs", "attachment-last-move", "attachment-repair-locations", "attachment-repair-done", "attachment-repair-scanned", "attachment-repair-repaired", "attachment-repair-broken", "move-scope-avatars", "move-progress-pause", "move-progress-resume", "calculate-file-counts", "calculating-counts", "stats-scope", "stats-count", "avatars", "mongodb-compact-run", "mongodb-compact-success", "mongodb-compact-error", "path", "size", "storage", "board-status-time-spent-total", "uploading", "remaining_time", "speed"];
   for (const key of correctedStorageKeys) {
     assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
