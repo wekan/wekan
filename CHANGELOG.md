@@ -2585,6 +2585,16 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/151af11ed">Translate Bosnian Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+- Fill 83 Bosnian placeholders for Scrum planning, sprint lifecycle
+  controls, reports and daily observations.
+- Verify placeholders and report warnings; update the README count to 84
+  locales meeting the existing completeness threshold.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
