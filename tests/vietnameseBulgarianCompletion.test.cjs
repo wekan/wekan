@@ -31,6 +31,20 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Georgian filters and import guidance; other placeholders remain.
 {
   const locale = read('ka');
+  const observationSyncKeys = ["scrum-past-sprints", "scrum-list-category", "scrum-swimlane-purpose", "scrum-category-backlog", "scrum-category-todo", "scrum-category-doing", "scrum-category-done", "scrum-partial-report", "scrum-state-released", "scrum-released-at", "scrum-follow-up-cards", "scrum-import-reference-omitted", "scrum-partial-snapshot", "scrum-resume-close", "scrum-daily-observations", "scrum-daily-observations-help", "scrum-daily-truncated", "scrum-daily-empty", "scrum-observed-scope", "scrum-daily-observations-export-help", "scrum-import-pending", "sync-conflict-heading", "sync-conflict-hint", "sync-conflict-local", "sync-conflict-keep-local"];
+  for (const key of observationSyncKeys) {
+    assert.notEqual(locale[key], english[key], `ka:${key}: translated`);
+    assert.match(locale[key], /[ა-ჿ]/, `ka:${key}: Georgian script`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ka:${key}: tokens`);
+  }
+  for (const key of ['scrum-daily-observations-help', 'scrum-daily-observations-export-help']) {
+    assert.match(locale[key], /UTC/);
+    assert.match(locale[key], /უცნობი შეფასებები ნულის ტოლი არ არის/);
+    assert.match(locale[key], /გამოტოვებული დღეები არ ჩანს/);
+  }
+  assert.match(locale['scrum-daily-truncated'], /366/);
+  assert.match(locale['sync-conflict-hint'], /წყაროს სისტემაში არაფერი იგზავნება/);
+  assert.match(locale['scrum-partial-report'], /მხოლოდ ამჟამად თქვენზე/);
   const sprintReportKeys = ["scrum-select-sprint", "scrum-backlog", "scrum-backlog-help", "scrum-estimate", "scrum-backlog-rank", "scrum-issue-type", "scrum-acceptance-criteria", "scrum-events", "scrum-event-kind", "scrum-timebox", "scrum-notes", "scrum-event-planning", "scrum-event-daily", "scrum-event-review", "scrum-event-retrospective", "scrum-committed", "scrum-completed", "scrum-added", "scrum-removed", "scrum-incomplete", "scrum-no-closed-sprints", "scrum-report-help", "scrum-total", "scrum-state-planned", "scrum-state-active", "scrum-state-closed", "scrum-state-cancelled", "scrum-unknown-estimate", "scrum-confirm-close", "scrum-confirm-cancel"];
   for (const key of sprintReportKeys) {
     assert.notEqual(locale[key], english[key], `ka:${key}: translated`);
