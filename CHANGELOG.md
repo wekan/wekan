@@ -7971,6 +7971,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/355748920b874f10e5259125f5a19e52c45d6527">Complete Faroese source-string coverage</a>. Thanks to xet7.</summary>
+
+- Translate the final 13 recovery, login and history strings. Faroese now has
+  all 3,783 source keys, with no untranslated prose flagged by the checker.
+- Translation, registry and human-preference checks pass, including source
+  order and replacement tokens. Faroese wording has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation and language-quality work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
