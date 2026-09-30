@@ -8500,6 +8500,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/413e35afbcfec533e405737cb21b8aa33182f903">Translate Romansh legacy email review messages</a>. Thanks to xet7.</summary>
+
+- Translate 25 email-resolution and legacy-review strings, preserving
+  existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, covering delivery
+  uncertainty, access checks and permanent discard warnings.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
