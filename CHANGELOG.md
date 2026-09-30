@@ -3417,6 +3417,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d2e6687c5">Complete Corsican notification and recovery translations</a>. Thanks to xet7.</summary>
+
+- Fill 79 Corsican notification, recovery, history and keyboard strings.
+- No flagged placeholders remain, including pending translation keys. Keep
+  printed key legends, product names and mathematical symbols unchanged.
+- Translation, registry and human-preference checks pass, including permanent
+  cancellation warnings and preserved translations and placeholders.
+  Browser layout and fluent-speaker review were not run.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
