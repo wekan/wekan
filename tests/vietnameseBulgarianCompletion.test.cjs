@@ -31,6 +31,15 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Maltese filters and imports; remaining untranslated strings are filled separately.
 {
   const locale = read('mt');
+  const correctedJobProgressKeys = ["migration-successful", "migration-failed", "migrations", "run-migration", "migration-progress-overall", "migration-progress-status", "migration-progress-details", "steps", "has-swimlanes", "step-validate-migration", "step-fix-avatar-urls", "step-finalize", "step-fix-missing-ids", "step-fix-file-urls", "cleanup", "completed", "cpu-cores", "cpu-usage", "database-migrations", "duration", "errors", "estimated-time-remaining", "every-1-hour", "every-1-minute", "every-10-minutes", "every-30-minutes", "every-5-minutes", "every-6-hours", "filesystem-attachments", "filesystem-size", "filesystem-storage", "gridfs-attachments", "gridfs-size", "idle-migration", "job-details"];
+  for (const key of correctedJobProgressKeys) {
+    assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
+    assert.doesNotMatch(locale[key], /Traduzzjoni Maltija:/, `mt:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `mt:${key}: tokens`);
+  }
+  assert.notEqual(locale['migration-successful'], locale['migration-failed']);
+  assert.match(locale['every-10-minutes'], /10/);
+  assert.match(locale['gridfs-attachments'], /GridFS/);
   const correctedCloudKeys = ["backup-frequency", "backup-frequency-off", "backup-frequency-daily", "backup-frequency-weekly", "backup-frequency-monthly", "backup-restore-replace-all", "gcs-project-id", "gcs-bucket", "gcs-key-filename", "gcs-credentials", "gcs-project-id-description", "test-cloud-connection", "cloud-connection-success", "cloud-connection-failed", "cloud-settings-saved", "pause", "stop", "migration-starting", "migration-pausing", "migration-stopping", "migration-paused", "migration-progress", "migration-started", "migration-status", "migration-stopped", "s3-region-description", "test-s3-connection", "writable-path", "attachment-storage-settings", "automatic-migration", "lost-cards-list", "fix-avatar-urls-migration", "migration-needed", "migration-complete", "migration-running"];
   for (const key of correctedCloudKeys) {
     assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
