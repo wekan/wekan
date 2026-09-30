@@ -5977,6 +5977,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a47c791ab1">Translate Georgian observations and sync guidance</a>. Thanks to xet7.</summary>
+
+- Translate 25 English strings for workflow categories, daily observations
+  and sync conflicts, preserving existing translations and tokens.
+- Translation, registry and human-preference checks pass, including omitted
+  days, unknown estimates, observation limits and no writes to source systems.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
