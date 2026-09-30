@@ -8945,6 +8945,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b056d4be349cd268c01d8294fdcfdcb5b878acb6">Translate import and email recovery additions into Shona</a>. Thanks to xet7.</summary>
+
+- Fill 44 missing Shona strings for todo.txt imports and rule-email recovery,
+  preserving placeholders and import syntax. All existing values remain intact.
+- Translation, registry and human-preference checks pass, covering uncertain
+  delivery, duplicate delivery warnings and legacy email review actions.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Audit found 648 older prefixed English entries still needing replacement.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
