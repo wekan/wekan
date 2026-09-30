@@ -5093,6 +5093,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b6bab0fba484f9ad2350e1436dc1490dffd98d7c">Correct Kashubian rule action summaries</a>. Thanks to xet7.</summary>
+
+- Correct 21 rule action messages, preserving opposite actions, member roles
+  and the distinction between the current list and a specified list.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Other mixed-language text and languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
