@@ -8705,6 +8705,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/09a8c1dcc4c2e763bb6414b6f432b0a460f0e695">Correct Romansh privacy and migration descriptions</a>. Thanks to xet7.</summary>
+
+- Correct 18 language and meaning errors, including the wrong export text
+  previously shown in the account-anonymization confirmation.
+- Translation, registry and human-preference checks pass, covering tokens,
+  irreversible anonymization, retained history and import/export limits.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider language cleanup remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
