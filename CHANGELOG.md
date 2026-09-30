@@ -2405,6 +2405,16 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/da06922a6">Complete remaining Malay editor translations</a>. Thanks to xet7.</summary>
+
+- Fill 133 remaining prose placeholders in each Malay locale for editor
+  help, accessibility, text operations and rule editing warnings.
+- Review 19 unchanged technical terms per locale and verify complete source
+  key coverage, placeholders, permissions and disabled-function warnings.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
