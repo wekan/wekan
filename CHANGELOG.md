@@ -5170,6 +5170,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/32d46428e26dddf4526027edc4055261fe2fa7b6">Translate Albanian reminders, maps and accessibility messages</a>. Thanks to xet7.</summary>
+
+- Fill 54 English placeholders for reminders, saved filters, maps and
+  accessibility announcements, preserving existing translations.
+- Translation, registry and human-preference checks pass, including timing,
+  template variables and opposite directions. Fluent-speaker and browser
+  review were not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
