@@ -6049,6 +6049,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3bd740ff39">Translate Georgian notification controls and rule email reports</a>. Thanks to xet7.</summary>
+
+- Translate 20 English strings for notification controls and rule email reports,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including permanent
+  cancellation, recall limits and mail server acceptance wording.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
