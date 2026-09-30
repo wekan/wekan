@@ -7959,6 +7959,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eed78d1c4e944356e939a5efcf979ae044820804">Translate Faroese legacy email recovery</a>. Thanks to xet7.</summary>
+
+- Translate 22 rule-email resolution and legacy-delivery recovery strings,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  rebind and discard actions. Faroese wording has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
