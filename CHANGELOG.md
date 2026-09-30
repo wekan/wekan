@@ -8440,6 +8440,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bfd0604e2c5adc76ffde24849d91388a080ec18a">Translate Romansh synchronization previews and reports</a>. Thanks to xet7.</summary>
+
+- Translate 30 preview and report strings. Update the README coverage count
+  to 130; the threshold does not establish full translation quality.
+- Translation, registry and human-preference checks pass, covering tokens,
+  report limits, retention, omitted values and partial-run warnings.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
