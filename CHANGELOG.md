@@ -3289,6 +3289,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f9fc419c">Translate Irish rule email recovery and review messages</a>. Thanks to xet7.</summary>
+
+- Fill 45 Irish recovery, review, variable and todo.txt import messages.
+- Translation, registry and human-preference checks pass, including duplicate
+  delivery warnings, permanent discard warnings and preserved syntax tokens.
+  Existing translations are preserved. Browser and fluent-speaker review were
+  not run.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
