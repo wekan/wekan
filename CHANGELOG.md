@@ -7202,6 +7202,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6ee245dc89ee4cbb28986978f6ae9a8d0d444a29">Translate Maltese editor fields and bitmap controls</a>. Thanks to xet7.</summary>
+
+- Translate 26 English placeholders for editor fields, bitmap controls and
+  keyboard labels, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including coordinate
+  placeholders and distinct open and close actions.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
