@@ -2209,6 +2209,17 @@ Existing translations are preserved. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e043c8a0f">Complete Estonian keyboard labels and review technical terms</a>. Thanks to xet7.</summary>
+
+Translate 12 keyboard labels and retain 16 reviewed technical terms, including
+product names, mathematical symbols and Sprint. Estonian now passes
+current-source completeness checks, including pending strings, together with
+placeholder and human-preference checks. Existing translations are preserved.
+Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
