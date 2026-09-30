@@ -8633,6 +8633,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/774c2ef5c78ca4e3f457ee880afec906ecb8a4fb">Correct Romansh confirmations and irreversible deletion warnings</a>. Thanks to xet7.</summary>
+
+- Replace 20 mixed-language confirmation and status strings with Romansh.
+  Correct warnings to say deletion cannot be undone, not interrupted.
+- Translation, registry and human-preference checks pass, covering tokens,
+  irreversible deletion, duplicate-list conditions and removal scope.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider language cleanup remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
