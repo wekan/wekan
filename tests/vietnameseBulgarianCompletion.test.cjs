@@ -31,6 +31,22 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Faroese date filters; remaining untranslated strings are filled separately.
 {
   const locale = read('fo');
+  const keyboardScrumKeys = ["blockly-BACKSPACE_KEY", "blockly-CAPS_LOCK_KEY", "blockly-COMMAND_KEY", "blockly-CONTROL_KEY", "blockly-END_KEY", "blockly-ENTER_KEY", "blockly-ESCAPE", "blockly-HOME_KEY", "blockly-INSERT_KEY", "blockly-OPTION_KEY", "blockly-PAGE_DOWN_KEY", "blockly-PAGE_UP_KEY", "blockly-PAUSE_KEY", "blockly-SHIFT_KEY", "blockly-TAB_KEY", "board-view-product-backlog", "board-view-sprints", "board-view-sprint-report", "board-view-velocity", "scrum-settings", "scrum-product-owner", "scrum-master", "scrum-developers", "scrum-working-days", "scrum-enabled", "scrum-product-goal", "scrum-definition-of-done", "scrum-estimate-source", "scrum-estimate-unit", "scrum-completion-policy", "scrum-source-poker", "scrum-source-customField", "scrum-policy-dueComplete", "scrum-policy-doneLists", "scrum-sprints", "scrum-sprint", "scrum-start-sprint"];
+  for (const key of keyboardScrumKeys) {
+    assert.notEqual(locale[key], english[key], `fo:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `fo:${key}: tokens`);
+  }
+  assert.ok(locale['blockly-PAGE_DOWN_KEY'].includes('niður'));
+  assert.ok(locale['blockly-PAGE_UP_KEY'].includes('upp'));
+  assert.notEqual(locale['blockly-END_KEY'], locale['end-date']);
+  assert.equal(locale['board-view-sprints'], locale['scrum-sprints']);
+  const untranslatedFo = JSON.parse(execFileSync(process.execPath,
+    ['releases/translations/fill-translations.mjs', '--list', 'fo'],
+    { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }));
+  for (const key of ["blockly-ALT_KEY", "blockly-CHROME_OS", "blockly-LINUX", "blockly-MAC_OS", "blockly-WINDOWS", "blockly-MATH_SUBTRACTION_SYMBOL_ARIA", "blockly-LISTS_SET_INDEX_SET", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN"]) {
+    assert.equal(locale[key], english[key], `fo:${key}: invariant`);
+    assert.ok(!(key in untranslatedFo), `fo:${key}: recognized invariant`);
+  }
   const filterMapKeys = ["filter-preset-name", "filter-preset-save", "filter-preset-replace-hint", "filter-preset-saved", "filter-preset-applied", "filter-preset-deleted", "filter-preset-error", "filter-card-text-label", "import-report-heading", "import-report-description", "import-report-open-board", "draggable", "board-view-map", "map-view-empty", "map-view-upload", "map-view-remove-image", "map-view-unplaced", "map-view-place-hint", "map-view-all-placed"];
   for (const key of filterMapKeys) {
     assert.notEqual(locale[key], english[key], `fo:${key}: translated`);
