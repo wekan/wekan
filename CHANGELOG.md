@@ -4615,6 +4615,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/519bf946d6">Replace Polish-seeded Kashubian activity and board labels</a>. Thanks to xet7.</summary>
+
+- Correct 65 older strings, including activity messages, workspace controls,
+  board views and attachment deletion. Preserve positive-integer height
+  validation, recipient direction and multi-board calendar scope.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Older mixed-language values and other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
