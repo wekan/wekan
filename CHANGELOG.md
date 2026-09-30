@@ -6637,6 +6637,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7edf7492c7">Translate Tagalog numeric and text input labels</a>. Thanks to xet7.</summary>
+
+- Translate 25 English strings for numeric and text inputs,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including division
+  operands, coordinates and consistent start and end positions.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
