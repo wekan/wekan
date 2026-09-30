@@ -31,6 +31,16 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Swahili archive and filter guidance; other placeholders remain.
 {
   const locale = read('sw');
+  const notificationControlKeys = ["activity-recovery-resume", "activity-recovery-paused", "activity-recovery-control-conflict", "activity-recovery-control-failed", "activity-recovery-status-cancelled", "activity-recovery-cancel", "activity-recovery-cancel-confirm", "rule-email-recovery-heading", "rule-email-recovery-description", "rule-email-recovery-all", "rule-email-recovery-unconfirmed", "rule-email-recovery-sent", "rule-email-recovery-invalid", "rule-email-recovery-identifiers", "rule-email-recovery-started", "rule-email-recovery-finished", "rule-email-recovery-empty", "rule-email-recovery-unavailable", "rule-email-recovery-dropped", "rule-email-recovery-review"];
+  for (const key of notificationControlKeys) {
+    assert.notEqual(locale[key], english[key], `sw:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sw:${key}: tokens`);
+  }
+  assert.match(locale['activity-recovery-cancel-confirm'], /Hauwezi kuendelea tena/);
+  assert.match(locale['activity-recovery-cancel-confirm'], /kwenye foleni.*hazirudishwi/);
+  assert.match(locale['rule-email-recovery-description'], /haijaribu tena wala kughairi/);
+  assert.match(locale['rule-email-recovery-sent'], /seva ya barua pepe/);
+  assert.equal(locale['activity-recovery-resume'], locale['email-recovery-resume']);
   const activityRecoveryKeys = ["sync-time-estimate-hint", "activity-recovery-heading", "activity-recovery-description", "activity-recovery-empty", "activity-recovery-unavailable", "activity-recovery-retry", "activity-recovery-retrying", "activity-recovery-status-pending", "activity-recovery-status-preparing", "activity-recovery-status-processing", "activity-recovery-status-missing", "activity-recovery-status-changed", "activity-recovery-status-invalid", "activity-recovery-status-inconsistent", "activity-recovery-busy", "activity-recovery-denied", "activity-recovery-source-unavailable", "activity-recovery-disabled", "activity-recovery-failed", "activity-recovery-pause"];
   for (const key of activityRecoveryKeys) {
     assert.notEqual(locale[key], english[key], `sw:${key}: translated`);
