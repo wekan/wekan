@@ -100,6 +100,26 @@ const LOCALE_INVARIANTS = {
     'blockly-WINDOWS',
   ]),
 
+  // Aragonese retains these printed key legends, product names and math symbols.
+  'an': new Set([
+    'blockly-ARIA_TYPE_FIELD_COLOUR',
+    'blockly-INPUT_LABEL_MATH_DIVISOR',
+    'blockly-CONTROL_KEY',
+    'blockly-ALT_KEY',
+    'blockly-CHROME_OS',
+    'blockly-COMMAND_KEY',
+    'blockly-LINUX',
+    'blockly-MAC_OS',
+    'blockly-MATH_TRIG_ACOS',
+    'blockly-MATH_TRIG_ASIN',
+    'blockly-MATH_TRIG_ATAN',
+    'blockly-MATH_TRIG_COS',
+    'blockly-MATH_TRIG_SIN',
+    'blockly-MATH_TRIG_TAN',
+    'blockly-TAB_KEY',
+    'blockly-WINDOWS',
+  ]),
+
   // Sicilian retains these printed key legends, product names and math symbols.
   'scn': new Set([
     'blockly-ALT_KEY',
