@@ -31,6 +31,16 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Maltese filters and imports; remaining untranslated strings are filled separately.
 {
   const locale = read('mt');
+  const correctedAdminKeys = ["invite-people", "email-addresses", "smtp-host", "smtp-port", "smtp-password", "smtp-tls", "send-from", "email-templates-title", "email-templates-invite-subject", "email-templates-invite-body", "email-templates-activity-subject", "email-templates-activity-body", "invitation-code", "email-invite-register-subject", "email-smtp-test-subject", "email-smtp-test-text", "error-invitation-code-not-exist", "outgoing-webhooks", "bidirectional-webhooks", "outgoingWebhooksPopup-title", "global-webhook", "no-name", "package", "Database", "Node_version", "Meteor_version", "Database_type", "Database_commit", "FerretDB_version", "FerretDB_commit", "Reactivity_mode", "Reactivity_order", "DDP_transport", "OS_Arch", "OS_Cpus"];
+  for (const key of correctedAdminKeys) {
+    assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
+    assert.doesNotMatch(locale[key], /Traduzzjoni Maltija:/, `mt:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `mt:${key}: tokens`);
+  }
+  assert.equal(locale['smtp-password'], locale.password);
+  assert.match(locale.Reactivity_order, /METEOR_REACTIVITY_ORDER/);
+  assert.match(locale.DDP_transport, /DDP_TRANSPORT/);
+  assert.notEqual(locale['outgoing-webhooks'], locale['bidirectional-webhooks']);
   const correctedSettingsKeys = ["normal", "normal-assigned-only", "password", "participating", "preview", "previewAttachedImagePopup-title", "previewClipboardImagePopup-title", "rules", "shortcut-autocomplete-emoji", "subscribe", "spent-time-hours", "overtime-hours", "overtime", "remove-labels-multiselect", "tracking", "type", "uploaded-avatar", "uploading-files", "watching", "welcome-swimlane", "welcome-list1", "welcome-list2", "wipLimitErrorPopup-title", "settings", "attachment-limits", "attachment-upload-limit-label", "avatars-upload-blocked-label", "attachment-download-limit-label", "api-upload-limit-label", "api-download-limit-label", "attachment-limit-mode-unlimited", "attachment-limit-mode-blocked", "registration", "self-registration", "invite"];
   for (const key of correctedSettingsKeys) {
     assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
