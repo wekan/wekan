@@ -31,6 +31,13 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Faroese date filters; remaining untranslated strings are filled separately.
 {
   const locale = read('fo');
+  const importVisibilityKeys = ["filter-column-age", "filter-column-age-disabled", "filter-column-age-days", "filter-column-age-hint", "advanced-filter-card-dates-hint", "import-board-instruction-leo", "import-board-instruction-todotxt", "instance", "instance-desc", "board-instance-info", "automatic-linked-url-schemes-hint", "other-parent-cards"];
+  for (const key of importVisibilityKeys) {
+    assert.notEqual(locale[key], english[key], `fo:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `fo:${key}: tokens`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) assert.ok(locale['import-board-instruction-todotxt'].includes(token));
+  for (const token of ['@createdAt', '@receivedAt', '@startAt', '@dueAt', '@endAt', '@listEnteredAt', 'none']) assert.ok(locale['advanced-filter-card-dates-hint'].includes(token));
   const keys = ["auto-archive-days", "auto-archive-off", "auto-archive-hint", "filter-recency-any", "filter-recency-day", "filter-recency-week", "filter-recency-month", "filter-recency-older", "filter-movement-range", "filter-date-range-field", "filter-date-range-from", "filter-date-range-to", "filter-date-range-missing", "filter-date-range-list-entry", "filter-date-range-invalid", "filter-due-any", "filter-due-previous-week", "filter-due-next-month"];
   for (const key of keys) {
     assert.notEqual(locale[key], english[key], `fo:${key}: translated`);
