@@ -5857,6 +5857,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a712f52e4f">Translate Georgian math and statistics guidance</a>. Thanks to xet7.</summary>
+
+- Translate 35 English strings for numeric bounds, divisibility, remainders
+  and list statistics, preserving existing translations and tokens.
+- Translation, registry and human-preference checks pass, including numeric
+  bounds, remainders, opposite number properties and statistical terms.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
