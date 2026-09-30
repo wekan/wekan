@@ -3937,6 +3937,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/427fb2d2a">Correct mixed-language Aragonese activity messages</a>. Thanks to xet7.</summary>
+
+- Correct 40 activity messages and restore the meaning of comment edits.
+  Preserve placeholders and all other locale values.
+- Translation, registry and human-preference checks pass, covering activity
+  vocabulary, checklist completion and move sources and destinations.
+  Wording is lower confidence; browser layout and fluent-speaker review were
+  not run. The wider language audit continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
