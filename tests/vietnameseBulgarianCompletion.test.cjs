@@ -31,6 +31,21 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const correctedBoardKeys = ["board-members-same-org-only", "board-members-same-team-only", "archive-permanent-delete-disabled-hint", "list-width-shared-note", "list-width-personal-note", "swimlane-height-error-message", "board-change-color", "board-info-on-my-boards", "boardInfoOnMyBoardsPopup-title", "boardInfoOnMyBoards-title", "board_members", "card_members", "board_assignees", "card_assignees", "board-nb-stars", "board-not-found", "board-private-info", "board-public-info", "board-drag-drop-reorder-or-click-open", "board-open-and-move-between-remaining-and-workspaces", "boardChangeColorPopup-title", "boardChangeTitlePopup-title", "boardChangeVisibilityPopup-title", "boardChangeWatchPopup-title", "board-view-cal", "board-view-multiboard-cal", "board-view-collapse", "board-view-stats", "card-delete-notice", "card-delete-pop", "card-delete-suggest-archive"];
+  for (const key of correctedBoardKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /\b(sarà|Puoi|Cambia|Calendario|Statistiche|membri|stelle|trovata|rilascia|condivisa|sarann)\b/, `rm:${key}: no Italian seed`);
+  }
+  assert.equal(locale['board-info-on-my-boards'], locale['boardInfoOnMyBoardsPopup-title']);
+  assert.equal(locale['board-info-on-my-boards'], locale['boardInfoOnMyBoards-title']);
+  assert.match(locale['swimlane-height-error-message'], /dumber entir positiv/);
+  assert.match(locale['list-width-shared-note'], /tut ils utilisaders/);
+  assert.match(locale['list-width-personal-note'], /mo per tai/);
+  assert.match(locale['card-delete-notice'], /permanent/);
+  assert.match(locale['card-delete-pop'], /na po betg vegnir fatg enavos/);
+  assert.match(locale['card-delete-suggest-archive'], /mantegnair l’activitad/);
+  assert.equal(locale['board-view-cal'], 'Chalender');
+
   const finalRecoveryKeys = ["blockly-INPUT_LABEL_MATH_DIVIDEND", "blockly-LOGIC_TERNARY_CONDITION", "blockly-OPTION_KEY", "rule-email-legacy-not-legacy", "rule-email-legacy-failed", "saml-login-not-started", "move-selection-before", "move-selection-after", "history-request-pending-undo", "history-request-pending-redo", "history-request-hint", "history-request-retry", "history-request-forget"];
   for (const key of finalRecoveryKeys) {
     assert.notEqual(locale[key], english[key], `rm:${key}: translated`);
