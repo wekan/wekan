@@ -343,6 +343,15 @@ for (const code of ['ms', 'ms-MY']) {
   }
   assert.match(locale['blockly-CANNOT_DELETE_VARIABLE_PROCEDURE'], /Tidak boleh memadam pemboleh ubah/);
   assert.match(locale['blockly-COLLAPSED_WARNINGS_WARNING'], /mengandungi amaran/);
+  for (const key of Object.keys(english).filter(key =>
+    /^blockly-(KEYBOARD_NAV_|LOGIC_COMPARE_.*_ARIA|LISTS_SORT_(?!HELPURL))/.test(key))) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  assert.match(locale['blockly-LOGIC_OPERATION_TOOLTIP_AND'], /kedua-dua input benar/);
+  assert.match(locale['blockly-LOGIC_OPERATION_TOOLTIP_OR'], /sekurang-kurangnya satu input benar/);
+  assert.match(locale['blockly-MATH_CONSTRAIN_TOOLTIP'], /termasuk kedua-dua had/);
+  assert.match(locale['blockly-LISTS_SORT_TOOLTIP'], /salinan senarai/);
   assert.notEqual(locale['blockly-END_KEY'], locale['end-date']);
 }
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
