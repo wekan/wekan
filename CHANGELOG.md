@@ -6998,6 +6998,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3e74e6ba721b86e84b2a229716ec1238270c3fca">Translate Maltese system and workflow labels</a>. Thanks to xet7.</summary>
+
+- Replace 35 prefixed English values with Maltese for system information,
+  card dates, subtasks and workflows, preserving translations and tokens.
+- Translation, registry and human-preference checks pass, including shared
+  subtask labels. Another 477 prefixed English values remain to translate.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
