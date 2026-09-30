@@ -2317,6 +2317,125 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedFlowKeys = [
+    "every-1-hour",
+    "every-1-minute",
+    "every-10-minutes",
+    "every-30-minutes",
+    "every-5-minutes",
+    "every-6-hours",
+    "gridfs-attachments",
+    "gridfs-size",
+    "gridfs-storage",
+    "job-queue",
+    "memory-usage",
+    "migrate-all-to-gridfs",
+    "migrate-all-to-s3",
+    "migration-batch-size",
+    "migration-cpu-threshold-description",
+    "next",
+    "of",
+    "page",
+    "pause-migration",
+    "previous",
+    "refresh",
+    "run-once",
+    "s3-attachments",
+    "s3-size",
+    "s3-storage",
+    "scanning-status",
+    "schedule",
+    "showChecklistAtMinicard",
+    "start-test-operation",
+    "start-time",
+    "step-progress",
+    "stop-migration",
+    "storage-distribution",
+    "total-size",
+    "weight",
+    "cron",
+    "current-step",
+    "otp",
+    "already-account",
+    "available-repositories",
+    "repositories",
+    "repository",
+    "size-bytes",
+    "upload-repository",
+    "sign-in-to-upload",
+    "otp-required",
+    "user-exists",
+    "confirm",
+    "file",
+    "log",
+    "logout",
+    "server",
+    "problems-status-title",
+    "cpu-usage-current",
+    "cpu-cores-suffix",
+    "event-datetime",
+    "event-category",
+    "event-severity",
+    "event-ip",
+    "event-ipv4",
+    "event-ipv6",
+    "export-select-what-to-include",
+    "import-here-instruction",
+    "operator-number",
+    "import-source-heading",
+    "import-wekan-file",
+    "wip-limit-group-apply-swimlane",
+    "board-view-blocker-analysis",
+    "board-view-size-cycle-time",
+    "flow-unknown",
+    "flow-cycle-days",
+    "flow-age-days",
+    "flow-p85",
+    "flow-samples",
+    "flow-signal",
+    "flow-unusual",
+    "flow-blocker",
+    "flow-episodes",
+    "flow-active",
+    "flow-blocked-days",
+    "flow-unknown-start",
+    "flow-confidence",
+    "flow-target-count",
+    "flow-finish-days",
+    "flow-finish-date",
+    "flow-target-date",
+    "flow-history-days",
+    "flow-beyond-horizon",
+    "flow-size-source",
+    "flow-size",
+    "flow-error",
+    "flow-details",
+    "flow-note-agingWip",
+    "flow-note-blockerAnalysis",
+    "flow-note-monteCarlo",
+    "flow-note-processBehavior",
+    "flow-note-sizeCycleTime",
+    "time-adjustments",
+    "time-adjustment-note"
+  ];
+  for (const key of correctedFlowKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+  }
+  for (const [key, value] of Object.entries(locale)) {
+    assert.doesNotMatch(value, /— pò kaszëbskù/, `csb:${key}: language label is not a translation`);
+  }
+  for (const key of ['gridfs-storage', 's3-storage', 'cron']) assert.equal(locale[key], english[key]);
+  for (const key of ['import-here-instruction', 'import-wekan-file']) {
+    assert.ok(locale[key].includes('.json'));
+    assert.ok(locale[key].includes('.zip'));
+  }
+  for (const literal of ['2,000', 'UTC', '3,650']) assert.ok(locale['flow-note-monteCarlo'].includes(literal));
+  assert.match(locale['flow-note-processBehavior'], /XmR/);
+  assert.match(locale['flow-note-sizeCycleTime'], /Planning Poker/);
+  assert.match(locale['migration-cpu-threshold-description'], /10-90/);
+  assert.notEqual(locale.next, locale.previous);
+  assert.notEqual(locale['pause-migration'], locale['stop-migration']);
+  assert.match(locale['time-adjustment-note'], /Ùjemné wôrtnotë są pòprawkama/);
   const correctedCloudKeys = [
     "backup-datetime",
     "backup-path",
