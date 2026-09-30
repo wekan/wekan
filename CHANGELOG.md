@@ -6445,6 +6445,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d90c4ad4b4">Translate Swahili sync conflict guidance</a>. Thanks to xet7.</summary>
+
+- Translate 25 English strings for synchronization conflicts and previews,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including local
+  content retention, unchanged subcards and reuse of replacement cards.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
