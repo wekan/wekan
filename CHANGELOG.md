@@ -7838,6 +7838,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c23df19203b4fde2774f315e9d61e641fc8aa411">Translate Faroese saved filters and map view</a>. Thanks to xet7.</summary>
+
+- Translate 19 saved-filter, import-warning and map-placement strings,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  map and card labels and matching admin navigation. Faroese has lower
+  confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
