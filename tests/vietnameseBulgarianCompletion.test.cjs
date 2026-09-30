@@ -31,6 +31,19 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const correctedNotificationKeys = ["notify-watch", "rescue-card-description", "shortcut-filter-my-cards", "show-cards-minimum-count", "star-board-title", "starred-boards-description", "has-overtime-cards", "tracking-info", "attachment-transfer-limits-title", "automatically-field-on-card", "always-field-on-card", "tableVisibilityMode-allowPrivateOnly", "tableVisibilityMode", "org-propagate-members-to-boards", "team-propagate-members-to-boards", "delete-board-confirm-popup", "delete-all-notifications", "show-parent-in-minicard", "attachment-count", "r-import-trello-note"];
+  for (const key of correctedNotificationKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /\b(ciartes|tabellai|notifiches|injuntes|Sarai|Incolla)\b/, `rm:${key}: no mixed-language seed`);
+  }
+  assert.equal(locale['org-propagate-members-to-boards'], locale['team-propagate-members-to-boards']);
+  assert.notEqual(locale['automatically-field-on-card'], locale['always-field-on-card']);
+  assert.match(locale['tableVisibilityMode-allowPrivateOnly'], /mo tabellas privatas/);
+  assert.match(locale['delete-board-confirm-popup'], /na po betg vegnir fatg enavos/);
+  assert.match(locale['tracking-info'], /creatur u commember/);
+  for (const token of ['Trello', 'Butler']) assert.ok(locale['r-import-trello-note'].includes(token));
+  assert.match(locale['r-import-trello-note'], /na cuntegnan betg reglas.*lingias senza attribuziun/);
+
   const correctedImportListKeys = ["import-board-instruction-openproject", "import-board-instruction-jira", "import-trello-zip-file-hint", "import-trello-zip-progress", "trello-api-import-desc", "trello-importing", "trello-delete-imported", "import-members-map", "label-delete-pop", "list-archive-cards", "list-archive-cards-pop", "list-move-cards", "list-select-cards", "my-boards", "no-archived-cards", "normal-desc"];
   for (const key of correctedImportListKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
