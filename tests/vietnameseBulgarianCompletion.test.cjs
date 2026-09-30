@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona rule and schedule controls replace prefixed English.
+{
+  const locale = read('sn');
+  const keys = ["queue", "cover-image", "r-rule", "r-view-rule", "r-edit-rule-trigger-action", "r-workflow-view", "r-when", "r-drop-trigger", "r-workflow-format", "r-format-auto", "r-set-scheduled-triggers", "r-set-button-triggers", "r-schedule-type", "r-schedule-once", "r-schedule-weekday", "r-schedule-monthly", "r-run", "r-later", "r-unit-hours", "r-unit-months", "r-trigger", "r-when-a-due-date-changed", "r-when-a-end-date-changed", "r-when-a-received-date-changed", "r-made-incomplete", "r-checked", "r-unchecked", "r-check", "r-uncheck", "r-item", "r-subject", "r-rule-details", "r-d-send-email-subject", "r-d-send-email-message", "r-d-check-one", "r-d-uncheck-one", "r-items-list", "r-set", "r-df-start-at", "r-df-due-at"];
+  for (const key of keys) {
+    assert.doesNotMatch(locale[key], /Mashoko echiShona:/, `sn:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+  }
+  assert.equal(locale['r-subject'], locale['r-d-send-email-subject']);
+  assert.equal(locale['r-items-list'].split(',').length, 3);
+  assert.match(locale['r-schedule-weekday'], /Muvhuro–Chishanu/);
+  assert.notEqual(locale['r-schedule-once'], locale['r-schedule-monthly']);
+  for (const [checked, unchecked] of [['r-checked', 'r-unchecked'], ['r-check', 'r-uncheck'], ['r-d-check-one', 'r-d-uncheck-one']]) assert.notEqual(locale[checked], locale[unchecked]);
+  for (const kind of ['due', 'end', 'received']) assert.match(locale[`r-when-a-${kind}-date-changed`], /raiswa kana kuchinjwa/);
+}
+
 // Shona system information and shared templates replace prefixed English.
 {
   const locale = read('sn');
