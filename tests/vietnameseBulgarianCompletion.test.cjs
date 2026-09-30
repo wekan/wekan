@@ -2317,6 +2317,15 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedRuleBuilderKeys = ["r-add-rule", "r-delete-rule", "r-new-rule-name", "r-edit-rule-trigger-action", "r-toggle-rule-enabled", "r-workflow-help", "r-w-card-created", "r-w-card-archived", "r-w-card-unarchived", "r-w-label-added", "r-w-label-removed", "r-w-member-added", "r-w-member-removed", "r-w-assignee-added", "r-w-assignee-removed", "r-w-checklist-added", "r-w-attachment-added", "r-w-every-day-at", "r-import-trello-note"];
+  for (const key of correctedRuleBuilderKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /(?:reguł|Zostanié|zostanié|Przeciągnij|Codziennié|Wklej )/);
+  }
+  for (const pair of [['r-w-label-added', 'r-w-label-removed'], ['r-w-member-added', 'r-w-member-removed'], ['r-w-assignee-added', 'r-w-assignee-removed'], ['r-w-card-archived', 'r-w-card-unarchived']]) assert.notEqual(locale[pair[0]], locale[pair[1]]);
+  assert.notEqual(locale['r-w-member-added'], locale['r-w-assignee-added']);
+  for (const literal of ['Trello', 'Butler']) assert.ok(locale['r-import-trello-note'].includes(literal));
+  assert.match(locale['r-import-trello-note'], /nie mają reglów Butler.*nieprzëpisóné rézë są zgłôszóné/);
   const correctedFeatureDescriptionKeys = ["always-show-code-as-text-description", "disable-all-import-description", "disable-all-export-description", "disable-export-avatars-description", "anonymize-import-users-description", "anonymize-export-users-description", "anonymize-account-confirm-popup", "disable-activities-description"];
   for (const key of correctedFeatureDescriptionKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
