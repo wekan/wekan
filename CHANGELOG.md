@@ -2289,6 +2289,17 @@ and Persian (Iran) has 102. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fb9887211">Translate Persian notification recovery and history messages</a>. Thanks to xet7.</summary>
+
+Fill 154 strings across both Persian locale files. Tests preserve placeholders,
+irreversible cancellation warnings and retry semantics. Existing translations
+are preserved and human-preference checks pass. Persian has 27 reported terms
+remaining, and Persian (Iran) has 25, requiring a technical terminology review.
+Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
