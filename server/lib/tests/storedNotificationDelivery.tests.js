@@ -7,7 +7,8 @@ import Cards from '/models/cards';
 import Activities from '/models/activities';
 import { EmailJobs, emailOutbox } from '/server/notifications/emailQueue';
 import { trayDeliveryReceipts } from '/server/notifications/trayQueue';
-import { SyncNotificationPlans, runStoredSyncNotifications } from '/server/notifications/storedDelivery';
+import { SyncNotificationPlans, SyncNotificationReceipts, runStoredSyncNotifications } from '/server/notifications/storedDelivery';
+const { createSyncNotificationRetention } = require('/server/lib/syncNotificationRetention');
 import { getFeatureFlags } from '/models/lib/featureFlags';
 
 describe('Stored Sync notification delivery',function(){
@@ -80,9 +81,23 @@ describe('Stored Sync notification delivery',function(){
    await SyncNotificationPlans.rawCollection().updateOne({_id:id},{$set:{checksum:'damaged'}});
    await assert.rejects(runStoredSyncNotifications(options),/plan-invalid/);
    assert.equal(await EmailJobs.find({userId:{$in:ids}}).countAsync(),1);
+   // Retention (2026-09-30): delivery left a receipt; 90 days later the plan is
+   // compacted in place and a late replay returns as delivered, sending nothing.
+   await SyncNotificationPlans.rawCollection().updateOne({_id:id},{$set:{checksum:stored.checksum}});
+   const receipt=await SyncNotificationReceipts.rawCollection().findOne({_id:id});
+   assert.ok(receipt.completedAt instanceof Date);assert.equal(receipt.checksum,stored.checksum);
+   const past90=new Date(receipt.completedAt.getTime()+91*86400000);
+   assert.equal((await createSyncNotificationRetention({plans:SyncNotificationPlans.rawCollection(),
+    receipts:SyncNotificationReceipts.rawCollection(),now:()=>past90}).sweep()).compacted,1);
+   const compact=await SyncNotificationPlans.rawCollection().findOne({_id:id});
+   assert.equal(compact.compactReceiptVersion,1);assert.equal(compact.plan,undefined);
+   await EmailJobs.rawCollection().deleteMany({userId:{$in:ids}});
+   assert.equal(await runStoredSyncNotifications(options),id);
+   assert.equal(await EmailJobs.find({userId:{$in:ids}}).countAsync(),0,'a compacted plan is never resent');
   }finally{
    Object.assign(flags,original);
-   await SyncNotificationPlans.rawCollection().deleteMany({'plan.activityId':activityId});
+   await SyncNotificationPlans.rawCollection().deleteMany({$or:[{'plan.activityId':activityId},{_id:require('/server/lib/syncNotificationPlan').planId(activityId)}]});
+   await SyncNotificationReceipts.rawCollection().deleteMany({_id:require('/server/lib/syncNotificationPlan').planId(activityId)});
    await EmailJobs.rawCollection().deleteMany({userId:{$in:ids}});await trayDeliveryReceipts.rawCollection().deleteMany({userId:{$in:ids}});
    await Activities.rawCollection().deleteMany({_id:activityId});await Cards.rawCollection().deleteMany({_id:cardId});
    await Lists.rawCollection().deleteMany({_id:listId});await Boards.rawCollection().deleteMany({_id:boardId});

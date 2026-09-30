@@ -14,19 +14,35 @@ import { trayDelivery } from '/server/notifications/trayQueue';
 import { emailOutbox } from '/server/notifications/emailQueue';
 const { EJSON } = require('bson');
 const { canonical } = require('/models/lib/changeHistoryIntegrity');
-const { ensureNotificationPlan, deliverNotificationPlan, notificationActivityIdentity } = require('/server/lib/syncNotificationPlan');
+const { ensureNotificationPlan, deliverNotificationPlan, notificationActivityIdentity, planId: notificationPlanId } = require('/server/lib/syncNotificationPlan');
+const { recordNotificationCompletion, createSyncNotificationRetention } = require('/server/lib/syncNotificationRetention');
+const { syncReceiptPolicy } = require('/server/lib/syncRuleEmailRetention');
 const { canReceiveStoredNotification } = require('/server/lib/syncNotificationAccess');
 const { validateSyncEffectPolicy, assertSyncEffectPolicy, syncEffectPolicy } = require('/server/lib/syncEffectPolicy');
 
 export const SyncNotificationPlans = new Mongo.Collection('listSyncNotificationPlans');
 SyncNotificationPlans.deny({ insert: () => true, update: () => true, remove: () => true });
+// Delivery receipts: written once a plan's delivery is confirmed, kept for
+// good; they are what lets a plan be compacted and a late replay skip it.
+export const SyncNotificationReceipts = new Mongo.Collection('listSyncNotificationReceipts');
+SyncNotificationReceipts.deny({ insert: () => true, update: () => true, remove: () => true });
 Meteor.startup(async () => {
   await ensureIndex(SyncNotificationPlans, { 'plan.boardId': 1, 'plan.cardId': 1 });
+  await ensureIndex(SyncNotificationReceipts, { completedAt: 1, _id: 1 });
+  // Retention (maintainer decision of 2026-09-30): compact delivered plans
+  // after SYNC_RECEIPT_METADATA_DAYS (90). A failed pass is retried.
+  const { days, intervalMs } = syncReceiptPolicy();
+  const retention = createSyncNotificationRetention({ plans: SyncNotificationPlans.rawCollection(),
+    receipts: SyncNotificationReceipts.rawCollection(), days });
+  Meteor.setInterval(() => {
+    retention.sweep().catch(() => console.error('Sync notification retention pass failed; it is retried on the next pass'));
+  }, intervalMs);
 });
 
 // Internal stage only: the caller supplies the journal's ownership/access guard.
 // Returning confirms tray receipts and email enqueue, not rules, SMTP or webhooks.
-// Retain plans without TTL; job activation and retention are separate work.
+// Plans are compacted after delivery plus SYNC_RECEIPT_METADATA_DAYS, never
+// deleted: the _id must stay taken so a late replay cannot resend.
 export async function runStoredSyncNotifications({ activity, policy, assertCurrent, trigger }) {
   const saved = EJSON.parse(EJSON.stringify(activity), { relaxed: true });
   notificationActivityIdentity(saved);
@@ -71,7 +87,7 @@ export async function runStoredSyncNotifications({ activity, policy, assertCurre
     await guard();
   }
   const plan = await ensureNotificationPlan({ plans: SyncNotificationPlans.rawCollection(), activity: saved,
-    assertCurrent: guard, build: async activity => {
+    receipts: SyncNotificationReceipts.rawCollection(), assertCurrent: guard, build: async activity => {
       const candidate = await prepareActivityDeliveryPlan({ activity, assertCurrent: guard });
       const recipients = [];
       // Select only currently permitted candidates in the first snapshot.
@@ -82,8 +98,14 @@ export async function runStoredSyncNotifications({ activity, policy, assertCurre
       }
       return { ...candidate, recipients };
     } });
-  return deliverNotificationPlan({ plan, activity: saved, assertCurrent: guard, assertRecipient: recipient,
+  // Compacted: delivered more than the retention period ago; nothing to resend.
+  if (plan.compacted) { await assertCurrent(); return plan.id; }
+  const id = await deliverNotificationPlan({ plan, activity: saved, assertCurrent: guard, assertRecipient: recipient,
     tray: { deliver: async (userId, activityId) => { await service(userId, 'tray'); return trayDelivery.deliver(userId, activityId); } },
     email: { enqueue: async job => { await service(job.userId, 'email'); return emailOutbox.enqueue(job); } },
   });
+  const stored = await SyncNotificationPlans.rawCollection().findOne({ _id: notificationPlanId(saved._id) });
+  await recordNotificationCompletion({ receipts: SyncNotificationReceipts.rawCollection(), id,
+    activityHash: plan.activityHash, checksum: stored?.checksum });
+  return id;
 }

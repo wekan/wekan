@@ -64,14 +64,21 @@ async function prepareNotificationPlan({ activity, recipientIds, getUser, prepar
   return plan;
 }
 const planId = activityId => sha256(canonical(['sync-notifications', activityId]));
-async function ensureNotificationPlan({ plans, activity, build, assertCurrent }) {
+// With `receipts`, a plan compacted after delivery (syncNotificationRetention.js)
+// is returned as { compacted: true, id }: it was delivered and is never rebuilt.
+async function ensureNotificationPlan({ plans, activity, build, assertCurrent, receipts = null }) {
   activity = copy(activity);
-  identity(activity);
+  const { activityHash } = identity(activity);
   if (typeof build !== 'function' || typeof assertCurrent !== 'function') fail();
   const _id = planId(activity._id);
   async function read() {
     const row = await plans.findOne({ _id });
     if (!row) return null;
+    if (row.compactReceiptVersion !== undefined) {
+      if (!receipts || row._id !== _id) fail();
+      const { readCompactedNotification } = require('./syncNotificationRetention');
+      return { compacted: true, id: await readCompactedNotification({ receipts, row, activityHash }) };
+    }
     if (!keys(row,'_id,plan,checksum') || row._id !== _id) fail();
     validateNotificationPlan(row.plan, activity);
     if (row.checksum !== sha256(canonical(row.plan))) fail();
