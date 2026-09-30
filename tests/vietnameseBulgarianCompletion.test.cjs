@@ -2317,6 +2317,16 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedNotificationHelpKeys = ["act-activity-notify", "email-invite-subject", "push-invite-title", "just-invited", "muted-info", "not-accepted-yet", "notify-watch", "sandstorm-remove-member-warning", "watching-info", "email-invite-register-subject", "email-invite-register-text", "error-invitation-code-not-exist", "org-domains-description", "delete-all-notifications", "drag-template-here-to-share", "shared-templates-info", "invite-people-success", "invite-people-error", "disable-notifications-description", "disable-watch-description"];
+  for (const key of correctedNotificationHelpKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /(?:powiadom|Powiadom|zaproszeni|wyświetlić|zostało wysłane)/);
+  }
+  for (const literal of ['a.example.com', 'kanban.example.org', 'MULTITENANCY=true']) assert.ok(locale['org-domains-description'].includes(literal));
+  assert.match(locale['sandstorm-remove-member-warning'], /Nie òdbiérô przistãpù/);
+  assert.match(locale['disable-notifications-description'], /Aktiwnoscë mògą bëc dali zapisëwóné/);
+  for (const key of ['disable-notifications-description', 'disable-watch-description']) assert.match(locale[key], /Domëslno wëłączoné/);
+  for (const key of ['push-invite-title', 'email-invite-register-subject']) assert.equal(locale[key], locale['email-invite-subject']);
   const correctedAccountStatusKeys = ["home-board-badge", "home-board-empty", "user-can-not-export-excel", "user-can-not-export-card-to-pdf", "user-can-not-export-card-to-excel", "normal", "unset-default-board-title", "tracking-info", "text-below-custom-login-logo", "error-ldap-login", "impersonation-user", "office-no-results", "admin-people-user-active", "admin-people-user-inactive", "account-locked", "account-created"];
   for (const key of correctedAccountStatusKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
