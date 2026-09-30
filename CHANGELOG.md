@@ -6866,6 +6866,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2947644961399751308683d9cbcc4d2334d940c1">Translate Tagalog email resolution and legacy guidance</a>. Thanks to xet7.</summary>
+
+- Translate 30 English strings for email resolution and older queued messages,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including duplicate
+  delivery warnings and uncertain resend outcomes.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
