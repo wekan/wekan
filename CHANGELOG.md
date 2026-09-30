@@ -212,6 +212,28 @@ recreated it" needs tombstones or incarnation ids on Scrum records and
 activities; retention of receipts and request IDs needs a per-collection
 compaction policy, because deleting them breaks retry idempotence.
 
+Maintainer decisions of 2026-09-30, answering the two paragraphs above:
+
+- **History reservation: link rows at write.** Sync and the rule archive
+  runner plan their History rows without `previousHash`; each row is linked
+  to the chain when it is appended, through the coordinated head, like an
+  ordinary edit. Ordinary History is never blocked or queued. This redesigns
+  the Sync and archive plan formats and their validators
+  (`validateSyncFieldHistory`, the archive plan's cross-card hash chain).
+- **Deleted versus recreated: incarnation ids.** Every Scrum record and
+  activity gets a new random incarnation id each time it is created; recovery
+  compares it, so a record deleted and recreated with the same values is not
+  taken for the original. Nothing is kept after deletion.
+- **Retention: compact after 90 days.** Receipts and request IDs (Scrum
+  completions and requests, Sync intents and completions, notification plans)
+  are compacted after 90 days to a permanent minimal id and outcome, the
+  notification outbox's policy, so a late retry still finds its receipt.
+- **Writer tokens: build online recovery.** History writers renew a liveness
+  heartbeat, and History inserts carry a fencing token, so a writer presumed
+  dead can have its token taken without stopping servers and cannot write
+  afterwards. The offline tool stays as the fallback. This changes the History
+  writer protocol for every writer and for migration.
+
 Node suite health at this pass: 163 of 1445 suites fail; 162 already failed at
 the pass's starting commit (mostly translation-completeness suites, plus source
 guards such as `changeHistoryWiring` and `historyRestoreAppliesWhatIsShown`).
@@ -1634,6 +1656,28 @@ template.
 
 </details>
 </details>
+
+# Upcoming WeKan ® release
+
+**In short:** Irish gains the rule email recovery and legacy review
+translations.
+
+This release updates the following translations:
+
+**Languages updated:** Irish.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f9fc419c">Translate Irish rule email recovery and review messages</a>. Thanks to xet7.</summary>
+
+- Fill 45 Irish recovery, review, variable and todo.txt import messages.
+- Translation, registry and human-preference checks pass, including duplicate
+  delivery warnings, permanent discard warnings and preserved syntax tokens.
+  Existing translations are preserved. Browser and fluent-speaker review were
+  not run.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
 
@@ -3286,17 +3330,6 @@ placeholders. Other languages remain in progress.
 - Translation, language registry and human-preference checks pass, including
   cancellation warnings and preservation of existing translations and tokens.
   Browser layout and fluent-speaker review were not run.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/7f9fc419c">Translate Irish rule email recovery and review messages</a>. Thanks to xet7.</summary>
-
-- Fill 45 Irish recovery, review, variable and todo.txt import messages.
-- Translation, registry and human-preference checks pass, including duplicate
-  delivery warnings, permanent discard warnings and preserved syntax tokens.
-  Existing translations are preserved. Browser and fluent-speaker review were
-  not run.
 
 </details>
 
