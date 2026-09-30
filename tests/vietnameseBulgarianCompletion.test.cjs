@@ -2317,6 +2317,19 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedTrelloKeys = ["import-trello-zip-file-hint", "import-trello-zip-progress", "import-trello-failed", "import-trello-zip-failed", "import-trello-zip-too-large", "import-trello-zip-too-many-files", "import-trello-zip-file-too-large", "import-trello-workspace", "import-trello-workspace-placeholder", "import-trello-parent-workspace", "trello-api-import-desc", "trello-api-token", "trello-list-workspaces", "trello-import-selected", "trello-importing", "trello-api-credentials-saved", "trello-import-more", "trello-cancel", "trello-cancel-delete", "trello-cancel-delete-confirm", "trello-resume", "trello-delete-imported"];
+  for (const key of correctedTrelloKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /(?:zostały|Możesz|Wklej |wyświetlić|Importuj|powiòdł się|przestrzeni)/);
+    for (const literal of ['.zip', '.json', 'Trello', 'API']) {
+      if (english[key].includes(literal)) assert.ok(locale[key].includes(literal), `csb:${key}: ${literal}`);
+    }
+  }
+  assert.match(locale['import-trello-zip-file-hint'], /Trello Card Attachments Downloader/);
+  assert.match(locale['trello-cancel-delete-confirm'], /przez no zadanié.*nie mòżna cofnąc/);
+  assert.notEqual(locale['import-trello-zip-too-large'], locale['import-trello-zip-file-too-large']);
+  assert.match(locale['import-trello-zip-file-too-large'], /bëne/);
+  assert.match(locale['trello-api-credentials-saved'], /bez jich pòwtórnégò wpisëwaniô/);
   const correctedArchiveHelpKeys = ["board-drag-drop-reorder-or-click-open", "allowNonBoardMembers", "soft-wip-limit", "trello-api-credentials-required", "accounts-allowUserDelete", "globalSearch-instructions-notes-5", "gridfs-enabled-description", "s3-enabled-description", "error-user-notSameOrgOrTeam", "act-archivedBoard", "auto-watch", "card-archived", "card-delete-pop", "card-delete-suggest-archive", "card-archive-suggest-cancel", "list-archive-suggest", "swimlane-archive-suggest", "worker-desc", "error-board-notAMember", "error-watch-disabled", "error-linked-card-not-allowed", "error-user-notAllowSelf", "error-user-notCreated", "import-trello-json-file-hint", "import-timeout", "import-trello-zip-unsafe-path"];
   for (const key of correctedArchiveHelpKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
