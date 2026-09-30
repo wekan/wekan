@@ -142,4 +142,17 @@ for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', '
 }
 assert.match(hiragana['rule-email-recovery-resend-confirm'], /2かい とどきます/);
 assert.match(hiragana['rule-email-legacy-discard-confirm'], /こんご おくられることは ありません/);
+for (const code of ['he', 'he-IL']) {
+  const locale = read(code);
+  for (const key of hiraganaBatchKeys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.match(locale[key], /\p{Script=Hebrew}/u, `${code}:${key}: Hebrew text`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
+    assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve ${token}`);
+  }
+  assert.match(locale['rule-email-recovery-resend-confirm'], /פעמיים/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /לעולם לא תישלח/);
+}
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
