@@ -31,6 +31,15 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Maltese filters and imports; remaining untranslated strings are filled separately.
 {
   const locale = read('mt');
+  const correctedHistoryMemoryKeys = ["reason", "wait-spinner", "Bounce", "Cube", "Cube-Grid", "Dot", "Double-Bounce", "Rotateplane", "Scaleout", "Wave", "subject", "details", "ticket", "tickets", "pending", "closed", "resolved", "cancelled", "history", "history-change-removed", "history-change-edited", "history-change-moved", "history-change-restored", "request", "requests", "help-request", "Node_heap_total_heap_size", "Node_heap_total_heap_size_executable", "Node_heap_total_physical_size", "Node_heap_total_available_size", "Node_heap_used_heap_size", "Node_heap_heap_size_limit", "Node_heap_malloced_memory", "Node_heap_peak_malloced_memory", "Node_heap_does_zap_garbage"];
+  for (const key of correctedHistoryMemoryKeys) {
+    assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
+    assert.doesNotMatch(locale[key], /Traduzzjoni Maltija:/, `mt:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `mt:${key}: tokens`);
+  }
+  assert.notEqual(locale.closed, locale.cancelled);
+  assert.notEqual(locale['history-change-removed'], locale['history-change-restored']);
+  assert.match(locale.Node_heap_malloced_memory, /malloc/);
   const correctedReportKeys = ["location-longitude", "location-detect", "map-region-europe", "created-at-newest-first", "created-at-oldest-first", "links-heading", "custom-field-stringtemplate", "custom-field-stringtemplate-format", "creator", "filesReportTitle", "filename-invisible-legend", "reports", "securityReportTitle", "speedReportTitle", "testsReportTitle", "cpuReportTitle", "databaseReportTitle", "new-problems", "acknowledge", "rulesReportTitle", "impersonationReportTitle", "officeReportTitle", "office-location", "office-address", "office-logins", "office-first-seen", "office-last-seen", "office-shared", "api-calls", "api-first-called", "api-last-called", "recovery-event", "recovery-severity", "recovery-db", "recovery-detail"];
   for (const key of correctedReportKeys) {
     assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
