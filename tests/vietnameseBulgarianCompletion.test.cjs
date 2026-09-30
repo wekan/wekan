@@ -31,6 +31,18 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Georgian filters and import guidance; other placeholders remain.
 {
   const locale = read('ka');
+  const emailQueueKeys = ["sync-recovery-heading", "sync-recovery-description", "sync-recovery-unavailable", "sync-recovery-all", "sync-estimate-field", "sync-estimate-field-hint", "email-recovery-heading", "email-recovery-description", "email-recovery-saving", "email-recovery-queued", "email-recovery-retrying", "email-recovery-attempts", "email-recovery-oldest", "email-recovery-next", "email-recovery-changed", "email-recovery-pause", "email-recovery-resume", "email-recovery-cancel", "email-recovery-paused", "email-recovery-pending"];
+  for (const key of emailQueueKeys) {
+    assert.notEqual(locale[key], english[key], `ka:${key}: translated`);
+    assert.match(locale[key], /[ა-ჿ]/, `ka:${key}: Georgian script`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ka:${key}: tokens`);
+  }
+  assert.match(locale['sync-recovery-description'], /30 დღის/);
+  assert.match(locale['sync-estimate-field-hint'], /null ასუფთავებს/);
+  assert.match(locale['email-recovery-description'], /უკან დაბრუნება შეუძლებელია/);
+  assert.match(locale['email-recovery-description'], /მიწოდება შესაძლოა განმეორდეს/);
+  assert.match(locale['email-recovery-description'], /ითვალისწინებს არსებულ შეჩერებას/);
+  assert.notEqual(locale['email-recovery-pause'], locale['email-recovery-resume']);
   const syncReportKeys = ["sync-preview-excluded", "sync-preview-unmapped", "sync-preview-parser-warnings", "sync-preview-parser-unsupported", "sync-source-heading", "sync-source-scope", "sync-source-unmapped", "sync-source-excluded", "sync-source-converted", "sync-source-fallback", "sync-source-excluded-item", "sync-source-occurrences", "sync-source-truncated", "sync-source-omitted", "sync-report-button", "sync-report-retention", "sync-report-partial", "sync-report-unfinished", "sync-report-failed", "sync-report-completed", "sync-report-completed-with-warnings", "sync-report-skipped", "sync-report-review-only", "sync-report-unavailable", "sync-report-empty"];
   for (const key of syncReportKeys) {
     assert.notEqual(locale[key], english[key], `ka:${key}: translated`);
