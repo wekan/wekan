@@ -6157,6 +6157,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/87b51b89b3">Translate Swahili block labels and warnings</a>. Thanks to xet7.</summary>
+
+- Translate 24 English strings for block labels, keyboard names and warnings,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including keyboard
+  names, singular/plural inputs and collapsed versus disabled blocks.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
