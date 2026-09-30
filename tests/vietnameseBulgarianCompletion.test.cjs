@@ -328,5 +328,13 @@ for (const code of ['ms', 'ms-MY']) {
   assert.match(locale['sync-conflict-detach-hint'], /Kandungannya kekal dalam WeKan/);
   assert.match(locale['sync-report-partial'], /tidak menyambung atau membuat asal/);
   assert.match(locale['sync-estimate-field-hint'], /tiada diabaikan.*null.*mengosongkan/);
+  for (const key of Object.keys(english).filter(key =>
+    /^(email-(recovery|failure)-|activity-recovery-|rule-email-recovery-|history-request-)/.test(key))) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  assert.match(locale['activity-recovery-cancel-confirm'], /tidak boleh disambung semula/);
+  assert.match(locale['email-recovery-confirm-cancel'], /tidak boleh dipulihkan/);
+  assert.match(locale['history-request-hint'], /tidak sekali-kali boleh membuat asal perubahan kedua/);
 }
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
