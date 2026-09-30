@@ -31,6 +31,15 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Maltese filters and imports; remaining untranslated strings are filled separately.
 {
   const locale = read('mt');
+  const correctedDependencyKeys = ["predicate-overdue", "predicate-quarter", "predicate-due", "predicate-modified", "predicate-attachment", "predicate-checklist", "predicate-start", "predicate-end", "predicate-assignee", "predicate-public", "predicate-private", "predicate-selector", "predicate-projection", "operator-number-expected", "next-page", "previous-page", "heading-notes", "globalSearch-instructions-notes-1", "archived-at", "due-complete", "card-mark-complete", "card-mark-incomplete", "stickers", "card-dependencies", "dependency-type", "dependency-icon", "dependency-type-blocks", "dependency-type-is-blocked-by", "dependency-type-fixes", "dependency-type-is-fixed-by", "import-dependencies-placeholder", "import-dependencies-done", "location", "location-address", "location-latitude"];
+  for (const key of correctedDependencyKeys) {
+    assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
+    assert.doesNotMatch(locale[key], /Traduzzjoni Maltija:/, `mt:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `mt:${key}: tokens`);
+    if (key.startsWith('predicate-')) assert.doesNotMatch(locale[key], /\s|:/, `mt:${key}: usable query token`);
+  }
+  assert.notEqual(locale['dependency-type-blocks'], locale['dependency-type-is-blocked-by']);
+  assert.notEqual(locale['card-mark-complete'], locale['card-mark-incomplete']);
   const correctedSearchKeys = ["status", "last-modified-at", "last-activity", "voting", "task", "domains", "domain", "share-template-with", "invalid-domain", "shared-templates", "website", "person", "day", "week", "month", "myCardsViewChange-choice-table", "operator-label", "operator-assignee", "operator-creator", "operator-status", "operator-due", "operator-modified", "operator-sort", "operator-has", "operator-limit", "operator-debug", "operator-org", "operator-team", "operator-customfield", "operator-attachment-text", "operator-checklist-text", "predicate-archived", "predicate-open", "predicate-ended", "predicate-all"];
   for (const key of correctedSearchKeys) {
     assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
