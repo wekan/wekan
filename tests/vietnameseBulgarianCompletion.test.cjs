@@ -28,6 +28,28 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Esperanto's new email recovery and todo.txt messages; older backlog remains.
+{
+  const locale = read('eo');
+  const keys = Object.keys(english).filter(key =>
+    /^rule-email-(recovery|resolution|legacy)-/.test(key) || key === 'import-board-instruction-todotxt');
+  for (const key of keys) {
+    assert.equal(typeof locale[key], 'string', `eo:${key}: present`);
+    assert.notEqual(locale[key], english[key], `eo:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `eo:${key}: tokens`);
+  }
+  assert.deepEqual(Object.keys(locale), Object.keys(english), 'eo: source key order');
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
+    assert.ok(locale['import-board-instruction-todotxt'].includes(token), `eo: preserve ${token}`);
+  }
+  assert.match(locale['rule-email-recovery-actions-hint'], /neniam memstare resendas.*nur la ricevontojn sen konfirmo/);
+  assert.match(locale['rule-email-recovery-resend-confirm'], /dufoje/);
+  assert.match(locale['rule-email-recovery-mark-sent-confirm'], /nur se vi scias, ke ĝi alvenis/);
+  assert.match(locale['rule-email-resolution-resend-uncertain'], /eble alvenis aŭ ne/);
+  assert.match(locale['rule-email-legacy-description'], /ne sendos ilin memstare.*nuna stato.*ankoraŭ havas aliron/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /neniam estos sendita/);
+  assert.match(locale['rule-email-legacy-access-denied'], /ne plu havas aliron.*aŭ la regulo ŝanĝiĝis/);
+}
 for (const code of ['vi', 'vi-VN']) {
   const locale = read(code);
   assert.match(locale['scrum-total'], /thẻ/);
