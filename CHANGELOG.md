@@ -8019,6 +8019,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/09509a6ea8fadf738a7f00f713c57ede03972649">Translate Friulian reminders and saved filters</a>. Thanks to xet7.</summary>
+
+- Translate 22 notification, reminder, dependency and saved-filter strings,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including template
+  variables and reminder bounds. Friulian wording has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
