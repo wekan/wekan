@@ -1905,6 +1905,23 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /Serà pas jamai mandat/);
   assert.match(locale['rule-email-legacy-access-denied'], /a pas pus accès/);
   assert.match(locale['r-insert-variable'], /Inserir una variabla/);
+  assert.match(locale['email-enrollAccount-subject'], /compte es estat creat/);
+  assert.doesNotMatch(locale['email-enrollAccount-subject'], /activat/);
+  assert.equal(locale['email-addresses'], 'Adreças de corrièl');
+  for (const key of ['email-templates-invite-subject', 'email-templates-activity-subject']) {
+    assert.match(locale[key], /^Subjècte del corrièl/);
+    assert.doesNotMatch(locale[key], /Sujet/);
+  }
+  for (const key of ['email-templates-invite-body', 'email-templates-activity-body']) {
+    assert.match(locale[key], /^Còrs del corrièl/);
+  }
+  assert.match(locale['import-board-instruction-openproject'], /paquets de trabalh/);
+  assert.ok(locale['import-board-instruction-openproject'].includes('GET /api/v3/work_packages'));
+  assert.ok(locale['import-board-instruction-jira'].includes('GET /rest/api/2/search'));
+  for (const token of ['"issues"', '"automationRules"']) {
+    assert.ok(locale['import-board-instruction-jira'].includes(token));
+  }
+  assert.match(locale['import-board-instruction-trello'], /Imprimir e exportar/);
   assert.match(locale['email-recovery-confirm-cancel'], /poiràn pas èsser restaurats/);
   assert.match(locale['email-recovery-description'], /mandadís incert pòt èsser repetit/);
   assert.match(locale['activity-recovery-description'], /torna pas jamai crear/);
