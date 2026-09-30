@@ -2317,6 +2317,17 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedStorageHelpKeys = ["uploading-files", "filter-invisible-filenames", "attachment-move-storage-fs", "move-all-attachments-to-fs", "move-all-attachments-of-board-to-fs", "move-storage-fs", "move-attachments-none-found", "move-storage-all", "calculate-file-counts", "mongodb-compact-description", "allowed-upload-filetypes", "allowed-avatar-filetypes", "sandstorm-delete-raw-mongodb-description", "disable-import-avatars-description", "backup-description", "backup-storage", "backup-restore-confirm", "gridfs-move-collectionfs-note", "s3-bucket-description", "writable-path-description", "attachment-storage-settings", "step-fix-avatar-urls"];
+  for (const key of correctedStorageHelpKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /(?:magazynu|plikòw|przechowywania|Przywròcić|Ścieżka|załącznikami)/);
+  }
+  for (const literal of ['backup/YYYY/MM/DD/HH_MM_SS/backup.zip', 'YYYY_MM_DD-HH_MM_SS/attachments', '/avatars', '/data', 'S3/MinIO', 'Azure', 'GCS']) assert.ok(locale['backup-description'].includes(literal));
+  assert.doesNotMatch(locale['backup-description'], /HH_MM_SS\/Przëdôwczi/);
+  for (const literal of ['WeKan JSON', 'Trello', 'LDAP', 'OIDC/OAuth2']) assert.ok(locale['disable-import-avatars-description'].includes(literal));
+  assert.match(locale['disable-import-avatars-description'], /blós awatarë.*Domëslno wëłączoné/);
+  assert.match(locale['mongodb-compact-description'], /blós pò skùńczeniu masowégò przenoszeniô/);
+  assert.match(locale['sandstorm-delete-raw-mongodb-description'], /nie mòżna cofnąc/);
   const correctedLoadingKeys = ["click-to-enable-auto-width", "click-to-disable-auto-width", "auto-list-width", "r-format-auto", "autoAddUsersWithDomainName", "recovery-report-desc", "maximize-card", "minimize-card", "list-width-shared-note", "cards-loading", "cards-loading-auto", "cards-loading-all", "cards-loading-lazy", "cards-loading-description", "cards-loading-lazy-note"];
   for (const key of correctedLoadingKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
