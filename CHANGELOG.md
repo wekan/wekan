@@ -6457,6 +6457,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/494825e20f">Translate Swahili sync preview and reporting limits</a>. Thanks to xet7.</summary>
+
+- Translate 25 English strings for synchronization previews and reports,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including report
+  limits, retention and the warning that reports cannot resume or undo a run.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
