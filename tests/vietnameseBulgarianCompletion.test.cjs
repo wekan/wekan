@@ -31,6 +31,17 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Swahili archive and filter guidance; other placeholders remain.
 {
   const locale = read('sw');
+  const mapAccessibilityKeys = ["map-view-unplaced", "map-view-place-hint", "map-view-all-placed", "blockly-ADD_COMMENT", "blockly-ANNOUNCE_CANT_SCROLL_FURTHER", "blockly-ANNOUNCE_MOVE_AFTER", "blockly-ANNOUNCE_MOVE_AROUND", "blockly-ANNOUNCE_MOVE_BEFORE", "blockly-ANNOUNCE_MOVE_CANCELED", "blockly-ANNOUNCE_MOVE_INSIDE", "blockly-ANNOUNCE_MOVE_TO", "blockly-ANNOUNCE_MOVE_WORKSPACE", "blockly-ANNOUNCE_SCROLLED_DOWN", "blockly-ANNOUNCE_SCROLLED_LEFT", "blockly-ANNOUNCE_SCROLLED_RIGHT", "blockly-ANNOUNCE_SCROLLED_UP", "blockly-ARIA_LABEL_ADD_ELSE_IF", "blockly-ARIA_LABEL_ADD_INPUT", "blockly-ARIA_LABEL_ADD_LIST_ITEM"];
+  for (const key of mapAccessibilityKeys) {
+    assert.notEqual(locale[key], english[key], `sw:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sw:${key}: tokens`);
+  }
+  assert.match(locale['map-view-place-hint'], /Buruta.*au ichague.*ubofye/);
+  assert.match(locale['blockly-ANNOUNCE_MOVE_BEFORE'], /kabla ya/);
+  assert.match(locale['blockly-ANNOUNCE_MOVE_AFTER'], /baada ya/);
+  for (const [direction, word] of [['DOWN', 'chini'], ['UP', 'juu'], ['LEFT', 'kushoto'], ['RIGHT', 'kulia']]) {
+    assert.ok(locale[`blockly-ANNOUNCE_SCROLLED_${direction}`].includes(word));
+  }
   const presetMapKeys = ["dependency-type-is-duplicated-by", "custom-field-stringtemplate-context-hint", "filter-presets", "filter-preset-choose", "filter-preset-name", "filter-preset-save", "filter-preset-replace-hint", "filter-preset-saved", "filter-preset-applied", "filter-preset-deleted", "filter-preset-error", "filter-card-text-label", "import-report-heading", "import-report-description", "import-report-open-board", "draggable", "board-view-map", "map-view-empty", "map-view-upload", "map-view-remove-image"];
   for (const key of presetMapKeys) {
     assert.notEqual(locale[key], english[key], `sw:${key}: translated`);
