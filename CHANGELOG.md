@@ -1770,10 +1770,20 @@ recorded earlier did not reproduce.
 
 and has the following developer-facing changes:
 
-**Browser tests** - a chart export check waits for the chart it describes.
+**Tests and the release audit** - guards that follow deliberate changes, a
+flaky browser check and a URL the release audit would have refused.
 
 - [The Monte Carlo export test waits for the forecast answer before reading the export link](https://github.com/wekan/wekan/commit/c46730a22):
   it failed two runs in three, and passed four in four after. Thanks to xet7.
+- [Three source guards read the undo claim and the legacy review code](https://github.com/wekan/wekan/commit/4790ffb17):
+  the rules they pin - History rows change only in their undo flags, undo
+  and redo apply their own direction - are unchanged. Thanks to xet7.
+- [The todo.txt module names its specification without a URL](https://github.com/wekan/wekan/commit/c8d16d1c4):
+  the release telemetry audit, which the bump job runs, flags every new URL
+  origin in shipped source. Thanks to xet7.
+- [The filter preset storage test's sandbox gets the module its server file requires](https://github.com/wekan/wekan/commit/558fd7a45):
+  it had failed with "require is not defined" since semi-open boards. Thanks
+  to xet7.
 
 **Sync and Scrum History coordination** - Sync effects stay off until enabled,
 Sync History respects the board's History gate, and one Scrum History worker
