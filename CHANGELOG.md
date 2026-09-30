@@ -3959,6 +3959,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f61a0a2d3">Correct Aragonese selection and administration messages</a>. Thanks to xet7.</summary>
+
+- Correct 35 mixed-language messages and clarify that a removed member
+  receives a notification. Preserve all other translations and placeholders.
+- Translation, registry and human-preference checks pass, including deletion,
+  read-only role summaries, positioning and API configuration syntax.
+  Wording is lower confidence; browser layout and fluent-speaker review were
+  not run. The wider language audit continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
