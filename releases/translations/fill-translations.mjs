@@ -82,6 +82,14 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // needs a different word. Keep those exceptions per locale; putting them in the
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
+  // Lithuanian retains printed modifier legends, product names and math terms.
+  lt: new Set([
+    'blockly-ALT_KEY', 'blockly-COMMAND_KEY', 'blockly-OPTION_KEY',
+    'blockly-SHIFT_KEY', 'blockly-TAB_KEY', 'blockly-CHROME_OS', 'blockly-LINUX',
+    'blockly-MAC_OS', 'blockly-WINDOWS', 'blockly-MATH_SUBTRACTION_SYMBOL_ARIA',
+    'blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ASIN', 'blockly-MATH_TRIG_ATAN',
+    'blockly-MATH_TRIG_COS', 'blockly-MATH_TRIG_SIN', 'blockly-MATH_TRIG_TAN',
+  ]),
   // Belarusian retains printed modifier legends, product names and math symbols.
   be: new Set([
     'blockly-ALT_KEY', 'blockly-COMMAND_KEY', 'blockly-OPTION_KEY',
