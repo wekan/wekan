@@ -6902,6 +6902,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/291f184aaf0ddbd4426397e6123fbcec4110dcc9">Translate Maltese rules, notifications and reminders</a>. Thanks to xet7.</summary>
+
+- Translate 30 English strings for rules, notifications and due-date reminders,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including rule
+  variables and reminder limits.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
