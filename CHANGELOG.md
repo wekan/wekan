@@ -8247,6 +8247,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7a92c1cda2f4615bcdc653708f31665a8714d844">Translate Frisian keyboard and editor labels</a>. Thanks to xet7.</summary>
+
+- Translate 22 keyboard and editor labels in each of fy and fy-NL; recognize
+  17 unchanged terms per locale. Preserve translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including keyboard
+  directions and locale-specific invariants.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
