@@ -4558,6 +4558,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/714043e90c">Translate Kashubian rule email recovery messages</a>. Thanks to xet7.</summary>
+
+- Translate 56 recovery, variable insertion and todo.txt import strings.
+- Translation, registry and human-preference checks pass, covering tokens,
+  duplicate delivery, lost access and uncertain delivery. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Older Polish-seeded values and other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
