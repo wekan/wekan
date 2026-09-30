@@ -82,6 +82,11 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // needs a different word. Keep those exceptions per locale; putting them in the
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
+  // Georgian retains physical key labels, OS brands and short trig symbols.
+  ka: new Set([
+    'blockly-ALT_KEY', 'blockly-COMMAND_KEY', 'blockly-TAB_KEY',
+    'blockly-CHROME_OS', 'blockly-LINUX', 'blockly-MAC_OS', 'blockly-WINDOWS',
+    'blockly-MATH_TRIG_COS', 'blockly-MATH_TRIG_SIN', 'blockly-MATH_TRIG_TAN']),
   // Azerbaijani retains standard key labels, OS brands, trig symbols and Sprint.
   "az": new Set(["blockly-ALT_KEY", "blockly-CHROME_OS", "blockly-COMMAND_KEY", "blockly-LINUX", "blockly-MAC_OS", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-TAB_KEY", "blockly-WINDOWS", "scrum-sprint"]),
   "az-AZ": new Set(["blockly-ALT_KEY", "blockly-CHROME_OS", "blockly-COMMAND_KEY", "blockly-LINUX", "blockly-MAC_OS", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-TAB_KEY", "blockly-WINDOWS", "scrum-sprint"]),
