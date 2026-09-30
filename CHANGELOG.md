@@ -5373,9 +5373,9 @@ placeholders. Other languages remain in progress.
 
 - Fill 35 English placeholders for keyboard and screen reader instructions,
   preserving existing translations and replacement tokens.
-- Translation, registry and human-preference checks pass, including mode changes,
-  disabled functions and navigation commands. Fluent-speaker and browser review
-  were not run. The wider translation work remains in progress.
+- Translation, registry and human-preference checks pass, including mode
+  changes, disabled functions and navigation commands. Fluent-speaker and
+  browser review were not run. Translation work remains in progress.
 
 </details>
 
