@@ -8525,6 +8525,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a1888873771c6ebf0009c4669c1511a031c352f8">Correct mixed-language Romansh board and deletion messages</a>. Thanks to xet7.</summary>
+
+- Replace 31 Italian or mixed-language board, membership, display and
+  deletion strings with Romansh, preserving other translations and tokens.
+- Translation, registry and human-preference checks pass, covering native
+  vocabulary, shared labels and permanent-deletion warnings.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider language cleanup remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
