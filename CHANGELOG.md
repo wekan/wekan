@@ -6757,6 +6757,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0dd76c77f2bdd21df877d405d5dba183d81020f8">Translate Tagalog text operations</a>. Thanks to xet7.</summary>
+
+- Translate 30 English strings for text indexing, replacement, length,
+  prompts and trimming, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including text
+  indexing, replacement and length guidance.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
