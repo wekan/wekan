@@ -1770,6 +1770,11 @@ recorded earlier did not reproduce.
 
 and has the following developer-facing changes:
 
+**Browser tests** - a chart export check waits for the chart it describes.
+
+- [The Monte Carlo export test waits for the forecast answer before reading the export link](https://github.com/wekan/wekan/commit/c46730a22):
+  it failed two runs in three, and passed four in four after. Thanks to xet7.
+
 **Sync and Scrum History coordination** - Sync effects stay off until enabled,
 Sync History respects the board's History gate, and one Scrum History worker
 runs an operation at a time.
