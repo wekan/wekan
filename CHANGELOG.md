@@ -4580,6 +4580,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8b2a6e87b8">Translate Kashubian Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+- Translate 84 Scrum planning, reporting and navigation strings, preserving
+  unknown estimates, partial reports and daily observation limitations.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Older Polish-seeded values and other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
