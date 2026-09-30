@@ -162,10 +162,12 @@ export async function runStoredSyncRules({ adapters, ...options }) {
   // The archive runner returns the invocation id once its cards, History,
   // activities and their own delivery are confirmed.
   const archive = ({ invocation }) => runStoredSyncRuleArchive({ ...options, index: indices.get(invocation.id) });
+  const cardField = ({ invocation }) => runStoredSyncRuleCard({ ...options, index: indices.get(invocation.id) });
   const durableAdapters = {
     sendEmail: ({ invocation }) => runStoredSyncRuleEmail({ ...options, index: indices.get(invocation.id) }),
     archive,
     unarchive: archive,
+    ...Object.fromEntries(Object.keys(RULE_CARD_ACTIONS).map(type => [type, cardField])),
     ...adapters,
   };
   const done = await executeRulePlan({ plan, activity: context.saved, effectId: context.effectId,
@@ -332,3 +334,80 @@ export async function runStoredSyncRuleArchive({ completeDelivery = runStoredSyn
   await recordArchiveCompletion({ completions: SyncRuleArchiveCompletions.rawCollection(), command });
   return result;
 }
+
+// Durable rule card-field actions (server/lib/syncRuleCardCommand.js): one
+// saved command per invocation, applied conditionally to its one field with
+// ordinary History deferred, then its planned History rows and activities -
+// each activity delivered durably, rules included. Returns the invocation id
+// only when all of it is confirmed; every step is idempotent on replay.
+export const SyncRuleCardCommands = new Mongo.Collection('listSyncRuleCardCommands');
+SyncRuleCardCommands.deny({ insert: () => true, update: () => true, remove: () => true });
+
+export async function runStoredSyncRuleCard({ index, completeDelivery = runStoredSyncActivityDelivery, ...options }) {
+  const context = executionContext(options), plan = await capture(context);
+  const invocation = plan.actions[index];
+  if (!Object.hasOwn(RULE_CARD_ACTIONS, invocation?.action?.actionType)) throw new Error('sync-rule-card-invalid');
+  const commandContext = { plan, activity: context.saved, effectId: context.effectId, index };
+  const guard = reuseWithinEvaluation(async () => {
+    await context.guard();
+    const [rule, action] = await Promise.all([
+      Rules.rawCollection().findOne({ _id: invocation.rule._id }),
+      Actions.rawCollection().findOne({ _id: invocation.action._id }),
+    ]);
+    if (!rule || !action || canonical(rule) !== canonical(invocation.rule) ||
+        canonical(action) !== canonical(invocation.action)) throw new Error('sync-rule-card-configuration-changed');
+    await context.guard();
+  });
+  const commands = SyncRuleCardCommands.rawCollection(), id = ruleCardCommandId(invocation.id);
+  await guard();
+  let row = await commands.findOne({ _id: id });
+  if (!row) {
+    const card = await Cards.findOneAsync({ _id: plan.cardId, boardId: plan.boardId }, { transform: null });
+    const redoRows = await ChangeHistory.find({ boardId: plan.boardId, userId: plan.actorId, undone: true,
+      superseded: { $ne: true } }, { transform: null, limit: 10000 }).fetchAsync();
+    const candidate = prepareRuleCardCommand({ ...commandContext, card, createdAt: new Date(), redoRows });
+    await guard();
+    let failure;
+    try { await commands.insertOne(candidate); } catch (error) { failure = error; }
+    row = await commands.findOne({ _id: id });
+    if (!row) throw failure || new Error('sync-rule-card-command-unconfirmed');
+  }
+  const command = validateRuleCardCommand(row, commandContext);
+  // The card: already at the saved after-value, or still at the before-value.
+  const matches = fields => Cards.findOneAsync(ruleCardFieldSelector(command, fields), { transform: null });
+  await guard();
+  if (!await matches(command.after)) {
+    if (!await matches(command.before)) throw new Error('sync-rule-card-changed');
+    const modifier = Object.hasOwn(command.after, command.field) ? { $set: { [command.field]: command.after[command.field] } } : null;
+    if (modifier) {
+      await guard();
+      // The card may have moved since capture; the deferral is for this write.
+      const { listId } = await Cards.findOneAsync({ _id: command.cardId }, { fields: { listId: 1 }, transform: null });
+      await DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false }, () =>
+        withSyncRecordingDeferred({ cardId: command.cardId, boardId: command.boardId, listId, kinds: ['history'] },
+          () => Cards.updateAsync(ruleCardFieldSelector(command, command.before), modifier, { removeEmptyStrings: false, trimStrings: false })));
+    }
+    if (!await matches(command.after)) throw new Error('sync-rule-card-unconfirmed');
+  }
+  if (command.effects.history.rows.length) {
+    await persistSyncFieldHistory({ history: ChangeHistory, plan: command.effects.history, assertCurrent: guard,
+      fields: RULE_CARD_FIELDS });
+  }
+  const activities = {
+    findOneAsync: activityId => Activities.findOneAsync(activityId, { transform: null }),
+    insertAsync: document => DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false },
+      () => withSyncActivityDeferred(document, () => Activities.insertAsync(document))),
+  };
+  for (const { receiptId, activity } of command.effects.activities) {
+    await persistSyncActivity({ activities, activity, effectId: receiptId, assertCurrent: guard,
+      completeDelivery: delivery => completeDelivery({ ...delivery, policy: options.policy, trigger: options.trigger }) });
+  }
+  await guard();
+  return invocation.id;
+}
+const { RULE_CARD_ACTIONS, commandId: ruleCardCommandId, prepareRuleCardCommand, validateRuleCardCommand,
+  fieldSelector: ruleCardFieldSelector } = require('/server/lib/syncRuleCardCommand');
+const { persistSyncFieldHistory, RULE_CARD_FIELDS } = require('/server/lib/syncHistoryBatch');
+const { persistSyncActivity } = require('/server/lib/syncActivityPersistence');
+const { withSyncRecordingDeferred } = require('/server/lib/syncRecordingScope');
+const { withSyncActivityDeferred } = require('/server/lib/syncActivityScope');

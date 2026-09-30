@@ -31,9 +31,12 @@ test('every missing condition keeps the direct path, and says which (negative)',
     [{ trigger: 'webhook' }, 'trigger'],
   ];
   for (const [over, reason] of reasons) assert.deepEqual(ok(over), { eligible: false, reason }, reason);
-  assert.deepEqual([...DURABLE_RULE_ACTIONS], ['sendEmail', 'archive', 'unarchive'], 'the actions with durable adapters');
+  const { RULE_CARD_ACTIONS } = require('../server/lib/syncRuleCardCommand');
+  assert.deepEqual([...DURABLE_RULE_ACTIONS], ['sendEmail', 'archive', 'unarchive', ...Object.keys(RULE_CARD_ACTIONS)],
+    'the actions with durable adapters');
   const rules = fs.readFileSync(path.join(__dirname, '../server/notifications/storedRulePlans.js'), 'utf8');
-  for (const type of DURABLE_RULE_ACTIONS) assert.match(rules, new RegExp(`\\b${type}[:,]`), `${type} is registered in runStoredSyncRules`);
+  for (const type of ['sendEmail', 'archive', 'unarchive']) assert.match(rules, new RegExp(`\\b${type}[:,]`), `${type} is registered in runStoredSyncRules`);
+  assert.match(rules, /Object\.keys\(RULE_CARD_ACTIONS\)\.map\(type => \[type, cardField\]\)/, 'the card-field actions are registered');
 });
 
 const card = (id, extra = {}) => ({ customFields: [{ _id: 'other', value: 1 }], _id: id, boardId: 'board', listId: 'list', swimlaneId: 'lane', title: `T ${id}`,

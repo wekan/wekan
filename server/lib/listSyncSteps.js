@@ -20,7 +20,10 @@ const { syncValueChanges } = require('../../models/lib/listSyncTimeEstimates');
 // archive/unarchive through the stored archive runner. Archive was held back
 // while one rule-archived card took 36 s through nested guards; guard results
 // are now shared within one evaluation (server/lib/syncGuardWindow.js).
-const DURABLE_RULE_ACTIONS = new Set(['sendEmail', 'archive', 'unarchive']);
+// Card-field actions (colour, labels, completion) through saved commands:
+// server/lib/syncRuleCardCommand.js.
+const DURABLE_RULE_ACTIONS = new Set(['sendEmail', 'archive', 'unarchive', 'setColor', 'addLabel', 'removeLabel',
+  'removeAllLabels', 'markCardComplete', 'markCardIncomplete']);
 // Sync-owned card fields a saved step carries: the ones the direct path's
 // conditional update compares, plus placement. SimpleSchema owns
 // dateLastActivity, so it is never part of a step.

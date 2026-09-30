@@ -37,15 +37,26 @@ function redoTarget(row) {
 // when it is appended (persistSyncFieldHistory), exactly like an ordinary
 // edit, so a plan never holds the chain between planning and writing and
 // ordinary History is never blocked or queued behind a Sync batch.
+// The card fields a planned History row may record: Sync's own, and the ones
+// durable rule card actions change (server/lib/syncRuleCardCommand.js).
+const SYNC_FIELDS = ['title', 'description', 'spentTime', 'customFields', 'archived'];
+const RULE_CARD_FIELDS = ['labelIds', 'color', 'dueComplete'];
 function prepareSyncFieldHistory({ step, effectId, userId, createdAt, redoRows = [], ...rest }) {
   prepareSyncOperationMutation(step);
-  if (Object.keys(rest).length || !/^[a-f0-9]{64}$/.test(effectId) || typeof userId !== 'string' || !userId ||
-      !(createdAt instanceof Date) || !Number.isFinite(createdAt.getTime())) fail();
-  const after = step.after;
-  const fields = [...new Set([...Object.keys(step.before || {}), ...Object.keys(after)])].sort();
+  if (Object.keys(rest).length) fail();
   // Ordinary creation records an activity, not field-by-field History. Its
   // separate durable activity adapter must still acknowledge downstream work.
-  const changes = step.kind === 'create' ? [] : diffFields('card', step.before, after, fields);
+  return prepareCardFieldHistory({ before: step.kind === 'create' ? null : step.before, after: step.after,
+    effectId, userId, createdAt, redoRows, fields: SYNC_FIELDS });
+}
+// The rows one planned card change records, one per changed field, with the
+// redo rows it supersedes. `fields` bounds which fields may be recorded.
+function prepareCardFieldHistory({ before, after, effectId, userId, createdAt, redoRows = [], fields: allowed }) {
+  if (!/^[a-f0-9]{64}$/.test(effectId) || typeof userId !== 'string' || !userId ||
+      !(createdAt instanceof Date) || !Number.isFinite(createdAt.getTime()) || !after ||
+      ![SYNC_FIELDS, RULE_CARD_FIELDS].includes(allowed)) fail();
+  const fields = [...new Set([...Object.keys(before || {}), ...Object.keys(after)])].sort();
+  const changes = before === null ? [] : diffFields('card', before, after, fields);
   const rows = changes.map(change => {
     const row = { _id: `sync-history-${sha256(canonical([effectId, change.field]))}`,
       boardId: after.boardId, swimlaneId: after.swimlaneId ?? null, listId: after.listId,
@@ -59,7 +70,7 @@ function prepareSyncFieldHistory({ step, effectId, userId, createdAt, redoRows =
   if (!Array.isArray(redoRows) || redoRows.length > 10000) fail();
   const redo = rows.length ? redoRows.map(redoTarget) : [];
   const plan = { effectId, boardId: after.boardId, userId, rows, redo };
-  validatePlan(plan);
+  validatePlan(plan, allowed);
   return copy(plan);
 }
 // One planner per preparation attempt. The journal invokes it in index order;
@@ -85,7 +96,7 @@ function createSyncHistoryPlanner(options) {
   };
 }
 
-function validatePlan(plan) {
+function validatePlan(plan, allowed = SYNC_FIELDS) {
   if (!plan || Object.keys(plan).sort().join(',') !== 'boardId,effectId,redo,rows,userId' ||
       typeof plan.effectId !== 'string' || !/^[a-f0-9]{64}$/.test(plan.effectId) ||
       !['boardId', 'userId'].every(key => typeof plan[key] === 'string' && plan[key]) ||
@@ -95,7 +106,7 @@ function validatePlan(plan) {
   for (const row of plan.rows) {
     const field = row.newContent?.field || row.previousContent?.field;
     const keys = '_id,batchId,boardId,cardId,changeType,createdAt,entityId,entityType,group,isCheckpoint,listId,newContent,previousContent,restoredByUserId,restoredFromId,superseded,swimlaneId,undone,undoneAt,userId';
-    if (Object.keys(row).sort().join(',') !== keys || !['title', 'description', 'spentTime', 'customFields', 'archived'].includes(field) ||
+    if (Object.keys(row).sort().join(',') !== keys || !allowed.includes(field) ||
         !(row.createdAt instanceof Date) || !Number.isFinite(row.createdAt.getTime()) ||
         !['entityId', 'listId'].every(key => typeof row[key] === 'string' && row[key]) ||
         row._id !== `sync-history-${sha256(canonical([plan.effectId, field]))}` ||
@@ -140,8 +151,9 @@ function validatePlan(plan) {
 // the chain head like any ordinary edit. history.appendSyncHistoryRow does the
 // linking and is idempotent by row _id. There is no default for either: an
 // adapter without them is refused, never silently written around the gate.
-async function persistSyncFieldHistory({ history, plan, assertCurrent }) {
-  validatePlan(plan);
+async function persistSyncFieldHistory({ history, plan, assertCurrent, fields = SYNC_FIELDS }) {
+  if (![SYNC_FIELDS, RULE_CARD_FIELDS].includes(fields)) fail();
+  validatePlan(plan, fields);
   if (typeof assertCurrent !== 'function' || typeof history?.admitHistoryWriter !== 'function' ||
       typeof history?.appendSyncHistoryRow !== 'function') fail();
   // Do not let a collection adapter mutate the journal's verification inputs.
@@ -200,4 +212,5 @@ function validateSyncFieldHistory(plan, step, effectId) {
   if (canonical(expected.rows) !== canonical(plan.rows)) fail();
   return true;
 }
-module.exports = { createSyncHistoryPlanner, prepareSyncFieldHistory, persistSyncFieldHistory, validateSyncFieldHistory, isPlannedRow };
+module.exports = { createSyncHistoryPlanner, prepareSyncFieldHistory, prepareCardFieldHistory, persistSyncFieldHistory,
+  validateSyncFieldHistory, isPlannedRow, SYNC_FIELDS, RULE_CARD_FIELDS };

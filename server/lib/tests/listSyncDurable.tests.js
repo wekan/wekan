@@ -122,6 +122,23 @@ describe('Durable list Sync', function () {
       rulePlan.plan.actions[0].id);
       await Rules.rawCollection().deleteMany({ boardId }); await Triggers.rawCollection().deleteMany({ boardId });
 
+      // A card-field action is durable too: "label every created card".
+      const labelActionId = Random.id(), labelTriggerId = Random.id();
+      await Actions.rawCollection().insertOne({ _id: labelActionId, actionType: 'addLabel', labelId: 'sync-label', boardId, desc: 'label' });
+      await Triggers.rawCollection().insertOne({ _id: labelTriggerId, activityType: 'createCard', boardId,
+        listName: '*', userId: '*', swimlaneName: '*', cardTitle: '*', desc: 'created' });
+      await Rules.rawCollection().insertOne({ _id: Random.id(), title: 'label new', triggerId: labelTriggerId, actionId: labelActionId, boardId });
+      issues = [issue('P-1', 'First renamed'), issue('P-4', 'Labelled by rule')];
+      const labelled = await run();
+      assert.deepEqual([labelled.durable, labelled.created], [true, 1], JSON.stringify(labelled));
+      const fourth = (await cards()).find(card => card.syncExternalId === 'P-4');
+      assert.deepEqual(fourth.labelIds, ['sync-label'], 'the rule labelled it');
+      assert.equal(await ChangeHistory.find({ cardId: fourth._id, group: 'labels' }).countAsync(), 1, 'one History row, not two');
+      assert.equal(await Activities.find({ cardId: fourth._id, activityType: 'addedLabel' }).countAsync(), 1, 'one addedLabel activity');
+      assert.equal(await collection('listSyncRuleCardCommands').countDocuments({ boardId }), 1);
+      assert.equal(await replayStoredListSync().then(() => Activities.find({ cardId: fourth._id, activityType: 'addedLabel' }).countAsync()), 1);
+      await Rules.rawCollection().deleteMany({ boardId }); await Triggers.rawCollection().deleteMany({ boardId });
+
       // A rule action without a durable adapter keeps the direct path.
       const actionId = await Actions.insertAsync({ actionType: 'moveCardToTop', boardId, desc: 'top' });
       await Rules.rawCollection().insertOne({ _id: Random.id(), title: 'r', triggerId: Random.id(), actionId, boardId });
@@ -142,6 +159,7 @@ describe('Durable list Sync', function () {
       await collection('listSyncRuleArchiveReceipts').deleteMany({ commandId: { $in: commands.map(row => row._id) } });
       await collection('listSyncRuleArchiveEffects').deleteMany({ _id: { $in: commands.map(row => row._id) } });
       await collection('listSyncRuleArchiveCompletions').deleteMany({ _id: { $in: commands.map(row => row._id) } });
+      await collection('listSyncRuleCardCommands').deleteMany({ boardId });
       await collection('listSyncRuleArchiveCommands').deleteMany({ boardId });
       const ruleCompletions = await collection('listSyncRulePlans').find({ 'plan.boardId': boardId }, { projection: { _id: 1 } }).toArray();
       await collection('listSyncRuleCompletions').deleteMany({ _id: { $in: ruleCompletions.map(row => row._id) } });

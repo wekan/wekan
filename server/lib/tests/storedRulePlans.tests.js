@@ -39,7 +39,10 @@ describe('Stored Sync rule selection', function () {
       await Activities.rawCollection().insertOne(activity);
       await Triggers.rawCollection().insertOne({ _id: triggerId, boardId, activityType: 'createCard', listName: '*', userId: '*', swimlaneName: '*', cardTitle: '*' });
       await Rules.rawCollection().insertOne({ _id: ruleId, boardId, triggerId, actionId, enabled: true, title: 'Rule' });
-      await Actions.rawCollection().insertOne({ _id: actionId, actionType: 'addLabel', boardId, labelId: 'original' });
+      // An action with no durable adapter of its own (addLabel has one since
+      // 2026-09-30, server/lib/syncRuleCardCommand.js), so the adapter-required
+      // and caller-supplied adapter cases below still apply.
+      await Actions.rawCollection().insertOne({ _id: actionId, actionType: 'moveCardToTop', boardId, labelId: 'original' });
       // Sync activation (maintainer decision of 2026-09-30): off unless the
       // board opted in; scheduled runs also need the instance switch; the
       // caller must name its trigger. Refusals write nothing.
@@ -60,10 +63,10 @@ describe('Stored Sync rule selection', function () {
       assert.equal(first.actions[0].rule._id, ruleId);
       assert.equal(first.actions[0].action.labelId, 'original');
       await assert.rejects(runStoredSyncRules({ ...input, adapters: {} }), /adapter-required/);
-      await assert.rejects(runStoredSyncRules({ ...input, adapters: { addLabel: async () => true } }), /action-unconfirmed/);
+      await assert.rejects(runStoredSyncRules({ ...input, adapters: { moveCardToTop: async () => true } }), /action-unconfirmed/);
       assert.equal(await SyncRuleReceipts.find({ effectId: input.effectId }).countAsync(), 0);
       let calls = 0;
-      assert.equal(await runStoredSyncRules({ ...input, adapters: { addLabel: async ({ invocation, assertCurrent }) => {
+      assert.equal(await runStoredSyncRules({ ...input, adapters: { moveCardToTop: async ({ invocation, assertCurrent }) => {
         await assertCurrent(); calls++;
         assert.equal(invocation.action.labelId, 'original');
         return invocation.id;

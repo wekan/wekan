@@ -16,7 +16,8 @@ test('stored archive execution needs no History reservation, only a delivery ada
   assert.doesNotMatch(body, /withHistoryReservation|previousHash/);
   const context = { runStoredSyncActivityDelivery: undefined,
     archiveContext: async () => assert.fail('must not start without a delivery adapter') };
-  vm.runInNewContext(source.slice(source.indexOf(marker)).replace('export async function', 'async function'), context);
+  // Just the runner: later code in the file has its own exports.
+  vm.runInNewContext(`${body}\n}`.replace('export async function', 'async function'), context);
   await assert.rejects(context.runStoredSyncRuleArchive({}), /sync-rule-archive-delivery-required/);
 });
 
