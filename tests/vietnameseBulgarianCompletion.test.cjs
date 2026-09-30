@@ -755,4 +755,21 @@ for (const code of ['sl', 'sl_SI']) {
   assert.match(locale['due-reminder-days-label'], /teigiami.*prieš ją.*neigiami.*po jos/);
   assert.match(locale['notification-activity-description'], /visada gaunami/);
 }
+{
+  const locale = read('lv');
+  assert.deepEqual(Object.keys(locale), Object.keys(english), 'lv: source key order');
+  for (const key of hiraganaBatchKeys) {
+    assert.notEqual(locale[key], english[key], `lv:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `lv:${key}: tokens`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
+    assert.ok(locale['import-board-instruction-todotxt'].includes(token), `lv: preserve ${token}`);
+  }
+  assert.equal(locale.board, 'Dēlis');
+  assert.equal(locale.list, 'Saraksts');
+  assert.match(locale['rule-email-recovery-resend-confirm'], /saņems to divreiz/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /nekad netiks nosūtīts/);
+  assert.match(locale['rule-email-legacy-access-denied'], /vairs nav piekļuves/);
+  assert.match(locale['r-insert-variable'], /mainīgo/);
+}
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
