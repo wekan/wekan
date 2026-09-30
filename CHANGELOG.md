@@ -5126,6 +5126,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d7cb78fb5f449fa6af61867760645fb8712d2971">Translate Esperanto block editor accessibility and navigation</a>. Thanks to xet7.</summary>
+
+- Fill 212 English placeholders for block editing, mathematical descriptions
+  and rule editor messages. Update the coverage count to 115 languages.
+- Translation, registry and human-preference checks pass, including tokens,
+  opposite operations and rule restrictions. Fluent-speaker and browser
+  review were not run. Remaining translation work is still in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
