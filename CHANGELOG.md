@@ -7118,6 +7118,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c3ee45b0291bd1fba7e012ad3a6b5dd7d0b1815d">Translate Maltese cloud and migration controls</a>. Thanks to xet7.</summary>
+
+- Replace 35 prefixed English values with Maltese for backup schedules,
+  cloud connections and migration controls, preserving translations and tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  pause and stop actions. Another 127 prefixed English values remain.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
