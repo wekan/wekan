@@ -8873,6 +8873,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b1a8ed59877c59552b7611a9ac93589b38b1ec73">Translate import and email recovery additions into Kyrgyz</a>. Thanks to xet7.</summary>
+
+- Fill 44 missing Kyrgyz strings for todo.txt imports and rule-email recovery,
+  preserving existing translations, placeholders and import syntax.
+- Translation, registry and human-preference checks pass, covering uncertain
+  delivery, duplicate delivery warnings and legacy email review actions.
+  Existing Kyrgyz translations remain unchanged.
+  Browser and fluent-speaker review were not run; translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
