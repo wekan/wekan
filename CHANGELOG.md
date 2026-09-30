@@ -4806,6 +4806,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d3efc42631">Correct remaining labeled Kashubian translations</a>. Thanks to xet7.</summary>
+
+- Translate 99 scheduling, repository and flow-report entries. Reject the
+  old language-label suffix throughout the locale and check technical values.
+- Translation, registry and human-preference checks pass. Kashubian wording,
+  especially statistical explanations, is lower confidence. Fluent-speaker
+  and browser review were not run. Other mixed-language text and languages
+  remain in progress; removing the suffix does not prove linguistic quality.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
