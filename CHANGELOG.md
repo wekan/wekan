@@ -4357,6 +4357,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8e5f048c5">Translate Basque Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+- Fill 84 Scrum and navigation entries, preserving existing translations and
+  source tokens. Basque has 173 flagged entries remaining; the README measured
+  language-completion count is now 110.
+- Translation, registry and human-preference checks pass, covering unknown
+  estimates, partial reports, daily observations and incomplete imports.
+  Fluent-speaker and browser review were not run. Other languages remain
+  in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
