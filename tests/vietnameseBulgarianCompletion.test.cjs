@@ -548,6 +548,15 @@ for (const code of ['sl', 'sl_SI']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /Nikada neće biti poslana/);
   assert.match(locale['rule-email-legacy-access-denied'], /više nema pristup/);
   assert.match(locale['r-insert-variable'], /promjenljivu/);
+  for (const key of Object.keys(english).filter(key =>
+    /^sync-(conflict|preview|source|report|recovery|estimate)-/.test(key))) {
+    assert.notEqual(locale[key], english[key], `bs:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `bs:${key}: tokens`);
+  }
+  assert.match(locale['sync-conflict-hint'], /Ništa se ne šalje izvornom sistemu/);
+  assert.match(locale['sync-conflict-detach-hint'], /sadržaj ostaje u WeKanu/);
+  assert.match(locale['sync-report-partial'], /ne nastavljaju niti poništavaju/);
+  assert.match(locale['sync-estimate-field-hint'], /nedostaju se zanemaruju.*null briše/);
   for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
     if (key !== 'scrum-sprint') assert.notEqual(locale[key], english[key], `bs:${key}: untranslated`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `bs:${key}: tokens`);
