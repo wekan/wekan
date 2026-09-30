@@ -3608,6 +3608,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/40366363d">Translate Sicilian Sync conflicts and recovery reports</a>. Thanks to xet7.</summary>
+
+- Fill 63 Sicilian Sync conflict, preview, report and recovery messages.
+- Translation, registry and human-preference checks pass, including preserved
+  translations, placeholders, partial-change warnings and explicit-null
+  handling. Wording is lower confidence; browser layout and fluent-speaker
+  review were not run.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
