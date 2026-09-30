@@ -2317,6 +2317,75 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedNavigationKeys = [
+    "swimlaneActionPopup-title",
+    "listImportCardsTsvPopup-title",
+    "gantt",
+    "log-in",
+    "loginPopup-title",
+    "menu",
+    "copy-selection",
+    "muted",
+    "no-archived-swimlanes",
+    "normal-assigned-only",
+    "page-maybe-private",
+    "paste-or-dragdrop",
+    "participating",
+    "preview",
+    "previewAttachedImagePopup-title",
+    "previewClipboardImagePopup-title",
+    "rules",
+    "search-example",
+    "shortcut-close-dialog",
+    "shortcut-toggle-filterbar",
+    "shortcut-toggle-searchbar",
+    "sidebar-close",
+    "spent-time-hours",
+    "overtime-hours",
+    "overtime",
+    "tracking",
+    "type",
+    "upload",
+    "upload-avatar",
+    "uploaded-avatar",
+    "custom-login-logo-image-url",
+    "custom-login-logo-link-url",
+    "view-it",
+    "watching",
+    "welcome-list1",
+    "welcome-list2",
+    "list-templates-swimlane",
+    "what-to-do",
+    "attachment-limits",
+    "attachment-transfer-limits-invalid-value",
+    "attachment-upload-limit-label",
+    "avatars-upload-blocked-label",
+    "attachment-download-limit-label",
+    "api-upload-limit-label",
+    "api-download-limit-label",
+    "attachment-limit-mode-unlimited",
+    "attachment-limit-mode-max-size",
+    "attachment-limit-mode-blocked",
+    "attachment-limit-unit-gb",
+    "attachment-limit-unit-mb",
+    "attachment-limit-unit-bytes",
+    "invite",
+    "invite-people",
+    "email-addresses",
+    "smtp-tls-description"
+  ];
+  for (const key of correctedNavigationKeys) {
+    assert.doesNotMatch(locale[key], /— pò kaszëbskù/, `csb:${key}: language label is not a translation`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+  }
+  for (const key of ['attachment-limit-unit-gb', 'attachment-limit-unit-mb']) {
+    assert.equal(locale[key], english[key], `csb:${key}: preserve unit`);
+  }
+  assert.ok(locale['page-maybe-private'].includes("<a href='%s'>zalogòwanim</a>"));
+  assert.match(locale['normal-assigned-only'], /blós do przëpisónëch kôrtów/);
+  assert.match(locale['attachment-transfer-limits-invalid-value'], /dodatną wôrtnotã/);
+  assert.match(locale['attachment-upload-limit-label'], /wgrywónégò/);
+  assert.match(locale['attachment-download-limit-label'], /pòbiérónégò/);
   const correctedImportKeys = [
     "export-ical-feed",
     "export-card-excel-fields",
