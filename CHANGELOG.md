@@ -4696,6 +4696,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/95340f0e0e">Correct Kashubian workflow and scheduling labels</a>. Thanks to xet7.</summary>
+
+- Replace 45 Polish-seeded strings, retaining weekday schedules, before and
+  after offsets, move directions and unmapped workflow-node warnings.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Older mixed-language values and other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
