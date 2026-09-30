@@ -5799,6 +5799,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b60ab93758">Translate Georgian numeric and text input labels</a>. Thanks to xet7.</summary>
+
+- Translate 32 English strings for numeric, loop and text inputs, preserving
+  existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including division
+  operands and coordinates. Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
