@@ -7646,6 +7646,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/430ddf2c0aaef9875d760486653372b67f1a9c7a">Translate Luxembourgish sprint planning and events</a>. Thanks to xet7.</summary>
+
+- Translate 27 missing or English strings for sprint planning and events,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including consistent
+  backlog labels and distinct start, close and cancel actions.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
