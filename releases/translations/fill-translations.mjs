@@ -870,7 +870,11 @@ const LOCALE_INVARIANTS = {
     'blockly-MATH_TRIG_SIN', 'blockly-MATH_TRIG_TAN',
     ...(code === 'ca@valencia' ? ['errors'] : []),
   ])])),
-  sq: new Set(['color-indigo', 'color-magenta', 'email', 'normal', 'private']),
+  sq: new Set(['color-indigo', 'color-magenta', 'email', 'normal', 'private',
+    'blockly-ALT_KEY', 'blockly-COMMAND_KEY', 'blockly-TAB_KEY',
+    'blockly-CHROME_OS', 'blockly-LINUX', 'blockly-MAC_OS', 'blockly-WINDOWS',
+    'blockly-MATH_ADDITION_SYMBOL_ARIA', 'blockly-MATH_SUBTRACTION_SYMBOL_ARIA',
+    'blockly-MATH_TRIG_COS', 'blockly-MATH_TRIG_SIN', 'blockly-MATH_TRIG_TAN']),
   // These are reviewed search-parser keywords, not untranslated display prose.
   // Keep the exception per zgh key so English sentences remain fillable.
   zgh: new Set(['operator-assignee', 'operator-due', 'operator-modified',
