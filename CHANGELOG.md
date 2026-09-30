@@ -7334,6 +7334,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7a1f8f4354b31a64c6d1a29ec298c1b556aacdf6">Translate Maltese email failures and activity recovery</a>. Thanks to xet7.</summary>
+
+- Translate 30 English placeholders for email failures, activity notifications
+  and time estimates, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including failure
+  categories and original versus remaining time.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
