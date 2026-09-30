@@ -82,6 +82,11 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // needs a different word. Keep those exceptions per locale; putting them in the
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
+  csb: new Set([
+    'blockly-ALT_KEY', 'blockly-COMMAND_KEY', 'blockly-TAB_KEY',
+    'blockly-CHROME_OS', 'blockly-LINUX', 'blockly-MAC_OS', 'blockly-WINDOWS',
+    'blockly-MATH_ADDITION_SYMBOL_ARIA', 'blockly-MATH_SUBTRACTION_SYMBOL_ARIA',
+    'blockly-MATH_TRIG_COS', 'blockly-MATH_TRIG_SIN']),
   gd: new Set([
     'blockly-ALT_KEY', 'blockly-COMMAND_KEY', 'blockly-TAB_KEY',
     'blockly-CHROME_OS', 'blockly-LINUX', 'blockly-MAC_OS', 'blockly-WINDOWS',
