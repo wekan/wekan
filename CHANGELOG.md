@@ -7346,6 +7346,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8ef010535d447e7f9b3b37580cf0a3289b86aa3c">Translate Maltese notification controls and rule email delivery</a>. Thanks to xet7.</summary>
+
+- Translate 35 missing or English strings for notification controls and rule
+  email delivery, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  delivery actions and confirmation states.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
