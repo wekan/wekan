@@ -4862,6 +4862,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bec8c65052">Correct Kashubian board selection and import messages</a>. Thanks to xet7.</summary>
+
+- Correct 30 mixed-language selection, import and display messages. Preserve
+  permission limits, Excel column names and distinct star/unstar actions.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Other mixed-language text and languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
