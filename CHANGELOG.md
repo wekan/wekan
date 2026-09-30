@@ -7706,6 +7706,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5277b9782aad2a9abd367d2c391e49758ef5629e">Translate Luxembourgish Sync diagnostics and estimates</a>. Thanks to xet7.</summary>
+
+- Translate 17 missing or English strings for synchronization diagnostics
+  and estimate fields, preserving existing translations and tokens.
+- Translation, registry and human-preference checks pass, including retention
+  periods, the null token and distinct run states.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
