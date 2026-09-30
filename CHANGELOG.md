@@ -8765,6 +8765,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8aef9012b385954da11e89d3efa4c49543f62904">Correct Romansh search help and report labels</a>. Thanks to xet7.</summary>
+
+- Correct 14 mixed-language search instructions, visibility predicates,
+  report titles and login labels, preserving search examples and tokens.
+- Translation, registry and human-preference checks pass, covering search
+  operators, archive defaults and public/private distinctions.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider language cleanup remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
