@@ -8933,6 +8933,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4812611615f11af78501b5f9a69c6d50f1fd7fae">Translate import and email recovery additions into Yoruba</a>. Thanks to xet7.</summary>
+
+- Fill 44 missing Yoruba strings for todo.txt imports and rule-email recovery,
+  preserving existing translations, placeholders and import syntax.
+- Translation, registry and human-preference checks pass, covering uncertain
+  delivery, duplicate delivery warnings and legacy email review actions.
+  Lower-confidence Yoruba wording needs fluent-speaker review.
+  Browser review was not run; wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
