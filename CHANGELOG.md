@@ -7310,6 +7310,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4aaae1a0d442d8d4436cabe800b6d03502c9fab3">Translate Maltese sprint observations and Sync conflicts</a>. Thanks to xet7.</summary>
+
+- Translate 56 English placeholders for sprint observations and Sync conflicts,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass. Update the README
+  coverage count after Maltese crosses the 90 percent threshold.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
