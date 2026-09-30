@@ -8645,6 +8645,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/824d7090bcb6692a0fcfa6ad5dac950fcb2dc9ed">Restore complete Romansh flow explanations and correct status text</a>. Thanks to xet7.</summary>
+
+- Correct 12 language and meaning errors, including five chart explanations
+  that omitted conditions from the English source.
+- Translation, registry and human-preference checks pass, covering tokens,
+  forecast limits, missing data, thresholds and technical names.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider language cleanup remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
