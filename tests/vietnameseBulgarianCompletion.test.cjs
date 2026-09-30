@@ -2317,6 +2317,65 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedDateKeys = [
+    "layout",
+    "hide-logo",
+    "display-authentication-method",
+    "oidc-button-text",
+    "default-authentication-method",
+    "swimlaneDeletePopup-title",
+    "previous_as",
+    "act-a-dueAt",
+    "act-a-endAt",
+    "act-a-startAt",
+    "act-a-receivedAt",
+    "a-dueAt",
+    "a-endAt",
+    "a-startAt",
+    "a-receivedAt",
+    "above-selected-card",
+    "above-selected-swimlane",
+    "below-selected-card",
+    "below-selected-swimlane",
+    "almostdue",
+    "pastdue",
+    "duenow",
+    "act-newDue",
+    "act-withDue",
+    "show-desktop-drag-handles",
+    "drag-to-resize-sidebar",
+    "drag-to-resize-left-menu",
+    "submit-on-enter",
+    "show-on-card",
+    "editOrgPopup-title",
+    "view-all",
+    "filter-by-unread",
+    "mark-all-as-read",
+    "mark-all-as-unread",
+    "roles",
+    "roles-status-role",
+    "roles-status-sees-assigned",
+    "start-day-of-week",
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+    "sunday"
+  ];
+  for (const key of correctedDateKeys) {
+    assert.doesNotMatch(locale[key], /— pò kaszëbskù/, `csb:${key}: language label is not a translation`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+  }
+  assert.ok(locale['act-a-dueAt'].includes('\nCzedë: __timeValue__\nGdze: __card__\n'));
+  assert.match(locale.almostdue, /sã zblëżô/);
+  assert.match(locale.pastdue, /ju minął/);
+  assert.match(locale.duenow, /je dzysô/);
+  assert.match(locale['above-selected-card'], /^Nad/);
+  assert.match(locale['below-selected-card'], /^Pòd/);
+  assert.notEqual(locale['mark-all-as-read'], locale['mark-all-as-unread']);
+  assert.equal(new Set(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map(key => locale[key])).size, 7);
   const correctedRuleActionKeys = [
     "r-when-a-end-date-changed",
     "r-when-a-received-date-changed",
