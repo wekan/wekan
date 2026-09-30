@@ -2758,6 +2758,15 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7a1e48068">Translate Latvian recovery messages and correct board labels</a>. Thanks to xet7.</summary>
+
+- Fill 45 Latvian recovery and todo.txt import messages; replace Lithuanian
+  board and list labels with Latvian wording.
+- Check placeholders, import syntax, native labels and recovery warnings.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
