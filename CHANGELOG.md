@@ -7238,6 +7238,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4e5ba98d0e4843dcc2c94b9cf5f7eb653ad874ce">Translate Maltese navigation and math announcements</a>. Thanks to xet7.</summary>
+
+- Translate 23 English placeholders for keyboard navigation and mathematical
+  announcements, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  comparison operators and square-root labels.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
