@@ -31,6 +31,15 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Friulian date filters; further translation batches remain.
 {
   const locale = read('fur');
+  const syncConflictKeys = ["sync-conflict-hint", "sync-conflict-local", "sync-conflict-keep-local", "sync-conflict-use-source", "sync-conflict-refresh", "sync-conflict-review-complete", "sync-conflict-duplicate", "sync-conflict-keep-mapping", "sync-conflict-detach", "sync-conflict-detach-hint", "sync-conflict-archive", "sync-conflict-archive-hint", "sync-conflict-keep-card-local", "sync-conflict-creation", "sync-conflict-creation-hint", "sync-conflict-create-replacement", "sync-preview-button", "sync-preview-heading", "sync-preview-saved", "sync-preview-unavailable", "sync-preview-blocked", "sync-preview-create", "sync-preview-update", "sync-preview-archive", "sync-preview-baseline"];
+  for (const key of syncConflictKeys) {
+    assert.notEqual(locale[key], english[key], `fur:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `fur:${key}: tokens`);
+  }
+  assert.notEqual(locale['sync-conflict-keep-local'], locale['sync-conflict-use-source']);
+  assert.notEqual(locale['sync-conflict-keep-card-local'], locale['sync-conflict-create-replacement']);
+  assert.equal(new Set(['create', 'update', 'archive'].map(action => locale[`sync-preview-${action}`])).size, 3);
+  assert.ok(locale['sync-conflict-detach-hint'].includes('WeKan'));
   const observationKeys = ["scrum-unknown-estimate", "scrum-confirm-close", "scrum-confirm-cancel", "scrum-past-sprints", "scrum-list-category", "scrum-swimlane-purpose", "scrum-category-backlog", "scrum-category-todo", "scrum-category-doing", "scrum-category-done", "scrum-partial-report", "scrum-state-released", "scrum-released-at", "scrum-follow-up-cards", "scrum-import-reference-omitted", "scrum-partial-snapshot", "scrum-resume-close", "scrum-daily-observations", "scrum-daily-observations-help", "scrum-daily-truncated", "scrum-daily-empty", "scrum-observed-scope", "scrum-daily-observations-export-help", "scrum-import-pending", "sync-conflict-heading"];
   for (const key of observationKeys) {
     assert.notEqual(locale[key], english[key], `fur:${key}: translated`);
