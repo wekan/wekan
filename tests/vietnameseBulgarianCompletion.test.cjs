@@ -31,6 +31,15 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Maltese filters and imports; remaining untranslated strings are filled separately.
 {
   const locale = read('mt');
+  const correctedSearchKeys = ["status", "last-modified-at", "last-activity", "voting", "task", "domains", "domain", "share-template-with", "invalid-domain", "shared-templates", "website", "person", "day", "week", "month", "myCardsViewChange-choice-table", "operator-label", "operator-assignee", "operator-creator", "operator-status", "operator-due", "operator-modified", "operator-sort", "operator-has", "operator-limit", "operator-debug", "operator-org", "operator-team", "operator-customfield", "operator-attachment-text", "operator-checklist-text", "predicate-archived", "predicate-open", "predicate-ended", "predicate-all"];
+  for (const key of correctedSearchKeys) {
+    assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
+    assert.doesNotMatch(locale[key], /Traduzzjoni Maltija:/, `mt:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `mt:${key}: tokens`);
+    if (key.startsWith('operator-')) assert.doesNotMatch(locale[key], /\s|:/, `mt:${key}: usable query token`);
+  }
+  assert.match(locale['invalid-domain'], /example\.com/);
+  assert.notEqual(locale['predicate-archived'], locale['predicate-open']);
   const correctedRolesWeekdaysKeys = ["r-rule-details", "r-d-send-email-subject", "r-d-send-email-message", "r-d-check-one", "r-d-uncheck-one", "r-with-items", "r-items-list", "r-datefield", "r-df-start-at", "r-df-due-at", "r-df-end-at", "r-df-received-at", "authentication-method", "authentication-type", "layout", "error-undefined", "display-authentication-method", "previous_as", "act-newDue", "act-withDue", "help", "mark-all-as-read", "mark-all-as-unread", "allow-rename", "allowRenamePopup-title", "roles", "roles-status", "roles-status-sees-assigned", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
   for (const key of correctedRolesWeekdaysKeys) {
     assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
