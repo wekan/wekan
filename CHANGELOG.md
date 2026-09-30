@@ -6408,6 +6408,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/751b3ef513">Translate Swahili rule editing and Scrum planning</a>. Thanks to xet7.</summary>
+
+- Translate 30 English strings for rule editing and Scrum planning,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including permissions,
+  rule conflicts and distinct completion policies.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
