@@ -5965,6 +5965,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/357cfcb9cc">Translate Georgian sprint reports and outcomes</a>. Thanks to xet7.</summary>
+
+- Translate 30 English strings for sprint reports, estimates and event outcomes,
+  preserving existing translations and tokens. Update the coverage count to 121.
+- Translation, registry and human-preference checks pass, including unknown
+  estimates, comparable units and closing versus cancelling a sprint.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
