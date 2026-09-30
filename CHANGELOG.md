@@ -9005,6 +9005,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/adb21570c633c8d61fa6e77bc56b90488b8a8be4">Correct Shona system information and sharing labels</a>. Thanks to xet7.</summary>
+
+- Translate 38 prefixed English entries and restore two product names.
+  Preserve existing values outside this correction batch.
+- Translation, registry and human-preference checks pass, covering configuration
+  identifiers, shared labels and free versus total memory.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Another 423 prefixed English entries remain; wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
