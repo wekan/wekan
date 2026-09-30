@@ -5467,6 +5467,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/35286e30d7">Translate Armenian rule email resolution guidance</a>. Thanks to xet7.</summary>
+
+- Translate 35 missing or English strings for manual email resolution and
+  legacy email review, preserving translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including duplicate
+  delivery and uncertain resends. Fluent-speaker and browser review were
+  not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
