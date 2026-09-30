@@ -5203,6 +5203,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/183e2187f083a4462fee157e981a416faa380c97">Translate Albanian math and screen reader labels</a>. Thanks to xet7.</summary>
+
+- Fill 55 English placeholders for mathematics, keyboard actions and screen
+  reader instructions, preserving existing translations and variables.
+- Translation, registry and human-preference checks pass, including mathematical
+  roles and opposite screen reader states. Fluent-speaker and browser review
+  were not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
