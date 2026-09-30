@@ -2317,6 +2317,58 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedStorageKeys = [
+    "Node_memory_usage_heap_total",
+    "Node_memory_usage_external",
+    "acceptance_of_our_legalNotice",
+    "legalNotice",
+    "copied",
+    "checklistActionsPopup-title",
+    "newLineNewItem",
+    "newlineBecomesNewChecklistItemOriginOrder",
+    "originOrder",
+    "copyChecklist",
+    "copyChecklistPopup-title",
+    "copyChecklistFromTemplate",
+    "copyChecklistFromTemplatePopup-title",
+    "subtaskActionsPopup-title",
+    "attachmentActionsPopup-title",
+    "move-destination",
+    "move-storage-collectionfs",
+    "move-storage-gridfs",
+    "move-storage-s3",
+    "attachment-repair-done",
+    "attachment-repair-scanned",
+    "attachment-repair-repaired",
+    "move-scope-avatars",
+    "move-scope-both",
+    "default-save-storage",
+    "default-save-storage-saved",
+    "move-progress-file",
+    "move-progress-pause",
+    "stats-scope",
+    "stats-collectionfs",
+    "stats-mongo-files",
+    "stats-count",
+    "avatars",
+    "attachment-id",
+    "gridfs-file-id",
+    "s3-file-id",
+    "path",
+    "size",
+    "storage",
+    "action"
+  ];
+  for (const key of correctedStorageKeys) {
+    assert.doesNotMatch(locale[key], /— pò kaszëbskù/, `csb:${key}: language label is not a translation`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+  }
+  for (const key of ['move-storage-collectionfs', 'move-storage-gridfs', 'move-storage-s3', 'stats-collectionfs', 'stats-mongo-files']) {
+    assert.equal(locale[key], english[key], `csb:${key}: storage product name`);
+  }
+  assert.notEqual(locale['attachment-repair-scanned'], locale['attachment-repair-repaired']);
+  assert.match(locale['copyChecklistFromTemplate'], /ze szablónu/);
+  assert.match(locale['move-scope-both'], /Przëłączniczi i awatarë/);
   const correctedReportKeys = [
     "office-logins",
     "office-first-seen",
