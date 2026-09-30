@@ -2317,6 +2317,17 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedEditingHelpKeys = ["no-boards-selected", "personal-list-width-description", "fixed-list-width-note", "board_members", "card_members", "comment-only", "no-comments-desc", "custom-field-delete-pop", "select-none", "label-delete-pop", "r-when-due", "r-when-card-in-list", "r-when-a-card", "r-when-a-member", "r-when-a-attach", "r-when-a-card-is-moved", "submit-on-enter-description", "all-board-members", "invalid-file", "admin-people-filter-locked", "render-links-as-plain-text-description"];
+  for (const key of correctedEditingHelpKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /(?:Gdy |Jeżeli |Wszyscy|Tylko |Nié ma możliwości|Nié da się)/);
+  }
+  for (const literal of ['Shift+Enter', 'Ctrl/Cmd+Enter']) assert.ok(locale['submit-on-enter-description'].includes(literal));
+  for (const literal of ['[label](url)', 'HTML <a href>']) assert.ok(locale['render-links-as-plain-text-description'].includes(literal));
+  assert.match(locale['render-links-as-plain-text-description'], /Domëslno wëłączoné/);
+  assert.match(locale['fixed-list-width-note'], /blós dlô Ce/);
+  for (const key of ['custom-field-delete-pop', 'label-delete-pop']) assert.match(locale[key], /nie mòżna cofnąc.*ze wszëtczich kôrtów/);
+  assert.equal(locale['board_members'], locale['all-board-members']);
   const correctedActivityResultKeys = ["act-deleteCard", "act-deleteAttachment", "act-removeLabel", "act-removedLabel", "act-removeChecklist", "act-removeChecklistItem", "act-checkedItem", "act-uncheckedItem", "act-completeChecklist", "act-uncompleteChecklist", "act-editComment", "act-deleteComment", "act-importCard", "act-restoredCard", "act-unjoinMember", "act-atUserComment", "act-a-dueAt", "act-a-endAt", "act-a-receivedAt", "act-almostdue", "act-pastdue", "act-duenow"];
   for (const key of correctedActivityResultKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
