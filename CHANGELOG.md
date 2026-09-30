@@ -227,13 +227,13 @@ minute; the intermittent activity-recovery test was two test races and is fixed.
 
 Remaining, and why:
 
-- **Structural rule actions.** Sixteen action types are durable now: email,
-  archive and unarchive, colour, labels, completion, dates and members. A board
-  with any other rule action keeps direct Sync. The rest change more than one
-  card field: moves and list sorting (sort order, possibly across lists or
-  boards, with Card.move's own History), checklists (another collection),
-  and creating, copying or linking cards and swimlanes. Each needs its own
-  saved command (server/lib/listSyncSteps.js).
+- **Structural rule actions.** Twenty action types are durable now: email,
+  archive and unarchive, colour, labels, completion, dates, members and
+  checklist toggles. A board with any other rule action keeps direct Sync. The rest
+  reshape the board rather than change a field: moves and list sorting (sort
+  order across lists or boards, with Card.move's own History), adding or
+  removing checklists, and creating, copying or linking cards and swimlanes.
+  Each needs its own saved command (server/lib/listSyncSteps.js).
 - **Atomicity.** Cards, History, activities and effects are coordinated by the
   write-ahead journal and replay, not by a transaction. The FerretDB v1 backend
   has no multi-document transactions, and journal ownership cannot fence a
@@ -1952,9 +1952,24 @@ joinMember or unjoinMember activity, and the change gets one History row.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/af1b1bee2">Make the checklist rule actions durable in Sync</a>. Thanks to xet7.</summary>
+
+checkAll, uncheckAll, checkItem and uncheckItem are captured with the ordinary
+action's own lookups, so a replay acts on the same items, including its no-ops.
+The ordinary hooks record on every item write, changed or not: an
+uncompleteChecklist before, a checked or unchecked activity after, a
+completeChecklist when the list is finished, and History when the value
+changed. The command simulates that sequence, and the runner applies it item by
+item, so rules triggered by one item run before the next, as they do now. The
+History planner accepts checklist-item rows for this.
+
+</details>
+
 and has the following developer-tooling fixes:
 
-**Full-app tests** - two recovery tests no longer fail by chance in a full run.
+**Full-app tests** - recovery and retention tests no longer fail by chance in a
+full run.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2c2aeaff8">Make the paused-scan recovery test read a full pass, not one page</a>. Thanks to xet7.</summary>
@@ -1972,6 +1987,10 @@ The startup scan holds an intent's lease every second, so a pause or cancel
 could meet sync-busy, which an operator retries. The test now does too.
 
 </details>
+
+- [Page retention sweeps in the full-app tests until their own record is compacted](https://github.com/wekan/wekan/commit/5b3669b00):
+  the test database outlives a run, so older receipts filled the first page.
+  Thanks to xet7.
 
 and updates the following translations:
 
