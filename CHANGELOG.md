@@ -3750,6 +3750,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/348e2d85d">Translate Aragonese synchronization conflicts and reports</a>. Thanks to xet7.</summary>
+
+- Fill 63 Aragonese synchronization, preview, report and recovery messages.
+  Refresh the measured language completion count.
+- Translation, registry and human-preference checks pass, covering preserved
+  translations, report limitations, explicit null and estimate-field rules.
+  Wording is lower confidence; browser layout and fluent-speaker review were
+  not run. Other placeholders and older mixed-language text remain.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
