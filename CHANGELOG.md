@@ -7802,6 +7802,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/034fbc494e8b812a7bd57e7e1898e823ad15df9f">Translate Faroese imports and board visibility</a>. Thanks to xet7.</summary>
+
+- Translate 12 missing or English strings for filters, imports and board
+  visibility, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including filter
+  and todo.txt syntax. Faroese wording has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
