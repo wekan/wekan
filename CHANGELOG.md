@@ -5744,6 +5744,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c36a05a3d8">Translate Georgian block editor labels</a>. Thanks to xet7.</summary>
+
+- Translate 34 English strings for field types, block structure and variable
+  deletion guidance, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including input
+  counts and parameter restrictions. Fluent-speaker and browser review
+  were not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
