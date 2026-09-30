@@ -2317,6 +2317,18 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedAccountStatusKeys = ["home-board-badge", "home-board-empty", "user-can-not-export-excel", "user-can-not-export-card-to-pdf", "user-can-not-export-card-to-excel", "normal", "unset-default-board-title", "tracking-info", "text-below-custom-login-logo", "error-ldap-login", "impersonation-user", "office-no-results", "admin-people-user-active", "admin-people-user-inactive", "account-locked", "account-created"];
+  for (const key of correctedAccountStatusKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /(?:Użytkownik|zalogowaniu|logowania|Możesz|Konto)/);
+  }
+  assert.match(locale['home-board-empty'], /blós jedną tôflã/);
+  assert.match(locale['tracking-info'], /ùsôdzcą abò nôleżnikã/);
+  assert.match(locale['account-locked'], /timczasno.*nieùdałëch prób/);
+  assert.match(locale['admin-people-user-active'], /je aktiwny.*dezaktiwowac/);
+  assert.match(locale['admin-people-user-inactive'], /je nieaktiwny.*żebë aktiwowac/);
+  assert.match(locale['user-can-not-export-card-to-pdf'], /PDF/);
+  for (const key of ['user-can-not-export-excel', 'user-can-not-export-card-to-excel']) assert.match(locale[key], /Excel/);
   const correctedBackupScopeKeys = ["backup-scope-description", "backup-now", "backup-done", "backup-schedule", "backup-frequency-daily", "backup-list", "backup-restore-add-missing", "backup-restore-select-first", "export-card", "export-card-pdf", "export-card-excel", "export-card-attachment-filename", "restore-all", "export-monitoring", "restore-list-swimlanes-done"];
   for (const key of correctedBackupScopeKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
