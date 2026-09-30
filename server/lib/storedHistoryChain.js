@@ -6,7 +6,7 @@ import { ensureIndex } from '/server/lib/mongoStartup';
 const { EJSON } = require('bson');
 const { appendHistoryChain, historyChainId, validateHistoryChainHead } = require('./historyChainAppend');
 const { initializeHistoryChain } = require('./historyChainBootstrap');
-const { withHistoryWriter } = require('./historyWriterGate');
+const { withHistoryWriter, recoverExpiredHistoryWriters, historyWriterLeasePolicy } = require('./historyWriterGate');
 const { hashHistoryRow } = require('../../models/lib/changeHistoryIntegrity');
 const { migrateHistoryChain } = require('./historyChainMigration');
 
@@ -14,10 +14,18 @@ export const HistoryWriterGates = new Mongo.Collection('historyWriterGates');
 HistoryWriterGates.deny({ insert: () => true, update: () => true, remove: () => true });
 export const HistoryChainHeads = new Mongo.Collection('historyChainHeads');
 HistoryChainHeads.deny({ insert: () => true, update: () => true, remove: () => true });
+// One lease per legacy writer token (server/lib/historyWriterGate.js), so a
+// writer that died can be taken over online.
+export const HistoryWriterLeases = new Mongo.Collection('historyWriterLeases');
+HistoryWriterLeases.deny({ insert: () => true, update: () => true, remove: () => true });
 Meteor.startup(async () => {
   await ensureIndex(HistoryChainHeads, { boardId: 1 }, { unique: true });
   await ensureIndex(HistoryWriterGates, { boardId: 1 }, { unique: true });
+  await ensureIndex(HistoryWriterLeases, { boardId: 1 });
 });
+const { leaseMs, graceMs } = historyWriterLeasePolicy();
+const writerStorage = () => ({ gates: HistoryWriterGates.rawCollection(), leases: HistoryWriterLeases.rawCollection(),
+  history: ChangeHistory.rawCollection(), leaseMs });
 
 // Internal initialization only: the caller must exclude all legacy writers.
 export function initializeStoredHistoryChain({ boardId, assertExclusive }) {
@@ -66,9 +74,12 @@ export async function appendStoredHistoryChain({ row, assertCurrent }) {
 // append path until explicitly migrated. Schema errors precede admission.
 ChangeHistory.withHistoryWriter = async ({ boardId, row, write, legacy }) => {
   const prepared = prepareStoredHistoryRow({ ...row, _id: row._id ?? Random.id() });
-  return withHistoryWriter({ gates: HistoryWriterGates.rawCollection(), boardId,
-    writeLegacy: ({ assertCurrent }) => write(async document => {
-      await assertCurrent(); const id = await legacy(document); await assertCurrent(); return id;
+  return withHistoryWriter({ ...writerStorage(), boardId,
+    // Each legacy insert is claimed under the writer's lease, so a writer that
+    // dies mid-insert can be fenced and taken over online.
+    writeLegacy: ({ assertCurrent, fencedInsert }) => write(async document => {
+      const doc = { ...document, _id: document._id ?? prepared._id };
+      const id = await fencedInsert(doc._id, () => legacy(doc)); await assertCurrent(); return id;
     }),
     writeCoordinated: () => write(() => appendStoredHistoryChain({ row: prepared, assertCurrent: async () => {} })) });
 };
@@ -79,18 +90,24 @@ ChangeHistory.withHistoryWriter = async ({ boardId, row, write, legacy }) => {
 // it; on a coordinated board each row goes through the chain head, like an
 // ordinary edit, so nothing is refused and nothing forks.
 ChangeHistory.admitHistoryWriter = ({ boardId, work }) => withHistoryWriter({
-  gates: HistoryWriterGates.rawCollection(), boardId,
-  writeLegacy: ({ assertCurrent }) => work({ mode: 'legacy', assertCurrent }),
+  ...writerStorage(), boardId,
+  writeLegacy: ({ assertCurrent, fencedInsert }) => work({ mode: 'legacy', assertCurrent, fencedInsert }),
   writeCoordinated: () => work({ mode: 'coordinated', assertCurrent: async () => {} }) });
 
 // Append one planned Sync row, idempotently by its _id: a retry that finds
 // the row returns it, and the caller checks it is the planned content.
-ChangeHistory.appendSyncHistoryRow = async ({ row, mode, assertCurrent }) => {
+ChangeHistory.appendSyncHistoryRow = async ({ row, mode, assertCurrent, fencedInsert }) => {
   if (mode === 'coordinated') return appendStoredHistoryChain({ row, assertCurrent });
   if (mode !== 'legacy') throw new Error('history-chain-mode-invalid');
+  if (typeof fencedInsert !== 'function') throw new Error('history-writer-fence-required');
   const prepared = prepareStoredHistoryRow(row);
   await assertCurrent();
-  if (await ChangeHistory.findOneAsync(prepared._id, { transform: null })) return prepared._id;
+  const existing = await ChangeHistory.findOneAsync(prepared._id, { transform: null });
+  // A fence tombstone holds this id: an earlier attempt was taken over.
+  if (existing) {
+    if (existing.boardId !== prepared.boardId) throw new Error('history-writer-fenced');
+    return prepared._id;
+  }
   // After the chain's TIP: from the newest hashed row, follow its successors.
   // A Sync batch's rows share one planned createdAt, so "newest" alone is a
   // tie and would give an earlier batch row a second successor - a fork.
@@ -105,15 +122,22 @@ ChangeHistory.appendSyncHistoryRow = async ({ row, mode, assertCurrent }) => {
   const saved = { ...prepared, previousHash: previous ? previous.integrityHash : null };
   saved.integrityHash = hashHistoryRow(saved);
   await assertCurrent();
-  try { await ChangeHistory.insertAsync(saved, { removeEmptyStrings: false, trimStrings: false }); }
-  catch (error) { if (!await ChangeHistory.findOneAsync(prepared._id, { transform: null })) throw error; }
+  try { await fencedInsert(prepared._id, () => ChangeHistory.insertAsync(saved, { removeEmptyStrings: false, trimStrings: false })); }
+  catch (error) {
+    const found = await ChangeHistory.findOneAsync(prepared._id, { transform: null });
+    if (!found || found.boardId !== prepared.boardId) throw error;
+  }
   return prepared._id;
 };
 
 // No automatic rollout: callers must prove older server versions cannot write.
 // Drain/resume uses the same durable migration UUID, never a timed takeover.
 export function migrateStoredHistoryChain({ boardId, migrationId, assertDeploymentExclusive }) {
-  return migrateHistoryChain({ gates: HistoryWriterGates.rawCollection(),
-    heads: HistoryChainHeads.rawCollection(), history: ChangeHistory.rawCollection(),
-    boardId, migrationId, assertDeploymentExclusive });
+  return migrateHistoryChain({ ...writerStorage(), heads: HistoryChainHeads.rawCollection(),
+    boardId, migrationId, assertDeploymentExclusive, graceMs });
+}
+
+// Take every abandoned writer of a board online (Admin/CLI use).
+export function recoverStoredHistoryWriters({ boardId }) {
+  return recoverExpiredHistoryWriters({ ...writerStorage(), boardId, graceMs });
 }

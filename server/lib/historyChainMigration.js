@@ -1,15 +1,21 @@
 'use strict';
-const { beginHistoryMigration, finishHistoryMigration } = require('./historyWriterGate');
+const { beginHistoryMigration, finishHistoryMigration, recoverExpiredHistoryWriters } = require('./historyWriterGate');
 const { initializeHistoryChain, inspectHistoryChain } = require('./historyChainBootstrap');
 const { historyChainId, validateHistoryChainHead } = require('./historyChainAppend');
 
 // Shared by the server binding and the offline maintenance command. Admission
 // excludes participating writers; the deployment guard must exclude all others.
-async function migrateHistoryChain({ gates, heads, history, boardId, migrationId, assertDeploymentExclusive }) {
+// With `leases`, writers that died holding a token are taken online while the
+// board drains (historyWriterGate.js); a token without a lease still blocks.
+async function migrateHistoryChain({ gates, heads, history, leases = null, graceMs = 30000, boardId, migrationId,
+  assertDeploymentExclusive }) {
   if (typeof assertDeploymentExclusive !== 'function') throw new Error('history-writer-deployment-guard-required');
   await assertDeploymentExclusive();
   const options = { gates, boardId, migrationId };
-  const migration = await beginHistoryMigration(options);
+  const recoverWriters = leases
+    ? async () => { await recoverExpiredHistoryWriters({ gates, leases, history, boardId, graceMs }); }
+    : null;
+  const migration = await beginHistoryMigration({ ...options, recoverWriters });
   const readHead = async () => validateHistoryChainHead(await heads.findOne({ _id: historyChainId(boardId) }), boardId);
   if (migration.complete) {
     await readHead(); await assertDeploymentExclusive(); return migrationId;

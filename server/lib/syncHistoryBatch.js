@@ -146,9 +146,9 @@ async function persistSyncFieldHistory({ history, plan, assertCurrent }) {
       typeof history?.appendSyncHistoryRow !== 'function') fail();
   // Do not let a collection adapter mutate the journal's verification inputs.
   plan = copy(plan);
-  return history.admitHistoryWriter({ boardId: plan.boardId, work: async ({ mode, assertCurrent: writerCurrent }) => {
+  return history.admitHistoryWriter({ boardId: plan.boardId, work: async ({ mode, assertCurrent: writerCurrent, fencedInsert }) => {
     if (!['legacy', 'coordinated'].includes(mode) || typeof writerCurrent !== 'function') fail();
-    return writeSyncFieldHistory({ history, plan, mode,
+    return writeSyncFieldHistory({ history, plan, mode, fencedInsert,
       assertCurrent: async () => { await assertCurrent(); await writerCurrent(); } });
   } });
 }
@@ -159,7 +159,7 @@ function isPlannedRow(saved, row) {
   return !!saved && saved._id === row._id && rowHashIsValid(saved) && saved.isCheckpoint === row.isCheckpoint &&
     PROTECTED.filter(key => key !== 'previousHash').every(key => canonical(saved[key]) === canonical(row[key]));
 }
-async function writeSyncFieldHistory({ history, plan, mode, assertCurrent }) {
+async function writeSyncFieldHistory({ history, plan, mode, fencedInsert, assertCurrent }) {
   for (const target of plan.redo) {
     await assertCurrent();
     let error;
@@ -182,7 +182,7 @@ async function writeSyncFieldHistory({ history, plan, mode, assertCurrent }) {
   for (const row of plan.rows) {
     await assertCurrent();
     let error;
-    try { await history.appendSyncHistoryRow({ row: copy(row), mode, assertCurrent }); }
+    try { await history.appendSyncHistoryRow({ row: copy(row), mode, assertCurrent, fencedInsert }); }
     catch (failure) { error = failure; }
     await assertCurrent();
     let saved;

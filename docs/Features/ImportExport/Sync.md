@@ -1060,6 +1060,34 @@ remain unfinished. Draining refuses new records;
 the best-effort recorder currently returns null for those failures. Durable
 recovery of such failed recording is still required before automatic rollout.
 
+### Online recovery of abandoned writers
+
+Every legacy History writer on an upgraded server keeps a lease beside its gate
+token, in `historyWriterLeases`, and renews it while it works. Before each
+legacy History insert, it claims that row's id in the lease. A writer that
+died, or whose write failed, stops renewing. Once the lease has been expired
+for another full lease period, the writer can be taken over without stopping
+anything:
+
+```sh
+node releases/recover-history-writer.cjs --board BOARD_ID --recover-expired
+```
+
+The command fences the lease, so the old writer can neither renew nor claim
+again. If a row id was claimed, it inserts a tombstone under that id, so the
+unique `_id` makes a late insert fail. A row that had already landed stays as
+written. Only then does it remove the token. Tombstones use the reserved
+board id `#history-writer-fence` and are never shown on a board. Live writers
+and tokens without a lease are listed and left alone.
+
+A chain migration does the same by itself while the board drains. The lease is
+`HISTORY_WRITER_LEASE_MS`, 1,000 to 600,000 ms, default 30,000.
+
+Safety comes from the fence, not the clock. Clock differences only decide when
+an abandoned lease may be taken, and a slow writer that is taken loses its
+write with an error. A token with no lease was written by an older server, or
+before the upgrade; it still needs the offline procedure below.
+
 ### Offline recovery of uncertain writer admission
 
 With every application instance, maintenance command and other database writer

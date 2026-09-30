@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
 import ChangeHistory from '/models/changeHistory';
-import { HistoryWriterGates, migrateStoredHistoryChain, HistoryChainHeads, initializeStoredHistoryChain, appendStoredHistoryChain } from '/server/lib/storedHistoryChain';
+import { HistoryWriterGates, HistoryWriterLeases, recoverStoredHistoryWriters, migrateStoredHistoryChain, HistoryChainHeads, initializeStoredHistoryChain, appendStoredHistoryChain } from '/server/lib/storedHistoryChain';
 const { rowHashIsValid } = require('/models/lib/changeHistoryIntegrity');
 describe('Stored History chain collections', function () {
   this.timeout(15000);
@@ -74,6 +74,38 @@ describe('Ordinary History writer migration', function () {
       await ChangeHistory.rawCollection().deleteMany({ boardId });
       await HistoryChainHeads.rawCollection().deleteMany({ boardId });
       await HistoryWriterGates.rawCollection().deleteMany({ boardId });
+    }
+  });
+});
+
+describe('Online History writer recovery', function () {
+  this.timeout(15000);
+  it('leaves no lease after an ordinary edit and takes an abandoned writer over online', async function () {
+    if (!Meteor.isAppTest) this.skip();
+    const boardId = Random.id(), writerId = require('node:crypto').randomUUID(), claimed = Random.id();
+    const { HISTORY_FENCE_BOARD } = require('/server/lib/historyWriterGate');
+    const record = value => ChangeHistory.record({ boardId, entityType: 'card', entityId: 'card',
+      changeType: 'edited', group: 'title', userId: 'actor', newContent: { field: 'title', value } });
+    try {
+      assert.ok(await record('first'));
+      assert.deepEqual((await HistoryWriterGates.findOneAsync({ boardId })).writers, []);
+      assert.equal(await HistoryWriterLeases.find({ boardId }).countAsync(), 0, 'a finished writer removes its lease');
+      // A server died mid-insert: its token and a long-expired lease with a claim remain.
+      await HistoryWriterGates.rawCollection().updateOne({ boardId }, { $set: { writers: [writerId] } });
+      await HistoryWriterLeases.rawCollection().insertOne({ _id: writerId, boardId, version: 1, state: 'active',
+        expiresAt: new Date(Date.now() - 3600000), pending: claimed });
+      assert.deepEqual(await recoverStoredHistoryWriters({ boardId }), { recovered: [writerId], alive: [], unleased: [] });
+      assert.deepEqual((await HistoryWriterGates.findOneAsync({ boardId })).writers, []);
+      const fence = await ChangeHistory.rawCollection().findOne({ _id: claimed });
+      assert.equal(fence.boardId, HISTORY_FENCE_BOARD, 'the claimed row id is fenced');
+      assert.equal(await ChangeHistory.find({ boardId }).countAsync(), 1, 'and invisible to the board');
+      assert.ok(await record('after'), 'ordinary edits carry on');
+      const rows = await ChangeHistory.find({ boardId }, { transform: null }).fetchAsync();
+      assert.ok(rows.every(rowHashIsValid));
+    } finally {
+      await ChangeHistory.rawCollection().deleteMany({ $or: [{ boardId }, { _id: claimed }] });
+      await HistoryWriterGates.rawCollection().deleteMany({ boardId });
+      await HistoryWriterLeases.rawCollection().deleteMany({ boardId });
     }
   });
 });

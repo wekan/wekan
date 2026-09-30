@@ -106,7 +106,14 @@ test('production ChangeHistory admits Sync in either mode and links each row whe
   const at = src.indexOf('ChangeHistory.admitHistoryWriter');
   assert.ok(at > 0);
   const body = src.slice(at, src.indexOf('\n};', src.indexOf('ChangeHistory.appendSyncHistoryRow')));
-  assert.match(body, /writeLegacy: \(\{ assertCurrent \}\) => work\(\{ mode: 'legacy', assertCurrent \}\)/);
+  // Online writer recovery (2026-09-30): the legacy writer also hands Sync its
+  // fence, and every legacy row is inserted through it, so a batch whose
+  // writer died mid-insert can be taken over without stopping servers.
+  assert.match(body, /writeLegacy: \(\{ assertCurrent, fencedInsert \}\) => work\(\{ mode: 'legacy', assertCurrent, fencedInsert \}\)/);
+  assert.match(body, /if \(typeof fencedInsert !== 'function'\) throw new Error\('history-writer-fence-required'\);/);
+  assert.match(body, /await fencedInsert\(prepared\._id, \(\) => ChangeHistory\.insertAsync\(saved/);
+  assert.match(body, /existing\.boardId !== prepared\.boardId\) throw new Error\('history-writer-fenced'\)/,
+    'a fence tombstone is never taken for the planned row');
   assert.match(body, /writeCoordinated: \(\) => work\(\{ mode: 'coordinated'/);
   assert.match(body, /if \(mode === 'coordinated'\) return appendStoredHistoryChain\(\{ row, assertCurrent \}\);/);
   // The legacy link goes after the chain's TIP, walking successors, not after
