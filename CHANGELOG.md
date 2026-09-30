@@ -7502,6 +7502,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dafde31d3815fe5526390ce253d227b763f4a7b5">Translate Luxembourgish list sorting and comparisons</a>. Thanks to xet7.</summary>
+
+- Translate 20 missing or English strings for list sorting, text conversion
+  and comparisons, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  sorting directions, text conversions and comparison operators.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
