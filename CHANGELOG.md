@@ -8355,6 +8355,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/327ad7e9c3a8e4bf2be2e9285bb19ac53ece82e6">Complete Frisian recovery and history translations</a>. Thanks to xet7.</summary>
+
+- Translate 64 recovery and history strings in each of fy and fy-NL,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including full
+  source-key coverage, recovery warnings and distinct history actions.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
