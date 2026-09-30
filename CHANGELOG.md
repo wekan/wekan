@@ -7995,6 +7995,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ffac2e8622859357ebef799564391163915268a2">Translate Friulian imports and board visibility</a>. Thanks to xet7.</summary>
+
+- Translate 12 import, list-age filter and board-visibility strings,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including import
+  syntax, URL schemes and HTML tags. Friulian has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
