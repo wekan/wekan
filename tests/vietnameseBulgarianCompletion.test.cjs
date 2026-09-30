@@ -31,6 +31,15 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Maltese filters and imports; remaining untranslated strings are filled separately.
 {
   const locale = read('mt');
+  const correctedAppearanceKeys = ["vote-against", "cardStartPlanningPokerPopup-title", "poker-finish", "poker-result-votes", "poker-result-who", "poker-replay", "cardDependencyIconPopup-title", "cardStickersPopup-title", "invitePeoplePopup-title", "theme-category", "theme-category-flat", "theme-category-dark", "theme-category-special", "change-font", "font", "font-size", "font-size-smaller", "font-size-small", "font-size-large", "font-size-larger", "font-size-largest", "subtasks", "go-back", "modal-title", "color-crimson", "color-darkgreen", "color-gold", "color-gray", "color-indigo", "color-lime", "color-magenta", "color-mistyrose", "color-navy", "color-orange", "color-paleturquoise"];
+  for (const key of correctedAppearanceKeys) {
+    assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
+    assert.doesNotMatch(locale[key], /Traduzzjoni Maltija:/, `mt:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `mt:${key}: tokens`);
+  }
+  assert.equal(locale.font, locale['change-font']);
+  assert.notEqual(locale['font-size-small'], locale['font-size-smaller']);
+  assert.notEqual(locale['font-size-large'], locale['font-size-largest']);
   const correctedCoreKeys = ["comment-reply", "activity-joined", "activity-on", "activity-unjoined", "allboards.starred", "allboards.remaining", "selected-label", "added", "admin-announcement", "apply", "template-container", "attached", "board-nb-stars", "changeFontPopup-title", "allBoardsMenuPopup-title", "desktop-mode", "mobile-mode", "zoom-in", "zoom-out", "zoom-level", "board-view-cal", "board-view-multiboard-cal", "board-view-collapse", "board-view-table", "board-view-stats", "calendar-previous-month-label", "calendar-next-month-label", "card-due", "card-due-on", "card-start-on", "cardAttachmentsPopup-title", "cardStartVotingPopup-title", "positiveVoteMembersPopup-title", "negativeVoteMembersPopup-title", "vote-question"];
   for (const key of correctedCoreKeys) {
     assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
