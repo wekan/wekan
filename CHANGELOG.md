@@ -8693,6 +8693,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f2d342aa00cfa55735f9874f4aecf95be5caa8e7">Correct Romansh cloud storage and migration instructions</a>. Thanks to xet7.</summary>
+
+- Replace 12 mixed-language cloud, avatar and migration strings with
+  Romansh. Restore client_email and external navigation labels.
+- Translation, registry and human-preference checks pass, covering tokens,
+  avatar exclusions, migration field names and storage navigation.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider language cleanup remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
