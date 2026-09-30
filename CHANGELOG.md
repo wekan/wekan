@@ -2877,6 +2877,16 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/031c46174">Translate Afrikaans synchronization messages</a>. Thanks to xet7.</summary>
+
+- Fill 63 Sync conflict, preview, report and estimate messages in each
+  Afrikaans locale, af and af_ZA.
+- Preserve existing translations and placeholders; check source-write warnings,
+  partial-run limitations and explicit null handling.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
