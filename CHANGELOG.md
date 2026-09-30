@@ -5214,6 +5214,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d2f0869ba2d911002cac48899aaea662ff3997d5">Translate Albanian workspace shortcuts and rule editing</a>. Thanks to xet7.</summary>
+
+- Fill 58 English placeholders for shortcuts, workspace search and rule
+  editing, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including navigation
+  directions and rule restrictions. Fluent-speaker and browser review were
+  not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
