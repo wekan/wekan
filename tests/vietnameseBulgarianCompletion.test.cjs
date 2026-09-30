@@ -1997,6 +1997,17 @@ console.log('Completed translation batches: completeness, tokens, syntax and nat
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `br: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /Enlakaat ur varienn/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
+    assert.notEqual(locale[key], english[key], `br:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `br:${key}: tokens`);
+  }
+  assert.match(locale['scrum-report-help'], /n'int ket istimadennoù zero/);
+  assert.match(locale['scrum-report-help'], /reolennoù heñvel hepken/);
+  assert.match(locale['scrum-partial-report'], /roet deoc'h bremañ hepken/);
+  assert.match(locale['scrum-daily-observations-help'], /Ne enroll ket.*pep cheñchamant/);
+  assert.match(locale['scrum-daily-observations-help'], /varrenn ostilhoù.*disoc'hoù ar sprint/);
+  assert.match(locale['scrum-daily-observations-export-help'], /istimadennoù dianav n'int ket zero/);
+  assert.match(locale['scrum-import-pending'], /N'haller ket kemmañ Scrum nag ezporzhiañ/);
   for (const key of Object.keys(english).filter(key => key.startsWith('sync-'))) {
     assert.notEqual(locale[key], english[key], `br:${key}: untranslated`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `br:${key}: tokens`);
