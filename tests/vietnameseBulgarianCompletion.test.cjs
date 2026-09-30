@@ -31,6 +31,21 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const correctedSearchKeys = ["r-of-checklist", "r-d-check-all", "r-d-uncheck-all", "r-d-check-of-list", "roles-info", "dueCardsViewChange-choice-all", "globalSearchViewChange-choice-all-description", "globalSearch-instructions-description", "globalSearch-instructions-notes-3", "delete-org-warning-message", "newlineBecomesNewChecklistItem", "newlineBecomesNewChecklistItemOriginOrder", "move-all-attachments-of-board-to-fs", "move-all-attachments-of-board-to-gridfs", "move-all-attachments-of-board-to-s3"];
+  for (const key of correctedSearchKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /\b(Scegli|gli|degli|della|Ogni|Sposta|Vengono)\b/, `rm:${key}: no mixed-language seed`);
+  }
+  assert.equal(locale['r-of-checklist'], locale['r-d-check-of-list']);
+  assert.notEqual(locale['r-d-check-all'], locale['r-d-uncheck-all']);
+  assert.match(locale['roles-info'], /adina tut ils dretgs.*na pon betg vegnir restrenschids/);
+  for (const token of ['list:Blocked', '__operator_list__:"To Review"']) assert.ok(locale['globalSearch-instructions-description'].includes(token));
+  assert.ok(locale['globalSearch-instructions-notes-3'].includes('__operator_list__:Available __operator_label__:red'));
+  assert.match(locale['globalSearch-instructions-notes-3'], /AND.*tut ils operaturs/);
+  assert.match(locale['delete-org-warning-message'], /almain in utilisader/);
+  assert.match(locale['newlineBecomesNewChecklistItemOriginOrder'], /successiun originala/);
+  for (const target of ['GridFS', 'S3']) assert.ok(locale[`move-all-attachments-of-board-to-${target.toLowerCase()}`].includes(target));
+
   const correctedFilterKeys = ["personal-list-width-description", "close-add-checklist-item", "admin-desc", "show-board_members-avatar", "map-to-existing-user-search", "advanced-filter-description", "import-board-instruction-zenkit", "import-board-instruction-excel", "import-board-instruction-about-errors", "import-trello-json-file-hint", "importMapMembersAddPopup-title", "quick-access-description", "select-color", "toggle-assignees", "attachment-upload-limit-label", "attachment-download-limit-label", "smtp-port-description", "setCardActionsColorPopup-title", "setSwimlaneColorPopup-title", "setListColorPopup-title"];
   for (const key of correctedFilterKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
