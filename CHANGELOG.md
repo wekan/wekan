@@ -13021,6 +13021,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2d63faec533b28931f731762a46165f518821710">Translate Punjabi function definitions and keyboard navigation</a>. Thanks to xet7.</summary>
+
+- Translate 44 Punjabi function, screen-reader and navigation strings.
+- Check output distinctions, mode toggles and movement directions while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
