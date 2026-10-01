@@ -10301,6 +10301,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2fefd734db4e64a84590649fbfd04d055424ff94">Translate Uzbek condition and list inputs</a>. Thanks to xet7.</summary>
+
+- Fill 24 condition, list and warning labels in each Uzbek locale,
+  using Arabic script for uz-AR and Latin for the other three locales.
+- Translation, registry and human-preference checks pass, covering tokens,
+  condition ordering, list boundaries and text split/join distinctions.
+  Wording needs fluent review, especially Arabic-script orthography.
+  Browser review and wider translation completion remain outstanding.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
