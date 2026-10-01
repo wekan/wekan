@@ -11370,6 +11370,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/425cb19c296da4bb9f9cfc29c9f720668f87ff6a">Translate new recovery strings into Venda</a>. Thanks to xet7.</summary>
+
+- Translate 44 missing keys in ve, preserving existing values.
+  Cover todo.txt imports and email recovery and review controls.
+- Translation, registry and human-preference checks pass, covering placeholders,
+  import syntax, duplicate delivery, access checks and permanent discard.
+  Existing coverage is retained. Longer technical wording is low confidence
+  and needs fluent review. Browser review was not run. Wider work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
