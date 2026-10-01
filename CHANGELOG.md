@@ -10710,6 +10710,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ef1ad27022ea5188770b507b88d648ba61bf82cc">Correct Arabic-script Uzbek workspace and board text</a>. Thanks to xet7.</summary>
+
+- Replace 25 Latin-script workspace and board values in uz-AR with Arabic-script
+  Uzbek, preserving placeholders and correcting due-date terminology.
+- Translation, registry and human-preference checks pass, covering Markdown,
+  the one-board limit and removal from Home without deleting the board.
+  Wording is low confidence and needs fluent review. Browser review was not run.
+  Older script corrections and wider translation completion remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
