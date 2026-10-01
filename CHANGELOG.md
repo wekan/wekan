@@ -12328,6 +12328,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3935271838446e61aaa4db303a2969d68bb1b36d">Telugu conditional controls and editor inputs</a>. Thanks to xet7.</summary>
+
+- Translate 35 conditional control and editor input placeholders.
+- Check branches, deletion counts, bitmap dimensions and keyboard help
+  while preserving source substitution tokens and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
