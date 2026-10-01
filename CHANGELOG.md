@@ -2193,6 +2193,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/46746a6bc67b494434438d7fe4f6400f680e1457">Translate Marathi editor shortcuts and navigation</a>. Thanks to xet7.</summary>
+
+- Translate 33 Marathi editor shortcuts, navigation and accessibility messages.
+- Check screen reader toggles, navigation directions and move cancellation
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
