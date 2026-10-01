@@ -2852,6 +2852,17 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6d72f98d019cd6e070c3f6b89a5dd26005e5236c">Translate dependency layers in nine more locales</a>. Thanks to xet7.</summary>
+
+- Translate 11 dependency messages into Slovenian, Croatian, Serbian, Bosnian,
+  Macedonian, Lithuanian, Latvian and Belarusian, including Slovenian variants.
+- Coverage now includes 87 locale tags; other locales remain pending.
+- Focused key-order, placeholder and human-preference checks pass.
+  Browser and native-speaker review were not run.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
