@@ -1685,6 +1685,17 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/dc301d7ee4">Translate Cantonese number properties and statistics</a>. Thanks to xet7.</summary>
+
+- Fill 36 messages for number properties, list statistics and random values,
+  preserving placeholders and inclusive or exclusive bounds.
+- Cantonese key-order, translation and placeholder checks and all 21
+  human-preference checks pass. Other untranslated strings remain;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ba6d1d4b29">Translate Cantonese logic and arithmetic messages</a>. Thanks to xet7.</summary>
 
 - Fill 31 messages for comparisons, logic, arithmetic and constants,
