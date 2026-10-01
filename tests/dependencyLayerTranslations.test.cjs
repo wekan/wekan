@@ -5,8 +5,8 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const root = path.resolve(__dirname, '..');
 const read = code => JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data', code + '.i18n.json'), 'utf8'));
 const english = read('en');
-const keys = ["show-my-dependencies", "show-board-dependencies", "my-dependencies", "board-dependencies", "import-dependencies-title", "export-dependencies-title", "dependencies-open-a-board", "dependencies-board-edit-required", "import-dependencies-merged", "dependency-layer-mine", "dependency-read-only"];
-for (const code of ["fi", "sv", "de", "de_DE", "de-AT", "de-CH", "fr", "fr-FR", "fr-BE", "fr-CA", "fr-CH", "es", "es-AR", "es-LA", "es-CL", "es_CO", "es-CO", "es-PY", "es-PE", "es-MX", "it", "pt", "pt-PT", "pt_PT", "pt-BR", "nl", "nl-NL", "ru", "ru-RU", "ru-UA", "ru_RU", "uk", "uk-UA"]) {
+const keys = ["show-my-dependencies", "show-board-dependencies", "my-dependencies", "board-dependencies", "importMemberDependenciesPopup-title", "exportMemberDependenciesPopup-title", "dependencies-open-a-board", "dependencies-board-edit-required", "import-dependencies-merged", "dependency-layer-mine", "dependency-read-only"];
+for (const code of ["fi", "sv", "de", "de_DE", "de-AT", "de-CH", "fr", "fr-FR", "fr-BE", "fr-CA", "fr-CH", "es", "es-AR", "es-LA", "es-CL", "es_CO", "es-CO", "es-PY", "es-PE", "es-MX", "it", "pt", "pt-PT", "pt_PT", "pt-BR", "nl", "nl-NL", "ru", "ru-RU", "ru-UA", "ru_RU", "uk", "uk-UA", "pl", "pl-PL", "cs", "cs-CZ", "sk", "bg", "el", "el-GR", "ro", "ro-RO", "hu", "da", "nb", "et-EE"]) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(english), code + ': key order');
   for (const key of keys) {
@@ -16,6 +16,6 @@ for (const code of ["fi", "sv", "de", "de_DE", "de-AT", "de-CH", "fr", "fr-FR", 
   }
   assert.notEqual(locale['my-dependencies'], locale['board-dependencies']);
   assert.notEqual(locale['show-my-dependencies'], locale['show-board-dependencies']);
-  assert.notEqual(locale['import-dependencies-title'], locale['export-dependencies-title']);
+  assert.notEqual(locale['importMemberDependenciesPopup-title'], locale['exportMemberDependenciesPopup-title']);
 }
 console.log('Dependency layer translations: keys, tokens and distinct actions passed');
