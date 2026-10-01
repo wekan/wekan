@@ -11322,6 +11322,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9ddb9811b3dd7f0d760fd368c30e22606d5b5dfa">Translate new recovery strings into Wolof</a>. Thanks to xet7.</summary>
+
+- Translate 44 missing keys in wo, preserving existing values.
+  Cover todo.txt imports and email recovery and review controls.
+- Translation, registry and human-preference checks pass, covering placeholders,
+  import syntax, duplicate delivery, access checks and permanent discard.
+  Existing coverage is retained. Longer technical wording is low confidence
+  and needs fluent review. Browser review was not run. Wider work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
