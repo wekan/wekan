@@ -9029,6 +9029,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1ad749158d0f89ff21c212eb633a5ec973dc90ad">Correct Shona weekdays layout and reminder labels</a>. Thanks to xet7.</summary>
+
+- Translate 30 prefixed English entries and restore ten protocol/syntax tokens.
+  Preserve existing values outside this correction batch.
+- Translation, registry and human-preference checks pass, covering weekdays,
+  reminder placeholders, configuration formats and shared labels.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Another 343 prefixed English entries remain; wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
