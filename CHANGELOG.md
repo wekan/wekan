@@ -13191,6 +13191,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/76f6f8ca251f3c67b79d5d9bc089b0193d097519">Translate Malayalam block movement and accessibility labels</a>. Thanks to xet7.</summary>
+
+- Translate 31 Malayalam Blockly movement and accessibility strings.
+- Check movement directions, add/remove controls and placeholders while
+  preserving existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
