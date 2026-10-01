@@ -11070,6 +11070,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1ec63bbcd913c140f2f7122e7464e50a866000ab">Translate new recovery strings into Sepedi</a>. Thanks to xet7.</summary>
+
+- Translate 44 missing keys in nso, preserving existing values.
+  Cover todo.txt imports and email recovery and review controls.
+- Translation, registry and human-preference checks pass, covering placeholders,
+  import syntax, duplicate delivery, access checks and permanent discard.
+  Existing regression coverage is retained. Browser and fluent-speaker review
+  were not run. Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
