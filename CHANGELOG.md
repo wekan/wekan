@@ -10493,6 +10493,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/341e17d7dd0075d8af1c5a446ad7ea484a536d8d">Translate Uzbek text processing and variable values</a>. Thanks to xet7.</summary>
+
+- Fill 25 text and variable strings in each Uzbek locale,
+  using Arabic script for uz-AR and Latin for the other three locales.
+- Translation, registry and human-preference checks pass, covering tokens,
+  replacement operands, trimming directions and number versus text prompts.
+  Wording needs fluent review, especially Arabic-script orthography.
+  Browser review and wider translation completion remain outstanding.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
