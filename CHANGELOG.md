@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1ca3f21b66">Translate Uyghur notification preferences and reminders</a>. Thanks to xet7.</summary>
+
+- Fill 24 rule control, notification and due-date reminder messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/151ddd16fb">Translate Uyghur filter guidance, visibility and rule variables</a>. Thanks to xet7.</summary>
 
 - Fill 15 filter guidance, import, board visibility and rule messages.
