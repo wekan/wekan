@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0377f7d5f9">Translate Kyrgyz Sync reports and diagnostics</a>. Thanks to xet7.</summary>
+
+- Fill 27 Sync report, diagnostic and source-field messages.
+- Batch key-order, placeholder, rule-variable and markup checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/09f66bf1c7">Translate Kyrgyz Sync conflicts and previews</a>. Thanks to xet7.</summary>
 
 - Fill 33 Sync conflict, preview and omitted-field messages.
