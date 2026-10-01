@@ -10121,6 +10121,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8fc0cb6097ecb564a74761f84ff092b53fb26fe6">Translate Hausa sprint observations and sync conflicts</a>. Thanks to xet7.</summary>
+
+- Fill 35 Hausa sprint observation and synchronization conflict messages.
+  Update the README to 134 languages above the source coverage threshold.
+- Translation, registry and human-preference checks pass, covering tokens,
+  report limitations, source choices and duplicate-card content retention.
+  Technical wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
