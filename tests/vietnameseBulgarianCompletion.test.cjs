@@ -28,6 +28,25 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona reminder schedules, saved filters and import reports.
+{
+  const locale = read('sn');
+  const keys = ["notification-activity-archive", "notification-activity-created", "due-reminder-heading", "due-reminder-days-label", "due-reminder-off", "due-reminder-webhook", "due-reminder-invalid", "due-reminder-saved", "dependency-type-duplicates", "dependency-type-is-duplicated-by", "custom-field-stringtemplate-context-hint", "filter-presets", "filter-preset-choose", "filter-preset-name", "filter-preset-save", "filter-preset-replace-hint", "filter-preset-saved", "filter-preset-applied", "filter-preset-deleted", "filter-preset-error", "filter-card-text-label", "import-report-heading", "import-report-description", "import-report-open-board", "draggable"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+  }
+  for (const token of ['%{card.title}', '%{board.title}', '%{list.title}', '%{swimlane.title}', '|urlencode', '%{value|urlencode}']) assert.ok(locale['custom-field-stringtemplate-context-hint'].includes(token));
+  assert.match(locale['due-reminder-days-label'], /0.*pamusoro pezero.*asati.*pasi pezero.*apfuura/);
+  assert.match(locale['due-reminder-invalid'], /gumi.*-14.*14/);
+  assert.match(locale['filter-preset-replace-hint'], /newe chete.*zita rimwe chete.*kunotsiva/);
+  assert.equal(new Set(['saved', 'applied', 'deleted'].map(state => locale[`filter-preset-${state}`])).size, 3);
+  assert.notEqual(locale['dependency-type-duplicates'], locale['dependency-type-is-duplicated-by']);
+  assert.match(locale['import-report-description'], /Bhodhi ragadzirwa.*hazvina kukwanisa kupinzwa/);
+  assert.ok(locale['import-report-description'].includes(locale.problems));
+  assert.ok(locale['import-report-description'].includes(locale.recoveryReportTitle));
+}
+
 // Shona board access, rule variables and notification preferences.
 {
   const locale = read('sn');
