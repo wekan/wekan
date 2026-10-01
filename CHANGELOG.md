@@ -13323,6 +13323,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b87d248745e2740da2872e8e950a285420371e83">Translate Malayalam mathematical functions and workspace controls</a>. Thanks to xet7.</summary>
+
+- Translate 32 Malayalam mathematical-function and workspace strings.
+- Check inverse functions, angle units and sign changes while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
