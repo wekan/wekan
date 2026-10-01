@@ -11897,6 +11897,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/90be84eddb2175a16dad57ecc69b3b8aab9ab65e">Latin Blockly input and bitmap labels</a>. Thanks to xet7.</summary>
+
+- Fill 66 English placeholders for editor inputs and bitmap accessibility,
+  preserving existing translations and placeholders.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for bitmap coordinates, editor states and mathematical operands.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
