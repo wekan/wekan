@@ -12394,6 +12394,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/96be9f42083dec880920e1c9794c44ca19c406a7">Telugu function and trigonometry messages</a>. Thanks to xet7.</summary>
+
+- Translate 37 function, trigonometry and editor placeholders.
+- Check degree units, disabled functions and return values while preserving
+  source substitution tokens and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
