@@ -10698,6 +10698,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c37ca67e4e9b236988663c0a5c607ceb1b42c572">Correct Arabic-script Uzbek checklist and workspace text</a>. Thanks to xet7.</summary>
+
+- Replace 20 Latin-script checklist, date and workspace values in uz-AR with
+  Arabic-script Uzbek, preserving placeholders and template argument roles.
+- Translation, registry and human-preference checks pass. Regression checks
+  reject Latin prose and distinguish checking, unchecking, adding and removing.
+  Wording is low confidence and needs fluent review. Browser review was not run.
+  Older script corrections and wider translation completion remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
