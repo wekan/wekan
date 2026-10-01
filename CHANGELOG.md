@@ -9305,6 +9305,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cae23801d961ccd5fb3be68d2527eec3cb66a01b">Translate Shona Blockly rounding and mathematical functions</a>. Thanks to xet7.</summary>
+
+- Translate 28 rounding and mathematical function strings with descriptive
+  wording, preserving function notation and substitution tokens.
+- Translation, registry and human-preference checks pass, covering tokens,
+  rounding directions, logarithm bases and inverse function labels.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
