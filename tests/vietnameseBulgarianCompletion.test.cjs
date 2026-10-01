@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek sprint events distinguish product review from process retrospection.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["scrum-cancel-reason", "scrum-product-backlog", "scrum-edit-sprint", "scrum-sprint-goal", "scrum-capacity", "scrum-new-sprint", "scrum-releases", "scrum-release", "scrum-select-sprint", "scrum-backlog", "scrum-backlog-help", "scrum-estimate", "scrum-backlog-rank", "scrum-issue-type", "scrum-acceptance-criteria", "scrum-events", "scrum-event-kind", "scrum-timebox", "scrum-notes", "scrum-event-planning", "scrum-event-daily", "scrum-event-review", "scrum-event-retrospective", "scrum-committed", "scrum-completed"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  assert.equal(locale['scrum-product-backlog'], locale['board-view-product-backlog']);
+  assert.equal(new Set(['planning', 'daily', 'review', 'retrospective'].map(k => locale[`scrum-event-${k}`])).size, 4);
+  assert.notEqual(locale['scrum-committed'], locale['scrum-completed']);
+  assert.match(locale['scrum-timebox'], code === 'uz-AR' ? /دقیقه/ : /daqiqa/);
+  assert.match(locale['scrum-event-review'], code === 'uz-AR' ? /نتیجه/ : /natija/);
+  assert.match(locale['scrum-event-retrospective'], code === 'uz-AR' ? /جریان/ : /jarayon/);
+}
+
 // Uzbek Scrum planning distinguishes roles, completion policies and sprint actions.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
