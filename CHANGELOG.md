@@ -1674,6 +1674,30 @@ template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** A translation test now checks the Trello link by its parsed host,
+closing **GitHub CodeQL** alert 547, and the **DOMPurify** sanitizer is updated
+to 3.4.16.
+
+This release fixes the following SECURITY ISSUES found by CodeQL code scanning:
+
+- [Alert 547: the Trello link in a translation test is checked by its parsed host](https://github.com/wekan/wekan/commit/a7ae58ea9f):
+  a substring check also passed for the link hidden in another URL's query or
+  on a lookalike host. The test now parses each link and requires
+  `trello.com` and `/app-key`, and a tree-wide suite fails on any URL or host
+  checked as a substring. No shipped code had the form, so there is no Hall of
+  Fame row or Problems key. Thanks to GitHub CodeQL and xet7.
+
+and updates the following dependencies:
+
+- **dompurify 3.4.15 → 3.4.16** — the HTML sanitizer that cleans card text,
+  comments and activity text ([the update](https://github.com/wekan/wekan/commit/da1a841369bb90b9591bc48723991e3565281ce7)).
+
+Thanks to dependabot.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.13 2026-10-01 WeKan ® release
 
 **In short:** Fixes **ReplyBleed**: a reply to a notification email is now
@@ -1726,15 +1750,6 @@ A full-app test posts over HTTP to the endpoint. Multipart provider payloads
 are still not parsed; JSON and URL-encoded ones are.
 
 </details>
-
-and fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
-
-- [Alert 547: the Trello link in a translation test is checked by its parsed host](https://github.com/wekan/wekan/commit/a7ae58ea9f):
-  a substring check also passed for the link hidden in another URL's query or
-  on a lookalike host. The test now parses each link and requires
-  `trello.com` and `/app-key`, and a tree-wide suite fails on any URL or host
-  checked as a substring. No shipped code had the form, so there is no Hall of
-  Fame row or Problems key. Thanks to GitHub CodeQL and xet7.
 
 and adds the following new features:
 
