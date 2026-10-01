@@ -9581,6 +9581,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a4c85b732959b5f7c0bf17b4df1e0f94c52deae3">Translate Yoruba Blockly list and numeric input labels</a>. Thanks to xet7.</summary>
+
+- Translate 30 list, loop and numeric input labels, preserving
+  substitution tokens, coordinate names and distinct arithmetic roles.
+- Translation, registry and human-preference checks pass, covering tokens,
+  start and end positions, numeric limits and shared repeat labels.
+  Wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
