@@ -11683,6 +11683,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d7a1cfd1a3056814ab3d35d8f264a23ce01ef2a2">Translate new recovery strings into Cherokee</a>. Thanks to xet7.</summary>
+
+- Translate 44 missing keys in chr, preserving existing values.
+  All 246 locale paths now contain the 3783 current English keys.
+- Translation, registry and human-preference checks pass, covering placeholders,
+  import syntax, duplicate delivery, access checks and permanent discard.
+  Existing coverage is retained. Longer technical wording is low confidence
+  and needs fluent review. Browser review was not run.
+  Older English placeholders and broader language-quality work remain.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
