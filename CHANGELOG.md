@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/24f94e8f83">Translate Uyghur block editor field and structure labels</a>. Thanks to xet7.</summary>
+
+- Fill 26 block editor field, structure and accessibility labels.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/22a854343c">Translate Uyghur block editor accessibility announcements</a>. Thanks to xet7.</summary>
 
 - Fill 24 movement announcement and accessibility control messages.
