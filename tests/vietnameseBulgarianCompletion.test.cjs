@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek rule-block editing preserves validation, permissions and saved-state distinctions.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["blockly-CONTROLS_IF_ELSEIF_TITLE_ELSEIF", "blockly-CONTROLS_IF_ELSE_TITLE_ELSE", "blockly-LISTS_CREATE_WITH_ITEM_TITLE", "blockly-LISTS_GET_INDEX_INPUT_IN_LIST", "blockly-LISTS_GET_SUBLIST_INPUT_IN_LIST", "blockly-LISTS_INDEX_OF_INPUT_IN_LIST", "blockly-LISTS_SET_INDEX_INPUT_IN_LIST", "blockly-MATH_CHANGE_TITLE_ITEM", "blockly-PROCEDURES_DEFRETURN_COMMENT", "blockly-PROCEDURES_DEFRETURN_PROCEDURE", "blockly-TEXT_APPEND_VARIABLE", "blockly-TEXT_CREATE_JOIN_ITEM_TITLE_ITEM", "r-blocks-view", "r-blocks-help", "r-blocks-discard", "r-blocks-unavailable", "r-blocks-invalid", "r-blocks-conflict", "r-blocks-permission", "r-blocks-unsaved", "r-blocks-saved", "r-blocks-reload"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  for (const suffix of ['COMMENT', 'PROCEDURE']) assert.equal(locale[`blockly-PROCEDURES_DEFRETURN_${suffix}`], locale[`blockly-PROCEDURES_DEFNORETURN_${suffix}`]);
+  for (const key of ['blockly-LISTS_CREATE_WITH_ITEM_TITLE', 'blockly-MATH_CHANGE_TITLE_ITEM', 'blockly-TEXT_APPEND_VARIABLE', 'blockly-TEXT_CREATE_JOIN_ITEM_TITLE_ITEM']) assert.equal(locale[key], locale['blockly-VARIABLES_DEFAULT_NAME']);
+  assert.notEqual(locale['r-blocks-saved'], locale['r-blocks-unsaved']);
+  assert.match(locale['r-blocks-invalid'], code === 'uz-AR' ? /عینن بیته/ : /Aynan bitta/);
+  assert.match(locale['r-blocks-permission'], code === 'uz-AR' ? /تخته ادمینیستراتاری/ : /taxta administratori/);
+  assert.match(locale['r-blocks-conflict'], code === 'uz-AR' ? /قیته یوکلنگ/ : /qayta yuklang/);
+}
+
 // Uzbek workspace announcements preserve counts, comment fragments and search keys.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
