@@ -9473,6 +9473,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dd4d26b6a4f0fc7d4fd35c9b32bc20e1938ca38a">Translate Shona activity and rule email recovery</a>. Thanks to xet7.</summary>
+
+- Translate 27 activity recovery and rule email report strings, preserving
+  cancellation limits, retained work and mail-server acceptance wording.
+- Translation, registry and human-preference checks pass, covering tokens,
+  permanent cancellation, paused delivery and report action limitations.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
