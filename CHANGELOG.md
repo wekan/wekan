@@ -12117,6 +12117,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/720ee731eb9835288e4a90b05f825c10c28084fb">Mongolian editor fields and input labels</a>. Thanks to xet7.</summary>
+
+- Translate 55 Blockly field, input and accessibility placeholders.
+- Check bitmap dimensions, coordinates and distinct arithmetic operands,
+  editing controls and list positions while preserving source tokens.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
