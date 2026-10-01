@@ -2781,6 +2781,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bb9675d3be8988764d147c81e074f2654514daeb">Translate Kazakh conditional and editing messages</a>. Thanks to xet7.</summary>
+
+- Translate 28 Kazakh conditional, loop and editing messages.
+- Check true/false conditions, fallback branches and deletion placeholders,
+  while preserving existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
