@@ -9905,6 +9905,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/846f81fd47ccf2f9f4bb24637cb37a412e3f9e36">Translate Igbo sprint closure and daily observations</a>. Thanks to xet7.</summary>
+
+- Fill 29 Igbo sprint closure, observation and Sync placeholders, preserving
+  existing translations and source tokens.
+- Translation, registry and human-preference checks pass, covering closure
+  behavior, UTC observations, retention limits and unknown estimates.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
