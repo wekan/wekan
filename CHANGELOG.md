@@ -12649,6 +12649,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/259904bd53e3aebd36b6d9308ad172cad15d48c6">Translate Pashto mathematical labels and constants</a>. Thanks to xet7.</summary>
+
+- Translate 25 Pashto mathematical labels and help strings.
+- Check constants, inclusive limits and distinct statistical labels while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
