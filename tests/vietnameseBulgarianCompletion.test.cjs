@@ -28,6 +28,22 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Arabic-script Uzbek activity prose must not regress to the older Latin seed.
+{
+  const locale = read('uz-AR');
+  for (const key of ["accept", "board-members-same-org-only", "board-members-same-team-only", "act-activity-notify", "act-addAttachment", "act-deleteAttachment", "act-removeLabel", "act-removedLabel", "act-addChecklist", "act-addChecklistItem", "act-removeChecklist", "act-removeChecklistItem", "act-checkedItem", "act-uncheckedItem", "act-completeChecklist", "act-uncompleteChecklist", "act-addComment", "act-editComment", "act-deleteComment", "act-createBoard"]) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `uz-AR:${key}: tokens`);
+    const prose = locale[key].replace(/__[A-Za-z0-9_]+__/g, '');
+    assert.match(prose, /[\u0600-\u06ff]/, key);
+    assert.doesNotMatch(prose, /[A-Za-z]/, `${key}: no Latin prose`);
+  }
+  assert.notEqual(locale['act-checkedItem'], locale['act-uncheckedItem']);
+  assert.notEqual(locale['act-completeChecklist'], locale['act-uncompleteChecklist']);
+  assert.equal(locale['act-removeLabel'], locale['act-removedLabel']);
+  assert.match(locale['board-members-same-org-only'], /تشکیلات/);
+  assert.match(locale['board-members-same-team-only'], /جماعه/);
+}
+
 // Uzbek final source placeholders and reviewed technical invariants.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
