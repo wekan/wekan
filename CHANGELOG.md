@@ -2793,6 +2793,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a9a2414e0a0755807e0aed1a7f73b98b6b8cc7f8">Translate Kazakh editor inputs and field labels</a>. Thanks to xet7.</summary>
+
+- Translate 30 Kazakh input, field and editor messages.
+- Check pixel coordinates, open/close controls and condition ordering,
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
