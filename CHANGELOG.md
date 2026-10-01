@@ -1685,6 +1685,18 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f222f0a64c">Translate dependency messages into Inuktitut</a>. Thanks to xet7.</summary>
+
+- Fill 11 dependency messages in syllabics, bringing dependency coverage to
+  230 non-English locale tags. Terminology and grammar have low confidence
+  and need native-speaker review.
+- Dependency key-order and placeholder checks and all 21 human-preference
+  checks pass. Other untranslated strings remain; browser and native-speaker
+  reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/98cea3dcc7">Translate dependency messages into Nahuatl</a>. Thanks to xet7.</summary>
 
 - Fill 11 dependency messages, bringing dependency coverage to 229
