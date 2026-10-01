@@ -10758,6 +10758,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0f51a9d6cfcfa95e6ae3cc5c7adb59b495d5f982">Correct Arabic-script Uzbek board display text</a>. Thanks to xet7.</summary>
+
+- Replace 25 Latin-script board display values in uz-AR with Arabic-script
+  Uzbek, translating privacy labels and correcting assignee wording.
+- Translation, registry and human-preference checks pass, covering placeholders,
+  HTML emphasis, consistent dialog labels and card versus board member scopes.
+  Wording is low confidence and needs fluent review. Browser review was not run.
+  Older script corrections and wider translation completion remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
