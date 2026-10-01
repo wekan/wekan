@@ -10637,6 +10637,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1c47e61da3ca13df736753e0fb9280e8776cfca9">Translate Uzbek delivery controls and rule email reports</a>. Thanks to xet7.</summary>
+
+- Fill 20 delivery control and rule email strings in each Uzbek locale,
+  using Arabic script for uz-AR and Latin for the other three locales.
+- Translation, registry and human-preference checks pass, covering tokens,
+  pause, permanent cancellation and mail-server acceptance distinctions.
+  Wording needs fluent review, especially Arabic-script orthography.
+  Browser review and wider translation completion remain outstanding.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
