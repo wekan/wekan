@@ -12745,6 +12745,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/571d9fb5274e55eba9c6923fa904b5e4a8aad419">Translate Pashto Scrum planning controls</a>. Thanks to xet7.</summary>
+
+- Translate 36 Pashto Scrum planning strings.
+- Check shared backlog labels, sprint actions and completion policies while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
