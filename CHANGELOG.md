@@ -11775,6 +11775,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ae83f4f9c7097f6bca57da3a1b4a2bd4e1c27f50">Haitian Creole workspace and rule editor messages</a>. Thanks to xet7.</summary>
+
+- Fill 58 English placeholders for workspace search, variables, rule editing
+  and Scrum views, preserving existing translations.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for placeholders, keyboard shortcuts, spacing and permissions.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
