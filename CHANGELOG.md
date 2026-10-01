@@ -10169,6 +10169,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/386bf333b68b86b82141becf60cf761b562632b2">Translate new source strings for Uzbek Latin locales</a>. Thanks to xet7.</summary>
+
+- Add 44 import and rule-email recovery translations to each of the Uzbek
+  Latin locales uz, uz-LA and uz-UZ, preserving existing translations.
+- Translation, registry and human-preference checks pass, covering tokens,
+  todo.txt syntax, duplicate-delivery warnings and source key order.
+  Wording needs fluent-speaker review; browser review was not run.
+  Other placeholders and Arabic-script Uzbek remain for further translation.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
