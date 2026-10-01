@@ -13311,6 +13311,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4268efcbcc720766e11500da9d6a1591791cfed8">Translate Malayalam statistics and rounding controls</a>. Thanks to xet7.</summary>
+
+- Translate 30 Malayalam statistics, random-number and rounding strings.
+- Check range boundaries, rounding directions and statistical terms while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
