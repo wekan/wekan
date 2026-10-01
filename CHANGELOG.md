@@ -1685,6 +1685,18 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3987948bd6">Translate Kazakh keyboard navigation and list operations</a>. Thanks to xet7.</summary>
+
+- Fill 34 editor strings for keyboard navigation, list creation and element
+  retrieval or removal, preserving numbered placeholders.
+- Kazakh regression checks and all 21 human-preference checks pass.
+  The broad completion suite still fails on missing Cherokee dependency keys.
+  Other untranslated strings remain; browser and native-speaker reviews
+  were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0c621101cf">Translate Kazakh input labels and recognize literal Pause key legends</a>. Thanks to xet7.</summary>
 
 - Translate 42 list, loop, number and text input labels into Kazakh.
