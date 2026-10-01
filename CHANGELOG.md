@@ -10818,6 +10818,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6946d1416dac9b03f968181fa72c8d7bb48d2962">Translate new import and email recovery strings into Cantonese</a>. Thanks to xet7.</summary>
+
+- Translate 44 missing source keys in yue_CN, preserving existing translations.
+  Include todo.txt import instructions and email recovery and review controls.
+- Translation, registry and human-preference checks pass, covering placeholders,
+  import syntax, duplicate delivery, access checks and permanent discard.
+  Existing regression coverage is retained. Browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
