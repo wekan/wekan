@@ -2539,6 +2539,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d76f2197a5ca462b07e23a61facece176531cb03">Translate Sinhala mathematical function messages</a>. Thanks to xet7.</summary>
+
+- Translate 32 Sinhala rounding, logarithm and trigonometric messages.
+- Check rounding direction, sign reversal and angle units while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
