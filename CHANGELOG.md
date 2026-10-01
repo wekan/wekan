@@ -12239,6 +12239,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9bf2bbf565345af26b4c39da2258f6b45313897a">Mongolian synchronization previews and conflicts</a>. Thanks to xet7.</summary>
+
+- Translate 34 synchronization preview, conflict and source field strings.
+- Check retained card content, unchanged subcards, reused replacements and
+  refreshed previews while preserving source substitution tokens.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
