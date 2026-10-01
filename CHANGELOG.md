@@ -2551,6 +2551,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d182fcd7b53acb4f8a9c361fea93f1b8938457dd">Translate Sinhala procedure and variable messages</a>. Thanks to xet7.</summary>
+
+- Translate 30 Sinhala variable, procedure and block navigation messages.
+- Check disabled functions, duplicate parameters and return-value distinctions,
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
