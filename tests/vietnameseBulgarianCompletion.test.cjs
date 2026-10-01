@@ -28,6 +28,23 @@ for (const code of ['la', 'ht', 'vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Mongolian filter additions preserve ranges and archival exceptions.
+{
+  const locale = read('mn');
+  assert.deepEqual(Object.keys(locale), Object.keys(english));
+  for (const key of ["auto-archive-days", "auto-archive-off", "auto-archive-hint", "filter-recency-any", "filter-recency-day", "filter-recency-week", "filter-recency-month", "filter-recency-older", "filter-movement-range", "filter-date-range-field", "filter-date-range-from", "filter-date-range-to", "filter-date-range-missing", "filter-date-range-list-entry", "filter-date-range-invalid", "filter-due-any", "filter-due-previous-week", "filter-due-next-month", "filter-column-age", "filter-column-age-disabled"]) {
+    assert.notEqual(locale[key], english[key]);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]));
+    assert.match(locale[key], /[А-Яа-яӨөҮү]/);
+  }
+  assert.match(locale['auto-archive-hint'], /загваруудыг хэзээ ч архивлахгүй/);
+  assert.match(locale['filter-date-range-invalid'], /ижил эсвэл түүнээс хойш/);
+  for (const key of ['filter-date-range-from', 'filter-date-range-to']) assert.match(locale[key], /тухайн өдрийг оруулна/);
+  assert.match(locale['filter-due-any'], /хугацаагүйг мөн оруулна/);
+  assert.match(locale['filter-recency-day'], /24/);
+  assert.match(locale['filter-recency-week'], /7/);
+  assert.match(locale['filter-recency-month'], /30/);
+}
 // Latin filters retain dates, variables and access boundaries.
 {
   const locale = read('la');
