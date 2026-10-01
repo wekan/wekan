@@ -12625,6 +12625,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/53e0e1cccb5712c40cbb185eaa964a2446f4bf67">Translate Pashto list editing and sorting</a>. Thanks to xet7.</summary>
+
+- Translate 32 Pashto list editing and sorting strings.
+- Check copy semantics, missing-item results and insertion versus replacement
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
