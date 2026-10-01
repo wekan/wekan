@@ -11930,6 +11930,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c52fe6aabb582b6a3e3e9c6c851b91211db4cb2c">Latin Blockly arithmetic and statistics</a>. Thanks to xet7.</summary>
+
+- Fill 44 English placeholders for arithmetic, constants and statistics,
+  preserving existing translations and formulas.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for degree limits, inclusive bounds and statistical distinctions.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
