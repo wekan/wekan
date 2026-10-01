@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Igbo Blockly workspace and screen reader actions.
+{
+  const locale = read('ig');
+  const keys = ["blockly-MATH_TRIG_ATAN_ARIA", "blockly-MATH_TRIG_COS_ARIA", "blockly-MATH_TRIG_SIN_ARIA", "blockly-MATH_TRIG_TAN_ARIA", "blockly-MINIMAP_ARIA_LABEL", "blockly-MOVE_BLOCK", "blockly-NO_PARENT_ANNOUNCEMENT", "blockly-OPEN_BACKPACK", "blockly-OPEN_TRASH", "blockly-PARENT_BLOCKS_ANNOUNCEMENT", "blockly-PASTE_ALL_FROM_BACKPACK", "blockly-PASTE_SHORTCUT", "blockly-REMOVE_FROM_BACKPACK", "blockly-RENAME_VARIABLE", "blockly-RESET_ZOOM", "blockly-SCREENREADER_HINT", "blockly-SCREENREADER_MODE_DISABLED", "blockly-SCREENREADER_MODE_ENABLED", "blockly-SHORTCUTS_ABORT_MOVE", "blockly-SHORTCUTS_CLEANUP", "blockly-SHORTCUTS_CODE_NAVIGATION"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `ig:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ig:${key}: tokens`);
+  }
+  assert.match(locale['blockly-SCREENREADER_MODE_DISABLED'], /agbanyụrụ.*gbanye ya/);
+  assert.match(locale['blockly-SCREENREADER_MODE_ENABLED'], /agbanyere.*gbanyụọ ya/);
+  assert.match(locale['blockly-PASTE_ALL_FROM_BACKPACK'], /niile/);
+  assert.notEqual(locale['blockly-OPEN_BACKPACK'], locale['blockly-CLOSE_BACKPACK']);
+  for (const fn of ['COS', 'SIN', 'TAN']) {
+    assert.notEqual(locale[`blockly-MATH_TRIG_${fn}_ARIA`], locale[`blockly-MATH_TRIG_A${fn}_ARIA`]);
+    assert.ok(locale[`blockly-MATH_TRIG_${fn}_ARIA`].includes(fn.toLowerCase()));
+  }
+}
+
 // Igbo accessible arithmetic and mathematical constants.
 {
   const locale = read('ig');
