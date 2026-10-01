@@ -28,6 +28,22 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Igbo Blockly movement announcements and accessible controls.
+{
+  const locale = read('ig');
+  const keys = ["blockly-ANNOUNCE_MOVE_BEFORE", "blockly-ANNOUNCE_MOVE_CANCELED", "blockly-ANNOUNCE_MOVE_INSIDE", "blockly-ANNOUNCE_MOVE_TO", "blockly-ANNOUNCE_MOVE_WORKSPACE", "blockly-ANNOUNCE_SCROLLED_DOWN", "blockly-ANNOUNCE_SCROLLED_LEFT", "blockly-ANNOUNCE_SCROLLED_RIGHT", "blockly-ANNOUNCE_SCROLLED_UP", "blockly-ARIA_LABEL_ADD_ELSE_IF", "blockly-ARIA_LABEL_ADD_INPUT", "blockly-ARIA_LABEL_ADD_LIST_ITEM", "blockly-ARIA_LABEL_ADD_TEXT", "blockly-ARIA_LABEL_BUTTON", "blockly-ARIA_LABEL_COMMENT_COLLAPSE", "blockly-ARIA_LABEL_COMMENT_EXPAND", "blockly-ARIA_LABEL_FIELD_ANGLE", "blockly-ARIA_LABEL_REMOVE_ELSE_IF", "blockly-ARIA_LABEL_REMOVE_INPUT", "blockly-ARIA_LABEL_REMOVE_LIST_ITEM", "blockly-ARIA_LABEL_REMOVE_TEXT", "blockly-ARIA_LABEL_TRASH_EMPTY", "blockly-ARIA_TYPE_FIELD_ANGLE", "blockly-ARIA_TYPE_FIELD_BITMAP", "blockly-ARIA_TYPE_FIELD_CHECKBOX", "blockly-ARIA_TYPE_FIELD_COLOUR", "blockly-ARIA_TYPE_FIELD_DATE", "blockly-ARIA_TYPE_FIELD_DROPDOWN", "blockly-ARIA_TYPE_FIELD_GRID"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `ig:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ig:${key}: tokens`);
+  }
+  assert.equal(new Set(['DOWN', 'LEFT', 'RIGHT', 'UP'].map(direction => locale[`blockly-ANNOUNCE_SCROLLED_${direction}`])).size, 4);
+  assert.notEqual(locale['blockly-ANNOUNCE_MOVE_BEFORE'], locale['blockly-ANNOUNCE_MOVE_AFTER']);
+  for (const target of ['ELSE_IF', 'INPUT', 'LIST_ITEM', 'TEXT']) assert.notEqual(locale[`blockly-ARIA_LABEL_ADD_${target}`], locale[`blockly-ARIA_LABEL_REMOVE_${target}`]);
+  assert.notEqual(locale['blockly-ARIA_LABEL_COMMENT_COLLAPSE'], locale['blockly-ARIA_LABEL_COMMENT_EXPAND']);
+  assert.notEqual(locale['blockly-ARIA_TYPE_FIELD_GRID'], locale['blockly-ARIA_TYPE_FIELD_DROPDOWN']);
+  assert.match(locale['blockly-ARIA_LABEL_TRASH_EMPTY'], /efu/);
+}
+
 // Igbo saved filters, import reports and map controls.
 {
   const locale = read('ig');
