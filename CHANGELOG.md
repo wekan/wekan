@@ -1685,6 +1685,17 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0830a89811">Translate Tajik workspace and rule editor messages</a>. Thanks to xet7.</summary>
+
+- Fill 42 workspace, search and rule-editor messages, preserving access
+  restrictions and conflict-reload instructions.
+- Focused key-order, placeholder and query-syntax checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/49ce1e6897">Translate Tajik text processing and variables</a>. Thanks to xet7.</summary>
 
 - Fill 41 text-processing, prompt and variable-control messages.
