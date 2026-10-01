@@ -13106,6 +13106,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b7c03322b82bc41538264012fc01aca091f0be65">Translate Punjabi sync diagnostics and estimate guidance</a>. Thanks to xet7.</summary>
+
+- Translate 30 Punjabi sync-report, parser and estimate-field strings.
+- Check retention limits, report limitations and missing versus null values
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
