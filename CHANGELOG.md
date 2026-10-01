@@ -2395,6 +2395,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fff206973453ef0d26449e29a5620da124da3750">Translate Sinhala saved filters and map controls</a>. Thanks to xet7.</summary>
+
+- Translate 29 Sinhala reminder, filter, map and import messages.
+- Check reminder limits, URL variables and saved filter replacement while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
