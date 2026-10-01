@@ -1685,6 +1685,18 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ae743931bc">Translate Cantonese date filters and board visibility</a>. Thanks to xet7.</summary>
+
+- Fill 30 Cantonese messages for date filters, automatic archiving, imports
+  and board visibility, preserving query syntax and link scheme names.
+- New regression checks cover placeholders, archival exceptions and board
+  access restrictions. These and all 21 human-preference checks pass.
+  Other untranslated strings remain; browser and native-speaker reviews
+  were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5105fb00b7">Complete remaining Kazakh recovery and history translations</a>. Thanks to xet7.</summary>
 
 - Fill the final 50 reported Kazakh placeholders for recovery, history and
