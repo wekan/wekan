@@ -12438,6 +12438,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f883003505773faf792a479cb41e247d34004a7a">Telugu rule editor and planning messages</a>. Thanks to xet7.</summary>
+
+- Translate 33 search, rule editor and planning placeholders.
+- Check shortcuts, permissions, unsaved changes and conflicting edits.
+- Update the README coverage count to 143 after Telugu crosses its existing
+  threshold; untranslated Telugu strings still remain.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
