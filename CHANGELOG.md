@@ -2277,6 +2277,19 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/920b45b9fd41562db7dea71b4aeb7bc3b5d6d948">Translate Marathi reports and sync conflict messages</a>. Thanks to xet7.</summary>
+
+- Translate 30 Marathi report and sync conflict messages; update the README
+  count to 147 languages above the 90 percent translation threshold.
+- Check report limitations, sprint cancellation and sync direction while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
