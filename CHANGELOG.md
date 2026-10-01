@@ -12769,6 +12769,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d54532ff2388f74f6ab8edadb7157be39cad51b4">Translate Pashto observation reports and sync warnings</a>. Thanks to xet7.</summary>
+
+- Translate 21 Pashto reporting and synchronization strings.
+- Check UTC observations, restricted report scope and source-system boundaries
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
