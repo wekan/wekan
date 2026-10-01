@@ -9437,6 +9437,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/06eed149a8d9bad1624e767a27ed62aa53fed119">Translate Shona sync previews and run reports</a>. Thanks to xet7.</summary>
+
+- Translate 27 sync preview and report strings, preserving report limits,
+  retention periods, hidden values and partial run limitations.
+- Translation, registry and human-preference checks pass, covering tokens,
+  numeric limits, distinct actions and consistent omission labels.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
