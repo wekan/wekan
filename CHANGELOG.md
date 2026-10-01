@@ -1685,6 +1685,17 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d22b662419">Translate Cantonese Sync reports and email queue</a>. Thanks to xet7.</summary>
+
+- Fill 37 messages for Sync diagnostics, report retention and email queue
+  controls, preserving partial-failure and delivery-retry limitations.
+- Cantonese key-order, translation and placeholder checks and all 21
+  human-preference checks pass. Other untranslated strings remain;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c10cf18a30">Translate Cantonese Sync conflicts and previews</a>. Thanks to xet7.</summary>
 
 - Fill 32 messages for conflict resolution, replacement cards and previews,
