@@ -11764,6 +11764,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ed1969154ff9a93947ce41ab235fcc659e663459">Haitian Creole Blockly text operations and shortcuts</a>. Thanks to xet7.</summary>
+
+- Fill 89 English placeholders for keyboard shortcuts and text operations,
+  preserving existing translations and placeholders.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for whitespace, replacement arguments and navigation directions.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
