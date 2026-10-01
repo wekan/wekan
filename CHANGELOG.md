@@ -2407,6 +2407,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4e68e4e326211ce7cde2e99afea6bb575f45eeac">Translate Sinhala block movement and accessibility labels</a>. Thanks to xet7.</summary>
+
+- Translate 31 Sinhala block movement and accessibility messages.
+- Check movement directions, angle units and add versus remove actions while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
