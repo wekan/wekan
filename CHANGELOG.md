@@ -9041,6 +9041,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7394764008fe99e65c8eff02d64e56a6735f0b8f">Correct Shona search and dependency labels</a>. Thanks to xet7.</summary>
+
+- Translate 37 prefixed English entries and restore three abbreviations/names.
+  Preserve existing values outside this correction batch.
+- Translation, registry and human-preference checks pass, covering search
+  tokens, syntax examples, dependency actions and placeholders.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Another 303 prefixed English entries remain; wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
