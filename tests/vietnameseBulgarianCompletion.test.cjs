@@ -31,7 +31,7 @@ for (const code of ['ps', 'te-IN', 'mn', 'la', 'ht', 'vi', 'vi-VN', 'bg', 'el', 
 // Punjabi date filters retain query syntax and archival exceptions.
 {
   const locale = read('pa');
-  for (const key of ["auto-archive-days", "auto-archive-off", "auto-archive-hint", "filter-recency-any", "filter-recency-day", "filter-recency-week", "filter-recency-month", "filter-recency-older", "filter-movement-range", "filter-date-range-field", "filter-date-range-from", "filter-date-range-to", "filter-date-range-missing", "filter-date-range-list-entry", "filter-date-range-invalid", "filter-due-any", "filter-due-previous-week", "filter-due-next-month", "filter-column-age", "filter-column-age-disabled", "filter-column-age-days", "filter-column-age-hint", "advanced-filter-card-dates-hint", "import-board-instruction-leo", "instance"]) {
+  for (const key of ["auto-archive-days", "auto-archive-off", "auto-archive-hint", "filter-recency-any", "filter-recency-day", "filter-recency-week", "filter-recency-month", "filter-recency-older", "filter-movement-range", "filter-date-range-field", "filter-date-range-from", "filter-date-range-to", "filter-date-range-missing", "filter-date-range-list-entry", "filter-date-range-invalid", "filter-due-any", "filter-due-previous-week", "filter-due-next-month", "filter-column-age", "filter-column-age-disabled", "filter-column-age-days", "filter-column-age-hint", "advanced-filter-card-dates-hint", "import-board-instruction-leo", "instance", "instance-desc", "board-instance-info", "automatic-linked-url-schemes-hint", "other-parent-cards", "add-parent-card", "remove-parent-card", "r-when-card-date", "r-trigger-vars-hint", "r-insert-variable", "r-vars-people-hint", "r-rule-any-trigger-help", "r-add-trigger-to-rule", "r-add-action-to-rule", "r-remove-rule-part", "notification-activity-heading", "notification-activity-description", "notification-activity-labels", "notification-activity-members", "notification-activity-assignees", "notification-activity-comments", "notification-activity-moves", "notification-activity-dates", "notification-activity-checklists", "notification-activity-attachments", "notification-activity-customFields"]) {
     assert.notEqual(locale[key], english[key]);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]));
     assert.deepEqual(locale[key].match(/%?\{[^}]+\}/g), english[key].match(/%?\{[^}]+\}/g));
@@ -44,6 +44,11 @@ for (const code of ['ps', 'te-IN', 'mn', 'la', 'ht', 'vi', 'vi-VN', 'bg', 'el', 
     assert.ok(locale['advanced-filter-card-dates-hint'].includes(token));
   }
   assert.match(locale['import-board-instruction-leo'], /Leo.*\.leo.*ਪੂਰੇ ਹੋਏ/);
+  assert.match(locale['instance-desc'], /ਕਦੇ ਨਹੀਂ ਦਿਖਾਇਆ.*ਸਿਰਫ਼.*ਸੋਧ ਸਕਦੇ/);
+  assert.match(locale['board-instance-info'], /<strong>[^<]+<\/strong>/);
+  for (const token of ['thunderlink', 'onenote', 'javascript', 'data', 'vbscript']) assert.ok(locale['automatic-linked-url-schemes-hint'].includes(token));
+  assert.match(locale['r-rule-any-trigger-help'], /ਕੋਈ ਵੀ ਟ੍ਰਿਗਰ.*ਕ੍ਰਮ ਵਿੱਚ/);
+  assert.match(locale['notification-activity-description'], /ਯਾਦ-ਦਿਹਾਨੀਆਂ ਅਤੇ @ਜ਼ਿਕਰ ਹਮੇਸ਼ਾ/);
 }
 
 // Pashto filters retain query syntax, inclusive dates and archival exceptions.
