@@ -12361,6 +12361,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3961e75a780f4457c80dcf158772d37f2cd183ae">Telugu list transformations and logic labels</a>. Thanks to xet7.</summary>
+
+- Translate 43 list transformation and logic placeholders.
+- Check copied lists, insertion versus assignment, missing-item results
+  and comparisons while preserving tokens and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
