@@ -28,6 +28,22 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Arabic-script Uzbek short activity messages preserve positional arguments.
+{
+  const locale = read('uz-AR');
+  for (const key of ["actions", "activities", "activity", "activity-added", "activity-archived", "activity-attached", "activity-created", "activity-changedListTitle", "activity-customfield-created", "activity-excluded", "activity-imported", "activity-imported-board", "activity-joined", "activity-moved", "activity-on", "activity-removed", "activity-sent", "activity-unjoined", "activity-subtask-added", "activity-checked-item"]) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `uz-AR:${key}: tokens`);
+    const prose = locale[key].replace(/%s/g, '');
+    assert.match(prose, /[\u0600-\u06ff]/, key);
+    assert.doesNotMatch(prose, /[A-Za-z]/, `${key}: no Latin prose`);
+  }
+  assert.match(locale['activity-moved'], /%s نی %s دن %s گه/);
+  assert.match(locale['activity-imported'], /%s نی %s گه %s دن/);
+  assert.match(locale['activity-sent'], /%s نی %s گه/);
+  assert.notEqual(locale['activity-joined'], locale['activity-unjoined']);
+  assert.notEqual(locale['activity-added'], locale['activity-removed']);
+}
+
 // Arabic-script Uzbek card activity keeps source and destination roles intact.
 {
   const locale = read('uz-AR');
