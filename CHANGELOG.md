@@ -2037,6 +2037,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/78e6f5a22d6ccc668a1e07fa19ca535012c2456f">Translate Marathi saved filters and map controls</a>. Thanks to xet7.</summary>
+
+- Translate 34 Marathi filter, map, import and block movement messages.
+- Check URL variables, saved filter replacement and movement directions while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
