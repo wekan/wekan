@@ -137,7 +137,26 @@ const keys = [
   "blockly-BLOCK_LABEL_STATEMENT",
   "blockly-BLOCK_LABEL_TOOLBOX_CATEGORY",
   "blockly-BLOCK_LABEL_VALUE",
-  "blockly-BUBBLE_LABEL_COMMENT"
+  "blockly-BUBBLE_LABEL_COMMENT",
+  "blockly-BUBBLE_LABEL_DEFAULT",
+  "blockly-BUBBLE_LABEL_WARNING",
+  "blockly-CLOSE_BACKPACK",
+  "blockly-COLLAPSED_WARNINGS_WARNING",
+  "blockly-CONTEXT_MENU_KEY",
+  "blockly-COPY_ALL_TO_BACKPACK",
+  "blockly-COPY_SHORTCUT",
+  "blockly-COPY_TO_BACKPACK",
+  "blockly-CURRENT_BLOCK_ANNOUNCEMENT",
+  "blockly-CUT_SHORTCUT",
+  "blockly-EDIT_BLOCK_CONTENTS",
+  "blockly-EMPTY_BACKPACK",
+  "blockly-FIELD_BITMAP_ARIA_VALUE",
+  "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR",
+  "blockly-FIELD_BITMAP_BUTTON_LABEL_RANDOMIZE",
+  "blockly-FIELD_BITMAP_PIXEL_LABEL",
+  "blockly-FIELD_BITMAP_PIXEL_OFF",
+  "blockly-FIELD_LABEL_EDIT_PREFIX",
+  "blockly-FIELD_LABEL_EMPTY"
 ];
 for (const key of keys) {
   assert.ok(locale[key]?.trim(), key);
