@@ -13383,6 +13383,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2f80a956fded75ba5776297d8ce8b92c865c3b04">Translate Malayalam workspace search and variable messages</a>. Thanks to xet7.</summary>
+
+- Translate 30 Malayalam workspace, search and variable strings.
+- Check search keys, comment fragments and consistent function labels while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
