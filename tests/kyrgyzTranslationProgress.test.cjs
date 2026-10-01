@@ -20,10 +20,13 @@ const kyrgyz = JSON.parse(fs.readFileSync(
 const tokens = (value) => [...value.matchAll(
   /__[A-Za-z0-9_]+__|%[A-Za-z]|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g)]
   .map(([token]) => token).sort();
+const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
 const tags = (value) => [...value.matchAll(/<\/?[A-Za-z][^>]*>/g)]
   .map(([tag]) => tag).sort();
 
+assert.deepEqual(Object.keys(kyrgyz), Object.keys(english));
 for (const [key, value] of Object.entries(kyrgyz)) {
+  assert.deepEqual(translationTokens(value), translationTokens(english[key]), key);
   if (value !== english[key]) {
     assert.deepEqual(tokens(value), tokens(english[key]), key);
   }
