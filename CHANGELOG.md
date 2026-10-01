@@ -2431,6 +2431,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/10a045c0f06a6f839cee4b6c3c0c40dce8b66b51">Translate Sinhala colors and control flow messages</a>. Thanks to xet7.</summary>
+
+- Translate 31 Sinhala color, loop and conditional messages.
+- Check numeric ranges, loop controls and conditional branches while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
