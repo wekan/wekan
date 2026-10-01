@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Arabic-script Uzbek archives and attachments distinguish recoverable removal.
+{
+  const locale = read('uz-AR');
+  for (const key of ["archive-board-confirm", "archive-card", "archive-list", "archive-swimlane", "archive-selection", "archiveBoardPopup-title", "archived-items", "archived-boards", "restore-board", "no-archived-boards", "archives", "template", "templates", "template-container", "add-template-container", "assign-member", "attached", "attachment", "attachment-delete-pop", "attachment-soft-delete-pop", "attachmentDeletePopup-title", "attachments", "auto-watch", "avatar-too-big", "back"]) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `uz-AR:${key}: tokens`);
+    const prose = locale[key].replace(/__[A-Za-z0-9_]+__/g, '');
+    assert.match(prose, /[\u0600-\u06ff]/, key);
+    assert.doesNotMatch(prose, /[A-Za-z]/, `${key}: no Latin prose`);
+  }
+  assert.equal(locale['archived-items'], locale['archives']);
+  assert.equal(locale['templates'], locale['allboards.templates']);
+  assert.notEqual(locale['archive-board'], locale['restore-board']);
+  assert.match(locale['attachment-delete-pop'], /بېکار قیلیب بۉلمیدی/);
+  assert.match(locale['attachment-soft-delete-pop'], /فایلی اېسه سقلنیب قاله‌دی/);
+  assert.match(locale['attachment-soft-delete-pop'], /کارت تاریخیدن تیکله/);
+  assert.equal(new Set(['archive-card', 'archive-list', 'archive-swimlane', 'archive-selection'].map(k => locale[k])).size, 4);
+}
+
 // Arabic-script Uzbek membership and archive labels retain scope and warnings.
 {
   const locale = read('uz-AR');
