@@ -13142,6 +13142,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/67d6cd437233ca534c96ea8b37a0801074b7be36">Complete Punjabi prose placeholder translations</a>. Thanks to xet7.</summary>
+
+- Translate the final 20 Punjabi recovery, sign-in and history placeholders.
+- Retain physical key legends, platform names and mathematical notation.
+  The placeholder report is empty; existing translations are preserved.
+- Check all source keys and placeholders, plus cancellation and retry wording.
+  Translation, language registration and human-preference checks pass.
+- Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
