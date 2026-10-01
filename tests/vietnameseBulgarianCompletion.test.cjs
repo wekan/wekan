@@ -28,6 +28,22 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona sync diagnostics and email delivery queue controls.
+{
+  const locale = read('sn');
+  const keys = ["sync-report-failed", "sync-report-completed", "sync-report-completed-with-warnings", "sync-report-skipped", "sync-report-review-only", "sync-report-unavailable", "sync-report-empty", "sync-recovery-heading", "sync-recovery-description", "sync-recovery-unavailable", "sync-recovery-all", "sync-estimate-field", "sync-estimate-field-hint", "email-recovery-heading", "email-recovery-description", "email-recovery-saving", "email-recovery-queued", "email-recovery-retrying", "email-recovery-attempts", "email-recovery-oldest", "email-recovery-next", "email-recovery-changed", "email-recovery-pause", "email-recovery-resume", "email-recovery-cancel", "email-recovery-paused", "email-recovery-pending", "email-recovery-empty", "email-recovery-unavailable", "email-recovery-busy", "email-recovery-failed", "email-recovery-superseded"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+  }
+  assert.match(locale['sync-recovery-description'], /mazuva 30.*kuchiri kushanda kana kwakambomiswa.*haigoni kutangisazve kana kudzosera/);
+  assert.match(locale['sync-estimate-field-hint'], /kusipo.*kunosiiwa.*null.*inobvisa/);
+  assert.match(locale['email-recovery-description'], /hazviratidzwi.*aripo neachauya.*haagoni kudzoserwa.*kunogona kudzokororwa.*kunoremekedza kumbomiswa/);
+  assert.equal(new Set(['pause', 'resume', 'cancel'].map(action => locale[`email-recovery-${action}`])).size, 3);
+  assert.match(locale['email-recovery-failed'], /chiito ichocho/);
+  assert.match(locale['email-recovery-superseded'], /chatsiva chikumbiro ichi/);
+}
+
 // Shona sync previews, omissions and retained run reports.
 {
   const locale = read('sn');
