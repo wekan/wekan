@@ -28,6 +28,63 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Yiddish additions preserve delivery warnings without replacing syntax tokens.
+{
+  const locale = read('yi');
+  assert.deepEqual(Object.keys(locale), Object.keys(english));
+  for (const key of ["import-board-instruction-todotxt", "rule-email-recovery-dropped", "rule-email-recovery-review", "rule-email-recovery-recipients", "rule-email-recovery-recipient-accepted", "rule-email-recovery-recipient-unconfirmed", "rule-email-recovery-actions-hint", "rule-email-recovery-wait", "rule-email-recovery-resends", "rule-email-recovery-resend", "rule-email-recovery-mark-sent", "rule-email-recovery-drop", "rule-email-recovery-resend-confirm", "rule-email-recovery-mark-sent-confirm", "rule-email-recovery-drop-confirm", "rule-email-resolution-too-early", "rule-email-resolution-already-resolved", "rule-email-resolution-resend-in-flight", "rule-email-resolution-nothing-to-resend", "rule-email-resolution-resend-uncertain", "rule-email-resolution-busy", "rule-email-resolution-command-changed", "rule-email-resolution-attempt-invalid", "rule-email-resolution-failed", "rule-email-legacy-heading", "rule-email-legacy-description", "rule-email-legacy-source", "rule-email-legacy-mail", "rule-email-legacy-reason", "rule-email-legacy-reason-unbound", "rule-email-legacy-reason-details-snapshot", "rule-email-legacy-rebind", "rule-email-legacy-discard", "rule-email-legacy-rebind-confirm", "rule-email-legacy-discard-confirm", "rule-email-legacy-empty", "rule-email-legacy-unavailable", "rule-email-legacy-access-denied", "rule-email-legacy-source-changed", "rule-email-legacy-source-unavailable", "rule-email-legacy-plan-unavailable", "rule-email-legacy-attempt-exists", "rule-email-legacy-not-legacy", "rule-email-legacy-failed"]) {
+    assert.notEqual(locale[key], english[key], `${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `yi:${key}: tokens`);
+    assert.match(locale[key], /[\u0590-\u05ff]/);
+    const prose = locale[key].replace(/__[a-z]+__|WeKan|todo\.txt|"x"|\+project|@context|\(A\)|due:|t:/g, '');
+    assert.doesNotMatch(prose, /[A-Za-z]/, `${key}: no English prose`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) assert.ok(locale['import-board-instruction-todotxt'].includes(token));
+  assert.match(locale['rule-email-recovery-actions-hint'], /קיינמאָל נישט פֿון זיך אַליין/);
+  assert.match(locale['rule-email-recovery-resend-confirm'], /צוויי מאָל/);
+  assert.match(locale['rule-email-legacy-description'], /האָט נאָך צוטריט/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /קיינמאָל נישט געשיקט ווערן/);
+  assert.notEqual(locale['rule-email-recovery-recipient-accepted'], locale['rule-email-recovery-recipient-unconfirmed']);
+}
+
+// Sindhi additions retain delivery uncertainty and review safeguards.
+{
+  const locale = read('sd');
+  assert.deepEqual(Object.keys(locale), Object.keys(english));
+  for (const key of ["import-board-instruction-todotxt", "rule-email-recovery-dropped", "rule-email-recovery-review", "rule-email-recovery-recipients", "rule-email-recovery-recipient-accepted", "rule-email-recovery-recipient-unconfirmed", "rule-email-recovery-actions-hint", "rule-email-recovery-wait", "rule-email-recovery-resends", "rule-email-recovery-resend", "rule-email-recovery-mark-sent", "rule-email-recovery-drop", "rule-email-recovery-resend-confirm", "rule-email-recovery-mark-sent-confirm", "rule-email-recovery-drop-confirm", "rule-email-resolution-too-early", "rule-email-resolution-already-resolved", "rule-email-resolution-resend-in-flight", "rule-email-resolution-nothing-to-resend", "rule-email-resolution-resend-uncertain", "rule-email-resolution-busy", "rule-email-resolution-command-changed", "rule-email-resolution-attempt-invalid", "rule-email-resolution-failed", "rule-email-legacy-heading", "rule-email-legacy-description", "rule-email-legacy-source", "rule-email-legacy-mail", "rule-email-legacy-reason", "rule-email-legacy-reason-unbound", "rule-email-legacy-reason-details-snapshot", "rule-email-legacy-rebind", "rule-email-legacy-discard", "rule-email-legacy-rebind-confirm", "rule-email-legacy-discard-confirm", "rule-email-legacy-empty", "rule-email-legacy-unavailable", "rule-email-legacy-access-denied", "rule-email-legacy-source-changed", "rule-email-legacy-source-unavailable", "rule-email-legacy-plan-unavailable", "rule-email-legacy-attempt-exists", "rule-email-legacy-not-legacy", "rule-email-legacy-failed"]) {
+    assert.notEqual(locale[key], english[key], `${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sd:${key}: tokens`);
+    assert.match(locale[key], /[\u0600-\u06ff]/);
+    const prose = locale[key].replace(/__[a-z]+__|WeKan|todo\.txt|"x"|\+project|@context|\(A\)|due:|t:/g, '');
+    assert.doesNotMatch(prose, /[A-Za-z]/, `${key}: no English prose`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) assert.ok(locale['import-board-instruction-todotxt'].includes(token));
+  assert.match(locale['rule-email-recovery-actions-hint'], /پاڻمرادو ڪڏهن به ٻيهر نٿو موڪلي/);
+  assert.match(locale['rule-email-recovery-resend-confirm'], /ٻه ڀيرا/);
+  assert.match(locale['rule-email-legacy-description'], /اڃا رسائي آهي/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /ڪڏهن به نه موڪلي ويندي/);
+  assert.notEqual(locale['rule-email-recovery-recipient-accepted'], locale['rule-email-recovery-recipient-unconfirmed']);
+}
+
+// Pashto additions preserve recovery decisions, placeholders and import syntax.
+{
+  const locale = read('ps');
+  assert.deepEqual(Object.keys(locale), Object.keys(english));
+  for (const key of ["import-board-instruction-todotxt", "rule-email-recovery-dropped", "rule-email-recovery-review", "rule-email-recovery-recipients", "rule-email-recovery-recipient-accepted", "rule-email-recovery-recipient-unconfirmed", "rule-email-recovery-actions-hint", "rule-email-recovery-wait", "rule-email-recovery-resends", "rule-email-recovery-resend", "rule-email-recovery-mark-sent", "rule-email-recovery-drop", "rule-email-recovery-resend-confirm", "rule-email-recovery-mark-sent-confirm", "rule-email-recovery-drop-confirm", "rule-email-resolution-too-early", "rule-email-resolution-already-resolved", "rule-email-resolution-resend-in-flight", "rule-email-resolution-nothing-to-resend", "rule-email-resolution-resend-uncertain", "rule-email-resolution-busy", "rule-email-resolution-command-changed", "rule-email-resolution-attempt-invalid", "rule-email-resolution-failed", "rule-email-legacy-heading", "rule-email-legacy-description", "rule-email-legacy-source", "rule-email-legacy-mail", "rule-email-legacy-reason", "rule-email-legacy-reason-unbound", "rule-email-legacy-reason-details-snapshot", "rule-email-legacy-rebind", "rule-email-legacy-discard", "rule-email-legacy-rebind-confirm", "rule-email-legacy-discard-confirm", "rule-email-legacy-empty", "rule-email-legacy-unavailable", "rule-email-legacy-access-denied", "rule-email-legacy-source-changed", "rule-email-legacy-source-unavailable", "rule-email-legacy-plan-unavailable", "rule-email-legacy-attempt-exists", "rule-email-legacy-not-legacy", "rule-email-legacy-failed"]) {
+    assert.notEqual(locale[key], english[key], `${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ps:${key}: tokens`);
+    assert.match(locale[key], /[\u0600-\u06ff]/);
+    const prose = locale[key].replace(/__[a-z]+__|WeKan|todo\.txt|"x"|\+project|@context|\(A\)|due:|t:/g, '');
+    assert.doesNotMatch(prose, /[A-Za-z]/, `${key}: no English prose`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) assert.ok(locale['import-board-instruction-todotxt'].includes(token));
+  assert.match(locale['rule-email-recovery-actions-hint'], /په خپله بیا نه لېږي/);
+  assert.match(locale['rule-email-recovery-resend-confirm'], /دوه ځله/);
+  assert.match(locale['rule-email-legacy-description'], /د لاسرسي اجازه لري/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /هېڅکله به ونه لېږل شي/);
+  assert.notEqual(locale['rule-email-recovery-recipient-accepted'], locale['rule-email-recovery-recipient-unconfirmed']);
+}
+
 // Cantonese additions preserve recovery safeguards and todo.txt syntax.
 {
   const locale = read('yue_CN');
