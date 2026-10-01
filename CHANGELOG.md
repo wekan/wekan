@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/fe9120d454">Translate Bashkir board visibility, rules and notifications</a>. Thanks to xet7.</summary>
+
+- Fill 24 board visibility, rule variable and notification messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ad4de76724">Translate Bashkir date filters and archive settings</a>. Thanks to xet7.</summary>
 
 - Fill 24 date filter, archival and Leo import messages.
