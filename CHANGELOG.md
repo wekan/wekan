@@ -1685,6 +1685,18 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c75f567c4a">Translate Kazakh workspace and variable messages</a>. Thanks to xet7.</summary>
+
+- Fill 37 editor messages for variables, workspace announcements, search
+  and legacy block labels, preserving placeholders and keyboard instructions.
+- Kazakh regression checks, full-locale key and placeholder checks, and all
+  21 human-preference checks pass. Other untranslated strings and missing
+  Cherokee and Tigre keys remain. Browser and native-speaker reviews
+  were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e952ee95bf">Translate Kazakh text operations and prompts</a>. Thanks to xet7.</summary>
 
 - Fill 51 editor messages for text search, replacement, extraction,
