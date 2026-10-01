@@ -10481,6 +10481,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/171fe8ad297370c8a1b2a58a1c0dd4b33e8151d9">Translate Uzbek substring and text search controls</a>. Thanks to xet7.</summary>
+
+- Fill 25 text operation strings in each Uzbek locale,
+  using Arabic script for uz-AR and Latin for the other three locales.
+- Translation, registry and human-preference checks pass, covering tokens,
+  substring boundaries, search failure values and empty-text checks.
+  Wording needs fluent review, especially Arabic-script orthography.
+  Browser review and wider translation completion remain outstanding.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
