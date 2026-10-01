@@ -10361,6 +10361,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/57387c4982ac2f80fb0143b4b1f06ff131077ff2">Translate Uzbek list sorting and text conversion</a>. Thanks to xet7.</summary>
+
+- Fill 20 list sorting, replacement and text-conversion strings per locale,
+  using Arabic script for uz-AR and Latin for the other three Uzbek locales.
+- Translation, registry and human-preference checks pass, covering tokens,
+  insertion/replacement distinctions, sort directions and case handling.
+  Wording needs fluent review, especially Arabic-script orthography.
+  Browser review and wider translation completion remain outstanding.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
