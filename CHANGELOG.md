@@ -9197,6 +9197,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c56de6f29cec29158fa170494aa041b6638bf31">Translate Shona Blockly descriptions and warnings</a>. Thanks to xet7.</summary>
+
+- Fill 24 English placeholders for Blockly descriptions and warnings.
+  Preserve existing translations and keyboard/operating-system names.
+- Translation, registry and human-preference checks pass, covering block
+  descriptions, deletion restrictions, blending ranges and positional tokens.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
