@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek delivery controls distinguish pause, cancellation and server acceptance.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["activity-recovery-disabled", "activity-recovery-failed", "activity-recovery-pause", "activity-recovery-resume", "activity-recovery-paused", "activity-recovery-control-conflict", "activity-recovery-control-failed", "activity-recovery-status-cancelled", "activity-recovery-cancel", "activity-recovery-cancel-confirm", "rule-email-recovery-heading", "rule-email-recovery-description", "rule-email-recovery-all", "rule-email-recovery-unconfirmed", "rule-email-recovery-sent", "rule-email-recovery-invalid", "rule-email-recovery-identifiers", "rule-email-recovery-started", "rule-email-recovery-finished", "rule-email-recovery-empty"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  for (const action of ['pause', 'resume']) assert.equal(locale[`activity-recovery-${action}`], locale[`email-recovery-${action}`]);
+  assert.equal(new Set(['pause', 'resume', 'cancel'].map(k => locale[`activity-recovery-${k}`])).size, 3);
+  assert.notEqual(locale['rule-email-recovery-unconfirmed'], locale['rule-email-recovery-finished']);
+  assert.match(locale['rule-email-recovery-sent'], code === 'uz-AR' ? /سېرۋېری قبول/ : /serveri qabul/);
+  assert.match(locale['activity-recovery-cancel-confirm'], code === 'uz-AR' ? /قیتریب آلینمیدی/ : /qaytarib olinmaydi/);
+  assert.match(locale['activity-recovery-cancel-confirm'], code === 'uz-AR' ? /دوام اېتتیریب بۉلمیدی/ : /davom ettirib boʻlmaydi/);
+}
+
 // Uzbek activity recovery keeps retry states distinct and never promises recreation.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
