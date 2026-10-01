@@ -11985,6 +11985,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/41e7b04bc4430ca0c9531262d18faffdf2c24868">Latin workspace and rule editor messages</a>. Thanks to xet7.</summary>
+
+- Fill 49 English placeholders for workspace and rule-editor messages.
+  Preserve existing translations; update the README language coverage count.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for shortcuts, spacing, permissions and rule conflicts.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
