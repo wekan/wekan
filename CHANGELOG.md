@@ -9809,6 +9809,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a8fbd5ed2518351fd0eb3f3aee96796885f3f918">Translate Igbo list loop and numeric inputs</a>. Thanks to xet7.</summary>
+
+- Fill 30 Igbo Blockly list, loop and numeric input placeholders,
+  preserving existing translations and source tokens.
+- Translation, registry and human-preference checks pass, covering positions,
+  division operands, numeric bounds, repeat counts and coordinate names.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
