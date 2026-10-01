@@ -13227,6 +13227,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/72fb675a84d7843722ea9335ceaefb07f8351e7a">Translate Malayalam block editors and pixel controls</a>. Thanks to xet7.</summary>
+
+- Translate 28 Malayalam editor, pixel-control and icon-label strings.
+- Check coordinates, open/close actions and enable/disable labels while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
