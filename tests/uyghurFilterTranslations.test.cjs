@@ -87,7 +87,31 @@ const keys = [
   "map-view-remove-image",
   "map-view-unplaced",
   "map-view-place-hint",
-  "map-view-all-placed"
+  "map-view-all-placed",
+  "blockly-ANNOUNCE_CANT_SCROLL_FURTHER",
+  "blockly-ANNOUNCE_MOVE_AFTER",
+  "blockly-ANNOUNCE_MOVE_AROUND",
+  "blockly-ANNOUNCE_MOVE_BEFORE",
+  "blockly-ANNOUNCE_MOVE_CANCELED",
+  "blockly-ANNOUNCE_MOVE_INSIDE",
+  "blockly-ANNOUNCE_MOVE_TO",
+  "blockly-ANNOUNCE_MOVE_WORKSPACE",
+  "blockly-ANNOUNCE_SCROLLED_DOWN",
+  "blockly-ANNOUNCE_SCROLLED_LEFT",
+  "blockly-ANNOUNCE_SCROLLED_RIGHT",
+  "blockly-ANNOUNCE_SCROLLED_UP",
+  "blockly-ARIA_LABEL_ADD_ELSE_IF",
+  "blockly-ARIA_LABEL_ADD_INPUT",
+  "blockly-ARIA_LABEL_ADD_LIST_ITEM",
+  "blockly-ARIA_LABEL_ADD_TEXT",
+  "blockly-ARIA_LABEL_BUTTON",
+  "blockly-ARIA_LABEL_COMMENT_COLLAPSE",
+  "blockly-ARIA_LABEL_COMMENT_EXPAND",
+  "blockly-ARIA_LABEL_FIELD_ANGLE",
+  "blockly-ARIA_LABEL_REMOVE_ELSE_IF",
+  "blockly-ARIA_LABEL_REMOVE_INPUT",
+  "blockly-ARIA_LABEL_REMOVE_LIST_ITEM",
+  "blockly-ARIA_LABEL_REMOVE_TEXT"
 ];
 for (const key of keys) {
   assert.ok(locale[key]?.trim(), key);
