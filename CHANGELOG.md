@@ -2157,6 +2157,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0b0e49bd6b45755c0a6c7b27b737d786eab8af39">Translate Marathi statistics and random number messages</a>. Thanks to xet7.</summary>
+
+- Translate 31 Marathi statistics, number property and random value messages.
+- Check mean, median and mode terminology and random value boundaries while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
