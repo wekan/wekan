@@ -25,7 +25,22 @@ const keys = [
   "filter-due-previous-week",
   "filter-due-next-month",
   "filter-column-age",
-  "filter-column-age-disabled"
+  "filter-column-age-disabled",
+  "filter-column-age-days",
+  "filter-column-age-hint",
+  "advanced-filter-card-dates-hint",
+  "import-board-instruction-leo",
+  "instance",
+  "instance-desc",
+  "board-instance-info",
+  "automatic-linked-url-schemes-hint",
+  "other-parent-cards",
+  "add-parent-card",
+  "remove-parent-card",
+  "r-when-card-date",
+  "r-trigger-vars-hint",
+  "r-insert-variable",
+  "r-vars-people-hint"
 ];
 for (const key of keys) {
   assert.ok(locale[key]?.trim(), key);
@@ -35,3 +50,5 @@ for (const key of keys) {
   assert.deepEqual(locale[key].match(/<[^>]+>/g), en[key].match(/<[^>]+>/g), key);
 }
 console.log('Uyghur date filter translations passed');
+
+assert.deepEqual(locale['advanced-filter-card-dates-hint'].match(/@[A-Za-z]+/g), en['advanced-filter-card-dates-hint'].match(/@[A-Za-z]+/g));
