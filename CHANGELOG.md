@@ -12973,6 +12973,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/49cc4c407e066b19ee3b9c9356866de1dbb933dd">Translate Punjabi sorting and logic controls</a>. Thanks to xet7.</summary>
+
+- Translate 29 Punjabi sorting and logic strings.
+- Check comparison boundaries, conditional labels and copy behavior while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
