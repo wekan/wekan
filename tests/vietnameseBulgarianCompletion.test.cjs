@@ -28,6 +28,28 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona Blockly accessible input labels.
+{
+  const locale = read('sn');
+  const keys = ["blockly-ICON_LABEL_WARNING_CLOSED", "blockly-ICON_LABEL_WARNING_OPEN", "blockly-INLINE_INPUTS", "blockly-INPUT_LABEL_CONDITION", "blockly-INPUT_LABEL_CONDITION_A", "blockly-INPUT_LABEL_CONDITION_B", "blockly-INPUT_LABEL_EMPTY", "blockly-INPUT_LABEL_END_STATEMENT", "blockly-INPUT_LABEL_INDEX", "blockly-INPUT_LABEL_LISTS_CREATE_WITH_ITEM", "blockly-INPUT_LABEL_LISTS_DELIMITER", "blockly-INPUT_LABEL_LISTS_END_POSITION", "blockly-INPUT_LABEL_LISTS_LIST_FROM_TEXT", "blockly-INPUT_LABEL_LISTS_POSITION", "blockly-INPUT_LABEL_LISTS_REPEAT_ITEM", "blockly-INPUT_LABEL_LISTS_REPEAT_NUM", "blockly-INPUT_LABEL_LISTS_START_POSITION", "blockly-INPUT_LABEL_LISTS_TEXT_FROM_LIST", "blockly-INPUT_LABEL_LISTS_TO_CHANGE", "blockly-INPUT_LABEL_LISTS_TO_CHECK", "blockly-INPUT_LABEL_LISTS_VALUE_TO_SET", "blockly-INPUT_LABEL_LOOP_BY", "blockly-INPUT_LABEL_LOOP_FROM", "blockly-INPUT_LABEL_LOOP_LIST", "blockly-INPUT_LABEL_LOOP_TIMES", "blockly-INPUT_LABEL_LOOP_TO", "blockly-INPUT_LABEL_MATH_CHANGE_BY", "blockly-INPUT_LABEL_MATH_CONSTRAIN_VALUE", "blockly-INPUT_LABEL_MATH_DIVIDEND", "blockly-INPUT_LABEL_MATH_DIVISOR", "blockly-INPUT_LABEL_NUMBER", "blockly-INPUT_LABEL_NUMBER_A", "blockly-INPUT_LABEL_NUMBER_ATAN2_X", "blockly-INPUT_LABEL_NUMBER_ATAN2_Y", "blockly-INPUT_LABEL_NUMBER_B", "blockly-INPUT_LABEL_NUMBER_LIST", "blockly-INPUT_LABEL_NUMBER_MAX", "blockly-INPUT_LABEL_NUMBER_MIN", "blockly-INPUT_LABEL_NUMBER_TO_CHECK", "blockly-INPUT_LABEL_STATEMENT", "blockly-INPUT_LABEL_TEXT_APPEND", "blockly-INPUT_LABEL_TEXT_END_POSITION", "blockly-INPUT_LABEL_TEXT_JOIN_ITEM", "blockly-INPUT_LABEL_TEXT_POSITION", "blockly-INPUT_LABEL_TEXT_PROMPT_MESSAGE", "blockly-INPUT_LABEL_TEXT_START_POSITION", "blockly-INPUT_LABEL_TEXT_TO_CHANGE", "blockly-INPUT_LABEL_TEXT_TO_CHECK", "blockly-INPUT_LABEL_TEXT_TO_FIND", "blockly-INPUT_LABEL_TEXT_TO_REPLACE"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+  }
+  for (const [first, second] of [
+    ['ICON_LABEL_WARNING_CLOSED', 'ICON_LABEL_WARNING_OPEN'],
+    ['INPUT_LABEL_CONDITION_A', 'INPUT_LABEL_CONDITION_B'],
+    ['INPUT_LABEL_MATH_DIVIDEND', 'INPUT_LABEL_MATH_DIVISOR'],
+    ['INPUT_LABEL_NUMBER_MAX', 'INPUT_LABEL_NUMBER_MIN'],
+    ['INPUT_LABEL_LOOP_FROM', 'INPUT_LABEL_LOOP_TO'],
+    ['INPUT_LABEL_TEXT_TO_FIND', 'INPUT_LABEL_TEXT_TO_REPLACE'],
+    ['INPUT_LABEL_LISTS_START_POSITION', 'INPUT_LABEL_LISTS_END_POSITION'],
+  ]) assert.notEqual(locale[`blockly-${first}`], locale[`blockly-${second}`]);
+  assert.match(locale['blockly-INPUT_LABEL_NUMBER_ATAN2_X'], / x$/);
+  assert.match(locale['blockly-INPUT_LABEL_NUMBER_ATAN2_Y'], / y$/);
+  assert.match(locale['blockly-INPUT_LABEL_TEXT_APPEND'], /kumagumo/);
+}
+
 // Shona Blockly loops, editing and bitmap accessibility.
 {
   const locale = read('sn');
