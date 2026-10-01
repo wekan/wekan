@@ -2491,6 +2491,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4e68252b1da21f8b53f0c07a658085d39a2acf88">Translate Sinhala list editing and indexing</a>. Thanks to xet7.</summary>
+
+- Translate 30 Sinhala list editing, indexing and copying messages.
+- Check missing item results, copy semantics and insertion versus assignment
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
