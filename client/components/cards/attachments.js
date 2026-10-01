@@ -408,6 +408,27 @@ export function attachmentPreviewUrl(attachment) {
 }
 Template.registerHelper('attachmentPreviewUrl', attachmentPreviewUrl);
 
+// A preview that fails to load - a 404 or a network error; a thumbnail the
+// server cannot build is already redirected to the original (302) - falls
+// back to the original file ONCE, then stops. Not logged: a failed preview is
+// not an attack. One capturing listener covers the attachment row, the board
+// cover and the open-card cover (error events do not bubble).
+export function previewFallback(img) {
+  if (!img || img.dataset.previewFellBack === '1') return;
+  const src = img.getAttribute('src') || '';
+  const original = src.replace(/\/thumbnail(?=\?|$)/, '');
+  if (!original || original === src) return;
+  img.dataset.previewFellBack = '1';
+  img.src = original;
+}
+const PREVIEW_IMAGES = 'img.attachment-thumbnail, img.minicard-cover-image, img.card-details-cover-image';
+if (typeof document !== 'undefined') {
+  document.addEventListener('error', event => {
+    const target = event.target;
+    if (target && typeof target.matches === 'function' && target.matches(PREVIEW_IMAGES)) previewFallback(target);
+  }, true);
+}
+
 Template.attachmentGallery.helpers({
   attachments() {
     const card = Template.currentData();

@@ -87,7 +87,9 @@ async function main() {
     'a thumbnail of a private board is never publicly cacheable');
   // The client uses it where images are shown small, and only there.
   assert.match(read('client/components/cards/attachments.jade'), /img\.attachment-thumbnail\(src="\{\{attachmentPreviewUrl this\}\}"/);
-  assert.match(read('client/components/cards/minicard.jade'), /url\('\{\{attachmentPreviewUrl cover\}\}\?dummyReloadAfterSessionEstablished/);
+  // The cover is an img now (v12.12 email: a CSS background had no URL and no
+  // fallback); it still uses the thumbnail, and only when there is one.
+  assert.match(read('client/components/cards/minicard.jade'), /img\.minicard-cover-image\(alt="" src="\{\{attachmentPreviewUrl cover\}\}\?dummyReloadAfterSessionEstablished/);
   assert.match(read('client/components/cards/attachments.js'), /return canThumbnail\(attachment\) \? thumbnailUrl\(url\) : url;/);
   console.log('  ok - the route checks access first, and the gallery and cover use it');
 }

@@ -2000,8 +2000,10 @@ THEME - Modern
   line-height: 1.5em;
 }
 .board-color-modern .minicard .minicard-cover {
-  background-size: cover;
   margin: -15px -15px 10px;
+  height: 100px;
+}
+.board-color-modern .minicard .minicard-cover-image {
   height: 100px;
 }
 .board-color-modern .card-label-orange {

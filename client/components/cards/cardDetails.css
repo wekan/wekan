@@ -1170,12 +1170,19 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
 /* #6431 follow-up: cover image on the opened card (Card Settings > Cover image
    on card, opt-in). Mirrors the minicard cover but taller. */
 .card-details-cover {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 200px;
-  user-select: none;
+  height: 180px;
   margin: 8px 0;
+  overflow: hidden;
+  background: #f4f5f7;
+  border-radius: 6px;
+  user-select: none;
+}
+.card-details-cover-image {
+  width: 100%;
+  height: 180px;
+  display: block;
+  object-fit: cover;
+  object-position: center;
 }
 
 /* #1591 gave every FIELD of the opened card a caret of its own on its title,

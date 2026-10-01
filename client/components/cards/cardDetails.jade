@@ -129,7 +129,10 @@ template(name="cardDetails")
     //- #6431 follow-up: cover image on the opened card (opt-in, OFF by default).
     if currentBoard.allowsCoverAttachmentOnCard
       if cover
-        .card-details-cover(style="background-image: url('{{cover.link 'original'}}');")
+        //- The thumbnail, like the board cover; the viewer shows the original.
+        if attachmentPreviewUrl cover
+          .card-details-cover
+            img.card-details-cover-image(alt="" src="{{attachmentPreviewUrl cover}}?dummyReloadAfterSessionEstablished={{sess}}" width="512" height="180" decoding="async")
 
     .card-details-left
 

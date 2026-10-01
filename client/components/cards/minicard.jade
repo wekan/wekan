@@ -145,7 +145,12 @@ template(name="minicard")
         if $eq section "cover"
           if cover
             if currentBoard.allowsCoverAttachmentOnMinicard
-              .minicard-cover(style="background-image: url('{{attachmentPreviewUrl cover}}?dummyReloadAfterSessionEstablished={{sess}}');")
+              //- An img, not a CSS background: it can fall back to the original
+              //- once (attachments.js previewFallback), and it is drawn only
+              //- when there is a URL - never url('?dummyReload...').
+              if attachmentPreviewUrl cover
+                .minicard-cover
+                  img.minicard-cover-image(alt="" src="{{attachmentPreviewUrl cover}}?dummyReloadAfterSessionEstablished={{sess}}" width="512" height="120" decoding="async")
 
         if $eq section "labels"
           unless labelsAboveTitle

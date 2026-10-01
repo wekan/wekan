@@ -798,6 +798,13 @@ Template.cardFieldSectionSort.helpers({
 });
 
 Template.cardDetails.helpers({
+  // The cover image's session query, as the minicard has it (the
+  // Meteor-Files workaround for veliovgroup/Meteor-Files#763).
+  sess() {
+    return Meteor.connection && Meteor.connection._lastSessionId
+      ? Meteor.connection._lastSessionId
+      : null;
+  },
   // #4448: the order the reorderable card-detail sections (Labels, Dates,
   // Members, Dependencies, Sort, Custom Fields, Vote/Poker, Description)
   // render in, resolved from the board's stored setting - the section order

@@ -329,13 +329,11 @@ Template.minicard.helpers({
     const attachment = ReactiveCache.getAttachment(coverId);
     // A soft-deleted attachment is never a cover (History.md §12.1).
     if (!isLiveAttachment(attachment)) return null;
-    const coverLink = typeof attachment.link === 'function' ? attachment.link() : '';
-    if (!coverLink) return null;
-    return {
-      link() {
-        return coverLink;
-      },
-    };
+    // The attachment itself, as models/cards.js cover() returns it: the
+    // template's attachmentPreviewUrl needs its _id, type and name. A wrapper
+    // with only link() gave it no _id, so the cover URL was empty and the
+    // board showed a flat band instead of the picture (v12.12 email report).
+    return attachment;
   },
   // XXX resolve this nasty hack for https://github.com/veliovgroup/Meteor-Files/issues/763
   sess() {

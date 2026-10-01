@@ -314,17 +314,37 @@
   gap: 6px;
   min-width: 0;
 }
-.table-page-attachment-preview {
+/* The preview is a picture frame, not an action: a neutral ground in every
+   state, like the card's attachment tile (attachments.css). forms.css fills
+   every <button> with the accent, so each state is reset here. */
+.table-page button.table-page-attachment-preview,
+.table-page button.table-page-attachment-preview:hover,
+.table-page button.table-page-attachment-preview:focus,
+.table-page button.table-page-attachment-preview:active,
+.table-page button.table-page-attachment-preview:active:hover,
+.table-page button.table-page-attachment-preview:active:focus {
   width: 56px;
   height: 44px;
   flex: 0 1 56px;
   min-width: 0;
+  min-height: 0;
   max-width: 100%;
+  margin: 0;
   padding: 0;
-  border: 1px solid #ccc;
+  border: 1px solid #d0d7de;
   border-radius: 3px;
+  background: #f4f5f7;
+  color: inherit;
+  font-weight: 400;
+  line-height: 0;
+  box-shadow: none;
+  filter: none;
   overflow: hidden;
   cursor: pointer;
+}
+.table-page button.table-page-attachment-preview:focus-visible {
+  outline: 2px solid #01628c;
+  outline-offset: 2px;
 }
 .table-page-attachment-thumbnail {
   width: 100%;

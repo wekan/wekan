@@ -139,8 +139,7 @@
 .table-page-controls button.js-table-page-action,
 .file-status-audit .file-status-audit-actions button,
 .table-page .table-page-attachment-actions button,
-.table-page .table-page-attachment-actions a,
-.table-page button.table-page-attachment-preview {
+.table-page .table-page-attachment-actions a {
   border: 1px solid var(--theme-accent, #01628c);
   border-radius: 6px;
   background: var(--theme-accent-fill, var(--theme-accent, #01628c));
@@ -168,12 +167,7 @@
 .table-page .table-page-attachment-actions button:active:focus,
 .table-page .table-page-attachment-actions a:hover,
 .table-page .table-page-attachment-actions a:focus,
-.table-page .table-page-attachment-actions a:active,
-.table-page button.table-page-attachment-preview:hover,
-.table-page button.table-page-attachment-preview:focus,
-.table-page button.table-page-attachment-preview:active,
-.table-page button.table-page-attachment-preview:active:hover,
-.table-page button.table-page-attachment-preview:active:focus {
+.table-page .table-page-attachment-actions a:active {
   background: var(--theme-accent-fill, var(--theme-accent, #005377));
   border-color: var(--theme-accent, #005377);
   color: #fff;

@@ -1015,9 +1015,16 @@ test('action buttons are themed, not black', () => {
   assert.ok(/background:\s*var\(--theme-accent-fill, var\(--theme-accent, #01628c\)\)/.test(block),
     'filled with the theme accent, WeKan blue as the fallback');
   for (const selector of ['.file-status-audit .file-status-audit-actions button',
-    '.table-page .table-page-attachment-actions button', '.table-page .table-page-attachment-actions a',
-    '.table-page button.table-page-attachment-preview']) {
+    '.table-page .table-page-attachment-actions button', '.table-page .table-page-attachment-actions a']) {
     assert.ok(block.includes(selector), `${selector} must share the report action theme`);
+  }
+  // The attachment PREVIEW is a picture frame, not an action (v12.12 email:
+  // it was a blue button): it is out of the action theme and reset to a
+  // neutral ground in every state in tablePage.css.
+  assert.ok(!pager.includes('table-page-attachment-preview'), 'the preview is not an action button');
+  for (const state of ['', ':hover', ':focus', ':active', ':active:hover', ':active:focus']) {
+    assert.ok(css.includes(`.table-page button.table-page-attachment-preview${state},`) ||
+      css.includes(`.table-page button.table-page-attachment-preview${state} {`), `the preview frame resets ${state || 'at rest'}`);
   }
   for (const state of [':hover', ':focus', ':active', ':active:hover']) {
     assert.ok(pager.includes(`.table-page-controls button.js-table-page-action${state}`),
