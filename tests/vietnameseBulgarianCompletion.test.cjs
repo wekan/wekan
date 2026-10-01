@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek text replacement, trimming and variable assignment preserve operand roles.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["blockly-TEXT_LENGTH_TITLE", "blockly-TEXT_LENGTH_TOOLTIP", "blockly-TEXT_PRINT_TITLE", "blockly-TEXT_PRINT_TOOLTIP", "blockly-TEXT_PROMPT_TOOLTIP_NUMBER", "blockly-TEXT_PROMPT_TOOLTIP_TEXT", "blockly-TEXT_PROMPT_TYPE_NUMBER", "blockly-TEXT_PROMPT_TYPE_TEXT", "blockly-TEXT_REPLACE_MESSAGE0", "blockly-TEXT_REPLACE_TOOLTIP", "blockly-TEXT_REVERSE_MESSAGE0", "blockly-TEXT_REVERSE_TOOLTIP", "blockly-TEXT_TEXT_TOOLTIP", "blockly-TEXT_TRIM_OPERATOR_BOTH", "blockly-TEXT_TRIM_OPERATOR_LEFT", "blockly-TEXT_TRIM_OPERATOR_RIGHT", "blockly-TEXT_TRIM_TOOLTIP", "blockly-UNKNOWN", "blockly-VARIABLES_DEFAULT_NAME", "blockly-VARIABLES_GET_CREATE_SET", "blockly-VARIABLES_GET_TOOLTIP", "blockly-VARIABLES_SET", "blockly-VARIABLES_SET_CREATE_GET", "blockly-VARIABLES_SET_TOOLTIP", "blockly-VARIABLE_ALREADY_EXISTS_FOR_A_PARAMETER"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  assert.equal(new Set(['BOTH', 'LEFT', 'RIGHT'].map(k => locale[`blockly-TEXT_TRIM_OPERATOR_${k}`])).size, 3);
+  assert.match(locale['blockly-TEXT_TRIM_OPERATOR_LEFT'], code === 'uz-AR' ? /چپ/ : /chap/);
+  assert.match(locale['blockly-TEXT_TRIM_OPERATOR_RIGHT'], code === 'uz-AR' ? /اۉنگ/ : /oʻng/);
+  assert.match(locale['blockly-TEXT_REPLACE_MESSAGE0'], /%3.*%1.*%2/);
+  for (const part of ['TYPE', 'TOOLTIP']) assert.notEqual(locale[`blockly-TEXT_PROMPT_${part}_NUMBER`], locale[`blockly-TEXT_PROMPT_${part}_TEXT`]);
+  assert.notEqual(locale['blockly-VARIABLES_GET_CREATE_SET'], locale['blockly-VARIABLES_SET_CREATE_GET']);
+  assert.match(locale['blockly-TEXT_LENGTH_TOOLTIP'], code === 'uz-AR' ? /بۉشلیق‌لر بیلن بیرگه/ : /boʻshliqlar bilan birga/);
+}
+
 // Uzbek substring boundaries and search results preserve their distinct roles.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
