@@ -28,6 +28,21 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Yoruba Blockly bitmap editing, warnings and input labels.
+{
+  const locale = read('yo');
+  const keys = ["blockly-FIELD_BITMAP_ARIA_VALUE", "blockly-FIELD_BITMAP_BUTTON_LABEL_RANDOMIZE", "blockly-FIELD_BITMAP_PIXEL_LABEL", "blockly-FIELD_BITMAP_PIXEL_OFF", "blockly-FIELD_LABEL_EDIT_PREFIX", "blockly-FIELD_LABEL_EMPTY", "blockly-FIELD_LABEL_OPTION_INDEX", "blockly-FIELD_LABEL_VARIABLE", "blockly-FIELD_MULTILINEINPUT_FINISH_EDITING", "blockly-FIELD_MULTILINEINPUT_NEW_LINE", "blockly-HELP_PROMPT", "blockly-ICON_LABEL_COMMENT_CLOSED", "blockly-ICON_LABEL_COMMENT_OPEN", "blockly-ICON_LABEL_MUTATOR_CLOSED", "blockly-ICON_LABEL_MUTATOR_OPEN", "blockly-ICON_LABEL_WARNING_CLOSED", "blockly-ICON_LABEL_WARNING_OPEN", "blockly-INPUT_LABEL_CONDITION", "blockly-INPUT_LABEL_CONDITION_A", "blockly-INPUT_LABEL_CONDITION_B", "blockly-INPUT_LABEL_EMPTY", "blockly-INPUT_LABEL_END_STATEMENT", "blockly-INPUT_LABEL_INDEX"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `yo:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `yo:${key}: tokens`);
+  }
+  assert.match(locale['blockly-FIELD_BITMAP_PIXEL_LABEL'], /%1.*ìlà %2.*òpó %3/);
+  for (const kind of ['COMMENT', 'WARNING', 'MUTATOR']) assert.notEqual(locale[`blockly-ICON_LABEL_${kind}_CLOSED`], locale[`blockly-ICON_LABEL_${kind}_OPEN`]);
+  assert.notEqual(locale['blockly-INPUT_LABEL_CONDITION_A'], locale['blockly-INPUT_LABEL_CONDITION_B']);
+  assert.match(locale['blockly-FIELD_MULTILINEINPUT_FINISH_EDITING'], /^Parí/);
+  assert.equal(locale['blockly-ESCAPE'], 'Escape');
+}
+
 // Yoruba Blockly block descriptions and clipboard controls.
 {
   const locale = read('yo');
