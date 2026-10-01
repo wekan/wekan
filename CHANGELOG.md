@@ -11671,6 +11671,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2dbb9522cbc25134054dd2e7387686d76a5d9c89">Translate Wolaytta recovery strings and placeholder labels</a>. Thanks to xet7.</summary>
+
+- Translate 44 missing keys in wal and three prefixed English labels.
+  Cover todo.txt imports and email recovery; preserve other existing values.
+- Translation, registry and human-preference checks pass, covering placeholders,
+  import syntax, duplicate delivery, access checks and permanent discard.
+  Existing coverage is retained. Longer technical wording is low confidence
+  and needs fluent review. Browser review was not run. Wider work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
