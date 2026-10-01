@@ -9665,6 +9665,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d6f41bf348720b5dda0dca28e495266ae019aec9">Translate Yoruba sprint lifecycle and report strings</a>. Thanks to xet7.</summary>
+
+- Fill 41 Yoruba placeholders for sprint planning, events, cancellation and
+  reports, preserving existing translations and source placeholders.
+- Translation, registry and human-preference checks pass, covering tokens,
+  unknown estimates, closing versus cancelling and shared backlog labels.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
