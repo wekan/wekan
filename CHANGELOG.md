@@ -11786,6 +11786,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f429086308f97cedb9a454f91feb1bd6b4acc15d">Haitian Creole Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+- Fill 63 English placeholders for sprint planning, workflow states and
+  reports, preserving existing translations and placeholders.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for unknown estimates, comparison rules and sprint completion.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
