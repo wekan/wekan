@@ -28,6 +28,25 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona Blockly procedure editing and screen reader controls.
+{
+  const locale = read('sn');
+  const keys = ["blockly-PROCEDURES_DEFRETURN_RETURN", "blockly-PROCEDURES_DEFRETURN_TOOLTIP", "blockly-PROCEDURES_DEF_DUPLICATE_WARNING", "blockly-PROCEDURES_HIGHLIGHT_DEF", "blockly-PROCEDURES_IFRETURN_TOOLTIP", "blockly-PROCEDURES_IFRETURN_WARNING", "blockly-PROCEDURES_MUTATORARG_TITLE", "blockly-PROCEDURES_MUTATORARG_TOOLTIP", "blockly-PROCEDURES_MUTATORCONTAINER_TITLE", "blockly-PROCEDURES_MUTATORCONTAINER_TOOLTIP", "blockly-REDO", "blockly-REMOVE_COMMENT", "blockly-REMOVE_FROM_BACKPACK", "blockly-RENAME_VARIABLE", "blockly-RENAME_VARIABLE_TITLE", "blockly-RESET_ZOOM", "blockly-SCREENREADER_HINT", "blockly-SCREENREADER_MODE_DISABLED", "blockly-SCREENREADER_MODE_ENABLED", "blockly-SHORTCUTS_ABORT_MOVE", "blockly-SHORTCUTS_CLEANUP", "blockly-SHORTCUTS_CODE_NAVIGATION", "blockly-SHORTCUTS_DISCONNECT", "blockly-SHORTCUTS_DUPLICATE", "blockly-SHORTCUTS_EDITING", "blockly-SHORTCUTS_ESCAPE", "blockly-SHORTCUTS_EXTENDED_INFORMATION", "blockly-SHORTCUTS_FINISH_MOVE", "blockly-SHORTCUTS_FOCUS_TOOLBOX", "blockly-SHORTCUTS_FOCUS_WORKSPACE", "blockly-SHORTCUTS_GENERAL", "blockly-SHORTCUTS_INFORMATION"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+  }
+  assert.match(locale['blockly-PROCEDURES_IFRETURN_WARNING'], /mukati.*chete/);
+  assert.notEqual(locale['blockly-PROCEDURES_DEFRETURN_TOOLTIP'], locale['blockly-PROCEDURES_DEFNORETURN_TOOLTIP']);
+  assert.match(locale['blockly-SCREENREADER_MODE_DISABLED'], /akadzimwa.*kuabatidza/);
+  assert.match(locale['blockly-SCREENREADER_MODE_ENABLED'], /akabatidzwa.*kuadzima/);
+  assert.match(locale['blockly-RENAME_VARIABLE_TITLE'], /zvose.*%1/);
+  assert.notEqual(locale['blockly-SHORTCUTS_ABORT_MOVE'], locale['blockly-SHORTCUTS_FINISH_MOVE']);
+  assert.notEqual(locale['blockly-SHORTCUTS_FOCUS_TOOLBOX'], locale['blockly-SHORTCUTS_FOCUS_WORKSPACE']);
+  assert.notEqual(locale['blockly-SHORTCUTS_INFORMATION'], locale['blockly-SHORTCUTS_EXTENDED_INFORMATION']);
+  assert.equal(locale['blockly-SHIFT_KEY'], 'Shift');
+}
+
 // Shona Blockly workspace navigation, variables and procedures.
 {
   const locale = read('sn');
