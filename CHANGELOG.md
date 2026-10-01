@@ -1686,6 +1686,17 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/32409e9a87">Translate Uyghur list operations</a>. Thanks to xet7.</summary>
+
+- Fill 44 list selection, insertion, removal, sorting and text conversion
+  messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a8a7757c34">Translate Uyghur keyboard navigation and list messages</a>. Thanks to xet7.</summary>
 
 - Fill 24 input, keyboard navigation and list messages.
