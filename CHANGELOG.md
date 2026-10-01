@@ -9209,6 +9209,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/be721542da7064816b4a6db809f6be3a2be5f821">Translate Shona Blockly color selection and control flow</a>. Thanks to xet7.</summary>
+
+- Translate 24 color selection, loop and conditional strings, preserving
+  keyboard names, substitution tokens and RGB bounds.
+- Translation, registry and human-preference checks pass, covering tokens,
+  distinct controls and numeric bounds.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
