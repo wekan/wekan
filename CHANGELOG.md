@@ -1677,11 +1677,26 @@ template.
 
 # Upcoming WeKan ® release
 
-**In short:** Dependency messages now cover eight more languages. Translation
+**In short:** Dependency messages now cover twelve more languages. Translation
 checks follow current wording and markup, and literal keyboard labels are
 restored.
 
 This release updates the following translations:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1044fe0873">Fill dependency messages and synchronize regional locales</a>. Thanks to xet7.</summary>
+
+- Translate 11 dependency messages into Breton, West Frisian, Friulian and
+  Romansh, including the Frisian regional locale. These translations have
+  lower confidence and need native-speaker review.
+- Fill the missing messages in Welsh and Japanese regional locales, bringing
+  dependency coverage to 146 non-English locale tags. Synchronize eleven
+  English regional files with the source messages.
+- Dependency key-order and placeholder checks, Japanese completeness checks
+  and all 21 human-preference checks pass. Other locales still need work;
+  browser and native-speaker reviews were not run.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d74d2f3dd8">Repair audit regressions and extend dependency translations</a>. Thanks to xet7.</summary>
