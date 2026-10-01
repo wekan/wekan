@@ -28,6 +28,26 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona Blockly directional shortcuts and text operations.
+{
+  const locale = read('sn');
+  const keys = ["blockly-SHORTCUTS_JUMP_BLOCK_END", "blockly-SHORTCUTS_JUMP_BLOCK_START", "blockly-SHORTCUTS_JUMP_BOTTOM_STACK", "blockly-SHORTCUTS_JUMP_FIRST_BLOCK", "blockly-SHORTCUTS_JUMP_LAST_BLOCK", "blockly-SHORTCUTS_JUMP_NEXT_PAGE", "blockly-SHORTCUTS_JUMP_PREVIOUS_PAGE", "blockly-SHORTCUTS_JUMP_TOP_STACK", "blockly-SHORTCUTS_MOVE_DOWN", "blockly-SHORTCUTS_MOVE_LEFT", "blockly-SHORTCUTS_MOVE_RIGHT", "blockly-SHORTCUTS_MOVE_UP", "blockly-SHORTCUTS_NEXT_HEADING", "blockly-SHORTCUTS_NEXT_STACK", "blockly-SHORTCUTS_PERFORM_ACTION", "blockly-SHORTCUTS_PREVIOUS_HEADING", "blockly-SHORTCUTS_PREVIOUS_STACK", "blockly-SHORTCUTS_SCROLL_DOWN", "blockly-SHORTCUTS_SCROLL_LEFT", "blockly-SHORTCUTS_SCROLL_RIGHT", "blockly-SHORTCUTS_SCROLL_UP", "blockly-SHORTCUTS_SHOW_CONTEXT_MENU", "blockly-SHORTCUTS_SHOW_TOOLTIP", "blockly-SHORTCUTS_START_MOVE", "blockly-SHORTCUTS_START_MOVE_STACK", "blockly-SHORTCUTS_TOGGLE_SCREENREADER_MODE", "blockly-TEXT_APPEND_TITLE", "blockly-TEXT_APPEND_TOOLTIP", "blockly-TEXT_CHANGECASE_OPERATOR_LOWERCASE", "blockly-TEXT_CHANGECASE_OPERATOR_TITLECASE"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+  }
+  for (const action of ['MOVE', 'SCROLL']) {
+    assert.equal(new Set(['DOWN', 'LEFT', 'RIGHT', 'UP'].map(direction => locale[`blockly-SHORTCUTS_${action}_${direction}`])).size, 4);
+  }
+  for (const target of ['HEADING', 'STACK']) assert.notEqual(locale[`blockly-SHORTCUTS_NEXT_${target}`], locale[`blockly-SHORTCUTS_PREVIOUS_${target}`]);
+  assert.notEqual(locale['blockly-SHORTCUTS_JUMP_BLOCK_START'], locale['blockly-SHORTCUTS_JUMP_BLOCK_END']);
+  assert.notEqual(locale['blockly-SHORTCUTS_START_MOVE'], locale['blockly-SHORTCUTS_START_MOVE_STACK']);
+  assert.match(locale['blockly-TEXT_APPEND_TOOLTIP'], /kumagumo.*%1/);
+  assert.match(locale['blockly-TEXT_CHANGECASE_OPERATOR_TITLECASE'], /rekutanga reshoko rimwe nerimwe/);
+  assert.equal(locale['blockly-SPACE_KEY'], 'Space');
+  assert.equal(locale['blockly-TAB_KEY'], 'Tab');
+}
+
 // Shona Blockly procedure editing and screen reader controls.
 {
   const locale = read('sn');
