@@ -2920,6 +2920,16 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b338f99e3795eea49bfbe726f985b471ce6b553a">Translate dependency layers in four more languages</a>. Thanks to xet7.</summary>
+
+- Translate 11 dependency messages into Tamil, Telugu, Kannada and Malayalam.
+- Coverage now includes 109 locale tags; other locales remain pending.
+- Focused key-order, placeholder and human-preference checks pass.
+  Browser and native-speaker review were not run.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
