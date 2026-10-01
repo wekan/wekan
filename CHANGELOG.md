@@ -2527,6 +2527,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ac10aaf30a8dcac3a55127267b1a372a82ede89a">Translate Sinhala statistics and random number messages</a>. Thanks to xet7.</summary>
+
+- Translate 31 Sinhala statistics, number property and random value messages.
+- Check mean, median and mode terminology and random value boundaries while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
