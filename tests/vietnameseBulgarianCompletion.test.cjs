@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek email failures distinguish rejection types and cancellation boundaries.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["email-recovery-cancel", "email-recovery-paused", "email-recovery-pending", "email-recovery-empty", "email-recovery-unavailable", "email-recovery-busy", "email-recovery-failed", "email-recovery-superseded", "email-recovery-confirm-cancel", "email-recovery-attention", "email-recovery-stopped", "email-recovery-retry", "email-failure-smtp-temporary", "email-failure-smtp-rejected", "email-failure-smtp-authentication", "email-failure-smtp-configuration", "email-failure-recipient-unavailable", "email-failure-delivery-unconfirmed", "email-failure-acknowledgement-failed", "email-failure-delivery-failed"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  for (const suffix of ['temporary', 'rejected']) assert.ok(locale[`email-failure-smtp-${suffix}`].includes('SMTP'));
+  assert.notEqual(locale['email-failure-smtp-temporary'], locale['email-failure-smtp-rejected']);
+  assert.notEqual(locale['email-failure-smtp-authentication'], locale['email-failure-smtp-configuration']);
+  assert.notEqual(locale['email-failure-delivery-unconfirmed'], locale['email-failure-acknowledgement-failed']);
+  assert.match(locale['email-recovery-confirm-cancel'], code === 'uz-AR' ? /ینگی خبر‌لر سقلنه‌دی/ : /yangi xabarlar saqlanadi/);
+  assert.match(locale['email-recovery-confirm-cancel'], code === 'uz-AR' ? /تیکلب بۉلمیدی/ : /tiklab boʻlmaydi/);
+}
+
 // Uzbek recovery messages retain diagnostic limits and explicit null semantics.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
