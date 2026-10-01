@@ -2467,6 +2467,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f0737c9a3a4278eec723e5b8c03636c7258e761c">Translate Sinhala numeric and text input labels</a>. Thanks to xet7.</summary>
+
+- Translate 29 Sinhala numeric, text and value input labels.
+- Check division terms, numeric limits, coordinates and text positions while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
