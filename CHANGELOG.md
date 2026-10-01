@@ -2660,6 +2660,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/866664df275ecd37511ce589de9c5c36e65847f6">Translate Sinhala sync preview and report messages</a>. Thanks to xet7.</summary>
+
+- Translate 30 Sinhala sync-preview, omitted-field and run-report messages.
+- Check retention limits, access requirements and report-only behavior,
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
