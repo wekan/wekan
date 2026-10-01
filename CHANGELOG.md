@@ -1685,6 +1685,17 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1900b0b8d3">Translate Cantonese list indexing and removal</a>. Thanks to xet7.</summary>
+
+- Fill 38 messages for list creation, indexing, retrieval, removal and
+  ranges, preserving numbered placeholders and operation distinctions.
+- Cantonese key-order, translation and placeholder checks and all 21
+  human-preference checks pass. Other untranslated strings remain;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/38d9f7a49c">Translate Cantonese math and text input messages</a>. Thanks to xet7.</summary>
 
 - Fill 38 labels and hints for math and text inputs, keyboard navigation
