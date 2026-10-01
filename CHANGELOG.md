@@ -2805,6 +2805,19 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a382f72a2868a948393ac77b604804da050fe3af">Translate dependency layers in ten languages and their locale variants</a>. Thanks to xet7.</summary>
+
+- Translate 11 dependency-layer messages for 33 locale tags: Finnish, Swedish,
+  German, French, Spanish, Italian, Portuguese, Dutch, Russian and Ukrainian,
+  including their locale variants.
+- Check key order, count placeholders and distinct layer and transfer labels.
+  Focused translation and human-preference checks pass.
+- Other locales still need the new strings; full completeness is not claimed.
+  Browser and native-speaker review were not run.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
