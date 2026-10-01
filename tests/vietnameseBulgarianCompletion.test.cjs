@@ -28,6 +28,19 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek field types, block states and protected function variables.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["blockly-ARIA_TYPE_FIELD_DROPDOWN", "blockly-ARIA_TYPE_FIELD_GRID", "blockly-ARIA_TYPE_FIELD_IMAGE", "blockly-ARIA_TYPE_FIELD_INPUT", "blockly-ARIA_TYPE_FIELD_TEXT_INPUT_ARGUMENT", "blockly-ARIA_TYPE_FIELD_TEXT_INPUT_PROCEDURE", "blockly-BLOCK_LABEL_BEGIN_PREFIX", "blockly-BLOCK_LABEL_BEGIN_STACK", "blockly-BLOCK_LABEL_COLLAPSED", "blockly-BLOCK_LABEL_CONTAINER", "blockly-BLOCK_LABEL_DISABLED", "blockly-BLOCK_LABEL_HAS_BRANCHES", "blockly-BLOCK_LABEL_HAS_INPUT", "blockly-BLOCK_LABEL_HAS_INPUTS", "blockly-BLOCK_LABEL_REPLACEABLE", "blockly-BLOCK_LABEL_STACK_BLOCKS", "blockly-BLOCK_LABEL_STATEMENT", "blockly-BLOCK_LABEL_TOOLBOX_CATEGORY", "blockly-BLOCK_LABEL_VALUE", "blockly-BUBBLE_LABEL_COMMENT", "blockly-BUBBLE_LABEL_DEFAULT", "blockly-BUBBLE_LABEL_WARNING", "blockly-CANNOT_DELETE_VARIABLE_PROCEDURE"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  for (const [a, b] of [['ARIA_TYPE_FIELD_DROPDOWN', 'ARIA_TYPE_FIELD_GRID'], ['BLOCK_LABEL_COLLAPSED', 'BLOCK_LABEL_DISABLED'], ['BLOCK_LABEL_HAS_INPUT', 'BLOCK_LABEL_HAS_INPUTS'], ['BLOCK_LABEL_STATEMENT', 'BLOCK_LABEL_VALUE'], ['BUBBLE_LABEL_COMMENT', 'BUBBLE_LABEL_WARNING']]) assert.notEqual(locale[`blockly-${a}`], locale[`blockly-${b}`]);
+  assert.match(locale['blockly-CANNOT_DELETE_VARIABLE_PROCEDURE'], code === 'uz-AR' ? /اۉچیریب بۉلمیدی.*تعریفینینگ بیر قیسمیدیر/ : /oʻchirib boʻlmaydi.*taʼrifining bir qismidir/);
+}
+
 // Uzbek Blockly movement and accessible editing controls.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
