@@ -1685,6 +1685,17 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3a22185b85">Translate Cantonese sprint planning and events</a>. Thanks to xet7.</summary>
+
+- Fill 37 messages for Scrum completion policies, sprint planning, events
+  and work status, preserving existing translations.
+- Cantonese key-order, translation and placeholder checks and all 21
+  human-preference checks pass. Other untranslated strings remain;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4a22dabed3">Translate Cantonese rule editor and Scrum settings</a>. Thanks to xet7.</summary>
 
 - Fill 32 messages for legacy editor labels, rule editing and Scrum settings,
