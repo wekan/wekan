@@ -9293,6 +9293,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5355c537bab44a1a07bd6c4693e6faf1e90ac894">Translate Shona Blockly statistics and random values</a>. Thanks to xet7.</summary>
+
+- Translate 30 number property, statistics and random value strings,
+  preserving substitution tokens and inclusive or exclusive bounds.
+- Translation, registry and human-preference checks pass, covering tokens,
+  distinct statistical measures and random value limits.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
