@@ -13335,6 +13335,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0de24b65703677ad12e914541c9b1f32ba7cd2a8">Translate Malayalam procedures and screen reader controls</a>. Thanks to xet7.</summary>
+
+- Translate 30 Malayalam function, variable and screen-reader strings.
+- Check output distinctions, disabled functions and mode toggles while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
