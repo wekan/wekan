@@ -2888,6 +2888,17 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/def0a35d6ce31c81c9a4d875f649f559d6530c57">Translate dependency layers in eight more locales</a>. Thanks to xet7.</summary>
+
+- Translate 11 dependency messages into Catalan, Galician, Basque and Afrikaans,
+  including locale variants and Valencian wording.
+- Coverage now includes 95 locale tags; other locales remain pending.
+- Focused key-order, placeholder and human-preference checks pass.
+  Browser and native-speaker review were not run.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
