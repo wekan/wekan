@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek Scrum planning distinguishes roles, completion policies and sprint actions.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["board-view-product-backlog", "board-view-sprints", "board-view-sprint-report", "board-view-velocity", "scrum-settings", "scrum-product-owner", "scrum-master", "scrum-developers", "scrum-working-days", "scrum-enabled", "scrum-product-goal", "scrum-definition-of-done", "scrum-estimate-source", "scrum-estimate-unit", "scrum-completion-policy", "scrum-source-poker", "scrum-source-customField", "scrum-policy-dueComplete", "scrum-policy-doneLists", "scrum-sprints", "scrum-sprint", "scrum-start-sprint", "scrum-close-sprint", "scrum-cancel-sprint", "scrum-rollover-sprint"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  assert.equal(locale['board-view-sprints'], locale['scrum-sprints']);
+  assert.equal(new Set(['scrum-start-sprint', 'scrum-close-sprint', 'scrum-cancel-sprint'].map(k => locale[k])).size, 3);
+  assert.notEqual(locale['scrum-policy-dueComplete'], locale['scrum-policy-doneLists']);
+  assert.notEqual(locale['scrum-product-owner'], locale['scrum-master']);
+  assert.notEqual(locale['scrum-estimate-source'], locale['scrum-estimate-unit']);
+  assert.match(locale['scrum-rollover-sprint'], code === 'uz-AR' ? /توگلنمه‌گن/ : /Tugallanmagan/);
+}
+
 // Uzbek rule-block editing preserves validation, permissions and saved-state distinctions.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
