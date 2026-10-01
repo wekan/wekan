@@ -12018,6 +12018,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/023878517165ff3832a6bc3bc5f9b5240c023dcb">Latin sync conflicts and previews</a>. Thanks to xet7.</summary>
+
+- Fill 34 English placeholders for sync conflicts and source previews,
+  preserving existing translations and placeholders.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for local content, subcards, replacement reuse and hidden values.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
