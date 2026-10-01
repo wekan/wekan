@@ -28,6 +28,28 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona Blockly keyboard navigation and list retrieval.
+{
+  const locale = read('sn');
+  const keys = ["blockly-INPUT_LABEL_VALUE", "blockly-INPUT_LABEL_VALUE_A", "blockly-INPUT_LABEL_VALUE_B", "blockly-INPUT_LABEL_VARIABLES_SET", "blockly-KEYBOARD_NAV_BLOCK_NAVIGATION_HINT", "blockly-KEYBOARD_NAV_CONSTRAINED_MOVE_HINT", "blockly-KEYBOARD_NAV_COPIED_HINT", "blockly-KEYBOARD_NAV_CUT_HINT", "blockly-KEYBOARD_NAV_FLYOUT_LABEL_HINT", "blockly-KEYBOARD_NAV_UNCONSTRAINED_MOVE_HINT", "blockly-KEYBOARD_NAV_WORKSPACE_NAVIGATION_HINT", "blockly-LISTS_CREATE_EMPTY_TITLE", "blockly-LISTS_CREATE_EMPTY_TOOLTIP", "blockly-LISTS_CREATE_WITH_CONTAINER_TITLE_ADD", "blockly-LISTS_CREATE_WITH_CONTAINER_TOOLTIP", "blockly-LISTS_CREATE_WITH_INPUT_WITH", "blockly-LISTS_CREATE_WITH_ITEM_TOOLTIP", "blockly-LISTS_CREATE_WITH_TOOLTIP", "blockly-LISTS_GET_INDEX_FIRST", "blockly-LISTS_GET_INDEX_FROM_END", "blockly-LISTS_GET_INDEX_GET", "blockly-LISTS_GET_INDEX_GET_REMOVE", "blockly-LISTS_GET_INDEX_LAST", "blockly-LISTS_GET_INDEX_RANDOM", "blockly-LISTS_GET_INDEX_REMOVE", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_FIRST", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_FROM", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_LAST", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_RANDOM", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_FIRST", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_FROM", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_LAST", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_RANDOM"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+  }
+  assert.notEqual(locale['blockly-KEYBOARD_NAV_COPIED_HINT'], locale['blockly-KEYBOARD_NAV_CUT_HINT']);
+  assert.match(locale['blockly-LISTS_CREATE_EMPTY_TOOLTIP'], /0.*isina/);
+  assert.match(locale['blockly-LISTS_GET_INDEX_FROM_END'], /^#.*kumagumo/);
+  for (const position of ['FIRST', 'FROM', 'LAST', 'RANDOM']) {
+    const get = locale[`blockly-LISTS_GET_INDEX_TOOLTIP_GET_${position}`];
+    const remove = locale[`blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_${position}`];
+    assert.notEqual(get, remove);
+    assert.match(remove, /^Inobvisa uye inodzorera/);
+  }
+  assert.notEqual(locale['blockly-LISTS_GET_INDEX_FIRST'], locale['blockly-LISTS_GET_INDEX_LAST']);
+  assert.equal(locale['blockly-INSERT_KEY'], 'Insert');
+  assert.equal(locale['blockly-LINUX'], 'Linux');
+}
+
 // Shona Blockly accessible input labels.
 {
   const locale = read('sn');
