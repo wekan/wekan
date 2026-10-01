@@ -12913,6 +12913,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/08a4bfb223659257f38f6464905bf03638b9b438">Translate Punjabi conditionals and pixel controls</a>. Thanks to xet7.</summary>
+
+- Translate 27 Punjabi conditional, clipboard and pixel control strings.
+- Check true and false conditions, deletion counts and pixel coordinates while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
