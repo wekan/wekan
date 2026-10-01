@@ -28,6 +28,22 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek numeric and text inputs preserve roles and boundaries.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["blockly-INPUT_LABEL_LOOP_TIMES", "blockly-INPUT_LABEL_LOOP_TO", "blockly-INPUT_LABEL_MATH_CHANGE_BY", "blockly-INPUT_LABEL_MATH_CONSTRAIN_VALUE", "blockly-INPUT_LABEL_MATH_DIVIDEND", "blockly-INPUT_LABEL_MATH_DIVISOR", "blockly-INPUT_LABEL_NUMBER", "blockly-INPUT_LABEL_NUMBER_A", "blockly-INPUT_LABEL_NUMBER_ATAN2_X", "blockly-INPUT_LABEL_NUMBER_ATAN2_Y", "blockly-INPUT_LABEL_NUMBER_B", "blockly-INPUT_LABEL_NUMBER_LIST", "blockly-INPUT_LABEL_NUMBER_MAX", "blockly-INPUT_LABEL_NUMBER_MIN", "blockly-INPUT_LABEL_NUMBER_TO_CHECK", "blockly-INPUT_LABEL_STATEMENT", "blockly-INPUT_LABEL_TEXT_APPEND", "blockly-INPUT_LABEL_TEXT_END_POSITION", "blockly-INPUT_LABEL_TEXT_JOIN_ITEM", "blockly-INPUT_LABEL_TEXT_POSITION", "blockly-INPUT_LABEL_TEXT_PROMPT_MESSAGE", "blockly-INPUT_LABEL_TEXT_START_POSITION"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  for (const [a, b] of [['LOOP_FROM', 'LOOP_TO'], ['MATH_DIVIDEND', 'MATH_DIVISOR'], ['NUMBER_A', 'NUMBER_B'], ['NUMBER_MAX', 'NUMBER_MIN'], ['TEXT_START_POSITION', 'TEXT_END_POSITION']]) assert.notEqual(locale[`blockly-INPUT_LABEL_${a}`], locale[`blockly-INPUT_LABEL_${b}`]);
+  assert.equal(locale['blockly-INPUT_LABEL_LOOP_TIMES'], locale['blockly-INPUT_LABEL_LISTS_REPEAT_NUM']);
+  for (const axis of ['X', 'Y']) assert.ok(locale[`blockly-INPUT_LABEL_NUMBER_ATAN2_${axis}`].startsWith(axis.toLowerCase() + ' '));
+  for (const end of ['START', 'END']) assert.equal(locale[`blockly-INPUT_LABEL_TEXT_${end}_POSITION`], locale[`blockly-INPUT_LABEL_LISTS_${end}_POSITION`]);
+  assert.match(locale['blockly-INPUT_LABEL_TEXT_APPEND'], code === 'uz-AR' ? /^آخریگه/ : /^oxiriga/);
+}
+
 // Uzbek condition and list inputs retain their separate meanings.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
