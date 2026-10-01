@@ -9869,6 +9869,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9bee873b66dd3a02704bf48be310dc607dee1a4d">Translate Igbo workspace search and rule blocks</a>. Thanks to xet7.</summary>
+
+- Fill 28 Igbo workspace, search and rule-editor placeholders, preserving
+  existing translations and source tokens.
+- Translation, registry and human-preference checks pass, covering composed
+  spacing, shortcuts, search direction and single-trigger rule validation.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
