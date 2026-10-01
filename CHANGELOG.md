@@ -12383,6 +12383,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/03597b4466406b0473458a59abc830f3a43b56aa">Telugu statistical and numerical operations</a>. Thanks to xet7.</summary>
+
+- Translate 37 statistical and numerical operation placeholders.
+- Check random bounds, mean and median, modes, logarithms and rounding
+  while preserving source substitution tokens and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
