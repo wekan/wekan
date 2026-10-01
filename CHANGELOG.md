@@ -1685,6 +1685,18 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8282c39e32">Translate Kazakh functions and editor commands</a>. Thanks to xet7.</summary>
+
+- Fill 48 messages for trigonometry, variable creation, function definitions
+  and editor controls. Keep the existing block backpack terminology.
+- Kazakh regression checks, full-locale key and placeholder checks, and all
+  21 human-preference checks pass. Other untranslated strings and missing
+  Cherokee and Tigre keys remain. Browser and native-speaker reviews
+  were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ee7f92e489">Translate Kazakh statistics and mathematical functions</a>. Thanks to xet7.</summary>
 
 - Fill 47 editor strings for list statistics, random numbers, rounding,
