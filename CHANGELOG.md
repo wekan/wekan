@@ -10061,6 +10061,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dd01703f1f41426133f5e4dc2919b50bdd922fe1">Translate Hausa text inputs and keyboard navigation</a>. Thanks to xet7.</summary>
+
+- Fill 25 Hausa Blockly text, navigation and comparison placeholders,
+  preserving existing translations and source tokens.
+- Translation, registry and human-preference checks pass, covering shortcuts,
+  text positions, copy/cut, find/replace and inclusive comparison bounds.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
