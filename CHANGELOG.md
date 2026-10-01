@@ -1677,6 +1677,11 @@ template.
 
 # Upcoming WeKan ® release
 
+**In short:** Dependency messages now cover four more languages, with checks
+for translation key order and placeholders.
+
+This release updates the following translations:
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/99bab720d3">Translate dependency layers in four more languages</a>. Thanks to xet7.</summary>
 
