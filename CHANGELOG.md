@@ -13480,6 +13480,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ba074895d2d4eb3757157f55fb3e5bfb6f480fd7">Complete Malayalam prose placeholder translations</a>. Thanks to xet7.</summary>
+
+- Translate the final 32 Malayalam recovery, sign-in and history placeholders.
+- Retain physical key legends, platform names and mathematical notation.
+  The placeholder report is empty; existing translations are preserved.
+- Check all source keys and placeholders, plus cancellation and retry wording.
+  Translation, language registration and human-preference checks pass.
+- Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
