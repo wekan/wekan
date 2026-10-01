@@ -12709,6 +12709,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e6136d045f13ca0706f2f3dc0377b87f20aa52f4">Translate Pashto text operations and indexing</a>. Thanks to xet7.</summary>
+
+- Translate 30 Pashto text operation and indexing strings.
+- Check search direction, missing-text results and spaces in text length while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
