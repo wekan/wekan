@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Yoruba activity recovery and imported time estimate semantics.
+{
+  const locale = read('yo');
+  const keys = ["email-failure-retry-limit", "sync-original-time", "sync-remaining-time", "sync-time-estimate-hint", "activity-recovery-heading", "activity-recovery-description", "activity-recovery-empty", "activity-recovery-unavailable", "activity-recovery-retry", "activity-recovery-retrying", "activity-recovery-status-pending", "activity-recovery-status-preparing", "activity-recovery-status-processing", "activity-recovery-status-missing", "activity-recovery-status-changed", "activity-recovery-status-invalid", "activity-recovery-status-inconsistent", "activity-recovery-busy", "activity-recovery-denied", "activity-recovery-source-unavailable", "activity-recovery-disabled", "activity-recovery-failed", "activity-recovery-pause", "activity-recovery-resume", "activity-recovery-paused", "activity-recovery-control-conflict", "activity-recovery-control-failed", "activity-recovery-status-cancelled", "activity-recovery-cancel"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `yo:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `yo:${key}: tokens`);
+  }
+  assert.match(locale['sync-time-estimate-hint'], /kan ṣoṣo.*kò kọbi ara sí.*null/);
+  for (const kind of ['original', 'remaining']) assert.match(locale[`sync-${kind}-time`], /wákàtí/);
+  assert.notEqual(locale['sync-original-time'], locale['sync-remaining-time']);
+  assert.match(locale['activity-recovery-source-unavailable'], /kò tún ohunkóhun ṣẹ̀dá/);
+  assert.match(locale['activity-recovery-failed'], /pa iṣẹ́ tí ń dúró mọ́/);
+  for (const action of ['pause', 'resume']) assert.equal(locale[`activity-recovery-${action}`], locale[`email-recovery-${action}`]);
+  assert.notEqual(locale['activity-recovery-status-missing'], locale['activity-recovery-status-changed']);
+  assert.notEqual(locale['activity-recovery-paused'], locale['activity-recovery-status-cancelled']);
+}
+
 // Yoruba email queue actions and delivery failure distinctions.
 {
   const locale = read('yo');
