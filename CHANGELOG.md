@@ -12721,6 +12721,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9377b821372f10504d7f8bd0228ef7e10be9f492">Translate Pashto text and workspace controls</a>. Thanks to xet7.</summary>
+
+- Translate 29 Pashto text, variable and workspace strings.
+- Check replacement arguments, trimming directions and comment spacing while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
