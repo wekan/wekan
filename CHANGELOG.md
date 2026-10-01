@@ -1685,6 +1685,17 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e7cfa531fb">Translate Tajik observations and Sync conflicts</a>. Thanks to xet7.</summary>
+
+- Fill 32 observation, Sync-conflict and preview messages, preserving
+  report limitations and card-retention instructions.
+- Focused key-order, placeholder and query-syntax checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1282d9495d">Translate Tajik sprint reports and events</a>. Thanks to xet7.</summary>
 
 - Fill 37 sprint-event and report messages, preserving unknown-estimate
