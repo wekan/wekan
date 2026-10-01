@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek conditional expressions and arithmetic operations.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["blockly-LOGIC_TERNARY_CONDITION", "blockly-LOGIC_TERNARY_IF_FALSE", "blockly-LOGIC_TERNARY_IF_TRUE", "blockly-LOGIC_TERNARY_TOOLTIP", "blockly-MATH_ADDITION_SYMBOL_ARIA", "blockly-MATH_ARITHMETIC_TOOLTIP_ADD", "blockly-MATH_ARITHMETIC_TOOLTIP_DIVIDE", "blockly-MATH_ARITHMETIC_TOOLTIP_MINUS", "blockly-MATH_ARITHMETIC_TOOLTIP_MULTIPLY", "blockly-MATH_ARITHMETIC_TOOLTIP_POWER", "blockly-MATH_ATAN2_TITLE", "blockly-MATH_ATAN2_TOOLTIP", "blockly-MATH_CHANGE_TITLE", "blockly-MATH_CHANGE_TOOLTIP"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  for (const part of ['CONDITION', 'IF_FALSE', 'IF_TRUE']) assert.ok(locale['blockly-LOGIC_TERNARY_TOOLTIP'].includes(locale[`blockly-LOGIC_TERNARY_${part}`]));
+  assert.notEqual(locale['blockly-LOGIC_TERNARY_IF_FALSE'], locale['blockly-LOGIC_TERNARY_IF_TRUE']);
+  assert.equal(new Set(['ADD', 'DIVIDE', 'MINUS', 'MULTIPLY', 'POWER'].map(op => locale[`blockly-MATH_ARITHMETIC_TOOLTIP_${op}`])).size, 5);
+  for (const token of ['atan2', 'X:%1', 'Y:%2']) assert.ok(locale['blockly-MATH_ATAN2_TITLE'].includes(token));
+  assert.match(locale['blockly-MATH_ATAN2_TOOLTIP'], /-180.*180/);
+  assert.ok(locale['blockly-MATH_ATAN2_TOOLTIP'].includes('(X, Y)'));
+}
+
 // Uzbek Boolean comparisons, negation and conjunction.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
