@@ -12472,6 +12472,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ff2c9724eb5d7d98e8b462435161d5b47d6a5952">Telugu synchronization previews and conflicts</a>. Thanks to xet7.</summary>
+
+- Translate 33 synchronization preview, conflict and source field strings.
+- Check retained content, unchanged subcards, reused replacements and
+  preview limits while preserving source tokens and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
