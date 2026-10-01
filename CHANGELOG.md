@@ -12961,6 +12961,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8c5e1f607af9202800662ab002a45c1310349069">Translate Punjabi list editing and indexing</a>. Thanks to xet7.</summary>
+
+- Translate 30 Punjabi list editing and indexing strings.
+- Check copy semantics, missing-item results and insertion versus replacement
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
