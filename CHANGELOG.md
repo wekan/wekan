@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e1493f95f3">Translate Kyrgyz block labels and editing controls</a>. Thanks to xet7.</summary>
+
+- Fill 27 block description, editing control and bitmap-field messages.
+- Batch key-order, placeholder, rule-variable and markup checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4fe2d494e9">Translate Kyrgyz editor accessibility messages</a>. Thanks to xet7.</summary>
 
 - Fill 32 movement announcement, editor control and field-type messages.
