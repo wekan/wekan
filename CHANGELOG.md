@@ -2757,6 +2757,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a3cf34c81cd924f9ae7a757b406acc6a9862bc30">Translate Kazakh block labels and accessibility fields</a>. Thanks to xet7.</summary>
+
+- Translate 29 Kazakh block labels and accessibility-field messages.
+- Check singular/plural inputs and variable-deletion restrictions,
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
