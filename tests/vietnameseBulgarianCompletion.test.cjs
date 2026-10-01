@@ -12,7 +12,7 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
   'de', 'de_DE', 'de-AT', 'de-CH', 'fr', 'fr-FR', 'fr-BE', 'fr-CA', 'fr-CH',
   'es', 'es-AR', 'es-LA', 'es-CL', 'es_CO', 'es-CO', 'es-PY', 'es-PE', 'es-MX', 'it',
   'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'nl', 'nl-NL', 'sv', 'fi', 'et-EE', 'da', 'nb', 'tr', 'id', 'ro', 'ro-RO', 'hu', 'sk', 'ja', 'ja-JP', 'ko', 'ko-KR',
-  'zh-CN', 'zh-Hans', 'zh', 'cmn', 'zh_SG', 'zh-GB', 'zh-Hant', 'zh-TW', 'zh-HK', 'ar', 'ar-DZ', 'ar-EG', 'gl', 'gl-ES', 'he', 'he-IL', 'fa', 'fa-IR', 'ms', 'ms-MY', 'sl', 'sl_SI', 'hr', 'sr', 'bs', 'mk', 'be', 'lt', 'lv', 'is', 'af', 'af_ZA', 'hi', 'hi-IN', 'bn', 'ta', 'ne', 'ur', 'th', 'gu-IN', 'kn', 'ga', 'co', 'sc', 'scn', 'nap', 'an', 'ast-ES', 'oc', 'br', 'eu', 'cy', 'cy-GB', 'gd', 'csb', 'eo', 'sq', 'hy', 'az', 'az-AZ', 'az-LA', 'ka', 'sw', 'tl', 'mt', 'lb', 'fo', 'fur', 'fy', 'fy-NL', 'rm']) {
+  'zh-CN', 'zh-Hans', 'zh', 'cmn', 'zh_SG', 'zh-GB', 'zh-Hant', 'zh-TW', 'zh-HK', 'ar', 'ar-DZ', 'ar-EG', 'gl', 'gl-ES', 'he', 'he-IL', 'fa', 'fa-IR', 'ms', 'ms-MY', 'sl', 'sl_SI', 'hr', 'sr', 'bs', 'mk', 'be', 'lt', 'lv', 'is', 'af', 'af_ZA', 'hi', 'hi-IN', 'bn', 'ta', 'ne', 'ur', 'th', 'gu-IN', 'kn', 'ga', 'co', 'sc', 'scn', 'nap', 'an', 'ast-ES', 'oc', 'br', 'eu', 'cy', 'cy-GB', 'gd', 'csb', 'eo', 'sq', 'hy', 'az', 'az-AZ', 'az-LA', 'ka', 'sw', 'tl', 'mt', 'lb', 'fo', 'fur', 'fy', 'fy-NL', 'rm', 'sn']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(english), `${code}: source key order`);
   for (const key of Object.keys(english)) {
@@ -28,6 +28,22 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Final Shona placeholders and explicitly retained technical names.
+{
+  const locale = read('sn');
+  const keys = ["rule-email-recovery-unavailable", "saml-login-not-started", "move-selection-before", "move-selection-after", "history-request-pending-undo", "history-request-pending-redo", "history-request-hint", "history-request-retry", "history-request-forget"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+  }
+  const invariants = {"blockly-ALT_KEY": "Alt", "blockly-BACKSPACE_KEY": "Backspace", "blockly-CAPS_LOCK_KEY": "Caps Lock", "blockly-CHROME_OS": "ChromeOS", "blockly-COMMAND_KEY": "Command", "blockly-CONTROL_KEY": "Control", "blockly-END_KEY": "End", "blockly-ENTER_KEY": "Enter", "blockly-ESCAPE": "Escape", "blockly-HOME_KEY": "Home", "blockly-INSERT_KEY": "Insert", "blockly-LINUX": "Linux", "blockly-LOGIC_NULL": "null", "blockly-MAC_OS": "macOS", "blockly-MATH_TRIG_ACOS": "acos", "blockly-MATH_TRIG_ASIN": "asin", "blockly-MATH_TRIG_ATAN": "atan", "blockly-MATH_TRIG_COS": "cos", "blockly-MATH_TRIG_SIN": "sin", "blockly-MATH_TRIG_TAN": "tan", "blockly-OPTION_KEY": "Option", "blockly-PAGE_DOWN_KEY": "Page Down", "blockly-PAGE_UP_KEY": "Page Up", "blockly-PAUSE_KEY": "Pause", "blockly-SHIFT_KEY": "Shift", "blockly-SPACE_KEY": "Space", "blockly-TAB_KEY": "Tab", "blockly-WINDOWS": "Windows"};
+  for (const [key, value] of Object.entries(invariants)) assert.equal(locale[key], value, `sn:${key}: technical name`);
+  assert.match(locale['saml-login-not-started'], /SAML.*mutabhu ino.*pinda zvakare/);
+  assert.notEqual(locale['move-selection-before'], locale['move-selection-after']);
+  assert.notEqual(locale['history-request-pending-undo'], locale['history-request-pending-redo']);
+  assert.match(locale['history-request-hint'], /chikumbiro chimwe chete.*hakugoni.*yechipiri/);
+}
+
 // Shona activity cancellation and rule email attempt reports.
 {
   const locale = read('sn');
