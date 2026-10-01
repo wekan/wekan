@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona board map and Blockly accessibility instructions.
+{
+  const locale = read('sn');
+  const keys = ["board-view-map", "map-view-empty", "map-view-upload", "map-view-remove-image", "map-view-unplaced", "map-view-place-hint", "map-view-all-placed", "blockly-ADD_COMMENT", "blockly-ANNOUNCE_CANT_SCROLL_FURTHER", "blockly-ANNOUNCE_MOVE_AFTER", "blockly-ANNOUNCE_MOVE_AROUND", "blockly-ANNOUNCE_MOVE_BEFORE", "blockly-ANNOUNCE_MOVE_CANCELED", "blockly-ANNOUNCE_MOVE_INSIDE", "blockly-ANNOUNCE_MOVE_TO", "blockly-ANNOUNCE_MOVE_WORKSPACE", "blockly-ANNOUNCE_SCROLLED_DOWN", "blockly-ANNOUNCE_SCROLLED_LEFT", "blockly-ANNOUNCE_SCROLLED_RIGHT", "blockly-ANNOUNCE_SCROLLED_UP", "blockly-ARIA_LABEL_ADD_ELSE_IF", "blockly-ARIA_LABEL_ADD_INPUT", "blockly-ARIA_LABEL_ADD_LIST_ITEM", "blockly-ARIA_LABEL_ADD_TEXT"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+  }
+  assert.match(locale['map-view-empty'], /Mutarisiri webhodhi.*kukwidza/);
+  assert.match(locale['map-view-place-hint'], /Dhonza.*kana.*kurisarudza.*wadzvanya/);
+  assert.notEqual(locale['map-view-unplaced'], locale['map-view-all-placed']);
+  assert.equal(new Set(['DOWN', 'LEFT', 'RIGHT', 'UP'].map(direction => locale[`blockly-ANNOUNCE_SCROLLED_${direction}`])).size, 4);
+  assert.match(locale['blockly-ANNOUNCE_MOVE_AFTER'], /mushure/);
+  assert.match(locale['blockly-ANNOUNCE_MOVE_BEFORE'], /pamberi/);
+  assert.match(locale['blockly-ANNOUNCE_MOVE_INSIDE'], /mukati/);
+  assert.equal(locale['blockly-ALT_KEY'], 'Alt');
+}
+
 // Shona reminder schedules, saved filters and import reports.
 {
   const locale = read('sn');
