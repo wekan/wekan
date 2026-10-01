@@ -9233,6 +9233,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/85de10d5658b186f0eb8977815c2155f40a2563a">Translate Shona Blockly accessible input labels</a>. Thanks to xet7.</summary>
+
+- Translate 50 condition, list, number and text input labels, preserving
+  substitution tokens and coordinate names.
+- Translation, registry and human-preference checks pass, covering tokens,
+  arithmetic roles and distinct start, end, minimum and maximum labels.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
