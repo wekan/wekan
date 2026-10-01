@@ -10193,6 +10193,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/10c2ada18901d6b193c6a6ff1f4cacef573de11d">Translate Uzbek archiving and date filters in both scripts</a>. Thanks to xet7.</summary>
+
+- Fill 24 archiving, date filter and Leo import strings in each of four
+  Uzbek locales, using Arabic script for uz-AR and Latin for the others.
+- Translation, registry and human-preference checks pass, covering tokens,
+  query syntax, date boundaries, archive exclusions and list-age behavior.
+  Wording needs fluent review, especially Arabic-script orthography.
+  Browser review and wider translation completion remain outstanding.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
