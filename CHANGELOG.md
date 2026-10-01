@@ -10037,6 +10037,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4e58a009de9881713b66a08013530169325e2267">Translate Hausa Blockly editing and condition labels</a>. Thanks to xet7.</summary>
+
+- Fill 30 Hausa Blockly bitmap, editing and condition placeholders,
+  preserving existing translations and source tokens.
+- Translation, registry and human-preference checks pass, covering bitmap
+  coordinates, open/close actions, condition order and Home/End labels.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
