@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/68c70df522">Translate Kyrgyz sprint reports and observations</a>. Thanks to xet7.</summary>
+
+- Fill 33 sprint report, workflow and daily observation messages.
+- Batch key-order, placeholder, rule-variable and markup checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/987cb8248d">Translate Kyrgyz sprint planning and events</a>. Thanks to xet7.</summary>
 
 - Fill 33 sprint planning, backlog and event messages.
