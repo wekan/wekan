@@ -10469,6 +10469,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7d4dcc3f9ca3b957f1bb374d8353ee110b97944c">Translate Uzbek scrolling and text case controls</a>. Thanks to xet7.</summary>
+
+- Fill 25 scrolling and text control strings in each Uzbek locale,
+  using Arabic script for uz-AR and Latin for the other three locales.
+- Translation, registry and human-preference checks pass, covering tokens,
+  scrolling directions, letter case and character position markers.
+  Wording needs fluent review, especially Arabic-script orthography.
+  Browser review and wider translation completion remain outstanding.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
