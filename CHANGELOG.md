@@ -10073,6 +10073,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b8c83de7fa7e1dbc148884364f0da03e9f5580e9">Translate Hausa mathematical accessibility labels</a>. Thanks to xet7.</summary>
+
+- Fill 24 Hausa comparison and mathematical accessibility labels, including
+  roots, logarithm bases and direct versus inverse trigonometric functions.
+- Translation, registry and human-preference checks pass, covering tokens,
+  operation distinctions and preservation of existing translations.
+  Lower-confidence mathematical wording needs fluent-speaker review;
+  browser review was not run. Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
