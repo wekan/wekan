@@ -11864,6 +11864,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/94270921ea3eb7917bd4ee12199c6eecdff458fc">Latin maps and Blockly accessibility messages</a>. Thanks to xet7.</summary>
+
+- Fill 43 English placeholders for maps, import warnings and accessibility,
+  preserving existing translations and placeholders.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for map access, import warnings and movement argument order.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
