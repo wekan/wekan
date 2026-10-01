@@ -9509,6 +9509,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/90ac607ecc30387cfb1e7df175d3d3e26e48b66a">Translate Yoruba board access and notification controls</a>. Thanks to xet7.</summary>
+
+- Translate 24 board visibility, rule variable and notification strings,
+  preserving access restrictions, HTML tags and variable syntax.
+- Translation, registry and human-preference checks pass, covering tokens,
+  link schemes, distinct recipient roles and always-delivered reminders.
+  Wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
