@@ -11731,6 +11731,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b6af906f49c0c7825e5483d88e95e25c26a19b4a">Haitian Creole Blockly lists and navigation</a>. Thanks to xet7.</summary>
+
+- Fill 84 English placeholders for keyboard navigation, list operations and
+  Boolean values, preserving existing translations.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for placeholders, list mutations, copies and Boolean meanings.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
