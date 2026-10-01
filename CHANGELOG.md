@@ -12889,6 +12889,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7deb6015f4eba6703c092f769a086e289216c805">Translate Punjabi map and block accessibility controls</a>. Thanks to xet7.</summary>
+
+- Translate 35 Punjabi map and block accessibility strings.
+- Check movement placeholders and opposite control labels while preserving
+  existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
