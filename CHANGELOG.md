@@ -10794,6 +10794,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9d74079ba2e6a370a3ad24018f3f0779ffe50bc0">Correct Arabic-script Uzbek calendar and card labels</a>. Thanks to xet7.</summary>
+
+- Replace 25 Latin-script calendar and card values in uz-AR with Arabic-script
+  Uzbek, preserving calendar variants and the ISO 8601 designation.
+- Translation, registry and human-preference checks pass, covering tokens,
+  distinct calendar names, month navigation and card versus board archive text.
+  Wording is low confidence and needs fluent review. Browser review was not run.
+  Older script corrections and wider translation completion remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
