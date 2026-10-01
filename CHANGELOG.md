@@ -11919,6 +11919,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1575d8e835cdab9ec683721d6305ab0765692b22">Latin Blockly list transformations and logic</a>. Thanks to xet7.</summary>
+
+- Fill 53 English placeholders for list transformations and logic labels,
+  preserving existing translations and placeholders.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for copy semantics, sorting and Boolean operations.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
