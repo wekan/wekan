@@ -12416,6 +12416,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5b7619ccec6a595b3a9e92bab7598c98669ccd2a">Telugu text operations and character positions</a>. Thanks to xet7.</summary>
+
+- Translate 34 text operation and shortcut placeholders.
+- Check title case, character positions, missing-text results and spaces
+  in text length while preserving tokens and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
