@@ -2973,6 +2973,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0b2e94e451d15d3f04fed4abbe1e18ebf5cb5ea1">Translate dependency layers in four more languages</a>. Thanks to xet7.</summary>
+
+- Translate 11 dependency messages into Somali, Malagasy, Javanese
+  and Papiamento.
+- Coverage now includes 131 locale tags; other locales remain pending.
+- Focused key-order, placeholder and human-preference checks pass.
+  Somali, Malagasy and Papiamento wording has lower confidence.
+  Browser and native-speaker review were not run.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
