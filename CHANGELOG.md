@@ -9941,6 +9941,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bf7ca9f90dcdc36f39e76e69d5635c3cd0e5398a">Translate Igbo email queue controls</a>. Thanks to xet7.</summary>
+
+- Fill 26 Igbo email queue and mapped-estimate placeholders, preserving
+  existing translations and source tokens.
+- Translation, registry and human-preference checks pass, covering queue
+  actions, cancellation boundaries, explicit null and SMTP rejection types.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
