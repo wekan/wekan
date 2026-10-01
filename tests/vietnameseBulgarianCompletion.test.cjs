@@ -28,6 +28,28 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona memory, storage and request labels replace prefixed English.
+{
+  const locale = read('sn');
+  const keys = ["Scaleout", "Wave", "subject", "details", "ticket", "tickets", "ticket-number", "pending", "closed", "resolved", "cancelled", "request", "requests", "Node_heap_total_heap_size", "Node_heap_total_heap_size_executable", "Node_heap_total_physical_size", "Node_heap_total_available_size", "Node_heap_used_heap_size", "Node_heap_heap_size_limit", "Node_heap_malloced_memory", "Node_heap_peak_malloced_memory", "Node_heap_does_zap_garbage", "Node_memory_usage_rss", "Node_memory_usage_heap_used", "Node_memory_usage_external", "legalNotice", "copied", "originOrder", "move-source", "move-destination", "move-storage-collectionfs", "move-storage-gridfs", "move-storage-fs", "move-storage-s3", "attachment-repair-done", "attachment-repair-scanned", "attachment-repair-repaired", "move-scope-avatars", "move-progress-pause", "move-progress-resume"];
+  const invariants = ["move-storage-collectionfs", "move-storage-gridfs", "move-storage-s3"];
+  for (const key of keys) {
+    assert.doesNotMatch(locale[key], /Mashoko echiShona:/, `sn:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+    if (invariants.includes(key)) assert.equal(locale[key], english[key], `sn:${key}: storage name`);
+    else assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    if (key.startsWith('Node_')) assert.ok(locale[key].includes('Node'), `sn:${key}: runtime name`);
+  }
+  assert.equal(locale['move-scope-avatars'], locale['avatars-upload-blocked-label']);
+  assert.equal(new Set(['pending', 'closed', 'resolved', 'cancelled'].map(key => locale[key])).size, 4);
+  assert.notEqual(locale['move-source'], locale['move-destination']);
+  assert.notEqual(locale['move-progress-pause'], locale['move-progress-resume']);
+  assert.match(locale.Node_heap_peak_malloced_memory, /dzakawanda kupfuura dzese/);
+  assert.match(locale.Node_heap_malloced_memory, /malloc/);
+  assert.match(locale.Node_heap_heap_size_limit, /muganho/);
+  assert.notEqual(locale.Node_heap_total_heap_size, locale.Node_heap_used_heap_size);
+}
+
 // Shona maps, reports and waiting indicators replace prefixed English.
 {
   const locale = read('sn');
