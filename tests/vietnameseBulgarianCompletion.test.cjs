@@ -28,6 +28,26 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek observations and sync conflicts preserve limits and local-only behavior.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["scrum-partial-snapshot", "scrum-resume-close", "scrum-daily-observations", "scrum-daily-observations-help", "scrum-daily-truncated", "scrum-daily-empty", "scrum-observed-scope", "scrum-daily-observations-export-help", "scrum-import-pending", "sync-conflict-heading", "sync-conflict-hint", "sync-conflict-local", "sync-conflict-keep-local", "sync-conflict-use-source", "sync-conflict-refresh", "sync-conflict-review-complete", "sync-conflict-duplicate", "sync-conflict-keep-mapping", "sync-conflict-detach", "sync-conflict-detach-hint"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  for (const key of ['scrum-daily-observations-help', 'scrum-daily-observations-export-help']) {
+    assert.ok(locale[key].includes('UTC'));
+    assert.match(locale[key], code === 'uz-AR' ? /نول اېمس/ : /nol emas/);
+  }
+  assert.ok(locale['scrum-daily-truncated'].includes('366'));
+  assert.notEqual(locale['sync-conflict-keep-local'], locale['sync-conflict-use-source']);
+  assert.match(locale['sync-conflict-hint'], code === 'uz-AR' ? /هېچ نرسه یوباریلمیدی/ : /hech narsa yuborilmaydi/);
+  assert.match(locale['sync-conflict-detach-hint'], code === 'uz-AR' ? /WeKan ده قاله‌دی/ : /WeKan da qoladi/);
+  assert.match(locale['sync-conflict-review-complete'], code === 'uz-AR' ? /بوتون رۉیخت سینخرانلنمدی/ : /Butun roʻyxat sinxronlanmadi/);
+}
+
 // Uzbek sprint reports preserve unknown estimates and distinct lifecycle states.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
