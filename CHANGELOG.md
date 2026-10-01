@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/98f5ed04ed">Translate Uyghur editor input and list labels</a>. Thanks to xet7.</summary>
+
+- Fill 28 editor control, condition and list input labels.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/030040027c">Translate Uyghur block editing and bitmap controls</a>. Thanks to xet7.</summary>
 
 - Fill 19 block editing, warning and bitmap control messages.
