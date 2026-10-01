@@ -28,6 +28,26 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Hausa sync previews, retained reports and source-field decisions.
+{
+  const locale = read('ha');
+  const keys = ["sync-conflict-archive", "sync-conflict-archive-hint", "sync-conflict-keep-card-local", "sync-conflict-creation", "sync-conflict-creation-hint", "sync-conflict-create-replacement", "sync-preview-button", "sync-preview-heading", "sync-preview-saved", "sync-preview-unavailable", "sync-preview-blocked", "sync-preview-create", "sync-preview-update", "sync-preview-archive", "sync-preview-baseline", "sync-preview-truncated", "sync-preview-omissions", "sync-preview-scope", "sync-preview-excluded", "sync-preview-unmapped", "sync-preview-parser-warnings", "sync-preview-parser-unsupported", "sync-source-heading", "sync-source-scope", "sync-source-unmapped", "sync-source-excluded", "sync-source-converted", "sync-source-fallback", "sync-source-excluded-item", "sync-source-occurrences", "sync-source-truncated", "sync-source-omitted", "sync-report-button", "sync-report-retention", "sync-report-partial", "sync-report-unfinished", "sync-report-failed", "sync-report-completed", "sync-report-completed-with-warnings", "sync-report-skipped", "sync-report-review-only", "sync-report-unavailable", "sync-report-empty", "sync-recovery-heading", "sync-recovery-description", "sync-recovery-unavailable", "sync-recovery-all", "sync-estimate-field", "sync-estimate-field-hint"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `ha:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ha:${key}: tokens`);
+  }
+  for (const key of ['sync-preview-truncated', 'sync-source-truncated']) assert.ok(locale[key].includes('100'));
+  assert.match(locale['sync-report-retention'], /20.*30/);
+  assert.match(locale['sync-recovery-description'], /30/);
+  for (const part of ['unmapped', 'excluded']) assert.equal(locale[`sync-preview-${part}`], locale[`sync-source-${part}`]);
+  assert.match(locale['sync-conflict-archive-hint'], /Ba a canza katunan ƙasa/);
+  assert.match(locale['sync-conflict-creation-hint'], /ba tare da canji ba/);
+  assert.match(locale['sync-source-scope'], /ba a nuna ƙimominsu/);
+  assert.match(locale['sync-report-partial'], /ba sa ci gaba.*ko soke/);
+  assert.match(locale['sync-estimate-field-hint'], /Ana ƙyale.*null.*goge/);
+  assert.equal(new Set(['unfinished', 'failed', 'completed', 'completed-with-warnings', 'skipped', 'review-only'].map(k => locale[`sync-report-${k}`])).size, 6);
+}
+
 // Hausa sprint observations and synchronization conflict decisions.
 {
   const locale = read('ha');
