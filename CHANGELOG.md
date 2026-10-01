@@ -10734,6 +10734,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d983f887e57acb6cebc76ac42e37a7baae2b2b8d">Correct Arabic-script Uzbek membership and archive text</a>. Thanks to xet7.</summary>
+
+- Replace 25 Latin-script membership, announcement and archive values in uz-AR
+  with Arabic-script Uzbek, preserving placeholders and fixing action wording.
+- Translation, registry and human-preference checks pass, covering archive
+  scope, administrator restrictions and the loading data-loss warning.
+  Wording is low confidence and needs fluent review. Browser review was not run.
+  Older script corrections and wider translation completion remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
