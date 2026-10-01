@@ -12040,6 +12040,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d47ef88468f629009cd0497a9f973c29c453cd5f">Latin delivery controls and failure messages</a>. Thanks to xet7.</summary>
+
+- Fill 34 English placeholders for delivery controls and failure messages,
+  preserving existing translations and placeholders.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for cancellation, SMTP failures and activity-preserving retries.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
