@@ -2371,6 +2371,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2df1c8fb436c006396160e46c8603b05226f5623">Translate Sinhala archive settings and date filters</a>. Thanks to xet7.</summary>
+
+- Translate 25 Sinhala archive, date filter and Leo import messages.
+- Check query syntax, inclusive dates and archival exceptions while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
