@@ -9965,6 +9965,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6be1cbe0594fa71def2f10db65242cd127927670">Finish Igbo source placeholder coverage</a>. Thanks to xet7.</summary>
+
+- Translate the final 26 Igbo prose placeholders and retain 22 reviewed
+  technical labels. No source prose placeholders remain.
+- Translation, registry and human-preference checks pass, including full-file
+  key order and tokens. Coverage is not a language-quality certification.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
