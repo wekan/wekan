@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/270b539ae1">Translate Sindhi date and archival filters</a>. Thanks to xet7.</summary>
+
+- Fill 22 date filter and automatic archival messages.
+- Batch key-order, placeholder and markup checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/357df8fbdd">Verify Kyrgyz translation completeness and literal labels</a>. Thanks to xet7.</summary>
 
 - Review 21 literal keyboard and platform labels for Kyrgyz.
