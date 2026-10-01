@@ -28,6 +28,29 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona Blockly logic selection and arithmetic.
+{
+  const locale = read('sn');
+  const keys = ["blockly-LOGIC_OPERATION_TOOLTIP_AND", "blockly-LOGIC_OPERATION_TOOLTIP_OR", "blockly-LOGIC_TERNARY_CONDITION", "blockly-LOGIC_TERNARY_IF_FALSE", "blockly-LOGIC_TERNARY_IF_TRUE", "blockly-LOGIC_TERNARY_TOOLTIP", "blockly-MATH_ADDITION_SYMBOL_ARIA", "blockly-MATH_ARITHMETIC_TOOLTIP_ADD", "blockly-MATH_ARITHMETIC_TOOLTIP_DIVIDE", "blockly-MATH_ARITHMETIC_TOOLTIP_MINUS", "blockly-MATH_ARITHMETIC_TOOLTIP_MULTIPLY", "blockly-MATH_ARITHMETIC_TOOLTIP_POWER", "blockly-MATH_ATAN2_TITLE", "blockly-MATH_ATAN2_TOOLTIP", "blockly-MATH_CHANGE_TITLE", "blockly-MATH_CHANGE_TOOLTIP", "blockly-MATH_CONSTANT_GOLDEN_RATIO_ARIA", "blockly-MATH_CONSTANT_INFINITY_ARIA", "blockly-MATH_CONSTANT_SQRT1_2_ARIA", "blockly-MATH_CONSTANT_SQRT2_ARIA", "blockly-MATH_CONSTANT_TOOLTIP", "blockly-MATH_CONSTRAIN_TITLE", "blockly-MATH_CONSTRAIN_TOOLTIP", "blockly-MATH_DIVISION_SYMBOL_ARIA", "blockly-MATH_IS_DIVISIBLE_BY", "blockly-MATH_IS_EVEN", "blockly-MATH_IS_NEGATIVE", "blockly-MATH_IS_ODD", "blockly-MATH_IS_POSITIVE"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+  }
+  for (const label of ['CONDITION', 'IF_FALSE', 'IF_TRUE']) {
+    assert.ok(locale['blockly-LOGIC_TERNARY_TOOLTIP'].includes(locale[`blockly-LOGIC_TERNARY_${label}`]));
+  }
+  assert.match(locale['blockly-LOGIC_OPERATION_TOOLTIP_AND'], /zvose zviri zviviri/);
+  assert.match(locale['blockly-LOGIC_OPERATION_TOOLTIP_OR'], /chimwe chete kana kupfuura/);
+  assert.match(locale['blockly-MATH_CONSTRAIN_TOOLTIP'], /kusanganisira miganhu/);
+  assert.match(locale['blockly-MATH_ATAN2_TOOLTIP'], /\(X, Y\).*-180.*180/);
+  for (const token of ['π', '3.141…', '2.718…', '1.618…', 'sqrt(2)', '1.414…', 'sqrt(½)', '0.707…', '∞']) {
+    assert.ok(locale['blockly-MATH_CONSTANT_TOOLTIP'].includes(token));
+  }
+  assert.notEqual(locale['blockly-MATH_IS_EVEN'], locale['blockly-MATH_IS_ODD']);
+  assert.notEqual(locale['blockly-MATH_IS_NEGATIVE'], locale['blockly-MATH_IS_POSITIVE']);
+  assert.equal(locale['blockly-MAC_OS'], 'macOS');
+}
+
 // Shona Blockly list conversion and Boolean comparisons.
 {
   const locale = read('sn');
