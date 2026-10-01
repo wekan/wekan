@@ -1685,6 +1685,16 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1dfe97675e">Translate Javanese trigonometry and function editor</a>. Thanks to xet7.</summary>
+
+- Fill 33 trigonometry, variable and function-editor messages.
+- Focused key-order, placeholder and restriction checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/92f9b6436a">Translate Javanese mathematical functions</a>. Thanks to xet7.</summary>
 
 - Fill 30 random-number, rounding and mathematical-function messages.
