@@ -2265,6 +2265,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/afb16089fc84392c8d48c7c78879b135741029e9">Translate Marathi sprint events and estimates</a>. Thanks to xet7.</summary>
+
+- Translate 32 Marathi sprint event, state and estimate messages.
+- Check unknown estimates, scope changes and comparison requirements while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
