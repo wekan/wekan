@@ -28,6 +28,32 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Hausa mathematical accessibility labels preserve operation distinctions.
+{
+  const locale = read('ha');
+  const keys = ["blockly-LOGIC_COMPARE_NEQ_ARIA", "blockly-MATH_ADDITION_SYMBOL_ARIA", "blockly-MATH_CONSTANT_GOLDEN_RATIO_ARIA", "blockly-MATH_CONSTANT_INFINITY_ARIA", "blockly-MATH_CONSTANT_SQRT1_2_ARIA", "blockly-MATH_CONSTANT_SQRT2_ARIA", "blockly-MATH_DIVISION_SYMBOL_ARIA", "blockly-MATH_MULTIPLICATION_SYMBOL_ARIA", "blockly-MATH_ONLIST_OPERATOR_MAX_ARIA", "blockly-MATH_ONLIST_OPERATOR_MIN_ARIA", "blockly-MATH_POWER_SYMBOL_ARIA", "blockly-MATH_SINGLE_OP_ABSOLUTE_ARIA", "blockly-MATH_SINGLE_OP_EXP_ARIA", "blockly-MATH_SINGLE_OP_LN_ARIA", "blockly-MATH_SINGLE_OP_LOG10_ARIA", "blockly-MATH_SINGLE_OP_NEG_ARIA", "blockly-MATH_SINGLE_OP_POW10_ARIA", "blockly-MATH_SUBTRACTION_SYMBOL_ARIA", "blockly-MATH_TRIG_ACOS_ARIA", "blockly-MATH_TRIG_ASIN_ARIA", "blockly-MATH_TRIG_ATAN_ARIA", "blockly-MATH_TRIG_COS_ARIA", "blockly-MATH_TRIG_SIN_ARIA", "blockly-MATH_TRIG_TAN_ARIA"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `ha:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ha:${key}: tokens`);
+  }
+  assert.notEqual(locale['blockly-LOGIC_COMPARE_NEQ_ARIA'], locale['blockly-LOGIC_COMPARE_EQ_ARIA']);
+  assert.notEqual(locale['blockly-MATH_ONLIST_OPERATOR_MAX_ARIA'], locale['blockly-MATH_ONLIST_OPERATOR_MIN_ARIA']);
+  assert.notEqual(locale['blockly-MATH_ADDITION_SYMBOL_ARIA'], locale['blockly-MATH_SUBTRACTION_SYMBOL_ARIA']);
+  assert.match(locale['blockly-MATH_CONSTANT_SQRT1_2_ARIA'], /rabin ɗaya$/);
+  assert.match(locale['blockly-MATH_CONSTANT_SQRT2_ARIA'], /2$/);
+  assert.match(locale['blockly-MATH_SINGLE_OP_LN_ARIA'], /tushe e$/);
+  assert.match(locale['blockly-MATH_SINGLE_OP_LOG10_ARIA'], /tushe 10$/);
+  assert.match(locale['blockly-MATH_SINGLE_OP_NEG_ARIA'], /canza alamar/);
+  for (const name of ['COS', 'SIN', 'TAN']) {
+    const direct = locale[`blockly-MATH_TRIG_${name}_ARIA`];
+    const inverse = locale[`blockly-MATH_TRIG_A${name}_ARIA`];
+    assert.notEqual(direct, inverse);
+    assert.ok(direct.includes(name.toLowerCase()));
+    assert.ok(inverse.includes(name.toLowerCase()));
+    assert.match(inverse, /zuwa kusurwa$/);
+  }
+}
+
 // Hausa text inputs, keyboard navigation and comparison labels.
 {
   const locale = read('ha');
