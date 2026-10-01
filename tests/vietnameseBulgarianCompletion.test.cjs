@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona Scrum sprint lifecycle, backlog and event labels.
+{
+  const locale = read('sn');
+  const keys = ["scrum-source-customField", "scrum-policy-dueComplete", "scrum-policy-doneLists", "scrum-sprints", "scrum-sprint", "scrum-start-sprint", "scrum-close-sprint", "scrum-cancel-sprint", "scrum-rollover-sprint", "scrum-cancel-reason", "scrum-product-backlog", "scrum-edit-sprint", "scrum-sprint-goal", "scrum-capacity", "scrum-new-sprint", "scrum-releases", "scrum-release", "scrum-select-sprint", "scrum-backlog", "scrum-backlog-help", "scrum-estimate", "scrum-backlog-rank", "scrum-issue-type", "scrum-acceptance-criteria", "scrum-events", "scrum-event-kind", "scrum-timebox", "scrum-notes", "scrum-event-planning", "scrum-event-daily"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+  }
+  assert.equal(locale['scrum-sprints'], locale['board-view-sprints']);
+  assert.equal(locale['scrum-product-backlog'], locale['board-view-product-backlog']);
+  assert.equal(new Set(['start', 'close', 'cancel'].map(action => locale[`scrum-${action}-sprint`])).size, 3);
+  assert.match(locale['scrum-rollover-sprint'], /risina kupera/);
+  assert.match(locale['scrum-backlog-help'], /yakarongwa kana iri kushanda/);
+  assert.match(locale['scrum-timebox'], /maminitsi/);
+  assert.notEqual(locale['scrum-policy-dueComplete'], locale['scrum-policy-doneLists']);
+  assert.notEqual(locale['scrum-event-planning'], locale['scrum-event-daily']);
+}
+
 // Shona rule editor validation and Scrum planning labels.
 {
   const locale = read('sn');
