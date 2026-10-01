@@ -28,6 +28,22 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Igbo email queue controls and cancellation boundaries.
+{
+  const locale = read('ig');
+  const keys = ["sync-estimate-field-hint", "email-recovery-heading", "email-recovery-description", "email-recovery-saving", "email-recovery-queued", "email-recovery-retrying", "email-recovery-attempts", "email-recovery-oldest", "email-recovery-next", "email-recovery-changed", "email-recovery-pause", "email-recovery-resume", "email-recovery-cancel", "email-recovery-paused", "email-recovery-pending", "email-recovery-empty", "email-recovery-unavailable", "email-recovery-busy", "email-recovery-failed", "email-recovery-superseded", "email-recovery-confirm-cancel", "email-recovery-attention", "email-recovery-stopped", "email-recovery-retry", "email-failure-smtp-temporary", "email-failure-smtp-rejected"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `ig:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ig:${key}: tokens`);
+  }
+  assert.match(locale['sync-estimate-field-hint'], /ID.*Jira.*null.*ehichapụ/);
+  assert.match(locale['email-recovery-description'], /ID.*Enweghị ike ịkpọghachi/);
+  assert.match(locale['email-recovery-confirm-cancel'], /enweghịkwa ike iweghachite.*mgbe arịrịọ a gasịrị/);
+  assert.match(locale['email-failure-smtp-temporary'], /SMTP nwa oge/);
+  assert.match(locale['email-failure-smtp-rejected'], /SMTP na-adịgide adịgide/);
+  assert.equal(new Set(['pause', 'resume', 'cancel', 'retry'].map(action => locale[`email-recovery-${action}`])).size, 4);
+}
+
 // Igbo Sync report limits and outcome distinctions.
 {
   const locale = read('ig');
