@@ -2479,6 +2479,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7638c2d48cf44f2f589d1e91e89fb0b874a37153">Translate Sinhala keyboard navigation and list operations</a>. Thanks to xet7.</summary>
+
+- Translate 30 Sinhala keyboard navigation and list operation messages.
+- Check modifier keys, empty list length and retrieval versus removal while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
