@@ -9785,6 +9785,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/72229774020a3e0aa6735c19e765b49af52063cc">Translate Igbo block descriptions and backpack actions</a>. Thanks to xet7.</summary>
+
+- Fill 30 Igbo Blockly description, warning and backpack placeholders,
+  preserving existing translations and source tokens.
+- Translation, registry and human-preference checks pass, covering singular
+  and plural inputs, copy-all actions, collapsed states and keyboard End.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
