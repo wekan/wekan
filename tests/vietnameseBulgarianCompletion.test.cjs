@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona date filtering and Leo import placeholders.
+{
+  const locale = read('sn');
+  const keys = ["auto-archive-days", "auto-archive-off", "auto-archive-hint", "filter-recency-any", "filter-recency-day", "filter-recency-week", "filter-recency-month", "filter-recency-older", "filter-movement-range", "filter-date-range-field", "filter-date-range-from", "filter-date-range-to", "filter-date-range-missing", "filter-date-range-list-entry", "filter-date-range-invalid", "filter-due-any", "filter-due-previous-week", "filter-due-next-month", "filter-column-age", "filter-column-age-disabled", "filter-column-age-days", "filter-column-age-hint", "advanced-filter-card-dates-hint", "import-board-instruction-leo", "instance"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+  }
+  for (const token of ['@createdAt', '@receivedAt', '@startAt', '@dueAt', '@endAt', '@listEnteredAt', "@endAt >= '2026-01-01'", '@endAt = none']) assert.ok(locale['advanced-filter-card-dates-hint'].includes(token));
+  for (const key of ['filter-date-range-from', 'filter-date-range-to']) assert.match(locale[key], /kusanganisira/);
+  assert.match(locale['filter-date-range-invalid'], /rimwe chete.*kana.*richitevera/);
+  assert.match(locale['filter-column-age-hint'], /asingazivikanwi.*zvichionekwa.*hakutangisi patsva/);
+  assert.match(locale['auto-archive-hint'], /awa imwe neimwe.*matemplate haambochengetwi/);
+  for (const token of ['Leo', '.leo']) assert.ok(locale['import-board-instruction-leo'].includes(token));
+  assert.match(locale['import-board-instruction-leo'], /zvakamakiwa.*sezvakapera/);
+  assert.notEqual(locale['filter-recency-month'], locale['filter-recency-older']);
+}
+
 // Final Shona prefixed-English corrections; ordinary placeholders remain separate.
 {
   const locale = read('sn');
