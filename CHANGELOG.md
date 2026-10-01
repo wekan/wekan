@@ -12007,6 +12007,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f3aabaa9f514e305fb1a6502a8fed86a194c98e3">Latin sprint states and daily observations</a>. Thanks to xet7.</summary>
+
+- Fill 34 English placeholders for sprint states and reporting notes,
+  preserving existing translations and placeholders.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for observations, cancellation and sync conflict handling.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
