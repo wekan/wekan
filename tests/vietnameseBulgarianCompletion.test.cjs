@@ -28,6 +28,25 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Arabic-script Uzbek calendar labels retain distinct calendar variants.
+{
+  const locale = read('uz-AR');
+  const keys = ["calendar-next-month-label", "calendar-system", "calendar-system-gregorian", "calendar-system-jalali", "calendar-system-buddhist", "calendar-system-chinese", "calendar-system-coptic", "calendar-system-dangi", "calendar-system-ethioaa", "calendar-system-ethiopic", "calendar-system-hebrew", "calendar-system-indian", "calendar-system-islamic", "calendar-system-islamic-civil", "calendar-system-islamic-rgsa", "calendar-system-islamic-tbla", "calendar-system-islamic-umalqura", "calendar-system-iso8601", "calendar-system-japanese", "calendar-system-roc", "cancel", "card-archived", "board-archived", "card-comments-title", "card-comments-on-minicard"];
+  for (const key of keys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `uz-AR:${key}: tokens`);
+    const prose = locale[key].replace(/%s|ISO/g, '');
+    assert.match(prose, /[\u0600-\u06ff]/, key);
+    assert.doesNotMatch(prose, /[A-Za-z]/, `${key}: no Latin prose`);
+  }
+  const calendars = keys.filter(k => k.startsWith('calendar-system-'));
+  assert.equal(new Set(calendars.map(k => locale[k])).size, calendars.length);
+  assert.ok(locale['calendar-system-iso8601'].includes('ISO 8601'));
+  assert.match(locale['calendar-system-islamic-civil'], /فقرالیک/);
+  assert.match(locale['calendar-system-islamic-tbla'], /استرانامیک/);
+  assert.notEqual(locale['calendar-next-month-label'], locale['calendar-previous-month-label']);
+  assert.notEqual(locale['card-archived'], locale['board-archived']);
+}
+
 // Arabic-script Uzbek timeline text preserves restoration scope and metric distinctions.
 {
   const locale = read('uz-AR');
