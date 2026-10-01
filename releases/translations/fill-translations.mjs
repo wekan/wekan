@@ -730,9 +730,9 @@ const LOCALE_INVARIANTS = {
     'blockly-MATH_TRIG_COS', 'blockly-MATH_TRIG_SIN', 'blockly-MATH_TRIG_TAN',
     'blockly-SHIFT_KEY', 'blockly-TAB_KEY', 'blockly-WINDOWS', 'scrum-sprint',
   ]),
-  // Dutch shares these mathematical labels (including "is even") and Scrum
+  // Dutch and Flemish share these mathematical labels (including "is even") and Scrum
   // terms; product names and printed keyboard legends stay recognizable.
-  ...Object.fromEntries(['nl', 'nl-NL'].map(code => [code, new Set([
+  ...Object.fromEntries(['nl', 'nl-NL', 'vl-SS'].map(code => [code, new Set([
     'blockly-ALT_KEY', 'blockly-BACKSPACE_KEY', 'blockly-BLOCK_LABEL_BEGIN_PREFIX',
     'blockly-CAPS_LOCK_KEY', 'blockly-CHROME_OS', 'blockly-COMMAND_KEY',
     'blockly-CONTEXT_MENU_KEY', 'blockly-ENTER_KEY', 'blockly-HOME_KEY',

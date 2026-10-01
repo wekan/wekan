@@ -11,7 +11,7 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
   'ru', 'ru-RU', 'ru-UA', 'ru_RU', 'uk', 'uk-UA', 'pl', 'pl-PL', 'cs', 'cs-CZ',
   'de', 'de_DE', 'de-AT', 'de-CH', 'fr', 'fr-FR', 'fr-BE', 'fr-CA', 'fr-CH',
   'es', 'es-AR', 'es-LA', 'es-CL', 'es_CO', 'es-CO', 'es-PY', 'es-PE', 'es-MX', 'it',
-  'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'nl', 'nl-NL', 'sv', 'fi', 'et-EE', 'da', 'nb', 'tr', 'id', 'ro', 'ro-RO', 'hu', 'sk', 'ja', 'ja-JP', 'ko', 'ko-KR',
+  'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'nl', 'nl-NL', 'vl-SS', 'sv', 'fi', 'et-EE', 'da', 'nb', 'tr', 'id', 'ro', 'ro-RO', 'hu', 'sk', 'ja', 'ja-JP', 'ko', 'ko-KR',
   'zh-CN', 'zh-Hans', 'zh', 'cmn', 'zh_SG', 'zh-GB', 'zh-Hant', 'zh-TW', 'zh-HK', 'ar', 'ar-DZ', 'ar-EG', 'gl', 'gl-ES', 'he', 'he-IL', 'fa', 'fa-IR', 'ms', 'ms-MY', 'sl', 'sl_SI', 'hr', 'sr', 'bs', 'mk', 'be', 'lt', 'lv', 'is', 'af', 'af_ZA', 'hi', 'hi-IN', 'bn', 'ta', 'ne', 'ur', 'th', 'gu-IN', 'kn', 'ga', 'co', 'sc', 'scn', 'nap', 'an', 'ast-ES', 'oc', 'br', 'eu', 'cy', 'cy-GB', 'gd', 'csb', 'eo', 'sq', 'hy', 'az', 'az-AZ', 'az-LA', 'ka', 'sw', 'tl', 'mt', 'lb', 'fo', 'fur', 'fy', 'fy-NL', 'rm', 'sn', 'yo', 'ig', 'ha', 'uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(english), `${code}: source key order`);
@@ -27,6 +27,18 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
   for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
+}
+// Flemish uses standard Dutch wording while retaining its own Done label.
+{
+  const locale = read('vl-SS');
+  assert.match(locale['import-board-instruction-todotxt'], /naar Klaar/);
+  assert.match(locale['rule-email-recovery-actions-hint'], /nooit zelf opnieuw/);
+  assert.match(locale['rule-email-recovery-resend-confirm'], /twee keer/);
+  assert.match(locale['rule-email-legacy-description'], /auteur van de regel nog toegang heeft/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /nooit verzonden/);
+  assert.notEqual(locale['rule-email-recovery-recipient-accepted'], locale['rule-email-recovery-recipient-unconfirmed']);
+  assert.equal(locale['blockly-MATH_IS_EVEN'], 'is even');
+  assert.equal(locale['blockly-MATH_IS_ODD'], 'is oneven');
 }
 // Veps additions retain delivery safeguards and import syntax.
 {
