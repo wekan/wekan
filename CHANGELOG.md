@@ -9545,6 +9545,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/60f8a8f7fbfffdbd506788cb060f615914592e0b">Translate Yoruba Blockly accessible controls and field types</a>. Thanks to xet7.</summary>
+
+- Translate 25 Blockly accessibility strings, preserving substitution
+  tokens and distinct add, remove, collapse and expand controls.
+- Translation, registry and human-preference checks pass, covering tokens,
+  empty trash, keyboard names and distinct input and function labels.
+  Wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
