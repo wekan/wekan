@@ -2419,6 +2419,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f8f5bacbffb0b0ea1b2136bf432b049ff763158f">Translate Sinhala block labels and editor warnings</a>. Thanks to xet7.</summary>
+
+- Translate 30 Sinhala block labels, editor warnings and color inputs.
+- Check deletion restrictions, warnings and singular versus plural inputs
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
