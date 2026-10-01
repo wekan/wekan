@@ -28,6 +28,26 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Haitian Creole filter and automation translations preserve executable examples.
+{
+  const locale = read('ht');
+  assert.deepEqual(Object.keys(locale), Object.keys(english));
+  for (const key of ["auto-archive-days", "auto-archive-off", "auto-archive-hint", "filter-recency-any", "filter-recency-day", "filter-recency-week", "filter-recency-month", "filter-recency-older", "filter-movement-range", "filter-date-range-field", "filter-date-range-from", "filter-date-range-to", "filter-date-range-missing", "filter-date-range-list-entry", "filter-date-range-invalid", "filter-due-any", "filter-due-previous-week", "filter-due-next-month", "filter-column-age", "filter-column-age-disabled", "filter-column-age-days", "filter-column-age-hint", "advanced-filter-card-dates-hint", "import-board-instruction-leo", "instance", "instance-desc", "board-instance-info", "automatic-linked-url-schemes-hint", "other-parent-cards", "add-parent-card", "remove-parent-card", "r-when-card-date", "r-trigger-vars-hint", "r-insert-variable", "r-vars-people-hint", "r-rule-any-trigger-help", "r-add-trigger-to-rule", "r-add-action-to-rule", "r-remove-rule-part", "notification-activity-heading", "notification-activity-description", "notification-activity-labels", "notification-activity-members", "notification-activity-assignees", "notification-activity-comments", "notification-activity-moves", "notification-activity-dates", "notification-activity-checklists", "notification-activity-attachments", "notification-activity-customFields", "notification-activity-archive", "notification-activity-created", "due-reminder-heading", "due-reminder-days-label", "due-reminder-off", "due-reminder-webhook", "due-reminder-invalid", "due-reminder-saved", "dependency-type-duplicates", "dependency-type-is-duplicated-by", "custom-field-stringtemplate-context-hint", "filter-presets", "filter-preset-choose", "filter-preset-name", "filter-preset-save"]) {
+    assert.notEqual(locale[key], english[key], `${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ht:${key}: tokens`);
+    assert.deepEqual(locale[key].match(/%?\{[^}]+\}/g), english[key].match(/%?\{[^}]+\}/g), `ht:${key}: variable syntax`);
+  }
+  for (const token of ['@createdAt', '@receivedAt', '@startAt', '@dueAt', '@endAt', '@listEnteredAt', "@endAt >= '2026-01-01'", '@endAt = none']) assert.ok(locale['advanced-filter-card-dates-hint'].includes(token));
+  for (const token of ['thunderlink', 'onenote', 'javascript', 'data', 'vbscript']) assert.ok(locale['automatic-linked-url-schemes-hint'].includes(token));
+  assert.match(locale['automatic-linked-url-schemes-hint'], /pa janm kreye lyen pou javascript/);
+  assert.match(locale['instance-desc'], /pa janm montre li bay moun ki pa konekte/);
+  assert.match(locale['instance-desc'], /sèlman moun yo ajoute nan tablo a ki ka modifye/);
+  assert.match(locale['auto-archive-hint'], /pa janm mete modèl yo nan achiv/);
+  assert.match(locale['filter-column-age-hint'], /pa rekòmanse konte tan/);
+  assert.match(locale['due-reminder-days-label'], /pozitif yo se jou anvan.*negatif yo se jou apre/);
+  assert.match(locale['board-instance-info'], /<strong>[^<]+<\/strong>/);
+  assert.notEqual(locale['dependency-type-duplicates'], locale['dependency-type-is-duplicated-by']);
+}
 // Cherokee additions retain syllabics, delivery safeguards and import syntax.
 {
   const locale = read('chr');
