@@ -11974,6 +11974,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dd0cf4d4353fc23b8a37b1ca18f9cfedf1fc68ae">Latin Blockly text operations</a>. Thanks to xet7.</summary>
+
+- Fill 65 English placeholders for text operations and variable messages,
+  preserving existing translations and placeholders.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for whitespace, replacement arguments and variable type conflicts.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
