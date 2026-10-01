@@ -12295,6 +12295,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eac93bb32393b206c2f4b1c9290391aa8e054741">Telugu automation and notification messages</a>. Thanks to xet7.</summary>
+
+- Translate 35 automation, notification and saved filter placeholders.
+- Check template variables, action order, reminder timing and notification
+  exceptions while preserving existing translations and source tokens.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
