@@ -1685,6 +1685,17 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e2c9fa2e74">Translate Tajik filters and rule controls</a>. Thanks to xet7.</summary>
+
+- Fill 40 date-filter, archival, visibility and rule-control messages.
+- The batch passes key-order, placeholder and query-syntax checks, and all
+  21 human-preference checks pass. Existing full-language coverage remains
+  failing on 856 untranslated entries. Browser and native-speaker reviews
+  were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c1fe72be8f">Verify Cantonese translation completeness and literal labels</a>. Thanks to xet7.</summary>
 
 - Check every Cantonese source key and placeholder; classify 28 printed key
