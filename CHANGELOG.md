@@ -1685,6 +1685,16 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f98a3195e7">Translate Javanese editing and bitmap messages</a>. Thanks to xet7.</summary>
+
+- Fill 33 editing commands, bitmap labels and keyboard-help messages.
+- Focused key-order, placeholder and restriction checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/188ecb414e">Translate Javanese colours and loop controls</a>. Thanks to xet7.</summary>
 
 - Fill 32 colour, loop and conditional messages.
