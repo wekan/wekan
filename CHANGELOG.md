@@ -9365,6 +9365,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/33d380b83694858c6f2825455ed0cf5af7b10e4b">Translate Shona Blockly text output and variable validation</a>. Thanks to xet7.</summary>
+
+- Translate 34 text output, trimming, variable and workspace strings,
+  preserving substitution tokens and whitespace handling descriptions.
+- Translation, registry and human-preference checks pass, covering tokens,
+  trim directions, prompt types and distinct variable conflict messages.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
