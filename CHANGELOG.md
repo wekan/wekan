@@ -2611,6 +2611,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/97ecdb65d17a033ce351ce369ce0fe52eba5dd64">Translate Sinhala rule editing and planning messages</a>. Thanks to xet7.</summary>
+
+- Translate 30 Sinhala rule-editing, planning and remaining block labels.
+- Check rule conflicts, administrator permissions and unsaved-change warnings,
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
