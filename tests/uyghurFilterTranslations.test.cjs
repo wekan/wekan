@@ -64,7 +64,30 @@ const keys = [
   "due-reminder-webhook",
   "due-reminder-invalid",
   "due-reminder-saved",
-  "dependency-type-duplicates"
+  "dependency-type-duplicates",
+  "dependency-type-is-duplicated-by",
+  "custom-field-stringtemplate-context-hint",
+  "filter-presets",
+  "filter-preset-choose",
+  "filter-preset-name",
+  "filter-preset-save",
+  "filter-preset-replace-hint",
+  "filter-preset-saved",
+  "filter-preset-applied",
+  "filter-preset-deleted",
+  "filter-preset-error",
+  "filter-card-text-label",
+  "import-report-heading",
+  "import-report-description",
+  "import-report-open-board",
+  "draggable",
+  "board-view-map",
+  "map-view-empty",
+  "map-view-upload",
+  "map-view-remove-image",
+  "map-view-unplaced",
+  "map-view-place-hint",
+  "map-view-all-placed"
 ];
 for (const key of keys) {
   assert.ok(locale[key]?.trim(), key);
