@@ -9125,6 +9125,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/866498662dac67b4fa4b21f2024b6a19d779414a">Remove remaining prefixed English from Shona translations</a>. Thanks to xet7.</summary>
+
+- Translate 61 remaining prefixed entries and restore S3 and Cron names.
+  Add a whole-file guard against English disguised with a Shona prefix.
+- Translation, registry and human-preference checks pass, covering report
+  explanations, forecast limits, shared labels and placeholders.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Ordinary English placeholders remain; wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
