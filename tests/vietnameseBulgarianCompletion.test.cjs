@@ -28,6 +28,22 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek sync reports preserve retention, report limits and distinct outcomes.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["sync-preview-parser-warnings", "sync-preview-parser-unsupported", "sync-source-heading", "sync-source-scope", "sync-source-unmapped", "sync-source-excluded", "sync-source-converted", "sync-source-fallback", "sync-source-excluded-item", "sync-source-occurrences", "sync-source-truncated", "sync-source-omitted", "sync-report-button", "sync-report-retention", "sync-report-partial", "sync-report-unfinished", "sync-report-failed", "sync-report-completed", "sync-report-completed-with-warnings", "sync-report-skipped"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  assert.match(locale['sync-report-retention'], /20.*30/);
+  assert.ok(locale['sync-source-truncated'].includes('100'));
+  assert.equal(new Set(['unfinished', 'failed', 'completed', 'completed-with-warnings', 'skipped'].map(k => locale[`sync-report-${k}`])).size, 5);
+  for (const key of ['unmapped', 'excluded']) assert.equal(locale[`sync-source-${key}`], locale[`sync-preview-${key}`]);
+  assert.match(locale['sync-report-partial'], code === 'uz-AR' ? /دوام اېتتیرمیدی.*بېکار قیلمیدی/ : /davom ettirmaydi.*bekor qilmaydi/);
+}
+
 // Uzbek sync previews distinguish changes and preserve recovery limits.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
