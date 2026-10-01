@@ -1685,6 +1685,17 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5cc76ca933">Translate Cantonese recovery and delivery controls</a>. Thanks to xet7.</summary>
+
+- Fill 68 messages for recovery, delivery failures, SAML sign-in and
+  undo/redo requests, preserving cancellation and retry limitations.
+- Cantonese key-order, translation and placeholder checks and all 21
+  human-preference checks pass. Literal labels still need review;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d22b662419">Translate Cantonese Sync reports and email queue</a>. Thanks to xet7.</summary>
 
 - Fill 37 messages for Sync diagnostics, report retention and email queue
