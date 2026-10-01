@@ -28,6 +28,25 @@ for (const code of ['pa', 'ps', 'te-IN', 'mn', 'la', 'ht', 'vi', 'vi-VN', 'bg', 
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Malayalam date filters preserve query syntax and archival exceptions.
+{
+  const locale = read('ml');
+  for (const key of ["auto-archive-days", "auto-archive-off", "auto-archive-hint", "filter-recency-any", "filter-recency-day", "filter-recency-week", "filter-recency-month", "filter-recency-older", "filter-movement-range", "filter-date-range-field", "filter-date-range-from", "filter-date-range-to", "filter-date-range-missing", "filter-date-range-list-entry", "filter-date-range-invalid", "filter-due-any", "filter-due-previous-week", "filter-due-next-month", "filter-column-age", "filter-column-age-disabled", "filter-column-age-days", "filter-column-age-hint", "advanced-filter-card-dates-hint", "import-board-instruction-leo", "instance"]) {
+    assert.notEqual(locale[key], english[key]);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]));
+    assert.deepEqual(locale[key].match(/%?\{[^}]+\}/g), english[key].match(/%?\{[^}]+\}/g));
+    assert.match(locale[key], /[\u0d00-\u0d7f]/);
+  }
+  for (const token of ['@createdAt', '@receivedAt', '@startAt', '@dueAt', '@endAt', '@listEnteredAt', "'2026-01-01'", '>=', '= none']) {
+    assert.ok(locale['advanced-filter-card-dates-hint'].includes(token));
+  }
+  assert.match(locale['auto-archive-hint'], /ഒരിക്കലും ശേഖരത്തിലേക്ക് മാറ്റില്ല/);
+  assert.match(locale['filter-column-age-hint'], /തീയതി അറിയാത്ത കാർഡുകളും ദൃശ്യമാകും/);
+  assert.match(locale['filter-date-range-from'], /ഉൾപ്പെടെ/);
+  assert.match(locale['filter-date-range-to'], /ഉൾപ്പെടെ/);
+  assert.match(locale['import-board-instruction-leo'], /Leo.*\.leo/);
+}
+
 // Punjabi date filters retain query syntax and archival exceptions.
 {
   const locale = read('pa');
