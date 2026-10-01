@@ -28,6 +28,25 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona search and dependency labels replace prefixed English.
+{
+  const locale = read('sn');
+  const keys = ["operator-member-abbrev", "operator-assignee", "operator-assignee-abbrev", "operator-creator", "operator-due", "operator-modified", "operator-has", "operator-limit", "operator-debug", "operator-org", "operator-customfield", "predicate-ended", "predicate-overdue", "predicate-month", "predicate-quarter", "predicate-year", "predicate-due", "predicate-modified", "predicate-start", "predicate-end", "predicate-assignee", "predicate-selector", "predicate-projection", "operator-number-expected", "heading-notes", "globalSearch-instructions-operators", "globalSearch-instructions-operator-at", "excel-font", "number", "sort-boards-custom", "card-mark-incomplete", "stickers", "card-dependencies", "dependency-type", "dependency-icon", "dependency-type-blocks", "dependency-type-fixes", "location", "location-address", "location-latitude"];
+  const invariants = ["operator-member-abbrev", "operator-assignee-abbrev", "excel-font"];
+  for (const key of keys) {
+    assert.doesNotMatch(locale[key], /Mashoko echiShona:/, `sn:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+    if (invariants.includes(key)) assert.equal(locale[key], english[key], `sn:${key}: syntax or font name`);
+    else assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    if ((key.startsWith('operator-') || key.startsWith('predicate-')) && key !== 'operator-number-expected') assert.doesNotMatch(locale[key], /\s/, `sn:${key}: single search token`);
+  }
+  for (const name of ['assignee', 'due', 'modified']) assert.equal(locale[`operator-${name}`], locale[`predicate-${name}`]);
+  for (const token of ['__operator_user_abbrev__username', 'user:<username>']) assert.ok(locale['globalSearch-instructions-operator-at'].includes(token));
+  assert.equal(locale.stickers, locale['cardStickersPopup-title']);
+  assert.notEqual(locale['dependency-type-blocks'], locale['dependency-type-fixes']);
+  assert.match(locale['card-mark-incomplete'], /harina kupera/);
+}
+
 // Shona weekdays, layout and reminder text replace prefixed English.
 {
   const locale = read('sn');
