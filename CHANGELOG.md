@@ -9653,6 +9653,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2c7aed93f157b7d0cc5c33817c68a785595a7849">Translate Yoruba rule editor and Scrum planning labels</a>. Thanks to xet7.</summary>
+
+- Fill 31 Yoruba rule-editor and Scrum planning placeholders. Yoruba now passes
+  90 percent source coverage, bringing the README count to 132 languages.
+- Translation, registry and human-preference checks pass, covering tokens,
+  administrator permission, single-trigger rules and completion policies.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
