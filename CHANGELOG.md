@@ -9569,6 +9569,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/12fb7013c989ec605612291e8d7635a0d908a588">Translate Yoruba Blockly editing and warning controls</a>. Thanks to xet7.</summary>
+
+- Translate 23 Blockly editing and accessibility strings, preserving
+  substitution tokens, bitmap coordinates and distinct control actions.
+- Translation, registry and human-preference checks pass, covering tokens,
+  opening and closing controls, condition order and keyboard names.
+  Wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
