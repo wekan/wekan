@@ -28,6 +28,25 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona Blockly text output, trimming and variable validation.
+{
+  const locale = read('sn');
+  const keys = ["blockly-TEXT_JOIN_TOOLTIP", "blockly-TEXT_LENGTH_TITLE", "blockly-TEXT_LENGTH_TOOLTIP", "blockly-TEXT_PRINT_TITLE", "blockly-TEXT_PRINT_TOOLTIP", "blockly-TEXT_PROMPT_TOOLTIP_NUMBER", "blockly-TEXT_PROMPT_TOOLTIP_TEXT", "blockly-TEXT_PROMPT_TYPE_NUMBER", "blockly-TEXT_PROMPT_TYPE_TEXT", "blockly-TEXT_REPLACE_MESSAGE0", "blockly-TEXT_REPLACE_TOOLTIP", "blockly-TEXT_REVERSE_MESSAGE0", "blockly-TEXT_REVERSE_TOOLTIP", "blockly-TEXT_TEXT_TOOLTIP", "blockly-TEXT_TRIM_OPERATOR_BOTH", "blockly-TEXT_TRIM_OPERATOR_LEFT", "blockly-TEXT_TRIM_OPERATOR_RIGHT", "blockly-TEXT_TRIM_TOOLTIP", "blockly-TODAY", "blockly-UNDO", "blockly-UNKNOWN", "blockly-UNNAMED_KEY", "blockly-VARIABLES_DEFAULT_NAME", "blockly-VARIABLES_GET_CREATE_SET", "blockly-VARIABLES_GET_TOOLTIP", "blockly-VARIABLES_SET", "blockly-VARIABLES_SET_CREATE_GET", "blockly-VARIABLES_SET_TOOLTIP", "blockly-VARIABLE_ALREADY_EXISTS", "blockly-VARIABLE_ALREADY_EXISTS_FOR_ANOTHER_TYPE", "blockly-VARIABLE_ALREADY_EXISTS_FOR_A_PARAMETER", "blockly-WORKSPACE_COMMENT_DEFAULT_TEXT", "blockly-WORKSPACE_CONTENTS_BLOCKS_MANY", "blockly-WORKSPACE_CONTENTS_BLOCKS_ONE"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+  }
+  assert.match(locale['blockly-TEXT_LENGTH_TOOLTIP'], /kusanganisira nzvimbo dzisina mavara/);
+  assert.match(locale['blockly-TEXT_REPLACE_TOOLTIP'], /pose panowanikwa/);
+  assert.match(locale['blockly-TEXT_TRIM_TOOLTIP'], /kopi/);
+  assert.equal(new Set(['BOTH', 'LEFT', 'RIGHT'].map(side => locale[`blockly-TEXT_TRIM_OPERATOR_${side}`])).size, 3);
+  assert.notEqual(locale['blockly-TEXT_PROMPT_TOOLTIP_NUMBER'], locale['blockly-TEXT_PROMPT_TOOLTIP_TEXT']);
+  assert.match(locale['blockly-VARIABLE_ALREADY_EXISTS_FOR_ANOTHER_TYPE'], /%1.*cherumwe rudzi.*%2/);
+  assert.match(locale['blockly-VARIABLE_ALREADY_EXISTS_FOR_A_PARAMETER'], /%1.*sechinopinzwa.*%2/);
+  assert.notEqual(locale['blockly-UNDO'], locale['blockly-REDO']);
+  assert.equal(locale['blockly-WINDOWS'], 'Windows');
+}
+
 // Shona Blockly character lookup and substring operations.
 {
   const locale = read('sn');
