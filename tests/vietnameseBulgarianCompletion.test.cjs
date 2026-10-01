@@ -28,6 +28,27 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona maps, reports and waiting indicators replace prefixed English.
+{
+  const locale = read('sn');
+  const keys = ["location-longitude", "location-detect", "map-region-usa", "map-region-europe", "map-region-asia", "links-heading", "custom-field-stringtemplate", "custom-field-stringtemplate-format", "creator", "filename-invisible-legend", "reports", "problems", "speedReportTitle", "testsReportTitle", "cpuReportTitle", "databaseReportTitle", "acknowledge", "rulesReportTitle", "impersonationReportTitle", "recoveryReportTitle", "officeReportTitle", "office-location", "office-address", "office-logins", "office-shared", "apiReportTitle", "api-endpoint", "api-calls", "recovery-event", "recovery-severity", "recovery-db", "recovery-detail", "reason", "wait-spinner", "Bounce", "Cube", "Cube-Grid", "Dot", "Double-Bounce", "Rotateplane"];
+  const invariants = ["map-region-usa", "apiReportTitle", "api-endpoint"];
+  for (const key of keys) {
+    assert.doesNotMatch(locale[key], /Mashoko echiShona:/, `sn:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+    if (invariants.includes(key)) assert.equal(locale[key], english[key], `sn:${key}: abbreviation`);
+    else assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+  }
+  assert.ok(locale['custom-field-stringtemplate-format'].includes('%{value}'));
+  assert.match(locale['filename-invisible-legend'], /Tsvuku.*asingaoneki/);
+  assert.equal(locale['office-location'], locale.location);
+  assert.equal(locale['office-address'], locale['location-address']);
+  assert.equal(locale['recovery-db'], locale.Database);
+  assert.equal(locale.reason, locale['rule-email-legacy-reason']);
+  assert.ok(locale.cpuReportTitle.includes('CPU'));
+  assert.equal(new Set(['Bounce', 'Cube', 'Cube-Grid', 'Dot', 'Double-Bounce', 'Rotateplane'].map(key => locale[key])).size, 6);
+}
+
 // Shona search and dependency labels replace prefixed English.
 {
   const locale = read('sn');
