@@ -1685,6 +1685,17 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/11764dad80">Translate Cantonese maps and editor announcements</a>. Thanks to xet7.</summary>
+
+- Fill 34 messages for saved filters, import reports, map placement and
+  editor accessibility announcements, preserving numbered placeholders.
+- Cantonese key-order, translation and placeholder checks and all 21
+  human-preference checks pass. Other untranslated strings remain;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/841c5302f7">Translate Cantonese rules and notification preferences</a>. Thanks to xet7.</summary>
 
 - Fill 35 messages for rules, notification categories, due reminders,
