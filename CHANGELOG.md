@@ -9221,6 +9221,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dc780927f16578d0f25b0d4debf5dfb74521b68a">Translate Shona Blockly loops and editing controls</a>. Thanks to xet7.</summary>
+
+- Translate 45 conditional, loop, editing and bitmap accessibility strings,
+  preserving keyboard names and substitution tokens.
+- Translation, registry and human-preference checks pass, covering tokens,
+  loop conditions and distinct editing controls.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
