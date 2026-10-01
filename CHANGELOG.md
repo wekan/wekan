@@ -1685,6 +1685,16 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e8de04ad0c">Translate Javanese list retrieval and removal</a>. Thanks to xet7.</summary>
+
+- Fill 32 list-creation, retrieval, removal and sublist messages.
+- Focused key-order, placeholder and restriction checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/937e231b54">Translate Javanese inputs and keyboard navigation</a>. Thanks to xet7.</summary>
 
 - Fill 32 input, keyboard-navigation and list-creation messages.
