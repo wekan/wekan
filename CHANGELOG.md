@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5e3bbaffc3">Translate Bashkir editor input and list labels</a>. Thanks to xet7.</summary>
+
+- Fill 30 editor control, condition and list input labels.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0bd986cd02">Translate Bashkir block editing and bitmap controls</a>. Thanks to xet7.</summary>
 
 - Fill 23 block editing, variable and bitmap control messages.
