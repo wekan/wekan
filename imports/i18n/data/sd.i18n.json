@@ -3788,9 +3788,9 @@
   "saml-login-not-started": "هي SAML سائن اِن هن برائوزر ٽيب ۾ شروع نه ٿيو هو. مهرباني ڪري ٻيهر سائن اِن ڪريو.",
   "move-selection-before": "اڳ",
   "move-selection-after": "پوءِ",
-  "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",
-  "history-request-pending-redo": "Your last redo has not been confirmed by the server yet.",
-  "history-request-hint": "Trying again repeats the same request, so it can never take back a second change.",
-  "history-request-retry": "Try again",
-  "history-request-forget": "Forget it"
+  "history-request-pending-undo": "توهان جي آخري واپس ڪرڻ واري عمل جي سرور اڃا تصديق نه ڪئي آهي.",
+  "history-request-pending-redo": "توهان جي آخري ٻيهر ڪرڻ واري عمل جي سرور اڃا تصديق نه ڪئي آهي.",
+  "history-request-hint": "ٻيهر ڪوشش ساڳي درخواست ورجائي ٿي، تنهنڪري اها ڪڏهن به ٻي تبديلي واپس نٿي ڪري سگهي.",
+  "history-request-retry": "ٻيهر ڪوشش ڪريو",
+  "history-request-forget": "وساري ڇڏيو"
 }
