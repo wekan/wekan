@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek import warnings, map controls and movement announcements.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["filter-preset-saved", "filter-preset-applied", "filter-preset-deleted", "filter-preset-error", "filter-card-text-label", "import-report-heading", "import-report-description", "import-report-open-board", "draggable", "board-view-map", "map-view-empty", "map-view-upload", "map-view-remove-image", "map-view-unplaced", "map-view-place-hint", "map-view-all-placed", "blockly-ANNOUNCE_CANT_SCROLL_FURTHER", "blockly-ANNOUNCE_MOVE_AFTER", "blockly-ANNOUNCE_MOVE_AROUND", "blockly-ANNOUNCE_MOVE_BEFORE", "blockly-ANNOUNCE_MOVE_CANCELED", "blockly-ANNOUNCE_MOVE_INSIDE"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  assert.equal(new Set(['saved', 'applied', 'deleted'].map(k => locale[`filter-preset-${k}`])).size, 3);
+  assert.equal((locale['import-report-description'].match(/→/g) || []).length, 2);
+  assert.notEqual(locale['map-view-upload'], locale['map-view-remove-image']);
+  assert.notEqual(locale['map-view-unplaced'], locale['map-view-all-placed']);
+  assert.equal(new Set(['AFTER', 'AROUND', 'BEFORE', 'INSIDE'].map(k => locale[`blockly-ANNOUNCE_MOVE_${k}`])).size, 4);
+  assert.match(locale['import-report-description'], code === 'uz-AR' ? /تخته یره‌تیلدی، امّا/ : /Taxta yaratildi, ammo/);
+  assert.match(locale['map-view-empty'], code === 'uz-AR' ? /تخته مدیری/ : /Taxta administratori/);
+}
+
 // Uzbek reminder offsets, dependency directions and saved filters.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
