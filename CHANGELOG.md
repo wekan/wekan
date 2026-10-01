@@ -1683,7 +1683,8 @@ attributed only to the person it was sent to. Carries out the maintainer's
 **Sync History linked when written**, **online History writer recovery**, and
 **manual and scheduled Sync through the durable journal** with replay after a
 restart. Image covers and attachment previews show the picture
-again.
+again, and showing **dependencies** is each user's own choice, with private **My
+Dependencies**.
 Irish gains the rule email recovery and legacy review translations.
 
 This release fixes the following CRITICAL SECURITY ISSUE of [ReplyBleed](https://wekan.fi/hall-of-fame/replybleed/):
@@ -1974,6 +1975,30 @@ History planner accepts checklist-item rows for this.
 </details>
 
 and fixes the following bugs:
+
+**Dependencies** - showing dependency lines is each user's own choice, and
+every user can keep private dependencies of their own.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cff80a9d7b">Make showing dependencies each user's own choice, and add My Dependencies</a>. Thanks to nalilord and xet7.</summary>
+
+[#6732](https://github.com/wekan/wekan/issues/6732): the board-header button
+wrote one shared board field, so one user's choice changed everyone's view,
+and only board admins could write it. The button moved to the top of Member
+Settings as Show My Dependencies and Show Board Dependencies, with Import and
+Export below them. Both switches are off by default and saved per user. Board
+Dependencies stay on the cards. They can be edited by roles that can edit or
+move cards, including Workers, and by assigned-only members on their own cards.
+My Dependencies live in the user's profile, are drawn dashed and are seen only
+by their owner. Every import combines, adding only lines that are not there
+yet. The design is in
+[Board and My Dependencies](docs/Features/Editor/RedStrings/Board-And-My-Dependencies.md).
+Unit, full-app and Playwright tests cover it, run in Chromium and WebKit.
+
+</details>
+
+- [Say how many dependency lines were already there after an All Boards import](https://github.com/wekan/wekan/commit/8a6aeba7d1).
+  Thanks to nalilord and xet7.
 
 **Card images** - image covers and attachment previews show the picture again,
 on the board and in the open card, instead of a flat band or a blue button.
