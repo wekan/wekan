@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ad4de76724">Translate Bashkir date filters and archive settings</a>. Thanks to xet7.</summary>
+
+- Fill 24 date filter, archival and Leo import messages.
+- Batch key-order, placeholder, markup and query-field checks and all 21
+  human-preference checks pass. Full-language work remains; browser and
+  native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c74eff39a1">Complete Sindhi placeholder translations and verify coverage</a>. Thanks to xet7.</summary>
 
 - Translate the final five history messages; retain 28 literal keyboard,
