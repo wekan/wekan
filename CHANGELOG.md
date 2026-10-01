@@ -9641,6 +9641,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ed2971a9ec90e339bb1f1b902d6c44fed9e7af77">Translate Yoruba Blockly workspace search and announcements</a>. Thanks to xet7.</summary>
+
+- Translate 26 workspace search and announcement strings, preserving
+  substitution tokens, keyboard shortcuts and announcement spacing.
+- Translation, registry and human-preference checks pass, covering tokens,
+  search directions, movement actions and variable parameter conflicts.
+  Wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
