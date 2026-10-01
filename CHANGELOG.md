@@ -12565,6 +12565,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/64b093b2715fecc4a8fb32f382c77c914dedaf13">Translate Pashto block labels and loop controls</a>. Thanks to xet7.</summary>
+
+- Translate 37 Pashto block label, colour and loop control strings.
+- Check variable tokens, colour ranges and loop exit versus continuation while
+  preserving existing translations and literal keyboard legends.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
