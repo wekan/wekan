@@ -10085,6 +10085,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/38b41a8659d3c5e72f0588ba0972a56c09eaf735">Translate Hausa screen-reader messages and editing shortcuts</a>. Thanks to xet7.</summary>
+
+- Fill 54 Hausa accessibility, clipboard and keyboard editing messages,
+  preserving directions, screen-reader states and action distinctions.
+- Translation, registry and human-preference checks pass, covering tokens,
+  opposite states, navigation boundaries and existing translation preservation.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
