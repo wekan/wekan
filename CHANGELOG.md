@@ -12483,6 +12483,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/38d3cf63f87a1259caa61d03664bc1420b7619dc">Translate Telugu synchronization diagnostics and email queue controls</a>. Thanks to xet7.</summary>
+
+- Translate 28 synchronization report, recovery and email queue strings.
+- Check report limits, retry warnings and hidden email fields while preserving
+  placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
