@@ -28,6 +28,26 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Hausa Scrum planning and report labels.
+{
+  const locale = read('ha');
+  const keys = ["board-view-product-backlog", "board-view-sprints", "board-view-sprint-report", "board-view-velocity", "scrum-settings", "scrum-product-owner", "scrum-master", "scrum-developers", "scrum-working-days", "scrum-enabled", "scrum-product-goal", "scrum-definition-of-done", "scrum-estimate-source", "scrum-estimate-unit", "scrum-completion-policy", "scrum-source-poker", "scrum-source-customField", "scrum-policy-dueComplete", "scrum-policy-doneLists", "scrum-sprints", "scrum-sprint", "scrum-start-sprint", "scrum-close-sprint", "scrum-cancel-sprint", "scrum-rollover-sprint", "scrum-cancel-reason", "scrum-product-backlog", "scrum-edit-sprint", "scrum-sprint-goal", "scrum-capacity", "scrum-new-sprint", "scrum-releases", "scrum-release", "scrum-select-sprint", "scrum-backlog", "scrum-backlog-help", "scrum-estimate", "scrum-backlog-rank", "scrum-issue-type", "scrum-acceptance-criteria", "scrum-events", "scrum-event-kind", "scrum-timebox", "scrum-notes", "scrum-event-planning", "scrum-event-daily", "scrum-event-review", "scrum-event-retrospective", "scrum-committed", "scrum-completed", "scrum-added", "scrum-removed", "scrum-incomplete", "scrum-no-closed-sprints", "scrum-report-help", "scrum-total", "scrum-state-planned", "scrum-state-active", "scrum-state-closed", "scrum-state-cancelled"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `ha:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ha:${key}: tokens`);
+  }
+  assert.equal(locale['board-view-sprints'], locale['scrum-sprints']);
+  assert.equal(locale['board-view-product-backlog'], locale['scrum-product-backlog']);
+  assert.equal(new Set(['planned', 'active', 'closed', 'cancelled'].map(s => locale[`scrum-state-${s}`])).size, 4);
+  assert.notEqual(locale['scrum-close-sprint'], locale['scrum-cancel-sprint']);
+  assert.notEqual(locale['scrum-completed'], locale['scrum-incomplete']);
+  assert.notEqual(locale['scrum-added'], locale['scrum-removed']);
+  assert.notEqual(locale['scrum-event-review'], locale['scrum-event-retrospective']);
+  assert.match(locale['scrum-timebox'], /mintuna/);
+  assert.match(locale['scrum-report-help'], /ba kiyasin sifili ba ne/);
+  assert.match(locale['scrum-estimate-unit'], /Ma’aunin/);
+}
+
 // Hausa workspace search, composed announcements and rule editor messages.
 {
   const locale = read('ha');
