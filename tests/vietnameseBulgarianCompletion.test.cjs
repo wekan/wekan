@@ -28,6 +28,22 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek sync previews distinguish changes and preserve recovery limits.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["sync-conflict-archive", "sync-conflict-archive-hint", "sync-conflict-keep-card-local", "sync-conflict-creation", "sync-conflict-creation-hint", "sync-conflict-create-replacement", "sync-preview-button", "sync-preview-heading", "sync-preview-saved", "sync-preview-unavailable", "sync-preview-blocked", "sync-preview-create", "sync-preview-update", "sync-preview-archive", "sync-preview-baseline", "sync-preview-truncated", "sync-preview-omissions", "sync-preview-scope", "sync-preview-excluded", "sync-preview-unmapped"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  assert.equal(new Set(['create', 'update', 'archive'].map(k => locale[`sync-preview-${k}`])).size, 3);
+  assert.ok(locale['sync-preview-truncated'].includes('100'));
+  assert.notEqual(locale['sync-preview-excluded'], locale['sync-preview-unmapped']);
+  assert.match(locale['sync-conflict-archive-hint'], code === 'uz-AR' ? /قویی کارت‌لر اۉزگرمیدی/ : /Quyi kartalar oʻzgarmaydi/);
+  assert.match(locale['sync-conflict-creation-hint'], code === 'uz-AR' ? /قیته اورینیش‌لر اۉشه اۉرینباسار/ : /Qayta urinishlar oʻsha oʻrinbosar/);
+}
+
 // Uzbek observations and sync conflicts preserve limits and local-only behavior.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
