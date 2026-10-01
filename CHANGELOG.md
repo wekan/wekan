@@ -9917,6 +9917,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2cfceb184df59ef608fcd0e7df1c9ca62c5a724c">Translate Igbo Sync conflicts and previews</a>. Thanks to xet7.</summary>
+
+- Fill 28 Igbo Sync conflict and preview placeholders, preserving existing
+  translations and source tokens.
+- Translation, registry and human-preference checks pass, covering preview
+  limits, retained local content, unchanged subcards and distinct actions.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
