@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona delivery failure reasons and activity recovery.
+{
+  const locale = read('sn');
+  const keys = ["email-recovery-confirm-cancel", "email-recovery-attention", "email-recovery-stopped", "email-recovery-retry", "email-failure-smtp-temporary", "email-failure-smtp-rejected", "email-failure-smtp-authentication", "email-failure-smtp-configuration", "email-failure-recipient-unavailable", "email-failure-delivery-unconfirmed", "email-failure-acknowledgement-failed", "email-failure-delivery-failed", "email-failure-retry-limit", "sync-original-time", "sync-remaining-time", "sync-time-estimate-hint", "activity-recovery-heading", "activity-recovery-description", "activity-recovery-empty", "activity-recovery-unavailable", "activity-recovery-retry", "activity-recovery-retrying", "activity-recovery-status-pending", "activity-recovery-status-preparing", "activity-recovery-status-processing"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+  }
+  assert.match(locale['email-recovery-confirm-cancel'], /hazvigoni kudzorerwa.*mushure.*anochengetwa/);
+  assert.notEqual(locale['email-failure-smtp-temporary'], locale['email-failure-smtp-rejected']);
+  assert.match(locale['email-failure-delivery-unconfirmed'], /ongorora usati waedzazve/);
+  assert.match(locale['sync-time-estimate-hint'], /Nzvimbo imwe chete.*kusipo.*kunosiiwa.*null.*inobvisa/);
+  assert.notEqual(locale['sync-original-time'], locale['sync-remaining-time']);
+  assert.match(locale['activity-recovery-description'], /hakumbogadziri chiitiko patsva/);
+  assert.equal(new Set(['pending', 'preparing', 'processing'].map(state => locale[`activity-recovery-status-${state}`])).size, 3);
+}
+
 // Shona sync diagnostics and email delivery queue controls.
 {
   const locale = read('sn');
