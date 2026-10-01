@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Igbo Sync report limits and outcome distinctions.
+{
+  const locale = read('ig');
+  const keys = ["sync-preview-parser-unsupported", "sync-source-heading", "sync-source-scope", "sync-source-unmapped", "sync-source-excluded", "sync-source-converted", "sync-source-fallback", "sync-source-excluded-item", "sync-source-occurrences", "sync-source-truncated", "sync-source-omitted", "sync-report-button", "sync-report-retention", "sync-report-partial", "sync-report-unfinished", "sync-report-failed", "sync-report-completed", "sync-report-completed-with-warnings", "sync-report-skipped", "sync-report-review-only", "sync-report-unavailable", "sync-report-empty", "sync-recovery-heading", "sync-recovery-description", "sync-recovery-unavailable", "sync-recovery-all", "sync-estimate-field"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `ig:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ig:${key}: tokens`);
+  }
+  assert.match(locale['sync-source-truncated'], /100/);
+  assert.match(locale['sync-report-retention'], /20.*30/);
+  assert.match(locale['sync-recovery-description'], /30.*ID/);
+  assert.match(locale['sync-report-partial'], /anaghị.*weghachite/);
+  assert.notEqual(locale['sync-report-unfinished'], locale['sync-report-failed']);
+  assert.notEqual(locale['sync-report-completed'], locale['sync-report-completed-with-warnings']);
+  for (const suffix of ['unmapped', 'excluded']) assert.equal(locale[`sync-preview-${suffix}`], locale[`sync-source-${suffix}`]);
+}
+
 // Igbo Sync conflict resolution and preview scope.
 {
   const locale = read('ig');
