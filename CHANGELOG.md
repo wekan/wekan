@@ -2205,6 +2205,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a800a3fe80cecfc9b6323d490332a4829e0a3636">Translate Marathi movement and text operations</a>. Thanks to xet7.</summary>
+
+- Translate 33 Marathi movement, scrolling and text operation messages.
+- Check directions, text positions, copying and reordered placeholders while
+  preserving existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
