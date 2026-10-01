@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Arabic-script Uzbek card controls distinguish deletion, restoration and due dates.
+{
+  const locale = read('uz-AR');
+  for (const key of ["card-comments-more", "card-has-unread-comments", "card-delete-notice", "card-delete-pop", "card-delete-suggest-archive", "card-archive-pop", "card-archive-suggest-cancel", "list-archive-pop", "list-archive-suggest", "listArchivePopup-title", "swimlane-archive-pop", "swimlane-archive-suggest", "swimlaneArchivePopup-title", "card-due", "card-due-on", "due-today", "due-days-left", "due-days-overdue", "card-spent", "card-edit-attachments", "card-edit-custom-fields", "card-edit-labels", "card-edit-members", "card-labels-title", "card-members-title"]) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `uz-AR:${key}: tokens`);
+    const prose = locale[key].replace(/%s/g, '');
+    assert.match(prose, /[\u0600-\u06ff]/, key);
+    assert.doesNotMatch(prose, /[A-Za-z]/, `${key}: no Latin prose`);
+  }
+  assert.match(locale['card-delete-notice'], /دائمی/);
+  assert.match(locale['card-delete-pop'], /بېکار قیلیب بۉلمیدی/);
+  for (const key of ['card-archive-suggest-cancel', 'list-archive-suggest', 'swimlane-archive-suggest']) assert.match(locale[key], /تیکلش/);
+  assert.notEqual(locale['due-days-left'], locale['due-days-overdue']);
+  assert.match(locale['card-due-on'], /بجریش مهلتی/);
+  assert.doesNotMatch(locale['card-due-on'], /تگدی|تگگن/);
+  assert.match(locale['card-members-title'], /تخته اعضا/);
+}
+
 // Arabic-script Uzbek calendar labels retain distinct calendar variants.
 {
   const locale = read('uz-AR');
