@@ -2121,6 +2121,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/28905d1c466503c9e0589ff65ea7657e97d26b5b">Translate Marathi list editing and indexing</a>. Thanks to xet7.</summary>
+
+- Translate 30 Marathi list editing, indexing and copying messages.
+- Check missing item results, copy semantics and insertion versus assignment
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
