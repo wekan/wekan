@@ -199,3 +199,24 @@ assert.equal(javanese['board-backup-scheduled'],
 assert.deepEqual(tokens(javanese['database-migration-confirm']), ['__db__']);
 assert.match(javanese['database-migration-description'], /WEKAN_FERRETDB_URL/);
 assert.equal(javanese['sandstorm-migration-success'], 'Kasil');
+
+// Additional date and archival filters.
+{
+  const assert = require('node:assert/strict');
+  const fs = require('node:fs');
+  const path = require('node:path');
+  const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
+  const root = path.resolve(__dirname, '..');
+  const read = code => JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data', code + '.i18n.json'), 'utf8'));
+  const en = read('en'), locale = read('jv');
+  assert.deepEqual(Object.keys(locale), Object.keys(en));
+  for (const key of ["auto-archive-days", "auto-archive-off", "auto-archive-hint", "filter-recency-any", "filter-recency-day", "filter-recency-week", "filter-recency-month", "filter-recency-older", "filter-movement-range", "filter-date-range-field", "filter-date-range-from", "filter-date-range-to", "filter-date-range-missing", "filter-date-range-list-entry", "filter-date-range-invalid", "filter-due-any", "filter-due-previous-week", "filter-due-next-month", "filter-column-age", "filter-column-age-disabled", "filter-column-age-days", "filter-column-age-hint"]) {
+    assert.ok(locale[key]?.trim(), key);
+    assert.notEqual(locale[key], en[key], key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(en[key]), key);
+  }
+  assert.match(locale['auto-archive-hint'], /cithakan ora tau diarsipake/);
+  assert.match(locale['filter-column-age-hint'], /ora dingerteni tetep katon/);
+  assert.match(locale['filter-column-age-hint'], /ora miwiti maneh/);
+  console.log('Javanese filter batch: key order, placeholders and restrictions passed');
+}
