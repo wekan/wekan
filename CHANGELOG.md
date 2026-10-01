@@ -11022,6 +11022,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/11a0fe80f05e4109df20145c10994a9ab4c7f0bd">Translate new recovery strings into Samoan</a>. Thanks to xet7.</summary>
+
+- Translate 44 missing keys in sm, preserving existing values.
+  Cover todo.txt imports and email recovery and review controls.
+- Translation, registry and human-preference checks pass, covering placeholders,
+  import syntax, duplicate delivery, access checks and permanent discard.
+  Existing regression coverage is retained. Browser and fluent-speaker review
+  were not run. Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
