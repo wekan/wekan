@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Igbo date filters, archive settings and signed-in visibility.
+{
+  const locale = read('ig');
+  const keys = ["auto-archive-days", "auto-archive-off", "auto-archive-hint", "filter-recency-any", "filter-recency-day", "filter-recency-week", "filter-recency-month", "filter-recency-older", "filter-movement-range", "filter-date-range-field", "filter-date-range-from", "filter-date-range-to", "filter-date-range-missing", "filter-date-range-list-entry", "filter-date-range-invalid", "filter-due-any", "filter-due-previous-week", "filter-due-next-month", "filter-column-age", "filter-column-age-disabled", "filter-column-age-days", "filter-column-age-hint", "advanced-filter-card-dates-hint", "import-board-instruction-leo", "instance", "instance-desc", "board-instance-info", "automatic-linked-url-schemes-hint"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `ig:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ig:${key}: tokens`);
+  }
+  for (const token of ['@createdAt', '@receivedAt', '@startAt', '@dueAt', '@endAt', '@listEnteredAt', "'2026-01-01'", '>=', '= none']) assert.ok(locale['advanced-filter-card-dates-hint'].includes(token));
+  for (const scheme of ['thunderlink', 'onenote', 'javascript', 'data', 'vbscript']) assert.ok(locale['automatic-linked-url-schemes-hint'].includes(scheme));
+  assert.match(locale['board-instance-info'], /<strong>.*<\/strong>/);
+  for (const bound of ['from', 'to']) assert.match(locale[`filter-date-range-${bound}`], /gụnyere/);
+  assert.match(locale['filter-column-age-hint'], /anaghị amaliteghachi/);
+  assert.match(locale['instance-desc'], /Naanị.*bọọdụ.*idezi/);
+  assert.match(locale['import-board-instruction-leo'], /\.leo/);
+}
+
 // Yoruba final recovery messages and retained technical labels.
 {
   const locale = read('yo');
