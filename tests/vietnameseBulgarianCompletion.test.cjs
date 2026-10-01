@@ -28,6 +28,25 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona Blockly workspace navigation, variables and procedures.
+{
+  const locale = read('sn');
+  const keys = ["blockly-MATH_TRIG_TOOLTIP_ATAN", "blockly-MATH_TRIG_TOOLTIP_COS", "blockly-MATH_TRIG_TOOLTIP_SIN", "blockly-MATH_TRIG_TOOLTIP_TAN", "blockly-MINIMAP_ARIA_LABEL", "blockly-MOVE_BLOCK", "blockly-NEW_COLOUR_VARIABLE", "blockly-NEW_NUMBER_VARIABLE", "blockly-NEW_STRING_VARIABLE", "blockly-NEW_VARIABLE", "blockly-NEW_VARIABLE_TITLE", "blockly-NEW_VARIABLE_TYPE_TITLE", "blockly-NO_PARENT_ANNOUNCEMENT", "blockly-OPEN_BACKPACK", "blockly-OPEN_TRASH", "blockly-PARENT_BLOCKS_ANNOUNCEMENT", "blockly-PASTE_ALL_FROM_BACKPACK", "blockly-PASTE_SHORTCUT", "blockly-PROCEDURES_ALLOW_STATEMENTS", "blockly-PROCEDURES_BEFORE_PARAMS", "blockly-PROCEDURES_CALLNORETURN_TOOLTIP", "blockly-PROCEDURES_CALLRETURN_TOOLTIP", "blockly-PROCEDURES_CALL_BEFORE_PARAMS", "blockly-PROCEDURES_CALL_DISABLED_DEF_WARNING", "blockly-PROCEDURES_CREATE_DO", "blockly-PROCEDURES_DEFNORETURN_COMMENT", "blockly-PROCEDURES_DEFNORETURN_PROCEDURE", "blockly-PROCEDURES_DEFNORETURN_TOOLTIP"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+  }
+  for (const fn of ['COS', 'SIN', 'TAN']) {
+    assert.ok(locale[`blockly-MATH_TRIG_TOOLTIP_${fn}`].includes(fn.toLowerCase()));
+    assert.match(locale[`blockly-MATH_TRIG_TOOLTIP_${fn}`], /mumadhigirii.*kwete mumaradhiyani/);
+  }
+  assert.equal(new Set(['COLOUR', 'NUMBER', 'STRING'].map(kind => locale[`blockly-NEW_${kind}_VARIABLE`])).size, 3);
+  assert.notEqual(locale['blockly-PROCEDURES_CALLNORETURN_TOOLTIP'], locale['blockly-PROCEDURES_CALLRETURN_TOOLTIP']);
+  assert.match(locale['blockly-PROCEDURES_CALL_DISABLED_DEF_WARNING'], /Hazvigoni.*rakamiswa kushanda/);
+  assert.match(locale['blockly-PROCEDURES_DEFNORETURN_TOOLTIP'], /risingabudisi/);
+  for (const key of ['OPTION_KEY', 'PAGE_DOWN_KEY', 'PAGE_UP_KEY', 'PAUSE_KEY']) assert.equal(locale[`blockly-${key}`], english[`blockly-${key}`]);
+}
+
 // Shona Blockly rounding, unary arithmetic and trigonometry labels.
 {
   const locale = read('sn');
