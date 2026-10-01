@@ -28,6 +28,22 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Igbo sprint events, estimates and report states.
+{
+  const locale = read('ig');
+  const keys = ["scrum-edit-sprint", "scrum-sprint-goal", "scrum-capacity", "scrum-new-sprint", "scrum-releases", "scrum-release", "scrum-select-sprint", "scrum-backlog", "scrum-backlog-help", "scrum-estimate", "scrum-backlog-rank", "scrum-issue-type", "scrum-acceptance-criteria", "scrum-events", "scrum-event-kind", "scrum-timebox", "scrum-notes", "scrum-event-planning", "scrum-event-daily", "scrum-event-review", "scrum-event-retrospective", "scrum-committed", "scrum-completed", "scrum-added", "scrum-removed", "scrum-incomplete", "scrum-no-closed-sprints", "scrum-report-help", "scrum-total", "scrum-state-planned", "scrum-state-active", "scrum-state-closed"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `ig:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ig:${key}: tokens`);
+  }
+  assert.match(locale['scrum-report-help'], /a na-amaghị iche.*abụghị atụmatụ efu/);
+  assert.match(locale['scrum-timebox'], /nkeji/);
+  assert.notEqual(locale['scrum-completed'], locale['scrum-incomplete']);
+  assert.notEqual(locale['scrum-added'], locale['scrum-removed']);
+  assert.notEqual(locale['scrum-event-review'], locale['scrum-event-retrospective']);
+  assert.equal(new Set(['planned', 'active', 'closed'].map(state => locale[`scrum-state-${state}`])).size, 3);
+}
+
 // Igbo rule permissions and Scrum planning labels.
 {
   const locale = read('ig');
