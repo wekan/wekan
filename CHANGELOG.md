@@ -2229,6 +2229,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1783c4013b33ca736d522c26079799d0e3b515d7">Translate Marathi workspace and variable messages</a>. Thanks to xet7.</summary>
+
+- Translate 30 Marathi whitespace, variable and workspace messages.
+- Check trimming directions, name conflicts and joined message spacing while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
