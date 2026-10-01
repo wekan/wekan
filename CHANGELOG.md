@@ -12553,6 +12553,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b89ce7aa77401d4ef46fb91afaca3510cccf8545">Translate Pashto map and block accessibility controls</a>. Thanks to xet7.</summary>
+
+- Translate 34 Pashto map and block accessibility strings.
+- Check movement placeholders and opposite control labels while preserving
+  existing translations and literal keyboard legends.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
