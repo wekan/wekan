@@ -28,6 +28,25 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona Blockly rounding, unary arithmetic and trigonometry labels.
+{
+  const locale = read('sn');
+  const keys = ["blockly-MATH_ROUND_OPERATOR_ROUND", "blockly-MATH_ROUND_OPERATOR_ROUNDDOWN", "blockly-MATH_ROUND_OPERATOR_ROUNDUP", "blockly-MATH_ROUND_TOOLTIP", "blockly-MATH_SINGLE_OP_ABSOLUTE", "blockly-MATH_SINGLE_OP_ABSOLUTE_ARIA", "blockly-MATH_SINGLE_OP_EXP_ARIA", "blockly-MATH_SINGLE_OP_LN_ARIA", "blockly-MATH_SINGLE_OP_LOG10_ARIA", "blockly-MATH_SINGLE_OP_NEG_ARIA", "blockly-MATH_SINGLE_OP_POW10_ARIA", "blockly-MATH_SINGLE_OP_ROOT", "blockly-MATH_SINGLE_TOOLTIP_ABS", "blockly-MATH_SINGLE_TOOLTIP_EXP", "blockly-MATH_SINGLE_TOOLTIP_LN", "blockly-MATH_SINGLE_TOOLTIP_LOG10", "blockly-MATH_SINGLE_TOOLTIP_NEG", "blockly-MATH_SINGLE_TOOLTIP_POW10", "blockly-MATH_SINGLE_TOOLTIP_ROOT", "blockly-MATH_SUBTRACTION_SYMBOL_ARIA", "blockly-MATH_TRIG_ACOS_ARIA", "blockly-MATH_TRIG_ASIN_ARIA", "blockly-MATH_TRIG_ATAN_ARIA", "blockly-MATH_TRIG_COS_ARIA", "blockly-MATH_TRIG_SIN_ARIA", "blockly-MATH_TRIG_TAN_ARIA", "blockly-MATH_TRIG_TOOLTIP_ACOS", "blockly-MATH_TRIG_TOOLTIP_ASIN"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+  }
+  assert.equal(new Set(['ROUND', 'ROUNDDOWN', 'ROUNDUP'].map(kind => locale[`blockly-MATH_ROUND_OPERATOR_${kind}`])).size, 3);
+  assert.match(locale['blockly-MATH_SINGLE_TOOLTIP_LN'], /hwaro e/);
+  assert.match(locale['blockly-MATH_SINGLE_TOOLTIP_LOG10'], /hwaro 10/);
+  assert.notEqual(locale['blockly-MATH_SINGLE_TOOLTIP_ABS'], locale['blockly-MATH_SINGLE_TOOLTIP_NEG']);
+  for (const fn of ['SIN', 'COS', 'TAN']) {
+    assert.notEqual(locale[`blockly-MATH_TRIG_${fn}_ARIA`], locale[`blockly-MATH_TRIG_A${fn}_ARIA`]);
+    assert.equal(locale[`blockly-MATH_TRIG_${fn}`], english[`blockly-MATH_TRIG_${fn}`]);
+    assert.equal(locale[`blockly-MATH_TRIG_A${fn}`], english[`blockly-MATH_TRIG_A${fn}`]);
+  }
+}
+
 // Shona Blockly number properties, statistics and random bounds.
 {
   const locale = read('sn');
