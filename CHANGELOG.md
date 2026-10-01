@@ -9053,6 +9053,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d4d904f1dcaffe2f79fdcbc3f6e7d3257d606b58">Correct Shona map and report labels</a>. Thanks to xet7.</summary>
+
+- Translate 37 prefixed English entries and restore three abbreviations.
+  Preserve existing values outside this correction batch.
+- Translation, registry and human-preference checks pass, covering format
+  placeholders, shared report labels and distinct waiting indicators.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Another 263 prefixed English entries remain; wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
