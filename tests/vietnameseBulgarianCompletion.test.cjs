@@ -28,6 +28,28 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona migration and S3 labels replace prefixed English.
+{
+  const locale = read('sn');
+  const keys = ["pause", "stop", "migration-starting", "migration-pausing", "migration-stopping", "migration-paused", "migration-progress", "migration-started", "migration-stopped", "mongodb-gridfs-storage", "s3-access-key", "s3-access-key-placeholder", "s3-bucket", "s3-connection-failed", "s3-connection-success", "s3-endpoint", "s3-minio-storage", "s3-port", "s3-port-description", "s3-region", "s3-region-description", "s3-secret-key", "s3-secret-key-placeholder", "s3-ssl-enabled-description", "test-s3-connection", "writable-path", "automatic-migration", "lost-cards-list", "fix-avatar-urls-migration", "migration-needed", "migration-running", "migration-failed", "migrations", "run-migration", "migration-progress-overall", "migration-progress-details", "steps", "view", "has-swimlanes", "step-validate-migration"];
+  for (const key of keys) {
+    assert.doesNotMatch(locale[key], /Mashoko echiShona:/, `sn:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    if (key.startsWith('s3-') || key === 'test-s3-connection') assert.ok(locale[key].includes('S3'), `sn:${key}: service name`);
+  }
+  assert.equal(locale.pause, locale['move-progress-pause']);
+  assert.equal(locale['migration-progress-details'], locale.details);
+  assert.notEqual(locale.pause, locale.stop);
+  assert.notEqual(locale['migration-paused'], locale['migration-stopped']);
+  assert.notEqual(locale['s3-access-key'], locale['s3-secret-key']);
+  assert.notEqual(locale['s3-connection-success'], locale['s3-connection-failed']);
+  assert.ok(locale['s3-region-description'].includes('us-east-1'));
+  assert.ok(locale['s3-ssl-enabled-description'].includes('SSL/TLS'));
+  assert.ok(locale['mongodb-gridfs-storage'].includes('MongoDB GridFS'));
+  assert.ok(locale['fix-avatar-urls-migration'].includes('URL'));
+}
+
 // Shona backup and cloud labels replace prefixed English.
 {
   const locale = read('sn');
