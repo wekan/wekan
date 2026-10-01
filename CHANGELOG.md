@@ -11708,6 +11708,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5f87b292534c1092fda9c2fb85d7e69288d9a5fe">Translate Haitian Creole maps and Blockly accessibility</a>. Thanks to xet7.</summary>
+
+- Fill 86 English placeholders in ht, preserving existing translations.
+  Cover saved filters, import warnings, maps and Blockly accessibility.
+- Translation, registry and human-preference checks pass, covering placeholders,
+  argument order, movement directions, filter privacy and partial imports.
+  Existing coverage is extended. All locales retain the current source keys.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
