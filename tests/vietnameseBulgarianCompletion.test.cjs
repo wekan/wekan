@@ -28,6 +28,25 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek trigonometry keeps inverse functions and angle units distinct.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["blockly-MATH_SINGLE_TOOLTIP_LN", "blockly-MATH_SINGLE_TOOLTIP_LOG10", "blockly-MATH_SINGLE_TOOLTIP_NEG", "blockly-MATH_SINGLE_TOOLTIP_POW10", "blockly-MATH_SINGLE_TOOLTIP_ROOT", "blockly-MATH_SUBTRACTION_SYMBOL_ARIA", "blockly-MATH_TRIG_ACOS_ARIA", "blockly-MATH_TRIG_ASIN_ARIA", "blockly-MATH_TRIG_ATAN_ARIA", "blockly-MATH_TRIG_COS_ARIA", "blockly-MATH_TRIG_SIN_ARIA", "blockly-MATH_TRIG_TAN_ARIA", "blockly-MATH_TRIG_TOOLTIP_ACOS", "blockly-MATH_TRIG_TOOLTIP_ASIN", "blockly-MATH_TRIG_TOOLTIP_ATAN", "blockly-MATH_TRIG_TOOLTIP_COS", "blockly-MATH_TRIG_TOOLTIP_SIN", "blockly-MATH_TRIG_TOOLTIP_TAN", "blockly-MINIMAP_ARIA_LABEL", "blockly-MOVE_BLOCK", "blockly-NEW_VARIABLE", "blockly-NO_PARENT_ANNOUNCEMENT", "blockly-OPEN_BACKPACK", "blockly-OPEN_TRASH"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  for (const fn of ['COS', 'SIN', 'TAN']) {
+    assert.notEqual(locale[`blockly-MATH_TRIG_${fn}_ARIA`], locale[`blockly-MATH_TRIG_A${fn}_ARIA`]);
+    assert.ok(locale[`blockly-MATH_TRIG_TOOLTIP_${fn}`].includes(locale[`blockly-MATH_TRIG_${fn}_ARIA`]));
+    assert.ok(locale[`blockly-MATH_TRIG_TOOLTIP_A${fn}`].includes(locale[`blockly-MATH_TRIG_A${fn}_ARIA`]));
+    assert.match(locale[`blockly-MATH_TRIG_TOOLTIP_${fn}`], code === 'uz-AR' ? /گرادوس‌ده \(رادیان‌ده اېمس\)/ : /Gradusda \(radianda emas\)/);
+  }
+  for (const key of ['blockly-MATH_SINGLE_TOOLTIP_LOG10', 'blockly-MATH_SINGLE_TOOLTIP_POW10']) assert.match(locale[key], /10/);
+  assert.notEqual(locale['blockly-OPEN_BACKPACK'], locale['blockly-OPEN_TRASH']);
+}
+
 // Uzbek random-number bounds, rounding and unary mathematics.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
