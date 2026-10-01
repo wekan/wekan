@@ -28,6 +28,29 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona maintenance, support and lockout labels replace prefixed English.
+{
+  const locale = read('sn');
+  const keys = ["calculating-counts", "stats-scope", "stats-collectionfs", "stats-mongo-files", "stats-count", "avatars", "mongodb-compact", "mongodb-compact-run", "mongodb-compact-error", "path", "version-name", "size", "storage", "uploading", "speed", "progress", "Mongo_sessions_count", "translation", "collapse", "uncollapse", "support", "supportPopup-title", "support-content", "accessibility", "accessibility-content", "accounts-lockout-period", "accounts-lockout-failure-window", "accounts-lockout-failed-attempts", "admin-people-filter-active", "active-cron-jobs", "attachments-path", "avatars-path", "cron-jobs", "cron-migrations", "cron-job-paused", "cron-job-resumed", "cron-job-started", "cron-migration-errors", "cron-migration-warnings", "cron-error-severity"];
+  const invariants = ["stats-collectionfs", "stats-mongo-files", "mongodb-compact"];
+  for (const key of keys) {
+    assert.doesNotMatch(locale[key], /Mashoko echiShona:/, `sn:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+    if (invariants.includes(key)) assert.equal(locale[key], english[key], `sn:${key}: technical name`);
+    else assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+  }
+  assert.equal(locale.avatars, locale['avatars-upload-blocked-label']);
+  assert.equal(locale.support, locale['supportPopup-title']);
+  assert.equal(locale.speed, locale.speedReportTitle);
+  assert.equal(locale['cron-error-severity'], locale['recovery-severity']);
+  assert.equal(locale['admin-people-filter-active'], locale.active);
+  for (const key of ['accounts-lockout-period', 'accounts-lockout-failure-window']) assert.ok(locale[key].includes('(masekonzi)'));
+  assert.notEqual(locale['accounts-lockout-period'], locale['accounts-lockout-failure-window']);
+  assert.equal(new Set(['cron-job-paused', 'cron-job-resumed', 'cron-job-started'].map(key => locale[key])).size, 3);
+  assert.notEqual(locale['cron-migration-errors'], locale['cron-migration-warnings']);
+  assert.ok(locale['mongodb-compact-run'].includes('MongoDB Compact'));
+}
+
 // Shona memory, storage and request labels replace prefixed English.
 {
   const locale = read('sn');
