@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Arabic-script Uzbek checklist messages preserve completion and argument roles.
+{
+  const locale = read('uz-AR');
+  for (const key of ["activity-unchecked-item", "activity-checklist-added", "activity-checklist-removed", "activity-checklist-completed", "activity-checklist-item-added", "activity-checklist-item-removed", "add", "activity-checked-item-card", "activity-unchecked-item-card", "activity-checklist-completed-card", "activity-checklist-uncompleted-card", "activity-editComment", "activity-deleteComment", "activity-receivedDate", "activity-startDate", "allboards.starred", "allboards.templates", "allboards.remaining", "allboards.workspaces", "allboards.add-workspace"]) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `uz-AR:${key}: tokens`);
+    const prose = locale[key].replace(/__[A-Za-z0-9_]+__|%s/g, '');
+    assert.match(prose, /[\u0600-\u06ff]/, key);
+    assert.doesNotMatch(prose, /[A-Za-z]/, `${key}: no Latin prose`);
+  }
+  assert.equal(locale['activity-checklist-completed-card'], locale['act-completeChecklist']);
+  assert.notEqual(locale['activity-checked-item-card'], locale['activity-unchecked-item-card']);
+  assert.notEqual(locale['activity-checklist-item-added'], locale['activity-checklist-item-removed']);
+  assert.match(locale['activity-checklist-item-added'], /%s.*رۉیختیگه.*%s/);
+  assert.match(locale['activity-checklist-item-removed'], /%s.*رۉیختیدن.*%s/);
+  assert.notEqual(locale['activity-receivedDate'], locale['activity-startDate']);
+}
+
 // Arabic-script Uzbek short activity messages preserve positional arguments.
 {
   const locale = read('uz-AR');
