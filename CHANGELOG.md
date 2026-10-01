@@ -10253,6 +10253,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/00747d720eb31435344dd0bb6447107263897ce6">Translate Uzbek block descriptions and field types</a>. Thanks to xet7.</summary>
+
+- Fill 23 block descriptions and field labels in each Uzbek locale,
+  using Arabic script for uz-AR and Latin for the other three locales.
+- Translation, registry and human-preference checks pass, covering tokens,
+  block states, input counts and protected function-variable warnings.
+  Wording needs fluent review, especially Arabic-script orthography.
+  Browser review and wider translation completion remain outstanding.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
