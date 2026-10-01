@@ -7,7 +7,7 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const root = path.resolve(__dirname, '..');
 const read = code => JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data', `${code}.i18n.json`)));
 const english = read('en');
-for (const code of ['sd', 'ky', 'jv', 'tg', 'yue_CN', 'kk', 'si', 'mr', 'ml', 'pa', 'ps', 'te-IN', 'mn', 'la', 'ht', 'vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valencia',
+for (const code of ['ba', 'sd', 'ky', 'jv', 'tg', 'yue_CN', 'kk', 'si', 'mr', 'ml', 'pa', 'ps', 'te-IN', 'mn', 'la', 'ht', 'vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valencia',
   'ru', 'ru-RU', 'ru-UA', 'ru_RU', 'uk', 'uk-UA', 'pl', 'pl-PL', 'cs', 'cs-CZ',
   'de', 'de_DE', 'de-AT', 'de-CH', 'fr', 'fr-FR', 'fr-BE', 'fr-CA', 'fr-CH',
   'es', 'es-AR', 'es-LA', 'es-CL', 'es_CO', 'es-CO', 'es-PY', 'es-PE', 'es-MX', 'it',
