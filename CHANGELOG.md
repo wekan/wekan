@@ -9845,6 +9845,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c6c1e874de7d19de19bdfd78f802ef326d8ee2a2">Translate Igbo screen reader and workspace controls</a>. Thanks to xet7.</summary>
+
+- Fill 21 Igbo Blockly workspace, screen-reader and mathematical labels,
+  preserving existing translations and source tokens.
+- Translation, registry and human-preference checks pass, covering opposite
+  mode actions, paste-all behavior and distinct inverse-function descriptions.
+  Wording needs fluent-speaker review, especially mathematical descriptions.
+  Browser review was not run; wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
