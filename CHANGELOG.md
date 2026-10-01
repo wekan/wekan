@@ -1674,7 +1674,7 @@ template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.13 2026-10-01 WeKan ® release
 
 **In short:** Fixes **ReplyBleed**: a reply to a notification email is now
 attributed only to the person it was sent to. Carries out the maintainer's
