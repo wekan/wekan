@@ -9413,6 +9413,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a0598a04cc01d84ea78344c69aa713126183ccff">Translate Shona Scrum reports and sprint states</a>. Thanks to xet7.</summary>
+
+- Translate 30 Scrum report and sprint state strings, preserving
+  substitution tokens, unknown estimates and partial report limitations.
+- Translation, registry and human-preference checks pass, covering tokens,
+  sprint states, retained membership and unfinished card destinations.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
