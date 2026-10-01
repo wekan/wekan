@@ -9749,6 +9749,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ae3082cbe7b8fb14b45bf6409aa7d044d9dacaf3">Translate Igbo rule and notification preferences</a>. Thanks to xet7.</summary>
+
+- Fill 28 Igbo parent-card, rule, notification and reminder placeholders,
+  preserving existing translations and source variables.
+- Translation, registry and human-preference checks pass, covering tokens,
+  rule interpolation, reminder offsets and distinct notification categories.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
