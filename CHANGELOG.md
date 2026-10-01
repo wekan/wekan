@@ -13456,6 +13456,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4c78297f8365a13961c1abf3610c894a91c459e8">Translate Malayalam email queue controls and guidance</a>. Thanks to xet7.</summary>
+
+- Translate 20 Malayalam email-queue and estimate-field strings.
+- Check retry guidance, pause behavior and explicit null handling while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
