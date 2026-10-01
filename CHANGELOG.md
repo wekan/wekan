@@ -13359,6 +13359,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cbf98d3850bf74e45b5c41a47e8a4c4f0c9f3c44">Translate Malayalam text operations and remaining shortcuts</a>. Thanks to xet7.</summary>
+
+- Translate 33 Malayalam text-operation and shortcut strings.
+- Check character positions, title case and reordered placeholders while
+  preserving existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
