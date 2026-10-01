@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/af8d81989b">Translate Bashkir block editor accessibility labels</a>. Thanks to xet7.</summary>
+
+- Fill 30 block editor field, structure and accessibility labels.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1f5d21d245">Translate Bashkir map and accessibility messages</a>. Thanks to xet7.</summary>
 
 - Fill 29 map control and accessibility messages.
