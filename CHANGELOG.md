@@ -10097,6 +10097,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b8d5f3493cfcdcf3a745cf0060f5b9f8c6517ed5">Translate Hausa workspace search and rule editor messages</a>. Thanks to xet7.</summary>
+
+- Fill 34 Hausa workspace announcements, search controls and rule messages,
+  including unsaved changes, concurrent edits and administrator permissions.
+- Translation, registry and human-preference checks pass, covering tokens,
+  composed counts, search shortcuts and rule validation distinctions.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
