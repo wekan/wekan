@@ -28,6 +28,28 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona backup and cloud labels replace prefixed English.
+{
+  const locale = read('sn');
+  const keys = ["cron-error-details", "cron-retry-failed", "cron-resume-paused", "cron-migrations-resumed", "cron-migrations-retried", "idle", "storage-read", "s3-force-path-style", "azure-blob-storage", "azure-blob-storage-description", "azure-connection-string", "azure-container", "gcs-storage", "gcs-storage-description", "database-migration", "database-migration-phase", "sandstorm-migration-success", "sandstorm-migration-failed", "sandstorm-storage-item", "sandstorm-disk-usage", "collections", "features", "features-performance", "backup", "backup-scope", "backup-scope-instance", "backup-now", "backup-schedule", "backup-frequency", "backup-frequency-off", "backup-frequency-daily", "backup-frequency-weekly", "backup-frequency-monthly", "gcs-project-id", "gcs-bucket", "test-cloud-connection", "cloud-connection-success", "cloud-connection-failed", "move-storage-azure", "move-storage-gcs"];
+  const invariants = ["azure-blob-storage", "azure-blob-storage-description", "gcs-storage", "gcs-storage-description", "move-storage-azure", "move-storage-gcs"];
+  for (const key of keys) {
+    assert.doesNotMatch(locale[key], /Mashoko echiShona:/, `sn:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+    if (invariants.includes(key)) assert.equal(locale[key], english[key], `sn:${key}: service name`);
+    else assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+  }
+  assert.equal(locale['cron-error-details'], locale.details);
+  assert.equal(locale['sandstorm-storage-item'], locale.storage);
+  assert.equal(locale['backup-frequency-monthly'], locale['r-schedule-monthly']);
+  assert.equal(new Set(['off', 'daily', 'weekly', 'monthly'].map(frequency => locale[`backup-frequency-${frequency}`])).size, 4);
+  assert.notEqual(locale['cloud-connection-success'], locale['cloud-connection-failed']);
+  assert.notEqual(locale['sandstorm-migration-success'], locale['sandstorm-migration-failed']);
+  assert.notEqual(locale['cron-retry-failed'], locale['cron-resume-paused']);
+  assert.ok(locale['gcs-project-id'].includes('ID'));
+  assert.ok(locale['s3-force-path-style'].includes('URL'));
+}
+
 // Shona maintenance, support and lockout labels replace prefixed English.
 {
   const locale = read('sn');
