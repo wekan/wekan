@@ -347,3 +347,34 @@ assert.deepEqual(tags(tajik['globalSearch-instructions-operator-number']),
 assert.match(tajik['import-board-source'], /Trello.*Jira.*WeKan.*CSV.*Excel/);
 
 console.log('tajikTranslationProgress: all batches passed');
+
+// Additional date filters and rule controls.
+{
+'use strict';
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
+const root = path.resolve(__dirname, '..');
+const read = code => JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data', code + '.i18n.json'), 'utf8'));
+const english = read('en');
+const locale = read('tg');
+assert.deepEqual(Object.keys(locale), Object.keys(english));
+for (const key of ["auto-archive-days", "auto-archive-off", "auto-archive-hint", "filter-recency-any", "filter-recency-day", "filter-recency-week", "filter-recency-month", "filter-recency-older", "filter-movement-range", "filter-date-range-field", "filter-date-range-from", "filter-date-range-to", "filter-date-range-missing", "filter-date-range-list-entry", "filter-date-range-invalid", "filter-due-any", "filter-due-previous-week", "filter-due-next-month", "filter-column-age", "filter-column-age-disabled", "filter-column-age-days", "filter-column-age-hint", "advanced-filter-card-dates-hint", "import-board-instruction-leo", "instance", "instance-desc", "board-instance-info", "automatic-linked-url-schemes-hint", "other-parent-cards", "add-parent-card", "remove-parent-card", "r-when-card-date", "r-trigger-vars-hint", "r-insert-variable", "r-vars-people-hint", "r-rule-any-trigger-help", "r-add-trigger-to-rule", "r-add-action-to-rule", "r-remove-rule-part", "notification-activity-heading"]) {
+  assert.ok(locale[key]?.trim(), key);
+  assert.notEqual(locale[key], english[key], key);
+  assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), key);
+  assert.deepEqual(locale[key].match(/%?\{[^}]+\}/g), english[key].match(/%?\{[^}]+\}/g), key);
+  assert.match(locale[key], /[А-Яа-яҒғҚқҶҷҲҳӢӣӮӯ]/, key);
+}
+for (const token of ['@createdAt', '@receivedAt', '@startAt', '@dueAt', '@endAt', '@listEnteredAt', "'2026-01-01'", '>=', '= none']) {
+  assert.ok(locale['advanced-filter-card-dates-hint'].includes(token), token);
+}
+for (const token of ['thunderlink', 'onenote', 'javascript', 'data', 'vbscript']) {
+  assert.ok(locale['automatic-linked-url-schemes-hint'].includes(token), token);
+}
+assert.match(locale['board-instance-info'], /<strong>.*<\/strong>/);
+assert.match(locale['import-board-instruction-leo'], /Leo.*\.leo/);
+console.log('Tajik translations: key order, prose, tokens and query syntax passed');
+
+}
