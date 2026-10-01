@@ -2302,6 +2302,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/83ccccb68ff1e90164f5836c018982ff43ee4758">Translate Marathi sync diagnostics and email queue messages</a>. Thanks to xet7.</summary>
+
+- Translate 30 Marathi sync diagnostics and email queue messages.
+- Check retention periods, null values and delivery retry warnings while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
