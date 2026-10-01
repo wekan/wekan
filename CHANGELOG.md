@@ -2709,6 +2709,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/85872f5c3d3360a9af98f4f507ad247cfdbc5cea">Translate Kazakh date filters and archive settings</a>. Thanks to xet7.</summary>
+
+- Translate 25 Kazakh date-filter, archive and import messages.
+- Check query syntax, inclusive dates and archive exceptions,
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
