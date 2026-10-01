@@ -2745,6 +2745,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e3bb5687afb65dadb3acc8c09a0509536f205f9e">Translate Kazakh map and block editor messages</a>. Thanks to xet7.</summary>
+
+- Translate 29 Kazakh map-placement and block-editor messages.
+- Check movement directions, add/remove controls and angle units,
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
