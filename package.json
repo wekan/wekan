@@ -85,7 +85,7 @@
     "bson": "^7.3.1",
     "chart.js": "^4.5.1",
     "dhtmlx-gantt": "^10.0.3",
-    "dompurify": "^3.4.14",
+    "dompurify": "^3.4.16",
     "escape-string-regexp": "^5.0.0",
     "fflate": "^0.8.3",
     "file-type": "^22.1.1",
