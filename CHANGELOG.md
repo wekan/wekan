@@ -1685,6 +1685,19 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5105fb00b7">Complete remaining Kazakh recovery and history translations</a>. Thanks to xet7.</summary>
+
+- Fill the final 50 reported Kazakh placeholders for recovery, history and
+  sign-in messages. Add Kazakh to full-locale completeness coverage.
+- Kazakh now has no reported untranslated placeholders. Its completeness,
+  regression, key-order and placeholder checks and all 21 human-preference
+  checks pass. The broader suite still fails on missing Cherokee dependency
+  keys. Other languages remain incomplete; browser and native-speaker
+  reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f01302635b">Translate Kazakh Sync diagnostics and email recovery</a>. Thanks to xet7.</summary>
 
 - Fill 36 messages for Sync diagnostics, estimate fields, email queue
