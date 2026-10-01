@@ -12317,6 +12317,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c08b9df22e7640028f5bc7c20a61a27d3b484478">Telugu editor labels and loop warnings</a>. Thanks to xet7.</summary>
+
+- Translate 40 editor field, block and loop warning placeholders.
+- Check protected variables, loop-only blocks and break versus continue
+  while preserving source substitution tokens and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
