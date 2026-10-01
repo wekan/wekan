@@ -10722,6 +10722,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c4c53fcd71e70db470ad973afb5dd4569a90e73c">Correct Arabic-script Uzbek creation controls</a>. Thanks to xet7.</summary>
+
+- Replace 25 Latin-script creation and checklist values in uz-AR with
+  Arabic-script Uzbek, preserving placeholders and fixing attachment wording.
+- Translation, registry and human-preference checks pass, covering positions,
+  shortcut toggles and the positive integer requirement for swimlane height.
+  Wording is low confidence and needs fluent review. Browser review was not run.
+  Older script corrections and wider translation completion remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
