@@ -9161,6 +9161,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3a68d4fe6f659038b4550decd8f3eb14c8d69a14">Translate Shona reminders filters and import reports</a>. Thanks to xet7.</summary>
+
+- Fill 25 English placeholders for reminders, saved filters and import reports.
+  Preserve existing translations outside this batch.
+- Translation, registry and human-preference checks pass, covering reminder
+  offsets, template expressions, filter privacy and partial import warnings.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
