@@ -13490,7 +13490,12 @@ for (const code of ['cy', 'cy-GB']) {
   for (const token of ['{ "data": [...] }', 'GET /tasks', 'memberships']) {
     assert.ok(locale['import-board-instruction-asana'].includes(token), `csb: preserve Asana ${token}`);
   }
-  assert.ok(locale['trello-api-key'].includes('https://trello.com/app-key'));
+  // CodeQL js/incomplete-url-substring-sanitization (#547): a substring check
+  // would also pass for 'https://evil.example/?x=https://trello.com/app-key'.
+  // Parse each link in the text and require the real host and path.
+  assert.ok((String(locale['trello-api-key']).match(/https?:\/\/[^\s"'<>)\]]+/g) || [])
+    .some(link => { const url = new URL(link.replace(/[.,;:]+$/, '')); return url.hostname === 'trello.com' && url.pathname === '/app-key'; }),
+  'csb: keep the Trello app-key link');
   assert.match(locale['filter-no-assignee'], /Bez przëpisóny òsobë/);
   assert.match(locale['export-card-field-dates'], /ùsôdzeniô, dostaniô, zaczãcô, terminu, skùńczeniô/);
   const correctedFieldKeys = [
