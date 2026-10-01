@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5625d9b36d">Translate Bashkir workspace search, block rules and Scrum labels</a>. Thanks to xet7.</summary>
+
+- Fill 28 workspace search, block-rule editing and Scrum messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9a97849a2d">Translate Bashkir variables and workspace messages</a>. Thanks to xet7.</summary>
 
 - Fill 29 text trimming, variable and workspace messages.
