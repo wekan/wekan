@@ -2696,6 +2696,19 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5238da659c1b67c7069be17aff9bf3e5f2937d25">Complete Sinhala prose translations for recovery and history</a>. Thanks to xet7.</summary>
+
+- Translate the final 27 Sinhala recovery, login and history messages.
+- Retain 28 keyboard, platform and code literals; no prose placeholders remain.
+- Check cancellation limits, server acceptance and repeated history requests,
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
