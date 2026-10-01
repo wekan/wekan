@@ -1685,6 +1685,17 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8346a425eb">Translate Tajik recovery and history messages</a>. Thanks to xet7.</summary>
+
+- Fill 44 recovery, sign-in and history messages, preserving retry and
+  cancellation limitations.
+- Focused key-order, placeholder and query-syntax checks and all 21
+  human-preference checks pass. Literal labels still need review;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d1c713867c">Translate Tajik email queue and failure messages</a>. Thanks to xet7.</summary>
 
 - Fill 37 email-queue, delivery-failure and estimate messages, preserving
