@@ -9185,6 +9185,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5f1e1e95e878e29dd7e91c841ea47bdf75a0b6d5">Translate Shona Blockly field and accessibility labels</a>. Thanks to xet7.</summary>
+
+- Fill 24 English placeholders for Blockly fields and accessible controls.
+  Preserve existing translations and keyboard names.
+- Translation, registry and human-preference checks pass, covering field
+  types, add/remove actions, collapsed comments and positional tokens.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
