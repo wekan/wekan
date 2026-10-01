@@ -2443,6 +2443,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a340eb71a6fb4274385d5815ce172fb4a986e1b9">Translate Sinhala editor actions and bitmap labels</a>. Thanks to xet7.</summary>
+
+- Translate 30 Sinhala editor actions, bitmap controls and input labels.
+- Check deletion confirmations, activation and row versus column labels
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
