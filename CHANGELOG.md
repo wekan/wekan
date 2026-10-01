@@ -1685,6 +1685,17 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e0614017a3">Translate Cantonese workspace and variable messages</a>. Thanks to xet7.</summary>
+
+- Fill 37 messages for variables, workspace announcements, search and
+  legacy block labels, preserving placeholders and keyboard instructions.
+- Cantonese key-order, translation and placeholder checks and all 21
+  human-preference checks pass. Other untranslated strings remain;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5a996eebb2">Translate Cantonese text processing and prompts</a>. Thanks to xet7.</summary>
 
 - Fill 33 messages for text extraction, search, replacement, trimming and
