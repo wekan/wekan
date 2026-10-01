@@ -10649,6 +10649,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c3946aad824c47fc5a923f04d1d6a4c2c1ceca0f">Complete Uzbek source placeholder coverage</a>. Thanks to xet7.</summary>
+
+- Fill nine final strings per Uzbek locale and retain 26 reviewed technical
+  labels per locale. All four locales pass full source order and token checks.
+- Translation, registry and human-preference checks pass. No English prose
+  placeholders remain, but source coverage does not establish language quality.
+  Older Latin-script text in uz-AR still needs correction; new Arabic-script
+  wording needs fluent review. Browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
