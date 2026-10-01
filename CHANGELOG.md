@@ -12096,6 +12096,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8240c4db7eea82410b292af0be4b456011e8a684">Mongolian map and block accessibility messages</a>. Thanks to xet7.</summary>
+
+- Translate 57 map placement and Blockly accessibility placeholders.
+- Preserve substitution tokens and distinguish movement directions,
+  expansion controls and the variable deletion restriction.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
