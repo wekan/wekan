@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Hausa text inputs, keyboard navigation and comparison labels.
+{
+  const locale = read('ha');
+  const keys = ["blockly-INPUT_LABEL_TEXT_END_POSITION", "blockly-INPUT_LABEL_TEXT_JOIN_ITEM", "blockly-INPUT_LABEL_TEXT_POSITION", "blockly-INPUT_LABEL_TEXT_PROMPT_MESSAGE", "blockly-INPUT_LABEL_TEXT_START_POSITION", "blockly-INPUT_LABEL_TEXT_TO_CHANGE", "blockly-INPUT_LABEL_TEXT_TO_CHECK", "blockly-INPUT_LABEL_TEXT_TO_FIND", "blockly-INPUT_LABEL_TEXT_TO_REPLACE", "blockly-INPUT_LABEL_VALUE", "blockly-INPUT_LABEL_VALUE_A", "blockly-INPUT_LABEL_VALUE_B", "blockly-INPUT_LABEL_VARIABLES_SET", "blockly-KEYBOARD_NAV_BLOCK_NAVIGATION_HINT", "blockly-KEYBOARD_NAV_CONSTRAINED_MOVE_HINT", "blockly-KEYBOARD_NAV_COPIED_HINT", "blockly-KEYBOARD_NAV_CUT_HINT", "blockly-KEYBOARD_NAV_FLYOUT_LABEL_HINT", "blockly-KEYBOARD_NAV_UNCONSTRAINED_MOVE_HINT", "blockly-KEYBOARD_NAV_WORKSPACE_NAVIGATION_HINT", "blockly-LOGIC_COMPARE_EQ_ARIA", "blockly-LOGIC_COMPARE_GTE_ARIA", "blockly-LOGIC_COMPARE_GT_ARIA", "blockly-LOGIC_COMPARE_LTE_ARIA", "blockly-LOGIC_COMPARE_LT_ARIA"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `ha:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ha:${key}: tokens`);
+  }
+  for (const boundary of ['START', 'END']) assert.equal(locale[`blockly-INPUT_LABEL_TEXT_${boundary}_POSITION`], locale[`blockly-INPUT_LABEL_LISTS_${boundary}_POSITION`]);
+  assert.notEqual(locale['blockly-KEYBOARD_NAV_COPIED_HINT'], locale['blockly-KEYBOARD_NAV_CUT_HINT']);
+  assert.notEqual(locale['blockly-INPUT_LABEL_TEXT_TO_FIND'], locale['blockly-INPUT_LABEL_TEXT_TO_REPLACE']);
+  assert.notEqual(locale['blockly-INPUT_LABEL_VALUE_A'], locale['blockly-INPUT_LABEL_VALUE_B']);
+  for (const comparison of ['GT', 'LT']) {
+    assert.notEqual(locale[`blockly-LOGIC_COMPARE_${comparison}_ARIA`], locale[`blockly-LOGIC_COMPARE_${comparison}E_ARIA`]);
+    assert.match(locale[`blockly-LOGIC_COMPARE_${comparison}E_ARIA`], /ko ya yi daidai da/);
+  }
+}
+
 // Hausa list, loop and numeric inputs.
 {
   const locale = read('ha');
