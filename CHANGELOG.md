@@ -2623,6 +2623,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3553d703939e6e9d78c635eeb2393f3616ee6f37">Translate Sinhala sprint planning messages</a>. Thanks to xet7.</summary>
+
+- Translate 32 Sinhala sprint, backlog and completion-policy messages.
+- Check unfinished work, completion rules and planning terminology,
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
