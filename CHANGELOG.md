@@ -13118,6 +13118,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f0b3ba0ce625e078354687c3c2552ce22b489f37">Translate Punjabi email queue and delivery messages</a>. Thanks to xet7.</summary>
+
+- Translate 30 Punjabi email-queue controls and delivery-failure strings.
+- Check distinct failure and pause states, language and placeholders while
+  preserving existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
