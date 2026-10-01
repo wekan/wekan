@@ -12925,6 +12925,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/deb0f10a7f3004398d82d4fa44f154350d1e5aca">Translate Punjabi editor and list field labels</a>. Thanks to xet7.</summary>
+
+- Translate 31 Punjabi editor and list field labels.
+- Check opposite controls, condition order and list positions while preserving
+  placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
