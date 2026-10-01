@@ -2085,6 +2085,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/039fc85196012260edd7642ef5eb896419b5f212">Translate Marathi input labels and editor buttons</a>. Thanks to xet7.</summary>
+
+- Translate 35 Marathi input, bitmap and editor button messages.
+- Check row and column order, open and close actions, and list positions
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
