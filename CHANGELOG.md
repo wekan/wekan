@@ -12461,6 +12461,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/941cdabf1220d18d83bd4ae153021bed2bf23342">Telugu sprint reports and synchronization warnings</a>. Thanks to xet7.</summary>
+
+- Translate 30 sprint report and synchronization placeholders.
+- Check partial observations, cancellation membership and the absence of
+  source writes while preserving tokens and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
