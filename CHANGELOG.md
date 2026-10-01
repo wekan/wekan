@@ -9557,6 +9557,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d9d13909d5da91d3b07ec593226e2221201fea38">Translate Yoruba Blockly descriptions and clipboard controls</a>. Thanks to xet7.</summary>
+
+- Translate 22 block description and clipboard strings, preserving tokens,
+  input plurality and distinct clipboard and backpack actions.
+- Translation, registry and human-preference checks pass, covering tokens,
+  collapsed warnings, keyboard names and distinct copy and cut labels.
+  Wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
