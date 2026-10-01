@@ -214,7 +214,10 @@ test('the newest release follows the rules to the letter', () => {
   // measuring "the release" against it fails on the size of the current day's
   // work. The Upcoming section's own entries are checked by the test below.
   const start = lines.findIndex((l, i) => i > todoAt && /^# v\d/.test(l));
-  const end = lines.findIndex((l, i) => i > start && /^# v\d/.test(l));
+  // CHANGELOG.md keeps the current month only, so on the month's first release
+  // the newest release is also the LAST section and runs to the end of the file.
+  const next = lines.findIndex((l, i) => i > start && /^# v\d/.test(l));
+  const end = next === -1 ? lines.length : next;
   const inSection = ALL.filter(b => b.line > start && b.line < end);
   // At least one CHANGE. A release is as big as the work in it - v10.46 carried
   // two fixes - and "more than five" measured the day rather than the format.
