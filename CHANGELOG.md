@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6573922a84">Translate Kyrgyz workspace and variable messages</a>. Thanks to xet7.</summary>
+
+- Fill 32 workspace, search, variable and text-trimming messages.
+- Batch key-order, placeholder, rule-variable and markup checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/571be0ea9b">Translate Kyrgyz text operations and prompts</a>. Thanks to xet7.</summary>
 
 - Fill 32 text selection, joining, replacement and prompt messages.
