@@ -13215,6 +13215,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2ea749e8f4e4ef7c3bb43169aec3abd20e3c7c81">Translate Malayalam control flow and editing actions</a>. Thanks to xet7.</summary>
+
+- Translate 32 Malayalam loop, condition and editing strings.
+- Check while/until conditions, loop restrictions and deletion tokens while
+  preserving existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
