@@ -12841,6 +12841,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8214a341230ffdcc61fc4ca07dac47e8ff76f1f3">Complete Pashto prose placeholders</a>. Thanks to xet7.</summary>
+
+- Translate the final 17 Pashto prose placeholders.
+- Preserve keyboard legends, platform names and inverse-trig notation.
+  Check all Pashto placeholder inventories and prevent untranslated prose.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
