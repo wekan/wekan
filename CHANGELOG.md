@@ -10806,6 +10806,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/581cb69a5003ff4c4a552bb56cc048027dbb4b60">Correct Arabic-script Uzbek card controls</a>. Thanks to xet7.</summary>
+
+- Replace 25 Latin-script card control values with Arabic-script Uzbek.
+  Clarify due dates, permanent deletion and archive restoration.
+- Translation, registry and human-preference checks pass, covering tokens,
+  script, restoration and due-date distinctions. Existing coverage is retained.
+  Wording is low confidence and needs fluent review. Browser review was not run.
+  Older script corrections and wider translation completion remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
