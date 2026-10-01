@@ -1677,11 +1677,24 @@ template.
 
 # Upcoming WeKan ® release
 
-**In short:** Dependency messages now cover twelve more languages. Translation
-checks follow current wording and markup, and literal keyboard labels are
-restored.
+**In short:** Dependency messages now cover seventeen more languages.
+Translation checks follow current wording and markup, and literal keyboard
+labels are restored.
 
 This release updates the following translations:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0f64bf0a65">Translate dependency messages into five more Asian languages</a>. Thanks to xet7.</summary>
+
+- Fill 11 dependency messages in Khmer, Burmese, Pashto, Sindhi and Odia,
+  covering seven locale tags. Dependency coverage now reaches 153 non-English
+  locale tags. Pashto, Sindhi and Odia wording has lower confidence and needs
+  native-speaker review.
+- Dependency key-order and placeholder checks and all 21 human-preference
+  checks pass. The Khmer completeness suite still fails on its other
+  untranslated strings; browser and native-speaker reviews were not run.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1044fe0873">Fill dependency messages and synchronize regional locales</a>. Thanks to xet7.</summary>
