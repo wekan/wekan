@@ -9353,6 +9353,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3d2f87f6f4d9194e27c08aa5657ef0eae31c91da">Translate Shona Blockly character and substring operations</a>. Thanks to xet7.</summary>
+
+- Translate 31 character lookup, substring, joining and letter case strings,
+  preserving substitution tokens and indexing directions.
+- Translation, registry and human-preference checks pass, covering tokens,
+  first and last occurrences, copied text and missing search results.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
