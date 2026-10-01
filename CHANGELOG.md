@@ -12350,6 +12350,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a43ace68e19eb0df0b1129723d124f1494ba759f">Telugu navigation and list operations</a>. Thanks to xet7.</summary>
+
+- Translate 38 navigation, input and list operation placeholders.
+- Check retrieval versus removal, sublist copies and keyboard confirmation
+  while preserving source substitution tokens and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
