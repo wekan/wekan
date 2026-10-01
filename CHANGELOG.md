@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d290f86506">Translate Sindhi email failures and notification recovery</a>. Thanks to xet7.</summary>
+
+- Fill 32 email failure, time estimate and notification recovery messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/74acb2a188">Translate Sindhi sync diagnostics and email queue messages</a>. Thanks to xet7.</summary>
 
 - Fill 32 sync report, diagnostic and email queue messages.
