@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Yoruba archive timing and date filters.
+{
+  const locale = read('yo');
+  const keys = ["auto-archive-days", "auto-archive-off", "auto-archive-hint", "filter-recency-any", "filter-recency-day", "filter-recency-week", "filter-recency-month", "filter-recency-older", "filter-movement-range", "filter-date-range-field", "filter-date-range-from", "filter-date-range-to", "filter-date-range-missing", "filter-date-range-list-entry", "filter-date-range-invalid", "filter-due-any", "filter-due-previous-week", "filter-due-next-month", "filter-column-age", "filter-column-age-disabled", "filter-column-age-days", "filter-column-age-hint", "advanced-filter-card-dates-hint", "import-board-instruction-leo", "instance"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `yo:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `yo:${key}: tokens`);
+  }
+  for (const token of ['@createdAt', '@receivedAt', '@startAt', '@dueAt', '@endAt', '@listEnteredAt', ">= '2026-01-01'", '= none']) assert.ok(locale['advanced-filter-card-dates-hint'].includes(token));
+  for (const token of ['Leo', '.leo']) assert.ok(locale['import-board-instruction-leo'].includes(token));
+  assert.match(locale['auto-archive-hint'], /gbogbo wákàtí.*kì í.*àwòṣe.*láé/);
+  assert.match(locale['filter-column-age-hint'], /ṣì hàn.*kò tún/);
+  assert.match(locale['filter-recency-day'], /24/);
+  assert.match(locale['filter-recency-week'], /7/);
+  assert.match(locale['filter-recency-month'], /30/);
+  assert.notEqual(locale['filter-date-range-from'], locale['filter-date-range-to']);
+}
+
 // Final Shona placeholders and explicitly retained technical names.
 {
   const locale = read('sn');
