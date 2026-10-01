@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c65cb4f136">Translate Javanese sprint planning messages</a>. Thanks to xet7.</summary>
+
+- Fill 33 estimation, backlog, sprint planning and event labels.
+- Focused key-order, placeholder and restriction checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/64274e3ec1">Translate Javanese rule editor and Scrum labels</a>. Thanks to xet7.</summary>
 
 - Fill 36 editor labels, rule validation messages and Scrum settings.
