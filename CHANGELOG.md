@@ -10229,6 +10229,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2412a1df7136662f60adc10367f004467981fc14">Translate Uzbek map controls and import warnings</a>. Thanks to xet7.</summary>
+
+- Fill 22 filter, import, map and block-movement strings per Uzbek locale,
+  using Arabic script for uz-AR and Latin for the other three locales.
+- Translation, registry and human-preference checks pass, covering tokens,
+  partial-import warnings, map actions and movement directions.
+  Wording needs fluent review, especially Arabic-script orthography.
+  Browser review and wider translation completion remain outstanding.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
