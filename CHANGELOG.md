@@ -11742,6 +11742,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5f349c4ba8ec2170e098e9c4389bfad255bd73a3">Haitian Creole Blockly logic and mathematics</a>. Thanks to xet7.</summary>
+
+- Fill 82 English placeholders for comparisons, logic, arithmetic and
+  statistics, preserving existing translations and mathematical notation.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for negation, interval endpoints, constants and angle units.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
