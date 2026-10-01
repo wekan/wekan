@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Arabic-script Uzbek workspace text preserves technical names and deletion limits.
+{
+  const locale = read('uz-AR');
+  for (const key of ["allboards.add-workspace-prompt", "allboards.add-subworkspace", "allboards.add-subworkspace-prompt", "allboards.edit-workspace", "allboards.edit-workspace-name", "allboards.edit-workspace-icon", "allboards.workspace-menu", "workspace-settings", "workspaceActionsPopup-title", "addWorkspacePopup-title", "allboards.workspace-color", "allboards.delete-workspace-confirm", "allboards.delete-workspace-confirm-check", "multi-selection-active", "archive-permanent-delete-disabled-hint", "no-boards-selected", "select-only-one-board", "set-selected-unstarred", "unset-selected-home", "home-board-empty", "home-board-remove", "home-board-remove-confirm", "set-default-board-template", "unset-default-board-template", "activity-dueDate"]) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `uz-AR:${key}: tokens`);
+    const prose = locale[key].replace(/%s|Markdown/g, '');
+    assert.match(prose, /[\u0600-\u06ff]/, key);
+    assert.doesNotMatch(prose, /[A-Za-z]/, `${key}: no Latin prose`);
+  }
+  assert.equal(locale['workspace-settings'], locale['workspaceActionsPopup-title']);
+  assert.equal(locale['allboards.add-workspace-prompt'], locale['allboards.edit-workspace-name']);
+  assert.ok(locale['allboards.edit-workspace-icon'].includes('Markdown'));
+  assert.match(locale['home-board-empty'], /فقط بیته/);
+  assert.match(locale['home-board-remove-confirm'], /اۉزی اۉچیریلمیدی/);
+  assert.notEqual(locale['set-default-board-template'], locale['unset-default-board-template']);
+  assert.match(locale['activity-dueDate'], /بجریش مهلتی/);
+}
+
 // Arabic-script Uzbek checklist messages preserve completion and argument roles.
 {
   const locale = read('uz-AR');
