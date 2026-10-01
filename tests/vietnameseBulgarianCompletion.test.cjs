@@ -28,6 +28,26 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Hausa workspace search, composed announcements and rule editor messages.
+{
+  const locale = read('ha');
+  const keys = ["blockly-TEXT_CHANGECASE_TOOLTIP", "blockly-TEXT_FROM_END_ARIA", "blockly-TEXT_FROM_START_ARIA", "blockly-UNKNOWN", "blockly-UNNAMED_KEY", "blockly-VARIABLE_ALREADY_EXISTS_FOR_A_PARAMETER", "blockly-WORKSPACE_CONTENTS_BLOCKS_MANY", "blockly-WORKSPACE_CONTENTS_BLOCKS_ONE", "blockly-WORKSPACE_CONTENTS_BLOCKS_ZERO", "blockly-WORKSPACE_CONTENTS_COMMENTS_MANY", "blockly-WORKSPACE_CONTENTS_COMMENTS_ONE", "blockly-WORKSPACE_LABEL_1_STACK", "blockly-WORKSPACE_LABEL_FLYOUT_WORKSPACE", "blockly-WORKSPACE_LABEL_MANY_STACKS", "blockly-WORKSPACE_LABEL_MUTATOR_WORKSPACE", "blockly-WORKSPACE_LABEL_PLAIN", "blockly-WORKSPACE_SEARCH_CLOSE", "blockly-WORKSPACE_SEARCH_FIND_NEXT", "blockly-WORKSPACE_SEARCH_FIND_PREVIOUS", "blockly-WORKSPACE_SEARCH_INPUT_LABEL", "blockly-WORKSPACE_SEARCH_MATCH", "blockly-WORKSPACE_SEARCH_NO_MATCHES", "blockly-WORKSPACE_SEARCH_PLACEHOLDER", "blockly-ZOOM_TO_FIT_ARIA_LABEL", "r-blocks-view", "r-blocks-help", "r-blocks-discard", "r-blocks-unavailable", "r-blocks-invalid", "r-blocks-conflict", "r-blocks-permission", "r-blocks-unsaved", "r-blocks-saved", "r-blocks-reload"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `ha:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ha:${key}: tokens`);
+  }
+  for (const k of ['MANY', 'ONE']) assert.ok(locale[`blockly-WORKSPACE_CONTENTS_COMMENTS_${k}`].startsWith(' da '));
+  for (const token of ['Enter', 'Shift+Enter', 'Escape']) assert.ok(locale['blockly-WORKSPACE_SEARCH_INPUT_LABEL'].includes(token));
+  assert.notEqual(locale['blockly-WORKSPACE_SEARCH_FIND_NEXT'], locale['blockly-WORKSPACE_SEARCH_FIND_PREVIOUS']);
+  assert.notEqual(locale['blockly-TEXT_FROM_END_ARIA'], locale['blockly-TEXT_FROM_START_ARIA']);
+  assert.match(locale['blockly-WORKSPACE_CONTENTS_BLOCKS_ZERO'], /^Babu/);
+  assert.equal(new Set(['ZERO', 'ONE', 'MANY'].map(n => locale[`blockly-WORKSPACE_CONTENTS_BLOCKS_${n}`])).size, 3);
+  assert.match(locale['r-blocks-invalid'], /mai kunnawa guda ɗaya tak da aiki guda ɗaya tak/);
+  assert.match(locale['r-blocks-conflict'], /Sake loda/);
+  assert.match(locale['r-blocks-permission'], /izinin mai gudanar da allo/);
+  assert.notEqual(locale['r-blocks-saved'], locale['r-blocks-unsaved']);
+}
+
 // Hausa screen-reader announcements and keyboard editing shortcuts.
 {
   const locale = read('ha');
