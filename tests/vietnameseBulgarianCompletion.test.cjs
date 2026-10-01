@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona Blockly number properties, statistics and random bounds.
+{
+  const locale = read('sn');
+  const keys = ["blockly-MATH_IS_PRIME", "blockly-MATH_IS_TOOLTIP", "blockly-MATH_IS_WHOLE", "blockly-MATH_MODULO_TITLE", "blockly-MATH_MODULO_TOOLTIP", "blockly-MATH_MULTIPLICATION_SYMBOL_ARIA", "blockly-MATH_NUMBER_TOOLTIP", "blockly-MATH_ONLIST_OPERATOR_AVERAGE", "blockly-MATH_ONLIST_OPERATOR_MAX", "blockly-MATH_ONLIST_OPERATOR_MAX_ARIA", "blockly-MATH_ONLIST_OPERATOR_MEDIAN", "blockly-MATH_ONLIST_OPERATOR_MIN", "blockly-MATH_ONLIST_OPERATOR_MIN_ARIA", "blockly-MATH_ONLIST_OPERATOR_MODE", "blockly-MATH_ONLIST_OPERATOR_RANDOM", "blockly-MATH_ONLIST_OPERATOR_STD_DEV", "blockly-MATH_ONLIST_OPERATOR_SUM", "blockly-MATH_ONLIST_TOOLTIP_AVERAGE", "blockly-MATH_ONLIST_TOOLTIP_MAX", "blockly-MATH_ONLIST_TOOLTIP_MEDIAN", "blockly-MATH_ONLIST_TOOLTIP_MIN", "blockly-MATH_ONLIST_TOOLTIP_MODE", "blockly-MATH_ONLIST_TOOLTIP_RANDOM", "blockly-MATH_ONLIST_TOOLTIP_STD_DEV", "blockly-MATH_ONLIST_TOOLTIP_SUM", "blockly-MATH_POWER_SYMBOL_ARIA", "blockly-MATH_RANDOM_FLOAT_TITLE_RANDOM", "blockly-MATH_RANDOM_FLOAT_TOOLTIP", "blockly-MATH_RANDOM_INT_TITLE", "blockly-MATH_RANDOM_INT_TOOLTIP"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+  }
+  assert.match(locale['blockly-MATH_IS_PRIME'], /pamusoro pe1/);
+  assert.match(locale['blockly-MATH_RANDOM_FLOAT_TOOLTIP'], /0.0.*ichisanganisirwa.*1.0.*isingasanganisirwi/);
+  assert.match(locale['blockly-MATH_RANDOM_INT_TOOLTIP'], /kusanganisira miganhu/);
+  assert.match(locale['blockly-MATH_ONLIST_TOOLTIP_MEDIAN'], /mbiri pakati.*avhareji/);
+  assert.match(locale['blockly-MATH_ONLIST_TOOLTIP_MODE'], /rondedzero yezvinhu/);
+  assert.equal(new Set(['AVERAGE', 'MEDIAN', 'MODE', 'SUM', 'STD_DEV'].map(kind => locale[`blockly-MATH_ONLIST_OPERATOR_${kind}`])).size, 5);
+  assert.notEqual(locale['blockly-MATH_ONLIST_OPERATOR_MAX'], locale['blockly-MATH_ONLIST_OPERATOR_MIN']);
+}
+
 // Shona Blockly logic selection and arithmetic.
 {
   const locale = read('sn');
