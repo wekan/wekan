@@ -9701,6 +9701,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/736160caa25cb4d7355dfadd878bfd78fa0d6d5a">Translate Yoruba email queue and delivery messages</a>. Thanks to xet7.</summary>
+
+- Fill 31 Yoruba email queue and delivery failure placeholders, preserving
+  existing translations and source tokens.
+- Translation, registry and human-preference checks pass, covering distinct
+  queue actions, cancellation limits and temporary versus permanent rejection.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
