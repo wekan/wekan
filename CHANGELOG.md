@@ -9857,6 +9857,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9d31e21cd9593bd5e973d17cc6b37a12fc3aa5aa">Translate Igbo keyboard shortcut labels</a>. Thanks to xet7.</summary>
+
+- Fill 34 Igbo Blockly keyboard shortcut placeholders, preserving existing
+  translations and source tokens.
+- Translation, registry and human-preference checks pass, covering movement
+  directions, next/previous navigation, focus targets and move actions.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
