@@ -11996,6 +11996,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e4eb1defea1ce4bd2a6d4f8fe9bc04a9d127dc96">Latin Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+- Fill 49 English placeholders for Scrum planning and reports,
+  preserving existing translations and placeholders.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for unknown estimates, comparison rules and sprint actions.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
