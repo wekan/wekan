@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/687994f394">Translate Sindhi block rules and Scrum settings</a>. Thanks to xet7.</summary>
+
+- Fill 37 workspace search, block-rule editing and Scrum setting messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2ff1905779">Translate Sindhi text processing and workspace messages</a>. Thanks to xet7.</summary>
 
 - Fill 37 text processing, variable and workspace navigation messages.
