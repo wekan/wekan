@@ -12029,6 +12029,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ddcfc7e80f45dc9c82b8959f8bfbff9152a01ca9">Latin sync diagnostics and email queue messages</a>. Thanks to xet7.</summary>
+
+- Fill 29 English placeholders for sync diagnostics and email queue messages,
+  preserving existing translations and placeholders.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for retention, null values and delivery retry safeguards.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
