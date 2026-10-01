@@ -2145,6 +2145,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b3d66c76564d36b904354662b981b229f1222f0a">Translate Marathi logic and arithmetic messages</a>. Thanks to xet7.</summary>
+
+- Translate 31 Marathi logic, arithmetic and numeric constraint messages.
+- Check Boolean conditions, constants, inclusive limits and number signs
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
