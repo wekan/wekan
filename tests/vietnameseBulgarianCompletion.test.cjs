@@ -28,6 +28,21 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek statistics distinguish mean, median, modes and extrema.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["blockly-MATH_MULTIPLICATION_SYMBOL_ARIA", "blockly-MATH_NUMBER_TOOLTIP", "blockly-MATH_ONLIST_OPERATOR_AVERAGE", "blockly-MATH_ONLIST_OPERATOR_MAX", "blockly-MATH_ONLIST_OPERATOR_MAX_ARIA", "blockly-MATH_ONLIST_OPERATOR_MEDIAN", "blockly-MATH_ONLIST_OPERATOR_MIN", "blockly-MATH_ONLIST_OPERATOR_MIN_ARIA", "blockly-MATH_ONLIST_OPERATOR_MODE", "blockly-MATH_ONLIST_OPERATOR_RANDOM", "blockly-MATH_ONLIST_OPERATOR_STD_DEV", "blockly-MATH_ONLIST_OPERATOR_SUM", "blockly-MATH_ONLIST_TOOLTIP_AVERAGE", "blockly-MATH_ONLIST_TOOLTIP_MAX", "blockly-MATH_ONLIST_TOOLTIP_MEDIAN"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  assert.equal(new Set(['AVERAGE', 'MAX', 'MEDIAN', 'MIN', 'MODE', 'RANDOM', 'STD_DEV', 'SUM'].map(k => locale[`blockly-MATH_ONLIST_OPERATOR_${k}`])).size, 8);
+  for (const k of ['MAX', 'MIN']) assert.equal(locale[`blockly-MATH_ONLIST_OPERATOR_${k}_ARIA`], locale[`blockly-INPUT_LABEL_NUMBER_${k}`]);
+  assert.match(locale['blockly-MATH_ONLIST_TOOLTIP_AVERAGE'], code === 'uz-AR' ? /اریتمېتیک/ : /arifmetik/);
+  assert.match(locale['blockly-MATH_ONLIST_OPERATOR_MODE'], code === 'uz-AR' ? /اېنگ کۉپ اوچری/ : /eng koʻp uchray/);
+}
+
 // Uzbek mathematical constants, inclusive bounds and number properties.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
