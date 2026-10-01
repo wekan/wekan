@@ -11808,6 +11808,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fcdf9bf6c5fe358c76e7e34448ddb14b9bdb9970">Haitian Creole sync diagnostics and email queue</a>. Thanks to xet7.</summary>
+
+- Fill 38 English placeholders for sync reports and email queue controls,
+  preserving existing translations and placeholders.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for retention, null values and email retry safeguards.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
