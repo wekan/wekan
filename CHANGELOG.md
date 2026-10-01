@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/938119398f">Translate Bashkir sprint reports and statuses</a>. Thanks to xet7.</summary>
+
+- Fill 30 sprint report, event and status messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/03cb8154dd">Translate Bashkir sprint planning and estimates</a>. Thanks to xet7.</summary>
 
 - Fill 33 sprint planning, estimate and event messages.
