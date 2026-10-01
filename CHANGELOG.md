@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2a9b3e0606">Translate Kyrgyz recovery and history messages</a>. Thanks to xet7.</summary>
+
+- Fill 47 recovery, rule email, sign-in, time-estimate and history messages.
+- Batch key-order, placeholder, rule-variable and markup checks and all 21
+  human-preference checks pass. Literal-label review remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c527183b6b">Translate Kyrgyz email queue and delivery failures</a>. Thanks to xet7.</summary>
 
 - Fill 32 email queue, delivery failure and time-estimate messages.
