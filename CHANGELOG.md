@@ -12733,6 +12733,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1546f9f1cfe18419fcafb14b875d6d2744e5fe40">Translate Pashto workspace and rule editor messages</a>. Thanks to xet7.</summary>
+
+- Translate 28 Pashto workspace and rule editor strings.
+- Check search shortcuts, administrator access and rule validation while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
