@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Arabic-script Uzbek timeline text preserves restoration scope and metric distinctions.
+{
+  const locale = read('uz-AR');
+  for (const key of ["board-view-table", "board-view-stats", "board-view-time", "board-view-timeline", "board-view-timeline-hint", "board-view-timeline-now", "board-view-timeline-showing", "board-view-timeline-restore", "board-view-timeline-restore-confirm", "board-view-group-by-assignee", "group-by-assignee-empty", "board-view-dashboard", "board-view-burndown", "board-view-burnup", "board-view-cumulative-flow", "board-view-control-chart", "board-view-cycle-time", "board-view-flow-efficiency", "board-view-lead-time", "board-view-throughput-histogram", "board-view-wip-run", "board-view-pulse", "board-view-not-yet-implemented", "bucket-example", "calendar-previous-month-label"]) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `uz-AR:${key}: tokens`);
+    const prose = locale[key].replace(/WIP/g, '');
+    assert.match(prose, /[\u0600-\u06ff]/, key);
+    assert.doesNotMatch(prose, /[A-Za-z]/, `${key}: no Latin prose`);
+  }
+  assert.notEqual(locale['board-view-burndown'], locale['board-view-burnup']);
+  assert.notEqual(locale['board-view-cycle-time'], locale['board-view-lead-time']);
+  assert.match(locale['board-view-timeline-restore-confirm'], /هېچ نرسه اۉچیریلمیدی/);
+  for (const word of ['سرلوحه', 'توصیف', 'رۉیخت', 'یارلیق', 'اعضا', 'مهلت']) assert.ok(locale['board-view-timeline-restore-confirm'].includes(word));
+  assert.match(locale['board-view-group-by-assignee'], /مسئول/);
+  assert.ok(locale['board-view-wip-run'].includes('WIP'));
+}
+
 // Arabic-script Uzbek view controls keep zoom limits and watch meaning intact.
 {
   const locale = read('uz-AR');
