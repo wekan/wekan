@@ -9725,6 +9725,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0a66a0ae4e2b60739ed3031e73fbbc491d3a749a">Finish Yoruba source placeholder coverage</a>. Thanks to xet7.</summary>
+
+- Translate the final 20 Yoruba prose placeholders and retain 24 reviewed key
+  legends, OS brands and math symbols. No source prose placeholders remain.
+- Translation, registry and human-preference checks pass, including full-file
+  key order and tokens. Coverage is not a language-quality certification.
+  Older wording needs review; fluent-speaker and browser review were not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
