@@ -9449,6 +9449,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6214db69679fd89cd2c55c6fa3cc24c8c41e776e">Translate Shona sync diagnostics and email queue controls</a>. Thanks to xet7.</summary>
+
+- Translate 32 sync diagnostic and email queue strings, preserving
+  null semantics, queue controls and delivery limitations.
+- Translation, registry and human-preference checks pass, covering tokens,
+  retention, paused retries, uncertain delivery and superseded requests.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
