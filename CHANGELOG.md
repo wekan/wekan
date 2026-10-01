@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/55b2725a18">Translate Bashkir list conversion and mathematical labels</a>. Thanks to xet7.</summary>
+
+- Fill 27 list conversion, comparison and mathematical messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/947de94d7e">Translate Bashkir list operations and sorting</a>. Thanks to xet7.</summary>
 
 - Fill 28 list range, insertion, replacement and sorting messages.
