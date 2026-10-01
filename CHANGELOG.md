@@ -13045,6 +13045,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c45e1ad4129a152bdd3ad87ea9aaf100f7a4d3f2">Translate Punjabi text handling and workspace messages</a>. Thanks to xet7.</summary>
+
+- Translate 41 Punjabi text, variable and workspace strings.
+- Check replacement arguments, trimming directions and comment fragments
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
