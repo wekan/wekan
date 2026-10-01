@@ -1685,6 +1685,18 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/be4fd108e2">Translate dependency messages into Acehnese, Aromanian and Ladin</a>. Thanks to xet7.</summary>
+
+- Fill 11 dependency messages in each language, bringing dependency coverage
+  to 208 non-English locale tags. These translations have low confidence and
+  need native-speaker review.
+- Dependency key-order and placeholder checks and all 21 human-preference
+  checks pass. Other untranslated strings remain; browser and native-speaker
+  reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/22391b1a26">Translate dependency messages into Northern Ndebele, Venda and Arabic-script Uzbek</a>. Thanks to xet7.</summary>
 
 - Fill 11 dependency messages in each locale, bringing dependency coverage
