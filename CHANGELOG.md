@@ -12601,6 +12601,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2b507b050523c595b23d8b809cbbe8681391fe42">Translate Pashto number and text input labels</a>. Thanks to xet7.</summary>
+
+- Translate 34 Pashto number, text and loop input labels.
+- Check coordinate names, division operands and opposite bounds while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
