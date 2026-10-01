@@ -13275,6 +13275,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2ac0de09b2ad0ccbc0e235a96b6287c886faa10f">Translate Malayalam list editing and sorting</a>. Thanks to xet7.</summary>
+
+- Translate 30 Malayalam list-search, insertion and sorting strings.
+- Check insertion versus replacement, search failures and copies while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
