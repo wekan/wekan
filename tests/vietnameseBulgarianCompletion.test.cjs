@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Arabic-script Uzbek view controls keep zoom limits and watch meaning intact.
+{
+  const locale = read('uz-AR');
+  for (const key of ["boardChangeTitlePopup-title", "boardChangeVisibilityPopup-title", "boardChangeWatchPopup-title", "boardMenuPopup-title", "allBoardsMenuPopup-title", "boardChangeViewPopup-title", "boards", "board-view", "desktop-mode", "mobile-mode", "mobile-desktop-toggle", "zoom-in", "zoom-out", "zoom-level", "enter-zoom-level", "board-view-cal", "board-view-multiboard-cal", "board-view-swimlanes", "board-view-collapse", "board-view-lists"]) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `uz-AR:${key}: tokens`);
+    assert.match(locale[key], /[\u0600-\u06ff]/, key);
+    assert.doesNotMatch(locale[key], /[A-Za-z]/, `${key}: no Latin prose`);
+  }
+  assert.equal(locale['board-view'], locale['boardChangeViewPopup-title']);
+  assert.ok(locale['enter-zoom-level'].includes('50-300%'));
+  assert.notEqual(locale['zoom-in'], locale['zoom-out']);
+  assert.notEqual(locale['desktop-mode'], locale['mobile-mode']);
+  assert.notEqual(locale['board-view-cal'], locale['board-view-multiboard-cal']);
+  assert.match(locale['boardChangeWatchPopup-title'], /کوزتیش/);
+  assert.match(locale['board-view-collapse'], /ییغیش/);
+}
+
 // Arabic-script Uzbek board display preserves markup and membership scopes.
 {
   const locale = read('uz-AR');
