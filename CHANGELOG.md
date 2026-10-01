@@ -9329,6 +9329,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2cf38f4bb66ff0ac0adc4622c6b7f0c098f2061c">Translate Shona Blockly procedure and accessibility controls</a>. Thanks to xet7.</summary>
+
+- Translate 32 procedure editing and accessibility strings, preserving
+  substitution tokens and distinct screen reader, movement and focus actions.
+- Translation, registry and human-preference checks pass, covering tokens,
+  screen reader states, function return behavior and navigation targets.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
