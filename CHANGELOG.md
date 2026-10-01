@@ -1685,6 +1685,17 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1282d9495d">Translate Tajik sprint reports and events</a>. Thanks to xet7.</summary>
+
+- Fill 37 sprint-event and report messages, preserving unknown-estimate
+  distinctions and partial-report limitations.
+- Focused key-order, placeholder and query-syntax checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1bc39d6efa">Translate Tajik Scrum settings and sprint planning</a>. Thanks to xet7.</summary>
 
 - Fill 42 rule-save, Scrum settings and sprint-planning messages.
