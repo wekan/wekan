@@ -9377,6 +9377,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/007b456f0305e45b511d5778aae57b969f660fb9">Translate Shona Blockly workspace search and shared labels</a>. Thanks to xet7.</summary>
+
+- Translate 30 workspace search and shared block labels, preserving
+  substitution tokens, keyboard shortcuts and announcement spacing.
+- Translation, registry and human-preference checks pass, covering tokens,
+  search directions, composed announcements and consistent shared labels.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
