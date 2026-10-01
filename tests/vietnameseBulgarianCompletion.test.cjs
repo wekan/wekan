@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek mathematical constants, inclusive bounds and number properties.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["blockly-MATH_CONSTANT_GOLDEN_RATIO_ARIA", "blockly-MATH_CONSTANT_INFINITY_ARIA", "blockly-MATH_CONSTANT_SQRT1_2_ARIA", "blockly-MATH_CONSTANT_SQRT2_ARIA", "blockly-MATH_CONSTANT_TOOLTIP", "blockly-MATH_CONSTRAIN_TITLE", "blockly-MATH_CONSTRAIN_TOOLTIP", "blockly-MATH_DIVISION_SYMBOL_ARIA", "blockly-MATH_IS_DIVISIBLE_BY", "blockly-MATH_IS_EVEN", "blockly-MATH_IS_NEGATIVE", "blockly-MATH_IS_ODD", "blockly-MATH_IS_POSITIVE", "blockly-MATH_IS_PRIME", "blockly-MATH_IS_TOOLTIP", "blockly-MATH_IS_WHOLE", "blockly-MATH_MODULO_TITLE", "blockly-MATH_MODULO_TOOLTIP"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  for (const token of ['π (3.141…)', 'e (2.718…)', 'φ (1.618…)', 'sqrt(2) (1.414…)', 'sqrt(½) (0.707…)', '∞']) assert.ok(locale['blockly-MATH_CONSTANT_TOOLTIP'].includes(token));
+  assert.notEqual(locale['blockly-MATH_CONSTANT_SQRT1_2_ARIA'], locale['blockly-MATH_CONSTANT_SQRT2_ARIA']);
+  assert.equal(new Set(['EVEN', 'ODD', 'PRIME', 'WHOLE', 'POSITIVE', 'NEGATIVE'].map(k => locale[`blockly-MATH_IS_${k}`])).size, 6);
+  assert.match(locale['blockly-MATH_CONSTRAIN_TOOLTIP'], code === 'uz-AR' ? /چېگره‌لر هم کیره‌دی/ : /chegaralar ham kiradi/);
+  assert.ok(locale['blockly-MATH_MODULO_TITLE'].includes('%1 ÷ %2'));
+  assert.match(locale['blockly-MATH_IS_DIVISIBLE_BY'], code === 'uz-AR' ? /قالدیقسیز/ : /qoldiqsiz/);
+}
+
 // Uzbek conditional expressions and arithmetic operations.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
