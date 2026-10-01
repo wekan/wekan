@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/48564fe698">Translate Javanese text operations and prompts</a>. Thanks to xet7.</summary>
+
+- Fill 37 text selection, joining, replacement and input-prompt messages.
+- Focused key-order, placeholder and restriction checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/63988505a0">Translate Javanese navigation shortcuts and text controls</a>. Thanks to xet7.</summary>
 
 - Fill 37 navigation, movement, scrolling and text-control messages.
