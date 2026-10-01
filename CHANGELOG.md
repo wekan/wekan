@@ -11853,6 +11853,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7006178e0653070a9ea19a2ade434a4882a1f50e">Latin notification preferences and reminders</a>. Thanks to xet7.</summary>
+
+- Fill 35 English placeholders for notification settings, due-date reminders
+  and saved filters, preserving existing translations and variables.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for reminder timing, notification exceptions and filter privacy.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
