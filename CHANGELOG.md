@@ -9257,6 +9257,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/caee57c6d44ff7e291620b3735d72860bb72d5ab">Translate Shona Blockly list editing operations</a>. Thanks to xet7.</summary>
+
+- Translate 36 list slicing, removal, insertion and sorting strings,
+  preserving substitution tokens and descriptions of copied lists.
+- Translation, registry and human-preference checks pass, covering tokens,
+  copy semantics and distinct insertion, replacement and removal labels.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
