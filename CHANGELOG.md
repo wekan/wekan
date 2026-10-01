@@ -9989,6 +9989,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eed5ebe70bc2714546a274040080b423437eaad5">Translate Hausa rule and notification preferences</a>. Thanks to xet7.</summary>
+
+- Fill 30 Hausa parent-card, rule, notification and reminder placeholders,
+  preserving existing translations and source variables.
+- Translation, registry and human-preference checks pass, covering tokens,
+  rule interpolation, reminder limits and distinct notification categories.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
