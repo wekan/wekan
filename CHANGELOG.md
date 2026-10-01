@@ -1685,6 +1685,16 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/deebc2ea1a">Translate Tajik statistics and mathematical functions</a>. Thanks to xet7.</summary>
+
+- Fill 34 statistics, random-number, rounding and mathematical-function strings.
+- Focused key-order, placeholder and query-syntax checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/06d630acd4">Translate Tajik mathematical labels and tooltips</a>. Thanks to xet7.</summary>
 
 - Fill 38 arithmetic, constant, number-property and statistical labels.
