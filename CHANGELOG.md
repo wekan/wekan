@@ -1685,6 +1685,19 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e5e7ea6fde">Translate Kazakh sprint planning and reports</a>. Thanks to xet7.</summary>
+
+- Fill 45 Scrum messages for sprint planning, events, reports and lifecycle
+  confirmations. Preserve count and estimate placeholders and distinguish
+  unknown estimates from zero estimates.
+- Kazakh regression checks, full-locale key and placeholder checks, and all
+  21 human-preference checks pass. Other untranslated strings and missing
+  Cherokee and Tigre keys remain. Browser and native-speaker reviews
+  were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a274a453ea">Translate Kazakh rule editor and Scrum settings</a>. Thanks to xet7.</summary>
 
 - Fill 32 rule-editor and Scrum messages. Recognize 28 printed keyboard
