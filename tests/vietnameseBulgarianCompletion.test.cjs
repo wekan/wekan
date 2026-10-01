@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Yoruba board maps and Blockly movement announcements.
+{
+  const locale = read('yo');
+  const keys = ["import-report-open-board", "draggable", "board-view-map", "map-view-empty", "map-view-upload", "map-view-remove-image", "map-view-unplaced", "map-view-place-hint", "map-view-all-placed", "blockly-ANNOUNCE_CANT_SCROLL_FURTHER", "blockly-ANNOUNCE_MOVE_AFTER", "blockly-ANNOUNCE_MOVE_AROUND", "blockly-ANNOUNCE_MOVE_BEFORE", "blockly-ANNOUNCE_MOVE_CANCELED", "blockly-ANNOUNCE_MOVE_INSIDE", "blockly-ANNOUNCE_MOVE_TO", "blockly-ANNOUNCE_MOVE_WORKSPACE", "blockly-ANNOUNCE_SCROLLED_DOWN", "blockly-ANNOUNCE_SCROLLED_LEFT", "blockly-ANNOUNCE_SCROLLED_RIGHT", "blockly-ANNOUNCE_SCROLLED_UP", "blockly-ARIA_LABEL_ADD_ELSE_IF", "blockly-ARIA_LABEL_ADD_INPUT", "blockly-ARIA_LABEL_ADD_LIST_ITEM"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `yo:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `yo:${key}: tokens`);
+  }
+  assert.match(locale['map-view-empty'], /Alábòójútó pátákó.*gbé.*sókè/);
+  assert.match(locale['map-view-place-hint'], /Fa káàdì.*tàbí yàn án.*tẹ/);
+  assert.notEqual(locale['map-view-unplaced'], locale['map-view-all-placed']);
+  assert.equal(new Set(['DOWN', 'LEFT', 'RIGHT', 'UP'].map(direction => locale[`blockly-ANNOUNCE_SCROLLED_${direction}`])).size, 4);
+  assert.match(locale['blockly-ANNOUNCE_MOVE_AFTER'], /lẹ́yìn/);
+  assert.match(locale['blockly-ANNOUNCE_MOVE_BEFORE'], /ṣáájú/);
+  assert.match(locale['blockly-ANNOUNCE_MOVE_INSIDE'], /sínú/);
+  assert.equal(locale['blockly-ALT_KEY'], 'Alt');
+}
+
 // Yoruba reminder offsets, private filters and import reports.
 {
   const locale = read('yo');
