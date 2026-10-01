@@ -28,6 +28,25 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek list indexing, copying and insertion.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["blockly-LISTS_GET_SUBLIST_START_FROM_START", "blockly-LISTS_GET_SUBLIST_TOOLTIP", "blockly-LISTS_INDEX_FROM_END_TOOLTIP", "blockly-LISTS_INDEX_FROM_START_TOOLTIP", "blockly-LISTS_INDEX_OF_FIRST", "blockly-LISTS_INDEX_OF_LAST", "blockly-LISTS_INDEX_OF_TOOLTIP", "blockly-LISTS_INLIST", "blockly-LISTS_ISEMPTY_TITLE", "blockly-LISTS_ISEMPTY_TOOLTIP", "blockly-LISTS_LENGTH_TITLE", "blockly-LISTS_LENGTH_TOOLTIP", "blockly-LISTS_REPEAT_TITLE", "blockly-LISTS_REPEAT_TOOLTIP", "blockly-LISTS_REVERSE_MESSAGE0", "blockly-LISTS_REVERSE_TOOLTIP", "blockly-LISTS_SET_INDEX_INSERT", "blockly-LISTS_SET_INDEX_SET", "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_FIRST", "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_FROM"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  assert.notEqual(locale['blockly-LISTS_INDEX_FROM_END_TOOLTIP'], locale['blockly-LISTS_INDEX_FROM_START_TOOLTIP']);
+  assert.notEqual(locale['blockly-LISTS_INDEX_OF_FIRST'], locale['blockly-LISTS_INDEX_OF_LAST']);
+  assert.notEqual(locale['blockly-LISTS_SET_INDEX_INSERT'], locale['blockly-LISTS_SET_INDEX_SET']);
+  assert.ok(locale['blockly-LISTS_GET_SUBLIST_START_FROM_START'].includes('#'));
+  if (code !== 'uz-AR') {
+    assert.match(locale['blockly-LISTS_INDEX_OF_TOOLTIP'], /topilmasa, %1/);
+    assert.match(locale['blockly-LISTS_REVERSE_TOOLTIP'], /nusxasining/);
+  }
+}
+
 // Uzbek list reads, removals and sub-list boundaries.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
