@@ -12427,6 +12427,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f296e32d3939eaf4a0516e13d08f1d416240878b">Telugu text editing and workspace messages</a>. Thanks to xet7.</summary>
+
+- Translate 38 text editing, variable and workspace placeholders.
+- Check replacement scope, copied text, variable conflicts and announcement
+  spacing while preserving source tokens and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
