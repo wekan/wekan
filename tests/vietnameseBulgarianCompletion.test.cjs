@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek sprint reports preserve unknown estimates and distinct lifecycle states.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["scrum-added", "scrum-removed", "scrum-incomplete", "scrum-no-closed-sprints", "scrum-report-help", "scrum-total", "scrum-state-planned", "scrum-state-active", "scrum-state-closed", "scrum-state-cancelled", "scrum-unknown-estimate", "scrum-confirm-close", "scrum-confirm-cancel", "scrum-past-sprints", "scrum-list-category", "scrum-swimlane-purpose", "scrum-category-backlog", "scrum-category-todo", "scrum-category-doing", "scrum-category-done", "scrum-partial-report", "scrum-state-released", "scrum-released-at", "scrum-follow-up-cards", "scrum-import-reference-omitted"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  assert.equal(new Set(['planned', 'active', 'closed', 'cancelled', 'released'].map(k => locale[`scrum-state-${k}`])).size, 5);
+  assert.equal(locale['scrum-category-backlog'], locale['scrum-backlog']);
+  assert.equal(locale['scrum-category-done'], locale['scrum-completed']);
+  assert.notEqual(locale['scrum-added'], locale['scrum-removed']);
+  assert.notEqual(locale['scrum-confirm-close'], locale['scrum-confirm-cancel']);
+  assert.match(locale['scrum-report-help'], code === 'uz-AR' ? /نولگه تېنگ باها‌لر اېمس/ : /nolga teng baholar emas/);
+  assert.match(locale['scrum-partial-report'], code === 'uz-AR' ? /فقط حاضر سیزگه/ : /faqat hozir sizga/);
+}
+
 // Uzbek sprint events distinguish product review from process retrospection.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
