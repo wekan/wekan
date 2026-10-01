@@ -12877,6 +12877,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2393ed5c53a3dd810ed90d10cf2a7d5183ddf200">Translate Punjabi reminders and saved filters</a>. Thanks to xet7.</summary>
+
+- Translate 30 Punjabi reminder, filter, import warning and map strings.
+- Check reminder timing, private filters and literal URL variables while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
