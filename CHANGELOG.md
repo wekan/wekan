@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/925ba184d7">Translate Sindhi bitmap and editor input labels</a>. Thanks to xet7.</summary>
+
+- Fill 30 bitmap control, icon and editor input messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b8bd3005e0">Translate Sindhi loops and editing controls</a>. Thanks to xet7.</summary>
 
 - Fill 31 loop, conditional, warning and editing-control messages.
