@@ -13082,6 +13082,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c9bd621065bda4c1ab3f78d39eded9e7da4345d8">Translate Punjabi sprint reports and observation guidance</a>. Thanks to xet7.</summary>
+
+- Translate 36 Punjabi sprint-report and daily-observation strings.
+- Check unknown estimates, partial reports and observation limits while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
