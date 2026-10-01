@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/572ce64e86">Translate Sindhi editor field and block labels</a>. Thanks to xet7.</summary>
+
+- Fill 32 editor field, accessibility and block-label messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6da193c5f8">Translate Sindhi map and accessibility messages</a>. Thanks to xet7.</summary>
 
 - Fill 29 map, import report and editor accessibility messages.
