@@ -28,6 +28,25 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona Blockly block descriptions, warnings and color blending.
+{
+  const locale = read('sn');
+  const keys = ["blockly-BLOCK_LABEL_DISABLED", "blockly-BLOCK_LABEL_HAS_BRANCHES", "blockly-BLOCK_LABEL_HAS_INPUT", "blockly-BLOCK_LABEL_HAS_INPUTS", "blockly-BLOCK_LABEL_REPLACEABLE", "blockly-BLOCK_LABEL_STACK_BLOCKS", "blockly-BLOCK_LABEL_STATEMENT", "blockly-BLOCK_LABEL_TOOLBOX_CATEGORY", "blockly-BLOCK_LABEL_VALUE", "blockly-BUBBLE_LABEL_COMMENT", "blockly-BUBBLE_LABEL_DEFAULT", "blockly-BUBBLE_LABEL_WARNING", "blockly-CANNOT_DELETE_VARIABLE_PROCEDURE", "blockly-CHANGE_VALUE_TITLE", "blockly-CLEAN_UP", "blockly-CLOSE_BACKPACK", "blockly-COLLAPSED_WARNINGS_WARNING", "blockly-COLLAPSE_ALL", "blockly-COLLAPSE_BLOCK", "blockly-COLOUR_BLEND_COLOUR1", "blockly-COLOUR_BLEND_COLOUR2", "blockly-COLOUR_BLEND_RATIO", "blockly-COLOUR_BLEND_TITLE", "blockly-COLOUR_BLEND_TOOLTIP"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+  }
+  assert.notEqual(locale['blockly-BLOCK_LABEL_HAS_INPUT'], locale['blockly-BLOCK_LABEL_HAS_INPUTS']);
+  assert.notEqual(locale['blockly-COLLAPSE_ALL'], locale['blockly-COLLAPSE_BLOCK']);
+  assert.match(locale['blockly-CANNOT_DELETE_VARIABLE_PROCEDURE'], /Hazvigoni kudzima.*chikamu chetsananguro/);
+  assert.match(locale['blockly-COLLAPSED_WARNINGS_WARNING'], /akapetwa ane yambiro/);
+  assert.ok(locale['blockly-COLOUR_BLEND_TOOLTIP'].includes('(0.0 - 1.0)'));
+  assert.ok(locale['blockly-COLOUR_BLEND_COLOUR1'].endsWith('1'));
+  assert.ok(locale['blockly-COLOUR_BLEND_COLOUR2'].endsWith('2'));
+  assert.equal(locale['blockly-CAPS_LOCK_KEY'], 'Caps Lock');
+  assert.equal(locale['blockly-CHROME_OS'], 'ChromeOS');
+}
+
 // Shona Blockly field types and accessible controls.
 {
   const locale = read('sn');
