@@ -11819,6 +11819,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/98334e58d5756272fe8cd52f66822a74d4f3ff74">Haitian Creole notification recovery messages</a>. Thanks to xet7.</summary>
+
+- Fill 38 English placeholders for email failures, time estimates and
+  activity notification recovery, preserving existing translations.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for cancellation boundaries, access checks and activity retention.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
