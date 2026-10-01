@@ -1682,7 +1682,8 @@ attributed only to the person it was sent to. Carries out the maintainer's
 **90-day compaction** of rule email, rule, notification and webhook plans,
 **Sync History linked when written**, **online History writer recovery**, and
 **manual and scheduled Sync through the durable journal** with replay after a
-restart.
+restart. Image covers and attachment previews show the picture
+again.
 Irish gains the rule email recovery and legacy review translations.
 
 This release fixes the following CRITICAL SECURITY ISSUE of [ReplyBleed](https://wekan.fi/hall-of-fame/replybleed/):
@@ -1969,6 +1970,26 @@ completeChecklist when the list is finished, and History when the value
 changed. The command simulates that sequence, and the runner applies it item by
 item, so rules triggered by one item run before the next, as they do now. The
 History planner accepts checklist-item rows for this.
+
+</details>
+
+and fixes the following bugs:
+
+**Card images** - image covers and attachment previews show the picture again,
+on the board and in the open card, instead of a flat band or a blue button.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e4ae7c2829">Show image previews on cards again: a real cover picture, and a neutral attachment tile</a>. Thanks to xet7.</summary>
+
+Reported by email against v12.12. The board cover was empty because the
+minicard's cover helper returned a wrapper without the attachment's id, so the
+preview URL was blank. It now returns the attachment. The open card's
+thumbnail is a button, and the global button style filled it with the theme
+colour. Every state of it is now reset to a neutral 144x96 frame that shows
+the whole picture. Covers are thumbnail images, cover-fitted on the board and
+in the open card. A thumbnail that fails falls back to the original once. The
+table page's attachment preview gets the same neutral frame. Unit tests and a
+Playwright spec, run in Chromium and WebKit, cover it.
 
 </details>
 
