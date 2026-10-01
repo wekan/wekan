@@ -1685,6 +1685,18 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/841c5302f7">Translate Cantonese rules and notification preferences</a>. Thanks to xet7.</summary>
+
+- Fill 35 messages for rules, notification categories, due reminders,
+  dependency directions and saved filters.
+- Cantonese regression checks now compare brace-delimited template variables
+  as well as underscore and percent placeholders. These and all 21
+  human-preference checks pass. Other untranslated strings remain;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ae743931bc">Translate Cantonese date filters and board visibility</a>. Thanks to xet7.</summary>
 
 - Fill 30 Cantonese messages for date filters, automatic archiving, imports
