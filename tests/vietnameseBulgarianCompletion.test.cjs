@@ -28,6 +28,26 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona weekdays, layout and reminder text replace prefixed English.
+{
+  const locale = read('sn');
+  const keys = ["r-df-end-at", "r-df-received-at", "ldap", "oauth2", "cas", "settings-group-url", "settings-group-logo", "custom-head-meta-tags", "custom-head-link-tags", "custom-head-manifest-content", "custom-assetlinks-content", "layout", "error-undefined", "act-newDue", "act-withDue", "roles", "roles-status-role", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday", "voting", "task", "domains", "domain", "shared-templates", "website", "person", "month", "context-separator", "myCardsViewChange-choice-table", "dueCardsViewChange-choice-me", "operator-board-abbrev", "operator-swimlane-abbrev", "operator-list-abbrev", "operator-label-abbrev", "operator-user-abbrev"];
+  const invariants = ["ldap", "oauth2", "cas", "settings-group-url", "context-separator", "operator-board-abbrev", "operator-swimlane-abbrev", "operator-list-abbrev", "operator-label-abbrev", "operator-user-abbrev"];
+  for (const key of keys) {
+    assert.doesNotMatch(locale[key], /Mashoko echiShona:/, `sn:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+    if (invariants.includes(key)) assert.equal(locale[key], english[key], `sn:${key}: protocol or syntax`);
+    else assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+  }
+  assert.equal(locale['shared-templates'], locale['org-shared-templates']);
+  assert.equal(locale['myCardsViewChange-choice-table'], locale['board-view-table']);
+  assert.ok(locale['custom-assetlinks-content'].includes('assetlinks.json'));
+  for (const key of ['custom-head-meta-tags', 'custom-head-link-tags']) assert.ok(locale[key].includes('(HTML)'));
+  for (const key of ['custom-head-manifest-content', 'custom-assetlinks-content']) assert.ok(locale[key].includes('(JSON)'));
+  assert.equal(new Set(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map(day => locale[day])).size, 7);
+  assert.match(locale['act-newDue'], /chekutanga/);
+}
+
 // Shona rule and schedule controls replace prefixed English.
 {
   const locale = read('sn');
