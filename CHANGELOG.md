@@ -1685,6 +1685,16 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6503a6e4f4">Translate Javanese notifications and saved filters</a>. Thanks to xet7.</summary>
+
+- Fill 32 notification, reminder, saved-filter and import-report strings.
+- Focused key-order, placeholder and restriction checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8d36f60207">Translate Javanese visibility and rule messages</a>. Thanks to xet7.</summary>
 
 - Fill 20 visibility, import, rule and notification messages, preserving
