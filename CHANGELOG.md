@@ -12517,6 +12517,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/81a7e3447c714a4adebdd7e00e03d049275e76e1">Translate Pashto date filters and archive controls</a>. Thanks to xet7.</summary>
+
+- Translate 25 Pashto date filter, automatic archive and Leo import strings.
+- Check inclusive dates, template exclusions and literal query syntax while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
