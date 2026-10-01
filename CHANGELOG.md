@@ -1686,6 +1686,18 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/357df8fbdd">Verify Kyrgyz translation completeness and literal labels</a>. Thanks to xet7.</summary>
+
+- Review 21 literal keyboard and platform labels for Kyrgyz.
+- The full Kyrgyz suite passes with source-key order and shared placeholder
+  checks; no untranslated placeholders remain in its current report.
+- Batch regression checks and all 21 human-preference checks pass.
+  Other languages remain unfinished. Browser and native-speaker reviews
+  were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2a9b3e0606">Translate Kyrgyz recovery and history messages</a>. Thanks to xet7.</summary>
 
 - Fill 47 recovery, rule email, sign-in, time-estimate and history messages.
