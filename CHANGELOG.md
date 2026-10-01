@@ -2647,6 +2647,19 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ec788e2d89e2eaad900312d7e4d0dfce5540f401">Translate Sinhala daily observations and sync review messages</a>. Thanks to xet7.</summary>
+
+- Translate 30 Sinhala daily-observation and sync-conflict messages.
+- Check observation limits, source isolation and unchanged subcards,
+  while preserving placeholders and existing translations.
+- Update the README count to 148 languages above 90 percent translated.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
