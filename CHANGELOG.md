@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/991192c7a1">Translate Javanese email queue and delivery failures</a>. Thanks to xet7.</summary>
+
+- Fill 36 email queue, delivery failure and time-estimate messages.
+- Focused key-order, placeholder and restriction checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/84af13530f">Translate Javanese Sync reports and diagnostics</a>. Thanks to xet7.</summary>
 
 - Fill 33 Sync report, omitted-field and diagnostic messages.
