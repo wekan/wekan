@@ -1685,6 +1685,16 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/77ac017f81">Translate Tajik map and accessibility messages</a>. Thanks to xet7.</summary>
+
+- Fill 43 map instructions, movement announcements and editor field labels.
+- Focused key-order, placeholder and query-syntax checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/65cc8b5e84">Translate Tajik notifications and saved filters</a>. Thanks to xet7.</summary>
 
 - Fill 40 notification, reminder, saved-filter, import-report and map strings.
