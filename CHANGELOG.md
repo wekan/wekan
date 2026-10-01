@@ -1675,7 +1675,7 @@ template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.14 2026-10-01 WeKan ® release
 
 **In short:** A translation test now checks the Trello link by its parsed host,
 closing **GitHub CodeQL** alert 547, and the **DOMPurify** sanitizer is updated
