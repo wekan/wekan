@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek bitmap coordinates, editing fields and keyboard boundaries.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["blockly-END_KEY", "blockly-EXTERNAL_INPUTS", "blockly-FIELD_BITMAP_ARIA_VALUE", "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR", "blockly-FIELD_BITMAP_BUTTON_LABEL_RANDOMIZE", "blockly-FIELD_BITMAP_PIXEL_LABEL", "blockly-FIELD_BITMAP_PIXEL_OFF", "blockly-FIELD_LABEL_EDIT_PREFIX", "blockly-FIELD_LABEL_EMPTY", "blockly-FIELD_LABEL_OPTION_INDEX", "blockly-FIELD_LABEL_VARIABLE", "blockly-FIELD_MULTILINEINPUT_FINISH_EDITING", "blockly-FIELD_MULTILINEINPUT_NEW_LINE", "blockly-HELP_PROMPT", "blockly-HOME_KEY", "blockly-ICON_LABEL_COMMENT_CLOSED", "blockly-ICON_LABEL_COMMENT_OPEN", "blockly-ICON_LABEL_DEFAULT", "blockly-ICON_LABEL_MUTATOR_CLOSED", "blockly-ICON_LABEL_MUTATOR_OPEN"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  assert.match(locale['blockly-FIELD_BITMAP_PIXEL_LABEL'], code === 'uz-AR' ? /%2-قطار.*%3-اوستون/ : /%2-qator.*%3-ustun/);
+  assert.match(locale['blockly-FIELD_BITMAP_ARIA_VALUE'], /%1.*%2.*%3/);
+  assert.notEqual(locale['blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR'], locale['blockly-FIELD_BITMAP_BUTTON_LABEL_RANDOMIZE']);
+  assert.notEqual(locale['blockly-HOME_KEY'], locale['blockly-END_KEY']);
+  assert.notEqual(locale['blockly-END_KEY'], locale['end-date']);
+  for (const k of ['COMMENT', 'MUTATOR']) assert.notEqual(locale[`blockly-ICON_LABEL_${k}_CLOSED`], locale[`blockly-ICON_LABEL_${k}_OPEN`]);
+}
+
 // Uzbek loop conditions and clipboard actions.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
