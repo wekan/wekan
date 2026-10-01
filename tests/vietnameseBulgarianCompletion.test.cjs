@@ -28,6 +28,25 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek random-number bounds, rounding and unary mathematics.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["blockly-MATH_ONLIST_TOOLTIP_MIN", "blockly-MATH_ONLIST_TOOLTIP_MODE", "blockly-MATH_ONLIST_TOOLTIP_RANDOM", "blockly-MATH_ONLIST_TOOLTIP_STD_DEV", "blockly-MATH_ONLIST_TOOLTIP_SUM", "blockly-MATH_POWER_SYMBOL_ARIA", "blockly-MATH_RANDOM_FLOAT_TITLE_RANDOM", "blockly-MATH_RANDOM_FLOAT_TOOLTIP", "blockly-MATH_RANDOM_INT_TITLE", "blockly-MATH_RANDOM_INT_TOOLTIP", "blockly-MATH_ROUND_OPERATOR_ROUND", "blockly-MATH_ROUND_OPERATOR_ROUNDDOWN", "blockly-MATH_ROUND_OPERATOR_ROUNDUP", "blockly-MATH_ROUND_TOOLTIP", "blockly-MATH_SINGLE_OP_ABSOLUTE", "blockly-MATH_SINGLE_OP_ABSOLUTE_ARIA", "blockly-MATH_SINGLE_OP_EXP_ARIA", "blockly-MATH_SINGLE_OP_LN_ARIA", "blockly-MATH_SINGLE_OP_LOG10_ARIA", "blockly-MATH_SINGLE_OP_NEG_ARIA", "blockly-MATH_SINGLE_OP_POW10_ARIA", "blockly-MATH_SINGLE_TOOLTIP_ABS", "blockly-MATH_SINGLE_TOOLTIP_EXP"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  const fraction = locale['blockly-MATH_RANDOM_FLOAT_TOOLTIP'];
+  assert.match(fraction, /0\.0.*1\.0/);
+  assert.match(fraction, code === 'uz-AR' ? /0\.0 \(کیره‌دی\).*1\.0 \(کیرمیدی\)/ : /0\.0 \(kiradi\).*1\.0 \(kirmaydi\)/);
+  assert.match(locale['blockly-MATH_RANDOM_INT_TOOLTIP'], code === 'uz-AR' ? /چېگره‌لر هم کیره‌دی/ : /chegaralar ham kiradi/);
+  assert.equal(new Set(['ROUND', 'ROUNDDOWN', 'ROUNDUP'].map(k => locale[`blockly-MATH_ROUND_OPERATOR_${k}`])).size, 3);
+  assert.notEqual(locale['blockly-MATH_SINGLE_OP_LN_ARIA'], locale['blockly-MATH_SINGLE_OP_LOG10_ARIA']);
+  assert.match(locale['blockly-MATH_SINGLE_OP_LOG10_ARIA'], /10/);
+  assert.match(locale['blockly-MATH_SINGLE_OP_EXP_ARIA'], /e/);
+}
+
 // Uzbek statistics distinguish mean, median, modes and extrema.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
