@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a7b50d1f65">Translate Bashkir editor keyboard shortcuts</a>. Thanks to xet7.</summary>
+
+- Fill 36 editor navigation, movement and keyboard shortcut descriptions.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/00fe8f46ce">Translate Bashkir functions and screen reader controls</a>. Thanks to xet7.</summary>
 
 - Fill 25 function, variable and screen-reader control messages.
