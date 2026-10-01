@@ -13094,6 +13094,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5cbe3caf696c50c1d7ae9a4d3319588374402e06">Translate Punjabi sync conflicts and previews</a>. Thanks to xet7.</summary>
+
+- Translate 30 Punjabi sync-conflict and preview strings.
+- Check local content retention, unchanged subcards and source distinctions
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
