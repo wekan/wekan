@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2aa4e6f4dd">Translate Uyghur saved filters, imports and map controls</a>. Thanks to xet7.</summary>
+
+- Fill 23 saved filter, import report, template and map messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1ca3f21b66">Translate Uyghur notification preferences and reminders</a>. Thanks to xet7.</summary>
 
 - Fill 24 rule control, notification and due-date reminder messages.
