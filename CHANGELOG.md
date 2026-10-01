@@ -2061,6 +2061,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/87e51bb811bdbf6be5668eaa21f2b3890eff3066">Translate Marathi colors and block control flow</a>. Thanks to xet7.</summary>
+
+- Translate 35 Marathi color, variable warning and loop control messages.
+- Check numeric ranges, deletion restrictions and loop control distinctions
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
