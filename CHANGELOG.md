@@ -10421,6 +10421,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1b92fb0b136f1b11af79099ab19e104ed9626b4e">Translate Uzbek random-number and rounding controls</a>. Thanks to xet7.</summary>
+
+- Fill 23 mathematical strings in each Uzbek locale,
+  using Arabic script for uz-AR and Latin for the other three locales.
+- Translation, registry and human-preference checks pass, covering tokens,
+  inclusive integer bounds, exclusive fraction bounds and rounding directions.
+  Wording needs fluent review, especially Arabic-script orthography.
+  Browser review and wider translation completion remain outstanding.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
