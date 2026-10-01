@@ -28,6 +28,28 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona migration monitoring labels replace prefixed English.
+{
+  const locale = read('sn');
+  const keys = ["step-fix-avatar-urls", "step-finalize", "step-fix-missing-ids", "cleanup", "cleanup-old-jobs", "cpu-cores", "cpu-usage", "database-migrations", "duration", "errors", "every-1-hour", "every-6-hours", "filesystem-attachments", "filesystem-size", "filesystem-storage", "gridfs-attachments", "gridfs-size", "gridfs-storage", "idle-migration", "job-details", "job-queue", "max-concurrent", "memory-usage", "migrated-attachments", "migration-batch-size", "migration-cpu-threshold", "migration-cpu-threshold-description", "migration-delay-ms", "migration-detector", "migration-log", "migration-markers", "migration-resumed", "migration-steps", "operation-type", "overall-progress", "pause-migration", "refresh", "refresh-monitoring", "resume-migration", "run-once"];
+  for (const key of keys) {
+    assert.doesNotMatch(locale[key], /Mashoko echiShona:/, `sn:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+    if (key === 'gridfs-storage') assert.equal(locale[key], english[key]);
+    else assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+  }
+  assert.equal(locale['step-fix-avatar-urls'], locale['fix-avatar-urls-migration']);
+  assert.equal(locale['overall-progress'], locale['migration-progress-overall']);
+  assert.equal(locale['cpu-usage'], locale.cpuReportTitle);
+  assert.ok(locale['migration-cpu-threshold-description'].includes('(10-90)'));
+  assert.match(locale['migration-cpu-threshold-description'], /Misa.*kwechinguva.*kwapfuura/);
+  assert.ok(locale['migration-cpu-threshold'].includes('(%)'));
+  assert.ok(locale['migration-delay-ms'].includes('(ms)'));
+  assert.notEqual(locale['pause-migration'], locale['resume-migration']);
+  assert.notEqual(locale['every-1-hour'], locale['every-6-hours']);
+  assert.match(locale['run-once'], /kamwe chete/);
+}
+
 // Shona migration and S3 labels replace prefixed English.
 {
   const locale = read('sn');
