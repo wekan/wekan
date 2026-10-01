@@ -11797,6 +11797,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/da7cf5e26d5643b6fafb58233952a137150a8098">Haitian Creole sprint observations and sync messages</a>. Thanks to xet7.</summary>
+
+- Fill 53 English placeholders for sprint observations and sync messages.
+  Preserve existing translations; update the README language coverage count.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for reporting limits, sync safeguards and placeholders.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
