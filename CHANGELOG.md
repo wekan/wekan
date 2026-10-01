@@ -10145,6 +10145,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/925d50f4d14f784d8b944163c0b34a3cddf08f9f">Translate Hausa email queue and time estimate messages</a>. Thanks to xet7.</summary>
+
+- Fill 35 Hausa email delivery and Jira time estimate messages, preserving
+  cancellation scope, delivery uncertainty and retries during a pause.
+- Translation, registry and human-preference checks pass, covering tokens,
+  failure distinctions, estimate units and existing translation preservation.
+  Technical wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
