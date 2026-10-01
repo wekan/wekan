@@ -2769,6 +2769,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d2c6c3d5d1be133809646c6d86d44ef90a2ac617">Translate Kazakh colour and loop controls</a>. Thanks to xet7.</summary>
+
+- Translate 30 Kazakh colour, loop and conditional-block messages.
+- Check numeric ranges, loop restrictions and reordered placeholders,
+  while preserving existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
