@@ -13371,6 +13371,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dcab4ac25a3201d40e30fd7aae6548100714d3c4">Translate Malayalam text handling and variable actions</a>. Thanks to xet7.</summary>
+
+- Translate 31 Malayalam text-handling and variable-action strings.
+- Check replacement arguments, trimming directions and space counts while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
