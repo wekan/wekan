@@ -9881,6 +9881,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/552dd49b43ddff34e1eb723e88f18ad6d87e9218">Translate Igbo rule editor and Scrum planning labels</a>. Thanks to xet7.</summary>
+
+- Fill 32 Igbo rule-editor and Scrum placeholders. Igbo passes 90 percent
+  source coverage, bringing the README count to 133 languages.
+- Translation, registry and human-preference checks pass, covering tokens,
+  permissions, saved states, completion policies and shared view labels.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
