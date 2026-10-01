@@ -1685,6 +1685,18 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ca8c13b233">Translate dependency messages into Quechua and Aymara</a>. Thanks to xet7.</summary>
+
+- Fill 11 dependency messages in each language, bringing dependency coverage
+  to 220 non-English locale tags. Terminology and grammar have low confidence
+  and need native-speaker review. Older mixed-language values still need work.
+- Dependency key-order and placeholder checks and all 21 human-preference
+  checks pass. Other untranslated strings remain; browser and native-speaker
+  reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1161737572">Translate dependency messages into Tibetan and Dzongkha</a>. Thanks to xet7.</summary>
 
 - Fill 11 dependency messages in each language, bringing dependency coverage
