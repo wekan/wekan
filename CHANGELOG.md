@@ -11952,6 +11952,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4df715579509cf147aa33848518900ee3a10c893">Latin Blockly functions and variables</a>. Thanks to xet7.</summary>
+
+- Fill 33 English placeholders for function and variable controls,
+  preserving existing translations and placeholders.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for return values, disabled definitions and function warnings.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
