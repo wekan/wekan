@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/eae64c06c2">Translate Bashkir activity notification recovery</a>. Thanks to xet7.</summary>
+
+- Fill 29 time estimate and activity notification recovery messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f681afb5f8">Translate Bashkir email recovery controls and failures</a>. Thanks to xet7.</summary>
 
 - Fill 30 email queue control, recovery and delivery failure messages.
