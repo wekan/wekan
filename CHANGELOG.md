@@ -11963,6 +11963,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ed31102118daad2767c0d223c3586e60501e7a87">Latin screen-reader and keyboard shortcuts</a>. Thanks to xet7.</summary>
+
+- Fill 46 English placeholders for screen-reader controls and shortcuts,
+  preserving existing translations and placeholders.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for reader states, variable renaming and navigation directions.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
