@@ -11886,6 +11886,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b27dba699f133459a6026ca8b8279ca6f119ce04">Latin Blockly loops and editing actions</a>. Thanks to xet7.</summary>
+
+- Fill 40 English placeholders for loops, conditions and editing actions,
+  preserving existing translations and placeholders.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for loop conditions, argument order and deletion confirmations.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
