@@ -10674,6 +10674,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5ca769f1bcea648c38134aa08fb24e4277817562">Correct Arabic-script Uzbek card activity messages</a>. Thanks to xet7.</summary>
+
+- Replace 20 Latin-script card activity values in uz-AR with Arabic-script
+  Uzbek, preserving placeholders and movement origins and destinations.
+- Translation, registry and human-preference checks pass. Regression checks
+  reject Latin prose and distinguish archive, restore and membership actions.
+  Wording is low confidence and needs fluent review. Browser review was not run.
+  Older script corrections and wider translation completion remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
