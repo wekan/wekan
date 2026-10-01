@@ -4007,18 +4007,6 @@ placeholders. Other languages remain in progress.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7ed5c2937">Correct mixed-language Aragonese email and import messages</a>. Thanks to xet7.</summary>
-
-- Replace Spanish and mixed-language wording in 30 reviewed Aragonese email,
-  template and import messages, preserving all other locale values.
-- Translation, registry and human-preference checks pass. Regression coverage
-  checks Aragonese wording, placeholders, API paths, JSON fields and Markdown
-  syntax. Wording is lower confidence; browser layout and fluent-speaker
-  review were not run. The broader language audit remains in progress.
-
-</details>
-
-<details>
 <summary><a href="https://github.com/wekan/wekan/commit/16d3704da">Correct mixed-language Aragonese interface messages</a>. Thanks to xet7.</summary>
 
 - Correct 42 mixed-language navigation, account, import and settings messages.
