@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a2949d002b">Translate Kyrgyz list operations and ordering</a>. Thanks to xet7.</summary>
+
+- Fill 32 list range, search, insertion and ordering messages.
+- Batch key-order, placeholder, rule-variable and markup checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2195ff3324">Translate Kyrgyz navigation and list retrieval messages</a>. Thanks to xet7.</summary>
 
 - Fill 32 keyboard navigation, list creation, retrieval and removal messages.
