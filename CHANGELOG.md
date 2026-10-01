@@ -1685,6 +1685,16 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5c1935e56f">Translate Javanese logic and arithmetic messages</a>. Thanks to xet7.</summary>
+
+- Fill 33 comparison, Boolean-logic and arithmetic messages.
+- Focused key-order, placeholder and restriction checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/fdf1c8eac5">Translate Javanese list insertion and sorting</a>. Thanks to xet7.</summary>
 
 - Fill 35 list-insertion, sorting and text-conversion messages.
