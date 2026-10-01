@@ -1686,6 +1686,18 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c74eff39a1">Complete Sindhi placeholder translations and verify coverage</a>. Thanks to xet7.</summary>
+
+- Translate the final five history messages; retain 28 literal keyboard,
+  platform and code labels as locale-specific exceptions.
+- Sindhi has no reported untranslated prose, including pending source keys.
+  Whole-locale key-order and placeholder checks and all 21 human-preference
+  checks pass. The shared suite still fails on missing Cherokee dependency
+  keys. Browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5ee0b66feb">Translate Sindhi activity and rule email recovery messages</a>. Thanks to xet7.</summary>
 
 - Fill 32 activity recovery, rule email delivery and related messages.
