@@ -28,6 +28,25 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Arabic-script Uzbek additions keep prose in its declared script.
+{
+  const locale = read('uz-AR');
+  const keys = ["import-board-instruction-todotxt", "rule-email-recovery-dropped", "rule-email-recovery-review", "rule-email-recovery-recipients", "rule-email-recovery-recipient-accepted", "rule-email-recovery-recipient-unconfirmed", "rule-email-recovery-actions-hint", "rule-email-recovery-wait", "rule-email-recovery-resends", "rule-email-recovery-resend", "rule-email-recovery-mark-sent", "rule-email-recovery-drop", "rule-email-recovery-resend-confirm", "rule-email-recovery-mark-sent-confirm", "rule-email-recovery-drop-confirm", "rule-email-resolution-too-early", "rule-email-resolution-already-resolved", "rule-email-resolution-resend-in-flight", "rule-email-resolution-nothing-to-resend", "rule-email-resolution-resend-uncertain", "rule-email-resolution-busy", "rule-email-resolution-command-changed", "rule-email-resolution-attempt-invalid", "rule-email-resolution-failed", "rule-email-legacy-heading", "rule-email-legacy-description", "rule-email-legacy-source", "rule-email-legacy-mail", "rule-email-legacy-reason", "rule-email-legacy-reason-unbound", "rule-email-legacy-reason-details-snapshot", "rule-email-legacy-rebind", "rule-email-legacy-discard", "rule-email-legacy-rebind-confirm", "rule-email-legacy-discard-confirm", "rule-email-legacy-empty", "rule-email-legacy-unavailable", "rule-email-legacy-access-denied", "rule-email-legacy-source-changed", "rule-email-legacy-source-unavailable", "rule-email-legacy-plan-unavailable", "rule-email-legacy-attempt-exists", "rule-email-legacy-not-legacy", "rule-email-legacy-failed"];
+  assert.deepEqual(Object.keys(locale), Object.keys(english));
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `uz-AR:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `uz-AR:${key}: tokens`);
+    assert.match(locale[key], /[\u0600-\u06ff]/);
+    const prose = locale[key].replace(/__[a-z]+__|WeKan|todo\.txt|"x"|\+project|@context|\(A\)|due:|t:/g, '');
+    assert.doesNotMatch(prose, /[A-Za-z]/, `uz-AR:${key}: no Latin prose`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) assert.ok(locale['import-board-instruction-todotxt'].includes(token));
+  assert.match(locale['rule-email-recovery-resend-confirm'], /ایککی مرته/);
+  assert.match(locale['rule-email-recovery-actions-hint'], /اۉز-اۉزیدن قیته یوبارمیدی/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /هېچ قچان یوباریلمیدی/);
+  assert.notEqual(locale['rule-email-recovery-recipient-accepted'], locale['rule-email-recovery-recipient-unconfirmed']);
+}
+
 // Uzbek Latin locales: newly added import and rule-email recovery strings.
 for (const code of ['uz', 'uz-LA', 'uz-UZ']) {
   const locale = read(code);
