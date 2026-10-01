@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Igbo rule interpolation and notification preferences.
+{
+  const locale = read('ig');
+  const keys = ["other-parent-cards", "add-parent-card", "remove-parent-card", "r-when-card-date", "r-trigger-vars-hint", "r-insert-variable", "r-vars-people-hint", "r-rule-any-trigger-help", "r-add-trigger-to-rule", "r-add-action-to-rule", "r-remove-rule-part", "notification-activity-heading", "notification-activity-description", "notification-activity-labels", "notification-activity-members", "notification-activity-assignees", "notification-activity-comments", "notification-activity-moves", "notification-activity-dates", "notification-activity-checklists", "notification-activity-attachments", "notification-activity-customFields", "notification-activity-archive", "notification-activity-created", "due-reminder-heading", "due-reminder-days-label", "due-reminder-off", "due-reminder-webhook"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `ig:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ig:${key}: tokens`);
+  }
+  for (const key of ['r-trigger-vars-hint', 'r-vars-people-hint']) {
+    assert.deepEqual(locale[key].match(/\{[^}]+\}/g), english[key].match(/\{[^}]+\}/g));
+  }
+  assert.match(locale['notification-activity-description'], /@mentions.*mgbe niile/);
+  assert.match(locale['due-reminder-days-label'], /0.*tupu.*mgbe ọ gachara/);
+  assert.notEqual(locale['notification-activity-members'], locale['notification-activity-assignees']);
+  assert.match(locale['r-rule-any-trigger-help'], /ọ bụla.*nʼusoro/);
+  assert.notEqual(locale['add-parent-card'], locale['remove-parent-card']);
+}
+
 // Igbo date filters, archive settings and signed-in visibility.
 {
   const locale = read('ig');
