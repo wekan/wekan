@@ -12,7 +12,7 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
   'de', 'de_DE', 'de-AT', 'de-CH', 'fr', 'fr-FR', 'fr-BE', 'fr-CA', 'fr-CH',
   'es', 'es-AR', 'es-LA', 'es-CL', 'es_CO', 'es-CO', 'es-PY', 'es-PE', 'es-MX', 'it',
   'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'nl', 'nl-NL', 'sv', 'fi', 'et-EE', 'da', 'nb', 'tr', 'id', 'ro', 'ro-RO', 'hu', 'sk', 'ja', 'ja-JP', 'ko', 'ko-KR',
-  'zh-CN', 'zh-Hans', 'zh', 'cmn', 'zh_SG', 'zh-GB', 'zh-Hant', 'zh-TW', 'zh-HK', 'ar', 'ar-DZ', 'ar-EG', 'gl', 'gl-ES', 'he', 'he-IL', 'fa', 'fa-IR', 'ms', 'ms-MY', 'sl', 'sl_SI', 'hr', 'sr', 'bs', 'mk', 'be', 'lt', 'lv', 'is', 'af', 'af_ZA', 'hi', 'hi-IN', 'bn', 'ta', 'ne', 'ur', 'th', 'gu-IN', 'kn', 'ga', 'co', 'sc', 'scn', 'nap', 'an', 'ast-ES', 'oc', 'br', 'eu', 'cy', 'cy-GB', 'gd', 'csb', 'eo', 'sq', 'hy', 'az', 'az-AZ', 'az-LA', 'ka', 'sw', 'tl', 'mt', 'lb', 'fo', 'fur', 'fy', 'fy-NL', 'rm', 'sn']) {
+  'zh-CN', 'zh-Hans', 'zh', 'cmn', 'zh_SG', 'zh-GB', 'zh-Hant', 'zh-TW', 'zh-HK', 'ar', 'ar-DZ', 'ar-EG', 'gl', 'gl-ES', 'he', 'he-IL', 'fa', 'fa-IR', 'ms', 'ms-MY', 'sl', 'sl_SI', 'hr', 'sr', 'bs', 'mk', 'be', 'lt', 'lv', 'is', 'af', 'af_ZA', 'hi', 'hi-IN', 'bn', 'ta', 'ne', 'ur', 'th', 'gu-IN', 'kn', 'ga', 'co', 'sc', 'scn', 'nap', 'an', 'ast-ES', 'oc', 'br', 'eu', 'cy', 'cy-GB', 'gd', 'csb', 'eo', 'sq', 'hy', 'az', 'az-AZ', 'az-LA', 'ka', 'sw', 'tl', 'mt', 'lb', 'fo', 'fur', 'fy', 'fy-NL', 'rm', 'sn', 'yo']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(english), `${code}: source key order`);
   for (const key of Object.keys(english)) {
@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Yoruba final recovery messages and retained technical labels.
+{
+  const locale = read('yo');
+  const keys = ["activity-recovery-cancel-confirm", "rule-email-recovery-heading", "rule-email-recovery-description", "rule-email-recovery-all", "rule-email-recovery-unconfirmed", "rule-email-recovery-sent", "rule-email-recovery-invalid", "rule-email-recovery-identifiers", "rule-email-recovery-started", "rule-email-recovery-finished", "rule-email-recovery-empty", "rule-email-recovery-unavailable", "saml-login-not-started", "move-selection-before", "move-selection-after", "history-request-pending-undo", "history-request-pending-redo", "history-request-hint", "history-request-retry", "history-request-forget"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `yo:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `yo:${key}: tokens`);
+  }
+  for (const key of ["blockly-ALT_KEY", "blockly-BACKSPACE_KEY", "blockly-CAPS_LOCK_KEY", "blockly-CHROME_OS", "blockly-COMMAND_KEY", "blockly-ENTER_KEY", "blockly-ESCAPE", "blockly-INSERT_KEY", "blockly-LINUX", "blockly-MAC_OS", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN", "blockly-OPTION_KEY", "blockly-PAGE_DOWN_KEY", "blockly-PAGE_UP_KEY", "blockly-PAUSE_KEY", "blockly-SHIFT_KEY", "blockly-SPACE_KEY", "blockly-TAB_KEY", "blockly-WINDOWS"]) assert.equal(locale[key], english[key], `yo:${key}: technical label`);
+  assert.match(locale['activity-recovery-cancel-confirm'], /títí láé.*kò lè.*kò gba/);
+  assert.match(locale['rule-email-recovery-description'], /kò tún gbìyànjú tàbí fagilé/);
+  assert.match(locale['rule-email-recovery-sent'], /Sáfà/);
+  assert.match(locale['saml-login-not-started'], /SAML.*táàbù/);
+  assert.match(locale['history-request-hint'], /kan náà.*kò lè.*kejì/);
+  assert.notEqual(locale['move-selection-before'], locale['move-selection-after']);
+  assert.notEqual(locale['history-request-pending-undo'], locale['history-request-pending-redo']);
+}
+
 // Yoruba activity recovery and imported time estimate semantics.
 {
   const locale = read('yo');
