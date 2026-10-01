@@ -28,6 +28,27 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Yoruba daily observations and one-way Sync conflict resolution.
+{
+  const locale = read('yo');
+  const keys = ["scrum-category-todo", "scrum-category-doing", "scrum-partial-report", "scrum-state-released", "scrum-released-at", "scrum-follow-up-cards", "scrum-import-reference-omitted", "scrum-partial-snapshot", "scrum-resume-close", "scrum-daily-observations", "scrum-daily-observations-help", "scrum-daily-truncated", "scrum-daily-empty", "scrum-observed-scope", "scrum-daily-observations-export-help", "scrum-import-pending", "sync-conflict-heading", "sync-conflict-hint", "sync-conflict-local", "sync-conflict-keep-local", "sync-conflict-use-source", "sync-conflict-refresh", "sync-conflict-review-complete", "sync-conflict-duplicate", "sync-conflict-keep-mapping", "sync-conflict-detach", "sync-conflict-detach-hint", "sync-conflict-archive", "sync-conflict-archive-hint", "sync-conflict-keep-card-local", "sync-conflict-creation", "sync-conflict-creation-hint", "sync-conflict-create-replacement", "sync-preview-button", "sync-preview-heading", "sync-preview-saved", "sync-preview-unavailable", "sync-preview-blocked", "sync-preview-create", "sync-preview-update"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `yo:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `yo:${key}: tokens`);
+  }
+  for (const suffix of ['help', 'export-help']) {
+    const value = locale[`scrum-daily-observations-${suffix}`];
+    assert.match(value, /àkọ́kọ́.*UTC/);
+    assert.match(value, /kì í ṣe òdo/);
+  }
+  assert.match(locale['scrum-daily-truncated'], /366/);
+  assert.match(locale['sync-conflict-hint'], /kò fi ohunkóhun ránṣẹ́/);
+  assert.match(locale['sync-conflict-review-complete'], /kò ṣe.*gbogbo àkọjọ/);
+  assert.match(locale['sync-conflict-archive-hint'], /káàdì abẹ́ kò yí padà/);
+  assert.notEqual(locale['sync-conflict-keep-local'], locale['sync-conflict-use-source']);
+  assert.notEqual(locale['sync-preview-create'], locale['sync-preview-update']);
+}
+
 // Yoruba sprint lifecycle and report semantics.
 {
   const locale = read('yo');
