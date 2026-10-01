@@ -9893,6 +9893,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e3ceede59a172e99b8d2192b7739bb378fff106b">Translate Igbo sprint events and reports</a>. Thanks to xet7.</summary>
+
+- Fill 32 Igbo sprint event, estimate and report placeholders, preserving
+  existing translations and source tokens.
+- Translation, registry and human-preference checks pass, covering unknown
+  estimates, time units, report counts and distinct sprint states and events.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
