@@ -10373,6 +10373,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/75a5e10ccf40971dec1acb1b2b79fedbb208f26c">Translate Uzbek Boolean and comparison labels</a>. Thanks to xet7.</summary>
+
+- Fill 19 Boolean and comparison strings in each Uzbek locale,
+  using Arabic script for uz-AR and Latin for the other three locales.
+- Translation, registry and human-preference checks pass, covering tokens,
+  equality, inclusive comparisons, negation and conjunction distinctions.
+  Wording needs fluent review, especially Arabic-script orthography.
+  Browser review and wider translation completion remain outstanding.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
