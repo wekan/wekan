@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/edba6fe7b2">Translate Javanese recovery and history messages</a>. Thanks to xet7.</summary>
+
+- Fill 44 activity recovery, rule email, sign-in and history messages.
+- Focused key-order, placeholder and restriction checks and all 21
+  human-preference checks pass. Literal-label review remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/991192c7a1">Translate Javanese email queue and delivery failures</a>. Thanks to xet7.</summary>
 
 - Fill 36 email queue, delivery failure and time-estimate messages.
