@@ -2241,6 +2241,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2a4cd76fb679a688b16c09b774e681496f5a0778">Translate Marathi workspace search and rule editing</a>. Thanks to xet7.</summary>
+
+- Translate 30 Marathi workspace search and rule editing messages.
+- Check keyboard shortcuts, discard warnings and rule editing restrictions
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
