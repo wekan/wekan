@@ -28,6 +28,26 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Hausa email queue controls, delivery failures and time estimates.
+{
+  const locale = read('ha');
+  const keys = ["email-recovery-heading", "email-recovery-description", "email-recovery-saving", "email-recovery-queued", "email-recovery-retrying", "email-recovery-attempts", "email-recovery-oldest", "email-recovery-next", "email-recovery-changed", "email-recovery-pause", "email-recovery-resume", "email-recovery-cancel", "email-recovery-paused", "email-recovery-pending", "email-recovery-empty", "email-recovery-unavailable", "email-recovery-busy", "email-recovery-failed", "email-recovery-superseded", "email-recovery-confirm-cancel", "email-recovery-attention", "email-recovery-stopped", "email-recovery-retry", "email-failure-smtp-temporary", "email-failure-smtp-rejected", "email-failure-smtp-authentication", "email-failure-smtp-configuration", "email-failure-recipient-unavailable", "email-failure-delivery-unconfirmed", "email-failure-acknowledgement-failed", "email-failure-delivery-failed", "email-failure-retry-limit", "sync-original-time", "sync-remaining-time", "sync-time-estimate-hint"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `ha:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ha:${key}: tokens`);
+  }
+  assert.equal(new Set(['pause', 'resume', 'cancel', 'retry'].map(k => locale[`email-recovery-${k}`])).size, 4);
+  assert.match(locale['email-failure-smtp-temporary'], /SMTP na ɗan lokaci/);
+  assert.match(locale['email-failure-smtp-rejected'], /SMTP na dindindin/);
+  assert.match(locale['email-recovery-confirm-cancel'], /ba za a iya dawo da su ba/);
+  assert.match(locale['email-recovery-confirm-cancel'], /Za a riƙe sabbin saƙonnin.*bayan wannan buƙatar/);
+  assert.match(locale['email-recovery-description'], /kiyaye dakatarwar/);
+  assert.match(locale['email-recovery-description'], /Ba za a iya janye saƙon/);
+  for (const k of ['sync-original-time', 'sync-remaining-time']) assert.match(locale[k], /awanni/);
+  assert.notEqual(locale['sync-original-time'], locale['sync-remaining-time']);
+  assert.match(locale['sync-time-estimate-hint'], /guda ɗaya tak.*ƙyale.*null.*goge/);
+}
+
 // Hausa sync previews, retained reports and source-field decisions.
 {
   const locale = read('ha');
