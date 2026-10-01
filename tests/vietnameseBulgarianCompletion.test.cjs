@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek activity recovery keeps retry states distinct and never promises recreation.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["email-failure-retry-limit", "sync-original-time", "sync-remaining-time", "sync-time-estimate-hint", "activity-recovery-heading", "activity-recovery-description", "activity-recovery-empty", "activity-recovery-unavailable", "activity-recovery-retry", "activity-recovery-retrying", "activity-recovery-status-pending", "activity-recovery-status-preparing", "activity-recovery-status-processing", "activity-recovery-status-missing", "activity-recovery-status-changed", "activity-recovery-status-invalid", "activity-recovery-status-inconsistent", "activity-recovery-busy", "activity-recovery-denied", "activity-recovery-source-unavailable"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  for (const key of ['sync-original-time', 'sync-remaining-time']) assert.match(locale[key], code === 'uz-AR' ? /ساعت/ : /soat/);
+  assert.notEqual(locale['sync-original-time'], locale['sync-remaining-time']);
+  for (const token of ['Jira', 'null']) assert.ok(locale['sync-time-estimate-hint'].includes(token));
+  assert.equal(new Set(['pending', 'preparing', 'processing', 'missing', 'changed', 'invalid', 'inconsistent'].map(k => locale[`activity-recovery-status-${k}`])).size, 7);
+  assert.match(locale['activity-recovery-description'], code === 'uz-AR' ? /هېچ قچان فعالیتنی قیته یرتمیدی/ : /hech qachon faoliyatni qayta yaratmaydi/);
+  assert.match(locale['activity-recovery-source-unavailable'], code === 'uz-AR' ? /هېچ نرسه قیته یرتیلمدی/ : /Hech narsa qayta yaratilmadi/);
+}
+
 // Uzbek email failures distinguish rejection types and cancellation boundaries.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
