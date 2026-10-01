@@ -13179,6 +13179,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ec80ba52b72c2012933e81e376fae6ee36dcf35c">Translate Malayalam saved filters and map controls</a>. Thanks to xet7.</summary>
+
+- Translate 29 Malayalam reminder, saved-filter, import and map strings.
+- Check reminder limits, replacement behavior and formatting tokens while
+  preserving existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
