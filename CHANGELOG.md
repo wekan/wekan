@@ -9269,6 +9269,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e08346f35749ca48a48e89db043dbecf258e0e8b">Translate Shona Blockly sorting and Boolean comparisons</a>. Thanks to xet7.</summary>
+
+- Translate 29 sorting, list conversion and Boolean comparison strings,
+  preserving substitution tokens and the programming value null.
+- Translation, registry and human-preference checks pass, covering tokens,
+  comparison operators, negation and descriptions of copied lists.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
