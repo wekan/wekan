@@ -28,6 +28,22 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Igbo rule permissions and Scrum planning labels.
+{
+  const locale = read('ig');
+  const keys = ["r-blocks-conflict", "r-blocks-permission", "r-blocks-unsaved", "r-blocks-saved", "r-blocks-reload", "board-view-product-backlog", "board-view-sprints", "board-view-sprint-report", "board-view-velocity", "scrum-settings", "scrum-product-owner", "scrum-master", "scrum-developers", "scrum-working-days", "scrum-enabled", "scrum-product-goal", "scrum-definition-of-done", "scrum-estimate-source", "scrum-estimate-unit", "scrum-completion-policy", "scrum-source-poker", "scrum-source-customField", "scrum-policy-dueComplete", "scrum-policy-doneLists", "scrum-sprints", "scrum-sprint", "scrum-start-sprint", "scrum-close-sprint", "scrum-cancel-sprint", "scrum-rollover-sprint", "scrum-cancel-reason", "scrum-product-backlog"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `ig:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ig:${key}: tokens`);
+  }
+  assert.match(locale['r-blocks-permission'], /ikike onye nchịkwa bọọdụ/);
+  assert.notEqual(locale['r-blocks-unsaved'], locale['r-blocks-saved']);
+  assert.notEqual(locale['scrum-policy-dueComplete'], locale['scrum-policy-doneLists']);
+  assert.notEqual(locale['scrum-estimate-source'], locale['scrum-estimate-unit']);
+  assert.notEqual(locale['scrum-close-sprint'], locale['scrum-cancel-sprint']);
+  for (const suffix of ['product-backlog', 'sprints']) assert.equal(locale[`board-view-${suffix}`], locale[`scrum-${suffix}`]);
+}
+
 // Igbo composed workspace announcements, search and rule blocks.
 {
   const locale = read('ig');
