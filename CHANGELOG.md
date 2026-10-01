@@ -2818,6 +2818,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2484e236e1e5a36e209035d1c2ac649f970a4bf6">Translate dependency layers in fourteen more locales</a>. Thanks to xet7.</summary>
+
+- Translate 11 dependency messages into Polish, Czech, Slovak, Bulgarian,
+  Greek, Romanian, Hungarian, Danish, Norwegian and Estonian plus variants.
+- Update earlier translations for the renamed import/export title keys.
+  Coverage now includes 47 locale tags; other locales remain pending.
+- Focused key-order, placeholder and human-preference checks pass.
+  Browser and native-speaker review were not run.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
