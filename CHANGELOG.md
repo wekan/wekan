@@ -1685,6 +1685,17 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/fa37380144">Translate Cantonese editor input labels</a>. Thanks to xet7.</summary>
+
+- Fill 40 field, icon, list and loop input labels, preserving numbered
+  placeholders and existing translations.
+- Cantonese key-order, translation and placeholder checks and all 21
+  human-preference checks pass. Other untranslated strings remain;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/60b9e529f2">Translate Cantonese editing actions and bitmap controls</a>. Thanks to xet7.</summary>
 
 - Fill 31 messages for loop behaviour, editing actions, deletion prompts,
