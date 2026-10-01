@@ -9533,6 +9533,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a9b5ea239a2a13bee46bd7ef8c5be82d37e5e9dc">Translate Yoruba map and Blockly movement labels</a>. Thanks to xet7.</summary>
+
+- Translate 24 map and Blockly accessibility strings, preserving
+  movement directions, map placement instructions and substitution tokens.
+- Translation, registry and human-preference checks pass, covering tokens,
+  map upload permissions, card placement and distinct movement directions.
+  Wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
