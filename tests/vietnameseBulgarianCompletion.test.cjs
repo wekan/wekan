@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek shortcuts preserve opposing directions and distinct navigation targets.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["blockly-SHORTCUTS_ABORT_MOVE", "blockly-SHORTCUTS_CLEANUP", "blockly-SHORTCUTS_CODE_NAVIGATION", "blockly-SHORTCUTS_DISCONNECT", "blockly-SHORTCUTS_DUPLICATE", "blockly-SHORTCUTS_EDITING", "blockly-SHORTCUTS_ESCAPE", "blockly-SHORTCUTS_EXTENDED_INFORMATION", "blockly-SHORTCUTS_FINISH_MOVE", "blockly-SHORTCUTS_FOCUS_TOOLBOX", "blockly-SHORTCUTS_FOCUS_WORKSPACE", "blockly-SHORTCUTS_GENERAL", "blockly-SHORTCUTS_INFORMATION", "blockly-SHORTCUTS_JUMP_BLOCK_END", "blockly-SHORTCUTS_JUMP_BLOCK_START", "blockly-SHORTCUTS_JUMP_BOTTOM_STACK", "blockly-SHORTCUTS_JUMP_FIRST_BLOCK", "blockly-SHORTCUTS_JUMP_LAST_BLOCK", "blockly-SHORTCUTS_JUMP_NEXT_PAGE", "blockly-SHORTCUTS_JUMP_PREVIOUS_PAGE", "blockly-SHORTCUTS_JUMP_TOP_STACK", "blockly-SHORTCUTS_MOVE_DOWN", "blockly-SHORTCUTS_MOVE_LEFT", "blockly-SHORTCUTS_MOVE_RIGHT", "blockly-SHORTCUTS_MOVE_UP"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  for (const [a, b] of [['ABORT_MOVE', 'FINISH_MOVE'], ['JUMP_BLOCK_END', 'JUMP_BLOCK_START'], ['JUMP_BOTTOM_STACK', 'JUMP_TOP_STACK'], ['JUMP_FIRST_BLOCK', 'JUMP_LAST_BLOCK'], ['JUMP_NEXT_PAGE', 'JUMP_PREVIOUS_PAGE'], ['FOCUS_TOOLBOX', 'FOCUS_WORKSPACE'], ['INFORMATION', 'EXTENDED_INFORMATION']]) {
+    assert.notEqual(locale[`blockly-SHORTCUTS_${a}`], locale[`blockly-SHORTCUTS_${b}`]);
+  }
+  assert.equal(new Set(['DOWN', 'LEFT', 'RIGHT', 'UP'].map(k => locale[`blockly-SHORTCUTS_MOVE_${k}`])).size, 4);
+  assert.match(locale['blockly-SHORTCUTS_MOVE_LEFT'], code === 'uz-AR' ? /چپگه/ : /Chapga/);
+  assert.match(locale['blockly-SHORTCUTS_MOVE_RIGHT'], code === 'uz-AR' ? /اۉنگگه/ : /Oʻngga/);
+}
+
 // Uzbek function controls distinguish outputs and screen-reader toggle states.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
