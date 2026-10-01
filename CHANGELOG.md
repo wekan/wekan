@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/25067d217a">Translate Uyghur functions and editor navigation</a>. Thanks to xet7.</summary>
+
+- Fill 43 function, navigation, trigonometry and screen-reader messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/eb1d2e991a">Translate Uyghur logic and mathematics messages</a>. Thanks to xet7.</summary>
 
 - Fill 49 comparison, mathematics and accessibility messages.
