@@ -12074,6 +12074,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/73252035ca37c17e2389795672d82fb2e31e7473">Mongolian access and automation messages</a>. Thanks to xet7.</summary>
+
+- Translate 20 English placeholders for access, filters and automation.
+- Preserve date queries, template variables, URL schemes and HTML markup.
+- Check signed-in visibility, editing restrictions and ordered rule actions.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
