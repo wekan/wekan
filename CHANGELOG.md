@@ -12637,6 +12637,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b8c07192b70a34f291e153a1f31c2494347db69a">Translate Pashto logic and arithmetic help</a>. Thanks to xet7.</summary>
+
+- Translate 27 Pashto list, logic and arithmetic strings.
+- Check comparison boundaries, conditional labels and coordinate ranges while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
