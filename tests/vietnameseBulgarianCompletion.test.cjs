@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Yoruba sprint lifecycle and report semantics.
+{
+  const locale = read('yo');
+  const keys = ["scrum-close-sprint", "scrum-cancel-sprint", "scrum-rollover-sprint", "scrum-cancel-reason", "scrum-product-backlog", "scrum-edit-sprint", "scrum-sprint-goal", "scrum-capacity", "scrum-new-sprint", "scrum-releases", "scrum-release", "scrum-select-sprint", "scrum-backlog", "scrum-backlog-help", "scrum-estimate", "scrum-backlog-rank", "scrum-issue-type", "scrum-acceptance-criteria", "scrum-events", "scrum-event-kind", "scrum-timebox", "scrum-notes", "scrum-event-planning", "scrum-event-daily", "scrum-event-review", "scrum-event-retrospective", "scrum-committed", "scrum-added", "scrum-removed", "scrum-incomplete", "scrum-no-closed-sprints", "scrum-report-help", "scrum-total", "scrum-state-planned", "scrum-unknown-estimate", "scrum-confirm-close", "scrum-confirm-cancel", "scrum-past-sprints", "scrum-list-category", "scrum-swimlane-purpose", "scrum-category-backlog"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `yo:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `yo:${key}: tokens`);
+  }
+  assert.notEqual(locale['scrum-confirm-close'], locale['scrum-confirm-cancel']);
+  assert.match(locale['scrum-confirm-close'], /káàdì tí kò tíì parí.*ibi tí a yàn/);
+  assert.match(locale['scrum-confirm-cancel'], /ṣì wà.*títí/);
+  assert.match(locale['scrum-report-help'], /lọ́tọ̀.*kì í ṣe.*òdo/);
+  assert.match(locale['scrum-timebox'], /ìṣẹ́jú/);
+  assert.equal(locale['scrum-product-backlog'], locale['board-view-product-backlog']);
+  assert.equal(locale['scrum-backlog'], locale['scrum-category-backlog']);
+  assert.notEqual(locale['scrum-added'], locale['scrum-removed']);
+}
+
 // Yoruba rule editor and Scrum planning labels.
 {
   const locale = read('yo');
