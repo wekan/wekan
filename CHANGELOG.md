@@ -1677,10 +1677,27 @@ template.
 
 # Upcoming WeKan ® release
 
-**In short:** Dependency messages now cover four more languages, with checks
-for translation key order and placeholders.
+**In short:** Dependency messages now cover eight more languages. Translation
+checks follow current wording and markup, and literal keyboard labels are
+restored.
 
 This release updates the following translations:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d74d2f3dd8">Repair audit regressions and extend dependency translations</a>. Thanks to xet7.</summary>
+
+- Translate 11 dependency messages into Welsh, Irish, Scottish Gaelic and
+  Faroese. Scottish Gaelic and Faroese wording has lower confidence and needs
+  native-speaker review. Dependency coverage now includes 139 locale tags.
+- Retain newer reviewed translations in the correction ledger, align the
+  Asturian template dialog title, and restore literal Pause keyboard labels
+  in nine locales.
+- Update regression assertions for current Asturian and Aragonese wording
+  and the checklist textarea. Five focused suites and all 21 human-preference
+  checks pass. Broader completeness checks still fail on missing keys and
+  untranslated strings; browser and native-speaker reviews were not run.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/99bab720d3">Translate dependency layers in four more languages</a>. Thanks to xet7.</summary>
