@@ -10433,6 +10433,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d4314132d69cddf45ddcb3f74e47d55714e609bf">Translate Uzbek trigonometry and workspace controls</a>. Thanks to xet7.</summary>
+
+- Fill 24 mathematical and workspace strings in each Uzbek locale,
+  using Arabic script for uz-AR and Latin for the other three locales.
+- Translation, registry and human-preference checks pass, covering tokens,
+  inverse functions and degree units rather than radians.
+  Wording needs fluent review, especially Arabic-script orthography.
+  Browser review and wider translation completion remain outstanding.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
