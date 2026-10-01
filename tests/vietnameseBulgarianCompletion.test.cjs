@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Hausa bitmap coordinates, editing and condition inputs.
+{
+  const locale = read('ha');
+  const keys = ["blockly-EDIT_BLOCK_CONTENTS", "blockly-EMPTY_BACKPACK", "blockly-END_KEY", "blockly-FIELD_BITMAP_ARIA_VALUE", "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR", "blockly-FIELD_BITMAP_BUTTON_LABEL_RANDOMIZE", "blockly-FIELD_BITMAP_PIXEL_LABEL", "blockly-FIELD_BITMAP_PIXEL_OFF", "blockly-FIELD_LABEL_EDIT_PREFIX", "blockly-FIELD_LABEL_EMPTY", "blockly-FIELD_LABEL_OPTION_INDEX", "blockly-FIELD_LABEL_VARIABLE", "blockly-FIELD_MULTILINEINPUT_FINISH_EDITING", "blockly-FIELD_MULTILINEINPUT_NEW_LINE", "blockly-HELP_PROMPT", "blockly-HOME_KEY", "blockly-ICON_LABEL_COMMENT_CLOSED", "blockly-ICON_LABEL_COMMENT_OPEN", "blockly-ICON_LABEL_DEFAULT", "blockly-ICON_LABEL_MUTATOR_CLOSED", "blockly-ICON_LABEL_MUTATOR_OPEN", "blockly-ICON_LABEL_WARNING_CLOSED", "blockly-ICON_LABEL_WARNING_OPEN", "blockly-INPUT_LABEL_CONDITION", "blockly-INPUT_LABEL_CONDITION_A", "blockly-INPUT_LABEL_CONDITION_B", "blockly-INPUT_LABEL_EMPTY", "blockly-INPUT_LABEL_END_STATEMENT", "blockly-INPUT_LABEL_INDEX", "blockly-INPUT_LABEL_LISTS_CREATE_WITH_ITEM"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `ha:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ha:${key}: tokens`);
+  }
+  assert.match(locale['blockly-FIELD_BITMAP_PIXEL_LABEL'], /layi %2.*ginshiƙi %3/);
+  assert.match(locale['blockly-FIELD_BITMAP_ARIA_VALUE'], /%1.*%2.*kunna.*%3/);
+  for (const type of ['COMMENT', 'MUTATOR', 'WARNING']) assert.notEqual(locale[`blockly-ICON_LABEL_${type}_CLOSED`], locale[`blockly-ICON_LABEL_${type}_OPEN`]);
+  assert.notEqual(locale['blockly-INPUT_LABEL_CONDITION_A'], locale['blockly-INPUT_LABEL_CONDITION_B']);
+  assert.notEqual(locale['blockly-HOME_KEY'], locale['blockly-END_KEY']);
+  assert.notEqual(locale['blockly-END_KEY'], locale['end-date']);
+  assert.match(locale['blockly-EMPTY_BACKPACK'], /duk/);
+}
+
 // Hausa Blockly block descriptions and clipboard actions.
 {
   const locale = read('ha');
