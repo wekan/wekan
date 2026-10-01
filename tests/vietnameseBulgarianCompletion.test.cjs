@@ -28,6 +28,27 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Yoruba Blockly list, loop and numeric input labels.
+{
+  const locale = read('yo');
+  const keys = ["blockly-INPUT_LABEL_LISTS_CREATE_WITH_ITEM", "blockly-INPUT_LABEL_LISTS_DELIMITER", "blockly-INPUT_LABEL_LISTS_END_POSITION", "blockly-INPUT_LABEL_LISTS_LIST_FROM_TEXT", "blockly-INPUT_LABEL_LISTS_POSITION", "blockly-INPUT_LABEL_LISTS_REPEAT_ITEM", "blockly-INPUT_LABEL_LISTS_REPEAT_NUM", "blockly-INPUT_LABEL_LISTS_START_POSITION", "blockly-INPUT_LABEL_LISTS_TEXT_FROM_LIST", "blockly-INPUT_LABEL_LISTS_TO_CHANGE", "blockly-INPUT_LABEL_LISTS_TO_CHECK", "blockly-INPUT_LABEL_LISTS_VALUE_TO_SET", "blockly-INPUT_LABEL_LOOP_BY", "blockly-INPUT_LABEL_LOOP_FROM", "blockly-INPUT_LABEL_LOOP_LIST", "blockly-INPUT_LABEL_LOOP_TIMES", "blockly-INPUT_LABEL_LOOP_TO", "blockly-INPUT_LABEL_MATH_CHANGE_BY", "blockly-INPUT_LABEL_MATH_CONSTRAIN_VALUE", "blockly-INPUT_LABEL_MATH_DIVIDEND", "blockly-INPUT_LABEL_MATH_DIVISOR", "blockly-INPUT_LABEL_NUMBER_A", "blockly-INPUT_LABEL_NUMBER_ATAN2_X", "blockly-INPUT_LABEL_NUMBER_ATAN2_Y", "blockly-INPUT_LABEL_NUMBER_B", "blockly-INPUT_LABEL_NUMBER_LIST", "blockly-INPUT_LABEL_NUMBER_MAX", "blockly-INPUT_LABEL_NUMBER_MIN", "blockly-INPUT_LABEL_NUMBER_TO_CHECK", "blockly-INPUT_LABEL_STATEMENT"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `yo:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `yo:${key}: tokens`);
+  }
+  for (const [first, second] of [
+    ['LISTS_START_POSITION', 'LISTS_END_POSITION'],
+    ['LOOP_FROM', 'LOOP_TO'],
+    ['MATH_DIVIDEND', 'MATH_DIVISOR'],
+    ['NUMBER_A', 'NUMBER_B'],
+    ['NUMBER_MAX', 'NUMBER_MIN'],
+    ['LISTS_TO_CHANGE', 'LISTS_TO_CHECK'],
+  ]) assert.notEqual(locale[`blockly-INPUT_LABEL_${first}`], locale[`blockly-INPUT_LABEL_${second}`]);
+  assert.match(locale['blockly-INPUT_LABEL_NUMBER_ATAN2_X'], / x$/);
+  assert.match(locale['blockly-INPUT_LABEL_NUMBER_ATAN2_Y'], / y$/);
+  assert.equal(locale['blockly-INPUT_LABEL_LISTS_REPEAT_NUM'], locale['blockly-INPUT_LABEL_LOOP_TIMES']);
+}
+
 // Yoruba Blockly bitmap editing, warnings and input labels.
 {
   const locale = read('yo');
