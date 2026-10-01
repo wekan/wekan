@@ -2455,6 +2455,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/22b4bfe9053ed2fa520f8d974537a6d5590cde88">Translate Sinhala input labels and editor controls</a>. Thanks to xet7.</summary>
+
+- Translate 30 Sinhala input labels, editor controls and list positions.
+- Check open and close actions, condition order and start versus end positions
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
