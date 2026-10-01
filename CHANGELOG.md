@@ -2217,6 +2217,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e99eb2e615499d10615a30e477d3a45b170b0e2e">Translate Marathi text search and replacement messages</a>. Thanks to xet7.</summary>
+
+- Translate 31 Marathi text search, slicing, prompts and replacement messages.
+- Check search failure results, spaces and replacing every occurrence while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
