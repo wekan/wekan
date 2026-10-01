@@ -27,12 +27,35 @@ const keys = [
   "filter-column-age",
   "filter-column-age-disabled",
   "filter-column-age-days",
-  "filter-column-age-hint"
+  "filter-column-age-hint",
+  "advanced-filter-card-dates-hint",
+  "import-board-instruction-leo",
+  "instance",
+  "instance-desc",
+  "board-instance-info",
+  "automatic-linked-url-schemes-hint",
+  "other-parent-cards",
+  "add-parent-card",
+  "remove-parent-card",
+  "r-when-card-date",
+  "r-trigger-vars-hint",
+  "r-insert-variable",
+  "r-vars-people-hint",
+  "r-rule-any-trigger-help",
+  "r-add-trigger-to-rule",
+  "r-add-action-to-rule",
+  "r-remove-rule-part",
+  "notification-activity-heading",
+  "notification-activity-description",
+  "notification-activity-labels"
 ];
 for (const key of keys) {
   assert.ok(locale[key]?.trim(), key);
   assert.notEqual(locale[key], en[key], key);
   assert.deepEqual(translationTokens(locale[key]), translationTokens(en[key]), key);
+  assert.deepEqual(locale[key].match(/%?\{[^}]+\}/g), en[key].match(/%?\{[^}]+\}/g), key);
   assert.deepEqual(locale[key].match(/<[^>]+>/g), en[key].match(/<[^>]+>/g), key);
 }
 console.log('Sindhi filter translations passed');
+
+assert.deepEqual(locale['advanced-filter-card-dates-hint'].match(/@[A-Za-z]+/g), en['advanced-filter-card-dates-hint'].match(/@[A-Za-z]+/g));
