@@ -9737,6 +9737,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ca9e7bb9c5a1b7de8994740981b8cc2ea0174be9">Translate Igbo date filters and board visibility</a>. Thanks to xet7.</summary>
+
+- Fill 28 Igbo archive, date-filter, Leo import and signed-in access strings,
+  preserving existing translations and source placeholders.
+- Translation, registry and human-preference checks pass, covering query
+  syntax, inclusive dates, access wording, HTML and URL scheme names.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
