@@ -1685,6 +1685,18 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/dd4a637d18">Translate dependency messages into Wolaytta</a>. Thanks to xet7.</summary>
+
+- Fill 11 dependency messages, bringing dependency coverage to 232
+  non-English locale tags. Terminology and grammar, including the coined
+  relationship noun, have low confidence and need native-speaker review.
+- Dependency key-order and placeholder checks and all 21 human-preference
+  checks pass. Other untranslated strings remain; browser and native-speaker
+  reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/35436c6143">Translate dependency messages into Standard Moroccan Tamazight</a>. Thanks to xet7.</summary>
 
 - Fill 11 dependency messages in Tifinagh, bringing dependency coverage to
