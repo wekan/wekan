@@ -2109,6 +2109,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/06d8892d0ce69f9681202b9c5820405a8462ee21">Translate Marathi keyboard navigation and list operations</a>. Thanks to xet7.</summary>
+
+- Translate 30 Marathi keyboard navigation and list operation messages.
+- Check modifier keys, empty list length and retrieval versus removal while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
