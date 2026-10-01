@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ecf4328832">Translate Bashkir navigation and list retrieval messages</a>. Thanks to xet7.</summary>
+
+- Fill 28 keyboard navigation, list creation and list retrieval messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7c6e888700">Translate Bashkir mathematical and text input labels</a>. Thanks to xet7.</summary>
 
 - Fill 32 mathematical, loop and text input labels.
