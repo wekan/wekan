@@ -10397,6 +10397,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dce04befe53494e4e41a859a2bb8c3bda3e30111">Translate Uzbek constants and number properties</a>. Thanks to xet7.</summary>
+
+- Fill 18 constant, bound and number-property strings in each Uzbek locale,
+  using Arabic script for uz-AR and Latin for the other three locales.
+- Translation, registry and human-preference checks pass, covering tokens,
+  mathematical constants, inclusive bounds and division remainders.
+  Wording needs fluent review, especially Arabic-script orthography.
+  Browser review and wider translation completion remain outstanding.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
