@@ -9113,6 +9113,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/64661794a57496bf0048af6f43507985ff1e6178">Correct Shona migration monitoring labels</a>. Thanks to xet7.</summary>
+
+- Translate 39 prefixed English entries and restore the GridFS name.
+  Preserve existing values outside this correction batch.
+- Translation, registry and human-preference checks pass, covering migration
+  actions, CPU thresholds, time units and placeholders.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Another 63 prefixed English entries remain; wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
