@@ -1685,6 +1685,18 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/196dcb9633">Translate dependency messages into Volapük</a>. Thanks to xet7.</summary>
+
+- Fill 11 dependency messages, bringing dependency coverage to 227
+  non-English locale tags. Wording has low confidence and needs fluent-speaker
+  review. Older inconsistent translations remain for correction.
+- Dependency key-order and placeholder checks and all 21 human-preference
+  checks pass. Other untranslated strings remain; browser and fluent-speaker
+  reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/67f22ce20b">Translate dependency messages into Klingon</a>. Thanks to xet7.</summary>
 
 - Fill 11 dependency messages, bringing dependency coverage to 226
