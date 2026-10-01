@@ -12172,6 +12172,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d11269614da959835909814bc4a02c1a05180da4">Mongolian function and trigonometry messages</a>. Thanks to xet7.</summary>
+
+- Translate 41 function, trigonometry and editor placeholders.
+- Check degree units, disabled definitions, duplicate parameters and return
+  values while preserving source substitution tokens.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
