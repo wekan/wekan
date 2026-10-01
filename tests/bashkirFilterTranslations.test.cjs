@@ -306,7 +306,27 @@ const keys = [
   "blockly-MATH_POWER_SYMBOL_ARIA",
   "blockly-MATH_RANDOM_FLOAT_TOOLTIP",
   "blockly-MATH_SINGLE_OP_ABSOLUTE_ARIA",
-  "blockly-MATH_SINGLE_OP_EXP_ARIA"
+  "blockly-MATH_SINGLE_OP_EXP_ARIA",
+  "blockly-MATH_SINGLE_OP_LN_ARIA",
+  "blockly-MATH_SINGLE_OP_LOG10_ARIA",
+  "blockly-MATH_SINGLE_OP_NEG_ARIA",
+  "blockly-MATH_SINGLE_OP_POW10_ARIA",
+  "blockly-MATH_SUBTRACTION_SYMBOL_ARIA",
+  "blockly-MATH_TRIG_ACOS_ARIA",
+  "blockly-MATH_TRIG_ASIN_ARIA",
+  "blockly-MATH_TRIG_ATAN_ARIA",
+  "blockly-MATH_TRIG_COS_ARIA",
+  "blockly-MATH_TRIG_SIN_ARIA",
+  "blockly-MATH_TRIG_TAN_ARIA",
+  "blockly-MINIMAP_ARIA_LABEL",
+  "blockly-MOVE_BLOCK",
+  "blockly-NEW_COLOUR_VARIABLE",
+  "blockly-NEW_NUMBER_VARIABLE",
+  "blockly-NEW_STRING_VARIABLE",
+  "blockly-NEW_VARIABLE_TYPE_TITLE",
+  "blockly-NO_PARENT_ANNOUNCEMENT",
+  "blockly-OPEN_BACKPACK",
+  "blockly-OPEN_TRASH"
 ];
 for (const key of keys) {
   assert.ok(locale[key]?.trim(), key);
