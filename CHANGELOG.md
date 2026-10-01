@@ -9281,6 +9281,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/65316d8a206b1d5b15eeb04f2fdfb85235a8c3e2">Translate Shona Blockly logic and arithmetic</a>. Thanks to xet7.</summary>
+
+- Translate 29 logic selection and arithmetic strings, preserving
+  substitution tokens, mathematical constants and inclusive bounds.
+- Translation, registry and human-preference checks pass, covering tokens,
+  true and false branches, angle ranges and mathematical notation.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
