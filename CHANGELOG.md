@@ -2013,6 +2013,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/664cca9f778ea031a892075acf622aa9e2a6e8b5">Translate Marathi archive settings and date filters</a>. Thanks to xet7.</summary>
+
+- Translate 25 Marathi archive, date filter and Leo import messages.
+- Check date query syntax, inclusive ranges and archival exceptions while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
