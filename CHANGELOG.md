@@ -12541,6 +12541,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6e11c45588081ae82af3e00b3d315ff2ec74db57">Translate Pashto reminders and saved filters</a>. Thanks to xet7.</summary>
+
+- Translate 30 Pashto reminder, filter, import warning and map strings.
+- Check reminder timing, private filters and literal URL variables while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
