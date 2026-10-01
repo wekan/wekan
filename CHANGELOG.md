@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e3b61feac1">Translate Sindhi text operations and scrolling shortcuts</a>. Thanks to xet7.</summary>
+
+- Fill 38 text operation, scrolling and editor shortcut messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7c7815a27a">Translate Sindhi function and editor shortcut messages</a>. Thanks to xet7.</summary>
 
 - Fill 50 function, screen-reader and editor shortcut messages.
