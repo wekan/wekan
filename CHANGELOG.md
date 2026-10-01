@@ -11875,6 +11875,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/201e45cd61de132dd1bda751f61ef205fb9b303f">Latin Blockly labels and color controls</a>. Thanks to xet7.</summary>
+
+- Fill 43 English placeholders for block labels, warnings and color controls,
+  preserving existing translations and placeholders.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for variable deletion, numeric ranges and loop flow semantics.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
