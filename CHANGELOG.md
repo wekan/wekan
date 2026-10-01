@@ -10589,6 +10589,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f939dbed995864040c37c7e2b8ebfcec32d2283e">Translate Uzbek sync reports and source omissions</a>. Thanks to xet7.</summary>
+
+- Fill 20 sync report and source omission strings in each Uzbek locale,
+  using Arabic script for uz-AR and Latin for the other three locales.
+- Translation, registry and human-preference checks pass, covering tokens,
+  retention, report limits, outcomes and the absence of resume or undo behavior.
+  Wording needs fluent review, especially Arabic-script orthography.
+  Browser review and wider translation completion remain outstanding.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
