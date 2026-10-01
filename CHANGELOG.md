@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/63abb1e264">Translate Javanese sprint reports and events</a>. Thanks to xet7.</summary>
+
+- Fill 33 sprint report, event, workflow and completion messages.
+- Focused key-order, placeholder and restriction checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c65cb4f136">Translate Javanese sprint planning messages</a>. Thanks to xet7.</summary>
 
 - Fill 33 estimation, backlog, sprint planning and event labels.
