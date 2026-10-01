@@ -2951,6 +2951,17 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/475b687d06b422d63d1dbb0af46b27db3a51cab2">Translate dependency layers in six more locales</a>. Thanks to xet7.</summary>
+
+- Translate 11 dependency messages into Mongolian, Kyrgyz, Tajik and Uzbek,
+  including the Uzbek Latin-script locale variants.
+- Coverage now includes 123 locale tags; other locales remain pending.
+- Focused key-order, placeholder and human-preference checks pass.
+  Browser and native-speaker review were not run.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
