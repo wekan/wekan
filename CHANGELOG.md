@@ -12817,6 +12817,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/836e5331d8622f5d21cf6c94d1c6b87edcdd2330">Translate Pashto delivery failures and recovery warnings</a>. Thanks to xet7.</summary>
+
+- Translate 23 Pashto delivery failure and recovery strings.
+- Check cancellation boundaries, failure types and activity retry limits while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
