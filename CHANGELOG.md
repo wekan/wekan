@@ -12505,6 +12505,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4a0ad3a591f487bfe77e273e401a3bb74b3456d2">Complete Telugu prose placeholders and correct Blockly null label</a>. Thanks to xet7.</summary>
+
+- Translate the final 13 Telugu prose placeholders and correct the null label.
+- Preserve physical key legends, platform names and mathematical notation.
+  Check all Telugu placeholder inventories and prevent untranslated prose.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
