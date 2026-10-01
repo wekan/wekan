@@ -1685,6 +1685,19 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c621101cf">Translate Kazakh input labels and recognize literal Pause key legends</a>. Thanks to xet7.</summary>
+
+- Translate 42 list, loop, number and text input labels into Kazakh.
+- Recognize the restored printed Pause key name in nine locale-specific
+  invariant sets, so completeness checks do not mistake it for English prose.
+- Dependency and audit review suites and all 21 human-preference checks pass.
+  The broad completion suite passes the Kazakh checks but still fails on
+  missing Cherokee dependency keys. Other untranslated strings remain.
+  Browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/dd4a637d18">Translate dependency messages into Wolaytta</a>. Thanks to xet7.</summary>
 
 - Fill 11 dependency messages, bringing dependency coverage to 232
