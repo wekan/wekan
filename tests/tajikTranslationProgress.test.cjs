@@ -378,3 +378,16 @@ assert.match(locale['import-board-instruction-leo'], /Leo.*\.leo/);
 console.log('Tajik translations: key order, prose, tokens and query syntax passed');
 
 }
+
+// Check the complete locale using the shared numbered/format-token parser.
+{
+  const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
+  assert.deepEqual(Object.keys(tajik), Object.keys(english));
+  for (const key of Object.keys(english)) {
+    if (english[key].trim()) assert.ok(tajik[key]?.trim(), key);
+    assert.deepEqual(translationTokens(tajik[key]), translationTokens(english[key]), key);
+  }
+  for (const key of ["blockly-ALT_KEY", "blockly-BACKSPACE_KEY", "blockly-CAPS_LOCK_KEY", "blockly-CHROME_OS", "blockly-COMMAND_KEY", "blockly-CONTROL_KEY", "blockly-END_KEY", "blockly-ENTER_KEY", "blockly-ESCAPE", "blockly-HOME_KEY", "blockly-INSERT_KEY", "blockly-LINUX", "blockly-LOGIC_NULL", "blockly-MAC_OS", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN", "blockly-OPTION_KEY", "blockly-PAGE_DOWN_KEY", "blockly-PAGE_UP_KEY", "blockly-PAUSE_KEY", "blockly-SHIFT_KEY", "blockly-SPACE_KEY", "blockly-TAB_KEY", "blockly-WINDOWS"]) {
+    assert.equal(tajik[key], english[key], `${key}: retain literal notation`);
+  }
+}
