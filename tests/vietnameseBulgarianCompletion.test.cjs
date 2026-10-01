@@ -28,6 +28,22 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Arabic-script Uzbek card activity keeps source and destination roles intact.
+{
+  const locale = read('uz-AR');
+  for (const key of ["act-createSwimlane", "act-createCard", "act-createCustomField", "act-deleteCustomField", "act-setCustomField", "act-createList", "act-addBoardMember", "act-archivedBoard", "act-archivedCard", "act-archivedList", "act-archivedSwimlane", "act-importBoard", "act-importCard", "act-importList", "act-joinMember", "act-moveCard", "act-moveCardToOtherBoard", "act-removeBoardMember", "act-restoredCard", "act-unjoinMember"]) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `uz-AR:${key}: tokens`);
+    const prose = locale[key].replace(/__[A-Za-z0-9_]+__/g, '');
+    assert.match(prose, /[\u0600-\u06ff]/, key);
+    assert.doesNotMatch(prose, /[A-Za-z]/, `${key}: no Latin prose`);
+  }
+  for (const key of ['act-moveCard', 'act-moveCardToOtherBoard']) assert.match(locale[key], /__oldList__ رۉیختیدن.*__list__ رۉیختیگه/);
+  assert.notEqual(locale['act-addBoardMember'], locale['act-removeBoardMember']);
+  assert.notEqual(locale['act-joinMember'], locale['act-unjoinMember']);
+  assert.match(locale['act-restoredCard'], /تیکله/);
+  for (const kind of ['Board', 'Card', 'List', 'Swimlane']) assert.match(locale[`act-archived${kind}`], /ارخیوگه/);
+}
+
 // Arabic-script Uzbek activity prose must not regress to the older Latin seed.
 {
   const locale = read('uz-AR');
