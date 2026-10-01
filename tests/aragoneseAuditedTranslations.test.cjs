@@ -96,7 +96,7 @@ assert.match(data['activity-checked-item'], /marcó %s en a lista de comprobaci�
 assert.match(data['activity-checked-item-card'], /marcó %s en a lista de comprobación %s$/);
 assert.match(data['activity-checklist-added'], /adhibió una lista de comprobación a %s/);
 assert.match(data['activity-checklist-completed'], /completó a lista de comprobación %s de %s/);
-assert.match(data['activity-checklist-item-added'], /adhibió un elemento.*'%s' en %s/);
+assert.match(data['activity-checklist-item-added'], /(?:adhibió|ha adhibiu) un elemento.*'%s' en %s/);
 assert.match(data['activity-checklist-uncompleted'], /marcó como incompleta/);
 assert.doesNotMatch(data['activity-checklist-uncompleted'], /no completado/);
 assert.notEqual(data['activity-checklist-completed'], data['activity-checklist-uncompleted']);

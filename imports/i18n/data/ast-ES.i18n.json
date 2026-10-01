@@ -577,7 +577,7 @@
   "copyManyCardsPopup-format": "[{\"title\": \"Títulu de la primera tarxeta\", \"description\": \"Descripción de la primera tarxeta\"}, {\"title\": \"Títulu de la segunda tarxeta\", \"description\": \"Descripción de la segunda tarxeta\"}, {\"title\": \"Títulu de la última tarxeta\", \"description\": \"Descripción de la última tarxeta\"}]",
   "create": "Crear",
   "createBoardPopup-title": "Crear tablero",
-  "createTemplateContainerPopup-title": "Añadir un contenedor de plantíes",
+  "createTemplateContainerPopup-title": "Amestar un contenedor de plantíes",
   "chooseBoardSourcePopup-title": "Importar un tablero",
   "createLabelPopup-title": "Crear una etiqueta",
   "createCustomField": "Crear un campo",

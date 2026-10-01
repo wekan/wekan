@@ -1,6 +1,6 @@
 # Translation audit progress
 
-Audit date: **2026-09-12**. Last updated: **2026-09-30**.
+Audit date: **2026-09-12**. Last updated: **2026-10-01**.
 
 | Status | Flagged keys |
 | --- | ---: |
@@ -385,7 +385,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,808** exact before/after values, including unflagged
+records contain **22,831** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

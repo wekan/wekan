@@ -159654,5 +159654,166 @@
     "before": "Ọna kika (lo %{iye} bi oniduro)",
     "after": "Ọna kika (lo %{value} bi oniduro)",
     "reason": "Preserve the literal %{value} custom-field format token; correct foreign or malformed surrounding prose where present."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "add-after-list",
+    "before": "Añadir dempués de la llista",
+    "after": "Amestar dempués de la llista",
+    "reason": "Retain the newer native-language wording and current source meaning after reviewing the superseded audit correction."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "add-card-to-bottom-of-list",
+    "before": "Añadir una tarxeta al final de la llista",
+    "after": "Amestar una tarxeta al final de la llista",
+    "reason": "Retain the newer native-language wording and current source meaning after reviewing the superseded audit correction."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "add-card-to-top-of-list",
+    "before": "Añadir una tarxeta al principiu de la llista",
+    "after": "Amestar una tarxeta al entamu de la llista",
+    "reason": "Retain the newer native-language wording and current source meaning after reviewing the superseded audit correction."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "add-checklist",
+    "before": "Añadir una llista de comprobación",
+    "after": "Amestar una llista de comprobación",
+    "reason": "Retain the newer native-language wording and current source meaning after reviewing the superseded audit correction."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "add-checklist-item",
+    "before": "Añadir un elementu a la llista de comprobación",
+    "after": "Amestar un elementu a la llista de comprobación",
+    "reason": "Retain the newer native-language wording and current source meaning after reviewing the superseded audit correction."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "add-cover",
+    "before": "Añadir una imaxe de portada a la minitarxeta",
+    "after": "Amestar una imaxe de portada a la minitarxeta",
+    "reason": "Retain the newer native-language wording and current source meaning after reviewing the superseded audit correction."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "add-swimlane",
+    "before": "Añadir un carril",
+    "after": "Amestar un carril",
+    "reason": "Retain the newer native-language wording and current source meaning after reviewing the superseded audit correction."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "add-template-container",
+    "before": "Añadir un contenedor de plantíes",
+    "after": "Amestar un contenedor de plantíes",
+    "reason": "Retain the newer native-language wording and current source meaning after reviewing the superseded audit correction."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "card-archive-suggest-cancel",
+    "before": "Más tarde puedes restaurar la tarxeta dende l'Archivu.",
+    "after": "Más tarde pues restaurar la tarxeta dende l'archivu.",
+    "reason": "Retain the newer native-language wording and current source meaning after reviewing the superseded audit correction."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "card-delete-suggest-archive",
+    "before": "Puedes mover una tarxeta al Archivu pa quitala del tableru y conservar l'actividá.",
+    "after": "Pues mover una tarxeta al archivu pa quitala del tableru y caltener l'actividá.",
+    "reason": "Retain the newer native-language wording and current source meaning after reviewing the superseded audit correction."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "card-members-title",
+    "before": "Añadir o quitar miembros del tableru de la tarxeta.",
+    "after": "Amestar o quitar miembros del tableru de la tarxeta.",
+    "reason": "Retain the newer native-language wording and current source meaning after reviewing the superseded audit correction."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "close-add-checklist-item",
+    "before": "Zarrar el formulariu p'añadir un elementu a la llista de comprobación",
+    "after": "Zarrar el formulariu p'amestar un elementu a la llista de comprobación",
+    "reason": "Retain the newer native-language wording and current source meaning after reviewing the superseded audit correction."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "close-board-pop",
+    "before": "Puedes restaurar el tableru faciendo clic nel botón «Archivu» de la cabecera de la páxina d'aniciu.",
+    "after": "Pues restaurar el tableru dende «Archivu» na páxina de Tolos tableros.",
+    "reason": "Retain the newer native-language wording and current source meaning after reviewing the superseded audit correction."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "comment-only-desc",
+    "before": "Solo puedes comentar nes tarxetes.",
+    "after": "Namás pue comentar nes tarxetes.",
+    "reason": "Retain the newer native-language wording and current source meaning after reviewing the superseded audit correction."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "createTemplateContainerPopup-title",
+    "before": "Añadir un contenedor de plantíes",
+    "after": "Amestar un contenedor de plantíes",
+    "reason": "Retain the newer native-language wording and current source meaning after reviewing the superseded audit correction."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "delete-linked-card-before-this-card",
+    "before": "Nun puedes eliminar esta tarxeta ensin eliminar primero la tarxeta enllazada que tien",
+    "after": "Nun pues desaniciar esta tarxeta ensin desaniciar primero la tarxeta enllazada que tien",
+    "reason": "Retain the newer native-language wording and current source meaning after reviewing the superseded audit correction."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "delete-linked-cards-before-this-list",
+    "before": "Nun puedes eliminar esta llista ensin eliminar primero les tarxetes enllazaes qu'apunten a tarxetes nesta llista",
+    "after": "Nun pues desaniciar esta llista ensin desaniciar primero les tarxetes enllazaes qu'apunten a tarxetes nesta llista",
+    "reason": "Retain the newer native-language wording and current source meaning after reviewing the superseded audit correction."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "list-delete-suggest-archive",
+    "before": "Puedes mover una llista al Archivu pa quitala del tableru y conservar l'actividá.",
+    "after": "Pues mover una llista al archivu pa quitala del tableru y caltener l'actividá.",
+    "reason": "Retain the newer native-language wording and current source meaning after reviewing the superseded audit correction."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "normal-desc",
+    "before": "Puedes ver y editar tarxetes. Nun puedes cambiar les preferencies.",
+    "after": "Pue ver y editar tarxetes. Nun pue camudar los axustes.",
+    "reason": "Retain the newer native-language wording and current source meaning after reviewing the superseded audit correction."
+  },
+  {
+    "locale": "an",
+    "key": "activity-checklist-item-added",
+    "before": "adhibió un elemento a la lista de comprobación '%s' en %s",
+    "after": "ha adhibiu un elemento a la lista de comprebación '%s' en %s",
+    "reason": "Retain the newer native-language wording and current source meaning after reviewing the superseded audit correction."
+  },
+  {
+    "locale": "uz-AR",
+    "key": "calendar-system-indian",
+    "before": "Hindiston milliy taqvimi",
+    "after": "هیندستان ملّی تقویمی",
+    "reason": "Retain the Uzbek translation in the Arabic script declared by this locale; supersede the old Latin-script correction."
+  },
+  {
+    "locale": "uz-AR",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "hijriy taqvim (Saudiya Arabistoni, oyni ko'rish)",
+    "after": "هجری تقویم (سعودیه عربستانی، آینی کۉریش)",
+    "reason": "Retain the Uzbek translation in the Arabic script declared by this locale; supersede the old Latin-script correction."
+  },
+  {
+    "locale": "br",
+    "key": "close-board-pop",
+    "before": "Gallout a reot adsevel an daolenn en ur glikañ war ar bouton « Dielloù » e penn an degemer.",
+    "after": "Gallout a rit adsevel an daolenn eus « Dielloù » war bajenn « An holl daolennoù ».",
+    "reason": "Retain the newer native-language wording and current source meaning after reviewing the superseded audit correction."
   }
 ]
