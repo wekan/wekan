@@ -10217,6 +10217,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bb69250ab17fa3e130ca29c17810bfafed339a55">Translate Uzbek reminders and saved filters</a>. Thanks to xet7.</summary>
+
+- Fill 22 notification, reminder and saved-filter strings per Uzbek locale,
+  using Arabic script for uz-AR and Latin for the other three locales.
+- Translation, registry and human-preference checks pass, covering tokens,
+  reminder offsets, dependency directions and template syntax.
+  Wording needs fluent review, especially Arabic-script orthography.
+  Browser review and wider translation completion remain outstanding.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
