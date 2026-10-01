@@ -28,6 +28,29 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek list reads, removals and sub-list boundaries.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["blockly-LISTS_GET_INDEX_GET_REMOVE", "blockly-LISTS_GET_INDEX_LAST", "blockly-LISTS_GET_INDEX_RANDOM", "blockly-LISTS_GET_INDEX_REMOVE", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_FIRST", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_FROM", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_LAST", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_RANDOM", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_FIRST", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_FROM", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_LAST", "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_RANDOM", "blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_FIRST", "blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_FROM", "blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_LAST", "blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_RANDOM", "blockly-LISTS_GET_SUBLIST_END_FROM_END", "blockly-LISTS_GET_SUBLIST_END_LAST", "blockly-LISTS_GET_SUBLIST_START_FIRST", "blockly-LISTS_GET_SUBLIST_START_FROM_END"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  const remove = code === 'uz-AR' ? 'آلیب تشلیدی' : 'olib tashlaydi';
+  const returns = code === 'uz-AR' ? 'قیتره‌دی' : 'qaytaradi';
+  for (const position of ['FIRST', 'FROM', 'LAST', 'RANDOM']) {
+    const get = locale[`blockly-LISTS_GET_INDEX_TOOLTIP_GET_${position}`];
+    const both = locale[`blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_${position}`];
+    const del = locale[`blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_${position}`];
+    assert.ok(get.includes(returns) && !get.includes(remove));
+    assert.ok(both.includes(returns) && both.includes(remove));
+    assert.ok(del.includes(remove) && !del.includes(returns));
+  }
+  for (const end of ['START', 'END']) assert.ok(locale[`blockly-LISTS_GET_SUBLIST_${end}_FROM_END`].includes('#'));
+  assert.notEqual(locale['blockly-LISTS_GET_SUBLIST_START_FROM_END'], locale['blockly-LISTS_GET_SUBLIST_END_FROM_END']);
+}
+
 // Uzbek text inputs, keyboard navigation and list creation.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
