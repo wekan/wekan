@@ -12150,6 +12150,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9943e0efc1be4303b5c10a8121930ce6d029e365">Mongolian logic and arithmetic messages</a>. Thanks to xet7.</summary>
+
+- Translate 46 logic, comparison and arithmetic placeholders.
+- Check Boolean operations, inclusive bounds, constants and the distinction
+  between quotients and remainders while preserving substitution tokens.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
