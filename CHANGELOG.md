@@ -1685,6 +1685,17 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8f85de9cf9">Translate Cantonese colour and control-flow blocks</a>. Thanks to xet7.</summary>
+
+- Fill 35 editor commands and tooltips for colours, loops and conditional
+  blocks, preserving numbered placeholders and variable tokens.
+- Cantonese key-order, translation and placeholder checks and all 21
+  human-preference checks pass. Other untranslated strings remain;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/808baa0e46">Translate Cantonese editor accessibility labels</a>. Thanks to xet7.</summary>
 
 - Fill 38 accessibility labels for editor fields, blocks, comments and
