@@ -10782,6 +10782,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/06c589d40e4664508acd5c275bfde87d4774387f">Correct Arabic-script Uzbek timeline and metric labels</a>. Thanks to xet7.</summary>
+
+- Replace 25 Latin-script timeline and reporting values in uz-AR with
+  Arabic-script Uzbek, preserving restoration scope and fixing the list example.
+- Translation, registry and human-preference checks pass, covering tokens,
+  the no-deletion assurance, restored fields and distinct metric labels.
+  Wording is low confidence and needs fluent review. Browser review was not run.
+  Older script corrections and wider translation completion remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
