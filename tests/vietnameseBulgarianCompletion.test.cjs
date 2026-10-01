@@ -28,6 +28,25 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona Blockly list conversion and Boolean comparisons.
+{
+  const locale = read('sn');
+  const keys = ["blockly-LISTS_SORT_TITLE", "blockly-LISTS_SORT_TOOLTIP", "blockly-LISTS_SORT_TYPE_IGNORECASE", "blockly-LISTS_SORT_TYPE_NUMERIC", "blockly-LISTS_SORT_TYPE_TEXT", "blockly-LISTS_SPLIT_LIST_FROM_TEXT", "blockly-LISTS_SPLIT_TEXT_FROM_LIST", "blockly-LISTS_SPLIT_TOOLTIP_JOIN", "blockly-LISTS_SPLIT_TOOLTIP_SPLIT", "blockly-LISTS_SPLIT_WITH_DELIMITER", "blockly-LOGIC_BOOLEAN_FALSE", "blockly-LOGIC_BOOLEAN_TOOLTIP", "blockly-LOGIC_BOOLEAN_TRUE", "blockly-LOGIC_COMPARE_EQ_ARIA", "blockly-LOGIC_COMPARE_GTE_ARIA", "blockly-LOGIC_COMPARE_GT_ARIA", "blockly-LOGIC_COMPARE_LTE_ARIA", "blockly-LOGIC_COMPARE_LT_ARIA", "blockly-LOGIC_COMPARE_NEQ_ARIA", "blockly-LOGIC_COMPARE_TOOLTIP_EQ", "blockly-LOGIC_COMPARE_TOOLTIP_GT", "blockly-LOGIC_COMPARE_TOOLTIP_GTE", "blockly-LOGIC_COMPARE_TOOLTIP_LT", "blockly-LOGIC_COMPARE_TOOLTIP_LTE", "blockly-LOGIC_COMPARE_TOOLTIP_NEQ", "blockly-LOGIC_NEGATE_TITLE", "blockly-LOGIC_NEGATE_TOOLTIP", "blockly-LOGIC_NULL_TOOLTIP", "blockly-LOGIC_OPERATION_AND"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+  }
+  assert.match(locale['blockly-LISTS_SORT_TOOLTIP'], /kopi/);
+  assert.match(locale['blockly-LISTS_SORT_TYPE_IGNORECASE'], /usingasiyanisi makuru nemadiki/);
+  assert.notEqual(locale['blockly-LISTS_SPLIT_LIST_FROM_TEXT'], locale['blockly-LISTS_SPLIT_TEXT_FROM_LIST']);
+  assert.equal(new Set(['EQ', 'NEQ', 'GT', 'GTE', 'LT', 'LTE'].map(operator => locale[`blockly-LOGIC_COMPARE_${operator}_ARIA`])).size, 6);
+  assert.match(locale['blockly-LOGIC_COMPARE_TOOLTIP_GTE'], /chikuru kana chakaenzana/);
+  assert.match(locale['blockly-LOGIC_COMPARE_TOOLTIP_LTE'], /chidiki kana chakaenzana/);
+  assert.match(locale['blockly-LOGIC_NEGATE_TOOLTIP'], /chokwadi.*nhema.*nhema.*chokwadi/);
+  assert.equal(locale['blockly-LOGIC_NULL'], 'null');
+  assert.ok(locale['blockly-LOGIC_NULL_TOOLTIP'].includes('null'));
+}
+
 // Shona Blockly list slicing, removal and insertion.
 {
   const locale = read('sn');
