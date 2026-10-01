@@ -12063,6 +12063,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/25c23ec013b704afa143ee178e4a0fd41ee0b930">Mongolian date filters and automatic archival</a>. Thanks to xet7.</summary>
+
+- Fill 20 English placeholders for date filters and automatic archival,
+  preserving existing translations and placeholders.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for date boundaries, time ranges and template archival exceptions.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
