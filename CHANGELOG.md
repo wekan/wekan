@@ -10409,6 +10409,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8f6bc7fbb7f251b6aea2c78e788306592a38d1be">Translate Uzbek Blockly statistics and accessible labels</a>. Thanks to xet7.</summary>
+
+- Fill 15 statistics strings in each Uzbek locale,
+  using Arabic script for uz-AR and Latin for the other three locales.
+- Translation, registry and human-preference checks pass, covering tokens,
+  distinct statistical operations and consistent minimum and maximum labels.
+  Wording needs fluent review, especially Arabic-script orthography.
+  Browser review and wider translation completion remain outstanding.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
