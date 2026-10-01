@@ -2025,6 +2025,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e98e42ba64758722a73efb9207087f6a4aa639b9">Translate Marathi notifications and rule settings</a>. Thanks to xet7.</summary>
+
+- Translate 35 Marathi board visibility, rule and notification messages.
+- Check reminder timing, variable tokens and visibility restrictions while
+  preserving existing translations and URL schemes.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
