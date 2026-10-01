@@ -13299,6 +13299,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3b27d3763a5870556b493c6dd7284f26f0c02f35">Translate Malayalam arithmetic and mathematical constants</a>. Thanks to xet7.</summary>
+
+- Translate 29 Malayalam arithmetic, constant and number-property strings.
+- Check mathematical notation, angle ranges and inclusive limits while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
