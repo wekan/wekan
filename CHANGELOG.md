@@ -10277,6 +10277,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/80cf56ea450b6f63d6482c3f9038c10a479be251">Translate Uzbek loop conditions and clipboard actions</a>. Thanks to xet7.</summary>
+
+- Fill 18 conditional, loop and clipboard strings in each Uzbek locale,
+  using Arabic script for uz-AR and Latin for the other three locales.
+- Translation, registry and human-preference checks pass, covering tokens,
+  while/until conditions, clipboard actions and variable deletion counts.
+  Wording needs fluent review, especially Arabic-script orthography.
+  Browser review and wider translation completion remain outstanding.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
