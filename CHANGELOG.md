@@ -9629,6 +9629,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3e389aef6ccb37e941f8deb08a674ae834b29381">Translate Yoruba Blockly keyboard shortcuts</a>. Thanks to xet7.</summary>
+
+- Translate 32 keyboard shortcut strings, preserving distinct navigation
+  directions, focus targets and movement actions.
+- Translation, registry and human-preference checks pass, covering tokens,
+  previous and next targets, stack positions and announcement detail levels.
+  Wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
