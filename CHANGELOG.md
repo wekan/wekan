@@ -9341,6 +9341,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/45a30f891f954711a33b0297de90e8aff22726e6">Translate Shona Blockly directional shortcuts</a>. Thanks to xet7.</summary>
+
+- Translate 30 directional navigation and text operation strings,
+  preserving substitution tokens and keyboard names.
+- Translation, registry and human-preference checks pass, covering tokens,
+  navigation directions, previous and next targets, and title case.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
