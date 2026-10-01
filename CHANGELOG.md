@@ -10349,6 +10349,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1a495ed7d2068efec0d642f5f1ce4fb647b0c7e0">Translate Uzbek list indexing and insertion</a>. Thanks to xet7.</summary>
+
+- Fill 20 list indexing, copying and insertion strings per Uzbek locale,
+  using Arabic script for uz-AR and Latin for the other three locales.
+- Translation, registry and human-preference checks pass, covering tokens,
+  list boundaries, missing-item results and copy semantics.
+  Wording needs fluent review, especially Arabic-script orthography.
+  Browser review and wider translation completion remain outstanding.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
