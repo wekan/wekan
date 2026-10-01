@@ -11753,6 +11753,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8576901e560807571a477950ad2443e542b99283">Haitian Creole Blockly functions and screen-reader controls</a>. Thanks to xet7.</summary>
+
+- Fill 71 English placeholders for mathematics, variables, procedures and
+  accessibility, preserving existing translations and placeholders.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for negation, angle units, return values and screen-reader states.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
