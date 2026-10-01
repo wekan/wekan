@@ -1685,6 +1685,16 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e235f6e293">Translate Javanese editor input and icon labels</a>. Thanks to xet7.</summary>
+
+- Fill 37 editor icon, list-input and numeric-input labels.
+- Focused key-order, placeholder and restriction checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f98a3195e7">Translate Javanese editing and bitmap messages</a>. Thanks to xet7.</summary>
 
 - Fill 33 editing commands, bitmap labels and keyboard-help messages.
