@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Yoruba Blockly accessible controls and field types.
+{
+  const locale = read('yo');
+  const keys = ["blockly-ARIA_LABEL_ADD_TEXT", "blockly-ARIA_LABEL_BUTTON", "blockly-ARIA_LABEL_COMMENT_COLLAPSE", "blockly-ARIA_LABEL_COMMENT_EXPAND", "blockly-ARIA_LABEL_FIELD_ANGLE", "blockly-ARIA_LABEL_REMOVE_ELSE_IF", "blockly-ARIA_LABEL_REMOVE_INPUT", "blockly-ARIA_LABEL_REMOVE_LIST_ITEM", "blockly-ARIA_LABEL_REMOVE_TEXT", "blockly-ARIA_LABEL_TRASH_EMPTY", "blockly-ARIA_TYPE_FIELD_ANGLE", "blockly-ARIA_TYPE_FIELD_BITMAP", "blockly-ARIA_TYPE_FIELD_CHECKBOX", "blockly-ARIA_TYPE_FIELD_COLOUR", "blockly-ARIA_TYPE_FIELD_DATE", "blockly-ARIA_TYPE_FIELD_DROPDOWN", "blockly-ARIA_TYPE_FIELD_GRID", "blockly-ARIA_TYPE_FIELD_IMAGE", "blockly-ARIA_TYPE_FIELD_INPUT", "blockly-ARIA_TYPE_FIELD_TEXT_INPUT_ARGUMENT", "blockly-ARIA_TYPE_FIELD_TEXT_INPUT_PROCEDURE", "blockly-BLOCK_LABEL_BEGIN_PREFIX", "blockly-BLOCK_LABEL_BEGIN_STACK", "blockly-BLOCK_LABEL_COLLAPSED", "blockly-BLOCK_LABEL_CONTAINER"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `yo:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `yo:${key}: tokens`);
+  }
+  assert.notEqual(locale['blockly-ARIA_LABEL_COMMENT_COLLAPSE'], locale['blockly-ARIA_LABEL_COMMENT_EXPAND']);
+  for (const kind of ['ELSE_IF', 'INPUT', 'LIST_ITEM', 'TEXT']) {
+    assert.match(locale[`blockly-ARIA_LABEL_REMOVE_${kind}`], /^Yọ.*kúrò$/);
+    assert.notEqual(locale[`blockly-ARIA_LABEL_REMOVE_${kind}`], locale[`blockly-ARIA_LABEL_ADD_${kind}`]);
+  }
+  assert.match(locale['blockly-ARIA_LABEL_TRASH_EMPTY'], /ṣófo/);
+  assert.notEqual(locale['blockly-ARIA_TYPE_FIELD_TEXT_INPUT_ARGUMENT'], locale['blockly-ARIA_TYPE_FIELD_TEXT_INPUT_PROCEDURE']);
+  assert.equal(locale['blockly-BACKSPACE_KEY'], 'Backspace');
+}
+
 // Yoruba board maps and Blockly movement announcements.
 {
   const locale = read('yo');
