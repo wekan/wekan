@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona sync previews, omissions and retained run reports.
+{
+  const locale = read('sn');
+  const keys = ["sync-preview-unavailable", "sync-preview-blocked", "sync-preview-create", "sync-preview-update", "sync-preview-archive", "sync-preview-baseline", "sync-preview-truncated", "sync-preview-omissions", "sync-preview-scope", "sync-preview-excluded", "sync-preview-unmapped", "sync-preview-parser-warnings", "sync-preview-parser-unsupported", "sync-source-heading", "sync-source-scope", "sync-source-unmapped", "sync-source-excluded", "sync-source-converted", "sync-source-fallback", "sync-source-excluded-item", "sync-source-occurrences", "sync-source-truncated", "sync-source-omitted", "sync-report-button", "sync-report-retention", "sync-report-partial", "sync-report-unfinished"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+  }
+  assert.match(locale['sync-preview-truncated'], /100.*zvekutanga/);
+  assert.match(locale['sync-source-truncated'], /100.*akapfupiswa/);
+  assert.match(locale['sync-report-retention'], /20.*mazuva 30/);
+  assert.match(locale['sync-source-scope'], /kukosha kwazvo hakuratidzwi/);
+  assert.match(locale['sync-report-partial'], /kwachinja mamwe makadhi.*haitangisezve kana kudzosera/);
+  assert.equal(locale['sync-source-unmapped'], locale['sync-preview-unmapped']);
+  assert.equal(locale['sync-source-excluded'], locale['sync-preview-excluded']);
+  assert.equal(new Set(['create', 'update', 'archive'].map(action => locale[`sync-preview-${action}`])).size, 3);
+}
+
 // Shona daily observation limits and sync conflict recovery.
 {
   const locale = read('sn');
