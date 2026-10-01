@@ -11908,6 +11908,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a273894b73669e52621c073c572fd2b3a885e840">Latin Blockly list access and navigation</a>. Thanks to xet7.</summary>
+
+- Fill 49 English placeholders for list access and keyboard navigation,
+  preserving existing translations and placeholders.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for list mutations, missing items, copies and argument order.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
