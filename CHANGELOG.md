@@ -10601,6 +10601,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5320831a6760840668dbe4ee7f280a78e1947063">Translate Uzbek diagnostics and email queue messages</a>. Thanks to xet7.</summary>
+
+- Fill 20 diagnostic and email queue strings in each Uzbek locale,
+  using Arabic script for uz-AR and Latin for the other three locales.
+- Translation, registry and human-preference checks pass, covering tokens,
+  retention, explicit null semantics, uncertain delivery and pause behavior.
+  Wording needs fluent review, especially Arabic-script orthography.
+  Browser review and wider translation completion remain outstanding.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
