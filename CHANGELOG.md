@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/00fe8f46ce">Translate Bashkir functions and screen reader controls</a>. Thanks to xet7.</summary>
+
+- Fill 25 function, variable and screen-reader control messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8fc828aa43">Translate Bashkir mathematical accessibility and editor controls</a>. Thanks to xet7.</summary>
 
 - Fill 20 mathematical accessibility, variable and editor control messages.
