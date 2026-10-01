@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Arabic-script Uzbek membership and archive labels retain scope and warnings.
+{
+  const locale = read('uz-AR');
+  for (const key of ["checklistItem-linked-subtask", "add-cover", "add-label", "add-list", "add-after-list", "add-members", "added", "addMemberPopup-title", "memberPopup-title", "admin-desc", "admin-announcement", "admin-announcement-active", "admin-announcement-title", "all-boards", "all-boards-hide", "public-boards", "board-creation-admin-only", "and-n-other-card", "and-n-other-card_plural", "apply", "app-is-offline", "app-try-reconnect", "archive", "archive-all", "archive-board"]) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `uz-AR:${key}: tokens`);
+    const prose = locale[key].replace(/__[A-Za-z0-9_]+__/g, '');
+    assert.match(prose, /[\u0600-\u06ff]/, key);
+    assert.doesNotMatch(prose, /[A-Za-z]/, `${key}: no Latin prose`);
+  }
+  assert.equal(locale['add-members'], locale['addMemberPopup-title']);
+  assert.equal(locale['add-list'], locale['addListPopup-title']);
+  assert.equal(new Set(['archive', 'archive-all', 'archive-board'].map(k => locale[k])).size, 3);
+  assert.match(locale['board-creation-admin-only'], /فقط ادمینیستراتار/);
+  assert.match(locale['app-is-offline'], /معلومات‌لر یۉقالیشیگه/);
+  assert.match(locale['apply'], /قۉللش/);
+  assert.match(locale['add-after-list'], /رۉیخت‌دن کېیین/);
+}
+
 // Arabic-script Uzbek creation controls keep position and toggle meanings distinct.
 {
   const locale = read('uz-AR');
