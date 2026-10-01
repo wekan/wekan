@@ -9401,6 +9401,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/85636f406b94bf52a8adae1b8b9f106d356877d9">Translate Shona sprint lifecycle and backlog labels</a>. Thanks to xet7.</summary>
+
+- Translate 30 sprint, backlog and event labels. Update the README count to
+  131 locales above its 90 percent source coverage threshold.
+- Translation, registry and human-preference checks pass, covering tokens,
+  sprint actions, unfinished work, time units and consistent terminology.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
