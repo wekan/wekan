@@ -28,6 +28,27 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Yoruba signed-in visibility, rule variables and notifications.
+{
+  const locale = read('yo');
+  const keys = ["instance-desc", "board-instance-info", "automatic-linked-url-schemes-hint", "other-parent-cards", "add-parent-card", "remove-parent-card", "r-when-card-date", "r-trigger-vars-hint", "r-insert-variable", "r-vars-people-hint", "r-rule-any-trigger-help", "r-add-trigger-to-rule", "r-add-action-to-rule", "r-remove-rule-part", "notification-activity-heading", "notification-activity-description", "notification-activity-labels", "notification-activity-members", "notification-activity-assignees", "notification-activity-comments", "notification-activity-moves", "notification-activity-dates", "notification-activity-checklists", "notification-activity-attachments"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `yo:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `yo:${key}: tokens`);
+  }
+  assert.match(locale['instance-desc'], /kò wọlé láé.*nìkan.*ṣàtúnṣe/);
+  assert.match(locale['board-instance-info'], /<strong>.*<\/strong>/);
+  for (const token of ['{creator}', '{assignees}', '{members}']) {
+    assert.ok(locale['r-trigger-vars-hint'].includes(token));
+    assert.ok(locale['r-vars-people-hint'].includes(token));
+  }
+  assert.ok(locale['r-trigger-vars-hint'].includes('{customField:Name}'));
+  assert.ok(locale['r-vars-people-hint'].includes('{customField:Field name}'));
+  for (const scheme of ['thunderlink', 'onenote', 'javascript', 'data', 'vbscript']) assert.ok(locale['automatic-linked-url-schemes-hint'].includes(scheme));
+  assert.match(locale['notification-activity-description'], /ọjọ́ ìparí.*@.*nígbà gbogbo/);
+  assert.notEqual(locale['notification-activity-members'], locale['notification-activity-assignees']);
+}
+
 // Yoruba archive timing and date filters.
 {
   const locale = read('yo');
