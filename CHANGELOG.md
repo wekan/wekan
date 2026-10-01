@@ -9485,6 +9485,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1aec49b6fce42d7f167bdf72b02b46d1104d39cf">Complete Shona source coverage and retain technical names</a>. Thanks to xet7.</summary>
+
+- Translate nine remaining English placeholders and retain 28 keyboard names,
+  OS brands and mathematical symbols. All 3,783 source keys are covered.
+- Translation, registry and human-preference checks pass, covering all Shona
+  keys, placeholder inventories and key order. Coverage is not quality review.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
