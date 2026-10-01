@@ -2359,6 +2359,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2451dd05ff8d6ce517bc6393ba253c209a840e1d">Finish Marathi prose placeholder translations</a>. Thanks to xet7.</summary>
+
+- Translate the final 23 Marathi recovery and history prose placeholders.
+- Preserve literal keyboard, platform and mathematical identifiers; check
+  all Marathi placeholders and key order against English.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
