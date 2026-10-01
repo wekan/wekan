@@ -9617,6 +9617,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5d1f9071f1cbb6e23bdfab337a90765f8f7e4329">Translate Yoruba Blockly workspace and screen reader controls</a>. Thanks to xet7.</summary>
+
+- Translate 19 workspace and screen reader strings, preserving
+  substitution tokens, keyboard names and distinct accessibility states.
+- Translation, registry and human-preference checks pass, covering tokens,
+  disabled functions, backpack actions and inverse function distinctions.
+  Wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
