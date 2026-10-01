@@ -12261,6 +12261,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/19a37f1003c0b6942f9913eebc4f703b73b20075">Mongolian delivery failures and recovery controls</a>. Thanks to xet7.</summary>
+
+- Translate 32 email delivery, time estimate and activity recovery strings.
+- Check irreversible cancellation, retained new messages, SMTP failure
+  types and activity retries while preserving source substitution tokens.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
