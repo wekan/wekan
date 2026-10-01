@@ -1685,6 +1685,16 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/49ce1e6897">Translate Tajik text processing and variables</a>. Thanks to xet7.</summary>
+
+- Fill 41 text-processing, prompt and variable-control messages.
+- Focused key-order, placeholder and query-syntax checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c5adc819a5">Translate Tajik navigation and text operations</a>. Thanks to xet7.</summary>
 
 - Fill 38 navigation shortcuts, text-case and character-selection messages.
