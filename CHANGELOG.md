@@ -11830,6 +11830,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6c82345642ab5f5e1b2669eb0b5e28dee0acb3bd">Haitian Creole remaining English prose placeholders</a>. Thanks to xet7.</summary>
+
+- Translate 26 delivery, sign-in and history messages. Retain 27 keyboard
+  labels, product names and code symbols as intentional locale exceptions.
+- Full Haitian Creole key-order, token and placeholder checks now pass,
+  alongside language registry and human-preference checks.
+  Browser review was not run. Older linguistic quality needs review;
+  wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
