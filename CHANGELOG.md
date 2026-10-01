@@ -1685,6 +1685,17 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/dd48326373">Translate Cantonese shortcuts and text selection</a>. Thanks to xet7.</summary>
+
+- Fill 33 messages for shortcuts, text case changes, character selection
+  and text assembly, preserving numbered placeholders.
+- Cantonese key-order, translation and placeholder checks and all 21
+  human-preference checks pass. Other untranslated strings remain;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f6f32820e4">Translate Cantonese accessibility shortcuts</a>. Thanks to xet7.</summary>
 
 - Fill 35 messages for screen-reader modes, navigation, focus and editor
