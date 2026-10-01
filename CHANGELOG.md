@@ -9497,6 +9497,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/129937096e920afed5c1ad7eac9bc3dadd08ab18">Translate Yoruba date filters and archive settings</a>. Thanks to xet7.</summary>
+
+- Translate 25 date filter, automatic archive and Leo import strings,
+  preserving query syntax, numeric limits and import semantics.
+- Translation, registry and human-preference checks pass, covering tokens,
+  date operators, archive exclusions and list age behavior.
+  Wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
