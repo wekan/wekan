@@ -10553,6 +10553,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5088cd675f170e7edfff76be93512546b47884a8">Translate Uzbek sprint reports and lifecycle states</a>. Thanks to xet7.</summary>
+
+- Fill 25 sprint report strings in each Uzbek locale,
+  using Arabic script for uz-AR and Latin for the other three locales.
+- Translation, registry and human-preference checks pass, covering tokens,
+  unknown versus zero estimates, partial-report scope and lifecycle states.
+  Wording needs fluent review, especially Arabic-script orthography.
+  Browser review and wider translation completion remain outstanding.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
