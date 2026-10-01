@@ -1685,6 +1685,17 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d1c713867c">Translate Tajik email queue and failure messages</a>. Thanks to xet7.</summary>
+
+- Fill 37 email-queue, delivery-failure and estimate messages, preserving
+  cancellation limits and repeated-delivery warnings.
+- Focused key-order, placeholder and query-syntax checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/add45c747e">Translate Tajik Sync reports and diagnostics</a>. Thanks to xet7.</summary>
 
 - Fill 34 Sync preview, report and diagnostic messages, preserving retention
