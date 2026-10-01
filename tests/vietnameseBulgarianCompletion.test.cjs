@@ -28,6 +28,27 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek substring boundaries and search results preserve their distinct roles.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["blockly-TEXT_CHARAT_TITLE", "blockly-TEXT_CHARAT_TOOLTIP", "blockly-TEXT_COUNT_MESSAGE0", "blockly-TEXT_COUNT_TOOLTIP", "blockly-TEXT_CREATE_JOIN_ITEM_TOOLTIP", "blockly-TEXT_CREATE_JOIN_TITLE_JOIN", "blockly-TEXT_CREATE_JOIN_TOOLTIP", "blockly-TEXT_FROM_END_ARIA", "blockly-TEXT_FROM_START_ARIA", "blockly-TEXT_GET_SUBSTRING_END_FROM_END", "blockly-TEXT_GET_SUBSTRING_END_FROM_START", "blockly-TEXT_GET_SUBSTRING_END_LAST", "blockly-TEXT_GET_SUBSTRING_INPUT_IN_TEXT", "blockly-TEXT_GET_SUBSTRING_START_FIRST", "blockly-TEXT_GET_SUBSTRING_START_FROM_END", "blockly-TEXT_GET_SUBSTRING_START_FROM_START", "blockly-TEXT_GET_SUBSTRING_TOOLTIP", "blockly-TEXT_INDEXOF_OPERATOR_FIRST", "blockly-TEXT_INDEXOF_OPERATOR_LAST", "blockly-TEXT_INDEXOF_TITLE", "blockly-TEXT_INDEXOF_TOOLTIP", "blockly-TEXT_ISEMPTY_TITLE", "blockly-TEXT_ISEMPTY_TOOLTIP", "blockly-TEXT_JOIN_TITLE_CREATEWITH", "blockly-TEXT_JOIN_TOOLTIP"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  for (const bound of ['START', 'END']) {
+    const start = locale[`blockly-TEXT_GET_SUBSTRING_${bound}_FROM_START`];
+    const end = locale[`blockly-TEXT_GET_SUBSTRING_${bound}_FROM_END`];
+    assert.notEqual(start, end);
+    assert.ok(start.includes('#') && end.includes('#'));
+    assert.match(end, code === 'uz-AR' ? /آخریدن/ : /oxiridan/);
+  }
+  assert.notEqual(locale['blockly-TEXT_INDEXOF_OPERATOR_FIRST'], locale['blockly-TEXT_INDEXOF_OPERATOR_LAST']);
+  assert.match(locale['blockly-TEXT_INDEXOF_TOOLTIP'], code === 'uz-AR' ? /تاپیلمسه، %1/ : /topilmasa, %1/);
+  assert.ok(locale['blockly-TEXT_ISEMPTY_TOOLTIP'].includes(locale['blockly-LOGIC_BOOLEAN_TRUE']));
+}
+
 // Uzbek scrolling and text controls preserve direction, case and character position.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
