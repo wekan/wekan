@@ -9077,6 +9077,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8290dd2b94fc4336a719f5592fde8c9bf5171537">Correct Shona maintenance and support labels</a>. Thanks to xet7.</summary>
+
+- Translate 37 prefixed English entries and restore three technical names.
+  Preserve existing values outside this correction batch.
+- Translation, registry and human-preference checks pass, covering lockout
+  timing, scheduled job states, warnings versus errors and placeholders.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Another 183 prefixed English entries remain; wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
