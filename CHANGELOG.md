@@ -9977,6 +9977,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/65b9e307f3e2c78711a53a872ba845c0200685bf">Translate Hausa date filters and board visibility</a>. Thanks to xet7.</summary>
+
+- Fill 28 Hausa archive, date-filter, Leo import and signed-in access strings,
+  preserving existing translations and source placeholders.
+- Translation, registry and human-preference checks pass, covering query
+  syntax, inclusive dates, access wording, HTML and URL scheme names.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
