@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f339381178">Translate Kyrgyz filters and board visibility messages</a>. Thanks to xet7.</summary>
+
+- Fill 30 date filter, archival, import and board visibility messages.
+- Batch key-order, placeholder, markup and query-field checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f79410e842">Verify Javanese translation completeness and literal labels</a>. Thanks to xet7.</summary>
 
 - Review 29 literal keyboard, platform and code labels for Javanese.
