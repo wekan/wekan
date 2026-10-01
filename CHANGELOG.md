@@ -10938,6 +10938,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7c61b1a9cd976eb5ea6a0643b22500e961bb8c3b">Translate new recovery strings into Khmer locales</a>. Thanks to xet7.</summary>
+
+- Translate 44 missing keys each in km and km_KH, also serving the km-KH alias.
+  Preserve existing values and cover imports and email recovery controls.
+- Translation, registry and human-preference checks pass, covering placeholders,
+  import syntax, duplicate delivery, access checks and permanent discard.
+  Existing regression coverage is retained. Browser and fluent-speaker review
+  were not run. Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
