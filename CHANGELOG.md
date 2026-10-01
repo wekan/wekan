@@ -2563,6 +2563,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ab1f21b8babb97d3989076a55dac3cf39a2c18c8">Translate Sinhala navigation and accessibility messages</a>. Thanks to xet7.</summary>
+
+- Translate 31 Sinhala navigation, screen-reader and function-input messages.
+- Check opposite screen-reader controls, rename scope and navigation
+  distinctions, while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
