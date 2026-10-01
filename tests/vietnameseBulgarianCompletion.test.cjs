@@ -28,6 +28,19 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Igbo keyboard shortcuts and directional navigation.
+{
+  const locale = read('ig');
+  const keys = ["blockly-SHORTCUTS_DISCONNECT", "blockly-SHORTCUTS_DUPLICATE", "blockly-SHORTCUTS_EDITING", "blockly-SHORTCUTS_ESCAPE", "blockly-SHORTCUTS_EXTENDED_INFORMATION", "blockly-SHORTCUTS_FINISH_MOVE", "blockly-SHORTCUTS_FOCUS_TOOLBOX", "blockly-SHORTCUTS_FOCUS_WORKSPACE", "blockly-SHORTCUTS_GENERAL", "blockly-SHORTCUTS_INFORMATION", "blockly-SHORTCUTS_JUMP_BLOCK_END", "blockly-SHORTCUTS_JUMP_BLOCK_START", "blockly-SHORTCUTS_JUMP_BOTTOM_STACK", "blockly-SHORTCUTS_JUMP_FIRST_BLOCK", "blockly-SHORTCUTS_JUMP_LAST_BLOCK", "blockly-SHORTCUTS_JUMP_NEXT_PAGE", "blockly-SHORTCUTS_JUMP_PREVIOUS_PAGE", "blockly-SHORTCUTS_JUMP_TOP_STACK", "blockly-SHORTCUTS_MOVE_DOWN", "blockly-SHORTCUTS_MOVE_LEFT", "blockly-SHORTCUTS_MOVE_RIGHT", "blockly-SHORTCUTS_MOVE_UP", "blockly-SHORTCUTS_NEXT_HEADING", "blockly-SHORTCUTS_NEXT_STACK", "blockly-SHORTCUTS_PERFORM_ACTION", "blockly-SHORTCUTS_PREVIOUS_HEADING", "blockly-SHORTCUTS_PREVIOUS_STACK", "blockly-SHORTCUTS_SCROLL_DOWN", "blockly-SHORTCUTS_SCROLL_LEFT", "blockly-SHORTCUTS_SCROLL_RIGHT", "blockly-SHORTCUTS_SCROLL_UP", "blockly-SHORTCUTS_SHOW_CONTEXT_MENU", "blockly-SHORTCUTS_SHOW_TOOLTIP", "blockly-SHORTCUTS_START_MOVE"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `ig:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ig:${key}: tokens`);
+  }
+  for (const action of ['MOVE', 'SCROLL']) assert.equal(new Set(['DOWN', 'LEFT', 'RIGHT', 'UP'].map(direction => locale[`blockly-SHORTCUTS_${action}_${direction}`])).size, 4);
+  for (const target of ['HEADING', 'STACK']) assert.notEqual(locale[`blockly-SHORTCUTS_NEXT_${target}`], locale[`blockly-SHORTCUTS_PREVIOUS_${target}`]);
+  for (const [first, second] of [['JUMP_BLOCK_START', 'JUMP_BLOCK_END'], ['JUMP_FIRST_BLOCK', 'JUMP_LAST_BLOCK'], ['JUMP_TOP_STACK', 'JUMP_BOTTOM_STACK'], ['FOCUS_TOOLBOX', 'FOCUS_WORKSPACE'], ['INFORMATION', 'EXTENDED_INFORMATION'], ['ABORT_MOVE', 'FINISH_MOVE'], ['START_MOVE', 'FINISH_MOVE']]) assert.notEqual(locale[`blockly-SHORTCUTS_${first}`], locale[`blockly-SHORTCUTS_${second}`]);
+}
+
 // Igbo Blockly workspace and screen reader actions.
 {
   const locale = read('ig');
