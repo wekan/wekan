@@ -9593,6 +9593,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/585bda252c377ca923bdc41aad60ee005223eda9">Translate Yoruba Blockly text inputs and navigation</a>. Thanks to xet7.</summary>
+
+- Translate 26 text input, navigation and comparison labels, preserving
+  substitution tokens, comparison operators and distinct control actions.
+- Translation, registry and human-preference checks pass, covering tokens,
+  copy and cut distinctions, shared positions and inclusive comparisons.
+  Wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
