@@ -13407,6 +13407,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c6d25dce63cd42137e60d7ecfba1f51b2442772c">Translate Malayalam sprint planning and events</a>. Thanks to xet7.</summary>
+
+- Translate 32 Malayalam sprint-planning, event and work-scope strings.
+- Check sprint actions, unfinished work and time units while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
