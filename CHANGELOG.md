@@ -12757,6 +12757,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8929af9198aff5c1bc41d9c3da1785eadfc47136">Translate Pashto sprint reporting</a>. Thanks to xet7.</summary>
+
+- Translate 30 Pashto sprint report and state strings.
+- Check unknown estimates and card membership after sprint cancellation.
+  Update the README count as Pashto passes the 90 percent coverage threshold.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
