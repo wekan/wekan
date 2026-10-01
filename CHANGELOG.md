@@ -12085,6 +12085,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/56dfafe61b251b56de00f602aaa2ddc499744055">Mongolian notifications, saved filters and map views</a>. Thanks to xet7.</summary>
+
+- Translate 40 English placeholders for notifications, reminders, filters,
+  import reports and map views while retaining existing translations.
+- Check reminder timing, private filter replacement and template variables.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
