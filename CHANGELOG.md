@@ -1686,6 +1686,18 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f79410e842">Verify Javanese translation completeness and literal labels</a>. Thanks to xet7.</summary>
+
+- Review 29 literal keyboard, platform and code labels for Javanese.
+- The full Javanese suite passes with source-key order and shared placeholder
+  checks; no untranslated placeholders remain in its current report.
+- All 21 human-preference checks pass. The broader completion suite still
+  finds missing dependency keys in another locale. Browser and native-speaker
+  reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/edba6fe7b2">Translate Javanese recovery and history messages</a>. Thanks to xet7.</summary>
 
 - Fill 44 activity recovery, rule email, sign-in and history messages.
