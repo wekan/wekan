@@ -11611,6 +11611,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c9e8a7978891e8e13a268be5ce1fe2b193d2618b">Translate Greenlandic import and email recovery strings</a>. Thanks to xet7.</summary>
+
+- Translate 44 missing keys and 11 older email recovery placeholders in kl,
+  preserving existing translations and the English source.
+- Translation, registry and human-preference checks pass, covering placeholders,
+  import syntax, duplicate delivery, access checks and permanent discard.
+  Existing coverage is retained. Longer technical wording is low confidence
+  and needs fluent review. Browser review was not run. Wider work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
