@@ -2599,6 +2599,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e9325c73788da3908e32352d70dbf8f7d36836b9">Translate Sinhala workspace and variable messages</a>. Thanks to xet7.</summary>
+
+- Translate 32 Sinhala variable, workspace contents and search messages.
+- Check variable conflict types, keyboard shortcuts and comment fragments,
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
