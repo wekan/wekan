@@ -2049,6 +2049,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/637ad0d3aff86841ef58d75d404dd0b42bf3903d">Translate Marathi block editor accessibility labels</a>. Thanks to xet7.</summary>
+
+- Translate 38 Marathi block editor and accessibility messages.
+- Check angle units, add and remove actions, and singular and plural inputs
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
