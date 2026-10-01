@@ -9833,6 +9833,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/31e47230ab4f0b3b6884d1399c86ff773e6c1423">Translate Igbo accessible mathematical labels</a>. Thanks to xet7.</summary>
+
+- Fill 20 Igbo Blockly arithmetic and constant placeholders, preserving
+  existing translations and source tokens.
+- Translation, registry and human-preference checks pass, covering logarithm
+  bases, distinct roots, comparison labels and shared minimum/maximum wording.
+  Lower-confidence mathematical wording needs fluent-speaker review.
+  Browser review was not run; wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
