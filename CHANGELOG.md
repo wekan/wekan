@@ -11106,6 +11106,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/37ab7879627a89cdc098a6695d98f27ee8db219c">Translate new recovery strings into Bashkir</a>. Thanks to xet7.</summary>
+
+- Translate 44 missing keys in ba, preserving existing values.
+  Cover todo.txt imports and email recovery and review controls.
+- Translation, registry and human-preference checks pass, covering placeholders,
+  import syntax, duplicate delivery, access checks and permanent discard.
+  Existing regression coverage is retained. Browser and fluent-speaker review
+  were not run. Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
