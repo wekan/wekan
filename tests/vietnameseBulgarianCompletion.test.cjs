@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona Scrum reports and retained sprint snapshots.
+{
+  const locale = read('sn');
+  const keys = ["scrum-event-review", "scrum-event-retrospective", "scrum-committed", "scrum-completed", "scrum-added", "scrum-removed", "scrum-incomplete", "scrum-no-closed-sprints", "scrum-report-help", "scrum-total", "scrum-state-planned", "scrum-state-active", "scrum-state-closed", "scrum-state-cancelled", "scrum-unknown-estimate", "scrum-confirm-close", "scrum-confirm-cancel", "scrum-past-sprints", "scrum-list-category", "scrum-swimlane-purpose", "scrum-category-backlog", "scrum-category-todo", "scrum-category-doing", "scrum-category-done", "scrum-partial-report", "scrum-state-released", "scrum-released-at", "scrum-follow-up-cards", "scrum-import-reference-omitted", "scrum-partial-snapshot"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+  }
+  assert.match(locale['scrum-report-help'], /padzo dzoga.*hadzisi fungidziro dzezero.*chete.*zvichifanana/);
+  assert.match(locale['scrum-confirm-close'], /asina kupera.*yakasarudzwa/);
+  assert.match(locale['scrum-confirm-cancel'], /acharamba ari mairi kusvikira aiswa kumwe/);
+  assert.match(locale['scrum-partial-report'], /awakapiwa pari zvino chete/);
+  assert.match(locale['scrum-partial-snapshot'], /chikamu chete/);
+  assert.equal(new Set(['planned', 'active', 'closed', 'cancelled', 'released'].map(state => locale[`scrum-state-${state}`])).size, 5);
+  assert.notEqual(locale['scrum-added'], locale['scrum-removed']);
+  assert.equal(locale['scrum-category-backlog'], locale['scrum-backlog']);
+}
+
 // Shona Scrum sprint lifecycle, backlog and event labels.
 {
   const locale = read('sn');
