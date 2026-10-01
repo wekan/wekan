@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/92cbef89d9">Translate Sindhi sync preview and source field messages</a>. Thanks to xet7.</summary>
+
+- Fill 32 sync preview, duplicate-card and source field messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/fbf8e4b701">Translate Sindhi sprint observations and sync conflicts</a>. Thanks to xet7.</summary>
 
 - Fill 32 sprint observation, report and synchronization conflict messages.
