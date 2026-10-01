@@ -9101,6 +9101,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6fab1c0a349b822dba4949ec0f7752ab1fbd0202">Correct Shona migration and S3 labels</a>. Thanks to xet7.</summary>
+
+- Translate 40 prefixed English entries for migrations and S3 storage.
+  Preserve existing values outside this correction batch.
+- Translation, registry and human-preference checks pass, covering migration
+  states, key labels, region examples, service names and placeholders.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Another 103 prefixed English entries remain; wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
