@@ -1685,6 +1685,18 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/deed1ecf18">Translate dependency messages into Cornish and Manx</a>. Thanks to xet7.</summary>
+
+- Fill 11 dependency messages in each language, bringing dependency coverage
+  to 216 non-English locale tags. Terminology and wording have low confidence
+  and need native-speaker review.
+- Dependency key-order and placeholder checks and all 21 human-preference
+  checks pass. Other untranslated strings remain; browser and native-speaker
+  reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d38eb308d8">Translate dependency messages into Buryat, Sakha and Chuvash</a>. Thanks to xet7.</summary>
 
 - Fill 11 dependency messages in each language, bringing dependency coverage
