@@ -28,6 +28,28 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Final Shona prefixed-English corrections; ordinary placeholders remain separate.
+{
+  const locale = read('sn');
+  const keys = ["s3-attachments", "s3-size", "s3-storage", "schedule", "showing", "start-test-operation", "step-progress", "stop-migration", "storage-distribution", "total-attachments", "total-operations", "total-size", "weight", "cron", "otp", "available-repositories", "repositories", "repository", "size-bytes", "api-endpoints", "otp-required", "login", "log", "logout", "protocol", "summary", "repairing", "cpu-cores-suffix", "cpu-load-average", "event-category", "event-severity", "event-source", "event-detail", "event-ip", "event-ipv4", "event-ipv6", "event-attempts", "integrityReportTitle", "operator-number", "wip-limit-group-apply-swimlane", "board-view-blocker-analysis", "board-view-size-cycle-time", "flow-unknown", "flow-age-days", "flow-signal", "flow-unusual", "flow-blocker", "flow-episodes", "flow-active", "flow-unknown-start", "flow-confidence", "flow-target-count", "flow-target-date", "flow-size-source", "flow-size", "flow-error", "flow-details", "flow-note-agingWip", "flow-note-blockerAnalysis", "flow-note-monteCarlo", "flow-note-sizeCycleTime", "time-adjustments", "time-adjustment-note"];
+  for (const [key, value] of Object.entries(locale)) assert.doesNotMatch(value, /Mashoko echiShona:/, `sn:${key}: no prefixed English`);
+  for (const key of keys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+    if (['s3-storage', 'cron'].includes(key)) assert.equal(locale[key], english[key]);
+    else assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+  }
+  assert.equal(locale['event-severity'], locale['recovery-severity']);
+  assert.equal(locale['event-detail'], locale['recovery-detail']);
+  assert.notEqual(locale.login, locale.logout);
+  assert.notEqual(locale['stop-migration'], locale['pause-migration']);
+  for (const token of ['2,000', 'UTC', '3,650']) assert.ok(locale['flow-note-monteCarlo'].includes(token));
+  assert.match(locale['flow-note-monteCarlo'], /mazuva asina basa rakapera/);
+  assert.match(locale['flow-note-monteCarlo'], /haisi vimbiso/);
+  assert.match(locale['flow-note-agingWip'], /85%.*shanu/);
+  assert.match(locale['flow-note-sizeCycleTime'], /hazvibatanidzwi.*rekugadzira.*rekuchengetwa mudura/);
+  assert.match(locale['time-adjustment-note'], /hadzisi nguva dzebasa.*pasi pezero.*isina kunyorwa/);
+}
+
 // Shona migration monitoring labels replace prefixed English.
 {
   const locale = read('sn');
