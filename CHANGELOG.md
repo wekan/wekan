@@ -1685,6 +1685,17 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/519e186b51">Translate Cantonese functions and variable controls</a>. Thanks to xet7.</summary>
+
+- Fill 31 messages for variables, function definitions, parameters and
+  editor controls, preserving numbered placeholders and existing terminology.
+- Cantonese key-order, translation and placeholder checks and all 21
+  human-preference checks pass. Other untranslated strings remain;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c5368665cd">Translate Cantonese mathematical functions</a>. Thanks to xet7.</summary>
 
 - Fill 35 messages for rounding, logarithms, trigonometry and editor
