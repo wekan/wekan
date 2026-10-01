@@ -28,6 +28,22 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona rule editor validation and Scrum planning labels.
+{
+  const locale = read('sn');
+  const keys = ["r-blocks-discard", "r-blocks-unavailable", "r-blocks-invalid", "r-blocks-conflict", "r-blocks-permission", "r-blocks-unsaved", "r-blocks-saved", "r-blocks-reload", "board-view-product-backlog", "board-view-sprints", "board-view-sprint-report", "board-view-velocity", "scrum-settings", "scrum-product-owner", "scrum-master", "scrum-developers", "scrum-working-days", "scrum-enabled", "scrum-product-goal", "scrum-definition-of-done", "scrum-estimate-source", "scrum-estimate-unit", "scrum-completion-policy", "scrum-source-poker"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+  }
+  assert.match(locale['r-blocks-invalid'], /chimwe chete.*chimwe chete.*Bvisa.*usati wachengeta/);
+  assert.match(locale['r-blocks-conflict'], /wachinja.*Rodhazve.*usati wachengeta/);
+  assert.match(locale['r-blocks-permission'], /Mvumo yemutarisiri webhodhi/);
+  assert.notEqual(locale['r-blocks-unsaved'], locale['r-blocks-saved']);
+  assert.notEqual(locale['scrum-estimate-source'], locale['scrum-estimate-unit']);
+  assert.equal(new Set(['product-owner', 'master', 'developers'].map(role => locale[`scrum-${role}`])).size, 3);
+}
+
 // Shona Blockly workspace search and shared block labels.
 {
   const locale = read('sn');
