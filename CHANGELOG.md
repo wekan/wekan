@@ -10157,6 +10157,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/edd7348e71a42b0f4ae319e4eb4fee6af1b1715f">Complete Hausa source coverage for recovery and history messages</a>. Thanks to xet7.</summary>
+
+- Translate 45 remaining Hausa prose placeholders; retain 25 physical key
+  legends, operating-system brands and mathematical symbols.
+- Full source-order, token, translation and human-preference checks pass.
+  Hausa has no remaining prose placeholders in the current English source.
+  Wording needs fluent-speaker review; browser review was not run.
+  Source coverage is not a quality audit. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
