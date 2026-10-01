@@ -1685,6 +1685,18 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c1fe72be8f">Verify Cantonese translation completeness and literal labels</a>. Thanks to xet7.</summary>
+
+- Check every Cantonese source key and placeholder; classify 28 printed key
+  legends, platform names and code/math literals as intentional unchanged text.
+- Cantonese has no reported untranslated prose, including pending keys.
+  Focused checks and all 21 human-preference checks pass. The broader suite
+  still fails on missing dependency keys in another locale; browser and
+  native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5cc76ca933">Translate Cantonese recovery and delivery controls</a>. Thanks to xet7.</summary>
 
 - Fill 68 messages for recovery, delivery failures, SAML sign-in and
