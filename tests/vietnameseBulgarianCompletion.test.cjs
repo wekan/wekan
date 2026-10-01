@@ -28,6 +28,28 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Hausa screen-reader announcements and keyboard editing shortcuts.
+{
+  const locale = read('ha');
+  const keys = ["blockly-MINIMAP_ARIA_LABEL", "blockly-MOVE_BLOCK", "blockly-NO_PARENT_ANNOUNCEMENT", "blockly-OPEN_BACKPACK", "blockly-OPEN_TRASH", "blockly-PARENT_BLOCKS_ANNOUNCEMENT", "blockly-PASTE_ALL_FROM_BACKPACK", "blockly-PASTE_SHORTCUT", "blockly-PROCEDURES_CALL_DISABLED_DEF_WARNING", "blockly-REMOVE_FROM_BACKPACK", "blockly-RENAME_VARIABLE", "blockly-RESET_ZOOM", "blockly-SCREENREADER_HINT", "blockly-SCREENREADER_MODE_DISABLED", "blockly-SCREENREADER_MODE_ENABLED", "blockly-SHORTCUTS_ABORT_MOVE", "blockly-SHORTCUTS_CLEANUP", "blockly-SHORTCUTS_CODE_NAVIGATION", "blockly-SHORTCUTS_DISCONNECT", "blockly-SHORTCUTS_DUPLICATE", "blockly-SHORTCUTS_EDITING", "blockly-SHORTCUTS_ESCAPE", "blockly-SHORTCUTS_EXTENDED_INFORMATION", "blockly-SHORTCUTS_FINISH_MOVE", "blockly-SHORTCUTS_FOCUS_TOOLBOX", "blockly-SHORTCUTS_FOCUS_WORKSPACE", "blockly-SHORTCUTS_GENERAL", "blockly-SHORTCUTS_INFORMATION", "blockly-SHORTCUTS_JUMP_BLOCK_END", "blockly-SHORTCUTS_JUMP_BLOCK_START", "blockly-SHORTCUTS_JUMP_BOTTOM_STACK", "blockly-SHORTCUTS_JUMP_FIRST_BLOCK", "blockly-SHORTCUTS_JUMP_LAST_BLOCK", "blockly-SHORTCUTS_JUMP_NEXT_PAGE", "blockly-SHORTCUTS_JUMP_PREVIOUS_PAGE", "blockly-SHORTCUTS_JUMP_TOP_STACK", "blockly-SHORTCUTS_MOVE_DOWN", "blockly-SHORTCUTS_MOVE_LEFT", "blockly-SHORTCUTS_MOVE_RIGHT", "blockly-SHORTCUTS_MOVE_UP", "blockly-SHORTCUTS_NEXT_HEADING", "blockly-SHORTCUTS_NEXT_STACK", "blockly-SHORTCUTS_PERFORM_ACTION", "blockly-SHORTCUTS_PREVIOUS_HEADING", "blockly-SHORTCUTS_PREVIOUS_STACK", "blockly-SHORTCUTS_SCROLL_DOWN", "blockly-SHORTCUTS_SCROLL_LEFT", "blockly-SHORTCUTS_SCROLL_RIGHT", "blockly-SHORTCUTS_SCROLL_UP", "blockly-SHORTCUTS_SHOW_CONTEXT_MENU", "blockly-SHORTCUTS_SHOW_TOOLTIP", "blockly-SHORTCUTS_START_MOVE", "blockly-SHORTCUTS_START_MOVE_STACK", "blockly-SHORTCUTS_TOGGLE_SCREENREADER_MODE"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `ha:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ha:${key}: tokens`);
+  }
+  assert.match(locale['blockly-SCREENREADER_MODE_DISABLED'], /^An kashe.*don kunna shi$/);
+  assert.match(locale['blockly-SCREENREADER_MODE_ENABLED'], /^An kunna.*don kashe shi$/);
+  assert.match(locale['blockly-PASTE_ALL_FROM_BACKPACK'], /duk tubalan/);
+  assert.match(locale['blockly-PROCEDURES_CALL_DISABLED_DEF_WARNING'], /ba saboda an kashe/);
+  for (const [a, b] of [['ABORT_MOVE', 'FINISH_MOVE'], ['INFORMATION', 'EXTENDED_INFORMATION'], ['JUMP_BLOCK_END', 'JUMP_BLOCK_START'], ['JUMP_BOTTOM_STACK', 'JUMP_TOP_STACK'], ['JUMP_FIRST_BLOCK', 'JUMP_LAST_BLOCK'], ['JUMP_NEXT_PAGE', 'JUMP_PREVIOUS_PAGE'], ['NEXT_HEADING', 'PREVIOUS_HEADING'], ['NEXT_STACK', 'PREVIOUS_STACK'], ['FOCUS_TOOLBOX', 'FOCUS_WORKSPACE'], ['START_MOVE', 'START_MOVE_STACK']]) {
+    assert.notEqual(locale[`blockly-SHORTCUTS_${a}`], locale[`blockly-SHORTCUTS_${b}`]);
+  }
+  for (const action of ['MOVE', 'SCROLL']) {
+    const values = ['DOWN', 'LEFT', 'RIGHT', 'UP'].map(d => locale[`blockly-SHORTCUTS_${action}_${d}`]);
+    assert.equal(new Set(values).size, 4);
+  }
+  for (const d of ['DOWN', 'LEFT', 'RIGHT', 'UP']) assert.notEqual(locale[`blockly-SHORTCUTS_MOVE_${d}`], locale[`blockly-SHORTCUTS_SCROLL_${d}`]);
+}
+
 // Hausa mathematical accessibility labels preserve operation distinctions.
 {
   const locale = read('ha');
