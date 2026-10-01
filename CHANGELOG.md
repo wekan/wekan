@@ -9389,6 +9389,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/83409119ee2a4cab8c9c8a7735ae1f998513a96c">Translate Shona rule validation and Scrum planning labels</a>. Thanks to xet7.</summary>
+
+- Translate 24 rule editor and Scrum planning strings, preserving
+  permission requirements, conflict recovery instructions and planning roles.
+- Translation, registry and human-preference checks pass, covering tokens,
+  rule validation, saved states and distinct estimate source and unit labels.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
