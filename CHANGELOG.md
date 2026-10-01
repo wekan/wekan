@@ -10445,6 +10445,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/099e9bb36ddddc7988992e8469e23f34fe139fab">Translate Uzbek function and screen-reader controls</a>. Thanks to xet7.</summary>
+
+- Fill 30 function and accessibility strings in each Uzbek locale,
+  using Arabic script for uz-AR and Latin for the other three locales.
+- Translation, registry and human-preference checks pass, covering tokens,
+  function output distinctions and screen-reader toggle actions.
+  Wording needs fluent review, especially Arabic-script orthography.
+  Browser review and wider translation completion remain outstanding.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
