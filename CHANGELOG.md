@@ -10541,6 +10541,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5148c20df29cb11d87282ff4ba0519c9af84e9aa">Translate Uzbek sprint events and backlog labels</a>. Thanks to xet7.</summary>
+
+- Fill 25 sprint strings in each Uzbek locale; all four now exceed 90 percent
+  source coverage, bringing the README count to 138 locales.
+- Translation, registry and human-preference checks pass, covering tokens,
+  review versus retrospection and committed versus completed work.
+  Wording needs fluent review, especially Arabic-script orthography.
+  Browser review and wider translation completion remain outstanding.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
