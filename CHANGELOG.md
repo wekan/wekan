@@ -12865,6 +12865,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b4725042c99e09cecc0229b67fe8ab3b9e933c87">Translate Punjabi access and notification controls</a>. Thanks to xet7.</summary>
+
+- Translate 25 Punjabi access, rule and notification strings.
+- Check variable tokens, editing restrictions and notification exceptions while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
