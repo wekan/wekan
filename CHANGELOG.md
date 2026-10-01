@@ -13070,6 +13070,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0daa15a78aeb7406d8741d0727e402e75811607d">Translate Punjabi sprint planning and event labels</a>. Thanks to xet7.</summary>
+
+- Translate 36 Punjabi sprint-planning, completion-policy and event strings.
+- Check sprint actions, unfinished work and planned or active assignments
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
