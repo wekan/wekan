@@ -2684,6 +2684,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4b845e847104ff536dc57825752e2c2a9da0a3a3">Translate Sinhala delivery failures and activity recovery messages</a>. Thanks to xet7.</summary>
+
+- Translate 30 Sinhala delivery-failure and activity-recovery messages.
+- Check temporary versus permanent failures and retained pending work,
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
