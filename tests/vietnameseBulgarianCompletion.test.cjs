@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek loop conditions and clipboard actions.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["blockly-CONTROLS_IF_TOOLTIP_3", "blockly-CONTROLS_IF_TOOLTIP_4", "blockly-CONTROLS_REPEAT_TITLE", "blockly-CONTROLS_REPEAT_TOOLTIP", "blockly-CONTROLS_WHILEUNTIL_OPERATOR_UNTIL", "blockly-CONTROLS_WHILEUNTIL_OPERATOR_WHILE", "blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL", "blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE", "blockly-COPY_ALL_TO_BACKPACK", "blockly-COPY_SHORTCUT", "blockly-COPY_TO_BACKPACK", "blockly-CURRENT_BLOCK_ANNOUNCEMENT", "blockly-CUT_SHORTCUT", "blockly-DELETE_VARIABLE_CONFIRMATION", "blockly-DUPLICATE_BLOCK", "blockly-DUPLICATE_COMMENT", "blockly-EDIT_BLOCK_CONTENTS", "blockly-EMPTY_BACKPACK"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  assert.match(locale['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL'], code === 'uz-AR' ? /یالغـان/ : /yolgʻon/);
+  assert.match(locale['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE'], code === 'uz-AR' ? /راست/ : /rost/);
+  assert.match(locale['blockly-CONTROLS_IF_TOOLTIP_4'], code === 'uz-AR' ? /هېچ بیر.*آخرگی/ : /Hech bir.*oxirgi/);
+  assert.notEqual(locale['blockly-COPY_SHORTCUT'], locale['blockly-CUT_SHORTCUT']);
+  assert.notEqual(locale['blockly-COPY_ALL_TO_BACKPACK'], locale['blockly-COPY_TO_BACKPACK']);
+  assert.match(locale['blockly-COPY_ALL_TO_BACKPACK'], code === 'uz-AR' ? /برچه/ : /Barcha/);
+  assert.notEqual(locale['blockly-CLOSE_BACKPACK'], locale['blockly-EMPTY_BACKPACK']);
+}
+
 // Uzbek colours, loops and conditional control flow.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
