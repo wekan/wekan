@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/282c1f36ce">Translate Uyghur date filters and archive settings</a>. Thanks to xet7.</summary>
+
+- Fill 20 date filter and automatic archival messages.
+- Batch key-order, placeholder, rule-variable and markup checks and all 21
+  human-preference checks pass. Full-language work remains; browser and
+  native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/631eb19587">Complete Bashkir placeholder translations and verify coverage</a>. Thanks to xet7.</summary>
 
 - Translate the final 19 rule email, sign-in and history messages; retain 27
