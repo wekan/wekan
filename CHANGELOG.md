@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2306118ee0">Translate Kyrgyz saved filters and map messages</a>. Thanks to xet7.</summary>
+
+- Fill 29 saved filter, map, import report and editor announcement messages.
+- Batch key-order, placeholder, rule-variable and markup checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e6e70c0724">Translate Kyrgyz rule and notification messages</a>. Thanks to xet7.</summary>
 
 - Fill 30 rule, notification, reminder and dependency messages.
