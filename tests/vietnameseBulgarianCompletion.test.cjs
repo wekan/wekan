@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Arabic-script Uzbek board display preserves markup and membership scopes.
+{
+  const locale = read('uz-AR');
+  for (const key of ["board-change-color", "board-change-background-image", "board-background-image-url", "add-background-image", "remove-background-image", "show-at-all-boards-page", "board-info-on-my-boards", "boardInfoOnMyBoardsPopup-title", "boardInfoOnMyBoards-title", "show-card-counter-per-list", "show-board_members-avatar", "board_members", "card_members", "board_assignees", "card_assignees", "board-nb-stars", "board-not-found", "board-private-info", "board-public-info", "board-drag-drop-reorder-or-click-open", "board-open-and-move-between-remaining-and-workspaces", "boardChangeColorPopup-title", "boardChangeBackgroundImagePopup-title", "allBoardsChangeColorPopup-title", "allBoardsChangeBackgroundImagePopup-title"]) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `uz-AR:${key}: tokens`);
+    const prose = locale[key].replace(/__[A-Za-z0-9_]+__|%s|URL|<\/?strong>/g, '');
+    assert.match(prose, /[\u0600-\u06ff]/, key);
+    assert.doesNotMatch(prose, /[A-Za-z]/, `${key}: no Latin prose`);
+  }
+  for (const key of ['board-private-info', 'board-public-info']) assert.match(locale[key], /<strong>[^<]+<\/strong>/);
+  assert.notEqual(locale['board-private-info'], locale['board-public-info']);
+  assert.notEqual(locale['board_assignees'], locale['card_assignees']);
+  for (const key of ['board_assignees', 'card_assignees']) assert.match(locale[key], /مسئول/);
+  assert.equal(locale['board-info-on-my-boards'], locale['boardInfoOnMyBoardsPopup-title']);
+  for (const key of ['boardChangeBackgroundImagePopup-title', 'allBoardsChangeBackgroundImagePopup-title']) assert.equal(locale[key], locale['board-change-background-image']);
+}
+
 // Arabic-script Uzbek archives and attachments distinguish recoverable removal.
 {
   const locale = read('uz-AR');
