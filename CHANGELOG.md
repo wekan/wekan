@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/36b8614be5">Translate Javanese variables and workspace messages</a>. Thanks to xet7.</summary>
+
+- Fill 36 text trimming, variable, workspace and search messages.
+- Focused key-order, placeholder and restriction checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/48564fe698">Translate Javanese text operations and prompts</a>. Thanks to xet7.</summary>
 
 - Fill 37 text selection, joining, replacement and input-prompt messages.
