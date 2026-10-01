@@ -9089,6 +9089,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/08f01483a9b97719af56c7f10d2b2dc2e287c229">Correct Shona backup and cloud labels</a>. Thanks to xet7.</summary>
+
+- Translate 34 prefixed English entries and restore six service names.
+  Preserve existing values outside this correction batch.
+- Translation, registry and human-preference checks pass, covering backup
+  schedules, connection results, migration actions and placeholders.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Another 143 prefixed English entries remain; wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
