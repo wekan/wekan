@@ -10001,6 +10001,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7b3aebbc999277f28b4af6eeb21f0134c7c34250">Translate Hausa saved filters and map controls</a>. Thanks to xet7.</summary>
+
+- Fill 27 Hausa filter, import-report, map and movement placeholders,
+  preserving existing translations and source tokens.
+- Translation, registry and human-preference checks pass, covering template
+  expressions, private filters, report navigation and movement distinctions.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
