@@ -11842,6 +11842,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a1dcef8d5240942ffb901f7d680249fe204f0e73">Latin filters and automation hints</a>. Thanks to xet7.</summary>
+
+- Fill 35 English placeholders for filters, access settings and automation,
+  preserving existing translations and executable examples.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for date queries, variables, access restrictions and archival.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
