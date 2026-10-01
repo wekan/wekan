@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3de6b30a6d">Translate Sindhi sprint planning and report messages</a>. Thanks to xet7.</summary>
+
+- Fill 37 sprint planning, event, status and report messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/687994f394">Translate Sindhi block rules and Scrum settings</a>. Thanks to xet7.</summary>
 
 - Fill 37 workspace search, block-rule editing and Scrum setting messages.
