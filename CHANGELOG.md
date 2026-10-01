@@ -12272,6 +12272,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/92c8ba172417404d00f3f3bdfe68f2c5c36f00e5">Mongolian recovery messages and prose placeholder completion</a>. Thanks to xet7.</summary>
+
+- Translate the remaining 37 Mongolian recovery and history placeholders.
+- Retain 28 physical key labels, platform names and code terms explicitly.
+- Check all Mongolian keys and tokens, cancellation warnings and retry
+  behavior; the placeholder report now contains no untranslated prose.
+- Translation, language registration and human-preference checks pass.
+  Browser and older linguistic review remain; wider translation continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
