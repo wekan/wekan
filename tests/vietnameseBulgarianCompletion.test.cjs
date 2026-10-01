@@ -28,6 +28,25 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Arabic-script Uzbek creation controls keep position and toggle meanings distinct.
+{
+  const locale = read('uz-AR');
+  for (const key of ["activity-endDate", "add-attachment", "add-board", "add-template", "add-card", "add-card-to-top-of-list", "add-card-to-bottom-of-list", "addListPopup-title", "keyboard-shortcuts-enabled", "keyboard-shortcuts-disabled", "setSwimlaneHeightPopup-title", "set-swimlane-height", "set-swimlane-height-value", "swimlane-height-error-message", "add-swimlane", "add-subtask", "add-existing-card-as-subtask", "add-existing-card-as-subtask-empty", "add-checklist", "checklist", "add-checklist-item", "close-add-checklist-item", "close-edit-checklist-item", "convertChecklistItemToCardPopup-title", "convertChecklistItemToSubtask-title"]) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `uz-AR:${key}: tokens`);
+    const prose = locale[key].replace(/%s/g, '');
+    assert.match(prose, /[\u0600-\u06ff]/, key);
+    assert.doesNotMatch(prose, /[A-Za-z]/, `${key}: no Latin prose`);
+  }
+  assert.equal(locale['setSwimlaneHeightPopup-title'], locale['set-swimlane-height']);
+  assert.match(locale['swimlane-height-error-message'], /مثبت بوتون سان/);
+  assert.match(locale['set-swimlane-height-value'], /پیکسل/);
+  assert.notEqual(locale['add-card-to-top-of-list'], locale['add-card-to-bottom-of-list']);
+  assert.match(locale['keyboard-shortcuts-enabled'], /یاقیلگن.*اۉچیریش/);
+  assert.match(locale['keyboard-shortcuts-disabled'], /اۉچیریلگن.*یاقیش/);
+  assert.notEqual(locale['close-add-checklist-item'], locale['close-edit-checklist-item']);
+  assert.match(locale['add-attachment'], /بیریکتیرمه/);
+}
+
 // Arabic-script Uzbek workspace text preserves technical names and deletion limits.
 {
   const locale = read('uz-AR');
