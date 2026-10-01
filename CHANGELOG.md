@@ -13263,6 +13263,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0b1d0c6a64815a083c92e02a0c61a8c1b540dd42">Translate Malayalam list retrieval and removal</a>. Thanks to xet7.</summary>
+
+- Translate 30 Malayalam list creation, retrieval and removal strings.
+- Check retrieval versus removal, sublist copies and index positions while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
