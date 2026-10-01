@@ -30,7 +30,8 @@ template(name="boardBody")
         class="{{#if draggingActive}}is-dragging-active{{/if}}"
         class="{{#unless isVerticalScrollbars}}no-scrollbars{{/unless}}"
         class="{{#if isMiniScreen}}mobile-view{{/if}}")
-        if currentBoard.showDependencies
+        //- #6732: drawn when THIS user shows My or Board Dependencies.
+        if showAnyDependencies
           +dependencyOverlay
         if showOverlay
           .board-overlay

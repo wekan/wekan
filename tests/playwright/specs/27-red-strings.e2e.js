@@ -5,14 +5,14 @@
  *
  * Card-to-card dependencies are visualized as red, arrow-headed SVG connection
  * lines drawn on top of the board. A card's "Dependencies" section (card detail)
- * adds/removes links to other cards on the same board, and a board-header toggle
- * (showDependencies) renders the overlay.
+ * adds/removes links to other cards on the same board, and each user's own
+ * Show Board Dependencies switch in Member Settings renders the overlay (#6732).
  *
  * Covers:
  *  - With a dependency seeded and the board toggle on, a red dependency line is
  *    drawn on top of the board.
- *  - The board-header toggle hides/shows the overlay and the showDependencies
- *    flag is persisted to the board in the database.
+ *  - The Member Settings switch hides/shows the overlay for that user only, and
+ *    is saved in their profile.
  *  - Adding and removing a dependency from the card detail view persists the
  *    card's cardDependencies to the database.
  */
@@ -45,7 +45,7 @@ test.describe('Red Strings – card dependency overlay', () => {
 
     // Alpha depends on Beta; overlay enabled.
     db.setCardDependencies({ cardId: alphaId, dependsOn: [betaId] });
-    db.setBoardShowDependencies({ boardId: board.boardId, value: true });
+    db.setShowDependencies({ boardId: board.boardId, board: true });
   });
 
   // Each test gets a new browser page and therefore a new login session. Do
@@ -80,38 +80,41 @@ test.describe('Red Strings – card dependency overlay', () => {
     await page.screenshot({ path: 'test-results/red-strings-overlay.png', fullPage: true });
   });
 
-  test('header toggle hides the overlay and persists showDependencies to the board', async ({ page }) => {
-    await loginWithToken(page, owner.id, owner.token);
-    await openBoard(page, board.boardId, board.slug);
+  // #6732: the board-header toggle became each user's own Show Board
+  // Dependencies, at the top of Member Settings. Turning it off for one user
+  // must not touch what anyone else sees.
+  test('Member Settings switch hides the overlay for this user only', async ({ page }) => {
+    const other = db.seedUser();
+    db.addBoardMember({ boardId: board.boardId, userId: other.id });
+    db.setShowDependencies({ userIds: [other.id], board: true });
+    try {
+      await loginWithToken(page, owner.id, owner.token);
+      await openBoard(page, board.boardId, board.slug);
+      await expect(page.locator('.js-dependency-overlay')).toBeVisible();
+      await expect(page.locator('.js-toggle-dependencies')).toHaveCount(0);
 
-    await expect(page.locator('.js-dependency-overlay')).toBeVisible();
+      // Member Settings stays open after a switch is clicked.
+      const toggle = async () => {
+        const item = page.locator('.js-toggle-board-dependencies');
+        if (!await item.isVisible()) await page.locator('.js-open-header-member-menu').click();
+        await expect(item).toBeVisible();
+        await item.click();
+      };
+      const mine = () => (db.findOne('users', { _id: owner.id }).profile || {}).showBoardDependencies;
+      const theirs = () => (db.findOne('users', { _id: other.id }).profile || {}).showBoardDependencies;
 
-    // The rspack dev-server injects an error/warning overlay iframe
-    // (#webpack-dev-server-client-overlay) that can sit on top of the board
-    // header and swallow the toggle click in dev mode. Remove it before each
-    // click so we exercise the real button (it does not exist in production).
-    const dismissDevOverlay = () =>
-      page.evaluate(() => {
-        document
-          .querySelectorAll('iframe[id*="webpack-dev-server"]')
-          .forEach(el => el.remove());
-      });
+      await toggle();
+      await expect(page.locator('.js-dependency-overlay')).toHaveCount(0);
+      await expect.poll(mine, { timeout: 10_000 }).toBe(false);
+      expect(theirs()).toBe(true);
+      expect(db.getBoard(board.boardId).showDependencies).not.toBe(false);
 
-    // Toggle OFF.
-    await dismissDevOverlay();
-    await page.locator('.js-toggle-dependencies').click();
-    await expect(page.locator('.js-dependency-overlay')).toHaveCount(0);
-    await expect
-      .poll(() => db.getBoard(board.boardId).showDependencies, { timeout: 10_000 })
-      .toBe(false);
-
-    // Toggle ON again.
-    await dismissDevOverlay();
-    await page.locator('.js-toggle-dependencies').click();
-    await expect(page.locator('.js-dependency-overlay')).toBeVisible();
-    await expect
-      .poll(() => db.getBoard(board.boardId).showDependencies, { timeout: 10_000 })
-      .toBe(true);
+      await toggle();
+      await expect(page.locator('.js-dependency-overlay')).toBeVisible();
+      await expect.poll(mine, { timeout: 10_000 }).toBe(true);
+    } finally {
+      db.cleanup({ userIds: [other.id] });
+    }
   });
 
   test('add/remove a dependency from the card detail persists to the database', async ({ page }) => {
@@ -152,7 +155,7 @@ test.describe('Red Strings – card dependency overlay', () => {
       cardId: alphaId,
       dependsOn: [{ cardId: betaId, type: 'blocks', color: '#2196f3', icon: 'lock' }],
     });
-    db.setBoardShowDependencies({ boardId: board.boardId, value: true });
+    db.setShowDependencies({ boardId: board.boardId, board: true });
 
     await loginWithToken(page, owner.id, owner.token);
     await openBoard(page, board.boardId, board.slug);
@@ -285,7 +288,7 @@ test.describe('Red Strings – card dependency overlay', () => {
     db.setCardDependencies({ cardId: alphaId, dependsOn: [] });
     db.setCardDependencies({ cardId: betaId, dependsOn: [] });
     // The connect handle shows only when the overlay is on.
-    db.setBoardShowDependencies({ boardId: board.boardId, value: true });
+    db.setShowDependencies({ boardId: board.boardId, board: true });
 
     await loginWithToken(page, owner.id, owner.token);
     await openBoard(page, board.boardId, board.slug);

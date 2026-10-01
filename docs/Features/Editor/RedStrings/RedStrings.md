@@ -44,16 +44,24 @@ The colored **icon + count** also appears as a badge on the **minicard**.
 
 ### Show the connection lines
 
-In the **board header** click the **Show dependencies** toggle (link icon). An
-SVG overlay draws each dependency as a colored curve following the cards as you
-scroll/resize. By default the overlay is non-interactive, so cards stay
-clickable. The toggle (`showDependencies`) is saved on the board.
+Open **Member Settings** (your avatar) and turn on **Show Board Dependencies**,
+**Show My Dependencies**, or both. They are at the top of the menu and are off
+by default. An SVG overlay draws each dependency as a colored curve following
+the cards as you scroll/resize; My Dependencies are dashed. The overlay is
+non-interactive, so cards stay clickable.
+
+Showing them is **your own choice**, saved in your profile: it never turns the
+lines on or off for anybody else, and anyone who can view a board can show its
+dependencies. Before #6732 this was one board-wide toggle in the board header
+that only board admins could change. See
+[Board and My Dependencies](Board-And-My-Dependencies.md).
 
 ### Drawing links by dragging
 
 For a piplanning.io / Kendis / Miro-style experience, you can draw links directly
-on the board — **no mode to toggle, cards stay clickable**. When the dependency
-overlay is on (**Show dependencies**) and you can edit the board, each minicard
+on the board — **no mode to toggle, cards stay clickable**. When a dependency
+layer is shown that you can add to (see
+[Board and My Dependencies](Board-And-My-Dependencies.md)), each minicard
 shows a small **connect handle** (a dot on its right edge) when you hover it:
 
 - **Drag the handle from one card onto another card** to create a dependency

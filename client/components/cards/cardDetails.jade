@@ -514,6 +514,7 @@ template(name="cardFieldSectionMembers")
 
 template(name="cardFieldSectionDependencies")
     //- #6688: Board Settings / Card can hide the Dependencies section.
+    //- #6732: editable by roles that may edit OR move cards (dependencyLayers.js).
     if currentBoard.allowsDependencies
       .card-details-group.card-details-group-dependencies
         hr.card-details-section-rule
@@ -528,7 +529,7 @@ template(name="cardFieldSectionDependencies")
                     a.card-dependency-link(href="{{linkUrl}}")
                       +viewer
                         = card.title
-                    if canModifyCard
+                    if canEditBoardDependencies
                       select.js-dependency-type(data-target-id="{{card._id}}")
                         each typeOption
                           if selected
@@ -542,7 +543,7 @@ template(name="cardFieldSectionDependencies")
                         i.fa.fa-times
                     else
                       span.card-dependency-type {{_ typeLabel}}
-              if canModifyCard
+              if canEditBoardDependencies
                 a.js-add-dependency(title="{{_ 'add-dependency'}}")
                   i.fa.fa-plus
                   | {{_ 'add-dependency'}}

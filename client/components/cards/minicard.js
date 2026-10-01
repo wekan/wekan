@@ -1,4 +1,5 @@
 import { commentBadgeTitle } from '/models/lib/commentBadgeTitle';
+import { newLineLayer } from '/client/lib/dependencyLayers';
 import { isSubmitKey } from '/models/lib/editorSubmitKey';
 import { relativeCardSort } from '/client/lib/relativeCardPosition';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -99,12 +100,12 @@ Template.minicard.helpers({
   showMinicardHandle() {
     return Utils.canMoveCard() && Utils.showDragHandles();
   },
-  // #3392: show a drag-to-connect handle on the minicard when the board's
-  // dependency overlay is on and the user can edit the board. Dragging it onto
-  // another card creates a dependency (handled in dependencyOverlay.js).
+  // #3392 / #6732: a drag-to-connect handle when a line drawn now has a layer
+  // to go to (client/lib/dependencyLayers.js): the Board Dependencies when
+  // shown and editable by this user, else My Dependencies when shown.
   showDependencyConnectHandle() {
     const board = ReactiveCache.getBoard(this.boardId);
-    return !!(board && board.showDependencies && Utils.canModifyBoard());
+    return !!(board && newLineLayer(board));
   },
   // #3392: PI Program Board "Red Strings". Show a small badge on the minicard
   // when a card has dependencies: the first dependency's icon and color plus the

@@ -74,11 +74,8 @@ template(name="boardHeaderButtons")
             i.fa.fa-search
             span.board-header-btn-label {{_ 'search'}}
 
-          a.board-header-btn.js-toggle-dependencies(
-              title="{{#if currentBoard.showDependencies}}{{_ 'hide-dependencies'}}{{else}}{{_ 'show-dependencies'}}{{/if}}"
-              class="{{#if currentBoard.showDependencies}}emphasis{{/if}}")
-            i.fa.fa-link
-            span.board-header-btn-label {{#if currentBoard.showDependencies}}{{_ 'hide-dependencies'}}{{else}}{{_ 'show-dependencies'}}{{/if}}
+          //- #6732: showing dependencies moved to Member Settings, as each
+          //- user's own Show My / Show Board Dependencies.
 
           if canModifyBoard
             a.board-header-btn.js-multiselection-activate(

@@ -119,9 +119,10 @@ test('a caret leads the board controls, before the lock', () => {
     'and it is the same caret, so it mirrors in RTL by itself');
 });
 
-test('folding hides the seven controls it was asked to hide', () => {
+// #6732: Show dependencies left this bar for Member Settings, so six remain.
+test('folding hides the six controls it was asked to hide', () => {
   const folded = ['js-change-visibility', 'js-watch-board', 'js-sort-cards',
-    'js-open-filter-view', 'js-open-search-view', 'js-toggle-dependencies',
+    'js-open-filter-view', 'js-open-search-view',
     'js-multiselection-activate'];
   for (const control of folded) {
     const at = controls.indexOf(control);

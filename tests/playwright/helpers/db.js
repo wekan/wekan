@@ -440,9 +440,17 @@ function setCardDependencies({ cardId, dependsOn = [] } = {}) {
   updateOne('cards', { _id: cardId }, { $set: { cardDependencies: deps } });
 }
 
-/** Toggle a board's showDependencies (#3392 "Red Strings" overlay) flag. */
-function setBoardShowDependencies({ boardId, value = true } = {}) {
-  updateOne('boards', { _id: boardId }, { $set: { showDependencies: !!value } });
+/**
+ * #6732: showing dependencies is each user's own choice. Set the Show Board /
+ * Show My Dependencies switches for the given users, or for every member of
+ * `boardId`. A switch left undefined is not changed.
+ */
+function setShowDependencies({ userIds, boardId, board, mine } = {}) {
+  const ids = userIds || (findOne('boards', { _id: boardId }, { members: 1 }).members || []).map(m => m.userId);
+  const set = {};
+  if (board !== undefined) set['profile.showBoardDependencies'] = !!board;
+  if (mine !== undefined) set['profile.showMyDependencies'] = !!mine;
+  for (const _id of ids) updateOne('users', { _id }, { $set: set });
 }
 
 /** Add a second user as a member of an existing board. */
@@ -502,7 +510,7 @@ function getBoard(boardId) {
 
 module.exports = {
   seedUser, seedBoard, addBoardMember, setUserGroups, seedTemplatesBoard,
-  findCardIdByTitle, setCardDependencies, setBoardShowDependencies, cleanup,
+  findCardIdByTitle, setCardDependencies, setShowDependencies, cleanup,
   addResumeToken,
   getCard, getBoard, uid, uniqueSuffix,
   // generic collection helpers (replace ad-hoc mongosh `mongoEval` scripts)

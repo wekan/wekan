@@ -1,0 +1,66 @@
+//- #6732: dependencies in Member Settings - each user's own view of them.
+//- Design: docs/Features/Editor/RedStrings/Board-And-My-Dependencies.md
+template(name="memberDependencyMenuItems")
+  li
+    a.js-toggle-my-dependencies(role="menuitemcheckbox" aria-checked="{{#if showMyDependencies}}true{{else}}false{{/if}}")
+      i.fa(class="{{#if showMyDependencies}}fa-check-square-o{{else}}fa-square-o{{/if}}")
+      | {{_ 'show-my-dependencies'}}
+  li
+    a.js-toggle-board-dependencies(role="menuitemcheckbox" aria-checked="{{#if showBoardDependencies}}true{{else}}false{{/if}}")
+      i.fa(class="{{#if showBoardDependencies}}fa-check-square-o{{else}}fa-square-o{{/if}}")
+      | {{_ 'show-board-dependencies'}}
+  li
+    a.js-import-member-dependencies
+      i.fa.fa-upload
+      | {{_ 'import'}}
+  li
+    a.js-export-member-dependencies
+      i.fa.fa-download
+      | {{_ 'export'}}
+
+template(name="importMemberDependenciesPopup")
+  if currentBoard
+    form.js-import-member-dependencies-form
+      fieldset.dependency-layer-choice
+        label
+          input(type="radio" name="dependency-layer" value="mine" checked="checked")
+          | {{_ 'my-dependencies'}}
+        label(class="{{#unless canEditBoardDependencies}}is-disabled{{/unless}}")
+          if canEditBoardDependencies
+            input(type="radio" name="dependency-layer" value="board")
+          else
+            input(type="radio" name="dependency-layer" value="board" disabled="disabled")
+          | {{_ 'board-dependencies'}}
+      unless canEditBoardDependencies
+        p.quiet.js-board-dependencies-edit-required {{_ 'dependencies-board-edit-required'}}
+      label
+        | {{_ 'import-dependencies-file'}}
+        input.js-import-member-dependencies-file(type="file" accept=".json,.svg,application/json,image/svg+xml")
+      textarea.js-import-member-dependencies-text(rows="6" placeholder="{{_ 'import-dependencies-placeholder'}}")
+      button.primary.confirm.js-import-member-dependencies-submit(type="submit") {{_ 'import'}}
+      if importResult
+        p.quiet.js-import-member-dependencies-result {{importResult}}
+  else
+    p.quiet {{_ 'dependencies-open-a-board'}}
+
+template(name="exportMemberDependenciesPopup")
+  if currentBoard
+    ul.pop-over-list
+      li
+        a.js-export-my-dependencies-json
+          i.fa.fa-file-code-o
+          | {{_ 'my-dependencies'}} (JSON)
+      li
+        a.js-export-my-dependencies-svg
+          i.fa.fa-picture-o
+          | {{_ 'my-dependencies'}} (SVG)
+      li
+        a.js-export-board-dependencies-json
+          i.fa.fa-file-code-o
+          | {{_ 'board-dependencies'}} (JSON)
+      li
+        a.js-export-board-dependencies-svg
+          i.fa.fa-picture-o
+          | {{_ 'board-dependencies'}} (SVG)
+  else
+    p.quiet {{_ 'dependencies-open-a-board'}}

@@ -569,9 +569,11 @@ Boards.attachSchema(
     },
     showDependencies: {
       /**
-       * #3392: PI Program Board "Red Strings". When true, draw colored
-       * connection lines between cards that have cardDependencies, SAFe
-       * PI-planning program board style.
+       * #3392: PI Program Board "Red Strings". No longer read since #6732:
+       * showing dependencies is each user's own choice
+       * (profile.showBoardDependencies / profile.showMyDependencies), so one
+       * user turning them on no longer turns them on for everybody. Kept so
+       * existing boards and imports still validate.
        */
       type: Boolean,
       defaultValue: false,
@@ -3172,9 +3174,6 @@ Boards.helpers({
     return await Boards.updateAsync(this._id, { $set: { cardAging } });
   },
 
-  async setShowDependencies(showDependencies) {
-    return await Boards.updateAsync(this._id, { $set: { showDependencies } });
-  },
 
   async setCardAgingDays(cardAgingDays1, cardAgingDays2, cardAgingDays3) {
     return await Boards.updateAsync(this._id, {

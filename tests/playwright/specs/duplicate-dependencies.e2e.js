@@ -6,7 +6,7 @@ const { openBoard } = require('../helpers/auth');
 test('duplicate relation picker, editing and History undo/redo retain typed links', async ({ loggedInPage: page, board }) => {
   const cards = db.find('cards', { boardId: board.boardId });
   const [source, target] = cards;
-  db.setBoardShowDependencies({ boardId: board.boardId, value: true });
+  db.setShowDependencies({ boardId: board.boardId, board: true });
   await openBoard(page, board.boardId, board.slug);
   await page.locator(`.js-minicard[data-card-id="${source._id}"]`).click();
   await page.locator('.js-add-dependency').click();

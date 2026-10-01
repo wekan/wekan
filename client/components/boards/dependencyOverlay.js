@@ -7,6 +7,7 @@ import {
   dependencyTypeMeta,
   normalizeDependencies,
 } from '/models/metadata/dependencies';
+import { dependencyVisibility, myDependencyLines, newLineLayer, canEditBoardDependenciesHere } from '/client/lib/dependencyLayers';
 
 // #3392: PI Program Board "Red Strings".
 // Draw colored, typed connection lines (SVG paths) between cards that declare
@@ -99,12 +100,23 @@ Template.dependencyOverlay.onCreated(function () {
 
     const lines = [];
     const markerColors = new Set();
-    cards.forEach(card => {
-      const deps = normalizeDependencies(card.cardDependencies);
+    // #6732: the Board Dependencies (on the cards) and this user's own My
+    // Dependencies (in their profile), each only when this user shows it.
+    const shown = dependencyVisibility();
+    const sources = [];
+    if (shown.board) {
+      cards.forEach(card => sources.push({ cardId: card._id, layer: 'board',
+        deps: normalizeDependencies(card.cardDependencies) }));
+    }
+    if (shown.mine) {
+      myDependencyLines(board._id).forEach(row => sources.push({ cardId: row.cardId, layer: 'mine',
+        deps: [{ cardId: row.targetCardId, type: row.type, color: row.color, icon: row.icon }] }));
+    }
+    sources.forEach(({ cardId, layer, deps }) => {
       if (deps.length === 0) {
         return;
       }
-      const sourceRect = centerOf(card._id);
+      const sourceRect = centerOf(cardId);
       if (!sourceRect) {
         return;
       }
@@ -138,8 +150,11 @@ Template.dependencyOverlay.onCreated(function () {
           directed: meta.directed,
           markerId: meta.directed ? markerId : '',
           // Source card (owns the dependency) and target card.
-          fromId: card._id,
+          fromId: cardId,
           toId: dep.cardId,
+          boardId: board._id,
+          layer,
+          mine: layer === 'mine',
         });
       });
     });
@@ -173,6 +188,9 @@ Template.dependencyOverlay.onRendered(function () {
     const board = Utils.getCurrentBoard();
     if (board) {
       ReactiveCache.getCards({ boardId: board._id, archived: false });
+      // The user's switches and own lines are reactive too (#6732).
+      dependencyVisibility();
+      myDependencyLines(board._id);
     }
     instance.scheduleRecompute();
   });
@@ -240,9 +258,13 @@ Template.dependencyOverlay.onRendered(function () {
     instance.tempLine.set(null);
     const targetId = cardIdAtPoint(e.clientX, e.clientY);
     if (targetId && targetId !== sourceId) {
+      // #6732: into the layer a new line goes to (client/lib/dependencyLayers.js).
       const card = ReactiveCache.getCard(sourceId);
-      if (card && typeof card.addDependency === 'function') {
-        card.addDependency(targetId);
+      const layer = card && newLineLayer(ReactiveCache.getBoard(card.boardId));
+      if (layer === 'mine') {
+        Meteor.callAsync('setMyDependency', sourceId, targetId, {}).catch(() => {});
+      } else if (layer === 'board' && typeof card.addDependency === 'function') {
+        Promise.resolve(card.addDependency(targetId)).catch(() => {});
       }
     }
   };
@@ -301,6 +323,14 @@ Template.dependencyOverlay.events({
 // #3392: popup to edit or delete an on-board dependency line. Data context is the
 // line object { fromId, toId, type, color, icon }.
 Template.dependencyLinePopup.helpers({
+  // #6732: a My Dependency is always its owner's to edit; a Board Dependency
+  // only for a role that may edit or move cards (the server checks again).
+  canEditLine() {
+    return this.layer === 'mine' || canEditBoardDependenciesHere(ReactiveCache.getBoard(this.boardId));
+  },
+  isMine() {
+    return this.layer === 'mine';
+  },
   typeOption() {
     const current = this.type;
     return DEPENDENCY_TYPES.map(t => ({
@@ -318,22 +348,32 @@ Template.dependencyLinePopup.helpers({
   },
 });
 
+// Each change goes to the line's own layer.
+function setLineProps(line, props) {
+  if (line.layer === 'mine') {
+    return Meteor.callAsync('setMyDependency', line.fromId, line.toId, props).catch(() => {});
+  }
+  const card = ReactiveCache.getCard(line.fromId);
+  return card ? Promise.resolve(card.setDependencyProps(line.toId, props)).catch(() => {}) : undefined;
+}
+
 Template.dependencyLinePopup.events({
   'change .js-line-type'(event) {
-    const card = ReactiveCache.getCard(this.fromId);
-    if (card) card.setDependencyProps(this.toId, { type: event.currentTarget.value });
+    setLineProps(this, { type: event.currentTarget.value });
   },
   'change .js-line-color'(event) {
-    const card = ReactiveCache.getCard(this.fromId);
-    if (card) card.setDependencyProps(this.toId, { color: event.currentTarget.value });
+    setLineProps(this, { color: event.currentTarget.value });
   },
   'click .js-line-icon'(event) {
-    const card = ReactiveCache.getCard(this.fromId);
-    if (card) card.setDependencyProps(this.toId, { icon: event.currentTarget.dataset.icon });
+    setLineProps(this, { icon: event.currentTarget.dataset.icon });
   },
   'click .js-line-delete'() {
-    const card = ReactiveCache.getCard(this.fromId);
-    if (card) card.removeDependency(this.toId);
+    if (this.layer === 'mine') {
+      Meteor.callAsync('removeMyDependency', this.boardId, this.fromId, this.toId).catch(() => {});
+    } else {
+      const card = ReactiveCache.getCard(this.fromId);
+      if (card) Promise.resolve(card.removeDependency(this.toId)).catch(() => {});
+    }
     Popup.back();
   },
 });

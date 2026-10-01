@@ -814,7 +814,6 @@ test('and a view menu says its view in words, not only in a tooltip', () => {
     ['js-sort-cards', ['sort-is-on', 'sort-cards']],
     ['js-open-filter-view', ['filter-on-desc', 'filter']],
     ['js-open-search-view', ['search']],
-    ['js-toggle-dependencies', ['hide-dependencies', 'show-dependencies']],
   ]) {
     const btnAt = controls.indexOf(cls);
     assert.notStrictEqual(btnAt, -1, `${cls} must be in this bar`);
@@ -952,8 +951,11 @@ test('and a view menu says its view in words, not only in a tooltip', () => {
   assert.ok(/a\.header-home-link\(/.test(jade), 'which carries that class');
 
   // The name is still reachable: every one of these buttons has a tooltip.
+  // #6732: Show dependencies moved to Member Settings, as each user's own
+  // Show My / Show Board Dependencies - it is no longer in this bar.
+  assert.ok(!controls.includes('js-toggle-dependencies'), 'the board-wide dependencies toggle is gone');
   for (const cls of ['js-sort-cards', 'js-open-filter-view', 'js-open-search-view',
-    'js-toggle-dependencies', 'js-multiselection-activate']) {
+    'js-multiselection-activate']) {
     const btnAt = controls.indexOf(cls);
     assert.ok(/title="/.test(controls.slice(btnAt - 120, btnAt + 300)),
       `${cls} names itself in a tooltip as well as beside its icon`);

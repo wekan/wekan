@@ -38,7 +38,6 @@ import {
   DEFAULT_DEPENDENCY_ICON,
   DEFAULT_DEPENDENCY_TYPE,
   DEPENDENCY_TYPE_IDS,
-  normalizeDependency,
   normalizeDependencies,
 } from '/models/metadata/dependencies';
 import {
@@ -1987,9 +1986,11 @@ Cards.helpers({
     return normalizeDependencies(this.getRealCard().cardDependencies);
   },
 
-  // #3392: Add (or update) a typed dependency to another card on the same board.
-  // Guards against self-links and cross-board targets. When the dependency
-  // already exists its type/color/icon are updated.
+  // #3392 / #6732: Board Dependencies are changed through server methods
+  // (server/models/dependencies.js) under one rule: a role that may edit OR
+  // move cards - a Worker included - on cards the user can see. Direct card
+  // writes allowed only full editors, and only by rewriting the whole card.
+  // Add (or update) a typed dependency to another card on the same board.
   addDependency(targetCardId, options = {}) {
     const realCard = this.getRealCard();
     if (!targetCardId || targetCardId === realCard._id) {
@@ -1999,59 +2000,19 @@ Cards.helpers({
     if (!target || target.boardId !== realCard.boardId) {
       return undefined;
     }
-    const deps = this.getDependencies();
-    const existing = deps.find(dep => dep.cardId === targetCardId);
-    const entry = normalizeDependency({
-      cardId: targetCardId,
-      type: options.type || (existing && existing.type),
-      color: options.color || (existing && existing.color),
-      icon: options.icon || (existing && existing.icon),
-    });
-    // Read-modify-write the whole array and update by _id only: the client
-    // (untrusted code) may not updateAsync with a selector / positional `$`.
-    const next = existing
-      ? deps.map(dep => (dep.cardId === targetCardId ? entry : dep))
-      : [...deps, entry];
-    return Cards.updateAsync(this.getRealId(), {
-      $set: { cardDependencies: next },
-    });
+    return Meteor.callAsync('setBoardDependency', this.getRealId(), targetCardId, options);
   },
 
-  // #3392: Update a single property (type/color/icon) of an existing dependency.
-  // Updates by _id only (positional `$` selector updates are forbidden on the
-  // client), so the whole array is rewritten.
+  // Update a single property (type/color/icon) of an existing dependency.
   setDependencyProps(targetCardId, props = {}) {
-    const deps = this.getDependencies();
-    let changed = false;
-    const next = deps.map(dep => {
-      if (dep.cardId !== targetCardId) {
-        return dep;
-      }
-      changed = true;
-      return normalizeDependency({
-        cardId: dep.cardId,
-        type: props.type !== undefined ? props.type : dep.type,
-        color: props.color !== undefined ? props.color : dep.color,
-        icon: props.icon !== undefined ? props.icon : dep.icon,
-      });
-    });
-    if (!changed) {
+    if (!this.getDependencies().some(dep => dep.cardId === targetCardId)) {
       return undefined;
     }
-    return Cards.updateAsync(this.getRealId(), {
-      $set: { cardDependencies: next },
-    });
+    return Meteor.callAsync('setBoardDependency', this.getRealId(), targetCardId, props);
   },
 
   removeDependency(targetCardId) {
-    // Rewrite the array and update by _id only (no selector / positional `$`
-    // updates from untrusted client code).
-    const next = this.getDependencies().filter(
-      dep => dep.cardId !== targetCardId,
-    );
-    return Cards.updateAsync(this.getRealId(), {
-      $set: { cardDependencies: next },
-    });
+    return Meteor.callAsync('removeBoardDependency', this.getRealId(), targetCardId);
   },
 
   getReceived() {

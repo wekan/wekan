@@ -924,6 +924,35 @@ Users.attachSchema(
       defaultValue: {},
       blackbox: true,
     },
+    'profile.showBoardDependencies': {
+      /**
+       * #6732: show the board's card dependencies (Red Strings) to THIS user.
+       * Each user's own choice, off by default; set from Member Settings.
+       */
+      type: Boolean,
+      optional: true,
+    },
+    'profile.showMyDependencies': {
+      /**
+       * #6732: show this user's own My Dependencies. Off by default.
+       */
+      type: Boolean,
+      optional: true,
+    },
+    'profile.myDependencies': {
+      /**
+       * #6732: this user's own dependency lines, seen only by them:
+       * [{ boardId, cardId, targetCardId, type, color, icon }]. Written only by
+       * the server methods in server/models/dependencies.js, which check the
+       * user can see both cards; never directly by the client.
+       */
+      type: Array,
+      optional: true,
+    },
+    'profile.myDependencies.$': {
+      type: Object,
+      blackbox: true,
+    },
     'profile.listConstraints': {
       /**
        * User-specified constraint of each list (or nothing if default).
@@ -1225,6 +1254,8 @@ export const USER_UPDATE_FORBIDDEN_PREFIXES = [
   'notificationDeliveryRevision',
   'notificationDeliveryPending',
   'profile.invitedBoards',
+  // #6732: written only by the My Dependencies methods, which check card access.
+  'profile.myDependencies',
   'services',
   'emails',
   'roles',

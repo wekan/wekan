@@ -61,7 +61,7 @@ test('the header buttons are written ONCE, for both screens', () => {
   // tests/headerBars.test.cjs checks it there.
   for (const control of ['js-change-visibility', 'js-watch-board',
     'js-sort-cards', 'js-open-filter-view', 'js-open-search-view',
-    'js-toggle-dependencies', 'js-multiselection-activate']) {
+    'js-multiselection-activate']) {
     assert.strictEqual((buttons.match(new RegExp(control, 'g')) || []).length, 1,
       `${control} must be written exactly once`);
   }

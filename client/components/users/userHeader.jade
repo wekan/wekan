@@ -13,6 +13,9 @@ template(name="headerUserBar")
 template(name="memberMenuPopup")
   ul.pop-over-list
     with currentUser
+      //- #6732: at the top - Show My / Show Board Dependencies, Import, Export.
+      +memberDependencyMenuItems
+      hr
       li
         a.js-my-cards(href="{{pathFor 'my-cards'}}")
           i.fa.fa-list

@@ -399,6 +399,50 @@
     {
       "key": "import-board-instruction-todotxt",
       "since": "2026-09-29"
+    },
+    {
+      "key": "show-my-dependencies",
+      "since": "2026-10-01"
+    },
+    {
+      "key": "show-board-dependencies",
+      "since": "2026-10-01"
+    },
+    {
+      "key": "my-dependencies",
+      "since": "2026-10-01"
+    },
+    {
+      "key": "board-dependencies",
+      "since": "2026-10-01"
+    },
+    {
+      "key": "importMemberDependenciesPopup-title",
+      "since": "2026-10-01"
+    },
+    {
+      "key": "exportMemberDependenciesPopup-title",
+      "since": "2026-10-01"
+    },
+    {
+      "key": "dependencies-open-a-board",
+      "since": "2026-10-01"
+    },
+    {
+      "key": "dependencies-board-edit-required",
+      "since": "2026-10-01"
+    },
+    {
+      "key": "import-dependencies-merged",
+      "since": "2026-10-01"
+    },
+    {
+      "key": "dependency-layer-mine",
+      "since": "2026-10-01"
+    },
+    {
+      "key": "dependency-read-only",
+      "since": "2026-10-01"
     }
   ]
 }

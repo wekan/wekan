@@ -1,4 +1,5 @@
 import { getSidebarInstance } from '/client/features/sidebar/service';
+import { canEditCardDependenciesHere } from '/client/lib/dependencyLayers';
 import { relativeCardSort } from '/client/lib/relativeCardPosition';
 import { Random } from 'meteor/random';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -1269,7 +1270,7 @@ Template.cardDetails.events({
   'click .js-remove-dependency'(event) {
     event.preventDefault();
     event.stopPropagation();
-    if (!Utils.canModifyCard()) return;
+    if (!canEditCardDependenciesHere(Template.currentData())) return;
     const targetId = event.currentTarget.dataset.targetId;
     const card = Template.currentData();
     if (card && targetId) {
@@ -1277,7 +1278,7 @@ Template.cardDetails.events({
     }
   },
   'change .js-dependency-type'(event) {
-    if (!Utils.canModifyCard()) return;
+    if (!canEditCardDependenciesHere(Template.currentData())) return;
     const targetId = event.currentTarget.dataset.targetId;
     const card = Template.currentData();
     if (card && targetId) {
@@ -1285,7 +1286,7 @@ Template.cardDetails.events({
     }
   },
   'change .js-dependency-color'(event) {
-    if (!Utils.canModifyCard()) return;
+    if (!canEditCardDependenciesHere(Template.currentData())) return;
     const targetId = event.currentTarget.dataset.targetId;
     const card = Template.currentData();
     if (card && targetId) {
@@ -1293,7 +1294,7 @@ Template.cardDetails.events({
     }
   },
   'click .js-dependency-icon'(event) {
-    if (!Utils.canModifyCard()) return;
+    if (!canEditCardDependenciesHere(Template.currentData())) return;
     // Remember the source card + which dependency the picked icon applies to.
     editingDependencyCard = Template.currentData();
     editingDependencyTargetId = event.currentTarget.dataset.targetId;

@@ -55,18 +55,43 @@ export function collectDependencyLines(boardId) {
   return lines;
 }
 
-export function exportDependenciesJson(boardId) {
+// #6732: this user's own My Dependencies on one board, as the same line
+// objects, so they export and re-import exactly like the board's.
+export function collectMyDependencyLines(boardId, rows) {
+  const cardById = {};
+  ReactiveCache.getCards({ boardId, archived: false }).forEach(card => {
+    cardById[card._id] = card;
+  });
+  return rows.filter(row => row.boardId === boardId).map(row => {
+    const from = cardById[row.cardId], to = cardById[row.targetCardId];
+    return {
+      from: row.cardId,
+      fromTitle: from ? from.title : null,
+      fromCardNumber: from ? from.cardNumber : null,
+      to: row.targetCardId,
+      toTitle: to ? to.title : null,
+      toCardNumber: to ? to.cardNumber : null,
+      type: row.type,
+      color: row.color,
+      icon: row.icon,
+    };
+  });
+}
+
+// `layer` names the file: 'board' (the default) or 'my'.
+export function exportDependenciesJson(boardId, lines = collectDependencyLines(boardId), layer = 'board') {
   const board = ReactiveCache.getBoard(boardId);
   const payload = {
     _format: 'wekan-dependencies-1.0.0',
     boardId,
     boardTitle: board ? board.title : '',
-    lines: collectDependencyLines(boardId),
+    layer,
+    lines,
   };
   const blob = new Blob([JSON.stringify(payload, null, 2)], {
     type: 'application/json',
   });
-  saveAs(blob, `wekan-dependencies-${boardId}.json`);
+  saveAs(blob, `wekan-${layer === 'my' ? 'my-' : ''}dependencies-${boardId}.json`);
 }
 
 // Lay the participating cards out on a simple grid (one column per list, rows by
@@ -102,9 +127,8 @@ function layoutCards(boardId) {
   return { pos, boxW, boxH };
 }
 
-export function exportDependenciesSvg(boardId) {
+export function exportDependenciesSvg(boardId, lines = collectDependencyLines(boardId), layer = 'board') {
   const board = ReactiveCache.getBoard(boardId);
-  const lines = collectDependencyLines(boardId);
   const { pos } = layoutCards(boardId);
 
   let width = 400;
@@ -175,5 +199,5 @@ export function exportDependenciesSvg(boardId) {
     `<defs>${markerEls}</defs>\n${cardEls}\n${pathEls.join('\n')}\n</svg>\n`;
 
   const blob = new Blob([svg], { type: 'image/svg+xml' });
-  saveAs(blob, `wekan-dependencies-${boardId}.svg`);
+  saveAs(blob, `wekan-${layer === 'my' ? 'my-' : ''}dependencies-${boardId}.svg`);
 }

@@ -9,6 +9,8 @@ const delegated = new Map([
   ['editCardSpentTimePopup/js-submit-time', 'form submission'],
   ['addListPopup/js-submit-add-list', 'form submission'],
   ['importDependenciesPopup/js-import-dependencies-submit', 'form submission'],
+  // #6732: Member Settings / Import - the submit of form.js-import-member-dependencies-form.
+  ['importMemberDependenciesPopup/js-import-member-dependencies-submit', 'form submission'],
   // 58d166029: the per-board due-reminder Save is a type=submit button inside
   // form.js-due-reminder-form; 'submit .js-due-reminder-form' handles it.
   ['notificationSettingsPopup/js-due-reminder-save', 'form submission'],
