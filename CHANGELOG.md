@@ -12577,6 +12577,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b8b29da92510106f28e39567c7df8c7f37c521e1">Translate Pashto conditionals and pixel controls</a>. Thanks to xet7.</summary>
+
+- Translate 29 Pashto conditional, clipboard and pixel control strings.
+- Check true and false conditions, deletion counts and pixel coordinates while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
