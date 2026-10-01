@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.12
+  version: v12.13
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -5379,9 +5379,11 @@ definitions:
         type: boolean
       showDependencies:
         description: |
-           #3392: PI Program Board "Red Strings". When true, draw colored
-           connection lines between cards that have cardDependencies, SAFe
-           PI-planning program board style.
+           #3392: PI Program Board "Red Strings". No longer read since #6732:
+           showing dependencies is each user's own choice
+           (profile.showBoardDependencies / profile.showMyDependencies), so one
+           user turning them on no longer turns them on for everybody. Kept so
+           existing boards and imports still validate.
         type: boolean
       mapImageAttachmentId:
         description: |
@@ -8455,6 +8457,24 @@ definitions:
            User-specified width of each list (or nothing if default).
            profile[boardId][listId] = width;
         type: object
+      showBoardDependencies:
+        description: |
+           #6732: show the board's card dependencies (Red Strings) to THIS user.
+           Each user's own choice, off by default; set from Member Settings.
+        type: boolean
+      showMyDependencies:
+        description: |
+           #6732: show this user's own My Dependencies. Off by default.
+        type: boolean
+      myDependencies:
+        description: |
+           #6732: this user's own dependency lines, seen only by them:
+           [{ boardId, cardId, targetCardId, type, color, icon }]. Written only by
+           the server methods in server/models/dependencies.js, which check the
+           user can see both cards; never directly by the client.
+        type: array
+        items:
+          $ref: "#/definitions/UsersProfileMydependencies"
       listConstraints:
         description: |
            User-specified constraint of each list (or nothing if default).
@@ -8703,3 +8723,5 @@ definitions:
     required:
       - url
       - title
+  UsersProfileMydependencies:
+    type: object
