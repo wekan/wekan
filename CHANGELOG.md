@@ -12250,6 +12250,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/992f84131fb4739c0d752da375663015c0bd79d1">Mongolian sync diagnostics and email queue messages</a>. Thanks to xet7.</summary>
+
+- Translate 32 synchronization diagnostic and email queue placeholders.
+- Check retention limits, missing versus null values, hidden email content
+  and delivery warnings while preserving source substitution tokens.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
