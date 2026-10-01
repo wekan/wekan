@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Igbo saved filters, import reports and map controls.
+{
+  const locale = read('ig');
+  const keys = ["due-reminder-invalid", "due-reminder-saved", "dependency-type-duplicates", "dependency-type-is-duplicated-by", "custom-field-stringtemplate-context-hint", "filter-presets", "filter-preset-choose", "filter-preset-name", "filter-preset-save", "filter-preset-replace-hint", "filter-preset-saved", "filter-preset-applied", "filter-preset-deleted", "filter-preset-error", "filter-card-text-label", "import-report-heading", "import-report-description", "import-report-open-board", "draggable", "board-view-map", "map-view-empty", "map-view-upload", "map-view-remove-image", "map-view-unplaced", "map-view-place-hint", "map-view-all-placed", "blockly-ANNOUNCE_CANT_SCROLL_FURTHER", "blockly-ANNOUNCE_MOVE_AFTER", "blockly-ANNOUNCE_MOVE_AROUND"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `ig:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ig:${key}: tokens`);
+  }
+  for (const token of ['%{card.title}', '%{board.title}', '%{list.title}', '%{swimlane.title}', '|urlencode', '%{value|urlencode}']) assert.ok(locale['custom-field-stringtemplate-context-hint'].includes(token));
+  assert.match(locale['due-reminder-invalid'], /iri.*-14.*14/);
+  assert.match(locale['filter-preset-replace-hint'], /gị naanị.*na-anọchi/);
+  for (const key of ['admin-panel', 'problems', 'recoveryReportTitle']) assert.ok(locale['import-report-description'].includes(locale[key]));
+  assert.notEqual(locale['dependency-type-duplicates'], locale['dependency-type-is-duplicated-by']);
+  assert.notEqual(locale['map-view-unplaced'], locale['map-view-all-placed']);
+  assert.notEqual(locale['blockly-ANNOUNCE_MOVE_AFTER'], locale['blockly-ANNOUNCE_MOVE_AROUND']);
+}
+
 // Igbo rule interpolation and notification preferences.
 {
   const locale = read('ig');
