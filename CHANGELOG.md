@@ -10517,6 +10517,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d348da2106a48b7673ad4549f540321bfed3147b">Translate Uzbek rule-block editor messages</a>. Thanks to xet7.</summary>
+
+- Fill 22 rule editor and Blockly strings in each Uzbek locale,
+  using Arabic script for uz-AR and Latin for the other three locales.
+- Translation, registry and human-preference checks pass, covering tokens,
+  rule validation, permissions, save conflicts and consistent terminology.
+  Wording needs fluent review, especially Arabic-script orthography.
+  Browser review and wider translation completion remain outstanding.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
