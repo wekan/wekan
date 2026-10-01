@@ -10205,6 +10205,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dca48908bb84985a1ace35075da8b8cc29d443a0">Translate Uzbek board access and rule controls</a>. Thanks to xet7.</summary>
+
+- Fill 20 board access, rule and notification strings in each Uzbek locale,
+  using Arabic script for uz-AR and Latin for the other three locales.
+- Translation, registry and human-preference checks pass, covering tokens,
+  rule variables, link schemes, access restrictions and action distinctions.
+  Wording needs fluent review, especially Arabic-script orthography.
+  Browser review and wider translation completion remain outstanding.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
