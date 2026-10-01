@@ -2073,6 +2073,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cb92f61ecf5206e23318f579931ff7fc7cee95b0">Translate Marathi editor actions and conditionals</a>. Thanks to xet7.</summary>
+
+- Translate 33 Marathi conditional, repeat and editor action messages.
+- Check true and false conditions, activation and deletion confirmations
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
