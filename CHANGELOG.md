@@ -2290,6 +2290,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/659de3bb569d091a622fbfcf8b80cc51a4222859">Translate Marathi sync previews and recovery choices</a>. Thanks to xet7.</summary>
+
+- Translate 30 Marathi sync preview, mapping and recovery messages.
+- Check content retention, unchanged subcards and replacement reuse while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
