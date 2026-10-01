@@ -9137,6 +9137,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2619510fd692368ba7953ebaa306585bc9e32da5">Translate Shona date filters and Leo import instructions</a>. Thanks to xet7.</summary>
+
+- Fill 25 English placeholders for date filters, archiving and Leo imports.
+  Preserve existing translations outside this batch.
+- Translation, registry and human-preference checks pass, covering query
+  syntax, inclusive date boundaries, list age and archive exclusions.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
