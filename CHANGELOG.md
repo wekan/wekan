@@ -9245,6 +9245,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c9dc8a59132175d1869ebb43aeeff21fc99303b8">Translate Shona Blockly navigation and list retrieval</a>. Thanks to xet7.</summary>
+
+- Translate 33 keyboard navigation and list operation strings, preserving
+  keyboard names, operating system names and substitution tokens.
+- Translation, registry and human-preference checks pass, covering tokens,
+  empty lists and distinctions between retrieval and removal.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
