@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1b45f76446">Translate Kyrgyz navigation and text controls</a>. Thanks to xet7.</summary>
+
+- Fill 30 navigation, scrolling and text-control messages.
+- Batch key-order, placeholder, rule-variable and markup checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/fb6ce977af">Translate Kyrgyz accessibility modes and shortcuts</a>. Thanks to xet7.</summary>
 
 - Fill 30 screen-reader mode, keyboard shortcut and navigation messages.
