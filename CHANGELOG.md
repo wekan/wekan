@@ -2635,6 +2635,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fe310a51203db9ebe8c22664e9c4a41a13b5d661">Translate Sinhala sprint reports and lifecycle messages</a>. Thanks to xet7.</summary>
+
+- Translate 32 Sinhala sprint reporting, state and confirmation messages.
+- Check unknown estimates, partial reports and cancellation behavior,
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
