@@ -12194,6 +12194,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/01fe8abf8343604ea7ce73897c662c31b7e7accf">Mongolian text operation messages</a>. Thanks to xet7.</summary>
+
+- Translate 53 text operation and editor shortcut placeholders.
+- Check character positions, missing-text results, spaces in text length
+  and replacement of every occurrence while preserving source tokens.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
