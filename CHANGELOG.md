@@ -11598,6 +11598,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/95cd3734eecc20b0fbe6c5c2588386b9b3966a0a">Complete remaining Flemish translation placeholders</a>. Thanks to xet7.</summary>
+
+- Fill 910 missing and English placeholder values in vl-SS with standard Dutch
+  wording, preserving existing translations and the local Klaar label.
+  Include 44 new import and email recovery keys and update the README count.
+- Translation, registry and human-preference checks pass, covering placeholders,
+  import syntax, duplicate delivery, access checks and permanent discard.
+  Existing coverage is retained. Browser review was not run.
+  Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
