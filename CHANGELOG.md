@@ -1685,6 +1685,16 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f30badcada">Translate Tajik navigation and list inputs</a>. Thanks to xet7.</summary>
+
+- Fill 43 input labels, keyboard-navigation messages and list controls.
+- Focused key-order, placeholder and query-syntax checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/23ab8ea968">Translate Tajik editor input labels</a>. Thanks to xet7.</summary>
 
 - Fill 45 editor help messages, icon labels and input descriptions.
