@@ -12372,6 +12372,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/64434bf9165d15c5f038b9b039680214ecf63329">Telugu logic and arithmetic messages</a>. Thanks to xet7.</summary>
+
+- Translate 37 logic and arithmetic placeholders.
+- Check Boolean operations, conditional labels, inclusive bounds, constants
+  and remainders while preserving tokens and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
