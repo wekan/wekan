@@ -12051,6 +12051,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/39bdccacfdedfb82714fbe6f31d926021c542ccf">Latin remaining English prose placeholders</a>. Thanks to xet7.</summary>
+
+- Translate 37 recovery, sign-in and history messages. Retain 36 keyboard
+  labels, brands, code symbols and shared Latin terms as locale exceptions.
+- Full Latin key-order, token and placeholder checks now pass,
+  alongside language registry and human-preference checks.
+  Browser review was not run. Older linguistic quality needs review;
+  wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
