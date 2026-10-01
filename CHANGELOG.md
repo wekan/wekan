@@ -13347,6 +13347,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9abbd121639a3c0fdb46e9d777e283cb46406600">Translate Malayalam keyboard shortcut labels</a>. Thanks to xet7.</summary>
+
+- Translate 33 Malayalam keyboard-navigation and shortcut strings.
+- Check movement directions, navigation order and cancel/finish actions
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
