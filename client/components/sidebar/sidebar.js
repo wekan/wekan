@@ -1332,9 +1332,11 @@ Template.importDependenciesPopup.events({
         tpl.importResult.set(err.reason || err.message || String(err));
         return;
       }
+      // #6732: an import combines - it also says how many were already there.
       tpl.importResult.set(
-        TAPi18n.__('import-dependencies-done', {
+        TAPi18n.__('import-dependencies-merged', {
           imported: res.imported,
+          skipped: res.skipped,
           unmatched: res.unmatched,
         }),
       );
