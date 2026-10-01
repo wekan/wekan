@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f3aabdfdbc">Translate Sindhi statistics, trigonometry and block navigation</a>. Thanks to xet7.</summary>
+
+- Fill 43 statistics, mathematical function and block navigation messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a962642024">Translate Sindhi logic and mathematical messages</a>. Thanks to xet7.</summary>
 
 - Fill 28 logic, comparison and mathematical operation messages.
