@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona activity cancellation and rule email attempt reports.
+{
+  const locale = read('sn');
+  const keys = ["activity-recovery-status-missing", "activity-recovery-status-changed", "activity-recovery-status-invalid", "activity-recovery-status-inconsistent", "activity-recovery-busy", "activity-recovery-denied", "activity-recovery-source-unavailable", "activity-recovery-disabled", "activity-recovery-failed", "activity-recovery-pause", "activity-recovery-resume", "activity-recovery-paused", "activity-recovery-control-conflict", "activity-recovery-control-failed", "activity-recovery-status-cancelled", "activity-recovery-cancel", "activity-recovery-cancel-confirm", "rule-email-recovery-heading", "rule-email-recovery-description", "rule-email-recovery-all", "rule-email-recovery-unconfirmed", "rule-email-recovery-sent", "rule-email-recovery-invalid", "rule-email-recovery-identifiers", "rule-email-recovery-started", "rule-email-recovery-finished", "rule-email-recovery-empty"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+  }
+  assert.match(locale['activity-recovery-source-unavailable'], /Hapana chakagadzirwazve/);
+  assert.match(locale['activity-recovery-failed'], /rakamirira rakachengetwa/);
+  assert.match(locale['activity-recovery-cancel-confirm'], /zvachose.*Hazvigoni kuendererwa mberi.*hazvidzoserwi/);
+  assert.match(locale['rule-email-recovery-description'], /kuchiri kutumira kana kwakambomiswa.*hauedzizve kana kukanzura/);
+  assert.match(locale['rule-email-recovery-sent'], /Zvakagamuchirwa nesevha/);
+  assert.equal(locale['activity-recovery-pause'], locale['email-recovery-pause']);
+  assert.equal(locale['activity-recovery-resume'], locale['email-recovery-resume']);
+  assert.notEqual(locale['activity-recovery-paused'], locale['activity-recovery-status-cancelled']);
+}
+
 // Shona delivery failure reasons and activity recovery.
 {
   const locale = read('sn');
