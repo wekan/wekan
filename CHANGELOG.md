@@ -9425,6 +9425,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/103dbd488953546f5246071b366dff71b2435614">Translate Shona daily observations and sync conflicts</a>. Thanks to xet7.</summary>
+
+- Translate 28 daily observation and sync conflict strings, preserving
+  observation limits, local content guarantees and unchanged subcards.
+- Translation, registry and human-preference checks pass, covering tokens,
+  UTC days, unknown estimates, retained content and replacement reuse.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
