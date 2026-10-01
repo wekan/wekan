@@ -9953,6 +9953,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8b7808783e6a72a12c5b483a25418fba37aa0d60">Translate Igbo delivery failures and activity recovery</a>. Thanks to xet7.</summary>
+
+- Fill 29 Igbo delivery, time-estimate and activity-recovery placeholders,
+  preserving existing translations and source tokens.
+- Translation, registry and human-preference checks pass, covering time units,
+  field constraints, retained pending work and distinct failure states.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
