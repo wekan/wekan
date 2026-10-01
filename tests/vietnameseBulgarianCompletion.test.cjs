@@ -28,6 +28,26 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona board access, rule variables and notification preferences.
+{
+  const locale = read('sn');
+  const keys = ["instance-desc", "board-instance-info", "automatic-linked-url-schemes-hint", "other-parent-cards", "add-parent-card", "remove-parent-card", "r-when-card-date", "r-trigger-vars-hint", "r-insert-variable", "r-vars-people-hint", "r-rule-any-trigger-help", "r-add-trigger-to-rule", "r-add-action-to-rule", "r-remove-rule-part", "notification-activity-heading", "notification-activity-description", "notification-activity-labels", "notification-activity-members", "notification-activity-assignees", "notification-activity-comments", "notification-activity-moves", "notification-activity-dates", "notification-activity-checklists", "notification-activity-attachments", "notification-activity-customFields"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+  }
+  assert.match(locale['instance-desc'], /Harimboratidzwi.*vasina kupinda.*chete.*kurigadzirisa/);
+  assert.ok(locale['board-instance-info'].includes('<strong>mushandisi wese akapinda</strong>'));
+  for (const token of ['thunderlink', 'onenote', 'javascript', 'data', 'vbscript']) assert.ok(locale['automatic-linked-url-schemes-hint'].includes(token));
+  assert.match(locale['automatic-linked-url-schemes-hint'], /hazvimboitwi zvinobatanidza/);
+  for (const key of ['r-trigger-vars-hint', 'r-vars-people-hint']) {
+    assert.deepEqual(locale[key].match(/\{[^}]+\}/g), english[key].match(/\{[^}]+\}/g), `sn:${key}: rule variables`);
+  }
+  assert.match(locale['r-rule-any-trigger-help'], /chimwe.*zvichitevedzana/);
+  assert.match(locale['notification-activity-description'], /@mentions.*zvinogara zvichisvika/);
+  assert.notEqual(locale['notification-activity-members'], locale['notification-activity-assignees']);
+}
+
 // Shona date filtering and Leo import placeholders.
 {
   const locale = read('sn');
