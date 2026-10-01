@@ -9017,6 +9017,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/38415f04caf9a3536fe8faaca0cda9b8aa38cf57">Correct Shona rule and schedule controls</a>. Thanks to xet7.</summary>
+
+- Translate 40 prefixed English entries for rules, schedules and checklists.
+  Preserve existing values outside this correction batch.
+- Translation, registry and human-preference checks pass, covering weekday
+  ranges, checked versus unchecked actions, examples and placeholders.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Another 383 prefixed English entries remain; wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
