@@ -28,6 +28,28 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Hausa sprint observations and synchronization conflict decisions.
+{
+  const locale = read('ha');
+  const keys = ["scrum-unknown-estimate", "scrum-confirm-close", "scrum-confirm-cancel", "scrum-past-sprints", "scrum-list-category", "scrum-swimlane-purpose", "scrum-category-backlog", "scrum-category-todo", "scrum-category-doing", "scrum-category-done", "scrum-partial-report", "scrum-state-released", "scrum-released-at", "scrum-follow-up-cards", "scrum-import-reference-omitted", "scrum-partial-snapshot", "scrum-resume-close", "scrum-daily-observations", "scrum-daily-observations-help", "scrum-daily-truncated", "scrum-daily-empty", "scrum-observed-scope", "scrum-daily-observations-export-help", "scrum-import-pending", "sync-conflict-heading", "sync-conflict-hint", "sync-conflict-local", "sync-conflict-keep-local", "sync-conflict-use-source", "sync-conflict-refresh", "sync-conflict-review-complete", "sync-conflict-duplicate", "sync-conflict-keep-mapping", "sync-conflict-detach", "sync-conflict-detach-hint"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `ha:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ha:${key}: tokens`);
+  }
+  for (const key of ['scrum-daily-observations-help', 'scrum-daily-observations-export-help']) {
+    assert.ok(locale[key].includes('UTC'));
+    assert.match(locale[key], /ba sa rubuta kowane canji/);
+    assert.match(locale[key], /ba sifili ba ne/);
+  }
+  assert.match(locale['scrum-daily-truncated'], /366/);
+  assert.match(locale['scrum-confirm-cancel'], /har sai an sake sanya/);
+  assert.notEqual(locale['scrum-confirm-close'], locale['scrum-confirm-cancel']);
+  assert.notEqual(locale['sync-conflict-keep-local'], locale['sync-conflict-use-source']);
+  assert.match(locale['sync-conflict-hint'], /Ba a aika komai zuwa tsarin tushe/);
+  assert.match(locale['sync-conflict-review-complete'], /Ba a gudanar.*dukan jerin ba/);
+  assert.match(locale['sync-conflict-detach-hint'], /kawai.*za su kasance a WeKan/);
+}
+
 // Hausa Scrum planning and report labels.
 {
   const locale = read('ha');
