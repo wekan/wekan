@@ -12306,6 +12306,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d58a3e5ca90c8643301b56e5402dae5d8fc32da6">Telugu map views and editor announcements</a>. Thanks to xet7.</summary>
+
+- Translate 39 saved filter, map and editor accessibility placeholders.
+- Check private filters, map permissions, movement directions and expansion
+  controls while preserving source tokens and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
