@@ -28,6 +28,25 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona daily observation limits and sync conflict recovery.
+{
+  const locale = read('sn');
+  const keys = ["scrum-resume-close", "scrum-daily-observations", "scrum-daily-observations-help", "scrum-daily-truncated", "scrum-daily-empty", "scrum-observed-scope", "scrum-daily-observations-export-help", "scrum-import-pending", "sync-conflict-heading", "sync-conflict-hint", "sync-conflict-local", "sync-conflict-keep-local", "sync-conflict-use-source", "sync-conflict-refresh", "sync-conflict-review-complete", "sync-conflict-duplicate", "sync-conflict-keep-mapping", "sync-conflict-detach", "sync-conflict-detach-hint", "sync-conflict-archive", "sync-conflict-archive-hint", "sync-conflict-keep-card-local", "sync-conflict-creation", "sync-conflict-creation-hint", "sync-conflict-create-replacement", "sync-preview-button", "sync-preview-heading", "sync-preview-saved"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+  }
+  for (const key of ['scrum-daily-observations-help', 'scrum-daily-observations-export-help']) {
+    assert.match(locale[key], /UTC.*haasanganisirwi.*hazvinyori shanduko dzose.*hadzisi zero/);
+  }
+  assert.ok(locale['scrum-daily-truncated'].includes('366'));
+  assert.match(locale['sync-conflict-hint'], /Hapana chinotumirwa/);
+  assert.match(locale['sync-conflict-review-complete'], /rondedzero yose hakuna kuitwa/);
+  assert.match(locale['sync-conflict-detach-hint'], /chete.*zvinoramba zviri muWeKan/);
+  assert.match(locale['sync-conflict-archive-hint'], /Makadhi madiki haachinjwi/);
+  assert.match(locale['sync-conflict-creation-hint'], /rekare risina kuchinjwa.*Kuedzazve kunoshandisazve/);
+}
+
 // Shona Scrum reports and retained sprint snapshots.
 {
   const locale = read('sn');
