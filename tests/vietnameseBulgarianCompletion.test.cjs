@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek recovery messages retain diagnostic limits and explicit null semantics.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["sync-report-review-only", "sync-report-unavailable", "sync-report-empty", "sync-recovery-heading", "sync-recovery-description", "sync-recovery-unavailable", "sync-recovery-all", "sync-estimate-field", "sync-estimate-field-hint", "email-recovery-heading", "email-recovery-description", "email-recovery-saving", "email-recovery-queued", "email-recovery-retrying", "email-recovery-attempts", "email-recovery-oldest", "email-recovery-next", "email-recovery-changed", "email-recovery-pause", "email-recovery-resume"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  assert.ok(locale['sync-recovery-description'].includes('30'));
+  for (const token of ['Jira', 'ID', 'null']) assert.ok(locale['sync-estimate-field-hint'].includes(token));
+  assert.notEqual(locale['email-recovery-pause'], locale['email-recovery-resume']);
+  assert.notEqual(locale['email-recovery-oldest'], locale['email-recovery-next']);
+  assert.match(locale['email-recovery-description'], code === 'uz-AR' ? /تکرارن یوباریلیشی ممکن/ : /takroran yuborilishi mumkin/);
+  assert.match(locale['email-recovery-description'], code === 'uz-AR' ? /موجود تۉختتیب توریش حالتیگه رعایه/ : /mavjud toʻxtatib turish holatiga rioya/);
+}
+
 // Uzbek sync reports preserve retention, report limits and distinct outcomes.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
