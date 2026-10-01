@@ -9149,6 +9149,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/10dd427801a7ae92f6cefb4df4f7a5f90258386d">Translate Shona access rules and notification preferences</a>. Thanks to xet7.</summary>
+
+- Fill 25 English placeholders for access, rules and notification preferences.
+  Preserve existing translations outside this batch.
+- Translation, registry and human-preference checks pass, covering access
+  restrictions, rule variables, link schemes and notification exceptions.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
