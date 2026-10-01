@@ -2181,6 +2181,18 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0fe38991edd99785b663194f1773a91d6c5a516e">Translate Marathi variables and procedure messages</a>. Thanks to xet7.</summary>
+
+- Translate 30 Marathi variable, editor and procedure messages.
+- Check disabled functions, return values and duplicate parameter warnings
+  while preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
