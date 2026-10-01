@@ -10109,6 +10109,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/96b5cf3f2bdce64e24412e5b530740dc3c085ac1">Translate Hausa Scrum planning and report labels</a>. Thanks to xet7.</summary>
+
+- Fill 60 Hausa backlog, sprint lifecycle, estimate and report labels,
+  including planning events and unknown-versus-zero estimate guidance.
+- Translation, registry and human-preference checks pass, covering tokens,
+  sprint states, estimate units and preservation of existing translations.
+  Technical wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
