@@ -12949,6 +12949,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1042dc1edfbee41f8b0af6fea75d09e3a0600965">Translate Punjabi navigation and list operations</a>. Thanks to xet7.</summary>
+
+- Translate 30 Punjabi navigation and list operation strings.
+- Check reading versus removing list items and keyboard movement placeholders
+  while preserving existing translations and literal keyboard legends.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
