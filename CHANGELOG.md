@@ -13287,6 +13287,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/246fa4de79771b328a6dc9dff34b9ec538a66289">Translate Malayalam logic and comparison blocks</a>. Thanks to xet7.</summary>
+
+- Translate 29 Malayalam split/join, boolean and comparison strings.
+- Check inclusive comparisons, AND/OR conditions and ternary labels while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
