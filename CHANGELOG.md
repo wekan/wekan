@@ -11720,6 +11720,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4ebd300d63ffddf242f3fadef69be8cf34a4cbc3">Haitian Creole Blockly controls and inputs</a>. Thanks to xet7.</summary>
+
+- Fill 116 English placeholders for control flow, variables, bitmap labels
+  and editor inputs, preserving existing translations.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for placeholders, argument order, loop semantics and RGB ranges.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
