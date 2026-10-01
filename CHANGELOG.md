@@ -1677,11 +1677,23 @@ template.
 
 # Upcoming WeKan ® release
 
-**In short:** Dependency messages now cover twenty-one more languages.
+**In short:** Dependency messages now cover twenty-five more languages.
 Translation checks follow current wording and markup, and literal keyboard
 labels are restored.
 
 This release updates the following translations:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/774dd456b5">Translate dependency messages into Central Kurdish, Uyghur, Amharic and Assamese</a>. Thanks to xet7.</summary>
+
+- Fill 11 dependency messages in each language, bringing dependency coverage
+  to 161 non-English locale tags. Wording has lower confidence and needs
+  native-speaker review.
+- Dependency key-order and placeholder checks and all 21 human-preference
+  checks pass. Other untranslated strings remain; browser and native-speaker
+  reviews were not run.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1affaa292e">Translate dependency messages into Tatar, Bashkir, Kurmanji and Turkmen</a>. Thanks to xet7.</summary>
