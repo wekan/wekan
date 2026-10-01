@@ -9605,6 +9605,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ec18dd133910741c55c8ed5ae8187d6b6df219ed">Translate Yoruba Blockly mathematical accessibility labels</a>. Thanks to xet7.</summary>
+
+- Translate 21 mathematical accessibility labels, preserving function
+  notation, logarithm bases, substitution tokens and distinct operators.
+- Translation, registry and human-preference checks pass, covering tokens,
+  numerical bases, inverse functions and shared minimum and maximum labels.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
