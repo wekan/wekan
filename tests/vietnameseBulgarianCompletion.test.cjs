@@ -28,6 +28,22 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek reminder offsets, dependency directions and saved filters.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["notification-activity-comments", "notification-activity-moves", "notification-activity-dates", "notification-activity-checklists", "notification-activity-attachments", "notification-activity-customFields", "notification-activity-archive", "notification-activity-created", "due-reminder-heading", "due-reminder-days-label", "due-reminder-off", "due-reminder-webhook", "due-reminder-invalid", "due-reminder-saved", "dependency-type-duplicates", "dependency-type-is-duplicated-by", "custom-field-stringtemplate-context-hint", "filter-presets", "filter-preset-choose", "filter-preset-name", "filter-preset-save", "filter-preset-replace-hint"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  for (const token of ['%{card.title}', '%{board.title}', '%{list.title}', '%{swimlane.title}', '|urlencode', '%{value|urlencode}']) assert.ok(locale['custom-field-stringtemplate-context-hint'].includes(token));
+  assert.match(locale['due-reminder-invalid'], /-14.*14/);
+  assert.match(locale['due-reminder-days-label'], code === 'uz-AR' ? /مثبت.*آلدینگی.*منفی.*کېیینگی/ : /musbat.*oldingi.*manfiy.*keyingi/);
+  assert.notEqual(locale['dependency-type-duplicates'], locale['dependency-type-is-duplicated-by']);
+  assert.match(locale['filter-preset-replace-hint'], code === 'uz-AR' ? /فقط سیزگه.*المشتیره/ : /faqat sizga.*almashtiradi/);
+}
+
 // Uzbek board access, rule variables and notification controls.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
