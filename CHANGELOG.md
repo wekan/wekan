@@ -10181,6 +10181,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/62c1077ae1ad3b63453f0a570f37443d4e152025">Translate new source strings for Arabic-script Uzbek</a>. Thanks to xet7.</summary>
+
+- Add 44 import and rule-email recovery translations in Arabic-script Uzbek,
+  preserving todo.txt syntax, substitution tokens and existing values.
+- Translation, registry and human-preference checks pass, including an
+  Arabic-script guard for the new prose and source key-order checks.
+  Low-confidence wording and orthography need fluent-speaker review.
+  Browser review, older mixed-script corrections and other translations remain.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
