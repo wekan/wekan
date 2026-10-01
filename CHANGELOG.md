@@ -1682,12 +1682,16 @@ to 3.4.16.
 
 This release fixes the following SECURITY ISSUES found by CodeQL code scanning:
 
-- [Alert 547: the Trello link in a translation test is checked by its parsed host](https://github.com/wekan/wekan/commit/a7ae58ea9f):
-  a substring check also passed for the link hidden in another URL's query or
-  on a lookalike host. The test now parses each link and requires
-  `trello.com` and `/app-key`, and a tree-wide suite fails on any URL or host
-  checked as a substring. No shipped code had the form, so there is no Hall of
-  Fame row or Problems key. Thanks to GitHub CodeQL and xet7.
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a7ae58ea9f">Alert 547: check the Trello link in a translation test by its parsed host</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+A substring check also passed for the link hidden in another URL's query or on
+a lookalike host. The test now parses each link and requires `trello.com` and
+`/app-key`, and a tree-wide suite fails on any URL or host checked as a
+substring. No shipped code had the form, so there is no Hall of Fame row or
+Problems key.
+
+</details>
 
 and updates the following dependencies:
 
