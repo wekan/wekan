@@ -13033,6 +13033,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a8646402b970d1554fcf2a61d7f0e336250d1a2d">Translate Punjabi text operations and scrolling shortcuts</a>. Thanks to xet7.</summary>
+
+- Translate 42 Punjabi text-operation and scrolling strings.
+- Check letter case, text positions and reordered placeholders while
+  preserving existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
