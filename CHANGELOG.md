@@ -11442,6 +11442,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a1ca2e49fcd1e4f305e085dbc952ffe7b0715ac8">Translate new recovery strings into Northern Sámi</a>. Thanks to xet7.</summary>
+
+- Translate 44 missing keys in se, preserving existing values.
+  Cover todo.txt imports and email recovery and review controls.
+- Translation, registry and human-preference checks pass, covering placeholders,
+  import syntax, duplicate delivery, access checks and permanent discard.
+  Existing coverage is retained. Longer technical wording is low confidence
+  and needs fluent review. Browser review was not run. Wider work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
