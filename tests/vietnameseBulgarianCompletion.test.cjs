@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek archive and date filters preserve boundaries and query syntax.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["auto-archive-days", "auto-archive-off", "auto-archive-hint", "filter-recency-any", "filter-recency-day", "filter-recency-week", "filter-recency-month", "filter-recency-older", "filter-movement-range", "filter-date-range-field", "filter-date-range-from", "filter-date-range-to", "filter-date-range-missing", "filter-date-range-list-entry", "filter-date-range-invalid", "filter-due-any", "filter-due-previous-week", "filter-due-next-month", "filter-column-age", "filter-column-age-disabled", "filter-column-age-days", "filter-column-age-hint", "advanced-filter-card-dates-hint", "import-board-instruction-leo"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  for (const token of ['@createdAt', '@receivedAt', '@startAt', '@dueAt', '@endAt', '@listEnteredAt', ">= '2026-01-01'", '= none']) assert.ok(locale['advanced-filter-card-dates-hint'].includes(token));
+  for (const [key, number] of [['day', '24'], ['week', '7'], ['month', '30'], ['older', '30']]) assert.ok(locale[`filter-recency-${key}`].includes(number));
+  assert.notEqual(locale['filter-recency-month'], locale['filter-recency-older']);
+  assert.notEqual(locale['filter-date-range-from'], locale['filter-date-range-to']);
+  assert.ok(locale['import-board-instruction-leo'].includes('.leo'));
+  assert.match(locale['filter-column-age-hint'], code === 'uz-AR' ? /قیتدن باشلمیدی/ : /qaytadan boshlamaydi/);
+  assert.match(locale['auto-archive-hint'], code === 'uz-AR' ? /هېچ قچان آرخیولنمیدی/ : /hech qachon arxivlanmaydi/);
+}
+
 // Arabic-script Uzbek additions keep prose in its declared script.
 {
   const locale = read('uz-AR');
