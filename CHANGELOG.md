@@ -9689,6 +9689,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f2b8aa5e94ad48b12c1f7619bd9e16cecf47aa55">Translate Yoruba Sync reports and diagnostics</a>. Thanks to xet7.</summary>
+
+- Fill 36 Yoruba Sync preview, report, diagnostic and mapped-estimate strings,
+  preserving existing translations and source placeholders.
+- Translation, registry and human-preference checks pass, covering report
+  limits, retention, distinct outcomes and missing versus explicit null values.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
