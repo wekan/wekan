@@ -12107,6 +12107,16 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4817e191a98faa85cec3a85e9c2f12e232325018">Mongolian block controls and colour messages</a>. Thanks to xet7.</summary>
+
+- Translate 59 Blockly colour, loop, condition and editing placeholders.
+- Check true and false loop conditions, colour ranges and deletion tokens.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
