@@ -28,6 +28,25 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek board access, rule variables and notification controls.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["instance", "instance-desc", "board-instance-info", "automatic-linked-url-schemes-hint", "other-parent-cards", "add-parent-card", "remove-parent-card", "r-when-card-date", "r-trigger-vars-hint", "r-insert-variable", "r-vars-people-hint", "r-rule-any-trigger-help", "r-add-trigger-to-rule", "r-add-action-to-rule", "r-remove-rule-part", "notification-activity-heading", "notification-activity-description", "notification-activity-labels", "notification-activity-members", "notification-activity-assignees"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+    assert.deepEqual(locale[key].match(/\{[^{}]+\}/g) || [], english[key].match(/\{[^{}]+\}/g) || []);
+  }
+  assert.match(locale['board-instance-info'], /<strong>.+<\/strong>/);
+  for (const scheme of ['thunderlink', 'onenote', 'javascript', 'data', 'vbscript']) assert.ok(locale['automatic-linked-url-schemes-hint'].includes(scheme));
+  assert.ok(locale['notification-activity-description'].includes('@mentions'));
+  assert.match(locale['instance-desc'], code === 'uz-AR' ? /فقط تختگه قۉشیلگن/ : /Faqat taxtaga qoʻshilgan/);
+  assert.match(locale['r-rule-any-trigger-help'], code === 'uz-AR' ? /ترتیب بیلن/ : /tartib bilan/);
+  assert.notEqual(locale['r-add-trigger-to-rule'], locale['r-add-action-to-rule']);
+  assert.notEqual(locale['notification-activity-members'], locale['notification-activity-assignees']);
+}
+
 // Uzbek archive and date filters preserve boundaries and query syntax.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
