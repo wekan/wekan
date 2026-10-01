@@ -10686,6 +10686,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/415c5da089354ef1f5e1bab373450969c9fd80c8">Correct Arabic-script Uzbek short activity messages</a>. Thanks to xet7.</summary>
+
+- Replace 20 Latin-script activity values in uz-AR with Arabic-script Uzbek,
+  preserving percent placeholders and positional source and destination roles.
+- Translation, registry and human-preference checks pass. Regression checks
+  reject Latin prose and distinguish joining, leaving, adding and removing.
+  Wording is low confidence and needs fluent review. Browser review was not run.
+  Older script corrections and wider translation completion remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
