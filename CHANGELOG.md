@@ -10770,6 +10770,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/31f5ae98805992727ce700743a1fd71592192502">Correct Arabic-script Uzbek board view controls</a>. Thanks to xet7.</summary>
+
+- Replace 20 Latin-script board view values in uz-AR with Arabic-script Uzbek,
+  correcting Watch and Collapse meanings and preserving the zoom range.
+- Translation, registry and human-preference checks pass, covering tokens,
+  consistent dialog labels and distinct desktop, mobile and calendar views.
+  Wording is low confidence and needs fluent review. Browser review was not run.
+  Older script corrections and wider translation completion remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
