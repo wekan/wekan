@@ -28,6 +28,26 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Yoruba Blockly accessible mathematical operators.
+{
+  const locale = read('yo');
+  const keys = ["blockly-LOGIC_COMPARE_NEQ_ARIA", "blockly-MATH_ADDITION_SYMBOL_ARIA", "blockly-MATH_CONSTANT_GOLDEN_RATIO_ARIA", "blockly-MATH_CONSTANT_INFINITY_ARIA", "blockly-MATH_CONSTANT_SQRT1_2_ARIA", "blockly-MATH_CONSTANT_SQRT2_ARIA", "blockly-MATH_DIVISION_SYMBOL_ARIA", "blockly-MATH_MULTIPLICATION_SYMBOL_ARIA", "blockly-MATH_ONLIST_OPERATOR_MAX_ARIA", "blockly-MATH_ONLIST_OPERATOR_MIN_ARIA", "blockly-MATH_POWER_SYMBOL_ARIA", "blockly-MATH_SINGLE_OP_ABSOLUTE_ARIA", "blockly-MATH_SINGLE_OP_EXP_ARIA", "blockly-MATH_SINGLE_OP_LN_ARIA", "blockly-MATH_SINGLE_OP_LOG10_ARIA", "blockly-MATH_SINGLE_OP_NEG_ARIA", "blockly-MATH_SINGLE_OP_POW10_ARIA", "blockly-MATH_SUBTRACTION_SYMBOL_ARIA", "blockly-MATH_TRIG_ACOS_ARIA", "blockly-MATH_TRIG_ASIN_ARIA", "blockly-MATH_TRIG_ATAN_ARIA"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `yo:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `yo:${key}: tokens`);
+  }
+  assert.notEqual(locale['blockly-LOGIC_COMPARE_NEQ_ARIA'], locale['blockly-LOGIC_COMPARE_EQ_ARIA']);
+  assert.notEqual(locale['blockly-MATH_CONSTANT_SQRT1_2_ARIA'], locale['blockly-MATH_CONSTANT_SQRT2_ARIA']);
+  assert.match(locale['blockly-MATH_SINGLE_OP_LOG10_ARIA'], /ìpìlẹ̀ 10/);
+  assert.match(locale['blockly-MATH_SINGLE_OP_EXP_ARIA'], /^e /);
+  assert.match(locale['blockly-MATH_SINGLE_OP_POW10_ARIA'], /^10 /);
+  for (const bound of ['MAX', 'MIN']) assert.equal(locale[`blockly-MATH_ONLIST_OPERATOR_${bound}_ARIA`], locale[`blockly-INPUT_LABEL_NUMBER_${bound}`]);
+  for (const fn of ['COS', 'SIN', 'TAN']) {
+    assert.ok(locale[`blockly-MATH_TRIG_A${fn}_ARIA`].endsWith(fn.toLowerCase()));
+    assert.equal(locale[`blockly-MATH_TRIG_A${fn}`], english[`blockly-MATH_TRIG_A${fn}`]);
+  }
+}
+
 // Yoruba Blockly text inputs and keyboard navigation.
 {
   const locale = read('yo');
