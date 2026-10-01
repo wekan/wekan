@@ -11941,6 +11941,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7b14cef13c8ea72a4d75a925f7a0334bb6428b06">Latin random numbers and trigonometry</a>. Thanks to xet7.</summary>
+
+- Fill 42 English placeholders for numeric operations and trigonometry,
+  preserving existing translations and placeholders.
+- Translation, language registry and human-preference checks pass. Extend
+  coverage for random-number bounds, negation, rounding and angle units.
+  Browser review was not run. Wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
