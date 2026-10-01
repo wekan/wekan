@@ -9773,6 +9773,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5f4a200077964f0a8ba9c185236b41e4e261b76d">Translate Igbo Blockly movement and control labels</a>. Thanks to xet7.</summary>
+
+- Fill 29 Igbo Blockly movement and accessible-control placeholders,
+  preserving existing translations and source tokens.
+- Translation, registry and human-preference checks pass, covering movement
+  directions, add/remove controls, comment expansion and field types.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
