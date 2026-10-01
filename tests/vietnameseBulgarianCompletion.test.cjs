@@ -28,6 +28,22 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Hausa Blockly block descriptions and clipboard actions.
+{
+  const locale = read('ha');
+  const keys = ["blockly-ARIA_TYPE_FIELD_IMAGE", "blockly-ARIA_TYPE_FIELD_INPUT", "blockly-ARIA_TYPE_FIELD_TEXT_INPUT_ARGUMENT", "blockly-ARIA_TYPE_FIELD_TEXT_INPUT_PROCEDURE", "blockly-BLOCK_LABEL_BEGIN_PREFIX", "blockly-BLOCK_LABEL_BEGIN_STACK", "blockly-BLOCK_LABEL_COLLAPSED", "blockly-BLOCK_LABEL_CONTAINER", "blockly-BLOCK_LABEL_DISABLED", "blockly-BLOCK_LABEL_HAS_BRANCHES", "blockly-BLOCK_LABEL_HAS_INPUT", "blockly-BLOCK_LABEL_HAS_INPUTS", "blockly-BLOCK_LABEL_REPLACEABLE", "blockly-BLOCK_LABEL_STACK_BLOCKS", "blockly-BLOCK_LABEL_STATEMENT", "blockly-BLOCK_LABEL_TOOLBOX_CATEGORY", "blockly-BLOCK_LABEL_VALUE", "blockly-BUBBLE_LABEL_COMMENT", "blockly-BUBBLE_LABEL_DEFAULT", "blockly-BUBBLE_LABEL_WARNING", "blockly-CLOSE_BACKPACK", "blockly-COLLAPSED_WARNINGS_WARNING", "blockly-CONTEXT_MENU_KEY", "blockly-COPY_ALL_TO_BACKPACK", "blockly-COPY_SHORTCUT", "blockly-COPY_TO_BACKPACK", "blockly-CURRENT_BLOCK_ANNOUNCEMENT", "blockly-CUT_SHORTCUT"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `ha:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ha:${key}: tokens`);
+  }
+  assert.match(locale['blockly-COPY_ALL_TO_BACKPACK'], /duk/);
+  assert.ok(locale['blockly-CONTEXT_MENU_KEY'].startsWith('≣ '));
+  assert.notEqual(locale['blockly-BLOCK_LABEL_HAS_INPUT'], locale['blockly-BLOCK_LABEL_HAS_INPUTS']);
+  assert.notEqual(locale['blockly-COPY_TO_BACKPACK'], locale['blockly-COPY_ALL_TO_BACKPACK']);
+  assert.notEqual(locale['blockly-BLOCK_LABEL_COLLAPSED'], locale['blockly-BLOCK_LABEL_DISABLED']);
+  assert.notEqual(locale['blockly-COPY_SHORTCUT'], locale['blockly-CUT_SHORTCUT']);
+}
+
 // Hausa Blockly movement announcements and accessible controls.
 {
   const locale = read('ha');
