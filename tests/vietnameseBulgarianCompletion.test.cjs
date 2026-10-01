@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Yoruba email queue actions and delivery failure distinctions.
+{
+  const locale = read('yo');
+  const keys = ["email-recovery-heading", "email-recovery-description", "email-recovery-saving", "email-recovery-queued", "email-recovery-retrying", "email-recovery-attempts", "email-recovery-oldest", "email-recovery-next", "email-recovery-changed", "email-recovery-pause", "email-recovery-resume", "email-recovery-cancel", "email-recovery-paused", "email-recovery-pending", "email-recovery-empty", "email-recovery-unavailable", "email-recovery-busy", "email-recovery-failed", "email-recovery-superseded", "email-recovery-confirm-cancel", "email-recovery-attention", "email-recovery-stopped", "email-recovery-retry", "email-failure-smtp-temporary", "email-failure-smtp-rejected", "email-failure-smtp-authentication", "email-failure-smtp-configuration", "email-failure-recipient-unavailable", "email-failure-delivery-unconfirmed", "email-failure-acknowledgement-failed", "email-failure-delivery-failed"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `yo:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `yo:${key}: tokens`);
+  }
+  assert.match(locale['email-recovery-description'], /ID.*kò lè gba.*padà/);
+  assert.match(locale['email-recovery-confirm-cancel'], /kò sì lè mú un padà.*lẹ́yìn.*mọ́/);
+  assert.match(locale['email-failure-smtp-temporary'], /SMTP.*ìgbà díẹ̀/);
+  assert.match(locale['email-failure-smtp-rejected'], /SMTP.*títí láé/);
+  assert.match(locale['email-failure-delivery-unconfirmed'], /ṣàyẹ̀wò kí o tó/);
+  assert.equal(new Set(['pause', 'resume', 'cancel', 'retry'].map(action => locale[`email-recovery-${action}`])).size, 4);
+  assert.notEqual(locale['email-failure-smtp-authentication'], locale['email-failure-smtp-configuration']);
+}
+
 // Yoruba Sync preview limits, diagnostics and mapped estimates.
 {
   const locale = read('yo');
