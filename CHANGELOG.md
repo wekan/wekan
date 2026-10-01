@@ -1685,6 +1685,18 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1bfea1fb5f">Verify Tajik translation completeness and literal labels</a>. Thanks to xet7.</summary>
+
+- Classify 28 printed key legends, platform names and code/math literals as
+  intentional unchanged text. No untranslated Tajik prose is reported.
+- The full Tajik suite and all 21 human-preference checks pass, including
+  source keys, HTML tags and placeholders. The broader suite still fails on
+  missing dependency keys in another locale. Browser and native-speaker
+  reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8346a425eb">Translate Tajik recovery and history messages</a>. Thanks to xet7.</summary>
 
 - Fill 44 recovery, sign-in and history messages, preserving retry and
