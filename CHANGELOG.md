@@ -10746,6 +10746,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5d6c0d3742ead581c09bff1cb2bae39a0fb30b7e">Correct Arabic-script Uzbek archive and attachment text</a>. Thanks to xet7.</summary>
+
+- Replace 25 Latin-script archive, template and attachment values in uz-AR
+  with Arabic-script Uzbek, preserving placeholders and consistent terminology.
+- Translation, registry and human-preference checks pass, distinguishing
+  permanent deletion from recoverable removal that retains the file.
+  Wording is low confidence and needs fluent review. Browser review was not run.
+  Older script corrections and wider translation completion remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
