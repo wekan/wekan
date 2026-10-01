@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/63d9a67b4d">Translate Kyrgyz mathematical and text input labels</a>. Thanks to xet7.</summary>
+
+- Fill 35 mathematical, loop, list and text-input labels.
+- Batch key-order, placeholder, rule-variable and markup checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/eb6b904fd8">Translate Kyrgyz editor input and icon labels</a>. Thanks to xet7.</summary>
 
 - Fill 30 editor field, icon and list-input messages.
