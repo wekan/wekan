@@ -12228,6 +12228,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f618ae28d53f2d583f23a2812251d6e8b8c69487">Mongolian sprint reports and synchronization conflicts</a>. Thanks to xet7.</summary>
+
+- Translate 42 sprint report and synchronization conflict placeholders.
+- Check unknown estimates, partial observations, cancellation membership
+  and the absence of writes to the source system; preserve all tokens.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
