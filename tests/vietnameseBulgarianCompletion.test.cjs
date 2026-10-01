@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Igbo delivery failures, time estimates and activity recovery.
+{
+  const locale = read('ig');
+  const keys = ["email-failure-smtp-authentication", "email-failure-smtp-configuration", "email-failure-recipient-unavailable", "email-failure-delivery-unconfirmed", "email-failure-acknowledgement-failed", "email-failure-delivery-failed", "email-failure-retry-limit", "sync-original-time", "sync-remaining-time", "sync-time-estimate-hint", "activity-recovery-heading", "activity-recovery-description", "activity-recovery-empty", "activity-recovery-unavailable", "activity-recovery-retry", "activity-recovery-retrying", "activity-recovery-status-pending", "activity-recovery-status-preparing", "activity-recovery-status-processing", "activity-recovery-status-missing", "activity-recovery-status-changed", "activity-recovery-status-invalid", "activity-recovery-status-inconsistent", "activity-recovery-busy", "activity-recovery-denied", "activity-recovery-source-unavailable", "activity-recovery-disabled", "activity-recovery-failed", "activity-recovery-pause"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `ig:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ig:${key}: tokens`);
+  }
+  assert.match(locale['sync-time-estimate-hint'], /Naanị otu.*null.*ehichapụ/);
+  for (const kind of ['original', 'remaining']) assert.match(locale[`sync-${kind}-time`], /awa/);
+  assert.notEqual(locale['sync-original-time'], locale['sync-remaining-time']);
+  assert.match(locale['activity-recovery-description'], /anaghị emepụtaghachi/);
+  assert.match(locale['activity-recovery-failed'], /E debere ọrụ na-eche/);
+  assert.equal(locale['activity-recovery-pause'], locale['email-recovery-pause']);
+  assert.notEqual(locale['activity-recovery-status-missing'], locale['activity-recovery-status-changed']);
+  assert.notEqual(locale['email-failure-smtp-authentication'], locale['email-failure-smtp-configuration']);
+}
+
 // Igbo email queue controls and cancellation boundaries.
 {
   const locale = read('ig');
