@@ -13203,6 +13203,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ed2e53b021631d359df534fcf1e44c887f82a3c3">Translate Malayalam block labels and colour controls</a>. Thanks to xet7.</summary>
+
+- Translate 31 Malayalam block-label, warning and colour-control strings.
+- Check numeric ranges, variable-deletion warnings and placeholders while
+  preserving existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
