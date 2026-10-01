@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek list replacement, sorting and text conversion.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_LAST", "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_RANDOM", "blockly-LISTS_SET_INDEX_TOOLTIP_SET_FIRST", "blockly-LISTS_SET_INDEX_TOOLTIP_SET_FROM", "blockly-LISTS_SET_INDEX_TOOLTIP_SET_LAST", "blockly-LISTS_SET_INDEX_TOOLTIP_SET_RANDOM", "blockly-LISTS_SORT_ORDER_ASCENDING", "blockly-LISTS_SORT_ORDER_DESCENDING", "blockly-LISTS_SORT_TITLE", "blockly-LISTS_SORT_TOOLTIP", "blockly-LISTS_SORT_TYPE_IGNORECASE", "blockly-LISTS_SORT_TYPE_NUMERIC", "blockly-LISTS_SORT_TYPE_TEXT", "blockly-LISTS_SPLIT_LIST_FROM_TEXT", "blockly-LISTS_SPLIT_TEXT_FROM_LIST", "blockly-LISTS_SPLIT_TOOLTIP_JOIN", "blockly-LISTS_SPLIT_TOOLTIP_SPLIT", "blockly-LISTS_SPLIT_WITH_DELIMITER", "blockly-LOGIC_BOOLEAN_FALSE", "blockly-LOGIC_BOOLEAN_TOOLTIP"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  assert.notEqual(locale['blockly-LISTS_SORT_ORDER_ASCENDING'], locale['blockly-LISTS_SORT_ORDER_DESCENDING']);
+  assert.equal(new Set(['IGNORECASE', 'NUMERIC', 'TEXT'].map(k => locale[`blockly-LISTS_SORT_TYPE_${k}`])).size, 3);
+  assert.notEqual(locale['blockly-LISTS_SPLIT_LIST_FROM_TEXT'], locale['blockly-LISTS_SPLIT_TEXT_FROM_LIST']);
+  for (const p of ['FIRST', 'FROM', 'LAST', 'RANDOM']) assert.notEqual(locale[`blockly-LISTS_SET_INDEX_TOOLTIP_SET_${p}`], locale[`blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_${p}`]);
+  assert.match(locale['blockly-LISTS_SORT_TOOLTIP'], code === 'uz-AR' ? /نسخه‌سینی/ : /nusxasini/);
+  assert.match(locale['blockly-LISTS_SORT_TYPE_IGNORECASE'], code === 'uz-AR' ? /فرقلَمسدن/ : /farqlamasdan/);
+}
+
 // Uzbek list indexing, copying and insertion.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
