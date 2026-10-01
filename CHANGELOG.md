@@ -13239,6 +13239,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e1b0588e87c0f6db42c453eea5fc172589cd1d0a">Translate Malayalam list and numeric input labels</a>. Thanks to xet7.</summary>
+
+- Translate 32 Malayalam list, loop and numeric input labels.
+- Check division terminology, coordinates and list positions while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
