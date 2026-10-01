@@ -1685,6 +1685,18 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/57cfaffdff">Translate Kazakh logic and arithmetic messages</a>. Thanks to xet7.</summary>
+
+- Fill 48 editor labels and tooltips for comparisons, Boolean operations,
+  arithmetic, constants and number properties.
+- Kazakh regression checks, full-locale key and placeholder checks, and all
+  21 human-preference checks pass. Other untranslated strings and missing
+  Cherokee and Tigre keys remain. Browser and native-speaker reviews
+  were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/dedd2f5f8c">Translate Kazakh list transformations and logic labels</a>. Thanks to xet7.</summary>
 
 - Fill 48 editor strings for list ranges, indexing, insertion, sorting,
