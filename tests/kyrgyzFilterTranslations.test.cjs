@@ -35,12 +35,43 @@ const keys = [
   "board-instance-info",
   "automatic-linked-url-schemes-hint",
   "other-parent-cards",
-  "add-parent-card"
+  "add-parent-card",
+  "remove-parent-card",
+  "r-when-card-date",
+  "r-trigger-vars-hint",
+  "r-insert-variable",
+  "r-vars-people-hint",
+  "r-rule-any-trigger-help",
+  "r-add-trigger-to-rule",
+  "r-add-action-to-rule",
+  "r-remove-rule-part",
+  "notification-activity-heading",
+  "notification-activity-description",
+  "notification-activity-labels",
+  "notification-activity-members",
+  "notification-activity-assignees",
+  "notification-activity-comments",
+  "notification-activity-moves",
+  "notification-activity-dates",
+  "notification-activity-checklists",
+  "notification-activity-attachments",
+  "notification-activity-customFields",
+  "notification-activity-archive",
+  "notification-activity-created",
+  "due-reminder-heading",
+  "due-reminder-days-label",
+  "due-reminder-off",
+  "due-reminder-webhook",
+  "due-reminder-invalid",
+  "due-reminder-saved",
+  "dependency-type-duplicates",
+  "dependency-type-is-duplicated-by"
 ];
 for (const key of keys) {
   assert.ok(locale[key]?.trim(), key);
   assert.notEqual(locale[key], en[key], key);
   assert.deepEqual(translationTokens(locale[key]), translationTokens(en[key]), key);
+  assert.deepEqual(locale[key].match(/%?\{[^}]+\}/g), en[key].match(/%?\{[^}]+\}/g), key);
   assert.deepEqual(locale[key].match(/<[^>]+>/g), en[key].match(/<[^>]+>/g), key);
   assert.deepEqual(locale[key].match(/@[A-Za-z]+/g), en[key].match(/@[A-Za-z]+/g), key);
 }
