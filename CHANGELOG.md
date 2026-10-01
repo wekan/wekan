@@ -12529,6 +12529,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8411c13755649cf70d76bb3a7e12489cb41de96e">Translate Pashto board access and activity notifications</a>. Thanks to xet7.</summary>
+
+- Translate 25 Pashto board access, rule and notification strings.
+- Check access restrictions, variable tokens and notification exceptions while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
