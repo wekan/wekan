@@ -2940,6 +2940,17 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c5a30c4b9362c2df3794f64df3c18ca7a34d2bc5">Translate dependency layers in four more languages</a>. Thanks to xet7.</summary>
+
+- Translate 11 dependency messages into Esperanto, Icelandic, Luxembourgish
+  and Maltese.
+- Coverage now includes 117 locale tags; other locales remain pending.
+- Focused key-order, placeholder and human-preference checks pass.
+  Browser and native-speaker review were not run.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
