@@ -9713,6 +9713,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/95c4516d230af1cbc4968149b03d2fd8cdd58f34">Translate Yoruba activity recovery and time estimates</a>. Thanks to xet7.</summary>
+
+- Fill 29 Yoruba activity recovery and imported time estimate placeholders,
+  preserving existing translations and source tokens.
+- Translation, registry and human-preference checks pass, covering recovery
+  states, retained pending work, time units and missing versus null values.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
