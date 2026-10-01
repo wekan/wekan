@@ -12216,6 +12216,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1d79d8a3b8daa71fe22b42d8522993c1c45977d5">Mongolian rule saving and Scrum planning messages</a>. Thanks to xet7.</summary>
+
+- Translate 52 rule saving and Scrum planning placeholders.
+- Check administrator permissions, conflicting edits and completion policies.
+- Update the README coverage count to 142 after Mongolian crosses its
+  existing threshold; this does not mean all Mongolian strings are complete.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
