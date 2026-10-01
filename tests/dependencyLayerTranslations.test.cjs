@@ -1,0 +1,21 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
+const root = path.resolve(__dirname, '..');
+const read = code => JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data', code + '.i18n.json'), 'utf8'));
+const english = read('en');
+const keys = ["show-my-dependencies", "show-board-dependencies", "my-dependencies", "board-dependencies", "import-dependencies-title", "export-dependencies-title", "dependencies-open-a-board", "dependencies-board-edit-required", "import-dependencies-merged", "dependency-layer-mine", "dependency-read-only"];
+for (const code of ["fi", "sv", "de", "de_DE", "de-AT", "de-CH", "fr", "fr-FR", "fr-BE", "fr-CA", "fr-CH", "es", "es-AR", "es-LA", "es-CL", "es_CO", "es-CO", "es-PY", "es-PE", "es-MX", "it", "pt", "pt-PT", "pt_PT", "pt-BR", "nl", "nl-NL", "ru", "ru-RU", "ru-UA", "ru_RU", "uk", "uk-UA"]) {
+  const locale = read(code);
+  assert.deepEqual(Object.keys(locale), Object.keys(english), code + ': key order');
+  for (const key of keys) {
+    assert.ok(locale[key]?.trim(), code + ':' + key);
+    assert.notEqual(locale[key], english[key], code + ':' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), code + ':' + key);
+  }
+  assert.notEqual(locale['my-dependencies'], locale['board-dependencies']);
+  assert.notEqual(locale['show-my-dependencies'], locale['show-board-dependencies']);
+  assert.notEqual(locale['import-dependencies-title'], locale['export-dependencies-title']);
+}
+console.log('Dependency layer translations: keys, tokens and distinct actions passed');
