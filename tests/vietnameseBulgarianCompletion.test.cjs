@@ -28,6 +28,23 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Uzbek function controls distinguish outputs and screen-reader toggle states.
+for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
+  const locale = read(code);
+  const keys = ["blockly-PARENT_BLOCKS_ANNOUNCEMENT", "blockly-PASTE_ALL_FROM_BACKPACK", "blockly-PASTE_SHORTCUT", "blockly-PROCEDURES_ALLOW_STATEMENTS", "blockly-PROCEDURES_BEFORE_PARAMS", "blockly-PROCEDURES_CALLNORETURN_TOOLTIP", "blockly-PROCEDURES_CALLRETURN_TOOLTIP", "blockly-PROCEDURES_CALL_BEFORE_PARAMS", "blockly-PROCEDURES_CALL_DISABLED_DEF_WARNING", "blockly-PROCEDURES_CREATE_DO", "blockly-PROCEDURES_DEFNORETURN_COMMENT", "blockly-PROCEDURES_DEFNORETURN_PROCEDURE", "blockly-PROCEDURES_DEFNORETURN_TOOLTIP", "blockly-PROCEDURES_DEFRETURN_RETURN", "blockly-PROCEDURES_DEFRETURN_TOOLTIP", "blockly-PROCEDURES_DEF_DUPLICATE_WARNING", "blockly-PROCEDURES_HIGHLIGHT_DEF", "blockly-PROCEDURES_IFRETURN_TOOLTIP", "blockly-PROCEDURES_IFRETURN_WARNING", "blockly-PROCEDURES_MUTATORARG_TITLE", "blockly-PROCEDURES_MUTATORARG_TOOLTIP", "blockly-PROCEDURES_MUTATORCONTAINER_TITLE", "blockly-PROCEDURES_MUTATORCONTAINER_TOOLTIP", "blockly-REMOVE_FROM_BACKPACK", "blockly-RENAME_VARIABLE", "blockly-RENAME_VARIABLE_TITLE", "blockly-RESET_ZOOM", "blockly-SCREENREADER_HINT", "blockly-SCREENREADER_MODE_DISABLED", "blockly-SCREENREADER_MODE_ENABLED"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+    if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
+  }
+  assert.equal(locale['blockly-PROCEDURES_BEFORE_PARAMS'], locale['blockly-PROCEDURES_CALL_BEFORE_PARAMS']);
+  assert.notEqual(locale['blockly-PROCEDURES_DEFNORETURN_TOOLTIP'], locale['blockly-PROCEDURES_DEFRETURN_TOOLTIP']);
+  assert.notEqual(locale['blockly-PROCEDURES_CALLNORETURN_TOOLTIP'], locale['blockly-PROCEDURES_CALLRETURN_TOOLTIP']);
+  assert.match(locale['blockly-SCREENREADER_MODE_DISABLED'], code === 'uz-AR' ? /اۉچیریلگن، یاقیش/ : /oʻchirilgan, yoqish/);
+  assert.match(locale['blockly-SCREENREADER_MODE_ENABLED'], code === 'uz-AR' ? /یاقیلگن، اۉچیریش/ : /yoqilgan, oʻchirish/);
+  assert.match(locale['blockly-PROCEDURES_IFRETURN_WARNING'], code === 'uz-AR' ? /فقط فونکسیه تعریفی ایچیده/ : /faqat funksiya taʼrifi ichida/);
+}
+
 // Uzbek trigonometry keeps inverse functions and angle units distinct.
 for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
   const locale = read(code);
