@@ -9929,6 +9929,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f7e93d2a1548db6067a7de2d3e1b9933ed3fcec6">Translate Igbo Sync reports and diagnostics</a>. Thanks to xet7.</summary>
+
+- Fill 27 Igbo Sync report and diagnostic placeholders, preserving existing
+  translations and source tokens.
+- Translation, registry and human-preference checks pass, covering report
+  limits, retention periods, distinct outcomes and shared omission labels.
+  Wording needs fluent-speaker review; browser review was not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
