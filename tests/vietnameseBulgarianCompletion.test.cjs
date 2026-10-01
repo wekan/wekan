@@ -28,6 +28,22 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Yoruba rule editor and Scrum planning labels.
+{
+  const locale = read('yo');
+  const keys = ["r-blocks-help", "r-blocks-discard", "r-blocks-unavailable", "r-blocks-invalid", "r-blocks-conflict", "r-blocks-permission", "r-blocks-unsaved", "r-blocks-saved", "r-blocks-reload", "board-view-product-backlog", "board-view-sprints", "board-view-sprint-report", "board-view-velocity", "scrum-settings", "scrum-product-owner", "scrum-master", "scrum-developers", "scrum-working-days", "scrum-enabled", "scrum-product-goal", "scrum-definition-of-done", "scrum-estimate-source", "scrum-estimate-unit", "scrum-completion-policy", "scrum-source-poker", "scrum-source-customField", "scrum-policy-dueComplete", "scrum-policy-doneLists", "scrum-sprints", "scrum-sprint", "scrum-start-sprint"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `yo:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `yo:${key}: tokens`);
+  }
+  assert.match(locale['r-blocks-invalid'], /kan ṣoṣo.*kan ṣoṣo/);
+  assert.match(locale['r-blocks-permission'], /àṣẹ olùṣàkóso pátákó/);
+  assert.notEqual(locale['r-blocks-unsaved'], locale['r-blocks-saved']);
+  assert.notEqual(locale['scrum-policy-dueComplete'], locale['scrum-policy-doneLists']);
+  assert.notEqual(locale['scrum-estimate-source'], locale['scrum-estimate-unit']);
+  assert.equal(locale['board-view-sprints'], locale['scrum-sprints']);
+}
+
 // Yoruba Blockly workspace search and composed announcements.
 {
   const locale = read('yo');
