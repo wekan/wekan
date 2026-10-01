@@ -2962,6 +2962,17 @@ and updates the following translations:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d9fd0d67fa28dd92c47498d71badaad1b94f0852">Translate dependency layers in four more languages</a>. Thanks to xet7.</summary>
+
+- Translate 11 dependency messages into Haitian Creole, Latin, Corsican
+  and Occitan.
+- Coverage now includes 127 locale tags; other locales remain pending.
+- Focused key-order, placeholder and human-preference checks pass.
+  Browser and native-speaker review were not run.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.12 2026-09-30 WeKan ® release
