@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3cc8a33470">Translate Bashkir sync diagnostics and email queue guidance</a>. Thanks to xet7.</summary>
+
+- Fill 21 sync report, diagnostic and email queue messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/031ea1ef2b">Translate Bashkir sync previews and source fields</a>. Thanks to xet7.</summary>
 
 - Fill 28 sync preview, replacement-card and source field messages.
