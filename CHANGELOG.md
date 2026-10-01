@@ -1685,6 +1685,18 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/81f98bc1cb">Translate Kazakh Sync previews and run reports</a>. Thanks to xet7.</summary>
+
+- Fill 35 messages for Sync previews, source-field reports and run outcomes,
+  preserving report limits, retention periods and partial-change warnings.
+- Kazakh regression checks, full-locale key and placeholder checks, and all
+  21 human-preference checks pass. Other untranslated strings and missing
+  Cherokee and Tigre keys remain. Browser and native-speaker reviews
+  were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e5de3fcf2f">Translate Kazakh Scrum observations and Sync conflicts</a>. Thanks to xet7.</summary>
 
 - Fill 40 messages for Scrum observations, partial reports and Sync conflict
