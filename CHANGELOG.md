@@ -12284,6 +12284,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/106617b8dd8fecd4c3e236f7ae57522367d542ed">Telugu filters and board access messages</a>. Thanks to xet7.</summary>
+
+- Translate 30 Telugu filter, archive, import and board access placeholders.
+- Check date syntax, template exceptions and signed-in access boundaries
+  while preserving source substitution tokens and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser review was not run; the wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
