@@ -9461,6 +9461,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f8960f2806dcc30f790f13bf592251546c2cd669">Translate Shona delivery failures and activity recovery</a>. Thanks to xet7.</summary>
+
+- Translate 25 delivery recovery and time estimate strings, preserving
+  cancellation boundaries, failure reasons and retry limitations.
+- Translation, registry and human-preference checks pass, covering tokens,
+  null values, estimate fields and distinct notification delivery states.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
