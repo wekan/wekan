@@ -1686,6 +1686,18 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/631eb19587">Complete Bashkir placeholder translations and verify coverage</a>. Thanks to xet7.</summary>
+
+- Translate the final 19 rule email, sign-in and history messages; retain 27
+  literal keyboard, platform and mathematical labels as locale exceptions.
+- Bashkir has no reported untranslated prose, including pending source keys.
+  Whole-locale key-order and placeholder checks and all 21 human-preference
+  checks pass. The shared suite still fails on missing Cherokee dependency
+  keys. Browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/eae64c06c2">Translate Bashkir activity notification recovery</a>. Thanks to xet7.</summary>
 
 - Fill 29 time estimate and activity notification recovery messages.
