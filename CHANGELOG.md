@@ -1685,6 +1685,17 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/60b9e529f2">Translate Cantonese editing actions and bitmap controls</a>. Thanks to xet7.</summary>
+
+- Fill 31 messages for loop behaviour, editing actions, deletion prompts,
+  block expansion and bitmap controls, preserving numbered placeholders.
+- Cantonese key-order, translation and placeholder checks and all 21
+  human-preference checks pass. Other untranslated strings remain;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8f85de9cf9">Translate Cantonese colour and control-flow blocks</a>. Thanks to xet7.</summary>
 
 - Fill 35 editor commands and tooltips for colours, loops and conditional
