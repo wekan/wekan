@@ -28,6 +28,22 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Igbo Sync conflict resolution and preview scope.
+{
+  const locale = read('ig');
+  const keys = ["sync-conflict-use-source", "sync-conflict-refresh", "sync-conflict-review-complete", "sync-conflict-duplicate", "sync-conflict-keep-mapping", "sync-conflict-detach", "sync-conflict-detach-hint", "sync-conflict-archive", "sync-conflict-archive-hint", "sync-conflict-keep-card-local", "sync-conflict-creation", "sync-conflict-creation-hint", "sync-conflict-create-replacement", "sync-preview-button", "sync-preview-heading", "sync-preview-saved", "sync-preview-unavailable", "sync-preview-blocked", "sync-preview-create", "sync-preview-update", "sync-preview-archive", "sync-preview-baseline", "sync-preview-truncated", "sync-preview-omissions", "sync-preview-scope", "sync-preview-excluded", "sync-preview-unmapped", "sync-preview-parser-warnings"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `ig:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ig:${key}: tokens`);
+  }
+  assert.match(locale['sync-conflict-review-complete'], /Emeghị.*ndepụta niile/);
+  assert.match(locale['sync-conflict-archive-hint'], /naghị agbanwe kaadị nta/);
+  assert.match(locale['sync-conflict-detach-hint'], /naanị.*Ọdịnaya ya na-anọ na WeKan/);
+  assert.match(locale['sync-preview-truncated'], /100/);
+  assert.notEqual(locale['sync-conflict-use-source'], locale['sync-conflict-keep-local']);
+  assert.equal(new Set(['create', 'update', 'archive'].map(action => locale[`sync-preview-${action}`])).size, 3);
+}
+
 // Igbo sprint closure and daily observation limits.
 {
   const locale = read('ig');
