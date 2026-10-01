@@ -9173,6 +9173,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9a0df359a2a3d96089674d034366ffe256c3a670">Translate Shona map and Blockly accessibility instructions</a>. Thanks to xet7.</summary>
+
+- Fill 24 English placeholders for maps and Blockly accessibility instructions.
+  Preserve existing translations and the Alt key name.
+- Translation, registry and human-preference checks pass, covering map
+  placement choices, movement directions and exact positional tokens.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
