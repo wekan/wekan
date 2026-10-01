@@ -9521,6 +9521,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a8bd18886e0c25a146b8f555982ba91d3f3a5fd7">Translate Yoruba reminders and saved filters</a>. Thanks to xet7.</summary>
+
+- Translate 24 reminder, saved filter and import report strings, preserving
+  reminder offsets, template variables and recovery navigation labels.
+- Translation, registry and human-preference checks pass, covering tokens,
+  numeric limits, private filter replacement and distinct saved states.
+  Wording needs fluent-speaker review; browser review not run.
+  Wider translation completion remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
