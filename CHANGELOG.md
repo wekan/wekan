@@ -12781,6 +12781,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/68e247396a44db3c2acfa4a8bbb58cf576b081f4">Translate Pashto synchronization conflicts and previews</a>. Thanks to xet7.</summary>
+
+- Translate 25 Pashto synchronization conflict and preview strings.
+- Check retained local cards, unchanged subcards and replacement reuse while
+  preserving placeholders and existing translations.
+- Translation, language registration and human-preference checks pass.
+  Browser and native-speaker review were not run.
+  The wider translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
