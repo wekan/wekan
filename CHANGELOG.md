@@ -1675,6 +1675,21 @@ template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/99bab720d3">Translate dependency layers in four more languages</a>. Thanks to xet7.</summary>
+
+- Translate 11 dependency messages into Aragonese, Asturian, Sardinian
+  and Sicilian. Wording has lower confidence and needs native-speaker review.
+- Coverage now includes 135 locale tags; other locales remain pending.
+- Focused key-order, placeholder and human-preference checks pass.
+  Browser and native-speaker review were not run.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.14 2026-10-01 WeKan ® release
 
 **In short:** A translation test now checks the Trello link by its parsed host,
