@@ -1685,6 +1685,16 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3e93769ef0">Translate Javanese editor field and block labels</a>. Thanks to xet7.</summary>
+
+- Fill 36 editor field, block and colour labels.
+- Focused key-order, placeholder and restriction checks and all 21
+  human-preference checks pass. Full-language translation work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5aa9d038d5">Translate Javanese map and accessibility messages</a>. Thanks to xet7.</summary>
 
 - Fill 35 map instructions, movement announcements and accessibility labels.
