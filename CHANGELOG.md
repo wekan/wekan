@@ -1686,6 +1686,17 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b0e76f3cde">Translate Assamese input and keyboard navigation messages</a>. Thanks to xet7.</summary>
+
+- Fill 29 numeric-input, text-input and keyboard-navigation messages
+  in Assamese.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass, as do all 21 human-preference checks. Full-language work,
+  browser and native-speaker reviews remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/994623c4b6">Translate Assamese list and numeric input labels</a>. Thanks to xet7.</summary>
 
 - Fill 31 editor, list, loop and numeric-input labels in Assamese.
