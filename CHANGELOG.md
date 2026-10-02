@@ -1814,6 +1814,22 @@ The broader translation backlog remains open.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/49c078c0e0">Translate feature visibility settings in ninety locales</a>. Thanks to xet7.</summary>
+
+Translate all 24 optional-feature labels, explanations, approval controls and
+pilot-user notices in ninety locales. Keep the distinction between hiding a
+feature and removing its data or changing permissions. Regional Portuguese and
+Chinese wording is retained, and administrator previews remain distinct from
+pilot-user access. Other locales still need these strings translated.
+
+The 225 translation and i18n suites passed before the final locale extension;
+the expanded feature suite and full-catalog completeness checks passed afterward.
+The new Taskwarrior import key is synchronized in source order as an English
+placeholder for subsequent translation. Existing translations are preserved.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
