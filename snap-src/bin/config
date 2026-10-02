@@ -495,7 +495,7 @@ DEFAULT_LDAP_CA_CERT=""
 KEY_LDAP_CA_CERT="ldap-ca-cert"
 
 DESCRIPTION_LDAP_REJECT_UNAUTHORIZED="Reject Unauthorized Certificate"
-DEFAULT_LDAP_REJECT_UNAUTHORIZED="false"
+DEFAULT_LDAP_REJECT_UNAUTHORIZED="true"
 KEY_LDAP_REJECT_UNAUTHORIZED="ldap-reject-unauthorized"
 
 DESCRIPTION_LDAP_USER_AUTHENTICATION="Option to login to the LDAP server with the user's own username and password, instead of an administrator key. Default: false (use administrator key)."

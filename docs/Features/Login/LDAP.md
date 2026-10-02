@@ -428,9 +428,11 @@ services:
       # LDAP_CA_CERT : The certification for the LDAPS server
       # example : LDAP_CA_CERT=-----BEGIN CERTIFICATE-----MIIE+zCCA+OgAwIBAgIkAhwR/6TVLmdRY6hHxvUFWc0+Enmu/Hu6cj+G2FIdAgIC...-----END CERTIFICATE-----
       #- LDAP_CA_CERT=''
-      # LDAP_REJECT_UNAUTHORIZED : Reject Unauthorized Certificate
-      # example : LDAP_REJECT_UNAUTHORIZED=true
-      - LDAP_REJECT_UNAUTHORIZED=false
+      # LDAP_REJECT_UNAUTHORIZED : Reject Unauthorized Certificate. Default true:
+      # the LDAPS / StartTLS server certificate is verified. For a self-signed
+      # or private CA, put the CA in LDAP_CA_CERT rather than turning this off.
+      # Only the exact value false disables verification.
+      - LDAP_REJECT_UNAUTHORIZED=true
       # LDAP_USER_SEARCH_FILTER : Optional extra LDAP filters. Don't forget the outmost enclosing parentheses if needed
       # example : LDAP_USER_SEARCH_FILTER=
       - LDAP_USER_SEARCH_FILTER=

@@ -118,7 +118,10 @@ export default class LDAP {
       // (deprecated but still working); anything else warns and means 'off'.
       encryption                         : normalizeLdapEncryption(this.constructor.settings_get('LDAP_ENCRYPTION')).mode,
       ca_cert                            : this.constructor.settings_get('LDAP_CA_CERT'),
-      reject_unauthorized                : this.constructor.settings_get('LDAP_REJECT_UNAUTHORIZED') !== undefined ? this.constructor.settings_get('LDAP_REJECT_UNAUTHORIZED') : true,
+      // Certificates are verified unless LDAP_REJECT_UNAUTHORIZED is exactly
+      // false (maintainer decision 2026-10-02): unset, empty or anything else
+      // verifies. An empty value used to turn verification off.
+      reject_unauthorized                : this.constructor.settings_get('LDAP_REJECT_UNAUTHORIZED') !== false,
       Authentication                     : this.constructor.settings_get('LDAP_AUTHENTIFICATION'),
       Authentication_UserDN              : this.constructor.settings_get('LDAP_AUTHENTIFICATION_USERDN'),
       // The bind password is resolved separately from settings_get()'s generic
