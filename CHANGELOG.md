@@ -3484,6 +3484,23 @@ messages in 28 locale tags; the broader translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/676a7ab7d0">Translate email recovery in Aromanian and Northern Sámi</a>. Thanks to xet7.</summary>
+
+Fill 46 English placeholders and replace three Spanish or Italian email labels
+in Aromanian. Preserve correct-language translations, source order and exact
+tokens. Extend cancellation, uncertain-delivery, pause and language checks;
+correct read and cancellation wording during review. Four focused catalog and
+translation suites and all 21 human-preference checks pass.
+
+Specialist phrasing and inflection in Aromanian and Northern Sámi have lower
+confidence and need speaker review. References include [RISE UP's Aromanian text](https://www.riseupproject.eu/wp-content/uploads/2025/11/Travelling-Exhibition-70x100-AROMANIAN.pdf)
+and [Northern Sámi public-service messages](https://www.vero.fi/other_language/balvalus_samegilli/suomi.fi-diedahusat-ja-elektrovnnalas-vearroboasta).
+Structural checks do not establish fluency. Email recovery still has English
+messages in 26 locale tags; the broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
