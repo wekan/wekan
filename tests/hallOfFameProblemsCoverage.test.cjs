@@ -46,6 +46,14 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 // response CARRIED, or only takes effect at build time, so there is no attempt to
 // attribute - not merely when nobody has written the key yet.
 const DELIBERATE = {
+  // 2026-10-02 additions.
+  ArchiveBleed: 'a member who is not a board admin reaches the refusal by importing from a board page, which is ordinary use',
+  AuthMethodBleed: 'the fix changed what the publication carries; unauthenticated subscriptions were already recorded',
+  CodeBleed: 'a wrong one-time code is indistinguishable from a mistyped one; the fix is the code\'s entropy and lifetime',
+  DirectoryInfoBleed: 'the fix changed what the settings publication carries to non-admins',
+  HookUrlBleed: 'the fix changed what the board publication carries to non-admins',
+  MigrationBleed: 'the fix changed what the migration progress methods return',
+  ZipBombBleed: 'an oversized entry can be an honest large export, so a refusal does not identify an attack',
   ExportScopeBleed: 'assigned-only members can reach ordinary export menus; rejecting an unscoped '
     + 'export cannot distinguish malicious access from normal use, and existing generic export denial logging remains in place',
   HistoryScopeBleed: 'history filtering changes what normal responses carry; restoration denials can follow '

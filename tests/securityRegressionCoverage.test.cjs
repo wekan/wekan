@@ -170,6 +170,19 @@ const GUARDED = {
   syncbleed: ['tests/syncBleed.test.cjs', 'tests/playwright/specs/list-sync-source.e2e.js'],
   relaybleed: ['tests/relayBleed.test.cjs'],
   readonlybleed: ['tests/readOnlyBleed.test.cjs', 'tests/assignedbleed.test.cjs'],
+  repointbleed: ['tests/repointBleed.test.cjs', 'tests/playwright/specs/repoint-bleed.e2e.js'],
+  prototypebleed: ['tests/prototypeBleed.test.cjs', 'tests/playwright/specs/prototype-bleed.e2e.js'],
+  backgroundbleed: ['tests/backgroundBleed.test.cjs', 'tests/playwright/specs/background-bleed.e2e.js'],
+  codebleed: ['tests/codeBleed.test.cjs'],
+  hookbleed: ['tests/webhookPreparation.test.cjs', 'tests/playwright/specs/hook-bleed.e2e.js'],
+  zipbombbleed: ['tests/zipBombBleed.test.cjs'],
+  castokenbleed: ['tests/casStateBinding.test.cjs'],
+  traybleed: ['tests/notificationTrayWrite.test.cjs', 'tests/playwright/specs/tray-bleed.e2e.js'],
+  hookurlbleed: ['tests/webhookUrlPublication.test.cjs', 'tests/playwright/specs/hook-url-bleed.e2e.js'],
+  directoryinfobleed: ['tests/settingLdapPublication.test.cjs', 'tests/playwright/specs/directory-info-bleed.e2e.js'],
+  migrationbleed: ['tests/attachmentMigrationLeak.test.cjs', 'tests/playwright/specs/migration-bleed.e2e.js'],
+  authmethodbleed: ['tests/userAuthMethodPublication.test.cjs', 'tests/playwright/specs/auth-method-bleed.e2e.js'],
+  archivebleed: ['tests/sandstormReplaceBoard.test.cjs'],
   emailbleed: ['tests/adminMailSettings.test.cjs'],
   bflableed: ['tests/unawaitedAccessCheck.test.cjs'],
   megableed: ['tests/tenantbleed.test.cjs'],
@@ -323,7 +336,8 @@ test('the whole published list is accounted for', () => {
   // 122 -> 123: RelayBleed (2026-10-02), guarded.
   // 123 -> 124: EmailBleed, published since 2021 but missed by a case-sensitive
   // match of its "Emailbleed" spelling; guarded.
-  assert.strictEqual(total, 124, 'the Hall of Fame and this list disagree on how many there are');
+  // 124 -> 137: thirteen newly published 2026-10-02 names, all guarded.
+  assert.strictEqual(total, 137, 'the Hall of Fame and this list disagree on how many there are');
 });
 
 test('the companion Hall of Fame names match the inventory when available', () => {
