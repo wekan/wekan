@@ -3584,6 +3584,22 @@ messages in 16 locale tags; the broader translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a50b808fce">Translate email recovery in Guarani and Klingon</a>. Thanks to xet7.</summary>
+
+Fill 46 English placeholders, preserving existing translations, source order and
+exact tokens. Extend cancellation, uncertain-delivery and retained-pause checks;
+review Klingon word order, capitalization and retry wording. Four focused catalog
+and translation suites and all 21 human-preference checks pass.
+
+Specialist workflow wording and grammar in Guarani and Klingon have lower
+confidence and need speaker review. References include [Ñe’ẽrandu](https://xn--eerandu-3za.com/)
+and [the Klingon Pocket Dictionary](https://klingonska.org/dict/).
+Structural checks do not establish fluency. Email recovery still has English
+messages in 14 locale tags; the broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
