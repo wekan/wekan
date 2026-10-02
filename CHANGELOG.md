@@ -257,14 +257,14 @@ Remaining, and why:
        addedLabel activities re-pointed or removed; checklist and item
        boardId; the inbound dependencies left on the old board; attachment
        placement; and the legacy undo row.
-    Written so far, uncommitted: server/lib/syncRuleMoveBoardCommand.js (the
-    pure command) and RULE_CARD_MOVE_BOARD_FIELDS in
-    server/lib/syncHistoryBatch.js. Still to do: recording-scope kinds for
-    the dependencies History row and for the label-activity hook (which runs
-    while the card is still on the old board), the runner and its collection,
-    the guard following a cross-board move of the same plan, eligibility, and
-    node and server tests. Until then such a rule keeps its board on direct
-    Sync.
+    Committed as groundwork (see Upcoming), not yet used: the pure command
+    server/lib/syncRuleMoveBoardCommand.js, RULE_CARD_MOVE_BOARD_FIELDS in
+    server/lib/syncHistoryBatch.js, and the recording-scope kinds for the
+    dependencies History row and the label-activity hook. Paused on
+    2026-10-02; still to do: the runner and its collection, routing the move
+    actions to it, the rule guard and the notification and webhook stages
+    following a card this plan moved to another board, eligibility, and node
+    and server tests. Until then such a rule keeps its board on direct Sync.
   - *Adding a swimlane* is durable in what it writes - the swimlane and its
     createSwimlane activity each exist once across replays - but that activity
     is delivered the ordinary way: it has no card, and the durable activity
@@ -319,22 +319,10 @@ card on its own board, adding a swimlane, Caddy's open-file limit in the snap
 (#6552) and LDAP diagnostics in production (#6548). Cross-board rule effects
 remain, as above.
 
-Status on 2026-10-02, later, committed locally and not yet in Upcoming:
-
-- Rule links and copies to another board are durable when both boards opted
-  in (eligibility follows every board a rule reaches, and the runner checks
-  the destination again before each write). Both are tested through the
-  stored rule stage, and the link through a whole Sync run.
-- A card-field rule acting on a linked card writes the card it links to, as
-  the ordinary setters do through getRealId. Before, a durable link followed
-  by such a rule failed its Sync run on every replay.
-- A durable Sync run whose rule moved or archived the synced card now
-  finishes. A replay after an interruption finishes the step's effects
-  instead of retrying a write it could never confirm, and the notification
-  and webhook stages accept the card where the activity's own rules moved it.
-  Before, every run whose rule moved a card out of the list failed.
-- A card moved to another board keeps its addedLabel activities. The hook
-  that re-points them ran twice per update, and the second run deleted them.
+Built later on 2026-10-02 (in Upcoming): rule links and copies to another
+board when both boards opted in, card-field rules on linked cards, durable Sync
+runs whose rules move or archive the synced card, and label activities kept
+when a card moves to another board.
 
 Investigated but not finished, with findings
 recorded for whoever picks them up next. Entries that have since been FIXED are
@@ -1756,8 +1744,8 @@ and can keep features from later updates off until approved. **Board Settings /
 Card** gives every row a card and a minicard side, shows each Scrum field as its
 own row and reorders rows by **drag and drop**, as does Board View. Boards
 import and export **Taskwarrior** JSON, more rule actions run through durable
-Sync, webhooks can opt into **act-editCard**, and translations cover more
-languages.
+Sync - links and copies to **another board** too, when both boards opted in -
+webhooks can opt into **act-editCard**, and translations cover more languages.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code
 scanning:
@@ -2001,6 +1989,35 @@ tests/syncRuleAddSwimlaneCommand.test.cjs and a server test with replay.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ab611bcd79">Rule links to another board are durable when both boards opted in</a>. Thanks to xet7.</summary>
+
+As decided on 2026-10-02, a linkCard rule onto another board keeps durable Sync
+only when that board has Sync effects enabled and the actor may write there.
+Eligibility follows every board such rules reach, because the link's creation
+activity runs that board's own rules through the same stored stages, and the
+runner checks the destination again before each write. A card-field rule
+acting on a linked card now writes the card it links to, as the ordinary
+setters do through getRealId; before, a durable link followed by such a rule
+would have failed its Sync run on every replay. Tests: the link, closure and
+card-field command suites, a server test with the destination's own rule and
+the opt-out negatives, and
+[a whole Sync run](https://github.com/wekan/wekan/commit/151e31f8d7).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/52a2ed7386">Rule copies to another board are durable when both boards opted in</a>. Thanks to xet7.</summary>
+
+The same saved copy command, with that board as its target: labels by name,
+custom fields as Card.copy maps them, that board's card number and the
+dependencies that stay on it; checklists, items, subtasks, comments and
+attachments all land there. The server test compares the result with the
+ordinary Card.copy and checks that a destination that opted out is refused
+before anything is copied.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/307bad3e8e">Saving Sync settings gives an old list its lifetime, so it can use durable Sync</a>. Thanks to xet7.</summary>
 
 A list created before list lifetimes had no incarnation and stayed on direct
@@ -2049,6 +2066,32 @@ password. Test: tests/ldapDiagnostics6548.test.cjs.
 
 </details>
 
+**List Sync** - runs whose rules move cards, and cards that change board.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d82a54944a">A durable Sync run finishes when its rule moved or archived the card it synced</a>. Thanks to xet7.</summary>
+
+A step's rules run after its card write, so the card could match neither of
+the step's states. A replay after an interruption retried the write and failed
+on every replay; it now treats a stored planned activity as proof of the write
+and finishes the idempotent effects. And every run whose durable rule moved the
+card out of the list failed in the notification and webhook stages, which now
+accept the card where the activity's own rules moved it, and nowhere else. A
+failed replay now logs why. Tests: tests/syncOperationApply.test.cjs and a
+server test that crashes a Sync run after a rule moved the card and replays it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8cdf993085">A card moved to another board keeps its label activities</a>. Thanks to xet7.</summary>
+
+The hook that re-points a moved card's addedLabel activities at the new
+board's labels ran twice per update, and the second run deleted everything the
+first had re-pointed. It runs once now. Tests: a server test of Card.move
+across boards and a guard that nothing calls it twice.
+
+</details>
+
 and has the following developer-facing changes:
 
 **Tests and the backlog** - guards that follow the decisions above.
@@ -2056,6 +2099,7 @@ and has the following developer-facing changes:
 - [The #4912 guards pin the opt-in act-editCard choice](https://github.com/wekan/wekan/commit/5a9bd80ed6). Thanks to xet7.
 - [TODO Later records the maintainer decisions of 2026-10-02](https://github.com/wekan/wekan/commit/34b1879d6f). Thanks to xet7.
 - [The RTL, issue-type and source-audit guards follow the Board Settings / Card work](https://github.com/wekan/wekan/commit/999819e63e). Thanks to xet7.
+- [The saved command for rule moves to another board is written, not yet used](https://github.com/wekan/wekan/commit/e108bb83b0). Thanks to xet7.
 
 and improves translation regression checks:
 
@@ -2461,6 +2505,21 @@ checks do not establish fluency. References included
 [Northern Sámi vocabulary](https://kaikki.org/dictionary/All%20languages%20combined/meaning/l/lo/lohpi.html),
 [the Veps dictionary](https://vepsnoid.blogspot.com/p/dictionary.html)
 and [Tibetan terminology](https://linguatools.info/?page=191&per_page=10).
+The remaining translation queue and older wrong-language text still need work.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3bf26c910d">Translate feature and card settings in Dzongkha and Tigrinya</a>. Thanks to xet7.</summary>
+
+Add 54 messages in Dzongkha and Tigrinya, preserving each language's existing
+card terminology. Feature settings now cover 220 locale tags and the three
+card-setting labels cover 88. All six selected catalog and language suites
+pass, including script, data-retention wording, current keys and placeholder
+inventories. Specialist workflow terminology has lower confidence and remains
+open to native review. References included
+[Dzongkha computer terminology](https://download-mirror.savannah.gnu.org/releases/dzongkha-gnome/dzongkha_computer_terms.pdf)
+and [Tigrinya permission vocabulary](https://www.geezexperience.com/?dr=0&searchkey=permission).
 The remaining translation queue and older wrong-language text still need work.
 
 </details>
