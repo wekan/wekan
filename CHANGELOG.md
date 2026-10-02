@@ -1686,6 +1686,17 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/fd6c746631">Translate Assamese mathematical function messages</a>. Thanks to xet7.</summary>
+
+- Fill 30 rounding, logarithm and trigonometry messages in Assamese.
+  Specialized terminology remains low confidence pending native-speaker review.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass, as do all 21 human-preference checks. Full-language work and
+  browser review remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6b9029d4ba">Translate Assamese statistics and numeric operations</a>. Thanks to xet7.</summary>
 
 - Fill 30 statistics and numeric-operation messages in Assamese.
