@@ -16,8 +16,17 @@ WebApp.handlers.use(WebApp.express.json({ limit: '50mb' }));
 // ---------------------------------------------------------------------------
 // 2. API gate — check WITH_API env var (previously in models/users.js)
 // ---------------------------------------------------------------------------
+// Express matches routes case-insensitively and on the decoded path, so the
+// gate must too: with WITH_API off, /API/... and /%61pi/... reached the API
+// (2026-10-02).
+function isApiPath(url) {
+  let pathname = String(url || '').split('?')[0];
+  try { pathname = decodeURIComponent(pathname); } catch (e) { /* keep it raw */ }
+  return /^\/api(\/|$)/i.test(pathname);
+}
+
 WebApp.handlers.use(function apiGate(req, res, next) {
-  const api = req.url.startsWith('/api');
+  const api = isApiPath(req.url);
   if ((api && process.env.WITH_API === 'true') || !api) {
     return next();
   }

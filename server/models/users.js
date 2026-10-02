@@ -1780,6 +1780,10 @@ Meteor.methods({
     check(userId, Match.Any);
 
     if (!Match.test(userId, String) || !userId) return false;
+    // Whether an account is being impersonated is the account's own business,
+    // or an admin's - it answered anybody, signed in or not (2026-10-02).
+    if (!this.userId) return false;
+    if (userId !== this.userId && !(await ReactiveCache.getUser({ _id: this.userId, isAdmin: true }))) return false;
 
     return await ReactiveCache.getImpersonatedUser({ userId });
   },
