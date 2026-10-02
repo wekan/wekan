@@ -178,6 +178,10 @@ export const RulesHelper = {
   async ruleChecklistTitle(activity, card, action) {
     return substituteVars(action.checklistName, await buildRuleVars(activity, card));
   },
+  // ...and the item titles an addChecklistWithItems action names.
+  async ruleChecklistItemTitles(activity, card, action) {
+    return String(substituteVars(action.checklistItems, await buildRuleVars(activity, card))).split(',');
+  },
   // The people a member action names, resolved exactly as performAction does
   // below (#2522 acting user, #4294 tokens, #2674 "remove every member" reads
   // the card's assignees): for the durable rule card command
@@ -905,6 +909,8 @@ export const RulesHelper = {
       });
     }
     if (action.actionType === 'addChecklistWithItems') {
+      // The same titles the durable command captures (ruleChecklistTitle,
+      // ruleChecklistItemTitles).
       const checkListId = await Checklists.insertAsync({
         title: substituteVars(action.checklistName, ruleVars),
         cardId: card._id,

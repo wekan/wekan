@@ -8,7 +8,8 @@ const KINDS = ['create','archive','title','description','customFields','history'
 const ITEM_KINDS = ['itemUncomplete','itemCheck','itemHistory'];
 // A checklist's activity hook and its History lifecycle hook, for a scope that
 // names that checklist (server/lib/syncRuleChecklistLifecycleCommand.js).
-const CHECKLIST_KINDS = ['checklistActivity','checklistHistory'];
+// ...and its items' two hooks, for each item the same command inserts.
+const CHECKLIST_KINDS = ['checklistActivity','checklistHistory','checklistItemActivity','checklistItemHistory'];
 async function withSyncRecordingDeferred({ cardId, boardId, listId, kinds, itemId = null, checklistId = null }, work) {
   if (![cardId,boardId,listId].every(value=>typeof value==='string'&&value) || !Array.isArray(kinds) ||
       (itemId!==null && (typeof itemId!=='string' || !itemId)) ||
@@ -47,7 +48,9 @@ function deferSyncItemRecording(kind, doc) {
 // The same one-shot slots for the one checklist a scope names.
 function deferSyncChecklistRecording(kind, doc) {
   const scope=storage.getStore();
-  if(!scope?.active || scope.checklistId===null || !scope.kinds.has(kind) || doc?._id!==scope.checklistId ||
+  // An item kind names the item by its checklist: the scope wraps one insert.
+  const owner=kind.startsWith('checklistItem') ? doc?.checklistId : doc?._id;
+  if(!scope?.active || scope.checklistId===null || !scope.kinds.has(kind) || owner!==scope.checklistId ||
       doc.cardId!==scope.cardId) return false;
   scope.kinds.delete(kind);
   return true;

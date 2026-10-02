@@ -63,14 +63,16 @@ const lifecycleRowId = (effectId, entityId) => `sync-history-${sha256(canonical(
 // The rows one checklist creation or removal records. `documents` are the
 // checklists as stored (the JSON round trip the hook makes), `where` the card's
 // placement the hook locates them by.
-function prepareChecklistLifecycleHistory({ documents, changeType, where, effectId, userId, createdAt, redoRows = [] }) {
-  if (!/^[a-f0-9]{64}$/.test(effectId) || typeof userId !== 'string' || !userId || !Array.isArray(documents) ||
+function prepareChecklistLifecycleHistory({ documents, changeType, where, effectId, userId, createdAt, redoRows = [],
+  entityType = 'checklist' }) {
+  if (!['checklist', 'checklistItem'].includes(entityType) ||
+      !/^[a-f0-9]{64}$/.test(effectId) || typeof userId !== 'string' || !userId || !Array.isArray(documents) ||
       !['added', 'removed'].includes(changeType) || !where || !(createdAt instanceof Date) ||
       !Number.isFinite(createdAt.getTime())) fail();
   const rows = documents.map(document => {
     const snapshot = JSON.parse(JSON.stringify(document));
     return { _id: lifecycleRowId(effectId, snapshot._id), boardId: where.boardId, swimlaneId: where.swimlaneId ?? null,
-      listId: where.listId, cardId: where.cardId, entityType: 'checklist', entityId: snapshot._id, group: 'checklists',
+      listId: where.listId, cardId: where.cardId, entityType, entityId: snapshot._id, group: 'checklists',
       changeType, previousContent: changeType === 'removed' ? { document: snapshot } : null,
       newContent: changeType === 'added' ? { document: snapshot } : null,
       userId, batchId: `sync-${effectId}`, restoredFromId: null, restoredByUserId: null, createdAt: new Date(createdAt),
@@ -164,7 +166,9 @@ function validateLifecycleRow(plan, row, ids) {
     typeof content.document === 'object' && !Array.isArray(content.document) && content.document._id === row.entityId &&
     canonical(JSON.parse(JSON.stringify(content.document))) === canonical(content.document);
   const added = row.changeType === 'added';
-  if (Object.keys(row).sort().join(',') !== ROW_KEYS || row.group !== 'checklists' || row.entityType !== 'checklist' ||
+  // A checklist or one of its items: the hook records both in the Checklists group.
+  if (Object.keys(row).sort().join(',') !== ROW_KEYS || row.group !== 'checklists' ||
+      !['checklist', 'checklistItem'].includes(row.entityType) ||
       !['added', 'removed'].includes(row.changeType) || typeof row.entityId !== 'string' || !row.entityId ||
       row._id !== lifecycleRowId(plan.effectId, row.entityId) || ids.has(row._id) ||
       row.boardId !== plan.boardId || row.userId !== plan.userId || row.batchId !== `sync-${plan.effectId}` ||

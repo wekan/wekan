@@ -541,12 +541,15 @@ export async function runStoredSyncRuleChecklistLifecycle({ index, completeDeliv
     const redoRows = await ChangeHistory.find({ boardId: plan.boardId, userId: plan.actorId, undone: true,
       superseded: { $ne: true } }, { transform: null, limit: 10000 }).fetchAsync();
     // The ordinary action's own title and selector (server/rulesHelper.js performAction).
-    const title = action.actionType === 'addChecklist' && card
-      ? await RulesHelper.ruleChecklistTitle(context.saved, await Cards.findOneAsync(plan.cardId), action) : undefined;
+    const adds = ['addChecklist', 'addChecklistWithItems'].includes(action.actionType);
+    const modelCard = adds && card ? await Cards.findOneAsync(plan.cardId) : null;
+    const title = modelCard ? await RulesHelper.ruleChecklistTitle(context.saved, modelCard, action) : undefined;
+    const itemTitles = modelCard && action.actionType === 'addChecklistWithItems'
+      ? await RulesHelper.ruleChecklistItemTitles(context.saved, modelCard, action) : [];
     const checklists = action.actionType === 'removeChecklist' && card
       ? await Checklists.rawCollection().find({ title: action.checklistName, cardId: card._id, sort: 0 },
         { sort: { _id: 1 }, limit: 1001 }).toArray() : [];
-    const candidate = prepareRuleChecklistLifecycleCommand({ ...commandContext, card, title, checklists,
+    const candidate = prepareRuleChecklistLifecycleCommand({ ...commandContext, card, title, itemTitles, checklists,
       createdAt: new Date(), redoRows });
     await guard();
     let failure;
@@ -565,11 +568,12 @@ export async function runStoredSyncRuleChecklistLifecycle({ index, completeDeliv
       trigger: options.trigger }) });
   const record = history => persistSyncFieldHistory({ history: ChangeHistory, plan: history, assertCurrent: guard,
     fields: RULE_CHECKLIST_LIFECYCLE });
-  const deferred = (checklistId, work) => DDP._CurrentMethodInvocation.withValue({ userId: command.actorId,
-    isSimulation: false }, () => withSyncRecordingDeferred({ cardId: command.cardId, boardId: command.boardId,
-    listId: command.listId, checklistId, kinds: ['checklistActivity', 'checklistHistory'] }, work));
+  const deferred = (checklistId, work, kinds = ['checklistActivity', 'checklistHistory']) =>
+    DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false },
+      () => withSyncRecordingDeferred({ cardId: command.cardId, boardId: command.boardId,
+        listId: command.listId, checklistId, kinds }, work));
   const lists = Checklists.rawCollection();
-  if (command.actionType === 'addChecklist') {
+  if (command.actionType !== 'removeChecklist') {
     await guard();
     if (!await lists.findOne({ _id: command.checklistId })) {
       // The ordinary insert, with its derived id: schema defaults, timestamps
@@ -577,17 +581,31 @@ export async function runStoredSyncRuleChecklistLifecycle({ index, completeDeliv
       await deferred(command.checklistId, () => Checklists.insertAsync({ _id: command.checklistId, title: command.title,
         cardId: command.cardId, sort: 0 }));
     }
+    // addChecklistWithItems: each item as the ordinary loop inserts it.
+    const itemsCollection = ChecklistItems.rawCollection();
+    for (const item of command.items || []) {
+      await guard();
+      if (!await itemsCollection.findOne({ _id: item.itemId })) {
+        await deferred(command.checklistId, () => ChecklistItems.insertAsync({ _id: item.itemId, title: item.title,
+          checklistId: command.checklistId, cardId: command.cardId, sort: item.sort }),
+        ['checklistItemActivity', 'checklistItemHistory']);
+      }
+    }
     if (command.recorded === null) {
       const stored = await lists.findOne({ _id: command.checklistId });
-      if (!stored) throw new Error('sync-rule-checklist-lifecycle-unconfirmed');
+      const storedItems = await Promise.all((command.items || []).map(item => itemsCollection.findOne({ _id: item.itemId })));
+      if (!stored || storedItems.some(item => !item)) throw new Error('sync-rule-checklist-lifecycle-unconfirmed');
       await guard();
       // First writer wins: a replay racing this one records the same thing.
       await commands.updateOne({ _id: command._id, recorded: null },
-        { $set: { recorded: recordAddedChecklist(command, stored) } });
+        { $set: { recorded: recordAddedChecklist(command, stored, storedItems) } });
       command = validateRuleChecklistLifecycleCommand(await commands.findOne({ _id: id }), commandContext);
     }
-    if (command.recorded.history.rows.length) await record(command.recorded.history);
-    await deliver(command.recorded);
+    // The checklist's activity and row, then each item's, as the hooks write them.
+    for (const unit of command.recorded.units) {
+      if (unit.history.rows.length) await record(unit.history);
+      await deliver(unit);
+    }
   } else {
     for (const unit of command.units) {
       // The before-remove activity, the removal, then the after-remove History.

@@ -34,9 +34,11 @@ test('addChecklist: one derived checklist id, and the hooks\' rows recorded from
   assert.equal(f.prepare({ title: 'Steps for T', createdAt: new Date(2000) }).checklistId, command.checklistId,
     'a replayed capture names the same checklist');
   const recorded = L.recordAddedChecklist(command, { ...stored(command.checklistId, 'Steps for T') });
-  assert.deepEqual([recorded.activity.activityType, recorded.activity.checklistId, recorded.activity.checklistName],
+  assert.equal(recorded.units.length, 1);
+  const [unit] = recorded.units;
+  assert.deepEqual([unit.activity.activityType, unit.activity.checklistId, unit.activity.checklistName],
     ['addChecklist', command.checklistId, 'Steps for T']);
-  const [row] = recorded.history.rows;
+  const [row] = unit.history.rows;
   assert.deepEqual([row.entityType, row.group, row.changeType, row.previousContent], ['checklist', 'checklists', 'added', null]);
   assert.equal(row.newContent.document.createdAt, new Date(5).toISOString(), 'the hook\'s JSON snapshot');
   assert.deepEqual([row.cardId, row.listId, row.swimlaneId], ['card', 'list', 'lane']);
@@ -67,7 +69,7 @@ test('negative: tampered commands, foreign checklists and forged records are ref
   assert.throws(() => L.validateRuleChecklistLifecycleCommand(resum({ ...command, checklistId: 'chosen' }), add.context),
     /command-invalid/);
   const recorded = L.recordAddedChecklist(command, stored(command.checklistId, 'Steps'));
-  const forged = { ...recorded, activity: { ...recorded.activity, userId: 'someone-else' } };
+  const forged = { units: [{ ...recorded.units[0], activity: { ...recorded.units[0].activity, userId: 'someone-else' } }] };
   assert.throws(() => L.validateRuleChecklistLifecycleCommand({ ...command, recorded: forged }, add.context), /command-invalid/);
   assert.throws(() => L.recordAddedChecklist(command, stored('other-id')), /invalid/);
   const remove = await fixture({ actionType: 'removeChecklist', checklistName: 'Steps' });
@@ -77,6 +79,31 @@ test('negative: tampered commands, foreign checklists and forged records are ref
   assert.throws(() => L.validateRuleChecklistLifecycleCommand(swapped, remove.context), /command-invalid/);
   const other = await fixture({ actionType: 'addSwimlane', swimlaneName: 'X' });
   assert.throws(() => other.prepare({ title: 'X' }), /invalid/);
+});
+
+test('addChecklistWithItems: the checklist, then each item with its own activity and History row', async () => {
+  const f = await fixture({ actionType: 'addChecklistWithItems', checklistName: 'Steps', checklistItems: 'a,b' });
+  const command = f.prepare({ title: 'Steps', itemTitles: ['Cut', 'Weld'] });
+  assert.deepEqual(command.items.map(item => [item.title, item.sort]), [['Cut', 0], ['Weld', 1]]);
+  assert.equal(new Set(command.items.map(item => item.itemId)).size, 2, 'derived, distinct item ids');
+  assert.deepEqual(f.prepare({ title: 'Steps', itemTitles: ['Cut', 'Weld'], createdAt: new Date(9) }).items.map(i => i.itemId),
+    command.items.map(i => i.itemId), 'a replayed capture names the same items');
+  const items = command.items.map(item => ({ _id: item.itemId, checklistId: command.checklistId, cardId: 'card',
+    boardId: 'board', title: item.title, sort: item.sort, isFinished: false, createdAt: new Date(6) }));
+  const recorded = L.recordAddedChecklist(command, stored(command.checklistId, 'Steps'), items);
+  assert.deepEqual(recorded.units.map(unit => unit.activity.activityType), ['addChecklist', 'addChecklistItem', 'addChecklistItem']);
+  assert.deepEqual(recorded.units.map(unit => unit.history.rows[0].entityType), ['checklist', 'checklistItem', 'checklistItem']);
+  assert.equal(recorded.units[1].activity.checklistItemName, 'Cut');
+  const saved = { ...command, recorded };
+  assert.deepEqual(L.validateRuleChecklistLifecycleCommand(saved, f.context), saved);
+  // Negative: an item missing, or another checklist's, is refused.
+  assert.throws(() => L.recordAddedChecklist(command, stored(command.checklistId, 'Steps'), items.slice(1)), /invalid/);
+  assert.throws(() => L.recordAddedChecklist(command, stored(command.checklistId, 'Steps'),
+    [items[0], { ...items[1], checklistId: 'other' }]), /invalid/);
+  const resum = row => { const { checksum, recorded: r, ...content } = row;
+    return { ...content, recorded: r, checksum: sha256(canonical(content)) }; };
+  assert.throws(() => L.validateRuleChecklistLifecycleCommand(resum({ ...command,
+    items: [{ ...command.items[0], sort: 5 }, command.items[1]] }), f.context), /command-invalid/);
 });
 
 test('wiring: durable, registered, hooks deferred only for the named checklist', () => {
@@ -95,6 +122,11 @@ test('wiring: durable, registered, hooks deferred only for the named checklist',
   assert.equal((hooks.match(/deferSyncChecklistRecording\('checklistActivity', doc\)/g) || []).length, 2);
   assert.match(fs.readFileSync(path.join(ROOT, 'server/models/changeHistoryHooks.js'), 'utf8'),
     /entityType === 'checklist' && deferSyncChecklistRecording\('checklistHistory', doc\)/);
+  // ...and the items' two hooks, for addChecklistWithItems.
+  assert.match(fs.readFileSync(path.join(ROOT, 'server/models/checklistItems.js'), 'utf8'),
+    /ChecklistItems\.after\.insert\(async \(userId, doc\) => \{\s*\/\/[^\n]*\n\s*if \(deferSyncChecklistRecording\('checklistItemActivity', doc\)\) return;/);
+  assert.match(fs.readFileSync(path.join(ROOT, 'server/models/changeHistoryHooks.js'), 'utf8'),
+    /entityType === 'checklistItem' && deferSyncChecklistRecording\('checklistItemHistory', doc\)/);
   const { withSyncRecordingDeferred, deferSyncChecklistRecording } = require('../server/lib/syncRecordingScope');
   return withSyncRecordingDeferred({ cardId: 'card', boardId: 'board', listId: 'list', checklistId: 'c1',
     kinds: ['checklistActivity'] }, async () => {

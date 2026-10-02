@@ -14,7 +14,7 @@ import ChecklistItems, {
 import Activities from '/models/activities';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { backfillBoardIdFromCard } from '/server/lib/denormalizeBoardId';
-const { deferSyncItemRecording } = require('/server/lib/syncRecordingScope');
+const { deferSyncItemRecording, deferSyncChecklistRecording } = require('/server/lib/syncRecordingScope');
 
 // --- Denormalized boardId (see models/checklistItems.js schema) -------------
 // Set boardId from the card on insert, and re-sync it whenever the item is
@@ -66,6 +66,8 @@ ChecklistItems.before.update(async (userId, doc, fieldNames) => {
 });
 
 ChecklistItems.after.insert(async (userId, doc) => {
+  // A durable rule addChecklistWithItems writes this activity from its plan.
+  if (deferSyncChecklistRecording('checklistItemActivity', doc)) return;
   await itemCreation(userId, doc);
 });
 

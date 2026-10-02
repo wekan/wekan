@@ -5,6 +5,7 @@ import Boards from '/models/boards';
 import Lists from '/models/lists';
 import Cards from '/models/cards';
 import Checklists from '/models/checklists';
+import ChecklistItems from '/models/checklistItems';
 import Activities from '/models/activities';
 import ChangeHistory from '/models/changeHistory';
 import Rules from '/models/rules';
@@ -20,7 +21,7 @@ describe('Stored Sync rule checklist creation and removal', function () {
   it('adds and removes a checklist with the ordinary activity and History, once', async function () {
     if (!Meteor.isAppTest) this.skip();
     const actor = Random.id(), boardId = Random.id(), listId = Random.id(), cardId = Random.id();
-    const ids = { add: Random.id(), remove: Random.id() };
+    const ids = { add: Random.id(), items: Random.id(), remove: Random.id() };
     const activity = id => ({ _id: id, activityType: 'createCard', boardId, listId, cardId, userId: actor,
       cardTitle: 'Card', listName: 'List', swimlaneName: 'Lane', createdAt: new Date(1000), modifiedAt: new Date(1000) });
     const input = (id, effect) => ({ activity: activity(id), effectId: effect.repeat(64),
@@ -59,8 +60,26 @@ describe('Stored Sync rule checklist creation and removal', function () {
       assert.equal(await Checklists.rawCollection().countDocuments({ cardId }), 1);
       assert.equal(await Activities.rawCollection().countDocuments({ cardId, activityType: 'addChecklist' }), 1);
 
-      // removeChecklist of every checklist named as written, sort 0.
+      // addChecklistWithItems: the checklist and an item per comma-separated title.
       await Rules.rawCollection().deleteOne({ _id: addRule });
+      const withItemsRule = await rule({ actionType: 'addChecklistWithItems', checklistName: 'Parts',
+        checklistItems: 'Bolt,Nut for {cardTitle}' });
+      await Activities.rawCollection().insertOne(activity(ids.items));
+      const itemsInput = input(ids.items, 'a');
+      assert.equal(await runStoredSyncRules(itemsInput), itemsInput.effectId);
+      const parts = await Checklists.rawCollection().findOne({ cardId, title: 'Parts' });
+      const partItems = await ChecklistItems.rawCollection().find({ checklistId: parts._id }).sort({ sort: 1 }).toArray();
+      assert.deepEqual(partItems.map(item => [item.title, item.sort]), [['Bolt', 0], ['Nut for Card', 1]]);
+      assert.equal(await Activities.rawCollection().countDocuments({ cardId, activityType: 'addChecklistItem' }), 2);
+      assert.equal(await ChangeHistory.rawCollection().countDocuments({ cardId, entityType: 'checklistItem', changeType: 'added' }), 2);
+      assert.equal(await runStoredSyncRules(itemsInput), itemsInput.effectId, 'replay');
+      assert.equal(await ChecklistItems.rawCollection().countDocuments({ checklistId: parts._id }), 2);
+      assert.equal(await Activities.rawCollection().countDocuments({ cardId, activityType: 'addChecklistItem' }), 2);
+      await Rules.rawCollection().deleteOne({ _id: withItemsRule });
+      await ChecklistItems.rawCollection().deleteMany({ checklistId: parts._id });
+      await Checklists.rawCollection().deleteOne({ _id: parts._id });
+
+      // removeChecklist of every checklist named as written, sort 0.
       await Checklists.rawCollection().insertOne({ _id: Random.id(), cardId, boardId, title: 'Steps for Card', sort: 0,
         createdAt: new Date(2), modifiedAt: new Date(2) });
       await rule({ actionType: 'removeChecklist', checklistName: 'Steps for Card' });
@@ -72,14 +91,15 @@ describe('Stored Sync rule checklist creation and removal', function () {
       assert.equal(await ChangeHistory.rawCollection().countDocuments({ cardId, entityType: 'checklist', changeType: 'removed' }), 2);
       assert.equal(await runStoredSyncRules(removeInput), removeInput.effectId, 'replay');
       assert.equal(await Activities.rawCollection().countDocuments({ cardId, activityType: 'removeChecklist' }), 2);
-      assert.equal(await SyncRuleChecklistLifecycleCommands.rawCollection().countDocuments({ cardId }), 2);
+      assert.equal(await SyncRuleChecklistLifecycleCommands.rawCollection().countDocuments({ cardId }), 3);
     } finally {
       for (const id of Object.values(ids)) {
         const plans = await SyncRulePlans.rawCollection().find({ 'plan.activityId': id }, { projection: { _id: 1 } }).toArray();
         await SyncRuleCompletions.rawCollection().deleteMany({ _id: { $in: plans.map(row => row._id) } });
         await SyncRulePlans.rawCollection().deleteMany({ 'plan.activityId': id });
       }
-      await SyncRuleReceipts.rawCollection().deleteMany({ effectId: { $in: ['e'.repeat(64), 'f'.repeat(64)] } });
+      await SyncRuleReceipts.rawCollection().deleteMany({ effectId: { $in: ['e'.repeat(64), 'f'.repeat(64), 'a'.repeat(64)] } });
+      await ChecklistItems.rawCollection().deleteMany({ cardId });
       await SyncRuleChecklistLifecycleCommands.rawCollection().deleteMany({ cardId });
       for (const collection of [Rules, Triggers, Actions]) await collection.rawCollection().deleteMany({ boardId });
       await Checklists.rawCollection().deleteMany({ cardId });

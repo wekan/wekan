@@ -148,6 +148,7 @@ async function recordLifecycle(entityType, userId, doc, changeType) {
   if (isRecordingSuppressed()) return;   // see recordUpdate above
   // A durable rule checklist action writes this row from its saved plan.
   if (entityType === 'checklist' && deferSyncChecklistRecording('checklistHistory', doc)) return;
+  if (entityType === 'checklistItem' && deferSyncChecklistRecording('checklistItemHistory', doc)) return;
   try {
     const where = await locate(entityType, doc);
     if (!where || !where.boardId) return;

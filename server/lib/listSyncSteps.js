@@ -29,7 +29,7 @@ const { syncValueChanges } = require('../../models/lib/listSyncTimeEstimates');
 const DURABLE_RULE_ACTIONS = new Set(['sendEmail', 'archive', 'unarchive', 'setColor', 'addLabel', 'removeLabel',
   'removeAllLabels', 'markCardComplete', 'markCardIncomplete', 'setDate', 'updateDate', 'setDateRelative', 'removeDate',
   'addMember', 'removeMember', 'checkAll', 'uncheckAll', 'checkItem', 'uncheckItem', 'moveCardToTop', 'moveCardToBottom',
-  'addChecklist', 'removeChecklist']);
+  'addChecklist', 'addChecklistWithItems', 'removeChecklist']);
 // Sync-owned card fields a saved step carries: the ones the direct path's
 // conditional update compares, plus placement. SimpleSchema owns
 // dateLastActivity, so it is never part of a step.
