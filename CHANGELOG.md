@@ -1686,6 +1686,18 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5949c4f249">Translate Assamese email delivery queue messages</a>. Thanks to xet7.</summary>
+
+- Fill 20 email delivery queue messages in Assamese. Recovery terminology
+  remains low confidence pending native-speaker review.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass, as do all 21 human-preference checks. Full-language work and
+  browser review remain.
+
+</details>
+
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/feba3690d2">Translate Assamese synchronization reports and diagnostics</a>. Thanks to xet7.</summary>
 
 - Fill 16 synchronization-report and diagnostic messages in Assamese.
