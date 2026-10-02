@@ -1686,6 +1686,17 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d653e514d0">Translate Assamese observations and synchronization conflicts</a>. Thanks to xet7.</summary>
+
+- Fill 20 observation and synchronization-conflict messages in Assamese.
+  Specialized terminology remains low confidence pending native-speaker review.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass, as do all 21 human-preference checks. Full-language work and
+  browser review remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9219bd26a4">Translate Assamese sprint reports and workflow states</a>. Thanks to xet7.</summary>
 
 - Fill 27 sprint-report and workflow-state messages in Assamese.
