@@ -650,7 +650,10 @@ async function boardMoveInputs({ raw, model, fromBoard, toBoard, target, swimlan
     { projection: { labelId: 1 }, sort: { _id: 1 } }).toArray();
   return { card: raw, target, labelActivities,
     mapped: { labelIds, cardNumber: await toBoard.getNextCardNumber(),
-      customFields: Array.isArray(customFields) ? customFields : [] },
+      customFields: Array.isArray(customFields) ? customFields : [],
+      // Its sprint and release by name on that board (models/lib/scrumCopy.js).
+      scrumPlanning: raw.scrum && (raw.scrum.sprintId || raw.scrum.releaseId)
+        ? await scrumPlanningPair(fromBoard._id, toBoard._id) : null },
     allowedMemberIds: (toBoard.members || []).filter(member => member.isActive === true).map(member => member.userId),
     titles: { boardName: toBoard.title, oldBoardName: fromBoard.title, swimlaneName: swimlaneTitle } };
 }
@@ -971,6 +974,8 @@ async function captureRuleCopyCard({ plan, action, commandContext, commands }) {
     const target = await raw.findOne({ _id: dep.cardId }, { projection: { boardId: 1 } });
     if (target && target.boardId === targetBoardId) dependencies.push(dep);
   }
+  // As Card.copy: on another board, the sprint and release linked by name.
+  const planning = await scrumPlanningPair(plan.boardId, targetBoardId);
   const attachments = await Attachments.collection.find(liveAttachments({ 'meta.cardId': plan.cardId }),
     { sort: { _id: 1 } }).fetchAsync();
   const checklistsOf = cardId => Checklists.rawCollection().find({ cardId }, { sort: { sort: 1, _id: 1 } }).toArray();
@@ -984,10 +989,11 @@ async function captureRuleCopyCard({ plan, action, commandContext, commands }) {
   return prepareRuleCopyCardCommand({ ...commandContext, card: source,
     destination: { listId: list._id, swimlaneId: swimlane._id, listTitle: list.title || '', swimlaneTitle: swimlane.title || '' },
     cardNumber: await board.getNextCardNumber(), sort: (await model.getSort(list._id, swimlane._id, false)) + 1,
-    customFieldIds, dependencies, scrum: copiedCardScrum(source, targetBoardId), attachments,
+    customFieldIds, dependencies, scrum: copiedCardScrum(source, targetBoardId, { planning }), attachments,
     checklists, items: await itemsOf(checklists.map(list => list._id)),
     subtaskSources, subtaskDocs: subtaskSources.map(subtask => buildCopiedSubtaskFields(subtask,
-      { newParentId: 'pending', boardId: targetBoardId, swimlaneId: swimlane._id, listId: list._id })),
+      { newParentId: 'pending', boardId: targetBoardId, swimlaneId: swimlane._id, listId: list._id,
+        planning: subtask.boardId === plan.boardId ? planning : null })),
     subtaskChecklists, subtaskItems: await itemsOf(subtaskChecklists.map(list => list._id)),
     comments, commentDocs: comments.map(comment => buildCopiedComment(comment, 'pending', targetBoardId)), crossBoard,
     createdAt });
@@ -1095,6 +1101,7 @@ const { commandId: ruleCopyCardCommandId, prepareRuleCopyCardCommand, recordCopi
   validateRuleCopyCardCommand } = require('/server/lib/syncRuleCopyCardCommand');
 const { buildCopiedSubtaskFields } = require('/models/lib/subtaskCopy');
 const { filterCopiedLabelIds } = require('/server/lib/cardCopyHelpers');
+const { scrumPlanningPair } = require('/server/lib/scrumPlanningPair');
 const { buildCopiedComment } = require('/models/lib/copiedComment');
 const { copiedCardScrum } = require('/models/lib/scrumCopy');
 const { childrenSelector } = require('/models/lib/cardParents');

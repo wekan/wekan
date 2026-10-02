@@ -20,6 +20,7 @@ import { descriptionChanged } from '/server/lib/descriptionChangeActivity';
 const { collectionWriteSucceeded } = require('/server/lib/collectionWriteOutcome');
 const { deferSyncRecording, deferSyncLabelActivities } = require('/server/lib/syncRecordingScope');
 const { movedScrumMetadata } = require('/models/lib/scrumCopy');
+import { scrumPlanningPair } from '/server/lib/scrumPlanningPair';
 const { scrumRevisionSelector } = require('/models/lib/scrum');
 import { buildDeleteCardActivity } from '/server/lib/deleteActivities';
 import { assertParentCardIsVisible } from '/server/lib/visibleBoardIds';
@@ -1015,16 +1016,19 @@ Cards.after.update(async function(userId, doc, fieldNames) {
   );
 });
 
-// A card that moved to another board loses the sprint, release and rank it had
-// there (models/lib/scrumCopy.js movedScrumMetadata), whoever moved it - the
-// client, REST or a rule. Server-side, since Scrum fields are not the client's
-// to write; compare-and-set on the Scrum revision. A durable rule move writes
-// the same itself, and then there is nothing left to drop.
+// A card that moved to another board takes the destination's sprint and
+// release of the same name, when exactly one matches, and loses the rest of
+// the board it left (models/lib/scrumCopy.js movedScrumMetadata), whoever moved
+// it - the client, REST or a rule. Server-side, since Scrum fields are not the
+// client's to write; compare-and-set on the Scrum revision. A writer that set
+// the Scrum revision with the move (a durable rule move) has done it already.
 Cards.after.update(async function(userId, doc, fieldNames) {
-  if (!fieldNames.includes('boardId')) return;
+  if (!fieldNames.includes('boardId') || fieldNames.includes('scrumRevision')) return;
   const oldBoardId = (this.previous || {}).boardId;
   if (!oldBoardId || oldBoardId === doc.boardId) return;
-  const moved = movedScrumMetadata({ ...doc, boardId: oldBoardId }, doc.boardId);
+  const planning = doc.scrum && (doc.scrum.sprintId || doc.scrum.releaseId)
+    ? await scrumPlanningPair(oldBoardId, doc.boardId) : null;
+  const moved = movedScrumMetadata({ ...doc, boardId: oldBoardId }, doc.boardId, planning);
   if (!moved.scrum) return;
   await Cards.direct.updateAsync({ _id: doc._id, boardId: doc.boardId, ...scrumRevisionSelector(doc) }, { $set: moved });
 });

@@ -14,6 +14,7 @@ import UserPositionHistory from '/models/userPositionHistory';
 import Rules from '/models/rules';
 import Triggers from '/models/triggers';
 import Actions from '/models/actions';
+import ScrumSprints from '/models/scrumSprints';
 import { runStoredSyncRules, SyncRuleMoveBoardCommands, SyncRuleMoveAllBoardCommands, SyncRuleCardCommands, SyncRulePlans, SyncRuleReceipts,
   SyncRuleCompletions } from '/server/notifications/storedRulePlans';
 import { durableSyncDecision } from '/server/lib/listSyncApplication';
@@ -52,7 +53,10 @@ describe('Stored Sync rule moves to another board', function () {
         archived: false, labelIds: ['urgent-from', 'local-from'], members: [actor, stranger], customFields: [],
         cardDependencies: [{ cardId: ids.blocked, type: 'blocks' }],
         // The board it leaves owns its sprint and release; its issue type is its own.
-        scrum: { sprintId: 'sprint-from', releaseId: 'release-from', backlogRank: 2, issueType: 'Story' }, scrumRevision: 4 });
+        scrum: { sprintId: `sprint-${from}`, releaseId: 'release-from', backlogRank: 2, issueType: 'Story' }, scrumRevision: 4 });
+      // That board has a sprint of the same name: the card is linked to it.
+      await ScrumSprints.rawCollection().insertMany([{ _id: `sprint-${from}`, boardId: from, name: 'Sprint 7', state: 'active' },
+        { _id: `sprint-${to}`, boardId: to, name: 'Sprint 7', state: 'planned' }]);
       await Cards.rawCollection().insertMany([card(ids.card, 'Pump'), card(ids.twin, 'Twin'),
         { _id: ids.blocked, boardId: from, listId: ids.list, swimlaneId: ids.lane, title: 'Waits', sort: 1, archived: false,
           cardDependencies: [{ cardId: ids.card, type: 'blocks' }] }]);
@@ -97,8 +101,8 @@ describe('Stored Sync rule moves to another board', function () {
       assert.deepEqual([moved.boardId, moved.listId, moved.swimlaneId, moved.labelIds, moved.members, moved.cardDependencies],
         [to, ids.inbox, ids.toLane, ['urgent-to'], [actor], []], 'labels by name, members of that board, no dependencies');
       assert.ok(Number.isSafeInteger(moved.cardNumber) && moved.cardNumber > 0);
-      assert.deepEqual([moved.scrum, moved.scrumRevision], [{ issueType: 'Story' }, 5],
-        'no sprint or release of the board it left');
+      assert.deepEqual([moved.scrum, moved.scrumRevision], [{ issueType: 'Story', sprintId: `sprint-${to}` }, 5],
+        'that board\'s sprint of the same name; no release there, none kept');
       assert.deepEqual((await Checklists.rawCollection().find({ cardId: ids.card }).toArray()).map(c => c.boardId), [to]);
       assert.deepEqual((await ChecklistItems.rawCollection().find({ cardId: ids.card }).toArray()).map(c => c.boardId), [to]);
       assert.deepEqual((await Cards.rawCollection().findOne({ _id: ids.blocked })).cardDependencies, [],
@@ -133,7 +137,7 @@ describe('Stored Sync rule moves to another board', function () {
         const plans = await SyncRulePlans.rawCollection().find({ 'plan.boardId': board }, { projection: { _id: 1 } }).toArray();
         await SyncRuleCompletions.rawCollection().deleteMany({ _id: { $in: plans.map(row => row._id) } });
         await SyncRulePlans.rawCollection().deleteMany({ 'plan.boardId': board });
-        for (const model of [SyncRuleMoveBoardCommands, SyncRuleCardCommands, Rules, Triggers, Actions, ChangeHistory,
+        for (const model of [ScrumSprints, SyncRuleMoveBoardCommands, SyncRuleCardCommands, Rules, Triggers, Actions, ChangeHistory,
           UserPositionHistory, Activities, Checklists, ChecklistItems, Cards, Lists, Swimlanes]) {
           await model.rawCollection().deleteMany({ boardId: board });
         }

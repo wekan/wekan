@@ -1128,7 +1128,10 @@ Cards.helpers({
     const { copiedCardScrum } = require('./lib/scrumCopy');
     delete cardData.scrum;
     delete cardData.scrumRevision;
-    Object.assign(cardData, copiedCardScrum(this, boardId, { omit: deferScrum || copyOptions?.scrum === false }));
+    // On another board: its sprint and release linked by name (scrumCopy.js).
+    const planning = Meteor.isServer && this.boardId !== boardId
+      ? await require('/server/lib/scrumPlanningPair').scrumPlanningPair(this.boardId, boardId) : null;
+    Object.assign(cardData, copiedCardScrum(this, boardId, { omit: deferScrum || copyOptions?.scrum === false, planning }));
     delete cardData._id;
     // getRealId() caches __id on rendered cards; it is not a schema field.
     delete cardData.__id;
@@ -1276,6 +1279,7 @@ Cards.helpers({
         boardId,
         swimlaneId,
         listId,
+        planning: subtask.boardId === this.boardId ? planning : null,
       });
       const newSubtaskId = await Cards.insertAsync(copySubtask);
       // #3185: copy the subtask's checklists (and their items) too — previously

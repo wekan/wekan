@@ -9,6 +9,7 @@ import Activities from '/models/activities';
 import Cards from '/models/cards';
 import { ensureIndex } from '/server/lib/mongoStartup';
 const { movedScrumMetadata } = require('/models/lib/scrumCopy');
+import { scrumPlanningPair } from '/server/lib/scrumPlanningPair';
 import { allowIsBoardMemberWithWriteAccess, computeSortForIndex } from '/server/lib/utils';
 import { nextSwimlaneSort } from '/models/lib/swimlaneSort';
 const { deferSyncSwimlaneActivity } = require('/server/lib/syncRecordingScope');
@@ -113,10 +114,12 @@ Swimlanes.before.remove(async function(userId, doc) {
 // write has passed its allow/deny checks by then, and Scrum fields are not the
 // client's to write. Before the update: Swimlanes do not fetch the previous
 // document for after hooks.
-Swimlanes.before.update((userId, doc, fieldNames, modifier) => {
+Swimlanes.before.update(async (userId, doc, fieldNames, modifier) => {
   const boardId = modifier && modifier.$set && modifier.$set.boardId;
-  if (typeof boardId !== 'string' || boardId === doc.boardId) return;
-  Object.assign(modifier.$set, movedScrumMetadata(doc, boardId));
+  if (typeof boardId !== 'string' || boardId === doc.boardId || Object.hasOwn(modifier.$set, 'scrumRevision')) return;
+  const planning = doc.scrum && (doc.scrum.sprintId || doc.scrum.releaseId)
+    ? await scrumPlanningPair(doc.boardId, boardId) : null;
+  Object.assign(modifier.$set, movedScrumMetadata(doc, boardId, planning));
 });
 
 Swimlanes.after.update(async (userId, doc, fieldNames) => {

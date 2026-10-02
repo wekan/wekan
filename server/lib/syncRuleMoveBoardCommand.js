@@ -163,7 +163,7 @@ function buildMove({ base, card, target, mapped, allowedMemberIds, titles, label
     lastMoveReason: typeof card.lastMoveReason === 'string' ? card.lastMoveReason : '' },
   fields: presentFields(card) };
   const fields = { labelIds: copy(mapped.labelIds), cardNumber: mapped.cardNumber, customFields: copy(mapped.customFields),
-    cardDependencies: [], ...copy(movedScrumMetadata(card, base.targetBoardId)) };
+    cardDependencies: [], ...copy(movedScrumMetadata(card, base.targetBoardId, mapped.scrumPlanning || null)) };
   for (const field of ['members', 'watchers']) {
     const kept = filtered(card[field], allowedMemberIds);
     if (kept !== undefined) fields[field] = kept;

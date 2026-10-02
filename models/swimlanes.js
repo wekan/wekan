@@ -155,7 +155,10 @@ Swimlanes.helpers({
       ? title.trim()
       : this.title;
     const { copiedScrumMetadata } = require('./lib/scrumCopy');
-    const copiedMetadata = copiedScrumMetadata(this, boardId, { omit: !!copyMaps || copyOptions?.scrum === false });
+    // On another board: its sprint and release linked by name.
+    const planning = Meteor.isServer && oldBoardId !== boardId && !copyMaps
+      ? await require('/server/lib/scrumPlanningPair').scrumPlanningPair(oldBoardId, boardId) : null;
+    const copiedMetadata = copiedScrumMetadata(this, boardId, { omit: !!copyMaps || copyOptions?.scrum === false, planning });
 
     if (process.env.DEBUG === 'true') {
       console.log('[copySwimlane] start', {

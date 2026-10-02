@@ -13,7 +13,7 @@ import { copiedCardScrum } from './scrumCopy.js';
 // reproduce — 'checklists' being the one that was missing in #3185. Meteor-free
 // so the re-homing and the copy contract are unit tested; the caller then runs
 // Checklist.copy() for each kind.
-function buildCopiedSubtaskFields(subtask, { newParentId, boardId, swimlaneId, listId } = {}) {
+function buildCopiedSubtaskFields(subtask, { newParentId, boardId, swimlaneId, listId, planning = null } = {}) {
   const fields = Object.assign({}, subtask);
   delete fields._id;
   delete fields.__id;
@@ -23,7 +23,8 @@ function buildCopiedSubtaskFields(subtask, { newParentId, boardId, swimlaneId, l
   delete fields.syncSourceKey;
   delete fields.scrum;
   delete fields.scrumRevision;
-  Object.assign(fields, copiedCardScrum(subtask, boardId));
+  // On another board, its sprint and release by name (scrumCopy.js).
+  Object.assign(fields, copiedCardScrum(subtask, boardId, { planning }));
   fields.parentId = newParentId;
   fields.boardId = boardId;
   fields.swimlaneId = swimlaneId;
