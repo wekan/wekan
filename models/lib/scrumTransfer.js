@@ -51,7 +51,9 @@ function snapshot(value) {
 const lifecycle = ['state', 'startedAt', 'completedAt', 'cancelledAt', 'cancellationReason', 'rolloverSprintId', 'startSnapshot', 'closeSnapshot'];
 const audit = ['createdAt', 'createdBy', 'updatedAt', 'updatedBy'];
 function record(kind, value) {
-  const { _id, ...fields } = value;
+  // `incarnation` names one lifetime of the stored record (2026-09-30), not
+  // its content: an export or copy is a new lifetime, as scrumHistory.js says.
+  const { _id, incarnation, ...fields } = value;
   id(_id);
   const extras = {};
   for (const key of [...audit, ...(kind === 'sprint' ? lifecycle : [])]) {

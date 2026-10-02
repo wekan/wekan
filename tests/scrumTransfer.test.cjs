@@ -185,3 +185,16 @@ test('cleared backlog ranks survive native transfer and remapping',()=>{
  source.cards[0].scrum.backlogRank=-1;
  assert.throws(()=>normalizeScrumTransfer(source));
 });
+
+// A stored record's `incarnation` (2026-09-30) names its lifetime, so export
+// and board copy drop it instead of refusing the whole board ("Unsupported
+// field: incarnation" made both answer 500).
+test('a stored record\'s incarnation is dropped, not refused',()=>{
+ const source=fixture();
+ for (const row of [...source.sprints,...source.releases,...source.events]) row.incarnation='inc1';
+ const out=normalizeScrumTransfer(source);
+ for (const row of [...out.sprints,...out.releases,...out.events]) assert.equal(Object.hasOwn(row,'incarnation'),false);
+ // Any other unknown field is still refused (negative).
+ const bad=fixture();bad.sprints[1].somethingElse=1;
+ assert.throws(()=>normalizeScrumTransfer(bad),/Unsupported field/);
+});
