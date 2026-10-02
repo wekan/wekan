@@ -821,7 +821,38 @@ const keys = [
   "activity-recovery-status-changed",
   "activity-recovery-status-invalid",
   "activity-recovery-status-inconsistent",
-  "activity-recovery-busy"
+  "activity-recovery-busy",
+  "activity-recovery-denied",
+  "activity-recovery-source-unavailable",
+  "activity-recovery-disabled",
+  "activity-recovery-failed",
+  "activity-recovery-pause",
+  "activity-recovery-resume",
+  "activity-recovery-paused",
+  "activity-recovery-control-conflict",
+  "activity-recovery-control-failed",
+  "activity-recovery-status-cancelled",
+  "activity-recovery-cancel",
+  "activity-recovery-cancel-confirm",
+  "rule-email-recovery-heading",
+  "rule-email-recovery-description",
+  "rule-email-recovery-all",
+  "rule-email-recovery-unconfirmed",
+  "rule-email-recovery-sent",
+  "rule-email-recovery-invalid",
+  "rule-email-recovery-identifiers",
+  "rule-email-recovery-started",
+  "rule-email-recovery-finished",
+  "rule-email-recovery-empty",
+  "rule-email-recovery-unavailable",
+  "saml-login-not-started",
+  "move-selection-before",
+  "move-selection-after",
+  "history-request-pending-undo",
+  "history-request-pending-redo",
+  "history-request-hint",
+  "history-request-retry",
+  "history-request-forget"
 ];
 for (const code of ['km', 'km_KH', 'km-KH']) {
   const locale = read(code);
@@ -838,3 +869,19 @@ for (const code of ['km', 'km_KH', 'km-KH']) {
     en['advanced-filter-card-dates-hint'].match(/@[A-Za-z]+/g));
 }
 console.log('Khmer date filter translations passed');
+
+// Check all source keys, including pending strings, and reviewed literals.
+const { execFileSync } = require('node:child_process');
+for (const code of ['km', 'km_KH', 'km-KH']) {
+  const locale = read(code);
+  for (const key of Object.keys(en)) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(en[key]), `${code}:${key}`);
+  }
+  const missing = JSON.parse(execFileSync(process.execPath,
+    ['releases/translations/fill-translations.mjs', '--list', code],
+    { cwd: path.resolve(__dirname, '..'), encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }));
+  assert.deepEqual(missing, {}, code);
+  for (const key of ["blockly-ALT_KEY", "blockly-BACKSPACE_KEY", "blockly-CAPS_LOCK_KEY", "blockly-CHROME_OS", "blockly-COMMAND_KEY", "blockly-CONTROL_KEY", "blockly-END_KEY", "blockly-ENTER_KEY", "blockly-ESCAPE", "blockly-HOME_KEY", "blockly-INSERT_KEY", "blockly-LINUX", "blockly-LOGIC_NULL", "blockly-MAC_OS", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN", "blockly-OPTION_KEY", "blockly-PAGE_DOWN_KEY", "blockly-PAGE_UP_KEY", "blockly-PAUSE_KEY", "blockly-SHIFT_KEY", "blockly-SPACE_KEY", "blockly-TAB_KEY", "blockly-WINDOWS"]) {
+    assert.equal(locale[key], en[key], `${code}:${key}: literal notation`);
+  }
+}
