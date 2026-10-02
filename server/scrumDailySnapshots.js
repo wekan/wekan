@@ -8,6 +8,7 @@ import ScrumSprints from '/models/scrumSprints';
 import ScrumDailySnapshots from '/models/scrumDailySnapshots';
 import { ScrumImportPending } from '/server/lib/scrumImportJournal';
 const { captureDailySprint } = require('/server/lib/scrumDailyCapture');
+import { storeSnapshot, discardRows } from '/server/lib/scrumSnapshotStore';
 
 export async function captureOneSprint(sprint) {
   if (sprint.scrumImportPending) return { skipped: true };
@@ -18,14 +19,17 @@ export async function captureOneSprint(sprint) {
   if (await ScrumDailySnapshots.findOneAsync({ sprintId: sprint._id, boardId: sprint.boardId,
     startedAt: new Date(sprint.startSnapshot.at), day }, { fields: { _id: 1 } })) return { skipped: true };
   const [cards, lists] = await Promise.all([
-    Cards.find({ boardId: sprint.boardId, 'scrum.sprintId': sprint._id }, { limit: 10001,
+    Cards.find({ boardId: sprint.boardId, 'scrum.sprintId': sprint._id }, {
       fields: { listId: 1, archived: 1, dueComplete: 1, 'poker.estimation': 1, customFields: 1 } }).fetchAsync(),
-    Lists.find({ boardId: sprint.boardId }, { limit: 10001, fields: { scrum: 1 } }).fetchAsync(),
+    Lists.find({ boardId: sprint.boardId }, { fields: { scrum: 1 } }).fetchAsync(),
   ]);
   const current = await ScrumSprints.findOneAsync(sprint._id);
   if (!current || current.state !== 'active' || !EJSON.equals(current.startSnapshot, sprint.startSnapshot)) return { skipped: true };
   if (await ScrumImportPending.findOneAsync(sprint.boardId, { fields: { _id: 1 } })) return { skipped: true };
-  const result = await captureDailySprint({ sprint, cards, lists, snapshots: ScrumDailySnapshots, at: new Date() });
+  // The day's rows go to their own chunks, like a sprint's snapshots: no card
+  // cap (maintainer decision of 2026-10-03).
+  const result = await captureDailySprint({ sprint, cards, lists, snapshots: ScrumDailySnapshots, at: new Date(),
+    rows: storeSnapshot, discard: discardRows });
   // Cover deletion during the capture as well as the normal board-delete hook.
   if (!await Boards.findOneAsync(sprint.boardId, { fields: { _id: 1 } })) {
     await ScrumDailySnapshots.removeAsync({ boardId: sprint.boardId });

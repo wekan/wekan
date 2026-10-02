@@ -8,7 +8,8 @@ import ScrumEvents from '/models/scrumEvents';
 import ScrumDailySnapshots from '/models/scrumDailySnapshots';
 import ScrumHistoryPending from './scrumHistoryPending';
 import { ScrumImportPending } from './scrumImportJournal';
-import { withSnapshotRows } from './scrumSnapshotStore';
+import { withSnapshotRows, withDailyRows } from './scrumSnapshotStore';
+import { hasRolloverPending } from './scrumRolloverStore';
 const { normalizeScrumTransfer, SCRUM_TRANSFER_FORMAT } = require('/models/lib/scrumTransfer');
 
 // Call only after the existing export route has authorized the board and scope.
@@ -29,7 +30,7 @@ export async function exportScrumTransfer(boardId, cardIds, listIds, swimlaneIds
     throw new Error('Finish the pending Scrum operation before exporting');
   }
   if (!board.scrum && !cards.length && !lists.length && !swimlanes.length && !sprints.length && !releases.length && !events.length) return null;
-  if (await ScrumHistoryPending.findOneAsync(boardId) || sprints.some(s => s.scrumImportPending || s.rolloverPending?.length)) {
+  if (await ScrumHistoryPending.findOneAsync(boardId) || sprints.some(s => s.scrumImportPending || hasRolloverPending(s))) {
     throw new Error('Finish the pending Scrum operation before exporting');
   }
   const sprintIds = new Set(); const releaseIds = new Set();
@@ -71,16 +72,17 @@ export async function exportScrumTransfer(boardId, cardIds, listIds, swimlaneIds
     if (sprint[key]) filterSnapshot(sprint[key], `sprints.${sprint._id}.${key}`);
   }
   transfer.dailyObservations = [];
-  let observedCards = 0;
   const cursor = ScrumDailySnapshots.rawCollection().find({ boardId,
     sprintId: { $in: transfer.sprints.map(sprint => sprint._id) } },
   { sort: { capturedAt: 1, _id: 1 }, limit: 10001, batchSize: 1 });
   try {
-    for await (const row of cursor) {
-      observedCards += row.snapshot.cards.length;
-      if (transfer.dailyObservations.length >= 10000 || observedCards > 100000) {
+    // No cap on the cards a day observed (maintainer decision of 2026-10-03);
+    // the number of observed days keeps its limit.
+    for await (const stored of cursor) {
+      if (transfer.dailyObservations.length >= 10000) {
         throw new Error('Daily Scrum history exceeds the native transfer limit');
       }
+      const row = await withDailyRows(stored);
       filterSnapshot(row.snapshot, `dailyObservations.${row.sprintId}.${row.day}`);
       const { sprintId, startedAt, day, capturedAt, snapshot, consistency } = row;
       transfer.dailyObservations.push({ sprintId, startedAt, day, capturedAt, snapshot, consistency });

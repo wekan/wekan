@@ -56,9 +56,17 @@ async function claimScrumHistoryWorker(pending, journal, worker = randomUUID()) 
   if (!saved) throw error || new Error('Scrum History checkpoint conflict');
   return worker;
 }
+// Checked before every write of an operation, so it must not send the whole
+// plan each time: a batch of a thousand records sent its plan a thousand
+// times. The worker id is random and was set only on the checkpoint that
+// matched the whole plan (claimScrumHistoryWorker), and nothing ever rewrites
+// a checkpoint's plan - only operationId and worker are set - so the plan's
+// identity and the worker id find the same checkpoint.
 async function assertScrumHistoryWorker(pending, journal, worker) {
+  scrumHistorySelector(journal);
   if (!journal?.operationId || typeof worker !== 'string' || !worker ||
-      !await pending.findOneAsync({ ...scrumHistorySelector(journal), worker })) fail();
+      !await pending.findOneAsync({ _id: journal._id, rowId: journal.rowId, userId: journal.userId,
+        direction: journal.direction, operationId: journal.operationId, worker }, { fields: { _id: 1 } })) fail();
 }
 module.exports = { scrumHistorySelector, assertScrumHistoryOperation, ensureScrumHistoryOperation,
   claimScrumHistoryWorker, assertScrumHistoryWorker };

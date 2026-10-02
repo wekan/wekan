@@ -23,7 +23,9 @@ const { assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 const { dailyHistoryRows } = require('/models/lib/scrumDailyHistory');
 const { reportTotals, sprintReport } = require('/models/lib/scrumReports');
 const { withoutRows } = require('/models/lib/scrumSnapshotRows');
-import { storeSnapshot, snapshotRows, withSnapshotRows } from '/server/lib/scrumSnapshotStore';
+import { storeSnapshot, snapshotRows, withSnapshotRows, withDailyRows } from '/server/lib/scrumSnapshotStore';
+import { ROLLOVER_PENDING, hasRolloverPending, storeRolloverPlan, nextRolloverChunk, finishRolloverChunk,
+  rolloverTouches } from '/server/lib/scrumRolloverStore';
 const { replaySprintScope, changesOf: scopeChangesOf, MAX_SCOPE_REPLAY_ROWS } = require('/models/lib/scrumScopeReplay');
 import ChangeHistory from '/models/changeHistory';
 const { DEFAULT_SCRUM_SETTINGS, normalizeScrumSettings, normalizeScrumMetadata,
@@ -100,7 +102,7 @@ export async function getScrumBoardData(userId, boardId) {
   for (let index = 0; index < sprints.length; index += 1) {
     let sprint = sprints[index];
     // Rollover checkpoints contain internal preconditions, not public card data.
-    sprint.rolloverPending = (sprint.rolloverPending || []).some(row => visible.has(row.cardId));
+    sprint.rolloverPending = restricted ? await rolloverTouches(sprint, visible) : hasRolloverPending(sprint);
     if (restricted && (sprint.startSnapshot || sprint.closeSnapshot)) {
       sprint = await withSnapshotRows(sprint);
       for (const name of ['startSnapshot', 'closeSnapshot']) {
@@ -156,7 +158,7 @@ export async function assertNoPendingScrumImport(boardId) {
 async function pending(boardId) {
   await assertNoPendingScrumImport(boardId);
   if (await ScrumHistoryPending.findOneAsync(boardId)) throw new Meteor.Error('scrum-history-pending', 'Retry the interrupted Scrum History operation first.');
-  if (await ScrumSprints.findOneAsync({ boardId, 'rolloverPending.0': { $exists: true } })) {
+  if (await ScrumSprints.findOneAsync({ boardId, ...ROLLOVER_PENDING })) {
     throw new Meteor.Error('scrum-rollover-pending', 'Finish the pending sprint rollover first');
   }
 }
@@ -249,17 +251,33 @@ async function updateSprint(userId, before, fields) {
 async function resumeRollover(userId, sprint) {
   // A durable checkpoint makes retries safe if a database failure interrupts a
   // close. Never overwrite a card edited or moved after the close snapshot.
-  for (const row of sprint.rolloverPending || []) {
-    const card = await Cards.findOneAsync({ _id: row.cardId, boardId: sprint.boardId });
-    if (!card) conflict();
-    if (JSON.stringify(card.scrum || {}) !== JSON.stringify(row.after)) {
-      if (JSON.stringify(card.scrum || {}) !== JSON.stringify(row.before) || (card.scrumRevision || 0) !== row.revision) conflict();
-      if (!(await Cards.updateAsync({ _id: card._id, boardId: sprint.boardId, ...scrumRevisionSelector(card) }, {
-        $set: { scrum: row.after, scrumRevision: row.revision + 1 },
-      }))) conflict();
-      await recordScrumChange(sprint.boardId, 'card', card, { ...card, scrum: row.after, scrumRevision: row.revision + 1 }, userId);
+  const apply = async (row, card) => {
+    if (!card || card.boardId !== sprint.boardId) conflict();
+    if (JSON.stringify(card.scrum || {}) === JSON.stringify(row.after)) return;
+    if (JSON.stringify(card.scrum || {}) !== JSON.stringify(row.before) || (card.scrumRevision || 0) !== row.revision) conflict();
+    if (!(await Cards.updateAsync({ _id: card._id, boardId: sprint.boardId, ...scrumRevisionSelector(card) }, {
+      $set: { scrum: row.after, scrumRevision: row.revision + 1 },
+    }))) conflict();
+    await recordScrumChange(sprint.boardId, 'card', card, { ...card, scrum: row.after, scrumRevision: row.revision + 1 }, userId);
+  };
+  if (Array.isArray(sprint.rolloverPending)) {
+    // A plan kept in the sprint document before 2026-10-03.
+    for (const row of sprint.rolloverPending) {
+      await apply(row, await Cards.findOneAsync({ _id: row.cardId, boardId: sprint.boardId }));
+      await ScrumSprints.updateAsync({ _id: sprint._id, revision: sprint.revision }, { $pull: { rolloverPending: { cardId: row.cardId } } });
     }
-    await ScrumSprints.updateAsync({ _id: sprint._id, revision: sprint.revision }, { $pull: { rolloverPending: { cardId: row.cardId } } });
+  } else if (sprint.rolloverPending === true) {
+    // The plan in chunks (scrumRolloverStore.js): a chunk's cards read at once,
+    // applied, and the chunk removed; then the mark.
+    for (let chunk = await nextRolloverChunk(sprint._id); chunk; chunk = await nextRolloverChunk(sprint._id)) {
+      if (chunk.boardId !== sprint.boardId) conflict();
+      const cards = new Map((await Cards.find({ _id: { $in: chunk.rows.map(row => row.cardId) }, boardId: sprint.boardId })
+        .fetchAsync()).map(card => [card._id, card]));
+      for (const row of chunk.rows) await apply(row, cards.get(row.cardId));
+      await finishRolloverChunk(chunk);
+    }
+    await ScrumSprints.updateAsync({ _id: sprint._id, revision: sprint.revision, rolloverPending: true },
+      { $unset: { rolloverPending: '' } });
   }
   return await ScrumSprints.findOneAsync(sprint._id);
 }
@@ -272,9 +290,7 @@ export async function getScrumDailyHistory(userId, boardId, sprintId) {
   if (!sprint) throw new Meteor.Error('not-found');
   const partial = !!assignedOnlyCardScope(board, userId);
   if (!sprint.startSnapshot) return { rows: [], partial, truncated: false, sprintName: sprint.name };
-  const visible = partial ? await Cards.find(cardSelector(board, userId),
-    { fields: { _id: 1 }, limit: 10001 }).fetchAsync() : null;
-  if (visible?.length > 10000) invalid('Daily Scrum report exceeds its card-scope limit');
+  const visible = partial ? await Cards.find(cardSelector(board, userId), { fields: { _id: 1 } }).fetchAsync() : null;
   const visibleIds = visible && new Set(visible.map(card => card._id));
   // Reading also collects today's first observation. Stored captures use the
   // full sprint; only the response is restricted to the reader's cards.
@@ -286,7 +302,7 @@ export async function getScrumDailyHistory(userId, boardId, sprintId) {
   try {
     for await (const sample of cursor) {
       if (rows.length === 366) { truncated = true; break; }
-      rows.push(...dailyHistoryRows([sample], visibleIds));
+      rows.push(...dailyHistoryRows([await withDailyRows(sample)], visibleIds));
     }
   } finally { await cursor.close(); }
   return { rows: rows.reverse(), partial, truncated, sprintName: sprint.name };
@@ -308,7 +324,7 @@ export async function getScrumScopeHistory(userId, boardId, sprintId) {
   const raw = ChangeHistory.rawCollection();
   const since = { $gte: sprint.startedAt };
   const ids = new Set(sprint.startSnapshot.cards.map(row => row.cardId));
-  for (const card of await Cards.find({ boardId, 'scrum.sprintId': sprintId }, { fields: { _id: 1 }, limit: 10001 }).fetchAsync()) {
+  for (const card of await Cards.find({ boardId, 'scrum.sprintId': sprintId }, { fields: { _id: 1 } }).fetchAsync()) {
     ids.add(card._id);
   }
   const scrumRows = await raw.find({ boardId, group: 'scrum', createdAt: since },
@@ -316,8 +332,7 @@ export async function getScrumScopeHistory(userId, boardId, sprintId) {
   for (const row of scrumRows) {
     for (const [cardId, , before, after] of scopeChangesOf(row)) if (before === sprintId || after === sprintId) ids.add(cardId);
   }
-  if (ids.size > 10000) invalid('Sprint scope history exceeds its card limit');
-  const visible = partial ? new Set((await Cards.find(cardSelector(board, userId), { fields: { _id: 1 }, limit: 10001 })
+  const visible = partial ? new Set((await Cards.find(cardSelector(board, userId), { fields: { _id: 1 } })
     .fetchAsync()).map(card => card._id)) : null;
   const cardIds = [...ids].filter(id => !visible || visible.has(id));
   const cards = await Cards.find({ _id: { $in: cardIds } }, { fields: { scrum: 1, customFields: 1, poker: 1,
@@ -413,11 +428,13 @@ const methods = {
       const closeSnapshot = await storeSnapshot({ boardId, sprintId, kind: 'close', snapshot: fullClose });
       const totals = reportTotals({ startSnapshot: { cards: await snapshotRows(sprint, 'startSnapshot') },
         closeSnapshot: fullClose });
-      const rolloverPending = cards.map(card => ({ cardId: card._id, revision: card.scrumRevision || 0,
+      // The plan goes to its own chunks before the sprint is marked
+      // (scrumRolloverStore.js), so its size is not the sprint document's.
+      await storeRolloverPlan({ boardId, sprintId, rows: cards.map(card => ({ cardId: card._id, revision: card.scrumRevision || 0,
         before: card.scrum || {}, after: { ...(card.scrum || {}), sprintId: done.get(card._id) || card.archived ? null : rolloverSprintId,
-          pastSprintIds: [...new Set([...(card.scrum?.pastSprintIds || []), sprintId])] } }));
+          pastSprintIds: [...new Set([...(card.scrum?.pastSprintIds || []), sprintId])] } })) });
       const closed = await updateSprint(this.userId, sprint, { state: 'closed', completedAt, closeSnapshot, reportTotals: totals,
-        closedFromRevision: sprint.revision, rolloverSprintId, rolloverPending });
+        closedFromRevision: sprint.revision, rolloverSprintId, ...(cards.length ? { rolloverPending: true } : {}) });
       return resumeRollover(this.userId, closed);
     });
   },

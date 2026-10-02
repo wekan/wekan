@@ -17,12 +17,14 @@ import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { withoutRecording, isRecordingSuppressed } from './historyRecordingScope';
 import { setScrumHistoryRecorder, setScrumHistoryBatchRunner, withScrumBoardLock, assertNoPendingScrumImport } from '/server/scrum';
 const { assignedOnlyCardScope } = require('/models/lib/boardCardScope');
-const { METADATA_TYPES, historyDocument, historyRecords, historySide } = require('/models/lib/scrumHistory');
+const { METADATA_TYPES, historyDocument, historyRecords, historySide, historyParts } = require('/models/lib/scrumHistory');
+const { calculateObjectSize } = require('bson');
+import { ROLLOVER_PENDING } from './scrumRolloverStore';
 const { normalizeScrumMetadata, normalizeScrumSettings, DEFAULT_SCRUM_SETTINGS } = require('/models/lib/scrum');
 const collections = { board: Boards, card: Cards, list: Lists, swimlane: Swimlanes,
   'scrum-sprint': ScrumSprints, 'scrum-release': ScrumReleases, 'scrum-event': ScrumEvents };
 const { recordScrumRestoreOnce } = require('./scrumHistoryRestoreWriter');
-const { finishScrumHistory, verifyScrumHistorySource } = require('./scrumHistoryFinalizer');
+const { finishScrumHistory, verifyScrumHistorySource, verifyScrumHistorySourceState } = require('./scrumHistoryFinalizer');
 const { ensureScrumHistoryOperation, claimScrumHistoryWorker, assertScrumHistoryWorker } = require('./scrumHistoryOwnership');
 const { scrumHistoryWriteState, inspectScrumHistoryWrites, verifyScrumHistoryWrites, plannedIncarnations } = require('./scrumHistoryWriteState');
 const { scrumHistoryWriteSelector } = require('./scrumHistoryWriteSelector');
@@ -34,6 +36,21 @@ async function recordBatch(boardId, userId, changes) {
   if (!userId || !changes.length || isRecordingSuppressed()) return;
   const records = historyRecords(changes).filter(row => !EJSON.equals(row.before, row.after));
   if (!records.length) return;
+  const parts = historyParts(records, doc => (doc ? calculateObjectSize(doc) : 0));
+  if (parts.length > 1) {
+    // One logical change in several rows (models/lib/scrumHistory.js
+    // historyParts), written in order on distinct milliseconds so the undo
+    // stack keeps their order.
+    const batchId = Random.id();
+    for (let index = 0; index < parts.length; index += 1) {
+      if (index) await nextMillisecond();
+      const id = await ChangeHistory.record({ boardId, entityType: 'scrum', entityId: boardId, group: 'scrum',
+        cardId: null, listId: null, swimlaneId: null, changeType: 'edited', batchId,
+        previousContent: historySide(parts[index], 'before'), newContent: historySide(parts[index], 'after'), userId });
+      if (!id) throw new Meteor.Error('scrum-history-failed', 'The change was saved but its History record could not be written.');
+    }
+    return;
+  }
   const single = records.length === 1 ? records[0] : null;
   const source = changes.find(change => change.entityId === single?.id);
   const card = single?.type === 'card' ? source.newContent || source.previousContent : null;
@@ -44,11 +61,21 @@ async function recordBatch(boardId, userId, changes) {
     previousContent: historySide(records, 'before'), newContent: historySide(records, 'after'), userId });
   if (!id) throw new Meteor.Error('scrum-history-failed', 'The change was saved but its History record could not be written.');
 }
+const nextMillisecond = async () => {
+  const now = Date.now();
+  while (Date.now() === now) await new Promise(resolve => setTimeout(resolve, 1));
+};
+// What a batch keeps of a change until it is recorded: the History content
+// and the location a single-card row shows, not the whole document, since a
+// sprint close may carry tens of thousands of cards.
+const slim = (type, doc) => doc && METADATA_TYPES.has(type)
+  ? { ...historyDocument(type, doc), listId: doc.listId, swimlaneId: doc.swimlaneId } : doc;
 Meteor.startup(() => {
   setScrumHistoryRecorder(async change => {
     if (isRecordingSuppressed()) return;
     const batch = batches.getStore();
-    if (batch) batch.push(change);
+    if (batch) batch.push({ ...change, previousContent: slim(change.entityType, change.previousContent),
+      newContent: slim(change.entityType, change.newContent) });
     else await recordBatch(change.boardId, change.userId, [change]);
   });
   setScrumHistoryBatchRunner((boardId, userId, operation) => batches.run([], async () => {
@@ -154,9 +181,15 @@ export async function applyScrumHistory(row, content, direction, request) {
         return true;
       }
     }
+    // Whole, with the row's hash, when the operation begins; by its identity
+    // fields before each write after that.
     const assertSource = async () => {
       const current = await ChangeHistory.findOneAsync(row._id);
       try { verifyScrumHistorySource(current, row, direction); } catch (error) { conflict(); }
+    };
+    const assertSourceState = async () => {
+      const current = await ChangeHistory.findOneAsync(row._id, { fields: { _id: 1, integrityHash: 1, boardId: 1, userId: 1, superseded: 1 } });
+      try { verifyScrumHistorySourceState(current, row, direction); } catch (error) { conflict(); }
     };
     await assertSource();
     const targets = recordList(content);
@@ -164,7 +197,7 @@ export async function applyScrumHistory(row, content, direction, request) {
     if (journal && (journal.rowId !== row._id || journal.direction !== direction || journal.userId !== userId ||
         (operationId && journal.operationId !== operationId) || !EJSON.equals(journal.content, content))) conflict();
     if (!journal) {
-      if (await ScrumSprints.findOneAsync({ boardId: row.boardId, 'rolloverPending.0': { $exists: true } })) conflict();
+      if (await ScrumSprints.findOneAsync({ boardId: row.boardId, ...ROLLOVER_PENDING })) conflict();
       const current = await Promise.all(targets.map(entry => collections[entry.type].findOneAsync(entry.id)));
       await validateTargets(board, userId, targets, current);
       await assertNoPendingScrumImport(row.boardId);
@@ -188,7 +221,7 @@ export async function applyScrumHistory(row, content, direction, request) {
     const worker = await claimScrumHistoryWorker(ScrumHistoryPending, journal);
     const assertCurrent = async () => {
       await assertScrumHistoryWorker(ScrumHistoryPending, journal, worker);
-      await assertSource();
+      await assertSourceState();
     };
     const verifyWrites = async (entries = targets, before = journal.before.records, revisions = journal.revisions,
       incarnations = journal.incarnations) => {

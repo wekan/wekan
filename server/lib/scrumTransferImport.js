@@ -89,7 +89,11 @@ export async function importScrumTransfer(creator, source, boardId) {
     }
   }
   for (const row of transfer.dailyObservations) {
-    steps.push({ kind: 'insert', collection: 'dailyObservations', after: { ...row, boardId,
+    // A day's rows go to their own chunks, as the daily capture stores them.
+    const { header, docs } = chunkSnapshot({ boardId, sprintId: row.sprintId, kind: 'daily',
+      snapshot: row.snapshot });
+    for (const doc of docs) steps.push({ kind: 'insert', collection: 'snapshotRows', after: doc });
+    steps.push({ kind: 'insert', collection: 'dailyObservations', after: { ...row, boardId, snapshot: header,
       _id: dailyObservationId(row.sprintId, row.startedAt, row.day) } });
   }
   const report = [...normalizeScrumTransferLosses(source.scrumTransferLosses), ...losses];

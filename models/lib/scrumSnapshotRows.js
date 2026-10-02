@@ -14,7 +14,7 @@ function snapshotHeader(snapshot, chunks = Math.ceil((snapshot.cards || []).leng
   return { ...header, stored: 'rows', rowCount: (cards || []).length, chunks };
 }
 
-// `kind` is 'start' or 'close'.
+// `kind` is 'start', 'close' or 'daily'.
 function chunkSnapshot({ boardId, sprintId, kind, snapshot }) {
   const rows = snapshot.cards || [];
   const docs = [];

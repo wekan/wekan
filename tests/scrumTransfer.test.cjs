@@ -61,7 +61,8 @@ test('old native payloads upgrade without inventing observations; malformed obse
  sample.snapshot.missingEstimates=0;
  large.dailyObservations=Array.from({length:11},(_,index)=>({...sample,
   startedAt:`2026-08-${String(index+1).padStart(2,'0')}T10:00:00Z`}));
- assert.throws(()=>normalizeScrumTransfer(large),/daily observation card limit/);
+ // No cap on the cards a day observed (maintainer decision of 2026-10-03).
+ assert.equal(normalizeScrumTransfer(large).dailyObservations.length,11);
 });
 test('native sprint snapshots agree with lifecycle timestamps and state',()=>{
  for(const change of [

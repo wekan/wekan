@@ -46,7 +46,6 @@ test('daily Scrum observations survive retries without inventing missing days', 
   for (const state of ['planned', 'closed', 'cancelled']) assert.equal(
     (await captureDailySprint({ ...input, sprint: { ...sprint, state } })).skipped, true);
   await assert.rejects(captureDailySprint({ ...input, at: new Date('2026-08-31') }), /timestamp/);
-  await assert.rejects(captureDailySprint({ ...input, cards: Array(10001).fill(cards[0]) }), /limit/);
   await assert.rejects(captureDailySprint({ ...input, sprint: { ...sprint, startSnapshot: { at: start } } }), /policy/);
   assert.equal(await collection.countDocuments({}), 3);
 });

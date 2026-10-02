@@ -15,8 +15,11 @@ function id(value) {
   if (typeof value !== 'string' || !value || value.length > 200 || value.includes('\0')) fail('invalid identifier');
   return value;
 }
-function rows(value) {
-  if (!Array.isArray(value) || value.length > 10000) fail('invalid record array');
+// Planning records keep their limit; the rows of a board's cards, lists and
+// swimlanes, and of a snapshot, have none (maintainer decision of 2026-10-03:
+// sprints with no card cap).
+function rows(value, max = 10000) {
+  if (!Array.isArray(value) || value.length > max) fail('invalid record array');
   return value;
 }
 function date(value) {
@@ -30,7 +33,7 @@ function snapshot(value) {
     estimateCustomFieldId: value.estimateCustomFieldId ?? null, completionPolicy: value.completionPolicy });
   if (settings.estimateSource === 'customField' && !settings.estimateCustomFieldId) fail('snapshot estimate field is required');
   const seen = new Set();
-  const cards = rows(value.cards).map(row => {
+  const cards = rows(value.cards, Infinity).map(row => {
     object(row, ['cardId', 'listId', 'estimate', 'done', 'archived']);
     id(row.cardId); id(row.listId);
     if (seen.has(row.cardId)) fail('duplicate snapshot card');
@@ -114,7 +117,7 @@ function normalizeScrumTransfer(value) {
     }));
   }
   for (const [plural, kind] of [['cards','card'],['lists','list'],['swimlanes','swimlane']]) {
-    result[plural] = unique(rows(value[plural]).map(value => {
+    result[plural] = unique(rows(value[plural], Infinity).map(value => {
       object(value, ['_id', 'scrum']);
       return { _id: id(value._id), scrum: normalizeScrumMetadata(kind, value.scrum) };
     }));
@@ -122,7 +125,6 @@ function normalizeScrumTransfer(value) {
   const sprintIds = new Set(result.sprints.map(row => row._id));
   const sprintById = new Map(result.sprints.map(row => [row._id, row]));
   const observations = new Set();
-  let observedCards = 0;
   result.dailyObservations = rows(own(value, 'dailyObservations') ? value.dailyObservations : []).map(row => {
     object(row, ['sprintId', 'startedAt', 'day', 'capturedAt', 'snapshot', 'consistency']);
     const sprintId = id(row.sprintId);
@@ -135,8 +137,6 @@ function normalizeScrumTransfer(value) {
         if (snap[key] !== current[key]) fail(`incompatible daily observation ${key}`);
       }
     }
-    observedCards += snap.cards.length;
-    if (observedCards > 100000) fail('daily observation card limit exceeded');
     if (row.consistency !== 'observed' || startedAt > capturedAt ||
       snap.at.getTime() !== capturedAt.getTime() || row.day !== capturedAt.toISOString().slice(0, 10)) fail('inconsistent daily observation');
     const key = JSON.stringify([sprintId, startedAt.toISOString(), row.day]);

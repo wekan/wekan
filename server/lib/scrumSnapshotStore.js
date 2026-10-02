@@ -39,9 +39,24 @@ export async function storeSnapshot({ boardId, sprintId, kind, snapshot }) {
 export async function snapshotRows(sprint, key) {
   const snapshot = sprint && sprint[key];
   if (!snapshot) return [];
+  return storedRows({ sprintId: sprint._id, kind: key === 'startSnapshot' ? 'start' : 'close', snapshot });
+}
+// A daily observation's snapshot is stored the same way, as kind 'daily' at
+// its capture time.
+export async function withDailyRows(observation) {
+  const { snapshot } = observation;
+  if (snapshot.stored !== 'rows') return observation;
+  const { stored, chunks, rowCount, ...header } = snapshot;
+  return { ...observation, snapshot: { ...header,
+    cards: await storedRows({ sprintId: observation.sprintId, kind: 'daily', snapshot }) } };
+}
+// Forget the rows of a daily capture that lost the race to another one.
+export function discardRows({ sprintId, kind, at }) {
+  return ScrumSnapshotRows.rawCollection().deleteMany({ sprintId, kind, at: new Date(at) });
+}
+async function storedRows({ sprintId, kind, snapshot }) {
   if (snapshot.stored !== 'rows') return snapshot.cards || [];
-  const kind = key === 'startSnapshot' ? 'start' : 'close';
-  const chunks = await ScrumSnapshotRows.rawCollection().find({ sprintId: sprint._id, kind, at: new Date(snapshot.at) },
+  const chunks = await ScrumSnapshotRows.rawCollection().find({ sprintId, kind, at: new Date(snapshot.at) },
     { sort: { chunk: 1 } }).toArray();
   if (chunks.length !== snapshot.chunks || chunks.some((chunk, i) => chunk.chunk !== i)) {
     throw new Meteor.Error('scrum-snapshot-missing', 'A sprint snapshot is incomplete.');

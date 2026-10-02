@@ -16,7 +16,10 @@ function assertScrumLifecycleSize(before, after) {
   const entry = (type, id, document) => ({ type, id, document });
   const previousContent = { records: [entry('scrum-sprint', before._id, historyDocument('scrum-sprint', before))] };
   const newContent = { records: [entry('scrum-sprint', after._id, historyDocument('scrum-sprint', after))] };
-  for (const card of after.rolloverPending || []) {
+  // A plan in the sprint document is the form before 2026-10-03; a plan now
+  // lives in its own chunks (scrumRolloverStore.js) and its History is split
+  // into rows of bounded size (models/lib/scrumHistory.js historyParts).
+  for (const card of Array.isArray(after.rolloverPending) ? after.rolloverPending : []) {
     previousContent.records.push(entry('card', card.cardId,
       { _id: card.cardId, boardId: after.boardId, scrum: card.before }));
     newContent.records.push(entry('card', card.cardId,

@@ -1,6 +1,5 @@
 // Canonical Scrum metadata. Pure validation is shared by methods and transfers.
 const LIMIT = 10000;
-const SCRUM_SNAPSHOT_LIMIT = 10000;
 const own = (o, k) => Object.prototype.hasOwnProperty.call(o, k);
 function fail(message) { throw new Error(message); }
 function object(value, keys) {
@@ -108,8 +107,8 @@ function isScrumCardDone(card, settings, lists = []) {
     : card.dueComplete === true;
 }
 function sprintSnapshot(cards, settings, lists, at = new Date()) {
-  if (cards.length > SCRUM_SNAPSHOT_LIMIT) fail('Sprint exceeds snapshot limit');
-  if (lists.length > SCRUM_SNAPSHOT_LIMIT) fail('Board exceeds snapshot list limit');
+  // No card or list cap (maintainer decision of 2026-10-03): the rows are
+  // stored in chunks (server/lib/scrumSnapshotStore.js), never in one document.
   const doneLists = settings.completionPolicy === 'doneLists'
     ? new Set(lists.filter(list => list.scrum?.category === 'done').map(list => list._id)) : null;
   const rows = cards.map(card => ({ cardId: card._id, estimate: getCardEstimate(card, settings),
@@ -123,6 +122,6 @@ function sprintSnapshot(cards, settings, lists, at = new Date()) {
 function scrumRevisionSelector(doc) {
   return own(doc, 'scrumRevision') ? { scrumRevision: doc.scrumRevision } : { scrumRevision: { $exists: false } };
 }
-module.exports = { SCRUM_SNAPSHOT_LIMIT, DEFAULT_SCRUM_SETTINGS, normalizeScrumSettings, normalizeScrumMetadata,
+module.exports = { DEFAULT_SCRUM_SETTINGS, normalizeScrumSettings, normalizeScrumMetadata,
   normalizeScrumRecord, getCardEstimate, isScrumCardDone, sprintSnapshot, scrumRevisionSelector,
   validateScrumRevision: revision };

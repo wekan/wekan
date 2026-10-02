@@ -12,6 +12,7 @@ import ScrumDailySnapshots from '/models/scrumDailySnapshots';
 import { ScrumSnapshotRows } from '/server/lib/scrumSnapshotStore';
 import { exportScrumTransfer } from '/server/lib/scrumTransferExport';
 import { importScrumTransfer } from '/server/lib/scrumTransferImport';
+import { ScrumRolloverRows } from '/server/lib/scrumRolloverStore';
 
 // A sprint's snapshot rows live outside the sprint document
 // (server/lib/scrumSnapshotStore.js, maintainer decision of 2026-10-03:
@@ -130,6 +131,116 @@ describe('Scrum snapshot rows', function () {
         await Boards.rawCollection().deleteMany({ _id: id });
       }
       await Meteor.users.rawCollection().deleteMany({ _id: { $in: [actor, reader] } });
+    }
+  });
+
+  it('starts, closes, undoes and redoes a sprint past the old 10,000-card limit', async function () {
+    if (!Meteor.isAppTest) this.skip();
+    this.timeout(900000);
+    const actor = Random.id(), boardId = Random.id(), listId = Random.id(), laneId = Random.id();
+    const next = Random.id();
+    const count = Number(process.env.WEKAN_LARGE_SPRINT_CARDS || 10500);
+    const context = { userId: actor, isSimulation: false, connection: null, setUserId() {}, unblock() {} };
+    const call = (name, ...args) => DDP._CurrentMethodInvocation.withValue(context,
+      () => Meteor.server.method_handlers[name].apply(context, args));
+    try {
+      await Meteor.users.rawCollection().insertOne({ _id: actor, username: `large-${actor}` });
+      await Boards.rawCollection().insertOne({ _id: boardId, title: 'Large', permission: 'private', archived: false,
+        members: [{ userId: actor, isAdmin: true, isActive: true }] });
+      await Swimlanes.rawCollection().insertOne({ _id: laneId, boardId, title: 'Lane', sort: 0, archived: false });
+      await Lists.rawCollection().insertOne({ _id: listId, boardId, title: 'List', sort: 0, archived: false });
+      const sprint = await call('scrum.saveSprint', boardId, null, { name: 'Large', plannedStart: '2026-09-01', plannedEnd: '2026-12-30' }, null);
+      const rollover = await call('scrum.saveSprint', boardId, null, { name: 'Next', plannedStart: '2026-09-01', plannedEnd: '2026-12-30' }, null);
+      const ids = Array.from({ length: count }, (_, i) => `${boardId}-${i}`);
+      await Cards.rawCollection().insertMany(ids.map((_id, i) => ({ _id, boardId, listId, swimlaneId: laneId,
+        title: `C${i}`, sort: i, archived: false, dueComplete: i % 2 === 0, poker: { estimation: 1 },
+        scrum: { sprintId: sprint._id } })));
+      await call('scrum.startSprint', boardId, sprint._id, sprint.revision);
+      const active = await ScrumSprints.findOneAsync(sprint._id);
+      assert.equal(active.startSnapshot.rowCount, count);
+      await call('scrum.closeSprint', boardId, sprint._id, active.revision, rollover._id);
+      const closed = await ScrumSprints.findOneAsync(sprint._id);
+      assert.equal(closed.state, 'closed');
+      assert.equal('rolloverPending' in closed, false);
+      assert.equal(await ScrumRolloverRows.find({ sprintId: sprint._id }).countAsync(), 0);
+      // Unfinished cards rolled over, finished ones left the sprint.
+      assert.equal(await Cards.find({ boardId, 'scrum.sprintId': rollover._id }).countAsync(), Math.floor(count / 2));
+      assert.equal(await Cards.find({ boardId, 'scrum.sprintId': sprint._id }).countAsync(), 0);
+      const report = (await call('scrum.getBoardData', boardId)).sprints.find(row => row._id === sprint._id).report;
+      assert.deepEqual([report.committed.count, report.completed.count], [count, Math.ceil(count / 2)]);
+      // History: several rows of one batch, each bounded.
+      const rows = await ChangeHistory.find({ boardId, entityType: 'scrum', batchId: { $ne: null }, isCheckpoint: { $ne: true } }).fetchAsync();
+      assert.ok(rows.length > 1);
+      assert.equal(new Set(rows.map(row => row.batchId)).size, 1);
+      assert.ok(rows.every(row => row.newContent.records.length <= 1000));
+      assert.equal(rows.reduce((sum, row) => sum + row.newContent.records.length, 0), count + 1);
+      // One undo reverses the whole close; one redo makes it again.
+      await call('changeHistory.undoLast', boardId, Random.id(24));
+      assert.equal((await ScrumSprints.findOneAsync(sprint._id)).state, 'active');
+      assert.equal(await Cards.find({ boardId, 'scrum.sprintId': sprint._id }).countAsync(), count);
+      await call('changeHistory.redoLast', boardId, Random.id(24));
+      assert.equal((await ScrumSprints.findOneAsync(sprint._id)).state, 'closed');
+      assert.equal(await Cards.find({ boardId, 'scrum.sprintId': rollover._id }).countAsync(), Math.floor(count / 2));
+      // The plain path (no request ID) walks the batch too.
+      await call('changeHistory.undoLast', boardId);
+      assert.equal(await Cards.find({ boardId, 'scrum.sprintId': sprint._id }).countAsync(), count);
+      assert.equal((await ScrumSprints.findOneAsync(sprint._id)).state, 'active');
+    } finally {
+      for (const model of [Cards, Lists, Swimlanes, ChangeHistory, ScrumSprints, ScrumDailySnapshots, ScrumSnapshotRows, ScrumRolloverRows]) {
+        await model.rawCollection().deleteMany({ boardId });
+      }
+      await Boards.rawCollection().deleteMany({ _id: boardId });
+      await Meteor.users.rawCollection().deleteMany({ _id: actor });
+    }
+  });
+
+  it('finishes a rollover interrupted after its plan was stored, and refuses other Scrum edits until then', async function () {
+    if (!Meteor.isAppTest) this.skip();
+    const actor = Random.id(), boardId = Random.id(), listId = Random.id(), laneId = Random.id();
+    const context = { userId: actor, isSimulation: false, connection: null, setUserId() {}, unblock() {} };
+    const call = (name, ...args) => DDP._CurrentMethodInvocation.withValue(context,
+      () => Meteor.server.method_handlers[name].apply(context, args));
+    const originalUpdate = Cards.updateAsync;
+    try {
+      await Meteor.users.rawCollection().insertOne({ _id: actor, username: `resume-${actor}` });
+      await Boards.rawCollection().insertOne({ _id: boardId, title: 'Resume', permission: 'private', archived: false,
+        members: [{ userId: actor, isAdmin: true, isActive: true }] });
+      await Lists.rawCollection().insertOne({ _id: listId, boardId, title: 'List', sort: 0, archived: false });
+      const sprint = await call('scrum.saveSprint', boardId, null, { name: 'R', plannedStart: '2026-09-01', plannedEnd: '2026-12-30' }, null);
+      const ids = [Random.id(), Random.id(), Random.id()];
+      await Cards.rawCollection().insertMany(ids.map((_id, i) => ({ _id, boardId, listId, swimlaneId: laneId,
+        title: `C${i}`, sort: i, archived: false, scrum: { sprintId: sprint._id } })));
+      await call('scrum.startSprint', boardId, sprint._id, sprint.revision);
+      const active = await ScrumSprints.findOneAsync(sprint._id);
+      // The database fails on the second card of the rollover.
+      let writes = 0;
+      Cards.updateAsync = async function (...args) {
+        if (args[1]?.$set?.scrum && ++writes === 2) throw new Error('lost connection');
+        return originalUpdate.apply(this, args);
+      };
+      await assert.rejects(call('scrum.closeSprint', boardId, sprint._id, active.revision, null));
+      Cards.updateAsync = originalUpdate;
+      const interrupted = await ScrumSprints.findOneAsync(sprint._id);
+      assert.equal(interrupted.rolloverPending, true);
+      assert.equal(await ScrumRolloverRows.find({ sprintId: sprint._id }).countAsync(), 1);
+      // Negative: every other Scrum edit waits for the rollover.
+      await assert.rejects(call('scrum.saveSprint', boardId, null, { name: 'X', plannedStart: '2026-09-01', plannedEnd: '2026-12-30' }, null),
+        /scrum-rollover-pending/);
+      assert.equal((await call('scrum.getBoardData', boardId)).sprints.find(row => row._id === sprint._id).rolloverPending, true);
+      // The retry of the same close finishes it.
+      await call('scrum.closeSprint', boardId, sprint._id, active.revision, null);
+      const finished = await ScrumSprints.findOneAsync(sprint._id);
+      assert.equal('rolloverPending' in finished, false);
+      assert.equal(await ScrumRolloverRows.find({ sprintId: sprint._id }).countAsync(), 0);
+      assert.equal(await Cards.find({ boardId, 'scrum.sprintId': sprint._id }).countAsync(), 0);
+      assert.equal(await Cards.find({ boardId, 'scrum.pastSprintIds': sprint._id }).countAsync(), 3);
+    } finally {
+      Cards.updateAsync = originalUpdate;
+      for (const model of [Cards, Lists, Swimlanes, ChangeHistory, ScrumSprints, ScrumDailySnapshots, ScrumSnapshotRows, ScrumRolloverRows]) {
+        await model.rawCollection().deleteMany({ boardId });
+      }
+      await Boards.rawCollection().deleteMany({ _id: boardId });
+      await Meteor.users.rawCollection().deleteMany({ _id: actor });
     }
   });
 });

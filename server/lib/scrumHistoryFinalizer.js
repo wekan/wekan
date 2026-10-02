@@ -6,7 +6,14 @@ const { readScrumHistoryCompletion, saveScrumHistoryCompletion } = require('./sc
 // its source row is reloaded on retry. Compare identity and immutable evidence,
 // but reject superseded redo independently of the caller's captured value.
 function verifyScrumHistorySource(current, row, direction) {
-  if (!rowHashIsValid(current) || current._id !== row._id ||
+  if (!rowHashIsValid(current)) throw new Error('Scrum History finalization conflict');
+  verifyScrumHistorySourceState(current, row, direction);
+}
+// The same, without re-hashing the row's content: for the check before each
+// write of an operation whose row was verified whole when it began. A batch
+// of a thousand records hashed its row a thousand times.
+function verifyScrumHistorySourceState(current, row, direction) {
+  if (!current || current._id !== row._id ||
       current.integrityHash !== row.integrityHash || current.boardId !== row.boardId ||
       current.userId !== row.userId || !!current.superseded !== !!row.superseded ||
       (direction === 'redo' && current.superseded)) {
@@ -70,4 +77,4 @@ async function finishScrumHistory({ history, pending, completions, row, journal,
   await saveScrumHistoryCompletion(completions, journal, row, now);
   await cleanup();
 }
-module.exports = { finishScrumHistory, verifyScrumHistorySource };
+module.exports = { finishScrumHistory, verifyScrumHistorySource, verifyScrumHistorySourceState };
