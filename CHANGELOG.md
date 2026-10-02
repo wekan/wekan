@@ -1686,6 +1686,17 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a90bdf4270">Translate Khmer email failures and activity recovery</a>. Thanks to xet7.</summary>
+
+- Fill 30 email failure, time-estimate and activity-recovery messages in both
+  Khmer locale files; km-KH inherits the Cambodia translations.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass for all three locale tags, as do all 21 human-preference checks.
+  Full-language work, browser and native-speaker reviews remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9aa9f86243">Translate Khmer Sync recovery and email queue messages</a>. Thanks to xet7.</summary>
 
 - Fill 30 Sync recovery and email queue messages in both Khmer locale files;
