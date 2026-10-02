@@ -2540,6 +2540,22 @@ need work.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/04063e75c5">Translate feature and card settings in Kashmiri, Klingon and Volapük</a>. Thanks to xet7.</summary>
+
+Fill 81 messages, bringing feature settings and the three card-setting labels
+to 223 locale tags. Correct Volapük's time and board labels. Selected catalog
+and language suites pass, covering key order, placeholders, visibility and
+permission wording, native script and corrected terminology. Specialist
+workflow wording in all three languages has lower confidence and remains open
+to speaker review. Structural checks do not establish fluency. References
+included [Kashmiri permission vocabulary](https://mkraina.com/wp-content/uploads/2020/05/Basic-Reader-for-Kashmiri-Language.pdf),
+[the Klingon Language Institute vocabulary](https://www.kli.org/about-klingon/new-klingon-words/date/)
+and [the English–Volapük dictionary](https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary).
+The remaining translation queue and older wrong-language text still need work.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
