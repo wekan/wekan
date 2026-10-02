@@ -158,5 +158,7 @@ console.log('  ok - REST security advisory authorization and response guards');
   const auth = read('server/authentication.js');
   assert.doesNotMatch(auth, /admin === undefined/);
   assert.match(auth, /async checkUserId\(userId\) \{\s*if \(!userId\) \{/);
+  assert.match(auth, /checkLoggedIn\(userId\) \{\s*if \(!userId\) \{/);
+  assert.doesNotMatch(auth, /userId === undefined/);
   console.log('  ok - authentication helpers refuse a null admin or user id');
 }

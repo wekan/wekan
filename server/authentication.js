@@ -28,7 +28,7 @@ export const Authentication = {
   // This will only check if the user is logged in.
   // The authorization checks for the user will have to be done inside each API endpoint
   checkLoggedIn(userId) {
-    if (userId === undefined) {
+    if (!userId) {
       const error = new Meteor.Error('Unauthorized', 'Unauthorized');
       error.statusCode = 401;
       throw error;
