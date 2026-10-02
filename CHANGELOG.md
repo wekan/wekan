@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/47a44ff15f">Translate Malagasy variables and function controls</a>. Thanks to xet7.</summary>
+
+- Fill 25 variable, function and editor messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7b1d5c4e83">Translate Malagasy mathematical function messages</a>. Thanks to xet7.</summary>
 
 - Fill 26 mathematical-function labels and tooltips. Trigonometric terminology
