@@ -3196,6 +3196,23 @@ Structural tests do not establish fluency.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/79fd147921">Translate Scrum history, estimates and recovery in Cherokee</a>. Thanks to xet7.</summary>
+
+Fill twenty English placeholders in Cherokee for Scrum scope history, GitLab
+estimates, paging and import recovery. These twenty strings now have translations
+in all 234 non-English locale tags. Preserve existing translated values, source
+key order and exact placeholders. Extend Cherokee script and workflow wording
+checks for incomplete history, missing weights and discard-only recovery.
+
+All 451 translation-related suites and 21 human-preference checks pass.
+Cherokee specialist phrasing and inflection have low confidence and need speaker
+review. References include the [Cherokee Nation consortium word list](https://language.cherokee.org/media/4emjgbyy/2019consortium_wordlist.pdf)
+and [Cherokee verb forms](https://smg-complexity.surrey.ac.uk/languages/cherokee/).
+Structural tests do not establish fluency. The broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
