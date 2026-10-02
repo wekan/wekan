@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4fa490ee1c">Translate Amharic Blockly field and block labels</a>. Thanks to xet7.</summary>
+
+- Fill 28 Blockly field and block labels in Amharic.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass, as do all 21 human-preference checks. Full-language work,
+  browser and native-speaker reviews remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4e0ef78a39">Translate Amharic map and accessibility messages</a>. Thanks to xet7.</summary>
 
 - Fill 27 map and Blockly accessibility messages in Amharic.
