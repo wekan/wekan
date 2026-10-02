@@ -1,6 +1,6 @@
 import Boards from '/models/boards';
 import CustomFields from '/models/customFields';
-import { allowIsAnyBoardMemberWithWriteAccess } from '/server/lib/utils';
+import { allowIsAnyBoardMemberWithWriteAccess, allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 
 // ReadOnly / CommentOnly / Worker members must not be able to create, modify or
 // delete Custom Fields (which define board-wide schema). Use the write-access
@@ -78,4 +78,43 @@ CustomFields.deny({
     return false;
   },
   fetch: ['boardIds', 'adminOnly'],
+});
+
+// RepointBleed: the allow rules accept a field when the caller can write to ANY
+// of its boards, so a field could be inserted onto, or $push'd to, somebody
+// else's private board - where an always-on field writes into every card - or
+// $pull'd from a board shared with someone who cannot stop it. Every board a
+// field is created on, added to or removed from needs write access. The UI only
+// ever names the current board.
+async function boardsWithoutWrite(userId, boardIds) {
+  const ids = [...new Set(boardIds)];
+  if (!ids.length) return [];
+  const boards = await Boards.find({ _id: { $in: ids } }).fetchAsync();
+  return ids.filter(id => !allowIsBoardMemberWithWriteAccess(userId, boards.find(board => board._id === id)));
+}
+function recordFieldRepoint(userId, source) {
+  try {
+    require('/server/lib/securityLog').record({
+      key: 'authz.repoint', action: 'blocked', source, userId,
+      detail: 'Tried to put a custom field on, or take it off, a board without write access there.',
+    });
+  } catch (e) { /* logging must never break the guard */ }
+}
+CustomFields.deny({
+  async insert(userId, doc) {
+    if (!(await boardsWithoutWrite(userId, doc.boardIds || [])).length) return false;
+    recordFieldRepoint(userId, 'ddp:customFields.insert');
+    return true;
+  },
+  async update(userId, doc, fieldNames, modifier) {
+    if (!fieldNames.includes('boardIds')) return false;
+    const { modifiedCard } = require('/server/lib/adminOnlyCustomFields');
+    const before = doc.boardIds || [];
+    const after = modifiedCard(doc, modifier).boardIds || [];
+    const changed = [...before.filter(id => !after.includes(id)), ...after.filter(id => !before.includes(id))];
+    if (!(await boardsWithoutWrite(userId, changed)).length) return false;
+    recordFieldRepoint(userId, 'ddp:customFields.update');
+    return true;
+  },
+  fetch: ['boardIds'],
 });

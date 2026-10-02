@@ -1,6 +1,7 @@
 import Actions from '/models/actions';
 import Boards from '/models/boards';
 import { allowIsBoardAdmin } from '/server/lib/utils';
+import { denyBoardRepoint } from '/server/lib/boardRepointGuard';
 
 Actions.allow({
   async insert(userId, doc) {
@@ -13,3 +14,7 @@ Actions.allow({
     return allowIsBoardAdmin(userId, await Boards.findOneAsync(doc.boardId));
   },
 });
+
+// RepointBleed: the allow rule above checks the board the document is on now;
+// this refuses an update that moves it to another board.
+Actions.deny(denyBoardRepoint('actions'));

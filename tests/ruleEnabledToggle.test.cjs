@@ -79,7 +79,7 @@ test('findMatchingRules skips rules with enabled === false, and only that case',
   assert.ok(start > 0);
   const end = helper.indexOf('\n};', start);
   const block = helper.slice(start, end === -1 ? helper.length : end);
-  assert.match(block, /matchingRules\.filter\(rule => rule\.enabled !== false\)/);
+  assert.match(block, /matchingRules\.filter\(rule => rule\.enabled !== false[^)]*\)/);
 });
 
 test('the rules list has a toggle wired to rules.setEnabled', () => {

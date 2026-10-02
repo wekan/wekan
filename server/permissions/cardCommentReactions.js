@@ -3,6 +3,7 @@ import Boards from '/models/boards';
 import { allowIsBoardMemberCommentOnly } from '/server/lib/utils';
 const { denyForeignReactionChange } = require('/models/lib/reactionOwnership');
 import { tripCanaryDeny } from '/server/lib/canary';
+import { denyBoardRepoint } from '/server/lib/boardRepointGuard';
 
 // Reacting to a comment is a form of commenting, so it follows the same rule as
 // CardComments.insert: members who may comment (Normal / Comment-only) are
@@ -43,3 +44,7 @@ CardCommentReactions.deny({
   },
   fetch: ['reactions'],
 });
+
+// RepointBleed: the allow rule decides by the reaction's board; it may not be
+// moved to another board or onto another comment.
+CardCommentReactions.deny(denyBoardRepoint('cardCommentReactions', ['boardId', 'cardCommentId']));

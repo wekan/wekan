@@ -59,7 +59,8 @@ assert.match(helper, /\$or: tokenFields\.map\(field => \(\{ \[field\]: \{ \$rege
 assert.match(helper, /boardId: \{ \$in: \[activity\.boardId, '\*', null\] \}/, 'only this board\'s triggers');
 assert.match(helper, /const vars = await buildRuleVars\(activity, card\);/, 'the same variables actions use');
 assert.match(helper, /tokenValues\.userId = actor \? actor\.username : undefined;/);
-assert.match(helper, /return uniqueRules\(matchingRules\.filter\(rule => rule\.enabled !== false\)\);/,
+// RepointBleed (2026-10-02) added the same-board condition to this filter.
+assert.match(helper, /return uniqueRules\(matchingRules\.filter\(rule => rule\.enabled !== false && rule\.boardId === activity\.boardId\)\);/,
   'a disabled rule still never fires, and one matched twice runs once');
 assert.match(read('client/components/rules/rulesMain.js'), /if \(triggerValueHasVars\(username\)\) \{[\s\S]*?trigger\.userId = username\.trim\(\);/);
 assert.match(read('client/components/rules/rulesTriggers.jade'), /js-trigger-vars-hint \{\{_ 'r-trigger-vars-hint'\}\}/);

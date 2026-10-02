@@ -326,7 +326,12 @@ export const RulesHelper = {
     // fire while disabled. `enabled` defaults to `true` in the schema, so
     // only an explicit `false` is skipped here. A rule matched through more
     // than one of its triggers runs once (#4294: any trigger fires it).
-    return uniqueRules(matchingRules.filter(rule => rule.enabled !== false));
+    // RepointBleed: a rule acts only on its own board's activity. A trigger's
+    // boardId may be '*' or missing (legacy "any board" triggers, or one an
+    // attacker moved there), which the queries above match on EVERY board;
+    // the rule it belongs to is configured on one board, and its creator need
+    // not be able to see any other.
+    return uniqueRules(matchingRules.filter(rule => rule.enabled !== false && rule.boardId === activity.boardId));
   },
   // The value each matching field has for this activity, resolved the way
   // buildMatchingFieldsMap compares it (list and swimlane names looked up,

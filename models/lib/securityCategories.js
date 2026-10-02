@@ -30,6 +30,9 @@ const CATALOG = {
   'ssrf.attachment': { category: 'ssrf', bleed: 'LiveBleed', severity: 'high', cwe: 'CWE-918' },
   'ssrf.fetch':      { category: 'ssrf', bleed: 'DnsBleed', severity: 'high', cwe: 'CWE-918' },
   'ssrf.webhook':    { category: 'ssrf', bleed: 'IntegrationBleed', severity: 'high', cwe: 'CWE-918' },
+  // RepointBleed: a rule trigger, action, rule or webhook integration moved to
+  // another board (or '*') by an update; see server/lib/boardRepointGuard.js.
+  'authz.repoint':   { category: 'authz', bleed: 'RepointBleed', severity: 'high', cwe: 'CWE-863' },
   // SyncBleed (GHSA-5q84-p3vr-f3xv): a List Sync server address on a private,
   // loopback or link-local network, refused when saved and on every fetch.
   'ssrf.list-sync':  { category: 'ssrf', bleed: 'SyncBleed', severity: 'medium', cwe: 'CWE-918' },
