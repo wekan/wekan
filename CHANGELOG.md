@@ -1686,6 +1686,19 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d441c53296">Translate Cornish reminders saved filters and import reports</a>. Thanks to xet7.</summary>
+
+- Fill 28 Cornish notification, reminder, saved-filter, dependency and import
+  report messages. Technical phrasing remains low confidence pending
+  native-speaker review.
+- Batch placeholder, key-order, reminder-offset, template-variable and
+  distinct-action checks pass, along with all 21 human-preference checks.
+  Full-language work and browser review remain.
+
+</details>
+
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/afbb6b3b62">Translate Cornish import access and automation messages</a>. Thanks to xet7.</summary>
 
 - Fill 25 Cornish import, access, parent-card, automation and notification
