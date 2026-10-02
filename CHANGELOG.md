@@ -250,13 +250,13 @@ Remaining, and why:
   [the Scrum design](docs/Features/Right-Sidebar/Board-Settings/Board-View/Scrum-Design.md),
   being worked through one at a time; each is checked against the code before
   it is built, since the design's own list may lag behind it):
-  - event-level scope history and burndown (daily observations exist);
   - large boards: board-view pagination, plans larger than one document's
     BSON budget, and concurrent snapshot consistency;
   - copying and moving planning records (sprints, releases) on their own,
     between boards;
-  - Jira sprint, epic, version and rank mapping, automatic discovery of its
-    estimate fields, and estimate Sync mappings for the other providers;
+  - Jira's closed sprints: issue search JSON has no commitment or close
+    snapshot, so they are reported, not imported; importing them needs the
+    Jira Software sprint report API, which needs a live Jira and credentials;
   - interrupted native imports: online replay and partial-plan
     reconstruction;
   - History and undo carried along by board transfer.
@@ -1819,7 +1819,7 @@ Settings preference and card aging has its own setting, so they have no row.
 
 - [Scrum settings is a group of its own, above Change color](https://github.com/wekan/wekan/commit/7bf6f8a44b). Thanks to xet7.
 
-**Import and export** - one more format.
+**Import and export** - one more format, and Jira's Scrum planning data.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f0323140f6">Boards import and export Taskwarrior JSON</a>. Thanks to xet7.</summary>
@@ -1832,6 +1832,44 @@ wekandescription attributes, kept by Taskwarrior as orphaned UDAs, carry list
 names and descriptions across a round trip. Deleted tasks, recurring templates,
 bad dates and unmapped attributes go to the loss report. Tests:
 tests/taskwarrior.test.cjs and a Playwright import case.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b0803ffeaa">Jira sprints, fix versions, rank and epic links import as Scrum planning data</a>. Thanks to xet7.</summary>
+
+The Sprint, Rank and Epic Link fields are found by their schema type, or by
+name when the export has no schema, never by number. Future and active sprints
+become planned sprints with their goals and dates; closed sprints, and an
+active sprint's missing commitment snapshot, are reported in Problems →
+Recovery rather than invented. Fix versions become releases, rank orders the
+backlog, and a legacy Epic Link becomes the card's parent. Tests:
+tests/jiraScrumPlanning.test.cjs and a server test of a real import.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/47a603a63f">The Jira import page offers the export's numeric fields as the estimate</a>. Thanks to xet7.</summary>
+
+The fields come from the pasted export's schema, story points first. With no
+field entered, the one field of Jira Software's story points type is used, in
+points; with two or none, nothing is chosen. Test:
+tests/jiraEstimateMapping.test.cjs.
+
+</details>
+
+**Sprint Report** - what happened to a sprint between its daily observations.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/306f127a31">Scope and burndown are replayed change by change from History</a>. Thanks to xet7.</summary>
+
+Each change since the sprint started - cards joining or leaving, estimates,
+completion, moves to done lists, archiving - becomes a row with the sprint's
+scope, remaining and completed work after it. The replay is checked against
+the sprint's start and close snapshots and, while it is open, against the
+cards as they are now; a mismatch means History missed a write, and the report
+says so. Tests: tests/scrumScopeReplay.test.cjs, a server test through the real
+Scrum methods, and tests/playwright/specs/scrum-scope-history.e2e.js.
 
 </details>
 
@@ -1881,8 +1919,8 @@ a server test of the stored plan.
 
 </details>
 
-**List Sync** - more of what a rule does runs through durable Sync, and lists
-from before list lifetimes can use it.
+**List Sync** - more of what a rule does runs through durable Sync, lists from
+before list lifetimes can use it, and GitLab estimates sync too.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b3b4962414">Rule moves to the top or bottom of the card's own list are durable</a>. Thanks to xet7.</summary>
@@ -2043,6 +2081,19 @@ ordinary Card.move, and a whole Sync run with a list watcher.
 One unit per card, each a whole move there with its own records; each card keeps
 its sort and lands in that board's default swimlane, as in the ordinary action.
 Tests: the command suite and a server test with replay and parity.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4f4de145b1">GitLab's weight or time estimate syncs into a numeric field</a>. Thanks to xet7.</summary>
+
+The Sync settings choose GitLab's weight, in points, or its time estimate, in
+hours, and any numeric custom field on the board to hold it, as Jira's
+estimates already could. An issue without a weight clears the value; local
+changes are reviewed as conflicts; the durable journal accepts the mapping.
+GitHub, Gitea and Forgejo issues have no estimate to sync. Tests:
+tests/listSyncEstimate.test.cjs and server tests on the direct and durable
+paths.
 
 </details>
 
