@@ -539,6 +539,10 @@
     {
       "key": "feature-saved",
       "since": "2026-10-02"
+    },
+    {
+      "key": "import-board-instruction-taskwarrior",
+      "since": "2026-10-02"
     }
   ]
 }

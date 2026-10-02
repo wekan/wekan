@@ -337,7 +337,7 @@ test('every external export menu link returns text and refuses an unrelated user
   // Include description through the actual shared selection controls.
   const details = page.locator('.js-export-card-details-toggle');
   if (await details.getAttribute('aria-checked') !== 'true') await details.click();
-  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt']) {
+  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior']) {
     await test.step(format, async () => {
       const anchor = page.locator(`.js-pop-over a[href*="/export/${format}?"]`);
       await expect(anchor).toBeVisible();
@@ -376,6 +376,38 @@ test('todo.txt: tasks import with their list, labels, priority and dates', async
     const done = cards.find(card => card.title === 'Finished task');
     expect(lists.find(list => list._id === done.listId).title).toBe('Done');
     expect(new Date(done.endAt).toISOString().slice(0, 10)).toBe('2026-10-09');
+    await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
+
+// Taskwarrior's export: an array of task objects, with dependencies by uuid.
+test('Taskwarrior: tasks import with their list, labels, dates, annotations and dependencies', async ({ loggedInPage: page }) => {
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/taskwarrior');
+    await page.locator('#import-textarea').fill(JSON.stringify([
+      { uuid: 'aaaaaaaa-0000-4000-8000-000000000001', status: 'pending', entry: '20260901T120000Z',
+        description: expected.title, project: 'Plant', priority: 'H', tags: [expected.label],
+        due: '20261010T000000Z', annotations: [{ entry: '20260902T080000Z', description: 'Call the vendor' }] },
+      { uuid: 'aaaaaaaa-0000-4000-8000-000000000002', status: 'completed', entry: '20260901T120000Z',
+        end: '20261009T120000Z', description: 'Finished task', depends: ['aaaaaaaa-0000-4000-8000-000000000001'] },
+      { uuid: 'aaaaaaaa-0000-4000-8000-000000000003', status: 'deleted', description: 'Gone' },
+    ]));
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    const cards = db.find('cards', { boardId });
+    expect(cards).toHaveLength(2);
+    const open = cards.find(card => card.title === expected.title);
+    const board = db.findOne('boards', { _id: boardId });
+    const labelNames = open.labelIds.map(id => board.labels.find(label => label._id === id).name).sort();
+    expect(labelNames).toEqual([expected.label, 'priority:H', 'project:Plant'].sort());
+    expect(new Date(open.dueAt).toISOString().slice(0, 10)).toBe('2026-10-10');
+    expect(db.find('card_comments', { cardId: open._id }).map(comment => comment.text)).toEqual(['Call the vendor']);
+    const lists = db.find('lists', { boardId });
+    const done = cards.find(card => card.title === 'Finished task');
+    expect(lists.find(list => list._id === done.listId).title).toBe('Done');
+    expect((done.cardDependencies || []).map(dep => dep.cardId)).toEqual([open._id]);
     await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
   } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });

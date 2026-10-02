@@ -353,8 +353,10 @@ if (Meteor.isServer) {
       await require('/server/lib/adminOnlyCustomFields').assertFieldExport(boardId, user?._id);
       const built = await buildExternalExport(boardId, format,
         parseExportFields(req.query && req.query.fields, BOARD_EXPORT_FIELD_KEYS));
-      // Markdown, the Leo outline (XML) and todo.txt are text files of their own.
-      const textType = { markdown: 'text/markdown', leo: 'application/xml', todotxt: 'text/plain' }[format];
+      // Markdown, the Leo outline (XML), todo.txt and Taskwarrior's JSON are
+      // files of their own, sent as the formatter wrote them.
+      const textType = { markdown: 'text/markdown', leo: 'application/xml', todotxt: 'text/plain',
+        taskwarrior: 'application/json' }[format];
       if (textType) {
         res.writeHead(200, { 'Content-Type': `${textType}; charset=utf-8` });
         res.end(String(built == null ? '' : built));

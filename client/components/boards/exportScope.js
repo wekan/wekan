@@ -238,6 +238,7 @@ const EXPORT_FORMAT_GROUPS = [
       { key: 'markdown', icon: 'fa-file-text-o', label: 'Markdown', path: 'export/markdown', ext: 'md', scopes: BOARD_ONLY },
       { key: 'leo', icon: 'fa-sitemap', label: 'Leo', path: 'export/leo', ext: 'leo', scopes: BOARD_ONLY },
       { key: 'todotxt', icon: 'fa-list-ul', label: 'todo.txt', path: 'export/todotxt', ext: 'txt', scopes: BOARD_ONLY },
+      { key: 'taskwarrior', icon: 'fa-terminal', label: 'Taskwarrior', path: 'export/taskwarrior', ext: 'json', scopes: BOARD_ONLY },
       ...[
         ['trello', 'Trello'], ['jira', 'Jira'], ['deck', 'NextCloud Deck'],
         ['openproject', 'OpenProject'], ['github', 'GitHub'], ['gitlab', 'GitLab'],
