@@ -1,0 +1,27 @@
+#!/bin/bash
+# #6552: raise the open-file (nofile) limit of the service that sources this.
+#
+# Caddy holds a file descriptor per client connection, so a busy WeKan snap can
+# run out at the soft limit systemd starts services with. snapcraft has no
+# per-app ulimit key and snapd owns the systemd unit, but a process may always
+# raise its own SOFT limit up to the HARD one without any privilege - so the
+# service does it for itself at every start, which is what makes it persist.
+#
+# CADDY_NOFILE (optional) asks for a lower number; it is never allowed above the
+# hard limit, and a value that is not a number is ignored.
+raise_nofile_limit() {
+  local hard want
+  hard="$(ulimit -Hn)"
+  want="$hard"
+  if [[ "${CADDY_NOFILE:-}" =~ ^[0-9]+$ ]]; then
+    want="$CADDY_NOFILE"
+    if [ "$hard" != "unlimited" ] && [ "$want" -gt "$hard" ]; then
+      want="$hard"
+    fi
+  fi
+  if ! ulimit -Sn "$want" 2>/dev/null; then
+    echo "caddy: could not raise the open-file limit to $want (soft $(ulimit -Sn), hard $hard)" >&2
+    return 0
+  fi
+  echo "caddy: open-file limit $(ulimit -Sn) (hard $hard)"
+}
