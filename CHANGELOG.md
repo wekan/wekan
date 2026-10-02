@@ -1677,12 +1677,53 @@ template.
 
 # Upcoming WeKan ® release
 
-**In short:** Dependency messages now cover more languages and regional
-variants.
-Translation checks follow current wording and markup, and literal keyboard
+**In short:** Fixes **CacheBleed**: attachments and avatars are no longer
+cacheable by shared caches, so a proxy cannot serve a private board's file
+without the access check. Dependency lines show on instance boards, dependency
+messages cover more languages and regional variants, and literal keyboard
 labels are restored.
 
-This release updates the following translations:
+This release fixes the following CRITICAL SECURITY ISSUE of [CacheBleed](https://wekan.fi/hall-of-fame/cachebleed/):
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/77c3957e5c">Attachments and avatars are private, revalidated responses, never shared-cacheable</a>. Thanks to alham-rizvi and xet7.</summary>
+
+[GHSA-w3qg-pf27-g68r](https://github.com/wekan/wekan/security/advisories/GHSA-w3qg-pf27-g68r):
+since v8.16, attachments were answered with `Cache-Control: public,
+max-age=31536000` and no `Vary` after the board access check. A shared cache in
+front of WeKan (CDN, caching reverse proxy, corporate proxy) could store a
+member's copy and serve it to anyone with the URL and no credentials for a
+year, also after the member was removed from the board. The same header was in
+both `?download=1` branches and both avatar routes, and Meteor-Files' own
+`/cdn/storage` route sent its default public one-year header.
+
+Every file response, its 304 and the thumbnail now send `private, no-cache` and
+`Vary: Cookie, Authorization, X-Auth-Token` from one helper,
+`models/lib/fileCacheHeaders.js`. Public boards get the same policy, because a
+board made private later would leave a public copy behind. The ETag keeps
+revalidation a bodiless 304.
+
+The test drives the policy against the shared-cache rules the report used. The
+negative test fails on any public `Cache-Control`, a FilesCollection left on
+the Meteor-Files default, or a file route sending an ETag without the policy,
+anywhere in the tree. The Playwright thumbnail spec checks the headers on every
+route. Nothing is refused, so there is no Admin Panel → Problems key.
+
+</details>
+
+and fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2a75b8267f">Dependency lines show on instance boards to every signed-in user</a>. Thanks to xet7.</summary>
+
+The dependency access rule allowed public boards and members only, so a
+signed-in non-member of an instance-wide board could read its cards but not its
+dependency lines. It now uses `readableWithoutMembership`, the rule every board
+read shares, and the test covers signed-in and signed-out readers.
+
+</details>
+
+and updates the following translations:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/261f3f4042">Translate Ladin import and rule messages</a>. Thanks to xet7.</summary>
