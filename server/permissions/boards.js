@@ -51,7 +51,7 @@ Boards.deny({
     if (!renamed) {
       const Attachments = require('/models/attachments').default;
       const attachment = await Attachments.findOneAsync({ _id: id });
-      if (require('/models/lib/boardBackground').isOwnBoardBackground(doc, attachment)) return false;
+      if (require('/models/lib/boardBackgroundOwnership').isOwnBoardBackground(doc, attachment)) return false;
     }
     try {
       require('/server/lib/securityLog').record({

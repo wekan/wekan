@@ -509,7 +509,7 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
         return sendErrorResponse(res, 404, 'Background attachment not found');
       }
       // BackgroundBleed: only this board's own attachment is its background.
-      if (!require('/models/lib/boardBackground').isOwnBoardBackground(board, attachment)) {
+      if (!require('/models/lib/boardBackgroundOwnership').isOwnBoardBackground(board, attachment)) {
         try {
           require('/server/lib/securityLog').record({
             key: 'authz.background', action: 'blocked', source: 'rest:download-background', userId: userId,

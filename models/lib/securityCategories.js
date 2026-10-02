@@ -39,7 +39,7 @@ const CATALOG = {
   // PrototypeBleed: a '__proto__' (or '.', '$') map key sent to the per-user
   // layout methods; see models/lib/safeMapKey.js. No client sends one.
   // BackgroundBleed: a board background pointed at another board's attachment
-  // (models/lib/boardBackground.js). The UI only offers the board's own.
+  // (models/lib/boardBackgroundOwnership.js). The UI only offers the board's own.
   // OwnerBleed: a client board insert naming members other than its creator.
   // BypassBleed's DoS part: a rule chain deeper than MAX_RULE_DEPTH, usually two
   // rules undoing each other. Often an honest mistake, so only detected.

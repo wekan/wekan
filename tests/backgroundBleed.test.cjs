@@ -14,7 +14,7 @@ const path = require('node:path');
 
 const ROOT = path.join(__dirname, '..');
 const read = file => fs.readFileSync(path.join(ROOT, file), 'utf8');
-const { isOwnBoardBackground } = require('../models/lib/boardBackground');
+const { isOwnBoardBackground } = require('../models/lib/boardBackgroundOwnership');
 
 test('the reported attack: another board\'s attachment is not this board\'s background', () => {
   const mine = { _id: 'mine' };

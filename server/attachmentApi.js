@@ -462,7 +462,7 @@ Meteor.methods({
         throw new Meteor.Error('attachment-not-found', 'Background attachment not found');
       }
       // BackgroundBleed: only this board's own attachment is its background.
-      if (!require('/models/lib/boardBackground').isOwnBoardBackground(board, attachment)) {
+      if (!require('/models/lib/boardBackgroundOwnership').isOwnBoardBackground(board, attachment)) {
         try {
           require('/server/lib/securityLog').record({
             key: 'authz.background', action: 'blocked', source: 'api.board.downloadBackground', userId: this.userId,
