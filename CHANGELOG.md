@@ -2359,6 +2359,23 @@ The remaining translation queue and older wrong-language text still need work.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/45f1e653bc">Translate feature and card settings in five more languages</a>. Thanks to xet7.</summary>
+
+Add 135 messages in Ladin, Aromanian, Cantonese, Wu Chinese and Yiddish.
+Feature settings now cover 206 locale tags and the three card-setting labels
+cover 74. Correct Ladin linked-card terminology and the Cantonese and Wu Save
+buttons. Refresh the README's measured completion count from 164 to 165 so the
+language-count regression passes. All nine selected catalog and language suites
+and three additional Chinese suites pass. Specialist workflow terminology,
+particularly Ladin and Aromanian, has lower confidence and remains open to
+native review. References included the
+[Aromanian dictionary](https://vivliuteca.org/wp-content/uploads/2025/06/dictsiunararmanescu_dec2008.pdf)
+and [Yiddish vocabulary](https://www.wcb.ny.gov/content/main/forms/rb89_2_Y.pdf).
+The remaining translation queue and older wrong-language text still need work.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
