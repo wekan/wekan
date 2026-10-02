@@ -37,7 +37,10 @@ function issueRules(type, issue, estimateMapping, timeMappings) {
       assignees: mapped('owner_username'), author: mapped('requested_by'), labels: mapped('tags'),
       references: mapped('description', true), web_url: mapped('description', true),
       created_at: mapped('date_creation'), closed_at: mapped('date_end'),
-      weight: mapped('custom_fields'), time_stats: mapped('custom_fields', true),
+      // The estimate Sync reads, when one is mapped (models/lib/listSyncEstimate.js).
+      weight: estimateMapping?.estimateFieldId === 'weight' ? mapped('estimate') : mapped('custom_fields'),
+      time_stats: estimateMapping?.estimateFieldId === 'time_estimate' ? mapped('estimate', true)
+        : mapped('custom_fields', true),
       task_completion_status: mapped('custom_fields', true), notes: mapped('comments', true),
       user_notes_count: issue.notes ? unusedFallback : mapped('unsupported'), links: mapped('dependencies', true) };
   }

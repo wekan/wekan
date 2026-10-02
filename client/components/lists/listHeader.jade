@@ -456,12 +456,24 @@ template(name="listSyncPopup")
             .materialCheckBox(class="{{#if checked}}is-checked{{/if}}")
             span {{_ label}}
       if syncEstimateEnabled
-        label {{_ 'sync-estimate-field'}}
-        select.js-list-sync-estimate-field
-          option(value="") {{_ 'sync-estimate-field'}}
-          each syncEstimateFields
-            option(value=_id selected=selected) {{name}}
-        p.quiet {{_ 'sync-estimate-field-hint'}}
+        if syncEstimateGitlab
+          label {{_ 'sync-estimate-source'}}
+          select.js-list-sync-estimate-source
+            each syncEstimateSources
+              option(value=value selected=selected) {{_ label}}
+          label {{_ 'sync-estimate-field-gitlab'}}
+          select.js-list-sync-estimate-field
+            option(value="") {{_ 'sync-estimate-field-gitlab'}}
+            each syncEstimateFields
+              option(value=_id selected=selected) {{name}}
+          p.quiet {{_ 'sync-estimate-field-gitlab-hint'}}
+        else
+          label {{_ 'sync-estimate-field'}}
+          select.js-list-sync-estimate-field
+            option(value="") {{_ 'sync-estimate-field'}}
+            each syncEstimateFields
+              option(value=_id selected=selected) {{name}}
+          p.quiet {{_ 'sync-estimate-field-hint'}}
       label {{_ 'list-sync-credential'}}
       p.quiet.list-sync-credential-status {{ listSyncCredentialStatusText }}
       p

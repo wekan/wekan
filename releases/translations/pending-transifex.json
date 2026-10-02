@@ -559,6 +559,26 @@
     {
       "key": "card-settings-description-badge",
       "since": "2026-10-02"
+    },
+    {
+      "key": "sync-estimate-source",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "sync-estimate-source-weight",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "sync-estimate-source-time",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "sync-estimate-field-gitlab",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "sync-estimate-field-gitlab-hint",
+      "since": "2026-10-02"
     }
   ]
 }

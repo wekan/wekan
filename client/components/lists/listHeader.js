@@ -879,6 +879,8 @@ Template.listSyncPopup.onCreated(function () {
   // secret-safety discipline as the LDAP Admin Panel override's bind
   // password (client/components/settings/settingBody.js, models/lib/configResolver.js).
   tpl.selectedEstimateField = new ReactiveVar(list?.syncSource?.estimateCustomFieldId || '');
+  // GitLab: which of its estimates (models/lib/listSyncEstimate.js).
+  tpl.selectedEstimateSource = new ReactiveVar(list?.syncSource?.estimateSourceField || 'weight');
   tpl.selectedSyncFields = new ReactiveVar(list?.syncSource?.fields || ['title', 'description']);
   tpl.selectedSyncOperations = new ReactiveVar({
     createCards: list?.syncSource?.createCards !== false,
@@ -954,12 +956,23 @@ Template.listSyncPopup.helpers({
     ];
   },
   syncEstimateEnabled() {
-    return Template.instance().selectedSyncType.get() === 'jira' &&
+    return ['jira', 'gitlab'].includes(Template.instance().selectedSyncType.get()) &&
       Template.instance().selectedSyncFields.get().includes('estimate');
+  },
+  syncEstimateGitlab() { return Template.instance().selectedSyncType.get() === 'gitlab'; },
+  syncEstimateSources() {
+    const selected = Template.instance().selectedEstimateSource.get();
+    return [{ value: 'weight', label: 'sync-estimate-source-weight' },
+      { value: 'time_estimate', label: 'sync-estimate-source-time' }]
+      .map(source => ({ ...source, selected: source.value === selected }));
   },
   syncEstimateFields() {
     const selected = Template.instance().selectedEstimateField.get();
-    return ReactiveCache.getCustomFields({ boardIds: Template.currentData().boardId, type: 'number' })
+    const gitlab = Template.instance().selectedSyncType.get() === 'gitlab';
+    const fields = ReactiveCache.getCustomFields({ boardIds: Template.currentData().boardId, type: 'number' });
+    // GitLab writes into any numeric field the administrator picks.
+    if (gitlab) return fields.map(field => ({ _id: field._id, selected: field._id === selected, name: field.name }));
+    return fields
       .filter(field => field.settings?.jiraEstimateFieldId && field.settings?.jiraEstimateUnit)
       .map(field => ({ _id: field._id, selected: field._id === selected,
         name: `${field.name} (${field.settings.jiraEstimateFieldId}, ${field.settings.jiraEstimateUnit})` }));
@@ -969,7 +982,9 @@ Template.listSyncPopup.helpers({
   },
   syncTextFields() {
     const fields = Template.instance().selectedSyncFields.get();
-    const choices = Template.instance().selectedSyncType.get() === 'jira' ? ['title', 'description', 'spentTime', 'estimate', 'originalEstimate', 'remainingEstimate'] : ['title', 'description'];
+    const type = Template.instance().selectedSyncType.get();
+    const choices = type === 'jira' ? ['title', 'description', 'spentTime', 'estimate', 'originalEstimate', 'remainingEstimate']
+      : type === 'gitlab' ? ['title', 'description', 'estimate'] : ['title', 'description'];
     return choices.map(field => ({ field, label: syncFieldLabel(field), checked: fields.includes(field) }));
   },
   listSyncSourceTypes() {
@@ -1106,6 +1121,10 @@ Template.listSyncPopup.events({
     const selected = tpl.selectedSyncFields.get();
     tpl.selectedSyncFields.set(selected.includes(field) ? selected.filter(value => value !== field) : [...selected, field]);
   },
+  'change .js-list-sync-estimate-source'(event, tpl) {
+    tpl.clearSyncPreview();
+    tpl.selectedEstimateSource.set(event.currentTarget.value);
+  },
   'change .js-list-sync-estimate-field'(event, tpl) {
     tpl.clearSyncPreview();
     tpl.selectedEstimateField.set(event.currentTarget.value);
@@ -1113,8 +1132,9 @@ Template.listSyncPopup.events({
   'change .js-list-sync-type'(event, tpl) {
     tpl.clearSyncPreview();
     tpl.selectedSyncType.set(event.currentTarget.value);
-    if (event.currentTarget.value !== 'jira') tpl.selectedSyncFields.set(
-      tpl.selectedSyncFields.get().filter(field => ['title', 'description'].includes(field)));
+    const kept = event.currentTarget.value === 'jira' ? null
+      : event.currentTarget.value === 'gitlab' ? ['title', 'description', 'estimate'] : ['title', 'description'];
+    if (kept) tpl.selectedSyncFields.set(tpl.selectedSyncFields.get().filter(field => kept.includes(field)));
   },
   'click a.js-toggle-list-sync-enabled'(event, tpl) {
     tpl.clearSyncPreview();
@@ -1139,8 +1159,9 @@ Template.listSyncPopup.events({
       projectKey,
       enabled: tpl.selectedSyncEnabled.get(),
       fields: tpl.selectedSyncFields.get(),
-      ...(type === 'jira' && tpl.selectedSyncFields.get().includes('estimate')
-        ? { estimateCustomFieldId: tpl.selectedEstimateField.get() } : {}),
+      ...(['jira', 'gitlab'].includes(type) && tpl.selectedSyncFields.get().includes('estimate')
+        ? { estimateCustomFieldId: tpl.selectedEstimateField.get(),
+          ...(type === 'gitlab' ? { estimateSourceField: tpl.selectedEstimateSource.get() } : {}) } : {}),
       ...tpl.selectedSyncOperations.get(),
       // A blank credential is retained only for the same server/project.
       // Switching source requires entering a credential for the new source.

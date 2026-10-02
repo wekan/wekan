@@ -2,6 +2,7 @@
 const { randomUUID, createHash } = require('node:crypto');
 const { EJSON, calculateObjectSize } = require('bson');
 const { normalizeJiraEstimateMapping } = require('../../models/lib/jiraEstimateMapping');
+const { GITLAB_ESTIMATES } = require('../../models/lib/listSyncEstimate');
 
 const MAX_STEPS = 10000;
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
@@ -22,9 +23,14 @@ function estimateIdentity(value, field = 'estimate') {
     const parts = JSON.parse(value);
     if (!Array.isArray(parts) || parts.length !== 3 ||
         typeof parts[0] !== 'string' || !parts[0] || typeof parts[2] !== 'string') throw new Error();
-    const mapping = field === 'estimate'
-      ? normalizeJiraEstimateMapping({ estimateFieldId: parts[1], estimateUnit: parts[2] })
-      : { estimateFieldId: field === 'originalEstimate' ? 'original' : 'remaining', estimateUnit: 'hours' };
+    // GitLab's weight or time estimate (models/lib/listSyncEstimate.js), or a
+    // Jira field.
+    const gitlab = field === 'estimate' && typeof parts[1] === 'string' && parts[1].startsWith('gitlab:')
+      && Object.hasOwn(GITLAB_ESTIMATES, parts[1].slice('gitlab:'.length)) ? parts[1].slice('gitlab:'.length) : null;
+    const mapping = gitlab ? { estimateFieldId: `gitlab:${gitlab}`, estimateUnit: GITLAB_ESTIMATES[gitlab] }
+      : field === 'estimate'
+        ? normalizeJiraEstimateMapping({ estimateFieldId: parts[1], estimateUnit: parts[2] })
+        : { estimateFieldId: field === 'originalEstimate' ? 'original' : 'remaining', estimateUnit: 'hours' };
     if (JSON.stringify([parts[0], mapping.estimateFieldId, mapping.estimateUnit]) !== value) throw new Error();
     return parts[0];
   } catch (_) { fail('invalid-sync-operation-estimate-mapping'); }

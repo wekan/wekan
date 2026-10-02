@@ -66,3 +66,33 @@ test('source coverage recognizes only the explicitly mapped estimate field', () 
   assert.ok(describeSyncSourceCoverage('jira', raw, [], mapping).rows.some(row =>
     row.path.endsWith('/customfield_100') && row.reason === 'excluded'));
 });
+
+// GitLab's own estimates (2026-10-02): weight in points, or the time estimate
+// in hours, into a numeric field the administrator picks.
+test('GitLab: weight or time estimate into a picked numeric field', () => {
+  const gitlab = { type: 'gitlab', fields: ['estimate'], estimateCustomFieldId: 'local', estimateSourceField: 'weight' };
+  const plain = { _id: 'local', type: 'number', settings: {} };
+  const weight = syncEstimateMapping(gitlab, plain);
+  assert.deepEqual([weight.provider, weight.estimateFieldId, weight.estimateUnit], ['gitlab', 'weight', 'points']);
+  const time = syncEstimateMapping({ ...gitlab, estimateSourceField: 'time_estimate' }, plain);
+  assert.equal(time.estimateUnit, 'hours');
+  assert.notEqual(time.identity, weight.identity, 'changing the attribute changes the mapping');
+  const issues = [{ iid: 3, weight: 5, time_stats: { time_estimate: 5400 } }, { iid: 4, weight: null },
+    { iid: 5, time_stats: { time_estimate: 0 } }];
+  const tasks = [{ externalId: '3' }, { externalId: '4' }, { externalId: '5' }];
+  assert.deepEqual(addSyncEstimates(tasks, issues, weight).map(t => t.estimate), [5, null, undefined],
+    'no weight clears; an issue without the attribute says nothing');
+  assert.deepEqual(addSyncEstimates(tasks, issues, time).map(t => t.estimate), [1.5, undefined, 0], 'seconds in hours');
+  // Negative: no attribute, an unknown one, a non-numeric field, another field.
+  for (const [s, d] of [[{ ...gitlab, estimateSourceField: undefined }, plain], [{ ...gitlab, estimateSourceField: 'iid' }, plain],
+    [gitlab, { ...plain, type: 'text' }], [gitlab, { ...plain, _id: 'other' }], [{ ...gitlab, type: 'github' }, plain]]) {
+    assert.throws(() => syncEstimateMapping(s, d), /sync|estimate|Select/i);
+  }
+  assert.throws(() => addSyncEstimates([{ externalId: '3' }], [{ iid: 3, weight: -2 }], weight), /GitLab estimate/);
+  // The durable journal accepts this identity, and only GitLab's two.
+  const journal = require('fs').readFileSync(require('path').join(__dirname, '../server/lib/syncOperationJournal.js'), 'utf8');
+  assert.match(journal, /parts\[1\]\.startsWith\('gitlab:'\)\s*&& Object\.hasOwn\(GITLAB_ESTIMATES, parts\[1\]\.slice\('gitlab:'\.length\)\)/);
+  const { describeSyncSourceCoverage } = require('../server/lib/listSyncSourceCoverage');
+  const rows = describeSyncSourceCoverage('gitlab', [{ iid: 3, title: 'T', weight: 5 }], ['title', 'estimate'], weight).rows;
+  assert.ok(!rows.some(row => row.path.endsWith('/weight')), 'the weight is mapped, not reported as unmapped');
+});

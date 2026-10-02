@@ -343,6 +343,8 @@ Lists.attachSchema(
     'syncSource.timeMappingIdentities': { type: Object, optional: true, blackbox: true },
     'syncSource.estimateCustomFieldId': { type: String, optional: true },
     'syncSource.estimateMappingIdentity': { type: String, optional: true },
+    // GitLab's attribute the estimate comes from (models/lib/listSyncEstimate.js).
+    'syncSource.estimateSourceField': { type: String, optional: true, allowedValues: ['weight', 'time_estimate'] },
     'syncSource.fields': { type: Array, optional: true },
     'syncSource.createCards': { type: Boolean, optional: true },
     'syncSource.archiveCards': { type: Boolean, optional: true },

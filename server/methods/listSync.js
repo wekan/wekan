@@ -58,6 +58,7 @@ Meteor.methods({
       createCards: Match.Optional(Boolean),
       archiveCards: Match.Optional(Boolean),
       estimateCustomFieldId: Match.Optional(String),
+      estimateSourceField: Match.Optional(Match.OneOf('weight', 'time_estimate')),
       fields: Match.Optional([Match.OneOf('title', 'description', 'spentTime', 'estimate', 'originalEstimate', 'remainingEstimate')]),
       token: Match.Optional(Match.OneOf(String, null)),
       username: Match.Optional(String),
@@ -128,7 +129,8 @@ Meteor.methods({
         fields: config.fields || ['title', 'description'],
         ...(Object.keys(timeMappings).length ? { timeMappingIdentities: timeMappingIdentities(timeMappings) } : {}),
         ...(estimateMapping ? { estimateCustomFieldId: estimateMapping.localFieldId,
-          estimateMappingIdentity: estimateMapping.identity } : {}),
+          estimateMappingIdentity: estimateMapping.identity,
+          ...(estimateMapping.provider === 'gitlab' ? { estimateSourceField: estimateMapping.estimateFieldId } : {}) } : {}),
       } : null;
       try {
         return await commitSyncConfiguration({ lists: Lists, credentials: ListSyncCredentials,

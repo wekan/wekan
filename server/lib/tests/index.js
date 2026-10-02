@@ -118,3 +118,4 @@ import './dependencyLayers.tests';
 import './cardMoveLabelActivities.tests';
 import './storedRuleMoveBoard.tests';
 import './jiraScrumImport.tests';
+import './listSyncGitlabEstimate.tests';
