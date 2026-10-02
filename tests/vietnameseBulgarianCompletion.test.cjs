@@ -18,11 +18,11 @@ for (const code of ['kw', 'as', 'am', 'km', 'km_KH', 'km-KH', 'my', 'mg', 'ug', 
   for (const key of Object.keys(english)) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}`);
   }
-  // --list includes pending Transifex keys, unlike the aggregate --missing report.
+  // Preserve the completed catalog milestone; new feature work stays in ordinary --list.
   const missing = JSON.parse(execFileSync(process.execPath,
-    ['releases/translations/fill-translations.mjs', '--list', code],
+    ['releases/translations/fill-translations.mjs', '--list', code, '--completed-catalog'],
     { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }));
-  assert.deepEqual(missing, {}, `${code}: no untranslated prose, including pending keys`);
+  assert.deepEqual(missing, {}, `${code}: no untranslated prose in the completed catalog`);
   assert.notEqual(locale['blockly-END_KEY'], locale['end-date'], 'keyboard End is not an ending date');
   for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);

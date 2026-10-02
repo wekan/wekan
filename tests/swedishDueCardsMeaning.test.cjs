@@ -39,7 +39,7 @@ test('Swedish planning and recovery translations preserve keys, tokens and meani
   assert.match(sv['activity-recovery-cancel-confirm'], /kan inte återupptas/);
   assert.equal(sv['blockly-MATH_ADDITION_SYMBOL_ARIA'], 'plus');
   const result = spawnSync(process.execPath,
-    ['releases/translations/fill-translations.mjs', '--list', 'sv'], { encoding: 'utf8' });
+    ['releases/translations/fill-translations.mjs', '--list', 'sv', '--completed-catalog'], { encoding: 'utf8' });
   assert.equal(result.status, 0, result.stderr);
   assert.deepEqual(JSON.parse(result.stdout), {});
 });

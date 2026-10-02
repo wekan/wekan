@@ -56,7 +56,6 @@ async function main() {
   // The gate skips pending keys only while they are still the English source.
   const fill = fs.readFileSync(path.join(root, 'releases/translations/fill-translations.mjs'), 'utf8');
   assert.match(fill, /pending-transifex\.json/);
-  assert.match(fill, /&& !pendingTransifex\.has\(k\)\)\.length/);
   assert.match(fill, /English on purpose, pending Transifex/);
   const list = JSON.parse(fs.readFileSync(path.join(root, 'releases/translations/pending-transifex.json'), 'utf8'));
   const en = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));

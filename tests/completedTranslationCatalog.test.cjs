@@ -41,6 +41,10 @@ try {
   const pendingDir = path.join(fixture, 'releases/translations');
   fs.mkdirSync(pendingDir, { recursive: true });
   fs.writeFileSync(path.join(pendingDir, 'pending-transifex.json'), JSON.stringify({ keys: [{ key: 'accept' }] }));
+  assert.match(run(['--missing']).stdout, /1\tfi/,
+    'ordinary report excludes pending accept but counts the new feature');
+  assert.deepEqual(list(false), english,
+    'ordinary listing includes both pending and untracked work');
   assert.match(run(['--missing', '--completed-catalog']).stdout, /1\tfi/,
     'marking an old key pending cannot conceal a regression');
   assert.notEqual(run(['--apply', 'fi', '--completed-catalog']).status, 0,
