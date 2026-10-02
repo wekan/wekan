@@ -58,10 +58,14 @@ test('the move is Card.move\'s: mapped fields, every hook record planned once', 
   assert.deepEqual(M.beforeSelector(command).watchers, { $exists: false }, 'an absent field matches only an absent one');
 });
 
-test('negative: not the plan\'s last action, the own board, tampering', async () => {
+test('a move with later actions is prepared (they follow the card); negative: the own board, tampering', async () => {
   const later = await fixture([{ _id: 'move', boardId: 'to', actionType: 'moveCardToTop' },
     { _id: 'color', boardId: 'from', actionType: 'setColor', selectedColor: 'green' }]);
-  assert.throws(() => M.prepareRuleMoveBoardCommand({ ...later.context, index: 0 }), /not-last/);
+  // Since 2026-10-03 the later actions follow the card to its new board.
+  assert.equal(M.prepareRuleMoveBoardCommand({ ...later.context, index: 0, card: later.card,
+    target: { boardId: 'to', listId: 'inbox', swimlaneId: 'to-lane', sort: 9 },
+    mapped: { labelIds: [], cardNumber: 1, customFields: [] }, allowedMemberIds: [],
+    titles: { boardName: 'To', oldBoardName: 'From', swimlaneName: 'Lane' }, createdAt: new Date(1) }).targetBoardId, 'to');
   const own = await fixture([{ _id: 'move', boardId: 'from', actionType: 'moveCardToTop' }]);
   assert.throws(() => own.prepare(), /invalid/);
   const f = await fixture();
@@ -106,7 +110,7 @@ test('wiring: the runner, the guard and the deferred hooks', () => {
   assert.match(plans, /if \(await movedByThisPlan\(_id, saved\.cardId, card\)\) \{\n\s*return Object\.assign\(Object\.create\(Object\.getPrototypeOf\(card\)\), card,\n\s*\{ boardId: saved\.boardId, listId: saved\.listId \}\);/);
   assert.match(read('server/models/cards.js'), /if \(!deferSyncLabelActivities\(doc\)\) await updateActivities\(/);
   const app = read('server/lib/listSyncApplication.js');
-  assert.match(app, /return actions\.map\(action => \(\{ \.\.\.action, finalInPlan: final\.has\(action\._id\) \}\)\);/);
+  assert.match(app, /return actions\.map\(action => \(\{ \.\.\.action, crossBoardMovable: movable\.has\(action\._id\) \}\)\);/);
   // The scope: the label-activity slot needs the board left, and only it.
   const { withSyncRecordingDeferred, deferSyncLabelActivities } = require('../server/lib/syncRecordingScope');
   const scope = { cardId: 'card', boardId: 'to', listId: 'inbox' };
@@ -141,7 +145,8 @@ test('move-all onto another board: one whole move per card, each keeping its sor
     assert.throws(() => M.validateRuleMoveAllBoardCommand(resum({ ...command, units }), f.context), /command-invalid/);
   }
   const later = await fixture([action, { _id: 'color', boardId: 'from', actionType: 'setColor', selectedColor: 'red' }]);
-  assert.throws(() => M.prepareRuleMoveAllBoardCommand({ ...later.context, index: 0, createdAt: new Date(1) }), /not-last/);
+  assert.deepEqual(M.prepareRuleMoveAllBoardCommand({ ...later.context, index: 0, createdAt: new Date(1) }).units, [],
+    'later actions no longer refuse it');
   // No list to move from or to: nothing, as the ordinary action.
   assert.deepEqual(M.prepareRuleMoveAllBoardCommand({ ...f.context, moves: [], createdAt: new Date(1) }).units, []);
 });
@@ -151,4 +156,25 @@ test('wiring: move-all onto another board has its runner, and the guard follows 
   assert.match(plans, /moveAllCardsInList: \(\{ invocation \}\) => \(isOtherBoardMoveAll\(invocation\.action, plan\.boardId\)\s*\? runStoredSyncRuleMoveAllBoard : runStoredSyncRuleMoveAll\)/);
   assert.match(plans, /SyncRuleMoveAllBoardCommands\.rawCollection\(\)\.findOne\(\{ planId: planIdValue,\s*units: \{ \$elemMatch: \{ cardId, 'after\.place\.boardId': card\.boardId/);
   assert.match(plans, /for \(const unit of command\.units\) await applyRuleMoveBoard\(unitMove\(command, unit\), \{ guard, completeDelivery, options \}\);/);
+});
+
+// 2026-10-03: a move to another board may be followed by actions that follow
+// the card there - and only by those, in any plan it can be in.
+test('followable: only follower-safe actions after it, in its rule and in rules of its trigger type', () => {
+  const { followableActionIds, FOLLOWER_SAFE } = require('../server/lib/listSyncSteps');
+  for (const type of ['setColor', 'addLabel', 'checkAll', 'addChecklist', 'removeChecklist', 'linkCard', 'createCard'])
+    assert.ok(FOLLOWER_SAFE.has(type), type);
+  for (const type of ['moveCardToTop', 'sortList', 'moveAllCardsInList', 'archive', 'sendEmail'])
+    assert.ok(!FOLLOWER_SAFE.has(type), type);
+  const types = { m: 'moveCardToTop', c: 'setColor', s: 'sortList', l: 'linkCard', x: 'archive' };
+  const typeOf = id => types[id];
+  assert.deepEqual([...followableActionIds([{ actionIds: ['m', 'c', 'l'], activityType: 'createCard' }], typeOf)].sort(),
+    ['c', 'l', 'm'], 'colour and link may follow it');
+  assert.ok(!followableActionIds([{ actionIds: ['m', 's'], activityType: 'createCard' }], typeOf).has('m'), 'sorting may not');
+  assert.ok(!followableActionIds([{ actionIds: ['m'], activityType: 'createCard' },
+    { actionIds: ['x'], activityType: 'createCard' }], typeOf).has('m'), 'another rule of its trigger type archives');
+  assert.ok(followableActionIds([{ actionIds: ['m'], activityType: 'createCard' },
+    { actionIds: ['x'], activityType: 'moveCard' }], typeOf).has('m'), 'a rule of another trigger type never shares its plan');
+  assert.ok(!followableActionIds([{ actionIds: ['m'], activityType: 'createCard' },
+    { actionIds: ['x'], activityType: null }], typeOf).has('m'), 'an unknown trigger type may share any plan');
 });

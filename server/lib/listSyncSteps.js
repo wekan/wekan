@@ -38,13 +38,20 @@ const DURABLE_RULE_ACTIONS = new Set(['sendEmail', 'archive', 'unarchive', 'setC
 // an action without an adapter, so the destination's own rule actions must
 // all be durable too - and so on, for every board reached that way.
 const CROSS_BOARD_DURABLE_ACTIONS = new Set(['linkCard', 'copyCard']);
-// ...and moves to another board, which take the card off the plan's board:
-// every other durable command acts on the card there, so such a move counts
-// only when it is provably the LAST action of any plan it is in - the last
-// action of its rule, whose trigger's activity type no other rule on the
-// board shares (`finalInPlan`, set by the caller). The command checks the
-// same at run time (server/lib/syncRuleMoveBoardCommand.js).
+// ...and moves to another board, which take the card off the plan's board.
+// The ordinary engine's later actions then act on the card on its new board
+// (it reads the card by id); the durable commands that follow the card there
+// (2026-10-03, storedRulePlans.js ruleCardNow) are FOLLOWER_SAFE. A move to
+// another board counts only when every action that can follow it in a plan -
+// the later actions of its rule, and every action of a rule whose trigger's
+// activity type it shares - is one of them (`crossBoardMovable`, set by the
+// caller from followableActionIds). Moves, sorting and moving all cards are
+// resolved against the board the rule belongs to, which the card has left;
+// archiving cascades to child cards that stayed there.
 const CROSS_BOARD_FINAL_ACTIONS = new Set(['moveCardToTop', 'moveCardToBottom', 'moveAllCardsInList']);
+const FOLLOWER_SAFE = new Set([...Object.keys(require('./syncRuleCardCommand').RULE_CARD_ACTIONS),
+  ...Object.keys(require('./syncRuleChecklistCommand').RULE_CHECKLIST_ACTIONS),
+  'addChecklist', 'addChecklistWithItems', 'removeChecklist', 'linkCard', 'copyCard', 'createCard', 'addSwimlane']);
 const MAX_RULE_BOARDS = 50;
 
 // The rule action types eligibility checks, across the source board and every
@@ -66,7 +73,7 @@ async function durableRuleActionTypes({ boardId, readActions, readBoard, typeOf 
       const type = typeOf(action, current);
       const [base, where] = typeof type === 'string' ? type.split(':') : [];
       const liftable = CROSS_BOARD_DURABLE_ACTIONS.has(base) ||
-        (CROSS_BOARD_FINAL_ACTIONS.has(base) && action.finalInPlan === true);
+        (CROSS_BOARD_FINAL_ACTIONS.has(base) && (action.finalInPlan === true || action.crossBoardMovable === true));
       if (where !== 'elsewhere' || !liftable) { types.push(type); continue; }
       if (!reached.has(action.boardId)) {
         const destination = await readBoard(action.boardId);
@@ -177,6 +184,27 @@ function finalActionIds(rules) {
   return final;
 }
 
-module.exports = { DURABLE_RULE_ACTIONS, CROSS_BOARD_DURABLE_ACTIONS, CROSS_BOARD_FINAL_ACTIONS, finalActionIds,
+// Which of a board's rule actions can only be followed, in any plan, by
+// FOLLOWER_SAFE actions: the later actions of its own rule, and every action
+// of the other rules with the same trigger activity type (a rule whose
+// trigger type is unknown may share any plan). `typeOf` gives an action id's
+// type. An action nothing can follow qualifies trivially.
+function followableActionIds(rules, typeOf) {
+  const safe = id => FOLLOWER_SAFE.has(typeOf(id));
+  const result = new Set(), refused = new Set();
+  rules.forEach((rule, r) => {
+    const others = rules.filter((other, o) => o !== r && (other.activityType === rule.activityType ||
+      typeof other.activityType !== 'string' || typeof rule.activityType !== 'string'));
+    const shared = others.every(other => other.actionIds.every(safe));
+    rule.actionIds.forEach((id, i) => {
+      if (shared && rule.actionIds.slice(i + 1).every(safe)) result.add(id); else refused.add(id);
+    });
+  });
+  for (const id of refused) result.delete(id);
+  return result;
+}
+
+module.exports = { DURABLE_RULE_ACTIONS, CROSS_BOARD_DURABLE_ACTIONS, CROSS_BOARD_FINAL_ACTIONS, FOLLOWER_SAFE,
+  finalActionIds, followableActionIds,
   durableRuleActionTypes, durableSyncEligibility,
   buildListSyncSteps };

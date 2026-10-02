@@ -54,7 +54,9 @@ function simulate({ base, checklist, items, targetIds, createdAt, redoRows }) {
   const target = RULE_CHECKLIST_ACTIONS[base.actionType];
   const state = new Map(items.map(item => [item._id, !!item.isFinished]));
   const finished = () => checklist.hideAllChecklistItems || (items.length > 0 && items.every(item => state.get(item._id)));
-  const place = { boardId: base.boardId, listId: base.listId, swimlaneId: base.swimlaneId };
+  // The card's board: the plan's, or one a cross-board move of this plan put
+  // it on (2026-10-03), where its hooks record.
+  const place = { boardId: base.cardBoardId, listId: base.listId, swimlaneId: base.swimlaneId };
   let redoLeft = redoRows;
   return targetIds.map((itemId, k) => {
     const item = items.find(row => row._id === itemId);
@@ -62,7 +64,7 @@ function simulate({ base, checklist, items, targetIds, createdAt, redoRows }) {
     const activity = (kind, fields) => {
       const receiptId = sha256(canonical([unitId, kind]));
       return { receiptId, activity: { _id: `sync-rule-checklist-${receiptId}`, userId: base.actorId, ...fields,
-        cardId: base.cardId, boardId: base.boardId, checklistId: checklist._id, listId: base.listId,
+        cardId: base.cardId, boardId: base.cardBoardId, checklistId: checklist._id, listId: base.listId,
         swimlaneId: base.swimlaneId, createdAt, modifiedAt: createdAt } };
     };
     const beforeActivities = finished()
@@ -80,17 +82,20 @@ function simulate({ base, checklist, items, targetIds, createdAt, redoRows }) {
   });
 }
 
+// `cardBoardId` is the board the card is on: the plan's, unless the runner
+// verified a cross-board move of this same plan put it elsewhere.
 function prepareRuleChecklistCommand({ plan, activity, effectId, index, card, checklist, items, targetIds, createdAt,
-  redoRows = [] }) {
+  redoRows = [], cardBoardId = plan?.boardId }) {
   const base = identity({ plan, activity, effectId, index });
-  if (!card || card._id !== base.cardId || card.boardId !== base.boardId || !text(card.listId) || !text(card.swimlaneId) ||
+  if (!card || card._id !== base.cardId || !text(cardBoardId) || card.boardId !== cardBoardId ||
+      !text(card.listId) || !text(card.swimlaneId) ||
       !(createdAt instanceof Date) || !Number.isFinite(createdAt.getTime())) fail('card-invalid');
   const snapshot = copy({ checklist: checklist ? { _id: checklist._id, title: checklist.title,
     hideAllChecklistItems: !!checklist.hideAllChecklistItems } : null,
   items: (items || []).map(item => ({ _id: item._id, title: item.title,
     ...(typeof item.isFinished === 'boolean' ? { isFinished: item.isFinished } : {}) })), targetIds: targetIds || [] });
   if (!validSnapshot(snapshot)) fail('snapshot-invalid');
-  const located = { ...base, listId: card.listId, swimlaneId: card.swimlaneId };
+  const located = { ...base, cardBoardId, listId: card.listId, swimlaneId: card.swimlaneId };
   const command = { ...located, ...snapshot, createdAt: new Date(createdAt),
     units: simulate({ base: located, ...snapshot, createdAt, redoRows }) };
   command.checksum = sha256(canonical(command));
@@ -100,16 +105,17 @@ function prepareRuleChecklistCommand({ plan, activity, effectId, index, card, ch
 const withoutRedo = units => units.map(unit => ({ ...unit, history: { ...unit.history, redo: [] } }));
 function validateRuleChecklistCommand(row, context) {
   const base = identity(context);
-  const keys = [...Object.keys(base), 'listId', 'swimlaneId', 'checklist', 'items', 'targetIds', 'createdAt', 'units',
+  const keys = [...Object.keys(base), 'cardBoardId', 'listId', 'swimlaneId', 'checklist', 'items', 'targetIds', 'createdAt', 'units',
     'checksum'].sort().join(',');
   if (!row || Object.keys(row).sort().join(',') !== keys ||
       Object.entries(base).some(([key, value]) => canonical(row[key]) !== canonical(value)) ||
-      !text(row.listId) || !text(row.swimlaneId) || !(row.createdAt instanceof Date) ||
+      !text(row.cardBoardId) || !text(row.listId) || !text(row.swimlaneId) || !(row.createdAt instanceof Date) ||
       !validSnapshot(row) || !Array.isArray(row.units)) fail('command-invalid');
   const { checksum, ...content } = row;
   if (checksum !== sha256(canonical(content))) fail('command-invalid');
   // Everything but the captured redo rows follows from the saved snapshot.
-  const expected = simulate({ base: { ...base, listId: row.listId, swimlaneId: row.swimlaneId }, checklist: row.checklist,
+  const expected = simulate({ base: { ...base, cardBoardId: row.cardBoardId, listId: row.listId, swimlaneId: row.swimlaneId },
+    checklist: row.checklist,
     items: row.items, targetIds: row.targetIds, createdAt: row.createdAt, redoRows: [] });
   if (canonical(withoutRedo(expected)) !== canonical(withoutRedo(row.units)) ||
       row.units.filter(unit => unit.history.redo.length).length > 1) fail('command-invalid');

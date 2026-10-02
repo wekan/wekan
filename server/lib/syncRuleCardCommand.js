@@ -150,10 +150,13 @@ function realCardId(card) {
 // Capture from the card as it is now. `redoRows` are the actor's undone rows
 // this change supersedes, as for any ordinary edit; `real` is the card a linked
 // card links to (the rule's card itself otherwise).
+// `cardBoardId` is the board the rule's card is on: the plan's, unless the
+// runner verified a cross-board move of this same plan put it elsewhere
+// (2026-10-03); the write and its records follow the card there.
 function prepareRuleCardCommand({ plan, activity, effectId, index, card: ruleCard, real = ruleCard, createdAt, redoRows = [],
-  username = '', targets = [] }) {
+  username = '', targets = [], cardBoardId = plan?.boardId }) {
   const base = identity({ plan, activity, effectId, index });
-  if (!ruleCard || ruleCard._id !== base.cardId || ruleCard.boardId !== base.boardId || !real ||
+  if (!ruleCard || ruleCard._id !== base.cardId || !text(cardBoardId) || ruleCard.boardId !== cardBoardId || !real ||
       real._id !== realCardId(ruleCard) || !text(real.boardId) || real.type === 'cardType-linkedCard') fail('card-invalid');
   const card = real;
   if (!text(card.listId) || !text(card.swimlaneId) ||

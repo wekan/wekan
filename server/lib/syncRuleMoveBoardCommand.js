@@ -28,11 +28,10 @@
 // The runner applies the update conditionally with the hooks' records
 // deferred, then writes each record from the command, idempotently.
 //
-// Nothing in the same rule plan may act on the card after it has left the
-// board: every other durable command acts on the card on the plan's board.
-// So the move must be the plan's LAST action (checked here, at capture and
-// replay), and eligibility (server/lib/listSyncSteps.js) only lifts a move
-// whose rule cannot share a plan with another rule. Pure: tested by
+// The plan's later actions act on the card on its new board, as the ordinary
+// engine's do (2026-10-03, storedRulePlans.js ruleCardNow); eligibility
+// (server/lib/listSyncSteps.js) lifts such a move only when every action that
+// can follow it is one that follows the card. Pure: tested by
 // tests/syncRuleMoveBoardCommand.test.cjs.
 const { EJSON } = require('bson');
 const { canonical, sha256 } = require('../../models/lib/changeHistoryIntegrity');
@@ -60,9 +59,9 @@ function identity({ plan, activity, effectId, index }) {
   validateRulePlan(plan, activity, effectId);
   const invocation = plan.actions[index];
   const action = invocation?.action;
+  // Later actions of the plan follow the card (2026-10-03); eligibility lets
+  // only those that can follow it into a plan with such a move.
   if (!Number.isSafeInteger(index) || index < 0 || !isOtherBoardMove(action, plan.boardId)) fail('invalid');
-  // Every later action of the plan would act on a card that left the board.
-  if (index !== plan.actions.length - 1) fail('not-last');
   return { _id: commandId(invocation.id), version: 1, invocationId: invocation.id, planId: planId(effectId, activity._id),
     planHash: sha256(canonical(plan)), actorId: plan.actorId, boardId: plan.boardId, cardId: plan.cardId,
     actionType: action.actionType, targetBoardId: action.boardId };
@@ -230,8 +229,8 @@ function validateRuleMoveBoardCommand(row, context) {
 // so it keeps its sort, and the update's consistency hook
 // (server/lib/cardBoardConsistency.js) puts it in that board's default
 // swimlane, its own being on the board it leaves. One unit per card, each a
-// whole move with its own records; also only the plan's last action, since
-// the rule's own card may be among them.
+// whole move with its own records; the rule's own card may be among them, and
+// later actions follow it like a single move's.
 const moveAllCommandId = invocationId => sha256(canonical(['sync-rule-move-all-board', invocationId]));
 const unitIdFor = (id, cardId) => sha256(canonical([id, 'unit', cardId]));
 function isOtherBoardMoveAll(action, boardId) {
@@ -242,7 +241,6 @@ function moveAllIdentity({ plan, activity, effectId, index }) {
   const invocation = plan.actions[index];
   const action = invocation?.action;
   if (!Number.isSafeInteger(index) || index < 0 || !isOtherBoardMoveAll(action, plan.boardId)) fail('invalid');
-  if (index !== plan.actions.length - 1) fail('not-last');
   return { _id: moveAllCommandId(invocation.id), version: 1, invocationId: invocation.id,
     planId: planId(effectId, activity._id), planHash: sha256(canonical(plan)), actorId: plan.actorId,
     boardId: plan.boardId, cardId: plan.cardId, actionType: 'moveAllCardsInList', targetBoardId: action.boardId };

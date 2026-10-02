@@ -57,15 +57,15 @@ function unitEffects({ base, where, document, createdAt, redoRows, added, item =
   const receiptId = sha256(canonical([effectId, 'activity']));
   const activity = item
     ? { _id: `sync-rule-checklist-lifecycle-${receiptId}`, userId: base.actorId, activityType: 'addChecklistItem',
-      cardId: base.cardId, boardId: base.boardId, checklistId: document.checklistId, checklistItemId: document._id,
+      cardId: base.cardId, boardId: where.boardId, checklistId: document.checklistId, checklistItemId: document._id,
       checklistItemName: document.title, listId: where.listId, swimlaneId: where.swimlaneId,
       createdAt: new Date(createdAt), modifiedAt: new Date(createdAt) }
     : { _id: `sync-rule-checklist-lifecycle-${receiptId}`, userId: base.actorId,
-      activityType: added ? 'addChecklist' : 'removeChecklist', cardId: base.cardId, boardId: base.boardId,
+      activityType: added ? 'addChecklist' : 'removeChecklist', cardId: base.cardId, boardId: where.boardId,
       checklistId: document._id, checklistName: document.title, listId: where.listId, swimlaneId: where.swimlaneId,
       createdAt: new Date(createdAt), modifiedAt: new Date(createdAt) };
   const history = prepareChecklistLifecycleHistory({ documents: [document], changeType: added ? 'added' : 'removed',
-    where: { ...where, cardId: base.cardId, boardId: base.boardId }, effectId, userId: base.actorId, createdAt, redoRows,
+    where: { ...where, cardId: base.cardId }, effectId, userId: base.actorId, createdAt, redoRows,
     entityType: item ? 'checklistItem' : 'checklist' });
   return { receiptId, activity, history };
 }
@@ -74,13 +74,17 @@ function unitEffects({ base, where, document, createdAt, redoRows, added, item =
 // rule variables substituted (RulesHelper.ruleChecklistTitle); for
 // removeChecklist, `checklists` are the stored checklists the ordinary
 // selector matches.
+// `cardBoardId` is the board the card is on: the plan's, unless the runner
+// verified a cross-board move of this same plan put it elsewhere (2026-10-03).
 function prepareRuleChecklistLifecycleCommand({ plan, activity, effectId, index, card, title, itemTitles = [],
-  checklists = [], createdAt, redoRows = [] }) {
+  checklists = [], createdAt, redoRows = [], cardBoardId = plan?.boardId }) {
   const base = identity({ plan, activity, effectId, index });
-  if (!card || card._id !== base.cardId || card.boardId !== base.boardId || !text(card.listId) || !text(card.swimlaneId) ||
+  if (!card || card._id !== base.cardId || !text(cardBoardId) || card.boardId !== cardBoardId ||
+      !text(card.listId) || !text(card.swimlaneId) ||
       !(createdAt instanceof Date) || !Number.isFinite(createdAt.getTime())) fail('card-invalid');
-  const where = { listId: card.listId, swimlaneId: card.swimlaneId };
-  const command = { ...base, ...where, createdAt: new Date(createdAt), redo: copy(redoRows) };
+  const where = { boardId: cardBoardId, listId: card.listId, swimlaneId: card.swimlaneId };
+  const command = { ...base, cardBoardId, listId: where.listId, swimlaneId: where.swimlaneId, createdAt: new Date(createdAt),
+    redo: copy(redoRows) };
   if (ADDS.includes(base.actionType)) {
     if (typeof title !== 'string') fail('invalid');
     Object.assign(command, { checklistId: checklistIdFor(base._id), title, recorded: null });
@@ -108,7 +112,7 @@ function recordAddedChecklist(command, stored, storedItems = []) {
       stored.cardId !== command.cardId || !Array.isArray(storedItems) || storedItems.length !== expectedItems.length ||
       storedItems.some((item, i) => !item || item._id !== expectedItems[i].itemId || item.checklistId !== stored._id ||
         item.cardId !== command.cardId)) fail('invalid');
-  const where = { listId: command.listId, swimlaneId: command.swimlaneId };
+  const where = { boardId: command.cardBoardId, listId: command.listId, swimlaneId: command.swimlaneId };
   const unit = (document, item) => unitEffects({ base: command, where, document, createdAt: command.createdAt,
     redoRows: command.redo, added: true, item });
   return { units: [unit(stored, false), ...storedItems.map(item => unit(item, true))] };
@@ -130,10 +134,11 @@ function validateRuleChecklistLifecycleCommand(row, context) {
   const base = identity(context);
   const extra = base.actionType === 'addChecklist' ? ['checklistId', 'title', 'recorded']
     : base.actionType === 'addChecklistWithItems' ? ['checklistId', 'title', 'items', 'recorded'] : ['units'];
-  const keys = [...Object.keys(base), 'listId', 'swimlaneId', 'createdAt', 'redo', ...extra, 'checksum'].sort().join(',');
+  const keys = [...Object.keys(base), 'cardBoardId', 'listId', 'swimlaneId', 'createdAt', 'redo', ...extra, 'checksum']
+    .sort().join(',');
   if (!row || Object.keys(row).sort().join(',') !== keys ||
       Object.entries(base).some(([key, value]) => canonical(row[key]) !== canonical(value)) ||
-      !text(row.listId) || !text(row.swimlaneId) || !(row.createdAt instanceof Date) || !Array.isArray(row.redo)) {
+      !text(row.cardBoardId) || !text(row.listId) || !text(row.swimlaneId) || !(row.createdAt instanceof Date) || !Array.isArray(row.redo)) {
     fail('command-invalid');
   }
   const { checksum, recorded, ...content } = row;
@@ -148,7 +153,7 @@ function validateRuleChecklistLifecycleCommand(row, context) {
       fail('command-invalid');
     }
   } else {
-    const where = { listId: row.listId, swimlaneId: row.swimlaneId };
+    const where = { boardId: row.cardBoardId, listId: row.listId, swimlaneId: row.swimlaneId };
     if (!Array.isArray(row.units) || row.units.length > 1000) fail('command-invalid');
     for (const unit of row.units) {
       if (!unit || Object.keys(unit).sort().join(',') !== 'activity,checklistId,history,receiptId,stored' ||

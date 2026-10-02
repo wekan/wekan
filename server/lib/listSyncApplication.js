@@ -23,7 +23,7 @@ const { randomUUID } = require('node:crypto');
 const { memberCan } = require('/models/lib/boardRoleCapabilities');
 const { ruleActionIds } = require('/models/lib/ruleParts');
 const { isAssignedOnlyMember } = require('/models/lib/boardCardScope');
-const { durableSyncEligibility, durableRuleActionTypes, finalActionIds, buildListSyncSteps } = require('/server/lib/listSyncSteps');
+const { durableSyncEligibility, durableRuleActionTypes, followableActionIds, buildListSyncSteps } = require('/server/lib/listSyncSteps');
 const { createSyncEffectPlanner, validateSyncEffects, applySyncEffectsStep } = require('/server/lib/syncEffects');
 const { syncOperationEffectId } = require('/server/lib/syncOperationApply');
 const { createSyncHookedCards } = require('/server/lib/syncHookedCards');
@@ -54,9 +54,10 @@ export async function durableSyncDecision({ list, board, trigger, actorId }) {
     const triggers = triggerIds.length
       ? await Triggers.find({ _id: { $in: triggerIds } }, { fields: { activityType: 1 } }).fetchAsync() : [];
     const typeOf = new Map(triggers.map(trigger => [trigger._id, trigger.activityType]));
-    const final = finalActionIds(rules.map(rule => ({ actionIds: ruleActionIds(rule).filter(Boolean),
-      activityType: typeOf.get(rule.triggerId) ?? null })));
-    return actions.map(action => ({ ...action, finalInPlan: final.has(action._id) }));
+    const types = new Map(actions.map(action => [action._id, action.actionType]));
+    const movable = followableActionIds(rules.map(rule => ({ actionIds: ruleActionIds(rule).filter(Boolean),
+      activityType: typeOf.get(rule.triggerId) ?? null })), id => types.get(id));
+    return actions.map(action => ({ ...action, crossBoardMovable: movable.has(action._id) }));
   };
   // A destination board counts only when the actor may write there, as the
   // stored stages of its rules require.

@@ -60,9 +60,12 @@ function creation(base, card, list, swimlane, createdAt) {
 // Capture. `source` is the rule's card (raw document), `target` what
 // RulesHelper.linkCardTarget resolved, `list` and `swimlane` its documents.
 // Without both the ordinary insert fails at its activity, so this refuses.
-function prepareRuleLinkCardCommand({ plan, activity, effectId, index, source, target, list, swimlane, createdAt }) {
+// `cardBoardId`: where the card is - the plan's board, unless a cross-board
+// move of this plan put it elsewhere (2026-10-03); Card.link links it from there.
+function prepareRuleLinkCardCommand({ plan, activity, effectId, index, source, target, list, swimlane, createdAt,
+  cardBoardId = plan?.boardId }) {
   const base = identity({ plan, activity, effectId, index });
-  if (!source || source._id !== base.cardId || source.boardId !== base.boardId || !target ||
+  if (!source || source._id !== base.cardId || source.boardId !== cardBoardId || !target ||
       !(createdAt instanceof Date) || !Number.isFinite(createdAt.getTime())) fail('invalid');
   if (!text(target.listId) || !text(target.swimlaneId) || !list || !swimlane || list._id !== target.listId ||
       swimlane._id !== target.swimlaneId || list.boardId !== base.targetBoardId ||

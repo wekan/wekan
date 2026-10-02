@@ -178,6 +178,18 @@ async function movedByThisPlan(planIdValue, cardId, card) {
   return Boolean(allBoard);
 }
 
+// The rule's card where it is now: on the plan's board, or on the board a
+// cross-board move of THIS plan put it on (2026-10-03) - executionContext's
+// guard accepts the same and nothing else. The plan's later actions act on it
+// there, as the ordinary engine's do (it reads the card by id).
+async function ruleCardNow(plan, context, { raw = false } = {}) {
+  const card = raw ? await Cards.rawCollection().findOne({ _id: plan.cardId })
+    : await Cards.findOneAsync({ _id: plan.cardId }, { transform: null });
+  if (!card) return null;
+  if (card.boardId === plan.boardId) return card;
+  return await movedByThisPlan(rulePlanId(context.effectId, context.saved._id), plan.cardId, card) ? card : null;
+}
+
 // The card an activity names, where it is now: in the activity's list, or
 // where a saved move of that activity's OWN rules put it. The notification
 // and webhook stages deliver an activity after its rules ran
@@ -462,7 +474,7 @@ export async function runStoredSyncRuleCard({ index, completeDelivery = runStore
   await guard();
   let row = await commands.findOne({ _id: id });
   if (!row) {
-    const card = await Cards.findOneAsync({ _id: plan.cardId, boardId: plan.boardId }, { transform: null });
+    const card = await ruleCardNow(plan, context);
     // A linked card's field is written on the card it links to (getRealId).
     const real = card && realCardId(card) !== card._id
       ? await Cards.findOneAsync({ _id: realCardId(card) }, { transform: null }) : card;
@@ -473,7 +485,7 @@ export async function runStoredSyncRuleCard({ index, completeDelivery = runStore
     const targets = MEMBER_ACTIONS.includes(invocation.action.actionType)
       ? await RulesHelper.resolveMemberTargets(context.saved, await Cards.findOneAsync(plan.cardId), invocation.action) : [];
     const candidate = prepareRuleCardCommand({ ...commandContext, card, real, createdAt: new Date(), redoRows,
-      username: actor?.username || '', targets });
+      username: actor?.username || '', targets, cardBoardId: card?.boardId });
     await guard();
     let failure;
     try { await commands.insertOne(candidate); } catch (error) { failure = error; }
@@ -483,9 +495,9 @@ export async function runStoredSyncRuleCard({ index, completeDelivery = runStore
   const command = validateRuleCardCommand(row, commandContext);
   // The subject is still what the rule's card writes through: itself, or the
   // card it links to, on a board that may take this Sync's effects.
-  const ruleCard = await Cards.rawCollection().findOne({ _id: plan.cardId, boardId: plan.boardId });
+  const ruleCard = await ruleCardNow(plan, context, { raw: true });
   if (!ruleCard || realCardId(ruleCard) !== command.subject.cardId ||
-      (command.subject.cardId === plan.cardId && command.subject.boardId !== plan.boardId)) {
+      (command.subject.cardId === plan.cardId && command.subject.boardId !== ruleCard.boardId)) {
     throw new Error('sync-rule-card-subject-changed');
   }
   await assertDestinationBoard(command.subject.boardId, plan, options.trigger);
@@ -1147,14 +1159,15 @@ export async function runStoredSyncRuleLinkCard({ index, completeDelivery = runS
   await guard();
   let row = await commands.findOne({ _id: id });
   if (!row) {
-    const source = await Cards.rawCollection().findOne({ _id: plan.cardId, boardId: plan.boardId });
+    const source = await ruleCardNow(plan, context, { raw: true });
     // A legacy action without a boardId links on the card's own board.
     const target = await RulesHelper.linkCardTarget({ ...action, boardId: targetBoardId });
     const [list, swimlane] = await Promise.all([
       target.listId ? Lists.findOneAsync({ _id: target.listId, boardId: targetBoardId }) : null,
       target.swimlaneId ? Swimlanes.findOneAsync({ _id: target.swimlaneId, boardId: targetBoardId }) : null,
     ]);
-    const candidate = prepareRuleLinkCardCommand({ ...commandContext, source, target, list, swimlane, createdAt: new Date() });
+    const candidate = prepareRuleLinkCardCommand({ ...commandContext, source, target, list, swimlane, createdAt: new Date(),
+      cardBoardId: source?.boardId });
     await guard();
     let failure;
     try { await commands.insertOne(candidate); } catch (error) { failure = error; }
@@ -1210,7 +1223,8 @@ export async function runStoredSyncRuleAddSwimlane({ index, completeDelivery = r
   await guard();
   let row = await commands.findOne({ _id: id });
   if (!row) {
-    const card = await Cards.findOneAsync({ _id: plan.cardId, boardId: plan.boardId });
+    // The card for the title's variables, wherever this plan left it.
+    const card = await ruleCardNow(plan, context) ? await Cards.findOneAsync(plan.cardId) : null;
     const title = await RulesHelper.ruleSwimlaneTitle(context.saved, card, action);
     const candidate = prepareRuleAddSwimlaneCommand({ ...commandContext, title, createdAt: new Date() });
     await guard();
@@ -1276,7 +1290,8 @@ export async function runStoredSyncRuleCreateCard({ index, completeDelivery = ru
   await guard();
   let row = await commands.findOne({ _id: id });
   if (!row) {
-    const card = await Cards.findOneAsync({ _id: plan.cardId, boardId: plan.boardId });
+    // The card for the title's variables, wherever this plan left it.
+    const card = await ruleCardNow(plan, context) ? await Cards.findOneAsync(plan.cardId) : null;
     const target = await RulesHelper.createCardTarget(context.saved, card, action);
     const [list, swimlane] = await Promise.all([
       target.listId ? Lists.findOneAsync({ _id: target.listId, boardId: plan.boardId }) : null,
@@ -1416,8 +1431,10 @@ export async function runStoredSyncRuleChecklistLifecycle({ index, completeDeliv
   await guard();
   let row = await commands.findOne({ _id: id });
   if (!row) {
-    const card = await Cards.findOneAsync({ _id: plan.cardId, boardId: plan.boardId }, { transform: null });
-    const redoRows = await ChangeHistory.find({ boardId: plan.boardId, userId: plan.actorId, undone: true,
+    // The card where this plan left it - on another board after a cross-board
+    // move of the same plan (2026-10-03) - and its History there.
+    const card = await ruleCardNow(plan, context);
+    const redoRows = await ChangeHistory.find({ boardId: card?.boardId || plan.boardId, userId: plan.actorId, undone: true,
       superseded: { $ne: true } }, { transform: null, limit: 10000 }).fetchAsync();
     // The ordinary action's own title and selector (server/rulesHelper.js performAction).
     const adds = ['addChecklist', 'addChecklistWithItems'].includes(action.actionType);
@@ -1429,7 +1446,7 @@ export async function runStoredSyncRuleChecklistLifecycle({ index, completeDeliv
       ? await Checklists.rawCollection().find({ title: action.checklistName, cardId: card._id, sort: 0 },
         { sort: { _id: 1 }, limit: 1001 }).toArray() : [];
     const candidate = prepareRuleChecklistLifecycleCommand({ ...commandContext, card, title, itemTitles, checklists,
-      createdAt: new Date(), redoRows });
+      createdAt: new Date(), redoRows, cardBoardId: card?.boardId });
     await guard();
     let failure;
     try { await commands.insertOne(candidate); } catch (error) { failure = error; }
@@ -1449,7 +1466,7 @@ export async function runStoredSyncRuleChecklistLifecycle({ index, completeDeliv
     fields: RULE_CHECKLIST_LIFECYCLE });
   const deferred = (checklistId, work, kinds = ['checklistActivity', 'checklistHistory']) =>
     DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false },
-      () => withSyncRecordingDeferred({ cardId: command.cardId, boardId: command.boardId,
+      () => withSyncRecordingDeferred({ cardId: command.cardId, boardId: command.cardBoardId,
         listId: command.listId, checklistId, kinds }, work));
   const lists = Checklists.rawCollection();
   if (command.actionType !== 'removeChecklist') {
@@ -1538,7 +1555,8 @@ export async function runStoredSyncRuleChecklist({ index, completeDelivery = run
   await guard();
   let row = await commands.findOne({ _id: id });
   if (!row) {
-    const card = await Cards.findOneAsync({ _id: plan.cardId, boardId: plan.boardId }, { transform: null });
+    // The card where this plan left it (2026-10-03: possibly another board).
+    const card = await ruleCardNow(plan, context);
     // The ordinary action's own lookups (server/rulesHelper.js performAction).
     const checklist = card ? await ReactiveCache.getChecklist({ title: action.checklistName, cardId: card._id }) : null;
     const items = checklist ? await ReactiveCache.getChecklistItems({ checklistId: checklist._id }) : [];
@@ -1550,10 +1568,10 @@ export async function runStoredSyncRuleChecklist({ index, completeDelivery = run
       const item = await ReactiveCache.getChecklistItem({ title: action.checkItemName, checkListId: checklist._id });
       if (item) targetIds = [item._id];
     }
-    const redoRows = await ChangeHistory.find({ boardId: plan.boardId, userId: plan.actorId, undone: true,
+    const redoRows = await ChangeHistory.find({ boardId: card?.boardId || plan.boardId, userId: plan.actorId, undone: true,
       superseded: { $ne: true } }, { transform: null, limit: 10000 }).fetchAsync();
     const candidate = prepareRuleChecklistCommand({ ...commandContext, card, checklist, items, targetIds,
-      createdAt: new Date(), redoRows });
+      createdAt: new Date(), redoRows, cardBoardId: card?.boardId });
     await guard();
     let failure;
     try { await commands.insertOne(candidate); } catch (error) { failure = error; }
@@ -1582,7 +1600,7 @@ export async function runStoredSyncRuleChecklist({ index, completeDelivery = run
       if (!await items.findOne(selector(unit, unit.before))) throw new Error('sync-rule-checklist-changed');
       const { listId } = await Cards.findOneAsync({ _id: command.cardId }, { fields: { listId: 1 }, transform: null });
       await DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false }, () =>
-        withSyncRecordingDeferred({ cardId: command.cardId, boardId: command.boardId, listId, itemId: unit.itemId,
+        withSyncRecordingDeferred({ cardId: command.cardId, boardId: command.cardBoardId, listId, itemId: unit.itemId,
           kinds: ['itemUncomplete', 'itemCheck', 'itemHistory'] },
         () => ChecklistItems.updateAsync(selector(unit, unit.before), { $set: { isFinished: unit.after.isFinished } })));
       if (!await items.findOne(selector(unit, unit.after))) throw new Error('sync-rule-checklist-unconfirmed');
