@@ -125,16 +125,33 @@ test('sanitize() is a real whitelist, not the identity function it was', () => {
   assert.strictEqual(sanitized, '.._.._.._.._tmp_pwn');
 });
 
-test('namingFunction validates fileId and regenerates a safe one when it fails', () => {
-  const at = attachmentsJs.indexOf('namingFunction(opts) {');
-  const body = attachmentsJs.slice(at, attachmentsJs.indexOf('\n  },', at));
-  assert.ok(/if \(!fileId \|\| !\/\^\[a-zA-Z0-9_-\]\{1,40\}\$\/\.test\(fileId\)\)/.test(body),
-    'fileId is validated against a safe pattern before use');
-  assert.ok(/fileId = Random\.id\(\);/.test(body), 'and replaced with a fresh id when invalid');
-  assert.ok(/const ret = fileId;/.test(body), 'the (now-validated) fileId is what gets returned');
-  // The traversal string from the advisory's PoC must fail the pattern.
-  assert.ok(!/^[a-zA-Z0-9_-]{1,40}$/.test('../../../../tmp/wekan-pwn'),
-    'sanity: the PoC fileId does not match the safe pattern (would be regenerated)');
+test('namingFunction validates fileId and regenerates a safe one when it fails - attachments AND avatars', () => {
+  // One shared rule since 2026-10-02: the avatar collection, the same
+  // Meteor-Files pipeline, had no check at all (UploadPathBleed sibling).
+  const { safeUploadFileId, SAFE_FILE_ID } = require('../models/lib/uploadFileId');
+  assert.strictEqual(String(SAFE_FILE_ID), '/^[a-zA-Z0-9_-]{1,40}$/');
+  assert.strictEqual(safeUploadFileId('../../../../tmp/wekan-pwn', { fresh: () => 'FRESH' }), 'FRESH',
+    'the PoC fileId is replaced');
+  assert.strictEqual(safeUploadFileId('q7RBn3wkhLxQ9Zz2c', { fresh: () => 'FRESH' }), 'q7RBn3wkhLxQ9Zz2c');
+  for (const [file, source] of [[attachmentsJs, 'Attachments.namingFunction'], [fs.readFileSync(path.join(ROOT, 'models/avatars.js'), 'utf8'), 'Avatars.namingFunction']]) {
+    const at = file.indexOf('namingFunction(opts) {');
+    const body = file.slice(at, file.indexOf('\n  },', at));
+    assert.ok(body.includes('safeUploadFileId(fileId, {') && body.includes(`source: '${source}'`), `${source} validates the id`);
+    assert.ok(body.indexOf('safeUploadFileId(') < body.lastIndexOf('return ret;'), 'before it is used');
+  }
+  // Negative: every FilesCollection namingFunction in the tree uses the rule.
+  const walk = dir => fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true }).flatMap(e => {
+    if (e.name === 'tests' || e.name.startsWith('_build') || e.name === 'node_modules') return [];
+    const rel = `${dir}/${e.name}`;
+    return e.isDirectory() ? walk(rel) : (rel.endsWith('.js') ? [rel] : []);
+  });
+  const naming = ['models', 'server'].flatMap(walk).filter(f => /namingFunction\(opts\)/.test(fs.readFileSync(path.join(ROOT, f), 'utf8')));
+  for (const f of naming) assert.match(fs.readFileSync(path.join(ROOT, f), 'utf8'), /safeUploadFileId\(fileId,/, f);
+  assert.ok(naming.length >= 2);
+});
+
+test('an avatar is uploaded only by a signed-in user', () => {
+  assert.match(fs.readFileSync(path.join(ROOT, 'models/avatars.js'), 'utf8'), /onBeforeUpload\(file\) \{\s*\/\/[^\n]*\n\s*if \(!this\.userId\) return/);
 });
 
 test('Random is imported for the fallback id (negative: no ad-hoc Math.random id reused as fileId)', () => {
@@ -201,7 +218,8 @@ test('the two High advisories also log a blocked attempt, under their own keys (
   // public Hall of Fame page.
   assert.ok(!attachmentsJs.includes("key: 'authz.file-path'"),
     'the upload guard no longer reuses the unrelated PathBleed key');
-  assert.ok(attachmentsJs.includes("key: 'authz.upload-path'"),
+  // The record lives in the shared rule both collections use (2026-10-02).
+  assert.ok(fs.readFileSync(path.join(ROOT, 'models/lib/uploadFileId.js'), 'utf8').includes("key: 'authz.upload-path'"),
     'it logs under its own UploadPathBleed key instead');
   assert.ok(avatarsServerJs.includes("key: 'authz.avatar-protected'"),
     'Avatars.protected logs a denied anonymous download');

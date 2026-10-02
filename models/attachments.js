@@ -90,24 +90,8 @@ const Attachments = new FilesCollection({
     // but require the result to also look like the ObjectId WeKan itself
     // generates, so a malformed or unexpected value can never reach the
     // filesystem at all rather than merely losing its dangerous characters.
-    if (!fileId || !/^[a-zA-Z0-9_-]{1,40}$/.test(fileId)) {
-      if (Meteor.isServer) {
-        // An attempt: no legitimate WeKan client ever sends a fileId that
-        // fails this check, so this line is what an anonymous namingFunction
-        // exploit attempt against Advisory "Unauthenticated Arbitrary File
-        // Write via Path Traversal in Attachment Upload namingFunction"
-        // looks like server-side.
-        try {
-          require('/server/lib/securityLog').record({
-            key: 'authz.upload-path',
-            action: 'blocked',
-            source: 'Attachments.namingFunction',
-            detail: 'rejected a malformed/unsafe fileId, generated a fresh one instead',
-          });
-        } catch (e) { /* logging must never break the upload */ }
-      }
-      fileId = Random.id();
-    }
+    fileId = require('/models/lib/uploadFileId').safeUploadFileId(fileId, {
+      source: 'Attachments.namingFunction', fresh: () => Random.id(), isServer: Meteor.isServer });
     const ret = fileId;
     // remove fileId from meta, it was only stored there to have this information here in the namingFunction function
     return ret;
