@@ -3964,6 +3964,18 @@ and all 21 human-preference checks pass. Other languages and the broader backlog
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e9a07df6d6">Translate continuous backup into Slovak, Slovenian and Croatian</a>. Thanks to xet7.</summary>
+
+Fill 105 English placeholders and correct the Czech restore label in Slovak and
+the Cyrillic restore label in Croatian. Preserve existing correct-language
+translations, source order and exact tokens. Extend coverage for restore boundaries,
+protection of the live database file, time units and Latin-script labels. All 453
+translation-related suites and 21 human-preference checks pass. Backup translations
+now cover 36 of 234 non-English catalogs; other catalogs and the broader backlog remain.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
