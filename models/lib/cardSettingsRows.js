@@ -17,7 +17,11 @@
 //                    click-handler class and the popup helper that says
 //                    whether it is checked. Absent when the card shows nothing
 //                    of it.
-//   minicard       - the same for "Show on Minicard". `personal: true` marks
+//   minicard       - the same for "Show on Minicard".
+//   flag/default   - a plain board flag: the generic 'js-board-card-flag'
+//                    handler toggles `field`, and a board that never set it
+//                    reads `default` (what that surface drew before the row
+//                    had this side). Every row has both sides (2026-10-02). `personal: true` marks
 //                    the two rows that are the user's or the card's own rather
 //                    than the board's (sidebar.css .card-settings-row-personal);
 //                    `after` places a row that has NO element of its own on the
@@ -30,13 +34,17 @@
 
 const CARD_SETTINGS_ROWS = [
   { key: 'collapse', icons: ['fa-caret-down'], label: ['collapse'],
+    card: { toggle: 'js-board-card-flag', field: 'allowsCardCollapse', flag: true, default: true, after: 'dueComplete' },
     minicard: { toggle: 'js-field-minicard-collapse', field: 'allowsMinicardCollapse', after: 'dueComplete' } },
   { key: 'labelsAboveTitle', icons: ['fa-arrow-up'], label: ['labels', 'title'], labelSeparator: ' ↑ ',
+    card: { toggle: 'js-board-card-flag', field: 'labelsAboveTitleOnCard', flag: true, default: false, after: 'labels' },
     minicard: { toggle: 'js-field-labels-above-title', field: 'labelsAboveTitleOnMinicard', after: 'labels' } },
   { key: 'checklistDueDate', icons: ['fa-clock-o'], label: ['checklists', 'card-due'],
-    card: { toggle: 'js-field-checklist-due-date', field: 'allowsChecklistDueDate', after: 'checklists' } },
+    card: { toggle: 'js-field-checklist-due-date', field: 'allowsChecklistDueDate', after: 'checklists' },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsChecklistDueDateOnMinicard', flag: true, default: false, after: 'checklists' } },
   { key: 'checklistTitle', icons: ['fa-check'], label: ['checklists', 'title'],
-    card: { toggle: 'js-field-checklist-title', field: 'allowsChecklistTitle', after: 'checklists' } },
+    card: { toggle: 'js-field-checklist-title', field: 'allowsChecklistTitle', after: 'checklists' },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsChecklistTitleOnMinicard', flag: true, default: true, after: 'checklists' } },
   { key: 'dueComplete', icons: ['fa-check-square-o'], label: ['card-mark-complete'],
     card: { toggle: 'js-field-has-duecomplete', field: 'allowsDueComplete' },
     minicard: { toggle: 'js-field-has-duecomplete-on-minicard', field: 'allowsDueCompleteOnMinicard' } },
@@ -54,15 +62,19 @@ const CARD_SETTINGS_ROWS = [
   // words left out. The board's default, then the user's own override of it
   // (client/lib/minicardLabelText.js). Both modify the Labels element.
   { key: 'labelText', icons: ['fa-tag', 'fa-file-text-o'], label: ['labels', 'custom-field-text'],
+    card: { toggle: 'js-board-card-flag', field: 'allowsLabelTextOnCard', flag: true, default: true, after: 'labels' },
     minicard: { toggle: 'js-field-has-label-text', field: 'allowsLabelText', after: 'labels' } },
   { key: 'labelTextPersonal', icons: ['fa-tag', 'fa-file-text-o'], label: ['labels', 'custom-field-text'],
+    card: { toggle: 'js-toggle-card-label-text', field: 'showsCardLabelText',
+      after: 'labelText', personal: true, labelTextOverride: true },
     minicard: { toggle: 'js-toggle-minicard-label-text', field: 'showsMinicardLabelText',
       after: 'labelText', personal: true, labelTextOverride: true } },
   { key: 'stickers', icons: ['fa-sticky-note-o'], label: ['stickers'],
     card: { toggle: 'js-field-has-stickers', field: 'allowsStickers' },
     minicard: { toggle: 'js-field-has-stickers-on-minicard', field: 'allowsStickersOnMinicard' } },
   { key: 'location', icons: ['fa-map-marker'], label: ['location'],
-    card: { toggle: 'js-field-has-location', field: 'allowsLocation' } },
+    card: { toggle: 'js-field-has-location', field: 'allowsLocation' },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsLocationOnMinicard', flag: true, default: false } },
 
   { key: 'receivedDate', icons: ['fa-sign-in'], label: ['card-received'],
     card: { toggle: 'js-field-has-receiveddate', field: 'allowsReceivedDate' },
@@ -87,9 +99,11 @@ const CARD_SETTINGS_ROWS = [
     card: { toggle: 'js-field-has-creator', field: 'allowsCreator' },
     minicard: { toggle: 'js-field-has-creator-on-minicard', field: 'allowsCreatorOnMinicard' } },
   { key: 'requestedBy', icons: ['fa-user', 'fa-plus'], label: ['requested-by'],
-    card: { toggle: 'js-field-has-requested-by', field: 'allowsRequestedBy' } },
+    card: { toggle: 'js-field-has-requested-by', field: 'allowsRequestedBy' },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsRequestedByOnMinicard', flag: true, default: true } },
   { key: 'assignedBy', icons: ['fa-shopping-cart'], label: ['assigned-by'],
-    card: { toggle: 'js-field-has-assigned-by', field: 'allowsAssignedBy' } },
+    card: { toggle: 'js-field-has-assigned-by', field: 'allowsAssignedBy' },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsAssignedByOnMinicard', flag: true, default: true } },
 
   { key: 'dependencies', icons: ['fa-link'], label: ['card-dependencies'],
     card: { toggle: 'js-field-has-dependencies', field: 'allowsDependencies' },
@@ -105,19 +119,24 @@ const CARD_SETTINGS_ROWS = [
   // per-card setting under the board-wide "Show lists" row that turns it on
   // for every card. Only for somebody who may change the card.
   { key: 'listTitle', icons: ['fa-list'], label: ['list', 'title'],
+    card: { toggle: 'js-toggle-show-list-on-card', field: 'showsListOnCard',
+      after: 'showLists', personal: true, needsCard: true },
     minicard: { toggle: 'js-toggle-show-list-on-minicard', field: 'showsListOnMinicard',
       after: 'showLists', personal: true, needsCard: true } },
   // #2426: the swimlane a card belongs to, at the bottom of the minicard. The
   // opened card shows it through its own picker, so there is no card side.
   { key: 'swimlaneName', icons: ['fa-list-alt'], label: ['swimlane'],
+    card: { toggle: 'js-board-card-flag', field: 'allowsSwimlaneNameOnCard', flag: true, default: false, after: 'showLists' },
     minicard: { toggle: 'js-field-has-swimlane-name-on-minicard', field: 'allowsSwimlaneNameOnMinicard' } },
   { key: 'spentTime', icons: ['fa-clock-o'], label: ['spent-time-hours'],
     card: { toggle: 'js-field-has-spent-time', field: 'allowsSpentTime' },
     minicard: { toggle: 'js-field-has-spent-time-on-minicard', field: 'allowsSpentTimeOnMinicard' } },
   { key: 'flowtime', icons: ['fa-bolt'], label: ['flowtime'],
-    card: { toggle: 'js-field-has-flowtime', field: 'allowsFlowtime' } },
+    card: { toggle: 'js-field-has-flowtime', field: 'allowsFlowtime' },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsFlowtimeOnMinicard', flag: true, default: false } },
   { key: 'pomodoro', icons: ['fa-clock-o'], label: ['pomodoro'],
-    card: { toggle: 'js-field-has-pomodoro', field: 'allowsPomodoro' } },
+    card: { toggle: 'js-field-has-pomodoro', field: 'allowsPomodoro' },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsPomodoroOnMinicard', flag: true, default: false } },
 
   { key: 'customFields', icons: ['fa-list-alt'], label: ['custom-fields'],
     card: { toggle: 'js-field-has-custom-fields', field: 'allowsCustomFields' },
@@ -130,7 +149,8 @@ const CARD_SETTINGS_ROWS = [
     minicard: { toggle: 'js-field-has-poker-on-minicard', field: 'allowsPokerOnMinicard' } },
 
   { key: 'descriptionTitle', icons: ['fa-file-text-o'], label: ['description', 'title'],
-    card: { toggle: 'js-field-has-description-title', field: 'allowsDescriptionTitle' } },
+    card: { toggle: 'js-field-has-description-title', field: 'allowsDescriptionTitle' },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsDescriptionTitleOnMinicard', flag: true, default: true, after: 'descriptionText' } },
   { key: 'descriptionText', icons: ['fa-file-text-o'], label: ['description', 'custom-field-text'],
     card: { toggle: 'js-field-has-description-text', field: 'allowsDescriptionText' },
     minicard: { toggle: 'js-field-has-description-text-on-minicard', field: 'allowsDescriptionTextOnMinicard' } },
@@ -150,18 +170,25 @@ const CARD_SETTINGS_ROWS = [
   // On the minicard the attachment COUNT badge is the element; the Attachments
   // toggle there predates it and has no element of its own, so it follows.
   { key: 'attachments', icons: ['fa-paperclip'], label: ['attachments'],
-    card: { toggle: 'js-field-has-attachments', field: 'allowsAttachments' } },
-  // #595 text notes: card only, nothing of them is on the minicard.
+    card: { toggle: 'js-field-has-attachments', field: 'allowsAttachments' },
+    // The file names. allowsAttachmentsOnMinicard predates any element and is
+    // on everywhere, so the list has its own flag, off until chosen.
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsAttachmentListOnMinicard', flag: true, default: false } },
+  // #595 text notes; on the minicard, how many there are.
   { key: 'textNotes', icons: ['fa-file-text-o'], label: ['text-notes'],
-    card: { toggle: 'js-field-has-text-notes', field: 'allowsTextNotes' } },
+    card: { toggle: 'js-field-has-text-notes', field: 'allowsTextNotes' },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsTextNotesOnMinicard', flag: true, default: false } },
   { key: 'comments', icons: ['fa-comment-o'], label: ['card-comments-on-minicard'],
     card: { toggle: 'js-field-has-comments', field: 'allowsComments' },
     minicard: { toggle: 'js-field-has-comments-on-minicard', field: 'allowsCommentsOnMinicard' } },
   // The comment-COUNT badge, separate from the comment preview above.
   { key: 'commentCount', icons: ['fa-comment-o'], label: ['comments', 'number'],
+    card: { toggle: 'js-board-card-flag', field: 'allowsCommentCountOnCard', flag: true, default: false, after: 'comments' },
     minicard: { toggle: 'js-field-has-comment-count-on-minicard', field: 'allowsCommentCountOnMinicard' } },
+  // On the minicard, when the card last changed (the card's activity in one line).
   { key: 'activities', icons: ['fa-history'], label: ['activities'],
-    card: { toggle: 'js-field-has-activities', field: 'allowsActivities' } },
+    card: { toggle: 'js-field-has-activities', field: 'allowsActivities' },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsActivitiesOnMinicard', flag: true, default: false } },
 
   // The Scrum fields, one row each, "Scrum settings: Sprint" and so on: shown
   // where the board's order puts them, like any other row. `scrum` names the

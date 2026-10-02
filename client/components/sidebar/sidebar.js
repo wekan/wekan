@@ -48,6 +48,10 @@ import { toggleFold } from '/client/lib/foldState';
 import {
   resolveShowLabelText,
   toggleMinicardLabelText,
+  resolveShowCardLabelText,
+  hasCardLabelTextOverride,
+  toggleCardLabelText,
+  resetCardLabelTextOverride,
 } from '/client/lib/minicardLabelText';
 import {
   clearSidebarInstance,
@@ -1887,7 +1891,9 @@ function buildCardSettingsRows(side, data) {
   return rowsForSide(side, order)
     // "List title" is a CARD's setting: only for somebody who may change the
     // card, the same gate the hand-written row had (`if canModifyCard`).
-    .filter(row => !row[side].needsCard || Utils.canModifyCard(data))
+    // Only when the popup was opened for a card (its own menu passes it in):
+    // from Board Settings there is no card for the row to change.
+    .filter(row => !row[side].needsCard || (Boolean(data?.card?._id) && Utils.canModifyCard(data)))
     .map(row => {
       const spec = row[side];
       const helper = boardCardSettingsHelpers[spec.field];
@@ -1898,9 +1904,16 @@ function buildCardSettingsRows(side, data) {
         // A row with a place of its own is dragged; a modifier follows its row.
         positioned,
         toggle: spec.toggle,
-        // A Scrum row's checkbox is that field's Scrum visibility flag.
+        // A Scrum row's checkbox is that field's Scrum visibility flag; a
+        // plain flag row's is the board field, or its default when unset.
         checked: spec.scrum ? currentBoard?.scrum?.visibility?.[spec.scrum] === true
+          : spec.flag ? (typeof currentBoard?.[spec.field] === 'boolean' ? currentBoard[spec.field] : spec.default) === true
           : typeof helper === 'function' ? Boolean(helper.call(data)) : false,
+        // The personal "Labels text" row of each side: whether the user overrides
+        // the board, and the link back to following it.
+        labelTextOverridden: Boolean(spec.labelTextOverride) && (side === 'card'
+          ? hasCardLabelTextOverride() : boardCardSettingsHelpers.hasLabelTextOverride()),
+        labelTextResetClass: side === 'card' ? 'js-reset-card-label-text-override' : 'js-reset-minicard-label-text-override',
         icons: row.icons,
         title: row.label.map(k => TAPi18n.__(k)).join(row.labelSeparator || ' '),
         personal: Boolean(spec.personal),
@@ -1989,6 +2002,15 @@ const boardCardSettingsHelpers = {
   showsListOnMinicard() {
     const card = settingsCard();
     return Boolean(card && card.showListOnMinicard);
+  },
+  // ...and on the opened card.
+  showsListOnCard() {
+    const card = settingsCard();
+    return Boolean(card && card.showListOnCard);
+  },
+  // The labels text of the OPENED card, the user's override included.
+  showsCardLabelText() {
+    return resolveShowCardLabelText(ReactiveCache.getBoard(Session.get('currentBoard')));
   },
   allowsReceivedDate() {
     const boardId = Session.get('currentBoard');
@@ -2483,6 +2505,31 @@ Template.boardCardSettingsPopup.events({
   },
   // ...and the one that is this CARD's. The board-wide "Show lists" row further
   // down turns the list name on for every card; this turns it on for one.
+  // Every plain board flag of the table (`flag: true` in cardSettingsRows.js):
+  // the field the row names, from its default when the board never set it.
+  'click .js-board-card-flag'(evt, tpl) {
+    evt.preventDefault();
+    const row = evt.currentTarget.closest('.js-card-field-order-row');
+    const spec = CARD_SETTINGS_ROWS.find(r => r.key === row?.dataset.key)?.[row?.dataset.side];
+    if (!spec?.flag || !tpl.currentBoard) return;
+    const current = typeof tpl.currentBoard[spec.field] === 'boolean' ? tpl.currentBoard[spec.field] : spec.default;
+    Boards.update(tpl.currentBoard._id, { $set: { [spec.field]: !current } });
+  },
+  'click .js-toggle-card-label-text'(evt) {
+    evt.preventDefault();
+    toggleCardLabelText();
+  },
+  'click .js-reset-card-label-text-override'(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    resetCardLabelTextOverride();
+  },
+  'click .js-toggle-show-list-on-card'(evt) {
+    evt.preventDefault();
+    const card = settingsCard();
+    if (!card) return;
+    Cards.update(card._id, { $set: { showListOnCard: !card.showListOnCard } });
+  },
   'click .js-toggle-show-list-on-minicard'(evt) {
     evt.preventDefault();
     const card = settingsCard();

@@ -201,6 +201,14 @@ test('every row has a checkbox helper, a click handler, existing label keys and 
       // A Scrum row's checkbox is its Scrum visibility flag, read by the row
       // builder itself; the others have a helper of their own.
       if (spec.scrum) assert.match(sidebarJs, /checked: spec\.scrum \? currentBoard\?\.scrum\?\.visibility\?\.\[spec\.scrum\] === true/);
+      // A plain flag row reads the board field, or its declared default.
+      else if (spec.flag) {
+        assert.equal(typeof spec.default, 'boolean', `${row.key}/${side} declares its default`);
+        assert.match(sidebarJs, /: spec\.flag \? \(typeof currentBoard\?\.\[spec\.field\] === 'boolean' \? currentBoard\[spec\.field\] : spec\.default\) === true/);
+        assert.match(boardsModel, new RegExp(`\\b${spec.field}: \\{`), `${spec.field} in the schema`);
+        // A side that is new is off until chosen: no schema default turns it on.
+        if (spec.default === false) assert.ok(!boardsModel.includes(`${spec.field}: { type: Boolean, defaultValue: true }`), `${spec.field} is off until chosen`);
+      }
       else assert.ok(new RegExp(`^  ${spec.field}\\(\\) \\{`, 'm').test(sidebarJs), `helper ${spec.field}() (${row.key}/${side})`);
       assert.ok(sidebarJs.includes(`'click .${spec.toggle}'`), `click handler for .${spec.toggle}`);
     }

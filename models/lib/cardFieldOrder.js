@@ -114,6 +114,10 @@ const MINICARD_LAYOUT = {
     { key: 'comments', fields: ['comments'] },
     { key: 'showLists', fields: ['showLists'] },
     { key: 'swimlaneName', fields: ['swimlaneName'] },
+    // What the minicard gained on 2026-10-02 so every row has both sides;
+    // last by default, after everything it drew before.
+    ...['location', 'requestedBy', 'assignedBy', 'flowtime', 'pomodoro', 'attachments', 'textNotes', 'activities']
+      .map(key => ({ key, fields: [key] })),
   ],
   tail: [],
   legacy: {},

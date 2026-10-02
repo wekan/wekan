@@ -89,6 +89,9 @@ const PRE_FEATURE_MINICARD_ORDER = [
   'subtasks', 'checklistCount', 'cardSortingByNumber',
   'descriptionText', 'comments', 'showLists',
   'swimlaneName', // newer than 59f7d61df: last, under the list name
+  // Newer than 59f7d61df: what the opened card showed and the minicard did not,
+  // given a minicard side on 2026-10-02 - last, after everything drawn before.
+  'location', 'requestedBy', 'assignedBy', 'flowtime', 'pomodoro', 'attachments', 'textNotes', 'activities',
 ];
 
 test('the default card order is the pre-feature render order of cardDetails.jade (59f7d61df)', () => {
@@ -112,15 +115,18 @@ test('the default minicard order is the pre-feature render order of minicard.jad
   assert.deepStrictEqual(orderedMinicardSections(undefined),
     ['scrumSprint', 'scrumPastSprints', 'scrumRelease', 'scrumAcceptanceCriteria', 'scrumBacklogRank',
       'dates', 'cover', 'labels', 'customFields', 'assignee', 'members', 'creator', 'checklists',
-      'badges', 'descriptionText', 'comments', 'showLists', 'swimlaneName']);
+      'badges', 'descriptionText', 'comments', 'showLists', 'swimlaneName',
+      'location', 'requestedBy', 'assignedBy', 'flowtime', 'pomodoro', 'attachments', 'textNotes', 'activities']);
 });
 
 test('the fields newer than 59f7d61df sit beside their closest older neighbour', () => {
   assert.strictEqual(PRE_FEATURE_CARD_ORDER.indexOf('textNotes'), PRE_FEATURE_CARD_ORDER.indexOf('attachmentCount') + 1);
   assert.strictEqual(PRE_FEATURE_CARD_ORDER.indexOf('comments'), PRE_FEATURE_CARD_ORDER.indexOf('textNotes') + 1);
   assert.ok(CARD_LAYOUT.tail.includes('textNotes'), 'text notes is in the fixed tail, like the galleries around it');
-  assert.strictEqual(PRE_FEATURE_MINICARD_ORDER.indexOf('swimlaneName'), PRE_FEATURE_MINICARD_ORDER.length - 1);
-  assert.strictEqual(PRE_FEATURE_MINICARD_ORDER.indexOf('showLists'), PRE_FEATURE_MINICARD_ORDER.length - 2);
+  // Swimlane name sits right under the list name; the eight sides added on
+  // 2026-10-02 follow it.
+  assert.strictEqual(PRE_FEATURE_MINICARD_ORDER.indexOf('swimlaneName'), PRE_FEATURE_MINICARD_ORDER.length - 9);
+  assert.strictEqual(PRE_FEATURE_MINICARD_ORDER.indexOf('showLists'), PRE_FEATURE_MINICARD_ORDER.length - 10);
 });
 
 test('a stored order that names only some fields keeps the pre-feature order for the rest', () => {

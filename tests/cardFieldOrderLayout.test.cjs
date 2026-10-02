@@ -137,7 +137,8 @@ test('the first item going up and the last going down are no-ops (negative)', ()
   // The Scrum fields are the card's last and the minicard's first sections (2026-10-02).
   assert.deepStrictEqual(moveCardKey(undefined, 'scrumBacklogRank', 'down'), DEFAULT_CARD_ORDER);
   assert.deepStrictEqual(moveMinicardKey(undefined, 'scrumSprint', 'up'), DEFAULT_MINICARD_ORDER);
-  assert.deepStrictEqual(moveMinicardKey(undefined, 'swimlaneName', 'down'), DEFAULT_MINICARD_ORDER);
+  // The minicard's last section is Activities since 2026-10-02.
+  assert.deepStrictEqual(moveMinicardKey(undefined, 'activities', 'down'), DEFAULT_MINICARD_ORDER);
 });
 
 test('an unknown key, a head/tail key or a bad direction is a no-op (negative)', () => {
@@ -163,7 +164,8 @@ test('a move never loses or duplicates a field', () => {
 
 test('the minicard has its own layout and order, untouched by the card order', () => {
   const minicard = moveMinicardKey(undefined, 'swimlaneName', 'up');
-  assert.deepStrictEqual(orderedMinicardSections(minicard).slice(-2), ['swimlaneName', 'showLists']);
+  const moved = orderedMinicardSections(minicard);
+  assert.strictEqual(moved.indexOf('showLists'), moved.indexOf('swimlaneName') + 1, 'swimlane name above the list name');
   assert.deepStrictEqual(applyCardOrder(undefined), DEFAULT_CARD_ORDER, 'the card order is a different value');
   // Badges reorder inside their strip; the strip itself moves at its edges.
   const badges = moveMinicardKey(undefined, 'vote', 'up');
@@ -219,17 +221,22 @@ test('rowsForSide lists a side in its order, with the position-less rows under t
   assert.strictEqual(rows.indexOf('labelText'), rows.indexOf('labels') + 1);
   assert.strictEqual(rows.indexOf('labelTextPersonal'), rows.indexOf('labelText') + 1);
   assert.strictEqual(rows.indexOf('listTitle'), rows.indexOf('showLists') + 1);
-  // F14: controls without rendered minicard fields must not promise an effect.
-  for (const key of ['assignedBy', 'requestedBy', 'descriptionTitle', 'attachments']) {
-    assert.ok(!rows.includes(key));
+  // F14: a control must not promise an effect it does not have. Since
+  // 2026-10-02 these have a minicard element, each read by minicard.jade
+  // through the field its row names (negative: no dead toggle).
+  const minicardJade = require('fs').readFileSync(require('path').join(__dirname, '../client/components/cards/minicard.jade'), 'utf8');
+  for (const key of ['assignedBy', 'requestedBy', 'descriptionTitle', 'attachments', 'location']) {
+    assert.ok(rows.includes(key), `${key} is in the minicard list`);
+    const field = CARD_SETTINGS_ROWS.find(row => row.key === key).minicard.field;
+    assert.ok(minicardJade.includes(`currentBoard.${field}`), `minicard.jade reads ${field}`);
     assert.ok(CARD_SETTINGS_ROWS.find(row => row.key === key).card, 'working card-side settings remain');
   }
-  assert.ok(!rows.includes('location'), 'a card-only row is not in the minicard list');
   const card = rowsForSide('card', applyCardOrder(undefined)).filter(r => !r.card.after).map(r => r.key);
   assert.deepStrictEqual(card, DEFAULT_CARD_ORDER, 'the card list is exactly the card order');
   // Moving on one side reorders that list only.
   const moved = rowsForSide('minicard', moveMinicardKey(undefined, 'swimlaneName', 'up')).map(r => r.key);
-  assert.deepStrictEqual(moved.slice(-3), ['swimlaneName', 'showLists', 'listTitle']);
+  const at = moved.indexOf('swimlaneName');
+  assert.deepStrictEqual(moved.slice(at, at + 3), ['swimlaneName', 'showLists', 'listTitle']);
 });
 
 console.log(`\n${passed} passed`);

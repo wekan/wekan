@@ -26,11 +26,12 @@ template(name="cardDetails")
         +editCardTitleForm
       else
         unless isMiniScreen
-          a.card-collapse-toggle.js-card-collapse-toggle(title="{{_ 'collapse'}}")
-            if cardCollapsed
-              i.fa.fa-caret-right
-            else
-              i.fa.fa-caret-down
+          if allowsCardCollapse
+            a.card-collapse-toggle.js-card-collapse-toggle(title="{{_ 'collapse'}}")
+              if cardCollapsed
+                i.fa.fa-caret-right
+              else
+                i.fa.fa-caret-down
           a.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
             i.fa.fa-times-thin
           if cardMaximized
@@ -77,6 +78,9 @@ template(name="cardDetails")
           stays on the whole heading - the drag handler is what steps aside for
           the edit zone - so a reader who may not write can still drag the
           window by any part of it, which is what that class was for.
+        if showLabelsAboveTitleOnCard
+          .card-details-labels-above-title
+            +minicardLabels(show=labelsShownAboveTitle labels=labels hideText=hiddenCardLabelText)
         h2.card-details-title.js-card-title(
           class="{{#if canModifyCard}}is-editable{{/if}}")
             if canModifyCard
@@ -89,6 +93,12 @@ template(name="cardDetails")
             if isWatching
               i.card-details-watch
                 i.fa.fa-eye
+        //- List title, Show on Card: this card's own choice, like the minicard's.
+        if showListOnCard
+          if cardListTitle
+            .card-details-list-title
+              i.fa.fa-list
+              | {{ cardListTitle }}
         .card-details-path
           each parentList
             | &nbsp; &gt; &nbsp;
@@ -230,7 +240,7 @@ template(name="cardDetails")
 
       if currentBoard.allowsComments
         .comment-title
-          +cardSectionHeader(section="comments" icon="fa-comment-o" label="comments")
+          +cardSectionHeader(section="comments" icon="fa-comment-o" label="comments" count=cardCommentCountShown)
         if isSectionOpen "comments"
           if currentUser.isBoardMember
             unless currentUser.isNoComments
@@ -275,9 +285,11 @@ template(name="cardFieldSectionLabels")
             if isSectionOpen "labels"
               a(class="{{#if canModifyCard}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
                 each labels
-                  span.card-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}" title=name)
-                    +viewer
-                      = name
+                  //- Labels text, Show on Card: the words, or coloured chips without them.
+                  span.card-label(class="{{labelColorClass color}}" class="{{#if hiddenCardLabelText}}card-label-no-text{{/if}}" style="{{labelColorStyle color}}" title=name)
+                    unless hiddenCardLabelText
+                      +viewer
+                        = name
               if canModifyCard
                 unless currentUser.isWorker
                   a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
@@ -602,6 +614,15 @@ template(name="cardFieldSectionSort")
                         if isCurrentListId _id
                           +viewer
                             = title
+                //- Swimlane, Show on Card: the swimlane this card is in.
+                if currentBoard.allowsSwimlaneNameOnCard
+                  if cardSwimlaneTitle
+                    .card-details-item.card-details-swimlane-name
+                      h3.card-details-item-title
+                        i.fa.fa-list-alt
+                        | {{_ 'swimlane'}}
+                      +viewer
+                        = cardSwimlaneTitle
 
                 //.card-details-items
               if $eq field "spentTime"

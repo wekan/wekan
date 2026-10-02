@@ -56,7 +56,7 @@
     "handling": "Internal provenance, revision, deletion and renderer identifiers are excluded; deletion still governs eligibility."
   },
   {
-    "fields": ["showActivities", "showListOnMinicard", "showChecklistAtMinicard", "hideFinishedChecklistIfItemsAreHidden"],
+    "fields": ["showActivities", "showListOnMinicard", "showListOnCard", "showChecklistAtMinicard", "hideFinishedChecklistIfItemsAreHidden"],
     "handling": "Display preferences do not become email content. Discussion selection is controlled by the mail action."
   },
   {

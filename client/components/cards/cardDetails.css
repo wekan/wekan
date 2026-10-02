@@ -1349,3 +1349,19 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
 body.desktop-mode .card-details.card-details-position-pending:not(.card-details-popup):not(.card-details-maximized) {
   visibility: hidden;
 }
+
+/* Board Settings / Card, Show on Card (2026-10-02): label chips without their
+   words, the labels above the title, and the list title under it. */
+.card-details .card-label.card-label-no-text {
+  min-width: 2.5em;
+  min-height: 1em;
+}
+.card-details-labels-above-title {
+  margin: 0 0 4px;
+}
+.card-details-list-title {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 0.8;
+}

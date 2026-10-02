@@ -338,6 +338,11 @@ template(name="minicard")
         if $eq section "descriptionText"
           if currentBoard.allowsDescriptionTextOnMinicard
             if getDescription
+              //- Description title, Show on Minicard: the heading over the text.
+              unless $eq currentBoard.allowsDescriptionTitleOnMinicard false
+                .minicard-description-title
+                  i.fa.fa-file-text-o
+                  | {{_ 'description'}}
               .minicard-description
                 +viewer
                   | {{ getDescription }}
@@ -370,6 +375,60 @@ template(name="minicard")
             .minicard-swimlane-name
               i.fa.fa-list-alt
               | {{ swimlaneName }}
+        //- What the opened card shows that the minicard did not, each with its
+          Board Settings / Card "Show on Minicard" row (2026-10-02). Compact and
+          read-only: the minicard is a link to the card, which edits them.
+        if $eq section "location"
+          if currentBoard.allowsLocationOnMinicard
+            each getLocations
+              .minicard-location
+                i.fa.fa-map-marker
+                | {{#if name}}{{name}}{{else}}{{address}}{{/if}}
+        if $eq section "requestedBy"
+          unless $eq currentBoard.allowsRequestedByOnMinicard false
+            if getRequestedBy
+              .minicard-requested-by(title="{{_ 'requested-by'}}")
+                i.fa.fa-shopping-cart
+                | {{ getRequestedBy }}
+        if $eq section "assignedBy"
+          unless $eq currentBoard.allowsAssignedByOnMinicard false
+            if getAssignedBy
+              .minicard-assigned-by(title="{{_ 'assigned-by'}}")
+                i.fa.fa-user-plus
+                | {{ getAssignedBy }}
+        if $eq section "flowtime"
+          if currentBoard.allowsFlowtimeOnMinicard
+            if isFlowActive
+              .badge.minicard-flowtime(title="{{_ 'flowtime'}}")
+                span.badge-icon
+                  i.fa.fa-bolt
+                span.badge-text {{_ 'flow-interruptions' getFlowInterruptions}}
+        if $eq section "pomodoro"
+          if currentBoard.allowsPomodoroOnMinicard
+            if isPomodoroActive
+              .badge.minicard-pomodoro(title="{{_ 'pomodoro'}}")
+                span.badge-icon
+                  i.fa.fa-clock-o
+                span.badge-text {{_ 'pomodoro-completed' getPomodoroCount}}
+        if $eq section "attachments"
+          if currentBoard.allowsAttachmentListOnMinicard
+            each minicardAttachmentNames
+              .minicard-attachment-name
+                i.fa.fa-paperclip
+                | {{cleanFilename this}}
+        if $eq section "textNotes"
+          if currentBoard.allowsTextNotesOnMinicard
+            if textNotesCount
+              .badge.minicard-text-notes(title="{{_ 'text-notes'}}")
+                span.badge-icon
+                  i.fa.fa-file-text-o
+                span.badge-text {{ textNotesCount }}
+        if $eq section "activities"
+          if currentBoard.allowsActivitiesOnMinicard
+            if dateLastActivity
+              .minicard-last-activity(title="{{_ 'activities'}}")
+                i.fa.fa-history
+                | {{ minicardLastActivity }}
       if $eq 'subtext-with-full-path' currentBoard.presentParentTask
         .parent-subtext
           | {{ parentString ' > ' }}
@@ -403,13 +462,20 @@ template(name="minicardChecklist")
         title="{{#if checklistCollapsed}}{{_ 'expand-checklist'}}{{else}}{{_ 'collapse-checklist'}}{{/if}}"
         role="button" tabindex="0"
         aria-expanded="{{#if checklistCollapsed}}false{{else}}true{{/if}}")
-      if canModifyCard
-        +inlinedForm(classNames="js-edit-checklist-title" checklist=checklist)
-          +editChecklistForm(checklist=checklist)
+      //- Checklists > Title / Card due, Show on Minicard (Board Settings / Card).
+      unless $eq currentBoard.allowsChecklistTitleOnMinicard false
+        if canModifyCard
+          +inlinedForm(classNames="js-edit-checklist-title" checklist=checklist)
+            +editChecklistForm(checklist=checklist)
+          else
+            h4.checklist-title.js-open-inlined-form.is-editable= checklist.title
         else
-          h4.checklist-title.js-open-inlined-form.is-editable= checklist.title
-      else
-        h4.checklist-title= checklist.title
+          h4.checklist-title= checklist.title
+      if currentBoard.allowsChecklistDueDateOnMinicard
+        if checklist.dueAt
+          span.minicard-checklist-due(title="{{_ 'card-due'}}")
+            i.fa.fa-clock-o
+            | {{ minicardChecklistDue checklist.dueAt }}
       if canModifyCard
         a.checklist-menu.js-open-checklist-menu(title="{{_ 'checklistActionsPopup-title'}}")
           i.fa.fa-bars

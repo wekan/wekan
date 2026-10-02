@@ -328,9 +328,9 @@ template(name="boardCardSettingsPopup")
                 overriding it, with a way back to "follow the board" rather
                 than cycling the checkbox through both states again.
               if row.labelTextOverride
-                if hasLabelTextOverride
+                if row.labelTextOverridden
                   | &nbsp;
-                  a.js-reset-minicard-label-text-override(title="{{_ 'label-text-use-board-default'}}")
+                  a(class=row.labelTextResetClass title="{{_ 'label-text-use-board-default'}}")
                     | ({{_ 'label-text-overridden'}})
                 else
                   | &nbsp;({{_ 'label-text-follows-board'}})
@@ -338,7 +338,7 @@ template(name="boardCardSettingsPopup")
         h4.card-field-order-column-heading {{_ 'show-on-card'}}
         +boardSettingsColumnActions(section="card" column="card")
         each row in cardSettingsRows
-          .card-field-order-row.js-card-field-order-row(class="{{#if row.positioned}}is-positioned{{/if}}" data-key="{{row.key}}" data-side="card")
+          .card-field-order-row.js-card-field-order-row(class="{{#if row.personal}}card-settings-row-personal{{/if}}" class="{{#if row.positioned}}is-positioned{{/if}}" data-key="{{row.key}}" data-side="card")
             a.flex.card-field-order-toggle(class=row.toggle class="{{#if row.checked}}is-checked{{/if}}" title="{{row.title}}")
               i.fa(class="{{#if row.checked}}fa-check{{else}}fa-square-o{{/if}}")
             //- Reordered by drag and drop (client/components/sidebar/sidebar.js
@@ -355,6 +355,13 @@ template(name="boardCardSettingsPopup")
               each icon in row.icons
                 i.fa(class=icon)
               | {{row.title}}
+              if row.labelTextOverride
+                if row.labelTextOverridden
+                  | &nbsp;
+                  a(class=row.labelTextResetClass title="{{_ 'label-text-use-board-default'}}")
+                    | ({{_ 'label-text-overridden'}})
+                else
+                  | &nbsp;({{_ 'label-text-follows-board'}})
 
 
 //- The board's Subtasks Settings. Its own template, because the same settings

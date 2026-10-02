@@ -1306,6 +1306,20 @@ const BOARD_CARD_SETTING_KEYS = [
   'allowsCommentCountOnMinicard',
   // "Scrum settings: Work item type", Show on Minicard (2026-10-02).
   'allowsIssueTypeOnMinicard',
+  // The sides every row gained on 2026-10-02.
+  'allowsCardCollapse',
+  'allowsChecklistTitleOnMinicard',
+  'allowsLabelTextOnCard',
+  'labelsAboveTitleOnCard',
+  'allowsChecklistDueDateOnMinicard',
+  'allowsLocationOnMinicard',
+  'allowsSwimlaneNameOnCard',
+  'allowsFlowtimeOnMinicard',
+  'allowsPomodoroOnMinicard',
+  'allowsAttachmentListOnMinicard',
+  'allowsTextNotesOnMinicard',
+  'allowsCommentCountOnCard',
+  'allowsActivitiesOnMinicard',
 ];
 
 // #3984: numeric card-settings keys (parsed as integers, not booleans). These are

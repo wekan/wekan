@@ -7,6 +7,7 @@ import { TAPi18n } from '/imports/i18n';
 import { ReactiveDict } from 'meteor/reactive-dict';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { ReactiveVar } from 'meteor/reactive-var';
+import { resolveShowCardLabelText } from '/client/lib/minicardLabelText';
 import {
   DEPENDENCY_TYPES,
   DEPENDENCY_ICON_CHOICES,
@@ -637,6 +638,28 @@ Template.cardDetails.onDestroyed(function () {
 // (Template.cardDetails.helpers) is invisible, exactly like isDateFormat
 // above. Registered globally so every template that needs them can see
 // them.
+// Board Settings / Card, Show on Card (2026-10-02): the opened card's side of
+// the rows that were only on the minicard. Global helpers, like the others
+// here, because each section of the card is a template of its own.
+Template.registerHelper('hiddenCardLabelText', function hiddenCardLabelText() {
+  return !resolveShowCardLabelText(Utils.getCurrentBoard());
+});
+Template.registerHelper('cardCommentCountShown', function cardCommentCountShown() {
+  const board = Utils.getCurrentBoard();
+  if (!board || board.allowsCommentCountOnCard !== true || typeof this.comments !== 'function') return null;
+  const comments = this.comments();
+  const count = Array.isArray(comments) ? comments.length : (comments && comments.count ? comments.count() : 0);
+  return count || null;
+});
+Template.registerHelper('cardListTitle', function cardListTitle() {
+  const list = typeof this.list === 'function' ? this.list() : null;
+  return list && list.title;
+});
+Template.registerHelper('cardSwimlaneTitle', function cardSwimlaneTitle() {
+  const swimlane = typeof this.swimlane === 'function' ? this.swimlane() : null;
+  return swimlane && swimlane.title;
+});
+
 Template.registerHelper('canShowCustomFieldsOnCard', function canShowCustomFieldsOnCard() {
   const board = this?.board?.();
   return Utils.canModifyCard(this) && board?.allowsCustomFields !== false;
@@ -828,7 +851,21 @@ Template.cardDetails.helpers({
     return !Utils.getPopupCardId() && maximized;
   },
 
+  // Collapse, Show on Card: the header's collapse caret, on unless turned off.
+  allowsCardCollapse() {
+    return Utils.getCurrentBoard()?.allowsCardCollapse !== false;
+  },
+  // Labels title, Show on Card: the labels above the title, as on a minicard.
+  showLabelsAboveTitleOnCard() {
+    return Utils.getCurrentBoard()?.labelsAboveTitleOnCard === true;
+  },
+  // ...as long as the board shows labels at all.
+  labelsShownAboveTitle() {
+    return Utils.getCurrentBoard()?.allowsLabels !== false;
+  },
   cardCollapsed() {
+    // A board that turned the caret off has no collapsed cards.
+    if (Utils.getCurrentBoard()?.allowsCardCollapse === false) return false;
     const user = ReactiveCache.getCurrentUser();
     if (user && user.profile) {
       return !!user.profile.cardCollapsed;

@@ -8,6 +8,8 @@ import { CustomFieldStringTemplate, stringTemplateContext } from '/client/lib/cu
 import { handleFileUpload } from './attachments';
 import uploadProgressManager from '../../lib/uploadProgressManager';
 import { Utils } from '/client/lib/utils';
+import { formatDateForDisplay } from '/client/lib/dateDisplay';
+import CardTextNotes from '/models/cardTextNotes';
 import ChecklistItems from '/models/checklistItems';
 import Cards from '/models/cards';
 import { resolveCoverId } from '/models/lib/linkedCardCover';
@@ -321,6 +323,20 @@ Template.minicard.helpers({
   issueTypeBadge() {
     return issueTypeBadge(this.scrum && this.scrum.issueType);
   },
+  // Board Settings / Card, Show on Minicard (2026-10-02): the attachments'
+  // names, newest first, at most five - the card lists them all.
+  minicardAttachmentNames() {
+    const attachments = typeof this.attachments === 'function' ? this.attachments() : [];
+    return (attachments || []).slice(0, 5).map(file => file && file.name).filter(Boolean);
+  },
+  // ...how many text notes the card has (published with the board).
+  textNotesCount() {
+    return CardTextNotes.find({ cardId: this._id }).count();
+  },
+  // ...and when the card last changed: its activity in one line.
+  minicardLastActivity() {
+    return this.dateLastActivity ? formatDateForDisplay(this.dateLastActivity, true) : '';
+  },
   // "Scrum settings: Work item type", Show on Minicard: on unless turned off,
   // as it was on every board before it had a row.
   showIssueTypeOnMinicard() {
@@ -608,6 +624,10 @@ Template.minicard.events({
 });
 
 Template.minicardChecklist.helpers({
+  // Checklists > Card due, Show on Minicard.
+  minicardChecklistDue(dueAt) {
+    return dueAt ? formatDateForDisplay(dueAt, true) : '';
+  },
   /** #1591: folded for THIS user, under the same key the opened card uses, so
    * the two agree. `this.checklist || this` because this template is called both
    * with an explicit checklist and with one as the data context. */

@@ -1149,3 +1149,22 @@
 #content .minicard-title-text .viewer h4 { font-size: 1.125em !important; }
 #content .minicard-title-text .viewer h5 { font-size: 1em !important; }
 #content .minicard-title-text .viewer h6 { font-size: 0.875em !important; }
+
+/* Board Settings / Card, Show on Minicard (2026-10-02): the compact lines of
+   what the opened card shows. */
+.minicard-description-title,
+.minicard-location,
+.minicard-requested-by,
+.minicard-assigned-by,
+.minicard-attachment-name,
+.minicard-last-activity {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.85em;
+  overflow-wrap: anywhere;
+}
+.minicard-checklist-due {
+  font-size: 0.85em;
+  margin-left: 4px;
+}

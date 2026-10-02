@@ -68,3 +68,36 @@ export function toggleMinicardLabelText() {
   }
   location.reload();
 }
+
+// The same two layers for the labels of the OPENED card (Board Settings /
+// Card, "Labels text" in Show on Card): the board's allowsLabelTextOnCard
+// (shown unless turned off) and the user's profile.cardLabelTextOverride.
+// A reader who is not logged in follows the board.
+export function resolveShowCardLabelText(board) {
+  const boardValue = board && typeof board.allowsLabelTextOnCard === 'boolean' ? board.allowsLabelTextOnCard : null;
+  const currentUser = ReactiveCache.getCurrentUser();
+  const override = currentUser ? (currentUser.profile || {}).cardLabelTextOverride : null;
+  return resolveShowLabelTextValue(typeof override === 'boolean' ? override : null, boardValue);
+}
+
+export function hasCardLabelTextOverride() {
+  const currentUser = ReactiveCache.getCurrentUser();
+  return Boolean(currentUser) && typeof (currentUser.profile || {}).cardLabelTextOverride === 'boolean';
+}
+
+// Cycles the card override like the minicard's: none -> shown -> hidden -> none.
+// The profile is the user's own and writable by them (models/users.js).
+export function toggleCardLabelText() {
+  const currentUser = ReactiveCache.getCurrentUser();
+  if (!currentUser) return;
+  const override = (currentUser.profile || {}).cardLabelTextOverride;
+  const next = nextShowLabelTextOverride(typeof override === 'boolean' ? override : null);
+  Meteor.users.update(currentUser._id, next === null
+    ? { $unset: { 'profile.cardLabelTextOverride': '' } }
+    : { $set: { 'profile.cardLabelTextOverride': next } });
+}
+
+export function resetCardLabelTextOverride() {
+  const currentUser = ReactiveCache.getCurrentUser();
+  if (currentUser) Meteor.users.update(currentUser._id, { $unset: { 'profile.cardLabelTextOverride': '' } });
+}

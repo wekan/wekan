@@ -974,6 +974,13 @@ Cards.attachSchema(
       optional: true,
       defaultValue: false,
     },
+    showListOnCard: {
+      /**
+       * show list name on the opened card? (Board Settings / Card, List title)
+       */
+      type: Boolean,
+      optional: true,
+    },
     showChecklistAtMinicard: {
       /**
        * show checklist on minicard?

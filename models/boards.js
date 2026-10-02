@@ -1222,6 +1222,23 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: true,
     },
+    // Board Settings / Card: the sides each row gained on 2026-10-02, so that
+    // every row can be shown on the card and on the minicard
+    // (models/lib/cardSettingsRows.js). A side that already drew something
+    // defaults to true; a new element defaults to off.
+    allowsCardCollapse: { type: Boolean, defaultValue: true },
+    allowsChecklistTitleOnMinicard: { type: Boolean, defaultValue: true },
+    allowsLabelTextOnCard: { type: Boolean, defaultValue: true },
+    labelsAboveTitleOnCard: { type: Boolean, optional: true },
+    allowsChecklistDueDateOnMinicard: { type: Boolean, optional: true },
+    allowsLocationOnMinicard: { type: Boolean, optional: true },
+    allowsSwimlaneNameOnCard: { type: Boolean, optional: true },
+    allowsFlowtimeOnMinicard: { type: Boolean, optional: true },
+    allowsPomodoroOnMinicard: { type: Boolean, optional: true },
+    allowsAttachmentListOnMinicard: { type: Boolean, optional: true },
+    allowsTextNotesOnMinicard: { type: Boolean, optional: true },
+    allowsCommentCountOnCard: { type: Boolean, optional: true },
+    allowsActivitiesOnMinicard: { type: Boolean, optional: true },
     allowsIssueTypeOnMinicard: {
       /**
        * Does the board show the work item type badge on the minicard? It was
