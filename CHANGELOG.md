@@ -228,48 +228,25 @@ minute; the intermittent activity-recovery test was two test races and is fixed.
 
 Remaining, and why:
 
-- **Structural rule actions.** Thirty action types are durable now: email,
-  archive and unarchive, colour, labels, completion, dates, members, checklist
-  toggles, and since 2026-10-02 every move on the card's own board (to the top
-  or bottom of any list and swimlane, and moving all cards of a list), adding a
-  checklist (with or without items), removing checklists, sorting a list,
-  creating, copying and linking a card on its own board, and adding a swimlane
-  (see Upcoming). What is left, and why:
-  - *Links and copies to ANOTHER board* - built since (see "Status on
-    2026-10-02" below): durable when the destination board has opted into
-    Sync effects too, the actor may write there, and every board such rules
-    reach has only durable rule actions of its own.
-  - *Moves to ANOTHER board, and moving all cards of a list there* - in
-    progress, not committed. Three things make it more than a copy:
-    1. Every later action of the same rule plan acts on the card on the plan's
-       board, but the ordinary engine re-reads the card by id and acts on it
-       wherever it moved. The move is therefore lifted only when it is the
-       plan's LAST action: the command refuses any other position, and
-       eligibility lifts only a move that ends its rule, when no other rule
-       on the board has a trigger of the same activity type.
-    2. Its moveCardBoard activity has no listId, and durable delivery
-       identifies an activity by its list (server/lib/syncActivityDelivery.js).
-       It is written once by a derived id and delivered as ordinary
-       activities are, as addSwimlane's is. No rule trigger exists for it.
-    3. Card.move's cross-board update fires many hooks, each of which needs a
-       saved, idempotent record: History rows for position, labels, members,
-       custom fields and dependencies; set/unsetCustomField activities; the
-       addedLabel activities re-pointed or removed; checklist and item
-       boardId; the inbound dependencies left on the old board; attachment
-       placement; and the legacy undo row.
-    Committed as groundwork (see Upcoming), not yet used: the pure command
-    server/lib/syncRuleMoveBoardCommand.js, RULE_CARD_MOVE_BOARD_FIELDS in
-    server/lib/syncHistoryBatch.js, and the recording-scope kinds for the
-    dependencies History row and the label-activity hook. Paused on
-    2026-10-02; still to do: the runner and its collection, routing the move
-    actions to it, the rule guard and the notification and webhook stages
-    following a card this plan moved to another board, eligibility, and node
-    and server tests. Until then such a rule keeps its board on direct Sync.
-  - *Adding a swimlane* is durable in what it writes - the swimlane and its
-    createSwimlane activity each exist once across replays - but that activity
-    is delivered the ordinary way: it has no card, and the durable activity
-    pipeline (server/lib/syncNotificationPlan.js) identifies every activity by
-    its card. Board-level activities need that identity generalised first.
+- **Structural rule actions.** Every rule action type WeKan offers has a
+  durable adapter now (see Upcoming), on the card's own board and - since
+  2026-10-02 - on another board that has opted into Sync effects too. What
+  stays on direct Sync, and why:
+  - *A move to another board that is not provably its plan's last action.*
+    Every other durable command acts on the card on the plan's board, while
+    the ordinary engine re-reads the card and acts on it wherever it moved.
+    Such a move is durable only when it ends its rule and no other rule on
+    that board fires on the same activity type. Lifting that would mean
+    re-scoping every durable command to follow a card to another board, and
+    resolving names there as the ordinary engine does (by the source board's
+    names, which is arguably a bug of its own).
+  - *Activities without a list* - addSwimlane's createSwimlane and a move's
+    moveCardBoard - are written once by derived ids but delivered as
+    ordinary activities are. Durable delivery identifies an activity by its
+    list (server/lib/syncActivityDelivery.js,
+    server/lib/syncNotificationPlan.js). No rule trigger exists for either, so
+    only their notifications and webhooks are not replayed after a crash.
+    Board-level activities need that identity generalised first.
 - **Atomicity.** Cards, History, activities and effects are coordinated by the
   write-ahead journal and replay, not by a transaction. The FerretDB v1 backend
   has no multi-document transactions, and journal ownership cannot fence a
@@ -319,10 +296,11 @@ card on its own board, adding a swimlane, Caddy's open-file limit in the snap
 (#6552) and LDAP diagnostics in production (#6548). Cross-board rule effects
 remain, as above.
 
-Built later on 2026-10-02 (in Upcoming): rule links and copies to another
-board when both boards opted in, card-field rules on linked cards, durable Sync
-runs whose rules move or archive the synced card, and label activities kept
-when a card moves to another board.
+Built later on 2026-10-02 (in Upcoming): rule links, copies, moves and
+move-alls to another board when both boards opted in, card-field rules on
+linked cards, durable Sync runs whose rules move or archive the synced card,
+notifications and webhooks for cards their rules moved, and label activities
+kept when a card moves to another board.
 
 Investigated but not finished, with findings
 recorded for whoever picks them up next. Entries that have since been FIXED are
@@ -1744,7 +1722,8 @@ and can keep features from later updates off until approved. **Board Settings /
 Card** gives every row a card and a minicard side, shows each Scrum field as its
 own row and reorders rows by **drag and drop**, as does Board View. Boards
 import and export **Taskwarrior** JSON, more rule actions run through durable
-Sync - links and copies to **another board** too, when both boards opted in -
+Sync - links, copies and moves to **another board** too, when both boards opted
+in -
 webhooks can opt into **act-editCard**, and translations cover more languages.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code
@@ -2018,6 +1997,33 @@ before anything is copied.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/32d1abeffe">Rule moves to another board are durable when both boards opted in, as the plan's last action</a>. Thanks to xet7.</summary>
+
+The saved command holds Card.move's whole move there - labels by name, the next
+card number, mapped custom fields, that board's members, no dependencies - and
+writes every hook record from it once: History rows, the legacy undo row,
+re-homed checklists, the dependencies left behind, attachments, re-pointed
+label activities, the moveCardBoard and custom-field activities. Other durable
+commands act on the card on the plan's board, so the move must end its rule
+plan: eligibility checks that statically and the command again at run time.
+The activity's notifications and webhooks now judge recipients on the card as
+placed for the activity; before, they refused any card a rule had moved, also
+on its own board, whenever it had a watcher or a webhook. Tests:
+tests/syncRuleMoveBoardCommand.test.cjs, a server test with parity against the
+ordinary Card.move, and a whole Sync run with a list watcher.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b09eaaa4d0">Moving all cards of a list to another board is durable too</a>. Thanks to xet7.</summary>
+
+One unit per card, each a whole move there with its own records; each card keeps
+its sort and lands in that board's default swimlane, as in the ordinary action.
+Tests: the command suite and a server test with replay and parity.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/307bad3e8e">Saving Sync settings gives an old list its lifetime, so it can use durable Sync</a>. Thanks to xet7.</summary>
 
 A list created before list lifetimes had no incarnation and stayed on direct
@@ -2099,7 +2105,7 @@ and has the following developer-facing changes:
 - [The #4912 guards pin the opt-in act-editCard choice](https://github.com/wekan/wekan/commit/5a9bd80ed6). Thanks to xet7.
 - [TODO Later records the maintainer decisions of 2026-10-02](https://github.com/wekan/wekan/commit/34b1879d6f). Thanks to xet7.
 - [The RTL, issue-type and source-audit guards follow the Board Settings / Card work](https://github.com/wekan/wekan/commit/999819e63e). Thanks to xet7.
-- [The saved command for rule moves to another board is written, not yet used](https://github.com/wekan/wekan/commit/e108bb83b0). Thanks to xet7.
+- [The groundwork for rule moves to another board](https://github.com/wekan/wekan/commit/e108bb83b0). Thanks to xet7.
 
 and improves translation regression checks:
 
