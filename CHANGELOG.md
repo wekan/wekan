@@ -1685,6 +1685,17 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/946d61a15c">Translate Cornish email recovery failures</a>. Thanks to xet7.</summary>
+
+- Fill 20 Cornish email queue and delivery failure messages, preserving
+  cancellation safeguards and warnings before retrying unconfirmed delivery.
+  Technical terminology remains low confidence pending native-speaker review.
+- Batch placeholder, key-order and recovery-wording checks pass, along with
+  all 21 human-preference checks. Full-language work and browser review remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/cf7dce7175">Translate Cornish synchronization diagnostics and email queue</a>. Thanks to xet7.</summary>
 
 - Fill 20 Cornish synchronization diagnostics and email queue messages,
