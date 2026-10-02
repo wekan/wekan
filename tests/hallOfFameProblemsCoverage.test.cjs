@@ -91,6 +91,8 @@ const DELIBERATE = {
   CacheBleed: 'the fix changes the Cache-Control and Vary headers every authorized file response '
     + 'carries; nothing is refused, and the attack happens in a shared cache WeKan never sees, so '
     + 'there is no attempt to attribute (GHSA-w3qg-pf27-g68r)',
+  RelayBleed: 'the fix withholds the Trello credential from non-Trello download hosts; a link attachment '
+    + 'on another host is ordinary board content, so withholding it on every import is not an attempt to record',
 };
 
 // Predates the rule and has not been judged yet. May shrink; must never grow.

@@ -91,6 +91,24 @@ function authHeader(key, token) {
   return `OAuth oauth_consumer_key="${key}", oauth_token="${token}"`;
 }
 
+// RelayBleed: the header above is the importing user's Trello key and token.
+// Attachment, background and avatar URLs come from the board being imported,
+// and anyone who can add a link attachment to that board chooses them - a
+// link renamed to look like a file is downloaded like one. So the credential
+// goes only to Trello's own HTTPS hosts, on the default port. Anything else is
+// downloaded without it (a public file needs none); fetchSafe already drops
+// it on a redirect that leaves the origin.
+const TRELLO_CREDENTIAL_HOSTS = new Set(['trello.com', 'api.trello.com']);
+export function isTrelloCredentialHost(url) {
+  let parsed;
+  try { parsed = new URL(url); } catch (e) { return false; }
+  return parsed.protocol === 'https:' && parsed.port === '' && !parsed.username && !parsed.password &&
+    TRELLO_CREDENTIAL_HOSTS.has(parsed.hostname.toLowerCase());
+}
+function trelloAuthHeaders(url, key, token) {
+  return isTrelloCredentialHost(url) ? { Authorization: authHeader(key, token) } : {};
+}
+
 // How long to wait before a retry. Prefers the server-provided Retry-After
 // header (seconds, or an HTTP date), falling back to capped exponential backoff.
 function retryDelayMs(res, attempt) {
@@ -222,7 +240,7 @@ async function downloadAttachmentBase64(url, key, token) {
     // through the response instead of the request. It now downloads through
     // fetchSafe, which validates and pins EVERY hop.
     const res = await trelloFetch(url, {
-      headers: { Authorization: authHeader(key, token) },
+      headers: trelloAuthHeaders(url, key, token),
     }, { untrusted: true });
     if (!res.ok) {
       if (process.env.DEBUG === 'true') {
@@ -326,7 +344,7 @@ export async function inlineBoardBackground(board, key, token) {
   }
   const tryFetch = async withAuth => {
     const options = withAuth
-      ? { headers: { Authorization: authHeader(key, token) } }
+      ? { headers: trelloAuthHeaders(url, key, token) }
       : {};
     // FollowBleed: fetchSafe, not fetch — see downloadAttachmentBase64.
     const res = await fetchSafe(url, {
@@ -346,7 +364,8 @@ export async function inlineBoardBackground(board, key, token) {
     } catch (e) {
       bf = null;
     }
-    if (!bf) {
+    // RelayBleed: the credential retry only for a Trello-hosted background.
+    if (!bf && isTrelloCredentialHost(url)) {
       bf = await tryFetch(true);
     }
     if (bf) {
@@ -397,9 +416,10 @@ export async function inlineMemberAvatars(board, membersMapping, key, token) {
       // Trello avatars are public (S3); try without auth, fall back to OAuth.
       // FollowBleed: fetchSafe, not fetch — see downloadAttachmentBase64.
       let res = await fetchSafe(imgUrl, { maxRedirects: MAX_DOWNLOAD_REDIRECTS });
-      if (!res.ok) {
+      // RelayBleed: the credential retry only for a Trello-hosted avatar.
+      if (!res.ok && isTrelloCredentialHost(imgUrl)) {
         res = await fetchSafe(imgUrl, {
-          headers: { Authorization: authHeader(key, token) },
+          headers: trelloAuthHeaders(imgUrl, key, token),
           maxRedirects: MAX_DOWNLOAD_REDIRECTS,
         });
       }
