@@ -7,8 +7,11 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(
   path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const english = read('en');
-const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC'];
-const scripts = { ckb: 'Arabic', ary: 'Arabic', tt: 'Cyrillic', yi: 'Hebrew', 'wuu-Hans': 'Han' };
+const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC', 'bho', 'mai', 'kok', 'or_IN'];
+const scripts = {
+  ckb: 'Arabic', ary: 'Arabic', tt: 'Cyrillic', yi: 'Hebrew', 'wuu-Hans': 'Han',
+  bho: 'Devanagari', mai: 'Devanagari', kok: 'Devanagari', or_IN: 'Oriya',
+};
 const keys = Object.keys(english).filter(key => key.startsWith('email-recovery-'));
 
 for (const code of codes) {
@@ -29,6 +32,22 @@ for (const code of codes) {
 // Cancellation is irreversible only for the messages covered by this request.
 // Retrying must retain the pause and the warning about uncertain delivery.
 const meanings = {
+  bho: {
+    cancel: /वापस ना लावल जा सकी.*निहोरा के बाद.*बचल रही/,
+    description: /वापस ना लिहल जा सकेला.*नतीजा पक्का नइखे.*दोबारा.*रोक बनल रहेला/,
+  },
+  mai: {
+    cancel: /वापस नहि आनल जा सकत.*अनुरोधक बाद.*सुरक्षित रहत/,
+    description: /वापस नहि लेल जा सकैत अछि.*अनिश्चित.*फेर पठाओल.*रोक कायम राखैत अछि/,
+  },
+  kok: {
+    cancel: /परत मेळोवंक मेळचो ना.*विनंती उप्रांत.*सांबाळून दवरतले/,
+    description: /परत घेवंक मेळना.*अनिश्चित.*परत धाडलो.*थांबणूक तशीच दवरता/,
+  },
+  or_IN: {
+    cancel: /ଫେରାଇ ଆଣିହେବ ନାହିଁ.*ଅନୁରୋଧ ପରେ.*ନୂଆ ବାର୍ତ୍ତାଗୁଡ଼ିକ ରହିବ/,
+    description: /ଫେରାଇ ଆଣିହେବ ନାହିଁ.*ଅନିଶ୍ଚିତ.*ପୁଣି ପଠାଯାଇପାରେ.*ବିରାମକୁ ବଜାୟ ରଖେ/,
+  },
   yi: {
     cancel: /נישט קענען צוריקשטעלן.*נאָך דער בקשה בלײַבן געהיט/,
     description: /נישט צוריקנעמען.*אומזיכערן.*איבערחזרן.*האַלט די עקזיסטירנדיקע פּויזע/,
@@ -92,4 +111,8 @@ assert.match(read('bi')['email-recovery-heading'], /blong sanem/);
 assert.match(read('ary')['email-recovery-description'], /ديال.*كتعاود.*دابا/);
 assert.match(read('wuu-Hans')['email-recovery-description'], /辰光.*勒海.*勿/);
 assert.match(read('ve-CC')['email-recovery-empty'], /No ghe xe/);
+assert.match(read('bho')['email-recovery-unavailable'], /जाँचीं/);
+assert.match(read('mai')['email-recovery-unavailable'], /जाँचू/);
+assert.match(read('kok')['email-recovery-unavailable'], /तपासात/);
+assert.match(read('or_IN')['email-recovery-empty'], /ନାହିଁ ଏବଂ.*ନାହିଁ/);
 console.log(`Email recovery translations: ${keys.length} messages in ${codes.length} locales passed`);
