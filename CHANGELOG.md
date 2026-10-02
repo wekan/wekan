@@ -3179,6 +3179,23 @@ Structural tests do not establish fluency.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a77c59bbc5">Translate Scrum history, estimates and recovery in Inuktitut</a>. Thanks to xet7.</summary>
+
+Fill twenty English placeholders in Inuktitut, bringing these Scrum groups
+to 233 locale tags, with Cherokee remaining. Preserve existing translations,
+source order and exact tokens. Extend incomplete-history, missing-weight,
+discard-only recovery and syllabics checks.
+
+Six catalog and batch suites and all 21 human-preference checks pass.
+Inuktitut specialist workflow phrasing and inflection have lower confidence
+and need speaker review. The broader translation backlog remains. References
+include [Nunavut estimate terminology](https://assembly.nu.ca/sites/default/files/2022-11/20210225_Hansard%20%28Inuktitut%29.pdf)
+and [the Inuktut affix dictionary](https://www.taiguusiliuqtiit.ca/sites/default/files/2020-04/Affix-Dictionary-V21.pdf).
+Structural tests do not establish fluency.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
