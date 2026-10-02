@@ -19,6 +19,8 @@ import { titleChanged } from '/server/lib/titleChangeActivity';
 import { descriptionChanged } from '/server/lib/descriptionChangeActivity';
 const { collectionWriteSucceeded } = require('/server/lib/collectionWriteOutcome');
 const { deferSyncRecording, deferSyncLabelActivities } = require('/server/lib/syncRecordingScope');
+const { movedScrumMetadata } = require('/models/lib/scrumCopy');
+const { scrumRevisionSelector } = require('/models/lib/scrum');
 import { buildDeleteCardActivity } from '/server/lib/deleteActivities';
 import { assertParentCardIsVisible } from '/server/lib/visibleBoardIds';
 import { computeSubtaskLabelIds } from '/models/lib/subtaskLabelInheritance';
@@ -1011,6 +1013,20 @@ Cards.after.update(async function(userId, doc, fieldNames) {
     { $pull: { cardDependencies: doc._id } },
     { multi: true },
   );
+});
+
+// A card that moved to another board loses the sprint, release and rank it had
+// there (models/lib/scrumCopy.js movedScrumMetadata), whoever moved it - the
+// client, REST or a rule. Server-side, since Scrum fields are not the client's
+// to write; compare-and-set on the Scrum revision. A durable rule move writes
+// the same itself, and then there is nothing left to drop.
+Cards.after.update(async function(userId, doc, fieldNames) {
+  if (!fieldNames.includes('boardId')) return;
+  const oldBoardId = (this.previous || {}).boardId;
+  if (!oldBoardId || oldBoardId === doc.boardId) return;
+  const moved = movedScrumMetadata({ ...doc, boardId: oldBoardId }, doc.boardId);
+  if (!moved.scrum) return;
+  await Cards.direct.updateAsync({ _id: doc._id, boardId: doc.boardId, ...scrumRevisionSelector(doc) }, { $set: moved });
 });
 
 Cards.after.update(async function(userId, doc, fieldNames) {

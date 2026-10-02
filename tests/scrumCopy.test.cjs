@@ -39,3 +39,26 @@ test('container copies preserve category and purpose and omit foreign planning l
   assert.deepEqual(copiedScrumMetadata(lane, 'destination').scrum, { purpose: 'Team' });
   assert.deepEqual(copiedScrumMetadata(lane, 'destination', { omit: true }), {});
 });
+
+// Moves to another board (2026-10-02): the same references go as for a copy,
+// written by server hooks, since Scrum fields are not the client's to write.
+{
+  const assert = require('node:assert/strict');
+  const fs = require('node:fs'), path = require('node:path');
+  const { movedScrumMetadata } = require('../models/lib/scrumCopy');
+  const scrum = { sprintId: 's', pastSprintIds: ['p'], releaseId: 'r', backlogRank: 2, issueType: 'Bug', purpose: 'x' };
+  assert.deepEqual(movedScrumMetadata({ boardId: 'a', scrum, scrumRevision: 4 }, 'b'),
+    { scrum: { issueType: 'Bug', purpose: 'x' }, scrumRevision: 5 });
+  // Negative: the same board, no Scrum, or nothing board-scoped - no write.
+  assert.deepEqual(movedScrumMetadata({ boardId: 'a', scrum }, 'a'), {});
+  assert.deepEqual(movedScrumMetadata({ boardId: 'a' }, 'b'), {});
+  assert.deepEqual(movedScrumMetadata({ boardId: 'a', scrum: { issueType: 'Bug' } }, 'b'), {});
+  const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
+  assert.match(read('server/models/cards.js'), /const moved = movedScrumMetadata\(\{ \.\.\.doc, boardId: oldBoardId \}, doc\.boardId\);\n  if \(!moved\.scrum\) return;\n  await Cards\.direct\.updateAsync\(\{ _id: doc\._id, boardId: doc\.boardId, \.\.\.scrumRevisionSelector\(doc\) \}, \{ \$set: moved \}\);/);
+  assert.match(read('server/models/swimlanes.js'), /Swimlanes\.before\.update\(\(userId, doc, fieldNames, modifier\) => \{\n  const boardId = modifier && modifier\.\$set && modifier\.\$set\.boardId;[\s\S]{0,120}Object\.assign\(modifier\.\$set, movedScrumMetadata\(doc, boardId\)\);/);
+  // Negative: the client-callable Card.move never writes Scrum fields itself,
+  // or the deny rule would refuse every cross-board move from the browser.
+  const move = read('models/cards.js').split('  async move(boardId, swimlaneId, listId')[1].split('\n  },\n')[0];
+  assert.ok(!/scrum/.test(move.replace(/\/\/.*$/gm, '')), 'Card.move writes no Scrum field');
+  console.log('  ok - moves to another board drop the board-scoped Scrum references');
+}

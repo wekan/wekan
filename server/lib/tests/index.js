@@ -120,3 +120,4 @@ import './storedRuleMoveBoard.tests';
 import './jiraScrumImport.tests';
 import './listSyncGitlabEstimate.tests';
 import './scrumScopeHistory.tests';
+import './scrumMovedReferences.tests';

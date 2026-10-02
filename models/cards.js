@@ -3068,6 +3068,8 @@ Cards.helpers({
       });
 
       mutatedFields.customFields = await this.mapCustomFieldsToBoard(newBoard._id);
+      // Its sprint and release are dropped by a server hook
+      // (server/models/cards.js): Scrum fields are not the client's to write.
 
       // Ensure customFields is always an array (guards against legacy {} data)
       if (!Array.isArray(mutatedFields.customFields)) {

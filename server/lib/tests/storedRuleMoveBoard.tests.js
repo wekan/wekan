@@ -50,7 +50,9 @@ describe('Stored Sync rule moves to another board', function () {
         { _id: ids.inbox, boardId: to, title: 'Inbox', archived: false }]);
       const card = (_id, title) => ({ _id, boardId: from, listId: ids.list, swimlaneId: ids.lane, title, sort: 0,
         archived: false, labelIds: ['urgent-from', 'local-from'], members: [actor, stranger], customFields: [],
-        cardDependencies: [{ cardId: ids.blocked, type: 'blocks' }] });
+        cardDependencies: [{ cardId: ids.blocked, type: 'blocks' }],
+        // The board it leaves owns its sprint and release; its issue type is its own.
+        scrum: { sprintId: 'sprint-from', releaseId: 'release-from', backlogRank: 2, issueType: 'Story' }, scrumRevision: 4 });
       await Cards.rawCollection().insertMany([card(ids.card, 'Pump'), card(ids.twin, 'Twin'),
         { _id: ids.blocked, boardId: from, listId: ids.list, swimlaneId: ids.lane, title: 'Waits', sort: 1, archived: false,
           cardDependencies: [{ cardId: ids.card, type: 'blocks' }] }]);
@@ -95,6 +97,8 @@ describe('Stored Sync rule moves to another board', function () {
       assert.deepEqual([moved.boardId, moved.listId, moved.swimlaneId, moved.labelIds, moved.members, moved.cardDependencies],
         [to, ids.inbox, ids.toLane, ['urgent-to'], [actor], []], 'labels by name, members of that board, no dependencies');
       assert.ok(Number.isSafeInteger(moved.cardNumber) && moved.cardNumber > 0);
+      assert.deepEqual([moved.scrum, moved.scrumRevision], [{ issueType: 'Story' }, 5],
+        'no sprint or release of the board it left');
       assert.deepEqual((await Checklists.rawCollection().find({ cardId: ids.card }).toArray()).map(c => c.boardId), [to]);
       assert.deepEqual((await ChecklistItems.rawCollection().find({ cardId: ids.card }).toArray()).map(c => c.boardId), [to]);
       assert.deepEqual((await Cards.rawCollection().findOne({ _id: ids.blocked })).cardDependencies, [],

@@ -44,7 +44,9 @@ const text = value => typeof value === 'string' && value.length > 0;
 
 const RULE_MOVE_ACTIONS = ['moveCardToTop', 'moveCardToBottom'];
 // The card fields a move to another board may change besides its place.
-const MOVED_FIELDS = ['labelIds', 'cardNumber', 'customFields', 'members', 'watchers', 'cardDependencies'];
+const MOVED_FIELDS = ['labelIds', 'cardNumber', 'customFields', 'members', 'watchers', 'cardDependencies', 'scrum',
+  'scrumRevision'];
+const { movedScrumMetadata } = require('../../models/lib/scrumCopy');
 
 const commandId = invocationId => sha256(canonical(['sync-rule-move-board', invocationId]));
 const effectIdFor = (id, part) => sha256(canonical(['sync-rule-move-board-effect', id, part]));
@@ -161,7 +163,7 @@ function buildMove({ base, card, target, mapped, allowedMemberIds, titles, label
     lastMoveReason: typeof card.lastMoveReason === 'string' ? card.lastMoveReason : '' },
   fields: presentFields(card) };
   const fields = { labelIds: copy(mapped.labelIds), cardNumber: mapped.cardNumber, customFields: copy(mapped.customFields),
-    cardDependencies: [] };
+    cardDependencies: [], ...copy(movedScrumMetadata(card, base.targetBoardId)) };
   for (const field of ['members', 'watchers']) {
     const kept = filtered(card[field], allowedMemberIds);
     if (kept !== undefined) fields[field] = kept;

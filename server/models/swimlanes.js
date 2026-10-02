@@ -8,6 +8,7 @@ import Swimlanes from '/models/swimlanes';
 import Activities from '/models/activities';
 import Cards from '/models/cards';
 import { ensureIndex } from '/server/lib/mongoStartup';
+const { movedScrumMetadata } = require('/models/lib/scrumCopy');
 import { allowIsBoardMemberWithWriteAccess, computeSortForIndex } from '/server/lib/utils';
 import { nextSwimlaneSort } from '/models/lib/swimlaneSort';
 const { deferSyncSwimlaneActivity } = require('/server/lib/syncRecordingScope');
@@ -104,6 +105,18 @@ Swimlanes.before.remove(async function(userId, doc) {
     swimlaneId: doc._id,
     title: doc.title,
   });
+});
+
+// A swimlane moved to another board loses the sprint and release it had there
+// (models/lib/scrumCopy.js movedScrumMetadata), as a moved card does
+// (server/models/cards.js). Server-side, in the same update - the client's
+// write has passed its allow/deny checks by then, and Scrum fields are not the
+// client's to write. Before the update: Swimlanes do not fetch the previous
+// document for after hooks.
+Swimlanes.before.update((userId, doc, fieldNames, modifier) => {
+  const boardId = modifier && modifier.$set && modifier.$set.boardId;
+  if (typeof boardId !== 'string' || boardId === doc.boardId) return;
+  Object.assign(modifier.$set, movedScrumMetadata(doc, boardId));
 });
 
 Swimlanes.after.update(async (userId, doc, fieldNames) => {

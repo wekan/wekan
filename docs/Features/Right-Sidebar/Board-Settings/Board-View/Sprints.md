@@ -108,8 +108,10 @@ partial. Reports and Excel/PDF rows display that limitation. Clearing Scrum
 omits its settings and item metadata. The copy starts fresh History rather
 than importing the source board's History records.
 
-Standalone card/list/swimlane copies and moves still need their Scrum reference
-audit; board duplication coverage does not establish those paths are complete.
+A card or swimlane moved to another board drops the sprint, past sprints,
+release and backlog rank of the board it left, as a copy there does; its issue
+type, acceptance criteria and swimlane purpose stay. Lists carry only their
+workflow category, which is not board-specific.
 
 The current implementation includes planning forms, revision checks,
 start/close snapshots, release and event editors, visibility controls, report

@@ -304,6 +304,10 @@ test.describe('Cards – operations', () => {
       await targetPage.submitNewCard(targetListId, 'Existing One');
       await targetPage.openAddCardTop(targetListId);
       await targetPage.submitNewCard(targetListId, 'Existing Two');
+      // Its sprint and release belong to this board; its issue type is its own
+      // (models/lib/scrumCopy.js movedScrumMetadata).
+      db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' }, { $set: {
+        scrum: { sprintId: 'sprint-here', releaseId: 'release-here', backlogRank: 1, issueType: 'Story' } } });
       await openBoard(boardPage, board.boardId, board.slug);
       const bp = new BoardPage(boardPage);
       const cp = new CardPage(boardPage);
@@ -333,6 +337,10 @@ test.describe('Cards – operations', () => {
       const sorts = cards.map(card => card.sort);
       expect(sorts.every(Number.isFinite)).toBe(true);
       expect(new Set(sorts).size).toBe(sorts.length);
+      // A move from the browser - no Scrum field in its own write - still drops
+      // the board it left's sprint and release.
+      await expect.poll(() => db.findOne('cards', { boardId: target.boardId, title: 'Alpha Card' })?.scrum)
+        .toEqual({ issueType: 'Story' });
 
       await openBoard(boardPage, target.boardId, target.slug);
       const movedPage = new BoardPage(boardPage);

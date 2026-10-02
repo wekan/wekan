@@ -261,7 +261,10 @@ backlog rank. Across boards they retain issue type and acceptance criteria but
 omit sprint, past-sprint and release references and board-relative rank: these
 operations do not copy planning records. The source cards remain unchanged.
 Use full-board duplication to copy planning records with remapped references.
-Standalone planning-record mapping and move support remain pending.
+Moves to another board follow the same rule (2026-10-02): a moved card or
+swimlane drops the old board's sprint, release and rank, by a server hook that
+covers client, REST and rule moves alike. Mapping those references to the
+destination's own records, instead of dropping them, remains open.
 
 Standalone list copies retain their Scrum workflow category with a fresh
 revision. Swimlane copies retain their purpose and copy list categories;
