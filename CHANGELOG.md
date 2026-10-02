@@ -1677,11 +1677,13 @@ template.
 
 # Upcoming WeKan ® release
 
-**In short:** Fixes **CacheBleed**, so a shared cache cannot serve a private
-board's file without the access check, and **SyncBleed**, so List Sync cannot
-reach the server's internal network or echo what answered. Dependency lines
-show on instance boards, dependency messages cover more languages and regional
-variants, and literal keyboard labels are restored.
+**In short:** A security release. **CacheBleed**, **SyncBleed** and
+**CasTokenBleed** are fixed, with thirteen more newly named issues such as
+**RepointBleed**, **TrayBleed** and **ZipBombBleed**, follow-up fixes for
+earlier Hall of Fame entries, and assigned-only members limited to their own
+cards on every read path. Admin Panel → Problems now records more attempts and
+no longer disables users for ordinary use. Dependency lines show on instance
+boards, and translations cover more languages.
 
 This release fixes the following CRITICAL SECURITY ISSUES:
 
@@ -1746,6 +1748,580 @@ Panel → Problems.
 
 </details>
 
+**Sign-in** - who can sign in as whom, and what the sign-in pages give away.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d3095fefd6">A CAS callback is accepted only from the browser that started that login</a>. Thanks to xet7.</summary>
+
+[CasTokenBleed](https://wekan.fi/hall-of-fame/castokenbleed/): the CAS callback
+stored the validated CAS identity under whatever `casToken` its URL carried,
+and that token is chosen by the browser. An attacker could pick a token, get a
+victim who is signed in to CAS to open a CAS login link carrying it, and then
+log in to WeKan with that token as the victim. The browser that starts a CAS
+login now sets a SameSite cookie holding its token, and the callback must
+present it. A mismatch shows as CasTokenBleed in Admin Panel → Problems. A
+`ticket` query parameter on an instance without CAS is left to its route.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/611093e957">Passwordless sign-in codes are long and short-lived enough not to be guessed</a>. Thanks to xet7.</summary>
+
+[CodeBleed](https://wekan.fi/hall-of-fame/codebleed/): a sign-in code was
+Meteor's default, 6 hex characters valid for an hour. The lockout counts
+passwords, not codes, and the per-connection rate limit multiplies with
+connections, so a thousand connections gave about one chance in ten per code.
+Codes are now 10 characters and live 15 minutes, about one in three million
+for the same spray. The code field takes the whole code and no longer asks for
+a numeric keyboard. A wrong code looks like a mistyped one, so there is no
+Problems record.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dd36db3641">A client sign-up cannot claim admin or LDAP account creation</a>. Thanks to xet7.</summary>
+
+[SignupBleed](https://wekan.fi/hall-of-fame/signupbleed/), DDP sibling: the
+REST fix did not cover the DDP sign-up methods, which accepted the options a
+client sent. The guard in `server/lib/clientAccountCreationGuard.js` strips
+`from` and `ldap` from client sign-ups and refuses sign-up while registration
+is off, recording the attempt.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/433ff5506c">The sign-up form's own method is guarded too, and ordinary sign-up keeps working</a>. Thanks to xet7.</summary>
+
+The real sign-up method is useraccounts' `ATCreateUserServer`; Meteor's
+`createUser` is refused to clients anyway. The guard wraps both, and checks
+the client's arguments first so `audit-argument-checks` does not reject every
+sign-up.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c49d9d8d3e">A login lockout never disables the account being guessed</a>. Thanks to xet7.</summary>
+
+[JamBleed](https://wekan.fi/hall-of-fame/jambleed/) regression: the lockout
+record named the guessed account as its actor, and a high-severity blocked
+record with a user id disables that account. Three wrong passwords from anyone
+who knew a username disabled its owner until an admin noticed. The account is
+now recorded as the target, the lockout key never disables, and an already
+disabled account keeps the reason it was disabled for.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3156dec7bc">The login lockout starts even when one of its settings cannot be read</a>. Thanks to xet7.</summary>
+
+One try/catch wrapped every lockout settings read at startup, so a single
+failed read, for example while the database restarts, left the server with no
+lockout at all. Each setting now falls back to its default.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1b37bea1f0">The LDAP server details are published to site admins only</a>. Thanks to xet7.</summary>
+
+[DirectoryInfoBleed](https://wekan.fi/hall-of-fame/directoryinfobleed/): every
+visitor subscribes to `setting` before signing in, and it carried the
+directory server's host, port, base DN, bind account DN, search filter and
+encryption mode. Only Admin Panel → LDAP reads them.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/da394cf2ea">user-authenticationMethod answers for the caller's own account only</a>. Thanks to xet7.</summary>
+
+[AuthMethodBleed](https://wekan.fi/hall-of-fame/authmethodbleed/): any signed-in
+user could read any other user's organizations, teams and login method by
+username.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/737faedef5">The REST admin checks fail closed on a null user</a>. Thanks to xet7.</summary>
+
+`checkUserId`, `checkAdminOrCondition` and `checkBoardWriteAccess` refused
+only when the admin lookup returned exactly `undefined`, so a `null` from the
+cache or the request would have passed. They refuse any falsy value now.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ec6266134e">checkLoggedIn fails closed on a null user id too</a>. Thanks to xet7.</summary>
+
+The same `=== undefined` comparison let a `null` user id through the logged-in
+check.
+
+</details>
+
+**Board access and roles** - what members of each role may read and change.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1a218ead02">Assigned-only members see only their own cards on every read path</a>. Thanks to xet7.</summary>
+
+[AssignedBleed](https://wekan.fi/hall-of-fame/assignedbleed/), read siblings:
+the board publication showed an assigned-only member only their assigned
+cards, but the attachment API (REST and DDP list, download and info), the
+activities publication, Due Cards with all users, Global Search, the
+structural move pickers and position history checked only membership. Each now
+applies the same rule. A download or info request for another card's
+attachment shows as AssignedBleed in Admin Panel → Problems.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a3da90833a">Assigned-only members cannot read the whole board over REST</a>. Thanks to xet7.</summary>
+
+`Authentication.checkBoardAccess`, behind 32 REST routes that return
+whole-board data, let the three assigned-only roles through, so such a
+member's API client read every card the UI hides. They are refused there until
+those routes scope to assigned cards.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7788e0c4e6">Assigned-only members copy and move only their own cards</a>. Thanks to xet7.</summary>
+
+Copying a card, a list or a swimlane, saving a card as a template and moving a
+list showed the copied content on a board the user controls. An assigned-only
+member may now copy only a card assigned to them, never a whole list or
+swimlane, through one rule, `mayCopyFromBoard`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cd07d8db18">Clients may only mark and remove notification entries, never add them</a>. Thanks to xet7.</summary>
+
+[TrayBleed](https://wekan.fi/hall-of-fame/traybleed/): `profile.notifications`
+fell under the client-writable `profile.*`. An entry names an activity, and the
+notification publications then send that activity's card, comments,
+checklists and attachments from any board. A client may now only set an
+entry's read state and pull entries. Anything else is denied and shows as
+TrayBleed in Admin Panel → Problems.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3af89a6a00">Board imports honour "private boards only"</a>. Thanks to xet7.</summary>
+
+[VisibilityBleed](https://wekan.fi/hall-of-fame/visibilitybleed/), import
+sibling: Trello and WeKan imports write the board through `Boards.direct`,
+which skips the hook that enforces Admin Panel's private-only policy, so an
+export marked public or instance arrived open. Both importers now apply the
+policy before writing.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3da444db74">Linked cards over REST follow the Link popup's rule</a>. Thanks to xet7.</summary>
+
+[LinkedWriteBleed](https://wekan.fi/hall-of-fame/linkedwritebleed/), REST
+sibling: the route and the method now share `createLinkedCardFor`, including
+its assigned-only check.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1167a2ae2f">A subtask deposit board admits invitees only from its own inviters</a>. Thanks to xet7.</summary>
+
+[SubtaskDepositBleed](https://wekan.fi/hall-of-fame/subtaskdepositbleed/),
+invite sibling: inviting someone to a board also added them to its subtask
+deposit board, checking the inviter's rights only on the first board. The
+deposit board now admits them only when the inviter may invite there too.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c6f59fc923">The bulk card route checks the parent card, and refused parents show in Problems</a>. Thanks to xet7.</summary>
+
+[ParentBleed](https://wekan.fi/hall-of-fame/parentbleed/), bulk sibling:
+`POST .../cards/bulk` wrote each entry's `parentId` without asking whether the
+parent's board is visible to the caller.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ebcaac1962">A client board insert names only its creator as member</a>. Thanks to xet7.</summary>
+
+[OwnerBleed](https://wekan.fi/hall-of-fame/ownerbleed/), DDP sibling:
+`Boards.insert` from a client accepted its own members array, so a board could
+name somebody else as its admin or add people who never joined. Such an
+insert is refused and shows as OwnerBleed in Admin Panel → Problems.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fd458543f9">Shared board display settings need write access</a>. Thanks to xet7.</summary>
+
+[MutationBleed](https://wekan.fi/hall-of-fame/mutationbleed/) siblings: list
+width, automatic width and sticky list headers change what every viewer sees,
+and refused only non-members. They now require write access, and the list
+width write is awaited.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d3a94fd2d9">Removed members no longer reach board ids or board copies</a>. Thanks to xet7.</summary>
+
+[StaleBleed](https://wekan.fi/hall-of-fame/stalebleed/) and
+[ManageBoardBleed](https://wekan.fi/hall-of-fame/manageboardbleed/) siblings:
+`GET /api/user` and the migration status publication matched boards a member
+was removed from, and the board copy route checked admin without `isActive`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1f368e9c7c">History follows a list or swimlane to its current board</a>. Thanks to xet7.</summary>
+
+[HistoryScopeBleed](https://wekan.fi/hall-of-fame/historyscopebleed/) sibling:
+restoring, undoing or redoing a list or swimlane checked the board the
+History row was recorded on, not the board it is on now, nor any board the row
+moves something to. Both now need write access.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d2539ca1d2">In-app chart data follows the export rule</a>. Thanks to xet7.</summary>
+
+[ExportScopeBleed](https://wekan.fi/hall-of-fame/exportscopebleed/) sibling:
+`boardChartData` returned the titles, dates and assignees of cards an
+assigned-only member cannot see. It now uses `canExportBoardData`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3d080956be">Position history is written by the server only, and undo/redo stay on the entry's boards</a>. Thanks to xet7.</summary>
+
+[PositionHistoryBleed](https://wekan.fi/hall-of-fame/positionhistorybleed/)
+sibling: a client could insert a history entry naming another board's card,
+and undo or redo moved it into the client's board or soft-deleted another
+board's list. Client inserts are refused, and undo and redo check that the
+entity is still on one of the entry's boards and that the user can write
+there.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fb93c5f430">A Sandstorm import archives only the importer's own board</a>. Thanks to xet7.</summary>
+
+[ArchiveBleed](https://wekan.fi/hall-of-fame/archivebleed/): on Sandstorm,
+`importBoard` and `cloneBoard` archive the board the import was started from,
+an id the client sends and nothing checked. Only a board admin's board is
+replaced now; otherwise the import leaves that board alone.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c5eb9fc060">Custom translations are site-admin only</a>. Thanks to xet7.</summary>
+
+[MegaBleed](https://wekan.fi/hall-of-fame/megableed/) and
+[TenantBleed](https://wekan.fi/hall-of-fame/tenantbleed/) sibling: the
+Translation collection's client rules let any user write a document whose id
+equalled their user id. Custom translations replace text for everyone and some
+render as HTML, so a member could plant markup for an admin's browser.
+
+</details>
+
+**Rules, webhooks and integrations** - which board a rule acts on, and what a
+webhook may send.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f02da1bfd2">Rule, webhook and custom-field documents cannot be moved to another board</a>. Thanks to xet7.</summary>
+
+[RepointBleed](https://wekan.fi/hall-of-fame/repointbleed/): Triggers, Actions,
+Rules and Integrations were authorized by the board they were on before an
+update, and nothing refused the update changing it. A user could move a
+trigger to `*`, which matched every board, and have a send-email action mail
+them content from every private board, or move a webhook onto a private board.
+A shared deny rule refuses the move, custom fields need write on every board
+they are put on or taken off, and a rule runs only for its own board's
+activity. Refusals show as RepointBleed in Admin Panel → Problems.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/047bde7546">A member cannot make WeKan post their own message through a board webhook</a>. Thanks to xet7.</summary>
+
+[HookBleed](https://wekan.fi/hall-of-fame/hookbleed/): `outgoingWebhooks` built
+the request from the caller's integration object and text, so any member,
+read-only included, could post arbitrary text to the board's chat webhook as
+WeKan or turn a one-way hook two-way. The request is built from the stored
+integration, and a client may send only the card-opened notification.
+Anything else shows as HookBleed in Admin Panel → Problems.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4af54face7">A board's webhook URLs are published to its admins only</a>. Thanks to xet7.</summary>
+
+[HookUrlBleed](https://wekan.fi/hall-of-fame/hookurlbleed/): a chat
+incoming-webhook URL carries its secret in the path, and the board publication
+sent it to every reader of the board, anonymous visitors of a public board
+included. Other readers now get only what the card-opened hook needs, and
+`outgoingWebhooks` finds the integration by its id.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a8e836efd3">A chain of rules started by rules stops at a depth limit</a>. Thanks to xet7.</summary>
+
+[BypassBleed](https://wekan.fi/hall-of-fame/bypassbleed/): the 2022 report's
+second part, two rules undoing each other recursing without end, was never
+fixed. A chain of rules started by rules now stops at depth 5 and shows in
+Admin Panel → Problems as detected.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c63d909c81">A legacy rule action without a board acts on its own board</a>. Thanks to xet7.</summary>
+
+[RuleBleed](https://wekan.fi/hall-of-fame/rulebleed/) sibling: an action
+without a board id looked up lists and swimlanes by title on any board. It
+now gets the activity's board before any lookup or check.
+
+</details>
+
+**Files, attachments and imports** - what may be stored, served and inflated.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/146d58df27">A board's background can only be one of its own attachments</a>. Thanks to xet7.</summary>
+
+[BackgroundBleed](https://wekan.fi/hall-of-fame/backgroundbleed/): the
+background download routes returned whatever attachment `backgroundImageId`
+named, and a board admin could set it to any attachment id, so anyone could
+create a board pointing at another board's private file and download it. Both
+paths serve only the board's own live attachment, and setting another one is
+refused and shows as BackgroundBleed in Admin Panel → Problems.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e7ed71ee2e">Zip imports count the bytes that really inflate, and need write access</a>. Thanks to xet7.</summary>
+
+[ZipBombBleed](https://wekan.fi/hall-of-fame/zipbombbleed/): the Trello zip
+import read sizes from a field unzipper's entries do not have, so every check
+saw 0 and a small archive inflated without limit in memory; the WeKan zip
+import had no cap at all. Entries are now read through `readZipEntryBounded`,
+with per-entry and per-archive limits, and `POST /api/import/zip` requires
+write access.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/de67550476">The live Trello import sends the Trello credential only to Trello's own hosts</a>. Thanks to xet7.</summary>
+
+[RelayBleed](https://wekan.fi/hall-of-fame/relaybleed/): attachments, the board
+background and member avatars were downloaded with the importer's Trello key
+and token in the request, whatever host the URL named, so a renamed link
+attachment on another host received the token. The credential now goes only to
+`trello.com` and `api.trello.com` over HTTPS.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cd4c8064ae">API answers are no-store, and legacy attachments are private</a>. Thanks to xet7.</summary>
+
+[CacheBleed](https://wekan.fi/hall-of-fame/cachebleed/) siblings: REST answers
+(exports, base64 attachments, board data) carried no cache policy, and the
+legacy attachment route served files without one for every method. API
+answers are now `no-store`, and legacy attachments answer GET and HEAD only,
+with the private file policy.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/36341213f1">The attachment API checks copy and move targets, and the copy's source</a>. Thanks to xet7.</summary>
+
+The copy and move methods wrote the target card, list and swimlane ids as
+given, checking only the target board, so a file could be planted on a card of
+a board the caller cannot write. All three must be on the target board now,
+and a copy follows the assigned-only copy rule.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a79e05223a">Attachment migration progress returns attachment ids only</a>. Thanks to xet7.</summary>
+
+[MigrationBleed](https://wekan.fi/hall-of-fame/migrationbleed/): two methods
+sent the full stored attachment documents, with storage paths and names of
+files on cards the caller cannot see, to anybody who could read the board.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/06b8ea5750">An avatar's client-supplied file id cannot traverse paths</a>. Thanks to xet7.</summary>
+
+[UploadPathBleed](https://wekan.fi/hall-of-fame/uploadpathbleed/), avatar
+sibling: avatars used the client's file id in the on-disk name verbatim.
+Attachments and avatars now share one rule, and avatars need a signed-in
+uploader.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e14671efa6">Avatars are served inline only as images, and clients cannot change a file's type</a>. Thanks to xet7.</summary>
+
+[AvatarMimeBleed](https://wekan.fi/hall-of-fame/avatarmimebleed/), prefix-route
+sibling: the older avatar routes served an avatar inline under its stored
+type, which its owner could change, so an upload could be re-labelled and
+served as HTML. Only known image types are inline now, and clients may change
+only a file's name.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6ba2e3d060">An attachment rename cannot store markup again</a>. Thanks to xet7.</summary>
+
+FileNameBleed's server check: a 2023 build fix
+deleted the server's check, leaving only the client's. Names are escaped on
+display, so it did not execute; the server refuses such a name again.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0dd33ef806">A backup restore does not write through a symlink</a>. Thanks to xet7.</summary>
+
+The attachment and avatar restore kept each entry's name inside the files
+directory, then wrote with `createWriteStream`, which follows a symlink already
+on that path. Such entries are skipped and files are replaced exclusively, as
+the full-backup restore already did. Defence in depth: archive entries cannot
+create symlinks themselves.
+
+</details>
+
+**The server itself** - what a request may do to the process, and what errors
+and pages give away.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/875a0065ed">User-chosen ids can no longer pollute Object.prototype in the server</a>. Thanks to xet7.</summary>
+
+[PrototypeBleed](https://wekan.fi/hall-of-fame/prototypebleed/): the per-user
+layout methods wrote maps keyed by client ids, so
+`setListCollapsedState('__proto__', 'isAdmin', true)` set a property on every
+object in the server process until a restart. Every such map now checks its
+keys, and a refusal shows as PrototypeBleed in Admin Panel → Problems.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c2905e17ce">A custom-field template regex cannot stop the server</a>. Thanks to xet7.</summary>
+
+A string-template custom field runs a member's pattern on another member's
+value, and rule e-mails format cards on the server, so a pattern like `(a+)+$`
+stopped the event loop for everyone. The server runs it in its own V8 context
+under a 50 ms limit, and pattern and value lengths are capped.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bb4c892254">With the REST API off, /API and encoded spellings are refused too</a>. Thanks to xet7.</summary>
+
+The API gate checked `req.url.startsWith('/api')`, but Express routes
+case-insensitively and on the decoded path, so `/API/...` and `/%61pi/...`
+reached every handler. The gate now decides the same way. `isImpersonated`
+answers only about the caller, or to a site admin.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/215293868b">Refused REST requests answer with their real status and a safe message</a>. Thanks to xet7.</summary>
+
+[ErrorBleed](https://wekan.fi/hall-of-fame/errorbleed/) siblings: thirty-four
+more REST handlers answered a refusal with HTTP 200 and the raw error object.
+All answer through `publicErrorData()` now.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8fc9bd5a94">Board member REST routes never answer with the user document</a>. Thanks to xet7.</summary>
+
+[HashBleed](https://wekan.fi/hall-of-fame/hashbleed/) siblings: the member add
+and remove routes answered an unknown action with the target user's document,
+password and login-token hashes included, to any board admin. An unknown action
+is refused before the user is read.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a4b524a5fc">The /metrics token is compared in constant time, and an empty one admits nobody</a>. Thanks to xet7.</summary>
+
+[MetricsBleed](https://wekan.fi/hall-of-fame/metricsbleed/) sibling: with
+`METRICS_ACCESS_TOKEN` set but empty, `?access_token=` matched, and the loose
+comparison leaked through timing how much of a guess was right.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dae1fd68e8">WeKan's pages refuse being framed by other sites again</a>. Thanks to xet7.</summary>
+
+[FrameBleed](https://wekan.fi/hall-of-fame/framebleed/) regression: the
+framing headers had been commented out. They are sent on the app's pages again,
+and the test build turns the browser policy on.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a9e8bda47b">Member-written values are escaped in templated HTML notification mail</a>. Thanks to xet7.</summary>
+
+[MailTitleBleed](https://wekan.fi/hall-of-fame/mailtitlebleed/) regression:
+with an admin-defined activity mail template, member-written titles and
+comments were substituted unescaped into the HTML body.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1076c08381">Every hidden HTML comment is made visible, not only the first</a>. Thanks to xet7.</summary>
+
+[InvisibleBleed](https://wekan.fi/hall-of-fame/invisiblebleed/): the fix used
+`replace` with a string, which changes only the first occurrence, so a second
+hidden comment stayed hidden.
+
+</details>
+
+**Admin Panel → Problems** - that attempts show up, and that ordinary use does
+not disable anybody.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9d323f2aaf">Problems records only attempts, and never disables users for ordinary use</a>. Thanks to xet7.</summary>
+
+A blocked record of high severity that names a user disables that account, and
+several were on paths ordinary users reach: writing back a card's assignees
+after a member left, restoring history after a demotion, exporting as an
+assigned-only member, a large import, an internal link in a Trello board, an
+identity provider's avatar redirect and a cached older client's upload. Each
+now records only real attempts, or records without disabling.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8ddce924ec">Problems keys that nothing recorded are recorded where their attack is refused</a>. Thanks to xet7.</summary>
+
+Nine catalog keys had no caller, so their names could never appear in Admin
+Panel → Problems. Now recorded: a hostname that resolves to an internal address
+([DnsBleed](https://wekan.fi/hall-of-fame/dnsbleed/)), a webhook refused by the
+SSRF guard ([IntegrationBleed](https://wekan.fi/hall-of-fame/integrationbleed/)),
+a Trello import with a non-http source URL
+([SourceBleed](https://wekan.fi/hall-of-fame/sourcebleed/)), a client call of
+the OIDC-only organization and team methods
+([OIDCBleed](https://wekan.fi/hall-of-fame/oidcbleed/)), a sign-up with a wrong
+invitation code ([InviteBleed](https://wekan.fi/hall-of-fame/invitebleed/)) and a
+read-only member's REST write
+([ReadOnlyBleed](https://wekan.fi/hall-of-fame/readonlybleed/)). The keys that
+nothing can attribute are listed with their reasons in the test.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c15f9486d8">TrayBleed and CasTokenBleed get Problems keys of their own</a>. Thanks to xet7.</summary>
+
+ReadOnlyBleed gets the permissions test it was recorded without: it pins the
+six Custom Field handlers and requires a write-level decision on every
+mutating REST route.
+
+</details>
+
 and fixes the following bug:
 
 <details>
@@ -1759,6 +2335,19 @@ read shares, and the test covers signed-in and signed-out readers. A
 Dependencies as a non-member of an instance board.
 
 </details>
+
+and has the following developer-facing changes:
+
+**Security regression tests** - fixes held tree-wide rather than at one call
+site.
+
+- [BFLABleed and ExcelBleed are guarded tree-wide: every async access check is awaited](https://github.com/wekan/wekan/commit/1ef200aea1). Thanks to xet7.
+- [CrashBleed's guard is checked on every activeUserByToken caller, not four files](https://github.com/wekan/wekan/commit/08a3a25c81). Thanks to xet7.
+- [SheetColorBleed is pinned in the client viewer, where workbook colors reach CSS now](https://github.com/wekan/wekan/commit/d609dc7a88). Thanks to xet7.
+- [RelayBleed and EmailBleed are counted in the coverage lists, matching names in any case](https://github.com/wekan/wekan/commit/d914ca02c6). Thanks to xet7.
+- [The sticky list headers test follows the write-access rule](https://github.com/wekan/wekan/commit/5de71ba789). Thanks to xet7.
+- [The RepointBleed browser test uses cryptographic randomness for its ids](https://github.com/wekan/wekan/commit/5d63862ec0). Thanks to xet7.
+- [models/lib/boardBackground.js is restored after the BackgroundBleed fix overwrote it](https://github.com/wekan/wekan/commit/f9d9596e2a). Thanks to xet7.
 
 and updates the following translations:
 
