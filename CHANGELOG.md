@@ -2706,6 +2706,37 @@ queue and older wrong-language text still need work.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/29adf8be5c">Keep the shared History guard compatible with the Scrum scope chart</a>. Thanks to xet7.</summary>
+
+The scope-history chart is a sprint report, not another History browser. Bind
+its exception to chart markup and the read-only Scrum report method. The
+shared History template remains unique; negative mutation checks reject an
+added table, an embedded History table, History browser calls and edit
+handlers. The History guard and Scrum replay suites pass, resolving the
+remaining failure from the preceding translation run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/de2ddf8a96">Translate Scrum scope history and GitLab estimates in 75 more locale tags</a>. Thanks to xet7.</summary>
+
+Fill 1,200 English placeholders, bringing the eleven Scrum scope-history
+messages and five GitLab estimate messages to 127 locale tags each. Preserve
+existing translations, current catalog order and placeholder inventories.
+Regression checks keep missing History records distinct from a truncated
+replay, distinguish change causes and preserve the warning that a GitLab issue
+without weight clears the mapped value.
+
+All 450 translation-related Node suites pass with the first 56 added tags;
+five catalog and translation suites pass with the remaining 19 included.
+Specialist wording in Luxembourgish, Maltese and Latin has lower confidence
+and remains open to speaker review. Structural checks do not establish
+fluency. These groups still need translation in 107 locale tags, and the
+broader translation queue and older wrong-language text still need work.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
