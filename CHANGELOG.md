@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b24d9645a9">Translate Amharic list and numeric input labels</a>. Thanks to xet7.</summary>
+
+- Fill 30 list, loop, numeric and text input labels in Amharic.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass, as do all 21 human-preference checks. Full-language work,
+  browser and native-speaker reviews remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7a049d16f1">Translate Amharic bitmap editing and input labels</a>. Thanks to xet7.</summary>
 
 - Fill 29 bitmap, editor and input labels in Amharic.
