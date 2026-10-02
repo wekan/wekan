@@ -2247,6 +2247,23 @@ The remaining translation queue and older wrong-language text still need work.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2b73ca192a">Translate feature and card settings in five Pacific languages</a>. Thanks to xet7.</summary>
+
+Add 135 messages in Bislama, Tok Pisin, Māori, Samoan and Tongan. Feature
+settings now cover 197 locale tags and the three card-setting labels cover 65.
+Replace mixed-English feature headings and linked-card labels. All eight
+selected catalog and language suites pass, including current key order,
+placeholder inventories and data-retention wording. Specialist workflow
+terminology has lower confidence and remains open to native review.
+Vocabulary references included
+[Tok Pisin](https://tokpisin.info/approval/),
+[Māori](https://maoridictionary.co.nz/search?keywords=whakaaetanga)
+and [Tongan](https://www.pasifikapages.net/wp-content/uploads/2023/01/eald-bilingual-dictionary-tongan.pdf).
+The remaining translation queue and older wrong-language text still need work.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
