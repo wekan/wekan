@@ -1686,6 +1686,17 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/fc233be834">Translate Amharic mathematical constants and number properties</a>. Thanks to xet7.</summary>
+
+- Fill 30 constant, number-property and statistics messages in Amharic.
+  Specialized terminology remains low confidence pending native-speaker review.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass, as do all 21 human-preference checks. Full-language work and
+  browser review remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/67ea95be43">Translate Amharic comparisons, logic and arithmetic</a>. Thanks to xet7.</summary>
 
 - Fill 30 comparison, logic and arithmetic messages in Amharic. Specialized
