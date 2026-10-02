@@ -235,13 +235,36 @@ Remaining, and why:
   checklist (with or without items), removing checklists, sorting a list,
   creating, copying and linking a card on its own board, and adding a swimlane
   (see Upcoming). What is left, and why:
-  - *Moves, copies and links to ANOTHER board* - decided (below): durable only
-    when the destination board has opted into Sync effects too. Not built yet:
-    eligibility has to read the destination board, and a cross-board copy or
-    move also relabels by name, renumbers, maps custom fields, filters members
-    and watchers, clears dependencies and re-syncs checklists and attachments,
-    each of which needs a saved, replayable unit. Until then such a rule keeps
-    its board on direct Sync, as before.
+  - *Links and copies to ANOTHER board* - built since (see "Status on
+    2026-10-02" below): durable when the destination board has opted into
+    Sync effects too, the actor may write there, and every board such rules
+    reach has only durable rule actions of its own.
+  - *Moves to ANOTHER board, and moving all cards of a list there* - in
+    progress, not committed. Three things make it more than a copy:
+    1. Every later action of the same rule plan acts on the card on the plan's
+       board, but the ordinary engine re-reads the card by id and acts on it
+       wherever it moved. The move is therefore lifted only when it is the
+       plan's LAST action: the command refuses any other position, and
+       eligibility lifts only a move that ends its rule, when no other rule
+       on the board has a trigger of the same activity type.
+    2. Its moveCardBoard activity has no listId, and durable delivery
+       identifies an activity by its list (server/lib/syncActivityDelivery.js).
+       It is written once by a derived id and delivered as ordinary
+       activities are, as addSwimlane's is. No rule trigger exists for it.
+    3. Card.move's cross-board update fires many hooks, each of which needs a
+       saved, idempotent record: History rows for position, labels, members,
+       custom fields and dependencies; set/unsetCustomField activities; the
+       addedLabel activities re-pointed or removed; checklist and item
+       boardId; the inbound dependencies left on the old board; attachment
+       placement; and the legacy undo row.
+    Written so far, uncommitted: server/lib/syncRuleMoveBoardCommand.js (the
+    pure command) and RULE_CARD_MOVE_BOARD_FIELDS in
+    server/lib/syncHistoryBatch.js. Still to do: recording-scope kinds for
+    the dependencies History row and for the label-activity hook (which runs
+    while the card is still on the old board), the runner and its collection,
+    the guard following a cross-board move of the same plan, eligibility, and
+    node and server tests. Until then such a rule keeps its board on direct
+    Sync.
   - *Adding a swimlane* is durable in what it writes - the swimlane and its
     createSwimlane activity each exist once across replays - but that activity
     is delivered the ordinary way: it has no card, and the durable activity
@@ -295,6 +318,23 @@ checklist creation and removal, sorting a list, creating, copying and linking a
 card on its own board, adding a swimlane, Caddy's open-file limit in the snap
 (#6552) and LDAP diagnostics in production (#6548). Cross-board rule effects
 remain, as above.
+
+Status on 2026-10-02, later, committed locally and not yet in Upcoming:
+
+- Rule links and copies to another board are durable when both boards opted
+  in (eligibility follows every board a rule reaches, and the runner checks
+  the destination again before each write). Both are tested through the
+  stored rule stage, and the link through a whole Sync run.
+- A card-field rule acting on a linked card writes the card it links to, as
+  the ordinary setters do through getRealId. Before, a durable link followed
+  by such a rule failed its Sync run on every replay.
+- A durable Sync run whose rule moved or archived the synced card now
+  finishes. A replay after an interruption finishes the step's effects
+  instead of retrying a write it could never confirm, and the notification
+  and webhook stages accept the card where the activity's own rules moved it.
+  Before, every run whose rule moved a card out of the list failed.
+- A card moved to another board keeps its addedLabel activities. The hook
+  that re-points them ran twice per update, and the second run deleted them.
 
 Investigated but not finished, with findings
 recorded for whoever picks them up next. Entries that have since been FIXED are
