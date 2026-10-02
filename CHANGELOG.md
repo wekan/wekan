@@ -1855,6 +1855,15 @@ full-catalog key and token checks, and language-count checks pass.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/28cc090d4a">Translate feature settings in Icelandic, Irish, Welsh and Luxembourgish</a>. Thanks to xet7.</summary>
+
+The 24 feature-setting messages now cover 104 locales. Add these five locale
+variants while preserving existing translations. The expanded feature suite,
+full-catalog key and token checks, and README language-count checks pass.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
