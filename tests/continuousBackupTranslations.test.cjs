@@ -6,7 +6,7 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('continuous-backup'));
-for (const code of ['fi', 'sv', 'da', 'nb', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'it', 'nl', 'nl-NL', 'pl', 'pl-PL', 'cs', 'cs-CZ', 'sk', 'sl', 'hr', 'ro', 'ro-RO', 'hu', 'bg', 'uk', 'uk-UA', 'ru', 'ru-RU', 'ru_RU', 'ru-UA']) {
+for (const code of ['fi', 'sv', 'da', 'nb', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'it', 'nl', 'nl-NL', 'pl', 'pl-PL', 'cs', 'cs-CZ', 'sk', 'sl', 'hr', 'ro', 'ro-RO', 'hu', 'bg', 'uk', 'uk-UA', 'ru', 'ru-RU', 'ru_RU', 'ru-UA', 'lv', 'lt', 'et-EE']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -74,6 +74,9 @@ for (const [codes, protection, pause, units] of [
   }
 }
 for (const [codes, protection, pause, units] of [
+  [['lv'], /nekad nepārraksta pašlaik izmantoto failu/, /izvēlēto paaudzi uz izvēlēto brīdi.*atjaunošanas laikā tiks apturēta/, ['sekundes', 'stundas', 'dienas']],
+  [['lt'], /niekada neperrašo naudojamo failo/, /pasirinktą kartą į pasirinkto momento būseną.*Atkūrimo metu.*bus pristabdytas/, ['sekundės', 'valandos', 'dienos']],
+  [['et-EE'], /ei kirjuta kunagi üle kasutusel olevat faili/, /valitud põlvkond valitud ajahetke seisuga.*peatatakse taastamise ajaks/, ['sekundid', 'tunnid', 'päevad']],
   [['uk', 'uk-UA'], /ніколи не перезаписує файл, що використовується/, /вибране покоління на вибраний момент.*призупинено на час відновлення/, ['секунди', 'години', 'дні']],
   [['ru', 'ru-RU', 'ru_RU', 'ru-UA'], /никогда не перезаписывает используемый файл/, /выбранное поколение на выбранный момент.*приостановлено на время восстановления/, ['секунды', 'часы', 'дни']],
   [['ro', 'ro-RO'], /nu suprascrie niciodată fișierul în uz/, /generația aleasă la momentul ales.*suspendată pe durata restaurării/, ['secunde', 'ore', 'zile']],
@@ -109,8 +112,8 @@ for (const code of ['ru', 'ru-RU', 'ru_RU', 'ru-UA']) {
 }
 assert.equal(read('sk').restore, 'Obnoviť');
 assert.equal(read('hr').restore, 'Vrati');
-for (const code of ['sk', 'sl', 'hr']) {
+for (const code of ['sk', 'sl', 'hr', 'lv', 'lt', 'et-EE']) {
   for (const key of [...keys, 'restore']) assert.doesNotMatch(read(code)[key], /\p{Script=Cyrillic}/u);
 }
 for (const key of keys) assert.doesNotMatch(read('de-CH')[key], /ß/);
-console.log(`Continuous backup: ${keys.length} translations in forty-six locales passed`);
+console.log(`Continuous backup: ${keys.length} translations in forty-nine locales passed`);
