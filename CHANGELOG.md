@@ -3457,6 +3457,17 @@ translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bd6889e59f">Restore catalog completeness after adding the Focalboard import instruction</a>. Thanks to xet7.</summary>
+
+Add the new instruction key in source order to all 243 remaining catalog files,
+without changing existing values. The untranslated instruction is tracked as an
+English placeholder; English variants intentionally retain English. This fixes
+the reproduced catalog completeness failure. All 452 translation-related suites
+pass with the aligned catalogs. Translating the new instruction remains pending.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
