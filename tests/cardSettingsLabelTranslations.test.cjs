@@ -5,7 +5,7 @@ const path = require('node:path');
 const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const english = read('en');
-const codes = ["kk", "ky", "tg", "mn", "uz", "uz-LA", "uz-UZ", "uz-AR", "ba", "tt", "tk_TM", "ug", "ckb", "ku", "am", "as", "or_IN", "si", "ps", "sd", "km", "km-KH", "km_KH", "my", "fo", "fy", "fy-NL", "fur", "rm", "sc", "scn", "nap", "pap", "so", "mg", "rw", "rn", "ny", "om", "zu", "zu-ZA", "xh", "st", "tn", "nso", "ss", "nd", "ts", "ve", "lg", "wo", "ak", "bm", "ee", "br", "kw", "gv", "csb", "hsb", "szl", "bi", "tpi", "mi", "sm", "to", "haw", "fj", "ve-CC", "wa", "lld", "rup", "yue_CN", "wuu-Hans", "yi", "bua", "cv", "sah", "bho", "mai", "kok", "ary", "ace", "wa-RR", "se", "ve-PP", "bo", "dz", "ti", "af", "af_ZA", "an", "ar", "ar-DZ", "ar-EG", "ast-ES", "az", "az-AZ", "az-LA", "be", "bg", "bn", "bs", "ca", "ca@valencia", "ca_ES", "co", "cs", "cs-CZ", "cy", "cy-GB", "da", "de", "de-AT", "de-CH", "de_DE", "el", "el-GR", "eo", "es", "es-AR", "es-CL", "es-CO", "es-LA", "es-MX", "es-PE", "es-PY", "es_CO", "et-EE", "eu", "fa", "fa-IR", "fi", "fr", "fr-BE", "fr-CA", "fr-CH", "fr-FR", "ga", "gd", "gl", "gl-ES", "gu-IN", "ha", "he", "he-IL", "hi", "hi-IN", "hr", "ht", "hu", "hy", "id", "ig", "is", "it", "ja", "ja-HI", "ja-JP", "jv", "ka", "kn", "ko", "ko-KR", "la", "lb", "lt", "lv", "mk", "ml", "mr", "ms", "ms-MY", "mt", "nb", "ne", "nl", "nl-NL", "vl-SS", "oc", "pa", "pl", "pl-PL", "pt", "pt-BR", "pt-PT", "pt_PT", "ro", "ro-RO", "ru", "ru-RU", "ru-UA", "ru_RU", "sk", "sl", "sl_SI", "sn", "sq", "sr", "sv", "sw", "ta", "te-IN", "th", "tl", "tr", "uk", "uk-UA", "ur", "vi", "vi-VN", "yo", "cmn", "zh", "zh-CN", "zh-GB", "zh-Hans", "zh_SG", "zh-HK", "zh-Hant", "zh-TW", "ks", "tlh", "vo"];
+const codes = ["kk", "ky", "tg", "mn", "uz", "uz-LA", "uz-UZ", "uz-AR", "ba", "tt", "tk_TM", "ug", "ckb", "ku", "am", "as", "or_IN", "si", "ps", "sd", "km", "km-KH", "km_KH", "my", "fo", "fy", "fy-NL", "fur", "rm", "sc", "scn", "nap", "pap", "so", "mg", "rw", "rn", "ny", "om", "zu", "zu-ZA", "xh", "st", "tn", "nso", "ss", "nd", "ts", "ve", "lg", "wo", "ak", "bm", "ee", "br", "kw", "gv", "csb", "hsb", "szl", "bi", "tpi", "mi", "sm", "to", "haw", "fj", "ve-CC", "wa", "lld", "rup", "yue_CN", "wuu-Hans", "yi", "bua", "cv", "sah", "bho", "mai", "kok", "ary", "ace", "wa-RR", "se", "ve-PP", "bo", "dz", "ti", "af", "af_ZA", "an", "ar", "ar-DZ", "ar-EG", "ast-ES", "az", "az-AZ", "az-LA", "be", "bg", "bn", "bs", "ca", "ca@valencia", "ca_ES", "co", "cs", "cs-CZ", "cy", "cy-GB", "da", "de", "de-AT", "de-CH", "de_DE", "el", "el-GR", "eo", "es", "es-AR", "es-CL", "es-CO", "es-LA", "es-MX", "es-PE", "es-PY", "es_CO", "et-EE", "eu", "fa", "fa-IR", "fi", "fr", "fr-BE", "fr-CA", "fr-CH", "fr-FR", "ga", "gd", "gl", "gl-ES", "gu-IN", "ha", "he", "he-IL", "hi", "hi-IN", "hr", "ht", "hu", "hy", "id", "ig", "is", "it", "ja", "ja-HI", "ja-JP", "jv", "ka", "kn", "ko", "ko-KR", "la", "lb", "lt", "lv", "mk", "ml", "mr", "ms", "ms-MY", "mt", "nb", "ne", "nl", "nl-NL", "vl-SS", "oc", "pa", "pl", "pl-PL", "pt", "pt-BR", "pt-PT", "pt_PT", "ro", "ro-RO", "ru", "ru-RU", "ru-UA", "ru_RU", "sk", "sl", "sl_SI", "sn", "sq", "sr", "sv", "sw", "ta", "te-IN", "th", "tl", "tr", "uk", "uk-UA", "ur", "vi", "vi-VN", "yo", "cmn", "zh", "zh-CN", "zh-GB", "zh-Hans", "zh_SG", "zh-HK", "zh-Hant", "zh-TW", "ks", "tlh", "vo", "ay", "qu", "gn", "ff", "kl"];
 const keys = ['card-settings-card-color', 'card-settings-linked-card', 'card-settings-description-badge'];
 for (const code of codes) {
   const locale = read(code);
@@ -97,3 +97,14 @@ assert.equal(read('tlh')['card-settings-description-badge'], "QIjmeH De' Degh");
 
 assert.equal(read('vo')['card-settings-card-color'], 'Köl kada');
 assert.equal(read('vo')['card-settings-description-badge'], 'Mäk beskriba');
+
+assert.equal(read('ay')['card-settings-linked-card'], 'Mayachata karta');
+assert.equal(read('qu')['card-settings-linked-card'], "T'inkisqa karta");
+for (const code of ['ay', 'qu']) {
+  assert.equal(read(code)['cardType-linkedCard'], read(code)['card-settings-linked-card']);
+  assert.doesNotMatch(read(code)['cardType-linkedCard'], /Linked|Kay willaymi:/);
+}
+assert.equal(read('gn')['card-settings-card-color'], "Kuatia'i sa'y");
+
+assert.equal(read('ff')['card-settings-card-color'], 'Goobu kartal');
+assert.equal(read('kl')['card-settings-card-color'], 'Kortsip qalipaataa');

@@ -26,5 +26,7 @@ for (const [key, value] of Object.entries(guarani)) {
 }
 
 assert.equal(guarani.accept, 'Moneĩ');
-assert.match(guarani['act-createBoard'], /peteĩcha/i);
+assert.match(guarani['act-createBoard'], /tembiapo renda/i);
+assert.doesNotMatch(guarani['act-createBoard'], /peteĩcha/i);
+assert.equal(guarani.board, 'Tembiapo renda');
 assert.match(guarani['act-createCard'], /kuatia'i/i);
