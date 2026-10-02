@@ -2343,6 +2343,22 @@ The remaining translation queue and older wrong-language text still need work.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d3ce9d0b4c">Translate feature and card settings in Hawaiian, Fijian, Venetian and Walloon</a>. Thanks to xet7.</summary>
+
+Add 108 messages across four languages. Feature settings now cover 201 locale
+tags and the three card-setting labels cover 69. Correct malformed Hawaiian
+labels and Italian-seeded Venetian linked-card text. All 448 translation-related
+Node suites pass after the Hawaiian and Fijian changes; all ten selected suites
+pass with Venetian and Walloon included. Specialist workflow terminology has
+lower confidence and remains open to native review. Vocabulary references
+included [Hawaiian](https://wehe.hilo.hawaii.edu/?q=a%CA%BBe),
+[Fijian](https://folksong.org.nz/isa_lei/Fijian-English_Dictionary.pdf)
+and [Walloon](https://wa.wiktionary.org/wiki/aveur_li_droet) dictionaries.
+The remaining translation queue and older wrong-language text still need work.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
