@@ -3671,6 +3671,20 @@ Structural checks do not establish fluency. The broader translation backlog rema
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5b8068f120">Translate email recovery in Dzongkha</a>. Thanks to xet7.</summary>
+
+Fill 23 English placeholders, preserving existing translations, source order and
+exact tokens. Extend cancellation, uncertain-delivery, retained-pause and script
+checks. Four focused catalog suites and all 21 human-preference checks pass.
+
+Specialist Dzongkha wording and grammar have low confidence and need speaker review.
+References include the Dzongkha Development Commission's [dictionary](https://www.dzongkha.gov.bt/dz/dictionary/search)
+and [computer terminology](https://www.dzongkha.gov.bt/uploads/files/publications/1.computer_term_text_e53071b6528a9081cabd770fda7a26c4.pdf).
+Structural checks do not establish fluency. The broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
