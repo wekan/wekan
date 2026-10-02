@@ -1986,10 +1986,16 @@ Template.editOrgPopup.events({
       if (value !== (org[field] || '')) tenantChanged = true;
     });
     if (tenantChanged) {
-      Meteor.call('setOrgTenantFields', org._id, tenantFields, error => {
+      Meteor.call('setOrgTenantFields', org._id, tenantFields, (error, result) => {
         if (error && error.error === 'tenant-domain-taken') {
           // The popup is already closing; the message names the host that clashed.
           alert(`${TAPi18n.__('error-org-domain-taken')} ${error.reason || ''}`.trim());
+        } else if (error && error.error === 'tenant-domain-reserved') {
+          alert(`${TAPi18n.__('error-org-domain-reserved')} ${error.reason || ''}`.trim());
+        } else if (result && result.requested) {
+          // An Organization's own admin asked for a new hostname: a site admin
+          // assigns it.
+          alert(TAPi18n.__('org-domains-request-saved'));
         }
       });
     }

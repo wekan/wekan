@@ -443,6 +443,18 @@
     {
       "key": "dependency-read-only",
       "since": "2026-10-01"
+    },
+    {
+      "key": "org-domains-requested",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "org-domains-request-saved",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "error-org-domain-reserved",
+      "since": "2026-10-02"
     }
   ]
 }

@@ -346,6 +346,9 @@ template(name="editOrgPopup")
       span.error.hide.orgdomain-taken
         | {{_ 'error-org-domain-taken'}}
     span.form-text.text-muted {{_ 'org-domains-description'}}
+    if org.orgDomainsRequested
+      span.form-text.text-muted.js-orgDomainsRequested
+        | {{_ 'org-domains-requested'}} {{org.orgDomainsRequested}}
     label
       | {{_ 'custom-product-name'}}
       textarea.js-orgProductName(rows="2")= org.orgProductName

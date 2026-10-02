@@ -92,6 +92,16 @@ Org.attachSchema(
       optional: true,
       max: 1000,
     },
+    orgDomainsRequested: {
+      /**
+       * Hostnames this Organization's own admin asked for and a site admin has
+       * not yet assigned (2026-10-02: only a site admin assigns a hostname).
+       * Not in effect until then.
+       */
+      type: String,
+      optional: true,
+      max: 1000,
+    },
     orgProductName: {
       /**
        * Per-tenant branding. Each of these overrides the SAME-named instance

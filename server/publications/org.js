@@ -40,6 +40,7 @@ Meteor.publish('org', async function(query, limit, skip = 0) {
           // Multitenancy option D: the hostnames this org is served on, and the
           // branding that replaces the instance branding on them.
           orgDomains: 1,
+          orgDomainsRequested: 1,
           orgProductName: 1,
           orgThemeColor: 1,
           orgThemeCustomColors: 1,

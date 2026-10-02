@@ -80,9 +80,26 @@ Meteor.methods({
     }
     const $set = {};
 
+    const $unset = {};
+    let requested = null;
     if (fields.orgDomains !== undefined) {
       check(fields.orgDomains, String);
       const hosts = tenants.parseHostList(fields.orgDomains);
+      const siteAdmin = tenantAdmin.isSiteAdmin(user);
+      // The instance's own host is never a tenant's: claiming it would put one
+      // Organization's branding on everybody's sign-in page.
+      const instanceHost = tenants.normalizeHost(Meteor.absoluteUrl());
+      if (instanceHost && hosts.includes(instanceHost)) {
+        if (!siteAdmin) {
+          try {
+            require('/server/lib/securityLog').record({
+              key: 'authz.tenant', action: 'blocked', source: 'tenant:claim-instance-host', userId: this.userId,
+              detail: `Organization ${orgId} tried to claim the instance host ${instanceHost}.`,
+            });
+          } catch (e) { /* logging must never break the guard */ }
+        }
+        throw new Meteor.Error('tenant-domain-reserved', instanceHost);
+      }
       // Two orgs claiming one host would silently give one of them the other's
       // brand, so the save is refused and the offending host named.
       const others = await Org.find(
@@ -94,7 +111,17 @@ Meteor.methods({
         throw new Meteor.Error('tenant-domain-taken', clashes.join(', '));
       }
       // Stored normalised, so what the admin reads back is what is matched.
-      $set.orgDomains = hosts.join(', ');
+      // A hostname is assigned by a site admin (maintainer decision
+      // 2026-10-02). An Organization's own admin may drop hostnames at once,
+      // but a new one is stored as a request until a site admin saves it.
+      const current = tenants.parseHostList((await Org.findOneAsync(orgId, { fields: { orgDomains: 1 } }) || {}).orgDomains);
+      if (siteAdmin || hosts.every(host => current.includes(host))) {
+        $set.orgDomains = hosts.join(', ');
+        $unset.orgDomainsRequested = 1;
+      } else {
+        requested = hosts.join(', ');
+        $set.orgDomainsRequested = requested;
+      }
     }
 
     tenants.brandingOrgFields().forEach(field => {
@@ -104,9 +131,9 @@ Meteor.methods({
       }
     });
 
-    if (Object.keys($set).length === 0) return { updated: 0 };
-    await Org.updateAsync(orgId, { $set });
-    return { updated: 1, orgDomains: $set.orgDomains };
+    if (Object.keys($set).length === 0 && Object.keys($unset).length === 0) return { updated: 0 };
+    await Org.updateAsync(orgId, Object.keys($unset).length ? { $set, $unset } : { $set });
+    return { updated: 1, orgDomains: $set.orgDomains, requested };
   },
 
   // The members of one org, with the per-tenant admin flag - what the "Organization
