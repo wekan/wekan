@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2da37f87b5">Translate Burmese activity notification recovery</a>. Thanks to xet7.</summary>
+
+- Fill 26 activity-notification recovery, delivery and cancellation messages.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/53d9dfe2d3">Translate Burmese email failures and Sync time estimates</a>. Thanks to xet7.</summary>
 
 - Fill 24 email-failure, queue-recovery and Sync time-estimate messages.
