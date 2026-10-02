@@ -3305,6 +3305,22 @@ in 58 locale tags, alongside other untranslated new strings.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fe1463af6c">Translate email recovery in Bhojpuri, Maithili, Konkani and Odia</a>. Thanks to xet7.</summary>
+
+Fill 92 English placeholders while preserving existing translated values, source
+order and exact tokens. Translate queue controls, cancellation boundaries,
+uncertain delivery and pauses retained during retry. Extend Devanagari and Odia
+script checks and the warning regressions. The Odia empty state explicitly says
+both that there are no queued messages and that no recipient is paused.
+
+All 452 translation-related suites and 21 human-preference checks pass.
+Specialist workflow phrasing and inflection have lower confidence and need speaker
+review; structural checks do not establish fluency. Email recovery messages still
+remain in English in 54 locale tags. Other new-string groups remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
