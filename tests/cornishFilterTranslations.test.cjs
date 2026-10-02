@@ -266,7 +266,36 @@ const keys = [
   "email-failure-delivery-unconfirmed",
   "email-failure-acknowledgement-failed",
   "email-failure-delivery-failed",
-  "email-failure-retry-limit"
+  "email-failure-retry-limit",
+  "sync-original-time",
+  "sync-remaining-time",
+  "sync-time-estimate-hint",
+  "activity-recovery-heading",
+  "activity-recovery-description",
+  "activity-recovery-empty",
+  "activity-recovery-unavailable",
+  "activity-recovery-retry",
+  "activity-recovery-retrying",
+  "activity-recovery-status-pending",
+  "activity-recovery-status-preparing",
+  "activity-recovery-status-processing",
+  "activity-recovery-status-missing",
+  "activity-recovery-status-changed",
+  "activity-recovery-status-invalid",
+  "activity-recovery-status-inconsistent",
+  "activity-recovery-busy",
+  "activity-recovery-denied",
+  "activity-recovery-source-unavailable",
+  "activity-recovery-disabled",
+  "activity-recovery-failed",
+  "activity-recovery-pause",
+  "activity-recovery-resume",
+  "activity-recovery-paused",
+  "activity-recovery-control-conflict",
+  "activity-recovery-control-failed",
+  "activity-recovery-status-cancelled",
+  "activity-recovery-cancel",
+  "activity-recovery-cancel-confirm"
 ];
 assert.deepEqual(Object.keys(locale), Object.keys(en));
 for (const key of keys) {
@@ -362,4 +391,14 @@ assert.match(locale['email-recovery-confirm-cancel'], /ny yllir y restorya/);
 assert.match(locale['email-recovery-confirm-cancel'], /Messajys nowydh.*wosa an govyn ma.*gwithys/);
 assert.match(locale['email-failure-delivery-unconfirmed'], /daswelewgh kyns assaya arta/);
 assert.match(locale['email-recovery-failed'], /keth ober arta/);
+assert.match(locale['sync-time-estimate-hint'], /Jira.*unn maes.*hepkorrys.*null.*dhilea/);
+assert.match(locale['activity-recovery-description'], /ny wra kroua gwrythres arta nevra/);
+assert.match(locale['activity-recovery-source-unavailable'], /Nyns eus tra krouys arta/);
+assert.match(locale['activity-recovery-failed'], /Ober ow kortos yw gwithys/);
+assert.match(locale['activity-recovery-cancel-confirm'], /Ny yllir pesya ganso arta/);
+assert.match(locale['activity-recovery-cancel-confirm'], /Ebost y'n lost.*gwarnyansow danvenys ny vydh gervys dhe-dre/);
+for (const action of ['pause', 'resume']) {
+  assert.equal(locale['activity-recovery-' + action], locale['email-recovery-' + action]);
+  assert.notEqual(locale['activity-recovery-' + action], locale['activity-recovery-cancel']);
+}
 console.log('Cornish translation batch checks passed');
