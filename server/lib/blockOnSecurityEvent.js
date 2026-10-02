@@ -33,7 +33,11 @@ const BLOCKING_SEVERITIES = ['high', 'critical'];
 export function shouldBlockAccount(evt = {}) {
   if (!evt.userId) return false;
   if (!BLOCKING_ACTIONS.includes(evt.action)) return false;
-  const severity = evt.severity || (evt.key ? categoryFor(evt.key).severity : '');
+  const cat = evt.key ? categoryFor(evt.key) : {};
+  // A guard whose event names a VICTIM rather than an actor (a lockout names
+  // the account being guessed) must never block it - JamBleed.
+  if (cat.blocksAccount === false || evt.blocksAccount === false) return false;
+  const severity = evt.severity || cat.severity || '';
   return BLOCKING_SEVERITIES.includes(severity);
 }
 
@@ -51,7 +55,10 @@ export function blockReason(evt = {}) {
 export async function blockAccountForSecurityEvent(evt = {}) {
   if (!shouldBlockAccount(evt)) return false;
   const reason = blockReason(evt);
-  await Meteor.users.updateAsync({ _id: evt.userId }, {
+  // An account that is already disabled keeps the reason it was disabled for -
+  // an admin's, or the first attempt's - instead of each later event from its
+  // leftover tabs or tokens overwriting it.
+  await Meteor.users.updateAsync({ _id: evt.userId, loginDisabled: { $ne: true } }, {
     $set: {
       loginDisabled: true,
       // WHY, and when. Admin Panel / People shows this beside the account, so

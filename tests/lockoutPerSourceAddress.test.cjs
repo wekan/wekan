@@ -404,14 +404,19 @@ test('the reporter logs an attempt, not ordinary use (negative)', () => {
   // an attempt by construction - but the record must say `blocked`, since the
   // fix refused something, rather than `detected`.
   const fs = require('fs');
-  for (const f of ['server/accounts-lockout-config.js', 'server/methods/lockoutSettings.js']) {
+  // One reporter for startup and reload (server/lib/lockoutReporter.js). The
+  // account it names is the one being GUESSED, so it is recorded as the
+  // TARGET: recorded as userId, a high 'blocked' event disabled the victim's
+  // account - JamBleed again (tests/jamBleedVictimBlock.test.cjs).
+  for (const f of ['server/lib/lockoutReporter.js']) {
     const src = fs.readFileSync(path.join(ROOT, f), 'utf8');
     const fn = src.slice(src.indexOf('function reportLockout('));
     const body = fn.slice(0, fn.indexOf('\n}\n'));
     assert.ok(/key: 'brute\.lockout'/.test(body), `${f}: the catalog key`);
     assert.ok(/action: 'blocked'/.test(body), `${f}: blocked, not detected`);
-    assert.ok(/userId,/.test(body) && /username,/.test(body) && /ip,/.test(body),
-      `${f}: account and address attribution`);
+    assert.ok(/targetUserId: userId,/.test(body) && /ip,/.test(body),
+      `${f}: target account and address attribution`);
+    assert.ok(!/^\s*userId,/m.test(body), `${f}: the victim is not recorded as the actor`);
     assert.ok(/locationFromHeaders\(headers\)/.test(body),
       `${f}: available proxy location attribution`);
     assert.ok(/catch \(e\) \{ \/\* logging must never break the guard \*\/ \}/.test(body),

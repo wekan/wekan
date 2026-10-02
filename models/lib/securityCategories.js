@@ -65,7 +65,10 @@ const CATALOG = {
   // counter is per (user, source address) now. What is worth recording is a
   // lockout FIRING: on a per-address counter that means somebody guessed three
   // passwords wrong from one place, which is the attempt this is meant to see.
-  'brute.lockout':   { category: 'brute-force', bleed: 'JamBleed', severity: 'high', cwe: 'CWE-307' },
+  // The account a lockout names is the one being guessed - the victim - so this
+  // key never disables an account (blocksAccount: false); see
+  // server/lib/lockoutReporter.js.
+  'brute.lockout':   { category: 'brute-force', bleed: 'JamBleed', severity: 'high', cwe: 'CWE-307', blocksAccount: false },
   'injection.shell': { category: 'injection', bleed: 'ScannerBleed', severity: 'high', cwe: 'CWE-78' },
   'file.mime':       { category: 'file', bleed: 'MimeStorageBleed', severity: 'high', cwe: 'CWE-434' },
   'file.name':       { category: 'file', bleed: 'FileNameBleed', severity: 'medium', cwe: 'CWE-79' },

@@ -3,25 +3,8 @@ import { AccountsLockout } from 'meteor/wekan-accounts-lockout';
 import { ReactiveCache } from '/imports/reactiveCache';
 import LockoutSettings from '/models/lockoutSettings';
 
-// GHSA-rf3w-rj48-jxcc: a lockout firing is an ATTEMPT that the fix refused, so
-// it belongs in Admin Panel -> Problems. A Meteor package cannot import app
-// code, so the reporter is injected here. Wrapped, because the record of the
-// defence must never be able to break the defence.
-function reportLockout({ userId, username, ip, headers, failedAttempts, lockoutSeconds }) {
-  try {
-    require('/server/lib/securityLog').record({
-      key: 'brute.lockout',
-      action: 'blocked',
-      source: 'DDP login',
-      userId,
-      username,
-      ip,
-      location: require('/models/lib/geoHeaders').locationFromHeaders(headers),
-      detail: `locked one address out of account ${userId} after ${failedAttempts} `
-        + `wrong passwords, for ${lockoutSeconds}s`,
-    });
-  } catch (e) { /* logging must never break the guard */ }
-}
+// The lockout reporter (and why it names the TARGET): server/lib/lockoutReporter.js.
+import { reportLockout } from '/server/lib/lockoutReporter';
 
 
 Meteor.methods({

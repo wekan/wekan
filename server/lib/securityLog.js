@@ -97,6 +97,9 @@ export function record(evt = {}) {
       detail: sanitizeDetail(m.detail),
     };
     if (m.userId || m.userid) doc.userId = String(m.userId || m.userid);
+    // The account an event is ABOUT, when that is not the actor - a lockout
+    // names the account being guessed. Never blocked; see blockOnSecurityEvent.
+    if (m.targetUserId) doc.targetUserId = String(m.targetUserId).slice(0, 64);
     // WHO and FROM WHERE (docs/Security/Remediation/WeKan.md §12). Both are
     // optional: a guard that fires on an unauthenticated request has no
     // username, and one that fires outside a request context has no address.
