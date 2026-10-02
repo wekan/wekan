@@ -3744,6 +3744,21 @@ Structural checks do not establish fluency. The broader translation backlog rema
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8a4e6979df">Translate email recovery in Inuktitut</a>. Thanks to xet7.</summary>
+
+Fill 23 English placeholders in syllabics, preserving existing translations, source
+order and exact tokens. Extend cancellation, uncertain-delivery, retained-pause
+and script checks. Four focused catalog suites and all 21 human-preference checks
+pass in the worktree aligned with the new backup strings.
+
+Specialist Inuktitut phrasing and inflection have low confidence and need speaker
+review. References include [Inuktitut vocabulary](https://kaikki.org/dictionary/Inuktitut/index.html)
+and [City of Iqaluit's Inuktitut notice](https://www.iqaluit.ca/sites/default/files/cityofiqaluit-psa-2025-10-24-reminder_to_update_mailing_address-inu.pdf).
+Structural checks do not establish fluency. The broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
