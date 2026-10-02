@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/31ef697ea2">Translate Burmese list editing, sorting and basic logic</a>. Thanks to xet7.</summary>
+
+- Fill 30 list-editing, sorting, text-splitting and basic-logic messages.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7f3637854d">Translate Burmese list lookup, removal and sublists</a>. Thanks to xet7.</summary>
 
 - Fill 30 list-lookup, removal, sublist and length messages.
