@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7fc5096a3b">Translate Malagasy sprint reports and workflow messages</a>. Thanks to xet7.</summary>
+
+- Fill 30 sprint-event, report and workflow messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/fd4c131ccb">Translate Malagasy Scrum planning messages</a>. Thanks to xet7.</summary>
 
 - Fill 30 Scrum settings, sprint-planning and backlog messages.
