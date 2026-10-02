@@ -10,6 +10,7 @@ import Cards from '/models/cards';
 import Activities from '/models/activities';
 import ChangeHistory from '/models/changeHistory';
 import Swimlanes from '/models/swimlanes';
+import Boards from '/models/boards';
 import Rules from '/models/rules';
 import Actions from '/models/actions';
 import { getFeatureFlags } from '/models/lib/featureFlags';
@@ -21,7 +22,7 @@ const { randomUUID } = require('node:crypto');
 const { memberCan } = require('/models/lib/boardRoleCapabilities');
 const { ruleActionIds } = require('/models/lib/ruleParts');
 const { isAssignedOnlyMember } = require('/models/lib/boardCardScope');
-const { durableSyncEligibility, buildListSyncSteps } = require('/server/lib/listSyncSteps');
+const { durableSyncEligibility, durableRuleActionTypes, buildListSyncSteps } = require('/server/lib/listSyncSteps');
 const { createSyncEffectPlanner, validateSyncEffects, applySyncEffectsStep } = require('/server/lib/syncEffects');
 const { syncOperationEffectId } = require('/server/lib/syncOperationApply');
 const { createSyncHookedCards } = require('/server/lib/syncHookedCards');
@@ -39,15 +40,26 @@ export function currentSyncActor() {
 
 export async function durableSyncDecision({ list, board, trigger, actorId }) {
   // Every action of every rule on the board, extra actions included (#4294).
-  const rules = await Rules.find({ boardId: list.boardId }, { fields: { actionId: 1, extraActionIds: 1 } }).fetchAsync();
-  const actionIds = [...new Set(rules.flatMap(rule => ruleActionIds(rule)).filter(Boolean))];
-  const actions = actionIds.length
-    ? await Actions.find({ _id: { $in: actionIds } },
-      { fields: { actionType: 1, listName: 1, swimlaneName: 1, boardId: 1 } }).fetchAsync() : [];
-  // A rule whose action is gone cannot be proven durable either. A move is
-  // durable only when it stays in the card's own list and swimlane.
-  const ruleActionTypes = actions.length === actionIds.length
-    ? actions.map(action => durableRuleActionType(action, list.boardId)) : [null];
+  // A rule whose action is gone cannot be proven durable either.
+  const readActions = async boardId => {
+    const rules = await Rules.find({ boardId }, { fields: { actionId: 1, extraActionIds: 1 } }).fetchAsync();
+    const actionIds = [...new Set(rules.flatMap(rule => ruleActionIds(rule)).filter(Boolean))];
+    const actions = actionIds.length
+      ? await Actions.find({ _id: { $in: actionIds } },
+        { fields: { actionType: 1, listName: 1, swimlaneName: 1, boardId: 1 } }).fetchAsync() : [];
+    return actions.length === actionIds.length ? actions : null;
+  };
+  // A destination board counts only when the actor may write there, as the
+  // stored stages of its rules require.
+  const readBoard = async boardId => {
+    const destination = typeof boardId === 'string' && boardId ? await Boards.findOneAsync(boardId) : null;
+    return destination && memberCan(destination.members, actorId, 'write') &&
+      !isAssignedOnlyMember(destination, actorId) ? destination : null;
+  };
+  // Every board a durable cross-board rule action reaches must have opted in
+  // and have only durable rule actions itself (listSyncSteps.js).
+  const ruleActionTypes = await durableRuleActionTypes({ boardId: list.boardId, readActions, readBoard,
+    typeOf: durableRuleActionType });
   return durableSyncEligibility({ list, board, trigger, flags: getFeatureFlags(), ruleActionTypes, actorId });
 }
 

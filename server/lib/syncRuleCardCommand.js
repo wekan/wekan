@@ -20,8 +20,14 @@
 // addLabel/removeLabel the addedLabel/removedLabel activity - only when the
 // label really changed, as the ordinary hook does - and for a date the
 // a-<field> activity the timing hook writes (no timeValue when unset). Replays apply the saved
-// command, never the rule's current configuration. Pure: tested by
-// tests/syncRuleCardCommand.test.cjs.
+// command, never the rule's current configuration.
+//
+// The card written is the command's `subject`: the rule's card, or for a
+// linked card ('cardType-linkedCard') the card it links to, because the
+// ordinary setters write through getRealId (models/cards.js). The History row
+// and the activities are then the real card's, as the hooks would write them;
+// the runner checks again on every replay that the link still points there.
+// Pure: tested by tests/syncRuleCardCommand.test.cjs.
 const { EJSON } = require('bson');
 const { canonical, sha256 } = require('../../models/lib/changeHistoryIntegrity');
 const { validateRulePlan, planId } = require('./syncRulePlan');
@@ -136,14 +142,23 @@ function activitiesFor({ base, action, before, after, effectId, createdAt, usern
     listId: base.listId, swimlaneId: base.swimlaneId, createdAt, modifiedAt: createdAt } }];
 }
 
+// The card an ordinary setter writes for `card`: getRealId's.
+function realCardId(card) {
+  return card?.type === 'cardType-linkedCard' && text(card.linkedId) ? card.linkedId : card?._id;
+}
+
 // Capture from the card as it is now. `redoRows` are the actor's undone rows
-// this change supersedes, as for any ordinary edit.
-function prepareRuleCardCommand({ plan, activity, effectId, index, card, createdAt, redoRows = [], username = '',
-  targets = [] }) {
+// this change supersedes, as for any ordinary edit; `real` is the card a linked
+// card links to (the rule's card itself otherwise).
+function prepareRuleCardCommand({ plan, activity, effectId, index, card: ruleCard, real = ruleCard, createdAt, redoRows = [],
+  username = '', targets = [] }) {
   const base = identity({ plan, activity, effectId, index });
-  if (!card || card._id !== base.cardId || card.boardId !== base.boardId || !text(card.listId) || !text(card.swimlaneId) ||
-      ['cardType-linkedCard', 'cardType-linkedBoard'].includes(card.type) ||
+  if (!ruleCard || ruleCard._id !== base.cardId || ruleCard.boardId !== base.boardId || !real ||
+      real._id !== realCardId(ruleCard) || !text(real.boardId) || real.type === 'cardType-linkedCard') fail('card-invalid');
+  const card = real;
+  if (!text(card.listId) || !text(card.swimlaneId) ||
       !(createdAt instanceof Date) || !Number.isFinite(createdAt.getTime())) fail('card-invalid');
+  const subject = { cardId: card._id, boardId: card.boardId };
   const action = plan.actions[index].action, field = base.field;
   const before = Object.hasOwn(card, field) ? { [field]: copy(card[field]) } : {};
   const members = MEMBER_ACTIONS.includes(action.actionType);
@@ -151,12 +166,13 @@ function prepareRuleCardCommand({ plan, activity, effectId, index, card, created
   const after = targetFields(action, before, field, createdAt, targets);
   const located = { ...base, listId: card.listId, swimlaneId: card.swimlaneId };
   const changeId = effectIdFor(base._id);
-  const ids = { _id: base.cardId, boardId: base.boardId, listId: card.listId, swimlaneId: card.swimlaneId };
+  const ids = { _id: subject.cardId, boardId: subject.boardId, listId: card.listId, swimlaneId: card.swimlaneId };
   const history = prepareCardFieldHistory({ before: { ...ids, ...before }, after: { ...ids, ...after },
     effectId: changeId, userId: base.actorId, createdAt, redoRows, fields: RULE_CARD_FIELDS });
-  const command = { ...located, ...(members ? { targets: copy(targets) } : {}), before, after, createdAt: new Date(createdAt),
-    effects: { history, activities: activitiesFor({ base: located, action, before, after, effectId: changeId, createdAt,
-      username, cardTitle: card.title, targets }) } };
+  const command = { ...located, subject, ...(members ? { targets: copy(targets) } : {}), before, after,
+    createdAt: new Date(createdAt),
+    effects: { history, activities: activitiesFor({ base: { ...located, ...subject }, action, before, after,
+      effectId: changeId, createdAt, username, cardTitle: card.title, targets }) } };
   command.checksum = sha256(canonical(command));
   return validateRuleCardCommand(command, { plan, activity, effectId, index });
 }
@@ -164,11 +180,13 @@ function prepareRuleCardCommand({ plan, activity, effectId, index, card, created
 function validateRuleCardCommand(row, context) {
   const base = identity(context);
   const members = MEMBER_ACTIONS.includes(base.actionType);
-  const keys = [...Object.keys(base), 'listId', 'swimlaneId', 'before', 'after', 'createdAt', 'effects', 'checksum',
+  const keys = [...Object.keys(base), 'listId', 'swimlaneId', 'subject', 'before', 'after', 'createdAt', 'effects', 'checksum',
     ...(members ? ['targets'] : [])].sort().join(',');
   if (!row || Object.keys(row).sort().join(',') !== keys ||
       Object.entries(base).some(([key, value]) => canonical(row[key]) !== canonical(value)) ||
-      !text(row.listId) || !text(row.swimlaneId) || !(row.createdAt instanceof Date) ||
+      !text(row.listId) || !text(row.swimlaneId) || !(row.createdAt instanceof Date) || !row.subject ||
+      Object.keys(row.subject).sort().join(',') !== 'boardId,cardId' || !text(row.subject.cardId) ||
+      !text(row.subject.boardId) ||
       !row.before || !row.after || Object.keys(row.before).some(key => key !== base.field) ||
       Object.keys(row.after).some(key => key !== base.field) ||
       !row.effects || Object.keys(row.effects).sort().join(',') !== 'activities,history') fail('command-invalid');
@@ -183,10 +201,11 @@ function validateRuleCardCommand(row, context) {
 
 // Storage predicates: an absent field must stay absent, not match null.
 function fieldSelector(command, fields) {
-  const selector = { _id: command.cardId, boardId: command.boardId };
+  const selector = { _id: command.subject.cardId, boardId: command.subject.boardId };
   if (Object.hasOwn(fields, command.field)) selector[command.field] = { $eq: fields[command.field] };
   else selector[command.field] = { $exists: false };
   return selector;
 }
 
-module.exports = { RULE_CARD_ACTIONS, DATE_FIELDS, MEMBER_ACTIONS, commandId, effectIdFor, prepareRuleCardCommand, validateRuleCardCommand, fieldSelector };
+module.exports = { RULE_CARD_ACTIONS, DATE_FIELDS, MEMBER_ACTIONS, commandId, effectIdFor, realCardId, prepareRuleCardCommand,
+  validateRuleCardCommand, fieldSelector };

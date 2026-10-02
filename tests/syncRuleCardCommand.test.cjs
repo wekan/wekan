@@ -74,7 +74,12 @@ test('tampering, linked cards and other action types are refused (negative)', as
     assert.throws(() => C.validateRuleCardCommand({ ...tampered, checksum: sha256(canonical(content)) }, context), /command-invalid/);
   }
   assert.throws(() => C.validateRuleCardCommand({ ...command, checksum: 'f'.repeat(64) }, context), /command-invalid/);
-  assert.throws(() => f.prepare({ card: { ...f.card, type: 'cardType-linkedCard' } }), /card-invalid/);
+  // A linked card without the card it links to, or with another one, is refused.
+  const linked = { ...f.card, type: 'cardType-linkedCard', linkedId: 'real' };
+  assert.throws(() => f.prepare({ card: linked }), /card-invalid/);
+  assert.throws(() => f.prepare({ card: linked, real: { ...f.card, _id: 'someone-else' } }), /card-invalid/);
+  assert.throws(() => f.prepare({ card: linked, real: { ...f.card, _id: 'real', type: 'cardType-linkedCard' } }),
+    /card-invalid/);
   assert.throws(() => f.prepare({ card: { ...f.card, boardId: 'other' } }), /card-invalid/);
   const other = await fixture({ actionType: 'moveCardToTop' });
   assert.throws(() => other.prepare(), /sync-rule-card-invalid/);
@@ -140,4 +145,25 @@ test('member actions add and remove the resolved people, one activity per real c
   const { checksum, ...content } = { ...added, targets: [...people, { userId: 'u9', username: 'nine' }] };
   assert.throws(() => C.validateRuleCardCommand({ ...content, checksum: sha256(canonical(content)) },
     { plan: add.plan, activity: add.activity, effectId: add.effectId, index: 0 }), /command-invalid/);
+});
+
+// The ordinary setters write a linked card's field on the card it links to
+// (getRealId), so the command's subject, History row and activity are that
+// card's - on its own board and list.
+test('a linked card\'s field is written on the card it links to', async () => {
+  const f = await fixture({ actionType: 'addLabel', labelId: 'new' });
+  const real = { ...f.card, _id: 'real', boardId: 'origin', listId: 'origin-list', swimlaneId: 'origin-lane' };
+  const command = f.prepare({ card: { ...f.card, type: 'cardType-linkedCard', linkedId: 'real', labelIds: [] }, real });
+  assert.deepEqual(command.subject, { cardId: 'real', boardId: 'origin' });
+  assert.deepEqual([command.cardId, command.boardId, command.listId], ['card', 'board', 'origin-list'], 'the plan stays the rule card\'s');
+  assert.deepEqual(command.after, { labelIds: ['old', 'new'] }, 'from the real card\'s labels');
+  const [activity] = command.effects.activities.map(row => row.activity);
+  assert.deepEqual([activity.cardId, activity.boardId, activity.listId], ['real', 'origin', 'origin-list']);
+  assert.deepEqual(command.effects.history.rows.map(row => [row.entityId, row.boardId]), [['real', 'origin']]);
+  assert.deepEqual(C.fieldSelector(command, command.before), { _id: 'real', boardId: 'origin', labelIds: { $eq: ['old'] } });
+  assert.deepEqual(C.validateRuleCardCommand(command, { plan: f.plan, activity: f.activity, effectId: f.effectId, index: 0 }),
+    command);
+  // An ordinary card is its own subject.
+  assert.deepEqual(f.prepare().subject, { cardId: 'card', boardId: 'board' });
+  assert.equal(C.realCardId({ _id: 'x', type: 'cardType-linkedBoard', linkedId: 'b' }), 'x', 'getRealId: linked cards only');
 });

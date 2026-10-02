@@ -142,6 +142,19 @@ function executionContext({ effectId, activity, policy, assertCurrent, trigger }
   return { saved, effectId, guard };
 }
 
+// A rule effect on ANOTHER board (maintainer decision of 2026-10-02): only
+// when that board has opted into Sync effects as well and the actor may write
+// there - what eligibility checked (server/lib/listSyncSteps.js), checked
+// again before every write, since the card it puts there runs that board's
+// rules through the stored stages, whose own guard requires the same.
+async function assertDestinationBoard(boardId, plan, trigger) {
+  if (boardId === plan.boardId) return;
+  const [board, user] = await Promise.all([Boards.findOneAsync(boardId), Meteor.users.findOneAsync(plan.actorId)]);
+  if (!board || !user || user.loginDisabled || !memberCan(board.members, user._id, 'write') ||
+      isAssignedOnlyMember(board, user._id)) throw new Error('sync-rule-destination-denied');
+  assertSyncActivation({ board, trigger, flags: getFeatureFlags() });
+}
+
 // Whether a saved move of this rule plan put the card where it is: a single
 // move (syncRuleMoveCommand.js) or a unit of a move-all
 // (syncRuleMoveAllCommand.js) whose destination is the card's place now.
@@ -402,12 +415,16 @@ export async function runStoredSyncRuleCard({ index, completeDelivery = runStore
   let row = await commands.findOne({ _id: id });
   if (!row) {
     const card = await Cards.findOneAsync({ _id: plan.cardId, boardId: plan.boardId }, { transform: null });
-    const redoRows = await ChangeHistory.find({ boardId: plan.boardId, userId: plan.actorId, undone: true,
+    // A linked card's field is written on the card it links to (getRealId).
+    const real = card && realCardId(card) !== card._id
+      ? await Cards.findOneAsync({ _id: realCardId(card) }, { transform: null }) : card;
+    if (real && real.boardId !== plan.boardId) await assertDestinationBoard(real.boardId, plan, options.trigger);
+    const redoRows = await ChangeHistory.find({ boardId: real?.boardId || plan.boardId, userId: plan.actorId, undone: true,
       superseded: { $ne: true } }, { transform: null, limit: 10000 }).fetchAsync();
     const actor = await Meteor.users.findOneAsync(plan.actorId, { fields: { username: 1 } });
     const targets = MEMBER_ACTIONS.includes(invocation.action.actionType)
       ? await RulesHelper.resolveMemberTargets(context.saved, await Cards.findOneAsync(plan.cardId), invocation.action) : [];
-    const candidate = prepareRuleCardCommand({ ...commandContext, card, createdAt: new Date(), redoRows,
+    const candidate = prepareRuleCardCommand({ ...commandContext, card, real, createdAt: new Date(), redoRows,
       username: actor?.username || '', targets });
     await guard();
     let failure;
@@ -416,6 +433,14 @@ export async function runStoredSyncRuleCard({ index, completeDelivery = runStore
     if (!row) throw failure || new Error('sync-rule-card-command-unconfirmed');
   }
   const command = validateRuleCardCommand(row, commandContext);
+  // The subject is still what the rule's card writes through: itself, or the
+  // card it links to, on a board that may take this Sync's effects.
+  const ruleCard = await Cards.rawCollection().findOne({ _id: plan.cardId, boardId: plan.boardId });
+  if (!ruleCard || realCardId(ruleCard) !== command.subject.cardId ||
+      (command.subject.cardId === plan.cardId && command.subject.boardId !== plan.boardId)) {
+    throw new Error('sync-rule-card-subject-changed');
+  }
+  await assertDestinationBoard(command.subject.boardId, plan, options.trigger);
   // The card: already at the saved after-value, or still at the before-value.
   const matches = fields => Cards.findOneAsync(ruleCardFieldSelector(command, fields), { transform: null });
   await guard();
@@ -426,9 +451,9 @@ export async function runStoredSyncRuleCard({ index, completeDelivery = runStore
     if (modifier) {
       await guard();
       // The card may have moved since capture; the deferral is for this write.
-      const { listId } = await Cards.findOneAsync({ _id: command.cardId }, { fields: { listId: 1 }, transform: null });
+      const { listId } = await Cards.findOneAsync({ _id: command.subject.cardId }, { fields: { listId: 1 }, transform: null });
       await DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false }, () =>
-        withSyncRecordingDeferred({ cardId: command.cardId, boardId: command.boardId, listId,
+        withSyncRecordingDeferred({ cardId: command.subject.cardId, boardId: command.subject.boardId, listId,
           kinds: DATE_FIELDS.includes(command.field) ? ['history', 'timing'] : ['history'] },
           () => Cards.updateAsync(ruleCardFieldSelector(command, command.before), modifier, { removeEmptyStrings: false, trimStrings: false })));
     }
@@ -451,7 +476,7 @@ export async function runStoredSyncRuleCard({ index, completeDelivery = runStore
   return invocation.id;
 }
 const { RULE_CARD_ACTIONS, DATE_FIELDS, MEMBER_ACTIONS, commandId: ruleCardCommandId, prepareRuleCardCommand, validateRuleCardCommand,
-  fieldSelector: ruleCardFieldSelector } = require('/server/lib/syncRuleCardCommand');
+  fieldSelector: ruleCardFieldSelector, realCardId } = require('/server/lib/syncRuleCardCommand');
 const { persistSyncFieldHistory, RULE_CARD_FIELDS } = require('/server/lib/syncHistoryBatch');
 const { persistSyncActivity } = require('/server/lib/syncActivityPersistence');
 const { withSyncRecordingDeferred } = require('/server/lib/syncRecordingScope');
@@ -838,18 +863,20 @@ export async function runStoredSyncRuleLinkCard({ index, completeDelivery = runS
     ]);
     if (!rule || !current || canonical(rule) !== canonical(invocation.rule) ||
         canonical(current) !== canonical(action)) throw new Error('sync-rule-link-card-configuration-changed');
+    await assertDestinationBoard(targetBoardId, plan, options.trigger);
     await context.guard();
   });
+  const targetBoardId = action.boardId || plan.boardId;
   const commands = SyncRuleLinkCardCommands.rawCollection(), id = ruleLinkCardCommandId(invocation.id);
   await guard();
   let row = await commands.findOne({ _id: id });
   if (!row) {
     const source = await Cards.rawCollection().findOne({ _id: plan.cardId, boardId: plan.boardId });
     // A legacy action without a boardId links on the card's own board.
-    const target = await RulesHelper.linkCardTarget({ ...action, boardId: action.boardId || plan.boardId });
+    const target = await RulesHelper.linkCardTarget({ ...action, boardId: targetBoardId });
     const [list, swimlane] = await Promise.all([
-      target.listId ? Lists.findOneAsync({ _id: target.listId, boardId: plan.boardId }) : null,
-      target.swimlaneId ? Swimlanes.findOneAsync({ _id: target.swimlaneId, boardId: plan.boardId }) : null,
+      target.listId ? Lists.findOneAsync({ _id: target.listId, boardId: targetBoardId }) : null,
+      target.swimlaneId ? Swimlanes.findOneAsync({ _id: target.swimlaneId, boardId: targetBoardId }) : null,
     ]);
     const candidate = prepareRuleLinkCardCommand({ ...commandContext, source, target, list, swimlane, createdAt: new Date() });
     await guard();
@@ -862,7 +889,7 @@ export async function runStoredSyncRuleLinkCard({ index, completeDelivery = runS
   await guard();
   if (!await Cards.rawCollection().findOne({ _id: command.card._id })) {
     await DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false }, () =>
-      withSyncRecordingDeferred({ cardId: command.card._id, boardId: command.boardId, listId: command.card.listId,
+      withSyncRecordingDeferred({ cardId: command.card._id, boardId: command.card.boardId, listId: command.card.listId,
         kinds: ['create'] },
       () => Cards.insertAsync(command.card)));
     if (!await Cards.rawCollection().findOne({ _id: command.card._id })) throw new Error('sync-rule-link-card-unconfirmed');

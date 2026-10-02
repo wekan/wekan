@@ -5,7 +5,8 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const { durableSyncEligibility, buildListSyncSteps, DURABLE_RULE_ACTIONS } = require('../server/lib/listSyncSteps');
+const { durableSyncEligibility, buildListSyncSteps, DURABLE_RULE_ACTIONS, durableRuleActionTypes,
+  CROSS_BOARD_DURABLE_ACTIONS } = require('../server/lib/listSyncSteps');
 const { validateStep } = require('../server/lib/syncOperationJournal');
 
 const list = { _id: 'list', boardId: 'board', syncRevision: 'rev', syncCredentialIncarnation: 'life' };
@@ -94,4 +95,40 @@ test('manual and scheduled Sync route through the decision, and replay is schedu
   assert.match(src, /run: assertCurrent => reconcileList\(current, \{ \.\.\.options, scheduled: true \}/);
   // Both paths build the same card.
   assert.equal((src.match(/creationDocument\(task, cardId\)/g) || []).length, 2);
+});
+
+// Maintainer decision of 2026-10-02: a rule effect on another board is durable
+// only when that board opted in too - and its own rules are durable, since the
+// card put there runs them through the same stored stages.
+test('cross-board rule actions count only when every board they reach opted in', async () => {
+  const { durableRuleActionType } = require('../server/lib/syncRuleMoveCommand');
+  const boards = { b: { _id: 'b', syncEffectsEnabled: true }, c: { _id: 'c', syncEffectsEnabled: true },
+    off: { _id: 'off', syncEffectsEnabled: false } };
+  const run = (actions, extra = {}) => durableRuleActionTypes({ boardId: 'a', typeOf: durableRuleActionType,
+    readActions: async id => actions[id] ?? [], readBoard: async id => boards[id] ?? null, ...extra });
+  const reads = [];
+  assert.deepEqual(await run({ a: [{ actionType: 'linkCard', boardId: 'b' }], b: [{ actionType: 'setColor' }] },
+    { readActions: async id => { reads.push(id); return { a: [{ actionType: 'linkCard', boardId: 'b' }], b: [{ actionType: 'setColor' }] }[id]; } }),
+  ['linkCard', 'setColor'], 'the destination\'s own actions are checked too');
+  assert.deepEqual(reads, ['a', 'b']);
+  // Negative: a destination that did not opt in, or that the actor cannot write to.
+  assert.deepEqual(await run({ a: [{ actionType: 'linkCard', boardId: 'off' }] }), ['linkCard:elsewhere']);
+  assert.deepEqual(await run({ a: [{ actionType: 'linkCard', boardId: 'nobody' }] }), ['linkCard:elsewhere']);
+  // Negative: the destination has an action without an adapter, two boards on.
+  assert.deepEqual(await run({ a: [{ actionType: 'linkCard', boardId: 'b' }], b: [{ actionType: 'linkCard', boardId: 'c' }],
+    c: [{ actionType: 'moveCardToTop', boardId: 'off' }] }), ['linkCard', 'linkCard', 'moveCardToTop:elsewhere']);
+  assert.equal(ok({ ruleActionTypes: ['linkCard', 'moveCardToTop:elsewhere'] }).reason, 'rule-actions');
+  // A cycle is read once per board.
+  const cycle = [];
+  await run({}, { readActions: async id => { cycle.push(id); return [{ actionType: 'linkCard', boardId: id === 'a' ? 'b' : 'a' }]; } });
+  assert.deepEqual(cycle, ['a', 'b']);
+  // A missing action anywhere cannot be proven durable.
+  assert.deepEqual(await run({}, { readActions: async () => null }), [null]);
+  // Only actions with a cross-board adapter are lifted; the others stay elsewhere.
+  assert.deepEqual([...CROSS_BOARD_DURABLE_ACTIONS], ['linkCard']);
+  assert.deepEqual(await run({ a: [{ actionType: 'copyCard', boardId: 'b' }] }), ['copyCard:elsewhere']);
+  // durableSyncDecision reads every board this way, the destination's membership included.
+  const app = fs.readFileSync(path.join(__dirname, '../server/lib/listSyncApplication.js'), 'utf8');
+  assert.match(app, /const ruleActionTypes = await durableRuleActionTypes\(\{ boardId: list\.boardId, readActions, readBoard,/);
+  assert.match(app, /memberCan\(destination\.members, actorId, 'write'\) &&\s*!isAssignedOnlyMember\(destination, actorId\)/);
 });

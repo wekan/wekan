@@ -1,6 +1,5 @@
 'use strict';
-// Durable rule linkCard onto the card's own board (the structural rule actions
-// of TODO Later). The ordinary action (server/rulesHelper.js -> Card.link in
+// Durable rule linkCard (the structural rule actions of TODO Later). The ordinary action (server/rulesHelper.js -> Card.link in
 // models/cards.js) inserts a copy of the card, minus its id and labels, as
 // type 'cardType-linkedCard' pointing at the card (`linkedId`), at the target
 // RulesHelper.linkCardTarget resolves; the insert hook writes its createCard
@@ -9,8 +8,10 @@
 // One saved command per rule invocation: the linked card is built once, its id
 // is derived from the invocation so a replay inserts it once, and its creation
 // activity - known before the insert - is saved with the command. A link to
-// ANOTHER board is not this command's: its activity belongs to that board's
-// Sync activation (see TODO Later). Pure: tested by
+// ANOTHER board (maintainer decision of 2026-10-02) is the same command with
+// that board as `targetBoardId`: eligibility (listSyncSteps.js) takes it only
+// when that board opted into Sync effects too, since the activity runs that
+// board's rules through the stored stages. Pure: tested by
 // tests/syncRuleLinkCardCommand.test.cjs.
 const { EJSON } = require('bson');
 const { canonical, sha256 } = require('../../models/lib/changeHistoryIntegrity');
@@ -26,14 +27,18 @@ const linkedCardIdFor = id => sha256(canonical([id, 'linked-card'])).slice(0, 24
 function isSameBoardLink(action, boardId) {
   return !!action && action.actionType === 'linkCard' && (action.boardId || boardId) === boardId;
 }
+// A legacy action without a board links on the card's own board.
+const targetBoardOf = (action, boardId) => action.boardId || boardId;
 
 function identity({ plan, activity, effectId, index }) {
   validateRulePlan(plan, activity, effectId);
   const invocation = plan.actions[index];
-  if (!Number.isSafeInteger(index) || index < 0 || !isSameBoardLink(invocation?.action, plan.boardId)) fail('invalid');
+  const action = invocation?.action;
+  if (!Number.isSafeInteger(index) || index < 0 || action?.actionType !== 'linkCard' ||
+      !text(targetBoardOf(action, plan.boardId))) fail('invalid');
   return { _id: commandId(invocation.id), version: 1, invocationId: invocation.id, planId: planId(effectId, activity._id),
     planHash: sha256(canonical(plan)), actorId: plan.actorId, boardId: plan.boardId, cardId: plan.cardId,
-    actionType: 'linkCard' };
+    actionType: 'linkCard', targetBoardId: targetBoardOf(action, plan.boardId) };
 }
 
 // Card.link's document.
@@ -41,7 +46,7 @@ function linkedCard(base, source, target) {
   const doc = copy(source);
   doc.linkedId = doc.linkedId || doc._id;
   for (const key of ['_id', '__id', 'labelIds']) delete doc[key];
-  return { ...doc, _id: linkedCardIdFor(base._id), boardId: base.boardId, swimlaneId: target.swimlaneId,
+  return { ...doc, _id: linkedCardIdFor(base._id), boardId: base.targetBoardId, swimlaneId: target.swimlaneId,
     listId: target.listId, type: 'cardType-linkedCard' };
 }
 
@@ -60,7 +65,8 @@ function prepareRuleLinkCardCommand({ plan, activity, effectId, index, source, t
   if (!source || source._id !== base.cardId || source.boardId !== base.boardId || !target ||
       !(createdAt instanceof Date) || !Number.isFinite(createdAt.getTime())) fail('invalid');
   if (!text(target.listId) || !text(target.swimlaneId) || !list || !swimlane || list._id !== target.listId ||
-      swimlane._id !== target.swimlaneId || list.boardId !== base.boardId || swimlane.boardId !== base.boardId) {
+      swimlane._id !== target.swimlaneId || list.boardId !== base.targetBoardId ||
+      swimlane.boardId !== base.targetBoardId) {
     fail('target-missing');
   }
   const card = linkedCard(base, source, target);
@@ -79,7 +85,7 @@ function validateRuleLinkCardCommand(row, context) {
   const { checksum, ...content } = row;
   if (checksum !== sha256(canonical(content))) fail('command-invalid');
   const card = row.card;
-  if (card._id !== linkedCardIdFor(base._id) || card.boardId !== base.boardId || card.type !== 'cardType-linkedCard' ||
+  if (card._id !== linkedCardIdFor(base._id) || card.boardId !== base.targetBoardId || card.type !== 'cardType-linkedCard' ||
       !text(card.linkedId) || !text(card.listId) || !text(card.swimlaneId) || Object.hasOwn(card, 'labelIds')) {
     fail('command-invalid');
   }

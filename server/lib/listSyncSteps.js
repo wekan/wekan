@@ -31,6 +31,48 @@ const DURABLE_RULE_ACTIONS = new Set(['sendEmail', 'archive', 'unarchive', 'setC
   'addMember', 'removeMember', 'checkAll', 'uncheckAll', 'checkItem', 'uncheckItem', 'moveCardToTop', 'moveCardToBottom',
   'addChecklist', 'addChecklistWithItems', 'removeChecklist', 'sortList', 'createCard',
   'copyCard', 'linkCard', 'addSwimlane', 'moveAllCardsInList']);
+// Rule actions whose variant on ANOTHER board has a durable adapter too.
+// Maintainer decision of 2026-10-02: such an action is durable only when its
+// destination board has opted into Sync effects as well. The card it puts
+// there runs THAT board's rules through the same stored stages, which refuse
+// an action without an adapter, so the destination's own rule actions must
+// all be durable too - and so on, for every board reached that way.
+const CROSS_BOARD_DURABLE_ACTIONS = new Set(['linkCard']);
+const MAX_RULE_BOARDS = 50;
+
+// The rule action types eligibility checks, across the source board and every
+// board its durable cross-board actions reach. `readActions(boardId)` returns
+// that board's rule actions, or null when one is missing; `readBoard(boardId)`
+// the destination board when the actor may write there, or null; `typeOf` is
+// syncRuleMoveCommand.js durableRuleActionType, which names an action on
+// another board '<type>:elsewhere'. Such an action counts as its plain type
+// only when CROSS_BOARD_DURABLE_ACTIONS has it and its destination opted in.
+async function durableRuleActionTypes({ boardId, readActions, readBoard, typeOf }) {
+  const types = [];
+  const reached = new Set([boardId]);
+  const queue = [boardId];
+  while (queue.length) {
+    const current = queue.shift();
+    const actions = await readActions(current);
+    if (!Array.isArray(actions)) return [null];
+    for (const action of actions) {
+      const type = typeOf(action, current);
+      const [base, where] = typeof type === 'string' ? type.split(':') : [];
+      if (where !== 'elsewhere' || !CROSS_BOARD_DURABLE_ACTIONS.has(base)) { types.push(type); continue; }
+      if (!reached.has(action.boardId)) {
+        const destination = await readBoard(action.boardId);
+        if (!destination || destination.syncEffectsEnabled !== true) { types.push(type); continue; }
+        // A chain this long is not a configuration anyone reviews: direct Sync.
+        if (reached.size >= MAX_RULE_BOARDS) return [null];
+        reached.add(action.boardId);
+        queue.push(action.boardId);
+      }
+      types.push(base);
+    }
+  }
+  return types;
+}
+
 // Sync-owned card fields a saved step carries: the ones the direct path's
 // conditional update compares, plus placement. SimpleSchema owns
 // dateLastActivity, so it is never part of a step.
@@ -109,4 +151,5 @@ function snapshotCreate(document) {
   return after;
 }
 
-module.exports = { DURABLE_RULE_ACTIONS, durableSyncEligibility, buildListSyncSteps };
+module.exports = { DURABLE_RULE_ACTIONS, CROSS_BOARD_DURABLE_ACTIONS, durableRuleActionTypes, durableSyncEligibility,
+  buildListSyncSteps };

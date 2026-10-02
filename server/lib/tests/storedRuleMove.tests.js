@@ -14,6 +14,7 @@ import Actions from '/models/actions';
 import { runStoredSyncRules, SyncRuleMoveCommands, SyncRuleSortListCommands, SyncRuleCreateCardCommands,
   SyncRuleLinkCardCommands, SyncRuleAddSwimlaneCommands, SyncRuleMoveAllCommands, SyncRuleCardCommands, SyncRulePlans,
   SyncRuleReceipts, SyncRuleCompletions } from '/server/notifications/storedRulePlans';
+import { durableSyncDecision } from '/server/lib/listSyncApplication';
 
 // Durable rule moves (maintainer decision of 2026-10-02): a "move to top"
 // rule run through the stored rule stage writes the sort, the hook's
@@ -217,6 +218,101 @@ describe('Stored Sync rule moves', function () {
       await Cards.rawCollection().deleteMany({ boardId }); await Lists.rawCollection().deleteMany({ boardId });
       await Swimlanes.rawCollection().deleteMany({ _id: laneId });
       await Boards.rawCollection().deleteMany({ _id: boardId }); await Meteor.users.rawCollection().deleteMany({ _id: actor });
+    }
+  });
+
+  // Durable linkCard to ANOTHER board (maintainer decision of 2026-10-02):
+  // only when that board opted into Sync effects too. The link's creation
+  // activity runs the destination board's own rules through the stored stages.
+  it('links the card onto another board that opted in, and that board\'s rule acts on the link, once', async function () {
+    if (!Meteor.isAppTest) this.skip();
+    const actor = Random.id(), boardId = Random.id(), destId = Random.id(), listId = Random.id(), laneId = Random.id();
+    const destListId = Random.id(), destLaneId = Random.id(), cardId = Random.id(), activityId = Random.id();
+    const activity = { _id: activityId, activityType: 'createCard', boardId, listId, cardId, userId: actor,
+      cardTitle: 'Card', listName: 'List', swimlaneName: 'Lane', createdAt: new Date(1000), modifiedAt: new Date(1000) };
+    const input = { activity, effectId: '6'.repeat(64), policy: { activities: true, notifications: true }, trigger: 'manual',
+      assertCurrent: async () => {} };
+    const members = [{ userId: actor, isAdmin: true, isActive: true }];
+    try {
+      await Meteor.users.rawCollection().insertOne({ _id: actor, username: `link-elsewhere-${actor}` });
+      await Boards.rawCollection().insertMany([
+        { _id: boardId, syncEffectsEnabled: true, title: 'Source', members },
+        { _id: destId, syncEffectsEnabled: true, title: 'Destination', members },
+      ]);
+      await Swimlanes.rawCollection().insertMany([{ _id: laneId, boardId, title: 'Lane', sort: 0, archived: false },
+        { _id: destLaneId, boardId: destId, title: 'Lane', sort: 0, archived: false }]);
+      await Lists.rawCollection().insertMany([{ _id: listId, boardId, title: 'List', archived: false },
+        { _id: destListId, boardId: destId, title: 'Inbox', archived: false }]);
+      await Cards.rawCollection().insertOne({ _id: cardId, boardId, listId, swimlaneId: laneId, title: 'Card', sort: 0,
+        archived: false, labelIds: ['l1'], userId: actor });
+      await Activities.rawCollection().insertOne(activity);
+      const linkId = Random.id(), colorId = Random.id(), triggerId = Random.id(), destTriggerId = Random.id();
+      await Actions.rawCollection().insertMany([
+        { _id: linkId, boardId: destId, actionType: 'linkCard', listName: 'Inbox', swimlaneName: 'Lane' },
+        { _id: colorId, boardId: destId, actionType: 'setColor', selectedColor: 'green' },
+      ]);
+      await Triggers.rawCollection().insertMany([
+        { _id: triggerId, boardId, activityType: 'createCard', listName: 'List', userId: '*', swimlaneName: '*', cardTitle: '*' },
+        { _id: destTriggerId, boardId: destId, activityType: 'createCard', listName: 'Inbox', userId: '*', swimlaneName: '*', cardTitle: '*' },
+      ]);
+      await Rules.rawCollection().insertMany([
+        { _id: Random.id(), boardId, triggerId, actionId: linkId, enabled: true, title: 'Link elsewhere' },
+        { _id: Random.id(), boardId: destId, triggerId: destTriggerId, actionId: colorId, enabled: true, title: 'Green' },
+      ]);
+      const list = { _id: listId, boardId, syncRevision: 'rev', syncCredentialIncarnation: 'life' };
+      const decide = async () => durableSyncDecision({ list, board: await Boards.findOneAsync(boardId), trigger: 'manual',
+        actorId: actor });
+      assert.deepEqual(await decide(), { eligible: true, reason: null }, 'both boards opted in');
+
+      assert.equal(await runStoredSyncRules(input), input.effectId);
+      const linked = await Cards.rawCollection().find({ boardId: destId }).toArray();
+      assert.deepEqual(linked.map(card => [card.type, card.linkedId, card.listId, card.swimlaneId, card.color]),
+        [['cardType-linkedCard', cardId, destListId, destLaneId, undefined]], 'linked there');
+      // That board's rule ran on the link, and - as the ordinary setter does
+      // through getRealId - coloured the card it links to, with its History row (colour is in the title group).
+      assert.equal((await Cards.rawCollection().findOne({ _id: cardId })).color, 'green');
+      assert.equal(await ChangeHistory.rawCollection().countDocuments({ entityId: cardId, boardId, group: 'title' }), 1);
+      assert.equal(await Activities.rawCollection().countDocuments({ cardId: linked[0]._id, activityType: 'createCard',
+        boardId: destId }), 1);
+      assert.equal(await runStoredSyncRules(input), input.effectId, 'replay');
+      assert.equal(await Cards.rawCollection().countDocuments({ boardId: destId }), 1);
+      assert.equal(await Activities.rawCollection().countDocuments({ cardId: linked[0]._id, activityType: 'createCard' }), 1);
+      assert.equal(await ChangeHistory.rawCollection().countDocuments({ entityId: cardId, group: 'title' }), 1);
+
+      // Negative: the destination's own rules must be durable too...
+      const elsewhereId = Random.id();
+      await Actions.rawCollection().insertOne({ _id: elsewhereId, boardId: Random.id(), actionType: 'moveCardToTop' });
+      await Rules.rawCollection().insertOne({ _id: Random.id(), boardId: destId, triggerId: destTriggerId,
+        actionId: elsewhereId, enabled: true, title: 'Away' });
+      assert.deepEqual(await decide(), { eligible: false, reason: 'rule-actions' }, 'a destination rule is not durable');
+      await Rules.rawCollection().deleteMany({ actionId: elsewhereId });
+      // ...and a destination that has not opted in keeps the source on direct Sync,
+      await Boards.rawCollection().updateOne({ _id: destId }, { $set: { syncEffectsEnabled: false } });
+      assert.deepEqual(await decide(), { eligible: false, reason: 'rule-actions' }, 'the destination did not opt in');
+      // and the runner refuses to write there before linking anything.
+      const second = { ...activity, _id: Random.id() };
+      await Activities.rawCollection().insertOne(second);
+      await assert.rejects(runStoredSyncRules({ ...input, activity: second, effectId: '7'.repeat(64) }),
+        /sync-effects-not-enabled|destination-denied/);
+      assert.equal(await Cards.rawCollection().countDocuments({ boardId: destId }), 1, 'no second link');
+      // A destination the actor cannot write to does not count either.
+      await Boards.rawCollection().updateOne({ _id: destId }, { $set: { syncEffectsEnabled: true, members: [] } });
+      assert.deepEqual(await decide(), { eligible: false, reason: 'rule-actions' }, 'the actor is not a member there');
+    } finally {
+      for (const board of [boardId, destId]) {
+        const plans = await SyncRulePlans.rawCollection().find({ 'plan.boardId': board }, { projection: { _id: 1 } }).toArray();
+        await SyncRuleCompletions.rawCollection().deleteMany({ _id: { $in: plans.map(row => row._id) } });
+        await SyncRulePlans.rawCollection().deleteMany({ 'plan.boardId': board });
+        for (const collection of [SyncRuleLinkCardCommands, SyncRuleCardCommands]) {
+          await collection.rawCollection().deleteMany({ boardId: board });
+        }
+        for (const collection of [Rules, Triggers, Actions, Activities, ChangeHistory, Cards, Lists, Swimlanes]) {
+          await collection.rawCollection().deleteMany({ boardId: board });
+        }
+      }
+      await SyncRuleReceipts.rawCollection().deleteMany({ effectId: input.effectId });
+      await Boards.rawCollection().deleteMany({ _id: { $in: [boardId, destId] } });
+      await Meteor.users.rawCollection().deleteMany({ _id: actor });
     }
   });
 

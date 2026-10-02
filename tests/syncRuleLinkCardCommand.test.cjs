@@ -1,5 +1,6 @@
 'use strict';
-// Durable rule linkCard onto the card's own board (server/lib/syncRuleLinkCardCommand.js).
+// Durable rule linkCard (server/lib/syncRuleLinkCardCommand.js), on the card's own
+// board or, when both boards opted in, another one.
 // Run: node tests/syncRuleLinkCardCommand.test.cjs
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -40,11 +41,24 @@ test('the linked card is Card.link\'s, under a derived id, with its creation act
   assert.equal(f.prepare({ source: { ...f.source, linkedId: 'origin' } }).card.linkedId, 'origin');
 });
 
-test('negative: links elsewhere, a missing target and tampering are refused', async () => {
+test('a link to another board is built there, from that board\'s list and swimlane', async () => {
+  // Eligibility names it '<type>:elsewhere'; listSyncSteps.js durableRuleActionTypes
+  // counts it as linkCard only when that board opted in.
   assert.equal(durableRuleActionType({ actionType: 'linkCard', boardId: 'other' }, 'board'), 'linkCard:elsewhere');
   assert.equal(durableRuleActionType({ actionType: 'linkCard', boardId: 'board' }, 'board'), 'linkCard');
   const elsewhere = await fixture({ boardId: 'other' });
-  assert.throws(() => elsewhere.prepare(), /invalid/);
+  const there = { list: { _id: 'next', boardId: 'other', title: 'Next' }, swimlane: { _id: 'lane', boardId: 'other', title: 'Lane' } };
+  const command = elsewhere.prepare(there);
+  assert.deepEqual([command.boardId, command.targetBoardId, command.card.boardId, command.activity.boardId],
+    ['board', 'other', 'other', 'other']);
+  assert.deepEqual(L.validateRuleLinkCardCommand(command, elsewhere.context), command);
+  // Negative: a list or swimlane of the rule's own board is not the destination's.
+  assert.throws(() => elsewhere.prepare(), /target-missing/);
+  assert.throws(() => elsewhere.prepare({ ...there, swimlane: { _id: 'lane', boardId: 'board', title: 'Lane' } }),
+    /target-missing/);
+});
+
+test('negative: a missing target and tampering are refused', async () => {
   const f = await fixture();
   assert.throws(() => f.prepare({ list: null }), /target-missing/);
   const command = f.prepare();
@@ -53,6 +67,10 @@ test('negative: links elsewhere, a missing target and tampering are refused', as
     /command-invalid/);
   assert.throws(() => L.validateRuleLinkCardCommand(resum({ ...command, card: { ...command.card, type: 'cardType-card' } }),
     f.context), /command-invalid/);
+  assert.throws(() => L.validateRuleLinkCardCommand(resum({ ...command, card: { ...command.card, boardId: 'other' } }),
+    f.context), /command-invalid/);
+  assert.throws(() => L.validateRuleLinkCardCommand(resum({ ...command, targetBoardId: 'other' }), f.context),
+    /command-invalid/);
 });
 
 test('wiring: durable on the same board, one target lookup for both paths', () => {
@@ -63,4 +81,13 @@ test('wiring: durable on the same board, one target lookup for both paths', () =
   const rules = fs.readFileSync(path.join(ROOT, 'server/rulesHelper.js'), 'utf8');
   assert.match(rules, /const \{ listId, swimlaneId \} = await this\.linkCardTarget\(action\);/);
   assert.match(plans, /RulesHelper\.linkCardTarget\(/);
+});
+
+test('wiring: the runner checks the destination before every write there', () => {
+  const plans = fs.readFileSync(path.join(ROOT, 'server/notifications/storedRulePlans.js'), 'utf8');
+  const runner = plans.slice(plans.indexOf('export async function runStoredSyncRuleLinkCard('),
+    plans.indexOf('export const SyncRuleAddSwimlaneCommands'));
+  assert.match(runner, /await assertDestinationBoard\(targetBoardId, plan, options\.trigger\);/);
+  assert.match(runner, /Lists\.findOneAsync\(\{ _id: target\.listId, boardId: targetBoardId \}\)/);
+  assert.match(plans, /async function assertDestinationBoard\(boardId, plan, trigger\) \{\n  if \(boardId === plan\.boardId\) return;[\s\S]{0,400}memberCan\(board\.members, user\._id, 'write'\)[\s\S]{0,200}assertSyncActivation\(\{ board, trigger/);
 });
