@@ -226,7 +226,27 @@ const keys = [
   "sync-report-completed",
   "sync-report-completed-with-warnings",
   "sync-report-skipped",
-  "sync-report-review-only"
+  "sync-report-review-only",
+  "sync-report-unavailable",
+  "sync-report-empty",
+  "sync-recovery-heading",
+  "sync-recovery-description",
+  "sync-recovery-unavailable",
+  "sync-recovery-all",
+  "sync-estimate-field",
+  "sync-estimate-field-hint",
+  "email-recovery-heading",
+  "email-recovery-description",
+  "email-recovery-saving",
+  "email-recovery-queued",
+  "email-recovery-retrying",
+  "email-recovery-attempts",
+  "email-recovery-oldest",
+  "email-recovery-next",
+  "email-recovery-changed",
+  "email-recovery-pause",
+  "email-recovery-resume",
+  "email-recovery-cancel"
 ];
 assert.deepEqual(Object.keys(locale), Object.keys(en));
 for (const key of keys) {
@@ -305,4 +325,13 @@ assert.match(locale['sync-source-scope'], /gwerthow nyns yns diskwedhys/);
 assert.match(locale['sync-report-partial'], /ny wra pesya.*na y dhiswul/);
 assert.notEqual(locale['sync-report-failed'], locale['sync-report-completed']);
 assert.notEqual(locale['sync-preview-create'], locale['sync-preview-archive']);
+
+assert.match(locale['sync-recovery-description'], /30.*ID.*ny yll pesya.*diswul/);
+assert.match(locale['sync-estimate-field-hint'], /ID.*Jira.*hepkorrys.*null.*dhilea/);
+assert.notEqual(locale['email-recovery-pause'], locale['email-recovery-resume']);
+assert.notEqual(locale['email-recovery-pause'], locale['email-recovery-cancel']);
+assert.match(locale['email-recovery-description'], /messajys a-lemmyn ha messajys a dheu/);
+assert.match(locale['email-recovery-description'], /bys dhe dermyn an govyn/);
+assert.match(locale['email-recovery-description'], /Ny yllir gervel dhe-dre.*ansur.*daswrys/);
+assert.match(locale['email-recovery-description'], /hag a berth an powes a-lemmyn/);
 console.log('Cornish translation batch checks passed');
