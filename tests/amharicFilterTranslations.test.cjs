@@ -29,7 +29,32 @@ const keys = [
   "filter-column-age-disabled",
   "filter-column-age-days",
   "filter-column-age-hint",
-  "advanced-filter-card-dates-hint"
+  "advanced-filter-card-dates-hint",
+  "import-board-instruction-leo",
+  "instance",
+  "instance-desc",
+  "board-instance-info",
+  "automatic-linked-url-schemes-hint",
+  "other-parent-cards",
+  "add-parent-card",
+  "remove-parent-card",
+  "r-when-card-date",
+  "r-trigger-vars-hint",
+  "r-insert-variable",
+  "r-vars-people-hint",
+  "r-rule-any-trigger-help",
+  "r-add-trigger-to-rule",
+  "r-add-action-to-rule",
+  "r-remove-rule-part",
+  "notification-activity-heading",
+  "notification-activity-description",
+  "notification-activity-labels",
+  "notification-activity-members",
+  "notification-activity-assignees",
+  "notification-activity-comments",
+  "notification-activity-moves",
+  "notification-activity-dates",
+  "notification-activity-checklists"
 ];
 for (const code of ['am']) {
   const locale = read(code);
