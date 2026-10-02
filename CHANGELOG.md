@@ -2878,6 +2878,32 @@ and older wrong-language text still need work.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0e7d39f2de">Translate Scrum paging and import recovery in 103 more locale tags</a>. Thanks to xet7.</summary>
+
+Fill 412 English placeholders, bringing the four new messages to 116 locale
+tags. Preserve existing translations and the paging count placeholder.
+Keep completing a stopped import distinct from discarding an import whose
+plan was not fully saved, and retain the warning that discarding it changes
+nothing on the board. Add regression coverage for these meanings, exact
+token inventories, native scripts and source key order.
+
+The remaining completion-suite failure recorded above is resolved. All 451
+translation-related Node suites pass at 52 locale tags; four catalog and
+batch suites pass after the expansion to 116. All 21 human-preference checks
+also pass. These messages still need translation in 118 locale tags; the
+broader translation backlog remains.
+
+Specialist wording in Irish, Scottish Gaelic, Breton, Kashubian, Corsican,
+Sardinian, Sicilian, Neapolitan and Aragonese has lower confidence and needs
+speaker review. Check Occitan restart terminology against
+[the Acadèmia Occitana dictionary](https://occitanparis.com/images/stories/documents/diccionari-academia-occitana-2016.pdf)
+and [its use in GNOME translations](https://mail.gnome.org/archives/commits-list/2021-December/msg11257.html).
+Use the existing locale vocabulary for boards and imports. Structural tests
+do not establish fluency.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
