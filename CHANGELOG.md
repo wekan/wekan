@@ -1697,6 +1697,8 @@ offers, preview them before enabling them, and keep features from later updates
 off until approved. Webhooks can opt into one **act-editCard** event, lists from
 before list lifetimes become eligible for durable Sync when their settings are
 saved, and translation checks keep completed catalogs while new strings wait.
+Organization-domain requests and card-edit activity are translated in every
+supported language.
 
 This release adds the following new features:
 
@@ -1784,6 +1786,31 @@ fix verification, along with the new catalog regression suite and all 21 human
 translation preservation checks. These catalog checks require no running UI.
 Newer feature translations remain unfinished; passing the regression gate does
 not certify their completeness or language quality.
+
+</details>
+
+and updates the following translations:
+
+**Translations** - Organization-domain requests and card-edit activity.
+
+**Languages updated:** Acehnese, Afrikaans, Akan, Albanian, Amharic, Arabic, Aragonese, Armenian, Aromanian, Assamese, Asturian, Aymara, Azerbaijani, Bambara, Bangla, Bashkir, Basque, Belarusian, Bhojpuri, Bislama, Bosnian, Breton, Bulgarian, Buriat, Burmese, Cantonese, Catalan, Central Kurdish, Cherokee, Chinese, Chuvash, Cornish, Corsican, Croatian, Czech, Danish, Dutch, Dzongkha, Esperanto, Estonian, Ewe, Faroese, Fijian, Finnish, Flemish, French, Friulian, Fula, Galician, Ganda, Georgian, German, Greek, Guarani, Gujarati, Haitian Creole, Hausa, Hawaiian, Hebrew, Hindi, Hungarian, Icelandic, Igbo, Indonesian, Inuktitut, Irish, Italian, Japanese, Javanese, Kalaallisut, Kannada, Kashmiri, Kashubian, Kazakh, Khmer, Kinyarwanda, Klingon, Konkani, Korean, Kurdish, Kyrgyz, Ladin, Latin, Latvian, Lithuanian, Luxembourgish, Macedonian, Maithili, Malagasy, Malay, Malayalam, Maltese, Mandarin Chinese, Manx, Marathi, Mongolian, Moroccan Arabic, Māori, Nahuatl, Neapolitan, Nepali, North Ndebele, Northern Sami, Northern Sotho, Norwegian Bokmål, Nyanja, Occitan, Odia, Oromo, Papiamento, Pashto, Persian, Polish, Portuguese, Punjabi, Quechua, Romanian, Romansh, Rundi, Russian, Samoan, Sardinian, Scottish Gaelic, Serbian, Shona, Sicilian, Silesian, Sindhi, Sinhala, Slovak, Slovenian, Somali, Southern Sotho, Spanish, Standard Moroccan Tamazight, Swahili, Swati, Swedish, Tagalog, Tajik, Tamil, Tatar, Telugu, Thai, Tibetan, Tigre, Tigrinya, Tok Pisin, Tongan, Tsonga, Tswana, Turkish, Turkmen, Ukrainian, Upper Sorbian, Urdu, Uyghur, Uzbek, Venda, Venetian, Veps, Vietnamese, Volapük, Walloon, Waray, Welsh, Western Frisian, Wolaytta, Wolof, Wu Chinese, Xhosa, Yakut, Yiddish, Yoruba, Zulu.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/054ba53c8d">Translate domain requests and card edits in every locale</a>. Thanks to xet7.</summary>
+
+Fill the request status, saved request, reserved installation-domain refusal and
+card-edit activity messages in all 234 non-English locales. Keep organization
+requests distinct from site-administrator assignment and preserve the card token.
+Existing translations are retained, and English variants keep source wording.
+The four finished keys leave the pending list. Newly added feature keys are also
+synchronized in source order as English placeholders for the next batches.
+
+All 224 translation and i18n suites pass, including the new all-locale checks,
+script and wrong-language-seed checks. These tests do not establish fluency.
+Low-confidence specialist wording, especially minority and constructed languages,
+is recorded with vocabulary sources in
+[the translation review notes](docs/Features/Translations/Domain-Request-Translation-Review.md).
+The broader translation backlog remains open.
 
 </details>
 
