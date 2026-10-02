@@ -1686,6 +1686,17 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/93edb1ef03">Translate Khmer map and accessibility messages</a>. Thanks to xet7.</summary>
+
+- Fill 27 map, movement-announcement and accessible-control messages in both
+  Khmer locale files; km-KH inherits the Cambodia translations.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass for all three locale tags, as do all 21 human-preference checks.
+  Full-language work, browser and native-speaker reviews remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/348d8389e6">Translate Khmer reminders, saved filters and import reports</a>. Thanks to xet7.</summary>
 
 - Fill 28 reminder, saved-filter, import-report and related messages in both
