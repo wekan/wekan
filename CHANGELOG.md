@@ -2414,6 +2414,20 @@ site.
 and updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f599111d3e">Translate Ladin reminders, saved filters and import reports</a>. Thanks to xet7.</summary>
+
+- Fill 27 Ladin placeholders for notification activity types, due date
+  reminders, duplicate dependencies, string template hints, saved filters,
+  import reports and the draggable label, preserving template variables,
+  `|urlencode` and the Admin Panel path. Low confidence pending
+  native-speaker review.
+- The Ladin key-order check now skips keys pending Transifex, which live in
+  `en.i18n.json` only until the translating agent adds them. Batch checks pass,
+  along with all 21 human-preference checks.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/261f3f4042">Translate Ladin import and rule messages</a>. Thanks to xet7.</summary>
 
 - Fill 25 Ladin import, board-access, rule and notification placeholders,
