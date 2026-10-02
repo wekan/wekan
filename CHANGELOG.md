@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f2bb0e3633">Translate Amharic list lookup and removal messages</a>. Thanks to xet7.</summary>
+
+- Fill 30 list lookup, removal, sublist and length messages in Amharic.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass, as do all 21 human-preference checks. Full-language work,
+  browser and native-speaker reviews remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/24bca79c69">Translate Amharic navigation and list creation</a>. Thanks to xet7.</summary>
 
 - Fill 30 text-input, keyboard navigation and list messages in Amharic.
