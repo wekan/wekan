@@ -1686,6 +1686,17 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/67ea95be43">Translate Amharic comparisons, logic and arithmetic</a>. Thanks to xet7.</summary>
+
+- Fill 30 comparison, logic and arithmetic messages in Amharic. Specialized
+  mathematics wording remains low confidence pending native-speaker review.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass, as do all 21 human-preference checks. Full-language work and
+  browser review remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1b5f9bf5f4">Translate Amharic list editing, sorting and basic logic</a>. Thanks to xet7.</summary>
 
 - Fill 30 list editing, sorting, conversion and basic logic messages in Amharic.
