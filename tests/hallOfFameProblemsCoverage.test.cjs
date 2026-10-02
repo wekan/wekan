@@ -106,7 +106,7 @@ const PENDING = [
   'PassBleed', 'PatternBleed', 'ProxyBleed', 'RandomBleed', 'ReactionBleed',
   'SnowBleed', 'SocialBleed', 'SortBleed', 'SpliceBleed', 'TokenBleed',
   'TransitBleed', 'UserBleed', 'WebhookBleed', 'WhereBleed', 'ZipBleed',
-  'ChecklistWriteBleed', 'CommentWriteBleed', 'OwnerBleed', 'RoleBleed',
+  'ChecklistWriteBleed', 'CommentWriteBleed', 'RoleBleed',
   'SearchBleed', 'TokenAuditBleed',
 ];
 

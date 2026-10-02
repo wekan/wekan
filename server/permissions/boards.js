@@ -7,6 +7,20 @@ const { isOpenPermission } = require('/models/lib/boardPermission');
 
 Boards.deny({
   async insert(userId, doc) {
+    // OwnerBleed, DDP sibling (2026-10-02): the REST fix ignores owner fields,
+    // but a client insert could still carry its own members list - naming
+    // somebody else as the board's admin, or adding people who never agreed
+    // to be members. The UI sends no members (the schema makes the creator
+    // the only admin), so any member but the creator is an attempt.
+    if (Array.isArray(doc.members) && doc.members.some(member => !member || member.userId !== userId)) {
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'authz.board-owner', action: 'blocked', source: 'ddp:boards.insert', userId,
+          detail: 'A client board insert named members other than its creator.',
+        });
+      } catch (e) { /* logging must never break the guard */ }
+      return true;
+    }
     if (!doc.subtasksDefaultBoardId) return false;
     if (await canWriteSubtaskDeposit(userId, doc.subtasksDefaultBoardId)) return false;
     recordSubtaskDepositDenial('ddp:board-insert');

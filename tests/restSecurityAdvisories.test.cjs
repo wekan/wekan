@@ -124,3 +124,13 @@ for (const source of [boards, users]) {
 }
 
 console.log('  ok - REST security advisory authorization and response guards');
+
+// OwnerBleed, DDP sibling (2026-10-02): a client board insert could carry its
+// own members list, naming somebody else as admin. Refused, and recorded.
+{
+  const perms = read('server/permissions/boards.js');
+  const deny = perms.slice(perms.indexOf('Boards.deny({'), perms.indexOf('Boards.allow({'));
+  assert.match(deny, /async insert\(userId, doc\) \{[\s\S]*?doc\.members\.some\(member => !member \|\| member\.userId !== userId\)[\s\S]*?key: 'authz\.board-owner'[\s\S]*?return true;/);
+  assert.match(read('models/lib/securityCategories.js'), /'authz\.board-owner':\s*\{[^}]*bleed: 'OwnerBleed'/);
+  console.log('  ok - OwnerBleed DDP sibling: client board inserts name only their creator');
+}
