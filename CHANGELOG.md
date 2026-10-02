@@ -1686,6 +1686,20 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d7e08667db">Translate Cornish sprint planning and reporting messages</a>. Thanks to xet7.</summary>
+
+- Fill 30 Cornish sprint-planning and reporting messages, preserving count
+  placeholders and the distinction between unknown and zero estimates.
+  Specialized Scrum terminology remains low confidence pending
+  native-speaker review.
+- Batch key-order, placeholder, estimate-wording and distinct-action checks
+  pass, along with all 21 human-preference checks. Full-language work and
+  browser review remain.
+
+</details>
+
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1e81dae899">Translate Cornish map controls and Scrum planning labels</a>. Thanks to xet7.</summary>
 
 - Fill 34 Cornish map, unnamed-key and Scrum planning messages. Specialized
