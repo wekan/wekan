@@ -121,12 +121,16 @@ function executionContext({ effectId, activity, policy, assertCurrent, trigger }
   const guard = reuseWithinEvaluation(async () => {
     await assertCurrent();
     await assertSyncEffectPolicy(policy, async () => syncEffectPolicy(getFeatureFlags()));
-    const [stored, user, board, card, list] = await Promise.all([
+    const [stored, user, board, found, list] = await Promise.all([
       Activities.findOneAsync(saved._id, { transform: null }),
       Meteor.users.findOneAsync(saved.userId), Boards.findOneAsync(saved.boardId),
-      Cards.findOneAsync({ _id: saved.cardId, boardId: saved.boardId, listId: saved.listId }),
+      Cards.findOneAsync({ _id: saved.cardId, boardId: saved.boardId }),
       Lists.findOneAsync({ _id: saved.listId, boardId: saved.boardId }),
     ]);
+    // The card is where the activity says, or where a move this SAME rule plan
+    // saved put it (maintainer decision of 2026-10-02) - nowhere else.
+    const card = found && (found.listId === saved.listId ||
+      await movedByThisPlan(rulePlanId(effectId, saved._id), saved.cardId, found)) ? found : null;
     if (!stored || canonical(stored) !== canonical(saved)) throw new Error('sync-rule-activity-changed');
     assertSyncActivation({ board, trigger, flags: getFeatureFlags() });
     if (!user || user.loginDisabled || !board || !card || !list || !memberCan(board.members, user._id, 'write') ||
@@ -136,6 +140,19 @@ function executionContext({ effectId, activity, policy, assertCurrent, trigger }
     await assertCurrent();
   });
   return { saved, effectId, guard };
+}
+
+// Whether a saved move of this rule plan put the card where it is: a single
+// move (syncRuleMoveCommand.js) or a unit of a move-all
+// (syncRuleMoveAllCommand.js) whose destination is the card's place now.
+async function movedByThisPlan(planIdValue, cardId, card) {
+  const single = await SyncRuleMoveCommands.rawCollection().findOne({ planId: planIdValue, cardId,
+    'after.listId': card.listId, 'after.swimlaneId': card.swimlaneId }, { projection: { _id: 1 } });
+  if (single) return true;
+  const all = await SyncRuleMoveAllCommands.rawCollection().findOne({ planId: planIdValue,
+    units: { $elemMatch: { cardId, 'after.listId': card.listId, 'after.swimlaneId': card.swimlaneId } } },
+  { projection: { _id: 1 } });
+  return Boolean(all);
 }
 
 // Only runStoredSyncRules accepts a compacted plan: it stands for finished
@@ -182,6 +199,8 @@ export async function runStoredSyncRules({ adapters, ...options }) {
     copyCard: ({ invocation }) => runStoredSyncRuleCopyCard({ ...options, index: indices.get(invocation.id) }),
     linkCard: ({ invocation }) => runStoredSyncRuleLinkCard({ ...options, index: indices.get(invocation.id) }),
     addSwimlane: ({ invocation }) => runStoredSyncRuleAddSwimlane({ ...options, index: indices.get(invocation.id) }),
+    // Same-board only: eligibility keeps a board moving cards elsewhere on direct Sync.
+    moveAllCardsInList: ({ invocation }) => runStoredSyncRuleMoveAll({ ...options, index: indices.get(invocation.id) }),
     ...Object.fromEntries(RULE_CHECKLIST_LIFECYCLE_ACTIONS.map(type => [type, ({ invocation }) =>
       runStoredSyncRuleChecklistLifecycle({ ...options, index: indices.get(invocation.id) })])),
     // In-place moves only: eligibility keeps a board with any other move on
@@ -446,7 +465,7 @@ const { withSyncActivityDeferred } = require('/server/lib/syncActivityScope');
 export const SyncRuleMoveCommands = new Mongo.Collection('listSyncRuleMoveCommands');
 SyncRuleMoveCommands.deny({ insert: () => true, update: () => true, remove: () => true });
 
-export async function runStoredSyncRuleMove({ index, ...options }) {
+export async function runStoredSyncRuleMove({ index, completeDelivery = runStoredSyncActivityDelivery, ...options }) {
   const context = executionContext(options), plan = await capture(context);
   const invocation = plan.actions[index];
   if (!RULE_MOVE_ACTIONS.includes(invocation?.action?.actionType)) throw new Error('sync-rule-move-invalid');
@@ -465,18 +484,22 @@ export async function runStoredSyncRuleMove({ index, ...options }) {
   await guard();
   let row = await commands.findOne({ _id: id });
   if (!row) {
-    const card = await Cards.findOneAsync({ _id: plan.cardId, boardId: plan.boardId }, { transform: null });
-    // The ordinary action's own lookups (server/rulesHelper.js performAction):
-    // the card's list, its swimlane, and the sorts of that list and swimlane.
-    const list = card && await Lists.findOneAsync({ _id: card.listId, boardId: card.boardId });
-    const swimlane = card && await ReactiveCache.getSwimlane(card.swimlaneId);
-    // Without them the ordinary action moves elsewhere or not at all; that is
-    // not an in-place move, so it is not this command's to make.
-    if (!list || !swimlane || swimlane.boardId !== card.boardId) throw new Error('sync-rule-move-not-in-place');
-    const sorts = (await list.cardsUnfiltered(card.swimlaneId)).map(other => other.sort);
+    const card = await Cards.findOneAsync({ _id: plan.cardId, boardId: plan.boardId });
+    // The ordinary action's own target (RulesHelper.moveCardTarget). A legacy
+    // action without a boardId moves on the card's own board.
+    const action = { ...invocation.action, boardId: invocation.action.boardId || plan.boardId };
+    const target = card ? await RulesHelper.moveCardTarget(context.saved, card, action) : null;
+    // No list to fall back to: the ordinary action does nothing; nor may this.
+    if (!target) throw new Error('sync-rule-move-no-target');
+    const [list, swimlane] = await Promise.all([
+      Lists.findOneAsync({ _id: target.listId, boardId: plan.boardId }),
+      Swimlanes.findOneAsync({ _id: target.swimlaneId, boardId: plan.boardId }),
+    ]);
     const redoRows = await ChangeHistory.find({ boardId: plan.boardId, userId: plan.actorId, undone: true,
       superseded: { $ne: true } }, { transform: null, limit: 10000 }).fetchAsync();
-    const candidate = prepareRuleMoveCommand({ ...commandContext, card, sorts, createdAt: new Date(), redoRows });
+    const raw = await Cards.rawCollection().findOne({ _id: plan.cardId, boardId: plan.boardId });
+    const candidate = prepareRuleMoveCommand({ ...commandContext, card: raw, target, createdAt: new Date(), redoRows,
+      titles: { listName: list ? list.title : '', swimlaneName: swimlane ? swimlane.title : '', cardTitle: raw?.title } });
     await guard();
     let failure;
     try { await commands.insertOne(candidate); } catch (error) { failure = error; }
@@ -484,17 +507,18 @@ export async function runStoredSyncRuleMove({ index, ...options }) {
     if (!row) throw failure || new Error('sync-rule-move-command-unconfirmed');
   }
   const command = validateRuleMoveCommand(row, commandContext);
-  const at = sort => Cards.findOneAsync(ruleMoveSortSelector(command, sort), { transform: null });
+  const at = place => Cards.rawCollection().findOne(ruleMovePlaceSelector(command, place));
+  const actor = work => DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false }, work);
   await guard();
-  if (command.before.sort !== command.after.sort && !await at(command.after.sort)) {
-    if (!await at(command.before.sort)) throw new Error('sync-rule-move-changed');
+  const modifier = ruleMoveModifier(command);
+  if (Object.keys(modifier.$set).length && !await at(command.after)) {
+    if (!await at(command.before)) throw new Error('sync-rule-move-changed');
     await guard();
-    await DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false }, () =>
-      withSyncRecordingDeferred({ cardId: command.cardId, boardId: command.boardId, listId: command.listId,
-        kinds: ['history', 'position'] },
-      () => Cards.updateAsync(ruleMoveSortSelector(command, command.before.sort),
-        { $set: { sort: command.after.sort } })));
-    if (!await at(command.after.sort)) throw new Error('sync-rule-move-unconfirmed');
+    // The hook's position row and moveCard activity are this command's to write.
+    await actor(() => withSyncRecordingDeferred({ cardId: command.cardId, boardId: command.boardId,
+      listId: command.after.listId, kinds: ['history', 'position', 'move'] },
+    () => Cards.updateAsync(ruleMovePlaceSelector(command, command.before), modifier)));
+    if (!await at(command.after)) throw new Error('sync-rule-move-unconfirmed');
   }
   if (command.effects.history) {
     await persistSyncFieldHistory({ history: ChangeHistory, plan: command.effects.history, assertCurrent: guard,
@@ -510,11 +534,111 @@ export async function runStoredSyncRuleMove({ index, ...options }) {
       try { await legacy.insertOne(entry); } catch (error) { if (!await legacy.findOne({ _id: entry._id })) throw error; }
     }
   }
+  if (command.effects.move) {
+    // Card.move's attachment placement, then the hook's moveCard activity -
+    // delivered durably, so the moved card's rules run once.
+    await guard();
+    await Attachments.collection.rawCollection().updateMany({ 'meta.cardId': command.cardId },
+      { $set: { 'meta.listId': command.after.listId, 'meta.swimlaneId': command.after.swimlaneId } });
+    const activities = {
+      findOneAsync: activityId => Activities.findOneAsync(activityId, { transform: null }),
+      insertAsync: document => actor(() => withSyncActivityDeferred(document, () => Activities.insertAsync(document))),
+    };
+    await persistSyncActivity({ activities, activity: command.effects.move.activity, effectId: command.effects.move.receiptId,
+      assertCurrent: guard, completeDelivery: delivery => completeDelivery({ ...delivery, policy: options.policy,
+        trigger: options.trigger }) });
+  }
   await guard();
   return invocation.id;
 }
 const { RULE_MOVE_ACTIONS, commandId: ruleMoveCommandId, prepareRuleMoveCommand, validateRuleMoveCommand,
-  sortSelector: ruleMoveSortSelector } = require('/server/lib/syncRuleMoveCommand');
+  placeSelector: ruleMovePlaceSelector, moveModifier: ruleMoveModifier } = require('/server/lib/syncRuleMoveCommand');
+
+// Durable rule moveAllCardsInList on the card's own board
+// (server/lib/syncRuleMoveAllCommand.js): the cards taken once, then each
+// moved as a single rule move is, with its own effects.
+export const SyncRuleMoveAllCommands = new Mongo.Collection('listSyncRuleMoveAllCommands');
+SyncRuleMoveAllCommands.deny({ insert: () => true, update: () => true, remove: () => true });
+
+export async function runStoredSyncRuleMoveAll({ index, completeDelivery = runStoredSyncActivityDelivery, ...options }) {
+  const context = executionContext(options), plan = await capture(context);
+  const invocation = plan.actions[index], action = invocation?.action;
+  if (action?.actionType !== 'moveAllCardsInList') throw new Error('sync-rule-move-all-invalid');
+  const commandContext = { plan, activity: context.saved, effectId: context.effectId, index };
+  const guard = reuseWithinEvaluation(async () => {
+    await context.guard();
+    const [rule, current] = await Promise.all([
+      Rules.rawCollection().findOne({ _id: invocation.rule._id }),
+      Actions.rawCollection().findOne({ _id: action._id }),
+    ]);
+    if (!rule || !current || canonical(rule) !== canonical(invocation.rule) ||
+        canonical(current) !== canonical(action)) throw new Error('sync-rule-move-all-configuration-changed');
+    await context.guard();
+  });
+  const commands = SyncRuleMoveAllCommands.rawCollection(), id = ruleMoveAllCommandId(invocation.id);
+  await guard();
+  let row = await commands.findOne({ _id: id });
+  if (!row) {
+    // The ordinary action's own lookups (server/rulesHelper.js performAction).
+    const from = await ReactiveCache.getList({ title: action.fromListName, boardId: plan.boardId });
+    const to = await ReactiveCache.getList({ title: action.listName, boardId: plan.boardId });
+    const cards = from && to ? (await from.cardsUnfiltered()).map(card => ({ _id: card._id, boardId: card.boardId,
+      listId: card.listId, swimlaneId: card.swimlaneId, sort: card.sort, title: card.title,
+      lastMoveReason: card.lastMoveReason })) : [];
+    const swimlaneIds = [...new Set(cards.map(card => card.swimlaneId))];
+    const swimlanes = swimlaneIds.length
+      ? await Swimlanes.find({ _id: { $in: swimlaneIds } }, { fields: { title: 1 } }).fetchAsync() : [];
+    const redoRows = await ChangeHistory.find({ boardId: plan.boardId, userId: plan.actorId, undone: true,
+      superseded: { $ne: true } }, { transform: null, limit: 10000 }).fetchAsync();
+    const candidate = prepareRuleMoveAllCommand({ ...commandContext, from: from && { _id: from._id, title: from.title },
+      to: to && { _id: to._id, title: to.title }, cards,
+      swimlaneTitles: Object.fromEntries(swimlanes.map(lane => [lane._id, lane.title || ''])), createdAt: new Date(),
+      redoRows });
+    await guard();
+    let failure;
+    try { await commands.insertOne(candidate); } catch (error) { failure = error; }
+    row = await commands.findOne({ _id: id });
+    if (!row) throw failure || new Error('sync-rule-move-all-command-unconfirmed');
+  }
+  const command = validateRuleMoveAllCommand(row, commandContext);
+  const actor = work => DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false }, work);
+  const activities = {
+    findOneAsync: activityId => Activities.findOneAsync(activityId, { transform: null }),
+    insertAsync: document => actor(() => withSyncActivityDeferred(document, () => Activities.insertAsync(document))),
+  };
+  const cardsCollection = Cards.rawCollection();
+  for (const unit of command.units) {
+    await guard();
+    if (!await cardsCollection.findOne(ruleMoveAllSelector(command, unit, unit.after))) {
+      if (!await cardsCollection.findOne(ruleMoveAllSelector(command, unit, unit.before))) {
+        throw new Error('sync-rule-move-all-changed');
+      }
+      await actor(() => withSyncRecordingDeferred({ cardId: unit.cardId, boardId: command.boardId,
+        listId: unit.after.listId, kinds: ['history', 'position', 'move'] },
+      () => Cards.updateAsync(ruleMoveAllSelector(command, unit, unit.before), ruleMoveModifier(unit))));
+      if (!await cardsCollection.findOne(ruleMoveAllSelector(command, unit, unit.after))) {
+        throw new Error('sync-rule-move-all-unconfirmed');
+      }
+    }
+    await persistSyncFieldHistory({ history: ChangeHistory, plan: unit.effects.history, assertCurrent: guard,
+      fields: RULE_CARD_POSITION_FIELDS });
+    const legacy = UserPositionHistory.rawCollection(), entry = unit.effects.userPosition;
+    await guard();
+    if (!await legacy.findOne({ _id: entry._id })) {
+      await legacy.deleteMany({ userId: entry.userId, boardId: entry.boardId, isCheckpoint: { $ne: true }, undone: true });
+      try { await legacy.insertOne(entry); } catch (error) { if (!await legacy.findOne({ _id: entry._id })) throw error; }
+    }
+    await Attachments.collection.rawCollection().updateMany({ 'meta.cardId': unit.cardId },
+      { $set: { 'meta.listId': unit.after.listId, 'meta.swimlaneId': unit.after.swimlaneId } });
+    await persistSyncActivity({ activities, activity: unit.effects.move.activity, effectId: unit.effects.move.receiptId,
+      assertCurrent: guard, completeDelivery: delivery => completeDelivery({ ...delivery, policy: options.policy,
+        trigger: options.trigger }) });
+  }
+  await guard();
+  return invocation.id;
+}
+const { commandId: ruleMoveAllCommandId, prepareRuleMoveAllCommand, validateRuleMoveAllCommand,
+  unitSelector: ruleMoveAllSelector } = require('/server/lib/syncRuleMoveAllCommand');
 const { RULE_CARD_POSITION_FIELDS } = require('/server/lib/syncHistoryBatch');
 
 // Durable rule copyCard on the card's own board

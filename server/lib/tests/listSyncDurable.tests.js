@@ -171,8 +171,10 @@ describe('Durable list Sync', function () {
       assert.equal(await ChangeHistory.find({ cardId: sixth._id, group: 'members' }).countAsync(), 1, 'one members History row');
       await Rules.rawCollection().deleteMany({ boardId }); await Triggers.rawCollection().deleteMany({ boardId });
 
-      // A rule action without a durable adapter keeps the direct path.
-      const actionId = await Actions.insertAsync({ actionType: 'moveCardToTop', boardId, desc: 'top' });
+      // A rule action without a durable adapter keeps the direct path: since
+      // 2026-10-02 every action on the card's own board has one, so a move to
+      // ANOTHER board stands for it.
+      const actionId = await Actions.insertAsync({ actionType: 'moveCardToTop', boardId: Random.id(), desc: 'top' });
       await Rules.rawCollection().insertOne({ _id: Random.id(), title: 'r', triggerId: Random.id(), actionId, boardId });
       assert.deepEqual(await durableSyncDecision({ list, board: await Boards.findOneAsync(boardId), trigger: 'manual', actorId: actor }),
         { eligible: false, reason: 'rule-actions' });

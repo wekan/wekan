@@ -212,6 +212,97 @@ export const RulesHelper = {
   async ruleSwimlaneTitle(activity, card, action) {
     return substituteVars(action.swimlaneName, await buildRuleVars(activity, card));
   },
+  // Where a moveCardToTop/Bottom action puts the card, as { boardId,
+  // swimlaneId, listId, sort }, or null when the card has no list to fall back
+  // to. For the ordinary action below and the durable rule move command
+  // (server/lib/syncRuleMoveCommand.js), so the two cannot pick different places.
+  async moveCardTarget(activity, card, action) {
+    const boardId = activity.boardId;
+    const ruleVars = await buildRuleVars(activity, card);
+    let list;
+    let listId;
+    if (action.listName === '*' || !action.listName) {
+      // #6472: rules created by the classic wizard's generic "move to
+      // top/bottom" action stored the field as listTitle (never read here),
+      // so action.listName was undefined and the exact-title lookup below
+      // always failed. An unset listName means "the card's current list".
+      list = await card.list();
+      if (boardId !== action.boardId) {
+        list = await ReactiveCache.getList({ title: list.title, boardId: action.boardId });
+      }
+    } else {
+      // #3195 / #4294: a list name may use {customField:Name} and the other
+      // rule variables, resolved against the triggering card.
+      list = await ReactiveCache.getList({
+        title: substituteVars(action.listName, ruleVars),
+        boardId: action.boardId,
+      });
+    }
+    // #6472: an unresolved list (typo'd/renamed/case-mismatched listName, or
+    // the list only exists on another board) crashed below on
+    // list.cardsUnfiltered — the error was swallowed by the activity hook, so
+    // the rule silently "did nothing". Fall back to the card's own list so
+    // moveCardToTop/Bottom still does the sensible thing within the card's
+    // current list.
+    let fellBackToCardList = false;
+    if (!list) {
+      console.warn(
+        `WeKan rule action ${action.actionType}: list "${action.listName}" not found on board ${action.boardId}; using the card's current list instead.`,
+      );
+      list = await card.list();
+      if (!list) return null;
+      fellBackToCardList = true;
+    }
+    listId = list._id;
+
+    let swimlane;
+    let swimlaneId;
+    if (action.swimlaneName === '*') {
+      swimlane = await ReactiveCache.getSwimlane(card.swimlaneId);
+      // #5536: only re-resolve by title across boards when we actually have a
+      // source swimlane — dereferencing `swimlane.title` on undefined crashed.
+      if (boardId !== action.boardId && swimlane) {
+        swimlane = await ReactiveCache.getSwimlane({
+          title: swimlane.title,
+          boardId: action.boardId,
+        });
+      }
+    } else {
+      swimlane = await ReactiveCache.getSwimlane({
+        title: substituteVars(action.swimlaneName, ruleVars),
+        boardId: action.boardId,
+      });
+    }
+    // #5536: never dereference `._id` on a possibly-undefined 'Default'
+    // swimlane (destination boards can have a renamed/translated default, or
+    // none). Fall back to the board's real default swimlane; resolveRuleSwimlaneId
+    // returns '' rather than throwing an "Internal Server Error".
+    swimlaneId = resolveRuleSwimlaneId(
+      swimlane,
+      await getDestBoardDefaultSwimlane(action.boardId),
+    );
+
+    // #6472: the fallback list is on the CARD's board, so the move must stay
+    // there too — an action.boardId/swimlaneId from a different board would
+    // produce an inconsistent card. Also move within the card's own swimlane.
+    let destBoardId = action.boardId;
+    if (fellBackToCardList) {
+      destBoardId = list.boardId;
+      swimlaneId = card.swimlaneId;
+    }
+
+    // #6472: an empty destination (no cards in that list+swimlane yet) made
+    // Math.min()/Math.max() of no arguments return ±Infinity, writing a
+    // corrupt sort value; a non-finite stored sort would poison it again.
+    const destSorts = (await list.cardsUnfiltered(swimlaneId))
+      .map(c => c.sort)
+      .filter(Number.isFinite);
+
+    const minOrder = destSorts.length ? Math.min(...destSorts) : 0;
+    const maxOrder = destSorts.length ? Math.max(...destSorts) : 0;
+    return { boardId: destBoardId, swimlaneId, listId,
+      sort: action.actionType === 'moveCardToTop' ? minOrder - 1 : maxOrder + 1 };
+  },
   // ...and the item titles an addChecklistWithItems action names.
   async ruleChecklistItemTitles(activity, card, action) {
     return String(substituteVars(action.checklistItems, await buildRuleVars(activity, card))).split(',');
@@ -614,91 +705,9 @@ export const RulesHelper = {
       action.actionType === 'moveCardToTop' ||
       action.actionType === 'moveCardToBottom'
     ) {
-      let list;
-      let listId;
-      if (action.listName === '*' || !action.listName) {
-        // #6472: rules created by the classic wizard's generic "move to
-        // top/bottom" action stored the field as listTitle (never read here),
-        // so action.listName was undefined and the exact-title lookup below
-        // always failed. An unset listName means "the card's current list".
-        list = await card.list();
-        if (boardId !== action.boardId) {
-          list = await ReactiveCache.getList({ title: list.title, boardId: action.boardId });
-        }
-      } else {
-        // #3195 / #4294: a list name may use {customField:Name} and the other
-        // rule variables, resolved against the triggering card.
-        list = await ReactiveCache.getList({
-          title: substituteVars(action.listName, ruleVars),
-          boardId: action.boardId,
-        });
-      }
-      // #6472: an unresolved list (typo'd/renamed/case-mismatched listName, or
-      // the list only exists on another board) crashed below on
-      // list.cardsUnfiltered — the error was swallowed by the activity hook, so
-      // the rule silently "did nothing". Fall back to the card's own list so
-      // moveCardToTop/Bottom still does the sensible thing within the card's
-      // current list.
-      let fellBackToCardList = false;
-      if (!list) {
-        console.warn(
-          `WeKan rule action ${action.actionType}: list "${action.listName}" not found on board ${action.boardId}; using the card's current list instead.`,
-        );
-        list = await card.list();
-        if (!list) return;
-        fellBackToCardList = true;
-      }
-      listId = list._id;
-
-      let swimlane;
-      let swimlaneId;
-      if (action.swimlaneName === '*') {
-        swimlane = await ReactiveCache.getSwimlane(card.swimlaneId);
-        // #5536: only re-resolve by title across boards when we actually have a
-        // source swimlane — dereferencing `swimlane.title` on undefined crashed.
-        if (boardId !== action.boardId && swimlane) {
-          swimlane = await ReactiveCache.getSwimlane({
-            title: swimlane.title,
-            boardId: action.boardId,
-          });
-        }
-      } else {
-        swimlane = await ReactiveCache.getSwimlane({
-          title: substituteVars(action.swimlaneName, ruleVars),
-          boardId: action.boardId,
-        });
-      }
-      // #5536: never dereference `._id` on a possibly-undefined 'Default'
-      // swimlane (destination boards can have a renamed/translated default, or
-      // none). Fall back to the board's real default swimlane; resolveRuleSwimlaneId
-      // returns '' rather than throwing an "Internal Server Error".
-      swimlaneId = resolveRuleSwimlaneId(
-        swimlane,
-        await getDestBoardDefaultSwimlane(action.boardId),
-      );
-
-      // #6472: the fallback list is on the CARD's board, so the move must stay
-      // there too — an action.boardId/swimlaneId from a different board would
-      // produce an inconsistent card. Also move within the card's own swimlane.
-      let destBoardId = action.boardId;
-      if (fellBackToCardList) {
-        destBoardId = list.boardId;
-        swimlaneId = card.swimlaneId;
-      }
-
-      // #6472: an empty destination (no cards in that list+swimlane yet) made
-      // Math.min()/Math.max() of no arguments return ±Infinity, writing a
-      // corrupt sort value; a non-finite stored sort would poison it again.
-      const destSorts = (await list.cardsUnfiltered(swimlaneId))
-        .map(c => c.sort)
-        .filter(Number.isFinite);
-
-      if (action.actionType === 'moveCardToTop') {
-        const minOrder = destSorts.length ? Math.min(...destSorts) : 0;
-        await withUserId(activity.userId, () => card.move(destBoardId, swimlaneId, listId, minOrder - 1));
-      } else {
-        const maxOrder = destSorts.length ? Math.max(...destSorts) : 0;
-        await withUserId(activity.userId, () => card.move(destBoardId, swimlaneId, listId, maxOrder + 1));
+      const target = await this.moveCardTarget(activity, card, action);
+      if (target) {
+        await withUserId(activity.userId, () => card.move(target.boardId, target.swimlaneId, target.listId, target.sort));
       }
     }
     if (action.actionType === 'sendEmail') {

@@ -2,8 +2,9 @@
 const { AsyncLocalStorage } = require('node:async_hooks');
 const storage = new AsyncLocalStorage();
 // 'position' is not a hook: it lets 'history' defer the hook's position row
-// too, for a durable rule move (server/lib/syncRuleMoveCommand.js).
-const KINDS = ['create','archive','title','description','customFields','history','timing','position'];
+// too, for a durable rule move (server/lib/syncRuleMoveCommand.js), whose
+// 'move' is the update hook's moveCard activity.
+const KINDS = ['create','archive','title','description','customFields','history','timing','position','move'];
 // A checklist item's three hooks, for a scope that names that item.
 const ITEM_KINDS = ['itemUncomplete','itemCheck','itemHistory'];
 // A checklist's activity hook and its History lifecycle hook, for a scope that

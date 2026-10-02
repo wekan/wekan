@@ -1,5 +1,6 @@
 'use strict';
-// Durable rule moves that stay in place (server/lib/syncRuleMoveCommand.js).
+// Durable rule moves on the card's own board (server/lib/syncRuleMoveCommand.js)
+// and move-all (server/lib/syncRuleMoveAllCommand.js).
 // Run: node tests/syncRuleMoveCommand.test.cjs
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -7,104 +8,122 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { prepareRulePlan } = require('../server/lib/syncRulePlan');
 const M = require('../server/lib/syncRuleMoveCommand');
+const MA = require('../server/lib/syncRuleMoveAllCommand');
 const { positionChange } = require('../models/lib/timeHistory');
 const { DURABLE_RULE_ACTIONS, durableSyncEligibility } = require('../server/lib/listSyncSteps');
 const { canonical, sha256 } = require('../models/lib/changeHistoryIntegrity');
 
 const ROOT = path.join(__dirname, '..');
-const inPlace = { listName: '*', swimlaneName: '*', boardId: 'board' };
 async function fixture(action) {
   const f = { activity: { _id: 'activity', boardId: 'board', cardId: 'card', userId: 'actor' },
     effectId: 'a'.repeat(64), index: 0, assertCurrent: async () => {} };
   f.plan = await prepareRulePlan({ ...f,
     selectRules: async () => [{ _id: 'rule', boardId: 'board', triggerId: 'trigger', actionId: 'action' }],
     readAction: async () => ({ _id: 'action', boardId: 'board', ...action }) });
-  f.card = { _id: 'card', boardId: 'board', listId: 'list', swimlaneId: 'lane', title: 'T', sort: 5 };
+  f.card = { _id: 'card', boardId: 'board', listId: 'list', swimlaneId: 'lane', title: 'T', sort: 5, lastMoveReason: 'why' };
   f.context = { plan: f.plan, activity: f.activity, effectId: f.effectId, index: 0 };
-  f.prepare = over => M.prepareRuleMoveCommand({ ...f.context, card: f.card, sorts: [2, 5, 9, Infinity, NaN],
-    createdAt: new Date(1000), ...over });
+  f.prepare = over => M.prepareRuleMoveCommand({ ...f.context, card: f.card,
+    target: { boardId: 'board', listId: 'list', swimlaneId: 'lane', sort: 1 },
+    titles: { listName: 'List', swimlaneName: 'Lane', cardTitle: 'T' }, createdAt: new Date(1000), ...over });
   return f;
 }
+const resum = row => { const { checksum, ...content } = row; return { ...content, checksum: sha256(canonical(content)) }; };
 
-test('the sort is the ordinary action\'s: one past the destination\'s finite bound, 0 when it has none', async () => {
-  const top = (await fixture({ actionType: 'moveCardToTop', ...inPlace })).prepare();
-  assert.deepEqual([top.bound, top.before.sort, top.after.sort], [2, 5, 1]);
-  const bottom = (await fixture({ actionType: 'moveCardToBottom', ...inPlace })).prepare();
-  assert.deepEqual([bottom.bound, bottom.after.sort], [9, 10]);
-  const empty = (await fixture({ actionType: 'moveCardToTop', ...inPlace })).prepare({ sorts: [] });
-  assert.deepEqual([empty.bound, empty.after.sort], [null, -1]);
-  // An unset listName means the card's own list (#6472).
-  const unset = (await fixture({ actionType: 'moveCardToBottom', swimlaneName: '*', boardId: 'board' })).prepare();
-  assert.equal(unset.after.sort, 10);
-});
-
-test('the effects are the hook\'s position row and trackChange\'s legacy row, and nothing else', async () => {
-  const f = await fixture({ actionType: 'moveCardToTop', ...inPlace });
+test('an in-place move changes the sort only: position row and legacy row, no activity', async () => {
+  const f = await fixture({ actionType: 'moveCardToTop', listName: '*', swimlaneName: '*' });
   const command = f.prepare();
+  assert.deepEqual(M.moveModifier(command), { $set: { sort: 1 } });
   const [row] = command.effects.history.rows;
-  assert.equal(command.effects.history.rows.length, 1);
-  // Exactly what the hook writes for the same update.
-  const at = { boardId: 'board', swimlaneId: 'lane', listId: 'list', sort: 5, lastMoveReason: '' };
+  const at = { boardId: 'board', swimlaneId: 'lane', listId: 'list', sort: 5, lastMoveReason: 'why' };
   const hook = positionChange(at, { ...at, sort: 1 }, ['sort']);
-  assert.deepEqual([row.group, row.changeType, row.previousContent, row.newContent],
-    [hook.group, hook.changeType, hook.previousContent, hook.newContent]);
-  assert.equal(row.entityId, 'card');
-  const legacy = command.effects.userPosition;
-  assert.deepEqual([legacy.userId, legacy.boardId, legacy.entityType, legacy.entityId, legacy.actionType],
-    ['actor', 'board', 'card', 'card', 'move']);
-  assert.deepEqual([legacy.previousSort, legacy.newSort, legacy.newListId, legacy.newSwimlaneId], [5, 1, 'list', 'lane']);
-  assert.equal(legacy._id, M.legacyIdFor(command._id), 'a deterministic id is its own receipt');
+  assert.deepEqual([row.group, row.previousContent, row.newContent], [hook.group, hook.previousContent, hook.newContent]);
+  assert.equal(command.effects.move, null, 'an in-place move is not a moveCard');
+  assert.equal(command.after.lastMoveReason, 'why', 'the reason stays when the list does');
+  assert.equal(command.effects.userPosition._id, M.legacyIdFor(command._id));
   assert.deepEqual(M.validateRuleMoveCommand(command, f.context), command);
-  // Already in place: nothing to write, nothing to record.
-  const same = f.prepare({ sorts: [6], card: { ...f.card, sort: 5 } });
-  assert.equal(same.after.sort, 5);
-  assert.deepEqual(same.effects, { history: null, userPosition: null });
+  // Nothing changes: nothing is written, as Card.move returns early.
+  assert.deepEqual(f.prepare({ target: { boardId: 'board', listId: 'list', swimlaneId: 'lane', sort: 5 } }).effects,
+    { history: null, userPosition: null, move: null });
 });
 
-test('negative: moves elsewhere are not this command\'s, and a tampered command is refused', async () => {
-  for (const action of [{ listName: 'Done', swimlaneName: '*', boardId: 'board' },
-    { listName: '*', swimlaneName: 'Other', boardId: 'board' },
-    { listName: '*', swimlaneName: '*', boardId: 'another-board' }]) {
-    const f = await fixture({ actionType: 'moveCardToTop', ...action });
-    assert.throws(() => f.prepare(), /sync-rule-move-invalid/, JSON.stringify(action));
-  }
-  const f = await fixture({ actionType: 'moveCardToTop', ...inPlace });
-  const command = f.prepare();
-  const resum = row => { const { checksum, ...content } = row; return { ...content, checksum: sha256(canonical(content)) }; };
-  assert.throws(() => M.validateRuleMoveCommand(resum({ ...command, after: { sort: 100 } }), f.context), /command-invalid/);
-  assert.throws(() => M.validateRuleMoveCommand(resum({ ...command, bound: 0 }), f.context), /command-invalid/);
-  assert.throws(() => M.validateRuleMoveCommand({ ...command, listId: 'other' }, f.context), /command-invalid/);
-  const forged = resum({ ...command, effects: { ...command.effects,
-    userPosition: { ...command.effects.userPosition, userId: 'someone-else' } } });
+test('a move to another list is Card.move\'s: the reason reset, the moveCard activity, the hook\'s row', async () => {
+  const f = await fixture({ actionType: 'moveCardToBottom', listName: 'Done', swimlaneName: 'Other' });
+  const command = f.prepare({ target: { boardId: 'board', listId: 'done', swimlaneId: 'other', sort: 9 },
+    titles: { listName: 'Done', swimlaneName: 'Other', cardTitle: 'T' } });
+  assert.deepEqual(M.moveModifier(command), { $set: { listId: 'done', lastMoveReason: '', swimlaneId: 'other', sort: 9 } });
+  const activity = command.effects.move.activity;
+  assert.deepEqual([activity.activityType, activity.oldListId, activity.listId, activity.oldSwimlaneId, activity.swimlaneId,
+    activity.listName, activity.moveReason], ['moveCard', 'list', 'done', 'lane', 'other', 'Done', '']);
+  assert.deepEqual(command.effects.history.rows[0].newContent, { boardId: 'board', swimlaneId: 'other', listId: 'done',
+    sort: 9, lastMoveReason: '' });
+  assert.deepEqual(M.validateRuleMoveCommand(command, f.context), command);
+  // A swimlane-only move keeps the reason (Card.move resets it for a list change only).
+  const lane = f.prepare({ target: { boardId: 'board', listId: 'list', swimlaneId: 'other', sort: 5 } });
+  assert.equal(lane.after.lastMoveReason, 'why');
+  assert.equal(lane.effects.move.activity.activityType, 'moveCard');
+});
+
+test('negative: another board, a tampered place, reason or activity are refused', async () => {
+  const f = await fixture({ actionType: 'moveCardToTop', listName: 'Done', swimlaneName: '*' });
+  assert.throws(() => f.prepare({ target: { boardId: 'other', listId: 'x', swimlaneId: 'y', sort: 1 } }), /elsewhere/);
+  const elsewhere = await fixture({ actionType: 'moveCardToTop', listName: 'Done', swimlaneName: '*', boardId: 'other' });
+  assert.throws(() => elsewhere.prepare(), /invalid/);
+  const command = f.prepare({ target: { boardId: 'board', listId: 'done', swimlaneId: 'lane', sort: 2 } });
+  assert.throws(() => M.validateRuleMoveCommand(resum({ ...command, after: { ...command.after, listId: 'x' } }), f.context),
+    /command-invalid/);
+  assert.throws(() => M.validateRuleMoveCommand(resum({ ...command, after: { ...command.after, lastMoveReason: 'kept' } }),
+    f.context), /command-invalid/);
+  const forged = resum({ ...command, effects: { ...command.effects, move: { ...command.effects.move,
+    activity: { ...command.effects.move.activity, userId: 'someone-else' } } } });
   assert.throws(() => M.validateRuleMoveCommand(forged, f.context), /command-invalid/);
-  assert.throws(() => f.prepare({ card: { ...f.card, boardId: 'other' } }), /card-invalid/);
-  // A card with no sort is captured as null and matched as missing-or-null.
-  const unsorted = f.prepare({ card: { ...f.card, sort: undefined } });
-  assert.equal(unsorted.before.sort, null);
-  assert.equal(M.sortSelector(unsorted, null).sort, null);
-  assert.deepEqual(M.sortSelector(command, 5).sort, { $eq: 5 });
 });
 
-test('eligibility: in-place moves are durable, any other move keeps direct Sync', () => {
+test('move-all: each card of the list is a unit with its own move\'s effects', async () => {
+  const f = await fixture({ actionType: 'moveAllCardsInList', fromListName: 'Doing', listName: 'Done' });
+  const cards = [
+    { _id: 'card', boardId: 'board', listId: 'doing', swimlaneId: 'lane', sort: 2, title: 'T' },
+    { _id: 'c2', boardId: 'board', listId: 'doing', swimlaneId: 'lane2', sort: 4, title: 'U', lastMoveReason: 'x' },
+  ];
+  const command = MA.prepareRuleMoveAllCommand({ ...f.context, from: { _id: 'doing', title: 'Doing' },
+    to: { _id: 'done', title: 'Done' }, cards, swimlaneTitles: { lane: 'Lane', lane2: 'Lane 2' }, createdAt: new Date(1000) });
+  assert.deepEqual(command.units.map(u => [u.cardId, u.after.listId, u.after.swimlaneId, u.after.sort, u.after.lastMoveReason]),
+    [['card', 'done', 'lane', 2, ''], ['c2', 'done', 'lane2', 4, '']]);
+  assert.deepEqual(command.units.map(u => u.effects.move.activity.swimlaneName), ['Lane', 'Lane 2']);
+  assert.notEqual(command.units[0].effects.move.receiptId, command.units[1].effects.move.receiptId);
+  assert.deepEqual(MA.validateRuleMoveAllCommand(command, f.context), command);
+  // No list to move from or to: nothing, as the ordinary action.
+  assert.deepEqual(MA.prepareRuleMoveAllCommand({ ...f.context, from: null, to: { _id: 'done' }, createdAt: new Date(1) }).units, []);
+  // Negative: a card from another list, or a tampered unit, is refused.
+  assert.throws(() => MA.prepareRuleMoveAllCommand({ ...f.context, from: { _id: 'doing' }, to: { _id: 'done' },
+    cards: [{ ...cards[0], listId: 'elsewhere' }], createdAt: new Date(1) }), /invalid/);
+  assert.throws(() => MA.validateRuleMoveAllCommand(resum({ ...command,
+    units: [{ ...command.units[0], after: { ...command.units[0].after, sort: 99 } }] }), f.context), /command-invalid/);
+});
+
+test('eligibility and wiring: same-board moves are durable; the guard follows only this plan\'s saved moves', () => {
   const type = action => M.durableRuleActionType(action, 'board');
-  assert.equal(type({ actionType: 'moveCardToTop', ...inPlace }), 'moveCardToTop');
-  assert.equal(type({ actionType: 'moveCardToBottom', swimlaneName: '*' }), 'moveCardToBottom');
-  assert.equal(type({ actionType: 'moveCardToTop', listName: 'Done', swimlaneName: '*' }), 'moveCardToTop:elsewhere');
-  assert.equal(type({ actionType: 'setColor' }), 'setColor');
+  assert.equal(type({ actionType: 'moveCardToTop', listName: 'Done', swimlaneName: 'Other' }), 'moveCardToTop');
+  assert.equal(type({ actionType: 'moveCardToTop', boardId: 'other' }), 'moveCardToTop:elsewhere');
+  assert.equal(type({ actionType: 'moveAllCardsInList' }), 'moveAllCardsInList');
+  assert.equal(type({ actionType: 'moveAllCardsInList', boardId: 'other' }), 'moveAllCardsInList:elsewhere');
+  for (const action of [...M.RULE_MOVE_ACTIONS, 'moveAllCardsInList']) assert.ok(DURABLE_RULE_ACTIONS.has(action), action);
   const base = { list: { syncRevision: 'r', syncCredentialIncarnation: 'i' }, board: { syncEffectsEnabled: true },
     trigger: 'manual', actorId: 'actor', flags: {} };
-  assert.deepEqual(durableSyncEligibility({ ...base, ruleActionTypes: [type({ actionType: 'moveCardToTop', ...inPlace })] }),
-    { eligible: true, reason: null });
-  assert.deepEqual(durableSyncEligibility({ ...base,
-    ruleActionTypes: [type({ actionType: 'moveCardToTop', listName: 'Done', swimlaneName: '*' })] }),
-  { eligible: false, reason: 'rule-actions' });
-  // Every durable type has a runner, and every move type is checked by place.
-  for (const action of M.RULE_MOVE_ACTIONS) assert.ok(DURABLE_RULE_ACTIONS.has(action));
+  assert.deepEqual(durableSyncEligibility({ ...base, ruleActionTypes: ['moveCardToTop:elsewhere'] }),
+    { eligible: false, reason: 'rule-actions' });
   const plans = fs.readFileSync(path.join(ROOT, 'server/notifications/storedRulePlans.js'), 'utf8');
-  assert.match(plans, /RULE_MOVE_ACTIONS\.map\(type => \[type, \(\{ invocation \}\) =>\s*runStoredSyncRuleMove/);
-  const application = fs.readFileSync(path.join(ROOT, 'server/lib/listSyncApplication.js'), 'utf8');
-  assert.match(application, /actions\.map\(action => durableRuleActionType\(action, list\.boardId\)\)/);
-  assert.ok(!/actions\.map\(action => action\.actionType\)/.test(application), 'no eligibility by type alone');
+  // The guard: the activity's list, or where a saved move of THIS plan put the card - nowhere else.
+  assert.match(plans, /const card = found && \(found\.listId === saved\.listId \|\|\s*await movedByThisPlan\(rulePlanId\(effectId, saved\._id\), saved\.cardId, found\)\) \? found : null;/);
+  assert.match(plans, /SyncRuleMoveCommands\.rawCollection\(\)\.findOne\(\{ planId: planIdValue, cardId,\s*'after\.listId': card\.listId, 'after\.swimlaneId': card\.swimlaneId \}/);
+  assert.ok(!/Cards\.findOneAsync\(\{ _id: saved\.cardId, boardId: saved\.boardId, listId: saved\.listId \}\)/.test(plans),
+    'no second guard that still pins the list (negative)');
+  // One target for both paths.
+  const rules = fs.readFileSync(path.join(ROOT, 'server/rulesHelper.js'), 'utf8');
+  assert.match(rules, /const target = await this\.moveCardTarget\(activity, card, action\);/);
+  assert.match(plans, /RulesHelper\.moveCardTarget\(context\.saved, card, action\)/);
+  // The moveCard hook is deferred only for a scope that names the move.
+  assert.match(fs.readFileSync(path.join(ROOT, 'server/models/cards.js'), 'utf8'),
+    /if \(deferSyncRecording\('move', doc\)\) return;\s*await cardMove\(/);
 });
 
 test('negative: only a scope that names the move defers the hook\'s position row', () => {

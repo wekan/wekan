@@ -12,8 +12,8 @@ import Rules from '/models/rules';
 import Triggers from '/models/triggers';
 import Actions from '/models/actions';
 import { runStoredSyncRules, SyncRuleMoveCommands, SyncRuleSortListCommands, SyncRuleCreateCardCommands,
-  SyncRuleLinkCardCommands, SyncRuleAddSwimlaneCommands, SyncRulePlans, SyncRuleReceipts, SyncRuleCompletions }
-  from '/server/notifications/storedRulePlans';
+  SyncRuleLinkCardCommands, SyncRuleAddSwimlaneCommands, SyncRuleMoveAllCommands, SyncRuleCardCommands, SyncRulePlans,
+  SyncRuleReceipts, SyncRuleCompletions } from '/server/notifications/storedRulePlans';
 
 // Durable rule moves (maintainer decision of 2026-10-02): a "move to top"
 // rule run through the stored rule stage writes the sort, the hook's
@@ -263,5 +263,109 @@ describe('Stored Sync rule moves', function () {
       await Swimlanes.rawCollection().deleteMany({ boardId });
       await Boards.rawCollection().deleteMany({ _id: boardId }); await Meteor.users.rawCollection().deleteMany({ _id: actor });
     }
+  });
+
+  // Maintainer decision of 2026-10-02: the guard follows a move the same rule
+  // plan saved. A move to another list, then a second action of the same rule
+  // on the moved card - which only runs if the guard follows it.
+  async function moveFixture(tag) {
+    const ids = { actor: Random.id(), boardId: Random.id(), listId: Random.id(), doneId: Random.id(), laneId: Random.id(),
+      cardId: Random.id(), activityId: Random.id() };
+    await Meteor.users.rawCollection().insertOne({ _id: ids.actor, username: `${tag}-${ids.actor}` });
+    await Boards.rawCollection().insertOne({ _id: ids.boardId, syncEffectsEnabled: true, title: 'Board',
+      members: [{ userId: ids.actor, isAdmin: true, isActive: true }] });
+    await Swimlanes.rawCollection().insertOne({ _id: ids.laneId, boardId: ids.boardId, title: 'Lane', sort: 0, archived: false });
+    await Lists.rawCollection().insertMany([{ _id: ids.listId, boardId: ids.boardId, title: 'Doing', archived: false },
+      { _id: ids.doneId, boardId: ids.boardId, title: 'Done', archived: false }]);
+    await Cards.rawCollection().insertOne({ _id: ids.cardId, boardId: ids.boardId, listId: ids.listId, swimlaneId: ids.laneId,
+      title: 'Pump', sort: 3, archived: false, lastMoveReason: 'old reason' });
+    ids.activity = { _id: ids.activityId, activityType: 'createCard', boardId: ids.boardId, listId: ids.listId,
+      cardId: ids.cardId, userId: ids.actor, cardTitle: 'Pump', listName: 'Doing', swimlaneName: 'Lane',
+      createdAt: new Date(1000), modifiedAt: new Date(1000) };
+    await Activities.rawCollection().insertOne(ids.activity);
+    return ids;
+  }
+  async function cleanupMove(ids, input) {
+    const plans = await SyncRulePlans.rawCollection().find({ 'plan.boardId': ids.boardId }, { projection: { _id: 1 } }).toArray();
+    await SyncRuleCompletions.rawCollection().deleteMany({ _id: { $in: plans.map(row => row._id) } });
+    await SyncRuleReceipts.rawCollection().deleteMany({ effectId: input.effectId });
+    await SyncRulePlans.rawCollection().deleteMany({ 'plan.boardId': ids.boardId });
+    for (const collection of [SyncRuleMoveCommands, SyncRuleMoveAllCommands, SyncRuleCardCommands]) {
+      await collection.rawCollection().deleteMany({ boardId: ids.boardId });
+    }
+    for (const collection of [Rules, Triggers, Actions]) await collection.rawCollection().deleteMany({ boardId: ids.boardId });
+    await UserPositionHistory.rawCollection().deleteMany({ boardId: ids.boardId });
+    await ChangeHistory.rawCollection().deleteMany({ boardId: ids.boardId });
+    await Activities.rawCollection().deleteMany({ boardId: ids.boardId });
+    await Cards.rawCollection().deleteMany({ boardId: ids.boardId }); await Lists.rawCollection().deleteMany({ boardId: ids.boardId });
+    await Swimlanes.rawCollection().deleteMany({ boardId: ids.boardId });
+    await Boards.rawCollection().deleteMany({ _id: ids.boardId }); await Meteor.users.rawCollection().deleteMany({ _id: ids.actor });
+  }
+
+  it('moves the card to another list and the same rule acts on it there, once', async function () {
+    if (!Meteor.isAppTest) this.skip();
+    const ids = await moveFixture('move-list');
+    const input = { activity: ids.activity, effectId: '3'.repeat(64), policy: { activities: true, notifications: true },
+      trigger: 'manual', assertCurrent: async () => {} };
+    try {
+      const moveId = Random.id(), colorId = Random.id(), triggerId = Random.id();
+      await Actions.rawCollection().insertMany([
+        { _id: moveId, boardId: ids.boardId, actionType: 'moveCardToBottom', listName: 'Done', swimlaneName: '*' },
+        { _id: colorId, boardId: ids.boardId, actionType: 'setColor', selectedColor: 'green' },
+      ]);
+      // Only the triggering card's creation in Doing runs this rule.
+      await Triggers.rawCollection().insertOne({ _id: triggerId, boardId: ids.boardId, activityType: 'createCard', listName: 'Doing', userId: '*', swimlaneName: '*', cardTitle: '*' });
+      await Rules.rawCollection().insertOne({ _id: Random.id(), boardId: ids.boardId, triggerId, actionId: moveId,
+        extraActionIds: [colorId], enabled: true, title: 'Done and green' });
+
+      assert.equal(await runStoredSyncRules(input), input.effectId);
+      const card = await Cards.rawCollection().findOne({ _id: ids.cardId });
+      // An empty reason is cleaned to "unset", as Card.move's own update is.
+      assert.deepEqual([card.listId, card.lastMoveReason ?? '', card.color], [ids.doneId, '', 'green'],
+        'moved, the reason reset, and the second action ran on the moved card');
+      assert.ok(card.listEnteredAt instanceof Date, 'the list-entry hook ran');
+      assert.equal(await Activities.rawCollection().countDocuments({ cardId: ids.cardId, activityType: 'moveCard' }), 1,
+        "the moveCard activity once, not the hook's and the command's");
+      assert.equal(await ChangeHistory.rawCollection().countDocuments({ entityId: ids.cardId, group: 'position' }), 1);
+      assert.equal(await UserPositionHistory.rawCollection().countDocuments({ entityId: ids.cardId }), 1);
+      assert.equal(await runStoredSyncRules(input), input.effectId, 'replay');
+      assert.equal(await Activities.rawCollection().countDocuments({ cardId: ids.cardId, activityType: 'moveCard' }), 1);
+      assert.equal(await ChangeHistory.rawCollection().countDocuments({ entityId: ids.cardId, group: 'position' }), 1);
+      // Negative: a card moved by anyone else is not followed - the guard refuses.
+      await Cards.rawCollection().updateOne({ _id: ids.cardId }, { $set: { listId: ids.listId } });
+      await Lists.rawCollection().insertOne({ _id: 'elsewhere-' + ids.boardId, boardId: ids.boardId, title: 'Elsewhere' });
+      await Cards.rawCollection().updateOne({ _id: ids.cardId }, { $set: { listId: 'elsewhere-' + ids.boardId } });
+      await assert.rejects(runStoredSyncRules({ ...input, effectId: '4'.repeat(64) }), /context-denied/);
+    } finally { await cleanupMove(ids, input); }
+  });
+
+  it('moves every card of a list, the rule card among them, once each', async function () {
+    if (!Meteor.isAppTest) this.skip();
+    const ids = await moveFixture('move-all');
+    const input = { activity: ids.activity, effectId: '5'.repeat(64), policy: { activities: true, notifications: true },
+      trigger: 'manual', assertCurrent: async () => {} };
+    try {
+      const otherId = Random.id();
+      await Cards.rawCollection().insertOne({ _id: otherId, boardId: ids.boardId, listId: ids.listId, swimlaneId: ids.laneId,
+        title: 'Seal', sort: 7, archived: false });
+      const moveAllId = Random.id(), colorId = Random.id(), triggerId = Random.id();
+      await Actions.rawCollection().insertMany([
+        { _id: moveAllId, boardId: ids.boardId, actionType: 'moveAllCardsInList', fromListName: 'Doing', listName: 'Done' },
+        { _id: colorId, boardId: ids.boardId, actionType: 'setColor', selectedColor: 'blue' },
+      ]);
+      await Triggers.rawCollection().insertOne({ _id: triggerId, boardId: ids.boardId, activityType: 'createCard', listName: 'Doing', userId: '*', swimlaneName: '*', cardTitle: '*' });
+      await Rules.rawCollection().insertOne({ _id: Random.id(), boardId: ids.boardId, triggerId, actionId: moveAllId,
+        extraActionIds: [colorId], enabled: true, title: 'All done' });
+
+      assert.equal(await runStoredSyncRules(input), input.effectId);
+      const moved = await Cards.rawCollection().find({ boardId: ids.boardId }).sort({ sort: 1 }).toArray();
+      assert.deepEqual(moved.map(card => [card.title, card.listId === ids.doneId, card.sort]), [['Pump', true, 3], ['Seal', true, 7]],
+        'each keeps its swimlane and sort');
+      assert.equal(moved.find(card => card._id === ids.cardId).color, 'blue', 'the guard followed the rule card');
+      assert.equal(await Activities.rawCollection().countDocuments({ boardId: ids.boardId, activityType: 'moveCard' }), 2);
+      assert.equal(await runStoredSyncRules(input), input.effectId, 'replay');
+      assert.equal(await Activities.rawCollection().countDocuments({ boardId: ids.boardId, activityType: 'moveCard' }), 2);
+      assert.equal(await ChangeHistory.rawCollection().countDocuments({ boardId: ids.boardId, group: 'position' }), 2);
+    } finally { await cleanupMove(ids, input); }
   });
 });

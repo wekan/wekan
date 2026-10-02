@@ -1018,6 +1018,8 @@ Cards.after.update(async function(userId, doc, fieldNames) {
   const oldListId = previous.listId || doc.listId;
   const oldSwimlaneId = previous.swimlaneId || doc.swimlaneId;
   const oldBoardId = previous.boardId || doc.boardId;
+  // A durable rule move writes its moveCard activity from its saved command.
+  if (deferSyncRecording('move', doc)) return;
   await cardMove(userId, doc, fieldNames, oldListId, oldSwimlaneId, oldBoardId);
 });
 
