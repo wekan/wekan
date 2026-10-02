@@ -152,6 +152,7 @@ template(name="scrumView")
             if selectedSprint
               +scrumReportTable(rows=sprintReportRows)
               +scrumDailyHistory(sprintId=selectedSprint._id)
+              +scrumScopeHistory(sprintId=selectedSprint._id)
             else
               p {{_ 'scrum-select-sprint'}}
           else

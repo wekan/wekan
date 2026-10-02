@@ -1,0 +1,31 @@
+template(name="scrumScopeHistory")
+  section.scrum-scope-history
+    h3 {{_ 'scrum-scope-history'}}
+    p {{_ 'scrum-scope-history-help'}}
+    if error
+      p.warning(role="alert") {{error}}
+    else
+      if history
+        if history.partial
+          p.scrum-partial-report {{_ 'scrum-partial-report'}}
+        if inconsistent
+          p.warning.js-scrum-scope-inconsistent {{_ 'scrum-scope-history-inconsistent'}}
+        if history.truncated
+          p.warning {{_ 'scrum-scope-history-truncated'}}
+        if rows.length
+          section.scrum-chart
+            p {{history.unit}}
+            each rows
+              figure.scrum-chart-row.scrum-scope-row
+                figcaption
+                  time(datetime=atLabel) {{atLabel}}
+                  |  {{_ cause}}
+                each series
+                  .scrum-chart-series
+                    span.scrum-chart-label {{label}}: {{value}}
+                    .scrum-chart-track(aria-hidden="true")
+                      .scrum-chart-bar(class=key style="width: {{width}}%")
+        else
+          p {{_ 'scrum-scope-history-empty'}}
+      else
+        p(role="status") {{_ 'loading'}}

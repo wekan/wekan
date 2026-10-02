@@ -579,6 +579,50 @@
     {
       "key": "sync-estimate-field-gitlab-hint",
       "since": "2026-10-02"
+    },
+    {
+      "key": "scrum-scope-history",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "scrum-scope-history-help",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "scrum-scope-history-inconsistent",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "scrum-scope-history-truncated",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "scrum-scope-history-empty",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "scrum-scope-cause-start",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "scrum-scope-cause-scrum",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "scrum-scope-cause-customFields",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "scrum-scope-cause-dates",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "scrum-scope-cause-position",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "scrum-scope-cause-lifecycle",
+      "since": "2026-10-02"
     }
   ]
 }

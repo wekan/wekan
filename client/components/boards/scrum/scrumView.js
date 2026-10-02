@@ -1,6 +1,7 @@
 import './scrumView.jade';
 import './scrumView.css';
 import './scrumDailyHistory';
+import './scrumScopeHistory';
 import { invalidateScrumNames } from './scrumFields';
 import { Template } from 'meteor/templating';
 import { Meteor } from 'meteor/meteor';

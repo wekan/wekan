@@ -20,6 +20,8 @@ import { canUpdateCard } from '/server/permissions/cards';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 const { assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 const { dailyHistoryRows } = require('/models/lib/scrumDailyHistory');
+const { replaySprintScope, changesOf: scopeChangesOf, MAX_SCOPE_REPLAY_ROWS } = require('/models/lib/scrumScopeReplay');
+import ChangeHistory from '/models/changeHistory';
 const { DEFAULT_SCRUM_SETTINGS, normalizeScrumSettings, normalizeScrumMetadata,
   normalizeScrumRecord, sprintSnapshot, scrumRevisionSelector, validateScrumRevision } = require('/models/lib/scrum');
 
@@ -267,9 +269,48 @@ export async function getScrumDailyHistory(userId, boardId, sprintId) {
   } finally { await cursor.close(); }
   return { rows: rows.reverse(), partial, truncated, sprintName: sprint.name };
 }
+// Every recorded change to a started sprint's scope, estimates and completed
+// work, replayed from History (models/lib/scrumScopeReplay.js). The cards are
+// every card the sprint held at its start, holds now, or held in between.
+export async function getScrumScopeHistory(userId, boardId, sprintId) {
+  check(boardId, String); check(sprintId, String);
+  if (!sprintId || sprintId.length > 200) invalid('Invalid sprint identifier');
+  const board = await boardFor(userId, boardId);
+  await assertNoPendingScrumImport(boardId);
+  const sprint = await ScrumSprints.findOneAsync({ _id: sprintId, boardId });
+  if (!sprint) throw new Meteor.Error('not-found');
+  const partial = !!assignedOnlyCardScope(board, userId);
+  if (!sprint.startSnapshot || !(sprint.startedAt instanceof Date)) return { points: [], partial, sprintName: sprint.name };
+  const raw = ChangeHistory.rawCollection();
+  const since = { $gte: sprint.startedAt };
+  const ids = new Set(sprint.startSnapshot.cards.map(row => row.cardId));
+  for (const card of await Cards.find({ boardId, 'scrum.sprintId': sprintId }, { fields: { _id: 1 }, limit: 10001 }).fetchAsync()) {
+    ids.add(card._id);
+  }
+  const scrumRows = await raw.find({ boardId, group: 'scrum', createdAt: since },
+    { sort: { createdAt: 1 }, limit: MAX_SCOPE_REPLAY_ROWS + 1 }).toArray();
+  for (const row of scrumRows) {
+    for (const [cardId, , before, after] of scopeChangesOf(row)) if (before === sprintId || after === sprintId) ids.add(cardId);
+  }
+  if (ids.size > 10000) invalid('Sprint scope history exceeds its card limit');
+  const visible = partial ? new Set((await Cards.find(cardSelector(board, userId), { fields: { _id: 1 }, limit: 10001 })
+    .fetchAsync()).map(card => card._id)) : null;
+  const cardIds = [...ids].filter(id => !visible || visible.has(id));
+  const cards = await Cards.find({ _id: { $in: cardIds } }, { fields: { scrum: 1, customFields: 1, poker: 1,
+    dueComplete: 1, listId: 1, archived: 1 }, transform: null }).fetchAsync();
+  const fieldRows = await raw.find({ boardId, entityType: 'card', entityId: { $in: cardIds },
+    group: { $in: ['customFields', 'dates', 'position', 'lifecycle'] }, createdAt: since },
+  { sort: { createdAt: 1 }, limit: MAX_SCOPE_REPLAY_ROWS + 1 }).toArray();
+  const lists = await Lists.find({ boardId, 'scrum.category': 'done' }, { fields: { _id: 1 } }).fetchAsync();
+  const rows = [...scrumRows, ...fieldRows];
+  const result = replaySprintScope({ sprint, cards, rows, doneListIds: lists.map(list => list._id), now: new Date() });
+  return { ...result, truncated: result.truncated || scrumRows.length > MAX_SCOPE_REPLAY_ROWS ||
+    fieldRows.length > MAX_SCOPE_REPLAY_ROWS, partial, sprintName: sprint.name };
+}
 const methods = {
   async 'scrum.getBoardData'(boardId) { check(boardId, String); return getScrumBoardData(this.userId, boardId); },
   async 'scrum.getDailyHistory'(boardId, sprintId) { return getScrumDailyHistory(this.userId, boardId, sprintId); },
+  async 'scrum.getScopeHistory'(boardId, sprintId) { return getScrumScopeHistory(this.userId, boardId, sprintId); },
   async 'scrum.configure'(boardId, changes, expectedRevision = null) {
     check(boardId, String); check(changes, Object); check(expectedRevision, Match.OneOf(Number, null));
     return locked(boardId, async () => {
