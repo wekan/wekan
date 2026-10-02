@@ -4076,6 +4076,16 @@ and the broader translation backlog remain.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/13489d56e8">Translate continuous backup into Catalan, Galician and Basque</a>. Thanks to xet7.</summary>
+
+Fill 175 English placeholders across five catalogs while preserving existing
+translations, source order and exact tokens. Extend checks for restore boundaries,
+protection of the live database file and time units. Four focused catalog suites
+and all 21 human-preference checks pass. Other languages and the broader backlog remain.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
