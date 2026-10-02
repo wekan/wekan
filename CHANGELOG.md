@@ -95,21 +95,20 @@ remains below is blocked for one of three stated reasons, not left unexamined:
 - **Architectural Scrum/Sync work.** Operator recovery for legacy rule emails
   and online SMTP resolution (#2713), the Sync activation switches, Sync
   History admission through the History gate and Scrum worker serialization
-  are built (see "Pass of 2026-09-30" below). What remains all waits on one
-  missing piece, a board History reservation that spans many rows and that
-  ordinary writers respect, and on the design question recorded there.
+  are built (see "Pass of 2026-09-30" below). The board History reservation
+  this once waited on was decided and built on 2026-09-30 as rows linked at
+  write; the Scrum items still open are listed under "Remaining, and why".
 
 **Paused for a release on 2026-09-29 - in progress, not in this release:**
 
-- **Failing suites not yet fixed:** `calendarDateDisplay`,
-  `multilineTitles` and `pomodoroTimer` wait for the locale files to follow
-  `en.i18n.json`'s key order, which is the translation agent's work; they pass
-  or fail with the locale files as that work moves.
+- **Failing suites, fixed since:** `calendarDateDisplay`, `multilineTitles`
+  and `pomodoroTimer` waited for the locale files to follow `en.i18n.json`'s
+  key order; all three pass as of 2026-10-02.
 - **Checked:** `SamlAccountMergeBleed` needs no Hall of Fame page: SAML
   refused that merge from its first commit, so it is a detection category
   like `CanaryBleed`, not a fixed vulnerability.
-- **Decisions not yet built:** the multi-row History reservation that the
-  Scrum/Sync journal work waits on (see "Pass of 2026-09-30").
+- **Decisions built since:** the History reservation was decided as rows
+  linked at write and built on 2026-09-30 (see the second pass below).
 - **Intermittent import spec - not reproduced.** On 2026-09-30 all seven
   import specs ran four times against a production bundle with no failures
   (204 case runs). Every failure seen that day came from a `meteor run`
@@ -247,6 +246,20 @@ Remaining, and why:
     server/lib/syncNotificationPlan.js). No rule trigger exists for either, so
     only their notifications and webhooks are not replayed after a crash.
     Board-level activities need that identity generalised first.
+- **Scrum requirements still open** (from
+  [the Scrum design](docs/Features/Right-Sidebar/Board-Settings/Board-View/Scrum-Design.md),
+  being worked through one at a time; each is checked against the code before
+  it is built, since the design's own list may lag behind it):
+  - event-level scope history and burndown (daily observations exist);
+  - large boards: board-view pagination, plans larger than one document's
+    BSON budget, and concurrent snapshot consistency;
+  - copying and moving planning records (sprints, releases) on their own,
+    between boards;
+  - Jira sprint, epic, version and rank mapping, automatic discovery of its
+    estimate fields, and estimate Sync mappings for the other providers;
+  - interrupted native imports: online replay and partial-plan
+    reconstruction;
+  - History and undo carried along by board transfer.
 - **Atomicity.** Cards, History, activities and effects are coordinated by the
   write-ahead journal and replay, not by a transaction. The FerretDB v1 backend
   has no multi-document transactions, and journal ownership cannot fence a
@@ -322,6 +335,11 @@ held only issues \#4774 and \#4055, and both are closed now.
 <details>
 <summary>Active implementation checkpoint: Scrum, Sync and rule email recovery.</summary>
 
+A dated checkpoint, kept as history. Later passes in "Carried to a future
+release" above supersede its "unfinished" notes: the recovery notice,
+cross-document coordination through the journal, durable rule adapters and
+manual/cron activation are built; what is still open is listed there.
+
 Scrum History now persists private immutable completion receipts before
 checkpoint cleanup. The internal finalizer can reconcile an uncertain cleanup
 read from its original operation identity without repeating History writes,
@@ -374,6 +392,11 @@ A cause specific to MongoDB or legacy data has not been established.
 
 <details>
 <summary>Scrum and Sync resumed; remaining development handoff.</summary>
+
+A dated development log, kept as history: many of its "unfinished" notes were
+finished by later passes (durable Sync, startup replay, writer coordination,
+activation). The Scrum requirements it still lists as open are carried in
+"Remaining, and why" in "Carried to a future release" above.
 
 Scrum and Sync development resumed at the maintainer's request on 2026-09-27
 after the release pause, followed by the remaining non-translation work.
