@@ -3987,6 +3987,18 @@ and all 21 human-preference checks pass. Other languages and the broader backlog
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9d7ce94e10">Translate continuous backup into Ukrainian and Russian</a>. Thanks to xet7.</summary>
+
+Fill 175 English placeholders across five catalogs, including regional variants
+and the existing Russian locale alias. Preserve existing translations, source order
+and exact tokens. Extend checks for restore boundaries, protection of the live
+database file, time units and distinct Ukrainian and Russian vocabulary. Four focused
+catalog suites and all 21 human-preference checks pass. Other languages and the
+broader translation backlog remain.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
