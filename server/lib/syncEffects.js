@@ -95,7 +95,16 @@ async function applySyncEffectsStep({ cards, history, activities, step, effects,
   if (typeof userId !== 'string' || !userId || plan.history.userId !== userId) fail();
   const options = { history, activities, plan, step: savedStep, effectId, assertCurrent, completeDelivery, readPolicy };
   const guard = createEffectGuard(options);
+  // The step's write is confirmed before any of its activities is stored, and
+  // the rules they run may move or archive the card afterwards
+  // (syncOperationApply.js effectsStarted).
+  const planned = !planPolicy(plan).activities ? []
+    : step.kind === 'create' ? [plan.activities.activity._id] : plan.activities.rows.map(row => row.activity._id);
+  const effectsStarted = async () => {
+    for (const id of planned) if (await activities.findOneAsync(id)) return true;
+    return false;
+  };
   return applySyncOperationStep({ cards, step: savedStep, operationId, index, assertCurrent: guard,
-    completeEffects: () => persistSyncEffects(options) });
+    completeEffects: () => persistSyncEffects(options), effectsStarted });
 }
 module.exports = { createSyncEffectPlanner, validateSyncEffects, persistSyncEffects, applySyncEffectsStep };

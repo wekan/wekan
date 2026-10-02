@@ -74,3 +74,33 @@ test('failed confirmation reads retain the write error and do not acknowledge ef
   await assert.rejects(applySyncOperationStep(args), error => error === failure);
   assert.equal(state.effects, 0);
 });
+// A step's planned activities are stored only after its write is confirmed,
+// and their rules may move or archive the card (durable rule moves and
+// archive). A replay after an interruption there finds the card at neither
+// state: it must finish the effects, not retry a write that can never be
+// confirmed - which used to fail the operation on every replay.
+test('a replay after the step\'s effects began finishes them even when a rule moved the card', async () => {
+  const { state, args } = fixture();
+  args.completeEffects = async ({ effectId }) => {
+    state.effects++;
+    state.row = { ...state.row, listId: 'moved-by-a-rule' };
+    if (state.effects === 1) throw new Error('interrupted during the rule');
+    return effectId;
+  };
+  let started = false;
+  args.effectsStarted = async () => started;
+  await assert.rejects(applySyncOperationStep(args), /interrupted during the rule/);
+  // Negative: without evidence that the effects began, a card at neither
+  // state is a conflict, never acknowledged.
+  await assert.rejects(applySyncOperationStep(args), /local-state-changed/);
+  assert.equal(state.effects, 1);
+  started = true;
+  assert.equal(await applySyncOperationStep(args), 'already-applied');
+  assert.deepEqual([state.writes, state.effects], [1, 2], 'no second write; the effects finished');
+  await assert.rejects(applySyncOperationStep({ ...args, effectsStarted: 'yes' }), /invalid-sync-operation-adapter/);
+});
+test('wiring: the effects step tells the journal whether its activities were stored', () => {
+  const src = require('node:fs').readFileSync(require('node:path').join(__dirname, '../server/lib/syncEffects.js'), 'utf8');
+  assert.match(src, /step\.kind === 'create' \? \[plan\.activities\.activity\._id\] : plan\.activities\.rows\.map\(row => row\.activity\._id\)/);
+  assert.match(src, /completeEffects: \(\) => persistSyncEffects\(options\), effectsStarted \}\);/);
+});

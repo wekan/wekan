@@ -136,3 +136,24 @@ test('negative: only a scope that names the move defers the hook\'s position row
       async () => assert.equal(deferSyncRecording('history', doc, ['position']), true)),
   ]);
 });
+
+// An activity's notifications and webhooks are delivered after its rules ran,
+// so a rule that moved the card must not make them refuse it - in a normal run
+// or a replay (2026-10-02).
+test('delivery stages find the card where the activity\'s own rules moved it, and nowhere else', () => {
+  const read = file => fs.readFileSync(path.join(ROOT, file), 'utf8');
+  const plans = read('server/notifications/storedRulePlans.js');
+  assert.match(plans, /export async function activityCardNow\(saved\) \{\n  const card = await Cards\.findOneAsync\(\{ _id: saved\.cardId, boardId: saved\.boardId \}\);\n  if \(!card \|\| card\.listId === saved\.listId\) return card \|\| null;/);
+  assert.match(plans, /find\(\{ 'plan\.activityId': saved\._id \}[\s\S]{0,200}movedByThisPlan\(_id, saved\.cardId, card\)/);
+  for (const file of ['server/notifications/storedDelivery.js', 'server/notifications/storedWebhooks.js']) {
+    const src = read(file);
+    assert.match(src, /require\('\.\/storedRulePlans'\)\.activityCardNow\(saved\)/, file);
+    // Negative: no stage still pins the card to the activity's list.
+    assert.ok(!/Cards\.findOneAsync\(\{ _id: saved\.cardId, boardId: saved\.boardId, listId: saved\.listId \}\)/.test(src), file);
+  }
+  for (const file of ['server/notifications/prepareDelivery.js', 'server/notifications/prepareWebhooks.js']) {
+    const src = read(file);
+    assert.match(src, /\(saved\.listId && await moved\(\)\)/, file);
+    assert.ok(!/context\.card\.listId !== saved\.listId\)\)\)/.test(src), file);
+  }
+});

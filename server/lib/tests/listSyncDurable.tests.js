@@ -171,6 +171,38 @@ describe('Durable list Sync', function () {
       assert.equal(await ChangeHistory.find({ cardId: sixth._id, group: 'members' }).countAsync(), 1, 'one members History row');
       await Rules.rawCollection().deleteMany({ boardId }); await Triggers.rawCollection().deleteMany({ boardId });
 
+      // A rule that moves the new card out of the synced list, interrupted
+      // after the move (2026-10-02): the card is then at neither of the Sync
+      // step's states, so the replay must finish the step's effects rather than
+      // retry its write, which could never be confirmed.
+      const doneId = Random.id(), moveActionId = Random.id(), moveTriggerId = Random.id();
+      await Lists.rawCollection().insertOne({ _id: doneId, boardId, title: 'Done', archived: false, sort: 1, swimlaneId: laneId });
+      await Actions.rawCollection().insertOne({ _id: moveActionId, actionType: 'moveCardToBottom', listName: 'Done',
+        swimlaneName: '*', boardId, desc: 'done' });
+      await Triggers.rawCollection().insertOne({ _id: moveTriggerId, activityType: 'createCard', boardId,
+        listName: 'Watched', userId: '*', swimlaneName: '*', cardTitle: '*', desc: 'created' });
+      await Rules.rawCollection().insertOne({ _id: Random.id(), title: 'done', triggerId: moveTriggerId, actionId: moveActionId, boardId });
+      const originalActivityInsert = Activities.insertAsync;
+      let crashed = false;
+      Activities.insertAsync = async function (doc, ...rest) {
+        if (!crashed && doc && doc.activityType === 'moveCard') { crashed = true; throw new Error('injected crash'); }
+        return originalActivityInsert.call(this, doc, ...rest);
+      };
+      issues = [issue('P-1', 'First renamed'), issue('P-7', 'Moved by rule')];
+      let movedRun;
+      try { movedRun = await run(); } finally { Activities.insertAsync = originalActivityInsert; }
+      assert.ok(crashed, 'the crash came after the move');
+      assert.match(movedRun.error, /resumes automatically/);
+      const movedReplay = await replayStoredListSync();
+      assert.ok(movedReplay.resumed >= 1, JSON.stringify(movedReplay));
+      const seventh = await Cards.rawCollection().findOne({ boardId, syncExternalId: 'P-7' });
+      assert.equal(seventh.listId, doneId, 'moved once by the rule');
+      assert.equal(await Cards.rawCollection().countDocuments({ boardId, syncExternalId: 'P-7' }), 1, 'no duplicate');
+      assert.equal(await Activities.find({ cardId: seventh._id, activityType: 'moveCard' }).countAsync(), 1);
+      assert.equal(await collection('listSyncOperations').countDocuments({ _id: listId }), 0, 'the run completed');
+      await Rules.rawCollection().deleteMany({ boardId }); await Triggers.rawCollection().deleteMany({ boardId });
+      await collection('listSyncRuleMoveCommands').deleteMany({ boardId });
+
       // A rule action without a durable adapter keeps the direct path: since
       // 2026-10-02 every action on the card's own board has one, so a move to
       // ANOTHER board stands for it.

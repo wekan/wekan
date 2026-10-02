@@ -67,7 +67,8 @@ function storedWebhookContext({ activity, policy, assertCurrent, trigger }) {
     const [stored, board, card, list, user] = await Promise.all([
       Activities.findOneAsync(saved._id, { transform: null }),
       Boards.findOneAsync(saved.boardId),
-      Cards.findOneAsync({ _id: saved.cardId, boardId: saved.boardId, listId: saved.listId }),
+      // The card in the activity's list, or where its own rules moved it.
+      require('./storedRulePlans').activityCardNow(saved),
       Lists.findOneAsync({ _id: saved.listId, boardId: saved.boardId }, { fields: { _id: 1 } }),
       Meteor.users.findOneAsync(saved.userId),
     ]);

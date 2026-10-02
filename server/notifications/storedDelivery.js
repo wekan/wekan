@@ -53,7 +53,8 @@ export async function runStoredSyncNotifications({ activity, policy, assertCurre
   validateSyncTrigger(trigger);
   async function context() {
     const [board,card,list] = await Promise.all([
-      Boards.findOneAsync(saved.boardId), Cards.findOneAsync({ _id: saved.cardId, boardId: saved.boardId, listId: saved.listId }),
+      // Lazy: storedRulePlans.js delivers through this module.
+      Boards.findOneAsync(saved.boardId), require('./storedRulePlans').activityCardNow(saved),
       Lists.findOneAsync({ _id: saved.listId, boardId: saved.boardId }),
     ]);
     if (!board || !card || !list) throw new Error('sync-notification-context-unavailable');

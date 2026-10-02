@@ -153,7 +153,11 @@ export async function replayStoredListSync() {
       if (outcome?.discarded) result.discarded++; else if (outcome) result.resumed++;
     } catch (error) {
       if (error?.error === 'sync-busy') result.busy++;
-      else result.failed++;
+      else {
+        result.failed++;
+        // Kept for the next pass; say why, or a stuck replay is invisible.
+        console.error('List Sync replay failed; it is retried on the next pass:', error?.message || error);
+      }
     }
   }
   return result;

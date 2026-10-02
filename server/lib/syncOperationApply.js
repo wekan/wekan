@@ -15,10 +15,21 @@ function syncOperationEffectId(operationId, index) {
 // completeEffects must durably finish/reuse the operation's History, activity
 // and downstream effects, then return this exact effectId. A matching card is
 // never evidence of their completion. No production caller is enabled yet.
-async function applySyncOperationStep({ cards, step, operationId, index, assertCurrent, completeEffects }) {
+//
+// `effectsStarted` (optional) says whether this step's effects have begun - one
+// of its planned activities is stored. Those are written only after the card
+// write is confirmed, and their rules may then change the card (a rule moving
+// it to another list, or archiving it), so the card can no longer be found at
+// the step's after-state OR its before-state. A replay after an interruption
+// there must not try the write again - it would never be confirmed and the
+// operation would fail on every replay - but finish the effects, which are
+// idempotent.
+async function applySyncOperationStep({ cards, step, operationId, index, assertCurrent, completeEffects,
+  effectsStarted = null }) {
   if (typeof operationId !== 'string' || !UUID.test(operationId) ||
       !Number.isSafeInteger(index) || index < 0 || index >= 10000 ||
       typeof assertCurrent !== 'function' || typeof completeEffects !== 'function' ||
+      (effectsStarted !== null && typeof effectsStarted !== 'function') ||
       !['findOne', 'insertOne', 'updateOne'].every(method => typeof cards?.[method] === 'function')) {
     fail('invalid-sync-operation-adapter');
   }
@@ -26,6 +37,7 @@ async function applySyncOperationStep({ cards, step, operationId, index, assertC
   const effectId = syncOperationEffectId(operationId, index);
   await assertCurrent();
   let matched = await cards.findOne(mutation.afterSelector);
+  if (!matched && effectsStarted && await effectsStarted()) matched = { effectsStarted: true };
   const alreadyApplied = !!matched;
   if (!matched) {
     await assertCurrent();

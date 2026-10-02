@@ -168,6 +168,20 @@ async function movedByThisPlan(planIdValue, cardId, card) {
   return Boolean(all);
 }
 
+// The card an activity names, where it is now: in the activity's list, or
+// where a saved move of that activity's OWN rules put it. The notification
+// and webhook stages deliver an activity after its rules ran
+// (server/lib/syncActivityDelivery.js), so a rule moving the card must not
+// make the rest of the activity's delivery refuse it.
+export async function activityCardNow(saved) {
+  const card = await Cards.findOneAsync({ _id: saved.cardId, boardId: saved.boardId });
+  if (!card || card.listId === saved.listId) return card || null;
+  const plans = await SyncRulePlans.rawCollection().find({ 'plan.activityId': saved._id }, { projection: { _id: 1 } })
+    .toArray();
+  for (const { _id } of plans) if (await movedByThisPlan(_id, saved.cardId, card)) return card;
+  return null;
+}
+
 // Only runStoredSyncRules accepts a compacted plan: it stands for finished
 // work. Every other stage needs the whole plan and refuses one.
 async function capture({ saved, effectId, guard }, { allowCompacted = false } = {}) {

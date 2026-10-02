@@ -15,8 +15,12 @@ export async function prepareActivityDeliveryPlan({ activity, assertCurrent }) {
   await assertCurrent();
   const context = await prepareActivityNotification(saved.userId, saved);
   await assertCurrent();
+  // The card is in the activity's list, or where the activity's own rules
+  // moved it - they ran before this stage (storedRulePlans.js activityCardNow).
+  const moved = async () => context.card.listId !== saved.listId &&
+    !(await require('/server/notifications/storedRulePlans').activityCardNow(saved));
   if (context && (context.board?._id !== saved.boardId || context.card?._id !== saved.cardId ||
-      context.card.boardId !== saved.boardId || (saved.listId && context.card.listId !== saved.listId))) {
+      context.card.boardId !== saved.boardId || (saved.listId && await moved()))) {
     throw new Error('sync-notification-context-unavailable');
   }
   const users = new Map((context?.users || []).map(user => [user._id, user]));
