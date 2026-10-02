@@ -1,3 +1,5 @@
+// The completed catalog predates newer features; keep its no-regression gate.
+// Full translation work remains visible through fill-translations.mjs --list.
 'use strict';
 
 const assert = require('node:assert/strict');
@@ -8,7 +10,7 @@ const { spawnSync } = require('node:child_process');
 const root = path.resolve(__dirname, '..');
 const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
-    '--list', 'ne'], { cwd: root, encoding: 'utf8' });
+    '--completed-catalog', '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
 assert.equal(Object.keys(JSON.parse(result.stdout)).length, 0);
 

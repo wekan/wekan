@@ -85,4 +85,24 @@ index 10260ff2b..b16200c1a 100644
 +  "end-repeat-on": "End repeat on"
  }
 ```
+## Translation regression checks and remaining work
+
+Run `node tests/run-node-suites.cjs Translation translation i18n boardItemLinks`
+for the catalog regression suites. Key order and interpolation tokens are checked
+against the full current English source, including newly added feature strings.
+
+The historical no-English assertions use `--completed-catalog` to check the
+2,417 source strings from the September 6 completion milestone, commit
+`6cae1d48b9`. Its source snapshot is
+`releases/translations/completed-source.json`. This scope preserves the earlier
+completion guarantee without treating later feature additions as regressions.
+Feature-specific translation assertions continue checking their named strings.
+Passing these suites does **not** mean every newer string is translated.
+
+For the actual work queue, use `node releases/translations/fill-translations.mjs
+--list <locale>` without that flag. This includes strings awaiting Transifex.
+`--missing` reports other unfinished strings separately from the pending-Transifex
+key count. The snapshot is historical evidence; do not regenerate it from a
+partially translated current catalog to make tests pass.
+
 {% endraw %}

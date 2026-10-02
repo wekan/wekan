@@ -1,3 +1,5 @@
+// The completed catalog predates newer features; keep its no-regression gate.
+// Full translation work remains visible through fill-translations.mjs --list.
 'use strict';
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -36,7 +38,7 @@ console.log('Galician complete/incomplete card actions: actual template wiring, 
     assert.doesNotMatch(locale['scrum-total'], /tarjetas|cartões|desconocidas/);
     assert.equal(locale['blockly-INPUT_LABEL_MATH_DIVISOR'], 'divisor');
     assert.deepEqual(JSON.parse(execFileSync(process.execPath,
-      ['releases/translations/fill-translations.mjs', '--list', code],
+      ['releases/translations/fill-translations.mjs', '--completed-catalog', '--list', code],
       { cwd: root, encoding: 'utf8' })), {});
   }
   console.log('Galician source keys, interpolation tokens and planning/recovery translations verified');

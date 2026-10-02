@@ -1,3 +1,5 @@
+// The completed catalog predates newer features; keep its no-regression gate.
+// Full translation work remains visible through fill-translations.mjs --list.
 'use strict';
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -66,7 +68,7 @@ const read = code => JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/da
     assert.doesNotMatch(id[key], /perancangan/i, key);
   }
   const inventory = spawnSync(process.execPath,
-    ['releases/translations/fill-translations.mjs', '--list', 'id'], { cwd: root, encoding: 'utf8' });
+    ['releases/translations/fill-translations.mjs', '--completed-catalog', '--list', 'id'], { cwd: root, encoding: 'utf8' });
   assert.equal(inventory.status, 0, inventory.stderr);
   assert.deepEqual(JSON.parse(inventory.stdout), {});
   // Vocabulary guards cover reviewed Malay seed words; they do not prove

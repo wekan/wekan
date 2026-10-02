@@ -6,7 +6,7 @@ const ROOT = path.resolve(__dirname, '..');
 const node = process.execPath;
 const script = path.join(ROOT, 'releases/translations/fill-translations.mjs');
 const list = language => JSON.parse(childProcess.execFileSync(
-  node, [script, '--list', language], { cwd: ROOT, encoding: 'utf8' },
+  node, [script, '--completed-catalog', '--list', language], { cwd: ROOT, encoding: 'utf8' },
 ));
 const cantonese = list('yue_CN');
 assert.deepStrictEqual(cantonese, {}, 'invariant-only Cantonese values are not missing');

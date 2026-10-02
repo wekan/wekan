@@ -1,3 +1,5 @@
+// The completed catalog predates newer features; keep its no-regression gate.
+// Full translation work remains visible through fill-translations.mjs --list.
 'use strict';
 
 const assert = require('node:assert/strict');
@@ -33,7 +35,7 @@ for (const [locale, expectedCount] of Object.entries(counts)) {
     fs.writeFileSync(path.join(dataDir, 'en.i18n.json'), JSON.stringify(source));
     fs.writeFileSync(path.join(dataDir, `${locale}.i18n.json`), JSON.stringify(current));
     const fill = path.join(root, 'releases/translations/fill-translations.mjs');
-    const listed = spawnSync(process.execPath, [fill, '--list', locale],
+    const listed = spawnSync(process.execPath, [fill, '--completed-catalog', '--list', locale],
       { cwd: fixture, encoding: 'utf8' });
     assert.equal(listed.status, 0, listed.stderr);
     const offered = JSON.parse(listed.stdout);

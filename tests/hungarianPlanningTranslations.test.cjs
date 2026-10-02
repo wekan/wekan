@@ -1,3 +1,5 @@
+// The completed catalog predates newer features; keep its no-regression gate.
+// Full translation work remains visible through fill-translations.mjs --list.
 'use strict';
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -53,7 +55,7 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(hu['sync-time-estimate-hint'], /kifejezett null pedig törli/);
   assert.notEqual(hu['move-selection-before'], hu['move-selection-after']);
   const inventory = spawnSync(process.execPath,
-    ['releases/translations/fill-translations.mjs', '--list', 'hu'],
+    ['releases/translations/fill-translations.mjs', '--completed-catalog', '--list', 'hu'],
     { cwd: path.resolve(__dirname, '..'), encoding: 'utf8' });
   assert.equal(inventory.status, 0, inventory.stderr);
   assert.deepEqual(JSON.parse(inventory.stdout), {});

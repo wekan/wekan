@@ -1059,8 +1059,22 @@ function writeOrdered(p, j) {
   fs.writeFileSync(p, JSON.stringify(ordered, null, 2) + '\n');
 }
 
-const args = process.argv.slice(2);
+// The September 6 completion milestone predates Blockly and subsequent features.
+// Regression suites may scope their no-English assertion to that source catalog;
+// normal listing and reporting still expose ALL remaining translation work.
+const completedOnly = process.argv.includes('--completed-catalog');
+const completedSource = completedOnly
+  ? JSON.parse(fs.readFileSync(new URL('./completed-source.json', import.meta.url), 'utf8'))
+  : null;
+const catalogKeys = completedOnly
+  ? enKeys.filter(key => completedSource[key] === en[key])
+  : enKeys;
+const args = process.argv.slice(2).filter(arg => arg !== '--completed-catalog');
 const mode = args[0];
+if (completedOnly && !['--missing', '--list'].includes(mode)) {
+  console.error('[fill] --completed-catalog is only valid with --missing or --list');
+  process.exit(1);
+}
 
 if (mode === '--missing') {
   const files = fs.readdirSync(DATA_DIR)
@@ -1070,8 +1084,8 @@ if (mode === '--missing') {
     const code = path.basename(f, '.i18n.json');
     if (isEnglishVariant(code)) continue;
     const j = readJson(path.join(DATA_DIR, f)) || {};
-    const miss = enKeys.filter(k => isPlaceholder(j, k) && !isInvariantForLocale(code, k)
-      && !pendingTransifex.has(k)).length;
+    const miss = catalogKeys.filter(k => isPlaceholder(j, k) && !isInvariantForLocale(code, k)
+      && (completedOnly || !pendingTransifex.has(k))).length;
     if (miss) rows.push([code, miss]);
   }
   rows.sort((a, b) => a[1] - b[1]);
@@ -1089,7 +1103,7 @@ if (mode === '--list') {
   const limIdx = args.indexOf('--limit');
   const limit = limIdx !== -1 ? parseInt(args[limIdx + 1], 10) || 0 : 0;
   const j = readJson(langFile(code)) || {};
-  let keys = enKeys.filter(k => isPlaceholder(j, k) && !isInvariantForLocale(code, k));
+  let keys = catalogKeys.filter(k => isPlaceholder(j, k) && !isInvariantForLocale(code, k));
   if (limit > 0) keys = keys.slice(0, limit);
   const out = {};
   for (const k of keys) out[k] = en[k];
@@ -1155,7 +1169,7 @@ if (mode === '--status') {
     const code = path.basename(f, '.i18n.json');
     if (isEnglishVariant(code)) continue;
     const j = readJson(path.join(DATA_DIR, f)) || {};
-    const miss = enKeys.filter(k => isPlaceholder(j, k));
+    const miss = catalogKeys.filter(k => isPlaceholder(j, k));
     const sample = [j.board, j.card, j.list, j.save, j.settings].filter(Boolean).join('');
     const name = miss.length >= 400 ? 'second tier (over 400 missing)'
       : NONLATIN.test(sample) ? 'non-Latin, near-complete' : 'Latin, near-complete';

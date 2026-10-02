@@ -1,3 +1,5 @@
+// The completed catalog predates newer features; keep its no-regression gate.
+// Full translation work remains visible through fill-translations.mjs --list.
 'use strict';
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -29,7 +31,7 @@ const records = read('releases/translations/audited-corrections.json');
     assert.match(data['sync-conflict-hint'], /Nu se trimite nimic/);
     assert.match(data['activity-recovery-cancel-confirm'], /Nu mai poate fi reluată/);
     const inventory = spawnSync(process.execPath,
-      ['releases/translations/fill-translations.mjs', '--list', locale], { cwd: root, encoding: 'utf8' });
+      ['releases/translations/fill-translations.mjs', '--completed-catalog', '--list', locale], { cwd: root, encoding: 'utf8' });
     assert.equal(inventory.status, 0, inventory.stderr);
     assert.deepEqual(JSON.parse(inventory.stdout), {});
     const repaired = records.filter(row => row.locale === locale);

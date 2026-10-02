@@ -1,3 +1,5 @@
+// The completed catalog predates newer features; keep its no-regression gate.
+// Full translation work remains visible through fill-translations.mjs --list.
 'use strict';
 const assert = require('assert');
 const childProcess = require('child_process');
@@ -7,7 +9,7 @@ const ROOT = path.resolve(__dirname, '..');
 const node = process.execPath;
 const fill = path.join(ROOT, 'releases/translations/fill-translations.mjs');
 assert.deepStrictEqual(JSON.parse(childProcess.execFileSync(node,
-  [fill, '--list', 'tr'], { cwd: ROOT, encoding: 'utf8' })), {});
+  [fill, '--completed-catalog', '--list', 'tr'], { cwd: ROOT, encoding: 'utf8' })), {});
 const translated = JSON.parse(fs.readFileSync(path.join(ROOT,
   'imports/i18n/data/tr.i18n.json'), 'utf8'));
 assert.strictEqual(translated.checklist, 'Kontrol listesi');

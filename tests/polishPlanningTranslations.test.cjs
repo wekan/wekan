@@ -1,3 +1,5 @@
+// The completed catalog predates newer features; keep its no-regression gate.
+// Full translation work remains visible through fill-translations.mjs --list.
 'use strict';
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -39,7 +41,7 @@ const read = code => JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/da
     assert.equal(pl[key], en[key], key + ': reviewed shared term');
   }
   const inventory = spawnSync(process.execPath,
-    ['releases/translations/fill-translations.mjs', '--list', 'pl'], { cwd: root, encoding: 'utf8' });
+    ['releases/translations/fill-translations.mjs', '--completed-catalog', '--list', 'pl'], { cwd: root, encoding: 'utf8' });
   assert.equal(inventory.status, 0, inventory.stderr);
   assert.deepEqual(JSON.parse(inventory.stdout), {});
   console.log('Polish translation coverage, source order, syntax and warning meanings verified');

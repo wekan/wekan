@@ -1,3 +1,5 @@
+// The completed catalog predates newer features; keep its no-regression gate.
+// Full translation work remains visible through fill-translations.mjs --list.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -7,7 +9,7 @@ const fillScript = path.join(root, 'releases/translations/fill-translations.mjs'
 const languages = ['az-AZ', 'az-LA', 'az', 'hr', 'pl-PL', 'pl', 'sk'];
 const locales = {};
 for (const language of languages) {
-  const result = spawnSync(process.execPath, [fillScript, '--list', language], {
+  const result = spawnSync(process.execPath, [fillScript, '--completed-catalog', '--list', language], {
     cwd: root, encoding: 'utf8',
   });
   assert.equal(result.status, 0, result.stderr);
