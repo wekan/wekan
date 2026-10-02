@@ -60,6 +60,18 @@ async function parseXlsxToRows(excelBase64) {
   return rows;
 }
 
+// On Sandstorm an import replaces the board it was started from: the creators
+// archive `currentBoard`. That id comes from the client, and nothing checked
+// it, so anyone could archive any board by naming it. Only a board admin may
+// have their board replaced; for anyone else the import still runs and simply
+// leaves that board alone. No Problems record: a member who is not an admin
+// reaches this by importing from a board page, which is ordinary use.
+async function replaceableBoardId(userId, boardId) {
+  if (!boardId || !userId) return undefined;
+  const board = await ReactiveCache.getBoard(boardId);
+  return board && board.hasAdmin(userId) ? boardId : undefined;
+}
+
 Meteor.methods({
   async importBoard(board, data, importSource, currentBoard) {
     // All check() calls must run BEFORE the first `await`: Meteor's
@@ -180,12 +192,12 @@ Meteor.methods({
     // to the client instead of spinning forever. The client also runs its own watchdog.
     if (Meteor.isServer) {
       return await withDeadline(
-        creator.create(importedBoard, currentBoard),
+        creator.create(importedBoard, await replaceableBoardId(this.userId, currentBoard)),
         importDeadlineMs(),
         () => new Meteor.Error('import-timeout', 'Import took too long and was aborted'),
       );
     }
-    return await creator.create(importedBoard, currentBoard);
+    return await creator.create(importedBoard, await replaceableBoardId(this.userId, currentBoard));
   },
 });
 
@@ -277,6 +289,6 @@ Meteor.methods({
     const creator = new WekanCreator(additionalData);
     //data.title = `${data.title  } - ${  TAPi18n.__('copyCardPopup-title')}`;
     data.title = `${data.title}`;
-    return await creator.create(data, currentBoardId);
+    return await creator.create(data, await replaceableBoardId(this.userId, currentBoardId));
   },
 });

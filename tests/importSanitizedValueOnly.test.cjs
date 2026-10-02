@@ -133,7 +133,9 @@ async function main() {
   const parserCalls = importJs.match(/EXTERNAL_PARSERS(?:\.\w+|\[\w+\])\(([^)]*)\)/g) || [];
   assert.ok(parserCalls.length >= 2, 'both parser branches are present');
   for (const call of parserCalls) assert.match(call, /\(importedBoard\)$/, call);
-  assert.match(importJs, /creator\.create\(importedBoard, currentBoard\)/);
+  // The board to replace is now checked first (tests/sandstormReplaceBoard.test.cjs);
+  // what this pins is that the SANITIZED board is what the creator receives.
+  assert.match(importJs, /creator\.create\(importedBoard, await replaceableBoardId\(this\.userId, currentBoard\)\)/);
   const trelloApi = fs.readFileSync(path.join(ROOT, 'server/trelloApiImport.js'), 'utf8');
   assert.match(trelloApi, /sanitized\.organization && sanitized\.organization\.displayName/);
   assert.match(trelloApi, /title: sanitized\.name/);
