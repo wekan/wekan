@@ -10,7 +10,12 @@ import { tripCanary } from '/server/lib/canary';
 // What an avatar's owner may change from the client. `versions` is NOT here,
 // and is refused separately below so the reason can be logged: it holds the
 // server-managed on-disk path.
-const ALLOWED_UPDATE_FIELDS = ['name', 'size', 'type', 'extension', 'extensionWithDot', 'meta'];
+// AvatarMimeBleed / attachment-move sibling (2026-10-02): `type` decided how a
+// file is served and `meta` names its board and card, so a client changing
+// either could serve its upload as HTML or move it onto another board's card.
+// No client updates these documents (uploads and renames go through the
+// server); only the name may change here.
+const ALLOWED_UPDATE_FIELDS = ['name'];
 
 function isOwner(userId, doc) {
   return userId && userId === doc.userId;

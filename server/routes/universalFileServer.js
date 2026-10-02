@@ -30,6 +30,8 @@ import { convertImageBufferToThumbnail, cachedThumbnail, rememberThumbnail } fro
 const { isThumbnailPath, canThumbnail, THUMBNAIL_TYPE } = require('/models/lib/attachmentThumbnail');
 // CacheBleed (GHSA-w3qg-pf27-g68r): files are served after an access check, so never shared-cacheable.
 const { setPrivateFileCacheHeaders, privateFileCacheHeaders } = require('/models/lib/fileCacheHeaders');
+// The avatar types served inline; anything else is a download (AvatarMimeBleed).
+const INLINE_AVATAR_TYPES = new Set(['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/webp', 'image/avif', 'image/bmp']);
 const { readableWithoutMembership } = require('/models/lib/boardPermission');
 
 async function normalizeStoredNameOnRead(collection, fileObj, factory) {
@@ -238,10 +240,19 @@ if (Meteor.isServer) {
         res.setHeader('Content-Disposition', buildContentDispositionHeader('attachment', sanitizeFilenameForHeader(fileObj.name)));
         res.setHeader('Content-Security-Policy', "default-src 'none'; sandbox;");
         res.setHeader('X-Frame-Options', 'DENY');
-      } else {
-        // For typical image avatars, use provided type if present, otherwise fall back to a safe generic image type
-        res.setHeader('Content-Type', typeLower || 'image/jpeg');
+      } else if (INLINE_AVATAR_TYPES.has(typeLower.split(';')[0].trim())) {
+        // AvatarMimeBleed, prefix-route sibling (2026-10-02): only a known
+        // raster image type is served inline, under its exact canonical
+        // name and a restrictive CSP. This branch used to echo whatever type
+        // was stored - 'text/html; charset=utf-8' passed the exact-match
+        // dangerous list - and serve it inline with no CSP.
+        res.setHeader('Content-Type', typeLower.split(';')[0].trim());
         res.setHeader('Content-Disposition', buildContentDispositionHeader('inline', sanitizeFilenameForHeader(fileObj.name)));
+        res.setHeader('Content-Security-Policy', "default-src 'none'; img-src 'self'; style-src 'unsafe-inline';");
+      } else {
+        res.setHeader('Content-Type', 'application/octet-stream');
+        res.setHeader('Content-Disposition', buildContentDispositionHeader('attachment', sanitizeFilenameForHeader(fileObj.name)));
+        res.setHeader('Content-Security-Policy', "default-src 'none'; sandbox;");
       }
     }
   }

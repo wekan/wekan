@@ -65,7 +65,12 @@ Attachments.allow({
     }
 
     // Allow normal updates for file upload/management
-    const allowedFields = ['name', 'size', 'type', 'extension', 'extensionWithDot', 'meta'];
+    // AvatarMimeBleed / attachment-move sibling (2026-10-02): `type` decided how a
+    // file is served and `meta` names its board and card, so a client changing
+    // either could serve its upload as HTML or move it onto another board's card.
+    // No client updates these documents (uploads and renames go through the
+    // server); only the name may change here.
+    const allowedFields = ['name'];
     if (!onlyTouchesAllowedFields(fields, allowedFields)) {
       if (process.env.DEBUG === 'true') {
         console.warn('Blocked attempt to update restricted attachment fields:', fields);

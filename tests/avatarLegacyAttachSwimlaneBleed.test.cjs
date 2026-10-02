@@ -133,3 +133,21 @@ test('negative: no swimlane-creating method authorizes with read membership or p
   );
   assert.doesNotMatch(method, /\.isMember\??\.|\.isPublic\??\./);
 });
+
+// AvatarMimeBleed, prefix-route sibling (2026-10-02). The avatar routes that
+// answer first (server/routes/universalFileServer.js) echoed any stored type
+// that missed an exact-match dangerous list - 'text/html; charset=utf-8' did -
+// and served it inline with no CSP, and an avatar's owner could $set `type`
+// from the client. Only known raster image types are inline now, and clients
+// may change only a file's name.
+test('avatar prefix routes serve only known image types inline (AvatarMimeBleed)', () => {
+  const fs = require('node:fs');
+  const universal = fs.readFileSync('server/routes/universalFileServer.js', 'utf8');
+  assert.match(universal, /const INLINE_AVATAR_TYPES = new Set\(\['image\/png', 'image\/jpeg', 'image\/jpg', 'image\/gif', 'image\/webp', 'image\/avif', 'image\/bmp'\]\);/);
+  assert.match(universal, /\} else if \(INLINE_AVATAR_TYPES\.has\(typeLower\.split\(';'\)\[0\]\.trim\(\)\)\) \{/);
+  assert.doesNotMatch(universal, /res\.setHeader\('Content-Type', typeLower \|\| 'image\/jpeg'\)/, 'the stored type is never echoed');
+  for (const file of ['server/permissions/avatars.js', 'server/permissions/attachments.js']) {
+    const src = fs.readFileSync(file, 'utf8');
+    assert.match(src, /(ALLOWED_UPDATE_FIELDS|allowedFields) = \['name'\];/, `${file}: clients change only the name`);
+  }
+});
