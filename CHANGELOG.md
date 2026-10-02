@@ -1686,6 +1686,17 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bdec69ce17">Translate Khmer sprint planning messages</a>. Thanks to xet7.</summary>
+
+- Fill 30 sprint planning, backlog and estimate messages in both Khmer locale
+  files; km-KH inherits the Cambodia translations.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass for all three locale tags, as do all 21 human-preference checks.
+  Full-language work, browser and native-speaker reviews remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a903746966">Translate Khmer rule editor and Scrum settings</a>. Thanks to xet7.</summary>
 
 - Fill 30 remaining block aliases, rule-editor messages and Scrum settings in
