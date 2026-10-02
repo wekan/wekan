@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/50da1b24e2">Translate Burmese comparisons, logic and arithmetic</a>. Thanks to xet7.</summary>
+
+- Fill 26 comparison, conditional-value and arithmetic messages.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/31ef697ea2">Translate Burmese list editing, sorting and basic logic</a>. Thanks to xet7.</summary>
 
 - Fill 30 list-editing, sorting, text-splitting and basic-logic messages.
