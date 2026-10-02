@@ -16,10 +16,10 @@ export async function prepareActivityWebhookPlan({ activity, assertCurrent }) {
   await assertCurrent();
   // The card is in the activity's list, or where the activity's own rules
   // moved it - they ran before this stage (storedRulePlans.js activityCardNow).
-  const moved = async () => context.card.listId !== saved.listId &&
+  const moved = async () => (context.card.boardId !== saved.boardId || context.card.listId !== saved.listId) &&
     !(await require('/server/notifications/storedRulePlans').activityCardNow(saved));
   if (context && (context.board?._id !== saved.boardId || context.card?._id !== saved.cardId ||
-      context.card.boardId !== saved.boardId || (saved.listId && await moved()))) {
+      (saved.listId ? await moved() : context.card.boardId !== saved.boardId))) {
     throw new Error('sync-webhook-context-unavailable');
   }
   // One extra record makes an oversized selection fail rather than silently

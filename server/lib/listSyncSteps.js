@@ -38,6 +38,13 @@ const DURABLE_RULE_ACTIONS = new Set(['sendEmail', 'archive', 'unarchive', 'setC
 // an action without an adapter, so the destination's own rule actions must
 // all be durable too - and so on, for every board reached that way.
 const CROSS_BOARD_DURABLE_ACTIONS = new Set(['linkCard', 'copyCard']);
+// ...and moves to another board, which take the card off the plan's board:
+// every other durable command acts on the card there, so such a move counts
+// only when it is provably the LAST action of any plan it is in - the last
+// action of its rule, whose trigger's activity type no other rule on the
+// board shares (`finalInPlan`, set by the caller). The command checks the
+// same at run time (server/lib/syncRuleMoveBoardCommand.js).
+const CROSS_BOARD_FINAL_ACTIONS = new Set(['moveCardToTop', 'moveCardToBottom']);
 const MAX_RULE_BOARDS = 50;
 
 // The rule action types eligibility checks, across the source board and every
@@ -58,7 +65,9 @@ async function durableRuleActionTypes({ boardId, readActions, readBoard, typeOf 
     for (const action of actions) {
       const type = typeOf(action, current);
       const [base, where] = typeof type === 'string' ? type.split(':') : [];
-      if (where !== 'elsewhere' || !CROSS_BOARD_DURABLE_ACTIONS.has(base)) { types.push(type); continue; }
+      const liftable = CROSS_BOARD_DURABLE_ACTIONS.has(base) ||
+        (CROSS_BOARD_FINAL_ACTIONS.has(base) && action.finalInPlan === true);
+      if (where !== 'elsewhere' || !liftable) { types.push(type); continue; }
       if (!reached.has(action.boardId)) {
         const destination = await readBoard(action.boardId);
         if (!destination || destination.syncEffectsEnabled !== true) { types.push(type); continue; }
@@ -151,5 +160,23 @@ function snapshotCreate(document) {
   return after;
 }
 
-module.exports = { DURABLE_RULE_ACTIONS, CROSS_BOARD_DURABLE_ACTIONS, durableRuleActionTypes, durableSyncEligibility,
+// Which of a board's rule actions end every plan they are in: the last action
+// of a rule whose trigger's activity type no other rule shares. `rules` are
+// { actionIds, activityType } (activityType null when unknown).
+function finalActionIds(rules) {
+  const byType = new Map();
+  for (const rule of rules) byType.set(rule.activityType, (byType.get(rule.activityType) || 0) + 1);
+  const final = new Set(), notFinal = new Set();
+  for (const rule of rules) {
+    const unique = typeof rule.activityType === 'string' && byType.get(rule.activityType) === 1;
+    rule.actionIds.forEach((id, i) => {
+      if (unique && i === rule.actionIds.length - 1) final.add(id); else notFinal.add(id);
+    });
+  }
+  for (const id of notFinal) final.delete(id);
+  return final;
+}
+
+module.exports = { DURABLE_RULE_ACTIONS, CROSS_BOARD_DURABLE_ACTIONS, CROSS_BOARD_FINAL_ACTIONS, finalActionIds,
+  durableRuleActionTypes, durableSyncEligibility,
   buildListSyncSteps };

@@ -13,6 +13,7 @@ import Swimlanes from '/models/swimlanes';
 import Boards from '/models/boards';
 import Rules from '/models/rules';
 import Actions from '/models/actions';
+import Triggers from '/models/triggers';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 import { runStoredSyncActivityDelivery } from '/server/notifications/storedActivityDelivery';
 import { withListSyncLease } from '/server/lib/listSyncLease';
@@ -22,7 +23,7 @@ const { randomUUID } = require('node:crypto');
 const { memberCan } = require('/models/lib/boardRoleCapabilities');
 const { ruleActionIds } = require('/models/lib/ruleParts');
 const { isAssignedOnlyMember } = require('/models/lib/boardCardScope');
-const { durableSyncEligibility, durableRuleActionTypes, buildListSyncSteps } = require('/server/lib/listSyncSteps');
+const { durableSyncEligibility, durableRuleActionTypes, finalActionIds, buildListSyncSteps } = require('/server/lib/listSyncSteps');
 const { createSyncEffectPlanner, validateSyncEffects, applySyncEffectsStep } = require('/server/lib/syncEffects');
 const { syncOperationEffectId } = require('/server/lib/syncOperationApply');
 const { createSyncHookedCards } = require('/server/lib/syncHookedCards');
@@ -42,12 +43,20 @@ export async function durableSyncDecision({ list, board, trigger, actorId }) {
   // Every action of every rule on the board, extra actions included (#4294).
   // A rule whose action is gone cannot be proven durable either.
   const readActions = async boardId => {
-    const rules = await Rules.find({ boardId }, { fields: { actionId: 1, extraActionIds: 1 } }).fetchAsync();
+    const rules = await Rules.find({ boardId }, { fields: { actionId: 1, extraActionIds: 1, triggerId: 1 } }).fetchAsync();
     const actionIds = [...new Set(rules.flatMap(rule => ruleActionIds(rule)).filter(Boolean))];
     const actions = actionIds.length
       ? await Actions.find({ _id: { $in: actionIds } },
         { fields: { actionType: 1, listName: 1, swimlaneName: 1, boardId: 1 } }).fetchAsync() : [];
-    return actions.length === actionIds.length ? actions : null;
+    if (actions.length !== actionIds.length) return null;
+    // A move to another board must end every plan it is in (listSyncSteps.js).
+    const triggerIds = rules.map(rule => rule.triggerId).filter(Boolean);
+    const triggers = triggerIds.length
+      ? await Triggers.find({ _id: { $in: triggerIds } }, { fields: { activityType: 1 } }).fetchAsync() : [];
+    const typeOf = new Map(triggers.map(trigger => [trigger._id, trigger.activityType]));
+    const final = finalActionIds(rules.map(rule => ({ actionIds: ruleActionIds(rule).filter(Boolean),
+      activityType: typeOf.get(rule.triggerId) ?? null })));
+    return actions.map(action => ({ ...action, finalInPlan: final.has(action._id) }));
   };
   // A destination board counts only when the actor may write there, as the
   // stored stages of its rules require.

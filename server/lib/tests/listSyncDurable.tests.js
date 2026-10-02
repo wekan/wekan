@@ -240,6 +240,52 @@ describe('Durable list Sync', function () {
         await Boards.rawCollection().deleteMany({ _id: otherId });
       }
 
+      // A rule that moves each new card onto another board that opted in, as
+      // its plan's last action, through a whole Sync run (2026-10-02): the
+      // creation activity's notifications and webhooks still find the card.
+      const awayId = Random.id(), awayListId = Random.id(), awayLaneId = Random.id();
+      await Boards.rawCollection().insertOne({ _id: awayId, title: 'Away', permission: 'private', archived: false,
+        syncEffectsEnabled: true, members: [{ userId: actor, isAdmin: true, isActive: true }] });
+      await Swimlanes.rawCollection().insertOne({ _id: awayLaneId, boardId: awayId, title: 'Lane', archived: false, sort: 0 });
+      await Lists.rawCollection().insertOne({ _id: awayListId, boardId: awayId, title: 'Inbox', archived: false, sort: 0 });
+      const awayActionId = Random.id(), awayTriggerId = Random.id();
+      await Actions.rawCollection().insertOne({ _id: awayActionId, actionType: 'moveCardToBottom', listName: 'Inbox',
+        swimlaneName: 'Lane', boardId: awayId, desc: 'away' });
+      await Triggers.rawCollection().insertOne({ _id: awayTriggerId, activityType: 'createCard', boardId,
+        listName: 'Watched', userId: '*', swimlaneName: '*', cardTitle: '*', desc: 'created' });
+      await Rules.rawCollection().insertOne({ _id: Random.id(), title: 'away', triggerId: awayTriggerId, actionId: awayActionId, boardId });
+      // A watcher of the synced list receives the creation's notification: the
+      // stage checks that recipient against the card as placed for the activity.
+      const watcher = Random.id();
+      await Meteor.users.rawCollection().insertOne({ _id: watcher, username: `watcher-${watcher}`, profile: {} });
+      await Boards.rawCollection().updateOne({ _id: boardId }, { $push: { members: { userId: watcher, isAdmin: false,
+        isActive: true } } });
+      await Lists.rawCollection().updateOne({ _id: listId }, { $set: { watchers: [watcher] } });
+      try {
+        assert.equal((await durableSyncDecision({ list, board: await Boards.findOneAsync(boardId), trigger: 'manual',
+          actorId: actor })).eligible, true, 'the move ends its plan, and both boards opted in');
+        issues = [issue('P-1', 'First renamed'), issue('P-9', 'Moved away')];
+        const awayRun = await run();
+        assert.deepEqual([awayRun.durable, awayRun.created], [true, 1], JSON.stringify(awayRun));
+        const ninth = await Cards.rawCollection().findOne({ syncExternalId: 'P-9' });
+        assert.deepEqual([ninth.boardId, ninth.listId], [awayId, awayListId], 'moved by the rule');
+        assert.equal(await Activities.find({ cardId: ninth._id, activityType: 'moveCardBoard' }).countAsync(), 1);
+        assert.equal(await collection('listSyncOperations').countDocuments({ _id: listId }), 0, 'the run completed');
+        const plan = await collection('listSyncNotificationPlans').findOne({ 'plan.cardId': ninth._id });
+        assert.deepEqual(plan.plan.recipients.map(recipient => recipient.userId), [watcher],
+          'the list watcher was planned a notification, and received it');
+      } finally {
+        await Boards.rawCollection().updateOne({ _id: boardId }, { $pull: { members: { userId: watcher } } });
+        await Lists.rawCollection().updateOne({ _id: listId }, { $unset: { watchers: '' } });
+        await Meteor.users.rawCollection().deleteMany({ _id: watcher });
+        await Rules.rawCollection().deleteMany({ boardId }); await Triggers.rawCollection().deleteMany({ boardId });
+        await collection('listSyncRuleMoveBoardCommands').deleteMany({ boardId });
+        for (const model of [Cards, Activities, Lists, Swimlanes, ChangeHistory]) {
+          await model.rawCollection().deleteMany({ boardId: awayId });
+        }
+        await Boards.rawCollection().deleteMany({ _id: awayId });
+      }
+
       // A rule action without a durable adapter keeps the direct path: since
       // 2026-10-02 every action on the card's own board has one, so a move to
       // ANOTHER board stands for it.

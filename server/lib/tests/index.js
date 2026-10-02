@@ -116,3 +116,4 @@ import './storedRuleChecklistLifecycle.tests';
 import './storedRuleCopyCard.tests';
 import './dependencyLayers.tests';
 import './cardMoveLabelActivities.tests';
+import './storedRuleMoveBoard.tests';

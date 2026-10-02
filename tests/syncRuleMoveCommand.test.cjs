@@ -113,7 +113,10 @@ test('eligibility and wiring: same-board moves are durable; the guard follows on
     { eligible: false, reason: 'rule-actions' });
   const plans = fs.readFileSync(path.join(ROOT, 'server/notifications/storedRulePlans.js'), 'utf8');
   // The guard: the activity's list, or where a saved move of THIS plan put the card - nowhere else.
-  assert.match(plans, /const card = found && \(found\.listId === saved\.listId \|\|\s*await movedByThisPlan\(rulePlanId\(effectId, saved\._id\), saved\.cardId, found\)\) \? found : null;/);
+  // Since moves to another board (syncRuleMoveBoardCommand.js) the card is
+  // looked up by id: on the activity's board and list, or where a saved move
+  // of this plan put it.
+  assert.match(plans, /const card = found && \(\(found\.boardId === saved\.boardId && found\.listId === saved\.listId\) \|\|\s*await movedByThisPlan\(rulePlanId\(effectId, saved\._id\), saved\.cardId, found\)\) \? found : null;/);
   assert.match(plans, /SyncRuleMoveCommands\.rawCollection\(\)\.findOne\(\{ planId: planIdValue, cardId,\s*'after\.listId': card\.listId, 'after\.swimlaneId': card\.swimlaneId \}/);
   assert.ok(!/Cards\.findOneAsync\(\{ _id: saved\.cardId, boardId: saved\.boardId, listId: saved\.listId \}\)/.test(plans),
     'no second guard that still pins the list (negative)');
@@ -143,7 +146,7 @@ test('negative: only a scope that names the move defers the hook\'s position row
 test('delivery stages find the card where the activity\'s own rules moved it, and nowhere else', () => {
   const read = file => fs.readFileSync(path.join(ROOT, file), 'utf8');
   const plans = read('server/notifications/storedRulePlans.js');
-  assert.match(plans, /export async function activityCardNow\(saved\) \{\n  const card = await Cards\.findOneAsync\(\{ _id: saved\.cardId, boardId: saved\.boardId \}\);\n  if \(!card \|\| card\.listId === saved\.listId\) return card \|\| null;/);
+  assert.match(plans, /export async function activityCardNow\(saved\) \{\n  const card = await Cards\.findOneAsync\(\{ _id: saved\.cardId \}\);\n  if \(!card\) return null;\n  if \(card\.boardId === saved\.boardId && card\.listId === saved\.listId\) return card;/);
   assert.match(plans, /find\(\{ 'plan\.activityId': saved\._id \}[\s\S]{0,200}movedByThisPlan\(_id, saved\.cardId, card\)/);
   for (const file of ['server/notifications/storedDelivery.js', 'server/notifications/storedWebhooks.js']) {
     const src = read(file);
@@ -153,7 +156,7 @@ test('delivery stages find the card where the activity\'s own rules moved it, an
   }
   for (const file of ['server/notifications/prepareDelivery.js', 'server/notifications/prepareWebhooks.js']) {
     const src = read(file);
-    assert.match(src, /\(saved\.listId && await moved\(\)\)/, file);
+    assert.match(src, /\(saved\.listId \? await moved\(\) : context\.card\.boardId !== saved\.boardId\)/, file);
     assert.ok(!/context\.card\.listId !== saved\.listId\)\)\)/.test(src), file);
   }
 });
