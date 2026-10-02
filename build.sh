@@ -1370,6 +1370,9 @@ function run_all_tests(){
 	# guard refuses unless the administrator allows that exact host. Only the
 	# test server allows it; the specs use other internal names for refusals.
 	export LIST_SYNC_ALLOWED_PRIVATE_HOSTS=127.0.0.1
+	# The Docker and Snap default, so the browser tests see the framing policy
+	# (FrameBleed) the way a real install sends it.
+	export BROWSER_POLICY_ENABLED=true
 	if [ "${WEKAN_TEST_SERVER_MODE:-bundle}" = source ]; then
 		export WEKAN_PLAYWRIGHT_PROBE=0
 		local WRITABLE_ABS="$WEKAN_DIR/.tools/test-writable"

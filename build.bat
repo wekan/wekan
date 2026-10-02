@@ -1855,9 +1855,11 @@ set "WITH_API=true"
 set "DEFAULT_METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling"
 REM SyncBleed: the List Sync specs' mock tracker is on 127.0.0.1; allow only that host.
 set "LIST_SYNC_ALLOWED_PRIVATE_HOSTS=127.0.0.1"
+REM FrameBleed: the Docker and Snap default browser policy.
+set "BROWSER_POLICY_ENABLED=true"
 echo ==^> Starting the WeKan test server on http://localhost:3000 from .build\bundle ^(precompiled - no rebuild^).
 start "WekanTestServer" /MIN /D "%REPO%" cmd /c "(echo ===== WeKan test server [bundle node :3000 db :3001/meteor] started: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-test-server.log 2>&1 & "%NODE_BIN%" "%REPO%\.build\bundle\main.js" 1>>%RUN_LOGDIR%\wekan-test-server.log 2>&1"
-set "MONGO_URL=" & set "ROOT_URL=" & set "PORT=" & set "WRITABLE_PATH=" & set "WITH_API=" & set "DEFAULT_METEOR_REACTIVITY_ORDER=" & set "LIST_SYNC_ALLOWED_PRIVATE_HOSTS="
+set "MONGO_URL=" & set "ROOT_URL=" & set "PORT=" & set "WRITABLE_PATH=" & set "WITH_API=" & set "DEFAULT_METEOR_REACTIVITY_ORDER=" & set "LIST_SYNC_ALLOWED_PRIVATE_HOSTS=" & set "BROWSER_POLICY_ENABLED="
 
 REM 6) Wait for :3000 to answer (bundle boots in seconds; curl-timeout poll).
 call :wait_server_ready

@@ -172,6 +172,7 @@ const GUARDED = {
   emailbleed: ['tests/adminMailSettings.test.cjs'],
   bflableed: ['tests/unawaitedAccessCheck.test.cjs'],
   megableed: ['tests/tenantbleed.test.cjs'],
+  framebleed: ['tests/frameBleed.test.cjs', 'tests/playwright/specs/frame-bleed.e2e.js'],
   excelbleed: ['tests/unawaitedAccessCheck.test.cjs'],
 
   // Guarded by ATTEMPT DETECTION rather than by a fix-regression test: a canary
@@ -205,7 +206,6 @@ const RECORDED = {
   duebleed: 'Due Cards showed other users\' private board cards to an Admin; needs a publication test',
   fieldbleed: 'JavaScript stored in a field ran when the page was reloaded; predates the *bleed test suites',
   floppybleed: 'FileBleed variant; predates the *bleed test suites, no source guard was written',
-  framebleed: 'cross-frame scripting; a header fix with no test',
   invisiblebleed: 'HTML comments were not visible in rendered content; predates the *bleed test suites',
   ldapbleed: 'LDAP TLS certificate validation off by default; needs an LDAP stack to test',
   reactionbleed: 'XSS in comment reactions; predates the *bleed test suites - note the reaction OWNERSHIP hole found in this round is a different bug and is guarded by tests/reactionOwnership.test.cjs',
@@ -304,7 +304,8 @@ test('the gap list may not grow', () => {
   // are held tree-wide by tests/unawaitedAccessCheck.test.cjs (2026-10-02).
   // 20 -> 19: MegaBleed - its Translation collection sibling is held by
   // tests/tenantbleed.test.cjs (2026-10-02).
-  assert.strictEqual(Object.keys(RECORDED).length, 19,
+  // 19 -> 18: FrameBleed - restored after its 2022 regression, and tested.
+  assert.strictEqual(Object.keys(RECORDED).length, 18,
     'the number of published vulnerabilities with no regression test changed');
 });
 
