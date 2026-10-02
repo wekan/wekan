@@ -3892,6 +3892,25 @@ fill for email recovery; other new strings and the broader translation backlog r
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/85cd3f05ab">Align translation catalogs with continuous backup</a>. Thanks to xet7.</summary>
+
+Add all 35 continuous-backup source keys to 243 other catalogs in English key
+order. Preserve every existing value. Catalog completeness and email-recovery
+regression suites pass. These new English placeholders remain available for translation.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4fe54734e5">Translate continuous backup into Finnish and Swedish</a>. Thanks to xet7.</summary>
+
+Fill 70 English placeholders without overwriting existing translations. Add checks
+for restore boundaries, preservation of the live database file, time units, engine
+names and exact tokens. Four focused catalog suites and all 21 human-preference
+checks pass. Other languages and the broader translation backlog remain.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
