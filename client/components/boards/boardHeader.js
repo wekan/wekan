@@ -10,6 +10,7 @@ import Swimlanes from '/models/swimlanes';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import visibilityDesc from '/imports/i18n/lib/visibilityDesc';
 const { boardViewMenuEntries } = require('/models/lib/boardViewSettings');
+import { allowBoardView } from '/client/lib/instanceFeatures';
 import { Filter } from '/client/lib/filter';
 // Which way a button that opens a sidebar view goes on a click - one answer,
 // in one place, for both Filter and Search.
@@ -274,7 +275,8 @@ Template.boardChangeViewPopup.helpers({
   // or a click in Board Settings / Board View, changes the menu on the spot.
   boardViewMenuEntries() {
     const board = Utils.getCurrentBoard();
-    return boardViewMenuEntries(board, Utils.boardView()).map(entry => ({
+    // #6736: a view the instance disabled is not drawn at all.
+    return boardViewMenuEntries(board, Utils.boardView(), allowBoardView).map(entry => ({
       ...entry,
       icon: `fa ${entry.icon}`,
     }));

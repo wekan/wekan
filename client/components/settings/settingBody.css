@@ -994,3 +994,16 @@ li.has-error .form-group .wekan-form-control {
 .ldap-test-error {
   color: #c62828;
 }
+
+/* #6736: Admin Panel / Settings / Visibility / Features - a feature's short
+   description under its checkbox, and the marker of a feature that arrived
+   with an update and waits for approval. */
+#tableVisibilityMode-setting .feature-desc {
+  margin: 0 0 0.5em 2.2em;
+  opacity: 0.75;
+  font-size: 0.9em;
+}
+#tableVisibilityMode-setting .feature-awaiting-approval {
+  margin-left: 0.5em;
+  font-weight: bold;
+}

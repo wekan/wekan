@@ -249,6 +249,31 @@ Settings.attachSchema(
       type: Boolean,
       optional: true,
     },
+    // #6736: Admin Panel / Settings / Visibility / Features
+    // (models/lib/instanceFeatures.js). Explicit decisions per feature key.
+    featureStates: {
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
+    // Keep features added by a later update off until an administrator enables them.
+    featureApprovalRequired: {
+      type: Boolean,
+      optional: true,
+    },
+    // The feature catalog as of the last save; a key not in it is new.
+    featureKnownKeys: {
+      type: Array,
+      optional: true,
+    },
+    'featureKnownKeys.$': {
+      type: String,
+    },
+    // Site admins see disabled features, to try them before enabling.
+    featurePreviewAdmins: {
+      type: Boolean,
+      optional: true,
+    },
     // How a board loads its cards: 'all' (default — every card into minimongo)
     // or 'lazy' (only the visible per-list window, via a windowed publication).
     // Seeded from the CARDS_LOADING env var; changeable in Admin Panel.

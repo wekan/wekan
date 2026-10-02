@@ -232,8 +232,10 @@ test('Visibility is named groups, in order, and nothing was dropped', () => {
   // wekan/wekan#3069 added an "external link pattern" group (autolinking bare
   // "<prefix>NNNN" tokens to an external issue tracker) right after the URL
   // group and before the product name group.
+  // #6736 added "Features" (which optional features the instance offers)
+  // right after All Boards, the other group about what everyone sees.
   assert.deepStrictEqual(groups,
-    ['all-boards-hide', 'date', 'settings-group-url', 'external-link-pattern',
+    ['all-boards-hide', 'features', 'date', 'settings-group-url', 'external-link-pattern',
       'custom-product-name', 'change-color', 'settings-group-logo'],
     'the groups, top to bottom');
   // Product name holds ONE field, so its group title IS that field's label - with

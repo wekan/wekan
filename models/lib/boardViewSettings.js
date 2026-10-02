@@ -123,6 +123,12 @@ const SEPARATOR_AFTER = [
   'board-view-bigboard',
 ];
 
+// #6736: `allowView` is the instance's own decision (Admin Panel / Settings /
+// Visibility / Features, models/lib/instanceFeatures.js) - a view the instance
+// disabled is not offered on any board, whatever the board says. Without it
+// every view is allowed, as before.
+const allowAll = () => true;
+
 // The class the per-view click handlers in boardHeader.js listen for:
 // 'board-view-gantt-frappe' -> 'js-open-gantt-frappe-view'.
 function boardViewJsClass(view) {
@@ -176,11 +182,17 @@ function orderedBoardViews(board) {
 // (unknown view, first item up, last item down) returns the normalized
 // order unchanged, so the first row's up arrow and the last row's down
 // arrow do nothing.
-function moveBoardView(order, view, direction) {
+//
+// #6736: with `allowView`, the move steps over views the instance disabled
+// (they are not rows of the popup), so one click passes exactly one row the
+// admin can see; with no visible row to pass, nothing moves.
+function moveBoardView(order, view, direction, allowView = allowAll) {
   const list = normalizeBoardViewOrder(order);
   const from = list.indexOf(view);
   if (from === -1) return list;
-  const to = direction === 'up' ? from - 1 : from + 1;
+  const step = direction === 'up' ? -1 : 1;
+  let to = from + step;
+  while (to >= 0 && to < list.length && !allowView(list[to])) to += step;
   if (to < 0 || to >= list.length) return list;
   const result = list.slice();
   const [moved] = result.splice(from, 1);
@@ -218,18 +230,18 @@ function defaultBoardView(board, visibility) {
 }
 
 // The views the board offers, in the board's order.
-function visibleBoardViews(board, visibility) {
-  return orderedBoardViews(board).filter(v => isBoardViewShown(board, v.view, visibility));
+function visibleBoardViews(board, visibility, allowView = allowAll) {
+  return orderedBoardViews(board).filter(v => allowView(v.view) && isBoardViewShown(board, v.view, visibility));
 }
 
 // What the Board View menu renders: the visible views in the board's order,
 // each with the class its click handler listens for, whether it is the one
 // currently rendered, and whether a separator follows it (default order
 // only). `currentView` is what Utils.boardView() returns.
-function boardViewMenuEntries(board, currentView) {
+function boardViewMenuEntries(board, currentView, allowView = allowAll) {
   const visibility = board && board.permission;
   const defaultOrder = isDefaultBoardViewOrder(board && board.boardViewOrder);
-  const visible = visibleBoardViews(board, visibility);
+  const visible = visibleBoardViews(board, visibility, allowView);
   return visible.map((v, i) => ({
     view: v.view,
     labelKey: v.labelKey,
@@ -245,14 +257,16 @@ function boardViewMenuEntries(board, currentView) {
 // is always shown (the setters keep that invariant), but a document edited
 // by hand could break it, so the last resort is Swimlanes regardless - a
 // user is never left on a view that renders nothing.
-function resolveBoardView(board, requestedView) {
+function resolveBoardView(board, requestedView, allowView = allowAll) {
   if (!board) return requestedView;
   const visibility = board.permission;
-  if (isKnownBoardView(requestedView) && isBoardViewShown(board, requestedView, visibility)) {
+  if (isKnownBoardView(requestedView) && allowView(requestedView) &&
+      isBoardViewShown(board, requestedView, visibility)) {
     return requestedView;
   }
   const fallback = defaultBoardView(board, visibility);
-  if (isBoardViewShown(board, fallback, visibility)) return fallback;
+  if (allowView(fallback) && isBoardViewShown(board, fallback, visibility)) return fallback;
+  // Swimlanes is core: no instance feature can disable it.
   return DEFAULT_BOARD_VIEW;
 }
 

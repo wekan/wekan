@@ -2,6 +2,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { headerPathVar } from '/client/lib/headerPathVar';
 const { pageDocumentTitle } = require('/models/lib/starredPages');
 const { resolveBoardView, isKnownBoardView, DEFAULT_BOARD_VIEW } = require('/models/lib/boardViewSettings');
+import { allowBoardView } from '/client/lib/instanceFeatures';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Tracker } from 'meteor/tracker';
 import { ReactiveVar } from 'meteor/reactive-var';
@@ -364,11 +365,12 @@ export const Utils = {
   // models/lib/boardViewSettings.js), the board's default for public or
   // private is rendered instead - nobody is left on a view the menu no
   // longer lists. Off a board (no current board) the stored choice is
-  // returned as it is.
+  // returned as it is. A view the instance disabled (#6736, Admin Panel /
+  // Settings / Visibility / Features) is not offered either.
   boardView() {
     const stored = Utils.storedBoardView();
     const board = Utils.getCurrentBoard();
-    return board ? resolveBoardView(board, stored) : stored;
+    return board ? resolveBoardView(board, stored, allowBoardView) : stored;
   },
 
   storedBoardView() {

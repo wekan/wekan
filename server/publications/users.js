@@ -47,6 +47,8 @@ Meteor.publish('user-admin', function () {
       teams: 1,
       orgs: 1,
       authenticationMethod: 1,
+      // #6736: whether this user previews disabled features. Own document only.
+      featurePreview: 1,
     },
   });
   return ret;

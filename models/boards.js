@@ -3091,8 +3091,10 @@ Boards.helpers({
   // board's current order, so two quick clicks each move from where the
   // previous one left it; a no-op (first row up, last row down) writes
   // nothing.
-  async moveBoardView(view, direction) {
-    const order = boardViewSettings.moveBoardView(this.boardViewOrder, view, direction);
+  // `allowView` (#6736): the instance's disabled views are not rows, so the
+  // move steps over them.
+  async moveBoardView(view, direction, allowView) {
+    const order = boardViewSettings.moveBoardView(this.boardViewOrder, view, direction, allowView);
     const before = boardViewSettings.normalizeBoardViewOrder(this.boardViewOrder);
     if (order.every((v, i) => v === before[i])) return false;
     return await Boards.updateAsync(this._id, { $set: { boardViewOrder: order } });

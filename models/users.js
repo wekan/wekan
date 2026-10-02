@@ -1174,6 +1174,15 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
+    featurePreview: {
+      /**
+       * #6736: a pilot user who sees the features the instance disabled
+       * (Admin Panel / Settings / Visibility / Features). Set only by the
+       * site admin's saveInstanceFeatures method.
+       */
+      type: Boolean,
+      optional: true,
+    },
     createdThroughApi: {
       /**
        * was the user created through the API?

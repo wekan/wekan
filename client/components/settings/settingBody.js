@@ -18,6 +18,7 @@ import { adminPath } from '/models/lib/adminUrls';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { format } from '/imports/lib/dateUtils';
 const { ALL_MAIL_SERVICES, mailServiceStorageKey } = require('/models/lib/mailServices');
+const instanceFeatures = require('/models/lib/instanceFeatures');
 
 // Helper functions shared across the template
 function checkField(selector) {
@@ -906,7 +907,24 @@ Template.setting.events({
 
 });
 
+// #6736: the pilot users' usernames are not published (the flag is on each
+// user, visible only to that user), so the site admin's page asks for them.
+Template.tableVisibilityModeSettings.onCreated(function () {
+  this.featurePilotUsernames = new ReactiveVar('');
+  if (tenantAdmin.isSiteAdmin(ReactiveCache.getCurrentUser())) {
+    Meteor.callAsync('getFeaturePilotUsernames')
+      .then(names => this.featurePilotUsernames.set(names.join(', ')))
+      .catch(() => {});
+  }
+});
+
 Template.tableVisibilityModeSettings.helpers({
+  featureRows() {
+    return instanceFeatures.featureRows(ReactiveCache.getCurrentSetting());
+  },
+  featurePilotUsernames() {
+    return Template.instance().featurePilotUsernames.get();
+  },
   isGlobalDateFormat(format) {
     return (ReactiveCache.getCurrentSetting()?.globalDateFormat || 'YYYY-MM-DD') === format;
   },
@@ -993,9 +1011,36 @@ Template.tableVisibilityModeSettings.events({
   // off restores every board's own value.
   // Tick a box without saving: the group's own Save writes them together, the way
   // the Yes/No pairs these replace behaved.
-  'click a.js-toggle-all-boards-hide, click a.js-toggle-hide-logo, click a.js-toggle-date-format'(event) {
+  'click a.js-toggle-all-boards-hide, click a.js-toggle-hide-logo, click a.js-toggle-date-format, click a.js-toggle-feature'(event) {
     event.preventDefault();
     $(event.currentTarget).find('.materialCheckBox').toggleClass('is-checked');
+  },
+
+  // ── Features (#6736) ──────────────────────────────────────────────────────
+  // Every feature row's tick, the two policies and the pilot users, in one
+  // server method that validates them against the catalog.
+  async 'click button.js-visibility-features-save'(event, instance) {
+    event.preventDefault();
+    const states = {};
+    instance.$('.js-feature-row').each((i, row) => {
+      states[row.dataset.feature] = $(row).find('.js-feature-enabled').hasClass('is-checked');
+    });
+    const status = instance.$('.js-visibility-features-status');
+    try {
+      const result = await Meteor.callAsync('saveInstanceFeatures', {
+        states,
+        approvalRequired: instance.$('#feature-approval-required').hasClass('is-checked'),
+        previewAdmins: instance.$('#feature-preview-admins').hasClass('is-checked'),
+        pilotUsernames: instance.$('#feature-pilot-users').val() || '',
+      });
+      const names = await Meteor.callAsync('getFeaturePilotUsernames');
+      instance.featurePilotUsernames.set(names.join(', '));
+      status.text(result.unknownUsernames.length
+        ? `${TAPi18n.__('feature-pilot-users-unknown')} ${result.unknownUsernames.join(', ')}`
+        : TAPi18n.__('feature-saved'));
+    } catch (error) {
+      status.text(error.reason || error.message);
+    }
   },
 
   'click button.js-visibility-date-save'(event, instance) {

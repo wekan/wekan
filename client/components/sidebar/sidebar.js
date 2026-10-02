@@ -25,6 +25,7 @@ import AccessibilitySettings from '/models/accessibilitySettings';
 import Boards from '/models/boards';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 const boardViewSettings = require('/models/lib/boardViewSettings');
+import { allowBoardView } from '/client/lib/instanceFeatures';
 import Cards from '/models/cards';
 import Attachments from '/models/attachments';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
@@ -663,7 +664,8 @@ Template.boardViewSettingsPopup.helpers({
   },
   boardViewRows() {
     const board = Utils.getCurrentBoard();
-    const ordered = boardViewSettings.orderedBoardViews(board);
+    // #6736: views the instance disabled are not rows; their board settings stay.
+    const ordered = boardViewSettings.orderedBoardViews(board).filter(v => allowBoardView(v.view));
     return ordered.map((v, i) => ({
       view: v.view,
       labelKey: v.labelKey,
@@ -699,13 +701,13 @@ Template.boardViewSettingsPopup.events({
     evt.preventDefault();
     const board = Utils.getCurrentBoard();
     if (!board) return;
-    board.moveBoardView(evt.currentTarget.closest('[data-view]').dataset.view, 'up');
+    board.moveBoardView(evt.currentTarget.closest('[data-view]').dataset.view, 'up', allowBoardView);
   },
   'click .js-board-view-order-down'(evt) {
     evt.preventDefault();
     const board = Utils.getCurrentBoard();
     if (!board) return;
-    board.moveBoardView(evt.currentTarget.closest('[data-view]').dataset.view, 'down');
+    board.moveBoardView(evt.currentTarget.closest('[data-view]').dataset.view, 'down', allowBoardView);
   },
 });
 

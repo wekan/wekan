@@ -8,6 +8,9 @@ const methods = source.slice(source.indexOf('  boardView() {'), source.indexOf('
 let user, browserView, pending = null, board = null;
 const context = {
   ...settings,
+  // #6736: no instance feature is disabled here; tests/instanceFeatures.test.cjs
+  // covers boardView() with disabled views.
+  allowBoardView: () => true,
   pendingBoardView: { get: () => pending, set: value => { pending = value; } },
   ReactiveCache: { getCurrentUser: () => user },
   window: { localStorage: { getItem: () => browserView,

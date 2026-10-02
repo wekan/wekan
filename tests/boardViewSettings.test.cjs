@@ -247,7 +247,7 @@ test('resolveBoardView never leaves a user on a hidden view: it falls back to th
 // ------------------------------------------------------- applied in the UI
 
 test('the Board View menu lists only the views shown for the board\'s visibility, in the board\'s order', () => {
-  assert.ok(/boardViewMenuEntries\(\) \{[\s\S]*?return boardViewMenuEntries\(board, Utils\.boardView\(\)\)/.test(boardHeaderJs));
+  assert.ok(/boardViewMenuEntries\(\) \{[\s\S]*?return boardViewMenuEntries\(board, Utils\.boardView\(\), allowBoardView\)/.test(boardHeaderJs), 'the menu also leaves out views the instance disabled (#6736)');
   assert.ok(boardHeaderJs.includes("require('/models/lib/boardViewSettings')"));
   const board = {
     permission: 'public',
@@ -275,11 +275,13 @@ test('each popup row has keyboard-reachable up/down arrows, reusing the existing
   assert.strictEqual(en['card-field-order-move-up'], 'Move up');
   assert.strictEqual(en['card-field-order-move-down'], 'Move down');
   assert.ok(!en['board-view-order-move-up'] && !en['board-view-move-up'], 'no new move keys (negative)');
-  assert.ok(/boardViewRows\(\) \{[\s\S]*?boardViewSettings\.orderedBoardViews\(board\)/.test(sidebarJs), 'rows follow the board order');
-  assert.ok(/'click \.js-board-view-order-up'\(evt\) \{[\s\S]*?board\.moveBoardView\(evt\.currentTarget\.closest\('\[data-view\]'\)\.dataset\.view, 'up'\)/.test(sidebarJs));
-  assert.ok(/'click \.js-board-view-order-down'\(evt\) \{[\s\S]*?board\.moveBoardView\(evt\.currentTarget\.closest\('\[data-view\]'\)\.dataset\.view, 'down'\)/.test(sidebarJs));
+  // #6736: rows and moves leave out the views the instance disabled
+  // (models/lib/instanceFeatures.js); tests/instanceFeatures.test.cjs pins why.
+  assert.ok(/boardViewRows\(\) \{[\s\S]*?boardViewSettings\.orderedBoardViews\(board\)\.filter\(v => allowBoardView\(v\.view\)\)/.test(sidebarJs), 'rows follow the board order');
+  assert.ok(/'click \.js-board-view-order-up'\(evt\) \{[\s\S]*?board\.moveBoardView\(evt\.currentTarget\.closest\('\[data-view\]'\)\.dataset\.view, 'up', allowBoardView\)/.test(sidebarJs));
+  assert.ok(/'click \.js-board-view-order-down'\(evt\) \{[\s\S]*?board\.moveBoardView\(evt\.currentTarget\.closest\('\[data-view\]'\)\.dataset\.view, 'down', allowBoardView\)/.test(sidebarJs));
   assert.ok(/boardViewOrder: \{[\s\S]*?type: Array,\s*optional: true,\s*\},\s*'boardViewOrder\.\$': \{\s*type: String,/.test(boardsJs), 'the schema field');
-  assert.ok(/async moveBoardView\(view, direction\) \{[\s\S]*?boardViewSettings\.moveBoardView\(this\.boardViewOrder, view, direction\)[\s\S]*?\$set: \{ boardViewOrder: order \}/.test(boardsJs), 'the setter');
+  assert.ok(/async moveBoardView\(view, direction, allowView\) \{[\s\S]*?boardViewSettings\.moveBoardView\(this\.boardViewOrder, view, direction, allowView\)[\s\S]*?\$set: \{ boardViewOrder: order \}/.test(boardsJs), 'the setter');
 });
 
 test('normalizeBoardViewOrder drops unknown keys and duplicates and appends missing views in default order', () => {
@@ -319,7 +321,7 @@ test('moveBoardView moves one step, and the first up / last down / unknown are n
 });
 
 test('Utils.boardView() resolves the stored choice through the current board', () => {
-  assert.ok(/boardView\(\) \{\s*const stored = Utils\.storedBoardView\(\);\s*const board = Utils\.getCurrentBoard\(\);\s*return board \? resolveBoardView\(board, stored\) : stored;/.test(utilsJs));
+  assert.ok(/boardView\(\) \{\s*const stored = Utils\.storedBoardView\(\);\s*const board = Utils\.getCurrentBoard\(\);\s*return board \? resolveBoardView\(board, stored, allowBoardView\) : stored;/.test(utilsJs), 'a view the instance disabled falls back too (#6736)');
   assert.ok(/storedBoardView\(\) \{\s*const pending = pendingBoardView\.get\(\);/.test(utilsJs), 'the previous body is the stored choice');
   assert.ok(utilsJs.includes("require('/models/lib/boardViewSettings')"));
 });

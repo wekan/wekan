@@ -459,6 +459,102 @@
     {
       "key": "act-editCard",
       "since": "2026-10-02"
+    },
+    {
+      "key": "features-desc",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "feature-views-table",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "feature-views-table-desc",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "feature-views-calendar",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "feature-views-calendar-desc",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "feature-views-time",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "feature-views-time-desc",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "feature-views-overview",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "feature-views-overview-desc",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "feature-views-gantt",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "feature-views-gantt-desc",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "feature-views-scrum",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "feature-views-scrum-desc",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "feature-views-flow-charts",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "feature-views-flow-charts-desc",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "feature-views-map",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "feature-views-map-desc",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "feature-awaiting-approval",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "feature-approval-required",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "feature-preview-admins",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "feature-pilot-users",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "feature-pilot-users-placeholder",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "feature-pilot-users-unknown",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "feature-saved",
+      "since": "2026-10-02"
     }
   ]
 }

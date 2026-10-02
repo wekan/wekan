@@ -374,6 +374,41 @@ template(name='tableVisibilityModeSettings')
 
       li.admin-pane-group-separator
         hr
+      //- #6736: which optional features this WeKan offers. A ticked feature is
+      //- on for everyone; an unticked one is hidden from the interface (not
+      //- greyed out), keeps its data, and changes no permission. The rows come
+      //- from models/lib/instanceFeatures.js, so the page and the places that
+      //- hide a feature read the same catalog.
+      li
+        h2.admin-pane-group-title {{_ 'features'}}
+      li.tableVisibilityMode-form
+        .title {{_ 'features-desc'}}
+      each featureRows
+        li.tableVisibilityMode-form.js-feature-row(data-feature=key)
+          a.flex.js-toggle-feature
+            .materialCheckBox.js-feature-enabled(class="{{#if enabled}}is-checked{{/if}}")
+            span {{_ labelKey}}
+            if awaitingApproval
+              span.feature-awaiting-approval  {{_ 'feature-awaiting-approval'}}
+          .feature-desc {{_ descKey}}
+      li.tableVisibilityMode-form
+        a.flex.js-toggle-feature
+          .materialCheckBox#feature-approval-required(class="{{#if currentSetting.featureApprovalRequired}}is-checked{{/if}}")
+          span {{_ 'feature-approval-required'}}
+      li.tableVisibilityMode-form
+        a.flex.js-toggle-feature
+          .materialCheckBox#feature-preview-admins(class="{{#if currentSetting.featurePreviewAdmins}}is-checked{{/if}}")
+          span {{_ 'feature-preview-admins'}}
+      li.tableVisibilityMode-form
+        .title {{_ 'feature-pilot-users'}}
+        .form-group
+          textarea.wekan-form-control#feature-pilot-users(data-editor-submit=".js-visibility-features-save" rows="2" placeholder="{{_ 'feature-pilot-users-placeholder'}}")= featurePilotUsernames
+      li
+        button.js-visibility-features-save.primary {{_ 'save'}}
+        span.js-visibility-features-status
+
+      li.admin-pane-group-separator
+        hr
       li
         h2.admin-pane-group-title {{_ 'date'}}
       li.tableVisibilityMode-form

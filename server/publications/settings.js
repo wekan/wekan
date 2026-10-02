@@ -63,6 +63,12 @@ const SETTING_FIELDS = {
   themeCustomColors: 1,
   hideLogo: 1,
   hideCardCounterList: 1,
+  // #6736: which optional features the instance offers. Every client needs
+  // them to hide what is disabled; they hold no secret.
+  featureStates: 1,
+  featureApprovalRequired: 1,
+  featureKnownKeys: 1,
+  featurePreviewAdmins: 1,
   hideBoardMemberList: 1,
   hideDateFormat: 1,
   globalDateFormat: 1,
