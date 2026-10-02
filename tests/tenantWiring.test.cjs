@@ -230,7 +230,9 @@ test('per-tenant branding is applied where the settings document is published', 
   assert.ok(/tenantForConnection\(this\.connection\)/.test(pub),
     'the tenant comes from the connection\'s own host');
   assert.ok(/tenants\.tenantBrandingOverrides\(org\)/.test(pub));
-  assert.ok(/if \(!org\) \{\s*\n\s*return Settings\.find\(\{\}, \{ fields: SETTING_FIELDS \}\);/.test(pub),
+  // The fields are SETTING_FIELDS, plus the LDAP details for a site admin
+  // (2026-10-02: those no longer go to every visitor).
+  assert.ok(/if \(!org\) \{\s*\n\s*return Settings\.find\(\{\}, \{ fields \}\);/.test(pub),
     'no tenancy, or a host nobody claims: exactly the cursor it always was');
   assert.ok(/observeChanges/.test(pub), 'and a tenant\'s copy stays reactive');
 });

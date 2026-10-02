@@ -127,15 +127,8 @@ const SETTING_FIELDS = {
   // NEVER reach the client. Only 'ldap.bindPasswordSet' (a boolean) is
   // published, so the UI can show "a password is configured" without ever
   // transmitting the password itself.
+  // The rest of the LDAP block is in ADMIN_SETTING_FIELDS below.
   'ldap.enabled': 1,
-  'ldap.host': 1,
-  'ldap.port': 1,
-  'ldap.baseDN': 1,
-  'ldap.authentificationUserDN': 1,
-  'ldap.bindPasswordSet': 1,
-  'ldap.userSearchFilter': 1,
-  'ldap.userSearchField': 1,
-  'ldap.encryption': 1,
   // Admin Panel / OAuth login providers (Meteor accounts-google/-github/...,
   // models/lib/oauthProviders.js) and passwordless login. Per provider ONLY
   // `enabled`, `id`, `loginStyle` and the boolean `secretSet` are published;
@@ -176,12 +169,31 @@ const SETTING_FIELDS = {
   passwordlessEnabled: 1,
 };
 
+// Published to site administrators only. 'setting' is subscribed by every
+// visitor, signed in or not, and these describe the directory server - its
+// host, port, bind account and search filter - which is reconnaissance for
+// whoever wants to attack it and is read only by Admin Panel -> LDAP.
+const ADMIN_SETTING_FIELDS = {
+  'ldap.host': 1,
+  'ldap.port': 1,
+  'ldap.baseDN': 1,
+  'ldap.authentificationUserDN': 1,
+  'ldap.bindPasswordSet': 1,
+  'ldap.userSearchFilter': 1,
+  'ldap.userSearchField': 1,
+  'ldap.encryption': 1,
+};
+
 Meteor.publish('setting', async function() {
   const org = tenancyEnabled() ? tenantForConnection(this.connection) : null;
+  const viewer = this.userId ? await ReactiveCache.getUser(this.userId) : null;
+  const fields = viewer && viewer.isAdmin === true && viewer.loginDisabled !== true
+    ? { ...SETTING_FIELDS, ...ADMIN_SETTING_FIELDS }
+    : SETTING_FIELDS;
   // No tenancy, or a host no Organization claims: byte-for-byte what it always was,
   // a plain reactive cursor.
   if (!org) {
-    return Settings.find({}, { fields: SETTING_FIELDS });
+    return Settings.find({}, { fields });
   }
 
   // A tenant host: the same document, published through this connection with the
@@ -196,7 +208,7 @@ Meteor.publish('setting', async function() {
     });
     return out;
   };
-  const handle = await Settings.find({}, { fields: SETTING_FIELDS }).observeChanges({
+  const handle = await Settings.find({}, { fields }).observeChanges({
     added: (id, doc) => {
       this.added('settings', id, applyOverrides(doc));
     },
