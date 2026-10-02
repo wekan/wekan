@@ -2231,6 +2231,22 @@ The remaining translation queue and older wrong-language text still need work.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a8aa574539">Translate feature and card settings in six Celtic and Slavic languages</a>. Thanks to xet7.</summary>
+
+Add 162 messages in Breton, Cornish, Manx, Kashubian, Upper Sorbian and
+Silesian. Feature settings now cover 192 locale tags and the three card-setting
+labels cover 60. Correct Breton's linked-card label, which meant “found card”,
+and replace Czech-seeded Upper Sorbian labels. All 12 selected translation and
+catalog suites pass. Specialist flow-metric wording has lower confidence and
+remains open to native review. Vocabulary references included
+[Breton](https://fr.glosbe.com/br/fr/aotre),
+[Cornish](https://www.cornishdictionary.org.uk/sites/default/files/GerlyverPDF_20190723.pdf)
+and [Manx](https://glosbe.com/en/gv/permission) dictionaries.
+The remaining translation queue and older wrong-language text still need work.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
