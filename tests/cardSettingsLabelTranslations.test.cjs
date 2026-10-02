@@ -5,7 +5,7 @@ const path = require('node:path');
 const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const english = read('en');
-const codes = ['kk', 'ky', 'tg', 'mn', 'uz', 'uz-LA', 'uz-UZ', 'uz-AR', 'ba', 'tt', 'tk_TM', 'ug', 'ckb', 'ku'];
+const codes = ["kk", "ky", "tg", "mn", "uz", "uz-LA", "uz-UZ", "uz-AR", "ba", "tt", "tk_TM", "ug", "ckb", "ku", "am", "as", "or_IN", "si", "ps", "sd", "km", "km-KH", "km_KH", "my", "fo", "fy", "fy-NL", "fur", "rm"];
 const keys = ['card-settings-card-color', 'card-settings-linked-card', 'card-settings-description-badge'];
 for (const code of codes) {
   const locale = read(code);
@@ -24,4 +24,11 @@ for (const key of [...keys, 'cardType-linkedCard']) {
 assert.match(read('mn')['card-settings-card-color'], /өнгө/);
 assert.match(read('mn')['card-settings-description-badge'], /Тайлбар/);
 assert.notEqual(read('ba')['card-settings-card-color'], read('tt')['card-settings-card-color']);
+for (const key of [...keys, 'cardType-linkedCard']) {
+  assert.doesNotMatch(read('or_IN')[key], /\|/, `${key}: no stray separator`);
+}
+assert.equal(read('fur')['cardType-linkedCard'], 'Cjarte colegade');
+assert.equal(read('rm')['cardType-linkedCard'], 'Carta colliada');
+assert.doesNotMatch(read('fur')['card-settings-linked-card'], /collegata/);
+assert.doesNotMatch(read('rm')['card-settings-linked-card'], /collegata/);
 console.log(`Card setting labels: ${keys.length} labels in ${codes.length} locales passed`);
