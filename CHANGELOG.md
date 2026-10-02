@@ -1692,15 +1692,99 @@ template.
 
 # Upcoming WeKan ® release
 
-**In short:** Administrators can choose which optional **board views** WeKan
-offers, preview them before enabling them, and keep features from later updates
-off until approved. Webhooks can opt into one **act-editCard** event, lists from
-before list lifetimes become eligible for durable Sync when their settings are
-saved, and translation checks keep completed catalogs while new strings wait.
-Organization-domain requests and card-edit activity are translated in every
-supported language.
+**In short:** Administrators choose which optional **board views** WeKan offers
+and can keep features from later updates off until approved. **Board Settings /
+Card** gives every row a card and a minicard side, shows each Scrum field as its
+own row and reorders rows by **drag and drop**, as does Board View. Boards
+import and export **Taskwarrior** JSON, more rule actions run through durable
+Sync, webhooks can opt into **act-editCard**, and translations cover more
+languages.
 
-This release adds the following new features:
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code
+scanning:
+
+- [A test builds its over-long template string without an escaped interpolation](https://github.com/wekan/wekan/commit/437af449f3)
+  (CodeQL alert #548, js/useless-regexp-character-escape, with a parsed guard
+  against the shape in any regex-context template literal). Thanks to xet7.
+
+and adds the following new features:
+
+**Board Settings / Card** - every row on both surfaces, the Scrum fields as
+rows, and drag and drop instead of arrows; Board View reorders the same way.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6d950b7474">Each Scrum field is its own row, "Scrum settings: Sprint" and so on</a>. Thanks to xet7.</summary>
+
+The separate Scrum checkbox lists under each column are gone. Every Scrum field
+is a row of both columns, ordered with the others and drawn where the board's
+order puts it - by default where the Scrum block was. The minicard gained Past
+sprints and Acceptance criteria, and its work item type row is the switch of
+the work item type badge, on unless turned off. Column actions set the Scrum
+rows through scrum.configure, so its lock, revision and Scrum history apply.
+Tests: the order and coverage guards, a column-actions unit test and Playwright
+cases in scrum.e2e.js and board-settings-columns.e2e.js.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2d80e6e4ee">Rows reorder by drag and drop, in Board Settings / Card and Board View</a>. Thanks to xet7.</summary>
+
+The up and down arrows are replaced. With drag handles on, a handle sits where
+the arrows were; with them off, the row's icon and label are dragged. Up and
+Down on the focused handle or label still move a row one step. A dropped Card
+row is walked to its place through the same one-step moves, so a pinned header
+stays first and a section moves as one; head, tail and modifier rows are not
+draggable. A dropped Board View order fills the shown rows' slots, so a view
+the instance disabled keeps its place. settings-drag-reorder.e2e.js passes in
+Chromium and WebKit.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/79b4467546">Every row can be shown on the card and on the minicard</a>. Thanks to xet7.</summary>
+
+Eighteen one-sided rows got their other side. On the minicard: location,
+requested and assigned by, running Flowtime and Pomodoro, attachment names, the
+text-note count, the last change, the description title and the checklist title
+and due date. On the card: the collapse caret's switch, labels above the title,
+labels text with the user's own override, the card's list title, the swimlane
+name and the comment count. A side that already drew something stays on; a new
+element is off until chosen.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8d30e4fdbc">Rows for what was drawn without one: color, parent, linked card, buttons, badges</a>. Thanks to xet7.</summary>
+
+The card color, the parent card, the linked card indicator, the rule card
+buttons, the description badge and the unread comments marker each have a row
+with both sides. What was drawn before stays on; the card's description badge
+and unread marker and the minicard's card buttons are off until chosen. The
+minicard's buttons use one board-level rules subscription, only while on. The
+archived banner and upload progress are status, week-of-year is a Member
+Settings preference and card aging has its own setting, so they have no row.
+
+</details>
+
+**Board Settings** - the menu's groups.
+
+- [Scrum settings is a group of its own, above Change color](https://github.com/wekan/wekan/commit/7bf6f8a44b). Thanks to xet7.
+
+**Import and export** - one more format.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f0323140f6">Boards import and export Taskwarrior JSON</a>. Thanks to xet7.</summary>
+
+Taskwarrior's task export / task import JSON, as an array or one task per line.
+Status sets the list, project and priority become labels, tags become labels,
+entry, due, scheduled and end become dates, annotations become comments and
+depends becomes blocked-by dependencies by uuid. WeKan's wekanlist and
+wekandescription attributes, kept by Taskwarrior as orphaned UDAs, carry list
+names and descriptions across a round trip. Deleted tasks, recurring templates,
+bad dates and unmapped attributes go to the loss report. Tests:
+tests/taskwarrior.test.cjs and a Playwright import case.
+
+</details>
 
 **The Admin Panel** - Settings / Visibility decides which optional features
 the whole instance offers, and who may try them first.
@@ -1748,7 +1832,33 @@ a server test of the stored plan.
 
 </details>
 
-**List Sync** - lists from before list lifetimes.
+**List Sync** - more of what a rule does runs through durable Sync, and lists
+from before list lifetimes can use it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b3b4962414">Rule moves to the top or bottom of the card's own list are durable</a>. Thanks to xet7.</summary>
+
+A saved command computes the sort once, as the ordinary action does, writes it
+conditionally, and writes the hook's position History row and the legacy
+UserPositionHistory row Ctrl+Z reads once, clearing the redo stack as
+trackChange does. A move to another list, swimlane or board keeps the board on
+direct Sync. Tests: tests/syncRuleMoveCommand.test.cjs and a server test of a
+real rule with replay.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/21d7848d47">Rule checklist creation and removal are durable</a>. Thanks to xet7.</summary>
+
+addChecklist inserts a checklist whose id is derived from the rule invocation
+and records the hook's activity and History lifecycle row from the stored
+document, once. removeChecklist saves every checklist the ordinary selector
+matches and, per checklist, writes the activity before the removal and the
+History row after it, refusing a checklist changed since capture. Tests:
+tests/syncRuleChecklistLifecycleCommand.test.cjs and a server test of both
+rules with replay.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/307bad3e8e">Saving Sync settings gives an old list its lifetime, so it can use durable Sync</a>. Thanks to xet7.</summary>
@@ -1762,6 +1872,11 @@ server test that the saved list becomes eligible for durable Sync, and a guard
 that nothing else writes the field on an existing list.
 
 </details>
+
+and fixes the following bugs:
+
+- [A date custom field's tooltip names the field instead of saying "Starts on"](https://github.com/wekan/wekan/commit/a69b214ba3)
+  ([#6737](https://github.com/wekan/wekan/issues/6737)). Thanks to rmb82 and xet7.
 
 and has the following developer-facing changes:
 
@@ -1800,15 +1915,16 @@ and updates the following translations:
 
 Fill the request status, saved request, reserved installation-domain refusal and
 card-edit activity messages in all 234 non-English locales. Keep organization
-requests distinct from site-administrator assignment and preserve the card token.
-Existing translations are retained, and English variants keep source wording.
-The four finished keys leave the pending list. Newly added feature keys are also
-synchronized in source order as English placeholders for the next batches.
+requests distinct from site-administrator assignment and preserve the card
+token. Existing translations are retained, and English variants keep source
+wording. The four finished keys leave the pending list. Newly added feature keys
+are also synchronized in source order as English placeholders for the next
+batches.
 
 All 224 translation and i18n suites pass, including the new all-locale checks,
 script and wrong-language-seed checks. These tests do not establish fluency.
-Low-confidence specialist wording, especially minority and constructed languages,
-is recorded with vocabulary sources in
+Low-confidence specialist wording, especially minority and constructed
+languages, is recorded with vocabulary sources in
 [the translation review notes](docs/Features/Translations/Domain-Request-Translation-Review.md).
 The broader translation backlog remains open.
 
@@ -1824,9 +1940,10 @@ Chinese wording is retained, and administrator previews remain distinct from
 pilot-user access. Other locales still need these strings translated.
 
 The 225 translation and i18n suites passed before the final locale extension;
-the expanded feature suite and full-catalog completeness checks passed afterward.
-The new Taskwarrior import key is synchronized in source order as an English
-placeholder for subsequent translation. Existing translations are preserved.
+the expanded feature suite and full-catalog completeness checks passed
+afterward. The new Taskwarrior import key is synchronized in source order as an
+English placeholder for subsequent translation. Existing translations are
+preserved.
 
 </details>
 
@@ -1839,9 +1956,9 @@ and multilingual completion checks now use the completed source catalog, while
 ordinary listings keep all new work visible. Behavioral tests verify pending-key
 reporting instead of matching the implementation expression.
 
-All 447 translation-related Node suites pass, including terminology, placeholder,
-language wiring and Transifex checks found beyond the translation-named suites.
-The untranslated backlog remains open.
+All 447 translation-related Node suites pass, including terminology,
+placeholder, language wiring and Transifex checks found beyond the
+translation-named suites. The untranslated backlog remains open.
 
 </details>
 
@@ -1879,10 +1996,10 @@ All 447 translation-related Node suites pass.
 <summary><a href="https://github.com/wekan/wekan/commit/226f9bc20c">Translate feature settings in Scottish Gaelic, Maltese and Occitan</a>. Thanks to xet7.</summary>
 
 Add 72 translations, bringing feature-setting coverage to 122 locales. The
-feature suite, full-catalog token and key checks, and README language count pass.
-Specialist flow-metric wording in these three languages has lower confidence and
-remains open to native review; structural tests do not establish fluency.
-Vocabulary references include Scottish Gaelic
+feature suite, full-catalog token and key checks, and README language count
+pass. Specialist flow-metric wording in these three languages has lower
+confidence and remains open to native review; structural tests do not establish
+fluency. Vocabulary references include Scottish Gaelic
 [feart](https://www.faclair.com/?txtSearch=feart) and
 [cead](https://www.faclair.com/?txtSearch=cead), Maltese
 [permess](https://glosbe.com/en/mt/permission), and Occitan
