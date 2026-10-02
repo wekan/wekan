@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/730e3018d6">Translate Malagasy recovery and email queue messages</a>. Thanks to xet7.</summary>
+
+- Fill 22 Sync-diagnostic, estimate-field and email-queue messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ae717b4ac5">Translate Malagasy Sync reports and source fields</a>. Thanks to xet7.</summary>
 
 - Fill 24 Sync-report, source-field and parser-warning messages.
