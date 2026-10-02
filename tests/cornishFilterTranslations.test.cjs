@@ -117,7 +117,37 @@ const keys = [
   "scrum-cancel-sprint",
   "scrum-rollover-sprint",
   "scrum-cancel-reason",
-  "scrum-product-backlog"
+  "scrum-product-backlog",
+  "scrum-edit-sprint",
+  "scrum-sprint-goal",
+  "scrum-capacity",
+  "scrum-new-sprint",
+  "scrum-releases",
+  "scrum-release",
+  "scrum-select-sprint",
+  "scrum-backlog",
+  "scrum-backlog-help",
+  "scrum-estimate",
+  "scrum-backlog-rank",
+  "scrum-issue-type",
+  "scrum-acceptance-criteria",
+  "scrum-events",
+  "scrum-event-kind",
+  "scrum-timebox",
+  "scrum-notes",
+  "scrum-event-planning",
+  "scrum-event-daily",
+  "scrum-event-review",
+  "scrum-event-retrospective",
+  "scrum-committed",
+  "scrum-completed",
+  "scrum-added",
+  "scrum-removed",
+  "scrum-incomplete",
+  "scrum-no-closed-sprints",
+  "scrum-report-help",
+  "scrum-total",
+  "scrum-state-planned"
 ];
 assert.deepEqual(Object.keys(locale), Object.keys(en));
 for (const key of keys) {
@@ -161,3 +191,9 @@ assert.equal(locale['board-view-product-backlog'], locale['scrum-product-backlog
 assert.equal(locale['board-view-sprints'], locale['scrum-sprints']);
 assert.match(locale['scrum-rollover-sprint'], /heb gorfenna/);
 assert.match(locale['scrum-product-owner'], /Perghen/);
+
+assert.notEqual(locale['scrum-added'], locale['scrum-removed']);
+assert.notEqual(locale['scrum-completed'], locale['scrum-incomplete']);
+assert.notEqual(locale['scrum-event-review'], locale['scrum-event-retrospective']);
+assert.match(locale['scrum-report-help'], /ankoth.*a-denewen.*nyns yns.*vann/);
+assert.match(locale['scrum-report-help'], /unsesow ha policis.*hepken/);
