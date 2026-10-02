@@ -4054,6 +4054,17 @@ and the broader translation backlog remain.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b4780cb46e">Translate continuous backup into Persian and Urdu</a>. Thanks to xet7.</summary>
+
+Fill 105 English placeholders across three catalogs and correct the Urdu backup
+label. Preserve existing correct-language translations, source order and exact tokens.
+Extend checks for restore boundaries, protection of the live database file, time
+units and Arabic script. Four focused catalog suites and all 21 human-preference
+checks pass. Other languages and the broader translation backlog remain.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
