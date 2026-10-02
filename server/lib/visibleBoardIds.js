@@ -78,6 +78,14 @@ export async function assertParentCardIsVisible(userId, parentId) {
   }
 
   if (!(await canUserSeeBoard(userId, parent.boardId))) {
+    // The UI offers only parents the user can see, so naming another one is an
+    // attempt: Admin Panel -> Problems -> ParentBleed.
+    try {
+      require('/server/lib/securityLog').record({
+        key: 'authz.parent', action: 'blocked', source: 'parentId', userId,
+        detail: 'A card on a board the user cannot see was named as a parent.',
+      });
+    } catch (e) { /* logging must never break the guard */ }
     const error = new Meteor.Error(
       'Forbidden',
       'You are not allowed to use a card from that board as a parent.',

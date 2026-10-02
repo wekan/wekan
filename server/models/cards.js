@@ -1478,6 +1478,14 @@ WebApp.handlers.post(
         results.push({ index: i, error: 'authorId not found' });
         continue;
       }
+      // ParentBleed, bulk sibling: the parent check the single create makes.
+      // Cards.direct skips the DDP deny rule, so this is the only guard here.
+      try {
+        await assertParentCardIsVisible(req.userId, input.parentId);
+      } catch (error) {
+        results.push({ index: i, error: (error && error.error) || 'Forbidden' });
+        continue;
+      }
       // getNextCardNumber() is an atomic per-board counter, so calling it once
       // per card in this loop still yields unique, sequential numbers.
       const nextCardNumber = await board.getNextCardNumber();

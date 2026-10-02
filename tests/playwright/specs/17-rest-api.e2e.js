@@ -744,3 +744,30 @@ test.describe('REST API: data + permissions', () => {
     expect(res.status()).toBe(401);
   });
 });
+
+// ParentBleed, bulk sibling: cards/bulk wrote each entry's parentId with
+// Cards.direct (no DDP deny rule) and never checked the parent's board.
+test('bulk create refuses a parent card on a board the caller cannot see (ParentBleed)', async ({ request, user, user2, board }) => {
+  const hidden = db.seedBoard({ ownerId: user2.id, cardTitlesPerList: [['Hidden parent']] });
+  const hiddenCard = db.find('cards', { boardId: hidden.boardId })[0];
+  const visibleCard = db.find('cards', { boardId: board.boardId })[0];
+  const listId = board.listIds[0];
+  try {
+    const res = await request.post(`/api/boards/${board.boardId}/lists/${listId}/cards/bulk`, {
+      headers: authHeaders(user.token, true),
+      data: { swimlaneId: board.swimlaneId, cards: [
+        { title: 'ParentBleed child', parentId: hiddenCard._id },
+        { title: 'Visible child', parentId: visibleCard._id },
+      ] },
+    });
+    expect(res.status()).toBe(200);
+    const results = await res.json();
+    expect(results[0]).toMatchObject({ index: 0, error: 'Forbidden' });
+    expect(results[1]._id).toBeTruthy();
+    expect(db.find('cards', { parentId: hiddenCard._id })).toHaveLength(0);
+    expect(db.getCard(results[1]._id).parentId).toBe(visibleCard._id);
+    await expect.poll(() => db.findOne('eventlog', { bleed: 'ParentBleed', source: 'parentId' })?.count).toBeGreaterThan(0);
+  } finally {
+    db.cleanup({ boardIds: [hidden.boardId] });
+  }
+});
