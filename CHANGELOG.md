@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8df2dcef06">Translate Burmese Sync recovery and email queue controls</a>. Thanks to xet7.</summary>
+
+- Fill 25 Sync-report, diagnostic, estimate-field and email-queue messages.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2610050f83">Translate Burmese Sync source details and report messages</a>. Thanks to xet7.</summary>
 
 - Fill 24 Sync-preview, source-field, parser and report messages.
