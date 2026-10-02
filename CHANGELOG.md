@@ -1685,6 +1685,18 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/261f3f4042">Translate Ladin import and rule messages</a>. Thanks to xet7.</summary>
+
+- Fill 25 Ladin import, board-access, rule and notification placeholders,
+  preserving rule variables, markup, URL schemes and access restrictions.
+  Technical wording remains low confidence pending native-speaker review.
+- Batch token, key-order and safeguard checks pass, along with all 21
+  human-preference checks. Remaining placeholders, mixed-language corrections
+  and browser review still need work.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4f5bc318e6">Translate Ladin archive and date filters</a>. Thanks to xet7.</summary>
 
 - Fill 23 Ladin archive and date-filter placeholders, preserving filter
