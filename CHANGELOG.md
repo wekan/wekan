@@ -1864,6 +1864,33 @@ full-catalog key and token checks, and README language-count checks pass.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/32798ce3a1">Translate feature settings in fifteen more locales</a>. Thanks to xet7.</summary>
+
+Add the 24 optional-feature messages in Georgian, Armenian, three Azerbaijani
+variants, Swahili, Tagalog, Urdu, Nepali, Kannada, Gujarati, Marathi, Malayalam,
+Telugu and Punjabi. Feature coverage reaches 119 locales. Extend native-script
+checks and the assertions that data is retained and permissions do not change.
+All 447 translation-related Node suites pass.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/226f9bc20c">Translate feature settings in Scottish Gaelic, Maltese and Occitan</a>. Thanks to xet7.</summary>
+
+Add 72 translations, bringing feature-setting coverage to 122 locales. The
+feature suite, full-catalog token and key checks, and README language count pass.
+Specialist flow-metric wording in these three languages has lower confidence and
+remains open to native review; structural tests do not establish fluency.
+Vocabulary references include Scottish Gaelic
+[feart](https://www.faclair.com/?txtSearch=feart) and
+[cead](https://www.faclair.com/?txtSearch=cead), Maltese
+[permess](https://glosbe.com/en/mt/permission), and Occitan
+[autorizacions](https://oc.wiktionary.org/wiki/autorizacions), alongside the
+existing locale catalogs. Remaining locales and older strings are still pending.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
