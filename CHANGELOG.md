@@ -2850,6 +2850,34 @@ wrong-language text still need work.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/78a6160e57">Translate Scrum scope history and GitLab estimates in 13 more locale tags</a>. Thanks to xet7.</summary>
+
+Fill 208 English placeholders in Akan, Moroccan Arabic, Bashkir, Bambara,
+Buryat, Chuvash, Upper Sorbian, Sakha, Silesian, Venetian, Walloon, Wolof and
+Wu Chinese. Both message groups now cover 209 locale tags, with 25 still
+remaining. Preserve existing translations and extend regression checks for
+native vocabulary, scripts, warning meanings and exact placeholder inventories.
+
+Synchronize four new Scrum paging and import-recovery keys across 243 locale
+catalog files. Translate 48 of these new values in the Czech, Hungarian,
+Russian, Slovak, Ukrainian, Estonian and Hebrew locale families. The catalog
+and batch suites pass. The full run covered 450 translation-related suites:
+443 passed initially, and six of the seven failures pass after these new
+translations. The broad Vietnamese/Bulgarian completion suite still requires
+the new Scrum messages in further languages, starting with Persian.
+
+Specialist workflow wording in the 13-language batch has lower confidence
+and needs speaker review. References included
+[Upper Sorbian estimate terminology](https://www.mdr.de/serbski-program/rozhlos/recny-kucik/recnykucik-mdr-186.html),
+[Walloon vocabulary](https://lucyin.walon.org/diccionairaedje/francardE.html),
+[Chuvash vocabulary](https://ru.samah.chv.su/article/64791.link)
+and [Wolof vocabulary](https://jangawolof.org/dictionary/).
+Structural checks do not establish fluency. The broader translation queue
+and older wrong-language text still need work.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
