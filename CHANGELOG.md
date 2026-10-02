@@ -2524,6 +2524,22 @@ The remaining translation queue and older wrong-language text still need work.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/38de237caa">Translate card-setting labels in 132 more locale tags</a>. Thanks to xet7.</summary>
+
+Fill 393 stored English placeholders for card color, linked card and description
+badge, bringing these three labels to 220 locale tags. Correct mixed-language
+linked-card labels in Romanian, Corsican, Latin, Luxembourgish, Maltese, Shona,
+Tagalog and Urdu while preserving existing correct-language translations.
+All 448 translation-related Node suites pass, including catalog key order,
+placeholder inventories and regressions for these corrected labels. Specialist
+badge wording in Corsican, Latin, Shona, Hausa, Igbo and Yoruba has lower
+confidence and remains open to native review. These checks do not establish
+fluency. The remaining translation queue and older wrong-language text still
+need work.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
