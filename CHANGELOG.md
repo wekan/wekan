@@ -2322,7 +2322,21 @@ mutating REST route.
 
 </details>
 
-and fixes the following bug:
+and fixes the following bugs:
+
+**Scrum** - copying and exporting a Scrum board.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/abda8c4e0f">Boards with sprints, releases or events export and copy again</a>. Thanks to xet7.</summary>
+
+Since Scrum records got a per-lifetime `incarnation` (2026-09-30), the Scrum
+transfer refused it as an unknown field, so board export and board copy of a
+Scrum board with planning records answered 500. The transfer drops it, as
+Scrum History does; any other unknown field is still refused.
+
+</details>
+
+**Board dependencies** - who sees the dependency lines.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2a75b8267f">Dependency lines show on instance boards to every signed-in user</a>. Thanks to xet7.</summary>
@@ -2348,6 +2362,9 @@ site.
 - [The sticky list headers test follows the write-access rule](https://github.com/wekan/wekan/commit/5de71ba789). Thanks to xet7.
 - [The RepointBleed browser test uses cryptographic randomness for its ids](https://github.com/wekan/wekan/commit/5d63862ec0). Thanks to xet7.
 - [models/lib/boardBackground.js is restored after the BackgroundBleed fix overwrote it](https://github.com/wekan/wekan/commit/f9d9596e2a). Thanks to xet7.
+- [Browser tests for TrayBleed, HookUrlBleed, DirectoryInfoBleed, AuthMethodBleed, MigrationBleed and assigned-only attachment reads](https://github.com/wekan/wekan/commit/d53f58bf52), and GET /api/boards/:boardId/attachments answers a refusal with its status instead of the app page. Thanks to xet7.
+- [The coverage tests account for the thirteen Hall of Fame names published on 2026-10-02](https://github.com/wekan/wekan/commit/ad6117cc65). Thanks to xet7.
+- [The RepointBleed browser test has time for its six sign-ins in slower browsers](https://github.com/wekan/wekan/commit/ece70ad9fb). Thanks to xet7.
 
 and updates the following translations:
 
