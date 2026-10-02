@@ -611,6 +611,10 @@
     {
       "key": "scrum-scope-cause-lifecycle",
       "since": "2026-10-02"
+    },
+    {
+      "key": "scrum-show-more",
+      "since": "2026-10-02"
     }
   ]
 }

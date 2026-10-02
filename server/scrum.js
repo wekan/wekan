@@ -1,6 +1,6 @@
 import ScrumHistoryPending from '/server/lib/scrumHistoryPending';
 import { ScrumImportPending } from '/server/lib/scrumImportJournal';
-import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
+import { canEditCardOrLinkedCard, editableCardIds } from '/server/lib/linkedCardPermission';
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import { Random } from 'meteor/random';
@@ -109,7 +109,9 @@ export async function getScrumBoardData(userId, boardId) {
   // denial logging for actual writes, without blocking read-only viewers.
   const importPending = sprints.some(sprint => sprint.scrumImportPending) ||
     !!await ScrumImportPending.findOneAsync(boardId, { fields: { _id: 1 } });
-  for (const card of cards) card.canWrite = !importPending && !!userId && await canEditCardOrLinkedCard(userId, card, board, { recordDenial: false });
+  // One batch for all cards (linkedCardPermission.js editableCardIds).
+  const editable = importPending ? new Set() : await editableCardIds(userId, cards, board);
+  for (const card of cards) card.canWrite = editable.has(card._id);
   return { boardId, settings: { ...DEFAULT_SCRUM_SETTINGS, ...(board.scrum || {}) },
     settingsRevision: board.scrumRevision || 0, sprints, releases, events, cards, lists, swimlanes, customFields,
     importLosses: userId && board.hasAdmin(userId) ? (board.scrumImportLosses || []) : [],

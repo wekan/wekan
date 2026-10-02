@@ -33,6 +33,18 @@ const stateLabel = state => t(`scrum-state-${state}`);
 const nullable = value => value || null;
 const fields = form => Object.fromEntries(new FormData(form));
 
+const CARD_PAGE = 100;
+// The cards of the current view, in Scrum order: the selected sprint's, or the
+// Product Backlog's.
+function viewCards() {
+  const result = data();
+  if (!result) return [];
+  const sprintId = current().sprintId.get();
+  const isSprints = Utils.boardView() === 'board-view-sprints';
+  return result.cards.filter(card => !card.archived && (isSprints && sprintId ? card.scrum?.sprintId === sprintId : !card.scrum?.sprintId))
+    .sort(compareScrumCards);
+}
+
 async function refresh(tpl) {
   const boardId = Session.get('currentBoard');
   const request = ++tpl.request;
@@ -63,6 +75,9 @@ Template.scrumView.onCreated(function () {
   this.error = new ReactiveVar(''); this.busy = new ReactiveVar(false);
   this.sprintId = new ReactiveVar(''); this.request = 0; this.stopped = false;
   this.releaseId = new ReactiveVar(''); this.eventId = new ReactiveVar('');
+  // Rows shown: each carries its own form, so a large board renders a page at
+  // a time.
+  this.cardLimit = new ReactiveVar(CARD_PAGE);
   this.autorun(() => {
     Session.get('currentBoard'); Meteor.userId();
     this.dataState.set(null); this.sprintId.set('');
@@ -133,13 +148,12 @@ Template.scrumView.helpers({
     const sprint = selectedSprint(current());
     return sprint?.closeSnapshot ? [sprintReport(sprint)] : [];
   },
+  hiddenCards() { return Math.max(0, viewCards().length - current().cardLimit.get()); },
+  showMoreLabel() { return t('scrum-show-more', { count: Math.min(CARD_PAGE, Math.max(0, viewCards().length - current().cardLimit.get())) }); },
   cards() {
     const board = Utils.getCurrentBoard(); const result = data();
     if (!result || !board) return [];
-    const sprintId = current().sprintId.get();
-    const isSprints = Utils.boardView() === 'board-view-sprints';
-    return result.cards.filter(card => !card.archived && (isSprints && sprintId ? card.scrum?.sprintId === sprintId : !card.scrum?.sprintId))
-      .sort(compareScrumCards)
+    return viewCards().slice(0, current().cardLimit.get())
       .map(card => {
         const estimate = getCardEstimate(card, result.settings);
         return { ...card, estimateLabel: estimate === null ? t('scrum-unknown-estimate') : String(estimate),
@@ -183,7 +197,10 @@ Template.scrumView.events({
     });
   },
   'click .js-scrum-refresh'(event, tpl) { event.preventDefault(); void refresh(tpl); },
-  'change .js-scrum-sprint'(event, tpl) { tpl.sprintId.set(event.currentTarget.value); tpl.eventId.set(''); },
+  'change .js-scrum-sprint'(event, tpl) {
+    tpl.sprintId.set(event.currentTarget.value); tpl.eventId.set(''); tpl.cardLimit.set(CARD_PAGE);
+  },
+  'click .js-scrum-show-more'(event, tpl) { event.preventDefault(); tpl.cardLimit.set(tpl.cardLimit.get() + CARD_PAGE); },
   'change .js-scrum-release-select'(event, tpl) { tpl.releaseId.set(event.currentTarget.value); },
   'change .js-scrum-event-select'(event, tpl) { tpl.eventId.set(event.currentTarget.value); },
   'click .js-scrum-new'(event, tpl) { event.preventDefault(); tpl.sprintId.set(''); event.currentTarget.form.reset(); },

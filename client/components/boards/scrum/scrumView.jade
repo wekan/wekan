@@ -200,6 +200,8 @@ template(name="scrumView")
                   else
                     tr
                       td(colspan="6") {{_ 'no-cards'}}
+            if hiddenCards
+              button.js-scrum-show-more(type="button") {{showMoreLabel}}
             if isSprints
               if selectedSprint
                 h3 {{_ 'scrum-events'}}
