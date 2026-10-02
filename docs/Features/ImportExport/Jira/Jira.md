@@ -54,6 +54,13 @@ and mapping. Native export and board duplication retain the custom-field markers
 and remap the local estimate field. Duplicate export mappings are omitted.
 This mapping does not reconstruct historical sprint estimates or enable Sync.
 
+When the export includes its field schema (search with `expand=names,schema`),
+the field box offers the numeric fields it declares, story points first. If
+exactly one field has Jira Software's story points type
+(`com.pyxis.greenhopper.jira:jsw-story-points`) and no field is entered, that
+field is used, in points - it is identified by its type, not by its name. With
+two such fields, or none, nothing is chosen for you.
+
 ## Scrum issue types and workflow categories
 
 The Jira importer maps `fields.issuetype.name` to the existing hidden Scrum

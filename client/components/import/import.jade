@@ -64,7 +64,11 @@ template(name="importTextarea")
         | {{jsonText}}
     if isJiraImport
       label(for='jira-estimate-field') Jira: {{_ 'scrum-estimate'}} / {{_ 'custom-field'}}
-      input.js-jira-estimate-field(id='jira-estimate-field' type='text' placeholder='customfield_10016' maxlength='32')
+      //- The export's numeric fields, offered as the user types (models/lib/jiraEstimateMapping.js).
+      input.js-jira-estimate-field(id='jira-estimate-field' type='text' placeholder='customfield_10016' maxlength='32' list='jira-estimate-fields')
+      datalist#jira-estimate-fields
+        each jiraEstimateCandidates
+          option(value=fieldId) {{name}}
       label(for='jira-estimate-unit') {{_ 'scrum-estimate-unit'}}
       input.js-jira-estimate-unit(id='jira-estimate-unit' type='text' maxlength='80')
     if isWekanImport

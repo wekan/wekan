@@ -19,8 +19,31 @@ function jiraEstimateValue(fields, mapping) {
   }
   return value;
 }
+// Jira Software's own story points type: a schema type, not a field name, so
+// finding it is reading the export, not guessing.
+const STORY_POINTS = 'com.pyxis.greenhopper.jira:jsw-story-points';
+// The numeric custom fields the export declares (search with
+// expand=names,schema), for the import page to offer: story points first,
+// then by name. Nothing is offered without a schema.
+function jiraEstimateCandidates(data) {
+  const schema = (data && !Array.isArray(data) && data.schema) || {};
+  const names = (data && !Array.isArray(data) && data.names) || {};
+  return Object.keys(schema)
+    .filter(id => /^customfield_\d{1,20}$/.test(id) && schema[id] && schema[id].type === 'number')
+    .map(id => ({ fieldId: id, name: typeof names[id] === 'string' ? names[id] : id,
+      storyPoints: schema[id].custom === STORY_POINTS }))
+    .sort((a, b) => (b.storyPoints - a.storyPoints) || a.name.localeCompare(b.name) || a.fieldId.localeCompare(b.fieldId));
+}
+// Without an explicit mapping: the one field of the story points type, in
+// points. Two or none - nothing is chosen for the user.
+function discoveredJiraEstimateMapping(data) {
+  const points = jiraEstimateCandidates(data).filter(candidate => candidate.storyPoints);
+  return points.length === 1 ? { estimateFieldId: points[0].fieldId, estimateUnit: 'points' } : null;
+}
 function validateJiraEstimateMapping(data) {
-  const mapping = normalizeJiraEstimateMapping(data.wekanScrumMapping);
+  const mapping = data.wekanScrumMapping === undefined
+    ? normalizeJiraEstimateMapping(discoveredJiraEstimateMapping(data) || undefined)
+    : normalizeJiraEstimateMapping(data.wekanScrumMapping);
   if (!mapping) return null;
   const issues = data.issues || [];
   const schema = data.schema?.[mapping.estimateFieldId];
@@ -51,4 +74,5 @@ function jiraEstimateExportValue(card, mapping) {
   } catch (_) { return {}; }
 }
 module.exports = { normalizeJiraEstimateMapping, validateJiraEstimateMapping, jiraEstimateValue,
+  jiraEstimateCandidates, discoveredJiraEstimateMapping, JIRA_STORY_POINTS_SCHEMA: STORY_POINTS,
   jiraEstimateExportMapping, jiraEstimateExportValue };

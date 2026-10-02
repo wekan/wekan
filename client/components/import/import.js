@@ -20,6 +20,7 @@ import { TAPi18n } from '/imports/i18n';
 import TrelloImportJobs from '/models/trelloImportJobs';
 
 const Papa = require('papaparse');
+const { jiraEstimateCandidates, discoveredJiraEstimateMapping } = require('/models/lib/jiraEstimateMapping');
 
 // Helper to find the closest ancestor template instance by name
 function findParentTemplateInstance(childTemplateInstance, parentTemplateName) {
@@ -565,9 +566,29 @@ Template.importTextarea.helpers({
     return Session.get('importSource') === 'excel';
   },
   isJiraImport() { return Session.get('importSource') === 'jira'; },
+  // The numeric fields the pasted Jira export declares, to pick the estimate.
+  jiraEstimateCandidates() { return Template.instance().jiraCandidates.get(); },
+});
+
+Template.importTextarea.onCreated(function () {
+  this.jiraCandidates = new ReactiveVar([]);
 });
 
 Template.importTextarea.events({
+  'input .js-import-json'(evt, tpl) {
+    if (Session.get('importSource') !== 'jira') return;
+    let data = null;
+    try { data = JSON.parse(evt.currentTarget.value); } catch (e) { /* not complete yet */ }
+    tpl.jiraCandidates.set(data ? jiraEstimateCandidates(data) : []);
+    // The one story points field is what the import would choose anyway.
+    const field = tpl.find('.js-jira-estimate-field');
+    const discovered = data && discoveredJiraEstimateMapping(data);
+    if (field && discovered && !field.value) {
+      field.value = discovered.estimateFieldId;
+      const unit = tpl.find('.js-jira-estimate-unit');
+      if (unit && !unit.value) unit.value = discovered.estimateUnit;
+    }
+  },
   submit(evt, tpl) {
     const importTpl = findParentTemplateInstance(tpl, 'import');
     if (importTpl) {
