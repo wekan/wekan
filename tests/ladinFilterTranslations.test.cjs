@@ -30,7 +30,32 @@ const keys = [
   "filter-column-age-disabled",
   "filter-column-age-days",
   "filter-column-age-hint",
-  "advanced-filter-card-dates-hint"
+  "advanced-filter-card-dates-hint",
+  "import-board-instruction-leo",
+  "instance",
+  "instance-desc",
+  "board-instance-info",
+  "automatic-linked-url-schemes-hint",
+  "other-parent-cards",
+  "add-parent-card",
+  "remove-parent-card",
+  "r-when-card-date",
+  "r-trigger-vars-hint",
+  "r-insert-variable",
+  "r-vars-people-hint",
+  "r-rule-any-trigger-help",
+  "r-add-trigger-to-rule",
+  "r-add-action-to-rule",
+  "r-remove-rule-part",
+  "notification-activity-heading",
+  "notification-activity-description",
+  "notification-activity-labels",
+  "notification-activity-members",
+  "notification-activity-assignees",
+  "notification-activity-comments",
+  "notification-activity-moves",
+  "notification-activity-dates",
+  "notification-activity-checklists"
 ];
 assert.deepEqual(Object.keys(locale), Object.keys(en));
 for (const key of keys) {
@@ -54,4 +79,13 @@ assert.match(locale['filter-column-age-hint'], /nia cunescudes resta visibles/);
 assert.match(locale['filter-column-age-hint'], /ne mëter nia a zero/);
 assert.notEqual(locale['filter-date-range-from'], locale['filter-date-range-to']);
 assert.match(locale['filter-date-range-invalid'], /medemo di.*o do/);
-console.log('Ladin date filter translation checks passed');
+for (const literal of ['thunderlink', 'onenote', 'javascript', 'data', 'vbscript']) {
+  assert.ok(locale['automatic-linked-url-schemes-hint'].includes(literal), literal);
+}
+assert.ok(locale['import-board-instruction-leo'].includes('.leo'));
+assert.match(locale['instance-desc'], /mai mustreda.*zënza azes/);
+assert.match(locale['instance-desc'], /Mé les persones ajuntedes.*mudé/);
+assert.match(locale['r-rule-any-trigger-help'], /un de si ativadëures.*te urdin/);
+assert.match(locale['notification-activity-description'], /@mentions ruva tres/);
+assert.equal(locale['notification-activity-comments'], locale.comments);
+console.log('Ladin translation batch checks passed');
