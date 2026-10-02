@@ -1,5 +1,10 @@
 'use strict';
 
+// Also the regression test for EmailBleed (2021, reported by Georg Krause): the
+// SMTP password reached the Admin Panel in the browser, readable behind its
+// asterisks. Passwords are stored in their own map that is never published;
+// only whether one is set reaches the client.
+
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');

@@ -168,6 +168,8 @@ const GUARDED = {
   replybleed: ['tests/inboundEmailUserMatch.test.cjs', 'tests/inboundEmailReplyToken.test.cjs'],
   cachebleed: ['tests/fileCacheHeaders.test.cjs', 'tests/playwright/specs/attachment-thumbnail.e2e.js'],
   syncbleed: ['tests/syncBleed.test.cjs', 'tests/playwright/specs/list-sync-source.e2e.js'],
+  relaybleed: ['tests/relayBleed.test.cjs'],
+  emailbleed: ['tests/adminMailSettings.test.cjs'],
 
   // Guarded by ATTEMPT DETECTION rather than by a fix-regression test: a canary
   // sits where the attack is tried, and tests/canaryCoverage.test.cjs pins that
@@ -295,8 +297,9 @@ test('the gap list may not grow', () => {
   // sampling that CWE-1204 was about, everywhere rather than in one file.
   // 24 -> 23: ScannerBleed now exercises shell quoting and requires the
   // attributable refusal to reach Problems -> Security.
-  // 23 -> 22: EmailBleed was a stale alias that is not a published Hall of Fame
-  // name; the relevant mail advisory is MailTitleBleed and is guarded above.
+  // 23 -> 22: EmailBleed was taken for a stale alias. It IS published - the
+  // index spelled it "Emailbleed", which this case-sensitive match skipped - and
+  // it is guarded above by tests/adminMailSettings.test.cjs (2026-10-02).
   assert.strictEqual(Object.keys(RECORDED).length, 22,
     'the number of published vulnerabilities with no regression test changed');
 });
@@ -308,14 +311,17 @@ test('the whole published list is accounted for', () => {
   // time; the two assertions together are what make "every published
   // vulnerability is accounted for" a fact rather than a hope.
   // 120 -> 122: CacheBleed and SyncBleed (2026-10-02), both guarded.
-  assert.strictEqual(total, 122, 'the Hall of Fame and this list disagree on how many there are');
+  // 122 -> 123: RelayBleed (2026-10-02), guarded.
+  // 123 -> 124: EmailBleed, published since 2021 but missed by a case-sensitive
+  // match of its "Emailbleed" spelling; guarded.
+  assert.strictEqual(total, 124, 'the Hall of Fame and this list disagree on how many there are');
 });
 
 test('the companion Hall of Fame names match the inventory when available', () => {
   if (!fs.existsSync(HOF)) return;
   const html = fs.readFileSync(HOF, 'utf8');
   const published = [...new Set(
-    [...html.matchAll(/<td valign="top"><b>(\w*Bleed)<\/b><\/td>/g)]
+    [...html.matchAll(/<td valign="top"><b>(\w*Bleed)<\/b><\/td>/gi)]
       .map(match => match[1].toLowerCase()),
   )].sort();
   const inventoried = [...Object.keys(GUARDED), ...Object.keys(RECORDED)].sort();

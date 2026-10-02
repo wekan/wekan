@@ -91,6 +91,8 @@ const DELIBERATE = {
   CacheBleed: 'the fix changes the Cache-Control and Vary headers every authorized file response '
     + 'carries; nothing is refused, and the attack happens in a shared cache WeKan never sees, so '
     + 'there is no attempt to attribute (GHSA-w3qg-pf27-g68r)',
+  EmailBleed: 'the fix stopped publishing the SMTP password to administrators, who are the only '
+    + 'readers of the mail settings; nothing is refused, so there is no attempt to record',
   RelayBleed: 'the fix withholds the Trello credential from non-Trello download hosts; a link attachment '
     + 'on another host is ordinary board content, so withholding it on every import is not an attempt to record',
 };
@@ -114,7 +116,7 @@ const keyed = new Set([...catalog.matchAll(/bleed: '(\w+)'/g)].map(m => m[1]));
 const hallOfFameNames = () => {
   if (!HOF) return null;
   const html = fs.readFileSync(HOF, 'utf8');
-  return [...new Set([...html.matchAll(/<td valign="top"><b>(\w*Bleed)<\/b><\/td>/g)]
+  return [...new Set([...html.matchAll(/<td valign="top"><b>(\w*Bleed)<\/b><\/td>/gi)]
     .map(m => m[1]))].sort();
 };
 
