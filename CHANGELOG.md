@@ -2176,6 +2176,20 @@ existing catalogs. The broader translation backlog remains open.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aa663f2d1f">Translate feature and card settings in Zulu and Xhosa</a>. Thanks to xet7.</summary>
+
+Add 81 messages across the two Zulu tags and Xhosa. Feature settings now cover
+174 locales and card-setting labels cover 42. Keep the languages' vocabulary
+distinct and preserve the assurances about data retention and permissions.
+The focused feature, card-label, full-catalog key and token, and language-count
+suites pass. Specialist flow-metric wording has lower confidence and remains
+open to native review. Permission vocabulary was checked against
+[Zulu](https://kaikki.org/dictionary/Zulu/meaning/i/im/imvume.html) and
+[Xhosa](https://isixhosa.click/word/741) dictionary entries.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
