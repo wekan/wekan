@@ -43,6 +43,12 @@ Meteor.loginWithCas = function(options, callback) {
 
     var serviceURL = addParameterToURL(backURL, 'casToken='+credentialToken);
 
+    // Bind the token to THIS browser: the server accepts a CAS callback only
+    // from the browser holding the matching cookie, so a casToken chosen by
+    // somebody else and smuggled into a victim's CAS login is refused.
+    document.cookie = 'wekan_cas_state=' + credentialToken + '; path=/; max-age=600; SameSite=Lax' +
+      (window.location.protocol === 'https:' ? '; Secure' : '');
+
     var loginUrl = settings.loginUrl +
         "?" + (settings.serviceParam || "service") + "=" +
         encodeURIComponent(serviceURL)

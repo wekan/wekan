@@ -85,6 +85,7 @@ const WIRED = [
   ['ldap.invalid-credentials',         'packages/wekan-ldap/server/userCredentials.js', 'LdapBindBleed'],
   ['ldap.group-denied',                'packages/wekan-ldap/server/loginHandler.js',  'DirectoryGroupBleed'],
   ['cas.group-denied',                 'packages/wekan-accounts-cas/cas_server.js',    'DirectoryGroupBleed'],
+  ['cas.state-mismatch',               'packages/wekan-accounts-cas/cas_server.js',    'CasBleed'],
 ];
 
 // One canary above is declared where its DETECTOR lives rather than at a call

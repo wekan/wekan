@@ -155,6 +155,10 @@ const CANARIES = {
     key: 'authn.cas-group',
     what: 'tried CAS login outside the configured group restriction',
   },
+  'cas.state-mismatch': {
+    key: 'auth-race.cas',
+    what: 'completed a CAS login with a token another browser chose',
+  },
   'cas.account-conflict': {
     key: 'authn.cas-link',
     what: 'tried to link a CAS identity to an existing non-CAS account without consent',

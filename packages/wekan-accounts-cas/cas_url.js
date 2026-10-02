@@ -30,4 +30,20 @@ function callbackUrl(requestUrl, rootUrl) {
   return { ticket, credentialToken, serviceUrl: parsed.href };
 }
 
-module.exports = { validationUrl, callbackUrl };
+// The credential token the browser that STARTED this CAS login set for itself
+// (cas_client.js), read from a Cookie header. Without it anybody could choose
+// a casToken, put it in a CAS login link, and - once a signed-in victim opened
+// it - log in with that token as the victim.
+function casStateCookie(cookieHeader) {
+  if (typeof cookieHeader !== 'string') return null;
+  for (const part of cookieHeader.split(';')) {
+    const at = part.indexOf('=');
+    if (at > 0 && part.slice(0, at).trim() === 'wekan_cas_state') {
+      const value = part.slice(at + 1).trim();
+      return value || null;
+    }
+  }
+  return null;
+}
+
+module.exports = { validationUrl, callbackUrl, casStateCookie };

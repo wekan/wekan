@@ -2,7 +2,7 @@
 
 import https from 'https';
 import { URL } from 'url';
-import { validationUrl, callbackUrl } from './cas_url';
+import { validationUrl, callbackUrl, casStateCookie } from './cas_url';
 import xml2js from 'xml2js';
 import { isCasGroupAllowed } from './groupPolicy';
 
@@ -107,10 +107,29 @@ const middleware = (req, res, next) => {
       next();
       return;
     }
+    // An instance without CAS has no callback to answer; a `ticket` query
+    // parameter belongs to whatever route it was sent to.
+    if (!Meteor.settings.cas) {
+      next();
+      return;
+    }
     const { ticket, credentialToken, serviceUrl } = callback;
     redirectUrl = serviceUrl;
 
     if (!credentialToken) {
+      end(res, redirectUrl);
+      return;
+    }
+
+    // Only the browser that started this login may complete it (see
+    // casStateCookie). The state is single-use: clear it either way.
+    res.setHeader('Set-Cookie', 'wekan_cas_state=; path=/; max-age=0; SameSite=Lax');
+    if (casStateCookie(req.headers.cookie) !== credentialToken) {
+      try {
+        if (typeof global.__wekanTripCanary === 'function') {
+          global.__wekanTripCanary('cas.state-mismatch', { req });
+        }
+      } catch (e) { /* logging must never break the guard */ }
       end(res, redirectUrl);
       return;
     }
