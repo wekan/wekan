@@ -3391,6 +3391,22 @@ translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1088900958">Translate email recovery in Upper Sorbian and Silesian</a>. Thanks to xet7.</summary>
+
+Fill 46 English placeholders, preserving existing translations, source order and
+exact tokens. Extend regression checks for irreversible cancellation, preservation
+of later messages, uncertain delivery and retries retaining an existing pause.
+Four focused catalog and translation suites and all 21 human-preference checks pass.
+
+Specialist workflow phrasing and inflection in both languages have lower confidence
+and need speaker review. Terminology references include [Upper Sorbian Thunderbird](https://github.com/thunderbird/thunderbird-l10n/blob/main/hsb/calendar/calendar/calendar.ftl)
+and [Silesian MediaWiki](https://github.com/wikimedia/mediawiki/blob/master/languages/i18n/szl.json).
+Structural checks do not establish fluency. Email recovery still has English
+messages in 36 locale tags; the broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
