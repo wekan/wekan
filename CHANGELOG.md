@@ -1686,6 +1686,18 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1e81dae899">Translate Cornish map controls and Scrum planning labels</a>. Thanks to xet7.</summary>
+
+- Fill 34 Cornish map, unnamed-key and Scrum planning messages. Specialized
+  Scrum terminology remains low confidence pending native-speaker review.
+- Batch key-order, placeholder, shared-label and distinct-action checks pass,
+  along with all 21 human-preference checks. Full-language work and browser
+  review remain.
+
+</details>
+
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d441c53296">Translate Cornish reminders saved filters and import reports</a>. Thanks to xet7.</summary>
 
 - Fill 28 Cornish notification, reminder, saved-filter, dependency and import
