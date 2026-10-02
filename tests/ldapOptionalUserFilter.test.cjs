@@ -32,7 +32,8 @@ console.log('ldapOptionalUserFilter: unset optional filter, configured restricti
     const bindBody = source.split('  async bindIfNecessary() {')[1].split('\n  async searchUsers(')[0].replace(/\n  }\s*$/, '');
     const searchBody = source.split('  async searchUsers(username) {')[1].split('\n  async getUserById(')[0].replace(/\n  }\s*$/, '');
     ldap.bindIfNecessary = new AsyncFunction('Log', bindBody).bind(ldap, Log);
-    ldap.searchUsers = new AsyncFunction('Log', 'username', searchBody).bind(ldap, Log);
+    // #6548: the search details go to the LDAP logger (log_debug), not Log.debug.
+    ldap.searchUsers = new AsyncFunction('Log', 'log_debug', 'username', searchBody).bind(ldap, Log, () => {});
     assert.deepEqual(await ldap.searchUsers('alice'), [{dn:'cn=alice'}]);
     assert.deepEqual(events, ['bind','search']);
     ldap.domainBinded = false; events.length = 0;

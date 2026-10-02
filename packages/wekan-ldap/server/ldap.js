@@ -1,5 +1,9 @@
 import { Client } from 'ldapts';
 import { Log } from 'meteor/logging';
+// #6548: details go through the LDAP logger, which prints when LDAP_LOG_ENABLED
+// is true and redacts secrets. Meteor's debug level never prints in production,
+// so in the snap (and every bundle) none of them were ever visible.
+import { log_debug, log_info } from './logger';
 import { normalizeLdapEncryption } from './encryptionSetting';
 import { buildUserIdFilter } from './userIdFilter';
 import {
@@ -236,7 +240,7 @@ export default class LDAP {
       clientOptions.tlsOptions = tlsOptions;
     }
 
-    Log.debug(`clientOptions ${JSON.stringify(clientOptions)}`);
+    log_debug('clientOptions', clientOptions);
 
     this.client = new Client(clientOptions);
 
@@ -246,7 +250,7 @@ export default class LDAP {
       tlsOptions.host = this.options.host;
 
       Log.info('Starting TLS');
-      Log.debug(`tlsOptions ${JSON.stringify(tlsOptions)}`);
+      log_debug('tlsOptions', tlsOptions);
 
       await this.client.startTLS(tlsOptions);
       Log.info('TLS connected');
@@ -256,7 +260,14 @@ export default class LDAP {
   }
 
   async bind(dn, password) {
-    await this.client.bind(dn, password);
+    try {
+      await this.client.bind(dn, password);
+    } catch (error) {
+      // #6548: a failed bind used to leave no trace of why. The DN and the
+      // directory's answer, never the password (logger.js redacts secrets).
+      log_info(`Bind failed for ${dn}:`, error);
+      throw error;
+    }
   }
 
   getBufferAttributes() {
@@ -467,8 +478,8 @@ export default class LDAP {
     }
 
     Log.info(`Searching user ${username}`);
-    Log.debug(`searchOptions ${searchOptions}`);
-    Log.debug(`BaseDN ${this.options.BaseDN}`);
+    log_debug('searchOptions', searchOptions);
+    log_debug('BaseDN', this.options.BaseDN);
 
     return await this.searchAll(this.options.BaseDN, searchOptions);
   }
@@ -504,8 +515,8 @@ export default class LDAP {
     };
 
     Log.info(`Searching by id ${id}`);
-    Log.debug(`search filter ${searchOptions.filter}`);
-    Log.debug(`BaseDN ${this.options.BaseDN}`);
+    log_debug('search filter', searchOptions.filter);
+    log_debug('BaseDN', this.options.BaseDN);
 
     const result = await this.searchAll(this.options.BaseDN, searchOptions);
 
@@ -532,8 +543,8 @@ export default class LDAP {
     };
 
     Log.info(`Searching user ${username}`);
-    Log.debug(`searchOptions ${searchOptions}`);
-    Log.debug(`BaseDN ${this.options.BaseDN}`);
+    log_debug('searchOptions', searchOptions);
+    log_debug('BaseDN', this.options.BaseDN);
 
     const result = await this.searchAll(this.options.BaseDN, searchOptions);
 
@@ -623,7 +634,7 @@ export default class LDAP {
       scope : 'sub',
     };
 
-    Log.debug(`Group list filter LDAP: ${searchOptions.filter}`);
+    log_debug('Group list filter LDAP:', searchOptions.filter);
 
     // #5539: the GROUP subtree, which equals the user one only by default.
     const result = await this.searchAll(this.groupBaseDN(), searchOptions);
@@ -646,7 +657,7 @@ export default class LDAP {
         groups.push(value);
       }
     });
-    Log.debug(`Groups: ${groups.join(', ')}`);
+    log_debug('Groups:', groups.join(', '));
     return groups;
 
   }
@@ -713,7 +724,7 @@ export default class LDAP {
       scope : 'sub',
     };
 
-    Log.debug(`Group filter LDAP: ${searchOptions.filter}`);
+    log_debug('Group filter LDAP:', searchOptions.filter);
     // #5539: the GROUP subtree, which equals the user one only by default.
 
     const result = await this.searchAll(this.groupBaseDN(), searchOptions);
@@ -734,7 +745,8 @@ export default class LDAP {
       return true;
     } catch (error) {
       Log.info(`Not authenticated ${dn}`);
-      Log.debug('error', error);
+      // #6548: why - the directory's own answer (e.g. AD's "data 52e").
+      log_info(`Not authenticated ${dn}:`, error);
       return false;
     }
   }
@@ -753,7 +765,7 @@ export default class LDAP {
     try {
       await this.client.unbind();
     } catch (error) {
-      Log.debug('Error during disconnect', error);
+      log_debug('Error during disconnect', error);
     }
   }
 }
