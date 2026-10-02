@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d3b7fa0b43">Translate Burmese Scrum observations and workflow states</a>. Thanks to xet7.</summary>
+
+- Fill 22 Scrum-observation, workflow, import and report messages.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4b7f090b10">Translate Burmese sprint events and reporting</a>. Thanks to xet7.</summary>
 
 - Fill 25 sprint-event, report, estimate and completion-state messages.
