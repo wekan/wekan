@@ -1686,6 +1686,17 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9ddcf4363a">Translate Assamese arithmetic and number properties</a>. Thanks to xet7.</summary>
+
+- Fill 30 logic, arithmetic and number-property messages in Assamese.
+  Specialized terminology remains low confidence pending native-speaker review.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass, as do all 21 human-preference checks. Full-language work and
+  browser review remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a593884d65">Translate Assamese sorting and logic messages</a>. Thanks to xet7.</summary>
 
 - Fill 30 sorting, text-list conversion and logic messages in Assamese.
