@@ -2737,6 +2737,31 @@ broader translation queue and older wrong-language text still need work.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/790bff8392">Translate Scrum scope history and GitLab estimates in 44 more locale tags</a>. Thanks to xet7.</summary>
+
+Fill 688 stored English placeholders across 43 catalog files, bringing both
+message groups to 171 locale tags. Preserve existing translations, current
+key order and placeholder inventories. Extend native-script checks, including
+Arabic-script Uzbek and Yiddish, and preserve the distinct meanings of missing
+History records, a truncated replay and a GitLab issue without weight clearing
+the mapped value. All 450 translation-related Node suites pass with the first
+36 tags added; five catalog and translation suites pass with the final eight.
+
+Specialist wording in the less widely used languages in this batch has lower
+confidence and remains open to speaker review; the commit lists them.
+References included [Hausa weight vocabulary](https://hausadictionary.com/nauyi),
+[Igbo vocabulary](https://www.igbotique.com/dict/ig/i%CC%81bu%CC%81),
+[Turkmen vocabulary](https://www.webonary.org/turkmen/files/sozluk.pdf),
+[Faroese vocabulary](https://www.oyggjar.dyndns.ws/faroese2en.php),
+[Friulian spelling](https://arlef.it/en/language-and-culture/language/)
+and [Romansh weight terminology](https://kaikki.org/dictionary/Romansh/meaning/p/pa/pais.html).
+Structural checks do not establish fluency. These groups still need
+translation in 63 locale tags, and the broader translation queue and older
+wrong-language text still need work.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
