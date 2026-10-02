@@ -2368,8 +2368,11 @@ WebApp.handlers.get('/api/user', async function(req, res) {
     const data = await ReactiveCache.getUser({ _id: req.userId });
     delete data.services;
 
+    // StaleBleed sibling (2026-10-02): a dotted 'members.userId' match also
+    // finds boards the caller was REMOVED from (an inactive member entry), so
+    // a removed member's /api/user kept listing those board ids.
     let boards = await ReactiveCache.getBoards(
-      { type: 'board', 'members.userId': req.userId },
+      { type: 'board', members: { $elemMatch: { userId: req.userId, isActive: true } } },
       { fields: { _id: 1, members: 1 } },
     );
     boards = boards.map(b => {

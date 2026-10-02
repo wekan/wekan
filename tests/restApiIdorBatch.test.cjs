@@ -316,4 +316,23 @@ test('negative: no REST handler answers with an unstripped user document', () =>
   assert.deepEqual(offenders, []);
 });
 
+// StaleBleed siblings (2026-10-02): GET /api/user and the
+// attachmentMigrationStatuses publication matched a dotted 'members.userId',
+// which also finds boards the caller was removed from.
+test('negative: no REST handler or publication finds the caller\'s boards by a dotted members.userId', () => {
+  const walk = dir => fs.readdirSync(dir, { withFileTypes: true }).flatMap(e => e.isDirectory()
+    ? (e.name === 'tests' || e.name.startsWith('_build') ? [] : walk(path.join(dir, e.name)))
+    : (e.name.endsWith('.js') ? [path.join(dir, e.name)] : []));
+  const offenders = [];
+  for (const file of [...walk(path.join(ROOT, 'server')), ...walk(path.join(ROOT, 'models'))]) {
+    const src = fs.readFileSync(file, 'utf8');
+    const bodies = [...src.split(/\nWebApp\.handlers\./).slice(1), ...src.split(/Meteor\.publish\(/).slice(1)];
+    for (const body of bodies) {
+      if (/'members\.userId':\s*(req|this)\.userId/.test(body.slice(0, 4000))) offenders.push(path.relative(ROOT, file));
+    }
+  }
+  assert.deepEqual([...new Set(offenders)], []);
+  assert.match(users, /members: \{ \$elemMatch: \{ userId: req\.userId, isActive: true \} \}/);
+});
+
 console.log(`\nrestApiIdorBatch: ${passed} tests passed`);

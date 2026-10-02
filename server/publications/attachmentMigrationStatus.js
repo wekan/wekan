@@ -31,11 +31,16 @@ Meteor.publish('attachmentMigrationStatuses', async function() {
   }
 
   // Get all boards user has access to
+  // StaleBleed sibling (2026-10-02): only boards the user is an ACTIVE member
+  // of (a dotted 'members.userId' also matched boards they were removed from),
+  // and the boards a signed-in user reads without membership (public and
+  // instance - `isPublic` does not exist).
+  const { withoutMembershipSelectors } = require('/models/lib/boardPermission');
   const boards = await Boards.find({
     $or: [
-      { 'members.userId': this.userId },
-      { isPublic: true }
-    ]
+      { members: { $elemMatch: { userId: this.userId, isActive: true } } },
+      ...withoutMembershipSelectors(true),
+    ],
   }, { fields: { _id: 1 } }).fetchAsync();
 
   const boardIds = boards.map(b => b._id);
