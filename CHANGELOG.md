@@ -1686,6 +1686,17 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9b7dc399b2">Translate Assamese sprint planning and backlog messages</a>. Thanks to xet7.</summary>
+
+- Fill 30 sprint, backlog and event messages in Assamese.
+  Specialized terminology remains low confidence pending native-speaker review.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass, as do all 21 human-preference checks. Full-language work and
+  browser review remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9e12507ca3">Translate Assamese rule editor and Scrum settings</a>. Thanks to xet7.</summary>
 
 - Fill 30 rule-editor and Scrum planning messages in Assamese.
