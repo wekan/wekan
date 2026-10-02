@@ -15,7 +15,7 @@ const mutate = (page, collection, op, ...args) => page.evaluate(async ({ collect
 }, { collection, op, args });
 
 const seedDocs = boardId => {
-  const tag = `${Date.now()}${Math.floor(Math.random() * 1e6)}`;
+  const tag = `${Date.now()}${require('crypto').randomBytes(4).toString('hex')}`;
   db.insertOne('triggers', { _id: `trg${tag}`, boardId, activityType: 'createCard', listName: '*', swimlaneName: '*', cardTitle: '*', userId: '*', createdAt: new Date() });
   db.insertOne('integrations', { _id: `hook${tag}`, boardId, url: 'https://hooks.example/x', type: 'outgoing-webhooks', enabled: true, activities: ['all'], userId: 'x', createdAt: new Date() });
   db.insertOne('customFields', { _id: `cf${tag}`, boardIds: [boardId], name: 'Mine', type: 'text', settings: {}, showOnCard: false, automaticallyOnCard: false, alwaysOnCard: false, showLabelOnMiniCard: false, createdAt: new Date() });
