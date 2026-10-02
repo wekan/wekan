@@ -6,7 +6,7 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('continuous-backup'));
-for (const code of ['fi', 'sv', 'da', 'nb', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'it', 'nl', 'nl-NL', 'pl', 'pl-PL', 'cs', 'cs-CZ', 'sk', 'sl', 'hr', 'ro', 'ro-RO', 'hu', 'bg', 'uk', 'uk-UA', 'ru', 'ru-RU', 'ru_RU', 'ru-UA', 'lv', 'lt', 'et-EE', 'el', 'el-GR', 'tr', 'ja', 'ja-JP', 'ja-HI', 'ko', 'ko-KR', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-Hant', 'zh-TW', 'zh-HK']) {
+for (const code of ['fi', 'sv', 'da', 'nb', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'it', 'nl', 'nl-NL', 'pl', 'pl-PL', 'cs', 'cs-CZ', 'sk', 'sl', 'hr', 'ro', 'ro-RO', 'hu', 'bg', 'uk', 'uk-UA', 'ru', 'ru-RU', 'ru_RU', 'ru-UA', 'lv', 'lt', 'et-EE', 'el', 'el-GR', 'tr', 'ja', 'ja-JP', 'ja-HI', 'ko', 'ko-KR', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-Hant', 'zh-TW', 'zh-HK', 'id', 'ms', 'ms-MY', 'vi', 'vi-VN']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -74,6 +74,9 @@ for (const [codes, protection, pause, units] of [
   }
 }
 for (const [codes, protection, pause, units] of [
+  [['id'], /tidak pernah menimpa berkas yang sedang digunakan/, /generasi yang dipilih.*waktu yang dipilih.*dijeda selama pemulihan/, ['detik', 'jam', 'hari']],
+  [['ms', 'ms-MY'], /tidak pernah menulis ganti fail yang sedang digunakan/, /generasi yang dipilih.*masa yang dipilih.*dijeda semasa pemulihan/, ['saat', 'jam', 'hari']],
+  [['vi', 'vi-VN'], /không bao giờ ghi đè tệp đang sử dụng/, /thế hệ đã chọn.*thời điểm đã chọn.*tạm dừng trong quá trình khôi phục/, ['giây', 'giờ', 'ngày']],
   [['ja', 'ja-JP'], /使用中のファイルは決して上書きしません/, /選択した世代を選択した時点.*復元中.*一時停止/, ['秒', '時間', '日']],
   [['ja-HI'], /しようちゅうのふぁいるはけっしてうわがきしません/, /せんたくしたせだいをせんたくしたじてん.*ふくげんちゅう.*いちじていし/, ['びょう', 'じかん', 'にち']],
   [['ko', 'ko-KR'], /사용 중인 파일을 절대 덮어쓰지 않음/, /선택한 세대를 선택한 시점.*복구 중.*일시 중지/, ['초', '시간', '일']],
@@ -122,7 +125,7 @@ assert.equal(read('hr').restore, 'Vrati');
 for (const code of ['el', 'el-GR']) {
   for (const key of keys) assert.match(read(code)[key], /\p{Script=Greek}/u);
 }
-for (const code of ['sk', 'sl', 'hr', 'lv', 'lt', 'et-EE', 'tr']) {
+for (const code of ['sk', 'sl', 'hr', 'lv', 'lt', 'et-EE', 'tr', 'id', 'ms', 'ms-MY', 'vi', 'vi-VN']) {
   for (const key of [...keys, 'restore']) assert.doesNotMatch(read(code)[key], /\p{Script=Cyrillic}/u);
 }
 for (const key of keys) {
@@ -136,4 +139,4 @@ for (const key of keys) {
 for (const code of ['zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG']) assert.equal(read(code)['continuous-backup-database'], '数据库');
 for (const code of ['zh-Hant', 'zh-TW', 'zh-HK']) assert.equal(read(code)['continuous-backup-database'], '資料庫');
 for (const key of keys) assert.doesNotMatch(read('de-CH')[key], /ß/);
-console.log(`Continuous backup: ${keys.length} translations in sixty-five locales passed`);
+console.log(`Continuous backup: ${keys.length} translations in seventy locales passed`);
