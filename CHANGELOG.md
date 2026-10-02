@@ -2209,6 +2209,28 @@ The remaining translation queue and older wrong-language values still need work.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d74cf9d6b4">Translate feature and card settings in seven African languages</a>. Thanks to xet7.</summary>
+
+Add 189 messages in Akan, Bambara, Ewe, Luganda, Tsonga, Venda and Wolof.
+Feature settings now cover 186 locale tags and the three card-setting labels
+cover 54. Correct mixed-language headings and linked-card labels, and replace
+eight Zulu labels in Venda. All 19 selected regression suites pass, including
+current catalog keys and placeholders and the affected language suites.
+The full 448-suite translation run passed before this batch.
+Specialist flow-metric wording has lower confidence and remains open to native
+review. Vocabulary references included
+[Akan](https://www.akandictionary.com/2021/04/21/kwan/),
+[Bambara](https://dictionary.ankataa.com/lexicon.php?letter=28),
+[Ewe](https://philtypo3.uni-koeln.de/sites/inst_afrika/pdf/BASIC_EWE_2nd_ed.pdf),
+[Luganda](https://glosbe.com/lg/en/olukusa),
+[Tsonga](https://www.gov.za/ts/services/services-residents/parenting/adopt-child/mpfumelelo-wo-wundla),
+[Venda](https://sadilar.org/wp-content/uploads/2023/12/Tshivenda_Newsletter_Sept_2023.pdf)
+and [Wolof](https://wolofresources.org/language/download/lexicarry_plus.pdf).
+The remaining translation queue and older wrong-language text still need work.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
