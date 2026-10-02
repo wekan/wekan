@@ -1686,6 +1686,20 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/275f71f51b">Translate Cornish sprint status and observation reports</a>. Thanks to xet7.</summary>
+
+- Fill 27 Cornish sprint-state and observation-report messages, preserving
+  reference tokens, UTC terminology and the 366-observation limit.
+  Specialized terminology remains low confidence pending native-speaker
+  review.
+- Batch placeholder, key-order, report-wording and distinct-state checks
+  pass, along with all 21 human-preference checks. Full-language work and
+  browser review remain.
+
+</details>
+
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d7e08667db">Translate Cornish sprint planning and reporting messages</a>. Thanks to xet7.</summary>
 
 - Fill 30 Cornish sprint-planning and reporting messages, preserving count
