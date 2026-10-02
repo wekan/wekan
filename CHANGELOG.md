@@ -3321,6 +3321,22 @@ remain in English in 54 locale tags. Other new-string groups remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d11f7ff5fb">Translate email recovery in Zulu, Xhosa and Nyanja</a>. Thanks to xet7.</summary>
+
+Fill 92 English placeholders across Zulu, regional Zulu, Xhosa and Nyanja.
+Preserve existing translated values, source order and exact tokens. Translate
+queue controls and warnings about irreversible cancellation, messages created
+after a request, uncertain delivery and pauses retained during retry. Extend
+regressions for all four tags and distinguish Zulu, Xhosa and Nyanja wording.
+
+Four focused catalog and translation suites and all 21 human-preference checks
+pass. Specialist workflow phrasing and inflection have lower confidence and need
+speaker review. Structural checks do not establish fluency. Email recovery still
+has English messages in 50 locale tags; the broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
