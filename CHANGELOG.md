@@ -228,20 +228,27 @@ minute; the intermittent activity-recovery test was two test races and is fixed.
 
 Remaining, and why:
 
-- **Structural rule actions.** Twenty action types are durable now: email,
-  archive and unarchive, colour, labels, completion, dates, members and
-  checklist toggles. A board with any other rule action keeps direct Sync. The
-  rest reshape the board rather than change a field: moves and list sorting
-  (sort order across lists or boards, with Card.move's own History), adding or
-  removing checklists, and creating, copying or linking cards and swimlanes.
-  Each needs its own saved command (server/lib/listSyncSteps.js).
-  Moves are next (decided on 2026-10-02). Even a same-list move to top or
-  bottom (list and swimlane '*' on the card's board, which only changes sort)
-  writes the
-  hook's position History row and a legacy UserPositionHistory row directly
-  from Card.move, which Ctrl+Z still reads. A cross-list or cross-board move
-  also relabels, renumbers, maps custom fields and re-syncs checklists and
-  attachments. A durable move has to plan all of those rows, not one field.
+- **Structural rule actions.** Twenty-four action types are durable now:
+  email, archive and unarchive, colour, labels, completion, dates, members,
+  checklist toggles, and since 2026-10-02 moves to the top or bottom of the
+  card's own list and swimlane, and adding and removing checklists (see
+  Upcoming). A board with any other rule action keeps direct Sync. What is
+  left, and why:
+  - *Moves to another list, swimlane or board* - blocked on a decision (see
+    "Needs a maintainer decision"): the rule stage's guard
+    (server/notifications/storedRulePlans.js executionContext) and the Sync
+    journal bind the card to the triggering activity's list, so after a
+    durable move out of it every later step of the same rule plan, and every
+    replay, is refused. A cross-board move also relabels, renumbers, maps
+    custom fields and re-syncs checklists and attachments.
+  - *Adding a swimlane* - blocked: its createSwimlane activity has no card,
+    and the durable activity pipeline (notification, webhook and rule plans,
+    server/lib/syncNotificationPlan.js) identifies every activity by its card.
+    Board-level activities need that identity generalised first.
+  - *Creating, copying or linking cards, adding a checklist with items,
+    sorting a list, moving all cards of a list* - not started; each needs a
+    saved command of its own, following server/lib/syncRuleMoveCommand.js and
+    server/lib/syncRuleChecklistLifecycleCommand.js.
 - **Atomicity.** Cards, History, activities and effects are coordinated by the
   write-ahead journal and replay, not by a transaction. The FerretDB v1 backend
   has no multi-document transactions, and journal ownership cannot fence a
@@ -275,9 +282,10 @@ Maintainer decisions of 2026-10-02, for what remained above:
 - **[#2460](https://github.com/wekan/wekan/issues/2460) stays open, not now**,
   as decided on 2026-09-30.
 
-Built on 2026-10-02 (in Upcoming): the opt-in `act-editCard` event (#4912) and
-lifetimes for old lists when their Sync settings are saved. Durable moves are
-next and not started in code.
+Built on 2026-10-02 (in Upcoming): the opt-in `act-editCard` event (#4912),
+lifetimes for old lists when their Sync settings are saved, durable rule moves
+that stay in the card's own list and swimlane, and durable rule checklist
+creation and removal. Moves out of the list wait on the guard decision below.
 
 Investigated but not finished, with findings
 recorded for whoever picks them up next. Entries that have since been FIXED are
@@ -1584,6 +1592,13 @@ hangs.
 
 <details>
 <summary>Needs a maintainer decision on the intended contract (partly already works).</summary>
+
+Durable rule moves out of the card's list (2026-10-02): the rule stage's guard
+refuses any step whose card is no longer in the triggering activity's list,
+which is a security boundary as much as a consistency check. Making moves to
+another list durable needs a decision on whether that guard may follow a move
+the same rule plan recorded (and only that), and on what Sync does with a
+synced card a rule moved out of its list. In-place moves are durable already.
 
 [#2509](https://github.com/wekan/wekan/issues/2509) (a "customized card
 style" - the report is a single line plus a screenshot with areas marked in
