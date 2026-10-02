@@ -651,7 +651,32 @@ const keys = [
   "scrum-select-sprint",
   "scrum-backlog",
   "scrum-backlog-help",
-  "scrum-estimate"
+  "scrum-estimate",
+  "scrum-backlog-rank",
+  "scrum-issue-type",
+  "scrum-acceptance-criteria",
+  "scrum-events",
+  "scrum-event-kind",
+  "scrum-timebox",
+  "scrum-notes",
+  "scrum-event-planning",
+  "scrum-event-daily",
+  "scrum-event-review",
+  "scrum-event-retrospective",
+  "scrum-committed",
+  "scrum-completed",
+  "scrum-added",
+  "scrum-removed",
+  "scrum-incomplete",
+  "scrum-no-closed-sprints",
+  "scrum-report-help",
+  "scrum-total",
+  "scrum-state-planned",
+  "scrum-state-active",
+  "scrum-state-closed",
+  "scrum-state-cancelled",
+  "scrum-unknown-estimate",
+  "scrum-confirm-close"
 ];
 for (const key of keys) {
   assert.ok(locale[key]?.trim(), key);
