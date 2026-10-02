@@ -728,7 +728,27 @@ const keys = [
   "scrum-import-reference-omitted",
   "scrum-partial-snapshot",
   "scrum-resume-close",
-  "scrum-daily-observations"
+  "scrum-daily-observations",
+  "scrum-daily-observations-help",
+  "scrum-daily-truncated",
+  "scrum-daily-empty",
+  "scrum-observed-scope",
+  "scrum-daily-observations-export-help",
+  "scrum-import-pending",
+  "sync-conflict-heading",
+  "sync-conflict-hint",
+  "sync-conflict-local",
+  "sync-conflict-keep-local",
+  "sync-conflict-use-source",
+  "sync-conflict-refresh",
+  "sync-conflict-review-complete",
+  "sync-conflict-duplicate",
+  "sync-conflict-keep-mapping",
+  "sync-conflict-detach",
+  "sync-conflict-detach-hint",
+  "sync-conflict-archive",
+  "sync-conflict-archive-hint",
+  "sync-conflict-keep-card-local"
 ];
 for (const code of ['as']) {
   const locale = read(code);
