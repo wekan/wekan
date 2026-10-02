@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/dd02503c81">Translate Malagasy editor input labels</a>. Thanks to xet7.</summary>
+
+- Fill 30 editor-input, condition, list and accessibility labels.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4d5086f2ba">Translate Malagasy editing and bitmap controls</a>. Thanks to xet7.</summary>
 
 - Fill 23 loop, editing and bitmap messages.
