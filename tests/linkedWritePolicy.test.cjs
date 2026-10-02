@@ -19,7 +19,7 @@ test('live links cannot promote explicit non-writing source roles', async () => 
       Boards: { findOneAsync: async () => source, find: () => ({ fetchAsync: async () => [{ members: [{ userId: 'u', isActive: true, isAdmin: true }] }] }) },
       Cards: { find: () => ({ fetchAsync: async () => [{ boardId: 'self-owned' }] }) },
     };
-    vm.runInNewContext(text.replace(/^import .*;\n/gm, '').replace('export async function', 'async function'), context);
+    vm.runInNewContext(text.replace(/^import .*;\n/gm, '').replace(/^export async function/gm, 'async function'), context);
     assert.equal(await context.canEditCardOrLinkedCard('u', { _id: 'card', boardId: 'A' }), roleCan(role, 'write'));
     assert.equal(logs.length, roleCan(role, 'write') ? 0 : 1);
     const count = logs.length;
