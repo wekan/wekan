@@ -2687,6 +2687,25 @@ The broader translation queue and older wrong-language text still need work.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b88717ceb6">Translate Scrum scope history in 52 locale tags</a>. Thanks to xet7.</summary>
+
+Translate the eleven scope-history labels, explanations and change causes,
+filling 561 stored English placeholders across 51 catalog files and 52 locale
+tags. Keep missing History records distinct from a replay that stopped reading
+early. Existing translations, catalog key order and placeholder inventories
+are preserved. The seven affected language suites pass. The full translation-
+related run passes 448 of 449 suites; the remaining History-template guard
+flags the new Scrum scope chart and still needs a separate repair. Both
+changelog checks pass.
+
+Specialist wording in Corsican, Sardinian, Sicilian, Neapolitan, Aragonese,
+Asturian, Breton and Kashubian has lower confidence and remains open to speaker
+review. Structural checks do not establish fluency. The remaining translation
+queue and older wrong-language text still need work.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
