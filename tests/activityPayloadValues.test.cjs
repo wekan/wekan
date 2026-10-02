@@ -66,16 +66,19 @@ test('absent and undefined values remain absent rather than being invented as em
 async function outgoingPayload(params, type = 'outgoing', attributes) {
   const source = fs.readFileSync(require.resolve('../server/notifications/outgoing.js'), 'utf8').replace(/^import .*;\n/gm, '').replace(/^export /gm, '');
   let method, payload;
+  const integration = { boardId: 'board', url: 'https://example.test/hook', type };
   const context = { structuredClone, Meteor: { methods: methods => { method = methods.outgoingWebhooks; } },
+    // HookBleed: the request is built from the stored integration - here the
+    // one the call names, as in ordinary use.
     check() {}, ReactiveCache: { getUser: async () => ({ getLanguage: () => 'en' }),
-      getIntegration: async () => ({ boardId: 'board' }), getBoard: async () => ({ hasMember: () => true }) },
+      getIntegration: async () => structuredClone(integration), getBoard: async () => ({ hasMember: () => true }) },
     TAPi18n: { ensureLanguageLoaded: async () => {}, __: () => 'changed' },
     Integrations: { Const: { TWOWAY: 'two-way' } },
     fetchSafe: async (url, request) => { payload = JSON.parse(request.body); return { status: 200 }; },
     process: { env: attributes ? { WEBHOOKS_ATTRIBUTES: attributes } : {} },
   };
   vm.runInNewContext(source, context);
-  await method.call({ userId: 'author', unblock() {} }, { boardId: 'board', url: 'https://example.test/hook', type }, 'act-setCustomField', params);
+  await method.call({ userId: 'author', connection: null, unblock() {} }, integration, 'act-setCustomField', params);
   return payload;
 }
 test('outgoing HTTP payload preserves falsy configured attributes without widening the attribute list', async () => {

@@ -44,6 +44,9 @@ const CATALOG = {
   // BypassBleed's DoS part: a rule chain deeper than MAX_RULE_DEPTH, usually two
   // rules undoing each other. Often an honest mistake, so only detected.
   'dos.rule-loop': { category: 'dos', bleed: 'BypassBleed', severity: 'medium', cwe: 'CWE-674' },
+  // HookBleed: a client asking the server to send something other than the
+  // card-opened notification through a board's webhook (the UI never does).
+  'ssrf.webhook-forge': { category: 'ssrf', bleed: 'HookBleed', severity: 'high', cwe: 'CWE-345' },
   'authz.board-owner': { category: 'authz', bleed: 'OwnerBleed', severity: 'high', cwe: 'CWE-639' },
   'authz.background': { category: 'authz', bleed: 'BackgroundBleed', severity: 'high', cwe: 'CWE-639' },
   'injection.prototype': { category: 'injection', bleed: 'PrototypeBleed', severity: 'high', cwe: 'CWE-1321' },
