@@ -1,5 +1,6 @@
 const { CALENDAR_SYSTEM_IDS } = require('/imports/lib/calendarSystems');
 const { assertSafeMapKey } = require('/models/lib/safeMapKey');
+const { memberCan } = require('/models/lib/boardRoleCapabilities');
 import { Meteor } from 'meteor/meteor';
 // Only the authorized server method can populate this creation context.
 const adminCreation = new Meteor.EnvironmentVariable();
@@ -1152,7 +1153,10 @@ Meteor.methods({
     // list.width/constraint are per-board fields shared with all users, so
     // only board members may change them, and only on the list's own board.
     const board = await ReactiveCache.getBoard(boardId);
-    if (!board || !board.hasMember(this.userId)) {
+    // MutationBleed sibling (2026-10-02): a shared board setting needs write
+    // access, not just membership. Not recorded as an attempt: the menus may
+    // still offer it to a read-only member.
+    if (!board || !memberCan(board.members, this.userId, 'write')) {
       throw new Meteor.Error('error-notAuthorized');
     }
     const list = await ReactiveCache.getList(listId);
@@ -1163,7 +1167,7 @@ Meteor.methods({
       // #6409: only the shared per-board width is stored on the list. The old
       // `constraint` (max-width) is no longer used; the param is kept for
       // backwards compatibility with existing callers but ignored.
-      Lists.updateAsync(listId, { $set: { width: width } });
+      await Lists.updateAsync(listId, { $set: { width: width } });
       return true;
     } catch (error) {
       console.error('Error updating list width:', error);
@@ -1180,7 +1184,10 @@ Meteor.methods({
     // Shared (per-board) auto-width affects everyone, so only board members may
     // change it (parity with applyListWidth). See #6409.
     const board = await ReactiveCache.getBoard(boardId);
-    if (!board || !board.hasMember(this.userId)) {
+    // MutationBleed sibling (2026-10-02): a shared board setting needs write
+    // access, not just membership. Not recorded as an attempt: the menus may
+    // still offer it to a read-only member.
+    if (!board || !memberCan(board.members, this.userId, 'write')) {
       throw new Meteor.Error('error-notAuthorized');
     }
     await Boards.updateAsync(boardId, { $set: { autoWidth: !!autoWidth } });
@@ -1197,7 +1204,10 @@ Meteor.methods({
       throw new Meteor.Error('not-logged-in', 'User must be logged in');
     }
     const board = await ReactiveCache.getBoard(boardId);
-    if (!board || !board.hasMember(this.userId)) {
+    // MutationBleed sibling (2026-10-02): a shared board setting needs write
+    // access, not just membership. Not recorded as an attempt: the menus may
+    // still offer it to a read-only member.
+    if (!board || !memberCan(board.members, this.userId, 'write')) {
       throw new Meteor.Error('error-notAuthorized');
     }
     await Boards.updateAsync(boardId, {

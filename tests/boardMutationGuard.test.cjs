@@ -74,3 +74,35 @@ test('negative inventory: every reported sibling uses the shared write guard', (
   }
   assert.doesNotMatch(read('server/models/lists.js'), /typeof allowIsBoardMemberWithWriteAccess/);
 });
+
+// MutationBleed siblings (2026-10-02): applyListWidth, setBoardAutoWidth and
+// setStickyListHeaders change shared board state every viewer sees, and
+// checked only membership, so read-only, comment-only and worker members could
+// change them. They need write access now; applyListWidth also awaits its
+// write so a failure is not lost.
+test('shared board display settings need write access, and no method writes a board after a membership-only check', () => {
+  const users = read('server/models/users.js');
+  for (const name of ['applyListWidth', 'setBoardAutoWidth', 'setStickyListHeaders']) {
+    const at = users.indexOf(`  async ${name}(`);
+    const body = users.slice(at, users.indexOf('\n  },', at));
+    assert.match(body, /if \(!board \|\| !memberCan\(board\.members, this\.userId, 'write'\)\) \{/, name);
+    assert.doesNotMatch(body, /\.hasMember\(/, name);
+  }
+  assert.match(users, /await Lists\.updateAsync\(listId, \{ \$set: \{ width: width \} \}\);/);
+  // Negative, tree-wide: a method that writes board content after refusing
+  // only non-members is the MutationBleed shape.
+  const walk = dir => fs.readdirSync(dir, { withFileTypes: true }).flatMap(e => e.isDirectory()
+    ? (e.name === 'tests' || e.name.startsWith('_build') ? [] : walk(path.join(dir, e.name)))
+    : (e.name.endsWith('.js') ? [path.join(dir, e.name)] : []));
+  const offenders = [];
+  for (const file of [...walk(path.join(root, 'server')), ...walk(path.join(root, 'models'))]) {
+    for (const method of fs.readFileSync(file, 'utf8').split(/\n  async (?=\w+\()/).slice(1)) {
+      const body = method.slice(0, method.indexOf('\n  },'));
+      if (/!\s*\w+\.hasMember\(this\.userId\)/.test(body) &&
+          /(Boards|Lists|Swimlanes|Cards|Checklists|CustomFields)\.(direct\.)?(updateAsync|insertAsync|removeAsync)\(/.test(body)) {
+        offenders.push(`${file}: ${method.slice(0, method.indexOf('('))}`);
+      }
+    }
+  }
+  assert.deepEqual(offenders, []);
+});
