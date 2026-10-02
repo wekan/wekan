@@ -147,7 +147,34 @@ const keys = [
   "scrum-no-closed-sprints",
   "scrum-report-help",
   "scrum-total",
-  "scrum-state-planned"
+  "scrum-state-planned",
+  "scrum-state-active",
+  "scrum-state-closed",
+  "scrum-state-cancelled",
+  "scrum-unknown-estimate",
+  "scrum-confirm-close",
+  "scrum-confirm-cancel",
+  "scrum-past-sprints",
+  "scrum-list-category",
+  "scrum-swimlane-purpose",
+  "scrum-category-backlog",
+  "scrum-category-todo",
+  "scrum-category-doing",
+  "scrum-category-done",
+  "scrum-partial-report",
+  "scrum-state-released",
+  "scrum-released-at",
+  "scrum-follow-up-cards",
+  "scrum-import-reference-omitted",
+  "scrum-partial-snapshot",
+  "scrum-resume-close",
+  "scrum-daily-observations",
+  "scrum-daily-observations-help",
+  "scrum-daily-truncated",
+  "scrum-daily-empty",
+  "scrum-observed-scope",
+  "scrum-daily-observations-export-help",
+  "scrum-import-pending"
 ];
 assert.deepEqual(Object.keys(locale), Object.keys(en));
 for (const key of keys) {
@@ -197,3 +224,15 @@ assert.notEqual(locale['scrum-completed'], locale['scrum-incomplete']);
 assert.notEqual(locale['scrum-event-review'], locale['scrum-event-retrospective']);
 assert.match(locale['scrum-report-help'], /ankoth.*a-denewen.*nyns yns.*vann/);
 assert.match(locale['scrum-report-help'], /unsesow ha policis.*hepken/);
+
+assert.notEqual(locale['scrum-state-active'], locale['scrum-state-closed']);
+assert.notEqual(locale['scrum-state-closed'], locale['scrum-state-cancelled']);
+assert.equal(locale['scrum-category-backlog'], locale['scrum-backlog']);
+assert.match(locale['scrum-confirm-cancel'], /bys pan vons apoyntys arta/);
+assert.match(locale['scrum-partial-report'], /apoyntys dhywgh a-lemmyn hepken/);
+for (const key of ['scrum-daily-observations-help', 'scrum-daily-observations-export-help']) {
+  assert.ok(locale[key].includes('UTC'), key);
+  assert.match(locale[key], /kynsa aspians.*hepkorrys/);
+  assert.match(locale[key], /Dismygrivow ankoth nyns yns mann/);
+}
+assert.match(locale['scrum-daily-truncated'], /366/);
