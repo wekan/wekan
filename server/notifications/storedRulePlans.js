@@ -180,6 +180,7 @@ export async function runStoredSyncRules({ adapters, ...options }) {
     createCard: ({ invocation }) => runStoredSyncRuleCreateCard({ ...options, index: indices.get(invocation.id) }),
     // Same-board copies only: eligibility keeps a board copying elsewhere on direct Sync.
     copyCard: ({ invocation }) => runStoredSyncRuleCopyCard({ ...options, index: indices.get(invocation.id) }),
+    linkCard: ({ invocation }) => runStoredSyncRuleLinkCard({ ...options, index: indices.get(invocation.id) }),
     ...Object.fromEntries(RULE_CHECKLIST_LIFECYCLE_ACTIONS.map(type => [type, ({ invocation }) =>
       runStoredSyncRuleChecklistLifecycle({ ...options, index: indices.get(invocation.id) })])),
     // In-place moves only: eligibility keeps a board with any other move on
@@ -691,6 +692,68 @@ const { childrenSelector } = require('/models/lib/cardParents');
 const { liveAttachments } = require('/models/lib/attachmentSoftDelete');
 const { normalizeDependencies } = require('/models/metadata/dependencies');
 const text = value => typeof value === 'string' && value.length > 0;
+
+// Durable rule linkCard onto the card's own board
+// (server/lib/syncRuleLinkCardCommand.js): the linked card built once from the
+// card as Card.link builds it, inserted once under its derived id with the
+// creation hook's activity deferred, then that activity delivered durably.
+export const SyncRuleLinkCardCommands = new Mongo.Collection('listSyncRuleLinkCardCommands');
+SyncRuleLinkCardCommands.deny({ insert: () => true, update: () => true, remove: () => true });
+
+export async function runStoredSyncRuleLinkCard({ index, completeDelivery = runStoredSyncActivityDelivery, ...options }) {
+  const context = executionContext(options), plan = await capture(context);
+  const invocation = plan.actions[index], action = invocation?.action;
+  if (action?.actionType !== 'linkCard') throw new Error('sync-rule-link-card-invalid');
+  const commandContext = { plan, activity: context.saved, effectId: context.effectId, index };
+  const guard = reuseWithinEvaluation(async () => {
+    await context.guard();
+    const [rule, current] = await Promise.all([
+      Rules.rawCollection().findOne({ _id: invocation.rule._id }),
+      Actions.rawCollection().findOne({ _id: action._id }),
+    ]);
+    if (!rule || !current || canonical(rule) !== canonical(invocation.rule) ||
+        canonical(current) !== canonical(action)) throw new Error('sync-rule-link-card-configuration-changed');
+    await context.guard();
+  });
+  const commands = SyncRuleLinkCardCommands.rawCollection(), id = ruleLinkCardCommandId(invocation.id);
+  await guard();
+  let row = await commands.findOne({ _id: id });
+  if (!row) {
+    const source = await Cards.rawCollection().findOne({ _id: plan.cardId, boardId: plan.boardId });
+    // A legacy action without a boardId links on the card's own board.
+    const target = await RulesHelper.linkCardTarget({ ...action, boardId: action.boardId || plan.boardId });
+    const [list, swimlane] = await Promise.all([
+      target.listId ? Lists.findOneAsync({ _id: target.listId, boardId: plan.boardId }) : null,
+      target.swimlaneId ? Swimlanes.findOneAsync({ _id: target.swimlaneId, boardId: plan.boardId }) : null,
+    ]);
+    const candidate = prepareRuleLinkCardCommand({ ...commandContext, source, target, list, swimlane, createdAt: new Date() });
+    await guard();
+    let failure;
+    try { await commands.insertOne(candidate); } catch (error) { failure = error; }
+    row = await commands.findOne({ _id: id });
+    if (!row) throw failure || new Error('sync-rule-link-card-command-unconfirmed');
+  }
+  const command = validateRuleLinkCardCommand(row, commandContext);
+  await guard();
+  if (!await Cards.rawCollection().findOne({ _id: command.card._id })) {
+    await DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false }, () =>
+      withSyncRecordingDeferred({ cardId: command.card._id, boardId: command.boardId, listId: command.card.listId,
+        kinds: ['create'] },
+      () => Cards.insertAsync(command.card)));
+    if (!await Cards.rawCollection().findOne({ _id: command.card._id })) throw new Error('sync-rule-link-card-unconfirmed');
+  }
+  const activities = {
+    findOneAsync: activityId => Activities.findOneAsync(activityId, { transform: null }),
+    insertAsync: document => DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false },
+      () => withSyncActivityDeferred(document, () => Activities.insertAsync(document))),
+  };
+  await persistSyncActivity({ activities, activity: command.activity, effectId: command.receiptId, assertCurrent: guard,
+    completeDelivery: delivery => completeDelivery({ ...delivery, policy: options.policy, trigger: options.trigger }) });
+  await guard();
+  return invocation.id;
+}
+const { commandId: ruleLinkCardCommandId, prepareRuleLinkCardCommand, validateRuleLinkCardCommand } =
+  require('/server/lib/syncRuleLinkCardCommand');
 
 // Durable rule createCard (server/lib/syncRuleCreateCardCommand.js): the
 // target and title resolved once with the ordinary action's own lookup, the

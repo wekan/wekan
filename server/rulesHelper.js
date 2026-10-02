@@ -195,6 +195,18 @@ export const RulesHelper = {
       title: substituteVars(action.cardName, await buildRuleVars(activity, card)),
     };
   },
+  // Where a linkCard action puts the linked card: the list and swimlane named
+  // on the action's board (#5536: its default swimlane when the named one is
+  // gone, so a link-to-another-board rule cannot crash). For the durable rule
+  // link command too (server/lib/syncRuleLinkCardCommand.js).
+  async linkCardTarget(action) {
+    const list = await ReactiveCache.getList({ title: action.listName, boardId: action.boardId });
+    const swimlane = await ReactiveCache.getSwimlane({ title: action.swimlaneName, boardId: action.boardId });
+    return {
+      listId: resolveRuleListId(list),
+      swimlaneId: resolveRuleSwimlaneId(swimlane, await getDestBoardDefaultSwimlane(action.boardId)),
+    };
+  },
   // ...and the item titles an addChecklistWithItems action names.
   async ruleChecklistItemTitles(activity, card, action) {
     return String(substituteVars(action.checklistItems, await buildRuleVars(activity, card))).split(',');
@@ -960,19 +972,9 @@ export const RulesHelper = {
       return await copyRuleCard({ activity, action, cache: ReactiveCache, canWrite: allowIsBoardMemberWithWriteAccess });
     }
     if (action.actionType === 'linkCard') {
-      const list = await ReactiveCache.getList({ title: action.listName, boardId: action.boardId });
       const card = await ReactiveCache.getCard(activity.cardId);
-      const swimlane = await ReactiveCache.getSwimlane({
-        title: action.swimlaneName,
-        boardId: action.boardId,
-      });
-      const listId = resolveRuleListId(list);
-      // #5536: guard the 'Default'-swimlane fallback against undefined ._id so a
-      // link-to-another-board rule cannot crash with an "Internal Server Error".
-      const swimlaneId = resolveRuleSwimlaneId(
-        swimlane,
-        await getDestBoardDefaultSwimlane(action.boardId),
-      );
+      // The same target the durable command captures (linkCardTarget).
+      const { listId, swimlaneId } = await this.linkCardTarget(action);
       await card.link(action.boardId, swimlaneId, listId);
     }
     if (

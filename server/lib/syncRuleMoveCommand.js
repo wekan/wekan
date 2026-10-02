@@ -43,8 +43,9 @@ function isInPlaceMove(action, boardId) {
 function durableRuleActionType(action, boardId) {
   if (!action) return null;
   // A copy is durable on the card's own board only (syncRuleCopyCardCommand.js).
-  if (action.actionType === 'copyCard') {
-    return (action.boardId || boardId) === boardId ? 'copyCard' : 'copyCard:elsewhere';
+  // ...and so is a link (syncRuleLinkCardCommand.js).
+  if (['copyCard', 'linkCard'].includes(action.actionType)) {
+    return (action.boardId || boardId) === boardId ? action.actionType : `${action.actionType}:elsewhere`;
   }
   if (!RULE_MOVE_ACTIONS.includes(action.actionType)) return action.actionType;
   return isInPlaceMove(action, boardId) ? action.actionType : `${action.actionType}:elsewhere`;
