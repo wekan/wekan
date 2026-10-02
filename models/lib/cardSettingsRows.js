@@ -162,6 +162,26 @@ const CARD_SETTINGS_ROWS = [
     minicard: { toggle: 'js-field-has-comment-count-on-minicard', field: 'allowsCommentCountOnMinicard' } },
   { key: 'activities', icons: ['fa-history'], label: ['activities'],
     card: { toggle: 'js-field-has-activities', field: 'allowsActivities' } },
+
+  // The Scrum fields, one row each, "Scrum settings: Sprint" and so on: shown
+  // where the board's order puts them, like any other row. `scrum` names the
+  // Scrum visibility flag the checkbox sets (models/lib/scrum.js). The work
+  // item type is a badge on every minicard, so its minicard side is that
+  // badge's own board flag, on unless turned off.
+  ...[
+    ['Sprint', 'scrum-sprint', 'fa-repeat'],
+    ['PastSprints', 'scrum-past-sprints', 'fa-history'],
+    ['Release', 'scrum-release', 'fa-flag'],
+    ['IssueType', 'scrum-issue-type', 'fa-bug'],
+    ['AcceptanceCriteria', 'scrum-acceptance-criteria', 'fa-check-square-o'],
+    ['BacklogRank', 'scrum-backlog-rank', 'fa-sort-numeric-asc'],
+  ].map(([suffix, label, icon]) => ({
+    key: `scrum${suffix}`, icons: [icon], label: ['scrum-settings', label], labelSeparator: ': ',
+    card: { toggle: 'js-scrum-field-toggle', field: 'scrumFieldVisible', scrum: `card${suffix}` },
+    minicard: suffix === 'IssueType'
+      ? { toggle: 'js-field-has-issue-type-on-minicard', field: 'allowsIssueTypeOnMinicard' }
+      : { toggle: 'js-scrum-field-toggle', field: 'scrumFieldVisible', scrum: `minicard${suffix}` },
+  })),
 ];
 
 // The rows of one column, in `order` (a canonical flat order from

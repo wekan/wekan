@@ -52,8 +52,8 @@ function normalizeScrumSettings(value) {
   return normalize(value, {
     visibility: v => normalize(v, Object.fromEntries([
       'cardSprint', 'cardPastSprints', 'cardRelease', 'cardIssueType', 'cardAcceptanceCriteria',
-      'cardBacklogRank', 'minicardSprint', 'minicardRelease', 'minicardIssueType',
-      'minicardBacklogRank', 'listCategory', 'swimlaneSprint', 'swimlaneRelease', 'swimlanePurpose',
+      'cardBacklogRank', 'minicardSprint', 'minicardPastSprints', 'minicardRelease', 'minicardIssueType',
+      'minicardAcceptanceCriteria', 'minicardBacklogRank', 'listCategory', 'swimlaneSprint', 'swimlaneRelease', 'swimlanePurpose',
     ].map(key => [key, flag => { if (typeof flag !== 'boolean') fail('Invalid visibility flag'); return flag; }]))),
     enabled: v => { if (typeof v !== 'boolean') fail('Invalid enabled flag'); return v; },
     productGoal: text, definitionOfDone: text,

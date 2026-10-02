@@ -2,6 +2,8 @@
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { columnFields } = require('../../../models/lib/boardSettingsColumns');
+// A Scrum row's flag is a path into the board's Scrum settings.
+const valueOf = (doc, field) => field.split('.').reduce((value, key) => value?.[key], doc);
 async function openSettings(page, section) {
   await page.evaluate(section => {
     Popup.close();
@@ -24,7 +26,7 @@ for (const section of ['Swimlane','List','Card']) test(`${section} column action
         await expect(button).toBeEnabled();
         await expect.poll(() => {
           const saved = db.findOne('boards',{_id:board.boardId});
-          return fields.every(field => saved[field] === enabled);
+          return fields.every(field => valueOf(saved, field) === enabled);
         }).toBe(true);
         await expect(actions.locator('.warning')).toHaveCount(0);
         if (column === 'draggable') {
@@ -41,7 +43,7 @@ for (const section of ['Swimlane','List','Card']) test(`${section} column action
       await page.reload();
       await openSettings(page, section);
       const saved = db.findOne('boards',{_id:board.boardId});
-      expect(fields.every(field => saved[field] === true)).toBe(true);
+      expect(fields.every(field => valueOf(saved, field) === true)).toBe(true);
     }
     expect(db.findOne('boards',{_id:other.boardId})).toEqual(otherBefore);
     expect(db.findOne('users',{_id:user.id}).profile?.showLabelTextOverride).toEqual(profileBefore?.showLabelTextOverride);

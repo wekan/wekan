@@ -329,7 +329,6 @@ template(name="boardCardSettingsPopup")
                     | ({{_ 'label-text-overridden'}})
                 else
                   | &nbsp;({{_ 'label-text-follows-board'}})
-        +scrumFieldSettings(kind="minicard")
       .card-field-order-column.card-field-order-column-card
         h4.card-field-order-column-heading {{_ 'show-on-card'}}
         +boardSettingsColumnActions(section="card" column="card")
@@ -347,7 +346,6 @@ template(name="boardCardSettingsPopup")
                 i.fa(class=icon)
               | {{row.title}}
 
-        +scrumFieldSettings(kind="card")
 
 //- The board's Subtasks Settings. Its own template, because the same settings
   are read from two places: Board Settings, and the menu of a subtask on an

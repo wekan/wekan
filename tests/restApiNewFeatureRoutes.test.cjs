@@ -228,7 +228,9 @@ test('PUT /api/boards/:boardId/cardFieldOrder needs board admin, normalises thro
   // Eight sections since Board Settings / Card orders per field: Dependencies,
   // Sort and Vote/Poker are sections of their own (models/lib/cardFieldOrder.js).
   assert.deepStrictEqual(applyCardFieldOrder(['description', 'bogus', 'labels', 'labels']),
-    ['description', 'labels', 'dates', 'members', 'dependencies', 'sort', 'customFields', 'voteAndPoker']);
+    ['description', 'labels', 'dates', 'members', 'dependencies', 'sort', 'customFields', 'voteAndPoker',
+      // the Scrum fields, one section each since 2026-10-02
+      'scrumSprint', 'scrumPastSprints', 'scrumRelease', 'scrumIssueType', 'scrumAcceptanceCriteria', 'scrumBacklogRank']);
   assert.deepStrictEqual(applyCardFieldOrder(undefined), DEFAULT_CARD_FIELD_ORDER);
 });
 

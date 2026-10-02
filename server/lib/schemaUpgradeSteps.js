@@ -165,6 +165,8 @@ const BOARD_ALLOWS_TRUE_DEFAULTS = [
   'allowsPoker', 'allowsPokerOnMinicard',
   'allowsTextNotes',
   'allowsCommentCountOnMinicard',
+  // The work item type badge was on every minicard before it had a row.
+  'allowsIssueTypeOnMinicard',
 ];
 
 const MISSING_OR_EMPTY = { $in: [null, ''] };   // matches missing, null and ''

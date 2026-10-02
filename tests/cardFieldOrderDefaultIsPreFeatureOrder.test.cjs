@@ -63,6 +63,9 @@ const PRE_FEATURE_CARD_ORDER = [
   'customFields',
   'vote', 'poker',
   'descriptionTitle', 'descriptionText',
+  // Newer than 59f7d61df: the Scrum block, drawn after the description, made
+  // one row per field ("Scrum settings: Sprint" ...) on 2026-10-02.
+  'scrumSprint', 'scrumPastSprints', 'scrumRelease', 'scrumIssueType', 'scrumAcceptanceCriteria', 'scrumBacklogRank',
   'checklists', 'checklistCount', 'subtasks', 'attachments', 'attachmentCount',
   'textNotes', // newer than 59f7d61df: beside the attachment count, above comments
   'comments', 'activities',
@@ -76,8 +79,12 @@ const PRE_FEATURE_CARD_ORDER = [
 // preview, the list name.
 const PRE_FEATURE_MINICARD_ORDER = [
   'dueComplete', 'cardNumber',
+  // Newer than 59f7d61df: the Scrum block, drawn first under the title, made
+  // one row per field on 2026-10-02; the work item type is a badge below.
+  'scrumSprint', 'scrumPastSprints', 'scrumRelease', 'scrumAcceptanceCriteria', 'scrumBacklogRank',
   'receivedDate', 'startDate', 'dueDate', 'endDate', 'spentTime',
   'cover', 'labels', 'customFields', 'assignee', 'members', 'creator', 'checklists',
+  'scrumIssueType', // newer than 59f7d61df: the work item type badge, first in the strip
   'dependencies', 'stickers', 'commentCount', 'vote', 'poker', 'attachmentCount',
   'subtasks', 'checklistCount', 'cardSortingByNumber',
   'descriptionText', 'comments', 'showLists',
@@ -92,7 +99,8 @@ test('the default card order is the pre-feature render order of cardDetails.jade
   // And the section sequence the card's `each section in
   // orderedCardFieldSections` walks is the groups of that template in order.
   assert.deepStrictEqual(DEFAULT_CARD_FIELD_ORDER,
-    ['labels', 'dates', 'members', 'dependencies', 'sort', 'customFields', 'voteAndPoker', 'description']);
+    ['labels', 'dates', 'members', 'dependencies', 'sort', 'customFields', 'voteAndPoker', 'description',
+      'scrumSprint', 'scrumPastSprints', 'scrumRelease', 'scrumIssueType', 'scrumAcceptanceCriteria', 'scrumBacklogRank']);
   assert.deepStrictEqual(applyCardFieldOrder(undefined), DEFAULT_CARD_FIELD_ORDER);
 });
 
@@ -102,7 +110,8 @@ test('the default minicard order is the pre-feature render order of minicard.jad
   assert.deepStrictEqual(applyMinicardOrder([]), PRE_FEATURE_MINICARD_ORDER);
   assert.deepStrictEqual(applyLayoutOrder(null, MINICARD_LAYOUT), PRE_FEATURE_MINICARD_ORDER);
   assert.deepStrictEqual(orderedMinicardSections(undefined),
-    ['dates', 'cover', 'labels', 'customFields', 'assignee', 'members', 'creator', 'checklists',
+    ['scrumSprint', 'scrumPastSprints', 'scrumRelease', 'scrumAcceptanceCriteria', 'scrumBacklogRank',
+      'dates', 'cover', 'labels', 'customFields', 'assignee', 'members', 'creator', 'checklists',
       'badges', 'descriptionText', 'comments', 'showLists', 'swimlaneName']);
 });
 

@@ -34,8 +34,11 @@ function test(name, fn) {
 // per-field sequence is pinned in
 // tests/cardFieldOrderDefaultIsPreFeatureOrder.test.cjs.
 test('no stored order at all falls back to the historical fixed order', () => {
+  // The Scrum fields became one section each on 2026-10-02, after the
+  // description, where the one Scrum block was drawn.
   assert.deepStrictEqual(DEFAULT_CARD_FIELD_ORDER,
-    ['labels', 'dates', 'members', 'dependencies', 'sort', 'customFields', 'voteAndPoker', 'description']);
+    ['labels', 'dates', 'members', 'dependencies', 'sort', 'customFields', 'voteAndPoker', 'description',
+      'scrumSprint', 'scrumPastSprints', 'scrumRelease', 'scrumIssueType', 'scrumAcceptanceCriteria', 'scrumBacklogRank']);
   assert.deepStrictEqual(applyCardFieldOrder(undefined), DEFAULT_CARD_FIELD_ORDER);
   assert.deepStrictEqual(applyCardFieldOrder(null), DEFAULT_CARD_FIELD_ORDER);
   assert.deepStrictEqual(applyCardFieldOrder([]), DEFAULT_CARD_FIELD_ORDER);
@@ -54,7 +57,9 @@ test('#4448: description can be moved to third, with custom fields right after i
   // Fields; they are sections now (Board Settings / Card orders per field),
   // so a legacy value expands to exactly what it rendered.
   assert.deepStrictEqual(applyCardFieldOrder(stored),
-    ['labels', 'dates', 'description', 'customFields', 'voteAndPoker', 'members', 'dependencies', 'sort']);
+    ['labels', 'dates', 'description', 'customFields', 'voteAndPoker', 'members', 'dependencies', 'sort',
+      // the Scrum sections (2026-10-02), appended in default order
+      'scrumSprint', 'scrumPastSprints', 'scrumRelease', 'scrumIssueType', 'scrumAcceptanceCriteria', 'scrumBacklogRank']);
   const order = applyCardFieldOrder(stored);
   assert.strictEqual(order.indexOf('description'), 2, 'description is third (0-indexed 2)');
   assert.ok(
@@ -127,7 +132,8 @@ test('moveCardFieldKey at the top boundary is a no-op going up', () => {
 });
 
 test('moveCardFieldKey at the bottom boundary is a no-op going down', () => {
-  const order = moveCardFieldKey(DEFAULT_CARD_FIELD_ORDER, 'description', 'down');
+  // The last section is the last Scrum field since 2026-10-02.
+  const order = moveCardFieldKey(DEFAULT_CARD_FIELD_ORDER, 'scrumBacklogRank', 'down');
   assert.deepStrictEqual(order, DEFAULT_CARD_FIELD_ORDER);
 });
 

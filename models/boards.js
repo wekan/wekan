@@ -1222,6 +1222,15 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: true,
     },
+    allowsIssueTypeOnMinicard: {
+      /**
+       * Does the board show the work item type badge on the minicard? It was
+       * shown on every board before it had a Board Settings / Card row, so a
+       * missing value means shown.
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
     restrictCommentEditing: {
       /**
        * When true, board admins can NOT edit or delete comments authored by

@@ -321,6 +321,11 @@ Template.minicard.helpers({
   issueTypeBadge() {
     return issueTypeBadge(this.scrum && this.scrum.issueType);
   },
+  // "Scrum settings: Work item type", Show on Minicard: on unless turned off,
+  // as it was on every board before it had a row.
+  showIssueTypeOnMinicard() {
+    return Utils.getCurrentBoard()?.allowsIssueTypeOnMinicard !== false;
+  },
   cover() {
     // #5666: for a linked card the cover lives on the real card it points at, so
     // resolve the cover id through it (mirroring getTitle/getDue/...); a plain

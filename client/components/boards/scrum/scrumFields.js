@@ -8,8 +8,9 @@ import { ReactiveCache } from '/imports/reactiveCache';
 const definitions = {
   card: [['Sprint', 'sprintId', 'scrum-sprint'], ['PastSprints', 'pastSprintIds', 'scrum-past-sprints'], ['Release', 'releaseId', 'scrum-release'], ['IssueType', 'issueType', 'scrum-issue-type'], ['AcceptanceCriteria', 'acceptanceCriteria', 'scrum-acceptance-criteria'], ['BacklogRank', 'backlogRank', 'scrum-backlog-rank']],
   // The issue type is not a Scrum minicard field any more: the minicard shows
-  // it as a badge with an icon on every board (models/lib/issueTypeIcon.js).
-  minicard: [['Sprint', 'sprintId', 'scrum-sprint'], ['Release', 'releaseId', 'scrum-release'], ['BacklogRank', 'backlogRank', 'scrum-backlog-rank']],
+  // it as a badge with an icon (models/lib/issueTypeIcon.js), turned on and off
+  // by its own Board Settings / Card row.
+  minicard: [['Sprint', 'sprintId', 'scrum-sprint'], ['PastSprints', 'pastSprintIds', 'scrum-past-sprints'], ['Release', 'releaseId', 'scrum-release'], ['AcceptanceCriteria', 'acceptanceCriteria', 'scrum-acceptance-criteria'], ['BacklogRank', 'backlogRank', 'scrum-backlog-rank']],
   list: [['Category', 'category', 'scrum-list-category']],
   swimlane: [['Sprint', 'sprintId', 'scrum-sprint'], ['Release', 'releaseId', 'scrum-release'], ['Purpose', 'purpose', 'scrum-swimlane-purpose']],
 };
@@ -39,9 +40,13 @@ function loadNames(board) {
   });
 }
 const boardFor = context => ReactiveCache.getBoard(context?.record?.boardId || Session.get('currentBoard'));
+// `field` (a definition suffix, 'Sprint') draws one field alone: on a card and
+// a minicard each Scrum field sits where the board's Board Settings / Card
+// order puts it (models/lib/cardFieldOrder.js SCRUM_FIELD_KEYS).
 function visibleFields(context) {
   const board = boardFor(context);
-  return (definitions[context?.kind] || []).filter(([suffix]) => board?.scrum?.visibility?.[`${context.kind}${suffix}`] === true);
+  return (definitions[context?.kind] || []).filter(([suffix]) => (!context.field || context.field === suffix) &&
+    board?.scrum?.visibility?.[`${context.kind}${suffix}`] === true);
 }
 Template.scrumFieldSettings.onCreated(function () { this.error = new ReactiveVar(''); this.busy = new ReactiveVar(false); });
 Template.scrumFieldSettings.helpers({

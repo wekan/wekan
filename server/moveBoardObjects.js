@@ -8,7 +8,7 @@ import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
 import Activities from '/models/activities';
 import { allowIsBoardAdminOrSiteAdmin } from '/server/lib/utils';
-const { columnModifier } = require('/models/lib/boardSettingsColumns');
+const { columnModifier, columnScrumVisibility } = require('/models/lib/boardSettingsColumns');
 const { DRAG_SETTINGS, canDragSelection } = require('/models/lib/boardDragging');
 import { requireBoardMutation } from '/models/lib/boardMutationGuard';
 const { memberCan } = require('/models/lib/boardRoleCapabilities');
@@ -67,7 +67,13 @@ Meteor.methods({
     if (!modifier) throw new Meteor.Error('invalid-setting');
     const board = await Boards.findOneAsync(boardId);
     if (!this.userId || !board || !(await allowIsBoardAdminOrSiteAdmin(this.userId, board))) throw new Meteor.Error('not-authorized');
-    return Boards.updateAsync(boardId, modifier);
+    const updated = await Boards.updateAsync(boardId, modifier);
+    // The Scrum rows of a card column, through the Scrum settings' own method.
+    const visibility = columnScrumVisibility(section, column, enabled);
+    if (Object.keys(visibility).length) {
+      await Meteor.server.method_handlers['scrum.configure'].call(this, boardId, { visibility }, null);
+    }
+    return updated;
   },
   async setBoardDragging(boardId, kind, enabled) {
     check(boardId, String); check(kind, String); check(enabled, Boolean);

@@ -104,11 +104,25 @@ test('Board Settings reveals Scrum minicard fields and preserves independent car
  await page.evaluate(()=>{Popup.close();const opener=document.body;Popup.open('boardCardSettings')({currentTarget:opener,target:opener,preventDefault(){},stopPropagation(){}});});
  const popup=page.locator('.pop-over[data-popup="boardCardSettingsPopup"]');
  await expect(popup).toBeVisible();
- await expect(popup.locator('input[data-key="minicardIssueType"]')).toHaveCount(0);
- const checkbox=popup.locator('input[data-key="minicardBacklogRank"]');
- await checkbox.check();
+ // Every Scrum field is a row of both columns (2026-10-02), "Scrum settings: <field>",
+ // ordered with the other rows; the old separate Scrum checkbox list is gone.
+ await expect(popup.locator('input.js-scrum-visibility')).toHaveCount(0);
+ for(const side of ['card','minicard']){
+  const row=popup.locator(`.js-card-field-order-row[data-side="${side}"][data-key="scrumBacklogRank"]`);
+  await expect(row).toContainText('Scrum settings: Backlog rank');
+  await expect(popup.locator(`.js-card-field-order-row[data-side="${side}"][data-key="scrumSprint"]`)).toContainText('Scrum settings: Sprint');
+ }
+ await popup.locator('.js-card-field-order-row[data-side="minicard"][data-key="scrumBacklogRank"] .card-field-order-toggle').click();
  await expect.poll(()=>db.findOne('boards',{_id:board.boardId}).scrum?.visibility?.minicardBacklogRank).toBe(true);
  expect(db.findOne('boards',{_id:board.boardId}).scrum?.visibility?.cardBacklogRank).not.toBe(true);
+ // The minicard's work item type row is the badge's own switch, on by default.
+ const issueType=popup.locator('.js-card-field-order-row[data-side="minicard"][data-key="scrumIssueType"] .card-field-order-toggle');
+ await expect(issueType).toHaveClass(/is-checked/);
+ await issueType.click();
+ await expect.poll(()=>db.findOne('boards',{_id:board.boardId}).allowsIssueTypeOnMinicard).toBe(false);
+ await expect(page.locator('.minicard .minicard-issue-type')).toHaveCount(0);
+ await issueType.click();
+ await expect(page.locator('.minicard .minicard-issue-type',{hasText:'Story'})).toHaveCount(1);
  await popup.locator('.js-close-pop-over').click();
  await expect(page.locator('.minicard .scrum-metadata').filter({hasText:'4'})).toHaveCount(1);
  expect(errors).toEqual([]);

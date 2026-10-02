@@ -44,6 +44,14 @@
 // last on the minicard). tests/cardFieldOrderDefaultIsPreFeatureOrder.test.cjs
 // pins both sequences literally.
 
+// ── the Scrum fields ─────────────────────────────────────────────────────────
+
+// One section per Scrum field, keyed by the row of Board Settings / Card that
+// shows it ("Scrum settings: Sprint" ...; models/lib/cardSettingsRows.js).
+const SCRUM_FIELD_KEYS = ['scrumSprint', 'scrumPastSprints', 'scrumRelease', 'scrumIssueType',
+  'scrumAcceptanceCriteria', 'scrumBacklogRank'];
+const SCRUM_SECTIONS = SCRUM_FIELD_KEYS.map(key => ({ key, fields: [key] }));
+
 // ── the opened card ──────────────────────────────────────────────────────────
 
 const CARD_LAYOUT = {
@@ -57,6 +65,10 @@ const CARD_LAYOUT = {
     { key: 'customFields', fields: ['customFields'] },
     { key: 'voteAndPoker', fields: ['vote', 'poker'] },
     { key: 'description', fields: ['descriptionTitle', 'descriptionText'], pinnedFirst: true },
+    // The Scrum fields, each a section of its own so the board can put each
+    // where it wants. By default they sit where the one Scrum block was drawn,
+    // after the description (client/components/boards/scrum/scrumFields.js).
+    ...SCRUM_SECTIONS,
   ],
   tail: ['checklists', 'checklistCount', 'subtasks', 'attachments', 'attachmentCount',
     'textNotes', 'comments', 'activities'],
@@ -85,6 +97,9 @@ const CARD_LAYOUT = {
 const MINICARD_LAYOUT = {
   head: ['dueComplete', 'cardNumber'],
   sections: [
+    // The Scrum fields first, where the one Scrum block was drawn - except the
+    // work item type, which is the first badge of the strip below.
+    ...SCRUM_SECTIONS.filter(s => s.key !== 'scrumIssueType'),
     { key: 'dates', fields: ['receivedDate', 'startDate', 'dueDate', 'endDate', 'spentTime'] },
     { key: 'cover', fields: ['cover'] },
     { key: 'labels', fields: ['labels'] },
@@ -93,7 +108,7 @@ const MINICARD_LAYOUT = {
     { key: 'members', fields: ['members'] },
     { key: 'creator', fields: ['creator'] },
     { key: 'checklists', fields: ['checklists'] },
-    { key: 'badges', fields: ['dependencies', 'stickers', 'commentCount', 'vote', 'poker',
+    { key: 'badges', fields: ['scrumIssueType', 'dependencies', 'stickers', 'commentCount', 'vote', 'poker',
       'attachmentCount', 'subtasks', 'checklistCount', 'cardSortingByNumber'] },
     { key: 'descriptionText', fields: ['descriptionText'] },
     { key: 'comments', fields: ['comments'] },
@@ -320,6 +335,7 @@ function moveMinicardKey(stored, field, direction) {
 }
 
 module.exports = {
+  SCRUM_FIELD_KEYS,
   CARD_LAYOUT,
   MINICARD_LAYOUT,
   applyLayoutOrder,

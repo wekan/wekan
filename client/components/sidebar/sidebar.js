@@ -18,7 +18,8 @@ const {
   canMove,
   moveKey,
 } = require('/models/lib/cardFieldOrder');
-const { rowsForSide } = require('/models/lib/cardSettingsRows');
+const { rowsForSide, CARD_SETTINGS_ROWS } = require('/models/lib/cardSettingsRows');
+import { invalidateScrumNames } from '/client/components/boards/scrum/scrumFields';
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 import '/client/components/boards/exportScope';
 import AccessibilitySettings from '/models/accessibilitySettings';
@@ -1865,7 +1866,9 @@ function buildCardSettingsRows(side, data) {
       return {
         key: row.key,
         toggle: spec.toggle,
-        checked: typeof helper === 'function' ? Boolean(helper.call(data)) : false,
+        // A Scrum row's checkbox is that field's Scrum visibility flag.
+        checked: spec.scrum ? currentBoard?.scrum?.visibility?.[spec.scrum] === true
+          : typeof helper === 'function' ? Boolean(helper.call(data)) : false,
         icons: row.icons,
         title: row.label.map(k => TAPi18n.__(k)).join(row.labelSeparator || ' '),
         personal: Boolean(spec.personal),
@@ -1889,6 +1892,8 @@ const boardCardSettingsHelpers = {
   labelsAboveTitleOnMinicard() { return ReactiveCache.getBoard(Session.get('currentBoard'))?.labelsAboveTitleOnMinicard === true; },
   allowsChecklistDueDate() { return ReactiveCache.getBoard(Session.get('currentBoard'))?.allowsChecklistDueDate !== false; },
   allowsChecklistTitle() { return ReactiveCache.getBoard(Session.get('currentBoard'))?.allowsChecklistTitle !== false; },
+  // The work item type badge was on every minicard before it had a row: on unless turned off.
+  allowsIssueTypeOnMinicard() { return ReactiveCache.getBoard(Session.get('currentBoard'))?.allowsIssueTypeOnMinicard !== false; },
   // Board Settings / Card Settings shows both columns - "Show on Card" and
   // "Show on Minicard" beside each other. The card's own menu and the
   // minicard's menu open the SAME popup asking for one of them, and the other
@@ -2374,6 +2379,28 @@ Template.boardCardSettingsPopup.events({
 
   'click .js-card-field-order-up'(evt) {
     moveCardSettingsRow(evt, 'up');
+  },
+  // "Scrum settings: Sprint" and the other Scrum rows: the field's Scrum
+  // visibility flag for this side, through the same method the Scrum settings
+  // checkboxes used (server-side board-admin check).
+  async 'click .js-scrum-field-toggle'(evt, tpl) {
+    evt.preventDefault();
+    const row = evt.currentTarget.closest('.js-card-field-order-row');
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    const spec = CARD_SETTINGS_ROWS.find(r => r.key === row?.dataset.key)?.[row?.dataset.side];
+    if (!board || !spec?.scrum) return;
+    const visible = board.scrum?.visibility?.[spec.scrum] === true;
+    try {
+      await Meteor.callAsync('scrum.configure', board._id, { visibility: { [spec.scrum]: !visible } }, board.scrumRevision || 0);
+      invalidateScrumNames();
+    } catch (error) {
+      alert(error.reason || error.message);
+    }
+  },
+  'click .js-field-has-issue-type-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = tpl.currentBoard.allowsIssueTypeOnMinicard === false;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsIssueTypeOnMinicard: newValue } });
   },
   'click .js-card-field-order-down'(evt) {
     moveCardSettingsRow(evt, 'down');

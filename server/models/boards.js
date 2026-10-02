@@ -1304,6 +1304,8 @@ const BOARD_CARD_SETTING_KEYS = [
   'allowsPokerOnMinicard',
   'allowsTextNotes',
   'allowsCommentCountOnMinicard',
+  // "Scrum settings: Work item type", Show on Minicard (2026-10-02).
+  'allowsIssueTypeOnMinicard',
 ];
 
 // #3984: numeric card-settings keys (parsed as integers, not booleans). These are

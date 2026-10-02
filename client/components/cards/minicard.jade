@@ -86,7 +86,6 @@ template(name="minicard")
       block sits is decided by the loop. The upload progress indicator is not
       a field of the card and keeps a fixed place at the top.
     unless minicardCollapsed
-      +scrumMetadata(kind="minicard" record=this)
       // Upload progress indicator for drag-and-drop uploads
       if hasActiveUploads
         .minicard-upload-progress
@@ -115,6 +114,18 @@ template(name="minicard")
         else
 
       each section in orderedMinicardSections
+        //- Each Scrum field where the board's order puts it ("Scrum settings:
+          Sprint" ... in Board Settings / Card).
+        if $eq section "scrumSprint"
+          +scrumMetadata(kind="minicard" record=this field="Sprint")
+        if $eq section "scrumPastSprints"
+          +scrumMetadata(kind="minicard" record=this field="PastSprints")
+        if $eq section "scrumRelease"
+          +scrumMetadata(kind="minicard" record=this field="Release")
+        if $eq section "scrumAcceptanceCriteria"
+          +scrumMetadata(kind="minicard" record=this field="AcceptanceCriteria")
+        if $eq section "scrumBacklogRank"
+          +scrumMetadata(kind="minicard" record=this field="BacklogRank")
         if $eq section "dates"
           .dates
             each field in orderedMinicardDates
@@ -227,13 +238,6 @@ template(name="minicard")
               +minicardChecklist(checklist=. card=..)
         if $eq section "badges"
           .badges
-            //- Jira issue type (models/lib/issueTypeIcon.js): first, because it
-              says what kind of card this is.
-            if issueTypeBadge
-              .badge.minicard-issue-type(class="issue-type-{{issueTypeBadge.tone}}" title="{{issueTypeBadge.name}}")
-                span.badge-icon
-                  i.fa(class="{{issueTypeBadge.icon}}")
-                span.badge-text {{issueTypeBadge.name}}
             //- The description BADGE - shown when the description's text is not
               on the minicard - belongs to the Description text row, whose own
               position is the full text further down; it keeps the first place
@@ -249,6 +253,16 @@ template(name="minicard")
               stickers, the comment count, vote and poker rendered unconditionally
               before; all default on. client/components/sidebar/sidebar.jade
             each field in orderedMinicardBadges
+              //- Jira issue type (models/lib/issueTypeIcon.js): first by default,
+                because it says what kind of card this is; its row is "Scrum
+                settings: Work item type".
+              if $eq field "scrumIssueType"
+                if showIssueTypeOnMinicard
+                  if issueTypeBadge
+                    .badge.minicard-issue-type(class="issue-type-{{issueTypeBadge.tone}}" title="{{issueTypeBadge.name}}")
+                      span.badge-icon
+                        i.fa(class="{{issueTypeBadge.icon}}")
+                      span.badge-text {{issueTypeBadge.name}}
               if $eq field "dependencies"
                 if showDependenciesOnMinicard
                   if dependencyBadge

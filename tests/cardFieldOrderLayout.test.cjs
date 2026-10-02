@@ -69,7 +69,8 @@ test('unknown keys are dropped and duplicates keep their first place (negative)'
 test('a partial order is completed: sections by first appearance, missing fields appended in default order', () => {
   const order = applyCardOrder(['endDate', 'stickers']);
   assert.deepStrictEqual(applyCardFieldOrder(order),
-    ['dates', 'labels', 'members', 'dependencies', 'sort', 'customFields', 'voteAndPoker', 'description']);
+    ['dates', 'labels', 'members', 'dependencies', 'sort', 'customFields', 'voteAndPoker', 'description',
+      'scrumSprint', 'scrumPastSprints', 'scrumRelease', 'scrumIssueType', 'scrumAcceptanceCriteria', 'scrumBacklogRank']);
   assert.deepStrictEqual(orderedCardFieldsOf(order, 'dates'), ['endDate', 'receivedDate', 'startDate', 'dueDate']);
   // Labels is pinned first in its section even though stickers was stored first.
   assert.deepStrictEqual(orderedCardFieldsOf(order, 'labels'), ['labels', 'stickers', 'location']);
@@ -91,7 +92,8 @@ test('the legacy section keys expand to the fields they rendered, appendages inc
   const legacy = ['description', 'labels', 'dates', 'members', 'customFields'];
   const order = applyCardOrder(legacy);
   assert.deepStrictEqual(applyCardFieldOrder(order),
-    ['description', 'labels', 'dates', 'members', 'dependencies', 'sort', 'customFields', 'voteAndPoker']);
+    ['description', 'labels', 'dates', 'members', 'dependencies', 'sort', 'customFields', 'voteAndPoker',
+      'scrumSprint', 'scrumPastSprints', 'scrumRelease', 'scrumIssueType', 'scrumAcceptanceCriteria', 'scrumBacklogRank']);
   // In a list that has a FIELD key, `members` is the field, not the legacy
   // section with its appendages (negative: no Dependencies/Sort dragged along).
   const mixed = applyCardOrder(['endDate', 'members', 'labels']);
@@ -132,8 +134,9 @@ test('a pinned header only ever moves its section, and nothing climbs above it',
 
 test('the first item going up and the last going down are no-ops (negative)', () => {
   assert.deepStrictEqual(moveCardKey(undefined, 'labels', 'up'), DEFAULT_CARD_ORDER);
-  assert.deepStrictEqual(moveCardKey(undefined, 'descriptionText', 'down'), DEFAULT_CARD_ORDER);
-  assert.deepStrictEqual(moveMinicardKey(undefined, 'receivedDate', 'up'), DEFAULT_MINICARD_ORDER);
+  // The Scrum fields are the card's last and the minicard's first sections (2026-10-02).
+  assert.deepStrictEqual(moveCardKey(undefined, 'scrumBacklogRank', 'down'), DEFAULT_CARD_ORDER);
+  assert.deepStrictEqual(moveMinicardKey(undefined, 'scrumSprint', 'up'), DEFAULT_MINICARD_ORDER);
   assert.deepStrictEqual(moveMinicardKey(undefined, 'swimlaneName', 'down'), DEFAULT_MINICARD_ORDER);
 });
 
@@ -164,13 +167,15 @@ test('the minicard has its own layout and order, untouched by the card order', (
   assert.deepStrictEqual(applyCardOrder(undefined), DEFAULT_CARD_ORDER, 'the card order is a different value');
   // Badges reorder inside their strip; the strip itself moves at its edges.
   const badges = moveMinicardKey(undefined, 'vote', 'up');
-  assert.deepStrictEqual(orderedMinicardFieldsOf(badges, 'badges').slice(0, 4),
-    ['dependencies', 'stickers', 'vote', 'commentCount']);
-  const strip = moveMinicardKey(undefined, 'dependencies', 'up');
+  // The work item type badge is first in the strip since 2026-10-02.
+  assert.deepStrictEqual(orderedMinicardFieldsOf(badges, 'badges').slice(0, 5),
+    ['scrumIssueType', 'dependencies', 'stickers', 'vote', 'commentCount']);
+  const strip = moveMinicardKey(undefined, 'scrumIssueType', 'up');
   const sections = orderedMinicardSections(strip);
   assert.ok(sections.indexOf('badges') < sections.indexOf('checklists'));
   assert.deepStrictEqual(sectionOrder(strip, MINICARD_LAYOUT), sections);
-  assert.deepStrictEqual(fieldsOfSection(strip, MINICARD_LAYOUT, 'dates'), MINICARD_LAYOUT.sections[0].fields);
+  assert.deepStrictEqual(fieldsOfSection(strip, MINICARD_LAYOUT, 'dates'),
+    MINICARD_LAYOUT.sections.find(section => section.key === 'dates').fields);
 });
 
 test('minicard.jade and the layout agree on what has a position there', () => {

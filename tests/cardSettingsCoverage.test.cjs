@@ -198,7 +198,10 @@ test('every row has a checkbox helper, a click handler, existing label keys and 
     for (const side of ['card', 'minicard']) {
       const spec = row[side];
       if (!spec) continue;
-      assert.ok(new RegExp(`^  ${spec.field}\\(\\) \\{`, 'm').test(sidebarJs), `helper ${spec.field}() (${row.key}/${side})`);
+      // A Scrum row's checkbox is its Scrum visibility flag, read by the row
+      // builder itself; the others have a helper of their own.
+      if (spec.scrum) assert.match(sidebarJs, /checked: spec\.scrum \? currentBoard\?\.scrum\?\.visibility\?\.\[spec\.scrum\] === true/);
+      else assert.ok(new RegExp(`^  ${spec.field}\\(\\) \\{`, 'm').test(sidebarJs), `helper ${spec.field}() (${row.key}/${side})`);
       assert.ok(sidebarJs.includes(`'click .${spec.toggle}'`), `click handler for .${spec.toggle}`);
     }
   }

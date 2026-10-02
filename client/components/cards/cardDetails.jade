@@ -170,8 +170,21 @@ template(name="cardDetails")
             +cardFieldSectionVoteAndPoker
           if $eq section "description"
             +cardFieldSectionDescription
+          //- Each Scrum field where the board's order puts it ("Scrum settings:
+            Sprint" ... in Board Settings / Card).
+          if $eq section "scrumSprint"
+            +cardFieldSectionScrumSprint
+          if $eq section "scrumPastSprints"
+            +cardFieldSectionScrumPastSprints
+          if $eq section "scrumRelease"
+            +cardFieldSectionScrumRelease
+          if $eq section "scrumIssueType"
+            +cardFieldSectionScrumIssueType
+          if $eq section "scrumAcceptanceCriteria"
+            +cardFieldSectionScrumAcceptanceCriteria
+          if $eq section "scrumBacklogRank"
+            +cardFieldSectionScrumBacklogRank
 
-      +scrumMetadata(kind="card" record=this)
       .card-checklist-attachmentGalleries
         .card-checklist-attachmentGallery.card-checklists
           if currentBoard.allowsChecklists
@@ -887,6 +900,26 @@ template(name="cardFieldSectionVoteAndPoker")
                       i.fa.fa-plus
                       | {{_ 'set-estimation'}}
                     input(type=text,autofocus value=getPokerEstimation,id="pokerEstimation")
+
+//- The Scrum fields, one template each like every other section of the
+  card's order: "Scrum settings: Sprint" ... in Board Settings / Card.
+template(name="cardFieldSectionScrumSprint")
+  +scrumMetadata(kind="card" record=this field="Sprint")
+
+template(name="cardFieldSectionScrumPastSprints")
+  +scrumMetadata(kind="card" record=this field="PastSprints")
+
+template(name="cardFieldSectionScrumRelease")
+  +scrumMetadata(kind="card" record=this field="Release")
+
+template(name="cardFieldSectionScrumIssueType")
+  +scrumMetadata(kind="card" record=this field="IssueType")
+
+template(name="cardFieldSectionScrumAcceptanceCriteria")
+  +scrumMetadata(kind="card" record=this field="AcceptanceCriteria")
+
+template(name="cardFieldSectionScrumBacklogRank")
+  +scrumMetadata(kind="card" record=this field="BacklogRank")
 
 template(name="cardFieldSectionDescription")
   .card-details-group.card-details-group-description
