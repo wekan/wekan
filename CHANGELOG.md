@@ -3159,6 +3159,26 @@ Structural tests do not establish fluency.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/440beac70a">Translate Tamazight Scrum messages and fix Tigre card terms</a>. Thanks to xet7.</summary>
+
+Fill twenty English placeholders in Standard Moroccan Tamazight, bringing
+these Scrum groups to 232 locale tags, with two remaining. Correct the Arabic
+Discard label to Tamazight. Preserve correct-language translations, source
+order and exact tokens. Extend incomplete-history, missing-weight,
+discard-only recovery and Tifinagh checks.
+
+The full run passes 450 of 451 translation-related Node suites. Fix the
+remaining Tigre card-terminology failure by using the established card term
+in four Scrum messages; that suite and seven related suites then pass.
+All 21 human-preference checks pass. Specialist Tamazight phrasing has lower
+confidence and need speaker review. The broader translation backlog remains.
+References include [IRCAM terminology](https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=193)
+and [IRCAM conjugation](https://www.temehu.com/imazighen/dictionaries/Amawals/manuel-de-conjugaison-Tamazight-Tifinagh-IRCAM.pdf).
+Structural tests do not establish fluency.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
