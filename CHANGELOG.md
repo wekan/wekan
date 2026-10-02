@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5d796955ae">Translate Burmese archiving and date filters</a>. Thanks to xet7.</summary>
+
+- Fill 23 automatic-archiving, date-range and list-age filter messages.
+- Batch script, key-order, placeholder, markup and query-field checks and
+  all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/cc7c39a2c3">Finish remaining Malagasy prose translations and check full locale</a>. Thanks to xet7.</summary>
 
 - Fill the last 19 reported prose placeholders, covering rule email,
