@@ -1686,6 +1686,17 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/169add7ab1">Translate Burmese math functions and editor messages</a>. Thanks to xet7.</summary>
+
+- Fill 26 math-function, trigonometry and editor messages.
+  Specialized trigonometry terminology has lower confidence and needs review.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/725fe6df78">Translate Burmese statistics and rounding messages</a>. Thanks to xet7.</summary>
 
 - Fill 28 statistics, random-number, rounding and math-function messages.
