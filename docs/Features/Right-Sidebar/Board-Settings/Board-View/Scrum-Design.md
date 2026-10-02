@@ -30,7 +30,10 @@ native commitment or completion snapshots.
 
 Native whole-board Scrum transfer and duplication are implemented. Jira import
 and export now retain issue types and explicit workflow categories through
-existing hidden metadata, alongside numeric time tracking. See the
+existing hidden metadata, alongside numeric time tracking. Jira import also maps
+open sprints, fix versions, rank and epic links to sprints, releases, backlog
+rank and parents, reporting closed and active sprints' missing snapshots
+(2026-10-02, models/lib/jiraScrumPlanning.js). See the
 [Jira guide](../../../ImportExport/Jira/Jira.md) for mappings, selection controls
 and limitations. External sprint snapshots, multiple release assignments,
 epic relationships remain pending. Explicit numeric Jira estimate-field mapping

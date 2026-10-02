@@ -117,3 +117,4 @@ import './storedRuleCopyCard.tests';
 import './dependencyLayers.tests';
 import './cardMoveLabelActivities.tests';
 import './storedRuleMoveBoard.tests';
+import './jiraScrumImport.tests';

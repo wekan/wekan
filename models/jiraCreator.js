@@ -8,6 +8,8 @@ import CustomFields from '/models/customFields';
 const { jiraTimeTracking, JIRA_ESTIMATE_FIELDS } = require('./lib/jiraTimeTracking');
 const { jiraScrumMetadata, jiraScrumListCategories } = require('./lib/jiraScrumMetadata');
 const { validateJiraEstimateMapping, jiraEstimateValue } = require('./lib/jiraEstimateMapping');
+const { jiraScrumPlanning } = require('./lib/jiraScrumPlanning');
+const { normalizeScrumTransfer } = require('./lib/scrumTransfer');
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import Rules from '/models/rules';
@@ -83,7 +85,8 @@ export class JiraCreator {
     if (!this.extras) this.extras = new Map();
     if (!this.extras.has(issue)) {
       const importedKeys = new Set(this._issues(data).map(i => i && i.key).filter(Boolean));
-      const skipFields = this.estimateMapping ? [this.estimateMapping.estimateFieldId] : [];
+      const skipFields = [...(this.estimateMapping ? [this.estimateMapping.estimateFieldId] : []),
+        ...(this.planning ? this.planning.skipFields : [])];
       this.extras.set(issue, jiraIssueExtras(issue, {
         names: (data && !Array.isArray(data) && data.names) || {}, importedKeys, skipFields,
       }));
@@ -281,9 +284,11 @@ export class JiraCreator {
       const comments = extra.comments.map(c => importedComment(c, this.members)).filter(Boolean);
       await insertImportedComments(comments, { boardId, cardId, now: this._now(), importerId: this._user() });
     }
-    // Sub-tasks and child issues imported together keep their parent.
+    // Sub-tasks and child issues imported together keep their parent; a
+    // legacy Epic Link names the card's epic the same way.
     for (let index = 0; index < issues.length; index += 1) {
-      const parentId = extras[index].parentKey && this.cardsByKey[extras[index].parentKey];
+      const parentKey = extras[index].parentKey || (this.planning && this.planning.epicParents[issues[index].key]);
+      const parentId = parentKey && this.cardsByKey[parentKey];
       const cardId = this.cardsByKey[issues[index].key];
       if (parentId && cardId && parentId !== cardId) {
         await Cards.direct.updateAsync(cardId, { $set: { parentId } });
@@ -349,6 +354,17 @@ export class JiraCreator {
     return imported;
   }
 
+  // The planning data, written as a native Scrum import is: sprints and
+  // releases under new ids, each card's sprint, release and backlog rank, and
+  // the board's Scrum settings (server/lib/scrumTransferImport.js).
+  async createScrumPlanning(boardId) {
+    if (!this.planning || !this.planning.transfer) return;
+    const { importScrumTransfer } = require('/server/lib/scrumTransferImport');
+    await importScrumTransfer({ cards: this.cardsByKey, lists: {}, swimlanes: {}, members: {},
+      customFields: this.estimateFieldId ? { 'jira-estimate': this.estimateFieldId } : {} },
+    { scrumTransfer: this.planning.transfer }, boardId);
+  }
+
   async create(board, currentBoardId) {
     // Validate before archiving a Sandstorm board or creating any documents.
     try { this.estimateMapping = validateJiraEstimateMapping(board); }
@@ -359,6 +375,13 @@ export class JiraCreator {
       try { jiraTimeTracking(issue.fields); }
       catch (error) { throw new Meteor.Error('invalid-jira-time', error.message); }
     }
+    // Sprints, fix versions, rank and epic links (models/lib/jiraScrumPlanning.js),
+    // checked as a native Scrum transfer before anything is written.
+    try {
+      this.planning = jiraScrumPlanning(board, { estimate: this.estimateMapping
+        ? { sourceId: 'jira-estimate', unit: this.estimateMapping.estimateUnit } : null });
+      if (this.planning.transfer) normalizeScrumTransfer(this.planning.transfer);
+    } catch (error) { throw new Meteor.Error('invalid-jira-scrum', error.message); }
     const isSandstorm =
       Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
     if (isSandstorm && currentBoardId) {
@@ -371,6 +394,7 @@ export class JiraCreator {
     await this.createTimeFields(board, boardId);
     await this.createCards(board, boardId);
     await this.createDependencies(board);
+    await this.createScrumPlanning(boardId);
     await this.createRules(board, boardId);
     const issues = this._issues(board);
     await recordImportLosses({
@@ -378,6 +402,7 @@ export class JiraCreator {
       warnings: jiraPageWarnings(board),
       unsupported: [
         ...issues.flatMap(issue => this._extras(board, issue).unsupported),
+        ...this.planning.losses,
         ...planImportedCustomFields(issues.map(issue => this._extras(board, issue))).unsupported,
       ],
       boardId,
