@@ -207,6 +207,11 @@ export const RulesHelper = {
       swimlaneId: resolveRuleSwimlaneId(swimlane, await getDestBoardDefaultSwimlane(action.boardId)),
     };
   },
+  // The title an addSwimlane action gives its swimlane, for the durable rule
+  // command (server/lib/syncRuleAddSwimlaneCommand.js).
+  async ruleSwimlaneTitle(activity, card, action) {
+    return substituteVars(action.swimlaneName, await buildRuleVars(activity, card));
+  },
   // ...and the item titles an addChecklistWithItems action names.
   async ruleChecklistItemTitles(activity, card, action) {
     return String(substituteVars(action.checklistItems, await buildRuleVars(activity, card))).split(',');
@@ -931,6 +936,7 @@ export const RulesHelper = {
       });
     }
     if (action.actionType === 'addSwimlane') {
+      // The same title the durable command captures (ruleSwimlaneTitle).
       await Swimlanes.insertAsync({
         title: substituteVars(action.swimlaneName, ruleVars),
         boardId,

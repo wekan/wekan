@@ -181,6 +181,7 @@ export async function runStoredSyncRules({ adapters, ...options }) {
     // Same-board copies only: eligibility keeps a board copying elsewhere on direct Sync.
     copyCard: ({ invocation }) => runStoredSyncRuleCopyCard({ ...options, index: indices.get(invocation.id) }),
     linkCard: ({ invocation }) => runStoredSyncRuleLinkCard({ ...options, index: indices.get(invocation.id) }),
+    addSwimlane: ({ invocation }) => runStoredSyncRuleAddSwimlane({ ...options, index: indices.get(invocation.id) }),
     ...Object.fromEntries(RULE_CHECKLIST_LIFECYCLE_ACTIONS.map(type => [type, ({ invocation }) =>
       runStoredSyncRuleChecklistLifecycle({ ...options, index: indices.get(invocation.id) })])),
     // In-place moves only: eligibility keeps a board with any other move on
@@ -754,6 +755,66 @@ export async function runStoredSyncRuleLinkCard({ index, completeDelivery = runS
 }
 const { commandId: ruleLinkCardCommandId, prepareRuleLinkCardCommand, validateRuleLinkCardCommand } =
   require('/server/lib/syncRuleLinkCardCommand');
+
+// Durable rule addSwimlane (server/lib/syncRuleAddSwimlaneCommand.js): the
+// title resolved once with the ordinary action's own substitution, the
+// swimlane inserted once under its derived id with the hook's activity
+// deferred, then that activity inserted once by its derived id - delivered as
+// every board-level activity is, since it has no card.
+export const SyncRuleAddSwimlaneCommands = new Mongo.Collection('listSyncRuleAddSwimlaneCommands');
+SyncRuleAddSwimlaneCommands.deny({ insert: () => true, update: () => true, remove: () => true });
+
+export async function runStoredSyncRuleAddSwimlane({ index, ...options }) {
+  const context = executionContext(options), plan = await capture(context);
+  const invocation = plan.actions[index], action = invocation?.action;
+  if (action?.actionType !== 'addSwimlane') throw new Error('sync-rule-add-swimlane-invalid');
+  const commandContext = { plan, activity: context.saved, effectId: context.effectId, index };
+  const guard = reuseWithinEvaluation(async () => {
+    await context.guard();
+    const [rule, current] = await Promise.all([
+      Rules.rawCollection().findOne({ _id: invocation.rule._id }),
+      Actions.rawCollection().findOne({ _id: action._id }),
+    ]);
+    if (!rule || !current || canonical(rule) !== canonical(invocation.rule) ||
+        canonical(current) !== canonical(action)) throw new Error('sync-rule-add-swimlane-configuration-changed');
+    await context.guard();
+  });
+  const commands = SyncRuleAddSwimlaneCommands.rawCollection(), id = ruleAddSwimlaneCommandId(invocation.id);
+  await guard();
+  let row = await commands.findOne({ _id: id });
+  if (!row) {
+    const card = await Cards.findOneAsync({ _id: plan.cardId, boardId: plan.boardId });
+    const title = await RulesHelper.ruleSwimlaneTitle(context.saved, card, action);
+    const candidate = prepareRuleAddSwimlaneCommand({ ...commandContext, title, createdAt: new Date() });
+    await guard();
+    let failure;
+    try { await commands.insertOne(candidate); } catch (error) { failure = error; }
+    row = await commands.findOne({ _id: id });
+    if (!row) throw failure || new Error('sync-rule-add-swimlane-command-unconfirmed');
+  }
+  const command = validateRuleAddSwimlaneCommand(row, commandContext);
+  const actor = work => DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false }, work);
+  await guard();
+  if (!await Swimlanes.rawCollection().findOne({ _id: command.swimlane._id })) {
+    await actor(() => withSyncSwimlaneActivityDeferred(command.swimlane._id, () => Swimlanes.insertAsync(command.swimlane)));
+    if (!await Swimlanes.rawCollection().findOne({ _id: command.swimlane._id })) {
+      throw new Error('sync-rule-add-swimlane-unconfirmed');
+    }
+  }
+  await guard();
+  if (!await Activities.rawCollection().findOne({ _id: command.activity._id })) {
+    let failure;
+    try { await actor(() => Activities.insertAsync(command.activity)); } catch (error) { failure = error; }
+    if (!await Activities.rawCollection().findOne({ _id: command.activity._id })) {
+      throw failure || new Error('sync-rule-add-swimlane-activity-unconfirmed');
+    }
+  }
+  await guard();
+  return invocation.id;
+}
+const { commandId: ruleAddSwimlaneCommandId, prepareRuleAddSwimlaneCommand, validateRuleAddSwimlaneCommand } =
+  require('/server/lib/syncRuleAddSwimlaneCommand');
+const { withSyncSwimlaneActivityDeferred } = require('/server/lib/syncRecordingScope');
 
 // Durable rule createCard (server/lib/syncRuleCreateCardCommand.js): the
 // target and title resolved once with the ordinary action's own lookup, the

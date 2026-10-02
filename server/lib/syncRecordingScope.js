@@ -68,5 +68,20 @@ function deferSyncAttachmentRecording(kind, doc) {
   scope.kinds.delete(kind);
   return true;
 }
+// A swimlane's creation activity, for a durable rule addSwimlane
+// (server/lib/syncRuleAddSwimlaneCommand.js), which writes it itself. A
+// swimlane has no card, so this scope names the swimlane alone.
+const swimlaneStorage = new AsyncLocalStorage();
+async function withSyncSwimlaneActivityDeferred(swimlaneId, work) {
+  if (typeof swimlaneId!=='string' || !swimlaneId || typeof work!=='function') throw new Error('sync-recording-scope-invalid');
+  const scope={swimlaneId,active:true};
+  return swimlaneStorage.run(scope,async()=>{ try{return await work();}finally{scope.active=false;} });
+}
+function deferSyncSwimlaneActivity(doc) {
+  const scope=swimlaneStorage.getStore();
+  if(!scope?.active || doc?._id!==scope.swimlaneId) return false;
+  scope.active=false;
+  return true;
+}
 module.exports={withSyncRecordingDeferred,deferSyncRecording,deferSyncItemRecording,deferSyncChecklistRecording,
-  deferSyncAttachmentRecording};
+  deferSyncAttachmentRecording,withSyncSwimlaneActivityDeferred,deferSyncSwimlaneActivity};

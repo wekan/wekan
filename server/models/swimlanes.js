@@ -10,6 +10,7 @@ import Cards from '/models/cards';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { allowIsBoardMemberWithWriteAccess, computeSortForIndex } from '/server/lib/utils';
 import { nextSwimlaneSort } from '/models/lib/swimlaneSort';
+const { deferSyncSwimlaneActivity } = require('/server/lib/syncRecordingScope');
 // ErrorBleed: refusals answer with their real status and a safe message.
 const { publicErrorData } = require('/server/lib/apiResponseHelpers');
 
@@ -57,7 +58,8 @@ Meteor.startup(async () => {
 });
 
 Swimlanes.after.insert(async (userId, doc) => {
-  await Activities.insertAsync({
+  // A durable rule addSwimlane writes this activity itself, once, by its own id.
+  if (!deferSyncSwimlaneActivity(doc)) await Activities.insertAsync({
     userId,
     type: 'swimlane',
     activityType: 'createSwimlane',

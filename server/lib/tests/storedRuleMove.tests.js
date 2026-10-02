@@ -12,7 +12,8 @@ import Rules from '/models/rules';
 import Triggers from '/models/triggers';
 import Actions from '/models/actions';
 import { runStoredSyncRules, SyncRuleMoveCommands, SyncRuleSortListCommands, SyncRuleCreateCardCommands,
-  SyncRuleLinkCardCommands, SyncRulePlans, SyncRuleReceipts, SyncRuleCompletions } from '/server/notifications/storedRulePlans';
+  SyncRuleLinkCardCommands, SyncRuleAddSwimlaneCommands, SyncRulePlans, SyncRuleReceipts, SyncRuleCompletions }
+  from '/server/notifications/storedRulePlans';
 
 // Durable rule moves (maintainer decision of 2026-10-02): a "move to top"
 // rule run through the stored rule stage writes the sort, the hook's
@@ -215,6 +216,51 @@ describe('Stored Sync rule moves', function () {
       await Activities.rawCollection().deleteMany({ boardId });
       await Cards.rawCollection().deleteMany({ boardId }); await Lists.rawCollection().deleteMany({ boardId });
       await Swimlanes.rawCollection().deleteMany({ _id: laneId });
+      await Boards.rawCollection().deleteMany({ _id: boardId }); await Meteor.users.rawCollection().deleteMany({ _id: actor });
+    }
+  });
+
+  // Durable addSwimlane: the swimlane once, its activity once.
+  it('adds the named swimlane once, with its activity once', async function () {
+    if (!Meteor.isAppTest) this.skip();
+    const actor = Random.id(), boardId = Random.id(), listId = Random.id(), laneId = Random.id();
+    const cardId = Random.id(), activityId = Random.id();
+    const activity = { _id: activityId, activityType: 'createCard', boardId, listId, cardId, userId: actor,
+      cardTitle: 'Pump', listName: 'List', swimlaneName: 'Lane', createdAt: new Date(1000), modifiedAt: new Date(1000) };
+    const input = { activity, effectId: 'f'.repeat(64), policy: { activities: true, notifications: true }, trigger: 'manual',
+      assertCurrent: async () => {} };
+    try {
+      await Meteor.users.rawCollection().insertOne({ _id: actor, username: `lane-${actor}` });
+      await Boards.rawCollection().insertOne({ _id: boardId, syncEffectsEnabled: true, title: 'Board',
+        members: [{ userId: actor, isAdmin: true, isActive: true }] });
+      await Swimlanes.rawCollection().insertOne({ _id: laneId, boardId, title: 'Lane', sort: 0, archived: false });
+      await Lists.rawCollection().insertOne({ _id: listId, boardId, title: 'List', archived: false });
+      await Cards.rawCollection().insertOne({ _id: cardId, boardId, listId, swimlaneId: laneId, title: 'Pump', sort: 0, archived: false });
+      await Activities.rawCollection().insertOne(activity);
+      const actionId = Random.id(), triggerId = Random.id();
+      await Actions.rawCollection().insertOne({ _id: actionId, boardId, actionType: 'addSwimlane', swimlaneName: 'Lane for {cardTitle}' });
+      await Triggers.rawCollection().insertOne({ _id: triggerId, boardId, activityType: 'createCard', listName: '*', userId: '*', swimlaneName: '*', cardTitle: '*' });
+      await Rules.rawCollection().insertOne({ _id: Random.id(), boardId, triggerId, actionId, enabled: true, title: 'Lane' });
+
+      assert.equal(await runStoredSyncRules(input), input.effectId);
+      const lanes = await Swimlanes.rawCollection().find({ boardId, title: 'Lane for Pump' }).toArray();
+      assert.equal(lanes.length, 1);
+      assert.equal(await Activities.rawCollection().countDocuments({ swimlaneId: lanes[0]._id, activityType: 'createSwimlane' }), 1,
+        "the activity once, not the hook's and the command's");
+      assert.equal(await runStoredSyncRules(input), input.effectId, 'replay');
+      assert.equal(await Swimlanes.rawCollection().countDocuments({ boardId, title: 'Lane for Pump' }), 1);
+      assert.equal(await Activities.rawCollection().countDocuments({ boardId, activityType: 'createSwimlane' }), 1);
+      assert.equal(await SyncRuleAddSwimlaneCommands.rawCollection().countDocuments({ boardId }), 1);
+    } finally {
+      const plans = await SyncRulePlans.rawCollection().find({ 'plan.activityId': activityId }, { projection: { _id: 1 } }).toArray();
+      await SyncRuleCompletions.rawCollection().deleteMany({ _id: { $in: plans.map(row => row._id) } });
+      await SyncRuleReceipts.rawCollection().deleteMany({ effectId: input.effectId });
+      await SyncRulePlans.rawCollection().deleteMany({ 'plan.activityId': activityId });
+      await SyncRuleAddSwimlaneCommands.rawCollection().deleteMany({ boardId });
+      for (const collection of [Rules, Triggers, Actions]) await collection.rawCollection().deleteMany({ boardId });
+      await Activities.rawCollection().deleteMany({ boardId });
+      await Cards.rawCollection().deleteMany({ boardId }); await Lists.rawCollection().deleteMany({ boardId });
+      await Swimlanes.rawCollection().deleteMany({ boardId });
       await Boards.rawCollection().deleteMany({ _id: boardId }); await Meteor.users.rawCollection().deleteMany({ _id: actor });
     }
   });
