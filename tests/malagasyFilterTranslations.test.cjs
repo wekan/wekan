@@ -669,7 +669,30 @@ const keys = [
   "scrum-list-category",
   "scrum-swimlane-purpose",
   "scrum-category-backlog",
-  "scrum-category-todo"
+  "scrum-category-todo",
+  "scrum-category-doing",
+  "scrum-category-done",
+  "scrum-partial-report",
+  "scrum-state-released",
+  "scrum-released-at",
+  "scrum-follow-up-cards",
+  "scrum-import-reference-omitted",
+  "scrum-partial-snapshot",
+  "scrum-resume-close",
+  "scrum-daily-observations",
+  "scrum-daily-observations-help",
+  "scrum-daily-truncated",
+  "scrum-daily-empty",
+  "scrum-observed-scope",
+  "scrum-daily-observations-export-help",
+  "scrum-import-pending",
+  "sync-conflict-heading",
+  "sync-conflict-hint",
+  "sync-conflict-local",
+  "sync-conflict-keep-local",
+  "sync-conflict-use-source",
+  "sync-conflict-refresh",
+  "sync-conflict-review-complete"
 ];
 for (const key of keys) {
   assert.ok(locale[key]?.trim(), key);
