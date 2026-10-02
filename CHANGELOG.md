@@ -3288,6 +3288,23 @@ messages in 62 locale tags; the broader translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/71f6450368">Translate email recovery in Yiddish, Moroccan Arabic, Wu and Venetian</a>. Thanks to xet7.</summary>
+
+Fill 92 English placeholders in four locales. Preserve the cancellation boundary,
+irrecoverable contents, uncertain delivery warning and existing pauses during
+retry. Extend script checks for Hebrew, Arabic and Han text and wording checks
+for Moroccan Arabic, Wu and Venetian. Existing translated values remain intact.
+
+Four focused catalog and translation suites and all 21 human-preference checks
+pass. Specialist workflow phrasing and inflection have lower confidence and need
+speaker review. Vocabulary references include the [Venetian dictionary](https://www.vatrarberesh.it/biblioteca/ebooks/linguaveneta.pdf)
+and [Wu usage research](https://api.lib.kyushu-u.ac.jp/opac_download_md/6796404/37_p035.pdf).
+Structural tests do not establish fluency. English email recovery messages remain
+in 58 locale tags, alongside other untranslated new strings.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
