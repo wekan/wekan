@@ -50,6 +50,10 @@ const RULE_CHECKLIST_ITEM_FIELDS = ['isFinished'];
 // `position` row for boardId, swimlaneId, listId and sort together
 // (models/lib/timeHistory.js positionChange), and so does the plan.
 const RULE_CARD_POSITION_FIELDS = ['position'];
+// ...and the fields a durable rule move to another board maps there
+// (server/lib/syncRuleMoveBoardCommand.js), each recorded in its group as the
+// hook records it.
+const RULE_CARD_MOVE_BOARD_FIELDS = ['labelIds', 'members', 'customFields', 'cardDependencies'];
 // ...and a checklist's creation or removal, which durable rule addChecklist
 // and removeChecklist record (server/lib/syncRuleChecklistLifecycleCommand.js):
 // one lifecycle row per checklist, holding the whole document as the hook
@@ -58,7 +62,7 @@ const RULE_CHECKLIST_LIFECYCLE = ['checklist-lifecycle'];
 const POSITION_KEYS = 'boardId,lastMoveReason,listId,sort,swimlaneId';
 const entityOf = fields => (fields === RULE_CHECKLIST_ITEM_FIELDS ? 'checklistItem'
   : fields === RULE_CHECKLIST_LIFECYCLE ? 'checklist'
-    : [SYNC_FIELDS, RULE_CARD_FIELDS, RULE_CARD_POSITION_FIELDS].includes(fields) ? 'card' : fail());
+    : [SYNC_FIELDS, RULE_CARD_FIELDS, RULE_CARD_POSITION_FIELDS, RULE_CARD_MOVE_BOARD_FIELDS].includes(fields) ? 'card' : fail());
 const lifecycleRowId = (effectId, entityId) => `sync-history-${sha256(canonical([effectId, 'lifecycle', entityId]))}`;
 // The rows one checklist creation or removal records. `documents` are the
 // checklists as stored (the JSON round trip the hook makes), `where` the card's
@@ -304,4 +308,4 @@ function validateSyncFieldHistory(plan, step, effectId) {
 }
 module.exports = { createSyncHistoryPlanner, prepareSyncFieldHistory, prepareCardFieldHistory, persistSyncFieldHistory,
   validateSyncFieldHistory, isPlannedRow, SYNC_FIELDS, RULE_CARD_FIELDS, RULE_CHECKLIST_ITEM_FIELDS,
-  RULE_CARD_POSITION_FIELDS, RULE_CHECKLIST_LIFECYCLE, prepareChecklistLifecycleHistory };
+  RULE_CARD_POSITION_FIELDS, RULE_CARD_MOVE_BOARD_FIELDS, RULE_CHECKLIST_LIFECYCLE, prepareChecklistLifecycleHistory };

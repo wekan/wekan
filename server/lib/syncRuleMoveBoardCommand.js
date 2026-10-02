@@ -1,0 +1,238 @@
+'use strict';
+// Durable rule moves to ANOTHER board (maintainer decision of 2026-10-02: a
+// rule effect on another board is durable only when that board opted into
+// Sync effects too). moveCardToTop / moveCardToBottom with the action's board
+// set to another board: RulesHelper.moveCardTarget resolves the place there,
+// and Card.move (models/cards.js) then writes, in one update,
+//
+//   * boardId, swimlaneId, listId, sort, and lastMoveReason '' (a rule gives no
+//     reason); listEnteredAt is the before-update hook's;
+//   * labelIds - the new board's labels with the names of the card's labels;
+//   * cardNumber - the new board's next number;
+//   * customFields - mapped to the new board (mapCustomFieldsToBoard, which
+//     shares a definition the new board lacks);
+//   * members and watchers - only the new board's active members, written only
+//     when someone is dropped;
+//   * cardDependencies - [] (dependencies only connect cards on one board);
+//
+// and its hooks write: one `position` History row and one row per changed
+// group among labels, members, custom fields and dependencies
+// (server/models/changeHistoryHooks.js); the moveCardBoard activity (cardMove);
+// a set/unsetCustomField activity per custom field whose id changed
+// (cardCustomFields); the card's addedLabel activities re-pointed at the new
+// labels by position, or removed (updateActivities); the checklists' and items'
+// boardId; the inbound dependencies of the cards left behind; the attachments'
+// placement; and Card.move's legacy UserPositionHistory row.
+//
+// One saved command per rule invocation holds all of that, decided at capture.
+// The runner applies the update conditionally with the hooks' records
+// deferred, then writes each record from the command, idempotently.
+//
+// Nothing in the same rule plan may act on the card after it has left the
+// board: every other durable command acts on the card on the plan's board.
+// So the move must be the plan's LAST action (checked here, at capture and
+// replay), and eligibility (server/lib/listSyncSteps.js) only lifts a move
+// whose rule cannot share a plan with another rule. Pure: tested by
+// tests/syncRuleMoveBoardCommand.test.cjs.
+const { EJSON } = require('bson');
+const { canonical, sha256 } = require('../../models/lib/changeHistoryIntegrity');
+const { validateRulePlan, planId } = require('./syncRulePlan');
+const { prepareCardFieldHistory, RULE_CARD_POSITION_FIELDS, RULE_CARD_MOVE_BOARD_FIELDS } = require('./syncHistoryBatch');
+const copy = value => EJSON.parse(EJSON.stringify(value), { relaxed: true });
+const fail = code => { throw new Error(`sync-rule-move-board-${code}`); };
+const text = value => typeof value === 'string' && value.length > 0;
+
+const RULE_MOVE_ACTIONS = ['moveCardToTop', 'moveCardToBottom'];
+// The card fields a move to another board may change besides its place.
+const MOVED_FIELDS = ['labelIds', 'cardNumber', 'customFields', 'members', 'watchers', 'cardDependencies'];
+
+const commandId = invocationId => sha256(canonical(['sync-rule-move-board', invocationId]));
+const effectIdFor = (id, part) => sha256(canonical(['sync-rule-move-board-effect', id, part]));
+const legacyIdFor = id => `sync-rule-move-board-${sha256(canonical([id, 'user-position']))}`;
+
+function isOtherBoardMove(action, boardId) {
+  return !!action && RULE_MOVE_ACTIONS.includes(action.actionType) && text(action.boardId) && action.boardId !== boardId;
+}
+
+function identity({ plan, activity, effectId, index }) {
+  validateRulePlan(plan, activity, effectId);
+  const invocation = plan.actions[index];
+  const action = invocation?.action;
+  if (!Number.isSafeInteger(index) || index < 0 || !isOtherBoardMove(action, plan.boardId)) fail('invalid');
+  // Every later action of the plan would act on a card that left the board.
+  if (index !== plan.actions.length - 1) fail('not-last');
+  return { _id: commandId(invocation.id), version: 1, invocationId: invocation.id, planId: planId(effectId, activity._id),
+    planHash: sha256(canonical(plan)), actorId: plan.actorId, boardId: plan.boardId, cardId: plan.cardId,
+    actionType: action.actionType, targetBoardId: action.boardId };
+}
+
+// The fields among MOVED_FIELDS the card has (absent ones stay absent).
+function presentFields(card) {
+  return Object.fromEntries(MOVED_FIELDS.filter(field => card[field] !== undefined).map(field => [field, copy(card[field])]));
+}
+
+// Card.move's members and watchers: only the new board's active members, and
+// only written when someone is dropped.
+function filtered(list, allowed) {
+  const current = Array.isArray(list) ? list : [];
+  const kept = current.filter(id => allowed.includes(id));
+  return kept.length === current.length ? undefined : kept;
+}
+
+// updateActivities (models/cards.js), once: each addedLabel activity of the
+// card is re-pointed at the new label at the same position, or removed.
+function labelActivityRewrites(activities, oldLabelIds, newLabelIds, boardId) {
+  return activities.map(({ _id, labelId }) => {
+    const at = (oldLabelIds || []).indexOf(labelId);
+    return at !== -1 && newLabelIds.length > at ? { _id, labelId: newLabelIds[at], boardId } : { _id, remove: true };
+  });
+}
+
+// cardCustomFields (models/cards.js): one activity per custom field id whose
+// value differs, compared by id.
+function customFieldActivities(base, before, after, place, createdAt) {
+  const values = list => new Map((list || []).filter(field => field && typeof field._id === 'string')
+    .map(field => [field._id, field.value ?? null]));
+  const was = values(before), is = values(after), rows = [];
+  for (const customFieldId of new Set([...was.keys(), ...is.keys()])) {
+    const value = is.get(customFieldId) ?? null;
+    if (canonical(was.get(customFieldId) ?? null) === canonical(value)) continue;
+    const receiptId = sha256(canonical([base._id, 'custom-field', customFieldId]));
+    rows.push({ receiptId, activity: { _id: `sync-rule-move-board-${receiptId}`, userId: base.actorId, customFieldId,
+      ...(value === null ? {} : { value }), activityType: value === null ? 'unsetCustomField' : 'setCustomField',
+      boardId: base.targetBoardId, cardId: base.cardId, listId: place.listId, swimlaneId: place.swimlaneId,
+      createdAt: new Date(createdAt), modifiedAt: new Date(createdAt) } });
+  }
+  return rows;
+}
+
+function effectsFor({ base, before, after, titles, labelActivities, createdAt, redoRows }) {
+  const position = prepareCardFieldHistory({
+    before: { _id: base.cardId, ...before.place }, after: { _id: base.cardId, ...after.place },
+    effectId: effectIdFor(base._id, 'position'), userId: base.actorId, createdAt, redoRows,
+    fields: RULE_CARD_POSITION_FIELDS });
+  const fields = prepareCardFieldHistory({
+    before: { _id: base.cardId, ...before.place, ...before.fields }, after: { _id: base.cardId, ...after.place, ...after.fields },
+    effectId: effectIdFor(base._id, 'fields'), userId: base.actorId, createdAt, redoRows: [],
+    fields: RULE_CARD_MOVE_BOARD_FIELDS });
+  const state = place => ({ boardId: place.boardId, swimlaneId: place.swimlaneId, listId: place.listId, sort: place.sort });
+  const userPosition = { _id: legacyIdFor(base._id), userId: base.actorId, boardId: base.boardId, entityType: 'card',
+    entityId: base.cardId, actionType: 'move', previousState: state(before.place), newState: state(after.place),
+    previousSort: before.place.sort, previousSwimlaneId: before.place.swimlaneId, previousListId: before.place.listId,
+    previousBoardId: base.boardId, newSort: after.place.sort, newSwimlaneId: after.place.swimlaneId,
+    newListId: after.place.listId, newBoardId: base.targetBoardId, createdAt: new Date(createdAt), isCheckpoint: false,
+    undone: false };
+  const receiptId = sha256(canonical([base._id, 'activity']));
+  // cardMove's moveCardBoard activity. It names no list, and durable delivery
+  // identifies an activity by its list (server/lib/syncActivityDelivery.js),
+  // so it is inserted once, by this id, and delivered as ordinary activities
+  // are; no rule trigger exists for it (server/triggersDef.js).
+  const move = { _id: `sync-rule-move-board-${receiptId}`, userId: base.actorId, activityType: 'moveCardBoard',
+    moveReason: '', boardName: titles.boardName, boardId: base.targetBoardId, oldBoardId: base.boardId,
+    oldBoardName: titles.oldBoardName, cardId: base.cardId, swimlaneName: titles.swimlaneName,
+    swimlaneId: after.place.swimlaneId, oldSwimlaneId: before.place.swimlaneId,
+    createdAt: new Date(createdAt), modifiedAt: new Date(createdAt) };
+  return { history: [position, fields], userPosition, move,
+    customFields: customFieldActivities(base, before.fields.customFields, after.fields.customFields, after.place, createdAt),
+    labelActivities: labelActivityRewrites(labelActivities, before.fields.labelIds, after.fields.labelIds,
+      base.targetBoardId) };
+}
+
+// Capture. The caller resolved, as Card.move does:
+//   card       - the rule's card (raw document) on the plan's board;
+//   target     - RulesHelper.moveCardTarget's { boardId, listId, swimlaneId, sort };
+//   mapped     - { labelIds, cardNumber, customFields } for the target board;
+//   allowedMemberIds - the target board's active members;
+//   titles     - { boardName, oldBoardName, swimlaneName } for the activity;
+//   labelActivities - the card's addedLabel activities, { _id, labelId };
+//   redoRows   - the actor's undone History rows on the target board.
+function prepareRuleMoveBoardCommand({ plan, activity, effectId, index, card, target, mapped, allowedMemberIds, titles,
+  labelActivities = [], createdAt, redoRows = [] }) {
+  const base = identity({ plan, activity, effectId, index });
+  if (!card || card._id !== base.cardId || card.boardId !== base.boardId || !text(card.listId) || !text(card.swimlaneId) ||
+      !target || target.boardId !== base.targetBoardId || !text(target.listId) || !text(target.swimlaneId) ||
+      !Number.isFinite(target.sort) || !mapped || !Array.isArray(mapped.labelIds) || !Array.isArray(mapped.customFields) ||
+      !Number.isSafeInteger(mapped.cardNumber) || !Array.isArray(allowedMemberIds) || !titles ||
+      !Array.isArray(labelActivities) || labelActivities.some(row => !row || !text(row._id)) ||
+      !(createdAt instanceof Date) || !Number.isFinite(createdAt.getTime())) fail('invalid');
+  const before = { place: { boardId: base.boardId, listId: card.listId, swimlaneId: card.swimlaneId,
+    sort: Number.isFinite(card.sort) ? card.sort : null,
+    lastMoveReason: typeof card.lastMoveReason === 'string' ? card.lastMoveReason : '' },
+  fields: presentFields(card) };
+  const fields = { labelIds: copy(mapped.labelIds), cardNumber: mapped.cardNumber, customFields: copy(mapped.customFields),
+    cardDependencies: [] };
+  for (const field of ['members', 'watchers']) {
+    const kept = filtered(card[field], allowedMemberIds);
+    if (kept !== undefined) fields[field] = kept;
+    else if (card[field] !== undefined) fields[field] = copy(card[field]);
+  }
+  const after = { place: { boardId: base.targetBoardId, listId: target.listId, swimlaneId: target.swimlaneId,
+    sort: target.sort, lastMoveReason: '' }, fields };
+  const savedTitles = { boardName: String(titles.boardName ?? ''), oldBoardName: String(titles.oldBoardName ?? ''),
+    swimlaneName: String(titles.swimlaneName ?? '') };
+  const savedLabels = labelActivities.map(row => ({ _id: row._id, labelId: row.labelId ?? null }));
+  const command = { ...base, before, after, titles: savedTitles, labelActivities: savedLabels,
+    createdAt: new Date(createdAt),
+    effects: effectsFor({ base, before, after, titles: savedTitles, labelActivities: savedLabels, createdAt, redoRows }) };
+  command.checksum = sha256(canonical(command));
+  return validateRuleMoveBoardCommand(command, { plan, activity, effectId, index });
+}
+
+function validPlace(place, boardId) {
+  return !!place && Object.keys(place).sort().join(',') === 'boardId,lastMoveReason,listId,sort,swimlaneId' &&
+    place.boardId === boardId && text(place.listId) && text(place.swimlaneId) &&
+    (place.sort === null || Number.isFinite(place.sort)) && typeof place.lastMoveReason === 'string';
+}
+
+function validateRuleMoveBoardCommand(row, context) {
+  const base = identity(context);
+  const keys = [...Object.keys(base), 'before', 'after', 'titles', 'labelActivities', 'createdAt', 'effects', 'checksum']
+    .sort().join(',');
+  if (!row || Object.keys(row).sort().join(',') !== keys ||
+      Object.entries(base).some(([key, value]) => canonical(row[key]) !== canonical(value)) ||
+      !(row.createdAt instanceof Date) || !row.before || !row.after ||
+      !validPlace(row.before.place, base.boardId) || !validPlace(row.after.place, base.targetBoardId) ||
+      !Number.isFinite(row.after.place.sort) || row.after.place.lastMoveReason !== '' ||
+      [row.before.fields, row.after.fields].some(fields => !fields || Object.keys(fields).some(key => !MOVED_FIELDS.includes(key))) ||
+      !Array.isArray(row.after.fields.labelIds) || !Array.isArray(row.after.fields.customFields) ||
+      !Number.isSafeInteger(row.after.fields.cardNumber) || canonical(row.after.fields.cardDependencies) !== canonical([]) ||
+      !row.titles || Object.keys(row.titles).sort().join(',') !== 'boardName,oldBoardName,swimlaneName' ||
+      !Array.isArray(row.labelActivities)) fail('command-invalid');
+  const { checksum, ...content } = row;
+  if (checksum !== sha256(canonical(content))) fail('command-invalid');
+  // The saved effects are what this move writes (the redo targets are the
+  // capture's, checked when they are written).
+  const expected = effectsFor({ base, before: row.before, after: row.after, titles: row.titles,
+    labelActivities: row.labelActivities, createdAt: row.createdAt, redoRows: [] });
+  expected.history[0].redo = row.effects?.history?.[0]?.redo ?? null;
+  if (canonical(expected) !== canonical(row.effects)) fail('command-invalid');
+  return copy(row);
+}
+
+const placeOf = (command, place) => ({ _id: command.cardId, boardId: place.boardId, listId: place.listId,
+  swimlaneId: place.swimlaneId, sort: place.sort === null ? null : { $eq: place.sort } });
+// The card as captured: its place and the fields the move maps, exactly as
+// they were read (an absent field matching only an absent one), so a card
+// changed since capture is not moved with a stale mapping.
+function beforeSelector(command) {
+  const selector = placeOf(command, command.before.place);
+  for (const field of MOVED_FIELDS) {
+    const fields = command.before.fields;
+    selector[field] = Object.hasOwn(fields, field) ? { $eq: fields[field] } : { $exists: false };
+  }
+  return selector;
+}
+// The card moved: at its new place under the number taken for it. The mapped
+// arrays are not compared - the schema may normalise them on write.
+function afterSelector(command) {
+  return { ...placeOf(command, command.after.place), cardNumber: command.after.fields.cardNumber };
+}
+// Card.move's update: the place, the reason and every moved field.
+function moveModifier(command) {
+  const { place, fields } = command.after;
+  return { $set: { boardId: place.boardId, swimlaneId: place.swimlaneId, listId: place.listId, sort: place.sort,
+    lastMoveReason: '', ...copy(fields) } };
+}
+
+module.exports = { RULE_MOVE_ACTIONS, MOVED_FIELDS, commandId, legacyIdFor, isOtherBoardMove, labelActivityRewrites,
+  prepareRuleMoveBoardCommand, validateRuleMoveBoardCommand, beforeSelector, afterSelector, moveModifier };

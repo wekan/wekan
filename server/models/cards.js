@@ -18,7 +18,7 @@ const { stampCardListEntry } = require('/models/lib/cardListEntry');
 import { titleChanged } from '/server/lib/titleChangeActivity';
 import { descriptionChanged } from '/server/lib/descriptionChangeActivity';
 const { collectionWriteSucceeded } = require('/server/lib/collectionWriteOutcome');
-const { deferSyncRecording } = require('/server/lib/syncRecordingScope');
+const { deferSyncRecording, deferSyncLabelActivities } = require('/server/lib/syncRecordingScope');
 import { buildDeleteCardActivity } from '/server/lib/deleteActivities';
 import { assertParentCardIsVisible } from '/server/lib/visibleBoardIds';
 import { computeSubtaskLabelIds } from '/models/lib/subtaskLabelInheritance';
@@ -1068,7 +1068,8 @@ Cards.before.update(async (userId, doc, fieldNames, modifier) => {
   // move to another board the first run re-pointed the card's addedLabel
   // activities at the new board's labels, and the second, seeing label ids the
   // card did not have before the move, deleted every one of them.
-  await updateActivities(doc, fieldNames, modifier);
+  // A durable rule move to another board writes the same changes itself.
+  if (!deferSyncLabelActivities(doc)) await updateActivities(doc, fieldNames, modifier);
 });
 
 Cards.before.update(async (userId, doc, fieldNames, modifier) => {

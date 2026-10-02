@@ -10,8 +10,10 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const src = fs.readFileSync(path.join(__dirname, '../server/models/cards.js'), 'utf8');
-assert.equal((src.match(/await updateActivities\(/g) || []).length, 1, 'updateActivities runs once per update');
-assert.match(src, /await cardMembers\(userId, doc, fieldNames, modifier\);[\s\S]{0,400}await updateActivities\(doc, fieldNames, modifier\);/);
+assert.equal((src.match(/updateActivities\(doc, fieldNames, modifier\)/g) || []).length, 1, 'updateActivities runs once per update');
+// ...unless a durable rule move to another board writes its changes itself
+// (server/lib/syncRuleMoveBoardCommand.js).
+assert.match(src, /await cardMembers\(userId, doc, fieldNames, modifier\);[\s\S]{0,500}if \(!deferSyncLabelActivities\(doc\)\) await updateActivities\(doc, fieldNames, modifier\);/);
 // Negative: no other server hook calls it again.
 for (const dir of ['server', 'models']) {
   const walk = d => fs.readdirSync(d, { withFileTypes: true }).flatMap(e => e.isDirectory()
