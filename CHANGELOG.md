@@ -1685,6 +1685,18 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f98f22c428">Finish remaining Cornish recovery and history translations</a>. Thanks to xet7.</summary>
+
+- Fill the final 19 reported Cornish prose placeholders and review 26 literal
+  keyboard, platform and mathematical labels. The missing-string report is
+  empty, including pending strings. Technical terminology remains low
+  confidence pending native-speaker review.
+- Both Cornish suites, shared completion checks and all 21 human-preference
+  checks pass. Browser and full-language quality review remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/84d3688816">Translate Cornish activity recovery controls</a>. Thanks to xet7.</summary>
 
 - Fill 29 Cornish activity recovery and synchronization time estimate
