@@ -1686,6 +1686,17 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2b2135c309">Translate Khmer Blockly loops, bitmap editing and inputs</a>. Thanks to xet7.</summary>
+
+- Fill 58 loop, editing, bitmap and input messages in both Khmer locale files;
+  km-KH inherits the Cambodia translations.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass for all three locale tags, as do all 21 human-preference checks.
+  Full-language work, browser and native-speaker reviews remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8fb8dd6198">Translate Khmer Blockly colours and control flow</a>. Thanks to xet7.</summary>
 
 - Fill 29 editor, colour and loop messages in both Khmer locale files;
