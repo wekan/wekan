@@ -778,6 +778,7 @@
   "import-board-instruction-markdown": "ናይ markdown ዕዮ ዝርዝር ለጥፍ (Obsidian Kanban ዝበሉ ናይ markdown-kanban መሳርሒታት ዝጥቀምዎ ልምዲ)፦ \"## ስም ዝርዝር\" ኣርእስትታት፣ ብታሕቲ \"- [ ]\"/\"- [x]\" ንጥረ ነገራት ምስ ዘለዎ። ኣርእስትታት ናብ ዝርዝራት ይቕየራ፣ ንጥረ ነገራት ድማ ናብ ካርድታት ይቕየራ።",
   "import-board-instruction-leo": "Paste a Leo outline (.leo file). Top-level nodes become lists, their children become cards with the node body as the description, and deeper nodes become checklists. Marked nodes import as done.",
   "import-board-instruction-todotxt": "ፋይል todo.txt ለጥፍ፦ ከምቲ ናይ todo.txt መተግበሪን ምስኡ ዝሰማምዑ መተግበሪታትን ዝጽሕፍዎ፣ ኣብ ነፍሲ ወከፍ መስመር ሓደ ዕማም። ዝተዛዘሙ ዕማማት (\"x\") ናብ «ተዛዚሙ» ይኸዱ፣ +project ን @context ን መለለዪታት ይኾኑ፣ (A) ናይ ቀዳምነት መለለዪ ይኸውን፣ due: ን t: ን ድማ ናይ መወዳእታን መጀመርታን ዕለታት ይኾኑ።",
+  "import-board-instruction-taskwarrior": "Paste the output of task export: a JSON array, or one task per line. Completed tasks go to Done, project and priority become labels, annotations become comments, and depends becomes blocked-by dependencies.",
   "import-board-instruction-trello": "ኣብ ሰሌዳ Trello፣ ናብ 'Menu'፣ ድሕሪኡ 'More'፣ 'Print and Export'፣ 'Export JSON' ኪድ፣ ነቲ ዝተረኽበ ጽሑፍ ድማ ቅዳሕ።",
   "import-board-instruction-csv": "ናይ ብኮማ ዝተፈላለዩ ክብርታት (CSV)/ብትር ዝተፈላለዩ ክብርታት (TSV) ኣብዚ ለጥፍ።",
   "import-board-instruction-jira": "ካብ Jira Cloud REST API ምድላይ ጉዳይ (GET /rest/api/2/search) JSON፣ ወይ ተመጣጣኒ { \"issues\": [...] } ነገር ለጥፍ። ኩነታት Jira ዝርዝራት፣ ጉዳያት ድማ ካርድታት ይኾኑ። ሕግታት ንምእታው \"automationRules\" ድርድር ብኣማራጺ ኣካትት።",

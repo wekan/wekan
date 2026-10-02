@@ -1,0 +1,42 @@
+'use strict';
+
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
+const directory = path.join(__dirname, '../imports/i18n/data');
+const read = code => JSON.parse(fs.readFileSync(path.join(directory, `${code}.i18n.json`), 'utf8'));
+const english = read('en');
+const codes = ["fi", "sv", "de", "de_DE", "de-AT", "de-CH", "fr", "fr-FR", "fr-BE", "fr-CA", "fr-CH", "es", "es-AR", "es-LA", "es-CL", "es_CO", "es-CO", "es-PY", "es-PE", "es-MX", "pt", "pt-PT", "pt_PT", "pt-BR", "it", "nl", "nl-NL", "vl-SS", "ru", "ru-RU", "ru-UA", "ru_RU", "uk", "uk-UA", "pl", "pl-PL", "cs", "cs-CZ", "da", "nb", "et-EE", "hu", "ro", "ro-RO", "el", "el-GR", "tr", "id", "ms", "ms-MY", "vi", "vi-VN", "ja", "ja-JP", "ja-HI", "ko", "ko-KR", "zh-CN", "zh-Hans", "zh", "cmn", "zh_SG", "zh-GB", "zh-TW", "zh-Hant", "zh-HK", "ar", "ar-DZ", "ar-EG", "sk", "bg", "sl", "sl_SI", "hr", "bs", "sr", "mk", "lt", "lv", "be", "ca", "ca_ES", "ca@valencia", "gl", "gl-ES", "eu", "af", "af_ZA", "sq", "eo"];
+const keys = ["features-desc", "feature-views-table", "feature-views-table-desc", "feature-views-calendar", "feature-views-calendar-desc", "feature-views-time", "feature-views-time-desc", "feature-views-overview", "feature-views-overview-desc", "feature-views-gantt", "feature-views-gantt-desc", "feature-views-scrum", "feature-views-scrum-desc", "feature-views-flow-charts", "feature-views-flow-charts-desc", "feature-views-map", "feature-views-map-desc", "feature-awaiting-approval", "feature-approval-required", "feature-preview-admins", "feature-pilot-users", "feature-pilot-users-placeholder", "feature-pilot-users-unknown", "feature-saved"];
+
+for (const code of codes) {
+  const locale = read(code);
+  assert.deepEqual(Object.keys(locale), Object.keys(english), `${code}: source order`);
+  for (const key of keys) {
+    assert.ok(locale[key]?.trim(), `${code}:${key}: nonempty`);
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  assert.match(locale['features-desc'], /WeKan/, `${code}: installation scope`);
+  assert.match(locale['feature-approval-required'], /WeKan/, `${code}: future update policy`);
+  assert.notEqual(locale['feature-preview-admins'], locale['feature-pilot-users'], `${code}: distinct audiences`);
+  assert.notEqual(locale['feature-saved'], locale['feature-pilot-users-unknown'], `${code}: unknown-user feedback`);
+  assert.notEqual(locale['feature-views-table'], locale['feature-views-map'], `${code}: distinct views`);
+}
+// Visibility is not deletion or a permission grant. Preserve the explicit
+// assurances, and distinguish future-update approval from current visibility.
+assert.match(read('fi')['features-desc'], /tiedot säilyvät.*käyttöoikeudet.*muutu/);
+assert.match(read('sv')['features-desc'], /data behålls.*inga behörigheter ändras/);
+assert.match(read('de')['features-desc'], /Daten bleiben erhalten.*Berechtigungen.*nicht/);
+assert.match(read('fr')['features-desc'], /données sont conservées.*aucune permission/);
+assert.match(read('es')['features-desc'], /datos se conservan.*no cambia ningún permiso/);
+assert.match(read('ja')['features-desc'], /データは保持.*権限は変更されません/);
+assert.match(read('zh-CN')['features-desc'], /数据会保留.*权限不会更改/);
+assert.match(read('fi')['feature-approval-required'], /päivitysten.*kunnes ylläpitäjä/);
+assert.match(read('de')['feature-approval-required'], /Updates.*bis ein Administrator/);
+assert.match(read('pt-PT')['feature-pilot-users'], /Utilizadores/);
+assert.match(read('pt-BR')['feature-pilot-users'], /Usuários/);
+assert.match(read('zh-TW')['feature-pilot-users'], /使用者/);
+assert.match(read('zh-CN')['feature-pilot-users'], /用户/);
+console.log(`Feature visibility translations: ${keys.length} messages in ${codes.length} locales passed`);
