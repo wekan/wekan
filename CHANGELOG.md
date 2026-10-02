@@ -1686,6 +1686,17 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/18b900c246">Translate Khmer variables, workspace and search messages</a>. Thanks to xet7.</summary>
+
+- Fill 30 variable, workspace and search messages in both Khmer locale files;
+  km-KH inherits the Cambodia translations.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass for all three locale tags, as do all 21 human-preference checks.
+  Full-language work, browser and native-speaker reviews remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ed4ff113ad">Translate Khmer text lookup and output messages</a>. Thanks to xet7.</summary>
 
 - Fill 30 text lookup, output, replacement and trimming messages in both Khmer
