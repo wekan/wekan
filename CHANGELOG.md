@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7fc671ef83">Translate Malagasy list operations</a>. Thanks to xet7.</summary>
+
+- Fill 30 list selection, removal, insertion and sequence messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6ac005e4f7">Translate Malagasy keyboard navigation and list messages</a>. Thanks to xet7.</summary>
 
 - Fill 28 keyboard-navigation and list messages.
