@@ -2061,6 +2061,29 @@ suites pass after this batch.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/15130a0e47">Translate feature settings in fourteen more locales and add card-setting labels</a>. Thanks to xet7.</summary>
+
+Add 336 feature-setting translations in Kazakh, Kyrgyz, Tajik, Mongolian, four
+Uzbek variants, Bashkir, Tatar, Turkmen, Uyghur, Central Kurdish and Northern
+Kurdish. Feature-setting coverage reaches 146 locales. Add the three new card
+setting labels in these locales, correct the Arabic Uzbek linked-card label,
+and synchronize the new source keys in every other catalog as placeholders.
+Existing translations are retained. Native-script and vocabulary checks separate
+Mongolian from Russian, Bashkir from Tatar, and the Uzbek and Kurdish scripts.
+
+Specialist flow-metric wording, especially Arabic Uzbek, Bashkir, Tatar, Turkmen,
+Uyghur and Kurdish, has lower confidence and remains open to native review.
+Vocabulary references include the
+[Mongolian dictionary](https://mongoltoli.mn/dictionary/detail/48338),
+[Kyrgyz dictionary](https://tamgasoft.kg/dict/index.php?lang=en&lfrom=kg&word=%D1%83%D1%80%D1%83%D0%BA%D1%81%D0%B0%D1%82),
+[Turkmen dictionary](https://www.webonary.org/turkmen/files/sozluk.pdf), and
+[Bashkir dictionary](https://tarat.ru/ru/targema/dictionary/t9/558), alongside
+existing locale vocabulary. All 448 translation-related Node suites pass, including
+the new card-setting label regression suite. The broader translation backlog remains open.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
