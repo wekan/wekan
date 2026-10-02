@@ -8,6 +8,7 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { resolveShowCardLabelText } from '/client/lib/minicardLabelText';
+import { hasUnreadComments } from '/models/lib/unreadComments';
 import {
   DEPENDENCY_TYPES,
   DEPENDENCY_ICON_CHOICES,
@@ -651,6 +652,12 @@ Template.registerHelper('cardCommentCountShown', function cardCommentCountShown(
   const count = Array.isArray(comments) ? comments.length : (comments && comments.count ? comments.count() : 0);
   return count || null;
 });
+Template.registerHelper('cardHasUnreadComments', function cardHasUnreadComments() {
+  const user = ReactiveCache.getCurrentUser();
+  if (!user || !this._id) return false;
+  const comments = ReactiveCache.getCardComments({ cardId: this._id }) || [];
+  return comments.length > 0 && hasUnreadComments(comments, user.getCardLastViewedAt(this._id));
+});
 Template.registerHelper('cardListTitle', function cardListTitle() {
   const list = typeof this.list === 'function' ? this.list() : null;
   return list && list.title;
@@ -851,6 +858,10 @@ Template.cardDetails.helpers({
     return !Utils.getPopupCardId() && maximized;
   },
 
+  // Card color, Show on Card: the header's color, on unless turned off.
+  showCardColorOnCard() {
+    return Utils.getCurrentBoard()?.allowsCardColorOnCard !== false;
+  },
   // Collapse, Show on Card: the header's collapse caret, on unless turned off.
   allowsCardCollapse() {
     return Utils.getCurrentBoard()?.allowsCardCollapse !== false;

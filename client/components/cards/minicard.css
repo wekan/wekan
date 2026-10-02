@@ -1168,3 +1168,14 @@
   font-size: 0.85em;
   margin-left: 4px;
 }
+.minicard-card-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 2px;
+}
+.minicard-card-buttons button {
+  font-size: 0.8em;
+  padding: 1px 6px;
+  margin: 0;
+}

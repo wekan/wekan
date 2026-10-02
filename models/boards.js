@@ -1239,6 +1239,19 @@ Boards.attachSchema(
     allowsTextNotesOnMinicard: { type: Boolean, optional: true },
     allowsCommentCountOnCard: { type: Boolean, optional: true },
     allowsActivitiesOnMinicard: { type: Boolean, optional: true },
+    // ...and the rows for what both surfaces drew with no row of their own.
+    allowsCardColorOnCard: { type: Boolean, defaultValue: true },
+    allowsCardColorOnMinicard: { type: Boolean, defaultValue: true },
+    allowsParentCardOnCard: { type: Boolean, defaultValue: true },
+    allowsParentCardOnMinicard: { type: Boolean, defaultValue: true },
+    allowsLinkedCardOnCard: { type: Boolean, defaultValue: true },
+    allowsLinkedCardOnMinicard: { type: Boolean, defaultValue: true },
+    allowsCardButtonsOnCard: { type: Boolean, defaultValue: true },
+    allowsDescriptionBadgeOnMinicard: { type: Boolean, defaultValue: true },
+    allowsUnreadCommentsOnMinicard: { type: Boolean, defaultValue: true },
+    allowsCardButtonsOnMinicard: { type: Boolean, optional: true },
+    allowsDescriptionBadgeOnCard: { type: Boolean, optional: true },
+    allowsUnreadCommentsOnCard: { type: Boolean, optional: true },
     allowsIssueTypeOnMinicard: {
       /**
        * Does the board show the work item type badge on the minicard? It was

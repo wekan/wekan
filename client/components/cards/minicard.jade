@@ -13,11 +13,11 @@ template(name="minicard")
     class="{{#if isLinkedCard}}linked-card{{/if}}"
     class="{{#if isLinkedBoard}}linked-board{{/if}}"
     class="{{agingClass}}"
-    class="{{#if colorClass}}minicard-{{colorClass}}{{/if}}"
+    class="{{#if showCardColorOnMinicard}}{{#if colorClass}}minicard-{{colorClass}}{{/if}}{{/if}}"
     class="{{#if minicardCollapsed}}minicard-collapsed{{/if}}"
     class="{{#if hasUnreadComments}}minicard-unread-comments{{/if}}"
     title="{{#if hasUnreadComments}}{{_ 'card-has-unread-comments'}}{{/if}}"
-    style="{{colorStyle}}")
+    style="{{#if showCardColorOnMinicard}}{{colorStyle}}{{/if}}")
     if canMoveCard
       if isTouchScreenOrShowDesktopDragHandles
         .handle.nodragscroll
@@ -48,25 +48,30 @@ template(name="minicard")
     if showLabelsAboveTitle
       +minicardLabels(show=showLabels labels=labels hideText=hiddenMinicardLabelText)
     .minicard-title
-      if $eq 'prefix-with-full-path' currentBoard.presentParentTask
-        .parent-prefix
-          | {{ parentString ' > ' }}
-      if $eq 'prefix-with-parent' currentBoard.presentParentTask
-        .parent-prefix
-          | {{ parentCardName }}
+      //- Parent card, Show on Minicard (Board Settings / Card), then the
+        board's own choice of how to present it.
+      unless $eq currentBoard.allowsParentCardOnMinicard false
+        if $eq 'prefix-with-full-path' currentBoard.presentParentTask
+          .parent-prefix
+            | {{ parentString ' > ' }}
+        if $eq 'prefix-with-parent' currentBoard.presentParentTask
+          .parent-prefix
+            | {{ parentCardName }}
       .minicard-title-row
         if showDueComplete
           if canModifyCard
             a.minicard-complete-toggle.js-toggle-card-complete(title="{{#if getDueComplete}}{{_ 'card-mark-incomplete'}}{{else}}{{_ 'card-mark-complete'}}{{/if}}")
               .materialCheckBox(class="{{#if getDueComplete}}is-checked{{/if}}")
-        if isLinkedBoard
-          a.js-linked-link
-            span.linked-icon
-              i.fa.fa-folder
-        else if isLinkedCard
-          a.js-linked-link
-            span.linked-icon
-              i.fa.fa-id-card
+        //- Linked card, Show on Minicard.
+        unless $eq currentBoard.allowsLinkedCardOnMinicard false
+          if isLinkedBoard
+            a.js-linked-link
+              span.linked-icon
+                i.fa.fa-folder
+          else if isLinkedCard
+            a.js-linked-link
+              span.linked-icon
+                i.fa.fa-id-card
         if getArchived
           span.linked-icon.linked-archived
             i.fa.fa-archive
@@ -244,9 +249,11 @@ template(name="minicard")
               of the strip.
             if getDescription
               unless currentBoard.allowsDescriptionTextOnMinicard
-                .badge.badge-state-image-only(title=getDescription)
-                  span.badge-icon
-                    i.fa.fa-file-text-o
+                //- Description badge, Show on Minicard.
+                unless $eq currentBoard.allowsDescriptionBadgeOnMinicard false
+                  .badge.badge-state-image-only(title=getDescription)
+                    span.badge-icon
+                      i.fa.fa-file-text-o
             //- #6688: every badge has a Board Settings / Card "Show on Minicard"
               toggle (the cheap board flag is read first, so a board that turned a
               badge off never counts what it would have shown). Dependencies,
@@ -335,6 +342,10 @@ template(name="minicard")
                       span.badge-icon
                         i.fa.fa-sort-numeric-asc
                       span.badge-text.check-list-sort {{ sort }}
+          //- Card buttons, Show on Minicard: the board's rule buttons, under the
+            badges. Off until chosen; the board subscribes to its rules once.
+          if currentBoard.allowsCardButtonsOnMinicard
+            +minicardCardButtons(_id=_id boardId=boardId)
         if $eq section "descriptionText"
           if currentBoard.allowsDescriptionTextOnMinicard
             if getDescription
@@ -429,12 +440,13 @@ template(name="minicard")
               .minicard-last-activity(title="{{_ 'activities'}}")
                 i.fa.fa-history
                 | {{ minicardLastActivity }}
-      if $eq 'subtext-with-full-path' currentBoard.presentParentTask
-        .parent-subtext
-          | {{ parentString ' > ' }}
-      if $eq 'subtext-with-parent' currentBoard.presentParentTask
-        .parent-subtext
-          | {{ parentCardName }}
+      unless $eq currentBoard.allowsParentCardOnMinicard false
+        if $eq 'subtext-with-full-path' currentBoard.presentParentTask
+          .parent-subtext
+            | {{ parentString ' > ' }}
+        if $eq 'subtext-with-parent' currentBoard.presentParentTask
+          .parent-subtext
+            | {{ parentCardName }}
 
 //- Direct minicard title editing is disabled so the title can drag the card or
   drag-scroll the board. Former editor template:

@@ -53,3 +53,25 @@ test('new sides render where chosen, and nothing changes until chosen', async ({
   await expect(cp.root.locator('.js-card-collapse-toggle')).toHaveCount(0, { timeout: 15000 });
   await expect(cp.root.locator('.card-details-swimlane-name')).toBeVisible();
 });
+
+test('rows for what had none: card color and the description badge, each side on its own', async ({ boardPage: page, board }) => {
+  const bp = new BoardPage(page);
+  const cp = new CardPage(page);
+  const [listA] = board.listIds;
+  const cardId = db.findCardIdByTitle({ boardId: board.boardId, title: 'Alpha Card' });
+  db.updateOne('cards', { _id: cardId }, { $set: { color: 'green', description: 'E2E description' } });
+  await page.reload();
+  const minicard = bp.minicard(listA, 'Alpha Card');
+  // Drawn before the rows existed, so on by default.
+  await expect(minicard.locator('.minicard')).toHaveClass(/minicard-green/);
+  await expect(minicard.locator('.badge-state-image-only')).toHaveCount(1);
+  db.updateOne('boards', { _id: board.boardId }, { $set: { allowsCardColorOnMinicard: false,
+    allowsDescriptionBadgeOnMinicard: false, allowsDescriptionBadgeOnCard: true } });
+  await expect(minicard.locator('.minicard')).not.toHaveClass(/minicard-green/, { timeout: 15000 });
+  await expect(minicard.locator('.badge-state-image-only')).toHaveCount(0);
+  // The card's side is its own: the header keeps its color, the badge is new there.
+  await bp.clickCard(listA, 'Alpha Card');
+  await cp.waitForOpen();
+  await expect(cp.root.locator('.card-details-header')).toHaveClass(/card-details-green/);
+  await expect(cp.root.locator('.card-details-description-badge')).toBeVisible();
+});

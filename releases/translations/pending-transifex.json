@@ -547,6 +547,18 @@
     {
       "key": "drag-to-reorder",
       "since": "2026-10-02"
+    },
+    {
+      "key": "card-settings-card-color",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "card-settings-linked-card",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "card-settings-description-badge",
+      "since": "2026-10-02"
     }
   ]
 }

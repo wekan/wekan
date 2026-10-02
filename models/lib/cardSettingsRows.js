@@ -190,6 +190,27 @@ const CARD_SETTINGS_ROWS = [
     card: { toggle: 'js-field-has-activities', field: 'allowsActivities' },
     minicard: { toggle: 'js-board-card-flag', field: 'allowsActivitiesOnMinicard', flag: true, default: false } },
 
+  // What both surfaces drew with no row of their own until 2026-10-02: each
+  // has both sides now, on where it was drawn before, off where it is new.
+  { key: 'cardColor', icons: ['fa-paint-brush'], label: ['card-settings-card-color'],
+    card: { toggle: 'js-board-card-flag', field: 'allowsCardColorOnCard', flag: true, default: true, after: 'cover' },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsCardColorOnMinicard', flag: true, default: true, after: 'dueComplete' } },
+  { key: 'parentCard', icons: ['fa-sitemap'], label: ['parent-card'],
+    card: { toggle: 'js-board-card-flag', field: 'allowsParentCardOnCard', flag: true, default: true, after: 'cardNumber' },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsParentCardOnMinicard', flag: true, default: true, after: 'cardNumber' } },
+  { key: 'linkedCard', icons: ['fa-id-card'], label: ['card-settings-linked-card'],
+    card: { toggle: 'js-board-card-flag', field: 'allowsLinkedCardOnCard', flag: true, default: true, after: 'cardNumber' },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsLinkedCardOnMinicard', flag: true, default: true, after: 'cardNumber' } },
+  { key: 'cardButtons', icons: ['fa-hand-pointer-o'], label: ['r-card-button'],
+    card: { toggle: 'js-board-card-flag', field: 'allowsCardButtonsOnCard', flag: true, default: true, after: 'location' },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsCardButtonsOnMinicard', flag: true, default: false, after: 'cardSortingByNumber' } },
+  { key: 'descriptionBadge', icons: ['fa-file-text-o'], label: ['card-settings-description-badge'],
+    card: { toggle: 'js-board-card-flag', field: 'allowsDescriptionBadgeOnCard', flag: true, default: false, after: 'descriptionText' },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsDescriptionBadgeOnMinicard', flag: true, default: true, after: 'descriptionText' } },
+  { key: 'unreadComments', icons: ['fa-comment'], label: ['card-has-unread-comments'],
+    card: { toggle: 'js-board-card-flag', field: 'allowsUnreadCommentsOnCard', flag: true, default: false, after: 'comments' },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsUnreadCommentsOnMinicard', flag: true, default: true, after: 'commentCount' } },
+
   // The Scrum fields, one row each, "Scrum settings: Sprint" and so on: shown
   // where the board's order puts them, like any other row. `scrum` names the
   // Scrum visibility flag the checkbox sets (models/lib/scrum.js). The work

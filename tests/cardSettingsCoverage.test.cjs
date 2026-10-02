@@ -345,7 +345,9 @@ test('the card layout\'s default order is the order cardDetails.jade renders (de
   const fromLayout = DEFAULT_CARD_ORDER.filter(k => fromTemplate.includes(k));
   assert.deepStrictEqual(fromLayout, fromTemplate, 'DEFAULT_CARD_ORDER is the template order');
   // Head and tail are what the template draws outside the section loop.
-  assert.deepStrictEqual(CARD_LAYOUT.head, header.map(g => gateToKey[g]));
+  // A modifier row's gate (card color, parent card, linked card, the
+  // description badge - `after` rows since 2026-10-02) is not a position.
+  assert.deepStrictEqual(CARD_LAYOUT.head, header.map(g => gateToKey[g]).filter(Boolean));
   assert.deepStrictEqual(CARD_LAYOUT.tail.filter(k => fromTemplate.includes(k)),
     dedupe(tail).map(g => gateToKey[g]).filter(Boolean));
 });

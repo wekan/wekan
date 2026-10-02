@@ -10,3 +10,15 @@ template(name="cardButtons")
             i.fa.fa-magic
             = ' '
             = label
+
+//- Card buttons, Show on Minicard (Board Settings / Card): the same buttons,
+  small, under a minicard's badges. A click runs the rule without opening the
+  card.
+template(name="minicardCardButtons")
+  if hasCardButtons
+    .minicard-card-buttons
+      each cardButtonRules
+        button.js-run-minicard-card-button(type="button" data-rule-id="{{ruleId}}" title="{{label}}")
+          i.fa.fa-magic
+          = ' '
+          = label

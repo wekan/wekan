@@ -1307,6 +1307,18 @@ const BOARD_CARD_SETTING_KEYS = [
   // "Scrum settings: Work item type", Show on Minicard (2026-10-02).
   'allowsIssueTypeOnMinicard',
   // The sides every row gained on 2026-10-02.
+  'allowsCardColorOnCard',
+  'allowsCardColorOnMinicard',
+  'allowsParentCardOnCard',
+  'allowsParentCardOnMinicard',
+  'allowsLinkedCardOnCard',
+  'allowsLinkedCardOnMinicard',
+  'allowsCardButtonsOnCard',
+  'allowsDescriptionBadgeOnMinicard',
+  'allowsUnreadCommentsOnMinicard',
+  'allowsCardButtonsOnMinicard',
+  'allowsDescriptionBadgeOnCard',
+  'allowsUnreadCommentsOnCard',
   'allowsCardCollapse',
   'allowsChecklistTitleOnMinicard',
   'allowsLabelTextOnCard',

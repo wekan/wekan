@@ -21,7 +21,8 @@ template(name="cardDetails")
       The handler steps aside for the buttons (they are links), for the drag
       handle when there is one, and for the half of the title that edits.
       client/components/cards/cardDetails.js
-    .card-details-header.js-card-title-drag-handle(class='{{#if colorClass}}card-details-{{colorClass}}{{/if}}' style='{{colorStyle}}')
+    //- Card color, Show on Card (Board Settings / Card): the header's color.
+    .card-details-header.js-card-title-drag-handle(class='{{#if showCardColorOnCard}}{{#if colorClass}}card-details-{{colorClass}}{{/if}}{{/if}}' style='{{#if showCardColorOnCard}}{{colorStyle}}{{/if}}')
       +inlinedForm(classNames="js-card-details-title")
         +editCardTitleForm
       else
@@ -93,22 +94,29 @@ template(name="cardDetails")
             if isWatching
               i.card-details-watch
                 i.fa.fa-eye
+            //- Description badge, Show on Card: that the card has a description.
+            if currentBoard.allowsDescriptionBadgeOnCard
+              if getDescription
+                i.fa.fa-file-text-o.card-details-description-badge(title="{{_ 'description'}}")
         //- List title, Show on Card: this card's own choice, like the minicard's.
         if showListOnCard
           if cardListTitle
             .card-details-list-title
               i.fa.fa-list
               | {{ cardListTitle }}
+        //- Parent card and Linked card, Show on Card.
         .card-details-path
-          each parentList
-            | &nbsp; &gt; &nbsp;
-            a.js-parent-card(href=linkForCard) {{title}}
+          unless $eq currentBoard.allowsParentCardOnCard false
+            each parentList
+              | &nbsp; &gt; &nbsp;
+              a.js-parent-card(href=linkForCard) {{title}}
           // else
             {{_ 'card'}}
         if isLinkedCard
-          a.linked-card-location.js-go-to-linked-card
-            +viewer
-              | {{getBoardTitle}} > {{getTitle}}
+          unless $eq currentBoard.allowsLinkedCardOnCard false
+            a.linked-card-location.js-go-to-linked-card
+              +viewer
+                | {{getBoardTitle}} > {{getTitle}}
 
     if getArchived
       if isLinkedBoard
@@ -241,6 +249,11 @@ template(name="cardDetails")
       if currentBoard.allowsComments
         .comment-title
           +cardSectionHeader(section="comments" icon="fa-comment-o" label="comments" count=cardCommentCountShown)
+          //- Unread comments, Show on Card: the same marker as a minicard's.
+          if currentBoard.allowsUnreadCommentsOnCard
+            if cardHasUnreadComments
+              span.card-details-unread-comments(title="{{_ 'card-has-unread-comments'}}")
+                i.fa.fa-comment
         if isSectionOpen "comments"
           if currentUser.isBoardMember
             unless currentUser.isNoComments
@@ -349,7 +362,9 @@ template(name="cardFieldSectionLabels")
     //- The card's button row - it sat here before the fields were grouped,
       between the Labels group and the dates, and belongs to the card rather
       than to any group.
-    +cardButtons(_id=_id boardId=boardId)
+    //- Card buttons, Show on Card.
+    unless $eq currentBoard.allowsCardButtonsOnCard false
+      +cardButtons(_id=_id boardId=boardId)
 
 template(name="cardFieldSectionDates")
   if currentBoard.hasAnyAllowsDate

@@ -88,6 +88,8 @@ Template.minicard.helpers({
   hasUnreadComments() {
     const card = this;
     if (!card || !card._id) return false;
+    // Unread comments, Show on Minicard: on unless turned off.
+    if (Utils.getCurrentBoard()?.allowsUnreadCommentsOnMinicard === false) return false;
     const comments = ReactiveCache.getCardComments({ cardId: card._id }) || [];
     if (!comments.length) return false;
     const user = ReactiveCache.getCurrentUser();
@@ -339,6 +341,10 @@ Template.minicard.helpers({
   },
   // "Scrum settings: Work item type", Show on Minicard: on unless turned off,
   // as it was on every board before it had a row.
+  // Card color, Show on Minicard: on unless turned off.
+  showCardColorOnMinicard() {
+    return Utils.getCurrentBoard()?.allowsCardColorOnMinicard !== false;
+  },
   showIssueTypeOnMinicard() {
     return Utils.getCurrentBoard()?.allowsIssueTypeOnMinicard !== false;
   },
