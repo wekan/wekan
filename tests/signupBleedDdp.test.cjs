@@ -1,9 +1,10 @@
 'use strict';
 
 // Guard: SignupBleed, DDP sibling (2026-10-02). With "Disable registration"
-// on, Meteor's createUser DDP method still created an account for anyone who
-// added `from: 'admin'` or `ldap: true` to the options - the hook that decides
-// trusted them, and the method passes the client's options through unchanged.
+// on, the sign-up form's ATCreateUserServer method still created an account
+// for anyone who added `from: 'admin'` or `ldap: true` to the options - the
+// hook that decides trusted them, and the method passes the client's options
+// (all but the profile) through to Accounts.createUser.
 // Run: node tests/signupBleedDdp.test.cjs
 
 const { test } = require('node:test');
@@ -31,9 +32,17 @@ test('the reported attack: a client sign-up loses the server-only options', () =
 
 test('the createUser DDP method is wrapped, loaded, and records the attempt', () => {
   const guard = read('server/lib/clientAccountCreationGuard.js');
-  assert.match(guard, /const original = handlers && handlers\.createUser;/);
+  // Both client sign-up methods: useraccounts' ATCreateUserServer is the one
+  // the sign-up form uses, and it hands the client's options (all but the
+  // profile) to Accounts.createUser - found by the browser test, 2026-10-02.
+  assert.match(guard, /export const CLIENT_ACCOUNT_CREATION_METHODS = \['ATCreateUserServer', 'createUser'\];/);
+  assert.match(guard, /if \(typeof original === 'function' && !original\.__wekanClientOptionsGuard\) handlers\[name\] = guard\(name, original\);/);
   assert.match(guard, /return original\.call\(this, clean, \.\.\.rest\);/);
-  assert.match(guard, /key: 'authz\.register', action: 'blocked', source: 'ddp:createUser'/);
+  // The client's own arguments are check()ed, or audit-argument-checks fails
+  // every ordinary sign-up (found by the browser test, 2026-10-02).
+  assert.ok(guard.indexOf('check(options, Match.Any);') < guard.indexOf('clientCreationOptions(options)'));
+  assert.match(guard, /rest\.forEach\(arg => check\(arg, Match\.Any\)\);/);
+  assert.match(guard, /key: 'authz\.register', action: 'blocked', source: `ddp:\$\{methodName\}`/);
   assert.match(guard, /catch \(e\) \{ \/\* logging must never break the guard \*\/ \}/);
   assert.match(read('server/imports.js'), /import '\/server\/lib\/clientAccountCreationGuard';/);
 });

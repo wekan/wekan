@@ -29,39 +29,49 @@ test('comment-only source member cannot mint a linked write tunnel', async ({ pa
 // READ access to the source board and cloned the whole source card, so a
 // read-only or assigned-only source member could link - and copy - cards the
 // in-app Link popup refuses them. Both now use createLinkedCardFor.
-test('REST linked-card creation follows the same source write rule (LinkedWriteBleed)', async ({ request, user, user2, board }) => {
+test('REST linked-card creation follows the same source write rule (LinkedWriteBleed)', async ({ request, board }) => {
   const source = db.find('cards', { boardId: board.boardId })[0];
   db.updateOne('cards', { _id: source._id }, { $set: { description: 'private source description' } });
-  const own = db.seedBoard({ ownerId: user2.id, cardTitlesPerList: [['Mine']] });
   const original = db.getBoard(board.boardId).members;
-  const asMember = flags => db.updateOne('boards', { _id: board.boardId },
-    { $set: { members: [...original, { userId: user2.id, isActive: true, isAdmin: false, ...flags }] } });
-  const link = () => request.post(`${BASE_URL}/api/boards/${own.boardId}/lists/${own.listIds[0]}/cards`, {
-    headers: { Authorization: `Bearer ${user2.token}`, 'Content-Type': 'application/json' },
-    data: { authorId: user2.id, swimlaneId: own.swimlaneId, linkedId: source._id },
-  });
+  // A fresh account per attempt: a refused attempt disables the account that
+  // made it (Admin Panel -> Problems), so one account cannot try twice.
+  const attempt = async (flags, assignees) => {
+    const member = db.seedUser();
+    member.token = db.addResumeToken(member.id);
+    const own = db.seedBoard({ ownerId: member.id, cardTitlesPerList: [['Mine']] });
+    db.updateOne('boards', { _id: board.boardId },
+      { $set: { members: [...original, { userId: member.id, isActive: true, isAdmin: false, ...flags }] } });
+    db.updateOne('cards', { _id: source._id }, assignees ? { $set: { assignees: [member.id] } } : { $unset: { assignees: 1 } });
+    const res = await request.post(`${BASE_URL}/api/boards/${own.boardId}/lists/${own.listIds[0]}/cards`, {
+      headers: { Authorization: `Bearer ${member.token}`, 'Content-Type': 'application/json' },
+      data: { authorId: member.id, swimlaneId: own.swimlaneId, linkedId: source._id },
+    });
+    return { member, own, res };
+  };
+  const made = [];
   try {
     for (const flags of [{ isReadOnly: true }, { isReadAssignedOnly: true }, { isNormalAssignedOnly: true }]) {
-      asMember(flags);
-      const res = await link();
+      const { member, own, res } = await attempt(flags, false);
+      made.push({ member, own });
       expect(res.status(), JSON.stringify(flags)).toBe(403);
       expect(db.find('cards', { boardId: own.boardId, linkedId: source._id })).toHaveLength(0);
+      await expect.poll(() => db.findOne('users', { _id: member.id }).loginDisabled).toBe(true);
     }
     await expect.poll(() => db.findOne('eventlog', { bleed: 'LinkedWriteBleed', source: 'rest:card-link' })?.count).toBeGreaterThan(0);
     // An assigned-only member may link a card assigned to them; a normal
     // member may link any card. The link holds the title, not a full copy.
-    db.updateOne('cards', { _id: source._id }, { $set: { assignees: [user2.id] } });
-    asMember({ isNormalAssignedOnly: true });
-    expect((await link()).status()).toBe(200);
-    asMember({});
-    const res = await link();
-    expect(res.status()).toBe(200);
-    const linked = db.getCard((await res.json())._id);
-    expect(linked).toMatchObject({ type: 'cardType-linkedCard', linkedId: source._id, boardId: own.boardId });
-    expect(linked.description).toBeUndefined();
+    const assigned = await attempt({ isNormalAssignedOnly: true }, true);
+    made.push(assigned);
+    expect(assigned.res.status()).toBe(200);
+    const normal = await attempt({}, false);
+    made.push(normal);
+    expect(normal.res.status()).toBe(200);
+    const linked = db.getCard((await normal.res.json())._id);
+    expect(linked).toMatchObject({ type: 'cardType-linkedCard', linkedId: source._id, boardId: normal.own.boardId });
+    expect(linked.description || '').not.toContain('private source description');
   } finally {
     db.updateOne('boards', { _id: board.boardId }, { $set: { members: original } });
     db.updateOne('cards', { _id: source._id }, { $unset: { description: 1, assignees: 1 } });
-    db.cleanup({ boardIds: [own.boardId] });
+    db.cleanup({ boardIds: made.map(m => m.own.boardId), userIds: made.map(m => m.member.id) });
   }
 });
