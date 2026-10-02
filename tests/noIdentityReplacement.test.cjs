@@ -139,7 +139,8 @@ test('the pattern really does catch the shape CodeQL reported (negative)', () =>
   // against the exact line that was in the tree, and against the escape mistake
   // CodeQL's own example gives.
   const samples = [
-    `const re = new RegExp(\`^\\\\s*\${p.replace('-', '-')}\\\\)\`, 'm');`,
+    // A plain string: `${` needs no escape here (CodeQL #548's class).
+    "const re = new RegExp(`^\\\\s*${p.replace('-', '-')}\\\\)`, 'm');",
     `var escaped = raw.replace('"', '\\"');`,
     `s.replaceAll("ab", "ab")`,
   ];
@@ -156,7 +157,7 @@ test('and does not report a replacement that changes something', () => {
     `s.replace('-', '_')`,
     `s.replace(/-/g, '-')`,                 // regex source, not a string literal
     `s.replace('a', 'b').replace('c', 'd')`,
-    `escapeRegExp = str => str.replace(/[.*+?^\${}()|[\\]\\\\]/g, '\\\\$&')`,
+    "escapeRegExp = str => str.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&')",
   ];
   for (const sample of samples) {
     const hits = [...sample.matchAll(IDENTITY)]

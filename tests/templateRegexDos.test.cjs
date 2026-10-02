@@ -30,7 +30,9 @@ test('ordinary templates still format (negative)', () => {
 });
 
 test('an over-long pattern or value is not run at all', () => {
-  const long = `\${"regex":"${'a'.repeat(MAX_TEMPLATE_REGEX + 1)}","replace":""}`;
+  // Concatenated, not a template literal: `\${` there is an escape CodeQL
+  // reads as a useless regular-expression escape (code scanning alert #548).
+  const long = '${"regex":"' + 'a'.repeat(MAX_TEMPLATE_REGEX + 1) + '","replace":""}';
   let ran = false;
   formatStringTemplate(['a'], long, '', {}, { regexReplace: () => { ran = true; return ''; } });
   formatStringTemplate(['a'.repeat(10001)], '${"regex":"a","replace":""}', '', {}, { regexReplace: () => { ran = true; return ''; } });
@@ -49,4 +51,39 @@ test('negative: the server formats templates only with the bounded runner', () =
     if (!calls) continue;
     assert.equal((src.match(/regexReplace: boundedRegexReplace/g) || []).length, calls, file);
   }
+});
+
+test('negative: no template literal escapes ${ (CodeQL #548, js/useless-regexp-character-escape)', () => {
+  // Parsed, not grepped: only a real template literal's own text counts, so a
+  // comment or a string that merely mentions the shape is not a hit.
+  const fs = require('node:fs');
+  const path = require('node:path');
+  const acorn = require('acorn');
+  const walkAst = require('acorn-walk');
+  const root = path.join(__dirname, '..');
+  const walk = dir => fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
+    if (['node_modules', '_build', '.build', 'playwright-report', 'test-results'].includes(entry.name)) return [];
+    const full = path.join(dir, entry.name);
+    return entry.isDirectory() ? walk(full) : /\.(c|m)?js$/.test(entry.name) ? [full] : [];
+  });
+  const offenders = [];
+  for (const file of ['client', 'models', 'server', 'imports', 'config', 'tests', 'releases'].flatMap(dir => walk(path.join(root, dir)))) {
+    const source = fs.readFileSync(file, 'utf8');
+    if (!source.includes('\\${')) continue;
+    let ast;
+    try {
+      ast = acorn.parse(source, { ecmaVersion: 'latest', sourceType: 'module', allowHashBang: true,
+        allowReturnOutsideFunction: true, allowAwaitOutsideFunction: true });
+    } catch { continue; }
+    // Only where the text is regex material: a template directive, a RegExp,
+    // a replace/match, a regex literal. A shell script quoted in a template
+    // literal needs `\${` and is not a regular expression.
+    const regexish = raw => /regex|RegExp|\.replace\(|\.match\(|\/[gimsuy]*,/.test(raw);
+    walkAst.full(ast, node => {
+      if (node.type === 'TemplateElement' && node.value.raw.includes('\\${') && regexish(node.value.raw)) {
+        offenders.push(path.relative(root, file));
+      }
+    });
+  }
+  assert.deepEqual(offenders, []);
 });
