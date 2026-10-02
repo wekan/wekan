@@ -2190,6 +2190,25 @@ open to native review. Permission vocabulary was checked against
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fcea5ff4e8">Translate feature and card settings in five southern African languages</a>. Thanks to xet7.</summary>
+
+Add 135 messages in Sesotho, Setswana, Northern Sotho, Swati and Northern
+Ndebele, and replace a mixed English/Setswana feature heading. Feature settings
+now cover 179 locale tags and the three card-setting labels cover 47. All 448
+translation-related Node suites pass, including current key order, placeholder
+inventories, data-retention wording and established linked-card terminology.
+Specialist flow-metric wording has lower confidence and remains open to native
+review. Permission vocabulary was checked against
+[Setswana](https://glosbe.com/en/tn/permission),
+[Northern Sotho](https://glosbe.com/en/nso/permission),
+[Sesotho](https://sesotho.net/Dictionary),
+[Swati archival terminology](https://digilibrary.unisa.ac.za/digital/api/collection/p21049coll258/id/8/download)
+and [Northern Ndebele lexicography](https://ir.uz.ac.zw/bitstream/handle/10646/549/Hadebe.pdf?isAllowed=y&sequence=2).
+The remaining translation queue and older wrong-language values still need work.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
