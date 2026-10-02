@@ -372,7 +372,32 @@ const keys = [
   "blockly-MATH_IS_PRIME",
   "blockly-MATH_IS_TOOLTIP",
   "blockly-MATH_IS_WHOLE",
-  "blockly-MATH_MODULO_TITLE"
+  "blockly-MATH_MODULO_TITLE",
+  "blockly-MATH_MODULO_TOOLTIP",
+  "blockly-MATH_MULTIPLICATION_SYMBOL_ARIA",
+  "blockly-MATH_ONLIST_OPERATOR_AVERAGE",
+  "blockly-MATH_ONLIST_OPERATOR_MAX_ARIA",
+  "blockly-MATH_ONLIST_OPERATOR_MEDIAN",
+  "blockly-MATH_ONLIST_OPERATOR_MIN_ARIA",
+  "blockly-MATH_ONLIST_OPERATOR_MODE",
+  "blockly-MATH_ONLIST_OPERATOR_RANDOM",
+  "blockly-MATH_ONLIST_OPERATOR_STD_DEV",
+  "blockly-MATH_ONLIST_TOOLTIP_AVERAGE",
+  "blockly-MATH_ONLIST_TOOLTIP_MAX",
+  "blockly-MATH_ONLIST_TOOLTIP_MEDIAN",
+  "blockly-MATH_ONLIST_TOOLTIP_MIN",
+  "blockly-MATH_ONLIST_TOOLTIP_MODE",
+  "blockly-MATH_ONLIST_TOOLTIP_RANDOM",
+  "blockly-MATH_ONLIST_TOOLTIP_STD_DEV",
+  "blockly-MATH_ONLIST_TOOLTIP_SUM",
+  "blockly-MATH_POWER_SYMBOL_ARIA",
+  "blockly-MATH_RANDOM_FLOAT_TITLE_RANDOM",
+  "blockly-MATH_RANDOM_FLOAT_TOOLTIP",
+  "blockly-MATH_RANDOM_INT_TITLE",
+  "blockly-MATH_RANDOM_INT_TOOLTIP",
+  "blockly-MATH_ROUND_TOOLTIP",
+  "blockly-MATH_SINGLE_OP_ABSOLUTE",
+  "blockly-MATH_SINGLE_OP_ABSOLUTE_ARIA"
 ];
 for (const key of keys) {
   assert.ok(locale[key]?.trim(), key);
