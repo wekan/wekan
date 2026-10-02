@@ -1,4 +1,5 @@
 const { CALENDAR_SYSTEM_IDS } = require('/imports/lib/calendarSystems');
+const { assertSafeMapKey } = require('/models/lib/safeMapKey');
 import { Meteor } from 'meteor/meteor';
 // Only the authorized server method can populate this creation context.
 const adminCreation = new Meteor.EnvironmentVariable();
@@ -994,6 +995,7 @@ Meteor.methods({
   },
 
   async assignBoardToWorkspace(boardId, spaceId) {
+    assertSafeMapKey(boardId);
     check(boardId, String);
     check(spaceId, String);
     if (!this.userId) throw new Meteor.Error('not-logged-in');
@@ -1205,6 +1207,7 @@ Meteor.methods({
   },
 
   async setListCollapsedState(boardId, listId, collapsed) {
+    assertSafeMapKey(boardId, listId);
     check(boardId, String);
     check(listId, String);
     check(collapsed, Boolean);
@@ -1221,6 +1224,7 @@ Meteor.methods({
   // minicard fold. See client/lib/utils.js's Utils.setCardCollapseState for
   // why there is no anonymous/public fallback here.
   async setCardCollapsedState(boardId, cardId, collapsed) {
+    assertSafeMapKey(boardId, cardId);
     check(boardId, String);
     check(cardId, String);
     check(collapsed, Boolean);
@@ -1242,6 +1246,7 @@ Meteor.methods({
   },
 
   async setSwimlaneCollapsedState(boardId, swimlaneId, collapsed) {
+    assertSafeMapKey(boardId, swimlaneId);
     check(boardId, String);
     check(swimlaneId, String);
     check(collapsed, Boolean);

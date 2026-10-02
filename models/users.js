@@ -19,6 +19,7 @@ const { SimpleSchema } = require('/imports/simpleSchema');
 // Multitenancy option D: the per-tenant Global Admin rules, pure and shared by the
 // client, the server and the tests (docs/Design/Multitenancy/Multitenancy.md).
 import * as tenantAdmin from '/models/lib/tenantAdmin';
+const { assertSafeMapKey } = require('/models/lib/safeMapKey');
 // The bookmark rules, pure so the client, the server and the tests agree.
 const { starredPagesOf, isPageStarred } = require('/models/lib/starredPages');
 const Users = Meteor.users;
@@ -80,6 +81,7 @@ if (Meteor.isClient) {
   };
 
   Users.setPublicCollapsedWorkspace = (workspaceId, collapsed) => {
+    assertSafeMapKey(workspaceId);
     if (!workspaceId) return false;
     const data = Users.getPublicCollapsedWorkspaces();
     if (collapsed) data[workspaceId] = true;
@@ -113,6 +115,7 @@ if (Meteor.isClient) {
   };
 
   Users.setPublicCollapsedList = (boardId, listId, collapsed) => {
+    assertSafeMapKey(boardId, listId);
     if (!boardId || !listId) return false;
     const data = readCookieMap('wekan-collapsed-lists');
     if (!data[boardId]) data[boardId] = {};
@@ -131,6 +134,7 @@ if (Meteor.isClient) {
   };
 
   Users.setPublicCollapsedSwimlane = (boardId, swimlaneId, collapsed) => {
+    assertSafeMapKey(boardId, swimlaneId);
     if (!boardId || !swimlaneId) return false;
     const data = readCookieMap('wekan-collapsed-swimlanes');
     if (!data[boardId]) data[boardId] = {};
@@ -1854,6 +1858,7 @@ Users.helpers({
   },
 
   setSwimlaneHeightToStorage(boardId, swimlaneId, height) {
+    assertSafeMapKey(boardId, swimlaneId);
     // For logged-in users, save to profile
     if (this._id) {
       return this.setSwimlaneHeight(boardId, swimlaneId, height);
@@ -2181,6 +2186,7 @@ Users.helpers({
   },
 
   setListWidthToStorage(boardId, listId, width) {
+    assertSafeMapKey(boardId, listId);
     // For logged-in users, save to profile
     if (this._id) {
       return this.setListWidth(boardId, listId, width);
@@ -2234,6 +2240,7 @@ Users.helpers({
   },
 
   setListConstraintToStorage(boardId, listId, constraint) {
+    assertSafeMapKey(boardId, listId);
     // For logged-in users, save to profile
     if (this._id) {
       return this.setListConstraint(boardId, listId, constraint);
@@ -2280,6 +2287,7 @@ Users.helpers({
   },
 
   setSwimlaneHeightToStorage(boardId, swimlaneId, height) {
+    assertSafeMapKey(boardId, swimlaneId);
     // For logged-in users, save to profile
     if (this._id) {
       return this.setSwimlaneHeight(boardId, swimlaneId, height);
@@ -2353,6 +2361,7 @@ Users.helpers({
     return cardLastViews[cardId] || null;
   },
   setCollapsedListToStorage(boardId, listId, collapsed) {
+    assertSafeMapKey(boardId, listId);
     // Logged-in users: save to profile
     if (this._id) {
       return this.setCollapsedList(boardId, listId, collapsed);
@@ -2410,6 +2419,7 @@ Users.helpers({
     return null;
   },
   setCollapsedSwimlaneToStorage(boardId, swimlaneId, collapsed) {
+    assertSafeMapKey(boardId, swimlaneId);
     // Logged-in users: save to profile
     if (this._id) {
       return this.setCollapsedSwimlane(boardId, swimlaneId, collapsed);
@@ -2468,24 +2478,28 @@ Users.helpers({
   },
 
   async setMoveAndCopyDialogOption(boardId, options) {
+    assertSafeMapKey(boardId);
     let currentOptions = this.getMoveAndCopyDialogOptions();
     currentOptions[boardId] = options;
     return await Users.updateAsync(this._id, { $set: { 'profile.moveAndCopyDialog': currentOptions } });
   },
 
   async setMoveChecklistDialogOption(boardId, options) {
+    assertSafeMapKey(boardId);
     let currentOptions = this.getMoveChecklistDialogOptions();
     currentOptions[boardId] = options;
     return await Users.updateAsync(this._id, { $set: { 'profile.moveChecklistDialog': currentOptions } });
   },
 
   async setCopyChecklistDialogOption(boardId, options) {
+    assertSafeMapKey(boardId);
     let currentOptions = this.getCopyChecklistDialogOptions();
     currentOptions[boardId] = options;
     return await Users.updateAsync(this._id, { $set: { 'profile.copyChecklistDialog': currentOptions } });
   },
 
   async setCopyChecklistFromTemplateDialogOption(boardId, options) {
+    assertSafeMapKey(boardId);
     let currentOptions = this.getCopyChecklistFromTemplateDialogOptions();
     currentOptions[boardId] = options;
     return await Users.updateAsync(this._id, { $set: { 'profile.copyChecklistFromTemplateDialog': currentOptions } });
@@ -2533,6 +2547,7 @@ Users.helpers({
   },
 
   async setBoardSortIndex(boardId, sortIndex) {
+    assertSafeMapKey(boardId);
     const mapping = (this.profile && this.profile.boardSortIndex) || {};
     mapping[boardId] = sortIndex;
     return await Users.updateAsync(this._id, { $set: { 'profile.boardSortIndex': mapping } });
@@ -2546,6 +2561,7 @@ Users.helpers({
   },
 
   async toggleAutoWidth(boardId) {
+    assertSafeMapKey(boardId);
     const { autoWidthBoards = {} } = this.profile || {};
     autoWidthBoards[boardId] = !autoWidthBoards[boardId];
     return await Users.updateAsync(this._id, { $set: { 'profile.autoWidthBoards': autoWidthBoards } });
@@ -2553,6 +2569,7 @@ Users.helpers({
 
   // #5729 Enable/disable "same width for all lists" mode for a board.
   async setFixedListWidthEnabled(boardId, enabled) {
+    assertSafeMapKey(boardId);
     const { fixedListWidthBoards = {} } = this.profile || {};
     fixedListWidthBoards[boardId] = !!enabled;
     return await Users.updateAsync(this._id, { $set: { 'profile.fixedListWidthBoards': fixedListWidthBoards } });
@@ -2560,6 +2577,7 @@ Users.helpers({
 
   // #5729 Set the single width used by every list in fixed width mode.
   async setFixedListWidth(boardId, width) {
+    assertSafeMapKey(boardId);
     const { fixedListWidths = {} } = this.profile || {};
     fixedListWidths[boardId] = width;
     return await Users.updateAsync(this._id, { $set: { 'profile.fixedListWidths': fixedListWidths } });
@@ -2763,6 +2781,7 @@ Users.helpers({
   },
 
   async setListWidth(boardId, listId, width) {
+    assertSafeMapKey(boardId, listId);
     let currentWidths = this.getListWidths();
     if (!currentWidths[boardId]) currentWidths[boardId] = {};
     currentWidths[boardId][listId] = width;
@@ -2770,6 +2789,7 @@ Users.helpers({
   },
 
   async setListConstraint(boardId, listId, constraint) {
+    assertSafeMapKey(boardId, listId);
     let currentConstraints = this.getListConstraints();
     if (!currentConstraints[boardId]) currentConstraints[boardId] = {};
     currentConstraints[boardId][listId] = constraint;
@@ -2777,6 +2797,7 @@ Users.helpers({
   },
 
   async setSwimlaneHeight(boardId, swimlaneId, height) {
+    assertSafeMapKey(boardId, swimlaneId);
     let currentHeights = this.getSwimlaneHeights();
     if (!currentHeights[boardId]) currentHeights[boardId] = {};
     currentHeights[boardId][swimlaneId] = height;
@@ -2784,6 +2805,7 @@ Users.helpers({
   },
 
   async setCollapsedList(boardId, listId, collapsed) {
+    assertSafeMapKey(boardId, listId);
     const current = (this.profile && this.profile.collapsedLists) || {};
     if (!current[boardId]) current[boardId] = {};
     current[boardId][listId] = !!collapsed;
@@ -2791,6 +2813,7 @@ Users.helpers({
   },
 
   async setCollapsedCard(boardId, cardId, collapsed) {
+    assertSafeMapKey(boardId, cardId);
     const current = (this.profile && this.profile.collapsedCards) || {};
     if (!current[boardId]) current[boardId] = {};
     current[boardId][cardId] = !!collapsed;
@@ -2798,6 +2821,7 @@ Users.helpers({
   },
 
   async setCollapsedSwimlane(boardId, swimlaneId, collapsed) {
+    assertSafeMapKey(boardId, swimlaneId);
     const current = (this.profile && this.profile.collapsedSwimlanes) || {};
     if (!current[boardId]) current[boardId] = {};
     current[boardId][swimlaneId] = !!collapsed;
@@ -2805,6 +2829,7 @@ Users.helpers({
   },
 
   async setCollapsedCardSection(cardId, sectionKey, collapsed) {
+    assertSafeMapKey(cardId);
     const current = (this.profile && this.profile.collapsedCardSections) || {};
     if (!current[cardId]) current[cardId] = {};
     current[cardId][sectionKey] = !!collapsed;
@@ -2814,6 +2839,7 @@ Users.helpers({
   /** #3078: record that this user just opened this card, clearing its
    * "unread comments" highlight on every minicard that shows it. */
   async setCardLastViewed(cardId) {
+    assertSafeMapKey(cardId);
     const current = (this.profile && this.profile.cardLastViews) || {};
     current[cardId] = new Date();
     return await Users.updateAsync(this._id, { $set: { 'profile.cardLastViews': current } });
