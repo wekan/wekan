@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/92cca49aa9">Translate Assamese date filters and automatic archival</a>. Thanks to xet7.</summary>
+
+- Fill 23 date-filter and automatic-archival messages in Assamese.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass, as do all 21 human-preference checks. Full-language work,
+  browser and native-speaker reviews remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7779a58811">Finish reported Amharic translation placeholders</a>. Thanks to xet7.</summary>
 
 - Fill the remaining 26 recovery, sign-in and history messages in Amharic.
