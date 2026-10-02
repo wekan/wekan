@@ -1686,6 +1686,17 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/807c00ea94">Translate Khmer archiving and date filters</a>. Thanks to xet7.</summary>
+
+- Fill 23 archiving and date-filter messages in both Khmer locale files;
+  the km-KH alias inherits the Cambodia translations.
+- Batch script, key-order, placeholder, markup and query-field checks pass
+  for all three locale tags, as do all 21 human-preference checks.
+  Full-language work, browser and native-speaker reviews remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/93283b5a1c">Finish remaining Burmese prose translations and check full locale</a>. Thanks to xet7.</summary>
 
 - Fill the last 19 reported prose placeholders, covering rule email,
