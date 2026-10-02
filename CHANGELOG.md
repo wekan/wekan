@@ -228,33 +228,25 @@ minute; the intermittent activity-recovery test was two test races and is fixed.
 
 Remaining, and why:
 
-- **Structural rule actions.** Twenty-seven action types are durable now:
-  email, archive and unarchive, colour, labels, completion, dates, members,
-  checklist toggles, and since 2026-10-02 moves to the top or bottom of the
-  card's own list and swimlane, adding a checklist (with or without items),
-  removing checklists, sorting a list and creating a card (see Upcoming). A
-  board with any other rule action keeps direct Sync. What is left, and why:
-  - *Moves to another list, swimlane or board* - blocked on a decision (see
-    "Needs a maintainer decision"): the rule stage's guard
-    (server/notifications/storedRulePlans.js executionContext) and the Sync
-    journal bind the card to the triggering activity's list, so after a
-    durable move out of it every later step of the same rule plan, and every
-    replay, is refused. A cross-board move also relabels, renumbers, maps
-    custom fields and re-syncs checklists and attachments.
-  - *Adding a swimlane* - blocked: its createSwimlane activity has no card,
-    and the durable activity pipeline (notification, webhook and rule plans,
-    server/lib/syncNotificationPlan.js) identifies every activity by its card.
-    Board-level activities need that identity generalised first.
-  - *Moving all cards of a list* - waits on durable moves between lists
-    (above); it can include the triggering card.
-  - *Linking a card* - blocked: it creates a card on ANOTHER board, whose
-    creation activity runs that board's rules under its own Sync activation;
-    the durable guard refuses a board that has not opted in. Needs a decision
-    on cross-board effects of a Sync run.
-  - *Copying a card* - not started, and large: a copy also copies attachment
-    file bytes (storage writes not keyed by an id a replay could find),
-    checklists, items, comments and subtasks, remaps the cover and allocates
-    a card number; each needs an idempotent unit of its own.
+- **Structural rule actions.** Thirty action types are durable now: email,
+  archive and unarchive, colour, labels, completion, dates, members, checklist
+  toggles, and since 2026-10-02 every move on the card's own board (to the top
+  or bottom of any list and swimlane, and moving all cards of a list), adding a
+  checklist (with or without items), removing checklists, sorting a list,
+  creating, copying and linking a card on its own board, and adding a swimlane
+  (see Upcoming). What is left, and why:
+  - *Moves, copies and links to ANOTHER board* - decided (below): durable only
+    when the destination board has opted into Sync effects too. Not built yet:
+    eligibility has to read the destination board, and a cross-board copy or
+    move also relabels by name, renumbers, maps custom fields, filters members
+    and watchers, clears dependencies and re-syncs checklists and attachments,
+    each of which needs a saved, replayable unit. Until then such a rule keeps
+    its board on direct Sync, as before.
+  - *Adding a swimlane* is durable in what it writes - the swimlane and its
+    createSwimlane activity each exist once across replays - but that activity
+    is delivered the ordinary way: it has no card, and the durable activity
+    pipeline (server/lib/syncNotificationPlan.js) identifies every activity by
+    its card. Board-level activities need that identity generalised first.
 - **Atomicity.** Cards, History, activities and effects are coordinated by the
   write-ahead journal and replay, not by a transaction. The FerretDB v1 backend
   has no multi-document transactions, and journal ownership cannot fence a
@@ -287,11 +279,22 @@ Maintainer decisions of 2026-10-02, for what remained above:
   still to be fixed when it is built.
 - **[#2460](https://github.com/wekan/wekan/issues/2460) stays open, not now**,
   as decided on 2026-09-30.
+- **Rule moves out of the list: the guard follows the plan's own move.** The
+  rule stage's guard accepts the card where a saved move of the SAME rule plan
+  put it, so the plan's later actions act on the moved card; a move by anything
+  else still refuses them.
+- **Cross-board rule effects: only if both boards opted in.** A rule that moves,
+  copies or links a card to another board is durable only when the destination
+  board has Sync effects enabled too; otherwise the source board keeps direct
+  Sync for it.
 
 Built on 2026-10-02 (in Upcoming): the opt-in `act-editCard` event (#4912),
 lifetimes for old lists when their Sync settings are saved, durable rule moves
-that stay in the card's own list and swimlane, and durable rule checklist
-creation and removal. Moves out of the list wait on the guard decision below.
+anywhere on the card's own board and moving all cards of a list, durable rule
+checklist creation and removal, sorting a list, creating, copying and linking a
+card on its own board, adding a swimlane, Caddy's open-file limit in the snap
+(#6552) and LDAP diagnostics in production (#6548). Cross-board rule effects
+remain, as above.
 
 Investigated but not finished, with findings
 recorded for whoever picks them up next. Entries that have since been FIXED are
@@ -1466,16 +1469,11 @@ under review with unchanged counts.
 [#3318](https://github.com/wekan/wekan/issues/3318) (outgoing webhooks from a
 Sandstorm grain require a user-granted Powerbox network capability and a
 Node-24-compatible bridge implementation; direct HTTP is intentionally blocked
-by the grain sandbox), [#6548](https://github.com/wekan/wekan/issues/6548) (LDAP
-debug output not visible inside an LXC container — needs that container and an
-Active Directory to see what is logged and what is not),
+by the grain sandbox),
 [#6549](https://github.com/wekan/wekan/issues/6549) (OAuth2 through
 Rocket.Chat's G Suite SAML app: WeKan logs in only when the Rocket.Chat session
 already exists — the behaviour is on the identity-provider side, and reproducing
-it needs that whole chain), [#6552](https://github.com/wekan/wekan/issues/6552)
-(raise the file-descriptor limit for Caddy in the snap — snapcraft has no
-per-app ulimit key and snapd owns the systemd unit, so this needs a snapd
-feature or a wrapper change verified on a real snap install),
+it needs that whole chain),
 [#5758](https://github.com/wekan/wekan/issues/5758) (Windows SSO via Kerberos/
 NTLM through `node-expose-sspi`: a Windows-only native Node addon exposing the
 Win32 SSPI API — needs a Windows host, node-gyp/MSVC build tools, an Active
@@ -1862,8 +1860,8 @@ from before list lifetimes can use it.
 A saved command computes the sort once, as the ordinary action does, writes it
 conditionally, and writes the hook's position History row and the legacy
 UserPositionHistory row Ctrl+Z reads once, clearing the redo stack as
-trackChange does. A move to another list, swimlane or board keeps the board on
-direct Sync. Tests: tests/syncRuleMoveCommand.test.cjs and a server test of a
+trackChange does. Moves to another list or swimlane followed in the entry below.
+Tests: tests/syncRuleMoveCommand.test.cjs and a server test of a
 real rule with replay.
 
 </details>
@@ -1914,6 +1912,55 @@ tests/syncRuleCreateCardCommand.test.cjs and a server test with replay.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9cc42caac9">Rule moves to another list or swimlane, and moving all cards of a list, are durable</a>. Thanks to xet7.</summary>
+
+As decided on 2026-10-02, the rule stage's guard now accepts the card where a
+saved move of the SAME rule plan put it, so the rule's later actions act on the
+moved card once; a move by anything else still refuses them. Each move saves
+Card.move's effects: the changed fields with lastMoveReason reset, the position
+History row, the legacy undo row, the attachments' placement and the moveCard
+activity, which runs the board's rules for the moved card. moveAllCardsInList
+saves one unit per card of the list. A move to another board keeps the board on
+direct Sync. Tests: tests/syncRuleMoveCommand.test.cjs and server tests of a
+two-action rule that moves its card and colours it there, a foreign move the
+guard refuses, and a move-all that includes the rule's own card.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/22311feaf4">Copying a card by rule on its own board is durable</a>. Thanks to xet7.</summary>
+
+What the copy contains is decided once with Card.copy's own helpers: the card,
+its live attachments, checklists and items, subtasks with their checklists, and
+comments, each under an id derived from the rule invocation so a replay inserts
+it once. Each attachment file is copied once and the cover is remapped to the
+copy. The creation activities are delivered durably, and the ordinary copy's
+chain guard holds. Tests: tests/syncRuleCopyCardCommand.test.cjs and a server
+test that replays a copy and compares it with the ordinary Card.copy.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/044454e6d0">Linking a card by rule on its own board is durable</a>. Thanks to xet7.</summary>
+
+The linked card is built once as Card.link builds it, under an id derived from
+the rule invocation, and its creation activity is delivered durably. The target
+comes from RulesHelper.linkCardTarget, which the ordinary action uses too.
+Tests: tests/syncRuleLinkCardCommand.test.cjs and a server test with replay.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4764b8aa42">Adding a swimlane by rule is durable</a>. Thanks to xet7.</summary>
+
+The title is resolved once, and the swimlane and its createSwimlane activity
+are each written once under ids derived from the rule invocation. The activity
+has no card, so it is delivered the way every board-level activity is. Tests:
+tests/syncRuleAddSwimlaneCommand.test.cjs and a server test with replay.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/307bad3e8e">Saving Sync settings gives an old list its lifetime, so it can use durable Sync</a>. Thanks to xet7.</summary>
 
 A list created before list lifetimes had no incarnation and stayed on direct
@@ -1928,8 +1975,39 @@ that nothing else writes the field on an existing list.
 
 and fixes the following bugs:
 
+**Custom fields** - what a date field says about itself.
+
 - [A date custom field's tooltip names the field instead of saying "Starts on"](https://github.com/wekan/wekan/commit/a69b214ba3)
   ([#6737](https://github.com/wekan/wekan/issues/6737)). Thanks to rmb82 and xet7.
+
+**Snap** - limits Caddy keeps across restarts and refreshes.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1173d0a51d">Caddy raises its own open-file limit at every start</a>. Thanks to xet7.</summary>
+
+snapcraft has no per-app ulimit key and snapd owns the systemd unit, but a
+process may raise its own soft limit up to the hard one. The snap's Caddy
+service now does that before starting Caddy
+([#6552](https://github.com/wekan/wekan/issues/6552)). CADDY_NOFILE may ask for
+less; it is capped at the hard limit, a non-number is ignored, and a failure is
+logged without stopping Caddy. tests/snapCaddyNofile6552.test.cjs runs the
+helper with a lowered limit; it has not been run inside an installed snap.
+
+</details>
+
+**LDAP** - what LDAP logging shows in production.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/66925f0bde">LDAP diagnostics print in production when LDAP logging is on</a>. Thanks to rholighaus and xet7.</summary>
+
+They went to Meteor's Log.debug, which never prints when Meteor.isProduction,
+so the snap and every bundle showed none of them
+([#6548](https://github.com/wekan/wekan/issues/6548)). They now go through the
+LDAP logger, which prints when LDAP_LOG_ENABLED is true and redacts secrets, as
+objects. A failed bind logs the DN and the directory's own answer, never the
+password. Test: tests/ldapDiagnostics6548.test.cjs.
+
+</details>
 
 and has the following developer-facing changes:
 
