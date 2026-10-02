@@ -362,8 +362,13 @@ Template['cardCustomField-date'].helpers({
     }
     return '';
   },
+  // #6737: a date custom field can mean anything - a delivery, a review, an
+  // initial due date - so its tooltip is led by the field's own name, never by
+  // the Start date's "Starts on".
   showTitle() {
-    return `${TAPi18n.__('card-start-on')} ${formatDateForDisplay(Template.instance().date.get(), true, date => date.toLocaleString())}`;
+    const date = formatDateForDisplay(Template.instance().date.get(), true, value => value.toLocaleString());
+    const name = String(this.definition?.name || '').trim();
+    return name ? `${name}: ${date}` : date;
   },
 });
 

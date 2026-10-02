@@ -738,6 +738,34 @@ test.describe('Cards – operations', () => {
       .find(item => item._id === customFieldId).value).toBe(123.45);
   });
 
+  // #6737: a Date custom field's tooltip is led by the field's own name, not
+  // by the Start date's "Starts on".
+  test('a date custom field tooltip names the field, not "Starts on"', async ({ boardPage, board }) => {
+    const bp = new BoardPage(boardPage);
+    const cp = new CardPage(boardPage);
+    const [listA] = board.listIds;
+    const cardId = db.findCardIdByTitle({ boardId: board.boardId, title: 'Alpha Card' });
+    const customFieldId = db.uid('dateField');
+    db.insertOne('customFields', {
+      _id: customFieldId, boardIds: [board.boardId], name: 'E2E Initial due date',
+      type: 'date', settings: {}, showOnCard: true,
+      automaticallyOnCard: false, alwaysOnCard: false,
+      showLabelOnMiniCard: true, showSumAtTopOfList: false,
+      createdAt: new Date(), modifiedAt: new Date(),
+    });
+    db.updateOne('cards', { _id: cardId }, {
+      $push: { customFields: { _id: customFieldId, value: new Date('2026-09-04T10:00:00Z') } },
+    });
+    await boardPage.reload();
+    await bp.clickCard(listA, 'Alpha Card');
+    await cp.waitForOpen();
+    const value = cp.root.locator('.card-details-item-customfield')
+      .filter({ hasText: 'E2E Initial due date' }).locator('a.js-edit-date');
+    await expect(value).toHaveAttribute('title', /^E2E Initial due date: /);
+    const startsOn = require('../../../imports/i18n/data/en.i18n.json')['card-start-on'];
+    expect(await value.getAttribute('title')).not.toContain(startsOn);
+  });
+
   test('custom field layout toggle switches and persists its layout', async ({ boardPage, board }) => {
     const bp = new BoardPage(boardPage);
     const cp = new CardPage(boardPage);
