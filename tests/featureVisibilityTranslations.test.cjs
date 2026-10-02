@@ -7,7 +7,7 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const directory = path.join(__dirname, '../imports/i18n/data');
 const read = code => JSON.parse(fs.readFileSync(path.join(directory, `${code}.i18n.json`), 'utf8'));
 const english = read('en');
-const codes = ["fi", "sv", "de", "de_DE", "de-AT", "de-CH", "fr", "fr-FR", "fr-BE", "fr-CA", "fr-CH", "es", "es-AR", "es-LA", "es-CL", "es_CO", "es-CO", "es-PY", "es-PE", "es-MX", "pt", "pt-PT", "pt_PT", "pt-BR", "it", "nl", "nl-NL", "vl-SS", "ru", "ru-RU", "ru-UA", "ru_RU", "uk", "uk-UA", "pl", "pl-PL", "cs", "cs-CZ", "da", "nb", "et-EE", "hu", "ro", "ro-RO", "el", "el-GR", "tr", "id", "ms", "ms-MY", "vi", "vi-VN", "ja", "ja-JP", "ja-HI", "ko", "ko-KR", "zh-CN", "zh-Hans", "zh", "cmn", "zh_SG", "zh-GB", "zh-TW", "zh-Hant", "zh-HK", "ar", "ar-DZ", "ar-EG", "sk", "bg", "sl", "sl_SI", "hr", "bs", "sr", "mk", "lt", "lv", "be", "ca", "ca_ES", "ca@valencia", "gl", "gl-ES", "eu", "af", "af_ZA", "sq", "eo", "he", "he-IL", "fa", "fa-IR", "hi", "hi-IN", "bn", "ta", "th", "is", "ga", "cy", "cy-GB", "lb", "ka", "hy", "az", "az-AZ", "az-LA", "sw", "tl", "ur", "ne", "kn", "gu-IN", "mr", "ml", "te-IN", "pa", "gd", "mt", "oc", "jv", "ht", "la", "ha", "sn", "yo", "ig", "co", "an", "ast-ES", "kk", "ky", "tg", "mn", "uz", "uz-LA", "uz-UZ", "uz-AR", "ba", "tt", "tk_TM", "ug", "ckb", "ku", "am", "as", "or_IN", "si", "ps", "sd", "km", "km-KH", "km_KH", "my", "fo", "fy", "fy-NL", "fur", "rm", "sc", "scn", "nap", "pap", "so", "mg", "rw", "rn", "ny", "om", "zu", "zu-ZA", "xh", "st", "tn", "nso", "ss", "nd", "ts", "ve", "lg", "wo", "ak", "bm", "ee", "br", "kw", "gv", "csb", "hsb", "szl", "bi", "tpi", "mi", "sm", "to", "haw", "fj", "ve-CC", "wa", "lld", "rup", "yue_CN", "wuu-Hans", "yi", "bua", "cv", "sah", "bho", "mai", "kok", "ary", "ace", "wa-RR", "se", "ve-PP", "bo", "dz", "ti"];
+const codes = ["fi", "sv", "de", "de_DE", "de-AT", "de-CH", "fr", "fr-FR", "fr-BE", "fr-CA", "fr-CH", "es", "es-AR", "es-LA", "es-CL", "es_CO", "es-CO", "es-PY", "es-PE", "es-MX", "pt", "pt-PT", "pt_PT", "pt-BR", "it", "nl", "nl-NL", "vl-SS", "ru", "ru-RU", "ru-UA", "ru_RU", "uk", "uk-UA", "pl", "pl-PL", "cs", "cs-CZ", "da", "nb", "et-EE", "hu", "ro", "ro-RO", "el", "el-GR", "tr", "id", "ms", "ms-MY", "vi", "vi-VN", "ja", "ja-JP", "ja-HI", "ko", "ko-KR", "zh-CN", "zh-Hans", "zh", "cmn", "zh_SG", "zh-GB", "zh-TW", "zh-Hant", "zh-HK", "ar", "ar-DZ", "ar-EG", "sk", "bg", "sl", "sl_SI", "hr", "bs", "sr", "mk", "lt", "lv", "be", "ca", "ca_ES", "ca@valencia", "gl", "gl-ES", "eu", "af", "af_ZA", "sq", "eo", "he", "he-IL", "fa", "fa-IR", "hi", "hi-IN", "bn", "ta", "th", "is", "ga", "cy", "cy-GB", "lb", "ka", "hy", "az", "az-AZ", "az-LA", "sw", "tl", "ur", "ne", "kn", "gu-IN", "mr", "ml", "te-IN", "pa", "gd", "mt", "oc", "jv", "ht", "la", "ha", "sn", "yo", "ig", "co", "an", "ast-ES", "kk", "ky", "tg", "mn", "uz", "uz-LA", "uz-UZ", "uz-AR", "ba", "tt", "tk_TM", "ug", "ckb", "ku", "am", "as", "or_IN", "si", "ps", "sd", "km", "km-KH", "km_KH", "my", "fo", "fy", "fy-NL", "fur", "rm", "sc", "scn", "nap", "pap", "so", "mg", "rw", "rn", "ny", "om", "zu", "zu-ZA", "xh", "st", "tn", "nso", "ss", "nd", "ts", "ve", "lg", "wo", "ak", "bm", "ee", "br", "kw", "gv", "csb", "hsb", "szl", "bi", "tpi", "mi", "sm", "to", "haw", "fj", "ve-CC", "wa", "lld", "rup", "yue_CN", "wuu-Hans", "yi", "bua", "cv", "sah", "bho", "mai", "kok", "ary", "ace", "wa-RR", "se", "ve-PP", "bo", "dz", "ti", "ks", "tlh", "vo"];
 const keys = ["features-desc", "feature-views-table", "feature-views-table-desc", "feature-views-calendar", "feature-views-calendar-desc", "feature-views-time", "feature-views-time-desc", "feature-views-overview", "feature-views-overview-desc", "feature-views-gantt", "feature-views-gantt-desc", "feature-views-scrum", "feature-views-scrum-desc", "feature-views-flow-charts", "feature-views-flow-charts-desc", "feature-views-map", "feature-views-map-desc", "feature-awaiting-approval", "feature-approval-required", "feature-preview-admins", "feature-pilot-users", "feature-pilot-users-placeholder", "feature-pilot-users-unknown", "feature-saved"];
 
 for (const code of codes) {
@@ -188,3 +188,20 @@ assert.match(read('ti')['features-desc'], /ዳታኡ ይዕቀብ፣ ፍቓዳ�
 for (const key of keys) assert.match(read('ti')[key], /\p{Script=Ethiopic}/u, `${key}: Tigrinya script`);
 assert.notEqual(read('ti')['feature-saved'], read('am')['feature-saved']);
 console.log(`Feature visibility translations: ${keys.length} messages in ${codes.length} locales passed`);
+
+// Kashmiri must retain its own grammar, not just Urdu-script English labels.
+for (const key of keys) assert.match(read('ks')[key], /\p{Script=Arabic}/u, `ks:${key}: native script`);
+assert.match(read('ks')['features-desc'], /محفوظ روزان.*اِجازَتھ چھِ نہٕ بدلان/);
+assert.match(read('ks')['feature-approval-required'], /یوت تام منتظم/);
+assert.match(read('tlh')['features-desc'], /De'Daj pollu'.*choHbe' chaw'mey/);
+assert.match(read('tlh')['feature-approval-required'], /chu'qa'pa' che'wI'/);
+assert.doesNotMatch(read('tlh')['feature-views-flow-charts-desc'], /pItlhbe'|quv/);
+assert.equal(read('tlh')['feature-views-table'], "wa'chaw HaSta");
+assert.equal(read('tlh')['feature-views-calendar'], "'ISjaH HaStamey");
+
+assert.match(read('vo')['features-desc'], /Nüns ona padakipons, e däls no pavotükons/);
+assert.match(read('vo')['feature-approval-required'], /jüä guvan aktivükon/);
+assert.equal(read('vo')['feature-views-time-desc'], 'Tim e tim lienik.');
+assert.equal(read('vo').time, 'Tim');
+assert.equal(read('vo').board, 'Tab');
+assert.doesNotMatch(read('vo')['feature-views-table-desc'], /Bod|Tempo/);
