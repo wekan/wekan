@@ -6,6 +6,7 @@ import { Notifications } from '/server/notifications/notifications';
 import { formatActivityNotificationTitle } from '/server/lib/activityNotificationTitle';
 import { resolveNotificationSetting } from '/models/lib/notificationSettings';
 const {
+  escapeEmailHtml,
   safeEmailSubject,
   buildHtmlNotificationLine,
 } = require('/models/lib/emailNotificationSafety');
@@ -97,8 +98,14 @@ export async function prepareActivityEmail(user, title, description, params) {
         actorName
       } ${descriptionText}\n${params.url}`;
 
+  // MailTitleBleed, again (2026-10-02): the admin's body template is trusted
+  // and may carry HTML, but the values substituted into it - card, board and
+  // list titles, the username, a comment - are written by members. Sent as
+  // the HTML body unescaped, markup in a card title reached other members'
+  // mail. The HTML body substitutes escaped values; the text body is unchanged.
+  const htmlVars = Object.fromEntries(Object.entries(templateVars).map(([key, value]) => [key, escapeEmailHtml(value)]));
   const html = bodyTemplate
-    ? text
+    ? `${existing ? `<br/>\n${escapeEmailHtml(subject)}<br/>\n` : ''}${substituteVars(bodyTemplate, htmlVars)}`
     : buildHtmlNotificationLine({
         existing,
         subject,

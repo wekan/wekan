@@ -32,7 +32,9 @@ assert.equal(
 );
 assert.match(
   email,
-  /bodyTemplate\s*\? text\s*:\s*buildHtmlNotificationLine\(\{/,
+  // Not `bodyTemplate ? text : ...`: that sent the template's substituted
+  // member-written values as HTML (MailTitleBleed regression, 2026-10-02).
+  /const html = bodyTemplate\s*\?[^\n]*\$\{substituteVars\(bodyTemplate, htmlVars\)\}`\s*:\s*buildHtmlNotificationLine\(\{/,
   'the HTML notification body must be built by the shared, escaping-aware helper',
 );
 assert.match(
@@ -63,4 +65,22 @@ assert.match(
   'notification subjects must use the shared header-safe formatter',
 );
 
-console.log('notificationEmailHtmlSafety: 8 assertions passed');
+// MailTitleBleed regression (2026-10-02): with an admin-defined activity
+// body template, the HTML body was the substituted template, and the values
+// substituted into it - card, board and list titles, usernames, comments - are
+// written by members. Markup in a card title reached other members' mail.
+{
+  const { substituteVars } = require('../models/lib/ruleVarsSubstitute');
+  const { escapeEmailHtml } = require('../models/lib/emailNotificationSafety');
+  const vars = { card: '<img src=x onerror=alert(1)>', board: 'B&B "x"', username: 'u' };
+  const htmlVars = Object.fromEntries(Object.entries(vars).map(([k, v]) => [k, escapeEmailHtml(v)]));
+  const out = substituteVars('<p>{username} changed <b>{card}</b> on {board}</p>', htmlVars);
+  assert.equal(out, '<p>u changed <b>&lt;img src=x onerror=alert(1)&gt;</b> on B&amp;B &quot;x&quot;</p>',
+    'the admin template keeps its HTML; the member-written values are escaped');
+  assert.doesNotMatch(email, /const html = bodyTemplate\s*\?\s*text\b/,
+    'the HTML body is never the raw substituted text');
+  assert.match(email, /const htmlVars = Object\.fromEntries\(Object\.entries\(templateVars\)\.map\(\(\[key, value\]\) => \[key, escapeEmailHtml\(value\)\]\)\);/);
+  assert.match(email, /\$\{substituteVars\(bodyTemplate, htmlVars\)\}/);
+}
+
+console.log('notificationEmailHtmlSafety: 12 assertions passed');
