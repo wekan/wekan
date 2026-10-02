@@ -1686,6 +1686,17 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/70c8d00b46">Translate Khmer functions and screenreader messages</a>. Thanks to xet7.</summary>
+
+- Fill 30 function, editing and screenreader messages in both Khmer locale
+  files; km-KH inherits the Cambodia translations.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass for all three locale tags, as do all 21 human-preference checks.
+  Full-language work, browser and native-speaker reviews remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4586df14af">Translate Khmer math functions and editor messages</a>. Thanks to xet7.</summary>
 
 - Fill 29 mathematics and editor messages in both Khmer locale files; km-KH
