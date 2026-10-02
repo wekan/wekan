@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7cd2ebbb23">Translate Assamese list creation and item lookup</a>. Thanks to xet7.</summary>
+
+- Fill 30 navigation, list-creation and item-lookup messages in Assamese.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass, as do all 21 human-preference checks. Full-language work,
+  browser and native-speaker reviews remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b0e76f3cde">Translate Assamese input and keyboard navigation messages</a>. Thanks to xet7.</summary>
 
 - Fill 29 numeric-input, text-input and keyboard-navigation messages
