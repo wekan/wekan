@@ -88,6 +88,9 @@ const DELIBERATE = {
     + 'from a damaged workbook without misattributing the viewer as the attacker',
   CasRaceBleed: 'the fix binds validated CAS data to each credential token during every legitimate CAS login; '
     + 'no operation is refused and logging these logins would report normal authentication as an attack',
+  CacheBleed: 'the fix changes the Cache-Control and Vary headers every authorized file response '
+    + 'carries; nothing is refused, and the attack happens in a shared cache WeKan never sees, so '
+    + 'there is no attempt to attribute (GHSA-w3qg-pf27-g68r)',
 };
 
 // Predates the rule and has not been judged yet. May shrink; must never grow.

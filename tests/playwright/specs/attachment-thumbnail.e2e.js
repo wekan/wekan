@@ -43,7 +43,9 @@ test('an image attachment has a small thumbnail with the same access rules', asy
     const thumb = await page.request.get(`${base}/thumbnail`);
     expect(thumb.status()).toBe(200);
     expect(thumb.headers()['content-type']).toBe('image/webp');
-    expect(thumb.headers()['cache-control']).toBe('private, max-age=86400');
+    // CacheBleed: private and revalidated, like the original.
+    expect(thumb.headers()['cache-control']).toBe('private, no-cache');
+    expect(thumb.headers().vary).toMatch(/Cookie/);
     expect(thumb.headers()['x-content-type-options']).toBe('nosniff');
     const body = await thumb.body();
     expect(body.toString('ascii', 0, 4)).toBe('RIFF');
@@ -79,5 +81,62 @@ test('an image attachment has a small thumbnail with the same access rules', asy
     }
   } finally {
     cleanups.forEach(cleanup => cleanup());
+  }
+});
+
+// CacheBleed (GHSA-w3qg-pf27-g68r): a file behind an access check is never
+// stored by a shared cache, and the browser revalidates it, so removing a
+// member or making a board private takes effect on the next request.
+test('a private attachment is private and revalidated in every response', async ({ boardPage: page, board, baseURL }) => {
+  const id = `cachebleed${Date.now()}`;
+  const png = await solidPng(page, 64, 48, '#aa3366');
+  const cleanup = seed(board, id, 'secret.png', 'image/png', png);
+  try {
+    db.updateOne('boards', { _id: board.boardId }, { $set: { permission: 'private' } });
+    const base = `/cdn/storage/attachments/${id}`;
+    const expectPrivate = response => {
+      expect(response.headers()['cache-control']).toBe('private, no-cache');
+      expect(response.headers().vary).toMatch(/Cookie/);
+      expect(response.headers().vary).toMatch(/Authorization/);
+      expect(response.headers().vary).toMatch(/X-Auth-Token/);
+    };
+    for (const url of [base, `${base}?download=1`, `${base}/thumbnail`]) {
+      const response = await page.request.get(url);
+      expect(response.status(), url).toBe(200);
+      expectPrivate(response);
+      // A 304 stands for the 200 and carries the same policy.
+      const etag = response.headers().etag;
+      if (etag) {
+        const again = await page.request.get(url, { headers: { 'If-None-Match': etag } });
+        if (again.status() === 304) expectPrivate(again);
+      }
+    }
+
+    // Negative: without credentials the origin refuses, and nothing above told
+    // a cache it could answer this request instead.
+    const anonymous = await playwrightRequest.newContext({ baseURL });
+    try {
+      expect((await anonymous.get(base)).status()).toBe(403);
+      expect((await anonymous.get(`${base}?download=1`)).status()).toBe(403);
+    } finally {
+      await anonymous.dispose();
+    }
+
+    // A public board gets the same policy: it can be made private later, and a
+    // copy cached as public would outlive that. Meteor-Files' own route too.
+    db.updateOne('boards', { _id: board.boardId }, { $set: { permission: 'public' } });
+    for (const url of [base, `${base}/original/${id}.png`]) {
+      const response = await page.request.get(url);
+      expect(response.status(), url).toBe(200);
+      expectPrivate(response);
+    }
+    db.updateOne('boards', { _id: board.boardId }, { $set: { permission: 'private' } });
+
+    // The attachment row shows it to the member as before.
+    await openBoard(page, board.boardId, board.slug);
+    await page.locator('.minicard', { hasText: 'Alpha Card' }).first().locator('.minicard-title').click();
+    await expect(page.locator('img.attachment-thumbnail[title="secret.png"]')).toBeVisible();
+  } finally {
+    cleanup();
   }
 });

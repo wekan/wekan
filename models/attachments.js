@@ -48,6 +48,9 @@ const storagePath = Meteor.isServer ? computeAttachmentStoragePath() : 'assets/a
 const Attachments = new FilesCollection({
   debug: false,
   collectionName: 'attachments',
+  // CacheBleed (GHSA-w3qg-pf27-g68r): Meteor-Files' default is a public, one-year
+  // cache; this file is served only after an access check.
+  cacheControl: require('/models/lib/fileCacheHeaders').PRIVATE_FILE_CACHE_CONTROL,
   allowClientCode: true,
   storagePath: storagePath,
   namingFunction(opts) {

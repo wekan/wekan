@@ -82,7 +82,9 @@ async function main() {
   assert.match(handler, /if \(wantsThumbnail && !canThumbnail\(attachment\)\) \{\s*res\.writeHead\(404\);/);
   assert.match(handler, /convertImageBufferToThumbnail\(await boundedStreamBuffer\(readStream\)\)/);
   assert.match(handler, /res\.writeHead\(302, \{ Location: Meteor\.absoluteUrl\(`cdn\/storage\/attachments\/\$\{fileId\}`\)/);
-  assert.match(route, /'Cache-Control': 'private, max-age=86400'/);
+  // CacheBleed (GHSA-w3qg-pf27-g68r): cached as the original is - private and
+  // revalidated - through the shared helper (tests/fileCacheHeaders.test.cjs).
+  assert.match(route.slice(route.indexOf('function sendThumbnail')), /\.\.\.privateFileCacheHeaders\(\)/);
   assert.doesNotMatch(route.slice(route.indexOf('function sendThumbnail')), /'Cache-Control': 'public/,
     'a thumbnail of a private board is never publicly cacheable');
   // The client uses it where images are shown small, and only there.

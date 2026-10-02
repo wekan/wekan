@@ -45,9 +45,9 @@ export const httpStreamOutput = function(readStream, name, http, downloadFlag, c
       http.response.end('not found');
     });
 
-    if (cacheControl) {
-      http.response.setHeader('Cache-Control', cacheControl);
-    }
+    // CacheBleed (GHSA-w3qg-pf27-g68r): whatever cacheControl the collection
+    // passes, a file behind an access check is never shared-cacheable.
+    require('./fileCacheHeaders').setPrivateFileCacheHeaders(http.response);
 
     // This path is the original Meteor-Files /cdn/storage route. Apply the same
     // fail-closed policy as WeKan's universal and legacy routes before any

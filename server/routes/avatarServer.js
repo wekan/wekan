@@ -11,6 +11,8 @@ import Avatars from '/models/avatars';
 import { fileStoreStrategyFactory } from '/models/avatars.server';
 import { getOldAttachmentData, getOldAttachmentStream } from '/models/lib/attachmentBackwardCompatibility';
 const { fileResponsePolicy } = require('/models/lib/fileResponseSafety');
+// CacheBleed (GHSA-w3qg-pf27-g68r): an avatar is served after an access check.
+const { setPrivateFileCacheHeaders } = require('/models/lib/fileCacheHeaders');
 
 function setAvatarResponseHeaders(res, type) {
   const policy = fileResponsePolicy(type || 'image/jpeg');
@@ -37,7 +39,7 @@ async function serveLegacyAvatar(fileId, req, res) {
   }
   setAvatarResponseHeaders(res, legacy.type);
   if (legacy.size) res.setHeader('Content-Length', legacy.size);
-  res.setHeader('Cache-Control', 'public, max-age=31536000');
+  setPrivateFileCacheHeaders(res);
   res.setHeader('ETag', `"${legacy._id}"`);
   const ifNoneMatch = req.headers['if-none-match'];
   if (ifNoneMatch && ifNoneMatch === `"${legacy._id}"`) {
@@ -183,7 +185,7 @@ WebApp.handlers.use('/cdn/storage/avatars/:fileName', async (req, res, next) => 
     // Set appropriate headers
     setAvatarResponseHeaders(res, avatar.type);
     res.setHeader('Content-Length', avatar.size || 0);
-    res.setHeader('Cache-Control', 'public, max-age=31536000'); // Cache for 1 year
+    setPrivateFileCacheHeaders(res);
     res.setHeader('ETag', `"${avatar._id}"`);
 
     // Handle conditional requests
