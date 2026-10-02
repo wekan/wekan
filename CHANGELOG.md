@@ -3911,6 +3911,17 @@ checks pass. Other languages and the broader translation backlog remain.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ac03560a1a">Translate continuous backup into Danish and Norwegian</a>. Thanks to xet7.</summary>
+
+Fill 70 English placeholders in Danish and Norwegian Bokmål while preserving
+existing translations, source order and exact tokens. Extend checks for restore
+boundaries, protection of the live database file, time units and engine names.
+Four focused catalog suites and all 21 human-preference checks pass. Other
+languages and the broader translation backlog remain.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
