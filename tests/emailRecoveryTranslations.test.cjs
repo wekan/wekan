@@ -7,8 +7,9 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(
   path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const english = read('en');
-const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC', 'bho', 'mai', 'kok', 'or_IN', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'nso', 'ss', 'rw', 'rn', 'lg', 'om', 'mi', 'sm', 'to', 'fj', 'hsb', 'szl', 'wa', 'lld', 'haw', 'gv', 'ts', 've', 'nd', 'wa-RR', 'rup', 'se', 'cv', 'bua', 'bo', 'wo', 'ace', 'ak', 'bm', 'ee', 'ay', 'qu', 'gn', 'tlh', 'ti', 'sah', 'vo', 've-PP', 'ks', 'ff', 'dz', 'kl', 'nah', 'zgh', 'wal', 'iu'];
+const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC', 'bho', 'mai', 'kok', 'or_IN', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'nso', 'ss', 'rw', 'rn', 'lg', 'om', 'mi', 'sm', 'to', 'fj', 'hsb', 'szl', 'wa', 'lld', 'haw', 'gv', 'ts', 've', 'nd', 'wa-RR', 'rup', 'se', 'cv', 'bua', 'bo', 'wo', 'ace', 'ak', 'bm', 'ee', 'ay', 'qu', 'gn', 'tlh', 'ti', 'sah', 'vo', 've-PP', 'ks', 'ff', 'dz', 'kl', 'nah', 'zgh', 'wal', 'iu', 'tig'];
 const scripts = {
+  tig: 'Ethiopic',
   iu: 'Canadian_Aboriginal',
   zgh: 'Tifinagh',
   dz: 'Tibetan',
@@ -36,6 +37,10 @@ for (const code of codes) {
 // Cancellation is irreversible only for the messages covered by this request.
 // Retrying must retain the pause and the warning about uncertain delivery.
 const meanings = {
+  tig: {
+    cancel: /እግል ልትመለስ ኢቀድር.*ሐቆ እሊ ጠለብ.*ልትዐቀብ/,
+    description: /እግል ልትመለስ ኢቀድር.*ለኢትአከደ.*ክልኤ ኢነት.*ለቀደም ሀለ ሽውየ አቅማት ልዐቀብ/,
+  },
   iu: {
     cancel: /ᐅᑎᖅᑎᑕᐅᔪᓐᓇᙱᓪᓗᑎᒃ.*ᑐᒃᓯᕋᐅᑎᐅᑉ ᑭᖑᓂᐊᒍᑦ.*ᑐᖅᑯᖅᑕᐅᓂᐊᖅᐳᑦ/,
     description: /ᐅᑎᖅᑎᑕᐅᔪᓐᓇᙱᓚᖅ.*ᓇᓗᓇᖅᐸᑦ.*ᓇᒃᓯᐅᔾᔭᐅᒃᑲᓐᓂᕈᓐᓇᖅᐳᖅ.*ᓄᖅᑲᖓᑎᑲᐃᓐᓇᕐᓂᕐᓗ ᐱᑕᖃᖅᑐᖅ ᐊᓯᔾᔨᖅᑕᐅᙱᓚᖅ/,
@@ -398,6 +403,13 @@ for (const key of ['pause', 'email-sent', 'email-fail', 'email-fail-text']) {
 }
 assert.match(read('wal')['email-sent'], /yedettiis/);
 assert.match(read('wal').pause, /Guutta wodiyaayyo essa/);
+assert.match(read('tig')['email-recovery-description'], /እግል.*ዲብ.*ኢቀድር/);
+assert.doesNotMatch(read('tig')['email-recovery-description'], /ኣይክእልን|እዩ|ይኽእል/);
+for (const [key, value] of Object.entries({'email-sent': 'ኢመይል ትላአከ', pause: 'ሽውየ አቅም'})) {
+  assert.equal(read('tig')[key], value);
+  assert.doesNotMatch(read('tig')[key], /ተሰዲዱ|ደው ኣብል/);
+  assert.deepEqual(translationTokens(read('tig')[key]), translationTokens(english[key]));
+}
 assert.equal(read('to').pause, 'Taʻofi fakataimi');
 assert.doesNotMatch(read('to').pause, /Faka-Tonga:|Pause/);
 assert.deepEqual(translationTokens(read('to').pause), translationTokens(english.pause));
