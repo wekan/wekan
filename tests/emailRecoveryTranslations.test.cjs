@@ -7,7 +7,8 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(
   path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const english = read('en');
-const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi'];
+const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC'];
+const scripts = { ckb: 'Arabic', ary: 'Arabic', tt: 'Cyrillic', yi: 'Hebrew', 'wuu-Hans': 'Han' };
 const keys = Object.keys(english).filter(key => key.startsWith('email-recovery-'));
 
 for (const code of codes) {
@@ -17,7 +18,7 @@ for (const code of codes) {
     assert.ok(locale[key]?.trim(), `${code}:${key}: nonempty`);
     assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
-    const script = code === 'ckb' ? 'Arabic' : code === 'tt' ? 'Cyrillic' : 'Latin';
+    const script = scripts[code] || 'Latin';
     assert.match(locale[key], new RegExp(`\\p{Script=${script}}`, 'u'), `${code}:${key}: native script`);
   }
   assert.notEqual(locale['email-recovery-pause'], locale['email-recovery-resume'], `${code}: opposite actions`);
@@ -28,6 +29,22 @@ for (const code of codes) {
 // Cancellation is irreversible only for the messages covered by this request.
 // Retrying must retain the pause and the warning about uncertain delivery.
 const meanings = {
+  yi: {
+    cancel: /נישט קענען צוריקשטעלן.*נאָך דער בקשה בלײַבן געהיט/,
+    description: /נישט צוריקנעמען.*אומזיכערן.*איבערחזרן.*האַלט די עקזיסטירנדיקע פּויזע/,
+  },
+  ary: {
+    cancel: /ما يمكنش ترجعو.*من بعد هاد الطلب كيبقاو محفوظين/,
+    description: /ما يمكنش ترجعها.*ما مؤكداش.*يتعاود.*كتخلي التوقيف المؤقت/,
+  },
+  'wuu-Hans': {
+    cancel: /恢复勿了.*请求以后新建个消息会保留/,
+    description: /收勿转来.*勿确定.*可能会重复.*暂停仍旧有效/,
+  },
+  've-CC': {
+    cancel: /no se pol recuperarlo.*dopo sta richiesta i resta salvài/,
+    description: /no se pol ciamarlo indrìo.*esito incerto.*ripetùo.*mantien la pausa/,
+  },
   pap: {
     cancel: /no por wordu rekobrá.*despues di e petishon aki ta keda wardá/,
     description: /No por retirá.*inkonfirmá.*repetí.*mantené un pausa/,
@@ -72,4 +89,7 @@ for (const code of ['tpi', 'bi']) {
 }
 assert.match(read('tpi')['email-recovery-heading'], /bilong salim/);
 assert.match(read('bi')['email-recovery-heading'], /blong sanem/);
+assert.match(read('ary')['email-recovery-description'], /ديال.*كتعاود.*دابا/);
+assert.match(read('wuu-Hans')['email-recovery-description'], /辰光.*勒海.*勿/);
+assert.match(read('ve-CC')['email-recovery-empty'], /No ghe xe/);
 console.log(`Email recovery translations: ${keys.length} messages in ${codes.length} locales passed`);
