@@ -778,7 +778,23 @@ const keys = [
   "sync-source-occurrences",
   "sync-source-truncated",
   "sync-source-omitted",
-  "sync-report-button"
+  "sync-report-button",
+  "sync-report-retention",
+  "sync-report-partial",
+  "sync-report-unfinished",
+  "sync-report-failed",
+  "sync-report-completed",
+  "sync-report-completed-with-warnings",
+  "sync-report-skipped",
+  "sync-report-review-only",
+  "sync-report-unavailable",
+  "sync-report-empty",
+  "sync-recovery-heading",
+  "sync-recovery-description",
+  "sync-recovery-unavailable",
+  "sync-recovery-all",
+  "sync-estimate-field",
+  "sync-estimate-field-hint"
 ];
 for (const code of ['as']) {
   const locale = read(code);
