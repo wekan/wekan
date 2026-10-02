@@ -1684,6 +1684,18 @@ labels are restored.
 
 This release updates the following translations:
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cf7dce7175">Translate Cornish synchronization diagnostics and email queue</a>. Thanks to xet7.</summary>
+
+- Fill 20 Cornish synchronization diagnostics and email queue messages,
+  preserving pause behavior, uncertain delivery warnings and the `null` token.
+  Specialized terminology remains low confidence pending native-speaker
+  review.
+- Batch placeholder, key-order and recovery-wording checks pass, along with
+  all 21 human-preference checks. Full-language work and browser review remain.
+
+</details>
+
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/789e4fae25">Translate Cornish synchronization source and report messages</a>. Thanks to xet7.</summary>
