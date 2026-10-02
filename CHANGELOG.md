@@ -3121,6 +3121,25 @@ Structural tests do not establish fluency.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3fab8db47e">Translate Scrum history, estimates and recovery in Tigre</a>. Thanks to xet7.</summary>
+
+Fill twenty English placeholders in Tigre, bringing these Scrum groups to
+230 locale tags, with four remaining. Preserve existing translations, source
+order and exact tokens. Extend incomplete-history, missing-weight and
+discard-only recovery checks. Check Ethiopic script and selected Tigre
+wording separately, since Tigre and Tigrinya share a script.
+
+Six catalog and batch suites and all 21 human-preference checks pass.
+Tigre technical terminology and inflection have lower confidence and need
+speaker review. Older mixed-language Tigre values and the broader translation
+backlog remain. References include
+[Dehai Tigre grammar](https://www.speaktigre.com/_files/ugd/7e068a_d791dde4087041feaf3dedb6b109829c.pdf?index=true)
+and [Tigre vocabulary](https://www.speaktigre.com/_files/ugd/7e068a_a5fbea1fb5e544e69d94cab002762da2.pdf?index=true).
+Structural tests do not establish fluency.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
