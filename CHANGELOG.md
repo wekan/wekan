@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e8af577acd">Translate Assamese loops and block editing</a>. Thanks to xet7.</summary>
+
+- Fill 29 loop, condition and block-editing messages in Assamese.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass, as do all 21 human-preference checks. Full-language work,
+  browser and native-speaker reviews remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2a1f3a713c">Translate Assamese editor and colour messages</a>. Thanks to xet7.</summary>
 
 - Fill 28 editor, colour and loop-control messages in Assamese.
