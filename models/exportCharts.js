@@ -17,13 +17,23 @@ runOnServer(function() {
   const { safeRoute } = require('/server/apiMiddleware');
   const { Authentication } = require('/server/authentication');
 
-  function logExportDenied() {
-    try {
-      require('/server/lib/securityLog').record({
-        key: 'authz.export', action: 'blocked', source: 'export',
-        detail: 'chart export denied (no board visibility)',
-      });
-    } catch (e) { /* logging must never break the response */ }
+  // Record an export authorization denial to the Admin Panel security log
+  // (best-effort, never breaks the response). Only when the caller cannot see
+  // the board at all: an assigned-only member reaches the export menus and is
+  // refused in ordinary use, and recording that (high, blocked) disabled their
+  // account. See docs/Security/Remediation/WeKan.md.
+  function logExportDenied(user, boardId) {
+    (async () => {
+      try {
+        const Boards = require('/models/boards').default;
+        const board = await Boards.findOneAsync({ _id: boardId });
+        if (board && user && board.isVisibleBy(user)) return;
+        require('/server/lib/securityLog').record({
+          key: 'authz.export', action: 'blocked', source: 'export',
+          detail: 'chart export denied (no board visibility)',
+        });
+      } catch (e) { /* logging must never break the response */ }
+    })();
   }
 
   const DATE_FORMATS = ['YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD-YYYY',
@@ -120,7 +130,7 @@ runOnServer(function() {
     if (await exporter.canExport(user)) {
       await buildExport(exporter, res);
     } else {
-      logExportDenied();
+      logExportDenied(user, board && board._id);
       res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end('Unauthorized');
     }
@@ -151,7 +161,7 @@ runOnServer(function() {
     if (await exporter.canExport(user)) {
       await buildExport(exporter, res);
     } else {
-      logExportDenied();
+      logExportDenied(user, board && board._id);
       res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end('Unauthorized');
     }

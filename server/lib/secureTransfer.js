@@ -30,17 +30,22 @@ export function secureTransfer(value, context = {}) {
     }
     return result.value;
   } catch (error) {
-    require('/server/lib/securityLog').record({
+    // A size limit (too many objects, too deep, a string or array too long) is
+    // reached by a legitimate large board too, so it is recorded at medium -
+    // high with the importer's userId disabled their account. A cycle or a
+    // non-plain object is not something an export produces: still high.
+    const limitOnly = /limit exceeded/.test(String(error && error.message));
+    try { require('/server/lib/securityLog').record({
       category: 'Import/export validation',
       bleed: 'ImportExportValidation',
-      severity: 'high',
+      severity: limitOnly ? 'medium' : 'high',
       action: 'blocked',
       source: context.source || `${context.direction || 'import'}:unknown`,
       userId: context.userId,
       username: context.username,
       ip: context.ip,
       detail: error && error.message,
-    });
+    }); } catch (e) { /* logging must never break the guard */ }
     throw error;
   }
 }

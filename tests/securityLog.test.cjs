@@ -198,7 +198,10 @@ check('forged X-Forwarded-For denial is logged (metrics)', () => {
 check('export authorization denials are logged (export.js)', () => {
   const src = read('models/export.js');
   assert.ok(/key: 'authz\.export'/.test(src), 'export denial keyed authz.export');
-  assert.ok((src.match(/logExportDenied\(\);/g) || []).length >= 4, 'all export denial paths logged');
+  // Each denial path passes who and which board, so ordinary assigned-only
+  // refusals are not recorded (2026-10-02).
+  assert.ok((src.match(/logExportDenied\(user, boardId\);/g) || []).length >= 4, 'all export denial paths logged');
+  assert.match(src, /if \(board && user && board\.isVisibleBy\(user\)\) return;/);
 });
 
 check('slow HTTP requests are recorded to the speed stream', () => {

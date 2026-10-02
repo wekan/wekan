@@ -26,8 +26,11 @@ const CATALOG = {
   'authz.comment-card': { category: 'authz', bleed: 'CommentBoundaryBleed', severity: 'high', cwe: 'CWE-639' },
   'authz.mutation': { category: 'authz', bleed: 'MutationBleed', severity: 'high', cwe: 'CWE-863' },
   'authz.board-visibility': { category: 'authz', bleed: 'VisibilityBleed', severity: 'medium', cwe: 'CWE-863' },
-  'ssrf.redirect':   { category: 'ssrf', bleed: 'RedirectBleed', severity: 'high', cwe: 'CWE-918' },
-  'ssrf.attachment': { category: 'ssrf', bleed: 'LiveBleed', severity: 'high', cwe: 'CWE-918' },
+  // blocksAccount: false on the next two - the URL comes from data the user did
+  // not write (an identity provider's avatar, an imported Trello board's link
+  // attachment), so the user who triggered the fetch is not the attacker.
+  'ssrf.redirect':   { category: 'ssrf', bleed: 'RedirectBleed', severity: 'high', cwe: 'CWE-918', blocksAccount: false },
+  'ssrf.attachment': { category: 'ssrf', bleed: 'LiveBleed', severity: 'high', cwe: 'CWE-918', blocksAccount: false },
   'ssrf.fetch':      { category: 'ssrf', bleed: 'DnsBleed', severity: 'high', cwe: 'CWE-918' },
   'ssrf.webhook':    { category: 'ssrf', bleed: 'IntegrationBleed', severity: 'high', cwe: 'CWE-918' },
   // RepointBleed: a rule trigger, action, rule or webhook integration moved to
@@ -110,7 +113,9 @@ const CATALOG = {
   // and sanitize() was neutered to an identity function. A distinct name
   // from PathBleed (GHSA-4mxf-m8pq-xc9p, avatar versions.path/board export) -
   // same CWE, different bug, different fix.
-  'authz.upload-path': { category: 'authz', bleed: 'UploadPathBleed', severity: 'critical', cwe: 'CWE-22' },
+  // blocksAccount: false - the upload proceeds with a fresh id, and an older
+  // cached client that sends an unexpected file id is not an attacker.
+  'authz.upload-path': { category: 'authz', bleed: 'UploadPathBleed', severity: 'critical', cwe: 'CWE-22', blocksAccount: false },
   // Avatars Collection Lacks a protected Callback: ostrio:files' own
   // library-native download route served every avatar to anyone because
   // Avatars never set `protected` (unlike Attachments).

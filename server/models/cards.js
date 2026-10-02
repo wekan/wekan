@@ -1570,6 +1570,12 @@ WebApp.handlers.put(
     let updated = false;
     await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
     const beforeEdit = await Cards.findOneAsync({ _id: paramCardId, boardId: paramBoardId, listId: paramListId });
+    // A card that is not on this board and list is not edited here: the move
+    // branches below would otherwise act on the card id alone, on any board.
+    if (!beforeEdit) {
+      sendJsonResult(res, { code: 404, data: { error: 'Card not found' } });
+      return;
+    }
 
     if (req.body.title) {
       const newTitle =
@@ -1596,7 +1602,11 @@ WebApp.handlers.put(
       // board member could name a card on a private board as the parent and the
       // board publication would then hand that private card to everyone
       // subscribed to this board.
-      await assertParentCardIsVisible(req.userId, req.body.parentId);
+      // Only a CHANGED parent is checked: a client that writes a card back
+      // unchanged must not be refused (or recorded) for a parent it already had.
+      if (req.body.parentId !== beforeEdit.parentId) {
+        await assertParentCardIsVisible(req.userId, req.body.parentId);
+      }
       // #3626: over REST, parentId makes that card the ONE parent, as it did
       // before cards could have several - parentIds follows it.
       await Cards.direct.updateAsync(
@@ -2438,13 +2448,18 @@ async function assignableOnBoard(board, ids, source) {
     if (canAssignCardMember(board, id)) out.push(id);
     else if (id) refused.push(id);
   }
-  // Naming somebody who is not on this board is the attempt, so it is recorded
-  // and shows in Admin Panel / Problems rather than being dropped in silence.
-  if (refused.length) {
+  // Naming somebody who was NEVER on this board is the attempt, so it is
+  // recorded and shows in Admin Panel / Problems. A FORMER member is not: a
+  // removed member stays in old cards' assignees, and a client that reads a
+  // card and writes its assignees back sends them innocently - recording that
+  // (high, blocked) disabled the client's own account.
+  const strangers = refused.filter(id => !(board && Array.isArray(board.members) &&
+    board.members.some(member => member && member.userId === id)));
+  if (strangers.length) {
     try {
       require('/server/lib/securityLog').record({
         key: 'authz.card-member', action: 'blocked', source: source || 'card members/assignees',
-        detail: `refused ${refused.length} id(s) not active on board ${board && board._id}: ${refused.join(' ')}`,
+        detail: `refused ${strangers.length} id(s) never on board ${board && board._id}: ${strangers.join(' ')}`,
       });
     } catch (e) { /* logging must never break the guard */ }
   }

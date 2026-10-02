@@ -16,13 +16,23 @@ if (Meteor.isServer) {
 
   // Record an export authorization denial to the Admin Panel security log
   // (best-effort, never breaks the response). See docs/Security/Remediation/WeKan.md.
-  function logExportDenied() {
-    try {
-      require('/server/lib/securityLog').record({
-        key: 'authz.export', action: 'blocked', source: 'export',
-        detail: 'export denied (no board visibility)',
-      });
-    } catch (e) { /* logging must never break the response */ }
+  // Record an export authorization denial to the Admin Panel security log
+  // (best-effort, never breaks the response). Only when the caller cannot see
+  // the board at all: an assigned-only member reaches the export menus and is
+  // refused in ordinary use, and recording that (high, blocked) disabled their
+  // account. See docs/Security/Remediation/WeKan.md.
+  function logExportDenied(user, boardId) {
+    (async () => {
+      try {
+        const Boards = require('/models/boards').default;
+        const board = await Boards.findOneAsync({ _id: boardId });
+        if (board && user && board.isVisibleBy(user)) return;
+        require('/server/lib/securityLog').record({
+          key: 'authz.export', action: 'blocked', source: 'export',
+          detail: 'export denied (no board visibility)',
+        });
+      } catch (e) { /* logging must never break the response */ }
+    })();
   }
 
   // Stream a full board export straight to the response (a card/attachment at a
@@ -156,7 +166,7 @@ if (Meteor.isServer) {
     } else {
       // we could send an explicit error message, but on the other hand the only
       // way to get there is by hacking the UI so let's keep it raw.
-      logExportDenied();
+      logExportDenied(user, boardId);
       sendJsonResult(res, { code: 403, data: { error: 'Forbidden' } });
     }
   }));
@@ -221,7 +231,7 @@ if (Meteor.isServer) {
     const exportOptions = { scope: parseExportScope(req.query) };
     const exporter = new Exporter(boardId, undefined, exportOptions);
     if (!(await exporter.canExport(user))) {
-      logExportDenied();
+      logExportDenied(user, boardId);
       res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end('Forbidden');
       return;
@@ -317,7 +327,7 @@ if (Meteor.isServer) {
       // nowhere and a response that is never ended.
       await exporter.build(res, `${name}.zip`);
     } else {
-      logExportDenied();
+      logExportDenied(user, boardId);
       sendJsonResult(res, { code: 403, data: { error: 'Forbidden' } });
     }
   }));
@@ -387,7 +397,7 @@ if (Meteor.isServer) {
     if (await exporter.canExport(user)) {
       await respond();
     } else {
-      logExportDenied();
+      logExportDenied(user, boardId);
       sendJsonResult(res, { code: 403, data: { error: 'Forbidden' } });
     }
   }
@@ -509,7 +519,7 @@ if (Meteor.isServer) {
       } else {
         // we could send an explicit error message, but on the other hand the only
         // way to get there is by hacking the UI so let's keep it raw.
-        logExportDenied();
+        logExportDenied(user, boardId);
         sendJsonResult(res, { code: 403, data: { error: 'Forbidden' } });
       }
     }),

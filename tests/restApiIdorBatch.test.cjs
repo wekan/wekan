@@ -248,8 +248,11 @@ test('ordinary use is NOT logged (negative)', () => {
     'a card id that names nothing at all is an ordinary 404, not an attempt');
 
   const fn = cards.slice(cards.indexOf('async function assignableOnBoard'));
-  assert.ok(/if \(refused\.length\) \{/.test(fn.slice(0, 1200)),
-    'a members array whose ids are all fine records nothing');
+  // Only ids that were NEVER on the board are recorded: a former member left
+  // in an old card's assignees is written back innocently (2026-10-02).
+  assert.ok(/if \(strangers\.length\) \{/.test(fn.slice(0, 1600)),
+    'a members array whose ids are all fine, or only former members, records nothing');
+  assert.ok(/board\.members\.some\(member => member && member\.userId === id\)/.test(fn.slice(0, 1600)));
 
   const list = handler(boards, 'get', '/api/users/:userId/boards');
   assert.ok(/if \(revoked && revoked\.length\) \{/.test(list),

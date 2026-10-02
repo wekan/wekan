@@ -171,6 +171,7 @@ const GUARDED = {
   relaybleed: ['tests/relayBleed.test.cjs'],
   emailbleed: ['tests/adminMailSettings.test.cjs'],
   bflableed: ['tests/unawaitedAccessCheck.test.cjs'],
+  megableed: ['tests/tenantbleed.test.cjs'],
   excelbleed: ['tests/unawaitedAccessCheck.test.cjs'],
 
   // Guarded by ATTEMPT DETECTION rather than by a fix-regression test: a canary
@@ -207,7 +208,6 @@ const RECORDED = {
   framebleed: 'cross-frame scripting; a header fix with no test',
   invisiblebleed: 'HTML comments were not visible in rendered content; predates the *bleed test suites',
   ldapbleed: 'LDAP TLS certificate validation off by default; needs an LDAP stack to test',
-  megableed: 'IDOR in setCreateTranslation; needs a DDP method test',
   reactionbleed: 'XSS in comment reactions; predates the *bleed test suites - note the reaction OWNERSHIP hole found in this round is a different bug and is guarded by tests/reactionOwnership.test.cjs',
   readonlybleed: 'read-only members could write Custom Fields; needs a permissions test',
   snowbleed: 'MigrationsBleed - a database migration fix; predates the *bleed test suites',
@@ -302,7 +302,9 @@ test('the gap list may not grow', () => {
   // it is guarded above by tests/adminMailSettings.test.cjs (2026-10-02).
   // 22 -> 20: BFLABleed and ExcelBleed, both un-awaited async access checks,
   // are held tree-wide by tests/unawaitedAccessCheck.test.cjs (2026-10-02).
-  assert.strictEqual(Object.keys(RECORDED).length, 20,
+  // 20 -> 19: MegaBleed - its Translation collection sibling is held by
+  // tests/tenantbleed.test.cjs (2026-10-02).
+  assert.strictEqual(Object.keys(RECORDED).length, 19,
     'the number of published vulnerabilities with no regression test changed');
 });
 

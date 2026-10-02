@@ -31,7 +31,9 @@ export async function requireHistoryRowAccess(row, userId) {
   if (cardId) {
     const card = await Cards.findOneAsync(cardId);
     const board = card && await Boards.findOneAsync(card.boardId);
-    if (!card || !(await canEditCardOrLinkedCard(userId, card, board))) {
+    // Not recorded: a member demoted while the History pane is open reaches
+    // this by clicking Restore (HistoryScopeBleed is a deliberate omission).
+    if (!card || !(await canEditCardOrLinkedCard(userId, card, board, { recordDenial: false }))) {
       throw new Meteor.Error('not-authorized', 'You cannot edit this card through History.');
     }
   }

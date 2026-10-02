@@ -40,7 +40,9 @@ test('an unlisted chartKey is rejected before any board data is loaded', () => {
 
 test('access is gated on board visibility (canExport -> isVisibleBy) and denial is logged', () => {
   assert.match(routes, /exporter\.canExport\(user\)/);
-  assert.match(routes, /logExportDenied\(\)/);
+  // Records only when the caller cannot see the board (an assigned-only
+  // member is refused in ordinary use; 2026-10-02).
+  assert.match(routes, /logExportDenied\(user, board && board\._id\)/);
 });
 
 test('a private board without a valid authToken still requires a logged-in user', () => {
