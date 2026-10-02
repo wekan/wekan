@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/522f6a8836">Translate Malagasy rule editor and Scrum labels</a>. Thanks to xet7.</summary>
+
+- Fill 23 rule-editor, list, function and Scrum messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f3d0c94b47">Translate Malagasy workspace and search messages</a>. Thanks to xet7.</summary>
 
 - Fill 25 workspace, search and variable messages.
