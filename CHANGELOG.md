@@ -2929,6 +2929,34 @@ Structural checks do not establish fluency.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8e2bc58262">Translate new Scrum messages in 23 more locales and complete three estimate batches</a>. Thanks to xet7.</summary>
+
+Fill 140 English placeholders without replacing existing translations.
+Paging and import recovery now cover 210 locale tags. Manx, Cornish and
+Volapük also gain the eleven scope-history and five GitLab estimate messages,
+bringing those groups to 212 tags. Preserve exact placeholder inventories,
+source order, distinct finish and cancel actions, and the warning that an
+issue without a weight clears the mapped value. Extend script and native
+vocabulary checks; Sakha refers to a stored plan rather than a confirmed one.
+
+All 451 translation-related Node suites pass before the final Ewe and Fulah
+fills; six catalog and batch suites pass with those included. All 21
+human-preference checks pass. Paging and recovery still need 24 locale tags;
+scope history and estimates need 22. The broader translation backlog remains.
+
+Specialist workflow wording throughout this batch has lower confidence and
+needs speaker review; the commit lists its 23 locales. References include
+[the Manx dictionary](https://www.learnmanx.com/media/PDFs/PDF%20resources%202022%20onwards/English%20to%20Manx%20dictionary%20compiled%20by%20Phil%20Kelly%20Jan%202026.pdf),
+[the Cornish dictionary](https://www.cornishdictionary.org.uk/sites/default/files/SWF_dictionary_20190530_final.pdf),
+[Volapük dictionaries](https://volapuk.temerov.org/Volap%C3%BCkanef/Lingl%C3%A4nap%C3%BCk/v%C3%B6dabuks.php),
+[Sakha storage terminology](https://sakhatyla.ru/translate?q=%D1%85%D0%B0%D1%80%D0%B0%D0%BB%D1%8B%D0%BD%3D),
+[the Ewe grammar](https://philtypo3.uni-koeln.de/sites/inst_afrika/pdf/BASIC_EWE_2nd_ed.pdf)
+and [Pulaar teaching terminology](https://senprof.education.sn/PROGRAMME%20LECTURE%20POUR%20TOUS/documentation/Terminologies/Terminologie%20Pulaar%20fusion.pdf).
+Structural tests do not establish fluency.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
