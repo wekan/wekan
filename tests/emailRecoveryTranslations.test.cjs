@@ -7,7 +7,7 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(
   path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const english = read('en');
-const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC', 'bho', 'mai', 'kok', 'or_IN', 'zu', 'zu-ZA', 'xh', 'ny'];
+const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC', 'bho', 'mai', 'kok', 'or_IN', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'nso', 'ss'];
 const scripts = {
   ckb: 'Arabic', ary: 'Arabic', tt: 'Cyrillic', yi: 'Hebrew', 'wuu-Hans': 'Han',
   bho: 'Devanagari', mai: 'Devanagari', kok: 'Devanagari', or_IN: 'Oriya',
@@ -32,6 +32,22 @@ for (const code of codes) {
 // Cancellation is irreversible only for the messages covered by this request.
 // Retrying must retain the pause and the warning about uncertain delivery.
 const meanings = {
+  st: {
+    cancel: /di ke ke tsa kgutlisetswa.*kamora kopo ena e tla bolokwa/,
+    description: /o ke ke wa busetswa morao.*se sa tiisehang.*ho ka phetwa.*ho boloka ho emiswa ha nakwana/,
+  },
+  tn: {
+    cancel: /di ka se busediwe.*morago ga kopo eno e tla bolokwa/,
+    description: /ga o ka ke wa busediwa morago.*tse di sa tlhomamang.*go ka boelediwa.*go boloka go ema nakwana/,
+  },
+  nso: {
+    cancel: /di ka se bušetšwe.*morago ga kgopelo ye e tla bolokwa/,
+    description: /o ka se bušetšwe morago.*tše di sa kgonthišegego.*go ka boeletšwa.*go boloka go emišwa nakwana/,
+  },
+  ss: {
+    cancel: /ngeke kubuyiselwe.*ngemuva kwalesicelo itawugcinwa/,
+    description: /awukwati kubuyiswa.*longacinisekile.*kungaphindvwa.*kugcina kumiswa kwesikhashana/,
+  },
   zu: {
     cancel: /ngeke kubuyiselwe.*ngemva kwalesi sicelo izogcinwa/,
     description: /awukwazi ukubuyiswa.*okungaqinisekisiwe.*kungase kuphindwe.*kugcina ukumiswa kwesikhashana/,
@@ -131,4 +147,8 @@ assert.match(read('or_IN')['email-recovery-empty'], /ନାହିଁ ଏବଂ.*
 assert.match(read('zu')['email-recovery-queued'], /Imilayezo esemugqeni/);
 assert.match(read('xh')['email-recovery-queued'], /Imiyalezo esemgceni/);
 assert.match(read('ny')['email-recovery-queued'], /Mauthenga.*pamzere/);
+assert.match(read('st')['email-recovery-resume'], /Tswela pele/);
+assert.match(read('tn')['email-recovery-resume'], /Tswelela/);
+assert.match(read('nso')['email-recovery-resume'], /Tšwela pele/);
+assert.match(read('ss')['email-recovery-resume'], /Chubeka nekutfumela/);
 console.log(`Email recovery translations: ${keys.length} messages in ${codes.length} locales passed`);
