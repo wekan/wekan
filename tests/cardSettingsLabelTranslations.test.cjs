@@ -5,7 +5,7 @@ const path = require('node:path');
 const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const english = read('en');
-const codes = ["kk", "ky", "tg", "mn", "uz", "uz-LA", "uz-UZ", "uz-AR", "ba", "tt", "tk_TM", "ug", "ckb", "ku", "am", "as", "or_IN", "si", "ps", "sd", "km", "km-KH", "km_KH", "my", "fo", "fy", "fy-NL", "fur", "rm", "sc", "scn", "nap", "pap", "so", "mg", "rw", "rn", "ny", "om", "zu", "zu-ZA", "xh", "st", "tn", "nso", "ss", "nd", "ts", "ve", "lg", "wo", "ak", "bm", "ee", "br", "kw", "gv", "csb", "hsb", "szl", "bi", "tpi", "mi", "sm", "to", "haw", "fj", "ve-CC", "wa", "lld", "rup", "yue_CN", "wuu-Hans", "yi"];
+const codes = ["kk", "ky", "tg", "mn", "uz", "uz-LA", "uz-UZ", "uz-AR", "ba", "tt", "tk_TM", "ug", "ckb", "ku", "am", "as", "or_IN", "si", "ps", "sd", "km", "km-KH", "km_KH", "my", "fo", "fy", "fy-NL", "fur", "rm", "sc", "scn", "nap", "pap", "so", "mg", "rw", "rn", "ny", "om", "zu", "zu-ZA", "xh", "st", "tn", "nso", "ss", "nd", "ts", "ve", "lg", "wo", "ak", "bm", "ee", "br", "kw", "gv", "csb", "hsb", "szl", "bi", "tpi", "mi", "sm", "to", "haw", "fj", "ve-CC", "wa", "lld", "rup", "yue_CN", "wuu-Hans", "yi", "bua", "cv", "sah", "bho", "mai"];
 const keys = ['card-settings-card-color', 'card-settings-linked-card', 'card-settings-description-badge'];
 for (const code of codes) {
   const locale = read(code);
@@ -64,4 +64,8 @@ assert.equal(read('ve-CC')['cardType-linkedCard'], 'Scheda colegada');
 assert.doesNotMatch(read('ve-CC')['card-settings-linked-card'], /collegata/);
 assert.equal(read('lld')['cardType-linkedCard'], 'Ciarta colegada');
 assert.doesNotMatch(read('lld')['card-settings-linked-card'], /collegata/);
+assert.equal(read('bua')['cardType-linkedCard'], 'Холбоотой карточко');
+assert.match(read('bua')['card-settings-description-badge'], /Тайлбариин/);
+assert.match(read('cv')['card-settings-description-badge'], /Ӑнлантару/);
+assert.match(read('sah')['card-settings-description-badge'], /Быһаарыы/);
 console.log(`Card setting labels: ${keys.length} labels in ${codes.length} locales passed`);
