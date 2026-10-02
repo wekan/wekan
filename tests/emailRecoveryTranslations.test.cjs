@@ -7,7 +7,7 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(
   path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const english = read('en');
-const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC', 'bho', 'mai', 'kok', 'or_IN', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'nso', 'ss'];
+const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC', 'bho', 'mai', 'kok', 'or_IN', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'nso', 'ss', 'rw', 'rn', 'lg', 'om'];
 const scripts = {
   ckb: 'Arabic', ary: 'Arabic', tt: 'Cyrillic', yi: 'Hebrew', 'wuu-Hans': 'Han',
   bho: 'Devanagari', mai: 'Devanagari', kok: 'Devanagari', or_IN: 'Oriya',
@@ -32,6 +32,22 @@ for (const code of codes) {
 // Cancellation is irreversible only for the messages covered by this request.
 // Retrying must retain the pause and the warning about uncertain delivery.
 const meanings = {
+  rw: {
+    cancel: /ntibishobora kugarurwa.*nyuma y'ubu busabe buzagumaho/,
+    description: /ntibushobora kugarurwa.*kutazwi neza.*gusubirwamo.*kubahiriza ihagarikwa ry'akanya/,
+  },
+  rn: {
+    cancel: /ntibishobora kugarurwa.*inyuma y'iki gisabo buzogumaho/,
+    description: /ntibushobora kugarurwa.*ritazwi neza.*gusubirwamwo.*bigumana ihagarikwa rya gatoyi/,
+  },
+  lg: {
+    cancel: /tebisobola kukomezebwawo.*oluvannyuma lw'okusaba kuno bujja kusigalawo/,
+    description: /tebusobola kukomezebwawo.*okutakakasiddwa.*okuddamu.*kukuuma okuyimiriza okw'akaseera/,
+  },
+  om: {
+    cancel: /deebisuunis hin danda'amu.*gaaffii kana booda.*ni eegamu/,
+    description: /fudhatamuu hin danda'u.*hin mirkanoofne.*irra deebi'amuu.*dhaabbii yeroo muraasaa duraan jirus ni eega/,
+  },
   st: {
     cancel: /di ke ke tsa kgutlisetswa.*kamora kopo ena e tla bolokwa/,
     description: /o ke ke wa busetswa morao.*se sa tiisehang.*ho ka phetwa.*ho boloka ho emiswa ha nakwana/,
@@ -151,4 +167,8 @@ assert.match(read('st')['email-recovery-resume'], /Tswela pele/);
 assert.match(read('tn')['email-recovery-resume'], /Tswelela/);
 assert.match(read('nso')['email-recovery-resume'], /Tšwela pele/);
 assert.match(read('ss')['email-recovery-resume'], /Chubeka nekutfumela/);
+assert.match(read('rw')['email-recovery-retry'], /Ongera.*kohereza/);
+assert.match(read('rn')['email-recovery-retry'], /Subira.*kurungika/);
+assert.match(read('lg')['email-recovery-saving'], /luzzibwa buggya/);
+assert.match(read('om')['email-recovery-confirm-cancel'], /haquu barbaaddaa\?/);
 console.log(`Email recovery translations: ${keys.length} messages in ${codes.length} locales passed`);
