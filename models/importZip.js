@@ -8,6 +8,8 @@ import {
 } from './lib/exportFields';
 import { pruneImportDocument } from './lib/importParts';
 const { safeEntryPath } = require('./lib/backupPaths');
+// The wekan.json of an import zip inflates to at most this (ZipBombBleed).
+const MAX_IMPORT_DOCUMENT_BYTES = 256 * 1024 * 1024;
 
 runOnServer(function () {
   const fs = Npm.require('fs');
@@ -129,9 +131,11 @@ runOnServer(function () {
       return;
     }
     // Importing WRITES, so this is "may you change it", not "may you see it" -
-    // the same check the DDP import method makes.
-    if (!board.isVisibleBy(user) || !(board.members || [])
-      .some(member => member.userId === user._id && member.isActive)) {
+    // the same check the DDP import method makes: write access, not mere
+    // active membership (MutationBleed sibling, 2026-10-02 - read-only,
+    // comment-only and worker members could import into a board).
+    const { memberCan } = require('/models/lib/boardRoleCapabilities');
+    if (!board.isVisibleBy(user) || !memberCan(board.members || [], user._id, 'write')) {
       answer(403, { error: 'Forbidden' });
       return;
     }
@@ -157,7 +161,9 @@ runOnServer(function () {
         return;
       }
 
-      const parsedDoc = JSON.parse((await documentEntry.buffer()).toString('utf8'));
+      // ZipBombBleed: the document inflates under a byte limit, counted.
+      const { readZipEntryBounded } = require('/server/lib/boundedZipEntry');
+      const parsedDoc = JSON.parse((await readZipEntryBounded(documentEntry, MAX_IMPORT_DOCUMENT_BYTES)).toString('utf8'));
       const doc = require('/server/lib/secureTransfer').secureTransfer(parsedDoc, {
         direction: 'import', source: 'import:zip', userId: user._id,
         ip: req.connection && req.connection.remoteAddress,

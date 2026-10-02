@@ -1,4 +1,5 @@
 import { WebApp } from 'meteor/webapp';
+const { declaredZipEntrySize, readZipEntryBounded } = require('/server/lib/boundedZipEntry');
 import { Meteor } from 'meteor/meteor';
 import { DDP } from 'meteor/ddp';
 import { TrelloCreator } from '/models/trelloCreator';
@@ -185,7 +186,7 @@ async function importZipBuffer(buffer, userId) {
       continue;
     }
     entryCount += 1;
-    const declared = (entry.vars && entry.vars.uncompressedSize) || 0;
+    const declared = declaredZipEntrySize(entry);
     totalUncompressed += declared;
     const parts = relativePath.split('/');
     const base = parts.pop();
@@ -204,12 +205,15 @@ async function importZipBuffer(buffer, userId) {
     throw new Error('import-trello-zip-file-too-large');
   }
 
+  // What actually inflates is counted against the same total the declared
+  // sizes were checked against (ZipBombBleed).
+  const inflated = { remaining: MAX_TOTAL_UNCOMPRESSED };
   // Parse JSON files that look like Trello board exports.
   const boards = [];
   for (const je of jsonEntries) {
     let data;
     try {
-      data = JSON.parse((await je.entry.buffer()).toString('utf8'));
+      data = JSON.parse((await readZipEntryBounded(je.entry, MAX_FILE_BYTES, inflated)).toString('utf8'));
     } catch (e) {
       continue;
     }
@@ -245,7 +249,7 @@ async function importZipBuffer(buffer, userId) {
       if (!cand) continue;
       cand.used = true;
       // Decompress and enforce the per-file size cap on the real output too.
-      const bytes = await cand.entry.buffer();
+      const bytes = await readZipEntryBounded(cand.entry, MAX_FILE_BYTES, inflated);
       if (bytes.length > MAX_FILE_BYTES) continue;
       const b64 = bytes.toString('base64');
       info.occ.forEach(att => {
