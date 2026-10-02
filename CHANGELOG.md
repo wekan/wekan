@@ -3268,6 +3268,26 @@ backlog.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/962dbedfae">Translate email recovery in Papiamento, Somali, Tok Pisin and Bislama</a>. Thanks to xet7.</summary>
+
+Fill 92 English placeholders across four locales without replacing existing
+translated values. Preserve the warnings about messages already being sent,
+uncertain delivery, irreversible cancellation and newer messages retained after
+a cancellation request. Retrying failed messages continues to respect a pause.
+Extend the email recovery suite with these boundaries and separate Tok Pisin and
+Bislama wording, rejecting language-prefix filler.
+
+Four focused catalog and translation suites and all 21 human-preference checks
+pass. Specialist terms and long workflow clauses have lower confidence and need
+speaker review. References for send/message terminology include the
+[Tok Pisin dictionary](https://tokpisin.info/salim/) and the
+[Bislama traveller factsheet](https://www.travellerdeclaration.govt.nz/assets/pdfs/Traveller-Factsheet-Bislama.pdf).
+Structural tests do not establish fluency. Email recovery still has English
+messages in 62 locale tags; the broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
