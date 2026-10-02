@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ec3da9d335">Translate Amharic archiving and date filters</a>. Thanks to xet7.</summary>
+
+- Fill 23 archiving and date-filter messages in the Amharic locale.
+- Batch script, key-order, placeholder, markup and query-field checks pass,
+  as do all 21 human-preference checks. Full-language work, browser and
+  native-speaker reviews remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/86573f0de4">Finish remaining Khmer prose translations and check full locales</a>. Thanks to xet7.</summary>
 
 - Fill 31 recovery and history messages in both Khmer locale files; km-KH
