@@ -174,7 +174,29 @@ const keys = [
   "scrum-daily-empty",
   "scrum-observed-scope",
   "scrum-daily-observations-export-help",
-  "scrum-import-pending"
+  "scrum-import-pending",
+  "sync-conflict-heading",
+  "sync-conflict-hint",
+  "sync-conflict-local",
+  "sync-conflict-keep-local",
+  "sync-conflict-use-source",
+  "sync-conflict-refresh",
+  "sync-conflict-review-complete",
+  "sync-conflict-duplicate",
+  "sync-conflict-keep-mapping",
+  "sync-conflict-detach",
+  "sync-conflict-detach-hint",
+  "sync-conflict-archive",
+  "sync-conflict-archive-hint",
+  "sync-conflict-keep-card-local",
+  "sync-conflict-creation",
+  "sync-conflict-creation-hint",
+  "sync-conflict-create-replacement",
+  "sync-preview-button",
+  "sync-preview-heading",
+  "sync-preview-saved",
+  "sync-preview-unavailable",
+  "sync-preview-blocked"
 ];
 assert.deepEqual(Object.keys(locale), Object.keys(en));
 for (const key of keys) {
@@ -191,7 +213,6 @@ assert.ok(hint.includes('@endAt = none'));
 assert.match(locale['auto-archive-hint'], /patronyow ny vydh byth/);
 assert.match(locale['filter-column-age-hint'], /ny wra dalleth arta niveri/);
 assert.notEqual(locale['filter-date-range-from'], locale['filter-date-range-to']);
-console.log('Cornish date filter translations passed');
 
 for (const token of ['thunderlink', 'onenote', 'javascript', 'data', 'vbscript']) {
   assert.ok(locale['automatic-linked-url-schemes-hint'].includes(token), token);
@@ -236,3 +257,12 @@ for (const key of ['scrum-daily-observations-help', 'scrum-daily-observations-ex
   assert.match(locale[key], /Dismygrivow ankoth nyns yns mann/);
 }
 assert.match(locale['scrum-daily-truncated'], /366/);
+
+assert.notEqual(locale['sync-conflict-keep-local'], locale['sync-conflict-use-source']);
+assert.match(locale['sync-conflict-hint'], /Nyns eus tra danvenys dhe system an pennfenten/);
+assert.match(locale['sync-conflict-review-complete'], /rol dien ny veu gwrys/);
+assert.match(locale['sync-conflict-detach-hint'], /hepken.*dalgh a drig yn WeKan/);
+assert.match(locale['sync-conflict-archive-hint'], /Iskartennow ny vydh chanjys/);
+assert.match(locale['sync-conflict-creation-hint'], /garten kyns heb chanj.*Assayow arta.*karten nowydh arta/);
+
+console.log('Cornish translation batch checks passed');
