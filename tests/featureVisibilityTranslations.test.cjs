@@ -7,7 +7,7 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const directory = path.join(__dirname, '../imports/i18n/data');
 const read = code => JSON.parse(fs.readFileSync(path.join(directory, `${code}.i18n.json`), 'utf8'));
 const english = read('en');
-const codes = ["fi", "sv", "de", "de_DE", "de-AT", "de-CH", "fr", "fr-FR", "fr-BE", "fr-CA", "fr-CH", "es", "es-AR", "es-LA", "es-CL", "es_CO", "es-CO", "es-PY", "es-PE", "es-MX", "pt", "pt-PT", "pt_PT", "pt-BR", "it", "nl", "nl-NL", "vl-SS", "ru", "ru-RU", "ru-UA", "ru_RU", "uk", "uk-UA", "pl", "pl-PL", "cs", "cs-CZ", "da", "nb", "et-EE", "hu", "ro", "ro-RO", "el", "el-GR", "tr", "id", "ms", "ms-MY", "vi", "vi-VN", "ja", "ja-JP", "ja-HI", "ko", "ko-KR", "zh-CN", "zh-Hans", "zh", "cmn", "zh_SG", "zh-GB", "zh-TW", "zh-Hant", "zh-HK", "ar", "ar-DZ", "ar-EG", "sk", "bg", "sl", "sl_SI", "hr", "bs", "sr", "mk", "lt", "lv", "be", "ca", "ca_ES", "ca@valencia", "gl", "gl-ES", "eu", "af", "af_ZA", "sq", "eo", "he", "he-IL", "fa", "fa-IR", "hi", "hi-IN", "bn", "ta", "th", "is", "ga", "cy", "cy-GB", "lb", "ka", "hy", "az", "az-AZ", "az-LA", "sw", "tl", "ur", "ne", "kn", "gu-IN", "mr", "ml", "te-IN", "pa", "gd", "mt", "oc", "jv", "ht", "la", "ha", "sn", "yo", "ig", "co", "an", "ast-ES", "kk", "ky", "tg", "mn", "uz", "uz-LA", "uz-UZ", "uz-AR", "ba", "tt", "tk_TM", "ug", "ckb", "ku"];
+const codes = ["fi", "sv", "de", "de_DE", "de-AT", "de-CH", "fr", "fr-FR", "fr-BE", "fr-CA", "fr-CH", "es", "es-AR", "es-LA", "es-CL", "es_CO", "es-CO", "es-PY", "es-PE", "es-MX", "pt", "pt-PT", "pt_PT", "pt-BR", "it", "nl", "nl-NL", "vl-SS", "ru", "ru-RU", "ru-UA", "ru_RU", "uk", "uk-UA", "pl", "pl-PL", "cs", "cs-CZ", "da", "nb", "et-EE", "hu", "ro", "ro-RO", "el", "el-GR", "tr", "id", "ms", "ms-MY", "vi", "vi-VN", "ja", "ja-JP", "ja-HI", "ko", "ko-KR", "zh-CN", "zh-Hans", "zh", "cmn", "zh_SG", "zh-GB", "zh-TW", "zh-Hant", "zh-HK", "ar", "ar-DZ", "ar-EG", "sk", "bg", "sl", "sl_SI", "hr", "bs", "sr", "mk", "lt", "lv", "be", "ca", "ca_ES", "ca@valencia", "gl", "gl-ES", "eu", "af", "af_ZA", "sq", "eo", "he", "he-IL", "fa", "fa-IR", "hi", "hi-IN", "bn", "ta", "th", "is", "ga", "cy", "cy-GB", "lb", "ka", "hy", "az", "az-AZ", "az-LA", "sw", "tl", "ur", "ne", "kn", "gu-IN", "mr", "ml", "te-IN", "pa", "gd", "mt", "oc", "jv", "ht", "la", "ha", "sn", "yo", "ig", "co", "an", "ast-ES", "kk", "ky", "tg", "mn", "uz", "uz-LA", "uz-UZ", "uz-AR", "ba", "tt", "tk_TM", "ug", "ckb", "ku", "am", "as", "or_IN", "si", "ps", "sd", "km", "km-KH", "km_KH", "my", "fo", "fy", "fy-NL", "fur", "rm"];
 const keys = ["features-desc", "feature-views-table", "feature-views-table-desc", "feature-views-calendar", "feature-views-calendar-desc", "feature-views-time", "feature-views-time-desc", "feature-views-overview", "feature-views-overview-desc", "feature-views-gantt", "feature-views-gantt-desc", "feature-views-scrum", "feature-views-scrum-desc", "feature-views-flow-charts", "feature-views-flow-charts-desc", "feature-views-map", "feature-views-map-desc", "feature-awaiting-approval", "feature-approval-required", "feature-preview-admins", "feature-pilot-users", "feature-pilot-users-placeholder", "feature-pilot-users-unknown", "feature-saved"];
 
 for (const code of codes) {
@@ -51,6 +51,11 @@ for (const [code, script] of [
   ['uz-AR', /\p{Script=Arabic}/u],
   ['ba', /\p{Script=Cyrillic}/u], ['tt', /\p{Script=Cyrillic}/u],
   ['ug', /\p{Script=Arabic}/u], ['ckb', /\p{Script=Arabic}/u],
+  ['am', /\p{Script=Ethiopic}/u], ['as', /\p{Script=Bengali}/u],
+  ['or_IN', /\p{Script=Oriya}/u], ['si', /\p{Script=Sinhala}/u],
+  ['ps', /\p{Script=Arabic}/u], ['sd', /\p{Script=Arabic}/u],
+  ['km', /\p{Script=Khmer}/u], ['km-KH', /\p{Script=Khmer}/u],
+  ['km_KH', /\p{Script=Khmer}/u], ['my', /\p{Script=Myanmar}/u],
 ]) {
   for (const key of keys) assert.match(read(code)[key], script, `${code}:${key}: native script`);
 }
@@ -76,4 +81,14 @@ assert.notEqual(read('ba')['feature-saved'], read('tt')['feature-saved']);
 assert.match(read('tk_TM')['features-desc'], /maglumatlary saklanýar we rugsatlar üýtgemeýär/);
 assert.match(read('ku')['features-desc'], /Daneyên wê tên parastin û destûr nayên guhertin/);
 assert.notEqual(read('ckb')['feature-saved'], read('ku')['feature-saved']);
+assert.match(read('am')['features-desc'], /ውሂቡ ይጠበቃል፣ ፈቃዶችም አይቀየሩም/);
+assert.match(read('as')['features-desc'], /তথ্য সংৰক্ষিত থাকে আৰু অনুমতি সলনি নহয়/);
+assert.match(read('si')['features-desc'], /දත්ත සුරැකෙන අතර අවසර වෙනස් නොවේ/);
+assert.notEqual(read('ps')['feature-saved'], read('sd')['feature-saved']);
+assert.match(read('km')['features-desc'], /ទិន្នន័យរបស់វាត្រូវបានរក្សាទុក ហើយសិទ្ធិមិនផ្លាស់ប្តូរទេ/);
+assert.match(read('my')['features-desc'], /ဒေတာကို ထိန်းသိမ်းထားပြီး ခွင့်ပြုချက်များ မပြောင်းလဲပါ/);
+assert.match(read('fo')['features-desc'], /Dáturnar verða varðveittar, og loyvi broytast ikki/);
+assert.match(read('fy')['features-desc'], /gegevens bliuwe bewarre en tastimmingen feroarje net/);
+assert.match(read('fur')['features-desc'], /dâts a vegnin conservâts e i permès no cambiin/);
+assert.match(read('rm')['features-desc'], /datas vegnan mantegnidas e las permissiuns na sa midan betg/);
 console.log(`Feature visibility translations: ${keys.length} messages in ${codes.length} locales passed`);
