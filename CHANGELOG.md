@@ -1686,6 +1686,19 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/93283b5a1c">Finish remaining Burmese prose translations and check full locale</a>. Thanks to xet7.</summary>
+
+- Fill the last 19 reported prose placeholders, covering rule email,
+  SAML sign-in, ordering and History requests. Retain 28 reviewed keyboard
+  labels, platform names and code/math literals as notation.
+- Both Burmese suites and all 21 human-preference checks pass, including
+  full-locale key-order and placeholder coverage; the missing report is empty.
+- The shared completion suite still fails on Cherokee's 11 missing
+  dependency keys. Browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2da37f87b5">Translate Burmese activity notification recovery</a>. Thanks to xet7.</summary>
 
 - Fill 26 activity-notification recovery, delivery and cancellation messages.
