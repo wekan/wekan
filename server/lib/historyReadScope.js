@@ -37,4 +37,25 @@ export async function requireHistoryRowAccess(row, userId) {
       throw new Meteor.Error('not-authorized', 'You cannot edit this card through History.');
     }
   }
+  // HistoryScopeBleed sibling (2026-10-02): a row keeps the board it was
+  // recorded on, but a list or swimlane can move to another board since - and
+  // restore/undo/redo then write it, and a deleted list's cards, wherever it
+  // is now. Write access is needed where it is NOW, and on any board the row's
+  // content moves something to.
+  const { memberCan } = require('/models/lib/boardRoleCapabilities');
+  const writable = async boardId => {
+    const board = boardId && await Boards.findOneAsync(boardId);
+    return !!board && memberCan(board.members, userId, 'write');
+  };
+  if (row.entityType === 'list' || row.entityType === 'swimlane') {
+    const Collection = row.entityType === 'list' ? require('/models/lists').default : require('/models/swimlanes').default;
+    const doc = await Collection.findOneAsync(row.entityId, { fields: { boardId: 1 } });
+    if (doc && !(await writable(doc.boardId))) {
+      throw new Meteor.Error('not-authorized', 'This history entry is outside your current access.');
+    }
+  }
+  const destination = row.content && typeof row.content.boardId === 'string' ? row.content.boardId : null;
+  if (destination && destination !== row.boardId && !(await writable(destination))) {
+    throw new Meteor.Error('not-authorized', 'This history entry is outside your current access.');
+  }
 }

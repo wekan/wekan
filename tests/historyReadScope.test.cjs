@@ -36,3 +36,28 @@ test('all universal history reversal paths share the scope guard and paging filt
  assert.ok(scan.indexOf('total++',readAt)>readAt);
  assert.doesNotMatch(source,/const all = await ChangeHistory.find\(selector/);
 });
+
+// HistoryScopeBleed sibling (2026-10-02): rows keep the board they were
+// recorded on; a list or swimlane moved to another board since was restored
+// wherever it is now, and a row moving something to another board was applied
+// without access there.
+test('history access follows a list or swimlane to its current board, and any destination', async () => {
+  const fs = require('node:fs');
+  const path = require('node:path');
+  const src = fs.readFileSync(path.join(__dirname, '..', 'server/lib/historyReadScope.js'), 'utf8');
+  const start = src.indexOf('  // HistoryScopeBleed sibling (2026-10-02)');
+  const tail = src.slice(start, src.lastIndexOf('}'));
+  const boards = { old: { members: [{ userId: 'u', isActive: true }] }, moved: { members: [{ userId: 'x', isActive: true }] } };
+  const docs = { list1: { boardId: 'moved' }, list2: { boardId: 'old' } };
+  const Meteor = { Error: class extends Error { constructor(e) { super(e); this.error = e; } } };
+  const fakeRequire = name => (name === '/models/lib/boardRoleCapabilities'
+    ? require('../models/lib/boardRoleCapabilities')
+    : { default: { findOneAsync: async id => docs[id] } });
+  // eslint-disable-next-line no-new-func
+  const check = new Function('row', 'userId', 'Boards', 'Meteor', 'require', `return (async () => {${tail}})();`);
+  const Boards = { findOneAsync: async id => boards[id] };
+  await assert.rejects(check({ entityType: 'list', entityId: 'list1', boardId: 'old' }, 'u', Boards, Meteor, fakeRequire), { error: 'not-authorized' });
+  await check({ entityType: 'list', entityId: 'list2', boardId: 'old' }, 'u', Boards, Meteor, fakeRequire);
+  await assert.rejects(check({ entityType: 'card', entityId: 'c', boardId: 'old', content: { boardId: 'moved' } }, 'u', Boards, Meteor, fakeRequire), { error: 'not-authorized' });
+  await check({ entityType: 'card', entityId: 'c', boardId: 'old', content: { boardId: 'old' } }, 'u', Boards, Meteor, fakeRequire);
+});
