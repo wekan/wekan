@@ -364,7 +364,32 @@ const keys = [
   "blockly-MATH_ARITHMETIC_TOOLTIP_MULTIPLY",
   "blockly-MATH_ARITHMETIC_TOOLTIP_POWER",
   "blockly-MATH_CHANGE_TITLE",
-  "blockly-MATH_CHANGE_TOOLTIP"
+  "blockly-MATH_CHANGE_TOOLTIP",
+  "blockly-MATH_ATAN2_TITLE",
+  "blockly-MATH_ATAN2_TOOLTIP",
+  "blockly-MATH_CONSTANT_GOLDEN_RATIO_ARIA",
+  "blockly-MATH_CONSTANT_INFINITY_ARIA",
+  "blockly-MATH_CONSTANT_SQRT1_2_ARIA",
+  "blockly-MATH_CONSTANT_SQRT2_ARIA",
+  "blockly-MATH_CONSTANT_TOOLTIP",
+  "blockly-MATH_CONSTRAIN_TITLE",
+  "blockly-MATH_CONSTRAIN_TOOLTIP",
+  "blockly-MATH_DIVISION_SYMBOL_ARIA",
+  "blockly-MATH_IS_DIVISIBLE_BY",
+  "blockly-MATH_IS_EVEN",
+  "blockly-MATH_IS_NEGATIVE",
+  "blockly-MATH_IS_ODD",
+  "blockly-MATH_IS_POSITIVE",
+  "blockly-MATH_IS_PRIME",
+  "blockly-MATH_IS_TOOLTIP",
+  "blockly-MATH_IS_WHOLE",
+  "blockly-MATH_MODULO_TITLE",
+  "blockly-MATH_MODULO_TOOLTIP",
+  "blockly-MATH_MULTIPLICATION_SYMBOL_ARIA",
+  "blockly-MATH_ONLIST_OPERATOR_AVERAGE",
+  "blockly-MATH_ONLIST_OPERATOR_MAX",
+  "blockly-MATH_ONLIST_OPERATOR_MAX_ARIA",
+  "blockly-MATH_ONLIST_OPERATOR_MEDIAN"
 ];
 for (const key of keys) {
   assert.ok(locale[key]?.trim(), key);
