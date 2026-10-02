@@ -12,6 +12,7 @@ import Activities from '/models/activities';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
 import Lists from '/models/lists';
+import Swimlanes from '/models/swimlanes';
 import Actions from '/models/actions';
 import ChecklistItems from '/models/checklistItems';
 import Checklists from '/models/checklists';
@@ -174,6 +175,7 @@ export async function runStoredSyncRules({ adapters, ...options }) {
     ...Object.fromEntries(Object.keys(RULE_CHECKLIST_ACTIONS).map(type => [type, ({ invocation }) =>
       runStoredSyncRuleChecklist({ ...options, index: indices.get(invocation.id) })])),
     sortList: ({ invocation }) => runStoredSyncRuleSortList({ ...options, index: indices.get(invocation.id) }),
+    createCard: ({ invocation }) => runStoredSyncRuleCreateCard({ ...options, index: indices.get(invocation.id) }),
     ...Object.fromEntries(RULE_CHECKLIST_LIFECYCLE_ACTIONS.map(type => [type, ({ invocation }) =>
       runStoredSyncRuleChecklistLifecycle({ ...options, index: indices.get(invocation.id) })])),
     // In-place moves only: eligibility keeps a board with any other move on
@@ -508,6 +510,71 @@ export async function runStoredSyncRuleMove({ index, ...options }) {
 const { RULE_MOVE_ACTIONS, commandId: ruleMoveCommandId, prepareRuleMoveCommand, validateRuleMoveCommand,
   sortSelector: ruleMoveSortSelector } = require('/server/lib/syncRuleMoveCommand');
 const { RULE_CARD_POSITION_FIELDS } = require('/server/lib/syncHistoryBatch');
+
+// Durable rule createCard (server/lib/syncRuleCreateCardCommand.js): the
+// target and title resolved once with the ordinary action's own lookup, the
+// card inserted once under its derived id with the creation hook's activity
+// deferred, then that activity delivered durably - which runs the new card's
+// own rules. Every step is idempotent on replay.
+export const SyncRuleCreateCardCommands = new Mongo.Collection('listSyncRuleCreateCardCommands');
+SyncRuleCreateCardCommands.deny({ insert: () => true, update: () => true, remove: () => true });
+
+export async function runStoredSyncRuleCreateCard({ index, completeDelivery = runStoredSyncActivityDelivery, ...options }) {
+  const context = executionContext(options), plan = await capture(context);
+  const invocation = plan.actions[index], action = invocation?.action;
+  if (action?.actionType !== 'createCard') throw new Error('sync-rule-create-card-invalid');
+  const commandContext = { plan, activity: context.saved, effectId: context.effectId, index };
+  const guard = reuseWithinEvaluation(async () => {
+    await context.guard();
+    const [rule, current] = await Promise.all([
+      Rules.rawCollection().findOne({ _id: invocation.rule._id }),
+      Actions.rawCollection().findOne({ _id: action._id }),
+    ]);
+    if (!rule || !current || canonical(rule) !== canonical(invocation.rule) ||
+        canonical(current) !== canonical(action)) throw new Error('sync-rule-create-card-configuration-changed');
+    await context.guard();
+  });
+  const commands = SyncRuleCreateCardCommands.rawCollection(), id = ruleCreateCardCommandId(invocation.id);
+  await guard();
+  let row = await commands.findOne({ _id: id });
+  if (!row) {
+    const card = await Cards.findOneAsync({ _id: plan.cardId, boardId: plan.boardId });
+    const target = await RulesHelper.createCardTarget(context.saved, card, action);
+    const [list, swimlane] = await Promise.all([
+      target.listId ? Lists.findOneAsync({ _id: target.listId, boardId: plan.boardId }) : null,
+      target.swimlaneId ? Swimlanes.findOneAsync({ _id: target.swimlaneId, boardId: plan.boardId }) : null,
+    ]);
+    const candidate = prepareRuleCreateCardCommand({ ...commandContext, target, list, swimlane, createdAt: new Date() });
+    await guard();
+    let failure;
+    try { await commands.insertOne(candidate); } catch (error) { failure = error; }
+    row = await commands.findOne({ _id: id });
+    if (!row) throw failure || new Error('sync-rule-create-card-command-unconfirmed');
+  }
+  const command = validateRuleCreateCardCommand(row, commandContext);
+  const cardsCollection = Cards.rawCollection();
+  await guard();
+  if (!await cardsCollection.findOne({ _id: command.card._id })) {
+    // The ordinary insert, with its derived id; the creation hook's activity is
+    // the saved one, written below.
+    await DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false }, () =>
+      withSyncRecordingDeferred({ cardId: command.card._id, boardId: command.boardId, listId: command.card.listId,
+        kinds: ['create'] },
+      () => Cards.insertAsync({ ...command.card, sort: 0 })));
+    if (!await cardsCollection.findOne({ _id: command.card._id })) throw new Error('sync-rule-create-card-unconfirmed');
+  }
+  const activities = {
+    findOneAsync: activityId => Activities.findOneAsync(activityId, { transform: null }),
+    insertAsync: document => DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false },
+      () => withSyncActivityDeferred(document, () => Activities.insertAsync(document))),
+  };
+  await persistSyncActivity({ activities, activity: command.activity, effectId: command.receiptId, assertCurrent: guard,
+    completeDelivery: delivery => completeDelivery({ ...delivery, policy: options.policy, trigger: options.trigger }) });
+  await guard();
+  return invocation.id;
+}
+const { commandId: ruleCreateCardCommandId, prepareRuleCreateCardCommand, validateRuleCreateCardCommand } =
+  require('/server/lib/syncRuleCreateCardCommand');
 
 // Durable rule sortList (server/lib/syncRuleSortListCommand.js): the order
 // decided once with the ordinary action's own lookups, then each card's sort

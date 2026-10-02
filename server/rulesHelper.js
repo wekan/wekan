@@ -179,6 +179,22 @@ export const RulesHelper = {
   async ruleChecklistTitle(activity, card, action) {
     return substituteVars(action.checklistName, await buildRuleVars(activity, card));
   },
+  // Where a createCard action puts its card, and its title: the list and
+  // swimlane named on the rule's board (#5536: the board's default swimlane
+  // when the named one is gone), the card name with the rule variables
+  // substituted. For the durable rule card creation command too
+  // (server/lib/syncRuleCreateCardCommand.js).
+  async createCardTarget(activity, card, action) {
+    const boardId = activity.boardId;
+    const list = await ReactiveCache.getList({ title: action.listName, boardId });
+    const swimlane = await ReactiveCache.getSwimlane({ title: action.swimlaneName, boardId });
+    return {
+      boardId,
+      listId: resolveRuleListId(list),
+      swimlaneId: resolveRuleSwimlaneId(swimlane, await getDestBoardDefaultSwimlane(boardId)),
+      title: substituteVars(action.cardName, await buildRuleVars(activity, card)),
+    };
+  },
   // ...and the item titles an addChecklistWithItems action names.
   async ruleChecklistItemTitles(activity, card, action) {
     return String(substituteVars(action.checklistItems, await buildRuleVars(activity, card))).split(',');
@@ -930,25 +946,14 @@ export const RulesHelper = {
       }
     }
     if (action.actionType === 'createCard') {
-      const list = await ReactiveCache.getList({ title: action.listName, boardId });
-      let listId = '';
-      let swimlaneId = '';
-      const swimlane = await ReactiveCache.getSwimlane({
-        title: action.swimlaneName,
-        boardId,
-      });
-      listId = resolveRuleListId(list);
-      // #5536: guard the 'Default'-swimlane fallback against undefined ._id.
-      swimlaneId = resolveRuleSwimlaneId(
-        swimlane,
-        await getDestBoardDefaultSwimlane(boardId),
-      );
+      // The same target the durable command captures (createCardTarget).
+      const target = await this.createCardTarget(activity, card, action);
       await Cards.insertAsync({
-        title: substituteVars(action.cardName, ruleVars),
-        listId,
-        swimlaneId,
+        title: target.title,
+        listId: target.listId,
+        swimlaneId: target.swimlaneId,
         sort: 0,
-        boardId
+        boardId: target.boardId,
       });
     }
     if (action.actionType === 'copyCard') {
