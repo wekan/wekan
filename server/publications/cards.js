@@ -1533,6 +1533,12 @@ async function findCards(sessionId, query, userId) {
 // board/swimlane/list/member context. Uses plain server-side limit/skip just
 // like the org/team/people admin lists, so only the current page is ever sent
 // to the browser instead of the whole Cards collection.
+//
+// Instance-wide on purpose (maintainer decision 2026-10-02): a site admin
+// manages every board, and these reports are for maintaining the instance, so
+// they list cards of boards the admin is not a member of too. The same holds
+// for brokenCardsReport above. The isAdmin check below is what keeps them
+// from everybody else.
 Meteor.publish('cardsReport', async function(searchTerm = '', limit, skip = 0) {
   check(searchTerm, Match.OneOf(String, null, undefined));
   check(limit, Number);
