@@ -166,7 +166,31 @@ const keys = [
   "blockly-CONTROLS_IF_ELSEIF_TOOLTIP",
   "blockly-CONTROLS_IF_ELSE_TOOLTIP",
   "blockly-CONTROLS_IF_IF_TOOLTIP",
-  "blockly-CONTROLS_IF_MSG_ELSE"
+  "blockly-CONTROLS_IF_MSG_ELSE",
+  "blockly-CONTROLS_IF_MSG_ELSEIF",
+  "blockly-CONTROLS_IF_TOOLTIP_1",
+  "blockly-CONTROLS_IF_TOOLTIP_2",
+  "blockly-CONTROLS_IF_TOOLTIP_3",
+  "blockly-CONTROLS_IF_TOOLTIP_4",
+  "blockly-CONTROLS_REPEAT_TITLE",
+  "blockly-CONTROLS_REPEAT_TOOLTIP",
+  "blockly-CONTROLS_WHILEUNTIL_OPERATOR_UNTIL",
+  "blockly-CONTROLS_WHILEUNTIL_OPERATOR_WHILE",
+  "blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL",
+  "blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE",
+  "blockly-COPY_ALL_TO_BACKPACK",
+  "blockly-COPY_SHORTCUT",
+  "blockly-COPY_TO_BACKPACK",
+  "blockly-CURRENT_BLOCK_ANNOUNCEMENT",
+  "blockly-CUT_SHORTCUT",
+  "blockly-DELETE_ALL_BLOCKS",
+  "blockly-DELETE_BLOCK",
+  "blockly-DELETE_VARIABLE_CONFIRMATION",
+  "blockly-DELETE_X_BLOCKS",
+  "blockly-DISABLE_BLOCK",
+  "blockly-EDIT_BLOCK_CONTENTS",
+  "blockly-EMPTY_BACKPACK",
+  "blockly-ENABLE_BLOCK"
 ];
 for (const key of keys) {
   assert.ok(locale[key]?.trim(), key);
