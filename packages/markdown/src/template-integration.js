@@ -565,7 +565,10 @@ Blaze.Template.registerHelper('markdown', new Template('markdown', function () {
         textWithExternalLinks,
         Markdown.resolveCardTitle,
       );
-      const renderedMarkdown = Markdown.render(textWithCardLinks).replace('<!--', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">&lt;!--</font>').replace('-->', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">--&gt;</font>');
+      // InvisibleBleed: EVERY HTML comment is made visible. String.replace
+      // with a string pattern replaced only the first, so a second comment
+      // stayed hidden (2026-10-02).
+      const renderedMarkdown = Markdown.render(textWithCardLinks).replaceAll('<!--', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">&lt;!--</font>').replaceAll('-->', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">--&gt;</font>');
       sanitized = secureSanitize(DOMPurify, renderedMarkdown, getSecureDOMPurifyConfig(urlSchemes));
     } catch (error) {
       const message = (error && error.message) ? error.message : String(error);
