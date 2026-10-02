@@ -1686,6 +1686,18 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2ea2883509">Translate Khmer mathematical constants and number properties</a>. Thanks to xet7.</summary>
+
+- Fill 30 mathematics messages in both Khmer locale files; km-KH inherits the
+  Cambodia translations. Specialized terminology remains low confidence pending
+  native-speaker review.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass for all three locale tags, as do all 21 human-preference checks.
+  Full-language work and browser review remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/aa5fa12245">Translate Khmer comparisons, logic and arithmetic</a>. Thanks to xet7.</summary>
 
 - Fill 29 comparison, Boolean logic and arithmetic messages in both Khmer
