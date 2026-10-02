@@ -1675,7 +1675,7 @@ template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.15 2026-10-02 WeKan ® release
 
 **In short:** A security release. **CacheBleed**, **SyncBleed** and
 **CasTokenBleed** are fixed, with thirteen more newly named issues such as
