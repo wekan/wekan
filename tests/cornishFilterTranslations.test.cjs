@@ -196,7 +196,37 @@ const keys = [
   "sync-preview-heading",
   "sync-preview-saved",
   "sync-preview-unavailable",
-  "sync-preview-blocked"
+  "sync-preview-blocked",
+  "sync-preview-create",
+  "sync-preview-update",
+  "sync-preview-archive",
+  "sync-preview-baseline",
+  "sync-preview-truncated",
+  "sync-preview-omissions",
+  "sync-preview-scope",
+  "sync-preview-excluded",
+  "sync-preview-unmapped",
+  "sync-preview-parser-warnings",
+  "sync-preview-parser-unsupported",
+  "sync-source-heading",
+  "sync-source-scope",
+  "sync-source-unmapped",
+  "sync-source-excluded",
+  "sync-source-converted",
+  "sync-source-fallback",
+  "sync-source-excluded-item",
+  "sync-source-occurrences",
+  "sync-source-truncated",
+  "sync-source-omitted",
+  "sync-report-button",
+  "sync-report-retention",
+  "sync-report-partial",
+  "sync-report-unfinished",
+  "sync-report-failed",
+  "sync-report-completed",
+  "sync-report-completed-with-warnings",
+  "sync-report-skipped",
+  "sync-report-review-only"
 ];
 assert.deepEqual(Object.keys(locale), Object.keys(en));
 for (const key of keys) {
@@ -265,4 +295,14 @@ assert.match(locale['sync-conflict-detach-hint'], /hepken.*dalgh a drig yn WeKan
 assert.match(locale['sync-conflict-archive-hint'], /Iskartennow ny vydh chanjys/);
 assert.match(locale['sync-conflict-creation-hint'], /garten kyns heb chanj.*Assayow arta.*karten nowydh arta/);
 
+
+assert.equal(locale['sync-preview-unmapped'], locale['sync-source-unmapped']);
+assert.equal(locale['sync-preview-excluded'], locale['sync-source-excluded']);
+assert.match(locale['sync-preview-truncated'], /100/);
+assert.match(locale['sync-source-truncated'], /100/);
+assert.match(locale['sync-report-retention'], /20.*30/);
+assert.match(locale['sync-source-scope'], /gwerthow nyns yns diskwedhys/);
+assert.match(locale['sync-report-partial'], /ny wra pesya.*na y dhiswul/);
+assert.notEqual(locale['sync-report-failed'], locale['sync-report-completed']);
+assert.notEqual(locale['sync-preview-create'], locale['sync-preview-archive']);
 console.log('Cornish translation batch checks passed');
