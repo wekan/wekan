@@ -7,8 +7,9 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(
   path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const english = read('en');
-const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC', 'bho', 'mai', 'kok', 'or_IN', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'nso', 'ss', 'rw', 'rn', 'lg', 'om', 'mi', 'sm', 'to', 'fj', 'hsb', 'szl', 'wa', 'lld', 'haw', 'gv', 'ts', 've', 'nd', 'wa-RR', 'rup', 'se', 'cv', 'bua', 'bo', 'wo', 'ace', 'ak', 'bm', 'ee', 'ay', 'qu', 'gn', 'tlh', 'ti', 'sah', 'vo', 've-PP', 'ks', 'ff', 'dz', 'kl', 'nah'];
+const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC', 'bho', 'mai', 'kok', 'or_IN', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'nso', 'ss', 'rw', 'rn', 'lg', 'om', 'mi', 'sm', 'to', 'fj', 'hsb', 'szl', 'wa', 'lld', 'haw', 'gv', 'ts', 've', 'nd', 'wa-RR', 'rup', 'se', 'cv', 'bua', 'bo', 'wo', 'ace', 'ak', 'bm', 'ee', 'ay', 'qu', 'gn', 'tlh', 'ti', 'sah', 'vo', 've-PP', 'ks', 'ff', 'dz', 'kl', 'nah', 'zgh'];
 const scripts = {
+  zgh: 'Tifinagh',
   dz: 'Tibetan',
   ks: 'Arabic',
   ti: 'Ethiopic', sah: 'Cyrillic', bo: 'Tibetan', cv: 'Cyrillic', bua: 'Cyrillic', ckb: 'Arabic', ary: 'Arabic', tt: 'Cyrillic', yi: 'Hebrew', 'wuu-Hans': 'Han',
@@ -34,6 +35,10 @@ for (const code of codes) {
 // Cancellation is irreversible only for the messages covered by this request.
 // Retrying must retain the pause and the warning about uncertain delivery.
 const meanings = {
+  zgh: {
+    cancel: /ⵓⵔ ⵉⵣⵎⵉⵔ ⴰⴷ ⴷ ⵢⵓⵖⴰⵍ.*ⴷⴻⴼⴼⵉⵔ ⵓⵙⵓⵜⴻⵔ.*ⵜⵜⵡⴰⵃⴹⵓⵏⵜ/,
+    description: /ⵓⵔ ⵜⵣⵎⵔⵉ ⴰⴷ ⴷ ⵜⵓⵖⴰⵍ.*ⵓⵔ ⵏⵙⵙⵉⵏ.*ⵜⴻⵜⵜⵡⴰⵍⵙ.*ⵉⵃⴹⴹⵓ ⴰⵙⴱⴻⴷⴷ ⴰⴽⵓⴷⴰⵏ ⵍⵍⵉ ⵉⵍⵍⴰⵏ/,
+  },
   nah: {
     cancel: /amo huel mocuepaz.*zatepan inin tlahtlaniliztli mopiyaz/,
     description: /amo huel mocuepa.*amo machi.*oc ceppa motitlaniz.*quipiya quetzaliztli tlen ye onca/,
