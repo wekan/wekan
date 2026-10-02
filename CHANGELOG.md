@@ -2904,6 +2904,31 @@ do not establish fluency.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c1f45e6b18">Translate Scrum paging and import recovery in 71 more locale tags</a>. Thanks to xet7.</summary>
+
+Fill 280 English placeholders across 70 stored catalogs, bringing all four
+messages to 187 locale tags. Khmer variants share a catalog. Preserve existing
+translations and exact placeholder inventories, and extend regression checks
+for native scripts and the distinction between completing and cancelling an
+import. Use native restart wording in Romansh and Faroese, and distinguish
+finishing from cancelling in Hawaiian.
+
+All 451 translation-related Node suites and all 21 human-preference checks
+pass. These four messages still need translation in 47 locale tags; the
+remaining Scrum scope-history and GitLab estimate batches and the broader
+translation queue also remain open.
+
+Specialist wording in the less widely used languages has lower confidence;
+the commit lists the locales needing speaker review. References included
+[Romansh software vocabulary](https://android.googlesource.com/platform/frameworks/base/+/a8854b2b749482095315e79a568b6f7a1b071641/core/res/res/values-rm/strings.xml),
+[Faroese usage](https://kvf.fo/Archive_Articles/2013/02/11/skotar-noyast-byrja-av-nggjum),
+[Hawaiian dictionaries](https://wehe.hilo.hawaii.edu/?l=&q=stop)
+and [Māori computer terminology](https://www.taiuru.co.nz/wp-content/uploads/publicationslib/Dictionary-of-Maori-Computer-related-terms-Edition-1.pdf).
+Structural checks do not establish fluency.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
