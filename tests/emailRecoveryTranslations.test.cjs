@@ -7,7 +7,7 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(
   path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const english = read('en');
-const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC', 'bho', 'mai', 'kok', 'or_IN'];
+const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC', 'bho', 'mai', 'kok', 'or_IN', 'zu', 'zu-ZA', 'xh', 'ny'];
 const scripts = {
   ckb: 'Arabic', ary: 'Arabic', tt: 'Cyrillic', yi: 'Hebrew', 'wuu-Hans': 'Han',
   bho: 'Devanagari', mai: 'Devanagari', kok: 'Devanagari', or_IN: 'Oriya',
@@ -32,6 +32,18 @@ for (const code of codes) {
 // Cancellation is irreversible only for the messages covered by this request.
 // Retrying must retain the pause and the warning about uncertain delivery.
 const meanings = {
+  zu: {
+    cancel: /ngeke kubuyiselwe.*ngemva kwalesi sicelo izogcinwa/,
+    description: /awukwazi ukubuyiswa.*okungaqinisekisiwe.*kungase kuphindwe.*kugcina ukumiswa kwesikhashana/,
+  },
+  xh: {
+    cancel: /awunakubuyiselwa.*emva kwesi sicelo iya kugcinwa/,
+    description: /awunakubuyiswa.*esingaqinisekanga.*kunokuphindwa.*kugcina ukunqumama/,
+  },
+  ny: {
+    cancel: /sizingabwezeretsedwe.*pambuyo pa pempholi adzasungidwa/,
+    description: /sungabwezedwe.*sizikudziwika.*kungabwerezedwe.*kumasunga kuimitsidwa kaye/,
+  },
   bho: {
     cancel: /वापस ना लावल जा सकी.*निहोरा के बाद.*बचल रही/,
     description: /वापस ना लिहल जा सकेला.*नतीजा पक्का नइखे.*दोबारा.*रोक बनल रहेला/,
@@ -97,6 +109,7 @@ const meanings = {
     description: /yzyna alyp bolmaýar.*näbelli.*gaýtalanyp biler.*arakesmäni saklaýar/,
   },
 };
+meanings['zu-ZA'] = meanings.zu;
 for (const [code, expected] of Object.entries(meanings)) {
   assert.match(read(code)['email-recovery-confirm-cancel'], expected.cancel, `${code}: cancellation boundaries`);
   assert.match(read(code)['email-recovery-description'], expected.description, `${code}: delivery and pause warnings`);
@@ -115,4 +128,7 @@ assert.match(read('bho')['email-recovery-unavailable'], /जाँचीं/);
 assert.match(read('mai')['email-recovery-unavailable'], /जाँचू/);
 assert.match(read('kok')['email-recovery-unavailable'], /तपासात/);
 assert.match(read('or_IN')['email-recovery-empty'], /ନାହିଁ ଏବଂ.*ନାହିଁ/);
+assert.match(read('zu')['email-recovery-queued'], /Imilayezo esemugqeni/);
+assert.match(read('xh')['email-recovery-queued'], /Imiyalezo esemgceni/);
+assert.match(read('ny')['email-recovery-queued'], /Mauthenga.*pamzere/);
 console.log(`Email recovery translations: ${keys.length} messages in ${codes.length} locales passed`);
