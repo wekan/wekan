@@ -3022,6 +3022,29 @@ Structural tests do not establish fluency.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/da66adfca1">Translate Scrum history and recovery in Acehnese, Aymara, Guarani and Quechua</a>. Thanks to xet7.</summary>
+
+Fill 80 English placeholders, bringing scope history, GitLab estimates,
+paging and import recovery to 224 locale tags, with ten remaining. Preserve
+existing translations, source order and exact placeholder inventories.
+Extend checks for incomplete history, clearing missing weights and recovery
+that only permits discarding without board changes. Aymara recovery wording
+expresses availability rather than an obligation to finish the import.
+Reject English-prefix filler in the new Aymara and Quechua scope messages.
+
+Six catalog and batch suites and all 21 human-preference checks pass.
+Specialist wording in these four languages has lower confidence and needs
+speaker review. The broader backlog, including older wrongly seeded values,
+remains. References include
+[Guarani vocabulary](https://www.guaraniayvu.com/),
+[Quechua dictionaries](https://www.illaa.org/pirwa/diccionarios/DicEspCusAyaLaSalle.pdf),
+[Aymara technical vocabulary](https://diliandes.funproeibandes.org/wp-content/uploads/2023/10/Lexico-tecnico-y-moderno-del-idioma-Aymara.pdf)
+and [Acehnese vocabulary](https://bahasaaceh.com/wp-content/uploads/2013/03/hubungan-bahasa-aceh-dengan-bahasa-melayu.pdf).
+Structural tests do not establish fluency.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
