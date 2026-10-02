@@ -25,6 +25,30 @@ Boards.deny({
   },
 });
 
+// BackgroundBleed: backgroundImageId may name only an attachment of this same
+// board. The UI sets it from the board's own background picker, so pointing it
+// anywhere else is an attempt to read another board's file through the
+// background download API.
+Boards.deny({
+  async update(userId, doc, fields, modifier) {
+    const renamed = modifier.$rename && Object.values(modifier.$rename).includes('backgroundImageId');
+    const id = modifier.$set && modifier.$set.backgroundImageId;
+    if (!renamed && !id) return false;
+    if (!renamed) {
+      const Attachments = require('/models/attachments').default;
+      const attachment = await Attachments.findOneAsync({ _id: id });
+      if (require('/models/lib/boardBackground').isOwnBoardBackground(doc, attachment)) return false;
+    }
+    try {
+      require('/server/lib/securityLog').record({
+        key: 'authz.background', action: 'blocked', source: 'ddp:boards.update', userId,
+        detail: 'Tried to set a board background to an attachment of another board.',
+      });
+    } catch (e) { /* logging must never break the guard */ }
+    return true;
+  },
+});
+
 Boards.allow({
   async insert(userId, doc) {
     // Check if user is logged in

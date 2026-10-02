@@ -461,6 +461,16 @@ Meteor.methods({
       if (!attachment) {
         throw new Meteor.Error('attachment-not-found', 'Background attachment not found');
       }
+      // BackgroundBleed: only this board's own attachment is its background.
+      if (!require('/models/lib/boardBackground').isOwnBoardBackground(board, attachment)) {
+        try {
+          require('/server/lib/securityLog').record({
+            key: 'authz.background', action: 'blocked', source: 'api.board.downloadBackground', userId: this.userId,
+            detail: 'A board background pointed at an attachment of another board.',
+          });
+        } catch (e) { /* logging must never break the guard */ }
+        throw new Meteor.Error('attachment-not-found', 'Background attachment not found');
+      }
 
       try {
         const { apiDownloadBlocked, effectiveApiDownloadMaxBytes } = await getApiTransferLimits();

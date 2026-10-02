@@ -35,6 +35,9 @@ const CATALOG = {
   'authz.repoint':   { category: 'authz', bleed: 'RepointBleed', severity: 'high', cwe: 'CWE-863' },
   // PrototypeBleed: a '__proto__' (or '.', '$') map key sent to the per-user
   // layout methods; see models/lib/safeMapKey.js. No client sends one.
+  // BackgroundBleed: a board background pointed at another board's attachment
+  // (models/lib/boardBackground.js). The UI only offers the board's own.
+  'authz.background': { category: 'authz', bleed: 'BackgroundBleed', severity: 'high', cwe: 'CWE-639' },
   'injection.prototype': { category: 'injection', bleed: 'PrototypeBleed', severity: 'high', cwe: 'CWE-1321' },
   // SyncBleed (GHSA-5q84-p3vr-f3xv): a List Sync server address on a private,
   // loopback or link-local network, refused when saved and on every fetch.
