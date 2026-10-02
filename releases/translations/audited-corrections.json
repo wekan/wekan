@@ -159815,5 +159815,12 @@
     "before": "Gallout a reot adsevel an daolenn en ur glikañ war ar bouton « Dielloù » e penn an degemer.",
     "after": "Gallout a rit adsevel an daolenn eus « Dielloù » war bajenn « An holl daolennoù ».",
     "reason": "Retain the newer native-language wording and current source meaning after reviewing the superseded audit correction."
+  },
+  {
+    "locale": "tig",
+    "key": "cardType-linkedCard",
+    "before": "ዝተራኸበ ወረቀት ካርድ",
+    "after": "ለትአሰረ ወረቀት ካርድ",
+    "reason": "2026-10-02: Replace the remaining Tigrinya relative clause in the linked-card label with a Tigre relative form, retaining the established card noun. Low-confidence specialist wording; speaker review remains welcome."
   }
 ]
