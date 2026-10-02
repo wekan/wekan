@@ -861,12 +861,16 @@ publishComposite('board', async function(boardId, isArchived, generation) {
           return await ReactiveCache.getSwimlanes({ boardId: board._id, archived: isArchived }, {}, true);
         }
       },
-      // Integrations
+      // Integrations. A webhook URL is a credential (a chat hook URL carries
+      // its secret in the path), so only the board's admins - who manage
+      // them - receive it. Everybody else gets what the card-opened hook
+      // needs to name an integration (outgoingWebhooks looks it up by _id).
       {
         async find(board) {
+          const isBoardAdmin = !!(thisUserId && findWhere(board.members || [], { userId: thisUserId, isActive: true, isAdmin: true }));
           return await ReactiveCache.getIntegrations(
             { boardId: board._id },
-            { fields: { token: 0 } },
+            { fields: isBoardAdmin ? { token: 0 } : { boardId: 1, enabled: 1, activities: 1 } },
             true,
           );
         }

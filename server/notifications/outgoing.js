@@ -187,10 +187,14 @@ Meteor.methods({
         // AND that the caller is a member of that board. Otherwise any
         // authenticated user could drive webhooks (and, via the two-way
         // response path below, overwrite comments) on boards they cannot access.
-        const storedIntegration = await ReactiveCache.getIntegration({
-          url: integration.url,
-          boardId: integration.boardId,
-        });
+        // A board member who is not its admin is published the integration
+        // without its URL (a chat webhook URL is itself a credential), so it
+        // names the integration by _id.
+        const storedIntegration = await ReactiveCache.getIntegration(
+          typeof integration._id === 'string'
+            ? { _id: integration._id, boardId: integration.boardId }
+            : { url: integration.url, boardId: integration.boardId },
+        );
         if (!storedIntegration) return;
         const integrationBoard = await ReactiveCache.getBoard(storedIntegration.boardId);
         if (!integrationBoard || !integrationBoard.hasMember(this.userId)) return;
