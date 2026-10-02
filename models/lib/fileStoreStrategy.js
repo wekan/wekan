@@ -1180,7 +1180,10 @@ export const addAttachmentFromStream = function(
   });
 };
 
-export const copyFile = async function(fileObj, newCardId, fileStoreStrategyFactory) {
+// `fileIdFor(versionName)`, when given, names the copy: a durable rule copy
+// (server/lib/syncRuleCopyCardCommand.js) derives it so a replay can find the
+// copy it already made. Without it every copy gets a fresh id, as before.
+export const copyFile = async function(fileObj, newCardId, fileStoreStrategyFactory, { fileIdFor = null } = {}) {
   const newCard = await ReactiveCache.getCard(newCardId);
 
   // Sanitize known exploits from the source content, and fix + sanitize the copied
@@ -1253,7 +1256,7 @@ export const copyFile = async function(fileObj, newCardId, fileStoreStrategyFact
             },
             userId: fileObj.userId,
             size: fileObj.size,
-            fileId: new ObjectId().toString(),
+            fileId: (fileIdFor && fileIdFor(versionName)) || new ObjectId().toString(),
           },
           true,
         );

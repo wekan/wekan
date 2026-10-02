@@ -9,7 +9,8 @@ import Swimlanes from '/models/swimlanes';
 import Attachments from '/models/attachments';
 import ChangeHistory from '/models/changeHistory';
 import { isRecordingSuppressed } from '/server/lib/historyRecordingScope';
-const { deferSyncRecording, deferSyncItemRecording, deferSyncChecklistRecording } = require('/server/lib/syncRecordingScope');
+const { deferSyncRecording, deferSyncItemRecording, deferSyncChecklistRecording, deferSyncAttachmentRecording } =
+  require('/server/lib/syncRecordingScope');
 import { diffFields } from '/models/lib/changeHistoryGroups';
 
 // Phase 5 of docs/Features/Reports/History/History.md: record EVERY remaining
@@ -225,6 +226,8 @@ Meteor.startup(() => {
   Attachments.collection.after.insert(async (userId, doc) => {
     const uploader = userId || (doc && doc.userId);
     if (doc && doc.meta && doc.meta.source === 'import') return;
+    // A durable rule copy writes this row from its saved plan.
+    if (deferSyncAttachmentRecording('attachmentHistory', doc)) return;
     await recordLifecycle('attachment', uploader, doc, 'added');
   });
 });

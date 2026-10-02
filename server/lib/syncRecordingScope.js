@@ -10,13 +10,18 @@ const ITEM_KINDS = ['itemUncomplete','itemCheck','itemHistory'];
 // names that checklist (server/lib/syncRuleChecklistLifecycleCommand.js).
 // ...and its items' two hooks, for each item the same command inserts.
 const CHECKLIST_KINDS = ['checklistActivity','checklistHistory','checklistItemActivity','checklistItemHistory'];
-async function withSyncRecordingDeferred({ cardId, boardId, listId, kinds, itemId = null, checklistId = null }, work) {
+// A copied attachment's History lifecycle hook, for a scope that names it
+// (server/lib/syncRuleCopyCardCommand.js).
+const ATTACHMENT_KINDS = ['attachmentHistory'];
+async function withSyncRecordingDeferred({ cardId, boardId, listId, kinds, itemId = null, checklistId = null,
+  attachmentId = null }, work) {
+  const named = [itemId, checklistId, attachmentId].filter(value => value !== null);
   if (![cardId,boardId,listId].every(value=>typeof value==='string'&&value) || !Array.isArray(kinds) ||
-      (itemId!==null && (typeof itemId!=='string' || !itemId)) ||
-      (checklistId!==null && (typeof checklistId!=='string' || !checklistId || itemId!==null)) ||
-      kinds.some(kind=>!(itemId!==null ? ITEM_KINDS : checklistId!==null ? CHECKLIST_KINDS : KINDS).includes(kind)) ||
+      named.length > 1 || named.some(value => typeof value!=='string' || !value) ||
+      kinds.some(kind=>!(itemId!==null ? ITEM_KINDS : checklistId!==null ? CHECKLIST_KINDS
+        : attachmentId!==null ? ATTACHMENT_KINDS : KINDS).includes(kind)) ||
       typeof work!=='function') throw new Error('sync-recording-scope-invalid');
-  const scope={cardId,boardId,listId,itemId,checklistId,kinds:new Set(kinds),active:true};
+  const scope={cardId,boardId,listId,itemId,checklistId,attachmentId,kinds:new Set(kinds),active:true};
   return storage.run(scope,async()=>{
     try{return await work();}finally{scope.active=false;}
   });
@@ -55,4 +60,13 @@ function deferSyncChecklistRecording(kind, doc) {
   scope.kinds.delete(kind);
   return true;
 }
-module.exports={withSyncRecordingDeferred,deferSyncRecording,deferSyncItemRecording,deferSyncChecklistRecording};
+// The same one-shot slot for the one attachment a scope names.
+function deferSyncAttachmentRecording(kind, doc) {
+  const scope=storage.getStore();
+  if(!scope?.active || scope.attachmentId===null || !scope.kinds.has(kind) || doc?._id!==scope.attachmentId ||
+      doc.meta?.cardId!==scope.cardId) return false;
+  scope.kinds.delete(kind);
+  return true;
+}
+module.exports={withSyncRecordingDeferred,deferSyncRecording,deferSyncItemRecording,deferSyncChecklistRecording,
+  deferSyncAttachmentRecording};

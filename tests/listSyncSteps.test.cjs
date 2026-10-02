@@ -38,7 +38,7 @@ test('every missing condition keeps the direct path, and says which (negative)',
   const { RULE_CHECKLIST_ACTIONS } = require('../server/lib/syncRuleChecklistCommand');
   assert.deepEqual([...DURABLE_RULE_ACTIONS], ['sendEmail', 'archive', 'unarchive', ...Object.keys(RULE_CARD_ACTIONS),
     ...Object.keys(RULE_CHECKLIST_ACTIONS), ...require('../server/lib/syncRuleMoveCommand').RULE_MOVE_ACTIONS,
-    ...require('../server/lib/syncRuleChecklistLifecycleCommand').RULE_CHECKLIST_LIFECYCLE_ACTIONS, 'sortList', 'createCard'],
+    ...require('../server/lib/syncRuleChecklistLifecycleCommand').RULE_CHECKLIST_LIFECYCLE_ACTIONS, 'sortList', 'createCard', 'copyCard'],
     'the actions with durable adapters');
   const rules = fs.readFileSync(path.join(__dirname, '../server/notifications/storedRulePlans.js'), 'utf8');
   for (const type of ['sendEmail', 'archive', 'unarchive']) assert.match(rules, new RegExp(`\\b${type}[:,]`), `${type} is registered in runStoredSyncRules`);

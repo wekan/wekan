@@ -42,6 +42,10 @@ function isInPlaceMove(action, boardId) {
 // so it is reported under a name no durable set contains.
 function durableRuleActionType(action, boardId) {
   if (!action) return null;
+  // A copy is durable on the card's own board only (syncRuleCopyCardCommand.js).
+  if (action.actionType === 'copyCard') {
+    return (action.boardId || boardId) === boardId ? 'copyCard' : 'copyCard:elsewhere';
+  }
   if (!RULE_MOVE_ACTIONS.includes(action.actionType)) return action.actionType;
   return isInPlaceMove(action, boardId) ? action.actionType : `${action.actionType}:elsewhere`;
 }

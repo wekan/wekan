@@ -10,6 +10,8 @@ import Rules from '/models/rules';
 import { EmailSendSlots } from '/server/notifications/emailQueue';
 import Activities from '/models/activities';
 import Boards from '/models/boards';
+import Attachments from '/models/attachments';
+import CardComments from '/models/cardComments';
 import Cards from '/models/cards';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
@@ -176,6 +178,8 @@ export async function runStoredSyncRules({ adapters, ...options }) {
       runStoredSyncRuleChecklist({ ...options, index: indices.get(invocation.id) })])),
     sortList: ({ invocation }) => runStoredSyncRuleSortList({ ...options, index: indices.get(invocation.id) }),
     createCard: ({ invocation }) => runStoredSyncRuleCreateCard({ ...options, index: indices.get(invocation.id) }),
+    // Same-board copies only: eligibility keeps a board copying elsewhere on direct Sync.
+    copyCard: ({ invocation }) => runStoredSyncRuleCopyCard({ ...options, index: indices.get(invocation.id) }),
     ...Object.fromEntries(RULE_CHECKLIST_LIFECYCLE_ACTIONS.map(type => [type, ({ invocation }) =>
       runStoredSyncRuleChecklistLifecycle({ ...options, index: indices.get(invocation.id) })])),
     // In-place moves only: eligibility keeps a board with any other move on
@@ -510,6 +514,183 @@ export async function runStoredSyncRuleMove({ index, ...options }) {
 const { RULE_MOVE_ACTIONS, commandId: ruleMoveCommandId, prepareRuleMoveCommand, validateRuleMoveCommand,
   sortSelector: ruleMoveSortSelector } = require('/server/lib/syncRuleMoveCommand');
 const { RULE_CARD_POSITION_FIELDS } = require('/server/lib/syncHistoryBatch');
+
+// Durable rule copyCard on the card's own board
+// (server/lib/syncRuleCopyCardCommand.js): what the copy contains is decided
+// once with the ordinary copy's own lookups and builders, then each document is
+// inserted once under its derived id - the copy and its subtasks with their
+// creation activities saved and delivered durably, each attachment's file
+// copied with its History row written from the plan, checklists, items and
+// comments directly, as Card.copy does. Every step is idempotent on replay.
+export const SyncRuleCopyCardCommands = new Mongo.Collection('listSyncRuleCopyCardCommands');
+SyncRuleCopyCardCommands.deny({ insert: () => true, update: () => true, remove: () => true });
+
+// The copy chain: like server/lib/ruleCopyCard.js, a copy action runs once per
+// causal chain - a copy (or its subtask) whose own creation triggers the same
+// action is not copied again.
+async function copiedByThisAction(commands, cardId, actionId) {
+  let current = cardId;
+  for (let depth = 0; depth < 100 && current; depth += 1) {
+    const parent = await commands.findOne({ noop: false, $or: [{ 'card._id': current }, { 'subtasks.card._id': current }] },
+      { projection: { actionId: 1, cardId: 1 } });
+    if (!parent) return false;
+    if (parent.actionId === actionId) return true;
+    current = parent.cardId;
+  }
+  return false;
+}
+
+async function captureRuleCopyCard({ plan, action, commandContext, commands }) {
+  const raw = Cards.rawCollection();
+  const source = await raw.findOne({ _id: plan.cardId, boardId: plan.boardId });
+  const createdAt = new Date();
+  const noop = () => prepareRuleCopyCardCommand({ ...commandContext, noop: true, createdAt });
+  // The ordinary action's own preconditions (server/lib/ruleCopyCard.js).
+  if (!source || source.archived || !text(action.listId) || !text(action.swimlaneId)) return noop();
+  const [board, list, swimlane] = await Promise.all([
+    Boards.findOneAsync(plan.boardId), Lists.findOneAsync(action.listId), Swimlanes.findOneAsync(action.swimlaneId),
+  ]);
+  if (!board || board.archived || !list || list.archived || list.boardId !== plan.boardId ||
+      !swimlane || swimlane.archived || swimlane.boardId !== plan.boardId) return noop();
+  if (await copiedByThisAction(commands, plan.cardId, action._id)) return noop();
+  const model = await Cards.findOneAsync(plan.cardId);
+  // Card.copy's choices for a same-board copy, by the same helpers.
+  const policy = await require('/server/lib/adminOnlyCustomFields').fieldPolicy(plan.actorId);
+  const { mayReadField } = require('/models/lib/adminOnlyCustomFields');
+  const customFieldIds = (source.customFields || []).filter(field =>
+    mayReadField(policy.definitions.get(field._id), plan.boardId, policy.adminBoards)).map(field => field._id);
+  const dependencies = [];
+  for (const dep of normalizeDependencies(source.cardDependencies)) {
+    const target = await raw.findOne({ _id: dep.cardId }, { projection: { boardId: 1 } });
+    if (target && target.boardId === plan.boardId) dependencies.push(dep);
+  }
+  const attachments = await Attachments.collection.find(liveAttachments({ 'meta.cardId': plan.cardId }),
+    { sort: { _id: 1 } }).fetchAsync();
+  const checklistsOf = cardId => Checklists.rawCollection().find({ cardId }, { sort: { sort: 1, _id: 1 } }).toArray();
+  const itemsOf = ids => (ids.length
+    ? ChecklistItems.rawCollection().find({ checklistId: { $in: ids } }, { sort: { sort: 1, _id: 1 } }).toArray() : []);
+  const checklists = await checklistsOf(plan.cardId);
+  const subtaskSources = await raw.find(childrenSelector(plan.cardId), { sort: { sort: 1, _id: 1 } }).toArray();
+  const subtaskChecklists = [];
+  for (const subtask of subtaskSources) subtaskChecklists.push(...await checklistsOf(subtask._id));
+  const comments = await CardComments.rawCollection().find({ cardId: plan.cardId }, { sort: { createdAt: 1, _id: 1 } }).toArray();
+  return prepareRuleCopyCardCommand({ ...commandContext, card: source,
+    destination: { listId: list._id, swimlaneId: swimlane._id, listTitle: list.title || '', swimlaneTitle: swimlane.title || '' },
+    cardNumber: await board.getNextCardNumber(), sort: (await model.getSort(list._id, swimlane._id, false)) + 1,
+    customFieldIds, dependencies, scrum: copiedCardScrum(source, plan.boardId), attachments,
+    checklists, items: await itemsOf(checklists.map(list => list._id)),
+    subtaskSources, subtaskDocs: subtaskSources.map(subtask => buildCopiedSubtaskFields(subtask,
+      { newParentId: 'pending', boardId: plan.boardId, swimlaneId: swimlane._id, listId: list._id })),
+    subtaskChecklists, subtaskItems: await itemsOf(subtaskChecklists.map(list => list._id)),
+    comments, commentDocs: comments.map(comment => buildCopiedComment(comment, 'pending', plan.boardId)), createdAt });
+}
+
+export async function runStoredSyncRuleCopyCard({ index, completeDelivery = runStoredSyncActivityDelivery, ...options }) {
+  const context = executionContext(options), plan = await capture(context);
+  const invocation = plan.actions[index], action = invocation?.action;
+  if (action?.actionType !== 'copyCard') throw new Error('sync-rule-copy-card-invalid');
+  const commandContext = { plan, activity: context.saved, effectId: context.effectId, index };
+  const guard = reuseWithinEvaluation(async () => {
+    await context.guard();
+    const [rule, current] = await Promise.all([
+      Rules.rawCollection().findOne({ _id: invocation.rule._id }),
+      Actions.rawCollection().findOne({ _id: action._id }),
+    ]);
+    if (!rule || !current || canonical(rule) !== canonical(invocation.rule) ||
+        canonical(current) !== canonical(action)) throw new Error('sync-rule-copy-card-configuration-changed');
+    await context.guard();
+  });
+  const commands = SyncRuleCopyCardCommands.rawCollection(), id = ruleCopyCardCommandId(invocation.id);
+  await guard();
+  let row = await commands.findOne({ _id: id });
+  if (!row) {
+    const candidate = await captureRuleCopyCard({ plan, action, commandContext, commands });
+    await guard();
+    let failure;
+    try { await commands.insertOne(candidate); } catch (error) { failure = error; }
+    row = await commands.findOne({ _id: id });
+    if (!row) throw failure || new Error('sync-rule-copy-card-command-unconfirmed');
+  }
+  let command = validateRuleCopyCardCommand(row, commandContext);
+  if (command.noop) { await guard(); return invocation.id; }
+  const actor = work => DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false }, work);
+  const activities = {
+    findOneAsync: activityId => Activities.findOneAsync(activityId, { transform: null }),
+    insertAsync: document => actor(() => withSyncActivityDeferred(document, () => Activities.insertAsync(document))),
+  };
+  const deliver = ({ receiptId, activity }) => persistSyncActivity({ activities, activity, effectId: receiptId,
+    assertCurrent: guard, completeDelivery: delivery => completeDelivery({ ...delivery, policy: options.policy,
+      trigger: options.trigger }) });
+  const insertCard = async card => {
+    await guard();
+    if (await Cards.rawCollection().findOne({ _id: card._id })) return;
+    await actor(() => withSyncRecordingDeferred({ cardId: card._id, boardId: command.boardId, listId: card.listId,
+      kinds: ['create'] }, () => Cards.insertAsync(card)));
+    if (!await Cards.rawCollection().findOne({ _id: card._id })) throw new Error('sync-rule-copy-card-unconfirmed');
+  };
+  const insertDirect = async (collection, doc, options = {}) => {
+    await guard();
+    if (!await collection.rawCollection().findOne({ _id: doc._id })) await collection.direct.insertAsync(doc, options);
+  };
+
+  // The copy, then its creation activity (which runs the copy's own rules).
+  await insertCard(command.card);
+  await deliver(command.cardActivity);
+  // Its attachments, each file once, with the History row from the plan.
+  const files = Attachments.collection.rawCollection();
+  const { copyFile } = require('/models/lib/fileStoreStrategy.js');
+  const { fileStoreStrategyFactory } = require('/models/attachments.server');
+  for (const { sourceId, attachmentId } of command.attachments) {
+    await guard();
+    if (await files.findOne({ _id: attachmentId })) continue;
+    const source = await Attachments.collection.findOneAsync(sourceId);
+    if (!source) throw new Error('sync-rule-copy-card-attachment-gone');
+    await actor(() => withSyncRecordingDeferred({ cardId: command.card._id, boardId: command.boardId,
+      listId: command.card.listId, attachmentId, kinds: ['attachmentHistory'] },
+    () => copyFile(source, command.card._id, fileStoreStrategyFactory, { fileIdFor: version =>
+      (version === 'original' ? attachmentId : `${attachmentId}-${version}`) })));
+  }
+  if (command.recorded === null) {
+    const stored = await Promise.all(command.attachments.map(file => files.findOne({ _id: file.attachmentId })));
+    if (stored.some(file => !file)) throw new Error('sync-rule-copy-card-attachment-unconfirmed');
+    await guard();
+    await commands.updateOne({ _id: command._id, recorded: null },
+      { $set: { recorded: recordCopiedAttachments(command, stored) } });
+    command = validateRuleCopyCardCommand(await commands.findOne({ _id: id }), commandContext);
+  }
+  for (const history of command.recorded) {
+    await persistSyncFieldHistory({ history: ChangeHistory, plan: history, assertCurrent: guard, fields: RULE_CHECKLIST_LIFECYCLE });
+  }
+  // The cover: the copy of the source's cover attachment, as Card.copy remaps it.
+  if (command.coverId) {
+    await guard();
+    await Cards.rawCollection().updateOne({ _id: command.card._id, coverId: { $ne: command.coverId } },
+      { $set: { coverId: command.coverId } });
+  }
+  // Checklists and items: direct inserts, as Checklist.copy does.
+  for (const checklist of command.checklists) await insertDirect(Checklists, checklist);
+  for (const item of command.items) await insertDirect(ChecklistItems, item);
+  // Subtasks, each with its creation activity, then their checklists.
+  for (const subtask of command.subtasks) {
+    await insertCard(subtask.card);
+    await deliver(subtask);
+  }
+  for (const checklist of command.subtaskChecklists) await insertDirect(Checklists, checklist);
+  for (const item of command.subtaskItems) await insertDirect(ChecklistItems, item);
+  // Comments: direct, keeping author and dates, as CardComment.copy does.
+  for (const comment of command.comments) await insertDirect(CardComments, comment, { getAutoValues: false });
+  await guard();
+  return invocation.id;
+}
+const { commandId: ruleCopyCardCommandId, prepareRuleCopyCardCommand, recordCopiedAttachments,
+  validateRuleCopyCardCommand } = require('/server/lib/syncRuleCopyCardCommand');
+const { buildCopiedSubtaskFields } = require('/models/lib/subtaskCopy');
+const { buildCopiedComment } = require('/models/lib/copiedComment');
+const { copiedCardScrum } = require('/models/lib/scrumCopy');
+const { childrenSelector } = require('/models/lib/cardParents');
+const { liveAttachments } = require('/models/lib/attachmentSoftDelete');
+const { normalizeDependencies } = require('/models/metadata/dependencies');
+const text = value => typeof value === 'string' && value.length > 0;
 
 // Durable rule createCard (server/lib/syncRuleCreateCardCommand.js): the
 // target and title resolved once with the ordinary action's own lookup, the
