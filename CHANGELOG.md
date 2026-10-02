@@ -3213,6 +3213,24 @@ Structural tests do not establish fluency. The broader translation backlog remai
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c2038081a6">Translate feature visibility settings into Tamazight</a>. Thanks to xet7.</summary>
+
+Fill 24 English placeholders in Standard Moroccan Tamazight, preserving existing
+translated values. Feature visibility messages now cover 232 locale tags;
+Cherokee and Tigre remain in this group. Cover data retention, unchanged
+permissions, approval after updates and the separate administrator and pilot
+user audiences. Describe card aging as time since creation.
+
+Four focused catalog and translation suites and all 21 human-preference checks
+pass. Specialist analytics terms and inflection have lower confidence and need
+speaker review; script checks do not establish fluency. Vocabulary references
+include the [IRCAM lexicon](https://biblio.ircam.ma/pmb/uploads/publications/177.pdf)
+and [administrative correspondence](https://biblio.ircam.ma/pmb/catalogue/doc_num.php?explnum_id=990).
+The broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
