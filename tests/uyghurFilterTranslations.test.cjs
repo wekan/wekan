@@ -650,7 +650,32 @@ const keys = [
   "email-recovery-attempts",
   "email-recovery-oldest",
   "email-recovery-next",
-  "email-recovery-changed"
+  "email-recovery-changed",
+  "email-recovery-pause",
+  "email-recovery-resume",
+  "email-recovery-cancel",
+  "email-recovery-paused",
+  "email-recovery-pending",
+  "email-recovery-empty",
+  "email-recovery-unavailable",
+  "email-recovery-busy",
+  "email-recovery-failed",
+  "email-recovery-superseded",
+  "email-recovery-confirm-cancel",
+  "email-recovery-attention",
+  "email-recovery-stopped",
+  "email-recovery-retry",
+  "email-failure-smtp-temporary",
+  "email-failure-smtp-rejected",
+  "email-failure-smtp-authentication",
+  "email-failure-smtp-configuration",
+  "email-failure-recipient-unavailable",
+  "email-failure-delivery-unconfirmed",
+  "email-failure-acknowledgement-failed",
+  "email-failure-delivery-failed",
+  "email-failure-retry-limit",
+  "sync-original-time",
+  "sync-remaining-time"
 ];
 for (const key of keys) {
   assert.ok(locale[key]?.trim(), key);
