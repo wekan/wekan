@@ -55,9 +55,41 @@ const keys = [
   "notification-activity-comments",
   "notification-activity-moves",
   "notification-activity-dates",
-  "notification-activity-checklists"
+  "notification-activity-checklists",
+  "notification-activity-attachments",
+  "notification-activity-customFields",
+  "notification-activity-archive",
+  "notification-activity-created",
+  "due-reminder-heading",
+  "due-reminder-days-label",
+  "due-reminder-off",
+  "due-reminder-webhook",
+  "due-reminder-invalid",
+  "due-reminder-saved",
+  "dependency-type-duplicates",
+  "dependency-type-is-duplicated-by",
+  "custom-field-stringtemplate-context-hint",
+  "filter-presets",
+  "filter-preset-choose",
+  "filter-preset-name",
+  "filter-preset-save",
+  "filter-preset-replace-hint",
+  "filter-preset-saved",
+  "filter-preset-applied",
+  "filter-preset-deleted",
+  "filter-preset-error",
+  "filter-card-text-label",
+  "import-report-heading",
+  "import-report-description",
+  "import-report-open-board",
+  "draggable"
 ];
-assert.deepEqual(Object.keys(locale), Object.keys(en));
+// Keys pending Transifex live in en.i18n.json only until the translating
+// agent adds them, so the locale must match English apart from those.
+const pending = new Set(JSON.parse(fs.readFileSync(path.join(__dirname,
+  '../releases/translations/pending-transifex.json'), 'utf8')).keys.map(k => k.key));
+assert.deepEqual(Object.keys(locale),
+  Object.keys(en).filter(key => key in locale || !pending.has(key)));
 for (const key of keys) {
   assert.ok(locale[key]?.trim(), key);
   assert.notEqual(locale[key], en[key], key);
@@ -88,4 +120,13 @@ assert.match(locale['instance-desc'], /Mé les persones ajuntedes.*mudé/);
 assert.match(locale['r-rule-any-trigger-help'], /un de si ativadëures.*te urdin/);
 assert.match(locale['notification-activity-description'], /@mentions ruva tres/);
 assert.equal(locale['notification-activity-comments'], locale.comments);
+assert.equal(locale['notification-activity-attachments'], locale.attachments);
+assert.match(locale['due-reminder-days-label'], /0.*positifs.*dan la scadenza.*negatifs.*do/);
+assert.match(locale['due-reminder-invalid'], /diesc.*-14.*14/);
+assert.ok(locale['custom-field-stringtemplate-context-hint'].includes('|urlencode'));
+assert.notEqual(locale['dependency-type-duplicates'], locale['dependency-type-is-duplicated-by']);
+assert.notEqual(locale['filter-preset-saved'], locale['filter-preset-deleted']);
+assert.match(locale['filter-preset-replace-hint'], /medemo inuem sostituësc/);
+assert.ok(locale['import-report-description'].includes(
+  locale['admin-panel'] + ' → ' + locale.problems + ' → ' + locale.recoveryReportTitle));
 console.log('Ladin translation batch checks passed');
