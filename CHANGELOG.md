@@ -3140,6 +3140,25 @@ Structural tests do not establish fluency.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a444593a6b">Translate Scrum history, estimates and recovery in Wolaytta</a>. Thanks to xet7.</summary>
+
+Fill twenty English placeholders in Wolaytta, bringing these Scrum groups to
+231 locale tags, with three remaining. Preserve existing translations, source
+order and exact tokens. Extend incomplete-history, missing-weight and
+discard-only recovery checks. Reject language-name prefixes in this batch:
+prefixing English text does not translate it.
+
+Six catalog and batch suites and all 21 human-preference checks pass.
+Wolaytta specialist terminology and inflection have lower confidence and
+need speaker review. Older prefixed English values and the broader translation
+backlog remain. References include
+[Wolaytta grammar and vocabulary](https://dokumen.pub/the-wolaytta-language.html)
+and [the Wolaytta phrasebook](https://en.wikivoyage.org/wiki/Wolayttattuwa_phrasebook).
+Structural tests do not establish fluency.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
