@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b076eede8a">Translate Malagasy text processing and variable messages</a>. Thanks to xet7.</summary>
+
+- Fill 29 text-processing, input-prompt and variable messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4d3b09dd7d">Translate Malagasy text selection messages</a>. Thanks to xet7.</summary>
 
 - Fill 29 text-selection, case-conversion and editing messages.
