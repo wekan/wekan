@@ -1685,6 +1685,18 @@ labels are restored.
 This release updates the following translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4f5bc318e6">Translate Ladin archive and date filters</a>. Thanks to xet7.</summary>
+
+- Fill 23 Ladin archive and date-filter placeholders, preserving filter
+  syntax, date boundaries and archive safeguards. Technical phrasing remains
+  low confidence pending native-speaker review.
+- Batch placeholder, key-order and safeguard checks pass, along with all
+  21 human-preference checks. Remaining placeholders, existing mixed-language
+  entries and browser review still need work.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f98f22c428">Finish remaining Cornish recovery and history translations</a>. Thanks to xet7.</summary>
 
 - Fill the final 19 reported Cornish prose placeholders and review 26 literal
