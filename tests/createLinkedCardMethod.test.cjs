@@ -35,25 +35,29 @@ test('#6613 follow-up: link position survives asynchronous confirmation', () => 
 });
 
 test('#6613: the server validates every link coordinate before inserting', () => {
+  // LinkedWriteBleed: the method and the REST route share createLinkedCardFor.
+  assert.match(server, /async createLinkedCard\(sourceCardId, boardId, swimlaneId, listId, sort\) \{\s*return createLinkedCardFor\(this\.userId,/);
   const method = server.slice(
-    server.indexOf('async createLinkedCard('),
-    server.indexOf('// #6608:'),
+    server.indexOf('async function createLinkedCardFor('),
+    server.indexOf('Meteor.methods({', server.indexOf('async function createLinkedCardFor(')),
   );
   for (const argument of ['sourceCardId', 'boardId', 'swimlaneId', 'listId']) {
     assert.match(method, new RegExp(`check\\(${argument}, String\\)`));
   }
   assert.match(method, /check\(sort, Number\)/);
-  assert.match(method, /allowIsBoardMemberWithWriteAccess\(this\.userId, sourceBoard\)/);
-  assert.match(method, /allowIsBoardMemberWithWriteAccess\(this\.userId/);
+  assert.match(method, /allowIsBoardMemberWithWriteAccess\(userId, sourceBoard\)/);
+  assert.match(method, /allowIsBoardMemberWithWriteAccess\(userId, destinationBoard\)/);
   assert.match(method, /destinationList\.boardId !== boardId/);
   assert.match(method, /destinationSwimlane\.boardId !== boardId/);
   assert.match(method, /await Cards\.insertAsync\(/);
 });
 
 test('#5683: allow same-board sources while refusing archived, template and pointer targets', () => {
+  // LinkedWriteBleed: the method and the REST route share createLinkedCardFor.
+  assert.match(server, /async createLinkedCard\(sourceCardId, boardId, swimlaneId, listId, sort\) \{\s*return createLinkedCardFor\(this\.userId,/);
   const method = server.slice(
-    server.indexOf('async createLinkedCard('),
-    server.indexOf('// #6608:'),
+    server.indexOf('async function createLinkedCardFor('),
+    server.indexOf('Meteor.methods({', server.indexOf('async function createLinkedCardFor(')),
   );
   assert.doesNotMatch(method, /sourceCard\.boardId === boardId/);
   assert.match(method, /sourceCard\.archived === true/);

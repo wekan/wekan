@@ -140,10 +140,13 @@ test('both REST paths that set a parent check it first', () => {
     'the parent is validated before the update runs');
 });
 
-test('the linked-card read check it was modelled on is still there', () => {
+test('the linked-card check it was modelled on is still there, and stricter', () => {
   // The advisory pointed at this as the precedent: linking across boards
-  // already required read access to the source card's board.
-  assert.ok(/checkBoardAccess\(req\.userId, sourceCard\.boardId\)/.test(restCards));
+  // required read access to the source card's board. LinkedWriteBleed
+  // (2026-10-02) made that WRITE access, the rule the in-app Link popup uses,
+  // through one shared createLinkedCardFor for the method and the REST route.
+  assert.ok(/await createLinkedCardFor\(req\.userId, String\(req\.body\.linkedId\)/.test(restCards));
+  assert.ok(/allowIsBoardMemberWithWriteAccess\(userId, sourceBoard\)/.test(restCards));
 });
 
 // ------------------------------------------------ the same hole, linked cursors

@@ -1,6 +1,7 @@
 import { cardWithChecklists } from '/server/lib/checklistDeadlines';
 import { canWriteSubtaskDeposit, recordSubtaskDepositDenial } from '/server/lib/subtaskDepositAccess';
 import { recordLinkedWriteDenial } from '/models/lib/linkedWritePolicy';
+const { isAssignedOnlyMember } = require('/models/lib/boardCardScope');
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { check, Match } from 'meteor/check';
@@ -57,6 +58,71 @@ function getTranslatedString(key, fallback, options) {
   }
   const translated = i18n.__(key, options);
   return typeof translated === 'string' ? translated : fallback;
+}
+
+// #6613 / LinkedWriteBleed: the one rule for creating a linked card, used by
+// the createLinkedCard method and the REST route (linkedId) alike. The REST
+// route used to check only READ access on the source board and clone the whole
+// source card, so a read-only or assigned-only member could link - and copy -
+// cards the method refuses them.
+async function createLinkedCardFor(userId, sourceCardId, boardId, swimlaneId, listId, sort, source) {
+  check(sourceCardId, String);
+  check(boardId, String);
+  check(swimlaneId, String);
+  check(listId, String);
+  check(sort, Number);
+  if (!userId) throw new Meteor.Error('not-authorized');
+  if (!Number.isFinite(sort)) throw new Meteor.Error('invalid-sort');
+
+  const [sourceCard, destinationBoard, destinationList, destinationSwimlane] =
+    await Promise.all([
+      Cards.findOneAsync(sourceCardId),
+      Boards.findOneAsync(boardId),
+      Lists.findOneAsync(listId),
+      Swimlanes.findOneAsync(swimlaneId),
+    ]);
+  if (!sourceCard || !destinationBoard || !destinationList || !destinationSwimlane) {
+    throw new Meteor.Error('not-found');
+  }
+  const sourceBoard = await Boards.findOneAsync(sourceCard.boardId);
+  if (!sourceBoard || !allowIsBoardMemberWithWriteAccess(userId, sourceBoard)) {
+    recordLinkedWriteDenial(source);
+    throw new Meteor.Error('not-authorized');
+  }
+  // An assigned-only member links only cards assigned to them: the link shows
+  // the source card's content in a board they control.
+  if (isAssignedOnlyMember(sourceBoard, userId) && !(sourceCard.assignees || []).includes(userId)) {
+    recordLinkedWriteDenial(source);
+    throw new Meteor.Error('not-authorized');
+  }
+  if (!allowIsBoardMemberWithWriteAccess(userId, destinationBoard)) {
+    throw new Meteor.Error('not-authorized');
+  }
+  if (
+    sourceCard.linkedId ||
+    sourceCard.archived === true ||
+    destinationList.archived === true ||
+    destinationSwimlane.archived === true ||
+    destinationList.boardId !== boardId ||
+    destinationSwimlane.boardId !== boardId ||
+    sourceCard.type === 'template-card' ||
+    sourceCard.type === 'cardType-linkedCard' ||
+    sourceCard.type === 'cardType-linkedBoard'
+  ) {
+    throw new Meteor.Error('invalid-linked-card');
+  }
+
+  return await Cards.insertAsync({
+    title: sourceCard.title || '',
+    listId,
+    swimlaneId,
+    boardId,
+    sort,
+    type: 'cardType-linkedCard',
+    linkedId: sourceCardId,
+    cardNumber: await destinationBoard.getNextCardNumber(),
+    userId: userId,
+  });
 }
 
 Meteor.methods({
@@ -145,57 +211,7 @@ Meteor.methods({
   // operation. A direct client insert could be rejected after the optimistic
   // write, leaving the Link popup open without creating anything.
   async createLinkedCard(sourceCardId, boardId, swimlaneId, listId, sort) {
-    check(sourceCardId, String);
-    check(boardId, String);
-    check(swimlaneId, String);
-    check(listId, String);
-    check(sort, Number);
-    if (!this.userId) throw new Meteor.Error('not-authorized');
-    if (!Number.isFinite(sort)) throw new Meteor.Error('invalid-sort');
-
-    const [sourceCard, destinationBoard, destinationList, destinationSwimlane] =
-      await Promise.all([
-        Cards.findOneAsync(sourceCardId),
-        Boards.findOneAsync(boardId),
-        Lists.findOneAsync(listId),
-        Swimlanes.findOneAsync(swimlaneId),
-      ]);
-    if (!sourceCard || !destinationBoard || !destinationList || !destinationSwimlane) {
-      throw new Meteor.Error('not-found');
-    }
-    const sourceBoard = await Boards.findOneAsync(sourceCard.boardId);
-    if (!sourceBoard || !allowIsBoardMemberWithWriteAccess(this.userId, sourceBoard)) {
-      recordLinkedWriteDenial('createLinkedCard');
-      throw new Meteor.Error('not-authorized');
-    }
-    if (!allowIsBoardMemberWithWriteAccess(this.userId, destinationBoard)) {
-      throw new Meteor.Error('not-authorized');
-    }
-    if (
-      sourceCard.linkedId ||
-      sourceCard.archived === true ||
-      destinationList.archived === true ||
-      destinationSwimlane.archived === true ||
-      destinationList.boardId !== boardId ||
-      destinationSwimlane.boardId !== boardId ||
-      sourceCard.type === 'template-card' ||
-      sourceCard.type === 'cardType-linkedCard' ||
-      sourceCard.type === 'cardType-linkedBoard'
-    ) {
-      throw new Meteor.Error('invalid-linked-card');
-    }
-
-    return await Cards.insertAsync({
-      title: sourceCard.title || '',
-      listId,
-      swimlaneId,
-      boardId,
-      sort,
-      type: 'cardType-linkedCard',
-      linkedId: sourceCardId,
-      cardNumber: await destinationBoard.getNextCardNumber(),
-      userId: this.userId,
-    });
+    return createLinkedCardFor(this.userId, sourceCardId, boardId, swimlaneId, listId, sort, 'createLinkedCard');
   },
 
   // #6608: archive one card selection as one acknowledged server operation.
@@ -1296,27 +1312,25 @@ WebApp.handlers.post('/api/boards/:boardId/lists/:listId/cards', async function(
   const paramParentId = req.params.parentId;
 
   // Issue #5897: create a Linked Card. When linkedId is provided, the new card
-  // references an existing card (via Card.link, type cardType-linkedCard)
-  // instead of holding its own content. Linking across boards is allowed: the
-  // caller must have read access to the linked card's board.
+  // references an existing card (type cardType-linkedCard) instead of holding
+  // its own content. Linking across boards is allowed under the same rule as
+  // the in-app Link popup (createLinkedCardFor - LinkedWriteBleed): write
+  // access to the source board, the source card visible to an assigned-only
+  // member, and a list and swimlane that belong to the destination board.
   if (req.body.linkedId) {
-    const sourceCard = await ReactiveCache.getCard(req.body.linkedId);
-    if (!sourceCard) {
-      sendJsonResult(res, { code: 404, data: { error: 'linkedId card not found' } });
-      return;
-    }
-    await Authentication.checkBoardAccess(req.userId, sourceCard.boardId);
     const siblingCards = await ReactiveCache.getCards(
       { listId: paramListId, archived: false },
       { sort: ['sort'] },
     );
-    const linkedSort = siblingCards.length;
-    const linkedNewId = await sourceCard.link(paramBoardId, req.body.swimlaneId, paramListId);
-    const linkedNextCardNumber = await board.getNextCardNumber();
-    await Cards.direct.updateAsync(
-      { _id: linkedNewId },
-      { $set: { cardNumber: linkedNextCardNumber, sort: linkedSort } },
-    );
+    let linkedNewId;
+    try {
+      linkedNewId = await createLinkedCardFor(req.userId, String(req.body.linkedId), paramBoardId,
+        String(req.body.swimlaneId || ''), paramListId, siblingCards.length, 'rest:card-link');
+    } catch (error) {
+      const code = { 'not-found': 404, 'not-authorized': 403 }[error && error.error] || 400;
+      sendJsonResult(res, { code, data: { error: (error && error.error) || 'invalid-linked-card' } });
+      return;
+    }
     sendJsonResult(res, { code: 200, data: { _id: linkedNewId } });
     const linkedCard = await ReactiveCache.getCard(linkedNewId);
     // GHSA-6jr3-42jf-vhm5: attribution comes from the session, not the body.

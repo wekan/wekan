@@ -29,10 +29,18 @@ test('live links cannot promote explicit non-writing source roles', async () => 
 });
 test('negative: method, DDP insert and link-pointer updates enforce source write access', () => {
   const methods = fs.readFileSync('server/models/cards.js', 'utf8');
-  const at = methods.indexOf('  async createLinkedCard(');
-  const body = methods.slice(at, methods.indexOf('// #6608:', at));
+  const at = methods.indexOf('async function createLinkedCardFor(');
+  const body = methods.slice(at, methods.indexOf('Meteor.methods({', at));
   assert.doesNotMatch(body, /allowIsBoardMember\(/);
-  assert.match(body, /allowIsBoardMemberWithWriteAccess\(this.userId, sourceBoard\)/);
+  assert.match(body, /allowIsBoardMemberWithWriteAccess\(userId, sourceBoard\)/);
+  // An assigned-only member links only cards assigned to them.
+  assert.match(body, /isAssignedOnlyMember\(sourceBoard, userId\) && !\(sourceCard\.assignees \|\| \[\]\)\.includes\(userId\)/);
+  // The method and the REST route (linkedId) both use that one rule; the REST
+  // route used to check only read access and clone the whole source card.
+  assert.match(methods, /return createLinkedCardFor\(this\.userId, [^)]*'createLinkedCard'\)/);
+  assert.match(methods, /await createLinkedCardFor\(req\.userId, [\s\S]*?'rest:card-link'\)/);
+  const rest = methods.slice(methods.indexOf("if (req.body.linkedId) {"), methods.indexOf("const linkedCard = await ReactiveCache.getCard(linkedNewId);"));
+  assert.doesNotMatch(rest, /checkBoardAccess|\.link\(/);
   const ddp = fs.readFileSync('server/permissions/cards.js', 'utf8');
   assert.equal((ddp.match(/await denyUnauthorizedCardLink\(/g) || []).length, 2);
   assert.match(ddp, /allowIsBoardMemberWithWriteAccess\(userId, board\)/);
