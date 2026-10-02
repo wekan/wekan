@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a593884d65">Translate Assamese sorting and logic messages</a>. Thanks to xet7.</summary>
+
+- Fill 30 sorting, text-list conversion and logic messages in Assamese.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass, as do all 21 human-preference checks. Full-language work,
+  browser and native-speaker reviews remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a7a26d117b">Translate Assamese list editing and ordering messages</a>. Thanks to xet7.</summary>
 
 - Fill 30 list-lookup, editing and ordering messages in Assamese.
