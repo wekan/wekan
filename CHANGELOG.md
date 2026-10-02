@@ -3468,6 +3468,22 @@ pass with the aligned catalogs. Translating the new instruction remains pending.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c9bb68b15c">Translate email recovery in Northern Ndebele and Waray</a>. Thanks to xet7.</summary>
+
+Fill 46 English placeholders, preserving existing translations, source order and
+exact tokens. Extend cancellation, uncertain-delivery and retained-pause checks,
+including Northern Ndebele and Waray vocabulary. Four focused catalog and
+translation suites and all 21 human-preference checks pass.
+
+Specialist workflow wording and inflection in Northern Ndebele and Waray have
+lower confidence and need speaker review. Waray terminology was checked against
+the [Waray Dictionary corpus](https://dictionary.corporaproject.org/index.php?glossary=I&sort=count).
+Structural checks do not establish fluency. Email recovery still has English
+messages in 28 locale tags; the broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
