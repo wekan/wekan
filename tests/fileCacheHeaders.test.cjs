@@ -183,4 +183,17 @@ test('every route that sends an ETag sends the private policy with it (negative)
   }
 });
 
+
+// CacheBleed siblings (2026-10-02): API answers - exports, base64 attachment
+// downloads - carried no cache policy at all, and the legacy attachments route
+// served files with none and answered every method.
+test('every API answer is no-store, and the legacy route serves files privately', () => {
+  const gate = read('server/apiMiddleware.js');
+  assert.match(gate, /if \(api\) res\.setHeader\('Cache-Control', 'no-store'\);/);
+  assert.ok(gate.indexOf("if (api) res.setHeader('Cache-Control', 'no-store');") < gate.indexOf('return next();'));
+  const legacy = read('server/routes/legacyAttachments.js');
+  assert.match(legacy, /if \(req\.method !== 'GET' && req\.method !== 'HEAD'\) return next\(\);/);
+  assert.match(legacy, /setPrivateFileCacheHeaders\(res\);/);
+});
+
 console.log(`\nfileCacheHeaders: ${passed} tests passed`);

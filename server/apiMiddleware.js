@@ -27,6 +27,11 @@ function isApiPath(url) {
 
 WebApp.handlers.use(function apiGate(req, res, next) {
   const api = isApiPath(req.url);
+  // CacheBleed, API sibling (2026-10-02): every API answer is the caller's -
+  // exports, attachment downloads as base64, board data - and none said so, so
+  // a shared cache was free to keep one by heuristics. A route may still set
+  // its own policy.
+  if (api) res.setHeader('Cache-Control', 'no-store');
   if ((api && process.env.WITH_API === 'true') || !api) {
     return next();
   }

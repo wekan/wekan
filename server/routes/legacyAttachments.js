@@ -64,6 +64,9 @@ function buildContentDispositionHeader(disposition, sanitizedFilename) {
 if (Meteor.isServer) {
   // Handle legacy attachment downloads
   WebApp.handlers.use('/cfs/files/attachments', async (req, res, next) => {
+    // Downloads only: other methods reached this duplicate route after the
+    // universal file server passed them on (CacheBleed sibling, 2026-10-02).
+    if (req.method !== 'GET' && req.method !== 'HEAD') return next();
     const attachmentId = req.url.split('/').pop();
 
     if (!attachmentId) {
@@ -102,6 +105,8 @@ if (Meteor.isServer) {
 
       // Set appropriate headers
       res.setHeader('Content-Length', attachment.size || 0);
+      // CacheBleed: served after an access check, so never shared-cacheable.
+      require('/models/lib/fileCacheHeaders').setPrivateFileCacheHeaders(res);
 
       // Treat every browser-executable MIME type like SVG: serve it as an
       // opaque download under a sandbox, regardless of untrusted stored type.
