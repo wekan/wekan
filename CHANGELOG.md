@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a7cc061ff8">Translate Assamese text processing and variable messages</a>. Thanks to xet7.</summary>
+
+- Fill 30 text-processing, variable and workspace messages in Assamese.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass, as do all 21 human-preference checks. Full-language work,
+  browser and native-speaker reviews remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e5a5f2ca2b">Translate Assamese text lookup and extraction messages</a>. Thanks to xet7.</summary>
 
 - Fill 30 text-lookup, extraction and joining messages in Assamese.
