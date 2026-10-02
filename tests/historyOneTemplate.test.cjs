@@ -73,6 +73,17 @@ test('the history table is defined exactly once, in one file', () => {
         assert.doesNotMatch(chart, /changeHistory\./);
         continue;
       }
+      // Scope replay is a sprint report chart introduced after this guard,
+      // not another paginated History browser or editor. Keep the exception
+      // bound to its chart shape and read-only report method.
+      if (relative === 'client/components/boards/scrum/scrumScopeHistory.jade' && m[1] === 'scrumScopeHistory') {
+        assert.match(text, /figure\.scrum-chart-row\.scrum-scope-row/);
+        assert.doesNotMatch(text, /\+historyTable|js-history-|\btable(?:[.(]|\s|$)/m);
+        const chart = read('client/components/boards/scrum/scrumScopeHistory.js');
+        assert.match(chart, /Meteor\.callAsync\('scrum\.getScopeHistory'/);
+        assert.doesNotMatch(chart, /changeHistory\.|\.events\s*\(/);
+        continue;
+      }
       // The keyboard undo/redo recovery notice (client/lib/historyKeyRecovery.js)
       // is a status line with Retry/Forget for ONE pending request, not a
       // history view. Pin that shape so the exception cannot hide a table.
