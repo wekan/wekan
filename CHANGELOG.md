@@ -1677,17 +1677,21 @@ template.
 
 # Upcoming WeKan ® release
 
-**In short:** Fixes **CacheBleed**: attachments and avatars are no longer
-cacheable by shared caches, so a proxy cannot serve a private board's file
-without the access check. Dependency lines show on instance boards, dependency
-messages cover more languages and regional variants, and literal keyboard
-labels are restored.
+**In short:** Fixes **CacheBleed**, so a shared cache cannot serve a private
+board's file without the access check, and **SyncBleed**, so List Sync cannot
+reach the server's internal network or echo what answered. Dependency lines
+show on instance boards, dependency messages cover more languages and regional
+variants, and literal keyboard labels are restored.
 
-This release fixes the following CRITICAL SECURITY ISSUE of [CacheBleed](https://wekan.fi/hall-of-fame/cachebleed/):
+This release fixes the following CRITICAL SECURITY ISSUES:
+
+**Attachments and avatars** - who may keep a copy of a file served after an
+access check.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/77c3957e5c">Attachments and avatars are private, revalidated responses, never shared-cacheable</a>. Thanks to alham-rizvi and xet7.</summary>
 
+[CacheBleed](https://wekan.fi/hall-of-fame/cachebleed/),
 [GHSA-w3qg-pf27-g68r](https://github.com/wekan/wekan/security/advisories/GHSA-w3qg-pf27-g68r):
 since v8.16, attachments were answered with `Cache-Control: public,
 max-age=31536000` and no `Vary` after the board access check. A shared cache in
@@ -1711,6 +1715,37 @@ route. Nothing is refused, so there is no Admin Panel → Problems key.
 
 </details>
 
+**List Sync** - which servers a Sync source may reach, and what a failure shows.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2172f19d88">Requests go through the SSRF guard, and errors carry no response text</a>. Thanks to alham-rizvi and xet7.</summary>
+
+[SyncBleed](https://wekan.fi/hall-of-fame/syncbleed/),
+[GHSA-5q84-p3vr-f3xv](https://github.com/wekan/wekan/security/advisories/GHSA-5q84-p3vr-f3xv):
+a board member with write access chooses the Gitea, Forgejo, GitLab or Jira
+server address. It was fetched with the platform `fetch()`, so it reached
+127.0.0.1, private networks and the cloud metadata address, and up to 200 bytes
+of a failed response came back in the preview and in the list's last error. An
+open and a closed internal port answered differently.
+
+Every request now goes through `fetchSafe`: internal addresses refused, DNS
+pinned, redirects refused, size and time bounded. An error carries the origin
+and HTTP status only, and a refusal does not name what a host resolved to.
+Saving Sync settings refuses an internal address too. A self-hosted tracker on
+the server's network is allowed only by the administrator, with
+`LIST_SYNC_ALLOWED_PRIVATE_HOSTS`. The browser test found that an IPv6 literal
+such as `[::1]` was looked up as a name at save time; the shared validator now
+checks it as an address.
+
+The test reproduces the report on the real fetcher for every provider. The
+negative test fails on a platform `fetch()` to anything but a fixed or
+administrator-allowed host, or a response body copied into an error, anywhere
+in the server tree. The browser test saves and previews internal addresses and
+checks the mock tracker receives nothing. Refusals show as SyncBleed in Admin
+Panel → Problems.
+
+</details>
+
 and fixes the following bug:
 
 <details>
@@ -1719,7 +1754,9 @@ and fixes the following bug:
 The dependency access rule allowed public boards and members only, so a
 signed-in non-member of an instance-wide board could read its cards but not its
 dependency lines. It now uses `readableWithoutMembership`, the rule every board
-read shares, and the test covers signed-in and signed-out readers.
+read shares, and the test covers signed-in and signed-out readers. A
+[browser test](https://github.com/wekan/wekan/commit/9b6f840a67) imports My
+Dependencies as a non-member of an instance board.
 
 </details>
 
