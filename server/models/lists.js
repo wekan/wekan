@@ -321,6 +321,11 @@ Meteor.methods({
 
     const sourceBoard = await Boards.findOneAsync(list.boardId);
     requireBoardMutation(this.userId, sourceBoard, 'moveList:source', Meteor);
+    // AssignedBleed copy sibling (2026-10-02): a list holds cards an
+    // assigned-only member cannot see; copying or moving it would show them.
+    if (!require('/models/lib/boardCardScope').mayCopyFromBoard(sourceBoard, this.userId)) {
+      throw new Meteor.Error('not-authorized', 'You cannot copy or move this list.');
+    }
 
     const targetBoard = await ReactiveCache.getBoard(boardId);
     if (!targetBoard) {
@@ -389,6 +394,11 @@ Meteor.methods({
 
     const sourceBoard = await Boards.findOneAsync(list.boardId);
     requireBoardMutation(this.userId, sourceBoard, 'moveList:source', Meteor);
+    // AssignedBleed copy sibling (2026-10-02): a list holds cards an
+    // assigned-only member cannot see; copying or moving it would show them.
+    if (!require('/models/lib/boardCardScope').mayCopyFromBoard(sourceBoard, this.userId)) {
+      throw new Meteor.Error('not-authorized', 'You cannot copy or move this list.');
+    }
 
     const desiredTitle = typeof title === 'string' && title.trim().length > 0
       ? title.trim()

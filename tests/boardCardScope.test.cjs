@@ -182,4 +182,39 @@ check('the composite parent publishes the members its children read', () => {
     'the id-only projection must not come back');
 });
 
+// AssignedBleed copy sibling (2026-10-02): copyCard, saveCardAsTemplate,
+// copySwimlane, copyList and moveList checked only that the caller belongs to
+// the source board, so an assigned-only member could copy cards they cannot
+// see - by id, or a whole list or swimlane - into a board of their own.
+check('an assigned-only member copies only a card assigned to them, never a container', () => {
+  const { mayCopyFromBoard } = require('../models/lib/boardCardScope');
+  const board = flags => ({ members: [{ userId: 'u', isActive: true, ...flags }] });
+  const mine = { assignees: ['u'] }, other = { assignees: ['x'] };
+  for (const flags of [{ isNormalAssignedOnly: true }, { isReadAssignedOnly: true }, { isCommentAssignedOnly: true }]) {
+    assert.strictEqual(mayCopyFromBoard(board(flags), 'u', mine), true);
+    assert.strictEqual(mayCopyFromBoard(board(flags), 'u', other), false, 'an unassigned card');
+    assert.strictEqual(mayCopyFromBoard(board(flags), 'u'), false, 'a list or swimlane');
+  }
+  // Everyone else copies as before (negative).
+  assert.strictEqual(mayCopyFromBoard(board({}), 'u', other), true);
+  assert.strictEqual(mayCopyFromBoard(board({}), 'u'), true);
+});
+
+check('every copy and move of board content asks the rule', () => {
+  const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
+  const cases = [
+    ['server/models/cards.js', '  async copyCard(', "mayCopyFromBoard(sourceBoard, this.userId, card)"],
+    ['server/models/cards.js', '  async saveCardAsTemplate(', "mayCopyFromBoard(sourceBoard, this.userId, card)"],
+    ['server/models/lists.js', '  async copyList(', "mayCopyFromBoard(sourceBoard, this.userId)"],
+    ['server/models/lists.js', '  async moveList(', "mayCopyFromBoard(sourceBoard, this.userId)"],
+    ['server/publications/swimlanes.js', '  async copySwimlane(', "mayCopyFromBoard(sourceBoard, this.userId)"],
+  ];
+  for (const [file, start, call] of cases) {
+    const src = read(file), at = src.indexOf(start);
+    assert.ok(at >= 0, `${file}${start}`);
+    const body = src.slice(at, src.indexOf('\n  },', at));
+    assert.ok(body.includes(call), `${start} asks mayCopyFromBoard`);
+  }
+});
+
 console.log(`\nboardCardScope: ${passed} checks passed`);

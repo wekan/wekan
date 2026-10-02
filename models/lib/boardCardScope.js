@@ -51,7 +51,17 @@ function mergeCardScope(clientSelector, scope) {
   return { $and: [client, server] };
 }
 
+// May this user copy (or move) content out of this board? A copy shows the
+// content in a board the user controls, so an assigned-only member may copy
+// only a card assigned to them - never a whole list or swimlane, which holds
+// cards they cannot see. Pass the card for a card copy, nothing for a container.
+function mayCopyFromBoard(board, userId, card) {
+  if (!isAssignedOnlyMember(board, userId)) return true;
+  return !!card && Array.isArray(card.assignees) && card.assignees.includes(userId);
+}
+
 module.exports = {
+  mayCopyFromBoard,
   boardScopeIds,
   boardCardScope,
   isAssignedOnlyMember,

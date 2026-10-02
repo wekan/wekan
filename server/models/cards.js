@@ -821,6 +821,10 @@ Meteor.methods({
     const sourceBoard = await Boards.findOneAsync(card.boardId);
     if (!allowIsBoardMember(this.userId, sourceBoard))
       throw new Meteor.Error('not-authorized');
+    // AssignedBleed copy sibling (2026-10-02): an assigned-only member copies
+    // only a card assigned to them; a copy of any other showed them its content.
+    if (!require('/models/lib/boardCardScope').mayCopyFromBoard(sourceBoard, this.userId, card))
+      throw new Meteor.Error('not-authorized');
     const destBoard = await Boards.findOneAsync(boardId);
     if (!allowIsBoardMemberWithWriteAccess(this.userId, destBoard))
       throw new Meteor.Error('not-authorized');
@@ -866,6 +870,10 @@ Meteor.methods({
     if (!card) throw new Meteor.Error('not-found');
     const sourceBoard = await Boards.findOneAsync(card.boardId);
     if (!allowIsBoardMember(this.userId, sourceBoard))
+      throw new Meteor.Error('not-authorized');
+    // AssignedBleed copy sibling (2026-10-02): an assigned-only member copies
+    // only a card assigned to them; a copy of any other showed them its content.
+    if (!require('/models/lib/boardCardScope').mayCopyFromBoard(sourceBoard, this.userId, card))
       throw new Meteor.Error('not-authorized');
 
     const { ensureTemplatesBoardForUserId } = require('/server/models/users');

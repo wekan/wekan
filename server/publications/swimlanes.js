@@ -17,6 +17,10 @@ Meteor.methods({
     const sourceBoard = await Boards.findOneAsync(swimlane.boardId);
     if (!allowIsBoardMember(this.userId, sourceBoard))
       throw new Meteor.Error('not-authorized');
+    // AssignedBleed copy sibling (2026-10-02): a swimlane holds cards an
+    // assigned-only member cannot see; copying it would show them.
+    if (!require('/models/lib/boardCardScope').mayCopyFromBoard(sourceBoard, this.userId))
+      throw new Meteor.Error('not-authorized');
     const toBoard = await ReactiveCache.getBoard(toBoardId);
     if (!toBoard) throw new Meteor.Error('not-found');
     if (!allowIsBoardMemberWithWriteAccess(this.userId, toBoard))
