@@ -14,6 +14,11 @@
 // So editing a card's title/description/due date already reaches a globally
 // configured webhook today, under those activity names.
 //
+// Since 2026-10-02 (maintainer decision) a webhook may also opt into ONE
+// consolidated `act-editCard` event (models/lib/editCardWebhook.js), so the
+// selection and the per-webhook event name below go through that helper; the
+// helper's own behaviour is pinned by tests/editCardWebhook.test.cjs.
+//
 // Run: node tests/globalWebhookEditCardActivity.test.cjs
 
 const assert = require('assert');
@@ -65,12 +70,15 @@ test('#4912: integrations are looked up on the card\'s board AND the global webh
   );
 });
 
-test('#4912: integrations are filtered by activities including this description or "all"', () => {
-  assert.match(activitiesSrc, /activities:\s*\{\s*\$in:\s*\[description, 'all'\]\s*\}/);
+test('#4912: integrations are filtered by this description, "all" or the act-editCard opt-in', () => {
+  assert.match(activitiesSrc, /activities:\s*\{\s*\$in:\s*webhookActivitySelection\(description\)\s*\}/);
+  const { webhookActivitySelection } = require('../models/lib/editCardWebhook');
+  assert.deepEqual(webhookActivitySelection('act-a-dueAt'), ['act-a-dueAt', 'all']);
 });
 
-test('#4912: matching integrations call the outgoingWebhooks Meteor method', () => {
-  assert.match(activitiesSrc, /Meteor\.call\('outgoingWebhooks', integration, description, params,/);
+test('#4912: matching integrations call the outgoingWebhooks Meteor method with their own event', () => {
+  assert.match(activitiesSrc, /const delivered = webhookDescriptionFor\(integration, description\);/);
+  assert.match(activitiesSrc, /Meteor\.call\('outgoingWebhooks', integration, delivered, deliveredParams,/);
 });
 
 console.log('\n' + passed + ' passed');

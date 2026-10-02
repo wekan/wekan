@@ -40,7 +40,10 @@ console.log('  ok - a muted kind of activity is muted, and nothing else');
 const NEVER_MUTED = new Set(['almostdue', 'pastdue', 'duenow', 'newDue', 'atUserComment', 'activity-notify',
   // Board-level structure changes: not card activity a member follows.
   'removeBoard', 'removeList', 'removeSwimlane', 'addLabel', 'removeLabel', 'createBoard', 'createCustomField',
-  'deleteCustomField', 'archivedBoard', 'importBoard']);
+  'deleteCustomField', 'archivedBoard', 'importBoard',
+  // #4912: a webhook-only event name, never an activity. The edits it reports
+  // are the a-changedTitle / a-changedDescription activities, muted as those.
+  'editCard']);
 const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
 const named = Object.keys(en).filter(key => key.startsWith('act-') && !key.startsWith('act-with')).map(key => key.slice(4));
 const unclassified = named.filter(type => !seen.has(type) && !NEVER_MUTED.has(type));
