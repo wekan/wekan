@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6565b353c2">Translate Uyghur Scrum settings and sprint planning</a>. Thanks to xet7.</summary>
+
+- Fill 48 rule-status, Scrum settings, sprint planning and backlog messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/85c3834be2">Translate Uyghur workspace and rule editor messages</a>. Thanks to xet7.</summary>
 
 - Fill 35 workspace, variable and rule-editor messages.
