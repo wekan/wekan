@@ -203,6 +203,43 @@ describe('Durable list Sync', function () {
       await Rules.rawCollection().deleteMany({ boardId }); await Triggers.rawCollection().deleteMany({ boardId });
       await collection('listSyncRuleMoveCommands').deleteMany({ boardId });
 
+      // A rule that links each new card onto another board that opted in too
+      // (2026-10-02), through a whole Sync run: the link's creation activity
+      // is delivered on that board, its rules, notifications and webhooks.
+      const otherId = Random.id(), otherListId = Random.id(), otherLaneId = Random.id();
+      await Boards.rawCollection().insertOne({ _id: otherId, title: 'Other', permission: 'private', archived: false,
+        syncEffectsEnabled: true, members: [{ userId: actor, isAdmin: true, isActive: true }] });
+      await Swimlanes.rawCollection().insertOne({ _id: otherLaneId, boardId: otherId, title: 'Lane', archived: false, sort: 0 });
+      await Lists.rawCollection().insertOne({ _id: otherListId, boardId: otherId, title: 'Inbox', archived: false, sort: 0 });
+      const linkActionId = Random.id(), linkTriggerId = Random.id();
+      await Actions.rawCollection().insertOne({ _id: linkActionId, actionType: 'linkCard', listName: 'Inbox',
+        swimlaneName: 'Lane', boardId: otherId, desc: 'link' });
+      await Triggers.rawCollection().insertOne({ _id: linkTriggerId, activityType: 'createCard', boardId,
+        listName: 'Watched', userId: '*', swimlaneName: '*', cardTitle: '*', desc: 'created' });
+      await Rules.rawCollection().insertOne({ _id: Random.id(), title: 'link', triggerId: linkTriggerId, actionId: linkActionId, boardId });
+      try {
+        assert.equal((await durableSyncDecision({ list, board: await Boards.findOneAsync(boardId), trigger: 'manual',
+          actorId: actor })).eligible, true, 'both boards opted in');
+        issues = [issue('P-1', 'First renamed'), issue('P-8', 'Linked elsewhere')];
+        const linkedRun = await run();
+        assert.deepEqual([linkedRun.durable, linkedRun.created], [true, 1], JSON.stringify(linkedRun));
+        const eighth = await Cards.rawCollection().findOne({ boardId, syncExternalId: 'P-8' });
+        const links = await Cards.rawCollection().find({ boardId: otherId, linkedId: eighth._id }).toArray();
+        assert.deepEqual(links.map(card => [card.type, card.listId]), [['cardType-linkedCard', otherListId]]);
+        assert.equal(await Activities.find({ cardId: links[0]._id, boardId: otherId, activityType: 'createCard' }).countAsync(), 1);
+        // Negative: once the other board opts out, the source board keeps direct Sync.
+        await Boards.rawCollection().updateOne({ _id: otherId }, { $set: { syncEffectsEnabled: false } });
+        assert.deepEqual(await durableSyncDecision({ list, board: await Boards.findOneAsync(boardId), trigger: 'manual',
+          actorId: actor }), { eligible: false, reason: 'rule-actions' });
+      } finally {
+        await Rules.rawCollection().deleteMany({ boardId }); await Triggers.rawCollection().deleteMany({ boardId });
+        for (const name of ['listSyncRuleLinkCardCommands']) await collection(name).deleteMany({ boardId });
+        for (const model of [Cards, Activities, Lists, Swimlanes, ChangeHistory]) {
+          await model.rawCollection().deleteMany({ boardId: otherId });
+        }
+        await Boards.rawCollection().deleteMany({ _id: otherId });
+      }
+
       // A rule action without a durable adapter keeps the direct path: since
       // 2026-10-02 every action on the card's own board has one, so a move to
       // ANOTHER board stands for it.
