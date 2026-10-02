@@ -3441,6 +3441,22 @@ messages in 32 locale tags; the broader translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6f773dd6a1">Translate email recovery in Tsonga and Venda</a>. Thanks to xet7.</summary>
+
+Fill 46 English placeholders and correct the shared pause labels: replace generic
+Tsonga filler and a Zulu phrase in Venda. Preserve correct-language translations,
+source order and exact tokens. Extend checks for cancellation boundaries,
+uncertain delivery and retries retaining a pause. All 452 translation-related
+suites and 21 human-preference checks pass in the aligned worktree.
+
+Specialist workflow phrasing and inflection in Tsonga and Venda have lower
+confidence and need speaker review. Structural checks do not establish fluency.
+Email recovery still has English messages in 30 locale tags; the broader
+translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
