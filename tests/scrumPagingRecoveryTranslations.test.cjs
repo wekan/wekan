@@ -6,7 +6,7 @@ const path = require('node:path');
 const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const english = read('en');
-const codes = ["af", "af_ZA", "ak", "am", "an", "ar", "ar-DZ", "ar-EG", "ary", "as", "ast-ES", "az", "az-AZ", "az-LA", "ba", "be", "bg", "bho", "bi", "bm", "bn", "br", "bs", "bua", "ca", "ca@valencia", "ca_ES", "ckb", "cmn", "co", "cs", "cs-CZ", "csb", "cv", "cy", "cy-GB", "da", "de", "de-AT", "de-CH", "de_DE", "ee", "el", "el-GR", "eo", "es", "es-AR", "es-CL", "es-CO", "es-LA", "es-MX", "es-PE", "es-PY", "es_CO", "et-EE", "eu", "fa", "fa-IR", "ff", "fi", "fj", "fo", "fr", "fr-BE", "fr-CA", "fr-CH", "fr-FR", "fur", "fy", "fy-NL", "ga", "gd", "gl", "gl-ES", "gu-IN", "gv", "ha", "haw", "he", "he-IL", "hi", "hi-IN", "hr", "hsb", "ht", "hu", "hy", "id", "ig", "is", "it", "ja", "ja-HI", "ja-JP", "jv", "ka", "kk", "km", "km-KH", "km_KH", "kn", "ko", "ko-KR", "kok", "ku", "kw", "ky", "la", "lb", "lg", "lt", "lv", "mai", "mg", "mi", "mk", "ml", "mn", "mr", "ms", "ms-MY", "mt", "my", "nap", "nb", "nd", "ne", "nl", "nl-NL", "nso", "ny", "oc", "om", "or_IN", "pa", "pap", "pl", "pl-PL", "ps", "pt", "pt-BR", "pt-PT", "pt_PT", "rm", "rn", "ro", "ro-RO", "ru", "ru-RU", "ru-UA", "ru_RU", "rw", "sah", "sc", "scn", "sd", "se", "si", "sk", "sl", "sl_SI", "sm", "sn", "so", "sq", "sr", "ss", "st", "sv", "sw", "szl", "ta", "te-IN", "tg", "th", "tk_TM", "tl", "tlh", "tn", "to", "tpi", "tr", "ts", "tt", "ug", "uk", "uk-UA", "ur", "uz", "uz-AR", "uz-LA", "uz-UZ", "ve", "ve-CC", "vi", "vi-VN", "vl-SS", "vo", "wa", "wa-RR", "wo", "wuu-Hans", "xh", "yi", "yo", "yue_CN", "zh", "zh-CN", "zh-GB", "zh-HK", "zh-Hans", "zh-Hant", "zh-TW", "zh_SG", "zu", "zu-ZA"];
+const codes = ["af", "af_ZA", "ak", "am", "an", "ar", "ar-DZ", "ar-EG", "ary", "as", "ast-ES", "az", "az-AZ", "az-LA", "ba", "be", "bg", "bho", "bi", "bm", "bn", "bo", "br", "bs", "bua", "ca", "ca@valencia", "ca_ES", "ckb", "cmn", "co", "cs", "cs-CZ", "csb", "cv", "cy", "cy-GB", "da", "de", "de-AT", "de-CH", "de_DE", "dz", "ee", "el", "el-GR", "eo", "es", "es-AR", "es-CL", "es-CO", "es-LA", "es-MX", "es-PE", "es-PY", "es_CO", "et-EE", "eu", "fa", "fa-IR", "ff", "fi", "fj", "fo", "fr", "fr-BE", "fr-CA", "fr-CH", "fr-FR", "fur", "fy", "fy-NL", "ga", "gd", "gl", "gl-ES", "gu-IN", "gv", "ha", "haw", "he", "he-IL", "hi", "hi-IN", "hr", "hsb", "ht", "hu", "hy", "id", "ig", "is", "it", "ja", "ja-HI", "ja-JP", "jv", "ka", "kk", "km", "km-KH", "km_KH", "kn", "ko", "ko-KR", "kok", "ks", "ku", "kw", "ky", "la", "lb", "lg", "lt", "lv", "mai", "mg", "mi", "mk", "ml", "mn", "mr", "ms", "ms-MY", "mt", "my", "nap", "nb", "nd", "ne", "nl", "nl-NL", "nso", "ny", "oc", "om", "or_IN", "pa", "pap", "pl", "pl-PL", "ps", "pt", "pt-BR", "pt-PT", "pt_PT", "rm", "rn", "ro", "ro-RO", "ru", "ru-RU", "ru-UA", "ru_RU", "rw", "sah", "sc", "scn", "sd", "se", "si", "sk", "sl", "sl_SI", "sm", "sn", "so", "sq", "sr", "ss", "st", "sv", "sw", "szl", "ta", "te-IN", "tg", "th", "ti", "tk_TM", "tl", "tlh", "tn", "to", "tpi", "tr", "ts", "tt", "ug", "uk", "uk-UA", "ur", "uz", "uz-AR", "uz-LA", "uz-UZ", "ve", "ve-CC", "vi", "vi-VN", "vl-SS", "vo", "wa", "wa-RR", "wo", "wuu-Hans", "xh", "yi", "yo", "yue_CN", "zh", "zh-CN", "zh-GB", "zh-HK", "zh-Hans", "zh-Hant", "zh-TW", "zh_SG", "zu", "zu-ZA"];
 const keys = ["scrum-show-more", "scrum-import-resume", "scrum-import-discard", "scrum-import-recovery-hint"];
 for (const code of codes) {
   const locale = read(code);
@@ -19,6 +19,7 @@ for (const code of codes) {
   assert.notEqual(locale[keys[1]], locale[keys[2]], `${code}: finish and discard are distinct actions`);
 }
 const scripts = {
+  ks: 'Arabic', bo: 'Tibetan', dz: 'Tibetan', ti: 'Ethiopic',
   'uz-AR': 'Arabic',
   ba: 'Cyrillic', bua: 'Cyrillic', cv: 'Cyrillic', sah: 'Cyrillic',
   ary: 'Arabic', 'wuu-Hans': 'Han', yue_CN: 'Han', bho: 'Devanagari', mai: 'Devanagari', kok: 'Devanagari',
@@ -83,4 +84,10 @@ assert.match(read('hi')[keys[3]], /केवल रद्द.*कुछ नह�
 assert.match(read('eu')[keys[3]], /baztertu besterik.*ez du ezer aldatzen/);
 assert.match(read('oc')[keys[3]], /reaviada/);
 assert.doesNotMatch(read('oc')[keys[3]], /redémarrage/);
+assert.match(read('bo')[keys[3]], /འདོར་བ་ཁོ་ན.*ཅི་ཡང་མི་བསྒྱུར/);
+assert.match(read('dz')[keys[3]], /བཀོ་བཞག་རྐྱངམ་ཅིག.*ག་ནི་ཡང་མི་སོར/);
+assert.match(read('ti')[keys[3]], /ክውገድ ጥራይ.*ዋላ ሓንቲ ኣይቅይርን/);
+assert.notEqual(read('bo')[keys[3]], read('dz')[keys[3]], 'Dzongkha is not a Tibetan copy');
+assert.match(read('ks')[keys[3]], /صرف منسوخ.*گَژھِ نہٕ.*کانٛہہ تبدیلی/);
+assert.doesNotMatch(read('ks')[keys[3]], /ہو سکتا ہے|نہیں ہوگا/, 'Kashmiri must not be Urdu prose');
 console.log(`Scrum paging and import recovery: ${keys.length} messages in ${codes.length} locales passed`);
