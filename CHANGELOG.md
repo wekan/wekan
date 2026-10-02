@@ -1686,6 +1686,18 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1b47a78495">Translate Amharic synchronization previews and reports</a>. Thanks to xet7.</summary>
+
+- Fill 30 synchronization-preview, source-field and run-report messages
+  in Amharic. Specialized terminology remains low confidence pending
+  native-speaker review.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass, as do all 21 human-preference checks. Full-language work and
+  browser review remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7a8f3d11d5">Translate Amharic observations and synchronization conflicts</a>. Thanks to xet7.</summary>
 
 - Fill 30 daily-observation, synchronization-conflict and preview messages
