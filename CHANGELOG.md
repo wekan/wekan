@@ -1686,6 +1686,21 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0fe8a14883">Translate Tigre dependency messages and repair completion checks</a>. Thanks to xet7.</summary>
+
+- Add the 11 missing Tigre dependency messages with preserved placeholders
+  and distinct personal/board labels and import/export actions. Technical
+  prose remains low confidence pending native-speaker review.
+- Require the literal Esperanto Pause keyboard label restored earlier,
+  while continuing to require translated editor prose.
+- Dependency translations, the shared completion suite and all 21
+  human-preference checks pass. Other untranslated strings, wrong-language
+  values and browser/native-speaker review remain.
+
+</details>
+
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1421039863">Translate missing Cherokee dependency layer messages</a>. Thanks to xet7.</summary>
 
 - Add the 11 missing Cherokee dependency messages with distinct personal and
