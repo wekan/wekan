@@ -782,6 +782,7 @@
   "import-board-instruction-leo": "Leo 개요(.leo 파일)를 붙여넣으세요. 최상위 노드는 목록이 되고, 그 자식 노드는 노드 본문을 설명으로 사용하는 카드가 되며, 더 깊은 노드는 체크리스트가 됩니다. 표시된 노드는 완료된 상태로 가져옵니다.",
   "import-board-instruction-todotxt": "todo.txt 파일을 붙여넣으세요. todo.txt 앱 및 호환 앱이 작성하는 형식으로, 한 줄에 작업 하나를 기록합니다. 완료된 작업(\"x\")은 완료로 이동하고, +project와 @context는 라벨로, (A)는 우선순위 라벨로, due:와 t:는 마감일과 시작일로 변환됩니다.",
   "import-board-instruction-taskwarrior": "Paste the output of task export: a JSON array, or one task per line. Completed tasks go to Done, project and priority become labels, annotations become comments, and depends becomes blocked-by dependencies.",
+  "import-board-instruction-focalboard": "Unzip the .boardarchive file and paste a board's board.jsonl, with or without its version line. The board view's group-by property becomes the lists, other select properties become labels, text and checkbox blocks become the description and a checklist, and comments are kept. Images and attachments are not imported.",
   "import-board-instruction-trello": "Trello 게시판에서 'Menu' -> 'More' -> 'Print and Export', 'Export JSON' 선택하여 텍스트 결과값 복사",
   "import-board-instruction-csv": "쉼표로 구분된 값(CSV)/탭으로 구분된 값(TSV) 븥여넣기.",
   "import-board-instruction-jira": "Jira Cloud REST API 이슈 검색(GET /rest/api/2/search)의 JSON 또는 동등한 { \"issues\": [...] } 객체를 붙여넣으세요. Jira 상태는 목록이 되고 이슈는 카드가 됩니다. 선택적으로 \"automationRules\" 배열을 포함하여 규칙을 가져올 수 있습니다.",

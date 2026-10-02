@@ -782,6 +782,7 @@
   "import-board-instruction-leo": "Leoのアウトライン（.leoファイル）を貼り付けてください。最上位のノードはリストに、その子ノードはノード本文を説明とするカードに、さらに深いノードはチェックリストになります。マークされたノードは完了済みとしてインポートされます。",
   "import-board-instruction-todotxt": "todo.txtファイルを貼り付けてください。todo.txtアプリや互換アプリが書き出す形式で、1行に1つのタスクを記述します。完了したタスク（\"x\"）は完了済みに移動し、+projectと@contextはラベルに、(A)は優先度ラベルに、due:とt:は期限日と開始日になります。",
   "import-board-instruction-taskwarrior": "Paste the output of task export: a JSON array, or one task per line. Completed tasks go to Done, project and priority become labels, annotations become comments, and depends becomes blocked-by dependencies.",
+  "import-board-instruction-focalboard": "Unzip the .boardarchive file and paste a board's board.jsonl, with or without its version line. The board view's group-by property becomes the lists, other select properties become labels, text and checkbox blocks become the description and a checklist, and comments are kept. Images and attachments are not imported.",
   "import-board-instruction-trello": "Trelloボードの、 'Menu' → 'More' → 'Print and Export' → 'Export JSON'を選択し、テキストをコピーしてください。",
   "import-board-instruction-csv": "カンマ区切り（CSV） / タブ区切り（TSV） ファイルに貼り付けてください。",
   "import-board-instruction-jira": "Jira Cloud REST API の issue 検索(GET /rest/api/2/search)の JSON、または同等の { \"issues\": [...] } オブジェクトを貼り付けてください。Jira のステータスはリストに、Issue はカードになります。任意で「automationRules」配列を含めるとルールもインポートされます。",

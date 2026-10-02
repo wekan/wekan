@@ -782,6 +782,7 @@
   "import-board-instruction-leo": "粘贴 Leo 大纲（.leo 文件）。顶层节点会成为列表，其子节点会成为卡片，并以节点正文作为描述；更深层的节点会成为检查清单。已标记的节点会以已完成状态导入。",
   "import-board-instruction-todotxt": "粘贴 todo.txt 文件：每行一个任务，采用 todo.txt 应用及兼容应用写出的格式。已完成的任务（\"x\"）归入已完成，+project 和 @context 转为标签，(A) 转为优先级标签，due: 和 t: 转为截止日期和开始日期。",
   "import-board-instruction-taskwarrior": "Paste the output of task export: a JSON array, or one task per line. Completed tasks go to Done, project and priority become labels, annotations become comments, and depends becomes blocked-by dependencies.",
+  "import-board-instruction-focalboard": "Unzip the .boardarchive file and paste a board's board.jsonl, with or without its version line. The board view's group-by property becomes the lists, other select properties become labels, text and checkbox blocks become the description and a checklist, and comments are kept. Images and attachments are not imported.",
   "import-board-instruction-trello": "在你的 Trello 看板中，依次选择“菜单”（Menu）、“更多”（More）、“打印和导出”（Print and Export）、“导出 JSON”（Export JSON），然后复制生成的文本。",
   "import-board-instruction-csv": "粘贴逗号分隔值(CSV)/制表符分隔值(TSV)。",
   "import-board-instruction-jira": "粘贴来自 Jira Cloud REST API issue 搜索（GET /rest/api/2/search）的 JSON，或等效的 { \"issues\": [...] } 对象。Jira 状态成为列表，issues 成为卡片。可选地包含 \"automationRules\" 数组以导入规则。",
