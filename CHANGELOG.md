@@ -3355,6 +3355,25 @@ Structural checks do not establish fluency. Email recovery remains in English in
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/73adc5c029">Translate email recovery in Kinyarwanda, Kirundi, Luganda and Oromo</a>. Thanks to xet7.</summary>
+
+Fill 92 English placeholders, preserving existing translated values, source order
+and exact tokens. Extend cancellation and retry-warning checks for all four
+locales. Preserve messages created after a cancellation request, the warning
+about uncertain delivery and any existing pause during retries. Keep distinct
+Kinyarwanda and Kirundi wording, and correct the Luganda update status and Oromo
+cancellation question during review.
+
+Four focused catalog and translation suites and all 21 human-preference checks
+pass. Specialist workflow phrasing and inflection have lower confidence and need
+speaker review. Vocabulary references include [Kirundi public-service wording](https://tax.vermont.gov/rn/ikirundi)
+and the [Luganda mentorship handbook](https://rebuild.rescue.org/sites/default/files/2024-01/Participant%20Handbook%20Basic%20Mentorship%20-%20Luganda.pdf).
+Structural checks do not establish fluency. Email recovery still has English
+messages in 42 locale tags; the broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
