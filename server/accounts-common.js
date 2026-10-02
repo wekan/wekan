@@ -11,6 +11,13 @@ Meteor.startup(() => {
     loginExpirationInDays: LOGIN_EXPIRATION_DAYS,
     clientStorage: 'none',
     useHttpOnlyCookies: true,
+    // CodeBleed (2026-10-02): a passwordless sign-in code was 6 hex
+    // characters (16.7 million values) valid for an hour, and failed codes are
+    // not counted by the lockout - only Meteor's per-connection rate limit
+    // stood in the way, which many connections walk around. 10 characters is
+    // over a trillion values, and a code now lives 15 minutes.
+    tokenSequenceLength: 10,
+    loginTokenExpirationHours: 0.25,
   });
 });
 

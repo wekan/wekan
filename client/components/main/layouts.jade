@@ -86,7 +86,7 @@ template(name="userFormsLayout")
               p {{_ 'passwordless-code-sent'}}
               label(for="passwordless-code")
                 | {{_ 'passwordless-enter-code'}}
-                input#passwordless-code(type="text" inputmode="numeric" autocomplete="one-time-code" required)
+                input#passwordless-code(type="text" autocomplete="one-time-code" autocapitalize="none" spellcheck="false" maxlength="10" required)
               div.buttonsContainer
                 input.primary(type="submit" value="{{_ 'passwordless-sign-in'}}")
                 button.js-passwordless-cancel(type="button") {{_ 'cancel'}}
