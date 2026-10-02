@@ -15,6 +15,7 @@ September 2026 interface; labels and available formats can change with releases.
 | ZIP the stopped `files` directory | The same data, in a portable archive | [Archive the data directory](#archive-the-files-directory) |
 | ZIP the stopped installation directory | Data plus startup scripts and settings kept inside it | [Archive the whole installation](#archive-the-whole-installation) |
 | Admin Panel backup, now or scheduled | All application collections and selected attachment/avatar versions; see coverage limits below | [Scheduled backups](#admin-panel-backup-and-schedules) |
+| Admin Panel continuous backup | Every change to the database, filesystem attachments, avatars and logs within seconds, restorable to a chosen moment | [Continuous-Backup.md](Continuous-Backup.md) |
 | Local or remote S3-compatible storage | A destination for archives or separately backed-up objects | [Storage alternatives](#s3-compatible-and-other-storage) |
 | Board, list, swimlane or card export | Selected content for exchange, rather than a complete server copy | [Export and import](#export-and-import-selected-content) |
 | MongoDB, Snap, Docker or Sandstorm backup | Deployment-specific data and settings | [Other deployments](#other-deployments-and-older-installations) |

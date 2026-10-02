@@ -231,6 +231,8 @@ import '/server/lib/utils';
 // 10. Server — methods
 // ----------------------------------------------------------------------------
 import '/server/methods/backup';
+// Admin Panel / Attachments / Continuous backup (docs/Backup/Continuous-Backup.md).
+import '/server/continuousBackup';
 import '/server/methods/fixDuplicateLists';
 import '/server/methods/icsImport';
 import '/server/methods/lockedUsers';

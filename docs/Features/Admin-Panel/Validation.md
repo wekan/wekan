@@ -83,6 +83,7 @@ are not reachable from the current Admin Panel menu. Current storage panes use
 | Pane / URL slug | Implementation | Behavior and limits |
 | --- | --- | --- |
 | Backup (`backup`) | [backup.js](../../../server/methods/backup.js) | Repaired: scheduler startup, full database/file archive, checksums, portable paths and error handling. See Backup.md. |
+| Continuous backup (`continuous-backup`) | [continuousBackup.js](../../../server/continuousBackup.js) | New: streams database (oplog or SQLite pages, optional Litestream), attachments, avatars and logs; point-in-time restore verified before writing. Unit, real-database integration, server-method and Chromium/WebKit UI tests. See Continuous-Backup.md. |
 | Move Attachment (`move`) | [attachmentBulkMove.js](../../../server/attachmentBulkMove.js) | Persisted move jobs, progress, pause/resume/cancel and location repair. Cloud endpoints require live-service tests. |
 | Default Save Storage (`default-save-storage`) | [attachmentStorageSettings.js](../../../server/models/attachmentStorageSettings.js) | Validates backend and persists default for new files. |
 | Limits (`limits`) | [attachmentStorageSettings.js](../../../server/models/attachmentStorageSettings.js) | Saves size/blocking policies used by upload/download routes. |

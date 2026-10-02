@@ -1,6 +1,7 @@
 import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
+import { Tracker } from 'meteor/tracker';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 // The per-pane URLs of the Admin Panel. docs/Features/Page/Admin-Panel-URLs.md
 import { adminPath } from '/models/lib/adminUrls';
@@ -311,6 +312,17 @@ Template.attachments.onCreated(function () {
   this.backupSchedule = new ReactiveVar(null);
   this.selectedBackup = new ReactiveVar('');
   this.backupPoll = null;
+  // Admin Panel / Attachments / Continuous backup: loaded when the pane opens,
+  // its status polled while it stays open.
+  this.cbConfig = new ReactiveVar(null);
+  this.cbStatus = new ReactiveVar(null);
+  this.cbPoints = new ReactiveVar(null);
+  this.cbMessage = new ReactiveVar(null);
+  this.cbEngine = new ReactiveVar('auto');
+  this.autorun(() => {
+    if (this.activeSection.get() !== 'continuous-backup') { Meteor.clearInterval(this.cbPoll); this.cbPoll = null; return; }
+    Tracker.nonreactive(() => loadContinuousBackup(this));
+  });
   // Multitenancy option D (D.8): the scopes this admin may back up. The server
   // answers with the whole instance's Organizations for a site admin and with only
   // their own for a per-tenant Global Admin - and refuses any other scope when the
@@ -371,6 +383,7 @@ Template.attachments.onCreated(function () {
 });
 
 Template.attachments.onDestroyed(function () {
+  Meteor.clearInterval(this.cbPoll);
   if (this.migratePoll) {
     Meteor.clearTimeout(this.migratePoll);
     this.migratePoll = null;
@@ -463,6 +476,38 @@ function startDbMigration(tpl, direction) {
   });
 }
 
+function loadContinuousBackup(tpl) {
+  Meteor.call('continuousBackup.getSettings', (error, config) => {
+    if (error) { tpl.cbMessage.set({ error: error.reason || error.message }); return; }
+    tpl.cbConfig.set(config);
+    tpl.cbEngine.set(config.settings.engine);
+  });
+  const poll = () => Meteor.call('continuousBackup.status', (error, status) => { if (!error) tpl.cbStatus.set(status); });
+  poll();
+  Meteor.clearInterval(tpl.cbPoll);
+  tpl.cbPoll = Meteor.setInterval(poll, 5000);
+}
+// The form, as the settings the server validates again.
+function continuousBackupForm(tpl) {
+  const checked = name => tpl.$(`.js-cb-${name}`).hasClass('is-checked');
+  const number = name => Number(tpl.$(`.js-cb-${name}`).val());
+  return {
+    enabled: checked('enabled'), target: String(tpl.$('.js-cb-target').val() || '').trim(),
+    database: checked('database'), attachments: checked('attachments'), avatars: checked('avatars'), logs: checked('logs'),
+    engine: tpl.$('.js-cb-engine').val() || 'auto',
+    sqliteIntervalSeconds: number('sqliteIntervalSeconds'), fileScanSeconds: number('fileScanSeconds'),
+    baseEveryHours: number('baseEveryHours'), keepDays: number('keepDays'),
+    litestreamBinary: String(tpl.$('.js-cb-litestreamBinary').val() || '').trim(),
+    litestreamReplicaUrl: String(tpl.$('.js-cb-litestreamReplicaUrl').val() || '').trim(),
+  };
+}
+// A datetime-local value as milliseconds, in the browser's own time zone.
+const localMillis = value => (value ? new Date(value).getTime() : NaN);
+const localInputValue = millis => {
+  const date = new Date(millis - new Date(millis).getTimezoneOffset() * 60000);
+  return date.toISOString().slice(0, 16);
+};
+
 function pollBackupStatus(tpl) {
   Meteor.call('backupStatus', (err, status) => {
     if (err || !status) return;
@@ -498,6 +543,10 @@ function attachmentsMenu(user) {
     // Backup first: it is what an admin comes to this page for most often, and it
     // is the one action here that has to be reachable in a hurry.
     { id: 'backup', icon: 'fa-archive', labelKey: 'backup', emoji: true },
+    // Beside Backup: archives at intervals there, every change as it happens
+    // here (docs/Backup/Continuous-Backup.md). Site administrators only - the
+    // tenant filter below keeps Backup alone for an Organization administrator.
+    { id: 'continuous-backup', icon: 'fa-refresh', labelKey: 'continuous-backup', emoji: true },
     { id: 'move', icon: 'fa-arrow-right', labelKey: 'attachment-move', emoji: true },
     { id: 'default-save-storage', icon: 'fa-save', labelKey: 'default-save-storage', emoji: true },
     { id: 'limits', icon: 'fa-sliders', labelKey: 'attachment-limits', emoji: true },
@@ -577,6 +626,45 @@ Template.attachments.helpers({
   },
   isBackupActive() {
     return Template.instance().activeSection.get() === 'backup';
+  },
+  isContinuousBackupActive() {
+    return Template.instance().activeSection.get() === 'continuous-backup';
+  },
+  cbSettings() {
+    return Template.instance().cbConfig.get()?.settings;
+  },
+  cbChecked(field) {
+    return !!Template.instance().cbConfig.get()?.settings?.[field];
+  },
+  cbEngineSelected(engine) {
+    return Template.instance().cbEngine.get() === engine;
+  },
+  cbLitestream() {
+    return Template.instance().cbEngine.get() === 'litestream';
+  },
+  // Which engine would run with the saved choice, or why none can.
+  cbChoice() {
+    return Template.instance().cbConfig.get()?.choice;
+  },
+  cbReasons() {
+    const reasons = Template.instance().cbConfig.get()?.choice?.reasons || {};
+    return Object.entries(reasons).filter(([, reason]) => reason).map(([engine, reason]) => ({ engine, reason }));
+  },
+  cbStatus() {
+    return Template.instance().cbStatus.get();
+  },
+  cbLastChange() {
+    const engines = Template.instance().cbStatus.get()?.engines || {};
+    const times = Object.values(engines).map(engine => engine.lastChangeAt).filter(Boolean);
+    return times.length ? new Date(Math.max(...times)).toLocaleString() : '-';
+  },
+  cbPoints() {
+    return (Template.instance().cbPoints.get() || []).map(point => ({ ...point,
+      fromText: new Date(point.from).toLocaleString(), untilText: new Date(point.until).toLocaleString(),
+      untilInput: localInputValue(point.until) }));
+  },
+  cbMessage() {
+    return Template.instance().cbMessage.get();
   },
   // Sandstorm pane helpers - commented out with the pane (see attachmentsMenu).
   // isSandstormActive() {
@@ -1021,6 +1109,46 @@ Template.attachments.events({
     Meteor.call('saveBackupSchedule', schedule, (error, saved) => {
       if (error) tpl.backupStatus.set({ phase: 'error', error: error.reason || error.message, success: false });
       else if (saved) tpl.backupSchedule.set(saved);
+    });
+  },
+  'change .js-cb-engine'(event, tpl) {
+    tpl.cbEngine.set(event.currentTarget.value);
+  },
+  'click .js-cb-save'(event, tpl) {
+    event.preventDefault();
+    tpl.cbMessage.set(null);
+    Meteor.call('continuousBackup.saveSettings', continuousBackupForm(tpl), (error, status) => {
+      if (error) { tpl.cbMessage.set({ error: error.reason || error.message }); return; }
+      tpl.cbStatus.set(status);
+      tpl.cbMessage.set({ success: TAPi18n.__('continuous-backup-saved') });
+      loadContinuousBackup(tpl);
+    });
+  },
+  'click .js-cb-points'(event, tpl) {
+    event.preventDefault();
+    Meteor.call('continuousBackup.restorePoints', (error, points) => {
+      if (error) tpl.cbMessage.set({ error: error.reason || error.message });
+      else tpl.cbPoints.set(points || []);
+    });
+  },
+  'change .js-cb-point'(event, tpl) {
+    const until = $(event.currentTarget).data('until');
+    if (until) tpl.$('.js-cb-until').val(until);
+  },
+  'click .js-cb-restore'(event, tpl) {
+    event.preventDefault();
+    const generation = tpl.$('.js-cb-point:checked').val();
+    if (!generation) { window.alert(TAPi18n.__('backup-restore-select-first')); return; }
+    const until = localMillis(tpl.$('.js-cb-until').val());
+    const what = tpl.$('.js-cb-what').val();
+    const mode = tpl.$('.js-cb-mode').val();
+    const point = (tpl.cbPoints.get() || []).find(p => p.name === generation);
+    if (!Number.isFinite(until) || !window.confirm(TAPi18n.__('continuous-backup-restore-confirm'))) return;
+    const request = { generation, until, what, ...(what === 'sqlite' ? { database: (point?.sqlite || [])[0] || 'wekan' } : { mode }) };
+    tpl.cbMessage.set(null);
+    Meteor.call('continuousBackup.restore', request, (error, result) => {
+      if (error) tpl.cbMessage.set({ error: error.reason || error.message });
+      else tpl.cbMessage.set({ success: `${TAPi18n.__('continuous-backup-restore-done')}: ${JSON.stringify(result)}` });
     });
   },
   'click .js-list-backups'(event, tpl) {

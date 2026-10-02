@@ -576,6 +576,125 @@ template(name="attachments")
                   .form-group
                     button.js-restore-backup.btn.btn-warning(type="button" disabled=backupRunning) {{_ 'backup-restore'}}
 
+          else if isContinuousBackupActive
+            //- Admin Panel / Attachments / Continuous backup
+            //- (docs/Backup/Continuous-Backup.md): every change streamed to a
+            //- directory, restorable to a moment. Site administrators only.
+            ul#attachment-continuous-backup-setting.setting-detail
+              li
+                p.form-text.text-muted {{_ 'continuous-backup-description'}}
+                if cbMessage
+                  if cbMessage.error
+                    p.form-text.text-danger.js-cb-message {{cbMessage.error}}
+                  if cbMessage.success
+                    p.form-text.text-success.js-cb-message {{cbMessage.success}}
+                if cbSettings
+                  .form-group.checkbox-row
+                    a.flex.js-toggle-checkbox
+                      .materialCheckBox.js-cb-enabled(class="{{#if cbChecked 'enabled'}}is-checked{{/if}}")
+                      span {{_ 'continuous-backup-enabled'}}
+                  .form-group
+                    label {{_ 'continuous-backup-target'}}
+                    input.wekan-form-control.js-cb-target(type="text" value=cbSettings.target)
+                  .form-group
+                    label {{_ 'continuous-backup-include'}}
+                    .checkbox-row
+                      a.flex.js-toggle-checkbox
+                        .materialCheckBox.js-cb-database(class="{{#if cbChecked 'database'}}is-checked{{/if}}")
+                        span {{_ 'continuous-backup-database'}}
+                      a.flex.js-toggle-checkbox
+                        .materialCheckBox.js-cb-attachments(class="{{#if cbChecked 'attachments'}}is-checked{{/if}}")
+                        span {{_ 'attachments'}}
+                      a.flex.js-toggle-checkbox
+                        .materialCheckBox.js-cb-avatars(class="{{#if cbChecked 'avatars'}}is-checked{{/if}}")
+                        span {{_ 'avatars'}}
+                      a.flex.js-toggle-checkbox
+                        .materialCheckBox.js-cb-logs(class="{{#if cbChecked 'logs'}}is-checked{{/if}}")
+                        span {{_ 'continuous-backup-logs'}}
+                  .form-group
+                    label {{_ 'continuous-backup-engine'}}
+                    select.wekan-form-control.js-cb-engine
+                      option(value="auto" selected="{{cbEngineSelected 'auto'}}") {{_ 'continuous-backup-engine-auto'}}
+                      option(value="oplog" selected="{{cbEngineSelected 'oplog'}}") {{_ 'continuous-backup-engine-oplog'}}
+                      option(value="sqlite" selected="{{cbEngineSelected 'sqlite'}}") {{_ 'continuous-backup-engine-sqlite'}}
+                      option(value="litestream" selected="{{cbEngineSelected 'litestream'}}") {{_ 'continuous-backup-engine-litestream'}}
+                    if cbChoice.engine
+                      span.form-text.text-muted.js-cb-chosen {{_ 'continuous-backup-engine-chosen'}}: {{cbChoice.engine}}
+                    else
+                      span.form-text.text-danger.js-cb-chosen {{_ 'continuous-backup-engine-none'}}
+                    each cbReasons
+                      span.form-text.text-muted {{engine}}: {{reason}}
+                  if cbLitestream
+                    .form-group
+                      label {{_ 'continuous-backup-litestream-binary'}}
+                      input.wekan-form-control.js-cb-litestreamBinary(type="text" value=cbSettings.litestreamBinary)
+                    .form-group
+                      label {{_ 'continuous-backup-litestream-url'}}
+                      input.wekan-form-control.js-cb-litestreamReplicaUrl(type="text" value=cbSettings.litestreamReplicaUrl placeholder="s3://bucket/wekan")
+                  .form-group
+                    label {{_ 'continuous-backup-sqlite-interval'}}
+                    input.wekan-form-control.js-cb-sqliteIntervalSeconds(type="number" min="5" max="3600" value=cbSettings.sqliteIntervalSeconds)
+                  .form-group
+                    label {{_ 'continuous-backup-file-scan'}}
+                    input.wekan-form-control.js-cb-fileScanSeconds(type="number" min="30" max="86400" value=cbSettings.fileScanSeconds)
+                  .form-group
+                    label {{_ 'continuous-backup-base-every'}}
+                    input.wekan-form-control.js-cb-baseEveryHours(type="number" min="1" max="720" value=cbSettings.baseEveryHours)
+                  .form-group
+                    label {{_ 'continuous-backup-keep-days'}}
+                    input.wekan-form-control.js-cb-keepDays(type="number" min="1" max="3650" value=cbSettings.keepDays)
+                  .form-group
+                    button.js-cb-save.btn.btn-primary(type="button") {{_ 'save'}}
+
+                h4 {{_ 'continuous-backup-status'}}
+                if cbStatus
+                  if cbStatus.running
+                    p.form-text.js-cb-state {{_ 'continuous-backup-running'}}
+                  else
+                    p.form-text.js-cb-state {{_ 'continuous-backup-stopped'}}
+                  if cbStatus.generation
+                    p.form-text {{_ 'continuous-backup-generation'}}: {{cbStatus.generation}}
+                  p.form-text {{_ 'continuous-backup-last-change'}}: {{cbLastChange}}
+                  if cbStatus.errors.length
+                    p.form-text {{_ 'continuous-backup-errors'}}:
+                    ul
+                      each cbStatus.errors
+                        li.form-text.text-danger {{source}}: {{message}}
+
+                h4 {{_ 'continuous-backup-restore-points'}}
+                .form-group
+                  button.js-cb-points.btn.btn-secondary(type="button") {{_ 'backup-list'}}
+                if cbPoints
+                  table.gridfs-stats-table
+                    tr
+                      th
+                      th {{_ 'continuous-backup-generation'}}
+                      th {{_ 'continuous-backup-from'}}
+                      th {{_ 'continuous-backup-until'}}
+                    each cbPoints
+                      tr
+                        td
+                          input.js-cb-point(type="radio" name="cb-point" value=name data-until=untilInput)
+                        td {{name}}
+                        td {{fromText}}
+                        td {{untilText}}
+                  .form-group
+                    label {{_ 'continuous-backup-restore-to'}}
+                    input.wekan-form-control.js-cb-until(type="datetime-local")
+                  .form-group
+                    label {{_ 'continuous-backup-restore-what'}}
+                    select.wekan-form-control.js-cb-what
+                      option(value="database") {{_ 'continuous-backup-database'}}
+                      option(value="files") {{_ 'attachments'}} / {{_ 'avatars'}} / {{_ 'continuous-backup-logs'}}
+                      option(value="sqlite") {{_ 'continuous-backup-restore-sqlite'}}
+                  .form-group
+                    label {{_ 'backup-restore-mode'}}
+                    select.wekan-form-control.js-cb-mode
+                      option(value="add-missing") {{_ 'backup-restore-add-missing'}}
+                      option(value="replace-all") {{_ 'backup-restore-replace-all'}}
+                  .form-group
+                    button.js-cb-restore.btn.btn-warning(type="button") {{_ 'backup-restore'}}
+
           //- Admin Panel / Attachments / Sandstorm - COMMENTED OUT ON PURPOSE,
           //- together with its left-menu entry, its helpers, its state and its
           //- click handler in attachments.js. Nothing of it runs.

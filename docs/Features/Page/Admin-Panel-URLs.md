@@ -100,6 +100,7 @@ and `performance`; `security-report` is the report, beside `impersonation`.
 | URL | Pane | Pane id |
 | --- | --- | --- |
 | `/admin/attachments/backup` | Backup | `backup` |
+| `/admin/attachments/continuous-backup` | Continuous backup | `continuous-backup` |
 | `/admin/attachments/move` | Move Attachment | `move` |
 | `/admin/attachments/default-save-storage` | Default Save Storage | `default-save-storage` |
 | `/admin/attachments/limits` | Limits | `limits` |

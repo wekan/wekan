@@ -131,6 +131,7 @@ const ADMIN_PAGES = {
     defaultSlug: 'backup',
     panes: {
       backup: 'backup',
+      'continuous-backup': 'continuous-backup',
       move: 'move',
       'default-save-storage': 'default-save-storage',
       limits: 'limits',
@@ -207,6 +208,7 @@ const ADMIN_PANE_TITLES = {
   },
   attachments: {
     backup: { titleKey: 'backup' },
+    'continuous-backup': { titleKey: 'continuous-backup' },
     move: { titleKey: 'attachment-move' },
     'default-save-storage': { titleKey: 'default-save-storage' },
     limits: { titleKey: 'attachment-limits' },

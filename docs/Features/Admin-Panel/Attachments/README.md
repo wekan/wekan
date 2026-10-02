@@ -43,6 +43,15 @@ you may restore. See
 The **schedule** is instance-wide, and stays with the site admin: one cron, one archive
 of everything.
 
+## Continuous backup
+
+Beside Backup: where Backup makes a whole archive at intervals, this streams every
+change - database, attachments, avatars and logs - to a directory within seconds,
+so a restore can return to any moment. Site administrators only. The settings
+(target directory, what to include, the database engine, intervals and retention),
+the status, the restore points and the restore are described in
+[Continuous-Backup.md](../../../Backup/Continuous-Backup.md).
+
 ## Move attachment
 
 Move attachments and/or avatars between storages: choose the scope (attachments,
@@ -97,6 +106,7 @@ the address uses: `/admin/attachments/<slug>`.
 | Menu path | URL slug | Page |
 | --- | --- | --- |
 | Attachments / Backup | `backup` | [Backup.md](Backup.md) |
+| Attachments / Continuous backup | `continuous-backup` | [Continuous-Backup.md](../../../Backup/Continuous-Backup.md) |
 | Attachments / Move Attachment | `move` | — |
 | Attachments / Default Save Storage | `default-save-storage` | — |
 | Attachments / Limits | `limits` | — |
@@ -107,6 +117,6 @@ the address uses: `/admin/attachments/<slug>`.
 | Attachments / Google Cloud Storage | `gcs` | — |
 | Attachments / Database migration | `database-migration` | — |
 
-9 of these 10 panes has no page of its own yet. A dash is a
+9 of these 11 panes have no page of its own yet. A dash is a
 gap to fill, not a pane that does nothing - what the pane shows is described in
 this README until somebody writes it up.

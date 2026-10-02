@@ -631,6 +631,146 @@
     {
       "key": "import-board-instruction-focalboard",
       "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-description",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-enabled",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-target",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-include",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-database",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-logs",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-engine",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-engine-auto",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-engine-oplog",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-engine-sqlite",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-engine-litestream",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-engine-chosen",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-engine-none",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-sqlite-interval",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-file-scan",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-base-every",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-keep-days",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-litestream-binary",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-litestream-url",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-status",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-running",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-stopped",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-generation",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-last-change",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-errors",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-restore-points",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-from",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-until",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-restore-to",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-restore-what",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-restore-sqlite",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-restore-confirm",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-restore-done",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-saved",
+      "since": "2026-10-02"
     }
   ]
 }
