@@ -3657,6 +3657,20 @@ Structural checks do not establish fluency. The broader translation backlog rema
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/82dcdc1268">Translate email recovery in Fulah</a>. Thanks to xet7.</summary>
+
+Fill 23 English placeholders, preserving existing translations, source order and
+exact tokens. Extend cancellation, uncertain-delivery and retained-pause checks;
+review recipient and message agreement. Four focused catalog suites and all 21
+human-preference checks pass.
+
+Specialist Fulah wording, agreement and regional terminology have low confidence
+and need speaker review. Vocabulary references include the [Fulah lexicon](https://dokumen.pub/a-fulfulde-maasina-english-french-lexicon-lexique-fulfulde-maasina-anglais-franais-0870133268-9780870133268-9780870139420.html).
+Structural checks do not establish fluency. The broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
