@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cf60cba547">Translate Uyghur Sync conflict messages</a>. Thanks to xet7.</summary>
+
+- Fill 25 Scrum observation, Sync conflict and preview messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/769be70fc6">Translate Uyghur sprint reports and workflow messages</a>. Thanks to xet7.</summary>
 
 - Fill 35 sprint-report, workflow and daily observation messages.
