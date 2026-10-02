@@ -2156,6 +2156,26 @@ Vocabulary references for the corrected forms include
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/32ea3767c6">Translate feature and card settings in ten more languages</a>. Thanks to xet7.</summary>
+
+Add 240 feature-setting messages and 30 card labels in Sardinian, Sicilian,
+Neapolitan, Papiamentu, Somali, Malagasy, Kinyarwanda, Rundi, Nyanja and Oromo.
+Feature-setting coverage reaches 171 locales, and the new card labels cover 39.
+Keep Rundi and Kinyarwanda wording distinct. Replace the Italian and Spanish
+linked-card wording in Sicilian and Papiamentu and guard against its return.
+All 448 translation-related Node suites pass, including placeholders and source order.
+
+Specialist flow-metric terminology in these ten languages has lower confidence
+and remains open to native review. References include
+[Sicilian vocabulary](https://scn.wiktionary.org/wiki/ammucciari),
+[Papiamentu vocabulary](https://kaikki.org/frwiktionary/Papiamento/meaning/k/ko/konekt%C3%A1.html),
+[Malagasy administrative terminology](https://www.mef.gov.mg/dgcf/info%20utiles/rakibolana-dikan-teny-vf-vm.pdf), and
+[Kinyarwanda vocabulary](https://glosbe.com/en/rw/permission), alongside the
+existing catalogs. The broader translation backlog remains open.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
