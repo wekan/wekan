@@ -1686,6 +1686,17 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7b1d5c4e83">Translate Malagasy mathematical function messages</a>. Thanks to xet7.</summary>
+
+- Fill 26 mathematical-function labels and tooltips. Trigonometric terminology
+  has lower confidence and needs native-speaker review.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f0a23be563">Translate Malagasy statistics and random number messages</a>. Thanks to xet7.</summary>
 
 - Fill 25 statistics, random-number and arithmetic messages.
