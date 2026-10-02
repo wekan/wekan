@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e9e4a78295">Translate Burmese text output and variable messages</a>. Thanks to xet7.</summary>
+
+- Fill 27 text-output, replacement, variable and workspace messages.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8909c6fa50">Translate Burmese character selection and text lookup</a>. Thanks to xet7.</summary>
 
 - Fill 28 character-selection, substring, text-lookup and joining messages.
