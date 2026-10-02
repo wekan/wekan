@@ -83,7 +83,41 @@ const keys = [
   "import-report-description",
   "import-report-open-board",
   "draggable",
-  "board-view-map"
+  "board-view-map",
+  "map-view-empty",
+  "map-view-upload",
+  "map-view-remove-image",
+  "map-view-unplaced",
+  "map-view-place-hint",
+  "map-view-all-placed",
+  "blockly-UNNAMED_KEY",
+  "board-view-product-backlog",
+  "board-view-sprints",
+  "board-view-sprint-report",
+  "board-view-velocity",
+  "scrum-settings",
+  "scrum-product-owner",
+  "scrum-master",
+  "scrum-developers",
+  "scrum-working-days",
+  "scrum-enabled",
+  "scrum-product-goal",
+  "scrum-definition-of-done",
+  "scrum-estimate-source",
+  "scrum-estimate-unit",
+  "scrum-completion-policy",
+  "scrum-source-poker",
+  "scrum-source-customField",
+  "scrum-policy-dueComplete",
+  "scrum-policy-doneLists",
+  "scrum-sprints",
+  "scrum-sprint",
+  "scrum-start-sprint",
+  "scrum-close-sprint",
+  "scrum-cancel-sprint",
+  "scrum-rollover-sprint",
+  "scrum-cancel-reason",
+  "scrum-product-backlog"
 ];
 assert.deepEqual(Object.keys(locale), Object.keys(en));
 for (const key of keys) {
@@ -116,3 +150,14 @@ assert.match(locale['due-reminder-days-label'], /0.*posedhek.*kyns.*negedhek.*wa
 assert.notEqual(locale['dependency-type-duplicates'], locale['dependency-type-is-duplicated-by']);
 assert.notEqual(locale['filter-preset-saved'], locale['filter-preset-deleted']);
 assert.ok(locale['import-report-description'].includes('→ Kudynnow → Daskorrans'));
+
+for (const pair of [['map-view-upload', 'map-view-remove-image'],
+  ['scrum-start-sprint', 'scrum-close-sprint'],
+  ['scrum-close-sprint', 'scrum-cancel-sprint'],
+  ['scrum-policy-dueComplete', 'scrum-policy-doneLists']]) {
+  assert.notEqual(locale[pair[0]], locale[pair[1]], pair.join('/'));
+}
+assert.equal(locale['board-view-product-backlog'], locale['scrum-product-backlog']);
+assert.equal(locale['board-view-sprints'], locale['scrum-sprints']);
+assert.match(locale['scrum-rollover-sprint'], /heb gorfenna/);
+assert.match(locale['scrum-product-owner'], /Perghen/);
