@@ -3600,6 +3600,21 @@ messages in 14 locale tags; the broader translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e7ef48d5fe">Translate email recovery in Tigrinya and Sakha</a>. Thanks to xet7.</summary>
+
+Fill 46 English placeholders, preserving existing translations, source order and
+exact tokens. Extend cancellation, uncertain-delivery and retained-pause checks,
+with Ethiopic and Cyrillic script and language vocabulary coverage. Four focused
+catalog and translation suites and all 21 human-preference checks pass.
+
+Specialist workflow wording and inflection in Tigrinya and Sakha have lower
+confidence and need speaker review. Structural checks do not establish fluency.
+Email recovery still has English messages in 12 locale tags; the broader
+translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
