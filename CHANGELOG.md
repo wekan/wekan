@@ -1686,6 +1686,19 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cc7c39a2c3">Finish remaining Malagasy prose translations and check full locale</a>. Thanks to xet7.</summary>
+
+- Fill the last 19 reported prose placeholders, covering rule email,
+  SAML sign-in, ordering and History requests. Retain 27 reviewed keyboard
+  labels, platform names and mathematical symbols as literal notation.
+- Full-locale key-order and placeholder checks, batch markup checks and all
+  21 human-preference checks pass; the missing-string report is empty.
+- The shared completion suite still fails on Cherokee's 11 missing
+  dependency keys. Browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/cb6a1bad27">Translate Malagasy activity notification recovery</a>. Thanks to xet7.</summary>
 
 - Fill 26 activity-notification recovery, delivery and cancellation messages.
