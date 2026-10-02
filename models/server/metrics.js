@@ -55,11 +55,14 @@ function accessToken(req) {
   if (!token && req.query && req.query.access_token) {
     token = req.query.access_token;
   }
-  return (
-    token !== undefined &&
-    valid_token !== undefined &&
-    token == valid_token
-  );
+  // An unset or EMPTY METRICS_ACCESS_TOKEN is no token: `?access_token=` would
+  // otherwise equal ''. Compare digests in constant time, so the response time
+  // does not tell a guesser how much of the token was right.
+  if (typeof token !== 'string' || typeof valid_token !== 'string' || valid_token === '') {
+    return false;
+  }
+  const digest = value => require('crypto').createHash('sha256').update(value).digest();
+  return require('crypto').timingSafeEqual(digest(token), digest(valid_token));
 }
 
 const getBoardTitleWithMostActivities = async (dateWithXdaysAgo, nbLimit) => {
