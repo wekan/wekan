@@ -15,14 +15,16 @@
 //   as they are.
 const { memberCan } = require('./boardRoleCapabilities');
 const { isAssignedOnlyMember } = require('./boardCardScope');
+const { readableWithoutMembership } = require('./boardPermission');
 
 const MY_DEPENDENCIES_MAX = 5000;
 const text = value => typeof value === 'string' && value.length > 0 && value.length <= 128;
 
-// Anyone who can view the board: an active member, or anyone on a public board.
+// Anyone who can view the board: an active member, anyone on a public board,
+// or any signed-in user on an instance board - the rule every read uses.
 function canViewBoard(board, userId) {
   if (!board || board.archived === true) return false;
-  if (board.permission === 'public') return true;
+  if (readableWithoutMembership(board.permission, text(userId))) return true;
   return text(userId) && Array.isArray(board.members) &&
     board.members.some(member => member && member.userId === userId && member.isActive === true);
 }

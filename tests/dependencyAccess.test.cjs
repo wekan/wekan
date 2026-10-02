@@ -39,6 +39,9 @@ test('anyone who can view a board may see its dependencies; assigned-only member
   assert.equal(A.canViewBoard(board([], { permission: 'public' }), 'stranger'), true, 'the reported public-board case');
   assert.equal(A.canViewBoard(board([member('u', { isReadOnly: true })]), 'u'), true);
   assert.equal(A.canViewBoard(board([]), 'stranger'), false, 'a private board (negative)');
+  // An instance board is readable by every signed-in user, never anonymously.
+  assert.equal(A.canViewBoard(board([], { permission: 'instance' }), 'signed-in'), true);
+  assert.equal(A.canViewBoard(board([], { permission: 'instance' }), undefined), false, 'instance, signed out (negative)');
   assert.equal(A.canViewBoard(board([], { permission: 'public', archived: true }), 'u'), false);
   const assigned = board([member('u', { isNormalAssignedOnly: true })]);
   assert.equal(A.canSeeCard(assigned, 'u', card('mine', { assignees: ['u'] })), true);
