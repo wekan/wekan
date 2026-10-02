@@ -1686,6 +1686,17 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f641f6d367">Translate Amharic rule editor and Scrum settings</a>. Thanks to xet7.</summary>
+
+- Fill 30 rule-editor and Scrum planning messages in Amharic. Specialized Scrum
+  terminology remains low confidence pending native-speaker review.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass, as do all 21 human-preference checks. Full-language work and
+  browser review remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/82855e4c02">Translate Amharic workspace search and block labels</a>. Thanks to xet7.</summary>
 
 - Fill 30 workspace, search, comment and block-label messages in Amharic.
