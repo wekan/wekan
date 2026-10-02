@@ -7,8 +7,9 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(
   path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const english = read('en');
-const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC', 'bho', 'mai', 'kok', 'or_IN', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'nso', 'ss', 'rw', 'rn', 'lg', 'om', 'mi', 'sm', 'to', 'fj', 'hsb', 'szl', 'wa', 'lld', 'haw', 'gv', 'ts', 've', 'nd', 'wa-RR', 'rup', 'se', 'cv', 'bua', 'bo', 'wo', 'ace', 'ak', 'bm', 'ee', 'ay', 'qu', 'gn', 'tlh', 'ti', 'sah', 'vo', 've-PP', 'ks', 'ff', 'dz', 'kl', 'nah', 'zgh', 'wal', 'iu', 'tig'];
+const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC', 'bho', 'mai', 'kok', 'or_IN', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'nso', 'ss', 'rw', 'rn', 'lg', 'om', 'mi', 'sm', 'to', 'fj', 'hsb', 'szl', 'wa', 'lld', 'haw', 'gv', 'ts', 've', 'nd', 'wa-RR', 'rup', 'se', 'cv', 'bua', 'bo', 'wo', 'ace', 'ak', 'bm', 'ee', 'ay', 'qu', 'gn', 'tlh', 'ti', 'sah', 'vo', 've-PP', 'ks', 'ff', 'dz', 'kl', 'nah', 'zgh', 'wal', 'iu', 'tig', 'chr'];
 const scripts = {
+  chr: 'Cherokee',
   tig: 'Ethiopic',
   iu: 'Canadian_Aboriginal',
   zgh: 'Tifinagh',
@@ -18,6 +19,19 @@ const scripts = {
   bho: 'Devanagari', mai: 'Devanagari', kok: 'Devanagari', or_IN: 'Oriya',
 };
 const keys = Object.keys(english).filter(key => key.startsWith('email-recovery-'));
+
+// The email recovery batch is now filled in every non-English catalog.
+// Keep this gate broader than the locales with wording checks below.
+const allLocaleFiles = fs.readdirSync(path.join(__dirname, '../imports/i18n/data'))
+  .filter(file => file.endsWith('.i18n.json') && !/^en(?:[-_]|\.)/.test(file));
+for (const file of allLocaleFiles) {
+  const locale = read(file.replace('.i18n.json', ''));
+  for (const key of keys) {
+    assert.ok(locale[key]?.trim(), `${file}:${key}: missing email recovery message`);
+    assert.notEqual(locale[key], english[key], `${file}:${key}: untranslated email recovery message`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${file}:${key}: email recovery tokens`);
+  }
+}
 
 for (const code of codes) {
   const locale = read(code);
@@ -37,6 +51,10 @@ for (const code of codes) {
 // Cancellation is irreversible only for the messages covered by this request.
 // Retrying must retain the pause and the warning about uncertain delivery.
 const meanings = {
+  chr: {
+    cancel: /Ꮭ ᏰᎵ ᏔᎵᏁ ᎠᎩᏍᏗ.*ᎯᎠ ᎠᏛᏗ ᎣᏂ.*ᎠᏍᏆᏂᎪᏛ/,
+    description: /Ꮭ ᏰᎵ ᏔᎵᏁ ᎠᎩᏍᏗ.*Ꮭ ᏱᎦᏔᎲᎢ.*ᏔᎵᏁ ᏱᎦᏅᏗ.*ᎠᎴᏫᏍᏙᏗ ᎦᏳᎳ ᎠᏯᏙᎸ ᎾᏍᏉ ᎠᏍᏆᏂᎪᏛ/,
+  },
   tig: {
     cancel: /እግል ልትመለስ ኢቀድር.*ሐቆ እሊ ጠለብ.*ልትዐቀብ/,
     description: /እግል ልትመለስ ኢቀድር.*ለኢትአከደ.*ክልኤ ኢነት.*ለቀደም ሀለ ሽውየ አቅማት ልዐቀብ/,
