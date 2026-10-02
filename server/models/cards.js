@@ -1064,12 +1064,15 @@ Cards.before.update(async (userId, doc, fieldNames, modifier) => {
 
 Cards.before.update(async (userId, doc, fieldNames, modifier) => {
   await cardMembers(userId, doc, fieldNames, modifier);
+  // Once per update. It used to run here AND in the assignees hook below: on a
+  // move to another board the first run re-pointed the card's addedLabel
+  // activities at the new board's labels, and the second, seeing label ids the
+  // card did not have before the move, deleted every one of them.
   await updateActivities(doc, fieldNames, modifier);
 });
 
 Cards.before.update(async (userId, doc, fieldNames, modifier) => {
   await cardAssignees(userId, doc, fieldNames, modifier);
-  await updateActivities(doc, fieldNames, modifier);
 });
 
 Cards.before.update((userId, doc, fieldNames, modifier) => {
