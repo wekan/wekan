@@ -1686,6 +1686,20 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/86573f0de4">Finish remaining Khmer prose translations and check full locales</a>. Thanks to xet7.</summary>
+
+- Fill 31 recovery and history messages in both Khmer locale files; km-KH
+  inherits the Cambodia translations. Retain 28 reviewed keyboard, platform
+  and code/math literals. All three tags report no untranslated prose.
+- Full-file placeholder, key-order and focused Khmer checks pass, as do all
+  21 human-preference checks. The shared completion suite still fails on
+  11 missing dependency keys in another locale.
+- Browser and native-speaker reviews remain, including specialized mathematics
+  terminology recorded as low confidence in earlier batches.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a90bdf4270">Translate Khmer email failures and activity recovery</a>. Thanks to xet7.</summary>
 
 - Fill 30 email failure, time-estimate and activity-recovery messages in both
