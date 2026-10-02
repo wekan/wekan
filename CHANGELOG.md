@@ -1640,12 +1640,9 @@ hangs.
 <details>
 <summary>Needs a maintainer decision on the intended contract (partly already works).</summary>
 
-Durable rule moves out of the card's list (2026-10-02): the rule stage's guard
-refuses any step whose card is no longer in the triggering activity's list,
-which is a security boundary as much as a consistency check. Making moves to
-another list durable needs a decision on whether that guard may follow a move
-the same rule plan recorded (and only that), and on what Sync does with a
-synced card a rule moved out of its list. In-place moves are durable already.
+Durable rule moves out of the card's list were decided on 2026-10-02 (the
+guard follows only a move the same rule plan saved) and are built, to other
+boards too (see Upcoming); they are no longer waiting here.
 
 [#2509](https://github.com/wekan/wekan/issues/2509) (a "customized card
 style" - the report is a single line plus a screenshot with areas marked in
