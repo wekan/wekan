@@ -536,6 +536,14 @@ export const RulesHelper = {
     const boardLevelActions = ['createCard', 'addSwimlane', 'moveAllCardsInList'];
     if (!card && !boardLevelActions.includes(action.actionType)) return;
     const boardId = activity.boardId;
+    // A legacy or imported action without a boardId acts on the activity's own
+    // board - once, here, so no later lookup can query { boardId: undefined }
+    // (which matches lists and swimlanes on ANY board by title) and skip the
+    // cross-board check below (2026-10-02). A copy: the cached document is not
+    // changed.
+    if (!action.boardId) {
+      action = Object.assign(Object.create(Object.getPrototypeOf(action)), action, { boardId });
+    }
     // RuleBleed (GHSA-9w4x-hf2r-hc9v): server-side rule actions bypass the
     // Cards collection deny hooks. Check the destination before resolving any
     // of its list/swimlane names, both to block writes and to remove the old

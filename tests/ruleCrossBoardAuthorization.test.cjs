@@ -81,4 +81,14 @@ test('browser fixtures remove rule documents for each discarded board', () => {
   }
 });
 
+// RuleBleed sibling (2026-10-02): an action without a boardId queried lists
+// and swimlanes with { boardId: undefined } - any board, by title - and its
+// destination went unchecked. It acts on the activity's board now.
+test('an action without a boardId acts on the activity\'s own board', () => {
+  const src = require('fs').readFileSync(require('path').join(__dirname, '..', 'server/rulesHelper.js'), 'utf8');
+  const at = src.indexOf('  async performAction(activity, action) {');
+  const body = src.slice(at, src.indexOf('const crossBoardActions', at));
+  assert.match(body, /if \(!action\.boardId\) \{\s*action = Object\.assign\(Object\.create\(Object\.getPrototypeOf\(action\)\), action, \{ boardId \}\);/);
+});
+
 console.log(`\n${passed} tests passed`);
