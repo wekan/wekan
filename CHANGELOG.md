@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7559458a65">Translate Uyghur Sync reports and email recovery</a>. Thanks to xet7.</summary>
+
+- Fill 25 Sync-report, diagnostics and email-recovery messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/243348c5a7">Translate Uyghur Sync preview messages</a>. Thanks to xet7.</summary>
 
 - Fill 23 Sync preview, source-field and parser-report messages.
