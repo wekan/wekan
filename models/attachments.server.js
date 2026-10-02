@@ -383,7 +383,26 @@ Meteor.methods({
 
     requireBoardMutation(currentUserId, board, 'renameAttachment', Meteor);
 
-    rename(fileObj, newName, fileStoreStrategyFactory);
+    // FileNameBleed, regressed (2023-02-21 to 2026-10-02): the server check
+    // added by the original fix was deleted in "Try to fix build errors", and
+    // only the client refused markup in a new name - so a direct method call
+    // stored it. Display paths escape it today; the name is refused here
+    // anyway, and every other name is stored cleaned, as an upload's is.
+    const { filenameLooksLikeExploit } = require('./lib/uploadFileName');
+    if (filenameLooksLikeExploit(newName)) {
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'file.name', action: 'blocked', source: 'renameAttachment', userId: currentUserId,
+          detail: 'An attachment rename carried markup or a path.',
+        });
+      } catch (e) { /* logging must never break the guard */ }
+      throw new Meteor.Error('invalid-filename', 'This file name is not allowed.');
+    }
+    const { cleanFileName } = require('/imports/lib/fileNameDisplay');
+    const cleanName = cleanFileName(newName);
+    if (!cleanName) throw new Meteor.Error('invalid-filename', 'This file name is not allowed.');
+
+    rename(fileObj, cleanName, fileStoreStrategyFactory);
   },
   async validateAttachment(fileObjId) {
     check(fileObjId, String);

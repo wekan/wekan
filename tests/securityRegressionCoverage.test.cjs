@@ -183,7 +183,7 @@ const GUARDED = {
   // these stay candidates for a real regression test. It is stronger than
   // nothing, which is what they had.
   escapebleed: ['tests/canaryCoverage.test.cjs'],
-  filenamebleed: ['tests/canaryCoverage.test.cjs'],
+  filenamebleed: ['tests/canaryCoverage.test.cjs', 'tests/fileNameBleedRename.test.cjs'],
   inputbleed: ['tests/canaryCoverage.test.cjs'],
   spacebleed: ['tests/canaryCoverage.test.cjs'],
 };
