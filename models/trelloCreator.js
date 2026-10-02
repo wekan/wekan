@@ -4,6 +4,7 @@ import { TAPi18n } from '/imports/i18n';
 import Activities from '/models/activities';
 import Attachments from '/models/attachments';
 import Boards from '/models/boards';
+import { boardPermissionUnderPolicy } from '/server/lib/boardVisibilityPolicy';
 import Users from '/models/users';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
 import { BOARD_COLORS, CARD_COLORS } from '/models/metadata/colors';
@@ -282,6 +283,7 @@ export class TrelloCreator {
         boardToCreate.labels.push(labelToCreate);
       });
     }
+    boardToCreate.permission = await boardPermissionUnderPolicy(boardToCreate.permission);
     const boardId = await writeImportedEntity(Boards, boardToCreate);
     await Boards.direct.updateAsync(boardId, { $set: { modifiedAt: this._now() } });
     // log activity

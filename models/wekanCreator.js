@@ -4,6 +4,7 @@ import Actions from '/models/actions';
 import Activities from '/models/activities';
 import Attachments from '/models/attachments';
 import Boards from '/models/boards';
+import { boardPermissionUnderPolicy } from '/server/lib/boardVisibilityPolicy';
 import { BOARD_COLORS, CARD_COLORS, SWIMLANE_COLORS } from '/models/metadata/colors';
 import Users from '/models/users';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
@@ -399,6 +400,7 @@ export class WekanCreator {
       });
     }
 
+    boardToCreate.permission = await boardPermissionUnderPolicy(boardToCreate.permission);
     const boardId = await writeImportedEntity(Boards, boardToCreate);
     await Boards.direct.updateAsync(boardId, {
       $set: {
