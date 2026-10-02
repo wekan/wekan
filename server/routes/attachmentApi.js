@@ -831,6 +831,12 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
           if (!sourceBoard || !sourceBoard.hasMember(userId)) {
             return sendErrorResponse(res, 403, 'You do not have permission to access the source attachment');
           }
+          // AssignedBleed copy sibling: an assigned-only member copies only
+          // from cards assigned to them (2026-10-02).
+          const sourceCard = sourceAttachment.meta.cardId ? await ReactiveCache.getCard(sourceAttachment.meta.cardId) : null;
+          if (!require('/models/lib/boardCardScope').mayCopyFromBoard(sourceBoard, userId, sourceCard)) {
+            return sendErrorResponse(res, 403, 'You do not have permission to access the source attachment');
+          }
 
           // Check target permissions: writing the copy needs write access.
           const targetBoard = await ReactiveCache.getBoard(targetBoardId);
