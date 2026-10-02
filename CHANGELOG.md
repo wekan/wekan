@@ -246,20 +246,29 @@ Remaining, and why:
     server/lib/syncNotificationPlan.js). No rule trigger exists for either, so
     only their notifications and webhooks are not replayed after a crash.
     Board-level activities need that identity generalised first.
-- **Scrum requirements still open** (from
-  [the Scrum design](docs/Features/Right-Sidebar/Board-Settings/Board-View/Scrum-Design.md),
-  being worked through one at a time; each is checked against the code before
-  it is built, since the design's own list may lag behind it):
-  - large boards: board-view pagination, plans larger than one document's
-    BSON budget, and concurrent snapshot consistency;
-  - copying and moving planning records (sprints, releases) on their own,
-    between boards;
-  - Jira's closed sprints: issue search JSON has no commitment or close
+- **Scrum requirements** (from
+  [the Scrum design](docs/Features/Right-Sidebar/Board-Settings/Board-View/Scrum-Design.md)).
+  Built on 2026-10-02 (see Upcoming): event-level scope history and burndown,
+  Jira sprints, versions, rank and epics, Jira estimate discovery, GitLab
+  estimate Sync, cross-board sprint and release references linked by name,
+  large-board paging, and online recovery of interrupted imports. What stays
+  open, and why:
+  - *Sprints over 10,000 cards*: a sprint's start and close snapshots, and its
+    rollover plan, live in the sprint document, within one document's BSON
+    budget; a larger sprint is refused before anything is written, so nothing
+    is lost. Lifting the limit means moving snapshot rows into their own
+    collection and migrating every reader - reports, Excel/PDF, daily
+    capture, the transfer format and History restore.
+  - *Concurrent snapshot consistency*: a snapshot is a sequence of reads, not
+    a transaction - the same backend property as "Atomicity" below.
+  - *Jira's closed sprints*: issue search JSON has no commitment or close
     snapshot, so they are reported, not imported; importing them needs the
-    Jira Software sprint report API, which needs a live Jira and credentials;
-  - interrupted native imports: online replay and partial-plan
-    reconstruction;
-  - History and undo carried along by board transfer.
+    Jira Software sprint report API, which needs a live Jira and credentials.
+  - *Rebuilding an import whose plan was never fully saved*: the import's
+    source file is not kept, so such an import can only be discarded (which
+    changes nothing on the board).
+  - *History carried along by board transfer*: decided on 2026-10-02 -
+    a copied or imported board starts with fresh History, as documented.
 - **Atomicity.** Cards, History, activities and effects are coordinated by the
   write-ahead journal and replay, not by a transaction. The FerretDB v1 backend
   has no multi-document transactions, and journal ownership cannot fence a
@@ -296,6 +305,11 @@ Maintainer decisions of 2026-10-02, for what remained above:
   rule stage's guard accepts the card where a saved move of the SAME rule plan
   put it, so the plan's later actions act on the moved card; a move by anything
   else still refuses them.
+- **Sprint and release on another board: linked by name.** A card or
+  swimlane copied or moved to another board takes that board's sprint and
+  release of the same name when exactly one matches, and drops them otherwise.
+- **History on board transfer: kept fresh.** A copied or imported board's
+  History starts at the copy, as documented; the source's rows are not carried.
 - **Cross-board rule effects: only if both boards opted in.** A rule that moves,
   copies or links a card to another board is durable only when the destination
   board has Sync effects enabled too; otherwise the source board keeps direct
@@ -1873,6 +1887,43 @@ Scrum methods, and tests/playwright/specs/scrum-scope-history.e2e.js.
 
 </details>
 
+**Scrum boards** - large boards, other boards, and interrupted imports.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/823dc94715">A card or swimlane on another board keeps its sprint and release of the same name</a>. Thanks to xet7.</summary>
+
+As decided on 2026-10-02, a copy or move to another board links the sprint and
+release to that board's own of the same name when exactly one matches - a
+planned or active sprint, a release that is not cancelled - and drops them
+otherwise; past sprints and rank always go. Card and swimlane copies, subtasks,
+every move (by server hooks) and the durable rule copy and move all do it.
+Tests: tests/scrumCopy.test.cjs and server tests with real sprints.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5a1c265a9e">Large Scrum boards open faster and show 100 rows at a time</a>. Thanks to xet7.</summary>
+
+The edit check for all of a board's cards is one batch instead of queries per
+card, and agrees with the per-card check in every case a server test tries. The
+Product Backlog and Sprints tables, whose rows each carry an edit form, show
+100 rows at a time with a button for more. Tests: the server test and
+tests/playwright/specs/scrum-backlog-paging.e2e.js.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6f52f2b42a">A board admin finishes or discards an interrupted Scrum import online</a>. Thanks to xet7.</summary>
+
+The import's checkpoint names its writer and holds a lease it renews; once it
+runs out, the Scrum view offers to finish the import - taking the checkpoint
+over and replaying the saved steps, a paused writer fenced out - or to discard
+one whose plan was never fully saved, which writes nothing. Rollback stays
+offline. Tests: tests/integration/scrumImportRecovery.test.cjs and
+tests/playwright/specs/scrum-import-online-recovery.e2e.js.
+
+</details>
+
 **The Admin Panel** - Settings / Visibility decides which optional features
 the whole instance offers, and who may try them first.
 
@@ -2143,6 +2194,20 @@ so the snap and every bundle showed none of them
 LDAP logger, which prints when LDAP_LOG_ENABLED is true and redacts secrets, as
 objects. A failed bind logs the DN and the directory's own answer, never the
 password. Test: tests/ldapDiagnostics6548.test.cjs.
+
+</details>
+
+**Scrum** - what a card or swimlane keeps when it changes board.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e657dfb7e9">A moved card or swimlane no longer points at the old board's sprint and release</a>. Thanks to xet7.</summary>
+
+A move kept the sprint, past sprints, release and rank of the board left,
+pointing at records on another board, while a copy dropped them. Server hooks
+now handle moves the same way, whoever moves - the client, REST or a rule -
+since Scrum fields are not the client's to write. Tests: a server test, and
+the browser's cross-board move in
+tests/playwright/specs/03-cards-operations.e2e.js.
 
 </details>
 
