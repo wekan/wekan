@@ -166,6 +166,8 @@ const GUARDED = {
   portraitbleed: ['tests/attachmentAvatarSecurityAdvisories.test.cjs'],
   relicavatarbleed: ['tests/attachmentAvatarSecurityAdvisories.test.cjs'],
   replybleed: ['tests/inboundEmailUserMatch.test.cjs', 'tests/inboundEmailReplyToken.test.cjs'],
+  cachebleed: ['tests/fileCacheHeaders.test.cjs', 'tests/playwright/specs/attachment-thumbnail.e2e.js'],
+  syncbleed: ['tests/syncBleed.test.cjs', 'tests/playwright/specs/list-sync-source.e2e.js'],
 
   // Guarded by ATTEMPT DETECTION rather than by a fix-regression test: a canary
   // sits where the attack is tried, and tests/canaryCoverage.test.cjs pins that

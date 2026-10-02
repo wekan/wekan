@@ -16,6 +16,7 @@ const { syncEstimateMapping } = require('/models/lib/listSyncEstimate');
 const { TIME_FIELDS, syncTimeMappings, timeMappingIdentities } = require('/models/lib/listSyncTimeEstimates');
 import ListSyncCredentials from '/models/listSyncCredentials';
 import ListSyncRunReports from '/server/lib/listSyncRunReports';
+import { assertSyncUrlAllowed } from '/server/lib/listSyncFetch';
 const { reportScope } = require('/server/lib/syncRunReport');
 const { syncRunReportPage } = require('/server/lib/syncRunReportPage');
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -76,6 +77,12 @@ Meteor.methods({
         sourceKey = source && syncSourceKey(source);
       } catch (error) {
         throw new Meteor.Error('invalid-sync-source', error.message);
+      }
+      // SyncBleed: never store an address the fetch would refuse.
+      if (source) {
+        try { await assertSyncUrlAllowed(source.url, { userId: this.userId }); } catch (error) {
+          throw new Meteor.Error('sync-url-blocked', error.message);
+        }
       }
       // An old malformed URL must not prevent disconnecting a broken source.
       // Its legacy cards remain unbound; a new project must never adopt them.

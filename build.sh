@@ -1366,6 +1366,10 @@ function run_all_tests(){
 	export WEKAN_TEST_SMTP_PORT="${WEKAN_TEST_SMTP_PORT:-2525}"
 	export MAIL_URL="smtp://127.0.0.1:$WEKAN_TEST_SMTP_PORT"
 	export EMAIL_NOTIFICATION_TIMEOUT=100
+	# The List Sync specs run their mock tracker on 127.0.0.1, which SyncBleed's
+	# guard refuses unless the administrator allows that exact host. Only the
+	# test server allows it; the specs use other internal names for refusals.
+	export LIST_SYNC_ALLOWED_PRIVATE_HOSTS=127.0.0.1
 	if [ "${WEKAN_TEST_SERVER_MODE:-bundle}" = source ]; then
 		export WEKAN_PLAYWRIGHT_PROBE=0
 		local WRITABLE_ABS="$WEKAN_DIR/.tools/test-writable"

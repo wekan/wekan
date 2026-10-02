@@ -6,30 +6,102 @@
 // the import path uses (parseJira/parseGithub/parseGitlab/parseGitea) instead
 // of a second, sync-only parsing implementation.
 //
-// Meteor 3 runs on a Node.js new enough to have the global `fetch` (Node 18+),
-// so no HTTP client dependency is added for this.
+// SyncBleed (GHSA-5q84-p3vr-f3xv): the server URL is chosen by any board
+// member with write access, so every request goes through the SSRF guard like
+// every other outbound request WeKan makes for a user: private, loopback and
+// link-local addresses are refused, DNS is resolved once and pinned, and a
+// redirect is refused. What a member sees of a failure is the origin and the
+// HTTP status, never the response, because the error text is returned by the
+// preview and stored in syncSource.lastSyncError for the board to read.
+import { fetchSafe } from '/server/lib/ssrfGuard';
+import { validateAttachmentUrl } from '/models/lib/attachmentUrlValidation';
 
 const FETCH_TIMEOUT_MS = 20000;
+const MAX_RESPONSE_BYTES = 32 * 1024 * 1024;
 const MAX_SYNC_PAGES = 1000;
 const MAX_SYNC_ITEMS = 100000;
+export const SYNC_URL_BLOCKED_MESSAGE =
+  'The Sync server address is not allowed: private, loopback and link-local addresses are refused.';
+
+// What a caller may show for a request that failed. A refusal by the guard is
+// one message whatever it named - which address a name resolved to is itself
+// internal information - and is marked so the caller can record the attempt.
+export function syncFetchError(error) {
+  if (/^SSRF_GUARD:/.test(error && error.message)) {
+    const blocked = new Error(SYNC_URL_BLOCKED_MESSAGE);
+    blocked.ssrfBlocked = true;
+    blocked.ssrfDetail = String(error.message).slice(0, 200);
+    return blocked;
+  }
+  return error;
+}
+
+// Record a refused Sync address in Admin Panel -> Problems. Nobody can save
+// or sync one in the ordinary course, so each refusal is an attempt.
+export function recordSyncUrlBlocked({ source, userId, detail }) {
+  try {
+    // eslint-disable-next-line global-require
+    require('/server/lib/securityLog').record({
+      key: 'ssrf.list-sync', action: 'blocked', source, userId, detail: String(detail || '').slice(0, 200),
+    });
+  } catch (e) { /* logging must never break the guard */ }
+}
+
+// The same check when Sync settings are SAVED, so a refused address is never
+// stored. An address that does not resolve now is left to the fetch, which
+// checks again on every request (a name can change what it resolves to).
+const BLOCKING_REASONS = new Set(['Localhost is not allowed', 'IP address is not allowed',
+  'Resolved IP address is not allowed', 'Only HTTP and HTTPS protocols are allowed']);
+export async function assertSyncUrlAllowed(url, { userId } = {}) {
+  if (operatorAllowedHost(url)) return;
+  const verdict = await validateAttachmentUrl(url);
+  if (verdict.valid || !BLOCKING_REASONS.has(verdict.reason)) return;
+  recordSyncUrlBlocked({ source: 'setListSyncSource', userId, detail: `${new URL(url).host}: ${verdict.reason}` });
+  const error = new Error(SYNC_URL_BLOCKED_MESSAGE);
+  error.ssrfBlocked = true;
+  throw error;
+}
+
+// A self-hosted tracker on the server's own network is a legitimate source,
+// and only the server's ADMINISTRATOR may say so: LIST_SYNC_ALLOWED_PRIVATE_HOSTS
+// is a comma-separated list of exact host names or addresses, compared with
+// the URL's host as written. No board member can change it, so the guard still
+// holds against them; an empty or unset value allows nothing.
+export function operatorAllowedHost(url, env = process.env) {
+  const allowed = String(env.LIST_SYNC_ALLOWED_PRIVATE_HOSTS || '').split(',')
+    .map(host => host.trim().toLowerCase()).filter(Boolean);
+  return allowed.length > 0 && allowed.includes(new URL(url).hostname.toLowerCase());
+}
+
+// The administrator's own host is fetched directly, still without redirects,
+// bounded in time and size like any other request.
+async function fetchOperatorHost(url, headers) {
+  const response = await fetch(url, { headers, redirect: 'error', signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
+  const length = Number(response.headers.get('content-length'));
+  if (Number.isFinite(length) && length > MAX_RESPONSE_BYTES) throw new Error(`${new URL(url).origin} answer is too large`);
+  return response;
+}
 
 async function fetchJson(url, headers) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+  const origin = new URL(url).origin;
+  let response;
   try {
-    const response = await fetch(url, { headers, signal: controller.signal, redirect: 'error' });
-    if (!response.ok) {
-      const body = await response.text().catch(() => '');
-      const error = new Error(
-        `${url} responded ${response.status} ${response.statusText}${body ? `: ${body.slice(0, 200)}` : ''}`,
-      );
-      error.status = response.status;
-      throw error;
-    }
-    return { body: await response.json(), headers: response.headers };
-  } finally {
-    clearTimeout(timer);
+    response = operatorAllowedHost(url) ? await fetchOperatorHost(url, headers) : await fetchSafe(url, {
+      headers, timeoutMs: FETCH_TIMEOUT_MS, totalTimeoutMs: FETCH_TIMEOUT_MS,
+      maxRedirects: 0, maxResponseBytes: MAX_RESPONSE_BYTES,
+    });
+  } catch (error) {
+    throw syncFetchError(error);
   }
+  if (!response.ok) {
+    const error = new Error(`${origin} responded with HTTP ${response.status}`);
+    error.status = response.status;
+    throw error;
+  }
+  let body;
+  // A parse error quotes the start of the response; say only that it was not JSON.
+  try { body = await response.json(); } catch (error) { throw new Error(`${origin} did not answer with JSON`); }
+  return { body, headers: response.headers };
 }
 
 // Follow provider pagination only within the configured origin. No partial

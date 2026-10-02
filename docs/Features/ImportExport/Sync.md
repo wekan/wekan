@@ -341,6 +341,27 @@ rules. If the source item later returns, the existing stable-ID collision guard
 preserves the detached local parent and may report a creation conflict. An
 unrestricted writer can then explicitly choose a replacement as described above.
 
+### Which servers List Sync may reach
+
+List Sync requests go through the same SSRF guard as webhooks and imports
+([SyncBleed](https://wekan.fi/hall-of-fame/syncbleed/), GHSA-5q84-p3vr-f3xv).
+A server address on a private, loopback or link-local network - `127.0.0.1`,
+`localhost`, `10.x`, `172.16-31.x`, `192.168.x`, `169.254.x` (cloud metadata),
+`::1` and the like - is refused when Sync settings are saved and again on every
+request, DNS is resolved once and pinned, and redirects are refused. A refusal
+is shown as *The Sync server address is not allowed* and recorded as SyncBleed
+in Admin Panel → Problems.
+
+When a failed request is reported to the board, only the server's origin and
+the HTTP status are shown, never what the server answered.
+
+A self-hosted Gitea, Forgejo, GitLab or Jira on the server's own network is
+allowed by the server administrator only, with the environment variable
+`LIST_SYNC_ALLOWED_PRIVATE_HOSTS`: a comma-separated list of exact host names
+or addresses as written in the Sync server URL, for example
+`LIST_SYNC_ALLOWED_PRIVATE_HOSTS=gitea.lan,10.0.0.20`. Board members cannot
+change it. Requests to an allowed host still refuse redirects and time out.
+
 ### Source identity and switching projects
 
 Each card mapping now includes the provider, normalized server URL (including

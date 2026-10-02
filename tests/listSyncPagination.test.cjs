@@ -1,9 +1,10 @@
 'use strict';
 const {test}=require('node:test');const assert=require('node:assert/strict');const fs=require('node:fs');const vm=require('node:vm');
 function harness(responses){
- const calls=[];const context={URL,Buffer,AbortController,setTimeout,clearTimeout,
- fetch:async(url,options)=>{calls.push({url,options});const response=responses.shift();if(!response)throw new Error('Unexpected request');if(response.error)throw new Error(response.error);return {ok:true,headers:new Headers(response.headers),json:async()=>response.body};}};
- vm.createContext(context);vm.runInContext(fs.readFileSync('server/lib/listSyncFetch.js','utf8').replace(/export /g,''),context);
+ const calls=[];const context={URL,Buffer,AbortController,setTimeout,clearTimeout,process:{env:{}},
+ // SyncBleed: every request goes through the SSRF guard; stub it in its place.
+ fetchSafe:async(url,options)=>{calls.push({url,options});const response=responses.shift();if(!response)throw new Error('Unexpected request');if(response.error)throw new Error(response.error);return {ok:true,headers:new Headers(response.headers),json:async()=>response.body};}};
+ vm.createContext(context);vm.runInContext(fs.readFileSync('server/lib/listSyncFetch.js','utf8').replace(/^import .*$/gm,'').replace(/export /g,''),context);
  return {context,calls};
 }
 const config={url:'https://tracker.example',projectKey:'team/project'};const credential={username:'test',token:'test-token'};
@@ -26,7 +27,7 @@ test('GitHub, Gitea and GitLab follow Link pagination even with short pages',asy
   const {context,calls}=harness([{body:[{id:1}],headers:{link:`<${origin}/next?page=2>; rel="next"`}},{body:[{id:2}]}]);
   assert.equal((await context[name](config,credential)).length,2);assert.equal(calls.length,2);
   assert.deepEqual(calls[0].options.headers,calls[1].options.headers);
-  assert.equal(calls[1].options.redirect,'error');
+  assert.equal(calls[1].options.maxRedirects,0);
  }
 });
 test('GitLab supports X-Next-Page and later fetch failures return no partial result',async()=>{

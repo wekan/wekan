@@ -33,7 +33,7 @@ import ListSyncCredentials from '/models/listSyncCredentials';
 import { EXTERNAL_PARSERS, SYNC_CAPABLE_SOURCES } from '/models/lib/externalParsers';
 import { planListSyncReconcile, validateListSyncTasks } from '/models/lib/listSyncReconcile';
 import { validateImportSourceShape } from '/models/lib/importSourceShape';
-import { LIST_SYNC_FETCHERS } from '/server/lib/listSyncFetch';
+import { LIST_SYNC_FETCHERS, recordSyncUrlBlocked } from '/server/lib/listSyncFetch';
 import { SyncedCron } from '/server/cron/syncedCron';
 import { withListSyncLease } from '/server/lib/listSyncLease';
 import { ensureIndex } from '/server/lib/mongoStartup';
@@ -143,6 +143,12 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
     if (recordCoverage) await recordCoverage({ ...syncCoverage(parsed, source), source: sourceCoverage });
   } catch (e) {
     await assertCurrent();
+    // SyncBleed: a refused address is an attempt, recorded under its own name,
+    // the preview's included; the message carries nothing from the target.
+    if (e && e.ssrfBlocked) {
+      recordSyncUrlBlocked({ source: dryRun ? 'previewListSync' : 'syncList', userId: currentSyncActor(),
+        detail: `list ${list._id}: ${e.ssrfDetail || ''}` });
+    }
     if (dryRun) return { error: String((e && e.message) || e) };
     if (!conflictScope) await Lists.updateAsync(listSelector, {
       $set: { 'syncSource.lastSyncError': String((e && e.message) || e).slice(0, 500) },
@@ -154,7 +160,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
       // if logging itself throws.
       // eslint-disable-next-line global-require
       const { record } = require('/server/lib/securityLog');
-      record({
+      if (!(e && e.ssrfBlocked)) record({
         key: 'listSyncFetchFailed',
         action: 'blocked',
         source: source.type,

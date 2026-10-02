@@ -294,7 +294,10 @@ export async function validateAttachmentUrl(urlString) {
     return { valid: false, reason: 'Missing hostname' };
   }
 
-  const lowerHostname = hostname.toLowerCase();
+  // An IPv6 literal keeps its brackets in URL.hostname ("[::1]"); without
+  // them it is checked as the address it is, not looked up as a name
+  // (SyncBleed, GHSA-5q84-p3vr-f3xv).
+  const lowerHostname = hostname.toLowerCase().replace(/^\[(.*)\]$/, '$1');
   if (BLOCKED_HOSTNAMES.has(lowerHostname) || lowerHostname.endsWith('.localhost')) {
     return { valid: false, reason: 'Localhost is not allowed' };
   }

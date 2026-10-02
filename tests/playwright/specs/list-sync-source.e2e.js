@@ -728,3 +728,62 @@ test('switching a legacy source binds old cards to the old project and discards 
     expect(db.findOne('cards', { _id: card._id }).archived).toBe(false);
   } finally { db.deleteMany('listSyncCredentials', { listId: card.listId }); }
 });
+
+// SyncBleed (GHSA-5q84-p3vr-f3xv): a board member could point List Sync at
+// the server's own network and read back the start of what answered. The test
+// server allows only 127.0.0.1 (LIST_SYNC_ALLOWED_PRIVATE_HOSTS, set by the
+// administrator); the same mock tracker under any other internal name is
+// refused before a request is sent, and the attempt shows in Problems.
+test('a Sync server on an internal address is refused when saved and when synced', async ({ page, user, board }) => {
+  const listId = db.find('lists', { boardId: board.boardId })[1]._id;
+  const port = new URL(base).port;
+  const internal = `http://localhost:${port}`;
+  const seen = () => requests.length;
+  try {
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+    // Saving through the popup, as a member would.
+    db.updateOne('lists', { _id: listId }, { $set: { syncSource: { type: 'jira', url: 'https://example.invalid',
+      projectKey: 'INTERNAL', enabled: false } } });
+    await openSync(page, listId);
+    const before = seen();
+    await page.locator('.js-list-sync-url').fill(internal);
+    await page.locator('.js-list-sync-token').fill('attacker-token');
+    await page.locator('.js-list-sync-save').click();
+    await expect(page.locator('.pop-over .list-sync-now-error')).toContainText('Sync server address is not allowed');
+    expect(db.findOne('lists', { _id: listId }).syncSource.url).toBe('https://example.invalid');
+    // Every internal form the report used, through the method.
+    for (const url of [internal, 'http://169.254.169.254', 'http://10.0.0.5:8080', `http://[::1]:${port}`]) {
+      const result = await page.evaluate(async ({ id, url }) => {
+        try { await Meteor.callAsync('setListSyncSource', id, { type: 'gitea', url, projectKey: 'x/y', token: 't' }); return 'accepted'; }
+        catch (error) { return error.error; }
+      }, { id: listId, url });
+      expect(result, url).toBe('sync-url-blocked');
+    }
+    expect(seen()).toBe(before);
+    await expect.poll(() => db.findOne('eventlog', { bleed: 'SyncBleed', action: 'blocked',
+      source: 'setListSyncSource' })?.count).toBeGreaterThan(0);
+
+    // A source saved before the fix: the fetch refuses it too, and the preview
+    // says only that the address is not allowed - nothing the service answered.
+    const allowed = { type: 'jira', url: base, projectKey: 'INTERNAL', token: 'stored-token' };
+    await call(page, 'setListSyncSource', listId, allowed);
+    const stored = { ...allowed, url: internal };
+    db.updateOne('lists', { _id: listId }, { $set: { 'syncSource.url': internal } });
+    db.updateOne('listSyncCredentials', { listId }, { $set: { sourceKey: syncSourceKey(stored) } });
+    const preview = await call(page, 'previewListSync', listId);
+    expect(preview.error).toBe('The Sync server address is not allowed: private, loopback and link-local addresses are refused.');
+    expect(seen()).toBe(before);
+    await expect.poll(() => db.findOne('eventlog', { bleed: 'SyncBleed', source: 'previewListSync' })?.count).toBeGreaterThan(0);
+
+    // The administrator's allowed host still syncs (the mock tracker answers).
+    db.updateOne('lists', { _id: listId }, { $set: { 'syncSource.url': base } });
+    db.updateOne('listSyncCredentials', { listId }, { $set: { sourceKey: syncSourceKey(allowed) } });
+    const ok = await call(page, 'previewListSync', listId);
+    expect(ok.error).toBeUndefined();
+    expect(seen()).toBeGreaterThan(before);
+  } finally {
+    db.deleteMany('listSyncCredentials', { listId });
+    db.updateOne('lists', { _id: listId }, { $unset: { syncSource: 1 } });
+  }
+});
