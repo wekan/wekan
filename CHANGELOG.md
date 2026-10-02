@@ -3250,6 +3250,24 @@ recovery strings remain in the broader translation backlog.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ebc225466d">Translate email recovery in Kurdish, Tatar and Turkmen</a>. Thanks to xet7.</summary>
+
+Fill 92 English placeholders across Kurmanji, Sorani, Tatar and Turkmen. Translate
+the email queue controls and explain the cancellation boundary, irrecoverable
+contents, possible duplicate delivery and pauses retained during retry. Preserve
+existing translated values, source order and exact placeholders.
+
+The new automatically discovered regression suite checks all email recovery keys
+in these four locales, distinct actions and the cancellation and delivery warning
+clauses. Four focused catalog and translation suites and all 21 human-preference
+checks pass. Specialist workflow wording and inflection have lower confidence
+and need speaker review. Structural tests do not establish fluency. English email
+recovery messages remain in 66 locale tags, alongside the broader translation
+backlog.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
