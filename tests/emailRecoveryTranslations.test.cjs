@@ -7,9 +7,9 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(
   path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const english = read('en');
-const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC', 'bho', 'mai', 'kok', 'or_IN', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'nso', 'ss', 'rw', 'rn', 'lg', 'om', 'mi', 'sm', 'to', 'fj', 'hsb', 'szl', 'wa', 'lld', 'haw', 'gv', 'ts', 've', 'nd', 'wa-RR', 'rup', 'se'];
+const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC', 'bho', 'mai', 'kok', 'or_IN', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'nso', 'ss', 'rw', 'rn', 'lg', 'om', 'mi', 'sm', 'to', 'fj', 'hsb', 'szl', 'wa', 'lld', 'haw', 'gv', 'ts', 've', 'nd', 'wa-RR', 'rup', 'se', 'cv', 'bua'];
 const scripts = {
-  ckb: 'Arabic', ary: 'Arabic', tt: 'Cyrillic', yi: 'Hebrew', 'wuu-Hans': 'Han',
+  cv: 'Cyrillic', bua: 'Cyrillic', ckb: 'Arabic', ary: 'Arabic', tt: 'Cyrillic', yi: 'Hebrew', 'wuu-Hans': 'Han',
   bho: 'Devanagari', mai: 'Devanagari', kok: 'Devanagari', or_IN: 'Oriya',
 };
 const keys = Object.keys(english).filter(key => key.startsWith('email-recovery-'));
@@ -32,6 +32,14 @@ for (const code of codes) {
 // Cancellation is irreversible only for the messages covered by this request.
 // Retrying must retain the pause and the warning about uncertain delivery.
 const meanings = {
+  cv: {
+    cancel: /каялла тавӑрма ҫук.*ыйтӑм хыҫҫӑн.*упранӗҫ/,
+    description: /каялла илме ҫук.*паллӑ мар.*тепӗр хут.*халӗ пур чарса тӑнине упрать/,
+  },
+  bua: {
+    cancel: /һэргээжэ болохогүй.*хүсэлтын һүүлээр.*хадагалагдаха/,
+    description: /бусаажа болохогүй.*тодорхойгүй.*дахин.*мүнөө байгаа түр зогсоолгые сахина/,
+  },
   rup: {
     cancel: /nu poati s-hibã turnat nãpoi.*dupã aestã tsireri va s-hibã pãstrati/,
     description: /nu poati s-hibã turnat nãpoi.*nishigur.*repetatã.*tsãni pauza tsi easti tora/,
@@ -258,6 +266,8 @@ for (const [key, value] of Object.entries({email: 'Postã electronicã', 'email-
   assert.doesNotMatch(read('rup')[key], /Correo|Invio|inviata/);
   assert.deepEqual(translationTokens(read('rup')[key]), translationTokens(english[key]));
 }
+assert.match(read('cv')['email-recovery-queued'], /Черетри пӗлтерӳсем/);
+assert.match(read('bua')['email-recovery-description'], /бэдэрэгты.*байһан.*оролдохо/);
 assert.equal(read('to').pause, 'Taʻofi fakataimi');
 assert.doesNotMatch(read('to').pause, /Faka-Tonga:|Pause/);
 assert.deepEqual(translationTokens(read('to').pause), translationTokens(english.pause));
