@@ -54,4 +54,26 @@ test('the decision requests only the site-admin field', () => {
   assert.match(helper, /fields: \{ isAdmin: 1 \}/);
 });
 
+// MegaBleed / TenantBleed sibling (2026-10-02): the Translation collection
+// kept the same document-id rule, and custom translations render as HTML in
+// an admin's browser - so it was stored XSS against admins.
+const translation = read('server/permissions/translation.js');
+for (const operation of ['insert', 'update', 'remove']) {
+  test(`Translation ${operation} is site-admin only`, () => {
+    assert.match(translation, new RegExp(
+      `async ${operation}\\(userId\\) \\{\\s*return allowSiteAdminCollectionMutation\\(userId\\);`,
+    ));
+  });
+}
+
+test('negative: no client permission rule anywhere authorizes by document id', () => {
+  // A document whose _id equals the caller's id is not a grant. Scans every
+  // permissions file, not just the ones this was found in.
+  const dir = path.join(root, 'server/permissions');
+  const offenders = fs.readdirSync(dir).filter(f => f.endsWith('.js'))
+    .filter(f => /doc\._id\s*===\s*userId|userId\s*===\s*doc\._id/.test(fs.readFileSync(path.join(dir, f), 'utf8')));
+  // users.js: a user may edit their OWN user document - that _id IS the user.
+  assert.deepStrictEqual(offenders.filter(f => f !== 'users.js'), []);
+});
+
 console.log(`\ntenantbleed: ${passed} tests passed`);
