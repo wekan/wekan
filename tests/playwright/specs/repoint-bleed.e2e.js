@@ -23,6 +23,9 @@ const seedDocs = boardId => {
 };
 
 test('triggers, webhooks and custom fields cannot be moved to another board', async ({ page, user2 }) => {
+  // Six sign-ins and board loads, one per attempt: slower browsers against the
+  // source server need more than the default minute.
+  test.setTimeout(180_000);
   const victim = db.seedBoard({ ownerId: user2.id, cardTitlesPerList: [['Private card']] });
   const made = [];
   // One fresh board admin per attempt: a refused attempt disables the account.
