@@ -2393,6 +2393,22 @@ still need work.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3c5c2d8a8e">Translate feature and card settings in four more languages</a>. Thanks to xet7.</summary>
+
+Add 108 messages in Konkani, Moroccan Arabic, Acehnese and Waray. Feature
+settings now cover 215 locale tags and the three card-setting labels cover 83.
+Replace French board and card labels in Waray and Malay linked-card wording in
+Acehnese. All six selected catalog and language suites pass, including current
+key order, placeholder inventories, script and data-retention checks.
+Specialist workflow descriptions, particularly Acehnese, have lower confidence
+and remain open to native review. Vocabulary references included the
+[Acehnese thesaurus](https://openresearch-repository.anu.edu.au/server/api/core/bitstreams/a9fa3ff5-837d-40db-a316-81bbe13d3bf4/content)
+and [Waray permission vocabulary](https://acd.clld.org/cognatesets/30959).
+The remaining translation queue and older wrong-language text still need work.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
