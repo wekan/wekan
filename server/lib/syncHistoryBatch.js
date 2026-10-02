@@ -1,5 +1,6 @@
 'use strict';
 const { diffFields, groupForField, valueFromContent } = require('../../models/lib/changeHistoryGroups');
+const { positionChange } = require('../../models/lib/timeHistory');
 const { canonical, sha256, rowHashIsValid, PROTECTED } = require('../../models/lib/changeHistoryIntegrity');
 const { prepareSyncOperationMutation } = require('./syncOperationMutation');
 const { EJSON } = require('bson');
@@ -44,8 +45,14 @@ const RULE_CARD_FIELDS = ['labelIds', 'color', 'dueComplete', 'startAt', 'endAt'
 // ...and the checklist item field durable rule checklist actions change
 // (server/lib/syncRuleChecklistCommand.js), recorded on the item.
 const RULE_CHECKLIST_ITEM_FIELDS = ['isFinished'];
+// ...and a card's placement, which durable rule moves change
+// (server/lib/syncRuleMoveCommand.js). It is not a field: the hook records one
+// `position` row for boardId, swimlaneId, listId and sort together
+// (models/lib/timeHistory.js positionChange), and so does the plan.
+const RULE_CARD_POSITION_FIELDS = ['position'];
+const POSITION_KEYS = 'boardId,lastMoveReason,listId,sort,swimlaneId';
 const entityOf = fields => (fields === RULE_CHECKLIST_ITEM_FIELDS ? 'checklistItem'
-  : [SYNC_FIELDS, RULE_CARD_FIELDS].includes(fields) ? 'card' : fail());
+  : [SYNC_FIELDS, RULE_CARD_FIELDS, RULE_CARD_POSITION_FIELDS].includes(fields) ? 'card' : fail());
 function prepareSyncFieldHistory({ step, effectId, userId, createdAt, redoRows = [], ...rest }) {
   prepareSyncOperationMutation(step);
   if (Object.keys(rest).length) fail();
@@ -64,9 +71,11 @@ function prepareCardFieldHistory({ before, after, effectId, userId, createdAt, r
       !(createdAt instanceof Date) || !Number.isFinite(createdAt.getTime()) || !after ||
       typeof entityId !== 'string' || !entityId || typeof cardId !== 'string' || !cardId) fail();
   const fields = [...new Set([...Object.keys(before || {}), ...Object.keys(after)])].sort();
-  const changes = before === null ? [] : diffFields(entityType, before, after, fields);
+  const changes = before === null ? [] : allowed === RULE_CARD_POSITION_FIELDS
+    ? [positionChange(before, after, fields)].filter(Boolean)
+    : diffFields(entityType, before, after, fields);
   const rows = changes.map(change => {
-    const row = { _id: `sync-history-${sha256(canonical([effectId, change.field]))}`,
+    const row = { _id: `sync-history-${sha256(canonical([effectId, change.field || change.group]))}`,
       boardId: after.boardId, swimlaneId: after.swimlaneId ?? null, listId: after.listId,
       cardId, entityType, entityId, group: change.group,
       changeType: change.changeType, previousContent: change.previousContent, newContent: change.newContent,
@@ -104,6 +113,24 @@ function createSyncHistoryPlanner(options) {
   };
 }
 
+const ROW_KEYS = '_id,batchId,boardId,cardId,changeType,createdAt,entityId,entityType,group,isCheckpoint,listId,newContent,previousContent,restoredByUserId,restoredFromId,superseded,swimlaneId,undone,undoneAt,userId';
+// A planned `position` row: the hook's shape, both snapshots complete.
+function validatePositionRow(plan, row, ids) {
+  const snapshot = content => content && !Array.isArray(content) && typeof content === 'object' &&
+    Object.keys(content).sort().join(',') === POSITION_KEYS &&
+    ['boardId', 'listId'].every(key => typeof content[key] === 'string' && content[key]) &&
+    (content.swimlaneId === null || typeof content.swimlaneId === 'string') &&
+    (content.sort === null || Number.isFinite(content.sort)) && typeof content.lastMoveReason === 'string';
+  if (Object.keys(row).sort().join(',') !== ROW_KEYS || row.group !== 'position' || row.changeType !== 'moved' ||
+      row._id !== `sync-history-${sha256(canonical([plan.effectId, 'position']))}` || ids.has(row._id) ||
+      row.boardId !== plan.boardId || row.userId !== plan.userId || row.batchId !== `sync-${plan.effectId}` ||
+      row.entityType !== 'card' || row.cardId !== row.entityId || typeof row.entityId !== 'string' || !row.entityId ||
+      typeof row.listId !== 'string' || !row.listId || !(row.createdAt instanceof Date) ||
+      !Number.isFinite(row.createdAt.getTime()) || row.restoredFromId !== null || row.restoredByUserId !== null ||
+      row.isCheckpoint !== false || row.undone !== false || row.undoneAt !== null || row.superseded !== false ||
+      !snapshot(row.previousContent) || !snapshot(row.newContent)) fail();
+  ids.add(row._id);
+}
 function validatePlan(plan, allowed = SYNC_FIELDS) {
   const entityType = entityOf(allowed);
   if (!plan || Object.keys(plan).sort().join(',') !== 'boardId,effectId,redo,rows,userId' ||
@@ -113,6 +140,7 @@ function validatePlan(plan, allowed = SYNC_FIELDS) {
       (!plan.rows.length && plan.redo.length)) fail();
   const ids = new Set();
   for (const row of plan.rows) {
+    if (allowed === RULE_CARD_POSITION_FIELDS) { validatePositionRow(plan, row, ids); continue; }
     const field = row.newContent?.field || row.previousContent?.field;
     const keys = '_id,batchId,boardId,cardId,changeType,createdAt,entityId,entityType,group,isCheckpoint,listId,newContent,previousContent,restoredByUserId,restoredFromId,superseded,swimlaneId,undone,undoneAt,userId';
     if (Object.keys(row).sort().join(',') !== keys || !allowed.includes(field) ||
@@ -223,4 +251,5 @@ function validateSyncFieldHistory(plan, step, effectId) {
   return true;
 }
 module.exports = { createSyncHistoryPlanner, prepareSyncFieldHistory, prepareCardFieldHistory, persistSyncFieldHistory,
-  validateSyncFieldHistory, isPlannedRow, SYNC_FIELDS, RULE_CARD_FIELDS, RULE_CHECKLIST_ITEM_FIELDS };
+  validateSyncFieldHistory, isPlannedRow, SYNC_FIELDS, RULE_CARD_FIELDS, RULE_CHECKLIST_ITEM_FIELDS,
+  RULE_CARD_POSITION_FIELDS };

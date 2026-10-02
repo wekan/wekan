@@ -105,7 +105,8 @@ async function recordUpdate(entityType, userId, doc, fieldNames, previous) {
       if (position) changes.push(position);
     }
     if (changes.length === 0) return;
-    if (entityType === 'card' && deferSyncRecording('history', doc, changes.map(change => change.field))) return;
+    // A position row has no field; it is named by its group.
+    if (entityType === 'card' && deferSyncRecording('history', doc, changes.map(change => change.field || change.group))) return;
     if (entityType === 'checklistItem' && deferSyncItemRecording('itemHistory', doc)) return;
     const where = await locate(entityType, doc);
     if (!where || !where.boardId) return;

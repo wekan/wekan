@@ -14,6 +14,7 @@ import Cards from '/models/cards';
 import Lists from '/models/lists';
 import Actions from '/models/actions';
 import ChecklistItems from '/models/checklistItems';
+import UserPositionHistory from '/models/userPositionHistory';
 import { RulesHelper } from '/server/rulesHelper';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 import { ensureIndex } from '/server/lib/mongoStartup';
@@ -171,6 +172,10 @@ export async function runStoredSyncRules({ adapters, ...options }) {
     ...Object.fromEntries(Object.keys(RULE_CARD_ACTIONS).map(type => [type, cardField])),
     ...Object.fromEntries(Object.keys(RULE_CHECKLIST_ACTIONS).map(type => [type, ({ invocation }) =>
       runStoredSyncRuleChecklist({ ...options, index: indices.get(invocation.id) })])),
+    // In-place moves only: eligibility keeps a board with any other move on
+    // direct Sync, and the runner refuses one.
+    ...Object.fromEntries(RULE_MOVE_ACTIONS.map(type => [type, ({ invocation }) =>
+      runStoredSyncRuleMove({ ...options, index: indices.get(invocation.id) })])),
     ...adapters,
   };
   const done = await executeRulePlan({ plan, activity: context.saved, effectId: context.effectId,
@@ -420,6 +425,85 @@ const { persistSyncFieldHistory, RULE_CARD_FIELDS } = require('/server/lib/syncH
 const { persistSyncActivity } = require('/server/lib/syncActivityPersistence');
 const { withSyncRecordingDeferred } = require('/server/lib/syncRecordingScope');
 const { withSyncActivityDeferred } = require('/server/lib/syncActivityScope');
+
+// Durable rule moves that stay in place (server/lib/syncRuleMoveCommand.js):
+// one saved command per invocation, captured with the ordinary action's own
+// sort computation, then the conditional sort write with the hook's position
+// row deferred, the planned position row, and the legacy UserPositionHistory
+// row Ctrl+Z reads. Every step is idempotent on replay.
+export const SyncRuleMoveCommands = new Mongo.Collection('listSyncRuleMoveCommands');
+SyncRuleMoveCommands.deny({ insert: () => true, update: () => true, remove: () => true });
+
+export async function runStoredSyncRuleMove({ index, ...options }) {
+  const context = executionContext(options), plan = await capture(context);
+  const invocation = plan.actions[index];
+  if (!RULE_MOVE_ACTIONS.includes(invocation?.action?.actionType)) throw new Error('sync-rule-move-invalid');
+  const commandContext = { plan, activity: context.saved, effectId: context.effectId, index };
+  const guard = reuseWithinEvaluation(async () => {
+    await context.guard();
+    const [rule, action] = await Promise.all([
+      Rules.rawCollection().findOne({ _id: invocation.rule._id }),
+      Actions.rawCollection().findOne({ _id: invocation.action._id }),
+    ]);
+    if (!rule || !action || canonical(rule) !== canonical(invocation.rule) ||
+        canonical(action) !== canonical(invocation.action)) throw new Error('sync-rule-move-configuration-changed');
+    await context.guard();
+  });
+  const commands = SyncRuleMoveCommands.rawCollection(), id = ruleMoveCommandId(invocation.id);
+  await guard();
+  let row = await commands.findOne({ _id: id });
+  if (!row) {
+    const card = await Cards.findOneAsync({ _id: plan.cardId, boardId: plan.boardId }, { transform: null });
+    // The ordinary action's own lookups (server/rulesHelper.js performAction):
+    // the card's list, its swimlane, and the sorts of that list and swimlane.
+    const list = card && await Lists.findOneAsync({ _id: card.listId, boardId: card.boardId });
+    const swimlane = card && await ReactiveCache.getSwimlane(card.swimlaneId);
+    // Without them the ordinary action moves elsewhere or not at all; that is
+    // not an in-place move, so it is not this command's to make.
+    if (!list || !swimlane || swimlane.boardId !== card.boardId) throw new Error('sync-rule-move-not-in-place');
+    const sorts = (await list.cardsUnfiltered(card.swimlaneId)).map(other => other.sort);
+    const redoRows = await ChangeHistory.find({ boardId: plan.boardId, userId: plan.actorId, undone: true,
+      superseded: { $ne: true } }, { transform: null, limit: 10000 }).fetchAsync();
+    const candidate = prepareRuleMoveCommand({ ...commandContext, card, sorts, createdAt: new Date(), redoRows });
+    await guard();
+    let failure;
+    try { await commands.insertOne(candidate); } catch (error) { failure = error; }
+    row = await commands.findOne({ _id: id });
+    if (!row) throw failure || new Error('sync-rule-move-command-unconfirmed');
+  }
+  const command = validateRuleMoveCommand(row, commandContext);
+  const at = sort => Cards.findOneAsync(ruleMoveSortSelector(command, sort), { transform: null });
+  await guard();
+  if (command.before.sort !== command.after.sort && !await at(command.after.sort)) {
+    if (!await at(command.before.sort)) throw new Error('sync-rule-move-changed');
+    await guard();
+    await DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false }, () =>
+      withSyncRecordingDeferred({ cardId: command.cardId, boardId: command.boardId, listId: command.listId,
+        kinds: ['history', 'position'] },
+      () => Cards.updateAsync(ruleMoveSortSelector(command, command.before.sort),
+        { $set: { sort: command.after.sort } })));
+    if (!await at(command.after.sort)) throw new Error('sync-rule-move-unconfirmed');
+  }
+  if (command.effects.history) {
+    await persistSyncFieldHistory({ history: ChangeHistory, plan: command.effects.history, assertCurrent: guard,
+      fields: RULE_CARD_POSITION_FIELDS });
+  }
+  if (command.effects.userPosition) {
+    // trackChange's two writes: a NEW change clears the actor's redo stack on
+    // the board, then records itself. Done once: the row's id is the receipt.
+    const legacy = UserPositionHistory.rawCollection(), entry = command.effects.userPosition;
+    await guard();
+    if (!await legacy.findOne({ _id: entry._id })) {
+      await legacy.deleteMany({ userId: entry.userId, boardId: entry.boardId, isCheckpoint: { $ne: true }, undone: true });
+      try { await legacy.insertOne(entry); } catch (error) { if (!await legacy.findOne({ _id: entry._id })) throw error; }
+    }
+  }
+  await guard();
+  return invocation.id;
+}
+const { RULE_MOVE_ACTIONS, commandId: ruleMoveCommandId, prepareRuleMoveCommand, validateRuleMoveCommand,
+  sortSelector: ruleMoveSortSelector } = require('/server/lib/syncRuleMoveCommand');
+const { RULE_CARD_POSITION_FIELDS } = require('/server/lib/syncHistoryBatch');
 
 // Durable rule checklist actions (server/lib/syncRuleChecklistCommand.js):
 // captured with performAction's own lookups, then item by item - the

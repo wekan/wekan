@@ -1,7 +1,9 @@
 'use strict';
 const { AsyncLocalStorage } = require('node:async_hooks');
 const storage = new AsyncLocalStorage();
-const KINDS = ['create','archive','title','description','customFields','history','timing'];
+// 'position' is not a hook: it lets 'history' defer the hook's position row
+// too, for a durable rule move (server/lib/syncRuleMoveCommand.js).
+const KINDS = ['create','archive','title','description','customFields','history','timing','position'];
 // A checklist item's three hooks, for a scope that names that item.
 const ITEM_KINDS = ['itemUncomplete','itemCheck','itemHistory'];
 async function withSyncRecordingDeferred({ cardId, boardId, listId, kinds, itemId = null }, work) {
@@ -19,7 +21,11 @@ function deferSyncRecording(kind, doc, fields) {
       doc.boardId!==scope.boardId || doc.listId!==scope.listId) return false;
   // Sync's own fields, and the one field a durable rule card action changes
   // (server/lib/syncRuleCardCommand.js); its History is written from its plan.
-  if(kind==='history' && (!Array.isArray(fields) || fields.some(field=>!['title','description','spentTime','customFields','archived','labelIds','color','dueComplete','startAt','endAt','dueAt','receivedAt','members'].includes(field)))) return false;
+  // A move's position row only when the scope says so: other Sync writes that
+  // change placement keep recording it ordinarily.
+  const allowed=['title','description','spentTime','customFields','archived','labelIds','color','dueComplete','startAt','endAt','dueAt','receivedAt','members',
+    ...(scope.kinds.has('position') ? ['position'] : [])];
+  if(kind==='history' && (!Array.isArray(fields) || fields.some(field=>!allowed.includes(field)))) return false;
   // Each expected hook consumes its own slot. Nested/unrelated writes and
   // delayed callbacks after the owning mutation must keep normal recording.
   scope.kinds.delete(kind);

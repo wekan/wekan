@@ -28,6 +28,7 @@ const { createSyncHookedCards } = require('/server/lib/syncHookedCards');
 const { createSyncHookedActivities } = require('/server/lib/syncHookedActivities');
 const { syncEffectPolicy } = require('/server/lib/syncEffectPolicy');
 const { syncSourceKey } = require('/models/lib/listSyncSourceIdentity');
+const { durableRuleActionType } = require('/server/lib/syncRuleMoveCommand');
 
 const withActor = (userId, work) => DDP._CurrentMethodInvocation.withValue({ userId, isSimulation: false }, work);
 const readPolicy = async () => syncEffectPolicy(getFeatureFlags());
@@ -41,9 +42,12 @@ export async function durableSyncDecision({ list, board, trigger, actorId }) {
   const rules = await Rules.find({ boardId: list.boardId }, { fields: { actionId: 1, extraActionIds: 1 } }).fetchAsync();
   const actionIds = [...new Set(rules.flatMap(rule => ruleActionIds(rule)).filter(Boolean))];
   const actions = actionIds.length
-    ? await Actions.find({ _id: { $in: actionIds } }, { fields: { actionType: 1 } }).fetchAsync() : [];
-  // A rule whose action is gone cannot be proven durable either.
-  const ruleActionTypes = actions.length === actionIds.length ? actions.map(action => action.actionType) : [null];
+    ? await Actions.find({ _id: { $in: actionIds } },
+      { fields: { actionType: 1, listName: 1, swimlaneName: 1, boardId: 1 } }).fetchAsync() : [];
+  // A rule whose action is gone cannot be proven durable either. A move is
+  // durable only when it stays in the card's own list and swimlane.
+  const ruleActionTypes = actions.length === actionIds.length
+    ? actions.map(action => durableRuleActionType(action, list.boardId)) : [null];
   return durableSyncEligibility({ list, board, trigger, flags: getFeatureFlags(), ruleActionTypes, actorId });
 }
 

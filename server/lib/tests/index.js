@@ -111,4 +111,5 @@ import './inboundEmailRoute.tests';
 import './activityIncarnation.tests';
 import './listSyncDurable.tests';
 import './storedRuleChecklist.tests';
+import './storedRuleMove.tests';
 import './dependencyLayers.tests';

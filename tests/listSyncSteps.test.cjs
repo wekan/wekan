@@ -25,7 +25,10 @@ test('every missing condition keeps the direct path, and says which (negative)',
     [{ trigger: 'scheduled' }, 'cron-effects-not-enabled'],
     [{ list: { ...list, syncRevision: undefined } }, 'legacy-scope'],
     [{ list: { ...list, syncCredentialIncarnation: '' } }, 'legacy-scope'],
-    [{ ruleActionTypes: ['sendEmail', 'moveCardToTop'] }, 'rule-actions'],
+    // An in-place move is durable since 2026-10-02 (server/lib/syncRuleMoveCommand.js);
+    // a move elsewhere is reported as '<type>:elsewhere' and keeps direct Sync.
+    [{ ruleActionTypes: ['sendEmail', 'moveCardToTop:elsewhere'] }, 'rule-actions'],
+    [{ ruleActionTypes: ['sendEmail', 'addChecklist'] }, 'rule-actions'],
     [{ ruleActionTypes: [null] }, 'rule-actions'],
     [{ actorId: null }, 'actor'],
     [{ trigger: 'webhook' }, 'trigger'],
@@ -34,7 +37,7 @@ test('every missing condition keeps the direct path, and says which (negative)',
   const { RULE_CARD_ACTIONS } = require('../server/lib/syncRuleCardCommand');
   const { RULE_CHECKLIST_ACTIONS } = require('../server/lib/syncRuleChecklistCommand');
   assert.deepEqual([...DURABLE_RULE_ACTIONS], ['sendEmail', 'archive', 'unarchive', ...Object.keys(RULE_CARD_ACTIONS),
-    ...Object.keys(RULE_CHECKLIST_ACTIONS)],
+    ...Object.keys(RULE_CHECKLIST_ACTIONS), ...require('../server/lib/syncRuleMoveCommand').RULE_MOVE_ACTIONS],
     'the actions with durable adapters');
   const rules = fs.readFileSync(path.join(__dirname, '../server/notifications/storedRulePlans.js'), 'utf8');
   for (const type of ['sendEmail', 'archive', 'unarchive']) assert.match(rules, new RegExp(`\\b${type}[:,]`), `${type} is registered in runStoredSyncRules`);
