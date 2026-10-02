@@ -122,4 +122,30 @@ test('the two handlers that were already guarded still are', () => {
   }
 });
 
+test('negative: every activeUserByToken caller in the tree checks the result before using it', () => {
+  // FILES above is where CrashBleed was; this is everywhere else the same
+  // lookup is made (2026-10-02), so a new caller cannot reopen it.
+  const walk = dir => fs.readdirSync(path.join(__dirname, '..', dir), { withFileTypes: true }).flatMap(e => {
+    if (e.name === 'node_modules' || e.name === 'tests' || e.name.startsWith('_build') || e.name.startsWith('.')) return [];
+    const rel = `${dir}/${e.name}`;
+    return e.isDirectory() ? walk(rel) : (/\.(c|m)?js$/.test(e.name) ? [rel] : []);
+  });
+  const files = ['server', 'models', 'imports', 'packages'].flatMap(walk)
+    .filter(file => file !== 'server/lib/activeUser.js' && /activeUserByToken\(/.test(read(file)));
+  assert.ok(files.length >= FILES.length, 'the export models are among them');
+  const unguarded = [];
+  for (const file of files) {
+    const src = read(file);
+    for (const m of src.matchAll(/(return await|(\w+) = await) require\([^\n]+\)\.activeUserByToken\([^;]+\);/g)) {
+      if (m[1] === 'return await') continue; // the caller receives null and checks it
+      const name = m[2];
+      const after = src.slice(m.index + m[0].length, m.index + m[0].length + 300);
+      const use = after.indexOf(`${name}._id`);
+      const guard = after.search(new RegExp(`!${name}\\b|if \\(${name}\\)|${name} \\?`));
+      if (use !== -1 && (guard === -1 || guard > use)) unguarded.push(`${file}:${src.slice(0, m.index).split('\n').length}`);
+    }
+  }
+  assert.deepStrictEqual(unguarded, []);
+});
+
 console.log(`\n${passed} tests passed`);
