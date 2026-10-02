@@ -155,6 +155,8 @@ import '/config/search-const';
 import '/server/00checkStartup';
 import '/server/accounts-common';
 import '/server/accounts-lockout-config';
+// SignupBleed: a client's createUser call cannot pass server-only options.
+import '/server/lib/clientAccountCreationGuard';
 // Fold the per-event eventlog rows an older WeKan wrote into problem summaries
 // (server/lib/eventLogSummaryMigration.js). Idempotent and once.
 import '/server/eventLogSummaryStartup';
