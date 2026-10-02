@@ -167,7 +167,30 @@ const keys = [
   "blockly-CONTROLS_IF_TOOLTIP_2",
   "blockly-CONTROLS_IF_TOOLTIP_3",
   "blockly-CONTROLS_IF_TOOLTIP_4",
-  "blockly-CONTROLS_REPEAT_TITLE"
+  "blockly-CONTROLS_REPEAT_TITLE",
+  "blockly-CONTROLS_REPEAT_TOOLTIP",
+  "blockly-CONTROLS_WHILEUNTIL_OPERATOR_UNTIL",
+  "blockly-CONTROLS_WHILEUNTIL_OPERATOR_WHILE",
+  "blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL",
+  "blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE",
+  "blockly-COPY_ALL_TO_BACKPACK",
+  "blockly-COPY_SHORTCUT",
+  "blockly-COPY_TO_BACKPACK",
+  "blockly-CURRENT_BLOCK_ANNOUNCEMENT",
+  "blockly-CUT_SHORTCUT",
+  "blockly-DELETE_VARIABLE",
+  "blockly-DELETE_VARIABLE_CONFIRMATION",
+  "blockly-DUPLICATE_COMMENT",
+  "blockly-EDIT_BLOCK_CONTENTS",
+  "blockly-EMPTY_BACKPACK",
+  "blockly-EXPAND_BLOCK",
+  "blockly-FIELD_BITMAP_ARIA_VALUE",
+  "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR",
+  "blockly-FIELD_BITMAP_BUTTON_LABEL_RANDOMIZE",
+  "blockly-FIELD_BITMAP_PIXEL_LABEL",
+  "blockly-FIELD_BITMAP_PIXEL_OFF",
+  "blockly-FIELD_LABEL_EDIT_PREFIX",
+  "blockly-FIELD_LABEL_EMPTY"
 ];
 for (const key of keys) {
   assert.ok(locale[key]?.trim(), key);
