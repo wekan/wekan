@@ -3102,6 +3102,25 @@ Structural tests do not establish fluency.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6411b2cd71">Translate Scrum history, estimates and recovery in Nahuatl</a>. Thanks to xet7.</summary>
+
+Fill twenty English placeholders in Nahuatl, bringing these Scrum groups to
+229 locale tags, with five remaining. Preserve existing translations, source
+order and exact tokens. Extend incomplete-history, missing-weight and
+discard-only recovery checks. Describe estimates as expected quantities and
+keep finishing an import distinct from discarding it.
+
+Six catalog and batch suites and all 21 human-preference checks pass.
+Nahuatl specialist workflow phrasing and inflection have lower confidence
+and need speaker review. The broader translation backlog remains. References
+include dictionary entries for [changing](https://nahuatl.wired-humanities.org/content/patla-0),
+[finishing](https://nahuatl.wired-humanities.org/content/tlamia)
+and [inserting](https://nahuatl.wired-humanities.org/node/174411).
+Structural tests do not establish fluency.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
