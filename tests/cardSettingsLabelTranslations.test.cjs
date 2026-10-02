@@ -5,7 +5,7 @@ const path = require('node:path');
 const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const english = read('en');
-const codes = ["kk", "ky", "tg", "mn", "uz", "uz-LA", "uz-UZ", "uz-AR", "ba", "tt", "tk_TM", "ug", "ckb", "ku", "am", "as", "or_IN", "si", "ps", "sd", "km", "km-KH", "km_KH", "my", "fo", "fy", "fy-NL", "fur", "rm", "sc", "scn", "nap", "pap", "so", "mg", "rw", "rn", "ny", "om", "zu", "zu-ZA", "xh", "st", "tn", "nso", "ss", "nd", "ts", "ve", "lg", "wo", "ak", "bm", "ee"];
+const codes = ["kk", "ky", "tg", "mn", "uz", "uz-LA", "uz-UZ", "uz-AR", "ba", "tt", "tk_TM", "ug", "ckb", "ku", "am", "as", "or_IN", "si", "ps", "sd", "km", "km-KH", "km_KH", "my", "fo", "fy", "fy-NL", "fur", "rm", "sc", "scn", "nap", "pap", "so", "mg", "rw", "rn", "ny", "om", "zu", "zu-ZA", "xh", "st", "tn", "nso", "ss", "nd", "ts", "ve", "lg", "wo", "ak", "bm", "ee", "br", "kw", "gv", "csb", "hsb", "szl"];
 const keys = ['card-settings-card-color', 'card-settings-linked-card', 'card-settings-description-badge'];
 for (const code of codes) {
   const locale = read(code);
@@ -49,4 +49,9 @@ assert.doesNotMatch(read('lg')['card-settings-linked-card'], /Linked/);
 assert.equal(read('ak')['cardType-linkedCard'], 'Kaad a wɔde abɔ mu');
 assert.doesNotMatch(read('ak')['card-settings-linked-card'], /Linked/);
 assert.equal(read('ee')['cardType-linkedCard'], 'Agbalẽvi si wodo ka kɔ');
+assert.equal(read('br')['cardType-linkedCard'], 'Kartenn liammet');
+assert.doesNotMatch(read('br')['card-settings-linked-card'], /kavet/);
+assert.match(read('gv')['card-settings-card-color'], /^Daah /);
+assert.equal(read('hsb')['cardType-linkedCard'], 'Zwjazana kartka');
+assert.doesNotMatch(read('hsb')['card-settings-linked-card'], /WeKan:|Propojená/);
 console.log(`Card setting labels: ${keys.length} labels in ${codes.length} locales passed`);
