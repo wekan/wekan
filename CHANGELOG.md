@@ -84,8 +84,7 @@ several parents per card, export fidelity and the Leo outline format. What
 remains below is blocked for one of three stated reasons, not left unexamined:
 
 - **Decided "not now", kept open.** #2509 and #2460 (see "Needs a
-  maintainer decision"; #4912 was decided on 2026-10-02 as an opt-in extra
-  event), and filing the prepared #4790 split, which is a
+  maintainer decision"), and filing the prepared #4790 split, which is a
   publishing step for the maintainer.
 - **Needs infrastructure or affected data.** The environment-owner, snap and
   data-verification items. The MySQL/MariaDB/PostgreSQL verification was done
@@ -248,11 +247,6 @@ Remaining, and why:
   has no multi-document transactions, and journal ownership cannot fence a
   card write that is already in flight. That is a property of the backends,
   not a step left undone.
-- **Lists created before list lifetimes existed** have no incarnation, so they
-  keep direct Sync. Saving settings does not give them one: only a server
-  insertion does (models/lists.js). Assigning one by migration would stop
-  their stored credential from matching until the settings are saved again.
-  Decided on 2026-10-02: assign it when the Sync settings are next saved.
 
 Node suite health at this pass: 163 of 1445 suites fail; 162 already failed at
 the pass's starting commit (mostly translation-completeness suites, plus source
@@ -280,6 +274,10 @@ Maintainer decisions of 2026-10-02, for what remained above:
   still to be fixed when it is built.
 - **[#2460](https://github.com/wekan/wekan/issues/2460) stays open, not now**,
   as decided on 2026-09-30.
+
+Built on 2026-10-02 (in Upcoming): the opt-in `act-editCard` event (#4912) and
+lifetimes for old lists when their Sync settings are saved. Durable moves are
+next and not started in code.
 
 Investigated but not finished, with findings
 recorded for whoever picks them up next. Entries that have since been FIXED are
@@ -1587,14 +1585,6 @@ hangs.
 <details>
 <summary>Needs a maintainer decision on the intended contract (partly already works).</summary>
 
-[#4912](https://github.com/wekan/wekan/issues/4912) (decided on 2026-10-02:
-an opt-in extra event beside the per-field ones; which fields count is left
-for the implementation. Was: a global `act-editCard`
-webhook — card title/description edits ALREADY reach the global webhook via
-`Activities.after.insert` as `act-a-changedTitle` / `act-a-changedDescription`
-from #3619/#5482; a single consolidated `act-editCard` action needs a decision
-on which fields count and whether it supplements or replaces the existing
-per-field events, to avoid duplicate webhook deliveries),
 [#2509](https://github.com/wekan/wekan/issues/2509) (a "customized card
 style" - the report is a single line plus a screenshot with areas marked in
 blue that is not accessible from here, and it names no concrete visual
@@ -1699,6 +1689,105 @@ template.
 
 </details>
 </details>
+
+# Upcoming WeKan ® release
+
+**In short:** Administrators can choose which optional **board views** WeKan
+offers, preview them before enabling them, and keep features from later updates
+off until approved. Webhooks can opt into one **act-editCard** event, lists from
+before list lifetimes become eligible for durable Sync when their settings are
+saved, and translation checks keep completed catalogs while new strings wait.
+
+This release adds the following new features:
+
+**The Admin Panel** - Settings / Visibility decides which optional features
+the whole instance offers, and who may try them first.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/18d57b2b8f">A Features group turns optional board views on or off for everyone</a>. Thanks to nalilord and xet7.</summary>
+
+[#6736](https://github.com/wekan/wekan/issues/6736): the optional board views
+are grouped as Table, Calendar, Time, Overview, Gantt, Scrum, Flow charts and
+Map, and each group can be disabled instance-wide. A disabled view is removed
+from the Board View menu and from Board Settings / Board View rather than
+greyed out, a user who had it open is moved to the board's default view, and
+reordering in Board Settings steps over the hidden rows. Disabling keeps the
+data and changes no permission. Swimlanes and Lists are core and cannot be
+disabled.
+
+Administrators can preview disabled features, and named pilot users see them
+too; the pilot flag is published only in the user's own document. An opt-in
+policy keeps features added by later WeKan updates disabled until an
+administrator enables them, while the features present when it is turned on
+stay as they were. The catalog and its decisions are one pure module,
+`models/lib/instanceFeatures.js`. Tests: `tests/instanceFeatures.test.cjs`
+(decisions, approval policy, preview, catalog integrity, and a tree-wide guard
+that no client code draws or resolves a view without the filter), a server test
+of the admin-only save, and `tests/playwright/specs/instance-features.e2e.js`,
+which passes in Chromium and WebKit. The English texts are pending Transifex.
+
+</details>
+
+**Outgoing webhooks** - card edits as one event, for the receivers that ask
+for it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/06e186a0d0">A webhook can opt into one act-editCard event for title and description edits</a>. Thanks to Rishats and xet7.</summary>
+
+[#4912](https://github.com/wekan/wekan/issues/4912), as decided on 2026-10-02:
+a webhook whose activity list names `act-editCard` receives that event, with a
+`field` parameter, instead of `act-a-changedTitle` /
+`act-a-changedDescription`. A webhook on `all` or on the per-field events keeps
+what it received before, and every webhook still gets one delivery per edit,
+so no receiver sees an edit twice. Ordinary dispatch and stored Sync webhook
+plans make the same choice through `models/lib/editCardWebhook.js`. Tests:
+`tests/editCardWebhook.test.cjs` (positive, negative and a tree-wide guard) and
+a server test of the stored plan.
+
+</details>
+
+**List Sync** - lists from before list lifetimes.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/307bad3e8e">Saving Sync settings gives an old list its lifetime, so it can use durable Sync</a>. Thanks to xet7.</summary>
+
+A list created before list lifetimes had no incarnation and stayed on direct
+Sync for good. As decided on 2026-10-02, saving its Sync settings assigns one
+in the same list update that selects the new credential, and the credential is
+bound to it. No migration assigns it, so an upgrade leaves every stored
+credential matching. Tests: the real-database integration suite (23 pass), a
+server test that the saved list becomes eligible for durable Sync, and a guard
+that nothing else writes the field on an existing list.
+
+</details>
+
+and has the following developer-facing changes:
+
+**Tests and the backlog** - guards that follow the decisions above.
+
+- [The #4912 guards pin the opt-in act-editCard choice](https://github.com/wekan/wekan/commit/5a9bd80ed6). Thanks to xet7.
+- [TODO Later records the maintainer decisions of 2026-10-02](https://github.com/wekan/wekan/commit/34b1879d6f). Thanks to xet7.
+
+and improves translation regression checks:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/225d875b09">Preserve completed translations as new features add strings</a>. Thanks to xet7.</summary>
+
+Synchronize locale key sets with English without replacing existing
+translations. Historical completion assertions now check the 2,417-string
+source catalog from September 6; new strings remain visible in the normal
+translation work report. Full current-catalog key, placeholder and
+feature-specific assertions remain. Positive and negative CLI tests verify
+regression detection and backlog visibility.
+The 222 existing translation and i18n suites passed across the rerun and focused
+fix verification, along with the new catalog regression suite and all 21 human
+translation preservation checks. These catalog checks require no running UI.
+Newer feature translations remain unfinished; passing the regression gate does
+not certify their completeness or language quality.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
 
