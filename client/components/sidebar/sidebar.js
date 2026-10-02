@@ -15,8 +15,9 @@ const {
   CARD_LAYOUT,
   MINICARD_LAYOUT,
   applyLayoutOrder,
-  canMove,
   moveKey,
+  placeKey,
+  isMovableKey,
 } = require('/models/lib/cardFieldOrder');
 const { rowsForSide, CARD_SETTINGS_ROWS } = require('/models/lib/cardSettingsRows');
 import { invalidateScrumNames } from '/client/components/boards/scrum/scrumFields';
@@ -657,7 +658,39 @@ Template.boardMenuPopup.onCreated(function() {
 // applied through the Board instance setters, so the popup, the Board View
 // menu and Utils.boardView() can not disagree. Boards.allow's board-admin
 // rule enforces who may persist a click.
+// Rows reorder by drag and drop (jQuery UI sortable, as the custom fields
+// sidebar does). The DOM change is cancelled at the drop and the new order is
+// written to the board, so Blaze redraws the rows from the data rather than
+// keeping a DOM order the data does not have.
+// `handle` is the drag handle when drag handles are on, else the icon and
+// label (the templates put the class on whichever it is).
+function reorderOnDrop($list, { items, handle, keyOf, drop }) {
+  if (!$list.length || typeof $list.sortable !== 'function') return;
+  $list.sortable({
+    items, handle, axis: 'y', tolerance: 'pointer', distance: 5,
+    stop(evt, ui) {
+      const key = keyOf(ui.item[0]);
+      const keys = $list.find(items).toArray().map(keyOf);
+      $list.sortable('cancel');
+      if (key) drop(key, keys);
+    },
+  });
+}
+// The keyboard way to do the same: Up and Down move a focused row one step.
+const ARROW_KEYS = { ArrowUp: 'up', ArrowDown: 'down' };
+
+Template.boardViewSettingsPopup.onRendered(function () {
+  reorderOnDrop(this.$('.js-board-view-sortable'), {
+    items: '> .js-board-view-row', handle: '.js-board-view-order-handle',
+    keyOf: el => el.dataset.view,
+    drop: (view, views) => Utils.getCurrentBoard()?.setVisibleBoardViewOrder(views, allowBoardView),
+  });
+});
+
 Template.boardViewSettingsPopup.helpers({
+  showDragHandles() {
+    return Utils.showDragHandles();
+  },
   publicBoardsHidden() {
     return Boolean(
       TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly')?.booleanValue,
@@ -667,7 +700,7 @@ Template.boardViewSettingsPopup.helpers({
     const board = Utils.getCurrentBoard();
     // #6736: views the instance disabled are not rows; their board settings stay.
     const ordered = boardViewSettings.orderedBoardViews(board).filter(v => allowBoardView(v.view));
-    return ordered.map((v, i) => ({
+    return ordered.map(v => ({
       view: v.view,
       labelKey: v.labelKey,
       icon: `fa ${v.icon}`,
@@ -675,8 +708,6 @@ Template.boardViewSettingsPopup.helpers({
       showOnPrivate: boardViewSettings.isBoardViewShown(board, v.view, 'private'),
       isDefaultPublic: boardViewSettings.defaultBoardView(board, 'public') === v.view,
       isDefaultPrivate: boardViewSettings.defaultBoardView(board, 'private') === v.view,
-      isFirst: i === 0,
-      isLast: i === ordered.length - 1,
     }));
   },
 });
@@ -698,17 +729,15 @@ Template.boardViewSettingsPopup.events({
     const view = evt.currentTarget.closest('[data-view]').dataset.view;
     board.setDefaultBoardView(view, visibility);
   },
-  'click .js-board-view-order-up'(evt) {
+  'click .js-board-view-order-handle'(evt) {
     evt.preventDefault();
-    const board = Utils.getCurrentBoard();
-    if (!board) return;
-    board.moveBoardView(evt.currentTarget.closest('[data-view]').dataset.view, 'up', allowBoardView);
   },
-  'click .js-board-view-order-down'(evt) {
-    evt.preventDefault();
+  'keydown .js-board-view-order-handle'(evt) {
+    const direction = ARROW_KEYS[evt.key];
     const board = Utils.getCurrentBoard();
-    if (!board) return;
-    board.moveBoardView(evt.currentTarget.closest('[data-view]').dataset.view, 'down', allowBoardView);
+    if (!direction || !board) return;
+    evt.preventDefault();
+    board.moveBoardView(evt.currentTarget.closest('[data-view]').dataset.view, direction, allowBoardView);
   },
 });
 
@@ -1862,9 +1891,12 @@ function buildCardSettingsRows(side, data) {
     .map(row => {
       const spec = row[side];
       const helper = boardCardSettingsHelpers[spec.field];
-      const positioned = !spec.after;
+      // Head and tail rows are drawn at a fixed place: not dragged either.
+      const positioned = !spec.after && isMovableKey(layout, row.key);
       return {
         key: row.key,
+        // A row with a place of its own is dragged; a modifier follows its row.
+        positioned,
         toggle: spec.toggle,
         // A Scrum row's checkbox is that field's Scrum visibility flag.
         checked: spec.scrum ? currentBoard?.scrum?.visibility?.[spec.scrum] === true
@@ -1873,8 +1905,6 @@ function buildCardSettingsRows(side, data) {
         title: row.label.map(k => TAPi18n.__(k)).join(row.labelSeparator || ' '),
         personal: Boolean(spec.personal),
         labelTextOverride: Boolean(spec.labelTextOverride),
-        canMoveUp: positioned && canMove(stored, layout, row.key, 'up'),
-        canMoveDown: positioned && canMove(stored, layout, row.key, 'down'),
       };
     });
 }
@@ -2343,7 +2373,33 @@ const boardCardSettingsHelpers = {
     );
   },
 };
+boardCardSettingsHelpers.showDragHandles = () => Utils.showDragHandles();
 Template.boardCardSettingsPopup.helpers(boardCardSettingsHelpers);
+
+// Each column reorders by drag and drop. The drop says where the row should
+// be among the rows that have a place; placeKey walks the same steps the
+// arrows took there, so the layout's rules - a pinned header first, a section
+// moving as one - still hold (models/lib/cardFieldOrder.js).
+Template.boardCardSettingsPopup.onRendered(function () {
+  this.$('.js-card-field-order-sortable').each((i, column) => {
+    const side = column.dataset.side;
+    reorderOnDrop(this.$(column), {
+      items: '> .js-card-field-order-row.is-positioned', handle: '.js-card-field-order-handle',
+      keyOf: el => el.dataset.key,
+      drop: (key, keys) => {
+        const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+        if (!board) return;
+        const layout = side === 'minicard' ? MINICARD_LAYOUT : CARD_LAYOUT;
+        const stored = side === 'minicard' ? board.minicardFieldOrder : board.cardFieldOrder;
+        const movable = keys.filter(k => isMovableKey(layout, k));
+        const order = placeKey(stored, key, movable.indexOf(key), layout);
+        if (order.join(' ') === applyLayoutOrder(stored, layout).join(' ')) return;
+        if (side === 'minicard') board.setMinicardFieldOrder(order);
+        else board.setCardFieldOrder(order);
+      },
+    });
+  });
+});
 
 // #4448: an up/down arrow of Board Settings / Card. The row says which field
 // and which side (data-key / data-side, because `each row in` keeps the
@@ -2377,8 +2433,12 @@ Template.boardCardSettingsPopup.events({
     tpl.$('.js-ask-move-reason i').toggleClass('fa-check', value).toggleClass('fa-square-o', !value);
   },
 
-  'click .js-card-field-order-up'(evt) {
-    moveCardSettingsRow(evt, 'up');
+  'click .js-card-field-order-handle'(evt) {
+    evt.preventDefault();
+  },
+  'keydown .js-card-field-order-handle'(evt) {
+    const direction = ARROW_KEYS[evt.key];
+    if (direction) moveCardSettingsRow(evt, direction);
   },
   // "Scrum settings: Sprint" and the other Scrum rows: the field's Scrum
   // visibility flag for this side, through the same method the Scrum settings
@@ -2401,9 +2461,6 @@ Template.boardCardSettingsPopup.events({
     evt.preventDefault();
     const newValue = tpl.currentBoard.allowsIssueTypeOnMinicard === false;
     Boards.update(tpl.currentBoard._id, { $set: { allowsIssueTypeOnMinicard: newValue } });
-  },
-  'click .js-card-field-order-down'(evt) {
-    moveCardSettingsRow(evt, 'down');
   },
   // Board-level default for #4256: whether labels show their TEXT on this
   // board's minicards, unless a user's own override (below) says otherwise.

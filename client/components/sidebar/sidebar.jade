@@ -302,19 +302,24 @@ template(name="boardCardSettingsPopup")
     .card-field-order-columns
       .card-field-order-column.card-field-order-column-draggable
         +boardDragSettings(section="card")
-      .card-field-order-column.card-field-order-column-minicard
+      .card-field-order-column.card-field-order-column-minicard.js-card-field-order-sortable(data-side="minicard")
         h4.card-field-order-column-heading {{_ 'show-on-minicard'}}
         +boardSettingsColumnActions(section="card" column="minicard")
         each row in minicardSettingsRows
-          .card-field-order-row.js-card-field-order-row(class="{{#if row.personal}}card-settings-row-personal{{/if}}" data-key="{{row.key}}" data-side="minicard")
+          .card-field-order-row.js-card-field-order-row(class="{{#if row.personal}}card-settings-row-personal{{/if}}" class="{{#if row.positioned}}is-positioned{{/if}}" data-key="{{row.key}}" data-side="minicard")
             a.flex.card-field-order-toggle(class=row.toggle class="{{#if row.checked}}is-checked{{/if}}" title="{{row.title}}")
               i.fa(class="{{#if row.checked}}fa-check{{else}}fa-square-o{{/if}}")
+            //- Reordered by drag and drop (client/components/sidebar/sidebar.js
+              cardFieldOrderSortable). With drag handles on, the handle sits
+              where the up/down arrows were; with them off, the icon and the
+              label are what is dragged. Either way the Up and Down arrow keys
+              move a focused row one step, as the arrows did. A row that only
+              modifies another (`after`) has no place of its own and no handle.
             if canModifyBoard
-              a.flex.card-field-order-move.js-card-field-order-up(href="#" role="button" class="{{#unless row.canMoveUp}}is-disabled{{/unless}}" aria-disabled="{{#if row.canMoveUp}}false{{else}}true{{/if}}" title="{{#if row.canMoveUp}}{{_ 'card-field-order-move-up'}}{{else}}{{_ 'r-rule-disabled'}}{{/if}}" aria-label="{{_ 'card-field-order-move-up'}}")
-                i.fa.fa-arrow-up
-              a.flex.card-field-order-move.js-card-field-order-down(href="#" role="button" class="{{#unless row.canMoveDown}}is-disabled{{/unless}}" aria-disabled="{{#if row.canMoveDown}}false{{else}}true{{/if}}" title="{{#if row.canMoveDown}}{{_ 'card-field-order-move-down'}}{{else}}{{_ 'r-rule-disabled'}}{{/if}}" aria-label="{{_ 'card-field-order-move-down'}}")
-                i.fa.fa-arrow-down
-            span.card-field-order-label
+              if showDragHandles
+                a.flex.card-field-order-move.card-field-order-handle(class="{{#if row.positioned}}js-card-field-order-handle{{else}}is-disabled{{/if}}" href="#" draggable="false" role="button" tabindex="{{#if row.positioned}}0{{else}}-1{{/if}}" aria-disabled="{{#if row.positioned}}false{{else}}true{{/if}}" title="{{#if row.positioned}}{{_ 'drag-to-reorder'}}{{else}}{{_ 'r-rule-disabled'}}{{/if}}" aria-label="{{_ 'drag-to-reorder'}}")
+                  i.fa.fa-arrows
+            span.card-field-order-label(class="{{#if canModifyBoard}}{{#unless showDragHandles}}{{#if row.positioned}}js-card-field-order-handle card-field-order-drag-label{{/if}}{{/unless}}{{/if}}" tabindex="{{#if canModifyBoard}}{{#unless showDragHandles}}{{#if row.positioned}}0{{/if}}{{/unless}}{{/if}}" title="{{#if canModifyBoard}}{{#unless showDragHandles}}{{#if row.positioned}}{{_ 'drag-to-reorder'}}{{/if}}{{/unless}}{{/if}}")
               each icon in row.icons
                 i.fa(class=icon)
               | {{row.title}}
@@ -329,19 +334,24 @@ template(name="boardCardSettingsPopup")
                     | ({{_ 'label-text-overridden'}})
                 else
                   | &nbsp;({{_ 'label-text-follows-board'}})
-      .card-field-order-column.card-field-order-column-card
+      .card-field-order-column.card-field-order-column-card.js-card-field-order-sortable(data-side="card")
         h4.card-field-order-column-heading {{_ 'show-on-card'}}
         +boardSettingsColumnActions(section="card" column="card")
         each row in cardSettingsRows
-          .card-field-order-row.js-card-field-order-row(data-key="{{row.key}}" data-side="card")
+          .card-field-order-row.js-card-field-order-row(class="{{#if row.positioned}}is-positioned{{/if}}" data-key="{{row.key}}" data-side="card")
             a.flex.card-field-order-toggle(class=row.toggle class="{{#if row.checked}}is-checked{{/if}}" title="{{row.title}}")
               i.fa(class="{{#if row.checked}}fa-check{{else}}fa-square-o{{/if}}")
+            //- Reordered by drag and drop (client/components/sidebar/sidebar.js
+              cardFieldOrderSortable). With drag handles on, the handle sits
+              where the up/down arrows were; with them off, the icon and the
+              label are what is dragged. Either way the Up and Down arrow keys
+              move a focused row one step, as the arrows did. A row that only
+              modifies another (`after`) has no place of its own and no handle.
             if canModifyBoard
-              a.flex.card-field-order-move.js-card-field-order-up(href="#" role="button" class="{{#unless row.canMoveUp}}is-disabled{{/unless}}" aria-disabled="{{#if row.canMoveUp}}false{{else}}true{{/if}}" title="{{#if row.canMoveUp}}{{_ 'card-field-order-move-up'}}{{else}}{{_ 'r-rule-disabled'}}{{/if}}" aria-label="{{_ 'card-field-order-move-up'}}")
-                i.fa.fa-arrow-up
-              a.flex.card-field-order-move.js-card-field-order-down(href="#" role="button" class="{{#unless row.canMoveDown}}is-disabled{{/unless}}" aria-disabled="{{#if row.canMoveDown}}false{{else}}true{{/if}}" title="{{#if row.canMoveDown}}{{_ 'card-field-order-move-down'}}{{else}}{{_ 'r-rule-disabled'}}{{/if}}" aria-label="{{_ 'card-field-order-move-down'}}")
-                i.fa.fa-arrow-down
-            span.card-field-order-label
+              if showDragHandles
+                a.flex.card-field-order-move.card-field-order-handle(class="{{#if row.positioned}}js-card-field-order-handle{{else}}is-disabled{{/if}}" href="#" draggable="false" role="button" tabindex="{{#if row.positioned}}0{{else}}-1{{/if}}" aria-disabled="{{#if row.positioned}}false{{else}}true{{/if}}" title="{{#if row.positioned}}{{_ 'drag-to-reorder'}}{{else}}{{_ 'r-rule-disabled'}}{{/if}}" aria-label="{{_ 'drag-to-reorder'}}")
+                  i.fa.fa-arrows
+            span.card-field-order-label(class="{{#if canModifyBoard}}{{#unless showDragHandles}}{{#if row.positioned}}js-card-field-order-handle card-field-order-drag-label{{/if}}{{/unless}}{{/if}}" tabindex="{{#if canModifyBoard}}{{#unless showDragHandles}}{{#if row.positioned}}0{{/if}}{{/unless}}{{/if}}" title="{{#if canModifyBoard}}{{#unless showDragHandles}}{{#if row.positioned}}{{_ 'drag-to-reorder'}}{{/if}}{{/unless}}{{/if}}")
               each icon in row.icons
                 i.fa(class=icon)
               | {{row.title}}
@@ -674,35 +684,35 @@ template(name="boardViewSettingsPopup")
         h4 {{_ 'show-on-private-board'}}
       .board-view-settings-column
         h4 {{_ 'description'}}
-    each boardViewRows
-      .board-view-settings-row(data-view="{{view}}")
-        unless ../publicBoardsHidden
+    .board-view-settings-rows.js-board-view-sortable
+      each boardViewRows
+        .board-view-settings-row.js-board-view-row(data-view="{{view}}")
+          unless ../publicBoardsHidden
+            .board-view-settings-column
+              a.flex.js-board-view-default(data-visibility="public" title="{{_ 'default-on-public-board'}}" class="{{#if isDefaultPublic}}is-checked{{/if}}")
+                i.fa(class="{{#if isDefaultPublic}}fa-check{{else}}fa-square-o{{/if}}")
+            .board-view-settings-column
+              a.flex.js-board-view-show(data-visibility="public" title="{{_ 'show-on-public-board'}}" class="{{#if showOnPublic}}is-checked{{/if}}")
+                i.fa(class="{{#if showOnPublic}}fa-check{{else}}fa-square-o{{/if}}")
           .board-view-settings-column
-            a.flex.js-board-view-default(data-visibility="public" title="{{_ 'default-on-public-board'}}" class="{{#if isDefaultPublic}}is-checked{{/if}}")
-              i.fa(class="{{#if isDefaultPublic}}fa-check{{else}}fa-square-o{{/if}}")
+            a.flex.js-board-view-default(data-visibility="private" title="{{_ 'default-on-private-board'}}" class="{{#if isDefaultPrivate}}is-checked{{/if}}")
+              i.fa(class="{{#if isDefaultPrivate}}fa-check{{else}}fa-square-o{{/if}}")
           .board-view-settings-column
-            a.flex.js-board-view-show(data-visibility="public" title="{{_ 'show-on-public-board'}}" class="{{#if showOnPublic}}is-checked{{/if}}")
-              i.fa(class="{{#if showOnPublic}}fa-check{{else}}fa-square-o{{/if}}")
-        .board-view-settings-column
-          a.flex.js-board-view-default(data-visibility="private" title="{{_ 'default-on-private-board'}}" class="{{#if isDefaultPrivate}}is-checked{{/if}}")
-            i.fa(class="{{#if isDefaultPrivate}}fa-check{{else}}fa-square-o{{/if}}")
-        .board-view-settings-column
-          a.flex.js-board-view-show(data-visibility="private" title="{{_ 'show-on-private-board'}}" class="{{#if showOnPrivate}}is-checked{{/if}}")
-            i.fa(class="{{#if showOnPrivate}}fa-check{{else}}fa-square-o{{/if}}")
-        .board-view-settings-column
-          //- The row's place in the Board View menu: up/down, like Card
-            Settings' card field order. Real links (href) so the keyboard
-            reaches them and Enter presses them; the first row's up and the
-            last row's down are no-ops (models/lib/boardViewSettings.js
-            moveBoardView) and drawn disabled. The two existing "Move up" /
-            "Move down" keys are reused rather than new ones.
-          a.flex.js-board-view-order-up(href="#" role="button" class="{{#if isFirst}}is-disabled{{/if}}" title="{{_ 'card-field-order-move-up'}}" aria-label="{{_ 'card-field-order-move-up'}}")
-            i.fa.fa-arrow-up
-          a.flex.js-board-view-order-down(href="#" role="button" class="{{#if isLast}}is-disabled{{/if}}" title="{{_ 'card-field-order-move-down'}}" aria-label="{{_ 'card-field-order-move-down'}}")
-            i.fa.fa-arrow-down
-          span
-            i.fa(class="{{icon}}")
-            | {{_ labelKey}}
+            a.flex.js-board-view-show(data-visibility="private" title="{{_ 'show-on-private-board'}}" class="{{#if showOnPrivate}}is-checked{{/if}}")
+              i.fa(class="{{#if showOnPrivate}}fa-check{{else}}fa-square-o{{/if}}")
+          .board-view-settings-column
+            //- The row's place in the Board View menu, by drag and drop like
+              Board Settings / Card (client/components/sidebar/sidebar.js
+              boardViewSortable): with drag handles on, the handle sits where
+              the up/down arrows were; with them off, the icon and the label are
+              what is dragged. The Up and Down arrow keys move a focused row one
+              step (models/lib/boardViewSettings.js moveBoardView).
+            if showDragHandles
+              a.flex.board-view-order-handle.js-board-view-order-handle(href="#" draggable="false" role="button" title="{{_ 'drag-to-reorder'}}" aria-label="{{_ 'drag-to-reorder'}}")
+                i.fa.fa-arrows
+            span(class="{{#unless showDragHandles}}js-board-view-order-handle board-view-drag-label{{/unless}}" tabindex="{{#unless showDragHandles}}0{{/unless}}" title="{{#unless showDragHandles}}{{_ 'drag-to-reorder'}}{{/unless}}")
+              i.fa(class="{{icon}}")
+              | {{_ labelKey}}
 
 //- Board Settings / Swimlane. The board-wide swimlane-height resize lock
   used to be a header icon (#6680); it lives here now, with the rest of a

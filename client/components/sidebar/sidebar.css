@@ -830,3 +830,23 @@ body.sidebar-resizing-active {
 }
 .filter-native-choice input { flex-shrink: 0; }
 .filter-native-choice:focus-within { outline: 2px solid currentColor; outline-offset: 2px; }
+
+/* Board Settings / Card and Board View reorder by drag and drop: the handle
+   where the up/down arrows were when drag handles are on, else the icon and
+   label themselves. */
+.card-field-order-handle.js-card-field-order-handle,
+.board-view-order-handle,
+.card-field-order-drag-label,
+.board-view-drag-label {
+  cursor: grab;
+}
+.card-field-order-handle.is-disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.js-card-field-order-sortable .ui-sortable-helper,
+.js-board-view-sortable .ui-sortable-helper {
+  cursor: grabbing;
+  background: var(--wekan-popup-background, #fff);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}

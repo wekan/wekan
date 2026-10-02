@@ -219,23 +219,29 @@ test('"Card field order" is ONE heading above both the Show on Minicard and the 
   assert.ok(en['card-field-order'] && en['show-on-minicard'] && en['show-on-card'], 'existing keys');
 });
 
-test('each list draws every row as [checkbox] [up] [down] icon label from the table, in the board order', () => {
-  for (const [helper, column] of [['minicardSettingsRows', 'card-field-order-column-minicard'], ['cardSettingsRows', 'card-field-order-column-card']]) {
+// Drag and drop replaced the up/down arrows (2026-10-02): with drag handles
+// on, a handle sits where the arrows were; with them off, the icon and label
+// are dragged. The Up and Down keys on the focused handle or label still move
+// a row one step, so the order stays keyboard-reachable.
+test('each list draws every row as [checkbox] [handle] icon label from the table, in the board order', () => {
+  for (const [helper, column, side] of [['minicardSettingsRows', 'card-field-order-column-minicard', 'minicard'], ['cardSettingsRows', 'card-field-order-column-card', 'card']]) {
     const at = popup.indexOf(`.card-field-order-column.${column}`);
     assert.ok(at !== -1, `${column} list`);
     const list = popup.slice(at, popup.indexOf('.card-field-order-column.', at + 1) === -1 ? undefined : popup.indexOf('.card-field-order-column.', at + 1));
+    assert.ok(popup.slice(at, at + 200).includes(`.js-card-field-order-sortable(data-side="${side}")`), `${column} is a sortable list`);
     assert.ok(list.includes(`each row in ${helper}`), `${column} iterates ${helper}`);
     const row = list.slice(list.indexOf('.card-field-order-row'));
     const toggle = row.indexOf('a.flex.card-field-order-toggle(class=row.toggle');
-    const up = row.indexOf('js-card-field-order-up');
-    const down = row.indexOf('js-card-field-order-down');
+    const handle = row.indexOf('a.flex.card-field-order-move.card-field-order-handle');
     const icons = row.indexOf('each icon in row.icons');
     const label = row.indexOf('| {{row.title}}');
-    assert.ok(toggle !== -1 && up !== -1 && down !== -1 && icons !== -1 && label !== -1, `${column}: all five parts`);
-    assert.ok(toggle < up && up < down && down < icons && icons < label, `${column}: checkbox, up, down, icon, label - in that order`);
+    assert.ok(toggle !== -1 && handle !== -1 && icons !== -1 && label !== -1, `${column}: all four parts`);
+    assert.ok(toggle < handle && handle < icons && icons < label, `${column}: checkbox, handle, icon, label - in that order`);
+    assert.ok(!row.includes('js-card-field-order-up') && !row.includes('js-card-field-order-down'), `${column}: no arrows left (negative)`);
     assert.ok(row.includes('{{#if row.checked}}is-checked{{/if}}'), `${column}: the checkbox reads the row's state`);
-    assert.ok(row.includes('{{#unless row.canMoveUp}}is-disabled{{/unless}}'), `${column}: up disables when it would do nothing`);
-    assert.ok(row.includes('{{#unless row.canMoveDown}}is-disabled{{/unless}}'), `${column}: down likewise`);
+    assert.ok(row.includes('{{#if row.positioned}}is-positioned{{/if}}'), `${column}: only a row with a place is dragged`);
+    assert.ok(row.includes('if showDragHandles\n                a.flex.card-field-order-move.card-field-order-handle'), `${column}: the handle only with drag handles on`);
+    assert.ok(row.includes('span.card-field-order-label(class="{{#if canModifyBoard}}{{#unless showDragHandles}}{{#if row.positioned}}js-card-field-order-handle card-field-order-drag-label'), `${column}: the label is the handle with them off`);
     assert.ok(row.includes('data-key="{{row.key}}"'), `${column}: the row says which field`);
   }
   assert.ok(popup.includes('data-side="minicard"') && popup.includes('data-side="card"'), 'and which side');
@@ -249,23 +255,24 @@ test('each list draws every row as [checkbox] [up] [down] icon label from the ta
   assert.match(sidebarJs, /rowsForSide\(side, order\)/);
 });
 
-test('the arrows are keyboard-reachable buttons titled with the existing move keys', () => {
-  for (const dir of ['up', 'down']) {
-    const arrow = popup.split('\n').find(line => line.includes(`js-card-field-order-${dir}`));
-    assert.ok(arrow.includes('href="#" role="button"'), `${dir} remains keyboard reachable`);
-    assert.ok(arrow.includes('aria-disabled='), `${dir} announces unavailable moves`);
-    assert.ok(arrow.includes(`'card-field-order-move-${dir}'`));
-    assert.ok(arrow.includes("'r-rule-disabled'"), 'unavailable arrows explain their state');
-    assert.ok(en[`card-field-order-move-${dir}`], `card-field-order-move-${dir} exists`);
-  }
-  assert.ok(sidebarCss.includes('.card-field-order-move.is-disabled'), 'a disabled arrow is styled as such');
+test('the handle and the draggable label are keyboard-reachable and titled', () => {
+  const handle = popup.split('\n').find(line => line.includes('a.flex.card-field-order-move.card-field-order-handle'));
+  assert.ok(handle.includes('href="#" draggable="false" role="button"'), 'the handle is keyboard reachable, and not a native link drag');
+  assert.ok(handle.includes('aria-disabled='), 'a row without a place announces it');
+  assert.ok(handle.includes("'drag-to-reorder'") && handle.includes("'r-rule-disabled'"));
+  const label = popup.split('\n').find(line => line.includes('span.card-field-order-label(class='));
+  assert.ok(label.includes('tabindex=') && label.includes("'drag-to-reorder'"), 'the draggable label is focusable');
+  assert.ok(en['drag-to-reorder'], 'drag-to-reorder exists');
+  assert.ok(sidebarCss.includes('.card-field-order-handle.is-disabled'), 'a disabled handle is styled as such');
+  assert.match(sidebarJs, /'keydown \.js-card-field-order-handle'\(evt\) \{\s*const direction = ARROW_KEYS\[evt\.key\];\s*if \(direction\) moveCardSettingsRow\(evt, direction\);/);
+  assert.match(sidebarJs, /const ARROW_KEYS = \{ ArrowUp: 'up', ArrowDown: 'down' \};/);
 });
 
-test('every locale has the heading and arrow keys (they existed before; no new key was added)', () => {
+test('every locale has the heading keys (they existed before)', () => {
   const dir = path.join(repoRoot, 'imports/i18n/data');
   for (const file of fs.readdirSync(dir).filter(f => f.endsWith('.i18n.json'))) {
     const json = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
-    for (const k of ['card-field-order', 'card-field-order-move-up', 'card-field-order-move-down', 'show-on-card', 'show-on-minicard']) {
+    for (const k of ['card-field-order', 'show-on-card', 'show-on-minicard']) {
       assert.ok(typeof json[k] === 'string' && json[k].length > 0, `${file} has ${k}`);
     }
   }
@@ -279,14 +286,25 @@ test('no hand-written row is left in the popup (negative: the table is the singl
 
 // ── the arrows move ONE side, through the board's admin-only setters ────────
 
-test('an arrow moves the field on its own side only, through setCardFieldOrder / setMinicardFieldOrder', () => {
+test('a drop or an arrow key moves the field on its own side only, through setCardFieldOrder / setMinicardFieldOrder', () => {
   const fn = sidebarJs.slice(sidebarJs.indexOf('function moveCardSettingsRow('), sidebarJs.indexOf('Template.boardCardSettingsPopup.events('));
   assert.match(fn, /const \{ key, side \} = rowEl\.dataset/);
   assert.match(fn, /if \(side === 'minicard'\) \{\s*currentBoard\.setMinicardFieldOrder\(moveKey\(currentBoard\.minicardFieldOrder, key, direction, MINICARD_LAYOUT\)\)/);
   assert.match(fn, /currentBoard\.setCardFieldOrder\(moveKey\(currentBoard\.cardFieldOrder, key, direction, CARD_LAYOUT\)\)/);
-  assert.match(sidebarJs, /'click \.js-card-field-order-up'\(evt\) \{\s*moveCardSettingsRow\(evt, 'up'\)/);
-  assert.match(sidebarJs, /'click \.js-card-field-order-down'\(evt\) \{\s*moveCardSettingsRow\(evt, 'down'\)/);
+  // The drop: the row's index among the rows that have a place, walked to by placeKey.
+  const drop = sidebarJs.slice(sidebarJs.indexOf('Template.boardCardSettingsPopup.onRendered('));
+  assert.match(drop, /items: '> \.js-card-field-order-row\.is-positioned', handle: '\.js-card-field-order-handle'/);
+  // The index is among the rows that can move: head and tail rows have no section.
+  assert.match(drop, /const movable = keys\.filter\(k => isMovableKey\(layout, k\)\);\s*const order = placeKey\(stored, key, movable\.indexOf\(key\), layout\);/);
+  assert.match(sidebarJs, /const positioned = !spec\.after && isMovableKey\(layout, row\.key\);/);
+  assert.match(drop, /if \(side === 'minicard'\) board\.setMinicardFieldOrder\(order\);\s*else board\.setCardFieldOrder\(order\);/);
+  assert.match(sidebarJs, /\$list\.sortable\('cancel'\);/, 'the DOM is redrawn from the data, never left as dropped');
   assert.ok(!/\$set: \{ (cardFieldOrder|minicardFieldOrder): /.test(sidebarJs), 'the popup never writes the order itself (negative)');
+  // placeKey keeps the layout's rules: a pinned header stays first.
+  const { placeKey, CARD_LAYOUT, orderedCardFieldsOf } = require('../models/lib/cardFieldOrder');
+  assert.deepStrictEqual(orderedCardFieldsOf(placeKey(undefined, 'stickers', 0, CARD_LAYOUT), 'labels')[0], 'labels');
+  const order = placeKey(undefined, 'endDate', 0, CARD_LAYOUT);
+  assert.deepStrictEqual(orderedCardFieldsOf(order, 'dates')[0], 'endDate', 'a field dropped first leads its section');
 });
 
 test('the setters normalise what they store, the schema holds both orders, and only a board admin may write them', () => {
@@ -297,8 +315,8 @@ test('the setters normalise what they store, the schema holds both orders, and o
   assert.match(boardsModel, /cardFieldOrder: \{[\s\S]*?type: Array,\s*optional: true/);
   // Boards.update is allowed to a board admin (or site admin) and nobody else.
   assert.match(permissions, /Boards\.allow\(\{[\s\S]*?update: allowIsBoardAdminOrSiteAdmin/);
-  // Only an admin sees the arrows at all.
-  assert.ok(/if canModifyBoard\n\s+a\.flex\.card-field-order-move\.js-card-field-order-up/.test(popup));
+  // Only an admin sees the handle, or has a draggable label, at all.
+  assert.ok(/if canModifyBoard\n\s+if showDragHandles\n\s+a\.flex\.card-field-order-move\.card-field-order-handle/.test(popup));
 });
 
 // ── order: the layouts' defaults ARE the templates' order ───────────────────

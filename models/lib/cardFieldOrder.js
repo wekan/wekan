@@ -218,6 +218,37 @@ function canMove(stored, layout, field, direction) {
     !== applyLayoutOrder(stored, layout).join(' ');
 }
 
+// Whether `field` can be reordered at all: it is in a section (head and tail
+// fields are drawn at a fixed place).
+function isMovableKey(layout, field) {
+  return Boolean(sectionOfField(layout, field));
+}
+
+// Drag and drop in Board Settings / Card: put `field` at `targetIndex` among
+// the fields that HAVE a position (the sections' fields, head and tail left
+// out), as near as the layout allows. It walks one moveKey() step at a time,
+// so every rule of the arrows holds - a pinned header stays first, a field
+// leaving its section takes the section with it - and keeps the order that
+// came closest. Returns the new canonical flat order.
+function placeKey(stored, field, targetIndex, layout) {
+  const movable = flat => flat.filter(key => sectionOfField(layout, key));
+  let best = applyLayoutOrder(stored, layout);
+  if (!sectionOfField(layout, field) || !Number.isInteger(targetIndex)) return best;
+  const distance = flat => Math.abs(movable(flat).indexOf(field) - targetIndex);
+  const direction = movable(best).indexOf(field) > targetIndex ? 'up' : 'down';
+  let current = best;
+  for (let step = 0; step < 200 && distance(best) > 0; step += 1) {
+    const next = moveKey(current, field, direction, layout);
+    if (next.join(' ') === current.join(' ')) break;
+    current = next;
+    if (distance(current) < distance(best)) best = current;
+    // Past the target in the direction of travel: further steps only go away.
+    const at = movable(current).indexOf(field);
+    if (direction === 'up' ? at < targetIndex : at > targetIndex) break;
+  }
+  return best;
+}
+
 // Move `field` one step up/down. Within its section when it can; the whole
 // section when the field is at the section's edge (the first field going up,
 // the last going down) - so "up" on the first row of Dates lifts Dates above
@@ -343,6 +374,8 @@ module.exports = {
   fieldsOfSection,
   canMove,
   moveKey,
+  placeKey,
+  isMovableKey,
 
   DEFAULT_CARD_ORDER,
   CARD_ORDER_KEYS,

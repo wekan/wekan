@@ -114,7 +114,7 @@ test('every row has a Default and a Show checkbox for each side, and the label t
     assert.ok(rows.includes(`a.flex.js-board-view-show(data-visibility="${side}"`), `Show on ${side}`);
   });
   assert.ok(rows.includes('| {{_ labelKey}}'), 'the Description cell is the view label key');
-  assert.ok(rows.includes('.board-view-settings-row(data-view="{{view}}")'));
+  assert.ok(rows.includes('.board-view-settings-row.js-board-view-row(data-view="{{view}}")'));
   assert.ok(/boardViewRows\(\) \{[\s\S]*?boardViewSettings\.orderedBoardViews\(board\)/.test(sidebarJs),
     'rows come from the shared BOARD_VIEWS table, in the board\'s order');
 });
@@ -268,18 +268,35 @@ test('the Board View menu lists only the views shown for the board\'s visibility
 
 // ------------------------------------------------------------ reordering
 
-test('each popup row has keyboard-reachable up/down arrows, reusing the existing Move up/down keys', () => {
+// Drag and drop replaced the up/down arrows (2026-10-02), as in Board
+// Settings / Card: the handle where the arrows were when drag handles are on,
+// else the icon and label; Up/Down keys on a focused row still move a step.
+test('each popup row reorders by drag and drop, through a handle or its label, and by the arrow keys', () => {
   const rows = popup.slice(popup.indexOf('each boardViewRows'));
-  assert.ok(rows.includes('a.flex.js-board-view-order-up(href="#" role="button" class="{{#if isFirst}}is-disabled{{/if}}" title="{{_ \'card-field-order-move-up\'}}"'));
-  assert.ok(rows.includes('a.flex.js-board-view-order-down(href="#" role="button" class="{{#if isLast}}is-disabled{{/if}}" title="{{_ \'card-field-order-move-down\'}}"'));
-  assert.strictEqual(en['card-field-order-move-up'], 'Move up');
-  assert.strictEqual(en['card-field-order-move-down'], 'Move down');
-  assert.ok(!en['board-view-order-move-up'] && !en['board-view-move-up'], 'no new move keys (negative)');
+  assert.ok(!rows.includes('js-board-view-order-up') && !rows.includes('js-board-view-order-down'), 'no arrows left (negative)');
+  assert.ok(popup.includes('.board-view-settings-rows.js-board-view-sortable'));
+  assert.ok(rows.includes('if showDragHandles\n              a.flex.board-view-order-handle.js-board-view-order-handle(href="#" draggable="false" role="button" title="{{_ \'drag-to-reorder\'}}"'));
+  assert.ok(rows.includes('span(class="{{#unless showDragHandles}}js-board-view-order-handle board-view-drag-label{{/unless}}" tabindex="{{#unless showDragHandles}}0{{/unless}}"'));
+  assert.match(en['drag-to-reorder'], /Drag to reorder/);
+  assert.match(sidebarJs, /Template\.boardViewSettingsPopup\.onRendered\(function \(\) \{\s*reorderOnDrop\(this\.\$\('\.js-board-view-sortable'\), \{\s*items: '> \.js-board-view-row', handle: '\.js-board-view-order-handle',/);
+  assert.match(sidebarJs, /drop: \(view, views\) => Utils\.getCurrentBoard\(\)\?\.setVisibleBoardViewOrder\(views, allowBoardView\)/);
+  assert.match(sidebarJs, /showDragHandles\(\) \{\s*return Utils\.showDragHandles\(\);/);
+  assert.match(sidebarJs, /'keydown \.js-board-view-order-handle'\(evt\) \{[\s\S]*?board\.moveBoardView\(evt\.currentTarget\.closest\('\[data-view\]'\)\.dataset\.view, direction, allowBoardView\)/);
+  assert.match(boardsJs, /async setVisibleBoardViewOrder\(visibleOrder, allowView\) \{[\s\S]*?reorderVisibleBoardViews\(this\.boardViewOrder, visibleOrder, allowView\)/);
+  // The drop's arithmetic: the shown rows take the shown slots, a hidden view keeps its place.
+  const allow = view => view !== 'board-view-table';
+  const order = bvs.normalizeBoardViewOrder();
+  const shown = order.filter(allow);
+  const dropped = [shown[1], shown[0], ...shown.slice(2)];
+  const next = bvs.reorderVisibleBoardViews(order, dropped, allow);
+  assert.strictEqual(next.indexOf('board-view-table'), order.indexOf('board-view-table'));
+  assert.deepStrictEqual(next.filter(allow), dropped);
+  // Negative: a drop that loses or repeats a row changes nothing.
+  assert.deepStrictEqual(bvs.reorderVisibleBoardViews(order, dropped.slice(1), allow), order);
+  assert.deepStrictEqual(bvs.reorderVisibleBoardViews(order, [dropped[0], ...dropped.slice(0, -1)], allow), order);
   // #6736: rows and moves leave out the views the instance disabled
   // (models/lib/instanceFeatures.js); tests/instanceFeatures.test.cjs pins why.
   assert.ok(/boardViewRows\(\) \{[\s\S]*?boardViewSettings\.orderedBoardViews\(board\)\.filter\(v => allowBoardView\(v\.view\)\)/.test(sidebarJs), 'rows follow the board order');
-  assert.ok(/'click \.js-board-view-order-up'\(evt\) \{[\s\S]*?board\.moveBoardView\(evt\.currentTarget\.closest\('\[data-view\]'\)\.dataset\.view, 'up', allowBoardView\)/.test(sidebarJs));
-  assert.ok(/'click \.js-board-view-order-down'\(evt\) \{[\s\S]*?board\.moveBoardView\(evt\.currentTarget\.closest\('\[data-view\]'\)\.dataset\.view, 'down', allowBoardView\)/.test(sidebarJs));
   assert.ok(/boardViewOrder: \{[\s\S]*?type: Array,\s*optional: true,\s*\},\s*'boardViewOrder\.\$': \{\s*type: String,/.test(boardsJs), 'the schema field');
   assert.ok(/async moveBoardView\(view, direction, allowView\) \{[\s\S]*?boardViewSettings\.moveBoardView\(this\.boardViewOrder, view, direction, allowView\)[\s\S]*?\$set: \{ boardViewOrder: order \}/.test(boardsJs), 'the setter');
 });

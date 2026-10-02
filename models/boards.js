@@ -3100,6 +3100,15 @@ Boards.helpers({
   // board's current order, so two quick clicks each move from where the
   // previous one left it; a no-op (first row up, last row down) writes
   // nothing.
+  // Drag and drop: the shown rows in their dropped order (boardViewSettings.js
+  // reorderVisibleBoardViews); a drop that changes nothing writes nothing.
+  async setVisibleBoardViewOrder(visibleOrder, allowView) {
+    const order = boardViewSettings.reorderVisibleBoardViews(this.boardViewOrder, visibleOrder, allowView);
+    const before = boardViewSettings.normalizeBoardViewOrder(this.boardViewOrder);
+    if (order.every((v, i) => v === before[i])) return false;
+    return await Boards.updateAsync(this._id, { $set: { boardViewOrder: order } });
+  },
+
   // `allowView` (#6736): the instance's disabled views are not rows, so the
   // move steps over them.
   async moveBoardView(view, direction, allowView) {

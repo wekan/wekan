@@ -167,6 +167,19 @@ function normalizeBoardViewOrder(storedOrder) {
   return result;
 }
 
+// Drag and drop in Board Settings / Board View: `visibleOrder` is the rows as
+// dropped - the views the popup shows, in their new order. Each takes the next
+// slot that held a shown view, so a view the instance disabled (not a row)
+// keeps its place. Unknown and missing views change nothing.
+function reorderVisibleBoardViews(order, visibleOrder, allowView = allowAll) {
+  const list = normalizeBoardViewOrder(order);
+  const shown = list.filter(view => allowView(view));
+  const dropped = Array.isArray(visibleOrder) ? visibleOrder.filter(view => shown.includes(view)) : [];
+  if (dropped.length !== shown.length || new Set(dropped).size !== dropped.length) return list;
+  let next = 0;
+  return list.map(view => (allowView(view) ? dropped[next++] : view));
+}
+
 function isDefaultBoardViewOrder(order) {
   const list = normalizeBoardViewOrder(order);
   return list.every((view, i) => view === DEFAULT_BOARD_VIEW_ORDER[i]);
@@ -420,6 +433,7 @@ module.exports = {
   isDefaultBoardViewOrder,
   orderedBoardViews,
   moveBoardView,
+  reorderVisibleBoardViews,
   boardViewMenuEntries,
   isKnownBoardView,
   normalizeVisibility,
