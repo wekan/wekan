@@ -7,7 +7,7 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(
   path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const english = read('en');
-const codes = ['ku', 'ckb', 'tt', 'tk_TM'];
+const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi'];
 const keys = Object.keys(english).filter(key => key.startsWith('email-recovery-'));
 
 for (const code of codes) {
@@ -28,6 +28,22 @@ for (const code of codes) {
 // Cancellation is irreversible only for the messages covered by this request.
 // Retrying must retain the pause and the warning about uncertain delivery.
 const meanings = {
+  pap: {
+    cancel: /no por wordu rekobrá.*despues di e petishon aki ta keda wardá/,
+    description: /No por retirá.*inkonfirmá.*repetí.*mantené un pausa/,
+  },
+  so: {
+    cancel: /dib looma soo celin karo.*codsigan ka dib waa la haynayaa/,
+    description: /dib looma soo celin karo.*aan natiijadeeda la hubin.*ilaalisaa hakadkii hore/,
+  },
+  tpi: {
+    cancel: /no inap kisim bek.*bihain long dispela askim bai stap yet/,
+    description: /no inap kam bek.*no save gut.*salim em gen.*stopim.*dispela i stap yet/,
+  },
+  bi: {
+    cancel: /no save tekem i kambak.*afta rikwes ia bae oli stap yet/,
+    description: /no save tekem i kambak.*no klia.*sanem bakegen.*kipim eni stop smol/,
+  },
   ku: {
     cancel: /nayê vegerandin.*piştî vê daxwazê.*dimînin/,
     description: /nayê paşvekişandin.*nezelal.*dubare.*rawestandina heyî diparêze/,
@@ -49,4 +65,11 @@ for (const [code, expected] of Object.entries(meanings)) {
   assert.match(read(code)['email-recovery-confirm-cancel'], expected.cancel, `${code}: cancellation boundaries`);
   assert.match(read(code)['email-recovery-description'], expected.description, `${code}: delivery and pause warnings`);
 }
+for (const code of ['tpi', 'bi']) {
+  for (const key of keys) {
+    assert.doesNotMatch(read(code)[key], /Toksave:|Tok blong sistem:/, `${code}:${key}: no language-prefix filler`);
+  }
+}
+assert.match(read('tpi')['email-recovery-heading'], /bilong salim/);
+assert.match(read('bi')['email-recovery-heading'], /blong sanem/);
 console.log(`Email recovery translations: ${keys.length} messages in ${codes.length} locales passed`);
