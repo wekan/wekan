@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/acb6995099">Translate Burmese rule editor and Scrum settings</a>. Thanks to xet7.</summary>
+
+- Fill 25 block-rule, Scrum-view, role and planning-setting messages.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ccaf0e8d68">Translate Burmese workspace and search messages</a>. Thanks to xet7.</summary>
 
 - Fill 24 workspace-announcement, search, conditional and list messages.
