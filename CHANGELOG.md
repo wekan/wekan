@@ -3045,6 +3045,26 @@ Structural tests do not establish fluency.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7068f6c056">Translate Scrum history and recovery in Ladin and Aromanian</a>. Thanks to xet7.</summary>
+
+Fill 40 English placeholders, bringing scope history, GitLab estimates,
+paging and recovery to 226 locale tags, with eight remaining. Preserve
+existing translations, key order and exact tokens. Extend warning checks for
+incomplete history, clearing missing weights and discard-only recovery.
+Aromanian saved-state wording uses preservation vocabulary rather than the
+tell/show root; Ladin recovery expresses possibility.
+
+Six catalog and batch suites and all 21 human-preference checks pass.
+Specialist wording in both languages has lower confidence and needs speaker
+review. The broader translation backlog remains. References include
+[the English–Aromanian dictionary](https://vivliuteca.org/wp-content/uploads/2025/06/an-english-aromanian-macedo-romanian-dictionary-society-farsharotu.pdf),
+[the Aromanian dictionary](https://dixionline.net/index.php?inputWord=inshit)
+and [Ladin vocabulary](https://wikisource.org/wiki/Vocabolar_dl_ladin_leterar/Vocabolar/Sf-sv).
+Structural tests do not establish fluency.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
