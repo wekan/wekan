@@ -78,8 +78,10 @@ test('server exposes a member-gated setStickyListHeaders Meteor method', () => {
   assert.ok(/check\(boardId, String\)/.test(body), 'checks boardId type');
   assert.ok(/check\(stickyListHeaders, Boolean\)/.test(body), 'checks value type');
   assert.ok(/not-logged-in/.test(body), 'rejects anonymous callers');
-  assert.ok(/board\.hasMember\(this\.userId\)/.test(body),
-    'only a board member may flip the board-wide toggle');
+  // MutationBleed sibling (2026-10-02): a board-wide toggle needs write
+  // access, not just membership.
+  assert.ok(/memberCan\(board\.members, this\.userId, 'write'\)/.test(body),
+    'only a board member with write access may flip the board-wide toggle');
   assert.ok(/Boards\.updateAsync\(boardId,\s*\{\s*\$set:\s*\{\s*stickyListHeaders/.test(body),
     'writes stickyListHeaders on the board');
 });
