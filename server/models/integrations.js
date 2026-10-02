@@ -6,6 +6,8 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import Integrations from '/models/integrations';
 import { validateAttachmentUrl } from '/models/lib/attachmentUrlValidation';
 import { ensureIndex } from '/server/lib/mongoStartup';
+// ErrorBleed: refusals answer with their real status and a safe message.
+const { publicErrorData } = require('/server/lib/apiResponseHelpers');
 
 Meteor.startup(async () => {
   await ensureIndex(Integrations, { modifiedAt: -1 });
@@ -26,10 +28,7 @@ WebApp.handlers.get('/api/boards/:boardId/integrations', async function(req, res
 
     sendJsonResult(res, { code: 200, data });
   } catch (error) {
-    sendJsonResult(res, {
-      code: 200,
-      data: error,
-    });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -47,10 +46,7 @@ WebApp.handlers.get('/api/boards/:boardId/integrations/:intId', async function(r
       ),
     });
   } catch (error) {
-    sendJsonResult(res, {
-      code: 200,
-      data: error,
-    });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -84,10 +80,7 @@ WebApp.handlers.post('/api/boards/:boardId/integrations', async function(req, re
       },
     });
   } catch (error) {
-    sendJsonResult(res, {
-      code: 200,
-      data: error,
-    });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -146,10 +139,7 @@ WebApp.handlers.put('/api/boards/:boardId/integrations/:intId', async function(r
       },
     });
   } catch (error) {
-    sendJsonResult(res, {
-      code: 200,
-      data: error,
-    });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -175,10 +165,7 @@ WebApp.handlers.delete(
         ),
       });
     } catch (error) {
-      sendJsonResult(res, {
-        code: 200,
-        data: error,
-      });
+      sendJsonResult(res, publicErrorData(error));
     }
   },
 );
@@ -205,10 +192,7 @@ WebApp.handlers.post(
         ),
       });
     } catch (error) {
-      sendJsonResult(res, {
-        code: 200,
-        data: error,
-      });
+      sendJsonResult(res, publicErrorData(error));
     }
   },
 );
@@ -227,9 +211,6 @@ WebApp.handlers.delete('/api/boards/:boardId/integrations/:intId', async functio
       },
     });
   } catch (error) {
-    sendJsonResult(res, {
-      code: 200,
-      data: error,
-    });
+    sendJsonResult(res, publicErrorData(error));
   }
 });

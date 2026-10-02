@@ -17,6 +17,8 @@ import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import RecoveryEvents from '/models/recoveryEvents';
 import { recordRecoveryAudit } from '/server/lib/recoveryAudit';
+// ErrorBleed: refusals answer with their real status and a safe message.
+const { publicErrorData } = require('/server/lib/apiResponseHelpers');
 const { buildOauthLogoutUrl } = require('/server/lib/oauthLogoutUrl');
 const { parseCardsLoadingEnv, cardsLoadingLazyThreshold } = require('/models/lib/cardsLoading');
 const {
@@ -972,7 +974,7 @@ WebApp.handlers.get('/api/settings', async function(req, res) {
     const setting = await Settings.findOneAsync({});
     sendJsonResult(res, { code: 200, data: pickSettingsFields(setting) });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -1010,7 +1012,7 @@ WebApp.handlers.put('/api/settings', async function(req, res) {
     const updated = await Settings.findOneAsync({});
     sendJsonResult(res, { code: 200, data: pickSettingsFields(updated) });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 

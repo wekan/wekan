@@ -5,6 +5,8 @@ import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Cards from '/models/cards';
+// ErrorBleed: refusals answer with their real status and a safe message.
+const { publicErrorData } = require('/server/lib/apiResponseHelpers');
 import {
   DEPENDENCY_TYPE_IDS,
   normalizeDependency,
@@ -286,7 +288,7 @@ if (Meteor.isServer) {
       }
       sendJsonResult(res, { code: 200, data });
     } catch (error) {
-      sendJsonResult(res, { code: error.statusCode || 500, data: error });
+      sendJsonResult(res, publicErrorData(error));
     }
   });
 
@@ -313,7 +315,7 @@ if (Meteor.isServer) {
         data: normalizeDependencies(card.cardDependencies),
       });
     } catch (error) {
-      sendJsonResult(res, { code: error.statusCode || 500, data: error });
+      sendJsonResult(res, publicErrorData(error));
     }
   });
 
@@ -385,7 +387,7 @@ if (Meteor.isServer) {
       }
       sendJsonResult(res, { code: 200, data: { _id: paramCardId, ...entry } });
     } catch (error) {
-      sendJsonResult(res, { code: error.statusCode || 500, data: error });
+      sendJsonResult(res, publicErrorData(error));
     }
   });
 
@@ -431,7 +433,7 @@ if (Meteor.isServer) {
       );
       sendJsonResult(res, { code: 200, data: { _id: paramCardId } });
     } catch (error) {
-      sendJsonResult(res, { code: error.statusCode || 500, data: error });
+      sendJsonResult(res, publicErrorData(error));
     }
   });
 
@@ -460,7 +462,7 @@ if (Meteor.isServer) {
       });
       sendJsonResult(res, { code: 200, data: { _id: paramCardId } });
     } catch (error) {
-      sendJsonResult(res, { code: error.statusCode || 500, data: error });
+      sendJsonResult(res, publicErrorData(error));
     }
   });
 }

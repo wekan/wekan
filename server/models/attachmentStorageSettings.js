@@ -16,6 +16,8 @@ import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { refreshCloudStorageFromSettings, testCloudConnection } from '/models/lib/cloudStorage';
 import { computeStoragePaths } from '/models/lib/attachmentStoragePath';
+// ErrorBleed: refusals answer with their real status and a safe message.
+const { publicErrorData } = require('/server/lib/apiResponseHelpers');
 
 // Secret fields per cloud provider — never published to the client and only
 // overwritten when a non-empty replacement value is supplied.
@@ -725,7 +727,7 @@ WebApp.handlers.get('/api/admin/attachment-settings', async function(req, res) {
     ].call({ userId: req.userId });
     sendJsonResult(res, { code: 200, data: settings });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -758,6 +760,6 @@ WebApp.handlers.put('/api/admin/attachment-settings', async function(req, res) {
     ].call({ userId: req.userId });
     sendJsonResult(res, { code: 200, data: updated });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });

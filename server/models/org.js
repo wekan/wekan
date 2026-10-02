@@ -9,6 +9,8 @@ import { sendJsonResult } from '/server/apiMiddleware';
 // Multitenancy option D: per-tenant Global Admin rules (shared with the client and
 // the publications) - docs/Design/Multitenancy/Multitenancy.md.
 import * as tenantAdmin from '/models/lib/tenantAdmin';
+// ErrorBleed: refusals answer with their real status and a safe message.
+const { publicErrorData } = require('/server/lib/apiResponseHelpers');
 
 // #5850: reliable admin check from a method's this.userId. Meteor.user()/
 // getCurrentUser() can return null inside an async method after an await
@@ -345,7 +347,7 @@ WebApp.handlers.get('/api/admin/orgs', async function(req, res) {
     }));
     sendJsonResult(res, { code: 200, data });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -381,7 +383,7 @@ WebApp.handlers.put('/api/admin/orgs/:orgId/features', async function(req, res) 
     const updated = await Org.findOneAsync(orgId);
     sendJsonResult(res, { code: 200, data: updated });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -418,6 +420,6 @@ WebApp.handlers.put('/api/admin/orgs/features', async function(req, res) {
     );
     sendJsonResult(res, { code: 200, data: { updated } });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });

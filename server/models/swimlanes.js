@@ -10,6 +10,8 @@ import Cards from '/models/cards';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { allowIsBoardMemberWithWriteAccess, computeSortForIndex } from '/server/lib/utils';
 import { nextSwimlaneSort } from '/models/lib/swimlaneSort';
+// ErrorBleed: refusals answer with their real status and a safe message.
+const { publicErrorData } = require('/server/lib/apiResponseHelpers');
 
 Meteor.methods({
   async ensureDefaultSwimlane(boardId) {
@@ -149,10 +151,7 @@ WebApp.handlers.get('/api/boards/:boardId/swimlanes', async function(req, res) {
       }),
     });
   } catch (error) {
-    sendJsonResult(res, {
-      code: 200,
-      data: error,
-    });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -171,10 +170,7 @@ WebApp.handlers.get('/api/boards/:boardId/swimlanes/:swimlaneId', async function
       }),
     });
   } catch (error) {
-    sendJsonResult(res, {
-      code: 200,
-      data: error,
-    });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -204,10 +200,7 @@ WebApp.handlers.post('/api/boards/:boardId/swimlanes', async function(req, res) 
       },
     });
   } catch (error) {
-    sendJsonResult(res, {
-      code: 200,
-      data: error,
-    });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -235,10 +228,7 @@ WebApp.handlers.put('/api/boards/:boardId/swimlanes/:swimlaneId', async function
       },
     });
   } catch (error) {
-    sendJsonResult(res, {
-      code: 200,
-      data: error,
-    });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -255,10 +245,7 @@ WebApp.handlers.delete('/api/boards/:boardId/swimlanes/:swimlaneId', async funct
       },
     });
   } catch (error) {
-    sendJsonResult(res, {
-      code: 200,
-      data: error,
-    });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 

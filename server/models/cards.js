@@ -46,6 +46,8 @@ import { subtaskCustomFields } from '/imports/lib/subtaskHelpers';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 import getSlug from 'limax';
+// ErrorBleed: refusals answer with their real status and a safe message.
+const { publicErrorData } = require('/server/lib/apiResponseHelpers');
 
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 const { isOpenPermission } = require('/models/lib/boardPermission');
@@ -1531,7 +1533,7 @@ WebApp.handlers.get('/api/boards/:boardId/cards_count', async function(req, res)
       data: { board_cards_count: cards.length },
     });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -1550,7 +1552,7 @@ WebApp.handlers.get('/api/boards/:boardId/lists/:listId/cards_count', async func
       data: { list_cards_count: cards.length },
     });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 

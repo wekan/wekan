@@ -9,6 +9,8 @@ import Triggers from '/models/triggers';
 import Actions from '/models/actions';
 import { Random } from 'meteor/random';
 import { withRuleHistory, removeRuleWithUnusedParts, writeRuleComponent } from '/server/lib/ruleHistory';
+// ErrorBleed: refusals answer with their real status and a safe message.
+const { publicErrorData } = require('/server/lib/apiResponseHelpers');
 const { ruleButtonMetadata } = require('/models/lib/ruleButtonMetadata');
 
 // REST API for board automation Rules (add / edit / remove).
@@ -101,7 +103,7 @@ if (Meteor.isServer) {
       }
       sendJsonResult(res, { code: 200, data });
     } catch (error) {
-      sendJsonResult(res, { code: error.statusCode || 500, data: error });
+      sendJsonResult(res, publicErrorData(error));
     }
   });
 
@@ -125,7 +127,7 @@ if (Meteor.isServer) {
       if (!rule) throw new Meteor.Error('not-found', 'Rule not found');
       sendJsonResult(res, { code: 200, data: await serializeRule(rule) });
     } catch (error) {
-      sendJsonResult(res, { code: error.statusCode || 500, data: error });
+      sendJsonResult(res, publicErrorData(error));
     }
   });
 
@@ -181,7 +183,7 @@ if (Meteor.isServer) {
       });
       sendJsonResult(res, { code: 200, data: ids });
     } catch (error) {
-      sendJsonResult(res, { code: error.statusCode || 500, data: error });
+      sendJsonResult(res, publicErrorData(error));
     }
   });
 
@@ -236,7 +238,7 @@ if (Meteor.isServer) {
       });
       sendJsonResult(res, { code: 200, data: { _id: rule._id } });
     } catch (error) {
-      sendJsonResult(res, { code: error.statusCode || 500, data: error });
+      sendJsonResult(res, publicErrorData(error));
     }
   });
 
@@ -263,7 +265,7 @@ if (Meteor.isServer) {
       });
       sendJsonResult(res, { code: 200, data: { _id: rule._id } });
     } catch (error) {
-      sendJsonResult(res, { code: error.statusCode || 500, data: error });
+      sendJsonResult(res, publicErrorData(error));
     }
   });
 }

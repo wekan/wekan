@@ -19,6 +19,8 @@ import { listsToUnbind } from '/models/lib/listUnbindRepair';
 import ChangeHistory from '/models/changeHistory';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { requireBoardMutation } from '/models/lib/boardMutationGuard';
+// ErrorBleed: refusals answer with their real status and a safe message.
+const { publicErrorData } = require('/server/lib/apiResponseHelpers');
 
 const hasBoardWriteAccess = allowIsBoardMemberWithWriteAccess;
 
@@ -827,7 +829,7 @@ WebApp.handlers.get('/api/boards/:boardId/lists', async function(req, res) {
       })),
     });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -845,7 +847,7 @@ WebApp.handlers.get('/api/boards/:boardId/lists/:listId', async function(req, re
       }),
     });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -865,7 +867,7 @@ WebApp.handlers.post('/api/boards/:boardId/lists', async function(req, res) {
     });
     sendJsonResult(res, { code: 200, data: { _id: id } });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -915,7 +917,7 @@ WebApp.handlers.put('/api/boards/:boardId/lists/:listId', async function(req, re
 
     sendJsonResult(res, { code: 200, data: { _id: paramListId } });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -931,7 +933,7 @@ WebApp.handlers.delete('/api/boards/:boardId/lists/:listId', async function(req,
     }
     sendJsonResult(res, { code: 200, data: { _id: paramListId } });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 

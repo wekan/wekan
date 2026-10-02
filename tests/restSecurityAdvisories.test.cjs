@@ -134,3 +134,19 @@ console.log('  ok - REST security advisory authorization and response guards');
   assert.match(read('models/lib/securityCategories.js'), /'authz\.board-owner':\s*\{[^}]*bleed: 'OwnerBleed'/);
   console.log('  ok - OwnerBleed DDP sibling: client board inserts name only their creator');
 }
+
+// ErrorBleed, siblings (2026-10-02): lists, cards counts, org, team, settings,
+// attachment storage settings, rules and dependencies answered a refused
+// request with HTTP 200 - or the raw error object - instead of the shared
+// publicErrorData(). Now nowhere in the server does.
+{
+  const walk = dir => fs.readdirSync(path.join(__dirname, '..', dir), { withFileTypes: true }).flatMap(e => {
+    if (e.name === 'tests' || e.name.startsWith('_build') || e.name === 'node_modules') return [];
+    const rel = `${dir}/${e.name}`;
+    return e.isDirectory() ? walk(rel) : (rel.endsWith('.js') ? [rel] : []);
+  });
+  const offenders = ['server', 'models'].flatMap(walk)
+    .filter(file => /sendJsonResult\(res, \{[^}]*?\bdata:\s*(error|err|e)\b/.test(read(file)));
+  assert.deepStrictEqual(offenders, [], 'a REST error answers through publicErrorData()');
+  console.log('  ok - ErrorBleed siblings: no REST handler answers with a raw error');
+}

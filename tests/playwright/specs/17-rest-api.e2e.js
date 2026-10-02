@@ -786,3 +786,13 @@ test('member add/remove with an unknown action never returns the user document (
     expect(text).not.toContain(user2.id);
   }
 });
+
+// ErrorBleed siblings: refused REST reads answered HTTP 200 with the raw
+// error object. A non-member now gets a real 403.
+test('a refused REST read answers 403, not 200 with an error object (ErrorBleed)', async ({ request, user2, board }) => {
+  for (const url of [`/api/boards/${board.boardId}/lists`, `/api/boards/${board.boardId}/swimlanes`, `/api/boards/${board.boardId}/cards_count`]) {
+    const res = await request.get(url, { headers: authHeaders(user2.token) });
+    expect(res.status(), url).toBe(403);
+    expect(await res.text(), url).not.toMatch(/"stack"|at [A-Za-z]+ \(/);
+  }
+});
