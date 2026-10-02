@@ -9,7 +9,7 @@ import Swimlanes from '/models/swimlanes';
 import Attachments from '/models/attachments';
 import ChangeHistory from '/models/changeHistory';
 import { isRecordingSuppressed } from '/server/lib/historyRecordingScope';
-const { deferSyncRecording, deferSyncItemRecording } = require('/server/lib/syncRecordingScope');
+const { deferSyncRecording, deferSyncItemRecording, deferSyncChecklistRecording } = require('/server/lib/syncRecordingScope');
 import { diffFields } from '/models/lib/changeHistoryGroups';
 
 // Phase 5 of docs/Features/Reports/History/History.md: record EVERY remaining
@@ -146,6 +146,8 @@ async function recordUpdate(entityType, userId, doc, fieldNames, previous) {
 async function recordLifecycle(entityType, userId, doc, changeType) {
   if (!userId) return;
   if (isRecordingSuppressed()) return;   // see recordUpdate above
+  // A durable rule checklist action writes this row from its saved plan.
+  if (entityType === 'checklist' && deferSyncChecklistRecording('checklistHistory', doc)) return;
   try {
     const where = await locate(entityType, doc);
     if (!where || !where.boardId) return;

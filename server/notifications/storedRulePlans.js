@@ -14,6 +14,7 @@ import Cards from '/models/cards';
 import Lists from '/models/lists';
 import Actions from '/models/actions';
 import ChecklistItems from '/models/checklistItems';
+import Checklists from '/models/checklists';
 import UserPositionHistory from '/models/userPositionHistory';
 import { RulesHelper } from '/server/rulesHelper';
 import { getFeatureFlags } from '/models/lib/featureFlags';
@@ -172,6 +173,8 @@ export async function runStoredSyncRules({ adapters, ...options }) {
     ...Object.fromEntries(Object.keys(RULE_CARD_ACTIONS).map(type => [type, cardField])),
     ...Object.fromEntries(Object.keys(RULE_CHECKLIST_ACTIONS).map(type => [type, ({ invocation }) =>
       runStoredSyncRuleChecklist({ ...options, index: indices.get(invocation.id) })])),
+    ...Object.fromEntries(RULE_CHECKLIST_LIFECYCLE_ACTIONS.map(type => [type, ({ invocation }) =>
+      runStoredSyncRuleChecklistLifecycle({ ...options, index: indices.get(invocation.id) })])),
     // In-place moves only: eligibility keeps a board with any other move on
     // direct Sync, and the runner refuses one.
     ...Object.fromEntries(RULE_MOVE_ACTIONS.map(type => [type, ({ invocation }) =>
@@ -504,6 +507,111 @@ export async function runStoredSyncRuleMove({ index, ...options }) {
 const { RULE_MOVE_ACTIONS, commandId: ruleMoveCommandId, prepareRuleMoveCommand, validateRuleMoveCommand,
   sortSelector: ruleMoveSortSelector } = require('/server/lib/syncRuleMoveCommand');
 const { RULE_CARD_POSITION_FIELDS } = require('/server/lib/syncHistoryBatch');
+
+// Durable rule checklist creation and removal
+// (server/lib/syncRuleChecklistLifecycleCommand.js): captured with the
+// ordinary action's own title and selector, then the insert or each removal
+// with the checklist's two hooks deferred, and the activity and History those
+// hooks would have written - each activity delivered durably, rules included.
+// Every step is idempotent on replay.
+export const SyncRuleChecklistLifecycleCommands = new Mongo.Collection('listSyncRuleChecklistLifecycleCommands');
+SyncRuleChecklistLifecycleCommands.deny({ insert: () => true, update: () => true, remove: () => true });
+
+export async function runStoredSyncRuleChecklistLifecycle({ index, completeDelivery = runStoredSyncActivityDelivery,
+  ...options }) {
+  const context = executionContext(options), plan = await capture(context);
+  const invocation = plan.actions[index], action = invocation?.action;
+  if (!RULE_CHECKLIST_LIFECYCLE_ACTIONS.includes(action?.actionType)) throw new Error('sync-rule-checklist-lifecycle-invalid');
+  const commandContext = { plan, activity: context.saved, effectId: context.effectId, index };
+  const guard = reuseWithinEvaluation(async () => {
+    await context.guard();
+    const [rule, current] = await Promise.all([
+      Rules.rawCollection().findOne({ _id: invocation.rule._id }),
+      Actions.rawCollection().findOne({ _id: action._id }),
+    ]);
+    if (!rule || !current || canonical(rule) !== canonical(invocation.rule) ||
+        canonical(current) !== canonical(action)) throw new Error('sync-rule-checklist-lifecycle-configuration-changed');
+    await context.guard();
+  });
+  const commands = SyncRuleChecklistLifecycleCommands.rawCollection(), id = ruleChecklistLifecycleCommandId(invocation.id);
+  await guard();
+  let row = await commands.findOne({ _id: id });
+  if (!row) {
+    const card = await Cards.findOneAsync({ _id: plan.cardId, boardId: plan.boardId }, { transform: null });
+    const redoRows = await ChangeHistory.find({ boardId: plan.boardId, userId: plan.actorId, undone: true,
+      superseded: { $ne: true } }, { transform: null, limit: 10000 }).fetchAsync();
+    // The ordinary action's own title and selector (server/rulesHelper.js performAction).
+    const title = action.actionType === 'addChecklist' && card
+      ? await RulesHelper.ruleChecklistTitle(context.saved, await Cards.findOneAsync(plan.cardId), action) : undefined;
+    const checklists = action.actionType === 'removeChecklist' && card
+      ? await Checklists.rawCollection().find({ title: action.checklistName, cardId: card._id, sort: 0 },
+        { sort: { _id: 1 }, limit: 1001 }).toArray() : [];
+    const candidate = prepareRuleChecklistLifecycleCommand({ ...commandContext, card, title, checklists,
+      createdAt: new Date(), redoRows });
+    await guard();
+    let failure;
+    try { await commands.insertOne(candidate); } catch (error) { failure = error; }
+    row = await commands.findOne({ _id: id });
+    if (!row) throw failure || new Error('sync-rule-checklist-lifecycle-command-unconfirmed');
+  }
+  let command = validateRuleChecklistLifecycleCommand(row, commandContext);
+  const activities = {
+    findOneAsync: activityId => Activities.findOneAsync(activityId, { transform: null }),
+    insertAsync: document => DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false },
+      () => withSyncActivityDeferred(document, () => Activities.insertAsync(document))),
+  };
+  const deliver = async ({ receiptId, activity }) => persistSyncActivity({ activities, activity, effectId: receiptId,
+    assertCurrent: guard, completeDelivery: delivery => completeDelivery({ ...delivery, policy: options.policy,
+      trigger: options.trigger }) });
+  const record = history => persistSyncFieldHistory({ history: ChangeHistory, plan: history, assertCurrent: guard,
+    fields: RULE_CHECKLIST_LIFECYCLE });
+  const deferred = (checklistId, work) => DDP._CurrentMethodInvocation.withValue({ userId: command.actorId,
+    isSimulation: false }, () => withSyncRecordingDeferred({ cardId: command.cardId, boardId: command.boardId,
+    listId: command.listId, checklistId, kinds: ['checklistActivity', 'checklistHistory'] }, work));
+  const lists = Checklists.rawCollection();
+  if (command.actionType === 'addChecklist') {
+    await guard();
+    if (!await lists.findOne({ _id: command.checklistId })) {
+      // The ordinary insert, with its derived id: schema defaults, timestamps
+      // and the board id hook as for any checklist.
+      await deferred(command.checklistId, () => Checklists.insertAsync({ _id: command.checklistId, title: command.title,
+        cardId: command.cardId, sort: 0 }));
+    }
+    if (command.recorded === null) {
+      const stored = await lists.findOne({ _id: command.checklistId });
+      if (!stored) throw new Error('sync-rule-checklist-lifecycle-unconfirmed');
+      await guard();
+      // First writer wins: a replay racing this one records the same thing.
+      await commands.updateOne({ _id: command._id, recorded: null },
+        { $set: { recorded: recordAddedChecklist(command, stored) } });
+      command = validateRuleChecklistLifecycleCommand(await commands.findOne({ _id: id }), commandContext);
+    }
+    if (command.recorded.history.rows.length) await record(command.recorded.history);
+    await deliver(command.recorded);
+  } else {
+    for (const unit of command.units) {
+      // The before-remove activity, the removal, then the after-remove History.
+      await deliver(unit);
+      await guard();
+      const current = await lists.findOne({ _id: unit.checklistId });
+      if (current) {
+        const keys = [...new Set([...Object.keys(unit.stored), ...Object.keys(current)])];
+        if (canonical(EJSON.parse(EJSON.stringify(current), { relaxed: true })) !== canonical(unit.stored)) {
+          throw new Error('sync-rule-checklist-lifecycle-changed');
+        }
+        await deferred(unit.checklistId, () => Checklists.removeAsync(exactFieldSelector(current, keys)));
+        if (await lists.findOne({ _id: unit.checklistId })) throw new Error('sync-rule-checklist-lifecycle-unconfirmed');
+      }
+      if (unit.history.rows.length) await record(unit.history);
+    }
+  }
+  await guard();
+  return invocation.id;
+}
+const { RULE_CHECKLIST_LIFECYCLE_ACTIONS, commandId: ruleChecklistLifecycleCommandId,
+  prepareRuleChecklistLifecycleCommand, recordAddedChecklist, validateRuleChecklistLifecycleCommand } =
+  require('/server/lib/syncRuleChecklistLifecycleCommand');
+const { RULE_CHECKLIST_LIFECYCLE } = require('/server/lib/syncHistoryBatch');
 
 // Durable rule checklist actions (server/lib/syncRuleChecklistCommand.js):
 // captured with performAction's own lookups, then item by item - the

@@ -10,6 +10,7 @@ import ChecklistItems from '/models/checklistItems';
 import Activities from '/models/activities';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { backfillBoardIdFromCard } from '/server/lib/denormalizeBoardId';
+const { deferSyncChecklistRecording } = require('/server/lib/syncRecordingScope');
 
 Meteor.methods({
   async moveChecklist(checklistId, newCardId) {
@@ -101,6 +102,8 @@ Meteor.startup(async () => {
 });
 
 Checklists.after.insert(async (userId, doc) => {
+  // A durable rule addChecklist writes this activity from its saved plan.
+  if (deferSyncChecklistRecording('checklistActivity', doc)) return;
   const card = await ReactiveCache.getCard(doc.cardId);
   if (!card) {
     console.warn('[Checklists.after.insert] Card not found for cardId:', doc.cardId, '— skipping addChecklist activity.');
@@ -119,6 +122,8 @@ Checklists.after.insert(async (userId, doc) => {
 });
 
 Checklists.before.remove(async (userId, doc) => {
+  // A durable rule removeChecklist writes this activity from its saved plan.
+  if (deferSyncChecklistRecording('checklistActivity', doc)) return;
   try {
     // #1598: keep the checklist's timestamped activity trail.
     // When a whole list/card is deleted, the parent card may already be gone by

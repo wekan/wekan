@@ -24,10 +24,12 @@ const { syncValueChanges } = require('../../models/lib/listSyncTimeEstimates');
 // server/lib/syncRuleCardCommand.js. Moves to the top or bottom of the card's
 // own list and swimlane: server/lib/syncRuleMoveCommand.js, whose
 // durableRuleActionType reports any other move as '<type>:elsewhere', which
-// is not in this set.
+// is not in this set. Checklist creation and removal:
+// server/lib/syncRuleChecklistLifecycleCommand.js.
 const DURABLE_RULE_ACTIONS = new Set(['sendEmail', 'archive', 'unarchive', 'setColor', 'addLabel', 'removeLabel',
   'removeAllLabels', 'markCardComplete', 'markCardIncomplete', 'setDate', 'updateDate', 'setDateRelative', 'removeDate',
-  'addMember', 'removeMember', 'checkAll', 'uncheckAll', 'checkItem', 'uncheckItem', 'moveCardToTop', 'moveCardToBottom']);
+  'addMember', 'removeMember', 'checkAll', 'uncheckAll', 'checkItem', 'uncheckItem', 'moveCardToTop', 'moveCardToBottom',
+  'addChecklist', 'removeChecklist']);
 // Sync-owned card fields a saved step carries: the ones the direct path's
 // conditional update compares, plus placement. SimpleSchema owns
 // dateLastActivity, so it is never part of a step.

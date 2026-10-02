@@ -172,6 +172,12 @@ async function addCardPeopleAndFields(vars, card) {
 }
 
 export const RulesHelper = {
+  // The checklist title an addChecklist action names, resolved exactly as
+  // performAction does below: for the durable rule checklist lifecycle
+  // command (server/lib/syncRuleChecklistLifecycleCommand.js).
+  async ruleChecklistTitle(activity, card, action) {
+    return substituteVars(action.checklistName, await buildRuleVars(activity, card));
+  },
   // The people a member action names, resolved exactly as performAction does
   // below (#2522 acting user, #4294 tokens, #2674 "remove every member" reads
   // the card's assignees): for the durable rule card command
@@ -877,6 +883,7 @@ export const RulesHelper = {
       if (checkItem) await checkItem.uncheck();
     }
     if (action.actionType === 'addChecklist') {
+      // The same title the durable command captures (ruleChecklistTitle).
       await Checklists.insertAsync({
         title: substituteVars(action.checklistName, ruleVars),
         cardId: card._id,

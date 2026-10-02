@@ -42,9 +42,9 @@ describe('Stored Sync rule selection', function () {
       await Rules.rawCollection().insertOne({ _id: ruleId, boardId, triggerId, actionId, enabled: true, title: 'Rule' });
       // An action with no durable adapter of its own (addLabel has one since
       // 2026-09-30, server/lib/syncRuleCardCommand.js, and an in-place
-      // moveCardToTop since 2026-10-02, server/lib/syncRuleMoveCommand.js), so
-      // the adapter-required and caller-supplied adapter cases below still apply.
-      await Actions.rawCollection().insertOne({ _id: actionId, actionType: 'addChecklist', boardId, labelId: 'original' });
+      // moveCardToTop and addChecklist since 2026-10-02), so the adapter-required
+      // and caller-supplied adapter cases below still apply. addSwimlane has none.
+      await Actions.rawCollection().insertOne({ _id: actionId, actionType: 'addSwimlane', boardId, labelId: 'original' });
       // Sync activation (maintainer decision of 2026-09-30): off unless the
       // board opted in; scheduled runs also need the instance switch; the
       // caller must name its trigger. Refusals write nothing.
@@ -65,10 +65,10 @@ describe('Stored Sync rule selection', function () {
       assert.equal(first.actions[0].rule._id, ruleId);
       assert.equal(first.actions[0].action.labelId, 'original');
       await assert.rejects(runStoredSyncRules({ ...input, adapters: {} }), /adapter-required/);
-      await assert.rejects(runStoredSyncRules({ ...input, adapters: { addChecklist: async () => true } }), /action-unconfirmed/);
+      await assert.rejects(runStoredSyncRules({ ...input, adapters: { addSwimlane: async () => true } }), /action-unconfirmed/);
       assert.equal(await SyncRuleReceipts.find({ effectId: input.effectId }).countAsync(), 0);
       let calls = 0;
-      assert.equal(await runStoredSyncRules({ ...input, adapters: { addChecklist: async ({ invocation, assertCurrent }) => {
+      assert.equal(await runStoredSyncRules({ ...input, adapters: { addSwimlane: async ({ invocation, assertCurrent }) => {
         await assertCurrent(); calls++;
         assert.equal(invocation.action.labelId, 'original');
         return invocation.id;
@@ -297,7 +297,7 @@ describe('Stored Sync rule email network delivery', function () {
       // An action with no durable adapter (archive has one since 2026-09-30,
       // server/lib/listSyncSteps.js, and an in-place move since 2026-10-02) is
       // refused before anything is sent.
-      await Actions.rawCollection().insertOne({ _id: extraAction, boardId, actionType: 'addChecklist' });
+      await Actions.rawCollection().insertOne({ _id: extraAction, boardId, actionType: 'addSwimlane' });
       await Triggers.rawCollection().insertOne({ _id: extraTrigger, boardId, activityType: 'createCard', listName: '*', userId: '*', swimlaneName: '*', cardTitle: '*' });
       await Rules.rawCollection().insertOne({ _id: extraRule, boardId, triggerId: extraTrigger, actionId: extraAction, enabled: true });
       const blockedInput = { ...input, effectId: '2'.repeat(64) };

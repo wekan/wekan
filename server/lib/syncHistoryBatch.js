@@ -50,9 +50,37 @@ const RULE_CHECKLIST_ITEM_FIELDS = ['isFinished'];
 // `position` row for boardId, swimlaneId, listId and sort together
 // (models/lib/timeHistory.js positionChange), and so does the plan.
 const RULE_CARD_POSITION_FIELDS = ['position'];
+// ...and a checklist's creation or removal, which durable rule addChecklist
+// and removeChecklist record (server/lib/syncRuleChecklistLifecycleCommand.js):
+// one lifecycle row per checklist, holding the whole document as the hook
+// does (server/models/changeHistoryHooks.js recordLifecycle).
+const RULE_CHECKLIST_LIFECYCLE = ['checklist-lifecycle'];
 const POSITION_KEYS = 'boardId,lastMoveReason,listId,sort,swimlaneId';
 const entityOf = fields => (fields === RULE_CHECKLIST_ITEM_FIELDS ? 'checklistItem'
-  : [SYNC_FIELDS, RULE_CARD_FIELDS, RULE_CARD_POSITION_FIELDS].includes(fields) ? 'card' : fail());
+  : fields === RULE_CHECKLIST_LIFECYCLE ? 'checklist'
+    : [SYNC_FIELDS, RULE_CARD_FIELDS, RULE_CARD_POSITION_FIELDS].includes(fields) ? 'card' : fail());
+const lifecycleRowId = (effectId, entityId) => `sync-history-${sha256(canonical([effectId, 'lifecycle', entityId]))}`;
+// The rows one checklist creation or removal records. `documents` are the
+// checklists as stored (the JSON round trip the hook makes), `where` the card's
+// placement the hook locates them by.
+function prepareChecklistLifecycleHistory({ documents, changeType, where, effectId, userId, createdAt, redoRows = [] }) {
+  if (!/^[a-f0-9]{64}$/.test(effectId) || typeof userId !== 'string' || !userId || !Array.isArray(documents) ||
+      !['added', 'removed'].includes(changeType) || !where || !(createdAt instanceof Date) ||
+      !Number.isFinite(createdAt.getTime())) fail();
+  const rows = documents.map(document => {
+    const snapshot = JSON.parse(JSON.stringify(document));
+    return { _id: lifecycleRowId(effectId, snapshot._id), boardId: where.boardId, swimlaneId: where.swimlaneId ?? null,
+      listId: where.listId, cardId: where.cardId, entityType: 'checklist', entityId: snapshot._id, group: 'checklists',
+      changeType, previousContent: changeType === 'removed' ? { document: snapshot } : null,
+      newContent: changeType === 'added' ? { document: snapshot } : null,
+      userId, batchId: `sync-${effectId}`, restoredFromId: null, restoredByUserId: null, createdAt: new Date(createdAt),
+      undone: false, undoneAt: null, superseded: false, isCheckpoint: false };
+  });
+  if (!Array.isArray(redoRows) || redoRows.length > 10000) fail();
+  const plan = { effectId, boardId: where.boardId, userId, rows, redo: rows.length ? redoRows.map(redoTarget) : [] };
+  validatePlan(plan, RULE_CHECKLIST_LIFECYCLE);
+  return copy(plan);
+}
 function prepareSyncFieldHistory({ step, effectId, userId, createdAt, redoRows = [], ...rest }) {
   prepareSyncOperationMutation(step);
   if (Object.keys(rest).length) fail();
@@ -131,6 +159,22 @@ function validatePositionRow(plan, row, ids) {
       !snapshot(row.previousContent) || !snapshot(row.newContent)) fail();
   ids.add(row._id);
 }
+function validateLifecycleRow(plan, row, ids) {
+  const document = content => content && Object.keys(content).join(',') === 'document' && content.document &&
+    typeof content.document === 'object' && !Array.isArray(content.document) && content.document._id === row.entityId &&
+    canonical(JSON.parse(JSON.stringify(content.document))) === canonical(content.document);
+  const added = row.changeType === 'added';
+  if (Object.keys(row).sort().join(',') !== ROW_KEYS || row.group !== 'checklists' || row.entityType !== 'checklist' ||
+      !['added', 'removed'].includes(row.changeType) || typeof row.entityId !== 'string' || !row.entityId ||
+      row._id !== lifecycleRowId(plan.effectId, row.entityId) || ids.has(row._id) ||
+      row.boardId !== plan.boardId || row.userId !== plan.userId || row.batchId !== `sync-${plan.effectId}` ||
+      typeof row.cardId !== 'string' || !row.cardId || typeof row.listId !== 'string' || !row.listId ||
+      !(row.createdAt instanceof Date) || !Number.isFinite(row.createdAt.getTime()) || row.restoredFromId !== null ||
+      row.restoredByUserId !== null || row.isCheckpoint !== false || row.undone !== false || row.undoneAt !== null ||
+      row.superseded !== false || !document(added ? row.newContent : row.previousContent) ||
+      (added ? row.previousContent : row.newContent) !== null) fail();
+  ids.add(row._id);
+}
 function validatePlan(plan, allowed = SYNC_FIELDS) {
   const entityType = entityOf(allowed);
   if (!plan || Object.keys(plan).sort().join(',') !== 'boardId,effectId,redo,rows,userId' ||
@@ -141,6 +185,7 @@ function validatePlan(plan, allowed = SYNC_FIELDS) {
   const ids = new Set();
   for (const row of plan.rows) {
     if (allowed === RULE_CARD_POSITION_FIELDS) { validatePositionRow(plan, row, ids); continue; }
+    if (allowed === RULE_CHECKLIST_LIFECYCLE) { validateLifecycleRow(plan, row, ids); continue; }
     const field = row.newContent?.field || row.previousContent?.field;
     const keys = '_id,batchId,boardId,cardId,changeType,createdAt,entityId,entityType,group,isCheckpoint,listId,newContent,previousContent,restoredByUserId,restoredFromId,superseded,swimlaneId,undone,undoneAt,userId';
     if (Object.keys(row).sort().join(',') !== keys || !allowed.includes(field) ||
@@ -252,4 +297,4 @@ function validateSyncFieldHistory(plan, step, effectId) {
 }
 module.exports = { createSyncHistoryPlanner, prepareSyncFieldHistory, prepareCardFieldHistory, persistSyncFieldHistory,
   validateSyncFieldHistory, isPlannedRow, SYNC_FIELDS, RULE_CARD_FIELDS, RULE_CHECKLIST_ITEM_FIELDS,
-  RULE_CARD_POSITION_FIELDS };
+  RULE_CARD_POSITION_FIELDS, RULE_CHECKLIST_LIFECYCLE, prepareChecklistLifecycleHistory };

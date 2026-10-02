@@ -112,4 +112,5 @@ import './activityIncarnation.tests';
 import './listSyncDurable.tests';
 import './storedRuleChecklist.tests';
 import './storedRuleMove.tests';
+import './storedRuleChecklistLifecycle.tests';
 import './dependencyLayers.tests';

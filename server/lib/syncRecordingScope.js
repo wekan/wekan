@@ -6,11 +6,16 @@ const storage = new AsyncLocalStorage();
 const KINDS = ['create','archive','title','description','customFields','history','timing','position'];
 // A checklist item's three hooks, for a scope that names that item.
 const ITEM_KINDS = ['itemUncomplete','itemCheck','itemHistory'];
-async function withSyncRecordingDeferred({ cardId, boardId, listId, kinds, itemId = null }, work) {
+// A checklist's activity hook and its History lifecycle hook, for a scope that
+// names that checklist (server/lib/syncRuleChecklistLifecycleCommand.js).
+const CHECKLIST_KINDS = ['checklistActivity','checklistHistory'];
+async function withSyncRecordingDeferred({ cardId, boardId, listId, kinds, itemId = null, checklistId = null }, work) {
   if (![cardId,boardId,listId].every(value=>typeof value==='string'&&value) || !Array.isArray(kinds) ||
       (itemId!==null && (typeof itemId!=='string' || !itemId)) ||
-      kinds.some(kind=>!(itemId===null ? KINDS : ITEM_KINDS).includes(kind)) || typeof work!=='function') throw new Error('sync-recording-scope-invalid');
-  const scope={cardId,boardId,listId,itemId,kinds:new Set(kinds),active:true};
+      (checklistId!==null && (typeof checklistId!=='string' || !checklistId || itemId!==null)) ||
+      kinds.some(kind=>!(itemId!==null ? ITEM_KINDS : checklistId!==null ? CHECKLIST_KINDS : KINDS).includes(kind)) ||
+      typeof work!=='function') throw new Error('sync-recording-scope-invalid');
+  const scope={cardId,boardId,listId,itemId,checklistId,kinds:new Set(kinds),active:true};
   return storage.run(scope,async()=>{
     try{return await work();}finally{scope.active=false;}
   });
@@ -39,4 +44,12 @@ function deferSyncItemRecording(kind, doc) {
   scope.kinds.delete(kind);
   return true;
 }
-module.exports={withSyncRecordingDeferred,deferSyncRecording,deferSyncItemRecording};
+// The same one-shot slots for the one checklist a scope names.
+function deferSyncChecklistRecording(kind, doc) {
+  const scope=storage.getStore();
+  if(!scope?.active || scope.checklistId===null || !scope.kinds.has(kind) || doc?._id!==scope.checklistId ||
+      doc.cardId!==scope.cardId) return false;
+  scope.kinds.delete(kind);
+  return true;
+}
+module.exports={withSyncRecordingDeferred,deferSyncRecording,deferSyncItemRecording,deferSyncChecklistRecording};
