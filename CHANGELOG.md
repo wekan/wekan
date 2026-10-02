@@ -2524,21 +2524,6 @@ The remaining translation queue and older wrong-language text still need work.
 
 </details>
 
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/3bf26c910d">Translate feature and card settings in Dzongkha and Tigrinya</a>. Thanks to xet7.</summary>
-
-Add 54 messages in Dzongkha and Tigrinya, preserving each language's existing
-card terminology. Feature settings now cover 220 locale tags and the three
-card-setting labels cover 88. All six selected catalog and language suites
-pass, including script, data-retention wording, current keys and placeholder
-inventories. Specialist workflow terminology has lower confidence and remains
-open to native review. References included
-[Dzongkha computer terminology](https://download-mirror.savannah.gnu.org/releases/dzongkha-gnome/dzongkha_computer_terms.pdf)
-and [Tigrinya permission vocabulary](https://www.geezexperience.com/?dr=0&searchkey=permission).
-The remaining translation queue and older wrong-language text still need work.
-
-</details>
-
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
