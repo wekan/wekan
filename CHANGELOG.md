@@ -2979,6 +2979,26 @@ Structural tests do not establish fluency.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ee49ff20b4">Translate Scrum scope and estimates in Ewe, Fulah and Northern Sami</a>. Thanks to xet7.</summary>
+
+Fill 52 English placeholders: sixteen scope-history and GitLab estimate
+messages in each of Ewe, Fulah and Northern Sami, plus four Northern Sami
+paging and import-recovery messages. Both groups now cover 216 locale tags,
+with 18 remaining. Preserve existing translations and exact placeholder
+inventories, and extend checks for incomplete history, discard-only recovery
+and clearing missing GitLab weights.
+
+Seven catalog and language suites and all 21 human-preference checks pass.
+The broader translation backlog remains. Specialist workflow wording in all
+three languages has lower confidence and needs speaker review; structural
+checks do not establish fluency. References include
+[Basic Ewe](https://philtypo3.uni-koeln.de/sites/inst_afrika/pdf/BASIC_EWE_2nd_ed.pdf),
+[the Peace Corps Fulfulde technical manual](https://www.livelingua.com/peace-corps/Fulfulde/fulfulde%20peace%20corps.pdf)
+and [Northern Sami usage](https://ovttas.no/).
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
