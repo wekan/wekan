@@ -3685,6 +3685,20 @@ Structural checks do not establish fluency. The broader translation backlog rema
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/48b8a16d4b">Translate email recovery in Greenlandic</a>. Thanks to xet7.</summary>
+
+Fill 23 English placeholders, preserving existing translations, source order and
+exact tokens. Extend cancellation, uncertain-delivery and retained-pause checks.
+Four focused catalog suites and all 21 human-preference checks pass.
+
+Specialist Greenlandic wording and inflection have low confidence and need speaker
+review. References include [Greenlandic dictionaries](https://ordbog.gl/)
+and [Learn Greenlandic](https://learngreenlandic.com/online/lg2/7.1/text/?lang=eng).
+Structural checks do not establish fluency. The broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
