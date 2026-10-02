@@ -3567,6 +3567,23 @@ messages in 18 locale tags; the broader translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/41ab81d444">Translate email recovery in Aymara and Quechua</a>. Thanks to xet7.</summary>
+
+Fill 46 English placeholders and replace three language-prefix filler labels for
+pause and email. Preserve correct-language translations, source order and exact
+tokens. Extend cancellation, uncertain-delivery, retained-pause and corrected-label
+checks; refine read and resume wording during review. Four focused catalog and
+translation suites and all 21 human-preference checks pass.
+
+Specialist wording, grammar and regional vocabulary in Aymara and Quechua have
+lower confidence and need speaker review. References include [Chile's Aymara dictionary](https://bibliotecadigital.mineduc.cl/handle/20.500.12365/17169)
+and [the bilingual Quechua dictionary](https://www.illaa.org/pirwa/diccionarios/DicQuechuaBolivia.pdf).
+Structural checks do not establish fluency. Email recovery still has English
+messages in 16 locale tags; the broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
