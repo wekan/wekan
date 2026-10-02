@@ -2957,6 +2957,28 @@ Structural tests do not establish fluency.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9374bff101">Translate Scrum recovery in five more languages and Klingon estimates</a>. Thanks to xet7.</summary>
+
+Fill 36 English placeholders in Akan, Bambara, Wolof, Arabic-script Uzbek
+and Klingon. Paging and import recovery now cover 215 locale tags; Klingon
+also gains scope history and GitLab estimates, bringing those groups to 213.
+Preserve existing translations, source order and exact placeholder tokens.
+Extend regression checks for native script, distinct finish and discard
+actions, incomplete history and clearing an issue's missing weight.
+
+All 451 translation-related Node suites and all 21 human-preference checks
+pass. Paging and recovery still need 19 locale tags; scope history and
+estimates need 21. The broader translation backlog remains.
+
+Specialist wording in these five languages has lower confidence and needs
+speaker review, especially Klingon estimate terminology. Dictionary and
+grammar references include [Bambara vocabulary](https://www.mali-pense.net/bm/lexicon/l.htm)
+and [Klingon suffix tables](https://klingonska.org/dict/tables.html).
+Structural tests do not establish fluency.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
