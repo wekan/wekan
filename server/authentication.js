@@ -11,14 +11,14 @@ const {
 // Authentication helpers — exported for use by API routes and model files
 export const Authentication = {
   async checkUserId(userId) {
-    if (userId === undefined) {
+    if (!userId) {
       const error = new Meteor.Error('Unauthorized', 'Unauthorized');
       error.statusCode = 401;
       throw error;
     }
     const admin = await ReactiveCache.getUser({ _id: userId, isAdmin: true });
 
-    if (admin === undefined) {
+    if (!admin) { // not `=== undefined`: a null from the cache must refuse too
       const error = new Meteor.Error('Forbidden', 'Forbidden');
       error.statusCode = 403;
       throw error;
@@ -40,7 +40,7 @@ export const Authentication = {
   async checkAdminOrCondition(userId, otherReq) {
     if (otherReq) return;
     const admin = await ReactiveCache.getUser({ _id: userId, isAdmin: true });
-    if (admin === undefined) {
+    if (!admin) { // not `=== undefined`: a null from the cache must refuse too
       const error = new Meteor.Error('Forbidden', 'Forbidden');
       error.statusCode = 403;
       throw error;
@@ -77,7 +77,7 @@ export const Authentication = {
     const writeAccess = allowIsBoardMemberWithWriteAccess(userId, board);
     if (!writeAccess) {
       const admin = await ReactiveCache.getUser({ _id: userId, isAdmin: true });
-      if (admin === undefined) {
+      if (!admin) { // not `=== undefined`: a null from the cache must refuse too
         tripCanary('board.write-without-capability', { userId });
       }
     }

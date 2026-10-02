@@ -150,3 +150,13 @@ console.log('  ok - REST security advisory authorization and response guards');
   assert.deepStrictEqual(offenders, [], 'a REST error answers through publicErrorData()');
   console.log('  ok - ErrorBleed siblings: no REST handler answers with a raw error');
 }
+
+// Authentication helpers fail closed (2026-10-02): `admin === undefined` let a
+// null from the cache pass as an admin, and `userId === undefined` let a null
+// user id through checkUserId.
+{
+  const auth = read('server/authentication.js');
+  assert.doesNotMatch(auth, /admin === undefined/);
+  assert.match(auth, /async checkUserId\(userId\) \{\s*if \(!userId\) \{/);
+  console.log('  ok - authentication helpers refuse a null admin or user id');
+}
