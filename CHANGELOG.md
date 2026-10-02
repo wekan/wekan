@@ -3774,6 +3774,23 @@ Structural checks do not establish fluency. The broader translation backlog rema
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d9e3274eb9">Translate Cherokee email recovery and check every locale</a>. Thanks to xet7.</summary>
+
+Fill the final 23 English email-recovery placeholders in Cherokee. Add a regression
+gate covering missing messages, English placeholders and exact tokens in every
+non-English catalog, alongside cancellation, uncertain-delivery and retained-pause
+checks. Four focused catalog suites and all 21 human-preference checks pass in
+the worktree aligned with the new backup strings.
+
+Cherokee specialist wording and inflection have low confidence and need speaker
+review. References include the [Cherokee Nation word list](https://language.cherokee.gov/word-list/)
+and [Cherokee dictionary](https://www.cherokeedictionary.net/).
+Structural coverage does not establish fluency. This completes the placeholder
+fill for email recovery; other new strings and the broader translation backlog remain.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
