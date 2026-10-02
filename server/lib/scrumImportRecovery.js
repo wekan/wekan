@@ -1,6 +1,6 @@
 const { isDeepStrictEqual: equals } = require('node:util');
 const { randomUUID } = require('node:crypto');
-const { applyImportStep } = require('./scrumImportWriter');
+const { applyImportStep, IMPORT_LEASE_MS } = require('./scrumImportWriter');
 const names = { boards: 'boards', cards: 'cards', lists: 'lists', swimlanes: 'swimlanes',
   sprints: 'scrumSprints', releases: 'scrumReleases', events: 'scrumEvents', dailyObservations: 'scrumDailySnapshots' };
 const updates = new Set(['boards', 'cards', 'lists', 'swimlanes']);
@@ -111,7 +111,23 @@ async function inspectImport(db, boardId, { rollback = false } = {}) {
   return checkpoint;
 }
 
-async function recoverImport(db, boardId, { offline = false, apply = false, rollback = false } = {}) {
+// Online (2026-10-02): the import's writer named itself on its checkpoint and
+// renewed a lease (server/lib/scrumImportWriter.js). Once the lease has run out
+// the writer has stopped or will be fenced out, so the recovery takes the
+// checkpoint over - by compare-and-set on the old owner - and finishes it with
+// the server running. A checkpoint from before owners existed was left by a
+// server that has since restarted. An offline claim, or a lease still running,
+// refuses. Rollback stays offline.
+async function takeOver(db, boardId, checkpoint, token, now) {
+  const free = { $or: [{ leaseUntil: { $exists: false } }, { leaseUntil: { $lt: now } }] };
+  const owner = checkpoint.owner === undefined ? { owner: { $exists: false } } : { owner: checkpoint.owner };
+  if (!(await db.collection('scrumImportPending').updateOne({ _id: boardId, operationId: checkpoint.operationId, ...owner, ...free },
+    { $set: { owner: token, leaseUntil: new Date(now.getTime() + IMPORT_LEASE_MS) } })).matchedCount) {
+    fail('The import is still running; try again in a few minutes.');
+  }
+}
+
+async function recoverImport(db, boardId, { offline = false, online = false, apply = false, rollback = false, now = () => new Date() } = {}) {
   if (!apply) {
     const claim = await db.collection('scrumImportRecoveryLocks').findOne({ _id: boardId });
     try {
@@ -125,17 +141,27 @@ async function recoverImport(db, boardId, { offline = false, apply = false, roll
         reason: error.message, claimToken: claim?.token || null, changed: false };
     }
   }
-  if (!offline) fail('Stop all WeKan and other database writers, then explicitly select offline recovery.');
+  if (!offline && !(online && !rollback)) fail('Stop all WeKan and other database writers, then explicitly select offline recovery.');
   const locks = db.collection('scrumImportRecoveryLocks');
   const token = randomUUID();
-  try { await locks.insertOne({ _id: boardId, token, createdAt: new Date() }); }
-  catch (error) { if (error.code === 11000) fail('Another recovery claim exists. Verify its owner has stopped before clearing it.'); throw error; }
-  // No lease timeout: a slow or paused writer must not overlap a replacement.
-  // On failure the claim deliberately remains, including ambiguous DB errors.
+  if (online) {
+    if (await locks.findOne({ _id: boardId })) fail('An offline recovery claim exists for this board; finish it offline.');
+  } else {
+    try { await locks.insertOne({ _id: boardId, token, createdAt: new Date() }); }
+    catch (error) { if (error.code === 11000) fail('Another recovery claim exists. Verify its owner has stopped before clearing it.'); throw error; }
+  }
+  // Offline: no lease timeout - a slow or paused writer must not overlap a
+  // replacement. On failure the claim deliberately remains, including
+  // ambiguous DB errors.
   const checkpoint = await inspectImport(db, boardId, { rollback });
   if (rollback) return rollbackImport(db, boardId, checkpoint, locks, token);
   const pending = db.collection('scrumImportPending');
-  const identity = { _id: boardId, operationId: checkpoint.operationId };
+  // Online, the recovery becomes the checkpoint's owner, so a writer that
+  // still believes it owns it is fenced out at its next update. Offline every
+  // writer has stopped, and the checkpoint is used as it is.
+  if (online) await takeOver(db, boardId, checkpoint, token, now());
+  const identity = { _id: boardId, operationId: checkpoint.operationId, ...(online ? { owner: token } : {}) };
+  const lease = () => ({ leaseUntil: new Date(now().getTime() + IMPORT_LEASE_MS) });
   async function cleanup() {
     await db.collection('scrumImportSteps').deleteMany({ boardId, operationId: checkpoint.operationId });
     if (!(await pending.deleteOne({ ...identity, state: 'cleaning' })).deletedCount) fail('The recovery checkpoint changed.');
@@ -153,7 +179,7 @@ async function recoverImport(db, boardId, { offline = false, apply = false, roll
       const row = await db.collection('scrumImportSteps').findOne({ _id: `${checkpoint.operationId}:${index}` });
       const step = validateStep(row, checkpoint, index);
       await applyImportStep(step, collections, equals);
-      if (!(await pending.updateOne({ ...identity, state: 'applying', next: index }, { $set: { next: index + 1 } })).matchedCount) fail('The recovery checkpoint changed.');
+      if (!(await pending.updateOne({ ...identity, state: 'applying', next: index }, { $set: { next: index + 1, ...lease() } })).matchedCount) fail('The recovery checkpoint changed.');
     }
     if (!(await pending.updateOne({ ...identity, state: 'applying', next: checkpoint.total }, { $set: { state: 'applied' } })).matchedCount) fail('The recovery checkpoint changed.');
   }
@@ -238,4 +264,23 @@ async function clearRecoveryClaim(db, boardId, token, { offline = false } = {}) 
   return { cleared: true };
 }
 
-module.exports = { ScrumRecoveryError, inspectImport, recoverImport, clearRecoveryClaim };
+// Online discard of an import whose plan was never fully saved (state
+// 'preparing'): nothing was written to the board yet, so removing the plan and
+// its checkpoint changes nothing there. Only once its lease has run out. Its
+// contents cannot be reconstructed: the import's source file is not kept.
+async function discardPreparingImport(db, boardId, { now = () => new Date() } = {}) {
+  const pending = db.collection('scrumImportPending');
+  const checkpoint = await pending.findOne({ _id: boardId });
+  if (!checkpoint) fail('No recoverable Scrum import checkpoint exists for this board.');
+  if (checkpoint.state !== 'preparing' || checkpoint.next !== 0) fail('Only an import whose plan was never fully saved can be discarded here.');
+  if (await db.collection('scrumImportRecoveryLocks').findOne({ _id: boardId })) fail('An offline recovery claim exists for this board; finish it offline.');
+  const token = randomUUID();
+  await takeOver(db, boardId, checkpoint, token, now());
+  await db.collection('scrumImportSteps').deleteMany({ boardId, operationId: checkpoint.operationId });
+  if (!(await pending.deleteOne({ _id: boardId, operationId: checkpoint.operationId, owner: token, state: 'preparing' })).deletedCount) {
+    fail('The recovery checkpoint changed.');
+  }
+  return { changed: true, scope: 'scrum', state: 'discarded' };
+}
+
+module.exports = { ScrumRecoveryError, inspectImport, recoverImport, clearRecoveryClaim, discardPreparingImport };

@@ -1,5 +1,13 @@
 // Dependency-injected so interrupted writes can be exercised without Meteor.
-// This stages a recoverable plan; it does not yet expose a retry endpoint.
+// The checkpoint names its writer (`owner`) and holds a lease it renews as it
+// goes (2026-10-02): an interrupted import can then be finished online
+// (server/lib/scrumImportRecovery.js) once its lease has run out, and a writer
+// that was only paused finds itself fenced out at its next checkpoint update -
+// every update names the owner. Steps are idempotent, so the one write such a
+// writer may still land is the same write the recovery makes.
+const { randomUUID } = require('node:crypto');
+const IMPORT_LEASE_MS = 2 * 60 * 1000;
+const leaseFrom = now => new Date(now().getTime() + IMPORT_LEASE_MS);
 async function applyImportStep(step, collections, equals) {
   const collection = collections[step.collection];
   if (!collection) throw new Error('Invalid Scrum import collection');
@@ -26,21 +34,25 @@ async function applyImportStep(step, collections, equals) {
   }
 }
 
-async function writeImportPlan({ boardId, operationId, userId, steps, pending, journal, collections, equals }) {
+async function writeImportPlan({ boardId, operationId, userId, steps, pending, journal, collections, equals,
+  owner = randomUUID(), now = () => new Date() }) {
   // No destination writes precede the checkpoint. A preparation failure leaves
   // a clearly incomplete plan, never a falsely ready recovery operation.
-  await pending.insertAsync({ _id: boardId, operationId, userId, state: 'preparing',
-    total: steps.length, next: 0, createdAt: new Date() });
+  await pending.insertAsync({ _id: boardId, operationId, userId, owner, leaseUntil: leaseFrom(now), state: 'preparing',
+    total: steps.length, next: 0, createdAt: now() });
+  const identity = { _id: boardId, operationId, owner };
   for (let index = 0; index < steps.length; index++) {
     await journal.insertAsync({ _id: `${operationId}:${index}`, boardId, operationId, index, step: steps[index] });
+    if (index % 200 === 199 && !await pending.updateAsync({ ...identity, state: 'preparing' },
+      { $set: { leaseUntil: leaseFrom(now) } })) throw new Error('Scrum import checkpoint changed');
   }
-  const identity = { _id: boardId, operationId };
-  if (!await pending.updateAsync({ ...identity, state: 'preparing' }, { $set: { state: 'applying' } })) {
+  if (!await pending.updateAsync({ ...identity, state: 'preparing' }, { $set: { state: 'applying', leaseUntil: leaseFrom(now) } })) {
     throw new Error('Scrum import checkpoint changed');
   }
   for (let index = 0; index < steps.length; index++) {
     await applyImportStep(steps[index], collections, equals);
-    if (!await pending.updateAsync({ ...identity, state: 'applying', next: index }, { $set: { next: index + 1 } })) {
+    if (!await pending.updateAsync({ ...identity, state: 'applying', next: index },
+      { $set: { next: index + 1, leaseUntil: leaseFrom(now) } })) {
       throw new Error('Scrum import checkpoint changed');
     }
   }
@@ -63,4 +75,4 @@ async function finishImportPlan({ identity, total, pending, journal, clearMarker
   }
 }
 
-module.exports = { applyImportStep, writeImportPlan, finishImportPlan };
+module.exports = { applyImportStep, writeImportPlan, finishImportPlan, IMPORT_LEASE_MS };

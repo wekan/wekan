@@ -200,6 +200,8 @@ Template.scrumView.events({
   'change .js-scrum-sprint'(event, tpl) {
     tpl.sprintId.set(event.currentTarget.value); tpl.eventId.set(''); tpl.cardLimit.set(CARD_PAGE);
   },
+  async 'click .js-scrum-resume-import'(event, tpl) { event.preventDefault(); await mutate(tpl, 'scrum.resumeImport'); },
+  async 'click .js-scrum-discard-import'(event, tpl) { event.preventDefault(); await mutate(tpl, 'scrum.discardImport'); },
   'click .js-scrum-show-more'(event, tpl) { event.preventDefault(); tpl.cardLimit.set(tpl.cardLimit.get() + CARD_PAGE); },
   'change .js-scrum-release-select'(event, tpl) { tpl.releaseId.set(event.currentTarget.value); },
   'change .js-scrum-event-select'(event, tpl) { tpl.eventId.set(event.currentTarget.value); },

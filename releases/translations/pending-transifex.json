@@ -615,6 +615,18 @@
     {
       "key": "scrum-show-more",
       "since": "2026-10-02"
+    },
+    {
+      "key": "scrum-import-resume",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "scrum-import-discard",
+      "since": "2026-10-02"
+    },
+    {
+      "key": "scrum-import-recovery-hint",
+      "since": "2026-10-02"
     }
   ]
 }

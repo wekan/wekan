@@ -2,6 +2,7 @@ import ScrumHistoryPending from '/server/lib/scrumHistoryPending';
 import { ScrumImportPending } from '/server/lib/scrumImportJournal';
 import { canEditCardOrLinkedCard, editableCardIds } from '/server/lib/linkedCardPermission';
 import { Meteor } from 'meteor/meteor';
+import { MongoInternals } from 'meteor/mongo';
 import { check, Match } from 'meteor/check';
 import { Random } from 'meteor/random';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
@@ -116,6 +117,10 @@ export async function getScrumBoardData(userId, boardId) {
     settingsRevision: board.scrumRevision || 0, sprints, releases, events, cards, lists, swimlanes, customFields,
     importLosses: userId && board.hasAdmin(userId) ? (board.scrumImportLosses || []) : [],
     importPending, canAdmin: !importPending && !!userId && board.hasAdmin(userId),
+    // An interrupted import's checkpoint, which an administrator can finish or
+    // discard online (scrum.resumeImport, scrum.discardImport).
+    canRecoverImport: importPending && !!userId && board.hasAdmin(userId) &&
+      !!await ScrumImportPending.findOneAsync(boardId, { fields: { _id: 1 } }),
     canWrite: !importPending && !!userId && allowIsBoardMemberWithWriteAccess(userId, board),
     partial: restricted };
 }
@@ -309,10 +314,29 @@ export async function getScrumScopeHistory(userId, boardId, sprintId) {
   return { ...result, truncated: result.truncated || scrumRows.length > MAX_SCOPE_REPLAY_ROWS ||
     fieldRows.length > MAX_SCOPE_REPLAY_ROWS, partial, sprintName: sprint.name };
 }
+async function recoverScrumImportOnline(userId, boardId, action) {
+  await boardFor(userId, boardId, true);
+  const { recoverImport, discardPreparingImport, ScrumRecoveryError } = require('/server/lib/scrumImportRecovery');
+  const db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
+  return withScrumBoardLock(boardId, async () => {
+    try {
+      return action === 'discard' ? await discardPreparingImport(db, boardId)
+        : await recoverImport(db, boardId, { apply: true, online: true });
+    } catch (error) {
+      if (error instanceof ScrumRecoveryError) throw new Meteor.Error('scrum-import-recovery', error.message);
+      throw error;
+    }
+  });
+}
 const methods = {
   async 'scrum.getBoardData'(boardId) { check(boardId, String); return getScrumBoardData(this.userId, boardId); },
   async 'scrum.getDailyHistory'(boardId, sprintId) { return getScrumDailyHistory(this.userId, boardId, sprintId); },
   async 'scrum.getScopeHistory'(boardId, sprintId) { return getScrumScopeHistory(this.userId, boardId, sprintId); },
+  // An interrupted Scrum import, finished or discarded online by a board
+  // administrator (server/lib/scrumImportRecovery.js), once its writer's lease
+  // has run out.
+  async 'scrum.resumeImport'(boardId) { return recoverScrumImportOnline(this.userId, boardId, 'resume'); },
+  async 'scrum.discardImport'(boardId) { return recoverScrumImportOnline(this.userId, boardId, 'discard'); },
   async 'scrum.configure'(boardId, changes, expectedRevision = null) {
     check(boardId, String); check(changes, Object); check(expectedRevision, Match.OneOf(Number, null));
     return locked(boardId, async () => {

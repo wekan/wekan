@@ -14,6 +14,10 @@ template(name="scrumView")
       if data
         if data.importPending
           p.warning.scrum-import-pending(role="alert") {{_ 'scrum-import-pending'}}
+          if data.canRecoverImport
+            p {{_ 'scrum-import-recovery-hint'}}
+            button.js-scrum-resume-import(type="button" disabled=busy) {{_ 'scrum-import-resume'}}
+            button.js-scrum-discard-import(type="button" disabled=busy) {{_ 'scrum-import-discard'}}
         if data.importLosses.length
           details.scrum-import-report
             summary {{_ 'import'}}

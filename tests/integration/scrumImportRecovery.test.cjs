@@ -369,3 +369,65 @@ test('offline recovery validates whole plans, resumes write gaps and holds non-e
       { _id: collection, boardId: 'b', title: 'Keep', scrum: { releases: ['original'], estimate: null } });
   }
 });
+
+// Online recovery (2026-10-02): the import's writer holds a renewable lease on
+// its checkpoint; once it runs out the recovery takes the checkpoint over and
+// finishes it with WeKan running, and the old writer is fenced out.
+test('online recovery waits for the writer\'s lease, takes over, and fences the old writer out', { skip: !uri }, async t => {
+  const { writeImportPlan } = require('../../server/lib/scrumImportWriter');
+  const { discardPreparingImport } = require('../../server/lib/scrumImportRecovery');
+  const client = new MongoClient(uri); await client.connect();
+  const db = client.db(`scrum_online_${new ObjectId().toHexString()}`);
+  t.after(async () => { await db.dropDatabase(); await client.close(); });
+  const steps = [
+    { kind: 'insert', collection: 'sprints', after: { _id: 's', boardId: 'b', name: 'Imported', revision: 1, scrumImportPending: true } },
+    { kind: 'update', collection: 'cards', boardId: 'b', id: 'c', before: {}, after: { scrum: { sprintId: 's' }, scrumRevision: 1 } },
+    { kind: 'update', collection: 'boards', boardId: 'b', id: 'b', before: {}, after: { scrum: { enabled: true }, scrumRevision: 1, scrumImportLosses: [] } },
+  ];
+  await db.collection('boards').insertOne({ _id: 'b', title: 'Board' });
+  await db.collection('cards').insertOne({ _id: 'c', boardId: 'b', title: 'Card' });
+  const adapt = name => { const raw = db.collection(name); const c = {
+    insertAsync: doc => raw.insertOne({ ...doc }), findOneAsync: id => raw.findOne(typeof id === 'string' ? { _id: id } : id),
+    updateAsync: async (s, m) => (await raw.updateOne(s, m)).matchedCount, removeAsync: async s => (await raw.deleteMany(s)).deletedCount };
+  c.direct = c; return c; };
+  const collections = { boards: adapt('boards'), cards: adapt('cards'), sprints: adapt('scrumSprints') };
+  // The writer stops after its first step, as a crash would.
+  const crashing = { ...collections, cards: { ...collections.cards, direct: { updateAsync: async () => { throw new Error('crash'); } } } };
+  let clock = new Date('2026-10-02T10:00:00Z');
+  await assert.rejects(writeImportPlan({ boardId: 'b', operationId: 'op', userId: 'u', steps, pending: adapt('scrumImportPending'),
+    journal: adapt('scrumImportSteps'), collections: crashing, equals: require('node:util').isDeepStrictEqual,
+    owner: 'writer', now: () => clock }), /crash/);
+  const pending = db.collection('scrumImportPending');
+  assert.equal((await pending.findOne({ _id: 'b' })).owner, 'writer');
+  // Negative: while the lease runs, online recovery refuses.
+  await assert.rejects(recoverImport(db, 'b', { apply: true, online: true, now: () => new Date(clock.getTime() + 60000) }),
+    /still running/);
+  // After it, the recovery takes over and finishes.
+  const later = new Date(clock.getTime() + 3 * 60000);
+  const result = await recoverImport(db, 'b', { apply: true, online: true, now: () => later });
+  assert.deepEqual([result.changed, result.state], [true, 'completed']);
+  assert.deepEqual((await db.collection('cards').findOne({ _id: 'c' })).scrum, { sprintId: 's' });
+  assert.equal(await pending.countDocuments({}), 0);
+  assert.equal((await db.collection('scrumSprints').findOne({ _id: 's' })).scrumImportPending, undefined);
+  // Negative: online rollback is refused; an offline claim blocks online work.
+  await pending.insertOne({ _id: 'b', operationId: 'op2', owner: 'w2', leaseUntil: new Date(0), state: 'preparing', total: 3, next: 0 });
+  await assert.rejects(recoverImport(db, 'b', { apply: true, online: true, rollback: true }), /offline/);
+  await db.collection('scrumImportRecoveryLocks').insertOne({ _id: 'b', token: 't' });
+  await assert.rejects(discardPreparingImport(db, 'b'), /offline recovery claim/);
+  await db.collection('scrumImportRecoveryLocks').deleteMany({});
+  // A plan that was never fully saved is discarded online, writing nothing.
+  await db.collection('scrumImportSteps').insertOne({ _id: 'op2:0', boardId: 'b', operationId: 'op2', index: 0, step: steps[0] });
+  assert.deepEqual(await discardPreparingImport(db, 'b'), { changed: true, scope: 'scrum', state: 'discarded' });
+  assert.equal(await db.collection('scrumImportSteps').countDocuments({ operationId: 'op2' }), 0);
+  // The old writer, fenced out: its checkpoint updates name it, and no longer match.
+  await pending.insertOne({ _id: 'b', operationId: 'op3', owner: 'recovery', state: 'applying', total: 3, next: 1 });
+  assert.equal((await pending.updateOne({ _id: 'b', operationId: 'op3', owner: 'writer', state: 'applying', next: 1 },
+    { $set: { next: 2 } })).matchedCount, 0);
+  // A checkpoint from before owners existed can be taken over at once.
+  await pending.deleteMany({});
+  await pending.insertOne({ _id: 'b', operationId: 'legacy', state: 'cleaning', total: 1, next: 1 });
+  await db.collection('scrumImportSteps').insertOne({ _id: 'legacy:0', boardId: 'b', operationId: 'legacy', index: 0,
+    step: steps[2] });
+  assert.equal((await recoverImport(db, 'b', { apply: true, online: true })).state, 'completed');
+  assert.equal(await pending.countDocuments({}), 0);
+});
