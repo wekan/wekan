@@ -55,3 +55,42 @@ test('negative: no publication unions an unvalidated deposit pointer into source
   assert.match(permissions, /Object.values\(modifier.\$rename\).includes\('subtasksDefaultBoardId'\)/);
   assert.match(read('models/boards.js'), /canWriteSubtaskDeposit\(Meteor.userId\(\), subtasksDefaultBoardId\)/);
 });
+
+// Sibling found 2026-10-02: inviting someone to a board also added them to -
+// or reactivated them on - its subtask deposit board, checking the inviter's
+// rights only on the board they invited to. Setting a deposit pointer needs
+// only write access, so a writer could point their own board's deposit at any
+// board and invite anyone, their own second account included, into it.
+test('the reported attack: inviting to a board does not admit the invitee to a deposit board the inviter cannot invite to', () => {
+  const { canInviteToBoard } = require('../models/lib/invitationBoardPermission');
+  const allowed = ['board-admin', 'normal'];
+  const attacker = { _id: 'mallory', isAdmin: false };
+  const victimBoard = { _id: 'victim', members: [{ userId: 'owner', isActive: true, isAdmin: true }] };
+  assert.equal(canInviteToBoard(attacker, victimBoard, allowed), false, 'not a member of the deposit board');
+  const removed = { _id: 'victim', members: [{ userId: 'mallory', isActive: false, isAdmin: true }] };
+  assert.equal(canInviteToBoard(attacker, removed, allowed), false, 'a removed member cannot reactivate anyone');
+  const assignedOnly = { _id: 'victim', members: [{ userId: 'mallory', isActive: true, isNormalAssignedOnly: true }] };
+  assert.equal(canInviteToBoard(attacker, assignedOnly, allowed), false, 'a role outside the inviter roles');
+  // Ordinary use still works (negative): a normal member, and a site admin.
+  assert.equal(canInviteToBoard(attacker, { _id: 'v', members: [{ userId: 'mallory', isActive: true }] }, allowed), true);
+  assert.equal(canInviteToBoard({ _id: 'admin', isAdmin: true }, victimBoard, allowed), true);
+});
+
+test('negative: every member write to a deposit board is behind the inviter check', () => {
+  const users = fs.readFileSync('server/models/users.js', 'utf8');
+  const at = users.indexOf('if (board.subtasksDefaultBoardId) {');
+  const block = users.slice(at, users.indexOf("'profile.invitedBoards': subBoard._id", at));
+  const guard = block.indexOf('canInviteToBoard(inviter, subBoard, await InviteToBoardRolesSettings.allowedRoles())');
+  assert.ok(guard > 0, 'the deposit propagation checks the inviter on the deposit board');
+  assert.ok(block.indexOf('if (depositInvite) {') > guard);
+  for (const write of [...block.matchAll(/Boards\.updateAsync\(board\.subtasksDefaultBoardId/g)]) {
+    assert.ok(write.index > block.indexOf('if (depositInvite) {'), 'no deposit write before the check');
+  }
+  // Nowhere else in the server writes members onto a board found through a
+  // deposit pointer.
+  const walk = dir => fs.readdirSync(dir, { withFileTypes: true }).flatMap(e => e.isDirectory()
+    ? (e.name === 'tests' || e.name.startsWith('_build') ? [] : walk(`${dir}/${e.name}`)) : [`${dir}/${e.name}`]);
+  const writers = ['server', 'models'].flatMap(walk).filter(f => f.endsWith('.js'))
+    .filter(f => /Boards\.(direct\.)?updateAsync\([^)]*subtasksDefaultBoardId[\s\S]{0,200}members/.test(fs.readFileSync(f, 'utf8')));
+  assert.deepEqual(writers, ['server/models/users.js']);
+});

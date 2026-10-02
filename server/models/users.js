@@ -106,6 +106,7 @@ const {
 } = require('/models/lib/starredPages');
 import InvitationCodes from '/models/invitationCodes';
 import InviteToBoardRolesSettings from '/models/inviteToBoardRolesSettings';
+const { canInviteToBoard } = require('/models/lib/invitationBoardPermission');
 import AccountSettings from '/models/accountSettings';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
@@ -1626,7 +1627,15 @@ Meteor.methods({
 
     if (board.subtasksDefaultBoardId) {
       const subBoard = await ReactiveCache.getBoard(board.subtasksDefaultBoardId);
-      if (subBoard) {
+      // SubtaskDepositBleed: the deposit board is another board. The invitee is
+      // added to it - or reactivated there - only when the inviter may invite
+      // to THAT board too; otherwise a writer could point their own board's
+      // deposit at any board and invite anyone into it.
+      const depositInvite = subBoard && subBoard._id !== board._id &&
+        canInviteToBoard(inviter, subBoard, await InviteToBoardRolesSettings.allowedRoles());
+      // Not recorded: an inviter without invite rights on the deposit board is
+      // also an ordinary configuration, so skipping it is not an attempt.
+      if (depositInvite) {
         const subMemberIndex = subBoard.members.findIndex(m => m.userId === user._id);
         if (subMemberIndex >= 0) {
           await Boards.updateAsync(board.subtasksDefaultBoardId, {
