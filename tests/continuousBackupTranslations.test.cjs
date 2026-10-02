@@ -6,7 +6,7 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('continuous-backup'));
-for (const code of ['fi', 'sv', 'da', 'nb', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'it', 'nl', 'nl-NL']) {
+for (const code of ['fi', 'sv', 'da', 'nb', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'it', 'nl', 'nl-NL', 'pl', 'pl-PL', 'cs', 'cs-CZ']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -73,5 +73,18 @@ for (const [codes, protection, pause, units] of [
     }
   }
 }
+for (const [codes, protection, pause, units] of [
+  [['pl', 'pl-PL'], /nigdy nie nadpisuje używanego pliku/, /wybraną generację do wybranego momentu.*wstrzymane na czas przywracania/, ['sekundy', 'godziny', 'dni']],
+  [['cs', 'cs-CZ'], /nikdy nepřepíše používaný soubor/, /vybranou generaci k vybranému okamžiku.*po dobu obnovování pozastaveno/, ['sekundy', 'hodin', 'dny']],
+]) {
+  for (const code of codes) {
+    const locale = read(code);
+    assert.match(locale['continuous-backup-restore-sqlite'], protection);
+    assert.match(locale['continuous-backup-restore-confirm'], pause);
+    for (const [i, suffix] of ['sqlite-interval', 'base-every', 'keep-days'].entries()) {
+      assert.ok(locale[`continuous-backup-${suffix}`].includes(units[i]), `${code}:${suffix}: unit preserved`);
+    }
+  }
+}
 for (const key of keys) assert.doesNotMatch(read('de-CH')[key], /ß/);
-console.log(`Continuous backup: ${keys.length} translations in twenty-nine locales passed`);
+console.log(`Continuous backup: ${keys.length} translations in thirty-three locales passed`);
