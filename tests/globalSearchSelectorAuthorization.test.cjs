@@ -49,9 +49,14 @@ assert.match(
 );
 assert.match(
   findCards[0],
-  /\$and: \[storedSelector, \{ boardId: \{ \$in: authorizedBoardIds \} \}]/,
+  /\$and: \[storedSelector, boardScope\]/,
   'stored selectors from older releases must be constrained to current access',
 );
+// boardScope is the authorized boards, narrowed to assigned cards on a board
+// where the user is an assigned-only member (2026-10-02). Both arms stay
+// inside authorizedBoardIds.
+assert.match(findCards[0], /\? \{ boardId: \{ \$in: authorizedBoardIds \} \}/);
+assert.match(findCards[0], /\{ boardId: \{ \$in: authorizedBoardIds\.filter\(id => !assignedOnlyBoardIds\.includes\(id\)\) \} \},\n\s*\{ boardId: \{ \$in: assignedOnlyBoardIds \}, assignees: userId \},/);
 assert.ok(
   findCards[0].indexOf('selectorIsInjection(query.selector') <
     findCards[0].indexOf('ReactiveCache.getCards(databaseSelector'),

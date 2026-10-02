@@ -1,6 +1,8 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 
+const { isAssignedOnlyMember, mayCopyFromBoard } = require('/models/lib/boardCardScope');
+
 // We use activities fields at two different places:
 // 1. The board sidebar
 // 2. The card activity tab
@@ -72,14 +74,27 @@ Meteor.publish('activities', async function(kind, id, limit, showActivities) {
     if (!board || !board.isVisibleBy(userForVisibility)) {
       return this.ready();
     }
+    // An assigned-only member sees only their assigned cards' history.
+    if (!mayCopyFromBoard(board, this.userId, card)) {
+      return this.ready();
+    }
   }
 
-  const selector = showActivities
-    ? { [`${kind}Id`]: { $in: linkedElmtId } }
-    : { $and: [
-      { activityType: 'addComment' },
-      { [`${kind}Id`]: { $in: linkedElmtId } },
-    ] };
+  const clauses = [{ [`${kind}Id`]: { $in: linkedElmtId } }];
+  if (!showActivities) clauses.push({ activityType: 'addComment' });
+  // On a board an assigned-only member reads the board's own activities that
+  // concern no card, and those of the cards assigned to them; a linked board's
+  // activities stay under that board's own visibility check above.
+  if (kind === 'board' && isAssignedOnlyMember(board, this.userId)) {
+    const assigned = await ReactiveCache.getCards({ boardId: board._id, assignees: this.userId }, { fields: { _id: 1 } });
+    clauses.push({ $or: [
+      { boardId: { $ne: board._id } },
+      { cardId: { $exists: false } },
+      { cardId: null },
+      { cardId: { $in: (assigned || []).map(c => c._id) } },
+    ] });
+  }
+  const selector = clauses.length === 1 ? clauses[0] : { $and: clauses };
 
   const ret = await ReactiveCache.getActivities(selector,
     {

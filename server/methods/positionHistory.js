@@ -7,10 +7,22 @@ import Cards from '/models/cards';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { canReadBoard } from '/models/lib/boardVisibility';
 
+const { isAssignedOnlyMember, mayCopyFromBoard } = require('/models/lib/boardCardScope');
+
 async function assertCanReadBoard(userId, boardId) {
-  if (!canReadBoard(userId, await ReactiveCache.getBoard(boardId))) {
+  const board = await ReactiveCache.getBoard(boardId);
+  if (!canReadBoard(userId, board)) {
     throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
   }
+  return board;
+}
+
+// An assigned-only member sees the history of the cards assigned to them, and
+// of the board's swimlanes and lists, never of another member's cards.
+async function assignedOnlyHistoryScope(userId, board) {
+  if (!isAssignedOnlyMember(board, userId)) return null;
+  const cards = await ReactiveCache.getCards({ boardId: board._id, assignees: userId }, { fields: { _id: 1 } });
+  return { $or: [{ entityType: { $ne: 'card' } }, { entityId: { $in: (cards || []).map(card => card._id) } }] };
 }
 
 /**
@@ -252,7 +264,10 @@ Meteor.methods({
       throw new Meteor.Error('card-not-found', 'Card not found');
     }
 
-    await assertCanReadBoard(this.userId, card.boardId);
+    const cardBoard = await assertCanReadBoard(this.userId, card.boardId);
+    if (!mayCopyFromBoard(cardBoard, this.userId, card)) {
+      throw new Meteor.Error('not-authorized', 'You do not have access to this card.');
+    }
 
     return card.getOriginalPositionDescription();
   },
@@ -267,10 +282,12 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
 
-    await assertCanReadBoard(this.userId, boardId);
+    const board = await assertCanReadBoard(this.userId, boardId);
+    const scope = await assignedOnlyHistoryScope(this.userId, board);
 
     return PositionHistory.find({
       boardId: boardId,
+      ...(scope || {}),
     }, {
       sort: { createdAt: -1 }
     }).fetchAsync();
@@ -287,7 +304,8 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
 
-    await assertCanReadBoard(this.userId, boardId);
+    const board = await assertCanReadBoard(this.userId, boardId);
+    const scope = await assignedOnlyHistoryScope(this.userId, board);
 
     if (!['swimlane', 'list', 'card'].includes(entityType)) {
       throw new Meteor.Error('invalid-entity-type', 'Entity type must be swimlane, list, or card');
@@ -296,6 +314,7 @@ Meteor.methods({
     return PositionHistory.find({
       boardId: boardId,
       entityType: entityType,
+      ...(scope || {}),
     }, {
       sort: { createdAt: -1 }
     }).fetchAsync();

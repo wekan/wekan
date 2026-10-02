@@ -16,6 +16,7 @@ import RecoveryEvents from '/models/recoveryEvents';
 import { recordRecoveryAudit } from '/server/lib/recoveryAudit';
 import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 import { softDeleteAttachment } from '/server/attachmentSoftDelete';
+import { assignedOnlyAttachmentScope, mayReadBoardAttachment } from '/server/lib/assignedOnlyAttachments';
 const { cleanFileName } = require('/imports/lib/fileNameDisplay');
 
 const HARD_MAX_API_FILE_BYTES = 64 * 1024 * 1024;
@@ -273,7 +274,7 @@ Meteor.methods({
 
       // Check permissions
       const board = await ReactiveCache.getBoard(attachment.meta.boardId);
-      if (!board || !board.hasMember(this.userId)) {
+      if (!board || !board.hasMember(this.userId) || !(await mayReadBoardAttachment(board, this.userId, attachment))) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to access this attachment');
       }
 
@@ -572,6 +573,8 @@ Meteor.methods({
           query['meta.cardId'] = cardId;
         }
 
+        const scope = await assignedOnlyAttachmentScope(board, this.userId);
+        if (scope) query = { $and: [query, scope] };
         const attachments = await ReactiveCache.getAttachments(liveAttachments(query));
 
         const attachmentList = attachments.map(attachment => {
@@ -837,7 +840,7 @@ Meteor.methods({
 
       // Check permissions
       const board = await ReactiveCache.getBoard(attachment.meta.boardId);
-      if (!board || !board.hasMember(this.userId)) {
+      if (!board || !board.hasMember(this.userId) || !(await mayReadBoardAttachment(board, this.userId, attachment))) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to access this attachment');
       }
 

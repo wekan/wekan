@@ -83,7 +83,7 @@ import { CARD_TYPES } from '../../config/const';
 import Org from "../../models/org";
 import Team from "../../models/team";
 import { MATCH_NOTHING, selectorIsInjection } from '/server/lib/selectorGuard';
-const { boardCardScope } = require('/models/lib/boardCardScope');
+const { boardCardScope, isAssignedOnlyMember } = require('/models/lib/boardCardScope');
 const { retainRankedCard } = require('/models/lib/cardSearchRanking');
 const { withoutMembershipSelectors } = require('/models/lib/boardPermission');
 const {
@@ -357,14 +357,18 @@ Meteor.publish('dueCards', async function(allUsers = false, limit = 200, skip = 
 
   // Get user's board memberships for efficient filtering
   // #3249: signed in, so 'instance' boards count as well.
-  const userBoards = (await ReactiveCache.getBoards({
+  const visibleBoards = await ReactiveCache.getBoards({
     $or: [
       ...withoutMembershipSelectors(true),
       { members: { $elemMatch: { userId, isActive: true } } }
     ]
-  })).map(board => board._id);
+  });
+  // On a board where this user is an assigned-only member, only the cards
+  // assigned to them are theirs to see - "all users" included.
+  const userBoards = visibleBoards.filter(board => !isAssignedOnlyMember(board, userId)).map(board => board._id);
+  const assignedOnlyBoards = visibleBoards.filter(board => isAssignedOnlyMember(board, userId)).map(board => board._id);
 
-  if (userBoards.length === 0) {
+  if (userBoards.length === 0 && assignedOnlyBoards.length === 0) {
     return this.ready();
   }
 
@@ -373,18 +377,21 @@ Meteor.publish('dueCards', async function(allUsers = false, limit = 200, skip = 
     type: 'cardType-card',
     archived: false,
     dueAt: { $exists: true, $nin: [null, ''] },
-    boardId: { $in: userBoards }
+    $and: [{ $or: [
+      { boardId: { $in: userBoards } },
+      { boardId: { $in: assignedOnlyBoards }, assignees: userId },
+    ] }],
   };
 
   // Add user filtering if not showing all users
   if (!allUsers) {
-    selector.$or = [
+    selector.$and.push({ $or: [
       { members: userId },
       { assignees: userId },
       { requesters: userId },
       { assigners: userId },
       { userId: userId }
-    ];
+    ] });
   }
 
   const options = {
@@ -1346,9 +1353,21 @@ async function findCards(sessionId, query, userId) {
   )
     ? MATCH_NOTHING
     : query.selector;
+  // On a board where the user is an assigned-only member, search finds only
+  // the cards assigned to them, as the board itself shows.
+  const assignedOnlyBoardIds = (await ReactiveCache.getBoards(
+    { _id: { $in: authorizedBoardIds } },
+    { fields: { members: 1 } },
+  )).filter(board => isAssignedOnlyMember(board, userId)).map(board => board._id);
+  const boardScope = assignedOnlyBoardIds.length === 0
+    ? { boardId: { $in: authorizedBoardIds } }
+    : { $or: [
+      { boardId: { $in: authorizedBoardIds.filter(id => !assignedOnlyBoardIds.includes(id)) } },
+      { boardId: { $in: assignedOnlyBoardIds }, assignees: userId },
+    ] };
   const databaseSelector = storedSelector === MATCH_NOTHING
     ? MATCH_NOTHING
-    : { $and: [storedSelector, { boardId: { $in: authorizedBoardIds } }] };
+    : { $and: [storedSelector, boardScope] };
 
   let textMatches = query.getQueryParams().text;
   let isTextSearch = !!textMatches;

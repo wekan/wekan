@@ -12,6 +12,7 @@ const { columnModifier } = require('/models/lib/boardSettingsColumns');
 const { DRAG_SETTINGS, canDragSelection } = require('/models/lib/boardDragging');
 import { requireBoardMutation } from '/models/lib/boardMutationGuard';
 const { memberCan } = require('/models/lib/boardRoleCapabilities');
+const { assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 const { selectionRoots, kinds } = require('/models/lib/structuralSelection');
 const collections = { swimlane: Swimlanes, list: Lists, card: Cards, checklist: Checklists, item: ChecklistItems };
 const targetShape = { boardId: String, swimlaneId: Match.Optional(String), listId: Match.Optional(String), cardId: Match.Optional(String), checklistId: Match.Optional(String), itemId: Match.Optional(String), position: Match.Optional(Match.OneOf('before', 'after')) };
@@ -82,13 +83,16 @@ Meteor.methods({
     const boards = await Boards.find({ 'members.userId': this.userId, archived: false }).fetchAsync();
     const writable = [];
     for (const board of boards) if (memberCan(board.members, this.userId, 'write')) writable.push({ _id: board._id, title: board.title });
-    await boardAccess(this.userId, target.boardId);
+    const targetBoard = await boardAccess(this.userId, target.boardId);
+    // An assigned-only member is offered only the cards they can see.
+    const cardScope = assignedOnlyCardScope(targetBoard, this.userId) || {};
     const projected = async (collection, query) => (await collection.find(query, { sort: { sort: 1 }, fields: { title: 1 } }).fetchAsync());
     const result = { boardId: writable, swimlaneId: await projected(Swimlanes, { boardId: target.boardId, archived: false }) };
     if (target.swimlaneId) result.listId = await projected(Lists, { boardId: target.boardId, archived: false, $or: [{ swimlaneId: target.swimlaneId }, { swimlaneId: '' }, { swimlaneId: { $exists: false } }] });
-    if (target.listId) result.cardId = await projected(Cards, { boardId: target.boardId, listId: target.listId, swimlaneId: target.swimlaneId, archived: false });
-    if (target.cardId && await Cards.findOneAsync({ _id: target.cardId, boardId: target.boardId })) result.checklistId = await projected(Checklists, { cardId: target.cardId });
-    if (target.checklistId && await Checklists.findOneAsync({ _id: target.checklistId, boardId: target.boardId })) result.itemId = await projected(ChecklistItems, { checklistId: target.checklistId });
+    if (target.listId) result.cardId = await projected(Cards, { boardId: target.boardId, listId: target.listId, swimlaneId: target.swimlaneId, archived: false, ...cardScope });
+    if (target.cardId && await Cards.findOneAsync({ _id: target.cardId, boardId: target.boardId, ...cardScope })) result.checklistId = await projected(Checklists, { cardId: target.cardId });
+    const targetChecklist = target.checklistId && await Checklists.findOneAsync({ _id: target.checklistId, boardId: target.boardId });
+    if (targetChecklist && await Cards.findOneAsync({ _id: targetChecklist.cardId, boardId: target.boardId, ...cardScope })) result.itemId = await projected(ChecklistItems, { checklistId: target.checklistId });
     return result;
   },
   async moveBoardObjects(sourceBoardId, selection, target, options = {}) {
