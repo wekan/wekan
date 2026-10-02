@@ -1891,6 +1891,44 @@ existing locale catalogs. Remaining locales and older strings are still pending.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/459e313cf8">Synchronize the drag-to-reorder instruction in every locale</a>. Thanks to xet7.</summary>
+
+Add the new keyboard and pointer instruction in source order in 243 locale
+catalogs. It remains an English placeholder pending translation. Full-catalog
+key and token checks, feature translations and language-count checks pass.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/beef55a363">Translate feature settings in seven more languages</a>. Thanks to xet7.</summary>
+
+Add 168 messages in Javanese, Haitian Creole, Latin, Hausa, Shona, Yoruba and
+Igbo, bringing coverage to 129 locales. Replace the mixed English/Latin feature
+heading with Latin and test against language-prefix filler in the new messages.
+Existing older mixed Latin entries still require a separate vocabulary audit;
+the missing-English count does not identify all wrong-language prose.
+
+Specialist flow-metric wording in Latin, Hausa, Shona, Yoruba and Igbo has lower
+confidence. Permission vocabulary was checked against
+[HausaDictionary](https://www.hausadictionary.com/permission),
+[Vashona](https://vashona.com/en/dictionary/en/permission),
+[Yoruba Wiktionary data](https://kaikki.org/dictionary/Yoruba/meaning/y/y%E1%BB%8D/y%E1%BB%8Dnda.html), and
+[Nkọwa okwu](https://nkowaokwu.com/word?word=ikike).
+The feature suite, full-catalog key and token checks, and README count pass.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/45d3a7cadb">Translate feature settings in Corsican, Aragonese and Asturian</a>. Thanks to xet7.</summary>
+
+Add 72 messages, bringing feature-setting coverage to 132 locales. Follow the
+existing board and card terminology. Specialist flow-metric wording remains
+lower confidence and open to native review. All 447 translation-related Node
+suites pass after this batch.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
