@@ -126,6 +126,30 @@ export const Authentication = {
 };
 
 Meteor.startup(() => {
+  // The per-account brake (server/lib/accountLoginDelay.js) for DDP password
+  // logins. Meteor has checked the password by now, but an attempt outside the
+  // account's slot is refused whatever the outcome, so the answer reveals
+  // nothing and parallel connections gain nothing.
+  Accounts.validateLoginAttempt(function(options) {
+    if (options.type !== 'password' || !options.user) return true;
+    const { accountLoginDelay, recordAccountDelay } = require('/server/lib/accountLoginDelay');
+    const connection = options.connection || {};
+    const address = require('/server/lib/loginAttemptThrottle').resolveClientKey({
+      headers: connection.httpHeaders || {},
+      socketAddress: connection.clientAddress,
+      forwardedCount: process.env.HTTP_FORWARDED_COUNT,
+    });
+    const now = Date.now();
+    const gate = accountLoginDelay.decide(options.user._id, address, now);
+    if (!gate.allowed) {
+      recordAccountDelay(options.user._id, address, gate.retryAfterMs, 'ddp-login:account-delay');
+      throw new Meteor.Error('too-many-requests', 'Too many failed login attempts. Try again later.');
+    }
+    if (options.allowed) accountLoginDelay.recordSuccess(options.user._id, address, now);
+    else accountLoginDelay.recordFailure(options.user._id, address, now);
+    return true;
+  });
+
   Accounts.validateLoginAttempt(function(options) {
     const user = options.user || {};
     return !options.user || require('/server/lib/activeUser').allowActiveUser(user, 'ddp-login');

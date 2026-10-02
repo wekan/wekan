@@ -170,6 +170,8 @@ const GUARDED = {
   syncbleed: ['tests/syncBleed.test.cjs', 'tests/playwright/specs/list-sync-source.e2e.js'],
   relaybleed: ['tests/relayBleed.test.cjs'],
   readonlybleed: ['tests/readOnlyBleed.test.cjs', 'tests/assignedbleed.test.cjs'],
+  ldapbleed: ['tests/ldapRejectUnauthorizedDefault.test.cjs'],
+  brutebleed: ['tests/accountLoginDelay.test.cjs'],
   repointbleed: ['tests/repointBleed.test.cjs', 'tests/playwright/specs/repoint-bleed.e2e.js'],
   prototypebleed: ['tests/prototypeBleed.test.cjs', 'tests/playwright/specs/prototype-bleed.e2e.js'],
   backgroundbleed: ['tests/backgroundBleed.test.cjs', 'tests/playwright/specs/background-bleed.e2e.js'],
@@ -217,11 +219,9 @@ const RECORDED = {
   anchorbleed: 'GHSL-2026-035 CursorBleed; reported before the *bleed suites existed',
   authbleed: 'unauthenticated getServiceConfiguration leaked the OIDC client secret; needs a DDP test',
   avatarbleed: 'predates the test suites; superseded in part by tests/avatarUrlSafety.test.cjs, which does not name it',
-  brutebleed: 'user data published unconditionally; overlaps userbleed, both need a publication test',
   duebleed: 'Due Cards showed other users\' private board cards to an Admin; needs a publication test',
   fieldbleed: 'JavaScript stored in a field ran when the page was reloaded; predates the *bleed test suites',
   floppybleed: 'FileBleed variant; predates the *bleed test suites, no source guard was written',
-  ldapbleed: 'LDAP TLS certificate validation off by default; needs an LDAP stack to test',
   reactionbleed: 'XSS in comment reactions; predates the *bleed test suites - note the reaction OWNERSHIP hole found in this round is a different bug and is guarded by tests/reactionOwnership.test.cjs',
   snowbleed: 'MigrationsBleed - a database migration fix; predates the *bleed test suites',
   socialbleed: 'social media links on wekan.fi - a website fix, not a WeKan one',
@@ -322,7 +322,11 @@ test('the gap list may not grow', () => {
   // 17 -> 16: BypassBleed - its rule-loop DoS part was still open; fixed and tested.
   // 16 -> 15: ReadOnlyBleed - tests/readOnlyBleed.test.cjs pins the six
   // handlers and every mutating REST route tree-wide (2026-10-02).
-  assert.strictEqual(Object.keys(RECORDED).length, 15,
+  // 15 -> 13: LDAPBleed - the Docker image and snap had set certificate
+  // validation off again; restored and held by
+  // tests/ldapRejectUnauthorizedDefault.test.cjs. BruteBleed - its brute-force
+  // login protection is held by tests/accountLoginDelay.test.cjs (2026-10-02).
+  assert.strictEqual(Object.keys(RECORDED).length, 13,
     'the number of published vulnerabilities with no regression test changed');
 });
 

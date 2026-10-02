@@ -12,6 +12,7 @@ const {
   LoginAttemptThrottle,
   resolveClientKey,
 } = require('/server/lib/loginAttemptThrottle');
+const { accountLoginDelay, recordAccountDelay } = require('/server/lib/accountLoginDelay');
 const {
   hasLocalPassword,
   equalizeMissingUserTiming,
@@ -125,6 +126,18 @@ WebApp.handlers.post('/users/login', async function (req, res) {
       user = await Meteor.users.findOneAsync({ username: options.username });
     }
 
+    // The per-account brake (server/lib/accountLoginDelay.js): checked before
+    // any password work, so a refusal says nothing about the password.
+    const accountGate = accountLoginDelay.decide(user && user._id, clientKey, now);
+    if (!accountGate.allowed) {
+      recordAccountDelay(user._id, clientKey, accountGate.retryAfterMs, 'rest-login:account-delay');
+      const error = new Meteor.Error('too-many-requests', 'Too many failed login attempts. Try again later.');
+      error.statusCode = 429;
+      error.retryAfterSeconds = Math.ceil(accountGate.retryAfterMs / 1000);
+      throw error;
+    }
+    const failAccount = () => accountLoginDelay.recordFailure(user && user._id, clientKey, now);
+
     // #3707: LDAP credentials must run through the registered LDAP login
     // handler. A direct _checkPasswordAsync call can only authenticate a local
     // bcrypt password and rejected every LDAP-only account. _runLoginHandlers
@@ -175,6 +188,7 @@ WebApp.handlers.post('/users/login', async function (req, res) {
 
     if (!result || result.error || !result.userId || !require('/server/lib/activeUser').allowActiveUser(user, 'rest-login', req)) {
       restLoginThrottle.recordFailure(clientKey, now);
+      failAccount();
       throw uniformLoginError();
     }
 
@@ -192,6 +206,7 @@ WebApp.handlers.post('/users/login', async function (req, res) {
         )
       ) {
         restLoginThrottle.recordFailure(clientKey, now);
+        failAccount();
         Accounts._handleError('Invalid 2FA code', true, 'invalid-2fa-code');
       }
     }
@@ -207,6 +222,8 @@ WebApp.handlers.post('/users/login', async function (req, res) {
     // A successful login clears this client's failure counter.
     restLoginThrottle.recordSuccess(clientKey);
     restLoginThrottle.prune(now);
+    accountLoginDelay.recordSuccess(result.userId, clientKey, now);
+    accountLoginDelay.prune(now);
 
     sendJsonResult(res, {
       data: {
