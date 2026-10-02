@@ -2409,6 +2409,22 @@ The remaining translation queue and older wrong-language text still need work.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/98845f6251">Translate feature and card settings in Northern Sámi, Veps and Tibetan</a>. Thanks to xet7.</summary>
+
+Add 81 messages across three languages. Feature settings now cover 218 locale
+tags and the three card-setting labels cover 86. All 448 translation-related
+Node suites pass after Northern Sámi and Veps; all eleven selected suites pass
+with Tibetan included. Specialist workflow wording, especially Veps, has lower
+confidence and remains open to native review. Structural and selected wording
+checks do not establish fluency. References included
+[Northern Sámi vocabulary](https://kaikki.org/dictionary/All%20languages%20combined/meaning/l/lo/lohpi.html),
+[the Veps dictionary](https://vepsnoid.blogspot.com/p/dictionary.html)
+and [Tibetan terminology](https://linguatools.info/?page=191&per_page=10).
+The remaining translation queue and older wrong-language text still need work.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
