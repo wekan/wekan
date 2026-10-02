@@ -1686,6 +1686,17 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/24548bf38f">Translate Khmer Scrum observations and Sync conflicts</a>. Thanks to xet7.</summary>
+
+- Fill 30 Scrum observation, Sync conflict and preview messages in both Khmer
+  locale files; km-KH inherits the Cambodia translations.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass for all three locale tags, as do all 21 human-preference checks.
+  Full-language work, browser and native-speaker reviews remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3af4cf03cb">Translate Khmer sprint events and reports</a>. Thanks to xet7.</summary>
 
 - Fill 30 sprint event, report and workflow messages in both Khmer locale
