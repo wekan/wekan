@@ -83,8 +83,9 @@ types (Kanboard categories stay labels), semi-open boards, the Map view,
 several parents per card, export fidelity and the Leo outline format. What
 remains below is blocked for one of three stated reasons, not left unexamined:
 
-- **Decided "not now", kept open.** #4912, #2509 and #2460 (see "Needs a
-  maintainer decision"), and filing the prepared #4790 split, which is a
+- **Decided "not now", kept open.** #2509 and #2460 (see "Needs a
+  maintainer decision"; #4912 was decided on 2026-10-02 as an opt-in extra
+  event), and filing the prepared #4790 split, which is a
   publishing step for the maintainer.
 - **Needs infrastructure or affected data.** The environment-owner, snap and
   data-verification items. The MySQL/MariaDB/PostgreSQL verification was done
@@ -235,8 +236,9 @@ Remaining, and why:
   (sort order across lists or boards, with Card.move's own History), adding or
   removing checklists, and creating, copying or linking cards and swimlanes.
   Each needs its own saved command (server/lib/listSyncSteps.js).
-  Moves are the next candidate. Even a same-list move to top or bottom (list
-  and swimlane '*' on the card's board, which only changes sort) writes the
+  Moves are next (decided on 2026-10-02). Even a same-list move to top or
+  bottom (list and swimlane '*' on the card's board, which only changes sort)
+  writes the
   hook's position History row and a legacy UserPositionHistory row directly
   from Card.move, which Ctrl+Z still reads. A cross-list or cross-board move
   also relabels, renumbers, maps custom fields and re-syncs checklists and
@@ -249,14 +251,35 @@ Remaining, and why:
 - **Lists created before list lifetimes existed** have no incarnation, so they
   keep direct Sync. Saving settings does not give them one: only a server
   insertion does (models/lists.js). Assigning one by migration would stop
-  their stored credential from matching until the settings are saved again,
-  so it needs a maintainer decision.
+  their stored credential from matching until the settings are saved again.
+  Decided on 2026-10-02: assign it when the Sync settings are next saved.
 
 Node suite health at this pass: 163 of 1445 suites fail; 162 already failed at
 the pass's starting commit (mostly translation-completeness suites, plus source
 guards such as `changeHistoryWiring` and `historyRestoreAppliesWhatIsShown`).
 The other, `activeForgeMirror`, read the real `.tools/wekan-gitlab` directory
 and failed on any checkout that has one; it is fixed in Upcoming.
+
+Maintainer decisions of 2026-10-02, for what remained above:
+
+- **Lists created before list lifetimes: assign on settings save.** A legacy
+  list gets its incarnation, and its Sync credential is reissued, the next time
+  an administrator saves its Sync settings. No migration assigns one, so an
+  upgrade breaks no stored credential; until the save, the list keeps direct
+  Sync.
+- **Structural rule actions: durable moves next.** Build a saved move command
+  that plans every row a move writes - the position History row, the legacy
+  UserPositionHistory row, relabel, renumber, custom-field mapping, checklists
+  and attachments - then make the other structural actions durable one at a
+  time.
+- **[#4912](https://github.com/wekan/wekan/issues/4912): an opt-in extra.** A
+  consolidated `act-editCard` event is sent to the global webhook only when an
+  administrator enables it. The per-field `act-a-changedTitle` /
+  `act-a-changedDescription` events stay as they are, so an existing receiver
+  gets no duplicate unless it opts in. Which card fields count as an edit is
+  still to be fixed when it is built.
+- **[#2460](https://github.com/wekan/wekan/issues/2460) stays open, not now**,
+  as decided on 2026-09-30.
 
 Investigated but not finished, with findings
 recorded for whoever picks them up next. Entries that have since been FIXED are
@@ -1564,7 +1587,9 @@ hangs.
 <details>
 <summary>Needs a maintainer decision on the intended contract (partly already works).</summary>
 
-[#4912](https://github.com/wekan/wekan/issues/4912) (a global `act-editCard`
+[#4912](https://github.com/wekan/wekan/issues/4912) (decided on 2026-10-02:
+an opt-in extra event beside the per-field ones; which fields count is left
+for the implementation. Was: a global `act-editCard`
 webhook — card title/description edits ALREADY reach the global webhook via
 `Activities.after.insert` as `act-a-changedTitle` / `act-a-changedDescription`
 from #3619/#5482; a single consolidated `act-editCard` action needs a decision
