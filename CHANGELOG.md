@@ -1686,6 +1686,19 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/46932c73b8">Translate Cornish synchronization conflicts and previews</a>. Thanks to xet7.</summary>
+
+- Fill 22 Cornish synchronization conflict and preview messages, preserving
+  local/source distinctions and the instructions for retaining card content.
+  Technical phrasing remains low confidence pending native-speaker review.
+- Batch placeholder, key-order, distinct-action and safeguard-wording checks
+  pass, along with all 21 human-preference checks. Full-language work and
+  browser review remain.
+
+</details>
+
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/275f71f51b">Translate Cornish sprint status and observation reports</a>. Thanks to xet7.</summary>
 
 - Fill 27 Cornish sprint-state and observation-report messages, preserving
