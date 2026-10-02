@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9f7e1759e3">Translate Burmese Blockly loops and editing actions</a>. Thanks to xet7.</summary>
+
+- Fill 24 condition, loop, copy, deletion and block-editing messages.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/90b9ba35ee">Translate Burmese Blockly editor and control flow</a>. Thanks to xet7.</summary>
 
 - Fill 27 editor, color, loop and conditional-control messages.
