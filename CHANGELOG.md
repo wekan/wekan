@@ -1830,6 +1830,31 @@ placeholder for subsequent translation. Existing translations are preserved.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/559acf0e4d">Repair the remaining translation regression checks</a>. Thanks to xet7.</summary>
+
+Restore established Tigre file and card terminology in six newer messages and
+refresh the README count to 164 essentially complete locales. Historical Swedish
+and multilingual completion checks now use the completed source catalog, while
+ordinary listings keep all new work visible. Behavioral tests verify pending-key
+reporting instead of matching the implementation expression.
+
+All 447 translation-related Node suites pass, including terminology, placeholder,
+language wiring and Transifex checks found beyond the translation-named suites.
+The untranslated backlog remains open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/685edac65f">Extend feature visibility translations to Hebrew, Persian, Hindi, Bengali, Tamil and Thai</a>. Thanks to xet7.</summary>
+
+Translate the 24 feature-setting messages in nine more locales, bringing this
+batch to 99 locales. Preserve the explanations that hiding a feature retains its
+data and does not change permissions. The expanded feature regression suite,
+full-catalog key and token checks, and language-count checks pass.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
