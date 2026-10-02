@@ -21,6 +21,9 @@ import { canUpdateCard } from '/server/permissions/cards';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 const { assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 const { dailyHistoryRows } = require('/models/lib/scrumDailyHistory');
+const { reportTotals, sprintReport } = require('/models/lib/scrumReports');
+const { withoutRows } = require('/models/lib/scrumSnapshotRows');
+import { storeSnapshot, snapshotRows, withSnapshotRows } from '/server/lib/scrumSnapshotStore';
 const { replaySprintScope, changesOf: scopeChangesOf, MAX_SCOPE_REPLAY_ROWS } = require('/models/lib/scrumScopeReplay');
 import ChangeHistory from '/models/changeHistory';
 const { DEFAULT_SCRUM_SETTINGS, normalizeScrumSettings, normalizeScrumMetadata,
@@ -94,16 +97,28 @@ export async function getScrumBoardData(userId, boardId) {
   ]);
   const visible = new Set(cards.map(card => card._id));
   const restricted = !!assignedOnlyCardScope(board, userId);
-  for (const sprint of sprints) {
+  for (let index = 0; index < sprints.length; index += 1) {
+    let sprint = sprints[index];
     // Rollover checkpoints contain internal preconditions, not public card data.
     sprint.rolloverPending = (sprint.rolloverPending || []).some(row => visible.has(row.cardId));
-    if (restricted) for (const name of ['startSnapshot', 'closeSnapshot']) {
-      if (!sprint[name]) continue;
-      const rows = sprint[name].cards.filter(row => visible.has(row.cardId));
-      sprint[name] = { ...sprint[name], cards: rows, partial: true,
-        missingEstimates: rows.filter(row => row.estimate === null).length,
-        totalEstimate: rows.reduce((sum, row) => sum + (row.estimate ?? 0), 0) };
+    if (restricted && (sprint.startSnapshot || sprint.closeSnapshot)) {
+      sprint = await withSnapshotRows(sprint);
+      for (const name of ['startSnapshot', 'closeSnapshot']) {
+        if (!sprint[name]) continue;
+        const rows = sprint[name].cards.filter(row => visible.has(row.cardId));
+        sprint[name] = { ...sprint[name], cards: rows, partial: true,
+          missingEstimates: rows.filter(row => row.estimate === null).length,
+          totalEstimate: rows.reduce((sum, row) => sum + (row.estimate ?? 0), 0) };
+      }
     }
+    // The report is computed here, from the rows a reader may see or from the
+    // totals saved with the sprint; the client gets the report and the
+    // snapshots' headers, never their rows (2026-10-03: sprints with no card
+    // cap), nor totals a restricted reader may not see.
+    sprint.report = sprint.startSnapshot || sprint.closeSnapshot ? sprintReport(sprint) : null;
+    for (const name of ['startSnapshot', 'closeSnapshot']) if (sprint[name]) sprint[name] = withoutRows(sprint[name]);
+    delete sprint.reportTotals;
+    sprints[index] = sprint;
   }
   for (const event of events) event.followUpCardIds = (event.followUpCardIds || []).filter(id => visible.has(id));
   // Rendering a capability is not an attempted mutation. Keep write guards'
@@ -284,10 +299,12 @@ export async function getScrumScopeHistory(userId, boardId, sprintId) {
   if (!sprintId || sprintId.length > 200) invalid('Invalid sprint identifier');
   const board = await boardFor(userId, boardId);
   await assertNoPendingScrumImport(boardId);
-  const sprint = await ScrumSprints.findOneAsync({ _id: sprintId, boardId });
-  if (!sprint) throw new Meteor.Error('not-found');
+  const stored = await ScrumSprints.findOneAsync({ _id: sprintId, boardId });
+  if (!stored) throw new Meteor.Error('not-found');
   const partial = !!assignedOnlyCardScope(board, userId);
-  if (!sprint.startSnapshot || !(sprint.startedAt instanceof Date)) return { points: [], partial, sprintName: sprint.name };
+  if (!stored.startSnapshot || !(stored.startedAt instanceof Date)) return { points: [], partial, sprintName: stored.name };
+  // The snapshots' rows, wherever they are kept (scrumSnapshotStore.js).
+  const sprint = await withSnapshotRows(stored);
   const raw = ChangeHistory.rawCollection();
   const since = { $gte: sprint.startedAt };
   const ids = new Set(sprint.startSnapshot.cards.map(row => row.cardId));
@@ -366,8 +383,12 @@ const methods = {
       const { cards, lists } = await loadScrumSnapshotInputs({ cards: Cards, lists: Lists,
         boardId, sprintId, includeArchived: false });
       const startedAt = new Date();
-      return updateSprint(this.userId, sprint, { state: 'active', startedAt,
-        startSnapshot: validate(() => sprintSnapshot(cards, settings, lists, startedAt)) });
+      // The rows go to their own documents (scrumSnapshotStore.js); the sprint
+      // keeps the header and the report's totals, computed from all of them.
+      const snapshot = validate(() => sprintSnapshot(cards, settings, lists, startedAt));
+      const startSnapshot = await storeSnapshot({ boardId, sprintId, kind: 'start', snapshot });
+      return updateSprint(this.userId, sprint, { state: 'active', startedAt, startSnapshot,
+        reportTotals: reportTotals({ startSnapshot: snapshot }) });
     });
   },
   async 'scrum.closeSprint'(boardId, sprintId, expectedRevision, rolloverSprintId = null) {
@@ -387,12 +408,15 @@ const methods = {
       const { cards, lists } = await loadScrumSnapshotInputs({ cards: Cards, lists: Lists,
         boardId, sprintId, includeArchived: true });
       const completedAt = new Date();
-      const closeSnapshot = validate(() => sprintSnapshot(cards, settings, lists, completedAt));
-      const done = new Map(closeSnapshot.cards.map(row => [row.cardId, row.done]));
+      const fullClose = validate(() => sprintSnapshot(cards, settings, lists, completedAt));
+      const done = new Map(fullClose.cards.map(row => [row.cardId, row.done]));
+      const closeSnapshot = await storeSnapshot({ boardId, sprintId, kind: 'close', snapshot: fullClose });
+      const totals = reportTotals({ startSnapshot: { cards: await snapshotRows(sprint, 'startSnapshot') },
+        closeSnapshot: fullClose });
       const rolloverPending = cards.map(card => ({ cardId: card._id, revision: card.scrumRevision || 0,
         before: card.scrum || {}, after: { ...(card.scrum || {}), sprintId: done.get(card._id) || card.archived ? null : rolloverSprintId,
           pastSprintIds: [...new Set([...(card.scrum?.pastSprintIds || []), sprintId])] } }));
-      const closed = await updateSprint(this.userId, sprint, { state: 'closed', completedAt, closeSnapshot,
+      const closed = await updateSprint(this.userId, sprint, { state: 'closed', completedAt, closeSnapshot, reportTotals: totals,
         closedFromRevision: sprint.revision, rolloverSprintId, rolloverPending });
       return resumeRollover(this.userId, closed);
     });

@@ -10,14 +10,27 @@ function total(cards) {
     return result;
   }, { count: 0, estimate: 0, unknown: 0 });
 }
-function sprintReport(sprint) {
+// The totals a report shows, from the snapshots' rows. A sprint whose rows
+// live outside its document (server/lib/scrumSnapshotStore.js) carries these
+// as `reportTotals`, computed from all of them when it started and closed;
+// a reader restricted to some cards gets the rows, filtered, instead.
+function reportTotals(sprint) {
   const start = sprint.startSnapshot?.cards || [];
   const end = sprint.closeSnapshot?.cards || [];
   const committed = new Set(start.map(card => card.cardId));
   const finalIds = new Set(end.map(card => card.cardId));
   const done = end.filter(card => card.done);
-  // Index completion once: a sprint may contain 10,000 snapshot rows.
+  // Index completion once: a sprint may hold many thousands of snapshot rows.
   const doneIds = new Set(done.map(card => card.cardId));
+  return { committed: total(start), completed: total(done),
+    completedCommitment: total(start.filter(card => doneIds.has(card.cardId))),
+    added: total(end.filter(card => !committed.has(card.cardId))),
+    removed: total(start.filter(card => !finalIds.has(card.cardId))),
+    incomplete: total(end.filter(card => !card.done)) };
+}
+const hasRows = sprint => Array.isArray(sprint.startSnapshot?.cards) || Array.isArray(sprint.closeSnapshot?.cards);
+function sprintReport(sprint) {
+  const totals = hasRows(sprint) || !sprint.reportTotals ? reportTotals(sprint) : sprint.reportTotals;
   return {
     sprintId: sprint._id, name: sprint.name, state: sprint.state,
     plannedWorkingDays: plannedWorkingDays(sprint.plannedStart, sprint.plannedEnd, sprint.startSnapshot?.workingDays),
@@ -25,11 +38,7 @@ function sprintReport(sprint) {
     estimateSource: sprint.closeSnapshot?.estimateSource || sprint.startSnapshot?.estimateSource || '',
     estimateCustomFieldId: sprint.closeSnapshot?.estimateCustomFieldId || sprint.startSnapshot?.estimateCustomFieldId || '',
     completionPolicy: sprint.closeSnapshot?.completionPolicy || sprint.startSnapshot?.completionPolicy || '',
-    committed: total(start), completed: total(done),
-    completedCommitment: total(start.filter(card => doneIds.has(card.cardId))),
-    added: total(end.filter(card => !committed.has(card.cardId))),
-    removed: total(start.filter(card => !finalIds.has(card.cardId))),
-    incomplete: total(end.filter(card => !card.done)),
+    ...totals,
     hasStart: Boolean(sprint.startSnapshot), hasClose: Boolean(sprint.closeSnapshot),
     partial: Boolean(sprint.startSnapshot?.partial || sprint.closeSnapshot?.partial),
   };
@@ -79,4 +88,11 @@ function reportChartGroups(reports, metric = 'count', velocity = false) {
     series: row.series.map(series => ({ ...series, width: group.max ? 100 * (series.value / group.max) : 0 })),
   })) }));
 }
-module.exports = { total, sprintReport, velocityRows, reportChartGroups, plannedWorkingDays };
+// The velocity rows from reports the server already computed
+// (server/scrum.js getScrumBoardData: `sprint.report`).
+function velocityReports(sprints) {
+  return sprints.filter(s => s.state === 'closed' && s.closeSnapshot && s.report)
+    .slice().sort((a, b) => new Date(a.closeSnapshot.at) - new Date(b.closeSnapshot.at))
+    .map(s => s.report);
+}
+module.exports = { total, reportTotals, sprintReport, velocityRows, velocityReports, reportChartGroups, plannedWorkingDays };

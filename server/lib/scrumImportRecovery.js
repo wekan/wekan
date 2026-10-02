@@ -2,7 +2,8 @@ const { isDeepStrictEqual: equals } = require('node:util');
 const { randomUUID } = require('node:crypto');
 const { applyImportStep, IMPORT_LEASE_MS } = require('./scrumImportWriter');
 const names = { boards: 'boards', cards: 'cards', lists: 'lists', swimlanes: 'swimlanes',
-  sprints: 'scrumSprints', releases: 'scrumReleases', events: 'scrumEvents', dailyObservations: 'scrumDailySnapshots' };
+  sprints: 'scrumSprints', releases: 'scrumReleases', events: 'scrumEvents', dailyObservations: 'scrumDailySnapshots',
+  snapshotRows: 'scrumSnapshotRows' };
 const updates = new Set(['boards', 'cards', 'lists', 'swimlanes']);
 class ScrumRecoveryError extends Error {}
 const fail = message => { throw new ScrumRecoveryError(message); };

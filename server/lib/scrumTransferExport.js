@@ -8,6 +8,7 @@ import ScrumEvents from '/models/scrumEvents';
 import ScrumDailySnapshots from '/models/scrumDailySnapshots';
 import ScrumHistoryPending from './scrumHistoryPending';
 import { ScrumImportPending } from './scrumImportJournal';
+import { withSnapshotRows } from './scrumSnapshotStore';
 const { normalizeScrumTransfer, SCRUM_TRANSFER_FORMAT } = require('/models/lib/scrumTransfer');
 
 // Call only after the existing export route has authorized the board and scope.
@@ -20,6 +21,9 @@ export async function exportScrumTransfer(boardId, cardIds, listIds, swimlaneIds
     Swimlanes.find({ boardId, _id: { $in: swimlaneIds }, scrum: { $exists: true } }, { fields: { scrum: 1 } }).fetchAsync(),
     ScrumSprints.find({ boardId }).fetchAsync(), ScrumReleases.find({ boardId }).fetchAsync(), ScrumEvents.find({ boardId }).fetchAsync(),
   ]);
+  // The transfer carries snapshots whole, their rows included, wherever they
+  // are kept (scrumSnapshotStore.js).
+  for (let index = 0; index < sprints.length; index += 1) sprints[index] = await withSnapshotRows(sprints[index]);
   if (!board) throw new Error('Board no longer exists');
   if (await ScrumImportPending.findOneAsync(boardId, { fields: { _id: 1 } })) {
     throw new Error('Finish the pending Scrum operation before exporting');
@@ -45,7 +49,8 @@ export async function exportScrumTransfer(boardId, cardIds, listIds, swimlaneIds
   const visibleCards = new Set(cardIds); const visibleLists = new Set(listIds);
   const losses = [];
   const clean = record => {
-    const { boardId: ignoredBoard, revision, rolloverPending, closedFromRevision, scrumImportPending, ...data } = record;
+    const { boardId: ignoredBoard, revision, rolloverPending, closedFromRevision, scrumImportPending, reportTotals,
+      ...data } = record;
     return data;
   };
   const metadata = rows => rows.map(row => ({ _id: row._id, scrum: row.scrum }));

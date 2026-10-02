@@ -13,6 +13,9 @@ import { ScrumImportPending, ScrumImportSteps } from './scrumImportJournal';
 const { writeImportPlan, finishImportPlan } = require('/server/lib/scrumImportWriter');
 const { dailyObservationId } = require('/server/lib/scrumDailyCapture');
 const { normalizeScrumTransfer, remapScrumTransfer, normalizeScrumTransferLosses } = require('/models/lib/scrumTransfer');
+const { chunkSnapshot } = require('/models/lib/scrumSnapshotRows');
+const { reportTotals } = require('/models/lib/scrumReports');
+import { ScrumSnapshotRows } from './scrumSnapshotStore';
 
 function inputMap(rows) {
   return new Map((rows || []).map(row => [row._id || row.id, row._id || row.id]));
@@ -57,7 +60,20 @@ export async function importScrumTransfer(creator, source, boardId) {
         ...(typeof source._id === 'string' && source._id.length <= 500 ? { projectId: source._id } : {}) };
       // A fresh incarnation per imported record, chosen in the plan so a
       // resumed import writes the same one (never the source board's).
-      steps.push({ kind: 'insert', collection: key, after: { ...record, provenance, boardId, revision: 1,
+      // A sprint's snapshot rows go to their own chunks (scrumSnapshotStore.js),
+      // inserted before the sprint that names them; the sprint keeps headers
+      // and the report's totals, from all the rows.
+      const stored = { ...record };
+      if (key === 'sprints') {
+        for (const [field, kind] of [['startSnapshot', 'start'], ['closeSnapshot', 'close']]) {
+          if (!record[field]) continue;
+          const { header, docs } = chunkSnapshot({ boardId, sprintId: record._id, kind, snapshot: record[field] });
+          for (const doc of docs) steps.push({ kind: 'insert', collection: 'snapshotRows', after: doc });
+          stored[field] = header;
+        }
+        if (record.startSnapshot || record.closeSnapshot) stored.reportTotals = reportTotals(record);
+      }
+      steps.push({ kind: 'insert', collection: key, after: { ...stored, provenance, boardId, revision: 1,
         incarnation: Random.id(), ...(key === 'sprints' ? { scrumImportPending: true } : {}) } });
     }
   }
@@ -83,7 +99,8 @@ export async function importScrumTransfer(creator, source, boardId) {
   const identity = await writeImportPlan({ boardId, operationId: Random.id(), userId: Meteor.userId(), steps,
     pending: ScrumImportPending, journal: ScrumImportSteps, equals: EJSON.equals,
     collections: { boards: Boards, cards: Cards, lists: Lists, swimlanes: Swimlanes,
-      sprints: ScrumSprints, releases: ScrumReleases, events: ScrumEvents, dailyObservations: ScrumDailySnapshots } });
+      sprints: ScrumSprints, releases: ScrumReleases, events: ScrumEvents, dailyObservations: ScrumDailySnapshots,
+      snapshotRows: ScrumSnapshotRows } });
   // A collector must never record a half-imported active sprint. Interrupted
   // imports keep this marker and cannot be exported as complete transfers.
   await finishImportPlan({ identity, total: steps.length, pending: ScrumImportPending, journal: ScrumImportSteps,

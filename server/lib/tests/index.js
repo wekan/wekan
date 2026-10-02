@@ -120,5 +120,6 @@ import './storedRuleMoveBoard.tests';
 import './jiraScrumImport.tests';
 import './listSyncGitlabEstimate.tests';
 import './scrumScopeHistory.tests';
+import './scrumSnapshotRows.tests';
 import './scrumMovedReferences.tests';
 import './editableCardIds.tests';

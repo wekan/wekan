@@ -12,7 +12,7 @@ import { Utils } from '/client/lib/utils';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { ReactiveCache } from '/imports/reactiveCache';
 const { DEFAULT_SCRUM_SETTINGS, getCardEstimate } = require('/models/lib/scrum');
-const { sprintReport, velocityRows, reportChartGroups } = require('/models/lib/scrumReports');
+const { velocityReports, reportChartGroups } = require('/models/lib/scrumReports');
 const { compareScrumCards } = require('/models/lib/scrumCardOrder');
 const current = () => Template.instance();
 const data = () => current().dataState.get();
@@ -143,10 +143,11 @@ Template.scrumView.helpers({
   eventStart: () => localDateTime(selectedEvent(current())?.startsAt),
   eventTimebox: () => selectedEvent(current())?.timeboxMinutes ?? 15,
   followUpCards: () => (data()?.cards || []).map(c => ({ ...c, selected: (selectedEvent(current())?.followUpCardIds || []).includes(c._id) })),
-  velocity: () => velocityRows(data()?.sprints || []),
+  // The server computes reports (server/scrum.js): snapshot rows stay there.
+  velocity: () => velocityReports(data()?.sprints || []),
   sprintReportRows() {
     const sprint = selectedSprint(current());
-    return sprint?.closeSnapshot ? [sprintReport(sprint)] : [];
+    return sprint?.closeSnapshot && sprint.report ? [sprint.report] : [];
   },
   hiddenCards() { return Math.max(0, viewCards().length - current().cardLimit.get()); },
   showMoreLabel() { return t('scrum-show-more', { count: Math.min(CARD_PAGE, Math.max(0, viewCards().length - current().cardLimit.get())) }); },
