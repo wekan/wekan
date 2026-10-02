@@ -3407,6 +3407,23 @@ messages in 36 locale tags; the broader translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/60e93c8cb3">Translate email recovery in Walloon and Ladin</a>. Thanks to xet7.</summary>
+
+Fill 46 English placeholders, preserving existing translations, source order and
+exact tokens. Extend regression checks for cancellation boundaries, uncertain
+delivery and retries retaining an existing pause. Correct the Ladin retry interval
+wording during review. Four focused translation and catalog suites and all 21
+human-preference checks pass.
+
+Specialist workflow wording and inflection in Walloon and Ladin have lower
+confidence and need speaker review. Ladin terminology was checked against
+[Gaia's Ladin pages](https://www.pro-gaia.net/ladcumembri/), alongside existing
+catalog vocabulary. Structural checks do not establish fluency. Email recovery
+still has English messages in 34 locale tags; the broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
