@@ -3699,6 +3699,20 @@ Structural checks do not establish fluency. The broader translation backlog rema
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/03f9828922">Translate email recovery in Nahuatl</a>. Thanks to xet7.</summary>
+
+Fill 23 English placeholders, preserving existing translations, source order and
+exact tokens. Extend cancellation, uncertain-delivery and retained-pause checks.
+Four focused catalog suites and all 21 human-preference checks pass.
+
+Specialist Nahuatl terminology, grammar and dialect choices have low confidence
+and need speaker review. References include the [Nahuatl Dictionary](https://nahuatl.wired-humanities.org/content/titlani)
+and [Gran Diccionario Náhuatl](https://gdn.iib.unam.mx/diccionario/occeppa/187043).
+Structural checks do not establish fluency. The broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
