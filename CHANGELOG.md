@@ -1686,6 +1686,19 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1421039863">Translate missing Cherokee dependency layer messages</a>. Thanks to xet7.</summary>
+
+- Add the 11 missing Cherokee dependency messages with distinct personal and
+  board labels, import/export actions and unchanged count placeholders.
+  Technical wording remains low confidence pending native-speaker review.
+- Dependency translation and all 21 human-preference checks pass. The shared
+  completion suite passes the Cherokee section and now fails on the same
+  missing dependency keys in Tigre. Browser review remains.
+
+</details>
+
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/71f1616b34">Complete remaining Assamese recovery and history translations</a>. Thanks to xet7.</summary>
 
 - Fill the final 60 reported Assamese messages and retain 28 reviewed keyboard,
