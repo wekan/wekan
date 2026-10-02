@@ -3,6 +3,7 @@ const { isAssignedOnlyMember } = require('../../models/lib/boardCardScope');
 const { notDeleted } = require('../../models/lib/softDelete');
 const { buildCustomFieldsWD, filterAdminOnlyDefinitions } = require('../../models/lib/customFieldsWD');
 const { formatStringTemplate } = require('../../models/lib/customFieldStringTemplate');
+const { boundedRegexReplace } = require('./boundedRegex');
 const { appendRuleCardVoting, votingVisibility } = require('./ruleCardVoting');
 const { scrumVisibility, appendRuleCardScrum } = require('./ruleCardScrum');
 const { ruleCardRelations } = require('./ruleCardRelations');
@@ -148,7 +149,9 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard, readScrum
       if (field.definition.type === 'stringtemplate') value = formatStringTemplate(field.value,
         field.definition.settings?.stringtemplateFormat, field.definition.settings?.stringtemplateSeparator,
         { 'card.title': card.title || '', 'board.title': board.title || '',
-          'list.title': list?.boardId === card.boardId ? list.title : '', 'swimlane.title': lane?.boardId === card.boardId ? lane.title : '' });
+          'list.title': list?.boardId === card.boardId ? list.title : '', 'swimlane.title': lane?.boardId === card.boardId ? lane.title : '' },
+        // ReDoS: a member's regex runs under a time limit on the server.
+        { regexReplace: boundedRegexReplace });
       if (field.definition.type === 'currency') value = `${scalar(field.value)} ${field.definition.settings?.currencyCode || ''}`.trim();
       add(field.definition.name, value);
     }

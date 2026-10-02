@@ -5,7 +5,17 @@
 const CONTEXT_KEYS = new Set(['card.title', 'board.title', 'list.title', 'swimlane.title']);
 const TOKENS = /\$\{(?:[^"{}]|"(?:\\.|[^"\\])*")*\}|%\{[^{}]*\}|\{%[^{}]*\}/g;
 
-function formatStringTemplate(rawValue, format, separator = '', context = {}) {
+// ReDoS (2026-10-02): the ${"regex":...} token runs a pattern that a board
+// member writes against a value another member writes. A catastrophic pattern
+// such as (a+)+$ on 'aaaa...!' backtracks for minutes, and on the SERVER - rule
+// e-mails format card details - that stops the one event loop for every user.
+// Pattern and value are capped here, and the server passes a runner that
+// executes the regex under a time limit (server/lib/boundedRegex.js).
+const MAX_TEMPLATE_REGEX = 200;
+const MAX_TEMPLATE_VALUE = 10000;
+const directRegexReplace = (value, regex, flags, replacement) => value.replace(new RegExp(regex, flags), replacement);
+
+function formatStringTemplate(rawValue, format, separator = '', context = {}, { regexReplace = directRegexReplace } = {}) {
   if (!Array.isArray(rawValue) || typeof format !== 'string') return '';
   return rawValue.filter(value => typeof value === 'string' && value.trim())
     .map(value => format.replace(TOKENS, token => {
@@ -16,7 +26,8 @@ function formatStringTemplate(rawValue, format, separator = '', context = {}) {
           const spec = JSON.parse(token.slice(1));
           if (typeof spec.regex !== 'string' || typeof spec.replace !== 'string' ||
               (spec.flags !== undefined && typeof spec.flags !== 'string')) return token;
-          return value.replace(new RegExp(spec.regex, spec.flags), spec.replace);
+          if (spec.regex.length > MAX_TEMPLATE_REGEX || value.length > MAX_TEMPLATE_VALUE) return token;
+          return regexReplace(value, spec.regex, spec.flags, spec.replace);
         } catch (error) { return token; }
       }
       const expression = token.slice(2, -1);
@@ -34,4 +45,4 @@ function formatStringTemplate(rawValue, format, separator = '', context = {}) {
     })).join(separator ?? '');
 }
 
-module.exports = { formatStringTemplate };
+module.exports = { formatStringTemplate, MAX_TEMPLATE_REGEX, MAX_TEMPLATE_VALUE };
