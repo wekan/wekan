@@ -31,7 +31,32 @@ const keys = [
   "advanced-filter-card-dates-hint",
   "import-board-instruction-leo",
   "instance",
-  "instance-desc"
+  "instance-desc",
+  "board-instance-info",
+  "automatic-linked-url-schemes-hint",
+  "other-parent-cards",
+  "add-parent-card",
+  "remove-parent-card",
+  "r-when-card-date",
+  "r-trigger-vars-hint",
+  "r-insert-variable",
+  "r-vars-people-hint",
+  "r-rule-any-trigger-help",
+  "r-add-trigger-to-rule",
+  "r-add-action-to-rule",
+  "r-remove-rule-part",
+  "notification-activity-heading",
+  "notification-activity-description",
+  "notification-activity-labels",
+  "notification-activity-members",
+  "notification-activity-assignees",
+  "notification-activity-comments",
+  "notification-activity-moves",
+  "notification-activity-dates",
+  "notification-activity-checklists",
+  "notification-activity-attachments",
+  "notification-activity-customFields",
+  "notification-activity-archive"
 ];
 for (const key of keys) {
   assert.ok(locale[key]?.trim(), key);
