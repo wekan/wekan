@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b1eedc6721">Translate Burmese board visibility, rules and notifications</a>. Thanks to xet7.</summary>
+
+- Fill 25 import, visibility, parent-card, rule and notification messages.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5d796955ae">Translate Burmese archiving and date filters</a>. Thanks to xet7.</summary>
 
 - Fill 23 automatic-archiving, date-range and list-age filter messages.
