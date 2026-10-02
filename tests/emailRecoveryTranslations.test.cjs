@@ -7,9 +7,9 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(
   path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const english = read('en');
-const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC', 'bho', 'mai', 'kok', 'or_IN', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'nso', 'ss', 'rw', 'rn', 'lg', 'om', 'mi', 'sm', 'to', 'fj', 'hsb', 'szl', 'wa', 'lld', 'haw', 'gv', 'ts', 've', 'nd', 'wa-RR', 'rup', 'se', 'cv', 'bua', 'bo', 'wo', 'ace', 'ak', 'bm', 'ee', 'ay', 'qu', 'gn', 'tlh'];
+const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC', 'bho', 'mai', 'kok', 'or_IN', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'nso', 'ss', 'rw', 'rn', 'lg', 'om', 'mi', 'sm', 'to', 'fj', 'hsb', 'szl', 'wa', 'lld', 'haw', 'gv', 'ts', 've', 'nd', 'wa-RR', 'rup', 'se', 'cv', 'bua', 'bo', 'wo', 'ace', 'ak', 'bm', 'ee', 'ay', 'qu', 'gn', 'tlh', 'ti', 'sah'];
 const scripts = {
-  bo: 'Tibetan', cv: 'Cyrillic', bua: 'Cyrillic', ckb: 'Arabic', ary: 'Arabic', tt: 'Cyrillic', yi: 'Hebrew', 'wuu-Hans': 'Han',
+  ti: 'Ethiopic', sah: 'Cyrillic', bo: 'Tibetan', cv: 'Cyrillic', bua: 'Cyrillic', ckb: 'Arabic', ary: 'Arabic', tt: 'Cyrillic', yi: 'Hebrew', 'wuu-Hans': 'Han',
   bho: 'Devanagari', mai: 'Devanagari', kok: 'Devanagari', or_IN: 'Oriya',
 };
 const keys = Object.keys(english).filter(key => key.startsWith('email-recovery-'));
@@ -32,6 +32,14 @@ for (const code of codes) {
 // Cancellation is irreversible only for the messages covered by this request.
 // Retrying must retain the pause and the warning about uncertain delivery.
 const meanings = {
+  ti: {
+    cancel: /ክምለስ ድማ ኣይክእልን.*ድሕሪ እዚ ጠለብ.*ይቕመጡ/,
+    description: /ንድሕሪት ክምለስ ኣይክእልን.*ዘይተረጋገጸ.*ክድገም.*ዘሎ ግዝያዊ ምቁራጽ ድማ ይሕሉ/,
+  },
+  sah: {
+    cancel: /төннөрөр кыах суох буолуо.*көрдөһүү кэнниттэн.*хаалларыллыахтара/,
+    description: /төннөрөр кыах суох.*түмүгэ биллибэт.*хат оҥоһуллуон сөп.*баар быстах тохтото турууну тутуһар/,
+  },
   gn: {
     cancel: /ndaikatumo'ãi ojegueru jey.*ko jerure rire/,
     description: /ndaikatúi ojegueru jey.*ndojekuaáiva og̃uahẽpa.*ikatu ojehu jey.*oñeñongatu ñemombyta sapy'a oĩmava/,
@@ -337,6 +345,8 @@ for (const [code, labels] of Object.entries({ay: {pause: "Mä juk'a sayt'ayaña"
 assert.match(read('gn')['email-recovery-pause'], /Emombyta sapy'a/);
 assert.match(read('tlh')['email-recovery-retry'], /DangeHqa' 'e' yInID/);
 assert.doesNotMatch(read('tlh')['email-recovery-description'], /tetlHDaq/);
+assert.match(read('ti')['email-recovery-retry'], /ዝፈሸሉ.*እንደገና ፈትን/);
+assert.match(read('sah')['email-recovery-description'], /Ылар киһи аайы.*уочаракка.*билигин/);
 assert.equal(read('to').pause, 'Taʻofi fakataimi');
 assert.doesNotMatch(read('to').pause, /Faka-Tonga:|Pause/);
 assert.deepEqual(translationTokens(read('to').pause), translationTokens(english.pause));
