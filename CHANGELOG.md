@@ -2585,6 +2585,27 @@ The remaining translation queue and older wrong-language text still need work.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/270a4599f1">Translate feature and card settings in five more languages</a>. Thanks to xet7.</summary>
+
+Fill 135 messages in Aymara, Quechua, Guarani, Fulah and Greenlandic, bringing
+feature settings and the three card-setting labels to 228 locale tags. Replace
+mixed-language feature, administrator and linked-card labels in Aymara and
+Quechua, and correct the Guarani board label and board-creation message.
+All 448 translation-related Node suites pass after the first three languages;
+eight selected catalog and language suites pass with Fulah and Greenlandic
+included. Tests check key order, tokens, permissions and corrected wording.
+Specialist workflow wording in all five languages has lower confidence and
+remains open to speaker review. References included
+[Aymara vocabulary](https://aymaraclub.com/wp-content/uploads/2024/01/LIBRO-VOCABULARIO-PEDAGOGICO-AYMARA-OK-1.pdf),
+[Quechua vocabulary](https://www.illaa.org/pirwa/diccionarios/DicQuechuaBolivia.pdf),
+[Guarani vocabulary](https://www.guaraniayvu.com/),
+[Pulaar terminology](https://senprof.education.sn/PROGRAMME%20LECTURE%20POUR%20TOUS/documentation/Terminologies/Terminologie%20Pulaar%20fusion.pdf)
+and [Greenlandic colour vocabulary](https://oqaasileriffik.gl/en/dict/?lex=52433).
+The remaining translation queue and older wrong-language text still need work.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
