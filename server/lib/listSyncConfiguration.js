@@ -48,17 +48,25 @@ async function commitSyncConfiguration({ lists, credentials, list, source,
       (typeof list.syncCredentialFence !== 'string' || !list.syncCredentialFence))
     ? { syncCredentialGeneration: generation, syncCredentialFence: randomUUID() } : {};
   const revision = randomUUID();
+  // A list created before list lifetimes has no incarnation and keeps direct
+  // Sync. Saving its settings gives it one (maintainer decision 2026-10-02),
+  // in the SAME write that selects the new credential, so the credential and
+  // the lifetime it is bound to always change together. No migration does it:
+  // that would leave the stored credential unmatched until the next save.
+  const incarnation = list.syncCredentialIncarnation !== undefined ? list.syncCredentialIncarnation : randomUUID();
+  const lifetime = list.syncCredentialIncarnation === undefined ? { syncCredentialIncarnation: incarnation } : {};
   if (source && credential) {
     await assertCurrent();
     await credentials.insertAsync({ _id: revision, configurationId: revision,
       listId: list._id, sourceKey: credential.sourceKey, generation,
-      ...(list.syncCredentialIncarnation !== undefined ? { incarnation: list.syncCredentialIncarnation } : {}),
+      incarnation,
       token: credential.token, username: credential.username || '',
       ...(credential.runAsUserId ? { runAsUserId: credential.runAsUserId } : {}) });
   }
   await assertCurrent();
-  const changed = await lists.updateAsync(configurationSelector(list), source ? { $set: { syncSource: source, syncRevision: revision, ...repair } }
-    : { $set: { syncRevision: revision, ...repair }, $unset: { syncSource: '' } });
+  const changed = await lists.updateAsync(configurationSelector(list), source
+    ? { $set: { syncSource: source, syncRevision: revision, ...repair, ...lifetime } }
+    : { $set: { syncRevision: revision, ...repair, ...lifetime }, $unset: { syncSource: '' } });
   if (!changed) {
     if (source && credential) {
       // An acknowledged failed comparison proves this attempt did not commit.

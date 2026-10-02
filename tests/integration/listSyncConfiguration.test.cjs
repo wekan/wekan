@@ -47,6 +47,37 @@ test('Sync configuration selects immutable credentials atomically in a real data
     assert.equal(await db.collection('credentials').countDocuments({ listId: 'normal' }), 1);
     assert.ok(!JSON.stringify(list).includes('token'));
   });
+  await t.test('saving a list from before list lifetimes gives it an incarnation with its credential', async () => {
+    const input = await seed('legacy-save');
+    assert.equal(input.list.syncCredentialIncarnation, undefined);
+    assert.deepEqual(await commitSyncConfiguration({ ...contexts[0], ...input }), { ok: true });
+    const list = await current('legacy-save');
+    assert.equal(typeof list.syncCredentialIncarnation, 'string');
+    assert.ok(list.syncCredentialIncarnation.length > 0);
+    const selected = await read(list);
+    assert.equal(selected.incarnation, list.syncCredentialIncarnation, 'credential bound to the new lifetime');
+    assert.equal(selected.token, newCredential.token);
+    // A second save keeps the lifetime: only a missing one is assigned.
+    assert.deepEqual(await commitSyncConfiguration({ ...contexts[0], list, source: oldSource,
+      credential: { sourceKey: 'old-source', token: 'again' }, previousCredential: selected }), { ok: true });
+    const again = await current('legacy-save');
+    assert.equal(again.syncCredentialIncarnation, list.syncCredentialIncarnation);
+    assert.equal((await read(again)).token, 'again');
+    // Clearing a legacy list's settings also gives it a lifetime.
+    const cleared = await seed('legacy-clear');
+    assert.deepEqual(await commitSyncConfiguration({ ...contexts[0], ...cleared, source: null, credential: null }),
+      { cleared: true });
+    assert.equal(typeof (await current('legacy-clear')).syncCredentialIncarnation, 'string');
+  });
+  await t.test('a legacy list that is not saved keeps no incarnation and its old credential', async () => {
+    const input = await seed('legacy-untouched');
+    let checks = 0;
+    await assert.rejects(commitSyncConfiguration({ ...contexts[0], ...input,
+      assertCurrent: async () => { if (++checks === 2) throw new Error('simulated stop'); } }), /simulated stop/);
+    const list = await current('legacy-untouched');
+    assert.equal(list.syncCredentialIncarnation, undefined, 'only a committed save assigns a lifetime');
+    assert.equal((await read(list)).token, input.previousCredential.token);
+  });
   await t.test('crash after staging leaves the previous pair active', async () => {
     const input = await seed('before-commit');
     let checks = 0;

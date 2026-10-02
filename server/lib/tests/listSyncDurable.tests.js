@@ -212,4 +212,39 @@ describe('Durable list Sync', function () {
       await Meteor.users.rawCollection().deleteMany({ _id: actor });
     }
   });
+  // Maintainer decision of 2026-10-02: a list from before list lifetimes keeps
+  // direct Sync until its settings are saved, and that save gives it one.
+  it('gives a legacy list its lifetime when its Sync settings are saved', async function () {
+    if (!Meteor.isAppTest) this.skip();
+    const actor = Random.id(), boardId = Random.id(), listId = Random.id();
+    const context = { userId: actor, isSimulation: false, connection: null, setUserId() {}, unblock() {} };
+    const as = work => DDP._CurrentMethodInvocation.withValue(context, work);
+    try {
+      await Meteor.users.rawCollection().insertOne({ _id: actor, username: `legacy-${actor}`, profile: {} });
+      await Boards.rawCollection().insertOne({ _id: boardId, title: 'Legacy Sync', permission: 'private', archived: false,
+        syncEffectsEnabled: true, members: [{ userId: actor, isAdmin: true, isActive: true }] });
+      // Raw insert, as an old database has it: no syncCredentialIncarnation.
+      await Lists.rawCollection().insertOne({ _id: listId, boardId, title: 'Old list', archived: false, sort: 0,
+        syncSource: { type: 'jira', url: 'https://jira.example.org', projectKey: 'OLD' } });
+      const board = await Boards.findOneAsync(boardId);
+      const before = await Lists.findOneAsync(listId);
+      assert.equal(before.syncCredentialIncarnation, undefined);
+      assert.deepEqual(await durableSyncDecision({ list: before, board, trigger: 'manual', actorId: actor }),
+        { eligible: false, reason: 'legacy-scope' }, 'unsaved legacy lists keep direct Sync');
+      await as(() => Meteor.server.method_handlers.setListSyncSource.apply(context,
+        [listId, { type: 'jira', url: 'https://jira.example.org', projectKey: 'P', token: 'token' }]));
+      const after = await Lists.findOneAsync(listId);
+      assert.ok(after.syncCredentialIncarnation, 'the save assigned a lifetime');
+      const credential = await MongoInternals.defaultRemoteCollectionDriver().mongo.db
+        .collection('listSyncCredentials').findOne({ _id: after.syncRevision });
+      assert.equal(credential.incarnation, after.syncCredentialIncarnation, 'the credential is bound to it');
+      assert.deepEqual(await durableSyncDecision({ list: after, board, trigger: 'manual', actorId: actor }),
+        { eligible: true, reason: null });
+    } finally {
+      await MongoInternals.defaultRemoteCollectionDriver().mongo.db.collection('listSyncCredentials').deleteMany({ listId });
+      await Lists.rawCollection().deleteMany({ _id: listId });
+      await Boards.rawCollection().deleteMany({ _id: boardId });
+      await Meteor.users.rawCollection().deleteMany({ _id: actor });
+    }
+  });
 });
