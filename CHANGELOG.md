@@ -3713,6 +3713,21 @@ Structural checks do not establish fluency. The broader translation backlog rema
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/415cfa7f8d">Translate email recovery in Standard Moroccan Tamazight</a>. Thanks to xet7.</summary>
+
+Fill 23 English placeholders in Tifinagh, preserving existing translations, source
+order and exact tokens. Extend cancellation, uncertain-delivery, retained-pause
+and script checks. All 452 translation-related suites and 21 human-preference
+checks pass in the worktree after catalog alignment with new backup strings.
+
+Specialist Tamazight wording, grammar and regional terminology have low confidence
+and need speaker review. References include [IRCAM's grammar](https://www.ircam.ma/sites/default/files/2021-02/nouvel-gram-amazigh.pdf)
+and the [Tamazight dictionary](https://awalamazigh.com/).
+Structural checks do not establish fluency. The broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
