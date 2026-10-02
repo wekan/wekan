@@ -240,10 +240,12 @@ class AttachmentMigrationService {
       }
     );
 
+    // Callers are board readers; they get ids only (all the client uses),
+    // never the stored documents with their storage paths and versions.
     return {
       progress,
       status,
-      unconvertedAttachments: unconverted
+      unconvertedAttachments: unconverted.map(attachment => ({ _id: attachment._id })),
     };
   }
 }
@@ -302,7 +304,10 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
 
-    return attachmentMigrationService.getUnconvertedAttachments(boardId);
+    // Ids only, as getMigrationProgress returns them: the documents carry
+    // storage paths and versions that are not a board reader's to see.
+    return (await attachmentMigrationService.getUnconvertedAttachments(boardId))
+      .map(attachment => ({ _id: attachment._id }));
   },
 
   async 'attachmentMigration.isBoardMigrated'(boardId) {
