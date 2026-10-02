@@ -287,6 +287,16 @@ export class TrelloCreator {
     const boardId = await writeImportedEntity(Boards, boardToCreate);
     await Boards.direct.updateAsync(boardId, { $set: { modifiedAt: this._now() } });
     // log activity
+    if (trelloBoard.url && !/^https?:\/\//i.test(String(trelloBoard.url))) {
+      // SourceBleed: an export whose board URL is not http(s) - javascript:
+      // and the like - is what that attack imports. Dropped below; noted here.
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'xss.source', action: 'detected', source: 'import:trello-source-url',
+          detail: `Imported Trello board URL with scheme ${String(trelloBoard.url).slice(0, 12)}... dropped.`,
+        });
+      } catch (e) { /* logging must never break the guard */ }
+    }
     await Activities.direct.insertAsync({
       activityType: 'importBoard',
       boardId,

@@ -73,6 +73,14 @@ Meteor.methods({
     // this.connection === null; a direct client call has a non-null
     // connection. Reject the latter.
     if (this.connection !== null) {
+      // Only the OIDC login flow calls this, server-side: a client call is an
+      // attempt (OIDCBleed).
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'auth-race.oidc', action: 'blocked', source: 'ddp:oidc-internal-method', userId: this.userId || undefined,
+          detail: 'Client called an OIDC-login-only organization/team method.',
+        });
+      } catch (e) { /* logging must never break the guard */ }
       throw new Meteor.Error('not-authorized');
     }
     check(orgDisplayName, String);
@@ -231,6 +239,14 @@ Meteor.methods({
     // authorization, so reject direct client/DDP calls (this.connection
     // non-null) to keep the admin-only restriction of setOrgAllFields intact.
     if (this.connection !== null) {
+      // Only the OIDC login flow calls this, server-side: a client call is an
+      // attempt (OIDCBleed).
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'auth-race.oidc', action: 'blocked', source: 'ddp:oidc-internal-method', userId: this.userId || undefined,
+          detail: 'Client called an OIDC-login-only organization/team method.',
+        });
+      } catch (e) { /* logging must never break the guard */ }
       throw new Meteor.Error('not-authorized');
     }
     check(org, Object);

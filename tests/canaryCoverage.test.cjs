@@ -57,6 +57,7 @@ const WIRED = [
   ['comment.foreign-edit',             'server/models/cardComments.js',               'CommentBleed'],
   ['calendar.import-without-write',    'server/methods/icsImport.js',                  'CalendarBleed'],
   ['board.write-without-capability',   'server/authentication.js',                     'AssignedBleed'],
+  ['board.readonly-write',             'server/authentication.js',                     'ReadOnlyBleed'],
   ['rule.cross-board-write',           'server/rulesHelper.js',                       'RuleBleed'],
   ['tenant.mutate-without-admin',      'server/lib/adminCollectionPermission.js',      'TenantBleed'],
   ['export.path-outside-storage',      'models/exporter.js',                          'PathBleed'],

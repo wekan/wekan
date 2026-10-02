@@ -8,6 +8,15 @@ const {
   LDAP_PASSWORD_LOGIN_DISABLED_REASON,
 } = require('/server/lib/ldapPasswordLoginGuard');
 
+// Which canary a refused board write trips. A read-only member writing is
+// ReadOnlyBleed's shape; anything else without the write capability stays
+// under the generic one (AssignedBleed). Kept outside checkBoardWriteAccess,
+// which decides from the shared capability table alone.
+function writeRefusalCanary(board, userId) {
+  const member = (board && board.members || []).find(m => m && m.userId === userId && m.isActive);
+  return member && member.isReadOnly ? 'board.readonly-write' : 'board.write-without-capability';
+}
+
 // Authentication helpers — exported for use by API routes and model files
 export const Authentication = {
   async checkUserId(userId) {
@@ -78,7 +87,7 @@ export const Authentication = {
     if (!writeAccess) {
       const admin = await ReactiveCache.getUser({ _id: userId, isAdmin: true });
       if (!admin) { // not `=== undefined`: a null from the cache must refuse too
-        tripCanary('board.write-without-capability', { userId });
+        tripCanary(writeRefusalCanary(board, userId), { userId });
       }
     }
     await Authentication.checkAdminOrCondition(userId, writeAccess);

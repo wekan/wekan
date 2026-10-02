@@ -249,6 +249,15 @@ Meteor.methods({
             body: prepared.body,
           });
         } catch (err) {
+          if (/^SSRF_GUARD:/.test(err && err.message)) {
+            // IntegrationBleed: a webhook pointed at an internal address.
+            try {
+              require('/server/lib/securityLog').record({
+                key: 'ssrf.webhook', action: 'blocked', source: 'outgoingWebhooks',
+                detail: `webhook ${storedIntegration._id}: ${String(err.message).slice(0, 160)}`,
+              });
+            } catch (e) { /* logging must never break the guard */ }
+          }
           throw new Meteor.Error(
             'invalid-webhook-url',
             `Webhook request failed: ${err.message}`,

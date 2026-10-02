@@ -2079,6 +2079,14 @@ Accounts.onCreateUser(async (options, user) => {
     valid: true,
   });
   if (!invitationCode) {
+    // A wrong code is what guessing looks like (InviteBleed); a typo looks the
+    // same, so it is 'detected', and the fold shows a count, not a row each.
+    try {
+      require('/server/lib/securityLog').record({
+        key: 'brute.invite', action: 'detected', source: 'register:invitation-code',
+        detail: 'Sign-up with an invitation code that does not exist for that email.',
+      });
+    } catch (e) { /* logging must never break the guard */ }
     throw new Meteor.Error('error-invitation-code-not-exist', "The invitation code doesn't exist");
   }
 

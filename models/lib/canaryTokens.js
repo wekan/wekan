@@ -103,6 +103,10 @@ const CANARIES = {
     key: 'authz.assigned',
     what: 'tried to mutate board content without the board write capability',
   },
+  'board.readonly-write': {
+    key: 'authz.readonly',
+    what: 'tried to mutate board content as a read-only member',
+  },
   'rule.cross-board-write': {
     key: 'authz.rule-destination',
     what: 'tried to run an automation action on a board they cannot write to',

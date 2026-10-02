@@ -70,8 +70,11 @@ test('both attachment APIs use the canonical capability too', () => {
 });
 
 test('denied shared and attachment writes trip the AssignedBleed canary', () => {
-  assert.match(writeCheck,
-    /tripCanary\('board\.write-without-capability', \{ userId \}\)/);
+  // The shared check picks the canary through writeRefusalCanary(): a
+  // read-only member is ReadOnlyBleed's (2026-10-02), everyone else this one.
+  assert.match(writeCheck, /tripCanary\(writeRefusalCanary\(board, userId\), \{ userId \}\)/);
+  assert.match(authentication,
+    /return member && member\.isReadOnly \? 'board\.readonly-write' : 'board\.write-without-capability';/);
   for (const source of [attachmentMethod, attachmentRest]) {
     assert.match(source,
       /tripCanary\('board\.write-without-capability', \{ userId \}\)/);

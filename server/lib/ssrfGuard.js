@@ -118,6 +118,14 @@ async function resolveAndPin(hostname) {
 
   for (const addr of addresses) {
     if (isIpBlocked(addr)) {
+      // A NAME that resolves to an internal address is the DnsBleed shape
+      // (and DNS rebinding's): record it once here for every outbound fetch.
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'ssrf.fetch', action: 'blocked', source: 'fetchSafe:dns',
+          detail: `${String(hostname).slice(0, 100)} resolved to blocked ${addr}`,
+        });
+      } catch (e) { /* logging must never break the guard */ }
       throw new Error(`SSRF_GUARD: Blocked IP ${addr} resolved for ${hostname}`);
     }
   }
