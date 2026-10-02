@@ -55,7 +55,35 @@ const keys = [
   "notification-activity-comments",
   "notification-activity-moves",
   "notification-activity-dates",
-  "notification-activity-checklists"
+  "notification-activity-checklists",
+  "notification-activity-attachments",
+  "notification-activity-customFields",
+  "notification-activity-archive",
+  "notification-activity-created",
+  "due-reminder-heading",
+  "due-reminder-days-label",
+  "due-reminder-off",
+  "due-reminder-webhook",
+  "due-reminder-invalid",
+  "due-reminder-saved",
+  "dependency-type-duplicates",
+  "dependency-type-is-duplicated-by",
+  "custom-field-stringtemplate-context-hint",
+  "filter-presets",
+  "filter-preset-choose",
+  "filter-preset-name",
+  "filter-preset-save",
+  "filter-preset-replace-hint",
+  "filter-preset-saved",
+  "filter-preset-applied",
+  "filter-preset-deleted",
+  "filter-preset-error",
+  "filter-card-text-label",
+  "import-report-heading",
+  "import-report-description",
+  "import-report-open-board",
+  "draggable",
+  "board-view-map"
 ];
 assert.deepEqual(Object.keys(locale), Object.keys(en));
 for (const key of keys) {
@@ -81,3 +109,10 @@ assert.ok(locale['import-board-instruction-leo'].includes('.leo'));
 assert.ok(locale['notification-activity-description'].includes('@mentions'));
 assert.match(locale['instance-desc'], /nad yns omgelmys/);
 assert.match(locale['instance-desc'], /hepken a yll golegi/);
+
+assert.ok(locale['custom-field-stringtemplate-context-hint'].includes('|urlencode'));
+assert.match(locale['due-reminder-invalid'], /-14.*14/);
+assert.match(locale['due-reminder-days-label'], /0.*posedhek.*kyns.*negedhek.*war y lergh/);
+assert.notEqual(locale['dependency-type-duplicates'], locale['dependency-type-is-duplicated-by']);
+assert.notEqual(locale['filter-preset-saved'], locale['filter-preset-deleted']);
+assert.ok(locale['import-report-description'].includes('→ Kudynnow → Daskorrans'));
