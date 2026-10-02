@@ -3628,6 +3628,20 @@ Structural checks do not establish fluency. The broader translation backlog rema
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/02a2130e70">Translate email recovery in Veps</a>. Thanks to xet7.</summary>
+
+Fill 23 English placeholders in the ve-PP catalog, preserving existing translations,
+source order and exact tokens. Extend cancellation, uncertain-delivery and retained-pause
+checks. Four focused catalog suites and all 21 human-preference checks pass.
+
+Specialist Veps wording and inflection have low confidence and need speaker review.
+References include the [VepKar corpus](https://dictorpus.krc.karelia.ru/ru/)
+and a [Veps grammar and dictionary](https://www.vepsze.hu/sites/default/files/szovegbeliv_honlap.pdf).
+Structural checks do not establish fluency. The broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
