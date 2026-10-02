@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/dea18fd7fa">Translate Malagasy map and editor accessibility messages</a>. Thanks to xet7.</summary>
+
+- Fill 29 map, editor movement and accessibility messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f2def48e3e">Translate Malagasy reminders and saved filters</a>. Thanks to xet7.</summary>
 
 - Fill 28 reminder, saved-filter, import and map messages.
