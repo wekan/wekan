@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "कई पंक्तियाँ इस रूप में जोड़ें:",
   "many-items": "कई __items__",
   "draggable": "खींचने योग्य",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "कार्ड पुराना होना — सूची",
   "board-view-blocker-analysis": "निर्भरताएं — आँकड़े",
   "board-view-monte-carlo": "Monte Carlo — थ्रूपुट हिस्टोग्राम",

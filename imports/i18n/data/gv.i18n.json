@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Cur ymmodee linnaghyn rish myr:",
   "many-items": "Ymmodee __items__",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Shennaghey kaart — Rolley",
   "board-view-blocker-analysis": "Crogheydyssyn — Staydraa",
   "board-view-monte-carlo": "Monte Carlo — Histogram cur-magh",

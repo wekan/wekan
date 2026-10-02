@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Ouzhpennañ meur a linenn evel:",
   "many-items": "__items__ (meur a hini)",
   "draggable": "Gallout a reer riklañ",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Koshaat ar c'hartennoù — Roll",
   "board-view-blocker-analysis": "Dalc'hioù — Stadegoù",
   "board-view-monte-carlo": "Monte Carlo — Histogramm live embann",

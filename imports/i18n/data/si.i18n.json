@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "පේළි කිහිපයක් මෙලෙස එක් කරන්න:",
   "many-items": "__items__ කිහිපයක්",
   "draggable": "ඇදගෙන යා හැක",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "කාඩ්පත් වයස්ගත කිරීම — ලැයිස්තුව",
   "board-view-blocker-analysis": "පරායත්තතා — සංඛ්‍යාලේඛන",
   "board-view-monte-carlo": "Monte Carlo — ප්‍රතිදාන හිස්ටෝග්‍රෑමය",

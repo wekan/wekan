@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Cuir iomadh loidhne ris mar:",
   "many-items": "__items__ (iomadh)",
   "draggable": "Gabhaidh a shlaodadh",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Aois chairtean — Liosta",
   "board-view-blocker-analysis": "Eisimeileachdan — Staitistig",
   "board-view-monte-carlo": "Monte Carlo — Histogram cinneasachd",

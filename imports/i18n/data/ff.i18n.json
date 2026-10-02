@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Ɓeydu gorɗi keewɗi no:",
   "many-items": "__items__ (keewɗi)",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Naywigol kartal — Doggol",
   "board-view-blocker-analysis": "Jokkondire — Limlimtooje",
   "board-view-monte-carlo": "Monte Carlo — Nataal cuɓal",

@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "เพิ่มหลายบรรทัดเป็น:",
   "many-items": "__items__หลายรายการ",
   "draggable": "ลากได้",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "การเก่าของการ์ด — รายการ",
   "board-view-blocker-analysis": "ความสัมพันธ์ — สถิติ",
   "board-view-monte-carlo": "Monte Carlo — ฮิสโตแกรมปริมาณงาน",

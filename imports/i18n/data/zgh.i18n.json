@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "ⵔⵏⵓ ⵎⵏⵏⴰⵡ ⵏ ⵉⵣⵔⵉⵔⵏ ⴰⵎ:",
   "many-items": "ⵎⵏⵏⴰⵡ ⵏ __items__",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "ⴰⵡⴻⵙⵙⴰⵔ ⵏ ⵜⴽⴰⵔⴹⴰ — Tabdart",
   "board-view-blocker-analysis": "ⵜⵉⵎⵢⴰⴹⴰⴼⵉⵏ — ⵜⵉⵙⵉⴹⵏⵉⵏ",
   "board-view-monte-carlo": "Monte Carlo — ⴰⵙⵏⴻⵖⵍⴰⴼ ⵏ ⵓⵙⵓⴼⵖ",

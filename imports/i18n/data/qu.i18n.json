@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Achka siqikunata kayhinata yapay:",
   "many-items": "Achka __items__",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kay willaymi: Tarjeta agingta — Sutisuyu",
   "board-view-blocker-analysis": "Kay willaymi: Dependenciesta — Kay willaymi: Statisticsta",
   "board-view-monte-carlo": "Monte Carlo — Ruway rikuchiy",

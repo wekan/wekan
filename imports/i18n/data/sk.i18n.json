@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Pridať viac riadkov ako:",
   "many-items": "__items__ (viac)",
   "draggable": "Presúvateľné potiahnutím",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Starnutie kariet — Zoznam",
   "board-view-blocker-analysis": "Závislosti — Štatistiky",
   "board-view-monte-carlo": "Monte Carlo — Histogram priepustnosti",

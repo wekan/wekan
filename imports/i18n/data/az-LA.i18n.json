@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Bir neçə sətri belə əlavə et:",
   "many-items": "Bir neçə __items__",
   "draggable": "Sürüklənə bilən",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kart köhnəlməsi — Siyahı",
   "board-view-blocker-analysis": "Asılılıqlar — Statistika",
   "board-view-monte-carlo": "Monte Carlo — Məhsuldarlıq histoqramı",

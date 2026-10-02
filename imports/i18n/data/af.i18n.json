@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Voeg veelvuldige reëls by as:",
   "many-items": "Veelvuldige __items__",
   "draggable": "Sleepbaar",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kaartveroudering — Lys",
   "board-view-blocker-analysis": "Afhanklikhede — Statistieke",
   "board-view-monte-carlo": "Monte Carlo — Deurset-histogram",

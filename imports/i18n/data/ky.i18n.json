@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Бир нече сапты мындай кошуу:",
   "many-items": "Бир нече __items__",
   "draggable": "Сүйрөөгө болот",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Карточкалардын эскириши — Тизме",
   "board-view-blocker-analysis": "Көз карандылыктар — Статистика",
   "board-view-monte-carlo": "Monte Carlo — Өткөрүү жөндөмдүүлүгүнүн гистограммасы",

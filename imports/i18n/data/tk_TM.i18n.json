@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Birnäçe setiri şeýle goş:",
   "many-items": "Birnäçe __items__",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kartoçkanyň garramagy — Sanaw",
   "board-view-blocker-analysis": "Baglylyklar — Statistika",
   "board-view-monte-carlo": "Monte Carlo — Öndürijilik gistogrammasy",

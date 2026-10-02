@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Adaugă mai multe rânduri ca:",
   "many-items": "Mai multe __items__",
   "draggable": "Poate fi tras",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Îmbătrânirea cardurilor — Listă",
   "board-view-blocker-analysis": "Dependențe — Statistiche",
   "board-view-monte-carlo": "Monte Carlo — Histogramă de debit",

@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Dodaj više redova kao:",
   "many-items": "__items__ (više)",
   "draggable": "Može se prevlačiti",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Starenje kartica — Lista",
   "board-view-blocker-analysis": "Ovisnosti — Statistika",
   "board-view-monte-carlo": "Monte Carlo — Histogram propusnosti",

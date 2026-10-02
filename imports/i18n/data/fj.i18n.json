@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Kuria e vica na laini me:",
   "many-items": "E levu na __items__",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Qase ni kadi — Lisi",
   "board-view-blocker-analysis": "Veivakararavi — iWiliwili",
   "board-view-monte-carlo": "Monte Carlo — Itaba ni cakacaka",

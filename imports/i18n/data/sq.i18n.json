@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Shto disa rreshta si:",
   "many-items": "Disa __items__",
   "draggable": "I tërheqshëm",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Vjetrimi i kartave — Listë",
   "board-view-blocker-analysis": "Varësitë — Statistikat",
   "board-view-monte-carlo": "Monte Carlo — Histogrami i kapacitetit",

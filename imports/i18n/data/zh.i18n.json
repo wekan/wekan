@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "将多行添加为：",
   "many-items": "多个__items__",
   "draggable": "可拖动",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "卡片老化（淡化旧卡片） — 列表",
   "board-view-blocker-analysis": "依赖 — 统计",
   "board-view-monte-carlo": "Monte Carlo — 吞吐量直方图",

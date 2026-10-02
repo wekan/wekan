@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "tlheghmey law' tIchel; chovnatlh yIwIv:",
   "many-items": "__items__ law'",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "nav qan — tetlh",
   "board-view-blocker-analysis": "rarmey — mI'mey",
   "board-view-monte-carlo": "Monte Carlo — chenmoHmeH mI'",

@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Lägg till flera rader som:",
   "many-items": "Flera __items__",
   "draggable": "Dragbar",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kortåldring — Lista",
   "board-view-blocker-analysis": "Beroenden — Statistik",
   "board-view-monte-carlo": "Monte Carlo — Genomströmningshistogram",

@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Tamah le baris sabagai:",
   "many-items": "Le __items__",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Umu kad — Senarai",
   "board-view-blocker-analysis": "Gantungan — Statistik",
   "board-view-monte-carlo": "Monte Carlo — Histogram hase kroh",

@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Keworra lies linenn avel:",
   "many-items": "Lies __items__",
   "draggable": "A yll bos draylys",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Hena kartennow — Rol",
   "board-view-blocker-analysis": "Omgemmysow — Statystyks",
   "board-view-monte-carlo": "Monte Carlo — Histogram dascorrans",

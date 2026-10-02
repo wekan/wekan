@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Нумай йӗрне ҫапла хушас:",
   "many-items": "Нумай __items__",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Карточка ватӑлни — Список",
   "board-view-blocker-analysis": "Ҫыхӑнулӑхсем — Статистика",
   "board-view-monte-carlo": "Monte Carlo — Тухăҫлăх гистограми",

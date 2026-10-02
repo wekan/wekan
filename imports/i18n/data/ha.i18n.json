@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Ƙara layuka da yawa a matsayin:",
   "many-items": "__items__ da yawa",
   "draggable": "Ana iya ja",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Tsufar kati — Jerin",
   "board-view-blocker-analysis": "Dogarowar katuna — Ƙididdiga",
   "board-view-monte-carlo": "Monte Carlo — Histogram na Aiki",

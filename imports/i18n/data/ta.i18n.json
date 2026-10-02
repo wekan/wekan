@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "பல வரிகளை இவ்வாறு சேர்க்கவும்:",
   "many-items": "பல __items__",
   "draggable": "இழுக்கக்கூடியது",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "அட்டை வயதாதல் — பட்டியல்",
   "board-view-blocker-analysis": "சார்புகள் — புள்ளிவிவரம்",
   "board-view-monte-carlo": "Monte Carlo — செயல்திறன் ஹிஸ்டோகிராம்",

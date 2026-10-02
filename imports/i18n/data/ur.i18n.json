@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "کئی سطریں اس طرح شامل کریں:",
   "many-items": "کئی __items__",
   "draggable": "گھسیٹنے کے قابل",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "کارڈ اگینگ — فہرست",
   "board-view-blocker-analysis": "دےپےندےنکیےس — ستاتیستیکس",
   "board-view-monte-carlo": "Monte Carlo — استعداد کا ہسٹوگرام",

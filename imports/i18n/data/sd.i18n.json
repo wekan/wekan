@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "گهڻيون سٽون هن ريت شامل ڪريو:",
   "many-items": "گهڻا __items__",
   "draggable": "ڇڪي سگهجي ٿو",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "ڪارڊ جي پراڻائي — فهرست",
   "board-view-blocker-analysis": "انحصار — انگ اکر",
   "board-view-monte-carlo": "Monte Carlo — پيداواريت هسٽوگرام",

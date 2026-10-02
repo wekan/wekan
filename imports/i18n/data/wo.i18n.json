@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Yokk ay rëdd yu bari ni:",
   "many-items": "__items__ yu bari",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Màggatu kart — Limu",
   "board-view-blocker-analysis": "Wéeroo yi — Statistik",
   "board-view-monte-carlo": "Monte Carlo — Nataal produksioŋ",

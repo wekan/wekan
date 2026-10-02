@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "ഒന്നിലധികം വരികൾ ഇങ്ങനെ ചേർക്കുക:",
   "many-items": "ഒന്നിലധികം __items__",
   "draggable": "വലിച്ചുനീക്കാവുന്നത്",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "കാർഡ് പഴക്കം — പട്ടിക",
   "board-view-blocker-analysis": "ആശ്രിതത്വങ്ങൾ — സ്ഥിതിവിവരക്കണക്കുകൾ",
   "board-view-monte-carlo": "Monte Carlo — ത്രൂപുട്ട് ഹിസ്റ്റോഗ്രാം",

@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Add many lines as:",
   "many-items": "Many __items__",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Card aging — List",
   "board-view-blocker-analysis": "Dependencies — Statistics",
   "board-view-monte-carlo": "Monte Carlo — Throughput Histogram",

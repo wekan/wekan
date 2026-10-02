@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Aggiunci cchiù righi comu:",
   "many-items": "Cchiù __items__",
   "draggable": "Trascinàbbili",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Invecchiamento schede — Lista",
   "board-view-blocker-analysis": "Dipendenze — Statistiche",
   "board-view-monte-carlo": "Monte Carlo — Istograma di rennimentu",

@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "ઘણી પંક્તિઓ આ રીતે ઉમેરો:",
   "many-items": "ઘણા __items__",
   "draggable": "ખેંચી શકાય તેવું",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "કાર્ડ વૃદ્ધત્વ — યાદી",
   "board-view-blocker-analysis": "અવલંબનો — આંકડા",
   "board-view-monte-carlo": "Monte Carlo — થ્રુપુટ હિસ્ટોગ્રામ",

@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Ku dar sadar badan sida:",
   "many-items": "__items__ badan",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Gabowga kaarka — Liis",
   "board-view-blocker-analysis": "Ku-tiirsanaanta — Tirakoob",
   "board-view-monte-carlo": "Monte Carlo — Histogram-ka Wax-soo-saarka",

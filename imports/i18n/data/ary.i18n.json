@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "زيد سطور بزاف على شكل:",
   "many-items": "__items__ بزاف",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "تقادم البطاقات — قائمة",
   "board-view-blocker-analysis": "التبعيات — الإحصائيات",
   "board-view-monte-carlo": "Monte Carlo — مدرج الإنتاجية التكراري",

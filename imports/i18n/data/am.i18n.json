@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "ብዙ መስመሮችን እንደዚህ ጨምር፦",
   "many-items": "ብዙ __items__",
   "draggable": "ሊጎተት የሚችል",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "የካርድ እርጅና — ዝርዝር",
   "board-view-blocker-analysis": "ጥገኞች — ስታቲስቲክስ",
   "board-view-monte-carlo": "Monte Carlo — የምርታማነት ሂስቶግራም",

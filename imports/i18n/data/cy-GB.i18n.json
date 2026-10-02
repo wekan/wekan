@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Ychwanegu sawl llinell fel:",
   "many-items": "__items__ (lluosog)",
   "draggable": "Gellir ei lusgo",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Heneiddio cardiau — Rhestr",
   "board-view-blocker-analysis": "Dibyniaethau — Ystadegau",
   "board-view-monte-carlo": "Monte Carlo — Histogram trwybwn",

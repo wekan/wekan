@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Titarnit arlallit ima ilanngukkit:",
   "many-items": "__items__ arlallit",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kortsip pisoqalineranik takutitsineq — Allattorsimaffik",
   "board-view-blocker-analysis": "Attuumassutit — Kisitsisit",
   "board-view-monte-carlo": "Monte Carlo — Suliaqartitsinermi nassuiaat",

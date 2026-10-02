@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Zonte plui riis come:",
   "many-items": "__items__ (plui)",
   "draggable": "Si pues strissinâ",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Invecchiamento cjartis — Liste",
   "board-view-blocker-analysis": "Dipendencis — Statistichis",
   "board-view-monte-carlo": "Monte Carlo — Istogram di rindiment",

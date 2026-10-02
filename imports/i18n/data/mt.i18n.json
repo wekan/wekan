@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Żid diversi linji bħala:",
   "many-items": "Diversi __items__",
   "draggable": "Jista’ jitkaxkar",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kard aging — Lista",
   "board-view-blocker-analysis": "Analiżi tal-ostakli",
   "board-view-monte-carlo": "Monte Carlo — Istogramma di produttività",

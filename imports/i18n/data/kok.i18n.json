@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "जायत्यो वळी अशें जोडात:",
   "many-items": "जायतीं __items__",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "कार्ड पोरनें जावप — वळेरी",
   "board-view-blocker-analysis": "अवलंबनां — आंकडेवारी",
   "board-view-monte-carlo": "Monte Carlo — थ्रूपुट हिस्टोग्राम",

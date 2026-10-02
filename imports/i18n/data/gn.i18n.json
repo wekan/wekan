@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Embojoapy heta tairenda péicha:",
   "many-items": "Heta __items__",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kuatia'i ituja — Ysaja",
   "board-view-blocker-analysis": "Kuatia'i joajuha kuéra — Papapy marandu",
   "board-view-monte-carlo": "Monte Carlo — Ojejapo rechauka",

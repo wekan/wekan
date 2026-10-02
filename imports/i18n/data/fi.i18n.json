@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Lisää useita rivejä muodossa:",
   "many-items": "__items__ (useita)",
   "draggable": "Vedettävissä",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Keskeneräisten tehtävien ikä",
   "board-view-blocker-analysis": "Esteanalyysi",
   "board-view-monte-carlo": "Monte Carlo -ennusteet",

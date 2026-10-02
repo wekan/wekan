@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "واریاہ سطر یتھ کٔنۍ شامل کریو:",
   "many-items": "واریاہ __items__",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "کارڈ پراوُن — فہرست",
   "board-view-blocker-analysis": "انحصار — اعداد و شمار",
   "board-view-monte-carlo": "Monte Carlo — تھرو پٹ ہسٹوگرام",

@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Бер нисә юлды ошолай өҫтәргә:",
   "many-items": "Бер нисә __items__",
   "draggable": "Һөйрәп күсереп була",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Карточкаларҙың иҫкереүе — Исемлек",
   "board-view-blocker-analysis": "Бәйлелектәр — Статистика",
   "board-view-monte-carlo": "Monte Carlo — Үткәреү һәләтлеге гистограммаһы",

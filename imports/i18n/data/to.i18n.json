@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Tānaki ha ngaahi laine lahi ko e:",
   "many-items": "__items__ lahi",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Faka-Tonga: kaati aging — Lisi",
   "board-view-blocker-analysis": "Faka-Tonga: Dependencies — Faka-Tonga: Statistics",
   "board-view-monte-carlo": "Monte Carlo — Fakatātā ngaue",

@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Engedzani mitaladzi minzhi sa:",
   "many-items": "__items__ (zwinzhi)",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "U hulwa ha khaḓi — Uhlu",
   "board-view-blocker-analysis": "Zwiḓitiki — Dzitshitatisitiki",
   "board-view-monte-carlo": "Monte Carlo — Histogram ya mbuelo",

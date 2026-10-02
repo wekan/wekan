@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Προσθήκη πολλών γραμμών ως:",
   "many-items": "__items__ (πολλά)",
   "draggable": "Με δυνατότητα μεταφοράς",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Παλαίωση κάρτας — Λίστα",
   "board-view-blocker-analysis": "Εξαρτήσεις — Στατιστικά",
   "board-view-monte-carlo": "Monte Carlo — Ιστόγραμμα ρυθμού απόδοσης",

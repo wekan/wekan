@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "បន្ថែមបន្ទាត់ច្រើនជា៖",
   "many-items": "__items__ ច្រើន",
   "draggable": "អាចអូសបាន",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "ភាពចាស់នៃកាត — បញ្ជី",
   "board-view-blocker-analysis": "ភាពអាស្រ័យ — ស្ថិតិ",
   "board-view-monte-carlo": "Monte Carlo — ហិស្តូក្រាមទិន្នផល",

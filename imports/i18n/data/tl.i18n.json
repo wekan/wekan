@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Magdagdag ng maraming linya bilang:",
   "many-items": "Maraming __items__",
   "draggable": "Maaaring i-drag",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "kard aging — Listahan",
   "board-view-blocker-analysis": "Mga pagkakaugnay — Estadistika",
   "board-view-monte-carlo": "Monte Carlo — Histogram ng Throughput",

@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Tambahkan beberapa baris sebagai:",
   "many-items": "Beberapa __items__",
   "draggable": "Dapat diseret",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Usia WIP",
   "board-view-blocker-analysis": "Dependensi — Statistik",
   "board-view-monte-carlo": "Monte Carlo — Histogram Throughput",

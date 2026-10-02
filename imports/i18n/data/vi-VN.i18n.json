@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Thêm nhiều dòng dưới dạng:",
   "many-items": "Nhiều __items__",
   "draggable": "Có thể kéo",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Làm cũ thẻ — Danh sách",
   "board-view-blocker-analysis": "Phụ thuộc — Thống kê",
   "board-view-monte-carlo": "Monte Carlo — Biểu đồ thông lượng",

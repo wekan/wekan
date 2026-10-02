@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "ብዙሓት መስመራት ከምዚ ወስኽ፦",
   "many-items": "ብዙሓት __items__",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "እርጋን ካርድ — ዝርዝር",
   "board-view-blocker-analysis": "ጽግዕተኛነታት — ስታቲስቲክስ",
   "board-view-monte-carlo": "Monte Carlo — ናይ ምህርታውነት ሂስቶግራም",

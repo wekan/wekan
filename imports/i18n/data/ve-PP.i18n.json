@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Ližata äi rivid kut:",
   "many-items": "__items__ (äi)",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kartoiden vananduz — Lugetiž",
   "board-view-blocker-analysis": "Riippuvused — Dzitshitatisitiki",
   "board-view-monte-carlo": "Monte Carlo — Histogram ya mbuelo",

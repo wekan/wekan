@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "여러 줄을 다음으로 추가:",
   "many-items": "여러 __items__",
   "draggable": "드래그 가능",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "카드 노후화 — 목록",
   "board-view-blocker-analysis": "종속성 — 통계",
   "board-view-monte-carlo": "Monte Carlo — 처리량 히스토그램",

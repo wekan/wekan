@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "複数行を次の形式で追加：",
   "many-items": "複数の__items__",
   "draggable": "ドラッグ可能",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "カードの経年変化 — リスト",
   "board-view-blocker-analysis": "依存関係 — 統計",
   "board-view-monte-carlo": "Monte Carlo — スループットヒストグラム",

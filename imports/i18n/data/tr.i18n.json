@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Birden çok satırı şu şekilde ekle:",
   "many-items": "Birden çok __items__",
   "draggable": "Sürüklenebilir",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kart yaşlanması — Liste",
   "board-view-blocker-analysis": "Bağımlılıklar — İstatistikler",
   "board-view-monte-carlo": "Monte Carlo — Verimlilik Histogramı",

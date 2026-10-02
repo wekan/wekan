@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Lisa mitu rida järgmiselt:",
   "many-items": "__items__ (mitu)",
   "draggable": "Lohistatav",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kaartide vananemine — Loetelu",
   "board-view-blocker-analysis": "Sõltuvused — Statistika",
   "board-view-monte-carlo": "Monte Carlo — Läbilaskehistogramm",

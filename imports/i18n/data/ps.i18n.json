@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "څو کرښې په دې بڼه ورزیاتې کړئ:",
   "many-items": "څو __items__",
   "draggable": "د راکښلو وړ",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "د کارت زړېدل — لړليک",
   "board-view-blocker-analysis": "اړتياوې — شمېرنې",
   "board-view-monte-carlo": "Monte Carlo — د تولید هسټوګرام",

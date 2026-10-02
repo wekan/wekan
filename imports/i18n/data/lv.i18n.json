@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Pievienot vairākas rindas kā:",
   "many-items": "__items__ (vairāki)",
   "draggable": "Velkams",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kartiņu novecošana — Sąrašas",
   "board-view-blocker-analysis": "Atkarības — Statistika",
   "board-view-monte-carlo": "Monte Carlo — Caurlaidības histogramma",

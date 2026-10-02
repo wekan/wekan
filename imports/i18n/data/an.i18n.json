@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Adhibir quantas linias como:",
   "many-items": "__items__ múltiples",
   "draggable": "Se puede arrocegar",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Envejecimiento de tarchetas — Lista",
   "board-view-blocker-analysis": "Dependencias — Estadísticas",
   "board-view-monte-carlo": "Monte Carlo — Histograma de rendimiento",

@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "ಹಲವು ಸಾಲುಗಳನ್ನು ಈ ರೀತಿಯಾಗಿ ಸೇರಿಸಿ:",
   "many-items": "ಹಲವು __items__",
   "draggable": "ಎಳೆಯಬಹುದಾದ",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "ಕಾರ್ಡ್ ಹಳೆಯದಾಗುವಿಕೆ — ಪಟ್ಟಿ",
   "board-view-blocker-analysis": "ಅವಲಂಬನೆಗಳು — ಅಂಕಿಅಂಶಗಳು",
   "board-view-monte-carlo": "Monte Carlo — ಉತ್ಪಾದಕತೆ ಹಿಸ್ಟೋಗ್ರಾಮ್",

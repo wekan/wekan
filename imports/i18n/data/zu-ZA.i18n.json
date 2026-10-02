@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Engeza imigqa eminingi njenge:",
   "many-items": "__items__ (eziningi)",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Ukuguga kwekhadi — Uhlu",
   "board-view-blocker-analysis": "Ukuncika — Izibalo",
   "board-view-monte-carlo": "Monte Carlo — Ihisithogramu yomkhiqizo",

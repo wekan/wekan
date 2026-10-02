@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Олон мүр иигэжэ нэмэхэ:",
   "many-items": "Олон __items__",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Картын хуушаралга — Жагсаалта",
   "board-view-blocker-analysis": "Хамааралнууд — Тоон мэдээн",
   "board-view-monte-carlo": "Monte Carlo — Гарасын гистограмма",

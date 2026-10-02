@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Dodaj več vrstic kot:",
   "many-items": "__items__ (več)",
   "draggable": "Mogoče povleči",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Staranje kartic — Део поступка",
   "board-view-blocker-analysis": "Odvisnosti — Statistika",
   "board-view-monte-carlo": "Monte Carlo — Histogram pretočnosti",

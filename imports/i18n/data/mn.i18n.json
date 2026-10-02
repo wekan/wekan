@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Олон мөрийг дараах байдлаар нэмэх:",
   "many-items": "Олон __items__",
   "draggable": "Чирж зөөх боломжтой",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Картын хуучралт — Жагсаалт",
   "board-view-blocker-analysis": "Хамаарлууд — Статистик",
   "board-view-monte-carlo": "Monte Carlo — Гүйцэтгэлийн гистограм",

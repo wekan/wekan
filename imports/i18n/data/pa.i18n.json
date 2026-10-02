@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "ਕਈ ਲਾਈਨਾਂ ਇਸ ਤਰ੍ਹਾਂ ਸ਼ਾਮਲ ਕਰੋ:",
   "many-items": "ਕਈ __items__",
   "draggable": "ਖਿੱਚਣਯੋਗ",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "ਕਾਰਡ ਦੀ ਉਮਰ — ਸੂਚੀ",
   "board-view-blocker-analysis": "ਨਿਰਭਰਤਾਵਾਂ — ਅੰਕੜੇ",
   "board-view-monte-carlo": "Monte Carlo — ਥ੍ਰੂਪੁੱਟ ਹਿਸਟੋਗ੍ਰਾਮ",

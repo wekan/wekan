@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Ongeraho imirongo myinshi nka:",
   "many-items": "__items__ (byinshi)",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Gusaza kw'ikarita — Urutonde",
   "board-view-blocker-analysis": "Ibishingirwaho — Imibare",
   "board-view-monte-carlo": "Monte Carlo — Igishushanyo cy'umusaruro",

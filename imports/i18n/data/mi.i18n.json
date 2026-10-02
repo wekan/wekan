@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Tāpirihia ngā rārangi maha hei:",
   "many-items": "__items__ maha",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kaumātuatanga kāri — Rārangi",
   "board-view-blocker-analysis": "Ngā Whirinakitanga — Tauanga",
   "board-view-monte-carlo": "Monte Carlo — Whakaahua putanga",

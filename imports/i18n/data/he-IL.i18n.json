@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "הוספת מספר שורות בתור:",
   "many-items": "__items__ (מרובים)",
   "draggable": "ניתן לגרירה",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "התיישנות כרטיס — רשימה",
   "board-view-blocker-analysis": "תלויות — סטטיסטיקה",
   "board-view-monte-carlo": "Monte Carlo — היסטוגרמת תפוקה",

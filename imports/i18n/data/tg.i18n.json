@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Якчанд сатрро чунин илова кунед:",
   "many-items": "Якчанд __items__",
   "draggable": "Кашидан мумкин аст",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Куҳнашавии корт — Рӯйхат",
   "board-view-blocker-analysis": "Вобастагиҳо — Омор",
   "board-view-monte-carlo": "Monte Carlo — Гистограммаи тавонои",

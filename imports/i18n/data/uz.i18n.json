@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Bir nechta qatorni quyidagicha qoʻshing:",
   "many-items": "Bir nechta __items__",
   "draggable": "Sudrash mumkin",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Karta eskirishi — Roʻyxat",
   "board-view-blocker-analysis": "Bogʻliqliklar — Statistika",
   "board-view-monte-carlo": "Monte Carlo — O'tkazuvchanlik gistogrammasi",

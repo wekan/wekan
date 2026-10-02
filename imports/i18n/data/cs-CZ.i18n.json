@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Přidat více řádků jako:",
   "many-items": "__items__ (více)",
   "draggable": "Přetahovatelné",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Stárnutí karet — Seznam",
   "board-view-blocker-analysis": "Závislosti — Statistiky",
   "board-view-monte-carlo": "Monte Carlo — Histogram průtoku",

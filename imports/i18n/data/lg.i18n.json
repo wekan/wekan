@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Yongerako ennyiriri nnyingi nga:",
   "many-items": "__items__ (bingi)",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kaadi aging — Olukalala",
   "board-view-blocker-analysis": "Dependencies (mu Luganda) — Statistics (mu Luganda)",
   "board-view-monte-carlo": "Monte Carlo — Histogramu ya Uzalishaji",

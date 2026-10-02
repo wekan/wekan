@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Tsenya mela e mentsi jaaka:",
   "many-items": "__items__ (tse dintsi)",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Botsofe jwa karata — Lenaane",
   "board-view-blocker-analysis": "Dilo tse di ikaegileng — Dipalopalo",
   "board-view-monte-carlo": "Monte Carlo — Histogram ya tlhagiso",

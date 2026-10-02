@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Ajoute plizyè liy kòm:",
   "many-items": "Plizyè __items__",
   "draggable": "Ou ka trennen li",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Vyeyisman kat — Lis",
   "board-view-blocker-analysis": "Depandans — Estatistik",
   "board-view-monte-carlo": "Monte Carlo — Istogram pwodiktivite",

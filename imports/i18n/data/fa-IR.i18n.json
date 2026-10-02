@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "چندین خط را اضافه کنید به‌صورت:",
   "many-items": "چندین __items__",
   "draggable": "قابل کشیدن",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "کهنگی کارت — لیست",
   "board-view-blocker-analysis": "وابستگی‌ها — آمار",
   "board-view-monte-carlo": "Monte Carlo — هیستوگرام توان عملیاتی",

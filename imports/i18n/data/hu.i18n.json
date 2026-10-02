@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Több sor hozzáadása a következőként:",
   "many-items": "__items__ (több)",
   "draggable": "Húzással mozgatható",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kártyák öregedése — Lista",
   "board-view-blocker-analysis": "Függőségek — Statisztika",
   "board-view-monte-carlo": "Monte Carlo — Átbocsátási hisztogram",

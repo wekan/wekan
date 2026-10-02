@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Wjacore linki přidać jako:",
   "many-items": "__items__ (wjacore)",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Stárnutí karet — Lisćina",
   "board-view-blocker-analysis": "Závizlozti — Statiztiky",
   "board-view-monte-carlo": "Monte Carlo — Histogram wukonosće",

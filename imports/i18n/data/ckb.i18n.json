@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "چەند دێڕێک زیاد بکە وەک:",
   "many-items": "چەندین __items__",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "کۆنبوونی کارت — لیست",
   "board-view-blocker-analysis": "پشتبەستەکان — ئامار",
   "board-view-monte-carlo": "Monte Carlo — هیستۆگرامی بەرهەمهێنان",

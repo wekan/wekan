@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Pridėti kelias eilutes kaip:",
   "many-items": "__items__ (kelios)",
   "draggable": "Tempiamas",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kortelių senėjimas — Sąrašas",
   "board-view-blocker-analysis": "Priklausomybės — Statistika",
   "board-view-monte-carlo": "Monte Carlo — Pralaidumo histograma",

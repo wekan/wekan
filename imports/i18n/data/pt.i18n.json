@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Adicionar várias linhas como:",
   "many-items": "__items__ (vários)",
   "draggable": "Arrastável",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Envelhecimento de cartões — Lista",
   "board-view-blocker-analysis": "Dependências — Estatísticas",
   "board-view-monte-carlo": "Monte Carlo — Histograma de rendimento",

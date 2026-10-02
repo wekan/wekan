@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Agiunghe prus rigas comente:",
   "many-items": "Prus __items__",
   "draggable": "Trascinàbile",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Imbetzamentu de sas cartas — Lista",
   "board-view-blocker-analysis": "Dipendenze — Istatìsticas",
   "board-view-monte-carlo": "Monte Carlo — Istograma de rendimentu",

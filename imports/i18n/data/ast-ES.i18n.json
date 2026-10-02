@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Amestar delles llinies como:",
   "many-items": "__items__ múltiples",
   "draggable": "Pue arrastrase",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Avieyamientu de tarjetes — Lista",
   "board-view-blocker-analysis": "Dependencies de la tarxeta — Estadístiques",
   "board-view-monte-carlo": "Monte Carlo — Histograma de rindimientu",

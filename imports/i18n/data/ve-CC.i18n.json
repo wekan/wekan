@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Zonta pì righe come:",
   "many-items": "Pì __items__",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Invecià de le schede — Lista",
   "board-view-blocker-analysis": "Dependense — Dzitshitatisitiki",
   "board-view-monte-carlo": "Monte Carlo — Histogram ya mbuelo",

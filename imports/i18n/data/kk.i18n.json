@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Бірнеше жолды мына түрде қосу:",
   "many-items": "Бірнеше __items__",
   "draggable": "Сүйреп жылжытуға болады",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Карточкалардың ескіруі — Тізім",
   "board-view-blocker-analysis": "Тәуелділіктер — Статистика",
   "board-view-monte-carlo": "Monte Carlo — Өткізу қабілеті гистограммасы",

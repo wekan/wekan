@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "ཐིག་མང་པོ་འདི་ལྟར་སྣོན།",
   "many-items": "__items__ མང་པོ།",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "བྱང་བུ་རྙིང་འགྱུར་ — ཐོ་གཞུང་།",
   "board-view-blocker-analysis": "བྱང་བུའི་བརྟེན་འབྲེལ། — སྡོམ་རྩིས།",
   "board-view-monte-carlo": "Monte Carlo — འདོན་ནུས་ཀྱི་ཚད་རིས།",

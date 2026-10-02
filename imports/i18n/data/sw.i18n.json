@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Ongeza mistari mingi kama:",
   "many-items": "__items__ (nyingi)",
   "draggable": "Inaweza kuburutwa",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kuzeeka kwa kadi — Orodha",
   "board-view-blocker-analysis": "Utegemezi — Takwimu",
   "board-view-monte-carlo": "Monte Carlo — Histogramu ya Uzalishaji",

@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Ongerako imirongo myinshi nk'ibi:",
   "many-items": "__items__ (vyinshi)",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Gusaza kw'amakarata — Urutonde",
   "board-view-blocker-analysis": "Amasano y'amakarata — Ibitigiri",
   "board-view-monte-carlo": "Monte Carlo — Igishushanyo c'umusaruro",

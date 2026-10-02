@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "అనేక పంక్తులను ఇలా జోడించండి:",
   "many-items": "అనేక __items__",
   "draggable": "లాగగలిగేది",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "కార్డ్ ఏజింగ్ — జాబితా",
   "board-view-blocker-analysis": "ఆధారతలు — గణాంకాలు",
   "board-view-monte-carlo": "Monte Carlo — థ్రూపుట్ హిస్టోగ్రామ్",

@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Sararoota hedduu akka kanaatti dabali:",
   "many-items": "__items__ hedduu",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Moofaa'ina kaardii — Tarree",
   "board-view-blocker-analysis": "Hirkattummaawwan — Istaatistiksii",
   "board-view-monte-carlo": "Monte Carlo — Histogram-ka Wax-soo-saarka",

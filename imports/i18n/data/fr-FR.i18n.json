@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Ajouter plusieurs lignes en tant que :",
   "many-items": "Plusieurs __items__",
   "draggable": "Déplaçable par glissement",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Vieillissement des cartes — Liste",
   "board-view-blocker-analysis": "Dépendances — Statistiques",
   "board-view-monte-carlo": "Monte Carlo — Histogramme de débit",

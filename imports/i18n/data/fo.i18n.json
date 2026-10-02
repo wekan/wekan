@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Legg fleiri reglur afturat sum:",
   "many-items": "Fleiri __items__",
   "draggable": "Kann dragast",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Elding av kortum — Listi",
   "board-view-blocker-analysis": "Treytir — Hagtøl",
   "board-view-monte-carlo": "Monte Carlo — Frambingssúlurit",

@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Legg til flere linjer som:",
   "many-items": "Flere __items__",
   "draggable": "Kan dras",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kortaldring — Liste",
   "board-view-blocker-analysis": "Avhengigheter — Statistikk",
   "board-view-monte-carlo": "Monte Carlo — Gjennomstrømningshistogram",

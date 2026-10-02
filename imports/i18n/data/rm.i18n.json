@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Agiuntar pliras lingias sco:",
   "many-items": "__items__ (plirs)",
   "draggable": "Po vegnir tratg",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Vegliadetgna da las cartas — Glista",
   "board-view-blocker-analysis": "Dipendenze — Statistiche",
   "board-view-monte-carlo": "Monte Carlo — Histogram da prestaziun",

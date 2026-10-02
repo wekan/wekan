@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Aggiungi più righe come:",
   "many-items": "Più __items__",
   "draggable": "Trascinabile",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Invecchiamento schede — Lista",
   "board-view-blocker-analysis": "Dipendenze — Statistiche",
   "board-view-monte-carlo": "Monte Carlo — Istogramma di produttività",

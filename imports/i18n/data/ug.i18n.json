@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "بىرنەچچە قۇرنى مۇنداق قوشۇڭ:",
   "many-items": "بىرنەچچە __items__",
   "draggable": "سۆرەشكە بولىدۇ",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "كارتا قېرىشى — تىزىملىك",
   "board-view-blocker-analysis": "بېقىنمىلار — ستاتىستىكا",
   "board-view-monte-carlo": "Monte Carlo — ئۆتكۈزۈش ئىقتىدار گىستوگراممىسى",

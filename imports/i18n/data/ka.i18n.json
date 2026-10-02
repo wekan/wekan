@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "რამდენიმე სტრიქონის დამატება როგორც:",
   "many-items": "რამდენიმე __items__",
   "draggable": "გადასათრევი",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "ბარათის დაძველება — სია",
   "board-view-blocker-analysis": "დამოკიდებულებები — სტატისტიკა",
   "board-view-monte-carlo": "Monte Carlo — გამტარუნარიანობის ჰისტოგრამა",

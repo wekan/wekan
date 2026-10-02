@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "একাধিক লাইন যোগ করুন এইভাবে:",
   "many-items": "একাধিক __items__",
   "draggable": "টেনে নেওয়া যায়",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "কার্ডের পুরোনো হওয়া — তালিকা",
   "board-view-blocker-analysis": "নির্ভরতা — পরিসংখ্যান",
   "board-view-monte-carlo": "Monte Carlo — থ্রুপুট হিস্টোগ্রাম",

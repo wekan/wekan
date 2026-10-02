@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Plures lineas adde ut:",
   "many-items": "__items__ (plura)",
   "draggable": "Trahi potest",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Latine: Scheda aging — Index",
   "board-view-blocker-analysis": "Latine: Dependencies — Latine: Statistics",
   "board-view-monte-carlo": "Monte Carlo — Histogramma effectus",

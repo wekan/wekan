@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Bæta við mörgum línum sem:",
   "many-items": "__items__ (mörg)",
   "draggable": "Draganlegt",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Öldrun spjalda — Listi",
   "board-view-blocker-analysis": "Tengsl — Tölfræði",
   "board-view-monte-carlo": "Monte Carlo — Afkastasúlurit",

@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Додати кілька рядків як:",
   "many-items": "__items__ (кілька)",
   "draggable": "Можна перетягувати",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Старіння карток — Список",
   "board-view-blocker-analysis": "Залежності — Статистика",
   "board-view-monte-carlo": "Monte Carlo — Гістограма пропускної здатності",

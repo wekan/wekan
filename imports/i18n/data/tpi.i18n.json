@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Putim planti lain olsem:",
   "many-items": "Planti __items__",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kat aging — Lis",
   "board-view-blocker-analysis": "Toksave: Dependencies — Ol namba",
   "board-view-monte-carlo": "Monte Carlo — Piksa bilong autput",

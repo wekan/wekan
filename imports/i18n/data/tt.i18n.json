@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Берничә юлны болай өстәү:",
   "many-items": "Берничә __items__",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "карточка йашланмасы — Исемлек",
   "board-view-blocker-analysis": "Багымлылыклар — Истатистиклер",
   "board-view-monte-carlo": "Monte Carlo — Үткәрү сәләте гистограммасы",

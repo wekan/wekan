@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Wedzera mitsetse yakawanda se:",
   "many-items": "__items__ (zvakawanda)",
   "draggable": "Zvinogona kudhonzwa",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "kadhi aging — Rondedzero",
   "board-view-blocker-analysis": "Kuongorora zvinovharira",
   "board-view-monte-carlo": "Monte Carlo — Histogram yezvinobudiswa",

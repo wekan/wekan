@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Add many lines as:",
   "many-items": "Many __items__",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Aging WIP",
   "board-view-blocker-analysis": "Blocker Analysis",
   "board-view-monte-carlo": "Monte Carlo Forecasts",

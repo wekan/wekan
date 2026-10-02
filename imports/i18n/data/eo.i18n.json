@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Aldoni plurajn liniojn kiel:",
   "many-items": "Pluraj __items__",
   "draggable": "Trenebla",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kartomaljuniĝo — Listo",
   "board-view-blocker-analysis": "Dependecoj — Statistiko",
   "board-view-monte-carlo": "Monte Carlo — Trapasa histogramo",

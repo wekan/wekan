@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Додај повеќе редови како:",
   "many-items": "Повеќе __items__",
   "draggable": "Може да се влече",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Стареење на картичка — Список",
   "board-view-blocker-analysis": "Зависности — Статистика",
   "board-view-monte-carlo": "Monte Carlo — Хистограм на пропусност",

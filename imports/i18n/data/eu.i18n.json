@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Gehitu hainbat lerro honela:",
   "many-items": "Hainbat __items__",
   "draggable": "Arrastagarria",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Txartelen zahartzea — Zerrenda",
   "board-view-blocker-analysis": "Mendekotasunak — Estatistikak",
   "board-view-monte-carlo": "Monte Carlo — Errendimenduaren histograma",

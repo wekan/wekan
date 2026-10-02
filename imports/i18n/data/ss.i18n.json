@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Ngeta imigca leminyenti njenge:",
   "many-items": "__items__ (lokunyenti)",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kuguga kwemakhadi — Luhla",
   "board-view-blocker-analysis": "Kuncika — Tibalo",
   "board-view-monte-carlo": "Monte Carlo — I-histogram yemkhicito",

@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Dodac wiele rézów jakno:",
   "many-items": "__items__ (wiele)",
   "draggable": "Mòże bëc przecygóné",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Starzenié kôrtòw — Lësta",
   "board-view-blocker-analysis": "Analiza blokadów",
   "board-view-monte-carlo": "Monte Carlo — Histogram wëdajnotë",

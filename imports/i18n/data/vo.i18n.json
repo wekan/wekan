@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Läükön lienis mödik as:",
   "many-items": "__items__ mödik",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kadabäldükam — Lised",
   "board-view-blocker-analysis": "Dependots — Statitanuns",
   "board-view-monte-carlo": "Monte Carlo — Bilüd pladüla",

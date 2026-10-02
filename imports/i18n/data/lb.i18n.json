@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Méi Zeilen derbäisetzen als:",
   "many-items": "Méi __items__",
   "draggable": "Verréckelbar",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Altern den Kaart — Lëscht",
   "board-view-blocker-analysis": "Abhängigkeiten — Statistik",
   "board-view-monte-carlo": "Monte Carlo — Duerchsatz-Histogramm",

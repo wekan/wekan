@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Apondre mantuna linha coma:",
   "many-items": "__items__ (mantuns)",
   "draggable": "Se pòt far lisar",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Envelhiment de las cartas — Lista",
   "board-view-blocker-analysis": "Dependéncias — Estatisticas",
   "board-view-monte-carlo": "Monte Carlo — Istograma de debit",

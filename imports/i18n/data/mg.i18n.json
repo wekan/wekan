@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Ampio andalana maro ho:",
   "many-items": "__items__ maro",
   "draggable": "Azo tarihina",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Fahanteran'ny karatra — Lisitra",
   "board-view-blocker-analysis": "Fiankinana — Antontanisa",
   "board-view-monte-carlo": "Monte Carlo — Histogram'ny famokarana",

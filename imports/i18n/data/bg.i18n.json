@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Добавяне на няколко реда като:",
   "many-items": "Няколко __items__",
   "draggable": "Може да се плъзга",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Стареене на картите — Списък",
   "board-view-blocker-analysis": "Зависимости — Статистика",
   "board-view-monte-carlo": "Monte Carlo — Хистограма на пропускателна способност",

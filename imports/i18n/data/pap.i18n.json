@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Agregá varios liña komo:",
   "many-items": "Varios __items__",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Enbehesimiento di karchinan — Lista",
   "board-view-blocker-analysis": "Dependensias — Estadísticas",
   "board-view-monte-carlo": "Monte Carlo — Histograma di produktividat",

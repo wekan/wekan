@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Ավելացնել մի քանի տող որպես՝",
   "many-items": "Մի քանի __items__",
   "draggable": "Քաշվող",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Քարտի ծերացում — Ցուցակ",
   "board-view-blocker-analysis": "Կախվածություններ — Վիճակագրություն",
   "board-view-monte-carlo": "Monte Carlo — Թողունակության հիստոգրամ",

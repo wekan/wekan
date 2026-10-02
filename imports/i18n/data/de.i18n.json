@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Mehrere Zeilen hinzufügen als:",
   "many-items": "Mehrere __items__",
   "draggable": "Ziehbar",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Altern der Karte — Liste",
   "board-view-blocker-analysis": "Abhängigkeiten — Statistik",
   "board-view-monte-carlo": "Monte Carlo — Durchsatz-Histogramm",

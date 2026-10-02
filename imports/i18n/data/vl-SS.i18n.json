@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Meerdere regels toevoegen als:",
   "many-items": "Meerdere __items__",
   "draggable": "Versleepbaar",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kaartveroudering — Lijst",
   "board-view-blocker-analysis": "Afhankelijkheden — Statistieken",
   "board-view-monte-carlo": "Monte Carlo — Biểu đồ thông lượng",

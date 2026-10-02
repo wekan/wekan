@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Onjezani mizere yambiri ngati:",
   "many-items": "__items__ (zambiri)",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kukalamba kwa khadi — Mndandanda",
   "board-view-blocker-analysis": "Zodalirana — Ziwerengero",
   "board-view-monte-carlo": "Monte Carlo — Histogram ya zotulutsa",

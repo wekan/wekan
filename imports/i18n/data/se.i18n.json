@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Lasit máŋga ráiddu ná:",
   "many-items": "__items__ (máŋga)",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Goartta boarásnuvvan — Listu",
   "board-view-blocker-analysis": "Sorjavašvuođat — Statistihkka",
   "board-view-monte-carlo": "Monte Carlo — Läpivientihistogrammi",

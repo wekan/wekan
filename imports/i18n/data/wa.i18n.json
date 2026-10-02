@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Radjouter sacwantès royes come:",
   "many-items": "__items__ (sacwants)",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Vîyixhaedje des cåtes — Djivêye",
   "board-view-blocker-analysis": "Dependances — Statistikes",
   "board-view-monte-carlo": "Monte Carlo — Istogråme di rindmint",

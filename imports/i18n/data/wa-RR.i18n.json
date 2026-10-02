@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Idugang an damu nga linya sugad hin:",
   "many-items": "Damu nga __items__",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Pagtigulang han card — Lista",
   "board-view-blocker-analysis": "Mga Dependency — Statistikes",
   "board-view-monte-carlo": "Monte Carlo — Istogråme di rindmint",

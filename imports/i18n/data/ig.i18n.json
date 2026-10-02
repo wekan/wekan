@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Tinye ọtụtụ ahịrị dịka:",
   "many-items": "Ọtụtụ __items__",
   "draggable": "Enwere ike ịdọrọ ya",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Ịka nká kaadị — Ndepụta",
   "board-view-blocker-analysis": "Ndabere — Ọnụọgụgụ",
   "board-view-monte-carlo": "Monte Carlo — Histogram Mmepụta",

@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Dodaj wiele wierszy jako:",
   "many-items": "__items__ (wiele)",
   "draggable": "Można przeciągać",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Starzenie kart — Lista",
   "board-view-blocker-analysis": "Zależności — Statystyki",
   "board-view-monte-carlo": "Monte Carlo — Histogram przepustowości",

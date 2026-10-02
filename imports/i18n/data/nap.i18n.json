@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Azzecca cchiù righe comme:",
   "many-items": "Cchiù __items__",
   "draggable": "Se pò trascinà",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Invecchiamento carte — Lista",
   "board-view-blocker-analysis": "Dipendenze — Statistiche",
   "board-view-monte-carlo": "Monte Carlo — Istogramma 'e rendimento",

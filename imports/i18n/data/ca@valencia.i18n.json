@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Afegeix diverses línies com a:",
   "many-items": "__items__ múltiples",
   "draggable": "Arrossegable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Envelliment de fitxes — Llista",
   "board-view-blocker-analysis": "Dependències — Estadístiques",
   "board-view-monte-carlo": "Monte Carlo — Histograma de rendiment",

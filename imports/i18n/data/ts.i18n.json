@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Engetela tilayini to tala tani hi:",
   "many-items": "__items__ (swo tala)",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "khadi mhaka — Nxaxamelo",
   "board-view-blocker-analysis": "Hi Xitsonga: mhaka — Hi Xitsonga: mhaka",
   "board-view-monte-carlo": "Monte Carlo — I-histogram yemkhicito",

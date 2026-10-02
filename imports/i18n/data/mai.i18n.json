@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "कतेको पाँति एहि रूपमे जोड़ू:",
   "many-items": "कतेको __items__",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "कार्ड पुरान होनाइ — सूची",
   "board-view-blocker-analysis": "निर्भरता — आँकड़ा",
   "board-view-monte-carlo": "Monte Carlo — थ्रूपुट हिस्टोग्राम",

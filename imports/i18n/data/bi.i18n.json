@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Adem plante laen olsem:",
   "many-items": "Plante __items__",
   "draggable": "Draggable",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Kad aging — Lis",
   "board-view-blocker-analysis": "Tok blong sistem: Dependencies — Tok blong sistem: Statistics",
   "board-view-monte-carlo": "Monte Carlo — Piksa bilong autput",

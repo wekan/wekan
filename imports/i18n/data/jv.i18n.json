@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "Tambah sawetara larik minangka:",
   "many-items": "Sawetara __items__",
   "draggable": "Bisa diseret",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "Umure kertu — Dhaptar",
   "board-view-blocker-analysis": "Katergantungan — Statistik",
   "board-view-monte-carlo": "Monte Carlo — Histogram Throughput",

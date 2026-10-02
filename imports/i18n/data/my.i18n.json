@@ -2815,6 +2815,7 @@
   "add-many-lines-as": "စာကြောင်းများကို အောက်ပါအတိုင်း ထည့်ပါ:",
   "many-items": "__items__ အများအပြား",
   "draggable": "ဆွဲရွှေ့နိုင်သော",
+  "drag-to-reorder": "Drag to reorder. Up and Down arrow keys move one step.",
   "board-view-aging-wip": "ကတ်အိုဟောင်းမှု — စာရင်း",
   "board-view-blocker-analysis": "မှီခိုမှုများ — စာရင်းအင်းများ",
   "board-view-monte-carlo": "Monte Carlo — ထုတ်လုပ်နှုန်း ဟစ်စတိုဂရမ်",
