@@ -2999,6 +2999,29 @@ and [Northern Sami usage](https://ovttas.no/).
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/26370bfb33">Translate Scrum history and recovery in four more languages</a>. Thanks to xet7.</summary>
+
+Fill 80 English placeholders in Tibetan, Dzongkha, Tigrinya and Kashmiri.
+Scope history, GitLab estimates, paging and import recovery now cover 220
+locale tags, with 14 remaining. Preserve existing translations, source key
+order and exact tokens. Extend script and warning checks, keeping Dzongkha
+distinct from Tibetan and Kashmiri distinct from Urdu.
+
+All 451 translation-related Node suites pass before the final Kashmiri fill;
+ten catalog and language suites pass with it included. All 21
+human-preference checks pass. The broader translation backlog remains.
+
+Specialist workflow wording in all four languages has lower confidence and
+needs speaker review. References include
+[Tibetan vocabulary](https://tibetanlanguage.school/resources/vocabulary-lists/),
+[the Dzongkha dictionary](https://www.dzongkha.gov.bt/uploads/files/publications/English-Dzongkha_Pocket_Dictionary_fcbe977ea0f17fa3c90a8cd9a0b6c4f1.pdf),
+[Tigrinya estimate terminology](https://geezexperience.com/?dr=0&searchkey=estimate)
+and [Kashmiri dictionaries](https://bharatavani.in/kashmiri/dictionaries).
+Structural tests do not establish fluency.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
