@@ -1686,6 +1686,20 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/789e4fae25">Translate Cornish synchronization source and report messages</a>. Thanks to xet7.</summary>
+
+- Fill 30 Cornish synchronization source, preview and report messages,
+  preserving report limits, retention counts and partial-run warnings.
+  Specialized terminology remains low confidence pending native-speaker
+  review.
+- Batch placeholder, key-order, shared-label and report-wording checks pass,
+  along with all 21 human-preference checks. Full-language work and browser
+  review remain.
+
+</details>
+
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/46932c73b8">Translate Cornish synchronization conflicts and previews</a>. Thanks to xet7.</summary>
 
 - Fill 22 Cornish synchronization conflict and preview messages, preserving
