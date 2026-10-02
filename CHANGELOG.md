@@ -2122,6 +2122,40 @@ the new card-setting label regression suite. The broader translation backlog rem
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3d333b8859">Translate feature settings in fifteen more locale variants</a>. Thanks to xet7.</summary>
+
+Add 336 stored translations for Amharic, Assamese, Odia, Sinhala, Pashto, Sindhi,
+three Khmer tags, Burmese, Faroese, two Western Frisian tags, Friulian and Romansh.
+Feature-setting coverage reaches 161 locales. All 448 translation-related Node
+suites pass. Extend native-script checks and the
+explicit assurances that hiding a feature keeps its data and permissions.
+
+Specialist flow-metric wording in this batch, especially Faroese, Frisian,
+Friulian, Romansh and Odia, has lower confidence and remains open to native review.
+Vocabulary references include
+[Amharic](https://dictionary.abyssinica.com/permission),
+[Odia](https://www.shabdkosh.com/dictionary/english-odia/permission/permission-meaning-in-odia),
+[Sinhala](https://www.maduraonline.com/?find=permission), and
+[Faroese](https://en.wiktionary.org/wiki/loyvi) dictionaries, along with the
+existing catalogs. Remaining translations are still pending.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9ee5a1f955">Translate card-setting labels in fifteen more locale variants</a>. Thanks to xet7.</summary>
+
+The three new labels now cover 29 locales. Add 42 stored translations and retain
+existing linked-card wording where correct. Remove the extra separator in Odia,
+replace Italian wording with Friulian and Romansh, and cover these corrections
+with negative regression checks. Six focused catalog and language suites pass.
+The full 448-suite run passed immediately before this card-label extension.
+Vocabulary references for the corrected forms include
+[Friulian usage](https://dizionarifurlan.eu/headword/organiz%C3%A2) and
+[Romansh usage](https://www.gr.ch/RM/instituziuns/administraziun/dfg/ds/stabdv/gemeinden/Seiten/koordinationsstelle.aspx).
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
