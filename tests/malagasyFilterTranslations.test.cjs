@@ -586,7 +586,30 @@ const keys = [
   "blockly-WORKSPACE_SEARCH_NO_MATCHES",
   "blockly-WORKSPACE_SEARCH_PLACEHOLDER",
   "blockly-ZOOM_TO_FIT_ARIA_LABEL",
-  "blockly-LISTS_GET_INDEX_INPUT_IN_LIST"
+  "blockly-LISTS_GET_INDEX_INPUT_IN_LIST",
+  "blockly-LISTS_GET_SUBLIST_INPUT_IN_LIST",
+  "blockly-LISTS_INDEX_OF_INPUT_IN_LIST",
+  "blockly-LISTS_SET_INDEX_INPUT_IN_LIST",
+  "blockly-PROCEDURES_DEFRETURN_COMMENT",
+  "blockly-PROCEDURES_DEFRETURN_PROCEDURE",
+  "r-blocks-view",
+  "r-blocks-help",
+  "r-blocks-discard",
+  "r-blocks-unavailable",
+  "r-blocks-invalid",
+  "r-blocks-conflict",
+  "r-blocks-permission",
+  "r-blocks-unsaved",
+  "r-blocks-saved",
+  "r-blocks-reload",
+  "board-view-product-backlog",
+  "board-view-sprints",
+  "board-view-sprint-report",
+  "board-view-velocity",
+  "scrum-settings",
+  "scrum-product-owner",
+  "scrum-master",
+  "scrum-developers"
 ];
 for (const key of keys) {
   assert.ok(locale[key]?.trim(), key);
