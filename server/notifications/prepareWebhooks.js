@@ -3,6 +3,7 @@ import { prepareOutgoingWebhook } from '/server/notifications/outgoing';
 const { EJSON } = require('bson');
 const { notificationActivityIdentity } = require('/server/lib/syncNotificationPlan');
 const { prepareWebhookPlan } = require('/server/lib/syncWebhookPlan');
+const { webhookDescriptionFor, webhookParamsFor } = require('/models/lib/editCardWebhook');
 
 // Build only. The durable caller persists this first-writer snapshot and must
 // enforce fresh actor, card/list, feature-policy and integration access on replay.
@@ -25,8 +26,11 @@ export async function prepareActivityWebhookPlan({ activity, assertCurrent }) {
   const plan = await prepareWebhookPlan({ activity: saved, integrations,
     prepare: async integration => {
       await assertCurrent();
-      const request = await prepareOutgoingWebhook({ integration, actorId: saved.userId,
-        description: context.description, params: { ...context.params, watchers: context.watchers } });
+      // #4912: the same per-webhook event choice as ordinary dispatch.
+      const description = webhookDescriptionFor(integration, context.description);
+      const params = webhookParamsFor({ ...context.params, watchers: context.watchers },
+        context.description, description);
+      const request = await prepareOutgoingWebhook({ integration, actorId: saved.userId, description, params });
       await assertCurrent();
       return request;
     } });

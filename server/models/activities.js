@@ -17,6 +17,7 @@ import { labelDisplayName } from '/models/lib/labelDisplayName';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 import { ACTIVITY_NOTIFICATION_TITLE } from '/server/lib/activityNotificationTitle';
 import { isDueReminderDescription } from '/models/lib/dueNotificationConfig';
+const { webhookActivitySelection, webhookDescriptionFor, webhookParamsFor } = require('/models/lib/editCardWebhook');
 const {
   boardNotificationRecipients,
 } = require('/models/lib/boardNotificationRecipients');
@@ -454,14 +455,15 @@ export async function activityWebhookIntegrations(board, description, options = 
       enabled: true,
       $or: [
         { boardId: board._id },
-        { boardId: Integrations.Const.GLOBAL_WEBHOOK_ID, activities: { $in: [description, 'all'] } },
+        { boardId: Integrations.Const.GLOBAL_WEBHOOK_ID, activities: { $in: webhookActivitySelection(description) } },
       ],
     }, options);
   }
   return ReactiveCache.getIntegrations({
     boardId: { $in: integrationBoardIds },
     enabled: true,
-    activities: { $in: [description, 'all'] },
+    // #4912: an edit also selects webhooks that opted into `act-editCard`.
+    activities: { $in: webhookActivitySelection(description) },
   }, options);
 }
 
@@ -480,6 +482,8 @@ Activities.after.insert(async (userId, doc) => {
   if (integrations.length > 0) {
     params.watchers = watchers;
     integrations.forEach((integration) => {
+      const delivered = webhookDescriptionFor(integration, description);
+      const deliveredParams = webhookParamsFor(params, description, delivered);
       // Fire-and-forget, error-isolated: a failing/slow/unreachable outgoing
       // webhook must never abort this activity insert or the originating
       // operation (e.g. adding/removing a card member). See bug #1402.
@@ -487,7 +491,7 @@ Activities.after.insert(async (userId, doc) => {
       safeDeliver(
         () =>
           new Promise((resolve, reject) => {
-            Meteor.call('outgoingWebhooks', integration, description, params, (err) => {
+            Meteor.call('outgoingWebhooks', integration, delivered, deliveredParams, (err) => {
               if (err) {
                 reject(err);
               } else {

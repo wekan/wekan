@@ -1554,6 +1554,7 @@
   "act-a-endAt": "modified ending time to __timeValue__ from (__timeOldValue__)",
   "act-a-startAt": "modified starting time to __timeValue__ from (__timeOldValue__)",
   "act-a-receivedAt": "modified received time to __timeValue__ from (__timeOldValue__)",
+  "act-editCard": "edited card __card__",
   "a-dueAt": "modified due time to be",
   "a-endAt": "modified ending time to be",
   "a-startAt": "modified starting time to be",

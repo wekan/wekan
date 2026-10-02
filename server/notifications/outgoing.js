@@ -160,6 +160,8 @@ export async function prepareOutgoingWebhook({ integration, description, params,
     if (params[key] !== undefined) value[key] = params[key];
   });
   value.description = description;
+  // #4912: the consolidated edit event always says which field changed.
+  if (description === 'act-editCard' && typeof params.field === 'string') value.field = params.field;
   const is2way = integration.type === Integrations.Const.TWOWAY;
   const token = integration.token || '';
   const fetchHeaders = {

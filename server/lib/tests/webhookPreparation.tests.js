@@ -80,4 +80,50 @@ describe('Shared webhook plan preparation', function () {
       await Meteor.users.rawCollection().deleteMany({ _id: actor });
     }
   });
+
+  // #4912: a webhook that names act-editCard gets it for a title edit, once;
+  // one on `all` or on the per-field event keeps the per-field event.
+  it('renders act-editCard only for webhooks that opted in, one delivery each', async function () {
+    if (!Meteor.isAppTest) this.skip();
+    const actor = Random.id(), boardId = Random.id(), listId = Random.id(), cardId = Random.id();
+    const ids = Array.from({ length: 4 }, () => Random.id());
+    const flags = getFeatureFlags(), original = flags.disableNotifications, originalActivities = flags.disableActivities;
+    try {
+      flags.disableNotifications = false; flags.disableActivities = false;
+      await Meteor.users.rawCollection().insertOne({ _id: actor, username: `edit-${actor}`, profile: { language: 'en' } });
+      await Boards.rawCollection().insertOne({ _id: boardId, title: 'Edit board', permission: 'private',
+        members: [{ userId: actor, isActive: true, isAdmin: true }], watchers: [] });
+      await Lists.rawCollection().insertOne({ _id: listId, boardId, title: 'Edit list', watchers: [] });
+      await Cards.rawCollection().insertOne({ _id: cardId, boardId, listId, title: 'New title', userId: actor, watchers: [] });
+      const base = { boardId, enabled: true, url: 'https://example.invalid/never-send',
+        type: Integrations.Const.ONEWAY, userId: actor, token: '', createdAt: new Date(0) };
+      await Integrations.rawCollection().insertMany([
+        { ...base, _id: ids[0], activities: ['act-editCard'] },
+        { ...base, _id: ids[1], activities: ['all'] },
+        { ...base, _id: ids[2], activities: ['act-a-changedTitle', 'act-editCard'] },
+        { ...base, _id: ids[3], activities: ['act-createCard'] },
+      ]);
+      const activity = { _id: Random.id(), activityType: 'a-changedTitle', boardId, listId, cardId, userId: actor,
+        oldValue: 'Old title', value: 'New title', createdAt: new Date() };
+      const plan = await prepareActivityWebhookPlan({ activity, assertCurrent: async () => {} });
+      assert.deepEqual(plan.targets.map(row => row.integrationId).sort(), ids.slice(0, 3).sort());
+      const body = id => JSON.parse(plan.targets.find(row => row.integrationId === id).request.body);
+      assert.equal(body(ids[0]).description, 'act-editCard');
+      assert.equal(body(ids[0]).field, 'title');
+      assert.match(body(ids[0]).text, /edited card "New title"/);
+      assert.equal(body(ids[1]).description, 'act-a-changedTitle');
+      assert.equal(body(ids[1]).field, undefined);
+      assert.equal(body(ids[2]).description, 'act-a-changedTitle');
+      const moved = await prepareActivityWebhookPlan({ activity: { ...activity, _id: Random.id(), activityType: 'moveCard' },
+        assertCurrent: async () => {} });
+      assert.deepEqual(moved.targets.map(row => row.integrationId), [ids[1]], 'other activities never select act-editCard');
+    } finally {
+      flags.disableNotifications = original; flags.disableActivities = originalActivities;
+      await Integrations.rawCollection().deleteMany({ _id: { $in: ids } });
+      await Cards.rawCollection().deleteMany({ _id: cardId });
+      await Lists.rawCollection().deleteMany({ _id: listId });
+      await Boards.rawCollection().deleteMany({ _id: boardId });
+      await Meteor.users.rawCollection().deleteMany({ _id: actor });
+    }
+  });
 });
