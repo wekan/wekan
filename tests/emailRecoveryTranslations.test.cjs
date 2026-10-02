@@ -7,7 +7,7 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(
   path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const english = read('en');
-const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC', 'bho', 'mai', 'kok', 'or_IN', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'nso', 'ss', 'rw', 'rn', 'lg', 'om', 'mi', 'sm', 'to', 'fj', 'hsb', 'szl'];
+const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC', 'bho', 'mai', 'kok', 'or_IN', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'nso', 'ss', 'rw', 'rn', 'lg', 'om', 'mi', 'sm', 'to', 'fj', 'hsb', 'szl', 'wa', 'lld'];
 const scripts = {
   ckb: 'Arabic', ary: 'Arabic', tt: 'Cyrillic', yi: 'Hebrew', 'wuu-Hans': 'Han',
   bho: 'Devanagari', mai: 'Devanagari', kok: 'Devanagari', or_IN: 'Oriya',
@@ -32,6 +32,14 @@ for (const code of codes) {
 // Cancellation is irreversible only for the messages covered by this request.
 // Retrying must retain the pause and the warning about uncertain delivery.
 const meanings = {
+  wa: {
+    cancel: /n' pôrè nén esse rapexhî.*après cisse dimande ci sont wårdès/,
+    description: /n' pout nén esse rapelî.*nén seur.*deus côps.*wåde li djocaedje k' i gn a dedja/,
+  },
+  lld: {
+    cancel: /ne possa nia unì recuperà.*do chësta dumanda vën mantignui/,
+    description: /ne possa nia unì clamà zoruch.*nia segur.*repetì.*mantegn la pausa che ie bele/,
+  },
   hsb: {
     cancel: /njeda so wobnowić.*po tutym naprašowanju.*so wobchowaja/,
     description: /njeda so wróćo wołać.*njewěstym.*wospjetować.*wobchowa eksistowacu přestawku/,
@@ -197,6 +205,9 @@ assert.match(read('lg')['email-recovery-saving'], /luzzibwa buggya/);
 assert.match(read('om')['email-recovery-confirm-cancel'], /haquu barbaaddaa\?/);
 assert.match(read('hsb')['email-recovery-queued'], /Powěsće.*čakanskim rjedźe/);
 assert.match(read('szl')['email-recovery-retry'], /Sprōbuj zaś.*niyudane/);
+assert.match(read('wa')['email-recovery-retry'], /Risayî.*n' ont nén passé/);
+assert.match(read('lld')['email-recovery-busy'], /proa inò do n curt tëmp/);
+assert.doesNotMatch(read('lld')['email-recovery-description'], /chvíla/);
 assert.equal(read('to').pause, 'Taʻofi fakataimi');
 assert.doesNotMatch(read('to').pause, /Faka-Tonga:|Pause/);
 assert.deepEqual(translationTokens(read('to').pause), translationTokens(english.pause));
