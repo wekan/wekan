@@ -337,7 +337,7 @@ test('every external export menu link returns text and refuses an unrelated user
   // Include description through the actual shared selection controls.
   const details = page.locator('.js-export-card-details-toggle');
   if (await details.getAttribute('aria-checked') !== 'true') await details.click();
-  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior']) {
+  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard']) {
     await test.step(format, async () => {
       const anchor = page.locator(`.js-pop-over a[href*="/export/${format}?"]`);
       await expect(anchor).toBeVisible();
@@ -351,6 +351,46 @@ test('every external export menu link returns text and refuses an unrelated user
       expect([401, 403]).toContain(refused.status());
     });
   }
+});
+
+// Focalboard's board.jsonl: the group-by property's lists, labels, dates, the
+// card's text, checklist and comments (models/lib/focalboardFormat.js).
+test('Focalboard: a board.jsonl imports with its lists, labels, description, checklist and comments', async ({ loggedInPage: page }) => {
+  let boardId;
+  const line = (type, data) => JSON.stringify({ type, data });
+  try {
+    await navigateInApp(page, '/import/focalboard');
+    await page.locator('#import-textarea').fill([
+      JSON.stringify({ version: 1, date: 1 }),
+      line('board', { id: 'b1', title: 'From Focalboard', cardProperties: [
+        { id: 'st', name: 'Status', type: 'select', options: [{ id: 'o1', value: 'Doing' }, { id: 'o2', value: 'Done' }] },
+        { id: 'lb', name: 'Labels', type: 'multiSelect', options: [{ id: 'l1', value: expected.label }] },
+        { id: 'dt', name: 'Due', type: 'date' }] }),
+      line('block', { id: 'v1', parentId: 'b1', type: 'view', fields: { viewType: 'board', groupById: 'st' } }),
+      line('block', { id: 'c1', parentId: 'b1', type: 'card', title: expected.title,
+        fields: { contentOrder: ['t1', 'x1'], properties: { st: 'o1', lb: ['l1'], dt: JSON.stringify({ from: Date.UTC(2026, 9, 10) }) } } }),
+      line('block', { id: 't1', parentId: 'c1', type: 'text', title: 'Two of them' }),
+      line('block', { id: 'x1', parentId: 'c1', type: 'checkbox', title: 'Call vendor', fields: { value: true } }),
+      line('block', { id: 'm1', parentId: 'c1', type: 'comment', title: 'Ordered' }),
+      line('block', { id: 'c2', parentId: 'b1', type: 'card', title: 'Finished task', fields: { properties: { st: 'o2' } } }),
+    ].join('\n'));
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    const cards = db.find('cards', { boardId });
+    expect(cards).toHaveLength(2);
+    const open = cards.find(card => card.title === expected.title);
+    const board = db.findOne('boards', { _id: boardId });
+    expect(open.labelIds.map(id => board.labels.find(label => label._id === id).name)).toEqual([expected.label]);
+    expect(open.description).toBe('Two of them');
+    expect(new Date(open.dueAt).toISOString().slice(0, 10)).toBe('2026-10-10');
+    expect(db.find('card_comments', { cardId: open._id }).map(comment => comment.text)).toEqual(['Ordered']);
+    expect(db.find('checklistItems', { cardId: open._id }).map(item => [item.title, item.isFinished])).toEqual([['Call vendor', true]]);
+    const lists = db.find('lists', { boardId });
+    expect(lists.find(list => list._id === open.listId).title).toBe('Doing');
+    expect(lists.find(list => list._id === cards.find(card => card.title === 'Finished task').listId).title).toBe('Done');
+    await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });
 
 // todo.txt has no description, so it gets its own case: title, list, labels and dates.

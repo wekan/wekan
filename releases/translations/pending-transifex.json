@@ -627,6 +627,10 @@
     {
       "key": "scrum-import-recovery-hint",
       "since": "2026-10-02"
+    },
+    {
+      "key": "import-board-instruction-focalboard",
+      "since": "2026-10-02"
     }
   ]
 }

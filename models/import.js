@@ -81,7 +81,7 @@ Meteor.methods({
     // feature lookup, creator or write is reached before authentication.
     // String is accepted alongside Object/Array for markdown-kanban text
     // imports (models/lib/externalParsers.js parseMarkdownKanban); the
-    // 'markdown', 'todotxt', 'taskwarrior' and 'leo' cases below are the only
+    // 'markdown', 'todotxt', 'taskwarrior', 'focalboard' and 'leo' cases below are the only
     // ones that let a string through their own per-source check().
     check(board, Match.OneOf(Object, Array, String));
     check(data, Object);
@@ -162,6 +162,17 @@ Meteor.methods({
           throw new Meteor.Error('invalid-import-format', error.message);
         }
         creator = new KanboardCreator(data, 'taskwarrior');
+        break;
+      case 'focalboard':
+        // A Focalboard board.jsonl - see models/lib/focalboardFormat.js. Sent
+        // as text: one JSON object per line.
+        check(board, String);
+        try {
+          importedBoard = EXTERNAL_PARSERS.focalboard(importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        creator = new KanboardCreator(data, 'focalboard');
         break;
       case 'leo':
         // The Leo literate editor's outline - see models/lib/leoOutline.js.

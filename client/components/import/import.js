@@ -239,7 +239,9 @@ Template.import.onCreated(function () {
     // A Leo .leo outline is XML text and todo.txt is plain text; both are
     // handled the same way. So is Taskwarrior's export: older versions write
     // one JSON object per line, which is not one JSON document.
-    if (dataSource === 'markdown' || dataSource === 'leo' || dataSource === 'todotxt' || dataSource === 'taskwarrior') {
+    // Focalboard's board.jsonl is one JSON object per line too.
+    if (dataSource === 'markdown' || dataSource === 'leo' || dataSource === 'todotxt' || dataSource === 'taskwarrior' ||
+        dataSource === 'focalboard') {
       const input = this.find('.js-import-json').value;
       if (!input || !input.trim()) {
         this.setError('error-json-malformed');
@@ -454,6 +456,7 @@ const IMPORT_SOURCES = [
   { key: 'leo', name: 'Leo' },
   { key: 'todotxt', name: 'todo.txt' },
   { key: 'taskwarrior', name: 'Taskwarrior' },
+  { key: 'focalboard', name: 'Focalboard' },
 ];
 
 Template.import.helpers({
