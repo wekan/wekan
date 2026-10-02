@@ -6,7 +6,7 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('continuous-backup'));
-for (const code of ['fi', 'sv', 'da', 'nb', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'it', 'nl', 'nl-NL', 'pl', 'pl-PL', 'cs', 'cs-CZ', 'sk', 'sl', 'hr', 'ro', 'ro-RO', 'hu', 'bg', 'uk', 'uk-UA', 'ru', 'ru-RU', 'ru_RU', 'ru-UA', 'lv', 'lt', 'et-EE', 'el', 'el-GR', 'tr', 'ja', 'ja-JP', 'ja-HI', 'ko', 'ko-KR', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-Hant', 'zh-TW', 'zh-HK', 'id', 'ms', 'ms-MY', 'vi', 'vi-VN', 'ar', 'ar-DZ', 'ar-EG', 'he', 'he-IL', 'fa', 'fa-IR', 'ur']) {
+for (const code of ['fi', 'sv', 'da', 'nb', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'it', 'nl', 'nl-NL', 'pl', 'pl-PL', 'cs', 'cs-CZ', 'sk', 'sl', 'hr', 'ro', 'ro-RO', 'hu', 'bg', 'uk', 'uk-UA', 'ru', 'ru-RU', 'ru_RU', 'ru-UA', 'lv', 'lt', 'et-EE', 'el', 'el-GR', 'tr', 'ja', 'ja-JP', 'ja-HI', 'ko', 'ko-KR', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-Hant', 'zh-TW', 'zh-HK', 'id', 'ms', 'ms-MY', 'vi', 'vi-VN', 'ar', 'ar-DZ', 'ar-EG', 'he', 'he-IL', 'fa', 'fa-IR', 'ur', 'hi', 'hi-IN', 'bn']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -74,6 +74,8 @@ for (const [codes, protection, pause, units] of [
   }
 }
 for (const [codes, protection, pause, units] of [
+  [['hi', 'hi-IN'], /उपयोग में मौजूद फ़ाइल को कभी अधिलेखित नहीं करती/, /चुनी गई पीढ़ी को चुने गए समय.*बहाली के दौरान.*अस्थायी रूप से रुक जाएगा/, ['सेकंड', 'घंटे', 'दिन']],
+  [['bn'], /ব্যবহৃত ফাইল কখনো ওভাররাইট করে না/, /নির্বাচিত প্রজন্মকে নির্বাচিত মুহূর্তের.*পুনরুদ্ধারের সময়.*সাময়িকভাবে বন্ধ থাকবে/, ['সেকেন্ড', 'ঘণ্টা', 'দিন']],
   [['fa', 'fa-IR'], /هرگز فایل در حال استفاده را بازنویسی نمی‌کند/, /نسل انتخاب‌شده.*لحظهٔ انتخاب‌شده.*هنگام بازیابی موقتاً متوقف می‌شود/, ['ثانیه', 'ساعت', 'روز']],
   [['ur'], /زیر استعمال فائل کو کبھی اوور رائٹ نہیں کرتی/, /منتخب نسل کو منتخب لمحے.*بحالی کے دوران.*عارضی طور پر رک جائے گا/, ['سیکنڈ', 'گھنٹے', 'دن']],
   [['ar', 'ar-DZ', 'ar-EG'], /ولا يستبدل أبدًا الملف المستخدم حاليًا/, /الجيل المحدد.*اللحظة المحددة.*سيتوقف.*مؤقتًا أثناء الاستعادة/, ['ثوانٍ', 'ساعات', 'أيام']],
@@ -147,5 +149,9 @@ for (const key of keys) {
   for (const code of ['he', 'he-IL']) assert.match(read(code)[key], /\p{Script=Hebrew}/u);
 }
 assert.equal(read('ur').backup, 'بیک اپ');
+for (const key of keys) {
+  for (const code of ['hi', 'hi-IN']) assert.match(read(code)[key], /\p{Script=Devanagari}/u);
+  assert.match(read('bn')[key], /\p{Script=Bengali}/u);
+}
 for (const key of keys) assert.doesNotMatch(read('de-CH')[key], /ß/);
-console.log(`Continuous backup: ${keys.length} translations in seventy-eight locales passed`);
+console.log(`Continuous backup: ${keys.length} translations in eighty-one locales passed`);
