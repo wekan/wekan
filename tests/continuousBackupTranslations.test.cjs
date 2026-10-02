@@ -6,7 +6,7 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('continuous-backup'));
-for (const code of ['fi', 'sv', 'da', 'nb']) {
+for (const code of ['fi', 'sv', 'da', 'nb', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -32,4 +32,18 @@ assert.match(read('da')['continuous-backup-restore-sqlite'], /overskriver aldrig
 assert.match(read('nb')['continuous-backup-restore-sqlite'], /overskriver aldri den aktive filen/);
 assert.match(read('da')['continuous-backup-restore-confirm'], /valgte generation til det valgte tidspunkt.*pause under gendannelsen/);
 assert.match(read('nb')['continuous-backup-restore-confirm'], /valgte generasjonen til det valgte tidspunktet.*pause under gjenopprettingen/);
-console.log(`Continuous backup: ${keys.length} translations in four locales passed`);
+for (const [codes, protection, pause, units] of [
+  [['de', 'de-AT', 'de-CH', 'de_DE'], /niemals die aktive Datei/, /gewählte Generation zum gewählten Zeitpunkt.*pausiert während der Wiederherstellung/, ['Sekunden', 'Stunden', 'Tage']],
+  [['fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR'], /sans jamais écraser le fichier en cours d’utilisation/, /génération choisie à l’instant choisi.*suspendue pendant la restauration/, ['secondes', 'heures', 'jours']],
+]) {
+  for (const code of codes) {
+    const locale = read(code);
+    assert.match(locale['continuous-backup-restore-sqlite'], protection);
+    assert.match(locale['continuous-backup-restore-confirm'], pause);
+    for (const [i, suffix] of ['sqlite-interval', 'base-every', 'keep-days'].entries()) {
+      assert.ok(locale[`continuous-backup-${suffix}`].includes(units[i]), `${code}:${suffix}: unit preserved`);
+    }
+  }
+}
+for (const key of keys) assert.doesNotMatch(read('de-CH')[key], /ß/);
+console.log(`Continuous backup: ${keys.length} translations in thirteen locales passed`);
