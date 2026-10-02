@@ -170,6 +170,8 @@ const GUARDED = {
   syncbleed: ['tests/syncBleed.test.cjs', 'tests/playwright/specs/list-sync-source.e2e.js'],
   relaybleed: ['tests/relayBleed.test.cjs'],
   emailbleed: ['tests/adminMailSettings.test.cjs'],
+  bflableed: ['tests/unawaitedAccessCheck.test.cjs'],
+  excelbleed: ['tests/unawaitedAccessCheck.test.cjs'],
 
   // Guarded by ATTEMPT DETECTION rather than by a fix-regression test: a canary
   // sits where the attack is tried, and tests/canaryCoverage.test.cjs pins that
@@ -197,11 +199,9 @@ const RECORDED = {
   anchorbleed: 'GHSL-2026-035 CursorBleed; reported before the *bleed suites existed',
   authbleed: 'unauthenticated getServiceConfiguration leaked the OIDC client secret; needs a DDP test',
   avatarbleed: 'predates the test suites; superseded in part by tests/avatarUrlSafety.test.cjs, which does not name it',
-  bflableed: '48 REST endpoints missing await on the access check - wants a source sweep over every route, not one test',
   brutebleed: 'user data published unconditionally; overlaps userbleed, both need a publication test',
   bypassbleed: 'authentication bypass; predates the *bleed test suites, no source guard was written',
   duebleed: 'Due Cards showed other users\' private board cards to an Admin; needs a publication test',
-  excelbleed: 'un-awaited access-control guard in the Excel export route; same class as bflableed',
   fieldbleed: 'JavaScript stored in a field ran when the page was reloaded; predates the *bleed test suites',
   floppybleed: 'FileBleed variant; predates the *bleed test suites, no source guard was written',
   framebleed: 'cross-frame scripting; a header fix with no test',
@@ -300,7 +300,9 @@ test('the gap list may not grow', () => {
   // 23 -> 22: EmailBleed was taken for a stale alias. It IS published - the
   // index spelled it "Emailbleed", which this case-sensitive match skipped - and
   // it is guarded above by tests/adminMailSettings.test.cjs (2026-10-02).
-  assert.strictEqual(Object.keys(RECORDED).length, 22,
+  // 22 -> 20: BFLABleed and ExcelBleed, both un-awaited async access checks,
+  // are held tree-wide by tests/unawaitedAccessCheck.test.cjs (2026-10-02).
+  assert.strictEqual(Object.keys(RECORDED).length, 20,
     'the number of published vulnerabilities with no regression test changed');
 });
 
