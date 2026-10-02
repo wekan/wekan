@@ -75,6 +75,9 @@ const EXPECTED = [
   'js-open-rules-view',
   ...RULES_VIEWS,
   'hr',
+  // Scrum settings, in a group of its own above Change color (2026-10-02).
+  'js-open-board-scrum-settings',
+  'hr',
   'js-change-board-color',
   'js-change-background-image',
   'js-open-board-date-settings',
@@ -82,7 +85,6 @@ const EXPECTED = [
   'js-open-board-view-settings',
   'js-open-board-swimlane-settings',
   'js-open-board-list-settings',
-  'js-open-board-scrum-settings',
   'js-open-board-card-settings',
   'hr',
   'js-export-board',
@@ -94,7 +96,7 @@ const EXPECTED = [
   'js-archive-board',
 ];
 
-test('the Board Settings menu is Rules ... Move Board to Archive, in five groups', () => {
+test('the Board Settings menu is Rules ... Move Board to Archive, in six groups', () => {
   assert.deepStrictEqual(sequence, EXPECTED);
 });
 
@@ -135,7 +137,7 @@ test('the reorder kept every guard (negative: nothing became visible to more peo
   assert.deepStrictEqual(guardsOf('js-open-board-swimlane-settings'), ['if currentUser', admin]);
   assert.deepStrictEqual(guardsOf('js-open-board-date-settings'), [admin]);
   assert.deepStrictEqual(guardsOf('js-open-board-list-settings'), ['if currentUser', admin]);
-  assert.deepStrictEqual(guardsOf('js-open-board-scrum-settings'), ['if currentUser', admin]);
+  assert.deepStrictEqual(guardsOf('js-open-board-scrum-settings'), [admin]);
   assert.deepStrictEqual(guardsOf('js-open-board-card-settings'), ['if currentUser'],
     'Card stays open to any board member for its personal Labels text row');
   assert.deepStrictEqual(guardsOf('js-export-board'), ['if withApi', 'unless exportDisabled']);
@@ -148,8 +150,8 @@ test('the reorder kept every guard (negative: nothing became visible to more peo
 
 test('each group is its own ul, and a rule never follows a rule (negative)', () => {
   const uls = lines.filter(l => l.text === 'ul.pop-over-list').length;
-  assert.strictEqual(uls, 5, 'five groups, five lists');
-  assert.strictEqual(sequence.filter(s => s === 'hr').length, 4, 'four rules between five groups');
+  assert.strictEqual(uls, 6, 'six groups, six lists');
+  assert.strictEqual(sequence.filter(s => s === 'hr').length, 5, 'five rules between six groups');
   assert.ok(sequence[0] !== 'hr' && sequence[sequence.length - 1] !== 'hr', 'no rule at either end');
   assert.ok(!sequence.some((s, i) => s === 'hr' && sequence[i + 1] === 'hr'), 'no doubled rule');
 });
@@ -161,8 +163,8 @@ test('the docs draw the same order', () => {
     .map(l => (/^[│\s─]+$/.test(l) ? 'hr' : l.replace(/[│▸<-]|here/g, '').trim()))
     .filter(Boolean);
   assert.deepStrictEqual(names, [
-    'Rules', 'Change color', 'Change Background Image', 'Date', 'hr',
-    'Board View', 'Swimlane', 'List', 'Scrum settings', 'Card', 'hr',
+    'Rules', 'hr', 'Scrum settings', 'hr', 'Change color', 'Change Background Image', 'Date', 'hr',
+    'Board View', 'Swimlane', 'List', 'Card', 'hr',
     'Export', 'Import', 'Notifications', 'Outgoing Webhooks', 'hr',
     'Archived items', 'Move Board to Archive',
   ], 'the diagram lists the entries and rules in the menu\'s order');

@@ -481,9 +481,9 @@ template(name="outgoingWebhooksPopup")
             option(value=_type) {{_ _type}}
     input.primary.wide(type="submit" value="{{_ 'create'}}")
 
-//- Board Settings, top to bottom, in four groups divided by a rule:
-    Rules, Change color, Change Background Image, Date | Board View, Swimlane,
-    List, Card | Export, Import, Notifications, Outgoing Webhooks |
+//- Board Settings, top to bottom, in groups divided by a rule:
+    Rules | Scrum settings | Change color, Change Background Image, Date |
+    Board View, Swimlane, List, Card | Export, Import, Notifications, Outgoing Webhooks |
     Archived items, Move Board to Archive. The first group is what the board
     IS, the second how it is drawn, the third what goes in and out of it,
     the last what has been put away. Every entry keeps its own guard: the
@@ -523,6 +523,14 @@ template(name="boardMenuPopup")
           i.fa.fa-exchange
           | {{_ 'rulesImportExportPopup-title'}}
     //- Rules and its views are one group; the board's look starts below it.
+    hr
+    //- Scrum settings: how this board plans its work, above the group that
+      decides how the board looks, with a rule of its own between them.
+    ul.pop-over-list
+      li
+        a.js-open-board-scrum-settings
+          i.fa.fa-repeat
+          | {{_ 'scrum-settings'}}
     hr
     ul.pop-over-list
       //- "Custom Fields" was here. The board's list of them is in the card's own
@@ -591,10 +599,8 @@ template(name="boardMenuPopup")
           a.js-open-board-list-settings(title="{{_ 'list'}}")
             i.fa.fa-trello
             | {{_ 'list'}}
-        li
-          a.js-open-board-scrum-settings
-            i.fa.fa-repeat
-            | {{_ 'scrum-settings'}}
+        //- "Scrum settings" was here. It is above Change color now, in a group
+          of its own.
         //- "WIP Limit Groups" was here. It is a row of Board Settings /
           Swimlane now (boardSwimlaneSettingsPopup below): a group most often
           caps one swimlane's lists together, so it sits with the swimlane
