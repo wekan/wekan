@@ -1686,6 +1686,17 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/19991f3927">Translate Khmer shortcuts and text operations</a>. Thanks to xet7.</summary>
+
+- Fill 31 shortcut, text and character-selection messages in both Khmer locale
+  files; km-KH inherits the Cambodia translations.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass for all three locale tags, as do all 21 human-preference checks.
+  Full-language work, browser and native-speaker reviews remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/92e8f58ef4">Translate Khmer keyboard navigation shortcuts</a>. Thanks to xet7.</summary>
 
 - Fill 30 keyboard navigation and editing shortcuts in both Khmer locale
