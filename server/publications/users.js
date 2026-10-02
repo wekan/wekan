@@ -66,8 +66,11 @@ Meteor.publish('user-authenticationMethod', async function (match) {
     } catch (e) { /* logging must never break the guard */ }
     return this.ready();
   }
+  // Only the caller's own record: the sign-in form uses this for the signed-in
+  // user, and any other user's organizations, teams and login method are not
+  // a signed-in stranger's to look up by username.
   const ret = await ReactiveCache.getUsers(
-    { $or: [{ _id: match }, { email: match }, { username: match }] },
+    { _id: this.userId, $or: [{ _id: match }, { 'emails.address': match }, { username: match }] },
     {
       fields: {
         authenticationMethod: 1,
