@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c69bc4a668">Translate Burmese shortcuts and text operations</a>. Thanks to xet7.</summary>
+
+- Fill 28 navigation-shortcut, text-append and letter-case messages.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/894cfa06cf">Translate Burmese accessibility and shortcut messages</a>. Thanks to xet7.</summary>
 
 - Fill 25 function-input, screenreader, navigation and shortcut messages.
