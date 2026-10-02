@@ -1686,6 +1686,20 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7779a58811">Finish reported Amharic translation placeholders</a>. Thanks to xet7.</summary>
+
+- Fill the remaining 26 recovery, sign-in and history messages in Amharic.
+  Preserve 28 reviewed keyboard, platform and code literals. No untranslated
+  prose is reported by the fill tool.
+- Whole-file placeholder checks, Amharic progress tests and all 21
+  human-preference checks pass. The shared completion suite still fails on
+  missing dependency keys in another locale.
+- Specialized terminology remains low confidence pending native-speaker
+  review. Browser and full language-quality reviews remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e3cdb4f153">Translate Amharic delivery errors and activity recovery</a>. Thanks to xet7.</summary>
 
 - Fill 30 delivery-error, time-estimate and activity-recovery messages
