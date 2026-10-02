@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a6c03a80c4">Translate Uyghur text operations</a>. Thanks to xet7.</summary>
+
+- Fill 46 text selection, search, conversion and editing messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5508e3471f">Translate Uyghur editor shortcut messages</a>. Thanks to xet7.</summary>
 
 - Fill 41 shortcut and text-editing messages.
