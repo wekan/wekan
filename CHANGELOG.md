@@ -3424,6 +3424,23 @@ still has English messages in 34 locale tags; the broader translation backlog re
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3ead95c01c">Translate email recovery in Hawaiian and Manx</a>. Thanks to xet7.</summary>
+
+Fill 46 English placeholders, preserving existing translations, source order and
+exact tokens. Extend checks for irreversible cancellation, keeping later messages,
+uncertain delivery and retries retaining a pause. Correct Manx queue terminology
+during review. Four focused catalog and translation suites and all 21
+human-preference checks pass.
+
+Technical phrasing and inflection in Hawaiian and Manx have lower confidence and
+need speaker review. Terminology references include [Hawaiian dictionaries](https://hilo.hawaii.edu/wehe/?q=leka+uila)
+and [Learn Manx resources](https://www.learnmanx.com/resources/dictionaries--grammar/).
+Structural checks do not establish fluency. Email recovery still has English
+messages in 32 locale tags; the broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
