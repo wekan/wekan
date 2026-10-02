@@ -3231,6 +3231,25 @@ The broader translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/94c581b537">Translate feature visibility settings into Tigre and Cherokee</a>. Thanks to xet7.</summary>
+
+Fill 48 English placeholders across Tigre and Cherokee. The 24 feature visibility
+messages now have translations in all 234 non-English locale tags, and the suite
+checks its coverage list against the catalog directory. Preserve existing
+translated values, exact tokens and source order. Cover data retention, unchanged
+permissions, approval after updates and distinct administrator and pilot users.
+
+All 451 translation-related suites and 21 human-preference checks pass.
+Tigre and Cherokee specialist wording and inflection have low confidence and
+need speaker review. References include the [Tigre grammar of Ginda](https://www.speaktigre.com/_files/ugd/7e068a_adcb2a9df2c340898e3155ef3905c61e.pdf?index=true),
+[Tigre permission vocabulary](https://www.speaktigre.com/_files/ugd/7e068a_0c27fcb32e044d3197ef7f4bcb3163a6.pdf)
+and the [Cherokee Nation consortium word list](https://language.cherokee.org/media/4emjgbyy/2019consortium_wordlist.pdf).
+Structural tests do not establish fluency. Other new Scrum, Sync and email
+recovery strings remain in the broader translation backlog.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
