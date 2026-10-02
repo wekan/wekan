@@ -7,7 +7,7 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(
   path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const english = read('en');
-const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC', 'bho', 'mai', 'kok', 'or_IN', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'nso', 'ss', 'rw', 'rn', 'lg', 'om', 'mi', 'sm', 'to', 'fj', 'hsb', 'szl', 'wa', 'lld', 'haw', 'gv', 'ts', 've', 'nd', 'wa-RR'];
+const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC', 'bho', 'mai', 'kok', 'or_IN', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'nso', 'ss', 'rw', 'rn', 'lg', 'om', 'mi', 'sm', 'to', 'fj', 'hsb', 'szl', 'wa', 'lld', 'haw', 'gv', 'ts', 've', 'nd', 'wa-RR', 'rup', 'se'];
 const scripts = {
   ckb: 'Arabic', ary: 'Arabic', tt: 'Cyrillic', yi: 'Hebrew', 'wuu-Hans': 'Han',
   bho: 'Devanagari', mai: 'Devanagari', kok: 'Devanagari', or_IN: 'Oriya',
@@ -32,6 +32,14 @@ for (const code of codes) {
 // Cancellation is irreversible only for the messages covered by this request.
 // Retrying must retain the pause and the warning about uncertain delivery.
 const meanings = {
+  rup: {
+    cancel: /nu poati s-hibã turnat nãpoi.*dupã aestã tsireri va s-hibã pãstrati/,
+    description: /nu poati s-hibã turnat nãpoi.*nishigur.*repetatã.*tsãni pauza tsi easti tora/,
+  },
+  se: {
+    cancel: /ii dan sáhte máhcahit.*dán bivdaga maŋŋá vurkejuvvojit/,
+    description: /ii sáhte geassit ruovttoluotta.*eahpesihkar.*geardduhuvvot.*doallá dálá botto fámus/,
+  },
   nd: {
     cancel: /ngeke kubuyiselwe.*ngemva kwalesi sicelo izagcinwa/,
     description: /awungeke ubuyiselwe emuva.*okungaqinisekanga.*kungaphindwa.*kugcina ukumiswa okwesikhatshana okukhona/,
@@ -243,6 +251,13 @@ for (const code of ['ts', 've']) {
 }
 assert.match(read('nd')['email-recovery-description'], /khathesi.*Nxa.*omutsha/);
 assert.match(read('wa-RR')['email-recovery-description'], /han.*ngan.*yana/);
+assert.match(read('rup')['email-recovery-unavailable'], /ghivãsitã/);
+assert.doesNotMatch(read('se')['email-recovery-confirm-cancel'], /eikä/);
+for (const [key, value] of Object.entries({email: 'Postã electronicã', 'email-fail': 'Trimitirea a email-lui nu ari suxes', 'email-sent': 'Email trimeas'})) {
+  assert.equal(read('rup')[key], value);
+  assert.doesNotMatch(read('rup')[key], /Correo|Invio|inviata/);
+  assert.deepEqual(translationTokens(read('rup')[key]), translationTokens(english[key]));
+}
 assert.equal(read('to').pause, 'Taʻofi fakataimi');
 assert.doesNotMatch(read('to').pause, /Faka-Tonga:|Pause/);
 assert.deepEqual(translationTokens(read('to').pause), translationTokens(english.pause));
