@@ -3065,6 +3065,26 @@ Structural tests do not establish fluency.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/38fb11c29d">Translate Scrum history, estimates and recovery in Veps</a>. Thanks to xet7.</summary>
+
+Fill twenty English placeholders in Veps, bringing these Scrum groups to
+227 locale tags, with seven remaining. Preserve existing translations,
+source order and exact tokens. Extend incomplete-history, missing-weight
+and discard-only recovery checks. Use dictionary terms for finishing,
+preserving, interrupting and stopping; estimate labels refer to an appraised
+number rather than respect alone.
+
+Six catalog and batch suites and all 21 human-preference checks pass.
+Veps workflow phrasing and inflection have lower confidence and need speaker
+review. The broader translation backlog remains. References include
+[the Veps–Hungarian dictionary](https://balti-finn.hu/sites/default/files/vepsze-kotet-beliv.pdf),
+[finishing](https://en.wiktionary.org/wiki/lopta)
+and [discarding](https://en.wiktionary.org/wiki/heitta).
+Structural tests do not establish fluency.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
