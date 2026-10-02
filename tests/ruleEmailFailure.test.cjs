@@ -16,6 +16,8 @@ function fixture(fallback = false) {
   const send = async mail => { mails.push(mail); entered(); await pending; };
   const helper = vm.runInNewContext(`(${object})`, {
     ReactiveCache: cache, console: { error: error => errors.push(error) },
+    // The rule-loop depth guard (BypassBleed DoS): one level, pass-through.
+    ruleDepth: { get: () => 0, withValue: (value, fn) => fn() }, MAX_RULE_DEPTH: 5,
     buildRuleVars: async () => ({ cardname: 'Card', description: 'Description', cardlink: 'https://example.org/card' }),
     // recipientVars turns people tokens into addresses; identity is enough here.
     substituteVars: value => value, recipientVars: vars => vars, TAPi18n: { getLanguage: () => 'en' },

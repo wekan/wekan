@@ -2,6 +2,16 @@ import { canReadBoard } from '/models/lib/boardVisibility';
 import { copyRuleCard } from '/server/lib/ruleCopyCard';
 import { requireButtonRuleContext } from '/models/lib/buttonRulePermission';
 import { DDP } from 'meteor/ddp';
+import { Meteor } from 'meteor/meteor';
+
+// BypassBleed, its denial-of-service part (2026-10-02): a rule's action writes
+// a card, the write inserts an activity, and the activity runs the rules
+// again - in the same awaited chain. Two rules like "label added -> remove it"
+// and "label removed -> add it" recursed without end and took the server
+// down. Rules started by a rule are counted, and a chain deeper than this
+// stops (and is reported) instead of looping.
+const ruleDepth = new Meteor.EnvironmentVariable();
+export const MAX_RULE_DEPTH = 5;
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { TriggersDef } from '/server/triggersDef';
@@ -195,6 +205,20 @@ export const RulesHelper = {
   },
 
   async executeRules(activity) {
+    const depth = ruleDepth.get() || 0;
+    if (depth >= MAX_RULE_DEPTH) {
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'dos.rule-loop', action: 'detected', source: 'rules',
+          detail: `rules started by rules ${depth} deep on board ${activity && activity.boardId}; stopped`,
+        });
+      } catch (e) { /* logging must never break the guard */ }
+      return;
+    }
+    await ruleDepth.withValue(depth + 1, () => this.executeRulesAtDepth(activity));
+  },
+
+  async executeRulesAtDepth(activity) {
     const matchingRules = await this.findMatchingRules(activity);
     for (let i = 0; i < matchingRules.length; i++) {
       const rule = matchingRules[i];

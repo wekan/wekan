@@ -28,6 +28,8 @@ function fixture(action, method) {
     // Rules with several triggers/actions (models/lib/ruleParts.js).
     ...require('../models/lib/ruleParts.js'),
     console: { error() {} },
+    // The rule-loop depth guard (BypassBleed DoS): one level, pass-through.
+    ruleDepth: { get: () => 0, withValue: (value, fn) => fn() }, MAX_RULE_DEPTH: 5,
     buildRuleVars: async () => ({}),
     relativeDateOffset: () => new Date(1234),
     resolveRuleListId: row => row._id, resolveRuleSwimlaneId: row => row._id,

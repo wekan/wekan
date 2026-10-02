@@ -174,6 +174,7 @@ const GUARDED = {
   megableed: ['tests/tenantbleed.test.cjs'],
   framebleed: ['tests/frameBleed.test.cjs', 'tests/playwright/specs/frame-bleed.e2e.js'],
   invisiblebleed: ['tests/invisibleBleed.test.cjs'],
+  bypassbleed: ['tests/ruleLoopDepth.test.cjs'],
   excelbleed: ['tests/unawaitedAccessCheck.test.cjs'],
 
   // Guarded by ATTEMPT DETECTION rather than by a fix-regression test: a canary
@@ -203,7 +204,6 @@ const RECORDED = {
   authbleed: 'unauthenticated getServiceConfiguration leaked the OIDC client secret; needs a DDP test',
   avatarbleed: 'predates the test suites; superseded in part by tests/avatarUrlSafety.test.cjs, which does not name it',
   brutebleed: 'user data published unconditionally; overlaps userbleed, both need a publication test',
-  bypassbleed: 'authentication bypass; predates the *bleed test suites, no source guard was written',
   duebleed: 'Due Cards showed other users\' private board cards to an Admin; needs a publication test',
   fieldbleed: 'JavaScript stored in a field ran when the page was reloaded; predates the *bleed test suites',
   floppybleed: 'FileBleed variant; predates the *bleed test suites, no source guard was written',
@@ -306,7 +306,8 @@ test('the gap list may not grow', () => {
   // tests/tenantbleed.test.cjs (2026-10-02).
   // 19 -> 18: FrameBleed - restored after its 2022 regression, and tested.
   // 18 -> 17: InvisibleBleed - only its first comment was made visible; fixed and tested.
-  assert.strictEqual(Object.keys(RECORDED).length, 17,
+  // 17 -> 16: BypassBleed - its rule-loop DoS part was still open; fixed and tested.
+  assert.strictEqual(Object.keys(RECORDED).length, 16,
     'the number of published vulnerabilities with no regression test changed');
 });
 
