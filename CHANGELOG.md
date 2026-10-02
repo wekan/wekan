@@ -3551,6 +3551,22 @@ messages in 20 locale tags; the broader translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4fb6157c52">Translate email recovery in Bambara and Ewe</a>. Thanks to xet7.</summary>
+
+Fill 46 English placeholders, preserving existing translations, source order and
+exact tokens. Extend cancellation, uncertain-delivery, retained-pause and vocabulary
+checks. Refine resume and form-field wording during review. Four focused catalog
+and translation suites and all 21 human-preference checks pass.
+
+Specialist workflow wording and grammar in Bambara and Ewe have lower confidence
+and need speaker review. References include [the An ka taa dictionary](https://dictionary.ankataa.com/lexicon.php?letter=3)
+and [Ghana's Ewe learning materials](https://curriculumresources.edu.gh/wp-content/uploads/2025/01/LM-Ewe-Language-section-2-LVersion.pdf).
+Structural checks do not establish fluency. Email recovery still has English
+messages in 18 locale tags; the broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
