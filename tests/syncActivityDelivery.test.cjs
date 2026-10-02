@@ -25,9 +25,16 @@ test('delivery acknowledges all ordered stages and isolates captured inputs from
   assert.equal(f.policy.notifications, true);
 });
 test('missing adapters and invalid identities are refused before any effect', async () => {
-  const incomplete = fixture(); delete incomplete.input.activity.listId;
-  await assert.rejects(deliver(incomplete.input), /delivery-invalid/);
-  assert.deepEqual(incomplete.calls, []);
+  // A board-level activity (2026-10-03: createSwimlane, moveCardBoard) names no
+  // list and is delivered; a list it does name must be a proper one.
+  const boardLevel = fixture(); delete boardLevel.input.activity.listId;
+  await deliver(boardLevel.input);
+  assert.deepEqual(boardLevel.calls, ['rules', 'notifications', 'webhooks']);
+  for (const listId of ['', 7, 'x'.repeat(1025)]) {
+    const incomplete = fixture(); incomplete.input.activity.listId = listId;
+    await assert.rejects(deliver(incomplete.input), /delivery-invalid/);
+    assert.deepEqual(incomplete.calls, []);
+  }
   for (const missing of ['rules', 'notifications', 'webhooks', 'assertCurrent', 'readPolicy']) {
     const f = fixture(); delete f.input[missing];
     await assert.rejects(deliver(f.input)); assert.deepEqual(f.calls, []);

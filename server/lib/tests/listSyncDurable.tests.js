@@ -271,7 +271,7 @@ describe('Durable list Sync', function () {
         assert.deepEqual([ninth.boardId, ninth.listId], [awayId, awayListId], 'moved by the rule');
         assert.equal(await Activities.find({ cardId: ninth._id, activityType: 'moveCardBoard' }).countAsync(), 1);
         assert.equal(await collection('listSyncOperations').countDocuments({ _id: listId }), 0, 'the run completed');
-        const plan = await collection('listSyncNotificationPlans').findOne({ 'plan.cardId': ninth._id });
+        const plan = await collection('listSyncNotificationPlans').findOne({ 'plan.cardId': ninth._id, 'plan.boardId': boardId });
         assert.deepEqual(plan.plan.recipients.map(recipient => recipient.userId), [watcher],
           'the list watcher was planned a notification, and received it');
       } finally {

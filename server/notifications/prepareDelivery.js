@@ -20,7 +20,7 @@ export async function prepareActivityDeliveryPlan({ activity, assertCurrent }) {
   const moved = async () => (context.card.boardId !== saved.boardId || context.card.listId !== saved.listId) &&
     !(await require('/server/notifications/storedRulePlans').activityCardNow(saved));
   if (context && (context.board?._id !== saved.boardId || context.card?._id !== saved.cardId ||
-      (saved.listId ? await moved() : context.card.boardId !== saved.boardId))) {
+      (saved.listId ? await moved() : !!context.card && context.card.boardId !== saved.boardId))) {
     throw new Error('sync-notification-context-unavailable');
   }
   const users = new Map((context?.users || []).map(user => [user._id, user]));

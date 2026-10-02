@@ -6,11 +6,8 @@
 //
 // One saved command per rule invocation: the swimlane's id is derived from the
 // invocation so a replay inserts it once, and the activity - fully known before
-// the insert - has a derived id too, so it is written once. A swimlane activity
-// has no card, and WeKan's durable activity delivery (notification, webhook and
-// rule plans) is keyed by a card, so this activity goes through the ordinary
-// delivery every board-level activity has; what the command makes certain is
-// that the swimlane and its activity each exist exactly once. Pure: tested by
+// the insert - has a derived id too, so it is written once, and delivered
+// durably: a board-level activity, with no card or list (2026-10-03). Pure: tested by
 // tests/syncRuleAddSwimlaneCommand.test.cjs.
 const { EJSON } = require('bson');
 const { canonical, sha256 } = require('../../models/lib/changeHistoryIntegrity');

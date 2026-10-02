@@ -20,6 +20,7 @@ import ChecklistItems from '/models/checklistItems';
 import Checklists from '/models/checklists';
 import UserPositionHistory from '/models/userPositionHistory';
 import { RulesHelper } from '/server/rulesHelper';
+import { TriggersDef } from '/server/triggersDef';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 import { ensureIndex } from '/server/lib/mongoStartup';
 const { reuseWithinEvaluation } = require('/server/lib/syncGuardWindow');
@@ -188,7 +189,8 @@ async function movedByThisPlan(planIdValue, cardId, card) {
 export async function activityCardNow(saved) {
   const card = await Cards.findOneAsync({ _id: saved.cardId });
   if (!card) return null;
-  if (card.boardId === saved.boardId && card.listId === saved.listId) return card;
+  // An activity that names no list (moveCardBoard) is about the card on its board.
+  if (card.boardId === saved.boardId && (saved.listId === undefined || card.listId === saved.listId)) return card;
   const plans = await SyncRulePlans.rawCollection().find({ 'plan.activityId': saved._id }, { projection: { _id: 1 } })
     .toArray();
   for (const { _id } of plans) {
@@ -220,6 +222,16 @@ export async function captureStoredSyncRulePlan(options) {
 // Adapters must provide their own durable command/mutation reconciliation.
 // In particular ordinary RulesHelper.performAction is not an adapter here.
 export async function runStoredSyncRules({ adapters, ...options }) {
+  // A board-level activity names no list (2026-10-03: a rule's createSwimlane,
+  // a cross-board moveCardBoard). No rule trigger exists for those types
+  // (server/triggersDef.js), so there is nothing to run; one that has a
+  // trigger would need its list, and is refused.
+  if (options.activity && options.activity.listId === undefined) {
+    if (Object.hasOwn(TriggersDef, options.activity.activityType)) throw new Error('sync-rule-stage-invalid');
+    validateSyncTrigger(options.trigger);
+    await options.assertCurrent();
+    return options.effectId;
+  }
   const context = executionContext(options);
   const plan = await capture(context, { allowCompacted: true });
   // Compacted: its actions finished more than the retention period ago.
@@ -801,14 +813,12 @@ async function applyRuleMoveBoard(command, { guard, completeDelivery, options })
     else await Activities.rawCollection().updateOne({ _id: rewrite._id },
       { $set: { labelId: rewrite.labelId, boardId: rewrite.boardId } });
   }
-  // The moveCardBoard activity, once by its id, delivered as ordinary
-  // activities are (it names no list; no rule trigger exists for it).
-  await guard();
+  // The moveCardBoard activity, delivered durably: it names no list, which
+  // board-level delivery takes (2026-10-03), and no rule trigger exists for it.
   const move = command.effects.move;
-  if (!await Activities.rawCollection().findOne({ _id: move._id })) {
-    try { await actor(() => Activities.insertAsync(move)); }
-    catch (error) { if (!await Activities.rawCollection().findOne({ _id: move._id })) throw error; }
-  }
+  await persistSyncActivity({ activities: durableActivities(actor), activity: move,
+    effectId: move._id.slice('sync-rule-move-board-'.length), assertCurrent: guard,
+    completeDelivery: delivery => completeDelivery({ ...delivery, policy: options.policy, trigger: options.trigger }) });
   // The custom fields' activities, delivered durably on the new board.
   const activities = {
     findOneAsync: activityId => Activities.findOneAsync(activityId, { transform: null }),
@@ -1181,7 +1191,7 @@ const { commandId: ruleLinkCardCommandId, prepareRuleLinkCardCommand, validateRu
 export const SyncRuleAddSwimlaneCommands = new Mongo.Collection('listSyncRuleAddSwimlaneCommands');
 SyncRuleAddSwimlaneCommands.deny({ insert: () => true, update: () => true, remove: () => true });
 
-export async function runStoredSyncRuleAddSwimlane({ index, ...options }) {
+export async function runStoredSyncRuleAddSwimlane({ index, completeDelivery = runStoredSyncActivityDelivery, ...options }) {
   const context = executionContext(options), plan = await capture(context);
   const invocation = plan.actions[index], action = invocation?.action;
   if (action?.actionType !== 'addSwimlane') throw new Error('sync-rule-add-swimlane-invalid');
@@ -1218,16 +1228,22 @@ export async function runStoredSyncRuleAddSwimlane({ index, ...options }) {
       throw new Error('sync-rule-add-swimlane-unconfirmed');
     }
   }
-  await guard();
-  if (!await Activities.rawCollection().findOne({ _id: command.activity._id })) {
-    let failure;
-    try { await actor(() => Activities.insertAsync(command.activity)); } catch (error) { failure = error; }
-    if (!await Activities.rawCollection().findOne({ _id: command.activity._id })) {
-      throw failure || new Error('sync-rule-add-swimlane-activity-unconfirmed');
-    }
-  }
+  // The createSwimlane activity, delivered durably: a board-level activity
+  // (2026-10-03) - no card, no list, no rule trigger - whose notifications and
+  // webhooks are replayed after a crash like any other's.
+  await persistSyncActivity({ activities: durableActivities(actor), activity: command.activity,
+    effectId: command.activity._id.slice('sync-rule-add-swimlane-'.length), assertCurrent: guard,
+    completeDelivery: delivery => completeDelivery({ ...delivery, policy: options.policy, trigger: options.trigger }) });
   await guard();
   return invocation.id;
+}
+// Activity insertion for persistSyncActivity: the ordinary insert hooks'
+// delivery deferred, since the durable delivery is the one that runs.
+function durableActivities(actor) {
+  return {
+    findOneAsync: activityId => Activities.findOneAsync(activityId, { transform: null }),
+    insertAsync: document => actor(() => withSyncActivityDeferred(document, () => Activities.insertAsync(document))),
+  };
 }
 const { commandId: ruleAddSwimlaneCommandId, prepareRuleAddSwimlaneCommand, validateRuleAddSwimlaneCommand } =
   require('/server/lib/syncRuleAddSwimlaneCommand');

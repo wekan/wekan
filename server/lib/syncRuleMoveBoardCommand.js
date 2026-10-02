@@ -125,10 +125,9 @@ function effectsFor({ base, before, after, titles, labelActivities, createdAt, r
     newListId: after.place.listId, newBoardId: base.targetBoardId, createdAt: new Date(createdAt), isCheckpoint: false,
     undone: false };
   const receiptId = sha256(canonical([base._id, 'activity']));
-  // cardMove's moveCardBoard activity. It names no list, and durable delivery
-  // identifies an activity by its list (server/lib/syncActivityDelivery.js),
-  // so it is inserted once, by this id, and delivered as ordinary activities
-  // are; no rule trigger exists for it (server/triggersDef.js).
+  // cardMove's moveCardBoard activity. It names no list; durable delivery takes
+  // such board-level activities (2026-10-03), and no rule trigger exists for it
+  // (server/triggersDef.js).
   const move = { _id: `sync-rule-move-board-${receiptId}`, userId: base.actorId, activityType: 'moveCardBoard',
     moveReason: '', boardName: titles.boardName, boardId: base.targetBoardId, oldBoardId: base.boardId,
     oldBoardName: titles.oldBoardName, cardId: base.cardId, swimlaneName: titles.swimlaneName,

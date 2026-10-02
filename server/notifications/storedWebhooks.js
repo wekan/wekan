@@ -49,7 +49,7 @@ Meteor.startup(async () => {
 const { recordWebhookCompletion, createSyncWebhookRetention } = require('/server/lib/syncWebhookRetention');
 const { syncReceiptPolicy } = require('/server/lib/syncRuleEmailRetention');
 
-const { canWriteWebhookCard, isCurrentWebhookTarget } = require('/server/lib/syncWebhookAccess');
+const { canWriteWebhookCard, canWriteWebhookBoard, isCurrentWebhookTarget } = require('/server/lib/syncWebhookAccess');
 const { memberCan } = require('/models/lib/boardRoleCapabilities');
 const { prepareWebhookCommentPlan, ensureWebhookCommentPlan, applyWebhookCommentPlan } = require('/server/lib/syncWebhookComment');
 
@@ -59,7 +59,9 @@ function storedWebhookContext({ activity, policy, assertCurrent, trigger }) {
   notificationActivityIdentity(saved);
   policy = validateSyncEffectPolicy(policy);
   if (!policy.activities || !policy.notifications || typeof assertCurrent !== 'function' ||
-      typeof saved.listId !== 'string' || !saved.listId) throw new Error('sync-webhook-stage-invalid');
+      (saved.listId !== undefined && (typeof saved.listId !== 'string' || !saved.listId))) {
+    throw new Error('sync-webhook-stage-invalid');
+  }
   validateSyncTrigger(trigger);
   async function guard() {
     await assertCurrent();
@@ -67,15 +69,18 @@ function storedWebhookContext({ activity, policy, assertCurrent, trigger }) {
     const [stored, board, card, list, user] = await Promise.all([
       Activities.findOneAsync(saved._id, { transform: null }),
       Boards.findOneAsync(saved.boardId),
-      // The card in the activity's list, or where its own rules moved it.
-      require('./storedRulePlans').activityCardNow(saved),
-      Lists.findOneAsync({ _id: saved.listId, boardId: saved.boardId }, { fields: { _id: 1 } }),
+      // The card in the activity's list, or where its own rules moved it; a
+      // board-level activity names no card or list.
+      saved.cardId ? require('./storedRulePlans').activityCardNow(saved) : null,
+      saved.listId ? Lists.findOneAsync({ _id: saved.listId, boardId: saved.boardId }, { fields: { _id: 1 } }) : null,
       Meteor.users.findOneAsync(saved.userId),
     ]);
     if (!stored || canonical(stored) !== canonical(saved)) throw new Error('sync-webhook-activity-changed');
-    if (!board || !card || !list) throw new Error('sync-webhook-context-unavailable');
+    if (!board || (saved.cardId && !card) || (saved.listId && !list)) throw new Error('sync-webhook-context-unavailable');
     assertSyncActivation({ board, trigger, flags: getFeatureFlags() });
-    if (!canWriteWebhookCard({ user, board, card })) throw new Error('sync-webhook-actor-denied');
+    if (!(card ? canWriteWebhookCard({ user, board, card }) : canWriteWebhookBoard({ user, board }))) {
+      throw new Error('sync-webhook-actor-denied');
+    }
     await assertCurrent();
     return { user, board, card };
   }

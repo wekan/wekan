@@ -49,15 +49,18 @@ export async function runStoredSyncNotifications({ activity, policy, assertCurre
   notificationActivityIdentity(saved);
   policy = validateSyncEffectPolicy(policy);
   if (!policy.activities || !policy.notifications || typeof assertCurrent !== 'function' ||
-      typeof saved.listId !== 'string' || !saved.listId) throw new Error('sync-notification-stage-invalid');
+      (saved.listId !== undefined && (typeof saved.listId !== 'string' || !saved.listId))) {
+    throw new Error('sync-notification-stage-invalid');
+  }
   validateSyncTrigger(trigger);
   async function context() {
     const [board,card,list] = await Promise.all([
-      // Lazy: storedRulePlans.js delivers through this module.
-      Boards.findOneAsync(saved.boardId), require('./storedRulePlans').activityCardNow(saved),
-      Lists.findOneAsync({ _id: saved.listId, boardId: saved.boardId }),
+      // Lazy: storedRulePlans.js delivers through this module. A board-level
+      // activity names no card or list.
+      Boards.findOneAsync(saved.boardId), saved.cardId ? require('./storedRulePlans').activityCardNow(saved) : null,
+      saved.listId ? Lists.findOneAsync({ _id: saved.listId, boardId: saved.boardId }) : null,
     ]);
-    if (!board || !card || !list) throw new Error('sync-notification-context-unavailable');
+    if (!board || (saved.cardId && !card) || (saved.listId && !list)) throw new Error('sync-notification-context-unavailable');
     assertSyncActivation({ board, trigger, flags: getFeatureFlags() });
     return { board,card,list };
   }

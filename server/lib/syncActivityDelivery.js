@@ -16,7 +16,9 @@ async function deliverSyncActivity({ effectId, activity, policy, assertCurrent, 
       typeof assertCurrent !== 'function' || typeof readPolicy !== 'function') throw new Error('sync-activity-delivery-invalid');
   const saved = copy(activity), captured = validateSyncEffectPolicy(policy);
   notificationActivityIdentity(saved);
-  if (typeof saved.listId !== 'string' || !saved.listId || saved.listId.length > 1024) {
+  // A board-level activity names no list (2026-10-03); one that does names it
+  // properly.
+  if (saved.listId !== undefined && (typeof saved.listId !== 'string' || !saved.listId || saved.listId.length > 1024)) {
     throw new Error('sync-activity-delivery-invalid');
   }
   if (!captured.activities || typeof rules !== 'function' ||

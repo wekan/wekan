@@ -9,10 +9,13 @@ const text = value => typeof value === 'string' && value.length > 0 && value.len
 const keys = (value, expected) => value && !Array.isArray(value) &&
   Object.keys(value).sort().join(',') === expected.split(',').sort().join(',');
 const MAX_BYTES = 15 * 1024 * 1024;
+// A board-level activity (2026-10-03: createSwimlane, moveCardBoard's peers)
+// names no card; its plan's cardId is null, as its email jobs' are.
 function identity(activity) {
-  if (!activity || !['_id','boardId','cardId','userId'].every(key => text(activity[key]))) fail();
+  if (!activity || !['_id','boardId','userId'].every(key => text(activity[key])) ||
+      (activity.cardId !== undefined && activity.cardId !== null && !text(activity.cardId))) fail();
   return { activityId: activity._id, activityHash: sha256(canonical(activity)),
-    boardId: activity.boardId, cardId: activity.cardId, actorId: activity.userId };
+    boardId: activity.boardId, cardId: activity.cardId ?? null, actorId: activity.userId };
 }
 function validateRecipient(row, plan) {
   if (!keys(row,'userId,tray,email') || !text(row.userId) || typeof row.tray !== 'boolean') fail();

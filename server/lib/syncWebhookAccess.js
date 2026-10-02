@@ -2,6 +2,12 @@
 const { memberCan } = require('../../models/lib/boardRoleCapabilities');
 const { isAssignedOnlyMember } = require('../../models/lib/boardCardScope');
 const { canonical, sha256 } = require('../../models/lib/changeHistoryIntegrity');
+// A board-level activity (no card): the actor writes the board and is not
+// restricted to their assigned cards.
+function canWriteWebhookBoard({ user, board }) {
+  return !!(user && !user.loginDisabled && board && memberCan(board.members, user._id, 'write') &&
+    !isAssignedOnlyMember(board, user._id));
+}
 function canWriteWebhookCard({ user, board, card }) {
   return !!(user && !user.loginDisabled && board && card && card.boardId === board._id &&
     memberCan(board.members, user._id, 'write') &&
@@ -13,4 +19,4 @@ function isCurrentWebhookTarget({ target, integration, activity }) {
     [activity.boardId, '_global'].includes(integration.boardId) &&
     sha256(canonical(integration)) === target.integrationHash);
 }
-module.exports = { canWriteWebhookCard, isCurrentWebhookTarget };
+module.exports = { canWriteWebhookCard, canWriteWebhookBoard, isCurrentWebhookTarget };

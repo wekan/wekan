@@ -146,7 +146,7 @@ test('negative: only a scope that names the move defers the hook\'s position row
 test('delivery stages find the card where the activity\'s own rules moved it, and nowhere else', () => {
   const read = file => fs.readFileSync(path.join(ROOT, file), 'utf8');
   const plans = read('server/notifications/storedRulePlans.js');
-  assert.match(plans, /export async function activityCardNow\(saved\) \{\n  const card = await Cards\.findOneAsync\(\{ _id: saved\.cardId \}\);\n  if \(!card\) return null;\n  if \(card\.boardId === saved\.boardId && card\.listId === saved\.listId\) return card;/);
+  assert.match(plans, /export async function activityCardNow\(saved\) \{\n  const card = await Cards\.findOneAsync\(\{ _id: saved\.cardId \}\);\n  if \(!card\) return null;\n[\s\S]{0,120}if \(card\.boardId === saved\.boardId && \(saved\.listId === undefined \|\| card\.listId === saved\.listId\)\) return card;/);
   assert.match(plans, /find\(\{ 'plan\.activityId': saved\._id \}[\s\S]{0,200}movedByThisPlan\(_id, saved\.cardId, card\)/);
   for (const file of ['server/notifications/storedDelivery.js', 'server/notifications/storedWebhooks.js']) {
     const src = read(file);
@@ -156,7 +156,7 @@ test('delivery stages find the card where the activity\'s own rules moved it, an
   }
   for (const file of ['server/notifications/prepareDelivery.js', 'server/notifications/prepareWebhooks.js']) {
     const src = read(file);
-    assert.match(src, /\(saved\.listId \? await moved\(\) : context\.card\.boardId !== saved\.boardId\)/, file);
+    assert.match(src, /\(saved\.listId \? await moved\(\) : !!context\.card && context\.card\.boardId !== saved\.boardId\)/, file);
     assert.ok(!/context\.card\.listId !== saved\.listId\)\)\)/.test(src), file);
   }
 });

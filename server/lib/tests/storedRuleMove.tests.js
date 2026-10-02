@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
+import { MongoInternals } from 'meteor/mongo';
 import Boards from '/models/boards';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
@@ -347,6 +348,16 @@ describe('Stored Sync rule moves', function () {
       assert.equal(await Swimlanes.rawCollection().countDocuments({ boardId, title: 'Lane for Pump' }), 1);
       assert.equal(await Activities.rawCollection().countDocuments({ boardId, activityType: 'createSwimlane' }), 1);
       assert.equal(await SyncRuleAddSwimlaneCommands.rawCollection().countDocuments({ boardId }), 1);
+      // Delivered durably (2026-10-03): a board-level activity's notification and
+      // webhook plans exist, keyed by it and naming no card.
+      const created = await Activities.rawCollection().findOne({ boardId, activityType: 'createSwimlane' });
+      const db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
+      const notified = await db.collection('listSyncNotificationPlans').findOne({ 'plan.activityId': created._id });
+      assert.ok(notified, 'a durable notification plan');
+      assert.equal(notified.plan.cardId, null);
+      assert.ok(await db.collection('listSyncWebhookPlans').findOne({ 'plan.activityId': created._id }), 'a webhook plan');
+      await db.collection('listSyncNotificationPlans').deleteMany({ 'plan.boardId': boardId });
+      await db.collection('listSyncWebhookPlans').deleteMany({ 'plan.boardId': boardId });
     } finally {
       const plans = await SyncRulePlans.rawCollection().find({ 'plan.activityId': activityId }, { projection: { _id: 1 } }).toArray();
       await SyncRuleCompletions.rawCollection().deleteMany({ _id: { $in: plans.map(row => row._id) } });
