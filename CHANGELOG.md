@@ -3337,6 +3337,24 @@ has English messages in 50 locale tags; the broader translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cb7b9a5cd1">Translate email recovery in Sotho, Tswana, Northern Sotho and Swati</a>. Thanks to xet7.</summary>
+
+Fill 92 English placeholders across Southern Sotho, Tswana, Northern Sotho and
+Swati. Preserve existing translated values, source order and exact tokens.
+Extend regressions for cancellation boundaries, messages that cannot be recalled,
+uncertain delivery and existing pauses retained during retry. Keep each language's
+own wording for continuing delivery.
+
+Four focused catalog and translation suites and all 21 human-preference checks
+pass. Specialist workflow phrasing and inflection have lower confidence and need
+speaker review. Vocabulary references include the [Setswana dictionary](https://setswana.co.za/)
+and [Swati writing examples](https://www.education.gov.za/Portals/0/CD/2024May-June%20papers/Siswati%20FAL%20P3%20May-June%202024.pdf).
+Structural checks do not establish fluency. Email recovery remains in English in
+46 locale tags, alongside the broader translation backlog.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
