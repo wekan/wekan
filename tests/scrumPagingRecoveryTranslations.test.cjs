@@ -6,7 +6,7 @@ const path = require('node:path');
 const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const english = read('en');
-const codes = ["af", "af_ZA", "am", "an", "ar", "ar-DZ", "ar-EG", "ary", "as", "ast-ES", "az", "az-AZ", "az-LA", "ba", "be", "bg", "bho", "bi", "bn", "br", "bs", "bua", "ca", "ca@valencia", "ca_ES", "ckb", "cmn", "co", "cs", "cs-CZ", "csb", "cv", "cy", "cy-GB", "da", "de", "de-AT", "de-CH", "de_DE", "ee", "el", "el-GR", "eo", "es", "es-AR", "es-CL", "es-CO", "es-LA", "es-MX", "es-PE", "es-PY", "es_CO", "et-EE", "eu", "fa", "fa-IR", "ff", "fi", "fj", "fo", "fr", "fr-BE", "fr-CA", "fr-CH", "fr-FR", "fur", "fy", "fy-NL", "ga", "gd", "gl", "gl-ES", "gu-IN", "gv", "ha", "haw", "he", "he-IL", "hi", "hi-IN", "hr", "hsb", "ht", "hu", "hy", "id", "ig", "is", "it", "ja", "ja-HI", "ja-JP", "jv", "ka", "kk", "km", "km-KH", "km_KH", "kn", "ko", "ko-KR", "kok", "ku", "kw", "ky", "la", "lb", "lg", "lt", "lv", "mai", "mg", "mi", "mk", "ml", "mn", "mr", "ms", "ms-MY", "mt", "my", "nap", "nb", "nd", "ne", "nl", "nl-NL", "nso", "ny", "oc", "om", "or_IN", "pa", "pap", "pl", "pl-PL", "ps", "pt", "pt-BR", "pt-PT", "pt_PT", "rm", "rn", "ro", "ro-RO", "ru", "ru-RU", "ru-UA", "ru_RU", "rw", "sah", "sc", "scn", "sd", "si", "sk", "sl", "sl_SI", "sm", "sn", "so", "sq", "sr", "ss", "st", "sv", "sw", "szl", "ta", "te-IN", "tg", "th", "tk_TM", "tl", "tn", "to", "tpi", "tr", "ts", "tt", "ug", "uk", "uk-UA", "ur", "uz", "uz-LA", "uz-UZ", "ve", "ve-CC", "vi", "vi-VN", "vl-SS", "vo", "wa", "wa-RR", "wuu-Hans", "xh", "yi", "yo", "yue_CN", "zh", "zh-CN", "zh-GB", "zh-HK", "zh-Hans", "zh-Hant", "zh-TW", "zh_SG", "zu", "zu-ZA"];
+const codes = ["af", "af_ZA", "ak", "am", "an", "ar", "ar-DZ", "ar-EG", "ary", "as", "ast-ES", "az", "az-AZ", "az-LA", "ba", "be", "bg", "bho", "bi", "bm", "bn", "br", "bs", "bua", "ca", "ca@valencia", "ca_ES", "ckb", "cmn", "co", "cs", "cs-CZ", "csb", "cv", "cy", "cy-GB", "da", "de", "de-AT", "de-CH", "de_DE", "ee", "el", "el-GR", "eo", "es", "es-AR", "es-CL", "es-CO", "es-LA", "es-MX", "es-PE", "es-PY", "es_CO", "et-EE", "eu", "fa", "fa-IR", "ff", "fi", "fj", "fo", "fr", "fr-BE", "fr-CA", "fr-CH", "fr-FR", "fur", "fy", "fy-NL", "ga", "gd", "gl", "gl-ES", "gu-IN", "gv", "ha", "haw", "he", "he-IL", "hi", "hi-IN", "hr", "hsb", "ht", "hu", "hy", "id", "ig", "is", "it", "ja", "ja-HI", "ja-JP", "jv", "ka", "kk", "km", "km-KH", "km_KH", "kn", "ko", "ko-KR", "kok", "ku", "kw", "ky", "la", "lb", "lg", "lt", "lv", "mai", "mg", "mi", "mk", "ml", "mn", "mr", "ms", "ms-MY", "mt", "my", "nap", "nb", "nd", "ne", "nl", "nl-NL", "nso", "ny", "oc", "om", "or_IN", "pa", "pap", "pl", "pl-PL", "ps", "pt", "pt-BR", "pt-PT", "pt_PT", "rm", "rn", "ro", "ro-RO", "ru", "ru-RU", "ru-UA", "ru_RU", "rw", "sah", "sc", "scn", "sd", "si", "sk", "sl", "sl_SI", "sm", "sn", "so", "sq", "sr", "ss", "st", "sv", "sw", "szl", "ta", "te-IN", "tg", "th", "tk_TM", "tl", "tlh", "tn", "to", "tpi", "tr", "ts", "tt", "ug", "uk", "uk-UA", "ur", "uz", "uz-AR", "uz-LA", "uz-UZ", "ve", "ve-CC", "vi", "vi-VN", "vl-SS", "vo", "wa", "wa-RR", "wo", "wuu-Hans", "xh", "yi", "yo", "yue_CN", "zh", "zh-CN", "zh-GB", "zh-HK", "zh-Hans", "zh-Hant", "zh-TW", "zh_SG", "zu", "zu-ZA"];
 const keys = ["scrum-show-more", "scrum-import-resume", "scrum-import-discard", "scrum-import-recovery-hint"];
 for (const code of codes) {
   const locale = read(code);
@@ -19,6 +19,7 @@ for (const code of codes) {
   assert.notEqual(locale[keys[1]], locale[keys[2]], `${code}: finish and discard are distinct actions`);
 }
 const scripts = {
+  'uz-AR': 'Arabic',
   ba: 'Cyrillic', bua: 'Cyrillic', cv: 'Cyrillic', sah: 'Cyrillic',
   ary: 'Arabic', 'wuu-Hans': 'Han', yue_CN: 'Han', bho: 'Devanagari', mai: 'Devanagari', kok: 'Devanagari',
   hy: 'Armenian', ka: 'Georgian', am: 'Ethiopic', ml: 'Malayalam', mr: 'Devanagari', pa: 'Gurmukhi', 'te-IN': 'Telugu', or_IN: 'Oriya', si: 'Sinhala', my: 'Myanmar', km: 'Khmer', 'km-KH': 'Khmer', km_KH: 'Khmer', mn: 'Cyrillic',
@@ -36,6 +37,12 @@ for (const [code, script] of Object.entries(scripts)) {
     assert.doesNotMatch(prose, /[A-Za-z]/, `${code}:${key}: unexpected Latin text`);
   }
 }
+assert.match(read('bm')[keys[3]], /dabila dɔrɔn.*tɛ foyi yɛlɛma/);
+assert.match(read('wo')[keys[3]], /neenal rekk.*soppiwul dara/);
+assert.match(read('uz-AR')[keys[3]], /فقط بېکار قیلیش.*هېچ نرسه/);
+assert.match(read('tlh')[keys[1]], /yIrInmoH/);
+assert.match(read('tlh')[keys[2]], /yIqIl/);
+assert.match(read('tlh')[keys[3]], /DaqIllaH neH.*pagh choHmoHlu'/);
 assert.match(read('ee')[keys[1]], /Wu.*nu/);
 assert.match(read('ee')[keys[3]], /agbe.*ko.*metrɔ naneke/);
 assert.match(read('ff')[keys[1]], /Timmin/);
