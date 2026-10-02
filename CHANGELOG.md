@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cb6a1bad27">Translate Malagasy activity notification recovery</a>. Thanks to xet7.</summary>
+
+- Fill 26 activity-notification recovery, delivery and cancellation messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f521ca1b86">Translate Malagasy email failures and Sync time estimates</a>. Thanks to xet7.</summary>
 
 - Fill 19 email-failure, queue-recovery and Sync time-estimate messages.
