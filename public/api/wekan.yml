@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.14
+  version: v12.15
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -7429,6 +7429,13 @@ definitions:
            org's branding below replaces the instance branding for it. Empty (the
            default) means the org is not a tenant and nothing changes.
            Only read when the deployment sets MULTITENANCY=true.
+        type: string
+        x-nullable: true
+      orgDomainsRequested:
+        description: |
+           Hostnames this Organization's own admin asked for and a site admin has
+           not yet assigned (2026-10-02: only a site admin assigns a hostname).
+           Not in effect until then.
         type: string
         x-nullable: true
       orgProductName:
