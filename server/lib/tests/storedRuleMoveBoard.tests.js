@@ -14,7 +14,7 @@ import UserPositionHistory from '/models/userPositionHistory';
 import Rules from '/models/rules';
 import Triggers from '/models/triggers';
 import Actions from '/models/actions';
-import { runStoredSyncRules, SyncRuleMoveBoardCommands, SyncRuleCardCommands, SyncRulePlans, SyncRuleReceipts,
+import { runStoredSyncRules, SyncRuleMoveBoardCommands, SyncRuleMoveAllBoardCommands, SyncRuleCardCommands, SyncRulePlans, SyncRuleReceipts,
   SyncRuleCompletions } from '/server/notifications/storedRulePlans';
 import { durableSyncDecision } from '/server/lib/listSyncApplication';
 
@@ -138,6 +138,83 @@ describe('Stored Sync rule moves to another board', function () {
       await SyncRuleReceipts.rawCollection().deleteMany({ effectId: input.effectId });
       await Boards.rawCollection().deleteMany({ _id: { $in: [from, to] } });
       await Meteor.users.rawCollection().deleteMany({ _id: { $in: [actor, stranger] } });
+    }
+  });
+
+  it('moves every card of a list onto another board, the rule card among them, once each', async function () {
+    if (!Meteor.isAppTest) this.skip();
+    const actor = Random.id(), from = Random.id(), to = Random.id();
+    const ids = { doing: Random.id(), other: Random.id(), lane: Random.id(), done: Random.id(), toLane: Random.id(),
+      card: Random.id(), second: Random.id(), twin: Random.id(), activity: Random.id() };
+    const activity = { _id: ids.activity, activityType: 'createCard', boardId: from, listId: ids.doing, cardId: ids.card,
+      userId: actor, cardTitle: 'Pump', listName: 'Doing', swimlaneName: 'Lane', createdAt: new Date(1000),
+      modifiedAt: new Date(1000) };
+    const input = { activity, effectId: '7'.repeat(64), policy: { activities: true, notifications: true }, trigger: 'manual',
+      assertCurrent: async () => {} };
+    const members = [{ userId: actor, isAdmin: true, isActive: true }];
+    const context = { userId: actor, isSimulation: false, connection: null, setUserId() {}, unblock() {} };
+    try {
+      await Meteor.users.rawCollection().insertOne({ _id: actor, username: `move-all-board-${actor}` });
+      await Boards.rawCollection().insertMany([
+        { _id: from, title: 'From', syncEffectsEnabled: true, members, labels: [{ _id: 'u-from', name: 'Urgent', color: 'red' }] },
+        { _id: to, title: 'To', syncEffectsEnabled: true, members, labels: [{ _id: 'u-to', name: 'Urgent', color: 'red' }] },
+      ]);
+      await Swimlanes.rawCollection().insertMany([{ _id: ids.lane, boardId: from, title: 'Lane', sort: 0, archived: false },
+        { _id: ids.toLane, boardId: to, title: 'Default', sort: 0, archived: false }]);
+      await Lists.rawCollection().insertMany([{ _id: ids.doing, boardId: from, title: 'Doing', archived: false, sort: 0 },
+        { _id: ids.other, boardId: from, title: 'Other', archived: false, sort: 1 },
+        { _id: ids.done, boardId: to, title: 'Done', archived: false, sort: 0 }]);
+      const card = (_id, listId, sort) => ({ _id, boardId: from, listId, swimlaneId: ids.lane, title: _id, sort,
+        archived: false, labelIds: ['u-from'] });
+      await Cards.rawCollection().insertMany([card(ids.card, ids.doing, 1), card(ids.second, ids.doing, 2),
+        card(ids.twin, ids.other, 2)]);
+      await Activities.rawCollection().insertOne(activity);
+      const actionId = Random.id(), triggerId = Random.id();
+      await Actions.rawCollection().insertOne({ _id: actionId, boardId: to, actionType: 'moveAllCardsInList',
+        fromListName: 'Doing', listName: 'Done' });
+      await Triggers.rawCollection().insertOne({ _id: triggerId, boardId: from, activityType: 'createCard', listName: 'Doing',
+        userId: '*', swimlaneName: '*', cardTitle: '*' });
+      await Rules.rawCollection().insertOne({ _id: Random.id(), boardId: from, triggerId, actionId, enabled: true, title: 'All away' });
+      const list = { _id: ids.doing, boardId: from, syncRevision: 'rev', syncCredentialIncarnation: 'life' };
+      assert.deepEqual(await durableSyncDecision({ list, board: await Boards.findOneAsync(from), trigger: 'manual',
+        actorId: actor }), { eligible: true, reason: null });
+
+      assert.equal(await runStoredSyncRules(input), input.effectId);
+      const moved = await Cards.rawCollection().find({ _id: { $in: [ids.card, ids.second] } }, { sort: { sort: 1 } }).toArray();
+      assert.deepEqual(moved.map(c => [c.boardId, c.listId, c.swimlaneId, c.sort, c.labelIds]),
+        [[to, ids.done, ids.toLane, 1, ['u-to']], [to, ids.done, ids.toLane, 2, ['u-to']]],
+        'that board\'s list and default swimlane, each keeping its sort and its label by name');
+      assert.notEqual(moved[0].cardNumber, moved[1].cardNumber);
+      const count = () => Activities.rawCollection().countDocuments({ cardId: { $in: [ids.card, ids.second] },
+        activityType: 'moveCardBoard' });
+      assert.equal(await count(), 2, 'one moveCardBoard activity each');
+      assert.equal(await ChangeHistory.rawCollection().countDocuments({ entityId: { $in: [ids.card, ids.second] },
+        group: 'position' }), 2);
+      assert.equal(await runStoredSyncRules(input), input.effectId, 'replay, with the rule card on the other board');
+      assert.equal(await count(), 2);
+      assert.equal(await SyncRuleMoveAllBoardCommands.rawCollection().countDocuments({ boardId: from }), 1);
+
+      // Parity: the ordinary action's own call for a card of another list.
+      const twin = await Cards.findOneAsync(ids.twin);
+      await DDP._CurrentMethodInvocation.withValue(context, () => twin.move(to, twin.swimlaneId, ids.done));
+      const ordinary = await Cards.rawCollection().findOne({ _id: ids.twin });
+      const comparable = doc => Object.fromEntries(Object.entries(doc).filter(([key]) => !['_id', 'title', 'cardNumber',
+        'listEnteredAt', 'modifiedAt', 'dateLastActivity', 'createdAt'].includes(key)));
+      assert.deepEqual(comparable(moved[1]), comparable(ordinary), 'the durable move is the ordinary move');
+    } finally {
+      for (const board of [from, to]) {
+        const plans = await SyncRulePlans.rawCollection().find({ 'plan.boardId': board }, { projection: { _id: 1 } }).toArray();
+        await SyncRuleCompletions.rawCollection().deleteMany({ _id: { $in: plans.map(row => row._id) } });
+        await SyncRulePlans.rawCollection().deleteMany({ 'plan.boardId': board });
+        for (const model of [SyncRuleMoveAllBoardCommands, Rules, Triggers, Actions, ChangeHistory, UserPositionHistory,
+          Activities, Cards, Lists, Swimlanes]) {
+          await model.rawCollection().deleteMany({ boardId: board });
+        }
+      }
+      await Activities.rawCollection().deleteMany({ cardId: { $in: [ids.card, ids.second, ids.twin] } });
+      await SyncRuleReceipts.rawCollection().deleteMany({ effectId: input.effectId });
+      await Boards.rawCollection().deleteMany({ _id: { $in: [from, to] } });
+      await Meteor.users.rawCollection().deleteMany({ _id: actor });
     }
   });
 });

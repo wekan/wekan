@@ -75,7 +75,7 @@ test('negative: not the plan\'s last action, the own board, tampering', async ()
 });
 
 test('eligibility lifts a move elsewhere only when it ends every plan it is in', async () => {
-  assert.deepEqual([...CROSS_BOARD_FINAL_ACTIONS], ['moveCardToTop', 'moveCardToBottom']);
+  assert.deepEqual([...CROSS_BOARD_FINAL_ACTIONS], ['moveCardToTop', 'moveCardToBottom', 'moveAllCardsInList']);
   assert.deepEqual([...finalActionIds([{ actionIds: ['a', 'b'], activityType: 'createCard' },
     { actionIds: ['c'], activityType: 'moveCard' }, { actionIds: ['d'], activityType: 'moveCard' },
     { actionIds: ['e'], activityType: null }])], ['b'], 'last of a rule whose trigger type is its own');
@@ -88,7 +88,9 @@ test('eligibility lifts a move elsewhere only when it ends every plan it is in',
   assert.deepEqual(await run([{ actionType: 'moveCardToTop', boardId: 'to', finalInPlan: false }]), ['moveCardToTop:elsewhere']);
   assert.deepEqual(await run([{ actionType: 'moveCardToTop', boardId: 'off', finalInPlan: true }]), ['moveCardToTop:elsewhere']);
   assert.deepEqual(await run([{ actionType: 'moveAllCardsInList', boardId: 'to', finalInPlan: true }]),
-    ['moveAllCardsInList:elsewhere'], 'moving a whole list elsewhere is not built');
+    ['moveAllCardsInList']);
+  assert.deepEqual(await run([{ actionType: 'moveAllCardsInList', boardId: 'to', finalInPlan: false }]),
+    ['moveAllCardsInList:elsewhere']);
 });
 
 test('wiring: the runner, the guard and the deferred hooks', () => {
@@ -115,4 +117,38 @@ test('wiring: the runner, the guard and the deferred hooks', () => {
     assert.equal(deferSyncLabelActivities({ _id: 'card', boardId: 'from' }), true);
     assert.equal(deferSyncLabelActivities({ _id: 'card', boardId: 'from' }), false, 'one slot');
   });
+});
+
+test('move-all onto another board: one whole move per card, each keeping its sort', async () => {
+  const action = { _id: 'all', boardId: 'to', actionType: 'moveAllCardsInList', fromListName: 'Doing', listName: 'Done' };
+  const f = await fixture([action]);
+  const move = (card, number) => ({ card, mapped: { labelIds: [], cardNumber: number, customFields: [] },
+    target: { boardId: 'to', listId: 'done', swimlaneId: 'default-lane', sort: null }, allowedMemberIds: ['actor'],
+    titles: { boardName: 'To', oldBoardName: 'From', swimlaneName: 'Default' } });
+  const other = { _id: 'other', boardId: 'from', listId: 'list', swimlaneId: 'lane', sort: 7 };
+  const command = M.prepareRuleMoveAllBoardCommand({ ...f.context, moves: [move(f.card, 41), move(other, 42)],
+    createdAt: new Date(1000) });
+  assert.equal(command._id, M.moveAllCommandId(f.plan.actions[0].id));
+  assert.deepEqual(command.units.map(u => [u.cardId, u.after.place.boardId, u.after.place.sort, u.after.fields.cardNumber]),
+    [['card', 'to', 4, 41], ['other', 'to', 7, 42]], 'its own sort, that board\'s numbers');
+  assert.notEqual(command.units[0].effects.move._id, command.units[1].effects.move._id);
+  const unit = M.unitMove(command, command.units[1]);
+  assert.ok(!Object.hasOwn(M.moveModifier(unit).$set, 'sort') || M.moveModifier(unit).$set.sort === 7);
+  assert.deepEqual(M.validateRuleMoveAllBoardCommand(command, f.context), command);
+  // Negative: a tampered unit, a sort that changed, or not the last action.
+  for (const units of [[{ ...command.units[0], after: { ...command.units[0].after,
+    place: { ...command.units[0].after.place, sort: 99 } } }], [command.units[0], command.units[0]]]) {
+    assert.throws(() => M.validateRuleMoveAllBoardCommand(resum({ ...command, units }), f.context), /command-invalid/);
+  }
+  const later = await fixture([action, { _id: 'color', boardId: 'from', actionType: 'setColor', selectedColor: 'red' }]);
+  assert.throws(() => M.prepareRuleMoveAllBoardCommand({ ...later.context, index: 0, createdAt: new Date(1) }), /not-last/);
+  // No list to move from or to: nothing, as the ordinary action.
+  assert.deepEqual(M.prepareRuleMoveAllBoardCommand({ ...f.context, moves: [], createdAt: new Date(1) }).units, []);
+});
+
+test('wiring: move-all onto another board has its runner, and the guard follows its units', () => {
+  const plans = fs.readFileSync(path.join(ROOT, 'server/notifications/storedRulePlans.js'), 'utf8');
+  assert.match(plans, /moveAllCardsInList: \(\{ invocation \}\) => \(isOtherBoardMoveAll\(invocation\.action, plan\.boardId\)\s*\? runStoredSyncRuleMoveAllBoard : runStoredSyncRuleMoveAll\)/);
+  assert.match(plans, /SyncRuleMoveAllBoardCommands\.rawCollection\(\)\.findOne\(\{ planId: planIdValue,\s*units: \{ \$elemMatch: \{ cardId, 'after\.place\.boardId': card\.boardId/);
+  assert.match(plans, /for \(const unit of command\.units\) await applyRuleMoveBoard\(unitMove\(command, unit\), \{ guard, completeDelivery, options \}\);/);
 });

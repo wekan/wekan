@@ -44,7 +44,7 @@ const CROSS_BOARD_DURABLE_ACTIONS = new Set(['linkCard', 'copyCard']);
 // action of its rule, whose trigger's activity type no other rule on the
 // board shares (`finalInPlan`, set by the caller). The command checks the
 // same at run time (server/lib/syncRuleMoveBoardCommand.js).
-const CROSS_BOARD_FINAL_ACTIONS = new Set(['moveCardToTop', 'moveCardToBottom']);
+const CROSS_BOARD_FINAL_ACTIONS = new Set(['moveCardToTop', 'moveCardToBottom', 'moveAllCardsInList']);
 const MAX_RULE_BOARDS = 50;
 
 // The rule action types eligibility checks, across the source board and every

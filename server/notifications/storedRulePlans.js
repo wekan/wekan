@@ -170,7 +170,11 @@ async function movedByThisPlan(planIdValue, cardId, card) {
   const board = await SyncRuleMoveBoardCommands.rawCollection().findOne({ planId: planIdValue, cardId,
     'after.place.boardId': card.boardId, 'after.place.listId': card.listId,
     'after.place.swimlaneId': card.swimlaneId }, { projection: { _id: 1 } });
-  return Boolean(board);
+  if (board) return true;
+  const allBoard = await SyncRuleMoveAllBoardCommands.rawCollection().findOne({ planId: planIdValue,
+    units: { $elemMatch: { cardId, 'after.place.boardId': card.boardId, 'after.place.listId': card.listId,
+      'after.place.swimlaneId': card.swimlaneId } } }, { projection: { _id: 1 } });
+  return Boolean(allBoard);
 }
 
 // The card an activity names, where it is now: in the activity's list, or
@@ -241,8 +245,10 @@ export async function runStoredSyncRules({ adapters, ...options }) {
     copyCard: ({ invocation }) => runStoredSyncRuleCopyCard({ ...options, index: indices.get(invocation.id) }),
     linkCard: ({ invocation }) => runStoredSyncRuleLinkCard({ ...options, index: indices.get(invocation.id) }),
     addSwimlane: ({ invocation }) => runStoredSyncRuleAddSwimlane({ ...options, index: indices.get(invocation.id) }),
-    // Same-board only: eligibility keeps a board moving cards elsewhere on direct Sync.
-    moveAllCardsInList: ({ invocation }) => runStoredSyncRuleMoveAll({ ...options, index: indices.get(invocation.id) }),
+    // On the card's own board, or - as the plan's last action, onto a board
+    // that opted in too - to another board (syncRuleMoveBoardCommand.js).
+    moveAllCardsInList: ({ invocation }) => (isOtherBoardMoveAll(invocation.action, plan.boardId)
+      ? runStoredSyncRuleMoveAllBoard : runStoredSyncRuleMoveAll)({ ...options, index: indices.get(invocation.id) }),
     ...Object.fromEntries(RULE_CHECKLIST_LIFECYCLE_ACTIONS.map(type => [type, ({ invocation }) =>
       runStoredSyncRuleChecklistLifecycle({ ...options, index: indices.get(invocation.id) })])),
     // A move on the card's own board, or - as the plan's last action, onto a
@@ -628,20 +634,85 @@ async function captureRuleMoveBoard({ plan, saved, action, commandContext }) {
     Cards.rawCollection().findOne({ _id: plan.cardId, boardId: plan.boardId }),
   ]);
   if (!fromBoard || !toBoard || !list || !swimlane || !raw) throw new Error('sync-rule-move-board-target-missing');
-  // Card.move's choices, by the same lookups.
+  return prepareRuleMoveBoardCommand({ ...commandContext,
+    ...await boardMoveInputs({ raw, model: card, fromBoard, toBoard, target, swimlaneTitle: swimlane.title }),
+    createdAt: new Date(), redoRows: await boardRedoRows(action.boardId, plan.actorId) });
+}
+
+// Card.move's choices for one card going to another board, by the same
+// lookups: labels by name, custom fields mapped (and shared), the next card
+// number, that board's active members; and the card's addedLabel activities.
+async function boardMoveInputs({ raw, model, fromBoard, toBoard, target, swimlaneTitle }) {
   const names = (fromBoard.labels || []).filter(label => (raw.labelIds || []).includes(label._id)).map(label => label.name);
   const labelIds = (toBoard.labels || []).filter(label => label.name && names.includes(label.name)).map(label => label._id);
-  const customFields = await card.mapCustomFieldsToBoard(toBoard._id);
-  const labelActivities = await Activities.rawCollection().find({ activityType: 'addedLabel', cardId: plan.cardId },
+  const customFields = await model.mapCustomFieldsToBoard(toBoard._id);
+  const labelActivities = await Activities.rawCollection().find({ activityType: 'addedLabel', cardId: raw._id },
     { projection: { labelId: 1 }, sort: { _id: 1 } }).toArray();
-  const redoRows = await ChangeHistory.find({ boardId: action.boardId, userId: plan.actorId, undone: true,
-    superseded: { $ne: true } }, { transform: null, limit: 10000 }).fetchAsync();
-  return prepareRuleMoveBoardCommand({ ...commandContext, card: raw, target,
+  return { card: raw, target, labelActivities,
     mapped: { labelIds, cardNumber: await toBoard.getNextCardNumber(),
       customFields: Array.isArray(customFields) ? customFields : [] },
     allowedMemberIds: (toBoard.members || []).filter(member => member.isActive === true).map(member => member.userId),
-    titles: { boardName: toBoard.title, oldBoardName: fromBoard.title, swimlaneName: swimlane.title },
-    labelActivities, createdAt: new Date(), redoRows });
+    titles: { boardName: toBoard.title, oldBoardName: fromBoard.title, swimlaneName: swimlaneTitle } };
+}
+const boardRedoRows = (boardId, userId) => ChangeHistory.find({ boardId, userId, undone: true, superseded: { $ne: true } },
+  { transform: null, limit: 10000 }).fetchAsync();
+
+// Durable rule moveAllCardsInList onto another board
+// (syncRuleMoveBoardCommand.js): the cards taken once, each then moved as a
+// single move to another board is, with its own records. The plan's last
+// action only; the destination opted in too.
+export const SyncRuleMoveAllBoardCommands = new Mongo.Collection('listSyncRuleMoveAllBoardCommands');
+SyncRuleMoveAllBoardCommands.deny({ insert: () => true, update: () => true, remove: () => true });
+
+export async function runStoredSyncRuleMoveAllBoard({ index, completeDelivery = runStoredSyncActivityDelivery, ...options }) {
+  const context = executionContext(options), plan = await capture(context);
+  const invocation = plan.actions[index], action = invocation?.action;
+  if (!isOtherBoardMoveAll(action, plan.boardId)) throw new Error('sync-rule-move-all-board-invalid');
+  const commandContext = { plan, activity: context.saved, effectId: context.effectId, index };
+  const guard = reuseWithinEvaluation(async () => {
+    await context.guard();
+    const [rule, current] = await Promise.all([
+      Rules.rawCollection().findOne({ _id: invocation.rule._id }),
+      Actions.rawCollection().findOne({ _id: action._id }),
+    ]);
+    if (!rule || !current || canonical(rule) !== canonical(invocation.rule) ||
+        canonical(current) !== canonical(action)) throw new Error('sync-rule-move-all-board-configuration-changed');
+    await assertDestinationBoard(action.boardId, plan, options.trigger);
+    await context.guard();
+  });
+  const commands = SyncRuleMoveAllBoardCommands.rawCollection(), id = ruleMoveAllBoardCommandId(invocation.id);
+  await guard();
+  let row = await commands.findOne({ _id: id });
+  if (!row) {
+    // The ordinary action's own lookups (server/rulesHelper.js performAction).
+    const [fromBoard, toBoard] = await Promise.all([Boards.findOneAsync(plan.boardId), Boards.findOneAsync(action.boardId)]);
+    const from = await ReactiveCache.getList({ title: action.fromListName, boardId: plan.boardId });
+    const to = await ReactiveCache.getList({ title: action.listName, boardId: action.boardId });
+    const moves = [];
+    if (from && to && fromBoard && toBoard) {
+      // Each card's own swimlane is on the board it leaves, so the update's
+      // consistency hook puts it in that board's default swimlane.
+      const lane = await toBoard.getDefaultSwimlineAsync();
+      if (!lane) throw new Error('sync-rule-move-all-board-no-swimlane');
+      for (const model of await from.cardsUnfiltered()) {
+        const raw = await Cards.rawCollection().findOne({ _id: model._id, boardId: plan.boardId });
+        if (!raw) continue;
+        moves.push(await boardMoveInputs({ raw, model, fromBoard, toBoard, swimlaneTitle: lane.title,
+          target: { boardId: action.boardId, listId: to._id, swimlaneId: lane._id, sort: null } }));
+      }
+    }
+    const candidate = prepareRuleMoveAllBoardCommand({ ...commandContext, moves, createdAt: new Date(),
+      redoRows: await boardRedoRows(action.boardId, plan.actorId) });
+    await guard();
+    let failure;
+    try { await commands.insertOne(candidate); } catch (error) { failure = error; }
+    row = await commands.findOne({ _id: id });
+    if (!row) throw failure || new Error('sync-rule-move-all-board-command-unconfirmed');
+  }
+  const command = validateRuleMoveAllBoardCommand(row, commandContext);
+  for (const unit of command.units) await applyRuleMoveBoard(unitMove(command, unit), { guard, completeDelivery, options });
+  await guard();
+  return invocation.id;
 }
 
 export async function runStoredSyncRuleMoveBoard({ index, completeDelivery = runStoredSyncActivityDelivery, ...options }) {
@@ -673,8 +744,16 @@ export async function runStoredSyncRuleMoveBoard({ index, completeDelivery = run
     if (!row) throw failure || new Error('sync-rule-move-board-command-unconfirmed');
   }
   const command = validateRuleMoveBoardCommand(row, commandContext);
-  const raw = Cards.rawCollection();
+  await applyRuleMoveBoard(command, { guard, completeDelivery, options });
+  await guard();
+  return invocation.id;
+}
+// One card's move to another board, from its saved move (a command, or a
+// move-all unit through unitMove): the conditional update with every hook
+// record deferred, then each record, idempotently.
+async function applyRuleMoveBoard(command, { guard, completeDelivery, options }) {
   const actor = work => DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false }, work);
+  const raw = Cards.rawCollection();
   const { place } = command.after;
   await guard();
   if (!await raw.findOne(ruleMoveBoardAfter(command))) {
@@ -736,12 +815,11 @@ export async function runStoredSyncRuleMoveBoard({ index, completeDelivery = run
     await persistSyncActivity({ activities, activity, effectId: receiptId, assertCurrent: guard,
       completeDelivery: delivery => completeDelivery({ ...delivery, policy: options.policy, trigger: options.trigger }) });
   }
-  await guard();
-  return invocation.id;
 }
 const { isOtherBoardMove, commandId: ruleMoveBoardCommandId, prepareRuleMoveBoardCommand, validateRuleMoveBoardCommand,
-  beforeSelector: ruleMoveBoardBefore, afterSelector: ruleMoveBoardAfter, moveModifier: ruleMoveBoardModifier } =
-  require('/server/lib/syncRuleMoveBoardCommand');
+  beforeSelector: ruleMoveBoardBefore, afterSelector: ruleMoveBoardAfter, moveModifier: ruleMoveBoardModifier,
+  isOtherBoardMoveAll, moveAllCommandId: ruleMoveAllBoardCommandId, prepareRuleMoveAllBoardCommand,
+  validateRuleMoveAllBoardCommand, unitMove } = require('/server/lib/syncRuleMoveBoardCommand');
 const { RULE_CARD_MOVE_BOARD_FIELDS } = require('/server/lib/syncHistoryBatch');
 
 // Durable rule moveAllCardsInList on the card's own board

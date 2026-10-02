@@ -138,25 +138,26 @@ function effectsFor({ base, before, after, titles, labelActivities, createdAt, r
       base.targetBoardId) };
 }
 
-// Capture. The caller resolved, as Card.move does:
-//   card       - the rule's card (raw document) on the plan's board;
-//   target     - RulesHelper.moveCardTarget's { boardId, listId, swimlaneId, sort };
+// One card's move, as Card.move makes it. `base` names it: { _id, actorId,
+// boardId, targetBoardId, cardId } - the command's, or a move-all unit's.
+//   card       - the card (raw document) on the board it leaves;
+//   target     - { boardId, listId, swimlaneId, sort } (sort null: its own);
 //   mapped     - { labelIds, cardNumber, customFields } for the target board;
 //   allowedMemberIds - the target board's active members;
 //   titles     - { boardName, oldBoardName, swimlaneName } for the activity;
 //   labelActivities - the card's addedLabel activities, { _id, labelId };
 //   redoRows   - the actor's undone History rows on the target board.
-function prepareRuleMoveBoardCommand({ plan, activity, effectId, index, card, target, mapped, allowedMemberIds, titles,
-  labelActivities = [], createdAt, redoRows = [] }) {
-  const base = identity({ plan, activity, effectId, index });
+function buildMove({ base, card, target, mapped, allowedMemberIds, titles, labelActivities = [], createdAt,
+  redoRows = [] }) {
   if (!card || card._id !== base.cardId || card.boardId !== base.boardId || !text(card.listId) || !text(card.swimlaneId) ||
       !target || target.boardId !== base.targetBoardId || !text(target.listId) || !text(target.swimlaneId) ||
-      !Number.isFinite(target.sort) || !mapped || !Array.isArray(mapped.labelIds) || !Array.isArray(mapped.customFields) ||
-      !Number.isSafeInteger(mapped.cardNumber) || !Array.isArray(allowedMemberIds) || !titles ||
+      !(target.sort === null || Number.isFinite(target.sort)) || !mapped || !Array.isArray(mapped.labelIds) ||
+      !Array.isArray(mapped.customFields) || !Number.isSafeInteger(mapped.cardNumber) ||
+      !Array.isArray(allowedMemberIds) || !titles ||
       !Array.isArray(labelActivities) || labelActivities.some(row => !row || !text(row._id)) ||
       !(createdAt instanceof Date) || !Number.isFinite(createdAt.getTime())) fail('invalid');
-  const before = { place: { boardId: base.boardId, listId: card.listId, swimlaneId: card.swimlaneId,
-    sort: Number.isFinite(card.sort) ? card.sort : null,
+  const sort = Number.isFinite(card.sort) ? card.sort : null;
+  const before = { place: { boardId: base.boardId, listId: card.listId, swimlaneId: card.swimlaneId, sort,
     lastMoveReason: typeof card.lastMoveReason === 'string' ? card.lastMoveReason : '' },
   fields: presentFields(card) };
   const fields = { labelIds: copy(mapped.labelIds), cardNumber: mapped.cardNumber, customFields: copy(mapped.customFields),
@@ -166,16 +167,14 @@ function prepareRuleMoveBoardCommand({ plan, activity, effectId, index, card, ta
     if (kept !== undefined) fields[field] = kept;
     else if (card[field] !== undefined) fields[field] = copy(card[field]);
   }
+  // Card.move without a sort keeps the card's own.
   const after = { place: { boardId: base.targetBoardId, listId: target.listId, swimlaneId: target.swimlaneId,
-    sort: target.sort, lastMoveReason: '' }, fields };
+    sort: target.sort === null ? sort : target.sort, lastMoveReason: '' }, fields };
   const savedTitles = { boardName: String(titles.boardName ?? ''), oldBoardName: String(titles.oldBoardName ?? ''),
     swimlaneName: String(titles.swimlaneName ?? '') };
   const savedLabels = labelActivities.map(row => ({ _id: row._id, labelId: row.labelId ?? null }));
-  const command = { ...base, before, after, titles: savedTitles, labelActivities: savedLabels,
-    createdAt: new Date(createdAt),
+  return { before, after, titles: savedTitles, labelActivities: savedLabels,
     effects: effectsFor({ base, before, after, titles: savedTitles, labelActivities: savedLabels, createdAt, redoRows }) };
-  command.checksum = sha256(canonical(command));
-  return validateRuleMoveBoardCommand(command, { plan, activity, effectId, index });
 }
 
 function validPlace(place, boardId) {
@@ -184,30 +183,105 @@ function validPlace(place, boardId) {
     (place.sort === null || Number.isFinite(place.sort)) && typeof place.lastMoveReason === 'string';
 }
 
+// A saved move: its places and fields, and the effects they make.
+function validMove(move, base, createdAt) {
+  if (!move.before || !move.after ||
+      !validPlace(move.before.place, base.boardId) || !validPlace(move.after.place, base.targetBoardId) ||
+      move.after.place.lastMoveReason !== '' ||
+      [move.before.fields, move.after.fields].some(fields => !fields ||
+        Object.keys(fields).some(key => !MOVED_FIELDS.includes(key))) ||
+      !Array.isArray(move.after.fields.labelIds) || !Array.isArray(move.after.fields.customFields) ||
+      !Number.isSafeInteger(move.after.fields.cardNumber) || canonical(move.after.fields.cardDependencies) !== canonical([]) ||
+      !move.titles || Object.keys(move.titles).sort().join(',') !== 'boardName,oldBoardName,swimlaneName' ||
+      !Array.isArray(move.labelActivities)) return false;
+  // The saved effects are what this move writes (the redo targets are the
+  // capture's, checked when they are written).
+  const expected = effectsFor({ base, before: move.before, after: move.after, titles: move.titles,
+    labelActivities: move.labelActivities, createdAt, redoRows: [] });
+  expected.history[0].redo = move.effects?.history?.[0]?.redo ?? null;
+  return canonical(expected) === canonical(move.effects);
+}
+
+// Capture of a single move: `target` is RulesHelper.moveCardTarget's.
+function prepareRuleMoveBoardCommand({ plan, activity, effectId, index, target, createdAt, ...rest }) {
+  const base = identity({ plan, activity, effectId, index });
+  if (!target || !Number.isFinite(target.sort)) fail('invalid');
+  const command = { ...base, ...buildMove({ base, target, createdAt, ...rest }), createdAt: new Date(createdAt) };
+  command.checksum = sha256(canonical(command));
+  return validateRuleMoveBoardCommand(command, { plan, activity, effectId, index });
+}
+
 function validateRuleMoveBoardCommand(row, context) {
   const base = identity(context);
   const keys = [...Object.keys(base), 'before', 'after', 'titles', 'labelActivities', 'createdAt', 'effects', 'checksum']
     .sort().join(',');
   if (!row || Object.keys(row).sort().join(',') !== keys ||
       Object.entries(base).some(([key, value]) => canonical(row[key]) !== canonical(value)) ||
-      !(row.createdAt instanceof Date) || !row.before || !row.after ||
-      !validPlace(row.before.place, base.boardId) || !validPlace(row.after.place, base.targetBoardId) ||
-      !Number.isFinite(row.after.place.sort) || row.after.place.lastMoveReason !== '' ||
-      [row.before.fields, row.after.fields].some(fields => !fields || Object.keys(fields).some(key => !MOVED_FIELDS.includes(key))) ||
-      !Array.isArray(row.after.fields.labelIds) || !Array.isArray(row.after.fields.customFields) ||
-      !Number.isSafeInteger(row.after.fields.cardNumber) || canonical(row.after.fields.cardDependencies) !== canonical([]) ||
-      !row.titles || Object.keys(row.titles).sort().join(',') !== 'boardName,oldBoardName,swimlaneName' ||
-      !Array.isArray(row.labelActivities)) fail('command-invalid');
+      !(row.createdAt instanceof Date) || !Number.isFinite(row.after?.place?.sort)) fail('command-invalid');
   const { checksum, ...content } = row;
-  if (checksum !== sha256(canonical(content))) fail('command-invalid');
-  // The saved effects are what this move writes (the redo targets are the
-  // capture's, checked when they are written).
-  const expected = effectsFor({ base, before: row.before, after: row.after, titles: row.titles,
-    labelActivities: row.labelActivities, createdAt: row.createdAt, redoRows: [] });
-  expected.history[0].redo = row.effects?.history?.[0]?.redo ?? null;
-  if (canonical(expected) !== canonical(row.effects)) fail('command-invalid');
+  if (checksum !== sha256(canonical(content)) || !validMove(row, base, row.createdAt)) fail('command-invalid');
   return copy(row);
 }
+
+// moveAllCardsInList onto another board (server/rulesHelper.js): every card
+// of the list named fromListName on the plan's board goes to the list named
+// listName there, each through Card.move with its own swimlane and no sort -
+// so it keeps its sort, and the update's consistency hook
+// (server/lib/cardBoardConsistency.js) puts it in that board's default
+// swimlane, its own being on the board it leaves. One unit per card, each a
+// whole move with its own records; also only the plan's last action, since
+// the rule's own card may be among them.
+const moveAllCommandId = invocationId => sha256(canonical(['sync-rule-move-all-board', invocationId]));
+const unitIdFor = (id, cardId) => sha256(canonical([id, 'unit', cardId]));
+function isOtherBoardMoveAll(action, boardId) {
+  return !!action && action.actionType === 'moveAllCardsInList' && text(action.boardId) && action.boardId !== boardId;
+}
+function moveAllIdentity({ plan, activity, effectId, index }) {
+  validateRulePlan(plan, activity, effectId);
+  const invocation = plan.actions[index];
+  const action = invocation?.action;
+  if (!Number.isSafeInteger(index) || index < 0 || !isOtherBoardMoveAll(action, plan.boardId)) fail('invalid');
+  if (index !== plan.actions.length - 1) fail('not-last');
+  return { _id: moveAllCommandId(invocation.id), version: 1, invocationId: invocation.id,
+    planId: planId(effectId, activity._id), planHash: sha256(canonical(plan)), actorId: plan.actorId,
+    boardId: plan.boardId, cardId: plan.cardId, actionType: 'moveAllCardsInList', targetBoardId: action.boardId };
+}
+const unitBase = (base, cardId) => ({ _id: unitIdFor(base._id, cardId), actorId: base.actorId, boardId: base.boardId,
+  targetBoardId: base.targetBoardId, cardId });
+
+// Capture: `moves` are one { card, target, mapped, allowedMemberIds, titles,
+// labelActivities } per card of the list, in order; none when the ordinary
+// action would move nothing (no list to move from or to).
+function prepareRuleMoveAllBoardCommand({ plan, activity, effectId, index, moves = [], createdAt, redoRows = [] }) {
+  const base = moveAllIdentity({ plan, activity, effectId, index });
+  if (!Array.isArray(moves) || moves.length > 10000 || !(createdAt instanceof Date)) fail('invalid');
+  const units = moves.map((move, i) => ({ cardId: move.card?._id,
+    ...buildMove({ base: unitBase(base, move.card?._id), createdAt, ...move, redoRows: i === 0 ? redoRows : [] }) }));
+  const command = { ...base, createdAt: new Date(createdAt), units };
+  command.checksum = sha256(canonical(command));
+  return validateRuleMoveAllBoardCommand(command, { plan, activity, effectId, index });
+}
+
+function validateRuleMoveAllBoardCommand(row, context) {
+  const base = moveAllIdentity(context);
+  const keys = [...Object.keys(base), 'createdAt', 'units', 'checksum'].sort().join(',');
+  if (!row || Object.keys(row).sort().join(',') !== keys ||
+      Object.entries(base).some(([key, value]) => canonical(row[key]) !== canonical(value)) ||
+      !(row.createdAt instanceof Date) || !Array.isArray(row.units) || row.units.length > 10000) fail('command-invalid');
+  const { checksum, ...content } = row;
+  if (checksum !== sha256(canonical(content))) fail('command-invalid');
+  const seen = new Set();
+  for (const unit of row.units) {
+    if (!unit || Object.keys(unit).sort().join(',') !== 'after,before,cardId,effects,labelActivities,titles' ||
+        !text(unit.cardId) || seen.has(unit.cardId) || unit.after.place.sort !== unit.before.place.sort ||
+        !validMove(unit, unitBase(base, unit.cardId), row.createdAt)) fail('command-invalid');
+    seen.add(unit.cardId);
+  }
+  return copy(row);
+}
+
+// A unit as the selectors and modifier below read a command.
+const unitMove = (command, unit) => ({ ...unit, actorId: command.actorId, boardId: command.boardId });
 
 const placeOf = (command, place) => ({ _id: command.cardId, boardId: place.boardId, listId: place.listId,
   swimlaneId: place.swimlaneId, sort: place.sort === null ? null : { $eq: place.sort } });
@@ -230,9 +304,11 @@ function afterSelector(command) {
 // Card.move's update: the place, the reason and every moved field.
 function moveModifier(command) {
   const { place, fields } = command.after;
-  return { $set: { boardId: place.boardId, swimlaneId: place.swimlaneId, listId: place.listId, sort: place.sort,
-    lastMoveReason: '', ...copy(fields) } };
+  return { $set: { boardId: place.boardId, swimlaneId: place.swimlaneId, listId: place.listId,
+    ...(place.sort === null ? {} : { sort: place.sort }), lastMoveReason: '', ...copy(fields) } };
 }
 
 module.exports = { RULE_MOVE_ACTIONS, MOVED_FIELDS, commandId, legacyIdFor, isOtherBoardMove, labelActivityRewrites,
-  prepareRuleMoveBoardCommand, validateRuleMoveBoardCommand, beforeSelector, afterSelector, moveModifier };
+  prepareRuleMoveBoardCommand, validateRuleMoveBoardCommand, beforeSelector, afterSelector, moveModifier,
+  moveAllCommandId, unitIdFor, isOtherBoardMoveAll, prepareRuleMoveAllBoardCommand, validateRuleMoveAllBoardCommand,
+  unitMove };
