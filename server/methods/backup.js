@@ -17,7 +17,7 @@ const { appendInstanceBackup, inspectInstanceBackup, restoreInstanceBackup } =
   require('/server/lib/fullBackup').createBackupTools(MongoInternals.NpmModule.BSON.EJSON);
 import { ZipArchive } from 'archiver';
 import unzipper from 'unzipper';
-const { filesRootFrom, scheduleText, safeEntryPath, safeCollectionName, validateBackupOptions, validateBackupSchedule } =
+const { filesRootFrom, scheduleText, safeEntryPath, symlinkOnRestorePath, safeCollectionName, validateBackupOptions, validateBackupSchedule } =
   require('/models/lib/backupPaths');
 // Multitenancy option D (docs/Design/Multitenancy/Multitenancy.md, D.8): backing up
 // and restoring ONE Organization. Every decision - which collections, the selector
@@ -386,13 +386,18 @@ async function doRestore(zipPath, mode, orgId = null) {
       // The entry names its own path and path.join RESOLVES `..`, so
       // `<stamp>/attachments/../../../etc/x` satisfied the check above and then wrote
       // outside the files directory. safeEntryPath refuses anything that escapes.
-      const destPath = safeEntryPath(
-        kind === 'attachments' ? attachmentsDir() : avatarsDir(), rel.slice(1));
+      const destRoot = kind === 'attachments' ? attachmentsDir() : avatarsDir();
+      const destPath = safeEntryPath(destRoot, rel.slice(1));
       if (!destPath) { skipped.push(entry.path); continue; }
+      // A symlink already on the way would carry the write outside destRoot.
+      if (symlinkOnRestorePath(destRoot, destPath)) { skipped.push(entry.path); continue; }
       if (mode === 'add-missing' && fs.existsSync(destPath)) continue;
       fs.mkdirSync(path.dirname(destPath), { recursive: true });
       setProgress({ detail: entry.path });
-      await pipeline(entry.stream(), fs.createWriteStream(destPath));
+      // Replace, never write through: 'wx' fails rather than follow a link
+      // created between the check above and this open.
+      fs.rmSync(destPath, { force: true });
+      await pipeline(entry.stream(), fs.createWriteStream(destPath, { flags: 'wx' }));
     }
     for (const entry of directory.files) {
       if (entry.type !== 'File') continue;

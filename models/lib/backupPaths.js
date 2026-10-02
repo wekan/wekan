@@ -95,4 +95,25 @@ function validateBackupSchedule(schedule) {
   if (schedule.enabled === (schedule.frequency === 'off')) throw new Error('Inconsistent backup schedule');
 }
 
-module.exports = { filesRootFrom, scheduleText, safeEntryPath, safeCollectionName, validateBackupOptions, validateBackupSchedule };
+// Is any existing path component between baseDir (exclusive) and dest
+// (inclusive) a symbolic link? safeEntryPath checks the NAME stays inside
+// baseDir, but a write through a symlink already there lands wherever it
+// points. server/lib/fullBackup.js refuses those; the attachment restore does
+// too. `fsImpl` is injectable for tests.
+function symlinkOnRestorePath(baseDir, dest, fsImpl = require('fs')) {
+  const base = path.resolve(baseDir);
+  const relative = path.relative(base, path.resolve(dest));
+  let current = base;
+  for (const segment of relative.split(path.sep)) {
+    current = path.join(current, segment);
+    try {
+      if (fsImpl.lstatSync(current).isSymbolicLink()) return true;
+    } catch (e) {
+      if (e.code === 'ENOENT') return false;
+      throw e;
+    }
+  }
+  return false;
+}
+
+module.exports = { filesRootFrom, scheduleText, safeEntryPath, symlinkOnRestorePath, safeCollectionName, validateBackupOptions, validateBackupSchedule };
