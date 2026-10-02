@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/517ff755bf">Translate Amharic text operations and character lookup</a>. Thanks to xet7.</summary>
+
+- Fill 31 text, letter-case, character-lookup and substring messages in Amharic.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass, as do all 21 human-preference checks. Full-language work,
+  browser and native-speaker reviews remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/75157327db">Translate Amharic editor keyboard shortcuts</a>. Thanks to xet7.</summary>
 
 - Fill 34 navigation, movement, scrolling and accessibility shortcut messages
