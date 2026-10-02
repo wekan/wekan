@@ -7,7 +7,7 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(
   path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const english = read('en');
-const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC', 'bho', 'mai', 'kok', 'or_IN', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'nso', 'ss', 'rw', 'rn', 'lg', 'om', 'mi', 'sm', 'to', 'fj', 'hsb', 'szl', 'wa', 'lld', 'haw', 'gv', 'ts', 've', 'nd', 'wa-RR', 'rup', 'se', 'cv', 'bua', 'bo', 'wo', 'ace', 'ak'];
+const codes = ['ku', 'ckb', 'tt', 'tk_TM', 'pap', 'so', 'tpi', 'bi', 'yi', 'ary', 'wuu-Hans', 've-CC', 'bho', 'mai', 'kok', 'or_IN', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'nso', 'ss', 'rw', 'rn', 'lg', 'om', 'mi', 'sm', 'to', 'fj', 'hsb', 'szl', 'wa', 'lld', 'haw', 'gv', 'ts', 've', 'nd', 'wa-RR', 'rup', 'se', 'cv', 'bua', 'bo', 'wo', 'ace', 'ak', 'bm', 'ee'];
 const scripts = {
   bo: 'Tibetan', cv: 'Cyrillic', bua: 'Cyrillic', ckb: 'Arabic', ary: 'Arabic', tt: 'Cyrillic', yi: 'Hebrew', 'wuu-Hans': 'Han',
   bho: 'Devanagari', mai: 'Devanagari', kok: 'Devanagari', or_IN: 'Oriya',
@@ -32,6 +32,14 @@ for (const code of codes) {
 // Cancellation is irreversible only for the messages covered by this request.
 // Retrying must retain the pause and the warning about uncertain delivery.
 const meanings = {
+  bm: {
+    cancel: /u tɛ se ka lasegin.*delili in kɔfɛ bɛna mara/,
+    description: /tɛ se ka lasegin.*nɔfɛko ma dafa.*siɲɛ fila.*lajɔli waati dɔ kɔnɔ min bɛ yen mara/,
+  },
+  ee: {
+    cancel: /womate ŋu agbugbɔ wo ava o.*biabia sia megbe ɖo/,
+    description: /Womate ŋu agbugbɔ.*emetsonu meka ɖe edzi o.*adzɔ ake.*wòléa tete vie si li xoxo la ɖe asi/,
+  },
   ace: {
     cancel: /hana jeuet geupeuwoe lom.*lheueh peumintaan nyoe geukeubah/,
     description: /hana jeuet tacok woe.*hana pasti.*teukirem dua go.*geujaga peupioh siat nyang ka na/,
@@ -298,6 +306,9 @@ for (const [code, labels] of Object.entries(repairedEmailLabels)) {
     assert.deepEqual(translationTokens(read(code)[key]), translationTokens(english[key]));
   }
 }
+assert.match(read('bm')['email-recovery-queued'], /Cikanw makɔnɔsɛbɛn kɔnɔ/);
+assert.match(read('ee')['email-recovery-description'], /nuŋɔŋlɔƒewo.*Ɖoɖo ɖa nu tsitsi/);
+assert.doesNotMatch(read('ee')['email-recovery-description'], /email agblewo/);
 assert.equal(read('to').pause, 'Taʻofi fakataimi');
 assert.doesNotMatch(read('to').pause, /Faka-Tonga:|Pause/);
 assert.deepEqual(translationTokens(read('to').pause), translationTokens(english.pause));
