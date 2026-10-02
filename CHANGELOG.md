@@ -1686,6 +1686,18 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d9883253b2">Complete remaining Uyghur prose translations and coverage</a>. Thanks to xet7.</summary>
+
+- Fill the final 46 reported prose placeholders, covering activity recovery,
+  rule email, sign-in and History. Retain 25 literal keyboard labels,
+  platform names and mathematical symbols as reviewed exceptions.
+- Full-locale placeholder and completeness checks and all 21 human-preference
+  checks pass. The shared completion suite still fails on missing Cherokee
+  dependency keys. Browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/073729754a">Translate Uyghur email delivery messages</a>. Thanks to xet7.</summary>
 
 - Fill 25 email-delivery, recovery and time-estimate messages.
