@@ -4096,6 +4096,17 @@ and all 21 human-preference checks pass. Other languages and the broader backlog
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aaa84eb20d">Translate continuous backup into Bosnian, Serbian and Macedonian</a>. Thanks to xet7.</summary>
+
+Fill 105 English placeholders and correct Macedonian restore and save labels.
+Preserve existing correct-language translations, source order and exact tokens.
+Extend checks for restore boundaries, protection of the live database file, time
+units and language-specific vocabulary and scripts. All 453 translation-related
+suites and 21 human-preference checks pass. Other languages and the broader backlog remain.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
