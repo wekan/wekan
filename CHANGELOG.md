@@ -2762,6 +2762,32 @@ wrong-language text still need work.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1cdf3af003">Translate Scrum scope history and GitLab estimates in 25 more locale tags</a>. Thanks to xet7.</summary>
+
+Fill 400 English placeholders, bringing both message groups to 196 locale
+tags. Preserve existing translations, current key order and placeholder
+inventories. Add native-script checks for Bhojpuri, Maithili and Konkani and
+warning-meaning checks for Māori and Zulu. Correct the Fijian estimate term
+from the verb for comparing to the documented loanword, and guard against
+regression. All 450 translation-related Node suites pass at 192 tags; five
+catalog and translation suites pass with the final four tags and wording
+corrections included.
+
+Specialist workflow wording in the less widely used languages in this batch
+has lower confidence; the commit lists them for speaker review. References
+included [Bislama vocabulary](https://bislama.org/images/dictionary/BislamaSpellingDictionary-EN-BI-v1.1.pdf),
+[Māori estimates](https://paekupu.co.nz/word/whakatau-tata),
+[the Fijian dictionary](https://dokumen.pub/fijian-english-dictionary-with-notes-on-fijian-culture-and-natural-history-9789829804716.html),
+[Hawaiian terminology](https://wehe.hilo.hawaii.edu/?q=kaumaha),
+[the multilingual mathematics dictionary](https://www.dsac.gov.za/sites/default/files/2024-10/Multilingual%20Mathematics%20Dictionary%20Grade%20R%20-%206.pdf)
+and [Luganda vocabulary](https://www.learnluganda.com/concise).
+Structural checks do not establish fluency. These groups still need
+translation in 38 locale tags, and the broader translation queue and older
+wrong-language text still need work.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
