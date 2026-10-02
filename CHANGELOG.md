@@ -3728,6 +3728,22 @@ Structural checks do not establish fluency. The broader translation backlog rema
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3c2cab5cfc">Translate email recovery in Wolaytta</a>. Thanks to xet7.</summary>
+
+Fill 23 English placeholders and replace four mixed-English pause and email status
+labels. Preserve existing correct-language translations, source order and exact
+tokens. Extend cancellation, uncertain-delivery, retained-pause and corrected-label
+checks. Four focused catalog suites and all 21 human-preference checks pass in
+the worktree aligned with the new backup strings.
+
+Specialist Wolaytta wording and inflection have low confidence and need speaker
+review. References include [Wolaytta teaching material](https://pdf.usaid.gov/pdf_docs/PA00MQWZ.pdf)
+and the [Wolaytta dictionary](https://kaikki.org/dictionary/Wolaytta/index.html).
+Structural checks do not establish fluency. The broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
