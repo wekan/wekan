@@ -2376,6 +2376,23 @@ The remaining translation queue and older wrong-language text still need work.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/13ec2c2149">Translate feature and card settings in five Asian languages</a>. Thanks to xet7.</summary>
+
+Add 135 messages in Buryat, Chuvash, Sakha, Bhojpuri and Maithili. Feature
+settings now cover 211 locale tags and the three card-setting labels cover 79.
+Align Buryat linked-card wording with the existing card terminology. All eight
+selected translation and catalog suites pass, including script, current key
+order, placeholder and data-retention checks. Specialist workflow wording,
+particularly Buryat, Chuvash and Sakha, has lower confidence and remains open to
+native review. Permission vocabulary was checked against
+[Chuvash](https://ru.samah.chv.su/s/7/%D1%80%D0%B0%D0%B7%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5)
+and [Sakha](https://sakhatyla.ru/translate?q=%D0%BA%D3%A9%D2%A5%D2%AF%D0%BB%D0%BB%D1%8D%D1%8D)
+dictionaries. The remaining translation queue and older wrong-language text
+still need work.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
