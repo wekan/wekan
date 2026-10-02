@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/49e073a664">Translate Amharic loops and editing messages</a>. Thanks to xet7.</summary>
+
+- Fill 27 Blockly loop, editing and bitmap messages in Amharic.
+- Batch script, key-order, placeholder, rule-variable, markup and query-field
+  checks pass, as do all 21 human-preference checks. Full-language work,
+  browser and native-speaker reviews remain.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/97418d5225">Translate Amharic Blockly colours and control flow</a>. Thanks to xet7.</summary>
 
 - Fill 29 Blockly editor, colour and control-flow messages in Amharic.
