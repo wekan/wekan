@@ -2606,6 +2606,36 @@ The remaining translation queue and older wrong-language text still need work.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6d2338c5a2">Complete card-setting translations and extend feature and GitLab messages</a>. Thanks to xet7.</summary>
+
+The card color, linked card and description badge labels now have translations
+in all 234 non-English locale tags. Remove these three completed keys from the
+pending queue and require every non-English catalog in their regression suite.
+Feature settings now cover 231 tags, with Nahuatl, Wolaytta and Inuktitut added.
+Correct mixed-language Wolaytta labels and the Tigre linked-card clause; keep
+its exact-value correction history safe for newer translations.
+
+Translate the five new GitLab estimate messages in 52 locale tags. Synchronize
+new GitLab and Scrum keys across catalogs, preserving their remaining English
+placeholders in the work queue. Six current catalog and translation suites
+pass. Eight failures found by the full 448-suite run pass after repairs against
+the GitLab source snapshot; newer Scrum messages remain to be translated.
+Tests check complete catalog coverage, tokens, script, permission wording and
+the distinction between clearing a missing GitLab weight and ignoring a missing
+Jira field.
+
+Specialist wording in Nahuatl, Wolaytta, Cherokee, Inuktitut, Tigre and Tamazight,
+and the less widely used GitLab estimate languages, has lower confidence and
+remains open to speaker review. References included
+[Nahuatl colour vocabulary](https://gdn.iib.unam.mx/diccionario/tlapalli/18305),
+[Wolaytta vocabulary](https://en.wikivoyage.org/wiki/Wolayttattuwa_phrasebook),
+[Tigre grammar](https://www.speaktigre.com/_files/ugd/7e068a_adcb2a9df2c340898e3155ef3905c61e.pdf?index=true)
+and [Irish estimate terminology](https://www.teanglann.ie/en/fgb/Meastach%C3%A1n).
+The broader translation queue and older wrong-language text still need work.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
