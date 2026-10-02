@@ -28,7 +28,12 @@ console.log('  ok - issue types map to icons, and anything else keeps its name')
 // as a Scrum minicard text field.
 assert.match(read('client/components/cards/minicard.js'), /issueTypeBadge\(\) \{\s*return issueTypeBadge\(this\.scrum && this\.scrum\.issueType\);/);
 const jade = read('client/components/cards/minicard.jade');
-assert.match(jade, /\.badges\n[\s\S]{0,300}if issueTypeBadge\n\s*\.badge\.minicard-issue-type\(class="issue-type-\{\{issueTypeBadge\.tone\}\}" title="\{\{issueTypeBadge\.name\}\}"\)/);
+// Since Board Settings / Card orders the minicard badges, the type is one of
+// them ("Scrum settings: Work item type"), behind its own board toggle, which
+// defaults on - so it stays first and shown on every board unless turned off.
+assert.match(jade, /each field in orderedMinicardBadges\n[\s\S]{0,400}if \$eq field "scrumIssueType"\n\s*if showIssueTypeOnMinicard\n\s*if issueTypeBadge\n\s*\.badge\.minicard-issue-type\(class="issue-type-\{\{issueTypeBadge\.tone\}\}" title="\{\{issueTypeBadge\.name\}\}"\)/);
+assert.match(read('client/components/cards/minicard.js'), /showIssueTypeOnMinicard\(\) \{\s*return Utils\.getCurrentBoard\(\)\?\.allowsIssueTypeOnMinicard !== false;/,
+  'on unless the board turned it off');
 assert.doesNotMatch(jade.slice(jade.indexOf('if issueTypeBadge') - 400, jade.indexOf('if issueTypeBadge')), /scrum\.enabled/,
   'not gated on the board using Scrum');
 const scrumFields = read('client/components/boards/scrum/scrumFields.js');

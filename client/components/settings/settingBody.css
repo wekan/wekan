@@ -1004,6 +1004,6 @@ li.has-error .form-group .wekan-form-control {
   font-size: 0.9em;
 }
 #tableVisibilityMode-setting .feature-awaiting-approval {
-  margin-left: 0.5em;
+  margin-inline-start: 0.5em;
   font-weight: bold;
 }

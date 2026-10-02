@@ -31,6 +31,9 @@
     "4221c252d2f11ad658d60d2a0ab6147feb3d984e62e204a64c9ce8562e2410b0"
   ],
   "allowUrlPatternsByFile": {
+    "models/lib/taskwarriorFormat.js": [
+      "https://taskwarrior\\.org/docs/design/task/"
+    ],
     "models/lib/leoOutlineFormat.js": [
       "http://leoeditor\\.com/namespaces/leo-python-editor/1\\.1"
     ],

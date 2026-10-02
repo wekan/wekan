@@ -1166,7 +1166,7 @@
 }
 .minicard-checklist-due {
   font-size: 0.85em;
-  margin-left: 4px;
+  margin-inline-start: 4px;
 }
 .minicard-card-buttons {
   display: flex;
