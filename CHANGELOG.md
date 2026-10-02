@@ -1681,9 +1681,10 @@ template.
 **CasTokenBleed** are fixed, with thirteen more newly named issues such as
 **RepointBleed**, **TrayBleed** and **ZipBombBleed**, follow-up fixes for
 earlier Hall of Fame entries, and assigned-only members limited to their own
-cards on every read path. Admin Panel → Problems now records more attempts and
-no longer disables users for ordinary use. Dependency lines show on instance
-boards, and translations cover more languages.
+cards on every read path. LDAP certificates are verified by default again,
+password guessing is braked per account, and Admin Panel → Problems records
+more attempts without disabling users for ordinary use. Dependency lines show
+on instance boards, and translations cover more languages.
 
 This release fixes the following CRITICAL SECURITY ISSUES:
 
@@ -1817,6 +1818,33 @@ disabled account keeps the reason it was disabled for.
 One try/catch wrapped every lockout settings read at startup, so a single
 failed read, for example while the database restarts, left the server with no
 lockout at all. Each setting now falls back to its default.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fd8b51464f">Password guessing is braked per account without locking the owner out</a>. Thanks to xet7.</summary>
+
+[BruteBleed](https://wekan.fi/hall-of-fame/brutebleed/): the lockouts count per
+address and per account and address, so guessing spread over many addresses
+was never slowed, and a hard per-account lockout would let a stranger lock the
+owner out. After five failures on one account within 15 minutes, the account
+accepts one attempt per slot, 1 s doubling to 30 s, over REST and DDP alike.
+An early attempt is refused before the password is looked at, and addresses
+the account has signed in from are not slowed. Refusals show as BruteBleed in
+Admin Panel → Problems, naming the account as the target.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/daf6593adf">LDAP server certificates are verified by default again</a>. Thanks to xet7.</summary>
+
+[LDAPBleed](https://wekan.fi/hall-of-fame/ldapbleed/) regression: the code
+verified certificates when `LDAP_REJECT_UNAUTHORIZED` was unset, but the Docker
+image and the snap set it to `false`, and an empty value disabled verification
+too. The default is `true` everywhere and only the exact value `false` turns it
+off. **Upgrade note:** an LDAPS or StartTLS server with a self-signed or
+private-CA certificate needs that CA in `LDAP_CA_CERT`, or
+`LDAP_REJECT_UNAUTHORIZED=false` set deliberately.
 
 </details>
 
@@ -2021,6 +2049,22 @@ replaced now; otherwise the import leaves that board alone.
 Translation collection's client rules let any user write a document whose id
 equalled their user id. Custom translations replace text for everyone and some
 render as HTML, so a member could plant markup for an admin's browser.
+
+</details>
+
+**Multitenancy** - which Organization a hostname belongs to.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/94a8c41b3c">Only a site admin assigns a tenant hostname, and never the instance's own</a>. Thanks to xet7.</summary>
+
+[TenantBleed](https://wekan.fi/hall-of-fame/tenantbleed/) hardening: an
+Organization's own admin could set its tenant hostnames to anything not yet
+claimed, the instance's ROOT_URL host included, which put that Organization's
+branding on everybody's sign-in page. The instance host is refused for
+everyone, and an org admin's attempt shows as TenantBleed in Admin Panel →
+Problems. A new hostname from an org admin is stored as a request that a site
+admin assigns by saving it; dropping hostnames still applies at once. The new
+messages are in English, pending Transifex.
 
 </details>
 
@@ -2365,6 +2409,7 @@ site.
 - [Browser tests for TrayBleed, HookUrlBleed, DirectoryInfoBleed, AuthMethodBleed, MigrationBleed and assigned-only attachment reads](https://github.com/wekan/wekan/commit/d53f58bf52), and GET /api/boards/:boardId/attachments answers a refusal with its status instead of the app page. Thanks to xet7.
 - [The coverage tests account for the thirteen Hall of Fame names published on 2026-10-02](https://github.com/wekan/wekan/commit/ad6117cc65). Thanks to xet7.
 - [The RepointBleed browser test has time for its six sign-ins in slower browsers](https://github.com/wekan/wekan/commit/ece70ad9fb). Thanks to xet7.
+- [The admin card reports are recorded as instance-wide by decision](https://github.com/wekan/wekan/commit/69f3358154). Thanks to xet7.
 
 and updates the following translations:
 
