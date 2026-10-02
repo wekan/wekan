@@ -1686,6 +1686,20 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/71f1616b34">Complete remaining Assamese recovery and history translations</a>. Thanks to xet7.</summary>
+
+- Fill the final 60 reported Assamese messages and retain 28 reviewed keyboard,
+  platform and mathematical literals. No untranslated prose is reported.
+  Recovery terminology remains low confidence pending native-speaker review.
+- Assamese completion, key-order, markup and full-locale placeholder checks
+  pass, along with all 21 human-preference checks. The shared completion
+  suite still fails on 11 missing Cherokee dependency keys. Browser and
+  native-speaker review remain.
+
+</details>
+
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5949c4f249">Translate Assamese email delivery queue messages</a>. Thanks to xet7.</summary>
 
 - Fill 20 email delivery queue messages in Assamese. Recovery terminology
