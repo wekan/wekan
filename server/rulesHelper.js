@@ -27,6 +27,7 @@ import { triggerMatchesWithVars } from '/models/lib/ruleTriggerVars';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { tripCanary } from '/server/lib/canary';
 import { substituteVars, recipientVars } from '/models/lib/ruleVarsSubstitute';
+const { sortListOrder } = require('/models/lib/ruleSortList');
 import { buildCustomFieldsWD, filterAdminOnlyDefinitions } from '/models/lib/customFieldsWD';
 import { cardMatchesAdvancedFilter } from '/server/lib/advancedFilterMatch';
 import { cardTextContainsMatch } from '/models/lib/ruleTextContainsMatch';
@@ -996,16 +997,8 @@ export const RulesHelper = {
       }
       if (list) {
         const cards = await list.cardsUnfiltered(card.swimlaneId);
-        const keyOf = c => {
-          switch (action.sortField) {
-            case 'name': return (c.title || '').toLowerCase();
-            case 'created': return c.createdAt ? new Date(c.createdAt).getTime() : 0;
-            case 'modified': return c.modifiedAt ? new Date(c.modifiedAt).getTime() : 0;
-            case 'due':
-            default: return c.dueAt ? new Date(c.dueAt).getTime() : Number.MAX_SAFE_INTEGER;
-          }
-        };
-        const sorted = [...cards].sort((a, b) => (keyOf(a) > keyOf(b) ? 1 : keyOf(a) < keyOf(b) ? -1 : 0));
+        // The same order the durable command captures (models/lib/ruleSortList.js).
+        const sorted = sortListOrder(cards, action.sortField);
         for (let i = 0; i < sorted.length; i++) {
           await Cards.updateAsync(sorted[i]._id, { $set: { sort: i } });
         }

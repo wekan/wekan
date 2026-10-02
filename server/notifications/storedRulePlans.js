@@ -173,6 +173,7 @@ export async function runStoredSyncRules({ adapters, ...options }) {
     ...Object.fromEntries(Object.keys(RULE_CARD_ACTIONS).map(type => [type, cardField])),
     ...Object.fromEntries(Object.keys(RULE_CHECKLIST_ACTIONS).map(type => [type, ({ invocation }) =>
       runStoredSyncRuleChecklist({ ...options, index: indices.get(invocation.id) })])),
+    sortList: ({ invocation }) => runStoredSyncRuleSortList({ ...options, index: indices.get(invocation.id) }),
     ...Object.fromEntries(RULE_CHECKLIST_LIFECYCLE_ACTIONS.map(type => [type, ({ invocation }) =>
       runStoredSyncRuleChecklistLifecycle({ ...options, index: indices.get(invocation.id) })])),
     // In-place moves only: eligibility keeps a board with any other move on
@@ -507,6 +508,79 @@ export async function runStoredSyncRuleMove({ index, ...options }) {
 const { RULE_MOVE_ACTIONS, commandId: ruleMoveCommandId, prepareRuleMoveCommand, validateRuleMoveCommand,
   sortSelector: ruleMoveSortSelector } = require('/server/lib/syncRuleMoveCommand');
 const { RULE_CARD_POSITION_FIELDS } = require('/server/lib/syncHistoryBatch');
+
+// Durable rule sortList (server/lib/syncRuleSortListCommand.js): the order
+// decided once with the ordinary action's own lookups, then each card's sort
+// written conditionally with the hook's position row deferred, and that row
+// written from the plan. Every step is idempotent on replay.
+export const SyncRuleSortListCommands = new Mongo.Collection('listSyncRuleSortListCommands');
+SyncRuleSortListCommands.deny({ insert: () => true, update: () => true, remove: () => true });
+
+export async function runStoredSyncRuleSortList({ index, ...options }) {
+  const context = executionContext(options), plan = await capture(context);
+  const invocation = plan.actions[index], action = invocation?.action;
+  if (action?.actionType !== 'sortList') throw new Error('sync-rule-sort-list-invalid');
+  const commandContext = { plan, activity: context.saved, effectId: context.effectId, index };
+  const guard = reuseWithinEvaluation(async () => {
+    await context.guard();
+    const [rule, current] = await Promise.all([
+      Rules.rawCollection().findOne({ _id: invocation.rule._id }),
+      Actions.rawCollection().findOne({ _id: action._id }),
+    ]);
+    if (!rule || !current || canonical(rule) !== canonical(invocation.rule) ||
+        canonical(current) !== canonical(action)) throw new Error('sync-rule-sort-list-configuration-changed');
+    await context.guard();
+  });
+  const commands = SyncRuleSortListCommands.rawCollection(), id = ruleSortListCommandId(invocation.id);
+  await guard();
+  let row = await commands.findOne({ _id: id });
+  if (!row) {
+    // The ordinary action's own lookups (server/rulesHelper.js performAction).
+    const card = await Cards.findOneAsync({ _id: plan.cardId, boardId: plan.boardId });
+    let list = card ? await card.list() : null;
+    if (card && action.listName && action.listName !== '*') {
+      list = await ReactiveCache.getList({ title: action.listName, boardId: plan.boardId });
+    }
+    const cards = list ? (await list.cardsUnfiltered(card.swimlaneId)).map(c => ({ _id: c._id, boardId: c.boardId,
+      listId: c.listId, swimlaneId: c.swimlaneId, sort: c.sort, title: c.title, createdAt: c.createdAt,
+      modifiedAt: c.modifiedAt, dueAt: c.dueAt, lastMoveReason: c.lastMoveReason })) : [];
+    const redoRows = await ChangeHistory.find({ boardId: plan.boardId, userId: plan.actorId, undone: true,
+      superseded: { $ne: true } }, { transform: null, limit: 10000 }).fetchAsync();
+    // No list: the ordinary action does nothing, and so does this command.
+    const candidate = prepareRuleSortListCommand({ ...commandContext, listId: list ? list._id : (card?.listId || plan.cardId),
+      swimlaneId: card?.swimlaneId, cards: list ? cards : [], sortField: action.sortField, createdAt: new Date(), redoRows });
+    await guard();
+    let failure;
+    try { await commands.insertOne(candidate); } catch (error) { failure = error; }
+    row = await commands.findOne({ _id: id });
+    if (!row) throw failure || new Error('sync-rule-sort-list-command-unconfirmed');
+  }
+  const command = validateRuleSortListCommand(row, commandContext);
+  const cardsCollection = Cards.rawCollection();
+  for (const unit of command.units) {
+    await guard();
+    if (!await cardsCollection.findOne(ruleSortListSelector(command, unit, unit.after))) {
+      if (!await cardsCollection.findOne(ruleSortListSelector(command, unit, unit.before))) {
+        throw new Error('sync-rule-sort-list-changed');
+      }
+      await DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false }, () =>
+        withSyncRecordingDeferred({ cardId: unit.cardId, boardId: command.boardId, listId: unit.listId,
+          kinds: ['history', 'position'] },
+        () => Cards.updateAsync(ruleSortListSelector(command, unit, unit.before), { $set: { sort: unit.after } })));
+      if (!await cardsCollection.findOne(ruleSortListSelector(command, unit, unit.after))) {
+        throw new Error('sync-rule-sort-list-unconfirmed');
+      }
+    }
+    if (unit.history.rows.length) {
+      await persistSyncFieldHistory({ history: ChangeHistory, plan: unit.history, assertCurrent: guard,
+        fields: RULE_CARD_POSITION_FIELDS });
+    }
+  }
+  await guard();
+  return invocation.id;
+}
+const { commandId: ruleSortListCommandId, prepareRuleSortListCommand, validateRuleSortListCommand,
+  unitSelector: ruleSortListSelector } = require('/server/lib/syncRuleSortListCommand');
 
 // Durable rule checklist creation and removal
 // (server/lib/syncRuleChecklistLifecycleCommand.js): captured with the
