@@ -3374,6 +3374,23 @@ messages in 42 locale tags; the broader translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c19cc2c478">Translate email recovery in Māori, Samoan, Tongan and Fijian</a>. Thanks to xet7.</summary>
+
+Fill 92 English placeholders across four locales and replace the Tongan shared
+pause label's English filler. Preserve existing translated values, source key
+order and exact placeholder tokens. Extend regression coverage for cancellation
+boundaries, uncertain delivery, retries respecting existing pauses and the
+Tongan pause correction.
+
+All 452 translation-related suites and 21 human-preference checks pass.
+Specialist workflow phrasing and inflection in these four languages have lower
+confidence and need speaker review; structural checks do not establish fluency.
+Email recovery still has English messages in 38 locale tags, and the broader
+translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
