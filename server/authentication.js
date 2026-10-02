@@ -52,7 +52,15 @@ export const Authentication = {
     Authentication.checkLoggedIn(userId);
     const board = await ReactiveCache.getBoard(boardId);
     Authentication.checkBoardExists(board);
-    const normalAccess = board.members.some(e => e.userId === userId && e.isActive && !e.isNoComments && !e.isCommentOnly && !e.isWorker);
+    // AssignedBleed sibling (2026-10-02): the routes behind this check read
+    // the WHOLE board - every list, card, checklist, comment - and an
+    // assigned-only member may see only the cards assigned to them. They were
+    // let through, so REST handed them the cards the UI hides. They are
+    // refused here until those routes scope to assigned cards (TODO Later);
+    // not recorded, since an API client of such a member reaches it in
+    // ordinary use.
+    const normalAccess = board.members.some(e => e.userId === userId && e.isActive && !e.isNoComments && !e.isCommentOnly && !e.isWorker &&
+      !e.isNormalAssignedOnly && !e.isCommentAssignedOnly && !e.isReadAssignedOnly);
     await Authentication.checkAdminOrCondition(userId, normalAccess);
   },
 

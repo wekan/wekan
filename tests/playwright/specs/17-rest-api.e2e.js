@@ -796,3 +796,21 @@ test('a refused REST read answers 403, not 200 with an error object (ErrorBleed)
     expect(await res.text(), url).not.toMatch(/"stack"|at [A-Za-z]+ \(/);
   }
 });
+
+// AssignedBleed sibling: REST board-wide reads let an assigned-only member
+// read every card, which the UI hides from them.
+test('an assigned-only member cannot read the whole board over REST (AssignedBleed)', async ({ request, user2, board }) => {
+  const original = db.getBoard(board.boardId).members;
+  db.updateOne('boards', { _id: board.boardId }, { $set: { members: [...original, { userId: user2.id, isActive: true, isAdmin: false, isReadAssignedOnly: true }] } });
+  try {
+    for (const url of [`/api/boards/${board.boardId}/lists`, `/api/boards/${board.boardId}/lists/${board.listIds[0]}/cards`]) {
+      const res = await request.get(url, { headers: authHeaders(user2.token) });
+      expect(res.status(), url).toBe(403);
+    }
+    // A normal member still reads (negative).
+    db.updateOne('boards', { _id: board.boardId }, { $set: { members: [...original, { userId: user2.id, isActive: true, isAdmin: false }] } });
+    expect((await request.get(`/api/boards/${board.boardId}/lists`, { headers: authHeaders(user2.token) })).status()).toBe(200);
+  } finally {
+    db.updateOne('boards', { _id: board.boardId }, { $set: { members: original } });
+  }
+});

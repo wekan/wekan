@@ -93,4 +93,23 @@ test('negative: legitimate writing roles retain REST write access', () => {
   }
 });
 
+// AssignedBleed sibling (2026-10-02): the REST read check let assigned-only
+// members through to routes that return the whole board. Drive the real
+// check: they are refused; an ordinary member still reads (negative).
+test('REST board-wide reads refuse assigned-only members (checkBoardAccess)', () => {
+  const auth = require('fs').readFileSync(require('path').join(__dirname, '..', 'server/authentication.js'), 'utf8');
+  const at = auth.indexOf('async checkBoardAccess(userId, boardId) {');
+  const body = auth.slice(at, auth.indexOf('\n  },', at));
+  const expr = /const normalAccess = (board\.members\.some\([\s\S]*?\));/.exec(body)[1];
+  // eslint-disable-next-line no-new-func
+  const allowed = new Function('board', 'userId', `return ${expr};`);
+  const board = flags => ({ members: [{ userId: 'u', isActive: true, ...flags }] });
+  for (const flags of [{ isNormalAssignedOnly: true }, { isCommentAssignedOnly: true }, { isReadAssignedOnly: true }]) {
+    assert.strictEqual(allowed(board(flags), 'u'), false, JSON.stringify(flags));
+  }
+  assert.strictEqual(allowed(board({}), 'u'), true, 'a normal member reads');
+  assert.strictEqual(allowed(board({ isAdmin: true }), 'u'), true);
+  assert.strictEqual(allowed(board({ isActive: false }), 'u'), false, 'a removed member does not');
+});
+
 console.log(`\nassignedbleed: ${passed} tests passed`);
