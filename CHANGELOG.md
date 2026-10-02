@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c5100e1cae">Translate Malagasy logic and arithmetic messages</a>. Thanks to xet7.</summary>
+
+- Fill 29 logic, arithmetic and number-property messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c3fe641999">Translate Malagasy list sorting and logic messages</a>. Thanks to xet7.</summary>
 
 - Fill 33 list-sorting, text-conversion and logic messages.
