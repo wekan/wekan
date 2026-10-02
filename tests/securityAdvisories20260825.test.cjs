@@ -60,14 +60,30 @@ test('board-authorized searchUsers also escapes and throttles its query', () => 
   assert.ok(!/new RegExp\(query, 'i'\)/.test(users));
 });
 
-test('history insertion requires membership on current and previous boards', () => {
-  assert.ok(/async insert\(userId, doc\)/.test(historyPermission));
-  assert.ok(/findOneAsync\(doc\.boardId\)/.test(historyPermission));
-  assert.ok(/previousBoard\.hasMember\(userId\)/.test(historyPermission));
-  assert.ok(/tripCanary\('history\.cross-board'/.test(historyPermission));
+test('history is never inserted by a client', () => {
+  // PositionHistoryBleed sibling (2026-10-02): checking boardId and
+  // previousBoardId at insert still let a member forge an entry naming any
+  // card, list or checklist item, any newBoardId and any actionType, and have
+  // undo/redo move it into their board or soft-delete it. The server records
+  // history itself (trackChange); clients insert nothing.
+  assert.ok(/insert\(userId\) \{[\s\S]*?return tripCanary\('history\.cross-board', \{ userId \}\);\s*\},/.test(historyPermission));
+  assert.ok(!/return true;/.test(historyPermission), 'no client mutation is ever allowed');
   assert.ok(/update\(userId\)[\s\S]*?return tripCanary\('history\.cross-board'/.test(
     historyPermission,
   ));
+});
+
+test('undo and redo act only within the entry\'s boards, with write access', () => {
+  assert.match(historyModel, /async assertApplicable\(destinationBoardIds = \[\]\) \{/);
+  assert.match(historyModel, /const entryBoards = \[this\.boardId, this\.previousBoardId, this\.newBoardId\]\.filter\(Boolean\);/);
+  assert.match(historyModel, /allowed = allowIsBoardMemberWithWriteAccess\(this\.userId, await Boards\.findOneAsync\(boardId\)\);/);
+  // Both paths call it before touching anything, redo included - which had
+  // no check at all.
+  for (const [fn, field] of [['undo', 'previousBoardId'], ['redo', 'newBoardId']]) {
+    const body = historyModel.slice(historyModel.indexOf(`async ${fn}() {`));
+    const check = body.indexOf(`await this.assertApplicable([this.entityType === 'card' ? this.${field} : null]);`);
+    assert.ok(check > 0 && check < body.indexOf('_applyDeleted('), `${fn} checks first`);
+  }
 });
 
 test('history undo rechecks source visibility and destination membership', () => {

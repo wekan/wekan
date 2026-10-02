@@ -230,10 +230,53 @@ UserPositionHistory.helpers({
   /**
    * Undo this change
    */
+  /**
+   * PositionHistoryBleed: an entry may act only on an entity that is still on
+   * the entry's board, for a user who can still write there - and, for a card
+   * move, on the board it moves to. History documents are data; this is the
+   * check at execution time, whatever wrote them.
+   */
+  async assertApplicable(destinationBoardIds = []) {
+    if (!Meteor.isServer) return;
+    const { allowIsBoardMemberWithWriteAccess } = require('/server/lib/utils');
+    let entityBoardId = null;
+    switch (this.entityType) {
+      case 'card': entityBoardId = (await ReactiveCache.getCard(this.entityId) || {}).boardId; break;
+      case 'list': entityBoardId = (await ReactiveCache.getList(this.entityId) || {}).boardId; break;
+      case 'swimlane': entityBoardId = (await ReactiveCache.getSwimlane(this.entityId) || {}).boardId; break;
+      case 'checklist': {
+        const checklist = await ReactiveCache.getChecklist(this.entityId);
+        entityBoardId = checklist && (await ReactiveCache.getCard(checklist.cardId) || {}).boardId;
+        break;
+      }
+      case 'checklistItem': {
+        const item = await ChecklistItems.findOneAsync(this.entityId);
+        entityBoardId = item && (await ReactiveCache.getCard(item.cardId) || {}).boardId;
+        break;
+      }
+      default: break;
+    }
+    const boards = [entityBoardId, ...destinationBoardIds.filter(Boolean)];
+    // A cross-board card move is recorded under the board it LEFT, so after
+    // the move (or its undo) the card is on the entry's previous or new board.
+    const entryBoards = [this.boardId, this.previousBoardId, this.newBoardId].filter(Boolean);
+    let allowed = !!entityBoardId && entryBoards.includes(entityBoardId);
+    for (const boardId of boards) {
+      if (!allowed) break;
+      allowed = allowIsBoardMemberWithWriteAccess(this.userId, await Boards.findOneAsync(boardId));
+    }
+    if (allowed) return;
+    try {
+      require('/server/lib/canary').tripCanary('history.cross-board', { userId: this.userId });
+    } catch (e) { /* logging must never break the guard */ }
+    throw new Meteor.Error('not-authorized', 'This history entry is outside your current access.');
+  },
+
   async undo() {
     if (!(await this.canUndo())) {
       throw new Meteor.Error('cannot-undo', 'Entity no longer exists');
     }
+    await this.assertApplicable([this.entityType === 'card' ? this.previousBoardId : null]);
 
     // Soft delete: undo of a 'delete' RESTORES the entity (+ batch); undo of a
     // 'restore' re-deletes it. (docs/Features/Undo/Undo.md)
@@ -358,6 +401,7 @@ UserPositionHistory.helpers({
     if (!(await this.canUndo())) {
       throw new Meteor.Error('cannot-redo', 'Entity no longer exists');
     }
+    await this.assertApplicable([this.entityType === 'card' ? this.newBoardId : null]);
 
     // Soft delete: redo of a 'delete' re-deletes; redo of a 'restore' restores.
     if (this.actionType === 'delete') {

@@ -1,23 +1,15 @@
 import UserPositionHistory from '/models/userPositionHistory';
-import Boards from '/models/boards';
 import { tripCanary } from '/server/lib/canary';
 
 UserPositionHistory.allow({
-  async insert(userId, doc) {
-    if (!userId || doc.userId !== userId) {
-      return tripCanary('history.cross-board', { userId });
-    }
-    const board = await Boards.findOneAsync(doc.boardId);
-    if (!board || !board.hasMember(userId)) {
-      return tripCanary('history.cross-board', { userId });
-    }
-    if (doc.previousBoardId) {
-      const previousBoard = await Boards.findOneAsync(doc.previousBoardId);
-      if (!previousBoard || !previousBoard.hasMember(userId)) {
-        return tripCanary('history.cross-board', { userId });
-      }
-    }
-    return true;
+  insert(userId) {
+    // PositionHistoryBleed, sibling (2026-10-02): history entries are recorded
+    // by the server (trackChange) when a change really happens; no client
+    // inserts one. Allowing it - even with board checks on boardId and
+    // previousBoardId - let a member forge an entry naming any card, list or
+    // checklist item by id, with any newBoardId or actionType, and then have
+    // undo/redo move it into their board or soft-delete it.
+    return tripCanary('history.cross-board', { userId });
   },
   update(userId) {
     // Server-side checkpoint updates bypass allow rules. A client must never be
