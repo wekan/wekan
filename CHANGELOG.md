@@ -3085,6 +3085,23 @@ Structural tests do not establish fluency.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2bb092113c">Translate Scrum history, estimates and recovery in Greenlandic</a>. Thanks to xet7.</summary>
+
+Fill twenty English placeholders in Greenlandic, bringing these Scrum groups
+to 228 locale tags, with six remaining. Preserve existing translations,
+source order and exact tokens. Extend incomplete-history, missing-weight
+and discard-only recovery checks.
+
+All 451 translation-related Node suites and all 21 human-preference checks
+pass. Greenlandic workflow phrasing and inflection have lower confidence and
+need speaker review. The broader translation backlog remains. References
+include [Greenlandic interface wording](https://mitid-erhverv.dk/gl/mitid-erhverv-imannak-atussavat/mitid-erhverv-imi-suliffeqarfiup-inissitsiterinerinik-nalimmassaagit/lokal-idp-mik-aqutsineq/)
+and [estimate terminology](https://natur.gl/wp-content/uploads/2019/08/Hoeringssvar_narhval_2014_GRL_final.pdf).
+Structural tests do not establish fluency.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
