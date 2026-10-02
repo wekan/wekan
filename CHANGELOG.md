@@ -228,37 +228,29 @@ minute; the intermittent activity-recovery test was two test races and is fixed.
 Remaining, and why:
 
 - **Structural rule actions.** Every rule action type WeKan offers has a
-  durable adapter now (see Upcoming), on the card's own board and - since
-  2026-10-02 - on another board that has opted into Sync effects too. What
-  stays on direct Sync, and why:
-  - *A move to another board that is not provably its plan's last action.*
-    Every other durable command acts on the card on the plan's board, while
-    the ordinary engine re-reads the card and acts on it wherever it moved.
-    Such a move is durable only when it ends its rule and no other rule on
-    that board fires on the same activity type. Lifting that would mean
-    re-scoping every durable command to follow a card to another board, and
-    resolving names there as the ordinary engine does (by the source board's
-    names, which is arguably a bug of its own).
-  - *Activities without a list* - addSwimlane's createSwimlane and a move's
-    moveCardBoard - are written once by derived ids but delivered as
-    ordinary activities are. Durable delivery identifies an activity by its
-    list (server/lib/syncActivityDelivery.js,
-    server/lib/syncNotificationPlan.js). No rule trigger exists for either, so
-    only their notifications and webhooks are not replayed after a crash.
-    Board-level activities need that identity generalised first.
+  durable adapter now (see Upcoming), on the card's own board and on another
+  board that has opted into Sync effects too. Since 2026-10-02 a move to
+  another board may be followed by card-field, checklist and link actions,
+  which act on the card where it went, and activities without a list (a new
+  swimlane, a move to another board) are delivered durably too. What stays on
+  direct Sync, and why: a plan where a move to another board can be followed
+  by a move, a sort, moving all cards or archiving. The ordinary engine
+  resolves those against the board the card LEFT - its list and swimlane
+  names, and archiving's cascade to child cards there - which is arguably a
+  bug of its own; the durable commands would have to copy that or both
+  engines change together, which needs a maintainer decision.
 - **Scrum requirements** (from
   [the Scrum design](docs/Features/Right-Sidebar/Board-Settings/Board-View/Scrum-Design.md)).
-  Built on 2026-10-02 (see Upcoming): event-level scope history and burndown,
-  Jira sprints, versions, rank and epics, Jira estimate discovery, GitLab
-  estimate Sync, cross-board sprint and release references linked by name,
-  large-board paging, and online recovery of interrupted imports. What stays
-  open, and why:
-  - *Sprints over 10,000 cards*: a sprint's start and close snapshots, and its
-    rollover plan, live in the sprint document, within one document's BSON
-    budget; a larger sprint is refused before anything is written, so nothing
-    is lost. Lifting the limit means moving snapshot rows into their own
-    collection and migrating every reader - reports, Excel/PDF, daily
-    capture, the transfer format and History restore.
+  Built on 2026-10-02 and 2026-10-03 (see Upcoming): event-level scope
+  history and burndown, Jira sprints, versions, rank and epics, Jira estimate
+  discovery, GitLab estimate Sync, cross-board sprint and release references
+  linked by name, large-board paging, online recovery of interrupted imports,
+  and sprints with no card limit. What stays open, and why:
+  - *Very large sprints are slow, not refused*: closing 10,500 cards takes
+    about 8 s and undoing the close about 44 s, because every card is written
+    and checked one by one through the ordinary card hooks and History
+    checks. Batching those writes would bypass the per-card guards that make
+    undo safe, so it waits for a decision on which guards may be batched.
   - *Concurrent snapshot consistency*: a snapshot is a sequence of reads, not
     a transaction - the same backend property as "Atomicity" below.
   - *Jira's closed sprints*: issue search JSON has no commitment or close
@@ -1739,7 +1731,8 @@ EXPORT formatters now carry what each importer reads (see Upcoming).
 
 Additional formats not yet researched or built: whatever other kanban/outline
 tools use for import/export that WeKan does not read or write yet (the Leo
-`.leo` outline is done, and todo.txt was added on 2026-09-30, see Upcoming).
+`.leo` outline is done, todo.txt was added on 2026-09-30, Taskwarrior and
+Focalboard on 2026-10-02, see Upcoming).
 Each new format costs roughly what todo.txt cost: a parser, a formatter,
 tests, the import picker and export menu wiring, and one instruction string,
 added in English and marked pending Transifex (the maintainer's 2026-09-29
@@ -1747,21 +1740,38 @@ decision). Take them one at a time, following the todo.txt commit as the
 template.
 
 </details>
+
+<details>
+<summary>Continuous backup: what it leaves to the administrator, and why.</summary>
+
+Admin Panel / Attachments / Continuous backup (see Upcoming,
+docs/Backup/Continuous-Backup.md) streams to a target DIRECTORY. Still open:
+uploading to S3, Azure or GCS with the built-in engines (point the target at
+an rclone mount, or use the Litestream engine, which uploads itself);
+encrypting the stream; and applying a restored SQLite file, which is built
+beside the stream because FerretDB holds the live file open - stopping WeKan
+and putting it in place stays a manual step. The default docker-compose.yml
+runs FerretDB in its own container with no oplog, so it needs
+`--repl-set-name` or Litestream in that container before the database can be
+streamed; the file streams run regardless. The browser tests ran in Chromium
+and WebKit; Firefox cannot launch on the macOS machine used.
+
+</details>
 </details>
 
 # Upcoming WeKan ® release
 
-**In short:** Administrators choose which optional **board views** WeKan offers
-and can keep features from later updates off until approved. **Board Settings /
-Card** gives every row a card and a minicard side, shows each Scrum field as its
-own row and reorders rows by **drag and drop**, as does Board View. Boards
-import and export **Taskwarrior** JSON, more rule actions run through durable
-Sync - links, copies and moves to **another board** too, when both boards opted
-in -
-webhooks can opt into **act-editCard**, and translations cover more languages.
+**In short:** Administrators choose which optional **board views** WeKan offers,
+can keep features from later updates off until approved, and can stream every
+change to a **continuous backup** that restores to a chosen moment. **Board
+Settings / Card** gives every row a card and a minicard side, shows each Scrum
+field as its own row and reorders rows by **drag and drop**, as does Board
+View. Scrum sprints have **no card limit**, boards import and export
+**Taskwarrior** and **Focalboard**, rule actions run through durable Sync on
+**another board** too, webhooks can opt into **act-editCard**, and
+translations cover more languages.
 
-This release fixes the following SECURITY ISSUES found by GitHub CodeQL code
-scanning:
+This release fixes the following SECURITY ISSUES found by [GitHub CodeQL](https://codeql.github.com/) code scanning:
 
 - [A test builds its over-long template string without an escaped interpolation](https://github.com/wekan/wekan/commit/437af449f3)
   (CodeQL alert #548, js/useless-regexp-character-escape, with a parsed guard
@@ -1830,7 +1840,21 @@ Settings preference and card aging has its own setting, so they have no row.
 
 - [Scrum settings is a group of its own, above Change color](https://github.com/wekan/wekan/commit/7bf6f8a44b). Thanks to xet7.
 
-**Import and export** - one more format, and Jira's Scrum planning data.
+**Import and export** - two more formats, and Jira's Scrum planning data.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5d26e9fff8">Boards import and export Focalboard (Mattermost Boards) archive text</a>. Thanks to xet7.</summary>
+
+A Focalboard board.jsonl, from a .boardarchive zip, imports with or without
+its version line. The board view's group-by property becomes the lists, other
+select properties labels, the first date property the due date (or start and
+due), and text, number, email, URL, phone, checkbox and later dates custom
+fields. Text and heading blocks become the description, checkbox blocks a
+checklist, comment blocks comments; members, person properties, images,
+attachments and templates are in the loss report. Export writes the same
+text. Tests: tests/focalboard.test.cjs and a Playwright import.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f0323140f6">Boards import and export Taskwarrior JSON</a>. Thanks to xet7.</summary>
@@ -1884,7 +1908,39 @@ Scrum methods, and tests/playwright/specs/scrum-scope-history.e2e.js.
 
 </details>
 
-**Scrum boards** - large boards, other boards, and interrupted imports.
+**Scrum boards** - sprints of any size, large boards, other boards, and
+interrupted imports.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b6ca287df3">A sprint's snapshot rows are kept outside the sprint document</a>. Thanks to xet7.</summary>
+
+A sprint kept one row per card of its start and close snapshots in its own
+document, so about 15,000 cards were the most a sprint could hold. The rows
+now live in scrumSnapshotRows, in immutable chunks of 2,000 named by sprint,
+kind, time and number, so a retried start or close, an undo or a redo finds
+the same rows; the sprint keeps a header and the report's totals. The board
+data computes each report on the server and sends headers only - from the
+totals, or for an assigned-only reader from the rows they may see. Snapshots
+stored inline before this keep working. Tests: tests/scrumSnapshotRows.test.cjs
+and a server test through start, close, undo, redo and a board copy.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/13c8d563ea">Sprints have no card limit: rollover plans, History and daily rows are chunked</a>. Thanks to xet7.</summary>
+
+As decided on 2026-10-03 ("full redesign, no cap"), a sprint over 10,000
+cards starts and closes. A close's rollover plan goes to scrumRolloverRows in
+chunks bounded by rows and bytes, the sprint keeping only a mark; a History
+batch too large for one row becomes several rows sharing a batchId, and one
+undo or redo still walks the whole close; daily burndown rows are chunked too.
+Undo no longer re-hashes its row and re-sends its plan before every record
+write, which made 1,500 cards take four minutes: 10,500 cards now close in
+about 8 s and undo in about 44 s. Tests: tests/scrumHistoryParts.test.cjs, a
+10,500-card server test, an interrupted rollover, and
+tests/playwright/specs/scrum-snapshot-limits.e2e.js.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/823dc94715">A card or swimlane on another board keeps its sprint and release of the same name</a>. Thanks to xet7.</summary>
@@ -1969,6 +2025,32 @@ a server test of the stored plan.
 
 **List Sync** - more of what a rule does runs through durable Sync, lists from
 before list lifetimes can use it, and GitLab estimates sync too.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/12e98cdbfe">A rule's later actions follow its card to another board</a>. Thanks to xet7.</summary>
+
+The ordinary engine reads the card by id for every action, so actions after a
+move to another board act on the card there. The durable card-field,
+checklist, link and title-variable commands now do the same, recording their
+writes, History and activities on that board, so such a move no longer has to
+be its plan's last action. A copy refuses, as the ordinary copy does; with a
+later move, sort, move-all or archive the board keeps direct Sync, since those
+are resolved against the board the card left.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2df3e9a8b7">A rule's new swimlane and a move to another board are delivered durably</a>. Thanks to xet7.</summary>
+
+Durable delivery identified every activity by a card and a list, so a rule's
+createSwimlane and a cross-board move's moveCardBoard were written once but
+delivered the ordinary way, and their notifications and webhooks were not
+replayed after a crash. Activities without a list, and without a card, now
+take the durable path; recipients and webhook senders are checked against the
+board, plus the card when one is named, and an assigned-only member never
+receives a board-level event.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b3b4962414">Rule moves to the top or bottom of the card's own list are durable</a>. Thanks to xet7.</summary>
@@ -2158,6 +2240,24 @@ that nothing else writes the field on an existing list.
 
 </details>
 
+**Backup** - every change streamed as it happens, restorable to a moment.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6b9bc496b1">Admin Panel / Attachments / Continuous backup streams the database, files and logs</a>. Thanks to xet7.</summary>
+
+Beside Backup, a new pane streams the database, filesystem attachments,
+avatars and logs to a target directory within seconds, and restores them to a
+chosen moment. Its built-in engines are copyfree - WeKan's own code, Node.js
+and node:sqlite - and start no other program: an oplog engine on a MongoDB
+replica set or FerretDB with its oplog, a SQLite page engine storing only
+changed pages, and file streams by watching and rescans. Litestream is an
+optional engine for SQLite that WeKan supervises. A restore checks every
+segment and blob before it writes anything. Site administrators only.
+Design: [Continuous backup](docs/Backup/Continuous-Backup.md). Tests: unit,
+real-database integration, server-method and Chromium/WebKit UI tests.
+
+</details>
+
 and fixes the following bugs:
 
 **Custom fields** - what a date field says about itself.
@@ -2183,7 +2283,7 @@ helper with a lowered limit; it has not been run inside an installed snap.
 **LDAP** - what LDAP logging shows in production.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/66925f0bde">LDAP diagnostics print in production when LDAP logging is on</a>. Thanks to rholighaus and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/66925f0bde">Its diagnostics print in production when LDAP logging is on</a>. Thanks to rholighaus and xet7.</summary>
 
 They went to Meteor's Log.debug, which never prints when Meteor.isProduction,
 so the snap and every bundle showed none of them
@@ -2242,6 +2342,7 @@ and has the following developer-facing changes:
 - [TODO Later records the maintainer decisions of 2026-10-02](https://github.com/wekan/wekan/commit/34b1879d6f). Thanks to xet7.
 - [The RTL, issue-type and source-audit guards follow the Board Settings / Card work](https://github.com/wekan/wekan/commit/999819e63e). Thanks to xet7.
 - [The groundwork for rule moves to another board](https://github.com/wekan/wekan/commit/e108bb83b0). Thanks to xet7.
+- [The LinkedWriteBleed VM test loads every exported function](https://github.com/wekan/wekan/commit/73df81bc6c). Thanks to xet7.
 
 and improves translation regression checks:
 
