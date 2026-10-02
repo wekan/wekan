@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/952ed395d0">Translate Malagasy editor controls and conditions</a>. Thanks to xet7.</summary>
+
+- Fill 27 editor, colour, loop and condition messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ae04503dfd">Translate Malagasy editor field and block labels</a>. Thanks to xet7.</summary>
 
 - Fill 27 editor field, block and accessibility labels.
