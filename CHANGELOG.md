@@ -3517,6 +3517,23 @@ messages in 24 locale tags; the broader translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aaac254884">Translate email recovery in Tibetan and Wolof</a>. Thanks to xet7.</summary>
+
+Fill 46 English placeholders, preserving existing translations, source order and
+exact tokens. Extend cancellation, uncertain-delivery and retained-pause checks,
+with Tibetan script and vocabulary coverage. Refine Wolof holding and restarting
+wording during review. Four focused catalog and translation suites and all 21
+human-preference checks pass.
+
+Specialist workflow phrasing and inflection in Tibetan and Wolof have lower
+confidence and need speaker review. Vocabulary references include [Wolof learning materials](https://senprof.education.sn/PROGRAMME%20LECTURE%20POUR%20TOUS/documentation/CE1/Livrets%20de%20maison%20CE1/LM_CE1_Wolof_30072019.pdf)
+and [Tibetan public-service email wording](https://dos.ny.gov/system/files/documents/2018/08/1322-bo.pdf).
+Structural checks do not establish fluency. Email recovery still has English
+messages in 22 locale tags; the broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
