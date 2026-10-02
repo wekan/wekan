@@ -5,7 +5,7 @@ const path = require('node:path');
 const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const english = read('en');
-const codes = ["cs", "cs-CZ", "hu", "ru", "ru-RU", "ru-UA", "ru_RU", "sk", "uk", "uk-UA", "et-EE", "he", "he-IL", "fa", "fa-IR", "ms", "ms-MY", "sl", "sl_SI", "hr", "sr", "bs", "mk", "bn", "ta", "ne", "ur", "th", "gu-IN", "be", "lt", "lv", "is", "af", "af_ZA", "hi", "hi-IN", "kn", "ga", "co", "sc", "scn", "nap", "an", "ast-ES", "oc", "br", "eu", "cy", "cy-GB", "gd", "csb", "de", "de-AT", "de-CH", "de_DE", "fr", "fr-FR", "fr-BE", "fr-CA", "fr-CH", "es", "es-AR", "es-CL", "es-CO", "es_CO", "es-LA", "es-MX", "es-PE", "es-PY", "pt", "pt-PT", "pt_PT", "pt-BR", "it", "nl", "nl-NL", "sv", "nb", "da", "fi", "pl", "pl-PL", "ro", "ro-RO", "el", "el-GR", "tr", "id", "vi", "vi-VN", "bg", "ja", "ja-JP", "ja-HI", "zh", "zh-CN", "zh-Hans", "zh-GB", "zh_SG", "zh-TW", "zh-HK", "zh-Hant", "ko", "ko-KR", "ar", "ar-DZ", "ar-EG", "ca", "ca@valencia", "ca_ES", "gl", "gl-ES", "eo", "lb", "mt", "sq", "hy", "ka", "az", "az-AZ", "az-LA", "sw", "tl", "la", "cmn", "yue_CN"];
+const codes = ["cs", "cs-CZ", "hu", "ru", "ru-RU", "ru-UA", "ru_RU", "sk", "uk", "uk-UA", "et-EE", "he", "he-IL", "fa", "fa-IR", "ms", "ms-MY", "sl", "sl_SI", "hr", "sr", "bs", "mk", "bn", "ta", "ne", "ur", "th", "gu-IN", "be", "lt", "lv", "is", "af", "af_ZA", "hi", "hi-IN", "kn", "ga", "co", "sc", "scn", "nap", "an", "ast-ES", "oc", "br", "eu", "cy", "cy-GB", "gd", "csb", "de", "de-AT", "de-CH", "de_DE", "fr", "fr-FR", "fr-BE", "fr-CA", "fr-CH", "es", "es-AR", "es-CL", "es-CO", "es_CO", "es-LA", "es-MX", "es-PE", "es-PY", "pt", "pt-PT", "pt_PT", "pt-BR", "it", "nl", "nl-NL", "sv", "nb", "da", "fi", "pl", "pl-PL", "ro", "ro-RO", "el", "el-GR", "tr", "id", "vi", "vi-VN", "bg", "ja", "ja-JP", "ja-HI", "zh", "zh-CN", "zh-Hans", "zh-GB", "zh_SG", "zh-TW", "zh-HK", "zh-Hant", "ko", "ko-KR", "ar", "ar-DZ", "ar-EG", "ca", "ca@valencia", "ca_ES", "gl", "gl-ES", "eo", "lb", "mt", "sq", "hy", "ka", "az", "az-AZ", "az-LA", "sw", "tl", "la", "cmn", "yue_CN", "as", "ml", "mr", "pa", "te-IN", "or_IN", "si", "my", "km", "km-KH", "km_KH", "jv", "mn", "kk", "ky", "uz", "uz-LA", "uz-UZ", "tg", "am", "mg", "ha", "so", "sn", "ny", "rw", "ig", "yo", "ckb", "ku", "ps", "sd", "ug", "uz-AR", "tt", "tk_TM", "fo", "fy", "fy-NL", "ht", "pap", "yi", "fur", "rm"];
 const keys = [
   'scrum-scope-history', 'scrum-scope-history-help',
   'scrum-scope-history-inconsistent', 'scrum-scope-history-truncated',
@@ -14,6 +14,16 @@ const keys = [
   'scrum-scope-cause-dates', 'scrum-scope-cause-position',
   'scrum-scope-cause-lifecycle',
 ];
+// These batches use their declared scripts, including Arabic-script Uzbek.
+// Script checks supplement the wording checks; they are not fluency checks.
+const scripts = {
+  as: 'Bengali', ml: 'Malayalam', mr: 'Devanagari', pa: 'Gurmukhi',
+  'te-IN': 'Telugu', or_IN: 'Oriya', si: 'Sinhala', my: 'Myanmar',
+  km: 'Khmer', 'km-KH': 'Khmer', km_KH: 'Khmer', am: 'Ethiopic',
+  mn: 'Cyrillic', kk: 'Cyrillic', ky: 'Cyrillic', tg: 'Cyrillic', tt: 'Cyrillic',
+  ps: 'Arabic', sd: 'Arabic', ckb: 'Arabic', ug: 'Arabic', 'uz-AR': 'Arabic',
+  yi: 'Hebrew',
+};
 for (const code of codes) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(english), `${code}: current key order`);
@@ -21,6 +31,15 @@ for (const code of codes) {
     assert.ok(locale[key]?.trim(), `${code}:${key}: nonempty`);
     assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  if (scripts[code]) {
+    const nativeScript = new RegExp(`\\p{Script=${scripts[code]}}`, 'u');
+    for (const key of [...keys, 'sync-estimate-source', 'sync-estimate-source-weight',
+      'sync-estimate-source-time', 'sync-estimate-field-gitlab', 'sync-estimate-field-gitlab-hint']) {
+      assert.match(locale[key], nativeScript, `${code}:${key}: native script`);
+      assert.doesNotMatch(locale[key].replaceAll('GitLab', ''), /[A-Za-z]/,
+        `${code}:${key}: no English prose in a native-script message`);
+    }
   }
   // Missing writes and a truncated read explain different kinds of incompleteness.
   assert.notEqual(locale[keys[2]], locale[keys[3]], `${code}: distinct warnings`);
@@ -36,4 +55,12 @@ assert.match(read('fi')[keys[2]], /ilman historiakirjausta.*puutteellisia/);
 assert.match(read('fi')[keys[3]], /Vain ensimmäiset muutokset.*puutteellinen/);
 assert.match(read('zh-CN')[keys[2]], /没有记录到历史中.*不完整/);
 assert.match(read('zh-CN')[keys[3]], /只能读取最初.*不完整/);
+assert.match(read('mn')[keys[2]], /түүхэнд бүртгэлгүй.*бүрэн бус/);
+assert.match(read('mn')[keys[3]], /Зөвхөн эхний.*бүрэн бус/);
+assert.match(read('kk')[keys[2]], /тарихқа жазылмай.*толық емес/);
+assert.match(read('kk')[keys[3]], /Тек алғашқы.*толық емес/);
+assert.match(read('uz')[keys[2]], /tarixga yozilmasdan.*to‘liq emas/);
+assert.match(read('uz')[keys[3]], /Faqat dastlabki.*to‘liq emas/);
+assert.match(read('ha')[keys[2]], /ba tare da rubuta.*ba su cika ba/);
+assert.match(read('ha')[keys[3]], /farko kawai.*bai cika ba/);
 console.log(`Scrum scope history: ${keys.length} messages in ${codes.length} locales passed`);
