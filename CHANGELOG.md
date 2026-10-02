@@ -1686,6 +1686,16 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/de98a4fab1">Translate Malagasy Sync conflict and preview messages</a>. Thanks to xet7.</summary>
+
+- Fill 23 Sync-conflict, card-replacement and preview messages.
+- Batch key-order, placeholder, rule-variable, markup and query-field checks
+  and all 21 human-preference checks pass. Full-language work remains;
+  browser and native-speaker reviews were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0093fc59a6">Translate Malagasy Scrum observations and Sync conflicts</a>. Thanks to xet7.</summary>
 
 - Fill 23 Scrum-observation, report and Sync-conflict messages.
