@@ -50,6 +50,8 @@ const CATALOG = {
   'authz.board-owner': { category: 'authz', bleed: 'OwnerBleed', severity: 'high', cwe: 'CWE-639' },
   'authz.background': { category: 'authz', bleed: 'BackgroundBleed', severity: 'high', cwe: 'CWE-639' },
   'injection.prototype': { category: 'injection', bleed: 'PrototypeBleed', severity: 'high', cwe: 'CWE-1321' },
+  'authz.notification-tray': { category: 'authz', bleed: 'TrayBleed', severity: 'high', cwe: 'CWE-639' },
+  'authn.cas-state': { category: 'authn', bleed: 'CasTokenBleed', severity: 'high', cwe: 'CWE-352' },
   // SyncBleed (GHSA-5q84-p3vr-f3xv): a List Sync server address on a private,
   // loopback or link-local network, refused when saved and on every fetch.
   'ssrf.list-sync':  { category: 'ssrf', bleed: 'SyncBleed', severity: 'medium', cwe: 'CWE-918' },

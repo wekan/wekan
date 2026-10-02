@@ -1,6 +1,6 @@
 'use strict';
 
-// Guard: CasBleed sibling (2026-10-02). The CAS callback stored the validated
+// Guard: CasTokenBleed (2026-10-02), a CasBleed sibling. The CAS callback stored the validated
 // CAS identity under whatever casToken the callback URL carried, and the
 // token is chosen by the browser. So an attacker could pick a token, send a
 // victim who is signed in to CAS the link
@@ -8,7 +8,7 @@
 // and, once CAS bounced the victim back with a ticket, log in to WeKan with
 // cas: { credentialToken: KNOWN } as the victim. The callback is now accepted
 // only from the browser that started that login (a SameSite cookie it set),
-// and a mismatch is recorded under CasBleed in Admin Panel -> Problems.
+// and a mismatch is recorded under CasTokenBleed in Admin Panel -> Problems.
 // Run: node tests/casStateBinding.test.cjs
 
 const { test } = require('node:test');
@@ -37,7 +37,7 @@ test('the reported attack: a callback whose token this browser did not set is re
   assert.match(mw.slice(check, validate), /__wekanTripCanary\('cas\.state-mismatch', \{ req \}\);[\s\S]*end\(res, redirectUrl\);\n\s*return;/);
   // An instance without CAS leaves ?ticket= to the route it was sent to.
   assert.match(mw, /if \(!Meteor\.settings\.cas\) \{\n\s*next\(\);\n\s*return;/);
-  assert.match(read('models/lib/canaryTokens.js'), /'cas\.state-mismatch': \{\n\s*key: 'auth-race\.cas',/);
+  assert.match(read('models/lib/canaryTokens.js'), /'cas\.state-mismatch': \{\n\s*key: 'authn\.cas-state',/);
 });
 
 test('negative: the browser that starts a login sets the state it will be checked against', () => {

@@ -1,6 +1,6 @@
 'use strict';
 
-// Guard (2026-10-02): the 'setting' publication, which every visitor
+// Guard: DirectoryInfoBleed (2026-10-02). The 'setting' publication, which every visitor
 // subscribes to before signing in, carried Admin Panel -> LDAP's host, port,
 // base DN, bind account DN, search filter and encryption mode. Only a site
 // admin is published those now.

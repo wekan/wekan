@@ -43,7 +43,7 @@ Users.deny({
       // No client code adds to or rewrites the tray; only an attempt reaches here.
       try {
         require('/server/lib/securityLog').record({
-          key: 'authz.mutation', action: 'blocked', source: 'ddp:user-notifications', userId,
+          key: 'authz.notification-tray', action: 'blocked', source: 'ddp:user-notifications', userId,
           detail: 'Client write of server-issued notification entries denied.',
         });
       } catch (e) { /* logging must never break the guard */ }

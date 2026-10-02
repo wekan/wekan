@@ -1,6 +1,6 @@
 'use strict';
 
-// Guard (2026-10-02): the board publication sent every integration of the
+// Guard: HookUrlBleed (2026-10-02). The board publication sent every integration of the
 // board, URL included, to everybody who could read the board - read-only
 // members, and on a public board anonymous visitors. A Slack/Mattermost/Teams
 // incoming-webhook URL carries its secret in the path, so reading a board was

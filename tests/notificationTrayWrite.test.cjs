@@ -1,6 +1,6 @@
 'use strict';
 
-// Guard (2026-10-02): profile.notifications was client-writable through the
+// Guard: TrayBleed (2026-10-02). profile.notifications was client-writable through the
 // Users allow rule ("profile.*"). An entry names an activity, and the
 // notification publications send that activity with its card, comments,
 // checklists and attachments - from any board. A client may now only mark an
@@ -49,5 +49,5 @@ test('what the client really does stays allowed (negative)', () => {
 test('the deny rule uses it and records the attempt', () => {
   assert.match(src, /return result \|\| writesNotificationList\(modifier\);/);
   const perms = read('server/permissions/users.js');
-  assert.match(perms, /if \(writesNotificationList\(modifier\)\) \{[\s\S]{0,200}key: 'authz\.mutation', action: 'blocked', source: 'ddp:user-notifications', userId,/);
+  assert.match(perms, /if \(writesNotificationList\(modifier\)\) \{[\s\S]{0,200}key: 'authz\.notification-tray', action: 'blocked', source: 'ddp:user-notifications', userId,/);
 });

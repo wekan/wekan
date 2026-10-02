@@ -1,6 +1,6 @@
 'use strict';
 
-// Guard (2026-10-02): on Sandstorm, importBoard and cloneBoard archive the
+// Guard: ArchiveBleed (2026-10-02). On Sandstorm, importBoard and cloneBoard archive the
 // board the import was started from - `currentBoard`, an id the client sends.
 // Nothing checked it, so any user could archive any board by naming it in an
 // import of their own. Now only a board admin's board is replaced.

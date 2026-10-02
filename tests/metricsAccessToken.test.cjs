@@ -1,6 +1,6 @@
 'use strict';
 
-// Guard (2026-10-02): /metrics accepted `token == METRICS_ACCESS_TOKEN`. With
+// Guard: MetricsBleed sibling (2026-10-02). /metrics accepted `token == METRICS_ACCESS_TOKEN`. With
 // the variable set but empty, `?access_token=` matched; the loose, early-exit
 // comparison also leaked through timing how much of a guess was right.
 // Run: node tests/metricsAccessToken.test.cjs

@@ -1,6 +1,6 @@
 'use strict';
 
-// Guard (2026-10-02): 'user-authenticationMethod' answered any signed-in user
+// Guard: AuthMethodBleed (2026-10-02). 'user-authenticationMethod' answered any signed-in user
 // with ANY user's organizations, teams and login method, looked up by
 // username. It now answers only for the caller's own account.
 // Run: node tests/userAuthMethodPublication.test.cjs

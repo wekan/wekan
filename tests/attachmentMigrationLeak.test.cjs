@@ -1,6 +1,6 @@
 'use strict';
 
-// Guard (2026-10-02): attachmentMigration.getProgress and
+// Guard: MigrationBleed (2026-10-02). attachmentMigration.getProgress and
 // .getUnconvertedAttachments returned the full stored attachment documents -
 // storage paths on the server's disk, version records, uploader ids, names of
 // files on cards the caller cannot see - to anybody who could read the board,

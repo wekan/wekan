@@ -160,7 +160,7 @@ const CANARIES = {
     what: 'tried CAS login outside the configured group restriction',
   },
   'cas.state-mismatch': {
-    key: 'auth-race.cas',
+    key: 'authn.cas-state',
     what: 'completed a CAS login with a token another browser chose',
   },
   'cas.account-conflict': {

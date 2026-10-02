@@ -1,6 +1,6 @@
 'use strict';
 
-// Guard (2026-10-02): an assigned-only member (isReadAssignedOnly,
+// Guard: AssignedBleed, read siblings (2026-10-02). An assigned-only member (isReadAssignedOnly,
 // isNormalAssignedOnly, isCommentAssignedOnly) sees only the cards assigned to
 // them. The board publication enforced that, but several other read paths
 // asked only "is this a member of the board?" and so showed that member every

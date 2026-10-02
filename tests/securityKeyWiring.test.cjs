@@ -17,8 +17,10 @@ const read = file => fs.readFileSync(path.join(ROOT, file), 'utf8');
 
 const UNWIRED = {
   'authz.share': 'RevokeBleed: opening a board whose share was revoked is ordinary use; the publication simply stops serving it.',
-  'file.disk': 'FloppyBleed: disk exhaustion is a resource state, not an attributable attempt.',
-  'file.policy': 'PolicyBleed: informational category for file-policy changes; nothing is refused.',
+  'file.disk': 'the disk-space category: disk exhaustion is a resource state, not an attributable attempt.',
+  'file.policy': 'the file-policy category: informational category for file-policy changes; nothing is refused.',
+  'auth-race.cas': 'CasBleed: the race was removed by storing each validation under its own token; '
+    + 'two concurrent logins are ordinary and leave nothing to refuse (CasTokenBleed has its own key).',
 };
 
 const NEWLY_WIRED = {
@@ -28,7 +30,8 @@ const NEWLY_WIRED = {
   'auth-race.oidc': ['server/models/org.js', /key: 'auth-race\.oidc', action: 'blocked'/],
   'brute.invite': ['server/models/users.js', /key: 'brute\.invite', action: 'detected', source: 'register:invitation-code'/],
   'authz.readonly': ['models/lib/canaryTokens.js', /'board\.readonly-write': \{\n\s*key: 'authz\.readonly',/],
-  'auth-race.cas': ['models/lib/canaryTokens.js', /'cas\.state-mismatch': \{\n\s*key: 'auth-race\.cas',/],
+  'authn.cas-state': ['models/lib/canaryTokens.js', /'cas\.state-mismatch': \{\n\s*key: 'authn\.cas-state',/],
+  'authz.notification-tray': ['server/permissions/users.js', /key: 'authz\.notification-tray', action: 'blocked'/],
 };
 
 function sources() {

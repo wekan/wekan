@@ -169,6 +169,7 @@ const GUARDED = {
   cachebleed: ['tests/fileCacheHeaders.test.cjs', 'tests/playwright/specs/attachment-thumbnail.e2e.js'],
   syncbleed: ['tests/syncBleed.test.cjs', 'tests/playwright/specs/list-sync-source.e2e.js'],
   relaybleed: ['tests/relayBleed.test.cjs'],
+  readonlybleed: ['tests/readOnlyBleed.test.cjs', 'tests/assignedbleed.test.cjs'],
   emailbleed: ['tests/adminMailSettings.test.cjs'],
   bflableed: ['tests/unawaitedAccessCheck.test.cjs'],
   megableed: ['tests/tenantbleed.test.cjs'],
@@ -209,7 +210,6 @@ const RECORDED = {
   floppybleed: 'FileBleed variant; predates the *bleed test suites, no source guard was written',
   ldapbleed: 'LDAP TLS certificate validation off by default; needs an LDAP stack to test',
   reactionbleed: 'XSS in comment reactions; predates the *bleed test suites - note the reaction OWNERSHIP hole found in this round is a different bug and is guarded by tests/reactionOwnership.test.cjs',
-  readonlybleed: 'read-only members could write Custom Fields; needs a permissions test',
   snowbleed: 'MigrationsBleed - a database migration fix; predates the *bleed test suites',
   socialbleed: 'social media links on wekan.fi - a website fix, not a WeKan one',
   splicebleed: 'incomplete multi-character sanitization stripping markup from a shown filename; tests/fileNameDisplay.test.cjs is the likely guard but does not name it',
@@ -307,7 +307,9 @@ test('the gap list may not grow', () => {
   // 19 -> 18: FrameBleed - restored after its 2022 regression, and tested.
   // 18 -> 17: InvisibleBleed - only its first comment was made visible; fixed and tested.
   // 17 -> 16: BypassBleed - its rule-loop DoS part was still open; fixed and tested.
-  assert.strictEqual(Object.keys(RECORDED).length, 16,
+  // 16 -> 15: ReadOnlyBleed - tests/readOnlyBleed.test.cjs pins the six
+  // handlers and every mutating REST route tree-wide (2026-10-02).
+  assert.strictEqual(Object.keys(RECORDED).length, 15,
     'the number of published vulnerabilities with no regression test changed');
 });
 
