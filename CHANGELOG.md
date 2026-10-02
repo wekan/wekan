@@ -3615,6 +3615,19 @@ translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/790994747b">Translate email recovery in Volapük</a>. Thanks to xet7.</summary>
+
+Fill 23 English placeholders, preserving existing translations, source order and
+exact tokens. Extend cancellation, uncertain-delivery and retained-pause checks.
+Four focused catalog and translation suites and all 21 human-preference checks pass.
+
+Specialist Volapük wording and inflection have low confidence and need speaker
+review. Terminology was checked against the [English–Volapük dictionary](https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary).
+Structural checks do not establish fluency. The broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
