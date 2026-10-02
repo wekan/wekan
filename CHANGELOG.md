@@ -1686,6 +1686,19 @@ This release updates the following translations:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/dae2d00be9">Translate Cornish date filters and archival settings</a>. Thanks to xet7.</summary>
+
+- Fill 23 date-filter and archival messages in Cornish, preserving query
+  fields, date literals and the rules for templates and list-entry dates.
+  Technical phrasing remains low confidence pending native-speaker review.
+- Batch key-order, placeholder, query-syntax and all 21 human-preference
+  checks pass. The full Cornish test still reports 310 remaining entries;
+  full-language work and browser review remain.
+
+</details>
+
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0fe8a14883">Translate Tigre dependency messages and repair completion checks</a>. Thanks to xet7.</summary>
 
 - Add the 11 missing Tigre dependency messages with preserved placeholders
