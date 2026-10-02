@@ -602,7 +602,30 @@ const keys = [
   "sync-preview-button",
   "sync-preview-heading",
   "sync-preview-saved",
-  "sync-preview-unavailable"
+  "sync-preview-unavailable",
+  "sync-preview-blocked",
+  "sync-preview-create",
+  "sync-preview-update",
+  "sync-preview-archive",
+  "sync-preview-baseline",
+  "sync-preview-truncated",
+  "sync-preview-omissions",
+  "sync-preview-scope",
+  "sync-preview-excluded",
+  "sync-preview-unmapped",
+  "sync-preview-parser-warnings",
+  "sync-preview-parser-unsupported",
+  "sync-source-heading",
+  "sync-source-scope",
+  "sync-source-unmapped",
+  "sync-source-excluded",
+  "sync-source-converted",
+  "sync-source-fallback",
+  "sync-source-excluded-item",
+  "sync-source-occurrences",
+  "sync-source-truncated",
+  "sync-source-omitted",
+  "sync-report-button"
 ];
 for (const key of keys) {
   assert.ok(locale[key]?.trim(), key);
