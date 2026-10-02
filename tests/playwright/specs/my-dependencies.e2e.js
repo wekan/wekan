@@ -115,3 +115,40 @@ test.describe('Board and My Dependencies', () => {
     expect(db.getCard(alphaId).cardDependencies.map(d => d.type)).toEqual(['blocks']);
   });
 });
+
+// An instance board is readable by every signed-in user, so a non-member may
+// keep My Dependencies on it, as on a public board. The dependency rules
+// allowed only public boards and members until they used
+// readableWithoutMembership (models/lib/boardPermission.js).
+test.describe('My Dependencies on an instance board', () => {
+  test.use({ storageState: undefined });
+  let owner, outsider, board, betaId;
+
+  test.beforeAll(() => {
+    owner = db.seedUser();
+    outsider = db.seedUser();
+    board = db.seedBoard({ ownerId: owner.id, title: 'Instance dependencies', listCount: 2,
+      cardTitlesPerList: [['Instance Alpha'], ['Instance Beta']] });
+    betaId = db.findCardIdByTitle({ boardId: board.boardId, title: 'Instance Beta' });
+    db.updateOne('boards', { _id: board.boardId }, { $set: { permission: 'instance' } });
+  });
+  test.beforeEach(() => { outsider.token = db.addResumeToken(outsider.id); });
+  test.afterAll(() => db.cleanup({ boardIds: [board.boardId], userIds: [owner.id, outsider.id] }));
+
+  test('a signed-in non-member imports My Dependencies, never the board layer', async ({ page }) => {
+    db.setShowDependencies({ userIds: [outsider.id], board: true, mine: true });
+    await loginWithToken(page, outsider.id, outsider.token);
+    await openBoard(page, board.boardId, board.slug);
+    await page.locator('.js-open-header-member-menu').click();
+    await page.locator('.js-import-member-dependencies').click();
+    // Not a member, so not an editor of the board layer (negative).
+    await expect(page.locator('input[name="dependency-layer"][value="board"]')).toBeDisabled();
+    await page.locator('.js-import-member-dependencies-text').fill(JSON.stringify({ lines: [
+      { fromTitle: 'Instance Alpha', toTitle: 'Instance Beta', type: 'blocks' },
+    ] }));
+    await page.locator('.js-import-member-dependencies-submit').click();
+    await expect(page.locator('.js-import-member-dependencies-result')).toContainText('1');
+    await expect.poll(() => (db.findOne('users', { _id: outsider.id }).profile.myDependencies || []).length).toBe(1);
+    expect(db.getCard(betaId).cardDependencies || []).toEqual([]);
+  });
+});
