@@ -3534,6 +3534,23 @@ messages in 22 locale tags; the broader translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1d19acf87f">Translate email recovery in Acehnese and Akan</a>. Thanks to xet7.</summary>
+
+Fill 46 English placeholders and correct seven email or pause labels containing
+Indonesian, mixed-language text or generic Akan filler. Preserve correct-language
+translations, source order and exact tokens. Extend cancellation, uncertain-delivery,
+retained-pause and corrected-label regression checks. All 452 translation-related
+suites and 21 human-preference checks pass.
+
+Specialist workflow phrasing and inflection in Acehnese and Akan have lower
+confidence and need speaker review. Acehnese terminology was checked against
+[the Acehnese–Indonesian–English thesaurus](https://fileserver-az.core.ac.uk/download/pdf/160609809.pdf).
+Structural checks do not establish fluency. Email recovery still has English
+messages in 20 locale tags; the broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
