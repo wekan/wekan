@@ -37,7 +37,7 @@ const DURABLE_RULE_ACTIONS = new Set(['sendEmail', 'archive', 'unarchive', 'setC
 // there runs THAT board's rules through the same stored stages, which refuse
 // an action without an adapter, so the destination's own rule actions must
 // all be durable too - and so on, for every board reached that way.
-const CROSS_BOARD_DURABLE_ACTIONS = new Set(['linkCard']);
+const CROSS_BOARD_DURABLE_ACTIONS = new Set(['linkCard', 'copyCard']);
 const MAX_RULE_BOARDS = 50;
 
 // The rule action types eligibility checks, across the source board and every

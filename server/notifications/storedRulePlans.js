@@ -208,7 +208,8 @@ export async function runStoredSyncRules({ adapters, ...options }) {
       runStoredSyncRuleChecklist({ ...options, index: indices.get(invocation.id) })])),
     sortList: ({ invocation }) => runStoredSyncRuleSortList({ ...options, index: indices.get(invocation.id) }),
     createCard: ({ invocation }) => runStoredSyncRuleCreateCard({ ...options, index: indices.get(invocation.id) }),
-    // Same-board copies only: eligibility keeps a board copying elsewhere on direct Sync.
+    // A copy or link to another board only when that board opted in too
+    // (listSyncSteps.js durableRuleActionTypes); the runners check it again.
     copyCard: ({ invocation }) => runStoredSyncRuleCopyCard({ ...options, index: indices.get(invocation.id) }),
     linkCard: ({ invocation }) => runStoredSyncRuleLinkCard({ ...options, index: indices.get(invocation.id) }),
     addSwimlane: ({ invocation }) => runStoredSyncRuleAddSwimlane({ ...options, index: indices.get(invocation.id) }),
@@ -666,7 +667,7 @@ const { commandId: ruleMoveAllCommandId, prepareRuleMoveAllCommand, validateRule
   unitSelector: ruleMoveAllSelector } = require('/server/lib/syncRuleMoveAllCommand');
 const { RULE_CARD_POSITION_FIELDS } = require('/server/lib/syncHistoryBatch');
 
-// Durable rule copyCard on the card's own board
+// Durable rule copyCard, on the card's own board or another that opted in
 // (server/lib/syncRuleCopyCardCommand.js): what the copy contains is decided
 // once with the ordinary copy's own lookups and builders, then each document is
 // inserted once under its derived id - the copy and its subtasks with their
@@ -696,24 +697,37 @@ async function captureRuleCopyCard({ plan, action, commandContext, commands }) {
   const source = await raw.findOne({ _id: plan.cardId, boardId: plan.boardId });
   const createdAt = new Date();
   const noop = () => prepareRuleCopyCardCommand({ ...commandContext, noop: true, createdAt });
+  // A legacy action without a board copies onto the card's own board.
+  const targetBoardId = action.boardId || plan.boardId;
   // The ordinary action's own preconditions (server/lib/ruleCopyCard.js).
   if (!source || source.archived || !text(action.listId) || !text(action.swimlaneId)) return noop();
-  const [board, list, swimlane] = await Promise.all([
-    Boards.findOneAsync(plan.boardId), Lists.findOneAsync(action.listId), Swimlanes.findOneAsync(action.swimlaneId),
+  const [sourceBoard, board, list, swimlane] = await Promise.all([
+    Boards.findOneAsync(plan.boardId), Boards.findOneAsync(targetBoardId), Lists.findOneAsync(action.listId),
+    Swimlanes.findOneAsync(action.swimlaneId),
   ]);
-  if (!board || board.archived || !list || list.archived || list.boardId !== plan.boardId ||
-      !swimlane || swimlane.archived || swimlane.boardId !== plan.boardId) return noop();
+  if (!sourceBoard || sourceBoard.archived || !board || board.archived || !list || list.archived ||
+      list.boardId !== targetBoardId || !swimlane || swimlane.archived || swimlane.boardId !== targetBoardId) return noop();
   if (await copiedByThisAction(commands, plan.cardId, action._id)) return noop();
   const model = await Cards.findOneAsync(plan.cardId);
-  // Card.copy's choices for a same-board copy, by the same helpers.
+  // Card.copy's choices, by the same helpers.
   const policy = await require('/server/lib/adminOnlyCustomFields').fieldPolicy(plan.actorId);
   const { mayReadField } = require('/models/lib/adminOnlyCustomFields');
-  const customFieldIds = (source.customFields || []).filter(field =>
-    mayReadField(policy.definitions.get(field._id), plan.boardId, policy.adminBoards)).map(field => field._id);
+  const readable = (source.customFields || []).filter(field =>
+    mayReadField(policy.definitions.get(field._id), plan.boardId, policy.adminBoards));
+  const customFieldIds = readable.map(field => field._id);
+  // On another board: labels by name, and custom fields mapped (and shared)
+  // to that board, as Card.copy does.
+  let crossBoard = null;
+  if (targetBoardId !== plan.boardId) {
+    const names = (sourceBoard.labels || []).filter(label => (source.labelIds || []).includes(label._id))
+      .map(label => label.name);
+    crossBoard = { labelIds: filterCopiedLabelIds(board.labels || [], names),
+      customFields: await model.mapCustomFieldsToBoard.call({ customFields: readable }, targetBoardId) };
+  }
   const dependencies = [];
   for (const dep of normalizeDependencies(source.cardDependencies)) {
     const target = await raw.findOne({ _id: dep.cardId }, { projection: { boardId: 1 } });
-    if (target && target.boardId === plan.boardId) dependencies.push(dep);
+    if (target && target.boardId === targetBoardId) dependencies.push(dep);
   }
   const attachments = await Attachments.collection.find(liveAttachments({ 'meta.cardId': plan.cardId }),
     { sort: { _id: 1 } }).fetchAsync();
@@ -728,12 +742,13 @@ async function captureRuleCopyCard({ plan, action, commandContext, commands }) {
   return prepareRuleCopyCardCommand({ ...commandContext, card: source,
     destination: { listId: list._id, swimlaneId: swimlane._id, listTitle: list.title || '', swimlaneTitle: swimlane.title || '' },
     cardNumber: await board.getNextCardNumber(), sort: (await model.getSort(list._id, swimlane._id, false)) + 1,
-    customFieldIds, dependencies, scrum: copiedCardScrum(source, plan.boardId), attachments,
+    customFieldIds, dependencies, scrum: copiedCardScrum(source, targetBoardId), attachments,
     checklists, items: await itemsOf(checklists.map(list => list._id)),
     subtaskSources, subtaskDocs: subtaskSources.map(subtask => buildCopiedSubtaskFields(subtask,
-      { newParentId: 'pending', boardId: plan.boardId, swimlaneId: swimlane._id, listId: list._id })),
+      { newParentId: 'pending', boardId: targetBoardId, swimlaneId: swimlane._id, listId: list._id })),
     subtaskChecklists, subtaskItems: await itemsOf(subtaskChecklists.map(list => list._id)),
-    comments, commentDocs: comments.map(comment => buildCopiedComment(comment, 'pending', plan.boardId)), createdAt });
+    comments, commentDocs: comments.map(comment => buildCopiedComment(comment, 'pending', targetBoardId)), crossBoard,
+    createdAt });
 }
 
 export async function runStoredSyncRuleCopyCard({ index, completeDelivery = runStoredSyncActivityDelivery, ...options }) {
@@ -749,6 +764,7 @@ export async function runStoredSyncRuleCopyCard({ index, completeDelivery = runS
     ]);
     if (!rule || !current || canonical(rule) !== canonical(invocation.rule) ||
         canonical(current) !== canonical(action)) throw new Error('sync-rule-copy-card-configuration-changed');
+    await assertDestinationBoard(action.boardId || plan.boardId, plan, options.trigger);
     await context.guard();
   });
   const commands = SyncRuleCopyCardCommands.rawCollection(), id = ruleCopyCardCommandId(invocation.id);
@@ -775,7 +791,7 @@ export async function runStoredSyncRuleCopyCard({ index, completeDelivery = runS
   const insertCard = async card => {
     await guard();
     if (await Cards.rawCollection().findOne({ _id: card._id })) return;
-    await actor(() => withSyncRecordingDeferred({ cardId: card._id, boardId: command.boardId, listId: card.listId,
+    await actor(() => withSyncRecordingDeferred({ cardId: card._id, boardId: card.boardId, listId: card.listId,
       kinds: ['create'] }, () => Cards.insertAsync(card)));
     if (!await Cards.rawCollection().findOne({ _id: card._id })) throw new Error('sync-rule-copy-card-unconfirmed');
   };
@@ -796,7 +812,7 @@ export async function runStoredSyncRuleCopyCard({ index, completeDelivery = runS
     if (await files.findOne({ _id: attachmentId })) continue;
     const source = await Attachments.collection.findOneAsync(sourceId);
     if (!source) throw new Error('sync-rule-copy-card-attachment-gone');
-    await actor(() => withSyncRecordingDeferred({ cardId: command.card._id, boardId: command.boardId,
+    await actor(() => withSyncRecordingDeferred({ cardId: command.card._id, boardId: command.card.boardId,
       listId: command.card.listId, attachmentId, kinds: ['attachmentHistory'] },
     () => copyFile(source, command.card._id, fileStoreStrategyFactory, { fileIdFor: version =>
       (version === 'original' ? attachmentId : `${attachmentId}-${version}`) })));
@@ -836,6 +852,7 @@ export async function runStoredSyncRuleCopyCard({ index, completeDelivery = runS
 const { commandId: ruleCopyCardCommandId, prepareRuleCopyCardCommand, recordCopiedAttachments,
   validateRuleCopyCardCommand } = require('/server/lib/syncRuleCopyCardCommand');
 const { buildCopiedSubtaskFields } = require('/models/lib/subtaskCopy');
+const { filterCopiedLabelIds } = require('/server/lib/cardCopyHelpers');
 const { buildCopiedComment } = require('/models/lib/copiedComment');
 const { copiedCardScrum } = require('/models/lib/scrumCopy');
 const { childrenSelector } = require('/models/lib/cardParents');

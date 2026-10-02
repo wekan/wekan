@@ -1,5 +1,6 @@
 'use strict';
-// Durable rule copyCard on the card's own board (server/lib/syncRuleCopyCardCommand.js).
+// Durable rule copyCard (server/lib/syncRuleCopyCardCommand.js), on the card's own
+// board or, when both boards opted in, another one.
 // Run: node tests/syncRuleCopyCardCommand.test.cjs
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -64,11 +65,36 @@ test('the copy is Card.copy\'s, and every document it inserts has a derived id',
   assert.deepEqual(C.validateRuleCopyCardCommand(saved, f.context), saved);
 });
 
-test('negative: copies elsewhere, tampering and foreign records are refused; a noop stays a noop', async () => {
+test('a copy to another board lives there, with that board\'s labels and custom fields', async () => {
+  // Eligibility names it '<type>:elsewhere'; listSyncSteps.js durableRuleActionTypes
+  // counts it as copyCard only when that board opted in.
   assert.equal(durableRuleActionType({ actionType: 'copyCard', boardId: 'other' }, 'board'), 'copyCard:elsewhere');
   assert.equal(durableRuleActionType({ actionType: 'copyCard' }, 'board'), 'copyCard');
   const elsewhere = await fixture({ boardId: 'other' });
-  assert.throws(() => elsewhere.prepare(), /invalid/);
+  const crossBoard = { labelIds: ['urgent-there'], customFields: [{ _id: 'open-there', value: 1 }] };
+  // The runner builds the subtasks for that board (buildCopiedSubtaskFields).
+  const there = { crossBoard, subtaskDocs: [{ title: 'Sub', boardId: 'other', listId: 'next', swimlaneId: 'lane' }] };
+  const command = elsewhere.prepare(there);
+  assert.deepEqual([command.boardId, command.targetBoardId, command.card.boardId], ['board', 'other', 'other']);
+  assert.deepEqual([command.card.labelIds, command.card.customFields], [['urgent-there'], [{ _id: 'open-there', value: 1 }]]);
+  assert.deepEqual([...command.checklists, ...command.items, ...command.subtaskChecklists, ...command.subtaskItems,
+    ...command.comments].map(doc => doc.boardId), Array(5).fill('other'), 'everything copied is re-homed');
+  assert.equal(command.cardActivity.activity.boardId, 'other', 'its creation runs that board\'s rules');
+  assert.deepEqual(C.validateRuleCopyCardCommand(command, elsewhere.context), command);
+  // Negative: without the mapping, or with one on the same board, it is refused.
+  assert.throws(() => elsewhere.prepare({ subtaskDocs: there.subtaskDocs }), /invalid/);
+  assert.throws(() => elsewhere.prepare({ crossBoard }), /command-invalid/, 'a subtask left on the source board');
+  const same = await fixture();
+  assert.throws(() => same.prepare({ crossBoard }), /invalid/);
+  const resum = row => { const { checksum, recorded, ...content } = row;
+    return { ...content, recorded, checksum: sha256(canonical(content)) }; };
+  assert.throws(() => C.validateRuleCopyCardCommand(resum({ ...command, items: [{ ...command.items[0], boardId: 'board' }] }),
+    elsewhere.context), /command-invalid/, 'an item left on the source board');
+  assert.throws(() => C.validateRuleCopyCardCommand(resum({ ...command, card: { ...command.card, boardId: 'board' } }),
+    elsewhere.context), /command-invalid/);
+});
+
+test('negative: tampering and foreign records are refused; a noop stays a noop', async () => {
   const f = await fixture();
   const command = f.prepare();
   const resum = row => { const { checksum, recorded, ...content } = row;

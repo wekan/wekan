@@ -125,8 +125,12 @@ test('cross-board rule actions count only when every board they reach opted in',
   // A missing action anywhere cannot be proven durable.
   assert.deepEqual(await run({}, { readActions: async () => null }), [null]);
   // Only actions with a cross-board adapter are lifted; the others stay elsewhere.
-  assert.deepEqual([...CROSS_BOARD_DURABLE_ACTIONS], ['linkCard']);
-  assert.deepEqual(await run({ a: [{ actionType: 'copyCard', boardId: 'b' }] }), ['copyCard:elsewhere']);
+  assert.deepEqual([...CROSS_BOARD_DURABLE_ACTIONS], ['linkCard', 'copyCard']);
+  assert.deepEqual(await run({ a: [{ actionType: 'copyCard', boardId: 'b' }] }), ['copyCard']);
+  // A move to another board needs the later actions of its plan to follow the
+  // card there - not built (see TODO Later) - so it stays elsewhere.
+  assert.deepEqual(await run({ a: [{ actionType: 'moveCardToTop', boardId: 'b' }] }), ['moveCardToTop:elsewhere']);
+  assert.deepEqual(await run({ a: [{ actionType: 'moveAllCardsInList', boardId: 'b' }] }), ['moveAllCardsInList:elsewhere']);
   // durableSyncDecision reads every board this way, the destination's membership included.
   const app = fs.readFileSync(path.join(__dirname, '../server/lib/listSyncApplication.js'), 'utf8');
   assert.match(app, /const ruleActionTypes = await durableRuleActionTypes\(\{ boardId: list\.boardId, readActions, readBoard,/);
