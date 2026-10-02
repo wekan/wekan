@@ -2516,13 +2516,22 @@ WebApp.handlers.post('/api/boards/:boardId/members/:userId/add', async function(
       isReadOnly,
       isReadAssignedOnly,
     } = roleFlags === null ? req.body : roleFlags;
-    let data = await ReactiveCache.getUser(userId);
+    // HashBleed sibling: with any other action, the user document read below
+    // was sent back whole - password hash and login-token hashes included - to
+    // anyone who is admin of some board, which is anyone who can create one.
+    // The user is read to decide, never to answer.
+    if (action !== 'add') {
+      sendJsonResult(res, { code: 400, data: { error: 'action must be "add"' } });
+      return;
+    }
+    const target = await ReactiveCache.getUser(userId);
+    let data;
     // #1894: do not add a deactivated account to a board.
-    if (data !== undefined && action === 'add' && data.loginDisabled) {
+    if (target !== undefined && action === 'add' && target.loginDisabled) {
       sendJsonResult(res, { code: 400, data: { error: 'User is disabled' } });
       return;
     }
-    if (data !== undefined && action === 'add') {
+    if (target !== undefined && action === 'add') {
       const boards = await ReactiveCache.getBoards({ _id: boardId });
       data = [];
       for (const board of boards) {
@@ -2586,8 +2595,17 @@ WebApp.handlers.post('/api/boards/:boardId/members/:userId/remove', async functi
       sendJsonResult(res, { code: 403, data: { error: 'Only a board admin can remove board members' } });
       return;
     }
-    let data = await ReactiveCache.getUser(userId);
-    if (data !== undefined && action === 'remove') {
+    // HashBleed sibling: with any other action, the user document read below
+    // was sent back whole - password hash and login-token hashes included - to
+    // anyone who is admin of some board, which is anyone who can create one.
+    // The user is read to decide, never to answer.
+    if (action !== 'remove') {
+      sendJsonResult(res, { code: 400, data: { error: 'action must be "remove"' } });
+      return;
+    }
+    const target = await ReactiveCache.getUser(userId);
+    let data;
+    if (target !== undefined && action === 'remove') {
       const boards = await ReactiveCache.getBoards({ _id: boardId });
       data = [];
       for (const board of boards) {

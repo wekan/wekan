@@ -771,3 +771,18 @@ test('bulk create refuses a parent card on a board the caller cannot see (Parent
     db.cleanup({ boardIds: [hidden.boardId] });
   }
 });
+
+// HashBleed siblings: any action other than add/remove answered with the
+// whole user document, password hash and token hashes included.
+test('member add/remove with an unknown action never returns the user document (HashBleed)', async ({ request, user, user2, board }) => {
+  for (const verb of ['add', 'remove']) {
+    const res = await request.post(`/api/boards/${board.boardId}/members/${user2.id}/${verb}`, {
+      headers: authHeaders(user.token, true), data: { action: 'show' },
+    });
+    expect(res.status()).toBe(400);
+    const text = await res.text();
+    expect(text).not.toContain('services');
+    expect(text).not.toContain('bcrypt');
+    expect(text).not.toContain(user2.id);
+  }
+});
