@@ -1,4 +1,4 @@
-import Users, { isUserUpdateAllowed, hasForbiddenUserUpdateField } from '/models/users';
+import Users, { isUserUpdateAllowed, hasForbiddenUserUpdateField, writesNotificationList } from '/models/users';
 
 Users.allow({
   update(userId, doc, fields, modifier) {
@@ -36,6 +36,15 @@ Users.deny({
         require('/server/lib/securityLog').record({
           key: 'authz.invitation-profile', action: 'blocked', source: 'ddp:user-profile',
           detail: 'Client modification of server-issued board invitations denied.',
+        });
+      } catch (e) { /* logging must never break the guard */ }
+    }
+    if (writesNotificationList(modifier)) {
+      // No client code adds to or rewrites the tray; only an attempt reaches here.
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'authz.mutation', action: 'blocked', source: 'ddp:user-notifications', userId,
+          detail: 'Client write of server-issued notification entries denied.',
         });
       } catch (e) { /* logging must never break the guard */ }
     }

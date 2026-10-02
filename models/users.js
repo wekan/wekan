@@ -1289,7 +1289,24 @@ export function hasForbiddenUserUpdateField(fields, modifier) {
       return operator === '$rename' ? [...Object.keys(value), ...Object.values(value)] : Object.keys(value);
     }) : fields;
   const result = paths.some((f) => USER_UPDATE_FORBIDDEN_PREFIXES.some((p) => f === p || f.startsWith(p + '.') || p.startsWith(f + '.')));
-  return result;
+  return result || writesNotificationList(modifier);
+}
+
+// The notification tray is server-written (addNotification). A client marks an
+// entry read or unread and removes entries, nothing more: an entry it could add
+// names an activity, and the notification publications then send that
+// activity's card, comments and attachments from any board.
+export function writesNotificationList(modifier) {
+  if (!modifier || typeof modifier !== 'object') return false;
+  return Object.entries(modifier).some(([operator, value]) => {
+    if (!value || typeof value !== 'object') return false;
+    return Object.keys(value).some(path => {
+      if (path !== 'profile.notifications' && !path.startsWith('profile.notifications.')) return false;
+      if (['$set', '$unset'].includes(operator) && /^profile\.notifications\.\d+\.read$/.test(path)) return false;
+      if (operator === '$pull' && path === 'profile.notifications') return false;
+      return true;
+    });
+  });
 }
 
 // Custom MongoDB engine that enforces field restrictions
