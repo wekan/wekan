@@ -228,12 +228,12 @@ minute; the intermittent activity-recovery test was two test races and is fixed.
 
 Remaining, and why:
 
-- **Structural rule actions.** Twenty-four action types are durable now:
+- **Structural rule actions.** Twenty-seven action types are durable now:
   email, archive and unarchive, colour, labels, completion, dates, members,
   checklist toggles, and since 2026-10-02 moves to the top or bottom of the
-  card's own list and swimlane, and adding and removing checklists (see
-  Upcoming). A board with any other rule action keeps direct Sync. What is
-  left, and why:
+  card's own list and swimlane, adding a checklist (with or without items),
+  removing checklists, sorting a list and creating a card (see Upcoming). A
+  board with any other rule action keeps direct Sync. What is left, and why:
   - *Moves to another list, swimlane or board* - blocked on a decision (see
     "Needs a maintainer decision"): the rule stage's guard
     (server/notifications/storedRulePlans.js executionContext) and the Sync
@@ -245,10 +245,16 @@ Remaining, and why:
     and the durable activity pipeline (notification, webhook and rule plans,
     server/lib/syncNotificationPlan.js) identifies every activity by its card.
     Board-level activities need that identity generalised first.
-  - *Creating, copying or linking cards, adding a checklist with items,
-    sorting a list, moving all cards of a list* - not started; each needs a
-    saved command of its own, following server/lib/syncRuleMoveCommand.js and
-    server/lib/syncRuleChecklistLifecycleCommand.js.
+  - *Moving all cards of a list* - waits on durable moves between lists
+    (above); it can include the triggering card.
+  - *Linking a card* - blocked: it creates a card on ANOTHER board, whose
+    creation activity runs that board's rules under its own Sync activation;
+    the durable guard refuses a board that has not opted in. Needs a decision
+    on cross-board effects of a Sync run.
+  - *Copying a card* - not started, and large: a copy also copies attachment
+    file bytes (storage writes not keyed by an id a replay could find),
+    checklists, items, comments and subtasks, remaps the cover and allocates
+    a card number; each needs an idempotent unit of its own.
 - **Atomicity.** Cards, History, activities and effects are coordinated by the
   write-ahead journal and replay, not by a transaction. The FerretDB v1 backend
   has no multi-document transactions, and journal ownership cannot fence a
@@ -1872,6 +1878,38 @@ matches and, per checklist, writes the activity before the removal and the
 History row after it, refusing a checklist changed since capture. Tests:
 tests/syncRuleChecklistLifecycleCommand.test.cjs and a server test of both
 rules with replay.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d69cde2ecf">Adding a checklist with items is durable</a>. Thanks to xet7.</summary>
+
+The checklist and one item per comma-separated title are inserted once under
+ids derived from the rule invocation. The checklist's activity and History row,
+then each item's addChecklistItem activity and row, are recorded from the stored
+documents in the order the hooks write them. Tests: the command's unit tests and
+a server test with replay.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d8c904b94a">Sorting a list by rule is durable</a>. Thanks to xet7.</summary>
+
+The order is decided once, by sort keys now shared with the ordinary action
+(models/lib/ruleSortList.js), and each card whose sort changes is written
+conditionally with the hook's position History row. Tests:
+tests/syncRuleSortListCommand.test.cjs and a server test with replay.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d2629161fe">Creating a card by rule is durable</a>. Thanks to xet7.</summary>
+
+The target and title are resolved once by RulesHelper.createCardTarget, which
+the ordinary action uses too. The new card's id is derived from the invocation,
+so a replay inserts it once, and the creation activity saved with the command
+is delivered durably, running the new card's own rules. Tests:
+tests/syncRuleCreateCardCommand.test.cjs and a server test with replay.
 
 </details>
 
