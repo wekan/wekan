@@ -246,7 +246,27 @@ const keys = [
   "email-recovery-changed",
   "email-recovery-pause",
   "email-recovery-resume",
-  "email-recovery-cancel"
+  "email-recovery-cancel",
+  "email-recovery-paused",
+  "email-recovery-pending",
+  "email-recovery-empty",
+  "email-recovery-unavailable",
+  "email-recovery-busy",
+  "email-recovery-failed",
+  "email-recovery-superseded",
+  "email-recovery-confirm-cancel",
+  "email-recovery-attention",
+  "email-recovery-stopped",
+  "email-recovery-retry",
+  "email-failure-smtp-temporary",
+  "email-failure-smtp-rejected",
+  "email-failure-smtp-authentication",
+  "email-failure-smtp-configuration",
+  "email-failure-recipient-unavailable",
+  "email-failure-delivery-unconfirmed",
+  "email-failure-acknowledgement-failed",
+  "email-failure-delivery-failed",
+  "email-failure-retry-limit"
 ];
 assert.deepEqual(Object.keys(locale), Object.keys(en));
 for (const key of keys) {
@@ -334,4 +354,12 @@ assert.match(locale['email-recovery-description'], /messajys a-lemmyn ha messajy
 assert.match(locale['email-recovery-description'], /bys dhe dermyn an govyn/);
 assert.match(locale['email-recovery-description'], /Ny yllir gervel dhe-dre.*ansur.*daswrys/);
 assert.match(locale['email-recovery-description'], /hag a berth an powes a-lemmyn/);
+assert.notEqual(locale['email-failure-smtp-temporary'], locale['email-failure-smtp-rejected']);
+for (const key of ['email-failure-smtp-temporary', 'email-failure-smtp-rejected']) {
+  assert.ok(locale[key].includes('SMTP'), key);
+}
+assert.match(locale['email-recovery-confirm-cancel'], /ny yllir y restorya/);
+assert.match(locale['email-recovery-confirm-cancel'], /Messajys nowydh.*wosa an govyn ma.*gwithys/);
+assert.match(locale['email-failure-delivery-unconfirmed'], /daswelewgh kyns assaya arta/);
+assert.match(locale['email-recovery-failed'], /keth ober arta/);
 console.log('Cornish translation batch checks passed');
