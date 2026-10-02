@@ -24,3 +24,28 @@ test('every exporter authorization uses the shared scope decision rather than bo
  }
  assert.equal(checks,9);
 });
+
+// ExportScopeBleed sibling (2026-10-02): the in-app boardChartData method
+// checked only board visibility, while its loaders read every card - so an
+// assigned-only member got the chart data the export routes refuse them.
+test('every caller of the chart loaders follows the export rule (negative)', () => {
+  const fs = require('fs');
+  const path = require('path');
+  const root = path.join(__dirname, '..');
+  const walk = dir => fs.readdirSync(path.join(root, dir), { withFileTypes: true }).flatMap(e => {
+    if (e.name === 'tests' || e.name.startsWith('_build') || e.name === 'node_modules') return [];
+    const rel = `${dir}/${e.name}`;
+    return e.isDirectory() ? walk(rel) : (rel.endsWith('.js') ? [rel] : []);
+  });
+  let callers = 0;
+  for (const file of ['server', 'models'].flatMap(walk)) {
+    if (file === 'server/lib/boardChartData.js') continue;
+    const src = fs.readFileSync(path.join(root, file), 'utf8');
+    for (const m of src.matchAll(/await loadBoardChartData\(/g)) {
+      callers += 1;
+      const before = src.slice(Math.max(0, m.index - 1500), m.index);
+      assert.match(before, /canExportBoardData\(|exporter\.canExport\(|\.canExport\(user\)/, `${file}: loadBoardChartData without the export rule`);
+    }
+  }
+  assert.ok(callers >= 1);
+});

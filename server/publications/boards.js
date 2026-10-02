@@ -1444,7 +1444,12 @@ Meteor.methods({
     check(chartKey, String);
     check(options, Object);
     const board = await ReactiveCache.getBoard(boardId);
-    if (!board || !board.isVisibleBy({ _id: this.userId })) {
+    // ExportScopeBleed sibling (2026-10-02): the chart loaders read every card
+    // of the board, so this follows the export rule - an assigned-only member
+    // gets only the charts that scope to their own cards - instead of plain
+    // board visibility, which handed them the hidden cards' titles and dates.
+    const { canExportBoardData } = require('/models/lib/exportAccess');
+    if (!board || !canExportBoardData(board, { _id: this.userId }, chartKey)) {
       throw new Meteor.Error('not-authorized');
     }
     const { loadBoardChartData } = require('/server/lib/boardChartData');
