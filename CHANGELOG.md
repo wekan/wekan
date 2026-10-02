@@ -3759,6 +3759,21 @@ Structural checks do not establish fluency. The broader translation backlog rema
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e719b8e32e">Translate email recovery in Tigre</a>. Thanks to xet7.</summary>
+
+Fill 23 English placeholders and replace two Tigrinya email-sent and pause labels
+in the Tigre catalog. Preserve other translations, source order and exact tokens.
+Extend cancellation, uncertain-delivery, retained-pause, vocabulary and script
+checks. Four focused catalog suites and all 21 human-preference checks pass in
+the worktree aligned with the new backup strings.
+
+Specialist Tigre phrasing, grammar and corrected labels have low confidence and
+need speaker review. References include [The Tigre Language of Gindaʿ, Eritrea](https://www.speaktigre.com/_files/ugd/7e068a_adcb2a9df2c340898e3155ef3905c61e.pdf?index=true).
+Structural checks do not establish fluency. The broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
