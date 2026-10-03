@@ -385,8 +385,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 Status checked on 2026-10-03. The later translation request resumed this work;
 the earlier pause above remains historical. Completed work is recorded in Upcoming.
 
-- The current `node releases/translations/fill-translations.mjs --missing` report counts **53,732 untranslated locale/string values in 70 languages**. It excludes **204 source keys deliberately left in English pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
-- Continue automatic-archiving and date-filter translations beyond the five locales recorded in Upcoming, then the remaining feature families. Papiamento and Tok Pisin were inspected next; no translations from that next batch have been written yet.
+- The current `node releases/translations/fill-translations.mjs --missing` report counts **53,692 untranslated locale/string values in 70 languages**. It excludes **204 source keys deliberately left in English pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
+- Continue automatic-archiving and date-filter translations beyond the seven locales recorded in completed changelog entries, then the remaining feature families.
 - Fill English placeholders in every language, including minority and constructed languages. Audit mixed-language and wrong-language seed text, and review provisional wording with speakers when available. Preserve correct-language human translations, source key order, exact placeholders, technical identifiers and query examples. Use direct translation and dictionary research, not an external translation service.
 - Keep regression and human-preference checks passing. Passing tests does not establish translation completeness or fluency; rerun relevant checks for each batch and the broad suite before declaring all-language work complete.
 
@@ -1807,6 +1807,21 @@ used.
 
 </details>
 </details>
+
+# Upcoming WeKan ® release
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5dd2f9e9b6f040fdb78a89960befba6db37bb5bd">Translate archiving and date filters into Papiamento and Tok Pisin</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Papiamento, Tok Pisin.
+
+- Fill 46 English placeholders covering automatic archiving, recent activity, inclusive date ranges, due dates and time in a list. Preserve existing translations and literal query examples.
+- Seven relevant suites, 21 human-preference checks and per-locale preservation audits pass; regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining all-language work is tracked in TODO Later.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.16 2026-10-03 WeKan ® release
 
