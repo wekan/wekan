@@ -15,7 +15,7 @@ import ScrumHistoryPending, { ScrumHistoryCompletions } from './scrumHistoryPend
 import { canUpdateCard } from '/server/permissions/cards';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { withoutRecording, isRecordingSuppressed } from './historyRecordingScope';
-import { setScrumHistoryRecorder, setScrumHistoryBatchRunner, withScrumBoardLock, assertNoPendingScrumImport } from '/server/scrum';
+import { setScrumHistoryRecorder, setScrumHistoryBatchRunner, setScrumHistoryBatchNamer, withScrumBoardLock, assertNoPendingScrumImport } from '/server/scrum';
 const { assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 const { METADATA_TYPES, historyDocument, historyRecords, historySide, historyParts } = require('/models/lib/scrumHistory');
 const { calculateObjectSize } = require('bson');
@@ -32,18 +32,22 @@ const { readScrumHistoryRequestCompletion } = require('./scrumHistoryCompletion'
 const batches = new AsyncLocalStorage();
 const conflict = () => { throw new Meteor.Error('scrum-conflict', 'Scrum data changed. Reload History before retrying.'); };
 
-async function recordBatch(boardId, userId, changes) {
+// `batchId`, when given, names a logical change recorded over several
+// batches - a sprint close and its background rollover, chunk by chunk - so
+// undo and redo walk all of it; its rows always carry it.
+async function recordBatch(boardId, userId, changes, givenBatchId = null) {
   if (!userId || !changes.length || isRecordingSuppressed()) return;
   const records = historyRecords(changes).filter(row => !EJSON.equals(row.before, row.after));
   if (!records.length) return;
   const parts = historyParts(records, doc => (doc ? calculateObjectSize(doc) : 0));
-  if (parts.length > 1) {
+  if (parts.length > 1 || givenBatchId) {
     // One logical change in several rows (models/lib/scrumHistory.js
     // historyParts), written in order on distinct milliseconds so the undo
     // stack keeps their order.
-    const batchId = Random.id();
+    const batchId = givenBatchId || Random.id();
     for (let index = 0; index < parts.length; index += 1) {
-      if (index) await nextMillisecond();
+      // Distinct milliseconds also from an earlier batch of the same change.
+      if (index || givenBatchId) await nextMillisecond();
       const id = await ChangeHistory.record({ boardId, entityType: 'scrum', entityId: boardId, group: 'scrum',
         cardId: null, listId: null, swimlaneId: null, changeType: 'edited', batchId,
         previousContent: historySide(parts[index], 'before'), newContent: historySide(parts[index], 'after'), userId });
@@ -78,10 +82,12 @@ Meteor.startup(() => {
       newContent: slim(change.entityType, change.newContent) });
     else await recordBatch(change.boardId, change.userId, [change]);
   });
-  setScrumHistoryBatchRunner((boardId, userId, operation) => batches.run([], async () => {
+  setScrumHistoryBatchRunner((boardId, userId, operation, { batchId = null } = {}) => batches.run(Object.assign([], { batchId }), async () => {
     try { return await operation(); }
-    finally { await recordBatch(boardId, userId, batches.getStore()); }
+    finally { const store = batches.getStore(); await recordBatch(boardId, userId, store, store.batchId); }
   }));
+  // A running operation names its batch once it knows it continues later.
+  setScrumHistoryBatchNamer(batchId => { const store = batches.getStore(); if (store) store.batchId = batchId; });
 });
 
 function recordList(content) {

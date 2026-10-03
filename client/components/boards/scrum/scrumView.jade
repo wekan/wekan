@@ -25,6 +25,14 @@ template(name="scrumView")
               p {{_ 'scrum-import-reference-omitted' reference=sourceId}}
         if data.partial
           p(role="status" class="scrum-partial-report") {{_ 'scrum-partial-report'}}
+        if historyJob
+          .scrum-background-job.js-scrum-history-job(aria-live="polite")
+            if historyJob.failed
+              p.warning {{_ 'scrum-history-job-failed'}} {{historyJob.error}}
+            else
+              p {{_ 'scrum-history-job-running' done=historyJob.done total=historyJob.total}}
+              .scrum-progress
+                .scrum-progress-bar(style=historyJob.style)
         if canAdmin
           details.scrum-settings(open=settingsOpen)
             summary {{_ 'scrum-settings'}}
@@ -78,11 +86,18 @@ template(name="scrumView")
                 if selectedSprint
                   p {{selectedSprint.goal}}
                   p {{selectedSprint.stateLabel}}
+                  if rolloverProgress
+                    .scrum-background-job.js-scrum-rollover-progress(aria-live="polite")
+                      p {{_ 'scrum-rollover-progress' done=rolloverProgress.done total=rolloverProgress.total}}
+                      .scrum-progress
+                        .scrum-progress-bar(style=rolloverProgress.style)
                   if canAdmin
                     .scrum-toolbar
                       if sprintPlanned
                         button.primary.js-scrum-start(disabled=busy) {{_ 'scrum-start-sprint'}}
                       if sprintNeedsCloseRecovery
+                        if rolloverError
+                          p.warning.js-scrum-rollover-error {{rolloverError}}
                         button.primary.js-scrum-resume-close(disabled=busy) {{_ 'scrum-resume-close'}}
                       if sprintActive
                         label {{_ 'scrum-rollover-sprint'}}

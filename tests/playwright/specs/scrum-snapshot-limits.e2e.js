@@ -6,7 +6,7 @@
 // 10,000 cards and a close whose metadata outgrew one document.
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
-const { loginWithToken } = require('../helpers/auth');
+const { loginWithToken, openBoard } = require('../helpers/auth');
 const call = (page, method, ...args) => page.evaluate(async ({ method, args }) => {
   try { return await Meteor.callAsync(method, ...args); }
   catch (error) { throw new Error(`${error.error}: ${error.reason || error.message}`); }
@@ -29,10 +29,20 @@ test('a sprint past the old 10,000-card limit starts and closes, with its rows o
     const stored = db.findOne('scrumSprints', { _id: sprint._id });
     expect(stored.startSnapshot.stored).toBe('rows');
     expect(db.find('scrumSnapshotRows', { sprintId: sprint._id, kind: 'start' }, { _id: 1 }).length).toBe(6);
-    await call(page, 'scrum.closeSprint', board.boardId, sprint._id, active.revision, null);
+    // The close returns at once; the cards follow in the background, and the
+    // Scrum view shows how far (decision of 2026-10-03).
+    const returned = await call(page, 'scrum.closeSprint', board.boardId, sprint._id, active.revision, null);
+    expect([returned.state, returned.rolloverPending, returned.rolloverTotal]).toEqual(['closed', true, 10001]);
+    await openBoard(page, board.boardId, board.slug);
+    await page.locator('.js-toggle-board-view').first().click();
+    await page.locator('.pop-over .js-open-sprints-view').click();
+    await page.locator('.js-scrum-sprint').selectOption(sprint._id);
+    await expect(page.locator('.js-scrum-rollover-progress')).toContainText('of 10001');
+    await expect(page.locator('.js-scrum-rollover-progress')).toHaveCount(0, { timeout: 120000 });
     const closed = db.findOne('scrumSprints', { _id: sprint._id });
     expect(closed.state).toBe('closed');
     expect(closed.rolloverPending).toBeUndefined();
+    expect(closed.rolloverTotal).toBeUndefined();
     expect(db.find('scrumRolloverRows', { sprintId: sprint._id }, { _id: 1 })).toHaveLength(0);
     expect(db.find('cards', { ...extra, 'scrum.sprintId': sprint._id }, { _id: 1 })).toHaveLength(0);
     // The board data carries the report, never the rows.
@@ -69,13 +79,38 @@ test('a close whose card metadata outgrows one document is recorded in bounded H
     expect(rows.length).toBeGreaterThan(1);
     expect(new Set(rows.map(row => row.batchId)).size).toBe(1);
     // One undo reverses the whole close.
+    // Several rows: the rest of them are undone in the background.
     await call(page, 'changeHistory.undoLast', board.boardId, `undo-${sprint._id}`.replace(/[^A-Za-z0-9_-]/g, '').padEnd(16, 'x'));
-    expect(db.findOne('scrumSprints', { _id: sprint._id }).state).toBe('active');
+    await expect.poll(() => db.findOne('scrumSprints', { _id: sprint._id }).state, { timeout: 120000 }).toBe('active');
+    await expect.poll(() => db.findOne('scrumBatchJobs', { _id: board.boardId }), { timeout: 120000 }).toBeFalsy();
     expect(db.find('cards', { ...extra, 'scrum.sprintId': sprint._id }, { _id: 1 })).toHaveLength(800);
   } finally {
     db.deleteMany('cards', extra);
     db.deleteMany('scrumSprints', { boardId: board.boardId });
     db.deleteMany('scrumSnapshotRows', { boardId: board.boardId });
     db.deleteMany('changeHistory', { boardId: board.boardId });
+  }
+});
+
+test('the Scrum view shows a large undo running in the background, and one that stopped', async ({ page, user, board }) => {
+  const base = { _id: board.boardId, boardId: board.boardId, userId: user.id, direction: 'undo', batchId: 'scrum-close-x-1',
+    requestId: null, index: 3, startedAt: new Date() };
+  try {
+    db.insertOne('scrumBatchJobs', { ...base, done: 3, total: 12, state: 'running' });
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+    await page.locator('.js-toggle-board-view').first().click();
+    await page.locator('.pop-over .js-open-sprints-view').click();
+    const job = page.locator('.js-scrum-history-job');
+    await expect(job).toContainText('3 of 12');
+    await expect(job.locator('.scrum-progress-bar')).toHaveAttribute('style', /width: 25%/);
+    // It moves on without a reload: the view polls while it runs.
+    db.updateOne('scrumBatchJobs', { _id: board.boardId }, { $set: { done: 9 } });
+    await expect(job).toContainText('9 of 12', { timeout: 15000 });
+    db.updateOne('scrumBatchJobs', { _id: board.boardId }, { $set: { state: 'failed', error: 'lost connection' } });
+    await expect(job).toContainText('lost connection', { timeout: 15000 });
+    await expect(job).toContainText('Press undo or redo again');
+  } finally {
+    db.deleteMany('scrumBatchJobs', { _id: board.boardId });
   }
 });

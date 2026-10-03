@@ -27,12 +27,16 @@ test('board duplication remaps Scrum planning and metadata and can omit Scrum en
   expect(db.findOne('cards',{_id:card._id}).syncExternalId).toBe('COPY-1');
   expect(copiedCard.scrum.pastSprintIds).toEqual([copiedSprint._id]);expect(copiedCard.scrum.acceptanceCriteria).toBe('Copied criteria');
   expect(copiedCard.scrum.releaseId).toBe(db.findOne('scrumReleases',{boardId:copy})._id);
-  expect(copiedSprint.closeSnapshot.cards[0].cardId).toBe(copiedCard._id);
-  expect(copiedSprint.closeSnapshot.cards[0].listId).toBe(copiedCard.listId);
+  // Snapshot rows are kept outside the sprint (server/lib/scrumSnapshotStore.js).
+  const closeRows=db.scrumSnapshotCards(copiedSprint.closeSnapshot,copiedSprint._id,'close');
+  expect(closeRows[0].cardId).toBe(copiedCard._id);
+  expect(closeRows[0].listId).toBe(copiedCard.listId);
+  expect(copiedSprint.closeSnapshot.cards).toBeUndefined();
   const copiedObservation=db.findOne('scrumDailySnapshots',{boardId:copy});
   expect(copiedObservation.sprintId).toBe(copiedSprint._id);
-  expect(copiedObservation.snapshot.cards[0].cardId).toBe(copiedCard._id);
-  expect(copiedObservation.snapshot.cards[0].listId).toBe(copiedCard.listId);
+  const dailyRows=db.scrumSnapshotCards(copiedObservation.snapshot,copiedSprint._id,'daily');
+  expect(dailyRows[0].cardId).toBe(copiedCard._id);
+  expect(dailyRows[0].listId).toBe(copiedCard.listId);
   const {dailyObservationId}=require('../../../server/lib/scrumDailyCapture');
   expect(copiedObservation._id).toBe(dailyObservationId(copiedSprint._id,copiedObservation.startedAt,copiedObservation.day));
   expect(db.findOne('lists',{_id:copiedCard.listId}).scrum.category).toBe('doing');
@@ -50,9 +54,10 @@ test('board duplication remaps Scrum planning and metadata and can omit Scrum en
   const structure=await call(page,'copyBoard',board.boardId,{withoutCards:true});copies.push(structure);
   expect(db.find('cards',{boardId:structure})).toHaveLength(0);
   expect(db.findOne('scrumSprints',{boardId:structure}).closeSnapshot.partial).toBe(true);
-  expect(db.findOne('scrumSprints',{boardId:structure}).closeSnapshot.cards).toEqual([]);
+  const structureSprint=db.findOne('scrumSprints',{boardId:structure});
+  expect(db.scrumSnapshotCards(structureSprint.closeSnapshot,structureSprint._id,'close')).toEqual([]);
   expect(db.findOne('scrumDailySnapshots',{boardId:structure}).snapshot.partial).toBe(true);
-  expect(db.findOne('scrumDailySnapshots',{boardId:structure}).snapshot.cards).toEqual([]);
+  expect(db.scrumSnapshotCards(db.findOne('scrumDailySnapshots',{boardId:structure}).snapshot,structureSprint._id,'daily')).toEqual([]);
   const copiedBoard=db.findOne('boards',{_id:structure});
   await openBoard(page,structure,copiedBoard.slug);
   await page.locator('.js-toggle-board-view').first().click();

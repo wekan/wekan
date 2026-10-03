@@ -37,16 +37,19 @@ test('native Scrum board export imports with new IDs and unchanged snapshot outc
   expect(restoredCard.scrum.acceptanceCriteria).toBe('Verified criterion');
   expect(restoredCard.scrum.pastSprintIds).toEqual([restored._id]);
   expect(restoredCard.scrum.releaseId).toBe(db.findOne('scrumReleases',{boardId:imported})._id);
-  expect(restored.closeSnapshot.cards[0].cardId).toBe(restoredCard._id);
-  expect(restored.closeSnapshot.cards[0].listId).toBe(restoredCard.listId);
-  expect(restored.closeSnapshot.cards[0].estimate).toBe(0);
+  // Snapshot rows are kept outside the sprint (server/lib/scrumSnapshotStore.js).
+  const closeRows=db.scrumSnapshotCards(restored.closeSnapshot,restored._id,'close');
+  expect(closeRows[0].cardId).toBe(restoredCard._id);
+  expect(closeRows[0].listId).toBe(restoredCard.listId);
+  expect(closeRows[0].estimate).toBe(0);
   const restoredField=db.findOne('customFields',{boardIds:imported,name:'Estimate'});
   expect(restoredField._id).not.toBe(estimateField);
   expect(restored.closeSnapshot.estimateCustomFieldId).toBe(restoredField._id);
   const observation=db.findOne('scrumDailySnapshots',{boardId:imported});
   expect(observation.sprintId).toBe(restored._id);
-  expect(observation.snapshot.cards[0].cardId).toBe(restoredCard._id);
-  expect(observation.snapshot.cards[0].listId).toBe(restoredCard.listId);
+  const dailyRows=db.scrumSnapshotCards(observation.snapshot,restored._id,'daily');
+  expect(dailyRows[0].cardId).toBe(restoredCard._id);
+  expect(dailyRows[0].listId).toBe(restoredCard.listId);
   expect(observation.snapshot.estimateCustomFieldId).toBe(restoredField._id);
   expect(new Date(observation.capturedAt).toISOString()).toBe(exported.scrumTransfer.dailyObservations[0].capturedAt);
   expect((await call(page,'scrum.getDailyHistory',imported,restored._id)).rows[0].scope.estimate).toBe(0);

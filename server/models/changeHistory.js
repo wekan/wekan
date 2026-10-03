@@ -41,6 +41,7 @@ import RecoveryEvents from '/models/recoveryEvents';
 import SecurityLog from '/server/lib/securityLog';
 const { rowHashIsValid, canonical, sha256 } = require('/models/lib/changeHistoryIntegrity');
 const { prepareScrumHistoryRequest } = require('/server/lib/scrumHistoryRequest');
+import { setBatchStepper, startBatchJob, assertNoBatchJob } from '/server/lib/scrumBatchJobs';
 
 DDPRateLimiter.addRule({ type: 'method',
   name: name => ['changeHistory.undoLast', 'changeHistory.redoLast'].includes(name),
@@ -59,15 +60,38 @@ async function nextBatchRow(userId, boardId, direction, batchId) {
 // A request ID for each further row of a batch, derived from the caller's, so
 // a retry of the caller's request resumes the same rows.
 const batchRequestId = (requestId, index) => `batch-${sha256(canonical([requestId, index])).slice(0, 48)}`;
+// A batch with more rows than this left continues as a background job
+// (server/lib/scrumBatchJobs.js); a small one finishes in the call.
+const INLINE_BATCH_ROWS = 4;
+const remainingBatchRows = (userId, boardId, direction, batchId) => ChangeHistory.find({ userId, boardId, batchId,
+  entityType: 'scrum', undone: direction === 'redo', isCheckpoint: { $ne: true }, superseded: { $ne: true } }).countAsync();
 async function requestedScrumReversal(context, boardId, direction, requestId) {
   const resultKey = direction === 'undo' ? 'undone' : 'redone';
+  await assertNoBatchJob(boardId);
   const { result, row } = await requestedScrumRow(context, boardId, direction, requestId);
   if (!isBatchPart(row)) return result;
+  const left = await remainingBatchRows(context.userId, boardId, direction, row.batchId);
+  if (left > INLINE_BATCH_ROWS) {
+    await startBatchJob({ boardId, userId: context.userId, direction, batchId: row.batchId, requestId, total: left + 1 });
+    return { ...result, continuing: true };
+  }
   for (let index = 1; ; index += 1) {
     const next = await requestedScrumRow(context, boardId, direction, batchRequestId(requestId, index), row.batchId);
     if (!next.result[resultKey]) return result;
   }
 }
+// One row of a background batch job, as the user who asked: true while a
+// row was applied, false when the batch is done.
+setBatchStepper(async (context, job) => {
+  if (job.requestId) {
+    const next = await requestedScrumRow(context, job.boardId, job.direction, batchRequestId(job.requestId, job.index), job.batchId);
+    return !!next.result[job.direction === 'undo' ? 'undone' : 'redone'];
+  }
+  const next = await nextBatchRow(context.userId, job.boardId, job.direction, job.batchId);
+  if (!next) return false;
+  await requireHistoryIntegrity(next, context);
+  return !!await applyClaimed(next, job.direction, null);
+});
 async function requestedScrumRow(context, boardId, direction, requestId, batchId = null) {
   const assertAccess = async () => {
     const board = await Boards.findOneAsync(boardId);
@@ -615,6 +639,7 @@ Meteor.methods({
     }
     await requireBoardWrite(this.userId, boardId);
     if (requestId !== undefined) return requestedScrumReversal(this, boardId, 'undo', requestId);
+    await assertNoBatchJob(boardId);
 
     const candidates = await ChangeHistory.find(
       { userId: this.userId, boardId, undone: false, isCheckpoint: { $ne: true } },
@@ -632,6 +657,11 @@ Meteor.methods({
     if (!applied) return { undone: false, reason: 'not-applicable' };
     if (claim) await recordReversal(row, this.userId, before);
     if (isBatchPart(row)) {
+      const left = await remainingBatchRows(this.userId, boardId, 'undo', row.batchId);
+      if (left > INLINE_BATCH_ROWS) {
+        await startBatchJob({ boardId, userId: this.userId, direction: 'undo', batchId: row.batchId, requestId: null, total: left + 1 });
+        return { undone: true, entityType: row.entityType, entityId: row.entityId, group: row.group, continuing: true };
+      }
       for (let next = await nextBatchRow(this.userId, boardId, 'undo', row.batchId); next;
         next = await nextBatchRow(this.userId, boardId, 'undo', row.batchId)) {
         await requireHistoryIntegrity(next, this);
@@ -654,6 +684,7 @@ Meteor.methods({
     }
     await requireBoardWrite(this.userId, boardId);
     if (requestId !== undefined) return requestedScrumReversal(this, boardId, 'redo', requestId);
+    await assertNoBatchJob(boardId);
 
     const candidates = await ChangeHistory.find(
       { userId: this.userId, boardId, undone: true, isCheckpoint: { $ne: true } },
@@ -670,6 +701,11 @@ Meteor.methods({
     if (!applied) return { redone: false, reason: 'not-applicable' };
     if (claim) await recordReversal(row, this.userId, before);
     if (isBatchPart(row)) {
+      const left = await remainingBatchRows(this.userId, boardId, 'redo', row.batchId);
+      if (left > INLINE_BATCH_ROWS) {
+        await startBatchJob({ boardId, userId: this.userId, direction: 'redo', batchId: row.batchId, requestId: null, total: left + 1 });
+        return { redone: true, entityType: row.entityType, entityId: row.entityId, group: row.group, continuing: true };
+      }
       for (let next = await nextBatchRow(this.userId, boardId, 'redo', row.batchId); next;
         next = await nextBatchRow(this.userId, boardId, 'redo', row.batchId)) {
         await requireHistoryIntegrity(next, this);

@@ -45,14 +45,30 @@ function viewCards() {
     .sort(compareScrumCards);
 }
 
-async function refresh(tpl) {
+function progress(done, total) {
+  const percent = total ? Math.min(100, Math.round(100 * done / total)) : 0;
+  return { done, total, percent, style: `width: ${percent}%` };
+}
+// While a rollover or a large undo runs in the background, look again every
+// few seconds; nothing is polled otherwise.
+function backgroundRunning(result) {
+  return !!(result?.historyJob && result.historyJob.state === 'running') ||
+    !!result?.sprints?.some(sprint => sprint.rolloverPending && sprint.rolloverTotal && !sprint.rolloverError);
+}
+function schedulePoll(tpl) {
+  Meteor.clearTimeout(tpl.poll);
+  if (!tpl.stopped && backgroundRunning(tpl.dataState.get())) tpl.poll = Meteor.setTimeout(() => refresh(tpl, { quiet: true }), 3000);
+}
+// A quiet refresh (the progress poll) keeps the view on screen meanwhile.
+async function refresh(tpl, { quiet = false } = {}) {
   const boardId = Session.get('currentBoard');
   const request = ++tpl.request;
-  tpl.loading.set(true);
+  if (!quiet) tpl.loading.set(true);
   try {
     const result = await Meteor.callAsync('scrum.getBoardData', boardId);
     if (tpl.stopped || request !== tpl.request || boardId !== Session.get('currentBoard')) return;
     tpl.dataState.set(result); tpl.error.set('');
+    schedulePoll(tpl);
   } catch (error) {
     if (!tpl.stopped && request === tpl.request) tpl.error.set(error.reason || error.message);
   } finally { if (!tpl.stopped && request === tpl.request) tpl.loading.set(false); }
@@ -85,7 +101,7 @@ Template.scrumView.onCreated(function () {
     void refresh(this);
   });
 });
-Template.scrumView.onDestroyed(function () { this.stopped = true; this.request += 1; });
+Template.scrumView.onDestroyed(function () { this.stopped = true; this.request += 1; Meteor.clearTimeout(this.poll); });
 Template.scrumView.helpers({
   accountabilityFields() {
     const settings = data()?.settings || DEFAULT_SCRUM_SETTINGS;
@@ -126,7 +142,22 @@ Template.scrumView.helpers({
   sprintOptions: () => (data()?.sprints || []).map(s => ({ ...s, selected: current().sprintId.get() === s._id, stateLabel: stateLabel(s.state) })),
   rolloverOptions: () => (data()?.sprints || []).filter(s => s.state === 'planned' && s._id !== current().sprintId.get()),
   sprintPlanned: () => selectedSprint(current())?.state === 'planned',
-  sprintNeedsCloseRecovery: () => selectedSprint(current())?.state === 'closed' && selectedSprint(current())?.rolloverPending,
+  // A rollover that stopped (it failed, or its server went away): closing
+  // again resumes it. One running in the background shows its progress.
+  sprintNeedsCloseRecovery: () => {
+    const sprint = selectedSprint(current());
+    return sprint?.state === 'closed' && sprint.rolloverPending && (!sprint.rolloverTotal || !!sprint.rolloverError);
+  },
+  rolloverProgress: () => {
+    const sprint = selectedSprint(current());
+    if (!sprint?.rolloverPending || !sprint.rolloverTotal || sprint.rolloverError) return null;
+    return progress(sprint.rolloverDone || 0, sprint.rolloverTotal);
+  },
+  rolloverError: () => selectedSprint(current())?.rolloverError || '',
+  historyJob: () => {
+    const job = data()?.historyJob;
+    return job ? { ...progress(job.done, job.total), direction: job.direction, failed: job.state === 'failed', error: job.error } : null;
+  },
   sprintActive: () => selectedSprint(current())?.state === 'active',
   sprintOpen: () => ['planned', 'active'].includes(selectedSprint(current())?.state),
   sprintStart: () => dateValue(selectedSprint(current())?.plannedStart),

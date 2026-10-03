@@ -803,6 +803,18 @@
     {
       "key": "continuous-backup-fetched",
       "since": "2026-10-03"
+    },
+    {
+      "key": "scrum-rollover-progress",
+      "since": "2026-10-03"
+    },
+    {
+      "key": "scrum-history-job-running",
+      "since": "2026-10-03"
+    },
+    {
+      "key": "scrum-history-job-failed",
+      "since": "2026-10-03"
     }
   ]
 }

@@ -508,7 +508,19 @@ function getBoard(boardId) {
   return findOne('boards', { _id: boardId });
 }
 
+// A Scrum snapshot's rows, wherever they are kept: inline in an older
+// snapshot, or in scrumSnapshotRows chunks (server/lib/scrumSnapshotStore.js).
+// `kind` is 'start', 'close' or 'daily'.
+function scrumSnapshotCards(snapshot, sprintId, kind) {
+  if (!snapshot) return [];
+  if (snapshot.stored !== 'rows') return snapshot.cards || [];
+  const at = new Date(snapshot.at).getTime();
+  return find('scrumSnapshotRows', { sprintId, kind }).filter(chunk => new Date(chunk.at).getTime() === at)
+    .sort((a, b) => a.chunk - b.chunk).flatMap(chunk => chunk.rows);
+}
+
 module.exports = {
+  scrumSnapshotCards,
   seedUser, seedBoard, addBoardMember, setUserGroups, seedTemplatesBoard,
   findCardIdByTitle, setCardDependencies, setShowDependencies, cleanup,
   addResumeToken,

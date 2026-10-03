@@ -71,8 +71,11 @@ test('Scrum menus plan work, retain closed snapshots and export Excel/PDF',async
   expect(pdf.status()).toBe(200);expect((await pdf.body()).subarray(0,4).toString()).toBe('%PDF');
   await view(page,'sprint-report');
   await page.locator('.js-scrum-sprint').selectOption(sprint._id);
-  await expect(page.locator('.scrum-chart-series')).toHaveCount(5);
-  await expect(page.locator('.scrum-chart-label').last()).toContainText('0');
+  // The sprint report's own rows: the daily and change-by-change charts below
+  // it use the same series markup and load on their own time.
+  const report=page.locator('figure.scrum-chart-row:not(.scrum-daily-row):not(.scrum-scope-row)');
+  await expect(report.locator('.scrum-chart-series')).toHaveCount(5);
+  await expect(report.locator('.scrum-chart-label').last()).toContainText('0');
   expect(errors).toEqual([]);
  }finally{cleanup(board.boardId);}
 });

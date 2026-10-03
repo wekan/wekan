@@ -43,3 +43,18 @@
 @media (max-width: 480px) {
   .scrum-chart-series { grid-template-columns: 1fr; }
 }
+
+/* A rollover or a large undo running in the background (server/scrum.js,
+   server/lib/scrumBatchJobs.js): how far it is. */
+.scrum-background-job .scrum-progress {
+  height: 0.5rem;
+  max-width: 24rem;
+  border-radius: 0.25rem;
+  background: rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+.scrum-background-job .scrum-progress-bar {
+  height: 100%;
+  background: #3cb500;
+  transition: width 0.3s ease;
+}

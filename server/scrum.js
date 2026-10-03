@@ -22,7 +22,7 @@ import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 const { assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 const { dailyHistoryRows } = require('/models/lib/scrumDailyHistory');
 const { reportTotals, sprintReport } = require('/models/lib/scrumReports');
-const { withoutRows } = require('/models/lib/scrumSnapshotRows');
+const { withoutRows, SNAPSHOT_CHUNK } = require('/models/lib/scrumSnapshotRows');
 import { storeSnapshot, snapshotRows, withSnapshotRows, withDailyRows } from '/server/lib/scrumSnapshotStore';
 import { ROLLOVER_PENDING, hasRolloverPending, storeRolloverPlan, nextRolloverChunk, finishRolloverChunk,
   rolloverTouches } from '/server/lib/scrumRolloverStore';
@@ -39,6 +39,8 @@ const queues = new Map();
 let historyRecorder = async () => {};
 let historyBatchRunner = async (boardId, userId, operation) => operation();
 export function setScrumHistoryBatchRunner(runner) { historyBatchRunner = runner; }
+let nameHistoryBatch = () => {};
+export function setScrumHistoryBatchNamer(namer) { nameHistoryBatch = namer; }
 // Existing History owns persistence and compound-operation grouping.
 export function setScrumHistoryRecorder(recorder) { historyRecorder = recorder; }
 export async function recordScrumChange(boardId, kind, before, after, userId) {
@@ -139,7 +141,15 @@ export async function getScrumBoardData(userId, boardId) {
     canRecoverImport: importPending && !!userId && board.hasAdmin(userId) &&
       !!await ScrumImportPending.findOneAsync(boardId, { fields: { _id: 1 } }),
     canWrite: !importPending && !!userId && allowIsBoardMemberWithWriteAccess(userId, board),
+    // A large undo or redo running in the background (scrumBatchJobs.js):
+    // its progress, not whose it is.
+    historyJob: await batchJobProgress(boardId),
     partial: restricted };
+}
+async function batchJobProgress(boardId) {
+  const { ScrumBatchJobs } = require('/server/lib/scrumBatchJobs');
+  const job = await ScrumBatchJobs.findOneAsync(boardId, { fields: { direction: 1, done: 1, total: 1, state: 1, error: 1 } });
+  return job ? { direction: job.direction, done: job.done, total: job.total, state: job.state, error: job.error || '' } : null;
 }
 async function ensureSettings(boardId, settings, board) {
   if (settings.estimateSource === 'customField') {
@@ -248,9 +258,16 @@ async function updateSprint(userId, before, fields) {
   await recordScrumChange(before.boardId, 'scrum-sprint', before, after, userId);
   return after;
 }
-async function resumeRollover(userId, sprint) {
-  // A durable checkpoint makes retries safe if a database failure interrupts a
-  // close. Never overwrite a card edited or moved after the close snapshot.
+// The History batch of one close: its sprint row and every chunk of its
+// rollover, written by the background job below, share it, so one undo or
+// redo walks the whole close (server/models/changeHistory.js).
+const closeBatchId = (sprintId, revision) => `scrum-close-${sprintId}-${revision}`;
+
+// One step of a rollover: one chunk of its plan applied, or the plan
+// finished. A durable checkpoint makes retries safe if a database failure
+// interrupts a close. Never overwrite a card edited or moved after the close
+// snapshot. Returns true when nothing is left.
+async function rolloverStep(userId, sprint) {
   const apply = async (row, card) => {
     if (!card || card.boardId !== sprint.boardId) conflict();
     if (JSON.stringify(card.scrum || {}) === JSON.stringify(row.after)) return;
@@ -261,26 +278,69 @@ async function resumeRollover(userId, sprint) {
     await recordScrumChange(sprint.boardId, 'card', card, { ...card, scrum: row.after, scrumRevision: row.revision + 1 }, userId);
   };
   if (Array.isArray(sprint.rolloverPending)) {
-    // A plan kept in the sprint document before 2026-10-03.
+    // A plan kept in the sprint document before 2026-10-03, finished as it was.
     for (const row of sprint.rolloverPending) {
       await apply(row, await Cards.findOneAsync({ _id: row.cardId, boardId: sprint.boardId }));
       await ScrumSprints.updateAsync({ _id: sprint._id, revision: sprint.revision }, { $pull: { rolloverPending: { cardId: row.cardId } } });
     }
-  } else if (sprint.rolloverPending === true) {
-    // The plan in chunks (scrumRolloverStore.js): a chunk's cards read at once,
-    // applied, and the chunk removed; then the mark.
-    for (let chunk = await nextRolloverChunk(sprint._id); chunk; chunk = await nextRolloverChunk(sprint._id)) {
-      if (chunk.boardId !== sprint.boardId) conflict();
-      const cards = new Map((await Cards.find({ _id: { $in: chunk.rows.map(row => row.cardId) }, boardId: sprint.boardId })
-        .fetchAsync()).map(card => [card._id, card]));
-      for (const row of chunk.rows) await apply(row, cards.get(row.cardId));
-      await finishRolloverChunk(chunk);
-    }
-    await ScrumSprints.updateAsync({ _id: sprint._id, revision: sprint.revision, rolloverPending: true },
-      { $unset: { rolloverPending: '' } });
+    return true;
   }
-  return await ScrumSprints.findOneAsync(sprint._id);
+  if (sprint.rolloverPending !== true) return true;
+  // The plan in chunks (scrumRolloverStore.js): a chunk's cards read at once,
+  // applied, the chunk removed and counted; then the mark.
+  const chunk = await nextRolloverChunk(sprint._id);
+  if (chunk) {
+    if (chunk.boardId !== sprint.boardId) conflict();
+    const cards = new Map((await Cards.find({ _id: { $in: chunk.rows.map(row => row.cardId) }, boardId: sprint.boardId })
+      .fetchAsync()).map(card => [card._id, card]));
+    for (const row of chunk.rows) await apply(row, cards.get(row.cardId));
+    await finishRolloverChunk(chunk);
+    await ScrumSprints.rawCollection().updateOne({ _id: sprint._id, revision: sprint.revision }, { $inc: { rolloverDone: chunk.rows.length } });
+    return false;
+  }
+  await ScrumSprints.rawCollection().updateOne({ _id: sprint._id, revision: sprint.revision, rolloverPending: true },
+    { $unset: { rolloverPending: '', rolloverTotal: '', rolloverDone: '', rolloverError: '' } });
+  return true;
 }
+
+// The rollover runs in the background, chunk by chunk, each chunk under the
+// board's lock and recorded in the close's History batch (maintainer decision
+// of 2026-10-03: large sprints close without the browser waiting on one
+// call). It resumes after a restart from what is left of the plan, and a
+// failure is kept on the sprint for the Scrum view to show; closing again
+// retries it.
+const rollovers = new Map();
+// The job, started once; it rejects with the failure after keeping it on the
+// sprint. A sprint of one chunk is rolled over inside the close itself.
+export function startRollover(sprintId) {
+  if (!rollovers.has(sprintId)) {
+    const job = runRollover(sprintId).catch(async error => {
+      await ScrumSprints.rawCollection().updateOne({ _id: sprintId, rolloverPending: { $exists: true } },
+        { $set: { rolloverError: String(error.reason || error.message || error).slice(0, 500) } }).catch(() => {});
+      throw error;
+    }).finally(() => rollovers.delete(sprintId));
+    rollovers.set(sprintId, job);
+  }
+  return rollovers.get(sprintId);
+}
+const INLINE_ROLLOVER = SNAPSHOT_CHUNK;
+// For tests and callers that must wait: the running job, if any.
+export function rolloverJob(sprintId) { return (rollovers.get(sprintId) || Promise.resolve()).catch(() => {}); }
+async function runRollover(sprintId) {
+  await ScrumSprints.rawCollection().updateOne({ _id: sprintId }, { $unset: { rolloverError: '' } });
+  for (;;) {
+    const sprint = await ScrumSprints.findOneAsync(sprintId);
+    if (!sprint || !(sprint.rolloverPending === true || Array.isArray(sprint.rolloverPending))) return;
+    const userId = sprint.updatedBy;
+    const finished = await withScrumBoardLock(sprint.boardId, () => historyBatchRunner(sprint.boardId, userId,
+      () => rolloverStep(userId, sprint), { batchId: closeBatchId(sprint._id, sprint.closedFromRevision) }));
+    if (finished) return;
+  }
+}
+Meteor.startup(async () => {
+  // Rollovers a restart interrupted continue where their plan stopped.
+  for (const sprint of await ScrumSprints.find(ROLLOVER_PENDING, { fields: { _id: 1 } }).fetchAsync()) startRollover(sprint._id).catch(() => {});
+});
 export async function getScrumDailyHistory(userId, boardId, sprintId) {
   check(boardId, String); check(sprintId, String);
   if (!sprintId || sprintId.length > 200) invalid('Invalid sprint identifier');
@@ -408,14 +468,35 @@ const methods = {
   },
   async 'scrum.closeSprint'(boardId, sprintId, expectedRevision, rolloverSprintId = null) {
     check(boardId, String); check(sprintId, String); check(expectedRevision, Number); check(rolloverSprintId, Match.OneOf(String, null));
-    return locked(boardId, async () => {
+    const userId = this.userId;
+    // A sprint of up to one chunk of cards is closed and rolled over in one
+    // History row, as always; a larger one names its batch, and its rollover
+    // continues in the background under that name.
+    const inline = async closed => {
+      try { while (!(await rolloverStep(userId, await ScrumSprints.findOneAsync(closed._id)))); }
+      catch (error) {
+        await ScrumSprints.rawCollection().updateOne({ _id: closed._id, rolloverPending: { $exists: true } },
+          { $set: { rolloverError: String(error.reason || error.message || error).slice(0, 500) } }).catch(() => {});
+        throw error;
+      }
+      return ScrumSprints.findOneAsync(closed._id);
+    };
+    const small = sprint => Array.isArray(sprint.rolloverPending) || (sprint.rolloverTotal || 0) <= INLINE_ROLLOVER;
+    const result = await withScrumBoardLock(boardId, () => historyBatchRunner(boardId, userId, async () => {
       const board = await boardFor(this.userId, boardId, true);
       const sprint = await ScrumSprints.findOneAsync({ _id: sprintId, boardId });
       if (!sprint) throw new Meteor.Error('not-found');
       await assertNoPendingScrumImport(boardId);
       // A retry must not bypass the exclusion used by every other Scrum write.
       if (await ScrumHistoryPending.findOneAsync(boardId)) throw new Meteor.Error('scrum-history-pending', 'Retry the interrupted Scrum History operation first.');
-      if (sprint.state === 'closed' && sprint.closedFromRevision === expectedRevision && sprint.rolloverSprintId === rolloverSprintId) return resumeRollover(this.userId, sprint);
+      // A retry of the same close resumes its rollover, if it stopped.
+      if (sprint.state === 'closed' && sprint.closedFromRevision === expectedRevision && sprint.rolloverSprintId === rolloverSprintId) {
+        if (sprint.rolloverPending && small(sprint) && !rollovers.has(sprint._id)) {
+          await ScrumSprints.rawCollection().updateOne({ _id: sprint._id }, { $unset: { rolloverError: '' } });
+          return inline(sprint);
+        }
+        return sprint;
+      }
       expect(sprint, expectedRevision); await pending(boardId);
       if (sprint.state !== 'active') invalid('Only an active sprint can close');
       if (rolloverSprintId && (rolloverSprintId === sprintId || !(await ScrumSprints.findOneAsync({ _id: rolloverSprintId, boardId, state: 'planned' })))) invalid('Rollover must target a planned sprint on this board');
@@ -434,9 +515,17 @@ const methods = {
         before: card.scrum || {}, after: { ...(card.scrum || {}), sprintId: done.get(card._id) || card.archived ? null : rolloverSprintId,
           pastSprintIds: [...new Set([...(card.scrum?.pastSprintIds || []), sprintId])] } })) });
       const closed = await updateSprint(this.userId, sprint, { state: 'closed', completedAt, closeSnapshot, reportTotals: totals,
-        closedFromRevision: sprint.revision, rolloverSprintId, ...(cards.length ? { rolloverPending: true } : {}) });
-      return resumeRollover(this.userId, closed);
-    });
+        closedFromRevision: sprint.revision, rolloverSprintId,
+        ...(cards.length ? { rolloverPending: true, rolloverTotal: cards.length, rolloverDone: 0 } : {}) });
+      if (!closed.rolloverPending) return closed;
+      if (small(closed)) return inline(closed);
+      nameHistoryBatch(closeBatchId(sprintId, closed.closedFromRevision));
+      return closed;
+    }));
+    // More cards follow in the background while the Scrum view shows the
+    // progress; a retry of a stopped one starts it again.
+    if (result.rolloverPending && !small(result)) startRollover(result._id).catch(() => {});
+    return result;
   },
   async 'scrum.cancelSprint'(boardId, sprintId, expectedRevision, reason) {
     check(boardId, String); check(sprintId, String); check(expectedRevision, Number); check(reason, String);

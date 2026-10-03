@@ -9,7 +9,9 @@ function historyDocument(type, doc) {
   // `incarnation` identifies one lifetime of the record (maintainer decision
   // of 2026-09-30), not its content: History must never carry an old one back
   // into a restored record, which gets a fresh one.
-  const { revision, updatedAt, updatedBy, rolloverPending, incarnation, ...content } = doc;
+  // The rollover's progress is the background job's, not the sprint's
+  // content: an undo never restores it.
+  const { revision, updatedAt, updatedBy, rolloverPending, rolloverTotal, rolloverDone, rolloverError, incarnation, ...content } = doc;
   return structuredClone(content);
 }
 function historyRecords(changes) {

@@ -13,6 +13,8 @@ import { ScrumSnapshotRows } from '/server/lib/scrumSnapshotStore';
 import { exportScrumTransfer } from '/server/lib/scrumTransferExport';
 import { importScrumTransfer } from '/server/lib/scrumTransferImport';
 import { ScrumRolloverRows } from '/server/lib/scrumRolloverStore';
+import { rolloverJob } from '/server/scrum';
+import { batchJob, ScrumBatchJobs } from '/server/lib/scrumBatchJobs';
 
 // A sprint's snapshot rows live outside the sprint document
 // (server/lib/scrumSnapshotStore.js, maintainer decision of 2026-10-03:
@@ -158,10 +160,19 @@ describe('Scrum snapshot rows', function () {
       await call('scrum.startSprint', boardId, sprint._id, sprint.revision);
       const active = await ScrumSprints.findOneAsync(sprint._id);
       assert.equal(active.startSnapshot.rowCount, count);
-      await call('scrum.closeSprint', boardId, sprint._id, active.revision, rollover._id);
+      // The close returns at once; the rollover runs in the background, with
+      // its progress on the sprint for the Scrum view.
+      const returned = await call('scrum.closeSprint', boardId, sprint._id, active.revision, rollover._id);
+      assert.deepEqual([returned.state, returned.rolloverPending, returned.rolloverTotal], ['closed', true, count]);
+      const shown = (await call('scrum.getBoardData', boardId)).sprints.find(row => row._id === sprint._id);
+      assert.equal(shown.rolloverTotal, count);
+      // NEGATIVE: nothing else on the board changes while it runs.
+      await assert.rejects(call('scrum.saveSprint', boardId, null, { name: 'X', plannedStart: '2026-09-01', plannedEnd: '2026-12-30' }, null),
+        /scrum-rollover-pending/);
+      await rolloverJob(sprint._id);
       const closed = await ScrumSprints.findOneAsync(sprint._id);
       assert.equal(closed.state, 'closed');
-      assert.equal('rolloverPending' in closed, false);
+      for (const field of ['rolloverPending', 'rolloverTotal', 'rolloverDone', 'rolloverError']) assert.equal(field in closed, false, field);
       assert.equal(await ScrumRolloverRows.find({ sprintId: sprint._id }).countAsync(), 0);
       // Unfinished cards rolled over, finished ones left the sprint.
       assert.equal(await Cards.find({ boardId, 'scrum.sprintId': rollover._id }).countAsync(), Math.floor(count / 2));
@@ -174,18 +185,38 @@ describe('Scrum snapshot rows', function () {
       assert.equal(new Set(rows.map(row => row.batchId)).size, 1);
       assert.ok(rows.every(row => row.newContent.records.length <= 1000));
       assert.equal(rows.reduce((sum, row) => sum + row.newContent.records.length, 0), count + 1);
-      // One undo reverses the whole close; one redo makes it again.
-      await call('changeHistory.undoLast', boardId, Random.id(24));
+      // One undo reverses the whole close, in the background after its first
+      // row; one redo makes it again.
+      const undone = await call('changeHistory.undoLast', boardId, Random.id(24));
+      assert.deepEqual([undone.undone, undone.continuing], [true, true]);
+      const job = (await call('scrum.getBoardData', boardId)).historyJob;
+      assert.equal(job.direction, 'undo');
+      assert.ok(job.total > 1);
+      // NEGATIVE: another undo or redo waits for it.
+      await assert.rejects(call('changeHistory.redoLast', boardId, Random.id(24)), /scrum-history-running/);
+      await assert.rejects(call('changeHistory.undoLast', boardId), /scrum-history-running/);
+      await batchJob(boardId);
+      assert.equal(await ScrumBatchJobs.findOneAsync(boardId), undefined);
       assert.equal((await ScrumSprints.findOneAsync(sprint._id)).state, 'active');
       assert.equal(await Cards.find({ boardId, 'scrum.sprintId': sprint._id }).countAsync(), count);
       await call('changeHistory.redoLast', boardId, Random.id(24));
+      await batchJob(boardId);
       assert.equal((await ScrumSprints.findOneAsync(sprint._id)).state, 'closed');
       assert.equal(await Cards.find({ boardId, 'scrum.sprintId': rollover._id }).countAsync(), Math.floor(count / 2));
-      // The plain path (no request ID) walks the batch too.
-      await call('changeHistory.undoLast', boardId);
+      // A job a restart or a failure stopped - here one never started, of
+      // the plain path (no request ID) - is resumed by the next press, which
+      // waits for it.
+      const batch = (await ChangeHistory.findOneAsync({ boardId, entityType: 'scrum', batchId: /^scrum-close-/, undone: false, isCheckpoint: { $ne: true } })).batchId;
+      await ScrumBatchJobs.rawCollection().insertOne({ _id: boardId, boardId, userId: actor, direction: 'undo', batchId: batch,
+        requestId: null, index: 1, done: 0, total: 99, state: 'failed', error: 'stopped' });
+      await assert.rejects(call('changeHistory.undoLast', boardId), /scrum-history-running/);
+      await batchJob(boardId);
+      assert.equal(await ScrumBatchJobs.findOneAsync(boardId), undefined);
       assert.equal(await Cards.find({ boardId, 'scrum.sprintId': sprint._id }).countAsync(), count);
       assert.equal((await ScrumSprints.findOneAsync(sprint._id)).state, 'active');
     } finally {
+      await batchJob(boardId);
+      await ScrumBatchJobs.rawCollection().deleteMany({ _id: boardId });
       for (const model of [Cards, Lists, Swimlanes, ChangeHistory, ScrumSprints, ScrumDailySnapshots, ScrumSnapshotRows, ScrumRolloverRows]) {
         await model.rawCollection().deleteMany({ boardId });
       }
@@ -222,6 +253,8 @@ describe('Scrum snapshot rows', function () {
       Cards.updateAsync = originalUpdate;
       const interrupted = await ScrumSprints.findOneAsync(sprint._id);
       assert.equal(interrupted.rolloverPending, true);
+      // The failure is kept for the Scrum view, which offers to resume.
+      assert.match(interrupted.rolloverError, /lost connection/);
       assert.equal(await ScrumRolloverRows.find({ sprintId: sprint._id }).countAsync(), 1);
       // Negative: every other Scrum edit waits for the rollover.
       await assert.rejects(call('scrum.saveSprint', boardId, null, { name: 'X', plannedStart: '2026-09-01', plannedEnd: '2026-12-30' }, null),
@@ -231,6 +264,7 @@ describe('Scrum snapshot rows', function () {
       await call('scrum.closeSprint', boardId, sprint._id, active.revision, null);
       const finished = await ScrumSprints.findOneAsync(sprint._id);
       assert.equal('rolloverPending' in finished, false);
+      assert.equal('rolloverError' in finished, false);
       assert.equal(await ScrumRolloverRows.find({ sprintId: sprint._id }).countAsync(), 0);
       assert.equal(await Cards.find({ boardId, 'scrum.sprintId': sprint._id }).countAsync(), 0);
       assert.equal(await Cards.find({ boardId, 'scrum.pastSprintIds': sprint._id }).countAsync(), 3);
