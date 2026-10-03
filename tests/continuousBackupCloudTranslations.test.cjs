@@ -17,6 +17,7 @@ codes.push('ht', 'so');
 codes.push('jv', 'mg');
 codes.push('ha');
 codes.push('yo');
+codes.push('km', 'km_KH', 'km-KH', 'my');
 const keys = ['upload', 'upload-none', 'upload-prefix', 'fetch', 'fetched'].map(key => `continuous-backup-${key}`);
 for (const code of codes) {
   const locale = read(code);
