@@ -6,7 +6,7 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('continuous-backup'));
-for (const code of ['fi', 'sv', 'da', 'nb', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'it', 'nl', 'nl-NL', 'pl', 'pl-PL', 'cs', 'cs-CZ', 'sk', 'sl', 'hr', 'ro', 'ro-RO', 'hu', 'bg', 'uk', 'uk-UA', 'ru', 'ru-RU', 'ru_RU', 'ru-UA', 'lv', 'lt', 'et-EE', 'el', 'el-GR', 'tr', 'ja', 'ja-JP', 'ja-HI', 'ko', 'ko-KR', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-Hant', 'zh-TW', 'zh-HK', 'id', 'ms', 'ms-MY', 'vi', 'vi-VN', 'ar', 'ar-DZ', 'ar-EG', 'he', 'he-IL', 'fa', 'fa-IR', 'ur', 'hi', 'hi-IN', 'bn', 'ca', 'ca_ES', 'gl', 'gl-ES', 'eu', 'af', 'af_ZA', 'sw', 'bs', 'sr', 'mk', 'is', 'eo', 'sq', 'th', 'tl', 'be', 'az', 'az-AZ', 'az-LA', 'ka', 'hy', 'uz', 'uz-UZ', 'uz-LA']) {
+for (const code of ['fi', 'sv', 'da', 'nb', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'it', 'nl', 'nl-NL', 'pl', 'pl-PL', 'cs', 'cs-CZ', 'sk', 'sl', 'hr', 'ro', 'ro-RO', 'hu', 'bg', 'uk', 'uk-UA', 'ru', 'ru-RU', 'ru_RU', 'ru-UA', 'lv', 'lt', 'et-EE', 'el', 'el-GR', 'tr', 'ja', 'ja-JP', 'ja-HI', 'ko', 'ko-KR', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-Hant', 'zh-TW', 'zh-HK', 'id', 'ms', 'ms-MY', 'vi', 'vi-VN', 'ar', 'ar-DZ', 'ar-EG', 'he', 'he-IL', 'fa', 'fa-IR', 'ur', 'hi', 'hi-IN', 'bn', 'ca', 'ca_ES', 'gl', 'gl-ES', 'eu', 'af', 'af_ZA', 'sw', 'bs', 'sr', 'mk', 'is', 'eo', 'sq', 'th', 'tl', 'be', 'az', 'az-AZ', 'az-LA', 'ka', 'hy', 'uz', 'uz-UZ', 'uz-LA', 'uz-AR']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -74,6 +74,7 @@ for (const [codes, protection, pause, units] of [
   }
 }
 for (const [codes, protection, pause, units] of [
+  [['uz-AR'], /هېچ قچان یازمیدی/, /تنلنگن آولاد تنلنگن پیتدگی.*تیکله‌ش دوامیده.*تۉختتیله‌دی/, ['ثانیه', 'ساعت', 'کون']],
   [['uz', 'uz-UZ', 'uz-LA'], /ishlatilayotgan faylning ustiga hech qachon yozmaydi/, /Tanlangan avlod tanlangan paytdagi holatiga.*Tiklash davomida.*vaqtincha to‘xtatiladi/, ['soniya', 'soat', 'kun']],
   [['hy'], /երբեք չի վերագրում օգտագործվող ֆայլը/, /ընտրված սերունդը ընտրված պահի վիճակով.*Վերականգնման ընթացքում.*ժամանակավորապես կդադարեցվի/, ['վայրկյան', 'ժամ', 'օր']],
   [['ka'], /არასოდეს გადაწერს გამოყენებაში მყოფ ფაილს/, /არჩეული თაობა არჩეულ მომენტში.*აღდგენის დროს.*დროებით შეჩერდება/, ['წამები', 'საათები', 'დღეები']],
@@ -198,5 +199,10 @@ for (const code of ['uz', 'uz-UZ', 'uz-LA']) {
   assert.equal(read(code)['continuous-backup-database'], 'Ma’lumotlar bazasi');
   for (const key of keys) assert.doesNotMatch(read(code)[key], /[\p{Script=Cyrillic}\p{Script=Arabic}]/u);
 }
+for (const key of [...keys, 'restore', 'save']) {
+  assert.match(read('uz-AR')[key], /\p{Script=Arabic}/u);
+  const prose = read('uz-AR')[key].replace(/SQLite|Litestream|Oplog|rclone|URL/g, '');
+  assert.doesNotMatch(prose, /[A-Za-z\p{Script=Cyrillic}]/u);
+}
 for (const key of keys) assert.doesNotMatch(read('de-CH')[key], /ß/);
-console.log(`Continuous backup: ${keys.length} translations in one hundred and six locales passed`);
+console.log(`Continuous backup: ${keys.length} translations in one hundred and seven locales passed`);
