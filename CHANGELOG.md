@@ -5471,6 +5471,19 @@ translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0440ff83f6">Translate cloud backup labels into 106 locale variants</a>. Thanks to xet7.</summary>
+
+Translate five cloud upload and fetch labels in 105 catalog files serving 106
+locale variants. Preserve existing values, source key order and exact placeholders.
+Add regression checks for local-only upload and the distinction between fetching
+files and confirming a completed fetch. All 106 preservation audits, four focused
+suites and 21 human-preference checks pass. Global catalog completeness and
+continuous-backup suites still report untranslated locales outside this batch.
+The broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
