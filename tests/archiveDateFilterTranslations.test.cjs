@@ -30,7 +30,7 @@ const keys = [
   "filter-column-age-hint",
   "advanced-filter-card-dates-hint"
 ];
-for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'yi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'rw', 'rn', 'or_IN', 'bho', 'mai']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'yi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'rw', 'rn', 'or_IN', 'bho', 'mai', 'kok']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -92,4 +92,6 @@ assert.match(read('bho')['auto-archive-hint'], /कबो संग्रह म
 assert.match(read('mai')['auto-archive-hint'], /कहियो संग्रह मे नहि राखल जाइत अछि/);
 assert.match(read('bho')['filter-column-age-hint'], /फेर से शुरू ना होला/);
 assert.match(read('mai')['filter-column-age-hint'], /फेर सँ आरम्भ नहि होइत अछि/);
-console.log('Archiving and date filters: 23 messages in 23 locales passed');
+assert.match(read('kok')['auto-archive-hint'], /सांचे केन्नाच संग्रहांत दवरिनात/);
+assert.match(read('kok')['filter-column-age-hint'], /परतून सुरू जायना/);
+console.log('Archiving and date filters: 23 messages in 24 locales passed');
