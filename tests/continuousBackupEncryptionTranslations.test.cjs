@@ -22,6 +22,7 @@ codes.push('yue_CN', 'wuu-Hans');
 codes.push('ku', 'ckb', 'ps');
 codes.push('mi', 'haw');
 codes.push('rm', 'la');
+codes.push('ny', 'sn');
 const keys = ['continuous-backup-encrypt', 'continuous-backup-key-file'];
 for (const code of codes) {
   const locale = read(code);
