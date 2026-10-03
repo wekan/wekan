@@ -6,7 +6,7 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('continuous-backup'));
-for (const code of ['fi', 'sv', 'da', 'nb', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'it', 'nl', 'nl-NL', 'vl-SS', 'pl', 'pl-PL', 'cs', 'cs-CZ', 'sk', 'sl', 'sl_SI', 'hr', 'ro', 'ro-RO', 'hu', 'bg', 'uk', 'uk-UA', 'ru', 'ru-RU', 'ru_RU', 'ru-UA', 'lv', 'lt', 'et-EE', 'el', 'el-GR', 'tr', 'ja', 'ja-JP', 'ja-HI', 'ko', 'ko-KR', 'cmn', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-Hant', 'zh-TW', 'zh-HK', 'id', 'ms', 'ms-MY', 'vi', 'vi-VN', 'ar', 'ar-DZ', 'ar-EG', 'he', 'he-IL', 'fa', 'fa-IR', 'ur', 'hi', 'hi-IN', 'bn', 'ca', 'ca_ES', 'ca@valencia', 'gl', 'gl-ES', 'eu', 'af', 'af_ZA', 'sw', 'bs', 'sr', 'mk', 'is', 'eo', 'sq', 'th', 'tl', 'be', 'az', 'az-AZ', 'az-LA', 'ka', 'hy', 'uz', 'uz-UZ', 'uz-LA', 'uz-AR', 'kk', 'mn', 'ne', 'mr', 'ta', 'te-IN', 'gu-IN', 'kn', 'ml', 'pa', 'si', 'ga', 'cy', 'cy-GB', 'lb', 'ht', 'mt', 'ky', 'tg', 'yue_CN']) {
+for (const code of ['fi', 'sv', 'da', 'nb', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'it', 'nl', 'nl-NL', 'vl-SS', 'pl', 'pl-PL', 'cs', 'cs-CZ', 'sk', 'sl', 'sl_SI', 'hr', 'ro', 'ro-RO', 'hu', 'bg', 'uk', 'uk-UA', 'ru', 'ru-RU', 'ru_RU', 'ru-UA', 'lv', 'lt', 'et-EE', 'el', 'el-GR', 'tr', 'ja', 'ja-JP', 'ja-HI', 'ko', 'ko-KR', 'cmn', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-Hant', 'zh-TW', 'zh-HK', 'id', 'ms', 'ms-MY', 'vi', 'vi-VN', 'ar', 'ar-DZ', 'ar-EG', 'he', 'he-IL', 'fa', 'fa-IR', 'ur', 'hi', 'hi-IN', 'bn', 'ca', 'ca_ES', 'ca@valencia', 'gl', 'gl-ES', 'eu', 'af', 'af_ZA', 'sw', 'bs', 'sr', 'mk', 'is', 'eo', 'sq', 'th', 'tl', 'be', 'az', 'az-AZ', 'az-LA', 'ka', 'hy', 'uz', 'uz-UZ', 'uz-LA', 'uz-AR', 'kk', 'mn', 'ne', 'mr', 'ta', 'te-IN', 'gu-IN', 'kn', 'ml', 'pa', 'si', 'ga', 'cy', 'cy-GB', 'lb', 'ht', 'mt', 'ky', 'tg', 'yue_CN', 'la']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -74,6 +74,7 @@ for (const [codes, protection, pause, units] of [
   }
 }
 for (const [codes, protection, pause, units] of [
+  [['la'], /numquam fasciculo qui in usu est superscribitur/, /Generationem electam ad tempus electum.*Dum restitutio fit.*intermittitur/, ['secunda', 'horae', 'dies']],
   [['tg'], /ҳеҷ гоҳ файли дар истифода бударо рӯнависӣ намекунад/, /Насли интихобшуда ба лаҳзаи интихобшуда.*Ҳангоми барқарорсозӣ.*муваққатан боздошта мешавад/, ['сония', 'соат', 'рӯз']],
   [['ky'], /колдонулуп жаткан файлдын үстүнө эч качан жазбайт/, /Тандалган муун тандалган учурдагы.*Калыбына келтирүү учурунда.*убактылуу токтотулат/, ['секунд', 'саат', 'күн']],
   [['mt'], /qatt ma jikteb fuq il-fajl li qed jintuża/, /ġenerazzjoni magħżula.*mument magħżul.*jieqaf temporanjament waqt ir-restawr/, ['sekondi', 'sigħat', 'jiem']],
@@ -247,4 +248,10 @@ for (const key of keys) assert.match(read('tg')[key], /\p{Script=Cyrillic}/u);
 assert.equal(read('tg')['continuous-backup-database'], 'Пойгоҳи додаҳо');
 assert.equal(read('tg')['continuous-backup-restore-what'], 'Барқарор кардан');
 
-console.log(`Continuous backup: ${keys.length} translations in one hundred and thirty-one locales passed`);
+for (const key of [...keys, 'backup', 'database-migration', 'backup-description', 'backup-restore-confirm']) {
+  assert.doesNotMatch(read('la')[key], /Latine:|\b(?:the|containing|according|storage|written)\b/);
+  assert.deepEqual(translationTokens(read('la')[key]), translationTokens(en[key]));
+}
+assert.equal(read('la')['continuous-backup-database'], 'Basis datorum');
+
+console.log(`Continuous backup: ${keys.length} translations in one hundred and thirty-two locales passed`);
