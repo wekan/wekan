@@ -27,6 +27,7 @@ codes.push('ja-HI', 'sd', 'ug');
 codes.push('gd', 'br');
 codes.push('xh', 'zu', 'zu-ZA');
 codes.push('pap', 'tpi');
+codes.push('rw', 'rn');
 const keys = ['continuous-backup-encrypt', 'continuous-backup-key-file'];
 for (const code of codes) {
   const locale = read(code);
