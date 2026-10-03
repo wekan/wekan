@@ -6,7 +6,7 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('continuous-backup'));
-for (const code of ['fi', 'sv', 'da', 'nb', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'it', 'nl', 'nl-NL', 'pl', 'pl-PL', 'cs', 'cs-CZ', 'sk', 'sl', 'hr', 'ro', 'ro-RO', 'hu', 'bg', 'uk', 'uk-UA', 'ru', 'ru-RU', 'ru_RU', 'ru-UA', 'lv', 'lt', 'et-EE', 'el', 'el-GR', 'tr', 'ja', 'ja-JP', 'ja-HI', 'ko', 'ko-KR', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-Hant', 'zh-TW', 'zh-HK', 'id', 'ms', 'ms-MY', 'vi', 'vi-VN', 'ar', 'ar-DZ', 'ar-EG', 'he', 'he-IL', 'fa', 'fa-IR', 'ur', 'hi', 'hi-IN', 'bn', 'ca', 'ca_ES', 'gl', 'gl-ES', 'eu', 'af', 'af_ZA', 'sw', 'bs', 'sr', 'mk', 'is', 'eo']) {
+for (const code of ['fi', 'sv', 'da', 'nb', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'it', 'nl', 'nl-NL', 'pl', 'pl-PL', 'cs', 'cs-CZ', 'sk', 'sl', 'hr', 'ro', 'ro-RO', 'hu', 'bg', 'uk', 'uk-UA', 'ru', 'ru-RU', 'ru_RU', 'ru-UA', 'lv', 'lt', 'et-EE', 'el', 'el-GR', 'tr', 'ja', 'ja-JP', 'ja-HI', 'ko', 'ko-KR', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-Hant', 'zh-TW', 'zh-HK', 'id', 'ms', 'ms-MY', 'vi', 'vi-VN', 'ar', 'ar-DZ', 'ar-EG', 'he', 'he-IL', 'fa', 'fa-IR', 'ur', 'hi', 'hi-IN', 'bn', 'ca', 'ca_ES', 'gl', 'gl-ES', 'eu', 'af', 'af_ZA', 'sw', 'bs', 'sr', 'mk', 'is', 'eo', 'sq']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -74,6 +74,7 @@ for (const [codes, protection, pause, units] of [
   }
 }
 for (const [codes, protection, pause, units] of [
+  [['sq'], /nuk mbishkruan kurrë skedarin në përdorim/, /brezi i zgjedhur.*çastit të zgjedhur.*ndalet përkohësisht gjatë rikthimit/, ['sekonda', 'orë', 'ditë']],
   [['is'], /skrifar aldrei yfir skrána sem er í notkun/, /valda kynslóð miðað við valinn tímapunkt.*stöðvuð tímabundið meðan á endurheimt stendur/, ['sekúndur', 'klukkustundir', 'dagar']],
   [['eo'], /neniam anstataŭigas la uzatan dosieron/, /elektitan generacion.*elektita momento.*paŭzos dum la restarigo/, ['sekundoj', 'horoj', 'tagoj']],
   [['bs'], /nikada ne prepisuje datoteku koja se koristi/, /odabranu generaciju na odabrani trenutak.*pauzirano tokom vraćanja/, ['sekunde', 'sati', 'dani']],
@@ -174,4 +175,4 @@ assert.equal(read('mk').restore, 'Врати');
 assert.equal(read('mk').save, 'Зачувај');
 assert.equal(read('mk')['continuous-backup-database'], 'База на податоци');
 for (const key of keys) assert.doesNotMatch(read('de-CH')[key], /ß/);
-console.log(`Continuous backup: ${keys.length} translations in ninety-four locales passed`);
+console.log(`Continuous backup: ${keys.length} translations in ninety-five locales passed`);
