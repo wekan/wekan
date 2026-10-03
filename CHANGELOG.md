@@ -1351,7 +1351,11 @@ the same day: they go through the Cards insert rules, which now also refuse
 another board's list or swimlane (Upcoming, BoardBleed). Legacy direct Rules
 writes were reviewed too: a rule could name another board's trigger and stop
 that board's own rule from running, fixed in Upcoming (RepointBleed).
-Concurrent permission changes remain to be reviewed. Board-copy property merging was the same fault on boards and is fixed
+Concurrent permission changes were reviewed too: a copy checks the caller's
+access to the source, the destination and (since 2026-10-03) each subtask when
+it starts, and a membership revoked while the copy runs does not stop it. That
+is the "Atomicity" property below - FerretDB v1 has no multi-document
+transactions - not a check left out. Board-copy property merging was the same fault on boards and is fixed
 in Upcoming. The markdown viewer's form-field allowance was not exploitable: the
 second sanitizer stripped every input, including task-list checkboxes, which
 now render disabled.
