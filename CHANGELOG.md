@@ -5383,6 +5383,18 @@ still have English continuous-backup strings, and the broader translation backlo
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e22954f525">Translate continuous backup into Kashmiri</a>. Thanks to xet7.</summary>
+
+Fill 35 English placeholders while preserving existing translations, source key
+order and exact placeholders. Extend restore safeguard, pause, time-unit, Arabic
+script and Kashmiri vocabulary regression checks. Four focused catalog suites
+and all 21 human-preference checks pass. Technical Kashmiri wording is low
+confidence and needs native-speaker review. Eight locales still have English
+continuous-backup strings, and the broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
