@@ -9,11 +9,24 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { DDP } from 'meteor/ddp';
+import { Random } from 'meteor/random';
 
 export const ScrumBatchJobs = new Mongo.Collection('scrumBatchJobs');
 ScrumBatchJobs.deny({ insert: () => true, update: () => true, remove: () => true });
 
 const running = new Map();
+// One server at a time runs a board's job: each step takes or renews a lease
+// on its document, which a server that went away loses when it runs out;
+// another server's live lease means the job is running there.
+const SERVER_ID = Random.id();
+const LEASE_MS = 60000;
+async function claim(boardId) {
+  const now = new Date();
+  const { matchedCount } = await ScrumBatchJobs.rawCollection().updateOne({ _id: boardId,
+    $or: [{ lease: { $exists: false } }, { 'lease.owner': SERVER_ID }, { 'lease.until': { $lt: now } }] },
+  { $set: { lease: { owner: SERVER_ID, until: new Date(now.getTime() + LEASE_MS) } } });
+  return matchedCount === 1;
+}
 let stepper = null;
 // server/models/changeHistory.js registers how one row is applied.
 export function setBatchStepper(step) { stepper = step; }
@@ -26,7 +39,7 @@ const asUser = (userId, work) => {
 async function run(boardId) {
   for (;;) {
     const job = await ScrumBatchJobs.findOneAsync(boardId);
-    if (!job) return;
+    if (!job || !await claim(boardId)) return;
     let more;
     try { more = await asUser(job.userId, context => stepper(context, job)); }
     catch (error) {

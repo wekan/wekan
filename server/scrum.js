@@ -122,6 +122,7 @@ export async function getScrumBoardData(userId, boardId) {
     sprint.report = sprint.startSnapshot || sprint.closeSnapshot ? sprintReport(sprint) : null;
     for (const name of ['startSnapshot', 'closeSnapshot']) if (sprint[name]) sprint[name] = withoutRows(sprint[name]);
     delete sprint.reportTotals;
+    delete sprint.rolloverLease;
     sprints[index] = sprint;
   }
   for (const event of events) event.followUpCardIds = (event.followUpCardIds || []).filter(id => visible.has(id));
@@ -299,7 +300,7 @@ async function rolloverStep(userId, sprint) {
     return false;
   }
   await ScrumSprints.rawCollection().updateOne({ _id: sprint._id, revision: sprint.revision, rolloverPending: true },
-    { $unset: { rolloverPending: '', rolloverTotal: '', rolloverDone: '', rolloverError: '' } });
+    { $unset: { rolloverPending: '', rolloverTotal: '', rolloverDone: '', rolloverError: '', rolloverLease: '' } });
   return true;
 }
 
@@ -326,11 +327,27 @@ export function startRollover(sprintId) {
 const INLINE_ROLLOVER = SNAPSHOT_CHUNK;
 // For tests and callers that must wait: the running job, if any.
 export function rolloverJob(sprintId) { return (rollovers.get(sprintId) || Promise.resolve()).catch(() => {}); }
+// One server at a time runs a rollover: each step first takes or renews a
+// lease on the sprint, which a server that went away loses when it runs out.
+// Another server's live lease means the job is running there, and this one
+// leaves it alone. Card writes stay compare-and-set, so a server paused past
+// its lease cannot write over the one that took over.
+const SERVER_ID = Random.id();
+const ROLLOVER_LEASE_MS = 60000;
+async function claimRollover(sprintId) {
+  const now = new Date();
+  const { matchedCount } = await ScrumSprints.rawCollection().updateOne({ _id: sprintId,
+    $or: [{ rolloverLease: { $exists: false } }, { 'rolloverLease.owner': SERVER_ID }, { 'rolloverLease.until': { $lt: now } }] },
+  { $set: { rolloverLease: { owner: SERVER_ID, until: new Date(now.getTime() + ROLLOVER_LEASE_MS) } } });
+  return matchedCount === 1;
+}
 async function runRollover(sprintId) {
+  if (!await claimRollover(sprintId)) return;
   await ScrumSprints.rawCollection().updateOne({ _id: sprintId }, { $unset: { rolloverError: '' } });
   for (;;) {
     const sprint = await ScrumSprints.findOneAsync(sprintId);
     if (!sprint || !(sprint.rolloverPending === true || Array.isArray(sprint.rolloverPending))) return;
+    if (!await claimRollover(sprintId)) return;
     const userId = sprint.updatedBy;
     const finished = await withScrumBoardLock(sprint.boardId, () => historyBatchRunner(sprint.boardId, userId,
       () => rolloverStep(userId, sprint), { batchId: closeBatchId(sprint._id, sprint.closedFromRevision) }));
@@ -473,6 +490,8 @@ const methods = {
     // History row, as always; a larger one names its batch, and its rollover
     // continues in the background under that name.
     const inline = async closed => {
+      // Another server running this rollover (its lease is live) is left to it.
+      if (!await claimRollover(closed._id)) throw new Meteor.Error('scrum-rollover-running', 'The rollover is running on another server.');
       try { while (!(await rolloverStep(userId, await ScrumSprints.findOneAsync(closed._id)))); }
       catch (error) {
         await ScrumSprints.rawCollection().updateOne({ _id: closed._id, rolloverPending: { $exists: true } },

@@ -209,6 +209,14 @@ describe('Scrum snapshot rows', function () {
       const batch = (await ChangeHistory.findOneAsync({ boardId, entityType: 'scrum', batchId: /^scrum-close-/, undone: false, isCheckpoint: { $ne: true } })).batchId;
       await ScrumBatchJobs.rawCollection().insertOne({ _id: boardId, boardId, userId: actor, direction: 'undo', batchId: batch,
         requestId: null, index: 1, done: 0, total: 99, state: 'failed', error: 'stopped' });
+      // NEGATIVE: while another server holds its lease, the job is left to it.
+      await ScrumBatchJobs.rawCollection().updateOne({ _id: boardId },
+        { $set: { lease: { owner: 'another-server', until: new Date(Date.now() + 60000) } } });
+      await assert.rejects(call('changeHistory.undoLast', boardId), /scrum-history-running/);
+      await batchJob(boardId);
+      assert.equal((await ScrumBatchJobs.findOneAsync(boardId)).done, 0, 'nothing ran here');
+      // Once the lease runs out, the next press takes it over.
+      await ScrumBatchJobs.rawCollection().updateOne({ _id: boardId }, { $set: { 'lease.until': new Date(Date.now() - 1000) } });
       await assert.rejects(call('changeHistory.undoLast', boardId), /scrum-history-running/);
       await batchJob(boardId);
       assert.equal(await ScrumBatchJobs.findOneAsync(boardId), undefined);
@@ -260,6 +268,16 @@ describe('Scrum snapshot rows', function () {
       await assert.rejects(call('scrum.saveSprint', boardId, null, { name: 'X', plannedStart: '2026-09-01', plannedEnd: '2026-12-30' }, null),
         /scrum-rollover-pending/);
       assert.equal((await call('scrum.getBoardData', boardId)).sprints.find(row => row._id === sprint._id).rolloverPending, true);
+      // NEGATIVE: while another server holds a live lease on the rollover,
+      // a retry here leaves it alone and changes nothing.
+      const foreign = { owner: 'another-server', until: new Date(Date.now() + 60000) };
+      await ScrumSprints.rawCollection().updateOne({ _id: sprint._id }, { $set: { rolloverLease: foreign } });
+      await assert.rejects(call('scrum.closeSprint', boardId, sprint._id, active.revision, null), /scrum-rollover-running/);
+      assert.equal((await ScrumSprints.findOneAsync(sprint._id)).rolloverPending, true);
+      assert.equal((await call('scrum.getBoardData', boardId)).sprints.find(row => row._id === sprint._id).rolloverLease, undefined,
+        'the lease is not sent to the browser');
+      // Once that lease runs out (the server went away), a retry takes over.
+      await ScrumSprints.rawCollection().updateOne({ _id: sprint._id }, { $set: { 'rolloverLease.until': new Date(Date.now() - 1000) } });
       // The retry of the same close finishes it.
       await call('scrum.closeSprint', boardId, sprint._id, active.revision, null);
       const finished = await ScrumSprints.findOneAsync(sprint._id);
