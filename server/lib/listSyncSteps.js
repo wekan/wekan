@@ -52,12 +52,15 @@ const CROSS_BOARD_DURABLE_ACTIONS = new Set(['linkCard', 'copyCard']);
 // so they may follow too, and so may a further move to yet another board
 // that opted in (its command saves the board the card leaves, `fromBoard`);
 // each board a chain reaches is checked like the first - a move-all onto
-// another board too, which takes its list from the board the card is on.
+// another board too, which takes its list from the board the card is on. An
+// email may follow as well (maintainer decision of 2026-10-03): it reads the
+// card where this plan's own move put it (storedRulePlans.js
+// ruleEmailActivity, binding version 6 in server/lib/ruleEmailSource.js).
 const CROSS_BOARD_FINAL_ACTIONS = new Set(['moveCardToTop', 'moveCardToBottom', 'moveAllCardsInList']);
 const FOLLOWER_SAFE = new Set([...Object.keys(require('./syncRuleCardCommand').RULE_CARD_ACTIONS),
   ...Object.keys(require('./syncRuleChecklistCommand').RULE_CHECKLIST_ACTIONS),
   'addChecklist', 'addChecklistWithItems', 'removeChecklist', 'linkCard', 'copyCard', 'createCard', 'addSwimlane',
-  'moveCardToTop', 'moveCardToBottom', 'sortList', 'moveAllCardsInList', 'archive', 'unarchive',
+  'moveCardToTop', 'moveCardToBottom', 'sortList', 'moveAllCardsInList', 'archive', 'unarchive', 'sendEmail',
   'moveCardToTop:elsewhere', 'moveCardToBottom:elsewhere', 'moveAllCardsInList:elsewhere']);
 const MAX_RULE_BOARDS = 50;
 

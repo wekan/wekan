@@ -190,6 +190,18 @@ async function ruleCardNow(plan, context, { raw = false } = {}) {
   return await movedByThisPlan(rulePlanId(context.effectId, context.saved._id), plan.cardId, card) ? card : null;
 }
 
+// The activity a stored rule email reads its card through (maintainer
+// decision of 2026-10-03): the saved one, or - when a cross-board move of THIS
+// plan put the card on another board that opted in (ruleCardNow,
+// assertDestinationBoard) - the same activity placed there, with the board it
+// left. RulesHelper.emailActivity is the ordinary engine's twin.
+async function ruleEmailActivity(plan, context, trigger) {
+  const now = await ruleCardNow(plan, context);
+  if (!now || now.boardId === plan.boardId) return { activity: context.saved, followedFrom: null };
+  await assertDestinationBoard(now.boardId, plan, trigger);
+  return { activity: { ...context.saved, boardId: now.boardId }, followedFrom: plan.boardId };
+}
+
 // The card an activity names, where it is now: in the activity's list, or
 // where a saved move of that activity's OWN rules put it. The notification
 // and webhook stages deliver an activity after its rules ran
@@ -296,18 +308,22 @@ export async function runStoredSyncRules({ adapters, ...options }) {
 export async function captureStoredSyncRuleEmailCommand({ index, ...options }) {
   const context = executionContext(options);
   const plan = await capture(context);
+  const placed = await ruleEmailActivity(plan, context, options.trigger);
   return ensureRuleEmailCommand({ commands: SyncRuleEmailCommands.rawCollection(), plan,
     activity: context.saved, effectId: context.effectId, index, assertCurrent: context.guard,
-    prepare: ({ activity, invocation }) => RulesHelper.prepareEmailCommand(activity, invocation.action) });
+    prepare: ({ invocation }) => RulesHelper.prepareEmailCommand(placed.activity, invocation.action,
+      { followedFrom: placed.followedFrom }) });
 }
 
 // Explicit internal send entry point; never called by ordinary/manual/cron
 // rules yet. Uncertain attempts require future operator resolution.
 export async function runStoredSyncRuleEmail({ index, ...options }) {
   const context = executionContext(options), plan = await capture(context);
+  const placed = await ruleEmailActivity(plan, context, options.trigger);
   const command = await ensureRuleEmailCommand({ commands: SyncRuleEmailCommands.rawCollection(), plan,
     activity: context.saved, effectId: context.effectId, index, assertCurrent: context.guard,
-    prepare: ({ activity, invocation }) => RulesHelper.prepareEmailCommand(activity, invocation.action) });
+    prepare: ({ invocation }) => RulesHelper.prepareEmailCommand(placed.activity, invocation.action,
+      { followedFrom: placed.followedFrom }) });
   // A dropped attempt (an administrator's drop or legacy discard, #2713) sends
   // nothing, so it needs no source access: complete before the binding guard,
   // which refuses the legacy command it was recorded for.
@@ -318,6 +334,11 @@ export async function runStoredSyncRuleEmail({ index, ...options }) {
   const recipients = ruleEmailRecipients(command.mail, MailComposer);
   const guard = async () => {
     await context.guard();
+    // A followed move (binding version 6) holds only while this plan's own
+    // move is what put the card where the command was prepared.
+    const where = await ruleEmailActivity(plan, context, options.trigger);
+    if (command.sourceBinding?.version === 6 && (where.followedFrom !== command.sourceBinding.followedFrom ||
+        where.activity.boardId !== command.sourceBinding.cards[0][1])) throw new Error('rule-email-source-not-authorized');
     await assertRuleEmailSourceBinding({ binding: command.sourceBinding, activity: context.saved, cache: ReactiveCache, canReadBoard, requireRelatedSources: invocation.action.includeCardDetails === true });
     const [rule, action] = await Promise.all([
       Rules.rawCollection().findOne({ _id: invocation.rule._id }),
@@ -325,7 +346,7 @@ export async function runStoredSyncRuleEmail({ index, ...options }) {
     ]);
     if (!rule || !action || canonical(rule) !== canonical(invocation.rule) ||
         canonical(action) !== canonical(invocation.action)) throw new Error('sync-rule-email-configuration-changed');
-    const current = await RulesHelper.prepareEmailAction(context.saved, action);
+    const current = await RulesHelper.prepareEmailAction(where.activity, action);
     if (current.to !== command.mail.to || current.from !== command.mail.from) {
       throw new Error('sync-rule-email-destination-changed');
     }

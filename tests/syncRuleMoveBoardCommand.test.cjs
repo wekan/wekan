@@ -167,26 +167,30 @@ test('followable: only follower-safe actions after it, in its rule and in rules 
   // Since the maintainer decision of 2026-10-03, moves, sorting, moving all
   // cards and archiving resolve on the board the card went to, so they may
   // follow a move to another board too, and so may a further move to yet
-  // another board, a move-all onto another board among them; sending email
-  // still may not, since a sent message cannot be taken back.
+  // another board, a move-all onto another board among them. Sending email
+  // may follow too since the later decision of 2026-10-03: it reads the card
+  // where this plan's own move put it (storedRulePlans.js ruleEmailActivity).
+  // Anything without a durable adapter still may not.
   for (const type of ['setColor', 'addLabel', 'checkAll', 'addChecklist', 'removeChecklist', 'linkCard', 'createCard',
-    'moveCardToTop', 'moveCardToBottom', 'sortList', 'moveAllCardsInList', 'archive', 'unarchive',
+    'moveCardToTop', 'moveCardToBottom', 'sortList', 'moveAllCardsInList', 'archive', 'unarchive', 'sendEmail',
     'moveCardToTop:elsewhere', 'moveCardToBottom:elsewhere', 'moveAllCardsInList:elsewhere'])
     assert.ok(FOLLOWER_SAFE.has(type), type);
-  for (const type of ['sendEmail'])
+  for (const type of ['addAttachment', 'linkCard:elsewhere', 'copyCard:elsewhere', undefined, null])
     assert.ok(!FOLLOWER_SAFE.has(type), type);
-  const types = { m: 'moveCardToTop', c: 'setColor', s: 'sortList', l: 'linkCard', x: 'archive', e: 'sendEmail',
+  const types = { m: 'moveCardToTop', c: 'setColor', s: 'sortList', l: 'linkCard', x: 'archive', e: 'linkCard:elsewhere', g: 'sendEmail',
     o: 'moveAllCardsInList:elsewhere', n: 'moveCardToTop:elsewhere' };
   const typeOf = id => types[id];
   assert.deepEqual([...followableActionIds([{ actionIds: ['m', 'c', 'l', 's', 'x'], activityType: 'createCard' }], typeOf)].sort(),
     ['c', 'l', 'm', 's', 'x'], 'colour, link, sorting and archiving may follow it');
-  assert.ok(!followableActionIds([{ actionIds: ['m', 'e'], activityType: 'createCard' }], typeOf).has('m'), 'an email may not');
+  assert.ok(followableActionIds([{ actionIds: ['m', 'g'], activityType: 'createCard' }], typeOf).has('m'), 'an email may');
+  assert.ok(!followableActionIds([{ actionIds: ['m', 'e'], activityType: 'createCard' }], typeOf).has('m'),
+    'a link onto yet another board may not');
   assert.ok(followableActionIds([{ actionIds: ['m', 'o'], activityType: 'createCard' }], typeOf).has('m'),
     'a move-all onto another board may');
   assert.ok(followableActionIds([{ actionIds: ['m', 'n'], activityType: 'createCard' }], typeOf).has('m'),
     'a further move to yet another board may');
   assert.ok(!followableActionIds([{ actionIds: ['m'], activityType: 'createCard' },
-    { actionIds: ['e'], activityType: 'createCard' }], typeOf).has('m'), 'another rule of its trigger type sends email');
+    { actionIds: ['e'], activityType: 'createCard' }], typeOf).has('m'), 'another rule of its trigger type links elsewhere');
   assert.ok(followableActionIds([{ actionIds: ['m'], activityType: 'createCard' },
     { actionIds: ['e'], activityType: 'moveCard' }], typeOf).has('m'), 'a rule of another trigger type never shares its plan');
   assert.ok(!followableActionIds([{ actionIds: ['m'], activityType: 'createCard' },

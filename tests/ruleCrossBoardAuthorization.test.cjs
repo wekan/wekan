@@ -86,7 +86,7 @@ test('browser fixtures remove rule documents for each discarded board', () => {
 // destination went unchecked. It acts on the activity's board now.
 test('an action without a boardId acts on the activity\'s own board', () => {
   const src = require('fs').readFileSync(require('path').join(__dirname, '..', 'server/rulesHelper.js'), 'utf8');
-  const at = src.indexOf('  async performAction(activity, action) {');
+  const at = src.indexOf('  async performAction(activity, action, ruleRun) {');
   const body = src.slice(at, src.indexOf('const crossBoardActions', at));
   assert.match(body, /if \(!action\.boardId\) \{\s*action = Object\.assign\(Object\.create\(Object\.getPrototypeOf\(action\)\), action, \{ boardId \}\);/);
 });

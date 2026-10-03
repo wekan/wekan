@@ -41,6 +41,9 @@ Meteor.methods({
       actions.push(action);
     }
 
+    // One run of the rule: an email follows the card where its own move
+    // took it (RulesHelper.emailActivity).
+    const ruleRun = {};
     for (const action of actions) {
       await RulesHelper.performAction(
         {
@@ -50,6 +53,7 @@ Meteor.methods({
           userId: this.userId,
         },
         action,
+        ruleRun,
       );
     }
     return true;

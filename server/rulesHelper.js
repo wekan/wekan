@@ -381,18 +381,35 @@ export const RulesHelper = {
     const matchingRules = await this.findMatchingRules(activity);
     for (let i = 0; i < matchingRules.length; i++) {
       const rule = matchingRules[i];
+      // One run of one rule: where its own moves took the card (emailActivity).
+      const ruleRun = {};
       const action = await rule.getAction();
       if (action !== undefined) {
-        await this.performAction(activity, action);
+        await this.performAction(activity, action, ruleRun);
       }
       // #4294: further actions run in order after the rule's own action.
       for (const extraId of ruleActionIds(rule).slice(1)) {
         const extra = await ReactiveCache.getAction(extraId);
         if (extra !== undefined) {
-          await this.performAction(activity, extra);
+          await this.performAction(activity, extra, ruleRun);
         }
       }
     }
+  },
+  // The activity a rule's email reads its card through (maintainer decision
+  // of 2026-10-03). The source check (server/lib/ruleEmailSource.js) refuses
+  // a card that left the activity's board; when THIS run of the rule moved it
+  // to another board that opted into Sync effects, and it is still there, the
+  // email follows it: the activity placed on that board, and the board it
+  // left. Any other card off the board - moved by someone else, or by this
+  // rule to a board that did not opt in - is refused as before.
+  async emailActivity(activity, card, ruleRun) {
+    if (!card || !card.boardId || card.boardId === activity.boardId || !ruleRun?.movedTo || ruleRun.movedTo !== card.boardId) {
+      return { activity, followedFrom: null };
+    }
+    const destination = await ReactiveCache.getBoard(card.boardId);
+    if (!destination || destination.syncEffectsEnabled !== true) return { activity, followedFrom: null };
+    return { activity: { ...activity, boardId: card.boardId }, followedFrom: activity.boardId };
   },
   async findMatchingRules(activity) {
     const activityType = activity.activityType;
@@ -675,15 +692,17 @@ export const RulesHelper = {
     return options;
   },
 
-  async prepareEmailCommand(activity, action) {
+  // `followedFrom`: the board the plan's own move took the card from, when
+  // the caller proved that move (storedRulePlans.js ruleEmailActivity).
+  async prepareEmailCommand(activity, action, { followedFrom = null } = {}) {
     const { resolveRuleEmailSource } = require('/server/lib/ruleEmailSource');
-    const source = await resolveRuleEmailSource({ activity, cache: ReactiveCache, canReadBoard });
+    const source = await resolveRuleEmailSource({ activity, cache: ReactiveCache, canReadBoard, followedFrom });
     const mail = await EmailLocalization.prepareEmail(await this.prepareEmailAction(activity, action, undefined, source));
     await source.assertCurrent();
     return { mail, sourceBinding: source.binding };
   },
 
-  async performAction(activity, action) {
+  async performAction(activity, action, ruleRun) {
     const card = await ReactiveCache.getCard(activity.cardId);
     if (activity.activityType === 'button') {
       const sourceBoard = await ReactiveCache.getBoard(activity.boardId);
@@ -735,11 +754,21 @@ export const RulesHelper = {
       const target = await this.moveCardTarget(activity, card, action);
       if (target) {
         await withUserId(activity.userId, () => card.move(target.boardId, target.swimlaneId, target.listId, target.sort));
+        if (ruleRun && target.boardId !== here) ruleRun.movedTo = target.boardId;
       }
     }
     if (action.actionType === 'sendEmail') {
       try {
-        const options = await this.prepareEmailAction(activity, action, ruleVars);
+        const placed = await this.emailActivity(activity, card, ruleRun);
+        let options;
+        if (placed.followedFrom) {
+          const { resolveRuleEmailSource } = require('/server/lib/ruleEmailSource');
+          const source = await resolveRuleEmailSource({ activity: placed.activity, cache: ReactiveCache, canReadBoard,
+            followedFrom: placed.followedFrom });
+          options = await this.prepareEmailAction(placed.activity, action, undefined, source);
+        } else {
+          options = await this.prepareEmailAction(activity, action, ruleVars);
+        }
         if (typeof EmailLocalization !== 'undefined') {
           await EmailLocalization.sendEmail(options);
         } else {
@@ -1062,6 +1091,7 @@ export const RulesHelper = {
           await withUserId(activity.userId, () =>
             c.move(actionBoardId, c.swimlaneId, toList._id),
           );
+          if (ruleRun && card && c._id === card._id && actionBoardId !== here) ruleRun.movedTo = actionBoardId;
         }
       }
     }

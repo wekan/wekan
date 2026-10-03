@@ -11,18 +11,19 @@ const identity = card => JSON.stringify([card?._id, card?.boardId, card?.type, c
 function validateRuleEmailSourceBinding(binding, activity) {
   const fail = () => { throw new Error('rule-email-source-binding-invalid'); };
   const id = value => typeof value === 'string' && value.length > 0 && value.length <= 1024;
-  if (!binding || Object.keys(binding).sort().join(',') !== (binding.version === 5 ? 'adminAccess,cards,customFieldPolicies,linkedBoardId,linkedBoardVisibility,relatedSources,scrumVisibility,version,visibility' :
+  if (!binding || Object.keys(binding).sort().join(',') !== (binding.version === 6 ? 'adminAccess,cards,customFieldPolicies,followedFrom,linkedBoardId,linkedBoardVisibility,relatedSources,scrumVisibility,version,visibility' :
+        binding.version === 5 ? 'adminAccess,cards,customFieldPolicies,linkedBoardId,linkedBoardVisibility,relatedSources,scrumVisibility,version,visibility' :
         binding.version === 4 ? 'cards,linkedBoardId,linkedBoardVisibility,scrumVisibility,version,visibility' :
         binding.version === 3 ? 'cards,linkedBoardId,linkedBoardVisibility,version,visibility' :
         binding.version === 2 ? 'cards,linkedBoardId,version,visibility' : 'cards,linkedBoardId,version') ||
-      ![1, 2, 3, 4, 5].includes(binding.version) || !Array.isArray(binding.cards) || !binding.cards.length || binding.cards.length > 32) fail();
+      ![1, 2, 3, 4, 5, 6].includes(binding.version) || !Array.isArray(binding.cards) || !binding.cards.length || binding.cards.length > 32) fail();
   if (binding.version >= 2 && (!Array.isArray(binding.visibility) || binding.visibility.length !== binding.cards.length ||
       !binding.visibility.every(validVisibility))) fail();
   if (binding.version >= 3 && (binding.linkedBoardId === null
     ? binding.linkedBoardVisibility !== null : !validVisibility(binding.linkedBoardVisibility))) fail();
   if (binding.version >= 4 && (!Array.isArray(binding.scrumVisibility) || binding.scrumVisibility.length !== binding.cards.length ||
       !binding.scrumVisibility.every(row => Array.isArray(row) && row.length === 6 && row.every(value => typeof value === 'boolean')))) fail();
-  if (binding.version === 5) {
+  if (binding.version >= 5) {
     if (!Array.isArray(binding.customFieldPolicies) || binding.customFieldPolicies.length > binding.cards.length ||
         new Set(binding.customFieldPolicies.map(row => row?.boardId)).size !== binding.customFieldPolicies.length ||
         !binding.customFieldPolicies.every(row => row && Object.keys(row).sort().join(',') === 'boardId,hash' &&
@@ -42,7 +43,13 @@ function validateRuleEmailSourceBinding(binding, activity) {
         !row.slice(2).every(value => value === null || (typeof value === 'string' && value.length <= 1024)) ||
         seen.has(row[0])) fail();
     seen.add(row[0]);
-    if (i === 0 && (row[0] !== activity.cardId || row[1] !== activity.boardId)) fail();
+    // Version 6: the rule's own move took the card from `followedFrom` to the
+    // board it is on (maintainer decision of 2026-10-03). The activity is the
+    // one on the board it left, or the same activity placed where it went.
+    if (i === 0 && (row[0] !== activity.cardId || (binding.version === 6
+      ? !id(binding.followedFrom) || binding.followedFrom === row[1] ||
+        ![row[1], binding.followedFrom].includes(activity.boardId)
+      : row[1] !== activity.boardId))) fail();
     const next = binding.cards[i + 1];
     if (next) {
       if (row[2] !== 'cardType-linkedCard' || row[3] !== next[0]) fail();
@@ -65,7 +72,7 @@ async function assertRuleEmailSourceBinding({ binding, activity, cache, canReadB
         (isAssignedOnlyMember(board, activity.userId) && !card.assignees?.includes(activity.userId))) {
       throw new Error('rule-email-source-not-authorized');
     }
-    if (binding.version === 5 && binding.adminAccess[index] && !board.hasAdmin?.(activity.userId)) {
+    if (binding.version >= 5 && binding.adminAccess[index] && !board.hasAdmin?.(activity.userId)) {
       throw new Error('rule-email-source-not-authorized');
     }
     if (binding.version >= 2 && JSON.stringify(votingVisibility(card, board)) !== JSON.stringify(binding.visibility[index])) {
@@ -93,7 +100,7 @@ async function assertRuleEmailSourceBinding({ binding, activity, cache, canReadB
   }
 }
 
-async function resolveRuleEmailSource({ activity, cache, canReadBoard }) {
+async function resolveRuleEmailSource({ activity, cache, canReadBoard, followedFrom = null }) {
   const chain = [], seen = new Set();
   let id = activity.cardId, linkedBoardId = null, linkedBoardVisibility = null, card, sourceActivity = activity;
   const readable = async value => {
@@ -127,10 +134,14 @@ async function resolveRuleEmailSource({ activity, cache, canReadBoard }) {
   }
   const binding = { version: 5, customFieldPolicies: [], relatedSources: [], adminAccess: chain.map(item => item.adminAccess), cards: chain.map(item => JSON.parse(item.identity)), linkedBoardId,
     visibility: chain.map(item => item.visibility), scrumVisibility: chain.map(item => item.scrumVisibility), linkedBoardVisibility };
+  // A card the rule's own move took to another board: the caller proved the
+  // move (RulesHelper.emailActivity, storedRulePlans.js ruleCardNow) and
+  // passes the activity placed on the board it went to.
+  if (followedFrom) Object.assign(binding, { version: 6, followedFrom });
   validateRuleEmailSourceBinding(binding, activity);
   const assertCurrent = () => assertRuleEmailSourceBinding({ binding, activity, cache, canReadBoard });
   const addRelatedSource = source => {
-    const { relatedSources, adminAccess, customFieldPolicies, ...snapshot } = JSON.parse(JSON.stringify(source));
+    const { relatedSources, adminAccess, customFieldPolicies, followedFrom: _followed, ...snapshot } = JSON.parse(JSON.stringify(source));
     snapshot.version = 4;
     validateRuleEmailSourceBinding(snapshot, { cardId: snapshot.cards[0][0], boardId: snapshot.cards[0][1] });
     const previous = binding.relatedSources.find(row => row.cards[0][0] === snapshot.cards[0][0]);

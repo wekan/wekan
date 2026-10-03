@@ -179,3 +179,50 @@ test('captured custom-field policy rejects later public-to-admin changes', async
   await source.assertCurrent(); definitions[0].adminOnly = true;
   await assert.rejects(source.assertCurrent(), /field-policy-changed/);
 });
+
+// Maintainer decision of 2026-10-03: an email after the rule's own move to
+// another board reads the card there. The caller proves the move and passes
+// the activity placed on the destination with `followedFrom`, the board the
+// card left; the binding (version 6) records it.
+function moved() {
+  const f = fixture();
+  f.cards.card = { _id: 'card', boardId: 'destination', title: 'Moved' };
+  f.boards.destination = { readable: true };
+  f.activity = { cardId: 'card', boardId: 'local', userId: 'reader' };
+  return { f, placed: { ...f.activity, boardId: 'destination' } };
+}
+test('a card the rule moved to another board is read there, and the binding says where it came from', async () => {
+  const { assertRuleEmailSourceBinding: guard, validateRuleEmailSourceBinding: validate } = require('../server/lib/ruleEmailSource');
+  const { f, placed } = moved();
+  const context = await resolve({ ...f, activity: placed, followedFrom: 'local' });
+  assert.equal(context.card.title, 'Moved');
+  assert.equal(context.binding.version, 6);
+  assert.equal(context.binding.followedFrom, 'local');
+  assert.deepEqual(context.binding.cards[0], ['card', 'destination', null, null]);
+  // A stored command checks it against the activity it was saved for, and the
+  // ordinary engine against the placed one.
+  validate(context.binding, f.activity);
+  validate(context.binding, placed);
+  await guard({ ...f, binding: context.binding });
+  await context.assertCurrent();
+});
+test('NEGATIVE: without a proven move, or for any other board, the moved card is refused', async () => {
+  const { assertRuleEmailSourceBinding: guard, validateRuleEmailSourceBinding: validate } = require('../server/lib/ruleEmailSource');
+  const { f, placed } = moved();
+  // No followed move: the activity's board is not where the card is.
+  await assert.rejects(resolve(f), /not-authorized/);
+  const { binding } = await resolve({ ...f, activity: placed, followedFrom: 'local' });
+  // The activity of a third board, a binding naming the destination as the
+  // board it left, a version 6 binding without followedFrom, and a version 5
+  // binding pretending the card is where the activity was.
+  assert.throws(() => validate(binding, { ...f.activity, boardId: 'elsewhere' }), /binding-invalid/);
+  assert.throws(() => validate({ ...binding, followedFrom: 'destination' }, placed), /binding-invalid/);
+  const { followedFrom, ...unfollowed } = binding;
+  assert.throws(() => validate(unfollowed, f.activity), /binding-invalid/);
+  assert.throws(() => validate({ ...unfollowed, version: 5 }, f.activity), /binding-invalid/);
+  // The card moved on again, or the destination became unreadable.
+  f.cards.card.boardId = 'elsewhere';
+  await assert.rejects(guard({ ...f, binding }), /source-/);
+  f.cards.card.boardId = 'destination'; f.boards.destination.readable = false;
+  await assert.rejects(guard({ ...f, binding }), /not-authorized/);
+});

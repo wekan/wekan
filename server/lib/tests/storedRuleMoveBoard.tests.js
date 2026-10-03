@@ -89,9 +89,11 @@ describe('Stored Sync rule moves to another board', function () {
         { _id: emailId, boardId: from, actionType: 'sendEmail', emailTo: 'a@example.com', emailSubject: 'S', emailMsg: 'M' }]);
       await Rules.rawCollection().updateOne({ _id: ruleId }, { $set: { extraActionIds: [sortId] } });
       assert.deepEqual(await decide(), { eligible: true, reason: null }, 'sorting can follow it');
-      // ...but an email cannot, in its rule or in another of its trigger type.
+      // ...and so does an email, in its rule or in another of its trigger type,
+      // since the later decision of 2026-10-03: it reads the card where this
+      // plan's own move put it (the email test below).
       await Rules.rawCollection().updateOne({ _id: ruleId }, { $set: { extraActionIds: [emailId] } });
-      assert.deepEqual(await decide(), { eligible: false, reason: 'rule-actions' }, 'an email cannot follow it');
+      assert.deepEqual(await decide(), { eligible: true, reason: null }, 'an email can follow it');
       await Rules.rawCollection().updateOne({ _id: ruleId }, { $unset: { extraActionIds: '' } });
       const otherRule = Random.id(), otherTrigger = Random.id();
       await Triggers.rawCollection().insertOne({ _id: otherTrigger, boardId: from, activityType: 'createCard', listName: '*',
@@ -100,7 +102,7 @@ describe('Stored Sync rule moves to another board', function () {
         enabled: true, title: 'Archive' });
       assert.deepEqual(await decide(), { eligible: true, reason: null }, 'archiving may run after it');
       await Rules.rawCollection().updateOne({ _id: otherRule }, { $set: { actionId: emailId } });
-      assert.deepEqual(await decide(), { eligible: false, reason: 'rule-actions' }, 'an email may run after it');
+      assert.deepEqual(await decide(), { eligible: true, reason: null }, 'an email may run after it');
       await Rules.rawCollection().deleteOne({ _id: otherRule });
 
       assert.equal(await runStoredSyncRules(input), input.effectId);

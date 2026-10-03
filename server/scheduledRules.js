@@ -97,6 +97,9 @@ async function runDueTrigger(trigger, slotKey, now) {
   const board = await ReactiveCache.getBoard(trigger.boardId);
   const userId = board ? board.createdBy : undefined;
   const cards = await selectCards(trigger);
+  // One run per card: an email follows the card where this rule's own move
+  // took it (RulesHelper.emailActivity).
+  const ruleRuns = new Map(cards.map(card => [card._id, {}]));
 
   for (const action of actions) {
     if (cards.length === 0 && BOARD_LEVEL_ACTIONS.includes(action.actionType)) {
@@ -116,6 +119,7 @@ async function runDueTrigger(trigger, slotKey, now) {
             userId,
           },
           action,
+          ruleRuns.get(card._id),
         );
       }
     }
