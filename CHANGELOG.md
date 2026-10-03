@@ -6271,6 +6271,18 @@ backlog are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3986a82588">Translate Scrum background jobs in ten more locales</a>. Thanks to xet7.</summary>
+
+Add progress and interrupted undo/redo instructions in Uzbek variants, Kazakh,
+Kyrgyz, Mongolian, Tajik, Turkmen, Tatar and Bashkir. Preserve existing translations,
+source key order and exact placeholders. Extend regression coverage to 116 locale
+variants. Three focused suites, all 21 human-preference checks and ten catalog
+preservation audits pass. Turkmen, Tatar and Bashkir technical wording is low
+confidence and needs native-speaker review. Remaining translations are unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
