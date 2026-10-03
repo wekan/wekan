@@ -730,9 +730,15 @@ export async function runStoredSyncRuleMoveAllBoard({ index, completeDelivery = 
   await guard();
   let row = await commands.findOne({ _id: id });
   if (!row) {
-    // The ordinary action's own lookups (server/rulesHelper.js performAction).
-    const [fromBoard, toBoard] = await Promise.all([Boards.findOneAsync(plan.boardId), Boards.findOneAsync(action.boardId)]);
-    const from = await ReactiveCache.getList({ title: action.fromListName, boardId: plan.boardId });
+    // The ordinary action's own lookups (server/rulesHelper.js performAction):
+    // the list to move from is on the board the rule's card is on now - the
+    // plan's, or where a move of this same plan took it (ruleCardNow).
+    const now = plan.cardId ? await ruleCardNow(plan, context) : null;
+    const fromBoardId = now ? now.boardId : plan.boardId;
+    if (fromBoardId !== plan.boardId) await assertDestinationBoard(fromBoardId, plan, options.trigger);
+    if (fromBoardId === action.boardId) throw new Error('sync-rule-move-all-board-already-there');
+    const [fromBoard, toBoard] = await Promise.all([Boards.findOneAsync(fromBoardId), Boards.findOneAsync(action.boardId)]);
+    const from = await ReactiveCache.getList({ title: action.fromListName, boardId: fromBoardId });
     const to = await ReactiveCache.getList({ title: action.listName, boardId: action.boardId });
     const moves = [];
     if (from && to && fromBoard && toBoard) {
@@ -741,13 +747,13 @@ export async function runStoredSyncRuleMoveAllBoard({ index, completeDelivery = 
       const lane = await toBoard.getDefaultSwimlineAsync();
       if (!lane) throw new Error('sync-rule-move-all-board-no-swimlane');
       for (const model of await from.cardsUnfiltered()) {
-        const raw = await Cards.rawCollection().findOne({ _id: model._id, boardId: plan.boardId });
+        const raw = await Cards.rawCollection().findOne({ _id: model._id, boardId: fromBoardId });
         if (!raw) continue;
         moves.push(await boardMoveInputs({ raw, model, fromBoard, toBoard, swimlaneTitle: lane.title,
           target: { boardId: action.boardId, listId: to._id, swimlaneId: lane._id, sort: null } }));
       }
     }
-    const candidate = prepareRuleMoveAllBoardCommand({ ...commandContext, moves, createdAt: new Date(),
+    const candidate = prepareRuleMoveAllBoardCommand({ ...commandContext, moves, createdAt: new Date(), fromBoardId,
       redoRows: await boardRedoRows(action.boardId, plan.actorId) });
     await guard();
     let failure;

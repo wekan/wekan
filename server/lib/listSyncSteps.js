@@ -51,14 +51,14 @@ const CROSS_BOARD_DURABLE_ACTIONS = new Set(['linkCard', 'copyCard']);
 // engine (RulesHelper.ruleBoards) and in their durable commands (`onBoard`) -
 // so they may follow too, and so may a further move to yet another board
 // that opted in (its command saves the board the card leaves, `fromBoard`);
-// each board a chain reaches is checked like the first.  A move-all onto
-// another board may not follow: it moves a list of the rule's board.
+// each board a chain reaches is checked like the first - a move-all onto
+// another board too, which takes its list from the board the card is on.
 const CROSS_BOARD_FINAL_ACTIONS = new Set(['moveCardToTop', 'moveCardToBottom', 'moveAllCardsInList']);
 const FOLLOWER_SAFE = new Set([...Object.keys(require('./syncRuleCardCommand').RULE_CARD_ACTIONS),
   ...Object.keys(require('./syncRuleChecklistCommand').RULE_CHECKLIST_ACTIONS),
   'addChecklist', 'addChecklistWithItems', 'removeChecklist', 'linkCard', 'copyCard', 'createCard', 'addSwimlane',
   'moveCardToTop', 'moveCardToBottom', 'sortList', 'moveAllCardsInList', 'archive', 'unarchive',
-  'moveCardToTop:elsewhere', 'moveCardToBottom:elsewhere']);
+  'moveCardToTop:elsewhere', 'moveCardToBottom:elsewhere', 'moveAllCardsInList:elsewhere']);
 const MAX_RULE_BOARDS = 50;
 
 // The rule action types eligibility checks, across the source board and every

@@ -454,4 +454,78 @@ describe('Stored Sync rule moves to another board', function () {
       await Meteor.users.rawCollection().deleteMany({ _id: actor });
     }
   });
+
+  it('moves every card of the list the card went to on to a third board, durable and ordinary alike', async function () {
+    if (!Meteor.isAppTest) this.skip();
+    const actor = Random.id(), a = Random.id(), b = Random.id(), c = Random.id();
+    const ids = { list: Random.id(), lane: Random.id(), bInbox: Random.id(), bLane: Random.id(), cInbox: Random.id(),
+      cLane: Random.id(), card: Random.id(), twin: Random.id(), waiting: Random.id(), activity: Random.id(), twinActivity: Random.id() };
+    const activity = (id, cardId, title) => ({ _id: id, activityType: 'createCard', boardId: a, listId: ids.list, cardId,
+      userId: actor, cardTitle: title, listName: 'List', swimlaneName: 'Lane', createdAt: new Date(1000), modifiedAt: new Date(1000) });
+    const input = { activity: activity(ids.activity, ids.card, 'Pump'), effectId: '3'.repeat(64),
+      policy: { activities: true, notifications: true }, trigger: 'manual', assertCurrent: async () => {} };
+    const members = [{ userId: actor, isAdmin: true, isActive: true }];
+    try {
+      await Meteor.users.rawCollection().insertOne({ _id: actor, username: `all-chain-${actor}` });
+      await Boards.rawCollection().insertMany([{ _id: a, title: 'A', syncEffectsEnabled: true, members },
+        { _id: b, title: 'B', syncEffectsEnabled: true, members }, { _id: c, title: 'C', syncEffectsEnabled: true, members }]);
+      await Swimlanes.rawCollection().insertMany([{ _id: ids.lane, boardId: a, title: 'Lane', sort: 0, archived: false },
+        { _id: ids.bLane, boardId: b, title: 'Lane', sort: 0, archived: false },
+        { _id: ids.cLane, boardId: c, title: 'Default', type: 'swimlane', sort: 0, archived: false }]);
+      await Lists.rawCollection().insertMany([{ _id: ids.list, boardId: a, title: 'List', archived: false },
+        { _id: ids.bInbox, boardId: b, title: 'Inbox', archived: false }, { _id: ids.cInbox, boardId: c, title: 'Inbox', archived: false }]);
+      await Cards.rawCollection().insertMany([
+        { _id: ids.card, boardId: a, listId: ids.list, swimlaneId: ids.lane, title: 'Pump', sort: 0, archived: false },
+        { _id: ids.waiting, boardId: b, listId: ids.bInbox, swimlaneId: ids.bLane, title: 'Waiting on B', sort: 5, archived: false }]);
+      await Activities.rawCollection().insertOne(input.activity);
+      const [toB, allToC, triggerId] = [Random.id(), Random.id(), Random.id()];
+      await Actions.rawCollection().insertMany([
+        { _id: toB, boardId: b, actionType: 'moveCardToBottom', listName: 'Inbox', swimlaneName: 'Lane' },
+        { _id: allToC, boardId: c, actionType: 'moveAllCardsInList', fromListName: 'Inbox', listName: 'Inbox' }]);
+      await Triggers.rawCollection().insertOne({ _id: triggerId, boardId: a, activityType: 'createCard', listName: 'List',
+        userId: '*', swimlaneName: '*', cardTitle: '*' });
+      await Rules.rawCollection().insertOne({ _id: Random.id(), boardId: a, triggerId, actionId: toB, extraActionIds: [allToC],
+        enabled: true, title: 'To B, then all of its Inbox to C' });
+      const list = { _id: ids.list, boardId: a, syncRevision: 'rev', syncCredentialIncarnation: 'life' };
+      assert.deepEqual(await durableSyncDecision({ list, board: await Boards.findOneAsync(a), trigger: 'manual', actorId: actor }),
+        { eligible: true, reason: null });
+
+      assert.equal(await runStoredSyncRules(input), input.effectId);
+      for (const id of [ids.card, ids.waiting]) {
+        const card = await Cards.rawCollection().findOne({ _id: id });
+        assert.deepEqual([card.boardId, card.listId], [c, ids.cInbox], `${id} on C`);
+      }
+      const command = await SyncRuleMoveAllBoardCommands.rawCollection().findOne({ targetBoardId: c });
+      assert.deepEqual([command.fromBoard, command.units.length], [b, 2], 'from B, the list the card went to');
+      assert.equal(await runStoredSyncRules(input), input.effectId, 'replay');
+      assert.equal(await Activities.rawCollection().countDocuments({ cardId: ids.waiting, activityType: 'moveCardBoard' }), 1);
+
+      // Parity: the ordinary engine, with the twin and the waiting card on B.
+      await Cards.rawCollection().insertOne({ _id: ids.twin, boardId: a, listId: ids.list, swimlaneId: ids.lane, title: 'Twin',
+        sort: 1, archived: false });
+      await Cards.rawCollection().updateOne({ _id: ids.waiting }, { $set: { boardId: b, listId: ids.bInbox, swimlaneId: ids.bLane } });
+      const twinActivity = activity(ids.twinActivity, ids.twin, 'Twin');
+      for (const actionId of [toB, allToC]) await RulesHelper.performAction(twinActivity, await Actions.findOneAsync(actionId));
+      for (const id of [ids.twin, ids.waiting]) {
+        const card = await Cards.rawCollection().findOne({ _id: id });
+        assert.deepEqual([card.boardId, card.listId], [c, ids.cInbox], `${id} on C, ordinarily`);
+      }
+    } finally {
+      for (const board of [a, b, c]) {
+        const plans = await SyncRulePlans.rawCollection().find({ 'plan.boardId': board }, { projection: { _id: 1 } }).toArray();
+        await SyncRuleCompletions.rawCollection().deleteMany({ _id: { $in: plans.map(row => row._id) } });
+        await SyncRulePlans.rawCollection().deleteMany({ 'plan.boardId': board });
+        for (const model of [SyncRuleMoveBoardCommands, SyncRuleMoveAllBoardCommands, SyncRuleCardCommands, Rules, Triggers, Actions,
+          ChangeHistory, UserPositionHistory, Activities, Checklists, ChecklistItems, Cards, Lists, Swimlanes]) {
+          await model.rawCollection().deleteMany({ boardId: board });
+        }
+      }
+      await SyncRuleMoveBoardCommands.rawCollection().deleteMany({ cardId: ids.card });
+      await SyncRuleMoveAllBoardCommands.rawCollection().deleteMany({ targetBoardId: c });
+      await Activities.rawCollection().deleteMany({ cardId: { $in: [ids.card, ids.twin, ids.waiting] } });
+      await SyncRuleReceipts.rawCollection().deleteMany({ effectId: input.effectId });
+      await Boards.rawCollection().deleteMany({ _id: { $in: [a, b, c] } });
+      await Meteor.users.rawCollection().deleteMany({ _id: actor });
+    }
+  });
 });

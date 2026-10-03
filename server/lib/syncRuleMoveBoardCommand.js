@@ -256,15 +256,21 @@ function moveAllIdentity({ plan, activity, effectId, index }) {
     planId: planId(effectId, activity._id), planHash: sha256(canonical(plan)), actorId: plan.actorId,
     boardId: plan.boardId, cardId: plan.cardId, actionType: 'moveAllCardsInList', targetBoardId: action.boardId };
 }
-const unitBase = (base, cardId) => ({ _id: unitIdFor(base._id, cardId), actorId: base.actorId, boardId: base.boardId,
-  targetBoardId: base.targetBoardId, cardId });
+// Each unit leaves the board the list is on: the plan's, or - when an
+// earlier move of this same plan took the rule's card to another board
+// (2026-10-03) - that board, saved as `fromBoard` as a single move saves it.
+const unitBase = (base, cardId) => ({ _id: unitIdFor(base._id, cardId), actorId: base.actorId,
+  boardId: base.fromBoard || base.boardId, targetBoardId: base.targetBoardId, cardId });
 
 // Capture: `moves` are one { card, target, mapped, allowedMemberIds, titles,
 // labelActivities } per card of the list, in order; none when the ordinary
 // action would move nothing (no list to move from or to).
-function prepareRuleMoveAllBoardCommand({ plan, activity, effectId, index, moves = [], createdAt, redoRows = [] }) {
-  const base = moveAllIdentity({ plan, activity, effectId, index });
-  if (!Array.isArray(moves) || moves.length > 10000 || !(createdAt instanceof Date)) fail('invalid');
+function prepareRuleMoveAllBoardCommand({ plan, activity, effectId, index, moves = [], createdAt, redoRows = [],
+  fromBoardId = plan?.boardId }) {
+  const identityBase = moveAllIdentity({ plan, activity, effectId, index });
+  if (!Array.isArray(moves) || moves.length > 10000 || !(createdAt instanceof Date) || !text(fromBoardId) ||
+      fromBoardId === identityBase.targetBoardId) fail('invalid');
+  const base = fromBoardId === identityBase.boardId ? identityBase : { ...identityBase, fromBoard: fromBoardId };
   const units = moves.map((move, i) => ({ cardId: move.card?._id,
     ...buildMove({ base: unitBase(base, move.card?._id), createdAt, ...move, redoRows: i === 0 ? redoRows : [] }) }));
   const command = { ...base, createdAt: new Date(createdAt), units };
@@ -273,9 +279,12 @@ function prepareRuleMoveAllBoardCommand({ plan, activity, effectId, index, moves
 }
 
 function validateRuleMoveAllBoardCommand(row, context) {
-  const base = moveAllIdentity(context);
+  const identityBase = moveAllIdentity(context);
+  const elsewhere = !!row && Object.hasOwn(row, 'fromBoard');
+  const base = elsewhere ? { ...identityBase, fromBoard: row.fromBoard } : identityBase;
   const keys = [...Object.keys(base), 'createdAt', 'units', 'checksum'].sort().join(',');
   if (!row || Object.keys(row).sort().join(',') !== keys ||
+      (elsewhere && (!text(row.fromBoard) || row.fromBoard === identityBase.boardId || row.fromBoard === identityBase.targetBoardId)) ||
       Object.entries(base).some(([key, value]) => canonical(row[key]) !== canonical(value)) ||
       !(row.createdAt instanceof Date) || !Array.isArray(row.units) || row.units.length > 10000) fail('command-invalid');
   const { checksum, ...content } = row;
@@ -291,7 +300,7 @@ function validateRuleMoveAllBoardCommand(row, context) {
 }
 
 // A unit as the selectors and modifier below read a command.
-const unitMove = (command, unit) => ({ ...unit, actorId: command.actorId, boardId: command.boardId });
+const unitMove = (command, unit) => ({ ...unit, actorId: command.actorId, boardId: command.fromBoard || command.boardId });
 
 const placeOf = (command, place) => ({ _id: command.cardId, boardId: place.boardId, listId: place.listId,
   swimlaneId: place.swimlaneId, sort: place.sort === null ? null : { $eq: place.sort } });
