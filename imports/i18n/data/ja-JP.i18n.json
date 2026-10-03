@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "全ファイルの再スキャン（秒）",
   "continuous-backup-base-every": "新しいベースバックアップの作成間隔（時間）",
   "continuous-backup-keep-days": "保持期間（日）",
+  "continuous-backup-encrypt": "バックアップを暗号化する（AES-256-GCM）",
+  "continuous-backup-key-file": "暗号鍵ファイル（保存先ディレクトリの外にある絶対パス。64文字の16進数、または16文字以上のパスフレーズ）。コピーを保管してください。このファイルがないとバックアップを復元できません。",
   "continuous-backup-litestream-binary": "Litestream 実行ファイル（絶対パス）",
   "continuous-backup-litestream-url": "Litestream レプリカの URL",
   "continuous-backup-status": "状態",

@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Tüm dosyaları yeniden tarama (saniye)",
   "continuous-backup-base-every": "Yeni temel yedek oluşturma aralığı (saat)",
   "continuous-backup-keep-days": "Saklama süresi (gün)",
+  "continuous-backup-encrypt": "Yedeği şifrele (AES-256-GCM)",
+  "continuous-backup-key-file": "Şifreleme anahtarı dosyası (hedef dizinin dışında mutlak yol; 64 onaltılık karakter veya en az 16 karakterlik bir parola ifadesi). Bir kopyasını saklayın: bu olmadan yedek geri yüklenemez.",
   "continuous-backup-litestream-binary": "Litestream çalıştırılabilir dosyası (mutlak yol)",
   "continuous-backup-litestream-url": "Litestream kopyasının URL’si",
   "continuous-backup-status": "Durum",

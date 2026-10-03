@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Alle bestanden opnieuw scannen (seconden)",
   "continuous-backup-base-every": "Nieuwe basisback-up elke (uren)",
   "continuous-backup-keep-days": "Bewaren (dagen)",
+  "continuous-backup-encrypt": "De back-up versleutelen (AES-256-GCM)",
+  "continuous-backup-key-file": "Bestand met versleutelingssleutel (absoluut pad buiten de doelmap; 64 hexadecimale tekens of een wachtzin van minstens 16 tekens). Bewaar een kopie: zonder deze kan de back-up niet worden hersteld.",
   "continuous-backup-litestream-binary": "Uitvoerbaar Litestream-bestand (absoluut pad)",
   "continuous-backup-litestream-url": "URL van de Litestream-replica",
   "continuous-backup-status": "Toestand",

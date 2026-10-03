@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Kuchanganua tena faili zote (sekunde)",
   "continuous-backup-base-every": "Nakala mpya ya msingi kila (saa)",
   "continuous-backup-keep-days": "Hifadhi kwa (siku)",
+  "continuous-backup-encrypt": "Simba nakala rudufu (AES-256-GCM)",
+  "continuous-backup-key-file": "Faili la ufunguo wa usimbaji (njia kamili nje ya saraka lengwa; vibambo 64 vya heksadesimali au kaulisiri yenye angalau vibambo 16). Hifadhi nakala: bila hiyo, nakala rudufu haiwezi kurejeshwa.",
   "continuous-backup-litestream-binary": "Faili inayotekelezeka ya Litestream (njia kamili)",
   "continuous-backup-litestream-url": "URL ya nakala ya Litestream",
   "continuous-backup-status": "Hali",

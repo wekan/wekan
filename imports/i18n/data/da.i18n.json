@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Fuld genscanning af filer (sekunder)",
   "continuous-backup-base-every": "Ny basiskopi hver (timer)",
   "continuous-backup-keep-days": "Opbevar (dage)",
+  "continuous-backup-encrypt": "Kryptér sikkerhedskopien (AES-256-GCM)",
+  "continuous-backup-key-file": "Fil med krypteringsnøgle (absolut sti uden for målmappen; 64 hexadecimale tegn eller en adgangssætning på mindst 16 tegn). Gem en kopi: uden den kan sikkerhedskopien ikke gendannes.",
   "continuous-backup-litestream-binary": "Litestream-programfil (absolut sti)",
   "continuous-backup-litestream-url": "URL til Litestream-replika",
   "continuous-backup-status": "Tilstand",

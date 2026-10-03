@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "סריקה חוזרת של כל הקבצים (שניות)",
   "continuous-backup-base-every": "גיבוי בסיס חדש בכל (שעות)",
   "continuous-backup-keep-days": "שמירה למשך (ימים)",
+  "continuous-backup-encrypt": "הצפנת הגיבוי (AES-256-GCM)",
+  "continuous-backup-key-file": "קובץ מפתח ההצפנה (נתיב מוחלט מחוץ לתיקיית היעד; 64 תווים הקסדצימליים או ביטוי סיסמה באורך 16 תווים לפחות). יש לשמור עותק: בלעדיו אי אפשר לשחזר את הגיבוי.",
   "continuous-backup-litestream-binary": "קובץ ההפעלה של Litestream (נתיב מוחלט)",
   "continuous-backup-litestream-url": "כתובת URL של עותק Litestream",
   "continuous-backup-status": "מצב",

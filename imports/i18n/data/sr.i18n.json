@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Поновни преглед свих датотека (секунде)",
   "continuous-backup-base-every": "Нова основна копија сваких (сати)",
   "continuous-backup-keep-days": "Чувај (дани)",
+  "continuous-backup-encrypt": "Шифруј резервну копију (AES-256-GCM)",
+  "continuous-backup-key-file": "Датотека кључа за шифровање (апсолутна путања изван циљног директоријума; 64 хексадецимална знака или приступна фраза од најмање 16 знакова). Сачувајте копију: без ње резервна копија не може да се врати.",
   "continuous-backup-litestream-binary": "Извршна датотека Litestream (апсолутна путања)",
   "continuous-backup-litestream-url": "URL реплике Litestream",
   "continuous-backup-status": "Стање",

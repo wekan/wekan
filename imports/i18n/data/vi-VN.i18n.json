@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Quét lại toàn bộ tệp (giây)",
   "continuous-backup-base-every": "Tạo bản sao lưu cơ sở mới mỗi (giờ)",
   "continuous-backup-keep-days": "Giữ trong (ngày)",
+  "continuous-backup-encrypt": "Mã hóa bản sao lưu (AES-256-GCM)",
+  "continuous-backup-key-file": "Tệp khóa mã hóa (đường dẫn tuyệt đối, nằm ngoài thư mục đích; 64 ký tự thập lục phân hoặc cụm mật khẩu dài ít nhất 16 ký tự). Hãy giữ một bản sao: không có tệp này thì không thể khôi phục bản sao lưu.",
   "continuous-backup-litestream-binary": "Tệp thực thi Litestream (đường dẫn tuyệt đối)",
   "continuous-backup-litestream-url": "URL bản sao Litestream",
   "continuous-backup-status": "Trạng thái",

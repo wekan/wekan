@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Muling pag-scan sa lahat ng file (segundo)",
   "continuous-backup-base-every": "Bagong batayang kopya bawat (oras)",
   "continuous-backup-keep-days": "Panatilihin nang (araw)",
+  "continuous-backup-encrypt": "I-encrypt ang backup (AES-256-GCM)",
+  "continuous-backup-key-file": "File ng susi sa pag-encrypt (ganap na path sa labas ng target na direktoryo; 64 na hexadecimal na character o passphrase na hindi bababa sa 16 na character). Magtabi ng kopya: kung wala ito, hindi maibabalik ang backup.",
   "continuous-backup-litestream-binary": "Naipapatakbong file ng Litestream (ganap na landas)",
   "continuous-backup-litestream-url": "URL ng replika ng Litestream",
   "continuous-backup-status": "Kalagayan",

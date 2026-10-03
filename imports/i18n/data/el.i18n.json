@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Πλήρης επανέλεγχος αρχείων (δευτερόλεπτα)",
   "continuous-backup-base-every": "Νέο βασικό αντίγραφο κάθε (ώρες)",
   "continuous-backup-keep-days": "Διατήρηση (ημέρες)",
+  "continuous-backup-encrypt": "Κρυπτογράφηση του αντιγράφου ασφαλείας (AES-256-GCM)",
+  "continuous-backup-key-file": "Αρχείο κλειδιού κρυπτογράφησης (απόλυτη διαδρομή, εκτός του φακέλου προορισμού· 64 δεκαεξαδικοί χαρακτήρες ή φράση πρόσβασης τουλάχιστον 16 χαρακτήρων). Κρατήστε ένα αντίγραφο: χωρίς αυτό δεν είναι δυνατή η επαναφορά του αντιγράφου ασφαλείας.",
   "continuous-backup-litestream-binary": "Εκτελέσιμο αρχείο Litestream (απόλυτη διαδρομή)",
   "continuous-backup-litestream-url": "URL του αντιγράφου Litestream",
   "continuous-backup-status": "Κατάσταση",

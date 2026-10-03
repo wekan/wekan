@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Az összes fájl újbóli átvizsgálása (másodperc)",
   "continuous-backup-base-every": "Új alapmentés ennyi időnként (óra)",
   "continuous-backup-keep-days": "Megőrzési idő (nap)",
+  "continuous-backup-encrypt": "A biztonsági mentés titkosítása (AES-256-GCM)",
+  "continuous-backup-key-file": "Titkosításikulcs-fájl (abszolút elérési út a célkönyvtáron kívül; 64 hexadecimális karakter vagy legalább 16 karakteres jelmondat). Őrizzen meg egy másolatot: nélküle a biztonsági mentés nem állítható vissza.",
   "continuous-backup-litestream-binary": "Litestream futtatható állomány (abszolút elérési út)",
   "continuous-backup-litestream-url": "A Litestream-replika URL-je",
   "continuous-backup-status": "Állapot",

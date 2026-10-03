@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Imbas semula semua fail (saat)",
   "continuous-backup-base-every": "Sandaran asas baharu setiap (jam)",
   "continuous-backup-keep-days": "Simpan selama (hari)",
+  "continuous-backup-encrypt": "Sulitkan sandaran (AES-256-GCM)",
+  "continuous-backup-key-file": "Fail kunci penyulitan (laluan mutlak, di luar direktori sasaran; 64 aksara perenambelasan atau frasa laluan sekurang-kurangnya 16 aksara). Simpan satu salinan: tanpanya sandaran tidak dapat dipulihkan.",
   "continuous-backup-litestream-binary": "Fail boleh laku Litestream (laluan mutlak)",
   "continuous-backup-litestream-url": "URL replika Litestream",
   "continuous-backup-status": "Keadaan",

@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Endurskanna allar skrár (sekúndur)",
   "continuous-backup-base-every": "Nýtt grunnafrit á þessu bili (klukkustundir)",
   "continuous-backup-keep-days": "Geymslutími (dagar)",
+  "continuous-backup-encrypt": "Dulkóða öryggisafritið (AES-256-GCM)",
+  "continuous-backup-key-file": "Skrá með dulkóðunarlykli (algild slóð utan markmöppunnar; 64 sextándakerfisstafir eða aðgangsorðasamband með að minnsta kosti 16 stöfum). Geymdu afrit: án þess er ekki hægt að endurheimta öryggisafritið.",
   "continuous-backup-litestream-binary": "Keyrsluskrá Litestream (algild slóð)",
   "continuous-backup-litestream-url": "Vefslóð Litestream-eftirmyndar",
   "continuous-backup-status": "Staða",

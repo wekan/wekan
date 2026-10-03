@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Повторне повне сканування файлів (секунди)",
   "continuous-backup-base-every": "Нова базова копія кожні (години)",
   "continuous-backup-keep-days": "Зберігати (дні)",
+  "continuous-backup-encrypt": "Шифрувати резервну копію (AES-256-GCM)",
+  "continuous-backup-key-file": "Файл ключа шифрування (абсолютний шлях поза цільовим каталогом; 64 шістнадцяткові символи або парольна фраза щонайменше з 16 символів). Збережіть копію: без неї резервну копію неможливо відновити.",
   "continuous-backup-litestream-binary": "Виконуваний файл Litestream (абсолютний шлях)",
   "continuous-backup-litestream-url": "URL репліки Litestream",
   "continuous-backup-status": "Стан",

@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Fullständig ny genomsökning av filer (sekunder)",
   "continuous-backup-base-every": "Ny baskopia var (timmar)",
   "continuous-backup-keep-days": "Behåll (dagar)",
+  "continuous-backup-encrypt": "Kryptera säkerhetskopian (AES-256-GCM)",
+  "continuous-backup-key-file": "Fil med krypteringsnyckel (absolut sökväg utanför målkatalogen; 64 hexadecimala tecken eller en lösenfras med minst 16 tecken). Behåll en kopia: utan den kan säkerhetskopian inte återställas.",
   "continuous-backup-litestream-binary": "Litestream-programfil (absolut sökväg)",
   "continuous-backup-litestream-url": "URL för Litestream-replik",
   "continuous-backup-status": "Tillstånd",

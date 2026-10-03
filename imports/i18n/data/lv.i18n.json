@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Pilnīga failu atkārtota pārbaude (sekundes)",
   "continuous-backup-base-every": "Jauns bāzes dublējums ik pēc (stundas)",
   "continuous-backup-keep-days": "Glabāt (dienas)",
+  "continuous-backup-encrypt": "Šifrēt rezerves kopiju (AES-256-GCM)",
+  "continuous-backup-key-file": "Šifrēšanas atslēgas fails (absolūtais ceļš ārpus mērķa direktorijas; 64 heksadecimālās rakstzīmes vai ieejas frāze ar vismaz 16 rakstzīmēm). Saglabājiet kopiju: bez tās rezerves kopiju nevar atjaunot.",
   "continuous-backup-litestream-binary": "Litestream izpildāmais fails (absolūtais ceļš)",
   "continuous-backup-litestream-url": "Litestream replikas URL",
   "continuous-backup-status": "Stāvoklis",

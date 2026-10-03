@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "सभी फ़ाइलों का दोबारा स्कैन (सेकंड)",
   "continuous-backup-base-every": "नया आधार बैकअप हर (घंटे)",
   "continuous-backup-keep-days": "रखने की अवधि (दिन)",
+  "continuous-backup-encrypt": "बैकअप एन्क्रिप्ट करें (AES-256-GCM)",
+  "continuous-backup-key-file": "एन्क्रिप्शन कुंजी की फ़ाइल (लक्ष्य निर्देशिका से बाहर पूर्ण पथ; 64 हेक्साडेसिमल वर्ण या कम से कम 16 वर्णों का पासफ़्रेज़)। एक प्रति सुरक्षित रखें: इसके बिना बैकअप बहाल नहीं किया जा सकता।",
   "continuous-backup-litestream-binary": "Litestream निष्पादन योग्य फ़ाइल (पूर्ण पथ)",
   "continuous-backup-litestream-url": "Litestream प्रतिकृति का URL",
   "continuous-backup-status": "स्थिति",

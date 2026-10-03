@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Բոլոր ֆայլերի կրկնակի սկանավորում (վայրկյան)",
   "continuous-backup-base-every": "Նոր հիմնական պատճենի ստեղծման միջակայք (ժամ)",
   "continuous-backup-keep-days": "Պահպանման ժամկետ (օր)",
+  "continuous-backup-encrypt": "Գաղտնագրել պահուստային պատճենը (AES-256-GCM)",
+  "continuous-backup-key-file": "Գաղտնագրման բանալու ֆայլը (բացարձակ ուղի՝ նպատակային պանակից դուրս, 64 տասնվեցական նիշ կամ առնվազն 16 նիշանոց անցաբառ)։ Պահեք պատճենը. առանց դրա պահուստային պատճենը հնարավոր չէ վերականգնել։",
   "continuous-backup-litestream-binary": "Litestream-ի գործարկվող ֆայլ (բացարձակ ուղի)",
   "continuous-backup-litestream-url": "Litestream-ի կրկնօրինակի URL",
   "continuous-backup-status": "Վիճակ",

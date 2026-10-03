@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Volledige herskandering van lêers (sekondes)",
   "continuous-backup-base-every": "Nuwe basisrugsteun elke (ure)",
   "continuous-backup-keep-days": "Bewaar (dae)",
+  "continuous-backup-encrypt": "Enkripteer die rugsteun (AES-256-GCM)",
+  "continuous-backup-key-file": "Lêer met enkripsiesleutel (absolute pad buite die teikengids; 64 heksadesimale karakters of 'n wagfrase van minstens 16 karakters). Hou 'n kopie: daarsonder kan die rugsteun nie herstel word nie.",
   "continuous-backup-litestream-binary": "Litestream-uitvoerbare lêer (absolute pad)",
   "continuous-backup-litestream-url": "Litestream-replika se URL",
   "continuous-backup-status": "Toestand",

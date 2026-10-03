@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "সব ফাইল আবার স্ক্যান করা (সেকেন্ড)",
   "continuous-backup-base-every": "নতুন ভিত্তি ব্যাকআপ প্রতি (ঘণ্টা)",
   "continuous-backup-keep-days": "সংরক্ষণের মেয়াদ (দিন)",
+  "continuous-backup-encrypt": "ব্যাকআপ এনক্রিপ্ট করুন (AES-256-GCM)",
+  "continuous-backup-key-file": "এনক্রিপশন কী ফাইল (লক্ষ্য ডিরেক্টরির বাইরে পরম পাথ; 64টি হেক্সাডেসিমেল অক্ষর বা অন্তত 16 অক্ষরের পাসফ্রেজ)। একটি কপি রাখুন: এটি ছাড়া ব্যাকআপ পুনরুদ্ধার করা যাবে না।",
   "continuous-backup-litestream-binary": "Litestream চালানোর ফাইল (সম্পূর্ণ পাথ)",
   "continuous-backup-litestream-url": "Litestream প্রতিরূপের URL",
   "continuous-backup-status": "অবস্থা",

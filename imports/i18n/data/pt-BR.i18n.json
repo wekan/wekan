@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Nova verificação completa dos arquivos (segundos)",
   "continuous-backup-base-every": "Novo backup base a cada (horas)",
   "continuous-backup-keep-days": "Manter (dias)",
+  "continuous-backup-encrypt": "Criptografar o backup (AES-256-GCM)",
+  "continuous-backup-key-file": "Arquivo da chave de criptografia (caminho absoluto, fora do diretório de destino; 64 caracteres hexadecimais ou uma frase secreta com pelo menos 16 caracteres). Guarde uma cópia: sem ela não é possível restaurar o backup.",
   "continuous-backup-litestream-binary": "Executável do Litestream (caminho absoluto)",
   "continuous-backup-litestream-url": "URL da réplica do Litestream",
   "continuous-backup-status": "Estado",

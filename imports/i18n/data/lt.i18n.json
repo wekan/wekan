@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Pakartotinis visų failų nuskaitymas (sekundės)",
   "continuous-backup-base-every": "Nauja bazinė kopija kas (valandos)",
   "continuous-backup-keep-days": "Saugoti (dienos)",
+  "continuous-backup-encrypt": "Šifruoti atsarginę kopiją (AES-256-GCM)",
+  "continuous-backup-key-file": "Šifravimo rakto failas (absoliutus kelias už paskirties katalogo ribų; 64 šešioliktainiai simboliai arba bent 16 simbolių slaptafrazė). Išsaugokite kopiją: be jos atsarginės kopijos atkurti neįmanoma.",
   "continuous-backup-litestream-binary": "Litestream vykdomasis failas (absoliutusis kelias)",
   "continuous-backup-litestream-url": "Litestream replikos URL",
   "continuous-backup-status": "Būsena",

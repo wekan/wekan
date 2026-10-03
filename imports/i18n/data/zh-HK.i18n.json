@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "重新掃描全部檔案（秒）",
   "continuous-backup-base-every": "建立新基礎備份的間隔（小時）",
   "continuous-backup-keep-days": "保留時間（天）",
+  "continuous-backup-encrypt": "加密備份（AES-256-GCM）",
+  "continuous-backup-key-file": "加密金鑰檔案（絕對路徑，位於目標目錄之外；64 個十六進位字元或至少 16 個字元的通關密語）。請保留副本：沒有它就無法還原備份。",
   "continuous-backup-litestream-binary": "Litestream 執行檔（絕對路徑）",
   "continuous-backup-litestream-url": "Litestream 複本 URL",
   "continuous-backup-status": "狀態",

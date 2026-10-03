@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Ponovni pregled vseh datotek (sekunde)",
   "continuous-backup-base-every": "Nova osnovna kopija vsakih (ur)",
   "continuous-backup-keep-days": "Hrani (dni)",
+  "continuous-backup-encrypt": "Šifriraj varnostno kopijo (AES-256-GCM)",
+  "continuous-backup-key-file": "Datoteka s šifrirnim ključem (absolutna pot zunaj ciljne mape; 64 šestnajstiških znakov ali geselna fraza z vsaj 16 znaki). Shranite kopijo: brez nje varnostne kopije ni mogoče obnoviti.",
   "continuous-backup-litestream-binary": "Izvršljiva datoteka Litestream (absolutna pot)",
   "continuous-backup-litestream-url": "URL replike Litestream",
   "continuous-backup-status": "Stanje",

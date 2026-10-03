@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Opětovné úplné prohledání souborů (sekundy)",
   "continuous-backup-base-every": "Nová základní záloha každých (hodin)",
   "continuous-backup-keep-days": "Uchovat (dny)",
+  "continuous-backup-encrypt": "Šifrovat zálohu (AES-256-GCM)",
+  "continuous-backup-key-file": "Soubor šifrovacího klíče (absolutní cesta mimo cílový adresář; 64 šestnáctkových znaků nebo přístupová fráze o alespoň 16 znacích). Uchovejte si kopii: bez ní nelze zálohu obnovit.",
   "continuous-backup-litestream-binary": "Spustitelný soubor Litestream (absolutní cesta)",
   "continuous-backup-litestream-url": "URL repliky Litestream",
   "continuous-backup-status": "Stav",

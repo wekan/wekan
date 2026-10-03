@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "ყველა ფაილის ხელახალი სკანირება (წამები)",
   "continuous-backup-base-every": "ახალი საბაზისო ასლის შექმნის ინტერვალი (საათები)",
   "continuous-backup-keep-days": "შენახვის ვადა (დღეები)",
+  "continuous-backup-encrypt": "სარეზერვო ასლის დაშიფვრა (AES-256-GCM)",
+  "continuous-backup-key-file": "დაშიფვრის გასაღების ფაილი (აბსოლუტური მისამართი სამიზნე საქაღალდის გარეთ; 64 თექვსმეტობითი სიმბოლო ან სულ მცირე 16-სიმბოლოიანი საიდუმლო ფრაზა). შეინახეთ ასლი: მის გარეშე სარეზერვო ასლის აღდგენა შეუძლებელია.",
   "continuous-backup-litestream-binary": "Litestream-ის შესრულებადი ფაილი (აბსოლუტური ბილიკი)",
   "continuous-backup-litestream-url": "Litestream-ის რეპლიკის URL",
   "continuous-backup-status": "მდგომარეობა",

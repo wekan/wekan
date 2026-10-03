@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "پویش دوبارهٔ همهٔ فایل‌ها (ثانیه)",
   "continuous-backup-base-every": "ساخت نسخهٔ پایهٔ جدید هر (ساعت)",
   "continuous-backup-keep-days": "مدت نگهداری (روز)",
+  "continuous-backup-encrypt": "رمزگذاری نسخهٔ پشتیبان (AES-256-GCM)",
+  "continuous-backup-key-file": "فایل کلید رمزگذاری (مسیر مطلق، خارج از پوشهٔ مقصد؛ 64 نویسهٔ شانزده‌شانزدهی یا عبارت عبور با حداقل 16 نویسه). یک کپی نگه دارید: بدون آن نمی‌توان نسخهٔ پشتیبان را بازیابی کرد.",
   "continuous-backup-litestream-binary": "فایل اجرایی Litestream (مسیر مطلق)",
   "continuous-backup-litestream-url": "نشانی URL نسخهٔ همتای Litestream",
   "continuous-backup-status": "وضعیت",

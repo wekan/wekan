@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Reskani ĉiujn dosierojn (sekundoj)",
   "continuous-backup-base-every": "Nova baza kopio ĉiujn (horoj)",
   "continuous-backup-keep-days": "Konservi dum (tagoj)",
+  "continuous-backup-encrypt": "Ĉifri la sekurkopion (AES-256-GCM)",
+  "continuous-backup-key-file": "Dosiero de la ĉifra ŝlosilo (absoluta vojo, ekster la cela dosierujo; 64 deksesumaj signoj aŭ pasfrazo de almenaŭ 16 signoj). Konservu kopion: sen ĝi la sekurkopio ne povas esti restaŭrita.",
   "continuous-backup-litestream-binary": "Rulebla dosiero de Litestream (absoluta vojo)",
   "continuous-backup-litestream-url": "URL de la repliko de Litestream",
   "continuous-backup-status": "Stato",

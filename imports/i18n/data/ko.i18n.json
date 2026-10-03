@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "전체 파일 다시 검색 (초)",
   "continuous-backup-base-every": "새 기본 백업 생성 주기 (시간)",
   "continuous-backup-keep-days": "보관 기간 (일)",
+  "continuous-backup-encrypt": "백업 암호화(AES-256-GCM)",
+  "continuous-backup-key-file": "암호화 키 파일(대상 디렉터리 외부의 절대 경로, 64자리 16진수 또는 16자 이상의 암호문). 복사본을 보관하세요. 이 파일이 없으면 백업을 복원할 수 없습니다.",
   "continuous-backup-litestream-binary": "Litestream 실행 파일 (절대 경로)",
   "continuous-backup-litestream-url": "Litestream 복제본 URL",
   "continuous-backup-status": "상태",

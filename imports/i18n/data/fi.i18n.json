@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Kaikkien tiedostojen uudelleentarkistus (sekuntia)",
   "continuous-backup-base-every": "Uusi peruskopio aina (tuntia)",
   "continuous-backup-keep-days": "Säilytysaika (päivää)",
+  "continuous-backup-encrypt": "Salaa varmuuskopio (AES-256-GCM)",
+  "continuous-backup-key-file": "Salausavaintiedosto (absoluuttinen polku kohdehakemiston ulkopuolella; 64 heksadesimaalimerkkiä tai vähintään 16 merkin salalause). Säilytä kopio: ilman sitä varmuuskopiota ei voi palauttaa.",
   "continuous-backup-litestream-binary": "Litestream-ohjelmatiedosto (absoluuttinen polku)",
   "continuous-backup-litestream-url": "Litestream-replikan URL-osoite",
   "continuous-backup-status": "Tila",

@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Kõigi failide uus läbivaatus (sekundid)",
   "continuous-backup-base-every": "Uus baasvarukoopia iga (tunnid)",
   "continuous-backup-keep-days": "Säilita (päevad)",
+  "continuous-backup-encrypt": "Krüpti varukoopia (AES-256-GCM)",
+  "continuous-backup-key-file": "Krüptimisvõtme fail (absoluutne tee väljaspool sihtkataloogi; 64 kuueteistkümnendsüsteemi märki või vähemalt 16 märgist koosnev paroolifraas). Hoia alles koopia: ilma selleta ei saa varukoopiat taastada.",
   "continuous-backup-litestream-binary": "Litestreami käivitatav fail (absoluutne tee)",
   "continuous-backup-litestream-url": "Litestreami koopia URL",
   "continuous-backup-status": "Olek",

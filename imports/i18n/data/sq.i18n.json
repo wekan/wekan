@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Riskanimi i plotë i skedarëve (sekonda)",
   "continuous-backup-base-every": "Kopje e re bazë çdo (orë)",
   "continuous-backup-keep-days": "Ruaj për (ditë)",
+  "continuous-backup-encrypt": "Enkripto kopjen rezervë (AES-256-GCM)",
+  "continuous-backup-key-file": "Skedari i çelësit të enkriptimit (shteg absolut jashtë dosjes së synuar; 64 karaktere heksadecimale ose një frazëkalim me të paktën 16 karaktere). Ruaj një kopje: pa të, kopja rezervë nuk mund të rikthehet.",
   "continuous-backup-litestream-binary": "Skedari i ekzekutueshëm Litestream (shteg absolut)",
   "continuous-backup-litestream-url": "URL-ja e replikës Litestream",
   "continuous-backup-status": "Gjendja",

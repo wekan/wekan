@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Exploració completa dels fitxers de nou (segons)",
   "continuous-backup-base-every": "Nova còpia base cada (hores)",
   "continuous-backup-keep-days": "Conserva (dies)",
+  "continuous-backup-encrypt": "Xifra la còpia de seguretat (AES-256-GCM)",
+  "continuous-backup-key-file": "Fitxer de la clau de xifratge (camí absolut, fora del directori de destinació; 64 caràcters hexadecimals o una frase de contrasenya d’almenys 16 caràcters). Conserva’n una còpia: sense ella no es pot restaurar la còpia de seguretat.",
   "continuous-backup-litestream-binary": "Fitxer executable de Litestream (camí absolut)",
   "continuous-backup-litestream-url": "URL de la rèplica de Litestream",
   "continuous-backup-status": "Estat",

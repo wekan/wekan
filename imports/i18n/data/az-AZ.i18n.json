@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Bütün faylları yenidən skan etmə (saniyə)",
   "continuous-backup-base-every": "Yeni əsas nüsxə yaratma intervalı (saat)",
   "continuous-backup-keep-days": "Saxlama müddəti (gün)",
+  "continuous-backup-encrypt": "Ehtiyat nüsxəni şifrələ (AES-256-GCM)",
+  "continuous-backup-key-file": "Şifrələmə açarı faylı (hədəf qovluqdan kənarda mütləq yol; 64 onaltılıq simvol və ya ən azı 16 simvolluq parol ifadəsi). Bir nüsxəsini saxlayın: onsuz ehtiyat nüsxəni bərpa etmək mümkün deyil.",
   "continuous-backup-litestream-binary": "Litestream icra faylı (mütləq yol)",
   "continuous-backup-litestream-url": "Litestream replikasının URL-i",
   "continuous-backup-status": "Vəziyyət",

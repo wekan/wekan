@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "إعادة فحص جميع الملفات (ثوانٍ)",
   "continuous-backup-base-every": "إنشاء نسخة أساسية جديدة كل (ساعات)",
   "continuous-backup-keep-days": "الاحتفاظ لمدة (أيام)",
+  "continuous-backup-encrypt": "تشفير النسخة الاحتياطية (AES-256-GCM)",
+  "continuous-backup-key-file": "ملف مفتاح التشفير (مسار مطلق خارج المجلد الهدف؛ 64 محرفًا بالنظام الست عشري أو عبارة مرور لا تقل عن 16 محرفًا). احتفظ بنسخة: بدونها لا يمكن استعادة النسخة الاحتياطية.",
   "continuous-backup-litestream-binary": "ملف Litestream التنفيذي (مسار مطلق)",
   "continuous-backup-litestream-url": "عنوان URL لنسخة Litestream المتماثلة",
   "continuous-backup-status": "الحالة",

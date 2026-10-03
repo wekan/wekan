@@ -2442,6 +2442,8 @@
   "continuous-backup-file-scan": "Fitxategi guztiak berriro eskaneatzeko tartea (segundoak)",
   "continuous-backup-base-every": "Oinarrizko babeskopia berria egiteko tartea (orduak)",
   "continuous-backup-keep-days": "Gordetzeko epea (egunak)",
+  "continuous-backup-encrypt": "Zifratu babeskopia (AES-256-GCM)",
+  "continuous-backup-key-file": "Zifratze-gakoaren fitxategia (bide absolutua, helburuko direktoriotik kanpo; 64 karaktere hamaseitar edo gutxienez 16 karaktereko pasaesaldia). Gorde kopia bat: hori gabe ezin da babeskopia leheneratu.",
   "continuous-backup-litestream-binary": "Litestream fitxategi exekutagarria (bide absolutua)",
   "continuous-backup-litestream-url": "Litestream erreplikaren URLa",
   "continuous-backup-status": "Egoera",
