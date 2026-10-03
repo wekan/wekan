@@ -158,6 +158,7 @@ const groups = [
   ['gn', 'ndojeguerúi', 'Yvate', 'yvýgotyo'],
   ['bo', 'ནང་འདྲེན་མི་བྱེད', 'ཡར', 'མར'],
   ['dz', 'ནང་འདྲེན་མི་འབད', 'ཡར', 'མར'],
+  ['ve', 'a zwi dzheniswi', 'nṱha', 'fhasi'],
   ['fi', 'ei tuoda', 'Ylä-', 'alanuoli'],
   ['sv', 'importeras inte', 'Uppåt-', 'nedåtpilarna'],
   ['da', 'importeres ikke', 'Pil op', 'pil ned'],
@@ -218,3 +219,10 @@ for (const code of ['ug', 'uz-AR']) {
 }
 
 for (const key of keys) assert.doesNotMatch(read('lld')[key], /\p{Script=Cyrillic}/u, `lld:${key}: no Cyrillic lookalikes`);
+
+// Venda must not inherit the Zulu labels from its original seed.
+assert.equal(read('ve')["labels"], "Dziḽeibuḽu");
+assert.equal(read('ve')["checklist"], "Mutevhe wa u ṱola");
+assert.equal(read('ve')["comments"], "Mahumbulwa");
+assert.equal(read('ve')["lists"], "Mitevhe");
+assert.equal(read('ve')["import-board"], "U dzhenisa bodo");
