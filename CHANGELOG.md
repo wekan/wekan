@@ -6356,6 +6356,16 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/660ac4fb62">Translate Scrum job messages in ten African and Asian locales</a>. Thanks to xet7.</summary>
+
+- Translate rollover progress, history undo/redo progress and retry instructions into Oromo, Konkani, Acehnese, Tsonga, Northern Ndebele, Swati, Luganda, Waray, Northern Sotho and Wu Chinese.
+- Preserve existing translations and exact progress tokens; regression coverage now checks these messages in 203 locale variants.
+- Three focused suites, 21 human-preference checks and ten catalog preservation audits pass. Remaining locales and other translation gaps still need work.
+- Acehnese, Northern Ndebele, Swati, Waray and Northern Sotho technical phrasing has lower confidence and welcomes native review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
