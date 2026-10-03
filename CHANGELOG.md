@@ -1363,8 +1363,9 @@ The [archived-card heatmap](https://github.com/wekan/wekan/issues/5444) is now
 implemented under Board View → Pulse, with unit and Chromium scope coverage.
 Unfinished inventory work still includes
 [additional database conformance runs](https://github.com/wekan/wekan/issues/6509).
-Live identity providers, affected deployment data, additional browser/backend
-matrices and remaining UI baseline failures still require verification.
+Live identity providers, affected deployment data and additional
+browser/backend matrices still require verification. The UI baseline failures
+were re-run on 2026-10-03 and none reproduces (docs/Features/Menu-Audit-Results.md).
 See the [issue inventory](docs/DeveloperDocs/All-Open-Issues-Audit-2026-09-27.md),
 [verified issue work](docs/DeveloperDocs/Open-Issue-Audit-2026-09-27.md) and
 [authentication audit](docs/Security/Authentication-Boundary-Audit-2026-09-27.md).
@@ -1374,8 +1375,8 @@ tests and [documentation](docs/DeveloperDocs/Forge-Mirroring.md). Actual remote
 mirroring, host-key acceptance, publishing and releases remain human operations.
 Latest focused application checks used local Meteor/MongoDB and Chromium;
 they do not establish full FerretDB, Firefox/WebKit, mobile or live-provider
-coverage. Earlier broad audit failures remain in their audit documents until
-reproduced and resolved. No complete release build/test matrix was run for
+coverage. The earlier broad audit failures were re-run on 2026-10-03 and none
+reproduces (docs/Features/Menu-Audit-Results.md). No complete release build/test matrix was run for
 this pause. Older TODO Later entries below remain applicable and are not
 implicitly completed by this handoff. Translation status follows separately.
 
