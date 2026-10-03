@@ -6646,6 +6646,16 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ef27d27a51">Translate import and reordering help into four more locales</a>. Thanks to xet7.</summary>
+
+- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Uyghur, Arabic-script Uzbek, Konkani and Oromo. Correct the Uzbek labels heading to Arabic script.
+- Preserve existing correct-language translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions. Check the declared script in Uyghur and Arabic-script Uzbek prose.
+- Ten relevant suites, 21 human-preference checks and all four preservation audits pass. These three messages now cover 197 locale variants; 37 variants and other catalog gaps remain.
+- Technical wording has low confidence and welcomes native review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
