@@ -36,6 +36,7 @@ codes.push('fur', 'nap');
 codes.push('sm', 'to');
 codes.push('bi', 'fj');
 codes.push('ks', 'kok');
+codes.push('csb', 'hsb', 'szl');
 const keys = ['continuous-backup-encrypt', 'continuous-backup-key-file'];
 for (const code of codes) {
   const locale = read(code);
