@@ -2450,7 +2450,8 @@ tests/playwright/specs/03-cards-operations.e2e.js.
 
 </details>
 
-**List Sync** - runs whose rules move cards, and cards that change board.
+**List Sync** - runs whose rules move cards, cards that change board, and an
+address the guard refuses.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d82a54944a">A durable Sync run finishes when its rule moved or archived the card it synced</a>. Thanks to xet7.</summary>
@@ -2473,6 +2474,20 @@ The hook that re-points a moved card's addedLabel activities at the new
 board's labels ran twice per update, and the second run deleted everything the
 first had re-pointed. It runs once now. Tests: a server test of Card.move
 across boards and a guard that nothing calls it twice.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/988d351c32">A refused Sync address is recorded once and no longer disables the member who previewed it</a>. Thanks to xet7.</summary>
+
+Previewing a Sync source saved with an internal host name before the SyncBleed
+fix was recorded twice: as SyncBleed (medium) and as DnsBleed (high) by the
+shared fetch guard, and the high one disabled the account of the member who
+pressed preview and logged them out. fetchSafe now takes recordBlocked: false
+for a caller that records the refusal under its own name; the request is
+refused all the same and every other caller still records DnsBleed. Tests:
+tests/syncBleed.test.cjs pins the option, its default and that only List Sync
+turns it off; the Playwright SyncBleed test checks the member stays logged in.
 
 </details>
 
