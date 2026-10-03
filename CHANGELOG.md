@@ -4323,6 +4323,16 @@ database file, time units and Sinhala script. Four focused catalog suites and al
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bc1b8c6022">Translate continuous backup into Irish</a>. Thanks to xet7.</summary>
+
+Fill 35 English placeholders while preserving existing translations, source order
+and exact tokens. Extend checks for restore boundaries, protection of the live
+database file and time units. Four focused catalog suites and all 21 human-preference
+checks pass. Other languages and the broader translation backlog remain.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
