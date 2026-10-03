@@ -30,7 +30,7 @@ const keys = [
   "filter-column-age-hint",
   "advanced-filter-card-dates-hint"
 ];
-for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'yi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'rw', 'rn', 'or_IN', 'bho', 'mai', 'kok', 'ary', 'nso', 'nd', 'ss', 'ts', 'om', 'fj', 'to', 'hsb', 'szl', 'se', 'wa', 'wa-RR', 'wuu-Hans']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'yi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'rw', 'rn', 'or_IN', 'bho', 'mai', 'kok', 'ary', 'nso', 'nd', 'ss', 'ts', 'om', 'fj', 'to', 'hsb', 'szl', 'se', 'wa', 'wa-RR', 'wuu-Hans', 'rup']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -122,4 +122,6 @@ assert.match(read('wa-RR')['auto-archive-hint'], /mga padron diri gud iginbabalh
 assert.match(read('wa-RR')['filter-column-age-hint'], /diri nagpapabalik ha tinikangan/);
 assert.match(read('wuu-Hans')['auto-archive-hint'], /模板绝勿会移到存档里/);
 assert.match(read('wuu-Hans')['filter-column-age-hint'], /勿会重新算/);
-console.log('Archiving and date filters: 23 messages in 38 locales passed');
+assert.match(read('rup')['auto-archive-hint'], /modelili nu s-mutã vãrnãoarã/);
+assert.match(read('rup')['filter-column-age-hint'], /nu ahurheashti di nou/);
+console.log('Archiving and date filters: 23 messages in 39 locales passed');
