@@ -5,7 +5,6 @@ const path = require('node:path');
 const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const en = read('en');
-const locale = read('lld');
 const keys = [
   "email-failure-smtp-temporary",
   "email-failure-smtp-rejected",
@@ -54,12 +53,16 @@ const keys = [
   "rule-email-recovery-empty",
   "rule-email-recovery-unavailable"
 ];
+for (const code of ['lld', 'hsb']) {
+const locale = read(code);
 assert.deepEqual(Object.keys(locale), Object.keys(en));
 for (const key of keys) {
   assert.ok(locale[key]?.trim(), key);
   assert.notEqual(locale[key], en[key], `${key}: translated`);
   assert.deepEqual(translationTokens(locale[key]), translationTokens(en[key]), `${key}: exact placeholders`);
 }
+// Preserve retry and cancellation limits in both languages.
+if (code === 'lld') {
 // Preserve limits of retry, cancellation and reports; these are operational guidance.
 assert.match(locale['activity-recovery-description'], /ne creëia mai danüef na atività/);
 assert.match(locale['activity-recovery-cancel-confirm'], /ne se pò nia continué do/);
@@ -70,4 +73,16 @@ assert.match(locale['rule-email-recovery-description'], /ne prova nia danüef y 
 assert.notEqual(locale['activity-recovery-pause'], locale['activity-recovery-cancel']);
 assert.notEqual(locale['email-failure-smtp-temporary'], locale['email-failure-smtp-rejected']);
 assert.notEqual(locale['rule-email-recovery-unconfirmed'], locale['rule-email-recovery-sent']);
-console.log('Ladin notification translations: 46 messages passed');
+} else {
+  assert.match(locale['activity-recovery-description'], /ženje aktiwitu znowa njewutworja/);
+  assert.match(locale['activity-recovery-cancel-confirm'], /njeda so pokročować/);
+  assert.match(locale['activity-recovery-cancel-confirm'], /čakanskim rynku.*doručene zdźělenki so njewotwołaja/);
+  assert.match(locale['activity-recovery-failed'], /dźěło je so wobchowało/);
+  assert.match(locale['activity-recovery-denied'], /doručenje hižo njedowoleja/);
+  assert.match(locale['rule-email-recovery-description'], /njewospjetuje ani njepřetorhuje/);
+  assert.notEqual(locale['activity-recovery-pause'], locale['activity-recovery-cancel']);
+  assert.notEqual(locale['email-failure-smtp-temporary'], locale['email-failure-smtp-rejected']);
+  assert.notEqual(locale['rule-email-recovery-unconfirmed'], locale['rule-email-recovery-sent']);
+}
+}
+console.log('Ladin and Upper Sorbian notification translations: 46 messages each passed');
