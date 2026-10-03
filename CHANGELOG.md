@@ -2085,6 +2085,17 @@ used.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9614de39c11d3474a2b43e7d8af2321b27e9b424">Translate Ladin map and history guidance</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Ladin.
+
+- Fill 15 English placeholders for map views, undo/redo retry guidance, move ordering and SAML browser-tab guidance. Existing translations and placeholder tokens are preserved.
+- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks retain the single-change retry guarantee, browser-tab restriction and distinct actions.
+- Ladin wording is low confidence and needs speaker review; terminology references include the [Ladin dictionary](https://itavalbadia.ladinternet.it/applications/dictionary/index.jsp). These keys are pending Transifex and excluded from the standard missing-string report, so its total remains unchanged. Remaining all-language work is tracked in TODO Later.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.16 2026-10-03 WeKan ® release
