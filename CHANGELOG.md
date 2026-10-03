@@ -6606,6 +6606,16 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4a9204225b">Translate import help into six more Romance languages</a>. Thanks to xet7.</summary>
+
+- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Sardinian, Sicilian, Neapolitan, Venetian, Friulian and Romansh. Replace a Zulu checklist label in the Venetian catalog.
+- Preserve existing correct-language translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions.
+- Twelve relevant suites, 21 human-preference checks and all six preservation audits pass. These three messages now cover 175 locale variants; 59 variants and other catalog gaps remain.
+- Technical wording has low confidence and welcomes native review. Friulian drag vocabulary was checked against the [grammar and lexicon](https://www.vatrarberesh.it/biblioteca/ebooks/ilfriulano.pdf).
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
