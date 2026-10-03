@@ -83,9 +83,9 @@ types (Kanboard categories stay labels), semi-open boards, the Map view,
 several parents per card, export fidelity and the Leo outline format. What
 remains below is blocked for one of three stated reasons, not left unexamined:
 
-- **Decided "not now", kept open.** #2509 and #2460 (see "Needs a
-  maintainer decision"), and filing the prepared #4790 split, which is a
-  publishing step for the maintainer.
+- **Decided "not now", kept open.** #2460 (see "Needs a maintainer
+  decision"), and filing the prepared #4790 split, which is a publishing step
+  for the maintainer. #2509 was closed on 2026-10-03 (see below).
 - **Needs infrastructure or affected data.** The environment-owner, snap and
   data-verification items. The MySQL/MariaDB/PostgreSQL verification was done
   once Docker was approved (see Upcoming); only SAP HANA remains, and its image
@@ -237,8 +237,9 @@ Remaining, and why:
   by a move, a sort, moving all cards or archiving. The ordinary engine
   resolves those against the board the card LEFT - its list and swimlane
   names, and archiving's cascade to child cards there - which is arguably a
-  bug of its own; the durable commands would have to copy that or both
-  engines change together, which needs a maintainer decision.
+  bug of its own. Decided on 2026-10-03 (below): both engines change to the
+  destination board, and then these actions become durable too; not built
+  yet.
 - **Scrum requirements** (from
   [the Scrum design](docs/Features/Right-Sidebar/Board-Settings/Board-View/Scrum-Design.md)).
   Built on 2026-10-02 and 2026-10-03 (see Upcoming): event-level scope
@@ -249,8 +250,9 @@ Remaining, and why:
   - *Very large sprints are slow, not refused*: closing 10,500 cards takes
     about 8 s and undoing the close about 44 s, because every card is written
     and checked one by one through the ordinary card hooks and History
-    checks. Batching those writes would bypass the per-card guards that make
-    undo safe, so it waits for a decision on which guards may be batched.
+    checks. Decided on 2026-10-03 (below): keep every per-card guard and run
+    close and undo as a resumable background job with progress; not built
+    yet.
   - *Concurrent snapshot consistency*: a snapshot is a sequence of reads, not
     a transaction - the same backend property as "Atomicity" below.
   - *Jira's closed sprints*: issue search JSON has no commitment or close
@@ -306,6 +308,29 @@ Maintainer decisions of 2026-10-02, for what remained above:
   copies or links a card to another board is durable only when the destination
   board has Sync effects enabled too; otherwise the source board keeps direct
   Sync for it.
+
+Maintainer decisions of 2026-10-03, for what remained above:
+
+- **Rule actions after a move to another board: the destination board.** A
+  rule's later move, sort, move-all or archive after it moved the card to
+  another board resolves list and swimlane names, and archiving's cascade, on
+  the board where the card now is - in the ordinary engine and in durable Sync
+  alike. This changes existing rules that relied on the source board; once
+  both engines agree, those actions become durable too.
+- **Very large sprints: background job with progress.** Every per-card guard
+  stays. Closing a sprint and undoing or redoing a close run as a resumable
+  background job with a progress bar, so the browser never waits on one
+  method call.
+- **Continuous backup: cloud upload, encryption and applying a SQLite
+  restore.** The built-in engines upload segments and blobs to S3/MinIO, Azure
+  or GCS with the credentials of the Admin Panel / Attachments storage panes;
+  segments and blobs are encrypted at rest (AES-256-GCM, an
+  administrator-held key, needed to restore); and a restored SQLite file is
+  staged with the startup scripts' RESTORE_REQUESTED marker, so the next
+  restart puts it in place.
+- **[#2509](https://github.com/wekan/wekan/issues/2509): closed.** Changing
+  the order of fields and hiding fields on the card and the minicard (Board
+  Settings / Card and Board View) already customizes how a card looks.
 
 Built on 2026-10-02 (in Upcoming): the opt-in `act-editCard` event (#4912),
 lifetimes for old lists when their Sync settings are saved, durable rule moves
@@ -1636,21 +1661,6 @@ Durable rule moves out of the card's list were decided on 2026-10-02 (the
 guard follows only a move the same rule plan saved) and are built, to other
 boards too (see Upcoming); they are no longer waiting here.
 
-[#2509](https://github.com/wekan/wekan/issues/2509) (a "customized card
-style" - the report is a single line plus a screenshot with areas marked in
-blue that is not accessible from here, and it names no concrete visual
-property (text colour, border, font, per-card background, ...). @xet7's own
-comment on the issue already flagged this: a new Image field for Custom
-Fields, Custom Field layout options, or a Custom CSS feature "are not in
-Wekan yet." None of those exist today either, so building something now
-would still be a guess at what the blue markup meant. Meanwhile a large
-share of "customize how a card looks" already has real, present answers:
-board background colour/image, per-board/per-user label colours, and, from
-this release, the minicard title/collapse caret, opt-in comments on the
-minicard, a checkbox custom field's tick/cross icon, per-board default label
-text visibility, and custom-field sort order. Needs the maintainer either to
-describe the screenshot's blue markup or to pick which additional visual
-property should become the customizable one before this can be scoped),
 [#2460](https://github.com/wekan/wekan/issues/2460) (SQRL login - the
 report is a single comment-free link to https://www.grc.com/sqrl from 2019.
 SQRL has no official Meteor/Node package, unlike accounts-2fa (#3058);
@@ -1750,7 +1760,9 @@ uploading to S3, Azure or GCS with the built-in engines (point the target at
 an rclone mount, or use the Litestream engine, which uploads itself);
 encrypting the stream; and applying a restored SQLite file, which is built
 beside the stream because FerretDB holds the live file open - stopping WeKan
-and putting it in place stays a manual step. The default docker-compose.yml
+and putting it in place stays a manual step. All three were decided on
+2026-10-03 to be built (see the decisions under "Carried to a future
+release"); not built yet. The default docker-compose.yml
 runs FerretDB in its own container with no oplog, so it needs
 `--repl-set-name` or Litestream in that container before the database can be
 streamed; the file streams run regardless. The browser tests ran in Chromium
