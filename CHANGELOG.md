@@ -385,8 +385,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 Status checked on 2026-10-03. The later translation request resumed this work;
 the earlier pause above remains historical. Completed work is recorded in Upcoming.
 
-- The current `node releases/translations/fill-translations.mjs --missing` report counts **53,212 untranslated locale/string values in 70 languages**. It excludes **204 source keys deliberately left in English pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
-- Continue automatic-archiving and date-filter translations beyond the thirty-one locales recorded in completed changelog entries, then the remaining feature families.
+- The current `node releases/translations/fill-translations.mjs --missing` report counts **53,192 untranslated locale/string values in 70 languages**. It excludes **204 source keys deliberately left in English pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
+- Continue automatic-archiving and date-filter translations beyond the thirty-two locales recorded in completed changelog entries, then the remaining feature families.
 - Fill English placeholders in every language, including minority and constructed languages. Audit mixed-language and wrong-language seed text, and review provisional wording with speakers when available. Preserve correct-language human translations, source key order, exact placeholders, technical identifiers and query examples. Use direct translation and dictionary research, not an external translation service.
 - Keep regression and human-preference checks passing. Passing tests does not establish translation completeness or fluency; rerun relevant checks for each batch and the broad suite before declaring all-language work complete.
 
@@ -1994,6 +1994,17 @@ used.
 - Fill 23 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
 - Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
 - Fijian wording is low confidence and needs speaker review. Remaining all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ef45187bf93491acc71ffbd4e31d9b36060b3789">Translate archiving and date filters into Tongan</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Tongan.
+
+- Fill 23 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
+- Tongan wording is low confidence and needs speaker review. Date vocabulary was checked against [Unicode CLDR's Tongan locale data](https://unicode.org/cldr/charts/42/summary/to.html). Remaining all-language work, including older mixed-language values, is tracked in TODO Later.
 
 </details>
 
