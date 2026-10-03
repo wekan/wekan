@@ -164,6 +164,7 @@ const groups = [
   ['ee', 'Wometsɔa', 'Dzi', 'te'],
   ['ff', 'naatnetaake', 'dow', 'les'],
   ['ti', 'ኣይኣትዉን', 'ንላዕሊ', 'ንታሕት'],
+  ['vo', 'no panüpladons', 'sui', 'donio'],
   ['fi', 'ei tuoda', 'Ylä-', 'alanuoli'],
   ['sv', 'importeras inte', 'Uppåt-', 'nedåtpilarna'],
   ['da', 'importeres ikke', 'Pil op', 'pil ned'],
@@ -235,3 +236,6 @@ assert.equal(read('ve')["import-board"], "U dzhenisa bodo");
 // Veps import and subtask labels must not retain Zulu or Venda seed text.
 assert.equal(read('ve-PP')["import-board-source"], "To laud (Trello, Jira, WeKan-fail, CSV, Excel, …)");
 assert.equal(read('ve-PP')["checklistItem-linked-subtask"], "Sidotud alatego");
+
+// The Volapük comments label must not retain Esperanto seed text.
+assert.equal(read('vo').comments, 'Küpets');
