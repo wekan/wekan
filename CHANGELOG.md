@@ -1349,7 +1349,9 @@ the card exporters already refuse assigned-only members, and rule email
 details check every subtask. Client-side template copy writes were reviewed
 the same day: they go through the Cards insert rules, which now also refuse
 another board's list or swimlane (Upcoming, BoardBleed). Legacy direct Rules
-writes and concurrent permission changes remain to be reviewed. Board-copy property merging was the same fault on boards and is fixed
+writes were reviewed too: a rule could name another board's trigger and stop
+that board's own rule from running, fixed in Upcoming (RepointBleed).
+Concurrent permission changes remain to be reviewed. Board-copy property merging was the same fault on boards and is fixed
 in Upcoming. The markdown viewer's form-field allowance was not exploitable: the
 second sanitizer stripped every input, including task-list checkboxes, which
 now render disabled.
@@ -1816,6 +1818,19 @@ names by id. Such an insert is refused, as the server's own copies already
 refused that destination, and the attempt is recorded under BoardBleed in
 Admin Panel → Problems. Found reviewing the client-side template copies, which
 use the same insert rules. [BoardBleed](https://wekan.fi/hall-of-fame/boardbleed/).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/509f1d97fc">A rule may not name another board's trigger, and rules match on their own board</a>. Thanks to xet7.</summary>
+
+A board admin could save a rule on their own board naming another board's
+trigger. Only that board's rules ran on its activities, but the matcher took
+a trigger's rule from whichever rule named it first, so the other board's own
+rule could silently stop running. Rules now match on the activity's own board,
+and such a rule is refused and recorded under RepointBleed in Admin Panel →
+Problems. Found reviewing the legacy direct Rules writes.
+[RepointBleed](https://wekan.fi/hall-of-fame/repointbleed/).
 
 </details>
 
