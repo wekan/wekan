@@ -4763,6 +4763,17 @@ translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ca5af3e3f0">Translate continuous backup into Tatar</a>. Thanks to xet7.</summary>
+
+Fill 35 English placeholders and replace three backup entries seeded with Turkish
+with Tatar, restoring literal archive paths. Preserve other translations, source
+order and exact tokens. Extend restore, time-unit, script and vocabulary checks.
+Four focused catalog suites and all 21 human-preference checks pass. The broader
+translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
