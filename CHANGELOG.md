@@ -6259,6 +6259,18 @@ locales and broader translation backlog are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5880930f8e">Translate Scrum background jobs in 58 more locales</a>. Thanks to xet7.</summary>
+
+Translate card rollover progress, history undo/redo progress and interrupted-job
+instructions in 58 additional catalogs. Preserve existing translations, source
+key order and exact progress placeholders. Extend regression coverage to 106
+locale variants. Three focused suites, all 21 human-preference checks and 58
+catalog preservation audits pass. Remaining locales and the broader translation
+backlog are unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
