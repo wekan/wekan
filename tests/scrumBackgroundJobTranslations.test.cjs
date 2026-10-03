@@ -10,6 +10,7 @@ codes.push(...["lv", "lt", "et-EE", "el", "ja", "ko", "zh-Hans", "zh-Hant", "id"
 codes.push(...["uz", "kk", "ky", "mn", "tg", "tk_TM", "tt", "ba", "uz-UZ", "uz-LA"]);
 codes.push(...["ne", "mr", "ta", "te-IN", "gu-IN", "kn", "ml", "pa", "si", "as", "or_IN", "sd"]);
 codes.push(...["ga", "cy", "lb", "mt", "fo", "fy", "rm", "la", "cy-GB", "fy-NL"]);
+codes.push(...["my", "km", "jv", "ht", "oc", "ast-ES", "an", "yi", "ku", "ckb", "ps", "km_KH", "km-KH"]);
 const keys = ['scrum-rollover-progress', 'scrum-history-job-running', 'scrum-history-job-failed'];
 for (const code of codes) {
   const locale = read(code);
