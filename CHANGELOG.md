@@ -5800,6 +5800,18 @@ backlog are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cfc0c14e47">Translate new backup options into Odia, Bhojpuri and Maithili</a>. Thanks to xet7.</summary>
+
+Add eight encryption, cloud and restart options to each locale. Preserve existing
+translations, relative source key order and exact placeholders. Extend encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference checks
+and three preservation, script and placeholder audits pass. Technical terminology
+needs native-speaker review, particularly the lower-confidence Odia wording.
+Remaining locales and the broader translation backlog are unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
