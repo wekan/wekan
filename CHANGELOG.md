@@ -6452,6 +6452,16 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/613ba0b68e">Complete Cherokee continuous backup translations</a>. Thanks to xet7.</summary>
+
+- Translate the remaining 35 Cherokee backup messages, completing all 43 continuous backup messages across all 234 non-English locale variants.
+- Discover every non-English catalog automatically in backup regression coverage. Check exact source tokens, key order, Cherokee script, time units and restore safety wording while preserving existing translations.
+- All eight relevant suites, 21 human-preference checks and the catalog preservation audit pass. Other untranslated catalog strings remain.
+- Cherokee technical wording has low confidence and welcomes native review. Time units were checked against the [Cherokee dictionary](https://www.cherokeedictionary.net/first500).
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
