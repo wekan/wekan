@@ -6880,6 +6880,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/19a8c0fb855adfb4c0b0335e24e6cd78a7b8e6e1">Complete import and reordering translations across all locales</a>. Thanks to xet7.</summary>
+
+- Fill the final three Cherokee Taskwarrior, Focalboard and keyboard reordering messages, completing this family in all 234 non-English locale variants; enforce complete catalog coverage in the regression suite.
+- All 458 translation-related suites, eight focused suites and 21 human-preference checks pass; the preservation audit confirms only the three Cherokee English placeholders changed.
+- Cherokee wording is low confidence and needs speaker review. Drag and paste vocabulary follows the <a href="https://www.thepeoplespaths.net/Cherokee/CherokeeWordLists/WordList-D.htm">Peoples Paths Cherokee word list</a> and its <a href="https://www.thepeoplespaths.net/Cherokee/CherokeeWordLists/WordList-P.htm">paste entry</a>. Other untranslated families remain in 70 languages.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
