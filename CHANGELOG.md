@@ -6442,6 +6442,16 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5779c050db">Complete Inuktitut and Tamazight continuous backup translations</a>. Thanks to xet7.</summary>
+
+- Translate the remaining 35 continuous backup messages in each locale, including engines, timing, status and restore instructions.
+- Preserve existing translations, technical identifiers and exact source tokens. All 43 backup messages now have regression coverage in 233 locale variants, including scripts, time units and restore safety wording.
+- All 31 relevant suites, 21 human-preference checks and both catalog preservation audits pass. Cherokee still needs the original backup messages; other catalog gaps also remain.
+- Technical wording in both languages has low confidence and welcomes native review. The Tamazight software execution term is checked against the [computing lexicon](https://cedric.cnam.fr/~bouzefra/books/amawal.pdf).
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
