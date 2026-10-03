@@ -118,3 +118,24 @@ test('Gujarati Blockly prose and editor messages have no remaining English place
  }
  assert.notEqual(gu['blockly-TEXT_TRIM_OPERATOR_LEFT'],gu['blockly-TEXT_TRIM_OPERATOR_RIGHT']);
 });
+
+test('Ladin keyboard and math labels preserve operations and recognizable key names',()=>{
+ const lld=require('../imports/i18n/data/lld.i18n.json');
+ const names='ALT_KEY BACKSPACE_KEY CAPS_LOCK_KEY COMMAND_KEY CONTEXT_MENU_KEY CONTROL_KEY END_KEY ENTER_KEY ESCAPE HOME_KEY INPUT_LABEL_MATH_DIVIDEND INPUT_LABEL_MATH_DIVISOR INSERT_KEY MATH_TRIG_ACOS MATH_TRIG_ASIN MATH_TRIG_ATAN MATH_TRIG_COS MATH_TRIG_SIN MATH_TRIG_TAN OPTION_KEY PAGE_DOWN_KEY PAGE_UP_KEY PAUSE_KEY SHIFT_KEY TAB_KEY UNNAMED_KEY'.split(' ');
+ for(const name of names){
+  const key=`blockly-${name}`;
+  assert.notEqual(lld[key],english[key],key);
+  assert.deepEqual(tokens(lld[key]),tokens(english[key]),`${key}: exact tokens`);
+ }
+ for(const name of ['ACOS','ASIN','ATAN','COS','SIN','TAN'])
+  assert.equal(lld[`blockly-MATH_TRIG_${name}`],lld[`blockly-MATH_TRIG_${name}_ARIA`]);
+ assert.match(lld['blockly-PAGE_DOWN_KEY'],/ju$/);
+ assert.match(lld['blockly-PAGE_UP_KEY'],/su$/);
+ assert.notEqual(lld['blockly-INPUT_LABEL_MATH_DIVIDEND'],lld['blockly-INPUT_LABEL_MATH_DIVISOR']);
+ assert.notEqual(lld['blockly-HOME_KEY'],lld['blockly-END_KEY']);
+ for(const name of ['Alt','Backspace','Command','Control','Option'])
+  assert.ok(lld[`blockly-${name.toUpperCase()}_KEY`].includes(name));
+ // Product names remain recognizable; they are not prose needing translation.
+ for(const name of ['CHROME_OS','LINUX','MAC_OS','WINDOWS'])
+  assert.equal(lld[`blockly-${name}`],english[`blockly-${name}`]);
+});
