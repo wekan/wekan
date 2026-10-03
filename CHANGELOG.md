@@ -6702,6 +6702,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/54882fe4fa42fdc54f54e74226eb32ac764e5c75">Translate import instructions and reordering help into Aymara, Quechua and Guaraní</a>. Thanks to xet7.</summary>
+
+- Fill nine English placeholders while preserving existing translations, technical identifiers and source key order. These three messages now cover 217 of 234 non-English locale variants; 17 remain.
+- Extend import exclusions, keyboard directions and placeholder checks. All 10 relevant suites, three preservation audits and 21 human-preference checks pass.
+- Low-confidence technical translations in all three languages need native-speaker review. Vocabulary references include the <a href="https://www.illaa.org/pirwa/diccionarios/LudovicoBertonioMuchosCambios.pdf">Aymara vocabulary</a>, <a href="https://www.illaa.org/pirwa/diccionarios/DicAMLQuechuaOrig.pdf">Quechua dictionary</a> and <a href="https://www.mec.gob.ar/descargas/Bibliograf%C3%ADa/Educaci%C3%B3n%20Intercultural%20Biling%C3%BCe/GUARANI/avane-Diccionario-Guarani-Esp-Esp-Guarani.pdf">Guaraní dictionary</a>.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
