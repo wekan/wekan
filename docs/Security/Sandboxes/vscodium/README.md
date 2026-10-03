@@ -509,3 +509,30 @@ downloads and runs the same `ferretdb-<arch>` binary; the `wekan` service just r
 same bundle). The Docker-only startup race in #6500 (WeKan starting before FerretDB is
 ready) is fixed in `docker-compose.yml` with a ferretdb healthcheck + `depends_on:
 condition: service_healthy`; when running manually, always start FerretDB first.
+
+## macOS Firefox: missing profile despite a writable temporary directory
+
+On macOS 27, Playwright Firefox can exit with `Could not find profile folder`
+because it also opens Firefox's shared application-data directory, which macOS
+may protect independently of the temporary profile passed with `-profile`.
+See [Playwright issue 42768](https://github.com/microsoft/playwright/issues/42768)
+and Mozilla's `nsXREDirProvider::GetUserDataDirectory` implementation.
+
+The shared `tests/playwright/helpers/browser-launch.cjs` now supplies
+`MOZ_APP_DATA` and `MOZ_LOCAL_APP_DATA` for native macOS Firefox. Each invocation
+gets separate directories beneath `.tools/tmp`, removed at process exit. Explicit
+values for either variable remain respected. Other browsers and platforms keep
+their existing launch options. This leaves the user's Firefox data and `HOME`
+unchanged and does not disable browser sandboxes or require Full Disk Access.
+
+Both `build.sh`'s native-browser probe and the Playwright configuration use this
+helper, so probing and the actual tests agree. To verify the launch independently:
+
+```bash
+export TMPDIR="$PWD/.tools/tmp"
+export PLAYWRIGHT_BROWSERS_PATH="$PWD/.tools/ms-playwright"
+node tests/playwright/helpers/browser-launch.cjs firefox
+```
+
+The ordinary build-menu Firefox option and direct Playwright runs use the fix
+automatically; no special launch flags are needed.

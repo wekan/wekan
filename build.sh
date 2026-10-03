@@ -873,7 +873,7 @@ function native_browser_can_launch(){
 		export HOME="$WEKAN_DIR/.tools"
 		unset CHROME_DEVEL_SANDBOX
 		set_playwright_browser_path
-		node -e "require('@playwright/test').${browser}.launch().then(b=>b.close()).then(()=>process.exit(0)).catch(()=>process.exit(1))"
+		node helpers/browser-launch.cjs "$browser"
 	) >/dev/null 2>&1
 }
 

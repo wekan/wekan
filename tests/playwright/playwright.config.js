@@ -3,6 +3,7 @@ const { defineConfig, devices } = require('@playwright/test');
 const { execFileSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
+const { browserLaunchOptions } = require('./helpers/browser-launch.cjs');
 
 const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
 const RUN_ALL_BROWSERS = process.env.WEKAN_PLAYWRIGHT_ALL === '1';
@@ -47,12 +48,7 @@ function canLaunch(browserName) {
   try {
     execFileSync(
       process.execPath,
-      [
-        '-e',
-        `require('@playwright/test').${browserName}.launch()` +
-          `.then(b => b.close()).then(() => process.exit(0))` +
-          `.catch(() => process.exit(1))`,
-      ],
+      [path.join(__dirname, 'helpers/browser-launch.cjs'), browserName],
       { stdio: 'ignore', timeout: 60_000 },
     );
     return true;
@@ -71,6 +67,10 @@ function browserProjects() {
         { name: 'webkit', use: { ...devices['Desktop Safari'] } },
       ]
     : [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }];
+
+  for (const project of candidates) {
+    project.use.launchOptions = browserLaunchOptions(project.name);
+  }
 
   // WebKit can occasionally terminate a renderer after hundreds of tests and
   // report only "WebKit encountered an internal error". One local retry gets a

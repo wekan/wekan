@@ -59,7 +59,8 @@ test('browser retry policy preserves normal runs and stops immediately in bail m
       module: { exports: {} }, __dirname: path.join(__dirname, 'playwright'),
       process: { env: { WEKAN_PLAYWRIGHT_PROBE: '0', WEKAN_PLAYWRIGHT_ALL: '1', ...env } },
       require: name => name === '@playwright/test'
-        ? { defineConfig: value => value, devices: {} } : require(name),
+        ? { defineConfig: value => value, devices: {} }
+        : name === './helpers/browser-launch.cjs' ? { browserLaunchOptions: () => ({}) } : require(name),
     };
     vm.runInNewContext(source, sandbox);
     return sandbox.module.exports;
