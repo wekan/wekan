@@ -158,3 +158,22 @@ test('Upper Sorbian keyboard labels preserve navigation direction and key identi
  for(const name of ['CHROME_OS','LINUX','MAC_OS','WINDOWS','INPUT_LABEL_NUMBER_MIN','MATH_ADDITION_SYMBOL_ARIA','MATH_ONLIST_OPERATOR_MIN_ARIA','MATH_SUBTRACTION_SYMBOL_ARIA','MATH_TRIG_ACOS','MATH_TRIG_ASIN','MATH_TRIG_ATAN','MATH_TRIG_COS','MATH_TRIG_SIN','MATH_TRIG_TAN'])
   assert.equal(hsb[`blockly-${name}`],english[`blockly-${name}`]);
 });
+
+test('Silesian keyboard labels preserve navigation direction and key identity',()=>{
+ const szl=require('../imports/i18n/data/szl.i18n.json');
+ const names='ALT_KEY BACKSPACE_KEY CAPS_LOCK_KEY COMMAND_KEY CONTEXT_MENU_KEY CONTROL_KEY END_KEY ENTER_KEY ESCAPE HOME_KEY INSERT_KEY OPTION_KEY PAGE_DOWN_KEY PAGE_UP_KEY PAUSE_KEY SHIFT_KEY SPACE_KEY TAB_KEY UNNAMED_KEY'.split(' ');
+ for(const name of names){
+  const key=`blockly-${name}`;
+  assert.notEqual(szl[key],english[key],key);
+  assert.deepEqual(tokens(szl[key]),tokens(english[key]),`${key}: exact tokens`);
+ }
+ assert.match(szl['blockly-PAGE_DOWN_KEY'],/w dōł$/);
+ assert.match(szl['blockly-PAGE_UP_KEY'],/w gōra$/);
+ assert.notEqual(szl['blockly-HOME_KEY'],szl['blockly-END_KEY']);
+ assert.notEqual(szl['blockly-SHIFT_KEY'],szl['blockly-CAPS_LOCK_KEY']);
+ for(const name of ['Alt','Backspace','Command','Control','Option','Enter','Shift'])
+  assert.ok(szl[`blockly-${name.toUpperCase()}_KEY`].includes(name));
+ // Product names and standard mathematical notation remain unchanged.
+ for(const name of ['CHROME_OS','LINUX','MAC_OS','WINDOWS','MATH_ADDITION_SYMBOL_ARIA','MATH_SUBTRACTION_SYMBOL_ARIA','MATH_TRIG_ACOS','MATH_TRIG_ASIN','MATH_TRIG_ATAN','MATH_TRIG_COS','MATH_TRIG_SIN','MATH_TRIG_TAN'])
+  assert.equal(szl[`blockly-${name}`],english[`blockly-${name}`]);
+});
