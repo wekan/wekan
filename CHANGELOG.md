@@ -5344,6 +5344,19 @@ The broader translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c12b4dbf5c">Translate continuous backup into Klingon</a>. Thanks to xet7.</summary>
+
+Fill 35 English placeholders, translate the English prose in two older backup
+descriptions and correct the backup label. Preserve other translations, source
+key order, exact placeholders and literal paths. Extend restore safeguard, pause,
+time-unit, vocabulary and description regression checks. Four focused catalog
+suites and all 21 human-preference checks pass. Technical Klingon wording is low
+confidence and needs fluent-speaker review. Eleven locales still have English
+continuous-backup strings, and the broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
