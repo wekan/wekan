@@ -6346,6 +6346,16 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0e2d604a20">Translate Scrum job messages in nine European and Pacific locales</a>. Thanks to xet7.</summary>
+
+- Translate rollover progress, history undo/redo progress and retry instructions into Scottish Gaelic, Breton, Friulian, Venetian, Walloon, Samoan, Tongan, Fijian and Hawaiian.
+- Preserve existing translations and exact progress tokens; regression coverage now checks these messages in 193 locale variants.
+- Three focused suites, 21 human-preference checks and nine catalog preservation audits pass. Remaining locales and other translation gaps still need work.
+- Walloon, Tongan, Fijian and Hawaiian technical phrasing has lower confidence and welcomes native review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
