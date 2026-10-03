@@ -1808,7 +1808,7 @@ used.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.17 2026-10-03 WeKan ® release
 
 **In short:** Fixes **SamlSubjectBleed** by binding SAML accounts to their
 original identity; legacy accounts missing issuer information require
