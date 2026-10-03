@@ -385,7 +385,7 @@ held only issues \#4774 and \#4055, and both are closed now.
 Status checked on 2026-10-03. The later translation request resumed this work;
 the earlier pause above remains historical. Completed work is recorded in Upcoming.
 
-- The current `node releases/translations/fill-translations.mjs --missing` report counts **52,859 untranslated locale/string values in 70 languages**. It excludes **204 source keys deliberately left in English pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
+- The current `node releases/translations/fill-translations.mjs --missing` report counts **52,833 untranslated locale/string values in 70 languages**. It excludes **204 source keys deliberately left in English pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
 - Continue automatic-archiving and date-filter translations beyond the thirty-nine locales recorded in completed changelog entries, then the remaining feature families.
 - Fill English placeholders in every language, including minority and constructed languages. Audit mixed-language and wrong-language seed text, and review provisional wording with speakers when available. Preserve correct-language human translations, source key order, exact placeholders, technical identifiers and query examples. Use direct translation and dictionary research, not an external translation service.
 - Keep regression and human-preference checks passing. Passing tests does not establish translation completeness or fluency; rerun relevant checks for each batch and the broad suite before declaring all-language work complete.
@@ -2126,6 +2126,17 @@ used.
 - Fill 46 English placeholders for email failures, activity notification controls and rule email reports. Preserve existing translations and exact placeholder tokens.
 - Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks retain retry and cancellation limitations, preserved pending work and distinct delivery states.
 - Ladin technical wording is low confidence and needs speaker review. Remaining all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dd6b2923ab1742f88628ff1e8078f06c26c7790f">Translate Ladin Blockly keyboard and math labels</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Ladin.
+
+- Fill 26 English-equal keyboard and math labels, using existing localized math accessibility labels. Preserve operating-system brands and existing translations.
+- Eight relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact tokens, navigation direction, distinct operands and recognizable key names.
+- Ladin terminology is provisional and needs speaker review. Its four remaining reported entries are ChromeOS, Linux, macOS and Windows; older wording still requires language review. Remaining all-language work is tracked in TODO Later.
 
 </details>
 
