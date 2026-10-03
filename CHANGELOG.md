@@ -6656,6 +6656,16 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/474ecaab67">Translate import and reordering help into four more languages</a>. Thanks to xet7.</summary>
+
+- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Fijian, Tongan, Walloon and Waray.
+- Preserve existing translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions.
+- Ten relevant suites, 21 human-preference checks and all four preservation audits pass. These three messages now cover 201 locale variants; 33 variants and other catalog gaps remain.
+- Technical wording has low confidence and welcomes native review. Drag terminology was checked against the [Fijian dictionary](https://www.folksong.org.nz/isa_lei/Fijian-English_Dictionary.pdf) and [Walloon dictionary](https://dtw.walon.org/index.php?query=saetch%C3%AE).
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
