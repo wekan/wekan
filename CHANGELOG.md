@@ -6871,6 +6871,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cc886a04dbb597290e639ace504cc4382c9fd0a7">Translate Wolaytta import and reordering instructions</a>. Thanks to xet7.</summary>
+
+- Fill the three Taskwarrior, Focalboard and keyboard reordering messages in Wolaytta, bringing this family to 233 of 234 non-English locale variants; also replace two mixed-English card direction labels.
+- Preserve existing translations, source key order and exact placeholders; all eight relevant suites and 21 human-preference checks pass, including the explicit correction audit.
+- Wolaytta wording is low confidence and needs speaker review. Pull and direction vocabulary was checked in <a href="https://divinerevelations.info/documents/bible/all_html/wolaytta_language_of_ethiopia_portions_of_the_holy_bible/EZK39.htm">Wolaytta native text</a> and <a href="https://www.divinerevelations.info/documents/bible/All_HTML/wolaytta_bible/JOB22.htm">its up/down usage</a>.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
