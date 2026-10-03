@@ -4824,6 +4824,17 @@ human-preference checks pass. The broader translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2d15d8c586">Translate continuous backup into Tok Pisin</a>. Thanks to xet7.</summary>
+
+Fill 35 English placeholders and correct three mixed-language backup entries,
+restoring the literal attachment directory path. Preserve other translations,
+source order and exact tokens. Extend restore, time-unit and mixed-language checks.
+Four focused catalog suites and all 21 human-preference checks pass. The broader
+translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
