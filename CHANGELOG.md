@@ -4649,6 +4649,17 @@ translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5e038a35d0">Translate continuous backup into Xitsonga</a>. Thanks to xet7.</summary>
+
+Fill 35 English placeholders and replace three unusable backup entries,
+restoring literal archive paths. Xitsonga technical wording is low confidence
+and welcomes review. Extend restore, time-unit, placeholder and filler checks.
+Four focused catalog suites and all 21 human-preference checks pass. The broader
+translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
