@@ -6756,6 +6756,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5926f71ada9b0b74ce73982f922ea7c9c190756f">Translate Tigrinya import instructions and reordering help</a>. Thanks to xet7.</summary>
+
+- Fill three English placeholders while preserving existing translations, technical identifiers and source key order. These messages now cover 225 of 234 non-English locale variants; nine remain.
+- Extend import exclusions, keyboard directions and placeholder checks. All seven relevant suites, a preservation audit and 21 human-preference checks pass.
+- Low-confidence Tigrinya technical translations need native-speaker review. Vocabulary references include the <a href="https://eritreanrefugees.org/wp-content/uploads/2017/02/Tigrinya-EnglishDictionary-V1-6-2UseOnComputer.pdf">Tigrinya–English picture dictionary</a> for the pull action; directions follow the existing catalog.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
