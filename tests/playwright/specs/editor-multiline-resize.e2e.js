@@ -43,8 +43,11 @@ test('label names preserve multiple lines when saved and reopened', async ({ boa
   await pop.locator('.js-palette-color').first().click();
   await pop.locator('button.primary, button[type=submit]').first().click();
   await expect.poll(() => db.findOne('boards', { _id: board.boardId }).labels.some(l => l.name === 'First line\nSecond line')).toBe(true);
-  await bp.clickCard(board.listIds[0], 'Alpha Card');
-  await cp.waitForOpen();
+  // Create goes back to the Labels popup and the card stays open, so clicking
+  // its minicard again would close it. Close the popup and reopen the editor.
+  await expect(pop.locator('li.js-card-label-item').filter({ hasText: 'First line' })).toHaveCount(1);
+  await page.evaluate(() => Popup.close());
+  await expect(pop).toHaveCount(0);
   await cp.openLabelSelector();
   await pop.locator('li.js-card-label-item').filter({ hasText: 'First line' }).locator('.js-edit-label').click();
   await expect(pop.locator('textarea.js-label-name')).toHaveValue('First line\nSecond line');
