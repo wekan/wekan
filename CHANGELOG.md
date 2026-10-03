@@ -1810,6 +1810,66 @@ used.
 
 # Upcoming WeKan ® release
 
+This release fixes the following CRITICAL SECURITY ISSUE:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c0c6aa5414fd9fa28cef07ea89908670c424e2e9">Bind SAML accounts to their original identity</a>. Thanks to alham-rizvi and xet7.</summary>
+
+[SamlSubjectBleed](https://wekan.fi/hall-of-fame/samlsubjectbleed/),
+GHSA-966m-4qgp-j8w4: a different SAML subject could take over an existing
+SAML account by claiming its username/email. Login now resolves the issuer and
+qualified NameID first, persists the binding atomically, and refuses replacement
+regardless of the merge setting. Email is verified only with an explicit
+attestation; opt-in local linking also requires a verified matching local email.
+
+**Upgrade:** legacy accounts without issuer scope require independent owner
+verification and administrator repair. See the
+[SAML upgrade instructions](docs/Features/Login/SAML.md). Transient NameIDs are
+rejected. Conflicting subjects appear in Admin Panel → Problems; incomplete
+legacy bindings are refused without classifying normal upgrade logins as attacks.
+
+Eight SAML/canary suites pass, including actual signed assertions sharing an
+email but carrying different subjects, negative source checks and concurrent
+updates. Chromium, Firefox and WebKit each pass the SAML error-display and signed-login
+browser regressions. External production IdPs were not tested.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/48c1ad6086">Verify the native ZIP decompression report is already fixed</a>. Thanks to alham-rizvi and xet7.</summary>
+
+GHSA-rmcq-68x2-3g5j describes the native `wekan.json` decompression path fixed
+by [the ZipBombBleed patch](https://github.com/wekan/wekan/commit/e7ed71ee2ec90558abe775a48f17923e449a4d45),
+included in v12.15. Current code counts actual decompressed bytes and stops at
+256 MiB. Strengthened real-archive tests confirm a false size declaration cannot
+bypass the counter. All three ZIP regression checks pass. Chromium, Firefox and WebKit each
+reject a small upload that expands beyond the production limit, leave board
+cards unchanged, then accept a valid import in the same session.
+
+Oversized exports can be legitimate, so this refusal intentionally does not
+classify the user as an attacker in Admin Panel → Problems.
+
+</details>
+
+and improves browser testing:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9941680fae">Isolate Firefox app data for macOS browser tests</a>. Thanks to xet7.</summary>
+
+On macOS 27, Firefox could fail with `Could not find profile folder` because
+its shared app-data directory was protected despite a writable test profile.
+Both native probes and real Playwright launches now use separate repository-local
+`MOZ_APP_DATA` and `MOZ_LOCAL_APP_DATA` directories, cleaned at process exit.
+Explicit overrides remain respected; other browsers/platforms, `HOME` and
+browser sandboxes are unchanged. Three helper regressions and six existing
+Docker/config checks pass. All three focused security scenarios pass in Firefox
+on macOS 27.0.1; Chromium and WebKit also pass all three. The 230-suite translation
+audit for the existing Upcoming entries passes.
+
+</details>
+
+and updates the following translations:
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5dd2f9e9b6f040fdb78a89960befba6db37bb5bd">Translate archiving and date filters into Papiamento and Tok Pisin</a>. Thanks to xet7.</summary>
 
