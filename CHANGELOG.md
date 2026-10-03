@@ -5683,6 +5683,18 @@ backlog are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4e0970f6ba">Translate backup options into hiragana Japanese, Sindhi and Uyghur</a>. Thanks to xet7.</summary>
+
+Add eight encryption, cloud and restart options to each locale. Preserve existing
+translations, relative source key order and exact placeholders. Extend encryption
+and cloud coverage with hiragana and Arabic-script checks. Four focused suites,
+all 21 human-preference checks and three batch preservation audits pass. Sindhi
+and Uyghur technical terminology is low confidence and needs native-speaker review.
+Remaining locales and the broader translation backlog are unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
