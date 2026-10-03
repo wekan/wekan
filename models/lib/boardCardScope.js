@@ -60,8 +60,22 @@ function mayCopyFromBoard(board, userId, card) {
   return !!card && Array.isArray(card.assignees) && card.assignees.includes(userId);
 }
 
+// The subtasks a copy of a card carries along (AssignedBleed copy sibling,
+// 2026-10-03): only those the copier could read and copy themselves. A copy
+// took every subtask, so an assigned-only member copying a card assigned to
+// them got copies of its subtasks assigned to others, and of subtasks on
+// boards they cannot read at all. `boardOf(boardId)` returns a subtask's
+// board (or null); `canRead(userId, board)` is models/lib/boardVisibility.
+function copyableSubtasks(subtasks, userId, boardOf, canRead) {
+  return (subtasks || []).filter(subtask => {
+    const board = subtask && boardOf(subtask.boardId);
+    return !!board && canRead(userId, board) && mayCopyFromBoard(board, userId, subtask);
+  });
+}
+
 module.exports = {
   mayCopyFromBoard,
+  copyableSubtasks,
   boardScopeIds,
   boardCardScope,
   isAssignedOnlyMember,

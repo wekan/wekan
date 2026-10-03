@@ -1272,7 +1272,22 @@ Cards.helpers({
     // destination board alongside the copied parent.
     const { buildCopiedSubtaskFields } = require('./lib/subtaskCopy');
     // #3626: a subtask shared with another parent is copied too, under the copy.
-    const subtasks = copyOptions ? [] : await ReactiveCache.getCards(childrenSelector(oldId));
+    let subtasks = copyOptions ? [] : await ReactiveCache.getCards(childrenSelector(oldId));
+    if (Meteor.isServer && subtasks.length) {
+      // Only the subtasks the copier could read and copy themselves
+      // (models/lib/boardCardScope.js copyableSubtasks). A copy with no
+      // acting user (a server-internal copy) keeps them all, as before.
+      const { DDP } = require('meteor/ddp');
+      const { currentReportRequest } = require('/server/lib/requestReportContext');
+      const actor = DDP._CurrentMethodInvocation.get()?.userId || currentReportRequest()?.userId;
+      if (actor) {
+        const { copyableSubtasks } = require('./lib/boardCardScope');
+        const { canReadBoard } = require('./lib/boardVisibility');
+        const boards = new Map();
+        for (const id of new Set(subtasks.map(subtask => subtask.boardId))) boards.set(id, await ReactiveCache.getBoard(id));
+        subtasks = copyableSubtasks(subtasks, actor, id => boards.get(id), canReadBoard);
+      }
+    }
     for (const subtask of subtasks) {
       const copySubtask = buildCopiedSubtaskFields(subtask, {
         newParentId: _id,

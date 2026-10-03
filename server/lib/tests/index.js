@@ -122,5 +122,6 @@ import './listSyncGitlabEstimate.tests';
 import './scrumScopeHistory.tests';
 import './scrumSnapshotRows.tests';
 import './continuousBackup.tests';
+import './copySubtaskScope.tests';
 import './scrumMovedReferences.tests';
 import './editableCardIds.tests';

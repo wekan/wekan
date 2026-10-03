@@ -28,7 +28,7 @@ const { EJSON } = require('bson');
 const { assertRuleEmailSourceBinding } = require('/server/lib/ruleEmailSource');
 const { canonical, sha256 } = require('/models/lib/changeHistoryIntegrity');
 const { memberCan } = require('/models/lib/boardRoleCapabilities');
-const { isAssignedOnlyMember } = require('/models/lib/boardCardScope');
+const { isAssignedOnlyMember, copyableSubtasks } = require('/models/lib/boardCardScope');
 const { validateSyncEffectPolicy, assertSyncEffectPolicy, syncEffectPolicy } = require('/server/lib/syncEffectPolicy');
 const { prepareRulePlan, ensureRulePlan } = require('/server/lib/syncRulePlan');
 const { dispatchRuleEmail } = require('/server/lib/syncRuleEmailDispatch');
@@ -1035,7 +1035,12 @@ async function captureRuleCopyCard({ plan, action, commandContext, commands }) {
   const itemsOf = ids => (ids.length
     ? ChecklistItems.rawCollection().find({ checklistId: { $in: ids } }, { sort: { sort: 1, _id: 1 } }).toArray() : []);
   const checklists = await checklistsOf(plan.cardId);
-  const subtaskSources = await raw.find(childrenSelector(plan.cardId), { sort: { sort: 1, _id: 1 } }).toArray();
+  // Only the subtasks the rule's actor could read and copy themselves, as an
+  // ordinary copy takes (models/lib/boardCardScope.js copyableSubtasks).
+  const children = await raw.find(childrenSelector(plan.cardId), { sort: { sort: 1, _id: 1 } }).toArray();
+  const subtaskBoards = new Map();
+  for (const id of new Set(children.map(child => child.boardId))) subtaskBoards.set(id, await Boards.findOneAsync(id));
+  const subtaskSources = copyableSubtasks(children, plan.actorId, id => subtaskBoards.get(id), canReadBoard);
   const subtaskChecklists = [];
   for (const subtask of subtaskSources) subtaskChecklists.push(...await checklistsOf(subtask._id));
   const comments = await CardComments.rawCollection().find({ cardId: plan.cardId }, { sort: { createdAt: 1, _id: 1 } }).toArray();
