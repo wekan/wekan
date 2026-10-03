@@ -5,7 +5,6 @@ const path = require('node:path');
 const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const en = read('en');
-const locale = read('lld');
 const keys = [
   "sync-conflict-heading",
   "sync-conflict-hint",
@@ -71,6 +70,8 @@ const keys = [
   "sync-remaining-time",
   "sync-time-estimate-hint"
 ];
+for (const code of ['lld', 'hsb']) {
+const locale = read(code);
 assert.deepEqual(Object.keys(locale), Object.keys(en));
 for (const key of keys) {
   assert.ok(locale[key]?.trim(), key);
@@ -78,6 +79,7 @@ for (const key of keys) {
   assert.deepEqual(translationTokens(locale[key]), translationTokens(en[key]), `${key}: exact placeholders`);
   assert.deepEqual(locale[key].match(/\d+/g), en[key].match(/\d+/g), `${key}: numeric limits`);
 }
+if (code === 'lld') {
 // Preserve the one-way sync boundary and limited effect of detaching a duplicate.
 assert.match(locale['sync-conflict-hint'], /ne vën nia mané al sistem de urigin/);
 assert.match(locale['sync-conflict-detach-hint'], /demé l colegamënt.*contegn resta te WeKan/);
@@ -91,4 +93,19 @@ for (const key of ['sync-estimate-field-hint', 'sync-time-estimate-hint']) {
 }
 assert.notEqual(locale['sync-report-failed'], locale['sync-report-completed']);
 assert.notEqual(locale['sync-preview-create'], locale['sync-preview-archive']);
-console.log('Ladin Sync translations: 63 messages passed');
+} else {
+ assert.match(locale['sync-conflict-hint'], /Ničo so do žórłoweho systema njepósćele/);
+ assert.match(locale['sync-conflict-detach-hint'], /jenož přirjadowanje.*wobsah we WeKan wostanje/);
+ assert.match(locale['sync-conflict-archive-hint'], /Podkartki so njezměnja/);
+ assert.match(locale['sync-conflict-review-complete'], /cyłeje lisćiny njeje so wuwjedła/);
+ assert.match(locale['sync-report-partial'], /njepokročuja ani njewróća/);
+ assert.match(locale['sync-source-scope'], /hódnoty so njepokazuja/);
+ for (const key of ['sync-estimate-field-hint', 'sync-time-estimate-hint']) {
+  assert.match(locale[key], /hódnoty so ignoruja/);
+  assert.match(locale[key], /eksplicitne null.*wotstroni/);
+ }
+ assert.notEqual(locale['sync-report-failed'], locale['sync-report-completed']);
+ assert.notEqual(locale['sync-preview-create'], locale['sync-preview-archive']);
+}
+}
+console.log('Ladin and Upper Sorbian Sync translations: 63 messages each passed');
