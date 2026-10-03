@@ -1346,8 +1346,10 @@ copy boundary audit for the nontransactional limit.
 Assigned-only source/descendant handling was reviewed on 2026-10-03: a copy
 carried subtasks the copier could not read, fixed in Upcoming (AssignedBleed);
 the card exporters already refuse assigned-only members, and rule email
-details check every subtask. Client-side template copy writes, legacy direct
-Rules writes and concurrent permission changes remain to be reviewed. Board-copy property merging was the same fault on boards and is fixed
+details check every subtask. Client-side template copy writes were reviewed
+the same day: they go through the Cards insert rules, which now also refuse
+another board's list or swimlane (Upcoming, BoardBleed). Legacy direct Rules
+writes and concurrent permission changes remain to be reviewed. Board-copy property merging was the same fault on boards and is fixed
 in Upcoming. The markdown viewer's form-field allowance was not exploitable: the
 second sanitizer stripped every input, including task-list checkboxes, which
 now render disabled.
@@ -1785,7 +1787,9 @@ View. Scrum sprints have **no card limit**, boards import and export
 **another board** too, webhooks can opt into **act-editCard**, and
 translations cover more languages.
 
-This release fixes the following CRITICAL SECURITY ISSUE of [AssignedBleed](https://wekan.fi/hall-of-fame/assignedbleed/):
+This release fixes the following CRITICAL SECURITY ISSUES:
+
+**Board access** - what a copy carries along, and what a new card may name.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5fad29a254">A card copy carries only the subtasks the copier may copy</a>. Thanks to xet7.</summary>
@@ -1798,6 +1802,20 @@ subtasks the copier could read and copy themselves. Not recorded in Admin Panel
 → Problems: copying a card with subtasks is ordinary use. Tests: the decision,
 a scan that every place copying subtasks filters them, and a server test
 through copyCard that showed the leak without the fix.
+[AssignedBleed](https://wekan.fi/hall-of-fame/assignedbleed/).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6d3b27aeb6">A card insert may not name another board's list or swimlane</a>. Thanks to xet7.</summary>
+
+A DDP insert on a board the caller may write to could name the list and
+swimlane of another, private board; the card stayed home, but its creation
+activity carried their titles, so a member could read another board's list
+names by id. Such an insert is refused, as the server's own copies already
+refused that destination, and the attempt is recorded under BoardBleed in
+Admin Panel → Problems. Found reviewing the client-side template copies, which
+use the same insert rules. [BoardBleed](https://wekan.fi/hall-of-fame/boardbleed/).
 
 </details>
 
