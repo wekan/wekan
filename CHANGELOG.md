@@ -6747,6 +6747,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0e34f2c45b3d27630957309efb68b43e40c5bddd">Translate import instructions and reordering help into Ewe and Fulah</a>. Thanks to xet7.</summary>
+
+- Fill six English placeholders while preserving existing translations, technical identifiers and source key order. These three messages now cover 224 of 234 non-English locale variants; 10 remain.
+- Extend import exclusions, keyboard directions and placeholder checks. All eight relevant suites, two preservation audits and 21 human-preference checks pass.
+- Low-confidence technical translations in both languages need native-speaker review. Vocabulary references include <a href="https://philtypo3.uni-koeln.de/sites/inst_afrika/pdf/BASIC_EWE_2nd_ed.pdf">Basic Ewe</a> and the <a href="https://www.scribd.com/document/854004347/PEERAL-5-Fulfulde-English-Dictionary">Fulfulde–English dictionary</a>.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
