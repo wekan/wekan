@@ -4913,6 +4913,18 @@ backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f289cab5a1">Translate continuous backup into Friulian and Venetian</a>. Thanks to xet7.</summary>
+
+Fill 70 English placeholders, correct three Italian-seeded Friulian strings and
+restore literal paths in both catalogs. Preserve other existing translations,
+source order and exact tokens. Extend restore protection, pause, time-unit and
+language checks. Four focused catalog suites and all 21 human-preference checks
+pass. Technical wording in both languages is low confidence and needs
+native-speaker review. The broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
