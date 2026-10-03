@@ -5296,6 +5296,18 @@ The broader translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cd4c36d766">Translate continuous backup into Sakha</a>. Thanks to xet7.</summary>
+
+Fill 35 English placeholders and correct three misleading backup entries.
+Preserve other translations, source order, exact tokens and literal paths. Extend
+vocabulary, script, restore protection, pause and time-unit checks. Four focused
+catalog suites and all 21 human-preference checks pass. Technical Sakha wording
+is low confidence and needs native-speaker review. The broader translation backlog
+remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
