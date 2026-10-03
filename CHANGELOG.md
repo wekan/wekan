@@ -5357,6 +5357,19 @@ continuous-backup strings, and the broader translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d236618682">Translate continuous backup and mixed-language entries into Veps</a>. Thanks to xet7.</summary>
+
+Fill 35 English backup placeholders and replace 15 Venda, Zulu or mixed-language
+timeline, role-status and error entries with Veps. Preserve other Veps translations,
+source key order and exact placeholders. Extend restore safeguard, pause, time-unit,
+vocabulary and wrong-language regression checks. All 453 translation-related suites
+and all 21 human-preference checks pass. Technical Veps wording is low confidence
+and needs native-speaker review. Ten locales still have English continuous-backup
+strings, and the broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
