@@ -5083,6 +5083,18 @@ backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b42e466ec4">Translate continuous backup into Luganda</a>. Thanks to xet7.</summary>
+
+Fill 35 English placeholders and correct two mixed-English backup descriptions,
+restoring literal paths. Preserve other translations, source order and exact
+tokens. Extend restore protection, pause, time-unit and language checks. Four
+focused catalog suites and all 21 human-preference checks pass. Continuous-backup
+coverage now includes 200 locale tags. Technical wording is low confidence and
+needs native-speaker review. The broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
