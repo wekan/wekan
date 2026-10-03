@@ -5589,6 +5589,17 @@ backlog are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c938c61621">Translate new backup options into Hausa</a>. Thanks to xet7.</summary>
+
+Add eight restart, encryption and cloud translations. Preserve existing values,
+relative source key order and exact placeholders. Extend encryption and cloud
+regression coverage. All batch audits, four focused suites and all 21
+human-preference checks pass. Technical Hausa wording is low confidence and needs
+native-speaker review. Remaining locales and the broader translation backlog are unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
