@@ -45,6 +45,7 @@ codes.push('ss', 'nd');
 codes.push('om', 'wo');
 codes.push('qu', 'ay');
 codes.push('lg', 've');
+codes.push('uz-AR');
 const keys = ['continuous-backup-encrypt', 'continuous-backup-key-file'];
 for (const code of codes) {
   const locale = read(code);
@@ -57,7 +58,7 @@ for (const code of codes) {
       assert.match(locale[key], /\p{Script=Hiragana}/u, `${code}:${key}: hiragana prose`);
       assert.doesNotMatch(locale[key], /[\p{Script=Han}\p{Script=Katakana}]/u, `${code}:${key}: no kanji or katakana`);
     }
-    if (code === 'sd' || code === 'ug') {
+    if (code === 'sd' || code === 'ug' || code === 'uz-AR') {
       assert.match(locale[key], /\p{Script=Arabic}/u, `${code}:${key}: Arabic script`);
     }
   }
