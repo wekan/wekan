@@ -6432,6 +6432,16 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0be17d77ff">Complete Tigre and Wolaytta continuous backup translations</a>. Thanks to xet7.</summary>
+
+- Translate the remaining 35 continuous backup messages in each locale, including database engines, intervals, status, restore points and restore instructions.
+- Preserve existing translations, technical identifiers and exact source tokens. All 43 backup messages now have regression coverage in 231 locale variants, including restore safety wording and time units.
+- All 59 relevant suites, 21 human-preference checks and both catalog preservation audits pass. Cherokee, Inuktitut and Standard Moroccan Tamazight still need the original backup messages; other catalog gaps also remain.
+- Technical wording in Tigre and Wolaytta has low confidence and welcomes native review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
