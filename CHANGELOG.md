@@ -6596,6 +6596,16 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f10e977d81">Translate import and reordering guidance in six additional regional locales</a>. Thanks to xet7.</summary>
+
+- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Japanese hiragana, Cantonese, Wu Chinese, Moroccan Arabic, Bhojpuri and Maithili.
+- Preserve existing translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions. Check that the Japanese hiragana messages contain no kanji.
+- Nine relevant suites, 21 human-preference checks and all six preservation audits pass. These three messages now cover 169 locale variants; 65 variants and other catalog gaps remain.
+- Regional technical phrasing has low confidence and welcomes native review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
