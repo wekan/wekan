@@ -5,20 +5,18 @@ const path = require('node:path');
 const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const en = read('en');
-const codes = ["fi", "sv", "da", "nb", "de", "fr", "es", "pt", "pt-BR", "it", "nl", "pl", "cs", "sk", "sl", "hr", "ro", "hu", "bg", "uk", "ru", "de-AT", "de-CH", "de_DE", "fr-BE", "fr-CA", "fr-CH", "fr-FR", "es-AR", "es-CL", "es-CO", "es-LA", "es-MX", "es-PE", "es-PY", "es_CO", "pt-PT", "pt_PT", "nl-NL", "vl-SS", "pl-PL", "cs-CZ", "sl_SI", "ro-RO", "uk-UA", "ru_RU", "ru-UA", "ru-RU"];
-codes.push(...["lv", "lt", "et-EE", "el", "ja", "ko", "zh-Hans", "zh-Hant", "id", "ms", "vi", "ar", "he", "fa", "ur", "hi", "bn", "ca", "gl", "eu", "af", "sw", "bs", "sr", "mk", "is", "eo", "sq", "th", "tl", "be", "az", "ka", "hy", "tr", "el-GR", "ja-JP", "ko-KR", "cmn", "zh", "zh-CN", "zh-GB", "zh_SG", "zh-TW", "zh-HK", "ms-MY", "vi-VN", "ar-DZ", "ar-EG", "he-IL", "fa-IR", "hi-IN", "ca_ES", "ca@valencia", "gl-ES", "af_ZA", "az-AZ", "az-LA"]);
-codes.push(...["uz", "kk", "ky", "mn", "tg", "tk_TM", "tt", "ba", "uz-UZ", "uz-LA"]);
-codes.push(...["ne", "mr", "ta", "te-IN", "gu-IN", "kn", "ml", "pa", "si", "as", "or_IN", "sd"]);
-codes.push(...["ga", "cy", "lb", "mt", "fo", "fy", "rm", "la", "cy-GB", "fy-NL"]);
-codes.push(...["my", "km", "jv", "ht", "oc", "ast-ES", "an", "yi", "ku", "ckb", "ps", "km_KH", "km-KH"]);
-codes.push(...["am", "so", "ha", "yo", "ig", "mg", "sn", "zu", "xh", "ny", "st", "tn", "zu-ZA"]);
-codes.push(...["co", "sc", "scn", "nap", "pap", "tpi", "bi", "mi", "yue_CN", "ja-HI"]);
-codes.push(...["ug", "uz-AR", "ary", "bho", "mai", "rw", "rn", "szl", "csb", "hsb"]);
-codes.push(...["gd", "br", "fur", "ve-CC", "wa", "sm", "to", "fj", "haw"]);
-codes.push(...["om", "kok", "ace", "ts", "nd", "ss", "lg", "wa-RR", "nso", "wuu-Hans"]);
-codes.push(...["ti", "bo", "dz", "ks", "cv", "bua", "sah", "ve", "gn", "qu"]);
-codes.push(...["ak", "ee", "wo", "bm", "ff", "ay", "rup", "lld", "gv", "kw"]);
-codes.push(...["tlh", "vo", "se", "ve-PP", "nah", "kl"]);
+// Discover every catalog so newly registered languages cannot escape this check.
+const codes = fs.readdirSync(path.join(__dirname, '../imports/i18n/data'))
+  .filter(file => file.endsWith('.i18n.json'))
+  .map(file => file.slice(0, -'.i18n.json'.length))
+  .filter(code => !/^en(?:[-_]|$)/.test(code));
+assert.ok(codes.length > 0, 'locale catalogs must be present');
+const scripts = {
+  chr: /\p{Script=Cherokee}/u,
+  iu: /\p{Script=Canadian_Aboriginal}/u,
+  tig: /\p{Script=Ethiopic}/u,
+  zgh: /\p{Script=Tifinagh}/u,
+};
 const keys = ['scrum-rollover-progress', 'scrum-history-job-running', 'scrum-history-job-failed'];
 for (const code of codes) {
   const locale = read(code);
@@ -26,6 +24,11 @@ for (const code of codes) {
   for (const key of keys) {
     assert.ok(locale[key]?.trim(), `${code}:${key}: missing translation`);
     assert.notEqual(locale[key], en[key], `${code}:${key}: English placeholder`);
+    if (scripts[code]) {
+      const prose = locale[key].replace(/__[A-Za-z0-9_]+__/g, '');
+      assert.ok(scripts[code].test(prose), `${code}:${key}: declared locale script`);
+      assert.ok(!/[A-Za-z]/.test(prose), `${code}:${key}: no English prose or romanization`);
+    }
     assert.deepEqual(translationTokens(locale[key]), translationTokens(en[key]), `${code}:${key}: exact source tokens`);
   }
   assert.notEqual(locale[keys[0]], locale[keys[1]], `${code}: card rollover and history progress must differ`);
