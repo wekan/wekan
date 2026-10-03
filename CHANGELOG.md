@@ -6711,6 +6711,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/18fa84e06f6b9add958ee4b494af6ba650dbb7f1">Translate import instructions and reordering help into Tibetan and Dzongkha</a>. Thanks to xet7.</summary>
+
+- Fill six English placeholders while preserving existing translations, technical identifiers and source key order. These three messages now cover 219 of 234 non-English locale variants; 15 remain.
+- Extend import exclusions, keyboard directions and placeholder checks. All eight relevant suites, two preservation audits and 21 human-preference checks pass.
+- Low-confidence technical translations in both languages need native-speaker review. Vocabulary references include the <a href="https://github.com/tibetan-nlp/lexicon-of-tibetan-verb-stems/blob/master/cg3-lemmas.txt">Tibetan verb lexicon</a> and <a href="https://download-mirror.savannah.gnu.org/releases/dzongkha-gnome/dzongkha_computer_terms.pdf">Dzongkha computer terminology</a>.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
