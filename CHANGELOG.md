@@ -4179,6 +4179,16 @@ database file, time units and Georgian script. Four focused catalog suites and a
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/721ab166af">Translate continuous backup into Armenian</a>. Thanks to xet7.</summary>
+
+Fill 35 English placeholders while preserving existing translations, source order
+and exact tokens. Extend checks for restore boundaries, protection of the live
+database file, time units and Armenian script. Four focused catalog suites and all
+21 human-preference checks pass. Other languages and the broader backlog remain.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
