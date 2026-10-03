@@ -4628,6 +4628,17 @@ translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e4309b7830">Translate continuous backup into Setswana</a>. Thanks to xet7.</summary>
+
+Fill 35 English placeholders and correct two mixed-language backup descriptions,
+restoring literal archive paths. Preserve other existing translations, source
+order and exact tokens. Extend restore, pause, time-unit and mixed-language
+checks. Four focused catalog suites and all 21 human-preference checks pass.
+The broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
