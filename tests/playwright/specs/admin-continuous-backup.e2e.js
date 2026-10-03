@@ -67,11 +67,56 @@ test.describe('Admin Panel continuous backup', () => {
     }
   });
 
+  test('encryption takes a key file, a short key is refused, and an unconfigured upload is reported', async ({ page, adminUser }) => {
+    test.setTimeout(120000);
+    await loginWithToken(page, adminUser.id, adminUser.token);
+    await navigateInApp(page, '/admin/attachments/continuous-backup');
+    await expect(page.locator('.js-cb-target')).toBeVisible();
+    const config = await page.evaluate(() => Meteor.callAsync('continuousBackup.getSettings'));
+    const suffix = db.uniqueSuffix().replace(/[^a-zA-Z0-9]/g, '');
+    const target = `${config.defaults.target}-e2e-enc-${suffix}`;
+    const keyDir = require('node:path').join(require('node:path').resolve(__dirname, '../../..'), '.tools', 'tmp', `e2e-key-${suffix}`);
+    fs.mkdirSync(keyDir, { recursive: true });
+    const keyFile = `${keyDir}/backup.key`;
+    try {
+      await page.locator('.js-cb-target').fill(target);
+      await page.locator('.js-cb-enabled').click();
+      await page.locator('.js-cb-database').click();
+      await page.locator('.js-cb-logs').click();
+      await page.locator('.js-cb-encrypt').click();
+      await page.locator('.js-cb-encryptionKeyFile').fill(keyFile);
+      // NEGATIVE: a key too short to be one is refused, and nothing is saved.
+      fs.writeFileSync(keyFile, 'short');
+      await page.locator('.js-cb-save').click();
+      await expect(page.locator('.js-cb-message.text-danger')).toContainText('at least 16 characters');
+      expect(db.findOne('continuousBackupSettings', { _id: 'settings' })).toBeFalsy();
+      fs.writeFileSync(keyFile, 'an administrator passphrase for e2e');
+      await page.locator('.js-cb-upload').selectOption('gcs');
+      await page.locator('.js-cb-save').click();
+      await expect(page.locator('.js-cb-message.text-success')).toContainText(en['continuous-backup-saved']);
+      const saved = db.findOne('continuousBackupSettings', { _id: 'settings' });
+      expect([saved.encrypt, saved.encryptionKeyFile, saved.upload]).toEqual([true, keyFile, 'gcs']);
+      const stream = JSON.parse(fs.readFileSync(`${target}/stream.json`, 'utf8'));
+      expect(stream.encryption.salt).toMatch(/^[a-f0-9]{32}$/);
+      expect(JSON.stringify(stream)).not.toContain('passphrase');
+      // GCS is not configured on the test server: the stream runs and says so.
+      await expect(page.locator('#attachment-continuous-backup-setting')).toContainText('gcs storage is not configured', { timeout: 15000 });
+      await page.locator('.js-cb-fetch').click();
+      await expect(page.locator('.js-cb-message.text-danger')).toContainText('not configured');
+    } finally {
+      await page.evaluate(settings => Meteor.callAsync('continuousBackup.saveSettings', settings).catch(() => {}),
+        { enabled: false, target }).catch(() => {});
+      db.deleteMany('continuousBackupSettings', {});
+      fs.rmSync(target, { recursive: true, force: true });
+      fs.rmSync(keyDir, { recursive: true, force: true });
+    }
+  });
+
   test('ordinary members see no continuous backup and cannot call it', async ({ page, user }) => {
     await loginWithToken(page, user.id, user.token);
     const results = await page.evaluate(async () => {
       const requests = [['continuousBackup.getSettings'], ['continuousBackup.saveSettings', { enabled: true, target: '/tmp/x' }],
-        ['continuousBackup.status'], ['continuousBackup.restorePoints'],
+        ['continuousBackup.status'], ['continuousBackup.restorePoints'], ['continuousBackup.fetchFromCloud'],
         ['continuousBackup.restore', { generation: 'x', until: 1, what: 'files', mode: 'replace-all' }]];
       const result = [];
       for (const [method, ...args] of requests) {
@@ -80,7 +125,7 @@ test.describe('Admin Panel continuous backup', () => {
       }
       return result;
     });
-    expect(results).toEqual(Array(5).fill('not-authorized'));
+    expect(results).toEqual(Array(6).fill('not-authorized'));
     await navigateInApp(page, '/admin/attachments/continuous-backup');
     await expect(page.locator('#attachment-continuous-backup-setting')).toHaveCount(0);
   });

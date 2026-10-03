@@ -236,3 +236,88 @@ test('Litestream supervisor: configuration, no shell, restarts when it exits, st
   await engine.stop();
   assert.equal(engine.status().running, false);
 });
+
+test('encrypted stream: no plaintext at rest, restores with the key, refused without it', { timeout: 120000 }, async t => {
+  const root = tmpRoot();
+  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+  const MARK = 'PLAINTEXT-MARKER-6f1c';
+  const target = path.join(root, 'target');
+  const { cipher } = await store.openStream(target, 'an administrator passphrase');
+  const generation = await store.createGeneration(target, { encrypted: true });
+  // Files and logs.
+  const live = path.join(root, 'live');
+  const sources = [{ area: 'attachments', key: 'attachments', path: path.join(live, 'attachments') }];
+  fs.mkdirSync(sources[0].path, { recursive: true });
+  fs.writeFileSync(path.join(sources[0].path, 'secret.txt'), `${MARK} attachment`);
+  let state = {};
+  const files = await new FileEngine({ sources, target, generation, cipher, watch: false, onError: error => { throw error; },
+    onState: async s => { state = s; await store.writeState(target, { files: s }, cipher); } }).start();
+  await files.stop();
+  // SQLite pages.
+  if (nodeSqlite()) {
+    const sqlite = nodeSqlite();
+    fs.mkdirSync(path.join(root, 'db'));
+    const file = path.join(root, 'db', 'wekan.sqlite');
+    const db = new sqlite.DatabaseSync(file);
+    db.exec(`PRAGMA journal_mode=WAL; CREATE TABLE t (v TEXT); INSERT INTO t VALUES ('${MARK} row')`);
+    const engine = await new SqliteEngine({ files: [file], target, generation, cipher, intervalMs: 3600000, onError: error => { throw error; } }).start();
+    db.exec(`INSERT INTO t VALUES ('${MARK} later')`);
+    await engine.run(); await engine.stop(); db.close();
+    const out = path.join(root, 'restored.sqlite');
+    await restoreSqlite({ target, name: generation.name, database: 'wekan', until: Date.now(), out, quickCheck, cipher });
+    const check = new sqlite.DatabaseSync(out, { readOnly: true });
+    assert.equal(check.prepare('SELECT count(*) AS n FROM t').get().n, 2);
+    check.close();
+    fs.rmSync(out);
+  }
+  // Nothing in the target is readable without the key.
+  const all = [];
+  const walkAll = dir => { for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+    const p = path.join(dir, e.name); if (e.isDirectory()) walkAll(p); else all.push(p); } };
+  walkAll(target);
+  for (const file of all) assert.equal(fs.readFileSync(file).includes(MARK), false, `${path.relative(target, file)} holds plaintext`);
+  assert.equal(all.some(f => f.includes(require('node:crypto').createHash('sha256').update(`${MARK} attachment`).digest('hex'))), false,
+    'no blob is named by the content hash');
+
+  const roots = { 'attachments\0attachments': { path: path.join(root, 'restored-attachments'), file: false } };
+  const restored = await restoreFiles({ target, name: generation.name, until: Date.now(), roots, mode: 'replace-all', cipher });
+  assert.equal(restored.written, 1);
+  assert.equal(fs.readFileSync(path.join(root, 'restored-attachments', 'secret.txt'), 'utf8'), `${MARK} attachment`);
+  assert.deepEqual(fs.readdirSync(path.join(target, 'restore')), [], 'the decrypted staging is removed');
+  // NEGATIVE: without the key, with a wrong key, or with a changed blob.
+  const elsewhere = { 'attachments\0attachments': { path: path.join(root, 'nowhere'), file: false } };
+  await assert.rejects(restoreFiles({ target, name: generation.name, until: Date.now(), roots: elsewhere, mode: 'replace-all' }), /key is needed/);
+  await assert.rejects(store.openStream(target, 'not the passphrase at all'), /not the key of this backup/);
+  const blob = all.find(f => f.includes(`${path.sep}blobs${path.sep}`) && !f.includes('.incoming'));
+  const bytes = fs.readFileSync(blob); bytes[bytes.length - 3] ^= 1; fs.writeFileSync(blob, bytes);
+  await assert.rejects(restoreFiles({ target, name: generation.name, until: Date.now(), roots: elsewhere, mode: 'replace-all', cipher }), /missing or changed/);
+  assert.equal(fs.existsSync(path.join(root, 'nowhere')), false);
+});
+
+test('encrypted oplog stream: the base and records are sealed and restore with the key', { skip: !uri, timeout: 120000 }, async t => {
+  const { MongoClient, BSON, ObjectId } = require('mongodb');
+  const { ZipArchive } = await import('archiver');
+  const tools = require('../../server/lib/fullBackup').createBackupTools(BSON.EJSON);
+  const root = tmpRoot();
+  const client = new MongoClient(uri); await client.connect();
+  const token = new ObjectId().toHexString();
+  const dbName = `cb_enc_${token}`, source = client.db(dbName), restored = client.db(`cb_enc_restore_${token}`);
+  t.after(async () => { await source.dropDatabase(); await restored.dropDatabase(); await client.close(); fs.rmSync(root, { recursive: true, force: true }); });
+  await source.collection('cards').insertOne({ _id: 'a', title: 'BASE-SECRET-91' });
+  const { target, cipher } = await store.openStream(path.join(root, 'target'), 'b'.repeat(64));
+  const generation = await store.createGeneration(target, { engine: 'oplog', encrypted: true });
+  const engine = await new OplogEngine({ client, dbName, target, generation, cipher, EJSON: BSON.EJSON, Timestamp: BSON.Timestamp,
+    ZipArchive, appendInstanceBackup: tools.appendInstanceBackup, sealMs: 200, onError: error => { throw error; } }).start(null);
+  await source.collection('cards').insertOne({ _id: 'b', title: 'RECORD-SECRET-92' });
+  await sleep(1500); await engine.stop();
+  for (const file of [path.join(generation.dir, 'base.zip'), path.join(generation.dir, 'db', '000000000001.ndjson')]) {
+    const data = fs.readFileSync(file);
+    assert.equal(data.includes('BASE-SECRET-91') || data.includes('RECORD-SECRET-92'), false, file);
+  }
+  await restoreDatabase({ target, name: generation.name, until: Date.now(), db: restored, filesRoot: path.join(root, 'files'),
+    mode: 'replace-all', EJSON: BSON.EJSON, ...tools, cipher });
+  assert.deepEqual((await restored.collection('cards').find({}).sort({ _id: 1 }).toArray()).map(d => d.title), ['BASE-SECRET-91', 'RECORD-SECRET-92']);
+  assert.deepEqual(fs.readdirSync(path.join(target, 'restore')), [], 'the decrypted base is removed');
+  await assert.rejects(restoreDatabase({ target, name: generation.name, until: Date.now(), db: restored, filesRoot: root,
+    mode: 'replace-all', EJSON: BSON.EJSON, ...tools }), /key is needed/);
+});

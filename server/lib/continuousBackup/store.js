@@ -11,6 +11,7 @@ const crypto = require('node:crypto');
 const { pipeline } = require('node:stream/promises');
 const { FORMAT, VERSION, segmentName, indexLine, parseIndex, sha256, generationName, GENERATION_NAME } =
   require('../../../models/lib/continuousBackup');
+const { deriveKey, keyCheck, newEncryptionHeader, cipherFor, PLAIN, MAGIC } = require('./encryption');
 
 async function fsyncPath(file) {
   const handle = await fsp.open(file, 'r');
@@ -38,26 +39,63 @@ async function realDirectory(dir) {
   return dir;
 }
 
-async function openTarget(target) {
+// Open the target and say how its files are stored. `secret` is the
+// content of the administrator's key file, or null. A stream that has a key
+// is never opened without it, and a wrong key is refused by the check value
+// before anything is decrypted. A key given to a stream that had none starts
+// encrypting from its next generation; earlier ones stay as they were.
+async function openStream(target, secret = null) {
   await realDirectory(target);
   const file = path.join(target, 'stream.json');
+  let stream;
   try {
-    const stream = JSON.parse(await fsp.readFile(file, 'utf8'));
+    stream = JSON.parse(await fsp.readFile(file, 'utf8'));
     if (stream.format !== FORMAT || stream.version !== VERSION) throw new Error('The target holds another kind of backup');
   } catch (error) {
     if (error.code !== 'ENOENT') throw error;
-    await writeAtomic(file, JSON.stringify({ format: FORMAT, version: VERSION, created: Date.now() }));
+    stream = { format: FORMAT, version: VERSION, created: Date.now() };
+    await writeAtomic(file, JSON.stringify(stream));
+  }
+  let cipher = PLAIN;
+  if (secret !== null && secret !== undefined) {
+    if (!stream.encryption) {
+      stream.encryption = newEncryptionHeader();
+      stream.encryption.check = keyCheck(deriveKey(secret, stream.encryption.salt));
+      await writeAtomic(file, JSON.stringify(stream));
+    }
+    const key = deriveKey(secret, stream.encryption.salt);
+    if (keyCheck(key) !== stream.encryption.check) {
+      const error = new Error('The encryption key is not the key of this backup'); error.code = 'continuous-backup-key'; throw error;
+    }
+    cipher = cipherFor(key);
   }
   await realDirectory(path.join(target, 'generations'));
   await realDirectory(path.join(target, 'blobs'));
-  return target;
+  return { target, cipher, encryptedStream: !!stream.encryption };
+}
+async function openTarget(target) { return (await openStream(target)).target; }
+
+// The cipher a generation was written with: the stream's when it is
+// encrypted, none otherwise. An encrypted generation needs the key.
+function generationCipher(generation, cipher) {
+  if (!generation.encrypted) return PLAIN;
+  if (!cipher?.encrypted) { const error = new Error('This generation is encrypted; its key is needed'); error.code = 'continuous-backup-key'; throw error; }
+  return cipher;
 }
 
-async function readState(target) {
-  try { return JSON.parse(await fsp.readFile(path.join(target, 'state.json'), 'utf8')); }
+async function readState(target, cipher = PLAIN) {
+  let data;
+  try { data = await fsp.readFile(path.join(target, 'state.json')); }
   catch (error) { if (error.code === 'ENOENT') return {}; throw error; }
+  if (data.subarray(0, MAGIC.length).equals(MAGIC)) {
+    // A state written under a key cannot be read without it: start afresh
+    // rather than guess, which begins a new generation.
+    if (!cipher.encrypted) return {};
+    data = cipher.decrypt(data);
+  }
+  return JSON.parse(data.toString('utf8'));
 }
-const writeState = (target, state) => writeAtomic(path.join(target, 'state.json'), JSON.stringify(state));
+const writeState = (target, state, cipher = PLAIN) => writeAtomic(path.join(target, 'state.json'), cipher.encrypt(Buffer.from(JSON.stringify(state))));
 
 async function createGeneration(target, meta) {
   const name = generationName(new Date(), crypto.randomBytes(6).toString('hex'));
@@ -95,7 +133,7 @@ async function listGenerations(target) {
 // whole, flushed, renamed and only then listed, so a reader sees complete
 // segments only. `times` gives each record's time in milliseconds.
 class SegmentLog {
-  constructor(dir, extension = 'ndjson') { this.dir = dir; this.extension = extension; this.pending = []; this.next = null; }
+  constructor(dir, extension = 'ndjson', cipher = PLAIN) { this.dir = dir; this.extension = extension; this.cipher = cipher; this.pending = []; this.next = null; }
   async open() {
     await realDirectory(this.dir);
     for (const name of await fsp.readdir(this.dir)) if (name.endsWith('.partial')) await fsp.rm(path.join(this.dir, name), { force: true });
@@ -118,7 +156,10 @@ class SegmentLog {
   }
   // Seal one binary segment (a page delta) seen at `time`.
   async writeBinary(data, time, count) { return this.write(data, time, time, count); }
-  async write(data, first, last, count) {
+  // The index checksums the bytes as stored, so a changed byte is found
+  // before anything is decrypted.
+  async write(plain, first, last, count) {
+    const data = this.cipher.encrypt(plain);
     const seq = this.next;
     const file = `${segmentName(seq)}.${this.extension}`;
     await writeAtomic(path.join(this.dir, file), data);
@@ -130,17 +171,18 @@ class SegmentLog {
 
 // File contents, once, under their SHA-256. Returns the hash and size of what
 // was read; a file that changed while it was read is stored as read.
-async function putBlob(target, source) {
+async function putBlob(target, source, cipher = PLAIN) {
   const temp = path.join(target, 'blobs', `.incoming-${crypto.randomBytes(8).toString('hex')}`);
   const hash = crypto.createHash('sha256');
   let size = 0;
   const input = fs.createReadStream(source, { flags: fs.constants.O_RDONLY | (fs.constants.O_NOFOLLOW || 0) });
   input.on('data', chunk => { hash.update(chunk); size += chunk.length; });
   try {
-    await pipeline(input, fs.createWriteStream(temp, { mode: 0o600 }));
+    await pipeline(input, ...(cipher.encrypted ? [cipher.encryptStream()] : []), fs.createWriteStream(temp, { mode: 0o600 }));
     const digest = hash.digest('hex');
-    const dir = await realDirectory(path.join(target, 'blobs', digest.slice(0, 2)));
-    const file = path.join(dir, digest);
+    const name = cipher.blobName(digest);
+    const dir = await realDirectory(path.join(target, 'blobs', name.slice(0, 2)));
+    const file = path.join(dir, name);
     if (fs.existsSync(file)) await fsp.rm(temp, { force: true });
     else { await fsyncPath(temp); await fsp.rename(temp, file); }
     return { sha256: digest, size };
@@ -149,10 +191,11 @@ async function putBlob(target, source) {
     throw error;
   }
 }
-const blobPath = (target, digest) => {
+const blobPath = (target, digest, cipher = PLAIN) => {
   if (!/^[a-f0-9]{64}$/.test(digest)) throw new Error('Invalid blob');
-  return path.join(target, 'blobs', digest.slice(0, 2), digest);
+  const name = cipher.blobName(digest);
+  return path.join(target, 'blobs', name.slice(0, 2), name);
 };
 
-module.exports = { openTarget, readState, writeState, createGeneration, readGeneration, updateGeneration,
+module.exports = { openTarget, openStream, generationCipher, readState, writeState, createGeneration, readGeneration, updateGeneration,
   listGenerations, generationDir, SegmentLog, putBlob, blobPath, writeAtomic, realDirectory };

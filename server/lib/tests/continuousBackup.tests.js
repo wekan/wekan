@@ -17,7 +17,7 @@ describe('Continuous backup methods', function () {
     return DDP._CurrentMethodInvocation.withValue(context, () => Meteor.server.method_handlers[name].apply(context, args));
   };
   const methods = [['continuousBackup.getSettings'], ['continuousBackup.saveSettings', {}], ['continuousBackup.status'],
-    ['continuousBackup.restorePoints'], ['continuousBackup.restore', { generation: 'x', until: 1, what: 'files', mode: 'add-missing' }]];
+    ['continuousBackup.restorePoints'], ['continuousBackup.fetchFromCloud'], ['continuousBackup.restore', { generation: 'x', until: 1, what: 'files', mode: 'add-missing' }]];
 
   it('refuses everyone but a site administrator', async function () {
     if (!Meteor.isAppTest) this.skip();

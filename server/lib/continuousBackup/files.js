@@ -11,6 +11,7 @@ const fs = require('node:fs');
 const fsp = require('node:fs/promises');
 const path = require('node:path');
 const { SegmentLog, putBlob } = require('./store');
+const { PLAIN } = require('./encryption');
 
 // Every regular file under `root` (or `root` itself, when it is a file), as
 // { relative: stat }. Relative paths always use '/'. The configured root is
@@ -45,8 +46,8 @@ const sourceFile = (source, relative) => (source.file ? source.path : path.join(
 class FileEngine {
   // `sources`: [{ area, key, path, file }] - `key` names the source within
   // its area ('attachments', 'logs', 'recovery-events.jsonl', ...).
-  constructor({ sources, target, generation, scanMs = 300000, sealMs = 2000, state = {}, onError = () => {}, onState = async () => {}, watch = true }) {
-    Object.assign(this, { sources, target, generation, scanMs, sealMs, onError, onState, watchEnabled: watch });
+  constructor({ sources, target, generation, scanMs = 300000, sealMs = 2000, state = {}, onError = () => {}, onState = async () => {}, watch = true, cipher = PLAIN }) {
+    Object.assign(this, { sources, target, generation, scanMs, sealMs, onError, onState, watchEnabled: watch, cipher });
     this.known = new Map(Object.entries(state.known || {}));
     this.stats = { puts: 0, deletes: 0, bytes: 0, lastChangeAt: null, lastScanAt: null };
     this.watchers = [];
@@ -55,7 +56,7 @@ class FileEngine {
   static entryKey(source, relative) { return `${source.area}\0${source.key}\0${relative}`; }
 
   async start() {
-    this.log = await new SegmentLog(path.join(this.generation.dir, 'files')).open();
+    this.log = await new SegmentLog(path.join(this.generation.dir, 'files'), 'ndjson', this.cipher).open();
     await this.scan();
     this.scanTimer = setInterval(() => { this.scan().catch(this.onError); }, this.scanMs);
     this.sealTimer = setInterval(() => { this.flushDirty().catch(this.onError); }, this.sealMs);
@@ -141,7 +142,7 @@ class FileEngine {
     }
     if (before && before.size === stat.size && before.mtimeMs === stat.mtimeMs) return;
     let blob;
-    try { blob = await putBlob(this.target, sourceFile(source, relative)); }
+    try { blob = await putBlob(this.target, sourceFile(source, relative), this.cipher); }
     catch (error) {
       // Gone, or became a link, between the listing and the read: the next
       // scan sees what it is now.

@@ -13,22 +13,35 @@ const crypto = require('node:crypto');
 const { pipeline } = require('node:stream/promises');
 const { parseIndex, segmentsUntil, sha256, applyDelta } = require('../../../models/lib/continuousBackup');
 const { safeEntryPath, symlinkOnRestorePath, safeCollectionName } = require('../../../models/lib/backupPaths');
-const { readGeneration, blobPath } = require('./store');
+const { readGeneration, blobPath, generationCipher } = require('./store');
+const { PLAIN } = require('./encryption');
 
 function refuse(message) { const error = new Error(message); error.code = 'continuous-backup-restore-refused'; throw error; }
+// The generation and the cipher its files were written with; an encrypted
+// one without its key, or with a wrong one, is refused before any read.
+async function openGeneration(target, name, cipher) {
+  const generation = await readGeneration(target, name);
+  try { return { generation, cipher: generationCipher(generation, cipher) }; }
+  catch (error) { refuse(error.message); }
+}
+// A stored file as plain bytes: a changed byte or a wrong key is refused.
+function plain(cipher, data) {
+  try { return cipher.decrypt(data); } catch (error) { refuse(error.message); }
+}
 
 async function readIndex(dir) {
   try { return parseIndex(await fsp.readFile(path.join(dir, 'index.ndjson'), 'utf8')); }
   catch (error) { if (error.code === 'ENOENT') return []; if (error.code === 'continuous-backup-invalid') refuse(error.message); throw error; }
 }
-// The listed segments up to `until`, each read and checked.
-async function verifiedSegments(dir, until) {
+// The listed segments up to `until`, each read, checked as stored, and
+// decrypted when the generation is encrypted.
+async function verifiedSegments(dir, until, cipher = PLAIN) {
   const result = [];
   for (const entry of segmentsUntil(await readIndex(dir), until)) {
     let data;
     try { data = await fsp.readFile(path.join(dir, entry.file)); } catch (error) { refuse(`Segment ${entry.file} is missing`); }
     if (data.length !== entry.bytes || sha256(data) !== entry.sha256) refuse(`Segment ${entry.file} has changed`);
-    result.push({ entry, data });
+    result.push({ entry, data: plain(cipher, data) });
   }
   return result;
 }
@@ -62,16 +75,17 @@ async function restorePoints(target, name) {
     if (entries.length) ranges.push([entries[0].first, entries[entries.length - 1].last]);
   }
   return { name, started: generation.started, engine: generation.engine || null, base: generation.base || null,
+    encrypted: !!generation.encrypted,
     from: generation.started, until: Math.max(generation.started, ...ranges.map(range => range[1])), sqlite };
 }
 
 // The database as it was at `until`: the base archive, then every record up
 // to then. add-missing never overwrites nor deletes; replace-all replays all.
-async function restoreDatabase({ target, name, until, db, filesRoot, mode, EJSON, inspectInstanceBackup, restoreInstanceBackup }) {
+async function restoreDatabase({ target, name, until, db, filesRoot, mode, EJSON, inspectInstanceBackup, restoreInstanceBackup, cipher: streamCipher = PLAIN }) {
   if (!['add-missing', 'replace-all'].includes(mode)) refuse('Invalid restore mode');
-  const generation = await readGeneration(target, name);
+  const { generation, cipher } = await openGeneration(target, name, streamCipher);
   if (generation.base !== 'complete') refuse('This generation has no complete base');
-  const segments = await verifiedSegments(path.join(generation.dir, 'db'), until);
+  const segments = await verifiedSegments(path.join(generation.dir, 'db'), until, cipher);
   // Parse everything before writing anything.
   const replay = [...records(segments, until)].map(record => {
     if (!['put', 'del', 'drop', 'dropDatabase'].includes(record.op)) refuse('Unknown database record');
@@ -79,8 +93,20 @@ async function restoreDatabase({ target, name, until, db, filesRoot, mode, EJSON
     return { ...record, d: record.d && EJSON.deserialize(record.d, { relaxed: false }),
       id: record.id !== undefined ? EJSON.deserialize({ v: record.id }, { relaxed: false }).v : undefined };
   });
-  const inspected = await inspectInstanceBackup(path.join(generation.dir, 'base.zip'));
-  await restoreInstanceBackup({ inspected, db, filesRoot, mode });
+  // An encrypted base is decrypted beside the stream for as long as the
+  // restore reads it; GCM refuses it whole if one byte changed.
+  let base = path.join(generation.dir, 'base.zip'), clear = null;
+  if (cipher.encrypted) {
+    await fsp.mkdir(path.join(target, 'restore'), { recursive: true, mode: 0o700 });
+    clear = path.join(target, 'restore', `.base-${crypto.randomUUID()}.zip`);
+    try { await cipher.decryptFile(base, clear); } catch (error) { refuse(error.message); }
+    base = clear;
+  }
+  let inspected;
+  try {
+    inspected = await inspectInstanceBackup(base);
+    await restoreInstanceBackup({ inspected, db, filesRoot, mode });
+  } finally { if (clear) await fsp.rm(clear, { force: true }); }
   let applied = 0;
   for (const record of replay) {
     if (record.op === 'put') {
@@ -104,10 +130,10 @@ async function restoreDatabase({ target, name, until, db, filesRoot, mode, EJSON
 // The files as they were at `until`, written back to `roots`
 // ({ '<area>\0<source>': { path, file } }). add-missing writes only files that
 // do not exist; replace-all also overwrites, and removes files created since.
-async function restoreFiles({ target, name, until, roots, mode }) {
+async function restoreFiles({ target, name, until, roots, mode, cipher: streamCipher = PLAIN }) {
   if (!['add-missing', 'replace-all'].includes(mode)) refuse('Invalid restore mode');
-  const generation = await readGeneration(target, name);
-  const segments = await verifiedSegments(path.join(generation.dir, 'files'), until);
+  const { generation, cipher } = await openGeneration(target, name, streamCipher);
+  const segments = await verifiedSegments(path.join(generation.dir, 'files'), until, cipher);
   const state = new Map();
   for (const record of records(segments, until)) {
     const key = `${record.area}\0${record.source}`;
@@ -123,53 +149,68 @@ async function restoreFiles({ target, name, until, roots, mode }) {
     return [key, { ...root, path: root.file ? path.join(real, path.basename(root.path)) : real }];
   }));
   const plan = [];
-  for (const [id, record] of state) {
-    const root = resolved[`${record.area}\0${record.source}`];
-    const parts = record.path.split('/');
-    if (parts.some(part => !part || part === '.' || part === '..') || record.path.includes('\\') || record.path.includes('\0')) refuse('Unsafe file path');
-    const dest = root.file ? root.path : safeEntryPath(root.path, parts);
-    if (!dest) refuse('Unsafe file path');
-    if (symlinkOnRestorePath(root.file ? path.dirname(root.path) : root.path, dest)) refuse('A restore path goes through a symbolic link');
-    const blob = blobPath(target, record.sha256);
-    if (!fs.existsSync(blob) || await blobDigest(blob) !== record.sha256) refuse(`File contents ${record.sha256} are missing or changed`);
-    plan.push({ id, dest, blob, record });
-  }
-  let written = 0, removed = 0;
-  for (const { dest, blob, record } of plan) {
-    if (mode === 'add-missing' && fs.existsSync(dest)) continue;
-    await fsp.mkdir(path.dirname(dest), { recursive: true });
-    const temp = `${dest}.restore-${crypto.randomUUID()}`;
-    try {
-      await pipeline(fs.createReadStream(blob), fs.createWriteStream(temp, { flags: 'wx', mode: 0o600 }));
-      await fsp.rename(temp, dest);
-      const time = new Date(record.mtimeMs);
-      await fsp.utimes(dest, time, time).catch(() => {});
-    } finally { await fsp.rm(temp, { force: true }); }
-    written += 1;
-  }
-  if (mode === 'replace-all') {
-    const { walk } = require('./files');
-    const wanted = new Set(plan.map(item => item.dest));
-    for (const root of Object.values(resolved)) {
-      if (root.file) { if (!wanted.has(root.path) && fs.existsSync(root.path)) { await fsp.rm(root.path); removed += 1; } continue; }
-      for (const [relative] of await walk(root.path)) {
-        const file = path.join(root.path, ...relative.split('/'));
-        if (!wanted.has(file)) { await fsp.rm(file); removed += 1; }
+  // Encrypted contents are decrypted into a staging directory and checked
+  // there, all of them before the first write.
+  const staging = cipher.encrypted ? path.join(target, 'restore', `.files-${crypto.randomUUID()}`) : null;
+  if (staging) await fsp.mkdir(staging, { recursive: true, mode: 0o700 });
+  try {
+    for (const [id, record] of state) {
+      const root = resolved[`${record.area}\0${record.source}`];
+      const parts = record.path.split('/');
+      if (parts.some(part => !part || part === '.' || part === '..') || record.path.includes('\\') || record.path.includes('\0')) refuse('Unsafe file path');
+      const dest = root.file ? root.path : safeEntryPath(root.path, parts);
+      if (!dest) refuse('Unsafe file path');
+      if (symlinkOnRestorePath(root.file ? path.dirname(root.path) : root.path, dest)) refuse('A restore path goes through a symbolic link');
+      const stored = blobPath(target, record.sha256, cipher);
+      if (!fs.existsSync(stored)) refuse(`File contents ${record.sha256} are missing or changed`);
+      let blob = stored;
+      if (staging) {
+        blob = path.join(staging, record.sha256);
+        if (!fs.existsSync(blob)) {
+          try { await cipher.decryptFile(stored, blob); } catch (error) { refuse(`File contents ${record.sha256} are missing or changed`); }
+        }
+      }
+      if (await blobDigest(blob) !== record.sha256) refuse(`File contents ${record.sha256} are missing or changed`);
+      plan.push({ id, dest, blob, record });
+    }
+    let written = 0, removed = 0;
+    for (const { dest, blob, record } of plan) {
+      if (mode === 'add-missing' && fs.existsSync(dest)) continue;
+      await fsp.mkdir(path.dirname(dest), { recursive: true });
+      const temp = `${dest}.restore-${crypto.randomUUID()}`;
+      try {
+        await pipeline(fs.createReadStream(blob), fs.createWriteStream(temp, { flags: 'wx', mode: 0o600 }));
+        await fsp.rename(temp, dest);
+        const time = new Date(record.mtimeMs);
+        await fsp.utimes(dest, time, time).catch(() => {});
+      } finally { await fsp.rm(temp, { force: true }); }
+      written += 1;
+    }
+    if (mode === 'replace-all') {
+      const { walk } = require('./files');
+      const wanted = new Set(plan.map(item => item.dest));
+      for (const root of Object.values(resolved)) {
+        if (root.file) { if (!wanted.has(root.path) && fs.existsSync(root.path)) { await fsp.rm(root.path); removed += 1; } continue; }
+        for (const [relative] of await walk(root.path)) {
+          const file = path.join(root.path, ...relative.split('/'));
+          if (!wanted.has(file)) { await fsp.rm(file); removed += 1; }
+        }
       }
     }
-  }
-  return { files: plan.length, written, removed };
+    return { files: plan.length, written, removed };
+  } finally { if (staging) await fsp.rm(staging, { recursive: true, force: true }); }
 }
 
 // A SQLite file as it was at `until`, built at `out` and checked. FerretDB
 // holds the live file open, so this never writes over it.
-async function restoreSqlite({ target, name, database, until, out, quickCheck }) {
+async function restoreSqlite({ target, name, database, until, out, quickCheck, cipher: streamCipher = PLAIN }) {
   if (!/^[A-Za-z0-9_-]+$/.test(database)) refuse('Invalid database name');
-  const generation = await readGeneration(target, name);
+  const { generation, cipher } = await openGeneration(target, name, streamCipher);
   const dir = path.join(generation.dir, 'sqlite', database);
   let image;
   try { image = await fsp.readFile(path.join(dir, 'base.sqlite')); } catch (error) { refuse('This generation has no SQLite base'); }
-  for (const { data } of await verifiedSegments(dir, until)) image = applyDelta(image, data);
+  image = plain(cipher, image);
+  for (const { data } of await verifiedSegments(dir, until, cipher)) image = applyDelta(image, data);
   if (fs.existsSync(out)) refuse('The restore file already exists');
   await fsp.mkdir(path.dirname(out), { recursive: true });
   await fsp.writeFile(out, image, { flag: 'wx', mode: 0o600 });
@@ -178,4 +219,31 @@ async function restoreSqlite({ target, name, database, until, out, quickCheck })
   return { file: out, bytes: image.length };
 }
 
-module.exports = { restorePoints, restoreDatabase, restoreFiles, restoreSqlite, verifiedSegments };
+// Put a rebuilt, checked wekan.sqlite where the startup scripts look for a
+// continuous-backup restore, and ask for it with their RESTORE_REQUESTED
+// marker (mode "continuous"): the next restart, before FerretDB opens its
+// files, keeps the live database in continuous-restore/replaced and copies
+// this one in (releases/ferretdb/wekan-entrypoint.sh, start-wekan.sh,
+// snap-src/bin/ferretdb-control). Only wekan.sqlite: the scripts restore no
+// other database. A pending request of any kind is never overwritten.
+async function stageSqliteRestore({ file, database, sqliteDir }) {
+  if (database !== 'wekan') refuse('Only the wekan database can be restored on restart');
+  if (!sqliteDir || !path.isAbsolute(sqliteDir) || !fs.existsSync(sqliteDir)) refuse('The SQLite directory of this server is unknown');
+  const marker = path.join(sqliteDir, 'RESTORE_REQUESTED');
+  if (fs.existsSync(marker)) refuse('A restore is already requested for the next restart');
+  const dir = path.join(sqliteDir, 'continuous-restore');
+  await fsp.mkdir(dir, { recursive: true, mode: 0o700 });
+  if ((await fsp.lstat(dir)).isSymbolicLink()) refuse('The staging directory is a symbolic link');
+  const staged = path.join(dir, 'wekan.sqlite');
+  const temp = `${staged}.partial-${crypto.randomUUID()}`;
+  try {
+    await fsp.copyFile(file, temp);
+    const handle = await fsp.open(temp, 'r');
+    try { await handle.sync(); } finally { await handle.close(); }
+    await fsp.rename(temp, staged);
+  } finally { await fsp.rm(temp, { force: true }); }
+  await fsp.writeFile(marker, 'continuous\n', { flag: 'wx', mode: 0o600 });
+  return { staged, marker };
+}
+
+module.exports = { restorePoints, restoreDatabase, restoreFiles, restoreSqlite, stageSqliteRestore, verifiedSegments };

@@ -180,11 +180,23 @@ if [ -n "${_restore_mode}" ] && [ -n "${SQLITE_DIR}" ]; then
     case "${_restore_mode}" in
         backup) [ -f "${_rbk}/wekan.sqlite" ] && _rsrc="${_rbk}" ;;
         prev)   [ -f "${_rbk}/prev/wekan.sqlite" ] && _rsrc="${_rbk}/prev" ;;
+        # Admin Panel / Attachments / Continuous backup stages a rebuilt
+        # database here (server/continuousBackup.js), never over the live one.
+        continuous) [ -f "${SQLITE_DIR}/continuous-restore/wekan.sqlite" ] && _rsrc="${SQLITE_DIR}/continuous-restore" ;;
     esac
     _ts="$(date -u +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || echo '')"
     # Mark recovery in progress so the WeKan server shows a maintenance spinner until it
     # confirms the database is healthy again (the server clears this marker).
     printf 'recovery %s\n' "${_restore_mode}" > "${SQLITE_DIR}/RECOVERY_IN_PROGRESS" 2>/dev/null || true
+    # A continuous-backup restore replaces the live database the
+    # administrator chose to roll back: keep that one first, at rest
+    # with its WAL, beside the staged copy. Never removed here.
+    if [ "$_restore_mode" = "continuous" ] && [ -n "$_rsrc" ] && [ -f "${SQLITE_DIR}/wekan.sqlite" ]; then
+      mkdir -p "${SQLITE_DIR}/continuous-restore/replaced" 2>/dev/null
+      if ! cp -f "${SQLITE_DIR}"/wekan.sqlite* "${SQLITE_DIR}/continuous-restore/replaced/" 2>/dev/null; then
+        _rsrc=""
+      fi
+    fi
     if [ -n "${_rsrc}" ]; then
         if cp -f "${_rsrc}"/wekan.sqlite* "${SQLITE_DIR}/" 2>/dev/null; then
             rm -f "${SQLITE_DIR}/wekan.sqlite-wal" "${SQLITE_DIR}/wekan.sqlite-shm"

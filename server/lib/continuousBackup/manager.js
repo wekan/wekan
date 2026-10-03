@@ -14,6 +14,8 @@ const { OplogEngine } = require('./oplog');
 const { SqliteEngine, sqliteFiles } = require('./sqlite');
 const { FileEngine } = require('./files');
 const { LitestreamEngine } = require('./litestream');
+const { readKeyFile, PLAIN } = require('./encryption');
+const { CloudMirror } = require('./cloud');
 
 const ROTATE_CHECK_MS = 10 * 60 * 1000;
 
@@ -68,10 +70,18 @@ class ContinuousBackupManager {
   apply(settings) { return this.serial(async () => { await this.stopEngines(); if (settings.enabled) await this.startEngines(settings); }); }
   stop() { return this.serial(() => this.stopEngines()); }
 
+  // The stream's cipher for these settings: its key read from the key file
+  // when encryption is on (the restore needs it too).
+  async openStream(settings) {
+    const secret = settings.encrypt ? await readKeyFile(settings.encryptionKeyFile) : null;
+    return store.openStream(settings.target, secret);
+  }
+
   async startEngines(settings) {
     this.settings = settings;
-    const target = await store.openTarget(settings.target);
-    this.state = await store.readState(target);
+    const { target, cipher } = await this.openStream(settings);
+    this.cipher = cipher;
+    this.state = await store.readState(target, cipher);
     const available = await this.availability(settings);
     const chosen = settings.database ? chooseEngine(settings.engine, available) : { engine: null, reasons: {} };
     this.choice = chosen;
@@ -81,10 +91,10 @@ class ContinuousBackupManager {
     const saveState = changes => this.saveState(changes);
     const dbEngine = chosen.engine;
     if (dbEngine === 'oplog') {
-      this.engines.db = await new OplogEngine({ ...this.deps, target, generation, onError: e => this.error('oplog', e),
+      this.engines.db = await new OplogEngine({ ...this.deps, target, generation, cipher, onError: e => this.error('oplog', e),
         onPosition: position => saveState({ oplog: position }) }).start(this.state.generation === generation.name ? this.state.oplog : null);
     } else if (dbEngine === 'sqlite') {
-      this.engines.db = await new SqliteEngine({ files: available.sqliteFiles, target, generation, intervalMs: settings.sqliteIntervalSeconds * 1000,
+      this.engines.db = await new SqliteEngine({ files: available.sqliteFiles, target, generation, cipher, intervalMs: settings.sqliteIntervalSeconds * 1000,
         state: this.state.generation === generation.name ? this.state.sqlite || {} : {},
         onError: e => this.error('sqlite', e), onState: sqlite => saveState({ sqlite }) }).start();
     } else if (dbEngine === 'litestream') {
@@ -93,9 +103,18 @@ class ContinuousBackupManager {
     }
     const sources = backupSources({ ...this.deps, settings });
     if (sources.length) {
-      this.engines.files = await new FileEngine({ sources, target, generation, scanMs: settings.fileScanSeconds * 1000,
+      this.engines.files = await new FileEngine({ sources, target, generation, cipher, scanMs: settings.fileScanSeconds * 1000,
         state: this.state.generation === generation.name ? this.state.files || {} : {},
         onError: e => this.error('files', e), onState: files => saveState({ files }) }).start();
+    }
+    // Last, so it stops last: what the engines sealed is uploaded.
+    if (settings.upload && settings.upload !== 'none') {
+      const remote = this.deps.cloudRemote?.(settings.upload);
+      if (!remote) this.error('upload', new Error(`The ${settings.upload} storage is not configured in Admin Panel / Attachments`));
+      else {
+        this.engines.cloud = await new CloudMirror({ target, remote, prefix: settings.uploadPrefix,
+          onError: e => this.error('upload', e) }).start();
+      }
     }
     await store.updateGeneration(target, generation.name, { complete: true });
     await this.saveState({ generation: generation.name });
@@ -113,7 +132,7 @@ class ContinuousBackupManager {
       try {
         const generation = await store.readGeneration(target, name);
         const young = Date.now() - generation.started < settings.baseEveryHours * 3600000;
-        let continuable = young && (generation.engine || null) === engine;
+        let continuable = young && (generation.engine || null) === engine && !!generation.encrypted === this.cipher.encrypted;
         if (continuable && engine === 'oplog') {
           continuable = !!this.state.oplog && await new OplogEngine({ ...this.deps, target, generation }).stillAvailable(this.state.oplog);
           if (!continuable) this.error('oplog', new Error('The oplog no longer holds the saved position; a new generation starts'));
@@ -123,13 +142,13 @@ class ContinuousBackupManager {
       } catch (error) { if (error.code !== 'ENOENT') this.error('generation', error); }
     }
     this.state = {};
-    return store.createGeneration(target, { engine, database: this.deps.dbName });
+    return store.createGeneration(target, { engine, database: this.deps.dbName, encrypted: this.cipher.encrypted });
   }
 
   saveState(changes) {
     Object.assign(this.state, changes);
     this.stateWrite = (this.stateWrite || Promise.resolve()).catch(() => {})
-      .then(() => store.writeState(this.settings.target, this.state));
+      .then(() => store.writeState(this.settings.target, this.state, this.cipher || PLAIN));
     return this.stateWrite;
   }
 
@@ -167,20 +186,26 @@ class ContinuousBackupManager {
   }
 
   async pruneBlobs(target) {
+    // Blobs are named by their content hash, or by its HMAC under the key in
+    // an encrypted generation. A generation that cannot be read without a
+    // key that is not here keeps every blob.
     const used = new Set();
     for (const generation of await store.listGenerations(target)) {
+      let cipher;
+      try { cipher = store.generationCipher(generation, this.cipher); } catch (error) { return; }
       const dir = path.join(generation.dir, 'files');
       let names = [];
       try { names = await fs.promises.readdir(dir); } catch (error) { continue; }
       for (const name of names.filter(n => /^[0-9]{12}\.ndjson$/.test(n))) {
-        for (const line of (await fs.promises.readFile(path.join(dir, name), 'utf8')).split('\n')) {
-          if (line) { const record = JSON.parse(line); if (record.sha256) used.add(record.sha256); }
+        const data = cipher.decrypt(await fs.promises.readFile(path.join(dir, name)));
+        for (const line of data.toString('utf8').split('\n')) {
+          if (line) { const record = JSON.parse(line); if (record.sha256) used.add(cipher.blobName(record.sha256)); }
         }
       }
     }
     // The running file engine's known files are not all sealed in this
     // generation's segments yet: keep them too.
-    for (const entry of Object.values(this.state.files?.known || {})) used.add(entry.sha256);
+    for (const entry of Object.values(this.state.files?.known || {})) used.add(this.cipher.blobName(entry.sha256));
     const blobs = path.join(target, 'blobs');
     for (const prefix of await fs.promises.readdir(blobs)) {
       if (!/^[a-f0-9]{2}$/.test(prefix)) continue;

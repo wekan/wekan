@@ -149,7 +149,7 @@ test('the pane, its route and its server methods are wired, and only site admins
   const root = path.join(__dirname, '..');
   const read = file => fs.readFileSync(path.join(root, file), 'utf8');
   const server = read('server/continuousBackup.js');
-  for (const method of ['getSettings', 'saveSettings', 'status', 'restorePoints', 'restore']) {
+  for (const method of ['getSettings', 'saveSettings', 'status', 'restorePoints', 'fetchFromCloud', 'restore']) {
     const at = server.indexOf(`'continuousBackup.${method}'`);
     assert.ok(at > 0, method);
     const body = server.slice(at, server.indexOf('\n  },', at));

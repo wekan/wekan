@@ -624,6 +624,23 @@ template(name="attachments")
                       span.form-text.text-danger.js-cb-chosen {{_ 'continuous-backup-engine-none'}}
                     each cbReasons
                       span.form-text.text-muted {{engine}}: {{reason}}
+                  .form-group.checkbox-row
+                    a.flex.js-toggle-checkbox
+                      .materialCheckBox.js-cb-encrypt(class="{{#if cbChecked 'encrypt'}}is-checked{{/if}}")
+                      span {{_ 'continuous-backup-encrypt'}}
+                  .form-group
+                    label {{_ 'continuous-backup-key-file'}}
+                    input.wekan-form-control.js-cb-encryptionKeyFile(type="text" value=cbSettings.encryptionKeyFile placeholder="/etc/wekan/continuous-backup.key")
+                  .form-group
+                    label {{_ 'continuous-backup-upload'}}
+                    select.wekan-form-control.js-cb-upload
+                      option(value="none" selected="{{cbUploadSelected 'none'}}") {{_ 'continuous-backup-upload-none'}}
+                      option(value="s3" selected="{{cbUploadSelected 's3'}}") {{_ 's3-minio-storage'}}
+                      option(value="azure" selected="{{cbUploadSelected 'azure'}}") {{_ 'azure-blob-storage'}}
+                      option(value="gcs" selected="{{cbUploadSelected 'gcs'}}") {{_ 'gcs-storage'}}
+                  .form-group
+                    label {{_ 'continuous-backup-upload-prefix'}}
+                    input.wekan-form-control.js-cb-uploadPrefix(type="text" value=cbSettings.uploadPrefix)
                   if cbLitestream
                     .form-group
                       label {{_ 'continuous-backup-litestream-binary'}}
@@ -664,6 +681,7 @@ template(name="attachments")
                 h4 {{_ 'continuous-backup-restore-points'}}
                 .form-group
                   button.js-cb-points.btn.btn-secondary(type="button") {{_ 'backup-list'}}
+                  button.js-cb-fetch.btn.btn-secondary(type="button") {{_ 'continuous-backup-fetch'}}
                 if cbPoints
                   table.gridfs-stats-table
                     tr
@@ -687,6 +705,10 @@ template(name="attachments")
                       option(value="database") {{_ 'continuous-backup-database'}}
                       option(value="files") {{_ 'attachments'}} / {{_ 'avatars'}} / {{_ 'continuous-backup-logs'}}
                       option(value="sqlite") {{_ 'continuous-backup-restore-sqlite'}}
+                  .form-group.checkbox-row
+                    a.flex.js-toggle-checkbox
+                      .materialCheckBox.js-cb-apply(class="{{#if cbApplyOnRestart}}is-checked{{/if}}")
+                      span {{_ 'continuous-backup-apply-on-restart'}}
                   .form-group
                     label {{_ 'backup-restore-mode'}}
                     select.wekan-form-control.js-cb-mode

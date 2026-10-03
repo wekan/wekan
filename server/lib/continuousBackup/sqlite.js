@@ -11,6 +11,7 @@ const fsp = require('node:fs/promises');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const { SegmentLog, writeAtomic, realDirectory } = require('./store');
+const { PLAIN } = require('./encryption');
 const { sqlitePageSize, diffImage } = require('../../../models/lib/continuousBackup');
 
 function nodeSqlite() {
@@ -45,8 +46,8 @@ async function consistentImage(file, out) {
 }
 
 class SqliteEngine {
-  constructor({ files, target, generation, intervalMs = 60000, onError = () => {}, onState = async () => {}, state = {} }) {
-    Object.assign(this, { files, target, generation, intervalMs, onError, onState });
+  constructor({ files, target, generation, intervalMs = 60000, onError = () => {}, onState = async () => {}, state = {}, cipher = PLAIN }) {
+    Object.assign(this, { files, target, generation, intervalMs, onError, onState, cipher });
     this.hashes = state.hashes || {};
     this.stats = { deltas: 0, pages: 0, lastChangeAt: null, lastRunAt: null };
   }
@@ -57,7 +58,7 @@ class SqliteEngine {
     for (const file of this.files) {
       const name = path.basename(file, '.sqlite');
       const dir = await realDirectory(path.join(this.generation.dir, 'sqlite', name));
-      this.logs[name] = await new SegmentLog(dir, 'pages').open();
+      this.logs[name] = await new SegmentLog(dir, 'pages', this.cipher).open();
     }
     await this.run();
     this.timer = setInterval(() => { this.run().catch(this.onError); }, this.intervalMs);
@@ -85,7 +86,7 @@ class SqliteEngine {
       const base = path.join(dir, 'base.sqlite');
       if (!fs.existsSync(base)) {
         // The first image is the base; its hashes are the comparison point.
-        await writeAtomic(base, image);
+        await writeAtomic(base, this.cipher.encrypt(image));
         this.hashes[name] = diffImage([], image, pageSize).hashes;
         return;
       }

@@ -499,6 +499,8 @@ function continuousBackupForm(tpl) {
     baseEveryHours: number('baseEveryHours'), keepDays: number('keepDays'),
     litestreamBinary: String(tpl.$('.js-cb-litestreamBinary').val() || '').trim(),
     litestreamReplicaUrl: String(tpl.$('.js-cb-litestreamReplicaUrl').val() || '').trim(),
+    encrypt: checked('encrypt'), encryptionKeyFile: String(tpl.$('.js-cb-encryptionKeyFile').val() || '').trim(),
+    upload: tpl.$('.js-cb-upload').val() || 'none', uploadPrefix: String(tpl.$('.js-cb-uploadPrefix').val() || '').trim(),
   };
 }
 // A datetime-local value as milliseconds, in the browser's own time zone.
@@ -638,6 +640,9 @@ Template.attachments.helpers({
   },
   cbEngineSelected(engine) {
     return Template.instance().cbEngine.get() === engine;
+  },
+  cbUploadSelected(upload) {
+    return (Template.instance().cbConfig.get()?.settings?.upload || 'none') === upload;
   },
   cbLitestream() {
     return Template.instance().cbEngine.get() === 'litestream';
@@ -1131,6 +1136,14 @@ Template.attachments.events({
       else tpl.cbPoints.set(points || []);
     });
   },
+  'click .js-cb-fetch'(event, tpl) {
+    event.preventDefault();
+    tpl.cbMessage.set(null);
+    Meteor.call('continuousBackup.fetchFromCloud', (error, result) => {
+      if (error) tpl.cbMessage.set({ error: error.reason || error.message });
+      else tpl.cbMessage.set({ success: `${TAPi18n.__('continuous-backup-fetched')}: ${result.fetched}` });
+    });
+  },
   'change .js-cb-point'(event, tpl) {
     const until = $(event.currentTarget).data('until');
     if (until) tpl.$('.js-cb-until').val(until);
@@ -1144,7 +1157,8 @@ Template.attachments.events({
     const mode = tpl.$('.js-cb-mode').val();
     const point = (tpl.cbPoints.get() || []).find(p => p.name === generation);
     if (!Number.isFinite(until) || !window.confirm(TAPi18n.__('continuous-backup-restore-confirm'))) return;
-    const request = { generation, until, what, ...(what === 'sqlite' ? { database: (point?.sqlite || [])[0] || 'wekan' } : { mode }) };
+    const request = { generation, until, what, ...(what === 'sqlite' ? { database: (point?.sqlite || [])[0] || 'wekan',
+      applyOnRestart: tpl.$('.js-cb-apply').hasClass('is-checked') } : { mode }) };
     tpl.cbMessage.set(null);
     Meteor.call('continuousBackup.restore', request, (error, result) => {
       if (error) tpl.cbMessage.set({ error: error.reason || error.message });

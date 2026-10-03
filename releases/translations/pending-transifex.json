@@ -771,6 +771,38 @@
     {
       "key": "continuous-backup-saved",
       "since": "2026-10-02"
+    },
+    {
+      "key": "continuous-backup-apply-on-restart",
+      "since": "2026-10-03"
+    },
+    {
+      "key": "continuous-backup-encrypt",
+      "since": "2026-10-03"
+    },
+    {
+      "key": "continuous-backup-key-file",
+      "since": "2026-10-03"
+    },
+    {
+      "key": "continuous-backup-upload",
+      "since": "2026-10-03"
+    },
+    {
+      "key": "continuous-backup-upload-none",
+      "since": "2026-10-03"
+    },
+    {
+      "key": "continuous-backup-upload-prefix",
+      "since": "2026-10-03"
+    },
+    {
+      "key": "continuous-backup-fetch",
+      "since": "2026-10-03"
+    },
+    {
+      "key": "continuous-backup-fetched",
+      "since": "2026-10-03"
     }
   ]
 }

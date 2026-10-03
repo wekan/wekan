@@ -7,7 +7,9 @@
 // manager passes the driver's client, its EJSON and the ZIP writer.
 const fs = require('node:fs');
 const path = require('node:path');
+const { pipeline } = require('node:stream/promises');
 const { SegmentLog, writeAtomic, updateGeneration } = require('./store');
+const { PLAIN } = require('./encryption');
 const { oplogMillis } = require('../../../models/lib/continuousBackup');
 
 const escapeRegExp = text => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -17,8 +19,8 @@ class OplogEngine {
   // `Timestamp` and `EJSON` come from the BSON the driver itself uses: BSON
   // values of two versions do not mix. A position is saved as { t, i }.
   constructor({ client, dbName, target, generation, EJSON, Timestamp, ZipArchive, appendInstanceBackup, sealMs = 2000,
-    onError = () => {}, onPosition = async () => {} }) {
-    Object.assign(this, { client, dbName, target, generation, EJSON, Timestamp, ZipArchive, appendInstanceBackup, sealMs, onError, onPosition });
+    onError = () => {}, onPosition = async () => {}, cipher = PLAIN }) {
+    Object.assign(this, { client, dbName, target, generation, EJSON, Timestamp, ZipArchive, appendInstanceBackup, sealMs, onError, onPosition, cipher });
     this.db = client.db(dbName);
     this.oplog = client.db('local').collection('oplog.rs');
     this.stopped = false;
@@ -56,9 +58,9 @@ class OplogEngine {
     const partial = `${file}.partial`;
     const archive = new this.ZipArchive({ zlib: { level: 6 } });
     const out = fs.createWriteStream(partial, { flags: 'w', mode: 0o600 });
-    const done = new Promise((resolve, reject) => { out.on('close', resolve); out.on('error', reject); archive.on('error', reject); });
+    // Encrypted on its way to the file when the stream has a key.
+    const done = pipeline(archive, ...(this.cipher.encrypted ? [this.cipher.encryptStream()] : []), out);
     done.catch(() => {});
-    archive.pipe(out);
     // Database only: the file streams carry the bytes of filesystem files.
     await this.appendInstanceBackup({ archive, db: this.db, opts: { data: true, attachments: false, avatars: false },
       readFileVersion: async () => null });
@@ -72,7 +74,7 @@ class OplogEngine {
   }
 
   async start(position) {
-    this.log = await new SegmentLog(path.join(this.generation.dir, 'db')).open();
+    this.log = await new SegmentLog(path.join(this.generation.dir, 'db'), 'ndjson', this.cipher).open();
     this.position = position ? this.timestamp(position) : await this.writeBase();
     await this.onPosition(OplogEngine.saved(this.position));
     this.timer = setInterval(() => { this.seal().catch(this.onError); }, this.sealMs);

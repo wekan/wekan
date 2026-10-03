@@ -169,9 +169,21 @@ while true; do
       case "$_restore_mode" in
         backup) [ -f "$_rbk/wekan.sqlite" ] && _rsrc="$_rbk" ;;
         prev)   [ -f "$_rbk/prev/wekan.sqlite" ] && _rsrc="$_rbk/prev" ;;
+        # Admin Panel / Attachments / Continuous backup stages a rebuilt
+        # database here (server/continuousBackup.js), never over the live one.
+        continuous) [ -f "$FERRETDB_SQLITE_DIR/continuous-restore/wekan.sqlite" ] && _rsrc="$FERRETDB_SQLITE_DIR/continuous-restore" ;;
       esac
       _ts="$(date -u +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || echo '')"
       printf 'recovery %s\n' "$_restore_mode" > "$FERRETDB_SQLITE_DIR/RECOVERY_IN_PROGRESS" 2>/dev/null || true
+      # A continuous-backup restore replaces the live database the
+      # administrator chose to roll back: keep that one first, at rest
+      # with its WAL, beside the staged copy. Never removed here.
+      if [ "$_restore_mode" = "continuous" ] && [ -n "$_rsrc" ] && [ -f "$FERRETDB_SQLITE_DIR/wekan.sqlite" ]; then
+        mkdir -p "$FERRETDB_SQLITE_DIR/continuous-restore/replaced" 2>/dev/null
+        if ! cp -f "$FERRETDB_SQLITE_DIR"/wekan.sqlite* "$FERRETDB_SQLITE_DIR/continuous-restore/replaced/" 2>/dev/null; then
+          _rsrc=""
+        fi
+      fi
       if [ -n "$_rsrc" ]; then
         if cp -f "$_rsrc"/wekan.sqlite* "$FERRETDB_SQLITE_DIR/" 2>/dev/null; then
           rm -f "$FERRETDB_SQLITE_DIR/wekan.sqlite-wal" "$FERRETDB_SQLITE_DIR/wekan.sqlite-shm"

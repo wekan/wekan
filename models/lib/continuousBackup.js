@@ -17,7 +17,15 @@ const DEFAULTS = Object.freeze({
   enabled: false, target: '', database: true, attachments: true, avatars: true, logs: true,
   engine: 'auto', sqliteIntervalSeconds: 60, fileScanSeconds: 300, baseEveryHours: 24, keepDays: 7,
   litestreamBinary: '', litestreamReplicaUrl: '',
+  // Encryption at rest (decision of 2026-10-03): the key lives in a file the
+  // administrator holds, never in the database the stream backs up.
+  encrypt: false, encryptionKeyFile: '',
+  // Cloud upload (decision of 2026-10-03): the target mirrored to a storage
+  // configured in Admin Panel / Attachments, under this key prefix.
+  upload: 'none', uploadPrefix: 'wekan-continuous-backup',
 });
+const UPLOADS = ['none', 's3', 'azure', 'gcs'];
+const UPLOAD_PREFIX = /^[A-Za-z0-9._-]+(\/[A-Za-z0-9._-]+)*$/;
 const RANGES = { sqliteIntervalSeconds: [5, 3600], fileScanSeconds: [30, 86400], baseEveryHours: [1, 720], keepDays: [1, 3650] };
 const LITESTREAM_SCHEMES = ['file:', 's3:', 'abs:', 'gcs:', 'sftp:'];
 
@@ -49,7 +57,7 @@ function validateSettings(input, { sources = [], defaultTarget = '' } = {}) {
   const unknown = Object.keys(input).filter(key => !(key in DEFAULTS));
   if (unknown.length) fail(`Unknown setting ${unknown[0]}`);
   const result = { ...DEFAULTS, target: defaultTarget, ...input };
-  for (const key of ['enabled', 'database', ...AREAS]) if (typeof result[key] !== 'boolean') fail(`${key} must be true or false`);
+  for (const key of ['enabled', 'database', 'encrypt', ...AREAS]) if (typeof result[key] !== 'boolean') fail(`${key} must be true or false`);
   if (!ENGINES.includes(result.engine)) fail('Unknown database engine');
   for (const [key, [min, max]] of Object.entries(RANGES)) {
     if (!Number.isInteger(result[key]) || result[key] < min || result[key] > max) fail(`${key} must be ${min}-${max}`);
@@ -69,6 +77,16 @@ function validateSettings(input, { sources = [], defaultTarget = '' } = {}) {
       if (typeof result[key] !== 'string' || result[key].length > 4096 || result[key].includes('\0')) fail(`${key} is invalid`);
     }
   }
+  if (result.encrypt) {
+    // Never beside the stream it unlocks, nor where the stream would copy it.
+    result.encryptionKeyFile = safeAbsolute(result.encryptionKeyFile, 'The encryption key file');
+    if (targetConflict(result.encryptionKeyFile, [result.target, ...sources])) fail('The encryption key file must be outside the target and every directory the backup reads');
+  } else if (typeof result.encryptionKeyFile !== 'string' || result.encryptionKeyFile.length > 4096 || result.encryptionKeyFile.includes('\0')) {
+    fail('encryptionKeyFile is invalid');
+  }
+  if (!UPLOADS.includes(result.upload)) fail('Unknown upload storage');
+  if (typeof result.uploadPrefix !== 'string' || result.uploadPrefix.length > 200 || !UPLOAD_PREFIX.test(result.uploadPrefix) ||
+      result.uploadPrefix.split('/').some(part => part === '.' || part === '..')) fail('The upload prefix is invalid');
   if (result.enabled && !result.database && !AREAS.some(area => result[area])) fail('Choose something to back up');
   return result;
 }
@@ -194,7 +212,7 @@ const generationName = (date, id) => `${date.toISOString().replace(/[-:]/g, '').
 const GENERATION_NAME = /^[0-9]{8}-[0-9]{6}-[A-Za-z0-9]{6,32}$/;
 
 module.exports = {
-  FORMAT, VERSION, ENGINES, AREAS, DEFAULTS, LITESTREAM_SCHEMES,
+  FORMAT, VERSION, ENGINES, AREAS, DEFAULTS, LITESTREAM_SCHEMES, UPLOADS,
   validateSettings, targetConflict, chooseEngine, sha256, segmentName, indexLine, checkIndexEntry, parseIndex,
   segmentsUntil, oplogMillis, sqlitePageSize, pageHashes, diffImage, encodeDelta, decodeDelta, applyDelta,
   generationsToRemove, generationName, GENERATION_NAME,
