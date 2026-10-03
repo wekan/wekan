@@ -6853,6 +6853,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/91c315b8e31b31853dd44090fdc8ac2004dadf19">Translate import and reordering instructions into Inuktitut</a>. Thanks to xet7.</summary>
+
+- Fill the three Taskwarrior, Focalboard and keyboard reordering messages in Inuktitut, bringing this family to 231 of 234 non-English locale variants.
+- Preserve existing translations, source key order and exact placeholders; all eight relevant suites and 21 human-preference checks pass.
+- Inuktitut wording is low confidence and needs speaker review. The pull verb follows the examples in <a href="https://www.collectionscanada.gc.ca/obj/thesescanada/vol2/OTU/TC-OTU-32898.pdf">Viewpoint Aspect in Inuktitut</a>, pages 98 and 102.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
