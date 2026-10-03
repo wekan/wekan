@@ -5522,6 +5522,17 @@ and the broader translation backlog are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d5048ab010">Translate new backup options into Tamil and Telugu</a>. Thanks to xet7.</summary>
+
+Add 16 restart, encryption and cloud translations. Preserve existing values,
+relative source key order and exact placeholders. Extend encryption and cloud
+regression coverage to both locales. Exact-change and locale-script audits,
+four focused suites and all 21 human-preference checks pass. Remaining locales
+and the broader translation backlog are unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
