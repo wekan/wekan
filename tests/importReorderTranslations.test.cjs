@@ -7,6 +7,16 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 const en = read('en');
 const keys = ['import-board-instruction-taskwarrior', 'import-board-instruction-focalboard', 'drag-to-reorder'];
 const groups = [
+  ['pl pl-PL', 'nie są importowane', 'w górę', 'w dół'],
+  ['cs cs-CZ', 'neimportují', 'nahoru', 'dolů'],
+  ['sk', 'neimportujú', 'nahor', 'nadol'],
+  ['sl sl_SI', 'se ne uvozijo', 'gor', 'dol'],
+  ['hr', 'ne uvoze se', 'gore', 'dolje'],
+  ['ro ro-RO', 'nu sunt importate', 'în sus', 'în jos'],
+  ['hu', 'nem kerülnek importálásra', 'fel', 'le'],
+  ['bg', 'не се импортират', 'нагоре', 'надолу'],
+  ['uk uk-UA', 'не імпортуються', 'вгору', 'вниз'],
+  ['ru ru-RU ru_RU ru-UA', 'не импортируются', 'вверх', 'вниз'],
   ['fi', 'ei tuoda', 'Ylä-', 'alanuoli'],
   ['sv', 'importeras inte', 'Uppåt-', 'nedåtpilarna'],
   ['da', 'importeres ikke', 'Pil op', 'pil ned'],
@@ -41,3 +51,9 @@ for (const [group, exclusion, up, down] of groups) {
   }
 }
 console.log(`Import and reordering: ${keys.length} messages in ${count} locale variants passed`);
+
+for (const code of ['ro', 'ro-RO']) {
+  assert.equal(read(code).labels, 'Etichete', `${code}: Romanian labels, not Italian`);
+  assert.equal(read(code).description, 'Descriere', `${code}: Romanian description, not Italian`);
+}
+assert.equal(read('hr').description, 'Opis', 'Croatian description uses Croatian Latin spelling');
