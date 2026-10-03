@@ -6616,6 +6616,16 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d3ffd9b319">Extend import and reordering help to six more languages</a>. Thanks to xet7.</summary>
+
+- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Papiamento, Tok Pisin, Bislama, Māori, Samoan and Hawaiian.
+- Preserve existing translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions.
+- Twelve relevant suites, 21 human-preference checks and all six preservation audits pass. These three messages now cover 181 locale variants; 53 variants and other catalog gaps remain.
+- Technical phrasing has low confidence and welcomes native review. Array and computer-drag terms were checked against [Te Aka](https://maoridictionary.co.nz/search?keywords=huanga) and the [Hawaiian dictionaries](https://wehe.hilo.hawaii.edu/?q=drag).
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
