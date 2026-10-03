@@ -385,7 +385,7 @@ held only issues \#4774 and \#4055, and both are closed now.
 Status checked on 2026-10-03. The later translation request resumed this work;
 the earlier pause above remains historical. Completed work is recorded in Upcoming.
 
-- The current `node releases/translations/fill-translations.mjs --missing` report counts **53,052 untranslated locale/string values in 70 languages**. It excludes **204 source keys deliberately left in English pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
+- The current `node releases/translations/fill-translations.mjs --missing` report counts **52,968 untranslated locale/string values in 70 languages**. It excludes **204 source keys deliberately left in English pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
 - Continue automatic-archiving and date-filter translations beyond the thirty-nine locales recorded in completed changelog entries, then the remaining feature families.
 - Fill English placeholders in every language, including minority and constructed languages. Audit mixed-language and wrong-language seed text, and review provisional wording with speakers when available. Preserve correct-language human translations, source key order, exact placeholders, technical identifiers and query examples. Use direct translation and dictionary research, not an external translation service.
 - Keep regression and human-preference checks passing. Passing tests does not establish translation completeness or fluency; rerun relevant checks for each batch and the broad suite before declaring all-language work complete.
@@ -2093,6 +2093,17 @@ used.
 - Fill 15 English placeholders for map views, undo/redo retry guidance, move ordering and SAML browser-tab guidance. Existing translations and placeholder tokens are preserved.
 - Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks retain the single-change retry guarantee, browser-tab restriction and distinct actions.
 - Ladin wording is low confidence and needs speaker review; terminology references include the [Ladin dictionary](https://itavalbadia.ladinternet.it/applications/dictionary/index.jsp). These keys are pending Transifex and excluded from the standard missing-string report, so its total remains unchanged. Remaining all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2f02955143924b8a18d897b17cf1f26af14b5f94">Translate Ladin Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Ladin.
+
+- Fill 84 English placeholders covering Scrum planning, sprint lifecycle, product backlog, reports and daily observations. Preserve existing translations and exact placeholder tokens.
+- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks retain unknown-versus-zero estimates, partial report scope, daily observation limitations and numeric limits.
+- Ladin technical wording is low confidence and needs speaker review. Remaining all-language work is tracked in TODO Later.
 
 </details>
 
