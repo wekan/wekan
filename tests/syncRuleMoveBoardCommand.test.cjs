@@ -101,7 +101,9 @@ test('wiring: the runner, the guard and the deferred hooks', () => {
   const read = file => fs.readFileSync(path.join(ROOT, file), 'utf8');
   const plans = read('server/notifications/storedRulePlans.js');
   assert.match(plans, /\(isOtherBoardMove\(invocation\.action, plan\.boardId\) \? runStoredSyncRuleMoveBoard : runStoredSyncRuleMove\)\(/);
-  assert.match(plans, /kinds: \['history', 'position', 'boardMove', 'move', 'customFields', 'labelActivities'\], fromBoardId: command\.boardId/);
+  // The board the card left is the saved move's own: the plan's, or an
+  // earlier move's when a move follows a move to another board (2026-10-03).
+  assert.match(plans, /kinds: \['history', 'position', 'boardMove', 'move', 'customFields', 'labelActivities'\], fromBoardId: command\.before\.place\.boardId/);
   assert.match(plans, /await assertDestinationBoard\(action\.boardId, plan, options\.trigger\);/);
   assert.match(plans, /SyncRuleMoveBoardCommands\.rawCollection\(\)\.findOne\(\{ planId: planIdValue, cardId,\s*'after\.place\.boardId': card\.boardId/);
   assert.match(plans, /\(found\.boardId === saved\.boardId && found\.listId === saved\.listId\) \|\|/);
@@ -164,21 +166,25 @@ test('followable: only follower-safe actions after it, in its rule and in rules 
   const { followableActionIds, FOLLOWER_SAFE } = require('../server/lib/listSyncSteps');
   // Since the maintainer decision of 2026-10-03, moves, sorting, moving all
   // cards and archiving resolve on the board the card went to, so they may
-  // follow a move to another board too; sending email still may not, and a
-  // second move to yet another board ('<type>:elsewhere') may not either.
+  // follow a move to another board too, and so may a further move to yet
+  // another board; sending email still may not, nor a move-all onto another
+  // board, which moves a list of the rule's board.
   for (const type of ['setColor', 'addLabel', 'checkAll', 'addChecklist', 'removeChecklist', 'linkCard', 'createCard',
-    'moveCardToTop', 'moveCardToBottom', 'sortList', 'moveAllCardsInList', 'archive', 'unarchive'])
+    'moveCardToTop', 'moveCardToBottom', 'sortList', 'moveAllCardsInList', 'archive', 'unarchive',
+    'moveCardToTop:elsewhere', 'moveCardToBottom:elsewhere'])
     assert.ok(FOLLOWER_SAFE.has(type), type);
-  for (const type of ['sendEmail', 'moveCardToTop:elsewhere', 'moveAllCardsInList:elsewhere'])
+  for (const type of ['sendEmail', 'moveAllCardsInList:elsewhere'])
     assert.ok(!FOLLOWER_SAFE.has(type), type);
   const types = { m: 'moveCardToTop', c: 'setColor', s: 'sortList', l: 'linkCard', x: 'archive', e: 'sendEmail',
-    o: 'moveCardToTop:elsewhere' };
+    o: 'moveAllCardsInList:elsewhere', n: 'moveCardToTop:elsewhere' };
   const typeOf = id => types[id];
   assert.deepEqual([...followableActionIds([{ actionIds: ['m', 'c', 'l', 's', 'x'], activityType: 'createCard' }], typeOf)].sort(),
     ['c', 'l', 'm', 's', 'x'], 'colour, link, sorting and archiving may follow it');
   assert.ok(!followableActionIds([{ actionIds: ['m', 'e'], activityType: 'createCard' }], typeOf).has('m'), 'an email may not');
   assert.ok(!followableActionIds([{ actionIds: ['m', 'o'], activityType: 'createCard' }], typeOf).has('m'),
-    'nor a second move to another board');
+    'nor a move-all onto another board');
+  assert.ok(followableActionIds([{ actionIds: ['m', 'n'], activityType: 'createCard' }], typeOf).has('m'),
+    'a further move to yet another board may');
   assert.ok(!followableActionIds([{ actionIds: ['m'], activityType: 'createCard' },
     { actionIds: ['e'], activityType: 'createCard' }], typeOf).has('m'), 'another rule of its trigger type sends email');
   assert.ok(followableActionIds([{ actionIds: ['m'], activityType: 'createCard' },

@@ -202,24 +202,35 @@ function validMove(move, base, createdAt) {
   return canonical(expected) === canonical(move.effects);
 }
 
+// The board a single move takes the card from: the plan's, or - when an
+// earlier move of this same plan already took it to another board
+// (2026-10-03) - that board, saved as `fromBoard`. A command from the plan's
+// board has none, as before; a move onto the board the card is on is refused.
+const fromBoardOf = command => command.fromBoard || command.boardId;
+const moveBaseOf = (base, row) => (row && row.fromBoard ? { ...base, boardId: row.fromBoard } : base);
+
 // Capture of a single move: `target` is RulesHelper.moveCardTarget's.
-function prepareRuleMoveBoardCommand({ plan, activity, effectId, index, target, createdAt, ...rest }) {
+function prepareRuleMoveBoardCommand({ plan, activity, effectId, index, target, createdAt, fromBoardId = plan?.boardId, ...rest }) {
   const base = identity({ plan, activity, effectId, index });
-  if (!target || !Number.isFinite(target.sort)) fail('invalid');
-  const command = { ...base, ...buildMove({ base, target, createdAt, ...rest }), createdAt: new Date(createdAt) };
+  if (!target || !Number.isFinite(target.sort) || !text(fromBoardId) || fromBoardId === base.targetBoardId) fail('invalid');
+  const moved = fromBoardId === base.boardId ? {} : { fromBoard: fromBoardId };
+  const command = { ...base, ...moved, ...buildMove({ base: moveBaseOf(base, moved), target, createdAt, ...rest }),
+    createdAt: new Date(createdAt) };
   command.checksum = sha256(canonical(command));
   return validateRuleMoveBoardCommand(command, { plan, activity, effectId, index });
 }
 
 function validateRuleMoveBoardCommand(row, context) {
   const base = identity(context);
-  const keys = [...Object.keys(base), 'before', 'after', 'titles', 'labelActivities', 'createdAt', 'effects', 'checksum']
-    .sort().join(',');
+  const elsewhere = !!row && Object.hasOwn(row, 'fromBoard');
+  const keys = [...Object.keys(base), ...(elsewhere ? ['fromBoard'] : []), 'before', 'after', 'titles', 'labelActivities',
+    'createdAt', 'effects', 'checksum'].sort().join(',');
   if (!row || Object.keys(row).sort().join(',') !== keys ||
+      (elsewhere && (!text(row.fromBoard) || row.fromBoard === base.boardId || row.fromBoard === base.targetBoardId)) ||
       Object.entries(base).some(([key, value]) => canonical(row[key]) !== canonical(value)) ||
       !(row.createdAt instanceof Date) || !Number.isFinite(row.after?.place?.sort)) fail('command-invalid');
   const { checksum, ...content } = row;
-  if (checksum !== sha256(canonical(content)) || !validMove(row, base, row.createdAt)) fail('command-invalid');
+  if (checksum !== sha256(canonical(content)) || !validMove(row, moveBaseOf(base, row), row.createdAt)) fail('command-invalid');
   return copy(row);
 }
 
@@ -308,6 +319,6 @@ function moveModifier(command) {
 }
 
 module.exports = { RULE_MOVE_ACTIONS, MOVED_FIELDS, commandId, legacyIdFor, isOtherBoardMove, labelActivityRewrites,
-  prepareRuleMoveBoardCommand, validateRuleMoveBoardCommand, beforeSelector, afterSelector, moveModifier,
+  prepareRuleMoveBoardCommand, validateRuleMoveBoardCommand, beforeSelector, afterSelector, moveModifier, fromBoardOf,
   moveAllCommandId, unitIdFor, isOtherBoardMoveAll, prepareRuleMoveAllBoardCommand, validateRuleMoveAllBoardCommand,
   unitMove };

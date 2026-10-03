@@ -658,19 +658,26 @@ const { RULE_MOVE_ACTIONS, commandId: ruleMoveCommandId, prepareRuleMoveCommand,
 export const SyncRuleMoveBoardCommands = new Mongo.Collection('listSyncRuleMoveBoardCommands');
 SyncRuleMoveBoardCommands.deny({ insert: () => true, update: () => true, remove: () => true });
 
-async function captureRuleMoveBoard({ plan, saved, action, commandContext }) {
-  const card = await Cards.findOneAsync({ _id: plan.cardId, boardId: plan.boardId });
+async function captureRuleMoveBoard({ plan, saved, action, commandContext, context, trigger }) {
+  // From where the card is now: the plan's board, or the board an earlier
+  // move of this same plan took it to (ruleCardNow, 2026-10-03).
+  const now = await ruleCardNow(plan, context);
+  const fromBoardId = now ? now.boardId : plan.boardId;
+  if (fromBoardId !== plan.boardId) await assertDestinationBoard(fromBoardId, plan, trigger);
+  // Already on the board it would go to: not a move to another board.
+  if (fromBoardId === action.boardId) throw new Error('sync-rule-move-board-already-there');
+  const card = now ? await Cards.findOneAsync({ _id: plan.cardId, boardId: fromBoardId }) : null;
   const target = card ? await RulesHelper.moveCardTarget(saved, card, action) : null;
   // No list to go to: the ordinary action does nothing; nor may this.
   if (!target || target.boardId !== action.boardId) throw new Error('sync-rule-move-board-no-target');
   const [fromBoard, toBoard, list, swimlane, raw] = await Promise.all([
-    Boards.findOneAsync(plan.boardId), Boards.findOneAsync(action.boardId),
+    Boards.findOneAsync(fromBoardId), Boards.findOneAsync(action.boardId),
     Lists.findOneAsync({ _id: target.listId, boardId: action.boardId }),
     Swimlanes.findOneAsync({ _id: target.swimlaneId, boardId: action.boardId }),
-    Cards.rawCollection().findOne({ _id: plan.cardId, boardId: plan.boardId }),
+    Cards.rawCollection().findOne({ _id: plan.cardId, boardId: fromBoardId }),
   ]);
   if (!fromBoard || !toBoard || !list || !swimlane || !raw) throw new Error('sync-rule-move-board-target-missing');
-  return prepareRuleMoveBoardCommand({ ...commandContext,
+  return prepareRuleMoveBoardCommand({ ...commandContext, fromBoardId,
     ...await boardMoveInputs({ raw, model: card, fromBoard, toBoard, target, swimlaneTitle: swimlane.title }),
     createdAt: new Date(), redoRows: await boardRedoRows(action.boardId, plan.actorId) });
 }
@@ -775,7 +782,8 @@ export async function runStoredSyncRuleMoveBoard({ index, completeDelivery = run
   let row = await commands.findOne({ _id: id });
   if (!row) {
     // The plan's last action: refused here, before anything is written, if not.
-    const candidate = await captureRuleMoveBoard({ plan, saved: context.saved, action, commandContext });
+    const candidate = await captureRuleMoveBoard({ plan, saved: context.saved, action, commandContext, context,
+      trigger: options.trigger });
     await guard();
     let failure;
     try { await commands.insertOne(candidate); } catch (error) { failure = error; }
@@ -800,7 +808,7 @@ async function applyRuleMoveBoard(command, { guard, completeDelivery, options })
     await guard();
     // Every record the update's hooks would write is this command's to write.
     await actor(() => withSyncRecordingDeferred({ cardId: command.cardId, boardId: place.boardId, listId: place.listId,
-      kinds: ['history', 'position', 'boardMove', 'move', 'customFields', 'labelActivities'], fromBoardId: command.boardId },
+      kinds: ['history', 'position', 'boardMove', 'move', 'customFields', 'labelActivities'], fromBoardId: command.before.place.boardId },
     () => Cards.updateAsync(ruleMoveBoardBefore(command), ruleMoveBoardModifier(command))));
     if (!await raw.findOne(ruleMoveBoardAfter(command))) throw new Error('sync-rule-move-board-unconfirmed');
   }
@@ -825,9 +833,10 @@ async function applyRuleMoveBoard(command, { guard, completeDelivery, options })
   await Checklists.direct.updateAsync({ cardId: command.cardId }, { $set: { boardId: place.boardId } }, { multi: true });
   await ChecklistItems.direct.updateAsync({ cardId: command.cardId }, { $set: { boardId: place.boardId } }, { multi: true });
   await actor(async () => {
-    await Cards.updateAsync({ boardId: command.boardId, 'cardDependencies.cardId': command.cardId },
+    // The board the card left: the plan's, or an earlier move's (fromBoard).
+    await Cards.updateAsync({ boardId: command.before.place.boardId, 'cardDependencies.cardId': command.cardId },
       { $pull: { cardDependencies: { cardId: command.cardId } } }, { multi: true });
-    await Cards.updateAsync({ boardId: command.boardId, cardDependencies: command.cardId },
+    await Cards.updateAsync({ boardId: command.before.place.boardId, cardDependencies: command.cardId },
       { $pull: { cardDependencies: command.cardId } }, { multi: true });
   });
   await Attachments.collection.rawCollection().updateMany({ 'meta.cardId': command.cardId },
