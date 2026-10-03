@@ -6693,6 +6693,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/02211032b962af467b77be6dcb6ceecb30cb21af">Translate import instructions and reordering help into Buryat, Chuvash and Sakha</a>. Thanks to xet7.</summary>
+
+- Fill nine English placeholders while preserving existing translations, technical identifiers and source key order. These three messages now cover 214 of 234 non-English locale variants; 20 remain.
+- Extend import exclusions, keyboard directions and placeholder checks. All eight relevant suites, three preservation audits and 21 human-preference checks pass.
+- Low-confidence technical translations in all three languages need native-speaker review. Vocabulary references include the <a href="https://ru.djvu.online/file/hc1oOF3oJ2wD1">Buryat–Russian dictionary</a>, <a href="https://en.wiktionary.org/wiki/Appendix:Chuvash_Swadesh_list">Chuvash vocabulary list</a> and <a href="https://iknigi.net/avtor-tamara-petrova/160404-kratkiy-yakutsko-russkiy-russko-yakutskiy-slovar-tamara-petrova/read/page-10.html">Sakha–Russian dictionary</a>; the latter distinguishes сос (drag) from соһуй (startle).
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
