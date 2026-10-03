@@ -6862,6 +6862,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/06e94322086e09a70c7bb1d5909296039b5c5595">Translate import and reordering instructions into Tigre</a>. Thanks to xet7.</summary>
+
+- Fill the three Taskwarrior, Focalboard and keyboard reordering messages in Tigre, bringing this family to 232 of 234 non-English locale variants.
+- Preserve existing translations, source key order and exact placeholders; all 57 relevant suites and 21 human-preference checks pass, with the affected regression rerun after terminology refinement.
+- Tigre wording is low confidence and needs speaker review. Pull, arrow, key, line and step vocabulary was checked against the <a href="https://beittigre.github.io/tigre-multilingual-dictionaries/english/index.html">BeitTigreAI parallel corpus dictionary</a>.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
