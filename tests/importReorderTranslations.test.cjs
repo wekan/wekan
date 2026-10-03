@@ -170,6 +170,7 @@ const groups = [
   ['kl', 'eqqunneqassanngillat', 'qummut', 'ammullu'],
   ['zgh', 'ⵓⵔ ⵜⵜⵡⴰⵙⴽⵛⴰⵎⵏ', 'ⵓⴼⵍⵍⴰ', 'ⵡⴰⴷⴷⴰ'],
   ['iu', 'ᐃᓯᖅᑎᑕᐅᙱᑦᑐᑦ', 'ᖁᒻᒧᑦ', 'ᐊᑖᓄᑦ'],
+  ['tig', 'ኢልትአምጸእኒ', 'ላዕል', 'ታሐት'],
   ['fi', 'ei tuoda', 'Ylä-', 'alanuoli'],
   ['sv', 'importeras inte', 'Uppåt-', 'nedåtpilarna'],
   ['da', 'importeres ikke', 'Pil op', 'pil ned'],
