@@ -9,6 +9,7 @@ const codes = ["fi", "sv", "da", "nb", "de", "fr", "es", "pt", "pt-BR", "it", "n
 codes.push('ga', 'cy', 'cy-GB', 'lb', 'mt', 'fo', 'fy', 'fy-NL', 'oc', 'ast-ES', 'an', 'co', 'scn', 'sc');
 codes.push('uz', 'uz-UZ', 'uz-LA', 'kk', 'ky', 'tg', 'mn', 'tk_TM', 'tt', 'ba');
 codes.push('ne', 'mr');
+codes.push('ta', 'te-IN');
 const keys = ['upload', 'upload-none', 'upload-prefix', 'fetch', 'fetched'].map(key => `continuous-backup-${key}`);
 for (const code of codes) {
   const locale = read(code);
