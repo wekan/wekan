@@ -6481,6 +6481,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9a2aaf6efe">Extend import and reordering translations to more European and Asian languages</a>. Thanks to xet7.</summary>
+
+- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Estonian, Latvian, Lithuanian, Greek, Turkish, Indonesian, Malay, Vietnamese, Japanese, Korean and Chinese, covering 24 more locale variants.
+- Replace the Lithuanian checklist label in the Latvian catalog with Latvian. Preserve existing correct-language translations, exact source tokens, commands, file formats, import limitations and arrow-key directions.
+- Fourteen relevant suites, 21 human-preference checks and all 24 catalog preservation audits pass. These three messages now cover 72 locale variants; 162 variants and other catalog gaps remain.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
