@@ -23,7 +23,9 @@ test('stored archive execution needs no History reservation, only a delivery ada
 
 test('redo candidates are read when the effects are planned, never on replay', () => {
   const build = body.slice(body.indexOf('build: async () => {'), body.indexOf('} });', body.indexOf('build: async () => {')));
-  assert.match(build, /ChangeHistory\.find\(\{ boardId: command\.boardId, userId: command\.actorId, undone: true,\s*superseded: \{ \$ne: true \} \}/);
+  // On the board the archived card is on (2026-10-03: the plan's, or where a
+  // move of the same plan took it), so the board is read through boardOf.
+  assert.match(build, /ChangeHistory\.find\(\{ boardId: ruleArchiveBoardOf\(command\), userId: command\.actorId, undone: true,\s*superseded: \{ \$ne: true \} \}/);
   assert.match(build, /prepareRuleArchiveEffects\(\{ \.\.\.input, username: user\?\.username \|\| '', lists,\s*policy: options\.policy, redoRows \}\)/);
   // Negative: outside the planning callback nothing reads redo rows again.
   assert.equal((body.match(/undone: true/g) || []).length, 1);

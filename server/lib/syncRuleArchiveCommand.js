@@ -16,6 +16,11 @@ function identity({ plan, activity, effectId, index }) {
     planHash: sha256(canonical(plan)), actorId: plan.actorId, boardId: plan.boardId,
     cardId: plan.cardId, archived: invocation.action.actionType === 'archive' };
 }
+// The board the archived card is on: the plan's, or - when an earlier move of
+// this same plan took it to another board (2026-10-03) - that board, saved
+// as `onBoard`. The cascade takes the children on that board, as the plan's
+// board was before; a command on the plan's board has none, as before.
+const boardOf = command => command.onBoard || command.boardId;
 function snapshot(card, boardId) {
   if (!card || card.boardId !== boardId ||
       !['_id', 'listId', 'swimlaneId'].every(key => typeof card[key] === 'string' && card[key]) ||
@@ -25,15 +30,18 @@ function snapshot(card, boardId) {
   return copy(Object.fromEntries(fields.filter(key => Object.hasOwn(card, key)).map(key => [key, card[key]])));
 }
 function validateRuleArchiveCommand(row, context) {
-  const base = identity(context);
+  const identityBase = identity(context);
+  const elsewhere = !!row && Object.hasOwn(row, 'onBoard');
+  const base = elsewhere ? { ...identityBase, onBoard: row.onBoard } : identityBase;
   if (!row || Object.keys(row).sort().join(',') !==
       [...Object.keys(base), 'createdAt', 'cards', 'checksum'].sort().join(',') ||
+      (elsewhere && (typeof row.onBoard !== 'string' || !row.onBoard || row.onBoard === identityBase.boardId)) ||
       Object.keys(base).some(key => row[key] !== base[key]) || !date(row.createdAt) ||
       !Array.isArray(row.cards) || !row.cards.length || row.cards.length > 1000 ||
       calculateObjectSize(row) > 14 * 1024 * 1024) fail();
   const seen = new Map();
   for (const card of row.cards) {
-    if (canonical(snapshot(card, base.boardId)) !== canonical(card) || seen.has(card._id)) fail();
+    if (canonical(snapshot(card, boardOf(base))) !== canonical(card) || seen.has(card._id)) fail();
     seen.set(card._id, card);
   }
   const root = row.cards.at(-1);
@@ -53,9 +61,11 @@ function validateRuleArchiveCommand(row, context) {
 // writes or completion receipts occur here. The owner must hold its lease and
 // authorize EVERY captured card, including children in other lists.
 async function ensureRuleArchiveCommand({ commands, plan, activity, effectId, index,
-  readCard, readChildren, assertCard, assertCurrent, now = () => new Date() }) {
+  readCard, readChildren, assertCard, assertCurrent, now = () => new Date(), cardBoardId = plan?.boardId }) {
   plan = copy(plan); activity = copy(activity);
-  const context = { plan, activity, effectId, index }, base = identity(context);
+  const context = { plan, activity, effectId, index }, identityBase = identity(context);
+  if (typeof cardBoardId !== 'string' || !cardBoardId) fail();
+  const base = cardBoardId === identityBase.boardId ? identityBase : { ...identityBase, onBoard: cardBoardId };
   if (![readCard, readChildren, assertCard, assertCurrent, now].every(fn => typeof fn === 'function') ||
       !['findOne', 'insertOne'].every(key => typeof commands?.[key] === 'function')) fail();
   const read = async () => {
@@ -67,7 +77,7 @@ async function ensureRuleArchiveCommand({ commands, plan, activity, effectId, in
   let command = await read();
   if (command) return command;
   const createdAt = now(); if (!date(createdAt)) fail();
-  const root = snapshot(await readCard(base.cardId), base.boardId);
+  const root = snapshot(await readCard(base.cardId), boardOf(base));
   if (root._id !== base.cardId) fail();
   const cards = [], seen = new Set(), stack = [{ card: root, exit: false }];
   let bytes = 0;
@@ -86,7 +96,7 @@ async function ensureRuleArchiveCommand({ commands, plan, activity, effectId, in
     await assertCurrent();
     if (!Array.isArray(children) || seen.size + children.length +
         stack.filter(frame => !frame.exit).length > 1000) fail();
-    const sorted = children.map(child => snapshot(child, base.boardId))
+    const sorted = children.map(child => snapshot(child, boardOf(base)))
       .sort((a, b) => a._id < b._id ? -1 : a._id > b._id ? 1 : 0);
     for (const child of sorted.reverse()) {
       if (child.parentId !== card._id) fail();
@@ -103,4 +113,4 @@ async function ensureRuleArchiveCommand({ commands, plan, activity, effectId, in
   if (!command) throw failure || new Error('sync-rule-archive-command-unconfirmed');
   return command;
 }
-module.exports = { ensureRuleArchiveCommand, validateRuleArchiveCommand };
+module.exports = { ensureRuleArchiveCommand, validateRuleArchiveCommand, boardOf };

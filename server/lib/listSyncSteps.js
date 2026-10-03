@@ -45,13 +45,17 @@ const CROSS_BOARD_DURABLE_ACTIONS = new Set(['linkCard', 'copyCard']);
 // another board counts only when every action that can follow it in a plan -
 // the later actions of its rule, and every action of a rule whose trigger's
 // activity type it shares - is one of them (`crossBoardMovable`, set by the
-// caller from followableActionIds). Moves, sorting and moving all cards are
-// resolved against the board the rule belongs to, which the card has left;
-// archiving cascades to child cards that stayed there.
+// caller from followableActionIds). Since the maintainer decision of
+// 2026-10-03, a move, a sort or a move-all on the rule's own board, and an
+// archive or restore, resolve on the board the card went to - in the ordinary
+// engine (RulesHelper.ruleBoards) and in their durable commands (`onBoard`) -
+// so they may follow too. A second move to yet another board may not: its
+// type is '<type>:elsewhere', not one of these.
 const CROSS_BOARD_FINAL_ACTIONS = new Set(['moveCardToTop', 'moveCardToBottom', 'moveAllCardsInList']);
 const FOLLOWER_SAFE = new Set([...Object.keys(require('./syncRuleCardCommand').RULE_CARD_ACTIONS),
   ...Object.keys(require('./syncRuleChecklistCommand').RULE_CHECKLIST_ACTIONS),
-  'addChecklist', 'addChecklistWithItems', 'removeChecklist', 'linkCard', 'copyCard', 'createCard', 'addSwimlane']);
+  'addChecklist', 'addChecklistWithItems', 'removeChecklist', 'linkCard', 'copyCard', 'createCard', 'addSwimlane',
+  'moveCardToTop', 'moveCardToBottom', 'sortList', 'moveAllCardsInList', 'archive', 'unarchive']);
 const MAX_RULE_BOARDS = 50;
 
 // The rule action types eligibility checks, across the source board and every

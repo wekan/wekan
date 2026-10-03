@@ -107,16 +107,25 @@ function effectsFor({ base, before, after, titles, createdAt, redoRows }) {
     move: moved(before, after) ? moveActivity(base, before, after, titles, createdAt) : null };
 }
 
+// The board the command's card is on: the plan's, or - when an earlier move
+// of this same plan took the card to another board (2026-10-03) - that
+// board, saved as `onBoard`. A command made on the plan's board has no
+// `onBoard`, as every command did before.
+const boardOf = command => command.onBoard || command.boardId;
+
 // Capture from the card as it is now. `target` is RulesHelper.moveCardTarget's
 // ({ boardId, listId, swimlaneId, sort }); `titles` the destination list's and
 // swimlane's titles and the card's (for the moveCard activity); `redoRows` the
 // actor's undone rows the move supersedes.
-function prepareRuleMoveCommand({ plan, activity, effectId, index, card, target, titles, createdAt, redoRows = [] }) {
-  const base = identity({ plan, activity, effectId, index });
-  if (!card || card._id !== base.cardId || card.boardId !== base.boardId || !text(card.listId) || !text(card.swimlaneId) ||
+function prepareRuleMoveCommand({ plan, activity, effectId, index, card, target, titles, createdAt, redoRows = [],
+  cardBoardId = plan?.boardId }) {
+  const identityBase = identity({ plan, activity, effectId, index });
+  if (!text(cardBoardId)) fail('card-invalid');
+  const base = cardBoardId === identityBase.boardId ? identityBase : { ...identityBase, onBoard: cardBoardId };
+  if (!card || card._id !== base.cardId || card.boardId !== boardOf(base) || !text(card.listId) || !text(card.swimlaneId) ||
       !target || !text(target.listId) || !text(target.swimlaneId) || !Number.isFinite(target.sort) ||
       !(createdAt instanceof Date) || !Number.isFinite(createdAt.getTime())) fail('card-invalid');
-  if (target.boardId !== base.boardId) fail('elsewhere');
+  if (target.boardId !== boardOf(base)) fail('elsewhere');
   const reason = typeof card.lastMoveReason === 'string' ? card.lastMoveReason : '';
   const before = { listId: card.listId, swimlaneId: card.swimlaneId, sort: Number.isFinite(card.sort) ? card.sort : null,
     lastMoveReason: reason };
@@ -126,7 +135,7 @@ function prepareRuleMoveCommand({ plan, activity, effectId, index, card, target,
   const savedTitles = { listName: String(titles?.listName ?? ''), swimlaneName: String(titles?.swimlaneName ?? ''),
     cardTitle: String(titles?.cardTitle ?? card.title ?? '') };
   const command = { ...base, before, after, titles: savedTitles, createdAt: new Date(createdAt),
-    effects: effectsFor({ base, before, after, titles: savedTitles, createdAt, redoRows }) };
+    effects: effectsFor({ base: { ...base, boardId: boardOf(base) }, before, after, titles: savedTitles, createdAt, redoRows }) };
   command.checksum = sha256(canonical(command));
   return validateRuleMoveCommand(command, { plan, activity, effectId, index });
 }
@@ -139,8 +148,10 @@ function validPlace(place) {
 
 function validateRuleMoveCommand(row, context) {
   const base = identity(context);
-  const keys = [...Object.keys(base), 'before', 'after', 'titles', 'createdAt', 'effects', 'checksum'].sort().join(',');
-  if (!row || Object.keys(row).sort().join(',') !== keys ||
+  const elsewhere = !!row && Object.hasOwn(row, 'onBoard');
+  const keys = [...Object.keys(base), ...(elsewhere ? ['onBoard'] : []), 'before', 'after', 'titles', 'createdAt', 'effects', 'checksum']
+    .sort().join(',');
+  if (!row || Object.keys(row).sort().join(',') !== keys || (elsewhere && (!text(row.onBoard) || row.onBoard === base.boardId)) ||
       Object.entries(base).some(([key, value]) => canonical(row[key]) !== canonical(value)) ||
       !(row.createdAt instanceof Date) || !validPlace(row.before) || !validPlace(row.after) ||
       !Number.isFinite(row.after.sort) || !row.titles || Object.keys(row.titles).sort().join(',') !== 'cardTitle,listName,swimlaneName' ||
@@ -152,8 +163,8 @@ function validateRuleMoveCommand(row, context) {
   // writes (the redo targets are the capture's, checked when they are written).
   const reasonOk = row.after.listId !== row.before.listId ? row.after.lastMoveReason === ''
     : row.after.lastMoveReason === row.before.lastMoveReason;
-  const expected = effectsFor({ base, before: row.before, after: row.after, titles: row.titles, createdAt: row.createdAt,
-    redoRows: [] });
+  const expected = effectsFor({ base: { ...base, boardId: boardOf(row) }, before: row.before, after: row.after, titles: row.titles,
+    createdAt: row.createdAt, redoRows: [] });
   if (expected.history) expected.history.redo = row.effects.history ? row.effects.history.redo : null;
   if (!reasonOk || canonical(expected) !== canonical(row.effects)) fail('command-invalid');
   return copy(row);
@@ -162,7 +173,7 @@ function validateRuleMoveCommand(row, context) {
 // The card at a saved place: a card with no usable sort was captured as null,
 // which matches a missing or null sort.
 function placeSelector(command, place) {
-  return { _id: command.cardId, boardId: command.boardId, listId: place.listId, swimlaneId: place.swimlaneId,
+  return { _id: command.cardId, boardId: boardOf(command), listId: place.listId, swimlaneId: place.swimlaneId,
     sort: place.sort === null ? null : { $eq: place.sort } };
 }
 // The update Card.move makes: only what changes.
@@ -179,4 +190,4 @@ function moveModifier(command) {
 // each card it moves, `base` naming that card's unit ({ _id, actorId, boardId,
 // cardId }).
 module.exports = { RULE_MOVE_ACTIONS, isSameBoardMove, isInPlaceMove, durableRuleActionType, commandId, effectIdFor,
-  legacyIdFor, prepareRuleMoveCommand, validateRuleMoveCommand, placeSelector, moveModifier, effectsFor, validPlace };
+  legacyIdFor, prepareRuleMoveCommand, validateRuleMoveCommand, placeSelector, moveModifier, effectsFor, validPlace, boardOf };

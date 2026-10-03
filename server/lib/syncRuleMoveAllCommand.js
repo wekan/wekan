@@ -38,8 +38,13 @@ function identity({ plan, activity, effectId, index }) {
     actionType: 'moveAllCardsInList' };
 }
 
+// The board the lists are on: the plan's, or - when an earlier move of this
+// same plan took the rule's card to another board (2026-10-03) - that board,
+// saved as `onBoard`; a command on the plan's board has none, as before.
+const boardOf = command => command.onBoard || command.boardId;
+
 function unitBase(base, cardId) {
-  return { _id: unitIdFor(base._id, cardId), actorId: base.actorId, boardId: base.boardId, cardId };
+  return { _id: unitIdFor(base._id, cardId), actorId: base.actorId, boardId: boardOf(base), cardId };
 }
 
 function unitFor(base, card, to, titles, createdAt, redoRows) {
@@ -58,13 +63,15 @@ function unitFor(base, card, to, titles, createdAt, redoRows) {
 // each of their swimlanes to its title (for the moveCard activities). Without
 // both lists the ordinary action does nothing, and so does this command.
 function prepareRuleMoveAllCommand({ plan, activity, effectId, index, from, to, cards = [], swimlaneTitles = {},
-  createdAt, redoRows = [] }) {
-  const base = identity({ plan, activity, effectId, index });
+  createdAt, redoRows = [], cardBoardId = plan?.boardId }) {
+  const identityBase = identity({ plan, activity, effectId, index });
+  if (!text(cardBoardId)) fail('invalid');
+  const base = cardBoardId === identityBase.boardId ? identityBase : { ...identityBase, onBoard: cardBoardId };
   if (!(createdAt instanceof Date) || !Number.isFinite(createdAt.getTime()) || !Array.isArray(cards) ||
       cards.length > 10000) fail('invalid');
   const command = { ...base, createdAt: new Date(createdAt), units: [] };
   if (from && to) {
-    if (!text(from._id) || !text(to._id) || cards.some(card => !card || !text(card._id) || card.boardId !== base.boardId ||
+    if (!text(from._id) || !text(to._id) || cards.some(card => !card || !text(card._id) || card.boardId !== boardOf(base) ||
         card.listId !== from._id || !text(card.swimlaneId))) fail('invalid');
     const titles = { listName: String(to.title ?? ''), swimlanes: swimlaneTitles };
     command.units = cards.filter(card => card.listId !== to._id)
@@ -75,9 +82,12 @@ function prepareRuleMoveAllCommand({ plan, activity, effectId, index, from, to, 
 }
 
 function validateRuleMoveAllCommand(row, context) {
-  const base = identity(context);
+  const identityBase = identity(context);
+  const elsewhere = !!row && Object.hasOwn(row, 'onBoard');
+  const base = elsewhere ? { ...identityBase, onBoard: row.onBoard } : identityBase;
   const keys = [...Object.keys(base), 'createdAt', 'units', 'checksum'].sort().join(',');
   if (!row || Object.keys(row).sort().join(',') !== keys ||
+      (elsewhere && (typeof row.onBoard !== 'string' || !row.onBoard || row.onBoard === identityBase.boardId)) ||
       Object.entries(base).some(([key, value]) => canonical(row[key]) !== canonical(value)) ||
       !(row.createdAt instanceof Date) || !Array.isArray(row.units) || row.units.length > 10000) fail('command-invalid');
   const { checksum, ...content } = row;
@@ -99,9 +109,9 @@ function validateRuleMoveAllCommand(row, context) {
 
 // A unit's card at a saved place.
 function unitSelector(command, unit, place) {
-  return { _id: unit.cardId, boardId: command.boardId, listId: place.listId, swimlaneId: place.swimlaneId,
+  return { _id: unit.cardId, boardId: boardOf(command), listId: place.listId, swimlaneId: place.swimlaneId,
     sort: place.sort === null ? null : { $eq: place.sort } };
 }
 
 module.exports = { commandId, unitIdFor, isSameBoardMoveAll, prepareRuleMoveAllCommand, validateRuleMoveAllCommand,
-  unitSelector };
+  unitSelector, boardOf };

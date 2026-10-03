@@ -216,8 +216,22 @@ export const RulesHelper = {
   // swimlaneId, listId, sort }, or null when the card has no list to fall back
   // to. For the ordinary action below and the durable rule move command
   // (server/lib/syncRuleMoveCommand.js), so the two cannot pick different places.
+  // Which board a rule action resolves on (maintainer decision of
+  // 2026-10-03): `here` is the board the card is on now - the activity's,
+  // unless an earlier action of the rule moved it to another board - and
+  // `target` is where the action works: `here` when the action names the
+  // rule's own board (or none), the named board otherwise. So a move, a sort
+  // or a move-all after a move to another board resolves its list and
+  // swimlane names on the board the card went to, in this engine and in
+  // durable Sync alike.
+  ruleBoards(activity, card, action) {
+    const here = card && typeof card.boardId === 'string' && card.boardId ? card.boardId : activity.boardId;
+    const named = (action && action.boardId) || activity.boardId;
+    return { here, target: named === activity.boardId ? here : named };
+  },
   async moveCardTarget(activity, card, action) {
-    const boardId = activity.boardId;
+    const { here: boardId, target: targetBoardId } = this.ruleBoards(activity, card, action);
+    action = Object.assign(Object.create(Object.getPrototypeOf(action)), action, { boardId: targetBoardId });
     const ruleVars = await buildRuleVars(activity, card);
     let list;
     let listId;
@@ -690,8 +704,11 @@ export const RulesHelper = {
       'linkCard',
       'copyCard',
       'moveAllCardsInList',
+      'sortList',
     ];
-    const actionBoardId = action.boardId || boardId;
+    // Where it works: the board the card is on now when the action names
+    // this board and an earlier action moved the card (ruleBoards).
+    const { here, target: actionBoardId } = this.ruleBoards(activity, card, action);
     if (crossBoardActions.includes(action.actionType) && actionBoardId !== boardId) {
       const destination = await ReactiveCache.getBoard(actionBoardId);
       if (!allowIsBoardMemberWithWriteAccess(activity.userId, destination)) {
@@ -1015,7 +1032,7 @@ export const RulesHelper = {
       // chosen field, rewriting their `sort` index.
       let list = await card.list();
       if (action.listName && action.listName !== '*') {
-        list = await ReactiveCache.getList({ title: action.listName, boardId });
+        list = await ReactiveCache.getList({ title: action.listName, boardId: here });
       }
       if (list) {
         const cards = await list.cardsUnfiltered(card.swimlaneId);
@@ -1027,13 +1044,13 @@ export const RulesHelper = {
       }
     }
     if (action.actionType === 'moveAllCardsInList') {
-      const fromList = await ReactiveCache.getList({ title: action.fromListName, boardId });
-      const toList = await ReactiveCache.getList({ title: action.listName, boardId: action.boardId || boardId });
+      const fromList = await ReactiveCache.getList({ title: action.fromListName, boardId: here });
+      const toList = await ReactiveCache.getList({ title: action.listName, boardId: actionBoardId });
       if (fromList && toList) {
         const cards = await fromList.cardsUnfiltered();
         for (const c of cards) {
           await withUserId(activity.userId, () =>
-            c.move(action.boardId || boardId, c.swimlaneId, toList._id),
+            c.move(actionBoardId, c.swimlaneId, toList._id),
           );
         }
       }

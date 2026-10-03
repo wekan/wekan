@@ -162,19 +162,27 @@ test('wiring: move-all onto another board has its runner, and the guard follows 
 // the card there - and only by those, in any plan it can be in.
 test('followable: only follower-safe actions after it, in its rule and in rules of its trigger type', () => {
   const { followableActionIds, FOLLOWER_SAFE } = require('../server/lib/listSyncSteps');
-  for (const type of ['setColor', 'addLabel', 'checkAll', 'addChecklist', 'removeChecklist', 'linkCard', 'createCard'])
+  // Since the maintainer decision of 2026-10-03, moves, sorting, moving all
+  // cards and archiving resolve on the board the card went to, so they may
+  // follow a move to another board too; sending email still may not, and a
+  // second move to yet another board ('<type>:elsewhere') may not either.
+  for (const type of ['setColor', 'addLabel', 'checkAll', 'addChecklist', 'removeChecklist', 'linkCard', 'createCard',
+    'moveCardToTop', 'moveCardToBottom', 'sortList', 'moveAllCardsInList', 'archive', 'unarchive'])
     assert.ok(FOLLOWER_SAFE.has(type), type);
-  for (const type of ['moveCardToTop', 'sortList', 'moveAllCardsInList', 'archive', 'sendEmail'])
+  for (const type of ['sendEmail', 'moveCardToTop:elsewhere', 'moveAllCardsInList:elsewhere'])
     assert.ok(!FOLLOWER_SAFE.has(type), type);
-  const types = { m: 'moveCardToTop', c: 'setColor', s: 'sortList', l: 'linkCard', x: 'archive' };
+  const types = { m: 'moveCardToTop', c: 'setColor', s: 'sortList', l: 'linkCard', x: 'archive', e: 'sendEmail',
+    o: 'moveCardToTop:elsewhere' };
   const typeOf = id => types[id];
-  assert.deepEqual([...followableActionIds([{ actionIds: ['m', 'c', 'l'], activityType: 'createCard' }], typeOf)].sort(),
-    ['c', 'l', 'm'], 'colour and link may follow it');
-  assert.ok(!followableActionIds([{ actionIds: ['m', 's'], activityType: 'createCard' }], typeOf).has('m'), 'sorting may not');
+  assert.deepEqual([...followableActionIds([{ actionIds: ['m', 'c', 'l', 's', 'x'], activityType: 'createCard' }], typeOf)].sort(),
+    ['c', 'l', 'm', 's', 'x'], 'colour, link, sorting and archiving may follow it');
+  assert.ok(!followableActionIds([{ actionIds: ['m', 'e'], activityType: 'createCard' }], typeOf).has('m'), 'an email may not');
+  assert.ok(!followableActionIds([{ actionIds: ['m', 'o'], activityType: 'createCard' }], typeOf).has('m'),
+    'nor a second move to another board');
   assert.ok(!followableActionIds([{ actionIds: ['m'], activityType: 'createCard' },
-    { actionIds: ['x'], activityType: 'createCard' }], typeOf).has('m'), 'another rule of its trigger type archives');
+    { actionIds: ['e'], activityType: 'createCard' }], typeOf).has('m'), 'another rule of its trigger type sends email');
   assert.ok(followableActionIds([{ actionIds: ['m'], activityType: 'createCard' },
-    { actionIds: ['x'], activityType: 'moveCard' }], typeOf).has('m'), 'a rule of another trigger type never shares its plan');
+    { actionIds: ['e'], activityType: 'moveCard' }], typeOf).has('m'), 'a rule of another trigger type never shares its plan');
   assert.ok(!followableActionIds([{ actionIds: ['m'], activityType: 'createCard' },
-    { actionIds: ['x'], activityType: null }], typeOf).has('m'), 'an unknown trigger type may share any plan');
+    { actionIds: ['e'], activityType: null }], typeOf).has('m'), 'an unknown trigger type may share any plan');
 });

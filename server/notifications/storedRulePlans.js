@@ -38,7 +38,7 @@ const { createEmailSendSlots } = require('/server/lib/emailSendSlots');
 const withEmailSlot = createEmailSendSlots(EmailSendSlots.rawCollection());
 const { executeRulePlan } = require('/server/lib/syncRuleExecution');
 const { ensureRuleEmailCommand } = require('/server/lib/syncRuleEmailCommand');
-const { ensureRuleArchiveCommand } = require('/server/lib/syncRuleArchiveCommand');
+const { ensureRuleArchiveCommand, boardOf: ruleArchiveBoardOf } = require('/server/lib/syncRuleArchiveCommand');
 const { ensureRuleArchiveEffects, prepareRuleArchiveEffects, applyRuleArchiveEffects } = require('/server/lib/syncRuleArchiveEffects');
 const { createRuleArchiveCards } = require('/server/lib/syncRuleArchiveCards');
 const { createRuleArchiveActivities } = require('/server/lib/syncRuleArchiveActivities');
@@ -378,11 +378,16 @@ async function archiveContext({ index, ...options }) {
     }
     await guard();
   };
-  return { context, plan, index, guard, assertCard };
+  return { context, plan, index, guard, assertCard, options };
 }
-async function captureArchive({ context, plan, index, guard, assertCard }) {
+async function captureArchive({ context, plan, index, guard, assertCard, options }) {
+  // On the board the card is on now: the plan's, or where a move of this
+  // same plan took it (ruleCardNow, 2026-10-03). A saved command keeps its own.
+  const now = await ruleCardNow(plan, context);
+  const cardBoardId = now ? now.boardId : plan.boardId;
+  if (cardBoardId !== plan.boardId) await assertDestinationBoard(cardBoardId, plan, options?.trigger);
   const command = await ensureRuleArchiveCommand({ commands: SyncRuleArchiveCommands.rawCollection(),
-    plan, activity: context.saved, effectId: context.effectId, index, assertCurrent: guard, assertCard,
+    plan, activity: context.saved, effectId: context.effectId, index, assertCurrent: guard, assertCard, cardBoardId,
     readCard: id => Cards.findOneAsync(id, { transform: null }),
     // #3626: the children archived WITH a card are the ones it is the one
     // parent of - the same set card.archive() takes (models/lib/cardParents.js).
@@ -426,8 +431,8 @@ export async function runStoredSyncRuleArchive({ completeDelivery = runStoredSyn
       await guard();
       const user = await Meteor.users.findOneAsync(command.actorId);
       const ids = [...new Set(command.cards.map(card => card.listId))];
-      const lists = await Lists.find({ _id: { $in: ids }, boardId: command.boardId }, { transform: null }).fetchAsync();
-      const redoRows = await ChangeHistory.find({ boardId: command.boardId, userId: command.actorId, undone: true,
+      const lists = await Lists.find({ _id: { $in: ids }, boardId: ruleArchiveBoardOf(command) }, { transform: null }).fetchAsync();
+      const redoRows = await ChangeHistory.find({ boardId: ruleArchiveBoardOf(command), userId: command.actorId, undone: true,
         superseded: { $ne: true } }, { transform: null, limit: 10000 }).fetchAsync();
       await guard();
       return prepareRuleArchiveEffects({ ...input, username: user?.username || '', lists,
@@ -569,7 +574,13 @@ export async function runStoredSyncRuleMove({ index, completeDelivery = runStore
   await guard();
   let row = await commands.findOne({ _id: id });
   if (!row) {
-    const card = await Cards.findOneAsync({ _id: plan.cardId, boardId: plan.boardId });
+    // The card where it is now: on the plan's board, or where a move of this
+    // same plan took it (ruleCardNow) - the move resolves there, as the
+    // ordinary action does (RulesHelper.ruleBoards, 2026-10-03).
+    const now = await ruleCardNow(plan, context);
+    const onBoard = now ? now.boardId : plan.boardId;
+    if (onBoard !== plan.boardId) await assertDestinationBoard(onBoard, plan, options.trigger);
+    const card = now ? await Cards.findOneAsync({ _id: plan.cardId, boardId: onBoard }) : null;
     // The ordinary action's own target (RulesHelper.moveCardTarget). A legacy
     // action without a boardId moves on the card's own board.
     const action = { ...invocation.action, boardId: invocation.action.boardId || plan.boardId };
@@ -577,13 +588,14 @@ export async function runStoredSyncRuleMove({ index, completeDelivery = runStore
     // No list to fall back to: the ordinary action does nothing; nor may this.
     if (!target) throw new Error('sync-rule-move-no-target');
     const [list, swimlane] = await Promise.all([
-      Lists.findOneAsync({ _id: target.listId, boardId: plan.boardId }),
-      Swimlanes.findOneAsync({ _id: target.swimlaneId, boardId: plan.boardId }),
+      Lists.findOneAsync({ _id: target.listId, boardId: onBoard }),
+      Swimlanes.findOneAsync({ _id: target.swimlaneId, boardId: onBoard }),
     ]);
-    const redoRows = await ChangeHistory.find({ boardId: plan.boardId, userId: plan.actorId, undone: true,
+    const redoRows = await ChangeHistory.find({ boardId: onBoard, userId: plan.actorId, undone: true,
       superseded: { $ne: true } }, { transform: null, limit: 10000 }).fetchAsync();
-    const raw = await Cards.rawCollection().findOne({ _id: plan.cardId, boardId: plan.boardId });
+    const raw = await Cards.rawCollection().findOne({ _id: plan.cardId, boardId: onBoard });
     const candidate = prepareRuleMoveCommand({ ...commandContext, card: raw, target, createdAt: new Date(), redoRows,
+      cardBoardId: onBoard,
       titles: { listName: list ? list.title : '', swimlaneName: swimlane ? swimlane.title : '', cardTitle: raw?.title } });
     await guard();
     let failure;
@@ -600,7 +612,7 @@ export async function runStoredSyncRuleMove({ index, completeDelivery = runStore
     if (!await at(command.before)) throw new Error('sync-rule-move-changed');
     await guard();
     // The hook's position row and moveCard activity are this command's to write.
-    await actor(() => withSyncRecordingDeferred({ cardId: command.cardId, boardId: command.boardId,
+    await actor(() => withSyncRecordingDeferred({ cardId: command.cardId, boardId: ruleMoveBoardOf(command),
       listId: command.after.listId, kinds: ['history', 'position', 'move'] },
     () => Cards.updateAsync(ruleMovePlaceSelector(command, command.before), modifier)));
     if (!await at(command.after)) throw new Error('sync-rule-move-unconfirmed');
@@ -637,7 +649,7 @@ export async function runStoredSyncRuleMove({ index, completeDelivery = runStore
   return invocation.id;
 }
 const { RULE_MOVE_ACTIONS, commandId: ruleMoveCommandId, prepareRuleMoveCommand, validateRuleMoveCommand,
-  placeSelector: ruleMovePlaceSelector, moveModifier: ruleMoveModifier } = require('/server/lib/syncRuleMoveCommand');
+  placeSelector: ruleMovePlaceSelector, moveModifier: ruleMoveModifier, boardOf: ruleMoveBoardOf } = require('/server/lib/syncRuleMoveCommand');
 
 // Durable rule moves to another board (server/lib/syncRuleMoveBoardCommand.js):
 // the move Card.move makes, decided once with its own mappings, written
@@ -872,21 +884,25 @@ export async function runStoredSyncRuleMoveAll({ index, completeDelivery = runSt
   await guard();
   let row = await commands.findOne({ _id: id });
   if (!row) {
-    // The ordinary action's own lookups (server/rulesHelper.js performAction).
-    const from = await ReactiveCache.getList({ title: action.fromListName, boardId: plan.boardId });
-    const to = await ReactiveCache.getList({ title: action.listName, boardId: plan.boardId });
+    // The ordinary action's own lookups (server/rulesHelper.js performAction),
+    // on the board the rule's card is on now (ruleCardNow, RulesHelper.ruleBoards).
+    const now = plan.cardId ? await ruleCardNow(plan, context) : null;
+    const onBoard = now ? now.boardId : plan.boardId;
+    if (onBoard !== plan.boardId) await assertDestinationBoard(onBoard, plan, options.trigger);
+    const from = await ReactiveCache.getList({ title: action.fromListName, boardId: onBoard });
+    const to = await ReactiveCache.getList({ title: action.listName, boardId: onBoard });
     const cards = from && to ? (await from.cardsUnfiltered()).map(card => ({ _id: card._id, boardId: card.boardId,
       listId: card.listId, swimlaneId: card.swimlaneId, sort: card.sort, title: card.title,
       lastMoveReason: card.lastMoveReason })) : [];
     const swimlaneIds = [...new Set(cards.map(card => card.swimlaneId))];
     const swimlanes = swimlaneIds.length
       ? await Swimlanes.find({ _id: { $in: swimlaneIds } }, { fields: { title: 1 } }).fetchAsync() : [];
-    const redoRows = await ChangeHistory.find({ boardId: plan.boardId, userId: plan.actorId, undone: true,
+    const redoRows = await ChangeHistory.find({ boardId: onBoard, userId: plan.actorId, undone: true,
       superseded: { $ne: true } }, { transform: null, limit: 10000 }).fetchAsync();
     const candidate = prepareRuleMoveAllCommand({ ...commandContext, from: from && { _id: from._id, title: from.title },
       to: to && { _id: to._id, title: to.title }, cards,
       swimlaneTitles: Object.fromEntries(swimlanes.map(lane => [lane._id, lane.title || ''])), createdAt: new Date(),
-      redoRows });
+      redoRows, cardBoardId: onBoard });
     await guard();
     let failure;
     try { await commands.insertOne(candidate); } catch (error) { failure = error; }
@@ -906,7 +922,7 @@ export async function runStoredSyncRuleMoveAll({ index, completeDelivery = runSt
       if (!await cardsCollection.findOne(ruleMoveAllSelector(command, unit, unit.before))) {
         throw new Error('sync-rule-move-all-changed');
       }
-      await actor(() => withSyncRecordingDeferred({ cardId: unit.cardId, boardId: command.boardId,
+      await actor(() => withSyncRecordingDeferred({ cardId: unit.cardId, boardId: ruleMoveAllBoardOf(command),
         listId: unit.after.listId, kinds: ['history', 'position', 'move'] },
       () => Cards.updateAsync(ruleMoveAllSelector(command, unit, unit.before), ruleMoveModifier(unit))));
       if (!await cardsCollection.findOne(ruleMoveAllSelector(command, unit, unit.after))) {
@@ -931,7 +947,7 @@ export async function runStoredSyncRuleMoveAll({ index, completeDelivery = runSt
   return invocation.id;
 }
 const { commandId: ruleMoveAllCommandId, prepareRuleMoveAllCommand, validateRuleMoveAllCommand,
-  unitSelector: ruleMoveAllSelector } = require('/server/lib/syncRuleMoveAllCommand');
+  unitSelector: ruleMoveAllSelector, boardOf: ruleMoveAllBoardOf } = require('/server/lib/syncRuleMoveAllCommand');
 const { RULE_CARD_POSITION_FIELDS } = require('/server/lib/syncHistoryBatch');
 
 // Durable rule copyCard, on the card's own board or another that opted in
@@ -1355,20 +1371,25 @@ export async function runStoredSyncRuleSortList({ index, ...options }) {
   await guard();
   let row = await commands.findOne({ _id: id });
   if (!row) {
-    // The ordinary action's own lookups (server/rulesHelper.js performAction).
-    const card = await Cards.findOneAsync({ _id: plan.cardId, boardId: plan.boardId });
+    // The ordinary action's own lookups (server/rulesHelper.js performAction),
+    // on the board the card is on now (ruleCardNow, RulesHelper.ruleBoards).
+    const now = await ruleCardNow(plan, context);
+    const onBoard = now ? now.boardId : plan.boardId;
+    if (onBoard !== plan.boardId) await assertDestinationBoard(onBoard, plan, options.trigger);
+    const card = now ? await Cards.findOneAsync({ _id: plan.cardId, boardId: onBoard }) : null;
     let list = card ? await card.list() : null;
     if (card && action.listName && action.listName !== '*') {
-      list = await ReactiveCache.getList({ title: action.listName, boardId: plan.boardId });
+      list = await ReactiveCache.getList({ title: action.listName, boardId: onBoard });
     }
     const cards = list ? (await list.cardsUnfiltered(card.swimlaneId)).map(c => ({ _id: c._id, boardId: c.boardId,
       listId: c.listId, swimlaneId: c.swimlaneId, sort: c.sort, title: c.title, createdAt: c.createdAt,
       modifiedAt: c.modifiedAt, dueAt: c.dueAt, lastMoveReason: c.lastMoveReason })) : [];
-    const redoRows = await ChangeHistory.find({ boardId: plan.boardId, userId: plan.actorId, undone: true,
+    const redoRows = await ChangeHistory.find({ boardId: onBoard, userId: plan.actorId, undone: true,
       superseded: { $ne: true } }, { transform: null, limit: 10000 }).fetchAsync();
     // No list: the ordinary action does nothing, and so does this command.
     const candidate = prepareRuleSortListCommand({ ...commandContext, listId: list ? list._id : (card?.listId || plan.cardId),
-      swimlaneId: card?.swimlaneId, cards: list ? cards : [], sortField: action.sortField, createdAt: new Date(), redoRows });
+      swimlaneId: card?.swimlaneId, cards: list ? cards : [], sortField: action.sortField, createdAt: new Date(), redoRows,
+      cardBoardId: onBoard });
     await guard();
     let failure;
     try { await commands.insertOne(candidate); } catch (error) { failure = error; }
@@ -1384,7 +1405,7 @@ export async function runStoredSyncRuleSortList({ index, ...options }) {
         throw new Error('sync-rule-sort-list-changed');
       }
       await DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false }, () =>
-        withSyncRecordingDeferred({ cardId: unit.cardId, boardId: command.boardId, listId: unit.listId,
+        withSyncRecordingDeferred({ cardId: unit.cardId, boardId: ruleSortListBoardOf(command), listId: unit.listId,
           kinds: ['history', 'position'] },
         () => Cards.updateAsync(ruleSortListSelector(command, unit, unit.before), { $set: { sort: unit.after } })));
       if (!await cardsCollection.findOne(ruleSortListSelector(command, unit, unit.after))) {
@@ -1400,7 +1421,7 @@ export async function runStoredSyncRuleSortList({ index, ...options }) {
   return invocation.id;
 }
 const { commandId: ruleSortListCommandId, prepareRuleSortListCommand, validateRuleSortListCommand,
-  unitSelector: ruleSortListSelector } = require('/server/lib/syncRuleSortListCommand');
+  unitSelector: ruleSortListSelector, boardOf: ruleSortListBoardOf } = require('/server/lib/syncRuleSortListCommand');
 
 // Durable rule checklist creation and removal
 // (server/lib/syncRuleChecklistLifecycleCommand.js): captured with the

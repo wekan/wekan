@@ -33,8 +33,12 @@ function identity({ plan, activity, effectId, index }) {
 }
 
 const finiteOrNull = value => (Number.isFinite(value) ? value : null);
+// The board the sorted list is on: the plan's, or - when an earlier move of
+// this same plan took the card to another board (2026-10-03) - that board,
+// saved as `onBoard`; a command on the plan's board has none, as before.
+const boardOf = command => command.onBoard || command.boardId;
 function placement(base, unit, sort) {
-  return { _id: unit.cardId, boardId: base.boardId, swimlaneId: unit.swimlaneId, listId: unit.listId, sort,
+  return { _id: unit.cardId, boardId: boardOf(base), swimlaneId: unit.swimlaneId, listId: unit.listId, sort,
     lastMoveReason: unit.lastMoveReason };
 }
 function unitHistory(base, unit, createdAt, redoRows) {
@@ -46,10 +50,12 @@ function unitHistory(base, unit, createdAt, redoRows) {
 // Capture. `cards` are the cards List.cardsUnfiltered(swimlaneId) returns for
 // the list the ordinary action resolves; `sortField` the action's.
 function prepareRuleSortListCommand({ plan, activity, effectId, index, listId, swimlaneId, cards, sortField,
-  createdAt, redoRows = [] }) {
-  const base = identity({ plan, activity, effectId, index });
+  createdAt, redoRows = [], cardBoardId = plan?.boardId }) {
+  const identityBase = identity({ plan, activity, effectId, index });
+  if (!text(cardBoardId)) fail('invalid');
+  const base = cardBoardId === identityBase.boardId ? identityBase : { ...identityBase, onBoard: cardBoardId };
   if (!text(listId) || !Array.isArray(cards) || cards.length > 10000 ||
-      cards.some(card => !card || !text(card._id) || card.boardId !== base.boardId || card.listId !== listId) ||
+      cards.some(card => !card || !text(card._id) || card.boardId !== boardOf(base) || card.listId !== listId) ||
       !(createdAt instanceof Date) || !Number.isFinite(createdAt.getTime())) fail('invalid');
   const units = sortListOrder(cards, sortField).map((card, i) => ({ cardId: card._id, listId: card.listId,
     swimlaneId: card.swimlaneId ?? null, lastMoveReason: typeof card.lastMoveReason === 'string' ? card.lastMoveReason : '',
@@ -62,9 +68,12 @@ function prepareRuleSortListCommand({ plan, activity, effectId, index, listId, s
 }
 
 function validateRuleSortListCommand(row, context) {
-  const base = identity(context);
+  const identityBase = identity(context);
+  const elsewhere = !!row && Object.hasOwn(row, 'onBoard');
+  const base = elsewhere ? { ...identityBase, onBoard: row.onBoard } : identityBase;
   const keys = [...Object.keys(base), 'listId', 'swimlaneId', 'createdAt', 'units', 'checksum'].sort().join(',');
   if (!row || Object.keys(row).sort().join(',') !== keys ||
+      (elsewhere && (!text(row.onBoard) || row.onBoard === identityBase.boardId)) ||
       Object.entries(base).some(([key, value]) => canonical(row[key]) !== canonical(value)) ||
       !text(row.listId) || !(row.createdAt instanceof Date) || !Array.isArray(row.units) || row.units.length > 10000) {
     fail('command-invalid');
@@ -88,7 +97,7 @@ function validateRuleSortListCommand(row, context) {
 // The unit's card at a saved sort, in its list: a card with no usable sort
 // was captured as null, which matches a missing or null sort.
 function unitSelector(command, unit, sort) {
-  return { _id: unit.cardId, boardId: command.boardId, listId: unit.listId, sort: sort === null ? null : { $eq: sort } };
+  return { _id: unit.cardId, boardId: boardOf(command), listId: unit.listId, sort: sort === null ? null : { $eq: sort } };
 }
 
-module.exports = { commandId, prepareRuleSortListCommand, validateRuleSortListCommand, unitSelector };
+module.exports = { commandId, prepareRuleSortListCommand, validateRuleSortListCommand, unitSelector, boardOf };

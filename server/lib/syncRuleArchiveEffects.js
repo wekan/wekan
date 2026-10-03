@@ -51,7 +51,7 @@ function prepareRuleArchiveEffects({ command, plan, activity, effectId, index, u
   if (typeof username !== 'string' || !Array.isArray(lists) || lists.length > 1000) fail();
   const byId = new Map();
   for (const list of lists) {
-    if (!list || typeof list._id !== 'string' || !list._id || list.boardId !== command.boardId ||
+    if (!list || typeof list._id !== 'string' || !list._id || list.boardId !== (command.onBoard || command.boardId) ||
         typeof list.title !== 'string' || byId.has(list._id)) fail();
     byId.set(list._id, list);
   }
