@@ -91,7 +91,7 @@ const keys = [
   "scrum-daily-observations-export-help",
   "scrum-import-pending"
 ];
-for (const code of ['lld', 'hsb']) {
+for (const code of ['lld', 'hsb', 'szl']) {
 const locale = read(code);
 assert.deepEqual(Object.keys(locale), Object.keys(en));
 for (const key of keys) {
@@ -114,7 +114,7 @@ assert.match(locale['scrum-partial-report'], /demé.*assegnedes a vos/);
 assert.match(locale['scrum-import-pending'], /ne é nia fenida.*ne é nia a desposizion/);
 assert.notEqual(locale['scrum-state-closed'], locale['scrum-state-cancelled']);
 assert.notEqual(locale['scrum-added'], locale['scrum-removed']);
-} else {
+} else if (code === 'hsb') {
  assert.match(locale['scrum-report-help'], /njejsu nulowe šacowanja/);
  assert.match(locale['scrum-report-help'], /samsnych šacowanskich jednotkach a prawidłach/);
  for (const key of ['scrum-daily-observations-help', 'scrum-daily-observations-export-help']) {
@@ -127,6 +127,19 @@ assert.notEqual(locale['scrum-added'], locale['scrum-removed']);
  assert.match(locale['scrum-import-pending'], /njeje dospołny.*k dispoziciji njejsu/);
  assert.notEqual(locale['scrum-state-closed'], locale['scrum-state-cancelled']);
  assert.notEqual(locale['scrum-added'], locale['scrum-removed']);
+ } else {
+ assert.match(locale['scrum-report-help'], /niy sōm ôszacowaniami zerowymi/);
+ assert.match(locale['scrum-report-help'], /tych samych jednostkach ôszacowaniŏ i zasadach/);
+ for (const key of ['scrum-daily-observations-help', 'scrum-daily-observations-export-help']) {
+  assert.match(locale[key], /UTC/);
+  assert.match(locale[key], /[Bb]rakujōnce dni sōm pōmijane/);
+  assert.match(locale[key], /niy zapisujōm kożdyj zmiany/);
+  assert.match(locale[key], /Niyznane ôszacowania niy sōm zerym/);
+ }
+ assert.match(locale['scrum-partial-report'], /ino karty teroz przipisane tobie/);
+ assert.match(locale['scrum-import-pending'], /niy je dokończōny.*niy sōm dostympne/);
+ assert.notEqual(locale['scrum-state-closed'], locale['scrum-state-cancelled']);
+ assert.notEqual(locale['scrum-added'], locale['scrum-removed']);
 }
 }
-console.log('Ladin and Upper Sorbian Scrum translations: 84 messages each passed');
+console.log('Ladin, Upper Sorbian and Silesian Scrum translations: 84 messages each passed');
