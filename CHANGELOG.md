@@ -5444,6 +5444,19 @@ and the broader translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bf6c8d694b">Translate the SQLite restart restore option into 106 locale variants</a>. Thanks to xet7.</summary>
+
+Translate the next-restart timing and retention of the replaced database in 105
+catalog files serving 106 locale variants. Preserve all existing values, exact
+source placeholders and relative source key order. All 106 batch audits and 21
+human-preference checks pass, as do the board-link and language-wiring suites.
+Catalog completeness and continuous-backup suites still fail: the remaining
+locales need the restart option, and new encryption labels also need translation.
+The broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
