@@ -6296,6 +6296,16 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/893b80a43f">Translate Scrum job messages in ten European locales</a>. Thanks to xet7.</summary>
+
+- Translate card rollover progress, history undo/redo progress and retry instructions into Irish, Welsh, Luxembourgish, Maltese, Faroese, Frisian, Romansh and Latin, including the Welsh and Frisian regional catalogs.
+- Preserve existing translations and exact progress placeholders; regression coverage now checks these messages in 138 locale variants.
+- Three focused suites, 21 human-preference checks and ten catalog preservation audits pass. Other locales and remaining translation gaps still need work.
+- Faroese, Maltese and Romansh technical wording has lower confidence and welcomes native review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
