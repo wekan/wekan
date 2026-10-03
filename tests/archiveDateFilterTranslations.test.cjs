@@ -30,7 +30,7 @@ const keys = [
   "filter-column-age-hint",
   "advanced-filter-card-dates-hint"
 ];
-for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'yi', 'mi', 'sm']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'yi', 'mi', 'sm', 'haw']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -68,4 +68,6 @@ assert.match(read('mi')['auto-archive-hint'], /kāore rawa ngā tātauira e pura
 assert.match(read('sm')['auto-archive-hint'], /e lē teuina lava mamanu/);
 assert.match(read('mi')['filter-column-age-hint'], /Kāore te whakatika kāri e tīmata anō/);
 assert.match(read('sm')['filter-column-age-hint'], /e lē toe amata ai/);
-console.log('Archiving and date filters: 23 messages in 11 locales passed');
+assert.match(read('haw')['auto-archive-hint'], /ʻaʻole loa e waiho ʻia nā anakuhi/);
+assert.match(read('haw')['filter-column-age-hint'], /ʻAʻole ka hoʻoponopono ʻana/);
+console.log('Archiving and date filters: 23 messages in 12 locales passed');
