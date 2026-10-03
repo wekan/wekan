@@ -4200,6 +4200,19 @@ Arabic-script Uzbek, other languages and the broader backlog remain.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c29c7741b">Translate continuous backup into Arabic-script Uzbek</a>. Thanks to xet7.</summary>
+
+Fill 35 English placeholders and replace Latin-script restore and save labels.
+Preserve existing correct-script translations, source order and exact tokens.
+Use existing catalog vocabulary and the [Uzbek alphabet reference](https://en.wikipedia.org/wiki/Uzbek_alphabet).
+Arabic-script Uzbek orthography and technical phrasing are low-confidence and need
+speaker review. Extend checks for restore warnings, time units and Arabic prose
+with unchanged technical names. Four focused catalog suites and all 21
+human-preference checks pass. Other languages and the broader backlog remain.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
