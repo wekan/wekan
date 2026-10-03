@@ -156,6 +156,8 @@ const groups = [
   ['ay', 'janiwa apanitäkiti', 'Alayaru', 'aynacharu'],
   ['qu', 'manam apamusqachu kanku', 'Hananman', 'urayman'],
   ['gn', 'ndojeguerúi', 'Yvate', 'yvýgotyo'],
+  ['bo', 'ནང་འདྲེན་མི་བྱེད', 'ཡར', 'མར'],
+  ['dz', 'ནང་འདྲེན་མི་འབད', 'ཡར', 'མར'],
   ['fi', 'ei tuoda', 'Ylä-', 'alanuoli'],
   ['sv', 'importeras inte', 'Uppåt-', 'nedåtpilarna'],
   ['da', 'importeres ikke', 'Pil op', 'pil ned'],
