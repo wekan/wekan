@@ -6536,6 +6536,16 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/47652f8ac6">Extend import and reordering translations to eight more locale variants</a>. Thanks to xet7.</summary>
+
+- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Irish, Welsh, Luxembourgish, Maltese, Frisian and Latin, including regional variants.
+- Preserve existing translations, exact source tokens, commands, file formats, import limitations and both arrow-key directions.
+- Twelve relevant suites, 21 human-preference checks and all eight preservation audits pass. These three messages now cover 131 locale variants; 103 variants and other catalog gaps remain.
+- Technical wording has low confidence and welcomes native review. Luxembourgish block terminology was checked against the [Luxembourgish dictionary](https://lod.lu/artikel/BLOCK1).
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
