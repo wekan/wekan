@@ -70,7 +70,7 @@ const keys = [
   "sync-remaining-time",
   "sync-time-estimate-hint"
 ];
-for (const code of ['lld', 'hsb']) {
+for (const code of ['lld', 'hsb', 'szl']) {
 const locale = read(code);
 assert.deepEqual(Object.keys(locale), Object.keys(en));
 for (const key of keys) {
@@ -93,7 +93,7 @@ for (const key of ['sync-estimate-field-hint', 'sync-time-estimate-hint']) {
 }
 assert.notEqual(locale['sync-report-failed'], locale['sync-report-completed']);
 assert.notEqual(locale['sync-preview-create'], locale['sync-preview-archive']);
-} else {
+} else if (code === 'hsb') {
  assert.match(locale['sync-conflict-hint'], /Ničo so do žórłoweho systema njepósćele/);
  assert.match(locale['sync-conflict-detach-hint'], /jenož přirjadowanje.*wobsah we WeKan wostanje/);
  assert.match(locale['sync-conflict-archive-hint'], /Podkartki so njezměnja/);
@@ -106,6 +106,19 @@ assert.notEqual(locale['sync-preview-create'], locale['sync-preview-archive']);
  }
  assert.notEqual(locale['sync-report-failed'], locale['sync-report-completed']);
  assert.notEqual(locale['sync-preview-create'], locale['sync-preview-archive']);
+ } else {
+ assert.match(locale['sync-conflict-hint'], /Nic niy je wysyłane do zdrzōdłowego systymu/);
+ assert.match(locale['sync-conflict-detach-hint'], /ino mapowanie.*treść ôstŏwŏ we WeKan/);
+ assert.match(locale['sync-conflict-archive-hint'], /Podkarty niy sōm zmiyniane/);
+ assert.match(locale['sync-conflict-review-complete'], /cołkij listy niy była puszczōnŏ/);
+ assert.match(locale['sync-report-partial'], /niy wznŏwiajōm ani niy cofajōm/);
+ assert.match(locale['sync-source-scope'], /wartości niy sōm pokŏzowane/);
+ for (const key of ['sync-estimate-field-hint', 'sync-time-estimate-hint']) {
+  assert.match(locale[key], /wartości zdrzōdła sōm ignorowane/);
+  assert.match(locale[key], /jawne null czyści/);
+ }
+ assert.notEqual(locale['sync-report-failed'], locale['sync-report-completed']);
+ assert.notEqual(locale['sync-preview-create'], locale['sync-preview-archive']);
 }
 }
-console.log('Ladin and Upper Sorbian Sync translations: 63 messages each passed');
+console.log('Ladin, Upper Sorbian and Silesian Sync translations: 63 messages each passed');
