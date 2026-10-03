@@ -235,11 +235,10 @@ Remaining, and why:
   swimlane, a move to another board) are delivered durably too. Built on
   2026-10-03 as decided (below): a later move, sort, move-all or archive
   resolves on the board the card went to, in both engines, and is durable
-  too, and so is a further move on to yet another board that opted in. What
-  stays on direct Sync, and why: a plan where a move to another board can be
-  followed by an email (a sent message cannot be taken back when a later
-  step fails), or by a move-all onto another board (it moves a list of the
-  rule's own board, which the card has left).
+  too, and so is a further move or move-all on to yet another board that
+  opted in. What stays on direct Sync, and why: a plan where a move to
+  another board can be followed by an email - a sent message cannot be taken
+  back when a later step fails, so it cannot be replayed safely after one.
 - **Scrum requirements** (from
   [the Scrum design](docs/Features/Right-Sidebar/Board-Settings/Board-View/Scrum-Design.md)).
   Built on 2026-10-02 and 2026-10-03 (see Upcoming): event-level scope
@@ -2066,8 +2065,18 @@ before list lifetimes can use it, and GitLab estimates sync too.
 The cross-board move command took the card from the plan's board only. It
 now takes it from where an earlier move of the same plan put it, saved as
 fromBoard, so such a chain stays durable when every board it reaches opted
-in. A move-all onto another board still cannot follow. A server test runs A
-to B to C durably and with the ordinary engine, with the same result.
+in. A server test runs A to B to C durably and with the ordinary engine, with
+the same result.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/64489c5a2a">A rule's move-all onto another board can follow a move to another board</a>. Thanks to xet7.</summary>
+
+The durable move-all took its list from the plan's board, while the ordinary
+engine takes it from where the rule's card is now. It now does the same and
+saves that board, so only an email keeps such a plan on direct Sync. A server
+test moves a card from A to B and then all of B's list to C, both ways.
 
 </details>
 
