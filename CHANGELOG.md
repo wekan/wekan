@@ -6326,6 +6326,16 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/79484d1c92">Translate Scrum job messages in ten more language catalogs</a>. Thanks to xet7.</summary>
+
+- Translate rollover progress, history undo/redo progress and retry instructions into Corsican, Sardinian, Sicilian, Neapolitan, Papiamento, Tok Pisin, Bislama, Māori, Cantonese and Hiragana Japanese.
+- Preserve existing translations and exact progress tokens; regression coverage now checks these messages in 174 locale variants.
+- Three focused suites, 21 human-preference checks and ten catalog preservation audits pass. Remaining locales and other translation gaps still need work.
+- Sardinian, Neapolitan, Papiamento, Tok Pisin and Bislama technical wording has lower confidence and welcomes native review. Vocabulary references: [Tok Pisin dictionary](https://tokpisin.net/) and [Bislama handbook](https://www.livelingua.com/peace-corps/Bislama/Bislama%20Handbook%20-%20Revision%20July%202011.pdf).
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
