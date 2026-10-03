@@ -51,6 +51,7 @@ codes.push('ak', 'ee');
 codes.push('se');
 codes.push('gv', 'kw');
 codes.push('bua', 'cv', 'sah');
+codes.push('ti');
 const keys = ['continuous-backup-encrypt', 'continuous-backup-key-file'];
 for (const code of codes) {
   const locale = read(code);
