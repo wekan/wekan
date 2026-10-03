@@ -144,6 +144,9 @@ const groups = [
   ['lg', 'tebiyingizibwa', 'waggulu', 'wansi'],
   ['wo', 'duñu leen dugal', 'ci kaw', 'ci suuf'],
   ['bm', 'tɛ ladon', 'Sanfɛ', 'duguma'],
+  ['ace', 'hana geupeutamong', 'u ateueh', 'u miyup'],
+  ['lld', 'ne vën nia importés', 'in su', 'in ju'],
+  ['rup', 'nu s-importã', 'n-sus', 'n-gios'],
   ['fi', 'ei tuoda', 'Ylä-', 'alanuoli'],
   ['sv', 'importeras inte', 'Uppåt-', 'nedåtpilarna'],
   ['da', 'importeres ikke', 'Pil op', 'pil ned'],
@@ -202,3 +205,5 @@ for (const code of ['ug', 'uz-AR']) {
     assert.doesNotMatch(prose, /[A-Za-z]|\p{Script=Cyrillic}/u, `${code}:${key}: prose in declared script`);
   }
 }
+
+for (const key of keys) assert.doesNotMatch(read('lld')[key], /\p{Script=Cyrillic}/u, `lld:${key}: no Cyrillic lookalikes`);
