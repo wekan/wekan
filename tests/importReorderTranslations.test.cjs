@@ -132,6 +132,10 @@ const groups = [
   ['ts', 'a swi nghenisiwi', 'le henhla', 'le hansi'],
   ['ss', 'atingeniswa', 'yetulu', 'naphansi'],
   ['nd', 'akungeniswa', 'yaphezulu', 'laphansi'],
+  ['ug', 'ئىمپورت قىلىنمايدۇ', 'يۇقىرى', 'تۆۋەن'],
+  ['uz-AR', 'ایمپارت قیلینمیدی', 'یوقاریگه', 'پستگه'],
+  ['kok', 'आयात करिनात', 'वयर', 'सकयल'],
+  ['om', 'hin galfaman', 'olii', 'gadii'],
   ['fi', 'ei tuoda', 'Ylä-', 'alanuoli'],
   ['sv', 'importeras inte', 'Uppåt-', 'nedåtpilarna'],
   ['da', 'importeres ikke', 'Pil op', 'pil ned'],
@@ -181,3 +185,12 @@ assert.equal(read('ve-CC').checklist, 'Lista de controło', 'Venetian checklist,
 
 assert.ok(read('mi')[keys[0]].includes('mahere huānga JSON'), 'Māori array term');
 assert.ok(read('haw')[keys[2]].startsWith('E alakō'), 'Hawaiian computer drag term');
+
+assert.equal(read('uz-AR').labels, 'یارلیقلر', 'Arabic-script Uzbek labels');
+for (const code of ['ug', 'uz-AR']) {
+  for (const key of keys) {
+    const prose = read(code)[key].replace(/task export|JSON|Done|project|priority|annotations|depends|\.boardarchive|board\.jsonl/g, '');
+    assert.match(prose, /\p{Script=Arabic}/u, `${code}:${key}: Arabic script`);
+    assert.doesNotMatch(prose, /[A-Za-z]|\p{Script=Cyrillic}/u, `${code}:${key}: prose in declared script`);
+  }
+}
