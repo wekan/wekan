@@ -5308,6 +5308,18 @@ remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dcc9c2a818">Translate continuous backup into Tigrinya</a>. Thanks to xet7.</summary>
+
+Fill 35 English placeholders while preserving existing translations, source order
+and exact tokens. Extend vocabulary, script, restore protection, pause and time-unit
+checks. All 453 translation-related suites and 21 human-preference checks pass.
+Technical Tigrinya wording is low confidence and needs native-speaker review.
+Fourteen locales still have English continuous-backup strings, and the broader
+translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
