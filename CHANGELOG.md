@@ -6306,6 +6306,16 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ba672541eb">Translate Scrum job messages in thirteen more locale variants</a>. Thanks to xet7.</summary>
+
+- Translate rollover progress, history undo/redo progress and retry instructions into Burmese, Khmer, Javanese, Haitian Creole, Occitan, Asturian, Aragonese, Yiddish, Kurdish, Sorani and Pashto, including Khmer regional catalogs.
+- Preserve existing translations and exact progress tokens; regression coverage now checks these messages in 151 locale variants.
+- Three focused suites, 21 human-preference checks and twelve catalog preservation audits pass. Remaining locales and other translation gaps still need work.
+- Aragonese and Kurdish technical wording has lower confidence and welcomes native review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
