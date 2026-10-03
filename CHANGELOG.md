@@ -6576,6 +6576,16 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e1357ac13a">Translate import and reordering help into six African languages</a>. Thanks to xet7.</summary>
+
+- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Somali, Hausa, Yoruba, Igbo, Malagasy and Amharic.
+- Preserve existing translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions.
+- Thirteen relevant suites, 21 human-preference checks and all six preservation audits pass. These three messages now cover 156 locale variants; 78 variants and other catalog gaps remain.
+- Technical wording has low confidence and welcomes native review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
