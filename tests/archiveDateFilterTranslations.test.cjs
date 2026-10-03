@@ -30,7 +30,7 @@ const keys = [
   "filter-column-age-hint",
   "advanced-filter-card-dates-hint"
 ];
-for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -56,4 +56,8 @@ assert.match(read('ku')['auto-archive-hint'], /tu carî nayên arşîvkirin/);
 assert.match(read('ckb')['auto-archive-hint'], /هەرگیز ناگوازرێنەوە/);
 assert.match(read('ku')['filter-column-age-hint'], /ji nû ve nade destpêkirin/);
 assert.match(read('ckb')['filter-column-age-hint'], /لە نوێوە دەست پێ ناکات/);
-console.log('Archiving and date filters: 23 messages in 5 locales passed');
+assert.match(read('pap')['auto-archive-hint'], /nunka ta wordu archivá/);
+assert.match(read('tpi')['auto-archive-hint'], /no save putim ol templet long stua/);
+assert.match(read('pap')['filter-column-age-hint'], /no ta kuminsá su tempu den e lista di nobo/);
+assert.match(read('tpi')['filter-column-age-hint'], /no kirapim gen taim/);
+console.log('Archiving and date filters: 23 messages in 7 locales passed');
