@@ -4991,6 +4991,17 @@ translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8f9df578ee">Translate continuous backup into Northern Ndebele</a>. Thanks to xet7.</summary>
+
+Fill 35 English placeholders while preserving existing translations, source order
+and exact tokens. Extend restore protection, pause, time-unit and vocabulary
+checks. Four focused catalog suites and all 21 human-preference checks pass.
+Technical wording is low confidence and needs native-speaker review. The broader
+translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
