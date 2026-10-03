@@ -6366,6 +6366,16 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/488145a6e1">Translate Scrum job messages in ten further language catalogs</a>. Thanks to xet7.</summary>
+
+- Translate rollover progress, history undo/redo progress and retry instructions into Tigrinya, Tibetan, Dzongkha, Kashmiri, Chuvash, Buryat, Sakha, Venda, Guarani and Quechua.
+- Preserve existing translations and exact progress tokens; regression coverage now checks these messages in 213 locale variants.
+- Three focused suites, 21 human-preference checks and ten catalog preservation audits pass. Remaining locales and other translation gaps still need work.
+- Technical phrasing in this batch has lower confidence, especially Dzongkha, Kashmiri, Chuvash, Buryat, Sakha, Venda and Quechua, and welcomes native review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
