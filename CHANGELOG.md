@@ -1810,6 +1810,13 @@ used.
 
 # Upcoming WeKan ® release
 
+**In short:** Fixes **SamlSubjectBleed** by binding SAML accounts to their
+original identity; legacy accounts missing issuer information require
+administrator verification before SAML access resumes. Confirms the existing
+**ZipBombBleed** fix with browser regression coverage, restores **Firefox tests
+on macOS**, and expands translations for archiving, date filters and other UI
+guidance.
+
 This release fixes the following CRITICAL SECURITY ISSUE:
 
 <details>
