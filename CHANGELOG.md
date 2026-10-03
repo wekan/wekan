@@ -5370,6 +5370,19 @@ strings, and the broader translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3baae544b6">Translate continuous backup into Volapük</a>. Thanks to xet7.</summary>
+
+Fill 35 English placeholders, replace two mixed-language backup descriptions and
+correct the Esperanto delete label in the restore control. Preserve other
+translations, source key order, exact placeholders and literal paths. Extend
+restore safeguard, pause, time-unit, vocabulary and description regression checks.
+Four focused catalog suites and all 21 human-preference checks pass. Technical
+Volapük wording is low confidence and needs fluent-speaker review. Nine locales
+still have English continuous-backup strings, and the broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
