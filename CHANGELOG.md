@@ -6666,6 +6666,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f7be052b15">Translate import help into Akan, Luganda, Wolof and Bambara</a>. Thanks to xet7.</summary>
+
+- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into four more languages, preserving existing translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions.
+- Ten relevant suites, 21 human-preference checks and all four preservation audits pass. These three messages now cover 205 locale variants; 29 variants and other catalog gaps remain.
+- Technical wording has low confidence and welcomes native review. Vocabulary was checked against [Akan teaching material](https://elias.fas.harvard.edu/index.php/languages/Twi/Beginning/1/AKAN-SOUNDS), [Bambara dictionary entries](https://dictionary.ankataa.com/search.php?input=sa&search=lexicon) and [Wolof vocabulary](https://wolofresources.org/language/download/lexicarry_plus.pdf).
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
