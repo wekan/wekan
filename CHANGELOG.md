@@ -6566,6 +6566,16 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8aa91392c0">Extend import and reordering translations to seven more locale variants</a>. Thanks to xet7.</summary>
+
+- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Burmese, Khmer, Kurmanji, Sorani and Pashto, including Khmer regional variants.
+- Preserve existing translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions.
+- Fourteen relevant suites, 21 human-preference checks and all six file preservation audits pass. These three messages now cover 150 locale variants; 84 variants and other catalog gaps remain.
+- Technical wording has low confidence and welcomes native review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
