@@ -171,6 +171,7 @@ const groups = [
   ['zgh', 'ⵓⵔ ⵜⵜⵡⴰⵙⴽⵛⴰⵎⵏ', 'ⵓⴼⵍⵍⴰ', 'ⵡⴰⴷⴷⴰ'],
   ['iu', 'ᐃᓯᖅᑎᑕᐅᙱᑦᑐᑦ', 'ᖁᒻᒧᑦ', 'ᐊᑖᓄᑦ'],
   ['tig', 'ኢልትአምጸእኒ', 'ላዕል', 'ታሐት'],
+  ['wal', 'gelikkona', 'Pude', 'duge'],
   ['fi', 'ei tuoda', 'Ylä-', 'alanuoli'],
   ['sv', 'importeras inte', 'Uppåt-', 'nedåtpilarna'],
   ['da', 'importeres ikke', 'Pil op', 'pil ned'],
@@ -245,3 +246,7 @@ assert.equal(read('ve-PP')["checklistItem-linked-subtask"], "Sidotud alatego");
 
 // The Volapük comments label must not retain Esperanto seed text.
 assert.equal(read('vo').comments, 'Küpets');
+
+// Wolaytta direction controls must not retain English after a language prefix.
+assert.equal(read('wal')["move-card-up"], "Kaardiya pude qaassa");
+assert.equal(read('wal')["move-card-down"], "Kaardiya duge qaassa");
