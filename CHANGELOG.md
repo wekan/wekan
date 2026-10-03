@@ -1808,7 +1808,7 @@ used.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.16 2026-10-03 WeKan ® release
 
 **In short:** Administrators choose which optional **board views** WeKan offers,
 can keep features from later updates off until approved, and can stream every
