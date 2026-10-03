@@ -6070,6 +6070,19 @@ backlog are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/212da6e19f">Translate backup options into Arabic-script Uzbek</a>. Thanks to xet7.</summary>
+
+Add eight encryption, cloud and restart options using the existing Uzbek
+translations as a reference. Preserve existing values, relative source key order
+and exact placeholders. Extend encryption and cloud coverage with Arabic-script
+checks. Four focused suites, all 21 human-preference checks and the preservation
+and script audit pass. Arabic-script spelling and technical wording are low
+confidence and need native-speaker review. Remaining locales and the broader
+translation backlog are unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
