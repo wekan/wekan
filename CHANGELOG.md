@@ -6517,6 +6517,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a868c350b1">Translate import and reordering help into six South Asian languages</a>. Thanks to xet7.</summary>
+
+- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Nepali, Marathi, Tamil, Telugu, Gujarati and Kannada.
+- Preserve existing translations, exact source tokens, commands, field names, file formats, import limitations and both arrow-key directions.
+- Eleven relevant suites, 21 human-preference checks and all six catalog preservation audits pass. These three messages now cover 117 locale variants; 117 variants and other catalog gaps remain.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
