@@ -165,6 +165,7 @@ const groups = [
   ['ff', 'naatnetaake', 'dow', 'les'],
   ['ti', 'ኣይኣትዉን', 'ንላዕሊ', 'ንታሕት'],
   ['vo', 'no panüpladons', 'sui', 'donio'],
+  ['tlh', "luqembe'lu'", 'Dung', 'bIng'],
   ['fi', 'ei tuoda', 'Ylä-', 'alanuoli'],
   ['sv', 'importeras inte', 'Uppåt-', 'nedåtpilarna'],
   ['da', 'importeres ikke', 'Pil op', 'pil ned'],
