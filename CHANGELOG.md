@@ -232,14 +232,13 @@ Remaining, and why:
   board that has opted into Sync effects too. Since 2026-10-02 a move to
   another board may be followed by card-field, checklist and link actions,
   which act on the card where it went, and activities without a list (a new
-  swimlane, a move to another board) are delivered durably too. What stays on
-  direct Sync, and why: a plan where a move to another board can be followed
-  by a move, a sort, moving all cards or archiving. The ordinary engine
-  resolves those against the board the card LEFT - its list and swimlane
-  names, and archiving's cascade to child cards there - which is arguably a
-  bug of its own. Decided on 2026-10-03 (below): both engines change to the
-  destination board, and then these actions become durable too; not built
-  yet.
+  swimlane, a move to another board) are delivered durably too. Built on
+  2026-10-03 as decided (below): a later move, sort, move-all or archive
+  resolves on the board the card went to, in both engines, and is durable
+  too. What stays on direct Sync, and why: a plan where a move to another
+  board can be followed by an email (a sent message cannot be taken back
+  when a later step fails), or by a second move to yet another board (each
+  board reached must have opted in, and a chain of them is not built).
 - **Scrum requirements** (from
   [the Scrum design](docs/Features/Right-Sidebar/Board-Settings/Board-View/Scrum-Design.md)).
   Built on 2026-10-02 and 2026-10-03 (see Upcoming): event-level scope
@@ -247,12 +246,13 @@ Remaining, and why:
   discovery, GitLab estimate Sync, cross-board sprint and release references
   linked by name, large-board paging, online recovery of interrupted imports,
   and sprints with no card limit. What stays open, and why:
-  - *Very large sprints are slow, not refused*: closing 10,500 cards takes
-    about 8 s and undoing the close about 44 s, because every card is written
-    and checked one by one through the ordinary card hooks and History
-    checks. Decided on 2026-10-03 (below): keep every per-card guard and run
-    close and undo as a resumable background job with progress; not built
-    yet.
+  - *Very large sprints across several servers*: a close and an undo of more
+    than 2,000 cards run as resumable background jobs with progress (built
+    on 2026-10-03, as decided below). Each server resumes the jobs it finds
+    after a restart; when two servers resume the same one, the card writes'
+    compare-and-set lets one win and the other stops with a conflict, which
+    the Scrum view shows as a stopped job to resume. A cross-server job lease
+    would remove that noise and is not built.
   - *Concurrent snapshot consistency*: a snapshot is a sequence of reads, not
     a transaction - the same backend property as "Atomicity" below.
   - *Jira's closed sprints*: issue search JSON has no commitment or close
@@ -328,6 +328,12 @@ Maintainer decisions of 2026-10-03, for what remained above:
   administrator-held key, needed to restore); and a restored SQLite file is
   staged with the startup scripts' RESTORE_REQUESTED marker, so the next
   restart puts it in place.
+
+Built on 2026-10-03 (in Upcoming): all three decisions above - rule actions
+after a move to another board resolve there, in both engines and durably;
+large sprints close, undo and redo in the background with progress; and
+continuous backup encrypts at rest, uploads to S3/MinIO, Azure or GCS, and
+applies a restored SQLite file on the next restart.
 - **[#2509](https://github.com/wekan/wekan/issues/2509): closed.** Changing
   the order of fields and hiding fields on the card and the minicard (Board
   Settings / Card and Board View) already customizes how a card looks.
@@ -1755,14 +1761,11 @@ template.
 <summary>Continuous backup: what it leaves to the administrator, and why.</summary>
 
 Admin Panel / Attachments / Continuous backup (see Upcoming,
-docs/Backup/Continuous-Backup.md) streams to a target DIRECTORY. Still open:
-uploading to S3, Azure or GCS with the built-in engines (point the target at
-an rclone mount, or use the Litestream engine, which uploads itself);
-encrypting the stream; and applying a restored SQLite file, which is built
-beside the stream because FerretDB holds the live file open - stopping WeKan
-and putting it in place stays a manual step. All three were decided on
-2026-10-03 to be built (see the decisions under "Carried to a future
-release"); not built yet. The default docker-compose.yml
+docs/Backup/Continuous-Backup.md) encrypts at rest, uploads to S3/MinIO, Azure
+or GCS, and applies a restored SQLite file on the next restart (built on
+2026-10-03). Still open: the upload was tested against a directory-backed
+remote and an adapter stand-in, not a live S3, Azure or GCS account, which
+this environment does not have. The default docker-compose.yml
 runs FerretDB in its own container with no oplog, so it needs
 `--repl-set-name` or Litestream in that container before the database can be
 streamed; the file streams run regardless. The browser tests ran in Chromium
@@ -1924,6 +1927,19 @@ Scrum methods, and tests/playwright/specs/scrum-scope-history.e2e.js.
 interrupted imports.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/600fc3b4de">A large sprint closes, undoes and redoes in the background, with progress</a>. Thanks to xet7.</summary>
+
+As decided on 2026-10-03, every per-card guard stays and the browser no longer
+waits on one call. A close over 2,000 cards returns once the sprint is closed;
+its rollover continues chunk by chunk under the close's named History batch,
+resumes after a restart, and keeps a failure for the resume button. An undo or
+redo of a batch with more than four rows left continues as a background job
+that undo and redo on the board wait for. The Scrum view shows both as progress
+bars. A smaller sprint still closes in one History row.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b6ca287df3">A sprint's snapshot rows are kept outside the sprint document</a>. Thanks to xet7.</summary>
 
 A sprint kept one row per card of its start and close snapshots in its own
@@ -2037,6 +2053,19 @@ a server test of the stored plan.
 
 **List Sync** - more of what a rule does runs through durable Sync, lists from
 before list lifetimes can use it, and GitLab estimates sync too.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/acb2c0786a">A rule's later move, sort, move-all and archive work where its card went</a>. Thanks to xet7.</summary>
+
+As decided on 2026-10-03, after a rule moved its card to another board, later
+actions naming the rule's own board resolve their lists and swimlanes on the
+board the card is on now, in both engines. This also fixes a move to "*" after
+such a move, which took the new list but the old board. The durable commands
+save that board, and these actions may now follow a move to another board;
+an email or a second move elsewhere still keeps direct Sync. A server test
+runs the chain durably and ordinarily with the same result.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/12e98cdbfe">A rule's later actions follow its card to another board</a>. Thanks to xet7.</summary>
@@ -2255,6 +2284,21 @@ that nothing else writes the field on an existing list.
 **Backup** - every change streamed as it happens, restorable to a moment.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5ef5757c71">Continuous backup encrypts at rest, uploads to the cloud and applies a SQLite restore on restart</a>. Thanks to xet7.</summary>
+
+As decided on 2026-10-03. Encrypt seals segments, bases, blobs and state with
+AES-256-GCM and a key file the administrator holds outside the backup; a wrong
+key is refused on save and before a restore, and blob names are keyed. Upload
+mirrors the target to S3/MinIO, Azure or GCS with the Attachments storages'
+credentials, contents before the indexes that name them, and Fetch from cloud
+fills a lost target. A rebuilt SQLite file can be staged with the startup
+scripts' RESTORE_REQUESTED marker, which keeps the live database first. Tests:
+unit, encrypted integration, each startup script's real restore block in a
+sandbox, and the pane in Chromium and WebKit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6b9bc496b1">Admin Panel / Attachments / Continuous backup streams the database, files and logs</a>. Thanks to xet7.</summary>
 
 Beside Backup, a new pane streams the database, filesystem attachments,
@@ -2355,6 +2399,7 @@ and has the following developer-facing changes:
 - [The RTL, issue-type and source-audit guards follow the Board Settings / Card work](https://github.com/wekan/wekan/commit/999819e63e). Thanks to xet7.
 - [The groundwork for rule moves to another board](https://github.com/wekan/wekan/commit/e108bb83b0). Thanks to xet7.
 - [The LinkedWriteBleed VM test loads every exported function](https://github.com/wekan/wekan/commit/73df81bc6c). Thanks to xet7.
+- [The applyListWidth test has a writing member and a read-only negative](https://github.com/wekan/wekan/commit/30f57cf837). Thanks to xet7.
 
 and improves translation regression checks:
 
