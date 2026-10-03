@@ -6396,6 +6396,16 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/57afeb15e7">Complete Scrum job translations across all locale catalogs</a>. Thanks to xet7.</summary>
+
+- Translate rollover progress, history undo/redo progress and retry instructions into Cherokee, Inuktitut, Tigre, Wolaytta and Standard Moroccan Tamazight. All 234 non-English locale variants now contain these three messages.
+- Discover every catalog automatically in regression coverage, preserving exact progress tokens and checking the declared scripts used by this batch.
+- Three focused suites, 21 human-preference checks and five catalog preservation audits pass. Backup translations and other catalog gaps still need work.
+- Technical phrasing in all five languages has low confidence and welcomes native review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
