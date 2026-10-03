@@ -139,3 +139,22 @@ test('Ladin keyboard and math labels preserve operations and recognizable key na
  for(const name of ['CHROME_OS','LINUX','MAC_OS','WINDOWS'])
   assert.equal(lld[`blockly-${name}`],english[`blockly-${name}`]);
 });
+
+test('Upper Sorbian keyboard labels preserve navigation direction and key identity',()=>{
+ const hsb=require('../imports/i18n/data/hsb.i18n.json');
+ const names='ALT_KEY BACKSPACE_KEY CAPS_LOCK_KEY COMMAND_KEY CONTEXT_MENU_KEY CONTROL_KEY END_KEY ENTER_KEY ESCAPE HOME_KEY INSERT_KEY OPTION_KEY PAGE_DOWN_KEY PAGE_UP_KEY PAUSE_KEY SHIFT_KEY SPACE_KEY TAB_KEY'.split(' ');
+ for(const name of names){
+  const key=`blockly-${name}`;
+  assert.notEqual(hsb[key],english[key],key);
+  assert.deepEqual(tokens(hsb[key]),tokens(english[key]),`${key}: exact tokens`);
+ }
+ assert.match(hsb['blockly-PAGE_DOWN_KEY'],/dele$/);
+ assert.match(hsb['blockly-PAGE_UP_KEY'],/horje$/);
+ assert.notEqual(hsb['blockly-HOME_KEY'],hsb['blockly-END_KEY']);
+ assert.notEqual(hsb['blockly-SHIFT_KEY'],hsb['blockly-CAPS_LOCK_KEY']);
+ for(const name of ['Alt','Backspace','Command','Control','Option'])
+  assert.ok(hsb[`blockly-${name.toUpperCase()}_KEY`].includes(name));
+ // Standard math notation, shared mathematical words and product names are valid unchanged.
+ for(const name of ['CHROME_OS','LINUX','MAC_OS','WINDOWS','INPUT_LABEL_NUMBER_MIN','MATH_ADDITION_SYMBOL_ARIA','MATH_ONLIST_OPERATOR_MIN_ARIA','MATH_SUBTRACTION_SYMBOL_ARIA','MATH_TRIG_ACOS','MATH_TRIG_ASIN','MATH_TRIG_ATAN','MATH_TRIG_COS','MATH_TRIG_SIN','MATH_TRIG_TAN'])
+  assert.equal(hsb[`blockly-${name}`],english[`blockly-${name}`]);
+});
