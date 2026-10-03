@@ -6018,18 +6018,6 @@ backlog are unfinished.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/afa162da6e">Translate new backup options into Samoan and Tongan</a>. Thanks to xet7.</summary>
-
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
-and both batch preservation audits pass. Technical terminology is low confidence
-and needs native-speaker review. Remaining locales and the broader translation
-backlog are unfinished.
-
-</details>
-
-<details>
 <summary><a href="https://github.com/wekan/wekan/commit/17279b2a77">Translate new backup options into Bislama and Fijian</a>. Thanks to xet7.</summary>
 
 Add eight encryption, cloud and restart options to each locale. Preserve existing
