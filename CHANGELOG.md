@@ -5695,6 +5695,18 @@ Remaining locales and the broader translation backlog are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6d025c2285">Translate new backup options into Scottish Gaelic and Breton</a>. Thanks to xet7.</summary>
+
+Add eight encryption, cloud and restart options to each locale. Preserve existing
+translations, relative source key order and exact placeholders. Extend encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference checks
+and both batch preservation audits pass. Technical terminology is low confidence
+and needs native-speaker review. Remaining locales and the broader translation
+backlog are unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
