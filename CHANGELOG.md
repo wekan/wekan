@@ -385,8 +385,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 Status checked on 2026-10-03. The later translation request resumed this work;
 the earlier pause above remains historical. Completed work is recorded in Upcoming.
 
-- The current `node releases/translations/fill-translations.mjs --missing` report counts **53,072 untranslated locale/string values in 70 languages**. It excludes **204 source keys deliberately left in English pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
-- Continue automatic-archiving and date-filter translations beyond the thirty-eight locales recorded in completed changelog entries, then the remaining feature families.
+- The current `node releases/translations/fill-translations.mjs --missing` report counts **53,052 untranslated locale/string values in 70 languages**. It excludes **204 source keys deliberately left in English pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
+- Continue automatic-archiving and date-filter translations beyond the thirty-nine locales recorded in completed changelog entries, then the remaining feature families.
 - Fill English placeholders in every language, including minority and constructed languages. Audit mixed-language and wrong-language seed text, and review provisional wording with speakers when available. Preserve correct-language human translations, source key order, exact placeholders, technical identifiers and query examples. Use direct translation and dictionary research, not an external translation service.
 - Keep regression and human-preference checks passing. Passing tests does not establish translation completeness or fluency; rerun relevant checks for each batch and the broad suite before declaring all-language work complete.
 
@@ -2071,6 +2071,17 @@ used.
 - Fill 23 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
 - Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
 - Regional Wu wording is provisional and needs speaker review. Usage of 辰光 and 勿 was checked against [Shanghai-language examples](https://tatoeba.org/de/audio/index/wuu?page=3). Remaining all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2d0efcf493265d739fc35072c6612450b7ec836f">Translate archiving and date filters into Aromanian</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Aromanian.
+
+- Fill 23 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
+- Aromanian wording is low confidence and needs speaker review. Time vocabulary was checked against the [Aromanian phrasebook](https://en.wikivoyage.org/wiki/Aromanian_phrasebook) and [Wiktionary's entry for dzuã](https://en.wiktionary.org/wiki/dzu%C3%A3). Remaining all-language work is tracked in TODO Later.
 
 </details>
 
