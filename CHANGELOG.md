@@ -6406,6 +6406,17 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5d92e48e01">Complete new backup translations and repair catalog regressions</a>. Thanks to xet7.</summary>
+
+- Translate the eight new backup encryption, cloud and restart messages into Cherokee, Inuktitut, Tigre, Wolaytta and Standard Moroccan Tamazight, completing these messages across all 234 non-English locale variants.
+- Synchronize eleven English variants with the current source keys without replacing existing wording. Correct Swiss German spelling and the corpus-attested Tigre Files plural.
+- Discover all non-English catalogs in backup regression tests, cover the restart message, and allow the exact AES-256-GCM identifier in Arabic-script Uzbek script checks.
+- All 455 translation-related suites pass, including reruns after six failures were fixed. Human-preference and catalog preservation checks pass. Older untranslated backup messages and other catalog gaps remain.
+- Technical wording in the five newly filled languages has low confidence and welcomes native review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
