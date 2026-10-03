@@ -5484,6 +5484,20 @@ The broader translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/27995bbf0d">Translate new backup options into 14 more locale variants</a>. Thanks to xet7.</summary>
+
+Add 112 restart, encryption and cloud translations for Irish, Welsh, Luxembourgish,
+Maltese, Faroese, Frisian, Occitan, Asturian, Aragonese, Corsican, Sicilian and
+Sardinian, including Welsh and Frisian variants. Preserve existing translations,
+source key order and exact placeholders. Extend encryption and cloud regression
+coverage. All batch audits, four focused suites and 21 human-preference checks
+pass. Technical Faroese, Occitan, Asturian, Aragonese, Corsican, Sicilian and
+Sardinian wording is low confidence and needs fluent-speaker review. Remaining
+locales and the broader translation backlog are unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
