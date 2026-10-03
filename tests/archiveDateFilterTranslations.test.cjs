@@ -30,7 +30,7 @@ const keys = [
   "filter-column-age-hint",
   "advanced-filter-card-dates-hint"
 ];
-for (const code of ['tk_TM', 'tt', 'so']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -52,4 +52,8 @@ assert.match(read('so')['auto-archive-hint'], /waligood lama kaydiyo/);
 assert.match(read('tk_TM')['filter-column-age-hint'], /täzeden başlatmaýar/);
 assert.match(read('tt')['filter-column-age-hint'], /яңадан башламый/);
 assert.match(read('so')['filter-column-age-hint'], /dib uma bilowdo/);
-console.log('Archiving and date filters: 23 messages in Turkmen, Tatar and Somali passed');
+assert.match(read('ku')['auto-archive-hint'], /tu carî nayên arşîvkirin/);
+assert.match(read('ckb')['auto-archive-hint'], /هەرگیز ناگوازرێنەوە/);
+assert.match(read('ku')['filter-column-age-hint'], /ji nû ve nade destpêkirin/);
+assert.match(read('ckb')['filter-column-age-hint'], /لە نوێوە دەست پێ ناکات/);
+console.log('Archiving and date filters: 23 messages in 5 locales passed');
