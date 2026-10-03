@@ -161,6 +161,8 @@ const groups = [
   ['ve', 'a zwi dzheniswi', 'nṱha', 'fhasi'],
   ['ve-PP', 'ei toda', 'Ülähäks', 'alahaks'],
   ['ks', 'نہٕ درآمد گژھان', 'ہؠور', 'بۄن'],
+  ['ee', 'Wometsɔa', 'Dzi', 'te'],
+  ['ff', 'naatnetaake', 'dow', 'les'],
   ['fi', 'ei tuoda', 'Ylä-', 'alanuoli'],
   ['sv', 'importeras inte', 'Uppåt-', 'nedåtpilarna'],
   ['da', 'importeres ikke', 'Pil op', 'pil ned'],
