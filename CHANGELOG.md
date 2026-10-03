@@ -6586,6 +6586,16 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/90120d0bde">Extend African import and reordering translations</a>. Thanks to xet7.</summary>
+
+- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Zulu, Xhosa, Shona, Chichewa, Sesotho and Setswana, covering seven more locale variants.
+- Preserve existing translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions.
+- Eleven relevant suites, 21 human-preference checks and all seven preservation audits pass. These three messages now cover 163 locale variants; 71 variants and other catalog gaps remain.
+- Technical wording has low confidence and welcomes native review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
