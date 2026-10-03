@@ -166,6 +166,7 @@ const groups = [
   ['ti', 'ኣይኣትዉን', 'ንላዕሊ', 'ንታሕት'],
   ['vo', 'no panüpladons', 'sui', 'donio'],
   ['tlh', "luqembe'lu'", 'Dung', 'bIng'],
+  ['nah', 'amo calaqui', 'huehcapa', 'tlani'],
   ['fi', 'ei tuoda', 'Ylä-', 'alanuoli'],
   ['sv', 'importeras inte', 'Uppåt-', 'nedåtpilarna'],
   ['da', 'importeres ikke', 'Pil op', 'pil ned'],
