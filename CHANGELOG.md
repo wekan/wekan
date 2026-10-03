@@ -235,10 +235,11 @@ Remaining, and why:
   swimlane, a move to another board) are delivered durably too. Built on
   2026-10-03 as decided (below): a later move, sort, move-all or archive
   resolves on the board the card went to, in both engines, and is durable
-  too. What stays on direct Sync, and why: a plan where a move to another
-  board can be followed by an email (a sent message cannot be taken back
-  when a later step fails), or by a second move to yet another board (each
-  board reached must have opted in, and a chain of them is not built).
+  too, and so is a further move on to yet another board that opted in. What
+  stays on direct Sync, and why: a plan where a move to another board can be
+  followed by an email (a sent message cannot be taken back when a later
+  step fails), or by a move-all onto another board (it moves a list of the
+  rule's own board, which the card has left).
 - **Scrum requirements** (from
   [the Scrum design](docs/Features/Right-Sidebar/Board-Settings/Board-View/Scrum-Design.md)).
   Built on 2026-10-02 and 2026-10-03 (see Upcoming): event-level scope
@@ -246,13 +247,6 @@ Remaining, and why:
   discovery, GitLab estimate Sync, cross-board sprint and release references
   linked by name, large-board paging, online recovery of interrupted imports,
   and sprints with no card limit. What stays open, and why:
-  - *Very large sprints across several servers*: a close and an undo of more
-    than 2,000 cards run as resumable background jobs with progress (built
-    on 2026-10-03, as decided below). Each server resumes the jobs it finds
-    after a restart; when two servers resume the same one, the card writes'
-    compare-and-set lets one win and the other stops with a conflict, which
-    the Scrum view shows as a stopped job to resume. A cross-server job lease
-    would remove that noise and is not built.
   - *Concurrent snapshot consistency*: a snapshot is a sequence of reads, not
     a transaction - the same backend property as "Atomicity" below.
   - *Jira's closed sprints*: issue search JSON has no commitment or close
@@ -1927,6 +1921,18 @@ Scrum methods, and tests/playwright/specs/scrum-scope-history.e2e.js.
 interrupted imports.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0218cd823f">A large sprint's background rollover or undo runs on one server at a time</a>. Thanks to xet7.</summary>
+
+Each server resumed the background jobs it found after a restart, so two of
+them could run one job and stop each other with conflicts. Each step now
+takes or renews a one-minute lease on the sprint or the job; another server's
+live lease leaves the job to it, and a lease that ran out is taken over.
+Tests: a foreign live lease leaves both jobs untouched, an expired one is
+taken over.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/600fc3b4de">A large sprint closes, undoes and redoes in the background, with progress</a>. Thanks to xet7.</summary>
 
 As decided on 2026-10-03, every per-card guard stays and the browser no longer
@@ -2053,6 +2059,17 @@ a server test of the stored plan.
 
 **List Sync** - more of what a rule does runs through durable Sync, lists from
 before list lifetimes can use it, and GitLab estimates sync too.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b07a8a421b">A rule can move its card on to a third board after a move to another, durably</a>. Thanks to xet7.</summary>
+
+The cross-board move command took the card from the plan's board only. It
+now takes it from where an earlier move of the same plan put it, saved as
+fromBoard, so such a chain stays durable when every board it reaches opted
+in. A move-all onto another board still cannot follow. A server test runs A
+to B to C durably and with the ordinary engine, with the same result.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/acb2c0786a">A rule's later move, sort, move-all and archive work where its card went</a>. Thanks to xet7.</summary>
