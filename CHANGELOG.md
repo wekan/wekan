@@ -6247,6 +6247,18 @@ backlog are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a2d9408baf">Translate Scrum background job messages in 48 locale variants</a>. Thanks to xet7.</summary>
+
+Translate card rollover progress, history undo/redo progress and interrupted-job
+instructions in 47 catalog files, also covering the Russian locale symlink.
+Preserve existing translations, source key order and exact progress placeholders.
+Add an automatically discovered regression suite. Three focused suites, all 21
+human-preference checks and 47 catalog preservation audits pass. The remaining
+locales and broader translation backlog are unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
