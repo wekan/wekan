@@ -17,6 +17,18 @@ const groups = [
   ['bg', 'не се импортират', 'нагоре', 'надолу'],
   ['uk uk-UA', 'не імпортуються', 'вгору', 'вниз'],
   ['ru ru-RU ru_RU ru-UA', 'не импортируются', 'вверх', 'вниз'],
+  ['et-EE', 'ei impordita', 'Üles-', 'allanoole'],
+  ['lv', 'netiek importēti', 'Augšupvērstās', 'lejupvērstās'],
+  ['lt', 'neimportuojami', 'aukštyn', 'žemyn'],
+  ['el el-GR', 'δεν εισάγονται', 'πάνω', 'κάτω'],
+  ['tr', 'içe aktarılmaz', 'Yukarı', 'aşağı'],
+  ['id', 'tidak diimpor', 'atas', 'bawah'],
+  ['ms ms-MY', 'tidak diimport', 'atas', 'bawah'],
+  ['vi vi-VN', 'không được nhập', 'lên', 'xuống'],
+  ['ja ja-JP', 'インポートされません', '上矢印', '下矢印'],
+  ['ko ko-KR', '가져오지 않습니다', '위쪽', '아래쪽'],
+  ['cmn zh zh-CN zh-GB zh-Hans zh_SG', '不会导入', '向上', '向下'],
+  ['zh-Hant zh-TW zh-HK', '不會匯入', '向上', '向下'],
   ['fi', 'ei tuoda', 'Ylä-', 'alanuoli'],
   ['sv', 'importeras inte', 'Uppåt-', 'nedåtpilarna'],
   ['da', 'importeres ikke', 'Pil op', 'pil ned'],
@@ -57,3 +69,5 @@ for (const code of ['ro', 'ro-RO']) {
   assert.equal(read(code).description, 'Descriere', `${code}: Romanian description, not Italian`);
 }
 assert.equal(read('hr').description, 'Opis', 'Croatian description uses Croatian Latin spelling');
+
+assert.equal(read('lv').checklist, 'Kontrolsaraksts', 'Latvian checklist, not Lithuanian');
