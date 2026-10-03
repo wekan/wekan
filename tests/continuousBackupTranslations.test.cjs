@@ -6,7 +6,7 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('continuous-backup'));
-for (const code of ['fi', 'sv', 'da', 'nb', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'it', 'nl', 'nl-NL', 'pl', 'pl-PL', 'cs', 'cs-CZ', 'sk', 'sl', 'hr', 'ro', 'ro-RO', 'hu', 'bg', 'uk', 'uk-UA', 'ru', 'ru-RU', 'ru_RU', 'ru-UA', 'lv', 'lt', 'et-EE', 'el', 'el-GR', 'tr', 'ja', 'ja-JP', 'ja-HI', 'ko', 'ko-KR', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-Hant', 'zh-TW', 'zh-HK', 'id', 'ms', 'ms-MY', 'vi', 'vi-VN', 'ar', 'ar-DZ', 'ar-EG', 'he', 'he-IL', 'fa', 'fa-IR', 'ur', 'hi', 'hi-IN', 'bn', 'ca', 'ca_ES', 'gl', 'gl-ES', 'eu', 'af', 'af_ZA', 'sw', 'bs', 'sr', 'mk', 'is', 'eo', 'sq', 'th', 'tl', 'be', 'az', 'az-AZ', 'az-LA', 'ka', 'hy', 'uz', 'uz-UZ', 'uz-LA', 'uz-AR', 'kk', 'mn', 'ne', 'mr', 'ta']) {
+for (const code of ['fi', 'sv', 'da', 'nb', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'it', 'nl', 'nl-NL', 'pl', 'pl-PL', 'cs', 'cs-CZ', 'sk', 'sl', 'hr', 'ro', 'ro-RO', 'hu', 'bg', 'uk', 'uk-UA', 'ru', 'ru-RU', 'ru_RU', 'ru-UA', 'lv', 'lt', 'et-EE', 'el', 'el-GR', 'tr', 'ja', 'ja-JP', 'ja-HI', 'ko', 'ko-KR', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-Hant', 'zh-TW', 'zh-HK', 'id', 'ms', 'ms-MY', 'vi', 'vi-VN', 'ar', 'ar-DZ', 'ar-EG', 'he', 'he-IL', 'fa', 'fa-IR', 'ur', 'hi', 'hi-IN', 'bn', 'ca', 'ca_ES', 'gl', 'gl-ES', 'eu', 'af', 'af_ZA', 'sw', 'bs', 'sr', 'mk', 'is', 'eo', 'sq', 'th', 'tl', 'be', 'az', 'az-AZ', 'az-LA', 'ka', 'hy', 'uz', 'uz-UZ', 'uz-LA', 'uz-AR', 'kk', 'mn', 'ne', 'mr', 'ta', 'te-IN']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -74,6 +74,7 @@ for (const [codes, protection, pause, units] of [
   }
 }
 for (const [codes, protection, pause, units] of [
+  [['te-IN'], /ఉపయోగంలో ఉన్న ఫైల్‌ను ఎప్పుడూ ఓవర్‌రైట్ చేయదు/, /ఎంచుకున్న తరాన్ని ఎంచుకున్న సమయపు.*పునరుద్ధరణ సమయంలో.*తాత్కాలికంగా ఆగుతుంది/, ['సెకన్లు', 'గంటలు', 'రోజులు']],
   [['ta'], /பயன்பாட்டில் உள்ள கோப்பை ஒருபோதும் மேலெழுதாது/, /தேர்ந்தெடுத்த தலைமுறையைத் தேர்ந்தெடுத்த நேரத்தின்.*மீட்டெடுப்பின்போது.*தற்காலிகமாக நிறுத்தப்படும்/, ['நொடிகள்', 'மணிநேரம்', 'நாட்கள்']],
   [['mr'], /वापरात असलेली फाइल कधीही अधिलिखित करत नाही/, /निवडलेली पिढी निवडलेल्या क्षणाच्या.*पुनर्संचयित करताना.*तात्पुरता थांबवला जाईल/, ['सेकंद', 'तास', 'दिवस']],
   [['ne'], /प्रयोगमा रहेको फाइललाई कहिल्यै अधिलेखन गर्दैन/, /छानिएको पुस्तालाई छानिएको समयको.*पुनःस्थापनाको समयमा.*अस्थायी रूपमा रोकिनेछ/, ['सेकेन्ड', 'घण्टा', 'दिन']],
@@ -219,5 +220,6 @@ for (const key of keys) assert.match(read('ne')[key], /\p{Script=Devanagari}/u);
 assert.equal(read('ne')['continuous-backup-saved'], 'निरन्तर जगेडाका सेटिङहरू सुरक्षित गरिए');
 for (const key of keys) assert.match(read('mr')[key], /\p{Script=Devanagari}/u);
 for (const key of keys) assert.match(read('ta')[key], /\p{Script=Tamil}/u);
+for (const key of keys) assert.match(read('te-IN')[key], /\p{Script=Telugu}/u);
 for (const key of keys) assert.doesNotMatch(read('de-CH')[key], /ß/);
-console.log(`Continuous backup: ${keys.length} translations in one hundred and twelve locales passed`);
+console.log(`Continuous backup: ${keys.length} translations in one hundred and thirteen locales passed`);
