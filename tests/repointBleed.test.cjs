@@ -24,7 +24,7 @@ function loadGuard() {
   const src = read('server/lib/boardRepointGuard.js').replace(/^export /gm, '');
   const lib = {};
   // eslint-disable-next-line no-new-func
-  new Function('exports', 'require', `${src}\nexports.changesBoardId = changesBoardId;\nexports.denyBoardRepoint = denyBoardRepoint;`)(
+  new Function('exports', 'require', `${src}\nexports.changesBoardId = changesBoardId;\nexports.denyBoardRepoint = denyBoardRepoint;\nexports.denyForeignRuleTriggers = denyForeignRuleTriggers;\nexports.rulePointsElsewhere = rulePointsElsewhere;`)(
     lib, name => (name === '/server/lib/securityLog' ? { record: r => records.push(r) } : {}));
   return { ...lib, records };
 }
@@ -86,3 +86,35 @@ test('negative: every board-owned collection with a client update rule refuses a
   // issue there (PositionHistoryBleed), see tests/positionHistoryBleed*.
   assert.deepEqual(missing.filter(f => f !== 'userPositionHistory.js'), []);
 });
+
+// RepointBleed sibling (2026-10-03): a rule naming ANOTHER board's trigger.
+test('a rule naming another board\'s trigger is refused and recorded; its own board\'s is not', async () => {
+  const { denyForeignRuleTriggers, rulePointsElsewhere, records } = loadGuard();
+  const triggers = { own: { boardId: 'mine' }, theirs: { boardId: 'victim' } };
+  const read = async id => triggers[id] || null;
+  const deny = denyForeignRuleTriggers(read);
+  assert.equal(await deny.insert('attacker', { boardId: 'mine', triggerId: 'theirs' }), true);
+  assert.equal(await deny.insert('attacker', { boardId: 'mine', triggerId: 'own', extraTriggerIds: ['theirs'] }), true);
+  const doc = { boardId: 'mine', triggerId: 'own' };
+  assert.equal(await deny.update('attacker', doc, ['triggerId'], { $set: { triggerId: 'theirs' } }), true);
+  assert.equal(await deny.update('attacker', doc, ['extraTriggerIds'], { $addToSet: { extraTriggerIds: 'theirs' } }), true);
+  assert.equal(await deny.update('attacker', doc, ['extraTriggerIds'], { $push: { extraTriggerIds: { $each: ['theirs'] } } }), true);
+  assert.equal(records.length, 5);
+  assert.ok(records.every(r => r.key === 'authz.repoint' && r.action === 'blocked'));
+  // Negative: its own board's triggers, a missing one, and unrelated edits.
+  assert.equal(await deny.insert('admin', { boardId: 'mine', triggerId: 'own', extraTriggerIds: ['own'] }), false);
+  assert.equal(await deny.insert('admin', { boardId: 'mine', triggerId: 'gone' }), false);
+  assert.equal(await deny.update('admin', doc, ['title'], { $set: { title: 'x', triggerId: 'theirs' } }), false,
+    'only an update that writes the trigger fields is checked; the rest the allow rule judges');
+  assert.equal(await rulePointsElsewhere({ boardId: 'mine' }, read), false);
+  assert.equal(records.length, 5);
+});
+
+test('rules are matched to a trigger on the activity\'s own board, never whichever named it first', () => {
+  const helper = read('server/rulesHelper.js');
+  const body = helper.slice(helper.indexOf('async findMatchingRules('), helper.indexOf('async findMatchingRules(') + 8000);
+  assert.doesNotMatch(body, /trigger\.getRule\(\)/);
+  assert.equal((body.match(/ruleOnBoard\(trigger, activity\.boardId\)/g) || []).length, 4);
+  assert.match(read('server/permissions/rules.js'), /Rules\.deny\(denyForeignRuleTriggers\(/);
+});
+

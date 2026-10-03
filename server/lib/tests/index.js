@@ -123,5 +123,6 @@ import './scrumScopeHistory.tests';
 import './scrumSnapshotRows.tests';
 import './continuousBackup.tests';
 import './copySubtaskScope.tests';
+import './ruleTriggerScope.tests';
 import './scrumMovedReferences.tests';
 import './editableCardIds.tests';

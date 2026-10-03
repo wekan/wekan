@@ -172,6 +172,16 @@ async function addCardPeopleAndFields(vars, card) {
   vars.customfield = fields;
 }
 
+// The rule a matching trigger belongs to, on the activity's own board
+// (2026-10-03). Trigger.getRule() returned whichever rule named the trigger
+// first, and a board admin elsewhere could save a rule naming another board's
+// trigger (refused since, server/permissions/rules.js), so that board's own
+// rule might never be found; only this board's rules may run here anyway.
+async function ruleOnBoard(trigger, boardId) {
+  const { ruleForTriggerSelector } = require('/models/lib/ruleParts');
+  return (await ReactiveCache.getRule({ ...ruleForTriggerSelector(trigger._id), boardId })) || undefined;
+}
+
 export const RulesHelper = {
   // The checklist title an addChecklist action names, resolved exactly as
   // performAction does below: for the durable rule checklist lifecycle
@@ -392,7 +402,7 @@ export const RulesHelper = {
       const matchingMap = await this.buildMatchingFieldsMap(activity, matchingFields);
       const matchingTriggers = await ReactiveCache.getTriggers(matchingMap);
       for (const trigger of matchingTriggers) {
-        const rule = await trigger.getRule();
+        const rule = await ruleOnBoard(trigger, activity.boardId);
         // Check that for some unknown reason there are some leftover triggers
         // not connected to any rules
         if (rule !== undefined) {
@@ -426,7 +436,7 @@ export const RulesHelper = {
         for (const trigger of tokenTriggers) {
           if (!triggerMatchesWithVars(trigger, matchingFields, tokenValues, vars, plainMatches)) continue;
           // eslint-disable-next-line no-await-in-loop
-          const rule = await trigger.getRule();
+          const rule = await ruleOnBoard(trigger, activity.boardId);
           if (rule !== undefined) matchingRules.push(rule);
         }
       }
@@ -450,7 +460,7 @@ export const RulesHelper = {
             const matches = await cardMatchesAdvancedFilter(card, trigger.advancedFilter);
             if (matches) {
               // eslint-disable-next-line no-await-in-loop
-              const rule = await trigger.getRule();
+              const rule = await ruleOnBoard(trigger, activity.boardId);
               if (rule !== undefined) {
                 matchingRules.push(rule);
               }
@@ -485,7 +495,7 @@ export const RulesHelper = {
           for (const trigger of textContainsTriggers) {
             if (cardTextContainsMatch(card, trigger.textContains)) {
               // eslint-disable-next-line no-await-in-loop
-              const rule = await trigger.getRule();
+              const rule = await ruleOnBoard(trigger, activity.boardId);
               if (rule !== undefined) {
                 matchingRules.push(rule);
               }
