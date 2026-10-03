@@ -16,6 +16,7 @@ codes.push('si', 'as');
 codes.push('ht', 'so');
 codes.push('jv', 'mg');
 codes.push('ha');
+codes.push('yo');
 const keys = ['continuous-backup-encrypt', 'continuous-backup-key-file'];
 for (const code of codes) {
   const locale = read(code);
