@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "还原到（日期和时间）",
   "continuous-backup-restore-what": "还原",
   "continuous-backup-restore-sqlite": "SQLite 数据库文件（在备份旁创建，绝不会覆盖正在使用的文件）",
+  "continuous-backup-apply-on-restart": "在下次重启时启用重建的 SQLite 数据库（被替换的数据库会保留）",
   "continuous-backup-restore-confirm": "将所选代次还原到所选时刻的状态吗？还原期间会暂停持续备份。",
   "continuous-backup-restore-done": "还原完成",
   "continuous-backup-saved": "持续备份设置已保存",

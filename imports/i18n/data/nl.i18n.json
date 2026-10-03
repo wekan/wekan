@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Herstellen naar (datum en tijd)",
   "continuous-backup-restore-what": "Herstellen",
   "continuous-backup-restore-sqlite": "SQLite-databasebestand (wordt naast de back-up gemaakt en overschrijft nooit het bestand dat in gebruik is)",
+  "continuous-backup-apply-on-restart": "De opnieuw opgebouwde SQLite-database bij de volgende herstart in gebruik nemen (de vervangen database blijft bewaard)",
   "continuous-backup-restore-confirm": "De gekozen generatie herstellen naar het gekozen tijdstip? De doorlopende back-up wordt tijdens het herstel gepauzeerd.",
   "continuous-backup-restore-done": "Herstel voltooid",
   "continuous-backup-saved": "Instellingen voor doorlopende back-up opgeslagen",

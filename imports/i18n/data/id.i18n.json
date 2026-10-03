@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Pulihkan ke (tanggal dan waktu)",
   "continuous-backup-restore-what": "Pulihkan",
   "continuous-backup-restore-sqlite": "Berkas basis data SQLite (dibuat di samping cadangan, tidak pernah menimpa berkas yang sedang digunakan)",
+  "continuous-backup-apply-on-restart": "Gunakan basis data SQLite yang dibangun ulang saat mulai ulang berikutnya (basis data yang digantikan tetap disimpan)",
   "continuous-backup-restore-confirm": "Pulihkan generasi yang dipilih ke keadaan pada waktu yang dipilih? Pencadangan berkelanjutan akan dijeda selama pemulihan.",
   "continuous-backup-restore-done": "Pemulihan selesai",
   "continuous-backup-saved": "Pengaturan pencadangan berkelanjutan disimpan",

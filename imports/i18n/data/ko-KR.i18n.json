@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "복구할 시점 (날짜 및 시간)",
   "continuous-backup-restore-what": "복구",
   "continuous-backup-restore-sqlite": "SQLite 데이터베이스 파일 (백업 옆에 생성되며 사용 중인 파일을 절대 덮어쓰지 않음)",
+  "continuous-backup-apply-on-restart": "다음 재시작 시 재구축한 SQLite 데이터베이스를 적용합니다(교체되는 데이터베이스는 보관됩니다)",
   "continuous-backup-restore-confirm": "선택한 세대를 선택한 시점의 상태로 복구하시겠습니까? 복구 중에는 지속적 백업이 일시 중지됩니다.",
   "continuous-backup-restore-done": "복구 완료",
   "continuous-backup-saved": "지속적 백업 설정이 저장되었습니다",

@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "שחזור למועד (תאריך ושעה)",
   "continuous-backup-restore-what": "שחזור",
   "continuous-backup-restore-sqlite": "קובץ מסד נתונים SQLite (נוצר לצד הגיבוי, לעולם אינו דורס את הקובץ שבשימוש)",
+  "continuous-backup-apply-on-restart": "החלפת מסד הנתונים במסד SQLite שנבנה מחדש בהפעלה מחדש הבאה (מסד הנתונים המוחלף נשמר)",
   "continuous-backup-restore-confirm": "לשחזר את הדור שנבחר למצב בנקודת הזמן שנבחרה? הגיבוי הרציף יושהה במהלך השחזור.",
   "continuous-backup-restore-done": "השחזור הושלם",
   "continuous-backup-saved": "הגדרות הגיבוי הרציף נשמרו",

@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "الاستعادة إلى (التاريخ والوقت)",
   "continuous-backup-restore-what": "استعادة",
   "continuous-backup-restore-sqlite": "ملف قاعدة بيانات SQLite (يُنشأ بجوار النسخة الاحتياطية، ولا يستبدل أبدًا الملف المستخدم حاليًا)",
+  "continuous-backup-apply-on-restart": "استخدام قاعدة بيانات SQLite المعاد بناؤها عند إعادة التشغيل التالية (يتم الاحتفاظ بقاعدة البيانات التي تحل محلها)",
   "continuous-backup-restore-confirm": "هل تريد استعادة الجيل المحدد إلى حالته في اللحظة المحددة؟ سيتوقف النسخ الاحتياطي المستمر مؤقتًا أثناء الاستعادة.",
   "continuous-backup-restore-done": "اكتملت الاستعادة",
   "continuous-backup-saved": "تم حفظ إعدادات النسخ الاحتياطي المستمر",

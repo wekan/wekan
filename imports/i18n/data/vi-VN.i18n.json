@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Khôi phục về (ngày và giờ)",
   "continuous-backup-restore-what": "Khôi phục",
   "continuous-backup-restore-sqlite": "Tệp cơ sở dữ liệu SQLite (được tạo bên cạnh bản sao lưu, không bao giờ ghi đè tệp đang sử dụng)",
+  "continuous-backup-apply-on-restart": "Đưa cơ sở dữ liệu SQLite đã tạo lại vào sử dụng ở lần khởi động lại tiếp theo (cơ sở dữ liệu bị thay thế được giữ lại)",
   "continuous-backup-restore-confirm": "Khôi phục thế hệ đã chọn về trạng thái tại thời điểm đã chọn? Sao lưu liên tục sẽ tạm dừng trong quá trình khôi phục.",
   "continuous-backup-restore-done": "Khôi phục hoàn tất",
   "continuous-backup-saved": "Đã lưu cài đặt sao lưu liên tục",

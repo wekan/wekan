@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Опорави на (датум и време)",
   "continuous-backup-restore-what": "Опорави",
   "continuous-backup-restore-sqlite": "Датотека базе података SQLite (ствара се поред резервне копије, никада не преписује датотеку која се користи)",
+  "continuous-backup-apply-on-restart": "При следећем поновном покретању користи поново изграђену SQLite базу података (замењена база података се чува)",
   "continuous-backup-restore-confirm": "Опоравити изабрану генерацију на изабрани тренутак? Непрекидно прављење резервних копија биће паузирано током опоравка.",
   "continuous-backup-restore-done": "Опоравак је завршен",
   "continuous-backup-saved": "Подешавања непрекидног прављења резервних копија су сачувана",

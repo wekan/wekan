@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Obnovi na (datum in čas)",
   "continuous-backup-restore-what": "Obnovi",
   "continuous-backup-restore-sqlite": "Datoteka podatkovne zbirke SQLite (ustvarjena ob varnostni kopiji, nikoli ne prepiše datoteke v uporabi)",
+  "continuous-backup-apply-on-restart": "Ob naslednjem ponovnem zagonu uporabite ponovno zgrajeno podatkovno zbirko SQLite (zamenjana zbirka se ohrani)",
   "continuous-backup-restore-confirm": "Obnovim izbrano generacijo na izbrani trenutek? Neprekinjeno varnostno kopiranje bo med obnavljanjem začasno ustavljeno.",
   "continuous-backup-restore-done": "Obnavljanje končano",
   "continuous-backup-saved": "Nastavitve neprekinjenega varnostnega kopiranja so shranjene",

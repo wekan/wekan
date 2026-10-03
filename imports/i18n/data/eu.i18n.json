@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Berrezarri une honetara (data eta ordua)",
   "continuous-backup-restore-what": "Berrezarri",
   "continuous-backup-restore-sqlite": "SQLite datu-basearen fitxategia (babeskopiaren ondoan sortzen da, ez du inoiz erabiltzen ari den fitxategia gainidazten)",
+  "continuous-backup-apply-on-restart": "Erabili berreraikitako SQLite datu-basea hurrengo berrabiaraztean (ordeztutako datu-basea gorde egingo da)",
   "continuous-backup-restore-confirm": "Hautatutako belaunaldia hautatutako uneko egoerara berrezarri? Etengabeko babeskopia eten egingo da berrezartzeak irauten duen bitartean.",
   "continuous-backup-restore-done": "Berrezartzea amaitu da",
   "continuous-backup-saved": "Etengabeko babeskopiaren ezarpenak gorde dira",

@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Gjenopprett til (dato og klokkeslett)",
   "continuous-backup-restore-what": "Gjenopprett",
   "continuous-backup-restore-sqlite": "SQLite-databasefil (opprettes ved siden av sikkerhetskopien og overskriver aldri den aktive filen)",
+  "continuous-backup-apply-on-restart": "Ta den gjenoppbygde SQLite-databasen i bruk ved neste omstart (databasen som erstattes, beholdes)",
   "continuous-backup-restore-confirm": "Gjenopprett den valgte generasjonen til det valgte tidspunktet? Kontinuerlig sikkerhetskopiering settes på pause under gjenopprettingen.",
   "continuous-backup-restore-done": "Gjenoppretting fullført",
   "continuous-backup-saved": "Innstillingene for kontinuerlig sikkerhetskopiering er lagret",

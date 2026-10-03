@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Restaurar a (fecha y hora)",
   "continuous-backup-restore-what": "Restaurar",
   "continuous-backup-restore-sqlite": "Archivo de base de datos SQLite (se crea junto a la copia de seguridad y nunca sobrescribe el archivo en uso)",
+  "continuous-backup-apply-on-restart": "Instalar la base de datos SQLite reconstruida en el próximo reinicio (se conserva la base de datos reemplazada)",
   "continuous-backup-restore-confirm": "¿Restaurar la generación elegida al instante elegido? La copia de seguridad continua se pausa durante la restauración.",
   "continuous-backup-restore-done": "Restauración finalizada",
   "continuous-backup-saved": "Configuración de la copia de seguridad continua guardada",

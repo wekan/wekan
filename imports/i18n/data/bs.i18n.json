@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Vrati na (datum i vrijeme)",
   "continuous-backup-restore-what": "Vrati",
   "continuous-backup-restore-sqlite": "Datoteka baze podataka SQLite (pravi se pored sigurnosne kopije, nikada ne prepisuje datoteku koja se koristi)",
+  "continuous-backup-apply-on-restart": "Pri sljedećem ponovnom pokretanju upotrijebi obnovljenu SQLite bazu podataka (zamijenjena baza podataka ostaje sačuvana)",
   "continuous-backup-restore-confirm": "Vratiti odabranu generaciju na odabrani trenutak? Neprekidno sigurnosno kopiranje bit će pauzirano tokom vraćanja.",
   "continuous-backup-restore-done": "Vraćanje završeno",
   "continuous-backup-saved": "Postavke neprekidnog sigurnosnog kopiranja su sačuvane",

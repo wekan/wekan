@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Restaurează la (dată și oră)",
   "continuous-backup-restore-what": "Restaurează",
   "continuous-backup-restore-sqlite": "Fișier al bazei de date SQLite (creat lângă copia de rezervă, nu suprascrie niciodată fișierul în uz)",
+  "continuous-backup-apply-on-restart": "Folosește baza de date SQLite reconstruită la următoarea repornire (baza de date înlocuită este păstrată)",
   "continuous-backup-restore-confirm": "Restaurați generația aleasă la momentul ales? Copierea de rezervă continuă va fi suspendată pe durata restaurării.",
   "continuous-backup-restore-done": "Restaurare încheiată",
   "continuous-backup-saved": "Setările copierii de rezervă continue au fost salvate",

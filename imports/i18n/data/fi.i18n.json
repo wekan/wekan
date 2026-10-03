@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Palauta ajankohtaan (päivä ja kellonaika)",
   "continuous-backup-restore-what": "Palauta",
   "continuous-backup-restore-sqlite": "SQLite-tietokantatiedosto (luodaan varmuuskopion viereen, ei koskaan käytössä olevan tiedoston päälle)",
+  "continuous-backup-apply-on-restart": "Ota uudelleen rakennettu SQLite-tietokanta käyttöön seuraavan uudelleenkäynnistyksen yhteydessä (korvattava tietokanta säilytetään)",
   "continuous-backup-restore-confirm": "Palautetaanko valittu sukupolvi valittuun ajankohtaan? Jatkuva varmuuskopiointi keskeytetään palautuksen ajaksi.",
   "continuous-backup-restore-done": "Palautus valmis",
   "continuous-backup-saved": "Jatkuvan varmuuskopioinnin asetukset tallennettu",

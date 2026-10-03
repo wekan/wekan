@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Geri getirilecek an (tarih ve saat)",
   "continuous-backup-restore-what": "Geri Getir",
   "continuous-backup-restore-sqlite": "SQLite veritabanı dosyası (yedeğin yanında oluşturulur, kullanımda olan dosyanın üzerine asla yazılmaz)",
+  "continuous-backup-apply-on-restart": "Yeniden oluşturulan SQLite veritabanını sonraki yeniden başlatmada kullan (değiştirilen veritabanı saklanır)",
   "continuous-backup-restore-confirm": "Seçilen nesil seçilen andaki durumuna geri getirilsin mi? Sürekli yedekleme, geri getirme sırasında duraklatılır.",
   "continuous-backup-restore-done": "Geri getirme tamamlandı",
   "continuous-backup-saved": "Sürekli yedekleme ayarları kaydedildi",

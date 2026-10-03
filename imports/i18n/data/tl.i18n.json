@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Ibalik sa (petsa at oras)",
   "continuous-backup-restore-what": "Ibalik",
   "continuous-backup-restore-sqlite": "File ng database ng SQLite (ginagawa sa tabi ng reserbang kopya, hindi kailanman pinapatungan ang file na ginagamit)",
+  "continuous-backup-apply-on-restart": "Gamitin ang muling binuong SQLite database sa susunod na pag-restart (itatago ang database na papalitan)",
   "continuous-backup-restore-confirm": "Ibalik ang napiling henerasyon sa kalagayan nito sa napiling sandali? Pansamantalang hihinto ang tuloy-tuloy na paggawa ng reserbang kopya habang nagbabalik.",
   "continuous-backup-restore-done": "Tapos na ang pagbabalik",
   "continuous-backup-saved": "Na-save ang mga setting ng tuloy-tuloy na paggawa ng reserbang kopya",

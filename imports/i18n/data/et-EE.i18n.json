@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Taasta seisuga (kuupäev ja kellaaeg)",
   "continuous-backup-restore-what": "Taasta",
   "continuous-backup-restore-sqlite": "SQLite’i andmebaasifail (luuakse varukoopia kõrvale, ei kirjuta kunagi üle kasutusel olevat faili)",
+  "continuous-backup-apply-on-restart": "Võta uuesti loodud SQLite-andmebaas kasutusele järgmisel taaskäivitamisel (asendatav andmebaas säilitatakse)",
   "continuous-backup-restore-confirm": "Kas taastada valitud põlvkond valitud ajahetke seisuga? Pidev varundamine peatatakse taastamise ajaks.",
   "continuous-backup-restore-done": "Taastamine lõpetatud",
   "continuous-backup-saved": "Pideva varundamise sätted salvestatud",

@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "กู้คืนกลับสู่ (วันที่และเวลา)",
   "continuous-backup-restore-what": "กู้คืน",
   "continuous-backup-restore-sqlite": "ไฟล์ฐานข้อมูล SQLite (สร้างไว้ข้างข้อมูลสำรอง โดยไม่เขียนทับไฟล์ที่กำลังใช้งานอยู่เด็ดขาด)",
+  "continuous-backup-apply-on-restart": "ใช้ฐานข้อมูล SQLite ที่สร้างขึ้นใหม่เมื่อเริ่มระบบใหม่ครั้งถัดไป (เก็บฐานข้อมูลที่ถูกแทนที่ไว้)",
   "continuous-backup-restore-confirm": "ต้องการกู้คืนรุ่นที่เลือกกลับสู่สถานะ ณ เวลาที่เลือกหรือไม่? การสำรองข้อมูลอย่างต่อเนื่องจะหยุดชั่วคราวระหว่างการกู้คืน",
   "continuous-backup-restore-done": "กู้คืนเสร็จสิ้น",
   "continuous-backup-saved": "บันทึกการตั้งค่าการสำรองข้อมูลอย่างต่อเนื่องแล้ว",

@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Pulihkan kepada (tarikh dan masa)",
   "continuous-backup-restore-what": "Pulih semula",
   "continuous-backup-restore-sqlite": "Fail pangkalan data SQLite (dihasilkan di sebelah sandaran, tidak pernah menulis ganti fail yang sedang digunakan)",
+  "continuous-backup-apply-on-restart": "Gunakan pangkalan data SQLite yang dibina semula pada mula semula seterusnya (pangkalan data yang digantikan dikekalkan)",
   "continuous-backup-restore-confirm": "Pulihkan generasi yang dipilih kepada keadaan pada masa yang dipilih? Sandaran berterusan akan dijeda semasa pemulihan.",
   "continuous-backup-restore-done": "Pemulihan selesai",
   "continuous-backup-saved": "Tetapan sandaran berterusan disimpan",

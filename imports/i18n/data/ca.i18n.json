@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Restaura a (data i hora)",
   "continuous-backup-restore-what": "Restaura",
   "continuous-backup-restore-sqlite": "Fitxer de base de dades SQLite (es crea al costat de la còpia de seguretat, mai no sobreescriu el fitxer en ús)",
+  "continuous-backup-apply-on-restart": "Utilitza la base de dades SQLite reconstruïda al proper reinici (es conserva la base de dades substituïda)",
   "continuous-backup-restore-confirm": "Voleu restaurar la generació seleccionada a l’instant seleccionat? La còpia de seguretat contínua es posa en pausa durant la restauració.",
   "continuous-backup-restore-done": "Restauració finalitzada",
   "continuous-backup-saved": "S’ha desat la configuració de la còpia de seguretat contínua",

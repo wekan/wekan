@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Obnoviť k (dátum a čas)",
   "continuous-backup-restore-what": "Obnoviť",
   "continuous-backup-restore-sqlite": "Súbor databázy SQLite (vytvorený vedľa zálohy, nikdy neprepíše používaný súbor)",
+  "continuous-backup-apply-on-restart": "Pri ďalšom reštarte použiť znovu zostavenú databázu SQLite (nahradená databáza sa zachová)",
   "continuous-backup-restore-confirm": "Obnoviť vybranú generáciu k vybranému okamihu? Priebežné zálohovanie bude počas obnovovania pozastavené.",
   "continuous-backup-restore-done": "Obnovenie dokončené",
   "continuous-backup-saved": "Nastavenia priebežného zálohovania uložené",

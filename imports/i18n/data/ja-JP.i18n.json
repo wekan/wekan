@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "復元先の時点（日付と時刻）",
   "continuous-backup-restore-what": "復元",
   "continuous-backup-restore-sqlite": "SQLite データベースファイル（バックアップの隣に作成し、使用中のファイルは決して上書きしません）",
+  "continuous-backup-apply-on-restart": "次回の再起動時に再構築したSQLiteデータベースを配置する（置き換えられるデータベースは保持されます）",
   "continuous-backup-restore-confirm": "選択した世代を選択した時点の状態に復元しますか？復元中は継続的バックアップを一時停止します。",
   "continuous-backup-restore-done": "復元が完了しました",
   "continuous-backup-saved": "継続的バックアップの設定を保存しました",

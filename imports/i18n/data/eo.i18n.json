@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Restarigi al (dato kaj horo)",
   "continuous-backup-restore-what": "Restarigi",
   "continuous-backup-restore-sqlite": "SQLite-datumbaza dosiero (kreata apud la sekurkopio, neniam anstataŭigas la uzatan dosieron)",
+  "continuous-backup-apply-on-restart": "Uzi la rekonstruitan SQLite-datumbazon ĉe la sekva restartigo (la anstataŭigita datumbazo estas konservata)",
   "continuous-backup-restore-confirm": "Ĉu restarigi la elektitan generacion al la stato de la elektita momento? La daŭra sekurkopiado paŭzos dum la restarigo.",
   "continuous-backup-restore-done": "Restarigo finita",
   "continuous-backup-saved": "Agordoj de daŭra sekurkopiado konservitaj",

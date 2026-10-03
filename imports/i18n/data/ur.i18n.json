@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "اس وقت تک بحال کریں (تاریخ اور وقت)",
   "continuous-backup-restore-what": "بحال کریں",
   "continuous-backup-restore-sqlite": "SQLite ڈیٹابیس فائل (بیک اپ کے ساتھ بنائی جاتی ہے، زیر استعمال فائل کو کبھی اوور رائٹ نہیں کرتی)",
+  "continuous-backup-apply-on-restart": "اگلی بار دوبارہ شروع ہونے پر ازسرنو بنائے گئے SQLite ڈیٹابیس کو نافذ کریں (اس سے تبدیل ہونے والا ڈیٹابیس محفوظ رکھا جاتا ہے)",
   "continuous-backup-restore-confirm": "منتخب نسل کو منتخب لمحے کی حالت میں بحال کریں؟ بحالی کے دوران مسلسل بیک اپ عارضی طور پر رک جائے گا۔",
   "continuous-backup-restore-done": "بحالی مکمل ہو گئی",
   "continuous-backup-saved": "مسلسل بیک اپ کی ترتیبات محفوظ ہو گئیں",

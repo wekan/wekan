@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "इस समय की स्थिति में बहाल करें (तारीख और समय)",
   "continuous-backup-restore-what": "बहाल करें",
   "continuous-backup-restore-sqlite": "SQLite डेटाबेस फ़ाइल (बैकअप के साथ बनाई जाती है, उपयोग में मौजूद फ़ाइल को कभी अधिलेखित नहीं करती)",
+  "continuous-backup-apply-on-restart": "अगली बार पुनः शुरू होने पर पुनर्निर्मित SQLite डेटाबेस लागू करें (जिस डेटाबेस को बदला जाता है, उसे सुरक्षित रखा जाता है)",
   "continuous-backup-restore-confirm": "चुनी गई पीढ़ी को चुने गए समय की स्थिति में बहाल करें? बहाली के दौरान निरंतर बैकअप अस्थायी रूप से रुक जाएगा।",
   "continuous-backup-restore-done": "बहाली पूरी हुई",
   "continuous-backup-saved": "निरंतर बैकअप की सेटिंग सहेजी गईं",

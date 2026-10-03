@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Bu ana bərpa et (tarix və vaxt)",
   "continuous-backup-restore-what": "Bərpa et",
   "continuous-backup-restore-sqlite": "SQLite verilənlər bazası faylı (ehtiyat nüsxənin yanında yaradılır, istifadədə olan faylın üzərinə heç vaxt yazmır)",
+  "continuous-backup-apply-on-restart": "Yenidən qurulmuş SQLite verilənlər bazasını növbəti yenidən başlatmada istifadə et (əvəz edilən verilənlər bazası saxlanılır)",
   "continuous-backup-restore-confirm": "Seçilmiş nəsil seçilmiş andakı vəziyyətinə bərpa edilsin? Bərpa zamanı fasiləsiz ehtiyat nüsxələmə müvəqqəti dayandırılacaq.",
   "continuous-backup-restore-done": "Bərpa tamamlandı",
   "continuous-backup-saved": "Fasiləsiz ehtiyat nüsxələmə parametrləri saxlanıldı",

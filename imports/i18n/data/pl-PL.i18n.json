@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Przywróć do (data i godzina)",
   "continuous-backup-restore-what": "Przywróć",
   "continuous-backup-restore-sqlite": "Plik bazy danych SQLite (tworzony obok kopii zapasowej, nigdy nie nadpisuje używanego pliku)",
+  "continuous-backup-apply-on-restart": "Użyj odbudowanej bazy danych SQLite przy następnym uruchomieniu (zastępowana baza danych zostanie zachowana)",
   "continuous-backup-restore-confirm": "Przywrócić wybraną generację do wybranego momentu? Ciągłe tworzenie kopii zapasowych zostanie wstrzymane na czas przywracania.",
   "continuous-backup-restore-done": "Przywracanie zakończone",
   "continuous-backup-saved": "Zapisano ustawienia ciągłego tworzenia kopii zapasowych",

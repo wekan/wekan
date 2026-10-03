@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Herstel na (datum en tyd)",
   "continuous-backup-restore-what": "Herstel",
   "continuous-backup-restore-sqlite": "SQLite-databasislêer (word langs die rugsteun geskep en oorskryf nooit die lêer wat in gebruik is nie)",
+  "continuous-backup-apply-on-restart": "Gebruik die herboude SQLite-databasis met die volgende herbegin (die databasis wat vervang word, word behou)",
   "continuous-backup-restore-confirm": "Herstel die gekose generasie na die gekose tydstip? Deurlopende rugsteun word tydens die herstel onderbreek.",
   "continuous-backup-restore-done": "Herstel voltooi",
   "continuous-backup-saved": "Deurlopende rugsteun se instellings gestoor",

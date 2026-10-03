@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Endurheimta miðað við (dagsetningu og tíma)",
   "continuous-backup-restore-what": "Endurheimta",
   "continuous-backup-restore-sqlite": "SQLite-gagnagrunnsskrá (búin til við hlið öryggisafritsins, skrifar aldrei yfir skrána sem er í notkun)",
+  "continuous-backup-apply-on-restart": "Nota endurbyggða SQLite-gagnagrunninn við næstu endurræsingu (gagnagrunnurinn sem er skipt út er varðveittur)",
   "continuous-backup-restore-confirm": "Endurheimta valda kynslóð miðað við valinn tímapunkt? Samfelld öryggisafritun verður stöðvuð tímabundið meðan á endurheimt stendur.",
   "continuous-backup-restore-done": "Endurheimt lokið",
   "continuous-backup-saved": "Stillingar samfelldrar öryggisafritunar vistaðar",

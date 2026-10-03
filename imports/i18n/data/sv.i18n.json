@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Återställ till (datum och tid)",
   "continuous-backup-restore-what": "Återställ",
   "continuous-backup-restore-sqlite": "SQLite-databasfil (skapas bredvid säkerhetskopian och skriver aldrig över den aktiva filen)",
+  "continuous-backup-apply-on-restart": "Ta den återuppbyggda SQLite-databasen i bruk vid nästa omstart (databasen som ersätts sparas)",
   "continuous-backup-restore-confirm": "Återställ den valda generationen till den valda tidpunkten? Kontinuerlig säkerhetskopiering pausas under återställningen.",
   "continuous-backup-restore-done": "Återställning slutförd",
   "continuous-backup-saved": "Inställningarna för kontinuerlig säkerhetskopiering har sparats",

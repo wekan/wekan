@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Visszaállítás erre az időpontra (dátum és idő)",
   "continuous-backup-restore-what": "Visszaállítás",
   "continuous-backup-restore-sqlite": "SQLite-adatbázisfájl (a biztonsági mentés mellé készül, soha nem írja felül a használatban lévő fájlt)",
+  "continuous-backup-apply-on-restart": "Az újraépített SQLite-adatbázis használata a következő újraindításkor (a lecserélt adatbázis megmarad)",
   "continuous-backup-restore-confirm": "Visszaállítja a kiválasztott generációt a kiválasztott időpontra? A folyamatos biztonsági mentés a visszaállítás idejére szünetel.",
   "continuous-backup-restore-done": "A visszaállítás befejeződött",
   "continuous-backup-saved": "A folyamatos biztonsági mentés beállításai mentve",

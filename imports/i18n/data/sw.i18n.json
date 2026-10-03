@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Rejesha hadi (tarehe na saa)",
   "continuous-backup-restore-what": "Rejesha",
   "continuous-backup-restore-sqlite": "Faili ya hifadhidata ya SQLite (huundwa kando ya nakala rudufu, haiandiki kamwe juu ya faili inayotumika)",
+  "continuous-backup-apply-on-restart": "Tumia hifadhidata ya SQLite iliyojengwa upya wakati wa kuwasha upya kunakofuata (hifadhidata inayobadilishwa inahifadhiwa)",
   "continuous-backup-restore-confirm": "Urejeshe kizazi kilichochaguliwa katika hali ya wakati uliochaguliwa? Uhifadhi endelevu wa nakala rudufu utasitishwa kwa muda wakati wa kurejesha.",
   "continuous-backup-restore-done": "Urejeshaji umekamilika",
   "continuous-backup-saved": "Mipangilio ya uhifadhi endelevu wa nakala rudufu imehifadhiwa",

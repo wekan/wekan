@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Gendan til (dato og klokkeslæt)",
   "continuous-backup-restore-what": "Gendan",
   "continuous-backup-restore-sqlite": "SQLite-databasefil (oprettes ved siden af sikkerhedskopien og overskriver aldrig den aktive fil)",
+  "continuous-backup-apply-on-restart": "Tag den genopbyggede SQLite-database i brug ved næste genstart (den erstattede database bevares)",
   "continuous-backup-restore-confirm": "Gendan den valgte generation til det valgte tidspunkt? Den løbende sikkerhedskopiering sættes på pause under gendannelsen.",
   "continuous-backup-restore-done": "Gendannelse afsluttet",
   "continuous-backup-saved": "Indstillinger for løbende sikkerhedskopiering er gemt",

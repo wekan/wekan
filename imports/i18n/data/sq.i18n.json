@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Rikthe në (datë dhe orë)",
   "continuous-backup-restore-what": "Rikthe",
   "continuous-backup-restore-sqlite": "Skedari i bazës së të dhënave SQLite (krijohet pranë kopjes rezervë, nuk mbishkruan kurrë skedarin në përdorim)",
+  "continuous-backup-apply-on-restart": "Përdor bazën e të dhënave SQLite të rindërtuar gjatë rinisjes së ardhshme (baza e të dhënave që zëvendësohet ruhet)",
   "continuous-backup-restore-confirm": "Të rikthehet brezi i zgjedhur në gjendjen e çastit të zgjedhur? Kopjeruajtja e vazhdueshme do të ndalet përkohësisht gjatë rikthimit.",
   "continuous-backup-restore-done": "Rikthimi përfundoi",
   "continuous-backup-saved": "U ruajtën cilësimet e kopjeruajtjes së vazhdueshme",

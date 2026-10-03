@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "還原到（日期和時間）",
   "continuous-backup-restore-what": "還原",
   "continuous-backup-restore-sqlite": "SQLite 資料庫檔案（在備份旁建立，絕不會覆寫正在使用的檔案）",
+  "continuous-backup-apply-on-restart": "在下次重新啟動時啟用重建的 SQLite 資料庫（被取代的資料庫會保留）",
   "continuous-backup-restore-confirm": "將所選世代還原到所選時刻的狀態嗎？還原期間會暫停持續備份。",
   "continuous-backup-restore-done": "還原完成",
   "continuous-backup-saved": "持續備份設定已儲存",

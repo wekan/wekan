@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Atkurti į (data ir laikas)",
   "continuous-backup-restore-what": "Atkurti",
   "continuous-backup-restore-sqlite": "SQLite duomenų bazės failas (sukuriamas šalia atsarginės kopijos, niekada neperrašo naudojamo failo)",
+  "continuous-backup-apply-on-restart": "Kito paleidimo iš naujo metu naudoti atkurtą SQLite duomenų bazę (pakeista duomenų bazė išsaugoma)",
   "continuous-backup-restore-confirm": "Atkurti pasirinktą kartą į pasirinkto momento būseną? Atkūrimo metu nuolatinis atsarginių kopijų kūrimas bus pristabdytas.",
   "continuous-backup-restore-done": "Atkūrimas baigtas",
   "continuous-backup-saved": "Nuolatinio atsarginių kopijų kūrimo nuostatos išsaugotos",

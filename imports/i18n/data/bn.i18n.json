@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "এই সময়ের অবস্থায় পুনরুদ্ধার করুন (তারিখ ও সময়)",
   "continuous-backup-restore-what": "পুনরুদ্ধার",
   "continuous-backup-restore-sqlite": "SQLite ডেটাবেস ফাইল (ব্যাকআপের পাশে তৈরি হয়, ব্যবহৃত ফাইল কখনো ওভাররাইট করে না)",
+  "continuous-backup-apply-on-restart": "পরবর্তী পুনরারম্ভে পুনর্নির্মিত SQLite ডেটাবেস ব্যবহার করুন (যে ডেটাবেসটি প্রতিস্থাপিত হবে সেটি সংরক্ষিত থাকবে)",
   "continuous-backup-restore-confirm": "নির্বাচিত প্রজন্মকে নির্বাচিত মুহূর্তের অবস্থায় পুনরুদ্ধার করবেন? পুনরুদ্ধারের সময় অবিরাম ব্যাকআপ সাময়িকভাবে বন্ধ থাকবে।",
   "continuous-backup-restore-done": "পুনরুদ্ধার সম্পন্ন হয়েছে",
   "continuous-backup-saved": "অবিরাম ব্যাকআপের সেটিংস সংরক্ষিত হয়েছে",

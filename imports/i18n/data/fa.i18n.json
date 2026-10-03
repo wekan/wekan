@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "بازیابی به (تاریخ و زمان)",
   "continuous-backup-restore-what": "بازیابی",
   "continuous-backup-restore-sqlite": "فایل پایگاه دادهٔ SQLite (در کنار نسخهٔ پشتیبان ساخته می‌شود و هرگز فایل در حال استفاده را بازنویسی نمی‌کند)",
+  "continuous-backup-apply-on-restart": "پایگاه دادهٔ SQLite بازسازی‌شده در راه‌اندازی مجدد بعدی جایگزین شود (پایگاه دادهٔ قبلی نگه داشته می‌شود)",
   "continuous-backup-restore-confirm": "نسل انتخاب‌شده به وضعیت لحظهٔ انتخاب‌شده بازیابی شود؟ پشتیبان‌گیری پیوسته هنگام بازیابی موقتاً متوقف می‌شود.",
   "continuous-backup-restore-done": "بازیابی پایان یافت",
   "continuous-backup-saved": "تنظیمات پشتیبان‌گیری پیوسته ذخیره شد",

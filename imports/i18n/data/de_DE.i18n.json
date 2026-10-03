@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Wiederherstellen auf (Datum und Uhrzeit)",
   "continuous-backup-restore-what": "Wiederherstellen",
   "continuous-backup-restore-sqlite": "SQLite-Datenbankdatei (wird neben der Sicherung erstellt und überschreibt niemals die aktive Datei)",
+  "continuous-backup-apply-on-restart": "Die neu aufgebaute SQLite-Datenbank beim nächsten Neustart einsetzen (die ersetzte Datenbank wird aufbewahrt)",
   "continuous-backup-restore-confirm": "Die gewählte Generation zum gewählten Zeitpunkt wiederherstellen? Die kontinuierliche Sicherung pausiert während der Wiederherstellung.",
   "continuous-backup-restore-done": "Wiederherstellung abgeschlossen",
   "continuous-backup-saved": "Einstellungen der kontinuierlichen Sicherung gespeichert",

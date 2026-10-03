@@ -2456,6 +2456,7 @@
   "continuous-backup-restore-to": "Atjaunot uz (datums un laiks)",
   "continuous-backup-restore-what": "Atjaunot",
   "continuous-backup-restore-sqlite": "SQLite datubāzes fails (izveidots blakus dublējumam, nekad nepārraksta pašlaik izmantoto failu)",
+  "continuous-backup-apply-on-restart": "Nākamajā restartēšanā izmantot no jauna izveidoto SQLite datubāzi (aizstātā datubāze tiek saglabāta)",
   "continuous-backup-restore-confirm": "Atjaunot izvēlēto paaudzi uz izvēlēto brīdi? Nepārtrauktā dublēšana atjaunošanas laikā tiks apturēta.",
   "continuous-backup-restore-done": "Atjaunošana pabeigta",
   "continuous-backup-saved": "Nepārtrauktās dublēšanas iestatījumi saglabāti",
