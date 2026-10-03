@@ -385,8 +385,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 Status checked on 2026-10-03. The later translation request resumed this work;
 the earlier pause above remains historical. Completed work is recorded in Upcoming.
 
-- The current `node releases/translations/fill-translations.mjs --missing` report counts **53,412 untranslated locale/string values in 70 languages**. It excludes **204 source keys deliberately left in English pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
-- Continue automatic-archiving and date-filter translations beyond the twenty-one locales recorded in completed changelog entries, then the remaining feature families.
+- The current `node releases/translations/fill-translations.mjs --missing` report counts **53,372 untranslated locale/string values in 70 languages**. It excludes **204 source keys deliberately left in English pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
+- Continue automatic-archiving and date-filter translations beyond the twenty-three locales recorded in completed changelog entries, then the remaining feature families.
 - Fill English placeholders in every language, including minority and constructed languages. Audit mixed-language and wrong-language seed text, and review provisional wording with speakers when available. Preserve correct-language human translations, source key order, exact placeholders, technical identifiers and query examples. Use direct translation and dictionary research, not an external translation service.
 - Keep regression and human-preference checks passing. Passing tests does not establish translation completeness or fluency; rerun relevant checks for each batch and the broad suite before declaring all-language work complete.
 
@@ -1905,6 +1905,17 @@ used.
 
 - Fill 23 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
 - Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5ee5523d8082ac78ef8c43ea412762b3787637c3">Translate archiving and date filters into Bhojpuri and Maithili</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Bhojpuri, Maithili.
+
+- Fill 46 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and preservation audits pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
 - Wording is provisional and would benefit from speaker review. Remaining all-language work is tracked in TODO Later.
 
 </details>
