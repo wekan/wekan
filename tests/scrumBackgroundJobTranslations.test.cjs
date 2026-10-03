@@ -15,6 +15,7 @@ codes.push(...["am", "so", "ha", "yo", "ig", "mg", "sn", "zu", "xh", "ny", "st",
 codes.push(...["co", "sc", "scn", "nap", "pap", "tpi", "bi", "mi", "yue_CN", "ja-HI"]);
 codes.push(...["ug", "uz-AR", "ary", "bho", "mai", "rw", "rn", "szl", "csb", "hsb"]);
 codes.push(...["gd", "br", "fur", "ve-CC", "wa", "sm", "to", "fj", "haw"]);
+codes.push(...["om", "kok", "ace", "ts", "nd", "ss", "lg", "wa-RR", "nso", "wuu-Hans"]);
 const keys = ['scrum-rollover-progress', 'scrum-history-job-running', 'scrum-history-job-failed'];
 for (const code of codes) {
   const locale = read(code);
