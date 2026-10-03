@@ -122,8 +122,24 @@ describe('CloneBleed authorization', function() {
       expect(thrown.error).to.equal('error-notAuthorized');
     });
 
+    // Since the MutationBleed sibling of 2026-10-02 the width is a shared
+    // board setting that needs write access, read from the board's members.
+    it('denies a read-only member, who can see the board but not change it', async function() {
+      sinon.stub(ReactiveCache, 'getBoard').resolves({ members: [{ userId: 'member', isActive: true, isReadOnly: true }] });
+      sinon.stub(ReactiveCache, 'getList').resolves({ boardId: 'board-1' });
+      const updateStub = sinon.stub(Lists, 'updateAsync').resolves(1);
+      let thrown;
+      try {
+        await handler().apply({ userId: 'member' }, ['board-1', 'list-1', 120, 0]);
+      } catch (error) {
+        thrown = error;
+      }
+      expect(thrown && thrown.error).to.equal('error-notAuthorized');
+      expect(updateStub.called).to.equal(false);
+    });
+
     it('allows a member to update width of a list on the board', async function() {
-      sinon.stub(ReactiveCache, 'getBoard').resolves({ hasMember: () => true });
+      sinon.stub(ReactiveCache, 'getBoard').resolves({ members: [{ userId: 'member', isActive: true }] });
       sinon.stub(ReactiveCache, 'getList').resolves({ boardId: 'board-1' });
       const updateStub = sinon.stub(Lists, 'updateAsync').resolves(1);
       const result = await handler().apply({ userId: 'member' }, ['board-1', 'list-1', 120, 0]);
