@@ -314,7 +314,7 @@ for (const code of ['uz', 'uz-UZ', 'uz-LA']) {
 }
 for (const key of [...keys, 'restore', 'save']) {
   assert.match(read('uz-AR')[key], /\p{Script=Arabic}/u);
-  const prose = read('uz-AR')[key].replace(/SQLite|Litestream|Oplog|rclone|URL/g, '');
+  const prose = read('uz-AR')[key].replace(/AES-256-GCM|SQLite|Litestream|Oplog|rclone|URL/g, '');
   assert.doesNotMatch(prose, /[A-Za-z\p{Script=Cyrillic}]/u);
 }
 for (const key of keys) assert.match(read('kk')[key], /\p{Script=Cyrillic}/u);
