@@ -4158,6 +4158,17 @@ suites and all 21 human-preference checks pass. Other languages and the broader 
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d82ae06489">Translate continuous backup into Azerbaijani</a>. Thanks to xet7.</summary>
+
+Fill 105 English placeholders across three catalogs while preserving existing
+translations, source order and exact tokens. Extend checks for restore boundaries,
+protection of the live database file, time units and Azerbaijani Latin vocabulary
+and script. Four focused catalog suites and all 21 human-preference checks pass.
+Other languages and the broader translation backlog remain.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
