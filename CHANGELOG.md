@@ -4415,6 +4415,17 @@ backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6a07745149">Translate continuous backup into Latin</a>. Thanks to xet7.</summary>
+
+Fill 35 English placeholders and correct four mixed English-Latin backup and
+database entries, including archive paths that must remain literal. Extend
+restore, time-unit and placeholder checks. Latin technical wording is low
+confidence and welcomes review. Four focused catalog suites and all 21
+human-preference checks pass. The broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
