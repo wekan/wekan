@@ -114,6 +114,12 @@ const groups = [
   ['ve-CC', 'no i vien importai', 'in su', 'in zo'],
   ['fur', 'no vegnin importâts', 'in sù', 'in jù'],
   ['rm', 'na vegnan betg importads', 'ensi', 'engiu'],
+  ['pap', 'no ta wordu importá', 'ariba', 'abou'],
+  ['tpi', 'i no kam insait', 'antap', 'daun'],
+  ['bi', 'oli no kam insaed', 'antap', 'daon'],
+  ['mi', 'Kāore', 'whakarunga', 'whakararo'],
+  ['sm', 'lē faaulufaleina', 'i luga', 'lalo'],
+  ['haw', 'ʻAʻole hoʻokomo ʻia', 'i luna', 'i lalo'],
   ['fi', 'ei tuoda', 'Ylä-', 'alanuoli'],
   ['sv', 'importeras inte', 'Uppåt-', 'nedåtpilarna'],
   ['da', 'importeres ikke', 'Pil op', 'pil ned'],
@@ -160,3 +166,6 @@ assert.equal(read('lv').checklist, 'Kontrolsaraksts', 'Latvian checklist, not Li
 for (const key of keys) assert.doesNotMatch(read('ja-HI')[key], /\p{Script=Han}/u, `ja-HI:${key}: no kanji`);
 
 assert.equal(read('ve-CC').checklist, 'Lista de controło', 'Venetian checklist, not Zulu');
+
+assert.ok(read('mi')[keys[0]].includes('mahere huānga JSON'), 'Māori array term');
+assert.ok(read('haw')[keys[2]].startsWith('E alakō'), 'Hawaiian computer drag term');
