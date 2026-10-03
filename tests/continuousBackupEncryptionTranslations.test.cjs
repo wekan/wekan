@@ -23,6 +23,7 @@ codes.push('ku', 'ckb', 'ps');
 codes.push('mi', 'haw');
 codes.push('rm', 'la');
 codes.push('ny', 'sn');
+codes.push('ja-HI', 'sd', 'ug');
 const keys = ['continuous-backup-encrypt', 'continuous-backup-key-file'];
 for (const code of codes) {
   const locale = read(code);
@@ -31,6 +32,13 @@ for (const code of codes) {
     assert.ok(locale[key]?.trim(), `${code}:${key}: missing translation`);
     assert.notEqual(locale[key], en[key], `${code}:${key}: English placeholder`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(en[key]), `${code}:${key}: tokens`);
+    if (code === 'ja-HI') {
+      assert.match(locale[key], /\p{Script=Hiragana}/u, `${code}:${key}: hiragana prose`);
+      assert.doesNotMatch(locale[key], /[\p{Script=Han}\p{Script=Katakana}]/u, `${code}:${key}: no kanji or katakana`);
+    }
+    if (code === 'sd' || code === 'ug') {
+      assert.match(locale[key], /\p{Script=Arabic}/u, `${code}:${key}: Arabic script`);
+    }
   }
   assert.ok(locale[keys[0]].includes('AES-256-GCM'), `${code}: exact algorithm name`);
   assert.match(locale[keys[1]], /64/, `${code}: hexadecimal key length`);

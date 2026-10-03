@@ -23,6 +23,7 @@ codes.push('ku', 'ckb', 'ps');
 codes.push('mi', 'haw');
 codes.push('rm', 'la');
 codes.push('ny', 'sn');
+codes.push('ja-HI', 'sd', 'ug');
 const keys = ['upload', 'upload-none', 'upload-prefix', 'fetch', 'fetched'].map(key => `continuous-backup-${key}`);
 for (const code of codes) {
   const locale = read(code);
@@ -30,6 +31,13 @@ for (const code of codes) {
     assert.ok(locale[key]?.trim(), `${code}:${key}: missing translation`);
     assert.notEqual(locale[key], en[key], `${code}:${key}: English placeholder`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(en[key]), `${code}:${key}: source tokens`);
+    if (code === 'ja-HI') {
+      assert.match(locale[key], /\p{Script=Hiragana}/u, `${code}:${key}: hiragana prose`);
+      assert.doesNotMatch(locale[key], /[\p{Script=Han}\p{Script=Katakana}]/u, `${code}:${key}: no kanji or katakana`);
+    }
+    if (code === 'sd' || code === 'ug') {
+      assert.match(locale[key], /\p{Script=Arabic}/u, `${code}:${key}: Arabic script`);
+    }
   }
   assert.notEqual(locale[keys[3]], locale[keys[4]], `${code}: fetch action and completed result differ`);
   assert.notEqual(locale[keys[0]], locale[keys[1]], `${code}: upload destination and local-only option differ`);
