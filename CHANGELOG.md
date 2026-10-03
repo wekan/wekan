@@ -5332,6 +5332,18 @@ backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3871edb26e">Translate continuous backup into Aromanian</a>. Thanks to xet7.</summary>
+
+Fill 35 English placeholders and correct two Romanian-seeded backup descriptions.
+Preserve other translations, source key order, exact placeholders and literal paths.
+Extend restore safeguard, pause, time-unit, vocabulary and description regression
+checks. Four focused catalog suites and all 21 human-preference checks pass.
+Technical Aromanian wording is low confidence and needs native-speaker review.
+The broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
