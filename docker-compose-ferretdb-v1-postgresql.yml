@@ -112,11 +112,14 @@ services:
           rm "$$BIN.new.sha256sum"
           printf '%s\n' "$$REQUIRED_RELEASE" > "$$RELEASE_FILE"
         fi
-        # FerretDB runs standalone; WeKan uses polling reactivity with this backend.
+        # --repl-set-name only makes FerretDB keep local.oplog.rs, which Admin Panel /
+        # Attachments / Continuous backup streams the database from (maintainer
+        # decision of 2026-10-03). WeKan itself still polls: no MONGO_OPLOG_URL.
         exec "$$BIN" \
           --handler=postgresql \
           --postgresql-url="postgres://$${POSTGRES_USER}:$${POSTGRES_PASSWORD}@postgres:5432/$${POSTGRES_DB}" \
           --listen-addr=0.0.0.0:27017 \
+          --repl-set-name=rs0 \
           --telemetry=disable \
           --log-level=error
     # Healthy only once FerretDB is actually accepting connections on 27017 — i.e.
@@ -209,8 +212,10 @@ services:
       #- S3_SECRET_FILE=/run/secrets/s3_secret
       #-----------------------------------------------------------------
       # ==== MONGO_URL — points to FerretDB (MongoDB-compatible) ====
-      #- MONGO_URL=mongodb://wekan-ferretdb:27017/wekan
-      - MONGO_URL=mongodb://ferretdb:27017/wekan
+      #- MONGO_URL=mongodb://wekan-ferretdb:27017/wekan?directConnection=true
+      # directConnection: FerretDB answers as a one-member replica set whose
+      # member is its listen address 0.0.0.0, which is nowhere from this container.
+      - MONGO_URL=mongodb://ferretdb:27017/wekan?directConnection=true
       #- MONGO_PASSWORD_FILE=/run/secrets/mongo_password
       #---------------------------------------------------------------
       # ==== ROOT_URL SETTING ====

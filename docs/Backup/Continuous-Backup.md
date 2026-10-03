@@ -107,15 +107,26 @@ which one was chosen and why the others cannot run.
    Restores use `litestream restore`. That step is documented here, but the pane
    does not run it.
 
-The default `docker-compose.yml` runs FerretDB in a separate container with no
-oplog, so WeKan can see neither the SQLite file nor an oplog. In that case the
-pane says the database engine is unavailable, and the file streams still run.
-There are two ways to enable it:
+The Docker Compose files run FerretDB in a separate container, where WeKan
+cannot see the SQLite file. Since 2026-10-03 `docker-compose.yml` and the
+`docker-compose-ferretdb-v1-*.yml` files start it with `--repl-set-name=rs0`, so
+it keeps `local.oplog.rs` and the `oplog` engine streams the database. Three
+details matter when you change those files:
 
-- add `--repl-set-name=rs0` to the `ferretdb` service and `?replicaSet=rs0` to
-  `MONGO_URL` (oplog engine);
-- or run Litestream in the `ferretdb` container against
-  `/data/files/db/wekan.sqlite`.
+- `MONGO_URL` ends in `?directConnection=true`, never `?replicaSet=rs0`.
+  FerretDB answers as a one-member replica set whose member is its listen
+  address, `0.0.0.0:27017`. A driver doing replica-set discovery would leave
+  `ferretdb:27017` for that address, which is nowhere from the WeKan container.
+- WeKan itself still polls. Compose sets no `MONGO_OPLOG_URL`, and
+  `METEOR_REACTIVITY_ORDER` stays `polling`. The oplog is there for continuous
+  backup only, and is tailed only while continuous backup is on.
+- FerretDB records every document write as a whole document. FerretDB releases
+  after v1.86.0 also record a dropped collection or database. Earlier releases
+  do not, so a restore from them keeps a collection that was dropped. WeKan
+  never drops a collection while it runs.
+
+Litestream in the `ferretdb` container, against `/data/files/db/wekan.sqlite`,
+remains the alternative for a page-level stream.
 
 ## Files and logs
 

@@ -24,12 +24,35 @@ test('activity pages stay bounded while polling', () => {
   assert.ok(Number(match[1]) <= 50);
 });
 
+// WeKan polls FerretDB everywhere: no OpLog URL, no OpLog reactivity.
 for (const rel of ferretPaths) {
-  test(`${rel} is standalone polling-only`, () => {
+  test(`${rel} keeps WeKan on polling`, () => {
     const source = read(rel);
-    assert.doesNotMatch(source, /--repl-set-name|MONGO_OPLOG_URL=.*mongodb:|WEKAN_FERRETDB_OPLOG|WEKAN_FERRETDB_REPL_SET/);
+    assert.doesNotMatch(source, /MONGO_OPLOG_URL=.*mongodb:|WEKAN_FERRETDB_OPLOG|WEKAN_FERRETDB_REPL_SET/);
     assert.match(source, /METEOR_REACTIVITY_ORDER[=:]"?polling/);
     assert.doesNotMatch(source, /METEOR_REACTIVITY_ORDER[=:][^\n]*oplog/);
+  });
+}
+
+// The launchers that run FerretDB beside WeKan stay standalone: continuous
+// backup reads their SQLite file directly (the sqlite engine).
+for (const rel of ferretPaths.slice(0, 3)) {
+  test(`${rel} starts FerretDB standalone`, () => {
+    assert.doesNotMatch(read(rel), /--repl-set-name/);
+  });
+}
+
+// The Compose files run FerretDB in its own container, where WeKan cannot see
+// the SQLite file, so FerretDB keeps an OpLog for continuous backup's oplog
+// engine (maintainer decision of 2026-10-03, reversing ecfbd0bf66 for Compose
+// only, and only for recording). WeKan connects to that one host directly
+// (tests/ferretdbDirectConnection.test.cjs) and still polls.
+for (const rel of ferretPaths.slice(3)) {
+  test(`${rel} keeps an OpLog for continuous backup, with a direct connection`, () => {
+    const source = read(rel);
+    assert.match(source, /--listen-addr=0\.0\.0\.0:27017 \\\n\s+--repl-set-name=rs0 \\/);
+    assert.match(source, /- MONGO_URL=mongodb:\/\/ferretdb:27017\/wekan\?directConnection=true\n/);
+    assert.doesNotMatch(source, /- MONGO_URL=[^\n]*replicaSet=/);
   });
 }
 

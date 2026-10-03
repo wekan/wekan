@@ -191,3 +191,20 @@ test('the Attachments page template compiles: a comment between if and else if w
   }
   assert.match(fs.readFileSync(file, 'utf8'), /else if isContinuousBackupActive\n\s+\/\/-/);
 });
+
+// The Compose files run FerretDB with an oplog for this engine (2026-10-03).
+// FerretDB refuses a find with noCursorTimeout, so a tail that asked for it
+// never started there and retried forever; the tail asks again every second,
+// so it never idles out, and one that does is reopened.
+test('NEGATIVE: the oplog tail asks for nothing FerretDB refuses', () => {
+  const source = fs.readFileSync(path.join(__dirname, '..', 'server/lib/continuousBackup/oplog.js'), 'utf8')
+    .replace(/^\s*\/\/.*$/gm, '');
+  assert.doesNotMatch(source, /noCursorTimeout/);
+  assert.match(source, /\{ tailable: true, awaitData: true, maxAwaitTimeMS: 1000 \}/);
+  // And the Compose files give it a FerretDB that keeps an oplog, over a direct connection.
+  for (const file of ['docker-compose.yml', 'docker-compose-ferretdb-v1-postgresql.yml']) {
+    const compose = fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
+    assert.match(compose, /--repl-set-name=rs0/, file);
+    assert.match(compose, /MONGO_URL=mongodb:\/\/ferretdb:27017\/wekan\?directConnection=true/, file);
+  }
+});

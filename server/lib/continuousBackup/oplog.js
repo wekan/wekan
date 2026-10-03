@@ -136,9 +136,11 @@ class OplogEngine {
     while (!this.stopped) {
       try {
         const from = this.pendingPosition || this.position;
+        // No noCursorTimeout: FerretDB refuses it, and a tail that asks again
+        // every second never idles out; one that does is reopened below.
         this.cursor = this.oplog.find({ ts: { $gt: from },
           $or: [{ ns: { $regex: `^${escapeRegExp(this.dbName)}\\.` } }, { ns: 'admin.$cmd' }] },
-        { tailable: true, awaitData: true, maxAwaitTimeMS: 1000, noCursorTimeout: true });
+        { tailable: true, awaitData: true, maxAwaitTimeMS: 1000 });
         for await (const entry of this.cursor) {
           if (this.stopped) break;
           await this.record(entry);
