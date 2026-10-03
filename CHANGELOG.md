@@ -6774,6 +6774,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4e0af778f0738af563e0ddd06c835c345c735b31">Translate Klingon import instructions and reordering help</a>. Thanks to xet7.</summary>
+
+- Fill three English placeholders while preserving existing translations, technical identifiers and source key order. These messages now cover 227 of 234 non-English locale variants; seven remain.
+- Extend import exclusions, keyboard directions and placeholder checks. All nine relevant suites, a preservation audit and 21 human-preference checks pass.
+- Low-confidence Klingon technical translations need fluent-speaker review. The <a href="https://www.kli.org/about-klingon/new-klingon-words/all/">Klingon Language Institute vocabulary</a> distinguishes Hoq (pull along) from Hur (tug), informing the drag instruction.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
