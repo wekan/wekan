@@ -385,7 +385,7 @@ held only issues \#4774 and \#4055, and both are closed now.
 Status checked on 2026-10-03. The later translation request resumed this work;
 the earlier pause above remains historical. Completed work is recorded in Upcoming.
 
-- The current `node releases/translations/fill-translations.mjs --missing` report counts **52,724 untranslated locale/string values in 70 languages**. It excludes **204 source keys deliberately left in English pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
+- The current `node releases/translations/fill-translations.mjs --missing` report counts **52,640 untranslated locale/string values in 70 languages**. It excludes **204 source keys deliberately left in English pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
 - Continue automatic-archiving and date-filter translations beyond the thirty-nine locales recorded in completed changelog entries, then the remaining feature families.
 - Fill English placeholders in every language, including minority and constructed languages. Audit mixed-language and wrong-language seed text, and review provisional wording with speakers when available. Preserve correct-language human translations, source key order, exact placeholders, technical identifiers and query examples. Use direct translation and dictionary research, not an external translation service.
 - Keep regression and human-preference checks passing. Passing tests does not establish translation completeness or fluency; rerun relevant checks for each batch and the broad suite before declaring all-language work complete.
@@ -2158,6 +2158,17 @@ used.
 
 - Fill 63 English placeholders covering Sync conflicts, previews, source omissions, run reports, diagnostics and Jira estimates. Preserve existing translations and exact placeholder tokens.
 - Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks retain one-way synchronization, local card preservation, report limitations, numeric limits and explicit null handling.
+- Upper Sorbian technical wording is provisional and needs speaker review. Remaining all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6c209340e491b90043c828fb6efc1aacd74da68a">Translate Upper Sorbian Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Upper Sorbian.
+
+- Fill 84 English placeholders covering Scrum planning, sprint lifecycle, product backlog, reports and daily observations. Preserve existing translations and exact placeholder tokens.
+- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks retain unknown-versus-zero estimates, partial report scope, daily observation limitations and numeric limits.
 - Upper Sorbian technical wording is provisional and needs speaker review. Remaining all-language work is tracked in TODO Later.
 
 </details>
