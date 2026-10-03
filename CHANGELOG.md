@@ -6283,6 +6283,19 @@ confidence and needs native-speaker review. Remaining translations are unfinishe
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1827219d83">Translate Scrum job messages in twelve South Asian locales</a>. Thanks to xet7.</summary>
+
+Add progress and interrupted undo/redo instructions in Nepali, Marathi, Tamil,
+Telugu, Gujarati, Kannada, Malayalam, Punjabi, Sinhala, Assamese, Odia and Sindhi.
+Preserve existing translations, source key order and exact placeholders. Extend
+regression coverage to 128 locale variants. Three focused suites, all 21
+human-preference checks and twelve catalog preservation audits pass. Assamese,
+Odia and Sindhi technical wording is low confidence and needs native-speaker
+review. Remaining translations are unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
