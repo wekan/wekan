@@ -6,7 +6,7 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('continuous-backup'));
-for (const code of ['fi', 'sv', 'da', 'nb', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'it', 'nl', 'nl-NL', 'pl', 'pl-PL', 'cs', 'cs-CZ', 'sk', 'sl', 'hr', 'ro', 'ro-RO', 'hu', 'bg', 'uk', 'uk-UA', 'ru', 'ru-RU', 'ru_RU', 'ru-UA', 'lv', 'lt', 'et-EE', 'el', 'el-GR', 'tr', 'ja', 'ja-JP', 'ja-HI', 'ko', 'ko-KR', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-Hant', 'zh-TW', 'zh-HK', 'id', 'ms', 'ms-MY', 'vi', 'vi-VN', 'ar', 'ar-DZ', 'ar-EG', 'he', 'he-IL', 'fa', 'fa-IR', 'ur', 'hi', 'hi-IN', 'bn', 'ca', 'ca_ES', 'gl', 'gl-ES', 'eu', 'af', 'af_ZA', 'sw', 'bs', 'sr', 'mk', 'is', 'eo', 'sq', 'th', 'tl', 'be', 'az', 'az-AZ', 'az-LA', 'ka', 'hy', 'uz', 'uz-UZ', 'uz-LA', 'uz-AR', 'kk', 'mn', 'ne', 'mr', 'ta', 'te-IN', 'gu-IN', 'kn', 'ml', 'pa', 'si', 'ga', 'cy', 'cy-GB', 'lb']) {
+for (const code of ['fi', 'sv', 'da', 'nb', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'it', 'nl', 'nl-NL', 'pl', 'pl-PL', 'cs', 'cs-CZ', 'sk', 'sl', 'hr', 'ro', 'ro-RO', 'hu', 'bg', 'uk', 'uk-UA', 'ru', 'ru-RU', 'ru_RU', 'ru-UA', 'lv', 'lt', 'et-EE', 'el', 'el-GR', 'tr', 'ja', 'ja-JP', 'ja-HI', 'ko', 'ko-KR', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-Hant', 'zh-TW', 'zh-HK', 'id', 'ms', 'ms-MY', 'vi', 'vi-VN', 'ar', 'ar-DZ', 'ar-EG', 'he', 'he-IL', 'fa', 'fa-IR', 'ur', 'hi', 'hi-IN', 'bn', 'ca', 'ca_ES', 'gl', 'gl-ES', 'eu', 'af', 'af_ZA', 'sw', 'bs', 'sr', 'mk', 'is', 'eo', 'sq', 'th', 'tl', 'be', 'az', 'az-AZ', 'az-LA', 'ka', 'hy', 'uz', 'uz-UZ', 'uz-LA', 'uz-AR', 'kk', 'mn', 'ne', 'mr', 'ta', 'te-IN', 'gu-IN', 'kn', 'ml', 'pa', 'si', 'ga', 'cy', 'cy-GB', 'lb', 'ht']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -74,6 +74,7 @@ for (const [codes, protection, pause, units] of [
   }
 }
 for (const [codes, protection, pause, units] of [
+  [['ht'], /pa janm ekri sou fichye k ap itilize a/, /jenerasyon ou chwazi a.*moman ou chwazi a.*kanpe tanporèman pandan retablisman an/, ['segonn', 'èdtan', 'jou']],
   [['lb'], /iwwerschreift ni d’Datei, déi am Gebrauch ass/, /gewielte Generatioun.*gewielten Zäitpunkt.*wärend der Restauratioun pauséiert/, ['Sekonnen', 'Stonnen', 'Deeg']],
   [['cy', 'cy-GB'], /byth yn trosysgrifo’r ffeil sy’n cael ei defnyddio/, /genhedlaeth a ddewiswyd.*adeg a ddewiswyd.*oedi yn ystod yr adferiad/, ['eiliadau', 'oriau', 'dyddiau']],
   [['ga'], /ní fhorscríobhann sé an comhad atá in úsáid riamh/, /an ghlúin roghnaithe.*an tráth roghnaithe.*ar sos le linn an athchóirithe/, ['soicindí', 'uaireanta', 'laethanta']],
@@ -235,4 +236,4 @@ for (const key of keys) assert.match(read('ml')[key], /\p{Script=Malayalam}/u);
 for (const key of keys) assert.match(read('pa')[key], /\p{Script=Gurmukhi}/u);
 for (const key of keys) assert.match(read('si')[key], /\p{Script=Sinhala}/u);
 for (const key of keys) assert.doesNotMatch(read('de-CH')[key], /ß/);
-console.log(`Continuous backup: ${keys.length} translations in one hundred and twenty-two locales passed`);
+console.log(`Continuous backup: ${keys.length} translations in one hundred and twenty-three locales passed`);
