@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.15
+  version: v12.16
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -5727,6 +5727,75 @@ definitions:
         description: |
            Does the board show the comment-count badge on the minicard?
         type: boolean
+      allowsCardCollapse:
+        type: boolean
+      allowsChecklistTitleOnMinicard:
+        type: boolean
+      allowsLabelTextOnCard:
+        type: boolean
+      labelsAboveTitleOnCard:
+        type: boolean
+        x-nullable: true
+      allowsChecklistDueDateOnMinicard:
+        type: boolean
+        x-nullable: true
+      allowsLocationOnMinicard:
+        type: boolean
+        x-nullable: true
+      allowsSwimlaneNameOnCard:
+        type: boolean
+        x-nullable: true
+      allowsFlowtimeOnMinicard:
+        type: boolean
+        x-nullable: true
+      allowsPomodoroOnMinicard:
+        type: boolean
+        x-nullable: true
+      allowsAttachmentListOnMinicard:
+        type: boolean
+        x-nullable: true
+      allowsTextNotesOnMinicard:
+        type: boolean
+        x-nullable: true
+      allowsCommentCountOnCard:
+        type: boolean
+        x-nullable: true
+      allowsActivitiesOnMinicard:
+        type: boolean
+        x-nullable: true
+      allowsCardColorOnCard:
+        type: boolean
+      allowsCardColorOnMinicard:
+        type: boolean
+      allowsParentCardOnCard:
+        type: boolean
+      allowsParentCardOnMinicard:
+        type: boolean
+      allowsLinkedCardOnCard:
+        type: boolean
+      allowsLinkedCardOnMinicard:
+        type: boolean
+      allowsCardButtonsOnCard:
+        type: boolean
+      allowsDescriptionBadgeOnMinicard:
+        type: boolean
+      allowsUnreadCommentsOnMinicard:
+        type: boolean
+      allowsCardButtonsOnMinicard:
+        type: boolean
+        x-nullable: true
+      allowsDescriptionBadgeOnCard:
+        type: boolean
+        x-nullable: true
+      allowsUnreadCommentsOnCard:
+        type: boolean
+        x-nullable: true
+      allowsIssueTypeOnMinicard:
+        description: |
+           Does the board show the work item type badge on the minicard? It was
+           shown on every board before it had a Board Settings / Card row, so a
+           missing value means shown.
+        type: boolean
       restrictCommentEditing:
         description: |
            When true, board admins can NOT edit or delete comments authored by
@@ -6013,6 +6082,19 @@ definitions:
       - allowsPokerOnMinicard
       - allowsTextNotes
       - allowsCommentCountOnMinicard
+      - allowsCardCollapse
+      - allowsChecklistTitleOnMinicard
+      - allowsLabelTextOnCard
+      - allowsCardColorOnCard
+      - allowsCardColorOnMinicard
+      - allowsParentCardOnCard
+      - allowsParentCardOnMinicard
+      - allowsLinkedCardOnCard
+      - allowsLinkedCardOnMinicard
+      - allowsCardButtonsOnCard
+      - allowsDescriptionBadgeOnMinicard
+      - allowsUnreadCommentsOnMinicard
+      - allowsIssueTypeOnMinicard
       - restrictCommentEditing
       - allowsPersonalListWidth
       - stickyListHeaders
@@ -6635,6 +6717,11 @@ definitions:
       showListOnMinicard:
         description: |
            show list name on minicard?
+        type: boolean
+        x-nullable: true
+      showListOnCard:
+        description: |
+           show list name on the opened card? (Board Settings / Card, List title)
         type: boolean
         x-nullable: true
       showChecklistAtMinicard:
@@ -7331,6 +7418,11 @@ definitions:
         type: string
       estimateMappingIdentity:
         type: string
+      estimateSourceField:
+        type: string
+        enum:
+          - weight
+          - time_estimate
       fields:
         type: array
         items:
@@ -7628,6 +7720,21 @@ definitions:
         type: boolean
         x-nullable: true
       hideCardCounterList:
+        type: boolean
+        x-nullable: true
+      featureStates:
+        type: object
+        x-nullable: true
+      featureApprovalRequired:
+        type: boolean
+        x-nullable: true
+      featureKnownKeys:
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
+      featurePreviewAdmins:
         type: boolean
         x-nullable: true
       cardsLoading:
@@ -8026,6 +8133,13 @@ definitions:
            is the user an admin of the board?
         type: boolean
         x-nullable: true
+      featurePreview:
+        description: |
+           #6736: a pilot user who sees the features the instance disabled
+           (Admin Panel / Settings / Visibility / Features). Set only by the
+           site admin's saveInstanceFeatures method.
+        type: boolean
+        x-nullable: true
       createdThroughApi:
         description: |
            was the user created through the API?
@@ -8240,6 +8354,11 @@ definitions:
       hiddenMinicardLabelText:
         description: |
            does the user want to hide minicard label texts?
+        type: boolean
+      cardLabelTextOverride:
+        description: |
+           The same per-user override as showLabelTextOverride below, for the
+           labels of the OPENED card (Boards.allowsLabelTextOnCard).
         type: boolean
       showLabelTextOverride:
         description: |
