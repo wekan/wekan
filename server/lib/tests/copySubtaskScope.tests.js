@@ -54,3 +54,43 @@ describe('Card copies carry only the subtasks the copier may copy', function () 
     }
   });
 });
+
+// BoardBleed sibling (2026-10-03): a client insert may not name another
+// board's list or swimlane, whose titles the creation activity would carry.
+describe('Card inserts name only their own board\'s list and swimlane', function () {
+  this.timeout(30000);
+  it('refuses another board\'s list or swimlane, and allows the board\'s own', async function () {
+    if (!Meteor.isAppTest) this.skip();
+    const [user, mine, theirs, list, lane, secretList, secretLane] = Array.from({ length: 7 }, () => Random.id());
+    const insert = doc => {
+      const context = { userId: user, isSimulation: false, connection: null, setUserId() {}, unblock() {} };
+      return DDP._CurrentMethodInvocation.withValue(context, () => Meteor.server.method_handlers['/cards/insert'].apply(context, [doc]));
+    };
+    const card = extra => ({ _id: Random.id(), title: 'Probe', boardId: mine, listId: list, swimlaneId: lane, sort: 0,
+      archived: false, userId: user, type: 'cardType-card', ...extra });
+    try {
+      await Meteor.users.rawCollection().insertOne({ _id: user, username: `placement-${user}` });
+      await Boards.rawCollection().insertMany([
+        { _id: mine, title: 'Mine', permission: 'private', archived: false, members: [{ userId: user, isActive: true, isAdmin: true }] },
+        { _id: theirs, title: 'Theirs', permission: 'private', archived: false, members: [{ userId: Random.id(), isActive: true, isAdmin: true }] }]);
+      await Lists.rawCollection().insertMany([{ _id: list, boardId: mine, title: 'Own list', archived: false },
+        { _id: secretList, boardId: theirs, title: 'Secret list', archived: false }]);
+      await Swimlanes.rawCollection().insertMany([{ _id: lane, boardId: mine, title: 'Own lane', archived: false },
+        { _id: secretLane, boardId: theirs, title: 'Secret lane', archived: false }]);
+      for (const extra of [{ listId: secretList }, { swimlaneId: secretLane }]) {
+        await assert.rejects(insert(card(extra)), /Access denied|403/, JSON.stringify(extra));
+      }
+      assert.equal(await Activities.rawCollection().countDocuments({ boardId: mine, listName: 'Secret list' }), 0);
+      assert.equal(await Activities.rawCollection().countDocuments({ boardId: mine, swimlaneName: 'Secret lane' }), 0);
+      assert.equal(await Cards.rawCollection().countDocuments({ boardId: mine }), 0, 'nothing was created');
+      // The board's own list and swimlane: allowed.
+      await insert(card({}));
+      assert.equal(await Cards.rawCollection().countDocuments({ boardId: mine }), 1);
+    } finally {
+      for (const model of [Cards, Activities, Lists, Swimlanes]) await model.rawCollection().deleteMany({ boardId: { $in: [mine, theirs] } });
+      await Boards.rawCollection().deleteMany({ _id: { $in: [mine, theirs] } });
+      await Meteor.users.rawCollection().deleteMany({ _id: user });
+    }
+  });
+});
+

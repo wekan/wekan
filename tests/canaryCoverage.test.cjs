@@ -37,6 +37,7 @@ function test(name, fn) {
 const WIRED = [
   ['card.cross-board-move',            'server/permissions/cards.js',                 'BoardBleed'],
   ['card.invisible-parent',            'server/permissions/cards.js',                 'ParentBleed'],
+  ['card.foreign-placement',           'server/permissions/cards.js',                 'BoardBleed'],
   ['card.vote-field',                  'server/permissions/cards.js',                 'SpaceBleed'],
   ['card.poker-field',                 'server/permissions/cards.js',                 'SpaceBleed'],
   ['user.miniprofile-without-login',  'server/publications/users.js',                'MiniProfileBleed'],

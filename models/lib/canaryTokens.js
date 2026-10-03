@@ -47,6 +47,10 @@ const CANARIES = {
     key: 'authz.board',
     what: 'tried to move a card into a board they cannot write to',
   },
+  'card.foreign-placement': {
+    key: 'authz.board',
+    what: 'tried to create a card naming another board\'s list or swimlane',
+  },
   'card.invisible-parent': {
     key: 'authz.board',
     what: 'tried to set a card parent on a board they cannot see',

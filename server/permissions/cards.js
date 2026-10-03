@@ -145,6 +145,30 @@ Cards.deny({
   fetch: [],
 });
 
+// A card created on one board naming ANOTHER board's list or swimlane: its
+// creation activity carries that list's and swimlane's titles, and the
+// board's rules see them, so a member of one board could read the names of a
+// private board's lists by id (2026-10-03, BoardBleed sibling). The server's
+// own copies check their destination (server/lib/cardCopyDestination.js);
+// no client sends such an insert, so it is recorded as an attempt.
+async function namesForeignContainer(doc) {
+  const Lists = require('/models/lists').default;
+  const Swimlanes = require('/models/swimlanes').default;
+  for (const [collection, id] of [[Lists, doc.listId], [Swimlanes, doc.swimlaneId]]) {
+    if (typeof id !== 'string' || !id) continue;
+    const container = await collection.findOneAsync(id, { fields: { boardId: 1 } });
+    if (container && container.boardId !== doc.boardId) return true;
+  }
+  return false;
+}
+Cards.deny({
+  async insert(userId, doc) {
+    if (doc && await namesForeignContainer(doc)) return tripCanaryDeny('card.foreign-placement', { userId });
+    return false;
+  },
+  fetch: [],
+});
+
 // Same rule on INSERT: a card can be created with a parentId already set.
 Cards.deny({
   async insert(userId, doc) {
