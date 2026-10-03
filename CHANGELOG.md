@@ -5106,6 +5106,17 @@ remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e47be629cf">Translate continuous backup into Akan</a>. Thanks to xet7.</summary>
+
+Fill 35 English placeholders and correct three unrelated or mixed-language backup
+entries. Preserve other translations, source order, exact tokens and literal paths.
+Extend restore protection, pause and time-unit checks. Four focused catalog suites
+and all 21 human-preference checks pass. Technical Akan wording is low confidence
+and needs native-speaker review. The broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
