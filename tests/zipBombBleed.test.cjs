@@ -28,7 +28,7 @@ async function bomb(bytes) {
     const zip = new ZipArchive({ zlib: { level: 9 } });
     out.on('close', resolve); zip.on('error', reject);
     zip.pipe(out);
-    zip.append(Buffer.alloc(bytes, 0x7b), { name: 'board.json' });
+    zip.append(Buffer.alloc(bytes, 0x7b), { name: 'wekan.json' });
     zip.finalize();
   });
   return { file, dir };
@@ -39,11 +39,15 @@ test('the reported shape: the declared size lives on the entry, not entry.vars',
   try {
     const unzipper = require(path.join(ROOT, 'node_modules', 'unzipper'));
     const [entry] = (await unzipper.Open.file(file)).files;
+    assert.equal(entry.path, 'wekan.json', 'GHSA-rmcq-68x2-3g5j native import document');
     assert.equal(entry.vars, undefined, 'the old check read a field that is not there');
     assert.equal(declaredZipEntrySize(entry), 8 * 1024 * 1024);
     assert.ok(fs.statSync(file).size < 64 * 1024, 'a small archive');
     // The bounded read refuses it past the limit - by what inflates, not by
     // what the archive claims.
+    await assert.rejects(readZipEntryBounded(entry, 1024 * 1024), /zip-entry-too-large/);
+    // A forged central-directory size cannot bypass the actual byte counter.
+    entry.uncompressedSize = 1;
     await assert.rejects(readZipEntryBounded(entry, 1024 * 1024), /zip-entry-too-large/);
     const budget = { remaining: 4 * 1024 * 1024 };
     await assert.rejects(readZipEntryBounded(entry, 64 * 1024 * 1024, budget), /zip-too-large/);
