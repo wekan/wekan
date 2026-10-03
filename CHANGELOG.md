@@ -4404,6 +4404,17 @@ and time-unit checks to these catalogs. Four focused catalog suites and all
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/151d698c26">Translate continuous backup into Mandarin and Cantonese</a>. Thanks to xet7.</summary>
+
+Fill 70 English placeholders using existing Mandarin terminology and Cantonese
+prose. Preserve existing translations, source order and exact tokens. Extend
+checks for restore protection, pauses, time units and script. Four focused
+catalog suites and all 21 human-preference checks pass. The broader translation
+backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
