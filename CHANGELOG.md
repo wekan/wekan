@@ -237,8 +237,12 @@ Remaining, and why:
   resolves on the board the card went to, in both engines, and is durable
   too, and so is a further move or move-all on to yet another board that
   opted in. What stays on direct Sync, and why: a plan where a move to
-  another board can be followed by an email - a sent message cannot be taken
-  back when a later step fails, so it cannot be replayed safely after one.
+  another board can be followed by an email. Both engines refuse to email a
+  card that is no longer on the board where its activity happened - the
+  source-binding check of server/lib/ruleEmailSource.js, a security boundary
+  - so the email sends nothing there either way. Letting a rule's own move
+  carry the email's source to the new board needs a maintainer security
+  decision on that check.
 - **Scrum requirements** (from
   [the Scrum design](docs/Features/Right-Sidebar/Board-Settings/Board-View/Scrum-Design.md)).
   Built on 2026-10-02 and 2026-10-03 (see Upcoming): event-level scope
