@@ -5457,6 +5457,20 @@ The broader translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3e5980d394">Translate backup encryption options into 106 locale variants</a>. Thanks to xet7.</summary>
+
+Translate both encryption labels in 105 catalog files serving 106 locale variants.
+Preserve the AES-256-GCM name, hexadecimal key length of 64 characters, minimum
+passphrase length of 16 characters, external key-file location and warning that
+the backup cannot be restored without the key. Add token, key-format and warning
+regression checks. All 106 preservation audits, three focused suites and 21
+human-preference checks pass. Global completeness and backup suites still report
+remaining untranslated locales and newly added cloud labels. The broader
+translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
