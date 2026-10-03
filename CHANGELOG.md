@@ -4945,6 +4945,19 @@ pass. The broader translation backlog remains.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cf89384cce">Translate continuous backup into Wu Chinese</a>. Thanks to xet7.</summary>
+
+Fill 35 English placeholders and replace two Mandarin-seeded backup descriptions
+with Wu wording. Preserve other translations, literal paths, source order and
+exact tokens. Extend restore protection, pause, time-unit, script and vocabulary
+checks. All 453 translation-related suites and 21 human-preference checks pass.
+Technical wording is low confidence and needs native-speaker review. There are
+still 46 locales with English continuous-backup placeholders, and the broader
+translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
