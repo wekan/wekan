@@ -91,7 +91,7 @@ const keys = [
   "scrum-daily-observations-export-help",
   "scrum-import-pending"
 ];
-for (const code of ['lld', 'hsb', 'szl']) {
+for (const code of ['lld', 'hsb', 'szl', 'wuu-Hans']) {
 const locale = read(code);
 assert.deepEqual(Object.keys(locale), Object.keys(en));
 for (const key of keys) {
@@ -127,7 +127,7 @@ assert.notEqual(locale['scrum-added'], locale['scrum-removed']);
  assert.match(locale['scrum-import-pending'], /njeje dospołny.*k dispoziciji njejsu/);
  assert.notEqual(locale['scrum-state-closed'], locale['scrum-state-cancelled']);
  assert.notEqual(locale['scrum-added'], locale['scrum-removed']);
- } else {
+ } else if (code === 'szl') {
  assert.match(locale['scrum-report-help'], /niy sōm ôszacowaniami zerowymi/);
  assert.match(locale['scrum-report-help'], /tych samych jednostkach ôszacowaniŏ i zasadach/);
  for (const key of ['scrum-daily-observations-help', 'scrum-daily-observations-export-help']) {
@@ -140,6 +140,19 @@ assert.notEqual(locale['scrum-added'], locale['scrum-removed']);
  assert.match(locale['scrum-import-pending'], /niy je dokończōny.*niy sōm dostympne/);
  assert.notEqual(locale['scrum-state-closed'], locale['scrum-state-cancelled']);
  assert.notEqual(locale['scrum-added'], locale['scrum-removed']);
+ } else {
+ assert.match(locale['scrum-report-help'], /勿是零估算/);
+ assert.match(locale['scrum-report-help'], /估算单位搭规则一样/);
+ for (const key of ['scrum-daily-observations-help', 'scrum-daily-observations-export-help']) {
+  assert.match(locale[key], /UTC/);
+  assert.match(locale[key], /缺失个日子会略脱/);
+  assert.match(locale[key], /勿会记录每一趟改动/);
+  assert.match(locale[key], /勿晓得个估算勿是零/);
+ }
+ assert.match(locale['scrum-partial-report'], /只包括眼前分配拨侬个卡片/);
+ assert.match(locale['scrum-import-pending'], /还没做完.*暂时用勿了/);
+ assert.notEqual(locale['scrum-state-closed'], locale['scrum-state-cancelled']);
+ assert.notEqual(locale['scrum-added'], locale['scrum-removed']);
 }
 }
-console.log('Ladin, Upper Sorbian and Silesian Scrum translations: 84 messages each passed');
+console.log('Ladin, Upper Sorbian, Silesian and Wu Scrum translations: 84 messages each passed');
