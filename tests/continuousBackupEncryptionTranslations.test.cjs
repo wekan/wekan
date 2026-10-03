@@ -41,6 +41,7 @@ codes.push('ve-CC', 'lld');
 codes.push('wa', 'rup');
 codes.push('nso', 'ts');
 codes.push('ace', 'wa-RR');
+codes.push('ss', 'nd');
 const keys = ['continuous-backup-encrypt', 'continuous-backup-key-file'];
 for (const code of codes) {
   const locale = read(code);
