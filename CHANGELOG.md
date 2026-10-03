@@ -6729,6 +6729,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b3c8b52b5cc7364811dba9f491fa5e4f79c10bd0">Translate Veps import help and correct mixed-language labels</a>. Thanks to xet7.</summary>
+
+- Fill three import and reordering placeholders, bringing these messages to 221 of 234 non-English locale variants; 13 remain. Replace Zulu import-source text and Venda linked-subtask text with Veps.
+- Extend import exclusions, keyboard directions, placeholder and corrected-label checks. All 11 relevant suites, a preservation audit and 21 human-preference checks pass.
+- Low-confidence Veps technical translations and replacements need native-speaker review. The <a href="https://vepsnoid.blogspot.com/p/dictionary.html">Veps–English dictionary</a> supplies vocabulary for pulling, linking, moving and hindering.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
