@@ -6675,6 +6675,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f1b8e772ed">Translate import help into Acehnese, Ladin and Aromanian</a>. Thanks to xet7.</summary>
+
+- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into three more languages, preserving existing translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions.
+- Ten relevant suites, 21 human-preference checks and all three preservation audits pass. These three messages now cover 208 locale variants; 26 variants and other catalog gaps remain.
+- Technical wording has low confidence and welcomes native review. Drag vocabulary was checked against an [Acehnese linguistic study](https://digital.library.adelaide.edu.au/dspace/bitstream/2440/92352/3/02whole.pdf) and the [Ladin dictionary](https://wikisource.org/wiki/Page:Vocabolardlladinleterar.pdf/989).
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
