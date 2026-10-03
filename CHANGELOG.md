@@ -6490,6 +6490,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/46449d6335">Translate import and reordering help into six more languages</a>. Thanks to xet7.</summary>
+
+- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Arabic, Hebrew, Persian, Urdu, Hindi and Bengali, covering 11 more locale variants.
+- Preserve existing translations, exact source tokens, commands, field names, file formats, the image and attachment import limitation, and both arrow-key directions.
+- Thirteen relevant suites, 21 human-preference checks and all 11 catalog preservation audits pass. These three messages now cover 83 locale variants; 151 variants and other catalog gaps remain.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
