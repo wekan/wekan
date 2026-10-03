@@ -30,7 +30,7 @@ const keys = [
   "filter-column-age-hint",
   "advanced-filter-card-dates-hint"
 ];
-for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'yi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'rw', 'rn', 'or_IN', 'bho', 'mai', 'kok', 'ary', 'nso', 'nd', 'ss', 'ts']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'yi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'rw', 'rn', 'or_IN', 'bho', 'mai', 'kok', 'ary', 'nso', 'nd', 'ss', 'ts', 'om']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -104,4 +104,6 @@ assert.match(read('nd')['filter-column-age-hint'], /akuqalisi kutsha/);
 assert.match(read('ss')['filter-column-age-hint'], /akucali kabusha/);
 assert.match(read('ts')['auto-archive-hint'], /a ti yisiwi eka vuhlayiselo nikatsongo/);
 assert.match(read('ts')['filter-column-age-hint'], /a swi sunguli nkarhi wa rona/);
-console.log('Archiving and date filters: 23 messages in 29 locales passed');
+assert.match(read('om')['auto-archive-hint'], /matumaa gara kuusaatti hin galan/);
+assert.match(read('om')['filter-column-age-hint'], /irra deebi'ee hin jalqabsiisu/);
+console.log('Archiving and date filters: 23 messages in 30 locales passed');
