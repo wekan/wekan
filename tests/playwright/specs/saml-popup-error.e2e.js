@@ -36,8 +36,10 @@ test('real signed SAML popup establishes a Meteor session and failed ACS returns
       enabled: true, provider: 'popup-regression', entryPoint: provider.url + '/saml', issuer: new URL(page.url()).origin,
       cert: certificate, mergeExistingUsers: false,
     });
-    for (const mode of ['allow', 'tampered']) {
-      provider.state.mode = mode;
+    for (const mode of ['allow', 'subject-conflict', 'tampered']) {
+      provider.state.mode = mode === 'subject-conflict' ? 'allow' : mode;
+      provider.state.samlEmail = `${provider.state.user}.saml@example.invalid`;
+      provider.state.samlNameID = mode === 'subject-conflict' ? 'different-subject' : undefined;
       const context = await browser.newContext(), client = await context.newPage();
       try {
         await client.goto(new URL('/sign-in', page.url()).toString());
@@ -53,6 +55,10 @@ test('real signed SAML popup establishes a Meteor session and failed ACS returns
           createdId = await client.evaluate(() => Meteor.userId());
           expect(createdId).toBeTruthy();
           expect(db.findOne('users', { _id: createdId }).authenticationMethod).toBe('saml');
+        } else if (mode === 'subject-conflict') {
+          expect(result.error).toBe('saml-account-conflict');
+          expect(await client.evaluate(() => Meteor.userId())).toBeNull();
+          expect(db.findOne('users', { _id: createdId }).services.saml.nameID).toBe(provider.state.samlEmail);
         } else {
           expect(result.error).toBe('saml-login-failed');
           expect(result.reason).not.toContain('no matching SAML login attempt');

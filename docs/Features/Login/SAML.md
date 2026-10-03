@@ -190,3 +190,41 @@ responses are rejected. Signed responses still undergo node-saml signature,
 time and audience checks. Authentication requests and replay protection are
 process-local, so clustered instances require sticky routing for the login
 handshake. See the [authentication boundary audit](../../Security/Authentication-Boundary-Audit-2026-09-27.md).
+
+### Subject binding and upgrading existing accounts
+
+SamlSubjectBleed (GHSA-966m-4qgp-j8w4) fixed username/email-based account
+reassignment. Login now resolves the assertion's issuer, NameID, NameID format,
+NameQualifier and SPNameQualifier before considering username. These values are
+stored together when the account is created and cannot be replaced by a later
+login. Use an IdP subject that is stable and never reassigned; transient NameIDs
+are rejected. An email-address NameID is only as stable as the IdP's policy for
+reassigning addresses. Attribute changes do not rename or merge existing accounts.
+
+**Upgrade:** older SAML records store NameID but not issuer/qualifiers. They fail
+closed, including with `SAML_MERGE_EXISTING_USERS=true`. Before restoring SAML
+access, an administrator must independently verify the account owner's identity
+with the IdP administrator, then populate `services.saml.issuer`, `nameID`,
+`nameIDFormat`, `nameQualifier` and `spNameQualifier` from that verified identity
+through a trusted server-side maintenance session. Missing optional fields use
+an empty string. The issuer is the assertion issuer, **not** `SAML_ISSUER` (the
+SP entity ID). Never copy these fields from an unverified login attempt or delete
+the old binding to let the next claimant establish it. Back up the account first;
+retain its existing ID, memberships and other services. Audit previously issued
+sessions and email verification separately if account compromise is suspected.
+
+New SAML email addresses are unverified unless the signed assertion explicitly
+contains scalar `email_verified=true` (boolean true or XML string `true`). SAML
+has no standard email-verification claim: configure this attribute only when the
+IdP actually verifies ownership. Opt-in linking to a non-SAML account also
+requires that exact email already be verified locally. A username match alone
+is insufficient, and enabling merging never replaces an existing SAML binding.
+Concurrent links use a conditional write so only the first binding succeeds.
+
+Conflicting identity attempts are summarized as **SamlSubjectBleed** in Admin
+Panel / Problems through the shared security logger. A logger failure cannot
+permit login. Incomplete legacy bindings are refused without recording an attack,
+because an ordinary login after upgrade reaches that path. Tests cover signed assertions sharing an email but carrying
+different NameIDs, repeat login, changed attributes, qualifiers, legacy records,
+verification flags and concurrent changes. The browser regression includes the
+same signed-assertion conflict; running it requires the Meteor browser test stack.

@@ -13,6 +13,7 @@
 
 import { SAML } from '@node-saml/node-saml';
 import { createResponseReplayGuard } from './responseReplay';
+import { samlIdentity, samlIdentitySelector, samlEmailVerified } from './identity';
 import bodyParser from 'body-parser';
 
 const urlEncodedParser = bodyParser.urlencoded({ extended: false });
@@ -234,12 +235,16 @@ Accounts.registerLoginHandler(async (options) => {
     'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress';
   const matchAttribute = config && config.localProfileMatchAttribute;
 
-  const nameId = profile.nameID || profile.email;
+  const identity = samlIdentity(profile);
+  if (!identity) throw new Meteor.Error('saml-no-identifier', 'SAML requires a durable NameID and issuer');
+  const identitySelector = samlIdentitySelector(identity);
+  const nameId = identity.nameID;
   const email = profile.email || (identifierFormat.includes('emailAddress') ? nameId : undefined);
   const username =
     (matchAttribute && profile[matchAttribute]) || email || nameId;
 
-  if (!username) {
+  if (typeof username !== 'string' || !username ||
+      (email !== undefined && typeof email !== 'string')) {
     throw new Meteor.Error(
       'saml-no-identifier',
       'SAML assertion did not contain a usable identifier',
@@ -248,7 +253,7 @@ Accounts.registerLoginHandler(async (options) => {
 
   const userOptions = {
     username,
-    emails: email ? [{ address: email, verified: true }] : [],
+    emails: email ? [{ address: email, verified: samlEmailVerified(profile) }] : [],
     createdAt: new Date(),
     profile: {
       fullname: profile.displayName || profile.cn || username,
@@ -259,39 +264,60 @@ Accounts.registerLoginHandler(async (options) => {
     globalRoles: ['user'],
   };
 
-  let user = await Meteor.users.findOneAsync({ username: userOptions.username });
-  if (user) {
-    const isSamlAccount = user.authenticationMethod === 'saml';
-    const mergeAllowed = config?.mergeExistingUsers === true;
-    if (!isSamlAccount && !mergeAllowed) {
-      try {
-        // A local Meteor package cannot import app-tree code (see
-        // server/lib/canary.js's header comment on this bridge); tripCanary
-        // is reached through the shared Node `global`, set once at app boot.
-        if (typeof global.__wekanTripCanary === 'function') {
-          global.__wekanTripCanary('saml.account-conflict', {
-            username: userOptions.username,
-          });
-        }
-      } catch (e) {
-        /* logging must never break the guard */
+  const conflict = (recordAttempt = true) => {
+    try {
+      if (recordAttempt && typeof global.__wekanTripCanary === 'function') {
+        global.__wekanTripCanary('saml.subject-conflict', { username });
       }
-      throw new Meteor.Error(
-        'saml-account-conflict',
-        'SAML authentication succeeded, but a non-SAML WeKan account already exists with this username.',
-      );
+    } catch (e) { /* logging must never break the guard */ }
+    throw new Meteor.Error(
+      'saml-account-conflict',
+      'SAML identity does not match this account. Contact your administrator.',
+    );
+  };
+  // Resolve the immutable identity FIRST, so attribute/username changes cannot
+  // redirect a returning subject into another account.
+  let user = await Meteor.users.findOneAsync(identitySelector);
+  if (!user) {
+    user = await Meteor.users.findOneAsync({ username: userOptions.username });
+    if (user) {
+      const isSamlAccount = user.authenticationMethod === 'saml';
+      const mergeAllowed = config?.mergeExistingUsers === true;
+      // Never rebind an existing or legacy SAML identity, even with merging on.
+      if (isSamlAccount || user.services?.saml) {
+        // Missing legacy scope can also be an ordinary login after upgrade.
+        conflict(Boolean(samlIdentity(user.services?.saml)));
+      }
+      if (!mergeAllowed) {
+        try {
+          if (typeof global.__wekanTripCanary === 'function') {
+            global.__wekanTripCanary('saml.account-conflict', { username });
+          }
+        } catch (e) { /* logging must never break the guard */ }
+        conflict();
+      }
+      if (!email || !samlEmailVerified(profile) ||
+          !user.emails?.some(entry => entry.address === email && entry.verified === true)) conflict();
+      // Compare-and-set: simultaneous first links cannot overwrite each other.
+      const linked = await Meteor.users.updateAsync({
+        _id: user._id, 'services.saml': { $exists: false },
+        authenticationMethod: { $ne: 'saml' },
+        emails: { $elemMatch: { address: email, verified: true } },
+      }, { $set: { 'services.saml': identity } });
+      if (!linked) conflict();
+    } else {
+      // Persist the binding in the initial insert, never in a later blind write.
+      userOptions.services = { saml: identity };
+      const userId = await Accounts.insertUserDoc({}, userOptions);
+      user = await Meteor.users.findOneAsync(userId);
     }
   }
 
-  if (!user) {
-    const userId = await Accounts.insertUserDoc({}, userOptions);
-    user = await Meteor.users.findOneAsync(userId);
-  }
-
-  await Meteor.users.updateAsync(user._id, { $set: { 'services.saml': {
-    nameID: profile.nameID, nameIDFormat: profile.nameIDFormat,
-    sessionIndex: profile.sessionIndex,
-  } } });
+  // Only session metadata is mutable. Recheck the binding atomically at login.
+  const updated = await Meteor.users.updateAsync({ _id: user._id, ...identitySelector }, {
+    $set: { 'services.saml.sessionIndex': typeof profile.sessionIndex === 'string' ? profile.sessionIndex : '' },
+  });
+  if (!updated) conflict();
   return { userId: user._id };
 });
 

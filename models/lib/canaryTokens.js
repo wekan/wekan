@@ -147,6 +147,10 @@ const CANARIES = {
     key: 'authn.saml-replay',
     what: 'tried to reuse a SAML login response',
   },
+  'saml.subject-conflict': {
+    key: 'authn.saml-subject',
+    what: 'tried to sign in with a conflicting SAML identity',
+  },
   'saml.account-conflict': {
     key: 'authn.saml-link',
     what: 'tried to sign in with SAML as an existing non-SAML account without account linking enabled',

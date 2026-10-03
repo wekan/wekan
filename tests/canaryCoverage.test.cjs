@@ -83,6 +83,7 @@ const WIRED = [
   // through the global.__wekanTripCanary bridge that canary.js installs - the
   // same bridge cas.account-conflict already uses.
   ['saml.response-replay',             'packages/wekan-accounts-saml/saml_server.js', 'SamlReplayBleed'],
+  ['saml.subject-conflict',            'packages/wekan-accounts-saml/saml_server.js', 'SamlSubjectBleed'],
   ['saml.account-conflict',            'packages/wekan-accounts-saml/saml_server.js', 'SamlAccountMergeBleed'],
   ['ldap.invalid-credentials',         'packages/wekan-ldap/server/userCredentials.js', 'LdapBindBleed'],
   ['ldap.group-denied',                'packages/wekan-ldap/server/loginHandler.js',  'DirectoryGroupBleed'],

@@ -69,6 +69,7 @@ const CATALOG = {
   // A SAML login that would take over an existing non-SAML account of the same
   // username while SAML_MERGE_EXISTING_USERS is off - the SAML counterpart of
   // CasAccountMergeBleed (packages/wekan-accounts-saml/saml_server.js).
+  'authn.saml-subject': { category: 'authn', bleed: 'SamlSubjectBleed', severity: 'high', cwe: 'CWE-287' },
   'authn.saml-link': { category: 'authn', bleed: 'SamlAccountMergeBleed', severity: 'medium', cwe: 'CWE-287' },
   // A Google/GitHub/Facebook/… login whose email matches an account made by
   // another method, while OAUTH_PROVIDERS_MERGE_EXISTING_USERS is off: the same
