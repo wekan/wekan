@@ -380,6 +380,19 @@ held only issues \#4774 and \#4055, and both are closed now.
 </details>
 
 <details>
+<summary>Translation work in progress: remaining new strings in all languages.</summary>
+
+Status checked on 2026-10-03. The later translation request resumed this work;
+the earlier pause above remains historical. Completed work is recorded in Upcoming.
+
+- The current `node releases/translations/fill-translations.mjs --missing` report counts **53,732 untranslated locale/string values in 70 languages**. It excludes **204 source keys deliberately left in English pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
+- Continue automatic-archiving and date-filter translations beyond the five locales recorded in Upcoming, then the remaining feature families. Papiamento and Tok Pisin were inspected next; no translations from that next batch have been written yet.
+- Fill English placeholders in every language, including minority and constructed languages. Audit mixed-language and wrong-language seed text, and review provisional wording with speakers when available. Preserve correct-language human translations, source key order, exact placeholders, technical identifiers and query examples. Use direct translation and dictionary research, not an external translation service.
+- Keep regression and human-preference checks passing. Passing tests does not establish translation completeness or fluency; rerun relevant checks for each batch and the broad suite before declaring all-language work complete.
+
+</details>
+
+<details>
 <summary>Active implementation checkpoint: Scrum, Sync and rule email recovery.</summary>
 
 A dated checkpoint, kept as history. Later passes in "Carried to a future
@@ -6904,6 +6917,17 @@ review. Remaining translations are unfinished.
 - Fill 46 English placeholders in Kurdish and Central Kurdish covering automatic archiving, recent activity, inclusive date ranges, due dates and time in a list.
 - Seven relevant suites and 21 human-preference checks pass; preservation audits confirm only English placeholders changed. Extended regression coverage preserves exact query syntax, placeholders, numeric limits and negative behavioral guidance.
 - Kurdish and Central Kurdish wording is provisional and would benefit from speaker review; broader translation work remains open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/19a8c0fb85">Completed translation batches: backup, background jobs, imports and reordering</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Acehnese, Afrikaans, Akan, Albanian, Amharic, Arabic, Aragonese, Armenian, Aromanian, Assamese, Asturian, Aymara, Azerbaijani, Bambara, Bangla, Bashkir, Basque, Belarusian, Bhojpuri, Bislama, Bosnian, Breton, Bulgarian, Buriat, Burmese, Cantonese, Catalan, Central Kurdish, Cherokee, Chinese, Chuvash, Cornish, Corsican, Croatian, Czech, Danish, Dutch, Dzongkha, Esperanto, Estonian, Ewe, Faroese, Fijian, Finnish, Flemish, French, Friulian, Fula, Galician, Ganda, Georgian, German, Greek, Guarani, Gujarati, Haitian Creole, Hausa, Hawaiian, Hebrew, Hindi, Hungarian, Icelandic, Igbo, Indonesian, Inuktitut, Irish, Italian, Japanese, Javanese, Kalaallisut, Kannada, Kashmiri, Kashubian, Kazakh, Khmer, Kinyarwanda, Klingon, Konkani, Korean, Kurdish, Kyrgyz, Ladin, Latin, Latvian, Lithuanian, Luxembourgish, Macedonian, Maithili, Malagasy, Malay, Malayalam, Maltese, Mandarin Chinese, Manx, Marathi, Mongolian, Moroccan Arabic, Māori, Nahuatl, Neapolitan, Nepali, North Ndebele, Northern Sami, Northern Sotho, Norwegian Bokmål, Nyanja, Occitan, Odia, Oromo, Papiamento, Pashto, Persian, Polish, Portuguese, Punjabi, Quechua, Romanian, Romansh, Rundi, Russian, Samoan, Sardinian, Scottish Gaelic, Serbian, Shona, Sicilian, Silesian, Sindhi, Sinhala, Slovak, Slovenian, Somali, Southern Sotho, Spanish, Standard Moroccan Tamazight, Swahili, Swati, Swedish, Tagalog, Tajik, Tamil, Tatar, Telugu, Thai, Tibetan, Tigre, Tigrinya, Tok Pisin, Tongan, Tsonga, Tswana, Turkish, Turkmen, Ukrainian, Upper Sorbian, Urdu, Uyghur, Uzbek, Venda, Venetian, Veps, Vietnamese, Volapük, Walloon, Waray, Welsh, Western Frisian, Wolaytta, Wolof, Wu Chinese, Xhosa, Yakut, Yiddish, Yoruba, Zulu.
+
+- Completed the 43 continuous-backup messages, three Scrum background-job messages, and three Taskwarrior/Focalboard import and keyboard-reordering messages across all **234 non-English locale variants** of the languages above. English variants retain English source wording.
+- Additionally completed 23 automatic-archiving and date-filter messages in **Turkmen, Tatar, Somali, Kurdish and Central Kurdish** (115 translated values), in commits [b76be84186](https://github.com/wekan/wekan/commit/b76be84186) and [c9e622f1b5](https://github.com/wekan/wekan/commit/c9e622f1b5).
+- All **458 translation-related suites passed** after the import/reordering completion. The later archiving/date-filter batches passed their focused regression and preservation checks, plus all 21 human-preference checks. Provisional wording is identified in the individual batch entries for speaker review.
 
 </details>
 
