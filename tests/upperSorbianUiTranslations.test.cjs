@@ -74,7 +74,7 @@ const keys = [
   "history-request-retry",
   "history-request-forget"
 ];
-for (const code of ['hsb', 'szl']) {
+for (const code of ['hsb', 'szl', 'wuu-Hans']) {
 const locale = read(code);
 assert.deepEqual(Object.keys(locale), Object.keys(en));
 for (const key of keys) {
@@ -95,7 +95,7 @@ assert.match(locale['history-request-hint'], /samsne naprašowanje.*njemóže ž
 assert.match(locale['saml-login-not-started'], /njeje so w tutym rajtarku/);
 assert.notEqual(locale['move-selection-before'], locale['move-selection-after']);
 assert.notEqual(locale['dependency-type-duplicates'], locale['dependency-type-is-duplicated-by']);
-} else {
+} else if (code === 'szl') {
  assert.match(locale['instance-desc'], /Nigdy niy je pokŏzowanŏ niyzalogowanym/);
  assert.match(locale['instance-desc'], /Ino ôsoby dodane do tabule mogōm edytować/);
  assert.match(locale['automatic-linked-url-schemes-hint'], /javascript, data, vbscript.*nigdy niy sōm linkowane/);
@@ -105,6 +105,16 @@ assert.notEqual(locale['dependency-type-duplicates'], locale['dependency-type-is
  assert.match(locale['saml-login-not-started'], /niy było zaczynte we tyj karcie/);
  assert.notEqual(locale['move-selection-before'], locale['move-selection-after']);
  assert.notEqual(locale['dependency-type-duplicates'], locale['dependency-type-is-duplicated-by']);
+ } else {
+ assert.match(locale['instance-desc'], /呒没登录个人绝勿会看到伊/);
+ assert.match(locale['instance-desc'], /只有加到看板里个人才好修改/);
+ assert.match(locale['automatic-linked-url-schemes-hint'], /javascript、data、vbscript.*绝勿会变成链接/);
+ assert.match(locale['notification-activity-description'], /到期提醒搭 @提及总归会送到/);
+ assert.match(locale['filter-preset-replace-hint'], /只有侬自己好用.*同样个名字.*替换/);
+ assert.match(locale['history-request-hint'], /同一个请求.*绝勿会再撤销第二趟改动/);
+ assert.match(locale['saml-login-not-started'], /勿是从浏览器搿个标签页开始个/);
+ assert.notEqual(locale['move-selection-before'], locale['move-selection-after']);
+ assert.notEqual(locale['dependency-type-duplicates'], locale['dependency-type-is-duplicated-by']);
 }
 }
-console.log('Upper Sorbian and Silesian UI translations: 67 messages each passed');
+console.log('Upper Sorbian, Silesian and Wu UI translations: 67 messages each passed');
