@@ -6546,6 +6546,16 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/859925cb0f">Translate import and reordering help into six more languages</a>. Thanks to xet7.</summary>
+
+- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Haitian Creole, Javanese, Occitan, Asturian, Aragonese and Corsican.
+- Preserve existing translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions.
+- Fourteen relevant suites, 21 human-preference checks and all six preservation audits pass. These three messages now cover 137 locale variants; 97 variants and other catalog gaps remain.
+- Technical wording has low confidence and welcomes native review. Drag terminology was checked against the [Aragonese dictionary](https://www.efaragonesa.org/biblio/Edacar13.pdf) and [Occitan teaching vocabulary](https://www.capoc.fr/fileadmin/user_upload/Documents/Actualit%C3%A9s/Autres/LG-occitan-ecole_version_finale.pdf).
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
