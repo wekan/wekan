@@ -5498,6 +5498,19 @@ locales and the broader translation backlog are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/84f76711df">Translate new backup options into ten more locale variants</a>. Thanks to xet7.</summary>
+
+Add 80 restart, encryption and cloud translations for Latin-script Uzbek variants,
+Kazakh, Kyrgyz, Tajik, Mongolian, Turkmen, Tatar and Bashkir. Preserve existing
+values, relative source key order and exact placeholders. Extend script,
+vocabulary and encryption/cloud regression coverage. All batch audits, four
+focused suites and 21 human-preference checks pass. Technical Turkmen, Tatar and
+Bashkir wording is low confidence and needs native-speaker review. The restart
+option still needs translation in 104 locales; the broader translation backlog remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
