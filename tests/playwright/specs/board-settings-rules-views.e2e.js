@@ -21,7 +21,9 @@ test('Rules views are listed under Rules, above a divider, and open that view', 
     .filter(cls => !['js-back-view', 'js-close-pop-over'].includes(cls))
     .slice(0, 8));
   expect(order).toEqual(['js-open-rules-view', 'js-open-rules-list-view', 'js-open-rules-workflow-view',
-    'js-open-rules-blocks-view', 'js-open-rules-history', 'js-open-rules-import-export', 'hr', 'js-change-board-color']);
+    // After the divider, Scrum settings has a group of its own above the
+    // board's look (sidebar.jade, added with the Scrum work).
+    'js-open-rules-blocks-view', 'js-open-rules-history', 'js-open-rules-import-export', 'hr', 'js-open-board-scrum-settings']);
   for (const label of ['List View', 'Workflow', 'Blocks', 'History', 'Import / Export rules']) {
     await expect(popover.getByText(label, { exact: false }).first()).toBeVisible();
   }

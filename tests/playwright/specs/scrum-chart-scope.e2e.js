@@ -24,8 +24,13 @@ test('assigned-only charts and exports exclude hidden estimates and identify par
   await expect(page.locator('.scrum-view')).not.toContainText('1002');
   await expect(page.locator('.scrum-view')).not.toContainText('999');
   const result=await page.evaluate(boardId=>Meteor.callAsync('scrum.getBoardData',boardId),board.boardId);
-  expect(result.sprints[0].closeSnapshot.cards.map(card=>card.cardId)).toEqual([cards[0]._id]);
+  // The board data carries the report, computed on the server from the rows
+  // this reader may see, and never the rows themselves (2026-10-03: sprint
+  // snapshot rows live outside the sprint).
+  expect(result.sprints[0].closeSnapshot.cards).toBeUndefined();
+  expect(result.sprints[0].report.committed).toEqual({count:1,estimate:3,unknown:0});
   expect(result.sprints[0].closeSnapshot.totalEstimate).toBe(3);
+  expect(JSON.stringify(result)).not.toContain(cards[1]._id+'","estimate":999');
   const response=await request.get(`/api/boards/${board.boardId}/charts/scrumVelocity/exportExcel?authToken=${encodeURIComponent(user2.token)}`);
   expect(response.status()).toBe(200);
   const Excel=require('../../../node_modules/@wekanteam/exceljs');
