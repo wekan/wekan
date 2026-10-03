@@ -6783,6 +6783,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c880a72b5b1ae06d028d77a32ab1ca671acc7209">Translate Nahuatl import instructions and reordering help</a>. Thanks to xet7.</summary>
+
+- Fill three English placeholders while preserving existing translations, technical identifiers and source key order. These messages now cover 228 of 234 non-English locale variants; six remain.
+- Extend import exclusions, keyboard directions and placeholder checks. All eight relevant suites, a preservation audit and 21 human-preference checks pass.
+- Low-confidence Nahuatl technical translations need speaker review. The <a href="https://nahuatl.wired-humanities.org/content/tilana">Online Nahuatl Dictionary</a> supplies tilana for the drag action; directions follow the existing catalog.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
