@@ -30,7 +30,7 @@ const keys = [
   "filter-column-age-hint",
   "advanced-filter-card-dates-hint"
 ];
-for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'yi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'rw', 'rn', 'or_IN', 'bho', 'mai', 'kok', 'ary', 'nso', 'nd', 'ss', 'ts', 'om', 'fj', 'to', 'hsb', 'szl', 'se']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'yi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'rw', 'rn', 'or_IN', 'bho', 'mai', 'kok', 'ary', 'nso', 'nd', 'ss', 'ts', 'om', 'fj', 'to', 'hsb', 'szl', 'se', 'wa']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -116,4 +116,6 @@ assert.match(read('szl')['auto-archive-hint'], /szablōny nigdy niy sōm archiwi
 assert.match(read('szl')['filter-column-age-hint'], /niy zaczynŏ ôd nowa/);
 assert.match(read('se')['auto-archive-hint'], /mállet eai goassege sirddu vuorkái/);
 assert.match(read('se')['filter-column-age-hint'], /ii álggat.*ođđasit/);
-console.log('Archiving and date filters: 23 messages in 35 locales passed');
+assert.match(read('wa')['auto-archive-hint'], /modeles ni sont måy metous el årtchive/);
+assert.match(read('wa')['filter-column-age-hint'], /ni rcmince nén/);
+console.log('Archiving and date filters: 23 messages in 36 locales passed');
