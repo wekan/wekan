@@ -53,6 +53,8 @@ codes.push('gv', 'kw');
 codes.push('bua', 'cv', 'sah');
 codes.push('ti');
 codes.push('bo', 'dz');
+codes.push('ve-PP');
+codes.push('vo');
 const keys = ['continuous-backup-encrypt', 'continuous-backup-key-file'];
 for (const code of codes) {
   const locale = read(code);
