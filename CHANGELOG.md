@@ -6684,6 +6684,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c7b499ebc270fd1fb07eac8d16741997c8870f70">Translate import instructions and reordering help into Manx, Cornish and Northern Sámi</a>. Thanks to xet7.</summary>
+
+- Fill nine English placeholders while preserving existing translations, technical identifiers and source key order. These three messages now cover 211 of 234 non-English locale variants; 23 remain.
+- Extend import exclusions, keyboard directions and placeholder checks. All 10 relevant suites, three preservation audits and 21 human-preference checks pass.
+- Low-confidence technical translations in all three languages need native-speaker review. Vocabulary references include the <a href="https://kevinscannell.com/files/frasleabhar.pdf">Manx phrasebook</a>, <a href="https://pdfcoffee.com/dictionary-english-manx-pdf-free.html">English–Manx dictionary</a> and <a href="https://www.cornishdictionary.org.uk/sites/default/files/GerlyverPDF%202020%2012%2001%20(FW).pdf">Akademi Kernewek dictionary</a>.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
