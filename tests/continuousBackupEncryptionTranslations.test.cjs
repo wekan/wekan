@@ -58,6 +58,8 @@ codes.push('vo');
 codes.push('tlh');
 codes.push('bm');
 codes.push('ff');
+codes.push('kl');
+codes.push('nah');
 const keys = ['continuous-backup-encrypt', 'continuous-backup-key-file'];
 for (const code of codes) {
   const locale = read(code);
