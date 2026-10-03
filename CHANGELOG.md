@@ -6898,6 +6898,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c9e622f1b54e89a1acba4be0436187e77c0337c3">Translate Kurdish archiving and date filter messages</a>. Thanks to xet7.</summary>
+
+- Fill 46 English placeholders in Kurdish and Central Kurdish covering automatic archiving, recent activity, inclusive date ranges, due dates and time in a list.
+- Seven relevant suites and 21 human-preference checks pass; preservation audits confirm only English placeholders changed. Extended regression coverage preserves exact query syntax, placeholders, numeric limits and negative behavioral guidance.
+- Kurdish and Central Kurdish wording is provisional and would benefit from speaker review; broader translation work remains open.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
