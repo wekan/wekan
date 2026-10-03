@@ -775,6 +775,10 @@ test('a Sync server on an internal address is refused when saved and when synced
     expect(preview.error).toBe('The Sync server address is not allowed: private, loopback and link-local addresses are refused.');
     expect(seen()).toBe(before);
     await expect.poll(() => db.findOne('eventlog', { bleed: 'SyncBleed', source: 'previewListSync' })?.count).toBeGreaterThan(0);
+    // One attempt, one record: the guard does not add a DnsBleed row for it,
+    // whose high severity used to disable the member who pressed preview.
+    expect(db.findOne('users', { _id: user.id }).loginDisabled).toBeFalsy();
+    expect(await page.evaluate(() => Meteor.userId())).toBe(user.id);
 
     // The administrator's allowed host still syncs (the mock tracker answers).
     db.updateOne('lists', { _id: listId }, { $set: { 'syncSource.url': base } });

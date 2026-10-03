@@ -89,6 +89,10 @@ async function fetchJson(url, headers) {
     response = operatorAllowedHost(url) ? await fetchOperatorHost(url, headers) : await fetchSafe(url, {
       headers, timeoutMs: FETCH_TIMEOUT_MS, totalTimeoutMs: FETCH_TIMEOUT_MS,
       maxRedirects: 0, maxResponseBytes: MAX_RESPONSE_BYTES,
+      // server/listSync.js records a refusal as SyncBleed; a second DnsBleed
+      // row for the same attempt would block a member previewing a source
+      // somebody saved before the fix.
+      recordBlocked: false,
     });
   } catch (error) {
     throw syncFetchError(error);

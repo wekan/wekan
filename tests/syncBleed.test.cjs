@@ -98,6 +98,9 @@ test('every request goes through the guard with redirects refused and a bounded 
   assert.equal(calls.length, 1);
   assert.equal(calls[0].options.maxRedirects, 0);
   assert.ok(calls[0].options.maxResponseBytes > 0 && calls[0].options.timeoutMs > 0);
+  // The refusal is recorded once, as SyncBleed by server/listSync.js, not a
+  // second time as DnsBleed by the guard.
+  assert.equal(calls[0].options.recordBlocked, false);
 });
 
 test('saving Sync settings refuses an internal address and records the attempt', async () => {
@@ -218,4 +221,34 @@ test('no response text from a user-chosen server reaches an error message (negat
   }
   assert.deepEqual(echoes, ['server/trelloApiImport.js']);
   assert.match(read('server/trelloApiImport.js'), /const res = await trelloFetch\(`\$\{TRELLO_API\}\$\{path\}/);
+});
+
+// One attempt, one row. A Sync source somebody saved with an internal NAME
+// before the fix used to be recorded twice when a member previewed it: as
+// SyncBleed (medium) here and as DnsBleed (high) by the shared guard, and the
+// high one disabled the previewing member's account
+// (server/lib/blockOnSecurityEvent.js). The guard records by default; only a
+// caller that records the refusal under its own name may turn that off.
+test('the guard records a name resolving inward unless the caller records it itself', () => {
+  const guard = read('server/lib/ssrfGuard.js');
+  assert.match(guard, /async function resolveAndPin\(hostname, \{ recordBlocked = true \} = \{\}\)/);
+  assert.match(guard, /if \(recordBlocked\) try \{\s*require\('\/server\/lib\/securityLog'\)\.record\(\{\s*key: 'ssrf\.fetch'/);
+  // Anything but an explicit false keeps recording.
+  assert.match(guard, /validateAndResolve\(currentUrl, \{ recordBlocked: options\.recordBlocked !== false \}\)/);
+});
+
+test('only a caller that records its own refusal turns the guard\'s record off (negative)', () => {
+  // file -> how that file's caller records the refusal instead.
+  const OWN_RECORD = {
+    'server/lib/listSyncFetch.js': /blocked\.ssrfBlocked = true/,
+  };
+  const found = [];
+  for (const file of sourceFiles()) {
+    const text = fs.readFileSync(file, 'utf8').replace(/^\s*(\/\/|\*).*$/gm, '');
+    if (/recordBlocked:\s*false/.test(text)) found.push(path.relative(ROOT, file));
+  }
+  assert.deepEqual(found.sort(), Object.keys(OWN_RECORD).sort());
+  for (const [file, shape] of Object.entries(OWN_RECORD)) assert.match(read(file), shape, file);
+  // And the caller of that file records every refusal the guard did not.
+  assert.match(read('server/listSync.js'), /if \(e && e\.ssrfBlocked\) \{\s*recordSyncUrlBlocked\(/);
 });

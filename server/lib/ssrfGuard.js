@@ -91,7 +91,7 @@ export function isBlockedIPv6(addr) {
  * @param {string} hostname
  * @returns {Promise<string>}  The validated IP address to dial
  */
-async function resolveAndPin(hostname) {
+async function resolveAndPin(hostname, { recordBlocked = true } = {}) {
   // Raw IP literal in the URL — validate directly, no DNS. IPv6 literals arrive
   // bracketed from URL.hostname (e.g. "[::1]"), so strip brackets before the
   // net.isIP() check. For a real hostname this is a no-op.
@@ -119,8 +119,10 @@ async function resolveAndPin(hostname) {
   for (const addr of addresses) {
     if (isIpBlocked(addr)) {
       // A NAME that resolves to an internal address is the DnsBleed shape
-      // (and DNS rebinding's): record it once here for every outbound fetch.
-      try {
+      // (and DNS rebinding's): record it once here for every outbound fetch -
+      // unless the caller records the refusal under its own name (List Sync's
+      // SyncBleed), so one attempt is one row with the caller's severity.
+      if (recordBlocked) try {
         require('/server/lib/securityLog').record({
           key: 'ssrf.fetch', action: 'blocked', source: 'fetchSafe:dns',
           detail: `${String(hostname).slice(0, 100)} resolved to blocked ${addr}`,
@@ -181,7 +183,7 @@ export function webhookCaCert(env = process.env, readFile = fs.readFileSync) {
  * @param {string} rawUrl
  * @returns {Promise<{parsed: URL, resolvedIp: string}>}
  */
-async function validateAndResolve(rawUrl) {
+async function validateAndResolve(rawUrl, guard = {}) {
   // Step 1 — parse and protocol allowlist
   let parsed;
   try {
@@ -226,7 +228,7 @@ async function validateAndResolve(rawUrl) {
   }
 
   // Step 4 & 5 — resolve DNS once and pin the connection
-  const resolvedIp = await resolveAndPin(hostname);
+  const resolvedIp = await resolveAndPin(hostname, guard);
 
   console.info(`SSRF_GUARD: ${hostname} resolved and pinned to ${resolvedIp}`);
 
@@ -390,6 +392,10 @@ function readResponse(res, options = {}) {
  * `options.totalTimeoutMs` optionally caps the entire operation (1–300000ms),
  * including DNS and all redirects, and destroys active streams on expiry.
  *
+ * `options.recordBlocked: false` leaves a name that resolves inward out of
+ * Admin Panel -> Problems as DnsBleed, for a caller that records the refusal
+ * under its own name; the request is refused all the same.
+ *
  * @param {string} rawUrl           User-supplied URL
  * @param {RequestInit} [options]   Standard fetch options, plus maxRedirects
  * @returns {Promise<Response>}
@@ -414,7 +420,7 @@ async function fetchWithinDeadline(rawUrl, options, deadline) {
 
   for (let hop = 0; ; hop += 1) {
     deadline?.assertActive();
-    const resolution = validateAndResolve(currentUrl);
+    const resolution = validateAndResolve(currentUrl, { recordBlocked: options.recordBlocked !== false });
     const { parsed, resolvedIp } = await (deadline ? deadline.wait(resolution) : resolution);
     deadline?.assertActive();
     if (origin === null) {
