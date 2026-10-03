@@ -6844,6 +6844,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f76407c6b96348287d8f4286bb86d190b2a25b19">Translate Tamazight import instructions and reordering help</a>. Thanks to xet7.</summary>
+
+- Fill three English placeholders in Tifinagh while preserving existing translations, technical identifiers and source key order. These messages now cover 230 of 234 non-English locale variants; four remain.
+- Extend import exclusions, keyboard directions and placeholder checks. All nine relevant suites, a preservation audit and 21 human-preference checks pass.
+- Low-confidence Tamazight technical translations need speaker review. The <a href="https://en.wiktionary.org/wiki/%E2%B5%A3%E2%B5%93%E2%B5%96%E2%B5%94">dictionary entry for ⵣⵓⵖⵔ</a>, citing Penchoen’s Tamazight of the Ayt Ndhir, supplies the drag vocabulary.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
