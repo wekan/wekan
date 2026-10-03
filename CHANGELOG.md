@@ -6738,6 +6738,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/25bc2279279b078525cc05a98befd3498cccbfd6">Translate Kashmiri import instructions and reordering help</a>. Thanks to xet7.</summary>
+
+- Fill three English placeholders while preserving existing translations, technical identifiers and source key order. These messages now cover 222 of 234 non-English locale variants; 12 remain.
+- Extend import exclusions, keyboard directions and placeholder checks. All seven relevant suites, a preservation audit and 21 human-preference checks pass.
+- Low-confidence Kashmiri technical translations need native-speaker review. The <a href="https://kashmirasitis.com/wp-content/uploads/2020/08/Kashmiri-Dictionary-by-W.J.Elmslie-1.pdf">Elmslie Kashmiri dictionary</a> supplies vocabulary for the drag action; directions follow the existing catalog.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
