@@ -160,6 +160,7 @@ const groups = [
   ['dz', 'ནང་འདྲེན་མི་འབད', 'ཡར', 'མར'],
   ['ve', 'a zwi dzheniswi', 'nṱha', 'fhasi'],
   ['ve-PP', 'ei toda', 'Ülähäks', 'alahaks'],
+  ['ks', 'نہٕ درآمد گژھان', 'ہؠور', 'بۄن'],
   ['fi', 'ei tuoda', 'Ylä-', 'alanuoli'],
   ['sv', 'importeras inte', 'Uppåt-', 'nedåtpilarna'],
   ['da', 'importeres ikke', 'Pil op', 'pil ned'],
