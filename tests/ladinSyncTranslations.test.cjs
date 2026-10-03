@@ -70,7 +70,7 @@ const keys = [
   "sync-remaining-time",
   "sync-time-estimate-hint"
 ];
-for (const code of ['lld', 'hsb', 'szl']) {
+for (const code of ['lld', 'hsb', 'szl', 'wuu-Hans']) {
 const locale = read(code);
 assert.deepEqual(Object.keys(locale), Object.keys(en));
 for (const key of keys) {
@@ -106,7 +106,7 @@ assert.notEqual(locale['sync-preview-create'], locale['sync-preview-archive']);
  }
  assert.notEqual(locale['sync-report-failed'], locale['sync-report-completed']);
  assert.notEqual(locale['sync-preview-create'], locale['sync-preview-archive']);
- } else {
+ } else if (code === 'szl') {
  assert.match(locale['sync-conflict-hint'], /Nic niy je wysyłane do zdrzōdłowego systymu/);
  assert.match(locale['sync-conflict-detach-hint'], /ino mapowanie.*treść ôstŏwŏ we WeKan/);
  assert.match(locale['sync-conflict-archive-hint'], /Podkarty niy sōm zmiyniane/);
@@ -119,6 +119,19 @@ assert.notEqual(locale['sync-preview-create'], locale['sync-preview-archive']);
  }
  assert.notEqual(locale['sync-report-failed'], locale['sync-report-completed']);
  assert.notEqual(locale['sync-preview-create'], locale['sync-preview-archive']);
+ } else {
+ assert.match(locale['sync-conflict-hint'], /呒没任何内容会发回源系统/);
+ assert.match(locale['sync-conflict-detach-hint'], /只移除.*内容还留勒 WeKan/);
+ assert.match(locale['sync-conflict-archive-hint'], /子卡片勿会改动/);
+ assert.match(locale['sync-conflict-review-complete'], /整个列表个同步呒没运行过/);
+ assert.match(locale['sync-report-partial'], /勿会继续或者撤销运行/);
+ assert.match(locale['sync-source-scope'], /值勿会显示/);
+ for (const key of ['sync-estimate-field-hint', 'sync-time-estimate-hint']) {
+  assert.match(locale[key], /源头缺失个值会忽略/);
+  assert.match(locale[key], /明确个 null 会清空/);
+ }
+ assert.notEqual(locale['sync-report-failed'], locale['sync-report-completed']);
+ assert.notEqual(locale['sync-preview-create'], locale['sync-preview-archive']);
 }
 }
-console.log('Ladin, Upper Sorbian and Silesian Sync translations: 63 messages each passed');
+console.log('Ladin, Upper Sorbian, Silesian and Wu Sync translations: 63 messages each passed');
