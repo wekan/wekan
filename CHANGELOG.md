@@ -6765,6 +6765,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9b51698f32d42da24dc0c6601135535520490d0c">Translate Volapük import help and correct the comments label</a>. Thanks to xet7.</summary>
+
+- Fill three import and reordering placeholders, bringing these messages to 226 of 234 non-English locale variants; eight remain. Replace the Esperanto comments label with Volapük.
+- Extend import exclusions, keyboard directions, placeholder and corrected-label checks. All eight relevant suites, a preservation audit and 21 human-preference checks pass.
+- Low-confidence Volapük technical translations and replacement need native-speaker review. Vocabulary follows the <a href="https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary">English–Volapük dictionary</a>, including tränön (drag), küpetön (comment), patöf (property), and step.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
