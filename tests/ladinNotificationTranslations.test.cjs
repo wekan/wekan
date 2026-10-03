@@ -53,7 +53,7 @@ const keys = [
   "rule-email-recovery-empty",
   "rule-email-recovery-unavailable"
 ];
-for (const code of ['lld', 'hsb']) {
+for (const code of ['lld', 'hsb', 'szl']) {
 const locale = read(code);
 assert.deepEqual(Object.keys(locale), Object.keys(en));
 for (const key of keys) {
@@ -73,7 +73,7 @@ assert.match(locale['rule-email-recovery-description'], /ne prova nia danüef y 
 assert.notEqual(locale['activity-recovery-pause'], locale['activity-recovery-cancel']);
 assert.notEqual(locale['email-failure-smtp-temporary'], locale['email-failure-smtp-rejected']);
 assert.notEqual(locale['rule-email-recovery-unconfirmed'], locale['rule-email-recovery-sent']);
-} else {
+} else if (code === 'hsb') {
   assert.match(locale['activity-recovery-description'], /ženje aktiwitu znowa njewutworja/);
   assert.match(locale['activity-recovery-cancel-confirm'], /njeda so pokročować/);
   assert.match(locale['activity-recovery-cancel-confirm'], /čakanskim rynku.*doručene zdźělenki so njewotwołaja/);
@@ -83,6 +83,16 @@ assert.notEqual(locale['rule-email-recovery-unconfirmed'], locale['rule-email-re
   assert.notEqual(locale['activity-recovery-pause'], locale['activity-recovery-cancel']);
   assert.notEqual(locale['email-failure-smtp-temporary'], locale['email-failure-smtp-rejected']);
   assert.notEqual(locale['rule-email-recovery-unconfirmed'], locale['rule-email-recovery-sent']);
+ } else {
+  assert.match(locale['activity-recovery-description'], /nigdy niy tworzi aktywności ôd nowa/);
+  assert.match(locale['activity-recovery-cancel-confirm'], /niy idzie wznowić/);
+  assert.match(locale['activity-recovery-cancel-confirm'], /E-maile już we kolejce.*niy bydōm cofniynte/);
+  assert.match(locale['activity-recovery-failed'], /robota ôstała zachowanŏ/);
+  assert.match(locale['activity-recovery-denied'], /już niy pozwŏlajōm/);
+  assert.match(locale['rule-email-recovery-description'], /niy ponŏwiŏ ani niy anuluje/);
+  assert.notEqual(locale['activity-recovery-pause'], locale['activity-recovery-cancel']);
+  assert.notEqual(locale['email-failure-smtp-temporary'], locale['email-failure-smtp-rejected']);
+  assert.notEqual(locale['rule-email-recovery-unconfirmed'], locale['rule-email-recovery-sent']);
 }
 }
-console.log('Ladin and Upper Sorbian notification translations: 46 messages each passed');
+console.log('Ladin, Upper Sorbian and Silesian notification translations: 46 messages each passed');
