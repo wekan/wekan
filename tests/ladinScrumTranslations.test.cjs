@@ -5,7 +5,6 @@ const path = require('node:path');
 const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const en = read('en');
-const locale = read('lld');
 const keys = [
   "board-view-product-backlog",
   "board-view-sprints",
@@ -92,6 +91,8 @@ const keys = [
   "scrum-daily-observations-export-help",
   "scrum-import-pending"
 ];
+for (const code of ['lld', 'hsb']) {
+const locale = read(code);
 assert.deepEqual(Object.keys(locale), Object.keys(en));
 for (const key of keys) {
   assert.ok(locale[key]?.trim(), key);
@@ -99,6 +100,7 @@ for (const key of keys) {
   assert.deepEqual(translationTokens(locale[key]), translationTokens(en[key]), `${key}: exact placeholders`);
   assert.deepEqual(locale[key].match(/\d+/g), en[key].match(/\d+/g), `${key}: numeric limits`);
 }
+if (code === 'lld') {
 // Do not let unknown estimates become zero or daily observations imply complete history.
 assert.match(locale['scrum-report-help'], /ne é nia stimes de zero/);
 assert.match(locale['scrum-report-help'], /medemes unités de stima y regoles/);
@@ -112,4 +114,19 @@ assert.match(locale['scrum-partial-report'], /demé.*assegnedes a vos/);
 assert.match(locale['scrum-import-pending'], /ne é nia fenida.*ne é nia a desposizion/);
 assert.notEqual(locale['scrum-state-closed'], locale['scrum-state-cancelled']);
 assert.notEqual(locale['scrum-added'], locale['scrum-removed']);
-console.log('Ladin Scrum translations: 84 messages passed');
+} else {
+ assert.match(locale['scrum-report-help'], /njejsu nulowe šacowanja/);
+ assert.match(locale['scrum-report-help'], /samsnych šacowanskich jednotkach a prawidłach/);
+ for (const key of ['scrum-daily-observations-help', 'scrum-daily-observations-export-help']) {
+  assert.match(locale[key], /UTC/);
+  assert.match(locale[key], /[Ff]alowace dny so wuwostaja/);
+  assert.match(locale[key], /kóždu změnu.*njezapisuja/);
+  assert.match(locale[key], /Njeznate šacowanja njejsu nula/);
+ }
+ assert.match(locale['scrum-partial-report'], /jenož kartki.*wam tuchwilu přirjadowane/);
+ assert.match(locale['scrum-import-pending'], /njeje dospołny.*k dispoziciji njejsu/);
+ assert.notEqual(locale['scrum-state-closed'], locale['scrum-state-cancelled']);
+ assert.notEqual(locale['scrum-added'], locale['scrum-removed']);
+}
+}
+console.log('Ladin and Upper Sorbian Scrum translations: 84 messages each passed');
