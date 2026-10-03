@@ -236,13 +236,8 @@ Remaining, and why:
   2026-10-03 as decided (below): a later move, sort, move-all or archive
   resolves on the board the card went to, in both engines, and is durable
   too, and so is a further move or move-all on to yet another board that
-  opted in. What stays on direct Sync, and why: a plan where a move to
-  another board can be followed by an email. Both engines refuse to email a
-  card that is no longer on the board where its activity happened - the
-  source-binding check of server/lib/ruleEmailSource.js, a security boundary
-  - so the email sends nothing there either way. Letting a rule's own move
-  carry the email's source to the new board needs a maintainer security
-  decision on that check.
+  opted in. An email may follow such a move too since the second decision of
+  2026-10-03: it reads the card where the rule's own move put it.
 - **Scrum requirements** (from
   [the Scrum design](docs/Features/Right-Sidebar/Board-Settings/Board-View/Scrum-Design.md)).
   Built on 2026-10-02 and 2026-10-03 (see Upcoming): event-level scope
@@ -334,6 +329,24 @@ applies a restored SQLite file on the next restart.
 - **[#2509](https://github.com/wekan/wekan/issues/2509): closed.** Changing
   the order of fields and hiding fields on the card and the minicard (Board
   Settings / Card and Board View) already customizes how a card looks.
+
+Maintainer decisions of 2026-10-03, second set:
+
+- **Email after a rule's move to another board: follow the rule's own move.**
+  The email reads the card on the destination board, only when the same run
+  or stored plan made the move and that board opted into Sync effects. Any
+  other card off the board stays refused.
+- **Docker Compose: FerretDB keeps an oplog** (`--repl-set-name`), so
+  continuous backup streams the database there. WeKan still polls.
+- **[#2460](https://github.com/wekan/wekan/issues/2460) (SQRL): kept open** as
+  it is.
+- **The #4790 split** stays the maintainer's to file.
+
+Built on 2026-10-03 (in Upcoming): the email follows the rule's own move in
+both engines and durably, and the Compose files run FerretDB with an oplog
+over a direct connection. Testing that against FerretDB found and fixed the
+oplog engine's refused cursor option, and the FerretDB fork now records
+dropped collections (wekan/FerretDB 3b111eac, for its next release).
 
 Built on 2026-10-02 (in Upcoming): the opt-in `act-editCard` event (#4912),
 lifetimes for old lists when their Sync settings are saved, durable rule moves
@@ -1688,8 +1701,8 @@ Hand-rolling an authentication protocol's cryptography is exactly the
 security-critical work that should not be freshly written without extensive
 review. SQRL's real-world adoption peaked around 2013-2016 and has not grown
 since this issue was filed; WebAuthn/FIDO2 passkeys are the passwordless
-standard that gained the adoption SQRL did not. Needs a maintainer decision on
-whether this remains worth pursuing before any implementation is attempted.),
+standard that gained the adoption SQRL did not. Decided on 2026-10-03: kept
+open as it is, with no implementation attempted.),
 
 [#2713](https://github.com/wekan/wekan/issues/2713) (the attachment send path
 now works: a native form checkbox enables authorized live-card file reads,
@@ -1773,11 +1786,11 @@ docs/Backup/Continuous-Backup.md) encrypts at rest, uploads to S3/MinIO, Azure
 or GCS, and applies a restored SQLite file on the next restart (built on
 2026-10-03). Still open: the upload was tested against a directory-backed
 remote and an adapter stand-in, not a live S3, Azure or GCS account, which
-this environment does not have. The default docker-compose.yml
-runs FerretDB in its own container with no oplog, so it needs
-`--repl-set-name` or Litestream in that container before the database can be
-streamed; the file streams run regardless. The browser tests ran in Chromium
-and WebKit; Firefox cannot launch on the macOS machine used.
+this environment does not have. The Docker Compose files run
+FerretDB with an oplog since 2026-10-03; FerretDB releases up to v1.86.0 do not
+record a dropped collection, which WeKan never does while it runs. The browser
+tests ran in Chromium and WebKit; Firefox cannot launch on the macOS machine
+used.
 
 </details>
 </details>
@@ -2120,6 +2133,21 @@ a server test of the stored plan.
 before list lifetimes can use it, and GitLab estimates sync too.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b7084fdc06">A rule's email follows the card to the board the rule's own move took it to</a>. Thanks to xet7.</summary>
+
+As decided on 2026-10-03. A rule that moved a card to another board and then
+sent an email sent nothing, because the email source check refused a card
+that had left the activity's board. The email now reads the card on the
+destination board when this run of the rule made the move, that board opted
+into Sync effects, and the card is still there. Durable Sync proves the move
+from the plan's own saved move and checks it again before sending, so such a
+plan is durable too. Any other card off the board is still refused. Tests:
+binding cases, a guard that nothing else can claim a followed move, and a
+server test of both engines with its negative cases.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b07a8a421b">A rule can move its card on to a third board after a move to another, durably</a>. Thanks to xet7.</summary>
 
 The cross-board move command took the card from the plan's board only. It
@@ -2368,6 +2396,21 @@ that nothing else writes the field on an existing list.
 </details>
 
 **Backup** - every change streamed as it happens, restorable to a moment.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1646889aff">Docker Compose FerretDB keeps an oplog, so continuous backup streams the database</a>. Thanks to xet7.</summary>
+
+As decided on 2026-10-03. The Compose files run FerretDB in its own
+container, where the SQLite file is out of reach, so only files were streamed
+there. FerretDB now starts with `--repl-set-name=rs0`, and WeKan connects with
+`directConnection=true`, because FerretDB advertises its listen address
+`0.0.0.0`. WeKan itself still polls. The oplog engine had asked for
+`noCursorTimeout`, which FerretDB refuses, and now does not; the integration
+tests pass against FerretDB. Recording dropped collections is fixed in
+[wekan/FerretDB](https://github.com/wekan/FerretDB/commit/3b111eac) for its next
+release.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5ef5757c71">Continuous backup encrypts at rest, uploads to the cloud and applies a SQLite restore on restart</a>. Thanks to xet7.</summary>
