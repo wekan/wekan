@@ -53,7 +53,7 @@ const keys = [
   "rule-email-recovery-empty",
   "rule-email-recovery-unavailable"
 ];
-for (const code of ['lld', 'hsb', 'szl']) {
+for (const code of ['lld', 'hsb', 'szl', 'wuu-Hans']) {
 const locale = read(code);
 assert.deepEqual(Object.keys(locale), Object.keys(en));
 for (const key of keys) {
@@ -83,7 +83,7 @@ assert.notEqual(locale['rule-email-recovery-unconfirmed'], locale['rule-email-re
   assert.notEqual(locale['activity-recovery-pause'], locale['activity-recovery-cancel']);
   assert.notEqual(locale['email-failure-smtp-temporary'], locale['email-failure-smtp-rejected']);
   assert.notEqual(locale['rule-email-recovery-unconfirmed'], locale['rule-email-recovery-sent']);
- } else {
+ } else if (code === 'szl') {
   assert.match(locale['activity-recovery-description'], /nigdy niy tworzi aktywności ôd nowa/);
   assert.match(locale['activity-recovery-cancel-confirm'], /niy idzie wznowić/);
   assert.match(locale['activity-recovery-cancel-confirm'], /E-maile już we kolejce.*niy bydōm cofniynte/);
@@ -93,6 +93,16 @@ assert.notEqual(locale['rule-email-recovery-unconfirmed'], locale['rule-email-re
   assert.notEqual(locale['activity-recovery-pause'], locale['activity-recovery-cancel']);
   assert.notEqual(locale['email-failure-smtp-temporary'], locale['email-failure-smtp-rejected']);
   assert.notEqual(locale['rule-email-recovery-unconfirmed'], locale['rule-email-recovery-sent']);
+ } else {
+  assert.match(locale['activity-recovery-description'], /再试绝勿会重新建立活动/);
+  assert.match(locale['activity-recovery-cancel-confirm'], /取消以后勿能恢复/);
+  assert.match(locale['activity-recovery-cancel-confirm'], /排进队列个邮件.*送达个通知勿会撤回/);
+  assert.match(locale['activity-recovery-failed'], /工作保留下来哉/);
+  assert.match(locale['activity-recovery-denied'], /已经勿允许发送哉/);
+  assert.match(locale['rule-email-recovery-description'], /勿会重新尝试或者取消发送/);
+  assert.notEqual(locale['activity-recovery-pause'], locale['activity-recovery-cancel']);
+  assert.notEqual(locale['email-failure-smtp-temporary'], locale['email-failure-smtp-rejected']);
+  assert.notEqual(locale['rule-email-recovery-unconfirmed'], locale['rule-email-recovery-sent']);
 }
 }
-console.log('Ladin, Upper Sorbian and Silesian notification translations: 46 messages each passed');
+console.log('Ladin, Upper Sorbian, Silesian and Wu notification translations: 46 messages each passed');
