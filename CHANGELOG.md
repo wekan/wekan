@@ -6462,6 +6462,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b5e9da6916">Translate import instructions and keyboard reordering help</a>. Thanks to xet7.</summary>
+
+- Translate Taskwarrior and Focalboard import instructions and drag-to-reorder keyboard guidance into Finnish, Swedish, Danish, Norwegian Bokmål, German, French, Spanish, Portuguese, Italian and Dutch, including regional variants: 90 messages in 30 catalogs.
+- Preserve commands, field names, file formats, both arrow-key directions and the warning that images and attachments are not imported. Existing translations and exact source tokens are preserved.
+- Six relevant suites, 21 human-preference checks and all 30 catalog preservation audits pass. These three messages still need translation in 204 locale variants; other catalog gaps remain.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
