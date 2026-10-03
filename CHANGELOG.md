@@ -6720,6 +6720,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3895899f853a3af06d644840842065279f5028ad">Translate Venda import help and correct Zulu labels</a>. Thanks to xet7.</summary>
+
+- Fill three import and reordering placeholders, bringing these messages to 220 of 234 non-English locale variants; 14 remain. Replace five Zulu seed values in Venda labels, checklist, comments, lists and the import action.
+- Extend import exclusions, keyboard directions, placeholder and correct-language term checks. All seven relevant suites, a preservation audit and 21 human-preference checks pass.
+- Low-confidence Venda technical translations and replacements need native-speaker review. Vocabulary references include <a href="https://learnvenda.co.za/app/lists/Words/chat/3">Gudani Tshivenda</a> and the <a href="https://www.era.anthropology.ac.uk/Era_Resources/Era/VendaGirls/GrDombaSong/GDS_Music_Text01.html">Venda music glossary</a> for kokodza (drag, pull). The separately registered Veps locale ve-PP is a different language.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
