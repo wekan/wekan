@@ -140,17 +140,24 @@ test('F14 V01 V07 A06: scaled headers fit and narrow settings stack without iner
     const header = el.querySelector('.header').getBoundingClientRect();
     return el.querySelector('.header-title').getBoundingClientRect().bottom <= header.bottom + 1;
   })).toBe(true);
-  const disabled = popup.locator('.card-field-order-move[aria-disabled="true"]').first();
-  await disabled.focus(); await page.keyboard.press('Enter');
+  // Rows are reordered by drag and drop now (Board Settings / Card): a row
+  // with no place of its own has no handle and does nothing on Enter, and
+  // the popup stays open. The lists are the minicard and card columns; a
+  // third column above them holds the drag settings.
+  const fixed = popup.locator('.js-card-field-order-row:not(.is-positioned) .card-field-order-label').first();
+  await fixed.focus(); await page.keyboard.press('Enter');
   await expect(popup).toBeVisible();
-  const inert = popup.locator('.card-field-order-column').first();
-  for (const key of ['requestedBy', 'assignedBy', 'descriptionTitle', 'attachments']) {
-    await expect(inert.locator(`[data-key="${key}"]`)).toHaveCount(0);
+  // These rows were inert on the minicard; since every Board Settings / Card
+  // row can be shown on the card and the minicard (79b4467546), both lists
+  // have them, each a working toggle rather than a field the side ignores.
+  for (const side of ['minicard', 'card']) {
+    for (const key of ['requestedBy', 'assignedBy', 'descriptionTitle', 'attachments']) {
+      await expect(popup.locator(`.card-field-order-column-${side} [data-key="${key}"] .card-field-order-toggle`)).toHaveCount(1);
+    }
   }
   await page.setViewportSize({ width: 375, height: 900 });
-  const columns = popup.locator('.card-field-order-column');
-  const first = await columns.nth(0).boundingBox();
-  const second = await columns.nth(1).boundingBox();
+  const first = await popup.locator('.card-field-order-column-minicard').boundingBox();
+  const second = await popup.locator('.card-field-order-column-card').boundingBox();
   expect(second.y).toBeGreaterThan(first.y);
   expect(Math.abs(second.x - first.x)).toBeLessThan(2);
 });

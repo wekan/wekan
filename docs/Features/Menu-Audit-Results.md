@@ -24,6 +24,25 @@ Local logs and screenshots are retained under `.tools/tmp/menu-audit/` and
 `admin-browser.log`; focused runs are `security-browser.log`,
 `confirm-browser.log` and `content-browser.log`.
 
+## Re-run of 2026-10-03
+
+Every spec file with a baseline failure below was run again on 2026-10-03, in
+Chromium against a development server with an isolated database, one worker
+and no retries: 175 of 180 tests passed. Of the five that failed:
+
+- `file-status-audit.e2e.js` (two tests) and `07-attachments-links.e2e.js` need
+  `WEKAN_FILES_PATH` set to the server's files directory; with it they pass.
+- `03-cards-operations.e2e.js` (checkbox custom fields) passed on its re-run;
+  it is timing-sensitive, not failing.
+- `accepted-audit-fixes.e2e.js` F14 checked the Board Settings / Card popup as
+  it was before rows were reordered by drag and drop and shown on both sides;
+  the test now checks the same intent on the current popup, and the whole file
+  passes in Chromium and WebKit.
+
+So no entry of the table below reproduces any more. The table is kept as the
+record of the 2026-09-23 run; Firefox, mobile devices, identity providers,
+Internet SMTP and cloud storage accounts remain outside these results.
+
 ## Baseline failures
 
 A timeout may be a stale selector, a fixture problem, a reactivity problem or an
