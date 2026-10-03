@@ -30,7 +30,7 @@ const keys = [
   "filter-column-age-hint",
   "advanced-filter-card-dates-hint"
 ];
-for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'yi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'yi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'rw', 'rn']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -82,4 +82,8 @@ assert.match(read('st')['auto-archive-hint'], /ha di iswe polokelong le ka mohla
 assert.match(read('tn')['auto-archive-hint'], /ga di isiwe kwa polokelong le ka motlha/);
 assert.match(read('st')['filter-column-age-hint'], /ha ho qale nako ya yona lenaneng botjha/);
 assert.match(read('tn')['filter-column-age-hint'], /ga go simolole nako ya yone mo lenaaneng sesha/);
-console.log('Archiving and date filters: 23 messages in 18 locales passed');
+assert.match(read('rw')['auto-archive-hint'], /ntizigera zishyirwa mu bubiko/);
+assert.match(read('rn')['auto-archive-hint'], /ntizigera zishirwa mu bubiko/);
+assert.match(read('rw')['filter-column-age-hint'], /ntibituma.*gitangira bundi bushya/);
+assert.match(read('rn')['filter-column-age-hint'], /ntibituma.*gitangura bushasha/);
+console.log('Archiving and date filters: 23 messages in 20 locales passed');
