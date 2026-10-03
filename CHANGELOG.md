@@ -6889,6 +6889,15 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b76be84186540fbc9bdb20936b3bc1f6747ac7fd">Translate archiving and date filters into Turkmen, Tatar and Somali</a>. Thanks to xet7.</summary>
+
+- Fill 69 English placeholders covering automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
+- Eight applicable suites, 21 human-preference checks and per-locale preservation audits pass. Regression coverage checks exact placeholders, source order, numeric limits and the negative guidance for templates and card edits.
+- Turkmen, Tatar and Somali wording is provisional and would benefit from speaker review; broader translation work remains open.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
