@@ -6,7 +6,7 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('continuous-backup'));
-for (const code of ['fi', 'sv', 'da', 'nb', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'it', 'nl', 'nl-NL', 'vl-SS', 'pl', 'pl-PL', 'cs', 'cs-CZ', 'sk', 'sl', 'sl_SI', 'hr', 'ro', 'ro-RO', 'hu', 'bg', 'uk', 'uk-UA', 'ru', 'ru-RU', 'ru_RU', 'ru-UA', 'lv', 'lt', 'et-EE', 'el', 'el-GR', 'tr', 'ja', 'ja-JP', 'ja-HI', 'ko', 'ko-KR', 'cmn', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-Hant', 'zh-TW', 'zh-HK', 'id', 'ms', 'ms-MY', 'vi', 'vi-VN', 'ar', 'ar-DZ', 'ar-EG', 'he', 'he-IL', 'fa', 'fa-IR', 'ur', 'hi', 'hi-IN', 'bn', 'ca', 'ca_ES', 'ca@valencia', 'gl', 'gl-ES', 'eu', 'af', 'af_ZA', 'sw', 'bs', 'sr', 'mk', 'is', 'eo', 'sq', 'th', 'tl', 'be', 'az', 'az-AZ', 'az-LA', 'ka', 'hy', 'uz', 'uz-UZ', 'uz-LA', 'uz-AR', 'kk', 'mn', 'ne', 'mr', 'ta', 'te-IN', 'gu-IN', 'kn', 'ml', 'pa', 'si', 'ga', 'cy', 'cy-GB', 'lb', 'ht', 'mt', 'ky', 'tg', 'yue_CN', 'la', 'so', 'jv', 'my']) {
+for (const code of ['fi', 'sv', 'da', 'nb', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'it', 'nl', 'nl-NL', 'vl-SS', 'pl', 'pl-PL', 'cs', 'cs-CZ', 'sk', 'sl', 'sl_SI', 'hr', 'ro', 'ro-RO', 'hu', 'bg', 'uk', 'uk-UA', 'ru', 'ru-RU', 'ru_RU', 'ru-UA', 'lv', 'lt', 'et-EE', 'el', 'el-GR', 'tr', 'ja', 'ja-JP', 'ja-HI', 'ko', 'ko-KR', 'cmn', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-Hant', 'zh-TW', 'zh-HK', 'id', 'ms', 'ms-MY', 'vi', 'vi-VN', 'ar', 'ar-DZ', 'ar-EG', 'he', 'he-IL', 'fa', 'fa-IR', 'ur', 'hi', 'hi-IN', 'bn', 'ca', 'ca_ES', 'ca@valencia', 'gl', 'gl-ES', 'eu', 'af', 'af_ZA', 'sw', 'bs', 'sr', 'mk', 'is', 'eo', 'sq', 'th', 'tl', 'be', 'az', 'az-AZ', 'az-LA', 'ka', 'hy', 'uz', 'uz-UZ', 'uz-LA', 'uz-AR', 'kk', 'mn', 'ne', 'mr', 'ta', 'te-IN', 'gu-IN', 'kn', 'ml', 'pa', 'si', 'ga', 'cy', 'cy-GB', 'lb', 'ht', 'mt', 'ky', 'tg', 'yue_CN', 'la', 'so', 'jv', 'my', 'km', 'km-KH', 'km_KH']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -108,6 +108,7 @@ for (const [codes, protection, pause, units] of [
   [['sr'], /никада не преписује датотеку која се користи/, /изабрану генерацију на изабрани тренутак.*паузирано током опоравка/, ['секунде', 'сати', 'дани']],
   [['mk'], /никогаш не ја препишува датотеката што се користи/, /избраната генерација.*избраниот момент.*привремено запрено за време на враќањето/, ['секунди', 'часови', 'денови']],
   [['af', 'af_ZA'], /oorskryf nooit die lêer wat in gebruik is nie/, /gekose generasie na die gekose tydstip.*tydens die herstel onderbreek/, ['sekondes', 'ure', 'dae']],
+  [['km', 'km-KH', 'km_KH'], /មិនដែលសរសេរជាន់លើឯកសារដែលកំពុងប្រើទេ/, /ជំនាន់ដែលបានជ្រើសរើស.*ពេលដែលបានជ្រើសរើស.*ផ្អាកជាបណ្តោះអាសន្ននៅពេលកំពុងស្តារ/, ['វិនាទី', 'ម៉ោង', 'ថ្ងៃ']],
   [['my'], /လက်ရှိအသုံးပြုနေသောဖိုင်ကို လုံးဝ အစားထိုးမရေးပါ/, /ရွေးထားသော မျိုးဆက်ကို ရွေးထားသောအချိန်.*ပြန်လည်ရယူနေစဉ်.*ယာယီရပ်နားထားမည်/, ['စက္ကန့်', 'နာရီ', 'ရက်']],
   [['jv'], /ora tau nimpa berkas sing lagi dienggo/, /generasi sing dipilih.*wektu sing dipilih.*ngaso sauntara nalika pamulihan lumaku/, ['detik', 'jam', 'dina']],
   [['so'], /marnaba laguma dul qoro faylka hadda la isticmaalayo/, /jiilka la doortay.*waqtiga la doortay.*si ku-meelgaar ah.*hakadaa inta dib u soo celintu socoto/, ['ilbiriqsi', 'saacadood', 'maalmood']],
@@ -259,4 +260,8 @@ assert.equal(read('la')['continuous-backup-database'], 'Basis datorum');
 
 for (const key of keys) assert.match(read('my')[key], /\p{Script=Myanmar}/u);
 
-console.log(`Continuous backup: ${keys.length} translations in one hundred and thirty-five locales passed`);
+for (const code of ['km', 'km-KH', 'km_KH']) {
+  for (const key of keys) assert.match(read(code)[key], /\p{Script=Khmer}/u);
+}
+
+console.log(`Continuous backup: ${keys.length} translations in one hundred and thirty-eight locales passed`);
