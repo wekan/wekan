@@ -5611,6 +5611,18 @@ native-speaker review. Remaining locales and the broader translation backlog are
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fe47e74826">Translate new backup options into Khmer and Burmese</a>. Thanks to xet7.</summary>
+
+Add eight encryption, cloud and restart options to each of three catalogs,
+including both Khmer catalogs and their existing alias. Preserve existing
+translations, relative source key order and exact placeholders. Extend encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference checks
+and the batch preservation audits pass. Technical terminology needs native-speaker
+review. Remaining locales and the broader translation backlog are unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
