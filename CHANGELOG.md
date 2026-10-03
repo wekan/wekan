@@ -385,7 +385,7 @@ held only issues \#4774 and \#4055, and both are closed now.
 Status checked on 2026-10-03. The later translation request resumed this work;
 the earlier pause above remains historical. Completed work is recorded in Upcoming.
 
-- The current `node releases/translations/fill-translations.mjs --missing` report counts **52,401 untranslated locale/string values in 70 languages**. It excludes **204 source keys deliberately left in English pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
+- The current `node releases/translations/fill-translations.mjs --missing` report counts **52,382 untranslated locale/string values in 70 languages**. It excludes **204 source keys deliberately left in English pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
 - Continue automatic-archiving and date-filter translations beyond the thirty-nine locales recorded in completed changelog entries, then the remaining feature families.
 - Fill English placeholders in every language, including minority and constructed languages. Audit mixed-language and wrong-language seed text, and review provisional wording with speakers when available. Preserve correct-language human translations, source key order, exact placeholders, technical identifiers and query examples. Use direct translation and dictionary research, not an external translation service.
 - Keep regression and human-preference checks passing. Passing tests does not establish translation completeness or fluency; rerun relevant checks for each batch and the broad suite before declaring all-language work complete.
@@ -2236,6 +2236,17 @@ used.
 - Fill 67 English placeholders for board access, rules, notifications, reminders, filters, imports, maps and history. Preserve existing translations, exact placeholders, literal rule variables and markup.
 - Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks retain access restrictions, blocked URL schemes, reminder behavior, private filter replacement and retry limitations.
 - Silesian wording is provisional and needs speaker review. The standard backlog drops by 14 because 53 of these keys are excluded as pending Transifex. Remaining all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4563a4343adb46d7b37ddba2b6a80a55ca71efc2">Translate Silesian Blockly keyboard labels</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Silesian.
+
+- Fill 19 English-equal keyboard labels while preserving existing translations, product names and standard mathematical notation.
+- Eight relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact tokens, navigation directions and recognizable key names.
+- Silesian wording is provisional and needs speaker review. The remaining 12 reported entries are product names and mathematical terms or notation; older translations still require language review. Remaining all-language work is tracked in TODO Later.
 
 </details>
 
