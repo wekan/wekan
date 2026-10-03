@@ -1343,9 +1343,11 @@ Server card copies now validate destination list/swimlane ownership before
 sort reads, number allocation or copying children. DDP/REST reject foreign,
 missing and soft-deleted containers; board-wide lists remain valid. See the
 copy boundary audit for the nontransactional limit.
-Assigned-only source/descendant handling, client-side template copy writes,
-legacy direct Rules writes and concurrent permission changes remain to be
-reviewed. Board-copy property merging was the same fault on boards and is fixed
+Assigned-only source/descendant handling was reviewed on 2026-10-03: a copy
+carried subtasks the copier could not read, fixed in Upcoming (AssignedBleed);
+the card exporters already refuse assigned-only members, and rule email
+details check every subtask. Client-side template copy writes, legacy direct
+Rules writes and concurrent permission changes remain to be reviewed. Board-copy property merging was the same fault on boards and is fixed
 in Upcoming. The markdown viewer's form-field allowance was not exploitable: the
 second sanitizer stripped every input, including task-list checkboxes, which
 now render disabled.
@@ -1783,7 +1785,23 @@ View. Scrum sprints have **no card limit**, boards import and export
 **another board** too, webhooks can opt into **act-editCard**, and
 translations cover more languages.
 
-This release fixes the following SECURITY ISSUES found by [GitHub CodeQL](https://codeql.github.com/) code scanning:
+This release fixes the following CRITICAL SECURITY ISSUE of [AssignedBleed](https://wekan.fi/hall-of-fame/assignedbleed/):
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5fad29a254">A card copy carries only the subtasks the copier may copy</a>. Thanks to xet7.</summary>
+
+A copy took every subtask of the card. An assigned-only member copying a card
+assigned to them got copies of subtasks assigned to others, and any member got
+copies of subtasks on boards they cannot read, since a parent may have subtasks
+on another board. The copy dialog and the durable rule copy now carry only the
+subtasks the copier could read and copy themselves. Not recorded in Admin Panel
+→ Problems: copying a card with subtasks is ordinary use. Tests: the decision,
+a scan that every place copying subtasks filters them, and a server test
+through copyCard that showed the leak without the fix.
+
+</details>
+
+and fixes the following SECURITY ISSUES found by [GitHub CodeQL](https://codeql.github.com/) code scanning:
 
 - [A test builds its over-long template string without an escaped interpolation](https://github.com/wekan/wekan/commit/437af449f3)
   (CodeQL alert #548, js/useless-regexp-character-escape, with a parsed guard
@@ -5868,6 +5886,18 @@ and the broader translation backlog are unfinished.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/925cacf5ba">Translate new backup options into Friulian and Neapolitan</a>. Thanks to xet7.</summary>
+
+Add eight encryption, cloud and restart options to each locale. Preserve existing
+translations, relative source key order and exact placeholders. Extend encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference checks
+and both batch preservation audits pass. Technical terminology is low confidence
+and needs native-speaker review. Remaining locales and the broader translation
+backlog are unfinished.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/afa162da6e">Translate new backup options into Samoan and Tongan</a>. Thanks to xet7.</summary>
 
 Add eight encryption, cloud and restart options to each locale. Preserve existing
 translations, relative source key order and exact placeholders. Extend encryption

@@ -51,8 +51,17 @@ failure and post-fix logs are retained in `.tools/tmp/card-copy-boundary` locall
 ## Remaining review
 
 This fix closes caller-controlled source identity replacement. Review is still
-needed for assigned-only source and descendant handling, direct Rules writes
-and concurrent permission changes. Destination placement validation is covered
+needed for direct Rules writes and concurrent permission changes.
+
+Assigned-only source and descendant handling was reviewed on 2026-10-03. The
+source card was already checked (an assigned-only member copies only a card
+assigned to them), but its subtasks were not: a copy carried every subtask,
+including ones assigned to others and ones on boards the copier cannot read.
+Card.copy and the durable rule copy now keep only the subtasks the copier could
+read and copy themselves (`copyableSubtasks` in `models/lib/boardCardScope.js`),
+covered by `tests/copySubtaskScope.test.cjs` and a server test through
+`copyCard`. The card PDF and Excel exporters refuse assigned-only members, and
+rule email details check each subtask, so neither carries the same fault. Destination placement validation is covered
 by the follow-up below. It does not certify every entry point that copies cards or related
 records. The larger non-translation TODO goal remains open.
 
@@ -81,6 +90,5 @@ exercise the shared server entry point.
 
 This is not a transaction: a concurrent move or deletion after validation can
 still invalidate a destination. Client-side template copies use collection
-writes and need their own end-to-end audit. Assigned-only source/descendant
-permissions remain open, as does the separate `copyBoard` properties merge,
+writes and need their own end-to-end audit. The separate `copyBoard` properties merge,
 which needs the same identity-preservation review as the card method.
