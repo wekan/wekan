@@ -108,6 +108,12 @@ const groups = [
   ['ary', 'ما كيتستوردوش', 'للفوق', 'للتحت'],
   ['bho', 'आयात ना होखेली', 'ऊपर', 'नीचे'],
   ['mai', 'आयात नहि होइत अछि', 'ऊपर', 'नीचाँ'],
+  ['sc', 'non sunt importados', 'in susu', 'in giosso'],
+  ['scn', 'nun sunnu mpurtati', '’n susu', '’n giusu'],
+  ['nap', 'nun so’ mpurtate', '’ncoppa', 'abbascio'],
+  ['ve-CC', 'no i vien importai', 'in su', 'in zo'],
+  ['fur', 'no vegnin importâts', 'in sù', 'in jù'],
+  ['rm', 'na vegnan betg importads', 'ensi', 'engiu'],
   ['fi', 'ei tuoda', 'Ylä-', 'alanuoli'],
   ['sv', 'importeras inte', 'Uppåt-', 'nedåtpilarna'],
   ['da', 'importeres ikke', 'Pil op', 'pil ned'],
@@ -152,3 +158,5 @@ assert.equal(read('hr').description, 'Opis', 'Croatian description uses Croatian
 assert.equal(read('lv').checklist, 'Kontrolsaraksts', 'Latvian checklist, not Lithuanian');
 
 for (const key of keys) assert.doesNotMatch(read('ja-HI')[key], /\p{Script=Han}/u, `ja-HI:${key}: no kanji`);
+
+assert.equal(read('ve-CC').checklist, 'Lista de controło', 'Venetian checklist, not Zulu');
