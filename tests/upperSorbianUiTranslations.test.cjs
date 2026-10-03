@@ -5,7 +5,6 @@ const path = require('node:path');
 const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const en = read('en');
-const locale = read('hsb');
 const keys = [
   "import-board-instruction-leo",
   "instance",
@@ -75,6 +74,8 @@ const keys = [
   "history-request-retry",
   "history-request-forget"
 ];
+for (const code of ['hsb', 'szl']) {
+const locale = read(code);
 assert.deepEqual(Object.keys(locale), Object.keys(en));
 for (const key of keys) {
  assert.ok(locale[key]?.trim(), key);
@@ -84,6 +85,7 @@ for (const key of keys) {
  assert.deepEqual(locale[key].match(/\{[^}]+\}/g), en[key].match(/\{[^}]+\}/g), `${key}: literal rule variables`);
  assert.deepEqual(locale[key].match(/<[^>]+>/g), en[key].match(/<[^>]+>/g), `${key}: markup`);
 }
+if (code === 'hsb') {
 assert.match(locale['instance-desc'], /Njepřizjewjenym.*ženje njepokazuje/);
 assert.match(locale['instance-desc'], /Jenož wosoby.*tafli přidate.*wobdźěłać/);
 assert.match(locale['automatic-linked-url-schemes-hint'], /javascript, data, vbscript.*ženje njewotkazuja/);
@@ -93,4 +95,16 @@ assert.match(locale['history-request-hint'], /samsne naprašowanje.*njemóže ž
 assert.match(locale['saml-login-not-started'], /njeje so w tutym rajtarku/);
 assert.notEqual(locale['move-selection-before'], locale['move-selection-after']);
 assert.notEqual(locale['dependency-type-duplicates'], locale['dependency-type-is-duplicated-by']);
-console.log('Upper Sorbian UI translations: 67 messages passed');
+} else {
+ assert.match(locale['instance-desc'], /Nigdy niy je pokŏzowanŏ niyzalogowanym/);
+ assert.match(locale['instance-desc'], /Ino ôsoby dodane do tabule mogōm edytować/);
+ assert.match(locale['automatic-linked-url-schemes-hint'], /javascript, data, vbscript.*nigdy niy sōm linkowane/);
+ assert.match(locale['notification-activity-description'], /Przipōmniynia.*@wspōmnienia przichodzōm zawdy/);
+ assert.match(locale['filter-preset-replace-hint'], /Prywatne.*tym samym mianym zastympuje/);
+ assert.match(locale['history-request-hint'], /to samo żōndanie.*nigdy niy może cofnōńć drugij zmiany/);
+ assert.match(locale['saml-login-not-started'], /niy było zaczynte we tyj karcie/);
+ assert.notEqual(locale['move-selection-before'], locale['move-selection-after']);
+ assert.notEqual(locale['dependency-type-duplicates'], locale['dependency-type-is-duplicated-by']);
+}
+}
+console.log('Upper Sorbian and Silesian UI translations: 67 messages each passed');
