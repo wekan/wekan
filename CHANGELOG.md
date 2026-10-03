@@ -6316,6 +6316,16 @@ review. Remaining translations are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3ec3868487">Translate Scrum job messages in thirteen African locale catalogs</a>. Thanks to xet7.</summary>
+
+- Translate card rollover progress, history undo/redo progress and retry instructions into Amharic, Somali, Hausa, Yoruba, Igbo, Malagasy, Shona, Zulu, Xhosa, Chichewa, Sesotho and Setswana, including the Zulu regional catalog.
+- Preserve existing translations and exact progress placeholders; regression coverage now checks these messages in 164 locale variants.
+- Three focused suites, 21 human-preference checks and thirteen catalog preservation audits pass. Remaining locales and other translation gaps still need work.
+- Igbo, Shona, Chichewa, Sesotho and Setswana technical phrasing has lower confidence and welcomes native review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.15 2026-10-02 WeKan ® release
