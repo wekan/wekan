@@ -172,6 +172,7 @@ const groups = [
   ['iu', 'ᐃᓯᖅᑎᑕᐅᙱᑦᑐᑦ', 'ᖁᒻᒧᑦ', 'ᐊᑖᓄᑦ'],
   ['tig', 'ኢልትአምጸእኒ', 'ላዕል', 'ታሐት'],
   ['wal', 'gelikkona', 'Pude', 'duge'],
+  ['chr', 'Ꮭ ᏱᏓᏓᏴᏍᎦ', 'ᎦᎸᎳᏗ', 'ᎡᎳᏗ'],
   ['fi', 'ei tuoda', 'Ylä-', 'alanuoli'],
   ['sv', 'importeras inte', 'Uppåt-', 'nedåtpilarna'],
   ['da', 'importeres ikke', 'Pil op', 'pil ned'],
@@ -183,6 +184,14 @@ const groups = [
   ['it', 'non vengono importati', 'su', 'giù'],
   ['nl nl-NL vl-SS', 'niet geïmporteerd', 'omhoog', 'omlaag'],
 ];
+// New catalogs must join the semantic checks, not silently escape this family.
+const coveredLocales = groups.flatMap(([group]) => group.split(' '));
+const catalogLocales = fs.readdirSync(path.join(__dirname, '../imports/i18n/data'))
+  .filter(file => file.endsWith('.i18n.json'))
+  .map(file => file.replace(/\.i18n\.json$/, ''))
+  .filter(code => !/^en([_-].*)?$/.test(code));
+assert.equal(new Set(coveredLocales).size, coveredLocales.length, 'no duplicate locale coverage');
+assert.deepEqual([...coveredLocales].sort(), catalogLocales.sort(), 'every non-English catalog has import/reordering coverage');
 let count = 0;
 for (const [group, exclusion, up, down] of groups) {
   for (const code of group.split(' ')) {
