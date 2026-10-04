@@ -271,6 +271,7 @@ jobs:
           rm -f "$zip" "${zip}.sha256sum"
 
       - name: Repack it for ${{ matrix.arch }}
+        id: repack
         if: ${{ steps.want.outputs.build == 'yes' }}
         env:
           ARCH: ${{ matrix.arch }}
@@ -280,25 +281,28 @@ jobs:
           PLATFORM: ${{ matrix.platform }}
         run: bash releases/repack-bundle-for-arch.sh
 
+      # Attached by THIS job, the moment the repack (which builds and checks
+      # the zip) has finished - the same rule as every build job in
+      # release-all.yml. always() + the repack step's outcome: a cancel that
+      # arrives after the zip was built still attaches it.
+      #
+      # It used to upload WITHOUT --clobber, reasoning that this architecture
+      # was absent so an overwrite meant the release changed under this run.
+      # The shared uploader retries, and a retry after a half-finished upload
+      # has to replace its own partial asset, so it always clobbers. The plan
+      # job has already established the asset is missing, and the concurrency
+      # group keeps a full release run from uploading the same names at once.
       - name: Attach ${{ matrix.arch }} to the release
-        if: ${{ steps.want.outputs.build == 'yes' }}
+        if: ${{ always() && steps.want.outputs.build == 'yes' && steps.repack.outcome == 'success' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
           asset="wekan-${VERSION}-${{ matrix.arch }}.zip"
-          # No --clobber: this architecture was absent, so an upload that would
-          # overwrite something means the release changed under this run.
-          gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "$asset" "${asset}.sha256sum"
-          # Confirm from the other side. An upload that reports success and
-          # leaves no asset behind is the failure nobody notices until a
-          # download 404s.
-          gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
-          grep -qxF "$asset" release-assets.txt || {
-            echo "::error::$asset is not on release v${VERSION} although the upload reported success."
-            exit 1
-          }
-          echo "OK: $asset attached ($(($(wc -c < "$asset")/1024/1024)) MiB)."
+          # Retried, bounded, and verified by name AND size from the release
+          # side - an upload that reports success and leaves no asset behind is
+          # the failure nobody notices until a download 404s.
+          bash releases/github-release-upload.sh "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "$asset" "${asset}.sha256sum"
 
   appimage:
     name: AppImages
@@ -451,11 +455,16 @@ jobs:
           esac
           echo "$mark charts" >> "$GITHUB_STEP_SUMMARY"
 
+  # The end of the run attaches nothing: every job above attached its own files
+  # as it finished them. This only reports what the release still lacks, and it
+  # runs on always() - not !cancelled() - so a cancelled run still says what
+  # did and did not get attached. It needs plan to have succeeded, because the
+  # version comes from there.
   done:
     timeout-minutes: 15
     name: what is still missing
-    needs: [plan, extra-arches, appimage, mac, flatpak, charts]
-    if: ${{ !cancelled() }}
+    needs: [plan, extra-arches, appimage, mac, flatpak, windows-exe, charts]
+    if: ${{ always() && needs.plan.result == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7

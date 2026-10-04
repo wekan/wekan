@@ -128,6 +128,7 @@ jobs:
           grep -q "WeKan-${VERSION}-mac-${MAC_ARCH}.app/Contents/MacOS/WeKan" "$TMPDIR/app-contents.txt"
 
       - name: Smoke test Node.js, FerretDB and Meteor
+        id: smoke
         timeout-minutes: 5
         if: ${{ env.BUILD_THIS == 'true' && steps.bundle.outputs.available == 'true' }}
         env:
@@ -160,37 +161,55 @@ jobs:
             dist/*.app.zip.sha256sum
           if-no-files-found: error
 
-  publish:
-    name: Attach Mac apps to the release
-    needs: [release, build]
-    if: ${{ !cancelled() && inputs.publish != false }}
-    runs-on: ubuntu-24.04
-    timeout-minutes: 15
-    steps:
-      - uses: actions/download-artifact@v8
-        continue-on-error: true
-        with:
-          pattern: mac-app-*
-          path: assets
-          merge-multiple: true
-      - name: Upload available Mac apps
+      # Attached HERE, by the job that made and smoke-tested the app, the moment
+      # it passed - not by a later job that waited for both architectures and
+      # then uploaded them together. always() + the smoke test's outcome: a
+      # cancel that arrives after the app was built and checked still attaches
+      # it.
+      - name: Attach this Mac app to the release
+        if: ${{ always() && env.BUILD_THIS == 'true' && steps.bundle.outputs.available == 'true' && steps.smoke.outcome == 'success' && inputs.publish != false }}
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ needs.release.outputs.tag }}
+          VERSION: ${{ needs.release.outputs.version }}
+          MAC_ARCH: ${{ matrix.arch }}
         run: |
           set -euo pipefail
-          if ! ls assets/*.app.zip >/dev/null 2>&1; then
+          zip="dist/WeKan-${VERSION}-mac-${MAC_ARCH}.app.zip"
+          # The checksum is checked against the zip before it goes up, the same
+          # check the old collect-and-upload job made.
+          ( cd dist && shasum -a 256 -c "$(basename "$zip").sha256sum" )
+          # Retried, bounded, and verified by name and size from the release side.
+          bash releases/github-release-upload.sh "$GITHUB_REPOSITORY" "$TAG" "$zip" "${zip}.sha256sum"
+
+  # The last job no longer uploads anything: each build job above attached its
+  # own app as soon as it was built and smoke-tested. This one only says, at
+  # the end, which apps are on the release - and it runs even when the run was
+  # cancelled (always()), so the summary covers whatever did get attached.
+  publish:
+    name: Check which Mac apps are on the release
+    needs: [release, build]
+    if: ${{ always() && needs.release.result == 'success' && inputs.publish != false }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Say which Mac apps are attached
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ needs.release.outputs.tag }}
+          VERSION: ${{ needs.release.outputs.version }}
+        run: |
+          set -euo pipefail
+          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json assets \
+            --jq '.assets[].name' > published.txt
+          if ! grep -qE '\.app\.zip$' published.txt; then
             echo "::notice::No Mac app could be wrapped; check the macOS bundle jobs."
             exit 0
           fi
-          for zip in assets/*.app.zip; do
-            ( cd assets && shasum -a 256 -c "$(basename "$zip").sha256sum" )
+          for arch in arm64 amd64; do
+            for file in "WeKan-${VERSION}-mac-${arch}.app.zip" "WeKan-${VERSION}-mac-${arch}.app.zip.sha256sum"; do
+              grep -qxF "$file" published.txt || \
+                echo "::warning::$file is not on $TAG - see the Mac app $arch build job's log"
+            done
           done
-          gh release upload "$TAG" assets/* --repo "$GITHUB_REPOSITORY" --clobber
-          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json assets \
-            --jq '.assets[].name' > published.txt
-          for file in assets/*; do
-            grep -qxF "$(basename "$file")" published.txt || {
-              echo "::error::$(basename "$file") was not attached to $TAG"; exit 1;
-            }
-          done
+          grep -E '\.app\.zip' published.txt || true

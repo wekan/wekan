@@ -69,6 +69,8 @@ test('every release script the workflow runs, the local build runs too', () => {
       'record-provenance.sh',  // release notes, not the bundle
       'ferretdb-latest-tag.sh',// ditto
       'require-binaries.sh',   // preflight for a job that must not start
+      'ensure-github-release.sh', // publishes: creates the release to attach to
+      'github-release-upload.sh', // publishes: attaches the finished zip
     ].includes(s));
 
   assert.ok(used.length >= 5, `expected the workflow to run several release scripts, found ${used.length}`);

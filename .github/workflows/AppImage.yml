@@ -375,6 +375,7 @@ jobs:
           ls -lh dist
 
       - name: Check that it starts
+        id: smoke
         if: ${{ env.BUILD_THIS == 'true' }}
         run: |
           set -euo pipefail
@@ -421,67 +422,78 @@ jobs:
           path: dist/
           if-no-files-found: error
 
+      # Attached HERE, by the job that packed and smoke-tested it, the moment it
+      # passed - not by a later job that waited for every architecture and then
+      # uploaded them all. The x86_64 AppImage is on the release while armhf is
+      # still building, and one slow or failed architecture never holds the
+      # others back.
+      #
+      # always() + the smoke test's outcome: a cancel that arrives after the
+      # AppImage was built and checked still attaches it.
+      - name: Attach this AppImage to the release
+        if: ${{ always() && env.BUILD_THIS == 'true' && steps.smoke.outcome == 'success' && inputs.publish != false }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          files=(dist/*.AppImage dist/*.AppImage.md5sum dist/*.AppImage.sha256sum)
+          if [ "${#files[@]}" -eq 0 ]; then
+            echo "::error::dist/ holds no AppImage to attach although the build and smoke test passed."
+            exit 1
+          fi
+          # --repo inside the script, so gh never has to infer the repository
+          # from a git remote. Retried, bounded, and verified by name and size.
+          bash releases/github-release-upload.sh "${{ github.repository }}" '${{ needs.release.outputs.tag }}' "${files[@]}"
+
+  # The last job no longer uploads anything: each build job above attached its
+  # own AppImage as soon as it was built and checked. This one only says, at the
+  # end, what is on the release and what is not - and it runs even when the run
+  # was cancelled (always()), so the summary covers whatever did get attached.
   publish:
     timeout-minutes: 30
-    name: attach to the release
+    name: check what was attached
     needs: [release, build]
-    if: ${{ !cancelled() && inputs.publish != false }}
+    if: ${{ always() && needs.release.result == 'success' && inputs.publish != false }}
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/download-artifact@v8
-        with:
-          pattern: appimage-*
-          path: assets
-          merge-multiple: true
-
       - name: Say what was built, and what was not
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          ls -lh assets 2>/dev/null || true
-          if ls assets/*.AppImage >/dev/null 2>&1; then
+          version='${{ needs.release.outputs.version }}'
+          gh release view --repo "${{ github.repository }}" '${{ needs.release.outputs.tag }}' \
+            --json assets --jq '.assets[].name' > published.txt
+          if grep -qE "^WeKan-${version}-.*\.AppImage$" published.txt; then
             # Every architecture the matrix builds. A missing one WARNS rather
-          # than fails: the 32-bit pair is allowed not to build, and an
-          # architecture whose base bundle was never published has nothing to
-          # wrap. What must not happen silently is one going missing unnoticed.
-          for want in x86_64 aarch64 i686 armhf; do
-              ls assets/*"-$want.AppImage" >/dev/null 2>&1 || \
-                echo "::warning::no AppImage for $want - see that build job's log"
+            # than fails: the 32-bit pair is allowed not to build, and an
+            # architecture whose base bundle was never published has nothing to
+            # wrap. What must not happen silently is one going missing unnoticed.
+            for want in x86_64 aarch64 i686 armhf; do
+              for f in "WeKan-${version}-${want}.AppImage" "WeKan-${version}-${want}.AppImage.sha256sum"; do
+                grep -qxF "$f" published.txt || \
+                  echo "::warning::$f is not on ${{ needs.release.outputs.tag }} - see the AppImage $want build job's log"
+              done
             done
+            echo "AppImages on $(gh release view --repo "${{ github.repository }}" '${{ needs.release.outputs.tag }}' --json url --jq .url):"
+            grep -E "^WeKan-${version}-.*\.AppImage" published.txt || true
           else
-            # No AppImage was produced. That is only a FAILURE if there was a base
+            # No AppImage was attached. That is only a FAILURE if there was a base
             # bundle to wrap: an AppImage cannot be built without one, and the
             # build jobs skip (not fail) when the base bundle is not published yet.
-            published="$(gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" '${{ needs.release.outputs.tag }}' --repo "${{ github.repository }}" --json assets --jq '.assets[].name' 2>/dev/null || true)"
             base_present=false
             for arch in amd64 arm64 i386 armhf; do
-              printf '%s\n' "$published" | grep -qx "wekan-${{ needs.release.outputs.version }}-${arch}.zip" && base_present=true
+              grep -qx "wekan-${version}-${arch}.zip" published.txt && base_present=true
             done
             if [ "$base_present" = false ]; then
-              echo "::notice::No base bundle (wekan-${{ needs.release.outputs.version }}-{amd64,arm64}.zip) is on ${{ needs.release.outputs.tag }} yet, so there is nothing to wrap - skipping. release-all.yml builds the AppImages once the base bundles are published."
+              echo "::notice::No base bundle (wekan-${version}-{amd64,arm64}.zip) is on ${{ needs.release.outputs.tag }} yet, so there is nothing to wrap - skipping. release-all.yml builds the AppImages once the base bundles are published."
               exit 0
             fi
-            echo "::error::A base bundle is published but no architecture produced an AppImage - every build job failed. Their logs say why; nothing is uploaded."
+            if [ "${{ needs.build.result }}" = "cancelled" ]; then
+              echo "::warning::The run was cancelled before any AppImage finished building; nothing was attached."
+              exit 0
+            fi
+            echo "::error::A base bundle is published but no architecture attached an AppImage - every build job failed. Their logs say why."
             exit 1
           fi
-
-      - name: Upload them
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          if ! ls assets/*.AppImage >/dev/null 2>&1; then
-            echo "Nothing to upload (no base bundle was published to wrap)."
-            exit 0
-          fi
-          # --repo, because this job does NOT check the repository out - it only
-          # downloads artifacts - so `gh` has no git remote to infer the repo
-          # from and fails with "fatal: not a git repository". Every other gh
-          # call in this workflow already passes it; these two did not, so the
-          # AppImages were built, smoke-tested and uploaded as artifacts, and
-          # then nothing was attached to the release.
-          gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" '${{ needs.release.outputs.tag }}' assets/* \
-            --repo "${{ github.repository }}" --clobber
-          echo "Uploaded to $(gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" '${{ needs.release.outputs.tag }}' \
-            --repo "${{ github.repository }}" --json url --jq .url)"

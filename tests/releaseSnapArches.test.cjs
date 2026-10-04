@@ -198,7 +198,9 @@ test('Launchpad waits for and verifies its architecture-specific release bundle'
     const at = launchpad.indexOf(step);
     assert.notStrictEqual(at, -1, `missing Launchpad step: ${step}`);
     const surrounding = launchpad.slice(at, at + 500);
-    assert.ok(/if: steps\.bundle\.outputs\.available == 'true'/.test(surrounding),
+    // The attach step adds always() in front, so a cancelled run still attaches
+    // a snap that finished building; the bundle gate itself is unchanged.
+    assert.ok(/if: (\$\{\{ always\(\) && )?steps\.bundle\.outputs\.available == 'true'/.test(surrounding),
       `${step} must not run when its runtime bundle is absent`);
   }
 });

@@ -224,6 +224,7 @@ jobs:
           $global:LASTEXITCODE = 0
 
       - name: Check that the single EXE starts, twice, without ever restarting
+        id: smoke
         shell: pwsh
         # Twice, because the two runs are different code paths: the first
         # unpacks the payload into wekan-app, the second must find it already
@@ -324,24 +325,26 @@ jobs:
           path: dist/
           if-no-files-found: error
 
-  publish:
-    name: attach to the release
-    needs: [release, build]
-    if: ${{ !cancelled() && needs.build.result == 'success' && inputs.publish != false }}
-    runs-on: ubuntu-24.04
-    timeout-minutes: 15
-    steps:
-      - uses: actions/download-artifact@v8
-        with:
-          name: windows-single-exe-win64
-          path: assets
-
-      - name: Upload the EXE and checksum
+      # Attached HERE, by the job that built and smoke-tested the EXE, the
+      # moment it passed. It used to go up from a separate publish job that
+      # downloaded this artifact first. always() + the smoke test's outcome: a
+      # cancel that arrives after the EXE was built and checked still attaches
+      # it. bash (Git Bash on this runner), because the shared uploader is a
+      # bash script; it does not rely on Windows' own `timeout` command.
+      - name: Attach the EXE and checksum to the release
+        if: ${{ always() && steps.smoke.outcome == 'success' && inputs.publish != false }}
+        shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          gh release upload --repo '${{ github.repository }}' \
-            '${{ needs.release.outputs.tag }}' assets/* --clobber
+          shopt -s nullglob
+          files=(dist/*)
+          if [ "${#files[@]}" -eq 0 ]; then
+            echo "::error::dist/ holds no EXE to attach although the smoke test passed."
+            exit 1
+          fi
+          # Retried, bounded, and verified by name and size from the release side.
+          bash releases/github-release-upload.sh '${{ github.repository }}' '${{ needs.release.outputs.tag }}' "${files[@]}"
           gh release view --repo '${{ github.repository }}' \
             '${{ needs.release.outputs.tag }}' --json url --jq .url

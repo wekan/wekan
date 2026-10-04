@@ -4,14 +4,16 @@
 // Run: node tests/releaseArchSkipAndBaseAttach.test.cjs
 //
 // 1. The BASE bundles (amd64, arm64) are attached to the release the same
-//    robust way every other bundle is - `gh release upload --clobber`, loud on
-//    a missing file, verified from the release side - NOT with softprops
-//    `files:`. softprops does not fail on an unmatched file, so when the base
-//    bundles were once absent it created a release with none of them and
-//    reported success, and every downstream job (snap, docker, AppImage) then
-//    404'd on wekan-<version>-amd64.zip (v10.63 shipped no amd64/arm64 bundle
-//    for exactly this reason). Their .sha256sum is attached too, which the old
-//    softprops `files:` never listed.
+//    robust way every other bundle is - by the job that BUILT them, as its
+//    last step, through releases/github-release-upload.sh (`gh release upload
+//    --clobber`, retried, verified from the release side), loud on a missing
+//    file - NOT with softprops `files:`. softprops does not fail on an
+//    unmatched file, so when the base bundles were once absent it created a
+//    release with none of them and reported success, and every downstream job
+//    (snap, docker, AppImage) then 404'd on wekan-<version>-amd64.zip (v10.63
+//    shipped no amd64/arm64 bundle for exactly this reason). Their .sha256sum
+//    is attached too. The `release` job no longer uploads them; it checks
+//    they are there.
 //
 // 2. An arch with NO Node.js is SKIPPED for the release (a warning, exit 0), not
 //    a red failure every run. WeKan takes its Node.js from three sources in
@@ -50,28 +52,50 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
 // ── 1. Base-bundle attachment ────────────────────────────────────────────────
 
-test('the release job attaches amd64/arm64 with gh release upload, not softprops files:', () => {
+test('build-amd64 and build-arm64 each attach their OWN base bundle, loudly and verified', () => {
+  // WHY THIS CHANGED: the `release` job used to download both base bundles and
+  // upload them together with `gh release upload --clobber`, so the amd64 zip
+  // sat finished and unpublished until arm64 was done too. Every release file
+  // is now attached by the job that built it, as its last step. What this
+  // guard kept pinning still holds, one job earlier: no softprops `files:`
+  // (silent on a missing file - v10.63 shipped no base bundles), a loud error
+  // on a missing or empty zip, the .sha256sum beside it, and verification from
+  // the release side (done by releases/github-release-upload.sh).
+  for (const arch of ['amd64', 'arm64']) {
+    const body = job(`build-${arch}`);
+    assert.ok(/bash releases\/ensure-github-release\.sh/.test(body),
+      `build-${arch} must make sure the release exists before attaching to it`);
+    const at = body.indexOf(`- name: Attach ${arch} bundle to the GitHub Release`);
+    assert.notStrictEqual(at, -1, `build-${arch} must attach its own bundle`);
+    const attach = body.slice(at);
+    assert.ok(/is missing or empty[\s\S]*exit 1/.test(attach),
+      `build-${arch} must fail loudly when its zip or checksum is missing or empty`);
+    assert.ok(/bash releases\/github-release-upload\.sh [^\n]*"\$asset" "\$\{asset\}\.sha256sum"/.test(attach),
+      `build-${arch} must attach the zip AND its .sha256sum with the shared, verified uploader`);
+  }
+  const uploader = fs.readFileSync(path.join(repoRoot, 'releases/github-release-upload.sh'), 'utf8');
+  assert.ok(/gh release upload --repo "\$repository" "\$tag" "\$@" --clobber/.test(uploader),
+    'the uploader names the repository and clobbers, so a retry replaces a partial upload');
+  assert.ok(/gh release view --repo[\s\S]*--json assets/.test(uploader),
+    'the uploader confirms from the release side that the files landed');
+});
+
+test('the release job uploads nothing, but still checks both base bundles are there', () => {
   const body = job('release');
-  // softprops must NOT carry the bundle files any more (that was the silent path).
   assert.ok(
     !/files:\s*\|[\s\S]*wekan-\$\{\{[^}]*\}\}-amd64\.zip/.test(body),
     'the release job must not attach the base bundles via softprops files: (it fails silently on a missing file)',
   );
-  // It must upload them explicitly, and clobber like the other bundle jobs.
-  assert.ok(/gh release upload[^\n]*"v\$\{VERSION\}"[\s\S]*--clobber/.test(body),
-    'the release job must attach the base bundles with gh release upload --clobber');
-  assert.ok(/gh release upload --repo/.test(body),
-    'and name the repository, because a job that flattened its history for the '
-    + 'Launchpad push has no remote for gh to infer one from');
-  // A missing/empty base bundle must be fatal here, not a silent skip.
-  assert.ok(/is missing or empty[\s\S]*exit 1/.test(body),
-    'the release job must fail loudly when a base bundle zip is missing or empty');
-  // And it must verify from the release side that they landed.
+  // Negative: the aggregate upload that held every file back must not return.
+  assert.ok(!/gh release upload/.test(body) && !/github-release-upload\.sh/.test(body),
+    'the release job must not upload: each build job attaches its own file as soon as it is built');
+  assert.ok(!/pattern:\s*bundle-\*/.test(body),
+    'the release job must not collect the bundle artifacts to upload them later');
+  // It must still verify from the release side, for zip and checksum alike.
   assert.ok(/gh release view[^\n]*"v\$\{VERSION\}"[\s\S]*is not listed in release[\s\S]*exit 1/.test(body),
     'the release job must confirm the base bundles are actually attached');
-  // The .sha256sum goes up with each base zip.
-  assert.ok(/sha256sum "\$asset" > "\$\{asset\}\.sha256sum"/.test(body),
-    'the release job must attach a .sha256sum beside each base bundle');
+  assert.ok(/for arch in amd64 arm64/.test(body) && /\.zip\.sha256sum/.test(body),
+    'the release job must check both base bundles and their .sha256sum');
 });
 
 // ── 2. Best-effort arch skip ─────────────────────────────────────────────────
@@ -137,7 +161,7 @@ test('every extra-arches build step is gated on skip', () => {
   const body = job('build-extra-arches');
   // From the preflight to the always()-run Job result, the build/attach steps
   // must all be gated. Pin the count so a newly-added step is not left ungated.
-  const gates = (body.match(/if: steps\.preflight\.outputs\.skip != 'true'/g) || []).length;
+  const gates = (body.match(/if: (\$\{\{ always\(\) && [^\n]*)?steps\.preflight\.outputs\.skip != 'true'/g) || []).length;
   assert.ok(gates >= 8,
     `expected >= 8 skip-gated steps in build-extra-arches, found ${gates}`);
   // The named steps that MUST be gated (they need a Node.js that a skipped arch
@@ -151,7 +175,10 @@ test('every extra-arches build step is gated on skip', () => {
     const idx = body.indexOf(step);
     assert.notStrictEqual(idx, -1, `build-extra-arches must have a "${step}" step`);
     const around = body.slice(idx, idx + 200);
-    assert.ok(/if: steps\.preflight\.outputs\.skip != 'true'/.test(around),
+    // The attach step is `always() && steps.checksum.outcome == 'success' &&
+    // <skip gate>` so a cancel after the build still attaches the zip; the skip
+    // gate must still be part of it.
+    assert.ok(/if: (\$\{\{ always\(\) && [^\n]*)?steps\.preflight\.outputs\.skip != 'true'/.test(around),
       `"${step}" must be gated on skip`);
   }
 });

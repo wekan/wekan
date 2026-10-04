@@ -95,14 +95,42 @@ for (const name of POST_RELEASE_JOBS) {
   });
 }
 
-test('NO job is guarded with always(), so Cancel stops the run (negative)', () => {
+// The ONE exception, and why. The maintainer's rule since v12.18: a cancelled
+// run must still leave every file that had finished building on the release.
+// The attach STEPS do that (step-level always(), see
+// tests/releaseAttachOwnFiles.test.cjs); the final release-notes job then
+// refreshes the notes of that release even though the run was cancelled. It
+// pushes no image, publishes to no store and builds nothing - it only rewrites
+// the notes of a release build-amd64 already created - so letting it run on
+// Cancel cannot do what v10.95 feared from docker. Every other job keeps
+// !cancelled().
+const ALWAYS_ON_CANCEL = {
+  'release-notes': 'report-only final job: refreshes the notes of the release that already exists',
+};
+
+test('only the report-only final job runs on always(), and it still needs the release to exist', () => {
+  for (const name of Object.keys(ALWAYS_ON_CANCEL)) {
+    const cond = jobIf(name);
+    assert.ok(/\balways\(\)/.test(cond), `${name} must run on always(), so a cancelled run is still reported: ${cond}`);
+    assert.ok(!/!cancelled\(\)/.test(cond), `${name} must not be skipped by Cancel: ${cond}`);
+    assert.ok(cond.includes("needs.build-amd64.result == 'success'"),
+      `${name} must still require build-amd64 - the job that creates the release - to have succeeded: ${cond}`);
+    const body = job(name);
+    assert.ok(!/gh release upload|github-release-upload|docker push|snapcraft upload|git push/.test(body),
+      `${name} runs on Cancel, so it must not publish anything: ${ALWAYS_ON_CANCEL[name]}`);
+  }
+});
+
+test('NO other job is guarded with always(), so Cancel stops the run (negative)', () => {
   // always() is true while a run is CANCELLING. A job carrying it starts anyway,
   // and `docker` carrying it meant Cancel could not stop a build that pushes an
   // image. Step-level `if: always()` (eight-space indent) is a different thing -
   // those are the "Job result" reporting steps, which correctly print CANCELLED -
   // so this looks only at job level, four spaces in.
-  const offenders = workflow.split('\n')
-    .filter(line => /^ {4}if:.*\balways\(\)/.test(line));
+  const names = [...workflow.matchAll(/^ {2}([a-z0-9-]+):$/gm)].map(m => m[1]).filter(n => n !== 'jobs');
+  const offenders = names.filter(n => !(n in ALWAYS_ON_CANCEL))
+    .map(n => (job(n).match(/^ {4}if:.*$/m) || [''])[0])
+    .filter(line => /\balways\(\)/.test(line));
   assert.deepStrictEqual(offenders, [],
     'these job-level conditions use always() and so ignore Cancel; use !cancelled():\n' +
     offenders.map(l => '  ' + l.trim()).join('\n'));

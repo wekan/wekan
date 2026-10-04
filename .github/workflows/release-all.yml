@@ -38,8 +38,15 @@ run-name: Release v${{ inputs.new_version }}
 #              only the ferretdb-<arch> binary it needs from the newest wekan/FerretDB
 #              release (FerretDB is built + released separately by its own build.sh —
 #              not compiled here) and embeds it
-#   - release: creates the GitHub Release with the newest CHANGELOG.md notes and
-#              uploads the core wekan-<version>-{amd64,arm64}.zip bundles
+#   - release: writes the newest CHANGELOG.md notes to the GitHub Release and
+#              checks the core wekan-<version>-{amd64,arm64}.zip bundles are on
+#              it. It uploads nothing: EVERY job that builds a release file
+#              attaches it itself, as its last step, the moment it is built and
+#              checked (releases/github-release-upload.sh, retried and verified).
+#              build-amd64 creates the release (releases/ensure-github-release.sh)
+#              right before attaching the first file. Those attach steps run on
+#              always() + "the build step succeeded", so cancelling a run still
+#              leaves every file that had finished building on the release
 #   - appimage: AFTER release, calls AppImage.yml to wrap those two core bundles
 #              for every AppImage runtime architecture they can serve, smoke-tests
 #              the runnable images and attaches them to the same GitHub Release
@@ -743,6 +750,7 @@ jobs:
           chmod +x .build/bundle/qemu-x86_64
 
       - name: Create amd64 zip
+        id: zip
         run: |
           cd .build
           python3 "$GITHUB_WORKSPACE/releases/check-telemetry.py" --bundle bundle
@@ -828,6 +836,39 @@ jobs:
           name: bundle-amd64
           path: .build/wekan-${{ needs.prepare.outputs.version }}-amd64.zip
           retention-days: 1
+
+      # The amd64 bundle goes onto the GitHub Release HERE, as the last step of
+      # the job that built and checked it - not later, in the `release` job,
+      # which used to wait for arm64 as well and then upload both. A file is
+      # attached the moment it exists, so a release fills up as its builds
+      # finish. It is the first file of the run, so this job also CREATES the
+      # release (with the CHANGELOG notes) when it does not exist yet - only once
+      # a bundle is there to put on it, so a run whose amd64 build fails still
+      # publishes no release at all.
+      #
+      # always() + the zip step's outcome: a cancel that arrives after the zip
+      # was built and checked still attaches it. Cancelling a run must not
+      # throw away what had already finished building.
+      - name: Make sure the GitHub Release exists
+        if: ${{ always() && steps.zip.outcome == 'success' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: bash releases/ensure-github-release.sh "${GITHUB_REPOSITORY:-wekan/wekan}" "$VERSION"
+
+      - name: Attach amd64 bundle to the GitHub Release
+        if: ${{ always() && steps.zip.outcome == 'success' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          asset=".build/wekan-${VERSION}-amd64.zip"
+          if [ ! -s "$asset" ] || [ ! -s "${asset}.sha256sum" ]; then
+            echo "::error::$asset or its .sha256sum is missing or empty, so the base amd64 bundle cannot be attached. Every downstream snap/docker/AppImage job would 404 on it; the zip step above says why."
+            exit 1
+          fi
+          bash releases/github-release-upload.sh "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "$asset" "${asset}.sha256sum"
 
       # Always, as the last step: the run summary then answers "what worked and what
       # did not" for the whole release at a glance, instead of eighteen job logs. A
@@ -983,6 +1024,7 @@ jobs:
           chmod +x bundle/qemu-aarch64
 
       - name: Create arm64 zip
+        id: zip
         if: steps.preflight.outputs.skip != 'true'
         run: |
           python3 "$GITHUB_WORKSPACE/releases/check-telemetry.py" --bundle bundle
@@ -1043,6 +1085,31 @@ jobs:
           path: wekan-${{ needs.prepare.outputs.version }}-arm64.zip
           retention-days: 1
 
+      # Attached by THIS job, as soon as it is built and checked - the same rule
+      # as build-amd64 above, and the same always() so a cancel after the zip
+      # step still attaches it. build-amd64 normally created the release already;
+      # making sure again costs one API call and lets this job be re-run alone.
+      - name: Make sure the GitHub Release exists
+        if: ${{ always() && steps.zip.outcome == 'success' && steps.preflight.outputs.skip != 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: bash releases/ensure-github-release.sh "${GITHUB_REPOSITORY:-wekan/wekan}" "$VERSION"
+
+      - name: Attach arm64 bundle to the GitHub Release
+        if: ${{ always() && steps.zip.outcome == 'success' && steps.preflight.outputs.skip != 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          asset="wekan-${VERSION}-arm64.zip"
+          if [ ! -s "$asset" ] || [ ! -s "${asset}.sha256sum" ]; then
+            echo "::error::$asset or its .sha256sum is missing or empty, so the base arm64 bundle cannot be attached. Every downstream snap/docker/AppImage job would 404 on it; the zip step above says why."
+            exit 1
+          fi
+          bash releases/github-release-upload.sh "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "$asset" "${asset}.sha256sum"
+
       # Always, as the last step: the run summary then answers "what worked and what
       # did not" for the whole release at a glance, instead of eighteen job logs. A
       # step that failed has already printed an ::error:: saying why; this names the
@@ -1065,7 +1132,15 @@ jobs:
             echo "::error::build-arm64 FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
-  # ─── 7. Create GitHub Release and upload all bundles ────────────────────────
+  # ─── 7. Publish the GitHub Release notes and check the base bundles ─────────
+  # This job no longer UPLOADS anything. build-amd64 creates the release and
+  # attaches its own zip the moment it is built, and build-arm64 attaches its
+  # own the same way; this job used to download both artifacts and upload them
+  # together, which held every file back until the slower of the two was done.
+  # What it still does: write the notes (softprops updates the release the
+  # build job created) and CHECK, from the release side, that both base bundles
+  # and their .sha256sum are there - every downstream snap / docker / AppImage
+  # job needs: release and downloads wekan-<version>-{amd64,arm64}.zip from it.
   release:
     needs:
       - prepare
@@ -1075,25 +1150,20 @@ jobs:
     # A hung job must FAIL on its own rather than wait for somebody to cancel it:
     # cancelling is what skipped the post-release jobs in v10.80, and the jobs below
     # run on !cancelled(), which a timeout satisfies and a cancellation does not.
-    # collects every bundle artifact and publishes the GitHub Release.
+    # publishes the release notes and checks the base bundles are attached.
     timeout-minutes: 90
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
-      # The checkout MUST come first, BEFORE the bundles are downloaded. The
-      # workspace starts empty and is not a git repo, so actions/checkout's first
-      # act is "Deleting the contents of '<workspace>'" to make room for a fresh
-      # clone - and it does this even with `clean: false` (that flag only skips
-      # the `git clean` in an ALREADY-checked-out repo; it does not stop the
-      # initial wipe). When the checkout ran AFTER "Download all bundles", that
-      # wipe deleted wekan-<version>-{amd64,arm64}.zip, so the release shipped
-      # with no base bundles and every downstream job (snap, docker, AppImage)
-      # 404'd on wekan-<version>-amd64.zip - v10.63 and v10.64 both. Checking out
-      # first, then downloading on top, keeps the bundles. (The checkout is here
-      # for the provenance script under releases/.)
       # ref: main, the same ref `prepare` read CHANGELOG.md from, so the notes
       # composed below are the ones prepare validated. (bump pushes to main and
       # prepare tags it; nothing else pushes during a release.)
+      #
+      # This job used to download the amd64/arm64 bundle artifacts too, and the
+      # checkout had to come BEFORE that download because checkout wipes the
+      # workspace (v10.63 and v10.64 shipped no base bundles that way). The
+      # bundles are now attached by their own build jobs, so nothing is
+      # downloaded here for a checkout to wipe.
       - uses: actions/checkout@v7
         with:
           ref: main
@@ -1101,12 +1171,6 @@ jobs:
       - name: Audit telemetry source before release work
         shell: bash
         run: python3 ./releases/check-telemetry.py --source .
-
-      - name: Download all bundles
-        uses: actions/download-artifact@v8
-        with:
-          pattern: bundle-*
-          merge-multiple: true
 
       - name: Collect where the binaries came from
         continue-on-error: true
@@ -1130,16 +1194,15 @@ jobs:
           echo "----- release notes -----"
           head -40 release-notes.md
 
-      # Create the Release (and its notes) so it EXISTS - every downstream bundle
-      # job needs: release and then self-attaches its own zip with
-      # `gh release upload`. The amd64 and arm64 bundles are attached in the next
-      # step, NOT here with softprops `files:`: softprops does not fail on an
-      # unmatched file, so when the bundles were once missing it created a release
-      # with NO base bundles and reported success, and every downstream snap /
-      # docker / AppImage job then 404'd on wekan-<version>-amd64.zip. The next
-      # step attaches them the same robust way every other bundle job does -
-      # loudly, and verified from the release side - and their .sha256sum too,
-      # which softprops `files:` never listed.
+      # Create the Release (and its notes) - or, as normally happens now, UPDATE
+      # the one build-amd64 created when it attached the first bundle, so its
+      # notes are exactly the ones composed here. No `files:`: softprops does
+      # not fail on an unmatched file, so when the bundles were once missing it
+      # created a release with NO base bundles and reported success, and every
+      # downstream snap / docker / AppImage job then 404'd on
+      # wekan-<version>-amd64.zip. Each build job attaches its own file instead,
+      # loudly and verified from the release side; the next step checks the two
+      # base bundles from here.
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
         with:
@@ -1152,44 +1215,25 @@ jobs:
           # builds fetch them from. Each wekan-<version>-<arch>.zip bundle embeds
           # its own arch's FerretDB binary.
 
-      - name: Attach amd64 and arm64 bundles to the GitHub Release
+      - name: Check the amd64 and arm64 bundles are on the GitHub Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
-          # The base bundles are attached here, loudly. "Download all bundles"
-          # above put them in the workspace and the clean:false checkout kept
-          # them; softprops used to attach them silently and drop them without a
-          # word when they were absent. gh release upload fails on a missing file,
-          # and the check below fails on a file that is present but empty, so a
-          # broken base bundle stops the release instead of 404'ing every
-          # downstream job. The .sha256sum goes up beside each zip.
-          up=()
-          for arch in amd64 arm64; do
-            asset="wekan-${VERSION}-${arch}.zip"
-            if [ ! -s "$asset" ]; then
-              echo "::error::$asset is missing or empty, so the base $arch bundle cannot be attached. build-$arch produced no bundle (or a different name); every downstream snap/docker/AppImage job would 404 on it. Its build job's log says why."
-              exit 1
-            fi
-            # Checksum the exact bytes being attached (the bundle-<arch> artifact
-            # carries only the zip, not a .sha256sum), so amd64/arm64 get a
-            # checksum beside them like every other bundle.
-            sha256sum "$asset" > "${asset}.sha256sum"
-            up+=("$asset" "${asset}.sha256sum")
-          done
-          if ! gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}" --clobber; then
-            echo "::error::Could not attach the amd64/arm64 bundles to release v${VERSION}. The release must exist (created above) and GITHUB_TOKEN must be allowed to write releases here."
-            exit 1
-          fi
-          # Confirm from the OTHER side: an upload that reports success but leaves
-          # no asset behind is the failure nobody notices until a download 404s.
+          # build-amd64 and build-arm64 each attached their own zip and
+          # .sha256sum as their last step. This checks it from the OTHER side: an
+          # upload that reported success but left no asset behind is the failure
+          # nobody notices until a download 404s, and every downstream job below
+          # (snap, docker, AppImage) downloads these two from the release.
           gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
           for arch in amd64 arm64; do
-            if ! grep -qxF "wekan-${VERSION}-${arch}.zip" release-assets.txt; then
-              echo "::error::wekan-${VERSION}-${arch}.zip is not listed in release v${VERSION} although the upload reported success. Re-run the release job."
-              exit 1
-            fi
+            for asset in "wekan-${VERSION}-${arch}.zip" "wekan-${VERSION}-${arch}.zip.sha256sum"; do
+              if ! grep -qxF "$asset" release-assets.txt; then
+                echo "::error::$asset is not listed in release v${VERSION}. build-$arch attaches it as its last step; its log says why it did not. Re-run build-$arch, then this job."
+                exit 1
+              fi
+            done
           done
           echo "OK: amd64 and arm64 bundles (and their .sha256sum) are attached to release v${VERSION}."
 
@@ -1260,8 +1304,10 @@ jobs:
 
   # ─── 7b. Extra-platform bundles (win64, mac-arm64, s390x, ppc64le) ───────────
   # Every bundle below is built AFTER `release` and attaches its own .zip to the
-  # already-created GitHub Release with `gh release upload --clobber`, rather than
-  # being a prerequisite of `release`. This deliberately decouples the slower /
+  # already-created GitHub Release (releases/github-release-upload.sh: `gh
+  # release upload --clobber`, retried, verified by name and size), as the last
+  # step of the job that built it and even when the run is cancelled after the
+  # build, rather than being a prerequisite of `release`. This deliberately decouples the slower /
   # different-OS builds (Windows, macOS, QEMU-emulated arches) from the core
   # amd64/arm64 release, Docker and snap, so a slow or flaky one never blocks them.
   # These bundles are NOT part of the Docker image or snap.
@@ -1499,6 +1545,7 @@ jobs:
           7z a wekan-%VERSION%-win64.zip bundle
 
       - name: Verify the win64 zip
+        id: verify
         if: steps.preflight.outputs.skip != 'true'
         shell: bash
         run: |
@@ -1570,7 +1617,7 @@ jobs:
           retention-days: 1
 
       - name: Attach win64 bundle to the GitHub Release
-        if: steps.preflight.outputs.skip != 'true'
+        if: ${{ always() && steps.verify.outcome == 'success' && steps.preflight.outputs.skip != 'true' }}
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -1590,18 +1637,9 @@ jobs:
           # one still upload cleanly.
           up=("$asset")
           [ -f "${asset}.sha256sum" ] && up+=("${asset}.sha256sum")
-          if ! gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}" --clobber; then
-            echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
-            exit 1
-          fi
-          # Confirm from the OTHER side. An upload that reports success but leaves no
-          # asset behind is the failure nobody notices until a download 404s.
-          gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
-          if ! grep -qxF "$(basename "$asset")" release-assets.txt; then
-            echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
-            exit 1
-          fi
-          echo "OK: $(basename "$asset") is attached to release v${VERSION} ($(($(wc -c < "$asset")/1024/1024)) MiB)."
+          # Retried, bounded, and verified by name AND size from the release
+          # side; see releases/github-release-upload.sh.
+          bash "$GITHUB_WORKSPACE/src/releases/github-release-upload.sh" "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}"
 
       # Always, as the last step: the run summary then answers "what worked and what
       # did not" for the whole release at a glance, instead of eighteen job logs. A
@@ -1878,6 +1916,7 @@ jobs:
           7z a wekan-%VERSION%-win-arm64.zip bundle
 
       - name: Verify the win-arm64 zip
+        id: verify
         if: steps.preflight.outputs.skip != 'true'
         shell: bash
         run: |
@@ -1949,7 +1988,7 @@ jobs:
           retention-days: 1
 
       - name: Attach win-arm64 bundle to the GitHub Release
-        if: steps.preflight.outputs.skip != 'true'
+        if: ${{ always() && steps.verify.outcome == 'success' && steps.preflight.outputs.skip != 'true' }}
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -1969,18 +2008,9 @@ jobs:
           # one still upload cleanly.
           up=("$asset")
           [ -f "${asset}.sha256sum" ] && up+=("${asset}.sha256sum")
-          if ! gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}" --clobber; then
-            echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
-            exit 1
-          fi
-          # Confirm from the OTHER side. An upload that reports success but leaves no
-          # asset behind is the failure nobody notices until a download 404s.
-          gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
-          if ! grep -qxF "$(basename "$asset")" release-assets.txt; then
-            echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
-            exit 1
-          fi
-          echo "OK: $(basename "$asset") is attached to release v${VERSION} ($(($(wc -c < "$asset")/1024/1024)) MiB)."
+          # Retried, bounded, and verified by name AND size from the release
+          # side; see releases/github-release-upload.sh.
+          bash "$GITHUB_WORKSPACE/src/releases/github-release-upload.sh" "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}"
 
       # Always, as the last step: the run summary then answers "what worked and what
       # did not" for the whole release at a glance, instead of eighteen job logs. A
@@ -2250,6 +2280,7 @@ jobs:
           7z a wekan-%VERSION%-win32.zip bundle
 
       - name: Verify the win32 zip
+        id: verify
         if: steps.preflight.outputs.skip != 'true'
         shell: bash
         run: |
@@ -2301,7 +2332,7 @@ jobs:
           retention-days: 1
 
       - name: Attach win32 bundle to the GitHub Release
-        if: steps.preflight.outputs.skip != 'true'
+        if: ${{ always() && steps.verify.outcome == 'success' && steps.preflight.outputs.skip != 'true' }}
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -2315,16 +2346,9 @@ jobs:
           fi
           up=("$asset")
           [ -f "${asset}.sha256sum" ] && up+=("${asset}.sha256sum")
-          if ! gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}" --clobber; then
-            echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
-            exit 1
-          fi
-          gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
-          if ! grep -qxF "$(basename "$asset")" release-assets.txt; then
-            echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
-            exit 1
-          fi
-          echo "OK: $(basename "$asset") is attached to release v${VERSION} ($(($(wc -c < "$asset")/1024/1024)) MiB)."
+          # Retried, bounded, and verified by name AND size from the release
+          # side; see releases/github-release-upload.sh.
+          bash "$GITHUB_WORKSPACE/src/releases/github-release-upload.sh" "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}"
 
       - name: Job result
         if: always()
@@ -2512,6 +2536,7 @@ jobs:
           done
 
       - name: Create mac-arm64 zip
+        id: zip
         if: steps.preflight.outputs.skip != 'true'
         run: |
           python3 "$GITHUB_WORKSPACE/releases/check-telemetry.py" --bundle bundle
@@ -2566,7 +2591,7 @@ jobs:
           retention-days: 1
 
       - name: Attach mac-arm64 bundle to the GitHub Release
-        if: steps.preflight.outputs.skip != 'true'
+        if: ${{ always() && steps.zip.outcome == 'success' && steps.preflight.outputs.skip != 'true' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # No repo checkout in this job, so set GH_REPO so `gh` knows the target
@@ -2584,18 +2609,9 @@ jobs:
           # one still upload cleanly.
           up=("$asset")
           [ -f "${asset}.sha256sum" ] && up+=("${asset}.sha256sum")
-          if ! gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}" --clobber; then
-            echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
-            exit 1
-          fi
-          # Confirm from the OTHER side. An upload that reports success but leaves no
-          # asset behind is the failure nobody notices until a download 404s.
-          gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
-          if ! grep -qxF "$(basename "$asset")" release-assets.txt; then
-            echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
-            exit 1
-          fi
-          echo "OK: $(basename "$asset") is attached to release v${VERSION} ($(($(wc -c < "$asset")/1024/1024)) MiB)."
+          # Retried, bounded, and verified by name AND size from the release
+          # side; see releases/github-release-upload.sh.
+          bash "$GITHUB_WORKSPACE/releases/github-release-upload.sh" "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}"
 
       # Always, as the last step: the run summary then answers "what worked and what
       # did not" for the whole release at a glance, instead of eighteen job logs. A
@@ -2800,6 +2816,7 @@ jobs:
           done
 
       - name: Create mac-x64 zip
+        id: zip
         if: steps.preflight.outputs.skip != 'true'
         run: |
           python3 "$GITHUB_WORKSPACE/releases/check-telemetry.py" --bundle bundle
@@ -2842,7 +2859,7 @@ jobs:
           retention-days: 1
 
       - name: Attach mac-x64 bundle to the GitHub Release
-        if: steps.preflight.outputs.skip != 'true'
+        if: ${{ always() && steps.zip.outcome == 'success' && steps.preflight.outputs.skip != 'true' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
@@ -2855,16 +2872,9 @@ jobs:
           fi
           up=("$asset")
           [ -f "${asset}.sha256sum" ] && up+=("${asset}.sha256sum")
-          if ! gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}" --clobber; then
-            echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
-            exit 1
-          fi
-          gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
-          if ! grep -qxF "$(basename "$asset")" release-assets.txt; then
-            echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
-            exit 1
-          fi
-          echo "OK: $(basename "$asset") is attached to release v${VERSION} ($(($(wc -c < "$asset")/1024/1024)) MiB)."
+          # Retried, bounded, and verified by name AND size from the release
+          # side; see releases/github-release-upload.sh.
+          bash "$GITHUB_WORKSPACE/releases/github-release-upload.sh" "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}"
 
       - name: Job result
         if: always()
@@ -3212,6 +3222,7 @@ jobs:
           touch bundle/.ferretdb-default
 
       - name: Create ${{ matrix.arch }} zip
+        id: zip
         if: steps.preflight.outputs.skip != 'true'
         run: |
           python3 "$GITHUB_WORKSPACE/releases/check-telemetry.py" --bundle bundle
@@ -3252,8 +3263,12 @@ jobs:
           retention-days: 1
 
 
+      # always() + the zip step's outcome, like the attach step below: the
+      # checksum is part of what gets attached, so a cancel after the zip was
+      # built must not skip it and leave the zip with nothing to attach.
       - name: Checksum the ${{ matrix.arch }} zip and collect provenance
-        if: steps.preflight.outputs.skip != 'true'
+        id: checksum
+        if: ${{ always() && steps.zip.outcome == 'success' && steps.preflight.outputs.skip != 'true' }}
         run: |
           set -euo pipefail
           zip="wekan-${VERSION}-${{ matrix.arch }}.zip"
@@ -3270,7 +3285,7 @@ jobs:
           if-no-files-found: warn
 
       - name: Attach ${{ matrix.arch }} bundle to the GitHub Release
-        if: steps.preflight.outputs.skip != 'true'
+        if: ${{ always() && steps.checksum.outcome == 'success' && steps.preflight.outputs.skip != 'true' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # No repo checkout in this job, so set GH_REPO so `gh` knows the target
@@ -3288,18 +3303,9 @@ jobs:
           # one still upload cleanly.
           up=("$asset")
           [ -f "${asset}.sha256sum" ] && up+=("${asset}.sha256sum")
-          if ! gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}" --clobber; then
-            echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
-            exit 1
-          fi
-          # Confirm from the OTHER side. An upload that reports success but leaves no
-          # asset behind is the failure nobody notices until a download 404s.
-          gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
-          if ! grep -qxF "$(basename "$asset")" release-assets.txt; then
-            echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
-            exit 1
-          fi
-          echo "OK: $(basename "$asset") is attached to release v${VERSION} ($(($(wc -c < "$asset")/1024/1024)) MiB)."
+          # Retried, bounded, and verified by name AND size from the release
+          # side; see releases/github-release-upload.sh.
+          bash "$GITHUB_WORKSPACE/releases/github-release-upload.sh" "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}"
 
       # Always, as the last step: the run summary then answers "what worked and what
       # did not" for the whole release at a glance, instead of eighteen job logs. A
@@ -3598,6 +3604,7 @@ jobs:
           retention-days: 7
 
       - name: Attach the .spk to the GitHub Release
+        if: ${{ always() && steps.build.outcome == 'success' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -3612,18 +3619,9 @@ jobs:
           # one still upload cleanly.
           up=("$asset")
           [ -f "${asset}.sha256sum" ] && up+=("${asset}.sha256sum")
-          if ! gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}" --clobber; then
-            echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
-            exit 1
-          fi
-          # Confirm from the OTHER side. An upload that reports success but leaves no
-          # asset behind is the failure nobody notices until a download 404s.
-          gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
-          if ! grep -qxF "$(basename "$asset")" release-assets.txt; then
-            echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
-            exit 1
-          fi
-          echo "OK: $(basename "$asset") is attached to release v${VERSION} ($(($(wc -c < "$asset")/1024/1024)) MiB)."
+          # Retried, bounded, and verified by name AND size from the release
+          # side; see releases/github-release-upload.sh.
+          bash "$GITHUB_WORKSPACE/releases/github-release-upload.sh" "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}"
 
       # Always, as the last step: the run summary then answers "what worked and what
       # did not" for the whole release at a glance, instead of eighteen job logs. A
@@ -4487,6 +4485,7 @@ jobs:
           echo "snap=$BUILT_SNAP" >> "$GITHUB_OUTPUT"
 
       - name: Verify the built snap is ${{ matrix.arch }}
+        id: verify
         run: |
           set -euo pipefail
           snap="${{ steps.build.outputs.snap }}"
@@ -4520,7 +4519,12 @@ jobs:
           echo "::error::The ${{ matrix.arch }} snap was built but not published. Read the snapcraft line above: 'Credentials could not be parsed' means SNAP_AUTH is not a readable exported login (mangled, or the terminal output instead of the file contents); 401/403/not authorized means it lacks the ACL for this snap name. Both are fixed by re-exporting for ALL THREE names: snapcraft export-login --snaps wekan,wekan-ondra,wekan-gantt-gpl --acls package_access,package_push,package_release,package_update snap-auth.txt && gh secret set SNAP_AUTH --repo wekan/wekan < snap-auth.txt"
           exit 1
 
+      # always() + the verify step's outcome: a snap that was built and checked
+      # goes onto the GitHub Release even when the Snap Store push above failed
+      # or the run was cancelled after the build - the release keeps every file
+      # that finished building, whatever happened to the rest of the run.
       - name: Attach the ${{ matrix.arch }} snap to the GitHub Release
+        if: ${{ always() && steps.verify.outcome == 'success' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -5022,8 +5026,11 @@ jobs:
             esac
           done
 
+      # always(): a snap Launchpad built and this job downloaded goes onto the
+      # GitHub Release even when the Snap Store push above failed or the run was
+      # cancelled after the build.
       - name: Attach the ${{ matrix.arch }} snap to the GitHub Release
-        if: steps.bundle.outputs.available == 'true' && steps.launchpad.outputs.built == 'true'
+        if: ${{ always() && steps.bundle.outputs.available == 'true' && steps.launchpad.outputs.built == 'true' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -5520,7 +5527,12 @@ jobs:
       - build-mac-arm64
       - build-mac-x64
       - build-extra-arches
-    if: ${{ !cancelled() && needs.release.result == 'success' }}
+    # always(), not !cancelled(): a cancelled run still has a release (created
+    # by build-amd64 together with its first file) carrying every file that
+    # finished building before the cancel, and its notes are still refreshed.
+    # What it requires is that release to EXIST, which build-amd64 succeeding
+    # guarantees - not the `release` job, which a cancel may have skipped.
+    if: ${{ always() && needs.prepare.result == 'success' && needs.build-amd64.result == 'success' }}
     runs-on: ubuntu-24.04
     # A hung job must FAIL on its own rather than wait for somebody to cancel it:
     # cancelling is what skipped the post-release jobs in v10.80, and the jobs below

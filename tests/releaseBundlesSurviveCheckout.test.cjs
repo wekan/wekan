@@ -44,34 +44,41 @@ function test(name, fn) {
   console.log('  ok -', name);
 }
 
-test('the release job still downloads the bundles and attaches them', () => {
+// WHY THIS CHANGED: the `release` job no longer downloads the bundles at all -
+// build-amd64 and build-arm64 attach their own zips as their last step (see
+// tests/releaseAttachOwnFiles.test.cjs) - so the job this guard was written
+// for has nothing left for a checkout to wipe. The hazard itself is general,
+// though: ANY job that checks out after downloading a bundle artifact loses
+// it. So the rule is now pinned for every job that downloads one.
+
+function jobNames() {
+  return [...workflow.matchAll(/^ {2}([a-z0-9-]+):$/gm)].map(m => m[1]).filter(n => n !== 'jobs');
+}
+
+test('the release job does not download the bundles any more (nothing to wipe)', () => {
   const body = job('release');
-  assert.ok(/pattern:\s*bundle-\*/.test(body), 'downloads the bundle-* artifacts');
-  // The attach mechanism deliberately CHANGED: it used to be softprops `files:`,
-  // which fails silently on a missing file (that shipped v10.63 with no
-  // amd64/arm64 bundle). It is now `gh release upload --clobber`, loud on a
-  // missing file and verified from the release side - see
-  // tests/releaseArchSkipAndBaseAttach.test.cjs. The bundles must still be
-  // downloaded and attached; this only stops pinning the old silent path.
-  assert.ok(/gh release upload[^\n]*"v\$\{VERSION\}"[\s\S]*--clobber/.test(body),
-    'attaches the base bundles to the release with gh release upload --clobber');
-  assert.ok(/gh release upload --repo/.test(body),
-    'naming the repository, since gh cannot infer it without a git remote');
+  assert.ok(!/pattern:\s*bundle-\*/.test(body),
+    'the release job must not collect the bundle artifacts; each build job attaches its own');
 });
 
-test('the checkout comes BEFORE the bundle download, so it cannot wipe them', () => {
-  const body = job('release');
-  const dlIdx = body.indexOf('pattern: bundle-*');
-  const coIdx = body.indexOf('actions/checkout@');
-  assert.notStrictEqual(coIdx, -1, 'the release job checks the repo out for the provenance script');
-  assert.notStrictEqual(dlIdx, -1, 'the release job downloads the bundle-* artifacts');
-  // clean: false is NOT enough - checkout deletes the workspace contents on its
-  // initial clone regardless. The only safe order is checkout first, then
-  // download the bundles on top of the checked-out tree.
-  assert.ok(coIdx < dlIdx,
-    'actions/checkout must come BEFORE "Download all bundles" (pattern: bundle-*); '
-    + 'a checkout after the download deletes the untracked zips even with clean: false, '
-    + 'and the release ships with no base bundles (v10.63/v10.64 both failed here)');
+test('every job that downloads a bundle artifact checks out BEFORE the download', () => {
+  let checked = 0;
+  for (const name of jobNames()) {
+    const body = job(name);
+    // A download-artifact step whose artifact is a bundle-* (by name or pattern).
+    const m = /download-artifact@[^\n]*\n(?:[^\n]*\n){0,3}?\s*(?:name|pattern):\s*bundle-/.exec(body);
+    if (!m) continue;
+    const dl = m.index;
+    checked += 1;
+    const co = body.indexOf('actions/checkout@');
+    // clean: false is NOT enough - checkout deletes the workspace contents on its
+    // initial clone regardless. The only safe order is checkout first, then
+    // download the bundles on top of the checked-out tree.
+    assert.ok(co !== -1 && co < dl,
+      `${name}: actions/checkout must come BEFORE the bundle download; a checkout after it `
+      + 'deletes the untracked zips even with clean: false (v10.63/v10.64 both failed here)');
+  }
+  assert.ok(checked >= 3, `expected several jobs that download bundle-amd64, found ${checked}`);
 });
 
 console.log(`\nreleaseBundlesSurviveCheckout: all ${passed} tests passed`);

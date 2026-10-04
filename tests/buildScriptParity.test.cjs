@@ -201,7 +201,8 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'latest-release-version.sh': 'read-only version resolver called by release-all.sh',
     'prepare-bundle-npm.mjs': 'internal bundle package normalization called before npm install',
     'snapcraft-remote-compat.sh': 'internal Launchpad workflow launcher using the installed Snapcraft runtime',
-    'github-release-upload.sh': 'internal release-workflow helper: bounded upload of already-built assets, called by Snap attachment steps',
+    'github-release-upload.sh': 'internal release-workflow helper: bounded, verified upload of already-built assets, called by every job that builds a release file as its own last step',
+    'ensure-github-release.sh': 'internal release-workflow helper: creates the GitHub Release right before build-amd64 attaches the first file',
     'prepare-launchpad-source.sh': 'internal release-workflow helper: prepares the isolated per-architecture source for snap-launchpad',
     'debug-speed-ferretdb.sh': 'diagnostic launcher: starts only an instrumented '
       + 'local FerretDB for a restore investigation, not a release action',

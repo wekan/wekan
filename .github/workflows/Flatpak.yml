@@ -271,6 +271,7 @@ jobs:
           flatpak build-export --arch="$arch" repo build-dir stable
 
       - name: Make the single-file bundle
+        id: bundle
         if: ${{ env.BUILD_THIS == 'true' }}
         run: |
           set -euo pipefail
@@ -302,11 +303,40 @@ jobs:
           path: repo/
           if-no-files-found: warn
 
+      # Attached HERE, by the job that built it, the moment it exists - not by
+      # the publish job below, which used to wait for both architectures and
+      # then upload them together. always() + the bundle step's outcome: a
+      # cancel that arrives after the bundle was made still attaches it.
+      #
+      # The bundles BY NAME, not dist/*: only the .flatpak and its checksums are
+      # release files. (The ostree repository the flatpak was exported through
+      # is build scaffolding; it lives in repo/, goes up as an artifact for the
+      # website repository, and must never be attached - TSC hit exactly that.)
+      - name: Attach this Flatpak to the release
+        if: ${{ always() && env.BUILD_THIS == 'true' && steps.bundle.outcome == 'success' && inputs.publish != false }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          files=(dist/*.flatpak dist/*.flatpak.md5sum dist/*.flatpak.sha256sum)
+          if [ "${#files[@]}" -eq 0 ]; then
+            echo "::error::dist/ holds no .flatpak to attach although the bundle step passed."
+            exit 1
+          fi
+          # Retried, bounded, and verified by name and size from the release side.
+          bash releases/github-release-upload.sh "${{ github.repository }}" '${{ needs.release.outputs.tag }}' "${files[@]}"
+
+  # This job no longer attaches the bundles: each build job above attached its
+  # own as soon as it was built. What is left for the end is what needs BOTH
+  # architectures at once - the multi-architecture repository - and the summary
+  # of what was built. always(), so a cancelled run still gets them for
+  # whatever did finish.
   publish:
     timeout-minutes: 60
-    name: attach to the release, and build the repository
+    name: say what was built, and build the repository
     needs: [release, build]
-    if: ${{ !cancelled() }}
+    if: ${{ always() && needs.release.result == 'success' }}
     runs-on: ubuntu-24.04
     steps:
       # FIRST: this job runs releases/apt-install.sh, and actions/checkout cleans
@@ -316,6 +346,8 @@ jobs:
       - uses: actions/checkout@v7
 
       - uses: actions/download-artifact@v8
+        # A cancelled run may have uploaded none; the next step says so.
+        continue-on-error: true
         with:
           pattern: flatpak-[0-9a-z]*
           path: assets
@@ -326,35 +358,17 @@ jobs:
           set -euo pipefail
           ls -lh assets 2>/dev/null || true
           if ! ls assets/*.flatpak >/dev/null 2>&1; then
-            echo "::error::No architecture produced a Flatpak bundle; nothing is uploaded."
+            if [ "${{ needs.build.result }}" = "cancelled" ]; then
+              echo "::warning::The run was cancelled before any Flatpak bundle finished building."
+              exit 0
+            fi
+            echo "::error::No architecture produced a Flatpak bundle; nothing was attached."
             exit 1
           fi
           for want in x86_64 aarch64; do
             ls assets/*"-$want.flatpak" >/dev/null 2>&1 || \
               echo "::warning::no Flatpak for $want - see that build job's log"
           done
-
-      - name: Upload the bundles
-        if: ${{ inputs.publish != false }}
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          # --repo, because this job does NOT check the repository out - it
-          # only downloads artifacts - so `gh` has no git remote to infer the
-          # repo from and fails with "fatal: not a git repository". The same
-          # line was wrong in AppImage.yml for the same reason.
-          #
-          # And the bundles BY NAME, not assets/*: the artifacts also carry the
-          # ostree repository the flatpak was exported through - config,
-          # objects/, refs/, summaries/, summary, summary.idx - which is build
-          # scaffolding, not something to attach to a release. TSC hit this
-          # exact thing ("upload only the bundle files, not the ostree repo").
-          gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" '${{ needs.release.outputs.tag }}' \
-            assets/*.flatpak assets/*.flatpak.md5sum assets/*.flatpak.sha256sum \
-            --repo "${{ github.repository }}" --clobber
-          echo "Uploaded to $(gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" '${{ needs.release.outputs.tag }}' \
-            --repo "${{ github.repository }}" --json url --jq .url)"
 
       # ---- the repository -------------------------------------------------
       - uses: actions/download-artifact@v8
