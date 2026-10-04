@@ -1808,7 +1808,7 @@ used.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.18 2026-10-04 WeKan ® release
 
 **In short:** Updates **Sharp** image processing and development dependencies,
 including the **MongoDB driver** used by the browser tests, **Chai** assertions
