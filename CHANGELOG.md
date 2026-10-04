@@ -1808,6 +1808,44 @@ used.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Every **release file** now appears on the GitHub Release as soon
+as the job that built it has finished and checked it, instead of after the
+slowest build, and **cancelling a release run** keeps every file that had
+already finished building.
+
+This release has the following developer-tooling fix:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/37bc66403f">Attach each release file from the job that built it, also when cancelled</a>. Thanks to xet7.</summary>
+
+The amd64 and arm64 bundles used to be uploaded together by the `release` job,
+after both were built, and the AppImages, Mac apps, Flatpaks and the Windows
+single EXE by a final `publish` job that waited for every architecture. A
+cancelled run attached nothing at all, because those collecting jobs never
+started.
+
+Now every job that builds a release file attaches it, with its `.sha256sum`, as
+its own last step through `releases/github-release-upload.sh` (retried, bounded,
+verified by name and size; it no longer needs GNU `timeout`, so it also runs on
+the macOS runners and in Windows Git Bash). `build-amd64` creates the release
+with `releases/ensure-github-release.sh` right before attaching the first file,
+so a run whose amd64 build fails still publishes no release. The `release` job
+writes the notes and checks both base bundles are there; it uploads nothing.
+
+The attach steps run on `always()` plus their build step's success, so a cancel
+that arrives after a build still attaches its file. The final jobs - release
+notes, what is still missing, and the AppImage, Mac and Flatpak summaries and
+Flatpak repository - run on `always()` while still requiring the release to
+exist. `tests/releaseAttachOwnFiles.test.cjs` pins both, with negative tests
+that no job collects other jobs' files and uploads them at the end, and that no
+attach step or final job is skipped by cancellation.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.18 2026-10-04 WeKan ® release
 
 **In short:** Updates **Sharp** image processing and development dependencies,
