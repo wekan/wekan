@@ -1808,6 +1808,30 @@ used.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Updates **Sharp** image processing and development dependencies,
+including the **MongoDB driver** used by the browser tests, **Chai** assertions
+and **TypeScript ESLint** tooling.
+
+This release updates the following dependencies:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/17d8f838cb">Update image processing and development dependencies</a>. Thanks to dependabot.</summary>
+
+- **[Sharp 0.35.4 → 0.35.5](https://github.com/wekan/wekan/commit/a688411bbe37e5a9a3e303a24673e85b8620e7c9)** — image processing.
+- **[MongoDB 7.6.0 → 7.7.0](https://github.com/wekan/wekan/commit/0c5617c0e07e83612b8a2512de436eeb2644ffc5)** — root development dependency.
+- **[MongoDB 7.6.0 → 7.7.0 for Playwright](https://github.com/wekan/wekan/commit/41840dd32400f719f7d968d254b721950e774afd)** — browser-test database helpers.
+- **[Chai 6.2.2 → 6.3.0](https://github.com/wekan/wekan/commit/56bd2fbbfec6d8e436cb5eb76a4bbbee3da6411e)** — test assertions.
+- **[@typescript-eslint/parser 8.70.1 → 8.71.0](https://github.com/wekan/wekan/commit/69c55764a71ebc22f263d8e3a92b860465e4478c)** — TypeScript parsing for lint checks.
+- **[@typescript-eslint/eslint-plugin 8.70.1 → 8.71.0](https://github.com/wekan/wekan/commit/66db856dbf4efb5f22d7f1017f2f3f703c6e1a19)** — TypeScript lint rules.
+
+Thanks to dependabot.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.17 2026-10-03 WeKan ® release
 
 **In short:** Fixes **SamlSubjectBleed** by binding SAML accounts to their
