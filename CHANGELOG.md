@@ -1810,16 +1810,53 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** **LDAP** logins accept members of **nested Active Directory
-groups** again, now through the group filter instead of around it. Every
-**release file** now appears on the GitHub Release as soon as the job that
-built it has finished and checked it, and **cancelling a release run** keeps
-every file that had already finished building.
+**In short:** Every **login environment variable** can now be overridden in
+**Admin Panel / People**, in a section per login method, with passwords never
+sent to the browser - and the **LDAP** overrides, which never applied before,
+now do. **LDAP** logins accept members of **nested Active Directory groups**.
+Every **release file** now appears on the GitHub Release as soon as its job has
+built and checked it, also when the run is cancelled.
 
-This release fixes the following bug:
+This release adds the following new feature:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/dc2e7592a3">LDAP: accept members of nested Active Directory groups with LDAP_GROUP_FILTER_NESTED</a>. Thanks to rmb82 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/eb49a4b1b6">Override every login environment variable in Admin Panel / People, one section per login method</a>. Thanks to xet7.</summary>
+
+People now has a section for **LDAP**, **OAuth2** (OpenID Connect, Oracle
+OIM), **CAS** and **Header login**, beside SAML, OAuth login providers and
+Passwordless, and the **Login** pane has `PASSWORD_LOGIN_ENABLED` and
+`ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS`. Each field is labelled with its
+environment variable and says whether the Admin Panel's value, the
+variable's or the default is in effect; an empty field gives the variable
+back. `models/lib/authConfigCatalog.js` lists all 103 variables, and
+`server/lib/authConfig.js` resolves each at run time for the app and the
+wekan-ldap, wekan-oidc and wekan-accounts-cas packages, so a change applies to
+the next login. OAuth2 and CAS service configurations and LDAP background sync
+are reapplied on save; the login expiry applies from the next start.
+
+`LDAP_AUTHENTIFICATION_PASSWORD` and `OAUTH2_SECRET` never reach the browser:
+the page learns only whether one is set and where it comes from, and a typed
+one is cleared from the form after saving. Other values have a password
+written inside a URL masked on the server, and URL fields refuse credentials.
+
+Every variable is now listed in the Dockerfile, docker-compose files, snap
+config and help, and `start-wekan.sh` / `.bat`; 14 were missing.
+`tests/authConfigCatalog.test.cjs` pins resolution, secrets, input and platform
+coverage, and across the whole tree that no code reads a login variable outside
+the catalog or straight from `process.env`.
+`tests/playwright/specs/admin-login-env-overrides.e2e.js` saves an override and
+a secret through the pages and refuses an ordinary user; it passes in Chromium,
+WebKit and Firefox.
+
+</details>
+
+and fixes the following bugs:
+
+**LDAP login** - who gets in through a directory group, and whether the Admin
+Panel's LDAP settings are used at all.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dc2e7592a3">Accept members of nested Active Directory groups with LDAP_GROUP_FILTER_NESTED</a>. Thanks to rmb82 and xet7.</summary>
 
 Since v12.08 (DirectoryGroupBleed) `LDAP_USER_AUTHENTICATION=true` logins check
 `LDAP_GROUP_FILTER_ENABLE`; before it, every directory user got in. The check
@@ -1845,6 +1882,33 @@ check direct membership without the setting, refusal when no allowed group is
 found, no search for an unnamed user, an escaped hostile DN, and that every
 member clause in `ldap.js` goes through `groupMemberClause`. There is no browser
 test, because the browser suite has no Active Directory server to log in to.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eb49a4b1b6">Admin Panel LDAP settings are used, and Test connection exists</a>. Thanks to xet7.</summary>
+
+The eight LDAP settings the Admin Panel offered never applied: the server read
+them with a `Settings.findOne()`, which Meteor 3 refuses on the server, and the
+error was swallowed, so LDAP silently used the environment variables. The
+settings are now held in an observed cache. **Test connection** answered only
+"Method not found", because `testConnection.js` was never loaded, and it used
+the synchronous `Meteor.user()` Meteor 3 refuses. Whole-tree tests now fail on
+either call in server code. Test connection still reports success without a
+real connection when no service account (`LDAP_AUTHENTIFICATION`) is set.
+
+</details>
+
+**Other login methods** - settings that did not do what they said.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eb49a4b1b6">CAS_VALIDATE_URL, PROPAGATE_OIDC_DATA=false and three snap help keys work as documented</a>. Thanks to xet7.</summary>
+
+CAS read only the misspelling `CASE_VALIDATE_URL`; `CAS_VALIDATE_URL` now
+works, and the old name still does. `PROPAGATE_OIDC_DATA=false` turned the
+feature on, because any non-empty value did. `snap help` showed
+`ldap-group-filter-group-id-attribute`, `-group-member-attribute` and
+`-group-member-format`, which `snap set` does not know; it shows the real keys.
 
 </details>
 
