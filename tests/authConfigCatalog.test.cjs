@@ -164,7 +164,6 @@ const ELSEWHERE = [
   [/^SAML_/, 'models/lib/samlConfig.js (Admin Panel / People / SAML)'],
   [/^OAUTH_(GOOGLE|GITHUB|FACEBOOK|TWITTER|METEOR_DEVELOPER|WEIBO|MEETUP|PROVIDERS)/, 'models/lib/oauthProviders.js (People / OAuth login providers)'],
   [/^PASSWORDLESS_ENABLED$/, 'People / Passwordless login'],
-  [/^DEFAULT_AUTHENTICATION_METHOD$/, 'People / Login, Default Authentication Method'],
   [/^ACCOUNTS_LOCKOUT_/, 'People / Locked Users (lockoutSettings)'],
   [/^INTERNAL_LOG_LEVEL$/, 'deprecated, has no effect'],
 ];
@@ -327,4 +326,140 @@ test('negative, whole tree: no server code calls the synchronous Meteor.user()',
     || /_server\.js$/.test(file));
   const offenders = serverFiles.filter(file => /\bMeteor\.user\(\)/.test(stripComments(read(file))));
   assert.deepEqual(offenders, [], 'Meteor 3 refuses it on the server; use await Meteor.userAsync()');
+});
+
+test('secrets: <NAME>_FILE gives the secret without it ever being an environment variable', () => {
+  const files = {'/run/secrets/ldap': 'from-file\n', '/run/secrets/crlf': 'p@ss word \r\n', '/run/secrets/empty': '\n'};
+  const readFile = file => { if (!(file in files)) throw Object.assign(new Error('nope'), {code: 'ENOENT'}); return files[file]; };
+  const resolve = (doc, env) => resolveAuthEnv('LDAP_AUTHENTIFICATION_PASSWORD', doc, env, {readFile});
+  assert.equal(resolve({}, {LDAP_AUTHENTIFICATION_PASSWORD_FILE: '/run/secrets/ldap'}), 'from-file',
+    'the trailing line break of a secret file is not part of the password');
+  assert.equal(resolve({}, {LDAP_AUTHENTIFICATION_PASSWORD_FILE: '/run/secrets/crlf'}), 'p@ss word ',
+    'but every other character is, spaces included');
+  assert.equal(resolve({}, {LDAP_AUTHENTIFICATION_PASSWORD: 'direct', LDAP_AUTHENTIFICATION_PASSWORD_FILE: '/run/secrets/ldap'}), 'direct',
+    'the variable itself wins over its file, as in the OAuth providers');
+  assert.equal(resolve({ldap: {bindPassword: 'admin'}}, {LDAP_AUTHENTIFICATION_PASSWORD_FILE: '/run/secrets/ldap'}), 'admin',
+    'and the Admin Panel over both');
+  for (const file of ['/run/secrets/missing', '/run/secrets/empty']) {
+    assert.equal(resolve({}, {LDAP_AUTHENTIFICATION_PASSWORD_FILE: file}), undefined, `${file}: no password, never the path`);
+  }
+  assert.equal(resolveAuthEnv('OAUTH2_SECRET', {}, {OAUTH2_SECRET_FILE: '/run/secrets/ldap'}, {readFile}), 'from-file');
+});
+
+test('secrets: the Admin Panel learns that a file is used or unreadable - never its path or content', () => {
+  const readFile = file => { if (file === '/s/ok') return 'TOPSECRET\n'; throw Object.assign(new Error('EACCES /s/denied'), {code: 'EACCES'}); };
+  const ok = authConfigSources('oidc', {}, {OAUTH2_SECRET_FILE: '/s/ok'}, {readFile});
+  assert.deepEqual(ok.sources.secret, {source: 'file', hasValue: true});
+  const bad = authConfigSources('ldap', {}, {LDAP_AUTHENTIFICATION_PASSWORD_FILE: '/s/denied'}, {readFile});
+  assert.deepEqual(bad.sources.bindPassword, {source: 'file-error', hasValue: false});
+  const json = JSON.stringify([ok, bad]);
+  assert.ok(!json.includes('TOPSECRET') && !json.includes('/s/'), json);
+});
+
+test('secrets: a real file on disk is read at each call, so a rotated secret applies', () => {
+  const dir = fs.mkdtempSync(path.join(ROOT, '.tools', 'tmp', 'authsecret-'));
+  try {
+    const file = path.join(dir, 'ldap_auth_password');
+    fs.writeFileSync(file, 'first\n', {mode: 0o600});
+    const env = {LDAP_AUTHENTIFICATION_PASSWORD_FILE: file};
+    assert.equal(resolveAuthEnv('LDAP_AUTHENTIFICATION_PASSWORD', {}, env), 'first');
+    fs.writeFileSync(file, 'second\n');
+    assert.equal(resolveAuthEnv('LDAP_AUTHENTIFICATION_PASSWORD', {}, env), 'second');
+  } finally {
+    fs.rmSync(dir, {recursive: true, force: true});
+  }
+});
+
+test('negative: a <NAME>_FILE path cannot be set from the Admin Panel', () => {
+  // Settable there together with the LDAP host or the OAuth2 token endpoint, a
+  // path would make the server read any file and send it to that server as the
+  // password. It is an environment variable only.
+  for (const {fields} of Object.values(AUTH_CONFIG_SECTIONS)) {
+    for (const field of fields) assert.ok(!/_FILE$/.test(field.envVar), `${field.envVar} must not be an Admin Panel field`);
+  }
+  for (const [section, key] of [['ldap', 'bindPasswordFile'], ['oidc', 'secretFile'], ['ldap', 'LDAP_AUTHENTIFICATION_PASSWORD_FILE']]) {
+    assert.throws(() => cleanAuthConfigInput(section, {[key]: '/etc/shadow'}), TypeError);
+  }
+  assert.deepEqual(VARS.filter(v => /_FILE$/.test(v)).sort(), ['LDAP_AUTHENTIFICATION_PASSWORD_FILE', 'OAUTH2_SECRET_FILE'],
+    'and the platforms list the file variables of both login secrets');
+});
+
+test('DEFAULT_AUTHENTICATION_METHOD: an Admin Panel choice overrides the variable, Default leaves it', () => {
+  const {resolveDefaultAuthenticationMethod} = loadAuthenticationMethod();
+  // As server/models/settings.js applyDefaultAuthenticationMethod computes it.
+  const effective = (doc, env) => resolveDefaultAuthenticationMethod(
+    resolveAuthEnv('DEFAULT_AUTHENTICATION_METHOD', doc, env), undefined);
+  assert.equal(effective({loginOptions: {defaultAuthenticationMethod: 'ldap'}}, {DEFAULT_AUTHENTICATION_METHOD: 'oauth2'}), 'ldap');
+  assert.equal(effective({}, {DEFAULT_AUTHENTICATION_METHOD: 'OAUTH2'}), 'oauth2', 'Default: the variable, as before');
+  // Choosing Default again really gives the variable - or 'password' - back.
+  // It used to fall back to the stored value, which is the override just
+  // removed, so Default changed nothing.
+  assert.equal(effective({loginOptions: {defaultAuthenticationMethod: ''}}, {}), 'password');
+  assert.equal(effective({}, {}), 'password');
+  assert.match(read('server/models/settings.js'),
+    /resolveDefaultAuthenticationMethod\(authEnv\('DEFAULT_AUTHENTICATION_METHOD'\), undefined\)/,
+    'the published value is computed without the stored one');
+  for (const bad of ['', 'LDAP', 'root', 42]) {
+    if (bad === '') { assert.deepEqual(cleanAuthConfigInput('login', {defaultAuthenticationMethod: bad}).unset, {'loginOptions.defaultAuthenticationMethod': ''}); continue; }
+    assert.throws(() => cleanAuthConfigInput('login', {defaultAuthenticationMethod: bad}), TypeError, String(bad));
+  }
+  // The published value follows the effective one at start and on every save,
+  // instead of the variable rewriting it at every start.
+  const settings = read('server/models/settings.js');
+  assert.match(settings, /onAuthConfigChange\('login', applyDefaultAuthenticationMethod\)/);
+  const startup = settings.slice(settings.indexOf("Meteor.startup(async () => {\n  await ensureIndex(Settings"));
+  assert.ok(!/defaultAuthenticationMethod: envDefaultAuthenticationMethod/.test(startup),
+    'the start no longer writes the variable over an Admin Panel choice');
+  assert.ok(!/selectAuthenticationMethod/.test(read('client/components/settings/settingBody.jade')),
+    'one control for it - the login settings form - not a second dropdown that the start overwrote');
+});
+
+function loadAuthenticationMethod() {
+  // An ES module with `export {}`; evaluated as CommonJS for the test.
+  const src = read('models/lib/authenticationMethod.js').replace(/export \{[\s\S]*?\};?\s*$/, '');
+  const m = {exports: {}};
+  new Function('module', 'exports', `${src}\nmodule.exports = { normalizeAuthenticationMethod, resolveDefaultAuthenticationMethod, migratedDefaultAuthenticationMethod };`)(m, m.exports);
+  return m.exports;
+}
+
+test('upgrade: a method chosen with the old dropdown becomes the override, once', () => {
+  const {migratedDefaultAuthenticationMethod: migrate} = loadAuthenticationMethod();
+  assert.equal(migrate({stored: 'ldap'}), 'ldap', 'an administrator\'s choice is kept');
+  assert.equal(migrate({stored: 'CAS '}), 'cas');
+  // Negative: nothing is invented.
+  assert.equal(migrate({stored: 'password'}), undefined, 'the seeded default is not a choice');
+  assert.equal(migrate({stored: undefined}), undefined);
+  assert.equal(migrate({stored: 'ldap', environment: 'oauth2'}), undefined,
+    'with the variable set, the stored value was the variable\'s - the start wrote it');
+  assert.equal(migrate({stored: 'ldap', override: 'saml'}), undefined, 'an override already made stays');
+  // Once: the flag is set whatever the outcome, so clearing the override later
+  // is not undone by the next start.
+  const settings = read('server/models/settings.js');
+  const body = settings.slice(settings.indexOf('export async function applyDefaultAuthenticationMethod'));
+  assert.match(body, /defaultAuthenticationMethodMigrated !== true/);
+  assert.match(body, /const set = \{ 'loginOptions\.defaultAuthenticationMethodMigrated': true \}/);
+});
+
+test('wekan-ldap binds with the password from LDAP_AUTHENTIFICATION_PASSWORD_FILE', () => {
+  const vm = require('node:vm');
+  const dir = fs.mkdtempSync(path.join(ROOT, '.tools', 'tmp', 'ldapsecret-'));
+  try {
+    const file = path.join(dir, 'ldap_auth_password');
+    fs.writeFileSync(file, 's3cr3t-from-docker-secret\n', {mode: 0o600});
+    const env = {LDAP_HOST: 'ldap.example', LDAP_AUTHENTIFICATION: 'true', LDAP_AUTHENTIFICATION_PASSWORD_FILE: file};
+    const ldapDir = path.join(ROOT, 'packages/wekan-ldap/server');
+    const context = vm.createContext({process: {env}, Buffer, console,
+      Log: {info() {}, warn() {}, error() {}, debug() {}}, log_debug() {}, log_info() {},
+      normalizeLdapEncryption: () => ({mode: 'off'}),
+      ...require(path.join(ldapDir, 'groupFilterConfig')), ...require(path.join(ldapDir, 'userCredentials'))});
+    context.__wekanAuthEnv = name => resolveAuthEnv(name, {}, env);
+    vm.runInContext(read('packages/wekan-ldap/server/ldap.js').replace(/^import[\s\S]*?;\n/gm, '')
+      .replace(/export function /g, 'function ').replace('export default class LDAP', 'class LDAP')
+      + '\nglobalThis.LDAP=LDAP;', context);
+    const options = new context.LDAP().options;
+    assert.equal(options.Authentication_Password, 's3cr3t-from-docker-secret');
+    assert.ok(!Object.values(env).includes('s3cr3t-from-docker-secret'), 'and the password was never put in the environment');
+  } finally {
+    fs.rmSync(dir, {recursive: true, force: true});
+  }
 });

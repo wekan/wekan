@@ -949,7 +949,7 @@ KEY_WAIT_SPINNER="wait-spinner"
 # Docker Compose Secrets Support
 DESCRIPTION_LDAP_AUTHENTIFICATION_PASSWORD_FILE="LDAP authentication password file (Docker secrets). Example: /run/secrets/ldap_auth_password"
 DEFAULT_LDAP_AUTHENTIFICATION_PASSWORD_FILE=""
-KEY_LDAP_AUTHENTIFICATION_PASSWORD_FILE="ldap-authentification-password-file"
+KEY_LDAP_AUTHENTIFICATION_PASSWORD_FILE="ldap-authentication-password-file"
 
 DESCRIPTION_OAUTH2_SECRET_FILE="OAuth2 secret file (Docker secrets). Example: /run/secrets/oauth2_secret"
 DEFAULT_OAUTH2_SECRET_FILE=""

@@ -38,7 +38,22 @@ function resolveDefaultAuthenticationMethod(preferred, current, fallback = 'pass
   );
 }
 
+// Once, on upgrade to the Admin Panel override of DEFAULT_AUTHENTICATION_METHOD:
+// the method the old Login dropdown stored becomes the override when it was
+// the administrator's choice - not 'password' (the seeded default), and not
+// with the environment variable set (the start then overwrote the dropdown, so
+// the stored value was the variable's). Returns the method to keep as the
+// override, or undefined.
+function migratedDefaultAuthenticationMethod({ stored, override, environment }) {
+  const method = normalizeAuthenticationMethod(stored);
+  if (!method || method === 'password') return undefined;
+  if (normalizeAuthenticationMethod(override)) return undefined;
+  if (normalizeAuthenticationMethod(environment)) return undefined;
+  return method;
+}
+
 export {
   normalizeAuthenticationMethod,
   resolveDefaultAuthenticationMethod,
+  migratedDefaultAuthenticationMethod,
 };

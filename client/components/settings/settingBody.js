@@ -11,7 +11,6 @@ import Settings from '/models/settings';
 // Multitenancy option D: the per-tenant Global Admin rules, shared with the server
 // (docs/Design/Multitenancy/Multitenancy.md).
 import * as tenantAdmin from '/models/lib/tenantAdmin';
-import { resolveDefaultAuthenticationMethod } from '/models/lib/authenticationMethod';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 // The per-pane URLs of the Admin Panel. docs/Features/Page/Admin-Panel-URLs.md
 import { adminPath } from '/models/lib/adminUrls';
@@ -1237,33 +1236,6 @@ Template.accessibilitySettings.events({
   },
 });
 
-Template.selectAuthenticationMethod.onCreated(function () {
-  this.authenticationMethods = new ReactiveVar([]);
-
-  Meteor.call('getAuthenticationsEnabled', (_, result) => {
-    if (result) {
-      // TODO : add a management of different languages
-      // (ex {value: ldap, text: TAPi18n.__('ldap', {}, T9n.getLanguage() || 'en')})
-      this.authenticationMethods.set([
-        { value: 'password' },
-        // Gets only the authentication methods availables
-        ...Object.entries(result)
-          .filter((e) => e[1])
-          .map((e) => ({ value: e[0] })),
-      ]);
-    }
-  });
-});
-
-Template.selectAuthenticationMethod.helpers({
-  authentications() {
-    return Template.instance().authenticationMethods.get();
-  },
-  isSelected(match) {
-    return Template.instance().data.authenticationMethod === match;
-  },
-});
-
 Template.selectSpinnerName.onCreated(function () {
   // What the PREVIEW shows. Kept separate from the `selected` attribute of the
   // options - which still comes from the saved setting - so changing the dropdown
@@ -1414,25 +1386,14 @@ Template.general.events({
       });
     }
   },
-  // Login pane: the two FIELDS at the bottom - the default authentication method and
-  // the OIDC button text. The five allow-toggles above save on click, so this button
-  // no longer reads them: it used to read three Yes/No radios that no longer exist.
+  // Login pane: the OIDC button text at the bottom. The allow-toggles above save on
+  // click, and the default authentication method is DEFAULT_AUTHENTICATION_METHOD
+  // in the login settings form, saved with saveAuthConfigSettings - which never
+  // writes an empty value over the stored method (server/models/settings.js
+  // applyDefaultAuthenticationMethod falls back to it).
   'click button.js-account-access-save'() {
-    // Each is written only when its input is actually on screen.
+    // Written only when its input is actually on screen.
     const $settings = {};
-    if ($('#defaultAuthenticationMethod').length) {
-      // value can still be '' / null when Save is clicked. Saving that empty value
-      // over the required `defaultAuthenticationMethod` string silently failed
-      // validation, so the Layout save looked like it hung / did nothing. Fall back
-      // to the currently stored method so a real value is never overwritten by ''.
-      const currentDefaultAuthenticationMethod =
-        ReactiveCache.getCurrentSetting()?.defaultAuthenticationMethod;
-      const defaultAuthenticationMethod = resolveDefaultAuthenticationMethod(
-        $('#defaultAuthenticationMethod').val(),
-        currentDefaultAuthenticationMethod,
-      );
-      $settings.defaultAuthenticationMethod = defaultAuthenticationMethod;
-    }
     if ($('#oidcBtnTextvalue').length) {
       $settings.oidcBtnText = ($('#oidcBtnTextvalue').val() || '').trim();
     }

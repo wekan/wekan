@@ -587,6 +587,18 @@ Before this, the LDAP page offered only eight settings, and none of them
 applied: the server read them with a call Meteor 3 refuses, and fell back to
 the environment variables without saying so.
 
+### Bind password from a file
+
+`LDAP_AUTHENTIFICATION_PASSWORD_FILE` names a file that holds the search user's
+password - a Docker or Kubernetes secret mounted as a file, for example
+`/run/secrets/ldap_auth_password`. WeKan reads it at each login, so the password
+is never an environment variable, and a rotated file applies to the next
+login. One trailing line break is ignored. `LDAP_AUTHENTIFICATION_PASSWORD`, when
+set, wins over the file, and a password saved in Admin Panel / People / LDAP
+wins over both; the page shows which one is used, and when the file cannot be
+read. On the snap: `snap set wekan
+ldap-authentication-password-file='/var/snap/wekan/common/secrets/ldap_auth_password'`.
+
 ### Active Directory nested groups
 
 `LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE=member` matches only DIRECT members of

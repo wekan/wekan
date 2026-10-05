@@ -399,8 +399,11 @@ test('the moved settings still see their values, and are written on click', () =
   const save = handler('js-account-access-save');
   assert.ok(!/allowUserNameChange|allowUserDelete|displayAuthenticationMethod/.test(save),
     'the Save must not still read radios that no longer exist');
-  assert.ok(/defaultAuthenticationMethod/.test(save) && /oidcBtnTextvalue/.test(save),
-    'it writes the method dropdown and the OIDC button text');
+  // The default authentication method left this Save: it is
+  // DEFAULT_AUTHENTICATION_METHOD in the login settings form, which can
+  // override the environment variable (models/lib/authConfigCatalog.js).
+  assert.ok(!/defaultAuthenticationMethod/.test(save) && /oidcBtnTextvalue/.test(save),
+    'it writes the OIDC button text, and the method no longer');
   // The settings still live in AccountSettings; only where they are SHOWN changed.
   assert.ok(/Meteor\.subscribe\('accountSettings'\)/.test(js),
     'the subscription must stay - the collection is unchanged');
@@ -532,7 +535,11 @@ test('the invite-domain label says what the setting does', () => {
 test('the authentication-method settings moved to Login', () => {
   const login = jade.slice(jade.indexOf('ul#registration-setting'), jade.indexOf("template(name='email')"));
   assert.ok(login.includes('display-authentication-method'), 'the Yes/No is in Login');
-  assert.ok(login.includes('+selectAuthenticationMethod'), 'the method dropdown with it');
+  // The method is the login settings form's DEFAULT_AUTHENTICATION_METHOD,
+  // drawn right under this pane (peopleBody.jade), not a dropdown of its own.
+  assert.ok(!login.includes('selectAuthenticationMethod'), 'no second method dropdown');
+  assert.match(read('client/components/settings/peopleBody.jade'),
+    /\+general\n\s*\+authProviderSettings\(loginOptionsData\)/, 'the login settings form is in Login');
   assert.ok(!pwa.includes('display-authentication-method'), 'not in PWA');
   assert.ok(!pwa.includes('selectAuthenticationMethod'), 'dropdown not in PWA');
 });
@@ -540,13 +547,12 @@ test('the authentication-method settings moved to Login', () => {
 test('the Login save keeps the empty-value guard the Layout save had', () => {
   assert.ok(!js.includes('js-save-layout'), 'the Layout save is gone');
   const body = handler('js-account-access-save');
-  // The dropdown can read '' when nothing is chosen; saving that over the
-  // REQUIRED defaultAuthenticationMethod string fails validation silently, which
-  // is why the fallback exists. It had to travel with the setting.
-  assert.ok(/resolveDefaultAuthenticationMethod\(/.test(body),
-    'the fallback to the stored method must come along');
-  assert.ok(/\$\('#defaultAuthenticationMethod'\)\.length/.test(body),
-    'and it writes only when the dropdown is on screen');
+  // The method's empty-value guard moved with the method: an empty choice in
+  // the login settings form means "no override", and the server falls back to
+  // the stored method rather than writing '' over the REQUIRED string.
+  assert.match(read('server/models/settings.js'),
+    /resolveDefaultAuthenticationMethod\(authEnv\('DEFAULT_AUTHENTICATION_METHOD'\), undefined\)/,
+    'and never an empty value: no choice falls back to the variable, then to password');
   // The second field of this Save is the OIDC button text, and it is guarded the
   // same way. The Yes/No radio this used to check is not in this pane at all -
   // "display the authentication method" is a checkbox with its own click handler

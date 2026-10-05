@@ -74,6 +74,10 @@ async function reload() {
   current = (await Settings.findOneAsync({}, { fields: FIELDS })) || null;
 }
 
+// For a writer outside saveAuthConfigSettings (a one-time migration) that
+// needs authEnv to see its change at once rather than when the observer runs.
+export const reloadAuthConfig = reload;
+
 Meteor.startup(async () => {
   try {
     await reload();

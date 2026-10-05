@@ -17,7 +17,7 @@ import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import RecoveryEvents from '/models/recoveryEvents';
 import { recordRecoveryAudit } from '/server/lib/recoveryAudit';
-import { authEnv } from '/server/lib/authConfig';
+import { authEnv, onAuthConfigChange, reloadAuthConfig } from '/server/lib/authConfig';
 // ErrorBleed: refusals answer with their real status and a safe message.
 const { publicErrorData } = require('/server/lib/apiResponseHelpers');
 const { buildOauthLogoutUrl } = require('/server/lib/oauthLogoutUrl');
@@ -75,6 +75,7 @@ const { isSupportedMailService, mailServiceStorageKey } = require('/models/lib/m
 const {
   normalizeAuthenticationMethod,
   resolveDefaultAuthenticationMethod,
+  migratedDefaultAuthenticationMethod,
 } = require('/models/lib/authenticationMethod');
 
 const isSandstorm =
@@ -223,15 +224,48 @@ function isApiEnabled() {
   return process.env.WITH_API === 'true' || process.env.WITH_API === true;
 }
 
+// The login page reads the published `defaultAuthenticationMethod`. It is the
+// Admin Panel / People / Login choice when one is made there, otherwise
+// DEFAULT_AUTHENTICATION_METHOD, otherwise 'password' - so choosing Default
+// again really gives the variable back. Before, the variable rewrote the
+// stored value on every start, so an administrator's choice did not survive a
+// restart whenever it was set. Applied once the login settings are read at
+// start, and after each save.
+//
+// Once, on upgrade: a method chosen with the old Login dropdown, with no
+// variable set, was the administrator's choice (with the variable set, the
+// start overwrote it), so it becomes the override instead of being lost.
+export async function applyDefaultAuthenticationMethod() {
+  const setting = await Settings.findOneAsync({}, { fields: { defaultAuthenticationMethod: 1, loginOptions: 1 } });
+  if (!setting) return;
+  const options = setting.loginOptions || {};
+  if (options.defaultAuthenticationMethodMigrated !== true) {
+    const set = { 'loginOptions.defaultAuthenticationMethodMigrated': true };
+    const keep = migratedDefaultAuthenticationMethod({
+      stored: setting.defaultAuthenticationMethod,
+      override: options.defaultAuthenticationMethod,
+      // With no override stored, authEnv answers with the variable.
+      environment: options.defaultAuthenticationMethod ? undefined : authEnv('DEFAULT_AUTHENTICATION_METHOD'),
+    });
+    if (keep) set['loginOptions.defaultAuthenticationMethod'] = keep;
+    await Settings.updateAsync(setting._id, { $set: set });
+    await reloadAuthConfig();
+  }
+  const effective = resolveDefaultAuthenticationMethod(authEnv('DEFAULT_AUTHENTICATION_METHOD'), undefined);
+  if (effective !== setting.defaultAuthenticationMethod) {
+    await Settings.updateAsync(setting._id, { $set: { defaultAuthenticationMethod: effective } });
+  }
+}
+onAuthConfigChange('login', applyDefaultAuthenticationMethod);
+
 Meteor.startup(async () => {
   await ensureIndex(Settings, { modifiedAt: -1 });
   const setting = await getReactiveCache().getCurrentSetting();
-  // #5879: honour the DEFAULT_AUTHENTICATION_METHOD env var. It used to be
-  // ignored (settings only ever seeded 'password'), so operators configuring it
-  // via Kubernetes/Helm saw no effect. When set it is authoritative, so the
-  // default login method can be configured by env without the Admin Panel.
+  // #5879: honour DEFAULT_AUTHENTICATION_METHOD (it used to be ignored). The
+  // stored setting is kept in sync by applyDefaultAuthenticationMethod() below;
+  // a new install is seeded with it here.
   const envDefaultAuthenticationMethod = normalizeAuthenticationMethod(
-    process.env.DEFAULT_AUTHENTICATION_METHOD,
+    authEnv('DEFAULT_AUTHENTICATION_METHOD'),
   );
   // CARDS_LOADING env: 'lazy' or 'all' (anything else / unset → undefined = leave
   // to the stored setting, defaulting to 'all'). Like DEFAULT_AUTHENTICATION_METHOD,
@@ -263,15 +297,6 @@ Meteor.startup(async () => {
         resolveDefaultAuthenticationMethod(envDefaultAuthenticationMethod, undefined),
     };
     await Settings.insertAsync(defaultSetting);
-  } else if (
-    envDefaultAuthenticationMethod &&
-    setting.defaultAuthenticationMethod !== envDefaultAuthenticationMethod
-  ) {
-    // Existing install: keep the stored setting in sync with the env var so it
-    // wins on every startup (the operator's env is the source of truth).
-    await Settings.updateAsync(setting._id, {
-      $set: { defaultAuthenticationMethod: envDefaultAuthenticationMethod },
-    });
   }
   // #6116 split: the single "same Organization OR Team" restriction became one
   // setting per kind, shown in Admin Panel / People / Organizations and / Teams. An
@@ -796,7 +821,7 @@ Meteor.methods({
   },
 
   getDefaultAuthenticationMethod() {
-    return process.env.DEFAULT_AUTHENTICATION_METHOD;
+    return authEnv('DEFAULT_AUTHENTICATION_METHOD');
   },
 
   isPasswordLoginEnabled() {

@@ -25,6 +25,12 @@
 // client (field lists only) and by plain-Node tests.
 
 const { redactCredentialsInUrl } = require('./configResolver');
+const { OAUTH_PROVIDERS } = require('./oauthProviders');
+
+// What DEFAULT_AUTHENTICATION_METHOD may name: the keys the login form uses
+// (server/models/settings.js getAuthenticationsEnabled), password included.
+const AUTHENTICATION_METHODS = ['password', 'ldap', 'oauth2', 'cas', 'saml', 'passwordless',
+  ...OAUTH_PROVIDERS.map(provider => provider.key)];
 
 // [key, envVar, type, options]. `key` is the field name inside the section's
 // Settings sub-document; LDAP keeps the names its first eight fields and the
@@ -159,6 +165,9 @@ const SECTIONS = {
     storage: 'loginOptions',
     fields: [
       ['passwordLoginEnabled', 'PASSWORD_LOGIN_ENABLED', 'boolean', { defaultValue: true }],
+      // Chosen here, it wins over the environment variable; left at Default,
+      // the variable decides, as it always did (#5879).
+      ['defaultAuthenticationMethod', 'DEFAULT_AUTHENTICATION_METHOD', 'choice', { choices: AUTHENTICATION_METHODS, defaultValue: 'password' }],
       ['loginExpirationInDays', 'ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS', 'number', { defaultValue: 90, restart: true }],
     ],
   },
@@ -173,6 +182,12 @@ for (const [section, { storage, fields }] of Object.entries(SECTIONS)) {
       const field = {
         key, envVar, type, section, storage,
         secret: type === 'secret',
+        // A secret can also come from a file named by <NAME>_FILE (Docker /
+        // Kubernetes secrets), so the password is never in the environment.
+        // That path is an environment variable only, deliberately: settable
+        // in the Admin Panel, together with the LDAP host or the OAuth2 token
+        // endpoint, it would make the server read any file and send it there.
+        fileVar: type === 'secret' ? `${envVar}_FILE` : null,
         choices: options.choices || null,
         aliases: options.aliases || [],
         defaultValue: options.defaultValue === undefined ? null : options.defaultValue,
@@ -210,10 +225,33 @@ function asEnvString(value) {
   return String(value);
 }
 
+function defaultReadFile(file) {
+  // Required lazily: the client loads this catalog for its field lists and
+  // never reaches a secret.
+  // eslint-disable-next-line global-require
+  return require('fs').readFileSync(file, 'utf8');
+}
+
+// The secret in the file <NAME>_FILE names. A secret file ends with a line
+// break more often than not; that is not part of the password, any other
+// character is. { value } when the file has one, { error } when it cannot be
+// read, {} when the variable is not set.
+function secretFromFile(field, env, readFile = defaultReadFile) {
+  const file = env[field.fileVar];
+  if (isUnset(file)) return {};
+  try {
+    const value = String(readFile(String(file))).replace(/(\r?\n)+$/, '');
+    return value === '' ? { error: 'empty' } : { value };
+  } catch (e) {
+    return { error: e && e.code ? e.code : 'unreadable' };
+  }
+}
+
 // The effective value of a login environment variable: the Admin Panel
 // override when there is one, otherwise the environment (the variable itself,
-// then its older aliases). A name the catalog does not list is plain env.
-function resolveAuthEnv(name, doc, env = process.env) {
+// then its older aliases, and for a secret the file <NAME>_FILE names). A name
+// the catalog does not list is plain env.
+function resolveAuthEnv(name, doc, env = process.env, options = {}) {
   const field = BY_ENV_VAR[name];
   if (field) {
     const stored = adminValue(field, doc);
@@ -225,15 +263,24 @@ function resolveAuthEnv(name, doc, env = process.env) {
     for (const envName of [...field.aliases, field.envVar]) {
       if (!isUnset(env[envName])) return env[envName];
     }
+    if (field.fileVar) {
+      const fromFile = secretFromFile(field, env, options.readFile);
+      if (fromFile.value !== undefined) return fromFile.value;
+    }
     return env[field.envVar];
   }
   return env[name];
 }
 
-function sourceOf(field, doc, env) {
+function sourceOf(field, doc, env, readFile) {
   if (adminValue(field, doc) !== undefined) return 'admin';
   for (const envName of [field.envVar, ...field.aliases]) {
     if (!isUnset(env[envName])) return 'env';
+  }
+  if (field.fileVar) {
+    const fromFile = secretFromFile(field, env, readFile);
+    if (fromFile.value !== undefined) return 'file';
+    if (fromFile.error) return 'file-error';
   }
   return 'default';
 }
@@ -241,15 +288,18 @@ function sourceOf(field, doc, env) {
 // What the Admin Panel may see of one section. Secrets: only whether one is
 // set and where it comes from - never the value, from either source. Every
 // other value: redacted of credentials written inside a URL, on the server.
-function authConfigSources(section, doc, env = process.env) {
+// A secret from a file is reported as { source: 'file' }; a <NAME>_FILE that
+// cannot be read as { source: 'file-error' }, so the Admin Panel can say why a
+// login fails - the file's path and content are never part of the answer.
+function authConfigSources(section, doc, env = process.env, options = {}) {
   const spec = AUTH_CONFIG_SECTIONS[section];
   if (!spec) throw new TypeError(`Unknown login settings section: ${section}`);
   const overrides = {};
   const sources = {};
   for (const field of spec.fields) {
-    const source = sourceOf(field, doc, env);
+    const source = sourceOf(field, doc, env, options.readFile);
     if (field.secret) {
-      sources[field.key] = { source, hasValue: source !== 'default' };
+      sources[field.key] = { source, hasValue: !['default', 'file-error'].includes(source) };
       continue;
     }
     const stored = adminValue(field, doc);
@@ -351,9 +401,11 @@ function cleanValue(field, raw) {
   }
 }
 
-// Every variable the catalog knows, in order, for platform checks and docs.
+// Every variable the catalog knows, in order, for platform checks and docs -
+// the secrets' <NAME>_FILE variants included.
 function authConfigEnvVars() {
-  return Object.values(AUTH_CONFIG_SECTIONS).flatMap(section => section.fields.map(field => field.envVar));
+  return Object.values(AUTH_CONFIG_SECTIONS).flatMap(section => section.fields
+    .flatMap(field => (field.fileVar ? [field.envVar, field.fileVar] : [field.envVar])));
 }
 
 module.exports = {

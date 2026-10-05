@@ -38,9 +38,14 @@ Template.authProviderSettings.helpers({
         secretField,
         // The server reports a secret only as { source, hasValue }.
         secretStoredHere: secretField && source.source === 'admin',
+        // A secret's line names where it comes from - the Admin Panel, the
+        // variable, or the file <NAME>_FILE points at - and says so when that
+        // file cannot be read; the server never sends the value or the path.
         secretStatus: !secretField ? ''
+          : source.source === 'file-error' ? `${field.fileVar}: ${TAPi18n.__('error')}`
           : !source.hasValue ? TAPi18n.__('unset-color')
-          : `${TAPi18n.__('password')}: ${source.source === 'admin' ? TAPi18n.__('admin-panel') : field.envVar}`,
+          : `${TAPi18n.__('password')}: ${source.source === 'admin' ? TAPi18n.__('admin-panel')
+            : source.source === 'file' ? field.fileVar : field.envVar}`,
         choiceOptions: (field.choices || []).map(choice => ({ value: choice, selected: value === choice })),
         inherit: value === undefined, enabled: value === true, disabled: value === false,
         sourceLabel: source.source === 'admin' ? TAPi18n.__('admin-panel')

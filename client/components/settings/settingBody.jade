@@ -102,9 +102,9 @@ template(name="general")
               button.js-email-invite.primary {{_ 'invite'}}
             li
               #invite-people-infos
-      li.accounts-form
-        .title {{_ 'default-authentication-method'}}
-        +selectAuthenticationMethod(authenticationMethod=currentSetting.defaultAuthenticationMethod)
+      //- The default authentication method is DEFAULT_AUTHENTICATION_METHOD in
+      //- the login settings form below this pane (peopleBody.jade), where choosing
+      //- one overrides the environment variable and Default leaves it in charge.
       li.accounts-form
         .title {{_ 'oidc-button-text'}}
         .form-group
@@ -602,14 +602,6 @@ template(name='pwaSettings')
             textarea#custom-assetlinks-content.wekan-form-control(data-editor-submit=".js-custom-assetlinks-save")= customAssetLinksContentValue
           li
             button.js-custom-assetlinks-save.primary {{_ 'save'}}
-template(name='selectAuthenticationMethod')
-  select#defaultAuthenticationMethod
-    each authentications
-      if isSelected value
-        option(value="{{value}}" selected) {{_ value}}
-      else
-        option(value="{{value}}") {{_ value}}
-
 template(name='selectSpinnerName')
   //- The dropdown and a live preview of the spinner it names, side by side. When
   //- there is not enough room for both, the preview wraps BELOW the dropdown -
