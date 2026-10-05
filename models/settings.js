@@ -497,63 +497,22 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
-    // Admin Panel override of the LDAP_* environment variables (maintainer
-    // request: "Add all settings from environment variables to Admin Panel
-    // where appropriate ... as possibility to override"). Every field here is
-    // OPTIONAL and unset by default, so an install that has never touched
-    // Admin Panel -> LDAP keeps its current env-var-only behaviour unchanged -
-    // see models/lib/configResolver.js's resolveConfigValue()/hasConfigValue(),
-    // which an unset/empty admin field falls through to the LDAP_* env var for.
-    // `ldap.bindPassword` is the ONE field in this group that is never
-    // published to the client (see server/publications/settings.js) - only
-    // `ldap.bindPasswordSet` (a boolean) is, so the Admin Panel can show "a
-    // password is configured" without ever sending the password itself.
+    // Admin Panel override of the SAML_* environment variables
+    // (models/lib/samlConfig.js is the catalog).
     saml: { type: Object, optional: true, blackbox: true },
-    ldap: {
-      type: Object,
-      optional: true,
-    },
-    'ldap.enabled': {
-      type: Boolean,
-      optional: true,
-    },
-    'ldap.host': {
-      type: String,
-      optional: true,
-    },
-    'ldap.port': {
-      type: String,
-      optional: true,
-    },
-    'ldap.baseDN': {
-      type: String,
-      optional: true,
-    },
-    'ldap.authentificationUserDN': {
-      type: String,
-      optional: true,
-    },
-    'ldap.bindPassword': {
-      type: String,
-      optional: true,
-    },
-    'ldap.bindPasswordSet': {
-      type: Boolean,
-      optional: true,
-      defaultValue: false,
-    },
-    'ldap.userSearchFilter': {
-      type: String,
-      optional: true,
-    },
-    'ldap.userSearchField': {
-      type: String,
-      optional: true,
-    },
-    'ldap.encryption': {
-      type: String,
-      optional: true,
-    },
+    // Every LDAP_* login setting, keyed as in models/lib/authConfigCatalog.js
+    // (`enabled`, `host`, ... `bindPassword` keep the names they were first
+    // stored under). Blackbox like `saml`: the catalog validates what is
+    // written (saveAuthConfigSettings), and server/publications/settings.js
+    // publishes field by field, so `ldap.bindPassword` never reaches a client.
+    ldap: { type: Object, optional: true, blackbox: true },
+    // The other login methods' overrides, same contract (#6744 follow-up:
+    // every login environment variable is overridable in Admin Panel / People).
+    // `oidc.secret` is the one secret among them and is never published.
+    oidc: { type: Object, optional: true, blackbox: true },
+    cas: { type: Object, optional: true, blackbox: true },
+    headerLogin: { type: Object, optional: true, blackbox: true },
+    loginOptions: { type: Object, optional: true, blackbox: true },
     // Admin Panel override of the OAUTH_<PROVIDER>_* environment variables for
     // Meteor's own accounts-* login services (Google, GitHub, Facebook,
     // X/Twitter, Meteor Developer, Weibo, Meetup - models/lib/oauthProviders.js

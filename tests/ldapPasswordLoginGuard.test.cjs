@@ -195,7 +195,9 @@ test('#4419 browser password login wires the guard into validateLoginAttempt', (
   assert.match(source, /Accounts\.validateLoginAttempt\(function\(options\)/);
   assert.match(
     source,
-    /shouldRejectPasswordLogin\(\{[\s\S]*serviceName: options\.type,[\s\S]*user: options\.user,[\s\S]*env: process\.env/,
+    // The environment object is authEnvObject: process.env with Admin Panel /
+    // People login overrides applied (server/lib/authConfig.js).
+    /shouldRejectPasswordLogin\(\{[\s\S]*serviceName: options\.type,[\s\S]*user: options\.user,[\s\S]*env: authEnvObject/,
   );
   assert.match(source, /ldap-password-login-disabled/);
 });

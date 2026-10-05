@@ -33,8 +33,13 @@ template(name="people")
               +spinner
             else if registrationSetting.get
               +general
+              +authProviderSettings(loginOptionsData)
             else if samlSetting
               +authProviderSettings(samlSettingsData)
+            else if authConfigSection
+              +authProviderSettings(authConfigSettingsData)
+              if ldapPane
+                +ldapTestConnection
             else if authenticationSection
               +general(section=authenticationSection)
             else if emailSetting.get

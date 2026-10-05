@@ -10,11 +10,14 @@ test('People opens Email and lists separate authentication panes after Shared te
   const ids = await page.locator('.side-menu a.js-left-menu-item').evaluateAll(items => items.map(item => item.dataset.id));
   expect(ids[0]).toBe('email-setting');
   expect(ids.slice(ids.indexOf('templates-setting'))).toEqual([
-    'templates-setting', 'registration-setting', 'saml-setting', 'ldap-setting', 'oauth-setting', 'passwordless-setting',
+    'templates-setting', 'registration-setting', 'saml-setting', 'ldap-setting', 'oidc-setting', 'cas-setting',
+    'header-login-setting', 'oauth-setting', 'passwordless-setting',
   ]);
   const panes = [
     ['registration-setting', 'login', '.js-toggle-registration'],
-    ['ldap-setting', 'ldap', '.js-ldap-settings-save'],
+    // LDAP, OAuth2, CAS and Header login are catalog forms (authProviderSettings);
+    // LDAP alone has the connection test under it.
+    ['ldap-setting', 'ldap', '.js-ldap-test-connection'],
     ['oauth-setting', 'oauth', '.js-oauth-shared-save'],
     ['passwordless-setting', 'passwordless', '.js-passwordless-save'],
   ];

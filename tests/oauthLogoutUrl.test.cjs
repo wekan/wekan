@@ -198,7 +198,8 @@ test('#5061 negative: an unset endpoint retains ordinary local logout', () => {
 
 test('#5061: environment configuration reaches the browser logout hook', () => {
   const settings = fs.readFileSync(path.join(__dirname, '../server/models/settings.js'), 'utf8');
-  assert.match(settings, /getOauthLogoutUrl\(\)[\s\S]*?endpoint: process\.env\.OAUTH2_LOGOUT_ENDPOINT/);
+  // Through authEnv: the Admin Panel / People / OAuth2 value, else the env var.
+  assert.match(settings, /getOauthLogoutUrl\(\)[\s\S]*?endpoint: authEnv\('OAUTH2_LOGOUT_ENDPOINT'\)/);
   assert.match(accounts, /Meteor\.call\('getOauthLogoutUrl',[\s\S]*?oauthLogoutUrl = result/);
 });
 

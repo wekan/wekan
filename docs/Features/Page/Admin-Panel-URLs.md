@@ -62,6 +62,9 @@ OAuth providers and Passwordless login each have their own menu entry.
 | `/admin/people/login` | Login | `registration-setting` |
 | `/admin/people/saml` | SAML | `saml-setting` |
 | `/admin/people/ldap` | LDAP | `ldap-setting` |
+| `/admin/people/oidc` | OAuth2 | `oidc-setting` |
+| `/admin/people/cas` | CAS | `cas-setting` |
+| `/admin/people/header-login` | Header login | `header-login-setting` |
 | `/admin/people/oauth` | OAuth providers | `oauth-setting` |
 | `/admin/people/passwordless` | Passwordless login | `passwordless-setting` |
 

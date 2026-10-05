@@ -1,6 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { tripCanary } from '/server/lib/canary';
+import { authEnv, authEnvObject, onAuthConfigChange } from '/server/lib/authConfig';
 const { requestPermissions: oauth2RequestPermissions } = require('/models/lib/oauth2Scopes');
 
 const {
@@ -169,7 +170,7 @@ Meteor.startup(() => {
       shouldRejectPasswordLogin({
         serviceName: options.type,
         user: options.user,
-        env: process.env,
+        env: authEnvObject,
       })
     ) {
       throw new Meteor.Error(
@@ -180,98 +181,75 @@ Meteor.startup(() => {
     return true;
   });
 
-  if (Meteor.isServer) {
-    if (
-      process.env.ORACLE_OIM_ENABLED === 'true' ||
-      process.env.ORACLE_OIM_ENABLED === true
-    ) {
-      ServiceConfiguration.configurations.upsertAsync(
-        // eslint-disable-line no-undef
-        { service: 'oidc' },
-        {
-          $set: {
-            // #5695: the client now honors a configured 'redirect' style, so
-            // the fallback here must stay 'popup' to keep popup the default
-            // behavior when OAUTH2_LOGIN_STYLE is not set.
-            loginStyle:
-              process.env.OAUTH2_LOGIN_STYLE === 'redirect'
-                ? 'redirect'
-                : 'popup',
-            clientId: process.env.OAUTH2_CLIENT_ID,
-            secret: process.env.OAUTH2_SECRET,
-            serverUrl: process.env.OAUTH2_SERVER_URL,
-            authorizationEndpoint: process.env.OAUTH2_AUTH_ENDPOINT,
-            userinfoEndpoint: process.env.OAUTH2_USERINFO_ENDPOINT,
-            tokenEndpoint: process.env.OAUTH2_TOKEN_ENDPOINT,
-            idTokenWhitelistFields:
-              process.env.OAUTH2_ID_TOKEN_WHITELIST_FIELDS || [],
-            // #6545: a value configured with surrounding quotes - which the snap
-            // default and every wiki example used to have - reached the provider as
-            // the scope `'openid` … `email'` and Keycloak refused the request.
-            requestPermissions: oauth2RequestPermissions(process.env.OAUTH2_REQUEST_PERMISSIONS),
-          },
-        },
-      );
-    } else if (
-      process.env.OAUTH2_ENABLED === 'true' ||
-      process.env.OAUTH2_ENABLED === true
-    ) {
-      ServiceConfiguration.configurations.upsertAsync(
-        // eslint-disable-line no-undef
-        { service: 'oidc' },
-        {
-          $set: {
-            // #5695: the client now honors a configured 'redirect' style, so
-            // the fallback here must stay 'popup' to keep popup the default
-            // behavior when OAUTH2_LOGIN_STYLE is not set.
-            loginStyle:
-              process.env.OAUTH2_LOGIN_STYLE === 'redirect'
-                ? 'redirect'
-                : 'popup',
-            clientId: process.env.OAUTH2_CLIENT_ID,
-            secret: process.env.OAUTH2_SECRET,
-            serverUrl: process.env.OAUTH2_SERVER_URL,
-            authorizationEndpoint: process.env.OAUTH2_AUTH_ENDPOINT,
-            userinfoEndpoint: process.env.OAUTH2_USERINFO_ENDPOINT,
-            tokenEndpoint: process.env.OAUTH2_TOKEN_ENDPOINT,
-            idTokenWhitelistFields:
-              process.env.OAUTH2_ID_TOKEN_WHITELIST_FIELDS || [],
-            // #6545: a value configured with surrounding quotes - which the snap
-            // default and every wiki example used to have - reached the provider as
-            // the scope `'openid` … `email'` and Keycloak refused the request.
-            requestPermissions: oauth2RequestPermissions(process.env.OAUTH2_REQUEST_PERMISSIONS),
-          },
-          // OAUTH2_ID_TOKEN_WHITELIST_FIELDS || [],
-          // OAUTH2_REQUEST_PERMISSIONS || 'openid profile email',
-        },
-        );
-    }
-    if (
-      process.env.CAS_ENABLED === 'true' ||
-      process.env.CAS_ENABLED === true
-    ) {
-      ServiceConfiguration.configurations.upsertAsync(
-        // eslint-disable-line no-undef
-        { service: 'cas' },
-        {
-          $set: {
-            baseUrl: process.env.CAS_BASE_URL,
-            loginUrl: process.env.CAS_LOGIN_URL,
-            serviceParam: 'service',
-            popupWidth: 810,
-            popupHeight: 610,
-            popup: true,
-            autoClose: true,
-            validateUrl: process.env.CASE_VALIDATE_URL,
-            casVersion: 3.0,
-            attributes: {
-              debug: process.env.DEBUG === 'true',
-            },
-          },
-        },
-      );
-    }
-    // SAML environment/Admin Panel configuration is applied by server/saml.js.
-
-  }
+  // OAuth2/OIDC and CAS are configured by reconfigureOidc()/reconfigureCas()
+  // below, from Admin Panel / People or the environment, at startup and again
+  // whenever their settings change. SAML is applied by server/saml.js.
 });
+
+const isTrue = value => value === 'true';
+
+// The OAuth2/OIDC login service (wekan-oidc). Oracle OIM uses the same
+// service with its own token exchange (packages/wekan-oidc/oidc_server.js).
+// Switched off, the service configuration is removed, so a login method turned
+// off in the Admin Panel stops offering itself instead of keeping the last one.
+export async function reconfigureOidc() {
+  if (!isTrue(authEnv('ORACLE_OIM_ENABLED')) && !isTrue(authEnv('OAUTH2_ENABLED'))) {
+    await ServiceConfiguration.configurations.removeAsync({ service: 'oidc' });
+    return;
+  }
+  await ServiceConfiguration.configurations.upsertAsync(
+    { service: 'oidc' },
+    {
+      $set: {
+        // #5695: the client now honors a configured 'redirect' style, so
+        // the fallback here must stay 'popup' to keep popup the default
+        // behavior when OAUTH2_LOGIN_STYLE is not set.
+        loginStyle: authEnv('OAUTH2_LOGIN_STYLE') === 'redirect' ? 'redirect' : 'popup',
+        clientId: authEnv('OAUTH2_CLIENT_ID'),
+        // Meteor's loginServiceConfiguration publication leaves `secret` out.
+        secret: authEnv('OAUTH2_SECRET'),
+        serverUrl: authEnv('OAUTH2_SERVER_URL'),
+        authorizationEndpoint: authEnv('OAUTH2_AUTH_ENDPOINT'),
+        userinfoEndpoint: authEnv('OAUTH2_USERINFO_ENDPOINT'),
+        tokenEndpoint: authEnv('OAUTH2_TOKEN_ENDPOINT'),
+        idTokenWhitelistFields: authEnv('OAUTH2_ID_TOKEN_WHITELIST_FIELDS') || [],
+        // #6545: a value configured with surrounding quotes - which the snap
+        // default and every wiki example used to have - reached the provider as
+        // the scope `'openid` … `email'` and Keycloak refused the request.
+        requestPermissions: oauth2RequestPermissions(authEnv('OAUTH2_REQUEST_PERMISSIONS')),
+      },
+    },
+  );
+}
+
+export async function reconfigureCas() {
+  if (!isTrue(authEnv('CAS_ENABLED'))) {
+    await ServiceConfiguration.configurations.removeAsync({ service: 'cas' });
+    return;
+  }
+  await ServiceConfiguration.configurations.upsertAsync(
+    { service: 'cas' },
+    {
+      $set: {
+        baseUrl: authEnv('CAS_BASE_URL'),
+        loginUrl: authEnv('CAS_LOGIN_URL'),
+        serviceParam: 'service',
+        popupWidth: 810,
+        popupHeight: 610,
+        popup: true,
+        autoClose: true,
+        // CAS_VALIDATE_URL is the documented name; the code used to read only
+        // the misspelling CASE_VALIDATE_URL, which authEnv still falls back to.
+        validateUrl: authEnv('CAS_VALIDATE_URL'),
+        casVersion: 3.0,
+        attributes: {
+          debug: process.env.DEBUG === 'true',
+        },
+      },
+    },
+  );
+}
+
+onAuthConfigChange('oidc', reconfigureOidc);
+onAuthConfigChange('cas', reconfigureCas);
+

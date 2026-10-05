@@ -10,6 +10,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { Email } from 'meteor/email';
 import { check, Match } from 'meteor/check';
 import { safeSelector } from '/server/lib/selectorGuard';
+import { authEnv } from '/server/lib/authConfig';
 import { EJSON } from 'meteor/ejson';
 import { Random } from 'meteor/random';
 import { CollectionHooks } from 'meteor/matb33:collection-hooks';
@@ -1941,7 +1942,7 @@ Accounts.onCreateUser(async (options, user) => {
     // array of objects carrying a displayName (see wekan-oidc/oidc_server.js),
     // so handle both forms. When OAUTH2_ADMIN_GROUPS is empty/unset (default),
     // leave user.isAdmin untouched so existing behavior is unchanged.
-    const oauth2AdminGroups = (process.env.OAUTH2_ADMIN_GROUPS || '')
+    const oauth2AdminGroups = (authEnv('OAUTH2_ADMIN_GROUPS') || '')
       .split(/[\s,]+/)
       .map(name => name.trim())
       .filter(name => name.length > 0);
@@ -1990,8 +1991,7 @@ Accounts.onCreateUser(async (options, user) => {
     // provisioned users (e.g. synced from LDAP) to log in via OAuth2. Default
     // keeps the previous behaviour (auto-create on first login).
     const autoRegistrationDisabled =
-      process.env.OAUTH2_AUTO_REGISTRATION === 'false' ||
-      process.env.OAUTH2_AUTO_REGISTRATION === false;
+      authEnv('OAUTH2_AUTO_REGISTRATION') === 'false';
     if (autoRegistrationDisabled && !existingUser) {
       throw new Meteor.Error(
         'oidc-registration-disabled',
@@ -2007,8 +2007,7 @@ Accounts.onCreateUser(async (options, user) => {
     }
 
     const mergeExistingUsers =
-      process.env.OAUTH2_MERGE_EXISTING_USERS === 'true' ||
-      process.env.OAUTH2_MERGE_EXISTING_USERS === true;
+      authEnv('OAUTH2_MERGE_EXISTING_USERS') === 'true';
     const emailVerified = user.services.oidc.email_verified === true;
     if (!mergeExistingUsers || !emailVerified) {
       throw new Meteor.Error(

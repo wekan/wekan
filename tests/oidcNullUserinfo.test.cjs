@@ -71,7 +71,8 @@ test('userinfo is validated before any claim is read', () => {
   assert.notStrictEqual(check, -1, 'a null/non-object userinfo must be refused');
   // The claim reads: the Nextcloud hack first, then the OAUTH2_*_MAP lookups.
   const ocs = code.indexOf('userinfo.ocs');
-  const firstClaim = code.indexOf('userinfo[process.env.OAUTH2_ID_MAP]');
+  // OAUTH2_ID_MAP is read through authEnv (Admin Panel override, else the env var).
+  const firstClaim = code.indexOf("userinfo[authEnv('OAUTH2_ID_MAP')]");
   assert.ok(check < ocs && check < firstClaim,
     'the check must precede BOTH the ocs hack and the claim lookups - the ocs '
     + 'line was only first by accident of ordering');

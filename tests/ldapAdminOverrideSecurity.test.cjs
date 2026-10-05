@@ -100,11 +100,16 @@ test('the whole-tree sweep would catch a published OAuth secret (negative)', () 
 
 test('models/settings.js keeps ldap.bindPassword optional and unset by default '
   + '(no install is forced to fill it in)', () => {
+  // `ldap` is a blackbox sub-document now, like `saml`: every LDAP_* setting
+  // lives in it (models/lib/authConfigCatalog.js) and nothing in it is
+  // required, the bind password included.
   const src = read('models/settings.js');
-  const at = src.indexOf("'ldap.bindPassword'");
-  assert.ok(at !== -1, 'the schema field must exist');
-  const block = src.slice(at, src.indexOf('}', at) + 1);
-  assert.ok(/optional:\s*true/.test(block), 'ldap.bindPassword must be optional');
+  assert.match(src, /^\s*ldap:\s*\{\s*type:\s*Object,\s*optional:\s*true,\s*blackbox:\s*true\s*\}/m,
+    'the ldap sub-document must stay optional');
+  const catalog = require(path.join(ROOT, 'models/lib/authConfigCatalog.js'));
+  const field = catalog.authConfigField('LDAP_AUTHENTIFICATION_PASSWORD');
+  assert.ok(field && field.secret && field.storage === 'ldap' && field.key === 'bindPassword',
+    'the bind password is the catalog secret stored as ldap.bindPassword');
 });
 
 test('ldap_test_connection requires isAdmin and rejects a non-admin caller', () => {

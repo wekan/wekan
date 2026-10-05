@@ -82,6 +82,9 @@ function buildHook(env) {
     onCreateProviderUser: async () => { throw new Error('not an OAuth provider user'); },
     ReactiveCache: null, // set per scenario below
     InvitationCodes: { removeAsync: async () => {} },
+    // server/lib/authConfig.js: Admin Panel override, else the env var. No
+    // overrides here, so this scenario's environment.
+    authEnv: name => env[name],
   };
   vm.createContext(context);
   vm.runInContext(m[0], context);

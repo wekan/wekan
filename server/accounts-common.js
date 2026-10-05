@@ -3,12 +3,18 @@ import { Accounts } from 'meteor/accounts-base';
 import http from 'http';
 import { ensureLoginCookieExpiry } from '/server/lib/loginCookieExpiry';
 
-const LOGIN_EXPIRATION_DAYS =
-  Number(process.env.ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS) || 90;
+import { authEnv, authConfigReady } from '/server/lib/authConfig';
 
-Meteor.startup(() => {
+// ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS, or its Admin Panel / People / Login
+// override. Accounts.config() accepts it once, so it is read at startup and a
+// change applies from the next start; the cookie below uses the same value.
+let loginExpirationDays = 90;
+
+Meteor.startup(async () => {
+  await authConfigReady;
+  loginExpirationDays = Number(authEnv('ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS')) || 90;
   Accounts.config({
-    loginExpirationInDays: LOGIN_EXPIRATION_DAYS,
+    loginExpirationInDays: loginExpirationDays,
     clientStorage: 'none',
     useHttpOnlyCookies: true,
     // CodeBleed (2026-10-02): a passwordless sign-in code was 6 hex
@@ -22,12 +28,11 @@ Meteor.startup(() => {
 });
 
 // #6684: guarantee the HttpOnly login cookie always carries an expiry that
-// matches LOGIN_EXPIRATION_DAYS, even on the rare request where accounts-base's
+// matches loginExpirationDays, even on the rare request where accounts-base's
 // own lookup fails to find one (see server/lib/loginCookieExpiry.js). Patched
 // at the http.ServerResponse level, not as Connect middleware, because
 // accounts-base's cookie handler (server_http_cookies.js) writes the header
 // directly and returns without calling next().
-const LOGIN_EXPIRATION_MAX_AGE_SECONDS = LOGIN_EXPIRATION_DAYS * 86400;
 const originalSetHeader = http.ServerResponse.prototype.setHeader;
 http.ServerResponse.prototype.setHeader = function setHeaderWithLoginCookieExpiry(
   name,
@@ -36,10 +41,10 @@ http.ServerResponse.prototype.setHeader = function setHeaderWithLoginCookieExpir
   if (typeof name === 'string' && name.toLowerCase() === 'set-cookie') {
     if (Array.isArray(value)) {
       value = value.map(v =>
-        ensureLoginCookieExpiry(v, LOGIN_EXPIRATION_MAX_AGE_SECONDS),
+        ensureLoginCookieExpiry(v, loginExpirationDays * 86400),
       );
     } else {
-      value = ensureLoginCookieExpiry(value, LOGIN_EXPIRATION_MAX_AGE_SECONDS);
+      value = ensureLoginCookieExpiry(value, loginExpirationDays * 86400);
     }
   }
   return originalSetHeader.call(this, name, value);

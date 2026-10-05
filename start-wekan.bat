@@ -675,6 +675,45 @@ REM # Also applies to admin status, group->role and org/team sync. Default: fals
 REM # example : LDAP_GROUP_FILTER_NESTED=true
 REM SET LDAP_GROUP_FILTER_NESTED=false
 
+REM # LDAP_MIGRATION_ALLOW_PASSWORD_LOGIN : Let users moved from local password login to LDAP still log in with their old local password (true). Default: false
+REM SET LDAP_MIGRATION_ALLOW_PASSWORD_LOGIN=
+
+REM # LDAP_USER_ATTRIBUTES : Comma separated LDAP attributes to read for a user. Empty: all attributes. Example: uid,cn,mail
+REM SET LDAP_USER_ATTRIBUTES=
+
+REM # LDAP_GROUP_BASEDN : Where the LDAP groups are, when they are not under LDAP_BASEDN. Empty: LDAP_BASEDN. Example: ou=groups,dc=example,dc=org
+REM SET LDAP_GROUP_BASEDN=
+
+REM # OAUTH2_AVATAR_MAP : The OIDC user info claim that holds the avatar URL. Default: picture
+REM SET OAUTH2_AVATAR_MAP=
+
+REM # OAUTH2_ALLOWED_EMAIL_DOMAINS : Comma separated e-mail domains allowed to log in with OAuth2/OIDC. Empty: every domain. Example: example.com,example.org
+REM SET OAUTH2_ALLOWED_EMAIL_DOMAINS=
+
+REM # PROPAGATE_OIDC_DATA : Update groups, admin status, e-mail, full name and username from the OIDC provider at every login (true). Default: false
+REM SET PROPAGATE_OIDC_DATA=
+
+REM # OAUTH2_SECRET_JWT_KEY_PATH : Sign in with Apple: path to the private key (.p8) that signs the client secret JWT. Empty: OAUTH2_SECRET is used
+REM SET OAUTH2_SECRET_JWT_KEY_PATH=
+
+REM # OAUTH2_SECRET_JWT_ISSUER : Sign in with Apple: the Team ID, issuer of the client secret JWT
+REM SET OAUTH2_SECRET_JWT_ISSUER=
+
+REM # OAUTH2_SECRET_JWT_KEY_ID : Sign in with Apple: the Key ID of the private key
+REM SET OAUTH2_SECRET_JWT_KEY_ID=
+
+REM # OAUTH2_SECRET_JWT_AUDIENCE : Audience of the client secret JWT. Default: https://appleid.apple.com
+REM SET OAUTH2_SECRET_JWT_AUDIENCE=
+
+REM # OAUTH2_SECRET_JWT_SUBJECT : Subject of the client secret JWT. Default: OAUTH2_CLIENT_ID
+REM SET OAUTH2_SECRET_JWT_SUBJECT=
+
+REM # OAUTH2_SECRET_JWT_EXPIRES_IN : Lifetime of the client secret JWT in seconds. Default: 300
+REM SET OAUTH2_SECRET_JWT_EXPIRES_IN=
+
+REM # CAS_MERGE_EXISTING_USERS : Let a CAS login take over an existing local account with the same username (true). Default: false
+REM SET CAS_MERGE_EXISTING_USERS=
+
 REM # LDAP_GROUP_FILTER_GROUP_NAME :
 REM # example :
 REM SET LDAP_GROUP_FILTER_GROUP_NAME=

@@ -76,7 +76,8 @@ test('#4419 email-form login cannot route an LDAP account to its stale local pas
   );
   assert.match(
     source,
-    /shouldRejectPasswordLogin\(\{[\s\S]*serviceName: 'password',[\s\S]*user,[\s\S]*env: process\.env/,
+    // authEnvObject: process.env with Admin Panel / People login overrides applied.
+    /shouldRejectPasswordLogin\(\{[\s\S]*serviceName: 'password',[\s\S]*user,[\s\S]*env: authEnvObject/,
   );
   assert.match(
     source,

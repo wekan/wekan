@@ -3,6 +3,7 @@ import AttachmentMigrationStatus from '/models/attachmentMigrationStatus';
 import TextMigrationStatus from '/models/textMigrationStatus';
 import Cards from '/models/cards';
 import { loginProblemChecks } from '/models/lib/loginProblems';
+import { authEnv } from '/server/lib/authConfig';
 import { buildProblemsOverview } from '/models/lib/problemsOverview';
 import { brokenCardsSelector } from '/models/lib/brokenCardsRepair';
 import { countRestorableListSwimlanes } from '/server/lib/restoreListSwimlanes';
@@ -111,7 +112,7 @@ export async function getLoginProblems() {
     migrationActive: inProgress.length > 0,
     migrationMessage: inProgress.map(x => x.message).join('; '),
     rootUrl: process.env.ROOT_URL || '',
-    ldapEnabled: process.env.LDAP_ENABLE === 'true' || process.env.LDAP_ENABLE === true,
+    ldapEnabled: authEnv('LDAP_ENABLE') === 'true',
     sandstorm: !!(process.env.SANDSTORM || process.env.SANDSTORM_SMTP_SEND),
   });
 }

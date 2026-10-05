@@ -245,7 +245,11 @@ const casValidate = (req, ticket, token, service, callback) => {
   let user = await Meteor.users.findOneAsync({ 'username': options.username });
   if (user) {
     const isCasAccount = user.authenticationMethod === 'cas';
-    const mergeAllowed = process.env.CAS_MERGE_EXISTING_USERS === 'true';
+    // Admin Panel / People / CAS override, else the environment variable
+    // (server/lib/authConfig.js installs the resolver; a package cannot import it).
+    const resolve = globalThis.__wekanAuthEnv;
+    const mergeAllowed = (typeof resolve === 'function'
+      ? resolve('CAS_MERGE_EXISTING_USERS') : process.env.CAS_MERGE_EXISTING_USERS) === 'true';
     if (!isCasAccount && !mergeAllowed) {
       try {
         // A local Meteor package cannot import app-tree code (see

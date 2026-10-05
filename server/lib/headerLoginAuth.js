@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
+import { authEnv } from '/server/lib/authConfig';
 
 function normalizeHeaderValue(value) {
   if (Array.isArray(value)) {
@@ -67,7 +68,7 @@ function getRequestIp(req) {
     req?.socket?.remoteAddress || req?.connection?.remoteAddress || '',
   ).replace(/^::ffff:/i, '');
 
-  const trustedProxies = parseIpList(process.env.HEADER_LOGIN_TRUSTED_PROXIES);
+  const trustedProxies = parseIpList(authEnv('HEADER_LOGIN_TRUSTED_PROXIES'));
   if (socketIp && trustedProxies.length && trustedProxies.includes(socketIp)) {
     const forwardedFor = normalizeHeaderValue(req?.headers?.['x-forwarded-for']);
     if (forwardedFor) {
@@ -89,9 +90,8 @@ function getRequestIp(req) {
 }
 
 function isTrustedHeaderLoginSource(req) {
-  const trustedIps = parseIpList(
-    process.env.HEADER_LOGIN_TRUSTED_IP || process.env.HEADER_LOGIN_TRUSTED_IPS,
-  );
+  // Admin Panel / People / Header login, else HEADER_LOGIN_TRUSTED_IP(S).
+  const trustedIps = parseIpList(authEnv('HEADER_LOGIN_TRUSTED_IPS'));
 
   // SECURITY (GHSA-jggc-qvfc-jr6x): fail CLOSED. With no configured allowlist
   // there is nothing to authorize the header-injected identity against, so
@@ -140,7 +140,7 @@ async function findOrCreateHeaderLoginUser(req) {
     return null;
   }
 
-  const idHeaderName = process.env.HEADER_LOGIN_ID;
+  const idHeaderName = authEnv('HEADER_LOGIN_ID');
   if (!idHeaderName) {
     return null;
   }
@@ -155,10 +155,10 @@ async function findOrCreateHeaderLoginUser(req) {
     return null;
   }
 
-  const firstName = normalizeHeaderValue(getHeaderByName(req, process.env.HEADER_LOGIN_FIRSTNAME));
-  const lastName = normalizeHeaderValue(getHeaderByName(req, process.env.HEADER_LOGIN_LASTNAME));
+  const firstName = normalizeHeaderValue(getHeaderByName(req, authEnv('HEADER_LOGIN_FIRSTNAME')));
+  const lastName = normalizeHeaderValue(getHeaderByName(req, authEnv('HEADER_LOGIN_LASTNAME')));
   const fullName = `${firstName} ${lastName}`.trim();
-  const email = normalizeEmail(getHeaderByName(req, process.env.HEADER_LOGIN_EMAIL));
+  const email = normalizeEmail(getHeaderByName(req, authEnv('HEADER_LOGIN_EMAIL')));
 
   let user = await Meteor.users.findOneAsync({ username });
   if (!user && email) {

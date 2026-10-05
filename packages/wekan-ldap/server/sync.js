@@ -695,3 +695,14 @@ Meteor.startup(() => {
     if(LDAP.settings_get('LDAP_BACKGROUND_SYNC')){addCronJob();}
   });
 });
+
+// After Admin Panel / People / LDAP changes a background-sync setting: drop the
+// scheduled job and schedule it again from the settings now in effect, so a
+// new interval, or switching it on or off, needs no restart. addCronJob()
+// itself removes the job when background sync is off.
+export function reconfigureLdapBackgroundSync() {
+  if (SyncedCron.nextScheduledAtDate(jobName)) {
+    SyncedCron.remove(jobName);
+  }
+  addCronJob();
+}

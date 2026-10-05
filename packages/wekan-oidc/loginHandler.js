@@ -52,7 +52,12 @@ function contains(userObjs, obj, collection)
 // which the callers use as the signal to leave isAdmin untouched (default off).
 function getOauth2AdminGroups()
 {
-  return (process.env.OAUTH2_ADMIN_GROUPS || '')
+  // Admin Panel / People / OAuth2 override, else the environment variable
+  // (server/lib/authConfig.js installs the resolver; a package cannot import it).
+  const resolve = globalThis.__wekanAuthEnv;
+  const adminGroups = typeof resolve === 'function'
+    ? resolve('OAUTH2_ADMIN_GROUPS') : process.env.OAUTH2_ADMIN_GROUPS;
+  return (adminGroups || '')
     .split(/[\s,]+/)
     .map(name => name.trim())
     .filter(name => name.length > 0);

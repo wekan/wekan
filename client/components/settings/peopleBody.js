@@ -1,5 +1,6 @@
 import './authProviderSettings';
 const { SAML_FIELDS } = require('/models/lib/samlConfig');
+const { AUTH_CONFIG_SECTIONS } = require('/models/lib/authConfigCatalog');
 import { accountOperationErrorKey } from '/client/lib/accountOperationError';
 import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -532,6 +533,11 @@ function peopleMenu(user) {
     { id: 'registration-setting', icon: 'fa-key', labelKey: 'login', emoji: true },
     { id: 'saml-setting', icon: 'fa-key', label: 'SAML' },
     { id: 'ldap-setting', icon: 'fa-sitemap', labelKey: 'ldap' },
+    // Every login environment variable can be overridden here, one section per
+    // login method (models/lib/authConfigCatalog.js).
+    { id: 'oidc-setting', icon: 'fa-openid', labelKey: 'oauth2' },
+    { id: 'cas-setting', icon: 'fa-key', labelKey: 'cas' },
+    { id: 'header-login-setting', icon: 'fa-id-card', labelKey: 'header-login' },
     { id: 'oauth-setting', icon: 'fa-key', labelKey: 'oauth-providers-title' },
     { id: 'passwordless-setting', icon: 'fa-unlock-alt', labelKey: 'passwordless-title' },
   ];
@@ -544,6 +550,23 @@ function peopleMenu(user) {
     return tenantAdmin.tenantAdminPeopleMenu(items, user);
   }
   return items;
+}
+
+// People panes drawn from models/lib/authConfigCatalog.js, and the data the
+// catalog form (authProviderSettings) needs for one section.
+const AUTH_CONFIG_PANES = {
+  'ldap-setting': 'ldap',
+  'oidc-setting': 'oidc',
+  'cas-setting': 'cas',
+  'header-login-setting': 'headerLogin',
+};
+function authConfigData(section) {
+  return {
+    section,
+    fields: AUTH_CONFIG_SECTIONS[section].fields,
+    loadMethod: 'getAuthConfigSources',
+    saveMethod: 'saveAuthConfigSettings',
+  };
 }
 
 // The pane the page opens on: the first entry of the menu this user actually has.
@@ -827,9 +850,19 @@ Template.people.helpers({
   },
   samlSetting() { return Template.instance().activeMenuId.get() === 'saml-setting'; },
   samlSettingsData() { return { fields: SAML_FIELDS, loadMethod: 'getSamlConfigSources', saveMethod: 'saveSamlSettings' }; },
+  // LDAP, OAuth2/OIDC, CAS and Header login: one catalog form each.
+  authConfigSection() {
+    return AUTH_CONFIG_PANES[Template.instance().activeMenuId.get()];
+  },
+  authConfigSettingsData() {
+    const section = AUTH_CONFIG_PANES[Template.instance().activeMenuId.get()];
+    return authConfigData(section);
+  },
+  // The Login pane's own login settings (PASSWORD_LOGIN_ENABLED, ...).
+  loginOptionsData() { return authConfigData('login'); },
+  ldapPane() { return Template.instance().activeMenuId.get() === 'ldap-setting'; },
   authenticationSection() {
     return {
-      'ldap-setting': 'ldap',
       'oauth-setting': 'oauth',
       'passwordless-setting': 'passwordless',
     }[Template.instance().activeMenuId.get()];

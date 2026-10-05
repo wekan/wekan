@@ -66,10 +66,15 @@ test('wekan-ldap/server/ldap.js no longer imports Settings or the app configReso
     path.join(PACKAGES_DIR, 'wekan-ldap', 'server', 'ldap.js'), 'utf8');
   assert.ok(!/from ['"]\/models\/settings['"]/.test(src));
   assert.ok(!/from ['"]\/models\/lib\/configResolver['"]/.test(src));
-  assert.ok(/from ['"]\.\/configResolver['"]/.test(src),
-    'it must use the vendored package-local copy instead');
   assert.ok(/export function setLdapSettingsAccessor/.test(src),
     'Settings access must be injected by the app, not imported by the package');
+  // Every LDAP_* setting is resolved by the app (server/lib/authConfig.js
+  // authEnv, Admin Panel value first) and handed in through that accessor, so
+  // an override reaches every variable rather than a chosen few, and ldap.js
+  // no longer needs the vendored configResolver itself.
+  const settingsGet = src.slice(src.indexOf('static settings_get('), src.indexOf('async connect()'));
+  assert.ok(/ldapSetting\(name\)/.test(settingsGet), 'settings_get reads through the accessor');
+  assert.ok(!/process\.env\[name\]/.test(settingsGet), 'and never straight from the environment');
 });
 
 test('the vendored packages/wekan-ldap/server/configResolver.js stays behaviourally in sync '

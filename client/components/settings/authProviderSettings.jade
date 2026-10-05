@@ -1,4 +1,8 @@
 //- A catalog-driven override form. Empty values inherit the environment/default.
+//- Used by SAML (models/lib/samlConfig.js) and by every section of
+//- models/lib/authConfigCatalog.js (LDAP, OAuth2/OIDC, CAS, Header login, Login).
+//- A secret is never sent to the browser: its input is always empty, and the
+//- line under it says only whether one is set and where it comes from.
 template(name="authProviderSettings")
   if currentUser.isAdmin
     if error.get
@@ -20,15 +24,38 @@ template(name="authProviderSettings")
                     option(value="" selected=inherit) {{_ 'default'}} ({{effective}})
                     each choiceOptions
                       option(value="{{value}}" selected=selected)= value
+                else if secretField
+                  .description.js-auth-secret-status(data-key="{{key}}")= secretStatus
+                  input.wekan-form-control.js-auth-config-field(id="auth-{{key}}" data-key="{{key}}" type="password" value="" autocomplete="new-password" placeholder="{{_ 'password'}}")
+                  if secretStoredHere
+                    label.auth-secret-clear
+                      input.js-auth-secret-clear(type="checkbox" data-key="{{key}}")
+                      |  {{_ 'login-setting-clear-secret'}}
                 else if multiline
                   textarea.wekan-form-control.js-auth-config-field(id="auth-{{key}}" data-key="{{key}}" rows="5" placeholder="{{effective}}")= value
+                else if numberField
+                  input.wekan-form-control.js-auth-config-field(id="auth-{{key}}" data-key="{{key}}" type="number" min="0" value="{{value}}" placeholder="{{effective}}")
                 else
                   input.wekan-form-control.js-auth-config-field(id="auth-{{key}}" data-key="{{key}}" type="text" value="{{value}}" placeholder="{{effective}}")
-                span.ldap-source-badge= sourceLabel
+                unless secretField
+                  span.ldap-source-badge= sourceLabel
+                if restart
+                  .description {{_ 'login-setting-after-restart'}}
           li
-            button.primary(type="submit" disabled=busy.get) {{_ 'save'}}
+            button.primary.js-auth-provider-save(type="submit" disabled=busy.get) {{_ 'save'}}
         each urls
           p
             a(href="{{url}}" target="_blank" rel="noopener noreferrer")= url
     else
       +spinner
+
+//- LDAP / Test connection, under the LDAP section. Runs the admin-only
+//- ldap_test_connection method against the settings in effect (Admin Panel
+//- value, else LDAP_* environment variable).
+template(name="ldapTestConnection")
+  ul.setting-detail
+    li.accounts-form
+      button.js-ldap-test-connection.primary {{_ 'ldap-test-connection'}}
+    if result.get
+      li.accounts-form
+        span(class="{{resultClass}}")= result.get

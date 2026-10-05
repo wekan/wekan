@@ -573,6 +573,20 @@ Blocked credential and group-policy attempts are summarized in Admin Panel /
 Problems. See the [authentication boundary audit](../../Security/Authentication-Boundary-Audit-2026-09-27.md)
 for validation coverage and deployment limitations.
 
+### Admin Panel overrides
+
+Every `LDAP_*` setting above can also be set in **Admin Panel / People / LDAP**
+(`/admin/people/ldap`). A value saved there wins over the environment variable;
+an empty field, or **Default**, gives the environment variable back. The page
+says for each setting which one is in effect, and **Test connection** tries the
+settings in effect. The bind password is never sent to the browser - the page
+shows only whether one is set and where it comes from. Changes apply to the
+next login; background sync is rescheduled at once.
+
+Before this, the LDAP page offered only eight settings, and none of them
+applied: the server read them with a call Meteor 3 refuses, and fell back to
+the environment variables without saying so.
+
 ### Active Directory nested groups
 
 `LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE=member` matches only DIRECT members of

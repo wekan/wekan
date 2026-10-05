@@ -20,7 +20,8 @@ for (const config of [' ', ',', 'example.internal,', '*.internal', 'example..int
   assert.equal(isEmailDomainAllowed('person@example.internal', config), false, String(config));
 }
 const source = fs.readFileSync(path.join(__dirname, '../packages/wekan-oidc/oidc_server.js'), 'utf8');
-const guard = source.indexOf('if (!isEmailDomainAllowed(serviceData.email, process.env.OAUTH2_ALLOWED_EMAIL_DOMAINS))');
+// Read through authEnv: the Admin Panel / People / OAuth2 value, else the env var.
+const guard = source.indexOf("if (!isEmailDomainAllowed(serviceData.email, authEnv('OAUTH2_ALLOWED_EMAIL_DOMAINS')))");
 assert.ok(guard > source.indexOf('mergeWhitelistedClaims('));
 assert.ok(guard < source.indexOf("await Meteor.callAsync('groupRoutineOnLogin'"));
 assert.ok(guard < source.indexOf("await Meteor.callAsync('boardRoutineOnLogin'"));
@@ -38,6 +39,10 @@ async function handshake(email, restriction) {
       OAUTH2_EMAIL_MAP: 'mail', OAUTH2_ID_MAP: 'sub',
       OAUTH2_ALLOWED_EMAIL_DOMAINS: restriction,
     } },
+    // The package's resolver (Admin Panel override, else the env var); no
+    // overrides here, so this scenario's environment.
+    authEnv: name => context.process.env[name],
+    isOracleOim: () => false,
     getToken: async () => ({ access_token: 'fake-provider-token' }),
     getUserInfo: async () => ({ sub: 'existing-or-new-user', mail: email }),
     getTokenContent: () => null,

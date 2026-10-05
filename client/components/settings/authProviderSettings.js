@@ -4,12 +4,19 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { TAPi18n } from '/imports/i18n';
 import './authProviderSettings.jade';
 
+// `section` set: the catalog methods take the section name first
+// (getAuthConfigSources / saveAuthConfigSettings, server/lib/authConfig.js).
+// Unset: a method of its own, as SAML has.
+function callWithSection(data, method, ...args) {
+  return data.section ? Meteor.call(method, data.section, ...args) : Meteor.call(method, ...args);
+}
+
 Template.authProviderSettings.onCreated(function () {
   this.loaded = new ReactiveVar(false);
   this.busy = new ReactiveVar(false);
   this.error = new ReactiveVar('');
   this.config = new ReactiveVar({});
-  this.refresh = () => Meteor.call(this.data.loadMethod, (error, result) => {
+  this.refresh = () => callWithSection(this.data, this.data.loadMethod, (error, result) => {
     if (error) this.error.set(error.reason || TAPi18n.__('error'));
     else { this.config.set(result); this.loaded.set(true); }
   });
@@ -24,9 +31,16 @@ Template.authProviderSettings.helpers({
     return this.fields.map(field => {
       const value = overrides[field.key];
       const source = sources[field.key] || {};
+      const secretField = field.type === 'secret';
       return { ...field, value: value ?? '', effective: String(source.value ?? ''),
         booleanField: field.type === 'boolean', multiline: field.type === 'textarea',
-        choiceField: field.type === 'choice',
+        choiceField: field.type === 'choice', numberField: field.type === 'number',
+        secretField,
+        // The server reports a secret only as { source, hasValue }.
+        secretStoredHere: secretField && source.source === 'admin',
+        secretStatus: !secretField ? ''
+          : !source.hasValue ? TAPi18n.__('unset-color')
+          : `${TAPi18n.__('password')}: ${source.source === 'admin' ? TAPi18n.__('admin-panel') : field.envVar}`,
         choiceOptions: (field.choices || []).map(choice => ({ value: choice, selected: value === choice })),
         inherit: value === undefined, enabled: value === true, disabled: value === false,
         sourceLabel: source.source === 'admin' ? TAPi18n.__('admin-panel')
@@ -46,12 +60,50 @@ Template.authProviderSettings.events({
       input[field.dataset.key] = field.dataset.boolean && field.value !== ''
         ? field.value === 'true' : field.value;
     }
+    const clearSecrets = instance.findAll('.js-auth-secret-clear')
+      .filter(box => box.checked).map(box => box.dataset.key);
+    if (clearSecrets.length) input.clearSecrets = clearSecrets;
     instance.busy.set(true);
     instance.error.set('');
-    Meteor.call(instance.data.saveMethod, input, error => {
+    callWithSection(instance.data, instance.data.saveMethod, input, error => {
       instance.busy.set(false);
+      // A typed secret is never kept in the page after it was sent.
+      for (const field of instance.findAll('input[type="password"].js-auth-config-field')) field.value = '';
       if (error) instance.error.set(error.reason || TAPi18n.__('error'));
       else instance.refresh();
+    });
+  },
+});
+
+Template.ldapTestConnection.onCreated(function () {
+  this.result = new ReactiveVar('');
+  this.success = new ReactiveVar(true);
+});
+Template.ldapTestConnection.helpers({
+  result() { return Template.instance().result; },
+  resultClass() {
+    return Template.instance().success.get() ? 'ldap-test-success' : 'ldap-test-error';
+  },
+});
+Template.ldapTestConnection.events({
+  // "It should be possible to test at admin panel, does for example LDAP login
+  // work": the admin-gated ldap_test_connection method
+  // (packages/wekan-ldap/server/testConnection.js) against whichever value is
+  // in effect, Admin Panel or environment variable.
+  'click button.js-ldap-test-connection'(event, tpl) {
+    tpl.result.set('...');
+    Meteor.call('ldap_test_connection', (err) => {
+      if (err) {
+        tpl.success.set(false);
+        tpl.result.set(
+          TAPi18n.__('ldap-test-connection-error', {
+            sprintf: [err.reason || err.message || ''],
+          }),
+        );
+      } else {
+        tpl.success.set(true);
+        tpl.result.set(TAPi18n.__('ldap-test-connection-success'));
+      }
     });
   },
 });

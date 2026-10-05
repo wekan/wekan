@@ -8,6 +8,7 @@ const { WebApp } = require('meteor/webapp');
 const { check, Match } = require('meteor/check');
 const { sendJsonResult } = require('/server/apiMiddleware');
 const { buildLogoutPlan } = require('/models/lib/apiLogout');
+const { authEnv, authEnvObject } = require('/server/lib/authConfig');
 const {
   LoginAttemptThrottle,
   resolveClientKey,
@@ -146,7 +147,7 @@ WebApp.handlers.post('/users/login', async function (req, res) {
     const useLdap = useLdapForRestLogin({
       user,
       ldapEnabled:
-        process.env.LDAP_ENABLE === 'true' || process.env.LDAP_ENABLE === true,
+        authEnv('LDAP_ENABLE') === 'true',
       usernameProvided: Boolean(options.username),
     });
 
@@ -163,7 +164,7 @@ WebApp.handlers.post('/users/login', async function (req, res) {
       shouldRejectPasswordLogin({
         serviceName: 'password',
         user,
-        env: process.env,
+        env: authEnvObject,
       })
     ) {
       // #4419: email-form REST login cannot be sent through LDAP because LDAP

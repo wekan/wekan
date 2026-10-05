@@ -6,7 +6,10 @@ Who may sign in, who they belong to, and what they may do — in menu order.
 | --- | --- | --- | --- |
 | People / Login | `login` | [Login.md](Login.md) | What is allowed at sign-in, and the authentication method. |
 | People / SAML | `saml` | [Login.md](Login.md#provider-settings) | SAML provider overrides and service URLs. |
-| People / LDAP | `ldap` | [Login.md](Login.md#provider-settings) | LDAP-specific authentication settings. |
+| People / LDAP | `ldap` | [Login.md](Login.md#provider-settings) | Every LDAP_* setting, and a connection test. |
+| People / OAuth2 | `oidc` | [Login.md](Login.md#provider-settings) | Every OAUTH2_* (OpenID Connect) setting, Oracle OIM included. |
+| People / CAS | `cas` | [Login.md](Login.md#provider-settings) | Every CAS_* setting. |
+| People / Header login | `header-login` | [Login.md](Login.md#provider-settings) | Every HEADER_LOGIN_* setting. |
 | People / OAuth login providers | `oauth` | [Login.md](Login.md#provider-settings) | OAuth provider configuration. |
 | People / Passwordless login | `passwordless` | [Login.md](Login.md#provider-settings) | Passwordless authentication settings. |
 | People / E-mail | `email` | [E-mail.md](E-mail.md) | SMTP, the invite domain, and whether users may change their address. |

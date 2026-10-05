@@ -65,7 +65,10 @@ are not reachable from the current Admin Panel menu. Current storage panes use
 | --- | --- | --- |
 | Login (`login`) | [settings.js](../../../server/models/settings.js) | General sign-in and registration controls. |
 | SAML (`saml`) | [saml.js](../../../server/saml.js) | Provider overrides and configuration-source/service-URL reporting; external IdP sign-in needs a configured provider. |
-| LDAP (`ldap`) | [peopleBody.js](../../../client/components/settings/peopleBody.js) | LDAP section of the authentication settings interface; directory integration needs a test directory. |
+| LDAP (`ldap`) | [authConfig.js](../../../server/lib/authConfig.js) | Every LDAP_* setting from the login settings catalog, Admin Panel value first; secret never sent to the browser; connection test. Directory integration needs a test directory. |
+| OAuth2 (`oidc`) | [authConfig.js](../../../server/lib/authConfig.js) | Every OAUTH2_* setting (OpenID Connect, Oracle OIM); the service configuration is rewritten on save. Live-provider flows need credentials. |
+| CAS (`cas`) | [authConfig.js](../../../server/lib/authConfig.js) | Every CAS_* setting; the service configuration is rewritten on save. Live CAS sign-in needs a CAS server. |
+| Header login (`header-login`) | [authConfig.js](../../../server/lib/authConfig.js) | Every HEADER_LOGIN_* setting, read per request; still fails closed without trusted IPs. Needs a trusted reverse proxy to exercise. |
 | OAuth (`oauth`) | [peopleBody.js](../../../client/components/settings/peopleBody.js) | OAuth provider settings; live-provider flows need credentials. |
 | Passwordless (`passwordless`) | [peopleBody.js](../../../client/components/settings/peopleBody.js) | Passwordless authentication settings, separate from the Login pane. |
 | E-mail (`email`) | [settings.js](../../../server/models/settings.js) | Mail service settings, secret masking and test-email method; delivery needs a configured SMTP/provider account. |

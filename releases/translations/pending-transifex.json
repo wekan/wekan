@@ -815,6 +815,18 @@
     {
       "key": "scrum-history-job-failed",
       "since": "2026-10-03"
+    },
+    {
+      "key": "header-login",
+      "since": "2026-10-05"
+    },
+    {
+      "key": "login-setting-clear-secret",
+      "since": "2026-10-05"
+    },
+    {
+      "key": "login-setting-after-restart",
+      "since": "2026-10-05"
     }
   ]
 }

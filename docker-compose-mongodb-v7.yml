@@ -902,6 +902,39 @@ services:
       # Also applies to admin status, group->role and org/team sync. Default: false.
       #- LDAP_GROUP_FILTER_NESTED=true
       #
+      # Let users moved from local password login to LDAP still log in with their old local password (true). Default: false
+      #- LDAP_MIGRATION_ALLOW_PASSWORD_LOGIN=
+      #
+      # Comma separated LDAP attributes to read for a user. Empty: all attributes. Example: uid,cn,mail
+      #- LDAP_USER_ATTRIBUTES=
+      #
+      # The OIDC user info claim that holds the avatar URL. Default: picture
+      #- OAUTH2_AVATAR_MAP=
+      #
+      # Update groups, admin status, e-mail, full name and username from the OIDC provider at every login (true). Default: false
+      #- PROPAGATE_OIDC_DATA=
+      #
+      # Sign in with Apple: path to the private key (.p8) that signs the client secret JWT. Empty: OAUTH2_SECRET is used
+      #- OAUTH2_SECRET_JWT_KEY_PATH=
+      #
+      # Sign in with Apple: the Team ID, issuer of the client secret JWT
+      #- OAUTH2_SECRET_JWT_ISSUER=
+      #
+      # Sign in with Apple: the Key ID of the private key
+      #- OAUTH2_SECRET_JWT_KEY_ID=
+      #
+      # Audience of the client secret JWT. Default: https://appleid.apple.com
+      #- OAUTH2_SECRET_JWT_AUDIENCE=
+      #
+      # Subject of the client secret JWT. Default: OAUTH2_CLIENT_ID
+      #- OAUTH2_SECRET_JWT_SUBJECT=
+      #
+      # Lifetime of the client secret JWT in seconds. Default: 300
+      #- OAUTH2_SECRET_JWT_EXPIRES_IN=
+      #
+      # Let a CAS login take over an existing local account with the same username (true). Default: false
+      #- CAS_MERGE_EXISTING_USERS=
+      #
       # The group name (id) that matches all users.
       #- LDAP_GROUP_FILTER_GROUP_NAME=
       #

@@ -9,6 +9,22 @@ const { mergeWhitelistedClaims } = require('./serviceDataClaims');
 const { maybeGenerateOauth2ClientSecretJwt } = require('./oauth2ClientSecretJwt');
 const { isEmailDomainAllowed } = require('./emailDomainPolicy');
 
+// Every OAUTH2_*/ORACLE_OIM_ENABLED/PROPAGATE_OIDC_DATA setting: the Admin
+// Panel / People / OAuth2 override when one is stored, otherwise the
+// environment variable. The app installs the resolver
+// (server/lib/authConfig.js); a package cannot import it. Read per login, so a
+// change applies to the next login without a restart.
+function authEnv(name) {
+  const resolve = globalThis.__wekanAuthEnv;
+  return typeof resolve === 'function' ? resolve(name) : process.env[name];
+}
+const authEnvObject = new Proxy(process.env, {
+  get(target, name) {
+    return typeof name === 'string' ? authEnv(name) : undefined;
+  },
+});
+const isOracleOim = () => authEnv('ORACLE_OIM_ENABLED') === 'true';
+
 // #2458 (Sign in with Apple): Apple's "client secret" is not a static string
 // like every other generic-OAuth2 provider's - it is a short-lived JWT the
 // server must sign itself with a private key from Apple's developer portal.
@@ -16,22 +32,33 @@ const { isEmailDomainAllowed } = require('./emailDomainPolicy');
 // otherwise fall back to the static OAUTH2_SECRET exactly as before, so
 // every provider that does not set these new env vars is unaffected.
 function resolveClientSecret(config) {
-  const jwtSecret = maybeGenerateOauth2ClientSecretJwt(process.env, config.clientId);
+  const jwtSecret = maybeGenerateOauth2ClientSecretJwt(authEnvObject, config.clientId);
   return jwtSecret || OAuth.openSecret(config.secret);
 }
 
 Oidc = {};
-httpCa = false;
 
-if (process.env.OAUTH2_CA_CERT !== undefined) {
+// OAUTH2_CA_CERT, read when a request needs it so Admin Panel / People / OAuth2
+// can change it without a restart. The file is re-read only when the path
+// changes. A path that cannot be read logs once and means "no extra CA".
+let caPath = null;
+let caContent = false;
+function oidcHttpCa() {
+  const configured = authEnv('OAUTH2_CA_CERT');
+  if (configured === caPath) return caContent;
+  caPath = configured;
+  caContent = false;
+  if (configured !== undefined && configured !== '') {
     try {
-        if (fs.existsSync(process.env.OAUTH2_CA_CERT)) {
-          httpCa = fs.readFileSync(process.env.OAUTH2_CA_CERT);
-        }
-    } catch(e) {
-	console.log('WARNING: failed loading: ' + process.env.OAUTH2_CA_CERT);
-	console.log(e);
+      if (fs.existsSync(configured)) {
+        caContent = fs.readFileSync(configured);
+      }
+    } catch (e) {
+      console.log('WARNING: failed loading: ' + configured);
+      console.log(e);
     }
+  }
+  return caContent;
 }
 OAuth.registerService('oidc', 2, null, async function (query) {
   var debug = process.env.DEBUG === 'true';
@@ -78,10 +105,8 @@ OAuth.registerService('oidc', 2, null, async function (query) {
   if (!Number.isFinite(expiresIn)) expiresIn = 3600;
   var expiresAt = (+new Date) + (1000 * expiresIn);
 
-  var claimsInAccessToken = (process.env.OAUTH2_ADFS_ENABLED === 'true'  ||
-                             process.env.OAUTH2_ADFS_ENABLED === true    ||
-                             process.env.OAUTH2_B2C_ENABLED  === 'true'  ||
-                             process.env.OAUTH2_B2C_ENABLED  === true)   || false;
+  var claimsInAccessToken = authEnv('OAUTH2_ADFS_ENABLED') === 'true' ||
+                            authEnv('OAUTH2_B2C_ENABLED') === 'true';
 
   if(claimsInAccessToken)
   {
@@ -119,31 +144,31 @@ OAuth.registerService('oidc', 2, null, async function (query) {
   }
   if (debug) console.log('XXX: userinfo:', userinfo);
 
-  serviceData.id = userinfo[process.env.OAUTH2_ID_MAP]; // || userinfo["id"];
-  serviceData.username = userinfo[process.env.OAUTH2_USERNAME_MAP]; // || userinfo["uid"];
-  serviceData.fullname = userinfo[process.env.OAUTH2_FULLNAME_MAP]; // || userinfo["displayName"];
+  serviceData.id = userinfo[authEnv('OAUTH2_ID_MAP')]; // || userinfo["id"];
+  serviceData.username = userinfo[authEnv('OAUTH2_USERNAME_MAP')]; // || userinfo["uid"];
+  serviceData.fullname = userinfo[authEnv('OAUTH2_FULLNAME_MAP')]; // || userinfo["displayName"];
   // Capture the provider's avatar. `picture` is a standard OpenID Connect claim (a URL);
   // allow an override map for providers that use a different key. WeKan then localizes it
   // into files/avatars (app board-open trigger) so it shows and is carried by export.
-  serviceData.picture = userinfo[process.env.OAUTH2_AVATAR_MAP || 'picture'] || userinfo['picture'] || null;
+  serviceData.picture = userinfo[authEnv('OAUTH2_AVATAR_MAP') || 'picture'] || userinfo['picture'] || null;
   serviceData.accessToken = accessToken;
   serviceData.expiresAt = expiresAt;
 
 
   // If on Oracle OIM email is empty or null, get info from username
-  if (process.env.ORACLE_OIM_ENABLED === 'true' || process.env.ORACLE_OIM_ENABLED === true) {
-    if (userinfo[process.env.OAUTH2_EMAIL_MAP]) {
-      serviceData.email = userinfo[process.env.OAUTH2_EMAIL_MAP];
+  if (isOracleOim()) {
+    if (userinfo[authEnv('OAUTH2_EMAIL_MAP')]) {
+      serviceData.email = userinfo[authEnv('OAUTH2_EMAIL_MAP')];
     } else {
-      serviceData.email = userinfo[process.env.OAUTH2_USERNAME_MAP];
+      serviceData.email = userinfo[authEnv('OAUTH2_USERNAME_MAP')];
     }
   }
 
-  if (process.env.ORACLE_OIM_ENABLED !== 'true' && process.env.ORACLE_OIM_ENABLED !== true) {
-    serviceData.email = userinfo[process.env.OAUTH2_EMAIL_MAP]; // || userinfo["email"];
+  if (!isOracleOim()) {
+    serviceData.email = userinfo[authEnv('OAUTH2_EMAIL_MAP')]; // || userinfo["email"];
   }
 
-  if (process.env.OAUTH2_B2C_ENABLED  === 'true'  || process.env.OAUTH2_B2C_ENABLED  === true) {
+  if (authEnv('OAUTH2_B2C_ENABLED') === 'true') {
     // #5174: an Azure AD B2C token without the `emails` claim - which is what a
     // scope the tenant did not grant produces - made this `undefined[0]`.
     if (!Array.isArray(userinfo.emails) || !userinfo.emails.length) {
@@ -178,15 +203,15 @@ OAuth.registerService('oidc', 2, null, async function (query) {
 
   // Apply to every handshake, including existing users, before group/board
   // routines can change memberships or Meteor can create or merge an account.
-  if (!isEmailDomainAllowed(serviceData.email, process.env.OAUTH2_ALLOWED_EMAIL_DOMAINS)) {
+  if (!isEmailDomainAllowed(serviceData.email, authEnv('OAUTH2_ALLOWED_EMAIL_DOMAINS'))) {
     throw new Meteor.Error(403, 'Login forbidden');
   }
 
-  profile.name = userinfo[process.env.OAUTH2_FULLNAME_MAP]; // || userinfo["displayName"];
-  profile.email = userinfo[process.env.OAUTH2_EMAIL_MAP]; // || userinfo["email"];
+  profile.name = userinfo[authEnv('OAUTH2_FULLNAME_MAP')]; // || userinfo["displayName"];
+  profile.email = userinfo[authEnv('OAUTH2_EMAIL_MAP')]; // || userinfo["email"];
   if (serviceData.picture) profile.avatarUrl = serviceData.picture; // localized on board open
 
-  if (process.env.OAUTH2_B2C_ENABLED  === 'true'  || process.env.OAUTH2_B2C_ENABLED  === true) {
+  if (authEnv('OAUTH2_B2C_ENABLED') === 'true') {
     profile.email = userinfo["emails"][0];
   }
 
@@ -236,8 +261,14 @@ if (Meteor.release) {
   userAgent += "/" + Meteor.release;
 }
 
-if (process.env.ORACLE_OIM_ENABLED !== 'true' && process.env.ORACLE_OIM_ENABLED !== true) {
-  var getToken = async function (query) {
+// The token exchange: standard OIDC, or Oracle OIM's (client credentials in a
+// Basic header). Chosen per login from ORACLE_OIM_ENABLED.
+var getToken = function (query) {
+  return isOracleOim() ? getTokenOracleOim(query) : getTokenOidc(query);
+};
+
+{
+  var getTokenOidc = async function (query) {
     var debug = process.env.DEBUG === 'true';
     var config = await getConfiguration();
     var serverTokenEndpoint = resolveOidcEndpoint(
@@ -265,6 +296,7 @@ if (process.env.ORACLE_OIM_ENABLED !== 'true' && process.env.ORACLE_OIM_ENABLED 
         body: body.toString()
       };
 
+      const httpCa = oidcHttpCa();
       if (httpCa) {
         fetchOptions.agent = new https.Agent({ ca: httpCa });
       }
@@ -288,9 +320,9 @@ if (process.env.ORACLE_OIM_ENABLED !== 'true' && process.env.ORACLE_OIM_ENABLED 
   };
 }
 
-if (process.env.ORACLE_OIM_ENABLED === 'true' || process.env.ORACLE_OIM_ENABLED === true) {
+{
 
-  var getToken = async function (query) {
+  var getTokenOracleOim = async function (query) {
     var debug = process.env.DEBUG === 'true';
     var config = await getConfiguration();
     var serverTokenEndpoint = resolveOidcEndpoint(
@@ -299,7 +331,7 @@ if (process.env.ORACLE_OIM_ENABLED === 'true' || process.env.ORACLE_OIM_ENABLED 
     );
 
     // OIM needs basic Authentication token in the header - ClientID + SECRET in base64
-    var dataToken = process.env.OAUTH2_CLIENT_ID + ':' + process.env.OAUTH2_SECRET;
+    var dataToken = authEnv('OAUTH2_CLIENT_ID') + ':' + authEnv('OAUTH2_SECRET');
     var strBasicToken64 = Buffer.from(dataToken).toString('base64');
 
     // eslint-disable-next-line no-console
@@ -326,6 +358,7 @@ if (process.env.ORACLE_OIM_ENABLED === 'true' || process.env.ORACLE_OIM_ENABLED 
         body: body.toString()
       };
 
+      const httpCa = oidcHttpCa();
       if (httpCa) {
         fetchOptions.agent = new https.Agent({ ca: httpCa });
       }
@@ -370,6 +403,7 @@ var getUserInfo = async function (accessToken) {
       })
     };
 
+    const httpCa = oidcHttpCa();
     if (httpCa) {
       fetchOptions.agent = new https.Agent({ ca: httpCa });
     }
@@ -447,7 +481,10 @@ Meteor.methods({
       }
     }
 
-    var propagateOidcData = process.env.PROPAGATE_OIDC_DATA || false;
+    // Any non-empty value turned this on, 'false' included; 'false' - which
+    // is also what the Admin Panel's "No" stores - now means off.
+    var propagateValue = authEnv('PROPAGATE_OIDC_DATA');
+    var propagateOidcData = !!propagateValue && propagateValue !== 'false';
     if (propagateOidcData) {
       // #4897: `users`/`user` were implicit globals shared by concurrent
       // logins; between the awaits below another login could reassign `user`,

@@ -46,7 +46,9 @@ test('CAS supplies the complete top-level identity needed for insertion', () => 
 
 test('CAS still refuses silent takeover of a non-CAS username', () => {
   assert.match(cas, /const isCasAccount = user\.authenticationMethod === 'cas'/);
-  assert.match(cas, /const mergeAllowed = process\.env\.CAS_MERGE_EXISTING_USERS === 'true'/);
+  // Admin Panel / People / CAS override first, else the environment variable;
+  // still only the exact string 'true' allows the merge.
+  assert.match(cas, /const mergeAllowed = \(typeof resolve === 'function'\s*\? resolve\('CAS_MERGE_EXISTING_USERS'\) : process\.env\.CAS_MERGE_EXISTING_USERS\) === 'true'/);
   assert.match(cas, /throw new Meteor\.Error\(\s*'cas-account-conflict'/);
 });
 

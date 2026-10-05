@@ -3,7 +3,8 @@ import { runWithLdapDisconnect } from './connectionGuard';
 
 Meteor.methods({
   async ldap_test_connection() {
-    const user = Meteor.user();
+    // Meteor 3 has no synchronous Meteor.user() on the server.
+    const user = await Meteor.userAsync();
     if (!user) {
       throw new Meteor.Error('error-invalid-user', 'Invalid user', { method: 'ldap_test_connection' });
     }

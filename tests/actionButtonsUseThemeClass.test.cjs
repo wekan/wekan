@@ -30,7 +30,8 @@ const BUTTONS = [
   ['client/components/cards/cardPomodoro.jade', 'js-start-pomodoro', 'Pomodoro "Start"'],
   ['client/components/boards/timelineView.jade', 'js-restore-card-timeline', 'Timeline "Restore to this state"'],
   ['client/components/lists/listHeader.jade', 'js-list-sync-now', 'List "Sync now"'],
-  ['client/components/settings/settingBody.jade', 'js-ldap-test-connection', 'Admin Panel "Test LDAP Connection"'],
+  // Moved with the LDAP section to the catalog form's own template.
+  ['client/components/settings/authProviderSettings.jade', 'js-ldap-test-connection', 'Admin Panel "Test LDAP Connection"'],
 ];
 
 console.log('actionButtonsUseThemeClass:');

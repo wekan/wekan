@@ -170,7 +170,9 @@ const authSrc = fs.readFileSync(
 
 test('server config maps OAUTH2_LOGIN_STYLE to redirect only when set to redirect', () => {
   assert.ok(
-    authSrc.includes("process.env.OAUTH2_LOGIN_STYLE === 'redirect'"),
+    // Read through authEnv (Admin Panel / People / OAuth2 override, else the
+    // environment variable); the explicit comparison is what this pins.
+    authSrc.includes("authEnv('OAUTH2_LOGIN_STYLE') === 'redirect'"),
     'authentication.js must check for the redirect value explicitly',
   );
 });
@@ -180,7 +182,7 @@ test("NEGATIVE: server no longer defaults the stored loginStyle to 'redirect'", 
   // every deployment without the env var to redirect now that the client
   // honors the stored style; the fallback must be 'popup'.
   assert.ok(!authSrc.includes("OAUTH2_LOGIN_STYLE || 'redirect'"), authSrc.match(/OAUTH2_LOGIN_STYLE[^\n]*/g).join('\n'));
-  assert.ok(/loginStyle:\s*\n?\s*process\.env\.OAUTH2_LOGIN_STYLE === 'redirect'\s*\n?\s*\?\s*'redirect'\s*\n?\s*:\s*'popup'/.test(authSrc));
+  assert.ok(/loginStyle:\s*\n?\s*authEnv\('OAUTH2_LOGIN_STYLE'\) === 'redirect'\s*\n?\s*\?\s*'redirect'\s*\n?\s*:\s*'popup'/.test(authSrc));
 });
 
 // --- Secondary ask: OIDC_REDIRECTION_ENABLED auto-login actually runs --------

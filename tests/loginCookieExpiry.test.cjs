@@ -109,7 +109,9 @@ const patchSrc = accountsCommon.slice(
 );
 const calls = [];
 const sandbox = {
-  LOGIN_EXPIRATION_MAX_AGE_SECONDS: 90 * 86400,
+  // The configured expiry in days; it is read once at startup (Admin Panel /
+  // People / Login override, else ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS).
+  loginExpirationDays: 90,
   http: {
     ServerResponse: {
       prototype: {

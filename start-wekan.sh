@@ -625,6 +625,45 @@
       # example :  export LDAP_GROUP_FILTER_NESTED=true
       #export LDAP_GROUP_FILTER_NESTED=false
       #
+      # LDAP_MIGRATION_ALLOW_PASSWORD_LOGIN : Let users moved from local password login to LDAP still log in with their old local password (true). Default: false
+      #export LDAP_MIGRATION_ALLOW_PASSWORD_LOGIN=
+      #
+      # LDAP_USER_ATTRIBUTES : Comma separated LDAP attributes to read for a user. Empty: all attributes. Example: uid,cn,mail
+      #export LDAP_USER_ATTRIBUTES=
+      #
+      # LDAP_GROUP_BASEDN : Where the LDAP groups are, when they are not under LDAP_BASEDN. Empty: LDAP_BASEDN. Example: ou=groups,dc=example,dc=org
+      #export LDAP_GROUP_BASEDN=
+      #
+      # OAUTH2_AVATAR_MAP : The OIDC user info claim that holds the avatar URL. Default: picture
+      #export OAUTH2_AVATAR_MAP=
+      #
+      # OAUTH2_ALLOWED_EMAIL_DOMAINS : Comma separated e-mail domains allowed to log in with OAuth2/OIDC. Empty: every domain. Example: example.com,example.org
+      #export OAUTH2_ALLOWED_EMAIL_DOMAINS=
+      #
+      # PROPAGATE_OIDC_DATA : Update groups, admin status, e-mail, full name and username from the OIDC provider at every login (true). Default: false
+      #export PROPAGATE_OIDC_DATA=
+      #
+      # OAUTH2_SECRET_JWT_KEY_PATH : Sign in with Apple: path to the private key (.p8) that signs the client secret JWT. Empty: OAUTH2_SECRET is used
+      #export OAUTH2_SECRET_JWT_KEY_PATH=
+      #
+      # OAUTH2_SECRET_JWT_ISSUER : Sign in with Apple: the Team ID, issuer of the client secret JWT
+      #export OAUTH2_SECRET_JWT_ISSUER=
+      #
+      # OAUTH2_SECRET_JWT_KEY_ID : Sign in with Apple: the Key ID of the private key
+      #export OAUTH2_SECRET_JWT_KEY_ID=
+      #
+      # OAUTH2_SECRET_JWT_AUDIENCE : Audience of the client secret JWT. Default: https://appleid.apple.com
+      #export OAUTH2_SECRET_JWT_AUDIENCE=
+      #
+      # OAUTH2_SECRET_JWT_SUBJECT : Subject of the client secret JWT. Default: OAUTH2_CLIENT_ID
+      #export OAUTH2_SECRET_JWT_SUBJECT=
+      #
+      # OAUTH2_SECRET_JWT_EXPIRES_IN : Lifetime of the client secret JWT in seconds. Default: 300
+      #export OAUTH2_SECRET_JWT_EXPIRES_IN=
+      #
+      # CAS_MERGE_EXISTING_USERS : Let a CAS login take over an existing local account with the same username (true). Default: false
+      #export CAS_MERGE_EXISTING_USERS=
+      #
       # LDAP_GROUP_FILTER_GROUP_NAME :
       # example :
       #export LDAP_GROUP_FILTER_GROUP_NAME=

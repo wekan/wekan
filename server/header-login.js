@@ -6,6 +6,7 @@ import {
   isTrustedHeaderLoginSource,
   shouldProcessHeaderLoginMiddlewareRequest,
 } from '/server/lib/headerLoginAuth';
+import { authEnv, onAuthConfigChange } from '/server/lib/authConfig';
 
 async function issueLoginTokenCookies(userId, req, res) {
   if (!userId) {
@@ -39,49 +40,59 @@ async function issueLoginTokenCookies(userId, req, res) {
   }
 }
 
-Meteor.startup(() => {
-  if (process.env.HEADER_LOGIN_ID) {
-    Meteor.settings.public.headerLoginId = process.env.HEADER_LOGIN_ID;
-    Meteor.settings.public.headerLoginEmail = process.env.HEADER_LOGIN_EMAIL;
-    Meteor.settings.public.headerLoginFirstname = process.env.HEADER_LOGIN_FIRSTNAME;
-    Meteor.settings.public.headerLoginLastname = process.env.HEADER_LOGIN_LASTNAME;
+// Header login is configured by HEADER_LOGIN_* or by Admin Panel / People /
+// Header login, which can switch it on and off while WeKan runs - so the
+// middleware is always installed and decides per request whether header login
+// is on. Before, it was installed only when HEADER_LOGIN_ID was set at start.
+function applyHeaderLoginSettings() {
+  const idHeader = authEnv('HEADER_LOGIN_ID');
+  Meteor.settings.public.headerLoginId = idHeader;
+  Meteor.settings.public.headerLoginEmail = authEnv('HEADER_LOGIN_EMAIL');
+  Meteor.settings.public.headerLoginFirstname = authEnv('HEADER_LOGIN_FIRSTNAME');
+  Meteor.settings.public.headerLoginLastname = authEnv('HEADER_LOGIN_LASTNAME');
 
-    const isSandstorm = Meteor.settings?.public?.sandstorm === true;
-    const hasTrustedIps =
-      (process.env.HEADER_LOGIN_TRUSTED_IP || process.env.HEADER_LOGIN_TRUSTED_IPS || '').trim() !== '';
-    if (!isSandstorm && !hasTrustedIps) {
-      // SECURITY (GHSA-jggc-qvfc-jr6x): header-login now fails closed when the
-      // trusted-proxy allowlist is unset. Warn operators so passwordless login
-      // is not silently disabled after upgrading.
-      console.warn(
-        'Header-login is enabled (HEADER_LOGIN_ID is set) but HEADER_LOGIN_TRUSTED_IPS ' +
-          'is not configured. For security it now fails closed and will NOT authenticate ' +
-          'anyone until you set HEADER_LOGIN_TRUSTED_IPS to the IP address(es) of your ' +
-          'trusted reverse proxy.',
-      );
-    }
-    if (!isSandstorm) {
-      WebApp.handlers.use(async (req, res, next) => {
-        try {
-          if (!shouldProcessHeaderLoginMiddlewareRequest(req)) {
-            return next();
-          }
-
-          if (!isTrustedHeaderLoginSource(req)) {
-            return next();
-          }
-
-          const userId = await findOrCreateHeaderLoginUser(req);
-          if (userId) {
-            await issueLoginTokenCookies(userId, req, res);
-          }
-        } catch (error) {
-          if (process.env.DEBUG === 'true') {
-            console.warn('Header login middleware failed:', error);
-          }
-        }
-        return next();
-      });
-    }
+  const isSandstorm = Meteor.settings?.public?.sandstorm === true;
+  const hasTrustedIps = (authEnv('HEADER_LOGIN_TRUSTED_IPS') || '').trim() !== '';
+  if (idHeader && !isSandstorm && !hasTrustedIps) {
+    // SECURITY (GHSA-jggc-qvfc-jr6x): header-login now fails closed when the
+    // trusted-proxy allowlist is unset. Warn operators so passwordless login
+    // is not silently disabled after upgrading.
+    console.warn(
+      'Header-login is enabled (HEADER_LOGIN_ID is set) but HEADER_LOGIN_TRUSTED_IPS ' +
+        'is not configured. For security it now fails closed and will NOT authenticate ' +
+        'anyone until you set HEADER_LOGIN_TRUSTED_IPS to the IP address(es) of your ' +
+        'trusted reverse proxy.',
+    );
   }
+}
+
+onAuthConfigChange('headerLogin', applyHeaderLoginSettings);
+
+Meteor.startup(() => {
+  if (Meteor.settings?.public?.sandstorm === true) return;
+  WebApp.handlers.use(async (req, res, next) => {
+    try {
+      if (!authEnv('HEADER_LOGIN_ID')) {
+        return next();
+      }
+
+      if (!shouldProcessHeaderLoginMiddlewareRequest(req)) {
+        return next();
+      }
+
+      if (!isTrustedHeaderLoginSource(req)) {
+        return next();
+      }
+
+      const userId = await findOrCreateHeaderLoginUser(req);
+      if (userId) {
+        await issueLoginTokenCookies(userId, req, res);
+      }
+    } catch (error) {
+      if (process.env.DEBUG === 'true') {
+        console.warn('Header login middleware failed:', error);
+      }
+    }
+    return next();
+  });
 });
