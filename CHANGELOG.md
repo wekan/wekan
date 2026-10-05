@@ -1869,7 +1869,7 @@ each for the reason given:
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.19 2026-10-05 WeKan ® release
 
 **In short:** Every **login environment variable** can now be overridden in
 **Admin Panel / People**, in a section per login method, with passwords never
