@@ -389,6 +389,7 @@ the earlier pause above remains historical. Completed work is recorded in Upcomi
 - Continue automatic-archiving and date-filter translations beyond the thirty-nine locales recorded in completed changelog entries, then the remaining feature families.
 - Fill English placeholders in every language, including minority and constructed languages. Audit mixed-language and wrong-language seed text, and review provisional wording with speakers when available. Preserve correct-language human translations, source key order, exact placeholders, technical identifiers and query examples. Use direct translation and dictionary research, not an external translation service.
 - Keep regression and human-preference checks passing. Passing tests does not establish translation completeness or fluency; rerun relevant checks for each batch and the broad suite before declaring all-language work complete.
+- Added 2026-10-05 for the Admin Panel login settings, English only and pending Transifex: `header-login`, `login-setting-clear-secret` and `login-setting-after-restart`. Until every locale file has them, the 76 key-order suites fail on exactly these three keys (`allTranslationCompleteness`, `danishTranslations` and the rest); nothing else in those suites fails. `node releases/translations/add-pending-keys.mjs --all-locales` would put the English text in every locale meanwhile, if the maintainer prefers that to waiting.
 
 </details>
 
@@ -1581,7 +1582,17 @@ Directory domain, and a real SSPI handshake to build or verify at all; it also
 sits directly in the authentication path, where a wrong implementation done
 without that environment is a security risk rather than a convenience. The
 maintainer's own comment on the issue already flags Node 20 compatibility
-doubts and asks for a Windows/AD-experienced contributor).
+doubts and asks for a Windows/AD-experienced contributor),
+[#6744](https://github.com/wekan/wekan/issues/6744) (fixed with
+`LDAP_GROUP_FILTER_NESTED`, see Upcoming; the in-chain filter was checked to
+parse and encode correctly with ldapts 4.2.6, but a login through a nested group
+against a real Active Directory - the only directory with that matching rule -
+has not been run, as no AD server is available here). UCS (Univention App
+Center) and the Nextcloud ExApp take their settings from their own repositories,
+not this one: whether the login variables added on 2026-10-05 (the 14 missing
+ones, `LDAP_GROUP_FILTER_NESTED` and the `*_FILE` secrets) are offered there is
+not checked; with the Admin Panel overrides, those installs can set them in
+People either way.
 
 </details>
 
@@ -1804,6 +1815,56 @@ FerretDB with an oplog since 2026-10-03; FerretDB releases up to v1.86.0 do not
 record a dropped collection, which WeKan never does while it runs. The browser
 tests ran in Chromium and WebKit; Firefox cannot launch on the macOS machine
 used.
+
+</details>
+
+<details>
+<summary>Login settings and secrets: what the 2026-10-05 Admin Panel work left open.</summary>
+
+Every login environment variable is overridable in Admin Panel / People, and
+the LDAP and OAuth2 passwords can come from files (see Upcoming). Left open,
+each for the reason given:
+
+- [#5724](https://github.com/wekan/wekan/issues/5724) (closed, but only partly
+  done): `MAIL_SERVICE_PASSWORD_FILE`, `MONGO_PASSWORD_FILE` and
+  `S3_SECRET_FILE` are listed on every platform and still read by nothing;
+  `secrets/README.md` says so. Not login settings, and each needs a design
+  choice: Meteor connects with `MONGO_URL` before any application code runs, so
+  a Mongo password from a file could only be put into `MONGO_URL` by the
+  launcher - into the environment, which is what the file was meant to avoid;
+  `MAIL_SERVICE_PASSWORD` itself is read by nothing either (mail is configured
+  by `MAIL_URL` or the Admin Panel mail settings), and S3 reads
+  `S3_SECRET_KEY`, not `S3_SECRET`.
+- LDAP **Test connection** answers success without having connected when no
+  service account (`LDAP_AUTHENTIFICATION`) is set: it binds only with that
+  account, and ldapts opens the socket lazily. Checked on 2026-10-05 with an
+  unresolvable host. Needs a decision on what a test without credentials does -
+  an anonymous base search of `LDAP_BASEDN`, or saying that nothing was tested -
+  and a directory to verify it against.
+- `LOGOUT_WITH_TIMER`, `LOGOUT_IN`, `LOGOUT_ON_HOURS` and `LOGOUT_ON_MINUTES`
+  are offered by the snap and the start scripts, but no code reads them, so
+  they do nothing. Implement them or remove them from the platforms - a
+  maintainer decision.
+- Header login can now be switched on from Admin Panel / People by a site
+  administrator. It still fails closed without `HEADER_LOGIN_TRUSTED_IPS`, but
+  an administrator who sets both can let a proxy sign in as anyone. Whether
+  header login should stay environment-only is a maintainer decision.
+- `ldap_sync_now` (`packages/wekan-ldap/server/syncUser.js`) is never loaded and
+  nothing calls it. Its synchronous `Meteor.user()` was made async on
+  2026-10-05 so the whole-tree test holds; wire it to a "Sync now" button or
+  remove it.
+- `tests/changelogFormat.test.cjs` fails on a released section: two Kurdish /
+  Turkmen translation entries show the hashes `b76be84186` and `c9e622f1b5` as
+  link text. A released section is a record and was left unedited; whether to
+  correct only the link text there is the maintainer's call.
+- Browser tests: Meteor allows 30 refreshes of the HttpOnly login cookie per 10
+  seconds per address (`/_accounts/cookie/refresh`, then `429`). Every test runs
+  from localhost, so a fast Chromium run that switches users often can exceed it
+  and the next `loginWithToken` lands on the sign-in page. Seen on 2026-10-05
+  with the login settings specs; their full-page loads were reduced so they
+  pass. A retry after a `429` in `tests/playwright/helpers/auth.js`, or a higher
+  `httpOnlyCookieRateLimit` for the test server only, would remove it for every
+  spec.
 
 </details>
 </details>
