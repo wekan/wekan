@@ -1813,11 +1813,16 @@ used.
 **In short:** Every **login environment variable** can now be overridden in
 **Admin Panel / People**, in a section per login method, with passwords never
 sent to the browser - and the **LDAP** overrides, which never applied before,
-now do. **LDAP** logins accept members of **nested Active Directory groups**.
+now do. **LDAP and OAuth2 passwords** can come from **Docker / Kubernetes
+secret files**. **LDAP** logins accept members of **nested Active Directory
+groups**.
 Every **release file** now appears on the GitHub Release as soon as its job has
 built and checked it, also when the run is cancelled.
 
-This release adds the following new feature:
+This release adds the following new features:
+
+**Login settings in the Admin Panel** - every login environment variable,
+overridable per login method, with the default sign-in method among them.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/eb49a4b1b6">Override every login environment variable in Admin Panel / People, one section per login method</a>. Thanks to xet7.</summary>
@@ -1847,6 +1852,49 @@ the catalog or straight from `process.env`.
 `tests/playwright/specs/admin-login-env-overrides.e2e.js` saves an override and
 a secret through the pages and refuses an ordinary user; it passes in Chromium,
 WebKit and Firefox.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0314406656">The Admin Panel can override DEFAULT_AUTHENTICATION_METHOD, and Default gives the variable back</a>. Thanks to xet7.</summary>
+
+The default sign-in method is a field of the Login pane's settings form.
+Choosing one there overrides `DEFAULT_AUTHENTICATION_METHOD`; **Default** leaves
+the variable in charge. Before, the variable rewrote the stored method at every
+start, so an administrator's choice was lost on restart whenever it was set.
+The method the sign-in page uses is now the override, else the variable, else
+`password`. On upgrade, a method chosen with the old dropdown while no variable
+was set becomes the override, once, so nobody's choice is lost; the old dropdown
+is gone, as it was a second control for the same setting.
+`tests/authConfigCatalog.test.cjs` covers the order and the one-time upgrade,
+with negative tests that it never invents an override, and the browser test
+chooses a method, checks the sign-in page's value, and gives it back.
+
+</details>
+
+**Login secrets from files** - Docker and Kubernetes secrets, without the
+password in an environment variable.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0314406656">Read LDAP_AUTHENTIFICATION_PASSWORD_FILE and OAUTH2_SECRET_FILE at login</a>. Thanks to Roemer, CrashOverride-lab, ww-daniel-mora and xet7.</summary>
+
+Since [#5724](https://github.com/wekan/wekan/issues/5724) the Dockerfile, snap,
+docker-compose files and `start-wekan` listed these, but no code read them, so
+the password could only be an environment variable. WeKan now reads the file
+itself at each login, so the password never enters the environment and a
+rotated secret applies at once. The order is the Admin Panel, the variable,
+then its file; one trailing line break is dropped. It is the same application
+code on every platform: Docker, the snap (files under `/var/snap/wekan/common`),
+bundles, AppImage, Flatpak, Mac and Windows. Admin Panel / People says when the
+password comes from the file and when the file cannot be read - never its path
+or content. The path is an environment variable only, on purpose: settable in
+the Admin Panel beside the LDAP host or the OAuth2 token endpoint, it would make
+the server read any file and send it there as the password. The snap key is now
+`ldap-authentication-password-file`, like its siblings.
+`MAIL_SERVICE_PASSWORD_FILE`, `MONGO_PASSWORD_FILE` and `S3_SECRET_FILE` are
+still not read; `secrets/README.md` says so. Tests read a real file and a
+rotated one, drive `ldap.js` to bind with it, and check that nothing reaches the
+browser and that the Admin Panel cannot set a path.
 
 </details>
 
