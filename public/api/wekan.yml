@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.18
+  version: v12.19
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -7877,7 +7877,19 @@ definitions:
         type: object
         x-nullable: true
       ldap:
-        $ref: "#/definitions/SettingsLdap"
+        type: object
+        x-nullable: true
+      oidc:
+        type: object
+        x-nullable: true
+      cas:
+        type: object
+        x-nullable: true
+      headerLogin:
+        type: object
+        x-nullable: true
+      loginOptions:
+        type: object
         x-nullable: true
       oauthProviders:
         type: object
@@ -7902,29 +7914,6 @@ definitions:
       - defaultAuthenticationMethod
       - createdAt
       - modifiedAt
-  SettingsLdap:
-    type: object
-    properties:
-      enabled:
-        type: boolean
-      host:
-        type: string
-      port:
-        type: string
-      baseDN:
-        type: string
-      authentificationUserDN:
-        type: string
-      bindPassword:
-        type: string
-      bindPasswordSet:
-        type: boolean
-      userSearchFilter:
-        type: string
-      userSearchField:
-        type: string
-      encryption:
-        type: string
   SettingsMailserver:
     type: object
     properties:
