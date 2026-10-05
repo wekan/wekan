@@ -10,6 +10,7 @@ import {
   missingGroupLookupSettings,
   missingLoginGroupFilterSettings,
   loginGroupNames,
+  groupMemberClause,
 } from './groupFilterConfig';
 import { resolveConfigValue } from './configResolver';
 import { requireUserCredentials, escapeUserDnValue } from './userCredentials';
@@ -162,6 +163,9 @@ export default class LDAP {
       group_filter_group_member_attribute: this.constructor.settings_get('LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE'),
       group_filter_group_member_format   : this.constructor.settings_get('LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT'),
       group_filter_group_name            : this.constructor.settings_get('LDAP_GROUP_FILTER_GROUP_NAME'),
+      // #6744: Active Directory nested groups (team group -> access group).
+      // Off unless exactly true, so an existing install keeps direct membership.
+      group_filter_nested                : this.constructor.settings_get('LDAP_GROUP_FILTER_NESTED') === true,
       AD_Simple_Auth                     : this.constructor.settings_get('LDAP_AD_SIMPLE_AUTH'),
       Default_Domain                     : this.constructor.settings_get('LDAP_DEFAULT_DOMAIN'),
     };
@@ -622,7 +626,9 @@ export default class LDAP {
         return [];
       }
 
-      filter.push(`(${this.options.group_filter_group_member_attribute}=${escapeLdapFilterValue(format_value)})`);
+      // #6744: with LDAP_GROUP_FILTER_NESTED, also the groups the user is in
+      // through other groups, so admin, role and org/team sync see them too.
+      filter.push(groupMemberClause(this.options, escapeLdapFilterValue(format_value)));
     }
 
     filter.push(')');
@@ -695,7 +701,8 @@ export default class LDAP {
         ldapUser.dn || ldapUser.objectName || ldapUser.distinguishedName;
       // Never turn a membership query into a search for any allowed group.
       if (typeof format_value !== 'string' || !format_value) return false;
-      filter.push(`(${this.options.group_filter_group_member_attribute}=${escapeLdapFilterValue(format_value)})`);
+      // #6744: a member of the allowed group through a nested group is a member.
+      filter.push(groupMemberClause(this.options, escapeLdapFilterValue(format_value)));
     }
 
     if (this.options.group_filter_group_id_attribute !== '') {

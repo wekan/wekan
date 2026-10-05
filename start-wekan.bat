@@ -666,6 +666,15 @@ REM # LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT :
 REM # example :
 REM SET LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT=
 
+REM # LDAP_GROUP_FILTER_NESTED : Active Directory nested groups (#6744). When true, a user who is a member of
+REM # LDAP_GROUP_FILTER_GROUP_NAME through another group (team group -> access
+REM # group) is a member too: the group searches use AD's
+REM # LDAP_MATCHING_RULE_IN_CHAIN (1.2.840.113556.1.4.1941). Needs a DN-valued
+REM # member attribute (member, with LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT=dn).
+REM # Also applies to admin status, group->role and org/team sync. Default: false.
+REM # example : LDAP_GROUP_FILTER_NESTED=true
+REM SET LDAP_GROUP_FILTER_NESTED=false
+
 REM # LDAP_GROUP_FILTER_GROUP_NAME :
 REM # example :
 REM SET LDAP_GROUP_FILTER_GROUP_NAME=

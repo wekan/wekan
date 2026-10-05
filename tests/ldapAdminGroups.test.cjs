@@ -98,7 +98,10 @@ test('the query answers with NO groups when it cannot identify the user', () => 
   assert.ok(/ldapUser\.dn \|\| ldapUser\.objectName \|\|/.test(fn),
     'after trying the usual spellings of the same value');
   // The member clause must be pushed unconditionally once the value is known.
-  const clause = fn.indexOf('filter.push(`(${this.options.group_filter_group_member_attribute}');
+  // #6744: the clause is built by groupMemberClause, which also handles
+  // LDAP_GROUP_FILTER_NESTED; the ordering requirement is unchanged.
+  const clause = fn.indexOf('filter.push(groupMemberClause(this.options, escapeLdapFilterValue(format_value)))');
+  assert.notStrictEqual(clause, -1, 'the member clause must be pushed in getUserGroups');
   assert.ok(clause > fn.indexOf('return [];'),
     'the clause is added after the guard, so it can never be skipped silently');
 });

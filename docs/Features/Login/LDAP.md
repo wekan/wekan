@@ -471,6 +471,14 @@ services:
       # LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT : 
       # example : 
       - LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT=
+      # LDAP_GROUP_FILTER_NESTED : Active Directory nested groups (#6744). When true, a user who is a member of
+      # LDAP_GROUP_FILTER_GROUP_NAME through another group (team group -> access
+      # group) is a member too: the group searches use AD's
+      # LDAP_MATCHING_RULE_IN_CHAIN (1.2.840.113556.1.4.1941). Needs a DN-valued
+      # member attribute (member, with LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT=dn).
+      # Also applies to admin status, group->role and org/team sync. Default: false.
+      # example : LDAP_GROUP_FILTER_NESTED=true
+      - LDAP_GROUP_FILTER_NESTED=false
       # LDAP_GROUP_FILTER_GROUP_NAME : 
       # example : 
       - LDAP_GROUP_FILTER_GROUP_NAME=
@@ -564,3 +572,39 @@ Service-search mode checks membership before rebinding as the user.
 Blocked credential and group-policy attempts are summarized in Admin Panel /
 Problems. See the [authentication boundary audit](../../Security/Authentication-Boundary-Audit-2026-09-27.md)
 for validation coverage and deployment limitations.
+
+### Active Directory nested groups
+
+`LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE=member` matches only DIRECT members of
+`LDAP_GROUP_FILTER_GROUP_NAME`. In Active Directory, access is usually granted
+through nested groups: a user is in a team group, and the team group is a member
+of the application access group. To accept those users, set:
+
+```
+LDAP_GROUP_FILTER_NESTED=true
+LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE=member
+LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT=dn
+```
+
+The group searches then use Active Directory's `LDAP_MATCHING_RULE_IN_CHAIN`,
+`(member:1.2.840.113556.1.4.1941:=<user DN>)`, which follows group-in-group
+membership to any depth. The same searches feed admin status sync, group->role
+sync and Organizations/Teams sync, so those see nested groups too: a user who
+is in an `LDAP_SYNC_ADMIN_GROUPS` group through another group becomes an admin.
+
+This matching rule is an Active Directory feature. OpenLDAP, FreeIPA and Samba
+directories without it keep `LDAP_GROUP_FILTER_NESTED=false`, the default.
+
+Writing the rule into the attribute itself,
+`LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE=member:1.2.840.113556.1.4.1941:`,
+also works and is used as written; `LDAP_GROUP_FILTER_NESTED=true` is the
+documented way.
+
+**Upgrading from before v12.08:** with `LDAP_USER_AUTHENTICATION=true`, versions
+before v12.08 did not check `LDAP_GROUP_FILTER_ENABLE` at all, so every directory
+user could log in - including members of nested groups, and also users in no
+allowed group. v12.08 enforces the group filter (DirectoryGroupBleed). An Active
+Directory deployment that grants access through nested groups needs
+`LDAP_GROUP_FILTER_NESTED=true` after upgrading, or those users are refused and
+appear in Admin Panel / Problems as `ldap.group-denied`
+([#6744](https://github.com/wekan/wekan/issues/6744)).
