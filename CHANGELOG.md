@@ -1810,12 +1810,45 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** Every **release file** now appears on the GitHub Release as soon
-as the job that built it has finished and checked it, instead of after the
-slowest build, and **cancelling a release run** keeps every file that had
-already finished building.
+**In short:** **LDAP** logins accept members of **nested Active Directory
+groups** again, now through the group filter instead of around it. Every
+**release file** now appears on the GitHub Release as soon as the job that
+built it has finished and checked it, and **cancelling a release run** keeps
+every file that had already finished building.
 
-This release has the following developer-tooling fix:
+This release fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dc2e7592a3">LDAP: accept members of nested Active Directory groups with LDAP_GROUP_FILTER_NESTED</a>. Thanks to rmb82 and xet7.</summary>
+
+Since v12.08 (DirectoryGroupBleed) `LDAP_USER_AUTHENTICATION=true` logins check
+`LDAP_GROUP_FILTER_ENABLE`; before it, every directory user got in. The check
+matched `(member=<user DN>)`, which is direct membership only, so an Active
+Directory that grants access through a team group nested in the access group
+refused those users: web login failed when the session ended, `POST
+/users/login` answered 401, and Admin Panel / Problems listed them as
+`ldap.group-denied` ([#6744](https://github.com/wekan/wekan/issues/6744)).
+
+`LDAP_GROUP_FILTER_NESTED=true` makes both group searches use AD's
+`LDAP_MATCHING_RULE_IN_CHAIN`, `(member:1.2.840.113556.1.4.1941:=<user DN>)`,
+so the login filter and admin status, group->role and org/team sync all see
+nested groups. It is off by default, so other directories keep direct
+membership, and the workaround of writing the rule into
+`LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE` is used as written. The user DN stays
+escaped, and a user entry with no DN is still refused without a search.
+`docs/Features/Login/LDAP.md` documents it with an upgrade note, and the
+Dockerfiles, docker-compose files, snap and start-wekan scripts list it.
+
+`tests/ldapNestedGroups.test.cjs` drives `isUserInGroup` and `getUserGroups`:
+a nested member is admitted with the in-chain filter, and the negative tests
+check direct membership without the setting, refusal when no allowed group is
+found, no search for an unnamed user, an escaped hostile DN, and that every
+member clause in `ldap.js` goes through `groupMemberClause`. There is no browser
+test, because the browser suite has no Active Directory server to log in to.
+
+</details>
+
+and has the following developer-tooling fix:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/37bc66403f">Attach each release file from the job that built it, also when cancelled</a>. Thanks to xet7.</summary>
