@@ -21,7 +21,7 @@ that by providing one-click installation on various platforms.
 - WeKan ® largest user has 30k users using WeKan ® in their company.
 - WeKan ® has been [translated](https://app.transifex.com/wekan/) to 234 languages,
   167 of them essentially complete.
-- [Features][https://github.com/wekan/wekan/tree/main/docs/Features]:
+- [Features](https://github.com/wekan/wekan/tree/main/docs/Features):
   - Real-time user interface
   - All Boards page, Drag drop reorder with one or Multi-Selection:
     - Board icons at Remaining, (Sub)Workspaces, Archive
@@ -256,7 +256,7 @@ If a dev server is already running on that port, the **Dev server** options stop
 
 ### WSL Users
 
-WSL users can use Snap Candidate. See [install docs](https://wekan.fi/install/).
+WSL users can use Snap. See [install docs](https://wekan.fi/install/).
 
 ## License
 
