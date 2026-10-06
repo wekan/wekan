@@ -1548,8 +1548,9 @@ WebApp.handlers.post('/api/boards/:boardId/members/:memberId', async function(re
  * @summary Get the email domains a board is shared with
  *
  * @description #5850: returns the `domains` array of a board. Each entry is an
- * object `{ domain: "example.com", isActive: true }`. Anyone able to read the
- * board may list its domains. Requires the caller to be authenticated.
+ * object `{ domain: "example.com", isActive: true }`. Requires a site admin
+ * (Authentication.checkUserId); a board's own members get the same list as
+ * part of GET /api/boards/:boardId.
  *
  * @param {string} boardId the board ID
  * @return_type [{domain: string, isActive: boolean}]

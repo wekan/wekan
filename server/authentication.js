@@ -20,6 +20,11 @@ function writeRefusalCanary(board, userId) {
 
 // Authentication helpers — exported for use by API routes and model files
 export const Authentication = {
+  // Despite the name, this is the SITE ADMIN check: a caller who is logged in
+  // but not an admin is refused with 403. GHSA-r3c4-5xwp-vf54 read it as a login
+  // check and reported GET /api/boards/:boardId/domains as open to every user;
+  // it never was (tests/restBoardDomainsAccess.test.cjs). checkLoggedIn below is
+  // the login check.
   async checkUserId(userId) {
     if (!userId) {
       const error = new Meteor.Error('Unauthorized', 'Unauthorized');
