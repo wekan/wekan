@@ -107,7 +107,7 @@ that by providing one-click installation on various platforms.
       - History Undo/Redo available at Board, List, Card, etc menus at Swimlanes and List views
     - Notifications
     - Reports
-      - Security: shows any attempted attacks based on names from https://wekan.fi/hall-of-fame/ like built-in SIEM with country flag and city based of location of IP address based on location headers like CloudFlare etc,
+      - Security: shows any attempted attacks based on names from https://wekan.fi/hall-of-fame/ like built-in SIEM with country flag and city based of location of IP address based on location headers like CloudFlare etc
       - Impersonation
       - Performance, Speed, Tests, CPU usage, Instrumentation, Broken Cards, Files, Rules, Boards, Recovery, Offices, API, Database problems, Filesystem integrity
 - [Platforms](https://wekan.fi/install/):
