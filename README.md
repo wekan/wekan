@@ -4,6 +4,10 @@
 
 https://wekan.fi/install/
 
+## Screenshot
+
+![Screenshot of WeKan Swimlanes view](https://wekan.fi/wekan-board-views.png)
+
 ## About WeKan ®
 
 WeKan ® is a FLOSS collaborative kanban board application with MIT license.
