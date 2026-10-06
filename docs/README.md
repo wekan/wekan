@@ -1,9 +1,5 @@
 <img src="wekan-logo.svg" width="60%" alt="Wekan logo" />
 
-## Screenshot
-
-![Screenshot of WeKan Swimlanes view](wekan-board-views.png)
-
 ## About WeKan ®
 
 Wekan is an open-source kanban board which allows a card-based task and to-do management.
