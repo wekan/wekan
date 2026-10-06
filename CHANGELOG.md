@@ -1869,6 +1869,41 @@ each for the reason given:
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Verifies that the reported disclosure of a board's **domain
+sharing** (GHSA-r3c4-5xwp-vf54) does not apply: the route was always limited to
+site administrators. Its documentation and tests now say and prove so.
+
+This release verifies the following security report:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cb703fd326">Confirm the board domains REST route is site-admin only; GHSA-r3c4-5xwp-vf54 does not apply</a>. Thanks to a25370 and xet7.</summary>
+
+GHSA-r3c4-5xwp-vf54 reported that `GET /api/boards/:boardId/domains` checks only
+the login, because it calls `Authentication.checkUserId`, so any account could
+read any private board's domain sharing. `checkUserId` is the **site admin**
+check despite its name: a logged-in caller who is not an admin gets 403. The
+route has answered only site admins since #5850 added it; before v12.15 the
+check refused `admin === undefined`, and Meteor's `findOneAsync` gives
+`undefined` for no match, so it refused everyone else then too. No Hall of Fame
+entry, as there is no vulnerability.
+
+The route's OpenAPI description, which said anyone able to read the board may
+list the domains, now says site admin, and that members get the list with
+`GET /api/boards/:boardId`; `checkUserId` has a comment saying what it is.
+`tests/restBoardDomainsAccess.test.cjs` runs the real handler with the real
+`Authentication` object: the reporter's non-member, members, ended memberships
+and logged-out callers are refused, a missing board answers like an existing
+one, and a site admin reads the list. A whole-tree negative test checks that
+every REST route with `:boardId` checks that board or a site admin, and that a
+login check alone would be caught. The report's proof of concept, run against a
+running WeKan in Chromium, WebKit and Firefox, gets 403.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.19 2026-10-05 WeKan ® release
 
 **In short:** Every **login environment variable** can now be overridden in
