@@ -1,6 +1,12 @@
 <img src="wekan-logo.svg" width="60%" alt="Wekan logo" />
 
-Wekan is an open-source [kanban board][] which allows a card-based task and to-do management.
+## Screenshot
+
+![Screenshot of WeKan Swimlanes view](wekan-board-views.png)
+
+## About WeKan ®
+
+Wekan is an open-source kanban board which allows a card-based task and to-do management.
 
 Wekan allows to create **Boards**, on which **Cards** can be moved around between a number of **Columns**. Boards can have many members, allowing for easy collaboration, just add everyone that should be able to work with you on the board to it, and you are good to go! You can assign colored **Labels** to cards to facilitate grouping and filtering, additionally you can add members to a card, for example to assign a task to someone.
 
@@ -25,7 +31,9 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 
 # <a name="General"></a>General
 
-* WeKan Features: [Deep Dive Into WeKan](Design/Deep-Dive-Into-WeKan.md) (WeKan now runs on Meteor 3.x and Node.js 26.x)
+* WeKan Features:
+  - [Features list at WeKan readme](../README.md)
+  - [Deep Dive Into WeKan](Design/Deep-Dive-Into-WeKan.md) (WeKan now runs on Meteor 3.x and Node.js 26.x)
 * [WeKan Roadmap kanban board](https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license) - board at Wekan demo
 * Future WeKan prototypes: [Multiverse WeKan Roadmap](Design/Multiverse/WeKan-Multiverse-Roadmap.md)
 * [Change Language](Features/Member-Settings/Change-Language.md)
