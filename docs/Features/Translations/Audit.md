@@ -5795,6 +5795,23 @@ Technical compounds for mappings, parser output and source baselines remain
 low-confidence drafts pending fluent-speaker review. No external translation
 service was used. The all-language backlog and wording audit remain open.
 
+## Somali rule editing and notification recovery — 2026-10-07
+
+Filled 46 English placeholders covering the block rule editor, SMTP failure
+categories and activity-notification recovery. Existing Somali values remain
+unchanged. Tests preserve exactly one trigger/action, administrator permission,
+reload-before-save, temporary versus permanent SMTP rejection, unconfirmed
+versus failed delivery, retained pending work, no activity recreation and
+cancellation that cannot recall already queued mail or delivered notifications.
+Pause, resume and cancel remain distinct actions.
+
+Three new regression tests pass alongside the earlier Somali suites and the
+234-catalog key-order/placeholder check (11 tests total); 21 human-preference
+checks pass. Browser checks were not run. Technical terms for recovery metadata,
+delivery reservations and rule blocks remain low-confidence drafts pending
+fluent-speaker review. The remaining Somali English-placeholder queue consists
+of Blockly messages; the broader language and wording audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
