@@ -3528,6 +3528,12 @@ Filled 15 English placeholders in `gv`, `ve-CC` and `rup` with the protected fil
 
 Extended the translation/token regression and existing localized browser scenario to the three locales. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 19 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
 
+### History recovery: Akan, Ewe and Bambara
+
+Filled 15 English placeholders in `ak`, `ee` and `bm` with the protected fill utility. The drafts distinguish undo/redo and retry/forget and retain the same-request explanation. References include [the Akan dictionary](https://www.akandictionary.com/2021/05/01/awerefire/) for forgetting vocabulary, [Basic Ewe](https://philtypo3.uni-koeln.de/sites/inst_afrika/pdf/BASIC_EWE_2nd_ed.pdf) for return vocabulary, and [Bambara sègin](https://kemelang.com/bambara/s%C3%A8gin/) for returning. These support individual roots, not the composed software sentences. Full clauses and technical terminology, especially the Ewe undo expression and Bambara confirmation wording, remain low-confidence drafts for fluent-speaker review. Unrelated generic Akan filler labels remain part of the broader quality audit.
+
+Extended the translation/token regression and existing localized browser scenario to the three locales. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 16 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
