@@ -6293,6 +6293,21 @@ source tokens, bitmap row/column arguments, pixel states, operand roles,
 first/second inputs, coordinates and shared endpoint/repeat labels. Browser
 and screen-reader checks were not run. The broader language audit remains open.
 
+## Māori Blockly editing and accessibility — 2026-10-08
+
+Filled 46 English placeholders for block editing, backpack operations, icon
+controls, zoom and screen-reader announcements. Existing translations remain
+unchanged. Empty backpack explicitly removes all contents; it differs from
+removing a single block. Tests preserve source tokens, deletion counts,
+missing-parent negation, open/close and enable/disable distinctions, and the
+opposite actions offered by enabled/disabled screen-reader announcements.
+
+The combined focused run passes 57 checks, including all 21 Māori checks.
+Two shared catalog checks still fail on missing shortcut-edit-due-date keys
+in other locales. All 21 human-preference checks pass. Browser and screen-reader
+checks were not run. Backpack, parent-block and accessibility wording remains
+provisional pending fluent-speaker review. The broader language audit is open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
