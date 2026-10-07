@@ -3232,6 +3232,14 @@ The Dzongkha login wording follows the existing locale and is also used by the [
 
 Extended the existing translation regression to these three locales. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in 17 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
 
+### Signed-in board visibility: Manx, Walloon and Aromanian
+
+Filled three visibility strings in each locale: nine English placeholders. Direct drafts preserve signed-in viewing, anonymous exclusion, board-member editing and confirmation emphasis. The fill utility protected existing translations; no translation service was used. Technical phrasing and grammatical agreement have lower confidence and require fluent-speaker review, particularly Aromanian dialect choices and Manx mutations.
+
+Vocabulary references include the [GNOME Manx translation](https://mail.gnome.org/archives/commits-list/2010-August/msg02179.html) for `ymmydeyr`, the [Walloon language forum](https://berdelaedje.walon.org/) for `uzeus` and `s' elodjî`, and [Vrabie's English–Aromanian dictionary](https://vivliuteca.org/wp-content/uploads/2025/06/an-english-aromanian-macedo-romanian-dictionary-society-farsharotu.pdf), whose EVERY, NEVER and ONLY entries inform the Aromanian quantifiers and restriction. These references do not validate the complete drafted sentences.
+
+Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in 14 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
