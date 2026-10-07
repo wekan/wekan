@@ -3334,6 +3334,16 @@ Vocabulary references include [Oromo LibreOffice help](https://help.libreoffice.
 
 Extended the existing import translation and browser cases to these ten locales. Ten translation/token regressions, import-loss positive/negative checks, all 234 locale structure checks and 21 human-preference checks pass. Browser cases were syntax-checked only; execution remains unverified because the local Playwright executable and running application are unavailable. Each of these three source keys remains English in 46 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
 
+### Import warning report: eight further locales and five menu repairs
+
+Filled 24 English placeholders in Bislama (`bi`), Tok Pisin (`tpi`), Māori (`mi`), Samoan (`sm`), Hawaiian (`haw`), Papiamentu (`pap`), Xhosa (`xh`) and Northern Ndebele (`nd`). The fill utility protected existing translations; no translation service was used. The description preserves the completed board creation, incomplete transfer and recovery report location.
+
+Corrected five bad menu values directly: Bislama `Tok blong sistem: Problems` and `Tok blong sistem: Recovery` become `Ol problem` and `Putumbak`; Tok Pisin `Toksave: Recovery` becomes `Putim bek`; Hawaiian `palopalemaka` and `lekolelawa` become `Nā pilikia` and `Hoʻihoʻi`. Prefixing English with local-language text was not a translation. The malformed Hawaiian forms were replaced with attested vocabulary. Regression assertions check the replacements, reject the old text and require the report's menu path to match these labels.
+
+References include [Te Aka's warning entry](https://maoridictionary.co.nz/word/9971), [Tok Pisin lukaut](https://tokpisin.info/lukaut/), [Hawaiian pilikia](https://hilo.hawaii.edu/wehe/?q=pilikia), [Hawaiian return/restore vocabulary](https://wehe.hilo.hawaii.edu/?q=return), and [Papiamentu warning usage](https://papiamentu.rijksdienstcn.com/aktual/notisia/2026/ougustus/07/atvertensia-mensahe-falsu-tokante-bishita-na-kas-ta-sirkula). These support words rather than validating the full drafts. Samoan, Hawaiian, Papiamentu and Northern Ndebele technical phrasing and agreement have lower confidence; all drafts remain open to fluent-speaker review.
+
+Ten translation/token regressions, import-loss positive/negative checks, all 234 locale structure checks and 21 human-preference checks pass. Extended the existing browser cases to eight more locales; they were syntax-checked only because the local Playwright executable and running application are unavailable. Each of the three source keys remains English in 38 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
