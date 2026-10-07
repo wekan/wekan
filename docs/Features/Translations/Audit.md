@@ -2869,6 +2869,25 @@ syntax-checked but not run without the application stack. Eight locale paths sti
 need this pair, so both keys remain pending. The ordinary backlog remains 51,575
 values plus 174 pending source keys; broader language-quality review remains open.
 
+### Move-position labels — Dzongkha, Greenlandic and Inuktitut (2026-10-07)
+
+Filled six placement labels in dz, kl and iu through the placeholder-only merge,
+preserving existing translations. No translation service was used.
+
+Used spatial front/back expressions. References:
+[Grammar of Dzongkha](https://escholarship.org/content/qt1h4211k0/qt1h4211k0_noSplash_b3843a79888f78f39713ded5f61ad772.pdf),
+[Nunavik locative noun bases](https://nunavik-ice.com/en/c/inuktitut-en/locative-pronouns/),
+and [Greenlandic front/back usage in photo captions](https://knr.gl/kl/nutaarsiassat/sermersuup-kommunalbestyrelsiani-inissitsitertut).
+Standalone placement labels have lower confidence and still need native/UI review;
+these references establish vocabulary usage, not idiomatic software localization.
+
+The structural-selection suite now covers this pair in 61 recently filled locales.
+Key order, exact source tokens, distinct opposite choices, runtime selection,
+all-locale structure and 21 human-preference checks pass. Browser scenarios were
+syntax-checked but not run without the app stack. Five locale paths still need
+the pair; both keys remain pending. The ordinary backlog remains 51,575 values
+plus 174 pending source keys, with broader language-quality review open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
