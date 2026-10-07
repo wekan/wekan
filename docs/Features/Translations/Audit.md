@@ -4242,6 +4242,13 @@ mixed-language audit remains open.
 - The ten strings remain English in 58 locales. Ordinary placeholders decrease from 51,575 to 51,505 across 70 languages. All 148 pending keys already differ from English in every non-English locale, but their wording review remains open; this batch does not remove them from that queue.
 - All 17 focused Node tests and 21 human-preference checks pass. Extended the existing browser report flow for these seven locales, including filtering, empty results and private-content exclusion. Browser syntax passes; execution remains unverified because the local Playwright executable is unavailable.
 
+## Rule email report labels: eight further locales (2026-10-07)
+
+- Filled ten English report strings each in Turkmen, Yiddish, Bhojpuri, Maithili, Odia, Konkani, Papiamentu and Moroccan Arabic (80 values), using the existing email-action translations for vocabulary. Full technical clauses remain provisional, especially Konkani and Papiamentu.
+- The report description retains both possible states of an unconfirmed attempt and says that the report neither retries nor cancels delivery. The accepted status refers to the mail server. Odia identifiers are not described as necessarily numeric.
+- Extended the existing placeholder/state checks and browser report flow to these eight locales. All 17 focused Node tests and 21 human-preference checks pass; browser syntax passes, but execution remains unverified because the local Playwright executable is unavailable.
+- These ten report strings remain English in 50 locales. Ordinary placeholders decrease from 51,505 to 51,425 across 70 languages; 148 pending keys still require wording review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
