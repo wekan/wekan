@@ -3766,6 +3766,14 @@ Extended locale regression coverage and parameterized the parent-removal browser
 
 These controls remain English in 59 locale paths, so their keys stay pending. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys. Structural coverage does not establish fluency.
 
+## Multiple-parent controls: South Asian locales - 2026-10-07
+
+Filled three English placeholders in each of `bho`, `mai`, `or_IN`, `kok` and `ks` (15 values) through the protected fill workflow. Removal wording ends a subtask relationship rather than deleting a card. Existing terminology informed the drafts; decorative trailing bars in older Odia labels were not copied. Kashmiri wording remains low confidence: the [Kashmiri work entry](https://en.wiktionary.org/wiki/%DA%A9%D9%B2%D9%85) supports the task noun, but does not verify the full technical phrases or inflections.
+
+Extended locale and browser coverage to all five locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Structural checks do not establish linguistic accuracy.
+
+These controls remain English in 54 locale paths and stay pending. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
