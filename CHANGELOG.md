@@ -385,7 +385,7 @@ held only issues \#4774 and \#4055, and both are closed now.
 Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
-- The current `node releases/translations/fill-translations.mjs --missing` report counts **51,575 untranslated locale/string values in 70 languages**. It excludes **181 source keys tracked separately as pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
+- The current `node releases/translations/fill-translations.mjs --missing` report counts **51,575 untranslated locale/string values in 70 languages**. It excludes **174 source keys tracked separately as pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
 - The 13 activity-notification preference keys have no empty or exact English-placeholder values in all 234 non-English locale paths and have left the pending queue. Provisional wording still needs language review.
 - Automatic-archiving and date-filter messages now have non-English values in all 234 non-English locale paths. Continue the remaining feature families and the language-quality audit; coverage does not establish fluent wording.
 - Fill English placeholders in every language, including minority and constructed languages. Audit mixed-language and wrong-language seed text, and review provisional wording with speakers when available. Preserve correct-language human translations, source key order, exact placeholders, technical identifiers and query examples. Use direct translation and dictionary research, not an external translation service.
@@ -1888,6 +1888,19 @@ Minority-language wording remains provisional and needs speaker review.
 This release updates the following translations:
 
 **Activity notifications** - choosing which card activity sends notifications.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e32e50a5e1beb9ba406284ee58b384c4c42d4101">Translate move-position labels in 36 locales</a>. Thanks to xet7.</summary>
+
+- Fill 72 “Before” and “After” labels for relative placement of selected objects.
+  Preserve existing translations; use spatial placement wording for Wolof.
+  Lower-confidence minority-language wording remains recorded for native/UI review.
+- Selection runtime, translation structure and human-preference checks pass.
+  Browser scenarios were syntax-checked but not run without the application stack.
+- Thirty locale paths still need these labels. The ordinary backlog remains 51,575
+  values plus 174 pending source keys; broader language-quality work remains open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/20c986cc20e9d7d37667288c30dd591f98b68ad3">Complete rule-builder placeholder translations across locales</a>. Thanks to xet7.</summary>
