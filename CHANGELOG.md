@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **44,587 untranslated locale/string values in 70 languages**. It
+  report counts **44,565 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -2074,6 +2074,18 @@ uses the same word as `checklist` itself.
 </details>
 
 **Translations** — continued language coverage and corrections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/360697a4f081fd96c19ed8896f6eaa192ca0828c">Translate 22 Northern Sotho Blockly variable messages.</a></summary>
+
+- Fill English placeholders while preserving existing translations and source tokens.
+- Verify deletion counts, definition restrictions, rename scope, name conflicts and variable types.
+- Validation: 53 translation and structural tests and 21 human-preference checks pass. Browser checks were not run. Technical wording remains low confidence pending fluent-speaker review.
+- Remaining counted English placeholders: 44,565 across 70 languages. The broader language and wording audit continues.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2c6d2b48d561dc0181ced4c4d7a3d45c2b7a50e3">Translate 33 Northern Sotho Blockly control-flow messages.</a></summary>
