@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9937a380082d21776e94cd7eebc6d5a8c27160c8">Translate Bhojpuri statistics and random-number instructions</a></summary>
+
+- Fill 29 English placeholders for statistics, random numbers, powers,
+  rounding and absolute values, preserving existing translations and tokens.
+- Statistical and rounding terminology remains low confidence pending review.
+- All 49 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3c5a19f3a094533ac4bf56ed237a68929dd1c193">Translate Bhojpuri arithmetic and number tests</a></summary>
 
 - Fill 28 English placeholders for arithmetic, constants, bounds, divisibility,
