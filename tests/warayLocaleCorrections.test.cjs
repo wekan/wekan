@@ -624,7 +624,60 @@ const correctedKeys = [
   "blockly-SHORTCUTS_SHOW_TOOLTIP",
   "blockly-SHORTCUTS_START_MOVE",
   "blockly-SHORTCUTS_START_MOVE_STACK",
-  "blockly-SHORTCUTS_TOGGLE_SCREENREADER_MODE"
+  "blockly-SHORTCUTS_TOGGLE_SCREENREADER_MODE",
+  "blockly-TEXT_APPEND_TITLE",
+  "blockly-TEXT_APPEND_TOOLTIP",
+  "blockly-TEXT_CHANGECASE_OPERATOR_LOWERCASE",
+  "blockly-TEXT_CHANGECASE_OPERATOR_TITLECASE",
+  "blockly-TEXT_CHANGECASE_OPERATOR_UPPERCASE",
+  "blockly-TEXT_CHANGECASE_TOOLTIP",
+  "blockly-TEXT_CHARAT_FIRST",
+  "blockly-TEXT_CHARAT_FROM_END",
+  "blockly-TEXT_CHARAT_FROM_START",
+  "blockly-TEXT_CHARAT_LAST",
+  "blockly-TEXT_CHARAT_RANDOM",
+  "blockly-TEXT_CHARAT_TITLE",
+  "blockly-TEXT_CHARAT_TOOLTIP",
+  "blockly-TEXT_COUNT_MESSAGE0",
+  "blockly-TEXT_COUNT_TOOLTIP",
+  "blockly-TEXT_CREATE_JOIN_ITEM_TOOLTIP",
+  "blockly-TEXT_CREATE_JOIN_TITLE_JOIN",
+  "blockly-TEXT_CREATE_JOIN_TOOLTIP",
+  "blockly-TEXT_FROM_END_ARIA",
+  "blockly-TEXT_FROM_START_ARIA",
+  "blockly-TEXT_GET_SUBSTRING_END_FROM_END",
+  "blockly-TEXT_GET_SUBSTRING_END_FROM_START",
+  "blockly-TEXT_GET_SUBSTRING_END_LAST",
+  "blockly-TEXT_GET_SUBSTRING_INPUT_IN_TEXT",
+  "blockly-TEXT_GET_SUBSTRING_START_FIRST",
+  "blockly-TEXT_GET_SUBSTRING_START_FROM_END",
+  "blockly-TEXT_GET_SUBSTRING_START_FROM_START",
+  "blockly-TEXT_GET_SUBSTRING_TOOLTIP",
+  "blockly-TEXT_INDEXOF_OPERATOR_FIRST",
+  "blockly-TEXT_INDEXOF_OPERATOR_LAST",
+  "blockly-TEXT_INDEXOF_TITLE",
+  "blockly-TEXT_INDEXOF_TOOLTIP",
+  "blockly-TEXT_ISEMPTY_TITLE",
+  "blockly-TEXT_ISEMPTY_TOOLTIP",
+  "blockly-TEXT_JOIN_TITLE_CREATEWITH",
+  "blockly-TEXT_JOIN_TOOLTIP",
+  "blockly-TEXT_LENGTH_TITLE",
+  "blockly-TEXT_LENGTH_TOOLTIP",
+  "blockly-TEXT_PRINT_TITLE",
+  "blockly-TEXT_PRINT_TOOLTIP",
+  "blockly-TEXT_PROMPT_TOOLTIP_NUMBER",
+  "blockly-TEXT_PROMPT_TOOLTIP_TEXT",
+  "blockly-TEXT_PROMPT_TYPE_NUMBER",
+  "blockly-TEXT_PROMPT_TYPE_TEXT",
+  "blockly-TEXT_REPLACE_MESSAGE0",
+  "blockly-TEXT_REPLACE_TOOLTIP",
+  "blockly-TEXT_REVERSE_MESSAGE0",
+  "blockly-TEXT_REVERSE_TOOLTIP",
+  "blockly-TEXT_TEXT_TOOLTIP",
+  "blockly-TEXT_TRIM_OPERATOR_BOTH",
+  "blockly-TEXT_TRIM_OPERATOR_LEFT",
+  "blockly-TEXT_TRIM_OPERATOR_RIGHT",
+  "blockly-TEXT_TRIM_TOOLTIP"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -737,6 +790,20 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   }
   for (const [a, b] of [['ABORT_MOVE', 'FINISH_MOVE'], ['JUMP_BLOCK_START', 'JUMP_BLOCK_END'], ['JUMP_FIRST_BLOCK', 'JUMP_LAST_BLOCK'], ['JUMP_TOP_STACK', 'JUMP_BOTTOM_STACK'], ['NEXT_HEADING', 'PREVIOUS_HEADING'], ['NEXT_STACK', 'PREVIOUS_STACK']]) {
     assert.notEqual(waray['blockly-SHORTCUTS_' + a], waray['blockly-SHORTCUTS_' + b]);
+  }
+  assert.match(waray['blockly-TEXT_INDEXOF_TOOLTIP'], /%1 kon waray mabilngi/);
+  assert.match(waray['blockly-TEXT_LENGTH_TOOLTIP'], /upod an mga espasyo/);
+  assert.match(waray['blockly-TEXT_REPLACE_TOOLTIP'], /ngatanan nga pagpakita/);
+  for (const key of ['TEXT_CHANGECASE_TOOLTIP', 'TEXT_TRIM_TOOLTIP']) {
+    assert.match(waray['blockly-' + key], /kopya/);
+  }
+  for (const [side, wording] of [['LEFT', 'wala'], ['RIGHT', 'tuo'], ['BOTH', 'duha']]) {
+    assert.ok(waray['blockly-TEXT_TRIM_OPERATOR_' + side].includes(wording));
+  }
+  assert.match(waray['blockly-TEXT_APPEND_TOOLTIP'], /ha kataposan/);
+  for (const kind of ['TEXT_CHARAT_FROM_END', 'TEXT_GET_SUBSTRING_START_FROM_END', 'TEXT_GET_SUBSTRING_END_FROM_END']) {
+    assert.ok(waray['blockly-' + kind].includes('#'));
+    assert.match(waray['blockly-' + kind], /tikang ha kataposan/);
   }
   const statistics = ['AVERAGE', 'MEDIAN', 'MODE', 'STD_DEV', 'SUM'].map(s => waray['blockly-MATH_ONLIST_OPERATOR_' + s]);
   assert.equal(new Set(statistics).size, statistics.length);

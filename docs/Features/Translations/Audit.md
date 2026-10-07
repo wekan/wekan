@@ -5055,6 +5055,12 @@ mixed-language audit remains open.
 - Kept scrolling the visible area distinct from moving a block, and retained start/end, first/last, previous/next and top/bottom distinctions. Added direction, state-transition and opposite-action regression checks alongside placeholder comparisons.
 - Screen-reader, focus and stack terminology remains provisional and needs contextual accessibility review. Browser and spoken screen-reader checks were not run; automated checks do not establish linguistic fluency.
 
+### Waray Blockly text operations
+
+- Filled 53 English placeholders through the protected workflow, covering text case, character positions, substrings, search, counts, joining, prompting, replacement, reversal and trimming. Preserved numbered arguments and position markers.
+- Kept append-at-end, not-found results, space-inclusive length, replace-all scope and copy semantics explicit. Added regression assertions for these behaviors and left/right/both trimming directions.
+- Title-case and substring wording is paraphrased and remains provisional pending contextual language review. Browser and spoken accessibility checks were not run; automated checks establish structure and selected semantic distinctions, not fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
