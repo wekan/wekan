@@ -4235,6 +4235,13 @@ missing-value report still counts 51,575 ordinary placeholders in 70 languages.
 Structural coverage does not establish linguistic accuracy, and the broader
 mixed-language audit remains open.
 
+## Rule email report labels: seven further locales (2026-10-07)
+
+- Filled ten English report strings each in Kurmanji, Sorani, Tatar, Somali, Chichewa, Māori and Samoan (70 values). The report only displays attempts; server acceptance is distinct from confirmed delivery, and viewing it neither retries nor cancels sending.
+- Used the existing locale vocabulary and the report template as context. Māori terminology references: [whakamātau](https://maoridictionary.co.nz/word/9613) and [computer terminology, including email server](https://www.taiuru.maori.nz/publicationslib/Dictionary-of-Computer-Related-Terms-Edition-2.pdf). Full technical clauses remain provisional, particularly Chichewa and Samoan; these references do not establish sentence-level fluency.
+- The ten strings remain English in 58 locales. Ordinary placeholders decrease from 51,575 to 51,505 across 70 languages. All 148 pending keys already differ from English in every non-English locale, but their wording review remains open; this batch does not remove them from that queue.
+- All 17 focused Node tests and 21 human-preference checks pass. Extended the existing browser report flow for these seven locales, including filtering, empty results and private-content exclusion. Browser syntax passes; execution remains unverified because the local Playwright executable is unavailable.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

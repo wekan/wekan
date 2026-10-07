@@ -311,6 +311,22 @@ test('Leo outline import instructions have non-English values in all locales', a
   assert.match(fi, /Merkityt solmut tuodaan valmiina/);
 });
 
+test('rule email report translations preserve tokens and distinct delivery states', async () => {
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  const source = JSON.parse(fs.readFileSync(path.join(directory, 'en.i18n.json')));
+  const suffixes = ['heading', 'description', 'all', 'unconfirmed', 'sent', 'invalid', 'identifiers', 'started', 'finished', 'empty'];
+  for (const code of ['ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm']) {
+    const locale = JSON.parse(fs.readFileSync(path.join(directory, code + '.i18n.json')));
+    for (const suffix of suffixes) {
+      const key = 'rule-email-recovery-' + suffix;
+      assert.ok(locale[key]?.trim(), code + ':' + key);
+      assert.notEqual(locale[key], source[key], code + ':' + key);
+      assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), code + ':' + key);
+    }
+    assert.equal(new Set(['unconfirmed', 'sent', 'invalid', 'finished'].map(s => locale['rule-email-recovery-' + s])).size, 4, code);
+  }
+});
+
 test('rule variable picker labels have non-English values in all locales', async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   const codes = fs.readdirSync(directory)

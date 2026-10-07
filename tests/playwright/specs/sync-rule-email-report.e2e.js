@@ -31,7 +31,9 @@ test('only administrators can read bounded rule-email attempt metadata through D
 });
 
 
-test('administrator filters, pages and refreshes rule email attempts in Recovery', async ({ page, adminUser }) => {
+for (const language of ['en', 'ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm']) {
+const locale = require(`../../../imports/i18n/data/${language}.i18n.json`);
+test(`administrator filters, pages and refreshes rule email attempts in Recovery (${language})`, async ({ page, adminUser }) => {
   const prefix = randomBytes(12).toString('hex');
   const ids = Array.from({ length: 13 }, (_, i) => `${prefix}${i.toString(16).padStart(40, '0')}`);
   for (const [i, id] of ids.entries()) db.insertOne('listSyncRuleEmailAttempts', {
@@ -41,9 +43,11 @@ test('administrator filters, pages and refreshes rule email attempts in Recovery
   });
   try {
     await loginWithToken(page, adminUser.id, adminUser.token);
+    await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
     await navigateInApp(page, '/admin/problems/recovery');
     const panel = page.locator('.sync-rule-email-recovery-reports');
-    await expect(panel.getByRole('heading', { name: 'Rule email delivery' })).toBeVisible();
+    await expect(panel.getByRole('heading', { name: locale['rule-email-recovery-heading'] })).toBeVisible();
+    await expect(panel).toContainText(locale['rule-email-recovery-description']);
     const search = panel.locator('.js-table-page-search');
     await search.fill(prefix); await search.press('Enter');
     const rows = panel.locator('tr[data-command]');
@@ -56,20 +60,23 @@ test('administrator filters, pages and refreshes rule email attempts in Recovery
     await panel.locator('.js-rule-email-status').selectOption('sent');
     await expect(rows).toHaveCount(1);
     await expect(rows.first()).toHaveAttribute('data-command', ids[12]);
-    await expect(rows.first()).toContainText('Accepted by mail server');
+    await expect(rows.first()).toContainText(locale['rule-email-recovery-sent']);
     await panel.locator('.js-rule-email-status').selectOption('unconfirmed');
     await expect(rows).toHaveCount(10);
     await panel.locator('.js-table-page-next').click();
     await expect(rows).toHaveCount(2);
+    await expect(rows.first()).toContainText(locale['rule-email-recovery-unconfirmed']);
     await panel.locator('.js-table-page-action').click();
     await expect(rows).toHaveCount(2);
     await expect(panel).not.toContainText('private body');
     await expect(panel).not.toContainText('address@example.org');
     await search.fill(`${prefix}missing`); await search.press('Enter');
     await expect(rows).toHaveCount(0);
-    await expect(panel).toContainText('No rule email attempts match this search.');
+    await expect(panel).toContainText(locale['rule-email-recovery-empty']);
   } finally { db.deleteMany('listSyncRuleEmailAttempts', { _id: { $in: ids } }); }
 });
+
+}
 
 // #2713, maintainer decision of 2026-09-30: an administrator resolves a
 // partially accepted rule email. Resend needs a live SMTP server and is
