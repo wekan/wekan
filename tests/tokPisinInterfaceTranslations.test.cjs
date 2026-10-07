@@ -1910,3 +1910,47 @@ test('Tok Pisin cloud setup keeps external controls and optional secret behavior
  assert.match(data['cloud-connection-failed'],/i no wok$/);
  assert.match(data['cloud-connection-success'],/i wok gut$/);
 });
+
+
+test('Tok Pisin layout and maintenance wording retains tokens without mixed English',()=>{
+ const keys=[
+  "text-background-color",
+  "click-to-enable-auto-width",
+  "click-to-disable-auto-width",
+  "auto-list-width",
+  "board-background-delete-pop",
+  "Node_heap_total_available_size",
+  "Node_memory_usage_heap_total",
+  "default-save-storage",
+  "board-status-loading-mode",
+  "filesystem-enabled",
+  "filesystem-disabled",
+  "cards-loading",
+  "cards-loading-lazy-note",
+  "backup-done",
+  "backup-restore-mode",
+  "total-attachments",
+  "mongodb-gridfs-storage",
+  "gridfs-move-collectionfs-note",
+  "schedule-board-backup",
+  "migration-info-text",
+  "problems-in-progress-help"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:background|width|loading|allocated|Storage|Backup|Total|Schedule|performed|continues|Reload|experimental)\b/,key);
+ }
+});
+
+test('Tok Pisin loading and maintenance help retains operational limits',()=>{
+ assert.match(data['click-to-enable-auto-width'],/i pas.*Klik bilong kirapim/);
+ assert.match(data['click-to-disable-auto-width'],/i wok.*Klik bilong pasim/);
+ assert.match(data['filesystem-disabled'],/i no wok$/);
+ assert.match(data['filesystem-enabled'],/i wok$/);
+ assert.equal(data['cards-loading'],data['board-status-loading-mode']);
+ assert.match(data['cards-loading-lazy-note'],/traim yet.*namba bilong ol kat na mak bilong WIP i stret.*Kalenda\/Tebol\/Gantt.*kat i lod pinis tasol.*Lodim gen/);
+ assert.match(data['gridfs-move-collectionfs-note'],/fail i pas.*piksa bilong yusa.*CollectionFS.*arapela ples bilong seivim/);
+ assert.match(data['migration-info-text'],/wanpela taim.*go het long baksait maski yu pasim brausa/);
+ assert.match(data['problems-in-progress-help'],/wok i pinis na yus bilong CPU i go daun/);
+});
