@@ -4834,6 +4834,13 @@ mixed-language audit remains open.
 - Low confidence: angle and color terminology need locale-specific review; pixel is a provisional loan, grid is described using boxes, input uses insertion and function uses ordinary work/function vocabulary. Checkbox and dropdown reuse existing catalog phrases without claiming independent validation. The full technical phrases and their inflections remain provisional.
 - Existing browser flows include this locale but remain unexecuted. Spoken announcements, the 148 pending source keys and the broader semantic audit remain open.
 
+### Tigre field types
+
+- Filled 11 English field-type placeholders through the protected fill. Replaced `ተመር` in the date control with calendar-date vocabulary `ዕለት`; the former corresponds to the date fruit rather than this control's meaning.
+- References: [BeitTigre's parallel phrasebook](https://beittigre.github.io/tigre-multilingual-dictionaries/) supplies picture, corner, box, list, entry, name and function/duty vocabulary. Calendar-date usage is checked against its date/time file-view sentence, rather than the ambiguous isolated English word “date.” [Glosbe's Tigre color entry](https://en.glosbe.com/en/tig/Color) supplies `ሕብር`. Phrasebook data has uneven quality and is a vocabulary aid, not authoritative validation of full technical phrases.
+- Low confidence: corner is used for angle, dropdown is paraphrased as a downward list, and grid adds boxes. Pixel is a loan; entry and duty/function may need more specific programming terms. Inflections, noun phrases and regional usage remain provisional. Tigrinya search results were not used as Tigre evidence.
+- Extended token/type distinctions and added a calendar-date correction regression. Existing browser coverage is registered but unexecuted; spoken announcements, the 148 pending source keys and the broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
