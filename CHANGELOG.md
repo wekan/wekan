@@ -1890,6 +1890,15 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/168c9b97b0a9dc5a3fdf80113636260dc48ad3d8">Translate board visibility in Manx, Walloon and Aromanian</a>. Thanks to xet7.</summary>
+
+- Fill nine English values, preserving viewing and editing distinctions and confirmation emphasis. Record references and lower-confidence grammar and dialect choices for fluent-speaker review.
+- Extend existing source-order, token, markup and rendered-emphasis checks. Translation and permission tests pass; the browser suite was syntax-checked only because the application stack is unavailable.
+- These three keys remain English in 14 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys, with language-quality review open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4dbca343d731aecd2f2d143c256327a30fd52e51">Translate board visibility in Tibetan, Dzongkha and Kashmiri</a>. Thanks to xet7.</summary>
 
 - Fill nine English values, preserving the viewing/editing distinction and confirmation emphasis. Record lower-confidence technical phrasing and grammar for fluent-speaker review.
