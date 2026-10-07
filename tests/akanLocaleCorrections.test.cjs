@@ -461,3 +461,21 @@ test('Akan embedded filler corrections preserve report limits and activity token
  assert.match(data['time-adjustment-note'],/nyɛ bere biara.*0 yɛ nsiesie.*Wɔrentumi/);
  assert.notEqual(data['email-templates-invite-subject'],data['email-templates-invite-body']);
 });
+
+test('Akan display toggles preserve enabled states and opposite next actions', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["multi-selection-active", "select-only-one-board", "set-selected-home", "home-board-badge", "home-board-empty", "click-to-enable-fixed-list-width", "click-to-disable-fixed-list-width", "keyboard-shortcuts-enabled", "keyboard-shortcuts-disabled", "add-after-list", "mobile-desktop-toggle", "click-to-enable-auto-width", "click-to-disable-auto-width", "card-aging-tier1", "card-aging-tier2", "card-aging-tier3", "custom-field-dropdown-options-placeholder", "import-trello-failed", "import-trello-zip-failed", "trello-api-credentials-required", "invalid-year", "invalid-user"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ for(const suffix of ['fixed-list-width','auto-width']){
+  assert.match(data['click-to-enable-'+suffix],/^Wɔadum.*sɔ no/);
+  assert.match(data['click-to-disable-'+suffix],/^Wɔasɔ.*dum no/);
+ }
+ assert.match(data['keyboard-shortcuts-enabled'],/^Wɔasɔ.*dum no/);
+ assert.match(data['keyboard-shortcuts-disabled'],/^Wɔadum.*sɔ no/);
+ for(const key of ['select-only-one-board','home-board-empty']) assert.match(data[key],/biako pɛ/);
+ for(const n of [1,2,3]) assert.ok(data['card-aging-tier'+n].includes(String(n)));
+ assert.equal(new Set([1,2,3].map(n=>data['card-aging-tier'+n])).size,3);
+ assert.match(data['custom-field-dropdown-options-placeholder'],/Enter/);
+ assert.match(data['invalid-year'],/anan.*2026/);
+ assert.match(data['trello-api-credentials-required'],/Trello API.*token.*nyinaa/);
+});

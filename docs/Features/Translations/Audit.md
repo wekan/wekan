@@ -5417,6 +5417,12 @@ A substring audit found 40 additional values containing the generic activity-inf
 
 Tests compare source placeholders, preserve `{{size}}`, simulation counts/UTC/horizon, percentile sample requirements, independent overlapping causes and date fallbacks. Statistical and forecasting terminology is low confidence and needs contextual review. Browser checks were not run; eliminating this phrase does not prove the catalog is fully correct.
 
+### Akan mixed-language correction: display toggles and selection
+
+Rewrote 22 mixed-language values for board selection/home behavior, width/keyboard toggles, fading tiers, dropdown entry and import/input errors. Preserve the current enabled/disabled state separately from the action performed by clicking.
+
+Tests cover source tokens, opposite toggle actions, one-board selection, tier numbers, Enter, the four-digit year example and both Trello credentials. Fading and display terminology remains provisional. Browser checks were not run; broader language review continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
