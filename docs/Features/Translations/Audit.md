@@ -4490,6 +4490,12 @@ mixed-language audit remains open.
 - Expanded the label check to all 234 non-English locales. Both focused Node tests and 21 human-preference checks pass, including token inventories and positive/negative drag-policy assertions. Added Cherokee to the localized browser heading and disable/re-enable persistence flow. Browser syntax passes; execution remains unverified because Playwright is unavailable locally.
 - The drag-permission label now has non-English text in every non-English locale. Ordinary placeholders decrease from 50,002 to 50,001 across 70 languages. The 148 pending source keys and broader semantic audit remain open; placeholder coverage is not proof of fluency.
 
+## Blockly movement announcements: seven locales (2026-10-07)
+
+- Filled twelve movement and scrolling announcements in Kurmanji, Sorani, Tatar, Somali, Chichewa, Māori and Samoan (84 values). Preserved `%1` and `%2` and distinguished before/after, inside/around and four scrolling directions. Technical phrasing remains provisional, especially Chichewa and Samoan.
+- All twelve focused Node tests and 21 human-preference checks pass. Added exact token-inventory and distinct-direction checks; existing negative import tests reject broken placeholders and protect local translations. Extended the localized editor drag/edit/context-menu browser flow to these seven locales. Browser syntax passes, but execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
+- Ordinary placeholders decrease from 50,001 to 49,917 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
