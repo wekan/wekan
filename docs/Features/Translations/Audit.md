@@ -3378,6 +3378,14 @@ The [official English-Dzongkha pocket dictionary](https://www.dzongkha.gov.bt/up
 
 Ten translation/token regressions, import-loss positive/negative checks, all 234 locale structure checks and 21 human-preference checks pass. Extended browser cases to these three locales; they were syntax-checked only because the local Playwright executable and running application are unavailable. Each source key remains English in 17 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
 
+### Import warning report: Manx, Walloon and Aromanian
+
+Filled nine English placeholders in `gv`, `wa` and `rup`. The fill utility protected existing translations; no translation service was used. The description retains board creation, incomplete transfer and the two-arrow recovery path using existing menu labels.
+
+The [Manx raaue entry](https://en.wiktionary.org/wiki/raaue) supplies the warning noun and plural. The [English-Aromanian dictionary](https://vivliuteca.org/wp-content/uploads/2025/06/an-english-aromanian-macedo-romanian-dictionary-society-farsharotu.pdf) supplies warning and opening verb roots; the composed warning noun and inflections are provisional. Walloon search results included automatically translated sites and do not establish native-speaker validation. All three drafts have low-confidence technical phrasing, particularly Walloon import terminology, Aromanian derivation/agreement and Manx passive phrasing, requiring fluent-speaker review. Existing menu terminology remains open to broader review.
+
+Ten translation/token regressions, import-loss positive/negative checks, all 234 locale structure checks and 21 human-preference checks pass. Extended browser cases to these three locales; they were syntax-checked only because the local Playwright executable and running application are unavailable. Each of the three source keys remains English in 14 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
