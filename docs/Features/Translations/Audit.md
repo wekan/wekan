@@ -6211,6 +6211,23 @@ replacement arguments, all-occurrence semantics, case distinctions, trim
 directions and number/text prompts. Browser and screen-reader checks were
 not run. The broader language and wording audit remains open.
 
+## Māori Blockly logic and functions — 2026-10-08
+
+Translated 50 English values: 47 counted placeholders and three short labels
+omitted by the counter (or and the two function-definition titles). Existing
+translations remain unchanged. Taumahi and tāuru follow the
+[Paekupu computing glossary](https://media.paekupu.co.nz/words/wordlist/hangarau/maori-to-english).
+Full-sentence wording and technical parameter/statement terms remain
+provisional pending fluent-speaker review.
+
+The combined focused run passes 49 checks, including all 13 Māori checks.
+Two shared catalog checks still fail on the missing shortcut-edit-due-date key
+in other locales. All 21 human-preference checks pass. Tests preserve source
+tokens, true/false negation, inclusive/exclusive comparisons, both-versus-one
+conditions, ternary label references, return/no-return distinctions, disabled
+function warnings and matching definition labels. Browser and screen-reader
+checks were not run. The broader language and wording audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
