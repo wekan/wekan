@@ -3638,6 +3638,14 @@ Terminology references: [Vanuatu ClimateWatch instructions](https://content.vmgd
 
 Extended the regression and browser scenario to these four paths. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Checks do not establish linguistic fluency.
 
+## Map view: Papiamento, Walloon, Acehnese and Hawaiian - 2026-10-07
+
+Filled seven English placeholders in each of `pap`, `wa`, `ace` and `haw` (28 values) through the protected fill workflow. The map-image examples and both placement methods are retained. Walloon distinguishes the geographical map from task cards. The seven keys remain English in 33 locale paths and stay in the pending queue; the broader backlog remains 51,575 ordinary placeholders across 70 languages plus 160 pending source keys.
+
+The [Aruba education manual](https://www.ea.aw/catalog/wp-content/uploads/2021/04/Rampa-manual-3-completo.pdf) supports Papiamento mapa, while the [Kapiolani campus publication](https://www.kapiolani.hawaii.edu/wp-content/uploads/Ka-Wehena-Kaiao.pdf) supports Hawaiian map vocabulary. The searches did not verify the Walloon and Acehnese technical phrases: those drafts are low confidence. Floor-plan terms and full-sentence fluency remain open to speaker review in this entire batch; terminology examples do not validate the sentences.
+
+Extended regression and browser coverage to these four paths. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Passing checks establish text coverage and placeholder preservation, not linguistic accuracy.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
