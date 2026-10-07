@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d4ab5c8ad12f2f4efabcb40f4aab1841042489f1">Correct 60 Akan color, field and account-control translations.</a></summary>
+
+- Replace unrelated generic filler in colors, custom fields, login, subscriptions and time tracking. Restore the intentionally empty comment placeholder and literal list abbreviations.
+- Check source tokens, empty/literal values, count and hour units and distinct controls. Uncommon color shades, version and WIP terminology remains provisional.
+- The exact generic-filler inventory decreases from 536 to 476. English placeholders remain 45,599 across 70 languages because these corrections replace non-English values.
+- Validation: 45 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/51ba1fa1039f1aeebb61a4067d8936c780657ffb">Correct 60 Akan board, voting and display translations.</a></summary>
 
 - Replace unrelated generic filler with board, voting, typography and display labels. Restore numeric poker values and the question-mark choice exactly.
