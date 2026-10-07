@@ -4933,6 +4933,12 @@ mixed-language audit remains open.
 - Vocabulary references: Walloon [bouyote](https://wa.wiktionary.org/wiki/bouyote) and the [Waray corpus dictionary](https://dictionary.corporaproject.org/index.php?glossary=S&sort=word). Stack/pile, block loans, container and replacement phrasing remain provisional; dictionary vocabulary does not prove the composed labels fluent.
 - Preserved numbered arguments and extended existing block-label checks. Browser and spoken accessibility checks remain unexecuted. Further wrong-language review of `wa-RR`, the 148 pending keys and the broader semantic audit remain open.
 
+### Waray board and import controls: further Walloon contamination
+
+- Compared `wa-RR` with Walloon and inspected the source meanings. Corrected 40 verified Walloon values covering board membership restrictions, home/default boards, views, deadlines, import/export, user mapping and text notes. Preserved the `%s` day-count tokens and the non-deletion guarantees in the confirmation messages.
+- These are wrong-language corrections, not English-placeholder fills; the missing count does not change. Many additional Walloon values remain in the Waray catalog and require subsequent correction. Prior assertions that these shared Walloon values were correct translations for `wa-RR` must not be relied upon.
+- Added regression checks for the corrected key set, source tokens, known Walloon vocabulary, import/export distinctions and the non-deletion guarantees. The tests cannot prove fluent Waray. Template/default, swimlane and chart terminology remains provisional and needs contextual review; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
