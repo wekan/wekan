@@ -158,3 +158,25 @@ test('Akan backup and migration controls preserve technical values and lifecycle
  assert.equal(data['migration-complete'],data.complete);
  assert.equal(data['sandstorm-migration-status'],data['migration-status']);
 });
+
+test('Akan remaining status labels remove generic filler and preserve schedules', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["migration-progress-status", "migration-progress-details", "steps", "has-swimlanes", "step-validate-migration", "step-fix-avatar-urls", "step-fix-attachment-urls", "step-finalize", "step-fix-missing-ids", "step-fix-file-urls", "cleanup", "cpu-usage", "current-action", "database-migrations", "duration", "estimated-time-remaining", "every-1-day", "every-1-hour", "every-1-minute", "every-10-minutes", "every-30-minutes", "every-5-minutes", "every-6-hours", "filesystem-attachments", "filesystem-size", "gridfs-attachments", "gridfs-size", "gridfs-storage", "idle-migration", "job-details", "job-queue", "last-run", "max-concurrent", "migrated-attachments", "migration-batch-size", "migration-cpu-threshold", "migration-delay-ms", "migration-log", "migration-markers", "migration-resumed", "migration-steps", "next", "next-run", "of", "operation-type", "overall-progress", "page", "pause-migration", "previous", "refresh", "remaining-attachments", "resume-migration", "run-once", "s3-attachments", "s3-size", "s3-storage", "scanning-status", "schedule", "start-test-operation", "step-progress", "stop-migration", "system-resources", "total-attachments", "total-operations", "total-size", "weight", "cron", "current-step", "otp", "already-account", "size-bytes", "last-modified", "api-endpoints", "otp-required", "login", "file", "log", "logout", "server", "protocol", "summary", "problems-status-title", "repairing", "cpu-usage-current", "cpu-load-average", "event-severity", "event-action", "event-source", "event-detail", "event-ip", "event-ipv4", "event-ipv6", "event-attempts", "integrityReportTitle", "flow-unknown", "flow-signal", "flow-blocker", "flow-target-date", "flow-size"];
+ for(const key of keys){
+  assert.notEqual(data[key],'Nsɛm a ɛfa dwumadi yi ho',key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ for(const [key,value] of Object.entries(data)) assert.notEqual(value,'Nsɛm a ɛfa dwumadi yi ho',key);
+ for(const key of ['every-1-day','every-1-hour','every-1-minute','every-5-minutes','every-10-minutes','every-30-minutes','every-6-hours']) assert.equal(data[key].match(/\d+/)[0],english[key].match(/\d+/)[0]);
+ assert.match(data['migration-cpu-threshold'],/CPU.*%/);
+ assert.match(data['migration-delay-ms'],/ms/);
+ for(const key of ['gridfs-storage','s3-storage','cron']) assert.equal(data[key],english[key]);
+ for(const [key,id] of [['event-ip','IP'],['event-ipv4','IPv4'],['event-ipv6','IPv6'],['otp-required','OTP']]) assert.ok(data[key].includes(id));
+ assert.equal(new Set(['pause-migration','resume-migration','stop-migration'].map(k=>data[k])).size,3);
+ assert.notEqual(data.login,data.logout);
+ assert.notEqual(data.next,data.previous);
+ for(const key of ['migration-progress-status','problems-status-title']) assert.equal(data[key],data.status);
+ assert.equal(data['event-action'],data.action);
+ assert.equal(data['event-severity'],data['recovery-severity']);
+ assert.equal(data['flow-size'],data['scrum-estimate']);
+});

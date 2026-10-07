@@ -5309,6 +5309,12 @@ Corrected 60 generic values for cloud credentials, backups, migrations and conne
 
 Tests cover source tokens, technical identifiers, lifecycle states, replacement scope and shared labels. Migration, backup and cloud-storage wording remains descriptive and provisional. Browser checks were not run.
 
+### Akan generic filler correction: remaining status and migration labels
+
+Corrected the remaining 99 exact occurrences of `Nsɛm a ɛfa dwumadi yi ho`, covering migrations, schedules, login, diagnostics and flow labels. Restore GridFS, S3 and Cron names; preserve interval numbers, CPU percentage, millisecond units and IP version identifiers. The exact filler inventory is now zero, which does not establish the accuracy of other catalog values.
+
+A full-catalog regression rejects that exact filler phrase. Batch checks cover source placeholders, scheduling intervals, technical values, opposite actions and shared labels. Migration, diagnostic and short grammatical wording remains provisional; mixed-language and semantic review continues. Browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
