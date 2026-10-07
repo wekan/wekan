@@ -6845,6 +6845,17 @@ The combined translation run passes 150 checks. Two existing catalog checks fail
 on the missing due-date shortcut key. All 21 human-preference checks pass.
 Browser and screen-reader checks were not run. The wider audit remains open.
 
+## Tok Pisin account lockout wording audit
+
+Corrected 15 mixed-language account and lockout labels. Checks distinguish
+existing users with wrong passwords from nonexistent usernames, preserve failure
+threshold wording and single/all-user scope, and retain the OTP identifier.
+Wording remains provisional pending fluent-speaker review.
+
+The combined translation run passes 152 checks. Two existing catalog checks fail
+on the missing due-date shortcut key. All 21 human-preference checks pass.
+Browser and screen-reader checks were not run. The wider audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

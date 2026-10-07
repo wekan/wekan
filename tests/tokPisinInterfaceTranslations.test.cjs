@@ -2459,3 +2459,40 @@ test('Tok Pisin import help retains file types, external tool name and selection
  assert.match(data['trello-delete-imported'],/bot i kam insait pinis/);
  assert.match(data['imported-member-no-account'],/no gat akaun i wankain yet/);
 });
+
+
+test('Tok Pisin account lockout labels preserve tokens and replace mixed English',()=>{
+ const keys=[
+  "accounts-lockout-settings",
+  "accounts-lockout-known-users",
+  "accounts-lockout-unknown-users",
+  "accounts-lockout-failures-before",
+  "accounts-lockout-settings-updated",
+  "accounts-lockout-locked-users",
+  "accounts-lockout-failed-attempts",
+  "accounts-lockout-remaining-time",
+  "accounts-lockout-show-locked-users",
+  "accounts-lockout-click-to-unlock",
+  "accounts-lockout-all-users-unlocked",
+  "accounts-lockout-unlock-all",
+  "already-account",
+  "user-exists",
+  "otp-required"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:Brute|Force|Protection|known|unknown|correct|wrong|non-existent|Failures|lockout|Locked|Attempts|Remaining|locked|unlock|unlocked|Unlock|Already|exists|code)\b/,key);
+ }
+});
+
+test('Tok Pisin lockout labels distinguish known accounts and absent usernames',()=>{
+ assert.match(data['accounts-lockout-known-users'],/yusa i stap pinis.*nem bilong yusa i stret, paswod i no stret/);
+ assert.match(data['accounts-lockout-unknown-users'],/nem bilong yusa i no stap/);
+ assert.match(data['accounts-lockout-failures-before'],/Hamas traim i no wok paslain long lok/);
+ assert.match(data['accounts-lockout-show-locked-users'],/yusa i lok tasol/);
+ assert.match(data['accounts-lockout-click-to-unlock'],/dispela yusa$/);
+ assert.match(data['accounts-lockout-all-users-unlocked'],/olgeta yusa.*raus pinis/);
+ assert.match(data['accounts-lockout-unlock-all'],/olgeta lok$/);
+ assert.match(data['otp-required'],/^Yu mas putim kod OTP$/);
+});
