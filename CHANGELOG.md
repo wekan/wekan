@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **48,302 untranslated locale/string values in 70 languages**. It
+  report counts **48,214 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -1932,6 +1932,18 @@ snap.
 and updates the following translations:
 
 **Activity notifications** - choosing which card activity sends notifications.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9eb2f5ebb8010bec399d3d24f0202483de272e48">Translate Blockly field-type labels in eight languages.</a></summary>
+
+- Fill 88 placeholders in Kurmanji, Sorani, Tatar, Somali, Yiddish, Moroccan Arabic, Bhojpuri and Maithili. Preserve source arguments and existing translations.
+- Add regression distinctions for image types, dropdown types and input/function names. Technical compounds remain provisional and are documented in the translation audit.
+- Ordinary untranslated values decrease from 48,302 to 48,214 across 70 languages; 148 pending source keys and the broader language audit remain open.
+- Validation: 14 focused tests and 21 human-preference checks pass. Existing browser field-editing coverage is syntax-checked; browser and spoken accessibility checks were not run.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1f4f00c8807477cf088a5924ec2c591a66686efb">Translate Inuktitut Blockly comment and accessibility labels.</a></summary>
