@@ -1462,6 +1462,26 @@ browser scenarios were syntax-checked only because the app stack was unavailable
 22 locale paths still need this six-string group. The ordinary backlog remains
 51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
 
+### Due reminders — Chuvash (2026-10-07)
+
+Filled six reminder strings in `cv`. Instructions retain comma-separated offsets,
+zero as the due day, positive days before and negative days after, the empty
+server-default setting, at most ten integers from -14 to 14, board disabling and
+outgoing webhook delivery. Only English placeholders were filled; no external
+translation service was used. Full instructions and technical compounds remain
+low-confidence drafts for native review. Script checks do not establish fluency.
+
+The [Chuvash-Russian dictionary](https://ru.samahsar.chuvash.org/article/33944.link)
+attests `тулли хисеп` for an integer. This supports the mathematical term, not the
+complete software instructions.
+
+Translation checks now cover 45 locales, including offset direction, defaults,
+bounds and source-token inventories. The existing browser scenario includes
+Chuvash. Translation, all-locale structural and human-preference checks pass;
+browser scenarios were syntax-checked only because the app stack was unavailable.
+21 locale paths still need this six-string group. The ordinary backlog remains
+51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
