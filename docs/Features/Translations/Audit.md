@@ -3726,6 +3726,14 @@ The [Nahuatl dictionary](https://ossyriams.pueblosoriginarios.com/lenguas/nahuat
 
 Extended regression and browser coverage to both locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Coverage and placeholder checks do not establish fluency.
 
+## Map view: Inuktitut - 2026-10-07
+
+Filled seven English placeholders in `iu` through the protected fill workflow. Both placement methods and the three image examples are retained. The seven map-view keys remain English in three locale paths and stay in the pending queue; the broader backlog remains 51,575 ordinary placeholders across 70 languages plus 160 pending source keys.
+
+The [Inuit Tapiriit Kanatami publication](https://www.itk.ca/wp-content/uploads/2016/07/health-human-resources.pdf) uses the map term nunannguaq / ᓄᓇᙳᐊᖅ. Existing locale labels supplied the board, card, administrator and selection terminology. These references do not validate the drafted sentences: floor-plan phrasing, technical inflections and upload wording remain low confidence and need language review.
+
+Extended regression and browser coverage to Inuktitut. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Structural checks do not establish fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
