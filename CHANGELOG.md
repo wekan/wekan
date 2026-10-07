@@ -1893,7 +1893,7 @@ each for the reason given:
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.22 2026-10-08 WeKan ® release
 
 **In short:** The **Snap** now says at once when the computer's AppArmor policy,
 not the database, refuses WeKan's own database connection, with the fix for the
