@@ -4590,6 +4590,15 @@ mixed-language audit remains open.
 - Browser coverage is syntax-checked only: Playwright is absent locally. Browser interaction and spoken accessibility labels remain unverified; structural tests do not certify language quality.
 - Ordinary placeholders decrease from 49,117 to 48,997 across 70 languages. The 148 pending source keys and broader translation/semantic audit remain open.
 
+## Blockly comment and accessibility controls: southern African locales
+
+- Filled fifteen English placeholders in each of Sesotho (`st`), Setswana (`tn`), Northern Sotho (`nso`), Zulu (`zu`, `zu-ZA`), Xhosa (`xh`), Swati (`ss`), Northern Ndebele (`nd`), Tsonga (`ts`) and Venda (`ve`): 150 values. The protected merge retains existing translations. This covers comment controls and accessibility labels for conditional branches, inputs, list items, text, buttons, collapse/expand, angle degrees and empty trash.
+- Used existing catalog terminology and the [Multilingual Mathematics Dictionary](https://lwimilinks.sadilar.org/media/documents/Multilingual_Mathematics.pdf), printed pages 20 and 40, for button and degree vocabulary. Its Ndebele entries are Southern Ndebele and were not used to validate Northern Ndebele wording. Northern Sotho uses the documented angle-unit root `kgato`.
+- Conditional-branch and input phrases remain provisional. Swati, Northern Ndebele and Venda technical phrasing is low confidence; dictionary vocabulary does not establish full-sentence correctness. Broader mixed-language catalog problems remain outside this batch.
+- Extended the fifteen-label regression and translated add-comment browser assertion to all ten paths. Source placeholders and opposing operations remain distinct. Blockly/completeness: 13 tests pass. Human-preference verification: 21 checks pass.
+- Browser coverage was syntax-checked, not executed: Playwright is absent locally. Screen-reader delivery and fluent wording remain unverified.
+- Ordinary placeholders decrease from 48,997 to 48,847 across 70 languages. The 148 pending source keys and broader translation/semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
