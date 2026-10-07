@@ -89,7 +89,13 @@ console.log('structuralSelection: named mixed preview, literal title text and bo
   const localeRoot = require('node:path').join(__dirname, '../imports/i18n/data');
   const loadLocale = code => JSON.parse(fs.readFileSync(`${localeRoot}/${code}.i18n.json`, 'utf8'));
   const source = loadLocale('en');
-  const codes = ["ary", "bho", "bi", "bo", "ckb", "haw", "kok", "ks", "ku", "mai", "mi", "nd", "nso", "ny", "om", "or_IN", "pap", "rn", "rw", "sm", "so", "ss", "st", "ti", "tk_TM", "tn", "to", "tpi", "ts", "tt", "ve", "wo", "xh", "yi", "zu-ZA", "zu", "gv", "vo", "wa", "bm", "lg", "ee", "fj", "qu", "ak", "wa-RR", "se", "ve-CC", "ay", "bua", "cv", "sah", "rup", "tlh", "ace", "ff", "gn", "ve-PP", "dz", "kl", "iu", "nah", "zgh", "tig"];
+  const pending = JSON.parse(fs.readFileSync(require('node:path').join(__dirname, '../releases/translations/pending-transifex.json'), 'utf8')).keys;
+  for (const key of ['move-selection-before', 'move-selection-after']) {
+    assert.ok(!pending.some(entry => entry.key === key), `${key}: filled group no longer pending`);
+  }
+  const codes = fs.readdirSync(localeRoot)
+    .filter(file => file.endsWith('.i18n.json') && !/^en(?:[-_.])/.test(file))
+    .map(file => file.replace(/\.i18n\.json$/, ''));
   for (const code of codes) {
     const locale = loadLocale(code);
     assert.deepEqual(Object.keys(locale), Object.keys(source), `${code}: source key order`);

@@ -1,14 +1,6 @@
 {
   "keys": [
     {
-      "key": "move-selection-before",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "move-selection-after",
-      "since": "2026-09-29"
-    },
-    {
       "key": "automatic-linked-url-schemes-hint",
       "since": "2026-09-29"
     },

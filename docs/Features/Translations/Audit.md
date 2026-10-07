@@ -2909,6 +2909,27 @@ syntax-checked but not run without the application stack. Cherokee and Wolaytta
 still need the pair; both keys remain pending. The ordinary backlog remains
 51,575 values plus 174 pending source keys, with broader language review open.
 
+### Move-position labels — Cherokee, Wolaytta and all-locale coverage (2026-10-07)
+
+Filled the final four English placeholders in chr and wal, preserving existing
+translations. No translation service was used. Spatial references include
+[Cherokee lesson examples](https://www.cherokeelessons.com/pdf-downloads/ᏛᏘᏏ-ᏥᏍᏚ-Ꮎ-ᎡᏆ-ᎠᏙᎩᏯᏍᏗ.pdf),
+[Cherokee Nation locative assessments](https://language.cherokee.org/media/5wan5m52/report-on-language-ed-self-governance-2024-final.pdf)
+and [Wolaytta ordering examples](https://divinerevelations.info/documents/bible/All_HTML2/Wolaytta_Bible/MAT19.htm).
+Standalone software phrasing has lower confidence and remains open for native/UI
+review; vocabulary evidence does not establish complete localization quality.
+
+Both placement labels now have non-English, distinct values in all 234 non-English
+locale paths. The structural-selection suite now discovers every locale, checking
+nonempty values, source key order and exact placeholder inventories. Removed the
+two filled keys from the pending inventory, reducing it from 174 to 172, with a
+regression assertion that they remain out of that inventory.
+
+Runtime selection, all-locale structural and 21 human-preference checks pass.
+Browser scenarios were syntax-checked but not run without the application stack.
+The ordinary backlog remains 51,575 values across 70 languages, plus 172 pending
+source keys. Broader wrong-language and low-confidence review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
