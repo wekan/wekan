@@ -3606,6 +3606,14 @@ The [Odisha government portal](https://odisha.gov.in/or) supports the Odia map t
 
 Extended the locale regression and existing browser scenario to these five languages. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. The tests cover exact placeholder inventories, distinct controls and the existing map behavior, not linguistic fluency.
 
+## Map view: Somali, Oromo, Kinyarwanda, Kirundi and Chichewa - 2026-10-07
+
+Filled seven English placeholders in each of `so`, `om`, `rw`, `rn` and `ny` (35 values) using the protected fill workflow. Kinyarwanda and Kirundi distinguish a map of a place from a task card rather than using the same bare noun for both. The placement instruction retains dragging and selecting/clicking. The seven keys remain English in 51 locale paths and stay in the pending queue; the broader backlog remains 51,575 ordinary placeholders across 70 languages plus 160 pending source keys.
+
+Terminology references include [Oromo kaartaa](https://glosbe.com/en/om/map), the [Burundi presidency document with a bilingual map caption](https://www.presidence.gov.bi/wp-content/uploads/2017/04/strategie-nationale-de-securite.pdf), and the [Chichewa Peace Corps course](https://fsi-languages.yojik.eu/languages/PeaceCorps/Chichewa/ED206158.pdf), which uses mapu. These references support individual terms, not full-sentence correctness. Floor-plan terminology, especially Oromo, and the longer technical sentences remain provisional and need speaker review. The Chichewa example describes a plan showing the rooms of a building.
+
+Extended the regression and map browser scenario to these five locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Exact placeholder and text-distinction checks do not prove fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
