@@ -2692,6 +2692,26 @@ not run; the app stack was unavailable. 4 locale paths still need this group.
 The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
 broader language-quality review remains open.
 
+### Rule-builder instructions — Inuktitut (2026-10-07)
+
+Filled seven pending strings in iu, preserving existing translations and all
+literal variable expressions. No translation service was used. New prose uses
+syllabics and retains any-trigger behavior, ordered actions, username/email context
+and card-derived variables. It has lower confidence; dialect, inflections,
+recipient fields and composed date fragments need native/UI review. Card is
+represented by a syllabic borrowing that also needs terminology review.
+References consulted include the
+[Inuktut affix dictionary](https://uqausiit.ca/sites/default/files/2020-04/Affix-Dictionary-V21.pdf)
+and [Inuktut glossary](https://tusaalanga.ca/glossary?l=T).
+These references do not validate full-sentence accuracy.
+
+The existing trigger-variable suite now checks 63 recently filled locales for
+source order and exact brace/underscore/percent tokens. Runtime matching,
+all-locale structural and human-preference checks pass. Browser scenarios were
+not run; the app stack was unavailable. 3 locale paths still need this group.
+The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
+broader language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
