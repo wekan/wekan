@@ -5135,6 +5135,12 @@ mixed-language audit remains open.
 - Preserved LDAP error arguments, platform identifiers, the AWS region example and Cc notation. Kept reset and recurrence distinct; added shared-view/state, passwordless and identifier checks.
 - Role, performance, instance and diagnostic terminology remains provisional and needs contextual review. Remaining comparison candidates include colors, date-format labels and further diagnostics. English-placeholder counts are unchanged; browser checks were not run.
 
+### Waray wrong-language audit: diagnostics and process charts
+
+- Corrected 38 French/Walloon or misleading mixed-language values directly, covering diagnostics, events, import state, numeric search and process-chart labels. Restored the source distinction between mean, confidence and moving range instead of describing every statistic as cycle time.
+- Preserved CPU, OTP, IP versions, XmR and percent notation. Added shared-label, no-active-work and identifier checks; the number search alias is a single token.
+- Statistical moving-range, confidence and server terminology remains provisional and needs technical-language review. English-placeholder counts are unchanged. Color/date labels and recognizable shared terms still need separate review; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

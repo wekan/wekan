@@ -1199,7 +1199,45 @@ const correctedKeys = [
   "s3-port",
   "s3-region",
   "s3-region-description",
-  "migration-progress-status"
+  "migration-progress-status",
+  "cleanup",
+  "cpu-cores",
+  "migration-cpu-threshold",
+  "of",
+  "schedule",
+  "cron",
+  "otp",
+  "login-allow",
+  "error",
+  "file",
+  "log",
+  "server",
+  "summary",
+  "problems-status-title",
+  "problems-none-in-progress",
+  "no-new-problems",
+  "repairing",
+  "cpu-usage-current",
+  "cpu-cores-suffix",
+  "cpu-load-average",
+  "event-datetime",
+  "event-category",
+  "event-bleed",
+  "event-severity",
+  "event-action",
+  "event-detail",
+  "event-ip",
+  "event-ipv4",
+  "event-ipv6",
+  "event-attempts",
+  "importing",
+  "import-scoped-failed",
+  "operator-number",
+  "board-view-process-behavior",
+  "flow-confidence",
+  "flow-mean",
+  "flow-moving-range",
+  "flow-mr-mean"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -1429,6 +1467,15 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   assert.match(waray['passwordless-title'], /waray sekreto nga pulong/);
   assert.ok(waray['s3-region-description'].includes('us-east-1'));
   assert.ok(waray['carbon-copy'].includes('Cc:'));
+  assert.equal(waray['problems-status-title'], waray['status']);
+  assert.equal(waray['event-severity'], waray['recovery-severity']);
+  assert.equal(waray['event-detail'], waray['recovery-detail']);
+  assert.equal(waray['file'], waray['move-progress-file']);
+  for (const id of ['IP', 'IPv4', 'IPv6']) assert.ok(waray['event-' + id.toLowerCase()].includes(id));
+  assert.ok(waray['board-view-process-behavior'].includes('XmR'));
+  assert.match(waray['problems-none-in-progress'], /^Waray nagpapadayon/);
+  assert.match(waray['no-new-problems'], /^Waray bag-o/);
+  assert.equal(waray['operator-number'], 'numero');
   const statistics = ['AVERAGE', 'MEDIAN', 'MODE', 'STD_DEV', 'SUM'].map(s => waray['blockly-MATH_ONLIST_OPERATOR_' + s]);
   assert.equal(new Set(statistics).size, statistics.length);
   assert.match(waray['blockly-MATH_ONLIST_TOOLTIP_MODE'], /lista han mga butang/);
