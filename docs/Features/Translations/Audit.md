@@ -7198,6 +7198,15 @@ mode lists, negation and rounding directions. Statistical and trigonometric
 terminology remains low confidence pending fluent review. Browser and
 screen-reader checks were not run.
 
+### Kurdish Blockly functions and variable controls
+
+Filled 40 English placeholders for trigonometric tooltips, workspace controls,
+variable creation and procedure definitions/calls. Existing translations are
+preserved. Tests verify source tokens, key order, degree units, disabled-call
+restrictions, function-only blocks and return-value distinctions. Parent-block
+and procedure-output terminology remains low confidence pending fluent review.
+Browser and screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
