@@ -3997,6 +3997,29 @@ the English instruction. The wider backlog remains 51,575 ordinary placeholders
 in 70 languages plus 150 pending source keys. These checks establish structural
 coverage, not linguistic accuracy.
 
+## Leo import instruction: Tibetan-script, Tigrinya and South American batch
+
+Filled six English placeholders for `import-board-instruction-leo` in Tibetan,
+Dzongkha, Tigrinya, Quechua, Aymara and Guarani. The protected fill preserved
+existing translations. The drafts retain the levels, child cards, body text as
+description, deeper checklists and marked completion state. Leo and `.leo` remain
+literal. Reviewed and simplified the Guarani child-node and marked-node clauses
+before applying the draft.
+
+Vocabulary references include the [Guarani dictionary published by Corrientes education authorities](https://www.mec.gob.ar/descargas/Bibliograf%C3%ADa/Educaci%C3%B3n%20Intercultural%20Biling%C3%BCe/GUARANI/avane-Diccionario-Guarani-Esp-Esp-Guarani.pdf)
+for `tysýi` and the [Aymara pedagogical vocabulary](https://aymaraclub.com/wp-content/uploads/2024/01/LIBRO-VOCABULARIO-PEDAGOGICO-AYMARA-OK-1.pdf)
+for level/part vocabulary. These references do not validate full clauses.
+All six technical instructions remain provisional, particularly Dzongkha,
+Quechua, Aymara and Guarani; speaker review remains open.
+
+Extended locale regression and the browser import scenario for these six
+languages. Existing invalid-input coverage remains in place. All 12 focused
+Node tests and 21 preservation checks pass. Browser syntax passes; execution
+remains unverified because Playwright is unavailable. Twelve locales still use
+the English instruction. The wider backlog remains 51,575 ordinary placeholders
+across 70 languages plus 150 pending source keys. Coverage is not proof of
+linguistic accuracy.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
