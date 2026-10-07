@@ -332,7 +332,40 @@ const correctedKeys = [
   "blockly-INPUT_LABEL_LOOP_TIMES",
   "blockly-INPUT_LABEL_LOOP_TO",
   "blockly-INPUT_LABEL_MATH_CHANGE_BY",
-  "blockly-INPUT_LABEL_MATH_CONSTRAIN_VALUE"
+  "blockly-INPUT_LABEL_MATH_CONSTRAIN_VALUE",
+  "blockly-INPUT_LABEL_MATH_DIVIDEND",
+  "blockly-INPUT_LABEL_MATH_DIVISOR",
+  "blockly-INPUT_LABEL_NUMBER",
+  "blockly-INPUT_LABEL_NUMBER_A",
+  "blockly-INPUT_LABEL_NUMBER_ATAN2_X",
+  "blockly-INPUT_LABEL_NUMBER_ATAN2_Y",
+  "blockly-INPUT_LABEL_NUMBER_B",
+  "blockly-INPUT_LABEL_NUMBER_LIST",
+  "blockly-INPUT_LABEL_NUMBER_MAX",
+  "blockly-INPUT_LABEL_NUMBER_MIN",
+  "blockly-INPUT_LABEL_NUMBER_TO_CHECK",
+  "blockly-INPUT_LABEL_STATEMENT",
+  "blockly-INPUT_LABEL_TEXT_APPEND",
+  "blockly-INPUT_LABEL_TEXT_END_POSITION",
+  "blockly-INPUT_LABEL_TEXT_JOIN_ITEM",
+  "blockly-INPUT_LABEL_TEXT_POSITION",
+  "blockly-INPUT_LABEL_TEXT_PROMPT_MESSAGE",
+  "blockly-INPUT_LABEL_TEXT_START_POSITION",
+  "blockly-INPUT_LABEL_TEXT_TO_CHANGE",
+  "blockly-INPUT_LABEL_TEXT_TO_CHECK",
+  "blockly-INPUT_LABEL_TEXT_TO_FIND",
+  "blockly-INPUT_LABEL_TEXT_TO_REPLACE",
+  "blockly-INPUT_LABEL_VALUE",
+  "blockly-INPUT_LABEL_VALUE_A",
+  "blockly-INPUT_LABEL_VALUE_B",
+  "blockly-INPUT_LABEL_VARIABLES_SET",
+  "blockly-KEYBOARD_NAV_BLOCK_NAVIGATION_HINT",
+  "blockly-KEYBOARD_NAV_CONSTRAINED_MOVE_HINT",
+  "blockly-KEYBOARD_NAV_COPIED_HINT",
+  "blockly-KEYBOARD_NAV_CUT_HINT",
+  "blockly-KEYBOARD_NAV_FLYOUT_LABEL_HINT",
+  "blockly-KEYBOARD_NAV_UNCONSTRAINED_MOVE_HINT",
+  "blockly-KEYBOARD_NAV_WORKSPACE_NAVIGATION_HINT"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -396,6 +429,11 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
     assert.notEqual(waray['blockly-' + a], waray['blockly-' + b]);
   }
   assert.match(waray['blockly-FIELD_BITMAP_PIXEL_LABEL'], /laray %2, kolum %3/);
+  for (const [a, b] of [['MATH_DIVIDEND', 'MATH_DIVISOR'], ['NUMBER_MAX', 'NUMBER_MIN'], ['NUMBER_ATAN2_X', 'NUMBER_ATAN2_Y'], ['TEXT_TO_FIND', 'TEXT_TO_REPLACE'], ['STATEMENT', 'VALUE']]) {
+    assert.notEqual(waray['blockly-INPUT_LABEL_' + a], waray['blockly-INPUT_LABEL_' + b]);
+  }
+  assert.match(waray['blockly-KEYBOARD_NAV_UNCONSTRAINED_MOVE_HINT'], /Pugngi an %1.*%2 basi karawaton/);
+  assert.notEqual(waray['blockly-KEYBOARD_NAV_COPIED_HINT'], waray['blockly-KEYBOARD_NAV_CUT_HINT']);
   for (const kind of ['COMMENT', 'WARNING']) {
     assert.match(waray['blockly-ICON_LABEL_' + kind + '_CLOSED'], /^Abrihi/);
     assert.match(waray['blockly-ICON_LABEL_' + kind + '_OPEN'], /^Isara/);

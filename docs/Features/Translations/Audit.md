@@ -4999,6 +4999,12 @@ mixed-language audit remains open.
 - Closed comment/warning icons announce opening; open icons announce closing. Input wording distinguishes start/end, first/second conditions, splitting text and joining lists, repeated values and repetition counts.
 - Extended token, icon-action and input-distinction regressions. Delimiter, inline-input, loop increment and mathematical constraint wording remains provisional and needs contextual accessibility review. Browser/spoken checks remain unexecuted; structural checks do not establish fluent wording.
 
+### Waray Blockly mathematical/text inputs and keyboard navigation
+
+- Filled 33 English placeholders through the protected workflow. Translated mathematical operands, coordinate and text-input labels, value positions and keyboard-navigation hints while preserving numbered arguments and keyboard legends.
+- Kept dividend/divisor, minimum/maximum, x/y, find/replace and statement/value distinct. Navigation wording retains holding the first key, accepting with the second and distinguishing copied from cut content.
+- Extended token, operand, opposite-operation and navigation-sequence checks. Division paraphrases, coordinate terminology and unconstrained movement wording remain provisional and need contextual accessibility review. Browser and spoken checks remain unexecuted.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
