@@ -7,7 +7,7 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('notification-activity-'));
 assert.equal(keys.length, 13);
-for (const code of ['tk_TM', 'tt', 'so']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: key order`);
   for (const key of keys) {
@@ -25,4 +25,14 @@ assert.match(read('so')['notification-activity-description'], /Xusuusinnada.*@ m
 assert.match(read('tk_TM')['notification-activity-description'], /belligini aýryň/);
 assert.match(read('tt')['notification-activity-description'], /билгесен алыгыз/);
 assert.match(read('so')['notification-activity-description'], /Ka saar calaamadda/);
-console.log('Notification activity translations: 13 messages in 3 locales passed');
+assert.match(read('ku')['notification-activity-description'], /Bîranînên dema dawî û behskirinên bi @ her dem tên/);
+assert.match(read('ckb')['notification-activity-description'], /بیرخستنەوەکانی کاتی تەواوبوون و ئاماژەکان بە @ هەمیشە دەگەن/);
+assert.match(read('ku')['notification-activity-description'], /nîşana wê rake/);
+assert.match(read('ckb')['notification-activity-description'], /نیشانەی.*لاببە/);
+assert.match(read('pap')['notification-activity-description'], /Rekordatorionan.*@ semper ta yega/);
+assert.match(read('tpi')['notification-activity-description'], /tingim de bilong pinis.*@ bai kam yet olgeta taim/);
+assert.match(read('bi')['notification-activity-description'], /tingbaot dedlaen.*@ oli kam oltaem/);
+assert.match(read('pap')['notification-activity-description'], /Kita e marka/);
+assert.match(read('tpi')['notification-activity-description'], /Rausim mak/);
+assert.match(read('bi')['notification-activity-description'], /Tekemaot mak/);
+console.log('Notification activity translations: 13 messages in 8 locales passed');

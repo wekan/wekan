@@ -451,6 +451,27 @@ strings before testing notification delivery. It passes syntax checking but
 was not browser-executed in this environment. Structural checks do not prove
 fluency; technical terminology can still benefit from speaker review.
 
+## Further activity-notification preferences — 2026-10-07
+
+Filled 13 English placeholders each in Kurmanji (`ku`), Sorani (`ckb`),
+Papiamento (`pap`), Tok Pisin (`tpi`) and Bislama (`bi`): 65 values.
+Comparison against the previous commit confirms these replace only English
+placeholders. All keys belong to the separately tracked pending group,
+so the standard backlog remains 51,575 values with 201 pending source keys.
+
+Existing catalogs supply card/list/member/attachment terminology. Each
+language distinguishes members from assignees and says that unchecking a
+category stops its bell/email notifications while due-date reminders and
+@mentions continue. Technical terms, especially custom-field values and
+swimlanes, can benefit from speaker review.
+
+The shared notification translation suite covers eight locales. Exact token
+inventories, source order, distinct people categories, the mention marker
+and the muting exception pass, as do all-locale structure and human-preference
+checks. The existing mute/unmute browser scenario includes all five new
+languages and checks the heading, explanation and eleven category labels.
+It passes syntax checking but was not browser-executed in this environment.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
