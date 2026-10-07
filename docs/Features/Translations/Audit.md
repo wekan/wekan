@@ -5506,6 +5506,15 @@ card/list color labels. Added source-token and behavior-wording checks. Technica
 wording remains low confidence pending fluent-speaker review. Browser checks
 remain unrun; English-placeholder counts are unchanged.
 
+## Akan archive and color corrections (batch 38)
+
+Corrected 25 damaged or mixed-language archive, color and card-control values.
+Replaced the corrupted archive term with the term already used in guidance,
+aligned color actions, and preserved archive target distinctions and activity
+placeholders. Added token, target and terminology checks. Wording remains
+provisional pending fluent-speaker review. Browser checks remain unrun;
+English-placeholder counts are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -669,3 +669,19 @@ test('Akan setting actions preserve WIP alternatives and empty-field matching', 
  assert.equal(data['delete-duplicate-empty-lists-migration'],data['step-delete-duplicate-empty-lists']);
  assert.match(data['delete-duplicate-empty-lists-migration'],/ɛyɛ pɛ.*biribiara nni mu/);
 });
+
+
+test('Akan archive and color labels preserve targets and activity tokens', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["act-archivedBoard", "act-archivedCard", "act-archivedList", "act-archivedSwimlane", "activity-archived", "allboards.workspace-color", "close-edit-checklist-item", "archive-list", "archive-swimlane", "archive-selection", "archiveBoardPopup-title", "archived-items", "archived-boards", "no-archived-boards", "archives", "board-change-color", "changeColorPopup-title", "allBoardsChangeColorPopup-title", "bucket-example", "listArchivePopup-title", "swimlaneArchivePopup-title", "vote-for-it", "cardArchivePopup-title", "listsortPopup-title", "change-color"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ for(const key of keys.filter(k=>k.startsWith('act-archived')||k==='activity-archived')) assert.match(data[key],/^Wɔde.*kɔɔ adekorabea$/);
+ for(const key of ['archiveBoardPopup-title','listArchivePopup-title','swimlaneArchivePopup-title','cardArchivePopup-title']) assert.match(data[key],/^Fa.*ade korabea|^Fa.*adekorabea\?$/);
+ assert.equal(new Set(['archiveBoardPopup-title','listArchivePopup-title','swimlaneArchivePopup-title','cardArchivePopup-title'].map(k=>data[k])).size,4);
+ assert.equal(data['archives'],data['archived-items']);
+ assert.match(data['no-archived-boards'],/biara nni adekorabea/);
+ assert.equal(new Set(['board-change-color','changeColorPopup-title','allBoardsChangeColorPopup-title','change-color'].map(k=>data[k])).size,1);
+ assert.match(data['archive-selection'],/nea woapaw/);
+ assert.match(data['vote-for-it'],/gye tom/);
+ for(const key of keys) assert.doesNotMatch(data[key],/Kanaaabea|Colanaa|colanaa|fanaa/);
+});
