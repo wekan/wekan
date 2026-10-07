@@ -1890,6 +1890,20 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cdaa7d0cb32b0b7240c7b53157358c86de06f4b1">Translate URL scheme hint in Waray and Acehnese</a>. Thanks to xet7.</summary>
+
+- Fill two hints while preserving literal scheme identifiers and existing
+  translations. Vocabulary sources and lower-confidence technical wording are
+  recorded for native/UI review.
+- Hint checks cover 39 recently filled locales. Parser, sanitizer, structural and
+  human-preference checks pass; browser scenarios were syntax-checked but not run
+  without the application stack.
+- Twenty-seven locale paths still need this hint. The ordinary backlog remains
+  51,575 values plus 172 pending source keys; broader translation work remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/efac273833c35c71082d44441d861f87f213c9e4">Translate URL scheme hint in Venetian, Walloon and Aromanian</a>. Thanks to xet7.</summary>
 
 - Fill three hints while preserving literal scheme identifiers and existing
