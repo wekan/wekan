@@ -5189,6 +5189,12 @@ mixed-language audit remains open.
 - Added per-key token, inclusive-limit, sign, prime-lower-bound, modulo and constant-notation checks. Divisibility and prime properties use descriptive wording.
 - Square-root, golden-ratio, exponent and trigonometric terminology is low confidence and requires mathematical-language review. Browser and spoken accessibility checks were not run.
 
+### Akan Blockly statistics, random values and rounding
+
+- Filled 27 English placeholders through the protected workflow: list statistics, random values, powers and rounding. Preserved numbered arguments and inclusive/exclusive endpoints.
+- Added token, distinct-statistic, endpoint and rounding-direction checks. The mean tooltip explains sum divided by count, while modes refer to the most frequent items.
+- Standard-deviation, median and rounding terminology remains low confidence and requires mathematical-language review. Browser and spoken accessibility checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

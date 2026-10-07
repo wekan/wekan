@@ -466,3 +466,20 @@ test('Akan arithmetic and number properties preserve notation and boundaries', a
  assert.ok(data['blockly-MATH_MODULO_TITLE'].includes('%1 ÷ %2'));
  for(const notation of ['π (3.141…)','e (2.718…)','φ (1.618…)','sqrt(2) (1.414…)','sqrt(½) (0.707…)','∞']) assert.ok(data['blockly-MATH_CONSTANT_TOOLTIP'].includes(notation));
 });
+
+test('Akan statistics and random values preserve operation and endpoint distinctions', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const data=require('../imports/i18n/data/ak.i18n.json');
+ const keys=["blockly-MATH_ONLIST_OPERATOR_AVERAGE", "blockly-MATH_ONLIST_OPERATOR_MAX", "blockly-MATH_ONLIST_OPERATOR_MAX_ARIA", "blockly-MATH_ONLIST_OPERATOR_MEDIAN", "blockly-MATH_ONLIST_OPERATOR_MIN", "blockly-MATH_ONLIST_OPERATOR_MIN_ARIA", "blockly-MATH_ONLIST_OPERATOR_MODE", "blockly-MATH_ONLIST_OPERATOR_RANDOM", "blockly-MATH_ONLIST_OPERATOR_STD_DEV", "blockly-MATH_ONLIST_OPERATOR_SUM", "blockly-MATH_ONLIST_TOOLTIP_AVERAGE", "blockly-MATH_ONLIST_TOOLTIP_MAX", "blockly-MATH_ONLIST_TOOLTIP_MEDIAN", "blockly-MATH_ONLIST_TOOLTIP_MIN", "blockly-MATH_ONLIST_TOOLTIP_MODE", "blockly-MATH_ONLIST_TOOLTIP_RANDOM", "blockly-MATH_ONLIST_TOOLTIP_STD_DEV", "blockly-MATH_ONLIST_TOOLTIP_SUM", "blockly-MATH_POWER_SYMBOL_ARIA", "blockly-MATH_RANDOM_FLOAT_TITLE_RANDOM", "blockly-MATH_RANDOM_FLOAT_TOOLTIP", "blockly-MATH_RANDOM_INT_TITLE", "blockly-MATH_RANDOM_INT_TOOLTIP", "blockly-MATH_ROUND_OPERATOR_ROUND", "blockly-MATH_ROUND_OPERATOR_ROUNDDOWN", "blockly-MATH_ROUND_OPERATOR_ROUNDUP", "blockly-MATH_ROUND_TOOLTIP"];
+ for(const key of keys){
+  assert.notEqual(data[key],english[key],key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ const operations=['AVERAGE','MEDIAN','MODE','STD_DEV','SUM'].map(k=>data['blockly-MATH_ONLIST_OPERATOR_'+k]);
+ assert.equal(new Set(operations).size,operations.length);
+ assert.match(data['blockly-MATH_RANDOM_FLOAT_TOOLTIP'],/0\.0 \(ɛka ho\).*1\.0 \(ɛnka ho\)/);
+ assert.match(data['blockly-MATH_RANDOM_INT_TOOLTIP'],/ahye abien no ankasa ka ho/);
+ assert.match(data['blockly-MATH_ROUND_OPERATOR_ROUNDDOWN'],/fam/);
+ assert.match(data['blockly-MATH_ROUND_OPERATOR_ROUNDUP'],/soro/);
+ assert.match(data['blockly-MATH_ONLIST_TOOLTIP_MODE'],/mpɛn pii sen biara/);
+});
