@@ -2000,3 +2000,43 @@ test('Tok Pisin editing shortcuts and import restrictions retain their condition
  assert.match(data['disable-import-avatars-description'],/LDAP, OIDC\/OAuth2.*nem na arapela data i kam insait yet.*tasol/);
  assert.match(data['act-a-dueAt'],/__timeValue__\nPles: __card__\n.*bipo.*__timeOldValue__/);
 });
+
+
+test('Tok Pisin customization messages replace mixed English and retain tokens',()=>{
+ const keys=[
+  "custom-color",
+  "trello-import-more",
+  "custom-top-left-corner-logo-image-url",
+  "custom-top-left-corner-logo-height",
+  "custom-login-logo-image-url",
+  "text-below-custom-login-logo",
+  "custom-product-name",
+  "custom-head-tags-enabled",
+  "custom-manifest-enabled",
+  "custom-assetlinks-enabled",
+  "add-custom-html-after-body-start",
+  "add-custom-html-before-body-end",
+  "addmore-detail",
+  "newTranslationPopup-title",
+  "editTranslationPopup-title",
+  "settingsTranslationPopup-title"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:Custom|custom|Top|Left|Corner|Height|Login|Product|start|end|more|detailed|translation|string)\b/,key);
+ }
+});
+
+test('Tok Pisin customization keeps HTML boundaries, asset name and logo location',()=>{
+ assert.match(data['add-custom-html-after-body-start'],/bihain long stat bilong <body>$/);
+ assert.match(data['add-custom-html-before-body-end'],/paslain long pinis bilong <\/body>$/);
+ assert.ok(data['custom-assetlinks-enabled'].includes('assetlinks.json'));
+ for(const key of ['custom-top-left-corner-logo-image-url','custom-top-left-corner-logo-height']) assert.match(data[key],/kona antap long han kais/);
+ assert.match(data['custom-top-left-corner-logo-height'],/Mak bilong stat: 27$/);
+ assert.match(data['custom-login-logo-image-url'],/^URL.*pes bilong go insait/);
+ assert.match(data['text-below-custom-login-logo'],/^Rait aninit long logo/);
+ assert.match(data['newTranslationPopup-title'],/^Nupela/);
+ assert.match(data['editTranslationPopup-title'],/^Senisim/);
+ assert.match(data['settingsTranslationPopup-title'],/^Rausim.*\?$/);
+});
