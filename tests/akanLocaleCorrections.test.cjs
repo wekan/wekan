@@ -919,3 +919,24 @@ test('Akan status and count labels preserve units, limits and permission scope',
  assert.match(data['s3-force-path-style-description'],/MinIO.*dodow no ara.*S3.*ɛnyɛ AWS/);
  assert.match(data['show-card-counter-per-list'],/biara mu/);
 });
+
+
+test('Akan movement labels preserve direction, selected scope and ordering', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["wip-limit-group-add", "add-card-to-top-of-list", "add-card-to-bottom-of-list", "calendar-previous-month-label", "calendar-next-month-label", "map-to-existing-user-none", "move-card-up", "move-card-down", "move-list-left", "move-list-right", "moveCardToBottom-title", "moveCardToTop-title", "notify-watch", "showSum-field-on-list", "r-w-every-day-at", "r-d-move-to-top-gen", "r-d-move-to-top-spec", "r-d-move-to-bottom-gen", "r-d-move-to-bottom-spec", "left-of-list", "right-of-list", "location-detect-from-map", "created-at-oldest-first", "backup-restore-select-first", "gcs-project-id-menu-path"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.match(data['move-card-up'],/soro$/); assert.match(data['move-card-down'],/fam$/);
+ assert.match(data['move-list-left'],/benkum$/); assert.match(data['move-list-right'],/nifa$/);
+ for(const suffix of ['gen','spec']){
+  assert.match(data['r-d-move-to-top-'+suffix],/atifi$/);
+  assert.match(data['r-d-move-to-bottom-'+suffix],/ase$/);
+ }
+ for(const direction of ['top','bottom']) assert.match(data['r-d-move-to-'+direction+'-gen'],/a ɛwom/);
+ assert.match(data['calendar-previous-month-label'],/atwam/);
+ assert.match(data['calendar-next-month-label'],/edi hɔ/);
+ assert.match(data['created-at-oldest-first'],/akyɛ sen biara di kan/);
+ assert.match(data['backup-restore-select-first'],/^Di kan paw/);
+ assert.match(data['showSum-field-on-list'],/wɔaka abom.*atifi/);
+ for(const label of ['Google Cloud Console','Cloud overview','Dashboard','Project info','Project ID']) assert.ok(data['gcs-project-id-menu-path'].includes(label),label);
+ assert.match(data['wip-limit-group-add'],/WIP anohyeto kuw/);
+});

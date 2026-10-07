@@ -5626,6 +5626,15 @@ names groups rather than enabling a limit. Added source-token, unit and scope
 checks. Wording remains low confidence pending fluent-speaker review; browser
 checks remain unrun. English-placeholder counts are unchanged.
 
+## Akan movement and ordering corrections (batch 51)
+
+Corrected 25 mixed-language movement, ordering and guidance labels. Preserved
+up/down, left/right and top/bottom directions, own-list versus specified-list
+scope, oldest-first sorting and recurring time tokens. Restored Google Cloud
+menu labels from the English source. Added token, direction and scope checks.
+Wording remains low confidence pending fluent-speaker review; browser and live
+provider-console checks remain unrun. Placeholder counts are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
