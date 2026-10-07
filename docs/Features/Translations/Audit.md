@@ -6425,6 +6425,12 @@ Translated 75 Blockly list messages, including two short labels excluded by the 
 
 Validation: 52 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. Remaining inventory: 43,134 English placeholders across 70 languages, with 149 source keys pending review.
 
+## Tok Pisin variables, colours and workspace navigation
+
+Translated 68 Blockly messages for variable creation and deletion, colour selection and mixing, keyboard navigation, workspace announcements and search. Preserved source placeholders, comment-fragment spacing, colour ranges and keyboard names. Tests cover variable definition safeguards, input assignment, navigation modifiers and next/previous search. Existing correct-language values remain unchanged. Technical wording remains provisional pending fluent-speaker review; browser and screen-reader checks were not run.
+
+Validation: 54 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. Remaining inventory: 43,066 English placeholders across 70 languages, with 149 source keys pending review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

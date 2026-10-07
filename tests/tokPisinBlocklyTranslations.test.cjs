@@ -112,3 +112,34 @@ test('Tok Pisin list transformations distinguish copies, sorting and split versu
  assert.match(data['blockly-LISTS_SPLIT_TOOLTIP_SPLIT'],/^Brukim teks.*lis.*wan wan mak/);
  assert.match(data['blockly-LISTS_REPEAT_TITLE'],/%1.*%2 taim/);
 });
+
+test('Tok Pisin variable messages retain names, types and definition safeguards',()=>{
+ const keys=Object.keys(english).filter(k=>k.startsWith('blockly-')&&k.includes('VARIABLE')&&!k.endsWith('_HELPURL')&&!k.endsWith('_HUE'));
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+ }
+ assert.match(data['blockly-CANNOT_DELETE_VARIABLE_PROCEDURE'],/No inap.*%1.*wok '%2'/);
+ assert.match(data['blockly-DELETE_VARIABLE_CONFIRMATION'],/%1 ples.*%2/);
+ assert.match(data['blockly-VARIABLE_ALREADY_EXISTS_FOR_ANOTHER_TYPE'],/%1.*narapela kain.*%2/);
+ assert.match(data['blockly-VARIABLE_ALREADY_EXISTS_FOR_A_PARAMETER'],/%1.*paramita.*%2/);
+ assert.match(data['blockly-VARIABLES_SET_TOOLTIP'],/wankain olsem input/);
+ assert.match(data['blockly-RENAME_VARIABLE_TITLE'],/olgeta.*%1/);
+});
+
+test('Tok Pisin workspace and colour messages preserve navigation and announcements',()=>{
+ const keys=Object.keys(english).filter(k=>/^blockly-(COLOUR_|WORKSPACE_|KEYBOARD_NAV_)/.test(k)||/^blockly-(CURRENT_BLOCK_ANNOUNCEMENT|NO_PARENT_ANNOUNCEMENT|PARENT_BLOCKS_ANNOUNCEMENT|MINIMAP_ARIA_LABEL|OPEN_TRASH|RESET_ZOOM|SHORTCUTS_FOCUS_WORKSPACE|ZOOM_TO_FIT_ARIA_LABEL)$/.test(k));
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  if(!key.endsWith('_HELPURL')&&!key.endsWith('_HUE')) assert.notEqual(data[key],english[key],key);
+ }
+ assert.match(data['blockly-COLOUR_BLEND_TOOLTIP'],/tupela kala.*0\.0 - 1\.0/);
+ assert.match(data['blockly-COLOUR_RGB_TOOLTIP'],/ret, grin na blu.*0 na 100/);
+ assert.match(data['blockly-KEYBOARD_NAV_UNCONSTRAINED_MOVE_HINT'],/Holim %1.*bihain %2/);
+ assert.match(data['blockly-KEYBOARD_NAV_CONSTRAINED_MOVE_HINT'],/bihain %1/);
+ assert.match(data['blockly-WORKSPACE_CONTENTS_BLOCKS_ZERO'],/no gat blok%2/);
+ assert.match(data['blockly-WORKSPACE_CONTENTS_BLOCKS_ONE'],/^Wanpela.*%2/);
+ for(const suffix of ['ONE','MANY']) assert.match(data['blockly-WORKSPACE_CONTENTS_COMMENTS_'+suffix],/^ na /);
+ assert.match(data['blockly-WORKSPACE_SEARCH_INPUT_LABEL'],/Enter.*neks.*Shift\+Enter.*bipo.*Escape.*pasim.*fokas/);
+ assert.notEqual(data['blockly-WORKSPACE_SEARCH_FIND_NEXT'],data['blockly-WORKSPACE_SEARCH_FIND_PREVIOUS']);
+});
