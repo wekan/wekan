@@ -229,3 +229,22 @@ test('Akan search and migration guidance preserves syntax and configuration exam
  for(const key of ['sandstorm-delete-raw-mongodb-description','sandstorm-delete-raw-mongodb-confirm']) assert.match(data[key],/Wuntumi nsan nyi/);
  assert.match(data['database-migration-confirm'],/mfonini.*nsesa/);
 });
+
+test('Akan display and data controls preserve defaults, examples and feature scope', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["render-links-as-plain-text-description", "always-show-code-as-text-description", "disable-all-import-description", "disable-all-export-description", "disable-import-avatars-description", "disable-export-avatars-description", "anonymize-import-users-description", "anonymize-export-users-description", "anonymize-account-confirm-popup", "disable-activities-description", "disable-notifications-description", "disable-watch-description"];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.ok(!/\b(When|will|cannot|impanaat|expanaat|BueProject|Fanaagejo)\b/.test(data[key]),key);
+  if(key!=='anonymize-account-confirm-popup') assert.ok(data[key].endsWith('Wɔadum fi mfiase.')||data[key].includes('Wɔadum fi mfiase,'),key);
+ }
+ for(const key of ['disable-all-import-description','disable-all-export-description']) for(const name of ['WeKan JSON','Kanboard','NextCloud Deck','OpenProject','GitHub','GitLab','Gitea','Forgejo']) assert.ok(data[key].includes(name),key+':'+name);
+ for(const key of ['anonymize-import-users-description','anonymize-export-users-description']) for(const token of ['user1, user2, ...','@username','requested-by / assigned-by','"user"']) assert.ok(data[key].includes(token),key+':'+token);
+ assert.ok(data['render-links-as-plain-text-description'].includes('[label](url)'));
+ assert.ok(data['render-links-as-plain-text-description'].includes('<a href>'));
+ assert.ok(data['always-show-code-as-text-description'].includes('<!-- -->'));
+ assert.match(data['always-show-code-as-text-description'],/wuntumi mmia so, na ɛnyɛ adwuma/);
+ assert.match(data['anonymize-account-confirm-popup'],/Wuntumi nsan nyi/);
+ assert.match(data['disable-notifications-description'],/amanneɛbɔ nkutoo/);
+ for(const key of ['disable-import-avatars-description','disable-export-avatars-description']) assert.match(data[key],/mfonini nkutoo/);
+});

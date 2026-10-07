@@ -5333,6 +5333,12 @@ Rewrote 15 mixed-language descriptions for card-window behavior, keyboard saving
 
 Tests compare source placeholders and inline-code spans, verify paths/configuration literals, and cover unchanged filesystem data and irreversible deletion. Migration, tenant administration and rule/search wording remains descriptive and provisional. Browser checks were not run; other mixed-language values remain under review.
 
+### Akan mixed-language correction: display, transfer and anonymity settings
+
+Rewrote 12 mixed-language descriptions for plain-text display, import/export controls, avatar exclusions, anonymization and notification/activity settings. Restored corrupted product names and retained HTML/Markdown examples, mention syntax and anonymization examples.
+
+Checks cover source tokens, default-off statements, product names, literal examples and separate avatar/notification scope. Privacy and rich-text terminology remains descriptive and provisional; these string checks do not establish fluency. Browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
