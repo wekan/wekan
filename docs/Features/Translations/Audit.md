@@ -7403,6 +7403,15 @@ source tokens and key order, distinguish statistical operations and rounding
 directions, and retain random bounds. Statistical and rounding terminology remains
 low confidence pending fluent review. Browser and screen-reader checks were not run.
 
+### Bhojpuri logarithms and trigonometry
+
+Filled 27 English placeholders for absolute values, powers, logarithms, roots,
+negation and trigonometric descriptions. Existing translations and symbolic
+function names are preserved. Tests compare source tokens and key order, retain
+base 10 and e, and distinguish inverse functions and absolute value/negation.
+Technical trigonometry terminology remains low confidence pending fluent review.
+Browser and screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
