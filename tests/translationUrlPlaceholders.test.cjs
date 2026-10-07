@@ -315,7 +315,7 @@ test('saved filter translations preserve tokens and distinct operation messages'
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   const source = JSON.parse(fs.readFileSync(path.join(directory, 'en.i18n.json')));
   const keys = ['filter-presets', 'filter-preset-choose', 'filter-preset-name', 'filter-preset-save', 'filter-preset-replace-hint', 'filter-preset-saved', 'filter-preset-applied', 'filter-preset-deleted', 'filter-preset-error', 'filter-card-text-label'];
-  for (const code of ['ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm', 'tk_TM', 'yi', 'bho', 'mai', 'or_IN', 'kok', 'pap', 'ary', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've', 'bi', 'tpi', 'fj', 'to', 'haw', 'om', 'rw', 'rn', 'lg', 'wa', 'wa-RR', 'ace', 'gv', 'se', 've-CC', 'rup', 'ak', 'bm', 'ee', 'wo', 'ff', 'ks']) {
+  for (const code of ['ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm', 'tk_TM', 'yi', 'bho', 'mai', 'or_IN', 'kok', 'pap', 'ary', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've', 'bi', 'tpi', 'fj', 'to', 'haw', 'om', 'rw', 'rn', 'lg', 'wa', 'wa-RR', 'ace', 'gv', 'se', 've-CC', 'rup', 'ak', 'bm', 'ee', 'wo', 'ff', 'ks', 'bua', 'cv', 'sah', 'bo', 'dz', 'ti']) {
     const locale = JSON.parse(fs.readFileSync(path.join(directory, code + '.i18n.json')));
     for (const key of keys) {
       assert.ok(locale[key]?.trim(), code + ':' + key);
