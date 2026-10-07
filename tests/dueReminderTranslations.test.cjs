@@ -7,7 +7,9 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('due-reminder-'));
 assert.equal(keys.length, 6);
-for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts', 'om', 'fj', 'to', 'gv', 'wa', 'wa-RR', 'ak', 'lg', 'bm', 'wo', 'ee', 'rup', 've-CC', 'bua', 'sah', 'cv', 've', 'se', 'ace', 'bo', 'dz', 'ti', 'ks', 'qu', 'ay', 'gn', 'ff', 'vo', 'tlh', 'kl', 'nah', 've-PP', 'zgh', 'iu', 'wal', 'tig']) {
+const pendingKeys = JSON.parse(fs.readFileSync(path.join(__dirname, '../releases/translations/pending-transifex.json'), 'utf8')).keys.map(entry => entry.key);
+for (const key of keys) assert.ok(!pendingKeys.includes(key), `${key}: filled group leaves pending queue`);
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts', 'om', 'fj', 'to', 'gv', 'wa', 'wa-RR', 'ak', 'lg', 'bm', 'wo', 'ee', 'rup', 've-CC', 'bua', 'sah', 'cv', 've', 'se', 'ace', 'bo', 'dz', 'ti', 'ks', 'qu', 'ay', 'gn', 'ff', 'vo', 'tlh', 'kl', 'nah', 've-PP', 'zgh', 'iu', 'wal', 'tig', 'chr']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -166,4 +168,18 @@ assert.match(read('wal')['due-reminder-days-label'], /",".*0-ppe daro.*kase.*0-p
 assert.match(read('wal')['due-reminder-invalid'], /kumetta.*tammu gallassaappe daro go'ettoppa/);
 assert.match(read('tig')['due-reminder-days-label'], /",".*ለዓቢ.*ቀደም.*ለንኢሽ.*ሓቆ.*ፋርግ/);
 assert.match(read('tig')['due-reminder-invalid'], /ካምል.*ዐስር.*ኢትሕለፍ/);
-console.log('Due reminder translations: 6 messages in 65 locales passed');
+assert.match(read('chr')['due-reminder-days-label'], /",".*ᎤᏟ ᎢᎦᎢ.*ᎢᎬᏱᏗᏢ.*ᎡᎳᏗ.*ᎤᎶᏐᏅ.*Ꮭ ᎪᎱᏍᏗ/);
+assert.match(read('chr')['due-reminder-invalid'], /ᎠᎧᎵᏬᎯ.*ᏍᎪᎯ.*Ꮭ ᎤᏟ ᎢᎦᎢ/);
+const localeFiles = fs.readdirSync(path.join(__dirname, '../imports/i18n/data'))
+  .filter(file => file.endsWith('.i18n.json') && !/^en(?:[-_.])/.test(file));
+assert.equal(localeFiles.length, 234, 'all non-English locale paths are covered');
+for (const file of localeFiles) {
+  const code = file.replace('.i18n.json', '');
+  const locale = read(code);
+  for (const key of keys) {
+    assert.ok(locale[key]?.trim(), `${code}:${key}: nonempty`);
+    assert.notEqual(locale[key], en[key], `${code}:${key}: no English placeholder`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(en[key]), `${code}:${key}: exact tokens`);
+  }
+}
+console.log('Due reminder translations: 6 messages in all 234 non-English locales; detailed checks in 66 locales passed');

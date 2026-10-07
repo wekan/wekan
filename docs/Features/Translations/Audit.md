@@ -1892,6 +1892,26 @@ includes Tigre but was syntax-checked only; the app stack was unavailable.
 Cherokee still needs this reminder group. The ordinary backlog remains
 51,575 values plus 188 pending source keys; broader language-quality review is open.
 
+### Due reminders — Cherokee and all-locale reconciliation (2026-10-07)
+
+Filled six Cherokee placeholders without overwriting existing translations or using
+an external translation service. Full phrases, inflections and technical terms are
+low confidence and need native review. Vocabulary references include the
+[Cherokee dictionary compilation](https://www.witchcraft-academy.com/Library/Traditions/Native%20American/Cherokee_Dictionary.pdf)
+for before/after and the existing locale's reminder terminology. Dictionary words
+do not validate the grammar or usability of the assembled phrases.
+
+All 234 non-English locale paths now have nonempty values different from English
+for all six reminder keys, with exact source placeholder inventories. The group was
+removed from the pending queue: 182 source keys remain. Detailed reminder checks
+cover 66 locales, including signed offsets, whole-day limits and separate saved/error
+text. The existing browser scenario includes Cherokee and was syntax-checked only;
+the app stack was unavailable. All-locale structural and human-preference checks pass.
+
+These checks establish placeholder coverage, not fluent or correct-language text.
+The ordinary backlog remains 51,575 values in 70 languages, and broader language
+review, including the low-confidence reminder phrases, remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

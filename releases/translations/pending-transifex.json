@@ -1,30 +1,6 @@
 {
   "keys": [
     {
-      "key": "due-reminder-heading",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "due-reminder-days-label",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "due-reminder-off",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "due-reminder-webhook",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "due-reminder-invalid",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "due-reminder-saved",
-      "since": "2026-09-29"
-    },
-    {
       "key": "saml-login-not-started",
       "since": "2026-09-29"
     },
