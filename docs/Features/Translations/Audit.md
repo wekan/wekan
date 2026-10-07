@@ -5497,6 +5497,15 @@ star/unstar actions. Added regression checks. Technical wording remains low
 confidence pending fluent-speaker review; browser checks remain unrun.
 English-placeholder counts are unchanged.
 
+## Akan setting-action corrections (batch 37)
+
+Corrected 21 mixed-language setting and action labels, preserving WIP alternatives,
+relative/current dates, custom-field activity placeholders and the rule that an
+empty field matches any value. Aligned duplicate-list migration/step labels and
+card/list color labels. Added source-token and behavior-wording checks. Technical
+wording remains low confidence pending fluent-speaker review. Browser checks
+remain unrun; English-placeholder counts are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

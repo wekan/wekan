@@ -648,3 +648,24 @@ test('Akan board controls and account emails preserve actions and placeholders',
  assert.match(data['fix-all-file-urls-migration-description'],/URL nyinaa.*akorabea.*asɛe/);
  assert.match(data['board-open-and-move-between-remaining-and-workspaces'],/__workspaces__/);
 });
+
+
+test('Akan setting actions preserve WIP alternatives and empty-field matching', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["multi-selection-label", "multi-selection-member", "set-wip-limit-value", "wipLimitErrorPopup-dialog-pt2", "OS_Totalmem", "setCardColorPopup-title", "setSelectionColorPopup-title", "activity-set-customfield", "r-w-set-received-now", "r-card-button", "r-board-button", "r-set-date-relative", "set-filter", "r-set-color", "r-board-note", "set-as-active", "Node_memory_usage_heap_used", "accounts-lockout-click-to-unlock", "cron-clear-errors", "delete-duplicate-empty-lists-migration", "step-delete-duplicate-empty-lists"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.match(data['wipLimitErrorPopup-dialog-pt2'],/baabi foforo.*anaa.*WIP.*nkɔ soro/);
+ assert.match(data['set-wip-limit-value'],/dodow a ɛsen biara/);
+ assert.match(data['r-board-note'],/hɔ kwa.*botae biara bɛfata/);
+ assert.match(data['OS_Totalmem'],/^OS /);
+ assert.match(data['Node_memory_usage_heap_used'],/^Node .*ankasa$/);
+ assert.equal(data['setCardColorPopup-title'],data['set-color-list']);
+ assert.match(data['setSelectionColorPopup-title'],/nea woapaw/);
+ assert.notEqual(data['r-card-button'],data['r-board-button']);
+ assert.match(data['r-w-set-received-now'],/seesei.*wɔgyee/);
+ assert.match(data['r-set-date-relative'],/egyina seesei/);
+ assert.match(data['accounts-lockout-click-to-unlock'],/yi akwansiw/);
+ assert.match(data['cron-clear-errors'],/nyinaa/);
+ assert.equal(data['delete-duplicate-empty-lists-migration'],data['step-delete-duplicate-empty-lists']);
+ assert.match(data['delete-duplicate-empty-lists-migration'],/ɛyɛ pɛ.*biribiara nni mu/);
+});
