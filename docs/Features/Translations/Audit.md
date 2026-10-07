@@ -7064,6 +7064,20 @@ Vocabulary references: [Friulian vierte](https://en.wiktionary.org/wiki/vierte),
 [Romansh avert](https://fr.wiktionary.org/wiki/avert) and
 [Sardinian dictionary](https://www.limbasardasudsardigna.it/sar/images/Documenti/Didatica_e_Ainas/Vocabolariu_Sardu_Italianu_Spano.pdf).
 
+### Missing due-date shortcut: twenty-three further locales
+
+Added the shortcut in Bashkir, Buryat, Bislama, Fijian, Hawaiian, Konkani,
+Cornish, Luganda, Māori, Northern Ndebele, Northern Sotho, Chichewa, Oromo,
+Papiamento, Kirundi, Kinyarwanda, Samoan, Swati, Southern Sotho, Tswana,
+Tigrinya, Uyghur and the South African Zulu variant. Existing translations
+remain unchanged. Catalog key order, token inventories and representative
+opened-card wording are covered. Buryat, Fijian, Konkani, Cornish, Kirundi,
+Swati and Tigrinya wording is low confidence pending fluent review.
+Browser and screen-reader checks were not run; structural tests do not prove
+fluency. The wider translation audit remains incomplete.
+
+Vocabulary reference: the [Cornish Language Partnership phrasebook](https://www.magakernow.org.uk/default_page-937.html) confirms `ygor` for open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
