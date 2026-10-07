@@ -864,6 +864,25 @@ people-category distinctions and the reminder/mention exception pass,
 together with all-locale structure and human-preference checks. The Tigrinya
 browser mute/unmute scenario is syntax-checked only; it was not executed.
 
+## Kashmiri notification preferences — 2026-10-07
+
+Filled 13 English placeholders in Kashmiri (`ks`), preserving existing
+translations. These keys remain pending elsewhere; the standard backlog
+remains 51,575 values and 201 pending source keys.
+
+Reminder vocabulary was checked against the
+[Kashmiri administrative terminology](https://kashmirculturaltrust.in/op/Kashmiri%20Admn%20Terminology.pdf).
+Existing card/list terms are retained, with Kashmiri clauses around them.
+These are direct translations without a translation service. Full technical
+clauses, inflections, diacritics and custom-field/lane terms remain low
+confidence pending speaker review. Arabic-script checks do not distinguish
+Kashmiri from Urdu; broader language review remains open.
+
+Shared notification checks now cover 52 locales. Exact tokens, source order,
+people-category distinctions and the reminder/mention exception pass,
+together with all-locale structure and human-preference checks. The Kashmiri
+browser mute/unmute scenario is syntax-checked only; it was not executed.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
