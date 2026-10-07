@@ -27,6 +27,9 @@ const repoRoot = path.resolve(__dirname, '..');
 const read = rel => fs.readFileSync(path.join(repoRoot, rel), 'utf8');
 const { userFieldsProjection, isUserFieldPath } = require('../models/lib/userFieldsProjection.js');
 const { cardLastViewsModifier, CARD_LAST_VIEWS_MAX } = require('../models/lib/unreadComments.js');
+const {
+  BOARD_LAYOUT_ROUTES, mountedBoardAfterEnter, mustRenderBoardLayout,
+} = require('../models/lib/boardLayoutMount.js');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -171,6 +174,43 @@ test('setCardLastViewed uses that modifier and still guards the key', () => {
   assert.ok(/assertSafeMapKey\(cardId\)/.test(body), 'PrototypeBleed guard kept');
   assert.ok(/cardLastViewsModifier\(views, cardId, new Date\(\)\)/.test(body));
   assert.ok(!/\$set: \{ 'profile\.cardLastViews': current \}/.test(body), 'negative: no whole-map rewrite');
+});
+
+// ---- fix 2: a card of the board on screen opens without re-creating the board ----
+
+test('opening and closing a card on the mounted board keeps it mounted', () => {
+  assert.strictEqual(mustRenderBoardLayout('B1', 'B1', 'card'), false, 'open by link / up-down keys');
+  assert.strictEqual(mustRenderBoardLayout('B1', 'B1', 'board'), false, 'close, and query-only navigation');
+});
+
+test('another board, a first load or the list/swimlane routes still render (negative)', () => {
+  assert.strictEqual(mustRenderBoardLayout('B1', 'B2', 'card'), true, 'a card on another board');
+  assert.strictEqual(mustRenderBoardLayout(null, 'B1', 'card'), true, 'nothing mounted yet');
+  assert.strictEqual(mustRenderBoardLayout('B1', 'B1', 'list'), true);
+  assert.strictEqual(mustRenderBoardLayout('B1', 'B1', 'swimlane'), true);
+  assert.strictEqual(mustRenderBoardLayout('B1', 'B1', 'board-short'), true);
+  assert.strictEqual(mustRenderBoardLayout('B1', undefined, 'board'), true);
+});
+
+test('entering any page that is not the board forgets the mounted board (negative)', () => {
+  BOARD_LAYOUT_ROUTES.forEach(name => assert.strictEqual(mountedBoardAfterEnter('B1', name), 'B1', name));
+  ['rules', 'shortcuts', 'home', 'allboards', 'atSignIn', 'admin-setting', undefined]
+    .forEach(name => assert.strictEqual(mountedBoardAfterEnter('B1', name), null, String(name)));
+});
+
+test('every route that renders the board goes through renderBoardLayout', () => {
+  const router = read('config/router.js');
+  assert.ok(/FlowRouter\.triggers\.enter\(\[\s*\(\{ route \}\) => \{\s*mountedBoardId = mountedBoardAfterEnter\(mountedBoardId, route && route\.name\);/.test(router),
+    'leaving the board for another page is tracked');
+  const card = bodyOf(router, "name: 'card',");
+  assert.ok(/renderBoardLayout\(this, params\.boardId, 'card'\)/.test(card));
+  const board = bodyOf(router, "name: 'board',");
+  assert.ok(/renderBoardLayout\(this, currentBoard, 'board'\)/.test(board));
+  // Negative: the only place the board content is rendered is renderBoardLayout,
+  // so no route can re-create every minicard behind its back.
+  const direct = router.match(/render\('defaultLayout', \{\s*content: 'board',?\s*\}\)/g) || [];
+  assert.strictEqual(direct.length, 1, 'one render of the board content, inside renderBoardLayout');
+  assert.ok(/function renderBoardLayout\(ctx, boardId, routeName\) \{\s*if \(mustRenderBoardLayout/.test(router));
 });
 
 console.log(`largeBoardCardOpen: ${passed} passed`);

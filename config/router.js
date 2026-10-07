@@ -10,6 +10,7 @@ import Settings from '/models/settings';
 // The swimlane and list routes, whose paths are built beside the URLs they
 // match so the two cannot disagree. models/lib/boardItemUrl.js
 import { SWIMLANE_ROUTE_PATH, LIST_ROUTE_PATH } from '/models/lib/boardItemUrl';
+const { mountedBoardAfterEnter, mustRenderBoardLayout } = require('/models/lib/boardLayoutMount');
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Filter } from '/client/lib/filter';
 import { Utils } from '/client/lib/utils';
@@ -34,6 +35,21 @@ import {
 } from '/models/lib/allBoardsUrls';
 
 let previousPath;
+// #6745: the board the board layout is rendered for right now, or null. The
+// card and board routes reuse it instead of re-creating every minicard.
+// models/lib/boardLayoutMount.js
+let mountedBoardId = null;
+
+// Render the board layout for `boardId` unless that board is already on screen
+// and this route may reuse it.
+function renderBoardLayout(ctx, boardId, routeName) {
+  if (mustRenderBoardLayout(mountedBoardId, boardId, routeName)) {
+    ctx.render('defaultLayout', {
+      content: 'board',
+    });
+  }
+  mountedBoardId = boardId || null;
+}
 
 // On Sandstorm the grain is authenticated by the platform, not by a local WeKan
 // account. That login is delivered asynchronously over the DDP connection (via
@@ -62,6 +78,12 @@ function ensureSignedInUnlessSandstorm(context, redirect, stop) {
 FlowRouter.triggers.exit([
   ({ path }) => {
     previousPath = path;
+  },
+]);
+
+FlowRouter.triggers.enter([
+  ({ route }) => {
+    mountedBoardId = mountedBoardAfterEnter(mountedBoardId, route && route.name);
   },
 ]);
 
@@ -426,9 +448,7 @@ FlowRouter.route(SWIMLANE_ROUTE_PATH, {
     Utils.manageCustomUI();
     Utils.manageMatomo();
 
-    this.render('defaultLayout', {
-      content: 'board',
-    });
+    renderBoardLayout(this, params.boardId, 'swimlane');
   },
 });
 
@@ -445,9 +465,7 @@ FlowRouter.route(LIST_ROUTE_PATH, {
     Utils.manageCustomUI();
     Utils.manageMatomo();
 
-    this.render('defaultLayout', {
-      content: 'board',
-    });
+    renderBoardLayout(this, params.boardId, 'list');
   },
 });
 
@@ -481,9 +499,9 @@ FlowRouter.route('/b/:boardId/:slug/:cardId', {
     Utils.manageCustomUI();
     Utils.manageMatomo();
 
-    this.render('defaultLayout', {
-      content: 'board',
-    });
+    // #6745: a card of the board already on screen opens in it - the board's
+    // own `each openCards` / currentCard follow the Session set above.
+    renderBoardLayout(this, params.boardId, 'card');
   },
 });
 
@@ -506,9 +524,7 @@ FlowRouter.route('/b/:id', {
     Utils.manageCustomUI();
     Utils.manageMatomo();
 
-    this.render('defaultLayout', {
-      content: 'board',
-    });
+    renderBoardLayout(this, params.id, 'board-short');
   },
 });
 
@@ -544,17 +560,11 @@ FlowRouter.route('/b/:id/:slug', {
     Utils.manageCustomUI();
     Utils.manageMatomo();
 
-    // setQueryParams reruns the route. Rendering the same layout data again
-    // recreates Template.board and closes its filter sidebar. Keep that board
-    // mounted for query-only navigation; other pages and boards still render.
-    const currentPath = FlowRouter.current().path;
-    const queryOnlyNavigation = previousBoard === currentBoard && previousPath &&
-      previousPath.split('?')[0] === currentPath.split('?')[0];
-    if (!queryOnlyNavigation) {
-      this.render('defaultLayout', {
-        content: 'board',
-      });
-    }
+    // Rendering the same layout data again recreates Template.board - every
+    // minicard - and closes its filter sidebar. Keep the board mounted when it
+    // is already the one on screen: setQueryParams reruns this route, and so
+    // does closing a card (#6745). Other pages and boards still render.
+    renderBoardLayout(this, currentBoard, 'board');
   },
 });
 
