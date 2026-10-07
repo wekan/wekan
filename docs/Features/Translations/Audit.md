@@ -2319,6 +2319,26 @@ not run; the app stack was unavailable. 34 locale paths still need this group.
 The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
 broader language-quality review remains open.
 
+### Rule-builder instructions — Manx and Walloon (2026-10-07)
+
+Filled seven pending strings in gv and wa (14 values), preserving existing
+translations and all literal variable expressions. No translation service was used.
+The text retains any-trigger behavior, ordered actions, username/email context and
+card-derived variables. Manx prose has lower confidence; mutations, recipient-field
+wording, Walloon technical terms and composed date fragments need native/UI review.
+Manx vocabulary references include [ennym](https://en.wiktionary.org/wiki/ennym)
+and [order](https://glosbe.com/en/gv/order). Walloon references include the
+[djivêye usage](https://lucyin.walon.org/diccionairaedje/djiveye400.html) and
+[rîle usage](https://rifondou.walon.org/croejhete1.html).
+These references support individual words, not full-sentence accuracy.
+
+The existing trigger-variable suite now checks 34 recently filled locales for
+source order and exact brace/underscore/percent tokens. Runtime matching,
+all-locale structural and human-preference checks pass. Browser scenarios were
+not run; the app stack was unavailable. 32 locale paths still need this group.
+The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
+broader language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
