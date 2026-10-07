@@ -118,3 +118,27 @@ for (const [prefix, order] of [['', 'asc'], ['-', 'des']]) {
   assert.deepEqual(JSON.parse(JSON.stringify(parsed.getQueryParams().getPredicate('sort'))),
     { name: 'createdAt', order });
 }
+
+labels = JSON.parse(read('imports/i18n/data/wa-RR.i18n.json'));
+for (const [key, field] of [
+  ['operator-board', 'board'], ['operator-swimlane', 'swimlane'], ['operator-list', 'list'],
+  ['operator-user', 'user'], ['operator-member', 'members'], ['operator-assignee', 'assignees'],
+  ['operator-creator', 'userId'], ['operator-title', 'title'], ['operator-description', 'description'],
+  ['operator-customfield', 'customfield'], ['operator-attachment-text', 'attachment-text'],
+  ['operator-checklist-text', 'checklist-text'],
+]) {
+  const parsed = query(`${labels[key]}:"two words"`);
+  assert.equal(parsed.hasErrors(), false, key);
+  assert.equal(parsed.getQueryParams().getPredicate(field), 'two words', key);
+}
+for (const absent of [false, true]) {
+  const parsed = query(`${labels['operator-has']}:${absent ? '-' : ''}${labels['predicate-attachment']}`);
+  assert.equal(parsed.hasErrors(), false);
+  assert.deepEqual(JSON.parse(JSON.stringify(parsed.getQueryParams().getPredicate('has'))),
+    { field: 'attachment', exists: !absent });
+}
+assert.equal(query(`${labels['operator-has']}:unknownpredicate`).hasErrors(), true);
+const warayModified = query(`${labels['operator-modified']}:3`);
+assert.equal(warayModified.hasErrors(), false);
+assert.deepEqual(JSON.parse(JSON.stringify(warayModified.getQueryParams().getPredicate('modifiedAt'))),
+  { operator: '$gte', value: '2026-09-11' });

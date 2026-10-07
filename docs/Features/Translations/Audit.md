@@ -5111,6 +5111,12 @@ mixed-language audit remains open.
 - Read the localized operator/predicate registrations in `config/query-classes.js` and search-help use in `client/components/main/globalSearch.js`. Attachment aliases now use the single word `kalakip`, matching the Waray attachment label and avoiding the former embedded space.
 - Added interval, action-label, credential-state and query-token checks. The English-placeholder count is unchanged. More French query aliases remain for the next audit batch; credential terminology remains provisional and browser checks were not run.
 
+### Waray wrong-language audit: search aliases
+
+- Corrected 42 French/Walloon operator and predicate values directly. Retained existing shorthand symbols and abbreviations; used single-token Waray aliases compatible with the parser's letter/apostrophe syntax.
+- Added real-parser checks for twelve text operators, positive/negative attachment existence, invalid predicates and the apostrophe-bearing modified-date operator. Existing token inventory checks cover every corrected value.
+- Compacted query aliases such as `takdangpetsa` and `listahansusi` are provisional technical labels, not claims of standard orthography. Quarter terminology and wider locale fluency still require review. The English-placeholder count is unchanged; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
