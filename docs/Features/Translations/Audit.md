@@ -4599,6 +4599,15 @@ mixed-language audit remains open.
 - Browser coverage was syntax-checked, not executed: Playwright is absent locally. Screen-reader delivery and fluent wording remain unverified.
 - Ordinary placeholders decrease from 48,997 to 48,847 across 70 languages. The 148 pending source keys and broader translation/semantic audit remain open.
 
+## Blockly comment and accessibility controls: nine more locales
+
+- Filled fifteen English placeholders each in Bislama (`bi`), Tok Pisin (`tpi`), Fijian (`fj`), Tongan (`to`), Hawaiian (`haw`), Oromo (`om`), Kinyarwanda (`rw`), Kirundi (`rn`) and Luganda (`lg`): 135 values. Existing non-English values remain protected. The group covers comment controls, conditional branches, inputs, list items, text, button, collapse/expand, angle degrees and empty trash.
+- Replaced Tongan's generic `text` value `Faka-Tonga: Text` with `Lea kuo tohi` (written words). The old value was English with a language-name prefix, not a translation. Added a regression for the correction.
+- Vocabulary references: [NSW Tongan bilingual dictionary](https://education.nsw.gov.au/content/dam/main-education/teaching-and-learning/curriculum/multicultural-education/eald/eald-bilingual-dictionary-tongan.pdf) for button, [Luganda button dictionary entry](https://glosbe.com/en/lg/button), [Hawaiian degree entry](https://wehe.hilo.hawaii.edu/?q=k%C4%93kel%C4%93) and [the Hawaiian dictionary interface](https://wehe.hilo.hawaii.edu/settings.php) for button usage. Corrected the drafted degree spelling to `kēkelē`.
+- The complete UI phrases are not attested by those references. Conditional-branch and input paraphrases remain provisional, particularly in Fijian, Tongan, Hawaiian and Luganda, and are low confidence. Structural coverage does not establish language quality.
+- Extended the fifteen-label regression and translated add-comment browser assertions to these nine locales. Blockly/completeness: 13 tests pass. Human-preference verification: 21 checks pass. Browser coverage is syntax-checked only; Playwright is absent locally and spoken accessibility was not exercised.
+- Ordinary placeholders decrease from 48,847 to 48,712 across 70 languages. The 148 pending source keys and broader translation/semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -114,7 +114,7 @@ for (const language of ['fi','ar','gu-IN','sv','sl','vi','ku','ckb','tt','so','n
     await workspace.scrollIntoViewIfNeeded();
     await block.locator('.blocklyPath').first().click({button:'right',position:{x:30,y:12}});
     await expect(page.locator('.blocklyContextMenu')).toContainText(translations['blockly-DUPLICATE_BLOCK']);
-    if (['ku','ckb','tt','so','ny','mi','sm','tk_TM','yi','bho','mai','or_IN','kok','pap','ary','st','tn','nso','zu','zu-ZA','xh','ss','nd','ts','ve'].includes(language)) await expect(page.locator('.blocklyContextMenu')).toContainText(translations['blockly-ADD_COMMENT']);
+    if (['ku','ckb','tt','so','ny','mi','sm','tk_TM','yi','bho','mai','or_IN','kok','pap','ary','st','tn','nso','zu','zu-ZA','xh','ss','nd','ts','ve','bi','tpi','fj','to','haw','om','rw','rn','lg'].includes(language)) await expect(page.locator('.blocklyContextMenu')).toContainText(translations['blockly-ADD_COMMENT']);
     await page.keyboard.press('Escape');
   } finally { clean(board.boardId); }
 });
