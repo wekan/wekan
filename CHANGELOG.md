@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/42da9d05ba08ca911ed7a976ef5aaab776d39d54">Correct 22 mixed-language Akan input and scheduled-job messages.</a></summary>
+
+- Rewrite default-board, search, upload, storage, lockout and scheduled-job messages. Preserve positive limits, domain syntax and distinct failed operations.
+- Add source-token and input/operation regression checks. Technical terminology remains provisional pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace mixed-language values. The broader language audit continues.
+- Validation: 73 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/771cf10c53869b48fb58fe5f66eef382b6e29d33">Correct 22 mixed-language Akan display and selection messages.</a></summary>
 
 - Rewrite board-selection, home-board, width/keyboard toggle, fading and input-error messages. Preserve current states and opposite click actions.
