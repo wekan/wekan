@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7d4888c351fbeb55c669fbebd1cb8bdcba18579a">Correct 52 foreign-language Waray board-view and account labels.</a></summary>
+
+- Replace French and Walloon board views, font/theme controls, account labels, starred-item controls and work timers. Preserve zoom directions, unread-comment meaning and timer arguments.
+- Extend shared-label, direction and scope checks. Flow and milestone wording remains provisional, and further vocabulary review is open.
+- English placeholders remain at 46,305 across 70 languages, with 148 source keys tracked separately for wording review.
+- Validation: 28 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c3d0a53fcbc05e5f2e397f3274dab41c1ec64025">Correct 41 foreign-language Waray chart and interface labels.</a></summary>
 
 - Replace French, Walloon and mixed-language chart, preview, rule, storage and authentication labels. Preserve the reactivity identifier and distinct reset/recur and work-remaining/completed meanings.
