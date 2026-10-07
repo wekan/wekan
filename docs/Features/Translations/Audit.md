@@ -737,6 +737,35 @@ pass, together with all-locale structure and human-preference checks.
 Browser mute/unmute scenarios include these three locales and pass syntax
 checking only; no browser execution was available.
 
+## Venda and Venetian notification preferences — 2026-10-07
+
+Filled 13 English placeholders each in Venda (`ve`) and Venetian (`ve-CC`):
+26 values. The registry identifies `ve-PP` as Veps; these locale tags must
+not be treated as regional Venda variants. Also corrected six wrong-language
+Venda labels: list, lane, members, assignees, attachments and checklists.
+The Zulu/Afrikaans seeds were replaced directly; existing correct-language
+values were preserved. The standard backlog remains 51,575 values and 201
+pending source keys because the notification keys are pending and the six
+repairs were not English placeholders.
+
+Vocabulary references include the
+[English–Tshivenda dictionary](https://www.scribd.com/document/781724274/67089703335-1)
+for reminder vocabulary and the
+[Venetian dictionary](https://www.vatrarberesh.it/biblioteca/ebooks/linguaveneta.pdf)
+for removal/addition terminology, with
+[senpre](https://en.wiktionary.org/wiki/senpre) expressing the unconditional
+reminder/mention exception. Translations were written directly without a
+translation service. Full technical clauses and custom-field/lane terms
+remain low confidence pending speaker review. Broader mixed-language Venda
+content remains in the review queue.
+
+Shared notification checks now cover 46 locales. Exact placeholders, source
+order, distinct people categories and the muting exception pass, together
+with all-locale structure and human-preference checks. Regression checks
+reject the six former wrong-language labels. Browser mute/unmute scenarios
+include both locales and pass syntax checking only; no browser execution
+was available.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
