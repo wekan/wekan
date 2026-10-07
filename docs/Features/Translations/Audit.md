@@ -4565,6 +4565,14 @@ mixed-language audit remains open.
 - All twelve focused Node tests and 21 human-preference checks pass. Extended exact token and distinct-direction checks alongside existing negative import tests. Added Tigre to the localized editor drag/edit/context-menu browser flow. Syntax passes; browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
 - Ordinary placeholders decrease from 49,245 to 49,233 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## Cherokee Blockly movement announcements
+
+- Filled the twelve movement and scrolling announcements in `chr` through the protected placeholder-only merge. This completes non-English coverage of this group in all 234 non-English locales; `ANNOUNCE_MOVE_OF` is a separate key and remains outside this group.
+- Vocabulary references: [Feeling dictionary movement entry](https://www.cherokeedictionary.net/share/72393), [circling entry](https://www.cherokeedictionary.net/newSearch/xrefdisplay?current=72255&old=adeyoha), [Cherokee Nation grammar](https://cherokeenationdictionary.net/pdf/cherokee_grammar.pdf), and [OU dictionary](https://language.cherokee.org/media/ausnrxe1/oudictionaryutana.pdf). These support vocabulary, not the full UI sentences. Movement inflection, cancellation phrasing, spatial arguments and scrolling paraphrases are **low confidence** and remain open for fluent review.
+- Expanded the announcement regression to every non-English locale: nonempty/non-English values, exact underscore/percent token inventories, four distinct scroll directions, before/after and inside/around distinctions. The Blockly/completeness suites pass 12 tests; translation human-preference verification passes 21 checks.
+- Registered Cherokee in the existing Blockly editor browser flow and syntax-checked it. Playwright is absent locally, so neither that flow nor spoken screen-reader announcements were executed. Structural checks do not establish translation fluency.
+- Ordinary placeholders decrease from 49,233 to 49,221 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
