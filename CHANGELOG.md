@@ -1884,7 +1884,7 @@ each for the reason given:
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.21 2026-10-07 WeKan ® release
 
 **In short:** The **Snap** backup and restore commands now start the database
 they need and say why it does not answer. All supported languages now have
