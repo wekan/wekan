@@ -1890,6 +1890,17 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5b02a46d525f1d6ac24e60d45f61e37f90f5f26a">Translate map view into Moroccan Arabic, Bhojpuri, Maithili, Odia and Konkani.</a></summary>
+
+- Filled 35 placeholders, preserving both placement methods and map-image examples. Technical phrases remain provisional, especially the Konkani floor-plan wording.
+- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but execution awaits Playwright and a running application.
+- The seven map-view keys remain English in 56 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bab737e36465a98168a1b9a2a2df15aa5dac1f0b">Translate map-view messages into Kurdish, Sorani, Tatar, Turkmen and Yiddish.</a></summary>
 
 - Filled 35 placeholders, including upload/removal controls and both card-placement methods. Technical wording remains provisional, especially Turkmen.
