@@ -2634,6 +2634,25 @@ not run; the app stack was unavailable. 7 locale paths still need this group.
 The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
 broader language-quality review remains open.
 
+### Rule-builder instructions — Nahuatl (2026-10-07)
+
+Filled seven pending strings in nah, preserving existing translations and all
+literal variable expressions. No translation service was used. The text retains
+any-trigger behavior, ordered actions, username/email context and card-derived
+variables. Technical prose has lower confidence; dialect consistency, recipient
+fields, variable values and composed date fragments need native/UI review.
+Existing title/list terminology also remains a review item.
+References include [tlanahuatilli](https://nahuatl.wired-humanities.org/content/tlanahuatilli)
+and [tlahcuilolli](https://nahuatl.wired-humanities.org/content/tlahcuil%C5%8Dlli).
+These references support vocabulary, not full-sentence accuracy.
+
+The existing trigger-variable suite now checks 60 recently filled locales for
+source order and exact brace/underscore/percent tokens. Runtime matching,
+all-locale structural and human-preference checks pass. Browser scenarios were
+not run; the app stack was unavailable. 6 locale paths still need this group.
+The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
+broader language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
