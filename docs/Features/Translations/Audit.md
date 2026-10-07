@@ -5285,6 +5285,12 @@ Corrected 43 generic values covering date fields, weekdays, role/status labels, 
 
 Regression coverage checks source tokens, distinct weekdays, weekday-schedule consistency, read/unread states, shared templates, comma-separated examples and HTML/JSON identifiers. Role, domain and manifest terminology remains provisional. Search-operator filler remains for a dedicated pass with parser validation. Browser checks were not run.
 
+### Akan search operators and errors
+
+Corrected 49 search entries: 34 exact generic fillers and 15 mixed-language, malformed or unusable operator/predicate/error values. Restored canonical short aliases and replaced space-containing title/attachment aliases with single-word forms that the parser accepts. The exact filler inventory decreases from 313 to 279.
+
+The actual query parser now has Akan regression checks for quoted values, translated operators, positive/negative existence predicates, invalid limits, modified-date filters and ascending/descending sorts. Locale tests preserve source tokens and shared aliases. Compound technical search words remain low confidence and need language review. Browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

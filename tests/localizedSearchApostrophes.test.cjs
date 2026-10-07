@@ -142,3 +142,35 @@ const warayModified = query(`${labels['operator-modified']}:3`);
 assert.equal(warayModified.hasErrors(), false);
 assert.deepEqual(JSON.parse(JSON.stringify(warayModified.getQueryParams().getPredicate('modifiedAt'))),
   { operator: '$gte', value: '2026-09-11' });
+
+labels = JSON.parse(read('imports/i18n/data/ak.i18n.json'));
+for (const [key, field] of [
+  ['operator-board', 'board'], ['operator-swimlane', 'swimlane'], ['operator-list', 'list'],
+  ['operator-assignee', 'assignees'], ['operator-creator', 'userId'],
+  ['operator-title', 'title'], ['operator-description', 'description'],
+  ['operator-customfield', 'customfield'], ['operator-attachment-text', 'attachment-text'],
+  ['operator-checklist-text', 'checklist-text'],
+]) {
+  const parsed = query(`${labels[key]}:"two words"`);
+  assert.equal(parsed.hasErrors(), false, key);
+  assert.equal(parsed.getQueryParams().getPredicate(field), 'two words', key);
+}
+for (const [key, field] of [['predicate-attachment','attachment'],['predicate-start','startAt'],['predicate-end','endAt']]) {
+  for (const absent of [false, true]) {
+    const parsed = query(`${labels['operator-has']}:${absent ? '-' : ''}${labels[key]}`);
+    assert.equal(parsed.hasErrors(), false, key);
+    assert.deepEqual(JSON.parse(JSON.stringify(parsed.getQueryParams().getPredicate('has'))), {field, exists: !absent});
+  }
+}
+for (const value of ['abc','-2']) assert.equal(query(`${labels['operator-limit']}:${value}`).hasErrors(), true);
+assert.equal(query(`${labels['operator-limit']}:12`).getQueryParams().getPredicate('limit'), 12);
+assert.equal(query(`${labels['operator-has']}:unknownpredicate`).hasErrors(), true);
+const akanModified = query(`${labels['operator-modified']}:3`);
+assert.equal(akanModified.hasErrors(), false);
+assert.deepEqual(JSON.parse(JSON.stringify(akanModified.getQueryParams().getPredicate('modifiedAt'))),
+  {operator: '$gte', value: '2026-09-11'});
+for (const [prefix, order] of [['','asc'],['-','des']]) {
+  const parsed = query(`${labels['operator-sort']}:${prefix}${labels['predicate-modified']}`);
+  assert.equal(parsed.hasErrors(), false);
+  assert.deepEqual(JSON.parse(JSON.stringify(parsed.getQueryParams().getPredicate('sort'))), {name: 'modifiedAt', order});
+}
