@@ -1890,6 +1890,21 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/20c986cc20e9d7d37667288c30dd591f98b68ad3">Complete rule-builder placeholder translations across locales</a>. Thanks to xet7.</summary>
+
+- Fill the seven remaining Cherokee instructions. These seven keys now have
+  non-English values in all 234 non-English locale paths. Technical Cherokee prose
+  has low confidence; native-language and composed UI wording review remains open.
+- Extend the regression suite to discover every locale and verify exact variables,
+  source tokens and key order. Runtime, structural and human-preference checks pass.
+  Browser scenarios were syntax-checked but not run without the application stack.
+- Remove seven filled keys from the pending inventory, leaving 174 pending source
+  keys. The ordinary backlog remains 51,575 values across 70 languages; this does
+  not complete the broader translation and language-quality work.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/fccbc4ebddd59ff4d30d7d84f367c0818a22edfb">Translate rule-builder instructions in Tigre</a>. Thanks to xet7.</summary>
 
 - Fill seven strings, preserving literal variables, any-trigger behavior and ordered
