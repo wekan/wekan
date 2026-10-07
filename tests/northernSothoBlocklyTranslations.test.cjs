@@ -212,3 +212,32 @@ test('Northern Sotho editing controls distinguish actions and announce accessibi
   assert.match(data['blockly-ICON_LABEL_'+kind+'_OPEN'],/^Tswalela /);
  }
 });
+
+test('Northern Sotho mathematics preserves formulas, tokens and inclusive boundaries',()=>{
+ const literals=new Set(['e','pi','+','÷','×','^','-','acos','asin','atan','cos','sin','tan']);
+ for(const key of Object.keys(english).filter(k=>k.startsWith('blockly-MATH_'))){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  if(key.endsWith('_HELPURL')||key.endsWith('_HUE')||literals.has(english[key])) assert.equal(data[key],english[key],key);
+  else assert.notEqual(data[key],english[key],key);
+ }
+ assert.match(data['blockly-MATH_RANDOM_FLOAT_TOOLTIP'],/0\.0 \(e akareditšwe\).*1\.0 \(ga e akaretšwe\)/);
+ for(const key of ['blockly-MATH_RANDOM_INT_TOOLTIP','blockly-MATH_CONSTRAIN_TOOLTIP']) assert.match(data[key],/go akaretša mellwane/);
+ assert.match(data['blockly-MATH_ATAN2_TOOLTIP'],/\(X, Y\).*dikgato.*-180.*180/);
+ for(const op of ['SIN','COS','TAN']) assert.match(data['blockly-MATH_TRIG_TOOLTIP_'+op],/dikgato \(e sego ka diradiene\)/);
+ for(const literal of ['π (3.141…)','e (2.718…)','φ (1.618…)','sqrt(2) (1.414…)','sqrt(½) (0.707…)','∞']) assert.ok(data['blockly-MATH_CONSTANT_TOOLTIP'].includes(literal));
+});
+
+test('Northern Sotho mathematics distinguishes statistical operations, signs and rounding',()=>{
+ assert.equal(new Set(['AVERAGE','MEDIAN','MODE','SUM','STD_DEV'].map(s=>data['blockly-MATH_ONLIST_OPERATOR_'+s])).size,5);
+ assert.match(data['blockly-MATH_ONLIST_TOOLTIP_MODE'],/lenaneo.*tšwelelago gantši kudu/);
+ assert.match(data['blockly-MATH_MODULO_TOOLTIP'],/mašalela/);
+ assert.doesNotMatch(data['blockly-MATH_ARITHMETIC_TOOLTIP_DIVIDE'],/mašalela/);
+ assert.match(data['blockly-MATH_ARITHMETIC_TOOLTIP_POWER'],/mathomo.*matlapalo.*bobedi/);
+ assert.notEqual(data['blockly-MATH_IS_EVEN'],data['blockly-MATH_IS_ODD']);
+ assert.match(data['blockly-MATH_IS_POSITIVE'],/godimo ga lefela/);
+ assert.match(data['blockly-MATH_IS_NEGATIVE'],/fase ga lefela/);
+ assert.match(data['blockly-MATH_ROUND_OPERATOR_ROUNDDOWN'],/fase$/);
+ assert.match(data['blockly-MATH_ROUND_OPERATOR_ROUNDUP'],/godimo$/);
+ assert.match(data['blockly-MATH_SINGLE_TOOLTIP_NEG'],/fetotšwe leswao/);
+ assert.equal(data['blockly-MATH_CHANGE_TITLE_ITEM'],data['blockly-VARIABLES_DEFAULT_NAME']);
+});

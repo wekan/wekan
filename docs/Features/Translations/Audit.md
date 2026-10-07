@@ -6136,6 +6136,28 @@ all-catalog key mismatch has been resolved. Browser and screen-reader checks
 were not run. Backpack, parent-block and accessibility wording remains low
 confidence pending fluent-speaker review. The broader language audit stays open.
 
+## Northern Sotho Blockly mathematics — 2026-10-08
+
+Filled 86 English placeholders for arithmetic, number predicates, list
+statistics, rounding, constants and trigonometric accessible labels/tooltips.
+Formula abbreviations, URLs, symbols and hue values remain literal. Existing
+translations are preserved. Tests retain source tokens, numerical constants,
+random interval endpoints, degree/radian distinctions, operand order, signs
+and distinct statistical and rounding operations.
+
+Vocabulary uses skwerute, lokaritimi, palohlokakatišani and matlapalo from the
+[Multilingual Mathematics Dictionary](https://www.roekeloos.co.za/meertalige-wiskundewoordeboek-multilingual-mathematics-dictionary/).
+Palogare and the median paraphrase follow the
+[Department of Basic Education's Sepedi assessment guide](https://www.education.gov.za/Portals/0/Documents/Manuals/Diagnostic%20Assesment%20Books/Mathematics%20Books/Grade%203/Book%201/MATHEMATICS%20GRADE%2003%20SEPEDI%20BOOK%201.pdf?ver=2020-03-09-190712-000).
+These sources support individual terms, not full-sentence fluency. Standard
+deviation, golden ratio and trigonometric loan spellings remain low confidence
+and require fluent-speaker review. Browser and screen-reader checks were not run.
+
+The focused combined run passed 59 checks, with two catalog-structure failures
+because some locales lack the concurrent shortcut-edit-due-date source key.
+Human-preference verification passed 20 checks; its actual-merge check failed
+on that same catalog key mismatch. The broader language audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
