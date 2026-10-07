@@ -2368,3 +2368,49 @@ test('Tok Pisin card and database wording keeps scope, markup and placeholders',
  assert.match(data['hide-list-on-minicard'],/^Haitim/);
  assert.match(data['show-list-on-minicard'],/^Soim/);
 });
+
+
+test('Tok Pisin form and card-aging labels preserve tokens and replace mixed English',()=>{
+ const keys=[
+  "Database_type",
+  "automatically-field-on-card",
+  "always-field-on-card",
+  "r-check-all",
+  "r-remove-value-from",
+  "card-aging",
+  "card-aging-days",
+  "card-aging-tier1",
+  "card-aging-tier2",
+  "card-aging-tier3",
+  "skip-to-content",
+  "worker-desc",
+  "confirm-move-list-to-swimlane",
+  "createTemplateContainerPopup-title",
+  "disambiguateMultiLabelPopup-title",
+  "disambiguateMultiMemberPopup-title",
+  "clipboard",
+  "enable-vertical-scrollbars",
+  "anonymize-account"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:type|field|Check|value|aging|fade|days|tiers|Tier|idle|Skip|content|Can|itself|other|Container|Disambiguate|Clipboard|drag|drop|vertical|scrollbars|Anonymize)\b/,key);
+ }
+});
+
+test('Tok Pisin aging levels and role labels retain distinctions',()=>{
+ for(let tier=1;tier<=3;tier++){
+  assert.ok(data['card-aging-tier'+tier].startsWith('Mak '+tier));
+  assert.match(data['card-aging-tier'+tier],/de i no gat wok long kat/);
+ }
+ assert.match(data['card-aging-tier1'],/liklik/);
+ assert.match(data['card-aging-tier2'],/namel/);
+ assert.match(data['card-aging-tier3'],/tru/);
+ assert.match(data['worker-desc'],/movim kat.*em yet.*putim tok tasol/);
+ assert.match(data['confirm-move-list-to-swimlane'],/dispela lis na olgeta kat bilong en.*narapela rot/);
+ assert.match(data['automatically-field-on-card'],/nupela kat/);
+ assert.match(data['always-field-on-card'],/olgeta kat/);
+ assert.match(data['anonymize-account'],/akaun$/);
+ assert.doesNotMatch(data['anonymize-account'],/kisim i kam/);
+});

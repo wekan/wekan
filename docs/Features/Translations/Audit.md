@@ -6822,6 +6822,18 @@ The combined translation run passes 146 checks. Two existing catalog checks fail
 on the missing due-date shortcut key. All 21 human-preference checks pass.
 Browser and screen-reader checks were not run. The wider audit remains open.
 
+## Tok Pisin form and card-aging wording audit
+
+Corrected 19 mixed-language or misleading form and display labels. The account
+anonymization label incorrectly described importing users; it now refers to the
+account. Checks preserve three fading levels, idle-day conditions, worker-role
+limits and new-card versus all-card scope. Wording remains provisional pending
+fluent-speaker review.
+
+The combined translation run passes 148 checks. Two existing catalog checks fail
+on the missing due-date shortcut key. All 21 human-preference checks pass.
+Browser and screen-reader checks were not run. The wider audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
