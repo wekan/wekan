@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **47,347 untranslated locale/string values in 70 languages**. It
+  report counts **47,283 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -2042,6 +2042,18 @@ snap.
 and updates the following translations:
 
 **Activity notifications** - choosing which card activity sends notifications.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9e71da2b4eef5fa627e53c3492ef1ef8b5c05837">Translate Bislama, Tok Pisin, Fijian and Papiamento block and bubble labels.</a></summary>
+
+- Fill 64 English placeholders while preserving numbered arguments and existing translations. Extend block-state, input and bubble distinction checks.
+- Document contextual bubble paraphrases and lower-confidence technical wording, particularly Fijian value terminology. Language and spoken accessibility review remain open.
+- Ordinary untranslated values decrease from 47,347 to 47,283 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 26 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b74cc1a1475e351e8df7d44c20a5f63ba34c4358">Translate Māori, Samoan, Hawaiian and Tongan block and bubble labels.</a></summary>
