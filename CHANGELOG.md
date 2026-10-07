@@ -1890,6 +1890,20 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4c84b64379e23ddcc57c3a45c2558e7bd0b756a9">Translate URL scheme hint in southern African locales</a>. Thanks to xet7.</summary>
+
+- Fill eight values in Zulu, Xhosa, North Ndebele, Swati, Southern Sotho, Tswana
+  and Northern Sotho locales, preserving literal identifiers. Lower-confidence
+  technical wording remains documented for native/UI review.
+- Hint checks cover 24 recently filled locales. Parser, sanitizer, structural and
+  human-preference checks pass; browser scenarios were syntax-checked but not run
+  without the application stack.
+- Forty-two locale paths still need this hint. The ordinary backlog remains 51,575
+  values plus 172 pending source keys; broader translation work remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/27f499c7f8d5ea5b1b55ab168ef13102cc1311b1">Translate URL scheme hint in six further languages</a>. Thanks to xet7.</summary>
 
 - Fill Tok Pisin, Bislama, Papiamento, Somali, Oromo and Nyanja hints while
