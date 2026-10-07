@@ -883,6 +883,28 @@ people-category distinctions and the reminder/mention exception pass,
 together with all-locale structure and human-preference checks. The Kashmiri
 browser mute/unmute scenario is syntax-checked only; it was not executed.
 
+## Quechua and Aymara notification preferences — 2026-10-07
+
+Filled 13 English placeholders each in Quechua (`qu`) and Aymara (`ay`):
+26 values. Existing translations are preserved. These keys remain pending
+elsewhere; the standard backlog remains 51,575 values and 201 pending
+source keys.
+
+Vocabulary references include
+[Quechua Tinkuy](https://quechuatinkuy.coerll.utexas.edu/en/vocabulario/)
+for informing/remembering and the
+[Aymara educational vocabulary](https://cdn.www.gob.pe/uploads/document/file/4973488/item_55_vocabulario_aymara.pdf?v=1692022988)
+for yatiyawi. Existing catalog terms supply card/list/category names.
+These are direct translations without a translation service. Complete
+technical clauses, dialect consistency and custom-field/lane terminology
+remain low confidence pending speaker review.
+
+Shared notification checks now cover 54 locales. Exact tokens, source order,
+people-category distinctions and the reminder/mention exception pass,
+together with all-locale structure and human-preference checks. Browser
+mute/unmute scenarios include both locales and are syntax-checked only;
+they were not executed.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
