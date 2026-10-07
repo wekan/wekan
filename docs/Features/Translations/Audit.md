@@ -4086,6 +4086,27 @@ remains unverified because Playwright is unavailable. Cherokee, Tigre and
 Wolaytta still use the English instruction. The wider backlog remains 51,575
 ordinary placeholders in 70 languages plus 150 pending source keys.
 
+## Leo import instruction: Tigre and Wolaytta drafts
+
+Filled two English placeholders for `import-board-instruction-leo` through the
+protected fill. Existing non-English translations were preserved. Drafted the
+hierarchy, cards, body descriptions, deeper checklists and marked completion
+state in Tigre and Wolaytta, retaining literal Leo and `.leo` identifiers.
+
+Used the [Kekia Tigre grammar, lesson 28](https://www.speaktigre.com/_files/ugd/7e068a_d791dde4087041feaf3dedb6b109829c.pdf?index=true)
+for above/below expressions. Existing Wolaytta UI terminology supplied the card,
+description and checklist nouns. Both complete instructions remain very
+low-confidence: technical vocabulary, verb agreement, hierarchy and completion
+phrasing require linguistic review. The Tigre draft is separate from Tigrinya;
+shared script does not establish that the vocabulary is correct for its locale.
+
+Extended locale and browser import coverage for both languages; existing
+invalid-input coverage remains. All 12 focused Node tests and 21 preservation
+checks pass. Browser syntax passes, but execution remains unverified because
+Playwright is unavailable. Cherokee is the remaining English Leo instruction.
+The wider backlog remains 51,575 ordinary placeholders in 70 languages plus 150
+pending source keys. Structural coverage does not establish linguistic accuracy.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
