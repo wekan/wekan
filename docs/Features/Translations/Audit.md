@@ -5551,6 +5551,17 @@ query-syntax, entity and report-distinction checks. Wording remains low confiden
 pending fluent-speaker review; browser checks remain unrun. Placeholder counts
 are unchanged.
 
+## Akan support and lockout corrections (batch 43)
+
+Memory terminology reference: [Node V8 documentation](https://github.com/nodejs/node/blob/main/doc/api/v8.md), including `does_zap_garbage`.
+
+Corrected 24 damaged or mixed-language support, storage, lockout and memory labels.
+Preserved known-user/wrong-password versus nonexistent-user distinctions and
+opposite filesystem states. Retained technical memory identifiers alongside
+provisional explanations. Added token, identifier and state checks. Technical
+wording remains low confidence pending fluent-speaker review; browser checks
+remain unrun. English-placeholder counts are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

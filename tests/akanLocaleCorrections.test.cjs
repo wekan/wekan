@@ -766,3 +766,24 @@ test('Akan sorting and report labels preserve search syntax and format entities'
  assert.match(data['label-color-not-found'],/^Wɔanhu/);
  assert.equal(data['dependency-color'],data['allboards.workspace-color']);
 });
+
+
+test('Akan support and lockout labels preserve state and credential distinctions', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["office-address", "editCardSortOrderPopup-title", "Node_heap_malloced_memory", "Node_heap_peak_malloced_memory", "Node_heap_does_zap_garbage", "Node_heap_number_of_native_contexts", "Node_heap_number_of_detached_contexts", "Node_memory_usage_external", "add-organizations", "originOrder", "storage", "uploading", "newTranslationPopup-title", "support", "supportPopup-title", "support-title", "support-content", "accounts-lockout-settings", "accounts-lockout-known-users", "accounts-lockout-unknown-users", "accounts-lockout-failures-before", "attachment-storage-configuration", "filesystem-enabled", "filesystem-disabled"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ for(const key of keys.filter(k=>k.startsWith('Node_'))) assert.match(data[key],/^Node /);
+ assert.match(data['Node_heap_malloced_memory'],/malloc/);
+ assert.match(data['Node_heap_peak_malloced_memory'],/malloc.*ɛsen biara/);
+ assert.match(data['Node_heap_does_zap_garbage'],/does_zap_garbage/);
+ assert.match(data['Node_heap_number_of_detached_contexts'],/detached contexts/);
+ assert.equal(data.support,data['supportPopup-title']);
+ assert.notEqual(data['support-title'],data['support-content']);
+ assert.match(data['accounts-lockout-known-users'],/edin.*teɛ.*asɛmfua.*nteɛ/);
+ assert.match(data['accounts-lockout-unknown-users'],/edin.*nni hɔ/);
+ assert.match(data['accounts-lockout-failures-before'],/dodow.*ansa/);
+ assert.match(data['filesystem-enabled'],/^Wɔasɔ/);
+ assert.match(data['filesystem-disabled'],/^Wɔadum/);
+ assert.equal(data['office-address'],data['location-address']);
+ assert.match(data.originOrder,/mfiase/);
+});
