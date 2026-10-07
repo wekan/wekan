@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **48,015 untranslated locale/string values in 70 languages**. It
+  report counts **47,960 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -1986,6 +1986,18 @@ snap.
 and updates the following translations:
 
 **Activity notifications** - choosing which card activity sends notifications.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a1f34d5d40929c55aacaf9764db69db6325f2723">Translate field types in five further African languages.</a></summary>
+
+- Fill 55 English placeholders in Kinyarwanda, Kirundi, Luganda, Oromo and Chichewa; correct two mixed-language Luganda control labels. Preserve source arguments and existing correct-language translations.
+- Extend image, selector and input/function-name distinctions and Luganda semantic regressions. Terminology references and low-confidence wording are documented in the translation audit.
+- Ordinary untranslated values decrease from 48,015 to 47,960 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 17 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/941aa9192920aa4b468d8456dd279aae53f1c27e">Translate Swati, Tsonga, Venda and Northern Ndebele field types.</a></summary>
