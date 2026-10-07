@@ -4312,6 +4312,12 @@ mixed-language audit remains open.
 - Extended the existing positive browser save/reload/apply/replace/delete flow and negative invalid-expression flow to the seven locales, checking localized feedback, the privacy/replacement hint and the input's accessible label. All 15 focused Node tests and 21 human-preference checks pass. Browser syntax passes; execution remains unverified because the local Playwright executable is unavailable.
 - These ten strings remain English in 59 locales. Ordinary placeholders decrease from 50,925 to 50,855 across 70 languages; 148 pending keys still require wording review.
 
+## Saved filter labels: eight further locales (2026-10-07)
+
+- Filled ten English strings each in Turkmen, Yiddish, Bhojpuri, Maithili, Odia, Konkani, Papiamentu and Moroccan Arabic (80 values), using existing filtering and board vocabulary. Preserved the private-per-user, per-board scope and same-name replacement semantics. Technical clauses remain provisional, especially Konkani and Papiamentu.
+- Extended the existing positive browser save/reload/apply/replace/delete flow and negative invalid-expression flow to these eight locales. All 15 focused Node tests and 21 human-preference checks pass. Browser syntax passes; execution remains unverified because the local Playwright executable is unavailable.
+- These ten strings remain English in 51 locales. Ordinary placeholders decrease from 50,855 to 50,775 across 70 languages; 148 pending keys still require wording review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
