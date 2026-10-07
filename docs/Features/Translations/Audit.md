@@ -3646,6 +3646,14 @@ The [Aruba education manual](https://www.ea.aw/catalog/wp-content/uploads/2021/0
 
 Extended regression and browser coverage to these four paths. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Passing checks establish text coverage and placeholder preservation, not linguistic accuracy.
 
+## Map view: Waray, Fijian, Tongan, Luganda and Wolof - 2026-10-07
+
+Filled seven English placeholders in `wa-RR`, `fj`, `to`, `lg` and `wo` (35 values) using the protected fill workflow. The map-image examples and both placement methods are retained. The seven keys remain English in 28 locale paths and stay in the pending queue; the broader backlog remains 51,575 ordinary placeholders across 70 languages plus 160 pending source keys.
+
+The [Wolof lexicon](https://jangawolof.org/2015/01/06/wolof-lexicon/) supplies kart usage. The broader dictionary search also returned related-language entries for Luganda queries; those are not treated as proof of Luganda vocabulary. Full-sentence wording, floor-plan compounds, and the Wolof map/task-card distinction remain provisional and need speaker review. The Fijian administrator term was corrected during review to daunivakatulewa rather than a mixed-language form.
+
+Extended the regression and map browser scenario to all five paths. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Placeholder and coverage checks do not establish fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
