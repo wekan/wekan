@@ -3486,6 +3486,12 @@ Filled 30 English placeholders in `st`, `tn`, `nso`, `zu`, `zu-ZA` and `xh` with
 
 Extended the translation/token regression and existing localized browser scenario to all six locale paths. Translation, recovery-notice, request logic and 234-locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 45 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
 
+### History recovery: Swati, Ndebele, Tsonga and Venda
+
+Filled 20 English placeholders in `ss`, `nd`, `ts` and `ve` with the protected fill utility. The drafts distinguish undo/redo and retry/forget, and explain that resending the same request cannot undo a second change. Vocabulary references include [Tsonga educational material](https://www.education.gov.za/Portals/0/CD/GET/doc/Xitsonga_Ririmi_Sungula.pdf?ver=2007-07-09-103114-000) using retry/trying vocabulary and a [Venda workbook](https://www.education.gov.za/Portals/0/Documents/Manuals/2026%20Workbooks/Literacy%20vol%201/grade%205/Lit%20venda%20gr5%20vol1%20lowres.pdf?ver=2026-01-19-213458-000) using `Lingedzani`. These establish vocabulary usage, not the composed software sentences. Full clauses, agreement and undo/redo wording remain provisional, particularly Swati/Ndebele technical phrasing, and need fluent-speaker review.
+
+Extended the translation/token regression and existing localized browser scenario to the four locales. Translation, recovery-notice, request logic and 234-locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 41 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
