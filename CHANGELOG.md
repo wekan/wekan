@@ -2173,6 +2173,22 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2ae4b4737c0e598d27b7eb3020650b3c09ea8612">Fill the final eight missing due-date shortcut entries</a></summary>
+
+- Add the shortcut in Cherokee, Inuktitut, Ladin, Aromanian, Tigre,
+  Arabic-script Uzbek, Wolaytta and Standard Moroccan Tamazight.
+  All eight additions remain low confidence pending fluent review.
+- All locales now contain the shortcut. All 53 focused catalog checks and
+  21 human-preference checks pass. Browser and screen-reader checks were not run.
+- This closes the missing-key gap, not the broader translation audit:
+  untranslated strings remain in 70 languages, and 149 keys are excluded
+  from that inventory as pending Transifex. Wrong-language wording also remains.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/294759f773ecb929d55cf3d00b0d732537df8c4c">Translate the due-date shortcut in eight further languages</a></summary>
 
 - Add the shortcut in Acehnese, Aymara, Fulah, Greenlandic, Nahuatl,
