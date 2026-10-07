@@ -7091,6 +7091,18 @@ Vocabulary references: [Northern Sámi rabas](https://fr.wiktionary.org/wiki/rab
 and [Wolof ubbeeku](https://jangileen.kalam-alami.net/dictionary/browse/O).
 These support vocabulary choices, not validation of the complete sentences.
 
+### Missing due-date shortcut: eleven languages and legacy tags
+
+Added the shortcut in Tibetan, Dzongkha, Kashmiri, Quechua, Tongan, Upper
+Sorbian, Venetian, Veps, Flemish, Waray and Wu Chinese. Legacy tags were
+resolved against the language registry: ve-CC is Venetian, ve-PP is Veps,
+vl-SS is Flemish and wa-RR is Waray. Existing translations remain unchanged;
+wrong-language content elsewhere in these catalogs still needs correction.
+All eleven additions except Flemish are low confidence pending fluent review.
+Tests check source key order, tokens and representative opened-card wording,
+including rejection of known wrong-language prefixes. Browser and
+screen-reader checks were not run; tests do not establish linguistic fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
