@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0dec93d704ec61ef15e125ea91e0f9a4c4c5badd">Correct 28 mixed-language Akan card and import controls.</a></summary>
+
+- Rewrite card, selection, text and import messages. Preserve sample JSON keys and selection scope; align navigation instructions with menu labels.
+- Add source-token, parsed-JSON and navigation/control checks. Technical terminology remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace mixed-language values. The broader language audit continues.
+- Validation: 76 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/303f5a5c49a772acd2051fa43d71ae1758eb2dfa">Correct 29 mixed-language Akan controls and storage messages.</a></summary>
 
 - Rewrite card actions, upload/storage controls and credential guidance. Restore Azure and Google Cloud menu labels; preserve units and blank-to-retain behavior.
