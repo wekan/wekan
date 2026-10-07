@@ -54,10 +54,20 @@ test('Walloon generic field labels do not retain foreign seed text',()=>{
  assert.equal(data['custom-field-checkbox'],'Boesse a clitchî');
 });
 
+test('Venda and Tsonga field labels replace foreign seeds and filler',()=>{
+ const ve=require('../imports/i18n/data/ve.i18n.json');
+ const ts=require('../imports/i18n/data/ts.i18n.json');
+ assert.equal(ve.date,'Datumu');
+ assert.equal(ve['custom-field-dropdown'],'Mutevhe une wa tsitsa');
+ assert.equal(ve['custom-field-checkbox'],'Bogisi ḽa u maka');
+ assert.equal(ts['custom-field-dropdown'],'Nxaxamelo lowu rhelelaka');
+ assert.equal(ts['custom-field-checkbox'],'Bokisi ro fungha');
+});
+
 test('filled field types distinguish images, selectors and input names', async()=>{
  const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
  const names='ANGLE BITMAP CHECKBOX COLOUR DATE DROPDOWN GRID IMAGE INPUT TEXT_INPUT_ARGUMENT TEXT_INPUT_PROCEDURE'.split(' ');
- for(const code of ['ku','ckb','tt','so','yi','ary','bho','mai','tk_TM','or_IN','kok','pap','wuu-Hans','wa','wa-RR','ve-CC','gv','rup','st','tn','nso','zu','zu-ZA','xh']){
+ for(const code of ['ku','ckb','tt','so','yi','ary','bho','mai','tk_TM','or_IN','kok','pap','wuu-Hans','wa','wa-RR','ve-CC','gv','rup','st','tn','nso','zu','zu-ZA','xh','ss','ts','ve','nd']){
   const data=require(`../imports/i18n/data/${code}.i18n.json`);
   for(const name of names){
    const key='blockly-ARIA_TYPE_FIELD_'+name;

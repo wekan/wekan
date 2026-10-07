@@ -4717,6 +4717,15 @@ mixed-language audit remains open.
 - Added all six locale paths to positive/token checks and distinctions between pixel/plain images, grid/plain dropdowns and input/function names. Existing browser flows cover field editing in all six; they do not prove correct spoken type announcements. Browser execution remains outstanding.
 - This batch removes 66 ordinary English placeholders. The broader semantic audit and 148 pending source keys remain open.
 
+### Swati, Tsonga, Venda and Northern Ndebele field-type labels
+
+- Filled 44 English field-type placeholders across `ss`, `ts`, `ve` and `nd` through the protected fill, preserving source arguments and existing correct-language translations.
+- Corrected three Zulu-seeded generic labels in Venda and two Tsonga labels that used vague filler (`mhaka`, including a language-name prefix) instead of naming the controls. Exact wording regressions accompany these direct semantic corrections.
+- [Multilingual Mathematics](https://lwimilinks.sadilar.org/media/documents/Multilingual_Mathematics.pdf) supplies Swati, Tsonga and Venda angle vocabulary and Swati/Venda grid vocabulary. Its Ndebele entries concern Southern Ndebele and are not evidence for `nd` (Zimbabwean Northern Ndebele). [Zimbabwean Ndebele teaching material](https://cps.co.zw/uploads/1/3/5/3/13536366/isindebele_4_tg_mobile.pdf) provides general spelling context, not attestations for the new technical labels.
+- Low confidence: Northern Ndebele technical loans and compounds, pixel morphology throughout, Tsonga/Venda dropdown paraphrases and programming-function nouns require review. The labels are direct drafts, not externally translated strings.
+- Extended field-type distinctions and token checks. Existing browser field-editing flows cover these locales, but neither browser execution nor spoken type announcements were verified.
+- This batch removes 44 ordinary placeholders and repairs five wrong-language/filler values. The broader semantic audit and 148 pending source keys remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
