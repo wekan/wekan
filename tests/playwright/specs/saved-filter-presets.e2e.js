@@ -10,7 +10,7 @@ const method = (page, name, ...args) => page.evaluate(async ({ name, args }) => 
   catch (error) { return { error: error.error }; }
 }, { name, args });
 
-for (const language of ['en', 'ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm', 'tk_TM', 'yi', 'bho', 'mai', 'or_IN', 'kok', 'pap', 'ary', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've', 'bi', 'tpi', 'fj', 'to', 'haw', 'om', 'rw', 'rn', 'lg', 'wa', 'wa-RR', 'ace', 'gv', 'se', 've-CC', 'rup', 'ak', 'bm', 'ee', 'wo', 'ff', 'ks', 'bua', 'cv', 'sah', 'bo', 'dz', 'ti']) {
+for (const language of ['en', 'ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm', 'tk_TM', 'yi', 'bho', 'mai', 'or_IN', 'kok', 'pap', 'ary', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've', 'bi', 'tpi', 'fj', 'to', 'haw', 'om', 'rw', 'rn', 'lg', 'wa', 'wa-RR', 'ace', 'gv', 'se', 've-CC', 'rup', 'ak', 'bm', 'ee', 'wo', 'ff', 'ks', 'bua', 'cv', 'sah', 'bo', 'dz', 'ti', 'qu', 'ay', 'gn', 've-PP', 'vo', 'tlh']) {
 const locale = require(`../../../imports/i18n/data/${language}.i18n.json`);
 test(`save, reload, apply, replace and delete a private board filter combination (${language})`, async ({ loggedInPage: page, board, user }) => {
   expect((await method(page, 'setLanguage', language)).error).toBeUndefined();
@@ -83,7 +83,7 @@ test('preset storage and publication enforce owner, board access and state valid
 });
 
 
-for (const language of ['en', 'ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm', 'tk_TM', 'yi', 'bho', 'mai', 'or_IN', 'kok', 'pap', 'ary', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've', 'bi', 'tpi', 'fj', 'to', 'haw', 'om', 'rw', 'rn', 'lg', 'wa', 'wa-RR', 'ace', 'gv', 'se', 've-CC', 'rup', 'ak', 'bm', 'ee', 'wo', 'ff', 'ks', 'bua', 'cv', 'sah', 'bo', 'dz', 'ti']) {
+for (const language of ['en', 'ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm', 'tk_TM', 'yi', 'bho', 'mai', 'or_IN', 'kok', 'pap', 'ary', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've', 'bi', 'tpi', 'fj', 'to', 'haw', 'om', 'rw', 'rn', 'lg', 'wa', 'wa-RR', 'ace', 'gv', 'se', 've-CC', 'rup', 'ak', 'bm', 'ee', 'wo', 'ff', 'ks', 'bua', 'cv', 'sah', 'bo', 'dz', 'ti', 'qu', 'ay', 'gn', 've-PP', 'vo', 'tlh']) {
 const locale = require(`../../../imports/i18n/data/${language}.i18n.json`);
 test(`invalid advanced expressions cannot replace the active filter selection (${language})`, async ({ loggedInPage: page, board, user }) => {
   expect((await method(page, 'setLanguage', language)).error).toBeUndefined();
