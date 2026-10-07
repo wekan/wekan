@@ -5237,6 +5237,12 @@ Filled 40 remaining English Scrum messages covering events, completion and cance
 
 Tests cover tokens, distinct lifecycle states, completion/cancellation behavior, partial reports, UTC and the 366-observation limit. Snapshot, observation and Scrum terminology remains descriptive and low confidence pending contextual review. Browser rendering was not run.
 
+### Akan synchronization conflicts and previews
+
+Filled 43 English placeholders for conflict choices, duplicate mapping removal, archive restrictions, replacement creation, preview actions and source-field omissions. Preserve local content, unchanged subcards, source-only reading, retry reuse, display limits and hidden unmapped values.
+
+Regression checks cover source placeholders, action distinctions, local-content retention, no full-list run, 100-entry/path limits and shared omission labels. Synchronization, mapping and parser terminology is descriptive and provisional. Browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
