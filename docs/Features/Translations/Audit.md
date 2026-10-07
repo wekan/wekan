@@ -139,6 +139,31 @@ structure, human-preference, both language progress suites and their shared
 list-width suite pass. The existing browser mutation scenario includes both
 languages and passes syntax checking; it was not browser-executed.
 
+## Akan and Luganda archiving/date filters — 2026-10-07
+
+Filled 23 English placeholders each in Akan (`ak`) and Luganda (`lg`).
+Comparison against the previous commit confirms that all 46 feature edits
+replace English placeholders. Corrected two unrelated Akan labels as well:
+`days` now reads `Nna`, and `list` reads `Din a wɔahyehyɛ` rather than an
+example/template term. The standard backlog falls by 40 to 51,815 values;
+six auto-archive values belong to the separately tracked pending keys.
+
+[Harvard's Akan days and months lesson](https://elias.fas.harvard.edu/languages/twi/Beginning/7/NAMES-DAYS-AND-MONTHS)
+supports day/month/week vocabulary and distinguishes examples (`Nhwɛsoɔ`);
+its [time-telling lesson](https://elias.fas.harvard.edu/languages/twi/beginning/9/time-telling)
+supports hour vocabulary. The [Luganda phrasebook](https://learn-luganda.com/wp-content/uploads/2019/07/luganda_phrasebook_2017.pdf)
+supports day/hour terms, alongside the existing catalog's week/month words.
+These references support components, not the complete translations. Both
+sets remain provisional and low confidence pending speaker review, especially
+inclusive bounds, the quoted-field explanation and list-age wording.
+
+Feature checks now cover 57 locales, preserving exact placeholders, numbers
+and query examples and checking the two negative rules. All-locale structure,
+human-preference and language progress checks pass. The existing browser
+mutation scenario includes both languages; syntax checking passes, but no
+browser execution was available. Older unrelated or mixed-language values
+elsewhere in the catalogs still require the broader audit.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
