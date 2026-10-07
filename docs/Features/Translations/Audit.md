@@ -1503,6 +1503,28 @@ browser scenarios were syntax-checked only because the app stack was unavailable
 20 locale paths still need this six-string group. The ordinary backlog remains
 51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
 
+### Due reminders — Northern Sámi (2026-10-07)
+
+Filled six reminder strings in `se`. Instructions retain comma-separated offsets,
+zero as the due day, positive days before and negative days after, the empty
+server-default setting, at most ten integers from -14 to 14, board disabling and
+outgoing webhook delivery. Only English placeholders were filled; no external
+translation service was used. Technical compounds and complete instructions remain
+low-confidence drafts for native review; structural checks do not establish fluency.
+
+Vocabulary evidence: [Matematihkkasánit](https://s3.ovttas.no/ovttas-production/s3fs-public/matematihkkasanit.pdf)
+attests `olleslohku` for integer and `positiiva logut` for positive numbers.
+[Jouni A. Vest's dictionary](https://giellatekno.uit.no/dicts/dicts/Jouni_A_Vest_nettisanakirja.html)
+attests `eanemustá` for at most. These references support terms, not the complete
+software instructions or their inflections.
+
+Translation checks now cover 47 locales, including offset direction, defaults,
+bounds and source-token inventories. The existing browser scenario includes
+Northern Sámi. Translation, all-locale structural and human-preference checks pass;
+browser scenarios were syntax-checked only because the app stack was unavailable.
+19 locale paths still need this six-string group. The ordinary backlog remains
+51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -7,7 +7,7 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('due-reminder-'));
 assert.equal(keys.length, 6);
-for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts', 'om', 'fj', 'to', 'gv', 'wa', 'wa-RR', 'ak', 'lg', 'bm', 'wo', 'ee', 'rup', 've-CC', 'bua', 'sah', 'cv', 've']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts', 'om', 'fj', 'to', 'gv', 'wa', 'wa-RR', 'ak', 'lg', 'bm', 'wo', 'ee', 'rup', 've-CC', 'bua', 'sah', 'cv', 've', 'se']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -124,4 +124,6 @@ assert.match(read('cv')['due-reminder-invalid'], /тулли хисепсемп�
 for (const key of keys) assert.match(read('cv')[key], /[ӑӗҫӳ]/u, `${key}: Chuvash letters`);
 assert.match(read('ve')['due-reminder-days-label'], /khoma.*fhiraho 0.*phanḓa.*fhasi ha 0.*murahu.*hu si na tshithu/);
 assert.match(read('ve')['due-reminder-invalid'], /a sa fhiri fumi.*nomboro dzo fhelelaho/);
-console.log('Due reminder translations: 6 messages in 46 locales passed');
+assert.match(read('se')['due-reminder-days-label'], /rihkuiguin.*positiiva.*ovdal.*negatiiva.*maŋŋá.*guorusin/);
+assert.match(read('se')['due-reminder-invalid'], /eanemustá logi.*ollesloguiguin/);
+console.log('Due reminder translations: 6 messages in 47 locales passed');
