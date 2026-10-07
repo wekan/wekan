@@ -2173,6 +2173,21 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0e3401bea1558c237a9be20baf28ea8b4d9c670f">Correct 15 Tok Pisin account lockout labels.</a></summary>
+
+- Replace mixed English in account and lockout controls. Preserve source tokens,
+  account distinctions, failure thresholds and single/all-user unlocking scope.
+  Wording remains provisional pending fluent-speaker review.
+- The combined run passes 152 checks; two catalog checks still fail on the
+  missing due-date shortcut key. All 21 human-preference checks pass.
+  Browser and screen-reader checks were not run.
+- The broader translation and wording audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/86be4a3eee00c0c41295071bca7e6110ed116653">Correct 21 Tok Pisin import controls and progress messages.</a></summary>
 
 - Replace mixed English in import controls and progress messages. Preserve
