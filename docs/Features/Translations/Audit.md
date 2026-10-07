@@ -6593,6 +6593,12 @@ Corrected 25 mixed-language rule actions and conditions, including two short Eng
 
 Validation: 105 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. Mixed-language values require this wording audit independently of the English-placeholder counter.
 
+## Tok Pisin error wording audit
+
+Corrected 22 mixed-language errors and empty-state messages. Preserved source tokens, format identifiers and example values. Tests cover missing objects, authorization and self-invitation restrictions, year/domain validation, filename cancellation, linked-card restrictions and re-export recovery instructions. Existing coherent nearby errors remain unchanged. Wording remains provisional pending fluent-speaker review; browser and screen-reader checks were not run.
+
+Validation: 107 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. Mixed-language values require this wording audit independently of the English-placeholder counter.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

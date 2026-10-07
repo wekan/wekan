@@ -1413,3 +1413,47 @@ test('Tok Pisin rule action wording retains scope, positions and time direction'
  assert.match(data['r-when-a-card-is-moved'],/narapela lis/);
  assert.equal(data['r-to'],data['r-d-send-email-to']);
 });
+
+
+test('Tok Pisin error messages preserve tokens and replace mixed English',()=>{
+ const keys=[
+  "no-comments-desc",
+  "error-board-doesNotExist",
+  "error-watch-disabled",
+  "error-notAllowed",
+  "error-json-malformed",
+  "error-json-schema",
+  "error-csv-schema",
+  "error-import-empty-board",
+  "error-list-doesNotExist",
+  "error-linked-card-not-allowed",
+  "error-user-disabled",
+  "error-user-doesNotExist",
+  "error-user-notAllowSelf",
+  "error-user-notCreated",
+  "error-orgname-taken",
+  "error-teamname-taken",
+  "invalid-year",
+  "error-notAuthorized",
+  "invalid-domain",
+  "invalid-file",
+  "no-issues-found",
+  "no-repositories"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.doesNotMatch(data[key],/does no|already taken|Please|authorized|If filename|Use wanpela|issues found|repositories found/,key);
+ }
+});
+
+test('Tok Pisin error wording retains restrictions and recovery instructions',()=>{
+ for(const object of ['board','list','user']) assert.match(data['error-'+object+'-doesNotExist'],/i no stap$/);
+ assert.match(data['error-notAuthorized'],/no gat rait/);
+ assert.match(data['error-user-notAllowSelf'],/no ken.*yu yet/);
+ assert.match(data['invalid-year'],/fopela namba.*2026/);
+ assert.match(data['invalid-domain'],/example\.com.*no gat @ o spes/);
+ assert.match(data['invalid-file'],/salim i go antap o senisim nem bai kansel/);
+ assert.match(data['error-import-empty-board'],/olpela vesen.*salim bot i go aut gen.*vesen bilong nau.*nupela fail/);
+ assert.match(data['error-linked-card-not-allowed'],/kat bilong oltaim tasol.*Yu no ken.*link i kam bek.*pasim rot/);
+ assert.match(data['error-csv-schema'],/CSV.*koma.*TSV.*tab/);
+});
