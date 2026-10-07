@@ -1890,6 +1890,21 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c6a880f1bb81f898df76b9e459746714e5ae789d">Translate due reminders into Venda</a>. Thanks to xet7.</summary>
+
+- Fill six strings, preserving signed offsets, server defaults, integer bounds,
+  board disabling and outgoing webhook delivery. Technical compounds remain
+  low-confidence drafts for native review.
+- Translation checks and existing browser scenarios now cover 46 translated locales.
+  Translation, all-locale structural and human-preference checks pass; browser
+  scenarios were syntax-checked only because the app stack was unavailable.
+- 20 locale paths still need this reminder group. The ordinary backlog remains
+  51,575 values plus 188 pending source keys; wider language-quality review remains
+  in TODO Later.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a7d1033d265bc1c7c3a02d26a241d0e770318a37">Translate due reminders into Chuvash</a>. Thanks to xet7.</summary>
 
 - Fill six strings, preserving signed offsets, server defaults, integer bounds,
