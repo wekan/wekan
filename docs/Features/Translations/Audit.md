@@ -7188,6 +7188,16 @@ ranges, inclusive bounds and distinct operations. Technical terminology for
 roots, prime numbers and standard deviation remains low confidence pending
 fluent review. Browser and screen-reader checks were not run.
 
+### Kurdish Blockly statistics, random values and unary math
+
+Filled 39 English placeholders for statistical tooltips, random values, rounding,
+absolute values, logarithms, negation and spoken trigonometric labels. Existing
+translations and symbolic function names are preserved. Tests compare source
+tokens and key order, verify inclusive/exclusive random bounds and distinguish
+mode lists, negation and rounding directions. Statistical and trigonometric
+terminology remains low confidence pending fluent review. Browser and
+screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
