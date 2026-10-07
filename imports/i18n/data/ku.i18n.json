@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Ev e-name berê hatiye şandin, şandina wê hatiye ceribandin, an hatiye avêtin.",
   "rule-email-legacy-not-legacy": "Ev e-name berê ji nû ve hatiye girêdan.",
   "rule-email-legacy-failed": "Ev kiryar nehat temamkirin. Nû bike û dîsa biceribîne.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Ev têketina SAML di vê hilpekîna gerokê de nehat destpêkirin. Ji kerema xwe dîsa têkevin.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Iyi meyili yamaze kurungikwa, kugeragezwa kurungikwa canke guhebwa.",
   "rule-email-legacy-not-legacy": "Iyi meyili yamaze gusubira guhuzwa.",
   "rule-email-legacy-failed": "Ntivyashobotse kurangiza iki gikorwa. Subira ufungure urupapuro maze wongere ugerageze.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Uku kwinjira ukoresheje SAML ntikwatanguriye muri iyi tabi y’umucukumbuzi. Subira winjire.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

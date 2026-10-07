@@ -1912,6 +1912,22 @@ These checks establish placeholder coverage, not fluent or correct-language text
 The ordinary backlog remains 51,575 values in 70 languages, and broader language
 review, including the low-confidence reminder phrases, remains open.
 
+### SAML browser-tab error — first remaining batch (2026-10-07)
+
+Filled `saml-login-not-started` in 19 locale paths: tk_TM, tt, so, ku, ckb, pap,
+tpi, bi, mi, sm, haw, zu, zu-ZA, xh, st, tn, rw, rn and ny. The message explains
+that this login was not started in the current browser tab and asks the user to
+sign in again. Existing translations were preserved; no translation service was used.
+Browser-tab terminology in the Pacific and southern African language phrases has
+lower confidence and needs native review, especially Samoan's page/tab distinction.
+
+Extended the existing SAML popup-error suite with source-order, nonempty,
+non-English, protocol-name and placeholder checks. Popup-error and replay-boundary
+suites, all-locale structural checks and human-preference checks pass. Existing
+SAML browser scenarios were syntax-checked only; the app stack was unavailable.
+There are 47 locale paths still needing this message. The key remains pending;
+the overall snapshot stays 51,575 ordinary missing values and 182 pending keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

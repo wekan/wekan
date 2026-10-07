@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Imeile ena e se e rometsoe, ho se ho lekiloe ho e romela, kapa e lahliloe.",
   "rule-email-legacy-not-legacy": "Imeile ena e se e hokahantsoe hape.",
   "rule-email-legacy-failed": "Ketso ena ha ea ka ea phethoa. Khatholla leqephe 'me u leke hape.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Ho kena hona ka SAML ha hoa qalisoa tabeng ena ea sebatli. Ka kopo, kena hape.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

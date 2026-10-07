@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Iimaylkan hore ayaa loo diray, la isku dayay in la diro ama la tuuray.",
   "rule-email-legacy-not-legacy": "Iimaylkan hore ayaa dib loogu xiray.",
   "rule-email-legacy-failed": "Ficilkan lama dhammaystiri karin. Cusboonaysii bogga oo mar kale isku day.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Gelitaankan SAML lagama bilaabin tabkan biraawsarka. Fadlan mar kale gal.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

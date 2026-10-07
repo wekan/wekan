@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Imelo iyi yatumizidwa kale, ayesa kale kuitumiza, kapena yatayidwa.",
   "rule-email-legacy-not-legacy": "Imelo iyi yalumikizidwanso kale.",
   "rule-email-legacy-failed": "Ntchitoyi sinathe kumalizidwa. Tsitsimutsani tsamba ndi kuyesanso.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Kulowa uku ndi SAML sikunayambike pa tabu iyi ya msakatuli. Chonde lowaninso.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

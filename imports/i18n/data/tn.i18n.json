@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Imeile eno e setse e rometswe, go lekilwe go e romela, kgotsa e latlhilwe.",
   "rule-email-legacy-not-legacy": "Imeile eno e setse e golagantswe gape.",
   "rule-email-legacy-failed": "Tiro eno ga e a kgona go wediwa. Tsosolosa tsebe mme o leke gape.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Go tsena gono ka SAML ga go a simololwa mo thebong eno ya sebatli. Tsweetswee tsena gape.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

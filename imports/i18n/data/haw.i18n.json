@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Ua hoʻouna ʻia kēia leka uila, ua hoʻāʻo ʻia ka hoʻouna ʻana, a i ʻole ua hoʻolei ʻia.",
   "rule-email-legacy-not-legacy": "Ua hoʻopili hou ʻia kēia leka uila.",
   "rule-email-legacy-failed": "ʻAʻole hiki ke hoʻopau i kēia hana. E hoʻouka hou a hoʻāʻo hou.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "ʻAʻole i hoʻomaka ʻia kēia komo SAML ma kēia kapu o ka polokalamu kele pūnaewele. E komo hou, ke ʻoluʻolu.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

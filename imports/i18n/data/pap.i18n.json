@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "E email aki a wordu mandá kaba, a tin un intento pa manda e, òf el a wordu deskartá.",
   "rule-email-legacy-not-legacy": "E email aki a wordu konektá atrobe kaba.",
   "rule-email-legacy-failed": "No por a kompletá e akshon aki. Refreská e página i purba atrobe.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "E inisio di seshon ku SAML aki no a kuminsá den e pestaña aki di e nabegadó. Por fabor, inisiá seshon atrobe.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

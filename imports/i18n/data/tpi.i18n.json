@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Ol i salim dispela imel pinis, traim salim pinis, o rausim pinis.",
   "rule-email-legacy-not-legacy": "Ol i linkim dispela imel gen pinis.",
   "rule-email-legacy-failed": "I no inap pinisim dispela wok. Lodim pes gen na traim gen.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Yu no bin statim dispela SAML login long dispela tab bilong brausa. Plis log in gen.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Oli sanem imel ya finis, traem sanem finis, o sakemaot finis.",
   "rule-email-legacy-not-legacy": "Oli linkim imel ya bakegen finis.",
   "rule-email-legacy-failed": "Oli no save finisim wok ya. Lodim pej bakegen mo traem bakegen.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Yu no bin statem SAML login ya long tab ya blong braosa. Plis log in bakegen.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

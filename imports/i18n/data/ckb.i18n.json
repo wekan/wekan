@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "ئەم ئیمەیڵە پێشتر نێردراوە، هەوڵی ناردنی دراوە، یان فڕێ دراوە.",
   "rule-email-legacy-not-legacy": "ئەم ئیمەیڵە پێشتر دووبارە بەستراوەتەوە.",
   "rule-email-legacy-failed": "نەتوانرا ئەم کردارە تەواو بکرێت. پەڕەکە نوێ بکەرەوە و دووبارە هەوڵ بدەوە.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "ئەم چوونەژوورەوەیەی SAML لەم تابەی وێبگەڕەدا دەستی پێ نەکراوە. تکایە دووبارە بچۆ ژوورەوە.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

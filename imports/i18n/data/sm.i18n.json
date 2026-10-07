@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Ua uma ona lafo lenei imeli, taumafai e lafo, pe lafoa'i.",
   "rule-email-legacy-not-legacy": "Ua uma ona toe faafesoota'i lenei imeli.",
   "rule-email-legacy-failed": "Ua lē mafai ona faauma lenei gaoioiga. Toe uta le itulau ma toe taumafai.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "E leʻi amata lenei saini i totonu i le SAML i lenei itulau o le suʻesuʻega. Faamolemole toe saini i totonu.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

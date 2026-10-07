@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Le imeyili isivele ithunyelwe, kuzanywe ukuyithumela, noma ilahliwe.",
   "rule-email-legacy-not-legacy": "Le imeyili isivele ixhunyaniswe kabusha.",
   "rule-email-legacy-failed": "Lesi senzo asikwazanga ukuqedwa. Vuselela ikhasi bese uzama futhi.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Lokhu kungena nge-SAML akuqalwanga kule thebhu yesiphequluli. Sicela ungene futhi.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

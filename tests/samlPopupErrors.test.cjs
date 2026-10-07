@@ -93,3 +93,19 @@ test('an ordinary page load does nothing', () => {
   f.startup();
   assert.deepEqual([f.logins, f.events, f.replaced, f.assigned], [[], [], [], []]);
 });
+
+// Translation coverage for the browser-tab boundary error; runtime boundary
+// behavior is exercised above and in samlReplayBoundary.test.cjs.
+test('translated browser-tab errors preserve SAML and source placeholders', () => {
+  const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
+  const en = JSON.parse(fs.readFileSync('imports/i18n/data/en.i18n.json', 'utf8'));
+  const key = 'saml-login-not-started';
+  for (const code of ["tk_TM", "tt", "so", "ku", "ckb", "pap", "tpi", "bi", "mi", "sm", "haw", "zu", "zu-ZA", "xh", "st", "tn", "rw", "rn", "ny"]) {
+    const locale = JSON.parse(fs.readFileSync(`imports/i18n/data/${code}.i18n.json`, 'utf8'));
+    assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source order`);
+    assert.ok(locale[key]?.trim(), `${code}: nonempty`);
+    assert.notEqual(locale[key], en[key], `${code}: no English fallback`);
+    assert.match(locale[key], /SAML/, `${code}: protocol name`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(en[key]), `${code}: tokens`);
+  }
+});
