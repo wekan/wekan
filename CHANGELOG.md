@@ -1890,6 +1890,17 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ba1845e9ee1193dbd3cd1aaf62ed3fe7a711b16b">Translate map view into Waray, Fijian, Tongan, Luganda and Wolof.</a></summary>
+
+- Filled 35 placeholders. Technical phrases, especially floor-plan wording and the Wolof map/card distinction, remain provisional.
+- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but execution awaits Playwright and a running application.
+- The seven map-view keys remain English in 28 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3008049d2368945aabc234435048bc228cc8f71b">Translate map view into Papiamento, Walloon, Acehnese and Hawaiian.</a></summary>
 
 - Filled 28 placeholders. Walloon and Acehnese technical phrases are low-confidence drafts; floor-plan wording remains provisional.
