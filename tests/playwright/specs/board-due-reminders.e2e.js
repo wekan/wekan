@@ -14,7 +14,7 @@ async function openNotifications(page) {
   await expect(page.locator('.js-pop-over .due-reminder-settings')).toBeVisible();
 }
 
-for (const language of ['en', 'tk_TM', 'tt', 'so']) {
+for (const language of ['en', 'tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi']) {
 test(`a board admin sets reminder days and webhook delivery in ${language}; bad input saves nothing`, async ({ boardPage: page, board }) => {
   await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
   const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);

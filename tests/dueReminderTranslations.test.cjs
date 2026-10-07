@@ -7,7 +7,7 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('due-reminder-'));
 assert.equal(keys.length, 6);
-for (const code of ['tk_TM', 'tt', 'so']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -26,4 +26,14 @@ assert.match(read('so')['due-reminder-days-label'], /hakadyo.*togan.*horreeya.*t
 assert.match(read('tk_TM')['due-reminder-invalid'], /iň köp on.*bitin/);
 assert.match(read('tt')['due-reminder-invalid'], /иң күбе ун бөтен/);
 assert.match(read('so')['due-reminder-invalid'], /ugu badnaan toban.*tiro dhan/);
-console.log('Due reminder translations: 6 messages in 3 locales passed');
+assert.match(read('ku')['due-reminder-days-label'], /virgulê.*erênî.*berî.*neyînî.*piştî.*vala/);
+assert.match(read('ckb')['due-reminder-days-label'], /کۆما.*ئەرێنی.*پێش.*نەرێنی.*دوای.*بەتاڵی/);
+assert.match(read('pap')['due-reminder-days-label'], /koma.*positivo.*promé.*negativo.*despues.*bashí/);
+assert.match(read('ku')['due-reminder-invalid'], /Herî zêde deh rojên tam/);
+assert.match(read('ckb')['due-reminder-invalid'], /زۆرترین دە ڕۆژی تەواو/);
+assert.match(read('pap')['due-reminder-invalid'], /máksimo dies dia henter/);
+assert.match(read('tpi')['due-reminder-days-label'], /koma.*winim 0.*paslain.*aninit long 0.*bihain.*stap nating/);
+assert.match(read('bi')['due-reminder-days-label'], /koma.*moa long 0.*bifo.*daon long 0.*afta.*emti/);
+assert.match(read('tpi')['due-reminder-invalid'], /tenpela de tasol.*namba olgeta/);
+assert.match(read('bi')['due-reminder-invalid'], /ten dei nomo.*mak antap.*ful namba/);
+console.log('Due reminder translations: 6 messages in 8 locales passed');

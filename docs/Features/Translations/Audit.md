@@ -1208,6 +1208,32 @@ syntax-checked only because the application stack is unavailable. The remaining
 63 locales still need this six-key group. These pending keys leave the ordinary
 backlog at 51,575 values in 70 languages plus 188 pending source keys.
 
+## Kurdish, Sorani and Papiamento due reminders — 2026-10-07
+
+Filled six `due-reminder-*` placeholders each in `ku`, `ckb` and `pap` (18 values),
+using existing notification terminology and preserving prior translations.
+Comma separation, zero as the due day, positive-before / negative-after offsets,
+blank/server default, the ten-whole-day maximum and -14 to 14 range are retained.
+The webhook option stays distinct from disabling reminders.
+
+Extended the shared translation checks and existing board-reminder UI scenario
+to all six newly covered locales. Numeric, token, source-order, semantic wording
+and human-preference checks pass; browser coverage is syntax-checked only because
+the application stack is unavailable. The remaining 60 locales need this six-key
+group. These pending keys leave the ordinary backlog at 51,575 values in 70
+languages plus 188 pending source keys. No external translation service was used.
+
+## Tok Pisin and Bislama due reminders — 2026-10-07
+
+Filled six reminder placeholders each in `tpi` and `bi` (12 values), reusing the
+existing notification vocabulary. Positive and negative numbers are explained as
+above and below zero, with before/after directions explicit. Commas, blank/server
+fallback, whole-number days, ten-entry maximum and -14 to 14 limits are preserved.
+All eight locales in the current reminder test pass structural/token and wording
+checks; human-preference checks pass too. Existing browser scenarios now cover
+these locales but are syntax-checked only. Fifty-eight locales still need this
+group. Ordinary backlog and pending-key counts remain 51,575 and 188 respectively.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
