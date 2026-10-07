@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d69c4224eff637974974d13dae91a5e31a2646bb">Translate Bhojpuri logarithm and trigonometry messages</a></summary>
+
+- Fill 27 English placeholders for absolute values, powers, logarithms, roots,
+  negation and trigonometry, preserving symbolic notation and formatting tokens.
+- Trigonometry terminology remains low confidence pending fluent review.
+- All 50 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9937a380082d21776e94cd7eebc6d5a8c27160c8">Translate Bhojpuri statistics and random-number instructions</a></summary>
 
 - Fill 29 English placeholders for statistics, random numbers, powers,
