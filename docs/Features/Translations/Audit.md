@@ -2594,6 +2594,27 @@ not run; the app stack was unavailable. 9 locale paths still need this group.
 The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
 broader language-quality review remains open.
 
+### Rule-builder instructions — Volapük (2026-10-07)
+
+Filled seven pending strings in vo, preserving existing correct-language
+translations and all literal variable expressions. No translation service was used.
+Corrected rule, action and title labels to Nom, Dun and Tiäd; regression checks
+cover these replacements. The text retains any-trigger behavior, ordered actions,
+username/email context and card-derived variables. Technical prose has lower
+confidence; compounds, inflections and composed date fragments need speaker/UI
+review. Related existing labels still need a broader consistency review.
+References include the [Volapük vocabulary](https://en.wikisource.org/wiki/Hand-book_of_Volap%C3%BCk/VOCABULARY)
+for nom, dun and nem and the
+[grammar introduction](https://volapuk.evertype.com/IntroToVolapuk.pdf).
+These references do not validate full-sentence accuracy.
+
+The existing trigger-variable suite now checks 58 recently filled locales for
+source order and exact brace/underscore/percent tokens. Runtime matching,
+all-locale structural and human-preference checks pass. Browser scenarios were
+not run; the app stack was unavailable. 8 locale paths still need this group.
+The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
+broader language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
