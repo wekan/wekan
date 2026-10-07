@@ -3975,6 +3975,28 @@ Playwright is unavailable. There are 25 locales still using the English Leo
 instruction. The wider backlog remains 51,575 ordinary placeholders in 70
 languages plus 150 pending source keys. Coverage is not proof of fluency.
 
+## Leo import instruction: West African and Cyrillic locale batch
+
+Filled seven English placeholders for `import-board-instruction-leo` in Akan,
+Bambara, Ewe, Wolof, Buryat, Chuvash and Sakha. Existing translations were retained
+by the protected fill. The instructions describe the levels as parts and retain
+lists, cards, body descriptions, deeper checklists and marked completion state.
+Leo and `.leo` are unchanged.
+
+The [Bamadaba dictionary](https://bamadaba.coastsystems.net/lexicon/n/) supplies
+`nɔrɔ` for sticking/pasting. Existing locale terminology supplied the UI nouns.
+Word references do not validate the full clauses: all seven instructions remain
+provisional, especially the hierarchy phrasing in Bambara, Ewe, Buryat, Chuvash
+and Sakha. Vocabulary and grammar review remain open.
+
+Extended locale regression and browser import coverage for all seven locales.
+Existing invalid-input coverage remains. All 12 focused Node tests and 21
+human-preference checks pass; browser syntax passes, but browser execution remains
+unverified because Playwright is unavailable. There are 18 locales still using
+the English instruction. The wider backlog remains 51,575 ordinary placeholders
+in 70 languages plus 150 pending source keys. These checks establish structural
+coverage, not linguistic accuracy.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
