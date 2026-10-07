@@ -1889,6 +1889,20 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7c365d77492115d4d519b0b23a886446e59dea4d">Translate Greenlandic notification settings</a>. Thanks to xet7.</summary>
+
+- Fill 13 Greenlandic notification strings, preserving existing translations and
+  source tokens. Vocabulary sources and low-confidence wording are documented in
+  `docs/Features/Translations/Audit.md`.
+- Shared notification coverage now includes 59 locales. Notification, all-locale
+  structure/token and human-preference checks pass. Browser coverage was
+  syntax-checked only; the application stack was unavailable.
+- Seven locales still need this notification group. The ordinary backlog remains
+  51,575 values plus 201 pending source keys; remaining work stays in TODO Later.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0a2fa65863a597f12f20373d749ea5168f4627e2">Translate Klingon notification settings</a>. Thanks to xet7.</summary>
 
 - Fill 13 Klingon notification strings and replace the French assignee label.
