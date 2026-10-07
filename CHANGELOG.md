@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **48,125 untranslated locale/string values in 70 languages**. It
+  report counts **48,059 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -1932,6 +1932,18 @@ snap.
 and updates the following translations:
 
 **Activity notifications** - choosing which card activity sends notifications.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/918a76c246b9444bbe48788d2bc769903745c7fd">Translate southern African Blockly field-type labels.</a></summary>
+
+- Fill 66 English placeholders across Sesotho, Setswana, Sepedi, both Zulu locale paths and Xhosa. Preserve existing translations and exact source arguments.
+- Extend image, selector and input/function-name regression distinctions. Dictionary references and provisional technical terminology are documented in the translation audit.
+- Ordinary untranslated values decrease from 48,125 to 48,059 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 15 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5a416160e04d0182de6291a9da095b4a9c8e4bda">Translate Walloon, Venetian and Manx field-type labels.</a></summary>
