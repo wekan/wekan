@@ -1417,6 +1417,28 @@ browser scenarios were syntax-checked only because the app stack was unavailable
 26 locale paths still need this six-string group. The ordinary backlog remains
 51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
 
+### Due reminders — Aromanian and Venetian (2026-10-07)
+
+Filled six reminder strings in each of `rup` and `ve-CC` (12 values).
+The instructions retain comma-separated offsets, zero as the due day, positive
+days before and negative days after, the empty server-default setting, at most
+ten integers from -14 to 14, board disabling and outgoing webhook delivery.
+Only English placeholders were filled; no external translation service was used.
+The Aromanian complete instructions and technical compounds are low-confidence
+drafts for native review; Venetian technical wording also remains open to review.
+
+Vocabulary evidence: [`dzatsi`](https://en.wiktionary.org/wiki/dzatsi) means ten;
+[Aromanian morphosyntax research](https://www.mdpi.com/2226-471X/9/2/46)
+attests `dininti` for before. These sources support individual words, not the
+complete software translations or their fluency.
+
+Translation checks now cover 42 locales, including offset direction, defaults,
+bounds and source-token inventories. Existing browser scenarios include both
+locales. Translation, all-locale structural and human-preference checks pass;
+browser scenarios were syntax-checked only because the app stack was unavailable.
+24 locale paths still need this six-string group. The ordinary backlog remains
+51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
