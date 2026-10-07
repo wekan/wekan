@@ -4415,6 +4415,12 @@ mixed-language audit remains open.
 - All 23 focused Node tests and 21 human-preference checks pass. Extended localized positive/negative browser coverage; syntax passes, but execution remains unverified because Playwright is unavailable locally.
 - This hint remains English in Cherokee, Inuktitut and Tigre. Ordinary placeholders decrease from 50,206 to 50,202 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## String Template context hint: final three placeholder locales (2026-10-07)
+
+- Filled the variable and URL-encoding hint in Cherokee, Inuktitut and Tigre. These remain low-confidence drafts, especially Cherokee's technical clause; semantic review remains open. Inuktitut describes sending a value through the URL. The [Inuktitut mathematics teaching material](https://angirrami.com/wp-content/uploads/2020/04/Grade-2-Complete-Nunavut-Math.pdf) provides examples of the use-verb, but does not validate the full technical translation.
+- Expanded the hint check to all 234 non-English locales: nonempty non-English values, exact token inventory, both `|urlencode` occurrences, and executable results for each code example. All 23 focused Node tests and 21 human-preference checks pass. Extended positive/negative localized browser coverage to the final three locales; syntax passes, but execution remains unverified because Playwright is unavailable locally.
+- This hint now has non-English values in every non-English locale. Ordinary placeholders decrease from 50,202 to 50,199 across 70 languages. The 148 pending source keys and broader semantic audit remain open; completed placeholder coverage does not establish fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
