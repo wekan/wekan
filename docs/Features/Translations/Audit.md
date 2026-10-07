@@ -6655,6 +6655,21 @@ The combined translation run passes 118 checks. Two existing catalog checks fail
 on the missing due-date shortcut key. All 21 human-preference checks pass.
 Browser and screen-reader checks were not run. The wider audit remains open.
 
+## Tok Pisin access, imports and due-date wording audit
+
+Corrected 29 mixed-language values for access limits, imports, card searching,
+due dates and administrative controls. Checks preserve organization-admin limits,
+non-destructive enabling of deletion, literal hostnames and environment settings,
+Excel column identifiers and due-date distinctions. The search help and its
+“My cards” control now agree. Technical wording remains provisional pending
+fluent-speaker review.
+
+The combined translation run passes 120 checks. Two existing catalog checks fail
+on the missing due-date shortcut key. All 21 human-preference checks pass.
+The English-placeholder report still counts 42,838 values across 70 languages;
+it excludes most mixed-language corrections. Browser and screen-reader checks
+were not run. The wider audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

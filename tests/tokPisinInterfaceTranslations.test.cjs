@@ -1695,3 +1695,56 @@ test('Tok Pisin privacy and storage instructions retain critical distinctions',(
  assert.ok(data['render-links-as-plain-text-description'].includes('<a href>'));
  assert.match(data['always-show-code-as-text-description'],/<!-- -->.*no inap klikim.*no ran/);
 });
+
+
+test('Tok Pisin access and import messages preserve tokens and replace mixed English',()=>{
+ const keys=[
+  "close-board-pop",
+  "enable-permanent-delete-description",
+  "user-can-not-export-excel",
+  "user-can-not-export-card-to-pdf",
+  "user-can-not-export-card-to-excel",
+  "import-board-instruction-excel",
+  "import-board-instruction-about-errors",
+  "trello-api-credentials-saved",
+  "tracking-info",
+  "unsaved-description",
+  "warn-list-archived",
+  "wipLimitErrorPopup-dialog-pt1",
+  "avatars-upload-blocked-description",
+  "MongoDB_Oplog_enabled",
+  "org-domains-description",
+  "org-admins-description",
+  "card-sorting-by-number",
+  "r-sort-by",
+  "r-by",
+  "r-checklist-note",
+  "org-number",
+  "team-number",
+  "people-number",
+  "almostdue",
+  "pastdue",
+  "duenow",
+  "dueCardsViewChange-choice-all-description",
+  "globalSearchViewChange-choice-all-description"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:Allow|Choose|Shows|Number|enabled|approaching|who|which|have|higher|uploading|served|replaces)\b/,key);
+ }
+});
+
+test('Tok Pisin access help retains permission limits and literal import identifiers',()=>{
+ assert.match(data['org-admins-description'],/tasol.*no inap givim rait Admin.*no inap bosim/);
+ assert.match(data['enable-permanent-delete-description'],/em yet i no rausim wanpela samting/);
+ for(const token of ['a.example.com','kanban.example.org','MULTITENANCY=true']) assert.ok(data['org-domains-description'].includes(token),token);
+ for(const column of ['Title','Description','Status/List','Members','Labels']) assert.ok(data['import-board-instruction-excel'].includes(column),column);
+ assert.match(data['import-board-instruction-excel'],/Fes lain.*nem bilong kolum/);
+ assert.match(data['dueCardsViewChange-choice-all-description'],/no pinis yet.*gat rait long lukim/);
+ assert.match(data['globalSearchViewChange-choice-all-description'],/gat rait long lukim.*memba.*kisim wok.*tasol/);
+ assert.ok(data['globalSearchViewChange-choice-all-description'].includes('*'+data['globalSearchViewChange-choice-me']+'*'));
+ assert.match(data['almostdue'],/kam klostu$/);
+ assert.match(data['pastdue'],/lus pinis$/);
+ assert.match(data['duenow'],/em tude$/);
+});
