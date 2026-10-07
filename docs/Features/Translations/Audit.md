@@ -2240,6 +2240,23 @@ not run; the app stack was unavailable. 45 locale paths still need this group.
 The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
 broader language-quality review remains open.
 
+### Rule-builder instructions — Odia and Konkani (2026-10-07)
+
+Filled seven pending strings in or_IN and kok (14 values), preserving existing
+translations and all literal variable expressions. No translation service was used.
+The text retains any-trigger behavior, ordered actions, username/email context and
+card-derived variables. Technical terminology and composed date-condition fragments
+need native/UI review, especially the lower-confidence Konkani prose. Odia uses a
+transliterated swimlane term here; its existing swimlane label means swimming and
+remains part of the broader terminology review.
+
+The existing trigger-variable suite now checks 23 recently filled locales for
+source order and exact brace/underscore/percent tokens. Runtime matching,
+all-locale structural and human-preference checks pass. Browser scenarios were
+not run; the app stack was unavailable. 43 locale paths still need this group.
+The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
+broader language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
