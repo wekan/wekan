@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/183ba557914a7d43cb22f7c7bd0f50cf1224bceb">Correct 60 Akan administration and diagnostic translations.</a></summary>
+
+- Replace generic filler in registration, file limits, webhooks, diagnostics and dates. Restore file-size units and preserve service and reactivity identifiers.
+- Add token, mode, technical-name, date and shared-label checks. System, package and version terminology remains provisional and needs contextual review.
+- The exact generic-filler inventory decreases from 476 to 416. English placeholders remain 45,599 across 70 languages because these corrections replace non-English values.
+- Validation: 46 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d4ab5c8ad12f2f4efabcb40f4aab1841042489f1">Correct 60 Akan color, field and account-control translations.</a></summary>
 
 - Replace unrelated generic filler in colors, custom fields, login, subscriptions and time tracking. Restore the intentionally empty comment placeholder and literal list abbreviations.
