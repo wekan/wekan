@@ -1394,6 +1394,29 @@ browser scenarios were syntax-checked only because the app stack was unavailable
 29 locale paths still need this six-string group. The ordinary backlog remains
 51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
 
+### Due reminders — Bambara, Wolof and Ewe (2026-10-07)
+
+Filled six reminder strings in each of `bm`, `wo` and `ee` (18 values).
+The instructions preserve comma-separated offsets, zero as the due day, positive
+days before and negative days after, the empty server-default setting, at most
+ten integers from -14 to 14, board disabling and outgoing webhook delivery.
+Only English placeholders were filled; no external translation service was used.
+Full instructions and technical compounds in this batch are low-confidence drafts
+for native review. Structural checks do not establish fluency.
+
+Vocabulary evidence: the [Bambara dictionary](https://bamalingua.com/bambara-dictionary/)
+provides the numeral ten; UCLA word lists attest Wolof
+[`fukk`](https://archive.phonetics.ucla.edu/Language/WOL/wol_word-list_1993_01.html)
+and Ewe [`ewo`](https://archive.phonetics.ucla.edu/Language/EWE/ewe_word-list_1989_01.html).
+These sources support individual numerals, not the complete translations.
+
+Translation checks now cover 40 locales, including offset direction, defaults,
+bounds and source-token inventories. Existing browser scenarios include all three
+locales. Translation, all-locale structural and human-preference checks pass;
+browser scenarios were syntax-checked only because the app stack was unavailable.
+26 locale paths still need this six-string group. The ordinary backlog remains
+51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
