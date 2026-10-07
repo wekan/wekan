@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c11366158bd00a70f9ded2f6936109a738f9f5fc">Translate Kurdish activity recovery and time estimates</a></summary>
+
+- Fill 26 English placeholders for time estimates, activity notifications,
+  retry states and delivery controls, preserving existing text and tokens.
+- Reservation and recovery-metadata wording remains low confidence pending review.
+- All 40 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a5fad090cecb57dfbe2ea8fae48896552e24af13">Translate Kurdish Sync diagnostics and mail failure labels</a></summary>
 
 - Fill 21 English placeholders for run outcomes, diagnostics, estimate mapping
