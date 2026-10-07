@@ -3184,6 +3184,14 @@ All 234 non-English locales now contain a nonempty value different from English 
 
 All-locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. The ordinary backlog remains 51,575 missing values across 70 languages, alongside 171 pending source keys. The broader goal and language-quality review remain open.
 
+### Signed-in board visibility: ten locales
+
+Filled `instance`, `instance-desc` and `board-instance-info` in `ary`, `ckb`, `ku`, `bho`, `mai`, `or_IN`, `kok`, `tk_TM`, `tt` and `yi`: 30 English placeholders. The draft meanings distinguish viewing by every signed-in user of this WeKan, no viewing by anonymous users, and editing only by people added to the board. The confirmation retains its strong emphasis. Existing correct-language translations were protected by the fill utility; no translation service was used.
+
+These drafts use direct language knowledge and the source UI context. Technical wording in Moroccan Arabic, Kurdish varieties, Bhojpuri, Maithili, Konkani and Yiddish has lower confidence and needs fluent-speaker review; grammatical and UI review remains open for the whole batch.
+
+The board-visibility suite now checks this batch for source key order, placeholder inventories, exact markup and rendered emphasis, with a malformed-markup negative check. Runtime visibility tests, all 234 locale structure/token checks and 21 human-preference checks pass. The existing instance-board-visibility browser suite was syntax-checked only; the application stack is unavailable. These three keys still need filling in 56 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys, with language-quality review open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

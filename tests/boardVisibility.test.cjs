@@ -66,4 +66,27 @@ test('position history has one transport error edge around the shared policy', (
   assert.strictEqual((contents.match(/await assertCanReadBoard/g) || []).length, 14);
 });
 
+// The instance choice grants viewing to signed-in users, not editing to everyone.
+test('instance visibility translations retain source tokens and confirmation emphasis', () => {
+  const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
+  const { JSDOM } = require('jsdom');
+  const readLocale = code => JSON.parse(fs.readFileSync(path.join(root, `imports/i18n/data/${code}.i18n.json`), 'utf8'));
+  const en = readLocale('en');
+  const keys = ['instance', 'instance-desc', 'board-instance-info'];
+  for (const code of ['ary', 'ckb', 'ku', 'bho', 'mai', 'or_IN', 'kok', 'tk_TM', 'tt', 'yi']) {
+    const locale = readLocale(code);
+    assert.deepStrictEqual(Object.keys(locale), Object.keys(en), `${code}: source order`);
+    for (const key of keys) {
+      assert.ok(locale[key].trim(), `${code}: ${key} nonempty`);
+      assert.notStrictEqual(locale[key], en[key], `${code}: ${key} filled`);
+      assert.deepStrictEqual(translationTokens(locale[key]), translationTokens(en[key]), `${code}: ${key} tokens`);
+      assert.deepStrictEqual(locale[key].match(/<[^>]*>/g), en[key].match(/<[^>]*>/g), `${code}: ${key} markup`);
+    }
+    const fragment = JSDOM.fragment(locale['board-instance-info']);
+    assert.strictEqual(fragment.querySelectorAll('strong').length, 1, `${code}: one emphasis`);
+    assert.ok(fragment.querySelector('strong').textContent.trim(), `${code}: emphasized audience`);
+  }
+  assert.notDeepStrictEqual('<strong>audience'.match(/<[^>]*>/g), en['board-instance-info'].match(/<[^>]*>/g), 'missing closing emphasis is detected');
+});
+
 console.log(`\nboardVisibility: ${passed} tests passed`);
