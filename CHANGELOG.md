@@ -1890,6 +1890,15 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/802440b7c097e6caeccef082ef9fdb38f42f577d">Translate import reports in Tigre</a>. Thanks to xet7.</summary>
+
+- Translate three import-report messages and replace a Tigrinya Admin Panel phrase with Tigre wording. Full sentences, warning paraphrase and technical terminology remain low confidence, documented in the translation audit.
+- Translation/token, import-loss and 234-locale structural tests pass, along with human-preference checks. The Tigre browser case is syntax-checked; execution requires Playwright and a running application.
+- This group remains English in Cherokee only. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f6400c6f9f480f3084cf631616c965c7e90990e1">Translate import reports in Tamazight</a>. Thanks to xet7.</summary>
 
 - Translate three import-report messages and replace the Arabic Admin Panel label with Tamazight wording. Full sentences and technical terminology remain low confidence, documented in the translation audit.
