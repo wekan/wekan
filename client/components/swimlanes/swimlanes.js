@@ -1,5 +1,6 @@
 import { titlesFromComposer } from '/client/components/forms/multilineTitleChoice';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { setSortableOptions } from '/client/lib/sortableOptions';
 import { once } from '/imports/lib/collectionHelpers';
 import {
   suspendBoardDragscroll,
@@ -509,8 +510,11 @@ Template.swimlane.onRendered(function () {
           : '.js-list-header';
         if ($parent.data('uiSortable') || $parent.data('sortable')) {
           try {
-            $parent.sortable('option', 'handle', newHandle);
-            $parent.sortable('option', 'disabled', !Utils.canModifyBoard() || !Utils.canDragBoardObject('list'));
+            // #6745: only what changed.
+            setSortableOptions($parent, {
+              handle: newHandle,
+              disabled: !Utils.canModifyBoard() || !Utils.canDragBoardObject('list'),
+            });
           } catch (e) {}
         }
       });
@@ -1132,8 +1136,11 @@ Template.listsGroup.onRendered(function () {
           : '.js-list-header';
         if ($parent.data('uiSortable') || $parent.data('sortable')) {
           try {
-            $parent.sortable('option', 'handle', newHandle);
-            $parent.sortable('option', 'disabled', !Utils.canModifyBoard() || !Utils.canDragBoardObject('list'));
+            // #6745: only what changed.
+            setSortableOptions($parent, {
+              handle: newHandle,
+              disabled: !Utils.canModifyBoard() || !Utils.canDragBoardObject('list'),
+            });
           } catch (e) {}
         }
       });

@@ -3,6 +3,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
+const { changedSortableOptions } = require('../models/lib/sortableOptions.js');
 const source = fs.readFileSync('client/components/lists/list.js', 'utf8');
 const template = fs.readFileSync('client/components/lists/list.jade', 'utf8');
 
@@ -33,15 +34,23 @@ vm.runInNewContext(source.slice(start, end), {
   Tracker: { nonreactive: fn => fn(), afterFlush: fn => queued.push(fn) },
   Session: { get: () => 'board' },
   ReactiveCache: { getCards: () => [] },
+  // #6745: client/lib/sortableOptions.js, the same two lines.
+  setSortableOptions($el, wanted) {
+    const changes = changedSortableOptions(key => $el.sortable('option', key), wanted);
+    if (Object.keys(changes).length > 0) $el.sortable('option', changes);
+  },
 });
 function body() {
-  const state = { widget: null, options: {}, drops: 0, destroys: 0, runs: [] };
+  const state = { widget: null, options: {}, drops: 0, destroys: 0, runs: [], optionWrites: 0 };
   const cards = {
     data: () => state.widget,
     sortable(command, name, value) {
-      if (typeof command === 'object') state.widget = command;
-      if (command === 'option') state.options[name] = value;
+      if (typeof command === 'object') { state.widget = command; Object.assign(state.options, command); }
+      if (command === 'option' && typeof name === 'string' && arguments.length === 2) return state.options[name];
+      if (command === 'option' && typeof name === 'object') { Object.assign(state.options, name); state.optionWrites++; }
+      else if (command === 'option') { state.options[name] = value; state.optionWrites++; }
       if (command === 'destroy') { state.widget = null; state.destroys++; }
+      return undefined;
     },
     find: () => ({ droppable: () => { state.drops++; } }),
   };
@@ -53,6 +62,11 @@ const first = body();
 assert.ok(first.state.widget);
 assert.equal(first.state.options.disabled, false);
 assert.equal(first.state.options.handle, '.minicard');
+// #6745: an autorun re-run with nothing changed writes no option - re-setting
+// `handle` made jQuery UI re-tag every card of the list.
+const writesBefore = first.state.optionWrites;
+first.state.runs[0]();
+assert.equal(first.state.optionWrites, writesBefore, 'an unchanged option is not set again');
 handles = true;
 first.state.runs[0]();
 assert.equal(first.state.options.handle, '.handle');

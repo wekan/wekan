@@ -44,8 +44,8 @@ test('the minicard title is plain content, not an inline-editor trigger', () => 
 
 test('the sortable uses the whole minicard without handles and only the handle with them', () => {
   const listJs = read('client/components/lists/list.js');
-  assert.match(listJs, /isTouchScreenOrShowDesktopDragHandles\(\)[\s\S]*?'handle', '\.handle'/);
-  assert.match(listJs, /else \{[\s\S]*?'handle', '\.minicard'/);
+  // #6745: one setSortableOptions call, so an unchanged handle is not set again.
+  assert.match(listJs, /handle: Utils\.isTouchScreenOrShowDesktopDragHandles\(\) \? '\.handle' : '\.minicard'/);
 });
 
 test('the title permits board dragscroll only while handles are shown', () => {

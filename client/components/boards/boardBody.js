@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { setSortableOptions } from '/client/lib/sortableOptions';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { TAPi18n } from '/imports/i18n';
 import {
@@ -735,30 +736,26 @@ Template.boardBody.onRendered(function () {
     resetBoardDragscroll();
 
     if ($swimlanesDom.data('uiSortable') || $swimlanesDom.data('sortable')) {
-      if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
-        $swimlanesDom.sortable(
-          'option',
-          'handle',
-          '.js-swimlane-header-handle',
-        );
-      } else {
-        $swimlanesDom.sortable('option', 'handle', '.swimlane-header');
-      }
 
       // #6446: enable swimlane drag-drop — which also carries moving cards BETWEEN
       // swimlanes — for any board member with write access, not only board admins.
       // The old !isBoardAdmin() check disabled this sortable for every non-admin, so
       // a normal member could still move a card WITHIN a swimlane but not BETWEEN
       // swimlanes (a card crossing swimlanes is received across this sortable), and
-      // could not reorder swimlanes. canModifyCard() is the client write-access
-      // predicate (board member, not comment-only / worker / read-only), matching
-      // the server's allowIsBoardMemberWithWriteAccess.
-      $swimlanesDom.sortable('option', 'items', Utils.canDragBoardObject('swimlane') ? '.swimlane:not(.placeholder)' : '.no-draggable-swimlanes');
-      $swimlanesDom.sortable(
-        'option',
-        'disabled',
-        !Utils.canModifyCard(),
-      );
+      // could not reorder swimlanes. Write access to the BOARD is the test
+      // (board member, not comment-only / worker / read-only), matching the
+      // server's allowIsBoardMemberWithWriteAccess.
+      //
+      // #6745: canModifyBoard(), not canModifyCard() with no argument - that one
+      // reads the OPEN card, so this whole autorun (dragscroll reset and all)
+      // re-ran on every card open and close. And only the options that changed.
+      setSortableOptions($swimlanesDom, {
+        handle: Utils.isTouchScreenOrShowDesktopDragHandles()
+          ? '.js-swimlane-header-handle'
+          : '.swimlane-header',
+        items: Utils.canDragBoardObject('swimlane') ? '.swimlane:not(.placeholder)' : '.no-draggable-swimlanes',
+        disabled: !Utils.canModifyBoard(),
+      });
     }
   });
 

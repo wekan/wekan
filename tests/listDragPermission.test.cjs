@@ -26,8 +26,16 @@ check('#1158: every list sortable in swimlanes.js is gated by canModifyBoard()',
   const sortables = (swimlanes.match(/\.sortable\(\{/g) || []).length;
   const gated = (swimlanes.match(/disabled: !Utils\.canModifyBoard\(\)/g) || []).length;
   assert.ok(sortables >= 3, `expected the 3 list sortables, found ${sortables}`);
-  assert.strictEqual(gated, sortables,
-    `every list sortable must set disabled: !Utils.canModifyBoard() (found ${gated}/${sortables})`);
+  // #6745: the re-applying autoruns now set `disabled` through
+  // setSortableOptions({ ..., disabled: !Utils.canModifyBoard() || ... }), so the
+  // same gate appears there as well: one per sortable at creation, plus one per
+  // autorun. Each autorun must keep it too.
+  const reapplied = (swimlanes.match(/setSortableOptions\(\$parent, \{[\s\S]*?\}\);/g) || []);
+  assert.ok(reapplied.length >= 1, 'the list sortables are re-applied by an autorun');
+  reapplied.forEach(call => assert.ok(/disabled: !Utils\.canModifyBoard\(\)/.test(call),
+    'every re-applied list sortable stays gated by canModifyBoard()'));
+  assert.strictEqual(gated, sortables + reapplied.length,
+    `every list sortable must set disabled: !Utils.canModifyBoard() (found ${gated}/${sortables + reapplied.length})`);
 });
 
 check('#1158: canModifyBoard() is falsy for an anonymous user (no currentUser)', () => {

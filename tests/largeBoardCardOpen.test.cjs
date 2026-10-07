@@ -30,6 +30,7 @@ const { cardLastViewsModifier, CARD_LAST_VIEWS_MAX } = require('../models/lib/un
 const {
   BOARD_LAYOUT_ROUTES, mountedBoardAfterEnter, mustRenderBoardLayout,
 } = require('../models/lib/boardLayoutMount.js');
+const { changedSortableOptions } = require('../models/lib/sortableOptions.js');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -241,6 +242,46 @@ test('nowhere deletes them: a delete then set(null) re-runs every minicard (nega
   const offenders = sourceFiles(['client', 'config', 'models', 'imports'])
     .filter(file => /Session\.delete\(\s*['"]popupCard(Board)?Id['"]/.test(read(file)));
   assert.deepStrictEqual(offenders, []);
+});
+
+// ---- fix 4: sortable options are set only when their value changed ----
+
+test('an option already at the wanted value is not set again', () => {
+  const current = { handle: '.minicard', disabled: false, items: '.swimlane' };
+  const read = key => current[key];
+  assert.deepStrictEqual(changedSortableOptions(read, { handle: '.minicard', disabled: false }), {});
+  assert.deepStrictEqual(changedSortableOptions(read, { handle: '.handle', disabled: false }), { handle: '.handle' });
+  assert.deepStrictEqual(changedSortableOptions(read, { disabled: true, items: '.swimlane' }), { disabled: true });
+});
+
+test('a changed preference or role still reaches the sortable (negative)', () => {
+  const read = () => undefined;
+  assert.deepStrictEqual(changedSortableOptions(read, { handle: '.handle', disabled: true }),
+    { handle: '.handle', disabled: true }, 'a fresh sortable gets every option');
+  assert.deepStrictEqual(changedSortableOptions(() => false, { disabled: 0 }), { disabled: 0 },
+    'compared strictly, so a different type is a change');
+});
+
+test('every board sortable autorun goes through setSortableOptions', () => {
+  const list = read('client/components/lists/list.js');
+  assert.ok(/setSortableOptions\(\$cards, \{\s*handle:/.test(list), 'the per-list cards sortable');
+  const swimlanes = read('client/components/swimlanes/swimlanes.js');
+  assert.strictEqual((swimlanes.match(/setSortableOptions\(\$parent, \{/g) || []).length, 2, 'both lists sortables');
+  const boardBody = read('client/components/boards/boardBody.js');
+  assert.ok(/setSortableOptions\(\$swimlanesDom, \{/.test(boardBody), 'the swimlanes sortable');
+  // Negative: no autorun sets handle/disabled/items one call at a time any more.
+  [['client/components/lists/list.js', list], ['client/components/swimlanes/swimlanes.js', swimlanes],
+    ['client/components/boards/boardBody.js', boardBody]].forEach(([file, src]) => {
+    assert.ok(!/\.sortable\(\s*'option',\s*'(handle|disabled|items)'/.test(src), `${file} sets an option directly`);
+  });
+});
+
+test('the swimlanes autorun no longer follows the open card (negative)', () => {
+  const boardBody = read('client/components/boards/boardBody.js');
+  const at = boardBody.indexOf('setSortableOptions($swimlanesDom, {');
+  const call = boardBody.slice(at, boardBody.indexOf('});', at));
+  assert.ok(/disabled: !Utils\.canModifyBoard\(\)/.test(call));
+  assert.ok(!/canModifyCard\(\)/.test(call), 'canModifyCard() with no card reads Session currentCard');
 });
 
 console.log(`largeBoardCardOpen: ${passed} passed`);

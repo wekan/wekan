@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { setSortableOptions } from '/client/lib/sortableOptions';
 import { TAPi18n } from '/imports/i18n';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { MultiSelection } from '/client/lib/multiSelection';
@@ -644,20 +645,14 @@ Template.listBody.onRendered(function () {
 
   this.autorun(() => {
     if ($cards.data('uiSortable') || $cards.data('sortable')) {
-      if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
-        $cards.sortable('option', 'handle', '.handle');
-      } else {
-        $cards.sortable('option', 'handle', '.minicard');
-      }
-
-      $cards.sortable(
-        'option',
-        'disabled',
+      // #6745: only what changed - re-setting `handle` re-tags every card.
+      setSortableOptions($cards, {
+        handle: Utils.isTouchScreenOrShowDesktopDragHandles() ? '.handle' : '.minicard',
         // Disable drag-dropping when user is not member
-        !Utils.canModifyBoard() || !Utils.canDragBoardObject('card'),
+        disabled: !Utils.canModifyBoard() || !Utils.canDragBoardObject('card'),
         // Not disable drag-dropping while in multi-selection mode
         // MultiSelection.isActive() || !Utils.canModifyBoard(),
-      );
+      });
     }
   });
 
