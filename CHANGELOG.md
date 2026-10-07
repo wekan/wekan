@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/51ba1fa1039f1aeebb61a4067d8936c780657ffb">Correct 60 Akan board, voting and display translations.</a></summary>
+
+- Replace unrelated generic filler with board, voting, typography and display labels. Restore numeric poker values and the question-mark choice exactly.
+- Add old-filler rejection, placeholder, vote-value, zoom-range and opposite-control checks. Specialized wording remains provisional and needs contextual review.
+- The audit found 596 occurrences of the same filler; 536 remain. The English-placeholder count stays at 45,599 across 70 languages because these corrections replace non-English values.
+- Validation: 44 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/abdb3a92d7b19fc845900131836c9fc3fd2f7240">Translate 27 Akan notification-recovery messages.</a></summary>
 
 - Fill pending delivery, retries, pause/resume/cancel controls and rule-email recovery. Preserve retained work, no activity recreation and permanent cancellation behavior.
