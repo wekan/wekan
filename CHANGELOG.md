@@ -2173,6 +2173,21 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/54512789cfa5b8df311feb7f9362714b8806c1ca">Correct 16 Tok Pisin rule controls.</a></summary>
+
+- Replace English and mixed-language rule labels. Preserve source tokens,
+  completion actions, schedule periods and selection/checkmark distinctions.
+  Wording remains provisional pending fluent-speaker review.
+- The combined run passes 160 checks; two catalog checks still fail on the
+  missing due-date shortcut key. All 21 human-preference checks pass.
+  Browser and screen-reader checks were not run.
+- The broader translation and wording audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5cb9ae727784a4ff3a712d16d776c977ac4f91c9">Correct 15 Tok Pisin privacy and support controls.</a></summary>
 
 - Replace mixed English in privacy, support and favorite controls. Preserve
