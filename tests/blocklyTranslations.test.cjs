@@ -449,3 +449,20 @@ test('Akan list mutation and logic preserve operation and comparison boundaries'
  assert.match(data['blockly-LISTS_SORT_TOOLTIP'],/no bi/);
  for(const key of ['CONDITION','IF_FALSE','IF_TRUE']) assert.ok(data['blockly-LOGIC_TERNARY_TOOLTIP'].includes(data['blockly-LOGIC_TERNARY_'+key]));
 });
+
+test('Akan arithmetic and number properties preserve notation and boundaries', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const data=require('../imports/i18n/data/ak.i18n.json');
+ const keys=["blockly-MATH_ADDITION_SYMBOL_ARIA", "blockly-MATH_ARITHMETIC_TOOLTIP_ADD", "blockly-MATH_ARITHMETIC_TOOLTIP_DIVIDE", "blockly-MATH_ARITHMETIC_TOOLTIP_MINUS", "blockly-MATH_ARITHMETIC_TOOLTIP_MULTIPLY", "blockly-MATH_ARITHMETIC_TOOLTIP_POWER", "blockly-MATH_ATAN2_TITLE", "blockly-MATH_ATAN2_TOOLTIP", "blockly-MATH_CHANGE_TITLE", "blockly-MATH_CHANGE_TOOLTIP", "blockly-MATH_CONSTANT_GOLDEN_RATIO_ARIA", "blockly-MATH_CONSTANT_INFINITY_ARIA", "blockly-MATH_CONSTANT_SQRT1_2_ARIA", "blockly-MATH_CONSTANT_SQRT2_ARIA", "blockly-MATH_CONSTANT_TOOLTIP", "blockly-MATH_CONSTRAIN_TITLE", "blockly-MATH_CONSTRAIN_TOOLTIP", "blockly-MATH_DIVISION_SYMBOL_ARIA", "blockly-MATH_IS_DIVISIBLE_BY", "blockly-MATH_IS_EVEN", "blockly-MATH_IS_NEGATIVE", "blockly-MATH_IS_ODD", "blockly-MATH_IS_POSITIVE", "blockly-MATH_IS_PRIME", "blockly-MATH_IS_TOOLTIP", "blockly-MATH_IS_WHOLE", "blockly-MATH_MODULO_TITLE", "blockly-MATH_MODULO_TOOLTIP", "blockly-MATH_MULTIPLICATION_SYMBOL_ARIA", "blockly-MATH_NUMBER_TOOLTIP"];
+ for(const key of keys){
+  assert.notEqual(data[key],english[key],key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ assert.match(data['blockly-MATH_ATAN2_TOOLTIP'],/-180 kosi 180/);
+ assert.match(data['blockly-MATH_CONSTRAIN_TOOLTIP'],/ahye no ankasa ka ho/);
+ assert.match(data['blockly-MATH_IS_NEGATIVE'],/esua sen/);
+ assert.match(data['blockly-MATH_IS_POSITIVE'],/ɛso sen/);
+ assert.match(data['blockly-MATH_IS_PRIME'],/ɛso sen 1/);
+ assert.ok(data['blockly-MATH_MODULO_TITLE'].includes('%1 ÷ %2'));
+ for(const notation of ['π (3.141…)','e (2.718…)','φ (1.618…)','sqrt(2) (1.414…)','sqrt(½) (0.707…)','∞']) assert.ok(data['blockly-MATH_CONSTANT_TOOLTIP'].includes(notation));
+});

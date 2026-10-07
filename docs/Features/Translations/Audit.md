@@ -5183,6 +5183,12 @@ mixed-language audit remains open.
 - Added per-key token checks, insertion/replacement distinctions, strict/inclusive comparison boundaries, both/at-least-one boolean conditions and conditional-label consistency.
 - Sorting direction and programming wording remain provisional, especially for alphabetic ordering and case handling. Browser and spoken accessibility checks were not run.
 
+### Akan Blockly arithmetic and number properties
+
+- Filled 30 English placeholders through the protected workflow, covering arithmetic, atan2, constants, limits, parity, sign, primality and remainder. Preserved mathematical notation, coordinate labels, numbered arguments and angle bounds.
+- Added per-key token, inclusive-limit, sign, prime-lower-bound, modulo and constant-notation checks. Divisibility and prime properties use descriptive wording.
+- Square-root, golden-ratio, exponent and trigonometric terminology is low confidence and requires mathematical-language review. Browser and spoken accessibility checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
