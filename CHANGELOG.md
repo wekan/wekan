@@ -1890,6 +1890,20 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b77648b8fd24302c5356c0e3fb58a9fa3d4e7a19">Reconcile filled notification keys with translation backlog</a>. Thanks to xet7.</summary>
+
+- Remove 13 activity-notification keys from the pending manifest after checking
+  all 234 non-English locale paths for nonempty values, no exact English
+  placeholders and preserved source tokens. Add regression coverage for queue removal.
+- Pending source keys decrease from 201 to 188. The ordinary backlog remains
+  51,575 values. Low-confidence wording and language review remain in TODO Later;
+  these structural checks do not establish fluency.
+- Notification, all-locale, human-preference and changelog checks pass. The next
+  feature group has six due-reminder strings still English in 66 locales.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b5818255c9ab38bab1f55084e893d783eae414d9">Translate Cherokee notification settings and check all locales</a>. Thanks to xet7.</summary>
 
 - Fill 13 Cherokee notification strings with provisional wording; document
