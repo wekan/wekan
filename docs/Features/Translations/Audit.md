@@ -6262,6 +6262,21 @@ get/remove/get-and-remove distinctions, repeated item/count arguments, copy
 semantics, sort direction and text/list conversion with separators. Browser
 and screen-reader checks were not run. The broader language audit remains open.
 
+## Māori Blockly workspace, colours and navigation — 2026-10-08
+
+Filled 82 English placeholders for workspace counts, search, editing shortcuts,
+colour controls and keyboard navigation. Existing translations remain unchanged.
+The translations preserve stack/comment counts, Enter/Shift+Enter/Escape search
+instructions, RGB channels and numeric ranges, move-versus-scroll distinctions,
+move confirmation and start/finish/abort actions. Search labels distinguish
+next and previous matches and retain the no-match message.
+
+The combined focused run passes 55 checks, including all 19 Māori checks.
+Two shared catalog checks still fail on missing shortcut-edit-due-date keys
+in other locales. All 21 human-preference checks pass. Browser and screen-reader
+checks were not run. Workspace, stack and accessibility compounds remain
+provisional pending fluent-speaker review. The broader language audit is open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

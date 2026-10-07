@@ -131,3 +131,43 @@ test('Māori list sorting and conversion preserve copies, directions and separat
  assert.equal(data['blockly-LISTS_LENGTH_TITLE'],data['blockly-TEXT_LENGTH_TITLE']);
  assert.equal(data['blockly-LISTS_CREATE_WITH_ITEM_TITLE'],data['blockly-VARIABLES_DEFAULT_NAME']);
 });
+
+test('Māori workspace announcements preserve counts, search keys and editing actions',()=>{
+ const keys=Object.keys(english).filter(k=>k.startsWith('blockly-WORKSPACE_')||['blockly-UNDO','blockly-REDO','blockly-PASTE_SHORTCUT','blockly-COPY_SHORTCUT','blockly-CUT_SHORTCUT'].includes(k));
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  if(english[key]) assert.notEqual(data[key],english[key],key);
+ }
+ assert.match(data['blockly-WORKSPACE_CONTENTS_BLOCKS_MANY'],/%1.*%2/);
+ assert.match(data['blockly-WORKSPACE_CONTENTS_BLOCKS_ONE'],/Kotahi.*%2/);
+ assert.match(data['blockly-WORKSPACE_CONTENTS_BLOCKS_ZERO'],/Kāore he poraka%2/);
+ assert.match(data['blockly-WORKSPACE_CONTENTS_COMMENTS_MANY'],/^ me .*%1/);
+ assert.match(data['blockly-WORKSPACE_CONTENTS_COMMENTS_ONE'],/^ me tētahi/);
+ assert.match(data['blockly-WORKSPACE_SEARCH_INPUT_LABEL'],/Enter.*whai muri.*Shift\+Enter.*o mua.*Escape.*kati.*arotahi/);
+ assert.match(data['blockly-WORKSPACE_SEARCH_MATCH'],/%1.*%2.*%3/);
+ assert.match(data['blockly-WORKSPACE_SEARCH_NO_MATCHES'],/^Kāore he/);
+ assert.notEqual(data['blockly-WORKSPACE_SEARCH_FIND_NEXT'],data['blockly-WORKSPACE_SEARCH_FIND_PREVIOUS']);
+ assert.notEqual(data['blockly-UNDO'],data['blockly-REDO']);
+ assert.equal(new Set(['COPY','CUT','PASTE'].map(k=>data['blockly-'+k+'_SHORTCUT'])).size,3);
+});
+
+test('Māori colours and navigation preserve tokens, ranges and directions',()=>{
+ for(const key of Object.keys(english).filter(k=>k.startsWith('blockly-COLOUR_')||k.startsWith('blockly-KEYBOARD_NAV_')||k.startsWith('blockly-SHORTCUTS_'))){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  if(!key.endsWith('_HELPURL')&&!key.endsWith('_HUE')) assert.notEqual(data[key],english[key],key);
+ }
+ assert.equal(new Set(['RED','GREEN','BLUE'].map(s=>data['blockly-COLOUR_RGB_'+s])).size,3);
+ assert.match(data['blockly-COLOUR_RGB_TOOLTIP'],/0 me te 100/);
+ assert.match(data['blockly-COLOUR_BLEND_TOOLTIP'],/0\.0 - 1\.0/);
+ const directions={UP:'whakarunga',DOWN:'whakararo',LEFT:'whakatemauī',RIGHT:'whakatematau'};
+ for(const [key,word] of Object.entries(directions)){
+  for(const action of ['MOVE','SCROLL']) assert.ok(data['blockly-SHORTCUTS_'+action+'_'+key].endsWith(word));
+  assert.notEqual(data['blockly-SHORTCUTS_MOVE_'+key],data['blockly-SHORTCUTS_SCROLL_'+key]);
+ }
+ assert.match(data['blockly-KEYBOARD_NAV_UNCONSTRAINED_MOVE_HINT'],/Puritia %1.*neke noa.*%2.*whakaae ki te tūranga/);
+ assert.match(data['blockly-KEYBOARD_NAV_CONSTRAINED_MOVE_HINT'],/pātuhi pere.*%1.*whakaae ki te tūranga/);
+ assert.notEqual(data['blockly-KEYBOARD_NAV_COPIED_HINT'],data['blockly-KEYBOARD_NAV_CUT_HINT']);
+ assert.equal(new Set(['ABORT','FINISH','START'].map(s=>data['blockly-SHORTCUTS_'+s+'_MOVE'])).size,3);
+ assert.match(data['blockly-SHORTCUTS_TOGGLE_SCREENREADER_MODE'],/Whakakā, whakaweto rānei/);
+ for(const suffix of ['HEADING','STACK']) assert.notEqual(data['blockly-SHORTCUTS_NEXT_'+suffix],data['blockly-SHORTCUTS_PREVIOUS_'+suffix]);
+});
