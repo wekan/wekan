@@ -5165,6 +5165,12 @@ mixed-language audit remains open.
 - Added per-key token checks, open/close icon behavior, enabled/disabled distinctions and separate clear/randomize actions. Existing singular/plural block descriptions remain intact.
 - Bitmap row/column, inline/external inputs and multiline wording are descriptive and provisional; contextual accessibility review is still needed. Browser and spoken checks were not run.
 
+### Akan Blockly input labels and keyboard guidance
+
+- Filled 58 English placeholders through the protected workflow, covering condition, list, loop, numeric and text inputs plus keyboard navigation. Preserved numbered arguments and x/y coordinate identifiers.
+- Kept dividend/divisor, start/end, first/second, maximum/minimum, split/join and copy/cut distinctions. Added per-key token checks and input-role/navigation assertions.
+- Mathematical input roles and keyboard terminology use descriptive, provisional wording requiring contextual review. Browser and spoken accessibility checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
