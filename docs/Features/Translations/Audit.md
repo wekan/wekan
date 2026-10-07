@@ -3546,6 +3546,12 @@ Filled 15 English placeholders in `se`, `ff` and `ks` with the protected fill ut
 
 Extended the translation/token regression and existing localized browser scenario to the three locales. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 10 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
 
+### History recovery: Klingon and Volapük
+
+Filled 10 English placeholders in `tlh` and `vo` with the protected fill utility. The drafts distinguish undo/redo and retry/forget and retain the same-request explanation. References include [the Klingon Language Institute's vocabulary](https://www.kli.org/about-klingon/new-klingon-words/all/) for `'ol` (verify) and [the English–Volapük dictionary](https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary) for undo, request, confirmation, trying and forgetting. These establish individual roots, not the composed clauses. The Klingon server paraphrase, undo-as-cancellation wording, Volapük redo compound and sentence-level grammar remain provisional for fluent-speaker review. Constructed languages receive translations under the same coverage policy as other locales.
+
+Extended the translation/token regression and existing localized browser scenario to the two locales. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 8 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
