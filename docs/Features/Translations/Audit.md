@@ -7140,6 +7140,16 @@ for loops and collapsed blocks remains low confidence pending fluent review.
 Browser and screen-reader checks were not run. Product names and mathematical
 notation found in other locales were not changed merely to lower the count.
 
+### Kurdish Blockly editing and accessibility instructions
+
+Filled 54 further English placeholders for conditions, repetition, copy/delete,
+block editing, bitmap fields, keyboard help and icon announcements. Existing
+translations were preserved by the placeholder-only merge. Tests verify source
+key order and token inventories, distinguish true/false loop conditions and
+open/closed controls, and retain bitmap row/column placeholders. Technical
+wording for inline inputs and bitmap controls remains low confidence.
+Browser and screen-reader checks were not run; tests do not prove fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
