@@ -503,7 +503,35 @@ const correctedKeys = [
   "blockly-MATH_ONLIST_TOOLTIP_MAX",
   "blockly-MATH_ONLIST_TOOLTIP_MEDIAN",
   "blockly-MATH_ONLIST_TOOLTIP_MIN",
-  "blockly-MATH_ONLIST_TOOLTIP_MODE"
+  "blockly-MATH_ONLIST_TOOLTIP_MODE",
+  "blockly-MATH_ONLIST_TOOLTIP_RANDOM",
+  "blockly-MATH_ONLIST_TOOLTIP_STD_DEV",
+  "blockly-MATH_ONLIST_TOOLTIP_SUM",
+  "blockly-MATH_POWER_SYMBOL_ARIA",
+  "blockly-MATH_RANDOM_FLOAT_TITLE_RANDOM",
+  "blockly-MATH_RANDOM_FLOAT_TOOLTIP",
+  "blockly-MATH_RANDOM_INT_TITLE",
+  "blockly-MATH_RANDOM_INT_TOOLTIP",
+  "blockly-MATH_ROUND_OPERATOR_ROUND",
+  "blockly-MATH_ROUND_OPERATOR_ROUNDDOWN",
+  "blockly-MATH_ROUND_OPERATOR_ROUNDUP",
+  "blockly-MATH_ROUND_TOOLTIP",
+  "blockly-MATH_SINGLE_OP_ABSOLUTE",
+  "blockly-MATH_SINGLE_OP_ABSOLUTE_ARIA",
+  "blockly-MATH_SINGLE_OP_EXP_ARIA",
+  "blockly-MATH_SINGLE_OP_LN_ARIA",
+  "blockly-MATH_SINGLE_OP_LOG10_ARIA",
+  "blockly-MATH_SINGLE_OP_NEG_ARIA",
+  "blockly-MATH_SINGLE_OP_POW10_ARIA",
+  "blockly-MATH_SINGLE_OP_ROOT",
+  "blockly-MATH_SINGLE_TOOLTIP_ABS",
+  "blockly-MATH_SINGLE_TOOLTIP_EXP",
+  "blockly-MATH_SINGLE_TOOLTIP_LN",
+  "blockly-MATH_SINGLE_TOOLTIP_LOG10",
+  "blockly-MATH_SINGLE_TOOLTIP_NEG",
+  "blockly-MATH_SINGLE_TOOLTIP_POW10",
+  "blockly-MATH_SINGLE_TOOLTIP_ROOT",
+  "blockly-MATH_SUBTRACTION_SYMBOL_ARIA"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -592,6 +620,12 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   assert.match(waray['blockly-MATH_IS_NEGATIVE'], /mas guti.*sero/);
   assert.match(waray['blockly-MATH_IS_POSITIVE'], /mas dako.*sero/);
   assert.ok(waray['blockly-MATH_MODULO_TITLE'].includes('%1 ÷ %2'));
+  assert.match(waray['blockly-MATH_RANDOM_FLOAT_TOOLTIP'], /0\.0 \(upod\).*1\.0 \(diri upod\)/);
+  assert.match(waray['blockly-MATH_RANDOM_INT_TOOLTIP'], /upod an duha nga utlanan mismo/);
+  assert.match(waray['blockly-MATH_ROUND_OPERATOR_ROUNDDOWN'], /tipaubos/);
+  assert.match(waray['blockly-MATH_ROUND_OPERATOR_ROUNDUP'], /tipaigbaw/);
+  assert.match(waray['blockly-MATH_SINGLE_OP_LOG10_ARIA'], /base nga 10/);
+  assert.match(waray['blockly-MATH_SINGLE_TOOLTIP_NEG'], /positibo nagigin negatibo.*negatibo nagigin positibo/);
   const statistics = ['AVERAGE', 'MEDIAN', 'MODE', 'STD_DEV', 'SUM'].map(s => waray['blockly-MATH_ONLIST_OPERATOR_' + s]);
   assert.equal(new Set(statistics).size, statistics.length);
   assert.match(waray['blockly-MATH_ONLIST_TOOLTIP_MODE'], /lista han mga butang/);

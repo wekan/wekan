@@ -5037,6 +5037,12 @@ mixed-language audit remains open.
 - Kept mean, median, modes, standard deviation and sum distinct; the modes tooltip returns a list rather than a single value. Statistical loanwords and the standard-deviation paraphrase remain lower confidence and require mathematical-language review.
 - Extended token, sign, modulo and statistic-distinction checks. These checks do not establish fluency or validate mathematical terminology. Browser and spoken accessibility checks remain unexecuted.
 
+### Waray Blockly random values and unary mathematics
+
+- Filled 28 English placeholders through the protected workflow: list statistics, random values, rounding, absolute values, exponentials, logarithms, negation and square roots. Preserved numbered arguments, bases, and the inclusive/exclusive random-number endpoints.
+- Added checks distinguishing upward/downward rounding, integer/float bounds, base-10 logarithms and sign reversal. Existing inventory checks cover all added keys and their placeholders.
+- Statistical, rounding and logarithm terminology remains provisional; mathematical fluency and spoken accessibility need contextual review. Browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
