@@ -385,7 +385,7 @@ held only issues \#4774 and \#4055, and both are closed now.
 Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
-- The current `node releases/translations/fill-translations.mjs --missing` report counts **51,575 untranslated locale/string values in 70 languages**. It excludes **188 source keys tracked separately as pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
+- The current `node releases/translations/fill-translations.mjs --missing` report counts **51,575 untranslated locale/string values in 70 languages**. It excludes **182 source keys tracked separately as pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
 - The 13 activity-notification preference keys have no empty or exact English-placeholder values in all 234 non-English locale paths and have left the pending queue. Provisional wording still needs language review.
 - Automatic-archiving and date-filter messages now have non-English values in all 234 non-English locale paths. Continue the remaining feature families and the language-quality audit; coverage does not establish fluent wording.
 - Fill English placeholders in every language, including minority and constructed languages. Audit mixed-language and wrong-language seed text, and review provisional wording with speakers when available. Preserve correct-language human translations, source key order, exact placeholders, technical identifiers and query examples. Use direct translation and dictionary research, not an external translation service.
@@ -1888,6 +1888,22 @@ Minority-language wording remains provisional and needs speaker review.
 This release updates the following translations:
 
 **Activity notifications** - choosing which card activity sends notifications.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c1f411e1a55323995f4796d225f6abf7ba6d4877">Translate Cherokee reminders and reconcile all-locale coverage</a>. Thanks to xet7.</summary>
+
+- Fill six Cherokee reminder strings. Full phrases and technical terminology are
+  low confidence and need native review.
+- All 234 non-English locale paths now contain nonempty, non-English values with
+  exact source placeholders for the six reminder keys. Remove these keys from the
+  pending queue, leaving 182. This structural coverage does not certify fluency.
+- Translation, all-locale structural and human-preference checks pass; detailed
+  reminder checks cover 66 locales. Browser scenarios were syntax-checked only
+  because the app stack was unavailable.
+- The ordinary backlog remains 51,575 values in 70 languages. Wider language-quality
+  review, including low-confidence reminder phrases, remains in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/256a6b36cf8df7ac42ec1ca33481582a4c8c239c">Translate due reminders into Tigre</a>. Thanks to xet7.</summary>
