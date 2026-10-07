@@ -4305,6 +4305,13 @@ mixed-language audit remains open.
 - Expanded the report translation check to all 234 non-English locales, checking nonempty non-English values, token inventory and distinct delivery states. All 17 focused Node tests and 21 human-preference checks pass. Extended browser coverage for the final three locales; syntax passes, but execution remains unverified because the local Playwright executable is unavailable.
 - All ten report strings now have non-English values in all non-English locales. Ordinary placeholders decrease from 50,955 to 50,925 across 70 languages; 148 pending keys still require wording review. This completes placeholder coverage for this group, not the full translation or semantic audit.
 
+## Saved filter labels: seven locales (2026-10-07)
+
+- Filled ten English strings each in Kurmanji, Sorani, Tatar, Somali, Chichewa, Māori and Samoan (70 values). These cover choosing, saving, applying and deleting private board presets, replacement by name, errors and the card-text filter label. Full technical wording remains provisional, especially Chichewa and Samoan.
+- Corrected the existing Tatar filter-menu label, which mixed Crimean Turkish vocabulary and morphology, to Tatar. Added a vocabulary regression check alongside placeholder inventory checks.
+- Extended the existing positive browser save/reload/apply/replace/delete flow and negative invalid-expression flow to the seven locales, checking localized feedback, the privacy/replacement hint and the input's accessible label. All 15 focused Node tests and 21 human-preference checks pass. Browser syntax passes; execution remains unverified because the local Playwright executable is unavailable.
+- These ten strings remain English in 59 locales. Ordinary placeholders decrease from 50,925 to 50,855 across 70 languages; 148 pending keys still require wording review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -311,6 +311,25 @@ test('Leo outline import instructions have non-English values in all locales', a
   assert.match(fi, /Merkityt solmut tuodaan valmiina/);
 });
 
+test('saved filter translations preserve tokens and distinct operation messages', async () => {
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  const source = JSON.parse(fs.readFileSync(path.join(directory, 'en.i18n.json')));
+  const keys = ['filter-presets', 'filter-preset-choose', 'filter-preset-name', 'filter-preset-save', 'filter-preset-replace-hint', 'filter-preset-saved', 'filter-preset-applied', 'filter-preset-deleted', 'filter-preset-error', 'filter-card-text-label'];
+  for (const code of ['ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm']) {
+    const locale = JSON.parse(fs.readFileSync(path.join(directory, code + '.i18n.json')));
+    for (const key of keys) {
+      assert.ok(locale[key]?.trim(), code + ':' + key);
+      assert.notEqual(locale[key], source[key], code + ':' + key);
+      assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), code + ':' + key);
+    }
+    assert.equal(new Set(['saved', 'applied', 'deleted', 'error'].map(s => locale['filter-preset-' + s])).size, 4, code);
+  }
+  const tt = JSON.parse(fs.readFileSync(path.join(directory, 'tt.i18n.json')));
+  assert.equal(tt['filter-cards'], 'Карточкаларны яки исемлекләрне фильтрлау');
+  assert.doesNotMatch(tt['filter-cards'], /вейа|сөзгечле/);
+  assert.deepEqual(translationTokens(tt['filter-cards']), translationTokens(source['filter-cards']));
+});
+
 test('rule email report translations preserve tokens and distinct delivery states', async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   const source = JSON.parse(fs.readFileSync(path.join(directory, 'en.i18n.json')));
