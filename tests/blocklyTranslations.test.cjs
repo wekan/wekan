@@ -369,3 +369,23 @@ test('Akan editing, colors and flow controls preserve arguments and operation di
  assert.match(data['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE'],/no yɛ nokware/);
  assert.notEqual(data['blockly-CONTROLS_FLOW_STATEMENTS_OPERATOR_BREAK'],data['blockly-CONTROLS_FLOW_STATEMENTS_OPERATOR_CONTINUE']);
 });
+
+test('Akan editing and field controls preserve scope and opposite actions', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const data=require('../imports/i18n/data/ak.i18n.json');
+ const keys=["blockly-COPY_ALL_TO_BACKPACK", "blockly-COPY_SHORTCUT", "blockly-COPY_TO_BACKPACK", "blockly-CURRENT_BLOCK_ANNOUNCEMENT", "blockly-CUT_SHORTCUT", "blockly-DELETE_ALL_BLOCKS", "blockly-DELETE_BLOCK", "blockly-DELETE_VARIABLE", "blockly-DELETE_VARIABLE_CONFIRMATION", "blockly-DELETE_X_BLOCKS", "blockly-DISABLE_BLOCK", "blockly-DUPLICATE_BLOCK", "blockly-DUPLICATE_COMMENT", "blockly-EDIT_BLOCK_CONTENTS", "blockly-EMPTY_BACKPACK", "blockly-ENABLE_BLOCK", "blockly-EXPAND_ALL", "blockly-EXPAND_BLOCK", "blockly-EXTERNAL_INPUTS", "blockly-FIELD_BITMAP_ARIA_VALUE", "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR", "blockly-FIELD_BITMAP_BUTTON_LABEL_RANDOMIZE", "blockly-FIELD_BITMAP_PIXEL_LABEL", "blockly-FIELD_BITMAP_PIXEL_OFF", "blockly-FIELD_LABEL_EDIT_PREFIX", "blockly-FIELD_LABEL_EMPTY", "blockly-FIELD_LABEL_OPTION_INDEX", "blockly-FIELD_LABEL_VARIABLE", "blockly-FIELD_MULTILINEINPUT_FINISH_EDITING", "blockly-FIELD_MULTILINEINPUT_NEW_LINE", "blockly-HELP_PROMPT", "blockly-ICON_LABEL_COMMENT_CLOSED", "blockly-ICON_LABEL_COMMENT_OPEN", "blockly-ICON_LABEL_DEFAULT", "blockly-ICON_LABEL_MUTATOR_CLOSED", "blockly-ICON_LABEL_MUTATOR_OPEN", "blockly-ICON_LABEL_WARNING_CLOSED", "blockly-ICON_LABEL_WARNING_OPEN", "blockly-INLINE_INPUTS"];
+ for(const key of keys){
+  assert.notEqual(data[key],english[key],key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ for(const kind of ['COMMENT','WARNING']){
+  assert.match(data['blockly-ICON_LABEL_'+kind+'_CLOSED'],/^Bue/);
+  assert.match(data['blockly-ICON_LABEL_'+kind+'_OPEN'],/^To.*mu$/);
+ }
+ assert.match(data['blockly-COPY_ALL_TO_BACKPACK'],/nyinaa/);
+ assert.match(data['blockly-DELETE_ALL_BLOCKS'],/nyinaa/);
+ assert.match(data['blockly-DISABLE_BLOCK'],/^Dum/);
+ assert.match(data['blockly-ENABLE_BLOCK'],/nyɛ adwuma/);
+ assert.notEqual(data['blockly-EXTERNAL_INPUTS'],data['blockly-INLINE_INPUTS']);
+ assert.notEqual(data['blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR'],data['blockly-FIELD_BITMAP_BUTTON_LABEL_RANDOMIZE']);
+});

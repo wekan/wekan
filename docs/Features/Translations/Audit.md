@@ -5159,6 +5159,12 @@ mixed-language audit remains open.
 - Corrected three generic filler values in the main red/green/blue labels directly; all previously said an unrelated phrase about task information. Matched these to the translated Blockly color controls.
 - Added per-key token checks, distinct color/operation checks, loop-only restrictions and opposite while/until conditions. Programming metaphors, variable and iteration wording remain provisional. Browser and fluent-speaker checks were not run.
 
+### Akan Blockly editing and field controls
+
+- Filled 39 English placeholders through the protected workflow, covering copy/cut/delete, backpack actions, enabled state, bitmap fields, multiline editing and comment/warning icons. Preserved every numbered argument and all-block scope.
+- Added per-key token checks, open/close icon behavior, enabled/disabled distinctions and separate clear/randomize actions. Existing singular/plural block descriptions remain intact.
+- Bitmap row/column, inline/external inputs and multiline wording are descriptive and provisional; contextual accessibility review is still needed. Browser and spoken checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
