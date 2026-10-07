@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "URL ya kgokaganyo ya thušo ya tlwaelo",
   "text-below-custom-login-logo": "Sengwalwa ka fase ga logo ya tlwaelo ya go tsena",
   "automatic-linked-url-schemes": "Dikema tša URL tša tlwaelo tšeo di swanetšego go kgotlegega ka go itiriša. Sekema se tee sa URL mothalading",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Ka peakanyo ya mathomo ga go na selo, ka gona ke dikgokagano tša wepe le imeile fela tšeo di ka kgotlwago. Mohuta o mongwe le o mongwe wa kgokagano wo o lego lenaneong, bjalo ka thunderlink goba onenote, o bula lenaneo le le ngwadišitšwego bakeng sa wona. Mehuta ya javascript, data, vbscript le ye e swanago le yona ga e dirwe dikgokagano le gatee.",
   "external-link-pattern": "Kgokagano ya go itirela go ba latedi ba mathata a ka ntle",
   "external-link-pattern-description": "E kgokaganya ka go itirela dikgopolo tša go swana le \"#1234\" tšeo di hwetšwago ka mongwalong wa karata go ba latedi ba mathata a ka ntle. Tlogela lefolo le tee le se na selo go thibela.",
   "external-link-pattern-prefix": "Selelapele sa kgopolo",

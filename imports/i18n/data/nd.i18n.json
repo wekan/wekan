@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "I-URL yesixhumanisi sosizo esenziwe ngokwezifiso",
   "text-below-custom-login-logo": "Umbhalo ngaphansi kophawu lokungena olwenziwe ngokwezifiso",
   "automatic-linked-url-schemes": "Izikimu ze-URL ezenziwe ngokwezifiso okumele zichofozeke ngokuzenzakalela. Isikimu se-URL esisodwa emgqeni ngamunye",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Ekuqaleni akulalutho, ngakho izixhumanisi zewebhu le-imeyili kuphela ezingachofozwa. Uhlobo ngalunye lwesixhumanisi olusohlwini, njenge-thunderlink kumbe i-onenote, luvula uhlelo olubhaliselwe lona. Izinhlobo javascript, data, vbscript lezinye ezifana lazo aziguqulwa zibe yizixhumanisi loba nini.",
   "external-link-pattern": "Ukuxhumana okuzenzakalelayo lesilandeli senkinga engaphandle",
   "external-link-pattern-description": "Ixhumanisa ngokuzenzakalelayo amathokheni afana lo-\"#1234\" atholakala embhalweni wekhadi lesilandeli senkinga engaphandle. Tshiya inkambu ingelalutho ukuze uyivimbe.",
   "external-link-pattern-prefix": "Isiqalo sethokheni",

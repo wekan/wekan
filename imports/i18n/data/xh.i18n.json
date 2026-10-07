@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "I-URL yoNcedo oluSiko loNcedo",
   "text-below-custom-login-logo": "Okubhaliweyo ngezantsi kweLogo yokuNgena ngokweSiko",
   "automatic-linked-url-schemes": "Izicwangciso ze-URL yesiko ekufuneka zicofeke ngokuzenzekelayo. Isicwangciso se-URL enye ngomgca ngamnye",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Ngokungagqibekanga akunanto, ngoko ngamakhonkco ewebhu ne-imeyile kuphela anokucofwa. Uhlobo ngalunye lwekhonkco olukuluhlu, olufana ne-thunderlink okanye i-onenote, luvula usetyenziso olubhaliselwe lona. Iintlobo javascript, data, vbscript nezinye ezifana nazo azize zenziwe amakhonkco.",
   "external-link-pattern": "Umkhondo ozenzekelayo kwisilandeli sengxaki yangaphandle",
   "external-link-pattern-description": "Ixhuma ngokuzenzekelayo iimpawu ezinjenge-\"#1234\" ezifumaneka kumbhalo wekhadi kwisilandeli sengxaki yangaphandle. Shiya nayiphi na intsimi ingenanto ukuze uyicime.",
   "external-link-pattern-prefix": "Isiqalo sompawu",

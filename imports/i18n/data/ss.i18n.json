@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "I-URL Yesichumanisi Selusito Lolukhetsekile",
   "text-below-custom-login-logo": "Umbhalo ngaphansi Kweluphawu Lwekungena Lolukhetsekile",
   "automatic-linked-url-schemes": "Tinhlelo te-URL letikhetsekile lokufanele tichafateke ngekutentakalela. Luhlelo lunye lwe-URL emgceni ngamunye",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Ekucaleni kute lokubhaliwe, ngako tichumanisi tewebhu ne-imeyili kuphela letingachofozwa. Luhlobo ngalunye lwesichumanisi loluseluhlwini, njenge-thunderlink noma i-onenote, luvula luhlelo lolubhaliselwe lona. Tinhlobo javascript, data, vbscript naletinye letifana nato atentiwa tichumanisi nanini.",
   "external-link-pattern": "Kuhlanganiswa ngokutiphetsa kubukeli bwetinkinga tangale",
   "external-link-pattern-description": "Ihlanganisa ngokutiphetsa titeleko letifaka \"#1234\" letitfolakala embhalweni wekhadi kubukeli bwetinkinga tangale. Shiya sigcamo lesisodva singenalutfo kutsi kuvinjelwe.",
   "external-link-pattern-prefix": "Sicalo setiteleko",

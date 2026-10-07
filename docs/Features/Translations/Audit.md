@@ -2967,6 +2967,25 @@ open for native/UI review. Fifty locale paths still need this hint, so the sourc
 key remains pending. The ordinary backlog remains 51,575 values plus 172 pending
 source keys; broader language-quality work remains open.
 
+### Custom URL scheme hint — southern African locales (2026-10-07)
+
+Filled eight locale values: Zulu (zu and zu-ZA), Xhosa, North Ndebele, Swati,
+Southern Sotho, Tswana and Northern Sotho. Existing translations were preserved
+through the placeholder-only merge. No translation service was used. Literal
+scheme names, the empty default, registered-application handling and permanent
+exclusion of the dangerous scheme examples are retained.
+
+The allowlist suite now checks the hint in 24 recently filled locales. Exact
+identifiers, missing-identifier rejection, source tokens, source key order,
+parser/sanitizer behavior, all-locale structure and 21 human-preference checks pass.
+Browser scenarios were syntax-checked but not run without the application stack.
+Technical wording, especially North Ndebele, Swati and Northern Sotho, has lower
+confidence and remains open for native/UI review.
+
+Forty-two locale paths still need this hint, so its source key remains pending.
+The ordinary backlog remains 51,575 values plus 172 pending source keys; broader
+language-quality work remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

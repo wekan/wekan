@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "E e rulagantsweng Thuso Kgokagano URL",
   "text-below-custom-login-logo": "Mokwalwa fa tlase E e rulagantsweng Go tsena Logo",
   "automatic-linked-url-schemes": "E e rulagantsweng URL Schemes e leng should ka boitiriso nna e e ka tobetswang. Nngwe URL Scheme ka nngwe mola",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Mo thulaganyong ya ntlha ga go na sepe, ka jalo ke dikgokagano tsa webo le imeile fela tse di ka tobetswang. Mofuta mongwe le mongwe wa kgokagano o o mo lenaaneng, jaaka thunderlink kgotsa onenote, o bula porokeramo e e kwadisitsweng go o dirisa. Mefuta ya javascript, data, vbscript le e e tshwanang le yone ga e ke e dirwa dikgokagano.",
   "external-link-pattern": "Kgokagano e e itirelang go selekanyi sa mathata sa kwa ntle",
   "external-link-pattern-description": "E kgokaganya ka boitshepo dipontsho tse di jaaka \"#1234\" tse di fitlhelwang mo mokwalong wa karata go selekanyi sa mathata sa kwa ntle. Tlogela lebala le le lengwe le se na sepe go se dirise.",
   "external-link-pattern-prefix": "Setshwaya sa pontsho",
