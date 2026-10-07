@@ -3830,6 +3830,14 @@ The [Quechua work entry](https://en.wiktionary.org/wiki/llamkay), [Aymara pedago
 
 Extended locale and browser coverage to all three locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in 16 locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
 
+## Multiple-parent controls: Moroccan Arabic and four European locales - 2026-10-07
+
+Filled three English placeholders in each of `ary`, `gv`, `ve-CC`, `rup` and `se` (15 values) through the protected fill workflow. The removal labels describe ending a subordinate-task relationship. Venetian was selected by its registered locale identity; the Aromanian draft does not copy the older Italian parent label.
+
+[Learn Manx](https://www.learnmanx.com/learning/intermediate/lesson-18-traa-dy-liooar---time-enough--1093/) supports the work vocabulary. Searches did not independently verify the proposed Aromanian task expression or Northern Sami compound; Romanian dictionary hits were not treated as Aromanian evidence. Aromanian and Manx phrases are low-confidence drafts. All software metaphors and inflections remain subject to language review; existing locale text is not proof of correct terminology.
+
+Extended locale and browser coverage to all five locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in 11 locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
