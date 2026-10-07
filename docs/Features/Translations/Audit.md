@@ -6889,6 +6889,17 @@ The combined translation run passes 158 checks. Two existing catalog checks fail
 on the missing due-date shortcut key. All 21 human-preference checks pass.
 Browser and screen-reader checks were not run. The wider audit remains open.
 
+## Tok Pisin remaining rule-control wording audit
+
+Corrected 16 English or mixed-language rule labels. Checks distinguish complete
+from incomplete, weekly from monthly schedules, selection from checkmarks, and
+preserve the import-count placeholder and symbolic N-day duration. Wording
+remains provisional pending fluent-speaker review.
+
+The combined translation run passes 160 checks. Two existing catalog checks fail
+on the missing due-date shortcut key. All 21 human-preference checks pass.
+Browser and screen-reader checks were not run. The wider audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

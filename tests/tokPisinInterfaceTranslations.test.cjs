@@ -2629,3 +2629,42 @@ test('Tok Pisin privacy labels preserve import/export directions and favorite ac
  assert.match(data['theme-override-all-tenants'],/olgeta tenant$/);
  assert.match(data['cards-loading-auto'],/bikpela bot tasol/);
 });
+
+
+test('Tok Pisin remaining rule labels retain tokens without mixed English',()=>{
+ const keys=[
+  "r-unselect-all",
+  "r-import-workflow",
+  "r-import-unmapped",
+  "r-when-scheduled",
+  "r-schedule-weekly",
+  "r-schedule-monthly",
+  "r-schedule-on-day",
+  "r-schedule-on-date",
+  "r-for-n-days",
+  "r-mark-complete",
+  "r-mark-incomplete",
+  "r-bottom-of",
+  "r-uncheck-all",
+  "r-items-check",
+  "r-with-items",
+  "r-of"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:Unselect|visual|workflow|Could|map|line|On|schedule|Every|day|days|Mark|incomplete|Bottom|Uncheck|Items|items|of)\b/,key);
+ }
+});
+
+test('Tok Pisin rule labels distinguish completion and schedule periods',()=>{
+ assert.match(data['r-mark-complete'],/olsem i pinis$/);
+ assert.match(data['r-mark-incomplete'],/olsem i no pinis$/);
+ assert.match(data['r-schedule-weekly'],/olgeta wik$/);
+ assert.match(data['r-schedule-monthly'],/olgeta mun$/);
+ assert.match(data['r-schedule-on-day'],/de bilong mun$/);
+ assert.match(data['r-for-n-days'],/N de$/);
+ assert.match(data['r-import-unmapped'],/no inap linkim __count__ lain/);
+ assert.match(data['r-uncheck-all'],/Rausim mak tik/);
+ assert.match(data['r-unselect-all'],/olgeta samting yu makim/);
+});
