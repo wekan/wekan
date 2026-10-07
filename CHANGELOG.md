@@ -1901,8 +1901,9 @@ known snapd 2.77.1 kernel problem behind it, four SAML settings can be set
 with `snap set` again, the **Rules** "Set color to" action can pick any card
 color, the Rules list's selection checkboxes are visible again, **card
 filters** follow a member's access changes even when the board observer
-stalls, the **D** keyboard shortcut opens the opened card's due date, and
-**pbkdf2** is updated for a denial-of-service advisory.
+stalls, the **D** keyboard shortcut opens the opened card's due date, today
+stands out in the **calendars**, and **pbkdf2** is updated for a
+denial-of-service advisory.
 
 This release adds the following new features:
 
@@ -1922,6 +1923,25 @@ the binding, the shared filter, the opened-card and permission rules and the
 help entry, with negative cases; the Playwright spec
 `due-date-keyboard-shortcut.e2e.js` covers the popup, shortcuts off and typing
 in fields.
+
+</details>
+
+**Calendar** - today is easy to find in the date popup and the board Calendar.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/519fb2c105f8a2b6e41d6125c3fe28501acfb360">Today's day stands out in the date popup and the board Calendar view</a>. Thanks to mimZD and xet7.</summary>
+
+The due, start and end date popup's calendar did not mark today at all. Today's
+day button now has the `is-today` class and `aria-current="date"`, and its cell
+`is-today-cell`: a ring and underline drawn in the button's own text colour and
+a subtle cell tint, so it stays visible on every board colour theme, custom
+theme colour, light and dark, and in RTL. The rule is more specific than the
+themes' picker button rules so none of them can hide it. The board Calendar
+view already tinted today's cell; its day number is now also a filled circle in
+the board theme's colour. `tests/calendarTodayMarker.test.cjs` pins the marker
+on today only, in Gregorian and Jalali, and that no CSS rule in `client/`
+overrides or hides it; the Playwright spec `calendar-today-marker.e2e.js`
+compares today with a neighbouring day in both calendars.
 
 </details>
 
