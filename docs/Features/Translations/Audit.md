@@ -3694,6 +3694,14 @@ The [Guarani dictionary](https://guarani-raity.com.py/guarani_castellano_y.html)
 
 Extended regression and browser coverage to these three locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Coverage and placeholder preservation do not establish fluency.
 
+## Map view: Northern Sami, Fulah and Kashmiri - 2026-10-07
+
+Filled seven English placeholders in each of `se`, `ff` and `ks` (21 values) through the protected fill workflow. The map-image examples and both placement methods are retained. The seven keys remain English in 10 locale paths and stay in the pending queue; the broader backlog remains 51,575 ordinary placeholders across 70 languages plus 160 pending source keys.
+
+[Nordregio's Sami maps](https://nordregio.org/app/uploads/2018/02/Text_saami.pdf) support the map noun. The [Kashmiri WordNet-derived entry](https://www.transliteral.org/dictionary/%D8%AE%D8%A7%DA%A9%DB%81%D9%95/word) supports plan/map vocabulary. Fulah searches did not verify the full map compound. These references do not validate the drafted sentences; Fulah and Kashmiri technical clauses are low-confidence drafts. Floor-plan phrasing and grammar remain provisional and need speaker review.
+
+Extended regression and browser coverage to these three locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Text coverage and placeholder inventories do not establish fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
