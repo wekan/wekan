@@ -263,7 +263,42 @@ const correctedKeys = [
   "blockly-CONTROLS_IF_TOOLTIP_2",
   "blockly-CONTROLS_IF_TOOLTIP_3",
   "blockly-CONTROLS_IF_TOOLTIP_4",
-  "blockly-CONTROLS_REPEAT_TITLE"
+  "blockly-CONTROLS_REPEAT_TITLE",
+  "blockly-CONTROLS_REPEAT_TOOLTIP",
+  "blockly-CONTROLS_WHILEUNTIL_OPERATOR_UNTIL",
+  "blockly-CONTROLS_WHILEUNTIL_OPERATOR_WHILE",
+  "blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL",
+  "blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE",
+  "blockly-COPY_ALL_TO_BACKPACK",
+  "blockly-COPY_SHORTCUT",
+  "blockly-COPY_TO_BACKPACK",
+  "blockly-CURRENT_BLOCK_ANNOUNCEMENT",
+  "blockly-CUT_SHORTCUT",
+  "blockly-DELETE_ALL_BLOCKS",
+  "blockly-DELETE_BLOCK",
+  "blockly-DELETE_VARIABLE",
+  "blockly-DELETE_VARIABLE_CONFIRMATION",
+  "blockly-DELETE_X_BLOCKS",
+  "blockly-DISABLE_BLOCK",
+  "blockly-DUPLICATE_BLOCK",
+  "blockly-DUPLICATE_COMMENT",
+  "blockly-EDIT_BLOCK_CONTENTS",
+  "blockly-EMPTY_BACKPACK",
+  "blockly-ENABLE_BLOCK",
+  "blockly-EXPAND_ALL",
+  "blockly-EXPAND_BLOCK",
+  "blockly-EXTERNAL_INPUTS",
+  "blockly-FIELD_BITMAP_ARIA_VALUE",
+  "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR",
+  "blockly-FIELD_BITMAP_BUTTON_LABEL_RANDOMIZE",
+  "blockly-FIELD_BITMAP_PIXEL_LABEL",
+  "blockly-FIELD_BITMAP_PIXEL_OFF",
+  "blockly-FIELD_LABEL_EDIT_PREFIX",
+  "blockly-FIELD_LABEL_EMPTY",
+  "blockly-FIELD_LABEL_OPTION_INDEX",
+  "blockly-FIELD_LABEL_VARIABLE",
+  "blockly-FIELD_MULTILINEINPUT_FINISH_EDITING",
+  "blockly-FIELD_MULTILINEINPUT_NEW_LINE"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -321,6 +356,12 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   assert.match(waray['blockly-CONTROLS_IF_TOOLTIP_4'], /Kon waray tinuod nga bili.*kataposan/);
   assert.ok(waray['blockly-COLOUR_BLEND_TOOLTIP'].includes('0.0 - 1.0'));
   assert.match(waray['blockly-COLOUR_RGB_TOOLTIP'], /0 ngan 100/);
+  assert.match(waray['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL'], /Samtang diri tinuod/);
+  assert.match(waray['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE'], /Samtang tinuod/);
+  for (const [a, b] of [['ENABLE_BLOCK', 'DISABLE_BLOCK'], ['EXPAND_BLOCK', 'COLLAPSE_BLOCK'], ['COPY_SHORTCUT', 'CUT_SHORTCUT']]) {
+    assert.notEqual(waray['blockly-' + a], waray['blockly-' + b]);
+  }
+  assert.match(waray['blockly-FIELD_BITMAP_PIXEL_LABEL'], /laray %2, kolum %3/);
   for (const [key, name] of [['gridfs-file-id', 'GridFS'], ['s3-file-id', 'S3'], ['azure-blob-storage-description', 'Microsoft Azure Blob Storage'], ['gcs-storage-description', 'Google Cloud Storage']]) {
     assert.ok(waray[key].includes(name), key);
   }

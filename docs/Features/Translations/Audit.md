@@ -4987,6 +4987,12 @@ mixed-language audit remains open.
 - Kept breaking out of a loop distinct from skipping to its next iteration, and retained the final fallback branch when no condition is true. Existing Waray comment and input vocabulary guided wording; loop, palette, backpack and function terminology remains provisional.
 - Extended corrected-key/token checks and control-flow/range regressions. These structural and phrase checks do not establish full semantic equivalence or fluency. Browser and spoken accessibility checks remain unexecuted; broader language review remains open.
 
+### Waray Blockly loop conditions, clipboard and field editing
+
+- Filled 35 English placeholders through the protected workflow. Translated while/until semantics, clipboard/backpack operations, deletion confirmations, enable/disable and expand controls, bitmap labels and field editing. Preserved keyboard legends and every numbered argument.
+- Until repeats while the condition is false; while repeats while it is true. Bitmap labels retain row/column ordering and the count of enabled pixels. Existing catalog wording guided translations; backpack, external-input and bitmap terminology remains provisional.
+- Extended token, condition-polarity, opposite-action and row/column regressions. Browser and spoken accessibility checks remain unexecuted; structural checks do not establish full fluency or semantic equivalence.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
