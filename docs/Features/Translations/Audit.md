@@ -7386,6 +7386,15 @@ inclusive comparisons and AND/OR behavior, and ensure conditional tooltips use
 the visible field labels. Delimiter and Boolean terminology remains low confidence
 pending fluent review. Browser and screen-reader checks were not run.
 
+### Bhojpuri Blockly arithmetic and number tests
+
+Filled 28 English placeholders for arithmetic, constants, bounds, divisibility,
+number types and remainders. Existing translations and formulas are preserved.
+Tests compare source tokens and key order, retain numeric constants and coordinate
+ranges, and distinguish number types and quotient/remainder operations. Inverse
+trigonometry terminology remains low confidence pending fluent review. Browser
+and screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
