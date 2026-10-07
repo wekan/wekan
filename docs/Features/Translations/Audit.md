@@ -905,6 +905,24 @@ together with all-locale structure and human-preference checks. Browser
 mute/unmute scenarios include both locales and are syntax-checked only;
 they were not executed.
 
+## Guaraní notification preferences — 2026-10-07
+
+Filled 13 English placeholders in Guaraní (`gn`), preserving existing
+translations. These keys remain pending elsewhere; the standard backlog
+remains 51,575 values and 201 pending source keys.
+
+Reminder and notification vocabulary was checked against
+[Guasch's dictionary](https://www.portalguarani.com/1688_antonio_guasch__/13583_diccionario_guarani__castellano_letra_m__por_antonio_guasch.html).
+Existing card/list terms are retained. These are direct translations without
+a translation service. Complete technical clauses, custom-field terminology
+and existing list/lane terminology remain low confidence pending speaker
+review; structural checks do not establish fluency.
+
+Shared notification checks now cover 55 locales. Exact tokens, source order,
+people-category distinctions and the reminder/mention exception pass,
+together with all-locale structure and human-preference checks. The Guaraní
+browser mute/unmute scenario is syntax-checked only; it was not executed.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
