@@ -1904,8 +1904,9 @@ each for the reason given:
 
 **In short:** The **Snap** now says at once when the computer's AppArmor policy,
 not the database, refuses WeKan's own database connection, with the fix for the
-known snapd 2.77.1 kernel problem behind it, and four SAML settings can be set
-with `snap set` again.
+known snapd 2.77.1 kernel problem behind it, four SAML settings can be set
+with `snap set` again, and the **Rules** "Set color to" action can pick any card
+color.
 
 This release fixes the following bugs:
 
@@ -1947,6 +1948,24 @@ name falls back to its default instead of calling snapctl.
 `tests/snapSettingsKeys.test.cjs` requires a key, default and description for
 every setting, rejects shared keys, and runs the real reader against a snapctl
 that fails like the real one.
+
+</details>
+
+**Rules** - the actions a rule can run.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1ad558f3710f69a307202eeb65d9ec0033d534cb">The Set color to action can pick any card color, not only green</a>. Thanks to titver968 and xet7.</summary>
+
+In [#6748](https://github.com/wekan/wekan/issues/6748) the color stayed green
+whatever swatch was clicked. The popup's swatch handler read the color from
+`Template.currentData()`, which in a Blaze event handler is the popup's own
+data, not the clicked swatch, so every click selected nothing. It now reads the
+swatch with `Blaze.getData(event.currentTarget)`, like the card, list and
+swimlane color popups. `tests/ruleSetColorActionPicker.test.cjs` runs the real
+handlers for every color, checks that a click without a color keeps the
+selection, and scans every palette handler under `client/` for the same
+mistake. A Playwright spec picks red in the Rules editor and checks the saved
+action; it was not run here.
 
 </details>
 
