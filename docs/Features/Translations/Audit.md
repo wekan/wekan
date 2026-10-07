@@ -3905,6 +3905,30 @@ There are still 59 locales with this English instruction. The broader backlog
 remains 51,575 ordinary placeholders in 70 languages plus 150 pending source
 keys; coverage is not a claim of linguistic quality.
 
+## Leo import instruction: Indic and southern African batch
+
+Filled 14 more English placeholders for `import-board-instruction-leo`: Bhojpuri,
+Maithili, Odia, Konkani, Southern Sotho, Tswana, Northern Sotho, Zulu and its
+South Africa locale, Xhosa, Swati, Northern Ndebele, Tsonga and Venda. Existing
+non-English translations were preserved by the fill helper. The instructions
+retain the hierarchy, card description, deeper checklists and marked completion
+state. Southern African clauses describe nodes as parts at specified levels.
+
+Vocabulary references include the [Goa administrative terminology glossary](https://dol.goa.gov.in/wp-content/uploads/2025/11/administrative-terminology.pdf)
+for Konkani level terminology and [Tshivenda curriculum material](https://nect.org.za/materials/home-languages/term-1/big-books/grade-2-covers/gr-2-term-1-big-book-cover-tshivenda.pdf)
+for attaching parts. These references do not validate the complete UI clauses.
+The full translations remain provisional, especially Konkani, Swati, Northern
+Ndebele and Venda; speaker review remains open.
+
+The locale regression preserves Leo, `.leo` and the source token inventory.
+The existing browser import scenario now checks the translated instruction for
+all 14 locales before importing; invalid-input coverage remains in place.
+All 12 focused Node tests and 21 human-preference checks pass, and browser syntax
+passes. Browser execution is still unverified because Playwright is unavailable.
+There are 45 locales still using this English instruction. The broader backlog
+remains 51,575 ordinary placeholders across 70 languages plus 150 pending source
+keys. Non-English coverage does not establish translation accuracy.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

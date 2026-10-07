@@ -23,7 +23,7 @@ Body &lt;script&gt;alert(1)&lt;/script&gt;2</t>
 </tnodes>
 </leo_file>`;
 
-for (const language of ['en', 'ku', 'ckb', 'tt', 'tk_TM', 'yi', 'so', 'ny']) {
+for (const language of ['en', 'ku', 'ckb', 'tt', 'tk_TM', 'yi', 'so', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've']) {
 const locale = require(`../../../imports/i18n/data/${language}.i18n.json`);
 test(`a Leo outline imports lists, cards, bodies and checklists (${language})`, async ({ loggedInPage: page }) => {
   let boardId;
