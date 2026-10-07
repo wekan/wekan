@@ -2086,6 +2086,26 @@ checks pass. Browser scenarios were not run; the app stack was unavailable.
 Tigre and Cherokee still need this message. The snapshot remains 51,575 ordinary
 missing values plus 182 pending keys; broader language review remains open.
 
+### SAML browser-tab error — Tigre, Cherokee and reconciliation (2026-10-07)
+
+Filled the remaining English placeholders in tig and chr, preserving existing
+translated values and using no translation service. Full phrases are low confidence
+and need native review. Cherokee retains borrowed browser/tab labels; replacing
+these with established terminology remains open. Tigre's start verb was checked
+against [The Tigre Language of Gindaʿ](https://www.speaktigre.com/_files/ugd/7e068a_adcb2a9df2c340898e3155ef3905c61e.pdf?index=true).
+Vocabulary and script checks do not validate complete phrases.
+
+All 234 non-English locale paths now have a nonempty value different from English
+for `saml-login-not-started`, with exact source placeholders. Removed the key from
+the pending queue: 181 keys remain. Detailed translation checks cover 66 recently
+filled locales. The popup-error suite passes positive and negative login-boundary
+cases and all-locale coverage. All-locale structural and human-preference checks
+pass. Browser scenarios were not run; the app stack was unavailable.
+
+The ordinary backlog remains 51,575 values in 70 languages. This is placeholder
+coverage, not a claim of fluent or correct-language text; the wider review and
+low-confidence SAML phrases remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

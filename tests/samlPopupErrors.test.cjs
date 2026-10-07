@@ -100,12 +100,28 @@ test('translated browser-tab errors preserve SAML and source placeholders', () =
   const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
   const en = JSON.parse(fs.readFileSync('imports/i18n/data/en.i18n.json', 'utf8'));
   const key = 'saml-login-not-started';
-  for (const code of ["tk_TM", "tt", "so", "ku", "ckb", "pap", "tpi", "bi", "mi", "sm", "haw", "zu", "zu-ZA", "xh", "st", "tn", "rw", "rn", "ny", "bho", "mai", "or_IN", "kok", "ary", "yi", "nd", "ss", "nso", "ts", "om", "fj", "to", "gv", "wa", "wa-RR", "ak", "lg", "bm", "wo", "ee", "rup", "ve-CC", "bua", "sah", "cv", "ve", "se", "ace", "bo", "dz", "ti", "ks", "qu", "ay", "gn", "ff", "vo", "tlh", "ve-PP", "wal", "kl", "iu", "nah", "zgh"]) {
+  for (const code of ["tk_TM", "tt", "so", "ku", "ckb", "pap", "tpi", "bi", "mi", "sm", "haw", "zu", "zu-ZA", "xh", "st", "tn", "rw", "rn", "ny", "bho", "mai", "or_IN", "kok", "ary", "yi", "nd", "ss", "nso", "ts", "om", "fj", "to", "gv", "wa", "wa-RR", "ak", "lg", "bm", "wo", "ee", "rup", "ve-CC", "bua", "sah", "cv", "ve", "se", "ace", "bo", "dz", "ti", "ks", "qu", "ay", "gn", "ff", "vo", "tlh", "ve-PP", "wal", "kl", "iu", "nah", "zgh", "tig", "chr"]) {
     const locale = JSON.parse(fs.readFileSync(`imports/i18n/data/${code}.i18n.json`, 'utf8'));
     assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source order`);
     assert.ok(locale[key]?.trim(), `${code}: nonempty`);
     assert.notEqual(locale[key], en[key], `${code}: no English fallback`);
     assert.match(locale[key], /SAML/, `${code}: protocol name`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(en[key]), `${code}: tokens`);
+  }
+});
+
+test('SAML browser-tab error has no English fallback in any non-English locale', () => {
+  const pending = JSON.parse(fs.readFileSync('releases/translations/pending-transifex.json', 'utf8'));
+  assert.ok(!pending.keys.some(entry => entry.key === 'saml-login-not-started'));
+  const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
+  const en = JSON.parse(fs.readFileSync('imports/i18n/data/en.i18n.json', 'utf8'));
+  const key = 'saml-login-not-started';
+  const files = fs.readdirSync('imports/i18n/data').filter(file => file.endsWith('.i18n.json') && !/^en(?:[-_.])/.test(file));
+  assert.equal(files.length, 234);
+  for (const file of files) {
+    const locale = JSON.parse(fs.readFileSync(`imports/i18n/data/${file}`, 'utf8'));
+    assert.ok(locale[key]?.trim(), `${file}: nonempty`);
+    assert.notEqual(locale[key], en[key], `${file}: no English fallback`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(en[key]), `${file}: source placeholders`);
   }
 });
