@@ -2339,6 +2339,28 @@ not run; the app stack was unavailable. 32 locale paths still need this group.
 The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
 broader language-quality review remains open.
 
+### Rule-builder instructions — Waray and Akan (2026-10-07)
+
+Filled seven pending strings in wa-RR and ak (14 values), preserving existing
+correct-language translations and all literal variable expressions. No translation
+service was used. Replaced French/English seed labels for trigger, swimlane and
+checklist in Waray; explicit regression checks reject the old labels.
+The text retains any-trigger behavior, ordered actions, username/email context and
+card-derived variables. Akan technical prose has lower confidence; recipient fields,
+variable values and composed date fragments need native/UI review. The existing
+Akan trigger and action labels are the same vague phrase and remain review items.
+References: [Waray corpus dictionary](https://dictionary.corporaproject.org/index.php?glossary=S&sort=word)
+for ngaran and sequence vocabulary, and the
+[Twi basic course](https://fsi-languages.yojik.eu/languages/FSI/Twi/Basic/FSI%20-%20Twi%20Basic%20Course%20-%20Student%20Text.pdf)
+for mmara (rule). These references support vocabulary, not full-sentence accuracy.
+
+The existing trigger-variable suite now checks 36 recently filled locales for
+source order and exact brace/underscore/percent tokens. Runtime matching,
+all-locale structural and human-preference checks pass. Browser scenarios were
+not run; the app stack was unavailable. 30 locale paths still need this group.
+The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
+broader language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
