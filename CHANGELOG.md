@@ -1890,6 +1890,20 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3edf06cee81ae2dc0f5b4aee4fd08778eee3be48">Translate rule-builder instructions in Zulu and Xhosa</a>. Thanks to xet7.</summary>
+
+- Fill seven strings in zu, zu-ZA and xh, preserving literal variable expressions,
+  any-trigger behavior and ordered actions. Trigger wording and composed date labels
+  need native/UI review; the audit records Xhosa's existing swimlane inconsistency.
+- Translation checks now cover 14 recently filled locales. Runtime variable tests,
+  all-locale structural and human-preference checks pass. Browser scenarios were
+  not run; the app stack was unavailable.
+- 52 locale paths still need this group. The ordinary backlog remains 51,575 values
+  plus 181 pending source keys; broader language-quality review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8928e1510ea663d1f942c6ab4badcabb21e2ff57">Translate rule-builder instructions in Māori, Samoan and Hawaiian</a>. Thanks to xet7.</summary>
 
 - Fill seven strings in three locales, preserving literal variable expressions and
