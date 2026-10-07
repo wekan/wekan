@@ -7170,6 +7170,15 @@ copy semantics and the not-found sentinel. Index and sublist terminology
 remains low confidence pending fluent review. Browser and screen-reader checks
 were not run; tests do not establish fluency.
 
+### Kurdish Blockly sorting and logic
+
+Filled 29 English placeholders covering list sorting and splitting, comparisons,
+Boolean logic and conditional values. Existing translations and the null literal
+are preserved. Tests compare source tokens and key order, distinguish inclusive
+comparisons and AND/OR behavior, and match tooltip field names to visible labels.
+Technical wording for case-insensitive sorting remains low confidence pending
+fluent review. Browser and screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
