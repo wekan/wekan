@@ -1869,7 +1869,7 @@ each for the reason given:
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.20 2026-10-07 WeKan ® release
 
 **In short:** Makes opening and closing a card on a **large board** fast again:
 one card open no longer re-renders every card on the board, and a card opened
