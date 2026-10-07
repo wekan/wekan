@@ -7,7 +7,7 @@ const KEY = 'wekan-history-key-request';
 const plant = (page, request) => page.evaluate(({ KEY, request }) => sessionStorage.setItem(KEY, JSON.stringify(request)), { KEY, request });
 const stored = page => page.evaluate(KEY => sessionStorage.getItem(KEY), KEY);
 
-for (const language of ['en', 'ku', 'ckb', 'tt', 'tk_TM', 'yi', 'ary', 'bho', 'mai', 'or_IN', 'kok', 'so', 'om', 'rw', 'rn', 'ny', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've']) {
+for (const language of ['en', 'ku', 'ckb', 'tt', 'tk_TM', 'yi', 'ary', 'bho', 'mai', 'or_IN', 'kok', 'so', 'om', 'rw', 'rn', 'ny', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've', 'bi', 'tpi', 'mi', 'sm']) {
   const locale = require(`../../../imports/i18n/data/${language}.i18n.json`);
   test(`an unanswered undo is shown, and can be forgotten or retried in ${language}`, async ({ boardPage: page, board }) => {
     await page.evaluate(async language => { await Meteor.callAsync('setLanguage', language); }, language);

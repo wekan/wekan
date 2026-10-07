@@ -3492,6 +3492,12 @@ Filled 20 English placeholders in `ss`, `nd`, `ts` and `ve` with the protected f
 
 Extended the translation/token regression and existing localized browser scenario to the four locales. Translation, recovery-notice, request logic and 234-locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 41 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
 
+### History recovery: Bislama, Tok Pisin, Māori and Samoan
+
+Filled 20 English placeholders in `bi`, `tpi`, `mi` and `sm` with the protected fill utility. The drafts distinguish reversing a change from doing it again, and retain the explanation that repeating the same request cannot reverse a second change. [Te Aka's whakakore entry](https://maoridictionary.co.nz/word/9547) includes undo among its senses; this supports the root, not the full Māori sentences. Undo/redo nominalization, request terminology and full clauses remain provisional in these four drafts and need fluent-speaker review.
+
+Extended the translation/token regression and existing localized browser scenario to the four locales. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 37 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
