@@ -628,3 +628,23 @@ test('Akan storage guidance preserves provider names and repair identifiers', as
  assert.match(data['sandstorm-raw-mongodb-deleted'],/^Wɔapopa.*beae a ada hɔ$/);
  assert.match(data['fix-all-file-urls-migration'],/URL nyinaa/);
 });
+
+
+test('Akan board controls and account emails preserve actions and placeholders', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["fix-all-file-urls-migration-description", "step-scan-files", "no-new-problems", "card-labels-title", "casSignIn", "samlSignIn", "close-dialog", "close-popup", "email-verifyEmail-text", "email-resetPassword-text", "trello-api-token", "label-text-follows-board", "label-text-use-board-default", "not-accepted-yet", "board-drag-drop-reorder-or-click-open", "board-open-and-move-between-remaining-and-workspaces", "click-to-star", "click-to-unstar", "click-to-star-page", "click-to-unstar-page", "sort-desc", "filter-hide-empty", "set-color-list"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ for(const suffix of ['','-page']){
+  assert.match(data['click-to-star'+suffix],/hyɛ.*nsoromma/);
+  assert.match(data['click-to-unstar'+suffix],/yi nsoromma.*fi/);
+ }
+ for(const key of ['email-resetPassword-text','email-verifyEmail-text']) assert.equal(data[key].split('\n\n').length,english[key].split('\n\n').length);
+ assert.notEqual(data['email-resetPassword-text'],data['email-verifyEmail-text']);
+ assert.match(data['not-accepted-yet'],/Wɔnnya.*ntom/);
+ assert.match(data['no-new-problems'],/biara nni hɔ/);
+ assert.match(data['filter-hide-empty'],/biribiara nni mu/);
+ assert.match(data['trello-api-token'],/Trello API token.*API/);
+ assert.match(data['casSignIn'],/CAS/); assert.match(data['samlSignIn'],/SAML/);
+ assert.match(data['fix-all-file-urls-migration-description'],/URL nyinaa.*akorabea.*asɛe/);
+ assert.match(data['board-open-and-move-between-remaining-and-workspaces'],/__workspaces__/);
+});

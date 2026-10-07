@@ -5487,6 +5487,16 @@ wording. Added source-token, identifier and scope regression checks. Technical
 wording remains low confidence pending fluent-speaker review. Browser checks
 remain unrun; English-placeholder counts are unchanged.
 
+## Akan board controls and email corrections (batch 36)
+
+Corrected 23 mixed-language or misleading values for board controls, account
+emails, invitation status and file repair. The invitation label previously told
+the user to accept/save instead of reporting that it had not been accepted.
+Preserved email paragraphs/tokens, workspace placeholders, CAS/SAML and opposing
+star/unstar actions. Added regression checks. Technical wording remains low
+confidence pending fluent-speaker review; browser checks remain unrun.
+English-placeholder counts are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
