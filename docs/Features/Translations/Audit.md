@@ -664,6 +664,31 @@ all-locale structure and human-preference checks. Browser mute/unmute
 scenarios now include these three locales and pass syntax checking only;
 no browser execution was available.
 
+## Wolof and Ewe notification preferences — 2026-10-07
+
+Filled 13 English placeholders each in Wolof (`wo`) and Ewe (`ee`): 26
+values. Existing translations are preserved. These keys remain pending
+elsewhere, so the standard backlog stays at 51,575 values with 201 pending
+source keys.
+
+The descriptions retain the due-date reminder/@mention exception and
+separate members from people assigned work. Wolof vocabulary was checked
+against [Janga Wolof's dictionary](https://jangawolof.org/dictionary-wolof-to-english/)
+and the [Peace Corps manual](https://fsi-languages.yojik.eu/languages/PeaceCorps/Wolof/ED226616.pdf).
+The bell term `jóolóoli` follows the
+[Wolof word list](https://wolofresources.org/language/download/lexicarry_plus.pdf).
+Ewe notification wording uses the nyanya vocabulary also seen in
+[the Ewe parent letters](https://www.txel.org/media/wmqlbyvt/47-ewe-complete.pdf).
+These are direct translations without a translation service. Full technical
+clauses, custom fields and lane terminology remain low confidence pending
+speaker review; dictionary matches do not establish sentence-level fluency.
+
+Shared notification checks now cover 40 locales. Exact placeholders, source
+order, distinct people categories and the muting exception pass, together
+with all-locale structure and human-preference checks. Browser mute/unmute
+scenarios include both locales and pass syntax checking only; no browser
+execution was available.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
