@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Pindah aliranrenang",
   "custom-field-stringtemplate": "Templat rentetan",
   "custom-field-stringtemplate-format": "Format (ngui %{value} keu placeholder)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Nguy %{card.title}, %{board.title}, %{list.title} atawa %{swimlane.title}. Tamah |urlencode bak variabel keu parameter URL, misai jih %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Pemisah (ngui &#32; atawa &nbsp; keu spasi)",
   "custom-field-stringtemplate-item-placeholder": "Teugon Enter keu tamah item lom",
   "creator": "Pencipta",

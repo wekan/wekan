@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Sirdde bálgá",
   "custom-field-stringtemplate": "Teakstamálle",
   "custom-field-stringtemplate-format": "Formáhtta (geavat %{value} sadjásažžan)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Geavat %{card.title}, %{board.title}, %{list.title} dahje %{swimlane.title}. Lasit |urlencode rievdavaš árvvu mearkii URL-paramehtera várás, ovdamearkka dihtii %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Sirrejeaddji (geavat &#32; dahje &nbsp; gaskka várás)",
   "custom-field-stringtemplate-item-placeholder": "Deaddil enter lasihan dihtii eanet merkošiid",
   "creator": "Ráhkadeaddji",

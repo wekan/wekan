@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Sposta swimlane",
   "custom-field-stringtemplate": "Plantilla de cadenas",
   "custom-field-stringtemplate-format": "Formato (dopara %{value} come segnaposto)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Dòpara %{card.title}, %{board.title}, %{list.title} o %{swimlane.title}. Zonta |urlencode a na variàbiłe par un paràmetro de URL, par ezénpio %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Separador (dopara &#32; o &nbsp; par un spasio)",
   "custom-field-stringtemplate-item-placeholder": "Struca Invio par zontar altre vozi",
   "creator": "Creatore",

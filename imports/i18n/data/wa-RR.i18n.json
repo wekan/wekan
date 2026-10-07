@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Ibalhin an Swimlane",
   "custom-field-stringtemplate": "Modèle de chaîne",
   "custom-field-stringtemplate-format": "Pormat (gamita an %{value} bilang placeholder)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Gamita an %{card.title}, %{board.title}, %{list.title} o %{swimlane.title}. Idugang an |urlencode ha usa nga baryabol para magamit sugad nga parametro han URL, pananglitan %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Separador (gamita an &#32; o &nbsp; para ha espasyo)",
   "custom-field-stringtemplate-item-placeholder": "Iduot an enter basi magdugang hin dugang nga item",
   "creator": "Naghimo",

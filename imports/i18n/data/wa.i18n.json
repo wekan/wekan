@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Djoonner coridôr",
   "custom-field-stringtemplate": "Modèl de tèxe",
   "custom-field-stringtemplate-format": "Format (eployî %{value} come tchamp a rimpli)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Eployîz %{card.title}, %{board.title}, %{list.title} ou %{swimlane.title}. Radjoutez |urlencode a ene variåbe po on paramete d' URL, metans %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Separateu (eployî &#32; ou &nbsp; po èn espåce)",
   "custom-field-stringtemplate-item-placeholder": "Tchôkîz so Enter po radjouter d' ôtes cayets",
   "creator": "Ahiveu",

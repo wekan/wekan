@@ -316,7 +316,7 @@ test('String Template hints retain executable variable examples and URL encoding
   const { formatStringTemplate } = require('../models/lib/customFieldStringTemplate');
   const key = 'custom-field-stringtemplate-context-hint';
   const source = JSON.parse(fs.readFileSync(path.join(directory, 'en.i18n.json')))[key];
-  for (const code of ['ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm', 'tk_TM', 'yi', 'bho', 'mai', 'or_IN', 'kok', 'pap', 'ary', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've', 'bi', 'tpi', 'fj', 'to', 'haw', 'om', 'rw', 'rn', 'lg']) {
+  for (const code of ['ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm', 'tk_TM', 'yi', 'bho', 'mai', 'or_IN', 'kok', 'pap', 'ary', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've', 'bi', 'tpi', 'fj', 'to', 'haw', 'om', 'rw', 'rn', 'lg', 'wa', 'wa-RR', 'ace', 'gv', 'se', 've-CC', 'rup']) {
     const locale = JSON.parse(fs.readFileSync(path.join(directory, code + '.i18n.json')));
     const value = locale[key];
     assert.ok(value?.trim(), code);

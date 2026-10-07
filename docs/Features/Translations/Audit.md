@@ -4388,6 +4388,13 @@ mixed-language audit remains open.
 - All 23 focused Node tests and 21 human-preference checks pass. Extended executable-example/token checks and positive/negative browser coverage to the nine locales. Browser syntax passes; execution remains unverified because the local Playwright executable is unavailable.
 - Ordinary placeholders decrease from 50,240 to 50,231 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## String Template context hint: seven further locales (2026-10-07)
+
+- Filled the variable and URL-encoding hint in Walloon, Waray, Acehnese, Manx, Northern Sami, Venetian and Aromanian, preserving all literal examples. These technical sentences remain provisional, particularly Manx, Northern Sami and Aromanian.
+- Corrected the draft Manx opening to `Jean ymmyd jeh`, using the imperative attested in the [ymmyd entry](https://en.wiktionary.org/wiki/ymmyd). The Aromanian use-verb is also attested in a [dialect teaching manual](https://lingv.ro/wp-content/uploads/2025/10/Manual-de-dialect-aroman-pentru-elevii-si-studentii-din-Albania.pdf). These references support individual wording choices, not full-sentence validation.
+- All 23 focused Node tests and 21 human-preference checks pass. Extended token/executable-example checks and positive/negative localized browser coverage. Browser syntax passes; execution remains unverified because Playwright is unavailable locally.
+- Ordinary placeholders decrease from 50,231 to 50,224 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

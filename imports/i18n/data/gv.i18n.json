@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Gleash cassan",
   "custom-field-stringtemplate": "Co-earroo streng",
   "custom-field-stringtemplate-format": "Aght (ymmyd %{value} myr ynnyd-reih)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Jean ymmyd jeh %{card.title}, %{board.title}, %{list.title} ny %{swimlane.title}. Cur |urlencode rish cowrey son leagh caghlaaee son parameter URL, myr sampleyr %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Scarreyder (ymmyd &#32; ny &nbsp; son ream)",
   "custom-field-stringtemplate-item-placeholder": "Broogh enter dy chur nheeghyn elley",
   "creator": "Croodeyr",
