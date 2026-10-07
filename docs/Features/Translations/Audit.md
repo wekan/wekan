@@ -3862,6 +3862,14 @@ The [Fulfulde dictionary](https://www.mooreburkina.com/sites/www.mooreburkina.co
 
 Extended locale and browser coverage to both locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in five locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
 
+## Multiple-parent controls: Nahuatl and Standard Moroccan Tamazight - 2026-10-07
+
+Filled three English placeholders in each of `nah` and `zgh` (six values) through the protected fill workflow. The removal wording ends a subordinate relationship without describing card deletion.
+
+The [Nahuatl dictionary](https://nahuatl.wired-humanities.org/content/tequitl) supplies task vocabulary, and [IRCAM's teaching publication](https://biblio.ircam.ma/pmb/catalogue/doc_num.php?explnum_id=381) supports the Tamazight work noun. Neither validates the complete UI phrases. Both sets of technical sentences, parent-card metaphors and grammatical forms remain low-confidence drafts requiring language review. Tifinagh script alone does not prove Standard Moroccan usage.
+
+Extended locale and browser coverage to both locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in three locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
