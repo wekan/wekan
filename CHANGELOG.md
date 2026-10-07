@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f9714a0d048254b771b01ee51f27b44e825019ed">Correct 42 foreign-language Waray search aliases.</a></summary>
+
+- Replace French and Walloon operator/predicate values with single-token Waray aliases. Preserve existing shorthand symbols and abbreviations.
+- Exercise the actual parser for translated text queries, positive/negative attachment existence, invalid predicates and modified dates. Compact query wording remains provisional.
+- English placeholders remain at 46,305 across 70 languages, with 148 source keys tracked separately for wording review.
+- Validation: 28 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/60c0cd14851fd84910fe346fc568cf4e1f91fc45">Correct 21 foreign-language Waray synchronization and attachment labels.</a></summary>
 
 - Replace French and Walloon list-sync controls, credential states and attachment query terms. Preserve the 15-minute interval, failure argument and source identifiers.
