@@ -316,7 +316,7 @@ test('String Template hints retain executable variable examples and URL encoding
   const { formatStringTemplate } = require('../models/lib/customFieldStringTemplate');
   const key = 'custom-field-stringtemplate-context-hint';
   const source = JSON.parse(fs.readFileSync(path.join(directory, 'en.i18n.json')))[key];
-  for (const code of ['ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm', 'tk_TM', 'yi', 'bho', 'mai', 'or_IN', 'kok', 'pap', 'ary', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've', 'bi', 'tpi', 'fj', 'to', 'haw', 'om', 'rw', 'rn', 'lg', 'wa', 'wa-RR', 'ace', 'gv', 'se', 've-CC', 'rup', 'ak', 'bm', 'ee', 'wo', 'ff', 'ks', 'bua', 'cv', 'sah', 'bo', 'dz', 'ti', 'qu', 'ay', 'gn', 've-PP', 'vo', 'tlh']) {
+  for (const code of ['ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm', 'tk_TM', 'yi', 'bho', 'mai', 'or_IN', 'kok', 'pap', 'ary', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've', 'bi', 'tpi', 'fj', 'to', 'haw', 'om', 'rw', 'rn', 'lg', 'wa', 'wa-RR', 'ace', 'gv', 'se', 've-CC', 'rup', 'ak', 'bm', 'ee', 'wo', 'ff', 'ks', 'bua', 'cv', 'sah', 'bo', 'dz', 'ti', 'qu', 'ay', 'gn', 've-PP', 'vo', 'tlh', 'nah', 'wal', 'zgh', 'kl']) {
     const locale = JSON.parse(fs.readFileSync(path.join(directory, code + '.i18n.json')));
     const value = locale[key];
     assert.ok(value?.trim(), code);
@@ -327,6 +327,16 @@ test('String Template hints retain executable variable examples and URL encoding
       const context = { 'card.title': 'Card', 'board.title': 'Board', 'list.title': 'List', 'swimlane.title': 'Lane' };
       const result = formatStringTemplate(['a & ö'], token, '', context);
       assert.equal(result, token.includes('|urlencode') ? 'a%20%26%20%C3%B6' : context[token.slice(2, -1)], code + ':' + token);
+    }
+    if (code === 'wal') {
+      assert.doesNotMatch(locale['custom-field-stringtemplate-format'], /Wolayttatto:|Format|placeholder/);
+      assert.match(locale['custom-field-stringtemplate-format'], /gatiyaa bessa malaataadan/);
+      assert.deepEqual(translationTokens(locale['custom-field-stringtemplate-format']), ['%{value}']);
+    }
+    if (code === 'zgh') {
+      const prose = value.replace(/%\{[^}]+\}|\|urlencode|URL/g, '');
+      assert.match(prose, /\p{Script=Tifinagh}/u);
+      assert.doesNotMatch(prose, /[A-Za-z]|\p{Script=Arabic}/u);
     }
     if (code === 'ts') {
       assert.match(locale['custom-field-stringtemplate-format'], /mfungho wo yimela nkoka/);

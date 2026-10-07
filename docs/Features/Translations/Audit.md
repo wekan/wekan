@@ -4408,6 +4408,13 @@ mixed-language audit remains open.
 - All 23 focused Node tests and 21 human-preference checks pass. Extended token/executable-example checks and localized positive/negative browser coverage. Browser syntax passes; execution remains unverified because Playwright is unavailable locally.
 - This hint remains English in seven locales. Ordinary placeholders decrease from 50,212 to 50,206 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## String Template context hint: four further locales (2026-10-07)
+
+- Filled the variable and URL-encoding hint in Nahuatl, Wolaytta, Standard Moroccan Tamazight and Greenlandic. All four remain low-confidence technical drafts requiring semantic review. Preserved each literal code example; added a Tifinagh prose check that excludes the required code literals.
+- Replaced the adjacent Wolaytta format label's English text and language-name prefix with a provisional Wolaytta description. Added a regression check rejecting that English filler while preserving `%{value}`. Consulted the [Wolaytta teaching text](https://camaraethiopia.org.et/SNNPR/moe/content/SNE_TB/Sign%20Language%20G1-12/03-Wolayitato-Books-Sign-Language/07-HD-ESL-G7-SB.pdf) for example vocabulary; this does not validate the full technical wording.
+- All 23 focused Node tests and 21 human-preference checks pass. Extended localized positive/negative browser coverage; syntax passes, but execution remains unverified because Playwright is unavailable locally.
+- This hint remains English in Cherokee, Inuktitut and Tigre. Ordinary placeholders decrease from 50,206 to 50,202 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

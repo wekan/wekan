@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Aqqut nuuguk",
   "custom-field-stringtemplate": "Allakkap ilaarutaa",
   "custom-field-stringtemplate-format": "Ilusaa (inissaanut %{value} atoruk)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "%{card.title}, %{board.title}, %{list.title} imaluunniit %{swimlane.title} atoruk. Nalinga allanngorsinnaasumut nalunaaqqummut |urlencode ilannguguk URL-imi parameteritut atorneqarnissaanut, assersuutigalugu %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Immikkoortitsissut (space-mut &#32; imaluunniit &nbsp; atoruk)",
   "custom-field-stringtemplate-item-placeholder": "Immikkoortut amerlanerusut ilanngunniarlugit enter tooruk",
   "creator": "Pilersitsisoq",

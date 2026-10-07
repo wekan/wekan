@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Xicmijcueni ohtli",
   "custom-field-stringtemplate": "Tlahtolli machiyotl",
   "custom-field-stringtemplate-format": "Quen mochihua (xictequiti %{value} quen tlacahuililli)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Xictequiti %{card.title}, %{board.title}, %{list.title} anozo %{swimlane.title}. Xictlali |urlencode ipan machiyotl ipatca tlen huel mopatla, ic tictitlaniz ipan URL, iuhquin %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Tlapantli (xictequiti &#32; noso &nbsp; ic ce tlacoyan)",
   "custom-field-stringtemplate-item-placeholder": "Xicpacho Enter ic ticcalaquiz occe tlamantli",
   "creator": "Chihqui",
