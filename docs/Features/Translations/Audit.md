@@ -6308,6 +6308,25 @@ in other locales. All 21 human-preference checks pass. Browser and screen-reader
 checks were not run. Backpack, parent-block and accessibility wording remains
 provisional pending fluent-speaker review. The broader language audit is open.
 
+## Māori Blockly mathematics — 2026-10-08
+
+Filled 86 English placeholders for arithmetic, statistics, number predicates,
+rounding, constants and trigonometry. Existing translations remain unchanged.
+Vocabulary follows the [Paekupu mathematics glossary](https://media.paekupu.co.nz/words/wordlist/p%C4%81ngarau/english-to-maori)
+and [geometry glossary](https://paekupu.co.nz/topic/ahuahanga/english-to-maori),
+including ine mahora, pūtakerua, pūkōaro, aho, whenu and pātapa. Natural logarithm
+is described as base-e logarithm; radians retain the unit identifier rad.
+Golden-ratio and compound tooltip wording remains provisional pending fluent
+review; dictionary terms do not establish full-sentence accuracy.
+
+The combined focused run passes 59 checks, including all 23 Māori checks.
+Two shared catalog checks still fail on missing shortcut-edit-due-date keys
+in other locales. All 21 human-preference checks pass. Coverage preserves
+source tokens, formula literals, random interval endpoints, degree/radian
+contrasts, operand order, signs and distinct statistical/rounding operations.
+Browser and screen-reader checks were not run. The broader language audit
+remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
