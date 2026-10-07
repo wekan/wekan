@@ -351,6 +351,30 @@ human-preference and the related list-width suite pass. The browser mutation
 scenario includes Tamazight and is syntax-checked only; no browser execution
 was available. Script checks do not establish fluency or dialect suitability.
 
+## Wolaytta archiving/date filters — 2026-10-07
+
+Filled 23 English placeholders in Wolaytta (`wal`). Comparison against the
+previous commit confirms those feature changes replace only placeholders.
+Also replaced three English-prefixed labels: day/week/month now use
+`Gallassata`, `Saaminttaa` and `Aginaa`. The standard backlog falls by 20 to
+51,615 values; three auto-archive values belong to pending keys. Prefixed
+English labels were not included in the standard placeholder count.
+
+The [Wolayttattuwa phrasebook](https://en.wikivoyage.org/wiki/Wolayttattuwa_phrasebook)
+provides day/hour/week/month and past/future terms; the
+[Wolayttatto school scope and sequence](https://pdf.usaid.gov/pdf_docs/PA00MQWZ.pdf)
+uses week/day vocabulary. Existing catalog terms provide card/list/archive
+labels. These references support components, not complete software sentences.
+Longer wording remains low confidence pending speaker review, especially
+negation, inclusive bounds, list age and quoted custom-field names.
+
+The feature suite now covers 67 locales and checks exact tokens, numbers
+and query examples. Wolaytta assertions retain the negative rules, distinguish
+past-week from next-month wording and protect the repaired basic labels.
+Feature, all-locale structure, human-preference and the related Wolaytta
+progress/list-width checks pass. The browser mutation scenario includes
+Wolaytta and is syntax-checked only; it was not browser-executed.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
