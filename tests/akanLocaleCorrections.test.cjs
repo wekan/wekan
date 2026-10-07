@@ -1154,3 +1154,22 @@ test('Akan navigation and swimlane labels preserve home removal without deletion
  assert.match(data['location-detect-done'],/Wɔahyɛ.*ase ha/);
  assert.match(data['page-not-found'],/^Wɔanhu/);
 });
+
+
+test('Akan migration labels preserve warning/error and execution distinctions', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["source-board", "board-status-time-summary", "cron-migration-errors", "cron-migration-warnings", "cron-migrations-resumed", "all-migrations", "select-migration", "migration-paused", "migration-started", "migration-not-needed", "board-migration", "board-migrations", "comprehensive-board-migration", "migration-detector"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.match(data['cron-migration-errors'],/mfomso$/);
+ assert.match(data['cron-migration-warnings'],/kɔkɔbɔ$/);
+ assert.match(data['cron-migrations-resumed'],/^Wɔasan atoa.*so yiye/);
+ assert.match(data['migration-paused'],/kakra/);
+ assert.match(data['migration-started'],/^Wɔafi.*ase/);
+ assert.match(data['migration-not-needed'],/^Ɛho nhia/);
+ assert.match(data['all-migrations'],/nyinaa$/);
+ assert.match(data['comprehensive-board-migration'],/nsɛm nyinaa/);
+ assert.match(data['migration-detector'],/ɛhwehwɛ sɛ ehia/);
+ assert.notEqual(data['board-migration'],data['board-migrations']);
+ assert.match(data['source-board'],/nsɛm no fi mu/);
+ assert.match(data['board-status-time-summary'],/Bere a wɔde yɛɛ adwuma/);
+});

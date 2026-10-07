@@ -5742,6 +5742,14 @@ Added token, scope and label-consistency checks. Wording remains low confidence
 pending fluent-speaker review; browser checks remain unrun. Placeholder counts
 are unchanged.
 
+## Akan migration-label corrections (batch 64)
+
+Corrected 14 mixed-language migration and summary labels. Preserved error/warning,
+paused/started/resumed and not-needed distinctions, as well as comprehensive scope.
+Added token, state and terminology checks. Technical wording remains low confidence
+pending fluent-speaker review; browser checks remain unrun. Placeholder counts
+are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
