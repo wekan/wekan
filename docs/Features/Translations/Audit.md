@@ -7335,6 +7335,15 @@ order, retain loop-only restrictions, distinguish true/false conditions and chec
 the final fallback branch. Loop and iteration terminology remains low confidence
 pending fluent review. Browser and screen-reader checks were not run.
 
+### Bhojpuri Blockly editing and accessibility labels
+
+Filled 39 English placeholders for copy/cut/delete, block states, bitmap fields,
+keyboard help and icon labels. Existing translations are preserved. Tests compare
+source tokens and key order, distinguish enabled/disabled and open/closed states,
+and retain deletion counts, bitmap coordinates and help keys. Bitmap-column and
+inline-input wording remains low confidence pending fluent review. Browser and
+screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
