@@ -4735,6 +4735,14 @@ mixed-language audit remains open.
 - Existing browser flows include all five locales; browser execution and spoken accessibility verification remain outstanding. Tests establish structural distinctions, not fluency.
 - This batch removes 55 ordinary placeholders and corrects two mixed-language values. The 148 pending source keys and broader semantic audit remain open.
 
+### Bislama, Tok Pisin, Fijian and Samoan field types
+
+- Filled 44 English field-type placeholders across `bi`, `tpi`, `fj` and `sm`, preserving correct-language values and source arguments through the protected fill.
+- Replaced four mixed-language selector labels in Bislama and Tok Pisin, including the prefixed English `Tok blong sistem: Checkbox` and `Toksave: Checkbox`. Added exact correction checks and extended field-type distinctions/token coverage.
+- Vocabulary references: [Bislama spelling dictionary](https://bislama.org/images/dictionary/BislamaSpellingDictionary-EN-BI-v1.1.pdf), [Tok Pisin dictionary](https://en.wikibooks.org/wiki/Tok_Pisin/Dictionary), [Gatty's Fijian dictionary](https://www.folksong.org.nz/isa_lei/Fijian-English_Dictionary.pdf) and [Samoan dictionary](https://pure.mpg.de/rest/items/item_404545_3/component/file_404544/content). These support ordinary vocabulary, not all technical adaptations.
+- Low confidence: angle/corner distinctions, pixel loans, grid descriptions as an arrangement of boxes, and ordinary work nouns for programming functions need review. Input is described as information/things put inside; it may need greater precision for Blockly connections. Full phrases are direct drafts.
+- Existing browser flows cover field editing in all four locales, but browser execution and spoken announcements remain unverified. This batch removes 44 ordinary placeholders and corrects four mixed-language values; the broader semantic audit and 148 pending source keys remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

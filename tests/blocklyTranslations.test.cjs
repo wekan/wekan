@@ -70,10 +70,18 @@ test('Luganda generic selectors do not retain English with a language label',()=
  assert.equal(data['custom-field-checkbox'],"Akasanduuko ak'okulonda");
 });
 
+test('Bislama and Tok Pisin selectors do not retain prefixed English filler',()=>{
+ for(const [code,dropdown,checkbox] of [['bi','Lis we i open i go daon','Bokis blong tikim'],['tpi','Lis i op i go daun','Bokis bilong tikim']]){
+  const data=require(`../imports/i18n/data/${code}.i18n.json`);
+  assert.equal(data['custom-field-dropdown'],dropdown);
+  assert.equal(data['custom-field-checkbox'],checkbox);
+ }
+});
+
 test('filled field types distinguish images, selectors and input names', async()=>{
  const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
  const names='ANGLE BITMAP CHECKBOX COLOUR DATE DROPDOWN GRID IMAGE INPUT TEXT_INPUT_ARGUMENT TEXT_INPUT_PROCEDURE'.split(' ');
- for(const code of ['ku','ckb','tt','so','yi','ary','bho','mai','tk_TM','or_IN','kok','pap','wuu-Hans','wa','wa-RR','ve-CC','gv','rup','st','tn','nso','zu','zu-ZA','xh','ss','ts','ve','nd','rw','rn','lg','om','ny']){
+ for(const code of ['ku','ckb','tt','so','yi','ary','bho','mai','tk_TM','or_IN','kok','pap','wuu-Hans','wa','wa-RR','ve-CC','gv','rup','st','tn','nso','zu','zu-ZA','xh','ss','ts','ve','nd','rw','rn','lg','om','ny','bi','tpi','fj','sm']){
   const data=require(`../imports/i18n/data/${code}.i18n.json`);
   for(const name of names){
    const key='blockly-ARIA_TYPE_FIELD_'+name;
