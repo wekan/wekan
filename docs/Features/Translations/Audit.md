@@ -4064,6 +4064,28 @@ Leo instruction. The wider backlog remains 51,575 ordinary placeholders in 70
 languages plus 150 pending source keys. Structural coverage does not establish
 linguistic accuracy.
 
+## Leo import instruction: Nahuatl and Standard Moroccan Tamazight
+
+Filled two English placeholders for `import-board-instruction-leo`, preserving
+existing translations with the protected fill. The drafts retain the hierarchy,
+child cards, body-description mapping, deeper checklists and marked completion
+state. Leo and `.leo` are unchanged.
+
+The [Online Nahuatl Dictionary entry for tlacuilolli](https://nahuatl.wired-humanities.org/content/tlacuilolli)
+supports writing/document terminology. The [Berber computing glossary](https://www.temehu.com/imazighen/dictionaries/Amawals/Computer_dictionary_Berber_English_French.pdf)
+offers comparative terminology, but contains multiple varieties and does not
+establish Standard Moroccan Tamazight usage for all terms. Both full sentences
+remain low-confidence drafts. In particular, the node/child metaphors and
+completion clauses require linguistic review; script alone is insufficient.
+
+Extended locale and browser import coverage for both locales. Added a Tifinagh
+script assertion and rejection of Arabic/Latin prose except literal Leo and
+`.leo` identifiers. Existing invalid-input coverage remains. All 12 focused Node
+tests and 21 human-preference checks pass. Browser syntax passes; execution
+remains unverified because Playwright is unavailable. Cherokee, Tigre and
+Wolaytta still use the English instruction. The wider backlog remains 51,575
+ordinary placeholders in 70 languages plus 150 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
