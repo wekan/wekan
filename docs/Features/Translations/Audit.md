@@ -3540,6 +3540,12 @@ Filled 15 English placeholders in `qu`, `ay` and `gn` with the protected fill ut
 
 Extended the translation/token regression and existing localized browser scenario to the three locales. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 13 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
 
+### History recovery: Northern Sámi, Fulah and Kashmiri
+
+Filled 15 English placeholders in `se`, `ff` and `ks` with the protected fill utility. The drafts distinguish undo/redo and retry/forget and retain the same-request explanation. References include [Finnish education authority Sámi text](https://www.oph.fi/sites/default/files/documents/aukt2_POH-SUO.pdf) using confirmation/proof vocabulary and [New York's Fulah text](https://www.nyc.gov/assets/doh/downloads/pdf/ah/pep-users-guide-ff.pdf) using `Ƴeewto`. These support limited vocabulary usage, not the composed software sentences. The Kashmiri search did not establish a dependable dictionary basis for the full clauses. Full sentences, Kashmiri agreement/orthography and Fulah undo/redo terminology remain low-confidence drafts for fluent-speaker review.
+
+Extended the translation/token regression and existing localized browser scenario to the three locales. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 10 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
