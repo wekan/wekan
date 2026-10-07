@@ -5871,6 +5871,20 @@ Browser checks were not run. Programming vocabulary and case-conversion wording
 remain low-confidence drafts pending fluent-speaker review. Remaining Blockly
 families and the all-language wording audit are still open.
 
+## Somali Blockly variables and workspace controls — 2026-10-07
+
+Filled 45 English placeholders without changing existing Somali translations.
+Checks preserve variable names, duplicate-type and parameter warnings, getter
+versus setter labels, undo/redo distinctions, zero/one/many workspace counts,
+comment-fragment spacing, search result arguments and Enter/Shift+Enter/Escape
+navigation. Shared default item labels agree with text operations.
+
+All 60 focused translation/structural tests and 21 human-preference checks pass.
+Browser and screen-reader checks were not run. Technical wording for variable
+types, parameters, block stacks and focus remains low confidence pending
+fluent-speaker review. Remaining Blockly messages and the broader audit remain
+open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

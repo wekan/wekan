@@ -135,3 +135,33 @@ test('Somali Blockly text formatting preserves direction and input types',()=>{
  assert.equal(data['blockly-TEXT_APPEND_VARIABLE'],data['blockly-TEXT_CREATE_JOIN_ITEM_TITLE_ITEM']);
  assert.equal(data['blockly-TEXT_LENGTH_TITLE'],data['blockly-LISTS_LENGTH_TITLE']);
 });
+
+
+test('Somali Blockly variables and workspace controls preserve arguments and names',()=>{
+ const keys=["blockly-FIELD_LABEL_VARIABLE", "blockly-INPUT_LABEL_VARIABLES_SET", "blockly-KEYBOARD_NAV_WORKSPACE_NAVIGATION_HINT", "blockly-NEW_COLOUR_VARIABLE", "blockly-NEW_NUMBER_VARIABLE", "blockly-NEW_STRING_VARIABLE", "blockly-NEW_VARIABLE", "blockly-NEW_VARIABLE_TITLE", "blockly-NEW_VARIABLE_TYPE_TITLE", "blockly-PASTE_ALL_FROM_BACKPACK", "blockly-PASTE_SHORTCUT", "blockly-REDO", "blockly-RENAME_VARIABLE", "blockly-RENAME_VARIABLE_TITLE", "blockly-RESET_ZOOM", "blockly-SHORTCUTS_FOCUS_WORKSPACE", "blockly-UNDO", "blockly-VARIABLES_DEFAULT_NAME", "blockly-VARIABLES_GET_CREATE_SET", "blockly-VARIABLES_GET_TOOLTIP", "blockly-VARIABLES_SET", "blockly-VARIABLES_SET_CREATE_GET", "blockly-VARIABLES_SET_TOOLTIP", "blockly-VARIABLE_ALREADY_EXISTS", "blockly-VARIABLE_ALREADY_EXISTS_FOR_ANOTHER_TYPE", "blockly-VARIABLE_ALREADY_EXISTS_FOR_A_PARAMETER", "blockly-WORKSPACE_COMMENT_DEFAULT_TEXT", "blockly-WORKSPACE_CONTENTS_BLOCKS_MANY", "blockly-WORKSPACE_CONTENTS_BLOCKS_ONE", "blockly-WORKSPACE_CONTENTS_BLOCKS_ZERO", "blockly-WORKSPACE_CONTENTS_COMMENTS_MANY", "blockly-WORKSPACE_CONTENTS_COMMENTS_ONE", "blockly-WORKSPACE_LABEL_1_STACK", "blockly-WORKSPACE_LABEL_FLYOUT_WORKSPACE", "blockly-WORKSPACE_LABEL_MANY_STACKS", "blockly-WORKSPACE_LABEL_MUTATOR_WORKSPACE", "blockly-WORKSPACE_LABEL_PLAIN", "blockly-WORKSPACE_SEARCH_CLOSE", "blockly-WORKSPACE_SEARCH_FIND_NEXT", "blockly-WORKSPACE_SEARCH_FIND_PREVIOUS", "blockly-WORKSPACE_SEARCH_INPUT_LABEL", "blockly-WORKSPACE_SEARCH_MATCH", "blockly-WORKSPACE_SEARCH_NO_MATCHES", "blockly-WORKSPACE_SEARCH_PLACEHOLDER", "blockly-ZOOM_TO_FIT_ARIA_LABEL"];
+ assert.equal(keys.length,45);
+ for(const key of keys){
+  assert.notEqual(data[key],english[key],key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ assert.match(data['blockly-RENAME_VARIABLE_TITLE'],/Dhammaan.*'%1'/);
+ assert.match(data['blockly-VARIABLE_ALREADY_EXISTS_FOR_ANOTHER_TYPE'],/'%1'.*nooc kale: '%2'/);
+ assert.match(data['blockly-VARIABLE_ALREADY_EXISTS_FOR_A_PARAMETER'],/'%1'.*cabbir gelin.*'%2'/);
+ assert.equal(data['blockly-VARIABLES_DEFAULT_NAME'],data['blockly-TEXT_APPEND_VARIABLE']);
+ assert.notEqual(data['blockly-UNDO'],data['blockly-REDO']);
+ assert.notEqual(data['blockly-VARIABLES_GET_CREATE_SET'],data['blockly-VARIABLES_SET_CREATE_GET']);
+});
+
+test('Somali Blockly workspace announcements preserve counts and keyboard navigation',()=>{
+ assert.match(data['blockly-WORKSPACE_CONTENTS_BLOCKS_MANY'],/%1.*%2/);
+ assert.match(data['blockly-WORKSPACE_CONTENTS_BLOCKS_ONE'],/^Hal.*%2/);
+ assert.match(data['blockly-WORKSPACE_CONTENTS_BLOCKS_ZERO'],/ma jiraan%2/);
+ assert.match(data['blockly-WORKSPACE_CONTENTS_COMMENTS_MANY'],/^ iyo %1/);
+ assert.match(data['blockly-WORKSPACE_CONTENTS_COMMENTS_ONE'],/^ iyo hal/);
+ const help=data['blockly-WORKSPACE_SEARCH_INPUT_LABEL'];
+ assert.match(help,/Enter.*xigta.*Shift\+Enter.*hore.*Escape.*xirto.*diiradda/);
+ assert.notEqual(data['blockly-WORKSPACE_SEARCH_FIND_NEXT'],data['blockly-WORKSPACE_SEARCH_FIND_PREVIOUS']);
+ assert.match(data['blockly-WORKSPACE_SEARCH_NO_MATCHES'],/^Ma jiraan/);
+ assert.match(data['blockly-WORKSPACE_SEARCH_MATCH'],/%1.*%2.*%3/);
+ assert.match(data['blockly-PASTE_ALL_FROM_BACKPACK'],/dhammaan/);
+});
