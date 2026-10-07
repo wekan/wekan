@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Ҫак электронлӑ ҫырӑва ӗнтӗ янӑ, яма тӑрӑшнӑ е пӑрахнӑ.",
   "rule-email-legacy-not-legacy": "Ҫак электронлӑ ҫырӑва ӗнтӗ ҫӗнӗрен ҫыхӑнтарнӑ.",
   "rule-email-legacy-failed": "Ҫак ӗҫе пурнӑҫлама пулмарӗ. Ҫӗнетӗр те тепӗр хут тӑрӑшса пӑхӑр.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Ку SAML кӗрӗвӗ браузерӑн ку вкладкинче пуҫланман. Тархасшӑн, тепӗр хут кӗрӗр.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

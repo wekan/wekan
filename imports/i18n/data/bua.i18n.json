@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Энэ сахим захидал эльгээгдэнхэй, эльгээхэ гэжэ туршагданхай, үгы һаа хаягданхай.",
   "rule-email-legacy-not-legacy": "Энэ сахим захидал дахин холбогдонхой.",
   "rule-email-legacy-failed": "Энэ үйлэ дүүргэжэ шадагдаагүй. Хуудаһые шэнэлээд, дахин туршагты.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Энэ SAML нэбтэрэлгэ браузерай энэ таб соо эхилээгүй. Дахин нэбтэрыт.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

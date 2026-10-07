@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Sta email la xe zà stada mandada, provada a mandar o scartada.",
   "rule-email-legacy-not-legacy": "Sta email la xe zà stada colegada da novo.",
   "rule-email-legacy-failed": "No se ga podesto finir sta assion. Ricarica e prova da novo.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Sto aceso co SAML no xe stà scominsià in sta scheda del navegador. Par piaser, entra da novo.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

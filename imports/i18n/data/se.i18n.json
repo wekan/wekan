@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Dát e-boasta lea juo sáddejuvvon, dan sádden lea geahččaluvvon dahje dat lea bálkestuvvon.",
   "rule-email-legacy-not-legacy": "Dát e-boasta lea juo čatnon ođđasit.",
   "rule-email-legacy-failed": "Dán doaimma ii sáhttán čađahit. Ođasmahte ja geahččal ođđasit.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Dát SAML-sisaloggema ii álggahuvvon dán neahttalohkki gilkoris. Logge sisa ođđasit.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

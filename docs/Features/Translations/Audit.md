@@ -1963,6 +1963,26 @@ checks pass. Browser scenarios were not run; the app stack was unavailable.
 26 locale paths still need this message. The overall snapshot remains 51,575
 ordinary missing values plus 182 pending keys; broader language review stays open.
 
+### SAML browser-tab error — fourth remaining batch (2026-10-07)
+
+Filled `saml-login-not-started` in rup, ve-CC, bua, sah, cv, ve and se (seven
+locale paths). Existing translated values were preserved; no translation service
+was used. Full Aromanian phrases and browser-tab terminology across this batch
+are low confidence and need native review. The message retains the current-tab
+boundary and instruction to sign in again.
+
+References include the [English-Aromanian dictionary](https://vivliuteca.org/wp-content/uploads/2025/06/an-english-aromanian-macedo-romanian-dictionary-society-farsharotu.pdf)
+for again and [Northern Sámi training material](https://assets.ctfassets.net/nqmec82k7bwk/5Ty8fJLbDcfPjAMGnNCMoO/fa570651d609437db55881acb8153344/Kurs_unge_eldre_nordsamisk.pdf)
+for browser. These support vocabulary, not fluent validation. Existing unrelated
+login labels in rup, ve-CC and ve still include wrong-language text and remain
+part of the wider locale review.
+
+The popup-error suite now checks 47 recently filled locales and passes, including
+positive and negative login-boundary cases. All-locale structural and human-preference
+checks pass. Browser scenarios were not run; the app stack was unavailable.
+19 locale paths still need this message. The snapshot remains 51,575 ordinary
+missing values plus 182 pending keys; language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

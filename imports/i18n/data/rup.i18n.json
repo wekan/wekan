@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Aestã poștã electronicã fu pitricutã, pruvatã tra pitreatsiri icã arucatã di ninti.",
   "rule-email-legacy-not-legacy": "Aestã poștã electronicã fu ligatã nica unã oarã di ninti.",
   "rule-email-legacy-failed": "Nu s-putu s-bitiseascã aestã actsii. Încarcã nica unã oarã shi pruveadzã iarã.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Aestã intrari cu SAML nu fu ahurhitã tu aestã filã di browser. Vã pãlãcãrsescu, intrats diznou.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

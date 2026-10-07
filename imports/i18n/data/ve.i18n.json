@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Imeili iyi yo no rumelwa, yo no lingedzwa u rumelwa kana yo no laṱwa.",
   "rule-email-legacy-not-legacy": "Imeili iyi yo no ṱumanywa hafhu.",
   "rule-email-legacy-failed": "Zwo kundwa u fhedza nyito iyi. Vha vule siaṱari hafhu vha lingedze hafhu.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "U dzhena nga SAML a ho ngo thomiwa kha thebu iyi ya brauza. Ri humbela uri ni dovhe ni dzhene.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",
