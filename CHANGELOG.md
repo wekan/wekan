@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/91f7a5eba0e68e9e88cfb985a0f1793c1539bc53">Correct 49 Akan search operators, predicates and errors.</a></summary>
+
+- Replace 34 generic fillers and 15 mixed-language or unusable search values. Restore short aliases and make translated title/attachment operators usable by the parser.
+- Add actual parser checks for quoted values, existence filters, invalid limits, dates and sort direction, plus placeholder coverage. Compound search terminology remains low confidence.
+- The exact generic-filler inventory decreases from 313 to 279. English placeholders remain 45,599 across 70 languages because these corrections replace non-English values.
+- Validation: 50 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d53166480fb1438e51c74d89240d207e00bac579">Correct 43 Akan calendar and settings translations.</a></summary>
 
 - Replace generic filler in date fields, weekdays, roles, read states and custom head settings. Restore protocol names and the context separator.
