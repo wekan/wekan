@@ -1889,6 +1889,20 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/eb30d42396363aeb3ef07711fb395c69fc856dc0">Translate Fulfulde notification settings</a>. Thanks to xet7.</summary>
+
+- Fill 13 English placeholders, preserving existing translations and the
+  due-date reminder/@mention exception.
+- Shared notification checks now cover 56 locales. Feature, all-locale
+  structure and human-preference checks pass. Browser scenarios are
+  syntax-checked only. Technical wording and dialect consistency are low
+  confidence pending speaker review; references and limits are in the audit.
+- The standard backlog remains 51,575 values plus 201 pending source keys.
+  Remaining languages and broader language review stay in TODO Later.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d082f1d54fec4f285d1b056b22bd11a6d31ccd0a">Translate Guaraní notification settings</a>. Thanks to xet7.</summary>
 
 - Fill 13 English placeholders, preserving existing translations and the
