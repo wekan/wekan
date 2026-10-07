@@ -4616,6 +4616,15 @@ mixed-language audit remains open.
 - Extended exact-placeholder and opposing-operation checks and visible translated add-comment browser assertions to the seven locales. Blockly/completeness: 13 tests pass. Human-preference verification: 21 checks pass. Browser coverage is syntax-checked only because Playwright is absent locally; spoken accessibility was not exercised.
 - Ordinary placeholders decrease from 48,712 to 48,637 across 70 languages. The 148 pending source keys and broader translation/semantic audit remain open.
 
+## Blockly comment and accessibility controls: six more locales
+
+- Filled 88 English placeholders in Akan (`ak`), Bambara (`bm`), Ewe (`ee`), Wolof (`wo`), Fula (`ff`) and Kashmiri (`ks`). The fifteen-key group includes comment actions, conditional branches, input/list/text controls, button, collapse/expand, angle degrees and empty trash. The protected merge preserved two existing Ewe translations.
+- Corrected Akan's generic `text` label from “information about this activity” to `Nsɛm a wɔakyerɛw` (written words). The new Blockly text labels use the same terminology; regression coverage locks this correction.
+- Existing locale vocabulary guided the drafts. [Janga Wolof's lexicon](https://jangawolof.org/2015/01/06/wolof-lexicon/) and [the Wolof button entry](https://fr.glosbe.com/fr/wo/bouton) support the button term. Dictionary searches did not establish the drafted Bambara/Fula button loans or full technical sentences; those remain low confidence, alongside Ewe input/button paraphrases, condition wording and Kashmiri inflection. Fula regional consistency still needs review.
+- Extended the fifteen-key regression and translated add-comment browser assertion to these six locales. Exact source placeholders and opposing actions are checked. Blockly/completeness: 13 tests pass; human-preference verification: 21 checks pass.
+- Browser coverage is syntax-checked only because Playwright is absent locally. Browser interaction, spoken accessibility and language fluency remain unverified.
+- Ordinary placeholders decrease from 48,637 to 48,549 across 70 languages. The 148 pending source keys and broader translation/semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -29,7 +29,7 @@ test('movement announcements preserve arguments and distinguish directions in ev
 test('filled comment and accessibility controls preserve arguments and opposite actions', async()=>{
  const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
  const names=['ADD_COMMENT','REMOVE_COMMENT',...'ADD_ELSE_IF ADD_INPUT ADD_LIST_ITEM ADD_TEXT BUTTON COMMENT_COLLAPSE COMMENT_EXPAND FIELD_ANGLE REMOVE_ELSE_IF REMOVE_INPUT REMOVE_LIST_ITEM REMOVE_TEXT TRASH_EMPTY'.split(' ').map(n=>'ARIA_LABEL_'+n)];
- for(const code of ['ku','ckb','tt','so','ny','mi','sm','tk_TM','yi','bho','mai','or_IN','kok','pap','ary','st','tn','nso','zu','zu-ZA','xh','ss','nd','ts','ve','bi','tpi','fj','to','haw','om','rw','rn','lg','wa','wa-RR','ace','gv','se','ve-CC','rup']){
+ for(const code of ['ku','ckb','tt','so','ny','mi','sm','tk_TM','yi','bho','mai','or_IN','kok','pap','ary','st','tn','nso','zu','zu-ZA','xh','ss','nd','ts','ve','bi','tpi','fj','to','haw','om','rw','rn','lg','wa','wa-RR','ace','gv','se','ve-CC','rup','ak','bm','ee','wo','ff','ks']){
   const data=require(`../imports/i18n/data/${code}.i18n.json`);
   for(const name of names){
    const key='blockly-'+name;
@@ -43,6 +43,7 @@ test('filled comment and accessibility controls preserve arguments and opposite 
  }
  assert.equal(require('../imports/i18n/data/tt.i18n.json').text,'Текст');
  assert.equal(require('../imports/i18n/data/to.i18n.json').text,'Lea kuo tohi');
+ assert.equal(require('../imports/i18n/data/ak.i18n.json').text,'Nsɛm a wɔakyerɛw');
 });
 
 test('every Blockly message resolves through all WeKan locale catalogs with intact placeholders',()=>{
