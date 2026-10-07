@@ -978,3 +978,21 @@ test('Akan display and attachment controls preserve units, links and visibility 
  assert.match(data['attachmentDeletePopup-title'],/^Popa.*\?$/);
  assert.match(data['view-all'],/nyinaa/);
 });
+
+
+test('Akan view and customization labels preserve matching titles and private-only scope', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["myCardsViewChangePopup-title", "dueCardsViewChange-title", "dueCardsViewChangePopup-title", "globalSearchViewChange-title", "globalSearchViewChangePopup-title", "attachment-move", "move-scope-both", "cards-loading-lazy", "backup-restore-mode", "attachment-settings", "personal-list-width", "list-label-sort", "filter-custom-fields-label", "filter-no-custom-fields", "custom-help-link-url", "tableVisibilityMode-allowPrivateOnly", "custom-product-name", "custom-head-tags-enabled", "custom-manifest-enabled", "custom-assetlinks-enabled", "no-shared-templates", "link-to-search", "editTranslationPopup-title", "settingsTranslationPopup-title", "step-convert-shared-lists"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ for(const base of ['myCardsViewChange','dueCardsViewChange','globalSearchViewChange']) assert.equal(data[base+'-title'],data[base+'Popup-title']);
+ assert.match(data['tableVisibilityMode-allowPrivateOnly'],/kokoam bɔɔd nkutoo/);
+ assert.match(data['cards-loading-lazy'],/nea wohu nkutoo/);
+ assert.match(data['move-scope-both'],/Fael.*ne.*mfonini/);
+ assert.match(data['filter-no-custom-fields'],/biara nni hɔ/);
+ assert.match(data['no-shared-templates'],/biara nni hɔ/);
+ for(const key of ['custom-head-tags-enabled','custom-manifest-enabled','custom-assetlinks-enabled']) assert.match(data[key],/^Sɔ/);
+ assert.match(data['custom-assetlinks-enabled'],/assetlinks\.json/);
+ assert.match(data['custom-help-link-url'],/URL/);
+ assert.match(data['settingsTranslationPopup-title'],/^Popa.*\?$/);
+ assert.match(data['editTranslationPopup-title'],/^Sesa/);
+});

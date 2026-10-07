@@ -5654,6 +5654,14 @@ labels. Added token, markup and action checks. Wording remains low confidence
 pending fluent-speaker review; browser checks remain unrun. Placeholder counts
 are unchanged.
 
+## Akan view and customization corrections (batch 54)
+
+Corrected 25 mixed-language view, attachment and customization messages. Aligned
+matching view titles and preserved private-only board visibility, visible-only
+card loading, combined attachment/avatar scope and assetlinks.json. Added token,
+label-consistency and scope checks. Wording remains low confidence pending
+fluent-speaker review; browser checks remain unrun. Placeholder counts unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
