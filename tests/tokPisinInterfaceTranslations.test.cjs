@@ -1011,3 +1011,50 @@ test('Tok Pisin external export instructions retain actual menu names and API pa
  assert.match(data['import-trello-zip-file-hint'],/Trello Card Attachments Downloader.*Olgeta bot/);
  assert.match(data['import-trello-zip-no-boards'],/no painim.*\.json.*\.zip/);
 });
+
+
+test('Tok Pisin deletion and restoration messages preserve tokens and replace English prose',()=>{
+ const keys=[
+  "list-delete-pop",
+  "list-delete-suggest-archive",
+  "board-delete-notice",
+  "delete-board-confirm-popup",
+  "delete-all-notifications-confirm",
+  "delete-duplicate-lists",
+  "delete-duplicate-lists-confirm",
+  "swimlane-delete-pop",
+  "delete-user-confirm-popup",
+  "delete-team-confirm-popup",
+  "delete-org-confirm-popup",
+  "delete-linked-card-before-this-card",
+  "delete-linked-cards-before-this-list",
+  "delete-org-warning-message",
+  "delete-team-warning-message",
+  "delete-translation-confirm-popup",
+  "delete-duplicate-empty-lists-migration",
+  "delete-duplicate-empty-lists-migration-description",
+  "restore-lost-cards-migration",
+  "restore-lost-cards-migration-description",
+  "restore-all-archived-migration",
+  "restore-all-archived-migration-description",
+  "restore-lost-cards-nothing-to-restore",
+  "restore-list-swimlanes-done"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.doesNotMatch(data[key],/There is|won't|cannot|contains|missing|Automatically|Deleting/,key);
+ }
+});
+
+test('Tok Pisin destructive-action warnings retain restrictions and restoration failures',()=>{
+ for(const key of ['delete-user-confirm-popup','delete-team-confirm-popup','delete-org-confirm-popup','delete-translation-confirm-popup','list-delete-pop','swimlane-delete-pop','delete-board-confirm-popup']) assert.match(data[key],/no inap kisim bek/);
+ assert.match(data['delete-duplicate-empty-lists-migration-description'],/no gat kat NA narapela lis.*wankain nem.*gat kat/);
+ for(const kind of ['org','team']) assert.match(data['delete-'+kind+'-warning-message'],/no inap rausim.*wanpela yusa o moa/);
+ assert.match(data['delete-linked-cards-before-this-list'],/no inap rausim.*bipo.*link i go long ol kat/);
+ for(const key of ['restore-lost-cards-migration-description','restore-all-archived-migration-description']){
+  assert.ok(data[key].includes('swimlaneId'));
+  assert.ok(data[key].includes('listId'));
+ }
+ assert.match(data['restore-list-swimlanes-done'],/__restored__.*no inap kisim __remaining__/);
+ assert.match(data['list-delete-suggest-archive'],/akaiv.*holim ol wok/);
+});

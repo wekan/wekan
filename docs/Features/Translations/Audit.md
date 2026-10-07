@@ -6539,6 +6539,12 @@ Corrected 17 mixed-language export options and related external import instructi
 
 Validation: 88 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
 
+## Tok Pisin deletion and restoration wording audit
+
+Corrected 24 mixed-language deletion confirmations, linked-item restrictions and restoration messages. Preserved source tokens and database field identifiers. Tests cover irreversible-action warnings, archive alternatives, duplicate-list conjunctions, member restrictions and failed-restoration counts. Existing coherent nearby warnings remain unchanged. Wording remains provisional pending fluent-speaker review; browser and screen-reader checks were not run.
+
+Validation: 90 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
