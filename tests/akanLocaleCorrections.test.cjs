@@ -540,3 +540,25 @@ test('Akan storage controls preserve credential retention and provider navigatio
  assert.match(data['migration-stop-confirm'],/nyinaa\?$/);
  assert.match(data['rescue-card-description-dialogue'],/ananmu\?$/);
 });
+
+
+test('Akan card and import controls preserve sample JSON and selection scope', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["error-user-notSameOrgOrTeam", "fixed-list-width", "close-add-checklist-item", "board_assignees", "card-members-title", "allowNonBoardMembers", "map-to-existing-user-search", "text-color", "text-background-color", "confirm-move-list-to-swimlane", "copy-text-to-clipboard", "copyManyCardsPopup-format", "error-json-malformed", "import-board-instruction-trello", "import-board-instruction-wekan", "import-trello-zip-no-boards", "import-trello-zip-unsafe-path", "select-all", "select-none", "list-archive-cards", "list-move-cards", "list-select-cards", "paste-or-dragdrop", "quick-access-description", "starred-boards-description", "uploading-files", "automatically-field-on-card", "always-field-on-card"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ const sample=JSON.parse(data['copyManyCardsPopup-format']);
+ assert.equal(sample.length,3);
+ for(const card of sample) assert.deepEqual(Object.keys(card),['title','description']);
+ assert.equal(new Set(sample.map(c=>c.title)).size,3);
+ for(const label of ['Menu','More','Print and Export','Export JSON']) assert.ok(data['import-board-instruction-trello'].includes("'"+label+"'"));
+ for(const key of ['menu','export-board']) assert.ok(data['import-board-instruction-wekan'].includes("'"+data[key]+"'"));
+ assert.match(data['import-trello-zip-no-boards'],/Wɔanhu.*\.json.*\.zip/);
+ assert.match(data['import-trello-zip-unsafe-path'],/Wɔapo.*\.zip.*nni ahobammɔ/);
+ assert.match(data['error-user-notSameOrgOrTeam'],/koro no ara.*nkutoo/);
+ assert.match(data['allowNonBoardMembers'],/wɔakɔ mu.*nyinaa/);
+ assert.match(data['automatically-field-on-card'],/foforo/);
+ assert.match(data['always-field-on-card'],/nyinaa/);
+ assert.notEqual(data['select-all'],data['select-none']);
+ for(const action of ['archive','move','select']) assert.match(data['list-'+action+'-cards'],/nyinaa/);
+ assert.match(data['paste-or-dragdrop'],/mfonini nkutoo/);
+});

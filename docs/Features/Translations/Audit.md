@@ -5451,6 +5451,15 @@ blank-to-retain behavior and distinct membership/assignment actions. Added token
 menu-label and control checks. Technical wording remains low confidence pending
 fluent-speaker review. Browser checks remain unrun; placeholder counts unchanged.
 
+## Akan card and import corrections (batch 32)
+
+Corrected 28 mixed-language card, selection, text and import messages. Preserved
+JSON object keys in the multiple-card example; restored Trello menu labels and
+matched WeKan navigation instructions to the localized menu/export labels.
+Added token, parsed-JSON, navigation and permission/scope regression checks.
+Technical wording remains low confidence pending fluent-speaker review. Browser
+checks remain unrun. These corrections do not change English-placeholder counts.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
