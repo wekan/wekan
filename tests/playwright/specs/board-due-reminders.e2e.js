@@ -14,7 +14,7 @@ async function openNotifications(page) {
   await expect(page.locator('.js-pop-over .due-reminder-settings')).toBeVisible();
 }
 
-for (const language of ['en', 'tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts', 'om', 'fj', 'to', 'gv', 'wa', 'wa-RR', 'ak', 'lg', 'bm', 'wo', 'ee', 'rup', 've-CC', 'bua', 'sah', 'cv', 've', 'se', 'ace', 'bo']) {
+for (const language of ['en', 'tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts', 'om', 'fj', 'to', 'gv', 'wa', 'wa-RR', 'ak', 'lg', 'bm', 'wo', 'ee', 'rup', 've-CC', 'bua', 'sah', 'cv', 've', 'se', 'ace', 'bo', 'dz']) {
 test(`a board admin sets reminder days and webhook delivery in ${language}; bad input saves nothing`, async ({ boardPage: page, board }) => {
   await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
   const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);

@@ -1563,6 +1563,28 @@ browser scenarios were syntax-checked only because the app stack was unavailable
 17 locale paths still need this six-string group. The ordinary backlog remains
 51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
 
+### Due reminders — Dzongkha (2026-10-07)
+
+Filled six reminder strings in `dz`, using the existing reminder and board terms.
+Instructions retain comma-separated offsets (showing the literal comma), zero as
+the due day, positive days before and negative days after, the empty server-default
+setting, at most ten integers from -14 to 14, board disabling and outgoing webhook
+delivery. Only English placeholders were filled; no external translation service
+was used. Complete instructions and technical compounds are low-confidence drafts
+for native review. Script checks do not distinguish Dzongkha from Tibetan or
+establish fluency.
+
+The [official English-Dzongkha dictionary](https://www.dzongkha.gov.bt/uploads/files/publications/Eng-Dzo_Dictionary_2023_3ead53caad0798894c3908a9aedceb84.pdf)
+attests `ཧྲིག་གྲངས` for integer. This supports the mathematical term, not the
+complete software instructions.
+
+Translation checks now cover 50 locales, including offset direction, defaults,
+bounds and source-token inventories. The existing browser scenario includes
+Dzongkha. Translation, all-locale structural and human-preference checks pass;
+browser scenarios were syntax-checked only because the app stack was unavailable.
+16 locale paths still need this six-string group. The ordinary backlog remains
+51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
