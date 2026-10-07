@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "URL kiangley cooney reih't",
   "text-below-custom-login-logo": "Teks fo cowrey çheet stiagh reih't",
   "automatic-linked-url-schemes": "Skeealyn URL reih't lhisagh ve broghey dy hene. Un skeeal URL er dagh linney",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Follym ec y toshiaght, myr shen cha nod oo clickal agh er kianglaghyn eddyr-voggyl as post-l. Ta dagh skeim ta er y rolley, myr sampleyr thunderlink ny onenote, fosley yn claare ta recortyssit er e son. Cha vel javascript, data, vbscript as skeimyn cosoylagh rieau jeant nyn gianglaghyn.",
   "external-link-pattern": "Kianglaue eddyragh gys lorgeyder dyn ny mullee veih magh",
   "external-link-pattern-description": "Ta shen kianglaue eddyragh comharraghyn myr \"#1234\" ta ry-akin ayns teks y chard gys lorgeyder dyn ny mullee veih magh. Faag magher ny goo veih goo dy chur mow eh.",
   "external-link-pattern-prefix": "Roie-ockle y chomharrey",

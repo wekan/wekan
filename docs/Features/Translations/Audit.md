@@ -3062,6 +3062,14 @@ Twenty-seven locale paths still need this hint, so its source key remains pendin
 The ordinary backlog remains 51,575 values plus 172 pending source keys; broader
 language-quality work remains open.
 
+### URL scheme hint: Manx and Northern Sami
+
+Filled the English-only `automatic-linked-url-schemes-hint` in `gv` and `se` directly, preserving existing translated values through the fill utility. The five literal scheme identifiers and source placeholders remain unchanged. The prose covers the empty default, clickable web/mail links, registered applications and permanently excluded schemes.
+
+These technical translations have lower confidence and need native-speaker UI review. Manx lexical references include [Manx lessons](https://archive.gaelg.im/www.gaelg.iofm.net/LESSONS/mona/Lessons.pdf) for opening and [claare](https://en.wiktionary.org/wiki/claare) for programme; these support vocabulary, not validation of the complete sentences. No translation service was used.
+
+Validation: the URL scheme suite covers 41 recently filled locales, including exact identifiers, source tokens, key order and parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The existing custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. This hint remains English in 25 locales. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; translation quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "Iešmearriduvvon veahkkeliŋkka URL",
   "text-below-custom-login-logo": "Teaksta iešmearriduvvon sisačálihanlogo vuolábealde",
   "automatic-linked-url-schemes": "Iešmearriduvvon URL-skemaid mat galget leat automáhtalaččat coahkkalanláhkái. Okta URL-skema juohke ráiddus",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Álggus guorus, nu ahte duš neahtta- ja e-poastaliŋkkaid sáhttá deaddilit. Juohke listtus namuhuvvon skema, ovdamearkka dihtii thunderlink dahje onenote, rahpá dan várás registrerejuvvon prográmma. javascript, data, vbscript ja sullasaš skemaid ii goassege dahkko liŋkan.",
   "external-link-pattern": "Automáhtalaš liŋka olggobeale áššečuovvunvuogádahkii",
   "external-link-pattern-description": "Liŋkkoda automáhtalaččat symbolaid nugo \"#1234\" mat gávdnojit koartta teavsttas olggobeale áššečuovvunvuogádahkii. Guođe ovtta gieddi guorusin heaittihit dan.",
   "external-link-pattern-prefix": "Symbola ovdaliite",
