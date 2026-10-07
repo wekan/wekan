@@ -5029,6 +5029,14 @@ mixed-language audit remains open.
 - Kept both-input conjunction distinct from at-least-one disjunction, and retained both branches of the conditional expression. Bounds explicitly include the endpoints; evenness is paraphrased as divisibility by 2 without remainder.
 - Extended token, boolean-quantifier, inclusive-bound, angle-range and constant-notation checks. Square-root, golden-ratio and exponent terminology is lower confidence and needs contextual mathematical review. Browser and spoken accessibility checks remain unexecuted.
 
+### Waray Blockly numeric properties and statistics
+
+- The mode wording uses `agsob` (frequent), checked against the [Waray Dictionary](https://dictionary.corporaproject.org/index.php?glossary=A&sort=word); the derived superlative remains provisional.
+
+- Filled 25 English placeholders through the protected workflow, covering sign, parity, prime/whole properties, modulo, multiplication and list statistics. Preserved the `%1 ÷ %2` expression and distinguished positive/negative relative to zero.
+- Kept mean, median, modes, standard deviation and sum distinct; the modes tooltip returns a list rather than a single value. Statistical loanwords and the standard-deviation paraphrase remain lower confidence and require mathematical-language review.
+- Extended token, sign, modulo and statistic-distinction checks. These checks do not establish fluency or validate mathematical terminology. Browser and spoken accessibility checks remain unexecuted.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

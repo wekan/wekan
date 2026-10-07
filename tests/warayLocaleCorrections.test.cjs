@@ -478,7 +478,32 @@ const correctedKeys = [
   "blockly-MATH_CONSTRAIN_TOOLTIP",
   "blockly-MATH_DIVISION_SYMBOL_ARIA",
   "blockly-MATH_IS_DIVISIBLE_BY",
-  "blockly-MATH_IS_EVEN"
+  "blockly-MATH_IS_EVEN",
+  "blockly-MATH_IS_NEGATIVE",
+  "blockly-MATH_IS_ODD",
+  "blockly-MATH_IS_POSITIVE",
+  "blockly-MATH_IS_PRIME",
+  "blockly-MATH_IS_TOOLTIP",
+  "blockly-MATH_IS_WHOLE",
+  "blockly-MATH_MODULO_TITLE",
+  "blockly-MATH_MODULO_TOOLTIP",
+  "blockly-MATH_MULTIPLICATION_SYMBOL_ARIA",
+  "blockly-MATH_NUMBER_TOOLTIP",
+  "blockly-MATH_ONLIST_OPERATOR_AVERAGE",
+  "blockly-MATH_ONLIST_OPERATOR_MAX",
+  "blockly-MATH_ONLIST_OPERATOR_MAX_ARIA",
+  "blockly-MATH_ONLIST_OPERATOR_MEDIAN",
+  "blockly-MATH_ONLIST_OPERATOR_MIN",
+  "blockly-MATH_ONLIST_OPERATOR_MIN_ARIA",
+  "blockly-MATH_ONLIST_OPERATOR_MODE",
+  "blockly-MATH_ONLIST_OPERATOR_RANDOM",
+  "blockly-MATH_ONLIST_OPERATOR_STD_DEV",
+  "blockly-MATH_ONLIST_OPERATOR_SUM",
+  "blockly-MATH_ONLIST_TOOLTIP_AVERAGE",
+  "blockly-MATH_ONLIST_TOOLTIP_MAX",
+  "blockly-MATH_ONLIST_TOOLTIP_MEDIAN",
+  "blockly-MATH_ONLIST_TOOLTIP_MIN",
+  "blockly-MATH_ONLIST_TOOLTIP_MODE"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -564,6 +589,12 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   assert.match(waray['blockly-LOGIC_OPERATION_TOOLTIP_OR'], /bisan usa/);
   assert.match(waray['blockly-MATH_CONSTRAIN_TOOLTIP'], /upod an mga utlanan mismo/);
   assert.match(waray['blockly-MATH_ATAN2_TOOLTIP'], /-180 tubtob 180/);
+  assert.match(waray['blockly-MATH_IS_NEGATIVE'], /mas guti.*sero/);
+  assert.match(waray['blockly-MATH_IS_POSITIVE'], /mas dako.*sero/);
+  assert.ok(waray['blockly-MATH_MODULO_TITLE'].includes('%1 ÷ %2'));
+  const statistics = ['AVERAGE', 'MEDIAN', 'MODE', 'STD_DEV', 'SUM'].map(s => waray['blockly-MATH_ONLIST_OPERATOR_' + s]);
+  assert.equal(new Set(statistics).size, statistics.length);
+  assert.match(waray['blockly-MATH_ONLIST_TOOLTIP_MODE'], /lista han mga butang/);
   for (const notation of ['π (3.141…)', 'e (2.718…)', 'φ (1.618…)', 'sqrt(2) (1.414…)', 'sqrt(½) (0.707…)', '∞']) {
     assert.ok(waray['blockly-MATH_CONSTANT_TOOLTIP'].includes(notation), notation);
   }
