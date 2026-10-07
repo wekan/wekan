@@ -114,7 +114,10 @@ for (const language of ['fi','ar','gu-IN','sv','sl','vi','ku','ckb','tt','so','n
     await workspace.scrollIntoViewIfNeeded();
     await block.locator('.blocklyPath').first().click({button:'right',position:{x:30,y:12}});
     await expect(page.locator('.blocklyContextMenu')).toContainText(translations['blockly-DUPLICATE_BLOCK']);
-    if (['ku','ckb','tt','so','ny','mi','sm','tk_TM','yi','bho','mai','or_IN','kok','pap','ary','st','tn','nso','zu','zu-ZA','xh','ss','nd','ts','ve','bi','tpi','fj','to','haw','om','rw','rn','lg','wa','wa-RR','ace','gv','se','ve-CC','rup','ak','bm','ee','wo','ff','ks','bua','cv','sah','bo','dz','ti','qu','ay','gn','vo','tlh','ve-PP','wuu-Hans','nah','zgh','kl','iu'].includes(language)) await expect(page.locator('.blocklyContextMenu')).toContainText(translations['blockly-ADD_COMMENT']);
+    // Workspace comments are switched off on purpose (editor.js: `comments:
+    // false` - a comment has no rule equivalent), so the menu never offers
+    // "Add comment" in any language. c9cc757aa1 expected it in 64 locales.
+    await expect(page.locator('.blocklyContextMenu')).not.toContainText(translations['blockly-ADD_COMMENT']);
     await page.keyboard.press('Escape');
   } finally { clean(board.boardId); }
 });
