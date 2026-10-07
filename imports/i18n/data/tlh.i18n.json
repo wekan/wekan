@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "QaHmeH rarwI' le' URL",
   "text-below-custom-login-logo": "'elmeH Degh le' bIngDaq ghItlh",
   "automatic-linked-url-schemes": "URL Seghmey le' rarwI' moj'egh. tlhegh wa'Daq URL Segh wa' yIghItlh",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "cherlu'DI' chIm tetlh, vaj weQmoQnaQ rarwI'mey jabbI'ID rarwI'mey je neH Da'uylaH. SeghvaD qonlu'bogh ghunmeH nab poSmoH tetlhDaq qonlu'bogh Hoch URL Segh. ghantoH bIH thunderlink onenote je'e'. not rarwI'mey moj javascript, data, vbscript, Seghmey rurbogh je.",
   "external-link-pattern": "Do'Ha' tracker'e' autolink",
   "external-link-pattern-description": "Card mu'mey Daq \"#1234\" rur wIvmey chu' bIng luDIchmoH Do'Ha' tracker. Deaktivate: veb wa'DIch chIm chaw'.",
   "external-link-pattern-prefix": "wIv poH pIn'a'",

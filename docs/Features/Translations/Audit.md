@@ -3126,6 +3126,14 @@ Both drafts have lower confidence, especially URI-scheme terminology, grammatica
 
 Validation covers 59 recently filled hints, exact scheme identifiers, source tokens and key order, plus parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. This hint remains English in seven locales. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; language quality review remains open.
 
+### URL scheme hint: Klingon
+
+Filled the English-only `automatic-linked-url-schemes-hint` in `tlh` directly through the placeholder-only fill utility. Existing translated values were retained. All five scheme names remain literal and lowercase despite Klingon's case-sensitive orthography. The draft describes the initially empty list, web/mail links, applications registered for listed schemes and permanently excluded schemes.
+
+This draft has lower confidence and needs fluent-speaker review. `URL Segh` is a descriptive rendering of scheme as URL type, and pressing a link renders clicking. References include [the Klingon Word Wiki's Internet entry](https://klingon.wiki/Word/-Internet), which distinguishes `weQmoQnaQ` (World Wide Web), and [Hol 'ampaS: ghun](https://hol.kag.org/a/ghun), for programming vocabulary. These support vocabulary only, not validation of the complete sentence structure or technical phrasing. No translation service was used.
+
+Validation covers 60 recently filled hints, exact scheme identifiers, source tokens and key order, plus parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. This hint remains English in six locales. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; language quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
