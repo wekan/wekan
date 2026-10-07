@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **47,283 untranslated locale/string values in 70 languages**. It
+  report counts **47,203 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -2042,6 +2042,18 @@ snap.
 and updates the following translations:
 
 **Activity notifications** - choosing which card activity sends notifications.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c910255500a0c94a9ce8d73e3fcb3ea2a1b75833">Translate Zulu, Xhosa, Swati and Northern Ndebele block and bubble labels.</a></summary>
+
+- Fill 80 English placeholders across five catalogs, including both Zulu paths, while preserving numbered arguments and existing translations. Extend block-state, input and bubble distinction checks.
+- Record lower-confidence technical metaphors and agreement around arbitrary numbers. Contextual language and spoken accessibility review remain open.
+- Ordinary untranslated values decrease from 47,283 to 47,203 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 26 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9e71da2b4eef5fa627e53c3492ef1ef8b5c05837">Translate Bislama, Tok Pisin, Fijian and Papiamento block and bubble labels.</a></summary>
