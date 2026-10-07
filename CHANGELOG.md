@@ -2173,6 +2173,21 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/928f2148feb40b793c5c6253c9b1f5b654d71aa4">Correct 18 Tok Pisin visibility and sharing messages.</a></summary>
+
+- Clarify private access, public visibility, member-only editing and shared
+  template scope. Preserve source tokens and the login link markup.
+  Wording remains provisional pending fluent-speaker review.
+- The combined run passes 109 checks; two catalog checks still fail on the
+  missing due-date shortcut key. All 21 human-preference checks pass.
+  Browser and screen-reader checks were not run.
+- The broader translation and wording audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/38f3f75a926e34cbcf166a4807e9f08206142314">Correct 22 Tok Pisin error messages.</a></summary>
 
 - Replace mixed English in errors and empty states. Preserve placeholders
