@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **46,827 untranslated locale/string values in 70 languages**. It
+  report counts **46,797 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -2074,6 +2074,18 @@ uses the same word as `checklist` itself.
 </details>
 
 **Translations** — continued language coverage and corrections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a47ac3e61b197b297ad85cf5b407ffdad94c5010">Translate 30 Waray Blockly indexing and replacement messages.</a></summary>
+
+- Fill sublist, search, length, repetition, reversal and insertion/replacement labels. Preserve missing-result values, copy semantics and operation distinctions.
+- Extend token and operation regressions. Technical wording remains provisional and contextual language review remains open.
+- English placeholders decrease from 46,827 to 46,797 across 70 languages, with 148 source keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a157eec21186ff0ff2cbf7c10a0ded3a35074c97">Translate 27 Waray Blockly list-operation messages.</a></summary>
