@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "རང་བཟོས་རོགས་རམ་འབྲེལ་ཐག་གི་ URL",
   "text-below-custom-login-logo": "རང་བཟོས་ནང་འཛུལ་ལས་རྟགས་ཀྱི་འོག་གི་ཡི་གེ",
   "automatic-linked-url-schemes": "རང་ཞིན་གྱིས་མནན་ཐུབ་པའི་རང་བཟོས་ URL ལས་འཆར། ཐིག་ཕྲེང་རེར་ URL ལས་འཆར་རེ།",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "སྔོན་སྒྲིག་ལུ་སྟོངམ་ཨིནམ་ལས་ ཝེབ་དང་གློག་འཕྲིན་གྱི་འབྲེལ་ལམ་ཚུ་རྐྱངམ་ཅིག་ཨེབ་གཏང་འབད་ཚུགས། ཐོ་ཡིག་ནང་བཀོད་ཡོད་པའི་འཆར་ལས་རེ་རེ་གིས་ དཔེར་ན་ thunderlink ཡང་ན་ onenote གིས་ དེའི་དོན་ལུ་ཐོ་བཀོད་འབད་ཡོད་པའི་གློག་རིམ་ཁ་ཕྱེཝ་ཨིན། javascript དང་ data དང་ vbscript དང་དེ་བཟུམ་མའི་འཆར་ལས་ཚུ་ ནམ་ཡང་འབྲེལ་ལམ་ལུ་མི་བསྒྱུར།",
   "external-link-pattern": "ཕྱིའི་དཀའ་ངལ་རྗེས་འདེད་ལུ་རང་བཞིན་མཐུད་ལམ།",
   "external-link-pattern-description": "ཤོག་ཁྲམ་གྱི་ཚིག་ཡིག་ནང་འཐོབ་པའི་\"#1234\" རིགས་ཀྱི་བརྡ་མཚོན་རྣམས་ཕྱིའི་དཀའ་ངལ་རྗེས་འདེད་ལུ་རང་བཞིན་གྱིས་མཐུད་དོ། ཟུར་སྟོང་བཟོ་ནི་ལུ་ཐིག་ཁྲམ་གཅིག་སྟོངམ་བཞག།",
   "external-link-pattern-prefix": "བརྡ་མཚོན་གྱི་སྔོན་ཚིག",

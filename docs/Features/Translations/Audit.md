@@ -3094,6 +3094,14 @@ Both drafts have lower confidence, particularly technical loanwords, link termin
 
 Validation covers 50 recently filled hints, exact identifiers, tokens and source key order, plus parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. This hint remains English in 16 locales. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; language quality review remains open.
 
+### URL scheme hint: Tibetan and Dzongkha
+
+Filled the English-only `automatic-linked-url-schemes-hint` in `bo` and `dz` directly with the placeholder-only fill utility. Existing translations were retained. Both drafts preserve all five scheme names and describe the empty default, web/mail links, registered applications and permanently excluded schemes.
+
+Technical wording, especially the URI scheme term, has lower confidence and needs native-speaker review. Dzongkha uses its own grammatical forms rather than copying the Tibetan sentence. References include [Dzongkha Computer Terms](https://panl10n.cle.org.pk/outputs/DCT.pdf) for application terminology and the [Tibetan dictionary](https://dictionary.christian-steinert.de/) computer-term collection. These resources do not validate the complete translated sentences. No translation service was used.
+
+Validation covers 52 recently filled hints, exact scheme identifiers, source tokens and key order, plus parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. This hint remains English in 14 locales. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; language quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
