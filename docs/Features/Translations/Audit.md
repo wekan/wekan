@@ -4256,6 +4256,13 @@ mixed-language audit remains open.
 - Extended the existing placeholder/state checks and browser report flow to these ten locales. All 17 focused Node tests and 21 human-preference checks pass; browser syntax passes, but execution remains unverified because the local Playwright executable is unavailable.
 - These ten report strings remain English in 40 locales. Ordinary placeholders decrease from 51,425 to 51,325 across 70 languages; 148 pending keys still require wording review.
 
+## Rule email report labels: nine Pacific and African locales (2026-10-07)
+
+- Filled ten English report strings each in Bislama, Tok Pisin, Fijian, Tongan, Hawaiian, Oromo, Kinyarwanda, Kirundi and Luganda (90 values). Used existing email-action vocabulary. Technical clauses remain provisional, particularly Fijian, Tongan, Hawaiian and Kirundi.
+- Hawaiian terminology was checked against [Kamehameha Schools' lesson using hoʻāʻo for trying](https://www.ksbe.edu/assets/ksdl/KulaiwiTranscription_Lesson06_Final.pdf). This supports the root, not the full sentences or the provisional email-server paraphrase.
+- Extended the existing placeholder/state checks and browser report flow to these nine locales. All 17 focused Node tests and 21 human-preference checks pass; browser syntax passes, but execution remains unverified because the local Playwright executable is unavailable.
+- These ten report strings remain English in 31 locales. Ordinary placeholders decrease from 51,325 to 51,235 across 70 languages; 148 pending keys still require wording review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
