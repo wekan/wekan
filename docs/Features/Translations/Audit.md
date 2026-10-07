@@ -2125,6 +2125,22 @@ native/UI review, especially where existing locale labels use inconsistent terms
 63 locale paths still need this seven-string group. The snapshot remains 51,575
 ordinary missing values plus 181 pending keys; broader language review stays open.
 
+### Rule-builder instructions — Kurdish, Sorani and Papiamento (2026-10-07)
+
+Filled the seven pending rule-builder strings in ku, ckb and pap (21 values),
+preserving existing translations and every literal variable expression, including
+`{customField:Field name}` and `{customField:Name}`. No translation service was used.
+The descriptions retain any-trigger behavior, ordered actions, username/email
+context and card-derived variables used by other actions and trigger fields.
+
+The existing trigger-variable suite now checks six recently filled locales for
+source order, nonempty translations and exact brace/underscore/percent tokens.
+Runtime variable matching, all-locale structural and human-preference checks pass.
+The browser scenario was not run; the app stack was unavailable. Date-condition
+fragments, trigger terminology and the email recipient label need native/UI review.
+60 locale paths still need this group. The snapshot remains 51,575 ordinary missing
+values plus 181 pending keys; broader language review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
