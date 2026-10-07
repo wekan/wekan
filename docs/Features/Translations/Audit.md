@@ -3870,6 +3870,14 @@ The [Nahuatl dictionary](https://nahuatl.wired-humanities.org/content/tequitl) s
 
 Extended locale and browser coverage to both locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in three locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
 
+## Multiple-parent controls: Cherokee - 2026-10-07
+
+Filled three English placeholders in `chr` through the protected fill workflow. The parent-card draft uses a larger-task paraphrase rather than copying the questionable older parent label. Removal is intended to end the subordinate relationship rather than delete a card.
+
+The [Cherokee vocabulary list](https://cherokeedictionary.net/first500) supplies work vocabulary; it does not verify the drafted UI expressions. All three phrases are low confidence, including possession, clause structure and whether the larger-task description clearly conveys a parent relationship. Further language review is required. Syllabary and non-English checks do not establish understandable or accurate Cherokee.
+
+Extended locale and browser coverage to Cherokee. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in two locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

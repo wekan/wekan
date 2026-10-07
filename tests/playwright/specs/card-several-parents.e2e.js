@@ -37,7 +37,7 @@ test('an existing card becomes a subtask of a second parent and keeps the first'
   await expect(candidates.filter({ hasText: 'Gamma Card' })).toHaveCount(0);
 });
 
-for (const language of ['en', 'ku', 'ckb', 'tt', 'tk_TM', 'yi', 'so', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ks', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've', 'bi', 'tpi', 'mi', 'sm', 'fj', 'to', 'haw', 'om', 'rw', 'rn', 'lg', 'wo', 'ak', 'ee', 'bm', 'pap', 'wa', 'wa-RR', 'ace', 'bua', 'cv', 'sah', 'bo', 'dz', 'ti', 'qu', 'ay', 'gn', 'ary', 'gv', 've-CC', 'rup', 'se', 'iu', 'kl', 'tlh', 'vo', 'ff', 've-PP', 'nah', 'zgh']) {
+for (const language of ['en', 'ku', 'ckb', 'tt', 'tk_TM', 'yi', 'so', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ks', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've', 'bi', 'tpi', 'mi', 'sm', 'fj', 'to', 'haw', 'om', 'rw', 'rn', 'lg', 'wo', 'ak', 'ee', 'bm', 'pap', 'wa', 'wa-RR', 'ace', 'bua', 'cv', 'sah', 'bo', 'dz', 'ti', 'qu', 'ay', 'gn', 'ary', 'gv', 've-CC', 'rup', 'se', 'iu', 'kl', 'tlh', 'vo', 'ff', 've-PP', 'nah', 'zgh', 'chr']) {
 const locale = require(`../../../imports/i18n/data/${language}.i18n.json`);
 test(`Card → More lists the other parents and removes one in ${language}`, async ({ boardPage: page, board }) => {
   const byTitle = title => db.findOne('cards', { boardId: board.boardId, title });
