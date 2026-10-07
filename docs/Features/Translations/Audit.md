@@ -4551,6 +4551,13 @@ mixed-language audit remains open.
 - All twelve focused Node tests and 21 human-preference checks pass. Extended exact token and distinct-direction checks alongside existing negative import tests. Added all four locales to the localized editor drag/edit/context-menu browser flow. Syntax passes; browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
 - Ordinary placeholders decrease from 49,317 to 49,269 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## Blockly movement announcements: Greenlandic and Inuktitut (2026-10-07)
+
+- Filled twelve movement and scrolling announcements in each of Greenlandic and Inuktitut (24 values), using the protected fill utility. Arguments and distinct directions are retained. Scrolling describes moving the visible content. Both sets of technical clauses remain low confidence, including case endings around substituted block names and workspace terminology; structural tests do not establish fluency.
+- References include [An Introduction to West Greenlandic](https://oqa.dk/assets/aitwg2ED.pdf) and [Kativik Ilisarniliriniq's Inuktitut spatial grammar](https://nunavik-ice.com/en/c/inuktitut-en/locative-pronouns/). The latter distinguishes front, back, around, inside and left/right bases; it does not validate the independently drafted full announcements.
+- All twelve focused Node tests and 21 human-preference checks pass. Extended exact token and distinct-direction checks alongside existing negative import tests. Added both locales to the localized editor drag/edit/context-menu browser flow. Syntax passes; browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
+- Ordinary placeholders decrease from 49,269 to 49,245 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
