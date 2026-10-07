@@ -100,7 +100,7 @@ test('translated browser-tab errors preserve SAML and source placeholders', () =
   const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
   const en = JSON.parse(fs.readFileSync('imports/i18n/data/en.i18n.json', 'utf8'));
   const key = 'saml-login-not-started';
-  for (const code of ["tk_TM", "tt", "so", "ku", "ckb", "pap", "tpi", "bi", "mi", "sm", "haw", "zu", "zu-ZA", "xh", "st", "tn", "rw", "rn", "ny", "bho", "mai", "or_IN", "kok", "ary", "yi", "nd", "ss", "nso", "ts", "om", "fj", "to", "gv", "wa", "wa-RR", "ak", "lg", "bm", "wo", "ee", "rup", "ve-CC", "bua", "sah", "cv", "ve", "se", "ace", "bo", "dz", "ti", "ks", "qu", "ay", "gn", "ff", "vo", "tlh", "ve-PP", "wal", "kl", "iu"]) {
+  for (const code of ["tk_TM", "tt", "so", "ku", "ckb", "pap", "tpi", "bi", "mi", "sm", "haw", "zu", "zu-ZA", "xh", "st", "tn", "rw", "rn", "ny", "bho", "mai", "or_IN", "kok", "ary", "yi", "nd", "ss", "nso", "ts", "om", "fj", "to", "gv", "wa", "wa-RR", "ak", "lg", "bm", "wo", "ee", "rup", "ve-CC", "bua", "sah", "cv", "ve", "se", "ace", "bo", "dz", "ti", "ks", "qu", "ay", "gn", "ff", "vo", "tlh", "ve-PP", "wal", "kl", "iu", "nah", "zgh"]) {
     const locale = JSON.parse(fs.readFileSync(`imports/i18n/data/${code}.i18n.json`, 'utf8'));
     assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source order`);
     assert.ok(locale[key]?.trim(), `${code}: nonempty`);

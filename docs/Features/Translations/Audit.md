@@ -2068,6 +2068,24 @@ checks pass. Browser scenarios were not run; the app stack was unavailable.
 Four locale paths still need this message. The snapshot remains 51,575 ordinary
 missing values plus 182 pending keys; broader language review remains open.
 
+### SAML browser-tab error — Nahuatl and Tamazight (2026-10-07)
+
+Filled `saml-login-not-started` in nah and zgh without overwriting existing
+translations or using an external translation service. The messages retain the
+current-tab boundary and instruction to sign in again. Both full phrases and
+browser/tab terminology are low confidence and need native review. Nahuatl uses a
+borrowed browser label and an approximate tab term; Tamazight retains a tab loan.
+
+References include [UNAM's Nahuatl dictionary](https://gdn.iib.unam.mx/diccionario/occeppa/187043)
+for again and [IRCAM's conjugation manual](https://www.temehu.com/imazighen/dictionaries/Amawals/manuel-de-conjugaison-Tamazight-Tifinagh-IRCAM.pdf)
+for the Tamazight start verb. These references do not validate the full phrases.
+
+The popup-error suite now checks 64 recently filled locales and passes, including
+positive and negative login-boundary cases. All-locale structural and human-preference
+checks pass. Browser scenarios were not run; the app stack was unavailable.
+Tigre and Cherokee still need this message. The snapshot remains 51,575 ordinary
+missing values plus 182 pending keys; broader language review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
