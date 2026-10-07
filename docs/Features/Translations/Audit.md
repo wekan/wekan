@@ -3952,6 +3952,29 @@ using this English instruction. The broader backlog remains 51,575 ordinary
 placeholders across 70 languages plus 150 pending source keys. These checks
 establish structural coverage, not linguistic accuracy.
 
+## Leo import instruction: eight further locales and a Darija correction
+
+Filled the English `import-board-instruction-leo` value in Moroccan Arabic,
+Walloon, Waray, Acehnese, Manx, Northern Sami, Venetian and Aromanian. Existing
+non-English instructions were preserved. Corrected the Moroccan Arabic `done`
+label from Persian `انجام شده` to Darija `سالا`, with a regression that rejects
+the Persian vocabulary. This is a wrong-language correction, not an overwrite of
+a correct-language human translation.
+
+The [Manx phrasebook](https://kevinscannell.com/files/frasleabhar.pdf) provides
+`greimmaghey` in the context of cutting and pasting; that corrected the initial
+paste wording. Consulted the [Walloon dictionary](https://moti.walon.org/dicc_esplicantA_AA.html)
+for attachment terminology. These word references do not validate the full
+instructions. Hierarchy and import terminology remain provisional, especially
+Acehnese, Manx, Northern Sami and Aromanian; full linguistic review remains open.
+
+Extended locale and browser import coverage for all eight locales, retaining
+the existing invalid-input tests. All 12 focused Node tests and 21 preservation
+checks pass; browser syntax passes. Browser execution remains unverified because
+Playwright is unavailable. There are 25 locales still using the English Leo
+instruction. The wider backlog remains 51,575 ordinary placeholders in 70
+languages plus 150 pending source keys. Coverage is not proof of fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
