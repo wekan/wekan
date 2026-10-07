@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "Custom Help Kakwate URL",
   "text-below-custom-login-logo": "Bigambo below Custom Okuyingira Logo",
   "automatic-linked-url-schemes": "Custom URL Schemes ki should kyokka ba clickable. One URL Scheme per line",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Mu nteekateeka esookerwako kiba kyereere, kale ennyunzi za webu ne yimeyiro zokka ze zisobola okunyigibwako. Buli kika kya nnyunzi ekiri ku lukalala, gamba nga thunderlink oba onenote, kiggulawo pulogulaamu eyawandiisibwa okukikozesa. javascript, data, vbscript n’ebika ebifaanana nabyo tebifuulibwa nnyunzi n’akatono.",
   "external-link-pattern": "Enkolo eyeekola yokka ku ekyuma eky'ebweru ekigoberera obuzibu",
   "external-link-pattern-description": "Yeekwataganya yokka obubonero ng'obwa \"#1234\" obulabika mu bigambo by'ekaadi ku kyuma eky'ebweru ekigoberera obuzibu. Leka ekifo kimu nga tekiriimu kintu okuziyiza kino.",
   "external-link-pattern-prefix": "Ekisookerwako ky'akabonero",

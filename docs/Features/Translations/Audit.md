@@ -2986,6 +2986,25 @@ Forty-two locale paths still need this hint, so its source key remains pending.
 The ordinary backlog remains 51,575 values plus 172 pending source keys; broader
 language-quality work remains open.
 
+### Custom URL scheme hint — five further African languages (2026-10-07)
+
+Filled the hint in rw, rn, lg, ts and ve (Kinyarwanda, Kirundi, Luganda, Tsonga
+and Venda). Existing translations were preserved through the placeholder-only
+merge; no translation service was used. All five scheme identifiers remain exact,
+with the empty default, registered-application behavior and permanent exclusion
+of dangerous scheme examples retained in the prose.
+
+The allowlist suite covers this hint in 29 recently filled locales. Identifier
+inventory and negative omission checks, source tokens and key order pass, together
+with parser/sanitizer behavior, all-locale structure and 21 human-preference checks.
+Browser scenarios were syntax-checked but not run without the application stack.
+Technical wording, particularly Venda and Tsonga, has lower confidence and remains
+open for native/UI review.
+
+Thirty-seven locale paths still need this hint, so its source key remains pending.
+The ordinary backlog remains 51,575 values plus 172 pending source keys; broader
+language-quality work remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

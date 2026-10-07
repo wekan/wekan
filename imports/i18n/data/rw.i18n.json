@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "URL yihariye y'Ihuza ry'Imfashanyo",
   "text-below-custom-login-logo": "Inyandiko iri munsi y'Ikirango cyihariye cyo Kwinjira",
   "automatic-linked-url-schemes": "Uburyo bwa URL bwihariye bugomba guhita bukandwaho. Uburyo bumwe bwa URL kuri buri murongo",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Mu igenamiterere risanzwe nta kirimo, bityo amahuza y’urubuga na imeli gusa ni yo ashobora gukandwaho. Buri bwoko bw’ihuriro buri ku rutonde, nka thunderlink cyangwa onenote, bufungura porogaramu yabwandikishijweho. javascript, data, vbscript n’ubundi bwoko busa na bwo ntibwigera buhindurwa amahuza.",
   "external-link-pattern": "Guhuza mu buryo bwikora n'ikoranabuhanga ryo hanze rikurikirana ibibazo",
   "external-link-pattern-description": "Ihuza mu buryo bwikora ibimenyetso bimeze nka \"#1234\" biboneka mu nyandiko y'ikarita n'ikoranabuhanga ryo hanze rikurikirana ibibazo. Siga umwanya umwe ubusa kugira ngo ubihagarike.",
   "external-link-pattern-prefix": "Imbanzirizasanzu y'ikimenyetso",

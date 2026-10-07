@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "wa wena mhaka xihlanganisi mhaka",
   "text-below-custom-login-logo": "tsalwa mhaka wa wena nghena mhaka",
   "automatic-linked-url-schemes": "wa wena mhaka mhaka mhaka mhaka mhaka mhaka mhaka. mhaka mhaka mhaka mhaka mhaka",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Eka malulamiselo yo sungula a ku na ntxumu, kutani ku nga tlimbiwa ntsena swihlanganisi swa webu na imeyili. Muxaka wun’wana ni wun’wana wa xihlanganisi lowu nga eka nxaxamelo, ku fana na thunderlink kumbe onenote, wu pfula nongonoko lowu tsarisiweke ku wu tirhisa. javascript, data, vbscript ni mixaka leyi fanaka na yona a swi endliwi swihlanganisi nikatsongo.",
   "external-link-pattern": "Vuxaka bya ku tibula xiyimo eka nhlangano wa vuxaka wa le handle",
   "external-link-pattern-description": "Yi hlanganisa hi ku tibula swikombiso swo fana na \"#1234\" leswi kumekaka eka tsalwa ra khadi eka nhlangano wa vuxaka wa le handle. Siya nsimu yin'we yi ri hava nchumu leswaku ku pfaleriwa.",
   "external-link-pattern-prefix": "Xisunguli xa xikombiso",

@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "URL ya ḽinki ya thuso yo dzudzanywaho",
   "text-below-custom-login-logo": "Maṅwalwa nga fhasi ha ḽogo ya u dzhena yo dzudzanywaho",
   "automatic-linked-url-schemes": "Zwikimu zwa URL zwo dzudzanywaho zwi fanela u kiḽikea nga zwoṱhe. Tshikimu tshithihi tsha URL kha mutaladzi muṅwe na muṅwe",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Kha nzudzanyo ya u thoma a hu na tshithu, ngauralo ndi vhuṱumanyi ha webu na imeili fhedzi vhune ha nga puṱedzwa. Lushaka luṅwe na luṅwe lwa vhuṱumanyi lu re kha mutevhe, sa thunderlink kana onenote, lu vula mbekanyamushumo yo ṅwaliselwaho u lu shumisa. javascript, data, vbscript na dziṅwe tshaka dzi fanaho nazwo a zwi shandulwi zwa vha vhuṱumanyi na luthihi.",
   "external-link-pattern": "Vhuthihi ha u ḓidzudzanya na muṱoli wa thaidzo dza nnḓa",
   "external-link-pattern-description": "I ṱanganyisa nga hu ḓidzudzanyaho zwiga zwo fanaho na \"#1234\" zwi wanalaho kha maṅwalo a khadi na muṱoli wa thaidzo dza nnḓa. Siyani muvhundu muthihi u si na tshithu u itela u dzhia.",
   "external-link-pattern-prefix": "Themendulo ya tshiga",
