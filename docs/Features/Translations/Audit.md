@@ -3354,6 +3354,14 @@ Vocabulary references include the [Luganda dictionary](https://learnluganda.com/
 
 Ten translation/token regressions, import-loss positive/negative checks, all 234 locale structure checks and 21 human-preference checks pass. Extended the browser cases to eight more locales; they were syntax-checked only because the local Playwright executable and running application are unavailable. Each of the three source keys remains English in 30 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
 
+### Import warning report: six further locales
+
+Filled 18 English placeholders in Acehnese (`ace`), Bambara (`bm`), Ewe (`ee`), Fulah (`ff`), Fijian (`fj`) and Tongan (`to`). The fill utility protected existing translations; no translation service was used. The description preserves the created-board outcome, incomplete transfer and recovery-report location. Replaced Tongan `Faka-Tonga: Problems` and `Faka-Tonga: Recovery` with `Ngaahi palopalema` and `Fakafoki`; the local-language prefix did not translate the English menu names. Regression checks reject those old values and verify the report's recovery path.
+
+References include the [Bambara lexicon](https://mooreburkina.com/sites/www.mooreburkina.com/files/pdf-files/Bambara%20Lexicon.pdf) for `lasɔmili`, an [Ewe vocabulary list](https://www.peterlin.pl/ewe/words.html), the [Fulfulde-French dictionary](https://fr.scribd.com/document/349770134/Dicionnaire-Fulfulde-Francais) for `jertinaango`, the [Fijian-English dictionary](https://traditionalfijiansongs.wordpress.com/wp-content/uploads/2019/05/fijian-english-dictionary.pdf) for advice vocabulary, and [Tongan warning/return usage](https://schoolsequella.det.nsw.edu.au/file/3d7dcb81-35e4-4cf9-bcd5-1e84fc193ff1/1/tongan.pdf). These establish individual terms rather than validating the full drafts. Acehnese, Bambara, Ewe and Fulah technical phrasing and agreement have low confidence; all six drafts and inherited board/menu vocabulary remain open to fluent-speaker review.
+
+Ten translation/token regressions, import-loss positive/negative checks, all 234 locale structure checks and 21 human-preference checks pass. Extended the browser cases to six more locales; they were syntax-checked only because the local Playwright executable and running application are unavailable. Each of the three source keys remains English in 24 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
