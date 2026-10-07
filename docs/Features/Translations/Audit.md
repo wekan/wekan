@@ -7078,6 +7078,19 @@ fluency. The wider translation audit remains incomplete.
 
 Vocabulary reference: the [Cornish Language Partnership phrasebook](https://www.magakernow.org.uk/default_page-937.html) confirms `ygor` for open.
 
+### Missing due-date shortcut: thirteen further languages
+
+Added the shortcut in Akan, Bambara, Chuvash, Ewe, Guarani, Sakha,
+Northern Sámi, Silesian, Tsonga, Venda, Wolof, Kashubian and Walloon.
+Existing translations remain unchanged. Key order and token inventories are
+checked together with representative opened-card wording. Chuvash, Ewe,
+Sakha, Silesian, Kashubian and Walloon wording remains low confidence.
+Browser, screen-reader and fluent-speaker checks were not run.
+
+Vocabulary references: [Northern Sámi rabas](https://fr.wiktionary.org/wiki/rabas)
+and [Wolof ubbeeku](https://jangileen.kalam-alami.net/dictionary/browse/O).
+These support vocabulary choices, not validation of the complete sentences.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
