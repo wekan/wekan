@@ -224,7 +224,46 @@ const correctedKeys = [
   "subtask-inherit-parent-labels",
   "list-sync-username-placeholder",
   "list-sync-last-synced-never",
-  "board-view-monte-carlo"
+  "board-view-monte-carlo",
+  "blockly-CANNOT_DELETE_VARIABLE_PROCEDURE",
+  "blockly-CHANGE_VALUE_TITLE",
+  "blockly-CLEAN_UP",
+  "blockly-CLOSE_BACKPACK",
+  "blockly-COLLAPSED_WARNINGS_WARNING",
+  "blockly-COLLAPSE_ALL",
+  "blockly-COLLAPSE_BLOCK",
+  "blockly-COLOUR_BLEND_COLOUR1",
+  "blockly-COLOUR_BLEND_COLOUR2",
+  "blockly-COLOUR_BLEND_RATIO",
+  "blockly-COLOUR_BLEND_TITLE",
+  "blockly-COLOUR_BLEND_TOOLTIP",
+  "blockly-COLOUR_PICKER_TOOLTIP",
+  "blockly-COLOUR_RANDOM_TITLE",
+  "blockly-COLOUR_RANDOM_TOOLTIP",
+  "blockly-COLOUR_RGB_BLUE",
+  "blockly-COLOUR_RGB_GREEN",
+  "blockly-COLOUR_RGB_RED",
+  "blockly-COLOUR_RGB_TITLE",
+  "blockly-COLOUR_RGB_TOOLTIP",
+  "blockly-CONTROLS_FLOW_STATEMENTS_OPERATOR_BREAK",
+  "blockly-CONTROLS_FLOW_STATEMENTS_OPERATOR_CONTINUE",
+  "blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_BREAK",
+  "blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_CONTINUE",
+  "blockly-CONTROLS_FLOW_STATEMENTS_WARNING",
+  "blockly-CONTROLS_FOREACH_TITLE",
+  "blockly-CONTROLS_FOREACH_TOOLTIP",
+  "blockly-CONTROLS_FOR_TITLE",
+  "blockly-CONTROLS_FOR_TOOLTIP",
+  "blockly-CONTROLS_IF_ELSEIF_TOOLTIP",
+  "blockly-CONTROLS_IF_ELSE_TOOLTIP",
+  "blockly-CONTROLS_IF_IF_TOOLTIP",
+  "blockly-CONTROLS_IF_MSG_ELSE",
+  "blockly-CONTROLS_IF_MSG_ELSEIF",
+  "blockly-CONTROLS_IF_TOOLTIP_1",
+  "blockly-CONTROLS_IF_TOOLTIP_2",
+  "blockly-CONTROLS_IF_TOOLTIP_3",
+  "blockly-CONTROLS_IF_TOOLTIP_4",
+  "blockly-CONTROLS_REPEAT_TITLE"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -277,6 +316,11 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   assert.ok(waray['globalSearch-instructions-operator-number'].includes('*<number>*'));
   assert.ok(waray['import-wekan-file'].includes('.json o .zip'));
   assert.match(waray['import-parts-instruction'], /ginmarkahan la/);
+  assert.notEqual(waray['blockly-CONTROLS_FLOW_STATEMENTS_OPERATOR_BREAK'], waray['blockly-CONTROLS_FLOW_STATEMENTS_OPERATOR_CONTINUE']);
+  assert.match(waray['blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_CONTINUE'], /Laktawi.*sunod/);
+  assert.match(waray['blockly-CONTROLS_IF_TOOLTIP_4'], /Kon waray tinuod nga bili.*kataposan/);
+  assert.ok(waray['blockly-COLOUR_BLEND_TOOLTIP'].includes('0.0 - 1.0'));
+  assert.match(waray['blockly-COLOUR_RGB_TOOLTIP'], /0 ngan 100/);
   for (const [key, name] of [['gridfs-file-id', 'GridFS'], ['s3-file-id', 'S3'], ['azure-blob-storage-description', 'Microsoft Azure Blob Storage'], ['gcs-storage-description', 'Google Cloud Storage']]) {
     assert.ok(waray[key].includes(name), key);
   }

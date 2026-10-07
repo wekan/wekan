@@ -4981,6 +4981,12 @@ mixed-language audit remains open.
 - Corrected migration/repair, import/export, search syntax, checklist/layout, synchronization and Monte Carlo forecast labels. Preserved repair/restoration count tokens, code-formatted search examples, filename extensions and product names; retained unsuccessful-repair and partial-restoration meanings.
 - Extended token and negative-result regressions, including Markdown search syntax. Technical wording for migration detection, integrity, sticky headers and inheritance remains provisional and needs contextual review. Browser checks and broader semantic review remain open.
 
+### Waray Blockly editing, colors and control flow
+
+- Filled 39 English placeholders through the protected workflow, covering block editing, colors, loops and conditional branches. Left keyboard legends and ChromeOS unchanged. Preserved numbered arguments and numeric color ranges.
+- Kept breaking out of a loop distinct from skipping to its next iteration, and retained the final fallback branch when no condition is true. Existing Waray comment and input vocabulary guided wording; loop, palette, backpack and function terminology remains provisional.
+- Extended corrected-key/token checks and control-flow/range regressions. These structural and phrase checks do not establish full semantic equivalence or fluency. Browser and spoken accessibility checks remain unexecuted; broader language review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
