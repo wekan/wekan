@@ -1890,6 +1890,15 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/34bfeb77ca1c3891e0e8302ec5888cb5e11ea6c6">Translate import reports in Inuktitut</a>. Thanks to xet7.</summary>
+
+- Translate three import-report messages, retaining board creation, incomplete transfer and recovery navigation. Full sentences and technical terminology remain low confidence, documented in the translation audit.
+- Translation/token, import-loss and 234-locale structural tests pass, along with human-preference checks. The Inuktitut browser case is syntax-checked; execution requires Playwright and a running application.
+- This group remains English in three locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9af64cf7191926029d14f555d5a8532915434404">Translate import reports in Wolaytta</a>. Thanks to xet7.</summary>
 
 - Translate three import-report messages and replace two prefixed-English recovery-menu labels. Full sentences and technical terminology remain low confidence, documented in the translation audit.
