@@ -3774,6 +3774,14 @@ Extended locale and browser coverage to all five locales. All 12 focused tests a
 
 These controls remain English in 54 locale paths and stay pending. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
 
+## Multiple-parent controls: southern African locales - 2026-10-07
+
+Filled three English placeholders in each of `st`, `tn`, `nso`, `zu`, `zu-ZA`, `xh`, `ss`, `nd`, `ts` and `ve` (30 values) through the protected fill workflow. Relationship-removal wording preserves the card. Existing Tsonga filler and Venda labels written in Zulu were not copied as terminology references; those older entries remain part of the broader language audit.
+
+The [Tsonga facilitator guide](https://admin.jet.org.za/clearinghouse/projects/grade-r-maths-and-language-improvement-project/resources/mathematics/facilitator-guide-participants-workshop/w1-fg-and-pw/fg/gde-maths_workshop-1_facilitator-guide-xitsonga-final.pdf) supports xintirhwana as task/activity vocabulary. The [Venda teaching guide](https://www.cambridge.org/za/files/7516/1674/8619/Study__Master_Zwikili_zwa_Vhutshilo_Faela_ya_Mugudisi_Gireidi_ya_1__9781316522783AR.pdf) supports small-task wording. Neither validates the full UI phrases. Technical parent metaphors and noun agreement, particularly in Swati, Ndebele, Tsonga and Venda, remain provisional and require language review.
+
+Extended locale and browser coverage to all ten locale paths. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in 44 locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
