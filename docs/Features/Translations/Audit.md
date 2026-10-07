@@ -3510,6 +3510,12 @@ Filled 25 English placeholders in `wa-RR`, `fj`, `to`, `lg` and `wo` with the pr
 
 Extended the translation/token regression and existing localized browser scenario to the five locales. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 28 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys. Existing unrelated seed problems, including prefixed-English Tongan and Luganda labels, remain part of the broader language audit.
 
+### History recovery: Buryat, Chuvash and Sakha
+
+Filled 15 English placeholders in `bua`, `cv` and `sah` with the protected fill utility. The drafts distinguish undo/redo and retry/forget and retain the same-request explanation. References include [Buryat published usage](https://burunen.ru/files/159096/) of confirmation/forgetting vocabulary, [Chuvash usage](https://chuvash.su/news/23261.html) of confirmation/again vocabulary, and [Sakha WordPress translations](https://translate.wordpress.com/projects/wpcom/sah/default/?filters%5Boriginal_id%5D=209404&filters%5Bstatus%5D=either&sort%5Bby%5D=translation_date_added&sort%5Bhow%5D=asc) using confirmation terminology. These support individual terms, not the composed software sentences. Full clauses, inflections and undo/redo nominalizations are low-confidence drafts and need fluent-speaker review; Cyrillic text alone does not demonstrate the right language or meaning.
+
+Extended the translation/token regression and existing localized browser scenario to the three locales. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 25 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
