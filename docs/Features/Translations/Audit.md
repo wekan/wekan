@@ -4330,6 +4330,13 @@ mixed-language audit remains open.
 - Extended the existing positive browser save/reload/apply/replace/delete flow and negative invalid-expression flow to these nine locales. All 15 focused Node tests and 21 human-preference checks pass. Browser syntax passes; execution remains unverified because the local Playwright executable is unavailable.
 - These ten strings remain English in 32 locales. Ordinary placeholders decrease from 50,675 to 50,585 across 70 languages; 148 pending keys still require wording review.
 
+## Saved filter labels: seven further European and Asian locales (2026-10-07)
+
+- Filled ten English strings each in Walloon, Waray, Acehnese, Manx, Northern Sami, Venetian and Aromanian (70 values). Preserved the private-per-user, per-board scope and same-name replacement semantics. Technical clauses remain provisional, especially Waray, Acehnese, Manx and Aromanian.
+- Replaced the French Waray filter label and Indonesian Acehnese filter label. The [Acehnese thesaurus](https://dokumen.pub/kamus-basa-aceh-kamus-bahasa-aceh-acehneseindonesianenglish-thesaurus-0858835061.html) supports the saréng root; it does not establish the full clauses. Added vocabulary and token regression checks for both corrected labels; the Waray filtering paraphrase remains low confidence.
+- Extended the existing positive browser save/reload/apply/replace/delete flow and negative invalid-expression flow to these seven locales. All 15 focused Node tests and 21 human-preference checks pass. Browser syntax passes; execution remains unverified because the local Playwright executable is unavailable.
+- These ten strings remain English in 25 locales. Ordinary placeholders decrease from 50,585 to 50,515 across 70 languages; 148 pending keys still require wording review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
