@@ -3468,6 +3468,12 @@ Filled 25 English placeholders in `ku`, `ckb`, `tt`, `tk_TM` and `yi` using the 
 
 Extended the translation/token regression and parameterized the existing browser scenario for English and these five locales, checking exact localized pending messages, the safety explanation and both buttons while retaining retry/forget behavior and wrong-board/expired-request negative cases. Translation, recovery-notice, request logic and 234-locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. The five source keys remain English in 61 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
 
+### History recovery: Moroccan Arabic, Bhojpuri, Maithili, Odia and Konkani
+
+Filled 25 English placeholders in `ary`, `bho`, `mai`, `or_IN` and `kok` using the protected fill utility. The drafts distinguish undo from redo and retry from forgetting the pending request, and retain the explanation that retry cannot undo a second change. Konkani button wording follows the existing infinitive-style controls. Searches for Odia/Konkani software glossary examples did not yield usable references; the drafts are direct translations, not externally validated terminology. Full clauses and technical terms remain provisional, particularly Bhojpuri/Maithili request phrasing and Konkani tense/negation, and need fluent-speaker review.
+
+Extended the translation/token regression and existing localized browser scenario to all five locales. Translation, recovery-notice, request logic and 234-locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 56 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
