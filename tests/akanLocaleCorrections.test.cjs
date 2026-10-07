@@ -321,3 +321,21 @@ test('Akan import and filter instructions preserve machine-readable examples', a
  assert.notEqual(data['import-trello-zip-too-large'],data['import-trello-zip-too-many-files']);
  assert.match(data['trello-select-boards'],/biako/);
 });
+
+test('Akan invitations and membership notices preserve scope and message formatting', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["trello-cancel-delete", "trello-resume", "trello-delete-imported", "trello-import-errors", "import-members-map", "version-check-failed", "just-invited", "list-delete-suggest-archive", "multi-selection-on", "normal-desc", "notify-participate", "private-desc", "sandstorm-remove-member-warning", "has-overtime-cards", "has-spenttime-cards", "unsaved-description", "warn-list-archived", "wipLimitErrorPopup-dialog-pt1", "attachment-transfer-limits-description", "email-smtp-test-text", "error-notAuthorized", "org-admins-description", "r-w-card-created", "email-invite-register-text"];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.ok(!/impanaat|expanaat|\b(You|are|has|Can)\b/.test(data[key]),key);
+ }
+ assert.equal(data['email-invite-register-text'].split('\n').length,english['email-invite-register-text'].split('\n').length);
+ assert.match(data['normal-desc'],/Otumi hwɛ na sesa.*Ontumi nsesa nhyehyɛe/);
+ assert.match(data['private-desc'],/nkutoo/);
+ assert.match(data['sandstorm-remove-member-warning'],/Ennyi.*Sandstorm grain/);
+ assert.match(data['sandstorm-remove-member-warning'],/Share access/);
+ assert.match(data['org-admins-description'],/biribi foforo biara nka ho.*rentumi mma.*rentumi nhwɛ/);
+ assert.match(data['attachment-transfer-limits-description'],/API.*ano soronko/);
+ assert.notEqual(data['trello-cancel-delete'],data['trello-resume']);
+ assert.match(data['list-delete-suggest-archive'],/woakora dwumadi kyerɛwtohɔ/);
+});

@@ -5363,6 +5363,12 @@ Rewrote 24 filter/export/import messages, restoring machine-readable examples th
 
 Tests check source tokens, exact example fragments, backslash counts and distinct ZIP error categories. Technical filter and import wording remains provisional. Browser checks were not run; the broader language audit continues.
 
+### Akan mixed-language correction: invitations and membership notices
+
+Rewrote 24 mixed-language entries covering Trello controls, membership, private-board access, WIP/file limits and invitation email. Preserve invitation tokens and line breaks, organization-admin scope and the distinction between hiding a WeKan member and revoking Sandstorm access.
+
+Tests cover source tokens, email formatting, permission restrictions, archive retention and separate API caps. Membership, storage and WIP terminology remains provisional. Browser checks were not run; broader language review continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
