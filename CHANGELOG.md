@@ -2173,6 +2173,21 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e4e146494217f2783f84f4aa80284da84e336e38">Correct eight Tok Pisin organization and background labels.</a></summary>
+
+- Replace mixed English in organization, team and board-background controls.
+  Preserve source tokens, action scope and matching labels for equivalent actions.
+  Wording remains provisional pending fluent-speaker review.
+- The combined run passes 163 checks; two catalog checks still fail on the
+  missing due-date shortcut key. All 21 human-preference checks pass.
+  Browser and screen-reader checks were not run.
+- The broader translation and wording audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f7a353ba6be7c6eba78b2075a63910e1fe7baacf">Correct 15 Tok Pisin avatar and repository labels.</a></summary>
 
 - Replace mixed English and correct the WIP Limit Groups label. Preserve source
