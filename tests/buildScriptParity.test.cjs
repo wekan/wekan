@@ -289,6 +289,9 @@ test('every script in releases/ is reachable from BOTH menus', () => {
       + '      reaches. There is no graph to walk until a build has produced a\n'
       + '      bundle, and a menu entry would need one to point at. Run it by hand\n'
       + '      with --dry-run against .build/bundle to see what it would take',
+    'changelog-wrap.mjs': 'an editing aid for whoever just wrote CHANGELOG prose;\n'
+      + '      tests/changelogFormat.test.cjs names it when lines run long, and it\n'
+      + '      only changes whitespace. Run by hand, never from a build menu',
     'changelog-archive.mjs': 'a CALENDAR job, not a build one: it keeps the\n'
       + '      current MONTH in CHANGELOG.md and moves earlier months to\n'
       + '      old-CHANGELOG/<year>/<MM>.md and finished years to\n'
