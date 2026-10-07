@@ -1890,6 +1890,17 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4cf96773d93a9a06f1a5c35b87756b118bed9e4a">Translate map view into Tibetan, Dzongkha and Tigrinya.</a></summary>
+
+- Filled 21 placeholders. Technical wording remains provisional, particularly Dzongkha floor-plan terminology.
+- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but execution awaits Playwright and a running application.
+- The seven map-view keys remain English in 22 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3e73aa11f9b85929f0f508b96a2ee6ae38b7aaa3">Translate map view into Buryat, Chuvash and Sakha.</a></summary>
 
 - Filled 21 placeholders. Technical sentences remain provisional, particularly Chuvash floor-plan wording.
