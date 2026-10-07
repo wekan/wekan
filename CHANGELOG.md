@@ -1889,6 +1889,21 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/28fad83e87abe12839b84674f5b5db800589b3a2">Translate Venda and Venetian notification settings</a>. Thanks to xet7.</summary>
+
+- Fill 26 English placeholders across Venda and Venetian, preserving the
+  reminder/@mention exception. Correct six Zulu/Afrikaans labels in Venda.
+  The registry identifies `ve-CC` as Venetian and `ve-PP` as Veps.
+- Shared notification coverage now checks 46 locales and rejects the six
+  old wrong-language labels. Feature, all-locale structure and human-preference
+  checks pass. Browser scenarios are syntax-checked only. Technical wording
+  is low confidence pending speaker review; references are in the audit.
+- The standard backlog remains 51,575 values plus 201 pending source keys.
+  Remaining languages and broader language review stay in TODO Later.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8c3b630cec187a3dd64afd7e6ccf5a0f9786d04f">Translate Buryat, Sakha and Chuvash notification settings</a>. Thanks to xet7.</summary>
 
 - Fill 39 English placeholders across Buryat, Sakha and Chuvash, preserving
