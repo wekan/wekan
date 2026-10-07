@@ -109,10 +109,20 @@ test('Akan selectors replace English and generic activity filler',()=>{
  assert.equal(data['custom-field-checkbox'],'Adaka a wɔhyɛ no agyirae');
 });
 
+test('Volapük and Klingon controls replace foreign-language seeds',()=>{
+ const vo=require('../imports/i18n/data/vo.i18n.json');
+ const tlh=require('../imports/i18n/data/tlh.i18n.json');
+ assert.equal(vo['custom-field-text'],'Vödem');
+ assert.equal(vo['custom-field-date'],'Dät');
+ assert.equal(tlh['custom-field-text'],'ghItlh');
+ assert.equal(vo['blockly-ARIA_TYPE_FIELD_ANGLE'],'gul');
+ assert.equal(tlh['blockly-ARIA_TYPE_FIELD_BITMAP'],"HaStay' mIllogh");
+});
+
 test('filled field types distinguish images, selectors and input names', async()=>{
  const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
  const names='ANGLE BITMAP CHECKBOX COLOUR DATE DROPDOWN GRID IMAGE INPUT TEXT_INPUT_ARGUMENT TEXT_INPUT_PROCEDURE'.split(' ');
- for(const code of ['ku','ckb','tt','so','yi','ary','bho','mai','tk_TM','or_IN','kok','pap','wuu-Hans','wa','wa-RR','ve-CC','gv','rup','st','tn','nso','zu','zu-ZA','xh','ss','ts','ve','nd','rw','rn','lg','om','ny','bi','tpi','fj','sm','mi','to','haw','bua','cv','sah','qu','ay','gn','bo','dz','ti','ks','se','ve-PP','ace','ak','bm','wo']){
+ for(const code of ['ku','ckb','tt','so','yi','ary','bho','mai','tk_TM','or_IN','kok','pap','wuu-Hans','wa','wa-RR','ve-CC','gv','rup','st','tn','nso','zu','zu-ZA','xh','ss','ts','ve','nd','rw','rn','lg','om','ny','bi','tpi','fj','sm','mi','to','haw','bua','cv','sah','qu','ay','gn','bo','dz','ti','ks','se','ve-PP','ace','ak','bm','wo','vo','tlh']){
   const data=require(`../imports/i18n/data/${code}.i18n.json`);
   for(const name of names){
    const key='blockly-ARIA_TYPE_FIELD_'+name;

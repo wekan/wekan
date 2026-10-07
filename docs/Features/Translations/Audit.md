@@ -4792,6 +4792,13 @@ mixed-language audit remains open.
 - Low confidence: corner/angle precision, pixel loans, grid descriptions using arranged boxes, date/day ambiguity and ordinary work/action nouns for programming functions require review. Input descriptions may need refinement for Blockly connections. Non-English text and distinct strings alone do not prove correct meaning.
 - Existing browser flows cover these locales; browser execution and spoken announcements remain unverified. This batch removes 33 ordinary placeholders and corrects two mixed-language/filler values. The 148 pending source keys and broader semantic audit remain open.
 
+### Volapük and Klingon field types
+
+- Filled 22 English field-type placeholders through the protected fill. Corrected Esperanto-seeded Volapük text/date controls and the French-seeded Klingon text control.
+- The [Volapük dictionary](https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary) supplies angle, color, date, picture, list, insertion and function vocabulary. The [Klingon Language Institute](https://www.kli.org/about-klingon/new-klingon-words/date/) attests `HaStay'` (pixel) and `mIllogh` (picture); its angle entries support `tajvaj`. The [KLI discussion of mIw](https://lists.kli.org/archives/list/tlhingan-hol%40lists.kli.org/thread/CY77JPI34V3BFHK2KJZT5MNVGIJRB3S3/) gives procedure/process. [Klingonska's color reference](https://klingonska.org/ref/color.html) explains the verbal color vocabulary.
+- Low confidence: Volapük pixel image is paraphrased as a dotted image, checkbox as a markable square, and grid dropdown as an openable list in squares. Klingon color is a choice for coloring, date uses day, and grid dropdown describes a selection list with squares. Input describes a data-entry place; the fit to Blockly fields and connections needs review. These complete technical phrases are drafts, not dictionary attestations.
+- Extended field-type distinctions, token checks and exact correction regressions. Existing browser flows include both languages; browser execution and spoken announcements remain unverified. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
