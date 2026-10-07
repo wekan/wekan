@@ -1890,6 +1890,20 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8096c6976dcbdae6da92b7251eab7cb0b107efaf">Translate SAML browser-tab error in 19 locales</a>. Thanks to xet7.</summary>
+
+- Explain that SAML sign-in was not started in this browser tab and ask the user
+  to sign in again. Preserve existing translated values. Pacific and southern
+  African browser-tab terminology has lower confidence and needs native review.
+- Popup-error, replay-boundary, all-locale structural and human-preference checks
+  pass. The replay test required loopback permission. Existing browser scenarios
+  were syntax-checked only; the app stack was unavailable.
+- 47 locale paths still need this message. The ordinary backlog remains 51,575
+  values plus 182 pending source keys; language-quality review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c1f411e1a55323995f4796d225f6abf7ba6d4877">Translate Cherokee reminders and reconcile all-locale coverage</a>. Thanks to xet7.</summary>
 
 - Fill six Cherokee reminder strings. Full phrases and technical terminology are
