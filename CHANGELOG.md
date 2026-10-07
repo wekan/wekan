@@ -1890,6 +1890,19 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/16f5a92edbfd7cb00f9410be7db090944facd045">Translate due reminders into Bhojpuri, Maithili, Odia and Konkani</a>. Thanks to xet7.</summary>
+
+- Fill 24 strings, preserving offset direction, comma separation, numeric limits
+  and blank/server fallback without overwriting existing translations.
+- Translation checks and existing browser scenarios now cover 23 locales.
+  Translation, all-locale and human-preference checks pass; browser coverage is
+  syntax-checked only because its application stack was unavailable.
+- Forty-three locale paths still need this six-key group. The ordinary backlog
+  remains 51,575 values plus 188 pending source keys; wider review stays in TODO Later.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b05e65ac097db446bb11cfb2cca5508816df72a6">Translate due reminders into Kinyarwanda, Kirundi and Chichewa</a>. Thanks to xet7.</summary>
 
 - Fill 18 strings, preserving offset direction, comma separation, numeric limits
