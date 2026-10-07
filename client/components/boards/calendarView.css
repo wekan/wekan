@@ -66,3 +66,19 @@
   color: #111 !important;
   opacity: 1;
 }
+
+/* #6751: FullCalendar already tints today's cell (.fc-day-today, a pale
+   --fc-today-bg-color); the day NUMBER is marked too, so today can be found at
+   a glance. The board theme's dark shade with white text - the same pair the
+   date picker's day buttons use (boardColors.css) - so it follows the board's
+   colour theme and keeps that contrast; the plain accent is the fallback. */
+.calendar-view .fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
+  background: var(--board-theme-dark, var(--theme-accent, #005377));
+  border-radius: 999px;
+  color: #fff;
+  font-weight: bold;
+  margin: 2px;
+  min-width: 1.6em;
+  padding-inline: 4px;
+  text-align: center;
+}

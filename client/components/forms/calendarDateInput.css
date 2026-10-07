@@ -55,6 +55,26 @@
   font-weight: bold;
   outline: 2px solid currentColor;
 }
+/* #6751: today's day is distinct from every other day. The ring and the
+   underline are drawn in the button's OWN text colour (currentColor), so they
+   contrast with whatever fill a board colour theme, dark mode or a custom theme
+   colour gives the day buttons - the fills differ per theme, some with
+   !important, but each theme already keeps its text readable on its fill. The
+   selector is more specific than the themes' `.board-color-x
+   .selected-calendar-picker button.primary` (0,3,1) rules so a theme's
+   box-shadow or font-weight cannot hide it. Selected day keeps its outline
+   outside, so today + selected shows both. Logical properties only: RTL-safe. */
+.calendar-date-input .selected-calendar-picker button.js-calendar-day.is-today {
+  box-shadow: inset 0 0 0 3px currentColor;
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+.calendar-date-input .selected-calendar-picker td.is-today-cell {
+  background: color-mix(in srgb, currentColor 15%, transparent);
+  border-radius: 9px;
+}
 .calendar-date-input button:focus-visible,
 .calendar-time-input select:focus-visible,
 .calendar-date-input input:focus-visible {

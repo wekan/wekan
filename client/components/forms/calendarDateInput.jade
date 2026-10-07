@@ -33,6 +33,6 @@ template(name="calendarDateInput")
               each weeks
                 tr
                   each days
-                    td
+                    td(class="{{#if this.today}}is-today-cell{{/if}}")
                       if this
-                        button.primary.js-calendar-day(type="button" data-date=iso title=title aria-label=title aria-pressed=selected tabindex=tabIndex) {{label}}
+                        button.primary.js-calendar-day(type="button" class="{{#if today}}is-today{{/if}}" data-date=iso title=title aria-label=title aria-pressed=selected aria-current=ariaCurrent tabindex=tabIndex) {{label}}

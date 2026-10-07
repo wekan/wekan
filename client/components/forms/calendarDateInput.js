@@ -82,10 +82,17 @@ Template.calendarDateInput.helpers({
     const wantedFocus = tpl.focusedDate.get() || tpl.selectedDate.get();
     const focusDate = wantedFocus && days.some(date => date && formatDate(date) === formatDate(wantedFocus))
       ? wantedFocus : days.find(Boolean);
+    // #6751: today's cell is marked so the user can find it at a glance. It is
+    // the browser's local day, the same local calendar day formatDate() gives
+    // every other cell, so it is the cell the user means by "today".
+    const todayIso = formatDate(new Date());
     const rows = [];
     for (let index = 0; index < days.length; index += 7) {
       rows.push({ days: days.slice(index, index + 7).map(date => date && ({
         iso: formatDate(date),
+        today: formatDate(date) === todayIso,
+        // null omits the attribute: only today's button carries aria-current.
+        ariaCurrent: formatDate(date) === todayIso ? 'date' : null,
         label: nativeCalendarParts(date, selectedSystem().intl).day,
         title: formatDateForDisplay(date, false),
         selected: tpl.selectedDate.get() && formatDate(tpl.selectedDate.get()) === formatDate(date),
