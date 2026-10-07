@@ -1890,6 +1890,17 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/172e75c074025679d79cc98899899e91c77052ba">Translate map view into Akan, Ewe and Bambara.</a></summary>
+
+- Filled 21 placeholders. Technical clauses remain provisional, particularly floor-plan, upload and click wording.
+- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but execution awaits Playwright and a running application.
+- The seven map-view keys remain English in 16 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e064776ff18caf31bf808f94b9d898b47a6ceac8">Translate map view into Manx, Venetian and Aromanian.</a></summary>
 
 - Filled 21 placeholders. Aromanian technical clauses are low-confidence drafts; floor-plan wording remains provisional.
