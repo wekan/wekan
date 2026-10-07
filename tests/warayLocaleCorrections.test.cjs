@@ -4,6 +4,7 @@ const waray = require('../imports/i18n/data/wa-RR.i18n.json');
 const walloon = require('../imports/i18n/data/wa.i18n.json');
 const english = require('../imports/i18n/data/en.i18n.json');
 const correctedKeys = [
+  "export",
   "board-members-same-org-only",
   "board-members-same-team-only",
   "archive-permanent-delete-disabled-hint",
@@ -775,7 +776,47 @@ const correctedKeys = [
   "scrum-events",
   "scrum-event-kind",
   "scrum-timebox",
-  "scrum-notes"
+  "scrum-notes",
+  "scrum-event-planning",
+  "scrum-event-daily",
+  "scrum-event-review",
+  "scrum-event-retrospective",
+  "scrum-committed",
+  "scrum-completed",
+  "scrum-added",
+  "scrum-removed",
+  "scrum-incomplete",
+  "scrum-no-closed-sprints",
+  "scrum-report-help",
+  "scrum-total",
+  "scrum-state-planned",
+  "scrum-state-active",
+  "scrum-state-closed",
+  "scrum-state-cancelled",
+  "scrum-unknown-estimate",
+  "scrum-confirm-close",
+  "scrum-confirm-cancel",
+  "scrum-past-sprints",
+  "scrum-list-category",
+  "scrum-swimlane-purpose",
+  "scrum-category-backlog",
+  "scrum-category-todo",
+  "scrum-category-doing",
+  "scrum-category-done",
+  "scrum-partial-report",
+  "scrum-state-released",
+  "scrum-released-at",
+  "scrum-follow-up-cards",
+  "scrum-import-reference-omitted",
+  "scrum-partial-snapshot",
+  "scrum-resume-close",
+  "scrum-daily-observations",
+  "scrum-daily-observations-help",
+  "scrum-daily-truncated",
+  "scrum-daily-empty",
+  "scrum-observed-scope",
+  "scrum-daily-observations-export-help",
+  "scrum-import-pending"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -922,6 +963,20 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   assert.notEqual(waray['scrum-policy-dueComplete'], waray['scrum-policy-doneLists']);
   assert.equal(waray['board-view-product-backlog'], waray['scrum-product-backlog']);
   assert.equal(waray['board-view-sprints'], waray['scrum-sprints']);
+  assert.match(waray['scrum-report-help'], /bulag nga gin-ihap; diri ito sero/);
+  assert.match(waray['scrum-report-help'], /magkapariho an mga yunit ngan patakaran/);
+  for (const key of ['scrum-daily-observations-help', 'scrum-daily-observations-export-help']) {
+    assert.match(waray[key], /UTC/);
+    assert.match(waray[key], /mga adlaw nga waray rekord/);
+    assert.match(waray[key], /diri sero/);
+  }
+  assert.match(waray['scrum-daily-truncated'], /366/);
+  assert.match(waray['scrum-partial-report'], /upod la.*igintoka ha imo/);
+  assert.notEqual(waray['scrum-state-closed'], waray['scrum-state-cancelled']);
+  assert.match(waray['scrum-confirm-close'], /ibabalhin/);
+  assert.match(waray['scrum-confirm-cancel'], /magpapabilin.*tubtob/);
+  assert.equal(waray['export'], 'Pag-eksport');
+  assert.ok(waray['scrum-daily-observations-help'].includes(waray['export']));
   const statistics = ['AVERAGE', 'MEDIAN', 'MODE', 'STD_DEV', 'SUM'].map(s => waray['blockly-MATH_ONLIST_OPERATOR_' + s]);
   assert.equal(new Set(statistics).size, statistics.length);
   assert.match(waray['blockly-MATH_ONLIST_TOOLTIP_MODE'], /lista han mga butang/);

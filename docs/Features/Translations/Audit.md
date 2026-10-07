@@ -5073,6 +5073,14 @@ mixed-language audit remains open.
 - Preserved exactly-one trigger/action validation, administrator permission, reload-before-save conflicts, unfinished-work rollover and distinct completion policies. Added regression checks for these constraints and shared view labels.
 - Scrum Master, velocity, capacity and increment wording is provisional and requires domain-aware language review. Remaining Scrum report/event messages are still untranslated. Browser checks were not run.
 
+### Waray Scrum reports and observations
+
+- Corrected the wrong-language `export` label (`Ebaguer`) directly to `Pag-eksport`, matching the export instructions; this correction is separate from the 40 placeholder fills. Reused `agianan` for swimlane.
+
+- Filled 40 English placeholders through the protected workflow, covering Scrum events, states, close/cancel confirmations, report scope, snapshots and daily observations. Preserved every count/reference token, UTC and the 366-observation limit.
+- Retained unknown-versus-zero estimates, matching-unit/policy comparisons, assigned-card-only reports, omitted missing days and the distinction between observation exports and sprint-result exports. Added checks for these key constraints and different close/cancel outcomes.
+- Snapshot, retrospective and observation terminology is provisional and needs domain-aware language review. Browser checks were not run; tests cover tokens and selected semantic distinctions, not fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
