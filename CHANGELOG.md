@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **47,817 untranslated locale/string values in 70 languages**. It
+  report counts **47,773 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -1986,6 +1986,18 @@ snap.
 and updates the following translations:
 
 **Activity notifications** - choosing which card activity sends notifications.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8d4d8c91dd2fb9dceac217cc04aab4705fbe08b8">Translate Tibetan, Dzongkha, Tigrinya and Kashmiri field types.</a></summary>
+
+- Fill 44 English placeholders while preserving source arguments and existing correct-language translations. Extend image, selector and input/function-name distinction checks.
+- Vocabulary references and provisional technical compounds are documented in the translation audit. Shared scripts alone do not establish correct-language wording.
+- Ordinary untranslated values decrease from 47,817 to 47,773 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 20 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ea88c056a5d244d748c17126ccf7b08a1f938928">Translate Quechua, Aymara and Guarani field-type labels.</a></summary>
