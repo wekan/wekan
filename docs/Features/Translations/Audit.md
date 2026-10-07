@@ -4806,6 +4806,13 @@ mixed-language audit remains open.
 - Low confidence: Ewe corner/angle precision, pixel loans, grid descriptions using boxes/squares, date/day ambiguity and ordinary work nouns for programming functions require review. Existing checkbox/dropdown wording is reused without claiming independent validation; Fulah regional vocabulary may need harmonization. Input terminology must also be checked against Blockly's specific field behavior.
 - Existing browser flows cover both locales but were not executed; spoken announcements remain unverified. The 148 pending source keys and broader semantic audit remain open.
 
+### Nahuatl field types
+
+- Filled 11 English field-type placeholders through the protected fill and extended field-type distinctions and source-token checks. Existing non-English control labels were preserved.
+- References: the Online Nahuatl Dictionary entries for [corner](https://nahuatl.wired-humanities.org/content/xomolli), [ordered sequence](https://nahuatl.wired-humanities.org/content/tlatecpantli), [container](https://nahuatl.wired-humanities.org/content/calli), [work](https://nahuatl.wired-humanities.org/content/tequitl) and [color](https://nahuatl.wired-humanities.org/node/177153), plus [UNAM's discussion of ixiptla](https://muac.unam.mx/ixiptla?lang=en) and the [calaquiliztli entry](https://en.wiktionary.org/wiki/calaquiliztli).
+- Low confidence: these are provisional technical paraphrases, mixing historical vocabulary with the catalog's modern relative construction. Corner is used for angle, day for date, and work for function. Pixel is a loan; checkbox uses a coined mark-container compound; grid dropdown describes a descending list with small containers. Input and name phrases need grammatical and Blockly-specific review. The cited entries attest components, not the complete UI phrases.
+- Existing Nahuatl browser flow remains registered but unexecuted. Spoken announcements, the 148 pending source keys and the broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
