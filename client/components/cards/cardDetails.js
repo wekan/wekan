@@ -440,7 +440,10 @@ Template.cardDetails.onCreated(function () {
     }
   };
 
-  Meteor.subscribe('unsaved-edits');
+  // #6745: the template's own subscription, stopped when the card closes. A
+  // bare Meteor.subscribe here is in no computation, so nothing ever stopped
+  // it: every card open added one more live 'unsaved-edits' publication.
+  this.subscribe('unsaved-edits');
 
   // Surface legacy CollectionFS attachments for the current board so they show
   // up in the card's attachment gallery and can be read in place (without

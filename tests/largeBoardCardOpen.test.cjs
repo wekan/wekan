@@ -308,4 +308,32 @@ test('no snap text still calls all the default or points at a removed toggle (ne
   assert.ok(!/all\s+\(default\)/.test(read('server/cards-loading.js')));
 });
 
+// ---- fix 6: opening a card does not leave a subscription behind ----
+
+test('card details subscribes to unsaved-edits through the template', () => {
+  const cardDetails = read('client/components/cards/cardDetails.js');
+  const onCreated = bodyOf(cardDetails, 'Template.cardDetails.onCreated(');
+  assert.ok(/this\.subscribe\('unsaved-edits'\)/.test(onCreated));
+});
+
+test('no template lifecycle hook subscribes outside the template (negative)', () => {
+  // Meteor.subscribe in onCreated/onRendered runs in no computation, so the
+  // subscription outlives the template - one more per card opened.
+  const offenders = [];
+  sourceFiles(['client']).forEach(file => {
+    const src = read(file);
+    let at = 0;
+    const hook = /Template\.[A-Za-z0-9_]+\.(onCreated|onRendered)\(/g;
+    let match;
+    while ((match = hook.exec(src))) {
+      at = match.index;
+      const body = bodyOf(src.slice(at), match[0]);
+      // Allowed inside an autorun (stopped with the template); a top-level bare one is not.
+      const withoutAutoruns = body.replace(/\.autorun\([\s\S]*?\n {2}\}\);/g, '');
+      if (/^ {2}Meteor\.subscribe\('unsaved-edits'/m.test(withoutAutoruns)) offenders.push(file);
+    }
+  });
+  assert.deepStrictEqual(offenders, []);
+});
+
 console.log(`largeBoardCardOpen: ${passed} passed`);
