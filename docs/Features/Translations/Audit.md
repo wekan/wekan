@@ -3224,6 +3224,14 @@ Terminology references: [Buryat language help](https://buryadxelen.com/backend/w
 
 Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in 20 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
 
+### Signed-in board visibility: Tibetan, Dzongkha and Kashmiri
+
+Filled the three board visibility strings in these locales: nine English placeholders. Direct drafts retain viewing by signed-in users, exclusion of anonymous viewers, editing by board members and confirmation emphasis. Existing translations were protected by the fill utility; no translation service was used. These drafts have lower confidence in technical phrasing and grammatical agreement and need fluent-speaker review.
+
+The Dzongkha login wording follows the existing locale and is also used by the [Bhutan Department of Local Governance](https://www.dlgdm.gov.bt/dlg_news_details/67?language=dz). Kashmiri login vocabulary is attested on the [Startup India Kashmiri page](https://www.startupindia.gov.in/kashmiri/content/sih/en/coming-soon.html). Tibetan wording is a direct draft. These references establish terminology only, not the correctness of the full translations.
+
+Extended the existing translation regression to these three locales. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in 17 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
