@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c174c06c9263db5087029853cea831c4a189e565">Correct 18 mixed-language Akan diagnostic and report messages.</a></summary>
+
+- Rewrite diagnostic, reporting, creator and membership messages. Preserve log commands, API settings, report scope and nonempty-group deletion guards.
+- Add source-token, command, newline, identifier and restriction checks. Specialized API and recovery wording remains provisional.
+- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
+- Validation: 66 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8b9845e4dbf85355969406ca2705772108644a41">Correct 16 mixed-language Akan search-help messages.</a></summary>
 
 - Rewrite operator, membership, date, existence, sorting and limit descriptions. Preserve source placeholders, inline-code examples and angle-bracket parameters.
