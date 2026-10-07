@@ -2173,6 +2173,22 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/09bb20da8ca954cabd7512ef4cb803eb0bb13a43">Correct 25 Tok Pisin colour translations.</a></summary>
+
+- Replace prefixed English colour labels with dictionary-supported basic
+  names and distinct shade descriptions. Less common shade descriptions
+  remain low confidence pending fluent-speaker and visual review.
+- The combined run passes 76 checks; two catalog checks still fail on the
+  missing due-date shortcut key. All 21 human-preference checks pass.
+  Browser and screen-reader checks were not run.
+- Another 27 Tok Pisin values containing the same English-seeding prefix
+  remain for review; the broader language audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/087d779df984b4feb2de64a80b2a37c5c1cded7a">Correct 21 Tok Pisin search keyword translations.</a></summary>
 
 - Replace prefixed English keywords and verify parser-compatible spelling,
