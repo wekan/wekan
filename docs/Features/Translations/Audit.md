@@ -6867,6 +6867,17 @@ The combined translation run passes 154 checks. Two existing catalog checks fail
 on the missing due-date shortcut key. All 21 human-preference checks pass.
 Browser and screen-reader checks were not run. The wider audit remains open.
 
+## Tok Pisin scheduling and time-label wording audit
+
+Corrected 16 mixed-language scheduling, time-summary and display labels. Checks
+preserve scheduling-failure scope, upcoming functionality, time spent versus
+time remaining, and checklist visibility actions. Wording remains provisional
+pending fluent-speaker review.
+
+The combined translation run passes 156 checks. Two existing catalog checks fail
+on the missing due-date shortcut key. All 21 human-preference checks pass.
+Browser and screen-reader checks were not run. The wider audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

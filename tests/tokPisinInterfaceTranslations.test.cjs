@@ -2548,3 +2548,42 @@ test('Tok Pisin monitoring labels preserve target storage, permission limits and
  assert.match(data['monitoring-refresh-failed'],/no inap kisim nupela/);
  assert.match(data['force-board-scan'],/i mas sekim bot/);
 });
+
+
+test('Tok Pisin schedule and time labels retain tokens without mixed English',()=>{
+ const keys=[
+  "active-cron-jobs",
+  "add-cron-job",
+  "add-cron-job-placeholder",
+  "board-archive-failed",
+  "board-backup-failed",
+  "board-cleanup-failed",
+  "board-operations",
+  "board-status-time-summary",
+  "board-status-cards-with-time",
+  "remaining_time",
+  "version-name",
+  "minicardDetailsActionsPopup-title",
+  "drag-board",
+  "translation-text",
+  "hideAllChecklistItems",
+  "showChecklistAtMinicard"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:Scheduled|Jobs|Job|functionality|coming|soon|schedule|backup|cleanup|Operations|spent|summary|Remaining|Version|Details|Drag|Translation|items|Minicard)\b/,key);
+ }
+});
+
+test('Tok Pisin schedule failures describe scheduling rather than completed operations',()=>{
+ for(const operation of ['archive','backup','cleanup']) assert.match(data['board-'+operation+'-failed'],/^I no inap makim taim/);
+ assert.match(data['board-archive-failed'],/putim bot long akaiv/);
+ assert.match(data['board-backup-failed'],/kopi bilong kisim bek bot/);
+ assert.match(data['board-cleanup-failed'],/klinim bot/);
+ assert.match(data['add-cron-job-placeholder'],/bai kamap klostu$/);
+ assert.match(data['board-status-cards-with-time'],/taim ol i yusim$/);
+ assert.match(data['remaining_time'],/taim i stap yet/i);
+ assert.match(data['hideAllChecklistItems'],/^Haitim olgeta samting long lis bilong sekim$/);
+ assert.match(data['showChecklistAtMinicard'],/^Soim.*liklik kat$/);
+});
