@@ -3370,6 +3370,14 @@ Vocabulary references include [Buryat warning usage](https://www.stepbible.org/?
 
 Ten translation/token regressions, import-loss positive/negative checks, all 234 locale structure checks and 21 human-preference checks pass. Extended the browser cases to these four locales; they were syntax-checked only because the local Playwright executable and running application are unavailable. Each of the three source keys remains English in 20 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
 
+### Import warning report: Tibetan, Dzongkha and Kashmiri
+
+Filled nine English placeholders in `bo`, `dz` and `ks`. The fill utility protected existing translations; no translation service was used. The drafts retain board creation, incomplete file transfer and the two-arrow recovery-menu path using existing terminology. Tibetan and Dzongkha use different verb constructions despite sharing a script.
+
+The [official English-Dzongkha pocket dictionary](https://www.dzongkha.gov.bt/uploads/files/publications/English-Dzongkha_Pocket_Dictionary_fcbe977ea0f17fa3c90a8cd9a0b6c4f1.pdf) supports the warning term. Tibetan follows the existing import terminology. The attempted Kashmiri administrative terminology PDF was inaccessible, and a dictionary search hit for “Warning!” referred to an OCR notice rather than a translated entry; neither is evidence for the drafted Kashmiri warning wording. Kashmiri relies on existing locale usage and direct composition. All three drafts have low-confidence technical phrasing and grammatical agreement requiring fluent-speaker review; the existing Dzongkha board noun also remains a review item.
+
+Ten translation/token regressions, import-loss positive/negative checks, all 234 locale structure checks and 21 human-preference checks pass. Extended browser cases to these three locales; they were syntax-checked only because the local Playwright executable and running application are unavailable. Each source key remains English in 17 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
