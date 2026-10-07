@@ -6491,6 +6491,12 @@ Corrected 68 mixed-language values containing the `Toksave:` prefix, covering ge
 
 Validation: 73 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
 
+## Tok Pisin search keyword wording audit
+
+Corrected 21 mixed-language search keywords containing the `Toksave:` prefix. Source inspection in `config/query-classes.js` confirms translated operators are parser inputs restricted to letters, combining marks and apostrophes. Replacement operators use single words and do not collide with other registered Tok Pisin operators. Query keywords such as `diu`, `taimlus` and `tripelamun` are provisional compact forms, not validated standard terminology; fluent-speaker review remains required. Other pre-existing multiword operator translations still require a separate syntax audit. Existing correct-language values remain unchanged. The prefix inventory falls from 73 to 52; unprefixed values also need review. Browser and screen-reader checks were not run.
+
+Validation: 75 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

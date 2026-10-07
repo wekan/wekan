@@ -636,3 +636,56 @@ test('Tok Pisin general controls distinguish scope, movement and support content
  assert.match(data['support-content'],/toksave/);
  assert.match(data['wip-limit-group-apply-swimlane'],/rot bilong kat/);
 });
+
+
+test('Tok Pisin search keywords replace prefixed English with intact tokens',()=>{
+ const keys=[
+  "operator-assignee",
+  "operator-creator",
+  "operator-due",
+  "operator-modified",
+  "operator-has",
+  "operator-limit",
+  "operator-debug",
+  "operator-org",
+  "operator-customfield",
+  "predicate-archived",
+  "predicate-ended",
+  "predicate-overdue",
+  "predicate-quarter",
+  "predicate-due",
+  "predicate-modified",
+  "predicate-start",
+  "predicate-end",
+  "predicate-assignee",
+  "predicate-selector",
+  "predicate-projection",
+  "operator-number"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.doesNotMatch(data[key],/Toksave:/,key);
+  assert.notEqual(data[key],english[key],key);
+  assert.match(data[key],/^[\p{Letter}\p{Mark}]+$/u,key);
+ }
+});
+
+test('Tok Pisin repaired search operators are registered and do not collide',()=>{
+ const fs=require('node:fs');
+ const path=require('node:path');
+ const source=fs.readFileSync(path.join(__dirname,'../config/query-classes.js'),'utf8');
+ const keys=[...source.matchAll(/'(operator-[^']+)': OPERATOR_/g)].map(m=>m[1]);
+ const values=keys.map(k=>data[k].toLowerCase());
+ assert.equal(new Set(values).size,values.length);
+ for(const suffix of ['assignee','creator','due','modified','has','limit','debug','org','customfield','number']){
+  const key='operator-'+suffix;
+  assert.ok(keys.includes(key));
+  const query=data[key]+':test';
+  assert.match(query,/^[\p{Letter}\p{Mark}\x27\u2019]+:test$/u);
+ }
+ assert.notEqual(data['predicate-due'],data['predicate-end']);
+ assert.notEqual(data['predicate-start'],data['predicate-end']);
+ assert.notEqual(data['predicate-selector'],data['predicate-projection']);
+ assert.equal(data['predicate-quarter'],'tripelamun');
+ assert.equal(data['operator-assignee'],data['predicate-assignee']);
+});
