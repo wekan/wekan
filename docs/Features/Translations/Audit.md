@@ -258,6 +258,28 @@ human-preference and the related list-width suite pass. The browser mutation
 scenario includes Nahuatl and passes syntax checking only; it was not
 browser-executed in this environment.
 
+## Greenlandic archiving/date filters — 2026-10-07
+
+Filled 23 English placeholders in Greenlandic (`kl`). Comparison against
+the previous commit confirms existing translated values are unchanged.
+The standard backlog falls by 20 to 51,695 values; three auto-archive values
+belong to separately tracked pending keys.
+
+The [education authority's examination guidance](https://iserasuaat.gl/-/media/iserasuaat/majoriaq/undervisning/boglig-opkvalificering/fa/procedure-sommerprver-2025-grnlandsk.pdf)
+provides day/week/hour usage. The [month dictionary entry](https://en.wiktionary.org/wiki/qaammat)
+and existing catalog provide month terminology. References support vocabulary
+components, not full software messages. Wording remains low confidence
+pending speaker review, especially inclusive bounds, elapsed list age,
+inflection of technical terms and the quoted-field explanation.
+
+The shared feature suite covers 63 locales, including exact placeholders,
+numeric bounds and query examples. Greenlandic assertions distinguish past
+week from next month and preserve the rules that templates are never
+archived and edits do not restart list age. Feature, all-locale structure,
+human-preference and Greenlandic progress/calendar checks pass. The existing
+browser mutation scenario includes Greenlandic and is syntax-checked only;
+no browser execution was available in this environment.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
