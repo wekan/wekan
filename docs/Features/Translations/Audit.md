@@ -5129,6 +5129,12 @@ mixed-language audit remains open.
 - Preserved unread-comment meaning, zoom directions, all-starred scope, SMTP identifiers and the Pomodoro argument. Added shared-label, direction and scope assertions.
 - Flow, cycle/lead-time and milestone terminology remains provisional. Further comparison candidates remain, including colors, rules, storage and diagnostics. The English-placeholder count is unchanged; browser and fluent-speaker checks remain outstanding.
 
+### Waray wrong-language audit: rules, accounts and storage
+
+- Corrected 84 French/Walloon or mixed-language values directly after reviewing their English source. Covered rule fragments, account and OAuth labels, card views, diagnostics, recurrence and storage settings.
+- Preserved LDAP error arguments, platform identifiers, the AWS region example and Cc notation. Kept reset and recurrence distinct; added shared-view/state, passwordless and identifier checks.
+- Role, performance, instance and diagnostic terminology remains provisional and needs contextual review. Remaining comparison candidates include colors, date-format labels and further diagnostics. English-placeholder counts are unchanged; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -1115,7 +1115,91 @@ const correctedKeys = [
   "self-registration",
   "smtp-port",
   "smtp-username",
-  "smtp-password"
+  "smtp-password",
+  "package",
+  "OS_Arch",
+  "OS_Loadavg",
+  "OS_Platform",
+  "OS_Release",
+  "no",
+  "r-rule-disabled",
+  "r-workflow-view",
+  "r-board",
+  "r-sort-by",
+  "r-sort-due",
+  "r-is",
+  "r-card",
+  "r-checklist",
+  "r-of",
+  "r-subject",
+  "r-d-send-email-subject",
+  "r-by",
+  "r-items-list",
+  "ldap-test-connection-error",
+  "oauth-provider-client-id",
+  "oauth-provider-secret",
+  "oauth-provider-secret-set",
+  "passwordless-title",
+  "passwordless-email",
+  "layout",
+  "roles-status-role",
+  "roles-status-sees-all",
+  "status",
+  "task",
+  "domain",
+  "displayName",
+  "shortName",
+  "website",
+  "myCardsViewChange-title",
+  "myCardsViewChangePopup-title",
+  "myCardsSortChange-title",
+  "myCardsSortChangePopup-title",
+  "dueCardsViewChange-title",
+  "dueCardsViewChangePopup-title",
+  "dueCardsViewChange-choice-me",
+  "location-address",
+  "server-error",
+  "speedReportTitle",
+  "testsReportTitle",
+  "cpuReportTitle",
+  "new-problems",
+  "acknowledge",
+  "officeReportTitle",
+  "office-address",
+  "office-logins",
+  "api-calls",
+  "api-last-called",
+  "recovery-event",
+  "recovery-severity",
+  "recovery-detail",
+  "subject",
+  "carbon-copy",
+  "history-change-restored",
+  "move-progress-file",
+  "board-id",
+  "path",
+  "version-name",
+  "storage",
+  "checklist-reset-interval",
+  "checkAllItems",
+  "checklistResetIntervalPopup-title",
+  "card-recurrence-interval",
+  "cardRecurrenceIntervalPopup-title",
+  "accounts-lockout-status",
+  "admin-people-filter-team",
+  "admin-people-filter-all-teams",
+  "azure-container",
+  "database-migration-phase",
+  "sandstorm-storage-item",
+  "features-performance",
+  "anonymized-user",
+  "backup-scope-instance",
+  "mongodb-gridfs-storage",
+  "s3-minio-storage",
+  "s3-port",
+  "s3-region",
+  "s3-region-description",
+  "migration-progress-status"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -1337,6 +1421,14 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   assert.match(waray['card-has-unread-comments'], /waray pa mabasa/);
   assert.match(waray['unstar-item'], /Kuhaa/);
   assert.match(waray['see-all-starred-items'], /ngatanan/);
+  for (const key of ['accounts-lockout-status', 'migration-progress-status']) assert.equal(waray[key], waray['status']);
+  for (const prefix of ['myCardsViewChange', 'myCardsSortChange', 'dueCardsViewChange']) assert.equal(waray[prefix + '-title'], waray[prefix + 'Popup-title']);
+  assert.equal(waray['checklist-reset-interval'], waray['checklistResetIntervalPopup-title']);
+  assert.equal(waray['card-recurrence-interval'], waray['cardRecurrenceIntervalPopup-title']);
+  assert.notEqual(waray['checklist-reset-interval'], waray['card-recurrence-interval']);
+  assert.match(waray['passwordless-title'], /waray sekreto nga pulong/);
+  assert.ok(waray['s3-region-description'].includes('us-east-1'));
+  assert.ok(waray['carbon-copy'].includes('Cc:'));
   const statistics = ['AVERAGE', 'MEDIAN', 'MODE', 'STD_DEV', 'SUM'].map(s => waray['blockly-MATH_ONLIST_OPERATOR_' + s]);
   assert.equal(new Set(statistics).size, statistics.length);
   assert.match(waray['blockly-MATH_ONLIST_TOOLTIP_MODE'], /lista han mga butang/);
