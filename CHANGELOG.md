@@ -1890,6 +1890,19 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1fb61838b9cbd932ea9da6d6547bd704b6f66291">Translate SAML error into Volapük and Klingon</a>. Thanks to xet7.</summary>
+
+- Fill the message in vo and tlh without overwriting translations. Full phrases
+  are low confidence; Klingon browser and tab terms remain borrowed and need review.
+- Popup-error tests now check 58 recently filled locales and pass, including positive
+  and negative login-boundary cases. All-locale structural and human-preference
+  checks pass. Browser scenarios were not run; the app stack was unavailable.
+- Eight locale paths still need this message. The ordinary backlog remains 51,575
+  values plus 182 pending source keys; language-quality review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/afd51d4b50431e28287348a414b797d240ce04bd">Translate SAML error into Quechua, Aymara, Guarani and Fulah</a>. Thanks to xet7.</summary>
 
 - Fill the browser-tab message in qu, ay, gn and ff without overwriting translations.
