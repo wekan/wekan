@@ -3798,6 +3798,14 @@ The [Bambara lexicon](https://mooreburkina.com/sites/www.mooreburkina.com/files/
 
 Extended locale and browser coverage to all eight locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in 29 locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
 
+## Multiple-parent controls: Papiamento, Walloon, Waray and Acehnese - 2026-10-07
+
+Filled three English placeholders in each of `pap`, `wa`, `wa-RR` and `ace` (12 values) through the protected fill workflow. Walloon and Waray were handled separately according to their registered language identities. The removal descriptions end a task relationship without describing card deletion.
+
+The [Austronesian Comparative Dictionary](https://acd.clld.org/cognatesets/25618) supports Acehnese buët as work vocabulary. Walloon dictionary searches identified the dictionary resource but did not verify the complete proposed task/parent compounds. Walloon and Acehnese technical wording is low confidence; all four sets of software metaphors and sentence fragments require further language review. Vocabulary evidence does not establish fluent sentences.
+
+Extended locale and browser coverage to all four locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in 25 locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
