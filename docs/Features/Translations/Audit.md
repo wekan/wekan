@@ -4905,6 +4905,13 @@ mixed-language audit remains open.
 - Technical metaphors, block loans and noun agreement around arbitrary numbered arguments remain provisional. Sesotho, Setswana and Northern Sotho retain their own clause forms and orthography. Related vocabulary does not by itself establish either correct or wrong-language wording.
 - Extended existing token, non-placeholder and distinction checks. These do not establish fluent wording. Browser and spoken accessibility checks remain unexecuted; 148 pending source keys and the broader semantic audit remain open.
 
+### Kinyarwanda, Kirundi, Luganda and Chichewa block and bubble labels
+
+- Filled 64 English placeholders through the protected workflow, preserving numbered arguments and existing translations. Input and comment vocabulary follows each catalog. Stack uses a sequence/row or pile of blocks; statement uses instruction/command wording and bubble is a text box.
+- Checked the fold verb against the [Kinyarwanda dictionary](https://www.rcsdk12.org/cms/lib/NY01001156/Centricity/Domain/4194/english-kinyarwanda-dictionary.pdf) and [Kirundi dictionary](https://www.matana.de/kirundi_alpha.pdf). Corrected the new collapsed drafts to use the fold stem rather than an unfold form. These references support vocabulary, not the entire inflected software label.
+- Technical metaphors, grammatical agreement, value terminology and block/part loans remain provisional. Kinyarwanda and Kirundi retain their distinct `iby-`/`ivy-` and `bifite`/`bifise` forms; related vocabulary alone cannot establish language correctness.
+- Extended token, non-placeholder and distinction checks. Browser and spoken accessibility checks remain unexecuted; 148 pending source keys and broader semantic review remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
