@@ -1300,3 +1300,63 @@ test('Tok Pisin movement controls retain directions, selection and valid JSON ex
  assert.match(example[1].title,/namba tu/);
  assert.match(example[2].title,/las/);
 });
+
+
+test('Tok Pisin rule-builder messages preserve tokens and replace mixed English',()=>{
+ const keys=[
+  "r-add-trigger",
+  "r-board-rules",
+  "r-add-rule",
+  "r-delete-rule",
+  "r-new-rule-name",
+  "r-no-rules",
+  "r-edit-rule",
+  "r-workflow-help",
+  "r-drop-trigger",
+  "r-w-card-created",
+  "r-w-card-archived",
+  "r-w-card-unarchived",
+  "r-w-label-added",
+  "r-w-label-removed",
+  "r-w-member-added",
+  "r-w-member-removed",
+  "r-w-checklist-added",
+  "r-w-attachment-added",
+  "r-export-json",
+  "r-export-csv",
+  "r-import-json",
+  "r-import-csv",
+  "r-import-trello",
+  "r-import-paste",
+  "r-import-trello-note",
+  "r-import-workflow-note",
+  "r-when-due",
+  "r-when-card-in-list",
+  "r-set-date-relative",
+  "r-when-a-card",
+  "r-is",
+  "r-when-a-label-is"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.doesNotMatch(data[key],/Drag|Drop|When|trigger|exported rules|unmapped|best effort| is /,key);
+ }
+});
+
+test('Tok Pisin automation wording retains trigger directions and import limitations',()=>{
+ assert.match(data['r-w-card-archived'],/i go long akaiv/);
+ assert.match(data['r-w-card-unarchived'],/i kam bek long akaiv/);
+ for(const kind of ['label','member']){
+  assert.match(data['r-w-'+kind+'-added'],/i go insait/);
+  assert.match(data['r-w-'+kind+'-removed'],/i raus/);
+ }
+ for(const format of ['json','csv']){
+  assert.match(data['r-export-'+format],/i go aut/);
+  assert.match(data['r-import-'+format],/i kam insait/);
+  assert.ok(data['r-import-'+format].includes(format.toUpperCase()));
+ }
+ assert.match(data['r-import-trello-note'],/i no gat ol rul bilong Butler.*no gat link.*ripot/);
+ assert.match(data['r-import-workflow-note'],/n8n o Node-RED.*no gat link.*ripot/);
+ assert.match(data['r-workflow-help'],/rul i stap pinis.*senisim/);
+ assert.equal(data['r-is'],'i');
+});
