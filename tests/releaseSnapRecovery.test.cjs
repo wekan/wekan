@@ -36,6 +36,10 @@ snapcraft() {
   pending:*|budget:2) echo 'Pending: '$ARCH; return 124 ;;
   denied:*) echo 'Recovering build hash'; echo 'HTTP 401 Unauthorized'; return 1 ;;
   bad:*) echo 'Monitoring build'; printf 'oops' > "wekan_11.85_\${ARCH}.snap"; return 0 ;;
+  stopped:1|proxy:1) echo 'Starting new build.'; echo 'Monitoring build'; echo "Stopped: $ARCH";
+    printf 'Downloading package: libyaml-cpp0.8\nFailed to fetch package: The item %s could not be fetched: 501  Gateway error [IP: 10.10.10.1 8222].\nBuild failed\n' \
+      "'/root/.cache/snapcraft/download/libyaml-cpp0.8_0.8.0+dfsg-6build1_\${ARCH}.deb'" > "snapcraft-wekan-hash_\${ARCH}_1.txt"; return 0 ;;
+  proxy:*) echo 'Starting new build.'; echo "Stopped: $ARCH"; echo "snapcraft internal error: MissingSchema(\"Invalid URL 'None'\")"; return 70 ;;
  esac
  truncate -s 52428800 "wekan_11.85_\${ARCH}.snap"
  printf hsqs | dd of="wekan_11.85_\${ARCH}.snap" conv=notrunc status=none
@@ -71,6 +75,29 @@ test('only an explicitly absent recipe permits submitting a new build', () => {
   assert.equal(denied.calls.length, 3);
   assert.ok(denied.calls.every(call => call.endsWith('--recover')));
   assert.doesNotMatch(denied.output, /built=true|pending=true/);
+});
+test('#v12.21 s390x: a build that ended Stopped is retried with a NEW build, not recovered', () => {
+  const result = remote('stopped', 's390x');
+  assert.equal(result.status, 0, result.stderr);
+  assert.equal(result.calls.length, 2, result.calls.join('\n'));
+  assert.match(result.calls[0], /--recover$/);
+  assert.doesNotMatch(result.calls[1], /--recover/, 'a finished build cannot be recovered into a snap');
+  assert.match(result.stdout, /submitting a new build instead of recovering it/);
+  assert.match(result.output, /built=true/);
+});
+test('negative: a Launchpad proxy 5xx is named as infrastructure, and old logs are not reprinted', () => {
+  const result = remote('proxy', 's390x');
+  assert.equal(result.status, 1);
+  assert.equal(result.calls.length, 3);
+  assert.match(result.calls[0], /--recover$/);
+  for (const call of result.calls.slice(1)) assert.doesNotMatch(call, /--recover/);
+  assert.match(result.stderr, /build-farm package proxy failed \(HTTP 5xx\).*libyaml-cpp0\.8_0\.8\.0\+dfsg-6build1_s390x\.deb/);
+  assert.match(result.stderr, /snapcraft\.yaml needs no change/);
+  // Attempt 1's log is printed once; attempts 2 and 3 fetched none of their own.
+  assert.equal((result.stdout.match(/::group::Launchpad build log: /g) || []).length, 1, result.stdout);
+  assert.equal((result.stdout.match(/downloaded no Launchpad build log of its own/g) || []).length, 2);
+  assert.doesNotMatch(result.stderr, /This is NOT a transient failure/);
+  assert.doesNotMatch(result.output, /built=true|pending=true/);
 });
 test('all Launchpad architectures stop waiting cleanly without claiming a build', () => {
   for (const arch of ['armhf', 'ppc64el', 's390x', 'riscv64']) {

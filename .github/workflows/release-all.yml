@@ -4785,19 +4785,41 @@ jobs:
           }
 
           attempts=3
+          # Set once an attempt ends with Launchpad reporting the build as
+          # finished without a snap ("Stopped:" / "Failed:" for this arch).
+          # Recovery reconnects to that SAME build, so it can only download the
+          # same failure again: v12.21 s390x attempt 3 "recovered" attempt 2's
+          # stopped build and was over in eight seconds. A finished build is
+          # retried by submitting a fresh one.
+          fresh_next=0
+          attempt_marker="$PWD/.tools/tmp/remote-build-attempt.start"
           for i in $(seq 1 "$attempts"); do
             # A partial file from a previous attempt must not be mistaken for
             # this attempt's artifact: snapcraft does not re-download a name it
             # already has, so the truncated one would be uploaded again.
             rm -f wekan_${VERSION}_${{ matrix.arch }}*.snap *_${{ matrix.arch }}.snap
             echo "::group::Remote build ${{ matrix.arch }} attempt $i/$attempts"
-            # Always try recovery first, including a re-run of this matrix job.
-            # start_builds replaces the recipe; it does NOT resume polling after
-            # an SSL EOF. Only an explicitly absent recipe/repository permits a
-            # new submission. Authentication/network failures are not absence.
-            run_remote_build --recover && rc=0 || rc=$?
-            if [ "$rc" -ne 0 ] && grep -qE 'Could not find (snap recipe|repository at path)' "$remote_log"; then
+            # Build logs this attempt downloads are newer than this marker; the
+            # earlier attempts' logs stay in the directory for the diagnostics
+            # below, but must not be printed again as if they were this one's.
+            touch "$attempt_marker"
+            if [ "$fresh_next" = 1 ]; then
+              echo "The previous attempt's Launchpad build finished without a snap; submitting a new build instead of recovering it."
               run_remote_build && rc=0 || rc=$?
+            else
+              # Otherwise try recovery first, including a re-run of this matrix
+              # job. start_builds replaces the recipe; it does NOT resume polling
+              # after an SSL EOF. Only an explicitly absent recipe/repository
+              # permits a new submission. Authentication/network failures are not
+              # absence.
+              run_remote_build --recover && rc=0 || rc=$?
+              if [ "$rc" -ne 0 ] && grep -qE 'Could not find (snap recipe|repository at path)' "$remote_log"; then
+                run_remote_build && rc=0 || rc=$?
+              fi
+            fi
+            fresh_next=0
+            if grep -qE "^(Stopped|Failed|Cancelled): ${{ matrix.arch }}\$" "$remote_log"; then
+              fresh_next=1
             fi
             echo "::endgroup::"
             # A real glob, so nullglob can empty it, plus any name Launchpad chose -
@@ -4835,7 +4857,10 @@ jobs:
             # and it is downloaded here. Print it whenever there is no snap - not only
             # when snapcraft's exit code is non-zero, which is how v10.48 fetched it
             # and threw it away.
+            new_logs=0
             for log in snapcraft-wekan-*.txt; do
+              [ -e "$log" ] && [ "$log" -nt "$attempt_marker" ] || continue
+              new_logs=1
               echo "::group::Launchpad build log: $log (what failed, then the last 150 lines)"
               # The tail alone is not where the cause is. snapcraft's own error is
               # followed by lpbuildd's Python traceback, the proxy-token revocation
@@ -4848,6 +4873,12 @@ jobs:
               tail -n 150 "$log"
               echo "::endgroup::"
             done
+            if [ "$new_logs" = 0 ] && ls snapcraft-wekan-*.txt >/dev/null 2>&1; then
+              # v12.21 s390x: snapcraft crashed fetching attempt 2's log
+              # (MissingSchema "Invalid URL 'None'"), and attempt 1's log was
+              # printed in its place, reading as the same failure twice.
+              echo "Attempt $i downloaded no Launchpad build log of its own; the logs printed earlier belong to earlier attempts."
+            fi
             # ...and there is no Launchpad build log at all when the build never
             # STARTED. v10.55 riscv64 failed three times on
             #   "Git operation failed with: Could not push 'HEAD' to
@@ -4881,6 +4912,16 @@ jobs:
           # stage-package as a "Stopped" build with no artifact, which looks
           # identical to a cancelled one from the outside; the difference is one
           # line in the log, so say it here rather than leave it to be found.
+          # The build farm's own package proxy failing is infrastructure, not
+          # WeKan: v12.21 s390x stopped on
+          #   GET http://ftpmaster.internal/.../libyaml-cpp0.8_..._s390x.deb ... 501
+          #   Failed to fetch package: ... 501  Gateway error [IP: 10.10.10.1 8222]
+          # while every neighbouring package downloaded. Name it, so the next
+          # step is waiting and re-running rather than editing snapcraft.yaml.
+          if grep -qsE 'could not be fetched: 5[0-9][0-9] |Gateway error \[IP: ' snapcraft-wekan-*.txt; then
+            proxypkg="$(grep -hs -oE "could not be fetched: 5[0-9][0-9] [^[]*|/download/[^ ']*\.deb" snapcraft-wekan-*.txt | sed 's#^/download/##' | sort -u | tr '\n' ' ')"
+            echo "::error::Launchpad's build-farm package proxy failed (HTTP 5xx) while the ${{ matrix.arch }} build downloaded its stage-packages: ${proxypkg}. That is Launchpad infrastructure, not WeKan, and snapcraft.yaml needs no change; re-run this job (or Release All Missing) later. Builder status: https://launchpad.net/builders" >&2
+          fi
           if grep -qs 'Stage package not found' snapcraft-wekan-*.txt; then
             missingpkg="$(grep -hs -o "Stage package not found in part '[^']*': [^ ]*" snapcraft-wekan-*.txt | sort -u | tr '\n' ' ')"
             echo "::error::This is NOT a transient failure and re-running will not fix it: ${missingpkg}. A stage-package that resolves on the 64-bit architectures can be missing on ${{ matrix.arch }} - Ubuntu 24.04's 64-bit time_t transition renamed libraries to a t64 suffix, and the renamed package carries 'Provides: <old name>' on amd64/arm64 but NOT on armhf, where the ABI really changed. Name the real package in snapcraft.yaml (libssl3 -> libssl3t64, libcurl4 -> libcurl4t64, libgoogle-perftools4 -> libgoogle-perftools4t64). Check a name against the archive: curl -fsSL http://ports.ubuntu.com/ubuntu-ports/dists/noble/main/binary-armhf/Packages.gz | gunzip -c | grep '^Package: <name>$'" >&2
