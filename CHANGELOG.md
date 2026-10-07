@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/89d9e0f13183d1528f2d171536ce544aaca9aac9">Correct 17 mixed-language Akan action and account labels.</a></summary>
+
+- Clarify account creation, action selection, due dates and time spent; preserve the Meteor product name.
+- Add placeholder and semantic regression checks. Wording remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
+- Validation: 109 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0dfafdd3d63101360f3306e9290dbfdeea9cd111">Correct 14 mixed-language Akan migration and summary labels.</a></summary>
 
 - Rewrite migration and summary text. Preserve error/warning and execution-state distinctions, including paused, resumed and not-needed states.
