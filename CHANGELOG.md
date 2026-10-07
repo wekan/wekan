@@ -1890,6 +1890,17 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0d484b2e1787a2d1c27c9bfcceddbe43c88d57b9">Translate parent-card controls in five South Asian locales</a></summary>
+
+- Filled 15 placeholders in Bhojpuri, Maithili, Odia, Konkani and Kashmiri. Removal wording describes ending a parent relationship; low-confidence Kashmiri phrasing is documented in the translation audit.
+- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
+- These controls remain English in 54 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f5990d89ac508365cb00232c636a3342d7ce3bc7">Translate multiple-parent controls in seven more locales</a></summary>
 
 - Filled 21 placeholders in Kurdish, Sorani, Tatar, Turkmen, Yiddish, Somali and Chichewa. The removal label describes ending a parent relationship; provisional technical wording is documented in the translation audit.
