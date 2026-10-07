@@ -1890,6 +1890,15 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ec468ac7eacf587e943cf61120ca038354ca79fb">Translate import reports in Buryat, Chuvash, Sakha and Northern Sámi</a>. Thanks to xet7.</summary>
+
+- Fill twelve English values for import warnings, incomplete transfer explanations and opening the created board. Preserve existing menu paths and translations. Low-confidence grammar and technical phrasing in all four drafts remain recorded for fluent-speaker review.
+- Extend source-order, placeholder and localized browser coverage. Translation, import-loss and human-preference checks pass; browser cases were syntax-checked only because the local Playwright executable and running application are unavailable.
+- These three keys remain English in 20 locales. The broader backlog remains 51,575 ordinary missing values and 168 pending source keys, with language-quality review open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/14fa33a3ff0a14e342f8745b22e2e8ba42b8cd92">Translate import reports in six further languages</a>. Thanks to xet7.</summary>
 
 - Fill 18 English values in Acehnese, Bambara, Ewe, Fulah, Fijian and Tongan. Replace two prefixed English Tongan menu labels and use the corrected recovery path. Low-confidence technical phrasing remains recorded for fluent-speaker review.
