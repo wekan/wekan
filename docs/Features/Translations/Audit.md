@@ -5201,6 +5201,12 @@ mixed-language audit remains open.
 - Added token, logarithm-base, inverse-function, angle-unit, sign-reversal and open/close checks. Standard function names such as cosine and logarithm remain recognizable within Akan phrases; mathematical abbreviations remain unchanged.
 - Inverse-function, square-root and variable-type descriptions remain low confidence and require mathematical-language review. Browser and spoken accessibility checks were not run.
 
+### Akan Blockly procedures and screen-reader mode
+
+- Filled 31 English placeholders through the protected workflow: parent/backpack controls, procedure definitions and calls, rename/redo, zoom reset and screen-reader mode. Preserved numbered arguments and all-variable rename scope.
+- Added per-key token checks, return/no-return distinctions, function-only restrictions, disabled definitions and explicit off-to-on/on-to-off transitions.
+- Procedure-definition and screen-reader descriptions remain provisional and need contextual accessibility review; the technical parameter term remains recognizable within Akan prose. Browser and spoken checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

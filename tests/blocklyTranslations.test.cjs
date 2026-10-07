@@ -503,3 +503,20 @@ test('Akan unary math and workspace labels preserve bases and units', async()=>{
  assert.match(data['blockly-CLOSE_BACKPACK'],/^To.*mu$/);
  assert.notEqual(data['blockly-NEW_VARIABLE_TITLE'],data['blockly-NEW_VARIABLE_TYPE_TITLE']);
 });
+
+test('Akan procedure and screenreader messages preserve return values and state changes', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const data=require('../imports/i18n/data/ak.i18n.json');
+ const keys=["blockly-PARENT_BLOCKS_ANNOUNCEMENT", "blockly-PASTE_ALL_FROM_BACKPACK", "blockly-PASTE_SHORTCUT", "blockly-PROCEDURES_ALLOW_STATEMENTS", "blockly-PROCEDURES_BEFORE_PARAMS", "blockly-PROCEDURES_CALLNORETURN_TOOLTIP", "blockly-PROCEDURES_CALLRETURN_TOOLTIP", "blockly-PROCEDURES_CALL_BEFORE_PARAMS", "blockly-PROCEDURES_CALL_DISABLED_DEF_WARNING", "blockly-PROCEDURES_CREATE_DO", "blockly-PROCEDURES_DEFNORETURN_COMMENT", "blockly-PROCEDURES_DEFNORETURN_PROCEDURE", "blockly-PROCEDURES_DEFNORETURN_TOOLTIP", "blockly-PROCEDURES_DEFRETURN_RETURN", "blockly-PROCEDURES_DEFRETURN_TOOLTIP", "blockly-PROCEDURES_DEF_DUPLICATE_WARNING", "blockly-PROCEDURES_HIGHLIGHT_DEF", "blockly-PROCEDURES_IFRETURN_TOOLTIP", "blockly-PROCEDURES_IFRETURN_WARNING", "blockly-PROCEDURES_MUTATORARG_TITLE", "blockly-PROCEDURES_MUTATORARG_TOOLTIP", "blockly-PROCEDURES_MUTATORCONTAINER_TITLE", "blockly-PROCEDURES_MUTATORCONTAINER_TOOLTIP", "blockly-REDO", "blockly-REMOVE_FROM_BACKPACK", "blockly-RENAME_VARIABLE", "blockly-RENAME_VARIABLE_TITLE", "blockly-RESET_ZOOM", "blockly-SCREENREADER_HINT", "blockly-SCREENREADER_MODE_DISABLED", "blockly-SCREENREADER_MODE_ENABLED"];
+ for(const key of keys){
+  assert.notEqual(data[key],english[key],key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ assert.match(data['blockly-PROCEDURES_DEFNORETURN_TOOLTIP'],/ɛnsan mfa botae biara mma/);
+ assert.match(data['blockly-PROCEDURES_DEFRETURN_TOOLTIP'],/ɛsan de botae ba/);
+ assert.match(data['blockly-PROCEDURES_IFRETURN_WARNING'],/mu nkutoo/);
+ assert.match(data['blockly-PROCEDURES_CALL_DISABLED_DEF_WARNING'],/wɔadum/);
+ assert.match(data['blockly-RENAME_VARIABLE_TITLE'],/nyinaa/);
+ assert.match(data['blockly-SCREENREADER_MODE_DISABLED'],/^Wɔadum.*sɔ no$/);
+ assert.match(data['blockly-SCREENREADER_MODE_ENABLED'],/^Wɔasɔ.*dum no$/);
+});
