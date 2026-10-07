@@ -4659,6 +4659,15 @@ mixed-language audit remains open.
 - Extended exact-placeholder and opposing-operation checks and visible translated add-comment browser assertions to both locales. Blockly/completeness: 13 tests pass; human-preference verification: 21 checks pass. Browser coverage is syntax-checked only because Playwright is absent locally. Spoken accessibility and fluent wording remain unverified.
 - Ordinary placeholders decrease from 48,375 to 48,345 across 70 languages. Six locales still have English placeholders in this accessibility-label group. The 148 pending source keys and broader translation/semantic audit remain open.
 
+### Standard Moroccan Tamazight accessibility labels
+
+- Filled 13 English Blockly accessibility labels in `zgh`; preserved both existing comment commands. The protected fill changes only English placeholders.
+- Retained the exact `%1` angle argument with the degree symbol. Added the locale to positive/opposite-action/token coverage and the existing browser context-menu assertion.
+- Vocabulary references: [MediaWiki’s Standard Moroccan Tamazight catalog](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) for comment, list, entry and show wording; [Imassn tasgrut](https://imassn.com/dictionnaire/mot/tasgrut-8559) for basket. New phrases are direct drafts, not imported human translations.
+- Low confidence: button uses a wider Amazigh term whose Standard Moroccan usage is unconfirmed; entry may be less precise than a Blockly connection; the else-if phrase combines the existing else and if vocabulary; hide/show paraphrases collapse/expand. Basket needs review for the software trash metaphor. Degree-symbol pronunciation needs screen-reader review. This batch does not validate the language of other catalog values.
+- Ordinary placeholders decrease from 48,345 to 48,332 across 70 languages. Five locales still have English accessibility labels in this group. The 148 pending source keys and broader semantic audit remain open.
+- Validation: Blockly/completeness and human-preference suites, plus browser-spec syntax checking. Browser execution remains unavailable without the provisioned Playwright/app stack.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
