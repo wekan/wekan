@@ -327,6 +327,30 @@ Feature, all-locale structure, human-preference and the existing Tigre
 progress/date suites pass. The browser mutation scenario includes Tigre
 and is syntax-checked only; no browser execution was available.
 
+## Standard Moroccan Tamazight archiving/date filters — 2026-10-07
+
+Filled 23 English placeholders in Standard Moroccan Tamazight (`zgh`).
+Comparison against the previous commit confirms existing translations are
+preserved. New prose is in Tifinagh; literal field identifiers and query
+examples remain in their source form. The standard backlog falls by 20 to
+51,635 values; three auto-archive values belong to pending keys.
+
+The [University of Barcelona conversation glossary](https://www.ub.edu/guia-conversa/amazic/ARXIUS/amazight/capitol139_15.pdf)
+supports hour/day/month words. The [Peace Corps Tamazight textbook](https://www.livelingua.com/peace-corps/Tamazight/Tamazight%20Textbook%202007.pdf)
+provides elapsed-time usage. Existing catalog terms supply card, list and
+template vocabulary. Authored Amazigh prose was locally transliterated into
+Tifinagh, protecting query syntax; no translation service was used.
+References support components, not full sentences. Wording remains low
+confidence pending review, especially regional forms, inclusive bounds,
+list age and quoting custom field names.
+
+The shared feature suite covers 66 locales, preserving exact placeholders,
+numbers and query examples. New checks retain the negative rules and require
+Tifinagh prose after excluding literal code. Feature, all-locale structure,
+human-preference and the related list-width suite pass. The browser mutation
+scenario includes Tamazight and is syntax-checked only; no browser execution
+was available. Script checks do not establish fluency or dialect suitability.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
