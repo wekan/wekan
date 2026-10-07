@@ -6083,6 +6083,19 @@ key `shortcut-edit-due-date` before adding it to the other catalogs; this batch
 does not alter that work. Browser checks were not run. List/index terminology
 remains low confidence pending fluent-speaker review. The broader audit is open.
 
+## Northern Sotho Blockly workspace — 2026-10-07
+
+Filled 23 English placeholders without changing existing translations. Tests
+preserve source tokens, zero/one/many block counts, comment-fragment spacing,
+search result arguments, Enter/Shift+Enter/Escape navigation and distinct
+copy/cut/paste and undo/redo actions.
+
+The 54 focused checks and 21 human-preference checks pass. Two all-catalog
+structural checks still fail on the concurrently added `shortcut-edit-due-date`
+key missing from other catalogs. Browser and screen-reader checks were not run.
+Workspace-stack and focus terminology remains low confidence pending fluent-
+speaker review. The broader language and wording audit stays open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

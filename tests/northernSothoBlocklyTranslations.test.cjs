@@ -130,3 +130,22 @@ test('Northern Sotho Blockly list conversion and ordering preserve direction and
  for(const key of ['GET_INDEX','GET_SUBLIST','INDEX_OF','SET_INDEX']) assert.equal(data['blockly-LISTS_'+key+'_INPUT_IN_LIST'],data['blockly-LISTS_INLIST']);
  assert.equal(data['blockly-LISTS_LENGTH_TITLE'],data['blockly-TEXT_LENGTH_TITLE']);
 });
+
+test('Northern Sotho workspace announcements preserve counts, search keys and editing actions',()=>{
+ const keys=Object.keys(english).filter(k=>k.startsWith('blockly-WORKSPACE_')||['blockly-UNDO','blockly-REDO','blockly-PASTE_SHORTCUT','blockly-COPY_SHORTCUT','blockly-CUT_SHORTCUT'].includes(k));
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  if(english[key]) assert.notEqual(data[key],english[key],key);
+ }
+ assert.match(data['blockly-WORKSPACE_CONTENTS_BLOCKS_MANY'],/%1.*%2/);
+ assert.match(data['blockly-WORKSPACE_CONTENTS_BLOCKS_ONE'],/se tee.*%2/);
+ assert.match(data['blockly-WORKSPACE_CONTENTS_BLOCKS_ZERO'],/Ga go na diboloko%2/);
+ assert.match(data['blockly-WORKSPACE_CONTENTS_COMMENTS_MANY'],/^ le .*%1/);
+ assert.match(data['blockly-WORKSPACE_CONTENTS_COMMENTS_ONE'],/^ le .*e tee/);
+ assert.match(data['blockly-WORKSPACE_SEARCH_INPUT_LABEL'],/Enter.*latelago.*Shift\+Enter.*pele.*Escape.*tswalela.*šedi/);
+ assert.match(data['blockly-WORKSPACE_SEARCH_MATCH'],/%1.*%2.*%3/);
+ assert.match(data['blockly-WORKSPACE_SEARCH_NO_MATCHES'],/^Ga go na/);
+ assert.notEqual(data['blockly-WORKSPACE_SEARCH_FIND_NEXT'],data['blockly-WORKSPACE_SEARCH_FIND_PREVIOUS']);
+ assert.notEqual(data['blockly-UNDO'],data['blockly-REDO']);
+ assert.equal(new Set(['COPY','CUT','PASTE'].map(k=>data['blockly-'+k+'_SHORTCUT'])).size,3);
+});
