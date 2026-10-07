@@ -5231,6 +5231,12 @@ Filled 54 English placeholders for block-rule editing, Scrum roles, backlog orde
 
 Checks preserve source tokens, one-trigger/one-action restrictions, administrator permission, distinct start/close/cancel controls, minute units and shared board-view labels. Scrum roles, sprint and estimate terminology are descriptive and provisional. Browser checks were not run; string checks do not prove fluent wording.
 
+### Akan sprint reports and completion messages
+
+Filled 40 remaining English Scrum messages covering events, completion and cancellation, partial snapshots, daily observations and import status. Preserve unknown-versus-zero estimates, first recorded UTC observations, omitted days, separate export actions and exact placeholders.
+
+Tests cover tokens, distinct lifecycle states, completion/cancellation behavior, partial reports, UTC and the 366-observation limit. Snapshot, observation and Scrum terminology remains descriptive and low confidence pending contextual review. Browser rendering was not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
