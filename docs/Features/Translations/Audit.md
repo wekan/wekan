@@ -5123,6 +5123,12 @@ mixed-language audit remains open.
 - Preserved the reactivity environment-variable identifier and distinguished work remaining/completed, reset/recur, public/private and all-label scope. Added operation, shared-preview and authentication-state checks.
 - The exact-English count is unchanged. Removing these flagged values is not proof that all foreign text is gone: unaccented foreign words and semantic errors still require review. Flow-efficiency, accessibility and two-factor terminology remains provisional; browser checks were not run.
 
+### Waray wrong-language audit: board views and account labels
+
+- Corrected 52 French/Walloon values discovered by comparing both catalogs and reviewing each candidate, including unaccented words missed by the earlier character scans. Covered board views, font/theme controls, account labels, starred items and work timers.
+- Preserved unread-comment meaning, zoom directions, all-starred scope, SMTP identifiers and the Pomodoro argument. Added shared-label, direction and scope assertions.
+- Flow, cycle/lead-time and milestone terminology remains provisional. Further comparison candidates remain, including colors, rules, storage and diagnostics. The English-placeholder count is unchanged; browser and fluent-speaker checks remain outstanding.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -1063,7 +1063,59 @@ const correctedKeys = [
   "export-select-what-to-include",
   "import-done",
   "twoFactorAuth-enabled",
-  "chart-forecast-none-remaining"
+  "chart-forecast-none-remaining",
+  "changeFontPopup-title",
+  "boardChangeViewPopup-title",
+  "board-view",
+  "desktop-mode",
+  "mobile-mode",
+  "zoom-in",
+  "board-view-stats",
+  "board-view-timeline",
+  "board-view-timeline-now",
+  "board-view-timeline-showing",
+  "board-view-timeline-restore",
+  "group-by-assignee-empty",
+  "board-view-cycle-time",
+  "board-view-lead-time",
+  "board-view-wip-run",
+  "board-view-pulse",
+  "card-has-unread-comments",
+  "userDeletePopup-title",
+  "removeBoardDomainPopup-title",
+  "cards-count-one",
+  "cardType-card",
+  "theme",
+  "theme-category-flat",
+  "change-font",
+  "font",
+  "modal-title",
+  "save-card-as-template",
+  "soft-wip-limit",
+  "email-address",
+  "home",
+  "link",
+  "select-none",
+  "or",
+  "password",
+  "profile",
+  "unstar-item",
+  "starred-swimlanes",
+  "see-all-starred-items",
+  "team",
+  "flowtime",
+  "flow-start",
+  "flow-stop",
+  "pomodoro-start",
+  "pomodoro-completed",
+  "external-link-pattern-prefix",
+  "username",
+  "welcome-board",
+  "welcome-swimlane",
+  "self-registration",
+  "smtp-port",
+  "smtp-username",
+  "smtp-password"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -1276,6 +1328,15 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   assert.ok(waray['Reactivity_order'].includes('METEOR_REACTIVITY_ORDER'));
   assert.match(waray['r-remove-all-labels'], /ngatanan/);
   assert.match(waray['twoFactorAuth-enabled'], /^Aktibo.*duha/);
+  assert.equal(waray['boardChangeViewPopup-title'], waray['board-view']);
+  for (const key of ['changeFontPopup-title', 'change-font']) assert.equal(waray[key], waray['font']);
+  assert.equal(waray['smtp-username'], waray['username']);
+  assert.equal(waray['smtp-password'], waray['password']);
+  assert.match(waray['zoom-in'], /^Padakoa/);
+  assert.match(waray['zoom-out'], /^Pagutiaya/);
+  assert.match(waray['card-has-unread-comments'], /waray pa mabasa/);
+  assert.match(waray['unstar-item'], /Kuhaa/);
+  assert.match(waray['see-all-starred-items'], /ngatanan/);
   const statistics = ['AVERAGE', 'MEDIAN', 'MODE', 'STD_DEV', 'SUM'].map(s => waray['blockly-MATH_ONLIST_OPERATOR_' + s]);
   assert.equal(new Set(statistics).size, statistics.length);
   assert.match(waray['blockly-MATH_ONLIST_TOOLTIP_MODE'], /lista han mga butang/);
