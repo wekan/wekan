@@ -1081,6 +1081,29 @@ checks pass; browser coverage is syntax-checked only because its application
 stack is unavailable. The ordinary backlog remains 51,575 values in 70 languages,
 plus 201 pending source keys, because this feature is in the pending group.
 
+## Inuktitut notification preferences — 2026-10-07
+
+Filled 13 `notification-activity-*` English placeholders in `iu` using syllabics
+and existing card, list, lane, member, assignee and attachment terminology.
+Existing translations were not overwritten. The description retains unchecking,
+bell/email delivery and the reminder/mention exception.
+
+Terminology references: Government of Nunavut usage of
+[reminder](https://www.gov.nu.ca/iu/pivalliajut/nunavuumi-imarmik-imiqtauvaktumik-ujjiqsuqujinirmut-iqkaitittijjuti-2026-05-25)
+and [deadline](https://www.gov.nu.ca/iu/pivalliajut/tuksirautiliuqujijut-niqilirijunnattiarnirmit-kiinaujanik-2026-09-18).
+These attest the relevant words, not the full UI translation. Bell terminology
+was not independently verified from an authoritative language source in this
+session. The full description, bell, custom-field values and inherited board
+metaphors remain low-confidence and need fluent-speaker review. Script checks
+cannot establish fluency or dialect consistency.
+
+Shared notification regression and registered browser scenarios now cover 63
+locales, including syllabic/no-English checks for these new values. Notification,
+all-locale structure/token and human-preference checks pass; browser coverage is
+syntax-checked only because its application stack is unavailable. These pending
+keys leave the ordinary backlog at 51,575 values in 70 languages plus 201 pending
+source keys. The wider task remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
