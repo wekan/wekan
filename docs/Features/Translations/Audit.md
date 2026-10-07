@@ -712,6 +712,31 @@ with all-locale structure and human-preference checks. The Aromanian browser
 mute/unmute scenario passes syntax checking only; no browser execution was
 available.
 
+## Buryat, Sakha and Chuvash notification preferences — 2026-10-07
+
+Filled 13 English placeholders each in Buryat (`bua`), Sakha (`sah`) and
+Chuvash (`cv`): 39 values. Existing translations are preserved. These keys
+remain pending elsewhere; the standard backlog stays at 51,575 values with
+201 pending source keys.
+
+The messages retain the due-date reminder/@mention exception and distinct
+member and assignee categories. References include the
+[Sakha–English dictionary](https://www.lexicons.ru/modern/ja/sakha/_pdf/sakha-english.pdf)
+for notice vocabulary, the
+[Chuvash dictionary discussion](https://chuvash.org/news/30586.html)
+for reminder usage, and the
+[Buryat phrasebook](https://folkways.today/talking-buryat-phrasebook/)
+for language context. Existing locale vocabulary supplies UI category names.
+These are direct translations without a translation service. Technical
+clauses, inflection, custom fields and lane terminology remain low confidence
+pending speaker review; Cyrillic checks alone do not distinguish languages.
+
+Shared notification checks now cover 44 locales. Exact placeholders, source
+order, distinct people categories, Cyrillic prose and the muting exception
+pass, together with all-locale structure and human-preference checks.
+Browser mute/unmute scenarios include these three locales and pass syntax
+checking only; no browser execution was available.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
