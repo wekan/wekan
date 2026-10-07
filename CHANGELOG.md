@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a5ed81ad373ddc2a68c8deabb254e89ef470578d">Translate Kurdish Blockly sorting and logic instructions</a></summary>
+
+- Fill 29 English placeholders for sorting, splitting, comparisons, Boolean
+  logic and conditional values. Preserve existing translations and tokens.
+- Case-insensitive sorting wording remains low confidence pending review.
+- All 44 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/62b71bc22d70b35698e37bcb0e2b11575167a53d">Translate Kurdish Blockly list operations</a></summary>
 
 - Fill 52 English placeholders for list creation, retrieval, removal, sublists,
