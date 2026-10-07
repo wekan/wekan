@@ -5913,6 +5913,21 @@ vocabulary, especially coordinates and bitmap descriptions, remains low
 confidence pending fluent-speaker review. Remaining Blockly messages and the
 broader language audit stay open.
 
+## Somali Blockly remaining controls and announcements — 2026-10-07
+
+Filled 26 English placeholders for expand/open/close controls, icons, inline and
+external inputs, minimap navigation, parent announcements and screen-reader
+mode. Existing translations are unchanged. Tests preserve tokens, open versus
+close states, enabled/disabled announcements and their opposite actions, the
+absence of a parent, and shared conditional labels.
+
+All 64 focused translation/structural tests and 21 human-preference checks pass.
+Browser and screen-reader checks were not run. Accessibility and parent-block
+wording remains low confidence pending fluent-speaker review. The remaining
+counted Somali entries are mathematical messages, keyboard names, platform
+names and technical literals; their presence does not establish which should
+be translated. The broader all-language audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

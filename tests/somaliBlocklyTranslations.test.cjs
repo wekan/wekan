@@ -215,3 +215,26 @@ test('Somali Blockly input labels retain operand roles and shared endpoints',()=
  assert.notEqual(data['blockly-INPUT_LABEL_LISTS_LIST_FROM_TEXT'],data['blockly-INPUT_LABEL_LISTS_TEXT_FROM_LIST']);
  assert.notEqual(data['blockly-INPUT_LABEL_TEXT_TO_FIND'],data['blockly-INPUT_LABEL_TEXT_TO_REPLACE']);
 });
+
+
+test('Somali Blockly remaining controls preserve arguments and paired states',()=>{
+ const keys=["blockly-EXPAND_ALL", "blockly-EXPAND_BLOCK", "blockly-EXTERNAL_INPUTS", "blockly-HELP_PROMPT", "blockly-ICON_LABEL_COMMENT_CLOSED", "blockly-ICON_LABEL_COMMENT_OPEN", "blockly-ICON_LABEL_DEFAULT", "blockly-ICON_LABEL_MUTATOR_CLOSED", "blockly-ICON_LABEL_MUTATOR_OPEN", "blockly-ICON_LABEL_WARNING_CLOSED", "blockly-ICON_LABEL_WARNING_OPEN", "blockly-INLINE_INPUTS", "blockly-MINIMAP_ARIA_LABEL", "blockly-NO_PARENT_ANNOUNCEMENT", "blockly-OPEN_BACKPACK", "blockly-OPEN_TRASH", "blockly-PARENT_BLOCKS_ANNOUNCEMENT", "blockly-REMOVE_FROM_BACKPACK", "blockly-SCREENREADER_HINT", "blockly-SCREENREADER_MODE_DISABLED", "blockly-SCREENREADER_MODE_ENABLED", "blockly-TODAY", "blockly-UNKNOWN", "blockly-UNNAMED_KEY", "blockly-CONTROLS_IF_ELSEIF_TITLE_ELSEIF", "blockly-CONTROLS_IF_ELSE_TITLE_ELSE"];
+ assert.equal(keys.length,26);
+ for(const key of keys){
+  assert.notEqual(data[key],english[key],key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ for(const kind of ['COMMENT','WARNING']){
+  assert.match(data['blockly-ICON_LABEL_'+kind+'_CLOSED'],/^Fur /);
+  assert.match(data['blockly-ICON_LABEL_'+kind+'_OPEN'],/^Xir /);
+ }
+ assert.match(data['blockly-SCREENREADER_MODE_DISABLED'],/dansan.*%1.*daarto/);
+ assert.match(data['blockly-SCREENREADER_MODE_ENABLED'],/shidan.*%1.*damiso/);
+ assert.match(data['blockly-SCREENREADER_HINT'],/%1.*daarto ama u damiso/);
+ assert.match(data['blockly-NO_PARENT_ANNOUNCEMENT'],/ma laha baloog waalid/);
+ assert.match(data['blockly-MINIMAP_ARIA_LABEL'],/fallaadhaha.*muuqaalka/);
+ assert.equal(data['blockly-CONTROLS_IF_ELSEIF_TITLE_ELSEIF'],data['blockly-CONTROLS_IF_MSG_ELSEIF']);
+ assert.equal(data['blockly-CONTROLS_IF_ELSE_TITLE_ELSE'],data['blockly-CONTROLS_IF_MSG_ELSE']);
+ assert.notEqual(data['blockly-EXTERNAL_INPUTS'],data['blockly-INLINE_INPUTS']);
+ assert.notEqual(data['blockly-OPEN_BACKPACK'],data['blockly-CLOSE_BACKPACK']);
+});
