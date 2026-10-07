@@ -4324,6 +4324,12 @@ mixed-language audit remains open.
 - Extended the existing positive browser save/reload/apply/replace/delete flow and negative invalid-expression flow to these ten locales. All 15 focused Node tests and 21 human-preference checks pass. Browser syntax passes; execution remains unverified because the local Playwright executable is unavailable.
 - These ten strings remain English in 41 locales. Ordinary placeholders decrease from 50,775 to 50,675 across 70 languages; 148 pending keys still require wording review.
 
+## Saved filter labels: nine Pacific and African locales (2026-10-07)
+
+- Filled ten English strings each in Bislama, Tok Pisin, Fijian, Tongan, Hawaiian, Oromo, Kinyarwanda, Kirundi and Luganda (90 values), using existing locale vocabulary. Preserved the private-per-user, per-board scope and same-name replacement semantics. Technical clauses remain provisional, especially Fijian, Tongan, Hawaiian and Kirundi.
+- Extended the existing positive browser save/reload/apply/replace/delete flow and negative invalid-expression flow to these nine locales. All 15 focused Node tests and 21 human-preference checks pass. Browser syntax passes; execution remains unverified because the local Playwright executable is unavailable.
+- These ten strings remain English in 32 locales. Ordinary placeholders decrease from 50,675 to 50,585 across 70 languages; 148 pending keys still require wording review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
