@@ -199,3 +199,18 @@ test('Akan board warnings preserve deletion consequences, privacy and recipient 
  assert.match(data['import-trello-zip-progress'],/\.zip/);
  assert.match(data['close-board-pop'],/Bɔɔd Nyinaa/);
 });
+
+test('Akan configuration and rule messages preserve identifiers and deletion conditions', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["avatars-upload-blocked-description", "org-sync-members-from-auth", "org-domains-description", "team-sync-members-from-auth", "board-delete-notice", "delete-board-confirm-popup", "delete-all-notifications-confirm", "delete-duplicate-lists-confirm", "r-when-due", "r-when-card-in-list", "r-when-a-card", "r-when-the-label", "r-when-a-member", "r-when-the-member", "r-when-a-assignee", "r-when-the-assignee", "r-when-a-attach", "r-when-a-checklist", "r-when-the-checklist", "r-when-a-item", "r-when-the-item", "r-when-a-card-is-moved", "swimlane-delete-pop", "act-a-dueAt"];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.ok(!/\b(will|cannot|When|anonor|Nore|brneing)\b/.test(data[key]),key);
+ }
+ for(const literal of ['a.example.com','kanban.example.org','MULTITENANCY=true']) assert.ok(data['org-domains-description'].includes(literal));
+ assert.equal(data['org-sync-members-from-auth'],data['team-sync-members-from-auth']);
+ assert.match(data['delete-duplicate-lists-confirm'],/din yɛ pɛ.*kaad biara nni mu/);
+ for(const key of ['delete-board-confirm-popup','delete-all-notifications-confirm','swimlane-delete-pop']) assert.match(data[key],/Wuntumi nsan nyi/);
+ for(const key of keys.filter(k=>k.startsWith('r-when-'))) assert.match(data[key],/^Bere a/);
+ assert.equal(data['act-a-dueAt'].split('\n').length,english['act-a-dueAt'].split('\n').length);
+});

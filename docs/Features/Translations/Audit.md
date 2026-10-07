@@ -5321,6 +5321,12 @@ Rewrote 32 mixed-language values containing English clauses and malformed substi
 
 Tests preserve all source placeholders and HTML tags, deletion consequences, membership scope, last-admin restrictions and notification distinctions. Short menu references and administrative terminology need contextual review. Browser checks were not run. This batch does not change the exact-English placeholder count; the broader mixed-language audit continues.
 
+### Akan mixed-language correction: configuration and rule triggers
+
+Rewrote 24 mixed-language entries covering avatar/auth settings, organization domains, destructive confirmations, rule triggers and a due-date activity message. Restored the damaged `kanban.example.org` example and preserved `a.example.com`, `MULTITENANCY=true` and all activity placeholders/newlines.
+
+Tests cover tokens, literal identifiers, duplicate-list deletion conditions, irreversible warnings and shared auth labels. Rule fragments and authentication/tenant wording remain provisional pending contextual review. Browser checks were not run; other mixed-language values remain under audit.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
