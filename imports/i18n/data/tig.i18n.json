@@ -1438,7 +1438,7 @@
   "r-subject": "ኣርእስ፡",
   "r-email-vars-hint": "ዘሎ ምልክታት: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "ለሳሕታት ለዝርዝር፣ ለመገዲ፣ ለኣርእስት፣ ለዝርዝር ፍትሽ ወለምስተዕምል፣ {creator}፣ {assignees}፣ {members} ወ{customField:Name} ከአ ልትቀበሎ። ለሕግ ዶል ልትፈተሽ፣ እሊ ምን ለካርድ ልትቀርኦ።",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "እት ለቦታ ክታብ ኣንታ እት ሓር ለሓረካሁ ምልክት ናይ ዋጋ ለይትቀየር አእቱ:",
   "r-vars-people-hint": "ወከአ፦ {creator}፣ {assignees}፣ {members} (ዲብ ጽሕፈት አስማት ለምስተዕምሊን፣ ዲብ ለልትለአክ አድራሻት ኢመይል) ወ{customField:Field name}። እሊ ዲብ አስማት ለአባል፣ ለዝርዝር ወለመገዲ ለካልእ ሸቀል ከአ ልሸቅሎ።",
   "r-rule-details": "ዝርዝር ደንቢ",
   "r-rule-any-trigger-help": "ዎሮ ምን ለመንሸጢታት ዶል ልግባእ፣ ለሕግ ልሸቅል። ሸቀሉ ብተርቲብ፣ ዎሮ ድሕር ዎሮ፣ ልትገበር።",

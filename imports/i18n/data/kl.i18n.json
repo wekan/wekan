@@ -1438,7 +1438,7 @@
   "r-subject": "qulequtaq",
   "r-email-vars-hint": "Atugassiuutit pissutsit: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Allattorsimaffiup, aqqutip, qulequttap, misissuiffiusumik allattorsimaffiup atuisullu allaffissaani {creator}, {assignees}, {members} aamma {customField:Name} atorneqarsinnaapput. Taakkua nalingi kortimit atuarneqartarput malittarisassaq misissorneqaraangat.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Allaffissamut kingullermik toqqakkannut nalinga allanngorsinnaasumut taarsiullugu nalunaaqut ikkuguk:",
   "r-vars-people-hint": "Aamma: {creator}, {assignees}, {members} (allatani atuisut aqqi, tigusisussap allaffissaani emailit najugaat) aamma {customField:Field name}. Taakku iliuutsini allani ilaasortat, allattorsimaffiit aqqutillu aqqini aamma atorneqarsinnaapput.",
   "r-rule-details": "Malittarisassap paasissutissartai",
   "r-rule-any-trigger-help": "Malittarisassaq aallartittarpoq aallartitsisuni arlaat pisoqaraangat. Iliuutsit tulleriiaarlugit suliarineqartarput.",

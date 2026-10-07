@@ -1438,7 +1438,7 @@
   "r-subject": "ⵉⵎⵔⵙⵉ",
   "r-email-vars-hint": "ⵉⵙⵎⵍⵍ ⵉⵍⴰⵏ: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "ⵉⴳⵔⴰⵏ ⵏ ⵜⴱⴷⴰⵔⵜ, ⵓⴱⵔⵉⴷ, ⵓⵣⵡⵍ, ⵜⴱⴷⴰⵔⵜ ⵏ ⵓⵙⵙⵉⴷⴷⵏ ⴷ ⵓⵙⵎⵔⴰⵙ ⴰⵔ ⵜⵜⵇⴱⴰⵍⵏ ⴰⵡⴷ {creator}, {assignees}, {members} ⴷ {customField:Name}. ⴰⵔ ⵜⵜⵡⴰⵖⵔⴰⵏⵜ ⵜⴰⵏⵣⴰⵍⵉⵏ ⵏⵏⵙⵏ ⵙⴳ ⵜⴽⴰⵕⴹⴰ ⵎⴽ ⵉⵜⵜⵡⴰⵙⵙⵉⴷⴷⵏ ⵓⵍⵓⴳⵏ.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "ⵙⴽⵛⵎ ⴰⵎⵓⵜⵜⵉ ⴳ ⵓⵔⵜⵉ ⵏ ⵓⴹⵕⵉⵚ ⵉ ⵜⴼⵔⵏⴷ ⴳ ⵜⵉⴽⴽⵍⵜ ⵜⴰⵏⴳⴳⴰⵔⵓⵜ:",
   "r-vars-people-hint": "ⴰⵡⴷ: {creator}, {assignees}, {members} (ⵉⵙⵎⴰⵡⵏ ⵏ ⵉⵙⵎⵔⴰⵙⵏ ⴳ ⵓⴹⵕⵉⵚ, ⵜⴰⵙⵏⵉⵡⵉⵏ ⵏ ⵉⵎⴰⵢⵍ ⴳ ⵉⴳⵔ ⵏ ⵓⵎⴰⵟⵟⴰⴼ) ⴷ {customField:Field name}. ⵣⵎⵔⵏ ⴰⴷ ⵜⵜⵓⵙⵎⵔⵙⵏ ⴰⵡⴷ ⴳ ⵉⵙⵎⴰⵡⵏ ⵏ ⵉⴳⵎⴰⵎⵏ, ⵜⵉⴱⴷⴰⵔⵉⵏ ⴷ ⵉⴱⵔⴷⴰⵏ ⵏ ⵜⵉⴳⴰⵡⵉⵏ ⵢⴰⴹⵏⵉⵏ.",
   "r-rule-details": "ⵉⴼⵔⵓⵔⵉⵜⵏ ⵏ ⵓⵍⵓⴳⵏ",
   "r-rule-any-trigger-help": "ⴰⵔ ⵉⵜⵜⵡⴰⵙⴽⴰⵔ ⵓⵍⵓⴳⵏ ⵎⴽ ⵉⴹⵕⴰ ⵢⴰⵏ ⴳ ⵉⵎⵙⵙⵏⴽⵔⵏ ⵏⵏⵙ. ⴰⵔ ⵜⵜⵡⴰⵙⴽⴰⵔⵏⵜ ⵜⵉⴳⴰⵡⵉⵏ ⵏⵏⵙ ⵙ ⵓⵎⵣⴰⵔⴰⵢ.",

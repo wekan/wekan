@@ -1,10 +1,6 @@
 {
   "keys": [
     {
-      "key": "r-insert-variable",
-      "since": "2026-09-29"
-    },
-    {
       "key": "rule-email-recovery-dropped",
       "since": "2026-09-29"
     },

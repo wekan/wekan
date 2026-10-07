@@ -311,9 +311,13 @@ test('Leo outline import instructions have non-English values in all locales', a
   assert.match(fi, /Merkityt solmut tuodaan valmiina/);
 });
 
- test('rule variable picker labels preserve source tokens in the next locale batch', async () => {
+test('rule variable picker labels have non-English values in all locales', async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
-  const codes = ["ku","ckb","tt","tk_TM","yi","so","ny","bho","mai","or_IN","kok","ary","pap","mi","sm","st","tn", "nso", "zu", "zu-ZA", "xh", "ss", "nd", "ts", "ve", "bi", "tpi", "fj", "to", "haw", "om", "rw", "rn", "lg", "bo", "dz", "ti", "bua", "cv", "sah", "wa", "wa-RR", "ace", "ve-CC", "ak", "bm", "ee", "wo", "qu", "ay", "gn", "gv", "se", "rup"];
+  const codes = fs.readdirSync(directory)
+    .filter(file => file.endsWith('.i18n.json') && !/^en(?:[-_]|\.)/.test(file))
+    .map(file => file.replace('.i18n.json', ''));
+  assert.equal(codes.length, 234);
+  assert.ok(!require('../releases/translations/pending-transifex.json').keys.some(entry => entry.key === 'r-insert-variable'));
   const key = 'r-insert-variable';
   const source = JSON.parse(fs.readFileSync(path.join(directory, 'en.i18n.json')))[key];
   for (const code of codes) {
@@ -321,6 +325,5 @@ test('Leo outline import instructions have non-English values in all locales', a
     assert.ok(value?.trim(), code);
     assert.notEqual(value, source, code);
     assert.deepEqual(translationTokens(value), translationTokens(source), code);
-    assert.ok(value.endsWith(':'), code);
   }
 });

@@ -1438,7 +1438,7 @@
   "r-subject": "tlahtolpehualiztli",
   "r-email-vars-hint": "Tlahtōlmachiyōtl in oncah: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Campa moihcuiloa tocatlahtolli, ohtli, tzontecomatl, tlaixnamiquiliztli tocatlahtolli ihuan tequitini, noihqui huel tictequihuia {creator}, {assignees}, {members} ihuan {customField:Name}. Inin ipatiuh mopohua ipan amatontli ihcuac nahuatilli motlachilia.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Xictlali ce machiyotl ipatca tlen huel mopatla ipan tlahcuilolcan tlen oticpehpenac zatepan:",
   "r-vars-people-hint": "Noihqui: {creator}, {assignees}, {members} (tequitinih intocah ipan tlahcuilolli, correo electrónico intocah campa tlacelia) ihuan {customField:Field name}. Inin noihqui huel motequihuia ipan intocah tlen cateh ipan tlanechikolli, tocatlahtolli ihuan ohtli ipan occequih tlachihualiztli.",
   "r-rule-details": "Nahuatilli itlahtol",
   "r-rule-any-trigger-help": "Nahuatilli motequihuia ihcuac monextia ce tlamantli tlen quipehualtia, huel ce tlen huel. Itlachihualiz mochihua cece, ce itepotzco occe.",

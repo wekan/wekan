@@ -1438,7 +1438,7 @@
   "r-subject": "toɓɓere",
   "r-email-vars-hint": "Baynguure ngoodaaɗe: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Galli doggol, laawol, tiitoonde, doggol ƴeewndagol e kuutortooɗo ina jaɓa kadi {creator}, {assignees}, {members} e {customField:Name}. Kiisol mum en ina janŋee e kartal so sariya ina ƴeewtee.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Naatnu maande lomtotoonde kiisol baawngol waylude e nokku binndol ɗo cuɓiɗaa sakkitiinde:",
   "r-vars-people-hint": "Kadi: {creator}, {assignees}, {members} (inɗe kuutortooɓe e binndol, ñiiɓirde iimeel e gallol keɓoowo) e {customField:Field name}. Ɗee kadi ina golla e inɗe terɗe fedde, doggi e laabi e golle goɗɗe.",
   "r-rule-details": "Cariiɗe laawol",
   "r-rule-any-trigger-help": "Sariya ina golla so gooto e hurminooɓe mum waɗii. Golle mum ina waɗee gooto caggal gooto, e deggondiral.",

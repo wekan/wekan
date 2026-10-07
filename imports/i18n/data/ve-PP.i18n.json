@@ -1438,7 +1438,7 @@
   "r-subject": "azj",
   "r-email-vars-hint": "Zwiredzo zwi wanalaho: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Lugetižen, ujundšoidan, nimen, kodvindlugetižen da kävutajan palad ottas mugažo {creator}, {assignees}, {members} da {customField:Name}. Nende arvod lugetas kartaspäi, ku sändad kodvindas.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Liža muutujan merk tekstpol'he, kudamban valičid jäl'gmäižeks:",
   "r-vars-people-hint": "Völ: {creator}, {assignees}, {members} (kävutajiden nimed tekstas, e-počtan adresad sajan palas) da {customField:Field name}. Nece toimib mugažo toižiden tegendiden členiden, lugetižiden da ujundšoididen nimiš.",
   "r-rule-details": "Pravilan ližatedod",
   "r-rule-any-trigger-help": "Sänd toimib, ku üks sen käivitajispäi tapahub. Sen tegendad tehakse üks toižen jäl’ghe.",

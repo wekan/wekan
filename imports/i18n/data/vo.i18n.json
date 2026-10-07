@@ -1438,7 +1438,7 @@
   "r-subject": "temo",
   "r-email-vars-hint": "Tags davedön: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Fels lisedas, dilas horitätik, tiädas, kontrolalisedas e gebanas i lensumons {creator}, {assignees}, {members} e {customField:Name}. Völadäts onas palilädons de kad, ven nom pakontrolon.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Lüükolöd mali pro völad votovik ini fel vödema, keli ävälol lätiküno:",
   "r-vars-people-hint": "Igo: {creator}, {assignees}, {members} (nems gebanas in vödem, ladets pota leäktronik in fel getana) e {customField:Field name}. Ats i kanons pagebön in nems limanas, lisedas e dilas horitätik dunas votik.",
   "r-rule-details": "Rego pats",
   "r-rule-any-trigger-help": "Nom padunon, ven jenot anik de jenots primöls omi jenon. Duns oma padunons bal pos votik, ma sökaleod.",

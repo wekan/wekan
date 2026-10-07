@@ -1438,7 +1438,7 @@
   "r-subject": "Wolayttatto: subject",
   "r-email-vars-hint": "De’iya malaatiya: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Mazgabaa, ogiyaa, huuphe sunttaa, paccissiya mazgabaa nne oosanchchaa sohotikka {creator}, {assignees}, {members} nne {customField:Name} ekkiyoosona. Seeray paccettiyo wode, hageeti kaardiyappe nabbabettiyoosona.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Neeni wurssettan doorido xaafuwaa sa'aa giddon laamettana danddayiya gatiyaa bessa malaataa gelissa:",
   "r-vars-people-hint": "Qassi: {creator}, {assignees}, {members} (xaafuwan oosanchchatu sunttata, yeddiyoosan iimeeliyaa sohotaa) nne {customField:Field name}. Hageeti hara oosotu yaraata, mazgabaa nne ogiyaa sunttatunkka oottiyoosona.",
   "r-rule-details": "Wolayttatto: Rule details",
   "r-rule-any-trigger-help": "Seeraa denttissiya hanotatuppe issi hanotay hanishin seeray oottees. A oosoti maaran oottiyoosona.",

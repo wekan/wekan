@@ -1438,7 +1438,7 @@
   "r-subject": "QIn pong",
   "r-email-vars-hint": "maqmey: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "tetlh, He, pong, ghItlhHommey tetlh, lo'wI' je De' DaqmeyDaq {creator}, {assignees}, {members} {customField:Name} je Dalo'laH je. chut nuDlu'DI', card De' laDlu' 'ej De'vetlh lo'lu'.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "ghItlh Daq DawIvta'bogh QavDaq choHlaHbogh De' 'oSbogh per yIlan:",
   "r-vars-people-hint": "{creator}, {assignees}, {members} {customField:Field name} je Dalo'laH je. ghItlhDaq lo'wI' pongmey cha'; HevwI' DaqDaq jabbI'ID Quvmey cha'. latlh ta'mey ghom jeSwI' pongmey, tetlh pongmey, He pongmey jeDaq bIH Dalo'laH je.",
   "r-rule-details": "chut De' naQ",
   "r-rule-any-trigger-help": "taghmeH ghu'meyDaj wa' qaSDI', chut chu'lu'. ta'meyDaj ta'lu'; wa' ta'lu'DI', veb ta'lu'.",

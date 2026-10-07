@@ -4208,6 +4208,33 @@ because Playwright is unavailable. Twelve locales still use the English label.
 The wider backlog remains 51,575 ordinary placeholders in 70 languages plus 149
 pending source keys. These checks do not establish linguistic accuracy.
 
+## Rule variable picker: final placeholder batch and all-locale coverage
+
+Filled twelve remaining English labels in Cherokee, Fulah, Inuktitut,
+Greenlandic, Kashmiri, Nahuatl, Tigre, Klingon, Veps, Volapük, Wolaytta and
+Standard Moroccan Tamazight. Existing translations were preserved. All twelve
+complete labels remain low-confidence drafts, especially the symbol/value and
+last-selected-field phrasing; full linguistic review remains open.
+
+The [Midgley Volapük dictionary](https://volapuk.evertype.com/EnVoDictionary-20100830.pdf)
+supplies `völad` and `välön`, correcting draft roots for value and choosing.
+The [comparative Berber computing glossary](https://www.temehu.com/imazighen/dictionaries/Amawals/Computer_dictionary_Berber_English_French.pdf)
+supplies `amutti`; its suitability across varieties remains subject to review.
+Word references do not validate the complete UI sentences.
+
+A fresh scan finds a nonempty, non-English label in all 234 non-English locales.
+Removed the source key from the pending queue (149 to 148). The regression now
+discovers all locales and compares source token inventories. Removed the earlier
+ASCII-colon assertion when it rejected existing locale punctuation; punctuation
+is not a code placeholder. Extended the browser picker scenario to the twelve
+locales, retaining insertion, focus switching and admin-only-field exclusion.
+
+All 13 focused Node tests and 21 human-preference checks pass. Browser syntax
+passes; execution remains unverified because Playwright is unavailable. A fresh
+missing-value report still counts 51,575 ordinary placeholders in 70 languages.
+Structural coverage does not establish linguistic accuracy, and the broader
+mixed-language audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

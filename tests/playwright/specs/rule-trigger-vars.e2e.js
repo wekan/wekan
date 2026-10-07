@@ -57,7 +57,7 @@ test('the trigger editor explains which variables trigger fields accept', async 
 
 // #3195: the editor inserts a variable at the caret of the text field last
 // focused, and offers the board's custom fields but not admin-only ones.
-for (const language of ["en","ku","ckb","tt","tk_TM","yi","so","ny","bho","mai","or_IN","kok","ary","pap","mi","sm","st","tn", "nso", "zu", "zu-ZA", "xh", "ss", "nd", "ts", "ve", "bi", "tpi", "fj", "to", "haw", "om", "rw", "rn", "lg", "bo", "dz", "ti", "bua", "cv", "sah", "wa", "wa-RR", "ace", "ve-CC", "ak", "bm", "ee", "wo", "qu", "ay", "gn", "gv", "se", "rup"]) {
+for (const language of ["en","ku","ckb","tt","tk_TM","yi","so","ny","bho","mai","or_IN","kok","ary","pap","mi","sm","st","tn", "nso", "zu", "zu-ZA", "xh", "ss", "nd", "ts", "ve", "bi", "tpi", "fj", "to", "haw", "om", "rw", "rn", "lg", "bo", "dz", "ti", "bua", "cv", "sah", "wa", "wa-RR", "ace", "ve-CC", "ak", "bm", "ee", "wo", "qu", "ay", "gn", "gv", "se", "rup", "chr", "ff", "iu", "kl", "ks", "nah", "tig", "tlh", "ve-PP", "vo", "wal", "zgh"]) {
 const locale = require(`../../../imports/i18n/data/${language}.i18n.json`);
 test(`the rule editor inserts a picked variable into the last focused field (${language})`, async ({ boardPage: page, board }) => {
   const { navigateInApp } = require('../helpers/auth');
