@@ -1890,6 +1890,20 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/df715c24385d9b169a3e5224213714ec37b20b55">Translate rule-builder instructions in Oromo, Fijian and Tongan</a>. Thanks to xet7.</summary>
+
+- Fill seven strings in each locale and replace two prefixed English Tongan labels.
+  Preserve literal variables, any-trigger behavior and ordered actions. Fijian and
+  Tongan technical prose has lower confidence and needs native/UI review.
+- Translation checks now cover 32 recently filled locales. Runtime variable,
+  all-locale structural and human-preference checks pass. Browser scenarios were
+  not run; the app stack was unavailable.
+- 34 locale paths still need this group. The ordinary backlog remains 51,575 values
+  plus 181 pending source keys; broader language-quality review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a87d0a82d6278449f01fedb4eb3cb10beae43a93">Translate rule-builder instructions in Northern Ndebele, Swati, Northern Sotho and Tsonga</a>. Thanks to xet7.</summary>
 
 - Fill seven strings in each locale, preserving literal variable expressions,
