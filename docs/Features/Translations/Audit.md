@@ -5357,6 +5357,12 @@ Rewrote 24 mixed-language permission, existence/error and export labels. Preserv
 
 Regression checks cover source tokens, negative permissions, separate disabled/missing accounts and re-import guidance. Role and soft-deletion wording remains descriptive and provisional. Browser checks were not run; other mixed-language values remain under audit.
 
+### Akan mixed-language correction: filters and import formats
+
+Rewrote 24 filter/export/import messages, restoring machine-readable examples that had translated JSON field names and product names. Preserve Kanboard/Asana/ZenKit/Jira field names, API paths, spreadsheet headers, Trello extensions and advanced-filter syntax, including escapes.
+
+Tests check source tokens, exact example fragments, backslash counts and distinct ZIP error categories. Technical filter and import wording remains provisional. Browser checks were not run; the broader language audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

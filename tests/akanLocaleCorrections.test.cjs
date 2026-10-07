@@ -299,3 +299,25 @@ test('Akan permission and error messages preserve access restrictions', async()=
  assert.match(data['error-import-empty-board'],/fael foforo/);
  assert.notEqual(data['error-user-disabled'],data['error-user-doesNotExist']);
 });
+
+test('Akan import and filter instructions preserve machine-readable examples', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["user-can-not-export-card-to-pdf", "user-can-not-export-card-to-excel", "filter-creator-label", "filter-on", "filter-on-desc", "import-board", "import-board-instruction-kanboard", "import-board-instruction-asana", "import-board-instruction-zenkit", "import-board-instruction-jira", "import-board-instruction-excel", "import-trello-json-file-hint", "import-trello-zip-file-hint", "import-trello-zip-read-failed", "import-trello-zip-too-large", "import-trello-zip-too-many-files", "import-trello-zip-file-too-large", "import-trello-workspace-placeholder", "import-trello-parent-workspace", "trello-api-import-desc", "trello-api-credentials-saved", "trello-select-boards", "trello-cancel", "advanced-filter-description"];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.ok(!/impanaat|expanaat|operatanaa|\b(Could|too|Choose|Paste)\b/.test(data[key]),key);
+ }
+ const examples={
+  'import-board-instruction-kanboard':['Kanboard','"columns"','"tasks"','title, description, column_name, swimlane_name, date_due, owner, tags'],
+  'import-board-instruction-asana':['{ "data": [...] }','GET /tasks','memberships','Done'],
+  'import-board-instruction-zenkit':['{ "title", "stages":[...], "items":[...] }'],
+  'import-board-instruction-jira':['GET /rest/api/2/search','{ "issues": [...] }','"automationRules"'],
+  'import-board-instruction-excel':['.xlsx','Title, Description, Status/List, Members, Labels'],
+  'import-trello-zip-file-hint':['.zip','.json','Trello Card Attachments Downloader'],
+  'advanced-filter-description':['== != <= >= && || ( )','Field1 == Value1',"'Field 1' == 'Value 1'",'F1 == V1 || F1 == V2','F1 == V1 && ( F2 == V2 || F2 == V3 )','F1 == /Tes.*/i'],
+ };
+ for(const [key,values] of Object.entries(examples)) for(const value of values) assert.ok(data[key].includes(value),key+':'+value);
+ assert.equal(data['advanced-filter-description'].split(String.fromCharCode(92)).length,english['advanced-filter-description'].split(String.fromCharCode(92)).length);
+ assert.notEqual(data['import-trello-zip-too-large'],data['import-trello-zip-too-many-files']);
+ assert.match(data['trello-select-boards'],/biako/);
+});
