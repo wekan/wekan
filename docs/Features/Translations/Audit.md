@@ -6811,6 +6811,17 @@ The combined translation run passes 144 checks. Two existing catalog checks fail
 on the missing due-date shortcut key. All 21 human-preference checks pass.
 Browser and screen-reader checks were not run. The wider audit remains open.
 
+## Tok Pisin remaining file and card controls wording audit
+
+Corrected 40 mixed-language file, card, display and maintenance controls. Checks
+preserve signed-in visibility markup, workspace and database placeholders,
+list-wide operations, CSV/TSV distinctions and database-copy exclusions. Technical
+wording remains provisional pending fluent-speaker review.
+
+The combined translation run passes 146 checks. Two existing catalog checks fail
+on the missing due-date shortcut key. All 21 human-preference checks pass.
+Browser and screen-reader checks were not run. The wider audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

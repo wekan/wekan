@@ -2303,3 +2303,68 @@ test('Tok Pisin confirmations preserve affected objects and single versus all-us
  assert.match(data['smtp-tls-description'],/SMTP.*TLS/);
  assert.match(data['webhook-token'],/sapos yu laik/);
 });
+
+
+test('Tok Pisin remaining file and card controls retain tokens without mixed English',()=>{
+ const keys=[
+  "prefix-with-full-path",
+  "subtext-with-full-path",
+  "attachments-path",
+  "attachments-path-description",
+  "avatars-path-description",
+  "import-board-instruction-csv",
+  "trello-resume",
+  "list-archive-cards",
+  "list-move-cards",
+  "list-select-cards",
+  "no-archived-cards",
+  "no-archived-lists",
+  "no-archived-swimlanes",
+  "instance",
+  "board-instance-info",
+  "quick-access-description",
+  "search-cards",
+  "custom-login-logo-link-url",
+  "show-field-on-card",
+  "showLabel-field-on-card",
+  "org-tenant",
+  "r-of-cards-in-list",
+  "r-move-all-cards",
+  "r-in-list",
+  "r-in-swimlane",
+  "previous_as",
+  "show-on-card",
+  "show-on-minicard",
+  "card-mark-complete",
+  "drag-board-to-workspace",
+  "database-migration-confirm",
+  "render-links-as-plain-text",
+  "always-show-code-as-text",
+  "pause-all-migrations",
+  "start-all-migrations",
+  "stop-all-migrations",
+  "card-show-lists-on-minicard",
+  "hide-list-on-minicard",
+  "show-list-on-minicard",
+  "problems-none-in-progress"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:Prefix|Subtext|Path|path|where|stored|Paste|Resume|titles|descriptions|field|Mark|Drag|assign|drop|affected|running|Render|Always|Pause|Start|Stop|Migrations|Minicard|progress)\b/,key);
+ }
+});
+
+test('Tok Pisin card and database wording keeps scope, markup and placeholders',()=>{
+ assert.match(data['board-instance-info'],/^<strong>Olgeta yusa i go insait pinis<\/strong>/);
+ assert.match(data['database-migration-confirm'],/__db__.*fail i pas.*piksa bilong yusa.*stap olsem bipo.*i mas wok/);
+ assert.match(data['drag-board-to-workspace'],/__workspaces__.*ba bilong sait/);
+ assert.match(data['import-board-instruction-csv'],/koma.*CSV.*tab.*TSV/);
+ for(const action of ['archive','move','select']) assert.match(data['list-'+action+'-cards'],/olgeta kat long dispela lis/);
+ for(const type of ['cards','lists','swimlanes']) assert.match(data['no-archived-'+type],/^I no gat.*akaiv/);
+ assert.match(data['pause-all-migrations'],/malolo liklik$/);
+ assert.match(data['start-all-migrations'],/^Statim olgeta/);
+ assert.match(data['stop-all-migrations'],/^Stopim olgeta/);
+ assert.match(data['hide-list-on-minicard'],/^Haitim/);
+ assert.match(data['show-list-on-minicard'],/^Soim/);
+});
