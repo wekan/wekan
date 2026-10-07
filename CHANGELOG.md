@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/98fb2bf52d82e72902c2581bedb942206e8fc239">Correct 25 Walloon values in Waray role and table-view labels.</a></summary>
+
+- Correct checklist sound, public/private defaults, role summaries, table toggles, search and layout labels. Preserve default-off and read-only meanings and each toggle's inverse action.
+- Extend operation and localized search-token checks. Technical wording remains provisional; further Waray corrections and contextual review remain open.
+- English placeholders remain at 46,995 across 70 languages, with 148 source keys tracked separately for wording review.
+- Validation: the Waray regression, all-234-locale completeness/token check and 21 human-preference checks pass. The broader Blockly suite could not start because node_modules/blockly/msg/en.js was missing. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c182b9ac42bacb82b99d00842f3423667a7f0a39">Correct 25 Walloon values in Waray login, rule and layout labels.</a></summary>
 
 - Correct rule, LDAP/OAuth, passwordless login and layout labels while preserving template variables and configuration names. Retain one-time-code, account-conflict and secret-visibility meanings.
