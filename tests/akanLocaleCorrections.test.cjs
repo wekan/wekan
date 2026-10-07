@@ -746,3 +746,23 @@ test('Akan workflow labels preserve toggles, archive direction and literal marku
  assert.match(data['deposit-subtasks-list'],/: $/);
  assert.match(data['default-subtasks-board'],/__board__/);
 });
+
+
+test('Akan sorting and report labels preserve search syntax and format entities', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["newTeamPopup-title", "newUserPopup-title", "shortName", "myCardsSortChange-title", "myCardsSortChangePopup-title", "label-color-not-found", "globalSearch-instructions-operator-at", "label-colors", "sort-cards", "sort-boards", "sort-boards-custom", "cardsSortPopup-title", "dependency-color", "upload-background", "location-address", "created-at-newest-first", "custom-field-stringtemplate-format", "custom-field-stringtemplate-separator", "reports", "securityReportTitle", "rulesReportTitle", "boardsReportTitle", "cardsReportTitle", "impersonationReportTitle"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ const key='globalSearch-instructions-operator-at';
+ assert.deepEqual(data[key].match(/`[^`]+`/g),english[key].match(/`[^`]+`/g));
+ assert.ok(data['custom-field-stringtemplate-format'].includes('%{value}'));
+ for(const literal of ['&#32;','&nbsp;']) assert.ok(data['custom-field-stringtemplate-separator'].includes(literal));
+ assert.equal(data['myCardsSortChange-title'],data['myCardsSortChangePopup-title']);
+ assert.equal(data['sort-cards'],data['cardsSortPopup-title']);
+ assert.match(data['created-at-newest-first'],/foforo sen biara di kan/);
+ assert.match(data['sort-boards-custom'],/wotwe/);
+ const reports=['securityReportTitle','rulesReportTitle','boardsReportTitle','cardsReportTitle','impersonationReportTitle'];
+ assert.equal(new Set(reports.map(k=>data[k])).size,reports.length);
+ for(const key of reports) assert.match(data[key],/amanneɛbɔ$/);
+ assert.match(data['label-color-not-found'],/^Wɔanhu/);
+ assert.equal(data['dependency-color'],data['allboards.workspace-color']);
+});

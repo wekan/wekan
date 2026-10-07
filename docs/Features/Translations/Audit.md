@@ -5542,6 +5542,15 @@ placeholders and the literal closing body tag. Added source-token, direction and
 markup checks. Wording remains low confidence pending fluent-speaker review;
 browser checks remain unrun. English-placeholder counts are unchanged.
 
+## Akan sorting and report corrections (batch 42)
+
+Corrected 24 damaged or mixed-language sorting, report and field labels. Restored
+the literal `username` and `user:<username>` search example, preserved `%{value}`
+and HTML space entities, and aligned equivalent sorting labels. Added token,
+query-syntax, entity and report-distinction checks. Wording remains low confidence
+pending fluent-speaker review; browser checks remain unrun. Placeholder counts
+are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
