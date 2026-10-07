@@ -1034,6 +1034,30 @@ pass; the browser scenario is syntax-checked only because the application stack
 is unavailable. These pending keys do not change the ordinary backlog of 51,575
 values in 70 languages or the 201 pending source keys. The wider goal remains open.
 
+## Veps notification preferences — 2026-10-07
+
+Filled the 13 `notification-activity-*` English placeholders in `ve-PP` (Veps),
+preserving existing translations and using the locale's established UI nouns.
+The description retains unchecking a category, bell/email delivery and continued
+arrival of due-date reminders and @mentions.
+
+References: [ližata](https://en.wiktionary.org/wiki/li%C5%BEata) (add; passive
+`ližatud`), [heitta](https://en.wiktionary.org/wiki/heitta) (remove; imperative
+`heitä`, passive `heittud`), [tedotuz](https://en.wiktionary.org/wiki/tedotuz)
+(notification/message), and [Veps correlatives](https://en.wiktionary.org/wiki/Appendix:Veps_correlatives)
+(`kaiken`, always). The
+[Veps–Hungarian dictionary](https://vepsze.hu/sites/default/files/vepsze-magyar_szotar.pdf),
+printed page 122, gives `muštatada` for reminding; the description uses a derived
+participle with notification. These references support words and forms, not the
+full translation. The full description, custom-field and swimlane terminology
+and inherited technical coinages remain low-confidence and require speaker review.
+
+Shared notification regression and registered browser scenarios now cover 61
+locales. Notification, all-locale structure/token and human-preference checks
+pass. Browser coverage is syntax-checked only because its application stack is
+unavailable. These pending keys do not change the ordinary backlog of 51,575
+values in 70 languages or the 201 separately tracked pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
