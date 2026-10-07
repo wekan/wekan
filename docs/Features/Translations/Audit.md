@@ -4975,6 +4975,12 @@ mixed-language audit remains open.
 - Backup guidance retains the exclusion of user accounts and instance settings and limits restoration writes to boards owned by the organization. Lazy-loading wording retains the restriction to large boards; time spent and remaining time remain distinct.
 - Extended the corrected-key regression, product-name checks and scope/restriction checks. Technical wording for compaction, connection strings, tenant overrides and subtasks remains provisional. Browser checks, further Waray contamination and broader semantic review remain open.
 
+### Waray migration, repair and import guidance
+
+- Corrected the remaining 31 candidates from the current exact-Walloon-match vocabulary scan of `wa-RR`. This scan is a heuristic, not a complete language audit: different wrong-language values and semantic errors can remain.
+- Corrected migration/repair, import/export, search syntax, checklist/layout, synchronization and Monte Carlo forecast labels. Preserved repair/restoration count tokens, code-formatted search examples, filename extensions and product names; retained unsuccessful-repair and partial-restoration meanings.
+- Extended token and negative-result regressions, including Markdown search syntax. Technical wording for migration detection, integrity, sticky headers and inheritance remains provisional and needs contextual review. Browser checks and broader semantic review remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

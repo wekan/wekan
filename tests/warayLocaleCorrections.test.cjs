@@ -193,7 +193,38 @@ const correctedKeys = [
   "theme-override-all-tenants",
   "backup-frequency-off",
   "gcs-project-id",
-  "s3-endpoint"
+  "s3-endpoint",
+  "filesystem-storage",
+  "migration-delay-ms",
+  "migration-detector",
+  "migration-log",
+  "migration-markers",
+  "problems-summary-help",
+  "problems-in-progress-help",
+  "repair-broken-cards",
+  "repair-broken-cards-done",
+  "repair-broken-cards-done-unfixable",
+  "restore-list-swimlanes-done",
+  "integrityReportTitle",
+  "export-swimlane",
+  "export-list",
+  "export-card-details",
+  "card-number",
+  "import-not-wekan-export",
+  "globalSearch-instructions-operator-number",
+  "import-board-source",
+  "import-source-heading",
+  "import-parts-instruction",
+  "import-wekan-file",
+  "sum-of-number-fields",
+  "more-options",
+  "sticky-list-headers",
+  "twoFactorCode-submit",
+  "sort-by-votes",
+  "subtask-inherit-parent-labels",
+  "list-sync-username-placeholder",
+  "list-sync-last-synced-never",
+  "board-view-monte-carlo"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -240,6 +271,12 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   assert.match(waray['backup-scope-description'], /waray mga account.*waray mga setting/);
   assert.match(waray['backup-scope-description'], /nagsusurat la ha mga board nga gintatag-iya/);
   assert.match(waray['cards-loading-auto'], /para la ha dagko nga board/);
+  assert.match(waray['repair-broken-cards-done-unfixable'], /waray board.*diri mahimo awtomatiko/);
+  assert.match(waray['restore-list-swimlanes-done'], /__remaining__ diri naibalik/);
+  assert.ok(waray['globalSearch-instructions-operator-number'].includes('`__operator_number__:<number>`'));
+  assert.ok(waray['globalSearch-instructions-operator-number'].includes('*<number>*'));
+  assert.ok(waray['import-wekan-file'].includes('.json o .zip'));
+  assert.match(waray['import-parts-instruction'], /ginmarkahan la/);
   for (const [key, name] of [['gridfs-file-id', 'GridFS'], ['s3-file-id', 'S3'], ['azure-blob-storage-description', 'Microsoft Azure Blob Storage'], ['gcs-storage-description', 'Google Cloud Storage']]) {
     assert.ok(waray[key].includes(name), key);
   }
