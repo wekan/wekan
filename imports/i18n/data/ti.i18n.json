@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "መስመር ኣዛውር",
   "custom-field-stringtemplate": "ኣብነት ሰንሰለት",
   "custom-field-stringtemplate-format": "ቅርጺ (%{value} ከም መተካእታ ተጠቐም)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "%{card.title}፣ %{board.title}፣ %{list.title} ወይ %{swimlane.title} ተጠቐሙ። ንፓራሜተር URL ኣብ ተለዋዋጢ |urlencode ወስኹ፣ ንኣብነት %{value|urlencode}።",
   "custom-field-stringtemplate-separator": "መፈላለዪ (ንቦታ &#32; ወይ &nbsp; ተጠቐም)",
   "custom-field-stringtemplate-item-placeholder": "ተወሰኽቲ ነገራት ንምውሳኽ Enter ጽቐጥ",
   "creator": "ፈጣሪ",

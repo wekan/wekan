@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Tsɔ tsiƒuƒu yi teƒe bubu",
   "custom-field-stringtemplate": "Nuŋɔŋlɔ-fli ƒe kpɔɖeŋu",
   "custom-field-stringtemplate-format": "Nɔnɔme (zã %{value} abe teƒenɔla ene)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Zã %{card.title}, %{board.title}, %{list.title} alo %{swimlane.title}. Tsɔ |urlencode kpe ɖe dzesi si le asixɔxɔ si ate ŋu atrɔ teƒe ŋu be nàzãe abe URL ƒe parameter ene, abe %{value|urlencode} ene.",
   "custom-field-stringtemplate-separator": "Mamadze (zã &#32; alo &nbsp; na teƒe gbɔlo)",
   "custom-field-stringtemplate-item-placeholder": "Zi enter dzi be nàtsɔ nane bubuwo akpe ɖe eŋu",
   "creator": "Ewɔla",

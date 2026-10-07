@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Tu Swimlane",
   "custom-field-stringtemplate": "Nsɛm a ɛfa dwumadi yi ho",
   "custom-field-stringtemplate-format": "Fanaamat (use %{value} as placeholder)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Fa %{card.title}, %{board.title}, %{list.title} anaa %{swimlane.title} di dwuma. Fa |urlencode ka agyiraehyɛde a egyina hɔ ma bo a ɛsakra ho na wode ayɛ URL paramita, sɛ nhwɛso no %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Separatanaa (use &#32; anaa &nbsp; fanaa a space)",
   "custom-field-stringtemplate-item-placeholder": "Press enter kɔ add manaae items",
   "creator": "Creatanaa",

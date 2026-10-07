@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Yóbbu yoon bi",
   "custom-field-stringtemplate": "Royukaayu mbind",
   "custom-field-stringtemplate-format": "Anam (jëfandikoo %{value} ngir màndargaal barab bi)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Jëfandikoo %{card.title}, %{board.title}, %{list.title} walla %{swimlane.title}. Dolli |urlencode ci màndarga buy taxawu njëg guy soppeeku ngir jëfandikoo ko ni parametar bu URL, misaal %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Li tàggale (jëfandikoo &#32; walla &nbsp; ngir barab bu féex)",
   "custom-field-stringtemplate-item-placeholder": "Bësal Enter ngir yokk yeneen mbir",
   "creator": "Ko wër",

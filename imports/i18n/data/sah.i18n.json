@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Суолу көһөр",
   "custom-field-stringtemplate": "Строка халыыба",
   "custom-field-stringtemplate-format": "Формаат (туруоруллар суолта быһыытынан %{value} тутун)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "%{card.title}, %{board.title}, %{list.title} эбэтэр %{swimlane.title} туттуҥ. URL параметрын быһыытынан туттарга уларыйар суолта бэлиэтигэр |urlencode эбэҥ, холобур %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Араарааччы (пробелга &#32; эбэтэр &nbsp; тутун)",
   "custom-field-stringtemplate-item-placeholder": "Эбии пууннары эбэргэ enter баттаа",
   "creator": "Оҥорбут киһи",

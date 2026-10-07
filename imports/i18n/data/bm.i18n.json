@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Swimlane yɛlɛma",
   "custom-field-stringtemplate": "Sɛbɛnni misali",
   "custom-field-stringtemplate-format": "Cogoya (%{value} kɛ i n'a fɔ hakɛ yɔrɔ)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "%{card.title}, %{board.title}, %{list.title} walima %{swimlane.title} kɛ. |urlencode fara taamasiyɛn kan min bɛ nafa yɛlɛmali nɔ ta, walasa ka a kɛ URL paramɛtɛri ye, misali la %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Faranfansila (&#32; walima &nbsp; kɛ yɔrɔlakolon kama)",
   "custom-field-stringtemplate-item-placeholder": "Enter digi ka fɛn wɛrɛw fara a kan",
   "creator": "Dabɔla",

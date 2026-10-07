@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Мүр зөөхэ",
   "custom-field-stringtemplate": "Бэшэгэй загбар",
   "custom-field-stringtemplate-format": "Хэлбэри (оруулагшаар %{value} хэрэглэнэ)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "%{card.title}, %{board.title}, %{list.title} гү, али %{swimlane.title} хэрэглэгты. URL параметртэ хэрэглэхын тула хубилдаг удхын тэмдэгтэ |urlencode нэмэгты, жэшээнь %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Илгагша (зайда &#32; гү, али &nbsp; хэрэглэнэ)",
   "custom-field-stringtemplate-item-placeholder": "Ондоо зүйлнүүдые нэмэхын тула Enter дарагты",
   "creator": "Байгуулагша",

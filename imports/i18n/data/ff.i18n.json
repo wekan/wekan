@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Dirtin laawol",
   "custom-field-stringtemplate": "Mbaydi ɓoggol",
   "custom-field-stringtemplate-format": "Mbaydi (huutoro %{value} hono lommbirgal)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Huutoro %{card.title}, %{board.title}, %{list.title} walla %{swimlane.title}. Ɓeydu |urlencode e maande lomtotoonde kiisol baawngol waylude ngam huutoraade ɗum ko parametir URL, hono %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Ceerndirgal (huutoro &#32; walla &nbsp; ngam boowal)",
   "custom-field-stringtemplate-item-placeholder": "Dobo enter ngam ɓeydude geɗe goɗɗe",
   "creator": "Cosɗo",

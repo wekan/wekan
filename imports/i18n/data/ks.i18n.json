@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "وَتھ پکنٲویو",
   "custom-field-stringtemplate": "متن ٹیمپلیٹ",
   "custom-field-stringtemplate-format": "فارمیٹ (جایہِ نشان خٲطرٕ %{value} استعمال کریو)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "%{card.title}، %{board.title}، %{list.title} یا %{swimlane.title} کٔریو اِستعمال۔ URL پیرامیٹر خٲطرٕ متغیرس مَنٛز |urlencode کٔریو شٲمل، مِثالہٕ پٲٹھۍ %{value|urlencode}۔",
   "custom-field-stringtemplate-separator": "جُدا کرن وول (خٲلی جایہِ خٲطرٕ &#32; یا &nbsp; استعمال کریو)",
   "custom-field-stringtemplate-item-placeholder": "مزید شے شامل کرنہٕ خٲطرٕ Enter دبٲویو",
   "creator": "خالق",

@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "ཆུ་ལམ་སྤོ།",
   "custom-field-stringtemplate": "ཡིག་རྒྱུན་དཔེ་པང་།",
   "custom-field-stringtemplate-format": "རྣམ་གཞག་ (%{value} ཚབ་རྟགས་སུ་སྤྱོད་)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "%{card.title} དང་ %{board.title} དང་ %{list.title} ཡང་ན་ %{swimlane.title} སྤྱོད་རོགས། URL ཚད་གཞིའི་ཆེད་དུ་འགྱུར་ཚད་ལ་ |urlencode སྣོན་རོགས། དཔེར་ན་ %{value|urlencode}།",
   "custom-field-stringtemplate-separator": "དབྱེ་རྟགས་ (བར་སྟོང་ལ་ &#32; ཡང་ན་ &nbsp; སྤྱོད་)",
   "custom-field-stringtemplate-item-placeholder": "རྣམ་གྲངས་མང་བ་ཁ་སྣོན་པར་ Enter མནན།",
   "creator": "གསར་བཟོ་པ།",
