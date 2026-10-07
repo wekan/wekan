@@ -6123,6 +6123,19 @@ Browser and screen-reader checks were not run. Mathematical and accessibility
 wording remains low confidence pending fluent-speaker review. The broader audit
 stays open.
 
+## Northern Sotho Blockly editing and accessibility — 2026-10-08
+
+Filled 46 English placeholders for block editing, backpack actions, icon
+controls, screen-reader announcements and zoom. Existing translations remain
+unchanged. Regression coverage preserves every source token, deletion counts,
+missing-parent negation, open/close and enable/disable distinctions, and the
+opposite actions offered by enabled/disabled screen-reader announcements.
+
+All 59 focused checks and 21 human-preference checks pass. The earlier
+all-catalog key mismatch has been resolved. Browser and screen-reader checks
+were not run. Backpack, parent-block and accessibility wording remains low
+confidence pending fluent-speaker review. The broader language audit stays open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -194,3 +194,21 @@ test('Northern Sotho input and bitmap labels preserve tokens, states and operand
  assert.notEqual(data['blockly-INPUT_LABEL_NUMBER_MIN'],data['blockly-INPUT_LABEL_NUMBER_MAX']);
  assert.notEqual(data['blockly-INPUT_LABEL_TEXT_TO_FIND'],data['blockly-INPUT_LABEL_TEXT_TO_REPLACE']);
 });
+
+test('Northern Sotho editing controls distinguish actions and announce accessibility states',()=>{
+ const suffixes=['CHANGE_VALUE_TITLE','CLEAN_UP','CLOSE_BACKPACK','COLLAPSED_WARNINGS_WARNING','COLLAPSE_ALL','COLLAPSE_BLOCK','COPY_ALL_TO_BACKPACK','COPY_TO_BACKPACK','CURRENT_BLOCK_ANNOUNCEMENT','DELETE_ALL_BLOCKS','DELETE_BLOCK','DELETE_X_BLOCKS','DISABLE_BLOCK','DUPLICATE_BLOCK','DUPLICATE_COMMENT','EDIT_BLOCK_CONTENTS','EMPTY_BACKPACK','ENABLE_BLOCK','EXPAND_ALL','EXPAND_BLOCK','EXTERNAL_INPUTS','HELP_PROMPT','ICON_LABEL_COMMENT_CLOSED','ICON_LABEL_COMMENT_OPEN','ICON_LABEL_DEFAULT','ICON_LABEL_MUTATOR_CLOSED','ICON_LABEL_MUTATOR_OPEN','ICON_LABEL_WARNING_CLOSED','ICON_LABEL_WARNING_OPEN','INLINE_INPUTS','MINIMAP_ARIA_LABEL','MOVE_BLOCK','NO_PARENT_ANNOUNCEMENT','OPEN_BACKPACK','OPEN_TRASH','PARENT_BLOCKS_ANNOUNCEMENT','PASTE_ALL_FROM_BACKPACK','REMOVE_FROM_BACKPACK','RESET_ZOOM','SCREENREADER_HINT','SCREENREADER_MODE_DISABLED','SCREENREADER_MODE_ENABLED','TODAY','UNKNOWN','UNNAMED_KEY','ZOOM_TO_FIT_ARIA_LABEL'];
+ for(const suffix of suffixes){
+  const key='blockly-'+suffix;
+  assert.notEqual(data[key],english[key],key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ assert.match(data['blockly-DELETE_ALL_BLOCKS'],/ka moka.*%1/);
+ assert.match(data['blockly-NO_PARENT_ANNOUNCEMENT'],/ga bo na/);
+ assert.match(data['blockly-SCREENREADER_MODE_DISABLED'],/o timilwe.*%1.*bulela/);
+ assert.match(data['blockly-SCREENREADER_MODE_ENABLED'],/o butšwe.*%1.*tima/);
+ for(const [a,b] of [['COLLAPSE_BLOCK','EXPAND_BLOCK'],['ENABLE_BLOCK','DISABLE_BLOCK'],['EXTERNAL_INPUTS','INLINE_INPUTS'],['OPEN_BACKPACK','CLOSE_BACKPACK'],['REMOVE_FROM_BACKPACK','EMPTY_BACKPACK']]) assert.notEqual(data['blockly-'+a],data['blockly-'+b]);
+ for(const kind of ['COMMENT','WARNING']){
+  assert.match(data['blockly-ICON_LABEL_'+kind+'_CLOSED'],/^Bula /);
+  assert.match(data['blockly-ICON_LABEL_'+kind+'_OPEN'],/^Tswalela /);
+ }
+});
