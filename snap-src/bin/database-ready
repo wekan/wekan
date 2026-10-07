@@ -22,7 +22,19 @@ database_ready() {
   # Older layouts and the tests' stand-in snap have no db-eval: leave the
   # connection to the tool itself, as before.
   [ -e "$SNAP/bin/db-eval" ] || return 0
-  bash "$SNAP/bin/db-eval" ping "$url" >/dev/null 2>&1 && return 0
+  [ -f "$SNAP/bin/socket-denied" ] && source "$SNAP/bin/socket-denied"
+  err="$(bash "$SNAP/bin/db-eval" ping "$url" 2>&1 >/dev/null)" && return 0
+
+  # #6746: the kernel refused the connection, not the database. Starting the
+  # service changes nothing (it is already running - the connect succeeded)
+  # and waiting only delays the one message that helps, so say it now.
+  if declare -F socket_denied >/dev/null && socket_denied "$err"; then
+    echo "" >&2
+    echo "Cannot talk to the database on ${host}:${port}:" >&2
+    echo "  ${err}" >&2
+    socket_denied_hint >&2
+    return 1
+  fi
 
   role="$(bash "$SNAP/bin/database-role" 2>/dev/null)"
   case "$role" in mongodb|ferretdb) ;; *) role=ferretdb ;; esac
@@ -39,12 +51,9 @@ database_ready() {
       echo "" >&2
       echo "The database (${svc}) does not answer on ${host}:${port} after ${timeout} seconds." >&2
       [ -n "$err" ] && echo "  ${err}" >&2
-      case "$err" in
-        *"permission denied"*|*EACCES*|*"operation not permitted"*|*EPERM*)
-          echo "  The connection itself was refused by this system's security policy, not" >&2
-          echo "  by the database. 'sudo journalctl -k | grep -i denied' names the rule." >&2
-          ;;
-      esac
+      if declare -F socket_denied >/dev/null && socket_denied "$err"; then
+        socket_denied_hint >&2
+      fi
       echo "The reason is in its log:" >&2
       echo "  sudo snap logs -n 100 ${svc}" >&2
       echo "  sudo snap services ${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}" >&2

@@ -19,7 +19,8 @@ function test(name, fn) {
 
 // db: undefined = no db-eval in the snap (older layout); 'up' = answers at
 // once; 'after-start' = answers once snapctl started a service; 'never' =
-// never answers, failing the way #6746's reporter saw.
+// nothing listens and nothing ever will; 'denied' = the kernel refuses the
+// write on an accepted connection, exactly as #6746's reporter saw.
 function fixture({ db } = {}) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'wekan-restore-test-'));
   const snap = path.join(dir, 'snap fixture');
@@ -30,7 +31,7 @@ function fixture({ db } = {}) {
   fs.mkdirSync(fakeBin, { recursive: true });
   fs.mkdirSync(common, { recursive: true });
   fs.mkdirSync(hostBin, { recursive: true });
-  for (const name of ['database-ready', 'database-role']) {
+  for (const name of ['database-ready', 'database-role', 'socket-denied']) {
     fs.copyFileSync(path.join(root, 'snap-src', 'bin', name), path.join(snap, 'bin', name));
   }
   fs.writeFileSync(
@@ -48,12 +49,17 @@ function fixture({ db } = {}) {
     );
   }
   if (db) {
-    const answers = { up: 'true', 'after-start': '[ -f "$DB_STARTED" ]', never: 'false' }[db];
+    const answers = {
+      up: 'true', 'after-start': '[ -f "$DB_STARTED" ]', never: 'false', denied: 'false',
+    }[db];
+    const error = db === 'denied'
+      ? 'db-eval ping: connection(127.0.0.9:27099[-62]) unable to write wire message to network: write tcp 127.0.0.1:53014->127.0.0.9:27099: write: permission denied'
+      : 'db-eval ping: connect ECONNREFUSED 127.0.0.9:27099';
     fs.writeFileSync(
       path.join(snap, 'bin', 'db-eval'),
       '#!/bin/bash\n' +
       `if ${answers}; then exit 0; fi\n` +
-      'echo "db-eval ping: connection(127.0.0.9:27099[-62]) unable to write wire message to network: write tcp 127.0.0.1:53014->127.0.0.9:27099: write: permission denied" >&2\n' +
+      `echo "${error}" >&2\n` +
       'exit 1\n',
       { mode: 0o755 },
     );
@@ -192,9 +198,37 @@ test('negative #6746: a database that never answers stops restore with the reaso
     assert.strictEqual(result.status, 1);
     assert.strictEqual(fs.existsSync(f.capture), false, 'mongorestore must not run');
     assert.match(result.stderr, /wekan\.ferretdb\) does not answer on 127\.0\.0\.9:27099/);
-    assert.match(result.stderr, /write: permission denied/, 'the driver error must be shown');
-    assert.match(result.stderr, /security policy/, 'permission denied must be explained');
+    assert.match(result.stderr, /ECONNREFUSED/, 'the driver error must be shown');
     assert.match(result.stderr, /sudo snap logs -n 100 wekan\.ferretdb/);
+    // A database that is simply not up is not an AppArmor problem: the
+    // snapd/kernel advice must not be given for it.
+    assert.doesNotMatch(result.stderr, /AppArmor|snap revert snapd/);
+  });
+});
+
+test('#6746 a connection the kernel refuses is explained at once, without starting anything', () => {
+  withFixture({ db: 'denied' }, (f) => {
+    const archive = path.join(f.dir, 'wekan.backup');
+    fs.writeFileSync(archive, 'fixture');
+    const result = run(f, [archive]);
+    assert.strictEqual(result.status, 1);
+    assert.strictEqual(fs.existsSync(f.capture), false, 'mongorestore must not run');
+    // The connect succeeded, so the database is running: starting it again
+    // and waiting for it is the 90 seconds this replaces.
+    assert.deepStrictEqual(snapctlCalls(f), []);
+    assert.doesNotMatch(result.stderr, /does not answer .* after/);
+    assert.match(result.stderr, /write: permission denied/, 'the driver error must be shown');
+    assert.match(result.stderr, /AppArmor/);
+    assert.match(result.stderr, /operation="file_perm" class="net"/);
+    assert.match(result.stderr, /bugs\.launchpad\.net\/snapd\/\+bug\/2169038/);
+    assert.match(result.stderr, /sudo snap revert snapd/);
+    assert.match(result.stderr, /sudo apt full-upgrade/);
+  });
+  withFixture({ db: 'denied' }, (f) => {
+    const result = run(f, [path.join(f.dir, 'x.backup')], backup);
+    assert.strictEqual(result.status, 1);
+    assert.strictEqual(fs.existsSync(f.capture), false, 'mongodump must not run');
+    assert.match(result.stderr, /sudo snap revert snapd/);
   });
 });
 

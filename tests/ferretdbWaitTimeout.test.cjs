@@ -61,10 +61,14 @@ test('the hint points to the FerretDB service log and the SQLite dir', () => {
     'must not suggest the removed database setting');
   assert.ok(/_ping_err="\$\("\$DB_EVAL" ping "\$DB_URL" 2>&1 >\/dev\/null\)"/.test(ferretBranch),
     'must show why the connection failed, not only that it did');
+  assert.ok(/echo "  \$_ping_err"/.test(ferretBranch),
+    'the hint must print the error of the last attempt');
 });
 
 test('it still keeps retrying after the hint (does not give up / crash)', () => {
-  assert.ok(/until "\$DB_EVAL" ping "\$DB_URL"/.test(ferretBranch),
+  // #6746: the loop keeps each attempt's error so a kernel refusal is named
+  // on the first attempt (see tests/snapSocketDenied.test.cjs).
+  assert.ok(/until _ping_err="\$\("\$DB_EVAL" ping "\$DB_URL" 2>&1 >\/dev\/null\)"; do/.test(ferretBranch),
     'must keep polling FerretDB readiness');
   assert.ok(/FerretDB not ready yet, retrying in 5 seconds/.test(ferretBranch));
   assert.ok(/\n\s*sleep 5\n/.test(ferretBranch));
@@ -77,7 +81,7 @@ test('it still keeps retrying after the hint (does not give up / crash)', () => 
 // no timeout bookkeeping).
 test('NEGATIVE: the FerretDB wait is not a silent infinite loop', () => {
   const loopBody = ferretBranch.slice(
-    ferretBranch.indexOf('until "$DB_EVAL" ping'),
+    ferretBranch.indexOf('until _ping_err="$("$DB_EVAL" ping'),
     ferretBranch.indexOf('echo "FerretDB is ready."'),
   );
   assert.ok(loopBody.includes('WEKAN_DB_WAIT_TIMEOUT'),

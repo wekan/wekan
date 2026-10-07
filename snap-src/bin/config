@@ -283,7 +283,7 @@ DESCRIPTION_CORS_ALLOW_HEADERS="Set Access-Control-Allow-Headers header.  \"Auth
 DEFAULT_CORS_ALLOW_HEADERS=""
 KEY_CORS_ALLOW_HEADERS="cors-allow-headers"
 
-DESCRIPTION_EXPOSE_HEADERS="Set Access-Control-Expose-Headers header.  This is not needed for typical CORS situations. Example: *"
+DESCRIPTION_CORS_EXPOSE_HEADERS="Set Access-Control-Expose-Headers header.  This is not needed for typical CORS situations. Example: *"
 DEFAULT_CORS_EXPOSE_HEADERS=""
 KEY_CORS_EXPOSE_HEADERS="cors-expose-headers"
 
@@ -973,16 +973,20 @@ KEY_S3_SECRET_FILE="s3-secret-file"
 
 DESCRIPTION_SAML_MERGE_EXISTING_USERS="Allow explicit SAML account linking. Default: false"
 DEFAULT_SAML_MERGE_EXISTING_USERS="false"
+KEY_SAML_MERGE_EXISTING_USERS="saml-merge-existing-users"
 
 DESCRIPTION_SAML_IDP_PROFILE="Identity provider profile: standard (signed Response, popup) or signed-assertion-redirect (signed Assertion, full-page redirect). Default: standard"
 DEFAULT_SAML_IDP_PROFILE="standard"
+KEY_SAML_IDP_PROFILE="saml-idp-profile"
 
 DESCRIPTION_SAML_WANT_RESPONSE_SIGNED="Require a signed SAML Response (true/false). Default: from SAML_IDP_PROFILE"
 DEFAULT_SAML_WANT_RESPONSE_SIGNED=""
+KEY_SAML_WANT_RESPONSE_SIGNED="saml-want-response-signed"
 
 DESCRIPTION_SAML_WANT_ASSERTIONS_SIGNED="Require a signed SAML Assertion (true/false). Default: from SAML_IDP_PROFILE"
 DEFAULT_SAML_WANT_ASSERTIONS_SIGNED=""
+KEY_SAML_WANT_ASSERTIONS_SIGNED="saml-want-assertions-signed"
 
 DESCRIPTION_SAML_LOGIN_FLOW="SAML login flow: popup or redirect. Default: from SAML_IDP_PROFILE"
 DEFAULT_SAML_LOGIN_FLOW=""
-KEY_SAML_MERGE_EXISTING_USERS="saml-merge-existing-users"
+KEY_SAML_LOGIN_FLOW="saml-login-flow"

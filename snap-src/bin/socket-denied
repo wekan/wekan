@@ -1,0 +1,52 @@
+#!/bin/bash
+# socket-denied — recognise, and explain, a database connection that the
+# KERNEL refused rather than the database.
+#
+# #6746: on the reporter's computer every WeKan command that talks to its own
+# database failed with
+#   write tcp 127.0.0.1:53014->127.0.0.1:27019: write: permission denied
+# and `journalctl -k` was full of
+#   apparmor="DENIED" operation="file_perm" class="net" profile="snap.wekan.wekan"
+#   ... faddr=127.0.0.1 fport=27019 ... requested="send" denied="send"
+# The database was running: the TCP connection was ACCEPTED, and only the first
+# write on it was refused. The same log shows the same denial for other snaps on
+# that computer (snap-store, standard-notes), so it is not something in WeKan's
+# profile - it is snapd 2.77.1 on a kernel with an AppArmor socket mediation
+# bug (https://bugs.launchpad.net/snapd/+bug/2169038). A newer kernel fixes it,
+# and `snap revert snapd` (to 2.76.x) works around it until then.
+#
+# Without this, WeKan said only "FerretDB not ready yet" for two minutes and
+# then pointed at FerretDB's log - which is clean, because FerretDB never got a
+# byte - and database-restore started a service that was already running and
+# waited 90 seconds for it. Nothing WeKan can do from inside the snap lifts an
+# AppArmor denial, so the useful thing is to say at once what it is and how the
+# owner of the computer fixes it.
+#
+# Source it, then:
+#   socket_denied "$err"        returns 0 when $err is that kernel refusal
+#   socket_denied_hint [svc]    prints the explanation (to stdout)
+
+socket_denied() {
+  case "$1" in
+    *"permission denied"*|*"Permission denied"*|*EACCES*|*"operation not permitted"*|*"Operation not permitted"*|*EPERM*)
+      return 0 ;;
+  esac
+  return 1
+}
+
+socket_denied_hint() {
+  local snap="${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}"
+  echo "  The database IS running: this computer's security policy (AppArmor)"
+  echo "  refused WeKan's own connection to it, before the database saw anything."
+  echo "  Its log will therefore look normal. Confirm with:"
+  echo "    sudo journalctl -k | grep -i denied"
+  echo "  Lines like  apparmor=\"DENIED\" operation=\"file_perm\" class=\"net\""
+  echo "  profile=\"snap.${snap}....\"  requested=\"send\"  - often for OTHER snaps"
+  echo "  too - are a known problem of snapd 2.77.1 on some Linux kernels, not of"
+  echo "  WeKan: https://bugs.launchpad.net/snapd/+bug/2169038"
+  echo "  Fix it by updating the kernel and rebooting:"
+  echo "    sudo apt update && sudo apt full-upgrade && sudo reboot"
+  echo "  or, until the kernel can be updated, go back to the previous snapd:"
+  echo "    sudo snap revert snapd"
+  echo "    sudo snap restart ${snap}"
+}

@@ -474,6 +474,26 @@ fi
 # and nothing phoning home. db-eval speaks the wire protocol to both FerretDB v1
 # and MongoDB 6/7.
 DB_EVAL="$SNAP/bin/db-eval"
+# #6746: socket_denied / socket_denied_hint - tell a connection the KERNEL refused
+# (AppArmor, snapd 2.77.1 on some kernels) from a database that is not up yet.
+# shellcheck source=/dev/null
+[ -f "$SNAP/bin/socket-denied" ] && source "$SNAP/bin/socket-denied"
+# Prints the AppArmor explanation once per wait loop, as soon as the first
+# refused connection shows it - not after the two-minute timeout, and not in
+# a log that otherwise only says "not ready yet".
+show_socket_denied() {
+    declare -F socket_denied >/dev/null || return 1
+    socket_denied "$2" || return 1
+    echo ""
+    echo "========================================================================"
+    echo "WeKan: cannot talk to ${1} on ${MONGO_HOST}:${MONGO_PORT}:"
+    echo "  $2"
+    echo ""
+    socket_denied_hint
+    echo "========================================================================"
+    echo ""
+    return 0
+}
 MONGO_PORT="${MONGODB_PORT:-27019}"
 MONGO_HOST="${MONGODB_BIND_IP:-127.0.0.1}"
 # Bracketed for the same reason as MONGO_URL above (#6550): the readiness probe
@@ -522,7 +542,13 @@ if [ "ferretdb" = "${DATABASE}" ]; then
     WEKAN_DB_WAIT_TIMEOUT=${WEKAN_DB_WAIT_TIMEOUT:-120}
     db_waited=0
     db_hint_shown=false
-    until "$DB_EVAL" ping "$DB_URL" >/dev/null 2>&1; do
+    db_denied_shown=false
+    # #6746: keep the driver's error from every attempt, so a refusal by the
+    # kernel is recognised on the first try instead of after the timeout.
+    until _ping_err="$("$DB_EVAL" ping "$DB_URL" 2>&1 >/dev/null)"; do
+        if [ "$db_denied_shown" != "true" ] && show_socket_denied FerretDB "$_ping_err"; then
+            db_denied_shown=true
+        fi
         if [ "$db_hint_shown" != "true" ] && [ "$db_waited" -ge "$WEKAN_DB_WAIT_TIMEOUT" ]; then
             echo ""
             echo "========================================================================"
@@ -544,12 +570,11 @@ if [ "ferretdb" = "${DATABASE}" ]; then
             echo "  - FerretDB left disabled/stopped (a failed migration hand-off):"
             echo "      snap start --enable ${WEKAN_SNAP_SVC}.ferretdb"
             echo ""
-            # #6746: the ping above discards its error, so the log said only
-            # "not ready" - "permission denied" and "connection refused" looked
-            # the same. Ask once more and show what the driver says. (The
-            # `database` setting this used to suggest is gone: the configure
-            # hook unsets it, so that advice changed nothing.)
-            _ping_err="$("$DB_EVAL" ping "$DB_URL" 2>&1 >/dev/null)"
+            # #6746: the log used to say only "not ready" - "permission denied"
+            # and "connection refused" looked the same. Show what the driver
+            # said on the last attempt. (The `database` setting this used to
+            # suggest is gone: the configure hook unsets it, so that advice
+            # changed nothing.)
             if [ -n "$_ping_err" ]; then
                 echo "The connection attempt says:"
                 echo "  $_ping_err"
@@ -592,7 +617,11 @@ elif [ "true" != "${DISABLE_MONGODB}" ]; then
     WEKAN_DB_WAIT_TIMEOUT=${WEKAN_DB_WAIT_TIMEOUT:-120}
     db_waited=0
     db_hint_shown=false
-    until "$DB_EVAL" primary "$DB_URL" >/dev/null 2>&1; do
+    db_denied_shown=false
+    until _primary_err="$("$DB_EVAL" primary "$DB_URL" 2>&1 >/dev/null)"; do
+        if [ "$db_denied_shown" != "true" ] && show_socket_denied MongoDB "$_primary_err"; then
+            db_denied_shown=true
+        fi
         if [ "$db_hint_shown" != "true" ] && [ "$db_waited" -ge "$WEKAN_DB_WAIT_TIMEOUT" ]; then
             echo ""
             echo "========================================================================"
