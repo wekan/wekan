@@ -6533,6 +6533,12 @@ Corrected 29 mixed-language import instructions, archive errors and member-mappi
 
 Validation: 86 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
 
+## Tok Pisin export wording audit
+
+Corrected 17 mixed-language export options and related external import instructions. Preserved placeholders, Excel naming and distinctions among people/date fields and disk-space failures. Restored the Jira path `GET /rest/api/2/search` and actual Trello menu names; retained the WeKan export label in its instruction. Tests cover these literals and conditional attachment download behavior. Wording remains provisional pending fluent-speaker review; browser and screen-reader checks were not run.
+
+Validation: 88 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

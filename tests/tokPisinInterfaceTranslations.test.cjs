@@ -985,3 +985,29 @@ test('Tok Pisin import help preserves schema names and distinguishes failure cas
  assert.match(data['import-parts-instruction'],/mak tik tasol.*wankain mak.*salim i go aut/);
  assert.match(data['import-dependencies-empty'],/wanpela lain o moa/);
 });
+
+test('Tok Pisin export options preserve tokens, roles, dates and failure meaning',()=>{
+ const keys=['export-card-excel-fields','export-card-field-people','export-card-field-board-info','export-card-field-dates','export-card-attachment-uploaded-at','export-card-attachment-image-previews','export-card-excel-no-disk-space','export-monitoring','export-select-what-to-include','export-card-details'];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.doesNotMatch(data[key],/fields|include|People|Info|Dates|Uploaded|Previews|Cannot|Monitoring|details/,key);
+ }
+ assert.match(data['export-card-field-people'],/man i bin mekim.*papa bilong en.*memba.*kisim wok/);
+ assert.match(data['export-card-field-dates'],/mekim, kisim, stat, taim wok i mas pinis, pinis/);
+ assert.match(data['export-card-excel-no-disk-space'],/I no inap.*Excel.*no gat inap.*disk/);
+ assert.match(data['export-card-attachment-uploaded-at'],/^Taim/);
+ assert.match(data['export-card-excel-fields'],/Excel/);
+ assert.match(data['export-card-details'],/wan wan kat/);
+});
+
+test('Tok Pisin external export instructions retain actual menu names and API paths',()=>{
+ const keys=['import-board-instruction-trello','import-board-instruction-jira','import-board-instruction-wekan','import-trello-json-file-hint','import-trello-zip-file-hint','import-trello-zip-no-boards','import-trello-failed'];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ for(const literal of ['Menu','More','Print and Export','Export JSON']) assert.ok(data['import-board-instruction-trello'].includes(literal));
+ for(const literal of ['GET /rest/api/2/search','"issues"','"automationRules"']) assert.ok(data['import-board-instruction-jira'].includes(literal));
+ assert.doesNotMatch(data['import-board-instruction-jira'],/\/api\/2\/painim/);
+ assert.ok(data['import-board-instruction-wekan'].includes(data['export-board']));
+ assert.match(data['import-trello-json-file-hint'],/Sapos.*ki na token.*tu bai kam daun/);
+ assert.match(data['import-trello-zip-file-hint'],/Trello Card Attachments Downloader.*Olgeta bot/);
+ assert.match(data['import-trello-zip-no-boards'],/no painim.*\.json.*\.zip/);
+});
