@@ -4433,6 +4433,12 @@ mixed-language audit remains open.
 - All four focused Node tests and 21 human-preference checks pass, covering distinct translated labels, tokens, inverse relations and invalid targets. Extended the browser editing and undo/redo flow to these locales; existing REST tests cover self-link and foreign-board rejection. Browser syntax passes, but execution remains unverified because Playwright is unavailable locally.
 - Ordinary placeholders decrease from 50,169 to 50,131 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## Duplicate-card relationship labels: thirteen further locales (2026-10-07)
+
+- Filled both directed relationship labels in Walloon, Waray, Acehnese, Manx, Northern Sami, Venetian, Aromanian, Akan, Bambara, Ewe, Wolof, Fulah and Kashmiri (26 values). Technical wording and pronoun agreement remain provisional, particularly Manx, Aromanian, Fulah and Kashmiri. The attempted external check of Fulah copy vocabulary was inconclusive; its final `nattol` wording remains explicitly low-confidence.
+- All four focused Node tests and 21 human-preference checks pass, covering distinct labels, token inventories, inverse relations and invalid targets. Extended localized browser editing and undo/redo coverage; existing REST negatives cover self-links and foreign-board links. Browser syntax passes, but execution remains unverified because Playwright is unavailable locally.
+- Ordinary placeholders decrease from 50,131 to 50,105 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
