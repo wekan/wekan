@@ -7,7 +7,7 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('notification-activity-'));
 assert.equal(keys.length, 13);
-for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts', 'om', 'fj', 'to', 'gv', 'wa', 'wa-RR', 'ak', 'lg', 'bm', 'wo', 'ee', 'rup', 'bua', 'sah', 'cv', 've', 've-CC', 'se', 'ace', 'bo']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts', 'om', 'fj', 'to', 'gv', 'wa', 'wa-RR', 'ak', 'lg', 'bm', 'wo', 'ee', 'rup', 'bua', 'sah', 'cv', 've', 've-CC', 'se', 'ace', 'bo', 'dz']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: key order`);
   for (const key of keys) {
@@ -128,4 +128,8 @@ assert.match(read('ace')['notification-activity-description'], /Haba peuingat ke
 assert.match(read('bo')['notification-activity-description'], /འདེམས་རྟགས་བསུབས་ན/);
 assert.match(read('bo')['notification-activity-description'], /དྲན་སྐུལ.*@.*རྟག་ཏུ་འབྱོར་ཡོང/);
 for (const key of keys) assert.match(read('bo')[key], /[\u0F00-\u0FFF]/, `bo:${key}: Tibetan script`);
-console.log('Notification activity translations: 13 messages in 49 locales passed');
+assert.match(read('dz')['notification-activity-description'], /རྟགས་བསལ་ཏེ/);
+assert.match(read('dz')['notification-activity-description'], /དྲན་སྐུལ.*@.*ཨ་རྟག་ར་འོངམ་ཨིན/);
+for (const key of keys) assert.match(read('dz')[key], /[\u0F00-\u0FFF]/, `dz:${key}: expected script`);
+assert.notEqual(read('dz')['notification-activity-description'], read('bo')['notification-activity-description'], 'Dzongkha and Tibetan are distinct languages');
+console.log('Notification activity translations: 13 messages in 50 locales passed');

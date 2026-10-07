@@ -825,6 +825,25 @@ order, distinct people categories and the reminder/mention exception pass,
 together with all-locale structure and human-preference checks. The Tibetan
 browser mute/unmute scenario is syntax-checked only; it was not executed.
 
+## Dzongkha notification preferences — 2026-10-07
+
+Filled 13 English placeholders in Dzongkha (`dz`), preserving existing
+translations. These keys remain pending elsewhere; the standard backlog
+remains 51,575 values and 201 pending source keys.
+
+Existing catalog vocabulary supplies category names. Reminder terminology
+follows the [English–Dzongkha dictionary](https://www.dzongkha.gov.bt/uploads/files/publications/Eng-Dzo_Dictionary_2023_3ead53caad0798894c3908a9aedceb84.pdf).
+Dzongkha wording for always is also used in
+[LibreOffice's Dzongkha documentation](https://help.libreoffice.org/latest/dz/text/shared/optionen/01010200.html).
+These are direct translations without a translation service; complete
+technical clauses and lane/custom-field terms remain low confidence pending
+speaker review. Shared script with Tibetan is not proof of language quality.
+
+Shared notification coverage now includes 50 locales. Exact tokens, source
+order, distinct people categories and the reminder/mention exception pass,
+together with all-locale structure and human-preference checks. The Dzongkha
+browser mute/unmute scenario is syntax-checked only; it was not executed.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
