@@ -6789,6 +6789,17 @@ The combined translation run passes 140 checks. Two existing catalog checks fail
 on the missing due-date shortcut key. All 21 human-preference checks pass.
 Browser and screen-reader checks were not run. The wider audit remains open.
 
+## Tok Pisin location and selection wording audit
+
+Corrected 13 mixed-language location, role and selection labels. Checks preserve
+location success/failure distinctions, reading versus commenting on assigned
+cards, Enter key references and consistent color-picker titles. Wording remains
+provisional pending fluent-speaker review.
+
+The combined translation run passes 142 checks. Two existing catalog checks fail
+on the missing due-date shortcut key. All 21 human-preference checks pass.
+Browser and screen-reader checks were not run. The wider audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

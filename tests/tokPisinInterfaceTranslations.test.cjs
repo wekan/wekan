@@ -2227,3 +2227,37 @@ test('Tok Pisin view labels keep assigned-only restrictions and matching popup t
  assert.match(data['cards-loading-lazy'],/kat i kamap ples klia tasol$/);
  assert.match(data['oidc-button-text'],/OIDC/);
 });
+
+
+test('Tok Pisin location and selection labels replace mixed English and retain tokens',()=>{
+ const keys=[
+  "comment-assigned-only",
+  "read-assigned-only",
+  "search-example",
+  "setCardActionsColorPopup-title",
+  "setSwimlaneColorPopup-title",
+  "setListColorPopup-title",
+  "submit-on-enter",
+  "location-open-map",
+  "location-name",
+  "location-detect-from-map",
+  "location-detect-none",
+  "location-detect-done",
+  "location-open-map-at"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:Assigned|Read|Write|press|Choose|Submit|editors|Location|location|Detect|Could|Filled|detected|details|map)\b/,key);
+ }
+});
+
+test('Tok Pisin location results and assigned-only roles remain distinct',()=>{
+ assert.match(data['location-detect-none'],/^I no inap painim/);
+ assert.match(data['location-detect-done'],/Putim.*painim pinis aninit/);
+ assert.match(data['comment-assigned-only'],/^Putim tok.*kisim wok bilong ol tasol$/);
+ assert.match(data['read-assigned-only'],/^Ritim.*kisim wok bilong ol tasol$/);
+ assert.match(data['search-example'],/presim Enter$/);
+ assert.match(data['submit-on-enter'],/^Seivim.*Enter$/);
+ for(const type of ['CardActions','Swimlane','List']) assert.equal(data['set'+type+'ColorPopup-title'],'Makim wanpela kala');
+});
