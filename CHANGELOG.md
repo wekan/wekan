@@ -1889,6 +1889,20 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/136928499c46666c85087b89f14465799e80051f">Translate Tigrinya notification settings</a>. Thanks to xet7.</summary>
+
+- Fill 13 English placeholders, preserving existing translations and the
+  due-date reminder/@mention exception.
+- Shared notification checks now cover 51 locales. Feature, all-locale
+  structure and human-preference checks pass. Browser scenarios are
+  syntax-checked only. Technical wording is provisional pending speaker
+  review; vocabulary references are recorded in the audit.
+- The standard backlog remains 51,575 values plus 201 pending source keys.
+  Remaining languages and broader language review stay in TODO Later.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c6839432bfc15a4182bc731f009adc3e046e9cab">Translate Dzongkha notification settings</a>. Thanks to xet7.</summary>
 
 - Fill 13 English placeholders, preserving existing translations and the
