@@ -2018,6 +2018,25 @@ checks pass. Browser scenarios were not run; the app stack was unavailable.
 Ten locale paths still need this message. The snapshot remains 51,575 ordinary
 missing values plus 182 pending keys; broader language review remains open.
 
+### SAML browser-tab error — Volapük and Klingon (2026-10-07)
+
+Filled `saml-login-not-started` in vo and tlh without overwriting existing
+translations or using an external translation service. Full phrases are low
+confidence and need review. Klingon retains borrowed `browser` and `tab` labels
+because no established equivalents were verified; these remain a terminology
+review item. The text states that this sign-in process was not started in the
+current tab and asks the user to enter again.
+
+References: [Volapük dictionary](https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary)
+for begin, again and browser, and [Klingon Language Institute](https://lists.kli.org/archives/list/tlhingan-hol%40lists.kli.org/thread/NLDVJYW4NEGQO5QTFLPX4DILAQZF5WS3/)
+for initiating a process. Vocabulary evidence does not validate complete phrases.
+
+The popup-error suite now checks 58 recently filled locales and passes, including
+positive and negative login-boundary cases. All-locale structural and human-preference
+checks pass. Browser scenarios were not run; the app stack was unavailable.
+Eight locale paths still need this message. The snapshot remains 51,575 ordinary
+missing values plus 182 pending keys; broader language review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

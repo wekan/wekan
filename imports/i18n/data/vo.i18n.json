@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Pened leäktronik at ya pesedon, sedam onik pesteifülon, u on pemoükon.",
   "rule-email-legacy-not-legacy": "Pened leäktronik at ya petanon dönu.",
   "rule-email-legacy-failed": "No eplöpos ad finükön duni at. Nulükolös e steifülolös dönu.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Nunäd sui medü SAML at no päprimon in tab at penädafenätila. Nunädolöd oki dönu, begö!",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",
