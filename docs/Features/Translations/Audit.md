@@ -3854,6 +3854,14 @@ The [English-Volapuk dictionary](https://en.wikibooks.org/wiki/Volap%C3%BCk/Engl
 
 Extended locale and browser coverage to both locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in seven locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
 
+## Multiple-parent controls: Fulah and Veps - 2026-10-07
+
+Filled three English placeholders in each of `ff` and `ve-PP` (six values) through the protected fill workflow. The removal labels describe ending a subordinate relationship rather than deleting a card. Veps follows the registered locale identity, not Venda.
+
+The [Fulfulde dictionary](https://www.mooreburkina.com/sites/www.mooreburkina.com/files/pdf-files/03%20Dictionnaire%20fulfulde%20-%20francais%20%20English.pdf) supports gollal as task/work vocabulary. The [Veps corpus entry](https://dictorpus.krc.karelia.ru/en/dict/lemma/354?search_concept=770) supports work vocabulary but does not validate the inherited subtask compound used here. Both sets of phrases are low-confidence drafts: Fulah noun-class agreement and parent metaphor, and Veps compounds and inflections require language review. Existing labels and non-English checks do not establish correct language.
+
+Extended locale and browser coverage to both locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in five locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
