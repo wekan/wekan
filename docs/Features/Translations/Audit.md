@@ -3102,6 +3102,14 @@ Technical wording, especially the URI scheme term, has lower confidence and need
 
 Validation covers 52 recently filled hints, exact scheme identifiers, source tokens and key order, plus parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. This hint remains English in 14 locales. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; language quality review remains open.
 
+### URL scheme hint: Bambara, Ewe and Fulah
+
+Filled the English-only `automatic-linked-url-schemes-hint` in `bm`, `ee` and `ff` directly through the placeholder-only fill utility. The five literal scheme identifiers are unchanged. The drafts describe the empty default, clickable web/mail links, registered applications and permanently excluded schemes. Existing translated values were retained; no translation service was used.
+
+All three drafts have lower confidence, especially the terminology for URI schemes and registered applications. Native-speaker review remains necessary. Lexical references include [Intermediate Bambara](https://files.eric.ed.gov/fulltext/ED132856.pdf) for empty/without contents, [Bamadaba](https://bamadaba.coastsystems.net/lexicon/d/) and [Nuseline's Ewe dictionary](https://www.ewedictionary.com/). Fulah follows existing locale terminology for links and email. These references and the existing labels do not establish the accuracy of the complete translated sentences.
+
+Validation covers 55 recently filled hints, exact scheme identifiers, source tokens and key order, plus parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. This hint remains English in 11 locales. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; language quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

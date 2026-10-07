@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "URL jokkol ballal keeriɗo",
   "text-below-custom-login-logo": "Binndol les logo ceŋagol keeriɗo",
   "automatic-linked-url-schemes": "Mbaydi URL keeriɗi ɗi poti waylude jokke e jaajol. Mbaydi URL gooto kala gorol",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "E fuɗɗoode, ɗum ko meho, ɗum waɗi ceŋorɗe geese e iimeel tan mbaawi ɓuɗɗeede. Fannu kala winndaaɗo e doggol ngol, yeru thunderlink walla onenote, ina uddita jaaɓnirgal winnditaangal ngam mum. javascript, data, vbscript e pelle nannduɗe e majje mbaɗetaake ceŋorɗe hay sahaa.",
   "external-link-pattern": "Jokkorde jaajol e jaɓɓorgal caɗeele ceɗɗaaɗe",
   "external-link-pattern-description": "Ina jokkindira jaajol maandeeji yeru \"#1234\" tawaaɗi e binndol kaarte e jaɓɓorgal caɗeele ceɗɗaaɗe. Accu ngenndi wonaa hay huunde fii daaƴugol.",
   "external-link-pattern-prefix": "Ado maande",

@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "Kpekpeɖeŋu kadodo tɔxɛ ƒe URL",
   "text-below-custom-login-logo": "Nuŋɔŋlɔ le gegeɖeme Logo tɔxɛ te",
   "automatic-linked-url-schemes": "URL ƒe ɖoɖo tɔxɛ siwo woazi dzi eɖokui. URL ƒe ɖoɖo ɖeka le fli ɖesiaɖe dzi",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Le gɔmedzedzea me la, naneke mele eme o, eyata àte ŋu azi web kple e-mail ƒe kadodowo koe dzi. Scheme ɖesiaɖe si le xexlẽdzesi la me, abe thunderlink alo onenote ene, ʋua program si woŋlɔ ɖi na eya la. Womewɔa javascript, data, vbscript kple scheme siwo sɔ wo la wozua kadodowo gbeɖe o.",
   "external-link-pattern": "Amenuveve kudzikadzikaɖoɖo ɖe dukɔ bubu ƒe kuxiwo kpɔɖeŋu ŋu",
   "external-link-pattern-description": "Ekpena ɖe token siwo le abe \"#1234\" si wokpɔe le kaɖi ƒe nuŋɔŋlɔ me ŋu amenuveve wɔnaa esia kudzikadzikaɖoɖo ɖe dukɔ bubu ƒe kuxiwo kpɔɖeŋu ŋu. Gblẽ akpa ɖeka ɖi ƒuƒlu be nàtsi eme.",
   "external-link-pattern-prefix": "Token ƒe gbãtɔ",
