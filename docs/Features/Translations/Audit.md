@@ -7298,6 +7298,15 @@ missing-versus-null values and review before retrying unconfirmed delivery.
 Diagnostic and receipt terminology remains low confidence pending fluent review.
 Browser and screen-reader checks were not run.
 
+### Kurdish activity recovery and time estimates
+
+Filled 26 English placeholders for mapped time estimates, pending activity
+notifications, retry states and delivery controls. Existing text is preserved.
+Tests check source tokens, key order, exactly-one-field requirements, missing
+versus null values, no activity recreation and retention of pending work.
+Reservation and recovery-metadata terminology remains low confidence pending
+fluent review. Browser and screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
