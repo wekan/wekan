@@ -964,6 +964,28 @@ mention exception pass, together with all-locale structure and human-preference
 checks. The Volapük browser mute/unmute scenario is syntax-checked only;
 it was not executed.
 
+## Klingon notification preferences — 2026-10-07
+
+Filled the 13 `notification-activity-*` English placeholders in `tlh` and replaced
+French `Intervenants` in `assignees` with `Qu' HevwI'pu'` (task recipients).
+Existing card, member, checklist and attachment terminology is retained.
+The description retains unselecting an activity, bell/email delivery and the
+exception for due-date reminders and @mentions.
+
+Vocabulary references: [Klingonska Akademien dictionary](https://klingonska.org/dict/),
+[KLI bell vocabulary](https://lists.kli.org/archives/list/tlhingan-hol%40lists.kli.org/thread/JVRAGLKX6PVYEXQIPYOBSU6HX5NISRQR/)
+and [KLI reminder usage](https://www.kli.org/tlhIngan-Hol/2006/May/msg00152.html).
+These support vocabulary, not approval of the full UI translation. Task-recipient,
+custom-field value and notification compounds and the complete description remain
+low-confidence wording needing fluent-speaker review. Other wrong-language seed
+values elsewhere in the locale still require auditing.
+
+Shared notification regression and browser scenarios now cover 58 locales;
+structural, token and human-preference checks pass. Browser coverage is only
+syntax-checked because the application/browser stack is unavailable. These are
+pending source keys, so the ordinary backlog remains 51,575 values in 70 languages
+plus 201 separately tracked pending source keys. This does not complete the goal.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

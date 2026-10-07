@@ -7,7 +7,7 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('notification-activity-'));
 assert.equal(keys.length, 13);
-for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts', 'om', 'fj', 'to', 'gv', 'wa', 'wa-RR', 'ak', 'lg', 'bm', 'wo', 'ee', 'rup', 'bua', 'sah', 'cv', 've', 've-CC', 'se', 'ace', 'bo', 'dz', 'ti', 'ks', 'qu', 'ay', 'gn', 'ff', 'vo']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts', 'om', 'fj', 'to', 'gv', 'wa', 'wa-RR', 'ak', 'lg', 'bm', 'wo', 'ee', 'rup', 'bua', 'sah', 'cv', 've', 've-CC', 'se', 'ace', 'bo', 'dz', 'ti', 'ks', 'qu', 'ay', 'gn', 'ff', 'vo', 'tlh']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: key order`);
   for (const key of keys) {
@@ -149,4 +149,7 @@ assert.match(read('ff')['notification-activity-description'], /Siftinooje ñalng
 assert.match(read('vo')['notification-activity-description'], /Sämarkolöd/);
 assert.match(read('vo')['notification-activity-description'], /Memükams tefü dät finik.*@ ai rivons/);
 assert.equal(read('vo').members, 'Limans', 'Volapük member label must not use Esperanto Membroj');
-console.log('Notification activity translations: 13 messages in 57 locales passed');
+assert.match(read('tlh')['notification-activity-description'], /yIwIvHa'/);
+assert.match(read('tlh')['notification-activity-description'], /reH paw.*jaj luqawmoHbogh QInmey.*@/);
+assert.equal(read('tlh').assignees, "Qu' HevwI'pu'", 'Klingon assignees must not retain French Intervenants');
+console.log('Notification activity translations: 13 messages in 58 locales passed');
