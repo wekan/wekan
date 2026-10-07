@@ -398,6 +398,36 @@ related Inuktitut progress/list-width checks pass. The browser mutation
 scenario includes Inuktitut and is syntax-checked only; no browser execution
 was available. Script checks do not establish language quality.
 
+## Cherokee and all-locale archiving/date-filter coverage — 2026-10-07
+
+Filled 23 English placeholders in Cherokee (`chr`), preserving existing
+translated values as verified against the previous commit. The standard
+backlog falls by 20 to 51,575 values. A full scan now finds no English
+placeholders in this 23-message feature group across all 234 non-English
+locale paths. The three auto-archive keys leave the pending queue, which
+now contains 201 source keys. This proves coverage, not fluent wording.
+
+The [Raven Rock dictionary](https://culturev.com/cherokee/Raven-Rock-Cherokee-Dictionary.pdf)
+supports week vocabulary and the correction of the draft empty-field term;
+[Cherokee Nation classroom resources](https://www.cherokee.gov/departments/language-department/posters/classroom/)
+provide calendar references. Existing card/list/template vocabulary is
+retained. Complete phrases remain low confidence pending speaker review,
+especially verbal morphology, inclusive ranges, list-age negation and the
+instruction to quote a custom field name. Dictionary components do not
+validate sentence-level meaning.
+
+The shared feature test now discovers every non-English locale instead of
+using the 69-locale batch list. It checks exact token inventories and query
+examples, nonempty translated values, distinct date endpoints and periods,
+and equivalent numeric bounds. Persian, Devanagari and Bengali decimal
+digits normalize only for the bound comparison; query syntax stays exact.
+It also verifies that completed auto-archive keys leave the pending queue.
+Cherokee assertions require syllabic prose and retain the negative rules.
+Feature, all-locale structure, human-preference and related Cherokee checks
+pass. The browser mutation scenario includes Cherokee and is syntax-checked
+only; no browser execution was available. The wider language-quality and
+remaining-feature audit is still open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

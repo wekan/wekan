@@ -133,18 +133,6 @@
       "since": "2026-09-29"
     },
     {
-      "key": "auto-archive-days",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "auto-archive-off",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "auto-archive-hint",
-      "since": "2026-09-29"
-    },
-    {
       "key": "import-report-heading",
       "since": "2026-09-29"
     },

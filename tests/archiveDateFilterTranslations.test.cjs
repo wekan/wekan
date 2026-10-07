@@ -5,6 +5,13 @@ const path = require('node:path');
 const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const en = read('en');
+// Native decimal digits express the same bounds; query literals remain exact.
+const digits = value => value.replace(/[۰-۹०-९০-৯]/g, digit => {
+  const point = digit.codePointAt(0);
+  const zero = [0x06f0, 0x0966, 0x09e6].find(start => point >= start && point <= start + 9);
+  return String(point - zero);
+}).match(/\d+/g);
+
 const keys = [
   "auto-archive-days",
   "auto-archive-off",
@@ -30,14 +37,17 @@ const keys = [
   "filter-column-age-hint",
   "advanced-filter-card-dates-hint"
 ];
-for (const code of ['iu', 'wal', 'zgh', 'tig', 'dz', 'kl', 'nah', 'vo', 'sah', 'ace', 'bm', 'ak', 'lg', 'ay', 'qu', 'gn', 'ee', 'wo', 'ff', 'tlh', 'gv', 've-CC', 've-PP', 've', 'bo', 'bua', 'cv', 'ks', 'ti', 'tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'yi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'rw', 'rn', 'or_IN', 'bho', 'mai', 'kok', 'ary', 'nso', 'nd', 'ss', 'ts', 'om', 'fj', 'to', 'hsb', 'szl', 'se', 'wa', 'wa-RR', 'wuu-Hans', 'rup']) {
+const locales = fs.readdirSync(path.join(__dirname, '../imports/i18n/data')).filter(file => file.endsWith('.i18n.json') && !/^en(?:[-_]|\.)/.test(file)).map(file => file.replace('.i18n.json', ''));
+const pending = JSON.parse(fs.readFileSync(path.join(__dirname, '../releases/translations/pending-transifex.json'), 'utf8')).keys.map(entry => entry.key);
+for (const key of keys.slice(0, 3)) assert.ok(!pending.includes(key), `${key}: completed key leaves pending queue`);
+for (const code of locales) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
     assert.ok(locale[key]?.trim(), `${code}:${key}: nonempty`);
     assert.notEqual(locale[key], en[key], `${code}:${key}: translated`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(en[key]), `${code}:${key}: exact placeholders`);
-    assert.deepEqual(locale[key].match(/\d+/g), en[key].match(/\d+/g), `${code}:${key}: numeric bounds`);
+    assert.deepEqual(digits(locale[key]), digits(en[key]), `${code}:${key}: numeric bounds`);
   }
   for (const token of ['@createdAt', '@receivedAt', '@startAt', '@dueAt', '@endAt', '@listEnteredAt', "@endAt >= '2026-01-01'", '@endAt = none']) {
     assert.ok(locale['advanced-filter-card-dates-hint'].includes(token), `${code}: literal query syntax ${token}`);
@@ -230,4 +240,13 @@ for (const key of keys) {
   assert.match(prose, /[\u1400-\u167F]/, `iu:${key}: syllabic prose`);
   assert.doesNotMatch(prose, /[A-Za-z]/, `iu:${key}: no Latin fallback`);
 }
-console.log('Archiving and date filters: 23 messages in 68 locales passed');
+assert.match(read('chr')['auto-archive-hint'], /ᎥᏝ ᎢᏳᏍᏗ.*ᏱᎨᎦᏅᎦ/);
+assert.match(read('chr')['filter-column-age-hint'], /ᎥᏝ ᏔᎵᏁ ᏯᎴᏂᏍᎪ/);
+assert.match(read('chr')['filter-due-previous-week'], /ᎠᎵᏱᎵᏒ/);
+assert.match(read('chr')['filter-due-next-month'], /ᎠᏓᎾᏅ/);
+for (const key of keys) {
+  const prose = read('chr')[key].replace(/@endAt >= '2026-01-01'|@endAt = none|@[A-Za-z]+/g, '');
+  assert.match(prose, /[\u13A0-\u13FF]/, `chr:${key}: Cherokee prose`);
+  assert.doesNotMatch(prose, /[A-Za-z]/, `chr:${key}: no English fallback`);
+}
+console.log(`Archiving and date filters: 23 messages in ${locales.length} locales passed`);
