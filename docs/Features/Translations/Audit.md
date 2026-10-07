@@ -4799,6 +4799,13 @@ mixed-language audit remains open.
 - Low confidence: Volapük pixel image is paraphrased as a dotted image, checkbox as a markable square, and grid dropdown as an openable list in squares. Klingon color is a choice for coloring, date uses day, and grid dropdown describes a selection list with squares. Input describes a data-entry place; the fit to Blockly fields and connections needs review. These complete technical phrases are drafts, not dictionary attestations.
 - Extended field-type distinctions, token checks and exact correction regressions. Existing browser flows include both languages; browser execution and spoken announcements remain unverified. The 148 pending source keys and broader semantic audit remain open.
 
+### Ewe and Fulah field types
+
+- Filled 22 English field-type placeholders through the protected fill, retaining existing correct-language values. Extended source-token and field-type distinction checks to both locales.
+- Vocabulary references: the [Peace Corps Ewe workbook](https://www.livelingua.com/peace-corps/Ewe/Ewe%20Course%20-2010.pdf) gives picture vocabulary, and [Ameka's study of Ewe spatial language](https://pure.mpg.de/pubman/item/item_855622_4/component/file_855623/ameka_1995_The_linguistic_construction_of_space_in_Ewe_Cogn_Ling.pdf) attests `dzogoe` as corner. The [Fulfulde dictionary](https://mooreburkina.com/sites/www.mooreburkina.com/files/pdf-files/03%20Dictionnaire%20fulfulde%20-%20francais%20%20English.pdf) attests mathematical `lobbudu`; the [Pulaar education terminology](https://senprof.education.sn/PROGRAMME%20LECTURE%20POUR%20TOUS/documentation/Terminologies/Terminologie%20Pulaar%20fusion.pdf) attests color and picture vocabulary.
+- Low confidence: Ewe corner/angle precision, pixel loans, grid descriptions using boxes/squares, date/day ambiguity and ordinary work nouns for programming functions require review. Existing checkbox/dropdown wording is reused without claiming independent validation; Fulah regional vocabulary may need harmonization. Input terminology must also be checked against Blockly's specific field behavior.
+- Existing browser flows cover both locales but were not executed; spoken announcements remain unverified. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
