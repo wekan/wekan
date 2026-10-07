@@ -1889,6 +1889,21 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/33831dc768fe6618d0545641e9a7598606b73bb4">Translate Aromanian notification settings</a>. Thanks to xet7.</summary>
+
+- Fill 13 English placeholders in Aromanian, preserving existing translations
+  and the reminder/@mention exception to muting.
+- Shared notification coverage now checks 41 locales. Feature, all-locale
+  structure and human-preference checks pass. Browser mute/unmute scenarios
+  are syntax-checked only. Technical wording is low confidence pending
+  speaker review; vocabulary references are recorded in the audit.
+- These values belong to pending source keys, so the standard backlog
+  remains 51,575 values plus 201 pending source keys. Remaining languages
+  and broader language review stay in TODO Later.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/91c6e2ec7e719cc28c956e4b19042e464a00752e">Translate Wolof and Ewe notification settings</a>. Thanks to xet7.</summary>
 
 - Fill 26 English placeholders across Wolof and Ewe, preserving existing
