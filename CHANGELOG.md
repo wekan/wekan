@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/937086b9fb5a5e905965b9e25e60b52c8f1b75ea">Correct 25 mixed-language Akan movement and ordering labels.</a></summary>
+
+- Rewrite movement, ordering and guidance text. Preserve directions, list scope, oldest-first ordering and recurring time tokens.
+- Add source-token, direction and scope regression checks. Wording remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
+- Validation: 95 focused translation/parser tests and 21 human-preference checks pass. Browser and live provider-console checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c5c1d2bca978060b496f538a75ca8fbf3a1f0be3">Correct 23 mixed-language or misleading Akan status and count messages.</a></summary>
 
 - Rewrite status, count and permission labels. Preserve stopped/completed distinctions, assigned-only reading, timing units and batch limits.
