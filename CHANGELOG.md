@@ -1899,8 +1899,9 @@ each for the reason given:
 not the database, refuses WeKan's own database connection, with the fix for the
 known snapd 2.77.1 kernel problem behind it, four SAML settings can be set
 with `snap set` again, the **Rules** "Set color to" action can pick any card
-color, the Rules list's selection checkboxes are visible again, and **pbkdf2**
-is updated for a denial-of-service advisory.
+color, the Rules list's selection checkboxes are visible again, **card
+filters** follow a member's access changes even when the board observer
+stalls, and **pbkdf2** is updated for a denial-of-service advisory.
 
 This release updates the following dependencies:
 
@@ -2006,6 +2007,23 @@ opens More from the card menu and checks the board is offered.
 
 </details>
 
+**Card filters** - which matches a member's filter may return.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/479f530da05a33e1b21166cd3ad9052fd474dea1">Filter matches follow a member's access even when the board observer stalls</a>. Thanks to xet7.</summary>
+
+After a member's assigned-only restriction was lifted, the text filter kept
+showing only the assigned cards. On a busy server polling MongoDB, the
+filter's board observer delivered its first result and then nothing more, so
+no access change reached it - and a narrowing would have been missed the same
+way, leaving matches the member may no longer see. Text matches, movement
+matches and table pages now also re-read the board every 10 seconds and rescan
+when its permission or members differ from those the result was computed
+from. `tests/boardTextPublication.test.cjs` widens, narrows and revokes with the
+observer silent.
+
+</details>
+
 and has the following developer-tooling fixes:
 
 **Release builds** - the Snap builds Launchpad makes for the extra
@@ -2053,9 +2071,20 @@ scan that retries a pending intent every second. It passed 12 of 12 runs.
 
 - [CHANGELOG prose is wrapped at 80 columns and no link shows a commit hash](https://github.com/wekan/wekan/commit/2632b0d8e1737884c4028ca08ada315831cc2b3a), [again for later lines](https://github.com/wekan/wekan/commit/bc3f99aa1ba24f9dc1166146e49cc5e3e4e1bae4). Thanks to xet7.
 
+- [Browser specs wait for database writes to reach the page before using them](https://github.com/wekan/wekan/commit/cf5060c1936dbc1935c04c21cc98198d497f8711). Thanks to xet7.
+- [card-first-position places and clicks the minicard again after a re-render](https://github.com/wekan/wekan/commit/409950f73080aba39ed9d49cac1312d30f58256b). Thanks to xet7.
+- [rules-blocks expects no comment item in the Blocks menu, which is off by design](https://github.com/wekan/wekan/commit/259c4fc7e82d2b011ba015ffcdfaec7881415700). Thanks to xet7.
+- [Firefox specs wait for stable layout, saved settings and the recovery scan](https://github.com/wekan/wekan/commit/994e01a994c8f2cebaf2ebb360cbb0bc8156f2a1). Thanks to xet7.
+- [map-view reopens the Board View popup that a language switch closed](https://github.com/wekan/wekan/commit/09c67fd327f7c37b144e3ef490fee8c3afeed2ee). Thanks to xet7.
+- [WebKit specs reopen the filter and read SAML state after the last navigation](https://github.com/wekan/wekan/commit/5de9f418a8ff97579b5c8a77474c4a7fcbd9a45f). Thanks to xet7.
+- [releases/changelog-wrap.mjs wraps CHANGELOG prose at 80 columns, and the format test names it](https://github.com/wekan/wekan/commit/c09de3f1ab27acda11b4f412345cfac272fdbca1). Thanks to xet7.
+
 and improves the following translations:
 
-**Tigre and Tamazight** - words borrowed from the wrong language.
+**Tigre, Tamazight and Veps** - words borrowed from the wrong language.
+
+- [Tigre keeps its one date word in the date field and the date block](https://github.com/wekan/wekan/commit/969bb91fedeed915a014a893e5d0f518b610fbbe); whether it should change is left to a Tigre speaker. Thanks to xet7.
+- [Veps kuva for the Blockly image field is recorded as an attested shared term](https://github.com/wekan/wekan/commit/90aabcce0f8dee49ca6ee64ea9a7785cd90e0f4a). Thanks to xet7.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/256a09d5553b314e84f1b896c37ab360e29aff59">Tigre uses its own words for card, name and file in 15 new strings</a>. Thanks to xet7.</summary>
@@ -2079,10 +2108,16 @@ uses the same word as `checklist` itself.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/57a52806644ed3142cacdc4954592bc133860d61">Translate 61 Northern Sotho Blockly input and bitmap labels.</a></summary>
 
-- Fill 60 counted placeholders and the short on label omitted by the counter, preserving existing translations and source tokens.
-- Verify pixel states, row/column arguments, coordinates, operand roles and shared endpoint labels.
-- Validation: 56 focused checks and 21 human-preference checks pass. Two all-catalog structural checks still fail on the concurrent shortcut-edit-due-date addition. Browser and screen-reader checks were not run. Wording remains low confidence pending fluent-speaker review.
-- Remaining counted English placeholders: 44,350 across 70 languages. The broader language and wording audit continues.
+- Fill 60 counted placeholders and the short on label omitted by the counter,
+  preserving existing translations and source tokens.
+- Verify pixel states, row/column arguments, coordinates, operand roles and
+  shared endpoint labels.
+- Validation: 56 focused checks and 21 human-preference checks pass. Two
+  all-catalog structural checks still fail on the concurrent
+  shortcut-edit-due-date addition. Browser and screen-reader checks were not
+  run. Wording remains low confidence pending fluent-speaker review.
+- Remaining counted English placeholders: 44,350 across 70 languages. The
+  broader language and wording audit continues.
 
 Thanks to xet7 !
 
@@ -2091,10 +2126,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4965535f8d43061633019a20c4b9c6820b0abb29">Translate 59 Northern Sotho Blockly colour and navigation messages.</a></summary>
 
-- Fill English placeholders while preserving existing translations and source tokens.
-- Verify RGB channels and ranges, directions, movement versus scrolling and move confirmation/cancellation.
-- Validation: 55 focused checks and 21 human-preference checks pass. Two all-catalog structural checks still fail on the concurrent shortcut-edit-due-date addition. Browser and screen-reader checks were not run. Wording remains low confidence pending fluent-speaker review.
-- Remaining counted English placeholders: 44,410 across 70 languages. The broader language and wording audit continues.
+- Fill English placeholders while preserving existing translations and source
+  tokens.
+- Verify RGB channels and ranges, directions, movement versus scrolling and move
+  confirmation/cancellation.
+- Validation: 55 focused checks and 21 human-preference checks pass. Two
+  all-catalog structural checks still fail on the concurrent
+  shortcut-edit-due-date addition. Browser and screen-reader checks were not
+  run. Wording remains low confidence pending fluent-speaker review.
+- Remaining counted English placeholders: 44,410 across 70 languages. The
+  broader language and wording audit continues.
 
 Thanks to xet7 !
 
@@ -2103,10 +2144,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/02ac6af8c0e6a1c526d4ba3133fa210c0a61bcdb">Translate 23 Northern Sotho Blockly workspace messages.</a></summary>
 
-- Fill English placeholders while preserving existing translations and source tokens.
-- Verify block counts, comment fragments, search navigation and distinct editing actions.
-- Validation: 54 focused checks and 21 human-preference checks pass. Two all-catalog structural checks still fail on the concurrent shortcut-edit-due-date addition. Browser and screen-reader checks were not run. Wording remains low confidence pending fluent-speaker review.
-- Remaining counted English placeholders: 44,469 across 70 languages. The broader language and wording audit continues.
+- Fill English placeholders while preserving existing translations and source
+  tokens.
+- Verify block counts, comment fragments, search navigation and distinct editing
+  actions.
+- Validation: 54 focused checks and 21 human-preference checks pass. Two
+  all-catalog structural checks still fail on the concurrent
+  shortcut-edit-due-date addition. Browser and screen-reader checks were not
+  run. Wording remains low confidence pending fluent-speaker review.
+- Remaining counted English placeholders: 44,469 across 70 languages. The
+  broader language and wording audit continues.
 
 Thanks to xet7 !
 
@@ -2115,10 +2162,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7c27073ac10efdf97dc5371a2f41d7efa6cc119e">Translate 75 Northern Sotho Blockly list messages.</a></summary>
 
-- Fill 73 counted placeholders and two short fragments omitted by the counter; preserve existing translations and tokens.
-- Verify list retrieval/removal, insertion/replacement, copies, sorting and conversion direction.
-- Validation: 53 focused checks and 21 human-preference checks pass. Two all-catalog structural checks fail on the concurrently added shortcut-edit-due-date key missing from other catalogs. Browser checks were not run. Wording remains low confidence pending fluent-speaker review.
-- Remaining counted English placeholders: 44,492 across 70 languages. The broader language and wording audit continues.
+- Fill 73 counted placeholders and two short fragments omitted by the counter;
+  preserve existing translations and tokens.
+- Verify list retrieval/removal, insertion/replacement, copies, sorting and
+  conversion direction.
+- Validation: 53 focused checks and 21 human-preference checks pass. Two
+  all-catalog structural checks fail on the concurrently added
+  shortcut-edit-due-date key missing from other catalogs. Browser checks were
+  not run. Wording remains low confidence pending fluent-speaker review.
+- Remaining counted English placeholders: 44,492 across 70 languages. The
+  broader language and wording audit continues.
 
 Thanks to xet7 !
 
@@ -2127,10 +2180,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/360697a4f081fd96c19ed8896f6eaa192ca0828c">Translate 22 Northern Sotho Blockly variable messages.</a></summary>
 
-- Fill English placeholders while preserving existing translations and source tokens.
-- Verify deletion counts, definition restrictions, rename scope, name conflicts and variable types.
-- Validation: 53 translation and structural tests and 21 human-preference checks pass. Browser checks were not run. Technical wording remains low confidence pending fluent-speaker review.
-- Remaining counted English placeholders: 44,565 across 70 languages. The broader language and wording audit continues.
+- Fill English placeholders while preserving existing translations and source
+  tokens.
+- Verify deletion counts, definition restrictions, rename scope, name conflicts
+  and variable types.
+- Validation: 53 translation and structural tests and 21 human-preference checks
+  pass. Browser checks were not run. Technical wording remains low confidence
+  pending fluent-speaker review.
+- Remaining counted English placeholders: 44,565 across 70 languages. The
+  broader language and wording audit continues.
 
 Thanks to xet7 !
 
@@ -2139,10 +2197,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2c6d2b48d561dc0181ced4c4d7a3d45c2b7a50e3">Translate 33 Northern Sotho Blockly control-flow messages.</a></summary>
 
-- Fill 26 counted placeholders and seven short if/do labels omitted by the counter, preserving existing translations and source tokens.
-- Verify loop exit versus continuation, boolean conditions, conditional fallback and shared labels.
-- Validation: 52 translation and structural tests and 21 human-preference checks pass. Browser checks were not run. Technical wording remains low confidence pending fluent-speaker review.
-- Remaining counted English placeholders: 44,587 across 70 languages. The broader language and wording audit continues.
+- Fill 26 counted placeholders and seven short if/do labels omitted by the
+  counter, preserving existing translations and source tokens.
+- Verify loop exit versus continuation, boolean conditions, conditional fallback
+  and shared labels.
+- Validation: 52 translation and structural tests and 21 human-preference checks
+  pass. Browser checks were not run. Technical wording remains low confidence
+  pending fluent-speaker review.
+- Remaining counted English placeholders: 44,587 across 70 languages. The
+  broader language and wording audit continues.
 
 Thanks to xet7 !
 
@@ -2151,10 +2214,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bc4dca3309d2fa7812fc46ba348346c6346f4633">Translate 24 Northern Sotho Blockly function messages.</a></summary>
 
-- Fill 22 counted placeholders and two short definition labels omitted by the counter, preserving existing translations and technical values.
-- Verify source tokens, output distinctions, shared labels and disabled-definition and parameter warnings.
-- Validation: 51 translation and structural tests and 21 human-preference checks pass. Browser checks were not run. Technical wording remains low confidence pending fluent-speaker review.
-- Remaining counted English placeholders: 44,613 across 70 languages. The broader language and wording audit continues.
+- Fill 22 counted placeholders and two short definition labels omitted by the
+  counter, preserving existing translations and technical values.
+- Verify source tokens, output distinctions, shared labels and
+  disabled-definition and parameter warnings.
+- Validation: 51 translation and structural tests and 21 human-preference checks
+  pass. Browser checks were not run. Technical wording remains low confidence
+  pending fluent-speaker review.
+- Remaining counted English placeholders: 44,613 across 70 languages. The
+  broader language and wording audit continues.
 
 Thanks to xet7 !
 
@@ -2163,10 +2231,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8bfa28a515df7ef9dd3d61ddac92d32a95c51270">Translate 26 Northern Sotho Blockly logic messages.</a></summary>
 
-- Fill 25 counted placeholders and the short or label omitted by the counter, preserving existing translations and null.
-- Verify source tokens, boolean conditions, comparison boundaries and ternary label references.
-- Validation: 50 translation and structural tests and 21 human-preference checks pass. Browser checks were not run. Technical wording remains low confidence pending fluent-speaker review.
-- Remaining counted English placeholders: 44,635 across 70 languages. The broader language and wording audit continues.
+- Fill 25 counted placeholders and the short or label omitted by the counter,
+  preserving existing translations and null.
+- Verify source tokens, boolean conditions, comparison boundaries and ternary
+  label references.
+- Validation: 50 translation and structural tests and 21 human-preference checks
+  pass. Browser checks were not run. Technical wording remains low confidence
+  pending fluent-speaker review.
+- Remaining counted English placeholders: 44,635 across 70 languages. The
+  broader language and wording audit continues.
 
 Thanks to xet7 !
 
@@ -2175,10 +2248,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/591e23ac5ab2085cebbcee56c0a92082731053d9">Translate 55 Northern Sotho Blockly text-operation messages.</a></summary>
 
-- Fill English placeholders while preserving existing translations, help URLs and source tokens.
-- Verify indexing, missing and empty results, replacement roles, case conversion, trim direction and prompt types.
-- Validation: 49 translation and structural tests and 21 human-preference checks pass. Browser checks were not run. Technical wording remains low confidence pending fluent-speaker review.
-- Remaining counted English placeholders: 44,660 across 70 languages. The broader language and wording audit continues.
+- Fill English placeholders while preserving existing translations, help URLs
+  and source tokens.
+- Verify indexing, missing and empty results, replacement roles, case
+  conversion, trim direction and prompt types.
+- Validation: 49 translation and structural tests and 21 human-preference checks
+  pass. Browser checks were not run. Technical wording remains low confidence
+  pending fluent-speaker review.
+- Remaining counted English placeholders: 44,660 across 70 languages. The
+  broader language and wording audit continues.
 
 Thanks to xet7 !
 
@@ -2187,10 +2265,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/679e49a509ae5ee04ef6488d0939a79bdbc9654b">Translate 84 Northern Sotho Scrum planning and report messages.</a></summary>
 
-- Fill English placeholders while preserving existing translations and source tokens; checks cover all 102 Scrum and related view messages.
-- Verify lifecycle states, unfinished-card handling, partial reports, unknown estimates and daily-observation limits.
-- Validation: ten translation and structural tests and 21 human-preference checks pass. Browser checks were not run. Technical wording remains low confidence pending fluent-speaker review.
-- Remaining counted English placeholders: 44,715 across 70 languages. The broader language and wording audit continues.
+- Fill English placeholders while preserving existing translations and source
+  tokens; checks cover all 102 Scrum and related view messages.
+- Verify lifecycle states, unfinished-card handling, partial reports, unknown
+  estimates and daily-observation limits.
+- Validation: ten translation and structural tests and 21 human-preference
+  checks pass. Browser checks were not run. Technical wording remains low
+  confidence pending fluent-speaker review.
+- Remaining counted English placeholders: 44,715 across 70 languages. The
+  broader language and wording audit continues.
 
 Thanks to xet7 !
 
@@ -2199,10 +2282,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/34206768f61afa0fabd30c25a0d00f4fe88cb57a">Translate 20 Northern Sotho Sync report and estimate messages.</a></summary>
 
-- Fill the remaining Sync English placeholders while preserving existing translations and technical literals.
-- Verify retention limits, permissions, partial changes, recovery restrictions and missing versus explicit-null estimates.
-- Validation: seven translation and structural tests and 21 human-preference checks pass. Browser checks were not run. Technical wording remains low confidence pending fluent-speaker review.
-- Remaining counted English placeholders: 44,799 across 70 languages. The broader language and wording audit continues.
+- Fill the remaining Sync English placeholders while preserving existing
+  translations and technical literals.
+- Verify retention limits, permissions, partial changes, recovery restrictions
+  and missing versus explicit-null estimates.
+- Validation: seven translation and structural tests and 21 human-preference
+  checks pass. Browser checks were not run. Technical wording remains low
+  confidence pending fluent-speaker review.
+- Remaining counted English placeholders: 44,799 across 70 languages. The
+  broader language and wording audit continues.
 
 Thanks to xet7 !
 
@@ -2211,10 +2299,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/045b0c9eca2d2bb6ed8ac8a93eb30b9a2e671e71">Translate 43 Northern Sotho Sync conflict and preview messages.</a></summary>
 
-- Fill English placeholders while preserving existing translations and source tokens.
-- Verify local-content retention, duplicate mapping removal, replacement reuse, review scope and source-report limits.
-- Validation: five translation and structural tests and 21 human-preference checks pass. Browser checks were not run. Technical wording remains low confidence pending fluent-speaker review.
-- Remaining counted English placeholders: 44,819 across 70 languages. The broader language and wording audit continues.
+- Fill English placeholders while preserving existing translations and source
+  tokens.
+- Verify local-content retention, duplicate mapping removal, replacement reuse,
+  review scope and source-report limits.
+- Validation: five translation and structural tests and 21 human-preference
+  checks pass. Browser checks were not run. Technical wording remains low
+  confidence pending fluent-speaker review.
+- Remaining counted English placeholders: 44,819 across 70 languages. The
+  broader language and wording audit continues.
 
 Thanks to xet7 !
 
@@ -2223,10 +2316,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/60f69b7a807abf5047f95f179ece1af11613d83b">Translate 46 Northern Sotho rule-editing and recovery messages.</a></summary>
 
-- Fill English placeholders while preserving existing translations and source tokens.
-- Verify rule constraints, delivery uncertainty, retained pending work and cancellation without recreation or recall.
-- Validation: two focused regression tests, the structural check across 234 non-English catalogs and 21 human-preference checks pass. Browser checks were not run. Technical wording remains low confidence pending fluent-speaker review.
-- Remaining counted English placeholders: 44,862 across 70 languages. The broader language and wording audit continues.
+- Fill English placeholders while preserving existing translations and source
+  tokens.
+- Verify rule constraints, delivery uncertainty, retained pending work and
+  cancellation without recreation or recall.
+- Validation: two focused regression tests, the structural check across 234
+  non-English catalogs and 21 human-preference checks pass. Browser checks were
+  not run. Technical wording remains low confidence pending fluent-speaker
+  review.
+- Remaining counted English placeholders: 44,862 across 70 languages. The
+  broader language and wording audit continues.
 
 Thanks to xet7 !
 
@@ -2235,10 +2334,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/07702ee6dffd0be061ffc6f0c0bba789321e27c0">Translate 86 Somali Blockly mathematics messages.</a></summary>
 
-- Fill English placeholders while preserving existing translations, formula names, constants and source tokens.
-- Verify inclusive/exclusive bounds, degrees versus radians, quotient/remainder, statistical operations and rounding direction.
-- Validation: 66 translation and structural tests and 21 human-preference checks pass. Browser and screen-reader checks were not run. Mathematical wording remains low confidence pending fluent-speaker review.
-- Remaining counted English placeholders: 44,908 across 70 languages. Somali has 28 counted technical labels; the broader wording audit continues.
+- Fill English placeholders while preserving existing translations, formula
+  names, constants and source tokens.
+- Verify inclusive/exclusive bounds, degrees versus radians, quotient/remainder,
+  statistical operations and rounding direction.
+- Validation: 66 translation and structural tests and 21 human-preference checks
+  pass. Browser and screen-reader checks were not run. Mathematical wording
+  remains low confidence pending fluent-speaker review.
+- Remaining counted English placeholders: 44,908 across 70 languages. Somali has
+  28 counted technical labels; the broader wording audit continues.
 
 Thanks to xet7 !
 
@@ -2247,10 +2351,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2f9edc078dbe4493ab71352989ff4aa25d2108dc">Translate 26 Somali Blockly controls and announcements.</a></summary>
 
-- Fill English placeholders while preserving existing translations and source tokens.
-- Verify open/close states, screen-reader toggles, parent announcements and shared conditional labels.
-- Validation: 64 translation and structural tests and 21 human-preference checks pass. Browser and screen-reader checks were not run. Accessibility wording remains low confidence pending fluent-speaker review.
-- Remaining counted English placeholders: 44,994 across 70 languages. Mathematical messages and technical labels remain in Somali; the broader language audit continues.
+- Fill English placeholders while preserving existing translations and source
+  tokens.
+- Verify open/close states, screen-reader toggles, parent announcements and
+  shared conditional labels.
+- Validation: 64 translation and structural tests and 21 human-preference checks
+  pass. Browser and screen-reader checks were not run. Accessibility wording
+  remains low confidence pending fluent-speaker review.
+- Remaining counted English placeholders: 44,994 across 70 languages.
+  Mathematical messages and technical labels remain in Somali; the broader
+  language audit continues.
 
 Thanks to xet7 !
 
@@ -2259,10 +2369,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cb908f51d2af38d068d3717a902a6569faa01004">Translate 61 Somali Blockly input and bitmap labels.</a></summary>
 
-- Fill 60 counted placeholders and the short on label omitted by the counter; preserve existing translations and source tokens.
-- Verify operand roles, coordinates, row/column arguments, pixel states and shared endpoint labels.
-- Validation: 63 translation and structural tests and 21 human-preference checks pass. Browser and screen-reader checks were not run. Technical wording remains low confidence pending fluent-speaker review.
-- Remaining counted English placeholders: 45,020 across 70 languages. The broader language and wording audit continues.
+- Fill 60 counted placeholders and the short on label omitted by the counter;
+  preserve existing translations and source tokens.
+- Verify operand roles, coordinates, row/column arguments, pixel states and
+  shared endpoint labels.
+- Validation: 63 translation and structural tests and 21 human-preference checks
+  pass. Browser and screen-reader checks were not run. Technical wording remains
+  low confidence pending fluent-speaker review.
+- Remaining counted English placeholders: 45,020 across 70 languages. The
+  broader language and wording audit continues.
 
 Thanks to xet7 !
 
@@ -2271,10 +2386,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8739ce5e17ea6119f7239a6bfd9f1ef00fcd6177">Translate 45 Somali Blockly keyboard-navigation messages.</a></summary>
 
-- Fill English placeholders while preserving existing translations and shortcut arguments.
-- Verify movement versus scrolling, directions, move acceptance, start/finish/abort distinctions and navigation targets.
-- Validation: 61 translation and structural tests and 21 human-preference checks pass. Browser and screen-reader checks were not run. Accessibility wording remains low confidence pending fluent-speaker review.
-- Remaining counted English placeholders: 45,080 across 70 languages. The broader language and wording audit continues.
+- Fill English placeholders while preserving existing translations and shortcut
+  arguments.
+- Verify movement versus scrolling, directions, move acceptance,
+  start/finish/abort distinctions and navigation targets.
+- Validation: 61 translation and structural tests and 21 human-preference checks
+  pass. Browser and screen-reader checks were not run. Accessibility wording
+  remains low confidence pending fluent-speaker review.
+- Remaining counted English placeholders: 45,080 across 70 languages. The
+  broader language and wording audit continues.
 
 Thanks to xet7 !
 
@@ -2283,10 +2403,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/15426a5f11648cd4eab2d73c1978f0bb6c5d54eb">Translate 45 Somali Blockly variable and workspace messages.</a></summary>
 
-- Fill English placeholders while preserving existing translations, variable names, counts and keyboard shortcuts.
-- Verify duplicate-name warnings, getter/setter and undo/redo distinctions, screen-reader count fragments and search navigation.
-- Validation: 60 translation and structural tests and 21 human-preference checks pass. Browser and screen-reader checks were not run. Technical wording remains low confidence pending fluent-speaker review.
-- Remaining counted English placeholders: 45,125 across 70 languages. The broader language and wording audit continues.
+- Fill English placeholders while preserving existing translations, variable
+  names, counts and keyboard shortcuts.
+- Verify duplicate-name warnings, getter/setter and undo/redo distinctions,
+  screen-reader count fragments and search navigation.
+- Validation: 60 translation and structural tests and 21 human-preference checks
+  pass. Browser and screen-reader checks were not run. Technical wording remains
+  low confidence pending fluent-speaker review.
+- Remaining counted English placeholders: 45,125 across 70 languages. The
+  broader language and wording audit continues.
 
 Thanks to xet7 !
 
@@ -2295,10 +2420,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/69c9be897babe069251ca65dc0c512f78cc71144">Translate 55 Somali Blockly text-operation messages.</a></summary>
 
-- Fill English placeholders while preserving existing translations, source tokens, help URLs and empty suffixes.
-- Verify indexing, missing and empty results, case conversion, replacement arguments, trim direction and prompt types.
-- Validation: 58 translation and structural tests and 21 human-preference checks pass. Browser checks were not run. Technical wording remains low confidence pending fluent-speaker review.
-- Remaining counted English placeholders: 45,170 across 70 languages. The broader language and wording audit continues.
+- Fill English placeholders while preserving existing translations, source
+  tokens, help URLs and empty suffixes.
+- Verify indexing, missing and empty results, case conversion, replacement
+  arguments, trim direction and prompt types.
+- Validation: 58 translation and structural tests and 21 human-preference checks
+  pass. Browser checks were not run. Technical wording remains low confidence
+  pending fluent-speaker review.
+- Remaining counted English placeholders: 45,170 across 70 languages. The
+  broader language and wording audit continues.
 
 Thanks to xet7 !
 
@@ -2307,10 +2437,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/935704e5c167a1594823082784b21618eeb26c9b">Translate 50 Somali Blockly logic and function messages.</a></summary>
 
-- Fill 47 counted placeholders and three short labels omitted by the counter. Preserve existing translations, null, help URLs and source-empty suffixes.
-- Verify boolean conditions, comparison boundaries, ternary labels, function outputs and disabled-definition warnings.
-- Validation: 56 translation and structural tests and 21 human-preference checks pass. Browser checks were not run. Technical wording remains low confidence pending fluent-speaker review.
-- Remaining counted English placeholders: 45,225 across 70 languages. The broader language and wording audit continues.
+- Fill 47 counted placeholders and three short labels omitted by the counter.
+  Preserve existing translations, null, help URLs and source-empty suffixes.
+- Verify boolean conditions, comparison boundaries, ternary labels, function
+  outputs and disabled-definition warnings.
+- Validation: 56 translation and structural tests and 21 human-preference checks
+  pass. Browser checks were not run. Technical wording remains low confidence
+  pending fluent-speaker review.
+- Remaining counted English placeholders: 45,225 across 70 languages. The
+  broader language and wording audit continues.
 
 Thanks to xet7 !
 
@@ -2319,10 +2454,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/37525e3ceef97a9038d6d19563f7957f169e8131">Translate 75 Somali Blockly list messages.</a></summary>
 
-- Fill 73 counted placeholders and translate two English fragments excluded by the counter. Preserve existing translations, source-empty suffixes, help URLs and index symbols.
-- Verify indexing, missing and empty results, removal versus retrieval, copied lists, sorting and text/list conversion direction.
-- Validation: 53 translation and structural tests and 21 human-preference checks pass. Browser checks were not run. Technical wording remains low confidence pending fluent-speaker review.
-- Remaining counted English placeholders: 45,272 across 70 languages. The broader language audit continues, including prose omitted by the counter.
+- Fill 73 counted placeholders and translate two English fragments excluded by
+  the counter. Preserve existing translations, source-empty suffixes, help URLs
+  and index symbols.
+- Verify indexing, missing and empty results, removal versus retrieval, copied
+  lists, sorting and text/list conversion direction.
+- Validation: 53 translation and structural tests and 21 human-preference checks
+  pass. Browser checks were not run. Technical wording remains low confidence
+  pending fluent-speaker review.
+- Remaining counted English placeholders: 45,272 across 70 languages. The
+  broader language audit continues, including prose omitted by the counter.
 
 Thanks to xet7 !
 
@@ -2331,10 +2472,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4415e8b4d471e8b6bc918b5cb38e0a0937bdbcb6">Translate 61 Somali Blockly editing and control-flow messages.</a></summary>
 
-- Fill English placeholders for block editing, colours, loops and conditionals while preserving existing translations, keycaps and platform names.
-- Verify argument inventories, deletion restrictions, loop continuation versus termination, boolean conditions and colour ranges.
-- Validation: 51 translation and structural tests and 21 human-preference checks pass. Browser checks were not run. Programming terms remain low confidence pending fluent-speaker review.
-- Remaining English placeholders: 45,345 across 70 languages. The remaining Blockly work and broader language audit continue.
+- Fill English placeholders for block editing, colours, loops and conditionals
+  while preserving existing translations, keycaps and platform names.
+- Verify argument inventories, deletion restrictions, loop continuation versus
+  termination, boolean conditions and colour ranges.
+- Validation: 51 translation and structural tests and 21 human-preference checks
+  pass. Browser checks were not run. Programming terms remain low confidence
+  pending fluent-speaker review.
+- Remaining English placeholders: 45,345 across 70 languages. The remaining
+  Blockly work and broader language audit continue.
 
 Thanks to xet7 !
 
@@ -2343,10 +2489,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d5744bafb8f61af139a34b1086610bc20067f4c6">Translate 46 Somali rule-editing and recovery messages.</a></summary>
 
-- Fill English placeholders for block rule editing, SMTP failures and notification recovery while preserving existing translations.
-- Add regressions for rule constraints, delivery uncertainty, retained pending work, no activity recreation and irreversible cancellation.
-- Validation: 11 Somali and all-catalog structural tests and 21 human-preference checks pass. Browser checks were not run. Technical compounds remain low confidence pending fluent-speaker review.
-- Remaining English placeholders: 45,406 across 70 languages. Somali's remaining placeholder queue is Blockly; the broader language and wording audit continues.
+- Fill English placeholders for block rule editing, SMTP failures and
+  notification recovery while preserving existing translations.
+- Add regressions for rule constraints, delivery uncertainty, retained pending
+  work, no activity recreation and irreversible cancellation.
+- Validation: 11 Somali and all-catalog structural tests and 21 human-preference
+  checks pass. Browser checks were not run. Technical compounds remain low
+  confidence pending fluent-speaker review.
+- Remaining English placeholders: 45,406 across 70 languages. Somali's remaining
+  placeholder queue is Blockly; the broader language and wording audit
+  continues.
 
 Thanks to xet7 !
 
@@ -2355,10 +2507,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a370ad87e5ef53f59c0d3f1440644d47960579a9">Translate 63 Somali Sync conflict and report messages.</a></summary>
 
-- Fill English placeholders for conflict resolution, previews, source omissions, run diagnostics and Jira estimate mappings without changing existing translations.
-- Preserve local-content retention, review-only scope, report limits and the distinction between missing source values and explicit null.
-- Validation: eight Somali and all-catalog structural tests and 21 human-preference checks pass. Browser checks were not run. Technical compounds remain low confidence pending fluent-speaker review.
-- Remaining English placeholders: 45,452 across 70 languages. Pending-key wording review and the broader language audit continue.
+- Fill English placeholders for conflict resolution, previews, source omissions,
+  run diagnostics and Jira estimate mappings without changing existing
+  translations.
+- Preserve local-content retention, review-only scope, report limits and the
+  distinction between missing source values and explicit null.
+- Validation: eight Somali and all-catalog structural tests and 21
+  human-preference checks pass. Browser checks were not run. Technical compounds
+  remain low confidence pending fluent-speaker review.
+- Remaining English placeholders: 45,452 across 70 languages. Pending-key
+  wording review and the broader language audit continue.
 
 Thanks to xet7 !
 
@@ -2367,10 +2525,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d6600d93451400bf59cc6ec6f7ebe2e12d97256c">Translate 84 Somali Scrum planning and reporting messages.</a></summary>
 
-- Fill English placeholders for planning, sprint lifecycle and reports while preserving existing Somali translations.
-- Cover all 102 Scrum and related view messages with token checks and regressions for cancellation versus closure, unknown estimates, partial reports and daily-observation limits.
-- Validation: three Somali regression tests, the structural check across 234 non-English catalogs and 21 human-preference checks pass. Browser checks were not run. Technical compounds remain low confidence pending fluent-speaker review.
-- Remaining English placeholders: 45,515 across 70 languages. The separate pending-key wording review and broader language audit continue.
+- Fill English placeholders for planning, sprint lifecycle and reports while
+  preserving existing Somali translations.
+- Cover all 102 Scrum and related view messages with token checks and
+  regressions for cancellation versus closure, unknown estimates, partial
+  reports and daily-observation limits.
+- Validation: three Somali regression tests, the structural check across 234
+  non-English catalogs and 21 human-preference checks pass. Browser checks were
+  not run. Technical compounds remain low confidence pending fluent-speaker
+  review.
+- Remaining English placeholders: 45,515 across 70 languages. The separate
+  pending-key wording review and broader language audit continue.
 
 Thanks to xet7 !
 
@@ -2379,10 +2544,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/89d9e0f13183d1528f2d171536ce544aaca9aac9">Correct 17 mixed-language Akan action and account labels.</a></summary>
 
-- Clarify account creation, action selection, due dates and time spent; preserve the Meteor product name.
-- Add placeholder and semantic regression checks. Wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 109 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Clarify account creation, action selection, due dates and time spent; preserve
+  the Meteor product name.
+- Add placeholder and semantic regression checks. Wording remains low confidence
+  pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 109 focused translation/parser tests and 21 human-preference
+  checks pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2391,10 +2560,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0dfafdd3d63101360f3306e9290dbfdeea9cd111">Correct 14 mixed-language Akan migration and summary labels.</a></summary>
 
-- Rewrite migration and summary text. Preserve error/warning and execution-state distinctions, including paused, resumed and not-needed states.
-- Add source-token, state and terminology checks. Technical wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 108 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite migration and summary text. Preserve error/warning and execution-state
+  distinctions, including paused, resumed and not-needed states.
+- Add source-token, state and terminology checks. Technical wording remains low
+  confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 108 focused translation/parser tests and 21 human-preference
+  checks pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2403,10 +2576,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/51da67e8776d7b874e785525ba55be92265bdf3e">Correct 18 mixed-language Akan navigation and swimlane messages.</a></summary>
 
-- Rewrite navigation, detail and swimlane text. Align matching titles and preserve home removal without board deletion.
-- Add source-token, scope and label-consistency checks. Wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 107 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite navigation, detail and swimlane text. Align matching titles and
+  preserve home removal without board deletion.
+- Add source-token, scope and label-consistency checks. Wording remains low
+  confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 107 focused translation/parser tests and 21 human-preference
+  checks pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2415,10 +2592,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ada36f426b727d8caa285466505958b73638d534">Correct 18 mixed-language Akan template and swimlane labels.</a></summary>
 
-- Rewrite template, subtask and swimlane text. Preserve template targets, insertion direction and resize permissions; align duplicate titles.
-- Add source-token, target and direction regression checks. Wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 106 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite template, subtask and swimlane text. Preserve template targets,
+  insertion direction and resize permissions; align duplicate titles.
+- Add source-token, target and direction regression checks. Wording remains low
+  confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 106 focused translation/parser tests and 21 human-preference
+  checks pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2427,10 +2608,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ea7df95fc5dcd38a89c7a20b0556030b1fddcaad">Correct 10 mixed-language Akan prompts and display messages.</a></summary>
 
-- Rewrite prompts, membership settings and font sample. Preserve scope restrictions and preview digits; the sample is not claimed to be an Akan pangram.
-- Add source-token, scope and digit checks, with vocabulary references in the audit. Wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 105 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite prompts, membership settings and font sample. Preserve scope
+  restrictions and preview digits; the sample is not claimed to be an Akan
+  pangram.
+- Add source-token, scope and digit checks, with vocabulary references in the
+  audit. Wording remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 105 focused translation/parser tests and 21 human-preference
+  checks pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2439,10 +2625,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8f927b07bbee5b1f51dee0ce8afe621c7fd02dfd">Correct 12 mixed-language Akan voting and invitation messages.</a></summary>
 
-- Rewrite voting, invitation and endpoint text. Preserve inviter tokens, leave/delete confirmations and provider endpoint alternatives from the source.
-- Add source-token, subject and provider-name checks. Wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 104 focused translation/parser tests and 21 human-preference checks pass. Browser and live provider-console checks were not run.
+- Rewrite voting, invitation and endpoint text. Preserve inviter tokens,
+  leave/delete confirmations and provider endpoint alternatives from the source.
+- Add source-token, subject and provider-name checks. Wording remains low
+  confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 104 focused translation/parser tests and 21 human-preference
+  checks pass. Browser and live provider-console checks were not run.
 
 Thanks to xet7 !
 
@@ -2451,10 +2641,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fdd4a301dbbdce135196dba55baad5d1c336a601">Correct 18 malformed or mixed-language Akan rule and history messages.</a></summary>
 
-- Rewrite rule fragments, permissions and history states. Preserve movement direction, restrictions on others' comments and pending/inactive states.
-- Add source-token, direction and restriction checks. Wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 103 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite rule fragments, permissions and history states. Preserve movement
+  direction, restrictions on others' comments and pending/inactive states.
+- Add source-token, direction and restriction checks. Wording remains low
+  confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 103 focused translation/parser tests and 21 human-preference
+  checks pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2463,10 +2657,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bc356adf2168bb80fdc9c6d503bceadc03a3fc80">Correct 14 mixed-language Akan conversion and authorization messages.</a></summary>
 
-- Rewrite conversion, import and permission text. Preserve import formats, distinct administrator/member requirements and domain-conflict wording.
-- Add source-token, format and requirement checks. Wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 102 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite conversion, import and permission text. Preserve import formats,
+  distinct administrator/member requirements and domain-conflict wording.
+- Add source-token, format and requirement checks. Wording remains low
+  confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 102 focused translation/parser tests and 21 human-preference
+  checks pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2475,10 +2673,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/39620087ca2eeb00a39677edc1f0b3f96ce681a6">Correct 21 mixed-language Akan checklist and activity labels.</a></summary>
 
-- Rewrite checklist, activity and avatar text. Preserve action direction, completion sound defaults, numeric shortcuts and size units.
-- Add source-token, state and action regression checks. Wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 101 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite checklist, activity and avatar text. Preserve action direction,
+  completion sound defaults, numeric shortcuts and size units.
+- Add source-token, state and action regression checks. Wording remains low
+  confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 101 focused translation/parser tests and 21 human-preference
+  checks pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2487,10 +2689,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/92684bde59902087caa91a1c3cf7c7ac859a86b5">Correct 25 mixed-language Akan activity and assignment labels.</a></summary>
 
-- Rewrite activity, assignment, avatar and job text. Preserve activity tokens, add/remove direction and assigned-only scope.
-- Add source-token, direction and scope regression checks. Wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 100 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite activity, assignment, avatar and job text. Preserve activity tokens,
+  add/remove direction and assigned-only scope.
+- Add source-token, direction and scope regression checks. Wording remains low
+  confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 100 focused translation/parser tests and 21 human-preference
+  checks pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2499,10 +2705,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2d7f4743da66abae03fad57504489147e4e0186b">Correct 26 mixed-language Akan result and scheduling messages.</a></summary>
 
-- Rewrite search results, missing-data guidance and scheduling text. Preserve count tokens, missing-only restoration and distinct scheduling states.
-- Add source-token, count and state regression checks. Wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 99 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite search results, missing-data guidance and scheduling text. Preserve
+  count tokens, missing-only restoration and distinct scheduling states.
+- Add source-token, count and state regression checks. Wording remains low
+  confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 99 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2511,10 +2721,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e2c0cb513d9b3d7574ba1933964d17d854a285af">Correct 25 mixed-language Akan view and customization labels.</a></summary>
 
-- Rewrite view, attachment and customization text. Align matching titles and preserve visibility scope and technical filenames.
-- Add source-token, label-consistency and scope checks. Wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 98 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite view, attachment and customization text. Align matching titles and
+  preserve visibility scope and technical filenames.
+- Add source-token, label-consistency and scope checks. Wording remains low
+  confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 98 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2523,10 +2737,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/035fba3d421436feeb9fdf6912cb29a6eaf1e1b7">Correct 23 mixed-language Akan display, attachment and role labels.</a></summary>
 
-- Rewrite display and attachment text. Preserve units, HTML links and assigned-only visibility; align the Normal role label with its description.
-- Add source-token, markup and action regression checks. Wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 97 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite display and attachment text. Preserve units, HTML links and
+  assigned-only visibility; align the Normal role label with its description.
+- Add source-token, markup and action regression checks. Wording remains low
+  confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 97 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2535,10 +2753,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/03b327fcf9f94bdee4a6fe3bc69487ef5e8c9c5d">Correct 15 mixed-language or misleading Akan account and connection messages.</a></summary>
 
-- Rewrite account, watch and connection text. Correct OAuth setting precedence while preserving secret visibility and account states.
-- Add source-token, precedence and account-state regression checks. Wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 96 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite account, watch and connection text. Correct OAuth setting precedence
+  while preserving secret visibility and account states.
+- Add source-token, precedence and account-state regression checks. Wording
+  remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 96 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2547,10 +2769,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/937086b9fb5a5e905965b9e25e60b52c8f1b75ea">Correct 25 mixed-language Akan movement and ordering labels.</a></summary>
 
-- Rewrite movement, ordering and guidance text. Preserve directions, list scope, oldest-first ordering and recurring time tokens.
-- Add source-token, direction and scope regression checks. Wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 95 focused translation/parser tests and 21 human-preference checks pass. Browser and live provider-console checks were not run.
+- Rewrite movement, ordering and guidance text. Preserve directions, list scope,
+  oldest-first ordering and recurring time tokens.
+- Add source-token, direction and scope regression checks. Wording remains low
+  confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 95 focused translation/parser tests and 21 human-preference checks
+  pass. Browser and live provider-console checks were not run.
 
 Thanks to xet7 !
 
@@ -2559,10 +2785,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c5c1d2bca978060b496f538a75ca8fbf3a1f0be3">Correct 23 mixed-language or misleading Akan status and count messages.</a></summary>
 
-- Rewrite status, count and permission labels. Preserve stopped/completed distinctions, assigned-only reading, timing units and batch limits.
-- Add source-token, unit and scope regression checks. Wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 94 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite status, count and permission labels. Preserve stopped/completed
+  distinctions, assigned-only reading, timing units and batch limits.
+- Add source-token, unit and scope regression checks. Wording remains low
+  confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 94 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2571,10 +2801,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/61674384bf10df67ecfd5f6a83b551779f6d4193">Correct 24 mixed-language Akan timing and completion messages.</a></summary>
 
-- Rewrite timing, checklist and status text. Preserve date distinctions, old/new activity values and import-timeout retry guidance.
-- Add source-token, value-direction and state regression checks. Wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 93 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite timing, checklist and status text. Preserve date distinctions, old/new
+  activity values and import-timeout retry guidance.
+- Add source-token, value-direction and state regression checks. Wording remains
+  low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 93 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2583,10 +2817,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0afec6037cce53a78e1c1e08125ba51d41e21858">Correct 18 mixed-language or misleading Akan grouping and field-summary messages.</a></summary>
 
-- Restore number-field summation, opposite grouping states/actions and the synchronization interval's minutes unit; rewrite related rule and board labels.
-- Add source-token, aggregate and state regression checks. Wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 92 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Restore number-field summation, opposite grouping states/actions and the
+  synchronization interval's minutes unit; rewrite related rule and board
+  labels.
+- Add source-token, aggregate and state regression checks. Wording remains low
+  confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 92 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2595,10 +2834,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0991c3971ef0a603c67fd3a90067900f8ed698ef">Correct 20 mixed-language or misleading Akan field and rule messages.</a></summary>
 
-- Rewrite field, rule and timeline messages. Preserve full restore scope, the no-deletion statement and board-admin-only visibility.
-- Add source-token, scope and state regression checks. Wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 91 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite field, rule and timeline messages. Preserve full restore scope, the
+  no-deletion statement and board-admin-only visibility.
+- Add source-token, scope and state regression checks. Wording remains low
+  confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 91 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2607,10 +2850,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/af1499151c3851cda26076ad62335b54cc4b6007">Correct 22 mixed-language or misleading Akan drag and account messages.</a></summary>
 
-- Rewrite drag, account and configuration guidance. Preserve optional inputs, sidebar targets, workspace tokens and provider menu names.
-- Add source-token, name and behavior regression checks. Technical wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 90 focused translation/parser tests and 21 human-preference checks pass. Browser and live provider-console checks were not run.
+- Rewrite drag, account and configuration guidance. Preserve optional inputs,
+  sidebar targets, workspace tokens and provider menu names.
+- Add source-token, name and behavior regression checks. Technical wording
+  remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 90 focused translation/parser tests and 21 human-preference checks
+  pass. Browser and live provider-console checks were not run.
 
 Thanks to xet7 !
 
@@ -2619,10 +2866,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/80d66285020bd5aa9e36c5fc25f8b9676328ecae">Correct 24 damaged or mixed-language Akan repair and monitoring labels.</a></summary>
 
-- Rewrite repair, monitoring and repository text. Preserve repair scope, possible conversion delay and technical identifiers.
-- Add source-token, scope and terminology regression checks. Technical wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 89 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite repair, monitoring and repository text. Preserve repair scope,
+  possible conversion delay and technical identifiers.
+- Add source-token, scope and terminology regression checks. Technical wording
+  remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 89 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2631,10 +2882,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/df69b20ffc5b3d85ed6d93a0cfb2fd7a888a6b5c">Correct 25 damaged or mixed-language Akan cloud-storage messages.</a></summary>
 
-- Restore provider names, navigation labels and permission roles from the English source; translate surrounding guidance and storage controls.
-- Add source-token, name and scope regression checks. Technical terminology remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages; restored product-only labels are excluded by the counter. The broader language audit continues.
-- Validation: 88 focused translation/parser tests and 21 human-preference checks pass. Browser and live provider-console checks were not run.
+- Restore provider names, navigation labels and permission roles from the
+  English source; translate surrounding guidance and storage controls.
+- Add source-token, name and scope regression checks. Technical terminology
+  remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages; restored product-only
+  labels are excluded by the counter. The broader language audit continues.
+- Validation: 88 focused translation/parser tests and 21 human-preference checks
+  pass. Browser and live provider-console checks were not run.
 
 Thanks to xet7 !
 
@@ -2643,10 +2898,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/be0032f2ed093cf2c4181757ef01a03402988fec">Correct 24 damaged or mixed-language Akan support and lockout labels.</a></summary>
 
-- Rewrite support, memory, storage and lockout labels. Preserve technical identifiers, credential distinctions and enabled/disabled states.
-- Add source-token, identifier and state regression checks. Technical terminology remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 87 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite support, memory, storage and lockout labels. Preserve technical
+  identifiers, credential distinctions and enabled/disabled states.
+- Add source-token, identifier and state regression checks. Technical
+  terminology remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 87 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2655,10 +2914,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d6d82b0023eb41a07dbac447a4da01fa89bc1d8f">Correct 24 damaged or mixed-language Akan sorting and report labels.</a></summary>
 
-- Rewrite sorting, report and field labels. Restore literal search syntax and preserve format placeholders and HTML space entities.
-- Add source-token, syntax, entity and report-distinction checks. Wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 86 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite sorting, report and field labels. Restore literal search syntax and
+  preserve format placeholders and HTML space entities.
+- Add source-token, syntax, entity and report-distinction checks. Wording
+  remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 86 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2667,10 +2930,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9ec083daa1630c0705c476a3c6808f3081da0ed5">Correct 24 damaged or misleading Akan workflow and sorting labels.</a></summary>
 
-- Rewrite workflow, archive and sorting labels. Correct the rule toggle and preserve archive direction, placeholders and literal markup.
-- Add source-token, direction and markup regression checks. Wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 85 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite workflow, archive and sorting labels. Correct the rule toggle and
+  preserve archive direction, placeholders and literal markup.
+- Add source-token, direction and markup regression checks. Wording remains low
+  confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 85 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2679,10 +2946,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d209fb83af834b0ba7abf98fb5baf21970960686">Correct 24 damaged or mixed-language Akan upload and diagnostics labels.</a></summary>
 
-- Rewrite upload, SMTP, diagnostic and color labels. Restore Node and preserve protocol/configuration identifiers and action meanings.
-- Add source-token, identifier and action regression checks. Technical terminology remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages; the restored Node product name is excluded by the counter. The broader language audit continues.
-- Validation: 84 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite upload, SMTP, diagnostic and color labels. Restore Node and preserve
+  protocol/configuration identifiers and action meanings.
+- Add source-token, identifier and action regression checks. Technical
+  terminology remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages; the restored Node
+  product name is excluded by the counter. The broader language audit continues.
+- Validation: 84 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2691,10 +2962,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6d2be5215acd890299a01bb28092a690e8858864">Correct 28 damaged or mixed-language Akan import and invitation messages.</a></summary>
 
-- Restore OpenProject import names and endpoint; rewrite invitation, archive, shortcut and card-control text. Preserve tokens and action meanings.
-- Add source-token, endpoint and behavior regression checks. Wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 83 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Restore OpenProject import names and endpoint; rewrite invitation, archive,
+  shortcut and card-control text. Preserve tokens and action meanings.
+- Add source-token, endpoint and behavior regression checks. Wording remains low
+  confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 83 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2703,10 +2978,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ed00230a897e77e04e4343a6ebb25399ee2c78ac">Correct 25 damaged or mixed-language Akan archive and color labels.</a></summary>
 
-- Align archive and color terminology and rewrite card-control text. Preserve archive targets, confirmations and activity placeholders.
-- Add source-token, target and terminology regression checks. Wording remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 82 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Align archive and color terminology and rewrite card-control text. Preserve
+  archive targets, confirmations and activity placeholders.
+- Add source-token, target and terminology regression checks. Wording remains
+  low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 82 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2715,10 +2994,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/efb8ce783757d658c7e84234244917ec9c80dd36">Correct 21 mixed-language Akan setting and action labels.</a></summary>
 
-- Rewrite selection, color, rule, memory and repair labels. Preserve WIP alternatives, current/relative dates, activity placeholders and empty-field matching.
-- Add source-token and behavior-wording checks. Technical terminology remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace mixed-language values. The broader language audit continues.
-- Validation: 81 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite selection, color, rule, memory and repair labels. Preserve WIP
+  alternatives, current/relative dates, activity placeholders and empty-field
+  matching.
+- Add source-token and behavior-wording checks. Technical terminology remains
+  low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  mixed-language values. The broader language audit continues.
+- Validation: 81 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2727,10 +3011,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b3ea485bcfcf19a6f153614a17d4b286d6ed8724">Correct 23 mixed-language or misleading Akan board and account messages.</a></summary>
 
-- Rewrite board controls, account emails and file-repair text. Correct invitation status; preserve placeholders and opposite star/unstar actions.
-- Add source-token, email and action regression checks. Technical terminology remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
-- Validation: 80 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite board controls, account emails and file-repair text. Correct
+  invitation status; preserve placeholders and opposite star/unstar actions.
+- Add source-token, email and action regression checks. Technical terminology
+  remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  non-English values. The broader language audit continues.
+- Validation: 80 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2739,10 +3027,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/13631ec0ceebb203a5bf8dc31210ba57ecc4f36f">Correct 20 mixed-language Akan storage and administration messages.</a></summary>
 
-- Rewrite storage guidance and administration controls. Restore repair identifiers; preserve provider names, configuration alternatives and all-item scope.
-- Add source-token, identifier and scope regression checks. Technical terminology remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace mixed-language values. The broader language audit continues.
-- Validation: 79 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite storage guidance and administration controls. Restore repair
+  identifiers; preserve provider names, configuration alternatives and all-item
+  scope.
+- Add source-token, identifier and scope regression checks. Technical
+  terminology remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  mixed-language values. The broader language audit continues.
+- Validation: 79 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2751,10 +3044,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/052f48895e87ce2d18d02544e09c06351b6ff374">Correct 24 mixed-language Akan file and memory labels.</a></summary>
 
-- Rewrite file, attachment-migration and memory labels. Restore Node and Meteor-Files names; preserve migration destinations, board scope and checklist order.
-- Add source-token, product-name and scope/metric regression checks. Memory terminology remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages; restored product names are excluded by the counter. The broader language audit continues.
-- Validation: 78 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite file, attachment-migration and memory labels. Restore Node and
+  Meteor-Files names; preserve migration destinations, board scope and checklist
+  order.
+- Add source-token, product-name and scope/metric regression checks. Memory
+  terminology remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages; restored product names
+  are excluded by the counter. The broader language audit continues.
+- Validation: 78 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2763,10 +3061,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/69a2b5fe309c61e686ec0e14a4007f1b7d5450fe">Correct 23 mixed-language Akan rule and search messages.</a></summary>
 
-- Rewrite rule, administration and search text. Preserve query operators/examples, opposite check/uncheck actions and archived/unarchived scope.
-- Add source-token, query-syntax and action regression checks. Technical terminology remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace mixed-language values. The broader language audit continues.
-- Validation: 77 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite rule, administration and search text. Preserve query
+  operators/examples, opposite check/uncheck actions and archived/unarchived
+  scope.
+- Add source-token, query-syntax and action regression checks. Technical
+  terminology remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  mixed-language values. The broader language audit continues.
+- Validation: 77 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2775,10 +3078,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0dec93d704ec61ef15e125ea91e0f9a4c4c5badd">Correct 28 mixed-language Akan card and import controls.</a></summary>
 
-- Rewrite card, selection, text and import messages. Preserve sample JSON keys and selection scope; align navigation instructions with menu labels.
-- Add source-token, parsed-JSON and navigation/control checks. Technical terminology remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace mixed-language values. The broader language audit continues.
-- Validation: 76 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite card, selection, text and import messages. Preserve sample JSON keys
+  and selection scope; align navigation instructions with menu labels.
+- Add source-token, parsed-JSON and navigation/control checks. Technical
+  terminology remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  mixed-language values. The broader language audit continues.
+- Validation: 76 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2787,10 +3094,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/303f5a5c49a772acd2051fa43d71ae1758eb2dfa">Correct 29 mixed-language Akan controls and storage messages.</a></summary>
 
-- Rewrite card actions, upload/storage controls and credential guidance. Restore Azure and Google Cloud menu labels; preserve units and blank-to-retain behavior.
-- Add source-token and control/navigation regression checks. Technical terminology remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace mixed-language values. The broader language audit continues.
-- Validation: 75 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite card actions, upload/storage controls and credential guidance. Restore
+  Azure and Google Cloud menu labels; preserve units and blank-to-retain
+  behavior.
+- Add source-token and control/navigation regression checks. Technical
+  terminology remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  mixed-language values. The broader language audit continues.
+- Validation: 75 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2799,10 +3111,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/102c8ad390cce1439d193b503db7e2d0c3f8f08c">Correct 30 mixed-language Akan migration and deletion messages.</a></summary>
 
-- Rewrite storage/migration outcomes, deletion confirmations, account enrollment and card membership/date text. Preserve email tokens, millisecond limits and permanent deletion semantics.
-- Add source-token and confirmation/outcome regression checks. Technical terminology remains low confidence pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace mixed-language values. The broader language audit continues.
-- Validation: 74 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite storage/migration outcomes, deletion confirmations, account enrollment
+  and card membership/date text. Preserve email tokens, millisecond limits and
+  permanent deletion semantics.
+- Add source-token and confirmation/outcome regression checks. Technical
+  terminology remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  mixed-language values. The broader language audit continues.
+- Validation: 74 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2811,10 +3128,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/42da9d05ba08ca911ed7a976ef5aaab776d39d54">Correct 22 mixed-language Akan input and scheduled-job messages.</a></summary>
 
-- Rewrite default-board, search, upload, storage, lockout and scheduled-job messages. Preserve positive limits, domain syntax and distinct failed operations.
-- Add source-token and input/operation regression checks. Technical terminology remains provisional pending fluent-speaker review.
-- English placeholders remain 45,599 across 70 languages because these replace mixed-language values. The broader language audit continues.
-- Validation: 73 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite default-board, search, upload, storage, lockout and scheduled-job
+  messages. Preserve positive limits, domain syntax and distinct failed
+  operations.
+- Add source-token and input/operation regression checks. Technical terminology
+  remains provisional pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace
+  mixed-language values. The broader language audit continues.
+- Validation: 73 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2823,10 +3145,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/771cf10c53869b48fb58fe5f66eef382b6e29d33">Correct 22 mixed-language Akan display and selection messages.</a></summary>
 
-- Rewrite board-selection, home-board, width/keyboard toggle, fading and input-error messages. Preserve current states and opposite click actions.
-- Add source-token, state/action, selection, tier and numeric-example checks. Display terminology remains provisional.
-- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
-- Validation: 72 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite board-selection, home-board, width/keyboard toggle, fading and
+  input-error messages. Preserve current states and opposite click actions.
+- Add source-token, state/action, selection, tier and numeric-example checks.
+  Display terminology remains provisional.
+- English placeholders remain 45,599 across 70 languages because these
+  corrections replace mixed-language values. The broader language audit
+  continues.
+- Validation: 72 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2835,10 +3162,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/339a425511eceecd553afdaf1ad8fa0bbce99b7d">Correct 40 Akan activity and report values containing embedded filler.</a></summary>
 
-- A substring audit found generic filler embedded in 40 further values. Rewrite activity, email-template, rule-date, flow-report and time-adjustment messages; the phrase now occurs nowhere in Akan.
-- Add source-token, simulation-limit, percentile, overlap and date-fallback checks. Statistical and forecasting wording remains low confidence.
-- English placeholders remain 45,599 across 70 languages because these corrections replace non-English values. The broader language audit continues.
-- Validation: 71 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- A substring audit found generic filler embedded in 40 further values. Rewrite
+  activity, email-template, rule-date, flow-report and time-adjustment messages;
+  the phrase now occurs nowhere in Akan.
+- Add source-token, simulation-limit, percentile, overlap and date-fallback
+  checks. Statistical and forecasting wording remains low confidence.
+- English placeholders remain 45,599 across 70 languages because these
+  corrections replace non-English values. The broader language audit continues.
+- Validation: 71 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2847,10 +3179,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fdee0c6fb3ad4a91091f2bd612ae4fbf0ba018d0">Correct 20 mixed-language Akan account and repair-result messages.</a></summary>
 
-- Rewrite account errors, partial repair results, import controls and flow-history labels. Preserve count placeholders, file extensions and card-number query syntax.
-- Add source-token, partial-outcome, scope and exact-example checks. Flow-history and repair wording remains provisional.
-- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
-- Validation: 70 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite account errors, partial repair results, import controls and
+  flow-history labels. Preserve count placeholders, file extensions and
+  card-number query syntax.
+- Add source-token, partial-outcome, scope and exact-example checks.
+  Flow-history and repair wording remains provisional.
+- English placeholders remain 45,599 across 70 languages because these
+  corrections replace mixed-language values. The broader language audit
+  continues.
+- Validation: 70 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2859,10 +3197,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/72333e3bd233207371a51ecf628a855997a389c4">Correct 16 mixed-language Akan backup and migration messages.</a></summary>
 
-- Rewrite transfer/anonymization labels and backup/migration descriptions. Preserve organization ownership, excluded data and duplicate-list deletion conditions.
-- Add source-token, scope, identifier and background-continuation checks. Specialized backup and migration wording remains provisional.
-- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
-- Validation: 69 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite transfer/anonymization labels and backup/migration descriptions.
+  Preserve organization ownership, excluded data and duplicate-list deletion
+  conditions.
+- Add source-token, scope, identifier and background-continuation checks.
+  Specialized backup and migration wording remains provisional.
+- English placeholders remain 45,599 across 70 languages because these
+  corrections replace mixed-language values. The broader language audit
+  continues.
+- Validation: 69 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2871,10 +3215,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/53b178bb16236aa0e1e74dba03ff1de07112ac9e">Correct 14 mixed-language Akan account and card-loading messages.</a></summary>
 
-- Rewrite lockout states, account controls, storage paths, cron notices and card-loading guidance. Preserve configuration literals and experimental view limitations.
-- Add source-token, opposite-action, scope and configuration checks. Specialized account/loading wording remains provisional.
-- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
-- Validation: 68 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite lockout states, account controls, storage paths, cron notices and
+  card-loading guidance. Preserve configuration literals and experimental view
+  limitations.
+- Add source-token, opposite-action, scope and configuration checks. Specialized
+  account/loading wording remains provisional.
+- English placeholders remain 45,599 across 70 languages because these
+  corrections replace mixed-language values. The broader language audit
+  continues.
+- Validation: 68 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2883,10 +3233,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b79ac288c2b3898b4951cd2fe8cc0ad80d5b0e7c">Correct 14 mixed-language Akan storage and support messages.</a></summary>
 
-- Rewrite attachment repair, storage defaults, compaction, PDF support and account protection descriptions. Preserve the English source's ordering, exceptions and access restrictions.
-- Add source-token, operational-scope and identifier checks. Specialized storage wording remains provisional.
-- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
-- Validation: 67 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite attachment repair, storage defaults, compaction, PDF support and
+  account protection descriptions. Preserve the English source's ordering,
+  exceptions and access restrictions.
+- Add source-token, operational-scope and identifier checks. Specialized storage
+  wording remains provisional.
+- English placeholders remain 45,599 across 70 languages because these
+  corrections replace mixed-language values. The broader language audit
+  continues.
+- Validation: 67 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2895,10 +3251,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c174c06c9263db5087029853cea831c4a189e565">Correct 18 mixed-language Akan diagnostic and report messages.</a></summary>
 
-- Rewrite diagnostic, reporting, creator and membership messages. Preserve log commands, API settings, report scope and nonempty-group deletion guards.
-- Add source-token, command, newline, identifier and restriction checks. Specialized API and recovery wording remains provisional.
-- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
-- Validation: 66 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite diagnostic, reporting, creator and membership messages. Preserve log
+  commands, API settings, report scope and nonempty-group deletion guards.
+- Add source-token, command, newline, identifier and restriction checks.
+  Specialized API and recovery wording remains provisional.
+- English placeholders remain 45,599 across 70 languages because these
+  corrections replace mixed-language values. The broader language audit
+  continues.
+- Validation: 66 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2907,10 +3268,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8b9845e4dbf85355969406ca2705772108644a41">Correct 16 mixed-language Akan search-help messages.</a></summary>
 
-- Rewrite operator, membership, date, existence, sorting and limit descriptions. Preserve source placeholders, inline-code examples and angle-bracket parameters.
-- Add exact-syntax and filtering-semantics checks. Search wording remains provisional.
-- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
-- Validation: 65 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite operator, membership, date, existence, sorting and limit descriptions.
+  Preserve source placeholders, inline-code examples and angle-bracket
+  parameters.
+- Add exact-syntax and filtering-semantics checks. Search wording remains
+  provisional.
+- English placeholders remain 45,599 across 70 languages because these
+  corrections replace mixed-language values. The broader language audit
+  continues.
+- Validation: 65 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2919,10 +3286,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a97cdfd445f9fd6419ba2212968505ae479c3029">Correct 30 mixed-language Akan rule and reminder messages.</a></summary>
 
-- Rewrite rule imports, due reminders, deletion confirmations and search/template scope. Preserve technical names, placeholders and count-prefix spacing.
-- Add source-token, opposite-state, formatting and permission checks. Rule fragments and template terminology remains provisional.
-- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
-- Validation: 64 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite rule imports, due reminders, deletion confirmations and
+  search/template scope. Preserve technical names, placeholders and count-prefix
+  spacing.
+- Add source-token, opposite-state, formatting and permission checks. Rule
+  fragments and template terminology remains provisional.
+- English placeholders remain 45,599 across 70 languages because these
+  corrections replace mixed-language values. The broader language audit
+  continues.
+- Validation: 64 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2931,10 +3304,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8f254da4ecf94dc51aeff962e93ae4748c130705">Correct 24 mixed-language Akan invitation and membership messages.</a></summary>
 
-- Rewrite Trello controls, membership guidance, invitation email and limits. Preserve administrator scope and separate WeKan/Sandstorm access behavior.
-- Add source-token, email-formatting, permission, retention and API-cap checks. Specialized membership and storage wording remains provisional.
-- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
-- Validation: 63 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite Trello controls, membership guidance, invitation email and limits.
+  Preserve administrator scope and separate WeKan/Sandstorm access behavior.
+- Add source-token, email-formatting, permission, retention and API-cap checks.
+  Specialized membership and storage wording remains provisional.
+- English placeholders remain 45,599 across 70 languages because these
+  corrections replace mixed-language values. The broader language audit
+  continues.
+- Validation: 63 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2943,10 +3321,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/367a9b204165cd7c20af5f568b3ff5ef7e748270">Correct 24 mixed-language Akan filter and import messages.</a></summary>
 
-- Rewrite filter, export and import guidance. Restore JSON field names, API paths, spreadsheet headers, Trello product names and advanced-filter examples.
-- Add source-token, exact-example, escape and ZIP-error checks. Technical filter and import wording remains provisional.
-- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
-- Validation: 62 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite filter, export and import guidance. Restore JSON field names, API
+  paths, spreadsheet headers, Trello product names and advanced-filter examples.
+- Add source-token, exact-example, escape and ZIP-error checks. Technical filter
+  and import wording remains provisional.
+- English placeholders remain 45,599 across 70 languages because these
+  corrections replace mixed-language values. The broader language audit
+  continues.
+- Validation: 62 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2955,10 +3338,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5cc289611b9bdfbf8b842d53efb8677637fbb7d1">Correct 24 mixed-language Akan permission and error messages.</a></summary>
 
-- Rewrite access descriptions, account errors and export labels. Preserve assigned-only visibility, read-only restrictions and the distinction between enabling deletion and deleting data.
-- Add source-token, restriction, disabled/missing-account and format-identifier checks. Role and soft-deletion wording remains provisional.
-- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
-- Validation: 61 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite access descriptions, account errors and export labels. Preserve
+  assigned-only visibility, read-only restrictions and the distinction between
+  enabling deletion and deleting data.
+- Add source-token, restriction, disabled/missing-account and format-identifier
+  checks. Role and soft-deletion wording remains provisional.
+- English placeholders remain 45,599 across 70 languages because these
+  corrections replace mixed-language values. The broader language audit
+  continues.
+- Validation: 61 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2967,10 +3356,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1bacb18aaa60a467fcce3aa05811ebc6dbe5a1ca">Correct 24 mixed-language Akan import and archive messages.</a></summary>
 
-- Rewrite activity logs, width notes, archive guidance and member mapping. Correct an anonymization title that referred to importing users.
-- Add source-token, target, restoration, size-limit and permission checks. Mapping and administrative wording remains provisional.
-- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
-- Validation: 60 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite activity logs, width notes, archive guidance and member mapping.
+  Correct an anonymization title that referred to importing users.
+- Add source-token, target, restoration, size-limit and permission checks.
+  Mapping and administrative wording remains provisional.
+- English placeholders remain 45,599 across 70 languages because these
+  corrections replace mixed-language values. The broader language audit
+  continues.
+- Validation: 60 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2979,10 +3373,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e47100c4b214416e744db89d9f027661c8420419">Correct 12 mixed-language Akan migration and diagnostic messages.</a></summary>
 
-- Rewrite migration confirmations, CPU limits, background-execution notices, username length and S3 key guidance. Preserve scope restrictions, identifiers and quoted errors.
-- Add source-token, scope, numeric-limit and literal-example checks. Migration wording remains provisional.
-- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
-- Validation: 59 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite migration confirmations, CPU limits, background-execution notices,
+  username length and S3 key guidance. Preserve scope restrictions, identifiers
+  and quoted errors.
+- Add source-token, scope, numeric-limit and literal-example checks. Migration
+  wording remains provisional.
+- English placeholders remain 45,599 across 70 languages because these
+  corrections replace mixed-language values. The broader language audit
+  continues.
+- Validation: 59 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2991,10 +3391,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ab532cc15119fe6236e0f563df12c407512e5c9f">Correct 12 mixed-language Akan display and data-control descriptions.</a></summary>
 
-- Rewrite display, import/export, avatar, anonymization and notification settings. Restore product names and preserve literal markup and anonymization examples.
-- Add source-token, default, feature-scope and example checks. Privacy and rich-text wording remains provisional.
-- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
-- Validation: 58 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite display, import/export, avatar, anonymization and notification
+  settings. Restore product names and preserve literal markup and anonymization
+  examples.
+- Add source-token, default, feature-scope and example checks. Privacy and
+  rich-text wording remains provisional.
+- English placeholders remain 45,599 across 70 languages because these
+  corrections replace mixed-language values. The broader language audit
+  continues.
+- Validation: 58 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3003,10 +3409,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d05730226a68fbbd392787649e1dedeb1f05c931">Correct 15 mixed-language Akan search and migration descriptions.</a></summary>
 
-- Rewrite keyboard, permissions, search and database-migration guidance. Restore damaged Sandstorm names and filesystem paths while preserving commands and URLs.
-- Add source-token, inline-code, shortcut, configuration and deletion checks. Specialized migration and administration wording remains provisional.
-- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
-- Validation: 57 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite keyboard, permissions, search and database-migration guidance. Restore
+  damaged Sandstorm names and filesystem paths while preserving commands and
+  URLs.
+- Add source-token, inline-code, shortcut, configuration and deletion checks.
+  Specialized migration and administration wording remains provisional.
+- English placeholders remain 45,599 across 70 languages because these
+  corrections replace mixed-language values. The broader language audit
+  continues.
+- Validation: 57 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3015,10 +3427,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/291c84d5b104be12fbb490ab9984403f4e0cf070">Correct 24 mixed-language Akan configuration and rule messages.</a></summary>
 
-- Rewrite avatar/auth settings, domain help, deletion confirmations, rule triggers and a due-date activity. Restore a damaged example hostname while preserving configuration identifiers.
-- Add source-token, literal-identifier, deletion-condition and newline checks. Rule fragments and authentication/tenant wording remain provisional.
-- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
-- Validation: 56 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite avatar/auth settings, domain help, deletion confirmations, rule
+  triggers and a due-date activity. Restore a damaged example hostname while
+  preserving configuration identifiers.
+- Add source-token, literal-identifier, deletion-condition and newline checks.
+  Rule fragments and authentication/tenant wording remain provisional.
+- English placeholders remain 45,599 across 70 languages because these
+  corrections replace mixed-language values. The broader language audit
+  continues.
+- Validation: 56 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3027,10 +3445,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/857961d5d1e81302e42877c9f6f30e96cb64d6d9">Correct 32 mixed-language Akan board warnings and notifications.</a></summary>
 
-- Rewrite deletion, archiving, privacy, import and notification messages containing English clauses and malformed substitutions. Match current board-restore guidance.
-- Add source-token, HTML, deletion-consequence, permission and notification checks. Administrative wording and menu references remain provisional.
-- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
-- Validation: 55 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Rewrite deletion, archiving, privacy, import and notification messages
+  containing English clauses and malformed substitutions. Match current
+  board-restore guidance.
+- Add source-token, HTML, deletion-consequence, permission and notification
+  checks. Administrative wording and menu references remain provisional.
+- English placeholders remain 45,599 across 70 languages because these
+  corrections replace mixed-language values. The broader language audit
+  continues.
+- Validation: 55 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3039,10 +3463,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f1a2ccfcc0d91b4c601b675b03317d7079965b55">Correct the remaining 99 exact generic-filler values in Akan.</a></summary>
 
-- Replace generic filler in migration controls, schedules, login, diagnostics and flow labels. Preserve interval numbers, units and technical identifiers.
-- Add a catalog-wide check against the repeated filler phrase, plus placeholder, interval and state checks. Specialized wording remains provisional; other mixed-language and semantic issues still need review.
-- The exact generic-filler inventory decreases from 99 to zero. English placeholders remain 45,599 across 70 languages because these corrections replace non-English values.
-- Validation: 54 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Replace generic filler in migration controls, schedules, login, diagnostics
+  and flow labels. Preserve interval numbers, units and technical identifiers.
+- Add a catalog-wide check against the repeated filler phrase, plus placeholder,
+  interval and state checks. Specialized wording remains provisional; other
+  mixed-language and semantic issues still need review.
+- The exact generic-filler inventory decreases from 99 to zero. English
+  placeholders remain 45,599 across 70 languages because these corrections
+  replace non-English values.
+- Validation: 54 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3051,10 +3481,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7bb67bc8a9aa736cdd8c5ecc23d22b408d0216ef">Correct 60 Akan cloud-storage, backup and migration translations.</a></summary>
 
-- Replace generic filler in cloud credentials, backups, migrations and connection tests. Preserve product names, region examples and replacement scope.
-- Add token, identifier, lifecycle and shared-label checks. Specialized storage and migration wording remains provisional.
-- The exact generic-filler inventory decreases from 159 to 99. English placeholders remain 45,599 across 70 languages because these corrections replace non-English values.
-- Validation: 53 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Replace generic filler in cloud credentials, backups, migrations and
+  connection tests. Preserve product names, region examples and replacement
+  scope.
+- Add token, identifier, lifecycle and shared-label checks. Specialized storage
+  and migration wording remains provisional.
+- The exact generic-filler inventory decreases from 159 to 99. English
+  placeholders remain 45,599 across 70 languages because these corrections
+  replace non-English values.
+- Validation: 53 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3063,10 +3499,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d254baf5a1d07cc9b586ba000b73e659b26fedb7">Correct 60 Akan attachment, storage and account-control translations.</a></summary>
 
-- Replace generic filler in tickets, attachment moves, storage diagnostics, accessibility and account lockouts. Restore storage provider names and preserve identifiers and second units.
-- Add token, identifier, unit, paired-control and shared-label checks. Specialized compaction, migration and accessibility wording remains provisional.
-- The exact generic-filler inventory decreases from 219 to 159. English placeholders remain 45,599 across 70 languages because these corrections replace non-English values.
-- Validation: 52 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Replace generic filler in tickets, attachment moves, storage diagnostics,
+  accessibility and account lockouts. Restore storage provider names and
+  preserve identifiers and second units.
+- Add token, identifier, unit, paired-control and shared-label checks.
+  Specialized compaction, migration and accessibility wording remains
+  provisional.
+- The exact generic-filler inventory decreases from 219 to 159. English
+  placeholders remain 45,599 across 70 languages because these corrections
+  replace non-English values.
+- Validation: 52 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3075,10 +3518,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/088a3f1ef7f84bb16c704d85ce9ffa6d4de44b8a">Correct 60 Akan dependency, location and report labels.</a></summary>
 
-- Replace generic filler in navigation, completion, dependency relations, locations, reports and wait indicators. Restore Arial and API identifiers.
-- Add token, inverse-relation, first/last, identifier and shared-label checks. Geographic, dependency and animation wording remains provisional.
-- The exact generic-filler inventory decreases from 279 to 219. English placeholders remain 45,599 across 70 languages because these corrections replace non-English values.
-- Validation: 51 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Replace generic filler in navigation, completion, dependency relations,
+  locations, reports and wait indicators. Restore Arial and API identifiers.
+- Add token, inverse-relation, first/last, identifier and shared-label checks.
+  Geographic, dependency and animation wording remains provisional.
+- The exact generic-filler inventory decreases from 279 to 219. English
+  placeholders remain 45,599 across 70 languages because these corrections
+  replace non-English values.
+- Validation: 51 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3087,10 +3535,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/91f7a5eba0e68e9e88cfb985a0f1793c1539bc53">Correct 49 Akan search operators, predicates and errors.</a></summary>
 
-- Replace 34 generic fillers and 15 mixed-language or unusable search values. Restore short aliases and make translated title/attachment operators usable by the parser.
-- Add actual parser checks for quoted values, existence filters, invalid limits, dates and sort direction, plus placeholder coverage. Compound search terminology remains low confidence.
-- The exact generic-filler inventory decreases from 313 to 279. English placeholders remain 45,599 across 70 languages because these corrections replace non-English values.
-- Validation: 50 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Replace 34 generic fillers and 15 mixed-language or unusable search values.
+  Restore short aliases and make translated title/attachment operators usable by
+  the parser.
+- Add actual parser checks for quoted values, existence filters, invalid limits,
+  dates and sort direction, plus placeholder coverage. Compound search
+  terminology remains low confidence.
+- The exact generic-filler inventory decreases from 313 to 279. English
+  placeholders remain 45,599 across 70 languages because these corrections
+  replace non-English values.
+- Validation: 50 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3099,10 +3554,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d53166480fb1438e51c74d89240d207e00bac579">Correct 43 Akan calendar and settings translations.</a></summary>
 
-- Replace generic filler in date fields, weekdays, roles, read states and custom head settings. Restore protocol names and the context separator.
-- Add token, weekday, shared-label, state and technical-identifier checks. Role, domain and manifest wording remains provisional.
-- The exact generic-filler inventory decreases from 356 to 313. English placeholders remain 45,599 across 70 languages because these corrections replace non-English values.
-- Validation: 48 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Replace generic filler in date fields, weekdays, roles, read states and custom
+  head settings. Restore protocol names and the context separator.
+- Add token, weekday, shared-label, state and technical-identifier checks. Role,
+  domain and manifest wording remains provisional.
+- The exact generic-filler inventory decreases from 356 to 313. English
+  placeholders remain 45,599 across 70 languages because these corrections
+  replace non-English values.
+- Validation: 48 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3111,10 +3571,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c2d88822cb61d65d27cdfe3495d1f3c4d3b86dd6">Correct 60 Akan rule-schedule and action translations.</a></summary>
 
-- Replace generic filler in schedules, due-date conditions, checklist actions and email fields. Preserve time units, Monday–Friday scope and opposite controls.
-- Add source-token, cadence, shared-label and paired-action checks. Short rule fragments remain provisional pending contextual UI review.
-- The exact generic-filler inventory decreases from 416 to 356. English placeholders remain 45,599 across 70 languages because these corrections replace non-English values.
-- Validation: 47 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Replace generic filler in schedules, due-date conditions, checklist actions
+  and email fields. Preserve time units, Monday–Friday scope and opposite
+  controls.
+- Add source-token, cadence, shared-label and paired-action checks. Short rule
+  fragments remain provisional pending contextual UI review.
+- The exact generic-filler inventory decreases from 416 to 356. English
+  placeholders remain 45,599 across 70 languages because these corrections
+  replace non-English values.
+- Validation: 47 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3123,10 +3589,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/183ba557914a7d43cb22f7c7bd0f50cf1224bceb">Correct 60 Akan administration and diagnostic translations.</a></summary>
 
-- Replace generic filler in registration, file limits, webhooks, diagnostics and dates. Restore file-size units and preserve service and reactivity identifiers.
-- Add token, mode, technical-name, date and shared-label checks. System, package and version terminology remains provisional and needs contextual review.
-- The exact generic-filler inventory decreases from 476 to 416. English placeholders remain 45,599 across 70 languages because these corrections replace non-English values.
-- Validation: 46 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Replace generic filler in registration, file limits, webhooks, diagnostics and
+  dates. Restore file-size units and preserve service and reactivity
+  identifiers.
+- Add token, mode, technical-name, date and shared-label checks. System, package
+  and version terminology remains provisional and needs contextual review.
+- The exact generic-filler inventory decreases from 476 to 416. English
+  placeholders remain 45,599 across 70 languages because these corrections
+  replace non-English values.
+- Validation: 46 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3135,10 +3607,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d4ab5c8ad12f2f4efabcb40f4aab1841042489f1">Correct 60 Akan color, field and account-control translations.</a></summary>
 
-- Replace unrelated generic filler in colors, custom fields, login, subscriptions and time tracking. Restore the intentionally empty comment placeholder and literal list abbreviations.
-- Check source tokens, empty/literal values, count and hour units and distinct controls. Uncommon color shades, version and WIP terminology remains provisional.
-- The exact generic-filler inventory decreases from 536 to 476. English placeholders remain 45,599 across 70 languages because these corrections replace non-English values.
-- Validation: 45 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Replace unrelated generic filler in colors, custom fields, login,
+  subscriptions and time tracking. Restore the intentionally empty comment
+  placeholder and literal list abbreviations.
+- Check source tokens, empty/literal values, count and hour units and distinct
+  controls. Uncommon color shades, version and WIP terminology remains
+  provisional.
+- The exact generic-filler inventory decreases from 536 to 476. English
+  placeholders remain 45,599 across 70 languages because these corrections
+  replace non-English values.
+- Validation: 45 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3147,10 +3626,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/51ba1fa1039f1aeebb61a4067d8936c780657ffb">Correct 60 Akan board, voting and display translations.</a></summary>
 
-- Replace unrelated generic filler with board, voting, typography and display labels. Restore numeric poker values and the question-mark choice exactly.
-- Add old-filler rejection, placeholder, vote-value, zoom-range and opposite-control checks. Specialized wording remains provisional and needs contextual review.
-- The audit found 596 occurrences of the same filler; 536 remain. The English-placeholder count stays at 45,599 across 70 languages because these corrections replace non-English values.
-- Validation: 44 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Replace unrelated generic filler with board, voting, typography and display
+  labels. Restore numeric poker values and the question-mark choice exactly.
+- Add old-filler rejection, placeholder, vote-value, zoom-range and
+  opposite-control checks. Specialized wording remains provisional and needs
+  contextual review.
+- The audit found 596 occurrences of the same filler; 536 remain. The
+  English-placeholder count stays at 45,599 across 70 languages because these
+  corrections replace non-English values.
+- Validation: 44 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3159,10 +3644,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/abdb3a92d7b19fc845900131836c9fc3fd2f7240">Translate 27 Akan notification-recovery messages.</a></summary>
 
-- Fill pending delivery, retries, pause/resume/cancel controls and rule-email recovery. Preserve retained work, no activity recreation and permanent cancellation behavior.
-- Add source-token, distinct-state and recovery checks. Recovery terminology remains provisional and needs contextual review.
-- English placeholders decrease from 45,626 to 45,599 across 70 languages, with 148 source keys tracked separately for wording review. Akan retains 29 keyboard, operating-system and mathematical labels in the exact-English report; its existing translations still need quality review.
-- Validation: 43 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill pending delivery, retries, pause/resume/cancel controls and rule-email
+  recovery. Preserve retained work, no activity recreation and permanent
+  cancellation behavior.
+- Add source-token, distinct-state and recovery checks. Recovery terminology
+  remains provisional and needs contextual review.
+- English placeholders decrease from 45,626 to 45,599 across 70 languages, with
+  148 source keys tracked separately for wording review. Akan retains 29
+  keyboard, operating-system and mathematical labels in the exact-English
+  report; its existing translations still need quality review.
+- Validation: 43 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3171,10 +3663,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/40f6eefbc44f5784bbd030c072a54ceb0ddf8823">Translate 29 Akan synchronization-report and email-failure messages.</a></summary>
 
-- Fill report history, diagnostics, Jira estimates and delivery failures. Preserve retention limits, distinct outcomes, hour units and missing-versus-null behavior.
-- Add token, limit, outcome and estimate checks. Diagnostics and authentication terminology remains provisional and needs contextual review.
-- English placeholders decrease from 45,655 to 45,626 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 42 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill report history, diagnostics, Jira estimates and delivery failures.
+  Preserve retention limits, distinct outcomes, hour units and
+  missing-versus-null behavior.
+- Add token, limit, outcome and estimate checks. Diagnostics and authentication
+  terminology remains provisional and needs contextual review.
+- English placeholders decrease from 45,655 to 45,626 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 42 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3183,10 +3680,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b47d76131183df8da9a9a2cd2c981bb6c94a948a">Translate 43 Akan synchronization conflict and preview messages.</a></summary>
 
-- Fill conflict choices, duplicate mapping removal, archive restrictions, replacement creation and preview omissions. Preserve local content, unchanged subcards, retries and display limits.
-- Add source-token, action, content-retention and limit checks. Synchronization and parser terminology remains provisional and needs contextual review.
-- English placeholders decrease from 45,698 to 45,655 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 41 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill conflict choices, duplicate mapping removal, archive restrictions,
+  replacement creation and preview omissions. Preserve local content, unchanged
+  subcards, retries and display limits.
+- Add source-token, action, content-retention and limit checks. Synchronization
+  and parser terminology remains provisional and needs contextual review.
+- English placeholders decrease from 45,698 to 45,655 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 41 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3195,10 +3697,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fcd7871303f7d6d27c9b0243af30d5256697c65f">Translate 40 Akan sprint-report and completion messages.</a></summary>
 
-- Fill remaining Scrum event, report, lifecycle, daily-observation and import-status messages. Preserve unknown-versus-zero estimates, partial data and separate close/cancel behavior.
-- Add placeholder, lifecycle, UTC observation, limit and shared-label checks. Reporting terminology remains low confidence and needs contextual review.
-- English placeholders decrease from 45,738 to 45,698 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 40 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill remaining Scrum event, report, lifecycle, daily-observation and
+  import-status messages. Preserve unknown-versus-zero estimates, partial data
+  and separate close/cancel behavior.
+- Add placeholder, lifecycle, UTC observation, limit and shared-label checks.
+  Reporting terminology remains low confidence and needs contextual review.
+- English placeholders decrease from 45,738 to 45,698 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 40 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3207,10 +3714,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/44a707acf5c5617b66990bc7065edc103eb14a81">Translate 54 Akan rule-editor and Scrum planning messages.</a></summary>
 
-- Fill rule-editor controls, Scrum roles, estimates, backlog and sprint planning. Correct the unrelated generic phrase previously used for the Rules label.
-- Add argument, permission, distinct-action, time-unit and shared-label checks. Scrum terminology remains provisional and needs contextual review.
-- English placeholders decrease from 45,792 to 45,738 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 39 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill rule-editor controls, Scrum roles, estimates, backlog and sprint
+  planning. Correct the unrelated generic phrase previously used for the Rules
+  label.
+- Add argument, permission, distinct-action, time-unit and shared-label checks.
+  Scrum terminology remains provisional and needs contextual review.
+- English placeholders decrease from 45,792 to 45,738 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 39 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3219,10 +3731,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7085c23c55ad4f1f32f0bb3e55b22880f0dc1947">Translate 42 Akan Blockly variable and workspace messages.</a></summary>
 
-- Fill variable operations and conflicts, workspace counts, search controls and remaining shared labels. Preserve arguments, shortcut names and count distinctions.
-- Add token, zero/one/many, fragment spacing, shortcut and shared-label checks. Technical terminology remains provisional and needs contextual review.
-- English placeholders decrease from 45,834 to 45,792 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 38 focused translation tests and 21 human-preference checks pass. Browser and spoken-accessibility checks were not run.
+- Fill variable operations and conflicts, workspace counts, search controls and
+  remaining shared labels. Preserve arguments, shortcut names and count
+  distinctions.
+- Add token, zero/one/many, fragment spacing, shortcut and shared-label checks.
+  Technical terminology remains provisional and needs contextual review.
+- English placeholders decrease from 45,834 to 45,792 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 38 focused translation tests and 21 human-preference checks pass.
+  Browser and spoken-accessibility checks were not run.
 
 Thanks to xet7 !
 
@@ -3231,10 +3748,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/aecde9ea7794abb325ebe7e657e333f29f4b6f94">Translate 55 Akan Blockly text-operation messages.</a></summary>
 
-- Fill text construction, character and substring access, searches, replacement, prompts and trimming. Preserve numbered arguments and first/last endpoints.
-- Add placeholder, absent-match, reverse-order, trim-side and input-type checks. Case and substring terminology remains provisional and needs contextual review.
-- English placeholders decrease from 45,889 to 45,834 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 37 focused translation tests and 21 human-preference checks pass. Browser and spoken-accessibility checks were not run.
+- Fill text construction, character and substring access, searches, replacement,
+  prompts and trimming. Preserve numbered arguments and first/last endpoints.
+- Add placeholder, absent-match, reverse-order, trim-side and input-type checks.
+  Case and substring terminology remains provisional and needs contextual
+  review.
+- English placeholders decrease from 45,889 to 45,834 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 37 focused translation tests and 21 human-preference checks pass.
+  Browser and spoken-accessibility checks were not run.
 
 Thanks to xet7 !
 
@@ -3243,10 +3765,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/dab652b0aed5cc5dc795430c25862b2f98b735ee">Translate 39 Akan Blockly navigation shortcuts.</a></summary>
 
-- Fill movement, scrolling, focus, stack and announcement shortcuts. Preserve directions and distinguish previous, next, first and last positions.
-- Add direction, opposite-action and placeholder checks. Accessibility terminology remains provisional and needs contextual review.
-- English placeholders decrease from 45,928 to 45,889 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 36 focused translation tests and 21 human-preference checks pass. Browser and spoken-accessibility checks were not run.
+- Fill movement, scrolling, focus, stack and announcement shortcuts. Preserve
+  directions and distinguish previous, next, first and last positions.
+- Add direction, opposite-action and placeholder checks. Accessibility
+  terminology remains provisional and needs contextual review.
+- English placeholders decrease from 45,928 to 45,889 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 36 focused translation tests and 21 human-preference checks pass.
+  Browser and spoken-accessibility checks were not run.
 
 Thanks to xet7 !
 
@@ -3255,10 +3781,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9f2a316369e7c79c7c2e2c1cacd72dd7e24310a6">Translate 31 Akan Blockly procedure and screen-reader messages.</a></summary>
 
-- Fill procedure, parent/backpack, rename and screen-reader controls. Preserve return values, function restrictions, numbered arguments and state transitions.
-- Extend return/no-return, rename-scope and on/off checks. Accessibility terminology remains provisional and needs contextual review.
-- English placeholders decrease from 45,959 to 45,928 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 35 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill procedure, parent/backpack, rename and screen-reader controls. Preserve
+  return values, function restrictions, numbered arguments and state
+  transitions.
+- Extend return/no-return, rename-scope and on/off checks. Accessibility
+  terminology remains provisional and needs contextual review.
+- English placeholders decrease from 45,959 to 45,928 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 35 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3267,10 +3798,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fe7da49ef80ca6b684c8d2b4e9e768ee8ee11a70">Translate 39 Akan Blockly unary-math and workspace messages.</a></summary>
 
-- Fill unary math, trigonometry, minimap and variable controls. Preserve logarithm bases, degree/radian distinctions and recognizable function names.
-- Extend base, inverse-function, angle-unit and control-state checks. Mathematical wording remains low confidence and needs contextual review.
-- English placeholders decrease from 45,998 to 45,959 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 34 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill unary math, trigonometry, minimap and variable controls. Preserve
+  logarithm bases, degree/radian distinctions and recognizable function names.
+- Extend base, inverse-function, angle-unit and control-state checks.
+  Mathematical wording remains low confidence and needs contextual review.
+- English placeholders decrease from 45,998 to 45,959 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 34 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3279,10 +3814,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cb52ef9928465793a63634624d53f700b7b84220">Translate 27 Akan Blockly statistics and random-value messages.</a></summary>
 
-- Fill list statistics, powers, random values and rounding messages. Preserve numbered arguments, endpoint inclusion and distinct operations.
-- Extend statistic, random-bound and rounding-direction checks. Mathematical terminology remains low confidence and needs contextual review.
-- English placeholders decrease from 46,025 to 45,998 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 33 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill list statistics, powers, random values and rounding messages. Preserve
+  numbered arguments, endpoint inclusion and distinct operations.
+- Extend statistic, random-bound and rounding-direction checks. Mathematical
+  terminology remains low confidence and needs contextual review.
+- English placeholders decrease from 46,025 to 45,998 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 33 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3291,10 +3830,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c931f9aed95e01425f59dee87ed216c5ac6e89cf">Translate 30 Akan Blockly arithmetic and number-property messages.</a></summary>
 
-- Fill arithmetic, constants, numeric bounds, parity, sign and remainder messages. Preserve mathematical notation, coordinate labels and numbered arguments.
-- Extend notation, inclusive-limit and numeric-property checks. Mathematical terminology remains low confidence and requires contextual review.
-- English placeholders decrease from 46,055 to 46,025 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 32 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill arithmetic, constants, numeric bounds, parity, sign and remainder
+  messages. Preserve mathematical notation, coordinate labels and numbered
+  arguments.
+- Extend notation, inclusive-limit and numeric-property checks. Mathematical
+  terminology remains low confidence and requires contextual review.
+- English placeholders decrease from 46,055 to 46,025 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 32 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3303,10 +3847,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d68f13d4a6c6e51fa6abfc5fa4db7c2d7a482655">Translate 47 Akan Blockly list-mutation and logic messages.</a></summary>
 
-- Fill insertion/replacement, sorting, split/join, comparison and conditional messages. Preserve arguments and distinguish operation and comparison boundaries.
-- Extend mutation, boolean-quantifier and conditional-label checks. Sorting and programming terminology remains provisional.
-- English placeholders decrease from 46,102 to 46,055 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 31 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill insertion/replacement, sorting, split/join, comparison and conditional
+  messages. Preserve arguments and distinguish operation and comparison
+  boundaries.
+- Extend mutation, boolean-quantifier and conditional-label checks. Sorting and
+  programming terminology remains provisional.
+- English placeholders decrease from 46,102 to 46,055 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 31 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3315,10 +3864,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/99a908163a25c94d1a1003fcaadba8a6aa3ed171">Translate 46 Akan Blockly list messages.</a></summary>
 
-- Fill list creation, retrieval/removal, sublists, search, length, repetition and reversal messages. Preserve numbered arguments, position markers and operation distinctions.
-- Extend return/remove, not-found and copy/reversal checks. List terminology remains provisional and needs contextual review.
-- English placeholders decrease from 46,148 to 46,102 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 30 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill list creation, retrieval/removal, sublists, search, length, repetition
+  and reversal messages. Preserve numbered arguments, position markers and
+  operation distinctions.
+- Extend return/remove, not-found and copy/reversal checks. List terminology
+  remains provisional and needs contextual review.
+- English placeholders decrease from 46,148 to 46,102 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 30 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3327,10 +3881,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5e1b2bd9fe327f057893f5ef57b5e545549f3160">Translate 58 Akan Blockly input and keyboard messages.</a></summary>
 
-- Fill condition, list, loop, numeric and text inputs plus keyboard guidance. Preserve numbered arguments, coordinate labels and distinct input roles.
-- Extend token, start/end, dividend/divisor and navigation checks. Technical wording remains provisional and needs contextual accessibility review.
-- English placeholders decrease from 46,206 to 46,148 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 29 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill condition, list, loop, numeric and text inputs plus keyboard guidance.
+  Preserve numbered arguments, coordinate labels and distinct input roles.
+- Extend token, start/end, dividend/divisor and navigation checks. Technical
+  wording remains provisional and needs contextual accessibility review.
+- English placeholders decrease from 46,206 to 46,148 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 29 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3339,10 +3897,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cbb638273b78ed7a327932b2326e40d90caf4598">Translate 39 Akan Blockly editing and field-control messages.</a></summary>
 
-- Fill copy/delete, backpack, bitmap, multiline and icon messages. Preserve numbered arguments, all-block scope and opposite control states.
-- Extend token, scope and open/close checks. Bitmap and multiline wording remains provisional and needs accessibility review.
-- English placeholders decrease from 46,245 to 46,206 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 28 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill copy/delete, backpack, bitmap, multiline and icon messages. Preserve
+  numbered arguments, all-block scope and opposite control states.
+- Extend token, scope and open/close checks. Bitmap and multiline wording
+  remains provisional and needs accessibility review.
+- English placeholders decrease from 46,245 to 46,206 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 28 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3351,10 +3913,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/541821bdf0f28a5419db8001319b3f5214e3dce1">Translate 44 Akan Blockly messages and correct three color labels.</a></summary>
 
-- Fill editing, color, loop and conditional messages. Replace unrelated filler text for red, green and blue with matching color names.
-- Extend token, numeric-bound, color and opposite-condition checks. Programming terminology remains provisional and needs contextual review.
-- English placeholders decrease from 46,289 to 46,245 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill editing, color, loop and conditional messages. Replace unrelated filler
+  text for red, green and blue with matching color names.
+- Extend token, numeric-bound, color and opposite-condition checks. Programming
+  terminology remains provisional and needs contextual review.
+- English placeholders decrease from 46,289 to 46,245 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3363,10 +3929,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/41797709b994230a14d3971c8803f11cb5f61fd0">Translate 16 Akan Blockly block and bubble labels.</a></summary>
 
-- Fill block states, branches, inputs, stack descriptions, categories and comment/warning bubbles. Preserve numbered arguments and singular/plural distinctions.
-- Register Akan in the shared block/bubble checks. Technical metaphors remain provisional and need accessibility review.
-- English placeholders decrease from 46,305 to 46,289 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 26 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill block states, branches, inputs, stack descriptions, categories and
+  comment/warning bubbles. Preserve numbered arguments and singular/plural
+  distinctions.
+- Register Akan in the shared block/bubble checks. Technical metaphors remain
+  provisional and need accessibility review.
+- English placeholders decrease from 46,305 to 46,289 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 26 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3375,10 +3946,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d212877d4b1a733ee522b43157334f232caf4a0a">Correct 15 Waray color and date-format labels.</a></summary>
 
-- Replace French/Walloon color names and date labels; restore the full ISO-week calendar description. Keep actual format codes with Waray component-order explanations.
-- Extend format-order, calendar and color-family checks. Fine color distinctions remain provisional and need visual language review.
-- English placeholders remain at 46,305 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 28 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Replace French/Walloon color names and date labels; restore the full ISO-week
+  calendar description. Keep actual format codes with Waray component-order
+  explanations.
+- Extend format-order, calendar and color-family checks. Fine color distinctions
+  remain provisional and need visual language review.
+- English placeholders remain at 46,305 across 70 languages, with 148 source
+  keys tracked separately for wording review.
+- Validation: 28 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3387,10 +3963,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e61c71a119bb50a08db495c26647b862b44a9a0d">Correct 38 Waray diagnostic and process-chart labels.</a></summary>
 
-- Replace foreign-language diagnostic, event, import and search labels. Restore distinct meanings for mean, confidence and moving range while preserving technical identifiers.
-- Extend shared-label, no-active-work and identifier checks. Statistical terminology remains provisional and requires technical-language review.
-- English placeholders remain at 46,305 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 28 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Replace foreign-language diagnostic, event, import and search labels. Restore
+  distinct meanings for mean, confidence and moving range while preserving
+  technical identifiers.
+- Extend shared-label, no-active-work and identifier checks. Statistical
+  terminology remains provisional and requires technical-language review.
+- English placeholders remain at 46,305 across 70 languages, with 148 source
+  keys tracked separately for wording review.
+- Validation: 28 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3399,10 +3980,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6669aecc6b6e4289cbe0dc3d2a25a61885f8f1dc">Correct 84 foreign-language Waray rule, account and storage labels.</a></summary>
 
-- Replace French, Walloon and mixed-language rule fragments, account/card views, diagnostic, recurrence and storage labels. Preserve error arguments, identifiers and AWS/Cc notation.
-- Extend shared-label, passwordless and reset/recurrence checks. Technical terminology remains provisional and further vocabulary review is open.
-- English placeholders remain at 46,305 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 28 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Replace French, Walloon and mixed-language rule fragments, account/card views,
+  diagnostic, recurrence and storage labels. Preserve error arguments,
+  identifiers and AWS/Cc notation.
+- Extend shared-label, passwordless and reset/recurrence checks. Technical
+  terminology remains provisional and further vocabulary review is open.
+- English placeholders remain at 46,305 across 70 languages, with 148 source
+  keys tracked separately for wording review.
+- Validation: 28 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3411,10 +3997,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7d4888c351fbeb55c669fbebd1cb8bdcba18579a">Correct 52 foreign-language Waray board-view and account labels.</a></summary>
 
-- Replace French and Walloon board views, font/theme controls, account labels, starred-item controls and work timers. Preserve zoom directions, unread-comment meaning and timer arguments.
-- Extend shared-label, direction and scope checks. Flow and milestone wording remains provisional, and further vocabulary review is open.
-- English placeholders remain at 46,305 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 28 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Replace French and Walloon board views, font/theme controls, account labels,
+  starred-item controls and work timers. Preserve zoom directions,
+  unread-comment meaning and timer arguments.
+- Extend shared-label, direction and scope checks. Flow and milestone wording
+  remains provisional, and further vocabulary review is open.
+- English placeholders remain at 46,305 across 70 languages, with 148 source
+  keys tracked separately for wording review.
+- Validation: 28 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3423,10 +4014,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c3d0a53fcbc05e5f2e397f3274dab41c1ec64025">Correct 41 foreign-language Waray chart and interface labels.</a></summary>
 
-- Replace French, Walloon and mixed-language chart, preview, rule, storage and authentication labels. Preserve the reactivity identifier and distinct reset/recur and work-remaining/completed meanings.
-- Extend shared-preview, operation and authentication-state checks. Broader vocabulary and contextual language review remains open.
-- English placeholders remain at 46,305 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 28 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Replace French, Walloon and mixed-language chart, preview, rule, storage and
+  authentication labels. Preserve the reactivity identifier and distinct
+  reset/recur and work-remaining/completed meanings.
+- Extend shared-preview, operation and authentication-state checks. Broader
+  vocabulary and contextual language review remains open.
+- English placeholders remain at 46,305 across 70 languages, with 148 source
+  keys tracked separately for wording review.
+- Validation: 28 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3435,10 +4031,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f9714a0d048254b771b01ee51f27b44e825019ed">Correct 42 foreign-language Waray search aliases.</a></summary>
 
-- Replace French and Walloon operator/predicate values with single-token Waray aliases. Preserve existing shorthand symbols and abbreviations.
-- Exercise the actual parser for translated text queries, positive/negative attachment existence, invalid predicates and modified dates. Compact query wording remains provisional.
-- English placeholders remain at 46,305 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 28 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+- Replace French and Walloon operator/predicate values with single-token Waray
+  aliases. Preserve existing shorthand symbols and abbreviations.
+- Exercise the actual parser for translated text queries, positive/negative
+  attachment existence, invalid predicates and modified dates. Compact query
+  wording remains provisional.
+- English placeholders remain at 46,305 across 70 languages, with 148 source
+  keys tracked separately for wording review.
+- Validation: 28 focused translation/parser tests and 21 human-preference checks
+  pass. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3447,10 +4048,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/60c0cd14851fd84910fe346fc568cf4e1f91fc45">Correct 21 foreign-language Waray synchronization and attachment labels.</a></summary>
 
-- Replace French and Walloon list-sync controls, credential states and attachment query terms. Preserve the 15-minute interval, failure argument and source identifiers.
-- Extend interval, shared-action, credential-state and single-word query checks. Further French search terms remain under review; credential terminology remains provisional.
-- English placeholders remain at 46,305 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Replace French and Walloon list-sync controls, credential states and
+  attachment query terms. Preserve the 15-minute interval, failure argument and
+  source identifiers.
+- Extend interval, shared-action, credential-state and single-word query checks.
+  Further French search terms remain under review; credential terminology
+  remains provisional.
+- English placeholders remain at 46,305 across 70 languages, with 148 source
+  keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3459,10 +4066,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9b89502663efcd1f0e3056e7620f4148718d41c7">Correct 44 foreign-language values in Waray controls and authentication.</a></summary>
 
-- Replace French, Walloon and mixed-language text in board controls, templates, loading indicators, authentication and forecasting. Preserve authentication requirements, forecast tokens and file extensions.
-- Extend shared-label and authentication checks. The broader vocabulary audit found values missed by the earlier exact-match comparison; further wrong-language review remains open.
-- English placeholders remain at 46,305 across 70 languages, with 148 source keys tracked separately for wording review. Technical terminology remains provisional.
-- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Replace French, Walloon and mixed-language text in board controls, templates,
+  loading indicators, authentication and forecasting. Preserve authentication
+  requirements, forecast tokens and file extensions.
+- Extend shared-label and authentication checks. The broader vocabulary audit
+  found values missed by the earlier exact-match comparison; further
+  wrong-language review remains open.
+- English placeholders remain at 46,305 across 70 languages, with 148 source
+  keys tracked separately for wording review. Technical terminology remains
+  provisional.
+- Validation: 27 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3471,10 +4085,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3ee6eedca242d1aa7650cb0ee649c65ccbd6ebf7">Translate 27 Waray activity-notification recovery messages.</a></summary>
 
-- Fill pending-delivery, retry and pause/resume/cancel messages. Preserve retained work, no activity recreation and cancellation limits.
-- Extend negative-behavior and distinct-action checks. Recovery terminology remains provisional and requires contextual review.
-- English placeholders decrease from 46,332 to 46,305 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill pending-delivery, retry and pause/resume/cancel messages. Preserve
+  retained work, no activity recreation and cancellation limits.
+- Extend negative-behavior and distinct-action checks. Recovery terminology
+  remains provisional and requires contextual review.
+- English placeholders decrease from 46,332 to 46,305 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3483,10 +4101,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e2225421b149dbb7368cd4adf6636d91af558092">Translate 29 Waray synchronization-report and email-failure messages.</a></summary>
 
-- Fill run history, recovery diagnostics, estimate mappings and email failure categories. Preserve retention periods, write-access requirements and missing-versus-null semantics.
-- Extend report-limit, field-count and temporary/permanent rejection checks. Diagnostic terminology remains provisional and requires contextual review.
-- English placeholders decrease from 46,361 to 46,332 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill run history, recovery diagnostics, estimate mappings and email failure
+  categories. Preserve retention periods, write-access requirements and
+  missing-versus-null semantics.
+- Extend report-limit, field-count and temporary/permanent rejection checks.
+  Diagnostic terminology remains provisional and requires contextual review.
+- English placeholders decrease from 46,361 to 46,332 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3495,10 +4118,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3d0cbfea577512c89d4e938112d9d99b3322483e">Translate 43 Waray synchronization conflict and preview messages.</a></summary>
 
-- Fill conflict choices, replacement-card, preview and source-field messages. Preserve local content, unchanged subcards, source-write restrictions and report limits.
-- Extend scope, replacement-reuse and shared-label checks. Mapping and parser terminology remains provisional and requires technical-language review.
-- English placeholders decrease from 46,404 to 46,361 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill conflict choices, replacement-card, preview and source-field messages.
+  Preserve local content, unchanged subcards, source-write restrictions and
+  report limits.
+- Extend scope, replacement-reuse and shared-label checks. Mapping and parser
+  terminology remains provisional and requires technical-language review.
+- English placeholders decrease from 46,404 to 46,361 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3507,10 +4135,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9b9c7ea815c65120a8ec7fe83d65f0d820b9a159">Translate 40 Waray Scrum report messages and correct the Export label.</a></summary>
 
-- Fill events, states, confirmations, reports and daily observations. Preserve count/reference tokens, UTC, unknown-estimate distinctions and separate export scopes.
-- Correct the wrong-language Export label and extend scope, state, unit and limit checks. Scrum terminology remains provisional and requires contextual review.
-- English placeholders decrease from 46,444 to 46,404 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill events, states, confirmations, reports and daily observations. Preserve
+  count/reference tokens, UTC, unknown-estimate distinctions and separate export
+  scopes.
+- Correct the wrong-language Export label and extend scope, state, unit and
+  limit checks. Scrum terminology remains provisional and requires contextual
+  review.
+- English placeholders decrease from 46,444 to 46,404 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3519,10 +4153,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3c6fa1d57cc3e66cbe4b0a7c2497a1c52627144f">Translate 54 Waray rule-editor and Scrum-planning messages.</a></summary>
 
-- Fill block-rule validation, conflict and permission messages alongside backlog, estimate and sprint-planning labels. Preserve workflow restrictions and distinct completion policies.
-- Extend permission, reload-before-save, sprint-action and shared-view-label checks. Scrum terminology remains provisional and requires contextual review.
-- English placeholders decrease from 46,498 to 46,444 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill block-rule validation, conflict and permission messages alongside
+  backlog, estimate and sprint-planning labels. Preserve workflow restrictions
+  and distinct completion policies.
+- Extend permission, reload-before-save, sprint-action and shared-view-label
+  checks. Scrum terminology remains provisional and requires contextual review.
+- English placeholders decrease from 46,498 to 46,444 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3531,10 +4170,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a721b3054bfc7f726c1c10dcb8e47dbd712ebc5b">Translate 44 Waray Blockly variable and workspace messages.</a></summary>
 
-- Fill variable-conflict, workspace-count, search and shared block labels. Preserve numbered arguments, keyboard shortcuts and spacing in combined announcements.
-- Extend fragment, search-direction and shared-label checks. Contextual language and accessibility review remains open.
-- English placeholders decrease from 46,542 to 46,498 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill variable-conflict, workspace-count, search and shared block labels.
+  Preserve numbered arguments, keyboard shortcuts and spacing in combined
+  announcements.
+- Extend fragment, search-direction and shared-label checks. Contextual language
+  and accessibility review remains open.
+- English placeholders decrease from 46,542 to 46,498 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3543,10 +4187,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/001706d6b70be41cbb474e9b1d4c0e724b2458d1">Translate 53 Waray Blockly text-operation messages.</a></summary>
 
-- Fill text-case, character, substring, search, replacement, prompting and trimming messages. Preserve numbered arguments, positions, copy semantics and whitespace behavior.
-- Extend not-found, replace-all and trimming checks. Title-case and substring wording remains provisional and needs contextual review.
-- English placeholders decrease from 46,595 to 46,542 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill text-case, character, substring, search, replacement, prompting and
+  trimming messages. Preserve numbered arguments, positions, copy semantics and
+  whitespace behavior.
+- Extend not-found, replace-all and trimming checks. Title-case and substring
+  wording remains provisional and needs contextual review.
+- English placeholders decrease from 46,595 to 46,542 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3555,10 +4204,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8e44e261b80927b869bdb6dfa6c4e9fa8794d4f8">Translate 42 Waray Blockly screen-reader and navigation messages.</a></summary>
 
-- Fill screen-reader, movement, scrolling, focus and editing shortcuts. Preserve numbered arguments, opposite directions and mode state transitions.
-- Extend direction and opposite-action checks. Accessibility terminology remains provisional and needs contextual review.
-- English placeholders decrease from 46,637 to 46,595 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill screen-reader, movement, scrolling, focus and editing shortcuts. Preserve
+  numbered arguments, opposite directions and mode state transitions.
+- Extend direction and opposite-action checks. Accessibility terminology remains
+  provisional and needs contextual review.
+- English placeholders decrease from 46,637 to 46,595 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3567,10 +4220,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3b4baa79cd0037627b7eb446b2d15f7602ddd3eb">Translate 51 Waray Blockly trigonometry and procedure messages.</a></summary>
 
-- Fill trigonometry, workspace, variable and function messages. Preserve numbered arguments, angle units, return-value distinctions and function restrictions.
-- Extend unit, function-scope and rename-all checks. Trigonometric terminology remains low confidence and requires fluent mathematical review.
-- English placeholders decrease from 46,688 to 46,637 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill trigonometry, workspace, variable and function messages. Preserve
+  numbered arguments, angle units, return-value distinctions and function
+  restrictions.
+- Extend unit, function-scope and rename-all checks. Trigonometric terminology
+  remains low confidence and requires fluent mathematical review.
+- English placeholders decrease from 46,688 to 46,637 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3579,10 +4237,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cfbda9b1d00331bdc276d8cdcaaf552384f37841">Translate 28 Waray Blockly random-value and unary-math messages.</a></summary>
 
-- Fill random-number, rounding, absolute-value, exponential, logarithm and square-root messages. Preserve numbered arguments, numeric bases and inclusive/exclusive endpoints.
-- Extend rounding, bound and sign-reversal checks. Mathematical terminology remains provisional and needs contextual language review.
-- English placeholders decrease from 46,716 to 46,688 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill random-number, rounding, absolute-value, exponential, logarithm and
+  square-root messages. Preserve numbered arguments, numeric bases and
+  inclusive/exclusive endpoints.
+- Extend rounding, bound and sign-reversal checks. Mathematical terminology
+  remains provisional and needs contextual language review.
+- English placeholders decrease from 46,716 to 46,688 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3591,10 +4254,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8c9a90d987f557b4c8f5c972a527fcc43b1081e3">Translate 25 Waray Blockly numeric-property and statistics messages.</a></summary>
 
-- Fill sign, parity, modulo and list-statistics labels. Preserve numbered arguments and distinguish mean, median, modes, standard deviation and sum.
-- Extend sign, modulo and operation checks. Statistical terminology remains provisional and needs contextual language review.
-- English placeholders decrease from 46,741 to 46,716 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill sign, parity, modulo and list-statistics labels. Preserve numbered
+  arguments and distinguish mean, median, modes, standard deviation and sum.
+- Extend sign, modulo and operation checks. Statistical terminology remains
+  provisional and needs contextual language review.
+- English placeholders decrease from 46,741 to 46,716 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3603,10 +4270,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/44cf47b76bfffc4928b864bcb8806e83a144b1b6">Translate 27 Waray Blockly arithmetic and logical-condition messages.</a></summary>
 
-- Fill conjunction, conditional-expression, arithmetic, constant and bound labels. Preserve mathematical notation, numbered arguments, angle ranges and inclusive limits.
-- Extend notation and condition checks. Mathematical terminology remains provisional and contextual review remains open.
-- English placeholders decrease from 46,768 to 46,741 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill conjunction, conditional-expression, arithmetic, constant and bound
+  labels. Preserve mathematical notation, numbered arguments, angle ranges and
+  inclusive limits.
+- Extend notation and condition checks. Mathematical terminology remains
+  provisional and contextual review remains open.
+- English placeholders decrease from 46,768 to 46,741 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3615,10 +4287,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a0640e4f4a9071bcaa7adf9bed71476aedb363b7">Translate 29 Waray Blockly sorting and logic messages.</a></summary>
 
-- Fill sorting, split/join, boolean, comparison and negation labels. Preserve numbered arguments, copy semantics and strict/inclusive comparisons; retain the null literal.
-- Extend operation and boundary checks. Technical wording remains provisional and contextual accessibility review remains open.
-- English placeholders decrease from 46,797 to 46,768 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill sorting, split/join, boolean, comparison and negation labels. Preserve
+  numbered arguments, copy semantics and strict/inclusive comparisons; retain
+  the null literal.
+- Extend operation and boundary checks. Technical wording remains provisional
+  and contextual accessibility review remains open.
+- English placeholders decrease from 46,797 to 46,768 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3627,10 +4304,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a47ac3e61b197b297ad85cf5b407ffdad94c5010">Translate 30 Waray Blockly indexing and replacement messages.</a></summary>
 
-- Fill sublist, search, length, repetition, reversal and insertion/replacement labels. Preserve missing-result values, copy semantics and operation distinctions.
-- Extend token and operation regressions. Technical wording remains provisional and contextual language review remains open.
-- English placeholders decrease from 46,827 to 46,797 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill sublist, search, length, repetition, reversal and insertion/replacement
+  labels. Preserve missing-result values, copy semantics and operation
+  distinctions.
+- Extend token and operation regressions. Technical wording remains provisional
+  and contextual language review remains open.
+- English placeholders decrease from 46,827 to 46,797 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3639,10 +4321,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a157eec21186ff0ff2cbf7c10a0ded3a35074c97">Translate 27 Waray Blockly list-operation messages.</a></summary>
 
-- Fill list creation, indexed retrieval/removal and end-relative labels. Preserve the distinction between returning, removing, and removing-and-returning an item.
-- Extend positive/negative operation checks. Programming terminology remains provisional and contextual language review remains open.
-- English placeholders decrease from 46,854 to 46,827 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill list creation, indexed retrieval/removal and end-relative labels.
+  Preserve the distinction between returning, removing, and
+  removing-and-returning an item.
+- Extend positive/negative operation checks. Programming terminology remains
+  provisional and contextual language review remains open.
+- English placeholders decrease from 46,854 to 46,827 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3651,10 +4338,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fae17f2dfaa0d806d98453b6bb09bb338dab8801">Translate 33 Waray Blockly operand and navigation labels.</a></summary>
 
-- Fill mathematical/text input descriptions and keyboard-navigation hints. Preserve numbered arguments, operand distinctions and key sequence; retain keyboard legends.
-- Extend token, opposite-operation and navigation checks. Technical wording remains provisional and contextual accessibility review remains open.
-- English placeholders decrease from 46,887 to 46,854 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill mathematical/text input descriptions and keyboard-navigation hints.
+  Preserve numbered arguments, operand distinctions and key sequence; retain
+  keyboard legends.
+- Extend token, opposite-operation and navigation checks. Technical wording
+  remains provisional and contextual accessibility review remains open.
+- English placeholders decrease from 46,887 to 46,854 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3663,10 +4355,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fa591af03fa375eb65a115a20ea58841c805ca1b">Translate 34 Waray Blockly icon actions and input descriptions.</a></summary>
 
-- Fill keyboard-help, icon-action and list/condition/loop/math input labels. Preserve numbered arguments, opening/closing direction and start/end distinctions; retain keyboard legends.
-- Extend token and action regressions. Technical wording remains provisional and contextual accessibility review remains open.
-- English placeholders decrease from 46,921 to 46,887 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill keyboard-help, icon-action and list/condition/loop/math input labels.
+  Preserve numbered arguments, opening/closing direction and start/end
+  distinctions; retain keyboard legends.
+- Extend token and action regressions. Technical wording remains provisional and
+  contextual accessibility review remains open.
+- English placeholders decrease from 46,921 to 46,887 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -3675,10 +4372,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/56d0813ea73048bf5d1c69d5adf1d6d36ee1baba">Translate 35 Waray Blockly loop and editing controls.</a></summary>
 
-- Fill clipboard, deletion, enable/disable, expand, bitmap and field-editing messages. Preserve numbered arguments, while/until polarity and row/column meaning; retain keyboard legends.
-- Extend token and operation regressions. Technical wording remains provisional and contextual language review remains open.
-- English placeholders decrease from 46,956 to 46,921 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill clipboard, deletion, enable/disable, expand, bitmap and field-editing
+  messages. Preserve numbered arguments, while/until polarity and row/column
+  meaning; retain keyboard legends.
+- Extend token and operation regressions. Technical wording remains provisional
+  and contextual language review remains open.
+- English placeholders decrease from 46,956 to 46,921 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
