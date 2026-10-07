@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f3fd1f108dda50e198ce09500d31ca70927ed95e">Translate Bhojpuri workspace and function controls</a></summary>
+
+- Fill 37 workspace, variable, backpack and function strings, preserving existing
+  translations and source placeholders.
+- Technical wording remains low confidence pending speaker review.
+- All 51 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d69c4224eff637974974d13dae91a5e31a2646bb">Translate Bhojpuri logarithm and trigonometry messages</a></summary>
 
 - Fill 27 English placeholders for absolute values, powers, logarithms, roots,
