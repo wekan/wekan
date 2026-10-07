@@ -3564,6 +3564,12 @@ Filled 10 English placeholders in `nah` and `zgh` with the protected fill utilit
 
 Extended the translation/token regression and existing localized browser scenario to the two locales. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 4 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
 
+### History recovery: Inuktitut
+
+Filled five English placeholders in `iu` with the protected fill utility. The drafts distinguish undo/redo and retry/forget and retain the same-request explanation. [Inuit Uqausinginnik Taiguusiliuqtiit's affix dictionary](https://www.taiguusiliuqtiit.ca/sites/default/files/2020-04/Affix-Dictionary-V21.pdf) supports the trying and forgetting roots. This does not verify the composed clauses or the technical sense of the server and undo/redo terms. Nominalization, inflection, dialect choice and the full recovery explanation remain low-confidence drafts for fluent-speaker review; syllabics alone do not establish language quality.
+
+Extended the translation/token regression and existing localized browser scenario to Inuktitut. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 3 locales: Tigre, Cherokee and Wolaytta. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
