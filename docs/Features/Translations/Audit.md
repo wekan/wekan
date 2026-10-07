@@ -3432,6 +3432,12 @@ Filled three English placeholders in `wal` and replaced the prefixed-English men
 
 Translation/token, import-loss positive/negative and 234-locale structure suites pass (12 tests combined), as do 21 human-preference checks. Extended the Wolaytta browser case and syntax-checked it; execution remains unavailable without the local Playwright executable and running application. Each source key remains English in four locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
 
+### Import warning report: Inuktitut
+
+Filled three English placeholders in `iu`, preserving existing non-English values through the fill utility. The messages retain board creation, incomplete transfer and the recovery-menu path. Vocabulary references include a [Nunavut advisory](https://www.gov.nu.ca/iu/pivalliajut/ujjiqsuqujijjuti-nuvagjuarnaq-19-taqalirningani-uqsuqtuurmi-2026-01-03) for warning terminology, a [Nunavut Legislative Assembly transcript](https://assembly.nu.ca/sites/default/files/2023-02/20221108%20Blues%20Inuktitut.pdf) for report/document nouns, and a [Qikiqtani Industries lesson](https://trainingnunavut.ca/iu/lessons/lesson-1/) for the opening instruction. These support individual vocabulary, not full-sentence accuracy. Inflection, import terminology and the failed-transfer clause remain low confidence and need fluent-speaker review.
+
+Translation/token, import-loss positive/negative and all 234 locale structure suites pass (12 tests combined), as do 21 human-preference checks. Extended the Inuktitut browser case and syntax-checked it; execution remains unavailable without the local Playwright executable and running application. Each source key remains English in three locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
