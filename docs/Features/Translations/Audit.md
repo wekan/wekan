@@ -4701,6 +4701,14 @@ mixed-language audit remains open.
 - Low confidence: Papiamento pixel/grid terminology and the new dropdown paraphrase need review; Turkmen grid terminology and Konkani technical compounds remain provisional. Wu uses shared written Chinese technical vocabulary; this does not establish regional spoken output. External searches did not provide authoritative attestations for the new full phrases.
 - Validation: focused Blockly/completeness suite, human-preference checks and browser-spec syntax. This batch removes 55 ordinary English placeholders. Unrelated in-progress locale and deployment changes remain outside the batch.
 
+### Walloon, Venetian and Manx field-type labels
+
+- Filled 34 English placeholders: eleven field types in each Walloon locale and Venetian, plus the Manx date label. Preserved the already translated Aromanian and other Manx fields and added both locales to regression coverage.
+- Corrected three visibly foreign generic labels in `wa-RR`: `Petsa`, `Dropdown nga Lista` and French `Case à cocher`. Added exact wording regression checks; direct correction is permitted for wrong-language seeds, unlike protected correct-language translations.
+- [Walloon orthography discussion](https://rifondou.walon.org/tecnikes_kesses.html) discusses `ingue`; [Walloon texts](https://rifondou.walon.org/lingaedje_walon.html) attest `imådje`. Other labels use direct drafts and existing locale vocabulary. Dropdown/grid compounds and Venetian spelling remain provisional; the two Walloon catalogs share these standard written forms.
+- Extended image/selector/name distinctions and token coverage. Existing browser flows include these locales, but spoken type output and browser execution remain unverified.
+- This batch removes 34 ordinary placeholders and corrects three wrong-language values. The broader semantic audit and 148 pending source keys remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
