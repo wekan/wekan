@@ -238,3 +238,32 @@ test('Somali Blockly remaining controls preserve arguments and paired states',()
  assert.notEqual(data['blockly-EXTERNAL_INPUTS'],data['blockly-INLINE_INPUTS']);
  assert.notEqual(data['blockly-OPEN_BACKPACK'],data['blockly-CLOSE_BACKPACK']);
 });
+
+test('Somali Blockly mathematics retains formula names, tokens and numerical boundaries',()=>{
+ const literals=new Set(['e','pi','+','÷','×','^','-','acos','asin','atan','cos','sin','tan']);
+ for(const key of Object.keys(english).filter(k=>k.startsWith('blockly-MATH_'))){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  if(key.endsWith('_HELPURL')||key.endsWith('_HUE')||literals.has(english[key])) assert.equal(data[key],english[key],key);
+  else assert.notEqual(data[key],english[key],key);
+ }
+ assert.match(data['blockly-MATH_RANDOM_FLOAT_TOOLTIP'],/0\.0 \(ku jira\).*1\.0 \(aan ku jirin\)/);
+ for(const key of ['blockly-MATH_RANDOM_INT_TOOLTIP','blockly-MATH_CONSTRAIN_TOOLTIP']) assert.match(data[key],/labada xadba ku jiraan/);
+ assert.match(data['blockly-MATH_ATAN2_TOOLTIP'],/\(X, Y\).*darajooyin.*-180.*180/);
+ for(const op of ['SIN','COS','TAN']) assert.match(data['blockly-MATH_TRIG_TOOLTIP_'+op],/darajooyin \(ma aha raadiyaan\)/);
+ for(const literal of ['π (3.141…)','e (2.718…)','φ (1.618…)','sqrt(2) (1.414…)','sqrt(½) (0.707…)','∞']) assert.ok(data['blockly-MATH_CONSTANT_TOOLTIP'].includes(literal));
+});
+
+test('Somali Blockly mathematics keeps statistical and arithmetic operations distinct',()=>{
+ assert.equal(new Set(['AVERAGE','MEDIAN','MODE','SUM','STD_DEV'].map(s=>data['blockly-MATH_ONLIST_OPERATOR_'+s])).size,5);
+ assert.match(data['blockly-MATH_ONLIST_TOOLTIP_MODE'],/liis.*ugu soo noqnoqda/);
+ assert.match(data['blockly-MATH_MODULO_TOOLTIP'],/haraaga/);
+ assert.doesNotMatch(data['blockly-MATH_ARITHMETIC_TOOLTIP_DIVIDE'],/haraaga/);
+ assert.match(data['blockly-MATH_ARITHMETIC_TOOLTIP_POWER'],/koowaad.*jibbaaray.*labaad/);
+ assert.notEqual(data['blockly-MATH_IS_EVEN'],data['blockly-MATH_IS_ODD']);
+ assert.notEqual(data['blockly-MATH_IS_POSITIVE'],data['blockly-MATH_IS_NEGATIVE']);
+ assert.match(data['blockly-MATH_ROUND_OPERATOR_ROUNDDOWN'],/^hoos/);
+ assert.match(data['blockly-MATH_ROUND_OPERATOR_ROUNDUP'],/^kor/);
+ assert.match(data['blockly-MATH_SINGLE_TOOLTIP_NEG'],/calaamaddeeda la rogay/);
+ assert.equal(data['blockly-MATH_CHANGE_TITLE_ITEM'],data['blockly-VARIABLES_DEFAULT_NAME']);
+ for(const s of ['MAX','MIN']) assert.equal(data['blockly-MATH_ONLIST_OPERATOR_'+s+'_ARIA'],data['blockly-INPUT_LABEL_NUMBER_'+s]);
+});

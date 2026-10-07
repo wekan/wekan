@@ -5928,6 +5928,24 @@ counted Somali entries are mathematical messages, keyboard names, platform
 names and technical literals; their presence does not establish which should
 be translated. The broader all-language audit remains open.
 
+## Somali Blockly mathematics — 2026-10-07
+
+Filled 86 English placeholders, preserving existing translations, formula names,
+constants and source tokens. Regression checks distinguish inclusive integer
+bounds from the exclusive floating upper bound, degree inputs from radians,
+quotient from remainder, mean/median/mode, rounding direction and sign negation.
+They preserve the atan2 coordinate order and -180–180 range and all constant
+approximations.
+
+Terminology reference: [Planwise Somali STEM dataset](https://huggingface.co/datasets/planwise-data/somali-stem-dataset)
+for prime number, logarithm, median, standard deviation and trigonometric names.
+This is a provisional terminology source, not independent fluency validation.
+Mathematical compounds remain low confidence pending fluent-speaker review.
+All 66 focused translation/structural tests and 21 human-preference checks pass.
+Browser and screen-reader checks were not run. The 28 remaining counted Somali
+entries appear to be keycaps, platform names and technical literals; the broader
+catalog wording audit and all-language task are not complete.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
