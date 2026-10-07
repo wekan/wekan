@@ -7360,6 +7360,14 @@ tokens and key order, distinguish search from replacement and retain numeric
 empty-list length. Statement-position terminology remains low confidence pending
 fluent review. Browser and screen-reader checks were not run.
 
+### Bhojpuri Blockly list retrieval and removal
+
+Filled 30 English placeholders for list creation, item selection, retrieval,
+removal and sublists. Existing translations are preserved. Tests compare source
+tokens and key order, distinguish retrieval/removal/combined operations and
+first/last positions. Sublist terminology remains low confidence pending fluent
+review. Browser and screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
