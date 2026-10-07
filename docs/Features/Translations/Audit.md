@@ -2141,6 +2141,22 @@ fragments, trigger terminology and the email recipient label need native/UI revi
 60 locale paths still need this group. The snapshot remains 51,575 ordinary missing
 values plus 181 pending keys; broader language review remains open.
 
+### Rule-builder instructions — Tok Pisin and Bislama (2026-10-07)
+
+Filled seven pending strings in tpi and bi (14 values), preserving existing
+translations and literal variable expressions. No translation service was used.
+Triggers are described as events that start the rule; actions run one by one in
+order. Username/email context and reading variable values from the card remain
+explicit. The phrases use existing list, card and swimlane labels. Trigger wording,
+recipient-field labels and composed date fragments need native/UI review.
+
+The existing trigger-variable suite now checks eight recently filled locales for
+source order, nonempty translations and exact brace/underscore/percent tokens.
+Runtime matching, all-locale structural and human-preference checks pass. Browser
+scenarios were not run; the app stack was unavailable. 58 locale paths still need
+this group. The snapshot remains 51,575 ordinary missing values plus 181 pending
+keys; broader language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
