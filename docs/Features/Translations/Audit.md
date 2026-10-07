@@ -6449,6 +6449,12 @@ Translated 86 Blockly maths messages. Preserved source placeholders, mathematica
 
 Validation: 59 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. Remaining inventory: 42,838 English placeholders across 70 languages, with 149 source keys pending review.
 
+## Tok Pisin common interface wording audit
+
+Corrected 83 mixed-language values containing the `Toksave:` prefix followed by English, covering basic interface labels, file metadata, filtering, selection states, invitations, previews and time units. These were not correct-language human translations. Existing correct-language values remain unchanged. The initial prefix scan found 500 values; 417 remain for review after this batch. This is only one detector: values without the prefix also require language review. Wording remains provisional pending fluent-speaker review; browser and screen-reader checks were not run.
+
+Validation: 61 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. The English-placeholder counter remains 42,838 across 70 languages because prefixed English was already excluded by that counter; it does not prove language completeness. There are 149 source keys pending review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
