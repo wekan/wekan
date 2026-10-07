@@ -1279,6 +1279,22 @@ unavailable. Forty-seven locale paths still need this group. The ordinary backlo
 remains 51,575 values plus 188 pending source keys. No external translation service
 was used.
 
+## Bhojpuri, Maithili, Odia and Konkani due reminders — 2026-10-07
+
+Filled six `due-reminder-*` placeholders each in `bho`, `mai`, `or_IN` and `kok`
+(24 values), using existing notification terminology. The description retains
+comma separation, zero as the due day, positive-before / negative-after offsets
+and blank/server fallback. Ten whole days maximum and -14 to 14 remain explicit.
+Existing translations are preserved and no external translation service was used.
+
+Shared translation checks and the board-reminder browser scenario now cover 23
+locales. Source-order/token, script, numeric and wording checks pass, as do
+human-preference checks. Script checks do not distinguish languages that share
+Devanagari; the language-specific prose was also reviewed directly. Browser
+coverage is syntax-checked only because the application stack is unavailable.
+Forty-three locale paths still need this group. The ordinary backlog remains
+51,575 values plus 188 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

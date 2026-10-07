@@ -7,7 +7,7 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('due-reminder-'));
 assert.equal(keys.length, 6);
-for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -58,4 +58,16 @@ assert.match(read('ny')['due-reminder-days-label'], /makoma.*oposa 0.*asanafike.
 assert.match(read('rw')['due-reminder-invalid'], /itarenze icumi.*yuzuye/);
 assert.match(read('rn')['due-reminder-invalid'], /itarenga cumi.*vyuzuye/);
 assert.match(read('ny')['due-reminder-invalid'], /osapitirira khumi.*athunthu/);
-console.log('Due reminder translations: 6 messages in 19 locales passed');
+assert.match(read('bho')['due-reminder-days-label'], /कॉमा.*धनात्मक.*पहिले.*ऋणात्मक.*बाद.*खाली/);
+assert.match(read('mai')['due-reminder-days-label'], /कॉमा.*धनात्मक.*पहिनेक.*ऋणात्मक.*बादक.*खाली/);
+assert.match(read('or_IN')['due-reminder-days-label'], /କମା.*ଧନାତ୍ମକ.*ପୂର୍ବର.*ଋଣାତ୍ମକ.*ପରର.*ଖାଲି/);
+assert.match(read('kok')['due-reminder-days-label'], /कॉमान.*धन संख्या.*आदले.*ऋण संख्या.*उपरांतचे.*रिकामें/);
+assert.match(read('bho')['due-reminder-invalid'], /पूरा संख्या.*जादे से जादे दस/);
+assert.match(read('mai')['due-reminder-invalid'], /पूर्ण संख्या.*बेसीसँ बेसी दस/);
+assert.match(read('or_IN')['due-reminder-invalid'], /ପୂର୍ଣ୍ଣ ସଂଖ୍ୟା.*ସର୍ବାଧିକ ଦଶଟି/);
+assert.match(read('kok')['due-reminder-invalid'], /पूर्ण संख्यांनी चडांत चड धा/);
+for (const code of ['bho', 'mai', 'kok']) {
+  for (const key of keys) assert.match(read(code)[key], /[\u0900-\u097F]/u, `${code}:${key}: Devanagari`);
+}
+for (const key of keys) assert.match(read('or_IN')[key], /[\u0B00-\u0B7F]/u, `${key}: Odia script`);
+console.log('Due reminder translations: 6 messages in 23 locales passed');
