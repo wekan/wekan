@@ -5219,6 +5219,12 @@ Filled 55 English placeholders for text construction, character/sub-string acces
 
 Regression checks cover source-token inventories, first/last endpoints, reverse order, trim sides and distinct input types. Case and substring terminology remains provisional. Browser rendering and spoken accessibility were not run; automated checks do not establish fluency.
 
+### Akan Blockly variables and workspace messages
+
+Filled 42 English placeholders covering variable reads/writes and name conflicts, workspace counts, search controls, shared Blockly aliases and remaining general labels. Kept keyboard names in shortcut instructions and reused existing translations for shared procedure, condition and list labels.
+
+Regression checks cover all source placeholders, zero/one/many counts, leading spaces in comment fragments, keyboard shortcuts, opposite actions and shared labels. Variable/type and workspace terminology remains provisional. Browser rendering and spoken accessibility were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
