@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/af1499151c3851cda26076ad62335b54cc4b6007">Correct 22 mixed-language or misleading Akan drag and account messages.</a></summary>
+
+- Rewrite drag, account and configuration guidance. Preserve optional inputs, sidebar targets, workspace tokens and provider menu names.
+- Add source-token, name and behavior regression checks. Technical wording remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
+- Validation: 90 focused translation/parser tests and 21 human-preference checks pass. Browser and live provider-console checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/80d66285020bd5aa9e36c5fc25f8b9676328ecae">Correct 24 damaged or mixed-language Akan repair and monitoring labels.</a></summary>
 
 - Rewrite repair, monitoring and repository text. Preserve repair scope, possible conversion delay and technical identifiers.
