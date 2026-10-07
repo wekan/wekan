@@ -1358,6 +1358,25 @@ browser scenarios were syntax-checked only because the app stack was unavailable
 34 locale paths still need this six-string group. The ordinary backlog remains
 51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
 
+### Due reminders — Manx, Walloon and Waray (2026-10-07)
+
+Filled six reminder strings in each of `gv`, `wa` and `wa-RR` (18 values).
+The instructions preserve comma-separated offsets, zero as the due day, positive
+days before and negative days after, the empty server-default setting, at most
+ten integers from -14 to 14, board disabling and outgoing webhook delivery.
+Only English placeholders were filled. No external translation service was used.
+Technical compounds and complete Manx and Walloon instructions remain
+low-confidence drafts for native review. Manx explicitly shows the comma symbol.
+[The Manx integer dictionary entry](https://glosbe.com/en/gv/integer) supports
+`slane-earroo`; it does not verify the complete instructions or their inflections.
+
+Translation checks now cover 35 locales, including offset direction, defaults,
+bounds and source-token inventories. Existing browser scenarios include all three
+locales. Translation, all-locale structural and human-preference checks pass;
+browser scenarios were syntax-checked only because the app stack was unavailable.
+31 locale paths still need this six-string group. The ordinary backlog remains
+51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
