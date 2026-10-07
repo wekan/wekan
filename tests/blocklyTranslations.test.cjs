@@ -103,10 +103,16 @@ test('Acehnese selectors replace Malay seeds and Veps uses its own angle and col
  assert.equal(vep['blockly-ARIA_TYPE_FIELD_COLOUR'],'muju');
 });
 
+test('Akan selectors replace English and generic activity filler',()=>{
+ const data=require('../imports/i18n/data/ak.i18n.json');
+ assert.equal(data['custom-field-dropdown'],'Nhyehyɛe a ɛba fam');
+ assert.equal(data['custom-field-checkbox'],'Adaka a wɔhyɛ no agyirae');
+});
+
 test('filled field types distinguish images, selectors and input names', async()=>{
  const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
  const names='ANGLE BITMAP CHECKBOX COLOUR DATE DROPDOWN GRID IMAGE INPUT TEXT_INPUT_ARGUMENT TEXT_INPUT_PROCEDURE'.split(' ');
- for(const code of ['ku','ckb','tt','so','yi','ary','bho','mai','tk_TM','or_IN','kok','pap','wuu-Hans','wa','wa-RR','ve-CC','gv','rup','st','tn','nso','zu','zu-ZA','xh','ss','ts','ve','nd','rw','rn','lg','om','ny','bi','tpi','fj','sm','mi','to','haw','bua','cv','sah','qu','ay','gn','bo','dz','ti','ks','se','ve-PP','ace']){
+ for(const code of ['ku','ckb','tt','so','yi','ary','bho','mai','tk_TM','or_IN','kok','pap','wuu-Hans','wa','wa-RR','ve-CC','gv','rup','st','tn','nso','zu','zu-ZA','xh','ss','ts','ve','nd','rw','rn','lg','om','ny','bi','tpi','fj','sm','mi','to','haw','bua','cv','sah','qu','ay','gn','bo','dz','ti','ks','se','ve-PP','ace','ak','bm','wo']){
   const data=require(`../imports/i18n/data/${code}.i18n.json`);
   for(const name of names){
    const key='blockly-ARIA_TYPE_FIELD_'+name;

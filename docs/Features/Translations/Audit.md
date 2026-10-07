@@ -4784,6 +4784,14 @@ mixed-language audit remains open.
 - Added positive/token and type-distinction coverage, exact Acehnese correction checks and Veps vocabulary assertions. Existing browser flows cover field editing, but browser execution and spoken announcements remain unverified.
 - This batch removes 33 ordinary placeholders and corrects two wrong-language selector labels. The broader semantic audit and 148 pending source keys remain open.
 
+### Akan, Bambara and Wolof field types
+
+- Filled 33 English field-type placeholders through the protected fill, preserving existing correct-language translations and source arguments.
+- Replaced Akan `Dropdown Nhyehyɛe` and generic activity-information filler used for checkbox with control descriptions. Added exact correction regressions and extended image/selector/input-name distinctions.
+- Vocabulary references: [Bambara lexicon](https://mooreburkina.com/sites/www.mooreburkina.com/files/pdf-files/Bambara%20Lexicon.pdf) gives `seleke` for angle/corner; [Bamadaba](https://bamadaba.coastsystems.net/index-french/) provides the Bambara vocabulary reference; [Wolof colors](https://www.jangal-apprendre-le-wolof.com/2023/12/vocabulaire-les-couleurs.html) attests `melo`; [Akan dictionary](https://www.akandictionary.com/) is a general vocabulary reference, not attestation of the new technical phrases.
+- Low confidence: corner/angle precision, pixel loans, grid descriptions using arranged boxes, date/day ambiguity and ordinary work/action nouns for programming functions require review. Input descriptions may need refinement for Blockly connections. Non-English text and distinct strings alone do not prove correct meaning.
+- Existing browser flows cover these locales; browser execution and spoken announcements remain unverified. This batch removes 33 ordinary placeholders and corrects two mixed-language/filler values. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
