@@ -4919,6 +4919,13 @@ mixed-language audit remains open.
 - Stack is a pile/group of blocks, which remains provisional, especially the broad Venda group wording. Block loans, replacement phrasing, numeral agreement and text-box metaphors also need contextual review. The vocabulary references do not validate the composed labels.
 - Extended token, non-placeholder and distinction checks. Browser and spoken accessibility checks remain unexecuted; 148 pending source keys and the broader semantic audit remain open.
 
+### Wu Chinese and Venetian block and bubble labels
+
+- Filled 32 English placeholders in `wuu-Hans` and `ve-CC` through the protected workflow, preserving numbered arguments and existing translations. Input and comment vocabulary follows the catalogs.
+- Wu uses shared Chinese technical nouns with Wu forms such as `里向个` and `好替换个`; shared written technical terms alone do not establish wrong-language text. Venetian uses `el ga`, `el se pol` and the catalog's `ł` orthography. The [Venetian dictionary](https://www.slideshare.net/libriveneti/venetian-dictionary) was consulted as a general vocabulary reference, not proof of the composed technical labels.
+- Stack is a connected string/pile of blocks; the Venetian bubble uses a text-balloon metaphor. Venetian container, disabled and bubble terminology, and regional Wu wording, remain lower confidence and need contextual review.
+- Extended token, non-placeholder and distinction checks. These do not prove fluent or semantically equivalent wording. Browser and spoken accessibility checks remain unexecuted; 148 pending source keys and broader semantic review remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
