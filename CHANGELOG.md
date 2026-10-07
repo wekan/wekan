@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/771cf10c53869b48fb58fe5f66eef382b6e29d33">Correct 22 mixed-language Akan display and selection messages.</a></summary>
+
+- Rewrite board-selection, home-board, width/keyboard toggle, fading and input-error messages. Preserve current states and opposite click actions.
+- Add source-token, state/action, selection, tier and numeric-example checks. Display terminology remains provisional.
+- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
+- Validation: 72 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/339a425511eceecd553afdaf1ad8fa0bbce99b7d">Correct 40 Akan activity and report values containing embedded filler.</a></summary>
 
 - A substring audit found generic filler embedded in 40 further values. Rewrite activity, email-template, rule-date, flow-report and time-adjustment messages; the phrase now occurs nowhere in Akan.
