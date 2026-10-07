@@ -1015,3 +1015,23 @@ test('Akan search results and scheduling outcomes preserve counts and execution 
  assert.match(data['add-cron-job-placeholder'],/reba nnansa yi/);
  assert.notEqual(data['fix-missing-lists-migration'],data['step-create-missing-lists']);
 });
+
+
+test('Akan activity and assignment labels preserve direction and permission scope', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["trello-import-progress", "r-mark-complete", "add-job", "migration-progress-title", "step-scan-users", "cleanup-old-jobs", "job-description", "job-name", "comment-assigned-only", "filter-show-archive", "normal-assigned-only", "shortcut-filter-my-assigned-cards", "roles-status-sees-assigned", "act-addLabel", "act-addedLabel", "act-removeLabel", "act-removedLabel", "show-board_members-avatar", "card-edit-labels", "adminChangeAvatarPopup-title", "change-avatar", "changeAvatarPopup-title", "deleteAvatarPopup-title", "checklistItemDeletePopup-title", "filter-labels-label"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.equal(data['act-addLabel'],data['act-addedLabel']);
+ assert.equal(data['act-removeLabel'],data['act-removedLabel']);
+ assert.match(data['act-addLabel'],/^Wɔde.*kaa kaad/);
+ assert.match(data['act-removeLabel'],/^Wɔyii.*fii kaad/);
+ for(const key of ['comment-assigned-only','normal-assigned-only','roles-status-sees-assigned']) assert.match(data[key],/ahyɛ wo nsa nkutoo/);
+ assert.ok(data['normal-assigned-only'].includes(data.normal));
+ assert.match(data['shortcut-filter-my-assigned-cards'],/ahyɛ me nsa/);
+ assert.equal(new Set(['adminChangeAvatarPopup-title','change-avatar','changeAvatarPopup-title'].map(k=>data[k])).size,1);
+ assert.match(data['deleteAvatarPopup-title'],/^Popa.*\?$/);
+ assert.match(data['checklistItemDeletePopup-title'],/mu ade\?$/);
+ assert.match(data['r-mark-complete'],/agyirae sɛ wɔawie/);
+ assert.match(data['migration-progress-title'],/rekɔ so$/);
+ assert.notEqual(data['job-name'],data['job-description']);
+});

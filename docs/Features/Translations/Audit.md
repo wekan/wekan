@@ -5671,6 +5671,15 @@ placeholder meaning. Added token, count and state checks. Wording remains low
 confidence pending fluent-speaker review; browser checks remain unrun.
 English-placeholder counts are unchanged.
 
+## Akan activity and assignment corrections (batch 56)
+
+Corrected 25 mixed-language activity, assignment, avatar and job messages.
+Preserved label-add/remove direction, assigned-only scope, activity placeholders
+and ongoing migration status. Aligned duplicate activity and avatar labels and
+used the corrected Normal role name. Added token, direction and scope checks.
+Wording remains low confidence pending fluent-speaker review; browser checks
+remain unrun. English-placeholder counts are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
