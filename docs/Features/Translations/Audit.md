@@ -6755,6 +6755,18 @@ The combined translation run passes 134 checks. Two existing catalog checks fail
 on the missing due-date shortcut key. All 21 human-preference checks pass.
 Browser and screen-reader checks were not run. The wider audit remains open.
 
+## Tok Pisin migration and repair workflow wording audit
+
+Corrected 36 mixed-language migration and repair messages. Restored the literal
+Snap database setting name, previously translated inside the command. Checks
+preserve database URLs, environment variables, excluded file/avatar data,
+restart ordering, numeric delay limits and repair scope. Technical wording
+remains provisional pending fluent-speaker review.
+
+The combined translation run passes 136 checks. Two existing catalog checks fail
+on the missing due-date shortcut key. All 21 human-preference checks pass.
+Browser and screen-reader checks were not run. The wider audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

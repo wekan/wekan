@@ -2084,3 +2084,62 @@ test('Tok Pisin diagnostics retain thresholds, outcomes and repair scope',()=>{
  assert.match(data['fix-all-file-urls-migration-description'],/URL bilong olgeta fail.*dispela bot.*referens bilong fail i bagarap/);
  assert.match(data['Node_heap_number_of_detached_contexts'],/lus long koneksen/);
 });
+
+
+test('Tok Pisin migration messages replace mixed English and retain tokens',()=>{
+ const keys=[
+  "database-migration-description",
+  "comprehensive-board-migration-description",
+  "fix-missing-lists-migration-description",
+  "repair-broken-cards",
+  "repair-broken-cards-done",
+  "database-migration",
+  "database-migrate-to-ferretdb",
+  "database-migrate-to-mongodb",
+  "database-migration-done",
+  "migration-pause-failed",
+  "migration-start-failed",
+  "migration-not-needed",
+  "migration-status",
+  "migration-stop-confirm",
+  "migration-stop-failed",
+  "migration-successful",
+  "migration-failed",
+  "migration-progress-title",
+  "migration-progress-current-step",
+  "step-analyze-board-structure",
+  "step-fix-orphaned-cards",
+  "step-ensure-per-swimlane-lists",
+  "step-fix-attachment-urls",
+  "step-analyze-lists",
+  "step-create-missing-lists",
+  "step-delete-duplicate-empty-lists",
+  "step-ensure-lost-cards-swimlane",
+  "step-restore-swimlanes",
+  "step-scan-users",
+  "step-scan-files",
+  "step-fix-file-urls",
+  "database-migrations",
+  "migration-delay-ms-description",
+  "migration-resume-failed",
+  "migration-steps",
+  "step-progress"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:Migrate|Performs|Detects|Repair|Repaired|Analyze|Ensure|Checking|Fixing|Missing|Duplicate|Swimlanes|successfully|resume|batches|milliseconds)\b/,key);
+ }
+});
+
+test('Tok Pisin migration instructions preserve command syntax and data exclusions',()=>{
+ const value=data['database-migration-description'];
+ for(const literal of ['mongodb://127.0.0.1:27018','mongodb://127.0.0.1:27019','WEKAN_FERRETDB_URL / WEKAN_MONGODB_URL','MONGO_URL','snap set wekan database=ferretdb','=mongodb']) assert.ok(value.includes(literal),literal);
+ assert.doesNotMatch(value,/snap set wekan detabes=/);
+ assert.match(value,/fail i pas.*piksa bilong yusa i stap yet long sistem bilong ol fail/);
+ assert.match(value,/detabes i mas wok.*inap konek.*Bihain long em i pinis.*statim WeKan gen/);
+ assert.match(data['migration-delay-ms-description'],/milisekon \(100-10000\)$/);
+ assert.match(data['step-delete-duplicate-empty-lists'],/tupela taim na i no gat samting/);
+ assert.match(data['migration-stop-confirm'],/stopim olgeta/);
+ assert.match(data['migration-resume-failed'],/no inap statim gen/);
+});
