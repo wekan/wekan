@@ -385,16 +385,19 @@ held only issues \#4774 and \#4055, and both are closed now.
 Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
-- The current `node releases/translations/fill-translations.mjs --missing` report counts **52,175 untranslated locale/string values in 70 languages**. It excludes **207 source keys tracked separately as pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
+- The current `node releases/translations/fill-translations.mjs --missing` report counts **52,175 untranslated locale/string values in 70 languages**. It excludes **204 source keys tracked separately as pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
 - Continue automatic-archiving and date-filter translations beyond the thirty-nine locales recorded in completed changelog entries, then the remaining feature families.
 - Fill English placeholders in every language, including minority and constructed languages. Audit mixed-language and wrong-language seed text, and review provisional wording with speakers when available. Preserve correct-language human translations, source key order, exact placeholders, technical identifiers and query examples. Use direct translation and dictionary research, not an external translation service.
 - Keep regression and human-preference checks passing. Passing tests does not establish translation completeness or fluency; rerun relevant checks for each batch and the broad suite before declaring all-language work complete.
 - The three Admin Panel login-setting keys added on 2026-10-05 now have
-  translations in 133 locale paths (131 physical catalogs). Continue the
-  remaining languages. The standard missing count excludes these pending keys,
-  so that count does not measure this batch. Catalogs without the new keys
-  still fail full key-order checks. Browser scenarios for Finnish, Arabic and
-  Japanese are syntax-checked but await Playwright and a running application.
+  translations in all 234 non-English locale paths. English variants retain
+  English. They have left the pending queue; full key-order and placeholder
+  checks pass. All 237 translation suites pass. Minority-language compounds
+  remain provisional, with terminology sources and mixed-language findings in
+  [the audit notes](docs/Features/Translations/Audit.md).
+  Browser scenarios for Finnish, Arabic and Japanese are syntax-checked but
+  await Playwright and a running application. Continue the other pending keys
+  and larger catalogs; this batch does not complete the all-language work.
 
 </details>
 
@@ -1876,12 +1879,30 @@ each for the reason given:
 
 # Upcoming WeKan ® release
 
-**In short:** More languages now show translated **login settings**, including
+**In short:** All supported languages now have **login-setting text** for
 HTTP-header authentication, stored-value removal and restart guidance.
+Minority-language wording remains provisional and needs speaker review.
 
 This release updates the following translations:
 
 **Login settings** - clearer guidance in the Admin Panel.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9cf2455ab5cfbd30f5e8ea658e9eccf5f43c56a9">Fill login-setting messages in every locale</a>. Thanks to xet7.</summary>
+
+- Add the remaining 101 non-English catalogs and align eleven English variants.
+  All 234 non-English locale paths now contain the three login-setting keys;
+  existing values remain unchanged and completed keys leave the pending queue.
+- All 237 translation suites pass. Regression coverage includes native scripts,
+  exact placeholders, source order and separate Tigre/Tigrinya and Venda/Zulu
+  messages. Browser scenarios remain syntax-checked only.
+- Minority-language technical compounds are provisional, especially Cherokee,
+  Inuktitut, Tigre, Wolaytta, Aymara, Nahuatl, Tamazight, Veps, Ladin, Aromanian,
+  Volapük and Klingon. Audit notes retain terminology evidence and older
+  mixed-language findings that still need repair.
+- The larger all-language backlog and 204 pending source keys remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2f148be4ac975cf61de82e80ded22223e41a8f54">Extend login-setting translations to 32 more locales</a>. Thanks to xet7.</summary>
