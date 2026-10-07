@@ -1906,9 +1906,20 @@ each for the reason given:
 not the database, refuses WeKan's own database connection, with the fix for the
 known snapd 2.77.1 kernel problem behind it, four SAML settings can be set
 with `snap set` again, the **Rules** "Set color to" action can pick any card
-color, and the Rules list's selection checkboxes are visible again.
+color, the Rules list's selection checkboxes are visible again, and **pbkdf2**
+is updated for a denial-of-service advisory.
 
-This release fixes the following bugs:
+This release updates the following dependencies:
+
+- **pbkdf2 3.1.3 → 3.1.7** — key derivation in the browser crypto stubs that
+  meteor-node-stubs bundles; fixes long passwords being hashed again on every
+  iteration, [GHSA-477h-4r7f-fvrx](https://github.com/advisories/GHSA-477h-4r7f-fvrx).
+  The bundled copy cannot be overridden, so a postinstall script replaces it
+  with the top-level package ([the update](https://github.com/wekan/wekan/commit/f5836c3a375b5596f24331cbce3d2f83ace23eb7)).
+
+Thanks to dependabot.
+
+and fixes the following bugs:
 
 **Snap database tools** - backup, restore and WeKan's wait for its database.
 
