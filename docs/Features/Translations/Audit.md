@@ -4530,6 +4530,13 @@ mixed-language audit remains open.
 - All twelve focused Node tests and 21 human-preference checks pass. Extended token-inventory and distinct-direction coverage alongside existing negative import tests. Added all six locales to the localized editor drag/edit/context-menu browser flow; syntax passes, but browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
 - Ordinary placeholders decrease from 49,533 to 49,461 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## Blockly movement announcements: six Asian and African locales (2026-10-07)
+
+- Filled twelve movement and scrolling announcements in Buryat, Chuvash, Sakha, Tibetan, Dzongkha and Tigrinya (72 values). Used the protected fill utility and preserved arguments and distinct directions. Technical phrasing remains provisional, particularly Buryat, Chuvash, Sakha and Dzongkha; passing structural tests does not establish fluency.
+- Vocabulary references include the [Buryat phrasebook](https://folkways.today/talking-buryat-phrasebook/), [Chuvash dictionary](https://ru.samahsar.chuvash.org/article/28508.link), [Sakha phrasebook](https://en.wikivoyage.org/wiki/Sakha_phrasebook) and [Dzongkha computer terminology](https://download-mirror.savannah.gnu.org/releases/dzongkha-gnome/dzongkha_computer_terms.pdf). The Dzongkha source gives the scroll term; the announcement clauses are independently drafted and remain subject to wording review.
+- All twelve focused Node tests and 21 human-preference checks pass. Extended token-inventory and distinct-direction coverage alongside existing negative import tests. Added all six locales to the localized editor drag/edit/context-menu browser flow; syntax passes, but browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
+- Ordinary placeholders decrease from 49,461 to 49,389 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
