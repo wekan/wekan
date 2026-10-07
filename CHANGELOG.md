@@ -2173,6 +2173,22 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/13b32af7275f947b3beed1267fb7098f6831f93f">Translate 38 Tok Pisin S3 and Sandstorm storage messages.</a></summary>
+
+- Replace English and mixed-language storage text, restore literal directory
+  paths, retain external menu labels and clarify Sandstorm access warnings.
+  Technical wording remains provisional pending fluent-speaker review.
+- The combined run passes 124 checks; two catalog checks still fail on the
+  missing due-date shortcut key. All 21 human-preference checks pass.
+  Browser and screen-reader checks were not run.
+- The broader translation and wording audit continues. The counted placeholder
+  inventory remains 42,838 values across 70 languages.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/17c98d0e1056366b51019aa464181b603966a4a4">Correct 22 Tok Pisin control and reporting messages.</a></summary>
 
 - Replace mixed English in controls, reporting, support and account status.
