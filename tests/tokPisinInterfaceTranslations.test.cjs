@@ -1457,3 +1457,42 @@ test('Tok Pisin error wording retains restrictions and recovery instructions',()
  assert.match(data['error-linked-card-not-allowed'],/kat bilong oltaim tasol.*Yu no ken.*link i kam bek.*pasim rot/);
  assert.match(data['error-csv-schema'],/CSV.*koma.*TSV.*tab/);
 });
+
+
+test('Tok Pisin sharing messages preserve tokens and replace mixed English',()=>{
+ const keys=[
+  "page-maybe-private",
+  "private",
+  "private-desc",
+  "public-desc",
+  "custom-private-desc",
+  "custom-private-desc-placeholder",
+  "custom-public-desc",
+  "custom-public-desc-placeholder",
+  "org-shared-templates",
+  "team-shared-templates",
+  "share-template-with",
+  "drag-template-here-to-share",
+  "shared-templates",
+  "shared-templates-info",
+  "shared-templates-select-scope",
+  "no-shared-templates",
+  "change-visibility",
+  "step-convert-shared-lists"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.doesNotMatch(data[key],/It's visible|Only people|Shared|shareable|Browse|Select|Visibility|Convert|may be/,key);
+ }
+});
+
+test('Tok Pisin sharing wording retains public visibility and member-only editing',()=>{
+ assert.match(data['private-desc'],/putim long bot tasol inap lukim na senisim/);
+ assert.match(data['public-desc'],/Olgeta manmeri i gat link inap lukim.*Google.*putim long bot tasol inap senisim/);
+ assert.equal(data.private,'Praivet');
+ assert.match(data['page-maybe-private'],/<a href='%s'>go insait<\/a>/);
+ for(const kind of ['public','private']) assert.match(data['custom-'+kind+'-desc-placeholder'],/Larim i stap nating.*i stap pinis/);
+ assert.match(data['shared-templates-info'],/oganaisesen, tim o domen.*wanpela hap o moa.*gat samting.*tasol/);
+ assert.match(data['shared-templates-select-scope'],/Makim wanpela hap antap/);
+ assert.equal(data['org-shared-templates'],data['team-shared-templates']);
+});

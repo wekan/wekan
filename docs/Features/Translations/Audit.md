@@ -6599,6 +6599,12 @@ Corrected 22 mixed-language errors and empty-state messages. Preserved source to
 
 Validation: 107 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. Mixed-language values require this wording audit independently of the English-placeholder counter.
 
+## Tok Pisin visibility and sharing wording audit
+
+Corrected 18 mixed-language or misleading visibility and template-sharing messages. The private label no longer implies access for only one person. Preserved source tokens and login-link markup. Tests distinguish public visibility from member-only editing, private board membership, default-description fallback and shared-template scope. Existing coherent nearby translations remain unchanged. Wording remains provisional pending fluent-speaker review; browser and screen-reader checks were not run.
+
+Validation: 109 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. Mixed-language values require this wording audit independently of the English-placeholder counter.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
