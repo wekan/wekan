@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1fdaa042cc20ce63e8d018fed4331adae78ded21">Translate Bhojpuri Blockly editing and accessibility labels</a></summary>
+
+- Fill 39 English placeholders for editing, block states, bitmap fields,
+  keyboard help and icon labels, preserving existing translations and tokens.
+- Bitmap-column and inline-input wording remains low confidence pending review.
+- All 42 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/dc9706282eb9d571408a521753480cf155437f82">Translate Bhojpuri Blockly loops and conditions</a></summary>
 
 - Fill 24 English placeholders for loop flow, iteration, repetition and
