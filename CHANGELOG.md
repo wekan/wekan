@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/efb8ce783757d658c7e84234244917ec9c80dd36">Correct 21 mixed-language Akan setting and action labels.</a></summary>
+
+- Rewrite selection, color, rule, memory and repair labels. Preserve WIP alternatives, current/relative dates, activity placeholders and empty-field matching.
+- Add source-token and behavior-wording checks. Technical terminology remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace mixed-language values. The broader language audit continues.
+- Validation: 81 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b3ea485bcfcf19a6f153614a17d4b286d6ed8724">Correct 23 mixed-language or misleading Akan board and account messages.</a></summary>
 
 - Rewrite board controls, account emails and file-repair text. Correct invitation status; preserve placeholders and opposite star/unstar actions.
