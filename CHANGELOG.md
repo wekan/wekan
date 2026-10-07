@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **47,598 untranslated locale/string values in 70 languages**. It
+  report counts **47,587 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -1986,6 +1986,18 @@ snap.
 and updates the following translations:
 
 **Activity notifications** - choosing which card activity sends notifications.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a71977d57795c77c26cfc3150dacb06bbd58f922">Translate Cherokee field types.</a></summary>
+
+- Fill 11 English placeholders while preserving source arguments and existing non-English translations. Extend field-type distinction checks.
+- Record vocabulary references and very low confidence in technical wording; grammatical and semantic review remains necessary.
+- Ordinary untranslated values decrease from 47,598 to 47,587 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 25 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8cc6c614f8dafd1a57b569ea43a9dd71de522dec">Translate Wolaytta field labels and remove English control filler.</a></summary>
