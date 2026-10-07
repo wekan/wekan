@@ -385,7 +385,7 @@ held only issues \#4774 and \#4055, and both are closed now.
 Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
-- The current `node releases/translations/fill-translations.mjs --missing` report counts **50,067 untranslated locale/string values in 70 languages**. It excludes **148 source keys tracked separately as pending Transifex**, which already have non-English values but still require wording review. Counts are a snapshot; they do not establish the quality or language of other values.
+- The current `node releases/translations/fill-translations.mjs --missing` report counts **50,052 untranslated locale/string values in 70 languages**. It excludes **148 source keys tracked separately as pending Transifex**, which already have non-English values but still require wording review. Counts are a snapshot; they do not establish the quality or language of other values.
 - The 13 activity-notification preference keys have no empty or exact English-placeholder values in all 234 non-English locale paths and have left the pending queue. Provisional wording still needs language review.
 - Automatic-archiving and date-filter messages now have non-English values in all 234 non-English locale paths. Continue the remaining feature families and the language-quality audit; coverage does not establish fluent wording.
 - Fill English placeholders in every language, including minority and constructed languages. Audit mixed-language and wrong-language seed text, and review provisional wording with speakers when available. Preserve correct-language human translations, source key order, exact placeholders, technical identifiers and query examples. Use direct translation and dictionary research, not an external translation service.
@@ -1888,6 +1888,17 @@ Minority-language wording remains provisional and needs speaker review.
 This release updates the following translations:
 
 **Activity notifications** - choosing which card activity sends notifications.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/665d33e1410d4f1ce0e222faf8259a1231730ef9">Translate board drag permission label in fifteen locales.</a></summary>
+
+- Filled the drag-permission column label in fifteen locales. Chichewa, Maithili and Konkani wording remains provisional.
+- Both focused Node tests and 21 human-preference checks pass, including existing positive and negative drag-policy assertions. Extended localized settings heading and disable/re-enable browser coverage passes syntax validation; execution remains unverified because Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 50,067 to 50,052 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e31679f46a194b9a245b0f0794e6320414f5860f">Complete duplicate relationship placeholder coverage.</a></summary>
