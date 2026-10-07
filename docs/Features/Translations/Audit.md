@@ -7368,6 +7368,15 @@ tokens and key order, distinguish retrieval/removal/combined operations and
 first/last positions. Sublist terminology remains low confidence pending fluent
 review. Browser and screen-reader checks were not run.
 
+### Bhojpuri list indexing, insertion and sorting
+
+Filled 32 English placeholders for indexing, length, repetition, reversal,
+insertion, replacement and sorting. Existing translations are preserved. Tests
+compare source tokens and key order, distinguish insertion from replacement,
+sort directions and text/list conversion. Index and case-insensitive sorting
+terminology remains low confidence pending fluent review. Browser and
+screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
