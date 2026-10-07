@@ -164,12 +164,9 @@ Template.cardActions.events({
     });
   },
   'click .js-show-color-palette'(event, tpl) {
-    const funct = Popup.open('setCardActionsColor');
-    const colorButton = tpl.find('#color-action');
-    if (colorButton.value === '') {
-      colorButton.value = 'green';
-    }
-    funct.call(this, event);
+    // The chosen color lives in cardColorButtonValue (default 'green'), not in
+    // the button's value, so the popup is opened with nothing else to set up.
+    Popup.open('setCardActionsColor').call(this, event);
   },
   'click .js-set-color-action'(event, tpl) {
     const data = Template.currentData();
@@ -238,10 +235,20 @@ Template.setCardActionsColorPopup.helpers({
 });
 
 Template.setCardActionsColorPopup.events({
+  // #6748: the clicked swatch's color comes from the swatch's OWN data context.
+  // Template.currentData() inside an event handler is the data of the template
+  // the handler is defined on - this popup, whose data is the cardActions
+  // context ({ ruleName, triggerVar, ruleId }) - so it had no `color`, and the
+  // picker could never leave its "green" default.
   'click .js-palette-color'(event, tpl) {
-    tpl.currentColor.set(Template.currentData().color);
+    event.preventDefault();
+    const color = Blaze.getData(event.currentTarget)?.color;
+    if (cardColors.includes(color)) {
+      tpl.currentColor.set(color);
+    }
   },
   'click .js-submit'(event, tpl) {
+    event.preventDefault();
     tpl.colorButtonValue.set(tpl.currentColor.get());
     Popup.back();
   },

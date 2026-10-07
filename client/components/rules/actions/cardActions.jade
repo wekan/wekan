@@ -87,6 +87,7 @@ template(name="cardActions")
       div.trigger-text
         | {{_'r-set-color'}}
         button.trigger-button.trigger-button-color.js-show-color-palette(
+          type="button"
           id="color-action"
           class="card-details-{{cardColorButton}}")
           | {{_ cardColorButtonText }}
@@ -132,4 +133,4 @@ template(name="setCardActionsColorPopup")
       span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
         if(isSelected color)
           i.fa.fa-check
-    button.primary.confirm.js-submit {{_ 'save'}}
+    button.primary.confirm.js-submit(type="button") {{_ 'save'}}
