@@ -1314,6 +1314,25 @@ translation service was used. Technical compounds remain open to native review.
 51,575 values, with 188 additional pending source keys; the wider language-quality
 review remains open.
 
+### Due reminders — Northern Ndebele, Swati, Northern Sotho and Tsonga (2026-10-07)
+
+Filled six reminder strings in each of `nd`, `ss`, `nso` and `ts` (24 values).
+The wording follows existing board and reminder terminology and preserves
+comma-separated offsets, zero as the due day, positive days before and negative
+days after, the empty server-default setting, at most ten integers from -14 to 14,
+board disabling and outgoing webhook delivery. The fill leaves existing
+correct-language translations untouched and uses no external translation service.
+Technical compounds and the complete Northern Ndebele and Swati instructions are
+low-confidence drafts for native review; structural checks do not establish fluency.
+
+Translation regressions now cover 29 locales, including bounds, offset direction,
+empty defaults and source-token inventories. Existing browser scenarios include
+all four locales. Translation, all-locale structural and human-preference checks
+pass; browser scenarios were syntax-checked only because the app stack was
+unavailable. 37 locale paths still need this six-string group. The ordinary
+backlog remains 51,575 values, plus 188 pending source keys. Wider language-quality
+review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
