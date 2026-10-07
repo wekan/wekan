@@ -3198,6 +3198,12 @@ Filled the three board visibility strings (`instance`, `instance-desc`, `board-i
 
 Extended the existing translation regression to include these locales. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The existing browser suite was syntax-checked only; the application stack is unavailable. Each of these three source keys remains English in 46 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
 
+### Signed-in board visibility: eight further locales
+
+Filled `instance`, `instance-desc` and `board-instance-info` in Bislama, Tok Pisin, Māori, Samoan, Hawaiian, Papiamento, Xhosa and Northern Ndebele: 24 English placeholders. Direct drafts use the existing board terminology, preserve confirmation emphasis and distinguish viewing by signed-in users from editing by board members. No external translation service was used and existing translations were protected by the fill utility. Hawaiian, Samoan and Northern Ndebele technical phrasing has lower confidence; fluent-speaker review remains open for all eight locales.
+
+Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three keys remains English in 38 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
