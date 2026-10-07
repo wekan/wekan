@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Aka imaylax apayatäxiwa, apayañ yant'atäxiwa jan ukax jaqutäxiwa.",
   "rule-email-legacy-not-legacy": "Aka imaylax mayampi chinthapitäxiwa.",
   "rule-email-legacy-failed": "Aka lurawi janiw tukuyañjamäkiti. Laphi mayampi jist'aram ukat mayampi yant'am.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Aka SAML ukamp mantañax janiw aka navegador pestañan qalltkänti. Mirä amp suma, mayampi mantam.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

@@ -2002,6 +2002,22 @@ checks pass. Browser scenarios were not run; the app stack was unavailable.
 14 locale paths still need this message. The snapshot remains 51,575 ordinary
 missing values plus 182 pending keys; broader language review remains open.
 
+### SAML browser-tab error — sixth remaining batch (2026-10-07)
+
+Filled `saml-login-not-started` in qu, ay, gn and ff. The message retains the
+current-tab boundary and asks the user to sign in again. Existing translations
+were preserved and no translation service was used. Full phrases and browser/tab
+terminology are low confidence and need native review. Guarani's repeat instruction
+uses the dictionary-attested [jey](https://www.proyectomontoya.org.py/nthg/jey).
+This vocabulary evidence does not validate the whole phrase. Existing mixed-language
+login labels in qu and ay remain part of the broader review.
+
+The popup-error suite now checks 56 recently filled locales and passes, including
+positive and negative login-boundary cases. All-locale structural and human-preference
+checks pass. Browser scenarios were not run; the app stack was unavailable.
+Ten locale paths still need this message. The snapshot remains 51,575 ordinary
+missing values plus 182 pending keys; broader language review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

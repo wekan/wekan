@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Kay chaskiqa kachasqañam, kachanapaq mallisqañam utaq wikch'usqañam.",
   "rule-email-legacy-not-legacy": "Kay chaskiqa yapamanta watasqañam.",
   "rule-email-legacy-failed": "Kay ruwayta mana tukuyta atikurqanchu. Rap'ita musuqmanta kichay hinaspa yapamanta malliy.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Kay SAML yaykuyqa manam kay maskaqpa pestañanpi qallarirqanchu. Ama hina kaspa, wakmanta yaykuy.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Ko ñanduti veve oñemondóma, oñeha'ãma oñemondo térã ojeheja reíma.",
   "rule-email-legacy-not-legacy": "Ko ñanduti veve oñembojoajujeýma.",
   "rule-email-legacy-failed": "Ndaikatúi oñemohu'ã ko tembiapo. Embopyahu kuatiarogue ha eha'ãjey.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Ko jeike SAML rupive noñepyrũi ko kundahára rendayképe. Eikemi jey.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",
