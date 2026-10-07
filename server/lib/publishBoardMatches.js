@@ -4,12 +4,25 @@ import Cards from '/models/cards';
 import { canReadBoard } from '/models/lib/boardVisibility';
 const { assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 
+// The board's access fields are also re-read on this interval. The board
+// observer below is what normally reports a membership change, but on a busy
+// test server (polling, no oplog) one stalled for good: a member's
+// assigned-only restriction was lifted and the matches never widened again,
+// and the same stall would have kept a NARROWED member's old matches. A
+// missed observer event must not decide what a member may see.
+const ACCESS_RECHECK_MS = 10000;
+const accessSignature = (board, boardFields) => JSON.stringify(board ? [board.permission, board.members,
+  ...Object.keys(boardFields).sort().map(field => board[field])] : null);
+
 // Shared authorized, reactive ID-only publication for board filter providers.
 export async function publishBoardMatches({ publication, boardId, key, identity,
   collectionName, children, cardFields = {}, boardFields = {}, snapshot = false, prepare, findMatches }) {
   let stopped = false, initializing = true, running = false, pending = false, revision = 0;
   const handles = [], published = new Set();
   let pagePublished = false;
+  // The access fields the published result was computed from.
+  let seenAccess;
+  let accessTimer;
   const pageCards = new Map();
   const watches = new Map();
   const rowId = cardId => JSON.stringify([boardId, key, cardId]);
@@ -23,6 +36,7 @@ export async function publishBoardMatches({ publication, boardId, key, identity,
   };
   publication.onStop(() => {
     stopped = true;
+    if (accessTimer) Meteor.clearInterval(accessTimer);
     for (const handle of handles) handle.stop();
     for (const { handle } of watches.values()) handle.stop();
     watches.clear();
@@ -47,7 +61,7 @@ export async function publishBoardMatches({ publication, boardId, key, identity,
         const version = revision;
         const board = await Boards.findOneAsync(boardId);
         if (stopped) return;
-        if (!canReadBoard(publication.userId, board)) { clear(); continue; }
+        if (!canReadBoard(publication.userId, board)) { seenAccess = accessSignature(board, boardFields); clear(); continue; }
         const scope = { boardId, archived: false, ...assignedOnlyCardScope(board, publication.userId) };
         const isStopped = () => stopped || revision !== version;
         const prepared = prepare ? await prepare({ scope, board, watch, stopped: isStopped }) : undefined;
@@ -59,10 +73,11 @@ export async function publishBoardMatches({ publication, boardId, key, identity,
         // the subscription starts. A concurrent policy change forces a retry.
         const latest = await Boards.findOneAsync(boardId);
         if (stopped) return;
-        if (!canReadBoard(publication.userId, latest)) { clear(); continue; }
+        if (!canReadBoard(publication.userId, latest)) { seenAccess = accessSignature(latest, boardFields); clear(); continue; }
         if (revision !== version || JSON.stringify(latest.members) !== JSON.stringify(board.members)) {
           pending = true; continue;
         }
+        seenAccess = accessSignature(latest, boardFields);
         if (prepared?.isCurrent && !(await prepared.isCurrent())) { clear(); pending = true; continue; }
         if (isStopped()) { pending = !stopped; continue; }
         if (snapshot) {
@@ -113,6 +128,13 @@ export async function publishBoardMatches({ publication, boardId, key, identity,
     }
     initializing = false;
     await refresh();
+    if (!stopped) accessTimer = Meteor.setInterval(async () => {
+      if (stopped || running || seenAccess === undefined) return;
+      try {
+        const latest = await Boards.findOneAsync(boardId);
+        if (!stopped && accessSignature(latest, boardFields) !== seenAccess) boardChanged();
+      } catch (error) { /* the next tick, or the observer, tries again */ }
+    }, ACCESS_RECHECK_MS);
   } catch (error) {
     if (!stopped) publication.error(new Meteor.Error('card-filter-failed', 'Card filtering failed'));
   }

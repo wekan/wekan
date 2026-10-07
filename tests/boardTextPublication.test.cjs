@@ -6,7 +6,7 @@ const vm = require('node:vm');
 const { assignedOnlyCardScope } = require('../models/lib/boardCardScope');
 const tick = () => new Promise(resolve => setImmediate(resolve));
 async function fixture(search, snapshot = false, prepare) {
-  const observers = [], rows = new Map();
+  const observers = [], rows = new Map(), intervals = [], cleared = [];
   let handler, stop, ready = 0;
   let board = { _id: 'board', permission: 'private', members: [{ userId: 'reader', isActive: true, isReadAssignedOnly: true }] };
   const model = name => ({ rawCollection: () => name, find: () => ({ observeChangesAsync: async callbacks => {
@@ -23,7 +23,9 @@ async function fixture(search, snapshot = false, prepare) {
         collectionName: 'pages', snapshot: true, cardFields: null, children: [], prepare: prepareFixture,
         findMatches: boardTextSearch });
     });` : '';
-  vm.runInNewContext(source + snapshotSource, { Meteor: { publish: (name, fn) => { handler = fn; }, Error }, check() {},
+  vm.runInNewContext(source + snapshotSource, { Meteor: { publish: (name, fn) => { handler = fn; }, Error,
+    setInterval: (fn, ms) => { intervals.push({ fn, ms }); return intervals.length; },
+    clearInterval: id => { cleared.push(id); } }, check() {},
     Boards, Cards: model('cards'), CardComments: model('comments'), Checklists: model('checklists'), ChecklistItems: model('items'),
     canReadBoard: (id, doc) => !!doc && (doc.permission === 'public' || doc.members.some(m => m.userId === id && m.isActive)),
     assignedOnlyCardScope, boardTextSearch: search, prepareFixture: prepare,
@@ -33,7 +35,7 @@ async function fixture(search, snapshot = false, prepare) {
     changed: (collection, id, fields) => rows.set(id, { ...rows.get(id), ...fields }),
     error: error => { throw error; } };
   return { observers, rows, context, start: term => handler.call(context, 'board', term),
-    setBoard(value) { board = value; }, stop: () => stop(), ready: () => ready };
+    setBoard(value) { board = value; }, stop: () => stop(), ready: () => ready, intervals, cleared };
 }
 test('publication scopes the join, retracts revoked results and cleans every observer', async () => {
   const scopes = [];
@@ -109,3 +111,42 @@ test('invalid or unauthorized requests never search and stopped scans never publ
   const running = f.start('needle'); await started; f.stop(); finish(['secret']); await running;
   assert.equal(f.rows.size, 0); assert.ok(f.observers.every(handle => handle.stopped));
 });
+
+// The board observer stalled for good on a busy test server (polling, no
+// oplog): lifting a member's assigned-only restriction never widened the text
+// matches. The periodic access re-check must catch a change the observer never
+// reports - in BOTH directions, since a stalled narrowing would leak matches.
+test('access changes reach the results even when the board observer never reports them', async () => {
+  const scopes = [];
+  const f = await fixture(async args => { scopes.push(args.scope); return args.scope.assignees ? ['assigned'] : ['assigned', 'other']; });
+  await f.start('needle');
+  assert.equal(f.intervals.length, 1, 'one access re-check per subscription');
+  assert.equal(f.intervals[0].ms, 10000);
+  assert.deepEqual([...f.rows.values()].map(row => row.cardId), ['assigned']);
+  // Widen: the restriction is lifted, and NO observer callback fires.
+  f.setBoard({ _id: 'board', permission: 'private', members: [{ userId: 'reader', isActive: true, isReadAssignedOnly: false }] });
+  await f.intervals[0].fn(); await tick(); await tick();
+  assert.deepEqual([...f.rows.values()].map(row => row.cardId).sort(), ['assigned', 'other']);
+  assert.equal(scopes.at(-1).assignees, undefined);
+  // Negative: narrowing again, also without an observer event, retracts.
+  f.setBoard({ _id: 'board', permission: 'private', members: [{ userId: 'reader', isActive: true, isReadAssignedOnly: true }] });
+  await f.intervals[0].fn(); await tick(); await tick();
+  assert.deepEqual([...f.rows.values()].map(row => row.cardId), ['assigned']);
+  // Negative: an unchanged board does not rescan on every tick.
+  const scans = scopes.length;
+  await f.intervals[0].fn(); await tick();
+  assert.equal(scopes.length, scans);
+  f.stop();
+  assert.deepEqual(f.cleared, [1], 'the re-check stops with the subscription');
+});
+
+test('revoked access is retracted by the re-check alone', async () => {
+  const f = await fixture(async () => ['assigned']);
+  await f.start('needle');
+  assert.equal(f.rows.size, 1);
+  f.setBoard({ _id: 'board', permission: 'private', members: [] });
+  await f.intervals[0].fn(); await tick(); await tick();
+  assert.equal(f.rows.size, 0);
+  f.stop();
+});
+
