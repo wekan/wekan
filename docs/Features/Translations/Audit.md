@@ -3782,6 +3782,14 @@ The [Tsonga facilitator guide](https://admin.jet.org.za/clearinghouse/projects/g
 
 Extended locale and browser coverage to all ten locale paths. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in 44 locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
 
+## Multiple-parent controls: Pacific locales - 2026-10-07
+
+Filled three English placeholders in each of `bi`, `tpi`, `mi`, `sm`, `fj`, `to` and `haw` (21 values) through the protected fill workflow. New labels describe the subordinate task and ending its relationship to another card. Existing English filler in Bislama, Tok Pisin and Tongan and questionable Hawaiian task/parent labels were not copied into the new values; those older labels remain in the language-quality backlog.
+
+The [University of Hawaii dictionary](https://wehe.hilo.hawaii.edu/?q=parent) supports makua for parent, and the [Tongan permission form](https://www.cn.ets.org/pdfs/ppat/ppat-student-parent-guardian-permission-form-tongan.pdf) supplies parent/work vocabulary. These do not validate the software metaphors or complete phrases. Technical parent terminology and sentence grammar, especially Hawaiian and Tongan, remain provisional and need language review.
+
+Extended locale and browser coverage to these seven locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in 37 locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
