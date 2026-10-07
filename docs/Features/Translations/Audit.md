@@ -3240,6 +3240,14 @@ Vocabulary references include the [GNOME Manx translation](https://mail.gnome.or
 
 Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in 14 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
 
+### Signed-in board visibility: Guaraní, Quechua and Aymara
+
+Filled the three signed-in board visibility strings in these locales: nine English placeholders. Direct drafts retain the viewing/editing distinction, anonymous exclusion and confirmation emphasis. Existing translations were protected by the fill utility; no translation service was used. Login phrasing and grammatical agreement have lower confidence across the batch, including Quechua dialect choices; fluent-speaker review remains open.
+
+References include the [GuaraniAyvu dictionary](https://www.guaraniayvu.com/) for viewing vocabulary, [ABC's Guaraní teaching material](https://www.abc.com.py/escolar/tercer-ciclo/guarani/2026/06/02/muanduhe-hai-jeporu/) for `moambue`, the [Quechua dictionary](https://www.illaa.org/pirwa/diccionarios/DicAMLQuechuaOrig.pdf) for viewing terminology, and the [Aymara introductory course](https://aymara.org/biblio/diccio_tarapaca.pdf) for `mantaña` and `uñjaña`. These references inform individual terms and do not validate the full drafted sentences.
+
+Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in 11 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
