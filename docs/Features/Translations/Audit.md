@@ -5961,6 +5961,20 @@ versus permanent rejection, uncertain delivery, retained pending work, no
 activity recreation and cancellation without recall of queued/delivered messages.
 Browser checks were not run. The remaining language and wording audit stays open.
 
+## Northern Sotho Sync conflicts and previews — 2026-10-07
+
+Filled 43 English placeholders without changing existing translations. Checks
+preserve source token inventories, keeping local values versus source values,
+removing only duplicate mappings, retaining card content and subcards,
+replacement reuse and review-only scope. Preview/source reports share labels
+and preserve the 100-entry/path limits and hidden source-object values.
+
+The two new tests, earlier Northern Sotho recovery tests and the structural
+check across 234 non-English catalogs pass (five tests total), as do 21
+human-preference checks. Browser checks were not run. Technical compounds for
+synchronization, mappings, parsers and source baselines remain low confidence
+pending fluent-speaker review. Remaining language work stays open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
