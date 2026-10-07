@@ -4743,6 +4743,15 @@ mixed-language audit remains open.
 - Low confidence: angle/corner distinctions, pixel loans, grid descriptions as an arrangement of boxes, and ordinary work nouns for programming functions need review. Input is described as information/things put inside; it may need greater precision for Blockly connections. Full phrases are direct drafts.
 - Existing browser flows cover field editing in all four locales, but browser execution and spoken announcements remain unverified. This batch removes 44 ordinary placeholders and corrects four mixed-language values; the broader semantic audit and 148 pending source keys remain open.
 
+### Māori, Tongan and Hawaiian field types
+
+- Filled 33 English field-type placeholders through the protected fill. Preserved existing correct-language translations and exact token inventories.
+- Corrected two Tongan selectors containing `Faka-Tonga:` plus English, and replaced opaque Hawaiian `kalopakowana`/`kekakapoka` control names with descriptive local wording. Added exact correction regressions and shared field-type distinctions.
+- Vocabulary references: Te Aka [koki](https://maoridictionary.co.nz/search?keywords=koki) and [tongiiti](https://maoridictionary.co.nz/word/39247); [Te Taura Whiri computer terms](https://www.tetaurawhiri.govt.nz/kupu-hou-te-rorohiko) for dropdown, input and function; [Hawaiian angle](https://wehe.hilo.hawaii.edu/?l=&q=angle); [NSW Tongan dictionary](https://education.nsw.gov.au/content/dam/main-education/teaching-and-learning/curriculum/multicultural-education/eald/eald-bilingual-dictionary-tongan.pdf) for angle vocabulary.
+- Low confidence: Tongan pixel loan, Hawaiian pixel description as a dotted image, checkbox descriptions, grid paraphrases as arranged boxes, and work nouns for programming functions. New full phrases remain drafts. Hawaiian pixel/grid dictionary requests were unavailable, so they do not establish attested technical usage.
+- Existing browser field-editing flows include all three locales; browser execution and spoken type announcements remain outstanding. Structural checks do not certify fluency.
+- This batch removes 33 ordinary placeholders and repairs four selector labels; the 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
