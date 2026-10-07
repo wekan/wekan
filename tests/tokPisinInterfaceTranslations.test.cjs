@@ -2496,3 +2496,55 @@ test('Tok Pisin lockout labels distinguish known accounts and absent usernames',
  assert.match(data['accounts-lockout-unlock-all'],/olgeta lok$/);
  assert.match(data['otp-required'],/^Yu mas putim kod OTP$/);
 });
+
+
+test('Tok Pisin monitoring controls replace mixed English and retain tokens',()=>{
+ const keys=[
+  "all-migrations",
+  "select-migration",
+  "scheduled-board-operations",
+  "back-to-settings",
+  "board-migration",
+  "board-migrations",
+  "comprehensive-board-migration",
+  "lost-cards",
+  "lost-cards-list",
+  "fix-missing-lists-migration",
+  "fix-all-file-urls-migration",
+  "migrations-admin-only",
+  "cleanup-old-jobs",
+  "days-old",
+  "estimated-time-remaining",
+  "filesystem-attachments",
+  "force-board-scan",
+  "migrate-all-to-filesystem",
+  "migrate-all-to-gridfs",
+  "migrate-all-to-s3",
+  "migrated-attachments",
+  "monitoring-export-failed",
+  "monitoring-refresh-failed",
+  "remaining-attachments",
+  "scanning-status",
+  "search-boards-or-operations",
+  "system-resources",
+  "unmigrated-boards",
+  "current-step"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:Migrations|Migration|Scheduled|Operations|Back|Comprehensive|Lost|Items|Fix|Missing|can|run|Cleanup|Jobs|Days|Estimated|remaining|Filesystem|Force|Scan|Migrate|Migrated|monitoring|refresh|Remaining|Scanning|operations|Resources|Unmigrated|Step)\b/,key);
+ }
+});
+
+test('Tok Pisin monitoring labels preserve target storage, permission limits and progress states',()=>{
+ assert.match(data['migrations-admin-only'],/admin bilong bot tasol inap/);
+ for(const target of ['gridfs','s3']) assert.equal(data['migrate-all-to-'+target],'Movim olgeta i go long '+(target==='s3'?'S3':'GridFS'));
+ assert.match(data['migrate-all-to-filesystem'],/olgeta.*sistem bilong ol fail/);
+ assert.match(data['migrated-attachments'],/muv pinis$/);
+ assert.match(data['remaining-attachments'],/stap yet$/);
+ assert.match(data['unmigrated-boards'],/no muv yet$/);
+ assert.match(data['monitoring-export-failed'],/no inap salim.*i go aut/);
+ assert.match(data['monitoring-refresh-failed'],/no inap kisim nupela/);
+ assert.match(data['force-board-scan'],/i mas sekim bot/);
+});
