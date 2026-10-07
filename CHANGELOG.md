@@ -1890,6 +1890,19 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/afd51d4b50431e28287348a414b797d240ce04bd">Translate SAML error into Quechua, Aymara, Guarani and Fulah</a>. Thanks to xet7.</summary>
+
+- Fill the browser-tab message in qu, ay, gn and ff without overwriting translations.
+  Full phrases and browser-tab terminology are low confidence and need native review.
+- Popup-error tests now check 56 recently filled locales and pass, including positive
+  and negative login-boundary cases. All-locale structural and human-preference
+  checks pass. Browser scenarios were not run; the app stack was unavailable.
+- Ten locale paths still need this message. The ordinary backlog remains 51,575
+  values plus 182 pending source keys; language-quality review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e188bb0f89460ca3684a531d63eed9ba7d41fe3d">Translate SAML browser-tab error in five more locales</a>. Thanks to xet7.</summary>
 
 - Fill the message in ace, bo, dz, ti and ks without overwriting translations.
