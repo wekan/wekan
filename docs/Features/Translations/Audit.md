@@ -3344,6 +3344,16 @@ References include [Te Aka's warning entry](https://maoridictionary.co.nz/word/9
 
 Ten translation/token regressions, import-loss positive/negative checks, all 234 locale structure checks and 21 human-preference checks pass. Extended the existing browser cases to eight more locales; they were syntax-checked only because the local Playwright executable and running application are unavailable. Each of the three source keys remains English in 38 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
 
+### Import warning report: eight locales and recovery-path repairs
+
+Filled 24 English placeholders in Akan (`ak`), Luganda (`lg`), Wolof (`wo`), Swati (`ss`), Tsonga (`ts`), Venda (`ve`), Waray (`wa-RR`) and Venetian (`ve-CC`). The fill utility protected existing translations; no translation service was used. The warning and description preserve successful board creation, incomplete transfer and the recovery-report location.
+
+Corrected eleven menu values directly: Akan's repeated generic sentence becomes distinct problems/recovery labels; Tsonga's repeated `Hi Xitsonga: mhaka` filler becomes `Swiphiqo` and `Ku vuyisela`; Venda's Zulu administration label and unsuitable recovery term become `Phanele ya mulanguli` and `U vhuedzedza`; Waray's French administration and Walloon problems/recovery labels become Waray labels; Venetian's Venda problems/recovery values become `Problemi` and `Recupero`. The new regression checks require matching full menu paths, distinct problems/recovery labels and absence of the known bad wording.
+
+Vocabulary references include the [Luganda dictionary](https://learnluganda.com/concise), [Akan warning/problem usage](https://www.jw.org/tw/nhomakorabea/ns%C9%9Bmma-nhoma/w19930301/So-Wubetie-Onyankop%C9%94n-K%C9%94k%C9%94b%C9%94/), [Venda recovery wording](https://www.gov.za/ve/services/services-residents/travel-outside-sa/tshumelo-dza-vhuimeli), and [Waray restoration usage](https://www.jw.org/war/librarya/magasin/w20000901/Hirani-Na-An-mga-Panahon-han-Pagpahiuli/). These support individual vocabulary, not full drafted sentences. Wolof, Swati, Venda, Waray and Venetian technical phrasing and agreement have lower confidence; all drafts and inherited board terminology remain open to fluent-speaker review.
+
+Ten translation/token regressions, import-loss positive/negative checks, all 234 locale structure checks and 21 human-preference checks pass. Extended the browser cases to eight more locales; they were syntax-checked only because the local Playwright executable and running application are unavailable. Each of the three source keys remains English in 30 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
