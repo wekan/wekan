@@ -2173,6 +2173,21 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3e747a1412a4ae2b10df99143bbb04d426a8b61e">Correct 21 Tok Pisin diagnostics and storage status messages.</a></summary>
+
+- Replace English and mixed-language diagnostic labels. Preserve source tokens,
+  numeric limits, repair scope and success/failure distinctions. Heap context
+  wording is low confidence; technical wording needs fluent-speaker review.
+- The combined run passes 134 checks; two catalog checks still fail on the
+  missing due-date shortcut key. All 21 human-preference checks pass.
+  Browser and screen-reader checks were not run.
+- The broader translation and wording audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/229bfc5b6da1e99f45ea45e64c9e5eee92dfced9">Correct 16 Tok Pisin customization labels.</a></summary>
 
 - Replace mixed English in logo, HTML and custom-translation controls.
