@@ -7025,6 +7025,21 @@ The focused run passes 43 checks. Two existing catalog checks still fail on the
 missing shortcut elsewhere. All 21 human-preference checks pass. Browser and
 screen-reader checks were not run. Remaining locales and wording review stay open.
 
+## Due-date shortcut inventory repair: seven additional catalogs
+
+Added shortcut-edit-due-date to ary, fy, fy-NL, la, lb, mt and oc. Existing values
+were preserved, and each catalog now matches English key inventory and order.
+Opened-card wording draws on existing locale terminology and dictionary checks:
+[Luxembourgish oppen](https://en.wiktionary.org/wiki/oppen),
+[Maltese miftuħ](https://en.wiktionary.org/wiki/miftu%C4%A7), and
+[Occitan dobrir/dobèrt](https://en.wiktionary.org/wiki/dobrir).
+Wording is provisional; Occitan and Moroccan Arabic phrasing is low confidence
+pending speaker review. Tests check tokens and scope, not fluency.
+
+The focused run passes 44 checks. Two existing catalog checks still fail on the
+missing shortcut elsewhere. All 21 human-preference checks pass. Browser and
+screen-reader checks were not run. Remaining locales and wording review stay open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
