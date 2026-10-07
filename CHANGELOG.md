@@ -2173,6 +2173,21 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/17a37ef989e87f4c865fb428051abbca39858dc4">Correct 13 Tok Pisin custom-field messages.</a></summary>
+
+- Replace mixed English and repair the multi-select wording. Preserve
+  placeholders and formatting literals, with checks for deletion scope and
+  setting/unsetting values. Wording remains provisional pending fluent-speaker review.
+- The combined run passes 92 checks; two catalog checks still fail on the
+  missing due-date shortcut key. All 21 human-preference checks pass.
+  Browser and screen-reader checks were not run.
+- The broader translation and wording audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/dec92e7d37280622bd57efaed9f774932e10a350">Correct 24 Tok Pisin deletion and restoration messages.</a></summary>
 
 - Replace mixed English in deletion warnings and restoration messages.
