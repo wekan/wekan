@@ -3582,6 +3582,14 @@ Filled five English placeholders in `tig` with the protected fill utility. The d
 
 Extended the translation/token regression and existing localized browser scenario to Tigre. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in one locale: Cherokee. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
 
+## Cherokee history recovery and all-locale coverage — 2026-10-07
+
+Filled the five remaining Cherokee history-recovery placeholders through the protected fill workflow. All five messages now have non-empty, non-English values in all 234 non-English locale paths; removed these five source keys from the pending queue (165 → 160). The ordinary backlog remains 51,575 locale/string values across 70 languages.
+
+The [Cherokee Microsoft localization style guide](https://device.report/m/ec97d073ab6cbd68782ca40920086dfc88494072dd04c880442803a81c119438.pdf), pages 9 and 11, supplies retry and confirmation examples. The longer sentences are low-confidence provisional drafts, not verified fluent Cherokee. The forget control is phrased as dismissing this request. Further speaker review must check the undo/redo distinction and the same-request guarantee; differing strings alone do not establish either meaning.
+
+Extended the regression to discover all non-English locale files, verify non-empty/non-English values and exact placeholder inventories, and reject identical undo/redo or retry/forget labels. Added Cherokee to the existing browser scenario with lost-reply, retry, forget, stale-request and wrong-board checks. The 13 focused tests, 21 human-preference checks and browser syntax check pass. Browser execution remains unavailable without Playwright and a running application; language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

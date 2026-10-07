@@ -1,26 +1,6 @@
 {
   "keys": [
     {
-      "key": "history-request-pending-undo",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "history-request-pending-redo",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "history-request-hint",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "history-request-retry",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "history-request-forget",
-      "since": "2026-09-29"
-    },
-    {
       "key": "board-view-map",
       "since": "2026-09-29"
     },
