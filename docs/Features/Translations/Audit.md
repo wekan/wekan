@@ -7352,6 +7352,14 @@ tokens and key order, distinguish start/end positions and division operands,
 and retain x/y coordinates. Delimiter and operand wording remains low confidence
 pending fluent review. Browser and screen-reader checks were not run.
 
+### Bhojpuri text inputs and keyboard navigation
+
+Filled 30 English placeholders for text/number inputs, keyboard navigation and
+empty-list creation. Existing translations are preserved. Tests compare source
+tokens and key order, distinguish search from replacement and retain numeric
+empty-list length. Statement-position terminology remains low confidence pending
+fluent review. Browser and screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
