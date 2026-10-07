@@ -472,6 +472,29 @@ checks. The existing mute/unmute browser scenario includes all five new
 languages and checks the heading, explanation and eleven category labels.
 It passes syntax checking but was not browser-executed in this environment.
 
+## Polynesian and southern African notification preferences — 2026-10-07
+
+Filled 13 English placeholders each in Māori (`mi`), Samoan (`sm`), Hawaiian
+(`haw`), Zulu (`zu`, `zu-ZA`), Xhosa (`xh`), Sesotho (`st`) and Setswana (`tn`):
+104 values in eight catalogs. Comparison against the previous commit confirms
+all replacements were English placeholders. The keys remain pending in other
+languages, so the standard backlog stays at 51,575 values with 201 pending
+source keys.
+
+Catalog terminology supplies card/list/member/attachment terms. The messages
+separate members from assigned workers and preserve both parts of the control:
+unchecking a category stops its bell/email notices, while deadline reminders
+and @mentions still arrive. Xhosa uses a lane term rather than copying the
+older generic label meaning swimming. Technical expressions for custom-field
+values, archiving and lanes remain open to speaker review, particularly in
+the Polynesian drafts.
+
+The shared notification suite now covers 16 locales. Exact tokens, source
+order, distinct people categories, mention markers and the muting exception
+pass, together with all-locale structure and human-preference checks. The
+existing browser mute/unmute scenario checks all 13 strings for each added
+locale. It is syntax-checked only; no browser execution was available.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

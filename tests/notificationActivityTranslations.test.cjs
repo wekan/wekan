@@ -7,7 +7,7 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('notification-activity-'));
 assert.equal(keys.length, 13);
-for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: key order`);
   for (const key of keys) {
@@ -35,4 +35,20 @@ assert.match(read('bi')['notification-activity-description'], /tingbaot dedlaen.
 assert.match(read('pap')['notification-activity-description'], /Kita e marka/);
 assert.match(read('tpi')['notification-activity-description'], /Rausim mak/);
 assert.match(read('bi')['notification-activity-description'], /Tekemaot mak/);
-console.log('Notification activity translations: 13 messages in 8 locales passed');
+assert.match(read('mi')['notification-activity-description'], /Ka tae tonu mai ngā whakamaharatanga rā kati.*@/);
+assert.match(read('sm')['notification-activity-description'], /E oo mai pea faamanatu.*@/);
+assert.match(read('haw')['notification-activity-description'], /E hiki mau mai nā hoʻomanaʻo.*@/);
+assert.match(read('mi')['notification-activity-description'], /Tangohia te tohu/);
+assert.match(read('sm')['notification-activity-description'], /Aveese le faailoga/);
+assert.match(read('haw')['notification-activity-description'], /Wehe i ka māka/);
+for (const code of ['zu', 'zu-ZA']) {
+  assert.match(read(code)['notification-activity-description'], /Izikhumbuzi.*@ kuhlala kufika/);
+  assert.match(read(code)['notification-activity-description'], /Susa uphawu/);
+}
+assert.match(read('xh')['notification-activity-description'], /Izikhumbuzo.*@ zisoloko zifika/);
+assert.match(read('st')['notification-activity-description'], /Dikgopotso.*@ di fihla kamehla/);
+assert.match(read('tn')['notification-activity-description'], /Dikgopotso.*@ di goroga ka metlha/);
+assert.match(read('xh')['notification-activity-description'], /Susa uphawu/);
+assert.match(read('st')['notification-activity-description'], /Tlosa letshwao/);
+assert.match(read('tn')['notification-activity-description'], /Tlosa letshwao/);
+console.log('Notification activity translations: 13 messages in 16 locales passed');
