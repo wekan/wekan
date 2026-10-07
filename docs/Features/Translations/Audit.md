@@ -5207,6 +5207,12 @@ mixed-language audit remains open.
 - Added per-key token checks, return/no-return distinctions, function-only restrictions, disabled definitions and explicit off-to-on/on-to-off transitions.
 - Procedure-definition and screen-reader descriptions remain provisional and need contextual accessibility review; the technical parameter term remains recognizable within Akan prose. Browser and spoken checks were not run.
 
+### Akan Blockly navigation shortcuts
+
+- Filled 39 English placeholders through the protected workflow, covering movement, scrolling, focus, stack/page navigation and announcements. Used the existing Akan direction terms consistently.
+- Added per-key token checks, four-direction assertions, visible-area scrolling distinctions, opposite-action checks and explicit previous-item wording.
+- Focus, stack and announcement wording remains provisional and needs contextual accessibility review. Browser and spoken checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

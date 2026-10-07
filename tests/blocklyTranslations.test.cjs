@@ -520,3 +520,20 @@ test('Akan procedure and screenreader messages preserve return values and state 
  assert.match(data['blockly-SCREENREADER_MODE_DISABLED'],/^Wɔadum.*sɔ no$/);
  assert.match(data['blockly-SCREENREADER_MODE_ENABLED'],/^Wɔasɔ.*dum no$/);
 });
+
+test('Akan shortcuts preserve navigation direction and action distinctions', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const data=require('../imports/i18n/data/ak.i18n.json');
+ const keys=["blockly-SHORTCUTS_ABORT_MOVE", "blockly-SHORTCUTS_CLEANUP", "blockly-SHORTCUTS_CODE_NAVIGATION", "blockly-SHORTCUTS_DISCONNECT", "blockly-SHORTCUTS_DUPLICATE", "blockly-SHORTCUTS_EDITING", "blockly-SHORTCUTS_ESCAPE", "blockly-SHORTCUTS_EXTENDED_INFORMATION", "blockly-SHORTCUTS_FINISH_MOVE", "blockly-SHORTCUTS_FOCUS_TOOLBOX", "blockly-SHORTCUTS_FOCUS_WORKSPACE", "blockly-SHORTCUTS_GENERAL", "blockly-SHORTCUTS_INFORMATION", "blockly-SHORTCUTS_JUMP_BLOCK_END", "blockly-SHORTCUTS_JUMP_BLOCK_START", "blockly-SHORTCUTS_JUMP_BOTTOM_STACK", "blockly-SHORTCUTS_JUMP_FIRST_BLOCK", "blockly-SHORTCUTS_JUMP_LAST_BLOCK", "blockly-SHORTCUTS_JUMP_NEXT_PAGE", "blockly-SHORTCUTS_JUMP_PREVIOUS_PAGE", "blockly-SHORTCUTS_JUMP_TOP_STACK", "blockly-SHORTCUTS_MOVE_DOWN", "blockly-SHORTCUTS_MOVE_LEFT", "blockly-SHORTCUTS_MOVE_RIGHT", "blockly-SHORTCUTS_MOVE_UP", "blockly-SHORTCUTS_NEXT_HEADING", "blockly-SHORTCUTS_NEXT_STACK", "blockly-SHORTCUTS_PERFORM_ACTION", "blockly-SHORTCUTS_PREVIOUS_HEADING", "blockly-SHORTCUTS_PREVIOUS_STACK", "blockly-SHORTCUTS_SCROLL_DOWN", "blockly-SHORTCUTS_SCROLL_LEFT", "blockly-SHORTCUTS_SCROLL_RIGHT", "blockly-SHORTCUTS_SCROLL_UP", "blockly-SHORTCUTS_SHOW_CONTEXT_MENU", "blockly-SHORTCUTS_SHOW_TOOLTIP", "blockly-SHORTCUTS_START_MOVE", "blockly-SHORTCUTS_START_MOVE_STACK", "blockly-SHORTCUTS_TOGGLE_SCREENREADER_MODE"];
+ for(const key of keys){
+  assert.notEqual(data[key],english[key],key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ for(const [direction,word] of [['DOWN','fam'],['UP','soro'],['LEFT','benkum'],['RIGHT','nifa']]){
+  assert.ok(data['blockly-SHORTCUTS_MOVE_'+direction].endsWith(word));
+  assert.ok(data['blockly-SHORTCUTS_SCROLL_'+direction].endsWith(word));
+  assert.match(data['blockly-SHORTCUTS_SCROLL_'+direction],/^Twe nea ɛda adi/);
+ }
+ for(const [a,b] of [['ABORT_MOVE','FINISH_MOVE'],['JUMP_BLOCK_START','JUMP_BLOCK_END'],['JUMP_TOP_STACK','JUMP_BOTTOM_STACK'],['NEXT_HEADING','PREVIOUS_HEADING'],['NEXT_STACK','PREVIOUS_STACK']]) assert.notEqual(data['blockly-SHORTCUTS_'+a],data['blockly-SHORTCUTS_'+b]);
+ for(const key of ['JUMP_PREVIOUS_PAGE','PREVIOUS_HEADING','PREVIOUS_STACK']) assert.match(data['blockly-SHORTCUTS_'+key],/atwam/);
+});
