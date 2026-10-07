@@ -3,7 +3,7 @@ const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const english=require('../imports/i18n/data/en.i18n.json');
 const {translationTokens}=require('../releases/translations/placeholder-tokens.mjs');
-const tags=["de", "fr", "es", "it", "pt", "pt-BR", "nl", "sv", "da", "nb", "fi", "pl", "cs", "sk", "uk", "ru", "el", "tr", "ja", "ko", "zh-CN", "zh-TW", "ar", "he", "id", "vi", "hu", "ro", "bg", "hr", "ca", "eu", "gl", "af", "sq", "be", "bs", "sr", "sl", "mk", "lt", "lv", "is", "ms", "tl", "sw", "hi", "bn", "ta", "ml", "mr", "pa", "ur", "fa", "th", "km", "az", "uz", "kk", "mn", "hy", "ka", "ne", "eo", "cy", "ga", "et-EE", "te-IN", "gu-IN", "en-GB", "ar-DZ", "ar-EG", "az-AZ", "az-LA", "cs-CZ", "cy-GB", "de-AT", "de-CH", "el-GR", "en-BR", "en-DE", "en-IT", "en-MY", "en-YS", "es-AR", "es-CL", "es-CO", "es-LA", "es-MX", "es-PE", "es-PY", "fa-IR", "fr-BE", "fr-CA", "fr-CH", "fr-FR", "he-IL", "hi-IN", "ja-HI", "ja-JP", "km-KH", "ko-KR", "ms-MY", "nl-NL", "pl-PL", "pt-PT", "ro-RO", "ru-RU", "ru-UA", "uk-UA", "uz-LA", "uz-UZ", "vi-VN", "zh-GB", "zh-HK", "zh-Hans", "zh-Hant", "af_ZA", "ca@valencia", "ca_ES", "de_DE", "en_AU", "en_ID", "en_SG", "en_TR", "en_ZA", "es_CO", "pt_PT", "sl_SI", "cmn", "zh", "zh_SG", "gl-ES", "kn", "si", "my", "ky", "tg", "ps", "sd", "am", "ckb", "ku", "ha", "yo", "ht", "mg", "lb", "fy", "fy-NL", "mt", "oc", "la", "ary"];
+const tags=["de", "fr", "es", "it", "pt", "pt-BR", "nl", "sv", "da", "nb", "fi", "pl", "cs", "sk", "uk", "ru", "el", "tr", "ja", "ko", "zh-CN", "zh-TW", "ar", "he", "id", "vi", "hu", "ro", "bg", "hr", "ca", "eu", "gl", "af", "sq", "be", "bs", "sr", "sl", "mk", "lt", "lv", "is", "ms", "tl", "sw", "hi", "bn", "ta", "ml", "mr", "pa", "ur", "fa", "th", "km", "az", "uz", "kk", "mn", "hy", "ka", "ne", "eo", "cy", "ga", "et-EE", "te-IN", "gu-IN", "en-GB", "ar-DZ", "ar-EG", "az-AZ", "az-LA", "cs-CZ", "cy-GB", "de-AT", "de-CH", "el-GR", "en-BR", "en-DE", "en-IT", "en-MY", "en-YS", "es-AR", "es-CL", "es-CO", "es-LA", "es-MX", "es-PE", "es-PY", "fa-IR", "fr-BE", "fr-CA", "fr-CH", "fr-FR", "he-IL", "hi-IN", "ja-HI", "ja-JP", "km-KH", "ko-KR", "ms-MY", "nl-NL", "pl-PL", "pt-PT", "ro-RO", "ru-RU", "ru-UA", "uk-UA", "uz-LA", "uz-UZ", "vi-VN", "zh-GB", "zh-HK", "zh-Hans", "zh-Hant", "af_ZA", "ca@valencia", "ca_ES", "de_DE", "en_AU", "en_ID", "en_SG", "en_TR", "en_ZA", "es_CO", "pt_PT", "sl_SI", "cmn", "zh", "zh_SG", "gl-ES", "kn", "si", "my", "ky", "tg", "ps", "sd", "am", "ckb", "ku", "ha", "yo", "ht", "mg", "lb", "fy", "fy-NL", "mt", "oc", "la", "ary", "as", "or_IN", "bho", "mai", "yue_CN"];
 test('due-date shortcut translations exist in the restored locale key order',()=>{
  for(const tag of tags){
   const data=require('../imports/i18n/data/'+tag+'.i18n.json');
@@ -83,4 +83,12 @@ test('further shortcut translations retain opened-card vocabulary',()=>{
  assert.match(read('oc'),/carta dobèrta/);
  assert.match(read('la'),/chartae apertae/);
  assert.match(read('ary'),/البطاقة المحلولة/);
+});
+test('Indic and Cantonese shortcut labels identify the opened card',()=>{
+ const read=tag=>require('../imports/i18n/data/'+tag+'.i18n.json')['shortcut-edit-due-date'];
+ assert.match(read('as'),/খোলা কাৰ্ডৰ/);
+ assert.match(read('or_IN'),/ଖୋଲା କାର୍ଡର/);
+ assert.match(read('bho'),/खुलल कार्ड/);
+ assert.match(read('mai'),/खुलल कार्डक/);
+ assert.match(read('yue_CN'),/開緊嘅卡片/);
 });

@@ -7040,6 +7040,15 @@ The focused run passes 44 checks. Two existing catalog checks still fail on the
 missing shortcut elsewhere. All 21 human-preference checks pass. Browser and
 screen-reader checks were not run. Remaining locales and wording review stay open.
 
+### Missing due-date shortcut: Indic languages and Cantonese
+
+Added the absent shortcut to Assamese, Odia, Bhojpuri, Maithili and Cantonese,
+using existing card, open and due-date vocabulary. Existing translations are
+preserved, and every catalog follows English source key order. Bhojpuri,
+Maithili and Odia wording remains low confidence pending fluent review.
+Tests check key order, placeholder inventories and opened-card scope; they do
+not establish fluency. Browser and screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
