@@ -1333,6 +1333,31 @@ unavailable. 37 locale paths still need this six-string group. The ordinary
 backlog remains 51,575 values, plus 188 pending source keys. Wider language-quality
 review remains open.
 
+### Due reminders — Oromo, Fijian and Tongan (2026-10-07)
+
+Filled six reminder strings in each of `om`, `fj` and `to` (18 values).
+The instructions retain comma-separated offsets, zero as the due day, positive
+days before and negative days after, the empty server-default setting, at most
+ten integers from -14 to 14, board disabling and outgoing webhook delivery.
+Only English placeholders were filled; no external translation service was used.
+Technical compounds and full Fijian and Tongan instructions remain low-confidence
+drafts for native review. Structural checks do not establish fluency.
+
+Vocabulary references: [Fijian-English dictionary](https://www.folksong.org.nz/isa_lei/Fijian-English_Dictionary.pdf)
+attests `vava` for board (and regional `papa`); the existing `board: Vola` label
+remains a terminology-review item. The new reminder prose uses `vava`.
+[Te Papa's Fijian activity book](https://www.tepapa.govt.nz/assets/76067/1693189257-fijian_language_activity_book_a4_0.pdf)
+supports `tini` for ten. [New Zealand curriculum guidance in Tongan](https://nzcurriculum.tki.org.nz/content/download/7181/100923/file/Tongan.pdf)
+uses `fika kakato` in mathematical prose. These references support vocabulary,
+not the complete software translations.
+
+Translation checks now cover 32 locales, including offset direction, defaults,
+bounds and source-token inventories. Existing browser scenarios include all three
+locales. Translation, all-locale structural and human-preference checks pass;
+browser scenarios were syntax-checked only because the app stack was unavailable.
+34 locale paths still need this six-string group. The ordinary backlog remains
+51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
