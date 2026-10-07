@@ -3522,6 +3522,12 @@ Filled 15 English placeholders in `bo`, `dz` and `ti` with the protected fill ut
 
 Extended the translation/token regression and existing localized browser scenario to the three locales. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 22 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
 
+### History recovery: Manx, Venetian and Aromanian
+
+Filled 15 English placeholders in `gv`, `ve-CC` and `rup` with the protected fill utility. The drafts distinguish undo/redo and retry/forget and retain the same-request explanation. References include [the Manx dictionary](https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/maneng.pdf) for forgetting vocabulary, [the Venetian desmentegarse entry](https://kaikki.org/dictionary/All%20languages%20combined/meaning/d/de/desmentegarse.html), and [the Society Farsharotu dictionary](https://vivliuteca.org/wp-content/uploads/2025/06/an-english-aromanian-macedo-romanian-dictionary-society-farsharotu.pdf), in its forgetting and reversal entries. These establish roots, not the composed clauses. Full sentences, Manx mutations, Venetian technical nominalizations and Aromanian inflection/orthography remain low-confidence drafts for fluent-speaker review. Existing French, Italian and Zulu seed problems in unrelated Aromanian/Venetian labels remain unfinished audit work.
+
+Extended the translation/token regression and existing localized browser scenario to the three locales. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 19 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
