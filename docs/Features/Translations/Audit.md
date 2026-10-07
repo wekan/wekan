@@ -3814,6 +3814,14 @@ The [Buryat educational text](https://www.burunen.ru/media/42626-buryaad-kheleer
 
 Extended locale and browser coverage to all three locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in 22 locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
 
+## Multiple-parent controls: Tibetan, Dzongkha and Tigrinya - 2026-10-07
+
+Filled three English placeholders in each of `bo`, `dz` and `ti` (nine values) through the protected fill workflow. The labels describe another parent relationship and ending that relationship without deleting a card. Tibetan and Dzongkha were drafted separately despite their shared script.
+
+The [Tibetan task entry](https://rywiki.tsadra.org/index.php/las_%27gan) supports task vocabulary; existing locale labels supplied the subtask and parent-card terminology. The Dzongkha dictionary search identified the official resource but did not verify the complete UI expressions. Tibetan and Dzongkha technical compounds and sentence grammar remain provisional; the full phrases need language review. Script and placeholder checks cannot establish linguistic accuracy.
+
+Extended locale and browser coverage to all three locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in 19 locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
