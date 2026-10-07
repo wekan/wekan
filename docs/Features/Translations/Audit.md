@@ -4776,6 +4776,14 @@ mixed-language audit remains open.
 - Extended image, selector and input/function-name distinction checks plus token coverage. Existing browser field-editing flows include all four locales; browser and spoken accessibility checks remain unrun.
 - This batch removes 44 ordinary placeholders. The 148 pending source keys and broader semantic audit remain open.
 
+### Northern Sámi, Veps and Acehnese field types
+
+- Filled 33 English field-type placeholders through the protected fill and corrected two Malay-seeded Acehnese generic selectors (`Senarai juntai barah`, `kotak semak`). Existing correct-language translations and source arguments remain intact.
+- References: [Sámi angle discussion](https://www.mdpi.com/2227-7102/16/1/52), [Veps–Hungarian dictionary](https://adoc.pub/vepsze-magyar-kisszotar-veps-vengrialaine-pen-vajehnik.html) (`čoga`, mathematical angle; `muju`, color), and [Acehnese thesaurus](https://dokumen.pub/kamus-basa-aceh-kamus-bahasa-aceh-acehneseindonesianenglish-thesaurus-0858835061.html). Look-alike Veps candidates were not assumed to mean angle.
+- Low confidence: Veps dropdown grammar and grid compounds, Sámi grid description and input described as a writing field, Acehnese technical loans, and date terminology require review. The full labels are direct drafts, not attested phrases. Grid descriptions using squares may need greater precision.
+- Added positive/token and type-distinction coverage, exact Acehnese correction checks and Veps vocabulary assertions. Existing browser flows cover field editing, but browser execution and spoken announcements remain unverified.
+- This batch removes 33 ordinary placeholders and corrects two wrong-language selector labels. The broader semantic audit and 148 pending source keys remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
