@@ -4848,6 +4848,13 @@ mixed-language audit remains open.
 - Low confidence: color uses paint vocabulary, date uses day, input uses entering and function uses ordinary work. Checkbox describes a box for marking; grid dropdown adds boxes to a list opening downward. Pixel is a loan. Orthography, compounds and grammatical endings need review; prefixed-English filler was not treated as a protected translation.
 - Added token/type distinction checks and exact correction regressions. Existing browser coverage remains registered but unexecuted. Angle, spoken announcements, the 148 pending source keys and the broader semantic audit remain open.
 
+### Cherokee field types
+
+- Filled 11 English field-type placeholders through the protected fill and extended source-token and field-type distinction checks. Existing non-English controls were preserved.
+- Vocabulary references: this [Cherokee dictionary compilation](https://www.witchcraft-academy.com/Library/Traditions/Native%20American/Cherokee_Dictionary.pdf) lists corner, picture, square and process; [the color lesson](https://www.culturev.com/cherokee/front/colors.html) provides color vocabulary. The compilation is a secondary resource with uneven transcription, not an authoritative software glossary. Existing catalog wording supplies checkbox, dropdown, day, input and name constructions.
+- Very low confidence: corner is used for angle, day for date and process for function. Pixel is an unverified syllabic loan; grid adds a four-cornered shape to the dropdown description. Transcription, grammatical agreement, noun phrases, input meaning and the existing dropdown/checkbox terms all require review. Correct script, distinct labels and token preservation do not establish fluent Cherokee.
+- Existing browser coverage is registered but unexecuted. Spoken announcements, the 148 pending source keys and the broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
