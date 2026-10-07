@@ -1889,6 +1889,21 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8c3b630cec187a3dd64afd7e6ccf5a0f9786d04f">Translate Buryat, Sakha and Chuvash notification settings</a>. Thanks to xet7.</summary>
+
+- Fill 39 English placeholders across Buryat, Sakha and Chuvash, preserving
+  existing translations and the reminder/@mention exception to muting.
+- Shared notification coverage now checks 44 locales. Feature, all-locale
+  structure and human-preference checks pass. Browser mute/unmute scenarios
+  are syntax-checked only. Technical wording is low confidence pending
+  speaker review; vocabulary references are recorded in the audit.
+- These values belong to pending source keys, so the standard backlog
+  remains 51,575 values plus 201 pending source keys. Remaining languages
+  and broader language review stay in TODO Later.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/33831dc768fe6618d0545641e9a7598606b73bb4">Translate Aromanian notification settings</a>. Thanks to xet7.</summary>
 
 - Fill 13 English placeholders in Aromanian, preserving existing translations
