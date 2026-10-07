@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "ᐅᓇ ᑎᑎᖅᑲᖅ ᓇᒃᓯᐅᑕᐅᕌᓂᒃᓯᒪᔪᖅ, ᓇᒃᓯᐅᑕᐅᓂᖓ ᐆᒃᑐᖅᑕᐅᕌᓂᒃᓯᒪᔪᖅ ᐅᕝᕙᓘᓐᓃᑦ ᐲᖅᑕᐅᕌᓂᒃᓯᒪᔪᖅ.",
   "rule-email-legacy-not-legacy": "ᐅᓇ ᑎᑎᖅᑲᖅ ᐊᑕᑎᑕᐅᒃᑲᓐᓂᕌᓂᒃᓯᒪᔪᖅ.",
   "rule-email-legacy-failed": "ᐅᓇ ᐱᓕᕆᐊᖅ ᐱᔭᕇᖅᑕᐅᔪᓐᓇᓚᐅᙱᑦᑐᖅ. ᓄᑖᙳᖅᑎᓪᓗᒍ ᐆᒃᑐᒃᑲᓐᓂᕐᓗᑎᓪᓗ.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "SAML-ᑯᑦ ᐃᓯᕐᓂᖅ ᐅᓇ ᐱᒋᐊᖅᑎᑕᐅᓚᐅᙱᑦᑐᖅ ᐅᕙᓂ ᕿᓂᕈᑎᐅᑉ ᑕᑉᖓᓂ. ᐊᑏ ᐃᓯᖅᑲᓐᓂᕆᑦ.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

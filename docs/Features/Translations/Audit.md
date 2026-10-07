@@ -2052,6 +2052,22 @@ checks pass. Browser scenarios were not run; the app stack was unavailable.
 Six locale paths still need this message. The snapshot remains 51,575 ordinary
 missing values plus 182 pending keys; broader language review remains open.
 
+### SAML browser-tab error — Greenlandic and Inuktitut (2026-10-07)
+
+Filled `saml-login-not-started` in kl and iu, retaining the current-tab boundary
+and instruction to sign in again. Existing translations were preserved and no
+translation service was used. Both full phrases, inflections and browser/tab terms
+are low confidence and need native review. Borrowed browser/tab labels remain a
+terminology review item. Existing locale login vocabulary was used; the Inuktitut
+start stem also occurs in [Nunavut proceedings](https://assembly.nu.ca/sites/default/files/Hansard_20060308_Inuktitut.pdf).
+This evidence does not validate the complete translation.
+
+The popup-error suite now checks 62 recently filled locales and passes, including
+positive and negative login-boundary cases. All-locale structural and human-preference
+checks pass. Browser scenarios were not run; the app stack was unavailable.
+Four locale paths still need this message. The snapshot remains 51,575 ordinary
+missing values plus 182 pending keys; broader language review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
