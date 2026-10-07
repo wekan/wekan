@@ -1890,6 +1890,20 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a5f345f6cf1ac4cb52a979ee35685aa7fd874421">Translate due reminders into Standard Moroccan Tamazight</a>. Thanks to xet7.</summary>
+
+- Fill six English placeholders in Tifinagh, retaining signed offsets, server
+  defaults, whole-day bounds, the ten-entry limit and webhook delivery. Full phrases
+  and technical terms are low confidence and need native review.
+- Reminder checks now cover 62 translated locales. Translation, all-locale structural
+  and human-preference checks pass. Browser scenarios were syntax-checked only
+  because the app stack was unavailable.
+- Four locale paths still need this reminder group. The ordinary backlog remains
+  51,575 values plus 188 pending source keys; wider language review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2b5d755ae6ab68db22faddcf79a56eb8a92d267d">Translate due reminders into Veps</a>. Thanks to xet7.</summary>
 
 - Fill six strings, preserving signed offsets, server defaults, integer bounds,
