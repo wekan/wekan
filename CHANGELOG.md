@@ -1890,6 +1890,17 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/521228a31b47f61327f2c28b717f937045253e60">Translate map view into Sesotho, Setswana, Northern Sotho, Zulu and Xhosa.</a></summary>
+
+- Filled 42 placeholders across six locale files, including both Zulu paths. Floor-plan terminology remains provisional, especially Northern Sotho.
+- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but execution awaits Playwright and a running application.
+- The seven map-view keys remain English in 45 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a394fc63bc6eda730b6e7ab2d3d56933bd120d00">Translate map view into Somali, Oromo, Kinyarwanda, Kirundi and Chichewa.</a></summary>
 
 - Filled 35 placeholders and distinguished map and task-card terms in Kinyarwanda and Kirundi. Technical sentences and floor-plan terms remain provisional.
