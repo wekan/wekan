@@ -5303,6 +5303,12 @@ Corrected 60 generic values for tickets, file moves and repairs, storage diagnos
 
 Tests cover source tokens, identifiers, units, paired controls and shared labels. Compaction, migration, session and accessibility terminology remains descriptive and provisional. Browser checks were not run.
 
+### Akan generic filler correction: cloud storage, backups and migrations
+
+Corrected 60 generic values for cloud credentials, backups, migrations and connection tests. Preserve Azure Blob, MongoDB 3, JSON and the `us-east-1` region example. Distinguish start/pause/stop, access/secret keys and whole-data replacement. The exact filler inventory decreases from 159 to 99.
+
+Tests cover source tokens, technical identifiers, lifecycle states, replacement scope and shared labels. Migration, backup and cloud-storage wording remains descriptive and provisional. Browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

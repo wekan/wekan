@@ -139,3 +139,22 @@ test('Akan storage and account controls preserve identities, units and opposite 
  assert.equal(data['accounts-lockout-status'],data.status);
  assert.equal(data.speed,data.speedReportTitle);
 });
+
+test('Akan backup and migration controls preserve technical values and lifecycle states', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["storage-read", "azure-account-key", "azure-connection-string", "azure-container", "database-migration", "database-migration-phase", "database-migration-done", "sandstorm-migration-status", "sandstorm-migration-success", "sandstorm-disk-usage", "sandstorm-raw-mongodb", "collections", "features", "render-links-as-plain-text", "backup-data", "backup-scope", "backup-scope-instance", "backup-now", "backup-done", "backup-schedule", "backup-frequency", "backup-frequency-off", "backup-frequency-daily", "backup-path", "backup-restore-replace-all", "gcs-project-id", "gcs-bucket", "gcs-key-filename", "gcs-credentials", "cloud-secret-none", "test-cloud-connection", "cloud-connection-success", "move-storage-azure", "stop", "migration-starting", "migration-pausing", "migration-stopping", "migration-progress", "migration-status", "s3-access-key", "s3-access-key-placeholder", "s3-bucket", "s3-connection-success", "s3-endpoint", "s3-region", "s3-region-description", "s3-secret-key", "s3-secret-key-placeholder", "test-s3-connection", "writable-path", "attachment-migration", "automatic-migration", "fix-avatar-urls-migration", "migration-needed", "migration-complete", "migration-running", "migrations", "run-migration", "migration-progress-overall", "migration-progress-current-step"];
+ for(const key of keys){
+  assert.notEqual(data[key],'Nsɛm a ɛfa dwumadi yi ho',key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ assert.equal(data['move-storage-azure'],english['move-storage-azure']);
+ assert.match(data['s3-region-description'],/AWS S3.*us-east-1/);
+ assert.match(data['sandstorm-raw-mongodb'],/MongoDB 3/);
+ assert.match(data['gcs-credentials'],/JSON/);
+ assert.equal(new Set(['starting','pausing','stopping'].map(s=>data['migration-'+s])).size,3);
+ assert.notEqual(data['s3-access-key'],data['s3-secret-key']);
+ assert.notEqual(data['backup-frequency-off'],data['backup-frequency-daily']);
+ assert.match(data['backup-restore-replace-all'],/nyinaa ananmu/);
+ assert.equal(data['migration-complete'],data.complete);
+ assert.equal(data['sandstorm-migration-status'],data['migration-status']);
+});
