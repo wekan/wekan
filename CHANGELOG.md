@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e47100c4b214416e744db89d9f027661c8420419">Correct 12 mixed-language Akan migration and diagnostic messages.</a></summary>
+
+- Rewrite migration confirmations, CPU limits, background-execution notices, username length and S3 key guidance. Preserve scope restrictions, identifiers and quoted errors.
+- Add source-token, scope, numeric-limit and literal-example checks. Migration wording remains provisional.
+- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
+- Validation: 59 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ab532cc15119fe6236e0f563df12c407512e5c9f">Correct 12 mixed-language Akan display and data-control descriptions.</a></summary>
 
 - Rewrite display, import/export, avatar, anonymization and notification settings. Restore product names and preserve literal markup and anonymization examples.
