@@ -1890,6 +1890,19 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5cb537180e4029859f64e86c331ee89a05861988">Translate due reminders into Zulu, Xhosa, Sesotho and Setswana</a>. Thanks to xet7.</summary>
+
+- Fill 30 strings across five locale paths, including both Zulu files, preserving
+  offset direction, comma separation, numeric limits and blank/server fallback.
+- Translation checks and existing browser scenarios now cover 16 locales.
+  Translation, all-locale and human-preference checks pass; browser coverage is
+  syntax-checked only because its application stack was unavailable.
+- Fifty locale paths still need this six-key group. The ordinary backlog remains
+  51,575 values plus 188 pending source keys; wider review stays in TODO Later.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/590f813fdeb25886d1febc91798d1c765d5525e9">Translate due reminders into Māori, Samoan and Hawaiian</a>. Thanks to xet7.</summary>
 
 - Fill 18 due-reminder strings, preserving offset direction, comma separation,
