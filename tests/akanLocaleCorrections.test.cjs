@@ -562,3 +562,24 @@ test('Akan card and import controls preserve sample JSON and selection scope', a
  for(const action of ['archive','move','select']) assert.match(data['list-'+action+'-cards'],/nyinaa/);
  assert.match(data['paste-or-dragdrop'],/mfonini nkutoo/);
 });
+
+
+test('Akan rule and search controls preserve opposite actions and query syntax', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["r-select-all", "r-workflow-help", "r-move-all-cards", "r-remove-all", "r-create-card", "r-d-remove-all-member", "r-d-check-all", "r-d-uncheck-all", "authentication-type", "oidc-button-text", "restore-all", "delete-all", "hide-minicard-label-text", "remove-all-read", "remove-domain-from-board", "shared-templates-select-scope", "autoAddUsersWithDomainName", "comment-not-found", "globalSearch-instructions-operator-comment", "globalSearch-instructions-operator-hash", "globalSearch-instructions-operator-org", "globalSearch-instructions-operator-team", "globalSearch-instructions-status-all"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ for(const key of keys.filter(k=>k.startsWith('globalSearch-'))){
+  assert.deepEqual(data[key].match(/`[^`]+`/g),english[key].match(/`[^`]+`/g),key);
+  assert.deepEqual(data[key].match(/<[^>]+>/g),english[key].match(/<[^>]+>/g),key);
+ }
+ assert.equal(data['r-select-all'],data['select-all']);
+ assert.match(data['r-d-check-all'],/^Hyɛ.*nyinaa.*wɔawie/);
+ assert.match(data['r-d-uncheck-all'],/^Yi.*nyinaa ho$/);
+ assert.notEqual(data['restore-all'],data['delete-all']);
+ assert.match(data['remove-all-read'],/wɔakenkan/);
+ assert.match(data['oidc-button-text'],/OIDC/);
+ assert.match(data['globalSearch-instructions-status-all'],/nea ɛwɔ adekorabea.*nea enni adekorabea/);
+ assert.match(data['globalSearch-instructions-operator-org'],/ahyehyɛde/);
+ assert.match(data['globalSearch-instructions-operator-team'],/kuw/);
+ assert.match(data['r-workflow-help'],/wɔhyehyɛ mmara.*wɔhɔ|wɔhyehyɛ mmara.*ɛwɔ hɔ dedaw/);
+});

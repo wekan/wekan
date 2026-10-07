@@ -5460,6 +5460,14 @@ Added token, parsed-JSON, navigation and permission/scope regression checks.
 Technical wording remains low confidence pending fluent-speaker review. Browser
 checks remain unrun. These corrections do not change English-placeholder counts.
 
+## Akan rule and search corrections (batch 33)
+
+Corrected 23 mixed-language rule, administration and search messages. Preserved
+query operators and example arguments verbatim, opposite check/uncheck actions,
+and archived/unarchived scope. Added token, query-syntax and action checks.
+Technical terminology remains low confidence pending fluent-speaker review.
+Browser checks remain unrun. English-placeholder counts are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
