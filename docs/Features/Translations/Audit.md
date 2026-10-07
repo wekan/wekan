@@ -4446,6 +4446,12 @@ mixed-language audit remains open.
 - All four focused Node tests and 21 human-preference checks pass. Extended localized browser editing and undo/redo coverage; existing negatives retain self-link and foreign-board rejection checks. Browser syntax passes, but execution remains unverified because Playwright is unavailable locally.
 - Ordinary placeholders decrease from 50,105 to 50,081 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## Duplicate-card relationship labels: final seven placeholder locales (2026-10-07)
+
+- Filled both directed labels in Nahuatl, Wolaytta, Standard Moroccan Tamazight, Greenlandic, Inuktitut, Tigre and Cherokee (14 values). All seven sets remain low-confidence drafts requiring semantic review, particularly Cherokee's copy paraphrase. Distinct strings and correct scripts do not establish grammar or relationship direction.
+- Expanded the locale check to all 234 non-English locales. All four focused Node tests and 21 human-preference checks pass, checking non-English values, token inventories, distinct labels, inverse relations and invalid targets. Extended localized browser editing and undo/redo coverage to the final seven locales. Browser syntax passes, but execution remains unverified because Playwright is unavailable locally.
+- Both labels now have non-English values in every non-English locale. Ordinary placeholders decrease from 50,081 to 50,067 across 70 languages. The 148 pending source keys and broader semantic audit remain open; this completes placeholder coverage for the pair, not the overall task.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

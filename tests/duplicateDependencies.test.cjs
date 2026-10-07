@@ -8,7 +8,11 @@ test('localized duplicate relation labels preserve tokens and distinguish both d
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   const en = JSON.parse(fs.readFileSync('imports/i18n/data/en.i18n.json'));
   const keys = ['dependency-type-duplicates', 'dependency-type-is-duplicated-by'];
-  for (const code of ['ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm', 'tk_TM', 'yi', 'bho', 'mai', 'or_IN', 'kok', 'pap', 'ary', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've', 'bi', 'tpi', 'fj', 'to', 'haw', 'om', 'rw', 'rn', 'lg', 'wa', 'wa-RR', 'ace', 'gv', 'se', 've-CC', 'rup', 'ak', 'bm', 'ee', 'wo', 'ff', 'ks', 'bua', 'cv', 'sah', 'bo', 'dz', 'ti', 'qu', 'ay', 'gn', 've-PP', 'vo', 'tlh']) {
+  const codes = fs.readdirSync('imports/i18n/data')
+    .filter(file => file.endsWith('.i18n.json') && !/^en(?:[-_]|\.)/.test(file))
+    .map(file => file.replace('.i18n.json', ''));
+  assert.equal(codes.length, 234);
+  for (const code of codes) {
     const locale = JSON.parse(fs.readFileSync(`imports/i18n/data/${code}.i18n.json`));
     for (const key of keys) {
       assert.ok(locale[key]?.trim(), code + ':' + key);
