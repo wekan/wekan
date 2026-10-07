@@ -5399,6 +5399,12 @@ Rewrote 14 account-state, lockout, storage-path, cron and card-loading messages.
 
 Tests compare source tokens, opposite controls, configuration literals and lazy-loading limitations. Resource/loading and account-protection terminology remains provisional. Browser checks were not run; broader language review continues.
 
+### Akan mixed-language correction: backup scope and migration descriptions
+
+Rewrote 16 mixed-language labels and descriptions for transfer controls, anonymization, backup scope and board migrations. Preserve organization ownership limits, excluded accounts/settings, duplicate-list deletion conditions and background continuation.
+
+Tests cover source tokens, ownership and deletion restrictions, technical identifiers, admin-only scope and shared anonymization labels. Backup and migration terminology remains provisional. Browser checks were not run; broader semantic review continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

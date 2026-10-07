@@ -412,3 +412,19 @@ test('Akan account states and card loading preserve opposite actions and configu
  assert.match(data['cron-no-errors'],/Mfomso biara nni hɔ/);
  assert.match(data['disable-all-import'],/nyinaa/);
 });
+
+test('Akan backup and migration descriptions preserve ownership and deletion scope', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["disable-all-export", "disable-import-avatars", "disable-export-avatars", "anonymize-import-users", "anonymize-export-users", "anonymize-account", "backup-scope-description", "gridfs-move-collectionfs-note", "writable-path-description", "delete-duplicate-empty-lists-migration-description", "restore-lost-cards-migration-description", "migrations-admin-only", "migrations-description", "restore-lost-cards-nothing-to-restore", "conversion-info-text", "migration-info-text"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.match(data['backup-scope-description'],/akontaabu.*nka ho.*wɔ nkutoo so/);
+ assert.match(data['delete-duplicate-empty-lists-migration-description'],/kaad biara nni mu NA.*asɛmti yɛ pɛ.*ɛwɔ kaad.*nkutoo/);
+ for(const literal of ['swimlaneId','listId','Lost Cards']) assert.ok(data['restore-lost-cards-migration-description'].includes(literal));
+ assert.match(data['gridfs-move-collectionfs-note'],/CollectionFS.*akorabea foforo/);
+ assert.match(data['migrations-admin-only'],/sohwɛfo nkutoo/);
+ assert.match(data['conversion-info-text'],/pɛnkoro.*bɔɔd biara/);
+ assert.match(data['migration-info-text'],/toa so wɔ akyi.*brawsa no mu mpo/);
+ assert.equal(data['anonymize-account'],data['userAnonymizePopup-title']);
+ assert.notEqual(data['disable-import-avatars'],data['disable-export-avatars']);
+ assert.notEqual(data['anonymize-import-users'],data['anonymize-export-users']);
+});
