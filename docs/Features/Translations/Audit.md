@@ -6246,6 +6246,22 @@ branch order, shared do labels, variable types, deletion counts and function
 parameter warnings. Browser and screen-reader checks were not run. The broader
 language and wording audit remains open.
 
+## Māori Blockly list operations — 2026-10-08
+
+Translated 75 English values: 73 counted placeholders plus the short to-number
+and as labels omitted by the counter. Existing translations remain unchanged.
+List and text terminology follows the catalog; kōmaka is also attested in
+[CORE Education's digital-readiness glossary](https://core-ed.org/en_NZ/free-resources/kia-takatu-a-matihiko-digital-readiness/glossary/).
+Index, sub-list and delimiter wording remains provisional pending fluent review.
+
+The combined focused run passes 53 checks, including all 17 Māori checks.
+Two shared catalog checks still fail on missing shortcut-edit-due-date keys
+in other locales. All 21 human-preference checks pass. Coverage preserves
+source tokens, empty-list length, search failure return, first/last positions,
+get/remove/get-and-remove distinctions, repeated item/count arguments, copy
+semantics, sort direction and text/list conversion with separators. Browser
+and screen-reader checks were not run. The broader language audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

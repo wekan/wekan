@@ -96,3 +96,38 @@ test('Māori variables preserve names, types, deletion counts and get/set distin
  assert.equal(new Set(['COLOUR','NUMBER','STRING'].map(k=>data['blockly-NEW_'+k+'_VARIABLE'])).size,3);
  assert.equal(data['blockly-VARIABLES_DEFAULT_NAME'],data['blockly-TEXT_APPEND_VARIABLE']);
 });
+
+test('Māori list messages preserve tokens, index boundaries and destructive actions',()=>{
+ for(const key of Object.keys(english).filter(k=>k.startsWith('blockly-LISTS_'))){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  if(english[key]&&!key.endsWith('_HELPURL')&&!key.endsWith('_HUE')&&english[key]!=='#') assert.notEqual(data[key],english[key],key);
+ }
+ assert.match(data['blockly-LISTS_CREATE_EMPTY_TOOLTIP'],/roanga he 0.*kāore he/);
+ assert.match(data['blockly-LISTS_INDEX_OF_TOOLTIP'],/%1 mēnā kāore te tūemi i kitea/);
+ assert.match(data['blockly-LISTS_INDEX_FROM_START_TOOLTIP'],/%1.*tuatahi/);
+ assert.match(data['blockly-LISTS_INDEX_FROM_END_TOOLTIP'],/%1.*whakamutunga/);
+ for(const suffix of ['FIRST','LAST','FROM','RANDOM']){
+  assert.match(data['blockly-LISTS_GET_INDEX_TOOLTIP_GET_'+suffix],/^Ka whakahoki/);
+  assert.doesNotMatch(data['blockly-LISTS_GET_INDEX_TOOLTIP_GET_'+suffix],/tango/);
+  assert.match(data['blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_'+suffix],/^Ka tango/);
+  assert.doesNotMatch(data['blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_'+suffix],/whakahoki/);
+  assert.match(data['blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_'+suffix],/^Ka tango, ka whakahoki hoki/);
+ }
+ assert.match(data['blockly-LISTS_REPEAT_TITLE'],/%1.*%2 ngā wā/);
+ assert.match(data['blockly-LISTS_GET_SUBLIST_TOOLTIP'],/tārua/);
+});
+
+test('Māori list sorting and conversion preserve copies, directions and separators',()=>{
+ for(const op of ['SORT','REVERSE']) assert.match(data['blockly-LISTS_'+op+'_TOOLTIP'],/tārua/);
+ assert.match(data['blockly-LISTS_SORT_ORDER_ASCENDING'],/piki/);
+ assert.match(data['blockly-LISTS_SORT_ORDER_DESCENDING'],/heke/);
+ assert.match(data['blockly-LISTS_SORT_TYPE_IGNORECASE'],/kaua e aro.*pūmatua.*pūriki/);
+ assert.notEqual(data['blockly-LISTS_SORT_TYPE_NUMERIC'],data['blockly-LISTS_SORT_TYPE_TEXT']);
+ assert.match(data['blockly-LISTS_SPLIT_LIST_FROM_TEXT'],/rārangi mai i te kuputuhi/);
+ assert.match(data['blockly-LISTS_SPLIT_TEXT_FROM_LIST'],/kuputuhi mai i te rārangi/);
+ assert.match(data['blockly-LISTS_SPLIT_TOOLTIP_JOIN'],/kuputuhi kotahi.*whakawehe/);
+ assert.match(data['blockly-LISTS_SPLIT_TOOLTIP_SPLIT'],/i ia whakawehe/);
+ for(const kind of ['GET_INDEX','GET_SUBLIST','INDEX_OF','SET_INDEX']) assert.equal(data['blockly-LISTS_'+kind+'_INPUT_IN_LIST'],data['blockly-LISTS_INLIST']);
+ assert.equal(data['blockly-LISTS_LENGTH_TITLE'],data['blockly-TEXT_LENGTH_TITLE']);
+ assert.equal(data['blockly-LISTS_CREATE_WITH_ITEM_TITLE'],data['blockly-VARIABLES_DEFAULT_NAME']);
+});
