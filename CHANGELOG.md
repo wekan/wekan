@@ -1886,6 +1886,24 @@ Minority-language wording remains provisional and needs speaker review.
 
 This release updates the following translations:
 
+**Activity notifications** - choosing which card activity sends notifications.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/36be01e480044b8238ad6bc8518bb68654e5f681">Translate activity notification settings into three languages</a>. Thanks to xet7.</summary>
+
+- Fill 39 English placeholders in Turkmen, Tatar and Somali. Clarify that
+  unchecking a category stops bell/email notifications while due-date
+  reminders and @mentions continue. Distinguish members from assignees.
+- Add feature coverage for the 13 messages per language. Translation,
+  locale structure and human-preference checks pass. The existing browser
+  mute/unmute scenario checks the translated strings; syntax checks pass,
+  but browser execution was unavailable.
+- These values belong to separately tracked pending source keys, so the
+  standard 51,575-value backlog is unchanged. Other languages and the
+  broader wording audit remain open in TODO Later.
+
+</details>
+
 **Archiving and date filters** - guidance for inactive cards and time ranges.
 
 <details>
