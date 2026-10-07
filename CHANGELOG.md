@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d05730226a68fbbd392787649e1dedeb1f05c931">Correct 15 mixed-language Akan search and migration descriptions.</a></summary>
+
+- Rewrite keyboard, permissions, search and database-migration guidance. Restore damaged Sandstorm names and filesystem paths while preserving commands and URLs.
+- Add source-token, inline-code, shortcut, configuration and deletion checks. Specialized migration and administration wording remains provisional.
+- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
+- Validation: 57 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/291c84d5b104be12fbb490ab9984403f4e0cf070">Correct 24 mixed-language Akan configuration and rule messages.</a></summary>
 
 - Rewrite avatar/auth settings, domain help, deletion confirmations, rule triggers and a due-date activity. Restore a damaged example hostname while preserving configuration identifiers.
