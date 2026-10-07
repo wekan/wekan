@@ -859,7 +859,36 @@ const correctedKeys = [
   "sync-source-excluded-item",
   "sync-source-occurrences",
   "sync-source-truncated",
-  "sync-source-omitted"
+  "sync-source-omitted",
+  "sync-report-button",
+  "sync-report-retention",
+  "sync-report-partial",
+  "sync-report-unfinished",
+  "sync-report-failed",
+  "sync-report-completed",
+  "sync-report-completed-with-warnings",
+  "sync-report-skipped",
+  "sync-report-review-only",
+  "sync-report-unavailable",
+  "sync-report-empty",
+  "sync-recovery-heading",
+  "sync-recovery-description",
+  "sync-recovery-unavailable",
+  "sync-recovery-all",
+  "sync-estimate-field",
+  "sync-estimate-field-hint",
+  "email-failure-smtp-temporary",
+  "email-failure-smtp-rejected",
+  "email-failure-smtp-authentication",
+  "email-failure-smtp-configuration",
+  "email-failure-recipient-unavailable",
+  "email-failure-delivery-unconfirmed",
+  "email-failure-acknowledgement-failed",
+  "email-failure-delivery-failed",
+  "email-failure-retry-limit",
+  "sync-original-time",
+  "sync-remaining-time",
+  "sync-time-estimate-hint"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -1028,6 +1057,17 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   assert.match(waray['sync-source-scope'], /diri iginpapakita an mga bili/);
   for (const key of ['sync-preview-truncated', 'sync-source-truncated']) assert.ok(waray[key].includes('100'));
   for (const suffix of ['unmapped', 'excluded']) assert.equal(waray['sync-preview-' + suffix], waray['sync-source-' + suffix]);
+  assert.match(waray['sync-report-retention'], /20.*30 ka adlaw/);
+  assert.match(waray['sync-report-unavailable'], /pagsurat ha bug-os nga lista/);
+  assert.match(waray['sync-report-partial'], /diri nagpapadayon o nagbabalik ha dati/);
+  assert.match(waray['sync-time-estimate-hint'], /usa la nga natugma nga field/);
+  for (const key of ['sync-estimate-field-hint', 'sync-time-estimate-hint']) {
+    assert.match(waray[key], /ginbabalewaray an nawawara/i);
+    assert.match(waray[key], /null nagtatanggal/);
+  }
+  assert.match(waray['email-failure-smtp-temporary'], /^Temporaryo/);
+  assert.match(waray['email-failure-smtp-rejected'], /^Permanente/);
+  assert.match(waray['email-failure-delivery-unconfirmed'], /usisaha antes magsulay utro/);
   const statistics = ['AVERAGE', 'MEDIAN', 'MODE', 'STD_DEV', 'SUM'].map(s => waray['blockly-MATH_ONLIST_OPERATOR_' + s]);
   assert.equal(new Set(statistics).size, statistics.length);
   assert.match(waray['blockly-MATH_ONLIST_TOOLTIP_MODE'], /lista han mga butang/);

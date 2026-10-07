@@ -5087,6 +5087,12 @@ mixed-language audit remains open.
 - Kept no-source-write behavior, retained local content, unchanged subcards, reused replacements and whole-list-sync exclusions explicit. Added checks for these distinctions and shared preview/source labels.
 - Synchronization, mapping, normalized-field and parser terminology remains provisional; the descriptive parser wording needs technical-language review. Browser checks were not run.
 
+### Waray synchronization reports and email failures
+
+- Filled 29 English placeholders through the protected workflow, covering sync run history, diagnostics, Jira estimate mapping and email failure categories. Preserved 20-run/30-day retention, full-list write access and exactly-one-field constraints.
+- Distinguished missing source values from explicit null, temporary from permanent SMTP rejection, and unconfirmed delivery from a saved receipt failure. Added regression checks for these distinctions and report actions that cannot resume or undo runs.
+- Diagnostic and authentication terminology is provisional and needs technical-language review. Browser checks were not run; automated coverage does not establish fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
