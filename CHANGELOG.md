@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **46,055 untranslated locale/string values in 70 languages**. It
+  report counts **46,025 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -2074,6 +2074,18 @@ uses the same word as `checklist` itself.
 </details>
 
 **Translations** — continued language coverage and corrections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c931f9aed95e01425f59dee87ed216c5ac6e89cf">Translate 30 Akan Blockly arithmetic and number-property messages.</a></summary>
+
+- Fill arithmetic, constants, numeric bounds, parity, sign and remainder messages. Preserve mathematical notation, coordinate labels and numbered arguments.
+- Extend notation, inclusive-limit and numeric-property checks. Mathematical terminology remains low confidence and requires contextual review.
+- English placeholders decrease from 46,055 to 46,025 across 70 languages, with 148 source keys tracked separately for wording review.
+- Validation: 32 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d68f13d4a6c6e51fa6abfc5fa4db7c2d7a482655">Translate 47 Akan Blockly list-mutation and logic messages.</a></summary>
