@@ -4582,6 +4582,14 @@ mixed-language audit remains open.
 - Added visible translated add-comment context-menu assertions to the existing seven-language editor flows; syntax checked only. Playwright is absent locally, so browser and assistive-technology execution remain unverified. Structural checks do not establish fluent wording.
 - Ordinary placeholders decrease from 49,221 to 49,117 across 70 languages. The 148 pending source keys and the broader all-language and semantic work remain open.
 
+## Blockly comment and accessibility controls: eight more locales
+
+- Filled all fifteen labels in Turkmen (`tk_TM`), Yiddish (`yi`), Bhojpuri (`bho`), Maithili (`mai`), Odia (`or_IN`), Konkani (`kok`), Papiamentu (`pap`) and Moroccan Arabic (`ary`): 120 English placeholders. The protected merge preserved existing non-English values. The group includes comment actions, conditional branches, inputs, list items, text, button, collapse/expand, angle degrees and empty trash.
+- Existing catalog vocabulary guided the translations. Papiamentu button and reduction spellings were checked against [the 2009 orthography and word list](https://dokumen.pub/ortografia-i-lista-di-palabra-papiamentu-buki-di-oro-9789990422009.html); the uncertain expansion loanword was replaced with a plain “make larger” paraphrase. This reference does not attest the full UI sentences. Conditional-branch phrasing remains provisional, especially in Konkani, Papiamentu and Moroccan Arabic, and is recorded as low confidence.
+- Extended the existing fifteen-label regression and visible add-comment browser assertion to these eight locales. Exact source placeholders and distinct add/remove, collapse/expand operations are checked. Blockly/completeness: 13 tests pass; human-preference verification: 21 checks pass.
+- Browser coverage is syntax-checked only: Playwright is absent locally. Browser interaction and spoken accessibility labels remain unverified; structural tests do not certify language quality.
+- Ordinary placeholders decrease from 49,117 to 48,997 across 70 languages. The 148 pending source keys and broader translation/semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
