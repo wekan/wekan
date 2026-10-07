@@ -1890,6 +1890,19 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/aa5f00e7ebf2d7b12a7bb8412e8e8c514dc18139">Translate URL scheme hint in Inuktitut</a>. Thanks to xet7.</summary>
+
+- Fill the English hint in syllabics while preserving literal scheme names and
+  existing translations. Record lower-confidence terminology and grammar for review.
+- Hint checks cover 63 recently filled locales. Parser, sanitizer, locale structure
+  and human-preference checks pass. Browser scenarios were syntax-checked only;
+  the application stack is unavailable.
+- Three locales still need this hint. The broader backlog remains 51,575 ordinary
+  missing values plus 172 pending source keys; quality review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e6789dc75f9409827e24df51d247af0395490583">Translate URL scheme hint in Standard Moroccan Tamazight</a>. Thanks to xet7.</summary>
 
 - Fill the English hint in Tifinagh while preserving literal scheme names and
