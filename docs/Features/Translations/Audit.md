@@ -3210,6 +3210,12 @@ Filled the three signed-in board visibility keys in Akan, Luganda, Wolof, Swati,
 
 Extended the existing translation regression to these eight locales. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three keys remains English in 30 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
 
+### Signed-in board visibility: six further locales
+
+Filled `instance`, `instance-desc` and `board-instance-info` in Acehnese, Bambara, Ewe, Fulah, Fijian and Tongan: 18 English values. Direct drafts preserve the viewing/editing distinction and confirmation emphasis; the fill utility protected existing translations. No external translation service was used. Login terminology and grammatical agreement have lower confidence in this batch and need fluent-speaker review. Fijian usage of viewing and software-use vocabulary was checked against [published Fijian website terms](https://www.jw.org/fj/ivakavakayagataki/); the [Tongan coastal adaptation document](https://climatechange.gov.to/wp-content/uploads/2024/07/GCF-Tonga-Coastal-Adaptation-Project_Tongan-vs-English.pdf) provides examples of ability and change constructions. These references do not validate the complete drafts.
+
+Extended the existing translation regression to these six locales. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in 24 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
