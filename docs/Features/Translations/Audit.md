@@ -3134,6 +3134,14 @@ This draft has lower confidence and needs fluent-speaker review. `URL Segh` is a
 
 Validation covers 60 recently filled hints, exact scheme identifiers, source tokens and key order, plus parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. This hint remains English in six locales. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; language quality review remains open.
 
+### URL scheme hint: Nahuatl
+
+Filled the English-only `automatic-linked-url-schemes-hint` in `nah` directly through the placeholder-only fill utility. Existing translated values were retained. All five scheme names remain literal. The draft describes the empty default, clickable web/mail links, registered applications and permanently excluded schemes.
+
+This draft has lower confidence, particularly regional grammar and computer terminology, and needs fluent-speaker review. It uses the descriptive `URL tlamantli` for URL type and technical loanwords for program, list and email. References include [the University of Oregon Nahuatl dictionary's `tlapoa`](https://nahuatl.wired-humanities.org/content/tlapoa) for opening and [Indiana University's Nahuatl exercises](https://celt.indiana.edu/portal/Nahuatl/E02.pdf) for the root `ilpia` (tie). The link noun follows the existing locale. These lexical references do not validate the complete sentences or establish standardized technical terminology. No translation service was used.
+
+Validation covers 61 recently filled hints, exact scheme identifiers, source tokens and key order, plus parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. This hint remains English in five locales. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; language quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

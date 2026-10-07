@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "Monemac tlapalehuiliztli ilpiliztli URL",
   "text-below-custom-login-logo": "Tlahtolli itzintlan monemac calaquiliztli logo",
   "automatic-linked-url-schemes": "Monemac URL machiyotl tlen monequi motocas ica huelitiliztli. Ce URL machiyotl ipan sesen pantli",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Ipehualipan ahmo tlen quipiya, ica non zan web ihuan correo electrónico tlailpiliztli huel ticpachoz. Cece URL tlamantli tlen tlahcuilolli ipan lista, quen thunderlink noso onenote, quitlapoa in programa tlen omotlahcuiloh ipampa. javascript, data, vbscript ihuan in tlamantli tlen inhuan monenehua ayic mochihua tlailpiliztli.",
   "external-link-pattern": "Automatic tepalēhuiliztli īca huehcatlān tlanemachtiliztli",
   "external-link-pattern-description": "Motlālilia automatic in \"#1234\" tlamahuiztli tlen momachtiah īpan āmatlacuilōlli tlein huehcatlān tlanemachtiliztli. Xiccāhua ce tlahtōlli xihxitīca ic ahmo mochīhuas.",
   "external-link-pattern-prefix": "Achtopa tlamahuiztli",
