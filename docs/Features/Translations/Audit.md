@@ -5725,6 +5725,14 @@ and [brown color wording](https://ghanasky.com/akan-twi-dictionary-translator/).
 Added token, scope and digit checks. Wording remains low confidence pending
 fluent-speaker review; browser checks remain unrun. Placeholder counts unchanged.
 
+## Akan template and swimlane corrections (batch 62)
+
+Corrected 18 mixed-language template, subtask and swimlane labels. Preserved
+multiple-card copying, below-position insertion, resize lock/unlock meaning and
+distinct card/list/board templates. Aligned template-container titles. Added token,
+target and direction checks. Wording remains low confidence pending fluent-speaker
+review; browser checks remain unrun. English-placeholder counts are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

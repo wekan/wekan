@@ -1120,3 +1120,19 @@ test('Akan prompts preserve membership boundaries and font sample digits', async
  assert.match(data['migration-progress-note'],/twɛn.*foforo/);
  assert.match(data['export-select-what-to-include'],/: $/);
 });
+
+
+test('Akan template and swimlane labels preserve targets and resize permissions', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["add-template", "add-subtask", "add-template-container", "cardTemplatePopup-title", "subtaskDeletePopup-title", "copyManyCardsPopup-title", "createTemplateContainerPopup-title", "custom-field-dropdown-options", "export-card-field-board-info", "swimlaneAddPopup-title", "starred-swimlanes", "card-templates-swimlane", "list-templates-swimlane", "board-templates-swimlane", "swimlaneDeletePopup-title", "lock-swimlane-height-resize", "create-task", "share-template-with"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.equal(data['add-template-container'],data['createTemplateContainerPopup-title']);
+ assert.match(data['copyManyCardsPopup-title'],/kaad pii/);
+ assert.match(data['swimlaneAddPopup-title'],/wɔ ase$/);
+ assert.match(data['lock-swimlane-height-resize'],/Siw anaa ma kwan.*sorokɔ/);
+ assert.match(data['export-card-field-board-info'],/Bɔɔd, Din a wɔahyehyɛ, Adwuma kwan/);
+ assert.equal(new Set(['card','list','board'].map(k=>data[k+'-templates-swimlane'])).size,3);
+ for(const key of ['subtaskDeletePopup-title','swimlaneDeletePopup-title']) assert.match(data[key],/^Popa.*\?$/);
+ assert.match(data['starred-swimlanes'],/nsoromma/);
+ assert.match(data['custom-field-dropdown-options'],/wubetumi apaw/);
+});
