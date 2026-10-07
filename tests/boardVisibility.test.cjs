@@ -77,7 +77,7 @@ test('instance visibility translations retain source tokens and confirmation emp
     'so', 'om', 'rw', 'rn', 'ny', 'st', 'tn', 'nso', 'zu', 'zu-ZA',
     'bi', 'tpi', 'mi', 'sm', 'haw', 'pap', 'xh', 'nd',
     'ak', 'lg', 'wo', 'ss', 'ts', 've', 'wa-RR', 've-CC',
-    'ace', 'bm', 'ee', 'ff', 'fj', 'to']) {
+    'ace', 'bm', 'ee', 'ff', 'fj', 'to', 'bua', 'cv', 'sah', 'se']) {
     const locale = readLocale(code);
     assert.deepStrictEqual(Object.keys(locale), Object.keys(en), `${code}: source order`);
     for (const key of keys) {

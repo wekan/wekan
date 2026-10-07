@@ -3216,6 +3216,14 @@ Filled `instance`, `instance-desc` and `board-instance-info` in Acehnese, Bambar
 
 Extended the existing translation regression to these six locales. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in 24 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
 
+### Signed-in board visibility: Buryat, Chuvash, Sakha and Northern Sámi
+
+Filled three visibility strings in each of these four locales: 12 English placeholders. Direct drafts preserve signed-in viewing, anonymous exclusion, member-only editing and confirmation emphasis. The fill utility protected existing translations; no translation service was used. Grammar and technical wording have lower confidence, especially the Buryat, Chuvash and Sakha constructions, and fluent-speaker review remains open for all four locales.
+
+Terminology references: [Buryat language help](https://buryadxelen.com/backend/web/burlang/default/help?id=9) uses `хэрэглэгшэ`; [Sakha parliamentary prose](https://www.sakhaparliament.ru/beliitike/il-tumenne/1791-2020-07-09-05-48-05) uses `туһанааччы`; the [Chuvash dictionary](https://ru.samahsar.chuvash.org/article/77189.link) illustrates the `усӑ куракан` construction; and the [Sámi Parliament login page](https://sametinget.no/stipenda-ja-darja/logg-inn-i-sametingets-tilskuddsportal/?sprak=12) uses `Logge sisa` and `geavaheaddji`. These are vocabulary references, not validation of the drafted sentences.
+
+Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in 20 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
