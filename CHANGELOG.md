@@ -1889,6 +1889,20 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/54f5243cc81fa118dd455d484c26d004bc19845f">Translate Veps notification settings</a>. Thanks to xet7.</summary>
+
+- Fill 13 Veps notification strings without overwriting existing translations.
+  Record vocabulary references and low-confidence technical wording in
+  `docs/Features/Translations/Audit.md`.
+- Shared notification coverage now includes 61 locales. Notification, all-locale
+  structure/token and human-preference checks pass. Browser coverage was
+  syntax-checked only because its application stack was unavailable.
+- Five locales still need this notification group. The ordinary backlog remains
+  51,575 values plus 201 pending source keys; remaining work stays in TODO Later.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/17f85c385ce244e086aa31cf17dad7407905a906">Translate Nahuatl notification settings</a>. Thanks to xet7.</summary>
 
 - Fill 13 Nahuatl notification strings without overwriting existing translations.
