@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "neʻe ala ʻauʻau",
   "custom-field-stringtemplate": "kakalinaka kumu hoʻohālike",
   "custom-field-stringtemplate-format": "polamaka (hoʻohana %{value} aka palakeholakela)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "E hoʻohana iā %{card.title}, %{board.title}, %{list.title} a i ʻole %{swimlane.title}. E hoʻohui iā |urlencode i kekahi hōʻailona no ka waiwai loli no ka hoʻouna ʻana i ka waiwai ma ka URL, e laʻa me %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "kepalakola (hoʻohana &#32; a i ʻole &napakapa; pola he kapake)",
   "custom-field-stringtemplate-item-placeholder": "palekaka enakela i hoʻohui hou aku nā mea",
   "creator": "kaleakola",

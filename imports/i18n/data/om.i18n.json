@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Karaa siqsi",
   "custom-field-stringtemplate": "Fakkeenya Diraa",
   "custom-field-stringtemplate-format": "Dhangii (%{value} akka iddoo qabduutti fayyadami)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "%{card.title}, %{board.title}, %{list.title} yookaan %{swimlane.title} fayyadami. Paaraameetira URL'f jijjiiramaatti |urlencode dabali, fakkeenyaaf %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Gargareessaa (iddoo duwwaatiif &#32; ykn &nbsp; fayyadami)",
   "custom-field-stringtemplate-item-placeholder": "Galmeewwan dabalataa dabaluuf enter dhiibi",
   "creator": "Uumaa",

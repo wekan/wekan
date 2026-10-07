@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Faka-Tonga: Move hala ngāue",
   "custom-field-stringtemplate": "Faka-Tonga: String Template",
   "custom-field-stringtemplate-format": "Faka-Tonga: Format (use %{value} as placeholder)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Ngāueʻaki ʻa e %{card.title}, %{board.title}, %{list.title} pe %{swimlane.title}. Tānaki ʻa e |urlencode ki ha fakaʻilonga ʻo ha mahuʻinga ʻoku lava ke liliu ke ngāueʻaki ko ha palamita URL, hangē ko e %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Faka-Tonga: Separator (use &#32; or &nbsp; for a space)",
   "custom-field-stringtemplate-item-placeholder": "Faka-Tonga: Press enter to tānaki more items",
   "creator": "Faka-Tonga: Creator",

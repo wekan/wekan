@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Movim rot",
   "custom-field-stringtemplate": "String templet",
   "custom-field-stringtemplate-format": "Toksave: Format (use %{value} as placeholder)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Yusim %{card.title}, %{board.title}, %{list.title} o %{swimlane.title}. Putim |urlencode long wanpela mak bilong veliu i save senis bilong mekim paramita bilong URL, olsem %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Separator (use &#32; o &nbsp; bilong wanpela space)",
   "custom-field-stringtemplate-item-placeholder": "Press enter long putim more items",
   "creator": "Toksave: Creator",

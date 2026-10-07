@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Movem Swimlane",
   "custom-field-stringtemplate": "Tok blong sistem: String Template",
   "custom-field-stringtemplate-format": "Tok blong sistem: Format (use %{value} as placeholder)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Yusum %{card.title}, %{board.title}, %{list.title} o %{swimlane.title}. Ademap |urlencode long wan mak blong valiu we i save jenis blong mekem wan paramita blong URL, olsem %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Separator (use &#32; o &nbsp; blong wan space)",
   "custom-field-stringtemplate-item-placeholder": "Press raetem long adem moa items",
   "creator": "Tok blong sistem: Creator",

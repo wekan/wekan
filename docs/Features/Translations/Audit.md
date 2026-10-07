@@ -4381,6 +4381,13 @@ mixed-language audit remains open.
 - All 23 focused Node tests and 21 human-preference checks pass. Extended token and executable-example checks and localized positive/negative browser coverage to all eighteen locales. Browser syntax passes; browser execution remains unverified because Playwright is unavailable locally.
 - Ordinary placeholders decrease from 50,258 to 50,240 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## String Template context hint: nine Pacific and African locales (2026-10-07)
+
+- Filled the context-variable and URL-encoding hint in Bislama, Tok Pisin, Fijian, Tongan, Hawaiian, Oromo, Kinyarwanda, Kirundi and Luganda, preserving the literal examples. Technical wording remains provisional, especially the Fijian, Tongan and Hawaiian paraphrases.
+- Replaced the draft Hawaiian term `palena` with a description of sending a value in the URL: the [University of Hawaiʻi dictionary entry](https://wehe.hilo.hawaii.edu/?l=&q=palena) supports boundary/limit, not this computing sense of parameter. This lookup does not validate the entire sentence.
+- All 23 focused Node tests and 21 human-preference checks pass. Extended executable-example/token checks and positive/negative browser coverage to the nine locales. Browser syntax passes; execution remains unverified because the local Playwright executable is unavailable.
+- Ordinary placeholders decrease from 50,240 to 50,231 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

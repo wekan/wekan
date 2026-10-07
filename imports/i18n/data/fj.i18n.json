@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Tosoya na Sala",
   "custom-field-stringtemplate": "iVakaraitaki ni iYatuvosa",
   "custom-field-stringtemplate-format": "iTuvatuva (vakayagataka na %{value} me vanua ni sosomi)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Vakayagataka %{card.title}, %{board.title}, %{list.title} se %{swimlane.title}. Kuria |urlencode ki na ivakatakilakila ni isau e rawa ni veisau me vakayagataki me paramita ni URL, me vaka %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Dauveiwasei (vakayagataka na &#32; se &nbsp; me dua na maliwa)",
   "custom-field-stringtemplate-item-placeholder": "Tabaka na enter mo kuria eso tale na ka",
   "creator": "Dauveibuli",

@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Himura Umurongo",
   "custom-field-stringtemplate": "Icitegererezo c'Igisomwa",
   "custom-field-stringtemplate-format": "Imiterere (koresha %{value} nk'igisubirizi)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Koresha %{card.title}, %{board.title}, %{list.title} canke %{swimlane.title}. Ongerako |urlencode ku kimenyetso gisubirira agaciro gahinduka kugira ngo gikoreshwe nk'iparametero ya URL, nk'akarorero %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Igitandukanya (koresha &#32; canke &nbsp; ku mwanya)",
   "custom-field-stringtemplate-item-placeholder": "Kanda Enter kugira wongereko ibindi bintu",
   "creator": "Uwabiremye",

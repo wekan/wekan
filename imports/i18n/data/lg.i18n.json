@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Tambusa Akakubo",
   "custom-field-stringtemplate": "String Kyakulabirako",
   "custom-field-stringtemplate-format": "Format (kozesa %{value} nga placeholder)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Kozesa %{card.title}, %{board.title}, %{list.title} oba %{swimlane.title}. Yongera |urlencode ku kabonero akakiikirira omuwendo ogukyuka okukakozesa nga paramita ya URL, okugeza %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Separator (kozesa &#32; oba &nbsp; ku lwa space)",
   "custom-field-stringtemplate-item-placeholder": "Press yingiza eri yongerako ebisingawo items",
   "creator": "Omutonzi",
