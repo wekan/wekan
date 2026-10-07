@@ -958,3 +958,23 @@ test('Akan account guidance preserves OAuth precedence and secret visibility', a
  assert.match(data['roles-status-write'],/Yɛ na sesa/);
  assert.notEqual(data['prefix-with-full-path'],data['subtext-with-full-path']);
 });
+
+
+test('Akan display and attachment controls preserve units, links and visibility scope', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["set-list-width-value", "add-cover", "attachmentDeletePopup-title", "board-change-background-image", "add-background-image", "remove-background-image", "boardChangeColorPopup-title", "boardChangeBackgroundImagePopup-title", "allBoardsChangeBackgroundImagePopup-title", "boardChangeViewPopup-title", "board-view", "deleteBoardBackgroundPopup-title", "auto-list-width", "normal-assigned-only-desc", "page-maybe-private", "remove-cover", "cover-attachment-on-minicard", "r-list-view", "display-authentication-method", "view-all", "displayName", "myCardsViewChange-title"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.match(data['set-list-width-value'],/\(pixels\)/);
+ assert.match(data['auto-list-width'],/ɛsesa ankasa/);
+ assert.equal(data['boardChangeViewPopup-title'],data['board-view']);
+ assert.equal(new Set(['board-change-background-image','boardChangeBackgroundImagePopup-title','allBoardsChangeBackgroundImagePopup-title'].map(k=>data[k])).size,1);
+ assert.match(data['add-cover'],/^Fa.*ka kaad ketewa/);
+ assert.match(data['remove-cover'],/^Yi.*fi kaad ketewa/);
+ assert.deepEqual(data['page-maybe-private'].match(/<[^>]+>/g),english['page-maybe-private'].match(/<[^>]+>/g));
+ assert.match(data['page-maybe-private'],/Ebia.*Ebia/);
+ assert.match(data['normal-assigned-only-desc'],/ahyɛ wo nsa nkutoo/);
+ assert.ok(data['normal-assigned-only-desc'].includes(data.normal));
+ assert.notEqual(data.normal,'Daabirmal');
+ assert.match(data['attachmentDeletePopup-title'],/^Popa.*\?$/);
+ assert.match(data['view-all'],/nyinaa/);
+});

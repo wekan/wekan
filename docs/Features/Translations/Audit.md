@@ -5644,6 +5644,16 @@ never-shown wording. Added token, precedence and account-state checks. Wording
 remains low confidence pending fluent-speaker review; browser checks remain
 unrun. English-placeholder counts are unchanged.
 
+## Akan display and attachment corrections (batch 53)
+
+Corrected 23 mixed-language display, background, attachment and role labels.
+Aligned the Normal role label with its assigned-only description. Preserved
+pixel units, automatic width, assigned-only visibility and the private-page
+message's conditional wording and HTML link. Aligned equivalent background/view
+labels. Added token, markup and action checks. Wording remains low confidence
+pending fluent-speaker review; browser checks remain unrun. Placeholder counts
+are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
