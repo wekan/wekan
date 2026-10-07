@@ -4876,6 +4876,13 @@ mixed-language audit remains open.
 - Container, bubble and stack metaphors, particularly Somali and Konkani technical wording, remain lower confidence and need contextual review. The collapsed/disabled and singular/plural checks establish distinctions, not fluency or semantic equivalence.
 - Extended the existing token and distinction regressions. Browser and spoken accessibility checks remain unexecuted; the 148 pending source keys and broader mixed-language audit remain open.
 
+### Māori, Samoan, Hawaiian and Tongan block and bubble labels
+
+- Filled 64 English placeholders through the protected workflow, retaining numbered arguments and existing translations. The stack labels use a pile/stack of blocks; statement uses instruction/command vocabulary.
+- Bubble vocabulary references: Māori [mirumiru in Te Aka](https://maoridictionary.co.nz/word/10795), Hawaiian [huʻa in the university dictionaries](https://hilo.hawaii.edu/wehe/?q=hua), and Samoan [puta in POLLEX](https://pollex.eva.mpg.de/entry/puta.2/). The dictionary senses do not establish software terminology; Samoan puta has other common meanings and is especially provisional here. Tongan uses a contextual “information box” paraphrase for the bubble.
+- Lower-confidence wording includes collapsed as shortened/folded, container and bubble metaphors, and value as worth/value. Tongan and Samoan clause construction and all spoken accessibility labels need contextual review. Distinct strings are not proof of semantic equivalence or fluency.
+- Extended existing token and block-label distinction checks. Browser and spoken accessibility checks remain unexecuted; the 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
