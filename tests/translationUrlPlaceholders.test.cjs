@@ -110,7 +110,7 @@ test('automatic archiving preferences are translated in audited locales', async 
 test('import warning messages are translated in audited locales', async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   const source = JSON.parse(fs.readFileSync(path.join(directory, 'en.i18n.json')));
-  for (const code of ["fi", "ar", "ar-DZ", "ar-EG", "tr", "es", "es-AR", "es-CL", "es-CO", "es-LA", "es-MX", "es-PE", "es-PY", "es_CO", "it", "pt", "pt-PT", "pt_PT", "pt-BR", "gl", "gl-ES", "ko", "ko-KR", "ja", "ja-JP", "ja-HI", "zh-Hant", "zh-TW", "zh-HK", "zh", "zh-CN", "zh-Hans", "zh-GB", "zh_SG", "cmn", "fr", "fr-FR", "fr-BE", "fr-CH", "fr-CA", "de", "de-AT", "de_DE", "de-CH", "sv", "da", "nb", "nl", "nl-NL", "ro", "ro-RO", "id", "pl", "cs", "sk", "hu", "uk", "ary", "ckb", "ku", "bho", "mai", "or_IN", "kok", "tk_TM", "tt", "yi", "so", "om", "rw", "rn", "ny", "st", "tn", "nso", "zu", "zu-ZA", "bi", "tpi", "mi", "sm", "haw", "pap", "xh", "nd", "ak", "lg", "wo", "ss", "ts", "ve", "wa-RR", "ve-CC", "ace", "bm", "ee", "ff", "fj", "to", "bua", "cv", "sah", "se", "bo", "dz", "ks", "gv", "wa", "rup", "gn", "qu", "ay", "ti", "tlh", "vo", "ve-PP", "kl", "nah"]) {
+  for (const code of ["fi", "ar", "ar-DZ", "ar-EG", "tr", "es", "es-AR", "es-CL", "es-CO", "es-LA", "es-MX", "es-PE", "es-PY", "es_CO", "it", "pt", "pt-PT", "pt_PT", "pt-BR", "gl", "gl-ES", "ko", "ko-KR", "ja", "ja-JP", "ja-HI", "zh-Hant", "zh-TW", "zh-HK", "zh", "zh-CN", "zh-Hans", "zh-GB", "zh_SG", "cmn", "fr", "fr-FR", "fr-BE", "fr-CH", "fr-CA", "de", "de-AT", "de_DE", "de-CH", "sv", "da", "nb", "nl", "nl-NL", "ro", "ro-RO", "id", "pl", "cs", "sk", "hu", "uk", "ary", "ckb", "ku", "bho", "mai", "or_IN", "kok", "tk_TM", "tt", "yi", "so", "om", "rw", "rn", "ny", "st", "tn", "nso", "zu", "zu-ZA", "bi", "tpi", "mi", "sm", "haw", "pap", "xh", "nd", "ak", "lg", "wo", "ss", "ts", "ve", "wa-RR", "ve-CC", "ace", "bm", "ee", "ff", "fj", "to", "bua", "cv", "sah", "se", "bo", "dz", "ks", "gv", "wa", "rup", "gn", "qu", "ay", "ti", "tlh", "vo", "ve-PP", "kl", "nah", "wal"]) {
     const locale = JSON.parse(fs.readFileSync(path.join(directory, code + '.i18n.json')));
     assert.deepEqual(Object.keys(locale), Object.keys(source), code + ': source order');
     for (const key of ['import-report-heading', 'import-report-description', 'import-report-open-board']) {
@@ -164,6 +164,14 @@ test('import warning messages are translated in audited locales', async () => {
   assert.ok(vep['import-report-description'].includes(
     `${vep['admin-panel']} → ${vep.problems} → ${vep.recoveryReportTitle}`));
   assert.doesNotMatch(vep.recoveryReportTitle, /U wanululwa/);
+  const wal = JSON.parse(fs.readFileSync(path.join(directory, 'wal.i18n.json')));
+  assert.equal(wal.problems, 'Metota');
+  assert.equal(wal.recoveryReportTitle, 'Zaaruwaa');
+  assert.ok(wal['import-report-description'].includes(
+    `${wal['admin-panel']} → ${wal.problems} → ${wal.recoveryReportTitle}`));
+  for (const key of ['problems', 'recoveryReportTitle', 'import-report-heading', 'import-report-description', 'import-report-open-board']) {
+    assert.doesNotMatch(wal[key], /Wolayttatto:|Problems|Recovery|Open/, key);
+  }
   const tt = JSON.parse(fs.readFileSync(path.join(directory, 'tt.i18n.json')));
   assert.equal(tt.problems, 'Проблемалар');
   assert.equal(tt.recoveryReportTitle, 'Торгызу');

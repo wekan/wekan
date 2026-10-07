@@ -3424,6 +3424,14 @@ The [Greenlandic-English dictionary](https://daka.gl/2018-kal-eng/) supplies `aa
 
 Translation/token, import-loss positive/negative and all 234 locale structure suites pass (12 tests combined), as do 21 human-preference checks. Extended both browser cases and syntax-checked them; execution remains unavailable without the local Playwright executable and running application. Each source key remains English in five locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
 
+### Import warning report: Wolaytta
+
+Filled three English placeholders in `wal` and replaced the prefixed-English menu labels `Wolayttatto: Problems` and `Wolayttatto: Recovery` with `Metota` and `Zaaruwaa`. Existing non-English values were protected by the fill utility; the two wrong-language corrections were applied separately. Regression checks reject the old fillers and require the description to contain the actual recovery-menu path.
+
+[Wakasa's Wolaytta grammatical survey](https://www.janestudies.org/wp-content/uploads/2018/files/NES_no19%282014%29_Wakasa.pdf) attests the `dooy-` opening verb and locative/comitative postpositions. The [advice entry](https://en.wiktionary.org/wiki/advice) gives Wolaytta `zoriya`; the [Wolayttattuwa phrasebook](https://en.wikivoyage.org/wiki/Wolayttattuwa_phrasebook) attests problem vocabulary in `Metoy baawa`. These support individual roots, not full-sentence accuracy. The warning heading uses advice terminology and the report is expressed as what was reported; these paraphrases, software nouns, passive wording and recovery nominalization remain low confidence and need fluent-speaker review. Many other prefixed-English values in this locale remain in the broader review queue.
+
+Translation/token, import-loss positive/negative and 234-locale structure suites pass (12 tests combined), as do 21 human-preference checks. Extended the Wolaytta browser case and syntax-checked it; execution remains unavailable without the local Playwright executable and running application. Each source key remains English in four locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
