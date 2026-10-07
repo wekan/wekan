@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/90b11c488da9660ccf6e4bc7c845edd6a2227b34">Translate Kurdish Blockly function and variable controls</a></summary>
+
+- Fill 40 English placeholders for trigonometric tooltips, workspace controls,
+  variable creation and procedure definitions/calls, preserving tokens.
+- Parent-block and procedure-output wording remains low confidence.
+- All 47 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/70a6a5f11538eb8012f7f9ff3dbef9bd8258a2fe">Translate Kurdish statistical and unary math instructions</a></summary>
 
 - Fill 39 English placeholders for statistics, random values, rounding,
