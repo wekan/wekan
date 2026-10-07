@@ -483,3 +483,23 @@ test('Akan statistics and random values preserve operation and endpoint distinct
  assert.match(data['blockly-MATH_ROUND_OPERATOR_ROUNDUP'],/soro/);
  assert.match(data['blockly-MATH_ONLIST_TOOLTIP_MODE'],/mpɛn pii sen biara/);
 });
+
+test('Akan unary math and workspace labels preserve bases and units', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const data=require('../imports/i18n/data/ak.i18n.json');
+ const keys=["blockly-MATH_SINGLE_OP_ABSOLUTE", "blockly-MATH_SINGLE_OP_ABSOLUTE_ARIA", "blockly-MATH_SINGLE_OP_EXP_ARIA", "blockly-MATH_SINGLE_OP_LN_ARIA", "blockly-MATH_SINGLE_OP_LOG10_ARIA", "blockly-MATH_SINGLE_OP_NEG_ARIA", "blockly-MATH_SINGLE_OP_POW10_ARIA", "blockly-MATH_SINGLE_OP_ROOT", "blockly-MATH_SINGLE_TOOLTIP_ABS", "blockly-MATH_SINGLE_TOOLTIP_EXP", "blockly-MATH_SINGLE_TOOLTIP_LN", "blockly-MATH_SINGLE_TOOLTIP_LOG10", "blockly-MATH_SINGLE_TOOLTIP_NEG", "blockly-MATH_SINGLE_TOOLTIP_POW10", "blockly-MATH_SINGLE_TOOLTIP_ROOT", "blockly-MATH_SUBTRACTION_SYMBOL_ARIA", "blockly-MATH_TRIG_ACOS_ARIA", "blockly-MATH_TRIG_ASIN_ARIA", "blockly-MATH_TRIG_ATAN_ARIA", "blockly-MATH_TRIG_COS_ARIA", "blockly-MATH_TRIG_SIN_ARIA", "blockly-MATH_TRIG_TAN_ARIA", "blockly-MATH_TRIG_TOOLTIP_ACOS", "blockly-MATH_TRIG_TOOLTIP_ASIN", "blockly-MATH_TRIG_TOOLTIP_ATAN", "blockly-MATH_TRIG_TOOLTIP_COS", "blockly-MATH_TRIG_TOOLTIP_SIN", "blockly-MATH_TRIG_TOOLTIP_TAN", "blockly-MINIMAP_ARIA_LABEL", "blockly-MOVE_BLOCK", "blockly-NEW_COLOUR_VARIABLE", "blockly-NEW_NUMBER_VARIABLE", "blockly-NEW_STRING_VARIABLE", "blockly-NEW_VARIABLE", "blockly-NEW_VARIABLE_TITLE", "blockly-NEW_VARIABLE_TYPE_TITLE", "blockly-NO_PARENT_ANNOUNCEMENT", "blockly-OPEN_BACKPACK", "blockly-OPEN_TRASH"];
+ for(const key of keys){
+  assert.notEqual(data[key],english[key],key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ assert.match(data['blockly-MATH_SINGLE_OP_LN_ARIA'],/nnyinaso yɛ e/);
+ assert.match(data['blockly-MATH_SINGLE_OP_LOG10_ARIA'],/nnyinaso yɛ 10/);
+ for(const op of ['COS','SIN','TAN']){
+  assert.match(data['blockly-MATH_TRIG_TOOLTIP_'+op],/digrii.*ɛnyɛ radian/);
+  assert.match(data['blockly-MATH_TRIG_A'+op+'_ARIA'],/akyi kwan/);
+ }
+ assert.match(data['blockly-MATH_SINGLE_TOOLTIP_NEG'],/adan.*agyirae/);
+ assert.match(data['blockly-OPEN_BACKPACK'],/^Bue/);
+ assert.match(data['blockly-CLOSE_BACKPACK'],/^To.*mu$/);
+ assert.notEqual(data['blockly-NEW_VARIABLE_TITLE'],data['blockly-NEW_VARIABLE_TYPE_TITLE']);
+});

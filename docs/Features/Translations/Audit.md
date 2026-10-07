@@ -5195,6 +5195,12 @@ mixed-language audit remains open.
 - Added token, distinct-statistic, endpoint and rounding-direction checks. The mean tooltip explains sum divided by count, while modes refer to the most frequent items.
 - Standard-deviation, median and rounding terminology remains low confidence and requires mathematical-language review. Browser and spoken accessibility checks were not run.
 
+### Akan Blockly unary mathematics and workspace controls
+
+- Filled 39 English placeholders through the protected workflow, covering absolute values, powers, logarithms, negation, roots, trigonometry, minimap controls and new variables. Preserved bases and degree/radian distinctions.
+- Added token, logarithm-base, inverse-function, angle-unit, sign-reversal and open/close checks. Standard function names such as cosine and logarithm remain recognizable within Akan phrases; mathematical abbreviations remain unchanged.
+- Inverse-function, square-root and variable-type descriptions remain low confidence and require mathematical-language review. Browser and spoken accessibility checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
