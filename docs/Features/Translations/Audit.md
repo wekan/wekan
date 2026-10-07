@@ -2192,6 +2192,22 @@ and composed date-condition fragments need native/UI review. 52 locale paths
 still need this group. The snapshot remains 51,575 ordinary missing values plus
 181 pending keys; broader language-quality review remains open.
 
+### Rule-builder instructions — Sesotho and Setswana (2026-10-07)
+
+Filled seven pending strings in st and tn (14 values), preserving existing
+translations and all literal variable expressions. No translation service was used.
+The descriptions retain any-trigger behavior, ordered actions, username/email
+context and reading variables from the card. Triggers are described as events that
+start the rule. Technical terminology, recipient labels and composed date-condition
+fragments need native/UI review; the full technical phrases have lower confidence.
+
+The existing trigger-variable suite now checks 16 recently filled locales for
+source order and exact brace/underscore/percent tokens. Runtime matching,
+all-locale structural and human-preference checks pass. Browser scenarios were
+not run; the app stack was unavailable. 50 locale paths still need this group.
+The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
+broader language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
