@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/89af4691e66ada4dd8f937f94b877c9ac06e2a5c">Translate Kurdish Blockly control and colour instructions</a></summary>
+
+- Fill 26 English placeholders for block controls, variable deletion, colour
+  mixing, loops and conditions, preserving existing translations and tokens.
+- Loop and collapsed-block terminology remains low confidence pending review.
+- All 40 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2ae4b4737c0e598d27b7eb3020650b3c09ea8612">Fill the final eight missing due-date shortcut entries</a></summary>
 
 - Add the shortcut in Cherokee, Inuktitut, Ladin, Aromanian, Tigre,
