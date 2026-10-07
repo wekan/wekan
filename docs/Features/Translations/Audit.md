@@ -4249,6 +4249,13 @@ mixed-language audit remains open.
 - Extended the existing placeholder/state checks and browser report flow to these eight locales. All 17 focused Node tests and 21 human-preference checks pass; browser syntax passes, but execution remains unverified because the local Playwright executable is unavailable.
 - These ten report strings remain English in 50 locales. Ordinary placeholders decrease from 51,505 to 51,425 across 70 languages; 148 pending keys still require wording review.
 
+## Rule email report labels: ten southern African locale files (2026-10-07)
+
+- Filled ten English report strings each in Southern Sotho, Tswana, Northern Sotho, both Zulu locales, Xhosa, Swati, Northern Ndebele, Tsonga and Venda (100 values). Used each locale's existing email-action terminology; full technical clauses remain provisional, especially Swati, Northern Ndebele, Tsonga and Venda.
+- Southern Sotho identifiers use a paraphrase for identifying codes. The [UNISA applied information science glossary](https://digilibrary.unisa.ac.za/digital/api/collection/p21049coll260/id/6/download) supports the code terminology; it does not validate the full UI sentence. Avoided describing IDs as necessarily numeric.
+- Extended the existing placeholder/state checks and browser report flow to these ten locales. All 17 focused Node tests and 21 human-preference checks pass; browser syntax passes, but execution remains unverified because the local Playwright executable is unavailable.
+- These ten report strings remain English in 40 locales. Ordinary placeholders decrease from 51,425 to 51,325 across 70 languages; 148 pending keys still require wording review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

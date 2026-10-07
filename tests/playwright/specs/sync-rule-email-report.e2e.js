@@ -31,7 +31,7 @@ test('only administrators can read bounded rule-email attempt metadata through D
 });
 
 
-for (const language of ['en', 'ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm', 'tk_TM', 'yi', 'bho', 'mai', 'or_IN', 'kok', 'pap', 'ary']) {
+for (const language of ['en', 'ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm', 'tk_TM', 'yi', 'bho', 'mai', 'or_IN', 'kok', 'pap', 'ary', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've']) {
 const locale = require(`../../../imports/i18n/data/${language}.i18n.json`);
 test(`administrator filters, pages and refreshes rule email attempts in Recovery (${language})`, async ({ page, adminUser }) => {
   const prefix = randomBytes(12).toString('hex');
