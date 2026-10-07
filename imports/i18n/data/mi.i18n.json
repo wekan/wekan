@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "URL Hono Āwhina Ritenga",
   "text-below-custom-login-logo": "Kuputuhi i raro i te Moko Takiuru Ritenga",
   "automatic-linked-url-schemes": "Ngā Aronui URL Ritenga me taea te pāwhiri aunoa. Kotahi te Aronui URL mō ia rārangi",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "He pātea i te tautuhinga taunoa, nō reira ko ngā hononga tukutuku me ngā hononga īmēra anake ka taea te pāwhiri. Ka whakatuwhera ia momo hononga kua whakarārangitia, pērā i te thunderlink, i te onenote rānei, i te taupānga kua rēhitatia mō taua momo. E kore rawa ngā momo javascript, data, vbscript me ngā momo pēnei e hurihia hei hononga.",
   "external-link-pattern": "Hononga aunoa ki te aratohu raru o waho",
   "external-link-pattern-description": "Ka hono aunoa i nga tohu penei i te \"#1234\" e kitea ana i roto i te kupu kaari ki tetahi aratohu raru o waho. Waiho tetahi mara kia watea kia monokia ai.",
   "external-link-pattern-prefix": "Take o te tohu",

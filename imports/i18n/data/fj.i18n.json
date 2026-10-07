@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "URL ni iSema ni Veivuke Digitaki",
   "text-below-custom-login-logo": "iTukutuku ena ruku ni iVakatakilakila ni Curu Digitaki",
   "automatic-linked-url-schemes": "iTuvatuva URL digitaki me kiliki vakataki koya. Dua na iTuvatuva URL ena dua na laini",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "E lala ena ituvatuva taumada, o koya gona na isema ni mataveilawa kei na imeli wale ga e rawa ni kilikitaki. Na mataqali isema yadua ena lisi, me vaka na thunderlink se onenote, e dolava na porokaramu sa volai me vakayagataki kina. Na javascript, data, vbscript kei na mataqali vakaoqo ena sega sara ni veisautaki me isema.",
   "external-link-pattern": "Isema vakaisemata ki na dauveiraurau ni leqa mai vaka",
   "external-link-pattern-description": "E vakasemata vakaisemata na ivakatakilakila me vaka na \"#1234\" e kunei ena vosa ni kaati ki na dauveiraurau ni leqa mai vaka. Biuta e dua na sitima me lala me vakatawana.",
   "external-link-pattern-prefix": "Imatai ni ivakatakilakila",

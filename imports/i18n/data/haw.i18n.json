@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "hoʻopilikino kōkua loulou URL",
   "text-below-custom-login-logo": "kikokikona ma lalo hoʻopilikino ʻeʻe loko",
   "automatic-linked-url-schemes": "hoʻopilikino URL kakemeka wahika koulaka ʻakomi he kalikakapale. one URL kakeme pela line",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "He hakahaka ka hoʻonohonoho paʻamau, no laila ʻo nā loulou pūnaewele a me ka leka uila wale nō ka mea hiki ke kaomi ʻia. Wehe kēlā me kēia ʻano loulou ma ka papa inoa, e like me thunderlink a i ʻole onenote, i ka polokalamu i hoʻopaʻa inoa ʻia no ia ʻano. ʻAʻole loa e hoʻolilo ʻia ʻo javascript, data, vbscript a me nā ʻano like i loulou.",
   "external-link-pattern": "Loulou ʻōuli i ka mea hoʻokele pilikia mai waho",
   "external-link-pattern-description": "Hoʻohui ʻōuli i nā hōʻailona e like me \"#1234\" i loaʻa ma ka kikokikona kāleka i kekahi mea hoʻokele pilikia mai waho. Waiho i kahi kahua i kahi hakahaka e hoʻopau ai.",
   "external-link-pattern-prefix": "Mua o ka hōʻailona",

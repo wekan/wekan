@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "URL o le Sootaga Fesoasoani Patino",
   "text-below-custom-login-logo": "Tusitusiga i lalo o le Logo Patino mo le Ulufale",
   "automatic-linked-url-schemes": "URL Schemes patino e tatau ona otometi ona mafai ona kiliki. Tasi le URL Scheme i laina taitasi",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "E avanoa i le faatulagaga muamua, o lea e na o sootaga o le upega tafaʻilagi ma imeli e mafai ona kiliki. O ituaiga sootaga taʻitasi o loo i le lisi, e pei o thunderlink po o onenote, e tatala ai le polokalame ua lesitala mo lea ituaiga. O javascript, data, vbscript ma ituaiga faapena e lē mafai lava ona avea ma sootaga e kiliki ai.",
   "external-link-pattern": "Sootaga otometi i le su'esu'ega fa'afitauli mai fafo",
   "external-link-pattern-description": "E sootaga otometi fa'ailoga e pei o le \"#1234\" o lo'o maua i tusitusiga o le kata i se su'esu'ega fa'afitauli mai fafo. Tu'u se fanua e leai se mea e fa'aleaogaina ai.",
   "external-link-pattern-prefix": "'Amata o le fa'ailoga",

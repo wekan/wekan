@@ -3005,6 +3005,25 @@ Thirty-seven locale paths still need this hint, so its source key remains pendin
 The ordinary backlog remains 51,575 values plus 172 pending source keys; broader
 language-quality work remains open.
 
+### Custom URL scheme hint — Pacific languages (2026-10-07)
+
+Filled the hint in Māori, Samoan, Tongan, Fijian and Hawaiian (mi, sm, to, fj,
+haw). The placeholder-only merge preserved existing translations; no translation
+service was used. All five scheme identifiers remain literal. The prose retains
+the empty default, clickable web/mail links, registered-application behavior and
+permanent exclusion of the dangerous scheme examples.
+
+The allowlist suite now checks the hint in 34 recently filled locales. Exact
+identifier inventories, missing-identifier rejection, source tokens, key order,
+parser/sanitizer behavior, all-locale structure and 21 human-preference checks pass.
+Browser scenarios were syntax-checked but not run without the application stack.
+Technical phrasing, especially Hawaiian, Tongan and Fijian, has lower confidence
+and remains open for native/UI review.
+
+Thirty-two locale paths still need this hint, so its source key remains pending.
+The ordinary backlog remains 51,575 values plus 172 pending source keys; broader
+language-quality work remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
