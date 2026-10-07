@@ -3504,6 +3504,12 @@ Filled 20 English placeholders in `pap`, `wa`, `ace` and `haw` with the protecte
 
 Extended the translation/token regression and existing localized browser scenario to the four locales. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 33 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
 
+### History recovery: Waray, Fijian, Tongan, Luganda and Wolof
+
+Filled 25 English placeholders in `wa-RR`, `fj`, `to`, `lg` and `wo` with the protected fill utility. The drafts distinguish undo/redo and retry/forget and retain the same-request explanation. Vocabulary references include [the Waray corpus dictionary](https://dictionary.corporaproject.org/index.php?glossary=H&sort=word) for requesting/forgetting, [Unitec's Fijian dictionary](https://www.unitec.ac.nz/umisc/jmctest/fijian_english_dictionary/fijian_eng_dict.html) for trying/again, [NZQA's Tongan text](https://www2.nzqa.govt.nz/assets/Tertiary/The-Code/Learners/5415_NZQA_Code-Summaries-Tertiary_TONGAN_v3.pdf) for request/confirmation usage, [Luganda kakasa](https://ennyimba.ug/tools/luganda-dictionary?direction=en&q=prove), and [the Wolof phrase dictionary](https://www.wolofresources.org/language/download/lexicarry_plus.pdf) for trying/forgetting. These support individual terms, not the composed software sentences. Full clauses, technical borrowings and undo/redo nominalizations remain provisional and need fluent-speaker review.
+
+Extended the translation/token regression and existing localized browser scenario to the five locales. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 28 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys. Existing unrelated seed problems, including prefixed-English Tongan and Luganda labels, remain part of the broader language audit.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
