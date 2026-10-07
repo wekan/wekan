@@ -3438,6 +3438,14 @@ Filled three English placeholders in `iu`, preserving existing non-English value
 
 Translation/token, import-loss positive/negative and all 234 locale structure suites pass (12 tests combined), as do 21 human-preference checks. Extended the Inuktitut browser case and syntax-checked it; execution remains unavailable without the local Playwright executable and running application. Each source key remains English in three locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
 
+### Import warning report: Standard Moroccan Tamazight
+
+Filled three English placeholders in `zgh` and replaced the Arabic Admin Panel label `لوحة التحكم` with `ⵜⴰⴼⵍⵡⵉⵜ ⵏ ⵓⵎⵙⵙⵓⴳⵓⵔ`, composed from existing board/panel and administrator terminology. The fill utility protected existing non-English values; the wrong-language correction was applied separately. Regression checks require the report's path to match the actual menu labels, require Tifinagh and reject Arabic-script text in these four values.
+
+The [IRCAM Amazigh-French-Arabic dictionary](https://www.ircam.ma/sites/default/files/2021-02/amz_fr_ar.pdf) attests `ⴰⵙⵎⵉⴳⵍ` for advice/warning. A [Moroccan finance ministry report](https://www.finances.gov.ma/Publication/db/2025/Syntheese-Rap-EEPLF2025.pdf) attests `ⴰⵏⵇⵇⵉⵙ` for report, also present in the locale. These establish individual words, not complete-sentence accuracy. Passive inflection, plural warning terminology, software import terminology and the new menu compound remain low confidence and need fluent-speaker review. Existing recovery terminology and other wrong-language/mixed-dialect values remain in the broader review queue.
+
+Translation/token, import-loss positive/negative and 234-locale structure suites pass (12 tests combined), as do 21 human-preference checks. Extended the Tamazight browser case and syntax-checked it; execution remains unavailable without the local Playwright executable and running application. Each source key remains English in two locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
