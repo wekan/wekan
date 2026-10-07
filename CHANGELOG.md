@@ -1890,6 +1890,15 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1365619b6a0d0aaa9980047088d3b10f1711eb4a">Translate board visibility in Tigre</a>. Thanks to xet7.</summary>
+
+- Fill three English values, preserving viewing and editing distinctions and confirmation emphasis. Record grammar references and low-confidence software vocabulary and agreement for fluent-speaker review.
+- Extend existing source-order, token, markup and rendered-emphasis checks. Translation and permission tests pass; the browser suite was syntax-checked only because the application stack is unavailable.
+- These three keys remain English only in Cherokee. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys, with language-quality review open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/feea9100493586ce0cbaf082bac7e04f18a00cc8">Translate board visibility in Wolaytta</a>. Thanks to xet7.</summary>
 
 - Fill three English values, preserving viewing and editing distinctions and confirmation emphasis. Record references and low-confidence login phrasing, negation and membership wording for fluent-speaker review.
