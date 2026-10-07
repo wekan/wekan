@@ -6509,6 +6509,12 @@ Corrected the remaining 27 values containing the `Toksave:` English-seeding pref
 
 Validation: 78 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
 
+## Tok Pisin search help wording audit
+
+Corrected 40 unprefixed mixed-language search instructions and error messages. Preserved source placeholders and syntax metavariables; translated prose and sample list names, repaired the due-date example closing backtick and aligned the negated due-date example with the translated keywords. Tests distinguish AND/OR, negation, descending sort, positive integer limits, case handling and archive defaults. Already coherent nearby messages remain unchanged. Wording remains provisional pending fluent-speaker review; browser and screen-reader checks were not run. Existing multiword query operators still require syntax review.
+
+Validation: 80 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

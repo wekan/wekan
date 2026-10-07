@@ -760,3 +760,66 @@ test('Tok Pisin analytics preserves forecast caveats, history gaps and fallback 
  assert.match(data['flow-active'],/i no pinis yet/);
  assert.match(data['flow-unusual'],/Ausait/);
 });
+
+
+test('Tok Pisin search help preserves source tokens and removes mixed English prose',()=>{
+ const keys=[
+  "operator-unknown-error",
+  "operator-number-expected",
+  "operator-sort-invalid",
+  "operator-status-invalid",
+  "operator-has-invalid",
+  "operator-limit-invalid",
+  "operator-debug-invalid",
+  "globalSearch-instructions-heading",
+  "globalSearch-instructions-description",
+  "globalSearch-instructions-operators",
+  "globalSearch-instructions-operator-board",
+  "globalSearch-instructions-operator-list",
+  "globalSearch-instructions-operator-swimlane",
+  "globalSearch-instructions-operator-comment",
+  "globalSearch-instructions-operator-label",
+  "globalSearch-instructions-operator-hash",
+  "globalSearch-instructions-operator-user",
+  "globalSearch-instructions-operator-at",
+  "globalSearch-instructions-operator-member",
+  "globalSearch-instructions-operator-assignee",
+  "globalSearch-instructions-operator-creator",
+  "globalSearch-instructions-operator-org",
+  "globalSearch-instructions-operator-team",
+  "globalSearch-instructions-operator-due",
+  "globalSearch-instructions-operator-created",
+  "globalSearch-instructions-operator-modified",
+  "globalSearch-instructions-operator-status",
+  "globalSearch-instructions-status-archived",
+  "globalSearch-instructions-status-all",
+  "globalSearch-instructions-status-public",
+  "globalSearch-instructions-status-private",
+  "globalSearch-instructions-operator-has",
+  "globalSearch-instructions-operator-sort",
+  "globalSearch-instructions-operator-limit",
+  "globalSearch-instructions-notes-2",
+  "globalSearch-instructions-notes-3",
+  "globalSearch-instructions-notes-3-2",
+  "globalSearch-instructions-notes-4",
+  "globalSearch-instructions-notes-5",
+  "globalSearch-instructions-operator-number"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.doesNotMatch(data[key],/where|matching|specified|would return|are returned|should be|expected|is no wanpela/,key);
+ }
+});
+
+test('Tok Pisin search help distinguishes union, intersection, negation and limits',()=>{
+ assert.match(data['globalSearch-instructions-notes-2'],/\*O\*.*wanpela/);
+ assert.match(data['globalSearch-instructions-notes-3'],/\*NA\*.*olgeta.*tasol/);
+ assert.match(data['globalSearch-instructions-operator-has'],/Putim `-`.*i no gat veliu/);
+ assert.ok(data['globalSearch-instructions-operator-has'].includes('`'+data['operator-has']+':-'+data['predicate-due']+'`'));
+ for(const key of ['operator-limit-invalid','globalSearch-instructions-operator-limit']) assert.match(data[key],/no gat hap.*bikpela moa long 0/);
+ assert.match(data['globalSearch-instructions-operator-sort'],/oda i go daun.*`-`/);
+ assert.match(data['globalSearch-instructions-notes-4'],/no skelim bikpela na liklik leta/);
+ assert.match(data['globalSearch-instructions-notes-5'],/no painim ol kat long akaiv/);
+ assert.match(data['globalSearch-instructions-status-all'],/akaiv.*no stap long akaiv/);
+ assert.match(data['globalSearch-instructions-description'],/kolon.*spes.*tupela mak/);
+});
