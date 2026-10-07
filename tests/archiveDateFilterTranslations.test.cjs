@@ -30,7 +30,7 @@ const keys = [
   "filter-column-age-hint",
   "advanced-filter-card-dates-hint"
 ];
-for (const code of ['dz', 'kl', 'nah', 'vo', 'sah', 'ace', 'bm', 'ak', 'lg', 'ay', 'qu', 'gn', 'ee', 'wo', 'ff', 'tlh', 'gv', 've-CC', 've-PP', 've', 'bo', 'bua', 'cv', 'ks', 'ti', 'tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'yi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'rw', 'rn', 'or_IN', 'bho', 'mai', 'kok', 'ary', 'nso', 'nd', 'ss', 'ts', 'om', 'fj', 'to', 'hsb', 'szl', 'se', 'wa', 'wa-RR', 'wuu-Hans', 'rup']) {
+for (const code of ['tig', 'dz', 'kl', 'nah', 'vo', 'sah', 'ace', 'bm', 'ak', 'lg', 'ay', 'qu', 'gn', 'ee', 'wo', 'ff', 'tlh', 'gv', 've-CC', 've-PP', 've', 'bo', 'bua', 'cv', 'ks', 'ti', 'tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'yi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'rw', 'rn', 'or_IN', 'bho', 'mai', 'kok', 'ary', 'nso', 'nd', 'ss', 'ts', 'om', 'fj', 'to', 'hsb', 'szl', 'se', 'wa', 'wa-RR', 'wuu-Hans', 'rup']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -202,4 +202,9 @@ assert.match(read('dz')['filter-column-age-hint'], /ལོག་འགོ་མ�
 assert.match(read('dz')['filter-due-previous-week'], /ཧེ་མའི་བདུན་ཕྲག/);
 assert.match(read('dz')['filter-due-next-month'], /ཤུལ་མའི་ཟླཝ/);
 assert.notEqual(read('dz')['auto-archive-hint'], read('bo')['auto-archive-hint']);
-console.log('Archiving and date filters: 23 messages in 64 locales passed');
+assert.match(read('tig')['auto-archive-hint'], /አበደን ኢትትሐዝ/);
+assert.match(read('tig')['filter-column-age-hint'], /ምን ሐዲስ ኢለብድእ/);
+assert.match(read('tig')['filter-due-previous-week'], /ለሐልፈ እስቡዕ/);
+assert.match(read('tig')['filter-due-next-month'], /ለመጽእ ወርሕ/);
+assert.notEqual(read('tig')['auto-archive-hint'], read('ti')['auto-archive-hint']);
+console.log('Archiving and date filters: 23 messages in 65 locales passed');

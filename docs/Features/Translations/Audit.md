@@ -302,6 +302,31 @@ Tibetan auto-archive hint. Feature, all-locale structure, human-preference
 and the Dzongkha progress suite pass. The browser mutation scenario includes
 Dzongkha and passes syntax checking only; it was not browser-executed.
 
+## Tigre archiving/date filters — 2026-10-07
+
+Filled 23 English placeholders in Tigre (`tig`). Comparison against the
+previous commit confirms existing translated values are unchanged. The
+standard backlog falls by 20 to 51,655 values; three auto-archive values
+belong to separately tracked pending keys.
+
+The [Tigre language overview](https://en.wikipedia.org/wiki/Tigre_language)
+provides hour/plural morphology; the
+[Tigre day entry](https://en.wiktionary.org/wiki/%E1%8B%AE%E1%88%9D)
+and existing catalog provide day/month terminology. The scholarly Tigre
+abstract in [Studien zum Horn von Afrika](https://www.speaktigre.com/_files/ugd/7e068a_b8160a06029949149ec728daaac5b9b4.pdf?index=true)
+provides native-script date usage. These references support components,
+not complete software sentences. Longer wording remains low confidence,
+especially agreement, inclusive date bounds, list-age negation and the
+quoted-field explanation. Tigre/Tigrinya distinction needs vocabulary and
+grammar review, not merely a script or unequal-string check.
+
+The feature suite now covers 65 locales and preserves exact placeholders,
+numbers and query examples. New checks retain the two negative rules,
+distinguish past/future periods and reject copying the Tigrinya hint.
+Feature, all-locale structure, human-preference and the existing Tigre
+progress/date suites pass. The browser mutation scenario includes Tigre
+and is syntax-checked only; no browser execution was available.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
