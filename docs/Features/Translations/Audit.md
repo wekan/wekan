@@ -6228,6 +6228,24 @@ conditions, ternary label references, return/no-return distinctions, disabled
 function warnings and matching definition labels. Browser and screen-reader
 checks were not run. The broader language and wording audit remains open.
 
+## Māori Blockly controls and variables — 2026-10-08
+
+Translated 55 English values: 48 counted placeholders and seven short control
+labels omitted by the counter. Existing translations remain unchanged.
+Koromeke follows the [Paekupu computing glossary](https://www.paekupu.co.nz/words/wordlist/hangarau/maori-to-english/),
+and [taurangi](https://media.paekupu.co.nz/word/taurangi) follows its mathematics
+entry. Compound loop and variable warnings remain provisional pending fluent
+review. The regression found an initially missed variable-deletion warning;
+that warning is now translated too.
+
+The combined focused run passes 51 checks, including all 15 Māori checks.
+Two shared catalog checks still fail on missing shortcut-edit-due-date keys
+in other locales. All 21 human-preference checks pass. Coverage preserves
+source tokens, loop bounds, while/until truth states, break/continue actions,
+branch order, shared do labels, variable types, deletion counts and function
+parameter warnings. Browser and screen-reader checks were not run. The broader
+language and wording audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

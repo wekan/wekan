@@ -64,3 +64,35 @@ test('Māori function messages preserve arguments and return behavior',()=>{
  assert.match(data['blockly-PROCEDURES_DEF_DUPLICATE_WARNING'],/tawhā tārite/);
  for(const suffix of ['TITLE','COMMENT','PROCEDURE']) assert.equal(data['blockly-PROCEDURES_DEFRETURN_'+suffix],data['blockly-PROCEDURES_DEFNORETURN_'+suffix]);
 });
+
+test('Māori control messages preserve loop bounds, branch order and stop conditions',()=>{
+ for(const key of Object.keys(english).filter(k=>k.startsWith('blockly-CONTROLS_'))){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  if(english[key]&&!key.endsWith('_HELPURL')&&!key.endsWith('_HUE')) assert.notEqual(data[key],english[key],key);
+ }
+ assert.match(data['blockly-CONTROLS_FOR_TITLE'],/%1 mai i %2 ki %3.*%4/);
+ assert.match(data['blockly-CONTROLS_FOR_TOOLTIP'],/%1.*tau tīmatanga.*tau whakamutunga.*hipanga/);
+ assert.match(data['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL'],/e hē ana/);
+ assert.match(data['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE'],/e pono ana/);
+ assert.match(data['blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_BREAK'],/^Puta/);
+ assert.match(data['blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_CONTINUE'],/^Tīpokatia.*tukurua whai muri/);
+ assert.match(data['blockly-CONTROLS_FLOW_STATEMENTS_WARNING'],/i roto anake.*koromeke/);
+ assert.match(data['blockly-CONTROLS_IF_TOOLTIP_4'],/uara tuatahi.*uara tuarua.*kāore he uara pono.*whakamutunga/);
+ for(const key of ['FOREACH_INPUT_DO','FOR_INPUT_DO','IF_MSG_THEN','WHILEUNTIL_INPUT_DO']) assert.equal(data['blockly-CONTROLS_'+key],data['blockly-CONTROLS_REPEAT_INPUT_DO']);
+});
+
+test('Māori variables preserve names, types, deletion counts and get/set distinctions',()=>{
+ const keys=Object.keys(english).filter(k=>k.startsWith('blockly-')&&(/VARIABLE/.test(k))&&!k.startsWith('blockly-TEXT_'));
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  if(english[key]&&!key.endsWith('_HELPURL')&&!key.endsWith('_HUE')) assert.notEqual(data[key],english[key],key);
+ }
+ assert.match(data['blockly-DELETE_VARIABLE_CONFIRMATION'],/whakamahinga %1.*%2/);
+ assert.match(data['blockly-RENAME_VARIABLE_TITLE'],/%1.*katoa/);
+ assert.match(data['blockly-VARIABLE_ALREADY_EXISTS_FOR_ANOTHER_TYPE'],/%1.*momo kē.*%2/);
+ assert.match(data['blockly-VARIABLE_ALREADY_EXISTS_FOR_A_PARAMETER'],/%1.*tawhā.*taumahi.*%2/);
+ assert.match(data['blockly-VARIABLES_SET'],/%1 ki %2/);
+ assert.notEqual(data['blockly-VARIABLES_SET_CREATE_GET'],data['blockly-VARIABLES_GET_CREATE_SET']);
+ assert.equal(new Set(['COLOUR','NUMBER','STRING'].map(k=>data['blockly-NEW_'+k+'_VARIABLE'])).size,3);
+ assert.equal(data['blockly-VARIABLES_DEFAULT_NAME'],data['blockly-TEXT_APPEND_VARIABLE']);
+});
