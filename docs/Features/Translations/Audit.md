@@ -598,6 +598,26 @@ pass, together with all-locale structure and human-preference checks. The
 browser mute/unmute scenario checks all 13 strings in both new locales.
 It passes syntax checking only; no browser execution was available.
 
+## Oromo, Fijian and Tongan notification preferences — 2026-10-07
+
+Filled 13 English placeholders each in Oromo (`om`), Fijian (`fj`) and
+Tongan (`to`): 39 values. Comparison against the previous commit confirms
+existing translations are unchanged. The keys remain pending in other
+languages; the standard backlog stays at 51,575 values with 201 pending
+source keys.
+
+The messages distinguish members from assigned workers and preserve the
+reminder/@mention exception after unchecking an activity category. Existing
+catalog vocabulary supplies card/list/attachment terms. Longer instructions,
+custom-field values and lane terminology remain provisional pending speaker
+review, particularly the Fijian and Tongan technical expressions.
+
+Shared notification coverage now includes 32 locales. Exact tokens, source
+order, people-category distinctions, mention markers and muting exceptions
+pass, together with all-locale structure and human-preference checks. The
+browser mute/unmute scenario checks all 13 strings for the new locales.
+It passes syntax checking only; no browser execution was available.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

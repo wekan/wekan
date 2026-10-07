@@ -7,7 +7,7 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('notification-activity-'));
 assert.equal(keys.length, 13);
-for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts', 'om', 'fj', 'to']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: key order`);
   for (const key of keys) {
@@ -76,4 +76,10 @@ assert.match(read('nso')['notification-activity-description'], /Dikgopotšo tša
 assert.match(read('ts')['notification-activity-description'], /Switsundzuxo swa siku ro hetelela.*@ swi fika nkarhi hinkwawo/);
 assert.match(read('nso')['notification-activity-description'], /Tloša leswao/);
 assert.match(read('ts')['notification-activity-description'], /Susa mfungho/);
-console.log('Notification activity translations: 13 messages in 29 locales passed');
+assert.match(read('om')['notification-activity-description'], /Yaadachiisni guyyaa xumuraa.*@.*yeroo hunda ni dhufu/);
+assert.match(read('fj')['notification-activity-description'], /ivakananumi ni siga me oti kina.*@ ena yaco tiko ga/);
+assert.match(read('to')['notification-activity-description'], /kei aʻu maʻu pē.*fakamanatu.*@/);
+assert.match(read('om')['notification-activity-description'], /mallattoo isaa haqi/);
+assert.match(read('fj')['notification-activity-description'], /Kauta laivi na ivakatakilakila/);
+assert.match(read('to')['notification-activity-description'], /Toʻo ʻa e fakaʻilonga/);
+console.log('Notification activity translations: 13 messages in 32 locales passed');
