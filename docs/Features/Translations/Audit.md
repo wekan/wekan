@@ -7216,6 +7216,15 @@ and distinguish directions, movement lifecycle and accessibility mode toggles.
 Keyboard-focus and block-stack terminology remains low confidence pending fluent
 review. Browser and screen-reader checks were not run.
 
+### Kurdish Blockly text operations
+
+Filled 41 English placeholders for appending, case conversion, character and
+substring selection, counting, searching, joining, length and prompts. Existing
+translations are preserved. Tests compare source tokens and key order, retain
+append direction and not-found results, and check spaces in length calculations.
+Case-conversion and substring terminology remains low confidence pending fluent
+review. Browser and screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
