@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/70a6a5f11538eb8012f7f9ff3dbef9bd8258a2fe">Translate Kurdish statistical and unary math instructions</a></summary>
+
+- Fill 39 English placeholders for statistics, random values, rounding,
+  logarithms, negation and spoken trigonometric labels, preserving tokens.
+- Statistical and trigonometric terminology remains low confidence.
+- All 46 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b83566a83c361aa15018026fd774d47ae4cb2aab">Translate Kurdish Blockly arithmetic and statistics labels</a></summary>
 
 - Fill 40 English placeholders for arithmetic, constants, bounds, number tests,
