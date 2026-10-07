@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **46,716 untranslated locale/string values in 70 languages**. It
+  report counts **46,688 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -2074,6 +2074,18 @@ uses the same word as `checklist` itself.
 </details>
 
 **Translations** — continued language coverage and corrections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cfbda9b1d00331bdc276d8cdcaaf552384f37841">Translate 28 Waray Blockly random-value and unary-math messages.</a></summary>
+
+- Fill random-number, rounding, absolute-value, exponential, logarithm and square-root messages. Preserve numbered arguments, numeric bases and inclusive/exclusive endpoints.
+- Extend rounding, bound and sign-reversal checks. Mathematical terminology remains provisional and needs contextual language review.
+- English placeholders decrease from 46,716 to 46,688 across 70 languages, with 148 source keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8c9a90d987f557b4c8f5c972a527fcc43b1081e3">Translate 25 Waray Blockly numeric-property and statistics messages.</a></summary>
