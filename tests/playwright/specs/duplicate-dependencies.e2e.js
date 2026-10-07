@@ -3,7 +3,10 @@ const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { openBoard } = require('../helpers/auth');
 
-test('duplicate relation picker, editing and History undo/redo retain typed links', async ({ loggedInPage: page, board }) => {
+for (const language of ['en', 'ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm', 'tk_TM', 'yi', 'bho', 'mai', 'or_IN', 'kok', 'pap', 'ary']) {
+const locale = require(`../../../imports/i18n/data/${language}.i18n.json`);
+test(`duplicate relation picker, editing and History undo/redo retain typed links (${language})`, async ({ loggedInPage: page, board }) => {
+  await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
   const cards = db.find('cards', { boardId: board.boardId });
   const [source, target] = cards;
   db.setShowDependencies({ boardId: board.boardId, board: true });
@@ -17,15 +20,16 @@ test('duplicate relation picker, editing and History undo/redo retain typed link
   await expect(page.locator('.js-dependency-overlay .dependency-line').first()).toHaveAttribute('marker-end', /url\(#/);
   const select = page.locator(`.js-dependency-type[data-target-id="${target._id}"]`);
   await expect(select).toHaveValue('duplicates');
-  await expect(select.locator('option:checked')).toHaveText('Duplicates');
+  await expect(select.locator('option:checked')).toHaveText(locale['dependency-type-duplicates']);
   await select.selectOption('is-duplicated-by');
   await expect.poll(type).toBe('is-duplicated-by');
-  await expect(select.locator('option:checked')).toHaveText('Is duplicated by');
+  await expect(select.locator('option:checked')).toHaveText(locale['dependency-type-is-duplicated-by']);
   await page.evaluate(id => Meteor.callAsync('changeHistory.undoLast', id), board.boardId);
   await expect.poll(type).toBe('duplicates');
   await page.evaluate(id => Meteor.callAsync('changeHistory.redoLast', id), board.boardId);
   await expect.poll(type).toBe('is-duplicated-by');
 });
+}
 
 test('Jira duplicate links preserve both directions through native board transfer', async ({ loggedInPage: page, request, user }) => {
   const ids = [];

@@ -4421,6 +4421,12 @@ mixed-language audit remains open.
 - Expanded the hint check to all 234 non-English locales: nonempty non-English values, exact token inventory, both `|urlencode` occurrences, and executable results for each code example. All 23 focused Node tests and 21 human-preference checks pass. Extended positive/negative localized browser coverage to the final three locales; syntax passes, but execution remains unverified because Playwright is unavailable locally.
 - This hint now has non-English values in every non-English locale. Ordinary placeholders decrease from 50,202 to 50,199 across 70 languages. The 148 pending source keys and broader semantic audit remain open; completed placeholder coverage does not establish fluency.
 
+## Duplicate-card relationship labels: fifteen locales (2026-10-07)
+
+- Filled both directed relationship labels in Kurmanji, Sorani, Tatar, Somali, Chichewa, Māori, Samoan, Turkmen, Yiddish, Bhojpuri, Maithili, Odia, Konkani, Papiamento and Moroccan Arabic (30 values). The wording distinguishes a card duplicating another from being duplicated by it. Chichewa, Samoan and Konkani wording remains particularly provisional; distinct strings alone do not prove correct direction or fluency.
+- All four focused Node tests and 21 human-preference checks pass, covering locale token inventories, distinct labels, inverse relations, serialization and invalid board/deleted-card targets. Extended the existing localized browser editing and undo/redo flow to fifteen locales; existing REST negative tests retain self-link and foreign-board rejection coverage. Browser syntax passes, but execution remains unverified because Playwright is unavailable locally.
+- Ordinary placeholders decrease from 50,199 to 50,169 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
