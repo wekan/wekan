@@ -90,6 +90,9 @@ const sharedTerms = {
   'r-sort-name': 'nimi',
   'r-name': 'nimi',
   'event-bleed': 'Nimi',
+  // The Blockly image field: Veps uses kuva for a picture, as in add-cover
+  // ("koren kuva") and every avatar string ("kävutajan kuva").
+  'blockly-ARIA_TYPE_FIELD_IMAGE': 'kuva',
 };
 for (const [key, value] of Object.entries(sharedTerms)) {
   assert.equal(veps[key], value, `${key}: attested shared Veps term`);
