@@ -3662,6 +3662,14 @@ The [Buryat language resource](https://buryadxelen.com/backend/web/burlang/ajax/
 
 Extended the regression and browser scenario to these three locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Exact placeholder preservation and text coverage do not establish fluency.
 
+## Map view: Tibetan, Dzongkha and Tigrinya - 2026-10-07
+
+Filled seven English placeholders in each of `bo`, `dz` and `ti` (21 values) through the protected fill workflow. The map-image examples and both drag and select/click placement methods are retained. The seven keys remain English in 22 locale paths and stay in the pending queue; the broader backlog remains 51,575 ordinary placeholders across 70 languages plus 160 pending source keys.
+
+Terminology references include [Tibetan Map](https://www.tibetanmap.com/), [Dzongkha Computer Terms](https://panl10n.cle.org.pk/outputs/DCT.pdf), and the [Tigrinya map dictionary entry](https://www.geezexperience.com/?dr=0&searchkey=map). These support map vocabulary, not full-sentence accuracy. The longer technical sentences and floor-plan terminology, especially Dzongkha, remain provisional and need speaker review. Tibetan and Dzongkha were drafted separately with their own grammatical forms.
+
+Extended regression and browser coverage to these three locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Coverage and placeholder checks do not establish fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
