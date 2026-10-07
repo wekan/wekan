@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e61c71a119bb50a08db495c26647b862b44a9a0d">Correct 38 Waray diagnostic and process-chart labels.</a></summary>
+
+- Replace foreign-language diagnostic, event, import and search labels. Restore distinct meanings for mean, confidence and moving range while preserving technical identifiers.
+- Extend shared-label, no-active-work and identifier checks. Statistical terminology remains provisional and requires technical-language review.
+- English placeholders remain at 46,305 across 70 languages, with 148 source keys tracked separately for wording review.
+- Validation: 28 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6669aecc6b6e4289cbe0dc3d2a25a61885f8f1dc">Correct 84 foreign-language Waray rule, account and storage labels.</a></summary>
 
 - Replace French, Walloon and mixed-language rule fragments, account/card views, diagnostic, recurrence and storage labels. Preserve error arguments, identifiers and AWS/Cc notation.
