@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Šuthiša Mothalo wa go Rutha",
   "custom-field-stringtemplate": "Thempleite ya Sengwalwa",
   "custom-field-stringtemplate-format": "Sebopego (diriša %{value} bjalo ka seswari sa lefelo)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Diriša %{card.title}, %{board.title}, %{list.title} goba %{swimlane.title}. Oketša |urlencode go leswao leo le emelago boleng bjo bo fetogago bakeng sa paramethara ya URL, mohlala %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Searoganyi (diriša &#32; goba &nbsp; bakeng sa sekgoba)",
   "custom-field-stringtemplate-item-placeholder": "Gatelela enter go tsenya dilo tše dingwe",
   "creator": "Mohlami",

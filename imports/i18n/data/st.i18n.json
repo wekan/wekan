@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Tsamaisa tsela",
   "custom-field-stringtemplate": "Thempleite ya mongolo",
   "custom-field-stringtemplate-format": "Sebopeho (sebedisa %{value} e le setshwari sa sebaka)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Sebedisa %{card.title}, %{board.title}, %{list.title} kapa %{swimlane.title}. Kenya |urlencode letshwaong le emelang boleng bo fetohang bakeng sa paramethara ya URL, mohlala %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Searohanyi (sebedisa &#32; kapa &nbsp; bakeng sa sekgeo)",
   "custom-field-stringtemplate-item-placeholder": "Tobetsa enter ho eketsa dintho tse ding",
   "creator": "Moqapi",

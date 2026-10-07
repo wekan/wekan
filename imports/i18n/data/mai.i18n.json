@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "स्विमलेन लऽ जाउ",
   "custom-field-stringtemplate": "स्ट्रिंग नमूना",
   "custom-field-stringtemplate-format": "प्रारूप (स्थानधारकक रूपमे %{value} उपयोग करू)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "%{card.title}, %{board.title}, %{list.title} वा %{swimlane.title} उपयोग करू। URL पैरामीटरक लेल चरमे |urlencode जोड़ू, उदाहरणक लेल %{value|urlencode}।",
   "custom-field-stringtemplate-separator": "विभाजक (स्पेस लेल &#32; वा &nbsp; उपयोग करू)",
   "custom-field-stringtemplate-item-placeholder": "आओर मद जोड़बाक लेल Enter दबाउ",
   "creator": "निर्माता",

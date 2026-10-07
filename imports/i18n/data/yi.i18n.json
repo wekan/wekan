@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "מאַך סווימלאַנע",
   "custom-field-stringtemplate": "שטריקל מוסטער",
   "custom-field-stringtemplate-format": "פֿאָרמאַט (נוצן %{value} ווי אָרטהאָלדער)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "ניצט %{card.title}, %{board.title}, %{list.title} אָדער %{swimlane.title}. לייגט צו |urlencode צו אַ וואַריאַבל פֿאַר אַ URL־פּאַראַמעטער, למשל %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "סעפּאַראַטאָר (נוצן אָדער   פֿאַר אַ פּלאַץ)",
   "custom-field-stringtemplate-item-placeholder": "דריקן אַרייַן צו לייגן מער זאכן",
   "creator": "באשעפער",

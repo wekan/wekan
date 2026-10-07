@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "انتقال مسیر",
   "custom-field-stringtemplate": "قالب رشته",
   "custom-field-stringtemplate-format": "التنسيق (استخدم %{value} كعنصر نائب)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "ستعمل %{card.title}، %{board.title}، %{list.title} ولا %{swimlane.title}. زيد |urlencode لمتغيّر باش تستعملو كپارامتر ديال URL، مثلا %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "الفاصل (استخدم &#32; أو &nbsp; للمسافة)",
   "custom-field-stringtemplate-item-placeholder": "برای افزودن موارد بیشتر ، Enter را فشار دهید",
   "creator": "المنشئ",

@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Sutisa Tsela",
   "custom-field-stringtemplate": "Mokwalwa Thempleite",
   "custom-field-stringtemplate-format": "Format (dirisa %{value} jaaka placeholder)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Dirisa %{card.title}, %{board.title}, %{list.title} kgotsa %{swimlane.title}. Tsenya |urlencode mo letshwaong le le emelang boleng jo bo fetogang go dira paramethara ya URL, sekai %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Separator (dirisa &#32; kgotsa &nbsp; go e sebaka)",
   "custom-field-stringtemplate-item-placeholder": "Press tsenya go tsenya go feta dilo",
   "creator": "Modiri",

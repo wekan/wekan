@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Mobe kaminda",
   "custom-field-stringtemplate": "Plantiya di cadenas",
   "custom-field-stringtemplate-format": "Formato (usa %{value} como marcador)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Usa %{card.title}, %{board.title}, %{list.title} òf %{swimlane.title}. Agregá |urlencode na un variabel pa un parámetro di URL, por ehèmpel %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Separador (usa &#32; òf &nbsp; pa un espasio)",
   "custom-field-stringtemplate-item-placeholder": "Pulsa intro pa agregá mas elementos",
   "creator": "Creador",

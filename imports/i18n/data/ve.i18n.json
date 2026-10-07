@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Nyakazisa i-Swimlane",
   "custom-field-stringtemplate": "Isifanekiso Sentambo",
   "custom-field-stringtemplate-format": "Tshivhumbeo (shumisa %{value} sa tshiga tsha u imela ndeme)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Shumisani %{card.title}, %{board.title}, %{list.title} kana %{swimlane.title}. Engedzani |urlencode kha tshiga tshine tsha imela ndeme ine ya shanduka uri tshi shumiswe sa pharamitha ya URL, sa tsumbo %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Tshifhambanyi (shumisa &#32; kana &nbsp; kha tshikhala)",
   "custom-field-stringtemplate-item-placeholder": "Puṱedzani Enter u engedza zwiṅwe zwithu",
   "creator": "Mdali",

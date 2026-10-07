@@ -316,7 +316,7 @@ test('String Template hints retain executable variable examples and URL encoding
   const { formatStringTemplate } = require('../models/lib/customFieldStringTemplate');
   const key = 'custom-field-stringtemplate-context-hint';
   const source = JSON.parse(fs.readFileSync(path.join(directory, 'en.i18n.json')))[key];
-  for (const code of ['ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm']) {
+  for (const code of ['ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm', 'tk_TM', 'yi', 'bho', 'mai', 'or_IN', 'kok', 'pap', 'ary', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've']) {
     const locale = JSON.parse(fs.readFileSync(path.join(directory, code + '.i18n.json')));
     const value = locale[key];
     assert.ok(value?.trim(), code);
@@ -327,6 +327,11 @@ test('String Template hints retain executable variable examples and URL encoding
       const context = { 'card.title': 'Card', 'board.title': 'Board', 'list.title': 'List', 'swimlane.title': 'Lane' };
       const result = formatStringTemplate(['a & ö'], token, '', context);
       assert.equal(result, token.includes('|urlencode') ? 'a%20%26%20%C3%B6' : context[token.slice(2, -1)], code + ':' + token);
+    }
+    if (code === 'ts') {
+      assert.match(locale['custom-field-stringtemplate-format'], /mfungho wo yimela nkoka/);
+      assert.doesNotMatch(locale['custom-field-stringtemplate-format'], /Hi Xitsonga:|mhaka/);
+      assert.deepEqual(translationTokens(locale['custom-field-stringtemplate-format']), ['%{value}']);
     }
     if (code === 'tt') {
       assert.match(locale['custom-field-stringtemplate-format'], /урын тоткыч/);

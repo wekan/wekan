@@ -4374,6 +4374,13 @@ mixed-language audit remains open.
 - All 23 focused Node tests and 21 human-preference checks pass. The tests compare token inventories and execute each documented variable example through the formatter; existing negative tests cover unknown paths and invalid formatting. Added localized browser checks for the visible hint and its absence for another field type. Browser syntax passes; execution remains unverified because the local Playwright executable is unavailable.
 - Ordinary placeholders decrease from 50,265 to 50,258 across 70 languages. The 148 pending source keys still require wording review, and the broader translation and semantic audit remain open.
 
+## String Template context hint: eighteen further locales (2026-10-07)
+
+- Filled the variable and URL-encoding hint in Turkmen, Yiddish, Bhojpuri, Maithili, Odia, Konkani, Papiamento, Moroccan Arabic, Sesotho, Setswana, Northern Sotho, both Zulu locales, Xhosa, Swati, Northern Ndebele, Xitsonga and Venda. Technical wording remains provisional, particularly in Konkani, Swati, Northern Ndebele and Venda; placeholder completion is not proof of fluency.
+- Replaced the adjacent Xitsonga format label's generic filler with a description of the value placeholder, with a regression check rejecting the old filler.
+- All 23 focused Node tests and 21 human-preference checks pass. Extended token and executable-example checks and localized positive/negative browser coverage to all eighteen locales. Browser syntax passes; browser execution remains unverified because Playwright is unavailable locally.
+- Ordinary placeholders decrease from 50,258 to 50,240 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

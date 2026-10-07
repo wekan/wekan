@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Hambisa Swimlane",
   "custom-field-stringtemplate": "Umtya Template",
   "custom-field-stringtemplate-format": "Ubume (sebenzisa i-%{value} njengesibambi-ndawo)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Sebenzisa %{card.title}, %{board.title}, %{list.title} okanye %{swimlane.title}. Yongeza |urlencode kokuguquguqukayo ukuze kusetyenziswe njengepharamitha ye-URL, umzekelo %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Umahluli (sebenzisa &#32; okanye &nbsp; kwisithuba)",
   "custom-field-stringtemplate-item-placeholder": "Cofa u-enter ukongeza ezinye izinto",
   "creator": "Mdali",

@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Swimüzmek",
   "custom-field-stringtemplate": "Setir şablony",
   "custom-field-stringtemplate-format": "Format (ýer tutujy hökmünde %{value} ulanyň)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "%{card.title}, %{board.title}, %{list.title} ýa-da %{swimlane.title} ulanyň. URL parametri üçin üýtgeýjä |urlencode goşuň, mysal üçin %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Aýyryjy (boş ýer üçin & # 32; ýa-da & nbsp; ulanyň)",
   "custom-field-stringtemplate-item-placeholder": "Has köp zat goşmak üçin enter basyň",
   "creator": "Creatoraradyjy",

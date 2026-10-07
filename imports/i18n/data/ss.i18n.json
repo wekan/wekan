@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Hambisa Umzila",
   "custom-field-stringtemplate": "Sifanekiso Sembhalo",
   "custom-field-stringtemplate-format": "Sakhiwo (sebentisa %{value} njengemeleli)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Sebentisa %{card.title}, %{board.title}, %{list.title} noma %{swimlane.title}. Ngeta |urlencode kulokugucukako kuze kusetjentiswe njengepharamitha ye-URL, sibonelo %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Sihlukanisi (sebentisa &#32; noma &nbsp; esikhaleni)",
   "custom-field-stringtemplate-item-placeholder": "Chafata enter kute wengete tintfo letinyenti",
   "creator": "Umdali",

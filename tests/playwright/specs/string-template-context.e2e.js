@@ -3,7 +3,7 @@ const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { openBoard } = require('../helpers/auth');
 
-for (const language of ['en', 'ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm']) {
+for (const language of ['en', 'ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm', 'tk_TM', 'yi', 'bho', 'mai', 'or_IN', 'kok', 'pap', 'ary', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've']) {
   const locale = require(`../../../imports/i18n/data/${language}.i18n.json`);
   test(`String Template help preserves literal examples and is hidden for other field types (${language})`, async ({ loggedInPage: page, board }) => {
     await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
