@@ -2173,6 +2173,23 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/52a7d0a3305aee33292b899ace2141a1625e8581">Translate the missing due-date shortcut in 30 languages.</a></summary>
+
+- Add the shortcut to Arabic, Bulgarian, Czech, Danish, German, Greek, Spanish,
+  Finnish, French, Hebrew, Croatian, Hungarian, Indonesian, Italian, Japanese,
+  Korean, Norwegian Bokmål, Dutch, Polish, Portuguese, Brazilian Portuguese,
+  Romanian, Russian, Slovak, Swedish, Turkish, Ukrainian, Vietnamese, Simplified
+  Chinese and Traditional Chinese. Preserve existing values and source key order.
+- The focused run passes 38 checks; two catalog checks still fail on the missing
+  shortcut in other locales. All 21 human-preference checks pass. Browser and
+  screen-reader checks were not run.
+- The broader translation and wording audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2df5d7efe343cd4b0f394050ec329cda7dfc678a">Correct Tok Pisin shortcuts and add the missing due-date label.</a></summary>
 
 - Correct five mixed-language labels and translate the missing shortcut.
