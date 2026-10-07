@@ -5243,6 +5243,12 @@ Filled 43 English placeholders for conflict choices, duplicate mapping removal, 
 
 Regression checks cover source placeholders, action distinctions, local-content retention, no full-list run, 100-entry/path limits and shared omission labels. Synchronization, mapping and parser terminology is descriptive and provisional. Browser checks were not run.
 
+### Akan synchronization reports and email failures
+
+Filled 29 English messages for retained Sync reports, diagnostics, Jira estimates and email failures. Preserve the latest-20/30-day limits, unfinished versus failed outcomes, hour units, ignored missing values and explicit-null clearing.
+
+Regression coverage checks source tokens, retention limits, distinct outcomes, exact-one-field and missing/null semantics. Diagnostics and authentication terminology remains provisional. Browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
