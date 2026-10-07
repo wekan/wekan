@@ -386,7 +386,7 @@ Status checked on 2026-10-08. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **43,802 untranslated locale/string values in 70 languages**. It
+  report counts **43,720 untranslated locale/string values in 70 languages**. It
   excludes **149 source keys tracked separately as pending Transifex**: 148
   have non-English values requiring wording review; the newly added
   `shortcut-edit-due-date` still needs translations. Counts are a snapshot;
@@ -2171,6 +2171,22 @@ uses the same word as `checklist` itself.
 </details>
 
 **Translations** — continued language coverage and corrections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/68aed9007e1abaebc67812354a8d646e306a67b3">Translate 82 Māori workspace, colour and navigation messages.</a></summary>
+
+- Preserve existing translations, source tokens, stack counts, search shortcuts,
+  colour ranges and movement directions. Accessibility compounds remain
+  provisional pending fluent-speaker review.
+- The focused run passes 55 checks; two catalog checks still fail on the
+  concurrent due-date shortcut key. All 21 human-preference checks pass.
+  Browser and screen-reader checks were not run.
+- Remaining counted English placeholders: 43,720 across 70 languages. The
+  broader language and wording audit continues.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a558558467ef26494550336586b91b3e21693665">Translate 75 Māori Blockly list-operation messages.</a></summary>
