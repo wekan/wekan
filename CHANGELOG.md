@@ -385,11 +385,26 @@ held only issues \#4774 and \#4055, and both are closed now.
 Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
-- The current `node releases/translations/fill-translations.mjs --missing` report counts **48,332 untranslated locale/string values in 70 languages**. It excludes **148 source keys tracked separately as pending Transifex**, which already have non-English values but still require wording review. Counts are a snapshot; they do not establish the quality or language of other values.
-- The 13 activity-notification preference keys have no empty or exact English-placeholder values in all 234 non-English locale paths and have left the pending queue. Provisional wording still needs language review.
-- Automatic-archiving and date-filter messages now have non-English values in all 234 non-English locale paths. Continue the remaining feature families and the language-quality audit; coverage does not establish fluent wording.
-- Fill English placeholders in every language, including minority and constructed languages. Audit mixed-language and wrong-language seed text, and review provisional wording with speakers when available. Preserve correct-language human translations, source key order, exact placeholders, technical identifiers and query examples. Use direct translation and dictionary research, not an external translation service.
-- Keep regression and human-preference checks passing. Passing tests does not establish translation completeness or fluency; rerun relevant checks for each batch and the broad suite before declaring all-language work complete.
+- The current `node releases/translations/fill-translations.mjs --missing`
+  report counts **48,332 untranslated locale/string values in 70 languages**. It
+  excludes **148 source keys tracked separately as pending Transifex**, which
+  already have non-English values but still require wording review. Counts are a
+  snapshot; they do not establish the quality or language of other values.
+- The 13 activity-notification preference keys have no empty or exact
+  English-placeholder values in all 234 non-English locale paths and have left
+  the pending queue. Provisional wording still needs language review.
+- Automatic-archiving and date-filter messages now have non-English values in
+  all 234 non-English locale paths. Continue the remaining feature families and
+  the language-quality audit; coverage does not establish fluent wording.
+- Fill English placeholders in every language, including minority and
+  constructed languages. Audit mixed-language and wrong-language seed text, and
+  review provisional wording with speakers when available. Preserve
+  correct-language human translations, source key order, exact placeholders,
+  technical identifiers and query examples. Use direct translation and
+  dictionary research, not an external translation service.
+- Keep regression and human-preference checks passing. Passing tests does not
+  establish translation completeness or fluency; rerun relevant checks for each
+  batch and the broad suite before declaring all-language work complete.
 - The three Admin Panel login-setting keys added on 2026-10-05 now have
   translations in all 234 non-English locale paths. English variants retain
   English. They have left the pending queue; full key-order and placeholder
@@ -1391,7 +1406,8 @@ Concurrent permission changes were reviewed too: a copy checks the caller's
 access to the source, the destination and (since 2026-10-03) each subtask when
 it starts, and a membership revoked while the copy runs does not stop it. That
 is the "Atomicity" property below - FerretDB v1 has no multi-document
-transactions - not a check left out. Board-copy property merging was the same fault on boards and is fixed
+transactions - not a check left out. Board-copy property merging was the same
+fault on boards and is fixed
 in Upcoming. The markdown viewer's form-field allowance was not exploitable: the
 second sanitizer stripped every input, including task-list checkboxes, which
 now render disabled.
@@ -1401,7 +1417,8 @@ Unfinished inventory work still includes
 [additional database conformance runs](https://github.com/wekan/wekan/issues/6509).
 Live identity providers, affected deployment data and additional
 browser/backend matrices still require verification. The UI baseline failures
-were re-run on 2026-10-03 and none reproduces (docs/Features/Menu-Audit-Results.md).
+were re-run on 2026-10-03 and none reproduces
+(docs/Features/Menu-Audit-Results.md).
 See the [issue inventory](docs/DeveloperDocs/All-Open-Issues-Audit-2026-09-27.md),
 [verified issue work](docs/DeveloperDocs/Open-Issue-Audit-2026-09-27.md) and
 [authentication audit](docs/Security/Authentication-Boundary-Audit-2026-09-27.md).
@@ -1412,7 +1429,8 @@ mirroring, host-key acceptance, publishing and releases remain human operations.
 Latest focused application checks used local Meteor/MongoDB and Chromium;
 they do not establish full FerretDB, Firefox/WebKit, mobile or live-provider
 coverage. The earlier broad audit failures were re-run on 2026-10-03 and none
-reproduces (docs/Features/Menu-Audit-Results.md). No complete release build/test matrix was run for
+reproduces (docs/Features/Menu-Audit-Results.md). No complete release build/test
+matrix was run for
 this pause. Older TODO Later entries below remain applicable and are not
 implicitly completed by this handoff. Translation status follows separately.
 
@@ -1868,10 +1886,6 @@ each for the reason given:
   nothing calls it. Its synchronous `Meteor.user()` was made async on
   2026-10-05 so the whole-tree test holds; wire it to a "Sync now" button or
   remove it.
-- `tests/changelogFormat.test.cjs` fails on a released section: two Kurdish /
-  Turkmen translation entries show the hashes `b76be84186` and `c9e622f1b5` as
-  link text. A released section is a record and was left unedited; whether to
-  correct only the link text there is the maintainer's call.
 - Browser tests: Meteor allows 30 refreshes of the HttpOnly login cookie per 10
   seconds per address (`/_accounts/cookie/refresh`, then `429`). Every test runs
   from localhost, so a fast Chromium run that switches users often can exceed it
@@ -1922,10 +1936,16 @@ and updates the following translations:
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b983642a9f1c2df7dd869f55e77e4f404829a8de">Translate Standard Moroccan Tamazight Blockly accessibility labels.</a></summary>
 
-- Fill 13 accessibility-label placeholders, preserving existing comment translations and source arguments. Extend opposing-action regressions and translated comment-menu assertions.
-- Technical terminology and full phrases remain low confidence; vocabulary sources and specific uncertainties are recorded in the translation audit.
-- Ordinary untranslated values decrease from 48,345 to 48,332 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 13 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 13 accessibility-label placeholders, preserving existing comment
+  translations and source arguments. Extend opposing-action regressions and
+  translated comment-menu assertions.
+- Technical terminology and full phrases remain low confidence; vocabulary
+  sources and specific uncertainties are recorded in the translation audit.
+- Ordinary untranslated values decrease from 48,345 to 48,332 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 13 focused tests and 21 human-preference checks pass. Browser
+  coverage is syntax-checked; browser and spoken accessibility checks were not
+  run.
 
 Thanks to xet7 !
 
@@ -1934,10 +1954,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4c0a5ecc5f57716e6e053920766dc980a774b5a0">Translate Wu Chinese and Nahuatl Blockly accessibility labels.</a></summary>
 
-- Fill 30 comment and accessibility-label placeholders, preserving source arguments and existing translations. Extend opposing-action regressions and translated comment-menu assertions.
-- Nahuatl technical phrasing remains low confidence; regional Wu wording and dictionary references are recorded in the translation audit.
-- Ordinary untranslated values decrease from 48,375 to 48,345 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 13 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 30 comment and accessibility-label placeholders, preserving source
+  arguments and existing translations. Extend opposing-action regressions and
+  translated comment-menu assertions.
+- Nahuatl technical phrasing remains low confidence; regional Wu wording and
+  dictionary references are recorded in the translation audit.
+- Ordinary untranslated values decrease from 48,375 to 48,345 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 13 focused tests and 21 human-preference checks pass. Browser
+  coverage is syntax-checked; browser and spoken accessibility checks were not
+  run.
 
 Thanks to xet7 !
 
@@ -1946,10 +1972,18 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/87d6e1fc060eaa21de0dac578ca6a72ad6a8a53d">Translate Veps Blockly comment and accessibility controls.</a></summary>
 
-- Fill fifteen Veps placeholders using vocabulary checked against Veps UI messages and dictionary entries. Preserve source arguments and existing translations.
-- Extend opposing-action regressions and translated comment-menu browser coverage. Full wording, including the button adaptation and conditional/input paraphrases, remains low confidence and is documented in the translation audit.
-- Ordinary untranslated values decrease from 48,390 to 48,375 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 13 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill fifteen Veps placeholders using vocabulary checked against Veps UI
+  messages and dictionary entries. Preserve source arguments and existing
+  translations.
+- Extend opposing-action regressions and translated comment-menu browser
+  coverage. Full wording, including the button adaptation and conditional/input
+  paraphrases, remains low confidence and is documented in the translation
+  audit.
+- Ordinary untranslated values decrease from 48,390 to 48,375 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 13 focused tests and 21 human-preference checks pass. Browser
+  coverage is syntax-checked; browser and spoken accessibility checks were not
+  run.
 
 Thanks to xet7 !
 
@@ -1958,10 +1992,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/28b9ce74072a241db36a1029b3d9d1031c905cd4">Translate Blockly controls in Quechua, Aymara, Guarani, Volapük and Klingon.</a></summary>
 
-- Fill 71 comment and accessibility-label placeholders, preserving four existing Guarani/Klingon values. Correct the generic Quechua, Volapük and Klingon text labels.
-- Extend exact-placeholder and opposing-action regressions and translated comment-menu assertions. Vocabulary references and provisional technical wording are documented in the translation audit.
-- Ordinary untranslated values decrease from 48,461 to 48,390 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 13 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 71 comment and accessibility-label placeholders, preserving four existing
+  Guarani/Klingon values. Correct the generic Quechua, Volapük and Klingon text
+  labels.
+- Extend exact-placeholder and opposing-action regressions and translated
+  comment-menu assertions. Vocabulary references and provisional technical
+  wording are documented in the translation audit.
+- Ordinary untranslated values decrease from 48,461 to 48,390 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 13 focused tests and 21 human-preference checks pass. Browser
+  coverage is syntax-checked; browser and spoken accessibility checks were not
+  run.
 
 Thanks to xet7 !
 
@@ -1970,10 +2011,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2d695b240b4fdd2f91f31f1305cea92af4a60938">Translate Blockly accessibility labels from Buryat through Tigrinya.</a></summary>
 
-- Fill 88 comment and accessibility-label placeholders in Buryat, Chuvash, Sakha, Tibetan, Dzongkha and Tigrinya, preserving two existing Tigrinya translations and all source arguments.
-- Extend opposing-action regressions and translated comment-menu browser assertions. Vocabulary references and low-confidence conditional and input wording are documented in the translation audit.
-- Ordinary untranslated values decrease from 48,549 to 48,461 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 13 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 88 comment and accessibility-label placeholders in Buryat, Chuvash,
+  Sakha, Tibetan, Dzongkha and Tigrinya, preserving two existing Tigrinya
+  translations and all source arguments.
+- Extend opposing-action regressions and translated comment-menu browser
+  assertions. Vocabulary references and low-confidence conditional and input
+  wording are documented in the translation audit.
+- Ordinary untranslated values decrease from 48,549 to 48,461 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 13 focused tests and 21 human-preference checks pass. Browser
+  coverage is syntax-checked; browser and spoken accessibility checks were not
+  run.
 
 Thanks to xet7 !
 
@@ -1982,10 +2030,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0d2e5bbb6ebe07a35d32cf10519313f830d874ff">Translate Blockly accessibility controls in six more locales.</a></summary>
 
-- Fill 88 comment and accessibility-label placeholders in Akan, Bambara, Ewe, Wolof, Fula and Kashmiri. Preserve two existing Ewe translations and correct the generic Akan text label.
-- Extend exact-placeholder and opposite-action regressions and translated comment-menu browser assertions. Low-confidence technical wording and vocabulary evidence are recorded in the translation audit.
-- Ordinary untranslated values decrease from 48,637 to 48,549 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 13 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 88 comment and accessibility-label placeholders in Akan, Bambara, Ewe,
+  Wolof, Fula and Kashmiri. Preserve two existing Ewe translations and correct
+  the generic Akan text label.
+- Extend exact-placeholder and opposite-action regressions and translated
+  comment-menu browser assertions. Low-confidence technical wording and
+  vocabulary evidence are recorded in the translation audit.
+- Ordinary untranslated values decrease from 48,637 to 48,549 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 13 focused tests and 21 human-preference checks pass. Browser
+  coverage is syntax-checked; browser and spoken accessibility checks were not
+  run.
 
 Thanks to xet7 !
 
@@ -1994,10 +2049,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/30a40c8747182dde2b57ed8ddb671a49be91dac2">Translate Blockly accessibility labels in five more locales.</a></summary>
 
-- Fill 75 comment and accessibility-label placeholders in Walloon, Waray, Acehnese, Northern Sámi and Venetian. Preserve existing Manx and Aromanian translations and extend regression coverage to all seven locales.
-- Check exact source placeholders and opposing actions. Dictionary references and provisional technical wording are recorded in the translation audit, including the limited Sámi input-field paraphrase.
-- Ordinary untranslated values decrease from 48,712 to 48,637 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 13 focused tests and 21 human-preference checks pass. Translated comment-menu browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 75 comment and accessibility-label placeholders in Walloon, Waray,
+  Acehnese, Northern Sámi and Venetian. Preserve existing Manx and Aromanian
+  translations and extend regression coverage to all seven locales.
+- Check exact source placeholders and opposing actions. Dictionary references
+  and provisional technical wording are recorded in the translation audit,
+  including the limited Sámi input-field paraphrase.
+- Ordinary untranslated values decrease from 48,712 to 48,637 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 13 focused tests and 21 human-preference checks pass. Translated
+  comment-menu browser coverage is syntax-checked; browser and spoken
+  accessibility checks were not run.
 
 Thanks to xet7 !
 
@@ -2006,10 +2068,18 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2dc46f81c027b0e425fc74d9a33d44b85b461b5b">Translate Blockly accessibility controls in nine more locales.</a></summary>
 
-- Fill 135 comment and accessibility-label placeholders in Bislama, Tok Pisin, Fijian, Tongan, Hawaiian, Oromo, Kinyarwanda, Kirundi and Luganda. Correct the generic Tongan text label, which contained prefixed English.
-- Preserve source arguments and existing translations, extend checks for opposing actions, and add translated comment-menu assertions. Vocabulary references and low-confidence technical wording are documented in the translation audit.
-- Ordinary untranslated values decrease from 48,847 to 48,712 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 13 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 135 comment and accessibility-label placeholders in Bislama, Tok Pisin,
+  Fijian, Tongan, Hawaiian, Oromo, Kinyarwanda, Kirundi and Luganda. Correct the
+  generic Tongan text label, which contained prefixed English.
+- Preserve source arguments and existing translations, extend checks for
+  opposing actions, and add translated comment-menu assertions. Vocabulary
+  references and low-confidence technical wording are documented in the
+  translation audit.
+- Ordinary untranslated values decrease from 48,847 to 48,712 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 13 focused tests and 21 human-preference checks pass. Browser
+  coverage is syntax-checked; browser and spoken accessibility checks were not
+  run.
 
 Thanks to xet7 !
 
@@ -2018,10 +2088,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a2b84d3afcb3c81bb1fdcdee6c9aeec62213877e">Translate Blockly accessibility labels for southern African locales.</a></summary>
 
-- Fill 150 comment and accessibility-label placeholders across Sesotho, Setswana, Northern Sotho, both Zulu locales, Xhosa, Swati, Northern Ndebele, Tsonga and Venda. Preserve source arguments and existing translations.
-- Extend opposing-action regressions and translated comment-menu browser assertions. Vocabulary references and low-confidence technical wording are recorded in the translation audit.
-- Ordinary untranslated values decrease from 48,997 to 48,847 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 13 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 150 comment and accessibility-label placeholders across Sesotho,
+  Setswana, Northern Sotho, both Zulu locales, Xhosa, Swati, Northern Ndebele,
+  Tsonga and Venda. Preserve source arguments and existing translations.
+- Extend opposing-action regressions and translated comment-menu browser
+  assertions. Vocabulary references and low-confidence technical wording are
+  recorded in the translation audit.
+- Ordinary untranslated values decrease from 48,997 to 48,847 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 13 focused tests and 21 human-preference checks pass. Browser
+  coverage is syntax-checked; browser and spoken accessibility checks were not
+  run.
 
 Thanks to xet7 !
 
@@ -2030,10 +2107,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f6d4f5f92043f642c59ffb14b1698c19d72b7b64">Translate Blockly accessibility controls in eight more languages.</a></summary>
 
-- Fill 120 English placeholders for comment controls and accessibility labels in Turkmen, Yiddish, Bhojpuri, Maithili, Odia, Konkani, Papiamentu and Moroccan Arabic, preserving existing translations and source placeholders.
-- Extend checks for opposing actions and the translated add-comment menu. Conditional-branch wording remains provisional; low-confidence phrases are documented in the translation audit.
-- Ordinary untranslated values decrease from 49,117 to 48,997 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 13 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 120 English placeholders for comment controls and accessibility labels in
+  Turkmen, Yiddish, Bhojpuri, Maithili, Odia, Konkani, Papiamentu and Moroccan
+  Arabic, preserving existing translations and source placeholders.
+- Extend checks for opposing actions and the translated add-comment menu.
+  Conditional-branch wording remains provisional; low-confidence phrases are
+  documented in the translation audit.
+- Ordinary untranslated values decrease from 49,117 to 48,997 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 13 focused tests and 21 human-preference checks pass. Browser
+  coverage is syntax-checked; browser and spoken accessibility checks were not
+  run.
 
 Thanks to xet7 !
 
@@ -2042,10 +2126,18 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c9cc757aa19feaa3dbec3ddd597f1f091518495a">Translate Blockly accessibility controls in seven languages.</a></summary>
 
-- Fill 104 English placeholders for comment controls and accessibility labels in Kurmanji, Central Kurdish, Tatar, Somali, Chichewa, Māori and Samoan. Preserve the existing Kurmanji comment translation and correct the generic Tatar text label.
-- Check exact placeholders and opposing add/remove and collapse/expand labels. Technical wording marked low confidence is recorded in the translation audit.
-- Ordinary untranslated values decrease from 49,221 to 49,117 across 70 languages; 148 pending source keys and the broader language-quality audit remain open.
-- Validation: 13 focused tests and 21 human-preference checks pass. Added translated comment-menu browser assertions and syntax-checked the suite; browser and spoken accessibility checks were not run.
+- Fill 104 English placeholders for comment controls and accessibility labels in
+  Kurmanji, Central Kurdish, Tatar, Somali, Chichewa, Māori and Samoan. Preserve
+  the existing Kurmanji comment translation and correct the generic Tatar text
+  label.
+- Check exact placeholders and opposing add/remove and collapse/expand labels.
+  Technical wording marked low confidence is recorded in the translation audit.
+- Ordinary untranslated values decrease from 49,221 to 49,117 across 70
+  languages; 148 pending source keys and the broader language-quality audit
+  remain open.
+- Validation: 13 focused tests and 21 human-preference checks pass. Added
+  translated comment-menu browser assertions and syntax-checked the suite;
+  browser and spoken accessibility checks were not run.
 
 Thanks to xet7 !
 
@@ -2054,10 +2146,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/361dab8b2b74bb1d48e1c64212d47afe3fa913c5">Translate Cherokee Blockly movement announcements.</a></summary>
 
-- Fill twelve Cherokee movement and scrolling announcements. This group now has non-English values in all 234 non-English locales, with exact placeholders and distinct direction labels checked throughout.
-- Cherokee full-sentence wording remains low confidence; vocabulary references and limitations are recorded in the translation audit.
-- Ordinary untranslated values decrease from 49,233 to 49,221 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
-- Validation: 12 focused tests and 21 human-preference checks pass. Cherokee browser coverage is registered and syntax-checked; Playwright and spoken screen-reader checks were not run.
+- Fill twelve Cherokee movement and scrolling announcements. This group now has
+  non-English values in all 234 non-English locales, with exact placeholders and
+  distinct direction labels checked throughout.
+- Cherokee full-sentence wording remains low confidence; vocabulary references
+  and limitations are recorded in the translation audit.
+- Ordinary untranslated values decrease from 49,233 to 49,221 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
+- Validation: 12 focused tests and 21 human-preference checks pass. Cherokee
+  browser coverage is registered and syntax-checked; Playwright and spoken
+  screen-reader checks were not run.
 
 Thanks to xet7 !
 
@@ -2066,9 +2165,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/db6c28e86b7dc5ba0c852ae19262514d293a4732">Translate Tigre Blockly movement announcements.</a></summary>
 
-- Filled twelve Tigre movement and scrolling announcements, preserving arguments and distinct directions. Technical clauses remain low confidence; spatial vocabulary references and grammatical uncertainties are recorded in the translation audit.
-- All twelve focused Node tests and 21 human-preference checks pass. Extended localized editor browser coverage passes syntax validation; browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 49,245 to 49,233 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled twelve Tigre movement and scrolling announcements, preserving arguments
+  and distinct directions. Technical clauses remain low confidence; spatial
+  vocabulary references and grammatical uncertainties are recorded in the
+  translation audit.
+- All twelve focused Node tests and 21 human-preference checks pass. Extended
+  localized editor browser coverage passes syntax validation; browser execution
+  and actual screen-reader announcement behavior remain unverified because
+  Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 49,245 to 49,233 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2077,9 +2184,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/036e902d6bddd9384252656c1360a2c7961d5e98">Translate Greenlandic and Inuktitut Blockly announcements.</a></summary>
 
-- Filled twelve movement and scrolling announcements in Greenlandic and Inuktitut (24 values), preserving arguments and distinct directions. Technical wording and case endings in both locales remain low confidence.
-- All twelve focused Node tests and 21 human-preference checks pass. Extended localized editor browser coverage passes syntax validation; browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 49,269 to 49,245 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled twelve movement and scrolling announcements in Greenlandic and
+  Inuktitut (24 values), preserving arguments and distinct directions. Technical
+  wording and case endings in both locales remain low confidence.
+- All twelve focused Node tests and 21 human-preference checks pass. Extended
+  localized editor browser coverage passes syntax validation; browser execution
+  and actual screen-reader announcement behavior remain unverified because
+  Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 49,269 to 49,245 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2088,9 +2202,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/72b1f80e756ae5e311e05e2124567275ad79f92d">Translate Blockly announcements in four further locales.</a></summary>
 
-- Filled twelve movement and scrolling announcements in Nahuatl, Wolaytta, Standard Moroccan Tamazight and Wu Chinese (48 values), preserving arguments and distinct directions. Nahuatl, Wolaytta and Tamazight technical wording remains low confidence.
-- All twelve focused Node tests and 21 human-preference checks pass. Extended localized editor browser coverage passes syntax validation; browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 49,317 to 49,269 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled twelve movement and scrolling announcements in Nahuatl, Wolaytta,
+  Standard Moroccan Tamazight and Wu Chinese (48 values), preserving arguments
+  and distinct directions. Nahuatl, Wolaytta and Tamazight technical wording
+  remains low confidence.
+- All twelve focused Node tests and 21 human-preference checks pass. Extended
+  localized editor browser coverage passes syntax validation; browser execution
+  and actual screen-reader announcement behavior remain unverified because
+  Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 49,317 to 49,269 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2099,9 +2221,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/26d74f05aa45b22179dcb8bd80268a5abfd2ebb9">Translate Blockly announcements in six more locales.</a></summary>
 
-- Filled twelve movement and scrolling announcements in Quechua, Aymara, Guaraní, Veps, Volapük and Klingon (72 values), preserving arguments and distinct directions. Technical wording remains provisional, particularly Aymara, Veps, Volapük and Klingon.
-- All twelve focused Node tests and 21 human-preference checks pass. Extended localized editor browser coverage passes syntax validation; browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 49,389 to 49,317 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled twelve movement and scrolling announcements in Quechua, Aymara,
+  Guaraní, Veps, Volapük and Klingon (72 values), preserving arguments and
+  distinct directions. Technical wording remains provisional, particularly
+  Aymara, Veps, Volapük and Klingon.
+- All twelve focused Node tests and 21 human-preference checks pass. Extended
+  localized editor browser coverage passes syntax validation; browser execution
+  and actual screen-reader announcement behavior remain unverified because
+  Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 49,389 to 49,317 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2110,9 +2240,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/25e8a1533764c33e9aa41c483be808f31f3beed9">Translate Blockly announcements in six Asian and African locales.</a></summary>
 
-- Filled twelve movement and scrolling announcements in Buryat, Chuvash, Sakha, Tibetan, Dzongkha and Tigrinya (72 values), preserving arguments and distinct directions. Technical wording remains provisional, particularly Buryat, Chuvash, Sakha and Dzongkha.
-- All twelve focused Node tests and 21 human-preference checks pass. Extended localized editor browser coverage passes syntax validation; browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 49,461 to 49,389 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled twelve movement and scrolling announcements in Buryat, Chuvash, Sakha,
+  Tibetan, Dzongkha and Tigrinya (72 values), preserving arguments and distinct
+  directions. Technical wording remains provisional, particularly Buryat,
+  Chuvash, Sakha and Dzongkha.
+- All twelve focused Node tests and 21 human-preference checks pass. Extended
+  localized editor browser coverage passes syntax validation; browser execution
+  and actual screen-reader announcement behavior remain unverified because
+  Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 49,461 to 49,389 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2121,9 +2259,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5f205bba2e1f4f2314be40725b013b5e85dea645">Translate Blockly announcements in six further locales.</a></summary>
 
-- Filled twelve movement and scrolling announcements in Akan, Bambara, Ewe, Wolof, Fulah and Kashmiri (72 values), preserving arguments and distinct directions. Technical wording remains provisional, particularly Bambara, Ewe and Fulah.
-- All twelve focused Node tests and 21 human-preference checks pass. Extended localized editor browser coverage passes syntax validation; browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 49,533 to 49,461 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled twelve movement and scrolling announcements in Akan, Bambara, Ewe,
+  Wolof, Fulah and Kashmiri (72 values), preserving arguments and distinct
+  directions. Technical wording remains provisional, particularly Bambara, Ewe
+  and Fulah.
+- All twelve focused Node tests and 21 human-preference checks pass. Extended
+  localized editor browser coverage passes syntax validation; browser execution
+  and actual screen-reader announcement behavior remain unverified because
+  Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 49,533 to 49,461 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2132,9 +2278,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1879399ba2cfafbcb4d7cc06b02a70e7bee2e1ce">Translate Blockly announcements in five further locales.</a></summary>
 
-- Filled twelve movement and scrolling announcements in Walloon, Waray, Acehnese, Northern Sámi and Venetian (60 values). Preserved existing Manx and Aromanian values and extended coverage to all seven locales. Technical wording remains provisional, particularly Walloon, Acehnese and Northern Sámi.
-- All twelve focused Node tests and 21 human-preference checks pass. Extended localized editor browser coverage passes syntax validation; browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 49,593 to 49,533 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled twelve movement and scrolling announcements in Walloon, Waray,
+  Acehnese, Northern Sámi and Venetian (60 values). Preserved existing Manx and
+  Aromanian values and extended coverage to all seven locales. Technical wording
+  remains provisional, particularly Walloon, Acehnese and Northern Sámi.
+- All twelve focused Node tests and 21 human-preference checks pass. Extended
+  localized editor browser coverage passes syntax validation; browser execution
+  and actual screen-reader announcement behavior remain unverified because
+  Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 49,593 to 49,533 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2143,9 +2297,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7f4403c8e7af2c959168659b78f5e406d9ef7a6b">Translate Blockly announcements in nine Pacific and African locales.</a></summary>
 
-- Filled twelve movement and scrolling announcements in Bislama, Tok Pisin, Fijian, Tongan, Hawaiian, Oromo, Kinyarwanda, Kirundi and Luganda (108 values), preserving arguments and distinct directions. Technical wording remains provisional, particularly Tongan, Hawaiian and Luganda.
-- All twelve focused Node tests and 21 human-preference checks pass. Extended localized editor browser coverage passes syntax validation; browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 49,701 to 49,593 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled twelve movement and scrolling announcements in Bislama, Tok Pisin,
+  Fijian, Tongan, Hawaiian, Oromo, Kinyarwanda, Kirundi and Luganda (108
+  values), preserving arguments and distinct directions. Technical wording
+  remains provisional, particularly Tongan, Hawaiian and Luganda.
+- All twelve focused Node tests and 21 human-preference checks pass. Extended
+  localized editor browser coverage passes syntax validation; browser execution
+  and actual screen-reader announcement behavior remain unverified because
+  Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 49,701 to 49,593 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2154,9 +2316,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3dd7baf95b7703a17eaa71a5836f660a8e639ab8">Translate Blockly announcements in southern African locales.</a></summary>
 
-- Filled twelve movement and scrolling announcements in Sesotho, Setswana, Sepedi, Zulu (two locales), Xhosa, Swati, Northern Ndebele, Tsonga and Venda (120 values), preserving arguments and distinct directions. Technical wording remains provisional, particularly Swati, Northern Ndebele and Venda.
-- All twelve focused Node tests and 21 human-preference checks pass. Extended localized editor browser coverage passes syntax validation; browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 49,821 to 49,701 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled twelve movement and scrolling announcements in Sesotho, Setswana,
+  Sepedi, Zulu (two locales), Xhosa, Swati, Northern Ndebele, Tsonga and Venda
+  (120 values), preserving arguments and distinct directions. Technical wording
+  remains provisional, particularly Swati, Northern Ndebele and Venda.
+- All twelve focused Node tests and 21 human-preference checks pass. Extended
+  localized editor browser coverage passes syntax validation; browser execution
+  and actual screen-reader announcement behavior remain unverified because
+  Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 49,821 to 49,701 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2165,9 +2335,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e3cbe00a74ba0e6a688b564785f06f51a79330fb">Translate Blockly movement announcements in eight further locales.</a></summary>
 
-- Filled twelve movement and scrolling announcements in Turkmen, Yiddish, Bhojpuri, Maithili, Odia, Konkani, Papiamento and Moroccan Arabic (96 values), preserving arguments and distinct directions. Maithili, Konkani and Papiamento technical wording remains provisional.
-- All twelve focused Node tests and 21 human-preference checks pass. Extended localized editor browser coverage passes syntax validation; browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 49,917 to 49,821 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled twelve movement and scrolling announcements in Turkmen, Yiddish,
+  Bhojpuri, Maithili, Odia, Konkani, Papiamento and Moroccan Arabic (96 values),
+  preserving arguments and distinct directions. Maithili, Konkani and Papiamento
+  technical wording remains provisional.
+- All twelve focused Node tests and 21 human-preference checks pass. Extended
+  localized editor browser coverage passes syntax validation; browser execution
+  and actual screen-reader announcement behavior remain unverified because
+  Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 49,917 to 49,821 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2176,9 +2354,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c5bfa8121bd6f12995ab17bbe006c9d6f55f6de6">Translate Blockly movement announcements in seven locales.</a></summary>
 
-- Filled twelve movement and scrolling announcements in Kurmanji, Sorani, Tatar, Somali, Chichewa, Māori and Samoan (84 values), preserving arguments and distinct directions. Chichewa and Samoan technical wording remains provisional.
-- All twelve focused Node tests and 21 human-preference checks pass. Extended localized editor browser coverage passes syntax validation; browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 50,001 to 49,917 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled twelve movement and scrolling announcements in Kurmanji, Sorani, Tatar,
+  Somali, Chichewa, Māori and Samoan (84 values), preserving arguments and
+  distinct directions. Chichewa and Samoan technical wording remains
+  provisional.
+- All twelve focused Node tests and 21 human-preference checks pass. Extended
+  localized editor browser coverage passes syntax validation; browser execution
+  and actual screen-reader announcement behavior remain unverified because
+  Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 50,001 to 49,917 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2187,9 +2373,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/23dd54615d25fbc97c4cad56c5e2744a4cb72155">Complete drag permission label placeholder coverage.</a></summary>
 
-- Filled the final Cherokee placeholder with a provisional ability-to-pull phrase. The label now has non-English text in all 234 non-English locales. Cherokee grammar remains low-confidence and requires review.
-- Both focused Node tests and 21 human-preference checks pass, including token checks across all non-English catalogs and positive/negative drag-policy assertions. Localized browser coverage passes syntax validation; execution remains unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 50,002 to 50,001 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled the final Cherokee placeholder with a provisional ability-to-pull
+  phrase. The label now has non-English text in all 234 non-English locales.
+  Cherokee grammar remains low-confidence and requires review.
+- Both focused Node tests and 21 human-preference checks pass, including token
+  checks across all non-English catalogs and positive/negative drag-policy
+  assertions. Localized browser coverage passes syntax validation; execution
+  remains unverified because Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 50,002 to 50,001 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2198,9 +2391,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f8b31018e68242499e0f665894b5b28f818a2396">Translate drag permission label in six further locales.</a></summary>
 
-- Filled the drag-permission column label in Nahuatl, Wolaytta, Standard Moroccan Tamazight, Greenlandic, Inuktitut and Tigre. All six remain low-confidence technical drafts. Cherokee still has the English label.
-- Both focused Node tests and 21 human-preference checks pass, including positive and negative drag-policy assertions. Extended localized settings heading and disable/re-enable browser coverage passes syntax validation; execution remains unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 50,008 to 50,002 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled the drag-permission column label in Nahuatl, Wolaytta, Standard
+  Moroccan Tamazight, Greenlandic, Inuktitut and Tigre. All six remain
+  low-confidence technical drafts. Cherokee still has the English label.
+- Both focused Node tests and 21 human-preference checks pass, including
+  positive and negative drag-policy assertions. Extended localized settings
+  heading and disable/re-enable browser coverage passes syntax validation;
+  execution remains unverified because Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 50,008 to 50,002 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2209,9 +2409,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9a52f25da97d9f1cb9d01bf4a592d105c3f3f9d8">Translate drag permission label in twelve further locales.</a></summary>
 
-- Filled the drag-permission column label in twelve locales. Technical wording remains provisional, particularly Chuvash, Veps, Volapük and Klingon.
-- Both focused Node tests and 21 human-preference checks pass, including positive and negative drag-policy assertions. Extended localized settings heading and disable/re-enable browser coverage passes syntax validation; execution remains unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 50,020 to 50,008 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled the drag-permission column label in twelve locales. Technical wording
+  remains provisional, particularly Chuvash, Veps, Volapük and Klingon.
+- Both focused Node tests and 21 human-preference checks pass, including
+  positive and negative drag-policy assertions. Extended localized settings
+  heading and disable/re-enable browser coverage passes syntax validation;
+  execution remains unverified because Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 50,020 to 50,008 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2220,9 +2426,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/44fe1d4316e4042c1a4d8096efb3f9be487e2879">Translate drag permission label in thirteen further locales.</a></summary>
 
-- Filled the drag-permission column label in thirteen locales. Technical wording remains provisional, particularly Aromanian, Fulah and Kashmiri; the Fulah vocabulary lookup was inconclusive.
-- Both focused Node tests and 21 human-preference checks pass, including positive and negative drag-policy assertions. Extended localized settings heading and disable/re-enable browser coverage passes syntax validation; execution remains unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 50,033 to 50,020 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled the drag-permission column label in thirteen locales. Technical wording
+  remains provisional, particularly Aromanian, Fulah and Kashmiri; the Fulah
+  vocabulary lookup was inconclusive.
+- Both focused Node tests and 21 human-preference checks pass, including
+  positive and negative drag-policy assertions. Extended localized settings
+  heading and disable/re-enable browser coverage passes syntax validation;
+  execution remains unverified because Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 50,033 to 50,020 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2231,9 +2444,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d96d8a564feb77b590b44eff53ea91bf0040a636">Translate drag permission label in nineteen further locales.</a></summary>
 
-- Filled the drag-permission column label in nineteen locales. Pronoun agreement and technical wording remain provisional, particularly Swati, Northern Ndebele, Venda, Fijian and Tongan.
-- Both focused Node tests and 21 human-preference checks pass, including existing positive and negative drag-policy assertions. Extended localized settings heading and disable/re-enable browser coverage passes syntax validation; execution remains unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 50,052 to 50,033 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled the drag-permission column label in nineteen locales. Pronoun agreement
+  and technical wording remain provisional, particularly Swati, Northern
+  Ndebele, Venda, Fijian and Tongan.
+- Both focused Node tests and 21 human-preference checks pass, including
+  existing positive and negative drag-policy assertions. Extended localized
+  settings heading and disable/re-enable browser coverage passes syntax
+  validation; execution remains unverified because Playwright is unavailable
+  locally.
+- Ordinary untranslated values decrease from 50,052 to 50,033 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2242,9 +2463,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/665d33e1410d4f1ce0e222faf8259a1231730ef9">Translate board drag permission label in fifteen locales.</a></summary>
 
-- Filled the drag-permission column label in fifteen locales. Chichewa, Maithili and Konkani wording remains provisional.
-- Both focused Node tests and 21 human-preference checks pass, including existing positive and negative drag-policy assertions. Extended localized settings heading and disable/re-enable browser coverage passes syntax validation; execution remains unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 50,067 to 50,052 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled the drag-permission column label in fifteen locales. Chichewa, Maithili
+  and Konkani wording remains provisional.
+- Both focused Node tests and 21 human-preference checks pass, including
+  existing positive and negative drag-policy assertions. Extended localized
+  settings heading and disable/re-enable browser coverage passes syntax
+  validation; execution remains unverified because Playwright is unavailable
+  locally.
+- Ordinary untranslated values decrease from 50,067 to 50,052 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2253,9 +2481,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e31679f46a194b9a245b0f0794e6320414f5860f">Complete duplicate relationship placeholder coverage.</a></summary>
 
-- Filled both duplicate-card relationship directions in the final seven locales (14 values). Both labels now have non-English values in all 234 non-English locales. The final seven sets remain low-confidence drafts, especially Cherokee; semantic review remains open.
-- All four focused Node tests and 21 human-preference checks pass, including token and distinct-label checks across all non-English locales. Extended localized editing and undo/redo browser coverage passes syntax validation; execution remains unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 50,081 to 50,067 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled both duplicate-card relationship directions in the final seven locales
+  (14 values). Both labels now have non-English values in all 234 non-English
+  locales. The final seven sets remain low-confidence drafts, especially
+  Cherokee; semantic review remains open.
+- All four focused Node tests and 21 human-preference checks pass, including
+  token and distinct-label checks across all non-English locales. Extended
+  localized editing and undo/redo browser coverage passes syntax validation;
+  execution remains unverified because Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 50,081 to 50,067 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2264,9 +2500,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/99bb6df956ac4e4726f8d2856a89f597f77b6a6b">Translate duplicate relationship labels in twelve further locales.</a></summary>
 
-- Filled both duplicate-card relationship directions in twelve locales (24 values). Technical wording remains provisional, particularly Chuvash, Veps, Volapük and Klingon.
-- All four focused Node tests and 21 human-preference checks pass. Extended localized editing and undo/redo browser coverage; existing negative checks cover self-links and foreign-board links. Browser syntax passes, but execution remains unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 50,105 to 50,081 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled both duplicate-card relationship directions in twelve locales (24
+  values). Technical wording remains provisional, particularly Chuvash, Veps,
+  Volapük and Klingon.
+- All four focused Node tests and 21 human-preference checks pass. Extended
+  localized editing and undo/redo browser coverage; existing negative checks
+  cover self-links and foreign-board links. Browser syntax passes, but execution
+  remains unverified because Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 50,105 to 50,081 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2275,9 +2518,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/37c941609f75061662915a7e95b1dd8dbf0b371c">Translate duplicate relationship labels in thirteen further locales.</a></summary>
 
-- Filled both duplicate-card relationship directions in thirteen locales (26 values). Technical wording remains provisional, particularly Manx, Aromanian, Fulah and Kashmiri; the Fulah vocabulary lookup was inconclusive.
-- All four focused Node tests and 21 human-preference checks pass. Extended localized editing and undo/redo browser coverage; existing negative checks cover self-links and foreign-board links. Browser syntax passes, but execution remains unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 50,131 to 50,105 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled both duplicate-card relationship directions in thirteen locales (26
+  values). Technical wording remains provisional, particularly Manx, Aromanian,
+  Fulah and Kashmiri; the Fulah vocabulary lookup was inconclusive.
+- All four focused Node tests and 21 human-preference checks pass. Extended
+  localized editing and undo/redo browser coverage; existing negative checks
+  cover self-links and foreign-board links. Browser syntax passes, but execution
+  remains unverified because Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 50,131 to 50,105 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2286,9 +2536,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e42efb2e5f3ab1419301d6d0e9d1dc0bfd91007">Translate duplicate relationship labels in nineteen further locales.</a></summary>
 
-- Filled both duplicate-card relationship directions in nineteen locales (38 values). Pronoun agreement and technical wording remain provisional, particularly Swati, Northern Ndebele, Venda, Fijian and Tongan.
-- All four focused Node tests and 21 human-preference checks pass. Extended localized editing and undo/redo browser coverage; existing negative checks cover self-links and foreign-board links. Browser syntax passes, but execution remains unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 50,169 to 50,131 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled both duplicate-card relationship directions in nineteen locales (38
+  values). Pronoun agreement and technical wording remain provisional,
+  particularly Swati, Northern Ndebele, Venda, Fijian and Tongan.
+- All four focused Node tests and 21 human-preference checks pass. Extended
+  localized editing and undo/redo browser coverage; existing negative checks
+  cover self-links and foreign-board links. Browser syntax passes, but execution
+  remains unverified because Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 50,169 to 50,131 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2297,9 +2554,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6cd38f6de04cbe436420800ffa3bf364c9f2eaac">Translate duplicate relationship labels in fifteen locales.</a></summary>
 
-- Filled both duplicate-card relationship directions in fifteen locales (30 values). Chichewa, Samoan and Konkani wording remains particularly provisional; semantic review remains open.
-- All four focused Node tests and 21 human-preference checks pass. Extended localized editing and undo/redo browser coverage; existing negative checks cover self-links and foreign-board links. Browser syntax passes, but execution remains unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 50,199 to 50,169 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled both duplicate-card relationship directions in fifteen locales (30
+  values). Chichewa, Samoan and Konkani wording remains particularly
+  provisional; semantic review remains open.
+- All four focused Node tests and 21 human-preference checks pass. Extended
+  localized editing and undo/redo browser coverage; existing negative checks
+  cover self-links and foreign-board links. Browser syntax passes, but execution
+  remains unverified because Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 50,199 to 50,169 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2308,9 +2572,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8675861577ba7165857d5496fd70b2c82edc007a">Complete String Template hint placeholder coverage.</a></summary>
 
-- Filled the variable and URL-encoding hint in Cherokee, Inuktitut and Tigre, completing non-English coverage in all 234 non-English locales. These final drafts remain low-confidence, especially Cherokee; wording review remains open.
-- All 23 focused Node tests and 21 human-preference checks pass, including executable examples and token checks across every non-English locale. Localized positive and negative browser checks pass syntax validation; execution remains unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 50,202 to 50,199 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled the variable and URL-encoding hint in Cherokee, Inuktitut and Tigre,
+  completing non-English coverage in all 234 non-English locales. These final
+  drafts remain low-confidence, especially Cherokee; wording review remains
+  open.
+- All 23 focused Node tests and 21 human-preference checks pass, including
+  executable examples and token checks across every non-English locale.
+  Localized positive and negative browser checks pass syntax validation;
+  execution remains unverified because Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 50,202 to 50,199 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2319,9 +2591,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b6d81e1fd96a41a1e5a51a5a112f104fbdf1d3a3">Translate String Template hints in four further locales.</a></summary>
 
-- Filled the variable and URL-encoding hint in Nahuatl, Wolaytta, Standard Moroccan Tamazight and Greenlandic, and replaced English filler in the Wolaytta format label. All four sets remain low-confidence drafts requiring semantic review.
-- All 23 focused Node tests and 21 human-preference checks pass. Extended localized positive and negative browser checks pass syntax validation; execution remains unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 50,206 to 50,202 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled the variable and URL-encoding hint in Nahuatl, Wolaytta, Standard
+  Moroccan Tamazight and Greenlandic, and replaced English filler in the
+  Wolaytta format label. All four sets remain low-confidence drafts requiring
+  semantic review.
+- All 23 focused Node tests and 21 human-preference checks pass. Extended
+  localized positive and negative browser checks pass syntax validation;
+  execution remains unverified because Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 50,206 to 50,202 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2330,9 +2609,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/314e00355587e3e0101cbae33a2f3ee710606f3d">Translate String Template hints in six further locales.</a></summary>
 
-- Filled the variable and URL-encoding hint in Quechua, Aymara, Guarani, Veps, Volapük and Klingon. All six sets remain low-confidence technical drafts requiring semantic review.
-- All 23 focused Node tests and 21 human-preference checks pass. Extended localized positive and negative browser checks pass syntax validation; execution remains unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 50,212 to 50,206 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled the variable and URL-encoding hint in Quechua, Aymara, Guarani, Veps,
+  Volapük and Klingon. All six sets remain low-confidence technical drafts
+  requiring semantic review.
+- All 23 focused Node tests and 21 human-preference checks pass. Extended
+  localized positive and negative browser checks pass syntax validation;
+  execution remains unverified because Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 50,212 to 50,206 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2341,9 +2626,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/edef644ef7013e0b1d53ea59eaa3c4d6f60eaa8f">Translate String Template hints in twelve further locales.</a></summary>
 
-- Filled the variable and URL-encoding hint in Akan, Bambara, Ewe, Wolof, Fulah, Kashmiri, Buryat, Chuvash, Sakha, Tibetan, Dzongkha and Tigrinya. These technical translations remain low-confidence drafts requiring semantic review.
-- All 23 focused Node tests and 21 human-preference checks pass. Extended localized positive and negative browser checks pass syntax validation; execution remains unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 50,224 to 50,212 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled the variable and URL-encoding hint in Akan, Bambara, Ewe, Wolof, Fulah,
+  Kashmiri, Buryat, Chuvash, Sakha, Tibetan, Dzongkha and Tigrinya. These
+  technical translations remain low-confidence drafts requiring semantic review.
+- All 23 focused Node tests and 21 human-preference checks pass. Extended
+  localized positive and negative browser checks pass syntax validation;
+  execution remains unverified because Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 50,224 to 50,212 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2352,9 +2643,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/75312bf9b40df9ba5173254de01d78507c25cd80">Translate seven further String Template hints.</a></summary>
 
-- Filled the variable and URL-encoding hint in Walloon, Waray, Acehnese, Manx, Northern Sami, Venetian and Aromanian. Technical wording remains provisional, particularly Manx, Northern Sami and Aromanian.
-- All 23 focused Node tests and 21 human-preference checks pass. Extended localized positive and negative browser checks pass syntax validation; execution remains unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 50,231 to 50,224 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled the variable and URL-encoding hint in Walloon, Waray, Acehnese, Manx,
+  Northern Sami, Venetian and Aromanian. Technical wording remains provisional,
+  particularly Manx, Northern Sami and Aromanian.
+- All 23 focused Node tests and 21 human-preference checks pass. Extended
+  localized positive and negative browser checks pass syntax validation;
+  execution remains unverified because Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 50,231 to 50,224 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2363,9 +2660,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5338d4a8ebe39675e757b2a2e221b5b0dcd798bc">Translate String Template hints in nine further locales.</a></summary>
 
-- Filled the variable and URL-encoding hint in Bislama, Tok Pisin, Fijian, Tongan, Hawaiian, Oromo, Kinyarwanda, Kirundi and Luganda. Technical wording remains provisional, especially in Fijian, Tongan and Hawaiian.
-- All 23 focused Node tests and 21 human-preference checks pass. Extended localized positive and negative browser checks pass syntax validation; execution remains unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 50,240 to 50,231 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled the variable and URL-encoding hint in Bislama, Tok Pisin, Fijian,
+  Tongan, Hawaiian, Oromo, Kinyarwanda, Kirundi and Luganda. Technical wording
+  remains provisional, especially in Fijian, Tongan and Hawaiian.
+- All 23 focused Node tests and 21 human-preference checks pass. Extended
+  localized positive and negative browser checks pass syntax validation;
+  execution remains unverified because Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 50,240 to 50,231 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2374,9 +2677,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/21396dc192c6e415fbbaef72ed7f3c78cc4b7d81">Translate String Template hints in eighteen further locales.</a></summary>
 
-- Filled the variable and URL-encoding hint in eighteen locales and replaced generic filler in a Xitsonga format label. Technical wording remains provisional, particularly in Konkani, Swati, Northern Ndebele and Venda.
-- All 23 focused Node tests and 21 human-preference checks pass. Extended localized positive and negative browser checks pass syntax validation; browser execution remains unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 50,258 to 50,240 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled the variable and URL-encoding hint in eighteen locales and replaced
+  generic filler in a Xitsonga format label. Technical wording remains
+  provisional, particularly in Konkani, Swati, Northern Ndebele and Venda.
+- All 23 focused Node tests and 21 human-preference checks pass. Extended
+  localized positive and negative browser checks pass syntax validation; browser
+  execution remains unverified because Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 50,258 to 50,240 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2385,10 +2694,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d79b10f588e4b3f55bc5c5877414fd359a7fb3d2">Translate String Template hints in seven more locales.</a></summary>
 
-- Filled the context-variable and URL-encoding hint in Kurmanji, Sorani, Tatar, Somali, Chichewa, Māori and Samoan, preserving executable examples. Chichewa and Samoan technical wording remains provisional.
-- Corrected mixed-language Tatar format and separator labels, including a malformed HTML space entity.
-- All 23 focused Node tests and 21 human-preference checks pass. Localized positive and negative browser checks pass syntax validation; browser execution remains unverified because Playwright is unavailable locally.
-- Ordinary untranslated values decrease from 50,265 to 50,258 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled the context-variable and URL-encoding hint in Kurmanji, Sorani, Tatar,
+  Somali, Chichewa, Māori and Samoan, preserving executable examples. Chichewa
+  and Samoan technical wording remains provisional.
+- Corrected mixed-language Tatar format and separator labels, including a
+  malformed HTML space entity.
+- All 23 focused Node tests and 21 human-preference checks pass. Localized
+  positive and negative browser checks pass syntax validation; browser execution
+  remains unverified because Playwright is unavailable locally.
+- Ordinary untranslated values decrease from 50,265 to 50,258 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2397,9 +2713,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/de482cddc5d9ee6496bce22778ed872cdd41b0e9">Complete saved filter placeholder coverage</a></summary>
 
-- Filled the final 30 English values in Cherokee, Inuktitut and Tigre. All ten saved-filter strings now have non-English values in all 234 non-English locales; the new technical clauses remain low-confidence drafts requiring semantic review.
-- All 15 focused Node tests and 21 human-preference checks pass. Extended positive and negative browser filter coverage and checked its syntax; execution remains unverified because the local Playwright executable is unavailable.
-- Ordinary untranslated values decrease from 50,295 to 50,265 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled the final 30 English values in Cherokee, Inuktitut and Tigre. All ten
+  saved-filter strings now have non-English values in all 234 non-English
+  locales; the new technical clauses remain low-confidence drafts requiring
+  semantic review.
+- All 15 focused Node tests and 21 human-preference checks pass. Extended
+  positive and negative browser filter coverage and checked its syntax;
+  execution remains unverified because the local Playwright executable is
+  unavailable.
+- Ordinary untranslated values decrease from 50,295 to 50,265 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2408,9 +2732,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/99ee5e0ddcb85a6a143e67bafd5b29e44fa5b251">Fill saved filter translations in four further locales</a></summary>
 
-- Filled 40 English placeholders in Nahuatl, Wolaytta, Standard Moroccan Tamazight and Greenlandic. All four sets remain low-confidence technical drafts requiring semantic review.
-- All 15 focused Node tests and 21 human-preference checks pass. Extended positive and negative browser filter coverage and checked its syntax; execution remains unverified because the local Playwright executable is unavailable.
-- These ten filter strings remain English in Cherokee, Inuktitut and Tigre. Ordinary untranslated values decrease from 50,335 to 50,295 across 70 languages; 148 pending source keys still require wording review.
+- Filled 40 English placeholders in Nahuatl, Wolaytta, Standard Moroccan
+  Tamazight and Greenlandic. All four sets remain low-confidence technical
+  drafts requiring semantic review.
+- All 15 focused Node tests and 21 human-preference checks pass. Extended
+  positive and negative browser filter coverage and checked its syntax;
+  execution remains unverified because the local Playwright executable is
+  unavailable.
+- These ten filter strings remain English in Cherokee, Inuktitut and Tigre.
+  Ordinary untranslated values decrease from 50,335 to 50,295 across 70
+  languages; 148 pending source keys still require wording review.
 
 Thanks to xet7 !
 
@@ -2419,9 +2750,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5791adc9f5d1a211f027f95bca4d2670577850e2">Fill six further saved filter translations</a></summary>
 
-- Filled 60 English placeholders in Quechua, Aymara, Guarani, Veps, Volapük and Klingon. All six sets remain low-confidence technical drafts, particularly Veps, Volapük and Klingon.
-- All 15 focused Node tests and 21 human-preference checks pass. Extended positive and negative browser filter coverage and checked its syntax; execution remains unverified because the local Playwright executable is unavailable.
-- These ten filter strings remain English in seven locales. Ordinary untranslated values decrease from 50,395 to 50,335 across 70 languages; 148 pending source keys still require wording review.
+- Filled 60 English placeholders in Quechua, Aymara, Guarani, Veps, Volapük and
+  Klingon. All six sets remain low-confidence technical drafts, particularly
+  Veps, Volapük and Klingon.
+- All 15 focused Node tests and 21 human-preference checks pass. Extended
+  positive and negative browser filter coverage and checked its syntax;
+  execution remains unverified because the local Playwright executable is
+  unavailable.
+- These ten filter strings remain English in seven locales. Ordinary
+  untranslated values decrease from 50,395 to 50,335 across 70 languages; 148
+  pending source keys still require wording review.
 
 Thanks to xet7 !
 
@@ -2430,9 +2768,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e46f22e4e38317cb85586afda6ae4d8b4f192d7c">Translate saved filter controls in six more locales</a></summary>
 
-- Filled 60 English placeholders in Buryat, Chuvash, Sakha, Tibetan, Dzongkha and Tigrinya. Technical clauses remain provisional, especially Buryat, Chuvash and Dzongkha.
-- All 15 focused Node tests and 21 human-preference checks pass. Extended positive and negative browser filter coverage and checked its syntax; execution remains unverified because the local Playwright executable is unavailable.
-- These ten filter strings remain English in 13 locales. Ordinary untranslated values decrease from 50,455 to 50,395 across 70 languages; 148 pending source keys still require wording review.
+- Filled 60 English placeholders in Buryat, Chuvash, Sakha, Tibetan, Dzongkha
+  and Tigrinya. Technical clauses remain provisional, especially Buryat, Chuvash
+  and Dzongkha.
+- All 15 focused Node tests and 21 human-preference checks pass. Extended
+  positive and negative browser filter coverage and checked its syntax;
+  execution remains unverified because the local Playwright executable is
+  unavailable.
+- These ten filter strings remain English in 13 locales. Ordinary untranslated
+  values decrease from 50,455 to 50,395 across 70 languages; 148 pending source
+  keys still require wording review.
 
 Thanks to xet7 !
 
@@ -2441,9 +2786,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/af96f4e963869a120324e36ad5440685acf5b66a">Translate saved filter controls in six further locales</a></summary>
 
-- Filled 60 English placeholders in Akan, Bambara, Ewe, Wolof, Fulah and Kashmiri. Technical clauses remain provisional, especially Ewe, Fulah and Kashmiri.
-- All 15 focused Node tests and 21 human-preference checks pass. Extended positive and negative browser filter coverage and checked its syntax; execution remains unverified because the local Playwright executable is unavailable.
-- These ten filter strings remain English in 19 locales. Ordinary untranslated values decrease from 50,515 to 50,455 across 70 languages; 148 pending source keys still require wording review.
+- Filled 60 English placeholders in Akan, Bambara, Ewe, Wolof, Fulah and
+  Kashmiri. Technical clauses remain provisional, especially Ewe, Fulah and
+  Kashmiri.
+- All 15 focused Node tests and 21 human-preference checks pass. Extended
+  positive and negative browser filter coverage and checked its syntax;
+  execution remains unverified because the local Playwright executable is
+  unavailable.
+- These ten filter strings remain English in 19 locales. Ordinary untranslated
+  values decrease from 50,515 to 50,455 across 70 languages; 148 pending source
+  keys still require wording review.
 
 Thanks to xet7 !
 
@@ -2452,9 +2804,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9dad4b31bc37a0afaaf977bf12135fb439fe671e">Translate saved filter controls in seven further locales</a></summary>
 
-- Filled 70 English placeholders in Walloon, Waray, Acehnese, Manx, Northern Sami, Venetian and Aromanian, and corrected wrong-language Waray and Acehnese filter labels. Technical clauses remain provisional, especially Waray, Acehnese, Manx and Aromanian.
-- All 15 focused Node tests and 21 human-preference checks pass. Extended positive and negative browser filter coverage and checked its syntax; execution remains unverified because the local Playwright executable is unavailable.
-- These ten filter strings remain English in 25 locales. Ordinary untranslated values decrease from 50,585 to 50,515 across 70 languages; 148 pending source keys still require wording review.
+- Filled 70 English placeholders in Walloon, Waray, Acehnese, Manx, Northern
+  Sami, Venetian and Aromanian, and corrected wrong-language Waray and Acehnese
+  filter labels. Technical clauses remain provisional, especially Waray,
+  Acehnese, Manx and Aromanian.
+- All 15 focused Node tests and 21 human-preference checks pass. Extended
+  positive and negative browser filter coverage and checked its syntax;
+  execution remains unverified because the local Playwright executable is
+  unavailable.
+- These ten filter strings remain English in 25 locales. Ordinary untranslated
+  values decrease from 50,585 to 50,515 across 70 languages; 148 pending source
+  keys still require wording review.
 
 Thanks to xet7 !
 
@@ -2463,9 +2823,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7015e111ee99ddd7800379a4b48ab9629ad2caef">Translate saved filter controls in nine further locales</a></summary>
 
-- Filled 90 English placeholders in Bislama, Tok Pisin, Fijian, Tongan, Hawaiian, Oromo, Kinyarwanda, Kirundi and Luganda. Technical clauses remain provisional, especially Fijian, Tongan, Hawaiian and Kirundi.
-- All 15 focused Node tests and 21 human-preference checks pass. Extended positive and negative browser filter coverage and checked its syntax; execution remains unverified because the local Playwright executable is unavailable.
-- These ten filter strings remain English in 32 locales. Ordinary untranslated values decrease from 50,675 to 50,585 across 70 languages; 148 pending source keys still require wording review.
+- Filled 90 English placeholders in Bislama, Tok Pisin, Fijian, Tongan,
+  Hawaiian, Oromo, Kinyarwanda, Kirundi and Luganda. Technical clauses remain
+  provisional, especially Fijian, Tongan, Hawaiian and Kirundi.
+- All 15 focused Node tests and 21 human-preference checks pass. Extended
+  positive and negative browser filter coverage and checked its syntax;
+  execution remains unverified because the local Playwright executable is
+  unavailable.
+- These ten filter strings remain English in 32 locales. Ordinary untranslated
+  values decrease from 50,675 to 50,585 across 70 languages; 148 pending source
+  keys still require wording review.
 
 Thanks to xet7 !
 
@@ -2474,9 +2841,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a60e55e3a5c20df77e9a9ec4eb6656c708c74769">Translate saved filter controls in ten African locale files</a></summary>
 
-- Filled 100 English placeholders in Southern Sotho, Tswana, Northern Sotho, both Zulu locales, Xhosa, Swati, Northern Ndebele, Tsonga and Venda. Technical clauses remain provisional, especially Swati, Northern Ndebele, Tsonga and Venda.
-- All 15 focused Node tests and 21 human-preference checks pass. Extended positive and negative browser filter coverage and checked its syntax; execution remains unverified because the local Playwright executable is unavailable.
-- These ten filter strings remain English in 41 locales. Ordinary untranslated values decrease from 50,775 to 50,675 across 70 languages; 148 pending source keys still require wording review.
+- Filled 100 English placeholders in Southern Sotho, Tswana, Northern Sotho,
+  both Zulu locales, Xhosa, Swati, Northern Ndebele, Tsonga and Venda. Technical
+  clauses remain provisional, especially Swati, Northern Ndebele, Tsonga and
+  Venda.
+- All 15 focused Node tests and 21 human-preference checks pass. Extended
+  positive and negative browser filter coverage and checked its syntax;
+  execution remains unverified because the local Playwright executable is
+  unavailable.
+- These ten filter strings remain English in 41 locales. Ordinary untranslated
+  values decrease from 50,775 to 50,675 across 70 languages; 148 pending source
+  keys still require wording review.
 
 Thanks to xet7 !
 
@@ -2485,9 +2860,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4ef7469ce5c6a5d6e7c523997a9a346a947bc43d">Translate saved filter controls in eight further locales</a></summary>
 
-- Filled 80 English placeholders in Turkmen, Yiddish, Bhojpuri, Maithili, Odia, Konkani, Papiamentu and Moroccan Arabic. Technical clauses remain provisional, especially Konkani and Papiamentu.
-- All 15 focused Node tests and 21 human-preference checks pass. Extended positive and negative browser filter coverage and checked its syntax; execution remains unverified because the local Playwright executable is unavailable.
-- These ten filter strings remain English in 51 locales. Ordinary untranslated values decrease from 50,855 to 50,775 across 70 languages; 148 pending source keys still require wording review.
+- Filled 80 English placeholders in Turkmen, Yiddish, Bhojpuri, Maithili, Odia,
+  Konkani, Papiamentu and Moroccan Arabic. Technical clauses remain provisional,
+  especially Konkani and Papiamentu.
+- All 15 focused Node tests and 21 human-preference checks pass. Extended
+  positive and negative browser filter coverage and checked its syntax;
+  execution remains unverified because the local Playwright executable is
+  unavailable.
+- These ten filter strings remain English in 51 locales. Ordinary untranslated
+  values decrease from 50,855 to 50,775 across 70 languages; 148 pending source
+  keys still require wording review.
 
 Thanks to xet7 !
 
@@ -2496,9 +2878,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/78ca2530a24c44236c88f963818515711bf921eb">Translate saved filter controls in seven locales</a></summary>
 
-- Filled 70 English placeholders in Kurmanji, Sorani, Tatar, Somali, Chichewa, Māori and Samoan, and corrected mixed-language Tatar filter-menu wording. Technical clauses remain provisional, especially Chichewa and Samoan.
-- All 15 focused Node tests and 21 human-preference checks pass. Extended positive and negative browser filter coverage and checked its syntax; execution remains unverified because the local Playwright executable is unavailable.
-- These ten filter strings remain English in 59 locales. Ordinary untranslated values decrease from 50,925 to 50,855 across 70 languages; 148 pending source keys still require wording review.
+- Filled 70 English placeholders in Kurmanji, Sorani, Tatar, Somali, Chichewa,
+  Māori and Samoan, and corrected mixed-language Tatar filter-menu wording.
+  Technical clauses remain provisional, especially Chichewa and Samoan.
+- All 15 focused Node tests and 21 human-preference checks pass. Extended
+  positive and negative browser filter coverage and checked its syntax;
+  execution remains unverified because the local Playwright executable is
+  unavailable.
+- These ten filter strings remain English in 59 locales. Ordinary untranslated
+  values decrease from 50,925 to 50,855 across 70 languages; 148 pending source
+  keys still require wording review.
 
 Thanks to xet7 !
 
@@ -2507,9 +2896,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/30ccbcfe8e7cc0f118662c8a731d87257bebe17f">Complete rule email report placeholder coverage</a></summary>
 
-- Filled the final 30 English values in Cherokee, Inuktitut and Tigre. All ten report strings now have non-English values in all 234 non-English locales; the new technical clauses remain low-confidence drafts requiring semantic review.
-- All 17 focused Node tests and 21 human-preference checks pass. Extended browser report coverage and checked its syntax; browser execution remains unverified because the local Playwright executable is unavailable.
-- Ordinary untranslated values decrease from 50,955 to 50,925 across 70 languages; 148 pending source keys still require wording review. The broader translation and semantic audit remain open.
+- Filled the final 30 English values in Cherokee, Inuktitut and Tigre. All ten
+  report strings now have non-English values in all 234 non-English locales; the
+  new technical clauses remain low-confidence drafts requiring semantic review.
+- All 17 focused Node tests and 21 human-preference checks pass. Extended
+  browser report coverage and checked its syntax; browser execution remains
+  unverified because the local Playwright executable is unavailable.
+- Ordinary untranslated values decrease from 50,955 to 50,925 across 70
+  languages; 148 pending source keys still require wording review. The broader
+  translation and semantic audit remain open.
 
 Thanks to xet7 !
 
@@ -2518,9 +2913,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/33f35c657c94855b229c695ae548da96dcd8f32f">Translate rule email reports in Nahuatl, Wolaytta and Tamazight</a></summary>
 
-- Filled 30 English placeholders. All three sets remain low-confidence technical drafts requiring semantic review.
-- All 17 focused Node tests and 21 human-preference checks pass. Extended browser report coverage and checked its syntax; browser execution remains unverified because the local Playwright executable is unavailable.
-- These ten report strings remain English in Cherokee, Inuktitut and Tigre. Ordinary untranslated values decrease from 50,985 to 50,955 across 70 languages; 148 pending source keys still require wording review.
+- Filled 30 English placeholders. All three sets remain low-confidence technical
+  drafts requiring semantic review.
+- All 17 focused Node tests and 21 human-preference checks pass. Extended
+  browser report coverage and checked its syntax; browser execution remains
+  unverified because the local Playwright executable is unavailable.
+- These ten report strings remain English in Cherokee, Inuktitut and Tigre.
+  Ordinary untranslated values decrease from 50,985 to 50,955 across 70
+  languages; 148 pending source keys still require wording review.
 
 Thanks to xet7 !
 
@@ -2529,9 +2929,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6800674da741c8927568fdc334e14f1d12982ca0">Fill six further rule email report translations</a></summary>
 
-- Filled 60 English placeholders in Quechua, Aymara, Guarani, Veps, Volapük and Klingon. All six sets remain low-confidence technical drafts, particularly Veps, Volapük and Klingon.
-- All 17 focused Node tests and 21 human-preference checks pass. Extended browser report coverage and checked its syntax; execution remains unverified because the local Playwright executable is unavailable.
-- These ten report strings remain English in six locales. Ordinary untranslated values decrease from 51,045 to 50,985 across 70 languages; 148 pending source keys still require wording review.
+- Filled 60 English placeholders in Quechua, Aymara, Guarani, Veps, Volapük and
+  Klingon. All six sets remain low-confidence technical drafts, particularly
+  Veps, Volapük and Klingon.
+- All 17 focused Node tests and 21 human-preference checks pass. Extended
+  browser report coverage and checked its syntax; execution remains unverified
+  because the local Playwright executable is unavailable.
+- These ten report strings remain English in six locales. Ordinary untranslated
+  values decrease from 51,045 to 50,985 across 70 languages; 148 pending source
+  keys still require wording review.
 
 Thanks to xet7 !
 
@@ -2540,9 +2946,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bf44a8bcdf4b7efe5d9cbb5aa8236d410cb32056">Translate rule email reports in six more locales</a></summary>
 
-- Filled 60 English placeholders in Buryat, Chuvash, Sakha, Tibetan, Dzongkha and Tigrinya. Technical clauses remain provisional, especially Buryat, Chuvash and Dzongkha.
-- All 17 focused Node tests and 21 human-preference checks pass. Extended browser report coverage and checked its syntax; execution remains unverified because the local Playwright executable is unavailable.
-- These ten report strings remain English in 12 locales. Ordinary untranslated values decrease from 51,105 to 51,045 across 70 languages; 148 pending source keys still require wording review.
+- Filled 60 English placeholders in Buryat, Chuvash, Sakha, Tibetan, Dzongkha
+  and Tigrinya. Technical clauses remain provisional, especially Buryat, Chuvash
+  and Dzongkha.
+- All 17 focused Node tests and 21 human-preference checks pass. Extended
+  browser report coverage and checked its syntax; execution remains unverified
+  because the local Playwright executable is unavailable.
+- These ten report strings remain English in 12 locales. Ordinary untranslated
+  values decrease from 51,105 to 51,045 across 70 languages; 148 pending source
+  keys still require wording review.
 
 Thanks to xet7 !
 
@@ -2551,9 +2963,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f561ee6ca6565a54977a7b2031fecff52910621b">Translate rule email reports in six further locales</a></summary>
 
-- Filled 60 English placeholders in Akan, Bambara, Ewe, Wolof, Fulah and Kashmiri. Technical clauses remain provisional, especially Ewe, Fulah and Kashmiri.
-- All 17 focused Node tests and 21 human-preference checks pass. Extended browser report coverage and checked its syntax; execution remains unverified because the local Playwright executable is unavailable.
-- These ten report strings remain English in 18 locales. Ordinary untranslated values decrease from 51,165 to 51,105 across 70 languages; 148 pending source keys still require wording review.
+- Filled 60 English placeholders in Akan, Bambara, Ewe, Wolof, Fulah and
+  Kashmiri. Technical clauses remain provisional, especially Ewe, Fulah and
+  Kashmiri.
+- All 17 focused Node tests and 21 human-preference checks pass. Extended
+  browser report coverage and checked its syntax; execution remains unverified
+  because the local Playwright executable is unavailable.
+- These ten report strings remain English in 18 locales. Ordinary untranslated
+  values decrease from 51,165 to 51,105 across 70 languages; 148 pending source
+  keys still require wording review.
 
 Thanks to xet7 !
 
@@ -2562,9 +2980,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7535a1c0dc45246f38f61f7508a6cd80d51ad6bd">Translate rule email reports in seven further locales</a></summary>
 
-- Filled 70 English placeholders in Walloon, Waray, Acehnese, Manx, Northern Sami, Venetian and Aromanian. Technical clauses remain provisional, especially Acehnese, Manx and Aromanian.
-- All 17 focused Node tests and 21 human-preference checks pass. Extended browser report coverage and checked its syntax; execution remains unverified because the local Playwright executable is unavailable.
-- These ten report strings remain English in 24 locales. Ordinary untranslated values decrease from 51,235 to 51,165 across 70 languages; 148 pending source keys still require wording review.
+- Filled 70 English placeholders in Walloon, Waray, Acehnese, Manx, Northern
+  Sami, Venetian and Aromanian. Technical clauses remain provisional, especially
+  Acehnese, Manx and Aromanian.
+- All 17 focused Node tests and 21 human-preference checks pass. Extended
+  browser report coverage and checked its syntax; execution remains unverified
+  because the local Playwright executable is unavailable.
+- These ten report strings remain English in 24 locales. Ordinary untranslated
+  values decrease from 51,235 to 51,165 across 70 languages; 148 pending source
+  keys still require wording review.
 
 Thanks to xet7 !
 
@@ -2573,9 +2997,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/04c10bc9e65d4338d4966f2219ae230668f0bb7d">Translate rule email reports in nine further locales</a></summary>
 
-- Filled 90 English placeholders in Bislama, Tok Pisin, Fijian, Tongan, Hawaiian, Oromo, Kinyarwanda, Kirundi and Luganda. Technical clauses remain provisional, particularly Fijian, Tongan, Hawaiian and Kirundi.
-- All 17 focused Node tests and 21 human-preference checks pass. Extended browser report coverage and checked its syntax; browser execution remains unverified because the local Playwright executable is unavailable.
-- These ten report strings remain English in 31 locales. Ordinary untranslated values decrease from 51,325 to 51,235 across 70 languages; 148 pending source keys still require wording review.
+- Filled 90 English placeholders in Bislama, Tok Pisin, Fijian, Tongan,
+  Hawaiian, Oromo, Kinyarwanda, Kirundi and Luganda. Technical clauses remain
+  provisional, particularly Fijian, Tongan, Hawaiian and Kirundi.
+- All 17 focused Node tests and 21 human-preference checks pass. Extended
+  browser report coverage and checked its syntax; browser execution remains
+  unverified because the local Playwright executable is unavailable.
+- These ten report strings remain English in 31 locales. Ordinary untranslated
+  values decrease from 51,325 to 51,235 across 70 languages; 148 pending source
+  keys still require wording review.
 
 Thanks to xet7 !
 
@@ -2584,9 +3014,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/39f31def59fc907d5fdb0edd40d1ef5eda1cd272">Translate rule email reports in ten African locale files</a></summary>
 
-- Filled 100 English placeholders in Southern Sotho, Tswana, Northern Sotho, both Zulu locales, Xhosa, Swati, Northern Ndebele, Tsonga and Venda. Technical clauses remain provisional, especially Swati, Northern Ndebele, Tsonga and Venda.
-- All 17 focused Node tests and 21 human-preference checks pass. Extended browser report coverage and checked its syntax; execution remains unverified because the local Playwright executable is unavailable.
-- These ten report strings remain English in 40 locales. Ordinary untranslated values decrease from 51,425 to 51,325 across 70 languages; 148 pending source keys still require wording review.
+- Filled 100 English placeholders in Southern Sotho, Tswana, Northern Sotho,
+  both Zulu locales, Xhosa, Swati, Northern Ndebele, Tsonga and Venda. Technical
+  clauses remain provisional, especially Swati, Northern Ndebele, Tsonga and
+  Venda.
+- All 17 focused Node tests and 21 human-preference checks pass. Extended
+  browser report coverage and checked its syntax; execution remains unverified
+  because the local Playwright executable is unavailable.
+- These ten report strings remain English in 40 locales. Ordinary untranslated
+  values decrease from 51,425 to 51,325 across 70 languages; 148 pending source
+  keys still require wording review.
 
 Thanks to xet7 !
 
@@ -2595,9 +3032,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5d803eda6d899b17411b4551eeb9fc44f737d68b">Translate rule email reports in eight further locales</a></summary>
 
-- Filled 80 English placeholders in Turkmen, Yiddish, Bhojpuri, Maithili, Odia, Konkani, Papiamentu and Moroccan Arabic. Technical clauses remain provisional, especially Konkani and Papiamentu.
-- All 17 focused Node tests and 21 human-preference checks pass. Extended browser report coverage and checked its syntax; browser execution remains unverified because the local Playwright executable is unavailable.
-- These ten report strings remain English in 50 locales. Ordinary untranslated values decrease from 51,505 to 51,425 across 70 languages; 148 pending source keys still require wording review.
+- Filled 80 English placeholders in Turkmen, Yiddish, Bhojpuri, Maithili, Odia,
+  Konkani, Papiamentu and Moroccan Arabic. Technical clauses remain provisional,
+  especially Konkani and Papiamentu.
+- All 17 focused Node tests and 21 human-preference checks pass. Extended
+  browser report coverage and checked its syntax; browser execution remains
+  unverified because the local Playwright executable is unavailable.
+- These ten report strings remain English in 50 locales. Ordinary untranslated
+  values decrease from 51,505 to 51,425 across 70 languages; 148 pending source
+  keys still require wording review.
 
 Thanks to xet7 !
 
@@ -2606,9 +3049,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6f663811a02b91e12ee43e150f9b8ef64241d3ed">Translate rule email reports in seven more locales</a></summary>
 
-- Filled 70 English placeholders in Kurmanji, Sorani, Tatar, Somali, Chichewa, Māori and Samoan. Technical clauses remain provisional, particularly Chichewa and Samoan.
-- All 17 focused Node tests and 21 human-preference checks pass. Extended browser report coverage and checked its syntax; execution remains unverified because the local Playwright executable is unavailable.
-- These ten report strings remain English in 58 locales. Ordinary untranslated values decrease from 51,575 to 51,505 across 70 languages; 148 pending source keys still require wording review.
+- Filled 70 English placeholders in Kurmanji, Sorani, Tatar, Somali, Chichewa,
+  Māori and Samoan. Technical clauses remain provisional, particularly Chichewa
+  and Samoan.
+- All 17 focused Node tests and 21 human-preference checks pass. Extended
+  browser report coverage and checked its syntax; execution remains unverified
+  because the local Playwright executable is unavailable.
+- These ten report strings remain English in 58 locales. Ordinary untranslated
+  values decrease from 51,575 to 51,505 across 70 languages; 148 pending source
+  keys still require wording review.
 
 Thanks to xet7 !
 
@@ -2617,9 +3066,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0777dd3ba7eed2687c6581a1bd6882b2ade35cf4">Complete rule variable picker placeholder coverage</a></summary>
 
-- Filled the final twelve English labels. All 234 non-English locales now have a translated label; the twelve new drafts remain low confidence and semantic review remains open.
-- All 13 focused Node tests and 21 human-preference checks pass. Browser syntax passes, but browser execution remains unverified.
-- Removed the picker label from the pending queue: 149 to 148 source keys. The freshly checked broader backlog remains 51,575 ordinary untranslated values across 70 languages.
+- Filled the final twelve English labels. All 234 non-English locales now have a
+  translated label; the twelve new drafts remain low confidence and semantic
+  review remains open.
+- All 13 focused Node tests and 21 human-preference checks pass. Browser syntax
+  passes, but browser execution remains unverified.
+- Removed the picker label from the pending queue: 149 to 148 source keys. The
+  freshly checked broader backlog remains 51,575 ordinary untranslated values
+  across 70 languages.
 
 Thanks to xet7 !
 
@@ -2628,9 +3082,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5da7829eb150f64b2b169c6d213562db8aed60a2">Fill ten further rule variable picker translations</a></summary>
 
-- Filled ten English labels. Full clauses remain provisional, especially Bambara, Ewe, Aymara, Guarani, Manx and Aromanian.
-- Extended locale and browser coverage. All 13 focused Node tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- This label remains untranslated in twelve locales. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 149 pending source keys.
+- Filled ten English labels. Full clauses remain provisional, especially
+  Bambara, Ewe, Aymara, Guarani, Manx and Aromanian.
+- Extended locale and browser coverage. All 13 focused Node tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- This label remains untranslated in twelve locales. The broader backlog remains
+  51,575 ordinary untranslated values across 70 languages plus 149 pending
+  source keys.
 
 Thanks to xet7 !
 
@@ -2639,9 +3098,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2ab05383f473073528df0b54d4807ddb67965e58">Translate ten more rule variable picker labels</a></summary>
 
-- Filled ten English labels. Full clauses remain provisional, especially Dzongkha, Buryat, Chuvash, Sakha and Acehnese.
-- Extended locale and browser coverage. All 13 focused Node tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- This label remains untranslated in 22 locales. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 149 pending source keys.
+- Filled ten English labels. Full clauses remain provisional, especially
+  Dzongkha, Buryat, Chuvash, Sakha and Acehnese.
+- Extended locale and browser coverage. All 13 focused Node tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- This label remains untranslated in 22 locales. The broader backlog remains
+  51,575 ordinary untranslated values across 70 languages plus 149 pending
+  source keys.
 
 Thanks to xet7 !
 
@@ -2650,9 +3114,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/84fc9203ddc0b589bb48d29e9549037eb4653f9f">Translate seventeen more rule variable picker labels</a></summary>
 
-- Filled seventeen English labels in African and Pacific locales. Technical paraphrases remain provisional, especially Northern Sotho, Tsonga, Venda, Fijian, Tongan, Hawaiian and Kirundi.
-- Extended locale and browser coverage. All 13 focused Node tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- This label remains untranslated in 32 locales. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 149 pending source keys.
+- Filled seventeen English labels in African and Pacific locales. Technical
+  paraphrases remain provisional, especially Northern Sotho, Tsonga, Venda,
+  Fijian, Tongan, Hawaiian and Kirundi.
+- Extended locale and browser coverage. All 13 focused Node tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- This label remains untranslated in 32 locales. The broader backlog remains
+  51,575 ordinary untranslated values across 70 languages plus 149 pending
+  source keys.
 
 Thanks to xet7 !
 
@@ -2661,9 +3131,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/af5ba32503ea2a35e82a0a69285c28ee22a46b0b">Translate the rule variable picker label in seventeen locales</a></summary>
 
-- Filled seventeen English labels, describing insertion into the text field most recently selected. Technical phrasing remains provisional, especially Konkani, Southern Sotho, Tswana, Chichewa and Samoan.
-- Extended locale and browser coverage. All 13 focused Node tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- This label remains untranslated in 49 locales. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 149 pending source keys.
+- Filled seventeen English labels, describing insertion into the text field most
+  recently selected. Technical phrasing remains provisional, especially Konkani,
+  Southern Sotho, Tswana, Chichewa and Samoan.
+- Extended locale and browser coverage. All 13 focused Node tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- This label remains untranslated in 49 locales. The broader backlog remains
+  51,575 ordinary untranslated values across 70 languages plus 149 pending
+  source keys.
 
 Thanks to xet7 !
 
@@ -2672,9 +3148,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9afc5bf221138091c8ec718d8a898dd05725787b">Fill the Cherokee Leo instruction and cover all locales</a></summary>
 
-- Filled the final English Leo instruction placeholder. All 234 non-English locales now have a value; the Cherokee draft remains very low-confidence and linguistic review stays open.
-- Added all-locale regression coverage and extended the browser import scenario. All 12 focused Node tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- Removed the Leo instruction from the pending queue: 150 to 149 source keys. The broader backlog remains 51,575 ordinary untranslated values across 70 languages.
+- Filled the final English Leo instruction placeholder. All 234 non-English
+  locales now have a value; the Cherokee draft remains very low-confidence and
+  linguistic review stays open.
+- Added all-locale regression coverage and extended the browser import scenario.
+  All 12 focused Node tests and 21 human-preference checks pass; browser syntax
+  passes, but browser execution remains unverified.
+- Removed the Leo instruction from the pending queue: 150 to 149 source keys.
+  The broader backlog remains 51,575 ordinary untranslated values across 70
+  languages.
 
 Thanks to xet7 !
 
@@ -2683,9 +3165,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/598893c70b7402fd96597ece006ce6be1d31f1a1">Add Tigre and Wolaytta Leo import instructions</a></summary>
 
-- Filled two English instructions. Both full translations remain very low-confidence drafts requiring linguistic review.
-- Extended locale and browser coverage. All 12 focused Node tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- Cherokee still uses the English Leo instruction. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 150 pending source keys.
+- Filled two English instructions. Both full translations remain very
+  low-confidence drafts requiring linguistic review.
+- Extended locale and browser coverage. All 12 focused Node tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- Cherokee still uses the English Leo instruction. The broader backlog remains
+  51,575 ordinary untranslated values across 70 languages plus 150 pending
+  source keys.
 
 Thanks to xet7 !
 
@@ -2694,9 +3181,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/09429dcfed399dde73c2226b94c8bdaa97473fc5">Add Nahuatl and Tamazight Leo import instructions</a></summary>
 
-- Filled two English instructions. Both full translations remain low-confidence drafts requiring linguistic review.
-- Extended locale, script and browser coverage. All 12 focused Node tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- The Leo instruction remains untranslated in Cherokee, Tigre and Wolaytta. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 150 pending source keys.
+- Filled two English instructions. Both full translations remain low-confidence
+  drafts requiring linguistic review.
+- Extended locale, script and browser coverage. All 12 focused Node tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- The Leo instruction remains untranslated in Cherokee, Tigre and Wolaytta. The
+  broader backlog remains 51,575 ordinary untranslated values across 70
+  languages plus 150 pending source keys.
 
 Thanks to xet7 !
 
@@ -2705,9 +3197,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/48d3e716484edffde1fa4abbefda10b68f986a8b">Add Greenlandic and Inuktitut Leo import instructions</a></summary>
 
-- Filled two English instructions. Both full translations remain low-confidence drafts requiring linguistic review.
-- Extended locale and browser coverage. All 12 focused Node tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- The Leo instruction remains untranslated in five locales. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 150 pending source keys.
+- Filled two English instructions. Both full translations remain low-confidence
+  drafts requiring linguistic review.
+- Extended locale and browser coverage. All 12 focused Node tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- The Leo instruction remains untranslated in five locales. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 150
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -2716,9 +3213,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fc9749b1139373c2e0fc199936cd80a09b165bb1">Translate five more Leo import instructions</a></summary>
 
-- Filled five English instructions in Kashmiri, Fulah, Veps, Volapük and Klingon. All five complete instructions remain low-confidence drafts requiring linguistic review.
-- Extended locale and browser coverage. All 12 focused Node tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- The Leo instruction remains untranslated in seven locales. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 150 pending source keys.
+- Filled five English instructions in Kashmiri, Fulah, Veps, Volapük and
+  Klingon. All five complete instructions remain low-confidence drafts requiring
+  linguistic review.
+- Extended locale and browser coverage. All 12 focused Node tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- The Leo instruction remains untranslated in seven locales. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 150
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -2727,9 +3230,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e56723274be1c37cf9160330269fec3b4b58e04f">Translate six more Leo import instructions</a></summary>
 
-- Filled six English instructions in Tibetan, Dzongkha, Tigrinya, Quechua, Aymara and Guarani. Technical clauses remain provisional, particularly Dzongkha, Quechua, Aymara and Guarani.
-- Extended locale and browser coverage. All 12 focused Node tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- The Leo instruction remains untranslated in 12 locales. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 150 pending source keys.
+- Filled six English instructions in Tibetan, Dzongkha, Tigrinya, Quechua,
+  Aymara and Guarani. Technical clauses remain provisional, particularly
+  Dzongkha, Quechua, Aymara and Guarani.
+- Extended locale and browser coverage. All 12 focused Node tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- The Leo instruction remains untranslated in 12 locales. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 150
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -2738,9 +3247,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ebb12f9537c3dee6207737c701ae73f3b3914a86">Translate seven more Leo import instructions</a></summary>
 
-- Filled seven English instructions in Akan, Bambara, Ewe, Wolof, Buryat, Chuvash and Sakha. Full clauses remain provisional, particularly the hierarchy terminology.
-- Extended locale and browser coverage. All 12 focused Node tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- The Leo instruction remains untranslated in 18 locales. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 150 pending source keys.
+- Filled seven English instructions in Akan, Bambara, Ewe, Wolof, Buryat,
+  Chuvash and Sakha. Full clauses remain provisional, particularly the hierarchy
+  terminology.
+- Extended locale and browser coverage. All 12 focused Node tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- The Leo instruction remains untranslated in 18 locales. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 150
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -2749,9 +3264,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5afa11bde01dc38d4764117011861802f3388342">Translate eight Leo instructions and correct the Darija completion label</a></summary>
 
-- Filled eight English instructions and replaced a Persian completion label in Moroccan Arabic with Darija. Technical phrasing remains provisional, especially Acehnese, Manx, Northern Sami and Aromanian.
-- Extended locale and browser coverage. All 12 focused Node tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- The Leo instruction remains untranslated in 25 locales. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 150 pending source keys.
+- Filled eight English instructions and replaced a Persian completion label in
+  Moroccan Arabic with Darija. Technical phrasing remains provisional,
+  especially Acehnese, Manx, Northern Sami and Aromanian.
+- Extended locale and browser coverage. All 12 focused Node tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- The Leo instruction remains untranslated in 25 locales. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 150
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -2760,9 +3281,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a0874a292d88f092ec742e814615e6963b815164">Translate Leo import instructions in twelve more locales</a></summary>
 
-- Filled twelve English placeholders in Pacific, Papiamento and eastern African locales. Technical phrasing remains provisional, especially Fijian, Tongan, Hawaiian, Oromo and Kirundi.
-- Extended locale and browser coverage. All 12 focused Node tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- This instruction remains untranslated in 33 locales. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 150 pending source keys.
+- Filled twelve English placeholders in Pacific, Papiamento and eastern African
+  locales. Technical phrasing remains provisional, especially Fijian, Tongan,
+  Hawaiian, Oromo and Kirundi.
+- Extended locale and browser coverage. All 12 focused Node tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- This instruction remains untranslated in 33 locales. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 150
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -2771,9 +3298,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3e174595ba4e0d1c593f6406e0b10d946a4515f2">Translate Leo import instructions in fourteen more locales</a></summary>
 
-- Filled fourteen English placeholders in four Indic and ten southern African locales. Technical phrasing remains provisional, especially Konkani, Swati, Northern Ndebele and Venda.
-- Extended locale and browser coverage. All 12 focused Node tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- This instruction remains untranslated in 45 locales. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 150 pending source keys.
+- Filled fourteen English placeholders in four Indic and ten southern African
+  locales. Technical phrasing remains provisional, especially Konkani, Swati,
+  Northern Ndebele and Venda.
+- Extended locale and browser coverage. All 12 focused Node tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- This instruction remains untranslated in 45 locales. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 150
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -2782,9 +3315,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8a2a7dbd0dbb3fff600e78601d90be7af0f2d1f6">Translate Leo import instructions in seven more locales</a></summary>
 
-- Filled seven English placeholders in Kurdish, Central Kurdish, Tatar, Turkmen, Yiddish, Somali and Chichewa. Technical phrasing, especially Somali and Chichewa, remains provisional.
-- Extended locale and browser coverage. All 12 focused Node tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- This instruction remains untranslated in 59 locales. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 150 pending source keys.
+- Filled seven English placeholders in Kurdish, Central Kurdish, Tatar, Turkmen,
+  Yiddish, Somali and Chichewa. Technical phrasing, especially Somali and
+  Chichewa, remains provisional.
+- Extended locale and browser coverage. All 12 focused Node tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- This instruction remains untranslated in 59 locales. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 150
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -2793,9 +3332,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d19b35b6f9451e0dfe7596ba7cfe3074dd0e4851">Fill remaining parent-card controls and verify all-locale coverage</a></summary>
 
-- Filled six Tigre and Wolaytta placeholders. All three parent-card controls now have non-English values in all 234 non-English locales; low-confidence wording and further language review remain documented in the translation audit.
-- Expanded regression coverage to all locales and added both languages to the browser scenario. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- Removed three keys from the pending inventory, reducing it to 150. The fresh ordinary backlog count remains 51,575 untranslated values across 70 languages. Structural coverage does not establish fluency.
+- Filled six Tigre and Wolaytta placeholders. All three parent-card controls now
+  have non-English values in all 234 non-English locales; low-confidence wording
+  and further language review remain documented in the translation audit.
+- Expanded regression coverage to all locales and added both languages to the
+  browser scenario. All 12 focused tests and 21 human-preference checks pass;
+  browser syntax passes, but browser execution remains unverified.
+- Removed three keys from the pending inventory, reducing it to 150. The fresh
+  ordinary backlog count remains 51,575 untranslated values across 70 languages.
+  Structural coverage does not establish fluency.
 
 Thanks to xet7 !
 
@@ -2804,9 +3349,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a129d9709e6dd4e934083ec6563898f55a1effc0">Translate parent-card controls into Cherokee</a></summary>
 
-- Filled three placeholders. Low-confidence phrasing, the larger-task paraphrase and grammar limitations are documented in the translation audit.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- These controls remain English in two locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+- Filled three placeholders. Low-confidence phrasing, the larger-task paraphrase
+  and grammar limitations are documented in the translation audit.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- These controls remain English in two locale paths. The broader backlog remains
+  51,575 ordinary untranslated values across 70 languages plus 153 pending
+  source keys.
 
 Thanks to xet7 !
 
@@ -2815,9 +3365,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3c79e6d538e95b1cd9842eac8913cf8332c67a56">Translate parent-card controls into Nahuatl and Moroccan Tamazight</a></summary>
 
-- Filled six placeholders. Low-confidence phrases, parent-card metaphors and vocabulary references are documented in the translation audit.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- These controls remain English in three locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+- Filled six placeholders. Low-confidence phrases, parent-card metaphors and
+  vocabulary references are documented in the translation audit.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- These controls remain English in three locale paths. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 153
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -2826,9 +3381,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/73030eb1c5d36b61dcc9aaf8e89e0bdc60c9bd0d">Translate parent-card controls into Fulah and Veps</a></summary>
 
-- Filled six placeholders. Low-confidence wording, agreement and terminology limitations are recorded in the translation audit.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- These controls remain English in five locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+- Filled six placeholders. Low-confidence wording, agreement and terminology
+  limitations are recorded in the translation audit.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- These controls remain English in five locale paths. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 153
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -2837,9 +3397,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4e372a695f76b4d0fe1fcd49008fd2d8a746681c">Translate parent-card controls into Klingon and Volapuk</a></summary>
 
-- Filled six placeholders. Provisional parent-card metaphors and vocabulary limitations are documented in the translation audit.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- These controls remain English in seven locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+- Filled six placeholders. Provisional parent-card metaphors and vocabulary
+  limitations are documented in the translation audit.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- These controls remain English in seven locale paths. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 153
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -2848,9 +3413,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6005d0ab612f1f4129e726f6eec22e32ba87fb6b">Translate parent-card controls into Inuktitut and Greenlandic</a></summary>
 
-- Filled six placeholders. Low-confidence technical phrasing and inflections are documented with vocabulary references in the translation audit.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- These controls remain English in nine locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+- Filled six placeholders. Low-confidence technical phrasing and inflections are
+  documented with vocabulary references in the translation audit.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- These controls remain English in nine locale paths. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 153
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -2859,9 +3429,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/333561b9ea8080f0865105bd858cf54bed47bdad">Translate parent-card controls in five more locales</a></summary>
 
-- Filled 15 placeholders in Moroccan Arabic, Manx, Venetian, Aromanian and Northern Sami. Low-confidence terminology and reference limitations are documented in the translation audit.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- These controls remain English in 11 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+- Filled 15 placeholders in Moroccan Arabic, Manx, Venetian, Aromanian and
+  Northern Sami. Low-confidence terminology and reference limitations are
+  documented in the translation audit.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- These controls remain English in 11 locale paths. The broader backlog remains
+  51,575 ordinary untranslated values across 70 languages plus 153 pending
+  source keys.
 
 Thanks to xet7 !
 
@@ -2870,9 +3446,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/89b4a553337a160989f87849d8f355f7428e0255">Translate parent-card controls into Quechua, Aymara and Guarani</a></summary>
 
-- Filled nine placeholders. Provisional technical wording, variety consistency and vocabulary references are recorded in the translation audit.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- These controls remain English in 16 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+- Filled nine placeholders. Provisional technical wording, variety consistency
+  and vocabulary references are recorded in the translation audit.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- These controls remain English in 16 locale paths. The broader backlog remains
+  51,575 ordinary untranslated values across 70 languages plus 153 pending
+  source keys.
 
 Thanks to xet7 !
 
@@ -2881,9 +3462,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/813c9baa255e19819b56be998c21534085171ef9">Translate parent-card controls into Tibetan, Dzongkha and Tigrinya</a></summary>
 
-- Filled nine placeholders. Provisional technical wording and vocabulary limitations are recorded in the translation audit.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- These controls remain English in 19 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+- Filled nine placeholders. Provisional technical wording and vocabulary
+  limitations are recorded in the translation audit.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- These controls remain English in 19 locale paths. The broader backlog remains
+  51,575 ordinary untranslated values across 70 languages plus 153 pending
+  source keys.
 
 Thanks to xet7 !
 
@@ -2892,9 +3478,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/00011c073c933f2b4c25151b89b23f8e46907bbb">Translate parent-card controls into Buryat, Chuvash and Sakha</a></summary>
 
-- Filled nine placeholders. Provisional technical terminology, inflections and vocabulary references are recorded in the translation audit.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- These controls remain English in 22 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+- Filled nine placeholders. Provisional technical terminology, inflections and
+  vocabulary references are recorded in the translation audit.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- These controls remain English in 22 locale paths. The broader backlog remains
+  51,575 ordinary untranslated values across 70 languages plus 153 pending
+  source keys.
 
 Thanks to xet7 !
 
@@ -2903,9 +3494,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/69598b56d899d356fdea248dc516c60a8b20e755">Translate parent-card controls in four more locales</a></summary>
 
-- Filled 12 placeholders in Papiamento, Walloon, Waray and Acehnese. Low-confidence technical wording and terminology limitations are recorded in the translation audit.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- These controls remain English in 25 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+- Filled 12 placeholders in Papiamento, Walloon, Waray and Acehnese.
+  Low-confidence technical wording and terminology limitations are recorded in
+  the translation audit.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- These controls remain English in 25 locale paths. The broader backlog remains
+  51,575 ordinary untranslated values across 70 languages plus 153 pending
+  source keys.
 
 Thanks to xet7 !
 
@@ -2914,9 +3511,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b6a25535cd37dc87d869f10fc7fc95fa9f3dd639">Translate parent-card controls in eight more African locales</a></summary>
 
-- Filled 24 placeholders in Oromo, Kinyarwanda, Kirundi, Luganda, Wolof, Akan, Ewe and Bambara. Provisional software terminology and vocabulary references are recorded in the translation audit.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- These controls remain English in 29 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+- Filled 24 placeholders in Oromo, Kinyarwanda, Kirundi, Luganda, Wolof, Akan,
+  Ewe and Bambara. Provisional software terminology and vocabulary references
+  are recorded in the translation audit.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- These controls remain English in 29 locale paths. The broader backlog remains
+  51,575 ordinary untranslated values across 70 languages plus 153 pending
+  source keys.
 
 Thanks to xet7 !
 
@@ -2925,9 +3528,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/797d236c7b70ff2974009ee42f437fa916b9b700">Translate parent-card controls in seven Pacific locales</a></summary>
 
-- Filled 21 placeholders in Bislama, Tok Pisin, Maori, Samoan, Fijian, Tongan and Hawaiian. Provisional technical wording and terminology references are recorded in the translation audit.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- These controls remain English in 37 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+- Filled 21 placeholders in Bislama, Tok Pisin, Maori, Samoan, Fijian, Tongan
+  and Hawaiian. Provisional technical wording and terminology references are
+  recorded in the translation audit.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- These controls remain English in 37 locale paths. The broader backlog remains
+  51,575 ordinary untranslated values across 70 languages plus 153 pending
+  source keys.
 
 Thanks to xet7 !
 
@@ -2936,9 +3545,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d58d0ffa4e996408c6ad77a6e7c78444841c34b9">Translate parent-card controls in southern African locales</a></summary>
 
-- Filled 30 placeholders across Sesotho, Setswana, Northern Sotho, both Zulu locales, Xhosa, Swati, Ndebele, Tsonga and Venda. Provisional terminology and language-quality limitations are recorded in the translation audit.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- These controls remain English in 44 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+- Filled 30 placeholders across Sesotho, Setswana, Northern Sotho, both Zulu
+  locales, Xhosa, Swati, Ndebele, Tsonga and Venda. Provisional terminology and
+  language-quality limitations are recorded in the translation audit.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- These controls remain English in 44 locale paths. The broader backlog remains
+  51,575 ordinary untranslated values across 70 languages plus 153 pending
+  source keys.
 
 Thanks to xet7 !
 
@@ -2947,9 +3562,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0d484b2e1787a2d1c27c9bfcceddbe43c88d57b9">Translate parent-card controls in five South Asian locales</a></summary>
 
-- Filled 15 placeholders in Bhojpuri, Maithili, Odia, Konkani and Kashmiri. Removal wording describes ending a parent relationship; low-confidence Kashmiri phrasing is documented in the translation audit.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- These controls remain English in 54 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+- Filled 15 placeholders in Bhojpuri, Maithili, Odia, Konkani and Kashmiri.
+  Removal wording describes ending a parent relationship; low-confidence
+  Kashmiri phrasing is documented in the translation audit.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  remains unverified.
+- These controls remain English in 54 locale paths. The broader backlog remains
+  51,575 ordinary untranslated values across 70 languages plus 153 pending
+  source keys.
 
 Thanks to xet7 !
 
@@ -2958,9 +3579,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f5990d89ac508365cb00232c636a3342d7ce3bc7">Translate multiple-parent controls in seven more locales</a></summary>
 
-- Filled 21 placeholders in Kurdish, Sorani, Tatar, Turkmen, Yiddish, Somali and Chichewa. The removal label describes ending a parent relationship; provisional technical wording is documented in the translation audit.
-- Extended locale and browser coverage, including preservation of both parent cards. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- These controls remain English in 59 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+- Filled 21 placeholders in Kurdish, Sorani, Tatar, Turkmen, Yiddish, Somali and
+  Chichewa. The removal label describes ending a parent relationship;
+  provisional technical wording is documented in the translation audit.
+- Extended locale and browser coverage, including preservation of both parent
+  cards. All 12 focused tests and 21 human-preference checks pass; browser
+  syntax passes, but browser execution remains unverified.
+- These controls remain English in 59 locale paths. The broader backlog remains
+  51,575 ordinary untranslated values across 70 languages plus 153 pending
+  source keys.
 
 Thanks to xet7 !
 
@@ -2969,9 +3596,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/399d8787fb81e5205f7272f8a95b4ee1d65f0436">Fill Wolaytta map strings and verify map-view coverage across all locales</a></summary>
 
-- Filled seven Wolaytta placeholders. All seven map-view keys now have non-English values in all 234 non-English locales; low-confidence wording and further language review remain documented in the translation audit.
-- Expanded regression coverage to all locales and added Wolaytta browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
-- Removed seven keys from the pending inventory, reducing it to 153. The fresh ordinary backlog count remains 51,575 untranslated values across 70 languages. Structural coverage does not establish fluency.
+- Filled seven Wolaytta placeholders. All seven map-view keys now have
+  non-English values in all 234 non-English locales; low-confidence wording and
+  further language review remain documented in the translation audit.
+- Expanded regression coverage to all locales and added Wolaytta browser
+  coverage. All 12 focused tests and 21 human-preference checks pass; browser
+  syntax passes, but browser execution remains unverified.
+- Removed seven keys from the pending inventory, reducing it to 153. The fresh
+  ordinary backlog count remains 51,575 untranslated values across 70 languages.
+  Structural coverage does not establish fluency.
 
 Thanks to xet7 !
 
@@ -2980,9 +3613,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6131d3eed7f6e538ef70b53900f4a4a306cb5e21">Translate map view into Tigre</a></summary>
 
-- Filled seven placeholders. These are low-confidence drafts; vocabulary references, grammar limitations and possible Tigrinya interference are recorded in the translation audit.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution still awaits Playwright and a running application.
-- Wolaytta still has English map-view strings. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+- Filled seven placeholders. These are low-confidence drafts; vocabulary
+  references, grammar limitations and possible Tigrinya interference are
+  recorded in the translation audit.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  still awaits Playwright and a running application.
+- Wolaytta still has English map-view strings. The broader backlog remains
+  51,575 ordinary untranslated values across 70 languages plus 160 pending
+  source keys.
 
 Thanks to xet7 !
 
@@ -2991,9 +3630,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/29a4180ec324c9f1d30af22be20760f3178d68bc">Translate map view into Cherokee</a></summary>
 
-- Filled seven placeholders. The map label follows Cherokee Nation usage; technical sentences remain low-confidence drafts, with terminology references and limitations recorded in the translation audit.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution still awaits Playwright and a running application.
-- Two locale paths still have English map-view strings. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+- Filled seven placeholders. The map label follows Cherokee Nation usage;
+  technical sentences remain low-confidence drafts, with terminology references
+  and limitations recorded in the translation audit.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  still awaits Playwright and a running application.
+- Two locale paths still have English map-view strings. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 160
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -3002,9 +3647,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9169523ae25b78d2803ae20d3070c42ebbc78b5a">Translate map view into Inuktitut</a></summary>
 
-- Filled seven placeholders, retaining both placement methods and the image examples. Technical wording remains low confidence; terminology evidence and limitations are recorded in the translation audit.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution still awaits Playwright and a running application.
-- Three locale paths still have English map-view strings. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+- Filled seven placeholders, retaining both placement methods and the image
+  examples. Technical wording remains low confidence; terminology evidence and
+  limitations are recorded in the translation audit.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but browser execution
+  still awaits Playwright and a running application.
+- Three locale paths still have English map-view strings. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 160
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -3013,9 +3664,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f23a9d2a884406c6de2197958f1fde0738c72206">Translate map view into Nahuatl and Moroccan Tamazight</a></summary>
 
-- Filled 14 placeholders. Technical sentences in both languages remain low-confidence drafts; terminology references and limitations are recorded in the translation audit.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but execution awaits Playwright and a running application.
-- The seven map-view keys remain English in four locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+- Filled 14 placeholders. Technical sentences in both languages remain
+  low-confidence drafts; terminology references and limitations are recorded in
+  the translation audit.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but execution awaits
+  Playwright and a running application.
+- The seven map-view keys remain English in four locale paths. The broader
+  backlog remains 51,575 ordinary untranslated values across 70 languages plus
+  160 pending source keys.
 
 Thanks to xet7 !
 
@@ -3024,9 +3681,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f4b7124442a0577cf991badfc8122b2598436d92">Translate map view into Veps and Greenlandic.</a></summary>
 
-- Filled 14 placeholders. Veps compounds are low-confidence drafts; Greenlandic technical wording remains provisional.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but execution awaits Playwright and a running application.
-- The seven map-view keys remain English in six locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+- Filled 14 placeholders. Veps compounds are low-confidence drafts; Greenlandic
+  technical wording remains provisional.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but execution awaits
+  Playwright and a running application.
+- The seven map-view keys remain English in six locale paths. The broader
+  backlog remains 51,575 ordinary untranslated values across 70 languages plus
+  160 pending source keys.
 
 Thanks to xet7 !
 
@@ -3035,9 +3697,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/15e8f59fba49c93b51fb1f9ee019fbc6b62f9d81">Translate map view into Klingon and Volapuk.</a></summary>
 
-- Filled 14 placeholders and checked key vocabulary against dictionaries. Full technical sentences remain provisional.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but execution awaits Playwright and a running application.
-- The seven map-view keys remain English in eight locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+- Filled 14 placeholders and checked key vocabulary against dictionaries. Full
+  technical sentences remain provisional.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but execution awaits
+  Playwright and a running application.
+- The seven map-view keys remain English in eight locale paths. The broader
+  backlog remains 51,575 ordinary untranslated values across 70 languages plus
+  160 pending source keys.
 
 Thanks to xet7 !
 
@@ -3046,9 +3713,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d6b4fe7e5764bb793195bd19a167f160bacfba57">Translate map view into Northern Sami, Fulah and Kashmiri.</a></summary>
 
-- Filled 21 placeholders. Fulah and Kashmiri technical clauses are low-confidence drafts; floor-plan wording remains provisional.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but execution awaits Playwright and a running application.
-- The seven map-view keys remain English in 10 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+- Filled 21 placeholders. Fulah and Kashmiri technical clauses are
+  low-confidence drafts; floor-plan wording remains provisional.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but execution awaits
+  Playwright and a running application.
+- The seven map-view keys remain English in 10 locale paths. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 160
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -3057,9 +3729,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/dc4bfee6d9f2c84a404e9a629851a630390af85c">Translate map view into Quechua, Aymara and Guarani.</a></summary>
 
-- Filled 21 placeholders. Map compounds, floor-plan and upload wording remain provisional.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but execution awaits Playwright and a running application.
-- The seven map-view keys remain English in 13 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+- Filled 21 placeholders. Map compounds, floor-plan and upload wording remain
+  provisional.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but execution awaits
+  Playwright and a running application.
+- The seven map-view keys remain English in 13 locale paths. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 160
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -3068,9 +3745,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/172e75c074025679d79cc98899899e91c77052ba">Translate map view into Akan, Ewe and Bambara.</a></summary>
 
-- Filled 21 placeholders. Technical clauses remain provisional, particularly floor-plan, upload and click wording.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but execution awaits Playwright and a running application.
-- The seven map-view keys remain English in 16 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+- Filled 21 placeholders. Technical clauses remain provisional, particularly
+  floor-plan, upload and click wording.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but execution awaits
+  Playwright and a running application.
+- The seven map-view keys remain English in 16 locale paths. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 160
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -3079,9 +3761,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e064776ff18caf31bf808f94b9d898b47a6ceac8">Translate map view into Manx, Venetian and Aromanian.</a></summary>
 
-- Filled 21 placeholders. Aromanian technical clauses are low-confidence drafts; floor-plan wording remains provisional.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but execution awaits Playwright and a running application.
-- The seven map-view keys remain English in 19 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+- Filled 21 placeholders. Aromanian technical clauses are low-confidence drafts;
+  floor-plan wording remains provisional.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but execution awaits
+  Playwright and a running application.
+- The seven map-view keys remain English in 19 locale paths. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 160
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -3090,9 +3777,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4cf96773d93a9a06f1a5c35b87756b118bed9e4a">Translate map view into Tibetan, Dzongkha and Tigrinya.</a></summary>
 
-- Filled 21 placeholders. Technical wording remains provisional, particularly Dzongkha floor-plan terminology.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but execution awaits Playwright and a running application.
-- The seven map-view keys remain English in 22 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+- Filled 21 placeholders. Technical wording remains provisional, particularly
+  Dzongkha floor-plan terminology.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but execution awaits
+  Playwright and a running application.
+- The seven map-view keys remain English in 22 locale paths. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 160
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -3101,9 +3793,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3e73aa11f9b85929f0f508b96a2ee6ae38b7aaa3">Translate map view into Buryat, Chuvash and Sakha.</a></summary>
 
-- Filled 21 placeholders. Technical sentences remain provisional, particularly Chuvash floor-plan wording.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but execution awaits Playwright and a running application.
-- The seven map-view keys remain English in 25 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+- Filled 21 placeholders. Technical sentences remain provisional, particularly
+  Chuvash floor-plan wording.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but execution awaits
+  Playwright and a running application.
+- The seven map-view keys remain English in 25 locale paths. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 160
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -3112,9 +3809,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ba1845e9ee1193dbd3cd1aaf62ed3fe7a711b16b">Translate map view into Waray, Fijian, Tongan, Luganda and Wolof.</a></summary>
 
-- Filled 35 placeholders. Technical phrases, especially floor-plan wording and the Wolof map/card distinction, remain provisional.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but execution awaits Playwright and a running application.
-- The seven map-view keys remain English in 28 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+- Filled 35 placeholders. Technical phrases, especially floor-plan wording and
+  the Wolof map/card distinction, remain provisional.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but execution awaits
+  Playwright and a running application.
+- The seven map-view keys remain English in 28 locale paths. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 160
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -3123,9 +3825,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3008049d2368945aabc234435048bc228cc8f71b">Translate map view into Papiamento, Walloon, Acehnese and Hawaiian.</a></summary>
 
-- Filled 28 placeholders. Walloon and Acehnese technical phrases are low-confidence drafts; floor-plan wording remains provisional.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but execution awaits Playwright and a running application.
-- The seven map-view keys remain English in 33 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+- Filled 28 placeholders. Walloon and Acehnese technical phrases are
+  low-confidence drafts; floor-plan wording remains provisional.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but execution awaits
+  Playwright and a running application.
+- The seven map-view keys remain English in 33 locale paths. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 160
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -3134,9 +3841,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/44e386567359d1697696894f792de789eb84f91c">Translate map view into Bislama, Tok Pisin, Maori and Samoan.</a></summary>
 
-- Filled 28 placeholders. Floor-plan phrases and Samoan UI wording remain provisional.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but execution awaits Playwright and a running application.
-- The seven map-view keys remain English in 37 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+- Filled 28 placeholders. Floor-plan phrases and Samoan UI wording remain
+  provisional.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but execution awaits
+  Playwright and a running application.
+- The seven map-view keys remain English in 37 locale paths. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 160
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -3145,9 +3857,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0b1aab5795362d96d854fe6e12b09f72270e37d4">Translate map view into Swati, Ndebele, Tsonga and Venda.</a></summary>
 
-- Filled 28 placeholders. Technical wording remains provisional, especially floor-plan and click terminology.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but execution awaits Playwright and a running application.
-- The seven map-view keys remain English in 41 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+- Filled 28 placeholders. Technical wording remains provisional, especially
+  floor-plan and click terminology.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but execution awaits
+  Playwright and a running application.
+- The seven map-view keys remain English in 41 locale paths. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 160
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -3156,9 +3873,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/521228a31b47f61327f2c28b717f937045253e60">Translate map view into Sesotho, Setswana, Northern Sotho, Zulu and Xhosa.</a></summary>
 
-- Filled 42 placeholders across six locale files, including both Zulu paths. Floor-plan terminology remains provisional, especially Northern Sotho.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but execution awaits Playwright and a running application.
-- The seven map-view keys remain English in 45 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+- Filled 42 placeholders across six locale files, including both Zulu paths.
+  Floor-plan terminology remains provisional, especially Northern Sotho.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but execution awaits
+  Playwright and a running application.
+- The seven map-view keys remain English in 45 locale paths. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 160
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -3167,9 +3889,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a394fc63bc6eda730b6e7ab2d3d56933bd120d00">Translate map view into Somali, Oromo, Kinyarwanda, Kirundi and Chichewa.</a></summary>
 
-- Filled 35 placeholders and distinguished map and task-card terms in Kinyarwanda and Kirundi. Technical sentences and floor-plan terms remain provisional.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but execution awaits Playwright and a running application.
-- The seven map-view keys remain English in 51 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+- Filled 35 placeholders and distinguished map and task-card terms in
+  Kinyarwanda and Kirundi. Technical sentences and floor-plan terms remain
+  provisional.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but execution awaits
+  Playwright and a running application.
+- The seven map-view keys remain English in 51 locale paths. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 160
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -3178,9 +3906,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5b02a46d525f1d6ac24e60d45f61e37f90f5f26a">Translate map view into Moroccan Arabic, Bhojpuri, Maithili, Odia and Konkani.</a></summary>
 
-- Filled 35 placeholders, preserving both placement methods and map-image examples. Technical phrases remain provisional, especially the Konkani floor-plan wording.
-- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but execution awaits Playwright and a running application.
-- The seven map-view keys remain English in 56 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+- Filled 35 placeholders, preserving both placement methods and map-image
+  examples. Technical phrases remain provisional, especially the Konkani
+  floor-plan wording.
+- Extended locale and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but execution awaits
+  Playwright and a running application.
+- The seven map-view keys remain English in 56 locale paths. The broader backlog
+  remains 51,575 ordinary untranslated values across 70 languages plus 160
+  pending source keys.
 
 Thanks to xet7 !
 
@@ -3189,9 +3923,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bab737e36465a98168a1b9a2a2df15aa5dac1f0b">Translate map-view messages into Kurdish, Sorani, Tatar, Turkmen and Yiddish.</a></summary>
 
-- Filled 35 placeholders, including upload/removal controls and both card-placement methods. Technical wording remains provisional, especially Turkmen.
-- Extended regression and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but execution awaits Playwright and a running application.
-- These seven map-view keys remain English in 61 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+- Filled 35 placeholders, including upload/removal controls and both
+  card-placement methods. Technical wording remains provisional, especially
+  Turkmen.
+- Extended regression and browser coverage. All 12 focused tests and 21
+  human-preference checks pass; browser syntax passes, but execution awaits
+  Playwright and a running application.
+- These seven map-view keys remain English in 61 locale paths. The broader
+  backlog remains 51,575 ordinary untranslated values across 70 languages plus
+  160 pending source keys.
 
 Thanks to xet7 !
 
@@ -3200,9 +3940,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/208c052c844f052cfddc5f8ca2a5194fce1985cc">Complete history-recovery placeholder coverage in all languages.</a></summary>
 
-- Filled five Cherokee messages with provisional, low-confidence wording. All five recovery messages now have non-English values in all 234 non-English locale paths; linguistic review remains open.
-- Extended the regression to all locales and added the Cherokee browser scenario. The 13 focused tests and 21 human-preference checks pass. Browser syntax passes; execution awaits Playwright and a running application.
-- Removed these five source keys from the pending queue, leaving 160. The ordinary backlog remains 51,575 untranslated locale/string values across 70 languages; coverage does not establish fluent wording.
+- Filled five Cherokee messages with provisional, low-confidence wording. All
+  five recovery messages now have non-English values in all 234 non-English
+  locale paths; linguistic review remains open.
+- Extended the regression to all locales and added the Cherokee browser
+  scenario. The 13 focused tests and 21 human-preference checks pass. Browser
+  syntax passes; execution awaits Playwright and a running application.
+- Removed these five source keys from the pending queue, leaving 160. The
+  ordinary backlog remains 51,575 untranslated locale/string values across 70
+  languages; coverage does not establish fluent wording.
 
 Thanks to xet7 !
 
@@ -3211,513 +3957,891 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/69b151f2e52ab975bd712de25a9c7840f81a55fe">Translate history recovery in Tigre</a>. Thanks to xet7.</summary>
 
-- Translate five recovery messages, preserving undo/redo, retry/forget and safe request repetition. Full clauses and technical wording are low-confidence drafts for language review.
-- Translation/token, recovery-notice, request-logic and 234-locale structural tests pass, along with human-preference checks. Localized browser cases are syntax-checked; execution requires Playwright and a running application.
-- This five-key group remains English in one locale: Cherokee. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+- Translate five recovery messages, preserving undo/redo, retry/forget and safe
+  request repetition. Full clauses and technical wording are low-confidence
+  drafts for language review.
+- Translation/token, recovery-notice, request-logic and 234-locale structural
+  tests pass, along with human-preference checks. Localized browser cases are
+  syntax-checked; execution requires Playwright and a running application.
+- This five-key group remains English in one locale: Cherokee. The broader
+  backlog remains 51,575 ordinary missing values across 70 languages and 165
+  pending source keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9daaa68ccddc39112cd9d7b6a4e548cfb46b9838">Translate history recovery in Wolaytta</a>. Thanks to xet7.</summary>
 
-- Translate five recovery messages, preserving undo/redo, retry/forget and safe request repetition. Full clauses and technical wording are low-confidence drafts for language review.
-- Translation/token, recovery-notice, request-logic and 234-locale structural tests pass, along with human-preference checks. Localized browser cases are syntax-checked; execution requires Playwright and a running application.
-- This five-key group remains English in 2 locales: Tigre and Cherokee. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+- Translate five recovery messages, preserving undo/redo, retry/forget and safe
+  request repetition. Full clauses and technical wording are low-confidence
+  drafts for language review.
+- Translation/token, recovery-notice, request-logic and 234-locale structural
+  tests pass, along with human-preference checks. Localized browser cases are
+  syntax-checked; execution requires Playwright and a running application.
+- This five-key group remains English in 2 locales: Tigre and Cherokee. The
+  broader backlog remains 51,575 ordinary missing values across 70 languages and
+  165 pending source keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/aade6ac1ec63b51de15dd2bab76c11ba15447171">Translate history recovery in Inuktitut</a>. Thanks to xet7.</summary>
 
-- Translate five recovery messages, preserving undo/redo, retry/forget and safe request repetition. Full clauses and technical wording are low-confidence drafts for language review.
-- Translation/token, recovery-notice, request-logic and 234-locale structural tests pass, along with human-preference checks. Localized browser cases are syntax-checked; execution requires Playwright and a running application.
-- This five-key group remains English in 3 locales: Tigre, Cherokee and Wolaytta. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+- Translate five recovery messages, preserving undo/redo, retry/forget and safe
+  request repetition. Full clauses and technical wording are low-confidence
+  drafts for language review.
+- Translation/token, recovery-notice, request-logic and 234-locale structural
+  tests pass, along with human-preference checks. Localized browser cases are
+  syntax-checked; execution requires Playwright and a running application.
+- This five-key group remains English in 3 locales: Tigre, Cherokee and
+  Wolaytta. The broader backlog remains 51,575 ordinary missing values across 70
+  languages and 165 pending source keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d5666d8d5d8c863c29a832427b044251bb33c763">Translate history recovery in Nahuatl and Tamazight</a>. Thanks to xet7.</summary>
 
-- Translate 10 recovery messages, preserving undo/redo, retry/forget and safe request repetition. Full clauses and technical wording are low-confidence drafts for language review.
-- Translation/token, recovery-notice, request-logic and 234-locale structural tests pass, along with human-preference checks. Localized browser cases are syntax-checked; execution requires Playwright and a running application.
-- This five-key group remains English in 4 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+- Translate 10 recovery messages, preserving undo/redo, retry/forget and safe
+  request repetition. Full clauses and technical wording are low-confidence
+  drafts for language review.
+- Translation/token, recovery-notice, request-logic and 234-locale structural
+  tests pass, along with human-preference checks. Localized browser cases are
+  syntax-checked; execution requires Playwright and a running application.
+- This five-key group remains English in 4 locales. The broader backlog remains
+  51,575 ordinary missing values across 70 languages and 165 pending source
+  keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fafca4f49ee646878b05515d80f2458eff97639f">Translate history recovery in Veps and Greenlandic</a>. Thanks to xet7.</summary>
 
-- Translate 10 recovery messages, preserving undo/redo, retry/forget and safe request repetition. Full clauses and technical wording are low-confidence drafts for language review.
-- Translation/token, recovery-notice, request-logic and 234-locale structural tests pass, along with human-preference checks. Localized browser cases are syntax-checked; execution requires Playwright and a running application.
-- This five-key group remains English in 6 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+- Translate 10 recovery messages, preserving undo/redo, retry/forget and safe
+  request repetition. Full clauses and technical wording are low-confidence
+  drafts for language review.
+- Translation/token, recovery-notice, request-logic and 234-locale structural
+  tests pass, along with human-preference checks. Localized browser cases are
+  syntax-checked; execution requires Playwright and a running application.
+- This five-key group remains English in 6 locales. The broader backlog remains
+  51,575 ordinary missing values across 70 languages and 165 pending source
+  keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4708cfacb86bafd3665c68f08708ce37ff8cc7db">Translate history recovery in Klingon and Volapük</a>. Thanks to xet7.</summary>
 
-- Translate 10 recovery messages, preserving undo/redo, retry/forget and safe request repetition. Full clauses and technical wording remain provisional for language review.
-- Translation/token, recovery-notice, request-logic and 234-locale structural tests pass, along with human-preference checks. Localized browser cases are syntax-checked; execution requires Playwright and a running application.
-- This five-key group remains English in 8 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+- Translate 10 recovery messages, preserving undo/redo, retry/forget and safe
+  request repetition. Full clauses and technical wording remain provisional for
+  language review.
+- Translation/token, recovery-notice, request-logic and 234-locale structural
+  tests pass, along with human-preference checks. Localized browser cases are
+  syntax-checked; execution requires Playwright and a running application.
+- This five-key group remains English in 8 locales. The broader backlog remains
+  51,575 ordinary missing values across 70 languages and 165 pending source
+  keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4e99ccda86ade8b6d67f7809090d5092da3bea4a">Translate history recovery in Northern Sámi, Fulah and Kashmiri</a>. Thanks to xet7.</summary>
 
-- Translate 15 recovery messages, preserving undo/redo, retry/forget and safe request repetition. Full clauses and technical wording are low-confidence drafts for language review.
-- Translation/token, recovery-notice, request-logic and 234-locale structural tests pass, along with human-preference checks. Localized browser cases are syntax-checked; execution requires Playwright and a running application.
-- This five-key group remains English in 10 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+- Translate 15 recovery messages, preserving undo/redo, retry/forget and safe
+  request repetition. Full clauses and technical wording are low-confidence
+  drafts for language review.
+- Translation/token, recovery-notice, request-logic and 234-locale structural
+  tests pass, along with human-preference checks. Localized browser cases are
+  syntax-checked; execution requires Playwright and a running application.
+- This five-key group remains English in 10 locales. The broader backlog remains
+  51,575 ordinary missing values across 70 languages and 165 pending source
+  keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ef2dcedf2a2f8aadb95db9dfb2b363d013e43c23">Translate history recovery in Quechua, Aymara and Guarani</a>. Thanks to xet7.</summary>
 
-- Translate 15 recovery messages, preserving undo/redo, retry/forget and safe request repetition. Full clauses and technical wording are low-confidence drafts for language review.
-- Translation/token, recovery-notice, request-logic and 234-locale structural tests pass, along with human-preference checks. Localized browser cases are syntax-checked; execution requires Playwright and a running application.
-- This five-key group remains English in 13 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+- Translate 15 recovery messages, preserving undo/redo, retry/forget and safe
+  request repetition. Full clauses and technical wording are low-confidence
+  drafts for language review.
+- Translation/token, recovery-notice, request-logic and 234-locale structural
+  tests pass, along with human-preference checks. Localized browser cases are
+  syntax-checked; execution requires Playwright and a running application.
+- This five-key group remains English in 13 locales. The broader backlog remains
+  51,575 ordinary missing values across 70 languages and 165 pending source
+  keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/119e6648c81d0dd51ce1a6ec07996cd04fc83334">Translate history recovery in Akan, Ewe and Bambara</a>. Thanks to xet7.</summary>
 
-- Translate 15 recovery messages, preserving undo/redo, retry/forget and safe request repetition. Full clauses and technical wording are low-confidence drafts for language review.
-- Translation/token, recovery-notice, request-logic and 234-locale structural tests pass, along with human-preference checks. Localized browser cases are syntax-checked; execution requires Playwright and a running application.
-- This five-key group remains English in 16 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+- Translate 15 recovery messages, preserving undo/redo, retry/forget and safe
+  request repetition. Full clauses and technical wording are low-confidence
+  drafts for language review.
+- Translation/token, recovery-notice, request-logic and 234-locale structural
+  tests pass, along with human-preference checks. Localized browser cases are
+  syntax-checked; execution requires Playwright and a running application.
+- This five-key group remains English in 16 locales. The broader backlog remains
+  51,575 ordinary missing values across 70 languages and 165 pending source
+  keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/291e4a4e5f955e43ab639d62bf8574c62d587858">Translate history recovery in Manx, Venetian and Aromanian</a>. Thanks to xet7.</summary>
 
-- Translate 15 recovery messages, preserving undo/redo, retry/forget and safe request repetition. Full clauses and technical wording are low-confidence drafts for language review.
-- Translation/token, recovery-notice, request-logic and 234-locale structural tests pass, along with human-preference checks. Localized browser cases are syntax-checked; execution requires Playwright and a running application.
-- This five-key group remains English in 19 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+- Translate 15 recovery messages, preserving undo/redo, retry/forget and safe
+  request repetition. Full clauses and technical wording are low-confidence
+  drafts for language review.
+- Translation/token, recovery-notice, request-logic and 234-locale structural
+  tests pass, along with human-preference checks. Localized browser cases are
+  syntax-checked; execution requires Playwright and a running application.
+- This five-key group remains English in 19 locales. The broader backlog remains
+  51,575 ordinary missing values across 70 languages and 165 pending source
+  keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ee0cddff894ef302d44a968e5f3c403ae9f8c170">Translate history recovery in Tibetan, Dzongkha and Tigrinya</a>. Thanks to xet7.</summary>
 
-- Translate 15 recovery messages, preserving undo/redo, retry/forget and safe request repetition. Full clauses and technical wording are low-confidence drafts for language review.
-- Translation/token, recovery-notice, request-logic and 234-locale structural tests pass, along with human-preference checks. Localized browser cases are syntax-checked; execution requires Playwright and a running application.
-- This five-key group remains English in 22 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+- Translate 15 recovery messages, preserving undo/redo, retry/forget and safe
+  request repetition. Full clauses and technical wording are low-confidence
+  drafts for language review.
+- Translation/token, recovery-notice, request-logic and 234-locale structural
+  tests pass, along with human-preference checks. Localized browser cases are
+  syntax-checked; execution requires Playwright and a running application.
+- This five-key group remains English in 22 locales. The broader backlog remains
+  51,575 ordinary missing values across 70 languages and 165 pending source
+  keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4bb22322f524ee34f7557e74d96d2034bff4a2ff">Translate history recovery in Buryat, Chuvash and Sakha</a>. Thanks to xet7.</summary>
 
-- Translate 15 recovery messages, preserving undo/redo, retry/forget and safe request repetition. Full clauses and technical wording are low-confidence drafts for language review.
-- Translation/token, recovery-notice, request-logic and 234-locale structural tests pass, along with human-preference checks. Localized browser cases are syntax-checked; execution requires Playwright and a running application.
-- This five-key group remains English in 25 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+- Translate 15 recovery messages, preserving undo/redo, retry/forget and safe
+  request repetition. Full clauses and technical wording are low-confidence
+  drafts for language review.
+- Translation/token, recovery-notice, request-logic and 234-locale structural
+  tests pass, along with human-preference checks. Localized browser cases are
+  syntax-checked; execution requires Playwright and a running application.
+- This five-key group remains English in 25 locales. The broader backlog remains
+  51,575 ordinary missing values across 70 languages and 165 pending source
+  keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0f9c7196928cb6c8a3c3737abcd834345217c92c">Translate history recovery in Waray, Fijian, Tongan, Luganda and Wolof</a>. Thanks to xet7.</summary>
 
-- Translate 25 recovery messages, preserving undo/redo, retry/forget and safe request repetition. Full clauses and technical wording remain provisional for language review.
-- Translation/token, recovery-notice, request-logic and 234-locale structural tests pass, along with human-preference checks. Localized browser cases are syntax-checked; execution requires Playwright and a running application.
-- This five-key group remains English in 28 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+- Translate 25 recovery messages, preserving undo/redo, retry/forget and safe
+  request repetition. Full clauses and technical wording remain provisional for
+  language review.
+- Translation/token, recovery-notice, request-logic and 234-locale structural
+  tests pass, along with human-preference checks. Localized browser cases are
+  syntax-checked; execution requires Playwright and a running application.
+- This five-key group remains English in 28 locales. The broader backlog remains
+  51,575 ordinary missing values across 70 languages and 165 pending source
+  keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5f7f29363962373a9584c5c67bdeee98ca90df78">Translate history recovery in Papiamentu, Walloon, Acehnese and Hawaiian</a>. Thanks to xet7.</summary>
 
-- Translate 20 recovery messages, preserving undo/redo, retry/forget and safe request repetition. Full clauses and technical wording remain provisional for language review.
-- Translation/token, recovery-notice, request-logic and 234-locale structural tests pass, along with human-preference checks. Localized browser cases are syntax-checked; execution requires Playwright and a running application.
-- This five-key group remains English in 33 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+- Translate 20 recovery messages, preserving undo/redo, retry/forget and safe
+  request repetition. Full clauses and technical wording remain provisional for
+  language review.
+- Translation/token, recovery-notice, request-logic and 234-locale structural
+  tests pass, along with human-preference checks. Localized browser cases are
+  syntax-checked; execution requires Playwright and a running application.
+- This five-key group remains English in 33 locales. The broader backlog remains
+  51,575 ordinary missing values across 70 languages and 165 pending source
+  keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8a52901739385df5e82f9428838f7013a6a5c284">Translate history recovery in Bislama, Tok Pisin, Māori and Samoan</a>. Thanks to xet7.</summary>
 
-- Translate 20 recovery messages, preserving undo/redo, retry/forget and safe request repetition. Full clauses and technical wording remain provisional for language review.
-- Translation/token, recovery-notice, request-logic and 234-locale structural tests pass, along with human-preference checks. Localized browser cases are syntax-checked; execution requires Playwright and a running application.
-- This five-key group remains English in 37 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+- Translate 20 recovery messages, preserving undo/redo, retry/forget and safe
+  request repetition. Full clauses and technical wording remain provisional for
+  language review.
+- Translation/token, recovery-notice, request-logic and 234-locale structural
+  tests pass, along with human-preference checks. Localized browser cases are
+  syntax-checked; execution requires Playwright and a running application.
+- This five-key group remains English in 37 locales. The broader backlog remains
+  51,575 ordinary missing values across 70 languages and 165 pending source
+  keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/57afc10e49803118e009a2e860d7fad55df3df2f">Translate history recovery in Swati, Ndebele, Tsonga and Venda</a>. Thanks to xet7.</summary>
 
-- Translate 20 recovery messages, preserving undo/redo, retry/forget and safe request repetition. Full clauses and technical wording remain provisional for language review.
-- Translation/token, recovery-notice, request-logic and 234-locale structural tests pass, along with human-preference checks. Localized browser cases are syntax-checked; execution requires Playwright and a running application.
-- This five-key group remains English in 41 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+- Translate 20 recovery messages, preserving undo/redo, retry/forget and safe
+  request repetition. Full clauses and technical wording remain provisional for
+  language review.
+- Translation/token, recovery-notice, request-logic and 234-locale structural
+  tests pass, along with human-preference checks. Localized browser cases are
+  syntax-checked; execution requires Playwright and a running application.
+- This five-key group remains English in 41 locales. The broader backlog remains
+  51,575 ordinary missing values across 70 languages and 165 pending source
+  keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c3c1a3ddfb30220375deab17737f510f59a6ac60">Translate history recovery in southern African locales</a>. Thanks to xet7.</summary>
 
-- Translate 30 recovery messages across Southern Sotho, Tswana, Northern Sotho, both Zulu variants and Xhosa, preserving undo/redo, retry/forget and safe request repetition. Full clauses and technical wording remain provisional for language review.
-- Translation/token, recovery-notice, request-logic and 234-locale structural tests pass, along with human-preference checks. Localized browser cases are syntax-checked; execution requires Playwright and a running application.
-- This five-key group remains English in 45 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+- Translate 30 recovery messages across Southern Sotho, Tswana, Northern Sotho,
+  both Zulu variants and Xhosa, preserving undo/redo, retry/forget and safe
+  request repetition. Full clauses and technical wording remain provisional for
+  language review.
+- Translation/token, recovery-notice, request-logic and 234-locale structural
+  tests pass, along with human-preference checks. Localized browser cases are
+  syntax-checked; execution requires Playwright and a running application.
+- This five-key group remains English in 45 locales. The broader backlog remains
+  51,575 ordinary missing values across 70 languages and 165 pending source
+  keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5349fc057c6872f6ed4abf81d430295c020f1555">Translate history recovery in five African languages</a>. Thanks to xet7.</summary>
 
-- Translate 25 recovery messages in Somali, Oromo, Kinyarwanda, Kirundi and Chichewa, keeping undo/redo, retry/forget and safe request repetition distinct. Full clauses and technical wording remain provisional for language review.
-- Translation/token, recovery-notice, request-logic and 234-locale structural tests pass, along with human-preference checks. Localized browser cases are syntax-checked; execution requires Playwright and a running application.
-- This five-key group remains English in 51 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+- Translate 25 recovery messages in Somali, Oromo, Kinyarwanda, Kirundi and
+  Chichewa, keeping undo/redo, retry/forget and safe request repetition
+  distinct. Full clauses and technical wording remain provisional for language
+  review.
+- Translation/token, recovery-notice, request-logic and 234-locale structural
+  tests pass, along with human-preference checks. Localized browser cases are
+  syntax-checked; execution requires Playwright and a running application.
+- This five-key group remains English in 51 locales. The broader backlog remains
+  51,575 ordinary missing values across 70 languages and 165 pending source
+  keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/18c0b640261248f2d19ab1366ffaaef4f2345899">Translate more history recovery messages</a>. Thanks to xet7.</summary>
 
-- Translate 25 recovery messages in Moroccan Arabic, Bhojpuri, Maithili, Odia and Konkani, keeping undo/redo, retry/forget and safe request repetition distinct. Full clauses and technical wording remain provisional for language review.
-- Translation/token, recovery-notice, request-logic and 234-locale structural tests pass, along with human-preference checks. Localized browser cases are syntax-checked; execution requires Playwright and a running application.
-- This five-key group remains English in 56 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+- Translate 25 recovery messages in Moroccan Arabic, Bhojpuri, Maithili, Odia
+  and Konkani, keeping undo/redo, retry/forget and safe request repetition
+  distinct. Full clauses and technical wording remain provisional for language
+  review.
+- Translation/token, recovery-notice, request-logic and 234-locale structural
+  tests pass, along with human-preference checks. Localized browser cases are
+  syntax-checked; execution requires Playwright and a running application.
+- This five-key group remains English in 56 locales. The broader backlog remains
+  51,575 ordinary missing values across 70 languages and 165 pending source
+  keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0acb21a162c19d32896f986a33607e6e102830d7">Translate history recovery in five languages</a>. Thanks to xet7.</summary>
 
-- Translate 25 recovery messages in Kurmanji, Sorani, Tatar, Turkmen and Yiddish, distinguishing undo/redo and retry/forget while explaining safe request repetition. Full clauses and technical wording remain provisional for language review.
-- Translation/token, recovery-notice, request-logic and 234-locale structural tests pass, along with human-preference checks. Localized browser cases retain positive and negative behavior coverage; syntax checks pass, but browser execution requires Playwright and a running application.
-- This five-key group remains English in 61 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+- Translate 25 recovery messages in Kurmanji, Sorani, Tatar, Turkmen and
+  Yiddish, distinguishing undo/redo and retry/forget while explaining safe
+  request repetition. Full clauses and technical wording remain provisional for
+  language review.
+- Translation/token, recovery-notice, request-logic and 234-locale structural
+  tests pass, along with human-preference checks. Localized browser cases retain
+  positive and negative behavior coverage; syntax checks pass, but browser
+  execution requires Playwright and a running application.
+- This five-key group remains English in 61 locales. The broader backlog remains
+  51,575 ordinary missing values across 70 languages and 165 pending source
+  keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/44cecb2cb7aa853ff8def0d820d6538e83709774">Complete import-report placeholder coverage across locales</a>. Thanks to xet7.</summary>
 
-- Translate the remaining Cherokee import messages. All 234 non-English locales now have nonempty, non-English values for this three-key group. Cherokee sentences and broader provisional wording still need language review.
-- Expand regression coverage to every non-English locale, preserving Hebrew/Persian navigation arrows, source order and interpolation tokens. Translation, import-loss, structural and human-preference checks pass. Browser cases are syntax-checked; execution requires Playwright and a running application.
-- Remove the three filled keys from the pending inventory, leaving 165. A fresh report still counts 51,575 ordinary missing values across 70 languages; language-quality review and the broader translation task remain open.
+- Translate the remaining Cherokee import messages. All 234 non-English locales
+  now have nonempty, non-English values for this three-key group. Cherokee
+  sentences and broader provisional wording still need language review.
+- Expand regression coverage to every non-English locale, preserving
+  Hebrew/Persian navigation arrows, source order and interpolation tokens.
+  Translation, import-loss, structural and human-preference checks pass. Browser
+  cases are syntax-checked; execution requires Playwright and a running
+  application.
+- Remove the three filled keys from the pending inventory, leaving 165. A fresh
+  report still counts 51,575 ordinary missing values across 70 languages;
+  language-quality review and the broader translation task remain open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/802440b7c097e6caeccef082ef9fdb38f42f577d">Translate import reports in Tigre</a>. Thanks to xet7.</summary>
 
-- Translate three import-report messages and replace a Tigrinya Admin Panel phrase with Tigre wording. Full sentences, warning paraphrase and technical terminology remain low confidence, documented in the translation audit.
-- Translation/token, import-loss and 234-locale structural tests pass, along with human-preference checks. The Tigre browser case is syntax-checked; execution requires Playwright and a running application.
-- This group remains English in Cherokee only. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+- Translate three import-report messages and replace a Tigrinya Admin Panel
+  phrase with Tigre wording. Full sentences, warning paraphrase and technical
+  terminology remain low confidence, documented in the translation audit.
+- Translation/token, import-loss and 234-locale structural tests pass, along
+  with human-preference checks. The Tigre browser case is syntax-checked;
+  execution requires Playwright and a running application.
+- This group remains English in Cherokee only. The broader backlog remains
+  51,575 ordinary missing values across 70 languages and 168 pending source
+  keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f6400c6f9f480f3084cf631616c965c7e90990e1">Translate import reports in Tamazight</a>. Thanks to xet7.</summary>
 
-- Translate three import-report messages and replace the Arabic Admin Panel label with Tamazight wording. Full sentences and technical terminology remain low confidence, documented in the translation audit.
-- Translation/token, import-loss and 234-locale structural tests pass, along with human-preference checks. The Tamazight browser case is syntax-checked; execution requires Playwright and a running application.
-- This group remains English in two locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+- Translate three import-report messages and replace the Arabic Admin Panel
+  label with Tamazight wording. Full sentences and technical terminology remain
+  low confidence, documented in the translation audit.
+- Translation/token, import-loss and 234-locale structural tests pass, along
+  with human-preference checks. The Tamazight browser case is syntax-checked;
+  execution requires Playwright and a running application.
+- This group remains English in two locales. The broader backlog remains 51,575
+  ordinary missing values across 70 languages and 168 pending source keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/34bfeb77ca1c3891e0e8302ec5888cb5e11ea6c6">Translate import reports in Inuktitut</a>. Thanks to xet7.</summary>
 
-- Translate three import-report messages, retaining board creation, incomplete transfer and recovery navigation. Full sentences and technical terminology remain low confidence, documented in the translation audit.
-- Translation/token, import-loss and 234-locale structural tests pass, along with human-preference checks. The Inuktitut browser case is syntax-checked; execution requires Playwright and a running application.
-- This group remains English in three locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+- Translate three import-report messages, retaining board creation, incomplete
+  transfer and recovery navigation. Full sentences and technical terminology
+  remain low confidence, documented in the translation audit.
+- Translation/token, import-loss and 234-locale structural tests pass, along
+  with human-preference checks. The Inuktitut browser case is syntax-checked;
+  execution requires Playwright and a running application.
+- This group remains English in three locales. The broader backlog remains
+  51,575 ordinary missing values across 70 languages and 168 pending source
+  keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9af64cf7191926029d14f555d5a8532915434404">Translate import reports in Wolaytta</a>. Thanks to xet7.</summary>
 
-- Translate three import-report messages and replace two prefixed-English recovery-menu labels. Full sentences and technical terminology remain low confidence, documented in the translation audit.
-- Translation/token, import-loss and 234-locale structural tests pass, along with human-preference checks. The Wolaytta browser case is syntax-checked; execution requires Playwright and a running application.
-- This group remains English in four locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+- Translate three import-report messages and replace two prefixed-English
+  recovery-menu labels. Full sentences and technical terminology remain low
+  confidence, documented in the translation audit.
+- Translation/token, import-loss and 234-locale structural tests pass, along
+  with human-preference checks. The Wolaytta browser case is syntax-checked;
+  execution requires Playwright and a running application.
+- This group remains English in four locales. The broader backlog remains 51,575
+  ordinary missing values across 70 languages and 168 pending source keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ae9af70f64bc1458b9b4ca8cf65b0ac8ef833d7a">Translate import reports in Greenlandic and Nahuatl</a>. Thanks to xet7.</summary>
 
-- Translate six import-report messages, retaining board creation, incomplete transfer and recovery navigation. Full clauses and technical terminology remain low confidence, documented in the translation audit.
-- Translation/token, import-loss and 234-locale structural tests pass, along with human-preference checks. Both browser cases are syntax-checked; execution requires Playwright and a running application.
-- This group remains English in five locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+- Translate six import-report messages, retaining board creation, incomplete
+  transfer and recovery navigation. Full clauses and technical terminology
+  remain low confidence, documented in the translation audit.
+- Translation/token, import-loss and 234-locale structural tests pass, along
+  with human-preference checks. Both browser cases are syntax-checked; execution
+  requires Playwright and a running application.
+- This group remains English in five locales. The broader backlog remains 51,575
+  ordinary missing values across 70 languages and 168 pending source keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/90e72235594e885db9b8b62c3b932ad907c67723">Translate import reports in Veps</a>. Thanks to xet7.</summary>
 
-- Translate three import-report messages and replace a Venda recovery-menu seed in Veps. Full clauses and derived terminology remain low confidence, documented in the translation audit.
-- Translation/token, import-loss and 234-locale structural tests pass, along with human-preference checks. The Veps browser case is syntax-checked; browser execution requires Playwright and a running application.
-- This group remains English in seven locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+- Translate three import-report messages and replace a Venda recovery-menu seed
+  in Veps. Full clauses and derived terminology remain low confidence,
+  documented in the translation audit.
+- Translation/token, import-loss and 234-locale structural tests pass, along
+  with human-preference checks. The Veps browser case is syntax-checked; browser
+  execution requires Playwright and a running application.
+- This group remains English in seven locales. The broader backlog remains
+  51,575 ordinary missing values across 70 languages and 168 pending source
+  keys.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ec3a8cd7981850b51b371e544817becbd997fd91">Translate import reports in Volapük</a>. Thanks to xet7.</summary>
 
-- Fill three English values for import warnings, incomplete transfer explanations and opening the created board. Preserve existing translations and recovery paths. Low-confidence grammar and technical phrasing remain recorded for fluent-speaker review.
-- Extend source-order, placeholder and localized browser coverage. Translation, import-loss and human-preference checks pass; browser coverage was syntax-checked only because the local Playwright executable and running application are unavailable.
-- These three keys remain English in eight locales. The broader backlog remains 51,575 ordinary missing values and 168 pending source keys, with language-quality review open.
+- Fill three English values for import warnings, incomplete transfer
+  explanations and opening the created board. Preserve existing translations and
+  recovery paths. Low-confidence grammar and technical phrasing remain recorded
+  for fluent-speaker review.
+- Extend source-order, placeholder and localized browser coverage. Translation,
+  import-loss and human-preference checks pass; browser coverage was
+  syntax-checked only because the local Playwright executable and running
+  application are unavailable.
+- These three keys remain English in eight locales. The broader backlog remains
+  51,575 ordinary missing values and 168 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d94f256dcbe559121f225bfd075e4f37d05f454e">Translate import reports in Tigrinya and Klingon</a>. Thanks to xet7.</summary>
 
-- Fill six English values for import warnings, incomplete transfer explanations and opening the created board. Preserve existing translations and recovery paths. Low-confidence grammar and technical paraphrases remain recorded for fluent-speaker review.
-- Extend source-order, placeholder and localized browser coverage. Translation, import-loss and human-preference checks pass; browser cases were syntax-checked only because the local Playwright executable and running application are unavailable.
-- These three keys remain English in nine locales. The broader backlog remains 51,575 ordinary missing values and 168 pending source keys, with language-quality review open.
+- Fill six English values for import warnings, incomplete transfer explanations
+  and opening the created board. Preserve existing translations and recovery
+  paths. Low-confidence grammar and technical paraphrases remain recorded for
+  fluent-speaker review.
+- Extend source-order, placeholder and localized browser coverage. Translation,
+  import-loss and human-preference checks pass; browser cases were
+  syntax-checked only because the local Playwright executable and running
+  application are unavailable.
+- These three keys remain English in nine locales. The broader backlog remains
+  51,575 ordinary missing values and 168 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b6e0289a4209fb90097c74729ba590c6a60a6d90">Translate import reports in Guarani, Quechua and Aymara</a>. Thanks to xet7.</summary>
 
-- Fill nine English values and replace four prefixed-English menu labels in Quechua and Aymara. Preserve existing translations and use matching recovery paths. Low-confidence grammar and technical phrasing remain recorded for fluent-speaker review.
-- Extend source-order, placeholder, menu-path, vocabulary and localized browser coverage. Translation, import-loss and human-preference checks pass; browser cases were syntax-checked only because the local Playwright executable and running application are unavailable.
-- These three keys remain English in 11 locales. The broader backlog remains 51,575 ordinary missing values and 168 pending source keys, with language-quality review open.
+- Fill nine English values and replace four prefixed-English menu labels in
+  Quechua and Aymara. Preserve existing translations and use matching recovery
+  paths. Low-confidence grammar and technical phrasing remain recorded for
+  fluent-speaker review.
+- Extend source-order, placeholder, menu-path, vocabulary and localized browser
+  coverage. Translation, import-loss and human-preference checks pass; browser
+  cases were syntax-checked only because the local Playwright executable and
+  running application are unavailable.
+- These three keys remain English in 11 locales. The broader backlog remains
+  51,575 ordinary missing values and 168 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cdd93651cab409822bad3401e98b07d7eb1a75d8">Translate import reports in Manx, Walloon and Aromanian</a>. Thanks to xet7.</summary>
 
-- Fill nine English values for import warnings, incomplete transfer explanations and opening the created board. Preserve existing translations and recovery paths. Low-confidence grammar and technical phrasing remain recorded for fluent-speaker review.
-- Extend source-order, placeholder and localized browser coverage. Translation, import-loss and human-preference checks pass; browser cases were syntax-checked only because the local Playwright executable and running application are unavailable.
-- These three keys remain English in 14 locales. The broader backlog remains 51,575 ordinary missing values and 168 pending source keys, with language-quality review open.
+- Fill nine English values for import warnings, incomplete transfer explanations
+  and opening the created board. Preserve existing translations and recovery
+  paths. Low-confidence grammar and technical phrasing remain recorded for
+  fluent-speaker review.
+- Extend source-order, placeholder and localized browser coverage. Translation,
+  import-loss and human-preference checks pass; browser cases were
+  syntax-checked only because the local Playwright executable and running
+  application are unavailable.
+- These three keys remain English in 14 locales. The broader backlog remains
+  51,575 ordinary missing values and 168 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9b9a31cc1093d1bf1043cf8e128c19b1f6f32ab6">Translate import reports in Tibetan, Dzongkha and Kashmiri</a>. Thanks to xet7.</summary>
 
-- Fill nine English values for import warnings, incomplete transfer explanations and opening the created board. Preserve existing translations and recovery-menu terminology. Low-confidence grammar and technical phrasing remain recorded for fluent-speaker review.
-- Extend source-order, placeholder and localized browser coverage. Translation, import-loss and human-preference checks pass; browser cases were syntax-checked only because the local Playwright executable and running application are unavailable.
-- These three keys remain English in 17 locales. The broader backlog remains 51,575 ordinary missing values and 168 pending source keys, with language-quality review open.
+- Fill nine English values for import warnings, incomplete transfer explanations
+  and opening the created board. Preserve existing translations and
+  recovery-menu terminology. Low-confidence grammar and technical phrasing
+  remain recorded for fluent-speaker review.
+- Extend source-order, placeholder and localized browser coverage. Translation,
+  import-loss and human-preference checks pass; browser cases were
+  syntax-checked only because the local Playwright executable and running
+  application are unavailable.
+- These three keys remain English in 17 locales. The broader backlog remains
+  51,575 ordinary missing values and 168 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ec468ac7eacf587e943cf61120ca038354ca79fb">Translate import reports in Buryat, Chuvash, Sakha and Northern Sámi</a>. Thanks to xet7.</summary>
 
-- Fill twelve English values for import warnings, incomplete transfer explanations and opening the created board. Preserve existing menu paths and translations. Low-confidence grammar and technical phrasing in all four drafts remain recorded for fluent-speaker review.
-- Extend source-order, placeholder and localized browser coverage. Translation, import-loss and human-preference checks pass; browser cases were syntax-checked only because the local Playwright executable and running application are unavailable.
-- These three keys remain English in 20 locales. The broader backlog remains 51,575 ordinary missing values and 168 pending source keys, with language-quality review open.
+- Fill twelve English values for import warnings, incomplete transfer
+  explanations and opening the created board. Preserve existing menu paths and
+  translations. Low-confidence grammar and technical phrasing in all four drafts
+  remain recorded for fluent-speaker review.
+- Extend source-order, placeholder and localized browser coverage. Translation,
+  import-loss and human-preference checks pass; browser cases were
+  syntax-checked only because the local Playwright executable and running
+  application are unavailable.
+- These three keys remain English in 20 locales. The broader backlog remains
+  51,575 ordinary missing values and 168 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/14fa33a3ff0a14e342f8745b22e2e8ba42b8cd92">Translate import reports in six further languages</a>. Thanks to xet7.</summary>
 
-- Fill 18 English values in Acehnese, Bambara, Ewe, Fulah, Fijian and Tongan. Replace two prefixed English Tongan menu labels and use the corrected recovery path. Low-confidence technical phrasing remains recorded for fluent-speaker review.
-- Extend source-order, placeholder, corrected-vocabulary and localized browser coverage. Translation, import-loss and human-preference checks pass; browser cases were syntax-checked only because the local Playwright executable and running application are unavailable.
-- These three keys remain English in 24 locales. The broader backlog remains 51,575 ordinary missing values and 168 pending source keys, with language-quality review open.
+- Fill 18 English values in Acehnese, Bambara, Ewe, Fulah, Fijian and Tongan.
+  Replace two prefixed English Tongan menu labels and use the corrected recovery
+  path. Low-confidence technical phrasing remains recorded for fluent-speaker
+  review.
+- Extend source-order, placeholder, corrected-vocabulary and localized browser
+  coverage. Translation, import-loss and human-preference checks pass; browser
+  cases were syntax-checked only because the local Playwright executable and
+  running application are unavailable.
+- These three keys remain English in 24 locales. The broader backlog remains
+  51,575 ordinary missing values and 168 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b6d6908fad06767bf2043482cfa2d2fd8f5d6574">Translate eight more import reports and repair recovery paths</a>. Thanks to xet7.</summary>
 
-- Fill 24 English values in Akan, Luganda, Wolof, Swati, Tsonga, Venda, Waray and Venetian. Correct eleven generic or wrong-language menu values so the report points to matching recovery labels. Lower-confidence technical phrasing remains recorded for fluent-speaker review.
-- Extend source-order, placeholder, menu-path, vocabulary and localized browser coverage. Translation, import-loss and human-preference checks pass; browser cases were syntax-checked only because the local Playwright executable and running application are unavailable.
-- These three keys remain English in 30 locales. The broader backlog remains 51,575 ordinary missing values and 168 pending source keys, with language-quality review open.
+- Fill 24 English values in Akan, Luganda, Wolof, Swati, Tsonga, Venda, Waray
+  and Venetian. Correct eleven generic or wrong-language menu values so the
+  report points to matching recovery labels. Lower-confidence technical phrasing
+  remains recorded for fluent-speaker review.
+- Extend source-order, placeholder, menu-path, vocabulary and localized browser
+  coverage. Translation, import-loss and human-preference checks pass; browser
+  cases were syntax-checked only because the local Playwright executable and
+  running application are unavailable.
+- These three keys remain English in 30 locales. The broader backlog remains
+  51,575 ordinary missing values and 168 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4ab324cfeb3aed52733d34981f05efc51bb08d71">Translate import reports in eight locales and repair recovery labels</a>. Thanks to xet7.</summary>
 
-- Fill 24 English values in Bislama, Tok Pisin, Māori, Samoan, Hawaiian, Papiamentu, Xhosa and Northern Ndebele. Replace five mixed-language or malformed menu values in Bislama, Tok Pisin and Hawaiian. Lower-confidence technical phrasing remains recorded for fluent-speaker review.
-- Extend source-order, placeholder, corrected-vocabulary and localized browser coverage. Translation, import-loss and human-preference checks pass; browser cases were syntax-checked only because the local Playwright executable and running application are unavailable.
-- These three keys remain English in 38 locales. The broader backlog remains 51,575 ordinary missing values and 168 pending source keys, with language-quality review open.
+- Fill 24 English values in Bislama, Tok Pisin, Māori, Samoan, Hawaiian,
+  Papiamentu, Xhosa and Northern Ndebele. Replace five mixed-language or
+  malformed menu values in Bislama, Tok Pisin and Hawaiian. Lower-confidence
+  technical phrasing remains recorded for fluent-speaker review.
+- Extend source-order, placeholder, corrected-vocabulary and localized browser
+  coverage. Translation, import-loss and human-preference checks pass; browser
+  cases were syntax-checked only because the local Playwright executable and
+  running application are unavailable.
+- These three keys remain English in 38 locales. The broader backlog remains
+  51,575 ordinary missing values and 168 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b53206d9dffe9d1d3d6f60c399a119a44f550526">Translate import reports in ten African locale files</a>. Thanks to xet7.</summary>
 
-- Fill 30 English values in Somali, Oromo, Kinyarwanda, Kirundi, Chichewa, Sesotho, Setswana, Northern Sotho and both Zulu locales. Preserve the warning, incomplete import explanation and recovery-menu path. Lower-confidence technical phrasing remains recorded for fluent-speaker review.
-- Extend existing source-order, placeholder and localized browser coverage. Translation, import-loss and human-preference checks pass; browser cases were syntax-checked only because the local Playwright executable and running application are unavailable.
-- These three keys remain English in 46 locales. The broader backlog remains 51,575 ordinary missing values and 168 pending source keys, with language-quality review open.
+- Fill 30 English values in Somali, Oromo, Kinyarwanda, Kirundi, Chichewa,
+  Sesotho, Setswana, Northern Sotho and both Zulu locales. Preserve the warning,
+  incomplete import explanation and recovery-menu path. Lower-confidence
+  technical phrasing remains recorded for fluent-speaker review.
+- Extend existing source-order, placeholder and localized browser coverage.
+  Translation, import-loss and human-preference checks pass; browser cases were
+  syntax-checked only because the local Playwright executable and running
+  application are unavailable.
+- These three keys remain English in 46 locales. The broader backlog remains
+  51,575 ordinary missing values and 168 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8e0084b1c7ac1ef1a5749a80c509194a96c95773">Translate import warning reports in ten further languages</a>. Thanks to xet7.</summary>
 
-- Fill 30 English values in Moroccan Arabic, Sorani, Kurmanji, Bhojpuri, Maithili, Odia, Konkani, Turkmen, Tatar and Yiddish. Correct two Tatar recovery menu labels so the report points to the matching menu. Lower-confidence technical wording is recorded for fluent-speaker review.
-- Extend source-order, token and vocabulary regressions and add ten localized browser cases covering malformed input, the warning report and opening the imported board. Node checks pass; browser cases were syntax-checked only because the local Playwright executable and running application stack are unavailable.
-- These three keys remain English in 56 locales. The broader backlog remains 51,575 ordinary missing values and 168 pending source keys, with language-quality review open.
+- Fill 30 English values in Moroccan Arabic, Sorani, Kurmanji, Bhojpuri,
+  Maithili, Odia, Konkani, Turkmen, Tatar and Yiddish. Correct two Tatar
+  recovery menu labels so the report points to the matching menu.
+  Lower-confidence technical wording is recorded for fluent-speaker review.
+- Extend source-order, token and vocabulary regressions and add ten localized
+  browser cases covering malformed input, the warning report and opening the
+  imported board. Node checks pass; browser cases were syntax-checked only
+  because the local Playwright executable and running application stack are
+  unavailable.
+- These three keys remain English in 56 locales. The broader backlog remains
+  51,575 ordinary missing values and 168 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d5aa3a4f1087c7ebab616deb386aec27a71ec82f">Fill final board visibility translations and verify all locales</a>. Thanks to xet7.</summary>
 
-- Fill the final three English values in Cherokee. All 234 non-English locales now have nonempty values different from English for the signed-in visibility label, description and confirmation. Low-confidence grammar and technical phrasing remain recorded for fluent-speaker review.
-- Extend regression coverage to every locale for source order, tokens, markup and rendered emphasis, and verify that the group has left the pending inventory. Translation and permission tests pass; the browser suite was syntax-checked only because the application stack is unavailable.
-- Reduce pending source keys from 171 to 168. The ordinary backlog remains 51,575 missing values across 70 languages; language-quality review and the broader translation goal remain open.
+- Fill the final three English values in Cherokee. All 234 non-English locales
+  now have nonempty values different from English for the signed-in visibility
+  label, description and confirmation. Low-confidence grammar and technical
+  phrasing remain recorded for fluent-speaker review.
+- Extend regression coverage to every locale for source order, tokens, markup
+  and rendered emphasis, and verify that the group has left the pending
+  inventory. Translation and permission tests pass; the browser suite was
+  syntax-checked only because the application stack is unavailable.
+- Reduce pending source keys from 171 to 168. The ordinary backlog remains
+  51,575 missing values across 70 languages; language-quality review and the
+  broader translation goal remain open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1365619b6a0d0aaa9980047088d3b10f1711eb4a">Translate board visibility in Tigre</a>. Thanks to xet7.</summary>
 
-- Fill three English values, preserving viewing and editing distinctions and confirmation emphasis. Record grammar references and low-confidence software vocabulary and agreement for fluent-speaker review.
-- Extend existing source-order, token, markup and rendered-emphasis checks. Translation and permission tests pass; the browser suite was syntax-checked only because the application stack is unavailable.
-- These three keys remain English only in Cherokee. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys, with language-quality review open.
+- Fill three English values, preserving viewing and editing distinctions and
+  confirmation emphasis. Record grammar references and low-confidence software
+  vocabulary and agreement for fluent-speaker review.
+- Extend existing source-order, token, markup and rendered-emphasis checks.
+  Translation and permission tests pass; the browser suite was syntax-checked
+  only because the application stack is unavailable.
+- These three keys remain English only in Cherokee. The broader backlog remains
+  51,575 ordinary missing values and 171 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/feea9100493586ce0cbaf082bac7e04f18a00cc8">Translate board visibility in Wolaytta</a>. Thanks to xet7.</summary>
 
-- Fill three English values, preserving viewing and editing distinctions and confirmation emphasis. Record references and low-confidence login phrasing, negation and membership wording for fluent-speaker review.
-- Extend existing source-order, token, markup and rendered-emphasis checks. Translation and permission tests pass; the browser suite was syntax-checked only because the application stack is unavailable.
-- These three keys remain English in two locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys, with language-quality review open.
+- Fill three English values, preserving viewing and editing distinctions and
+  confirmation emphasis. Record references and low-confidence login phrasing,
+  negation and membership wording for fluent-speaker review.
+- Extend existing source-order, token, markup and rendered-emphasis checks.
+  Translation and permission tests pass; the browser suite was syntax-checked
+  only because the application stack is unavailable.
+- These three keys remain English in two locales. The broader backlog remains
+  51,575 ordinary missing values and 171 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bbc75e16f497a431abcb00aa5ab43b5bed91485e">Translate board visibility in Inuktitut</a>. Thanks to xet7.</summary>
 
-- Fill three English values in syllabics, preserving viewing and editing distinctions and confirmation emphasis. Record low-confidence technical phrasing and inflection for fluent-speaker review.
-- Extend existing source-order, token, markup and rendered-emphasis checks. Translation and permission tests pass; the browser suite was syntax-checked only because the application stack is unavailable.
-- These three keys remain English in three locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys, with language-quality review open.
+- Fill three English values in syllabics, preserving viewing and editing
+  distinctions and confirmation emphasis. Record low-confidence technical
+  phrasing and inflection for fluent-speaker review.
+- Extend existing source-order, token, markup and rendered-emphasis checks.
+  Translation and permission tests pass; the browser suite was syntax-checked
+  only because the application stack is unavailable.
+- These three keys remain English in three locales. The broader backlog remains
+  51,575 ordinary missing values and 171 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/64ed67170dd07f14316cce450926de15c93871f7">Translate board visibility in Standard Moroccan Tamazight</a>. Thanks to xet7.</summary>
 
-- Fill three English values in Tifinagh, preserving viewing and editing distinctions and confirmation emphasis. Record low-confidence login phrasing and grammar for fluent-speaker review.
-- Extend existing source-order, token, markup and rendered-emphasis checks. Translation and permission tests pass; the browser suite was syntax-checked only because the application stack is unavailable.
-- These three keys remain English in four locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys, with language-quality review open.
+- Fill three English values in Tifinagh, preserving viewing and editing
+  distinctions and confirmation emphasis. Record low-confidence login phrasing
+  and grammar for fluent-speaker review.
+- Extend existing source-order, token, markup and rendered-emphasis checks.
+  Translation and permission tests pass; the browser suite was syntax-checked
+  only because the application stack is unavailable.
+- These three keys remain English in four locales. The broader backlog remains
+  51,575 ordinary missing values and 171 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6a516f1442d85b1d61b8d3e0a92feacae68ba8a0">Translate board visibility in Nahuatl</a>. Thanks to xet7.</summary>
 
-- Fill three English values, preserving viewing and editing distinctions and confirmation emphasis. Record references and low-confidence software terminology and grammar for fluent-speaker review.
-- Extend existing source-order, token, markup and rendered-emphasis checks. Translation and permission tests pass; the browser suite was syntax-checked only because the application stack is unavailable.
-- These three keys remain English in five locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys, with language-quality review open.
+- Fill three English values, preserving viewing and editing distinctions and
+  confirmation emphasis. Record references and low-confidence software
+  terminology and grammar for fluent-speaker review.
+- Extend existing source-order, token, markup and rendered-emphasis checks.
+  Translation and permission tests pass; the browser suite was syntax-checked
+  only because the application stack is unavailable.
+- These three keys remain English in five locales. The broader backlog remains
+  51,575 ordinary missing values and 171 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ab8fd1d8abe3d54b32c784db10a6865a054f476a">Translate board visibility in Greenlandic</a>. Thanks to xet7.</summary>
 
-- Fill three English values, preserving viewing and editing distinctions and confirmation emphasis. Record vocabulary references and lower-confidence technical phrasing and inflection for fluent-speaker review.
-- Extend existing source-order, token, markup and rendered-emphasis checks. Translation and permission tests pass; the browser suite was syntax-checked only because the application stack is unavailable.
-- These three keys remain English in six locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys, with language-quality review open.
+- Fill three English values, preserving viewing and editing distinctions and
+  confirmation emphasis. Record vocabulary references and lower-confidence
+  technical phrasing and inflection for fluent-speaker review.
+- Extend existing source-order, token, markup and rendered-emphasis checks.
+  Translation and permission tests pass; the browser suite was syntax-checked
+  only because the application stack is unavailable.
+- These three keys remain English in six locales. The broader backlog remains
+  51,575 ordinary missing values and 171 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/053ed2d22bd4d1acdb5fcc054aaa98a05d868a3b">Translate board visibility in Veps</a>. Thanks to xet7.</summary>
 
-- Fill three English values, preserving viewing and editing distinctions and confirmation emphasis. Record references and low-confidence login phrasing and case endings for fluent-speaker review.
-- Extend existing source-order, token, markup and rendered-emphasis checks. Translation and permission tests pass; the browser suite was syntax-checked only because the application stack is unavailable.
-- These three keys remain English in seven locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys, with language-quality review open.
+- Fill three English values, preserving viewing and editing distinctions and
+  confirmation emphasis. Record references and low-confidence login phrasing and
+  case endings for fluent-speaker review.
+- Extend existing source-order, token, markup and rendered-emphasis checks.
+  Translation and permission tests pass; the browser suite was syntax-checked
+  only because the application stack is unavailable.
+- These three keys remain English in seven locales. The broader backlog remains
+  51,575 ordinary missing values and 171 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6b1005d6532ffbb6279f433c91891952b5589de4">Translate board visibility in Volapük</a>. Thanks to xet7.</summary>
 
-- Fill three English values, preserving viewing and editing distinctions and confirmation emphasis. Record vocabulary references and lower-confidence phrasing for fluent-speaker review.
-- Extend existing source-order, token, markup and rendered-emphasis checks. Translation and permission tests pass; the browser suite was syntax-checked only because the application stack is unavailable.
-- These three keys remain English in eight locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys, with language-quality review open.
+- Fill three English values, preserving viewing and editing distinctions and
+  confirmation emphasis. Record vocabulary references and lower-confidence
+  phrasing for fluent-speaker review.
+- Extend existing source-order, token, markup and rendered-emphasis checks.
+  Translation and permission tests pass; the browser suite was syntax-checked
+  only because the application stack is unavailable.
+- These three keys remain English in eight locales. The broader backlog remains
+  51,575 ordinary missing values and 171 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/712e503516279f1bbe54169a42ee8fef6eb356bc">Translate board visibility in Tigrinya and Klingon</a>. Thanks to xet7.</summary>
 
-- Fill six English values, preserving viewing and editing distinctions and confirmation emphasis. Record references and lower-confidence technical phrasing and clause structure for fluent-speaker review.
-- Extend existing source-order, token, markup and rendered-emphasis checks. Translation and permission tests pass; the browser suite was syntax-checked only because the application stack is unavailable.
-- These three keys remain English in nine locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys, with language-quality review open.
+- Fill six English values, preserving viewing and editing distinctions and
+  confirmation emphasis. Record references and lower-confidence technical
+  phrasing and clause structure for fluent-speaker review.
+- Extend existing source-order, token, markup and rendered-emphasis checks.
+  Translation and permission tests pass; the browser suite was syntax-checked
+  only because the application stack is unavailable.
+- These three keys remain English in nine locales. The broader backlog remains
+  51,575 ordinary missing values and 171 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6cfd9b64ea3260c92ffd33a45a22b26ca6cb2e81">Translate board visibility in Guaraní, Quechua and Aymara</a>. Thanks to xet7.</summary>
 
-- Fill nine English values, preserving viewing and editing distinctions and confirmation emphasis. Record vocabulary references and lower-confidence login phrasing and dialect choices for fluent-speaker review.
-- Extend existing source-order, token, markup and rendered-emphasis checks. Translation and permission tests pass; the browser suite was syntax-checked only because the application stack is unavailable.
-- These three keys remain English in 11 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys, with language-quality review open.
+- Fill nine English values, preserving viewing and editing distinctions and
+  confirmation emphasis. Record vocabulary references and lower-confidence login
+  phrasing and dialect choices for fluent-speaker review.
+- Extend existing source-order, token, markup and rendered-emphasis checks.
+  Translation and permission tests pass; the browser suite was syntax-checked
+  only because the application stack is unavailable.
+- These three keys remain English in 11 locales. The broader backlog remains
+  51,575 ordinary missing values and 171 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/168c9b97b0a9dc5a3fdf80113636260dc48ad3d8">Translate board visibility in Manx, Walloon and Aromanian</a>. Thanks to xet7.</summary>
 
-- Fill nine English values, preserving viewing and editing distinctions and confirmation emphasis. Record references and lower-confidence grammar and dialect choices for fluent-speaker review.
-- Extend existing source-order, token, markup and rendered-emphasis checks. Translation and permission tests pass; the browser suite was syntax-checked only because the application stack is unavailable.
-- These three keys remain English in 14 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys, with language-quality review open.
+- Fill nine English values, preserving viewing and editing distinctions and
+  confirmation emphasis. Record references and lower-confidence grammar and
+  dialect choices for fluent-speaker review.
+- Extend existing source-order, token, markup and rendered-emphasis checks.
+  Translation and permission tests pass; the browser suite was syntax-checked
+  only because the application stack is unavailable.
+- These three keys remain English in 14 locales. The broader backlog remains
+  51,575 ordinary missing values and 171 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4dbca343d731aecd2f2d143c256327a30fd52e51">Translate board visibility in Tibetan, Dzongkha and Kashmiri</a>. Thanks to xet7.</summary>
 
-- Fill nine English values, preserving the viewing/editing distinction and confirmation emphasis. Record lower-confidence technical phrasing and grammar for fluent-speaker review.
-- Extend existing source-order, token, markup and rendered-emphasis checks. Translation and permission tests pass; the browser suite was syntax-checked only because the application stack is unavailable.
-- These three keys remain English in 17 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys, with language-quality review open.
+- Fill nine English values, preserving the viewing/editing distinction and
+  confirmation emphasis. Record lower-confidence technical phrasing and grammar
+  for fluent-speaker review.
+- Extend existing source-order, token, markup and rendered-emphasis checks.
+  Translation and permission tests pass; the browser suite was syntax-checked
+  only because the application stack is unavailable.
+- These three keys remain English in 17 locales. The broader backlog remains
+  51,575 ordinary missing values and 171 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/663833ed9a8429533c183aa47339649bc1cdb7f4">Translate board visibility in four further locales</a>. Thanks to xet7.</summary>
 
-- Fill 12 English values in Buryat, Chuvash, Sakha and Northern Sámi. Preserve viewing and editing distinctions and confirmation emphasis; record terminology references and lower-confidence grammar for fluent-speaker review.
-- Extend the existing source-order, token, markup and rendered-emphasis regression. Translation and permission checks pass; the browser suite was syntax-checked only because the application stack is unavailable.
-- These three keys remain English in 20 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys, with language-quality review open.
+- Fill 12 English values in Buryat, Chuvash, Sakha and Northern Sámi. Preserve
+  viewing and editing distinctions and confirmation emphasis; record terminology
+  references and lower-confidence grammar for fluent-speaker review.
+- Extend the existing source-order, token, markup and rendered-emphasis
+  regression. Translation and permission checks pass; the browser suite was
+  syntax-checked only because the application stack is unavailable.
+- These three keys remain English in 20 locales. The broader backlog remains
+  51,575 ordinary missing values and 171 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1b9c99d97d5cc0707c15a813bd0bee15d45e0c06">Translate board visibility in six further locales</a>. Thanks to xet7.</summary>
 
-- Fill 18 English values in Acehnese, Bambara, Ewe, Fulah, Fijian and Tongan, preserving the viewing/editing distinction and confirmation emphasis. The audit records lower-confidence login terminology and grammar for fluent-speaker review.
-- Extend existing source-order, token, markup and rendered-emphasis checks. Translation and permission tests pass; the browser suite was syntax-checked only because the application stack is unavailable.
-- These three keys remain English in 24 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys, with language-quality review open.
+- Fill 18 English values in Acehnese, Bambara, Ewe, Fulah, Fijian and Tongan,
+  preserving the viewing/editing distinction and confirmation emphasis. The
+  audit records lower-confidence login terminology and grammar for
+  fluent-speaker review.
+- Extend existing source-order, token, markup and rendered-emphasis checks.
+  Translation and permission tests pass; the browser suite was syntax-checked
+  only because the application stack is unavailable.
+- These three keys remain English in 24 locales. The broader backlog remains
+  51,575 ordinary missing values and 171 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8ac1110946fb3498b3a4dfbfe8aed641ced179cd">Translate board visibility in Akan through Venetian</a>. Thanks to xet7.</summary>
 
-- Fill 24 English values in Akan, Luganda, Wolof, Swati, Tsonga, Venda, Waray and Venetian, preserving signed-in viewing, board-member editing and confirmation emphasis. Lower-confidence technical phrasing is recorded for fluent-speaker review.
-- Extend the existing source-order, token, markup and rendered-emphasis regression. Translation and permission checks pass; the browser suite was syntax-checked only because the application stack is unavailable.
-- These three keys remain English in 30 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys, with language-quality review open.
+- Fill 24 English values in Akan, Luganda, Wolof, Swati, Tsonga, Venda, Waray
+  and Venetian, preserving signed-in viewing, board-member editing and
+  confirmation emphasis. Lower-confidence technical phrasing is recorded for
+  fluent-speaker review.
+- Extend the existing source-order, token, markup and rendered-emphasis
+  regression. Translation and permission checks pass; the browser suite was
+  syntax-checked only because the application stack is unavailable.
+- These three keys remain English in 30 locales. The broader backlog remains
+  51,575 ordinary missing values and 171 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5e46d3e208f2ab54967ba82e649cb9aafd945788">Translate board visibility in eight further locales</a>. Thanks to xet7.</summary>
 
-- Fill 24 English values in Bislama, Tok Pisin, Māori, Samoan, Hawaiian, Papiamento, Xhosa and Northern Ndebele, preserving viewing and editing distinctions and confirmation emphasis. The audit records lower-confidence wording for fluent-speaker review.
-- Extend the existing translation regression for source key order, tokens, markup and rendered emphasis. Translation and permission checks pass; the browser suite was syntax-checked only because the application stack is unavailable.
-- These three keys remain English in 38 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys, with language-quality review open.
+- Fill 24 English values in Bislama, Tok Pisin, Māori, Samoan, Hawaiian,
+  Papiamento, Xhosa and Northern Ndebele, preserving viewing and editing
+  distinctions and confirmation emphasis. The audit records lower-confidence
+  wording for fluent-speaker review.
+- Extend the existing translation regression for source key order, tokens,
+  markup and rendered emphasis. Translation and permission checks pass; the
+  browser suite was syntax-checked only because the application stack is
+  unavailable.
+- These three keys remain English in 38 locales. The broader backlog remains
+  51,575 ordinary missing values and 171 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/abcdd5c3529fa03bc9bdaaf21fec7fc257d887e9">Translate board visibility in ten more locales</a>. Thanks to xet7.</summary>
 
-- Fill 30 English values in Somali, Oromo, Kinyarwanda, Kirundi, Chichewa, Sesotho, Setswana, Northern Sotho and both Zulu locales. Preserve viewing and editing distinctions and confirmation emphasis. The audit records lower-confidence wording for fluent-speaker review.
-- Extend existing source-order, placeholder, markup and rendered-emphasis coverage. Translation and permission checks pass; the browser suite was syntax-checked only because the application stack is unavailable.
-- These three keys still need filling in 46 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys, with language-quality review open.
+- Fill 30 English values in Somali, Oromo, Kinyarwanda, Kirundi, Chichewa,
+  Sesotho, Setswana, Northern Sotho and both Zulu locales. Preserve viewing and
+  editing distinctions and confirmation emphasis. The audit records
+  lower-confidence wording for fluent-speaker review.
+- Extend existing source-order, placeholder, markup and rendered-emphasis
+  coverage. Translation and permission checks pass; the browser suite was
+  syntax-checked only because the application stack is unavailable.
+- These three keys still need filling in 46 locales. The broader backlog remains
+  51,575 ordinary missing values and 171 pending source keys, with
+  language-quality review open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b985c0c590a0e048455b362a816e8a11897593d7">Translate signed-in board visibility in ten locales</a>. Thanks to xet7.</summary>
 
-- Fill 30 English placeholders in Moroccan Arabic, Central Kurdish, Kurdish, Bhojpuri, Maithili, Odia, Konkani, Turkmen, Tatar and Yiddish. Preserve the distinction between viewing by signed-in users and editing by board members, and the confirmation's emphasis. Lower-confidence wording is recorded in the translation audit for fluent-speaker review.
-- Regression checks cover source key order, placeholders, exact markup and rendered emphasis. Board visibility and permission tests pass. The existing browser suite was syntax-checked only; the application stack is unavailable.
-- These three keys remain English in 56 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
+- Fill 30 English placeholders in Moroccan Arabic, Central Kurdish, Kurdish,
+  Bhojpuri, Maithili, Odia, Konkani, Turkmen, Tatar and Yiddish. Preserve the
+  distinction between viewing by signed-in users and editing by board members,
+  and the confirmation's emphasis. Lower-confidence wording is recorded in the
+  translation audit for fluent-speaker review.
+- Regression checks cover source key order, placeholders, exact markup and
+  rendered emphasis. Board visibility and permission tests pass. The existing
+  browser suite was syntax-checked only; the application stack is unavailable.
+- These three keys remain English in 56 locales. The broader backlog remains
+  51,575 ordinary missing values and 171 pending source keys; language-quality
+  review remains open.
 
 </details>
 
@@ -3727,12 +4851,17 @@ Thanks to xet7 !
 - Fill the final English URL-scheme hint in Cherokee and document low-confidence
   wording. All 234 non-English locales now have filled hints; linguistic review
   remains open, including previously documented drafts.
-- Discover every non-English locale in regression coverage and verify literal scheme
-  identifiers, placeholders and key order. Parser, sanitizer, locale structure and
-  human-preference checks pass. Browser tests were syntax-checked only because the
+- Discover every non-English locale in regression coverage and verify literal
+  scheme
+  identifiers, placeholders and key order. Parser, sanitizer, locale structure
+  and
+  human-preference checks pass. Browser tests were syntax-checked only because
+  the
   application stack is unavailable.
-- Remove the filled hint from the pending inventory, reducing it to 171 source keys.
-  The ordinary backlog remains 51,575 values across 70 languages; broader work continues.
+- Remove the filled hint from the pending inventory, reducing it to 171 source
+  keys.
+  The ordinary backlog remains 51,575 values across 70 languages; broader work
+  continues.
 
 </details>
 
@@ -3741,11 +4870,14 @@ Thanks to xet7 !
 
 - Fill the English hint while preserving literal scheme names and existing
   translations. Record low-confidence terminology and grammar for fluent review.
-- Hint checks cover 65 recently filled locales. Parser, sanitizer, locale structure
+- Hint checks cover 65 recently filled locales. Parser, sanitizer, locale
+  structure
   and human-preference checks pass. Browser scenarios were syntax-checked only;
   the application stack is unavailable.
-- Only Cherokee still has this hint in English. The broader backlog remains 51,575
-  ordinary missing values plus 172 pending source keys; quality review remains open.
+- Only Cherokee still has this hint in English. The broader backlog remains
+  51,575
+  ordinary missing values plus 172 pending source keys; quality review remains
+  open.
 
 </details>
 
@@ -3753,8 +4885,10 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/c98ea17f1adf00bc28d94535f243563dde0aba84">Translate URL scheme hint in Wolaytta</a>. Thanks to xet7.</summary>
 
 - Fill the English hint while preserving literal scheme names and existing
-  translations. Record lower-confidence technical wording and grammar for review.
-- Hint checks cover 64 recently filled locales. Parser, sanitizer, locale structure
+  translations. Record lower-confidence technical wording and grammar for
+  review.
+- Hint checks cover 64 recently filled locales. Parser, sanitizer, locale
+  structure
   and human-preference checks pass. Browser scenarios were syntax-checked only;
   the application stack is unavailable.
 - Two locales still need this hint. The broader backlog remains 51,575 ordinary
@@ -3766,11 +4900,14 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/aa5f00e7ebf2d7b12a7bb8412e8e8c514dc18139">Translate URL scheme hint in Inuktitut</a>. Thanks to xet7.</summary>
 
 - Fill the English hint in syllabics while preserving literal scheme names and
-  existing translations. Record lower-confidence terminology and grammar for review.
-- Hint checks cover 63 recently filled locales. Parser, sanitizer, locale structure
+  existing translations. Record lower-confidence terminology and grammar for
+  review.
+- Hint checks cover 63 recently filled locales. Parser, sanitizer, locale
+  structure
   and human-preference checks pass. Browser scenarios were syntax-checked only;
   the application stack is unavailable.
-- Three locales still need this hint. The broader backlog remains 51,575 ordinary
+- Three locales still need this hint. The broader backlog remains 51,575
+  ordinary
   missing values plus 172 pending source keys; quality review remains open.
 
 </details>
@@ -3779,8 +4916,10 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/e6789dc75f9409827e24df51d247af0395490583">Translate URL scheme hint in Standard Moroccan Tamazight</a>. Thanks to xet7.</summary>
 
 - Fill the English hint in Tifinagh while preserving literal scheme names and
-  existing translations. Record lower-confidence terminology and grammar for review.
-- Hint checks cover 62 recently filled locales. Parser, sanitizer, locale structure
+  existing translations. Record lower-confidence terminology and grammar for
+  review.
+- Hint checks cover 62 recently filled locales. Parser, sanitizer, locale
+  structure
   and human-preference checks pass. Browser scenarios were syntax-checked only;
   the application stack is unavailable.
 - Four locales still need this hint. The broader backlog remains 51,575 ordinary
@@ -3793,7 +4932,8 @@ Thanks to xet7 !
 
 - Fill the English hint while preserving literal scheme names and existing
   translations. Record lower-confidence regional grammar and technical wording.
-- Hint checks cover 61 recently filled locales. Parser, sanitizer, locale structure
+- Hint checks cover 61 recently filled locales. Parser, sanitizer, locale
+  structure
   and human-preference checks pass. Browser scenarios were syntax-checked only;
   the application stack is unavailable.
 - Five locales still need this hint. The broader backlog remains 51,575 ordinary
@@ -3805,8 +4945,10 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/1a6d51f5023bb8cbde7766274beec7a5369ea132">Translate URL scheme hint in Klingon</a>. Thanks to xet7.</summary>
 
 - Fill the English hint while preserving literal scheme names and existing
-  translations. Record lower-confidence technical phrasing for fluent-speaker review.
-- Hint checks cover 60 recently filled locales. Parser, sanitizer, locale structure
+  translations. Record lower-confidence technical phrasing for fluent-speaker
+  review.
+- Hint checks cover 60 recently filled locales. Parser, sanitizer, locale
+  structure
   and human-preference checks pass. Browser scenarios were syntax-checked only;
   the application stack is unavailable.
 - Six locales still need this hint. The broader backlog remains 51,575 ordinary
@@ -3818,11 +4960,14 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/bc81d9e9995e546996305bd64738282f9414deae">Translate URL scheme hint in Veps and Volapük</a>. Thanks to xet7.</summary>
 
 - Fill two English hints while preserving literal scheme names and existing
-  translations. Record lower-confidence technical wording and dictionary references.
-- Hint checks cover 59 recently filled locales. Parser, sanitizer, locale structure
+  translations. Record lower-confidence technical wording and dictionary
+  references.
+- Hint checks cover 59 recently filled locales. Parser, sanitizer, locale
+  structure
   and human-preference checks pass. Browser scenarios were syntax-checked only;
   the application stack is unavailable.
-- Seven locales still need this hint. The broader backlog remains 51,575 ordinary
+- Seven locales still need this hint. The broader backlog remains 51,575
+  ordinary
   missing values plus 172 pending source keys; quality review remains open.
 
 </details>
@@ -3831,8 +4976,10 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/f1d05258ab26319b50f6bd709762c48ba7f8b424">Translate URL scheme hint in Greenlandic and Kashmiri</a>. Thanks to xet7.</summary>
 
 - Fill two English hints while preserving literal scheme names and existing
-  translations. Record lower-confidence wording and outstanding mixed-script review.
-- Hint checks cover 57 recently filled locales. Parser, sanitizer, locale structure
+  translations. Record lower-confidence wording and outstanding mixed-script
+  review.
+- Hint checks cover 57 recently filled locales. Parser, sanitizer, locale
+  structure
   and human-preference checks pass. Browser scenarios were syntax-checked only;
   the application stack is unavailable.
 - Nine locales still need this hint. The broader backlog remains 51,575 ordinary
@@ -3845,11 +4992,13 @@ Thanks to xet7 !
 
 - Fill three English hints while preserving literal scheme names and existing
   translations. Record lower-confidence technical wording for native review.
-- Hint checks cover 55 recently filled locales. Parser, sanitizer, locale structure
+- Hint checks cover 55 recently filled locales. Parser, sanitizer, locale
+  structure
   and human-preference checks pass. Browser scenarios were syntax-checked only;
   the application stack is unavailable.
 - Eleven locales still need this hint. The broader backlog remains 51,575
-  ordinary missing values plus 172 pending source keys; quality review remains open.
+  ordinary missing values plus 172 pending source keys; quality review remains
+  open.
 
 </details>
 
@@ -3857,12 +5006,15 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/6ebdb47beaea5b9b8055a6d3f99eb9f04b0d33f2">Translate URL scheme hint in Tibetan and Dzongkha</a>. Thanks to xet7.</summary>
 
 - Fill two English hints while preserving literal scheme names and existing
-  translations. Record lower-confidence URI scheme terminology for native review.
-- Hint checks cover 52 recently filled locales. Parser, sanitizer, locale structure
+  translations. Record lower-confidence URI scheme terminology for native
+  review.
+- Hint checks cover 52 recently filled locales. Parser, sanitizer, locale
+  structure
   and human-preference checks pass. Browser scenarios were syntax-checked only;
   the application stack is unavailable.
 - Fourteen locales still need this hint. The broader backlog remains 51,575
-  ordinary missing values plus 172 pending source keys; quality review remains open.
+  ordinary missing values plus 172 pending source keys; quality review remains
+  open.
 
 </details>
 
@@ -3871,11 +5023,13 @@ Thanks to xet7 !
 
 - Fill two English hints while preserving literal scheme names and existing
   translations. Record lower-confidence technical wording and regional spelling.
-- Hint checks cover 50 recently filled locales. Parser, sanitizer, locale structure
+- Hint checks cover 50 recently filled locales. Parser, sanitizer, locale
+  structure
   and human-preference checks pass. Browser scenarios were syntax-checked only;
   the application stack is unavailable.
 - Sixteen locales still need this hint. The broader backlog remains 51,575
-  ordinary missing values plus 172 pending source keys; quality review remains open.
+  ordinary missing values plus 172 pending source keys; quality review remains
+  open.
 
 </details>
 
@@ -3884,24 +5038,30 @@ Thanks to xet7 !
 
 - Fill three English hints while preserving literal scheme names and existing
   translations. Record lower-confidence technical wording for native review.
-- Hint checks cover 48 recently filled locales. Parser, sanitizer, locale structure
+- Hint checks cover 48 recently filled locales. Parser, sanitizer, locale
+  structure
   and human-preference checks pass. Browser scenarios were syntax-checked only;
   the application stack is unavailable.
 - Eighteen locales still need this hint. The broader backlog remains 51,575
-  ordinary missing values plus 172 pending source keys; quality review remains open.
+  ordinary missing values plus 172 pending source keys; quality review remains
+  open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5f79e3b437fa552f4e4dc1f5cab46df34e2d4da0">Translate URL scheme hint in Tigrinya, Akan, Wolof and Guarani</a>. Thanks to xet7.</summary>
 
-- Fill four English hints, preserving literal scheme names and existing translations.
-  Record lower-confidence technical wording and vocabulary references for native review.
-- Hint checks cover 45 recently filled locales. Parser, sanitizer, locale structure
+- Fill four English hints, preserving literal scheme names and existing
+  translations.
+  Record lower-confidence technical wording and vocabulary references for native
+  review.
+- Hint checks cover 45 recently filled locales. Parser, sanitizer, locale
+  structure
   and human-preference checks pass. Browser scenarios were syntax-checked only;
   the application stack is unavailable.
 - Twenty-one locales still need this hint. The broader backlog remains 51,575
-  ordinary missing values plus 172 pending source keys; quality review remains open.
+  ordinary missing values plus 172 pending source keys; quality review remains
+  open.
 
 </details>
 
@@ -3909,12 +5069,16 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/978296fa9db4a7fe910bb67aff35464fc1b34542">Translate URL scheme hint in Manx and Northern Sami</a>. Thanks to xet7.</summary>
 
 - Fill two hints while preserving literal scheme identifiers and existing
-  translations. Lower-confidence technical wording is recorded for native/UI review.
-- Hint checks cover 41 recently filled locales. Parser, sanitizer, structural and
-  human-preference checks pass; browser scenarios were syntax-checked but not run
+  translations. Lower-confidence technical wording is recorded for native/UI
+  review.
+- Hint checks cover 41 recently filled locales. Parser, sanitizer, structural
+  and
+  human-preference checks pass; browser scenarios were syntax-checked but not
+  run
   without the application stack.
 - Twenty-five locale paths still need this hint. The ordinary backlog remains
-  51,575 values plus 172 pending source keys; broader translation work remains open.
+  51,575 values plus 172 pending source keys; broader translation work remains
+  open.
 
 </details>
 
@@ -3924,11 +5088,14 @@ Thanks to xet7 !
 - Fill two hints while preserving literal scheme identifiers and existing
   translations. Vocabulary sources and lower-confidence technical wording are
   recorded for native/UI review.
-- Hint checks cover 39 recently filled locales. Parser, sanitizer, structural and
-  human-preference checks pass; browser scenarios were syntax-checked but not run
+- Hint checks cover 39 recently filled locales. Parser, sanitizer, structural
+  and
+  human-preference checks pass; browser scenarios were syntax-checked but not
+  run
   without the application stack.
 - Twenty-seven locale paths still need this hint. The ordinary backlog remains
-  51,575 values plus 172 pending source keys; broader translation work remains open.
+  51,575 values plus 172 pending source keys; broader translation work remains
+  open.
 
 </details>
 
@@ -3936,12 +5103,16 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/efac273833c35c71082d44441d861f87f213c9e4">Translate URL scheme hint in Venetian, Walloon and Aromanian</a>. Thanks to xet7.</summary>
 
 - Fill three hints while preserving literal scheme identifiers and existing
-  translations. Lower-confidence technical wording remains open for native/UI review.
-- Hint checks cover 37 recently filled locales. Parser, sanitizer, structural and
-  human-preference checks pass; browser scenarios were syntax-checked but not run
+  translations. Lower-confidence technical wording remains open for native/UI
+  review.
+- Hint checks cover 37 recently filled locales. Parser, sanitizer, structural
+  and
+  human-preference checks pass; browser scenarios were syntax-checked but not
+  run
   without the application stack.
 - Twenty-nine locale paths still need this hint. The ordinary backlog remains
-  51,575 values plus 172 pending source keys; broader translation work remains open.
+  51,575 values plus 172 pending source keys; broader translation work remains
+  open.
 
 </details>
 
@@ -3949,12 +5120,16 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/ca45662e64272098297c25242a93ea7860932e03">Translate URL scheme hint in five Pacific languages</a>. Thanks to xet7.</summary>
 
 - Fill Māori, Samoan, Tongan, Fijian and Hawaiian hints while preserving literal
-  scheme identifiers. Lower-confidence wording remains documented for native/UI review.
-- Hint checks cover 34 recently filled locales. Parser, sanitizer, structural and
-  human-preference checks pass; browser scenarios were syntax-checked but not run
+  scheme identifiers. Lower-confidence wording remains documented for native/UI
+  review.
+- Hint checks cover 34 recently filled locales. Parser, sanitizer, structural
+  and
+  human-preference checks pass; browser scenarios were syntax-checked but not
+  run
   without the application stack.
 - Thirty-two locale paths still need this hint. The ordinary backlog remains
-  51,575 values plus 172 pending source keys; broader translation work remains open.
+  51,575 values plus 172 pending source keys; broader translation work remains
+  open.
 
 </details>
 
@@ -3964,11 +5139,14 @@ Thanks to xet7 !
 - Fill Kinyarwanda, Kirundi, Luganda, Tsonga and Venda hints while preserving
   literal identifiers. Lower-confidence technical prose remains documented for
   native/UI review.
-- Hint checks cover 29 recently filled locales. Parser, sanitizer, structural and
-  human-preference checks pass; browser scenarios were syntax-checked but not run
+- Hint checks cover 29 recently filled locales. Parser, sanitizer, structural
+  and
+  human-preference checks pass; browser scenarios were syntax-checked but not
+  run
   without the application stack.
 - Thirty-seven locale paths still need this hint. The ordinary backlog remains
-  51,575 values plus 172 pending source keys; broader translation work remains open.
+  51,575 values plus 172 pending source keys; broader translation work remains
+  open.
 
 </details>
 
@@ -3978,10 +5156,13 @@ Thanks to xet7 !
 - Fill eight values in Zulu, Xhosa, North Ndebele, Swati, Southern Sotho, Tswana
   and Northern Sotho locales, preserving literal identifiers. Lower-confidence
   technical wording remains documented for native/UI review.
-- Hint checks cover 24 recently filled locales. Parser, sanitizer, structural and
-  human-preference checks pass; browser scenarios were syntax-checked but not run
+- Hint checks cover 24 recently filled locales. Parser, sanitizer, structural
+  and
+  human-preference checks pass; browser scenarios were syntax-checked but not
+  run
   without the application stack.
-- Forty-two locale paths still need this hint. The ordinary backlog remains 51,575
+- Forty-two locale paths still need this hint. The ordinary backlog remains
+  51,575
   values plus 172 pending source keys; broader translation work remains open.
 
 </details>
@@ -3992,8 +5173,10 @@ Thanks to xet7 !
 - Fill Tok Pisin, Bislama, Papiamento, Somali, Oromo and Nyanja hints while
   preserving literal scheme names. Lower-confidence technical wording remains
   documented for native/UI review.
-- Hint checks cover 16 recently filled locales. Parser, sanitizer, structural and
-  human-preference checks pass. Browser scenarios were syntax-checked but not run
+- Hint checks cover 16 recently filled locales. Parser, sanitizer, structural
+  and
+  human-preference checks pass. Browser scenarios were syntax-checked but not
+  run
   without the application stack.
 - Fifty locale paths still need this hint. The ordinary backlog remains 51,575
   values plus 172 pending source keys; broader translation work remains open.
@@ -4004,12 +5187,16 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/e2e304eb602d8f3fe2920d64d774083fe7ca9c2b">Translate custom URL scheme hint in ten locales</a>. Thanks to xet7.</summary>
 
 - Fill ten Admin Panel hints, preserving the five literal scheme names and the
-  distinction between configured application links and permanently blocked schemes.
+  distinction between configured application links and permanently blocked
+  schemes.
   Lower-confidence technical wording remains documented for native/UI review.
-- Positive and negative identifier checks, parser and sanitizer tests, all-locale
-  structure and human-preference checks pass. Browser scenarios were syntax-checked
+- Positive and negative identifier checks, parser and sanitizer tests,
+  all-locale
+  structure and human-preference checks pass. Browser scenarios were
+  syntax-checked
   but not run without the application stack.
-- Fifty-six locale paths still need this hint. The ordinary backlog remains 51,575
+- Fifty-six locale paths still need this hint. The ordinary backlog remains
+  51,575
   values plus 172 pending source keys; broader translation work remains open.
 
 </details>
@@ -4018,7 +5205,8 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/af64e879df1d65195b25b7f09a4a12d755b9fa22">Complete placement label placeholders across locales</a>. Thanks to xet7.</summary>
 
 - Fill the Cherokee and Wolaytta placement labels. Both labels now have distinct
-  non-English values in all 234 non-English locale paths. Lower-confidence wording
+  non-English values in all 234 non-English locale paths. Lower-confidence
+  wording
   and native/UI review remain open.
 - Discover every locale in the regression suite and verify source tokens and key
   order. Runtime, structural and human-preference checks pass; browser scenarios
@@ -4035,10 +5223,13 @@ Thanks to xet7 !
 - Fill six placement labels, preserving existing translations. Record vocabulary
   sources and lower-confidence standalone wording for native/UI review.
 - Placement checks cover 64 recently filled locales. Runtime, structural and
-  human-preference checks pass; browser scenarios were syntax-checked but not run
+  human-preference checks pass; browser scenarios were syntax-checked but not
+  run
   without the application stack.
-- Cherokee and Wolaytta still need this pair. The ordinary backlog remains 51,575
-  values plus 174 pending source keys; broader language-quality work remains open.
+- Cherokee and Wolaytta still need this pair. The ordinary backlog remains
+  51,575
+  values plus 174 pending source keys; broader language-quality work remains
+  open.
 
 </details>
 
@@ -4046,12 +5237,15 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/737de798ce62275269f192e7a69f0b1fc14526a5">Translate placement labels in Dzongkha, Greenlandic and Inuktitut</a>. Thanks to xet7.</summary>
 
 - Fill six spatial placement labels, preserving existing translations. Record
-  vocabulary references and lower-confidence standalone wording for native/UI review.
+  vocabulary references and lower-confidence standalone wording for native/UI
+  review.
 - Placement checks cover 61 recently filled locales. Runtime, structural and
-  human-preference checks pass; browser scenarios were syntax-checked but not run
+  human-preference checks pass; browser scenarios were syntax-checked but not
+  run
   without the application stack.
 - Five locale paths still need this pair. The ordinary backlog remains 51,575
-  values plus 174 pending source keys; broader language-quality work remains open.
+  values plus 174 pending source keys; broader language-quality work remains
+  open.
 
 </details>
 
@@ -4059,12 +5253,15 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/9fc66b2b71181bf84a6d9f1b5c5acc8e8cc97223">Translate placement labels in Acehnese, Fula, Guarani and Veps</a>. Thanks to xet7.</summary>
 
 - Fill eight relative-placement labels and preserve existing translations.
-  Record vocabulary references and lower-confidence Veps wording for native/UI review.
+  Record vocabulary references and lower-confidence Veps wording for native/UI
+  review.
 - Placement checks cover 58 recently filled locales. Runtime, structural and
-  human-preference checks pass; browser scenarios were syntax-checked but not run
+  human-preference checks pass; browser scenarios were syntax-checked but not
+  run
   without the application stack.
 - Eight locale paths still need this pair. The ordinary backlog remains 51,575
-  values plus 174 pending source keys; broader language-quality work remains open.
+  values plus 174 pending source keys; broader language-quality work remains
+  open.
 
 </details>
 
@@ -4072,40 +5269,53 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/88f728a49d83f5835ad1e5cd3f44977f0cecb2ea">Translate placement labels in five further languages</a>. Thanks to xet7.</summary>
 
 - Fill ten Buryat, Chuvash, Yakut, Aromanian and Klingon placement labels,
-  preserving existing translations. Record dictionary references and native-review
+  preserving existing translations. Record dictionary references and
+  native-review
   limitations for standalone UI wording.
 - Placement checks cover 54 recently filled locales. Runtime, structural and
-  human-preference checks pass; browser scenarios were syntax-checked but not run
+  human-preference checks pass; browser scenarios were syntax-checked but not
+  run
   without the application stack.
 - Twelve locale paths still need this pair. The ordinary backlog remains 51,575
-  values plus 174 pending source keys; broader language-quality work remains open.
+  values plus 174 pending source keys; broader language-quality work remains
+  open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ba6d41e1e573e772cdd6fa72c930bf85d57c43be">Translate placement labels in 13 more locales</a>. Thanks to xet7.</summary>
 
-- Fill 26 “Before” and “After” labels using spatial terminology. Preserve existing
-  translations and record vocabulary references. Lower-confidence Aymara, Northern
+- Fill 26 “Before” and “After” labels using spatial terminology. Preserve
+  existing
+  translations and record vocabulary references. Lower-confidence Aymara,
+  Northern
   Sami and Waray wording remains open for native/UI review.
-- Placement translation checks cover 49 recently filled locales. Runtime selection,
-  structural and human-preference checks pass. Browser scenarios were syntax-checked
+- Placement translation checks cover 49 recently filled locales. Runtime
+  selection,
+  structural and human-preference checks pass. Browser scenarios were
+  syntax-checked
   but not run without the application stack.
 - Seventeen locale paths still need these labels. The ordinary backlog remains
-  51,575 values plus 174 pending source keys; broader language review remains open.
+  51,575 values plus 174 pending source keys; broader language review remains
+  open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e32e50a5e1beb9ba406284ee58b384c4c42d4101">Translate move-position labels in 36 locales</a>. Thanks to xet7.</summary>
 
-- Fill 72 “Before” and “After” labels for relative placement of selected objects.
+- Fill 72 “Before” and “After” labels for relative placement of selected
+  objects.
   Preserve existing translations; use spatial placement wording for Wolof.
-  Lower-confidence minority-language wording remains recorded for native/UI review.
+  Lower-confidence minority-language wording remains recorded for native/UI
+  review.
 - Selection runtime, translation structure and human-preference checks pass.
-  Browser scenarios were syntax-checked but not run without the application stack.
-- Thirty locale paths still need these labels. The ordinary backlog remains 51,575
-  values plus 174 pending source keys; broader language-quality work remains open.
+  Browser scenarios were syntax-checked but not run without the application
+  stack.
+- Thirty locale paths still need these labels. The ordinary backlog remains
+  51,575
+  values plus 174 pending source keys; broader language-quality work remains
+  open.
 
 </details>
 
@@ -4113,13 +5323,20 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/20c986cc20e9d7d37667288c30dd591f98b68ad3">Complete rule-builder placeholder translations across locales</a>. Thanks to xet7.</summary>
 
 - Fill the seven remaining Cherokee instructions. These seven keys now have
-  non-English values in all 234 non-English locale paths. Technical Cherokee prose
-  has low confidence; native-language and composed UI wording review remains open.
-- Extend the regression suite to discover every locale and verify exact variables,
-  source tokens and key order. Runtime, structural and human-preference checks pass.
-  Browser scenarios were syntax-checked but not run without the application stack.
-- Remove seven filled keys from the pending inventory, leaving 174 pending source
-  keys. The ordinary backlog remains 51,575 values across 70 languages; this does
+  non-English values in all 234 non-English locale paths. Technical Cherokee
+  prose
+  has low confidence; native-language and composed UI wording review remains
+  open.
+- Extend the regression suite to discover every locale and verify exact
+  variables,
+  source tokens and key order. Runtime, structural and human-preference checks
+  pass.
+  Browser scenarios were syntax-checked but not run without the application
+  stack.
+- Remove seven filled keys from the pending inventory, leaving 174 pending
+  source
+  keys. The ordinary backlog remains 51,575 values across 70 languages; this
+  does
   not complete the broader translation and language-quality work.
 
 </details>
@@ -4127,13 +5344,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fccbc4ebddd59ff4d30d7d84f367c0818a22edfb">Translate rule-builder instructions in Tigre</a>. Thanks to xet7.</summary>
 
-- Fill seven strings, preserving literal variables, any-trigger behavior and ordered
+- Fill seven strings, preserving literal variables, any-trigger behavior and
+  ordered
   actions. Technical wording has low confidence and needs Tigre speaker review,
   including composed date fragments and trigger terminology.
 - Translation checks now cover 65 recently filled locales. Runtime variable,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run because the application stack was unavailable.
-- Cherokee still needs this group. The ordinary backlog remains 51,575 values plus
+- Cherokee still needs this group. The ordinary backlog remains 51,575 values
+  plus
   181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4141,13 +5360,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c0b3b45fbe0e8d7d17dc8b4b452dc352bea979b0">Translate rule-builder instructions in Wolaytta</a>. Thanks to xet7.</summary>
 
-- Fill seven strings and correct five related prefixed labels, preserving literal
+- Fill seven strings and correct five related prefixed labels, preserving
+  literal
   variables, any-trigger behavior and ordered actions. Technical prose has lower
   confidence; terminology and composed date fragments need native/UI review.
 - Translation checks now cover 64 recently filled locales. Runtime variable,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- Two locale paths still need this group. The ordinary backlog remains 51,575 values
+- Two locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4161,7 +5382,8 @@ Thanks to xet7 !
 - Translation checks now cover 63 recently filled locales. Runtime variable,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 3 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 3 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4175,7 +5397,8 @@ Thanks to xet7 !
 - Translation checks now cover 62 recently filled locales. Runtime variable,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 4 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 4 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4189,7 +5412,8 @@ Thanks to xet7 !
 - Translation checks now cover 61 recently filled locales. Runtime variable,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 5 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 5 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4203,7 +5427,8 @@ Thanks to xet7 !
 - Translation checks now cover 60 recently filled locales. Runtime variable,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 6 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 6 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4212,12 +5437,14 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/93db0b817b0f0e0d498fba462d9c3e775521ab71">Translate rule-builder instructions in Greenlandic</a>. Thanks to xet7.</summary>
 
 - Fill seven strings, preserving literal variables, any-trigger behavior and
-  ordered actions. Technical prose has lower confidence; terminology, inflections
+  ordered actions. Technical prose has lower confidence; terminology,
+  inflections
   and composed date fragments need native/UI review.
 - Translation checks now cover 59 recently filled locales. Runtime variable,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 7 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 7 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4226,12 +5453,14 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/1c5ecfcddb253c879d11a097bda8d621b0ff4213">Translate rule-builder instructions in Volapük</a>. Thanks to xet7.</summary>
 
 - Fill seven strings and correct three labels, preserving literal variables,
-  any-trigger behavior and ordered actions. Technical prose has lower confidence;
+  any-trigger behavior and ordered actions. Technical prose has lower
+  confidence;
   terminology and composed date fragments need speaker/UI review.
 - Translation checks now cover 58 recently filled locales. Runtime variable,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 8 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 8 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4240,12 +5469,14 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/3009b5267e71b628276e2a38214d954713d3e1b6">Translate rule-builder instructions in Veps</a>. Thanks to xet7.</summary>
 
 - Fill seven strings, preserving literal variables, any-trigger behavior and
-  ordered actions. Technical prose has lower confidence; terminology, inflections
+  ordered actions. Technical prose has lower confidence; terminology,
+  inflections
   and composed date fragments need native/UI review.
 - Translation checks now cover 57 recently filled locales. Runtime variable,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 9 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 9 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4259,7 +5490,8 @@ Thanks to xet7 !
 - Translation checks now cover 56 recently filled locales. Runtime variable,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 10 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 10 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4273,7 +5505,8 @@ Thanks to xet7 !
 - Translation checks now cover 55 recently filled locales. Runtime variable,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 11 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 11 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4287,7 +5520,8 @@ Thanks to xet7 !
 - Translation checks now cover 54 recently filled locales. Runtime variable,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 12 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 12 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4301,7 +5535,8 @@ Thanks to xet7 !
 - Translation checks now cover 52 recently filled locales. Runtime variable,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 14 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 14 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4315,7 +5550,8 @@ Thanks to xet7 !
 - Translation checks now cover 50 recently filled locales. Runtime variable,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 16 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 16 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4329,7 +5565,8 @@ Thanks to xet7 !
 - Translation checks now cover 48 recently filled locales. Runtime variable,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 18 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 18 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4337,13 +5574,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e825c8e1dd81eba327ad97d57bb83af7a8e686ba">Translate rule-builder instructions in Chuvash and Venda</a>. Thanks to xet7.</summary>
 
-- Fill seven strings in each locale and correct three Nguni seed labels in Venda.
+- Fill seven strings in each locale and correct three Nguni seed labels in
+  Venda.
   Preserve literal variables, any-trigger behavior and ordered actions. Both
   translations have lower confidence and need native/UI terminology review.
 - Translation checks now cover 46 recently filled locales. Runtime variable,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 20 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 20 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4357,7 +5596,8 @@ Thanks to xet7 !
 - Translation checks now cover 44 recently filled locales. Runtime variable,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 22 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 22 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4366,12 +5606,14 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/ceca0364750ba85e78b79efe6d4f8952ec80770d">Translate rule-builder instructions in Aromanian and Venetian</a>. Thanks to xet7.</summary>
 
 - Fill seven strings in each locale and correct five wrong-language labels.
-  Preserve literal variables, any-trigger behavior and ordered actions. Aromanian
+  Preserve literal variables, any-trigger behavior and ordered actions.
+  Aromanian
   prose has lower confidence; both locales need native/UI terminology review.
 - Translation checks now cover 42 recently filled locales. Runtime variable,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 24 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 24 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4385,7 +5627,8 @@ Thanks to xet7 !
 - Translation checks now cover 40 recently filled locales. Runtime variable,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 26 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 26 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4394,12 +5637,14 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/04b3ad18b93ef3e331bb5bbc9d7e8a7299e53ec2">Translate rule-builder instructions in Luganda and Wolof</a>. Thanks to xet7.</summary>
 
 - Fill seven strings in each locale and replace Luganda's English trigger label.
-  Preserve literal variables, any-trigger behavior and ordered actions. Technical
+  Preserve literal variables, any-trigger behavior and ordered actions.
+  Technical
   prose has lower confidence and needs native/UI review.
 - Translation checks now cover 38 recently filled locales. Runtime variable,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 28 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 28 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4407,13 +5652,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/808829a9dc4d2fbe1c10773262fa5d012a88603e">Translate rule-builder instructions in Waray and Akan</a>. Thanks to xet7.</summary>
 
-- Fill seven strings in each locale and replace three wrong-language Waray labels.
+- Fill seven strings in each locale and replace three wrong-language Waray
+  labels.
   Preserve literal variables, any-trigger behavior and ordered actions. Akan
   technical prose has lower confidence and needs native/UI review.
 - Translation checks now cover 36 recently filled locales. Runtime variable,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 30 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 30 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4427,7 +5674,8 @@ Thanks to xet7 !
 - Translation checks now cover 34 recently filled locales. Runtime variable,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 32 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 32 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4435,13 +5683,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/df715c24385d9b169a3e5224213714ec37b20b55">Translate rule-builder instructions in Oromo, Fijian and Tongan</a>. Thanks to xet7.</summary>
 
-- Fill seven strings in each locale and replace two prefixed English Tongan labels.
-  Preserve literal variables, any-trigger behavior and ordered actions. Fijian and
+- Fill seven strings in each locale and replace two prefixed English Tongan
+  labels.
+  Preserve literal variables, any-trigger behavior and ordered actions. Fijian
+  and
   Tongan technical prose has lower confidence and needs native/UI review.
 - Translation checks now cover 32 recently filled locales. Runtime variable,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 34 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 34 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4455,7 +5706,8 @@ Thanks to xet7 !
 - Translation checks now cover 29 recently filled locales. Runtime variable,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 37 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 37 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4465,11 +5717,15 @@ Thanks to xet7 !
 
 - Fill seven strings in each locale, preserving literal variable expressions,
   any-trigger behavior and ordered actions. Correct three Persian seed labels in
-  Moroccan Arabic. Technical terms, date fragments and RTL display need native/UI review.
-- Translation checks now cover 25 recently filled locales and the corrected labels.
-  Runtime variable, all-locale structural and human-preference checks pass. Browser
+  Moroccan Arabic. Technical terms, date fragments and RTL display need
+  native/UI review.
+- Translation checks now cover 25 recently filled locales and the corrected
+  labels.
+  Runtime variable, all-locale structural and human-preference checks pass.
+  Browser
   scenarios were not run; the app stack was unavailable.
-- 41 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 41 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4480,10 +5736,12 @@ Thanks to xet7 !
 - Fill seven strings in each locale, preserving literal variable expressions,
   any-trigger behavior and ordered actions. Konkani prose has lower confidence;
   technical terms and composed date labels need native/UI review.
-- Translation checks now cover 23 recently filled locales. Runtime variable tests,
+- Translation checks now cover 23 recently filled locales. Runtime variable
+  tests,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 43 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 43 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4492,12 +5750,15 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/132706de4f2998c68727889325a1bec8c3503a15">Translate rule-builder instructions in Bhojpuri and Maithili</a>. Thanks to xet7.</summary>
 
 - Fill seven strings in two locales, preserving literal variable expressions,
-  any-trigger behavior and ordered actions. Technical terms and composed date labels
+  any-trigger behavior and ordered actions. Technical terms and composed date
+  labels
   need native/UI review.
-- Translation checks now cover 21 recently filled locales. Runtime variable tests,
+- Translation checks now cover 21 recently filled locales. Runtime variable
+  tests,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 45 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 45 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4506,12 +5767,15 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/abde97a3de219c08e9f012237c98b25058bfac55">Translate rule-builder instructions in Kinyarwanda, Kirundi and Chichewa</a>. Thanks to xet7.</summary>
 
 - Fill seven strings in three locales, preserving literal variable expressions,
-  any-trigger behavior and ordered actions. Technical terms and composed date labels
+  any-trigger behavior and ordered actions. Technical terms and composed date
+  labels
   need native/UI review, especially the Kirundi phrases.
-- Translation checks now cover 19 recently filled locales. Runtime variable tests,
+- Translation checks now cover 19 recently filled locales. Runtime variable
+  tests,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 47 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 47 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4522,10 +5786,12 @@ Thanks to xet7 !
 - Fill seven strings in two locales, preserving literal variable expressions,
   any-trigger behavior and ordered actions. Technical phrases and composed date
   labels have lower confidence and need native/UI review.
-- Translation checks now cover 16 recently filled locales. Runtime variable tests,
+- Translation checks now cover 16 recently filled locales. Runtime variable
+  tests,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 50 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 50 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4533,13 +5799,18 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3edf06cee81ae2dc0f5b4aee4fd08778eee3be48">Translate rule-builder instructions in Zulu and Xhosa</a>. Thanks to xet7.</summary>
 
-- Fill seven strings in zu, zu-ZA and xh, preserving literal variable expressions,
-  any-trigger behavior and ordered actions. Trigger wording and composed date labels
-  need native/UI review; the audit records Xhosa's existing swimlane inconsistency.
-- Translation checks now cover 14 recently filled locales. Runtime variable tests,
+- Fill seven strings in zu, zu-ZA and xh, preserving literal variable
+  expressions,
+  any-trigger behavior and ordered actions. Trigger wording and composed date
+  labels
+  need native/UI review; the audit records Xhosa's existing swimlane
+  inconsistency.
+- Translation checks now cover 14 recently filled locales. Runtime variable
+  tests,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 52 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 52 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4547,13 +5818,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8928e1510ea663d1f942c6ab4badcabb21e2ff57">Translate rule-builder instructions in Māori, Samoan and Hawaiian</a>. Thanks to xet7.</summary>
 
-- Fill seven strings in three locales, preserving literal variable expressions and
-  date-condition selector meaning. Samoan and Hawaiian phrases and technical terms
+- Fill seven strings in three locales, preserving literal variable expressions
+  and
+  date-condition selector meaning. Samoan and Hawaiian phrases and technical
+  terms
   are lower confidence; native/UI review remains open.
-- Translation checks now cover 11 recently filled locales. Runtime variable tests,
+- Translation checks now cover 11 recently filled locales. Runtime variable
+  tests,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 55 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 55 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4562,12 +5837,15 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/2b28b6f6c92b52a0adefbaf07f06649f7307b4a9">Translate rule-builder instructions in Tok Pisin and Bislama</a>. Thanks to xet7.</summary>
 
 - Fill seven strings in two locales, preserving literal variable expressions,
-  any-trigger behavior and ordered actions. Trigger wording, recipient labels and
+  any-trigger behavior and ordered actions. Trigger wording, recipient labels
+  and
   composed date-condition fragments need native/UI review.
-- Translation checks now cover eight recently filled locales. Runtime variable tests,
+- Translation checks now cover eight recently filled locales. Runtime variable
+  tests,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 58 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 58 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4578,10 +5856,12 @@ Thanks to xet7 !
 - Fill seven strings in three locales, preserving literal variable expressions,
   any-trigger behavior and ordered actions. Date-condition fragments and trigger
   terminology need native/UI review.
-- Translation checks now cover six recently filled locales. Runtime variable tests,
+- Translation checks now cover six recently filled locales. Runtime variable
+  tests,
   all-locale structural and human-preference checks pass. Browser scenarios were
   not run; the app stack was unavailable.
-- 60 locale paths still need this group. The ordinary backlog remains 51,575 values
+- 60 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4589,12 +5869,18 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b4beb5559b169df98373b426f3df0afc6f841571">Translate rule-builder instructions in Turkmen, Tatar and Somali</a>. Thanks to xet7.</summary>
 
-- Fill seven strings in three locales, preserving literal rule-variable expressions.
-  Trigger/swimlane terminology and composed date-condition labels need native/UI review.
-- Extend trigger-variable tests to compare brace-token inventories and reject renamed
-  examples. Runtime variable tests, all-locale structural and human-preference checks
-  pass. The browser scenario was syntax-checked only; the app stack was unavailable.
-- 63 locale paths still need this group. The ordinary backlog remains 51,575 values
+- Fill seven strings in three locales, preserving literal rule-variable
+  expressions.
+  Trigger/swimlane terminology and composed date-condition labels need native/UI
+  review.
+- Extend trigger-variable tests to compare brace-token inventories and reject
+  renamed
+  examples. Runtime variable tests, all-locale structural and human-preference
+  checks
+  pass. The browser scenario was syntax-checked only; the app stack was
+  unavailable.
+- 63 locale paths still need this group. The ordinary backlog remains 51,575
+  values
   plus 181 pending source keys; broader language-quality review remains open.
 
 </details>
@@ -4602,16 +5888,24 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4ab30ce556980bdb6aad10772bc23cbfc768d60c">Fill remaining SAML errors and reconcile all-locale coverage</a>. Thanks to xet7.</summary>
 
-- Fill Tigre and Cherokee placeholders. Full phrases are low confidence; Cherokee
-  retains borrowed browser/tab labels. Native terminology and grammar review remains.
-- All 234 non-English locale paths have nonempty values different from English with
-  exact placeholders for this message. Remove its pending entry, leaving 181 keys.
+- Fill Tigre and Cherokee placeholders. Full phrases are low confidence;
+  Cherokee
+  retains borrowed browser/tab labels. Native terminology and grammar review
+  remains.
+- All 234 non-English locale paths have nonempty values different from English
+  with
+  exact placeholders for this message. Remove its pending entry, leaving 181
+  keys.
   These checks establish coverage, not fluency or correct-language text.
-- Popup-error tests pass, including positive and negative login-boundary cases and
-  detailed translation checks for 66 recently filled locales. All-locale structural
-  and human-preference checks pass. Browser scenarios were not run; the app stack
+- Popup-error tests pass, including positive and negative login-boundary cases
+  and
+  detailed translation checks for 66 recently filled locales. All-locale
+  structural
+  and human-preference checks pass. Browser scenarios were not run; the app
+  stack
   was unavailable.
-- The ordinary backlog remains 51,575 values in 70 languages. Wider language-quality
+- The ordinary backlog remains 51,575 values in 70 languages. Wider
+  language-quality
   review remains in TODO Later.
 
 </details>
@@ -4621,10 +5915,12 @@ Thanks to xet7 !
 
 - Fill the message in nah and zgh without overwriting translations. Full phrases
   and browser-tab terminology are low confidence and need native review.
-- Popup-error tests now check 64 recently filled locales and pass, including positive
+- Popup-error tests now check 64 recently filled locales and pass, including
+  positive
   and negative login-boundary cases. All-locale structural and human-preference
   checks pass. Browser scenarios were not run; the app stack was unavailable.
-- Tigre and Cherokee still need this message. The ordinary backlog remains 51,575
+- Tigre and Cherokee still need this message. The ordinary backlog remains
+  51,575
   values plus 182 pending source keys; language-quality review remains open.
 
 </details>
@@ -4634,7 +5930,8 @@ Thanks to xet7 !
 
 - Fill the message in kl and iu without overwriting translations. Full phrases
   and browser-tab terminology are low confidence and need native review.
-- Popup-error tests now check 62 recently filled locales and pass, including positive
+- Popup-error tests now check 62 recently filled locales and pass, including
+  positive
   and negative login-boundary cases. All-locale structural and human-preference
   checks pass. Browser scenarios were not run; the app stack was unavailable.
 - Four locale paths still need this message. The ordinary backlog remains 51,575
@@ -4645,9 +5942,11 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e3e9c342dda5505aea152b218f97f4db166df481">Translate SAML error into Veps and Wolaytta</a>. Thanks to xet7.</summary>
 
-- Fill the message in ve-PP and wal without overwriting translations. Full phrases
+- Fill the message in ve-PP and wal without overwriting translations. Full
+  phrases
   and browser-tab terms are low confidence and need native review.
-- Popup-error tests now check 60 recently filled locales and pass, including positive
+- Popup-error tests now check 60 recently filled locales and pass, including
+  positive
   and negative login-boundary cases. All-locale structural and human-preference
   checks pass. Browser scenarios were not run; the app stack was unavailable.
 - Six locale paths still need this message. The ordinary backlog remains 51,575
@@ -4659,11 +5958,14 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/1fb61838b9cbd932ea9da6d6547bd704b6f66291">Translate SAML error into Volapük and Klingon</a>. Thanks to xet7.</summary>
 
 - Fill the message in vo and tlh without overwriting translations. Full phrases
-  are low confidence; Klingon browser and tab terms remain borrowed and need review.
-- Popup-error tests now check 58 recently filled locales and pass, including positive
+  are low confidence; Klingon browser and tab terms remain borrowed and need
+  review.
+- Popup-error tests now check 58 recently filled locales and pass, including
+  positive
   and negative login-boundary cases. All-locale structural and human-preference
   checks pass. Browser scenarios were not run; the app stack was unavailable.
-- Eight locale paths still need this message. The ordinary backlog remains 51,575
+- Eight locale paths still need this message. The ordinary backlog remains
+  51,575
   values plus 182 pending source keys; language-quality review remains open.
 
 </details>
@@ -4671,9 +5973,12 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/afd51d4b50431e28287348a414b797d240ce04bd">Translate SAML error into Quechua, Aymara, Guarani and Fulah</a>. Thanks to xet7.</summary>
 
-- Fill the browser-tab message in qu, ay, gn and ff without overwriting translations.
-  Full phrases and browser-tab terminology are low confidence and need native review.
-- Popup-error tests now check 56 recently filled locales and pass, including positive
+- Fill the browser-tab message in qu, ay, gn and ff without overwriting
+  translations.
+  Full phrases and browser-tab terminology are low confidence and need native
+  review.
+- Popup-error tests now check 56 recently filled locales and pass, including
+  positive
   and negative login-boundary cases. All-locale structural and human-preference
   checks pass. Browser scenarios were not run; the app stack was unavailable.
 - Ten locale paths still need this message. The ordinary backlog remains 51,575
@@ -4685,9 +5990,11 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/e188bb0f89460ca3684a531d63eed9ba7d41fe3d">Translate SAML browser-tab error in five more locales</a>. Thanks to xet7.</summary>
 
 - Fill the message in ace, bo, dz, ti and ks without overwriting translations.
-  Browser-tab terminology and full Acehnese and Dzongkha phrases are low confidence
+  Browser-tab terminology and full Acehnese and Dzongkha phrases are low
+  confidence
   and need native review.
-- Popup-error tests now check 52 recently filled locales and pass, including positive
+- Popup-error tests now check 52 recently filled locales and pass, including
+  positive
   and negative login-boundary cases. All-locale structural and human-preference
   checks pass. Browser scenarios were not run; the app stack was unavailable.
 - 14 locale paths still need this message. The ordinary backlog remains 51,575
@@ -4701,7 +6008,8 @@ Thanks to xet7 !
 - Fill the message in rup, ve-CC, bua, sah, cv, ve and se without overwriting
   translations. Aromanian phrases and browser-tab terminology are low confidence
   and need native review.
-- Popup-error tests now check 47 recently filled locales and pass, including positive
+- Popup-error tests now check 47 recently filled locales and pass, including
+  positive
   and negative login-boundary cases. All-locale structural and human-preference
   checks pass. Browser scenarios were not run; the app stack was unavailable.
 - 19 locale paths still need this message. The ordinary backlog remains 51,575
@@ -4715,7 +6023,8 @@ Thanks to xet7 !
 - Fill the message in gv, wa, wa-RR, ak, lg, bm, wo and ee without overwriting
   translations. Manx and Walloon phrases and browser/tab terminology are low
   confidence and need native review.
-- Popup-error tests now check 40 recently filled locales and pass, including positive
+- Popup-error tests now check 40 recently filled locales and pass, including
+  positive
   and negative login-boundary cases. All-locale structural and human-preference
   checks pass. Browser scenarios were not run; the app stack was unavailable.
 - 26 locale paths still need this message. The ordinary backlog remains 51,575
@@ -4726,10 +6035,13 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3b25eeeb5398b10ae30163c2e28885f704120acd">Translate SAML browser-tab error in 13 more locales</a>. Thanks to xet7.</summary>
 
-- Fill the message in bho, mai, or_IN, kok, ary, yi, nd, ss, nso, ts, om, fj and to.
-  Preserve existing translations. Browser/tab terminology in the southern African,
+- Fill the message in bho, mai, or_IN, kok, ary, yi, nd, ss, nso, ts, om, fj and
+  to.
+  Preserve existing translations. Browser/tab terminology in the southern
+  African,
   Oromo, Fijian and Tongan phrases is lower confidence and needs native review.
-- Popup-error tests now check 32 recently filled locales and pass, including positive
+- Popup-error tests now check 32 recently filled locales and pass, including
+  positive
   and negative login-boundary cases. All-locale structural and human-preference
   checks pass. Browser scenarios were not run; the app stack was unavailable.
 - 34 locale paths still need this message. The ordinary backlog remains 51,575
@@ -4743,7 +6055,8 @@ Thanks to xet7 !
 - Explain that SAML sign-in was not started in this browser tab and ask the user
   to sign in again. Preserve existing translated values. Pacific and southern
   African browser-tab terminology has lower confidence and needs native review.
-- Popup-error, replay-boundary, all-locale structural and human-preference checks
+- Popup-error, replay-boundary, all-locale structural and human-preference
+  checks
   pass. The replay test required loopback permission. Existing browser scenarios
   were syntax-checked only; the app stack was unavailable.
 - 47 locale paths still need this message. The ordinary backlog remains 51,575
@@ -4757,12 +6070,14 @@ Thanks to xet7 !
 - Fill six Cherokee reminder strings. Full phrases and technical terminology are
   low confidence and need native review.
 - All 234 non-English locale paths now contain nonempty, non-English values with
-  exact source placeholders for the six reminder keys. Remove these keys from the
+  exact source placeholders for the six reminder keys. Remove these keys from
+  the
   pending queue, leaving 182. This structural coverage does not certify fluency.
 - Translation, all-locale structural and human-preference checks pass; detailed
   reminder checks cover 66 locales. Browser scenarios were syntax-checked only
   because the app stack was unavailable.
-- The ordinary backlog remains 51,575 values in 70 languages. Wider language-quality
+- The ordinary backlog remains 51,575 values in 70 languages. Wider
+  language-quality
   review, including low-confidence reminder phrases, remains in TODO Later.
 
 </details>
@@ -4771,13 +6086,16 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/256a6b36cf8df7ac42ec1ca33481582a4c8c239c">Translate due reminders into Tigre</a>. Thanks to xet7.</summary>
 
 - Fill six English placeholders, retaining signed offsets, server defaults,
-  whole-day bounds, the ten-entry limit and outgoing webhook delivery. Full phrases
+  whole-day bounds, the ten-entry limit and outgoing webhook delivery. Full
+  phrases
   and technical terms are low confidence and need native review.
-- Reminder checks now cover 65 translated locales. Translation, all-locale structural
+- Reminder checks now cover 65 translated locales. Translation, all-locale
+  structural
   and human-preference checks pass. Browser scenarios were syntax-checked only
   because the app stack was unavailable.
 - Cherokee still needs this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language review remains open.
+  51,575 values plus 188 pending source keys; wider language review remains
+  open.
 
 </details>
 
@@ -4785,13 +6103,16 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/dc84805547893f3340156980a71e2646f191d26b">Translate due reminders into Wolaytta</a>. Thanks to xet7.</summary>
 
 - Fill six English placeholders, retaining signed offsets, server defaults,
-  whole-day bounds, the ten-entry limit and outgoing webhook delivery. Full phrases
+  whole-day bounds, the ten-entry limit and outgoing webhook delivery. Full
+  phrases
   and technical terms are low confidence and need native review.
-- Reminder checks now cover 64 translated locales. Translation, all-locale structural
+- Reminder checks now cover 64 translated locales. Translation, all-locale
+  structural
   and human-preference checks pass. Browser scenarios were syntax-checked only
   because the app stack was unavailable.
 - Two locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language review remains open.
+  51,575 values plus 188 pending source keys; wider language review remains
+  open.
 
 </details>
 
@@ -4799,13 +6120,17 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/8924e8c936c50330950ebb4c5623feb69594078a">Translate due reminders into Inuktitut</a>. Thanks to xet7.</summary>
 
 - Fill six English placeholders, retaining signed offsets, server defaults,
-  whole-day bounds, the ten-entry limit and outgoing webhook delivery. Full phrases
+  whole-day bounds, the ten-entry limit and outgoing webhook delivery. Full
+  phrases
   and technical terms are low confidence and need native review.
-- Reminder checks now cover 63 translated locales. Translation, all-locale structural
+- Reminder checks now cover 63 translated locales. Translation, all-locale
+  structural
   and human-preference checks pass. Browser scenarios were syntax-checked only
   because the app stack was unavailable.
-- Three locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language review remains open.
+- Three locale paths still need this reminder group. The ordinary backlog
+  remains
+  51,575 values plus 188 pending source keys; wider language review remains
+  open.
 
 </details>
 
@@ -4813,13 +6138,16 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/a5f345f6cf1ac4cb52a979ee35685aa7fd874421">Translate due reminders into Standard Moroccan Tamazight</a>. Thanks to xet7.</summary>
 
 - Fill six English placeholders in Tifinagh, retaining signed offsets, server
-  defaults, whole-day bounds, the ten-entry limit and webhook delivery. Full phrases
+  defaults, whole-day bounds, the ten-entry limit and webhook delivery. Full
+  phrases
   and technical terms are low confidence and need native review.
-- Reminder checks now cover 62 translated locales. Translation, all-locale structural
+- Reminder checks now cover 62 translated locales. Translation, all-locale
+  structural
   and human-preference checks pass. Browser scenarios were syntax-checked only
   because the app stack was unavailable.
 - Four locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language review remains open.
+  51,575 values plus 188 pending source keys; wider language review remains
+  open.
 
 </details>
 
@@ -4829,11 +6157,13 @@ Thanks to xet7 !
 - Fill six strings, preserving signed offsets, server defaults, integer bounds,
   board disabling and outgoing webhook delivery. Full Veps phrases and technical
   terms are low confidence and need native review.
-- Translation checks and existing browser scenarios now cover 61 translated locales.
+- Translation checks and existing browser scenarios now cover 61 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
 - Five locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -4842,13 +6172,16 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/e13b997904dc7b61243cba2477a350ca7be95be8">Translate due reminders into Nahuatl</a>. Thanks to xet7.</summary>
 
 - Fill six strings, preserving signed offsets, server defaults, integer bounds,
-  board disabling and outgoing webhook delivery. Complete instructions, comparisons
+  board disabling and outgoing webhook delivery. Complete instructions,
+  comparisons
   and technical compounds remain low-confidence drafts for native review.
-- Translation checks and existing browser scenarios now cover 60 translated locales.
+- Translation checks and existing browser scenarios now cover 60 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
 - 6 locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -4857,13 +6190,16 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/89b573a778bba327386685cab662ffabe52ee384">Translate due reminders into Greenlandic</a>. Thanks to xet7.</summary>
 
 - Fill six strings, preserving signed offsets, server defaults, integer bounds,
-  board disabling and outgoing webhook delivery. Complete instructions, inflections
+  board disabling and outgoing webhook delivery. Complete instructions,
+  inflections
   and technical compounds remain low-confidence drafts for native review.
-- Translation checks and existing browser scenarios now cover 59 translated locales.
+- Translation checks and existing browser scenarios now cover 59 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
 - 7 locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -4872,13 +6208,17 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/ef61b69b8d64c71de606920d5dfbe07de4bea1e4">Translate due reminders into Klingon</a>. Thanks to xet7.</summary>
 
 - Fill six strings, preserving signed offsets, server defaults, integer bounds,
-  board disabling and outgoing webhook delivery. Complete instructions, comparisons
-  and technical compounds remain low-confidence drafts for fluent-speaker review.
-- Translation checks and existing browser scenarios now cover 58 translated locales.
+  board disabling and outgoing webhook delivery. Complete instructions,
+  comparisons
+  and technical compounds remain low-confidence drafts for fluent-speaker
+  review.
+- Translation checks and existing browser scenarios now cover 58 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
 - 8 locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -4887,13 +6227,16 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/9bedd51e10052768bec7a25d7f8cded7c544a3c2">Translate due reminders into Volapük</a>. Thanks to xet7.</summary>
 
 - Fill six strings, preserving signed offsets, server defaults, integer bounds,
-  board disabling and outgoing webhook delivery. Complete instructions and technical
+  board disabling and outgoing webhook delivery. Complete instructions and
+  technical
   compounds remain low-confidence drafts for fluent-speaker review.
-- Translation checks and existing browser scenarios now cover 57 translated locales.
+- Translation checks and existing browser scenarios now cover 57 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
 - 9 locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -4902,13 +6245,17 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/c092aabc2ec9be4fa60a20ccc6a4b73df433f16a">Translate due reminders into Fulah</a>. Thanks to xet7.</summary>
 
 - Fill six strings, preserving signed offsets, server defaults, integer bounds,
-  board disabling and outgoing webhook delivery. Complete instructions and technical
-  compounds remain low-confidence drafts for native review, including dialect consistency.
-- Translation checks and existing browser scenarios now cover 56 translated locales.
+  board disabling and outgoing webhook delivery. Complete instructions and
+  technical
+  compounds remain low-confidence drafts for native review, including dialect
+  consistency.
+- Translation checks and existing browser scenarios now cover 56 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
 - 10 locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -4917,13 +6264,16 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/14ce70fe73d04392a32b870bb014ef8d2c914685">Translate due reminders into Guarani</a>. Thanks to xet7.</summary>
 
 - Fill six strings, preserving signed offsets, server defaults, integer bounds,
-  board disabling and outgoing webhook delivery. Complete instructions and technical
+  board disabling and outgoing webhook delivery. Complete instructions and
+  technical
   compounds remain low-confidence drafts for native review.
-- Translation checks and existing browser scenarios now cover 55 translated locales.
+- Translation checks and existing browser scenarios now cover 55 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
 - 11 locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -4932,13 +6282,16 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/a434d1b4de83a8fbcc41b692d60063813350dfbe">Translate due reminders into Aymara</a>. Thanks to xet7.</summary>
 
 - Fill six strings, preserving signed offsets, server defaults, integer bounds,
-  board disabling and outgoing webhook delivery. Complete instructions and technical
+  board disabling and outgoing webhook delivery. Complete instructions and
+  technical
   compounds remain low-confidence drafts for native review.
-- Translation checks and existing browser scenarios now cover 54 translated locales.
+- Translation checks and existing browser scenarios now cover 54 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
 - 12 locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -4947,13 +6300,17 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/229ef7bbcb4c3b23a23cf39b7d244bd3b52bbba1">Translate due reminders into Quechua</a>. Thanks to xet7.</summary>
 
 - Fill six strings, preserving signed offsets, server defaults, integer bounds,
-  board disabling and outgoing webhook delivery. Complete instructions and technical
-  compounds remain low-confidence drafts for native review, including dialect consistency.
-- Translation checks and existing browser scenarios now cover 53 translated locales.
+  board disabling and outgoing webhook delivery. Complete instructions and
+  technical
+  compounds remain low-confidence drafts for native review, including dialect
+  consistency.
+- Translation checks and existing browser scenarios now cover 53 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
 - 13 locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -4962,13 +6319,16 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/a7816d3e4c4bd465a0fc53429642700e539797b7">Translate due reminders into Kashmiri</a>. Thanks to xet7.</summary>
 
 - Fill six strings, preserving signed offsets, server defaults, integer bounds,
-  board disabling and outgoing webhook delivery. Complete instructions and technical
+  board disabling and outgoing webhook delivery. Complete instructions and
+  technical
   compounds remain low-confidence drafts for native review.
-- Translation checks and existing browser scenarios now cover 52 translated locales.
+- Translation checks and existing browser scenarios now cover 52 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
 - 14 locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -4979,11 +6339,13 @@ Thanks to xet7 !
 - Fill six strings, preserving signed offsets, server defaults, integer bounds,
   board disabling and outgoing webhook delivery. Technical compounds remain
   open to native review.
-- Translation checks and existing browser scenarios now cover 51 translated locales.
+- Translation checks and existing browser scenarios now cover 51 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
 - 15 locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -4992,13 +6354,16 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/887f1a1a2ac2a10844f034c18670819125866fe1">Translate due reminders into Dzongkha</a>. Thanks to xet7.</summary>
 
 - Fill six strings, preserving signed offsets, server defaults, integer bounds,
-  board disabling and outgoing webhook delivery. Complete instructions and technical
+  board disabling and outgoing webhook delivery. Complete instructions and
+  technical
   compounds remain low-confidence drafts for native review.
-- Translation checks and existing browser scenarios now cover 50 translated locales.
+- Translation checks and existing browser scenarios now cover 50 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
 - 16 locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -5009,11 +6374,13 @@ Thanks to xet7 !
 - Fill six strings, preserving signed offsets, server defaults, integer bounds,
   board disabling and outgoing webhook delivery. Technical compounds remain
   open to native review.
-- Translation checks and existing browser scenarios now cover 49 translated locales.
+- Translation checks and existing browser scenarios now cover 49 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
 - 17 locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -5022,13 +6389,16 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/981101ab212933bf14b03afe2e23279dea608b26">Translate due reminders into Acehnese</a>. Thanks to xet7.</summary>
 
 - Fill six strings, preserving signed offsets, server defaults, integer bounds,
-  board disabling and outgoing webhook delivery. Complete instructions and technical
+  board disabling and outgoing webhook delivery. Complete instructions and
+  technical
   compounds remain low-confidence drafts for native review.
-- Translation checks and existing browser scenarios now cover 48 translated locales.
+- Translation checks and existing browser scenarios now cover 48 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
 - 18 locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -5039,11 +6409,13 @@ Thanks to xet7 !
 - Fill six strings, preserving signed offsets, server defaults, integer bounds,
   board disabling and outgoing webhook delivery. Full instructions and technical
   compounds remain low-confidence drafts for native review.
-- Translation checks and existing browser scenarios now cover 47 translated locales.
+- Translation checks and existing browser scenarios now cover 47 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
 - 19 locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -5054,11 +6426,13 @@ Thanks to xet7 !
 - Fill six strings, preserving signed offsets, server defaults, integer bounds,
   board disabling and outgoing webhook delivery. Technical compounds remain
   low-confidence drafts for native review.
-- Translation checks and existing browser scenarios now cover 46 translated locales.
+- Translation checks and existing browser scenarios now cover 46 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
 - 20 locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -5069,11 +6443,13 @@ Thanks to xet7 !
 - Fill six strings, preserving signed offsets, server defaults, integer bounds,
   board disabling and outgoing webhook delivery. Full instructions and technical
   compounds remain low-confidence drafts for native review.
-- Translation checks and existing browser scenarios now cover 45 translated locales.
+- Translation checks and existing browser scenarios now cover 45 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
 - 21 locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -5084,11 +6460,13 @@ Thanks to xet7 !
 - Fill 12 strings, preserving signed offsets, server defaults, integer bounds,
   board disabling and outgoing webhook delivery. Full instructions and technical
   compounds remain low-confidence drafts for native review.
-- Translation checks and existing browser scenarios now cover 44 translated locales.
+- Translation checks and existing browser scenarios now cover 44 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
 - 22 locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -5099,11 +6477,13 @@ Thanks to xet7 !
 - Fill 12 strings, preserving signed offsets, server defaults, integer bounds,
   board disabling and outgoing webhook delivery. Aromanian instructions and
   technical compounds remain low-confidence drafts for native review.
-- Translation checks and existing browser scenarios now cover 42 translated locales.
+- Translation checks and existing browser scenarios now cover 42 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
 - 24 locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -5112,13 +6492,16 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/876845a7212e4d42b9ddaed41da30478bc47498b">Translate due reminders into Bambara, Wolof and Ewe</a>. Thanks to xet7.</summary>
 
 - Fill 18 strings, preserving signed offsets, server defaults, integer bounds,
-  board disabling and outgoing webhook delivery. Complete instructions and technical
+  board disabling and outgoing webhook delivery. Complete instructions and
+  technical
   compounds remain low-confidence drafts for native review.
-- Translation checks and existing browser scenarios now cover 40 translated locales.
+- Translation checks and existing browser scenarios now cover 40 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
 - 26 locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -5129,11 +6512,13 @@ Thanks to xet7 !
 - Fill 12 strings, preserving signed offsets, server defaults, integer bounds,
   board disabling and outgoing webhook delivery. Technical compounds remain
   low-confidence drafts for native review.
-- Translation checks and existing browser scenarios now cover 37 translated locales.
+- Translation checks and existing browser scenarios now cover 37 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
 - 29 locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -5142,13 +6527,16 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/a8ca9e47da038103faf5ba70de9064c30111c39c">Translate due reminders into Manx, Walloon and Waray</a>. Thanks to xet7.</summary>
 
 - Fill 18 strings, preserving signed offsets, server defaults, integer bounds,
-  board disabling and outgoing webhook delivery. Technical compounds and complete
+  board disabling and outgoing webhook delivery. Technical compounds and
+  complete
   Manx and Walloon instructions remain low-confidence drafts for native review.
-- Translation checks and existing browser scenarios now cover 35 translated locales.
+- Translation checks and existing browser scenarios now cover 35 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
 - 31 locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -5157,13 +6545,16 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/e6690139f10762471b6d372b0efa8083d6b1768b">Translate due reminders into Oromo, Fijian and Tongan</a>. Thanks to xet7.</summary>
 
 - Fill 18 strings, retaining signed offsets, server defaults, integer bounds,
-  board disabling and outgoing webhook delivery. Technical compounds and complete
+  board disabling and outgoing webhook delivery. Technical compounds and
+  complete
   Fijian and Tongan instructions remain low-confidence drafts for native review.
-- Translation checks and existing browser scenarios now cover 32 translated locales.
+- Translation checks and existing browser scenarios now cover 32 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
 - 34 locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -5173,12 +6564,15 @@ Thanks to xet7 !
 
 - Fill 24 strings, preserving signed offsets, server defaults, integer bounds,
   board disabling and outgoing webhook delivery. Northern Ndebele and Swati
-  instructions and technical compounds remain low-confidence drafts for native review.
-- Translation checks and existing browser scenarios now cover 29 translated locales.
+  instructions and technical compounds remain low-confidence drafts for native
+  review.
+- Translation checks and existing browser scenarios now cover 29 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
 - 37 locale paths still need this reminder group. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -5188,11 +6582,14 @@ Thanks to xet7 !
 
 - Fill 12 strings, preserving signed offsets, server defaults, integer bounds,
   board disabling and outgoing webhook delivery.
-- Translation checks and existing browser scenarios now cover 25 translated locales.
+- Translation checks and existing browser scenarios now cover 25 translated
+  locales.
   Translation, all-locale structural and human-preference checks pass; browser
   scenarios were syntax-checked only because the app stack was unavailable.
-- 41 locale paths still need these reminder strings. The ordinary backlog remains
-  51,575 values plus 188 pending source keys; wider language-quality review remains
+- 41 locale paths still need these reminder strings. The ordinary backlog
+  remains
+  51,575 values plus 188 pending source keys; wider language-quality review
+  remains
   in TODO Later.
 
 </details>
@@ -5206,7 +6603,8 @@ Thanks to xet7 !
   Translation, all-locale and human-preference checks pass; browser coverage is
   syntax-checked only because its application stack was unavailable.
 - Forty-three locale paths still need this six-key group. The ordinary backlog
-  remains 51,575 values plus 188 pending source keys; wider review stays in TODO Later.
+  remains 51,575 values plus 188 pending source keys; wider review stays in TODO
+  Later.
 
 </details>
 
@@ -5219,14 +6617,16 @@ Thanks to xet7 !
   Translation, all-locale and human-preference checks pass; browser coverage is
   syntax-checked only because its application stack was unavailable.
 - Forty-seven locale paths still need this six-key group. The ordinary backlog
-  remains 51,575 values plus 188 pending source keys; wider review stays in TODO Later.
+  remains 51,575 values plus 188 pending source keys; wider review stays in TODO
+  Later.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5cb537180e4029859f64e86c331ee89a05861988">Translate due reminders into Zulu, Xhosa, Sesotho and Setswana</a>. Thanks to xet7.</summary>
 
-- Fill 30 strings across five locale paths, including both Zulu files, preserving
+- Fill 30 strings across five locale paths, including both Zulu files,
+  preserving
   offset direction, comma separation, numeric limits and blank/server fallback.
 - Translation checks and existing browser scenarios now cover 16 locales.
   Translation, all-locale and human-preference checks pass; browser coverage is
@@ -5240,7 +6640,8 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/590f813fdeb25886d1febc91798d1c765d5525e9">Translate due reminders into Māori, Samoan and Hawaiian</a>. Thanks to xet7.</summary>
 
 - Fill 18 due-reminder strings, preserving offset direction, comma separation,
-  numeric limits and blank/server fallback without overwriting existing translations.
+  numeric limits and blank/server fallback without overwriting existing
+  translations.
 - Translation checks and existing browser scenarios now cover 11 locales.
   Translation, all-locale and human-preference checks pass; browser coverage is
   syntax-checked only because its application stack was unavailable.
@@ -5252,12 +6653,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4becd76fa0008e7d540972262429c314041bc996">Translate due reminders into five more languages</a>. Thanks to xet7.</summary>
 
-- Fill 30 strings in Kurdish, Sorani, Papiamento, Tok Pisin and Bislama, preserving
-  signed offset directions, comma separation, numeric limits and server fallback.
+- Fill 30 strings in Kurdish, Sorani, Papiamento, Tok Pisin and Bislama,
+  preserving
+  signed offset directions, comma separation, numeric limits and server
+  fallback.
 - Translation checks and existing browser scenarios now cover eight locales.
   Translation, all-locale and human-preference checks pass; browser coverage is
   syntax-checked only because its application stack was unavailable.
-- Fifty-eight locales still need this six-key group. The ordinary backlog remains
+- Fifty-eight locales still need this six-key group. The ordinary backlog
+  remains
   51,575 values plus 188 pending source keys; wider review stays in TODO Later.
 
 </details>
@@ -5266,13 +6670,16 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/0ba3f9fc23f24237fd28a1250f257678a9046365">Translate due reminders into Turkmen, Tatar and Somali</a>. Thanks to xet7.</summary>
 
 - Fill 18 due-reminder strings in three locales, preserving positive-before and
-  negative-after offsets, comma separation, blank/server fallback and numeric limits.
+  negative-after offsets, comma separation, blank/server fallback and numeric
+  limits.
 - Add translation checks and extend the existing board-reminder UI test for
   translated labels and saved/error feedback. Translation, all-locale and
   human-preference checks pass; browser coverage is syntax-checked only because
   its application stack was unavailable.
-- Another 63 locales need this six-key group. The ordinary backlog remains 51,575
-  values plus 188 pending source keys; wider translation review stays in TODO Later.
+- Another 63 locales need this six-key group. The ordinary backlog remains
+  51,575
+  values plus 188 pending source keys; wider translation review stays in TODO
+  Later.
 
 </details>
 
@@ -5281,9 +6688,11 @@ Thanks to xet7 !
 
 - Remove 13 activity-notification keys from the pending manifest after checking
   all 234 non-English locale paths for nonempty values, no exact English
-  placeholders and preserved source tokens. Add regression coverage for queue removal.
+  placeholders and preserved source tokens. Add regression coverage for queue
+  removal.
 - Pending source keys decrease from 201 to 188. The ordinary backlog remains
-  51,575 values. Low-confidence wording and language review remain in TODO Later;
+  51,575 values. Low-confidence wording and language review remain in TODO
+  Later;
   these structural checks do not establish fluency.
 - Notification, all-locale, human-preference and changelog checks pass. The next
   feature group has six due-reminder strings still English in 66 locales.
@@ -5299,8 +6708,10 @@ Thanks to xet7 !
 - All 234 non-English locale paths now pass checks for nonempty values, no exact
   English placeholders and preserved tokens in this group. Detailed notification
   coverage includes 66 locales. Human-preference and all-locale checks pass;
-  browser coverage is syntax-checked only because its application stack is unavailable.
-- Language-quality review and the wider translation backlog remain in TODO Later.
+  browser coverage is syntax-checked only because its application stack is
+  unavailable.
+- Language-quality review and the wider translation backlog remain in TODO
+  Later.
   The ordinary count is still 51,575 values plus 201 pending source keys; this
   group's pending manifest entries still need reconciliation.
 
@@ -5310,13 +6721,15 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/7138ed19e0c2d7371256b7781b58b4405f1f7345">Translate Tigre notification settings</a>. Thanks to xet7.</summary>
 
 - Fill 13 Tigre notification strings while preserving existing translations.
-  Record low-confidence wording, reference limits and possible Tigrinya influence
+  Record low-confidence wording, reference limits and possible Tigrinya
+  influence
   in the broader locale in `docs/Features/Translations/Audit.md`.
 - Shared notification coverage now includes 65 locales. Notification, script,
   all-locale structure/token and human-preference checks pass. Browser coverage
   is syntax-checked only; its application stack was unavailable.
 - Cherokee still needs this notification group. The ordinary backlog remains
-  51,575 values plus 201 pending source keys; remaining work stays in TODO Later.
+  51,575 values plus 201 pending source keys; remaining work stays in TODO
+  Later.
 
 </details>
 
@@ -5330,21 +6743,24 @@ Thanks to xet7 !
   structure/token and human-preference checks pass. Browser coverage was
   syntax-checked only because its application stack was unavailable.
 - Two locales still need this notification group. The ordinary backlog remains
-  51,575 values plus 201 pending source keys; remaining work stays in TODO Later.
+  51,575 values plus 201 pending source keys; remaining work stays in TODO
+  Later.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/360ffe7c50171401a27c492d0bb795dfde1a581d">Translate Inuktitut notification settings</a>. Thanks to xet7.</summary>
 
-- Fill 13 Inuktitut notification strings in syllabics without overwriting existing
+- Fill 13 Inuktitut notification strings in syllabics without overwriting
+  existing
   translations. Record sources and low-confidence wording in
   `docs/Features/Translations/Audit.md`.
 - Shared notification coverage now includes 63 locales. Notification, syllabic,
   all-locale structure/token and human-preference checks pass. Browser coverage
   is syntax-checked only; its application stack was unavailable.
 - Three locales still need this notification group. The ordinary backlog remains
-  51,575 values plus 201 pending source keys; remaining work stays in TODO Later.
+  51,575 values plus 201 pending source keys; remaining work stays in TODO
+  Later.
 
 </details>
 
@@ -5352,13 +6768,17 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/cdf21e4dbb975b3939ac53a67e5279da6e5642b4">Translate Tamazight notification settings</a>. Thanks to xet7.</summary>
 
 - Fill 13 Standard Moroccan Tamazight notification strings in Tifinagh without
-  overwriting existing translations. Record low-confidence wording and vocabulary
+  overwriting existing translations. Record low-confidence wording and
+  vocabulary
   references in `docs/Features/Translations/Audit.md`.
 - Shared notification coverage now includes 62 locales, with Tifinagh checks for
-  this batch. Notification, all-locale structure/token and human-preference checks
-  pass. Browser coverage is syntax-checked only; its application stack was unavailable.
+  this batch. Notification, all-locale structure/token and human-preference
+  checks
+  pass. Browser coverage is syntax-checked only; its application stack was
+  unavailable.
 - Four locales still need this notification group. The ordinary backlog remains
-  51,575 values plus 201 pending source keys; remaining work stays in TODO Later.
+  51,575 values plus 201 pending source keys; remaining work stays in TODO
+  Later.
 
 </details>
 
@@ -5372,21 +6792,24 @@ Thanks to xet7 !
   structure/token and human-preference checks pass. Browser coverage was
   syntax-checked only because its application stack was unavailable.
 - Five locales still need this notification group. The ordinary backlog remains
-  51,575 values plus 201 pending source keys; remaining work stays in TODO Later.
+  51,575 values plus 201 pending source keys; remaining work stays in TODO
+  Later.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/17f85c385ce244e086aa31cf17dad7407905a906">Translate Nahuatl notification settings</a>. Thanks to xet7.</summary>
 
-- Fill 13 Nahuatl notification strings without overwriting existing translations.
+- Fill 13 Nahuatl notification strings without overwriting existing
+  translations.
   Document vocabulary references and low-confidence technical wording in
   `docs/Features/Translations/Audit.md`.
 - Shared notification coverage now includes 60 locales. Notification, all-locale
   structure/token and human-preference checks pass. Browser coverage was
   syntax-checked only because the application stack was unavailable.
 - Six locales still need this notification group. The ordinary backlog remains
-  51,575 values plus 201 pending source keys; remaining work stays in TODO Later.
+  51,575 values plus 201 pending source keys; remaining work stays in TODO
+  Later.
 
 </details>
 
@@ -5400,7 +6823,8 @@ Thanks to xet7 !
   structure/token and human-preference checks pass. Browser coverage was
   syntax-checked only; the application stack was unavailable.
 - Seven locales still need this notification group. The ordinary backlog remains
-  51,575 values plus 201 pending source keys; remaining work stays in TODO Later.
+  51,575 values plus 201 pending source keys; remaining work stays in TODO
+  Later.
 
 </details>
 
@@ -5414,7 +6838,8 @@ Thanks to xet7 !
   structure/token and human-preference checks pass. Browser coverage is
   syntax-checked only; its application stack was unavailable.
 - Eight locales still need this notification group. The ordinary backlog remains
-  51,575 values plus 201 pending source keys; the remaining work stays in TODO Later.
+  51,575 values plus 201 pending source keys; the remaining work stays in TODO
+  Later.
 
 </details>
 
@@ -5425,7 +6850,8 @@ Thanks to xet7 !
   label with Volapük. Record provisional technical vocabulary in
   `docs/Features/Translations/Audit.md` for fluent-speaker review.
 - Shared notification checks now cover 57 locales. Notification, all-locale
-  structure/token and human-preference checks pass. Browser coverage is registered
+  structure/token and human-preference checks pass. Browser coverage is
+  registered
   and syntax-checked, but the browser stack was unavailable for execution.
 - The standard backlog remains 51,575 values plus 201 pending source keys;
   these notification strings belong to the pending group. Remaining languages
@@ -6045,7 +7471,8 @@ Thanks to xet7 !
   exact placeholders, source order and separate Tigre/Tigrinya and Venda/Zulu
   messages. Browser scenarios remain syntax-checked only.
 - Minority-language technical compounds are provisional, especially Cherokee,
-  Inuktitut, Tigre, Wolaytta, Aymara, Nahuatl, Tamazight, Veps, Ladin, Aromanian,
+  Inuktitut, Tigre, Wolaytta, Aymara, Nahuatl, Tamazight, Veps, Ladin,
+  Aromanian,
   Volapük and Klingon. Audit notes retain terminology evidence and older
   mixed-language findings that still need repair.
 - The larger all-language backlog and 204 pending source keys remain open.
@@ -6150,7 +7577,8 @@ A card link, the up/down card keys, back/forward and closing a card opened
 from a link all re-rendered the board layout, which re-created every swimlane,
 list and minicard. The router now remembers which board is on screen and the
 card and board routes reuse it. Another board, a first load and the list and
-swimlane links still render. `tests/playwright/specs/large-board-card-open.e2e.js`
+swimlane links still render.
+`tests/playwright/specs/large-board-card-open.e2e.js`
 checks in Chromium, Firefox and WebKit that the board survives, that a card on
 another board still renders that board, and that a click open and close stay
 within a fixed amount of work per minicard.
@@ -6435,11 +7863,13 @@ attestation; opt-in local linking also requires a verified matching local email.
 verification and administrator repair. See the
 [SAML upgrade instructions](docs/Features/Login/SAML.md). Transient NameIDs are
 rejected. Conflicting subjects appear in Admin Panel → Problems; incomplete
-legacy bindings are refused without classifying normal upgrade logins as attacks.
+legacy bindings are refused without classifying normal upgrade logins as
+attacks.
 
 Eight SAML/canary suites pass, including actual signed assertions sharing an
 email but carrying different subjects, negative source checks and concurrent
-updates. Chromium, Firefox and WebKit each pass the SAML error-display and signed-login
+updates. Chromium, Firefox and WebKit each pass the SAML error-display and
+signed-login
 browser regressions. External production IdPs were not tested.
 
 </details>
@@ -6451,7 +7881,8 @@ GHSA-rmcq-68x2-3g5j describes the native `wekan.json` decompression path fixed
 by [the ZipBombBleed patch](https://github.com/wekan/wekan/commit/e7ed71ee2ec90558abe775a48f17923e449a4d45),
 included in v12.15. Current code counts actual decompressed bytes and stops at
 256 MiB. Strengthened real-archive tests confirm a false size declaration cannot
-bypass the counter. All three ZIP regression checks pass. Chromium, Firefox and WebKit each
+bypass the counter. All three ZIP regression checks pass. Chromium, Firefox and
+WebKit each
 reject a small upload that expands beyond the production limit, leave board
 cards unchanged, then accept a valid import in the same session.
 
@@ -6467,12 +7898,14 @@ and improves browser testing:
 
 On macOS 27, Firefox could fail with `Could not find profile folder` because
 its shared app-data directory was protected despite a writable test profile.
-Both native probes and real Playwright launches now use separate repository-local
+Both native probes and real Playwright launches now use separate
+repository-local
 `MOZ_APP_DATA` and `MOZ_LOCAL_APP_DATA` directories, cleaned at process exit.
 Explicit overrides remain respected; other browsers/platforms, `HOME` and
 browser sandboxes are unchanged. Three helper regressions and six existing
 Docker/config checks pass. All three focused security scenarios pass in Firefox
-on macOS 27.0.1; Chromium and WebKit also pass all three. The 230-suite translation
+on macOS 27.0.1; Chromium and WebKit also pass all three. The 230-suite
+translation
 audit for the existing Upcoming entries passes.
 
 </details>
@@ -6484,9 +7917,14 @@ and updates the following translations:
 
 **Languages updated:** Papiamento, Tok Pisin.
 
-- Fill 46 English placeholders covering automatic archiving, recent activity, inclusive date ranges, due dates and time in a list. Preserve existing translations and literal query examples.
-- Seven relevant suites, 21 human-preference checks and per-locale preservation audits pass; regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
-- Wording is provisional and would benefit from speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 46 English placeholders covering automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list. Preserve existing
+  translations and literal query examples.
+- Seven relevant suites, 21 human-preference checks and per-locale preservation
+  audits pass; regression checks cover exact placeholders, numeric limits and
+  negative behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6495,9 +7933,14 @@ and updates the following translations:
 
 **Languages updated:** Bislama, Yiddish.
 
-- Fill 46 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Seven relevant suites, 21 human-preference checks and preservation audits pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
-- Wording is provisional and would benefit from speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 46 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and preservation audits
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6506,9 +7949,14 @@ and updates the following translations:
 
 **Languages updated:** Māori, Samoan.
 
-- Fill 46 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Eight relevant suites, 21 human-preference checks and preservation audits pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
-- Wording is provisional and would benefit from speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 46 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Eight relevant suites, 21 human-preference checks and preservation audits
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6517,9 +7965,14 @@ and updates the following translations:
 
 **Languages updated:** Hawaiian.
 
-- Fill 23 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Eight relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
-- Wording is provisional and would benefit from speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Eight relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6528,9 +7981,14 @@ and updates the following translations:
 
 **Languages updated:** Zulu (`zu`, `zu-ZA`).
 
-- Fill 46 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Seven relevant suites, 21 human-preference checks and preservation audits pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
-- Wording is provisional and would benefit from speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 46 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and preservation audits
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6539,9 +7997,14 @@ and updates the following translations:
 
 **Languages updated:** Xhosa, Nyanja.
 
-- Fill 46 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Seven relevant suites, 21 human-preference checks and preservation audits pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
-- Wording is provisional and would benefit from speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 46 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and preservation audits
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6550,9 +8013,14 @@ and updates the following translations:
 
 **Languages updated:** Sesotho, Setswana.
 
-- Fill 46 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Eight relevant suites, 21 human-preference checks and preservation audits pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
-- Wording is provisional and would benefit from speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 46 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Eight relevant suites, 21 human-preference checks and preservation audits
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6561,9 +8029,16 @@ and updates the following translations:
 
 **Languages updated:** Kinyarwanda, Kirundi.
 
-- Fill 46 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Seven relevant suites, 21 human-preference checks and preservation audits pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
-- Wording is provisional and would benefit from speaker review. Remaining all-language work is tracked in TODO Later. The standard backlog excludes the three automatic-archiving keys pending Transifex, so this batch reduces that count by 40 entries.
+- Fill 46 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and preservation audits
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later. The standard backlog excludes the
+  three automatic-archiving keys pending Transifex, so this batch reduces that
+  count by 40 entries.
 
 </details>
 
@@ -6572,9 +8047,14 @@ and updates the following translations:
 
 **Languages updated:** Odia.
 
-- Fill 23 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
-- Wording is provisional and would benefit from speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6583,9 +8063,14 @@ and updates the following translations:
 
 **Languages updated:** Bhojpuri, Maithili.
 
-- Fill 46 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Seven relevant suites, 21 human-preference checks and preservation audits pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
-- Wording is provisional and would benefit from speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 46 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and preservation audits
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6594,9 +8079,14 @@ and updates the following translations:
 
 **Languages updated:** Konkani.
 
-- Fill 23 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
-- Wording is provisional and would benefit from speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6605,9 +8095,14 @@ and updates the following translations:
 
 **Languages updated:** Moroccan Arabic.
 
-- Fill 23 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
-- Wording is provisional and would benefit from speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6616,9 +8111,14 @@ and updates the following translations:
 
 **Languages updated:** Northern Sotho.
 
-- Fill 23 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
-- Wording is provisional and would benefit from speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6627,9 +8127,14 @@ and updates the following translations:
 
 **Languages updated:** Northern Ndebele, Swati.
 
-- Fill 46 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Seven relevant suites, 21 human-preference checks and preservation audits pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
-- Wording is low confidence and needs speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 46 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and preservation audits
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is low confidence and needs speaker review. Remaining all-language
+  work is tracked in TODO Later.
 
 </details>
 
@@ -6638,9 +8143,14 @@ and updates the following translations:
 
 **Languages updated:** Tsonga.
 
-- Fill 23 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Eight relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
-- Wording is provisional and would benefit from speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Eight relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6649,9 +8159,14 @@ and updates the following translations:
 
 **Languages updated:** Oromo.
 
-- Fill 23 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
-- Wording is provisional and would benefit from speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6660,9 +8175,14 @@ and updates the following translations:
 
 **Languages updated:** Fijian.
 
-- Fill 23 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
-- Fijian wording is low confidence and needs speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Fijian wording is low confidence and needs speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6671,8 +8191,12 @@ and updates the following translations:
 
 **Languages updated:** Tongan.
 
-- Fill 23 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
 - Tongan wording is low confidence and needs speaker review. Date vocabulary was checked against [Unicode CLDR's Tongan locale data](https://unicode.org/cldr/charts/42/summary/to.html). Remaining all-language work, including older mixed-language values, is tracked in TODO Later.
 
 </details>
@@ -6682,8 +8206,12 @@ and updates the following translations:
 
 **Languages updated:** Upper Sorbian.
 
-- Fill 23 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
 - Technical wording is provisional and needs speaker review. Date vocabulary was checked against [Unicode CLDR's Upper Sorbian locale data](https://unicode.org/cldr/charts/49/summary/hsb.html). Remaining all-language work is tracked in TODO Later.
 
 </details>
@@ -6693,8 +8221,12 @@ and updates the following translations:
 
 **Languages updated:** Silesian.
 
-- Fill 23 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
 - Silesian technical wording is low confidence and needs speaker review. Time vocabulary was checked against [Wiktionary's Silesian time vocabulary](https://en.wiktionary.org/wiki/Category:szl:Time). Remaining all-language work is tracked in TODO Later.
 
 </details>
@@ -6704,8 +8236,12 @@ and updates the following translations:
 
 **Languages updated:** Northern Sámi.
 
-- Fill 23 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
 - Northern Sámi technical wording is low confidence and needs speaker review. Time vocabulary was checked against [Unicode CLDR's Northern Sámi locale data](https://unicode.org/cldr/charts/44/summary/se.html). Remaining all-language work is tracked in TODO Later.
 
 </details>
@@ -6715,8 +8251,12 @@ and updates the following translations:
 
 **Languages updated:** Walloon.
 
-- Fill 23 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
 - Walloon technical wording is low confidence and needs speaker review. Vocabulary was checked against the [Walloon–French dictionary](https://dtw.walon.org/index.php). Remaining all-language work is tracked in TODO Later.
 
 </details>
@@ -6726,8 +8266,12 @@ and updates the following translations:
 
 **Languages updated:** Waray-Waray.
 
-- Fill 23 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
 - Waray-Waray technical wording is low confidence and needs speaker review. Time vocabulary was checked against the [Waray phrasebook](https://en.wikivoyage.org/wiki/Waray_phrasebook). Remaining all-language work is tracked in TODO Later.
 
 </details>
@@ -6737,8 +8281,12 @@ and updates the following translations:
 
 **Languages updated:** Wu Chinese (Simplified Chinese script).
 
-- Fill 23 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
 - Regional Wu wording is provisional and needs speaker review. Usage of 辰光 and 勿 was checked against [Shanghai-language examples](https://tatoeba.org/de/audio/index/wuu?page=3). Remaining all-language work is tracked in TODO Later.
 
 </details>
@@ -6748,8 +8296,12 @@ and updates the following translations:
 
 **Languages updated:** Aromanian.
 
-- Fill 23 English placeholders for automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact placeholders, numeric limits and negative behavioral guidance.
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
 - Aromanian wording is low confidence and needs speaker review. Time vocabulary was checked against the [Aromanian phrasebook](https://en.wikivoyage.org/wiki/Aromanian_phrasebook) and [Wiktionary's entry for dzuã](https://en.wiktionary.org/wiki/dzu%C3%A3). Remaining all-language work is tracked in TODO Later.
 
 </details>
@@ -6759,8 +8311,12 @@ and updates the following translations:
 
 **Languages updated:** Ladin.
 
-- Fill 15 English placeholders for map views, undo/redo retry guidance, move ordering and SAML browser-tab guidance. Existing translations and placeholder tokens are preserved.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks retain the single-change retry guarantee, browser-tab restriction and distinct actions.
+- Fill 15 English placeholders for map views, undo/redo retry guidance, move
+  ordering and SAML browser-tab guidance. Existing translations and placeholder
+  tokens are preserved.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain the single-change retry guarantee, browser-tab
+  restriction and distinct actions.
 - Ladin wording is low confidence and needs speaker review; terminology references include the [Ladin dictionary](https://itavalbadia.ladinternet.it/applications/dictionary/index.jsp). These keys are pending Transifex and excluded from the standard missing-string report, so its total remains unchanged. Remaining all-language work is tracked in TODO Later.
 
 </details>
@@ -6770,9 +8326,14 @@ and updates the following translations:
 
 **Languages updated:** Ladin.
 
-- Fill 84 English placeholders covering Scrum planning, sprint lifecycle, product backlog, reports and daily observations. Preserve existing translations and exact placeholder tokens.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks retain unknown-versus-zero estimates, partial report scope, daily observation limitations and numeric limits.
-- Ladin technical wording is low confidence and needs speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 84 English placeholders covering Scrum planning, sprint lifecycle,
+  product backlog, reports and daily observations. Preserve existing
+  translations and exact placeholder tokens.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain unknown-versus-zero estimates, partial report
+  scope, daily observation limitations and numeric limits.
+- Ladin technical wording is low confidence and needs speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6781,9 +8342,14 @@ and updates the following translations:
 
 **Languages updated:** Ladin.
 
-- Fill 63 English placeholders covering Sync conflicts, previews, source omissions, run reports, diagnostics and Jira estimates. Preserve existing translations and exact placeholder tokens.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks retain one-way synchronization, local card preservation, report limitations, numeric limits and explicit null handling.
-- Ladin technical wording is low confidence and needs speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 63 English placeholders covering Sync conflicts, previews, source
+  omissions, run reports, diagnostics and Jira estimates. Preserve existing
+  translations and exact placeholder tokens.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain one-way synchronization, local card
+  preservation, report limitations, numeric limits and explicit null handling.
+- Ladin technical wording is low confidence and needs speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6792,9 +8358,14 @@ and updates the following translations:
 
 **Languages updated:** Ladin.
 
-- Fill 46 English placeholders for email failures, activity notification controls and rule email reports. Preserve existing translations and exact placeholder tokens.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks retain retry and cancellation limitations, preserved pending work and distinct delivery states.
-- Ladin technical wording is low confidence and needs speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 46 English placeholders for email failures, activity notification
+  controls and rule email reports. Preserve existing translations and exact
+  placeholder tokens.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain retry and cancellation limitations, preserved
+  pending work and distinct delivery states.
+- Ladin technical wording is low confidence and needs speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6803,9 +8374,16 @@ and updates the following translations:
 
 **Languages updated:** Ladin.
 
-- Fill 26 English-equal keyboard and math labels, using existing localized math accessibility labels. Preserve operating-system brands and existing translations.
-- Eight relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact tokens, navigation direction, distinct operands and recognizable key names.
-- Ladin terminology is provisional and needs speaker review. Its four remaining reported entries are ChromeOS, Linux, macOS and Windows; older wording still requires language review. Remaining all-language work is tracked in TODO Later.
+- Fill 26 English-equal keyboard and math labels, using existing localized math
+  accessibility labels. Preserve operating-system brands and existing
+  translations.
+- Eight relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact tokens, navigation direction, distinct
+  operands and recognizable key names.
+- Ladin terminology is provisional and needs speaker review. Its four remaining
+  reported entries are ChromeOS, Linux, macOS and Windows; older wording still
+  requires language review. Remaining all-language work is tracked in TODO
+  Later.
 
 </details>
 
@@ -6814,9 +8392,16 @@ and updates the following translations:
 
 **Languages updated:** Upper Sorbian.
 
-- Fill 46 English placeholders for email failures, activity notification controls and rule email reports. Preserve existing translations and exact placeholder tokens. Update the README completeness count from 165 to 166 catalogs after this batch crosses its threshold.
-- Seven relevant suites pass after correcting the documented count; 21 human-preference checks and a preservation audit also pass. Regression checks retain retry and cancellation limitations, preserved pending work and distinct delivery states.
-- Upper Sorbian wording is provisional and needs speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 46 English placeholders for email failures, activity notification
+  controls and rule email reports. Preserve existing translations and exact
+  placeholder tokens. Update the README completeness count from 165 to 166
+  catalogs after this batch crosses its threshold.
+- Seven relevant suites pass after correcting the documented count; 21
+  human-preference checks and a preservation audit also pass. Regression checks
+  retain retry and cancellation limitations, preserved pending work and distinct
+  delivery states.
+- Upper Sorbian wording is provisional and needs speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6825,9 +8410,14 @@ and updates the following translations:
 
 **Languages updated:** Upper Sorbian.
 
-- Fill 63 English placeholders covering Sync conflicts, previews, source omissions, run reports, diagnostics and Jira estimates. Preserve existing translations and exact placeholder tokens.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks retain one-way synchronization, local card preservation, report limitations, numeric limits and explicit null handling.
-- Upper Sorbian technical wording is provisional and needs speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 63 English placeholders covering Sync conflicts, previews, source
+  omissions, run reports, diagnostics and Jira estimates. Preserve existing
+  translations and exact placeholder tokens.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain one-way synchronization, local card
+  preservation, report limitations, numeric limits and explicit null handling.
+- Upper Sorbian technical wording is provisional and needs speaker review.
+  Remaining all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6836,9 +8426,14 @@ and updates the following translations:
 
 **Languages updated:** Upper Sorbian.
 
-- Fill 84 English placeholders covering Scrum planning, sprint lifecycle, product backlog, reports and daily observations. Preserve existing translations and exact placeholder tokens.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks retain unknown-versus-zero estimates, partial report scope, daily observation limitations and numeric limits.
-- Upper Sorbian technical wording is provisional and needs speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 84 English placeholders covering Scrum planning, sprint lifecycle,
+  product backlog, reports and daily observations. Preserve existing
+  translations and exact placeholder tokens.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain unknown-versus-zero estimates, partial report
+  scope, daily observation limitations and numeric limits.
+- Upper Sorbian technical wording is provisional and needs speaker review.
+  Remaining all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6847,9 +8442,15 @@ and updates the following translations:
 
 **Languages updated:** Upper Sorbian.
 
-- Fill 67 English placeholders for board access, rules, notifications, reminders, filters, imports, maps and history. Preserve existing translations, exact placeholders, literal rule variables and markup.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks retain access restrictions, blocked URL schemes, reminder behavior, private filter replacement and retry limitations.
-- Technical wording is provisional and needs speaker review. The standard backlog drops by 14 because 53 of these keys are excluded as pending Transifex. Remaining all-language work is tracked in TODO Later.
+- Fill 67 English placeholders for board access, rules, notifications,
+  reminders, filters, imports, maps and history. Preserve existing translations,
+  exact placeholders, literal rule variables and markup.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain access restrictions, blocked URL schemes,
+  reminder behavior, private filter replacement and retry limitations.
+- Technical wording is provisional and needs speaker review. The standard
+  backlog drops by 14 because 53 of these keys are excluded as pending
+  Transifex. Remaining all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6858,9 +8459,15 @@ and updates the following translations:
 
 **Languages updated:** Upper Sorbian.
 
-- Fill 18 English-equal keyboard labels while preserving existing translations, product names and standard mathematical notation.
-- Eight relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact tokens, navigation directions and recognizable key names.
-- Technical wording is provisional and needs speaker review. The remaining 14 reported entries are product names, mathematical notation and shared mathematical words; older translations still require language review. Remaining all-language work is tracked in TODO Later.
+- Fill 18 English-equal keyboard labels while preserving existing translations,
+  product names and standard mathematical notation.
+- Eight relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact tokens, navigation directions and
+  recognizable key names.
+- Technical wording is provisional and needs speaker review. The remaining 14
+  reported entries are product names, mathematical notation and shared
+  mathematical words; older translations still require language review.
+  Remaining all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6869,9 +8476,14 @@ and updates the following translations:
 
 **Languages updated:** Silesian.
 
-- Fill 46 English placeholders for email failures, activity notification controls and rule email reports. Preserve existing translations and exact placeholder tokens.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks retain retry and cancellation limitations, preserved pending work and distinct delivery states.
-- Silesian wording is provisional and needs speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 46 English placeholders for email failures, activity notification
+  controls and rule email reports. Preserve existing translations and exact
+  placeholder tokens.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain retry and cancellation limitations, preserved
+  pending work and distinct delivery states.
+- Silesian wording is provisional and needs speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6880,9 +8492,16 @@ and updates the following translations:
 
 **Languages updated:** Silesian.
 
-- Fill 63 English placeholders covering Sync conflicts, previews, source omissions, run reports, diagnostics and Jira estimates. Preserve existing translations and exact placeholder tokens. Update the README completeness count from 166 to 167 catalogs.
-- Seven relevant suites pass after updating the documented count; 21 human-preference checks and a preservation audit also pass. Regression checks retain one-way synchronization, local card preservation, report limitations, numeric limits and explicit null handling.
-- Silesian technical wording is provisional and needs speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 63 English placeholders covering Sync conflicts, previews, source
+  omissions, run reports, diagnostics and Jira estimates. Preserve existing
+  translations and exact placeholder tokens. Update the README completeness
+  count from 166 to 167 catalogs.
+- Seven relevant suites pass after updating the documented count; 21
+  human-preference checks and a preservation audit also pass. Regression checks
+  retain one-way synchronization, local card preservation, report limitations,
+  numeric limits and explicit null handling.
+- Silesian technical wording is provisional and needs speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6891,9 +8510,14 @@ and updates the following translations:
 
 **Languages updated:** Silesian.
 
-- Fill 84 English placeholders covering Scrum planning, sprint lifecycle, product backlog, reports and daily observations. Preserve existing translations and exact placeholder tokens.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks retain unknown-versus-zero estimates, partial report scope, daily observation limitations and numeric limits.
-- Silesian technical wording is provisional and needs speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 84 English placeholders covering Scrum planning, sprint lifecycle,
+  product backlog, reports and daily observations. Preserve existing
+  translations and exact placeholder tokens.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain unknown-versus-zero estimates, partial report
+  scope, daily observation limitations and numeric limits.
+- Silesian technical wording is provisional and needs speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6902,9 +8526,15 @@ and updates the following translations:
 
 **Languages updated:** Silesian.
 
-- Fill 67 English placeholders for board access, rules, notifications, reminders, filters, imports, maps and history. Preserve existing translations, exact placeholders, literal rule variables and markup.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks retain access restrictions, blocked URL schemes, reminder behavior, private filter replacement and retry limitations.
-- Silesian wording is provisional and needs speaker review. The standard backlog drops by 14 because 53 of these keys are excluded as pending Transifex. Remaining all-language work is tracked in TODO Later.
+- Fill 67 English placeholders for board access, rules, notifications,
+  reminders, filters, imports, maps and history. Preserve existing translations,
+  exact placeholders, literal rule variables and markup.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain access restrictions, blocked URL schemes,
+  reminder behavior, private filter replacement and retry limitations.
+- Silesian wording is provisional and needs speaker review. The standard backlog
+  drops by 14 because 53 of these keys are excluded as pending Transifex.
+  Remaining all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6913,9 +8543,15 @@ and updates the following translations:
 
 **Languages updated:** Silesian.
 
-- Fill 19 English-equal keyboard labels while preserving existing translations, product names and standard mathematical notation.
-- Eight relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks cover exact tokens, navigation directions and recognizable key names.
-- Silesian wording is provisional and needs speaker review. The remaining 12 reported entries are product names and mathematical terms or notation; older translations still require language review. Remaining all-language work is tracked in TODO Later.
+- Fill 19 English-equal keyboard labels while preserving existing translations,
+  product names and standard mathematical notation.
+- Eight relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact tokens, navigation directions and
+  recognizable key names.
+- Silesian wording is provisional and needs speaker review. The remaining 12
+  reported entries are product names and mathematical terms or notation; older
+  translations still require language review. Remaining all-language work is
+  tracked in TODO Later.
 
 </details>
 
@@ -6924,9 +8560,14 @@ and updates the following translations:
 
 **Languages updated:** Wu Chinese (Simplified Chinese script).
 
-- Fill 46 English placeholders for email failures, activity notification controls and rule email reports. Preserve existing translations and exact placeholder tokens.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks retain retry and cancellation limitations, preserved pending work and distinct delivery states.
-- Regional Wu wording is provisional and needs speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 46 English placeholders for email failures, activity notification
+  controls and rule email reports. Preserve existing translations and exact
+  placeholder tokens.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain retry and cancellation limitations, preserved
+  pending work and distinct delivery states.
+- Regional Wu wording is provisional and needs speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6935,9 +8576,14 @@ and updates the following translations:
 
 **Languages updated:** Wu Chinese (Simplified Chinese script).
 
-- Fill 63 English placeholders covering Sync conflicts, previews, source omissions, run reports, diagnostics and Jira estimates. Preserve existing translations and exact placeholder tokens.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks retain one-way synchronization, local card preservation, report limitations, numeric limits and explicit null handling.
-- Regional Wu wording is provisional and needs speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 63 English placeholders covering Sync conflicts, previews, source
+  omissions, run reports, diagnostics and Jira estimates. Preserve existing
+  translations and exact placeholder tokens.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain one-way synchronization, local card
+  preservation, report limitations, numeric limits and explicit null handling.
+- Regional Wu wording is provisional and needs speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -6946,9 +8592,14 @@ and updates the following translations:
 
 **Languages updated:** Wu Chinese (Simplified Chinese script).
 
-- Fill 84 English placeholders covering Scrum planning, sprint lifecycle, product backlog, reports and daily observations. Preserve existing translations and exact placeholder tokens.
-- Seven relevant suites, 21 human-preference checks and a preservation audit pass. Regression checks retain unknown-versus-zero estimates, partial report scope, daily observation limitations and numeric limits.
-- Regional Wu wording is provisional and needs speaker review. Remaining all-language work is tracked in TODO Later.
+- Fill 84 English placeholders covering Scrum planning, sprint lifecycle,
+  product backlog, reports and daily observations. Preserve existing
+  translations and exact placeholder tokens.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain unknown-versus-zero estimates, partial report
+  scope, daily observation limitations and numeric limits.
+- Regional Wu wording is provisional and needs speaker review. Remaining
+  all-language work is tracked in TODO Later.
 
 </details>
 
@@ -7876,29 +9527,35 @@ and synchronize the new source keys in every other catalog as placeholders.
 Existing translations are retained. Native-script and vocabulary checks separate
 Mongolian from Russian, Bashkir from Tatar, and the Uzbek and Kurdish scripts.
 
-Specialist flow-metric wording, especially Arabic Uzbek, Bashkir, Tatar, Turkmen,
+Specialist flow-metric wording, especially Arabic Uzbek, Bashkir, Tatar,
+Turkmen,
 Uyghur and Kurdish, has lower confidence and remains open to native review.
 Vocabulary references include the
 [Mongolian dictionary](https://mongoltoli.mn/dictionary/detail/48338),
 [Kyrgyz dictionary](https://tamgasoft.kg/dict/index.php?lang=en&lfrom=kg&word=%D1%83%D1%80%D1%83%D0%BA%D1%81%D0%B0%D1%82),
 [Turkmen dictionary](https://www.webonary.org/turkmen/files/sozluk.pdf), and
 [Bashkir dictionary](https://tarat.ru/ru/targema/dictionary/t9/558), alongside
-existing locale vocabulary. All 448 translation-related Node suites pass, including
-the new card-setting label regression suite. The broader translation backlog remains open.
+existing locale vocabulary. All 448 translation-related Node suites pass,
+including
+the new card-setting label regression suite. The broader translation backlog
+remains open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3d333b8859">Translate feature settings in fifteen more locale variants</a>. Thanks to xet7.</summary>
 
-Add 336 stored translations for Amharic, Assamese, Odia, Sinhala, Pashto, Sindhi,
-three Khmer tags, Burmese, Faroese, two Western Frisian tags, Friulian and Romansh.
+Add 336 stored translations for Amharic, Assamese, Odia, Sinhala, Pashto,
+Sindhi,
+three Khmer tags, Burmese, Faroese, two Western Frisian tags, Friulian and
+Romansh.
 Feature-setting coverage reaches 161 locales. All 448 translation-related Node
 suites pass. Extend native-script checks and the
 explicit assurances that hiding a feature keeps its data and permissions.
 
 Specialist flow-metric wording in this batch, especially Faroese, Frisian,
-Friulian, Romansh and Odia, has lower confidence and remains open to native review.
+Friulian, Romansh and Odia, has lower confidence and remains open to native
+review.
 Vocabulary references include
 [Amharic](https://dictionary.abyssinica.com/permission),
 [Odia](https://www.shabdkosh.com/dictionary/english-odia/permission/permission-meaning-in-odia),
@@ -7930,7 +9587,8 @@ Neapolitan, Papiamentu, Somali, Malagasy, Kinyarwanda, Rundi, Nyanja and Oromo.
 Feature-setting coverage reaches 171 locales, and the new card labels cover 39.
 Keep Rundi and Kinyarwanda wording distinct. Replace the Italian and Spanish
 linked-card wording in Sicilian and Papiamentu and guard against its return.
-All 448 translation-related Node suites pass, including placeholders and source order.
+All 448 translation-related Node suites pass, including placeholders and source
+order.
 
 Specialist flow-metric terminology in these ten languages has lower confidence
 and remains open to native review. References include
@@ -8199,7 +9857,8 @@ Tests check complete catalog coverage, tokens, script, permission wording and
 the distinction between clearing a missing GitLab weight and ignoring a missing
 Jira field.
 
-Specialist wording in Nahuatl, Wolaytta, Cherokee, Inuktitut, Tigre and Tamazight,
+Specialist wording in Nahuatl, Wolaytta, Cherokee, Inuktitut, Tigre and
+Tamazight,
 and the less widely used GitLab estimate languages, has lower confidence and
 remains open to speaker review. References included
 [Nahuatl colour vocabulary](https://gdn.iib.unam.mx/diccionario/tlapalli/18305),
@@ -8661,7 +10320,8 @@ Structural tests do not establish fluency.
 <summary><a href="https://github.com/wekan/wekan/commit/79fd147921">Translate Scrum history, estimates and recovery in Cherokee</a>. Thanks to xet7.</summary>
 
 Fill twenty English placeholders in Cherokee for Scrum scope history, GitLab
-estimates, paging and import recovery. These twenty strings now have translations
+estimates, paging and import recovery. These twenty strings now have
+translations
 in all 234 non-English locale tags. Preserve existing translated values, source
 key order and exact placeholders. Extend Cherokee script and workflow wording
 checks for incomplete history, missing weights and discard-only recovery.
@@ -8670,7 +10330,8 @@ All 451 translation-related suites and 21 human-preference checks pass.
 Cherokee specialist phrasing and inflection have low confidence and need speaker
 review. References include the [Cherokee Nation consortium word list](https://language.cherokee.org/media/4emjgbyy/2019consortium_wordlist.pdf)
 and [Cherokee verb forms](https://smg-complexity.surrey.ac.uk/languages/cherokee/).
-Structural tests do not establish fluency. The broader translation backlog remains.
+Structural tests do not establish fluency. The broader translation backlog
+remains.
 
 </details>
 
@@ -8695,10 +10356,12 @@ The broader translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/94c581b537">Translate feature visibility settings into Tigre and Cherokee</a>. Thanks to xet7.</summary>
 
-Fill 48 English placeholders across Tigre and Cherokee. The 24 feature visibility
+Fill 48 English placeholders across Tigre and Cherokee. The 24 feature
+visibility
 messages now have translations in all 234 non-English locale tags, and the suite
 checks its coverage list against the catalog directory. Preserve existing
-translated values, exact tokens and source order. Cover data retention, unchanged
+translated values, exact tokens and source order. Cover data retention,
+unchanged
 permissions, approval after updates and distinct administrator and pilot users.
 
 All 451 translation-related suites and 21 human-preference checks pass.
@@ -8714,16 +10377,19 @@ recovery strings remain in the broader translation backlog.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ebc225466d">Translate email recovery in Kurdish, Tatar and Turkmen</a>. Thanks to xet7.</summary>
 
-Fill 92 English placeholders across Kurmanji, Sorani, Tatar and Turkmen. Translate
+Fill 92 English placeholders across Kurmanji, Sorani, Tatar and Turkmen.
+Translate
 the email queue controls and explain the cancellation boundary, irrecoverable
 contents, possible duplicate delivery and pauses retained during retry. Preserve
 existing translated values, source order and exact placeholders.
 
 The new automatically discovered regression suite checks all email recovery keys
-in these four locales, distinct actions and the cancellation and delivery warning
+in these four locales, distinct actions and the cancellation and delivery
+warning
 clauses. Four focused catalog and translation suites and all 21 human-preference
 checks pass. Specialist workflow wording and inflection have lower confidence
-and need speaker review. Structural tests do not establish fluency. English email
+and need speaker review. Structural tests do not establish fluency. English
+email
 recovery messages remain in 66 locale tags, alongside the broader translation
 backlog.
 
@@ -8752,7 +10418,8 @@ messages in 62 locale tags; the broader translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/71f6450368">Translate email recovery in Yiddish, Moroccan Arabic, Wu and Venetian</a>. Thanks to xet7.</summary>
 
-Fill 92 English placeholders in four locales. Preserve the cancellation boundary,
+Fill 92 English placeholders in four locales. Preserve the cancellation
+boundary,
 irrecoverable contents, uncertain delivery warning and existing pauses during
 retry. Extend script checks for Hebrew, Arabic and Han text and wording checks
 for Moroccan Arabic, Wu and Venetian. Existing translated values remain intact.
@@ -8761,7 +10428,8 @@ Four focused catalog and translation suites and all 21 human-preference checks
 pass. Specialist workflow phrasing and inflection have lower confidence and need
 speaker review. Vocabulary references include the [Venetian dictionary](https://www.vatrarberesh.it/biblioteca/ebooks/linguaveneta.pdf)
 and [Wu usage research](https://api.lib.kyushu-u.ac.jp/opac_download_md/6796404/37_p035.pdf).
-Structural tests do not establish fluency. English email recovery messages remain
+Structural tests do not establish fluency. English email recovery messages
+remain
 in 58 locale tags, alongside other untranslated new strings.
 
 </details>
@@ -8776,8 +10444,10 @@ script checks and the warning regressions. The Odia empty state explicitly says
 both that there are no queued messages and that no recipient is paused.
 
 All 452 translation-related suites and 21 human-preference checks pass.
-Specialist workflow phrasing and inflection have lower confidence and need speaker
-review; structural checks do not establish fluency. Email recovery messages still
+Specialist workflow phrasing and inflection have lower confidence and need
+speaker
+review; structural checks do not establish fluency. Email recovery messages
+still
 remain in English in 54 locale tags. Other new-string groups remain unfinished.
 
 </details>
@@ -8803,8 +10473,10 @@ has English messages in 50 locale tags; the broader translation backlog remains.
 
 Fill 92 English placeholders across Southern Sotho, Tswana, Northern Sotho and
 Swati. Preserve existing translated values, source order and exact tokens.
-Extend regressions for cancellation boundaries, messages that cannot be recalled,
-uncertain delivery and existing pauses retained during retry. Keep each language's
+Extend regressions for cancellation boundaries, messages that cannot be
+recalled,
+uncertain delivery and existing pauses retained during retry. Keep each
+language's
 own wording for continuing delivery.
 
 Four focused catalog and translation suites and all 21 human-preference checks
@@ -8819,7 +10491,8 @@ Structural checks do not establish fluency. Email recovery remains in English in
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/73adc5c029">Translate email recovery in Kinyarwanda, Kirundi, Luganda and Oromo</a>. Thanks to xet7.</summary>
 
-Fill 92 English placeholders, preserving existing translated values, source order
+Fill 92 English placeholders, preserving existing translated values, source
+order
 and exact tokens. Extend cancellation and retry-warning checks for all four
 locales. Preserve messages created after a cancellation request, the warning
 about uncertain delivery and any existing pause during retries. Keep distinct
@@ -8856,11 +10529,14 @@ translation backlog remains.
 <summary><a href="https://github.com/wekan/wekan/commit/1088900958">Translate email recovery in Upper Sorbian and Silesian</a>. Thanks to xet7.</summary>
 
 Fill 46 English placeholders, preserving existing translations, source order and
-exact tokens. Extend regression checks for irreversible cancellation, preservation
+exact tokens. Extend regression checks for irreversible cancellation,
+preservation
 of later messages, uncertain delivery and retries retaining an existing pause.
-Four focused catalog and translation suites and all 21 human-preference checks pass.
+Four focused catalog and translation suites and all 21 human-preference checks
+pass.
 
-Specialist workflow phrasing and inflection in both languages have lower confidence
+Specialist workflow phrasing and inflection in both languages have lower
+confidence
 and need speaker review. Terminology references include [Upper Sorbian Thunderbird](https://github.com/thunderbird/thunderbird-l10n/blob/main/hsb/calendar/calendar/calendar.ftl)
 and [Silesian MediaWiki](https://github.com/wikimedia/mediawiki/blob/master/languages/i18n/szl.json).
 Structural checks do not establish fluency. Email recovery still has English
@@ -8873,7 +10549,8 @@ messages in 36 locale tags; the broader translation backlog remains.
 
 Fill 46 English placeholders, preserving existing translations, source order and
 exact tokens. Extend regression checks for cancellation boundaries, uncertain
-delivery and retries retaining an existing pause. Correct the Ladin retry interval
+delivery and retries retaining an existing pause. Correct the Ladin retry
+interval
 wording during review. Four focused translation and catalog suites and all 21
 human-preference checks pass.
 
@@ -8881,7 +10558,8 @@ Specialist workflow wording and inflection in Walloon and Ladin have lower
 confidence and need speaker review. Ladin terminology was checked against
 [Gaia's Ladin pages](https://www.pro-gaia.net/ladcumembri/), alongside existing
 catalog vocabulary. Structural checks do not establish fluency. Email recovery
-still has English messages in 34 locale tags; the broader translation backlog remains.
+still has English messages in 34 locale tags; the broader translation backlog
+remains.
 
 </details>
 
@@ -8889,7 +10567,8 @@ still has English messages in 34 locale tags; the broader translation backlog re
 <summary><a href="https://github.com/wekan/wekan/commit/3ead95c01c">Translate email recovery in Hawaiian and Manx</a>. Thanks to xet7.</summary>
 
 Fill 46 English placeholders, preserving existing translations, source order and
-exact tokens. Extend checks for irreversible cancellation, keeping later messages,
+exact tokens. Extend checks for irreversible cancellation, keeping later
+messages,
 uncertain delivery and retries retaining a pause. Correct Manx queue terminology
 during review. Four focused catalog and translation suites and all 21
 human-preference checks pass.
@@ -8905,8 +10584,10 @@ messages in 32 locale tags; the broader translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6f773dd6a1">Translate email recovery in Tsonga and Venda</a>. Thanks to xet7.</summary>
 
-Fill 46 English placeholders and correct the shared pause labels: replace generic
-Tsonga filler and a Zulu phrase in Venda. Preserve correct-language translations,
+Fill 46 English placeholders and correct the shared pause labels: replace
+generic
+Tsonga filler and a Zulu phrase in Venda. Preserve correct-language
+translations,
 source order and exact tokens. Extend checks for cancellation boundaries,
 uncertain delivery and retries retaining a pause. All 452 translation-related
 suites and 21 human-preference checks pass in the aligned worktree.
@@ -8999,9 +10680,12 @@ messages in 22 locale tags; the broader translation backlog remains.
 <summary><a href="https://github.com/wekan/wekan/commit/1d19acf87f">Translate email recovery in Acehnese and Akan</a>. Thanks to xet7.</summary>
 
 Fill 46 English placeholders and correct seven email or pause labels containing
-Indonesian, mixed-language text or generic Akan filler. Preserve correct-language
-translations, source order and exact tokens. Extend cancellation, uncertain-delivery,
-retained-pause and corrected-label regression checks. All 452 translation-related
+Indonesian, mixed-language text or generic Akan filler. Preserve
+correct-language
+translations, source order and exact tokens. Extend cancellation,
+uncertain-delivery,
+retained-pause and corrected-label regression checks. All 452
+translation-related
 suites and 21 human-preference checks pass.
 
 Specialist workflow phrasing and inflection in Acehnese and Akan have lower
@@ -9016,7 +10700,8 @@ messages in 20 locale tags; the broader translation backlog remains.
 <summary><a href="https://github.com/wekan/wekan/commit/4fb6157c52">Translate email recovery in Bambara and Ewe</a>. Thanks to xet7.</summary>
 
 Fill 46 English placeholders, preserving existing translations, source order and
-exact tokens. Extend cancellation, uncertain-delivery, retained-pause and vocabulary
+exact tokens. Extend cancellation, uncertain-delivery, retained-pause and
+vocabulary
 checks. Refine resume and form-field wording during review. Four focused catalog
 and translation suites and all 21 human-preference checks pass.
 
@@ -9033,7 +10718,8 @@ messages in 18 locale tags; the broader translation backlog remains.
 
 Fill 46 English placeholders and replace three language-prefix filler labels for
 pause and email. Preserve correct-language translations, source order and exact
-tokens. Extend cancellation, uncertain-delivery, retained-pause and corrected-label
+tokens. Extend cancellation, uncertain-delivery, retained-pause and
+corrected-label
 checks; refine read and resume wording during review. Four focused catalog and
 translation suites and all 21 human-preference checks pass.
 
@@ -9050,7 +10736,8 @@ messages in 16 locale tags; the broader translation backlog remains.
 
 Fill 46 English placeholders, preserving existing translations, source order and
 exact tokens. Extend cancellation, uncertain-delivery and retained-pause checks;
-review Klingon word order, capitalization and retry wording. Four focused catalog
+review Klingon word order, capitalization and retry wording. Four focused
+catalog
 and translation suites and all 21 human-preference checks pass.
 
 Specialist workflow wording and grammar in Guarani and Klingon have lower
@@ -9081,25 +10768,31 @@ translation backlog remains.
 
 Fill 23 English placeholders, preserving existing translations, source order and
 exact tokens. Extend cancellation, uncertain-delivery and retained-pause checks.
-Four focused catalog and translation suites and all 21 human-preference checks pass.
+Four focused catalog and translation suites and all 21 human-preference checks
+pass.
 
 Specialist Volapük wording and inflection have low confidence and need speaker
 review. Terminology was checked against the [English–Volapük dictionary](https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary).
-Structural checks do not establish fluency. The broader translation backlog remains.
+Structural checks do not establish fluency. The broader translation backlog
+remains.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/02a2130e70">Translate email recovery in Veps</a>. Thanks to xet7.</summary>
 
-Fill 23 English placeholders in the ve-PP catalog, preserving existing translations,
-source order and exact tokens. Extend cancellation, uncertain-delivery and retained-pause
+Fill 23 English placeholders in the ve-PP catalog, preserving existing
+translations,
+source order and exact tokens. Extend cancellation, uncertain-delivery and
+retained-pause
 checks. Four focused catalog suites and all 21 human-preference checks pass.
 
-Specialist Veps wording and inflection have low confidence and need speaker review.
+Specialist Veps wording and inflection have low confidence and need speaker
+review.
 References include the [VepKar corpus](https://dictorpus.krc.karelia.ru/ru/)
 and a [Veps grammar and dictionary](https://www.vepsze.hu/sites/default/files/szovegbeliv_honlap.pdf).
-Structural checks do not establish fluency. The broader translation backlog remains.
+Structural checks do not establish fluency. The broader translation backlog
+remains.
 
 </details>
 
@@ -9114,7 +10807,8 @@ and all 21 human-preference checks pass.
 Specialist Kashmiri wording and inflection have low confidence and need speaker
 review. References include the [Project ZAAN Kashmiri reader](https://koshur.org/Reader/intro.html)
 and an [online Kashmiri dictionary](https://azaditimes.com/resources/kashmiri-dictionary-online/).
-Structural checks do not establish fluency. The broader translation backlog remains.
+Structural checks do not establish fluency. The broader translation backlog
+remains.
 
 </details>
 
@@ -9128,7 +10822,8 @@ human-preference checks pass.
 
 Specialist Fulah wording, agreement and regional terminology have low confidence
 and need speaker review. Vocabulary references include the [Fulah lexicon](https://dokumen.pub/a-fulfulde-maasina-english-french-lexicon-lexique-fulfulde-maasina-anglais-franais-0870133268-9780870133268-9780870139420.html).
-Structural checks do not establish fluency. The broader translation backlog remains.
+Structural checks do not establish fluency. The broader translation backlog
+remains.
 
 </details>
 
@@ -9139,10 +10834,12 @@ Fill 23 English placeholders, preserving existing translations, source order and
 exact tokens. Extend cancellation, uncertain-delivery, retained-pause and script
 checks. Four focused catalog suites and all 21 human-preference checks pass.
 
-Specialist Dzongkha wording and grammar have low confidence and need speaker review.
+Specialist Dzongkha wording and grammar have low confidence and need speaker
+review.
 References include the Dzongkha Development Commission's [dictionary](https://www.dzongkha.gov.bt/dz/dictionary/search)
 and [computer terminology](https://www.dzongkha.gov.bt/uploads/files/publications/1.computer_term_text_e53071b6528a9081cabd770fda7a26c4.pdf).
-Structural checks do not establish fluency. The broader translation backlog remains.
+Structural checks do not establish fluency. The broader translation backlog
+remains.
 
 </details>
 
@@ -9153,10 +10850,12 @@ Fill 23 English placeholders, preserving existing translations, source order and
 exact tokens. Extend cancellation, uncertain-delivery and retained-pause checks.
 Four focused catalog suites and all 21 human-preference checks pass.
 
-Specialist Greenlandic wording and inflection have low confidence and need speaker
+Specialist Greenlandic wording and inflection have low confidence and need
+speaker
 review. References include [Greenlandic dictionaries](https://ordbog.gl/)
 and [Learn Greenlandic](https://learngreenlandic.com/online/lg2/7.1/text/?lang=eng).
-Structural checks do not establish fluency. The broader translation backlog remains.
+Structural checks do not establish fluency. The broader translation backlog
+remains.
 
 </details>
 
@@ -9170,77 +10869,93 @@ Four focused catalog suites and all 21 human-preference checks pass.
 Specialist Nahuatl terminology, grammar and dialect choices have low confidence
 and need speaker review. References include the [Nahuatl Dictionary](https://nahuatl.wired-humanities.org/content/titlani)
 and [Gran Diccionario Náhuatl](https://gdn.iib.unam.mx/diccionario/occeppa/187043).
-Structural checks do not establish fluency. The broader translation backlog remains.
+Structural checks do not establish fluency. The broader translation backlog
+remains.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/415cfa7f8d">Translate email recovery in Standard Moroccan Tamazight</a>. Thanks to xet7.</summary>
 
-Fill 23 English placeholders in Tifinagh, preserving existing translations, source
+Fill 23 English placeholders in Tifinagh, preserving existing translations,
+source
 order and exact tokens. Extend cancellation, uncertain-delivery, retained-pause
 and script checks. All 452 translation-related suites and 21 human-preference
 checks pass in the worktree after catalog alignment with new backup strings.
 
-Specialist Tamazight wording, grammar and regional terminology have low confidence
+Specialist Tamazight wording, grammar and regional terminology have low
+confidence
 and need speaker review. References include [IRCAM's grammar](https://www.ircam.ma/sites/default/files/2021-02/nouvel-gram-amazigh.pdf)
 and the [Tamazight dictionary](https://awalamazigh.com/).
-Structural checks do not establish fluency. The broader translation backlog remains.
+Structural checks do not establish fluency. The broader translation backlog
+remains.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3c2cab5cfc">Translate email recovery in Wolaytta</a>. Thanks to xet7.</summary>
 
-Fill 23 English placeholders and replace four mixed-English pause and email status
+Fill 23 English placeholders and replace four mixed-English pause and email
+status
 labels. Preserve existing correct-language translations, source order and exact
-tokens. Extend cancellation, uncertain-delivery, retained-pause and corrected-label
+tokens. Extend cancellation, uncertain-delivery, retained-pause and
+corrected-label
 checks. Four focused catalog suites and all 21 human-preference checks pass in
 the worktree aligned with the new backup strings.
 
 Specialist Wolaytta wording and inflection have low confidence and need speaker
 review. References include [Wolaytta teaching material](https://pdf.usaid.gov/pdf_docs/PA00MQWZ.pdf)
 and the [Wolaytta dictionary](https://kaikki.org/dictionary/Wolaytta/index.html).
-Structural checks do not establish fluency. The broader translation backlog remains.
+Structural checks do not establish fluency. The broader translation backlog
+remains.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8a4e6979df">Translate email recovery in Inuktitut</a>. Thanks to xet7.</summary>
 
-Fill 23 English placeholders in syllabics, preserving existing translations, source
+Fill 23 English placeholders in syllabics, preserving existing translations,
+source
 order and exact tokens. Extend cancellation, uncertain-delivery, retained-pause
-and script checks. Four focused catalog suites and all 21 human-preference checks
+and script checks. Four focused catalog suites and all 21 human-preference
+checks
 pass in the worktree aligned with the new backup strings.
 
-Specialist Inuktitut phrasing and inflection have low confidence and need speaker
+Specialist Inuktitut phrasing and inflection have low confidence and need
+speaker
 review. References include [Inuktitut vocabulary](https://kaikki.org/dictionary/Inuktitut/index.html)
 and [City of Iqaluit's Inuktitut notice](https://www.iqaluit.ca/sites/default/files/cityofiqaluit-psa-2025-10-24-reminder_to_update_mailing_address-inu.pdf).
-Structural checks do not establish fluency. The broader translation backlog remains.
+Structural checks do not establish fluency. The broader translation backlog
+remains.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e719b8e32e">Translate email recovery in Tigre</a>. Thanks to xet7.</summary>
 
-Fill 23 English placeholders and replace two Tigrinya email-sent and pause labels
-in the Tigre catalog. Preserve other translations, source order and exact tokens.
+Fill 23 English placeholders and replace two Tigrinya email-sent and pause
+labels
+in the Tigre catalog. Preserve other translations, source order and exact
+tokens.
 Extend cancellation, uncertain-delivery, retained-pause, vocabulary and script
 checks. Four focused catalog suites and all 21 human-preference checks pass in
 the worktree aligned with the new backup strings.
 
 Specialist Tigre phrasing, grammar and corrected labels have low confidence and
 need speaker review. References include [The Tigre Language of Gindaʿ, Eritrea](https://www.speaktigre.com/_files/ugd/7e068a_adcb2a9df2c340898e3155ef3905c61e.pdf?index=true).
-Structural checks do not establish fluency. The broader translation backlog remains.
+Structural checks do not establish fluency. The broader translation backlog
+remains.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d9e3274eb9">Translate Cherokee email recovery and check every locale</a>. Thanks to xet7.</summary>
 
-Fill the final 23 English email-recovery placeholders in Cherokee. Add a regression
+Fill the final 23 English email-recovery placeholders in Cherokee. Add a
+regression
 gate covering missing messages, English placeholders and exact tokens in every
-non-English catalog, alongside cancellation, uncertain-delivery and retained-pause
+non-English catalog, alongside cancellation, uncertain-delivery and
+retained-pause
 checks. Four focused catalog suites and all 21 human-preference checks pass in
 the worktree aligned with the new backup strings.
 
@@ -9248,7 +10963,8 @@ Cherokee specialist wording and inflection have low confidence and need speaker
 review. References include the [Cherokee Nation word list](https://language.cherokee.gov/word-list/)
 and [Cherokee dictionary](https://www.cherokeedictionary.net/).
 Structural coverage does not establish fluency. This completes the placeholder
-fill for email recovery; other new strings and the broader translation backlog remain.
+fill for email recovery; other new strings and the broader translation backlog
+remain.
 
 </details>
 
@@ -9257,15 +10973,18 @@ fill for email recovery; other new strings and the broader translation backlog r
 
 Add all 35 continuous-backup source keys to 243 other catalogs in English key
 order. Preserve every existing value. Catalog completeness and email-recovery
-regression suites pass. These new English placeholders remain available for translation.
+regression suites pass. These new English placeholders remain available for
+translation.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4fe54734e5">Translate continuous backup into Finnish and Swedish</a>. Thanks to xet7.</summary>
 
-Fill 70 English placeholders without overwriting existing translations. Add checks
-for restore boundaries, preservation of the live database file, time units, engine
+Fill 70 English placeholders without overwriting existing translations. Add
+checks
+for restore boundaries, preservation of the live database file, time units,
+engine
 names and exact tokens. Four focused catalog suites and all 21 human-preference
 checks pass. Other languages and the broader translation backlog remain.
 
@@ -9287,7 +11006,8 @@ languages and the broader translation backlog remain.
 
 Fill 315 English placeholders across nine German and French catalogs, including
 regional variants, without replacing existing translations. Extend checks for
-restore boundaries, protection of the live database file, time units, engine names,
+restore boundaries, protection of the live database file, time units, engine
+names,
 Swiss German spelling and exact tokens. Four focused catalog suites and all 21
 human-preference checks pass. Other languages and the broader backlog remain.
 
@@ -9299,7 +11019,8 @@ human-preference checks pass. Other languages and the broader backlog remain.
 Fill 455 English placeholders across thirteen catalogs while preserving existing
 translations, source order and exact tokens. Use separate Brazilian and European
 Portuguese wording. Extend checks for restore boundaries, protection of the live
-database file and time units. Four focused catalog suites and all 21 human-preference
+database file and time units. Four focused catalog suites and all 21
+human-preference
 checks pass. Other languages and the broader translation backlog remain.
 
 </details>
@@ -9308,9 +11029,11 @@ checks pass. Other languages and the broader translation backlog remain.
 <summary><a href="https://github.com/wekan/wekan/commit/eba047b928">Translate continuous backup into Italian and Dutch</a>. Thanks to xet7.</summary>
 
 Fill 105 English placeholders across three catalogs while preserving existing
-translations, source order and exact tokens. Extend checks for restore boundaries,
+translations, source order and exact tokens. Extend checks for restore
+boundaries,
 protection of the live database file and time units. Four focused catalog suites
-and all 21 human-preference checks pass. Other languages and the broader backlog remain.
+and all 21 human-preference checks pass. Other languages and the broader backlog
+remain.
 
 </details>
 
@@ -9318,9 +11041,11 @@ and all 21 human-preference checks pass. Other languages and the broader backlog
 <summary><a href="https://github.com/wekan/wekan/commit/0a58060772">Translate continuous backup into Polish and Czech</a>. Thanks to xet7.</summary>
 
 Fill 140 English placeholders across four catalogs while preserving existing
-translations, source order and exact tokens. Extend checks for restore boundaries,
+translations, source order and exact tokens. Extend checks for restore
+boundaries,
 protection of the live database file and time units. Four focused catalog suites
-and all 21 human-preference checks pass. Other languages and the broader backlog remain.
+and all 21 human-preference checks pass. Other languages and the broader backlog
+remain.
 
 </details>
 
@@ -9329,10 +11054,14 @@ and all 21 human-preference checks pass. Other languages and the broader backlog
 
 Fill 105 English placeholders and correct the Czech restore label in Slovak and
 the Cyrillic restore label in Croatian. Preserve existing correct-language
-translations, source order and exact tokens. Extend coverage for restore boundaries,
-protection of the live database file, time units and Latin-script labels. All 453
-translation-related suites and 21 human-preference checks pass. Backup translations
-now cover 36 of 234 non-English catalogs; other catalogs and the broader backlog remain.
+translations, source order and exact tokens. Extend coverage for restore
+boundaries,
+protection of the live database file, time units and Latin-script labels. All
+453
+translation-related suites and 21 human-preference checks pass. Backup
+translations
+now cover 36 of 234 non-English catalogs; other catalogs and the broader backlog
+remain.
 
 </details>
 
@@ -9340,10 +11069,14 @@ now cover 36 of 234 non-English catalogs; other catalogs and the broader backlog
 <summary><a href="https://github.com/wekan/wekan/commit/907d041be7">Translate continuous backup into Romanian, Hungarian and Bulgarian</a>. Thanks to xet7.</summary>
 
 Fill 140 English placeholders across four catalogs and replace Italian restore
-labels in both Romanian catalogs. Preserve existing correct-language translations,
-source order and exact tokens. Extend checks for restore boundaries, protection of
-the live database file, time units and Bulgarian script. Four focused catalog suites
-and all 21 human-preference checks pass. Other languages and the broader backlog remain.
+labels in both Romanian catalogs. Preserve existing correct-language
+translations,
+source order and exact tokens. Extend checks for restore boundaries, protection
+of
+the live database file, time units and Bulgarian script. Four focused catalog
+suites
+and all 21 human-preference checks pass. Other languages and the broader backlog
+remain.
 
 </details>
 
@@ -9351,9 +11084,11 @@ and all 21 human-preference checks pass. Other languages and the broader backlog
 <summary><a href="https://github.com/wekan/wekan/commit/9d7ce94e10">Translate continuous backup into Ukrainian and Russian</a>. Thanks to xet7.</summary>
 
 Fill 175 English placeholders across five catalogs, including regional variants
-and the existing Russian locale alias. Preserve existing translations, source order
+and the existing Russian locale alias. Preserve existing translations, source
+order
 and exact tokens. Extend checks for restore boundaries, protection of the live
-database file, time units and distinct Ukrainian and Russian vocabulary. Four focused
+database file, time units and distinct Ukrainian and Russian vocabulary. Four
+focused
 catalog suites and all 21 human-preference checks pass. Other languages and the
 broader translation backlog remain.
 
@@ -9363,7 +11098,8 @@ broader translation backlog remain.
 <summary><a href="https://github.com/wekan/wekan/commit/c92bc36260">Translate continuous backup into Latvian, Lithuanian and Estonian</a>. Thanks to xet7.</summary>
 
 Fill 105 English placeholders across three catalogs while preserving existing
-translations, source order and exact tokens. Extend checks for restore boundaries,
+translations, source order and exact tokens. Extend checks for restore
+boundaries,
 protection of the live database file, time units and Latin script. Four focused
 catalog suites and all 21 human-preference checks pass. Other languages and the
 broader translation backlog remain.
@@ -9374,7 +11110,8 @@ broader translation backlog remain.
 <summary><a href="https://github.com/wekan/wekan/commit/2651146f51">Translate continuous backup into Greek and Turkish</a>. Thanks to xet7.</summary>
 
 Fill 105 English placeholders across three catalogs while preserving existing
-translations, source order and exact tokens. Extend checks for restore boundaries,
+translations, source order and exact tokens. Extend checks for restore
+boundaries,
 protection of the live database file, time units and Greek script. Four focused
 catalog suites and all 21 human-preference checks pass. Other languages and the
 broader translation backlog remain.
@@ -9384,11 +11121,16 @@ broader translation backlog remain.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/36a3a85e8a">Translate continuous backup into Japanese, Korean and Chinese</a>. Thanks to xet7.</summary>
 
-Fill 455 English placeholders across thirteen catalogs, including hiragana Japanese
-and separate Simplified and Traditional Chinese wording. Preserve existing translations,
-source order and exact tokens. Extend checks for restore boundaries, protection of
-the live database file, time units and locale scripts. Four focused catalog suites
-and all 21 human-preference checks pass. Other languages and the broader backlog remain.
+Fill 455 English placeholders across thirteen catalogs, including hiragana
+Japanese
+and separate Simplified and Traditional Chinese wording. Preserve existing
+translations,
+source order and exact tokens. Extend checks for restore boundaries, protection
+of
+the live database file, time units and locale scripts. Four focused catalog
+suites
+and all 21 human-preference checks pass. Other languages and the broader backlog
+remain.
 
 </details>
 
@@ -9396,7 +11138,8 @@ and all 21 human-preference checks pass. Other languages and the broader backlog
 <summary><a href="https://github.com/wekan/wekan/commit/00de9569b3">Translate continuous backup into Indonesian, Malay and Vietnamese</a>. Thanks to xet7.</summary>
 
 Fill 175 English placeholders across five catalogs while preserving existing
-translations, source order and exact tokens. Keep Indonesian and Malay terminology
+translations, source order and exact tokens. Keep Indonesian and Malay
+terminology
 separate. Extend checks for restore boundaries, protection of the live database
 file and time units. Four focused catalog suites and all 21 human-preference
 checks pass. Other languages and the broader translation backlog remain.
@@ -9407,9 +11150,11 @@ checks pass. Other languages and the broader translation backlog remain.
 <summary><a href="https://github.com/wekan/wekan/commit/8e442a129f">Translate continuous backup into Arabic and Hebrew</a>. Thanks to xet7.</summary>
 
 Fill 175 English placeholders across five catalogs while preserving existing
-translations, source order and exact tokens. Extend checks for restore boundaries,
+translations, source order and exact tokens. Extend checks for restore
+boundaries,
 protection of the live database file, time units and Arabic and Hebrew scripts.
-Four focused catalog suites and all 21 human-preference checks pass. Other languages
+Four focused catalog suites and all 21 human-preference checks pass. Other
+languages
 and the broader translation backlog remain.
 
 </details>
@@ -9418,7 +11163,8 @@ and the broader translation backlog remain.
 <summary><a href="https://github.com/wekan/wekan/commit/b4780cb46e">Translate continuous backup into Persian and Urdu</a>. Thanks to xet7.</summary>
 
 Fill 105 English placeholders across three catalogs and correct the Urdu backup
-label. Preserve existing correct-language translations, source order and exact tokens.
+label. Preserve existing correct-language translations, source order and exact
+tokens.
 Extend checks for restore boundaries, protection of the live database file, time
 units and Arabic script. Four focused catalog suites and all 21 human-preference
 checks pass. Other languages and the broader translation backlog remain.
@@ -9429,9 +11175,12 @@ checks pass. Other languages and the broader translation backlog remain.
 <summary><a href="https://github.com/wekan/wekan/commit/a0d2adbad5">Translate continuous backup into Hindi and Bengali</a>. Thanks to xet7.</summary>
 
 Fill 105 English placeholders across three catalogs while preserving existing
-translations, source order and exact tokens. Extend checks for restore boundaries,
-protection of the live database file, time units and Devanagari and Bengali scripts.
-Four focused catalog suites and all 21 human-preference checks pass. Other languages
+translations, source order and exact tokens. Extend checks for restore
+boundaries,
+protection of the live database file, time units and Devanagari and Bengali
+scripts.
+Four focused catalog suites and all 21 human-preference checks pass. Other
+languages
 and the broader translation backlog remain.
 
 </details>
@@ -9440,9 +11189,11 @@ and the broader translation backlog remain.
 <summary><a href="https://github.com/wekan/wekan/commit/13489d56e8">Translate continuous backup into Catalan, Galician and Basque</a>. Thanks to xet7.</summary>
 
 Fill 175 English placeholders across five catalogs while preserving existing
-translations, source order and exact tokens. Extend checks for restore boundaries,
+translations, source order and exact tokens. Extend checks for restore
+boundaries,
 protection of the live database file and time units. Four focused catalog suites
-and all 21 human-preference checks pass. Other languages and the broader backlog remain.
+and all 21 human-preference checks pass. Other languages and the broader backlog
+remain.
 
 </details>
 
@@ -9450,9 +11201,11 @@ and all 21 human-preference checks pass. Other languages and the broader backlog
 <summary><a href="https://github.com/wekan/wekan/commit/99a066edcb">Translate continuous backup into Afrikaans and Swahili</a>. Thanks to xet7.</summary>
 
 Fill 105 English placeholders across three catalogs while preserving existing
-translations, source order and exact tokens. Extend checks for restore boundaries,
+translations, source order and exact tokens. Extend checks for restore
+boundaries,
 protection of the live database file and time units. Four focused catalog suites
-and all 21 human-preference checks pass. Other languages and the broader backlog remain.
+and all 21 human-preference checks pass. Other languages and the broader backlog
+remain.
 
 </details>
 
@@ -9463,7 +11216,8 @@ Fill 105 English placeholders and correct Macedonian restore and save labels.
 Preserve existing correct-language translations, source order and exact tokens.
 Extend checks for restore boundaries, protection of the live database file, time
 units and language-specific vocabulary and scripts. All 453 translation-related
-suites and 21 human-preference checks pass. Other languages and the broader backlog remain.
+suites and 21 human-preference checks pass. Other languages and the broader
+backlog remain.
 
 </details>
 
@@ -9481,9 +11235,11 @@ human-preference checks pass. Other languages and the broader backlog remain.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7ab10f6783">Translate continuous backup into Albanian</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend checks for restore boundaries, protection of the live
-database file and time units. Four focused catalog suites and all 21 human-preference
+database file and time units. Four focused catalog suites and all 21
+human-preference
 checks pass. Other languages and the broader translation backlog remain.
 
 </details>
@@ -9491,9 +11247,11 @@ checks pass. Other languages and the broader translation backlog remain.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/39181bff0f">Translate continuous backup into Thai</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend checks for restore boundaries, protection of the live
-database file, time units and Thai script. Four focused catalog suites and all 21
+database file, time units and Thai script. Four focused catalog suites and all
+21
 human-preference checks pass. Other languages and the broader backlog remain.
 
 </details>
@@ -9501,9 +11259,11 @@ human-preference checks pass. Other languages and the broader backlog remain.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e8c5a4eb99">Translate continuous backup into Filipino</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend checks for restore boundaries, protection of the live
-database file and time units. Four focused catalog suites and all 21 human-preference
+database file and time units. Four focused catalog suites and all 21
+human-preference
 checks pass. Other languages and the broader translation backlog remain.
 
 </details>
@@ -9511,10 +11271,13 @@ checks pass. Other languages and the broader translation backlog remain.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/616404a27b">Translate continuous backup into Belarusian</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend checks for restore boundaries, protection of the live
-database file, time units and Belarusian vocabulary and script. Four focused catalog
-suites and all 21 human-preference checks pass. Other languages and the broader backlog remain.
+database file, time units and Belarusian vocabulary and script. Four focused
+catalog
+suites and all 21 human-preference checks pass. Other languages and the broader
+backlog remain.
 
 </details>
 
@@ -9522,8 +11285,10 @@ suites and all 21 human-preference checks pass. Other languages and the broader 
 <summary><a href="https://github.com/wekan/wekan/commit/d82ae06489">Translate continuous backup into Azerbaijani</a>. Thanks to xet7.</summary>
 
 Fill 105 English placeholders across three catalogs while preserving existing
-translations, source order and exact tokens. Extend checks for restore boundaries,
-protection of the live database file, time units and Azerbaijani Latin vocabulary
+translations, source order and exact tokens. Extend checks for restore
+boundaries,
+protection of the live database file, time units and Azerbaijani Latin
+vocabulary
 and script. Four focused catalog suites and all 21 human-preference checks pass.
 Other languages and the broader translation backlog remain.
 
@@ -9532,9 +11297,11 @@ Other languages and the broader translation backlog remain.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9e6aed230f">Translate continuous backup into Georgian</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend checks for restore boundaries, protection of the live
-database file, time units and Georgian script. Four focused catalog suites and all
+database file, time units and Georgian script. Four focused catalog suites and
+all
 21 human-preference checks pass. Other languages and the broader backlog remain.
 
 </details>
@@ -9542,9 +11309,11 @@ database file, time units and Georgian script. Four focused catalog suites and a
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/721ab166af">Translate continuous backup into Armenian</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend checks for restore boundaries, protection of the live
-database file, time units and Armenian script. Four focused catalog suites and all
+database file, time units and Armenian script. Four focused catalog suites and
+all
 21 human-preference checks pass. Other languages and the broader backlog remain.
 
 </details>
@@ -9553,7 +11322,8 @@ database file, time units and Armenian script. Four focused catalog suites and a
 <summary><a href="https://github.com/wekan/wekan/commit/fac00fabfa">Translate continuous backup into Latin-script Uzbek</a>. Thanks to xet7.</summary>
 
 Fill 105 English placeholders across three catalogs while preserving existing
-translations, source order and exact tokens. Extend checks for restore boundaries,
+translations, source order and exact tokens. Extend checks for restore
+boundaries,
 protection of the live database file, time units and Uzbek Latin vocabulary and
 script. Four focused catalog suites and all 21 human-preference checks pass.
 Arabic-script Uzbek, other languages and the broader backlog remain.
@@ -9566,7 +11336,8 @@ Arabic-script Uzbek, other languages and the broader backlog remain.
 Fill 35 English placeholders and replace Latin-script restore and save labels.
 Preserve existing correct-script translations, source order and exact tokens.
 Use existing catalog vocabulary and the [Uzbek alphabet reference](https://en.wikipedia.org/wiki/Uzbek_alphabet).
-Arabic-script Uzbek orthography and technical phrasing are low-confidence and need
+Arabic-script Uzbek orthography and technical phrasing are low-confidence and
+need
 speaker review. Extend checks for restore warnings, time units and Arabic prose
 with unchanged technical names. Four focused catalog suites and all 21
 human-preference checks pass. Other languages and the broader backlog remain.
@@ -9576,39 +11347,49 @@ human-preference checks pass. Other languages and the broader backlog remain.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ec3daffd13">Translate continuous backup into Kazakh</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend checks for restore boundaries, protection of the live
 database file, time units and Kazakh vocabulary and script. Four focused catalog
-suites and all 21 human-preference checks pass. Other languages and the broader backlog remain.
+suites and all 21 human-preference checks pass. Other languages and the broader
+backlog remain.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/31794771b8">Translate continuous backup into Mongolian</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend checks for restore boundaries, protection of the live
-database file, time units and Mongolian vocabulary and script. Four focused catalog
-suites and all 21 human-preference checks pass. Other languages and the broader backlog remain.
+database file, time units and Mongolian vocabulary and script. Four focused
+catalog
+suites and all 21 human-preference checks pass. Other languages and the broader
+backlog remain.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/33a1c73fde">Translate continuous backup into Nepali</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend checks for restore boundaries, protection of the live
-database file, time units and Nepali wording and script. Four focused catalog suites
-and all 21 human-preference checks pass. Other languages and the broader backlog remain.
+database file, time units and Nepali wording and script. Four focused catalog
+suites
+and all 21 human-preference checks pass. Other languages and the broader backlog
+remain.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0347053458">Translate continuous backup into Marathi</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend checks for restore boundaries, protection of the live
-database file, time units and Devanagari script. Four focused catalog suites and all
+database file, time units and Devanagari script. Four focused catalog suites and
+all
 21 human-preference checks pass. Other languages and the broader backlog remain.
 
 </details>
@@ -9616,7 +11397,8 @@ database file, time units and Devanagari script. Four focused catalog suites and
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fe0d21aa71">Translate continuous backup into Tamil</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend checks for restore boundaries, protection of the live
 database file, time units and Tamil script. Four focused catalog suites and all
 21 human-preference checks pass. Other languages and the broader backlog remain.
@@ -9626,7 +11408,8 @@ database file, time units and Tamil script. Four focused catalog suites and all
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b05101709b">Translate continuous backup into Telugu</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend checks for restore boundaries, protection of the live
 database file, time units and Telugu script. Four focused catalog suites and all
 21 human-preference checks pass. Other languages and the broader backlog remain.
@@ -9636,9 +11419,11 @@ database file, time units and Telugu script. Four focused catalog suites and all
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a32aca0472">Translate continuous backup into Gujarati</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend checks for restore boundaries, protection of the live
-database file, time units and Gujarati script. Four focused catalog suites and all
+database file, time units and Gujarati script. Four focused catalog suites and
+all
 21 human-preference checks pass. Other languages and the broader backlog remain.
 
 </details>
@@ -9646,9 +11431,11 @@ database file, time units and Gujarati script. Four focused catalog suites and a
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/00a02a6bcc">Translate continuous backup into Kannada</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend checks for restore boundaries, protection of the live
-database file, time units and Kannada script. Four focused catalog suites and all
+database file, time units and Kannada script. Four focused catalog suites and
+all
 21 human-preference checks pass. Other languages and the broader backlog remain.
 
 </details>
@@ -9656,9 +11443,11 @@ database file, time units and Kannada script. Four focused catalog suites and al
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/141ee15cfe">Translate continuous backup into Malayalam</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend checks for restore boundaries, protection of the live
-database file, time units and Malayalam script. Four focused catalog suites and all
+database file, time units and Malayalam script. Four focused catalog suites and
+all
 21 human-preference checks pass. Other languages and the broader backlog remain.
 
 </details>
@@ -9666,9 +11455,11 @@ database file, time units and Malayalam script. Four focused catalog suites and 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/db0b3b63ed">Translate continuous backup into Punjabi</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend checks for restore boundaries, protection of the live
-database file, time units and Gurmukhi script. Four focused catalog suites and all
+database file, time units and Gurmukhi script. Four focused catalog suites and
+all
 21 human-preference checks pass. Other languages and the broader backlog remain.
 
 </details>
@@ -9676,9 +11467,11 @@ database file, time units and Gurmukhi script. Four focused catalog suites and a
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4726c552b2">Translate continuous backup into Sinhala</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend checks for restore boundaries, protection of the live
-database file, time units and Sinhala script. Four focused catalog suites and all
+database file, time units and Sinhala script. Four focused catalog suites and
+all
 21 human-preference checks pass. Other languages and the broader backlog remain.
 
 </details>
@@ -9686,9 +11479,11 @@ database file, time units and Sinhala script. Four focused catalog suites and al
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bc1b8c6022">Translate continuous backup into Irish</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend checks for restore boundaries, protection of the live
-database file and time units. Four focused catalog suites and all 21 human-preference
+database file and time units. Four focused catalog suites and all 21
+human-preference
 checks pass. Other languages and the broader translation backlog remain.
 
 </details>
@@ -9697,18 +11492,22 @@ checks pass. Other languages and the broader translation backlog remain.
 <summary><a href="https://github.com/wekan/wekan/commit/129c14a40d">Translate continuous backup into Welsh</a>. Thanks to xet7.</summary>
 
 Fill 70 English placeholders across two catalogs while preserving existing
-translations, source order and exact tokens. Extend checks for restore boundaries,
+translations, source order and exact tokens. Extend checks for restore
+boundaries,
 protection of the live database file and time units. Four focused catalog suites
-and all 21 human-preference checks pass. Other languages and the broader backlog remain.
+and all 21 human-preference checks pass. Other languages and the broader backlog
+remain.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/987ba80d35">Translate continuous backup into Luxembourgish</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend checks for restore boundaries, protection of the live
-database file and time units. Four focused catalog suites and all 21 human-preference
+database file and time units. Four focused catalog suites and all 21
+human-preference
 checks pass. Other languages and the broader translation backlog remain.
 
 </details>
@@ -9716,9 +11515,11 @@ checks pass. Other languages and the broader translation backlog remain.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/06f2455b71">Translate continuous backup into Haitian Creole</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend checks for restore boundaries, protection of the live
-database file and time units. Four focused catalog suites and all 21 human-preference
+database file and time units. Four focused catalog suites and all 21
+human-preference
 checks pass. Other languages and the broader translation backlog remain.
 
 </details>
@@ -9726,9 +11527,11 @@ checks pass. Other languages and the broader translation backlog remain.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/802094f95f">Translate continuous backup into Maltese</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend checks for restore boundaries, protection of the live
-database file and time units. Four focused catalog suites and all 21 human-preference
+database file and time units. Four focused catalog suites and all 21
+human-preference
 checks pass. Other languages and the broader translation backlog remain.
 
 </details>
@@ -9736,20 +11539,24 @@ checks pass. Other languages and the broader translation backlog remain.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6112a4deeb">Translate continuous backup into Kyrgyz</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend checks for restore boundaries, protection of the live
 database file, time units and Kyrgyz vocabulary and script. Four focused catalog
-suites and all 21 human-preference checks pass. Other languages and the broader backlog remain.
+suites and all 21 human-preference checks pass. Other languages and the broader
+backlog remain.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5c5d70777a">Translate continuous backup into Tajik</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend checks for restore boundaries, protection of the live
 database file, time units and Tajik vocabulary and script. Four focused catalog
-suites and all 21 human-preference checks pass. Other languages and the broader backlog remain.
+suites and all 21 human-preference checks pass. Other languages and the broader
+backlog remain.
 
 </details>
 
@@ -9789,7 +11596,8 @@ human-preference checks pass. The broader translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6958387809">Translate continuous backup into Somali</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
 focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
@@ -9799,7 +11607,8 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6bfbd51680">Translate continuous backup into Javanese</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
 focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
@@ -9809,7 +11618,8 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3f1e799ee4">Translate continuous backup into Burmese</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause, time-unit and Myanmar-script
 checks. Four focused catalog suites and all 21 human-preference checks pass.
 The broader translation backlog remains.
@@ -9830,7 +11640,8 @@ backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bb93db32d9">Translate continuous backup into Kurmanji Kurdish</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
 focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
@@ -9840,7 +11651,8 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7a2af39083">Translate continuous backup into Central Kurdish</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause, time-unit and script checks.
 Four focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
@@ -9850,7 +11662,8 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6229473b51">Translate continuous backup into Pashto</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause, time-unit and script checks.
 Four focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
@@ -9860,7 +11673,8 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/184a2831ea">Translate continuous backup into Sindhi</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause, time-unit and script checks.
 Four focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
@@ -9870,7 +11684,8 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c6cf0dcd1e">Translate continuous backup into Assamese</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause, time-unit and Assamese
 vocabulary and script checks. Four focused catalog suites and all 21
 human-preference checks pass. The broader translation backlog remains.
@@ -9880,7 +11695,8 @@ human-preference checks pass. The broader translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3730cf0b78">Translate continuous backup into Odia</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause, time-unit and Odia-script
 checks. Four focused catalog suites and all 21 human-preference checks pass.
 The broader translation backlog remains.
@@ -9890,7 +11706,8 @@ The broader translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1770725095">Translate continuous backup into Malagasy</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
 focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
@@ -9900,7 +11717,8 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e219689480">Translate continuous backup into Hausa</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
 focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
@@ -9910,7 +11728,8 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9e97b25cc8">Translate continuous backup into Yoruba</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
 focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
@@ -9920,7 +11739,8 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5440418aad">Translate continuous backup into Igbo</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
 focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
@@ -9940,7 +11760,8 @@ checks pass. The broader translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0be8d0f0bf">Translate continuous backup into Xhosa</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
 focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
@@ -9961,7 +11782,8 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/74ad0b4d32">Translate continuous backup into Chichewa</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
 focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
@@ -9971,7 +11793,8 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0f0a2b6686">Translate continuous backup into Kinyarwanda</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
 focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
@@ -9981,7 +11804,8 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/935318332e">Translate continuous backup into Sesotho</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
 focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
@@ -10002,7 +11826,8 @@ The broader translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e7975747a8">Translate continuous backup into Northern Sotho</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
 focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
@@ -10023,7 +11848,8 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6c053df8dc">Translate continuous backup into Faroese</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
 focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
@@ -10043,7 +11869,8 @@ human-preference checks pass. The broader translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/56cecb3dc2">Translate continuous backup into Occitan</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
 focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
@@ -10053,7 +11880,8 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/92c7bde8ad">Translate continuous backup into Asturian</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
 focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
@@ -10063,7 +11891,8 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/681dca02a0">Translate continuous backup into Aragonese</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
 focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
@@ -10074,7 +11903,8 @@ translation backlog remains.
 <summary><a href="https://github.com/wekan/wekan/commit/81a5864ee0">Translate continuous backup into Corsican</a>. Thanks to xet7.</summary>
 
 Fill 35 English placeholders and correct the backup label and two descriptions
-seeded with Italian, restoring literal archive paths. Preserve other translations,
+seeded with Italian, restoring literal archive paths. Preserve other
+translations,
 source order and exact tokens. Extend restore, time-unit and language checks.
 Four focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
@@ -10086,7 +11916,8 @@ translation backlog remains.
 
 Fill 35 English placeholders and correct two descriptions seeded with Italian,
 restoring literal archive paths. Preserve other translations, source order and
-exact tokens. Extend restore, time-unit and language checks. Four focused catalog
+exact tokens. Extend restore, time-unit and language checks. Four focused
+catalog
 suites and all 21 human-preference checks pass. The broader translation backlog
 remains.
 
@@ -10096,7 +11927,8 @@ remains.
 <summary><a href="https://github.com/wekan/wekan/commit/c50458c478">Translate continuous backup into Sardinian</a>. Thanks to xet7.</summary>
 
 Fill 35 English placeholders and correct the backup label and two descriptions
-seeded with Italian, restoring literal archive paths. Preserve other translations,
+seeded with Italian, restoring literal archive paths. Preserve other
+translations,
 source order and exact tokens. Extend restore, time-unit and language checks.
 Four focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
@@ -10106,7 +11938,8 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5b1f7956aa">Translate continuous backup into Yiddish</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause, time-unit and Yiddish
 vocabulary and script checks. Four focused catalog suites and all 21
 human-preference checks pass. The broader translation backlog remains.
@@ -10116,7 +11949,8 @@ human-preference checks pass. The broader translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cd485a2d0d">Translate continuous backup into Turkmen</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
 focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
@@ -10126,7 +11960,8 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ca5af3e3f0">Translate continuous backup into Tatar</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders and replace three backup entries seeded with Turkish
+Fill 35 English placeholders and replace three backup entries seeded with
+Turkish
 with Tatar, restoring literal archive paths. Preserve other translations, source
 order and exact tokens. Extend restore, time-unit, script and vocabulary checks.
 Four focused catalog suites and all 21 human-preference checks pass. The broader
@@ -10137,7 +11972,8 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b4eefe5375">Translate continuous backup into Bashkir</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause, time-unit and Bashkir
 vocabulary and script checks. Four focused catalog suites and all 21
 human-preference checks pass. The broader translation backlog remains.
@@ -10147,7 +11983,8 @@ human-preference checks pass. The broader translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/14f7e624bc">Translate continuous backup into Moroccan Arabic</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause, time-unit and Darija
 vocabulary and script checks. Four focused catalog suites and all 21
 human-preference checks pass. The broader translation backlog remains.
@@ -10157,7 +11994,8 @@ human-preference checks pass. The broader translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8be81e9218">Translate continuous backup into Bhojpuri</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause, time-unit and Bhojpuri
 vocabulary and script checks. Four focused catalog suites and all 21
 human-preference checks pass. The broader translation backlog remains.
@@ -10167,7 +12005,8 @@ human-preference checks pass. The broader translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2b332e7303">Translate continuous backup into Maithili</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause, time-unit and Maithili
 vocabulary and script checks. Four focused catalog suites and all 21
 human-preference checks pass. The broader translation backlog remains.
@@ -10177,7 +12016,8 @@ human-preference checks pass. The broader translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/63d8d50e29">Translate continuous backup into Konkani</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause, time-unit and Konkani
 vocabulary and script checks. Four focused catalog suites and all 21
 human-preference checks pass. The broader translation backlog remains.
@@ -10189,7 +12029,8 @@ human-preference checks pass. The broader translation backlog remains.
 
 Fill 35 English placeholders and correct three mixed-language backup entries,
 restoring the literal attachment directory path. Preserve other translations,
-source order and exact tokens. Extend restore, time-unit and mixed-language checks.
+source order and exact tokens. Extend restore, time-unit and mixed-language
+checks.
 Four focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
 
@@ -10210,7 +12051,8 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5b970935be">Translate continuous backup into Māori</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
 focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
@@ -10232,10 +12074,13 @@ native-speaker review. The broader translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/74b1b6c213">Translate continuous backup into Samoan</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
-focused catalog suites and all 21 human-preference checks pass. Technical wording
-is low confidence and needs native-speaker review. The broader translation backlog
+focused catalog suites and all 21 human-preference checks pass. Technical
+wording
+is low confidence and needs native-speaker review. The broader translation
+backlog
 remains.
 
 </details>
@@ -10243,7 +12088,8 @@ remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/72ba07424d">Translate continuous backup into Scottish Gaelic</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
 focused catalog suites and all 21 human-preference checks pass. The broader
 translation backlog remains.
@@ -10253,10 +12099,13 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b68a3fc363">Translate continuous backup into Breton</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
-focused catalog suites and all 21 human-preference checks pass. Technical wording
-is low confidence and needs native-speaker review. The broader translation backlog
+focused catalog suites and all 21 human-preference checks pass. Technical
+wording
+is low confidence and needs native-speaker review. The broader translation
+backlog
 remains.
 
 </details>
@@ -10265,10 +12114,13 @@ remains.
 <summary><a href="https://github.com/wekan/wekan/commit/f513ca89bc">Translate continuous backup into Romansh</a>. Thanks to xet7.</summary>
 
 Fill 35 English placeholders and correct an Italian backup label and a
-mixed-language restore prompt. Preserve other existing translations, source order
-and exact tokens. Extend restore protection, pause, time-unit and language checks.
+mixed-language restore prompt. Preserve other existing translations, source
+order
+and exact tokens. Extend restore protection, pause, time-unit and language
+checks.
 Four focused catalog suites and all 21 human-preference checks pass. Technical
-wording is low confidence and needs native-speaker review. The broader translation
+wording is low confidence and needs native-speaker review. The broader
+translation
 backlog remains.
 
 </details>
@@ -10288,8 +12140,10 @@ native-speaker review. The broader translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ca891bdbf9">Translate continuous backup into Amharic</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
-and exact tokens. Extend restore protection, pause, time-unit and Ethiopic script
+Fill 35 English placeholders while preserving existing translations, source
+order
+and exact tokens. Extend restore protection, pause, time-unit and Ethiopic
+script
 checks. Four focused catalog suites and all 21 human-preference checks pass. The
 broader translation backlog remains.
 
@@ -10298,9 +12152,11 @@ broader translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3314b5ea3a">Translate continuous backup into Uyghur</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause, time-unit, script and
-vocabulary checks. Four focused catalog suites and all 21 human-preference checks
+vocabulary checks. Four focused catalog suites and all 21 human-preference
+checks
 pass. The broader translation backlog remains.
 
 </details>
@@ -10321,10 +12177,13 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/67eaefadc3">Translate continuous backup into Oromo</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
-focused catalog suites and all 21 human-preference checks pass. Technical wording
-is low confidence and needs native-speaker review. The broader translation backlog
+focused catalog suites and all 21 human-preference checks pass. Technical
+wording
+is low confidence and needs native-speaker review. The broader translation
+backlog
 remains.
 
 </details>
@@ -10332,7 +12191,8 @@ remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e95f15b2b4">Translate continuous backup into Kirundi</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause, time-unit and vocabulary
 checks. Four focused catalog suites and all 21 human-preference checks pass.
 Technical wording is low confidence and needs native-speaker review. The broader
@@ -10343,7 +12203,8 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d8ff82ace9">Translate continuous backup into Swati</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause, time-unit and vocabulary
 checks. Four focused catalog suites and all 21 human-preference checks pass.
 Technical wording is low confidence and needs native-speaker review. The broader
@@ -10354,7 +12215,8 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8f9df578ee">Translate continuous backup into Northern Ndebele</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause, time-unit and vocabulary
 checks. Four focused catalog suites and all 21 human-preference checks pass.
 Technical wording is low confidence and needs native-speaker review. The broader
@@ -10381,7 +12243,8 @@ Fill 35 English placeholders and correct two Spanish-mixed backup descriptions,
 restoring the literal avatar path. Preserve other translations, source order and
 exact tokens. Extend restore protection, pause, time-unit and language checks.
 Four focused catalog suites and all 21 human-preference checks pass. Technical
-wording is low confidence and needs native-speaker review. The broader translation
+wording is low confidence and needs native-speaker review. The broader
+translation
 backlog remains.
 
 </details>
@@ -10392,7 +12255,8 @@ backlog remains.
 Fill 35 English placeholders and replace a Walloon backup label in the Waray
 catalog. Preserve other translations, source order and exact tokens. Extend
 restore protection, pause, time-unit and vocabulary checks. Four focused catalog
-suites and all 21 human-preference checks pass. Technical wording is low confidence
+suites and all 21 human-preference checks pass. Technical wording is low
+confidence
 and needs native-speaker review. The broader translation backlog remains.
 
 </details>
@@ -10404,7 +12268,8 @@ Fill 35 English placeholders and correct two Polish-mixed backup descriptions,
 restoring the literal data path. Preserve other translations, source order and
 exact tokens. Extend restore protection, pause, time-unit and language checks.
 Four focused catalog suites and all 21 human-preference checks pass. Technical
-wording is low confidence and needs native-speaker review. The broader translation
+wording is low confidence and needs native-speaker review. The broader
+translation
 backlog remains.
 
 </details>
@@ -10412,7 +12277,8 @@ backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ad6576e06a">Translate continuous backup into Kashubian</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause, time-unit and vocabulary
 checks. Four focused catalog suites and all 21 human-preference checks pass.
 Technical wording is low confidence and needs native-speaker review. The broader
@@ -10423,10 +12289,13 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fa3b47bec5">Translate continuous backup into Fijian</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
-focused catalog suites and all 21 human-preference checks pass. Technical wording
-is low confidence and needs native-speaker review. The broader translation backlog
+focused catalog suites and all 21 human-preference checks pass. Technical
+wording
+is low confidence and needs native-speaker review. The broader translation
+backlog
 remains.
 
 </details>
@@ -10436,9 +12305,11 @@ remains.
 
 Fill 35 English placeholders and replace three English-filled backup strings,
 restoring the literal attachment path. Preserve other translations, source order
-and exact tokens. Extend restore protection, pause, time-unit and language checks.
+and exact tokens. Extend restore protection, pause, time-unit and language
+checks.
 Four focused catalog suites and all 21 human-preference checks pass. Technical
-wording is low confidence and needs native-speaker review. The broader translation
+wording is low confidence and needs native-speaker review. The broader
+translation
 backlog remains.
 
 </details>
@@ -10449,7 +12320,8 @@ backlog remains.
 Fill 35 English placeholders and correct two mixed-English backup descriptions,
 restoring literal paths. Preserve other translations, source order and exact
 tokens. Extend restore protection, pause, time-unit and language checks. Four
-focused catalog suites and all 21 human-preference checks pass. Continuous-backup
+focused catalog suites and all 21 human-preference checks pass.
+Continuous-backup
 coverage now includes 200 locale tags. Technical wording is low confidence and
 needs native-speaker review. The broader translation backlog remains.
 
@@ -10458,10 +12330,13 @@ needs native-speaker review. The broader translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/648da9becb">Translate continuous backup into Wolof</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Five
-focused catalog suites and all 21 human-preference checks pass. Technical wording
-is low confidence and needs native-speaker review. The broader translation backlog
+focused catalog suites and all 21 human-preference checks pass. Technical
+wording
+is low confidence and needs native-speaker review. The broader translation
+backlog
 remains.
 
 </details>
@@ -10469,10 +12344,14 @@ remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e47be629cf">Translate continuous backup into Akan</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders and correct three unrelated or mixed-language backup
-entries. Preserve other translations, source order, exact tokens and literal paths.
-Extend restore protection, pause and time-unit checks. Four focused catalog suites
-and all 21 human-preference checks pass. Technical Akan wording is low confidence
+Fill 35 English placeholders and correct three unrelated or mixed-language
+backup
+entries. Preserve other translations, source order, exact tokens and literal
+paths.
+Extend restore protection, pause and time-unit checks. Four focused catalog
+suites
+and all 21 human-preference checks pass. Technical Akan wording is low
+confidence
 and needs native-speaker review. The broader translation backlog remains.
 
 </details>
@@ -10480,10 +12359,12 @@ and needs native-speaker review. The broader translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/dc9cc10eb8">Translate continuous backup into Manx</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
 focused catalog suites and all 21 human-preference checks pass. Technical Manx
-wording is low confidence and needs native-speaker review. The broader translation
+wording is low confidence and needs native-speaker review. The broader
+translation
 backlog remains.
 
 </details>
@@ -10491,10 +12372,13 @@ backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a72db81500">Translate continuous backup into Walloon</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
-focused catalog suites and all 21 human-preference checks pass. Technical Walloon
-wording is low confidence and needs native-speaker review. The broader translation
+focused catalog suites and all 21 human-preference checks pass. Technical
+Walloon
+wording is low confidence and needs native-speaker review. The broader
+translation
 backlog remains.
 
 </details>
@@ -10502,10 +12386,13 @@ backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1273a56107">Translate continuous backup into Cornish</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
-focused catalog suites and all 21 human-preference checks pass. Technical Cornish
-wording is low confidence and needs native-speaker review. The broader translation
+focused catalog suites and all 21 human-preference checks pass. Technical
+Cornish
+wording is low confidence and needs native-speaker review. The broader
+translation
 backlog remains.
 
 </details>
@@ -10513,10 +12400,12 @@ backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0fa69a93cd">Translate continuous backup into Ewe</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
 focused catalog suites and all 21 human-preference checks pass. Technical Ewe
-wording is low confidence and needs native-speaker review. The broader translation
+wording is low confidence and needs native-speaker review. The broader
+translation
 backlog remains.
 
 </details>
@@ -10528,7 +12417,8 @@ Fill 35 English placeholders and correct three Italian-seeded backup entries,
 restoring literal archive paths. Preserve other translations, source order and
 exact tokens. Extend restore protection, pause, path and time-unit checks. Four
 focused catalog suites and all 21 human-preference checks pass. Technical
-Neapolitan wording is low confidence and needs native-speaker review. The broader
+Neapolitan wording is low confidence and needs native-speaker review. The
+broader
 translation backlog remains.
 
 </details>
@@ -10536,10 +12426,13 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0e6c59c0ff">Translate continuous backup into Acehnese</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
-focused catalog suites and all 21 human-preference checks pass. Technical Acehnese
-wording is low confidence and needs native-speaker review. The broader translation
+focused catalog suites and all 21 human-preference checks pass. Technical
+Acehnese
+wording is low confidence and needs native-speaker review. The broader
+translation
 backlog remains.
 
 </details>
@@ -10547,10 +12440,13 @@ backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d6d94565f9">Translate continuous backup into Bambara</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
-focused catalog suites and all 21 human-preference checks pass. Technical Bambara
-wording is low confidence and needs native-speaker review. The broader translation
+focused catalog suites and all 21 human-preference checks pass. Technical
+Bambara
+wording is low confidence and needs native-speaker review. The broader
+translation
 backlog remains.
 
 </details>
@@ -10559,9 +12455,12 @@ backlog remains.
 <summary><a href="https://github.com/wekan/wekan/commit/2433d74808">Translate continuous backup into Aymara</a>. Thanks to xet7.</summary>
 
 Fill 35 English placeholders and correct three English-filled backup entries.
-Preserve other translations, source order, exact tokens and literal paths. Extend
-restore protection, pause, path and time-unit checks. Four focused catalog suites
-and all 21 human-preference checks pass. Technical Aymara wording is low confidence
+Preserve other translations, source order, exact tokens and literal paths.
+Extend
+restore protection, pause, path and time-unit checks. Four focused catalog
+suites
+and all 21 human-preference checks pass. Technical Aymara wording is low
+confidence
 and needs native-speaker review. The broader translation backlog remains.
 
 </details>
@@ -10581,10 +12480,13 @@ The broader translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/510acf1534">Translate continuous backup into Guarani</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
-focused catalog suites and all 21 human-preference checks pass. Technical Guarani
-wording is low confidence and needs native-speaker review. The broader translation
+focused catalog suites and all 21 human-preference checks pass. Technical
+Guarani
+wording is low confidence and needs native-speaker review. The broader
+translation
 backlog remains.
 
 </details>
@@ -10592,9 +12494,11 @@ backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4fffb197c9">Translate continuous backup into Northern Sami</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
-focused catalog suites and all 21 human-preference checks pass. Technical Northern
+focused catalog suites and all 21 human-preference checks pass. Technical
+Northern
 Sami wording is low confidence and needs native-speaker review. The broader
 translation backlog remains.
 
@@ -10603,10 +12507,12 @@ translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a8dc027ab0">Translate continuous backup into Venda</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend restore protection, pause and time-unit checks. Four
 focused catalog suites and all 21 human-preference checks pass. Technical Venda
-wording is low confidence and needs native-speaker review. The broader translation
+wording is low confidence and needs native-speaker review. The broader
+translation
 backlog remains.
 
 </details>
@@ -10614,7 +12520,8 @@ backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4bec74b515">Translate continuous backup into Tibetan</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
+Fill 35 English placeholders while preserving existing translations, source
+order
 and exact tokens. Extend script, restore protection, pause and time-unit checks.
 Four focused catalog suites and all 21 human-preference checks pass. Technical
 Tibetan wording is low confidence and needs native-speaker review. The broader
@@ -10626,10 +12533,13 @@ translation backlog remains.
 <summary><a href="https://github.com/wekan/wekan/commit/44caedf466">Translate continuous backup into Dzongkha</a>. Thanks to xet7.</summary>
 
 Fill 35 English placeholders and replace three Tibetan-seeded backup entries.
-Preserve other translations, source order, exact tokens and literal paths. Extend
+Preserve other translations, source order, exact tokens and literal paths.
+Extend
 vocabulary, script, restore protection, pause and time-unit checks. Four focused
-catalog suites and all 21 human-preference checks pass. Technical Dzongkha wording
-is low confidence and needs native-speaker review. The broader translation backlog
+catalog suites and all 21 human-preference checks pass. Technical Dzongkha
+wording
+is low confidence and needs native-speaker review. The broader translation
+backlog
 remains.
 
 </details>
@@ -10637,8 +12547,10 @@ remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8f442d76bf">Translate continuous backup into Buryat</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
-and exact tokens. Extend vocabulary, script, restore protection, pause and time-unit
+Fill 35 English placeholders while preserving existing translations, source
+order
+and exact tokens. Extend vocabulary, script, restore protection, pause and
+time-unit
 checks. Four focused catalog suites and all 21 human-preference checks pass.
 Technical Buryat wording is low confidence and needs native-speaker review.
 The broader translation backlog remains.
@@ -10648,8 +12560,10 @@ The broader translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/efee605f91">Translate continuous backup into Chuvash</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
-and exact tokens. Extend vocabulary, script, restore protection, pause and time-unit
+Fill 35 English placeholders while preserving existing translations, source
+order
+and exact tokens. Extend vocabulary, script, restore protection, pause and
+time-unit
 checks. Four focused catalog suites and all 21 human-preference checks pass.
 Technical Chuvash wording is low confidence and needs native-speaker review.
 The broader translation backlog remains.
@@ -10660,10 +12574,12 @@ The broader translation backlog remains.
 <summary><a href="https://github.com/wekan/wekan/commit/cd4c36d766">Translate continuous backup into Sakha</a>. Thanks to xet7.</summary>
 
 Fill 35 English placeholders and correct three misleading backup entries.
-Preserve other translations, source order, exact tokens and literal paths. Extend
+Preserve other translations, source order, exact tokens and literal paths.
+Extend
 vocabulary, script, restore protection, pause and time-unit checks. Four focused
 catalog suites and all 21 human-preference checks pass. Technical Sakha wording
-is low confidence and needs native-speaker review. The broader translation backlog
+is low confidence and needs native-speaker review. The broader translation
+backlog
 remains.
 
 </details>
@@ -10671,8 +12587,10 @@ remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/dcc9c2a818">Translate continuous backup into Tigrinya</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders while preserving existing translations, source order
-and exact tokens. Extend vocabulary, script, restore protection, pause and time-unit
+Fill 35 English placeholders while preserving existing translations, source
+order
+and exact tokens. Extend vocabulary, script, restore protection, pause and
+time-unit
 checks. All 453 translation-related suites and 21 human-preference checks pass.
 Technical Tigrinya wording is low confidence and needs native-speaker review.
 Fourteen locales still have English continuous-backup strings, and the broader
@@ -10687,7 +12605,8 @@ Fill 35 English placeholders and correct three Italian-seeded backup entries,
 restoring literal archive paths. Preserve other translations, source order and
 exact tokens. Extend restore protection, pause, path and time-unit checks. Four
 focused catalog suites and all 21 human-preference checks pass. Technical Ladin
-wording is low confidence and needs native-speaker review. The broader translation
+wording is low confidence and needs native-speaker review. The broader
+translation
 backlog remains.
 
 </details>
@@ -10695,9 +12614,12 @@ backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3871edb26e">Translate continuous backup into Aromanian</a>. Thanks to xet7.</summary>
 
-Fill 35 English placeholders and correct two Romanian-seeded backup descriptions.
-Preserve other translations, source key order, exact placeholders and literal paths.
-Extend restore safeguard, pause, time-unit, vocabulary and description regression
+Fill 35 English placeholders and correct two Romanian-seeded backup
+descriptions.
+Preserve other translations, source key order, exact placeholders and literal
+paths.
+Extend restore safeguard, pause, time-unit, vocabulary and description
+regression
 checks. Four focused catalog suites and all 21 human-preference checks pass.
 Technical Aromanian wording is low confidence and needs native-speaker review.
 The broader translation backlog remains.
@@ -10709,7 +12631,8 @@ The broader translation backlog remains.
 
 Fill 35 English placeholders, translate the English prose in two older backup
 descriptions and correct the backup label. Preserve other translations, source
-key order, exact placeholders and literal paths. Extend restore safeguard, pause,
+key order, exact placeholders and literal paths. Extend restore safeguard,
+pause,
 time-unit, vocabulary and description regression checks. Four focused catalog
 suites and all 21 human-preference checks pass. Technical Klingon wording is low
 confidence and needs fluent-speaker review. Eleven locales still have English
@@ -10721,11 +12644,16 @@ continuous-backup strings, and the broader translation backlog remains.
 <summary><a href="https://github.com/wekan/wekan/commit/d236618682">Translate continuous backup and mixed-language entries into Veps</a>. Thanks to xet7.</summary>
 
 Fill 35 English backup placeholders and replace 15 Venda, Zulu or mixed-language
-timeline, role-status and error entries with Veps. Preserve other Veps translations,
-source key order and exact placeholders. Extend restore safeguard, pause, time-unit,
-vocabulary and wrong-language regression checks. All 453 translation-related suites
-and all 21 human-preference checks pass. Technical Veps wording is low confidence
-and needs native-speaker review. Ten locales still have English continuous-backup
+timeline, role-status and error entries with Veps. Preserve other Veps
+translations,
+source key order and exact placeholders. Extend restore safeguard, pause,
+time-unit,
+vocabulary and wrong-language regression checks. All 453 translation-related
+suites
+and all 21 human-preference checks pass. Technical Veps wording is low
+confidence
+and needs native-speaker review. Ten locales still have English
+continuous-backup
 strings, and the broader translation backlog remains.
 
 </details>
@@ -10736,10 +12664,12 @@ strings, and the broader translation backlog remains.
 Fill 35 English placeholders, replace two mixed-language backup descriptions and
 correct the Esperanto delete label in the restore control. Preserve other
 translations, source key order, exact placeholders and literal paths. Extend
-restore safeguard, pause, time-unit, vocabulary and description regression checks.
+restore safeguard, pause, time-unit, vocabulary and description regression
+checks.
 Four focused catalog suites and all 21 human-preference checks pass. Technical
 Volapük wording is low confidence and needs fluent-speaker review. Nine locales
-still have English continuous-backup strings, and the broader translation backlog remains.
+still have English continuous-backup strings, and the broader translation
+backlog remains.
 
 </details>
 
@@ -10761,8 +12691,10 @@ continuous-backup strings, and the broader translation backlog remains.
 Fill 35 English placeholders while preserving existing translations, source key
 order and exact placeholders. Extend restore safeguard, pause, time-unit and
 Fulah vocabulary regression checks. Four focused catalog suites and all 21
-human-preference checks pass. Technical Fulah wording is low confidence and needs
-native-speaker review. Seven locales still have English continuous-backup strings,
+human-preference checks pass. Technical Fulah wording is low confidence and
+needs
+native-speaker review. Seven locales still have English continuous-backup
+strings,
 and the broader translation backlog remains.
 
 </details>
@@ -10775,7 +12707,8 @@ description. Preserve other translations, source key order, exact placeholders
 and literal paths. Extend restore safeguard, pause, time-unit, vocabulary and
 description regression checks. Four focused catalog suites and all 21
 human-preference checks pass. Technical Greenlandic wording is low confidence
-and needs native-speaker review. Six locales still have English continuous-backup
+and needs native-speaker review. Six locales still have English
+continuous-backup
 strings, and the broader translation backlog remains.
 
 </details>
@@ -10786,8 +12719,10 @@ strings, and the broader translation backlog remains.
 Fill 35 English placeholders while preserving existing translations, source key
 order and exact placeholders. Extend restore safeguard, pause, time-unit and
 Nahuatl vocabulary regression checks. Four focused catalog suites and all 21
-human-preference checks pass. Technical Nahuatl wording is low confidence and needs
-native-speaker review. Five locales still have English continuous-backup strings,
+human-preference checks pass. Technical Nahuatl wording is low confidence and
+needs
+native-speaker review. Five locales still have English continuous-backup
+strings,
 and the broader translation backlog remains.
 
 </details>
@@ -10800,7 +12735,8 @@ catalog files serving 106 locale variants. Preserve all existing values, exact
 source placeholders and relative source key order. All 106 batch audits and 21
 human-preference checks pass, as do the board-link and language-wiring suites.
 Catalog completeness and continuous-backup suites still fail: the remaining
-locales need the restart option, and new encryption labels also need translation.
+locales need the restart option, and new encryption labels also need
+translation.
 The broader translation backlog remains.
 
 </details>
@@ -10808,7 +12744,8 @@ The broader translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3e5980d394">Translate backup encryption options into 106 locale variants</a>. Thanks to xet7.</summary>
 
-Translate both encryption labels in 105 catalog files serving 106 locale variants.
+Translate both encryption labels in 105 catalog files serving 106 locale
+variants.
 Preserve the AES-256-GCM name, hexadecimal key length of 64 characters, minimum
 passphrase length of 16 characters, external key-file location and warning that
 the backup cannot be restored without the key. Add token, key-format and warning
@@ -10823,9 +12760,11 @@ translation backlog remains.
 <summary><a href="https://github.com/wekan/wekan/commit/0440ff83f6">Translate cloud backup labels into 106 locale variants</a>. Thanks to xet7.</summary>
 
 Translate five cloud upload and fetch labels in 105 catalog files serving 106
-locale variants. Preserve existing values, source key order and exact placeholders.
+locale variants. Preserve existing values, source key order and exact
+placeholders.
 Add regression checks for local-only upload and the distinction between fetching
-files and confirming a completed fetch. All 106 preservation audits, four focused
+files and confirming a completed fetch. All 106 preservation audits, four
+focused
 suites and 21 human-preference checks pass. Global catalog completeness and
 continuous-backup suites still report untranslated locales outside this batch.
 The broader translation backlog remains.
@@ -10835,7 +12774,8 @@ The broader translation backlog remains.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/27995bbf0d">Translate new backup options into 14 more locale variants</a>. Thanks to xet7.</summary>
 
-Add 112 restart, encryption and cloud translations for Irish, Welsh, Luxembourgish,
+Add 112 restart, encryption and cloud translations for Irish, Welsh,
+Luxembourgish,
 Maltese, Faroese, Frisian, Occitan, Asturian, Aragonese, Corsican, Sicilian and
 Sardinian, including Welsh and Frisian variants. Preserve existing translations,
 source key order and exact placeholders. Extend encryption and cloud regression
@@ -10849,13 +12789,15 @@ locales and the broader translation backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/84f76711df">Translate new backup options into ten more locale variants</a>. Thanks to xet7.</summary>
 
-Add 80 restart, encryption and cloud translations for Latin-script Uzbek variants,
+Add 80 restart, encryption and cloud translations for Latin-script Uzbek
+variants,
 Kazakh, Kyrgyz, Tajik, Mongolian, Turkmen, Tatar and Bashkir. Preserve existing
 values, relative source key order and exact placeholders. Extend script,
 vocabulary and encryption/cloud regression coverage. All batch audits, four
 focused suites and 21 human-preference checks pass. Technical Turkmen, Tatar and
 Bashkir wording is low confidence and needs native-speaker review. The restart
-option still needs translation in 104 locales; the broader translation backlog remains.
+option still needs translation in 104 locales; the broader translation backlog
+remains.
 
 </details>
 
@@ -10931,7 +12873,8 @@ translation backlog are unfinished.
 Add 16 restart, encryption and cloud translations. Preserve existing values,
 relative source key order and exact placeholders. Extend encryption and cloud
 regression coverage to both locales. All batch audits, four focused suites and
-all 21 human-preference checks pass. Technical Malagasy wording is low confidence
+all 21 human-preference checks pass. Technical Malagasy wording is low
+confidence
 and needs native-speaker review. Remaining locales and the broader translation
 backlog are unfinished.
 
@@ -10943,8 +12886,10 @@ backlog are unfinished.
 Add eight restart, encryption and cloud translations. Preserve existing values,
 relative source key order and exact placeholders. Extend encryption and cloud
 regression coverage. All batch audits, four focused suites and all 21
-human-preference checks pass. Technical Hausa wording is low confidence and needs
-native-speaker review. Remaining locales and the broader translation backlog are unfinished.
+human-preference checks pass. Technical Hausa wording is low confidence and
+needs
+native-speaker review. Remaining locales and the broader translation backlog are
+unfinished.
 
 </details>
 
@@ -10954,8 +12899,10 @@ native-speaker review. Remaining locales and the broader translation backlog are
 Add eight restart, encryption and cloud translations. Preserve existing values,
 relative source key order and exact placeholders. Extend encryption and cloud
 regression coverage. All batch audits, four focused suites and all 21
-human-preference checks pass. Technical Yoruba wording is low confidence and needs
-native-speaker review. Remaining locales and the broader translation backlog are unfinished.
+human-preference checks pass. Technical Yoruba wording is low confidence and
+needs
+native-speaker review. Remaining locales and the broader translation backlog are
+unfinished.
 
 </details>
 
@@ -10964,9 +12911,12 @@ native-speaker review. Remaining locales and the broader translation backlog are
 
 Add eight encryption, cloud and restart options to each of three catalogs,
 including both Khmer catalogs and their existing alias. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
-and the batch preservation audits pass. Technical terminology needs native-speaker
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
+and the batch preservation audits pass. Technical terminology needs
+native-speaker
 review. Remaining locales and the broader translation backlog are unfinished.
 
 </details>
@@ -10974,10 +12924,13 @@ review. Remaining locales and the broader translation backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4d0e3df0b0">Translate new backup options into Cantonese and Wu Chinese</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale, using its existing
+Add eight encryption, cloud and restart options to each locale, using its
+existing
 terminology. Preserve existing translations, relative source key order and exact
-placeholders. Extend encryption and cloud regression coverage. Four focused suites,
-all 21 human-preference checks and both batch preservation audits pass. Wu technical
+placeholders. Extend encryption and cloud regression coverage. Four focused
+suites,
+all 21 human-preference checks and both batch preservation audits pass. Wu
+technical
 wording is low confidence and needs native-speaker review. Remaining locales and
 the broader translation backlog are unfinished.
 
@@ -10988,8 +12941,10 @@ the broader translation backlog are unfinished.
 
 Add eight encryption, cloud and restart options each for Kurmanji, Sorani and
 Pashto. Preserve existing translations, relative source key order and exact
-placeholders. Extend encryption and cloud regression coverage. Four focused suites,
-all 21 human-preference checks and three batch preservation audits pass. Technical
+placeholders. Extend encryption and cloud regression coverage. Four focused
+suites,
+all 21 human-preference checks and three batch preservation audits pass.
+Technical
 terminology is low confidence and needs native-speaker review. Remaining locales
 and the broader translation backlog are unfinished.
 
@@ -10998,9 +12953,12 @@ and the broader translation backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/04ebdd1484">Translate new backup options into Māori and Hawaiian</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both batch preservation audits pass. Hawaiian technical wording is low
 confidence and needs native-speaker review. Remaining locales and the broader
 translation backlog are unfinished.
@@ -11010,9 +12968,12 @@ translation backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bdd3ed15c1">Translate new backup options into Romansh and Latin</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both batch preservation audits pass. Technical terminology is low confidence
 and needs language review. Remaining locales and the broader translation backlog
 are unfinished.
@@ -11022,9 +12983,12 @@ are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/81d0ed7290">Translate new backup options into Chichewa and Shona</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both batch preservation audits pass. Technical terminology is low confidence
 and needs native-speaker review. Remaining locales and the broader translation
 backlog are unfinished.
@@ -11034,11 +12998,14 @@ backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4e0970f6ba">Translate backup options into hiragana Japanese, Sindhi and Uyghur</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
 and cloud coverage with hiragana and Arabic-script checks. Four focused suites,
 all 21 human-preference checks and three batch preservation audits pass. Sindhi
-and Uyghur technical terminology is low confidence and needs native-speaker review.
+and Uyghur technical terminology is low confidence and needs native-speaker
+review.
 Remaining locales and the broader translation backlog are unfinished.
 
 </details>
@@ -11046,9 +13013,12 @@ Remaining locales and the broader translation backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6d025c2285">Translate new backup options into Scottish Gaelic and Breton</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both batch preservation audits pass. Technical terminology is low confidence
 and needs native-speaker review. Remaining locales and the broader translation
 backlog are unfinished.
@@ -11059,7 +13029,8 @@ backlog are unfinished.
 <summary><a href="https://github.com/wekan/wekan/commit/8533d541eb">Translate new backup options into Xhosa and Zulu</a>. Thanks to xet7.</summary>
 
 Add eight encryption, cloud and restart options to Xhosa and both Zulu catalogs.
-Preserve existing translations, relative source key order and exact placeholders.
+Preserve existing translations, relative source key order and exact
+placeholders.
 Extend encryption and cloud regression coverage. Four focused suites, all 21
 human-preference checks and three batch preservation audits pass. Technical
 terminology is low confidence and needs native-speaker review. Remaining locales
@@ -11070,9 +13041,12 @@ and the broader translation backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/188811a80a">Translate new backup options into Papiamento and Tok Pisin</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both batch preservation audits pass. Technical terminology is low confidence
 and needs native-speaker review. Remaining locales and the broader translation
 backlog are unfinished.
@@ -11082,9 +13056,12 @@ backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7925e948f0">Translate new backup options into Kinyarwanda and Kirundi</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both batch preservation audits pass. Technical terminology is low confidence
 and needs native-speaker review. Remaining locales and the broader translation
 backlog are unfinished.
@@ -11094,9 +13071,12 @@ backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c49ca284e6">Translate new backup options into Sesotho and Setswana</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both batch preservation audits pass. Technical terminology is low confidence
 and needs native-speaker review. Remaining locales and the broader translation
 backlog are unfinished.
@@ -11106,10 +13086,14 @@ backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cfc0c14e47">Translate new backup options into Odia, Bhojpuri and Maithili</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
-and three preservation, script and placeholder audits pass. Technical terminology
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
+and three preservation, script and placeholder audits pass. Technical
+terminology
 needs native-speaker review, particularly the lower-confidence Odia wording.
 Remaining locales and the broader translation backlog are unfinished.
 
@@ -11118,9 +13102,12 @@ Remaining locales and the broader translation backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ef07d8f6b4">Translate new backup options into Moroccan Arabic and Yiddish</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both preservation, script and placeholder audits pass. Technical terminology
 needs native-speaker review, particularly the lower-confidence Yiddish wording.
 Remaining locales and the broader translation backlog are unfinished.
@@ -11130,9 +13117,12 @@ Remaining locales and the broader translation backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/827e5026b6">Translate new backup options into Igbo and Amharic</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both batch preservation audits pass; Amharic script was checked. Technical
 terminology is low confidence and needs native-speaker review. Remaining locales
 and the broader translation backlog are unfinished.
@@ -11142,9 +13132,12 @@ and the broader translation backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/925cacf5ba">Translate new backup options into Friulian and Neapolitan</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both batch preservation audits pass. Technical terminology is low confidence
 and needs native-speaker review. Remaining locales and the broader translation
 backlog are unfinished.
@@ -11154,9 +13147,12 @@ backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/afa162da6e">Translate new backup options into Samoan and Tongan</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both batch preservation audits pass. Technical terminology is low confidence
 and needs native-speaker review. Remaining locales and the broader translation
 backlog are unfinished.
@@ -11166,9 +13162,12 @@ backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/17279b2a77">Translate new backup options into Bislama and Fijian</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both batch preservation audits pass. Technical terminology is low confidence
 and needs native-speaker review. Remaining locales and the broader translation
 backlog are unfinished.
@@ -11178,9 +13177,12 @@ backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5e972c447f">Translate new backup options into Kashmiri and Konkani</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both preservation, script and placeholder audits pass. Technical terminology
 is low confidence and needs native-speaker review. Remaining locales and the
 broader translation backlog are unfinished.
@@ -11190,10 +13192,14 @@ broader translation backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e76371bb2b">Translate backup options into Kashubian, Upper Sorbian and Silesian</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
-and three batch preservation audits pass. Technical terminology is low confidence
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
+and three batch preservation audits pass. Technical terminology is low
+confidence
 and needs native-speaker review. Remaining locales and the broader translation
 backlog are unfinished.
 
@@ -11202,9 +13208,12 @@ backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8b2fc6e41d">Translate new backup options into Venetian and Ladin</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both batch preservation audits pass. Technical terminology is low confidence
 and needs native-speaker review. Remaining locales and the broader translation
 backlog are unfinished.
@@ -11214,9 +13223,12 @@ backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/38723ea686">Translate new backup options into Walloon and Aromanian</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both batch preservation audits pass. Technical terminology is low confidence
 and needs native-speaker review. Remaining locales and the broader translation
 backlog are unfinished.
@@ -11226,9 +13238,12 @@ backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f45f3729ea">Translate new backup options into Northern Sotho and Tsonga</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both batch preservation audits pass. Technical terminology is low confidence
 and needs native-speaker review. Remaining locales and the broader translation
 backlog are unfinished.
@@ -11238,9 +13253,12 @@ backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/be8b813038">Translate new backup options into Acehnese and Waray</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both batch preservation audits pass. Technical terminology is low confidence
 and needs native-speaker review. Remaining locales and the broader translation
 backlog are unfinished.
@@ -11250,9 +13268,12 @@ backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a53ecf5ee1">Translate new backup options into Swati and Northern Ndebele</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both batch preservation audits pass. Technical terminology is low confidence
 and needs native-speaker review. Remaining locales and the broader translation
 backlog are unfinished.
@@ -11262,9 +13283,12 @@ backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8d74931d76">Translate new backup options into Oromo and Wolof</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both batch preservation audits pass. Technical terminology is low confidence
 and needs native-speaker review. Remaining locales and the broader translation
 backlog are unfinished.
@@ -11274,9 +13298,12 @@ backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/68b3e5cbf6">Translate new backup options into Quechua and Aymara</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both batch preservation audits pass. Technical terminology is low confidence
 and needs native-speaker review. Remaining locales and the broader translation
 backlog are unfinished.
@@ -11286,9 +13313,12 @@ backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8289dfce69">Translate new backup options into Luganda and Venda</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both batch preservation audits pass. Technical terminology is low confidence
 and needs native-speaker review. Remaining locales and the broader translation
 backlog are unfinished.
@@ -11323,9 +13353,12 @@ unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f2afb2d03f">Translate new backup options into Akan and Ewe</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both batch preservation audits pass. Technical terminology is low confidence
 and needs native-speaker review. Remaining locales and the broader translation
 backlog are unfinished.
@@ -11347,9 +13380,12 @@ unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/44850a669b">Translate new backup options into Manx and Cornish</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both batch preservation audits pass. Technical terminology is low confidence
 and needs native-speaker review. Remaining locales and the broader translation
 backlog are unfinished.
@@ -11359,10 +13395,14 @@ backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/81f0890f9c">Translate backup options into Buryat, Chuvash and Sakha</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
-and three batch preservation audits pass. Technical terminology is low confidence
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
+and three batch preservation audits pass. Technical terminology is low
+confidence
 and needs native-speaker review. Remaining locales and the broader translation
 backlog are unfinished.
 
@@ -11383,9 +13423,12 @@ unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2852ef26d5">Translate new backup options into Tibetan and Dzongkha</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both batch preservation audits pass. Technical terminology is low confidence
 and needs native-speaker review. Remaining locales and the broader translation
 backlog are unfinished.
@@ -11395,9 +13438,12 @@ backlog are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a2c934ba7d">Translate new backup options into Veps and Volapük</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both batch preservation audits pass. Technical terminology is low confidence
 and needs native-speaker review. Remaining locales and the broader translation
 backlog are unfinished.
@@ -11443,9 +13489,12 @@ unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8c81b96b21">Translate backup options into Greenlandic and Nahuatl</a>. Thanks to xet7.</summary>
 
-Add eight encryption, cloud and restart options to each locale. Preserve existing
-translations, relative source key order and exact placeholders. Extend encryption
-and cloud regression coverage. Four focused suites, all 21 human-preference checks
+Add eight encryption, cloud and restart options to each locale. Preserve
+existing
+translations, relative source key order and exact placeholders. Extend
+encryption
+and cloud regression coverage. Four focused suites, all 21 human-preference
+checks
 and both batch preservation audits pass. Technical terminology is low confidence
 and needs native-speaker review. Remaining locales and the broader translation
 backlog are unfinished.
@@ -11457,7 +13506,8 @@ backlog are unfinished.
 
 Translate card rollover progress, history undo/redo progress and interrupted-job
 instructions in 47 catalog files, also covering the Russian locale symlink.
-Preserve existing translations, source key order and exact progress placeholders.
+Preserve existing translations, source key order and exact progress
+placeholders.
 Add an automatically discovered regression suite. Three focused suites, all 21
 human-preference checks and 47 catalog preservation audits pass. The remaining
 locales and broader translation backlog are unfinished.
@@ -11480,11 +13530,14 @@ backlog are unfinished.
 <summary><a href="https://github.com/wekan/wekan/commit/3986a82588">Translate Scrum background jobs in ten more locales</a>. Thanks to xet7.</summary>
 
 Add progress and interrupted undo/redo instructions in Uzbek variants, Kazakh,
-Kyrgyz, Mongolian, Tajik, Turkmen, Tatar and Bashkir. Preserve existing translations,
-source key order and exact placeholders. Extend regression coverage to 116 locale
+Kyrgyz, Mongolian, Tajik, Turkmen, Tatar and Bashkir. Preserve existing
+translations,
+source key order and exact placeholders. Extend regression coverage to 116
+locale
 variants. Three focused suites, all 21 human-preference checks and ten catalog
 preservation audits pass. Turkmen, Tatar and Bashkir technical wording is low
-confidence and needs native-speaker review. Remaining translations are unfinished.
+confidence and needs native-speaker review. Remaining translations are
+unfinished.
 
 </details>
 
@@ -11492,7 +13545,8 @@ confidence and needs native-speaker review. Remaining translations are unfinishe
 <summary><a href="https://github.com/wekan/wekan/commit/1827219d83">Translate Scrum job messages in twelve South Asian locales</a>. Thanks to xet7.</summary>
 
 Add progress and interrupted undo/redo instructions in Nepali, Marathi, Tamil,
-Telugu, Gujarati, Kannada, Malayalam, Punjabi, Sinhala, Assamese, Odia and Sindhi.
+Telugu, Gujarati, Kannada, Malayalam, Punjabi, Sinhala, Assamese, Odia and
+Sindhi.
 Preserve existing translations, source key order and exact placeholders. Extend
 regression coverage to 128 locale variants. Three focused suites, all 21
 human-preference checks and twelve catalog preservation audits pass. Assamese,
@@ -11504,39 +13558,60 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/893b80a43f">Translate Scrum job messages in ten European locales</a>. Thanks to xet7.</summary>
 
-- Translate card rollover progress, history undo/redo progress and retry instructions into Irish, Welsh, Luxembourgish, Maltese, Faroese, Frisian, Romansh and Latin, including the Welsh and Frisian regional catalogs.
-- Preserve existing translations and exact progress placeholders; regression coverage now checks these messages in 138 locale variants.
-- Three focused suites, 21 human-preference checks and ten catalog preservation audits pass. Other locales and remaining translation gaps still need work.
-- Faroese, Maltese and Romansh technical wording has lower confidence and welcomes native review.
+- Translate card rollover progress, history undo/redo progress and retry
+  instructions into Irish, Welsh, Luxembourgish, Maltese, Faroese, Frisian,
+  Romansh and Latin, including the Welsh and Frisian regional catalogs.
+- Preserve existing translations and exact progress placeholders; regression
+  coverage now checks these messages in 138 locale variants.
+- Three focused suites, 21 human-preference checks and ten catalog preservation
+  audits pass. Other locales and remaining translation gaps still need work.
+- Faroese, Maltese and Romansh technical wording has lower confidence and
+  welcomes native review.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ba672541eb">Translate Scrum job messages in thirteen more locale variants</a>. Thanks to xet7.</summary>
 
-- Translate rollover progress, history undo/redo progress and retry instructions into Burmese, Khmer, Javanese, Haitian Creole, Occitan, Asturian, Aragonese, Yiddish, Kurdish, Sorani and Pashto, including Khmer regional catalogs.
-- Preserve existing translations and exact progress tokens; regression coverage now checks these messages in 151 locale variants.
-- Three focused suites, 21 human-preference checks and twelve catalog preservation audits pass. Remaining locales and other translation gaps still need work.
-- Aragonese and Kurdish technical wording has lower confidence and welcomes native review.
+- Translate rollover progress, history undo/redo progress and retry instructions
+  into Burmese, Khmer, Javanese, Haitian Creole, Occitan, Asturian, Aragonese,
+  Yiddish, Kurdish, Sorani and Pashto, including Khmer regional catalogs.
+- Preserve existing translations and exact progress tokens; regression coverage
+  now checks these messages in 151 locale variants.
+- Three focused suites, 21 human-preference checks and twelve catalog
+  preservation audits pass. Remaining locales and other translation gaps still
+  need work.
+- Aragonese and Kurdish technical wording has lower confidence and welcomes
+  native review.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3ec3868487">Translate Scrum job messages in thirteen African locale catalogs</a>. Thanks to xet7.</summary>
 
-- Translate card rollover progress, history undo/redo progress and retry instructions into Amharic, Somali, Hausa, Yoruba, Igbo, Malagasy, Shona, Zulu, Xhosa, Chichewa, Sesotho and Setswana, including the Zulu regional catalog.
-- Preserve existing translations and exact progress placeholders; regression coverage now checks these messages in 164 locale variants.
-- Three focused suites, 21 human-preference checks and thirteen catalog preservation audits pass. Remaining locales and other translation gaps still need work.
-- Igbo, Shona, Chichewa, Sesotho and Setswana technical phrasing has lower confidence and welcomes native review.
+- Translate card rollover progress, history undo/redo progress and retry
+  instructions into Amharic, Somali, Hausa, Yoruba, Igbo, Malagasy, Shona, Zulu,
+  Xhosa, Chichewa, Sesotho and Setswana, including the Zulu regional catalog.
+- Preserve existing translations and exact progress placeholders; regression
+  coverage now checks these messages in 164 locale variants.
+- Three focused suites, 21 human-preference checks and thirteen catalog
+  preservation audits pass. Remaining locales and other translation gaps still
+  need work.
+- Igbo, Shona, Chichewa, Sesotho and Setswana technical phrasing has lower
+  confidence and welcomes native review.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/79484d1c92">Translate Scrum job messages in ten more language catalogs</a>. Thanks to xet7.</summary>
 
-- Translate rollover progress, history undo/redo progress and retry instructions into Corsican, Sardinian, Sicilian, Neapolitan, Papiamento, Tok Pisin, Bislama, Māori, Cantonese and Hiragana Japanese.
-- Preserve existing translations and exact progress tokens; regression coverage now checks these messages in 174 locale variants.
-- Three focused suites, 21 human-preference checks and ten catalog preservation audits pass. Remaining locales and other translation gaps still need work.
+- Translate rollover progress, history undo/redo progress and retry instructions
+  into Corsican, Sardinian, Sicilian, Neapolitan, Papiamento, Tok Pisin,
+  Bislama, Māori, Cantonese and Hiragana Japanese.
+- Preserve existing translations and exact progress tokens; regression coverage
+  now checks these messages in 174 locale variants.
+- Three focused suites, 21 human-preference checks and ten catalog preservation
+  audits pass. Remaining locales and other translation gaps still need work.
 - Sardinian, Neapolitan, Papiamento, Tok Pisin and Bislama technical wording has lower confidence and welcomes native review. Vocabulary references: [Tok Pisin dictionary](https://tokpisin.net/) and [Bislama handbook](https://www.livelingua.com/peace-corps/Bislama/Bislama%20Handbook%20-%20Revision%20July%202011.pdf).
 
 </details>
@@ -11544,100 +13619,156 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/94e6e5b752">Translate Scrum progress and retry messages in ten more locales</a>. Thanks to xet7.</summary>
 
-- Translate rollover progress, history undo/redo progress and retry instructions into Uyghur, Arabic-script Uzbek, Moroccan Arabic, Bhojpuri, Maithili, Kinyarwanda, Kirundi, Silesian, Kashubian and Upper Sorbian.
-- Preserve existing translations and exact progress tokens; regression coverage now checks these messages in 184 locale variants.
-- Three focused suites, 21 human-preference checks and ten catalog preservation audits pass. Remaining locales and other translation gaps still need work.
-- Arabic-script Uzbek, Kirundi, Silesian, Kashubian and Upper Sorbian technical phrasing has lower confidence and welcomes native review.
+- Translate rollover progress, history undo/redo progress and retry instructions
+  into Uyghur, Arabic-script Uzbek, Moroccan Arabic, Bhojpuri, Maithili,
+  Kinyarwanda, Kirundi, Silesian, Kashubian and Upper Sorbian.
+- Preserve existing translations and exact progress tokens; regression coverage
+  now checks these messages in 184 locale variants.
+- Three focused suites, 21 human-preference checks and ten catalog preservation
+  audits pass. Remaining locales and other translation gaps still need work.
+- Arabic-script Uzbek, Kirundi, Silesian, Kashubian and Upper Sorbian technical
+  phrasing has lower confidence and welcomes native review.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0e2d604a20">Translate Scrum job messages in nine European and Pacific locales</a>. Thanks to xet7.</summary>
 
-- Translate rollover progress, history undo/redo progress and retry instructions into Scottish Gaelic, Breton, Friulian, Venetian, Walloon, Samoan, Tongan, Fijian and Hawaiian.
-- Preserve existing translations and exact progress tokens; regression coverage now checks these messages in 193 locale variants.
-- Three focused suites, 21 human-preference checks and nine catalog preservation audits pass. Remaining locales and other translation gaps still need work.
-- Walloon, Tongan, Fijian and Hawaiian technical phrasing has lower confidence and welcomes native review.
+- Translate rollover progress, history undo/redo progress and retry instructions
+  into Scottish Gaelic, Breton, Friulian, Venetian, Walloon, Samoan, Tongan,
+  Fijian and Hawaiian.
+- Preserve existing translations and exact progress tokens; regression coverage
+  now checks these messages in 193 locale variants.
+- Three focused suites, 21 human-preference checks and nine catalog preservation
+  audits pass. Remaining locales and other translation gaps still need work.
+- Walloon, Tongan, Fijian and Hawaiian technical phrasing has lower confidence
+  and welcomes native review.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/660ac4fb62">Translate Scrum job messages in ten African and Asian locales</a>. Thanks to xet7.</summary>
 
-- Translate rollover progress, history undo/redo progress and retry instructions into Oromo, Konkani, Acehnese, Tsonga, Northern Ndebele, Swati, Luganda, Waray, Northern Sotho and Wu Chinese.
-- Preserve existing translations and exact progress tokens; regression coverage now checks these messages in 203 locale variants.
-- Three focused suites, 21 human-preference checks and ten catalog preservation audits pass. Remaining locales and other translation gaps still need work.
-- Acehnese, Northern Ndebele, Swati, Waray and Northern Sotho technical phrasing has lower confidence and welcomes native review.
+- Translate rollover progress, history undo/redo progress and retry instructions
+  into Oromo, Konkani, Acehnese, Tsonga, Northern Ndebele, Swati, Luganda,
+  Waray, Northern Sotho and Wu Chinese.
+- Preserve existing translations and exact progress tokens; regression coverage
+  now checks these messages in 203 locale variants.
+- Three focused suites, 21 human-preference checks and ten catalog preservation
+  audits pass. Remaining locales and other translation gaps still need work.
+- Acehnese, Northern Ndebele, Swati, Waray and Northern Sotho technical phrasing
+  has lower confidence and welcomes native review.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/488145a6e1">Translate Scrum job messages in ten further language catalogs</a>. Thanks to xet7.</summary>
 
-- Translate rollover progress, history undo/redo progress and retry instructions into Tigrinya, Tibetan, Dzongkha, Kashmiri, Chuvash, Buryat, Sakha, Venda, Guarani and Quechua.
-- Preserve existing translations and exact progress tokens; regression coverage now checks these messages in 213 locale variants.
-- Three focused suites, 21 human-preference checks and ten catalog preservation audits pass. Remaining locales and other translation gaps still need work.
-- Technical phrasing in this batch has lower confidence, especially Dzongkha, Kashmiri, Chuvash, Buryat, Sakha, Venda and Quechua, and welcomes native review.
+- Translate rollover progress, history undo/redo progress and retry instructions
+  into Tigrinya, Tibetan, Dzongkha, Kashmiri, Chuvash, Buryat, Sakha, Venda,
+  Guarani and Quechua.
+- Preserve existing translations and exact progress tokens; regression coverage
+  now checks these messages in 213 locale variants.
+- Three focused suites, 21 human-preference checks and ten catalog preservation
+  audits pass. Remaining locales and other translation gaps still need work.
+- Technical phrasing in this batch has lower confidence, especially Dzongkha,
+  Kashmiri, Chuvash, Buryat, Sakha, Venda and Quechua, and welcomes native
+  review.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/67a5d66446">Translate Scrum job messages in ten remaining locale catalogs</a>. Thanks to xet7.</summary>
 
-- Translate rollover progress, history undo/redo progress and retry instructions into Akan, Ewe, Wolof, Bambara, Fulah, Aymara, Aromanian, Ladin, Manx and Cornish.
-- Preserve existing translations and exact progress tokens; regression coverage now checks these messages in 223 locale variants.
-- Three focused suites, 21 human-preference checks and ten catalog preservation audits pass. Remaining locales and other translation gaps still need work.
-- Technical phrasing in all ten languages has lower confidence and welcomes native review.
+- Translate rollover progress, history undo/redo progress and retry instructions
+  into Akan, Ewe, Wolof, Bambara, Fulah, Aymara, Aromanian, Ladin, Manx and
+  Cornish.
+- Preserve existing translations and exact progress tokens; regression coverage
+  now checks these messages in 223 locale variants.
+- Three focused suites, 21 human-preference checks and ten catalog preservation
+  audits pass. Remaining locales and other translation gaps still need work.
+- Technical phrasing in all ten languages has lower confidence and welcomes
+  native review.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/20cbf92cb4">Translate Scrum job messages in six remaining languages</a>. Thanks to xet7.</summary>
 
-- Translate rollover progress, history undo/redo progress and retry instructions into Klingon, Volapük, Northern Sámi, Veps, Nahuatl and Greenlandic.
-- Preserve existing translations and exact progress tokens; regression coverage now checks these messages in 229 locale variants.
-- Three focused suites, 21 human-preference checks and six catalog preservation audits pass. Remaining locales and other translation gaps still need work.
-- Technical phrasing in all six languages has lower confidence and welcomes native review.
+- Translate rollover progress, history undo/redo progress and retry instructions
+  into Klingon, Volapük, Northern Sámi, Veps, Nahuatl and Greenlandic.
+- Preserve existing translations and exact progress tokens; regression coverage
+  now checks these messages in 229 locale variants.
+- Three focused suites, 21 human-preference checks and six catalog preservation
+  audits pass. Remaining locales and other translation gaps still need work.
+- Technical phrasing in all six languages has lower confidence and welcomes
+  native review.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/57afeb15e7">Complete Scrum job translations across all locale catalogs</a>. Thanks to xet7.</summary>
 
-- Translate rollover progress, history undo/redo progress and retry instructions into Cherokee, Inuktitut, Tigre, Wolaytta and Standard Moroccan Tamazight. All 234 non-English locale variants now contain these three messages.
-- Discover every catalog automatically in regression coverage, preserving exact progress tokens and checking the declared scripts used by this batch.
-- Three focused suites, 21 human-preference checks and five catalog preservation audits pass. Backup translations and other catalog gaps still need work.
-- Technical phrasing in all five languages has low confidence and welcomes native review.
+- Translate rollover progress, history undo/redo progress and retry instructions
+  into Cherokee, Inuktitut, Tigre, Wolaytta and Standard Moroccan Tamazight. All
+  234 non-English locale variants now contain these three messages.
+- Discover every catalog automatically in regression coverage, preserving exact
+  progress tokens and checking the declared scripts used by this batch.
+- Three focused suites, 21 human-preference checks and five catalog preservation
+  audits pass. Backup translations and other catalog gaps still need work.
+- Technical phrasing in all five languages has low confidence and welcomes
+  native review.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5d92e48e01">Complete new backup translations and repair catalog regressions</a>. Thanks to xet7.</summary>
 
-- Translate the eight new backup encryption, cloud and restart messages into Cherokee, Inuktitut, Tigre, Wolaytta and Standard Moroccan Tamazight, completing these messages across all 234 non-English locale variants.
-- Synchronize eleven English variants with the current source keys without replacing existing wording. Correct Swiss German spelling and the corpus-attested Tigre Files plural.
-- Discover all non-English catalogs in backup regression tests, cover the restart message, and allow the exact AES-256-GCM identifier in Arabic-script Uzbek script checks.
-- All 455 translation-related suites pass, including reruns after six failures were fixed. Human-preference and catalog preservation checks pass. Older untranslated backup messages and other catalog gaps remain.
-- Technical wording in the five newly filled languages has low confidence and welcomes native review.
+- Translate the eight new backup encryption, cloud and restart messages into
+  Cherokee, Inuktitut, Tigre, Wolaytta and Standard Moroccan Tamazight,
+  completing these messages across all 234 non-English locale variants.
+- Synchronize eleven English variants with the current source keys without
+  replacing existing wording. Correct Swiss German spelling and the
+  corpus-attested Tigre Files plural.
+- Discover all non-English catalogs in backup regression tests, cover the
+  restart message, and allow the exact AES-256-GCM identifier in Arabic-script
+  Uzbek script checks.
+- All 455 translation-related suites pass, including reruns after six failures
+  were fixed. Human-preference and catalog preservation checks pass. Older
+  untranslated backup messages and other catalog gaps remain.
+- Technical wording in the five newly filled languages has low confidence and
+  welcomes native review.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0be17d77ff">Complete Tigre and Wolaytta continuous backup translations</a>. Thanks to xet7.</summary>
 
-- Translate the remaining 35 continuous backup messages in each locale, including database engines, intervals, status, restore points and restore instructions.
-- Preserve existing translations, technical identifiers and exact source tokens. All 43 backup messages now have regression coverage in 231 locale variants, including restore safety wording and time units.
-- All 59 relevant suites, 21 human-preference checks and both catalog preservation audits pass. Cherokee, Inuktitut and Standard Moroccan Tamazight still need the original backup messages; other catalog gaps also remain.
-- Technical wording in Tigre and Wolaytta has low confidence and welcomes native review.
+- Translate the remaining 35 continuous backup messages in each locale,
+  including database engines, intervals, status, restore points and restore
+  instructions.
+- Preserve existing translations, technical identifiers and exact source tokens.
+  All 43 backup messages now have regression coverage in 231 locale variants,
+  including restore safety wording and time units.
+- All 59 relevant suites, 21 human-preference checks and both catalog
+  preservation audits pass. Cherokee, Inuktitut and Standard Moroccan Tamazight
+  still need the original backup messages; other catalog gaps also remain.
+- Technical wording in Tigre and Wolaytta has low confidence and welcomes native
+  review.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5779c050db">Complete Inuktitut and Tamazight continuous backup translations</a>. Thanks to xet7.</summary>
 
-- Translate the remaining 35 continuous backup messages in each locale, including engines, timing, status and restore instructions.
-- Preserve existing translations, technical identifiers and exact source tokens. All 43 backup messages now have regression coverage in 233 locale variants, including scripts, time units and restore safety wording.
-- All 31 relevant suites, 21 human-preference checks and both catalog preservation audits pass. Cherokee still needs the original backup messages; other catalog gaps also remain.
+- Translate the remaining 35 continuous backup messages in each locale,
+  including engines, timing, status and restore instructions.
+- Preserve existing translations, technical identifiers and exact source tokens.
+  All 43 backup messages now have regression coverage in 233 locale variants,
+  including scripts, time units and restore safety wording.
+- All 31 relevant suites, 21 human-preference checks and both catalog
+  preservation audits pass. Cherokee still needs the original backup messages;
+  other catalog gaps also remain.
 - Technical wording in both languages has low confidence and welcomes native review. The Tamazight software execution term is checked against the [computing lexicon](https://cedric.cnam.fr/~bouzefra/books/amawal.pdf).
 
 </details>
@@ -11645,9 +13776,13 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/613ba0b68e">Complete Cherokee continuous backup translations</a>. Thanks to xet7.</summary>
 
-- Translate the remaining 35 Cherokee backup messages, completing all 43 continuous backup messages across all 234 non-English locale variants.
-- Discover every non-English catalog automatically in backup regression coverage. Check exact source tokens, key order, Cherokee script, time units and restore safety wording while preserving existing translations.
-- All eight relevant suites, 21 human-preference checks and the catalog preservation audit pass. Other untranslated catalog strings remain.
+- Translate the remaining 35 Cherokee backup messages, completing all 43
+  continuous backup messages across all 234 non-English locale variants.
+- Discover every non-English catalog automatically in backup regression
+  coverage. Check exact source tokens, key order, Cherokee script, time units
+  and restore safety wording while preserving existing translations.
+- All eight relevant suites, 21 human-preference checks and the catalog
+  preservation audit pass. Other untranslated catalog strings remain.
 - Cherokee technical wording has low confidence and welcomes native review. Time units were checked against the [Cherokee dictionary](https://www.cherokeedictionary.net/first500).
 
 </details>
@@ -11655,73 +13790,118 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b5e9da6916">Translate import instructions and keyboard reordering help</a>. Thanks to xet7.</summary>
 
-- Translate Taskwarrior and Focalboard import instructions and drag-to-reorder keyboard guidance into Finnish, Swedish, Danish, Norwegian Bokmål, German, French, Spanish, Portuguese, Italian and Dutch, including regional variants: 90 messages in 30 catalogs.
-- Preserve commands, field names, file formats, both arrow-key directions and the warning that images and attachments are not imported. Existing translations and exact source tokens are preserved.
-- Six relevant suites, 21 human-preference checks and all 30 catalog preservation audits pass. These three messages still need translation in 204 locale variants; other catalog gaps remain.
+- Translate Taskwarrior and Focalboard import instructions and drag-to-reorder
+  keyboard guidance into Finnish, Swedish, Danish, Norwegian Bokmål, German,
+  French, Spanish, Portuguese, Italian and Dutch, including regional variants:
+  90 messages in 30 catalogs.
+- Preserve commands, field names, file formats, both arrow-key directions and
+  the warning that images and attachments are not imported. Existing
+  translations and exact source tokens are preserved.
+- Six relevant suites, 21 human-preference checks and all 30 catalog
+  preservation audits pass. These three messages still need translation in 204
+  locale variants; other catalog gaps remain.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e670a55d0a">Translate more import and reordering instructions</a>. Thanks to xet7.</summary>
 
-- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Polish, Czech, Slovak, Slovenian, Croatian, Romanian, Hungarian, Bulgarian, Ukrainian and Russian, covering 18 more locale variants.
-- Replace Italian labels and description text in both Romanian catalogs with Romanian, and correct the Croatian description label to Latin spelling.
-- Preserve commands, file formats, import limitations, arrow-key directions and exact source tokens. Eleven relevant suites, 21 human-preference checks and all catalog preservation audits pass.
-- These three messages now cover 48 locale variants; 186 variants and other catalog gaps remain.
+- Translate Taskwarrior and Focalboard import instructions and keyboard
+  reordering help into Polish, Czech, Slovak, Slovenian, Croatian, Romanian,
+  Hungarian, Bulgarian, Ukrainian and Russian, covering 18 more locale variants.
+- Replace Italian labels and description text in both Romanian catalogs with
+  Romanian, and correct the Croatian description label to Latin spelling.
+- Preserve commands, file formats, import limitations, arrow-key directions and
+  exact source tokens. Eleven relevant suites, 21 human-preference checks and
+  all catalog preservation audits pass.
+- These three messages now cover 48 locale variants; 186 variants and other
+  catalog gaps remain.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9a2aaf6efe">Extend import and reordering translations to more European and Asian languages</a>. Thanks to xet7.</summary>
 
-- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Estonian, Latvian, Lithuanian, Greek, Turkish, Indonesian, Malay, Vietnamese, Japanese, Korean and Chinese, covering 24 more locale variants.
-- Replace the Lithuanian checklist label in the Latvian catalog with Latvian. Preserve existing correct-language translations, exact source tokens, commands, file formats, import limitations and arrow-key directions.
-- Fourteen relevant suites, 21 human-preference checks and all 24 catalog preservation audits pass. These three messages now cover 72 locale variants; 162 variants and other catalog gaps remain.
+- Translate Taskwarrior and Focalboard import instructions and keyboard
+  reordering help into Estonian, Latvian, Lithuanian, Greek, Turkish,
+  Indonesian, Malay, Vietnamese, Japanese, Korean and Chinese, covering 24 more
+  locale variants.
+- Replace the Lithuanian checklist label in the Latvian catalog with Latvian.
+  Preserve existing correct-language translations, exact source tokens,
+  commands, file formats, import limitations and arrow-key directions.
+- Fourteen relevant suites, 21 human-preference checks and all 24 catalog
+  preservation audits pass. These three messages now cover 72 locale variants;
+  162 variants and other catalog gaps remain.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/46449d6335">Translate import and reordering help into six more languages</a>. Thanks to xet7.</summary>
 
-- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Arabic, Hebrew, Persian, Urdu, Hindi and Bengali, covering 11 more locale variants.
-- Preserve existing translations, exact source tokens, commands, field names, file formats, the image and attachment import limitation, and both arrow-key directions.
-- Thirteen relevant suites, 21 human-preference checks and all 11 catalog preservation audits pass. These three messages now cover 83 locale variants; 151 variants and other catalog gaps remain.
+- Translate Taskwarrior and Focalboard import instructions and keyboard
+  reordering help into Arabic, Hebrew, Persian, Urdu, Hindi and Bengali,
+  covering 11 more locale variants.
+- Preserve existing translations, exact source tokens, commands, field names,
+  file formats, the image and attachment import limitation, and both arrow-key
+  directions.
+- Thirteen relevant suites, 21 human-preference checks and all 11 catalog
+  preservation audits pass. These three messages now cover 83 locale variants;
+  151 variants and other catalog gaps remain.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f2f3cc5568">Translate import and reordering help into twelve more languages</a>. Thanks to xet7.</summary>
 
-- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Catalan, Galician, Basque, Afrikaans, Swahili, Bosnian, Serbian, Macedonian, Icelandic, Esperanto, Albanian and Tagalog, covering 16 more locale variants.
-- Preserve existing translations, exact source tokens, commands, file formats, import limitations and both arrow-key directions.
-- Twenty-seven relevant suites, 21 human-preference checks and all 16 catalog preservation audits pass. These three messages now cover 99 locale variants; 135 variants and other catalog gaps remain.
+- Translate Taskwarrior and Focalboard import instructions and keyboard
+  reordering help into Catalan, Galician, Basque, Afrikaans, Swahili, Bosnian,
+  Serbian, Macedonian, Icelandic, Esperanto, Albanian and Tagalog, covering 16
+  more locale variants.
+- Preserve existing translations, exact source tokens, commands, file formats,
+  import limitations and both arrow-key directions.
+- Twenty-seven relevant suites, 21 human-preference checks and all 16 catalog
+  preservation audits pass. These three messages now cover 99 locale variants;
+  135 variants and other catalog gaps remain.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b81f366aa3">Translate import and reordering guidance into eight more languages</a>. Thanks to xet7.</summary>
 
-- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Belarusian, Azerbaijani, Georgian, Armenian, Kazakh, Mongolian, Uzbek and Thai, covering 12 more locale variants.
-- Preserve existing translations, exact source tokens, commands, field names, file formats, import limitations and both arrow-key directions.
-- Twenty relevant suites, 21 human-preference checks and all 12 catalog preservation audits pass. These three messages now cover 111 locale variants; 123 variants and other catalog gaps remain.
+- Translate Taskwarrior and Focalboard import instructions and keyboard
+  reordering help into Belarusian, Azerbaijani, Georgian, Armenian, Kazakh,
+  Mongolian, Uzbek and Thai, covering 12 more locale variants.
+- Preserve existing translations, exact source tokens, commands, field names,
+  file formats, import limitations and both arrow-key directions.
+- Twenty relevant suites, 21 human-preference checks and all 12 catalog
+  preservation audits pass. These three messages now cover 111 locale variants;
+  123 variants and other catalog gaps remain.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a868c350b1">Translate import and reordering help into six South Asian languages</a>. Thanks to xet7.</summary>
 
-- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Nepali, Marathi, Tamil, Telugu, Gujarati and Kannada.
-- Preserve existing translations, exact source tokens, commands, field names, file formats, import limitations and both arrow-key directions.
-- Eleven relevant suites, 21 human-preference checks and all six catalog preservation audits pass. These three messages now cover 117 locale variants; 117 variants and other catalog gaps remain.
+- Translate Taskwarrior and Focalboard import instructions and keyboard
+  reordering help into Nepali, Marathi, Tamil, Telugu, Gujarati and Kannada.
+- Preserve existing translations, exact source tokens, commands, field names,
+  file formats, import limitations and both arrow-key directions.
+- Eleven relevant suites, 21 human-preference checks and all six catalog
+  preservation audits pass. These three messages now cover 117 locale variants;
+  117 variants and other catalog gaps remain.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a74aa9fe6b">Extend South Asian import and reordering translations</a>. Thanks to xet7.</summary>
 
-- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Malayalam, Punjabi, Sinhala, Assamese, Odia and Sindhi.
-- Preserve existing translations, exact source tokens, commands, field names, file formats, import exclusions and both arrow-key directions.
-- Eleven relevant suites, 21 human-preference checks and all six catalog preservation audits pass. These three messages now cover 123 locale variants; 111 variants and other catalog gaps remain.
+- Translate Taskwarrior and Focalboard import instructions and keyboard
+  reordering help into Malayalam, Punjabi, Sinhala, Assamese, Odia and Sindhi.
+- Preserve existing translations, exact source tokens, commands, field names,
+  file formats, import exclusions and both arrow-key directions.
+- Eleven relevant suites, 21 human-preference checks and all six catalog
+  preservation audits pass. These three messages now cover 123 locale variants;
+  111 variants and other catalog gaps remain.
 - Technical wording in this batch has low confidence and welcomes native review.
 
 </details>
@@ -11729,9 +13909,14 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/47652f8ac6">Extend import and reordering translations to eight more locale variants</a>. Thanks to xet7.</summary>
 
-- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Irish, Welsh, Luxembourgish, Maltese, Frisian and Latin, including regional variants.
-- Preserve existing translations, exact source tokens, commands, file formats, import limitations and both arrow-key directions.
-- Twelve relevant suites, 21 human-preference checks and all eight preservation audits pass. These three messages now cover 131 locale variants; 103 variants and other catalog gaps remain.
+- Translate Taskwarrior and Focalboard import instructions and keyboard
+  reordering help into Irish, Welsh, Luxembourgish, Maltese, Frisian and Latin,
+  including regional variants.
+- Preserve existing translations, exact source tokens, commands, file formats,
+  import limitations and both arrow-key directions.
+- Twelve relevant suites, 21 human-preference checks and all eight preservation
+  audits pass. These three messages now cover 131 locale variants; 103 variants
+  and other catalog gaps remain.
 - Technical wording has low confidence and welcomes native review. Luxembourgish block terminology was checked against the [Luxembourgish dictionary](https://lod.lu/artikel/BLOCK1).
 
 </details>
@@ -11739,9 +13924,14 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/859925cb0f">Translate import and reordering help into six more languages</a>. Thanks to xet7.</summary>
 
-- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Haitian Creole, Javanese, Occitan, Asturian, Aragonese and Corsican.
-- Preserve existing translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions.
-- Fourteen relevant suites, 21 human-preference checks and all six preservation audits pass. These three messages now cover 137 locale variants; 97 variants and other catalog gaps remain.
+- Translate Taskwarrior and Focalboard import instructions and keyboard
+  reordering help into Haitian Creole, Javanese, Occitan, Asturian, Aragonese
+  and Corsican.
+- Preserve existing translations, exact source tokens, commands, file formats,
+  import exclusions and both arrow-key directions.
+- Fourteen relevant suites, 21 human-preference checks and all six preservation
+  audits pass. These three messages now cover 137 locale variants; 97 variants
+  and other catalog gaps remain.
 - Technical wording has low confidence and welcomes native review. Drag terminology was checked against the [Aragonese dictionary](https://www.efaragonesa.org/biblio/Edacar13.pdf) and [Occitan teaching vocabulary](https://www.capoc.fr/fileadmin/user_upload/Documents/Actualit%C3%A9s/Autres/LG-occitan-ecole_version_finale.pdf).
 
 </details>
@@ -11749,9 +13939,13 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cb81eab1d2">Extend import and reordering translations to six more locales</a>. Thanks to xet7.</summary>
 
-- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Kyrgyz, Tajik, Turkmen, Tatar, Bashkir and Yiddish.
-- Preserve existing translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions.
-- Fourteen relevant suites, 21 human-preference checks and all six preservation audits pass. These three messages now cover 143 locale variants; 91 variants and other catalog gaps remain.
+- Translate Taskwarrior and Focalboard import instructions and keyboard
+  reordering help into Kyrgyz, Tajik, Turkmen, Tatar, Bashkir and Yiddish.
+- Preserve existing translations, exact source tokens, commands, file formats,
+  import exclusions and both arrow-key directions.
+- Fourteen relevant suites, 21 human-preference checks and all six preservation
+  audits pass. These three messages now cover 143 locale variants; 91 variants
+  and other catalog gaps remain.
 - Technical wording has low confidence and welcomes native review.
 
 </details>
@@ -11759,9 +13953,14 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8aa91392c0">Extend import and reordering translations to seven more locale variants</a>. Thanks to xet7.</summary>
 
-- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Burmese, Khmer, Kurmanji, Sorani and Pashto, including Khmer regional variants.
-- Preserve existing translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions.
-- Fourteen relevant suites, 21 human-preference checks and all six file preservation audits pass. These three messages now cover 150 locale variants; 84 variants and other catalog gaps remain.
+- Translate Taskwarrior and Focalboard import instructions and keyboard
+  reordering help into Burmese, Khmer, Kurmanji, Sorani and Pashto, including
+  Khmer regional variants.
+- Preserve existing translations, exact source tokens, commands, file formats,
+  import exclusions and both arrow-key directions.
+- Fourteen relevant suites, 21 human-preference checks and all six file
+  preservation audits pass. These three messages now cover 150 locale variants;
+  84 variants and other catalog gaps remain.
 - Technical wording has low confidence and welcomes native review.
 
 </details>
@@ -11769,9 +13968,13 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e1357ac13a">Translate import and reordering help into six African languages</a>. Thanks to xet7.</summary>
 
-- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Somali, Hausa, Yoruba, Igbo, Malagasy and Amharic.
-- Preserve existing translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions.
-- Thirteen relevant suites, 21 human-preference checks and all six preservation audits pass. These three messages now cover 156 locale variants; 78 variants and other catalog gaps remain.
+- Translate Taskwarrior and Focalboard import instructions and keyboard
+  reordering help into Somali, Hausa, Yoruba, Igbo, Malagasy and Amharic.
+- Preserve existing translations, exact source tokens, commands, file formats,
+  import exclusions and both arrow-key directions.
+- Thirteen relevant suites, 21 human-preference checks and all six preservation
+  audits pass. These three messages now cover 156 locale variants; 78 variants
+  and other catalog gaps remain.
 - Technical wording has low confidence and welcomes native review.
 
 </details>
@@ -11779,9 +13982,14 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/90120d0bde">Extend African import and reordering translations</a>. Thanks to xet7.</summary>
 
-- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Zulu, Xhosa, Shona, Chichewa, Sesotho and Setswana, covering seven more locale variants.
-- Preserve existing translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions.
-- Eleven relevant suites, 21 human-preference checks and all seven preservation audits pass. These three messages now cover 163 locale variants; 71 variants and other catalog gaps remain.
+- Translate Taskwarrior and Focalboard import instructions and keyboard
+  reordering help into Zulu, Xhosa, Shona, Chichewa, Sesotho and Setswana,
+  covering seven more locale variants.
+- Preserve existing translations, exact source tokens, commands, file formats,
+  import exclusions and both arrow-key directions.
+- Eleven relevant suites, 21 human-preference checks and all seven preservation
+  audits pass. These three messages now cover 163 locale variants; 71 variants
+  and other catalog gaps remain.
 - Technical wording has low confidence and welcomes native review.
 
 </details>
@@ -11789,9 +13997,15 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f10e977d81">Translate import and reordering guidance in six additional regional locales</a>. Thanks to xet7.</summary>
 
-- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Japanese hiragana, Cantonese, Wu Chinese, Moroccan Arabic, Bhojpuri and Maithili.
-- Preserve existing translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions. Check that the Japanese hiragana messages contain no kanji.
-- Nine relevant suites, 21 human-preference checks and all six preservation audits pass. These three messages now cover 169 locale variants; 65 variants and other catalog gaps remain.
+- Translate Taskwarrior and Focalboard import instructions and keyboard
+  reordering help into Japanese hiragana, Cantonese, Wu Chinese, Moroccan
+  Arabic, Bhojpuri and Maithili.
+- Preserve existing translations, exact source tokens, commands, file formats,
+  import exclusions and both arrow-key directions. Check that the Japanese
+  hiragana messages contain no kanji.
+- Nine relevant suites, 21 human-preference checks and all six preservation
+  audits pass. These three messages now cover 169 locale variants; 65 variants
+  and other catalog gaps remain.
 - Regional technical phrasing has low confidence and welcomes native review.
 
 </details>
@@ -11799,9 +14013,14 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4a9204225b">Translate import help into six more Romance languages</a>. Thanks to xet7.</summary>
 
-- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Sardinian, Sicilian, Neapolitan, Venetian, Friulian and Romansh. Replace a Zulu checklist label in the Venetian catalog.
-- Preserve existing correct-language translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions.
-- Twelve relevant suites, 21 human-preference checks and all six preservation audits pass. These three messages now cover 175 locale variants; 59 variants and other catalog gaps remain.
+- Translate Taskwarrior and Focalboard import instructions and keyboard
+  reordering help into Sardinian, Sicilian, Neapolitan, Venetian, Friulian and
+  Romansh. Replace a Zulu checklist label in the Venetian catalog.
+- Preserve existing correct-language translations, exact source tokens,
+  commands, file formats, import exclusions and both arrow-key directions.
+- Twelve relevant suites, 21 human-preference checks and all six preservation
+  audits pass. These three messages now cover 175 locale variants; 59 variants
+  and other catalog gaps remain.
 - Technical wording has low confidence and welcomes native review. Friulian drag vocabulary was checked against the [grammar and lexicon](https://www.vatrarberesh.it/biblioteca/ebooks/ilfriulano.pdf).
 
 </details>
@@ -11809,9 +14028,14 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d3ffd9b319">Extend import and reordering help to six more languages</a>. Thanks to xet7.</summary>
 
-- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Papiamento, Tok Pisin, Bislama, Māori, Samoan and Hawaiian.
-- Preserve existing translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions.
-- Twelve relevant suites, 21 human-preference checks and all six preservation audits pass. These three messages now cover 181 locale variants; 53 variants and other catalog gaps remain.
+- Translate Taskwarrior and Focalboard import instructions and keyboard
+  reordering help into Papiamento, Tok Pisin, Bislama, Māori, Samoan and
+  Hawaiian.
+- Preserve existing translations, exact source tokens, commands, file formats,
+  import exclusions and both arrow-key directions.
+- Twelve relevant suites, 21 human-preference checks and all six preservation
+  audits pass. These three messages now cover 181 locale variants; 53 variants
+  and other catalog gaps remain.
 - Technical phrasing has low confidence and welcomes native review. Array and computer-drag terms were checked against [Te Aka](https://maoridictionary.co.nz/search?keywords=huanga) and the [Hawaiian dictionaries](https://wehe.hilo.hawaii.edu/?q=drag).
 
 </details>
@@ -11819,9 +14043,14 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/36e7bb1dc0">Translate import guidance into six more European languages</a>. Thanks to xet7.</summary>
 
-- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Faroese, Scottish Gaelic, Breton, Silesian, Kashubian and Upper Sorbian.
-- Preserve existing translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions.
-- Twelve relevant suites, 21 human-preference checks and all six preservation audits pass. These three messages now cover 187 locale variants; 47 variants and other catalog gaps remain.
+- Translate Taskwarrior and Focalboard import instructions and keyboard
+  reordering help into Faroese, Scottish Gaelic, Breton, Silesian, Kashubian and
+  Upper Sorbian.
+- Preserve existing translations, exact source tokens, commands, file formats,
+  import exclusions and both arrow-key directions.
+- Twelve relevant suites, 21 human-preference checks and all six preservation
+  audits pass. These three messages now cover 187 locale variants; 47 variants
+  and other catalog gaps remain.
 - Technical phrasing has low confidence and welcomes native review. Breton drag vocabulary was checked against the [Breton language portal](https://niverel.brezhoneg.bzh/fr/meurgorf/26063).
 
 </details>
@@ -11829,9 +14058,14 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5b8ded570b">Translate import guidance into six more African languages</a>. Thanks to xet7.</summary>
 
-- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Kinyarwanda, Kirundi, Northern Sotho, Tsonga, Swati and Northern Ndebele.
-- Preserve existing translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions.
-- Thirteen relevant suites, 21 human-preference checks and all six preservation audits pass. These three messages now cover 193 locale variants; 41 variants and other catalog gaps remain.
+- Translate Taskwarrior and Focalboard import instructions and keyboard
+  reordering help into Kinyarwanda, Kirundi, Northern Sotho, Tsonga, Swati and
+  Northern Ndebele.
+- Preserve existing translations, exact source tokens, commands, file formats,
+  import exclusions and both arrow-key directions.
+- Thirteen relevant suites, 21 human-preference checks and all six preservation
+  audits pass. These three messages now cover 193 locale variants; 41 variants
+  and other catalog gaps remain.
 - Technical phrasing has low confidence and welcomes native review.
 
 </details>
@@ -11839,9 +14073,15 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ef27d27a51">Translate import and reordering help into four more locales</a>. Thanks to xet7.</summary>
 
-- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Uyghur, Arabic-script Uzbek, Konkani and Oromo. Correct the Uzbek labels heading to Arabic script.
-- Preserve existing correct-language translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions. Check the declared script in Uyghur and Arabic-script Uzbek prose.
-- Ten relevant suites, 21 human-preference checks and all four preservation audits pass. These three messages now cover 197 locale variants; 37 variants and other catalog gaps remain.
+- Translate Taskwarrior and Focalboard import instructions and keyboard
+  reordering help into Uyghur, Arabic-script Uzbek, Konkani and Oromo. Correct
+  the Uzbek labels heading to Arabic script.
+- Preserve existing correct-language translations, exact source tokens,
+  commands, file formats, import exclusions and both arrow-key directions. Check
+  the declared script in Uyghur and Arabic-script Uzbek prose.
+- Ten relevant suites, 21 human-preference checks and all four preservation
+  audits pass. These three messages now cover 197 locale variants; 37 variants
+  and other catalog gaps remain.
 - Technical wording has low confidence and welcomes native review.
 
 </details>
@@ -11849,9 +14089,13 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/474ecaab67">Translate import and reordering help into four more languages</a>. Thanks to xet7.</summary>
 
-- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into Fijian, Tongan, Walloon and Waray.
-- Preserve existing translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions.
-- Ten relevant suites, 21 human-preference checks and all four preservation audits pass. These three messages now cover 201 locale variants; 33 variants and other catalog gaps remain.
+- Translate Taskwarrior and Focalboard import instructions and keyboard
+  reordering help into Fijian, Tongan, Walloon and Waray.
+- Preserve existing translations, exact source tokens, commands, file formats,
+  import exclusions and both arrow-key directions.
+- Ten relevant suites, 21 human-preference checks and all four preservation
+  audits pass. These three messages now cover 201 locale variants; 33 variants
+  and other catalog gaps remain.
 - Technical wording has low confidence and welcomes native review. Drag terminology was checked against the [Fijian dictionary](https://www.folksong.org.nz/isa_lei/Fijian-English_Dictionary.pdf) and [Walloon dictionary](https://dtw.walon.org/index.php?query=saetch%C3%AE).
 
 </details>
@@ -11859,8 +14103,13 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f7be052b15">Translate import help into Akan, Luganda, Wolof and Bambara</a>. Thanks to xet7.</summary>
 
-- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into four more languages, preserving existing translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions.
-- Ten relevant suites, 21 human-preference checks and all four preservation audits pass. These three messages now cover 205 locale variants; 29 variants and other catalog gaps remain.
+- Translate Taskwarrior and Focalboard import instructions and keyboard
+  reordering help into four more languages, preserving existing translations,
+  exact source tokens, commands, file formats, import exclusions and both
+  arrow-key directions.
+- Ten relevant suites, 21 human-preference checks and all four preservation
+  audits pass. These three messages now cover 205 locale variants; 29 variants
+  and other catalog gaps remain.
 - Technical wording has low confidence and welcomes native review. Vocabulary was checked against [Akan teaching material](https://elias.fas.harvard.edu/index.php/languages/Twi/Beginning/1/AKAN-SOUNDS), [Bambara dictionary entries](https://dictionary.ankataa.com/search.php?input=sa&search=lexicon) and [Wolof vocabulary](https://wolofresources.org/language/download/lexicarry_plus.pdf).
 
 </details>
@@ -11868,8 +14117,13 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f1b8e772ed">Translate import help into Acehnese, Ladin and Aromanian</a>. Thanks to xet7.</summary>
 
-- Translate Taskwarrior and Focalboard import instructions and keyboard reordering help into three more languages, preserving existing translations, exact source tokens, commands, file formats, import exclusions and both arrow-key directions.
-- Ten relevant suites, 21 human-preference checks and all three preservation audits pass. These three messages now cover 208 locale variants; 26 variants and other catalog gaps remain.
+- Translate Taskwarrior and Focalboard import instructions and keyboard
+  reordering help into three more languages, preserving existing translations,
+  exact source tokens, commands, file formats, import exclusions and both
+  arrow-key directions.
+- Ten relevant suites, 21 human-preference checks and all three preservation
+  audits pass. These three messages now cover 208 locale variants; 26 variants
+  and other catalog gaps remain.
 - Technical wording has low confidence and welcomes native review. Drag vocabulary was checked against an [Acehnese linguistic study](https://digital.library.adelaide.edu.au/dspace/bitstream/2440/92352/3/02whole.pdf) and the [Ladin dictionary](https://wikisource.org/wiki/Page:Vocabolardlladinleterar.pdf/989).
 
 </details>
@@ -11877,8 +14131,12 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c7b499ebc270fd1fb07eac8d16741997c8870f70">Translate import instructions and reordering help into Manx, Cornish and Northern Sámi</a>. Thanks to xet7.</summary>
 
-- Fill nine English placeholders while preserving existing translations, technical identifiers and source key order. These three messages now cover 211 of 234 non-English locale variants; 23 remain.
-- Extend import exclusions, keyboard directions and placeholder checks. All 10 relevant suites, three preservation audits and 21 human-preference checks pass.
+- Fill nine English placeholders while preserving existing translations,
+  technical identifiers and source key order. These three messages now cover 211
+  of 234 non-English locale variants; 23 remain.
+- Extend import exclusions, keyboard directions and placeholder checks. All 10
+  relevant suites, three preservation audits and 21 human-preference checks
+  pass.
 - Low-confidence technical translations in all three languages need native-speaker review. Vocabulary references include the <a href="https://kevinscannell.com/files/frasleabhar.pdf">Manx phrasebook</a>, <a href="https://pdfcoffee.com/dictionary-english-manx-pdf-free.html">English–Manx dictionary</a> and <a href="https://www.cornishdictionary.org.uk/sites/default/files/GerlyverPDF%202020%2012%2001%20(FW).pdf">Akademi Kernewek dictionary</a>.
 
 </details>
@@ -11886,8 +14144,12 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/02211032b962af467b77be6dcb6ceecb30cb21af">Translate import instructions and reordering help into Buryat, Chuvash and Sakha</a>. Thanks to xet7.</summary>
 
-- Fill nine English placeholders while preserving existing translations, technical identifiers and source key order. These three messages now cover 214 of 234 non-English locale variants; 20 remain.
-- Extend import exclusions, keyboard directions and placeholder checks. All eight relevant suites, three preservation audits and 21 human-preference checks pass.
+- Fill nine English placeholders while preserving existing translations,
+  technical identifiers and source key order. These three messages now cover 214
+  of 234 non-English locale variants; 20 remain.
+- Extend import exclusions, keyboard directions and placeholder checks. All
+  eight relevant suites, three preservation audits and 21 human-preference
+  checks pass.
 - Low-confidence technical translations in all three languages need native-speaker review. Vocabulary references include the <a href="https://ru.djvu.online/file/hc1oOF3oJ2wD1">Buryat–Russian dictionary</a>, <a href="https://en.wiktionary.org/wiki/Appendix:Chuvash_Swadesh_list">Chuvash vocabulary list</a> and <a href="https://iknigi.net/avtor-tamara-petrova/160404-kratkiy-yakutsko-russkiy-russko-yakutskiy-slovar-tamara-petrova/read/page-10.html">Sakha–Russian dictionary</a>; the latter distinguishes сос (drag) from соһуй (startle).
 
 </details>
@@ -11895,8 +14157,12 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/54882fe4fa42fdc54f54e74226eb32ac764e5c75">Translate import instructions and reordering help into Aymara, Quechua and Guaraní</a>. Thanks to xet7.</summary>
 
-- Fill nine English placeholders while preserving existing translations, technical identifiers and source key order. These three messages now cover 217 of 234 non-English locale variants; 17 remain.
-- Extend import exclusions, keyboard directions and placeholder checks. All 10 relevant suites, three preservation audits and 21 human-preference checks pass.
+- Fill nine English placeholders while preserving existing translations,
+  technical identifiers and source key order. These three messages now cover 217
+  of 234 non-English locale variants; 17 remain.
+- Extend import exclusions, keyboard directions and placeholder checks. All 10
+  relevant suites, three preservation audits and 21 human-preference checks
+  pass.
 - Low-confidence technical translations in all three languages need native-speaker review. Vocabulary references include the <a href="https://www.illaa.org/pirwa/diccionarios/LudovicoBertonioMuchosCambios.pdf">Aymara vocabulary</a>, <a href="https://www.illaa.org/pirwa/diccionarios/DicAMLQuechuaOrig.pdf">Quechua dictionary</a> and <a href="https://www.mec.gob.ar/descargas/Bibliograf%C3%ADa/Educaci%C3%B3n%20Intercultural%20Biling%C3%BCe/GUARANI/avane-Diccionario-Guarani-Esp-Esp-Guarani.pdf">Guaraní dictionary</a>.
 
 </details>
@@ -11904,8 +14170,12 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/18fa84e06f6b9add958ee4b494af6ba650dbb7f1">Translate import instructions and reordering help into Tibetan and Dzongkha</a>. Thanks to xet7.</summary>
 
-- Fill six English placeholders while preserving existing translations, technical identifiers and source key order. These three messages now cover 219 of 234 non-English locale variants; 15 remain.
-- Extend import exclusions, keyboard directions and placeholder checks. All eight relevant suites, two preservation audits and 21 human-preference checks pass.
+- Fill six English placeholders while preserving existing translations,
+  technical identifiers and source key order. These three messages now cover 219
+  of 234 non-English locale variants; 15 remain.
+- Extend import exclusions, keyboard directions and placeholder checks. All
+  eight relevant suites, two preservation audits and 21 human-preference checks
+  pass.
 - Low-confidence technical translations in both languages need native-speaker review. Vocabulary references include the <a href="https://github.com/tibetan-nlp/lexicon-of-tibetan-verb-stems/blob/master/cg3-lemmas.txt">Tibetan verb lexicon</a> and <a href="https://download-mirror.savannah.gnu.org/releases/dzongkha-gnome/dzongkha_computer_terms.pdf">Dzongkha computer terminology</a>.
 
 </details>
@@ -11913,8 +14183,12 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3895899f853a3af06d644840842065279f5028ad">Translate Venda import help and correct Zulu labels</a>. Thanks to xet7.</summary>
 
-- Fill three import and reordering placeholders, bringing these messages to 220 of 234 non-English locale variants; 14 remain. Replace five Zulu seed values in Venda labels, checklist, comments, lists and the import action.
-- Extend import exclusions, keyboard directions, placeholder and correct-language term checks. All seven relevant suites, a preservation audit and 21 human-preference checks pass.
+- Fill three import and reordering placeholders, bringing these messages to 220
+  of 234 non-English locale variants; 14 remain. Replace five Zulu seed values
+  in Venda labels, checklist, comments, lists and the import action.
+- Extend import exclusions, keyboard directions, placeholder and
+  correct-language term checks. All seven relevant suites, a preservation audit
+  and 21 human-preference checks pass.
 - Low-confidence Venda technical translations and replacements need native-speaker review. Vocabulary references include <a href="https://learnvenda.co.za/app/lists/Words/chat/3">Gudani Tshivenda</a> and the <a href="https://www.era.anthropology.ac.uk/Era_Resources/Era/VendaGirls/GrDombaSong/GDS_Music_Text01.html">Venda music glossary</a> for kokodza (drag, pull). The separately registered Veps locale ve-PP is a different language.
 
 </details>
@@ -11922,8 +14196,12 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b3c8b52b5cc7364811dba9f491fa5e4f79c10bd0">Translate Veps import help and correct mixed-language labels</a>. Thanks to xet7.</summary>
 
-- Fill three import and reordering placeholders, bringing these messages to 221 of 234 non-English locale variants; 13 remain. Replace Zulu import-source text and Venda linked-subtask text with Veps.
-- Extend import exclusions, keyboard directions, placeholder and corrected-label checks. All 11 relevant suites, a preservation audit and 21 human-preference checks pass.
+- Fill three import and reordering placeholders, bringing these messages to 221
+  of 234 non-English locale variants; 13 remain. Replace Zulu import-source text
+  and Venda linked-subtask text with Veps.
+- Extend import exclusions, keyboard directions, placeholder and corrected-label
+  checks. All 11 relevant suites, a preservation audit and 21 human-preference
+  checks pass.
 - Low-confidence Veps technical translations and replacements need native-speaker review. The <a href="https://vepsnoid.blogspot.com/p/dictionary.html">Veps–English dictionary</a> supplies vocabulary for pulling, linking, moving and hindering.
 
 </details>
@@ -11931,8 +14209,12 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/25bc2279279b078525cc05a98befd3498cccbfd6">Translate Kashmiri import instructions and reordering help</a>. Thanks to xet7.</summary>
 
-- Fill three English placeholders while preserving existing translations, technical identifiers and source key order. These messages now cover 222 of 234 non-English locale variants; 12 remain.
-- Extend import exclusions, keyboard directions and placeholder checks. All seven relevant suites, a preservation audit and 21 human-preference checks pass.
+- Fill three English placeholders while preserving existing translations,
+  technical identifiers and source key order. These messages now cover 222 of
+  234 non-English locale variants; 12 remain.
+- Extend import exclusions, keyboard directions and placeholder checks. All
+  seven relevant suites, a preservation audit and 21 human-preference checks
+  pass.
 - Low-confidence Kashmiri technical translations need native-speaker review. The <a href="https://kashmirasitis.com/wp-content/uploads/2020/08/Kashmiri-Dictionary-by-W.J.Elmslie-1.pdf">Elmslie Kashmiri dictionary</a> supplies vocabulary for the drag action; directions follow the existing catalog.
 
 </details>
@@ -11940,8 +14222,12 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0e34f2c45b3d27630957309efb68b43e40c5bddd">Translate import instructions and reordering help into Ewe and Fulah</a>. Thanks to xet7.</summary>
 
-- Fill six English placeholders while preserving existing translations, technical identifiers and source key order. These three messages now cover 224 of 234 non-English locale variants; 10 remain.
-- Extend import exclusions, keyboard directions and placeholder checks. All eight relevant suites, two preservation audits and 21 human-preference checks pass.
+- Fill six English placeholders while preserving existing translations,
+  technical identifiers and source key order. These three messages now cover 224
+  of 234 non-English locale variants; 10 remain.
+- Extend import exclusions, keyboard directions and placeholder checks. All
+  eight relevant suites, two preservation audits and 21 human-preference checks
+  pass.
 - Low-confidence technical translations in both languages need native-speaker review. Vocabulary references include <a href="https://philtypo3.uni-koeln.de/sites/inst_afrika/pdf/BASIC_EWE_2nd_ed.pdf">Basic Ewe</a> and the <a href="https://www.scribd.com/document/854004347/PEERAL-5-Fulfulde-English-Dictionary">Fulfulde–English dictionary</a>.
 
 </details>
@@ -11949,8 +14235,12 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5926f71ada9b0b74ce73982f922ea7c9c190756f">Translate Tigrinya import instructions and reordering help</a>. Thanks to xet7.</summary>
 
-- Fill three English placeholders while preserving existing translations, technical identifiers and source key order. These messages now cover 225 of 234 non-English locale variants; nine remain.
-- Extend import exclusions, keyboard directions and placeholder checks. All seven relevant suites, a preservation audit and 21 human-preference checks pass.
+- Fill three English placeholders while preserving existing translations,
+  technical identifiers and source key order. These messages now cover 225 of
+  234 non-English locale variants; nine remain.
+- Extend import exclusions, keyboard directions and placeholder checks. All
+  seven relevant suites, a preservation audit and 21 human-preference checks
+  pass.
 - Low-confidence Tigrinya technical translations need native-speaker review. Vocabulary references include the <a href="https://eritreanrefugees.org/wp-content/uploads/2017/02/Tigrinya-EnglishDictionary-V1-6-2UseOnComputer.pdf">Tigrinya–English picture dictionary</a> for the pull action; directions follow the existing catalog.
 
 </details>
@@ -11958,8 +14248,12 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9b51698f32d42da24dc0c6601135535520490d0c">Translate Volapük import help and correct the comments label</a>. Thanks to xet7.</summary>
 
-- Fill three import and reordering placeholders, bringing these messages to 226 of 234 non-English locale variants; eight remain. Replace the Esperanto comments label with Volapük.
-- Extend import exclusions, keyboard directions, placeholder and corrected-label checks. All eight relevant suites, a preservation audit and 21 human-preference checks pass.
+- Fill three import and reordering placeholders, bringing these messages to 226
+  of 234 non-English locale variants; eight remain. Replace the Esperanto
+  comments label with Volapük.
+- Extend import exclusions, keyboard directions, placeholder and corrected-label
+  checks. All eight relevant suites, a preservation audit and 21
+  human-preference checks pass.
 - Low-confidence Volapük technical translations and replacement need native-speaker review. Vocabulary follows the <a href="https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary">English–Volapük dictionary</a>, including tränön (drag), küpetön (comment), patöf (property), and step.
 
 </details>
@@ -11967,8 +14261,11 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4e0af778f0738af563e0ddd06c835c345c735b31">Translate Klingon import instructions and reordering help</a>. Thanks to xet7.</summary>
 
-- Fill three English placeholders while preserving existing translations, technical identifiers and source key order. These messages now cover 227 of 234 non-English locale variants; seven remain.
-- Extend import exclusions, keyboard directions and placeholder checks. All nine relevant suites, a preservation audit and 21 human-preference checks pass.
+- Fill three English placeholders while preserving existing translations,
+  technical identifiers and source key order. These messages now cover 227 of
+  234 non-English locale variants; seven remain.
+- Extend import exclusions, keyboard directions and placeholder checks. All nine
+  relevant suites, a preservation audit and 21 human-preference checks pass.
 - Low-confidence Klingon technical translations need fluent-speaker review. The <a href="https://www.kli.org/about-klingon/new-klingon-words/all/">Klingon Language Institute vocabulary</a> distinguishes Hoq (pull along) from Hur (tug), informing the drag instruction.
 
 </details>
@@ -11976,8 +14273,12 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c880a72b5b1ae06d028d77a32ab1ca671acc7209">Translate Nahuatl import instructions and reordering help</a>. Thanks to xet7.</summary>
 
-- Fill three English placeholders while preserving existing translations, technical identifiers and source key order. These messages now cover 228 of 234 non-English locale variants; six remain.
-- Extend import exclusions, keyboard directions and placeholder checks. All eight relevant suites, a preservation audit and 21 human-preference checks pass.
+- Fill three English placeholders while preserving existing translations,
+  technical identifiers and source key order. These messages now cover 228 of
+  234 non-English locale variants; six remain.
+- Extend import exclusions, keyboard directions and placeholder checks. All
+  eight relevant suites, a preservation audit and 21 human-preference checks
+  pass.
 - Low-confidence Nahuatl technical translations need speaker review. The <a href="https://nahuatl.wired-humanities.org/content/tilana">Online Nahuatl Dictionary</a> supplies tilana for the drag action; directions follow the existing catalog.
 
 </details>
@@ -11985,8 +14286,12 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0b1fad1fa744e16433a91d81d7156b9d68bf3aef">Translate Greenlandic import instructions and reordering help</a>. Thanks to xet7.</summary>
 
-- Fill three English placeholders while preserving existing translations, technical identifiers and source key order. These messages now cover 229 of 234 non-English locale variants; five remain.
-- Extend import exclusions, keyboard directions and placeholder checks. All eight relevant suites, a preservation audit and 21 human-preference checks pass.
+- Fill three English placeholders while preserving existing translations,
+  technical identifiers and source key order. These messages now cover 229 of
+  234 non-English locale variants; five remain.
+- Extend import exclusions, keyboard directions and placeholder checks. All
+  eight relevant suites, a preservation audit and 21 human-preference checks
+  pass.
 - Low-confidence Greenlandic technical translations need speaker review. Vocabulary references include <a href="https://uni.gl/media/6977622/qimmeq-laerervejledning-og-elevopgaver.pdf">Kalaallit qimmiat qimuttoq teaching materials</a> for pulling and <a href="https://oqa.dk/assets/aitwg2ED.pdf">An Introduction to West Greenlandic</a> for directions.
 
 </details>
@@ -11994,8 +14299,11 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f76407c6b96348287d8f4286bb86d190b2a25b19">Translate Tamazight import instructions and reordering help</a>. Thanks to xet7.</summary>
 
-- Fill three English placeholders in Tifinagh while preserving existing translations, technical identifiers and source key order. These messages now cover 230 of 234 non-English locale variants; four remain.
-- Extend import exclusions, keyboard directions and placeholder checks. All nine relevant suites, a preservation audit and 21 human-preference checks pass.
+- Fill three English placeholders in Tifinagh while preserving existing
+  translations, technical identifiers and source key order. These messages now
+  cover 230 of 234 non-English locale variants; four remain.
+- Extend import exclusions, keyboard directions and placeholder checks. All nine
+  relevant suites, a preservation audit and 21 human-preference checks pass.
 - Low-confidence Tamazight technical translations need speaker review. The <a href="https://en.wiktionary.org/wiki/%E2%B5%A3%E2%B5%93%E2%B5%96%E2%B5%94">dictionary entry for ⵣⵓⵖⵔ</a>, citing Penchoen’s Tamazight of the Ayt Ndhir, supplies the drag vocabulary.
 
 </details>
@@ -12003,8 +14311,10 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/91c315b8e31b31853dd44090fdc8ac2004dadf19">Translate import and reordering instructions into Inuktitut</a>. Thanks to xet7.</summary>
 
-- Fill the three Taskwarrior, Focalboard and keyboard reordering messages in Inuktitut, bringing this family to 231 of 234 non-English locale variants.
-- Preserve existing translations, source key order and exact placeholders; all eight relevant suites and 21 human-preference checks pass.
+- Fill the three Taskwarrior, Focalboard and keyboard reordering messages in
+  Inuktitut, bringing this family to 231 of 234 non-English locale variants.
+- Preserve existing translations, source key order and exact placeholders; all
+  eight relevant suites and 21 human-preference checks pass.
 - Inuktitut wording is low confidence and needs speaker review. The pull verb follows the examples in <a href="https://www.collectionscanada.gc.ca/obj/thesescanada/vol2/OTU/TC-OTU-32898.pdf">Viewpoint Aspect in Inuktitut</a>, pages 98 and 102.
 
 </details>
@@ -12012,8 +14322,11 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/06e94322086e09a70c7bb1d5909296039b5c5595">Translate import and reordering instructions into Tigre</a>. Thanks to xet7.</summary>
 
-- Fill the three Taskwarrior, Focalboard and keyboard reordering messages in Tigre, bringing this family to 232 of 234 non-English locale variants.
-- Preserve existing translations, source key order and exact placeholders; all 57 relevant suites and 21 human-preference checks pass, with the affected regression rerun after terminology refinement.
+- Fill the three Taskwarrior, Focalboard and keyboard reordering messages in
+  Tigre, bringing this family to 232 of 234 non-English locale variants.
+- Preserve existing translations, source key order and exact placeholders; all
+  57 relevant suites and 21 human-preference checks pass, with the affected
+  regression rerun after terminology refinement.
 - Tigre wording is low confidence and needs speaker review. Pull, arrow, key, line and step vocabulary was checked against the <a href="https://beittigre.github.io/tigre-multilingual-dictionaries/english/index.html">BeitTigreAI parallel corpus dictionary</a>.
 
 </details>
@@ -12021,8 +14334,12 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cc886a04dbb597290e639ace504cc4382c9fd0a7">Translate Wolaytta import and reordering instructions</a>. Thanks to xet7.</summary>
 
-- Fill the three Taskwarrior, Focalboard and keyboard reordering messages in Wolaytta, bringing this family to 233 of 234 non-English locale variants; also replace two mixed-English card direction labels.
-- Preserve existing translations, source key order and exact placeholders; all eight relevant suites and 21 human-preference checks pass, including the explicit correction audit.
+- Fill the three Taskwarrior, Focalboard and keyboard reordering messages in
+  Wolaytta, bringing this family to 233 of 234 non-English locale variants; also
+  replace two mixed-English card direction labels.
+- Preserve existing translations, source key order and exact placeholders; all
+  eight relevant suites and 21 human-preference checks pass, including the
+  explicit correction audit.
 - Wolaytta wording is low confidence and needs speaker review. Pull and direction vocabulary was checked in <a href="https://divinerevelations.info/documents/bible/all_html/wolaytta_language_of_ethiopia_portions_of_the_holy_bible/EZK39.htm">Wolaytta native text</a> and <a href="https://www.divinerevelations.info/documents/bible/All_HTML/wolaytta_bible/JOB22.htm">its up/down usage</a>.
 
 </details>
@@ -12030,8 +14347,12 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/19a8c0fb855adfb4c0b0335e24e6cd78a7b8e6e1">Complete import and reordering translations across all locales</a>. Thanks to xet7.</summary>
 
-- Fill the final three Cherokee Taskwarrior, Focalboard and keyboard reordering messages, completing this family in all 234 non-English locale variants; enforce complete catalog coverage in the regression suite.
-- All 458 translation-related suites, eight focused suites and 21 human-preference checks pass; the preservation audit confirms only the three Cherokee English placeholders changed.
+- Fill the final three Cherokee Taskwarrior, Focalboard and keyboard reordering
+  messages, completing this family in all 234 non-English locale variants;
+  enforce complete catalog coverage in the regression suite.
+- All 458 translation-related suites, eight focused suites and 21
+  human-preference checks pass; the preservation audit confirms only the three
+  Cherokee English placeholders changed.
 - Cherokee wording is low confidence and needs speaker review. Drag and paste vocabulary follows the <a href="https://www.thepeoplespaths.net/Cherokee/CherokeeWordLists/WordList-D.htm">Peoples Paths Cherokee word list</a> and its <a href="https://www.thepeoplespaths.net/Cherokee/CherokeeWordLists/WordList-P.htm">paste entry</a>. Other untranslated families remain in 70 languages.
 
 </details>
@@ -12039,18 +14360,30 @@ review. Remaining translations are unfinished.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b76be84186540fbc9bdb20936b3bc1f6747ac7fd">Translate archiving and date filters into Turkmen, Tatar and Somali</a>. Thanks to xet7.</summary>
 
-- Fill 69 English placeholders covering automatic archiving, recent activity, inclusive date ranges, due dates and time in a list; preserve existing translations and literal query syntax.
-- Eight applicable suites, 21 human-preference checks and per-locale preservation audits pass. Regression coverage checks exact placeholders, source order, numeric limits and the negative guidance for templates and card edits.
-- Turkmen, Tatar and Somali wording is provisional and would benefit from speaker review; broader translation work remains open.
+- Fill 69 English placeholders covering automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Eight applicable suites, 21 human-preference checks and per-locale
+  preservation audits pass. Regression coverage checks exact placeholders,
+  source order, numeric limits and the negative guidance for templates and card
+  edits.
+- Turkmen, Tatar and Somali wording is provisional and would benefit from
+  speaker review; broader translation work remains open.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c9e622f1b54e89a1acba4be0436187e77c0337c3">Translate Kurdish archiving and date filter messages</a>. Thanks to xet7.</summary>
 
-- Fill 46 English placeholders in Kurdish and Central Kurdish covering automatic archiving, recent activity, inclusive date ranges, due dates and time in a list.
-- Seven relevant suites and 21 human-preference checks pass; preservation audits confirm only English placeholders changed. Extended regression coverage preserves exact query syntax, placeholders, numeric limits and negative behavioral guidance.
-- Kurdish and Central Kurdish wording is provisional and would benefit from speaker review; broader translation work remains open.
+- Fill 46 English placeholders in Kurdish and Central Kurdish covering automatic
+  archiving, recent activity, inclusive date ranges, due dates and time in a
+  list.
+- Seven relevant suites and 21 human-preference checks pass; preservation audits
+  confirm only English placeholders changed. Extended regression coverage
+  preserves exact query syntax, placeholders, numeric limits and negative
+  behavioral guidance.
+- Kurdish and Central Kurdish wording is provisional and would benefit from
+  speaker review; broader translation work remains open.
 
 </details>
 
@@ -12059,9 +14392,16 @@ review. Remaining translations are unfinished.
 
 **Languages updated:** Acehnese, Afrikaans, Akan, Albanian, Amharic, Arabic, Aragonese, Armenian, Aromanian, Assamese, Asturian, Aymara, Azerbaijani, Bambara, Bangla, Bashkir, Basque, Belarusian, Bhojpuri, Bislama, Bosnian, Breton, Bulgarian, Buriat, Burmese, Cantonese, Catalan, Central Kurdish, Cherokee, Chinese, Chuvash, Cornish, Corsican, Croatian, Czech, Danish, Dutch, Dzongkha, Esperanto, Estonian, Ewe, Faroese, Fijian, Finnish, Flemish, French, Friulian, Fula, Galician, Ganda, Georgian, German, Greek, Guarani, Gujarati, Haitian Creole, Hausa, Hawaiian, Hebrew, Hindi, Hungarian, Icelandic, Igbo, Indonesian, Inuktitut, Irish, Italian, Japanese, Javanese, Kalaallisut, Kannada, Kashmiri, Kashubian, Kazakh, Khmer, Kinyarwanda, Klingon, Konkani, Korean, Kurdish, Kyrgyz, Ladin, Latin, Latvian, Lithuanian, Luxembourgish, Macedonian, Maithili, Malagasy, Malay, Malayalam, Maltese, Mandarin Chinese, Manx, Marathi, Mongolian, Moroccan Arabic, Māori, Nahuatl, Neapolitan, Nepali, North Ndebele, Northern Sami, Northern Sotho, Norwegian Bokmål, Nyanja, Occitan, Odia, Oromo, Papiamento, Pashto, Persian, Polish, Portuguese, Punjabi, Quechua, Romanian, Romansh, Rundi, Russian, Samoan, Sardinian, Scottish Gaelic, Serbian, Shona, Sicilian, Silesian, Sindhi, Sinhala, Slovak, Slovenian, Somali, Southern Sotho, Spanish, Standard Moroccan Tamazight, Swahili, Swati, Swedish, Tagalog, Tajik, Tamil, Tatar, Telugu, Thai, Tibetan, Tigre, Tigrinya, Tok Pisin, Tongan, Tsonga, Tswana, Turkish, Turkmen, Ukrainian, Upper Sorbian, Urdu, Uyghur, Uzbek, Venda, Venetian, Veps, Vietnamese, Volapük, Walloon, Waray, Welsh, Western Frisian, Wolaytta, Wolof, Wu Chinese, Xhosa, Yakut, Yiddish, Yoruba, Zulu.
 
-- Completed the 43 continuous-backup messages, three Scrum background-job messages, and three Taskwarrior/Focalboard import and keyboard-reordering messages across all **234 non-English locale variants** of the languages above. English variants retain English source wording.
-- Additionally completed 23 automatic-archiving and date-filter messages in **Turkmen, Tatar, Somali, Kurdish and Central Kurdish** (115 translated values), in commits [b76be84186](https://github.com/wekan/wekan/commit/b76be84186) and [c9e622f1b5](https://github.com/wekan/wekan/commit/c9e622f1b5).
-- All **458 translation-related suites passed** after the import/reordering completion. The later archiving/date-filter batches passed their focused regression and preservation checks, plus all 21 human-preference checks. Provisional wording is identified in the individual batch entries for speaker review.
+- Completed the 43 continuous-backup messages, three Scrum background-job
+  messages, and three Taskwarrior/Focalboard import and keyboard-reordering
+  messages across all **234 non-English locale variants** of the languages
+  above. English variants retain English source wording.
+- Additionally completed 23 automatic-archiving and date-filter messages in **Turkmen, Tatar, Somali, Kurdish and Central Kurdish** (115 translated values), in the [Turkmen, Tatar and Somali](https://github.com/wekan/wekan/commit/b76be84186) and [Kurdish](https://github.com/wekan/wekan/commit/c9e622f1b5) commits.
+- All **458 translation-related suites passed** after the import/reordering
+  completion. The later archiving/date-filter batches passed their focused
+  regression and preservation checks, plus all 21 human-preference checks.
+  Provisional wording is identified in the individual batch entries for speaker
+  review.
 
 </details>
 
