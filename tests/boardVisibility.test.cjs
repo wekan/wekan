@@ -73,7 +73,8 @@ test('instance visibility translations retain source tokens and confirmation emp
   const readLocale = code => JSON.parse(fs.readFileSync(path.join(root, `imports/i18n/data/${code}.i18n.json`), 'utf8'));
   const en = readLocale('en');
   const keys = ['instance', 'instance-desc', 'board-instance-info'];
-  for (const code of ['ary', 'ckb', 'ku', 'bho', 'mai', 'or_IN', 'kok', 'tk_TM', 'tt', 'yi']) {
+  for (const code of ['ary', 'ckb', 'ku', 'bho', 'mai', 'or_IN', 'kok', 'tk_TM', 'tt', 'yi',
+    'so', 'om', 'rw', 'rn', 'ny', 'st', 'tn', 'nso', 'zu', 'zu-ZA']) {
     const locale = readLocale(code);
     assert.deepStrictEqual(Object.keys(locale), Object.keys(en), `${code}: source order`);
     for (const key of keys) {

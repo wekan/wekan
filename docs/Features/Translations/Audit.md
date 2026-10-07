@@ -3192,6 +3192,12 @@ These drafts use direct language knowledge and the source UI context. Technical 
 
 The board-visibility suite now checks this batch for source key order, placeholder inventories, exact markup and rendered emphasis, with a malformed-markup negative check. Runtime visibility tests, all 234 locale structure/token checks and 21 human-preference checks pass. The existing instance-board-visibility browser suite was syntax-checked only; the application stack is unavailable. These three keys still need filling in 56 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys, with language-quality review open.
 
+### Signed-in board visibility: ten more locales
+
+Filled the three board visibility strings (`instance`, `instance-desc`, `board-instance-info`) in Somali, Oromo, Kinyarwanda, Kirundi, Chichewa, Sesotho, Setswana, Northern Sotho and both Zulu locales: 30 English values. The wording follows the existing board terminology and preserves the distinction between viewing by signed-in users and editing by board members. These are direct drafts without an external translation service. Oromo, Kirundi and Sotho–Tswana technical wording has lower confidence; fluent-speaker review remains open for all ten locales.
+
+Extended the existing translation regression to include these locales. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The existing browser suite was syntax-checked only; the application stack is unavailable. Each of these three source keys remains English in 46 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
