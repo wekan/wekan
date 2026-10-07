@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9b89502663efcd1f0e3056e7620f4148718d41c7">Correct 44 foreign-language values in Waray controls and authentication.</a></summary>
+
+- Replace French, Walloon and mixed-language text in board controls, templates, loading indicators, authentication and forecasting. Preserve authentication requirements, forecast tokens and file extensions.
+- Extend shared-label and authentication checks. The broader vocabulary audit found values missed by the earlier exact-match comparison; further wrong-language review remains open.
+- English placeholders remain at 46,305 across 70 languages, with 148 source keys tracked separately for wording review. Technical terminology remains provisional.
+- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3ee6eedca242d1aa7650cb0ee649c65ccbd6ebf7">Translate 27 Waray activity-notification recovery messages.</a></summary>
 
 - Fill pending-delivery, retry and pause/resume/cancel messages. Preserve retained work, no activity recreation and cancellation limits.
