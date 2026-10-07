@@ -1890,6 +1890,20 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e2e304eb602d8f3fe2920d64d774083fe7ca9c2b">Translate custom URL scheme hint in ten locales</a>. Thanks to xet7.</summary>
+
+- Fill ten Admin Panel hints, preserving the five literal scheme names and the
+  distinction between configured application links and permanently blocked schemes.
+  Lower-confidence technical wording remains documented for native/UI review.
+- Positive and negative identifier checks, parser and sanitizer tests, all-locale
+  structure and human-preference checks pass. Browser scenarios were syntax-checked
+  but not run without the application stack.
+- Fifty-six locale paths still need this hint. The ordinary backlog remains 51,575
+  values plus 172 pending source keys; broader translation work remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/af64e879df1d65195b25b7f09a4a12d755b9fa22">Complete placement label placeholders across locales</a>. Thanks to xet7.</summary>
 
 - Fill the Cherokee and Wolaytta placement labels. Both labels now have distinct
