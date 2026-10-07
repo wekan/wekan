@@ -4726,6 +4726,15 @@ mixed-language audit remains open.
 - Extended field-type distinctions and token checks. Existing browser field-editing flows cover these locales, but neither browser execution nor spoken type announcements were verified.
 - This batch removes 44 ordinary placeholders and repairs five wrong-language/filler values. The broader semantic audit and 148 pending source keys remain open.
 
+### Kinyarwanda, Kirundi, Luganda, Oromo and Chichewa field types
+
+- Filled 55 English field-type placeholders across `rw`, `rn`, `lg`, `om` and `ny` using the protected fill. Source arguments and existing correct-language translations remain intact.
+- Replaced Luganda generic labels `Dropdown Lukalala` and `Checkbox (mu Luganda)` with Luganda descriptions; these mixed-language seeds were not protected human translations. Added exact regression checks alongside the shared field-type distinctions and token checks.
+- Vocabulary references: [Rwanda mathematics curriculum](https://eastafricaschoolserver.org/content/_public/Local%20Topics/Rwanda/Rwanda%20Education%20Board%20Syllabuses/Syllabus/Lower-Primary/Integanyanyigisho%20y_Imibare_2015.pdf), [Kirundi-English dictionary](https://studylib.net/doc/27088730/kirundi) and [Oromo mathematics textbook](https://camaraethiopia.org.et/OromiaPrimary/CEE_MoE_Plasma/content/Maths/Primary/Afan%20Oromo/MathSBG3.pdf). These support ordinary mathematical vocabulary, not every new technical compound.
+- Low confidence: pixel/grid loanword spelling, Luganda angle terminology, input naming and Kirundi/Chichewa use of ordinary work nouns for functions require review. A Luganda draft using a filtering word for grid was replaced with a grid loan before application; Kinyarwanda function uses a technical loan instead of utility/benefit wording.
+- Existing browser flows include all five locales; browser execution and spoken accessibility verification remain outstanding. Tests establish structural distinctions, not fluency.
+- This batch removes 55 ordinary placeholders and corrects two mixed-language values. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
