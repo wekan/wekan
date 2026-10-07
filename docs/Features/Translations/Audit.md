@@ -3326,6 +3326,14 @@ Vocabulary references include [Sorani ئاگاداری](https://ckb.wiktionary.o
 
 Ten translation/token regressions, import-loss positive/negative checks, all 234 locale structure checks and 21 human-preference checks pass. Added ten browser cases covering rejected malformed input, localized report text and opening the imported board. Browser tests were syntax-checked only. The local Playwright executable is missing and no application server is listening on port 3000, so browser execution and runner discovery were not verified. Each of the three source keys remains English in 56 locales. The ordinary backlog remains 51,575 values across 70 languages and the pending inventory remains 168 source keys.
 
+### Import warning report: ten African locale files
+
+Filled 30 English placeholders for the warning heading, explanation and open-board action in Somali (`so`), Oromo (`om`), Kinyarwanda (`rw`), Kirundi (`rn`), Chichewa (`ny`), Sesotho (`st`), Setswana (`tn`), Northern Sotho (`nso`) and both Zulu locales (`zu`, `zu-ZA`). Existing translations were protected by the fill utility; no translation service was used. The description retains the created-board outcome, incomplete file transfer and recovery-menu path, using existing menu labels.
+
+Vocabulary references include [Oromo LibreOffice help](https://help.libreoffice.org/latest/om/text/swriter/01/04120250.html) for file/input terminology, [Kirundi warning usage](https://www.healthvermont.gov/sites/default/files/documents/pdf/ENV-RW-cyanobacteria-sign-alert-Kirundi.pdf), and a [Sesotho emergency-preparedness guide](https://saiia.org.za/wp-content/uploads/2023/11/SAIIA-UNICEF-Emergency-Preparedness-Guide-SESOTHO-LOW-RES.pdf) for warning terminology. These references support words, not full sentences. Oromo, Kirundi, Chichewa and Northern Sotho technical phrasing and agreement have lower confidence; the full batch remains open to fluent-speaker review. Existing recovery and board terminology also requires broader review.
+
+Extended the existing import translation and browser cases to these ten locales. Ten translation/token regressions, import-loss positive/negative checks, all 234 locale structure checks and 21 human-preference checks pass. Browser cases were syntax-checked only; execution remains unverified because the local Playwright executable and running application are unavailable. Each of these three source keys remains English in 46 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
