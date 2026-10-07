@@ -641,6 +641,29 @@ exception to muting. The all-locale structural and human-preference checks
 also pass. The browser mute/unmute scenario includes these three languages;
 it is syntax-checked only, with no browser execution available.
 
+## Akan, Luganda and Bambara notification preferences — 2026-10-07
+
+Filled 13 English placeholders each in Akan (`ak`), Luganda (`lg`) and
+Bambara (`bm`): 39 values. Existing translations are preserved. These keys
+remain pending elsewhere, so the standard backlog stays at 51,575 values
+with 201 pending source keys.
+
+The descriptions retain the reminder/@mention exception and distinguish
+members from people assigned work. Vocabulary references include the
+[Akan dictionary](https://www.akandictionary.com/2021/06/17/nkae-2/),
+the [Luganda learning resource](https://lugandalusogalugwerecommission.com/onewebmedia/OKUYIGA_2BOLUGANDA_2B_2B_2B_2BERI_2BABOOGEZI_2BBOLUNGEREZA_2BNOLUSWAYIRI.pdf)
+for bell terminology and the
+[Bambara lexicon](https://bamadaba.coastsystems.net/lexicon/h/)
+for reminder vocabulary. Translations are written directly, without a
+translation service. Technical clauses, lane and custom-field wording
+remain low confidence pending speaker review.
+
+Shared notification checks now cover 38 locales. Exact placeholders, source
+key order, distinct people categories and the muting exception pass, as do
+all-locale structure and human-preference checks. Browser mute/unmute
+scenarios now include these three locales and pass syntax checking only;
+no browser execution was available.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
