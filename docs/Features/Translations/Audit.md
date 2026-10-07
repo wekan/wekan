@@ -48,6 +48,40 @@ have language-name prefixes or unrelated wording (Akan, Aymara, Latin,
 Quechua, Tok Pisin, Wolaytta). These are not accepted as correct merely
 because they differ from English. They remain part of the broader audit.
 
+## Archiving and date filters — 2026-10-07
+
+Filled 23 English placeholders each in Tibetan (`bo`), Buryat (`bua`),
+Chuvash (`cv`), Kashmiri (`ks`), Tigrinya (`ti`), Manx (`gv`), Venetian
+(`ve-CC`), Veps (`ve-PP`) and Venda (`ve`). Existing translated values are
+preserved. The 207 replacements reduce the standard backlog by 180 because
+three auto-archive keys per locale are counted separately in the pending-
+Transifex queue. The remaining report is 51,995 values.
+
+Terminology follows each catalog's card, list, archive and date labels.
+The [Buryat textbook](https://nom.buryat-lang.ru/nom.pdf) attests the last/past
+qualifier; [Chuvash native-language usage](https://chuvash.org/news/23215.html)
+helps distinguish day/month and time-span constructions. These references
+support components, not the full software messages. All nine drafts remain
+provisional pending speaker review, particularly the inclusive range and
+list-age explanations. Tibetan recency text explicitly refers to elapsed
+rather than future time.
+
+[Learn Manx](https://www.learnmanx.com/learning/intermediate/lesson-15shoh-ny-va-mee-jannoo---i-was-doing-this-1081/)
+provides week/past-time usage. The [Veps day entry](https://en.wiktionary.org/wiki/p%C3%A4iv)
+and [Karelian Research Centre dictionary](https://dictorpus.krc.karelia.ru/en/dict/lemma/420?page=2794&search_gramsets%5B1%5D=16)
+support day/month vocabulary. The [South African education workbook](https://www.education.gov.za/Portals/0/Documents/Manuals/2026%20Workbooks/Maths%20vol%201/grade%202/Num%20venda%20gr2%20vol1%20lowres.pdf?ver=2026-01-20-000232-000)
+provides Venda day, week and month terms; older Zulu words in the Venda
+catalog are not vocabulary evidence for these new messages. The new Venda
+text uses local time words, with a technical loan for templates. Existing
+Zulu-seeded general labels still need repair in the broader audit.
+
+The expanded archiving/date-filter suite preserves the query examples,
+numeric bounds and negative semantics: templates are never archived and
+editing a card does not reset its list age. Full key-order/token and
+human-preference checks pass. The existing browser mutation scenario now
+covers the nine locales' labels and hints as well as setting/clearing the
+threshold; it is syntax-checked, not browser-executed in this environment.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

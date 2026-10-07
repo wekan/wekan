@@ -30,7 +30,7 @@ const keys = [
   "filter-column-age-hint",
   "advanced-filter-card-dates-hint"
 ];
-for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'yi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'rw', 'rn', 'or_IN', 'bho', 'mai', 'kok', 'ary', 'nso', 'nd', 'ss', 'ts', 'om', 'fj', 'to', 'hsb', 'szl', 'se', 'wa', 'wa-RR', 'wuu-Hans', 'rup']) {
+for (const code of ['gv', 've-CC', 've-PP', 've', 'bo', 'bua', 'cv', 'ks', 'ti', 'tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'yi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'rw', 'rn', 'or_IN', 'bho', 'mai', 'kok', 'ary', 'nso', 'nd', 'ss', 'ts', 'om', 'fj', 'to', 'hsb', 'szl', 'se', 'wa', 'wa-RR', 'wuu-Hans', 'rup']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -124,4 +124,28 @@ assert.match(read('wuu-Hans')['auto-archive-hint'], /模板绝勿会移到存档
 assert.match(read('wuu-Hans')['filter-column-age-hint'], /勿会重新算/);
 assert.match(read('rup')['auto-archive-hint'], /modelili nu s-mutã vãrnãoarã/);
 assert.match(read('rup')['filter-column-age-hint'], /nu ahurheashti di nou/);
-console.log('Archiving and date filters: 23 messages in 39 locales passed');
+for (const [code, script] of [['bo', /\p{Script=Tibetan}/u], ['ks', /\p{Script=Arabic}/u], ['ti', /\p{Script=Ethiopic}/u]]) {
+  for (const key of keys) assert.match(read(code)[key], script, `${code}:${key}: native script`);
+}
+assert.match(read('bo')['auto-archive-hint'], /ནམ་ཡང.*མི་སྤོ/);
+assert.match(read('bo')['filter-recency-day'], /འདས་པའི/);
+assert.match(read('bo')['filter-column-age-hint'], /བསྐྱར་དུ་མི་འགོ་ཚུགས/);
+assert.match(read('bua')['auto-archive-hint'], /хэзээдэшье архивта зөөгдэхэгүй/);
+assert.match(read('bua')['filter-column-age-hint'], /дахин эхилхэгүй/);
+assert.match(read('cv')['auto-archive-hint'], /нихӑҫан та архива куҫармаҫҫӗ/);
+assert.match(read('cv')['filter-column-age-hint'], /ҫӗнӗрен пуҫлатмасть/);
+assert.match(read('ks')['auto-archive-hint'], /نہٕ زانہہ/);
+assert.match(read('ks')['filter-column-age-hint'], /چھِ نہٕ/);
+assert.match(read('ti')['auto-archive-hint'], /ፈጺሞም.*ኣይግዕዙን/);
+assert.match(read('ti')['filter-column-age-hint'], /ኣይጅምሮን/);
+assert.match(read('gv')['auto-archive-hint'], /cha bee sampleyryn.*dy bragh/);
+assert.match(read('gv')['filter-column-age-hint'], /Cha vel reaghey kaart cur toshiaght noa/);
+assert.match(read('ve-CC')['auto-archive-hint'], /no i vien mai archiviài/);
+assert.match(read('ve-CC')['filter-column-age-hint'], /no fa ripartir/);
+assert.match(read('ve-PP')['auto-archive-hint'], /ei nikonz sirdeta/);
+assert.match(read('ve-PP')['filter-column-age-hint'], /ei algata uzin/);
+assert.match(read('ve')['auto-archive-hint'], /a dzi iswi.*na luthihi/);
+assert.match(read('ve')['filter-column-age-hint'], /a zwi thomi hafhu/);
+assert.match(read('ve')['filter-recency-day'], /awara/);
+assert.doesNotMatch(read('ve')['filter-due-next-month'], /Inyanga|ngenyanga/);
+console.log('Archiving and date filters: 23 messages in 48 locales passed');
