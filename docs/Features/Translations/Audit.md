@@ -844,6 +844,26 @@ order, distinct people categories and the reminder/mention exception pass,
 together with all-locale structure and human-preference checks. The Dzongkha
 browser mute/unmute scenario is syntax-checked only; it was not executed.
 
+## Tigrinya notification preferences — 2026-10-07
+
+Filled 13 English placeholders in Tigrinya (`ti`), preserving existing
+translations. These keys remain pending elsewhere; the standard backlog
+remains 51,575 values and 201 pending source keys.
+
+Existing catalog terms supply card/list/category vocabulary. Notification
+terminology was checked against the
+[Tigrinya dictionary](https://www.tigrinyadictionary.com/index.php?dr=0&searchkey=notification).
+Reminder vocabulary also appears in the
+[Tigrinya reminder example](https://www.komen.org/wp-content/uploads/Breast-Self-Awareness-Messages-in-Tigrinya-FINAL-8-14.pdf).
+These are direct translations without a translation service. Full technical
+clauses and lane/custom-field terminology remain provisional pending speaker
+review; script checks do not establish fluency.
+
+Shared notification checks now cover 51 locales. Exact tokens, source order,
+people-category distinctions and the reminder/mention exception pass,
+together with all-locale structure and human-preference checks. The Tigrinya
+browser mute/unmute scenario is syntax-checked only; it was not executed.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
