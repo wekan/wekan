@@ -544,9 +544,17 @@ if [ "ferretdb" = "${DATABASE}" ]; then
             echo "  - FerretDB left disabled/stopped (a failed migration hand-off):"
             echo "      snap start --enable ${WEKAN_SNAP_SVC}.ferretdb"
             echo ""
-            echo "To keep working on MongoDB instead while this is sorted out:"
-            echo "  snap set ${SNAP_NAME:-wekan} database=mongodb"
-            echo ""
+            # #6746: the ping above discards its error, so the log said only
+            # "not ready" - "permission denied" and "connection refused" looked
+            # the same. Ask once more and show what the driver says. (The
+            # `database` setting this used to suggest is gone: the configure
+            # hook unsets it, so that advice changed nothing.)
+            _ping_err="$("$DB_EVAL" ping "$DB_URL" 2>&1 >/dev/null)"
+            if [ -n "$_ping_err" ]; then
+                echo "The connection attempt says:"
+                echo "  $_ping_err"
+                echo ""
+            fi
             echo "Attachments and avatars are stored ON DISK under WRITABLE_PATH, NOT"
             echo "in the database ($SNAP_COMMON/files), so they are safe."
             echo "========================================================================"

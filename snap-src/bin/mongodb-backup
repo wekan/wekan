@@ -5,7 +5,7 @@ if [[ "$PATH" != *"$SNAP_INSTANCE_NAME"* ]]; then
 fi
 
 # get wekan/mongo settings
-source $SNAP/bin/wekan-read-settings
+source "$SNAP/bin/wekan-read-settings"
 
 # make sure we have set minimum env variables for locale
 if [ -z "$LANG" ]; then
@@ -21,14 +21,18 @@ export LC_ALL=C
 export PATH=$SNAP/migratemongo/avx:$SNAP/usr/bin:$SNAP/bin:$PATH
 export LD_LIBRARY_PATH=$SNAP/lib:$SNAP/lib/x86_64-linux-gnu:$SNAP/lib/aarch64-linux-gnu:$LD_LIBRARY_PATH
 
-if [ -z $1 ]; then
+if [ -z "$1" ]; then
     DATE=`/bin/date +%Y%m%dT%H%M%S`
-    mkdir -p $SNAP_COMMON/db-backups/
-    ARCHIVE=$SNAP_COMMON/db-backups/wekan-$DATE.backup
+    mkdir -p "$SNAP_COMMON/db-backups/"
+    ARCHIVE="$SNAP_COMMON/db-backups/wekan-$DATE.backup"
 else
-    ARCHIVE=$1
+    ARCHIVE="$1"
 fi
 # start mongodb backup
 [ "x" == "x${MONGODB_BIND_IP}" ] && MONGODB_BIND_IP="127.0.0.1"
- echo "using bind ip"
-mongodump --host $MONGODB_BIND_IP --port $MONGODB_PORT -d wekan --gzip  --archive=${ARCHIVE}
+echo "using bind ip: $MONGODB_BIND_IP port: $MONGODB_PORT"
+# #6746: same as database-restore - back up the database that holds the data,
+# starting it first when it is stopped.
+source "$SNAP/bin/database-ready"
+database_ready "$MONGODB_BIND_IP" "$MONGODB_PORT" || exit 1
+mongodump --host "$MONGODB_BIND_IP" --port "$MONGODB_PORT" -d wekan --gzip "--archive=${ARCHIVE}"

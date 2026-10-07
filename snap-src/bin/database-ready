@@ -1,0 +1,58 @@
+#!/bin/bash
+# database-ready — make sure the database WeKan's data is in answers, for the
+# commands an admin runs by hand (database-backup, database-restore).
+#
+# #6746: those commands talked to whatever was on $MONGODB_PORT and nothing
+# else. After `snap stop wekan` - which the restore steps people follow tell them
+# to do - nothing is, and on a FerretDB snap the database is a separate service
+# (wekan.ferretdb) that `snap start wekan.wekan` alone does not bring back. The
+# tools then failed after a 30-second server-selection timeout with a driver
+# topology dump that names neither the service nor where its log is.
+#
+# So: ask bin/database-role which database holds the data, start THAT service if
+# nothing answers, wait for it, and when it still does not answer, stop with the
+# driver's own error and the commands that show the reason.
+#
+# Source it, then:  database_ready HOST PORT   (returns 0 when it answers)
+
+database_ready() {
+  local host="$1" port="$2" url role svc waited err timeout
+  case "$host" in *:*) host="[$host]" ;; esac
+  url="mongodb://${host}:${port}/?directConnection=true"
+  # Older layouts and the tests' stand-in snap have no db-eval: leave the
+  # connection to the tool itself, as before.
+  [ -e "$SNAP/bin/db-eval" ] || return 0
+  bash "$SNAP/bin/db-eval" ping "$url" >/dev/null 2>&1 && return 0
+
+  role="$(bash "$SNAP/bin/database-role" 2>/dev/null)"
+  case "$role" in mongodb|ferretdb) ;; *) role=ferretdb ;; esac
+  svc="${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}.${role}"
+  echo "No database answers on ${host}:${port}; starting ${svc}, which holds the data ..."
+  if ! snapctl start --enable "$svc" >/dev/null 2>&1; then
+    echo "Could not start ${svc} from here (run this command with sudo, or: sudo snap start ${svc})." >&2
+  fi
+
+  timeout="${WEKAN_DB_READY_TIMEOUT:-90}"
+  waited=0
+  until err="$(bash "$SNAP/bin/db-eval" ping "$url" 2>&1 >/dev/null)"; do
+    if [ "$waited" -ge "$timeout" ]; then
+      echo "" >&2
+      echo "The database (${svc}) does not answer on ${host}:${port} after ${timeout} seconds." >&2
+      [ -n "$err" ] && echo "  ${err}" >&2
+      case "$err" in
+        *"permission denied"*|*EACCES*|*"operation not permitted"*|*EPERM*)
+          echo "  The connection itself was refused by this system's security policy, not" >&2
+          echo "  by the database. 'sudo journalctl -k | grep -i denied' names the rule." >&2
+          ;;
+      esac
+      echo "The reason is in its log:" >&2
+      echo "  sudo snap logs -n 100 ${svc}" >&2
+      echo "  sudo snap services ${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}" >&2
+      return 1
+    fi
+    sleep 2
+    waited=$((waited + 2))
+  done
+  echo "${svc} answers on ${host}:${port}."
+  return 0
+}

@@ -54,8 +54,13 @@ test('the hint points to the FerretDB service log and the SQLite dir', () => {
     'must tell the admin where the real error is');
   assert.ok(ferretBranch.includes('$FERRETDB_SQLITE_DIR'),
     'must name the SQLite database directory to check for locks/corruption');
-  assert.ok(/database=mongodb/.test(ferretBranch),
-    'must offer the fallback to keep working on MongoDB');
+  // #6746: it used to offer `snap set wekan database=mongodb` as a fallback.
+  // That setting is gone (snap/hooks/configure unsets it), so the advice did
+  // nothing; the hint now shows the driver's own error instead.
+  assert.ok(!/database=mongodb/.test(ferretBranch),
+    'must not suggest the removed database setting');
+  assert.ok(/_ping_err="\$\("\$DB_EVAL" ping "\$DB_URL" 2>&1 >\/dev\/null\)"/.test(ferretBranch),
+    'must show why the connection failed, not only that it did');
 });
 
 test('it still keeps retrying after the hint (does not give up / crash)', () => {

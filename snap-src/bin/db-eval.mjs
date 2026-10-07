@@ -207,6 +207,10 @@ try {
     console.log('ERROR:' + (e && e.message ? e.message : String(e)));
     code = 0;
   } else {
+    // #6746: say WHY. Every caller that polls redirects stderr, and the one
+    // that does not (bin/database-ready) shows it, so "permission denied" and
+    // "connection refused" stop looking identical.
+    console.error('db-eval ' + cmd + ': ' + (e && e.message ? e.message : String(e)));
     code = 1;
   }
 } finally {

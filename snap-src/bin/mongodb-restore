@@ -34,6 +34,10 @@ fi
 
 [ "x" == "x${MONGODB_BIND_IP}" ] && MONGODB_BIND_IP="127.0.0.1"
 echo "using bind ip: $MONGODB_BIND_IP port: $MONGODB_PORT"
+# #6746: the database is a service of its own and is stopped after `snap stop
+# wekan`; start the one that holds the data and wait for it, or say why not.
+source "$SNAP/bin/database-ready"
+database_ready "$MONGODB_BIND_IP" "$MONGODB_PORT" || exit 1
 # --drop: drop each collection before restoring to avoid IndexKeySpecsConflict
 # when the dump's index specs differ from the existing index definitions
 # (e.g. unique flag mismatch after a schema migration).
