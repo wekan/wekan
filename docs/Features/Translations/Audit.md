@@ -5468,6 +5468,16 @@ and archived/unarchived scope. Added token, query-syntax and action checks.
 Technical terminology remains low confidence pending fluent-speaker review.
 Browser checks remain unrun. English-placeholder counts are unchanged.
 
+## Akan file and memory corrections (batch 34)
+
+Corrected 24 mixed-language file, migration and Node memory labels. Restored the
+Node and Meteor-Files product names; preserved per-board versus all-attachment
+scope, GridFS/S3 destinations and original checklist order. Memory terminology
+is low confidence pending fluent-speaker review. Added source-token, product,
+scope and distinct-metric checks. Browser checks remain unrun. Two product-only
+values now correctly equal English; the placeholder tool excludes them, so its
+count remains 45,599 across 70 languages.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

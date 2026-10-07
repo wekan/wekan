@@ -583,3 +583,26 @@ test('Akan rule and search controls preserve opposite actions and query syntax',
  assert.match(data['globalSearch-instructions-operator-team'],/kuw/);
  assert.match(data['r-workflow-help'],/wɔhyehyɛ mmara.*wɔhɔ|wɔhyehyɛ mmara.*ɛwɔ hɔ dedaw/);
 });
+
+
+test('Akan file and memory labels preserve products and migration scope', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["import-dependencies-file", "filesReportTitle", "remove-team-from-table", "Node_heap_total_heap_size", "Node_heap_total_heap_size_executable", "Node_heap_total_physical_size", "Node_heap_total_available_size", "Node_heap_used_heap_size", "Node_heap_heap_size_limit", "Node_memory_usage_rss", "Node_memory_usage_heap_total", "remove-organization-from-board", "newlineBecomesNewChecklistItem", "newLineNewItem", "newlineBecomesNewChecklistItemOriginOrder", "move-all-attachments-to-fs", "move-all-attachments-to-gridfs", "move-all-attachments-to-s3", "move-all-attachments-of-board-to-fs", "move-all-attachments-of-board-to-gridfs", "move-all-attachments-of-board-to-s3", "move-storage-gridfs", "move-all-attachments", "stats-mongo-files"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ for(const key of ['move-storage-gridfs','stats-mongo-files']) assert.equal(data[key],english[key]);
+ for(const key of keys.filter(k=>k.startsWith('Node_'))) assert.match(data[key],/^Node /);
+ assert.match(data['Node_memory_usage_rss'],/RAM.*RSS/);
+ assert.match(data['Node_heap_heap_size_limit'],/anohyeto/);
+ assert.equal(new Set(keys.filter(k=>k.startsWith('Node_')).map(k=>data[k])).size,8);
+ for(const suffix of ['fs','gridfs','s3']){
+  const all=data['move-all-attachments-to-'+suffix];
+  const board=data['move-all-attachments-of-board-to-'+suffix];
+  assert.match(all,/nyinaa/); assert.match(board,/bɔɔd.*nyinaa/);
+  assert.notEqual(all,board);
+ }
+ for(const suffix of ['gridfs','s3']) for(const prefix of ['move-all-attachments-to-','move-all-attachments-of-board-to-']) assert.ok(data[prefix+suffix].includes(suffix==='s3'?'S3':'GridFS'));
+ assert.match(data['import-dependencies-file'],/JSON.*SVG/);
+ assert.match(data['newLineNewItem'],/biako =.*biako/);
+ assert.match(data['newlineBecomesNewChecklistItemOriginOrder'],/mfiase/);
+ assert.notEqual(data['remove-team-from-table'],data['remove-organization-from-board']);
+});
