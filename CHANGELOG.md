@@ -390,7 +390,7 @@ previously held for Transifex. Completed work is recorded in Upcoming.
 - Fill English placeholders in every language, including minority and constructed languages. Audit mixed-language and wrong-language seed text, and review provisional wording with speakers when available. Preserve correct-language human translations, source key order, exact placeholders, technical identifiers and query examples. Use direct translation and dictionary research, not an external translation service.
 - Keep regression and human-preference checks passing. Passing tests does not establish translation completeness or fluency; rerun relevant checks for each batch and the broad suite before declaring all-language work complete.
 - The three Admin Panel login-setting keys added on 2026-10-05 now have
-  translations in 101 locale paths (100 physical catalogs). Continue the
+  translations in 133 locale paths (131 physical catalogs). Continue the
   remaining languages. The standard missing count excludes these pending keys,
   so that count does not measure this batch. Catalogs without the new keys
   still fail full key-order checks. Browser scenarios for Finnish, Arabic and
@@ -1882,6 +1882,18 @@ HTTP-header authentication, stored-value removal and restart guidance.
 This release updates the following translations:
 
 **Login settings** - clearer guidance in the Admin Panel.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2f148be4ac975cf61de82e80ded22223e41a8f54">Extend login-setting translations to 32 more locales</a>. Thanks to xet7.</summary>
+
+- Translate the three messages in 31 more physical catalogs and a shared Khmer
+  alias, bringing the batch coverage to 133 locale paths.
+- Existing translations remain unchanged. Locale-wide key-order, placeholder
+  and human-preference checks pass.
+- Kyrgyz, Mongolian, Burmese, Khmer, Pashto, Sindhi and Uyghur technical wording
+  is provisional and needs speaker review. Remaining locales stay in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/30881d1c41d1d22618ecd97810097bc4cea3ad7c">Translate login-setting messages in 101 locales</a>. Thanks to xet7.</summary>
