@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/df69b20ffc5b3d85ed6d93a0cfb2fd7a888a6b5c">Correct 25 damaged or mixed-language Akan cloud-storage messages.</a></summary>
+
+- Restore provider names, navigation labels and permission roles from the English source; translate surrounding guidance and storage controls.
+- Add source-token, name and scope regression checks. Technical terminology remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages; restored product-only labels are excluded by the counter. The broader language audit continues.
+- Validation: 88 focused translation/parser tests and 21 human-preference checks pass. Browser and live provider-console checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/be0032f2ed093cf2c4181757ef01a03402988fec">Correct 24 damaged or mixed-language Akan support and lockout labels.</a></summary>
 
 - Rewrite support, memory, storage and lockout labels. Preserve technical identifiers, credential distinctions and enabled/disabled states.
