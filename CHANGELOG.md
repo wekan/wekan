@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/27c404777fd0c80a3e79acea07c6b1e13ee1d868">Translate Bhojpuri text inputs and keyboard navigation</a></summary>
+
+- Fill 30 English placeholders for text/number inputs, keyboard navigation and
+  empty-list creation, preserving existing translations and formatting tokens.
+- Statement-position wording remains low confidence pending fluent review.
+- All 44 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5aea181bf2d3ae00ac8c0f31c879bb0a9153d80e">Translate Bhojpuri Blockly input labels</a></summary>
 
 - Fill 31 English placeholders for conditions, list boundaries, loop increments,
