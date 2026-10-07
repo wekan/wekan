@@ -3296,6 +3296,12 @@ Filled three English placeholders in `iu` using syllabics. The direct draft reta
 
 Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in three locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
 
+### Signed-in board visibility: Wolaytta
+
+Filled three English placeholders in `wal`. The direct draft preserves signed-in viewing, anonymous exclusion, board-member editing and confirmation emphasis, following the existing board term. The fill utility protected existing translations; no translation service was used. [The Wolaytta Language](https://dokumen.pub/the-wolaytta-language.html) supplies roots for entering and seeing, while [Wakasa's grammar study](https://www.janestudies.org/wp-content/uploads/2018/files/NES_no19%282014%29_Wakasa.pdf) informs the negative construction. Login phrasing, negation, membership wording and the existing board noun have low confidence and need fluent-speaker review. These references do not validate the full draft.
+
+Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in two locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
