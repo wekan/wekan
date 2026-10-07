@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d254baf5a1d07cc9b586ba000b73e659b26fedb7">Correct 60 Akan attachment, storage and account-control translations.</a></summary>
+
+- Replace generic filler in tickets, attachment moves, storage diagnostics, accessibility and account lockouts. Restore storage provider names and preserve identifiers and second units.
+- Add token, identifier, unit, paired-control and shared-label checks. Specialized compaction, migration and accessibility wording remains provisional.
+- The exact generic-filler inventory decreases from 219 to 159. English placeholders remain 45,599 across 70 languages because these corrections replace non-English values.
+- Validation: 52 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/088a3f1ef7f84bb16c704d85ce9ffa6d4de44b8a">Correct 60 Akan dependency, location and report labels.</a></summary>
 
 - Replace generic filler in navigation, completion, dependency relations, locations, reports and wait indicators. Restore Arial and API identifiers.
