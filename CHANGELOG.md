@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/367a9b204165cd7c20af5f568b3ff5ef7e748270">Correct 24 mixed-language Akan filter and import messages.</a></summary>
+
+- Rewrite filter, export and import guidance. Restore JSON field names, API paths, spreadsheet headers, Trello product names and advanced-filter examples.
+- Add source-token, exact-example, escape and ZIP-error checks. Technical filter and import wording remains provisional.
+- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
+- Validation: 62 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5cc289611b9bdfbf8b842d53efb8677637fbb7d1">Correct 24 mixed-language Akan permission and error messages.</a></summary>
 
 - Rewrite access descriptions, account errors and export labels. Preserve assigned-only visibility, read-only restrictions and the distinction between enabling deletion and deleting data.
