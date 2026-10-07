@@ -5011,6 +5011,12 @@ mixed-language audit remains open.
 - Distinguished returning an item without removal, removing and returning it, and removal alone across all four position modes. Empty-list wording retains length 0 and no data records.
 - Extended corrected-key/token checks and positive/negative operation wording checks. Programming return, random selection and end-relative indexing terminology remains provisional and needs contextual review. Browser and spoken accessibility checks remain unexecuted.
 
+### Waray Blockly list indexing, insertion and replacement
+
+- Filled 30 English placeholders through the protected workflow: sublists, indexed search, empty/length checks, repetition, reversal, insertion/replacement and ascending order. Preserved numbered arguments and literal position markers.
+- Retained the not-found return value, copy semantics of sublist/reversal operations, and distinctions between insertion and changing an existing value. First/last and counting from the end remain separate.
+- Extended token, missing-result, copy and operation checks. Index terminology and ascending-order phrasing remain provisional, particularly for nonnumeric sorting. Browser and spoken accessibility checks remain unexecuted; contextual language review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
