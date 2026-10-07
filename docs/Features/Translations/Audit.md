@@ -6194,6 +6194,23 @@ recalling queued mail. The shared catalog completeness check still fails on
 missing shortcut-edit-due-date keys in other locales. Browser and screen-reader
 checks were not run. The broader language and wording audit remains open.
 
+## Māori Blockly text operations — 2026-10-08
+
+Filled 55 English placeholders for text creation, searching, replacement,
+case changes, character positions, prompts and trimming. Existing translations
+are preserved. Pūmatua, pūriki and āputa follow the
+[Paekupu literacy glossary](https://paekupu.co.nz/words/wordlist/te-reo-matatini/english-to-maori).
+These terms support the vocabulary, not full-sentence fluency. Index,
+substring and variable wording remains provisional pending speaker review.
+
+The combined focused run passes 47 checks, including all 11 Māori checks.
+Two shared catalog checks still fail because other locales lack the
+shortcut-edit-due-date source key. All 21 human-preference checks pass.
+Regression coverage preserves tokens, search operands and failure return,
+replacement arguments, all-occurrence semantics, case distinctions, trim
+directions and number/text prompts. Browser and screen-reader checks were
+not run. The broader language and wording audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
