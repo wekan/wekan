@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **46,444 untranslated locale/string values in 70 languages**. It
+  report counts **46,404 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -2074,6 +2074,18 @@ uses the same word as `checklist` itself.
 </details>
 
 **Translations** — continued language coverage and corrections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9b9c7ea815c65120a8ec7fe83d65f0d820b9a159">Translate 40 Waray Scrum report messages and correct the Export label.</a></summary>
+
+- Fill events, states, confirmations, reports and daily observations. Preserve count/reference tokens, UTC, unknown-estimate distinctions and separate export scopes.
+- Correct the wrong-language Export label and extend scope, state, unit and limit checks. Scrum terminology remains provisional and requires contextual review.
+- English placeholders decrease from 46,444 to 46,404 across 70 languages, with 148 source keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3c6fa1d57cc3e66cbe4b0a7c2497a1c52627144f">Translate 54 Waray rule-editor and Scrum-planning messages.</a></summary>
