@@ -5255,6 +5255,12 @@ Filled 27 English messages for pending notification delivery, retries, pause/res
 
 Regression checks compare source tokens, distinguish delivery states and controls, and cover retained work and cancellation language. Recovery and reservation terminology remains provisional. Browser checks were not run. Akan now has 29 exact-English entries in the placeholder report, consisting of keyboard names, operating-system names and mathematical notation; this does not establish the correctness of the rest of the catalog.
 
+### Akan generic filler correction: board, voting and display controls
+
+Found 596 entries using the same unrelated activity-information phrase (`Nsɛm a ɛfa dwumadi yi ho`). Corrected the first 60 board, voting, typography and display labels, including restoring numeric poker choices and `?` exactly as in English. These existing non-English values were semantically wrong and were corrected directly rather than passed through the English-only fill tool.
+
+Regression coverage rejects the old filler, checks source token inventories, literal voting values, the zoom range and opposite controls. Specialized theme, dependency and template labels remain provisional. Browser checks were not run; 536 instances of this exact filler remain for subsequent correction.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
