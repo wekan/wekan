@@ -5827,6 +5827,21 @@ for variables, functions, loops and the block backpack remain low-confidence
 drafts pending fluent-speaker review. This batch does not complete Blockly or
 the all-language audit.
 
+## Somali Blockly lists — 2026-10-07
+
+Translated 75 English list messages: 73 counted placeholders and two short
+fragments (`to #` and `as`) omitted by the placeholder counter. Existing Somali
+translations remain unchanged. Regression checks cover every list key, allowing
+source-empty suffixes, help URLs and index symbols to remain unchanged. They
+preserve argument inventories, empty-list results, missing-item results, first
+and last indexing, get/remove/get-and-remove distinctions, insertion versus
+replacement, copies, sort direction and text/list conversion direction.
+
+All 53 focused translation/structural tests and 21 human-preference checks pass.
+Browser checks were not run. Programming vocabulary for indexing, delimiters
+and sorting remains low confidence pending fluent-speaker review. The broader
+language audit continues; placeholder counts alone omit some untranslated prose.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

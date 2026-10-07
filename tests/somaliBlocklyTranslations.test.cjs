@@ -9,7 +9,7 @@ const editingKeys=["blockly-CANNOT_DELETE_VARIABLE_PROCEDURE", "blockly-CHANGE_V
 test('Somali Blockly editing and control flow preserve source argument inventories',()=>{
  assert.equal(editingKeys.length,61);
  for(const key of editingKeys){
-  assert.ok(data[key].trim(),key);
+  if(english[key].trim()) assert.ok(data[key].trim(),key);
   assert.notEqual(data[key],english[key],key);
   assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
  }
@@ -37,4 +37,39 @@ test('Somali Blockly colour controls retain separate channels and numeric limits
  assert.match(data['blockly-COLOUR_BLEND_TOOLTIP'],/0\.0 - 1\.0/);
  assert.match(data['blockly-COLOUR_BLEND_COLOUR1'],/1$/);
  assert.match(data['blockly-COLOUR_BLEND_COLOUR2'],/2$/);
+});
+
+test('Somali Blockly list operations retain arguments, endpoints and empty results',()=>{
+ const keys=Object.keys(english).filter(k=>k.startsWith('blockly-LISTS_'));
+ assert.ok(keys.length>=73);
+ for(const key of keys){
+  if(english[key].trim()) assert.ok(data[key].trim(),key);
+  // Help URLs and index symbols are deliberately identical in every language.
+  if(!key.endsWith('_HELPURL') && /[A-Za-z]{2}/.test(english[key])) assert.notEqual(data[key],english[key],key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ assert.match(data['blockly-LISTS_CREATE_EMPTY_TOOLTIP'],/0.*aan lahayn/);
+ assert.match(data['blockly-LISTS_ISEMPTY_TOOLTIP'],/run haddii liisku madhan/);
+ assert.match(data['blockly-LISTS_INDEX_OF_TOOLTIP'],/%1 haddii shayga la waayo/);
+ assert.match(data['blockly-LISTS_INDEX_FROM_START_TOOLTIP'],/%1.*koowaad/);
+ assert.match(data['blockly-LISTS_INDEX_FROM_END_TOOLTIP'],/%1.*ugu dambeeya/);
+ for(const suffix of ['FIRST','FROM','LAST','RANDOM']){
+  assert.match(data['blockly-LISTS_GET_INDEX_TOOLTIP_GET_'+suffix],/^Soo celi/);
+  assert.match(data['blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_'+suffix],/^Ka saar oo soo celi/);
+  assert.match(data['blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_'+suffix],/^Ka saar/);
+  assert.doesNotMatch(data['blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_'+suffix],/soo celi/);
+  assert.notEqual(data['blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_'+suffix],data['blockly-LISTS_SET_INDEX_TOOLTIP_SET_'+suffix]);
+ }
+});
+
+test('Somali Blockly list sorting and conversion preserve copies and direction',()=>{
+ for(const key of ['blockly-LISTS_GET_SUBLIST_TOOLTIP','blockly-LISTS_REVERSE_TOOLTIP','blockly-LISTS_SORT_TOOLTIP']) assert.match(data[key],/nuqul/);
+ assert.match(data['blockly-LISTS_SORT_ORDER_ASCENDING'],/^kor/);
+ assert.match(data['blockly-LISTS_SORT_ORDER_DESCENDING'],/^hoos/);
+ assert.match(data['blockly-LISTS_SORT_TYPE_IGNORECASE'],/iska dhaaf far waaweyn iyo far yaryar/);
+ assert.match(data['blockly-LISTS_SPLIT_LIST_FROM_TEXT'],/^qoraalka u beddel liis$/);
+ assert.match(data['blockly-LISTS_SPLIT_TEXT_FROM_LIST'],/^liiska u beddel qoraal$/);
+ assert.match(data['blockly-LISTS_SPLIT_TOOLTIP_JOIN'],/hal qoraal.*calaamad kala soocda/);
+ assert.match(data['blockly-LISTS_SPLIT_TOOLTIP_SPLIT'],/meel kasta.*calaamadda kala soocdu/);
+ for(const key of ['GET_INDEX','GET_SUBLIST','INDEX_OF','SET_INDEX']) assert.equal(data['blockly-LISTS_'+key+'_INPUT_IN_LIST'],data['blockly-LISTS_INLIST']);
 });
