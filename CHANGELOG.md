@@ -1890,6 +1890,19 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a8db74f37123d9306f1fac5086da9b4ca0a6b0c3">Translate URL scheme hint in Tigre</a>. Thanks to xet7.</summary>
+
+- Fill the English hint while preserving literal scheme names and existing
+  translations. Record low-confidence terminology and grammar for fluent review.
+- Hint checks cover 65 recently filled locales. Parser, sanitizer, locale structure
+  and human-preference checks pass. Browser scenarios were syntax-checked only;
+  the application stack is unavailable.
+- Only Cherokee still has this hint in English. The broader backlog remains 51,575
+  ordinary missing values plus 172 pending source keys; quality review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c98ea17f1adf00bc28d94535f243563dde0aba84">Translate URL scheme hint in Wolaytta</a>. Thanks to xet7.</summary>
 
 - Fill the English hint while preserving literal scheme names and existing
