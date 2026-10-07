@@ -2653,6 +2653,25 @@ not run; the app stack was unavailable. 6 locale paths still need this group.
 The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
 broader language-quality review remains open.
 
+### Rule-builder instructions — Klingon (2026-10-07)
+
+Filled seven pending strings in tlh, preserving existing translations and all
+literal variable expressions. No translation service was used. The text retains
+any-trigger behavior, ordered actions, username/email context and card-derived
+variables. Technical prose has lower confidence; complex noun phrases, recipient
+fields and the composed date fragment need speaker/UI review. The software label
+card remains a borrowed word rather than a claimed canonical Klingon term.
+References include the [Klingon suffix guide](https://klingonska.org/dict/suffix.html)
+and [reference tables](https://klingonska.org/dict/tables.html).
+These references support grammatical choices, not full-sentence accuracy.
+
+The existing trigger-variable suite now checks 61 recently filled locales for
+source order and exact brace/underscore/percent tokens. Runtime matching,
+all-locale structural and human-preference checks pass. Browser scenarios were
+not run; the app stack was unavailable. 5 locale paths still need this group.
+The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
+broader language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
