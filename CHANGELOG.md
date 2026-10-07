@@ -1890,6 +1890,20 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1c2fe314e5295d9587a0345cd775cf390e7e8b8e">Translate rule-builder instructions in Kurdish, Sorani and Papiamento</a>. Thanks to xet7.</summary>
+
+- Fill seven strings in three locales, preserving literal variable expressions,
+  any-trigger behavior and ordered actions. Date-condition fragments and trigger
+  terminology need native/UI review.
+- Translation checks now cover six recently filled locales. Runtime variable tests,
+  all-locale structural and human-preference checks pass. Browser scenarios were
+  not run; the app stack was unavailable.
+- 60 locale paths still need this group. The ordinary backlog remains 51,575 values
+  plus 181 pending source keys; broader language-quality review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b4beb5559b169df98373b426f3df0afc6f841571">Translate rule-builder instructions in Turkmen, Tatar and Somali</a>. Thanks to xet7.</summary>
 
 - Fill seven strings in three locales, preserving literal rule-variable expressions.
