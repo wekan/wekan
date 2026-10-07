@@ -7344,6 +7344,14 @@ and retain deletion counts, bitmap coordinates and help keys. Bitmap-column and
 inline-input wording remains low confidence pending fluent review. Browser and
 screen-reader checks were not run.
 
+### Bhojpuri Blockly condition, list and number inputs
+
+Filled 31 English placeholders for input labels, list boundaries, loop increments,
+math operands and coordinates. Existing text is preserved. Tests compare source
+tokens and key order, distinguish start/end positions and division operands,
+and retain x/y coordinates. Delimiter and operand wording remains low confidence
+pending fluent review. Browser and screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
