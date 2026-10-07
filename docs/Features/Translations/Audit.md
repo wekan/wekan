@@ -5758,6 +5758,25 @@ spent-versus-remaining time. Aligned account-creation titles. Added token, produ
 and meaning checks. Technical wording remains low confidence pending fluent-speaker
 review; browser checks remain unrun. English-placeholder counts are unchanged.
 
+## Somali Scrum planning and reports — 2026-10-07
+
+Filled 84 English placeholders in `so`, covering sprint planning, lifecycle,
+completion policies, report limitations and daily observations. Existing Somali
+translations remain unchanged. The regression suite covers all 102 Scrum/view
+messages, including the 18 translated earlier, and verifies source tokens,
+distinct lifecycle states, unknown versus zero estimates, partial visibility,
+the first UTC observation, omitted days, the 366-observation limit and the
+separate report export controls. Export references use the existing `Soo saar`
+label; swimlane wording follows the existing `Waddo` vocabulary.
+
+Terminology reference: [qiyaas in Wiktionary](https://en.wiktionary.org/wiki/qiyaas).
+The Somali civics textbook's [work-planning chapter](https://files.ethiopialearning.com/textbooks/Grade%2008/Grade_8_Subject_CIVICS_Chapter_8_Language_SOMALI_Retrieved_20150101.pdf)
+provides usage of `qorshe shaqo`. Sprint is rendered descriptively as a work cycle;
+Scrum and Planning Poker remain recognizable method names. Technical compounds,
+especially snapshot, increment and retrospective, remain low-confidence drafts
+pending fluent-speaker review. Automated checks establish structure and selected
+semantic distinctions, not fluency. Browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
