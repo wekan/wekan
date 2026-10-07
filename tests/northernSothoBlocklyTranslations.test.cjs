@@ -65,3 +65,21 @@ test('Northern Sotho Blockly functions preserve arguments and output distinction
  assert.match(data['blockly-PROCEDURES_IFRETURN_WARNING'],/fela ka gare ga tlhaloso ya mošomo/);
  assert.match(data['blockly-PROCEDURES_IFRETURN_TOOLTIP'],/nnete.*boleng bja bobedi/);
 });
+
+test('Northern Sotho Blockly loops retain continuation and boolean conditions',()=>{
+ for(const key of Object.keys(english).filter(k=>k.startsWith('blockly-CONTROLS_'))){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  if(english[key]&&!key.endsWith('_HELPURL')) assert.notEqual(data[key],english[key],key);
+ }
+ assert.match(data['blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_BREAK'],/^Tšwa poeletšong/);
+ assert.match(data['blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_CONTINUE'],/Tshela karolo ye e šetšego.*potologo ye e latelago/);
+ assert.match(data['blockly-CONTROLS_FLOW_STATEMENTS_WARNING'],/fela ka gare ga poeletšo/);
+ assert.match(data['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL'],/maaka/);
+ assert.match(data['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE'],/nnete/);
+ assert.match(data['blockly-CONTROLS_IF_TOOLTIP_4'],/Ge go se na boleng bjo e lego nnete.*boloko ya mafelelo/);
+ assert.match(data['blockly-CONTROLS_FOR_TITLE'],/%1.*%2.*%3.*%4/);
+ assert.equal(data['blockly-CONTROLS_IF_ELSEIF_TITLE_ELSEIF'],data['blockly-CONTROLS_IF_MSG_ELSEIF']);
+ assert.equal(data['blockly-CONTROLS_IF_ELSE_TITLE_ELSE'],data['blockly-CONTROLS_IF_MSG_ELSE']);
+ assert.equal(data['blockly-CONTROLS_IF_IF_TITLE_IF'],data['blockly-CONTROLS_IF_MSG_IF']);
+ for(const kind of ['FOREACH','FOR','WHILEUNTIL']) assert.equal(data['blockly-CONTROLS_'+kind+'_INPUT_DO'],data['blockly-CONTROLS_REPEAT_INPUT_DO']);
+});

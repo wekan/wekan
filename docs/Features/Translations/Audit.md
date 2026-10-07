@@ -6044,6 +6044,19 @@ Browser checks were not run. Technical vocabulary for functions and parameters
 remains low confidence pending fluent-speaker review. The broader language and
 wording audit stays open.
 
+## Northern Sotho Blockly control flow — 2026-10-07
+
+Translated 33 English values: 26 counted placeholders and seven short if/do
+labels omitted by the counter. Existing translations and help URLs remain
+unchanged. Tests cover every control-flow key, source tokens, loop exit versus
+continuation, while-true versus until-true, the final conditional fallback,
+counting arguments and shared conditional/loop labels.
+
+All 52 focused translation/structural tests and 21 human-preference checks pass.
+Browser checks were not run. Programming vocabulary for loops, variables and
+conditions remains low confidence pending fluent-speaker review. The remaining
+language and wording audit stays open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
