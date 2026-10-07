@@ -3402,6 +3402,12 @@ References include [Tigrinya warning usage](https://www.lni.wa.gov/safety-health
 
 Ten translation/token regressions, import-loss positive/negative checks, all 234 locale structure checks and 21 human-preference checks pass. Extended browser cases to both locales; they were syntax-checked only because the local Playwright executable and running application are unavailable. Each source key remains English in nine locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
 
+### Import warning report: Volapük
+
+Filled three English placeholders in `vo`. The fill utility protected existing translations; no translation service was used. The [English-Volapük dictionary](https://xn--volapk-7ya.com/EnVoDictionary-20100830.pdf) supplies `nuned` (warning), `nüveigön` (import), `ragiv` (computer file), `nunod` (report), `jafön` (create), `kipön` (retain) and `maifükön` (open). These support the vocabulary, not the complete sentences. Passive tense, agreement and technical use of the import verb have low confidence and need fluent-speaker review. Existing menu terminology remains a broader review item.
+
+Ten translation/token regressions, import-loss positive/negative checks, all 234 locale structure checks and 21 human-preference checks pass. Extended the browser case to Volapük; it was syntax-checked only because the local Playwright executable and running application are unavailable. Each source key remains English in eight locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
