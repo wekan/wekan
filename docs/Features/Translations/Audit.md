@@ -4827,6 +4827,13 @@ mixed-language audit remains open.
 - Low confidence: the angle term may imply a right-angle corner rather than any angle. Pixel is a provisional loan in an image-made-of-pixels phrase; grid is paraphrased using small containers; input uses a writing place and function uses ordinary work/task. Case endings and technical meanings need review. Checkbox reuses the existing marking-place label and date uses day. These references attest vocabulary, not complete technical phrases. The school mathematics glossary was located but could not be fetched, so it was not treated as evidence for a replacement angle term.
 - Existing browser coverage includes Inuktitut but remains unexecuted; spoken announcements, the 148 pending source keys and the broader semantic audit remain open.
 
+### Standard Moroccan Tamazight field types
+
+- Filled 11 English field-type placeholders in Tifinagh through the protected fill and extended field-type distinctions and source-token checks. Existing non-English values were preserved.
+- [MediaWiki's zgh catalog](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) supplies Moroccan Tamazight image, list, date and name vocabulary. The [comparative Amazigh morphology study](https://dspace.ummto.dz/bitstreams/817d0a81-a14f-4ca9-9010-d6467bd4dd02/download) records angle/corner vocabulary across varieties; [this glossary](https://es.scribd.com/document/955571079/AMAWAL-TAMAZIGHT-TAFRANSIST) gives color vocabulary. Wider Amazigh usage is not by itself confirmation of a Standard Moroccan technical term.
+- Low confidence: angle and color terminology need locale-specific review; pixel is a provisional loan, grid is described using boxes, input uses insertion and function uses ordinary work/function vocabulary. Checkbox and dropdown reuse existing catalog phrases without claiming independent validation. The full technical phrases and their inflections remain provisional.
+- Existing browser flows include this locale but remain unexecuted. Spoken announcements, the 148 pending source keys and the broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
