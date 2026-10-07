@@ -4820,6 +4820,13 @@ mixed-language audit remains open.
 - Low confidence: pixel inflection and the image-made-of-pixels phrase, a markable item for checkbox, grid as division into boxes, and the grammatical form of input/function names need review. Dropdown reuses the catalog's selection-list phrase; date uses day. The references attest component vocabulary and related uses, not the complete technical labels.
 - Existing Greenlandic browser flow is registered but unexecuted. Spoken announcements, the 148 pending source keys and the broader semantic audit remain open.
 
+### Inuktitut field types
+
+- Filled 11 English field-type placeholders through the protected fill, preserving existing non-English values and extending source-token and field-type distinction checks.
+- Vocabulary references: the [Inuit roots vocabulary](https://www.scribd.com/document/360705405/roots-en) defines `tiriqquq` as the corner/angle of a square or rectangular object. [Nunavut's Putuja Putuja lesson plans](https://www.gov.nu.ca/sites/default/files/documents/2025-10/Putuja_Putuja_Program_-_Lesson_Plans_for_Facilitators_ENG.pdf) use color vocabulary, and the [Inuusiq arts and crafts book](https://inuusiq.com/wp-content/uploads/2025/04/ELC-Arts-Crafts-Adult-Book-IK-EN-FINAL-1.pdf) uses `ᐊᔾᔨᙳᐊᖅ` for picture.
+- Low confidence: the angle term may imply a right-angle corner rather than any angle. Pixel is a provisional loan in an image-made-of-pixels phrase; grid is paraphrased using small containers; input uses a writing place and function uses ordinary work/task. Case endings and technical meanings need review. Checkbox reuses the existing marking-place label and date uses day. These references attest vocabulary, not complete technical phrases. The school mathematics glossary was located but could not be fetched, so it was not treated as evidence for a replacement angle term.
+- Existing browser coverage includes Inuktitut but remains unexecuted; spoken announcements, the 148 pending source keys and the broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
