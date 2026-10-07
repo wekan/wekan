@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Sunthani mzere wosambira",
   "custom-field-stringtemplate": "Chitsanzo cha mawu",
   "custom-field-stringtemplate-format": "Kapangidwe (gwiritsani ntchito %{value} ngati chosungira malo)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Gwiritsani ntchito %{card.title}, %{board.title}, %{list.title} kapena %{swimlane.title}. Onjezani |urlencode ku chosinthika kuti chigwiritsidwe ntchito ngati paramita ya URL, mwachitsanzo %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Cholekanitsa (gwiritsani ntchito &#32; kapena &nbsp; pa mpata)",
   "custom-field-stringtemplate-item-placeholder": "Dinani Enter kuti muwonjezere zinthu zina",
   "creator": "Wopanga",

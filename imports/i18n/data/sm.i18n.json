@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Siitia le Ala",
   "custom-field-stringtemplate": "Faataitaiga o le Manoa",
   "custom-field-stringtemplate-format": "Faatulagaga (faaaoga %{value} e fai ma mea suitulaga)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Faaaoga %{card.title}, %{board.title}, %{list.title} po o %{swimlane.title}. Faaopoopo |urlencode i se fesuiaiga e faaaogā e fai ma tapulaa URL, mo se faataitaiga %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Tuueseese (faaaoga &#32; po o &nbsp; mo se avanoa)",
   "custom-field-stringtemplate-item-placeholder": "Oomi le Enter e faaopoopo ai nisi mea",
   "creator": "Lē na Faia",

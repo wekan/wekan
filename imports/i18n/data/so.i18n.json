@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Dhaqaaji Waddada",
   "custom-field-stringtemplate": "Qaab-dhismeedka Xarafka",
   "custom-field-stringtemplate-format": "Qaabka (u adeegso %{value} meeleeye ahaan)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Adeegso %{card.title}, %{board.title}, %{list.title} ama %{swimlane.title}. Ku dar |urlencode doorsoome si loogu isticmaalo halbeeg URL ah, tusaale ahaan %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Kala-saaraha (u adeegso &#32; ama &nbsp; meel bannaan)",
   "custom-field-stringtemplate-item-placeholder": "Riix enter si aad walxo kale ugu darto",
   "creator": "Abuure",

@@ -3,6 +3,23 @@ const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { openBoard } = require('../helpers/auth');
 
+for (const language of ['en', 'ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm']) {
+  const locale = require(`../../../imports/i18n/data/${language}.i18n.json`);
+  test(`String Template help preserves literal examples and is hidden for other field types (${language})`, async ({ loggedInPage: page, board }) => {
+    await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
+    await openBoard(page, board.boardId, board.slug);
+    await page.locator('.js-minicard .minicard-title').first().click();
+    await page.locator('.js-open-custom-fields-settings').click();
+    await page.locator('.js-open-create-custom-field').click();
+    await page.locator('.js-field-type').selectOption('stringtemplate');
+    const hint = page.locator('.js-field-settings-stringtemplate p.quiet');
+    await expect(hint).toBeVisible();
+    await expect(hint).toHaveText(locale['custom-field-stringtemplate-context-hint']);
+    await page.locator('.js-field-type').selectOption('text');
+    await expect(hint).toBeHidden();
+  });
+}
+
 function seedField(board, format, values) {
   db.updateOne('boards', { _id: board.boardId }, { $set: { allowsCustomFieldsOnMinicard: true } });
   const card = db.find('cards', { boardId: board.boardId })[0];

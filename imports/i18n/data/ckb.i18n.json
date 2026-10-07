@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "ڕێڕەو بگوازەوە",
   "custom-field-stringtemplate": "قاڵبی زنجیرە",
   "custom-field-stringtemplate-format": "شێواز (%{value} وەک جێگرەوە بەکاربهێنە)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "%{card.title}، %{board.title}، %{list.title} یان %{swimlane.title} بەکاربهێنە. بۆ پارامەتەرێکی URL، |urlencode زیاد بکە بۆ گۆڕاوێک، بۆ نموونە %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "جیاکەرەوە (&#32; یان &nbsp; بۆ بۆشایی بەکاربهێنە)",
   "custom-field-stringtemplate-item-placeholder": "Enter دابگرە بۆ زیادکردنی بڕگەی زیاتر",
   "creator": "دروستکەر",

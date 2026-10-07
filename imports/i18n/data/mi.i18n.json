@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Neke Kauhanga",
   "custom-field-stringtemplate": "Tātauira Aho",
   "custom-field-stringtemplate-format": "Hōputu (whakamahia te %{value} hei puriwāhi)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Whakamahia te %{card.title}, te %{board.title}, te %{list.title}, te %{swimlane.title} rānei. Tāpiritia te |urlencode ki tētahi taurangi mō tētahi tawhā URL, hei tauira %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Kaiwehe (whakamahia te &#32;, te &nbsp; rānei mō tētahi mokowā)",
   "custom-field-stringtemplate-item-placeholder": "Pēhia te enter hei tāpiri tūemi anō",
   "creator": "Kaiwaihanga",

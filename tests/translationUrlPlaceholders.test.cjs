@@ -311,6 +311,32 @@ test('Leo outline import instructions have non-English values in all locales', a
   assert.match(fi, /Merkityt solmut tuodaan valmiina/);
 });
 
+test('String Template hints retain executable variable examples and URL encoding syntax', async () => {
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  const { formatStringTemplate } = require('../models/lib/customFieldStringTemplate');
+  const key = 'custom-field-stringtemplate-context-hint';
+  const source = JSON.parse(fs.readFileSync(path.join(directory, 'en.i18n.json')))[key];
+  for (const code of ['ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm']) {
+    const locale = JSON.parse(fs.readFileSync(path.join(directory, code + '.i18n.json')));
+    const value = locale[key];
+    assert.ok(value?.trim(), code);
+    assert.notEqual(value, source, code);
+    assert.deepEqual(translationTokens(value), translationTokens(source), code);
+    assert.equal((value.match(/\|urlencode/g) || []).length, 2, code);
+    for (const token of translationTokens(value)) {
+      const context = { 'card.title': 'Card', 'board.title': 'Board', 'list.title': 'List', 'swimlane.title': 'Lane' };
+      const result = formatStringTemplate(['a & ö'], token, '', context);
+      assert.equal(result, token.includes('|urlencode') ? 'a%20%26%20%C3%B6' : context[token.slice(2, -1)], code + ':' + token);
+    }
+    if (code === 'tt') {
+      assert.match(locale['custom-field-stringtemplate-format'], /урын тоткыч/);
+      assert.doesNotMatch(locale['custom-field-stringtemplate-format'], /йер|олэзләк/);
+      assert.match(locale['custom-field-stringtemplate-separator'], /&#32; яки &nbsp;/);
+      assert.doesNotMatch(locale['custom-field-stringtemplate-separator'], /вейа|&нбсп;/);
+    }
+  }
+});
+
 test('saved filter translations preserve tokens and distinct operation messages', async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   const source = JSON.parse(fs.readFileSync(path.join(directory, 'en.i18n.json')));

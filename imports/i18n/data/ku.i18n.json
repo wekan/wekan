@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Rêçê bar bike",
   "custom-field-stringtemplate": "Şablona rêzê",
   "custom-field-stringtemplate-format": "Şêwe (%{value} wek cîgir bi kar bîne)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "%{card.title}, %{board.title}, %{list.title} an %{swimlane.title} bi kar bîne. Ji bo parametreyeke URL, |urlencode li guherbarekê zêde bike, mînak %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Veqetîner (ji bo valahiyê &#32; an &nbsp; bi kar bîne)",
   "custom-field-stringtemplate-item-placeholder": "Enter pêl bike da ku hêmanên din zêde bikî",
   "creator": "Afirîner",

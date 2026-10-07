@@ -4367,6 +4367,13 @@ mixed-language audit remains open.
 - Expanded the saved-filter translation check to all 234 non-English locales, checking nonempty non-English values, token inventory and distinct operation messages. All 15 focused Node tests and 21 human-preference checks pass. Extended positive and negative browser coverage to the final three locales; syntax passes, but execution remains unverified because the local Playwright executable is unavailable.
 - All ten saved-filter strings now have non-English values in all non-English locales. Ordinary placeholders decrease from 50,295 to 50,265 across 70 languages; 148 pending keys still require wording review. This completes placeholder coverage for this group, not the full translation or semantic audit.
 
+## String Template context hint: first seven placeholder locales (2026-10-07)
+
+- Filled the context-variable and URL-encoding hint in Kurmanji, Sorani, Tatar, Somali, Chichewa, Māori and Samoan. Preserved all five literal variable examples and both occurrences of `|urlencode`. Technical wording, particularly in Chichewa and Samoan, remains provisional and requires semantic review.
+- Corrected the adjacent Tatar format and separator labels, replacing mixed Crimean Turkic wording with Tatar and restoring the malformed `&nbsp;` entity. Added regression coverage for these corrections.
+- All 23 focused Node tests and 21 human-preference checks pass. The tests compare token inventories and execute each documented variable example through the formatter; existing negative tests cover unknown paths and invalid formatting. Added localized browser checks for the visible hint and its absence for another field type. Browser syntax passes; execution remains unverified because the local Playwright executable is unavailable.
+- Ordinary placeholders decrease from 50,265 to 50,258 across 70 languages. The 148 pending source keys still require wording review, and the broader translation and semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
