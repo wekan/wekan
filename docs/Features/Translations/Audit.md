@@ -6587,6 +6587,12 @@ Corrected 32 mixed-language rule-builder labels, trigger descriptions and rule i
 
 Validation: 103 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. Mixed-language values require this wording audit independently of the English-placeholder counter.
 
+## Tok Pisin rule-action wording audit
+
+Corrected 25 mixed-language rule actions and conditions, including two short English prepositions excluded from the placeholder inventory. Preserved all source tokens. Tests distinguish top/bottom positions, current versus specified lists, checking/unchecking all items, daily schedules and before/after timing. Existing coherent nearby translations remain unchanged. Wording remains provisional pending fluent-speaker review; browser and screen-reader checks were not run.
+
+Validation: 105 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. Mixed-language values require this wording audit independently of the English-placeholder counter.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

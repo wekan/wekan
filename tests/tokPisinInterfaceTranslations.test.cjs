@@ -1360,3 +1360,56 @@ test('Tok Pisin automation wording retains trigger directions and import limitat
  assert.match(data['r-workflow-help'],/rul i stap pinis.*senisim/);
  assert.equal(data['r-is'],'i');
 });
+
+
+test('Tok Pisin rule actions preserve tokens and replace mixed English',()=>{
+ const keys=[
+  "r-when-the-label",
+  "r-when-a-member",
+  "r-when-the-member",
+  "r-when-a-assignee",
+  "r-when-the-assignee",
+  "r-when-a-attach",
+  "r-when-a-checklist",
+  "r-when-the-checklist",
+  "r-when-a-item",
+  "r-when-the-item",
+  "r-set-color",
+  "r-to",
+  "r-d-send-email-to",
+  "r-when-a-card-is-moved",
+  "r-drop-action",
+  "r-w-every-day-at",
+  "r-days-before",
+  "r-days-after",
+  "r-d-move-to-top-gen",
+  "r-d-move-to-top-spec",
+  "r-d-move-to-bottom-gen",
+  "r-d-move-to-bottom-spec",
+  "r-d-check-all",
+  "r-d-uncheck-all",
+  "r-datefield"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.doesNotMatch(data[key],/When|Set kala|Drop|Every day|Days|top|bottom|its|Check|Uncheck|items|Det field/,key);
+ }
+});
+
+test('Tok Pisin rule action wording retains scope, positions and time direction',()=>{
+ for(const scope of ['gen','spec']){
+  assert.match(data['r-d-move-to-top-'+scope],/antap tru/);
+  assert.match(data['r-d-move-to-bottom-'+scope],/daun tru/);
+ }
+ for(const pos of ['top','bottom']){
+  assert.match(data['r-d-move-to-'+pos+'-gen'],/lis bilong en/);
+  assert.doesNotMatch(data['r-d-move-to-'+pos+'-spec'],/bilong en/);
+ }
+ assert.match(data['r-d-check-all'],/^Putim mak.*olgeta samting/);
+ assert.match(data['r-d-uncheck-all'],/^Rausim mak.*olgeta samting/);
+ assert.match(data['r-days-before'],/bipo/);
+ assert.match(data['r-days-after'],/bihain/);
+ assert.match(data['r-w-every-day-at'],/olgeta de.*__time__/);
+ assert.match(data['r-when-a-card-is-moved'],/narapela lis/);
+ assert.equal(data['r-to'],data['r-d-send-email-to']);
+});
