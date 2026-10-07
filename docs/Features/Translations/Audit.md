@@ -6363,6 +6363,23 @@ check still fails on missing shortcut-edit-due-date keys in other locales.
 Browser and screen-reader checks were not run. The broader language and wording
 audit remains open.
 
+## Tok Pisin Scrum planning and reports — 2026-10-08
+
+Filled 84 English placeholders for Scrum roles, settings, sprint actions,
+backlog views and reporting. Existing translations remain unchanged. Sprint,
+kat, bot, skelim and history wording follows the existing catalog. Backlog,
+scope, snapshot and completion-policy descriptions remain low confidence
+pending fluent-speaker review.
+
+Nine focused Tok Pisin checks and all 21 human-preference checks pass. Scrum
+coverage includes all 102 keys, exact source tokens, shared labels, distinct
+states/actions, cancelled sprint membership, unfinished-card destinations,
+unknown-versus-zero estimates, matching units/policies, daily sampling limits
+and section-versus-toolbar export actions. The shared catalog-completeness
+check still fails on missing shortcut-edit-due-date keys in other locales.
+Browser and screen-reader checks were not run. The broader language and
+wording audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
