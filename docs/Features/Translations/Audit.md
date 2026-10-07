@@ -3454,6 +3454,14 @@ Filled three English placeholders in `tig` and replaced the Tigrinya Admin Panel
 
 Translation/token, import-loss positive/negative and 234-locale structure suites pass (12 tests combined), as do 21 human-preference checks. Extended the Tigre browser case and syntax-checked it; execution remains unavailable without the local Playwright executable and running application. Each source key remains English in Cherokee only. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
 
+### Import warning report: Cherokee and all-locale coverage
+
+Filled the last three English placeholders in `chr` with the fill utility, preserving existing non-English values. The [Cherokee Language Consortium word list](https://language.cherokee.org/media/vdiic5hr/2024consortium.pdf), page 76, supplies the report expression. The [Cherokee Nation-hosted vocabulary](https://language.cherokee.org/media/ykahxw4v/oudictionaryeuglutan.pdf) supplies the imperative opening root (`hisduʔi`); its legacy-font text extraction is imperfect, so the syllabary rendering requires review. The heading paraphrases warnings as problems. Full sentences, passive insertion terminology, part/file phrasing and use of the report expression as a software noun remain low confidence and need fluent-speaker review.
+
+All 234 non-English locale paths now have nonempty, non-English values for the three import-report keys. Expanded the existing regression from its explicit batch list to every non-English file, checking source order, exact placeholder inventories, distinct heading/action values and two navigation separators. Hebrew and Persian legitimately use left-pointing arrows; the regression accepts either arrow direction without changing their translations. Removed these three keys from the pending inventory, now **165** source keys. This records placeholder coverage, not linguistic validation or completion of the broader goal.
+
+Translation/token, import-loss positive/negative and all-locale structural suites pass (12 tests combined), as do 21 human-preference checks. Added Cherokee to the existing browser cases and syntax-checked the file; browser execution remains unavailable without the local Playwright executable and running application. A fresh missing-value report still counts **51,575** ordinary English values across **70** languages. Wrong-language and low-confidence wording throughout the catalogs remains under review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

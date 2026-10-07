@@ -1,18 +1,6 @@
 {
   "keys": [
     {
-      "key": "import-report-heading",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "import-report-description",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "import-report-open-board",
-      "since": "2026-09-29"
-    },
-    {
       "key": "history-request-pending-undo",
       "since": "2026-09-29"
     },
