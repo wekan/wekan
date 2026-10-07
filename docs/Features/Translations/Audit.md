@@ -5581,6 +5581,15 @@ and CPU suffix. Added token, scope and terminology checks. Technical wording
 remains low confidence pending fluent-speaker review; browser checks remain
 unrun. English-placeholder counts are unchanged.
 
+## Akan drag and account guidance corrections (batch 46)
+
+Corrected 22 mixed-language or misleading drag, account and configuration labels.
+Restored Trello Card Attachments Downloader and AWS menu names from the English
+source. Preserved optional inputs, sidebar toggle targets, workspace tokens and
+connection-string alternatives. Added token, name and behavior checks. Provider
+navigation is not independently verified against live consoles. Wording remains
+low confidence pending fluent-speaker review; browser checks remain unrun.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

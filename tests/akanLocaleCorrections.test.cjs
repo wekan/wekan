@@ -823,3 +823,21 @@ test('Akan repair and monitoring labels preserve repair scope and technical name
  assert.notEqual(data['export-monitoring'],data['refresh-monitoring']);
  assert.equal(data['attachment-storage-settings'],data.storage+' nhyehyɛe');
 });
+
+
+test('Akan drag and account guidance preserve optional inputs and provider labels', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["event-category", "userDeletePopup-title", "email-address", "accounts-allowEmailChange", "r-send-email", "azure-account-name", "clipboard", "email-resetPassword-subject", "import-attachments-zip", "import-trello-workspace", "shortcut-toggle-filterbar", "shortcut-toggle-searchbar", "shortcut-toggle-sidebar", "show-desktop-drag-handles", "drag-to-resize-sidebar", "drag-to-resize-left-menu", "drag-template-here-to-share", "drag-to-connect", "drag-board", "drag-board-to-workspace", "azure-connection-string-description", "s3-access-key-menu-path"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ for(const key of ['import-attachments-zip','import-trello-workspace','azure-connection-string-description']) assert.match(data[key],/ɛnyɛ ahyɛde/i);
+ assert.match(data['import-attachments-zip'],/Trello Card Attachments Downloader/);
+ assert.match(data['azure-connection-string-description'],/edi mu.*din ne safoa ananmu/);
+ for(const key of ['shortcut-toggle-filterbar','shortcut-toggle-searchbar','shortcut-toggle-sidebar']) assert.match(data[key],/^Bue anaa to/);
+ assert.equal(new Set(['shortcut-toggle-filterbar','shortcut-toggle-searchbar','shortcut-toggle-sidebar'].map(k=>data[k])).size,3);
+ for(const label of ['AWS Console','IAM','Users','Security credentials','Access keys','Create access key','Application running outside AWS','Access key ID']) assert.ok(data['s3-access-key-menu-path'].includes(label),label);
+ assert.match(data['drag-board-to-workspace'],/__workspaces__/);
+ assert.match(data['drag-to-resize-left-menu'],/benkum/);
+ assert.equal(data['r-send-email'],data['r-d-send-email']);
+ assert.equal(data['event-category'],data['theme-category']);
+ assert.match(data['accounts-allowEmailChange'],/Ma kwan.*sesa/);
+});
