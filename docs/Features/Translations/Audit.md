@@ -766,6 +766,28 @@ reject the six former wrong-language labels. Browser mute/unmute scenarios
 include both locales and pass syntax checking only; no browser execution
 was available.
 
+## Northern Sámi notification preferences — 2026-10-07
+
+Filled 13 English placeholders in Northern Sámi (`se`), preserving existing
+translations. These keys remain pending elsewhere; the standard backlog
+stays at 51,575 values with 201 pending source keys.
+
+The wording preserves the due-date reminder/@mention exception and distinct
+member and assignee categories. Vocabulary references include
+[álo](https://en.wiktionary.org/wiki/%C3%A1lo) for always,
+[dieđáhus](https://fr.wiktionary.org/wiki/notification) for notification and
+[Ájtte's bell record](https://www.kringla.nu/kringla/objekt?referens=ajtte%2Fobjekt%2F13655)
+for biellu. Existing catalog terms supply category names. These are direct
+translations without a translation service; complete technical clauses,
+inflection and lane/custom-field expressions remain low confidence pending
+speaker review.
+
+Shared notification checks now cover 47 locales. Exact placeholders, source
+order, distinct people categories and the muting exception pass, together
+with all-locale structure and human-preference checks. The Northern Sámi
+browser mute/unmute scenario passes syntax checking only; no browser
+execution was available.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
