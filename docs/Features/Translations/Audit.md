@@ -7395,6 +7395,14 @@ ranges, and distinguish number types and quotient/remainder operations. Inverse
 trigonometry terminology remains low confidence pending fluent review. Browser
 and screen-reader checks were not run.
 
+### Bhojpuri statistics, random numbers and rounding
+
+Filled 29 English placeholders for list statistics, random numbers, powers,
+rounding and absolute values. Existing translations are preserved. Tests compare
+source tokens and key order, distinguish statistical operations and rounding
+directions, and retain random bounds. Statistical and rounding terminology remains
+low confidence pending fluent review. Browser and screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
