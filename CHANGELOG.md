@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **48,059 untranslated locale/string values in 70 languages**. It
+  report counts **48,015 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -1986,6 +1986,18 @@ snap.
 and updates the following translations:
 
 **Activity notifications** - choosing which card activity sends notifications.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/941aa9192920aa4b468d8456dd279aae53f1c27e">Translate Swati, Tsonga, Venda and Northern Ndebele field types.</a></summary>
+
+- Fill 44 English placeholders and correct five wrong-language or filler labels in Venda and Tsonga. Preserve existing correct-language translations and source arguments.
+- Extend field-type distinctions and semantic regression coverage. Dictionary references and low-confidence technical terminology are documented in the translation audit.
+- Ordinary untranslated values decrease from 48,059 to 48,015 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 16 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/918a76c246b9444bbe48788d2bc769903745c7fd">Translate southern African Blockly field-type labels.</a></summary>
