@@ -2587,3 +2587,45 @@ test('Tok Pisin schedule failures describe scheduling rather than completed oper
  assert.match(data['hideAllChecklistItems'],/^Haitim olgeta samting long lis bilong sekim$/);
  assert.match(data['showChecklistAtMinicard'],/^Soim.*liklik kat$/);
 });
+
+
+test('Tok Pisin privacy and support labels retain tokens without mixed English',()=>{
+ const keys=[
+  "disable-import-avatars",
+  "disable-export-avatars",
+  "anonymize-import-users",
+  "anonymize-export-users",
+  "disable-watch",
+  "theme-override-all-tenants",
+  "support-page-enabled",
+  "support-title",
+  "accessibility-page-enabled",
+  "accessibility-title",
+  "cards-loading-auto",
+  "click-to-star",
+  "click-to-unstar",
+  "click-to-star-page",
+  "click-to-unstar-page"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:avatars|Anonymize|watch|Override|that|applies|Support|Accessibility|page|Automatic|lazy|big|star|unstar)\b/,key);
+ }
+});
+
+test('Tok Pisin privacy labels preserve import/export directions and favorite actions',()=>{
+ for(const prefix of ['disable','anonymize']){
+  const noun=prefix==='disable'?'avatars':'users';
+  assert.match(data[prefix+'-import-'+noun],/kam insait$/);
+  assert.match(data[prefix+'-export-'+noun],/go aut$/);
+ }
+ for(const suffix of ['','-page']){
+  assert.match(data['click-to-star'+suffix],/putim sta/);
+  assert.match(data['click-to-unstar'+suffix],/rausim sta/);
+ }
+ assert.match(data['click-to-star-page'],/pes\.$/);
+ assert.match(data['click-to-star'],/bot\.$/);
+ assert.match(data['theme-override-all-tenants'],/olgeta tenant$/);
+ assert.match(data['cards-loading-auto'],/bikpela bot tasol/);
+});

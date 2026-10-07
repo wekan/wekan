@@ -6878,6 +6878,17 @@ The combined translation run passes 156 checks. Two existing catalog checks fail
 on the missing due-date shortcut key. All 21 human-preference checks pass.
 Browser and screen-reader checks were not run. The wider audit remains open.
 
+## Tok Pisin privacy and support controls wording audit
+
+Corrected 15 mixed-language privacy, support and favorite controls. Checks
+preserve import/export directions, adding versus removing favorites, board versus
+page targets, tenant-wide settings and automatic loading for large boards.
+Wording remains provisional pending fluent-speaker review.
+
+The combined translation run passes 158 checks. Two existing catalog checks fail
+on the missing due-date shortcut key. All 21 human-preference checks pass.
+Browser and screen-reader checks were not run. The wider audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
