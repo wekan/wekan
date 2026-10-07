@@ -4439,6 +4439,13 @@ mixed-language audit remains open.
 - All four focused Node tests and 21 human-preference checks pass, covering distinct labels, token inventories, inverse relations and invalid targets. Extended localized browser editing and undo/redo coverage; existing REST negatives cover self-links and foreign-board links. Browser syntax passes, but execution remains unverified because Playwright is unavailable locally.
 - Ordinary placeholders decrease from 50,131 to 50,105 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## Duplicate-card relationship labels: twelve further locales (2026-10-07)
+
+- Filled both directed labels in Buryat, Chuvash, Sakha, Tibetan, Dzongkha, Tigrinya, Quechua, Aymara, Guarani, Veps, Volapük and Klingon (24 values). Technical wording and direction phrasing remain provisional, especially Chuvash, Veps and the constructed languages.
+- Corrected the draft Volapük noun to `kopied` using the [English–Volapük dictionary](https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary). The [Klingon Language Institute](https://www.kli.org/about-klingon/new-klingon-words/v/) confirms `velqa'` for replica/copy. These references validate vocabulary, not the complete relationship-label grammar.
+- All four focused Node tests and 21 human-preference checks pass. Extended localized browser editing and undo/redo coverage; existing negatives retain self-link and foreign-board rejection checks. Browser syntax passes, but execution remains unverified because Playwright is unavailable locally.
+- Ordinary placeholders decrease from 50,105 to 50,081 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
