@@ -1192,6 +1192,22 @@ found all six still English in 66 locales (396 values). Its description must ret
 comma separation, zero meaning the due day, positive offsets before it, negative
 offsets after it, blank meaning server default, and the -14 to 14 / ten-day limit.
 
+## Turkmen, Tatar and Somali due reminders — 2026-10-07
+
+Filled six `due-reminder-*` English placeholders in each of `tk_TM`, `tt` and
+`so` (18 values), preserving existing correct-language values. The text retains
+comma-separated days, 0 as the due day, positive days before / negative days after,
+blank as the server default, at most ten whole days and the -14 to 14 range.
+Webhook forwarding remains a separate option. Existing notification terminology
+was used as the local reference; no external translation service was used.
+
+Added source-key/token and numeric/semantic checks, and extended the existing
+board-reminder browser test to check labels plus saved/error feedback in all three
+languages. Translation and human-preference checks pass; browser coverage is
+syntax-checked only because the application stack is unavailable. The remaining
+63 locales still need this six-key group. These pending keys leave the ordinary
+backlog at 51,575 values in 70 languages plus 188 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
