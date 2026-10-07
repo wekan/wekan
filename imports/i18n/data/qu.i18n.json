@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Kay willaymi: Kuyuchiy Swimlaneta",
   "custom-field-stringtemplate": "Kay willaymi: Stringta Templateta",
   "custom-field-stringtemplate-format": "Kay willaymi: Formatta (useta %{value} asta placeholderta)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "%{card.title}, %{board.title}, %{list.title} utaq %{swimlane.title} nisqata llamk'achiy. URL parametrupaq tikraqman |urlencode nisqata yapay, kay hinata %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Kay willaymi: Separatorta (useta &#32; orta &nbspta; forta ata spaceta)",
   "custom-field-stringtemplate-item-placeholder": "Kay willaymi: Pressta enterta man Yapay moreta itemsta",
   "creator": "Kay willaymi: Creatorta",

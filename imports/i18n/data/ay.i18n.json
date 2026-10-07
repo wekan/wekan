@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "unxtayaña thakhi",
   "custom-field-stringtemplate": "Aymar aruna: String Template",
   "custom-field-stringtemplate-format": "Aymar aruna: Format (use %{value} as placeholder)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "%{card.title}, %{board.title}, %{list.title} jan ukax %{swimlane.title} apnaqam. URL parametrutaki mayjt'ir chanin chimpujaru |urlencode yapxatam, sañäni %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Separator (use &#32; jan ukax &nbsp; for a space)",
   "custom-field-stringtemplate-item-placeholder": "Press qillqantaña ukaru yapxataña jukʼampi items",
   "creator": "Aymar aruna: Creator",

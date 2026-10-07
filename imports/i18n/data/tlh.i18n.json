@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "He vIHmoH",
   "custom-field-stringtemplate": "mu'tlhegh velqa'",
   "custom-field-stringtemplate-format": "pat (%{value} yIlo'; De' Daq 'oS)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "%{card.title}, %{board.title}, %{list.title} pagh %{swimlane.title} yIlo'. URL Dalo'taHvIS De' DangeHmeH choHlaHbogh De' 'oSbogh perDaq |urlencode yIchel; ghantoH 'oH %{value|urlencode}'e'.",
   "custom-field-stringtemplate-separator": "chevwI' (chImbogh DaqvaD &#32; pagh &nbsp; yIlo')",
   "custom-field-stringtemplate-item-placeholder": "latlh De' chelmeH Enter yI'uy",
   "creator": "chenmoHwI'",

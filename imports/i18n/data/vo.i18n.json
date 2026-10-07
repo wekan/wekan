@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Mövön Dil Horitätik",
   "custom-field-stringtemplate": "Vödemarot",
   "custom-field-stringtemplate-format": "Fomät (gebolös %{value} äs pladamal)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Gebolöd %{card.title}, %{board.title}, %{list.title} u %{swimlane.title}. Lüükolöd |urlencode male pro völad votovik ad sedön völadi medü URL, samo %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Mal teila (gebön &#32; u &nbsp; pro spad)",
   "custom-field-stringtemplate-item-placeholder": "Gebolös klavi: Enter ad lüükön notetis pluik",
   "creator": "Skapator",

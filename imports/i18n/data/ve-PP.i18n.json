@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Sirdä ujundšoid",
   "custom-field-stringtemplate": "Simvolrivin šablon",
   "custom-field-stringtemplate-format": "Format (kävuta %{value} sijaznamaks)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Kävuta %{card.title}, %{board.title}, %{list.title} vai %{swimlane.title}. Liža |urlencode muutujan merkale URL-parametran täht, ezimerkiks %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Jagoznam (kävuta &#32; libo &nbsp; keskustan täht)",
   "custom-field-stringtemplate-item-placeholder": "Paina Enter, miše ližata enamba kohtid",
   "creator": "Tegii",

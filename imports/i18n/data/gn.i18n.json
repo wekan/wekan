@@ -1946,7 +1946,7 @@
   "moveSwimlanePopup-title": "Emongu'e tape",
   "custom-field-stringtemplate": "Jehaipy techapyrã",
   "custom-field-stringtemplate-format": "Ysaja (eipuru %{value} tenda myengoviaha ramo)",
-  "custom-field-stringtemplate-context-hint": "Use %{card.title}, %{board.title}, %{list.title} or %{swimlane.title}. Add |urlencode to a variable for a URL parameter, for example %{value|urlencode}.",
+  "custom-field-stringtemplate-context-hint": "Eiporu %{card.title}, %{board.title}, %{list.title} térã %{swimlane.title}. Emoĩ |urlencode peteĩ techaukaha omyengoviáva mba'e repy ikatúva oñemoambuévape, reiporu hag̃ua URL parámetro ramo, techapyrã %{value|urlencode}.",
   "custom-field-stringtemplate-separator": "Mboja'oha (eipuru &#32; térã &nbsp; peteĩ pa'ũme g̃uarã)",
   "custom-field-stringtemplate-item-placeholder": "Ejopy Enter embojoapy hag̃ua hetave mba'e",
   "creator": "Apohára",

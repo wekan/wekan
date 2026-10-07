@@ -4401,6 +4401,13 @@ mixed-language audit remains open.
 - All 23 focused Node tests and 21 human-preference checks pass. Extended token and executable-example checks and localized positive/negative browser coverage to the twelve locales. Browser syntax passes; execution remains unverified because Playwright is unavailable locally.
 - Ordinary placeholders decrease from 50,224 to 50,212 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## String Template context hint: six further locales (2026-10-07)
+
+- Filled the variable and URL-encoding hint in Quechua, Aymara, Guarani, Veps, Volapük and Klingon. All six technical translations remain low-confidence drafts requiring semantic review, particularly Veps and the constructed languages. Volapük and Klingon use provisional paraphrases about sending a value through the URL rather than an unverified parameter term.
+- Consulted the [Midgley English–Volapük dictionary](https://volapuk.evertype.com/EnVoDictionary-20100830.pdf); no parameter entry was found. This lookup does not establish full-sentence correctness.
+- All 23 focused Node tests and 21 human-preference checks pass. Extended token/executable-example checks and localized positive/negative browser coverage. Browser syntax passes; execution remains unverified because Playwright is unavailable locally.
+- This hint remains English in seven locales. Ordinary placeholders decrease from 50,212 to 50,206 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
