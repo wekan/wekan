@@ -3552,6 +3552,12 @@ Filled 10 English placeholders in `tlh` and `vo` with the protected fill utility
 
 Extended the translation/token regression and existing localized browser scenario to the two locales. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 8 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
 
+### History recovery: Veps and Greenlandic
+
+Filled 10 English placeholders in `ve-PP` and `kl` with the protected fill utility. The drafts distinguish undo/redo and retry/forget and retain the same-request explanation. References include [Veps unohtada](https://en.wiktionary.org/wiki/unohtada) and [tagaze](https://en.wiktionary.org/wiki/tagaze), and [Tusass's Greenlandic interface](https://www.tusass.gl/track-and-trace/) using `misileqqiguk`. These establish limited vocabulary, not the composed clauses. Veps nominalizations/inflections and Greenlandic undo/redo phrasing remain low-confidence drafts for fluent-speaker review. Existing unrelated Venda/Zulu seed problems in the Veps file remain unfinished audit work.
+
+Extended the translation/token regression and existing localized browser scenario to the two locales. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 6 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
