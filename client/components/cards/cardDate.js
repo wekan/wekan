@@ -1,5 +1,6 @@
 import { TAPi18n } from '/imports/i18n';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { currentUserWith } from '/client/lib/currentUserWith';
 import {
   setupDatePicker,
   datePickerRendered,
@@ -171,7 +172,8 @@ function cardDateHelpers(extraHelpers) {
       return getISOWeek(Template.instance().date.get()).toString();
     },
     showWeekOfYear() {
-      const user = ReactiveCache.getCurrentUser();
+      // #6745: one field, so a card open (a user write) leaves every date badge alone.
+      const user = currentUserWith(['profile.showWeekOfYear']);
       if (!user) return window.localStorage.getItem('showWeekOfYear') === 'true';
       return user.isShowWeekOfYear();
     },

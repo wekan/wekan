@@ -37,4 +37,33 @@ function hasUnreadComments(comments, lastViewedAt) {
   });
 }
 
-export { hasUnreadComments };
+// #6745: the write behind "opened this card". It $sets ONE entry,
+// profile.cardLastViews.<cardId>, instead of rewriting the whole map: a client
+// reading only that entry (client/lib/currentUserWith.js) then sees one card
+// change, not every card the user ever opened. The map is also capped - it grew
+// by one entry per card ever opened and lives in the profile every page loads.
+// At the cap the least recently viewed entries are dropped; such a card counts
+// as never viewed again, which only means an old comment can show as unread.
+const CARD_LAST_VIEWS_MAX = 5000;
+
+function viewedTime(value) {
+  const time = value ? new Date(value).getTime() : NaN;
+  return Number.isNaN(time) ? 0 : time;
+}
+
+function cardLastViewsModifier(views, cardId, now, max = CARD_LAST_VIEWS_MAX) {
+  const current = views && typeof views === 'object' ? views : {};
+  const ids = Object.keys(current);
+  if (Object.prototype.hasOwnProperty.call(current, cardId) || ids.length < max) {
+    return { $set: { [`profile.cardLastViews.${cardId}`]: now } };
+  }
+  const next = {};
+  ids
+    .sort((a, b) => viewedTime(current[b]) - viewedTime(current[a]))
+    .slice(0, Math.max(0, max - 1))
+    .forEach(id => { next[id] = current[id]; });
+  next[cardId] = now;
+  return { $set: { 'profile.cardLastViews': next } };
+}
+
+export { hasUnreadComments, cardLastViewsModifier, CARD_LAST_VIEWS_MAX };

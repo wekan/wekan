@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { currentUserWith } from '/client/lib/currentUserWith';
 import { Utils } from '/client/lib/utils';
 import { normalizeDependency } from '/models/metadata/dependencies';
 const { canEditBoardDependencies, canEditCardDependency, normalizeMyDependencies } = require('/models/lib/dependencyAccess');
@@ -10,7 +11,9 @@ const { canEditBoardDependencies, canEditCardDependency, normalizeMyDependencies
 // only their own view.
 
 export function dependencyVisibility() {
-  const profile = (ReactiveCache.getCurrentUser() || {}).profile || {};
+  // #6745: read per minicard (newLineLayer), so only these two fields.
+  const user = currentUserWith(['profile.showBoardDependencies', 'profile.showMyDependencies']);
+  const profile = (user || {}).profile || {};
   return { board: profile.showBoardDependencies === true, mine: profile.showMyDependencies === true };
 }
 

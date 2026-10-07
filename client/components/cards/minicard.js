@@ -17,6 +17,7 @@ import { isLiveAttachment } from '/models/lib/attachmentSoftDelete';
 import { isChecklistShownAtMinicard } from '/models/lib/minicardChecklistVisibility';
 const { issueTypeBadge } = require('/models/lib/issueTypeIcon');
 import { hasUnreadComments } from '/models/lib/unreadComments';
+import { currentUserWith } from '/client/lib/currentUserWith';
 import {
   parseChecklistItemTitles,
   buildChecklistItemPayload,
@@ -92,7 +93,9 @@ Template.minicard.helpers({
     if (Utils.getCurrentBoard()?.allowsUnreadCommentsOnMinicard === false) return false;
     const comments = ReactiveCache.getCardComments({ cardId: card._id }) || [];
     if (!comments.length) return false;
-    const user = ReactiveCache.getCurrentUser();
+    // #6745: only this card's own last-viewed time, so opening ANOTHER card
+    // (which writes profile.cardLastViews) does not re-run this on every minicard.
+    const user = currentUserWith([`profile.cardLastViews.${card._id}`]);
     if (!user) return false;
     return hasUnreadComments(comments, user.getCardLastViewedAt(card._id));
   },
@@ -640,9 +643,11 @@ Template.minicardChecklist.helpers({
   checklistCollapsed() {
     const checklist = this.checklist || this;
     if (!checklist || !checklist._id) return false;
-    const user = ReactiveCache.getCurrentUser();
-    if (!user) return false;
     const cardId = (this.card && this.card._id) || checklist.cardId;
+    if (!cardId) return false;
+    // #6745: only this card's folds, not the whole user document.
+    const user = currentUserWith([`profile.collapsedCardSections.${cardId}`]);
+    if (!user) return false;
     return user.getCollapsedCardSection(
       cardId, user.checklistSectionKey(checklist._id)) === true;
   },

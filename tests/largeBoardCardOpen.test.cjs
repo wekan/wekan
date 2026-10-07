@@ -1,0 +1,176 @@
+'use strict';
+
+// #6745: on a large board, opening or closing a card took seconds. Run:
+// node tests/largeBoardCardOpen.test.cjs
+//
+// One section per fix, in the order they were made:
+//  1. opening a card writes the user document (profile.cardLastViews, #3078),
+//     and the board view and the helpers every minicard runs read the WHOLE
+//     user document - so one card open re-ran every list's card loop and every
+//     minicard. They now read only the fields they use
+//     (client/lib/currentUserWith.js); minimongo re-runs a field-limited query
+//     only when a projected field changes.
+//  2. a card of the board on screen opens and closes by its address without
+//     re-creating the board.
+//  3. the popup-card Session keys are cleared to null, never deleted.
+//  4. jQuery UI sortable options are set only when their value changed.
+//  5. the snap's cards-loading default is auto.
+//  6. opening a card leaves no subscription behind.
+// tests/playwright/specs/large-board-card-open.e2e.js measures 1 and 2 in the
+// running app.
+
+const assert = require('assert');
+const fs = require('fs');
+const path = require('path');
+
+const repoRoot = path.resolve(__dirname, '..');
+const read = rel => fs.readFileSync(path.join(repoRoot, rel), 'utf8');
+const { userFieldsProjection, isUserFieldPath } = require('../models/lib/userFieldsProjection.js');
+const { cardLastViewsModifier, CARD_LAST_VIEWS_MAX } = require('../models/lib/unreadComments.js');
+
+let passed = 0;
+function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
+
+// The body of `name(...) {` or `name: function` / `registerHelper('name', function`
+// in `source`, by brace matching from the first `{` after the name.
+function bodyOf(source, marker) {
+  const at = source.indexOf(marker);
+  assert.ok(at >= 0, `marker not found: ${marker}`);
+  const open = source.indexOf('{', at + marker.length - 1);
+  let depth = 0;
+  for (let i = open; i < source.length; i += 1) {
+    if (source[i] === '{') depth += 1;
+    else if (source[i] === '}') {
+      depth -= 1;
+      if (depth === 0) return source.slice(open, i + 1);
+    }
+  }
+  throw new Error(`unbalanced body for ${marker}`);
+}
+
+const WHOLE_USER = /ReactiveCache\.getCurrentUser\(\)|Meteor\.user\(\)|Meteor\.user &&/;
+
+console.log('largeBoardCardOpen:');
+
+// ---- fix 1: per-minicard helpers read only the user fields they need ----
+
+test('a projection lists exactly the fields asked for', () => {
+  assert.deepStrictEqual(userFieldsProjection(['profile.showWeekOfYear']), { 'profile.showWeekOfYear': 1 });
+  assert.deepStrictEqual(
+    userFieldsProjection(['profile.cardLastViews.abc123', 'profile.mobileMode']),
+    { 'profile.cardLastViews.abc123': 1, 'profile.mobileMode': 1 },
+  );
+  assert.deepStrictEqual(userFieldsProjection('_id'), { _id: 1 });
+});
+
+test('an id that could change the projection is refused, not passed through (negative)', () => {
+  ['profile.$where', 'profile..x', 'profile.__proto__.x', '', 'profile.constructor', null, 42]
+    .forEach(bad => assert.strictEqual(isUserFieldPath(bad), false, String(bad)));
+  // Refused means null, so the caller reads the whole document: slower, never wrong.
+  assert.strictEqual(userFieldsProjection(['profile.ok', 'profile.$bad']), null);
+  assert.strictEqual(userFieldsProjection([]), null);
+});
+
+test('currentUserWith reads by id with the projection, and falls back to the whole user', () => {
+  const src = read('client/lib/currentUserWith.js');
+  assert.ok(/Meteor\.userId\(\)/.test(src), 'no user id, no read');
+  assert.ok(/Meteor\.users\.findOne\(userId, fields \? \{ fields \} : \{\}\)/.test(src),
+    'a field-limited findOne by id; an unsafe path reads the whole document');
+});
+
+// Every helper that runs once per minicard (or per date badge / checklist on it)
+// and reads the current user. None may read the whole document again.
+const PER_MINICARD = [
+  ['client/components/cards/minicard.js', 'hasUnreadComments() {', 'profile.cardLastViews.'],
+  ['client/components/cards/minicard.js', 'checklistCollapsed() {', 'profile.collapsedCardSections.'],
+  ['client/components/cards/cardDate.js', 'showWeekOfYear() {', 'profile.showWeekOfYear'],
+  ['client/lib/minicardLabelText.js', 'export function resolveShowLabelText(board) {', 'profile.showLabelTextOverride'],
+  ['client/lib/dependencyLayers.js', 'export function dependencyVisibility() {', 'profile.showBoardDependencies'],
+  ['client/lib/dateDisplay.js', 'export function dateDisplayPreferences() {', 'DATE_USER_FIELDS'],
+  ['client/lib/dateDisplay.js', 'export function hasDateFormatPreference() {', 'DATE_USER_FIELDS'],
+  ['client/lib/utils.js', '  getExplicitMobileMode() {', 'profile.mobileMode'],
+  ['client/lib/utils.js', '  getCardCollapseState(card) {', 'profile.collapsedCards.'],
+  ['client/lib/utils.js', '  dragHandlesPreference() {', 'profile.showDesktopDragHandles'],
+  ['client/lib/utils.js', '  canCheckChecklistItem(card = Utils.getCurrentCard()) {', "['_id']"],
+  ['client/components/cards/cardDetails.js', "registerHelper('cardHasUnreadComments'", 'profile.cardLastViews.'],
+];
+
+PER_MINICARD.forEach(([file, marker, field]) => {
+  test(`${file} ${marker.trim().split('(')[0]} reads ${field} only`, () => {
+    const body = bodyOf(read(file), marker);
+    assert.ok(body.includes('currentUserWith('), 'reads through currentUserWith');
+    assert.ok(body.includes(field), `names ${field}`);
+    assert.ok(!WHOLE_USER.test(body), 'and never the whole user document (negative)');
+  });
+});
+
+// The board view decides every list's card loop (listBody's idOrNull and
+// containerSwimlaneId call Utils.boardView()). Measured in the running app
+// (tests/playwright/specs/large-board-card-open.e2e.js): with the whole user
+// document read here, one card open re-ran every list and Blaze re-evaluated
+// every minicard - 37,452 invalidations for 40 cards, 390 after.
+test('Utils.storedBoardView reads only the two board-view fields', () => {
+  const body = bodyOf(read('client/lib/utils.js'), '  storedBoardView() {');
+  assert.ok(/currentUserWith\(\['boardViewPreference', 'profile\.boardView'\]\)/.test(body));
+  assert.ok(!WHOLE_USER.test(body), 'negative: not the whole user document');
+});
+
+test('allowBoardView reads only the feature-preview fields', () => {
+  const src = read('client/lib/instanceFeatures.js');
+  assert.ok(/PREVIEW_USER_FIELDS = \['featurePreview', 'isAdmin'\]/.test(src));
+  assert.ok(/isBoardViewAvailable\(ReactiveCache\.getCurrentSetting\(\), currentUserWith\(PREVIEW_USER_FIELDS\), view\)/.test(src));
+  assert.ok(!WHOLE_USER.test(src), 'negative: not the whole user document');
+  // ...and those ARE the fields the decision reads.
+  const lib = read('models/lib/instanceFeatures.js');
+  const preview = bodyOf(lib, 'function canPreviewFeatures(setting, user) {');
+  const read_ = (preview.match(/user\.([A-Za-z]+)/g) || []).map(m => m.slice(5)).sort();
+  assert.deepStrictEqual([...new Set(read_)], ['featurePreview', 'isAdmin']);
+});
+
+test('customFieldsWD decides "board admin" from the user id, not the user document', () => {
+  const body = bodyOf(read('models/cards.js'), '  customFieldsWD() {');
+  assert.ok(/Meteor\.userId/.test(body) && /hasAdmin\(currentUserId\)/.test(body));
+  assert.ok(!WHOLE_USER.test(body), 'negative: no Meteor.user() per minicard');
+});
+
+test('the date fields are the ones the date helpers use, nothing else', () => {
+  const src = read('client/lib/dateDisplay.js');
+  assert.ok(/DATE_USER_FIELDS = \['profile\.calendarSystem', 'profile\.dateFormat', 'profile\.dateFormatOverride'\]/.test(src));
+  const users = read('models/users.js');
+  assert.ok(/getDateFormat\(\) \{\s*const profile = this\.profile \|\| \{\};\s*return profile\.dateFormat/.test(users));
+  assert.ok(/getCalendarSystem\(\) \{\s*const profile = this\.profile \|\| \{\};\s*return profile\.calendarSystem/.test(users));
+});
+
+test('opening a card $sets one cardLastViews entry, not the whole map', () => {
+  const now = new Date('2026-10-07T10:00:00Z');
+  const views = { a: new Date('2026-01-01T00:00:00Z'), b: new Date('2026-02-01T00:00:00Z') };
+  assert.deepStrictEqual(cardLastViewsModifier(views, 'c', now), { $set: { 'profile.cardLastViews.c': now } });
+  assert.deepStrictEqual(cardLastViewsModifier(undefined, 'a', now), { $set: { 'profile.cardLastViews.a': now } });
+  assert.deepStrictEqual(cardLastViewsModifier(views, 'a', now), { $set: { 'profile.cardLastViews.a': now } },
+    'an already-viewed card is still one entry');
+});
+
+test('at the cap the least recently viewed entries are dropped, the new one kept', () => {
+  const now = new Date('2026-10-07T10:00:00Z');
+  const views = {
+    old: new Date('2025-01-01T00:00:00Z'),
+    mid: new Date('2026-01-01T00:00:00Z'),
+    new: new Date('2026-09-01T00:00:00Z'),
+  };
+  const modifier = cardLastViewsModifier(views, 'opened', now, 3);
+  assert.deepStrictEqual(Object.keys(modifier.$set), ['profile.cardLastViews']);
+  assert.deepStrictEqual(modifier.$set['profile.cardLastViews'], { new: views.new, mid: views.mid, opened: now });
+  // Negative: below the cap nothing is rewritten.
+  assert.deepStrictEqual(Object.keys(cardLastViewsModifier(views, 'opened', now, 4).$set),
+    ['profile.cardLastViews.opened']);
+  assert.ok(CARD_LAST_VIEWS_MAX >= 1000, 'the cap is far above a normal working set');
+});
+
+test('setCardLastViewed uses that modifier and still guards the key', () => {
+  const body = bodyOf(read('models/users.js'), '  async setCardLastViewed(cardId) {');
+  assert.ok(/assertSafeMapKey\(cardId\)/.test(body), 'PrototypeBleed guard kept');
+  assert.ok(/cardLastViewsModifier\(views, cardId, new Date\(\)\)/.test(body));
+  assert.ok(!/\$set: \{ 'profile\.cardLastViews': current \}/.test(body), 'negative: no whole-map rewrite');
+});
+
+console.log(`largeBoardCardOpen: ${passed} passed`);

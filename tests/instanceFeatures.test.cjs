@@ -130,7 +130,9 @@ test('wiring: every place that draws or picks a board view asks the instance', (
       assert.match(call, /allowBoardView/, `${path.relative(ROOT, file)}: ${call}`);
     }
   }
-  assert.match(read('client/lib/instanceFeatures.js'), /isBoardViewAvailable\(ReactiveCache\.getCurrentSetting\(\), ReactiveCache\.getCurrentUser\(\), view\)/);
+  // #6745: the user is read with only the fields canPreviewFeatures() uses, so a
+  // card open (a user write) does not re-run every list through boardView().
+  assert.match(read('client/lib/instanceFeatures.js'), /isBoardViewAvailable\(ReactiveCache\.getCurrentSetting\(\), currentUserWith\(PREVIEW_USER_FIELDS\), view\)/);
 });
 
 test('storage: site admin only, published without secrets, pilots not writable by users', () => {

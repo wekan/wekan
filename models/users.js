@@ -20,6 +20,7 @@ const { SimpleSchema } = require('/imports/simpleSchema');
 // client, the server and the tests (docs/Design/Multitenancy/Multitenancy.md).
 import * as tenantAdmin from '/models/lib/tenantAdmin';
 const { assertSafeMapKey } = require('/models/lib/safeMapKey');
+const { cardLastViewsModifier } = require('/models/lib/unreadComments');
 // The bookmark rules, pure so the client, the server and the tests agree.
 const { starredPagesOf, isPageStarred } = require('/models/lib/starredPages');
 const Users = Meteor.users;
@@ -2874,9 +2875,9 @@ Users.helpers({
    * "unread comments" highlight on every minicard that shows it. */
   async setCardLastViewed(cardId) {
     assertSafeMapKey(cardId);
-    const current = (this.profile && this.profile.cardLastViews) || {};
-    current[cardId] = new Date();
-    return await Users.updateAsync(this._id, { $set: { 'profile.cardLastViews': current } });
+    // #6745: one entry, not the whole map - see models/lib/unreadComments.js.
+    const views = this.profile && this.profile.cardLastViews;
+    return await Users.updateAsync(this._id, cardLastViewsModifier(views, cardId, new Date()));
   },
 
   async setMobileMode(enabled) {

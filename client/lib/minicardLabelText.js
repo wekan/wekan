@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { currentUserWith } from '/client/lib/currentUserWith';
 import {
   resolveShowLabelText as resolveShowLabelTextValue,
   nextShowLabelTextOverride,
@@ -25,7 +26,8 @@ export function resolveShowLabelText(board) {
   const boardShowLabelText = board && typeof board.showLabelText === 'boolean'
     ? board.showLabelText
     : null;
-  const currentUser = ReactiveCache.getCurrentUser();
+  // #6745: once per minicard, so read the one field it needs.
+  const currentUser = currentUserWith(['profile.showLabelTextOverride']);
   if (currentUser) {
     const override = (currentUser.profile || {}).showLabelTextOverride;
     return resolveShowLabelTextValue(

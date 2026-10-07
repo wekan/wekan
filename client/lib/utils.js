@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { currentUserWith } from '/client/lib/currentUserWith';
 import { headerPathVar } from '/client/lib/headerPathVar';
 const { pageDocumentTitle } = require('/models/lib/starredPages');
 const { resolveBoardView, isKnownBoardView, DEFAULT_BOARD_VIEW } = require('/models/lib/boardViewSettings');
@@ -98,7 +99,8 @@ export const Utils = {
     }
 
     // Then check user profile
-    const user = ReactiveCache.getCurrentUser();
+    // #6745: isMiniScreen() runs per list and per minicard - one field only.
+    const user = currentUserWith(['profile.mobileMode']);
     if (user && user.profile && user.profile.mobileMode !== undefined) {
       return user.profile.mobileMode;
     }
@@ -131,7 +133,8 @@ export const Utils = {
     if (stored !== null) {
       return stored === 'true';
     }
-    const user = ReactiveCache.getCurrentUser();
+    // #6745: isMiniScreen() runs per list and per minicard - one field only.
+    const user = currentUserWith(['profile.mobileMode']);
     if (user && user.profile && user.profile.mobileMode !== undefined) {
       return user.profile.mobileMode;
     }
@@ -270,7 +273,8 @@ export const Utils = {
   // Worker on top of whoever canModifyCard already allows.
   canCheckChecklistItem(card = Utils.getCurrentCard()) {
     if (Utils.canModifyCard(card)) return true;
-    const user = ReactiveCache.getCurrentUser();
+    // #6745: isWorker() only needs the id; per checklist item on a minicard.
+    const user = currentUserWith(['_id']);
     return !!(user && user.isWorker && user.isWorker());
   },
   canModifyBoard() {
@@ -375,7 +379,11 @@ export const Utils = {
 
   storedBoardView() {
     const pending = pendingBoardView.get();
-    const currentUser = ReactiveCache.getCurrentUser();
+    // #6745: only the two view fields. boardView() is read by every list's card
+    // loop (listBody's idOrNull/containerSwimlaneId); reading the whole user here
+    // re-ran every list on each user write - a card open is one - and Blaze then
+    // re-evaluated every minicard (~37,000 computations on a 40-card board).
+    const currentUser = currentUserWith(['boardViewPreference', 'profile.boardView']);
     const publishedView = currentUser?.boardViewPreference;
     const profileView = isKnownBoardView(publishedView)
       ? publishedView : (currentUser?.profile || {}).boardView;
@@ -508,7 +516,10 @@ export const Utils = {
       return sessionVal;
     }
 
-    const user = ReactiveCache.getCurrentUser();
+    // #6745: once per minicard - read only this card's fold.
+    const user = card.boardId
+      ? currentUserWith([`profile.collapsedCards.${card.boardId}.${card._id}`])
+      : null;
     let stored = null;
     if (user && user.getCollapsedCardFromStorage) {
       stored = user.getCollapsedCardFromStorage(card.boardId, card._id);
@@ -941,7 +952,8 @@ export const Utils = {
   // The user's EXPLICIT drag-handle choice: true, false, or null when they have
   // never chosen. The three states matter — see showDragHandles() below.
   dragHandlesPreference() {
-    const currentUser = Meteor.user();
+    // #6745: read by every minicard - one field, not the whole user document.
+    const currentUser = currentUserWith(['profile.showDesktopDragHandles']);
     const stored = currentUser
       ? (currentUser.profile || {}).showDesktopDragHandles
       // Not logged in: the same three states, kept in localStorage. A MISSING

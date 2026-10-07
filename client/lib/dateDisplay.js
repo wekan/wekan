@@ -1,20 +1,25 @@
 import { Utils } from '/client/lib/utils';
 const { resolveDateFormat } = require('/models/lib/dateFormatPolicy');
 import { ReactiveCache } from '/imports/reactiveCache';
+import { currentUserWith } from '/client/lib/currentUserWith';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 import { formatJalaliDate, gregorianToJalali } from '/imports/lib/jalaliDate';
 import { TAPi18n } from '/imports/i18n';
 const { CALENDAR_SYSTEMS, formatNativeCalendarDate, nativeCalendarParts } = require('/imports/lib/calendarSystems');
 const { calendarMonthRange, shiftedDay } = require('/imports/lib/calendarMonth');
 
+// #6745: every date badge on every minicard formats through here, so read only
+// the date fields of the user - a card open (a user write) must not re-run them.
+const DATE_USER_FIELDS = ['profile.calendarSystem', 'profile.dateFormat', 'profile.dateFormatOverride'];
+
 export function hasDateFormatPreference() {
-  return !!(ReactiveCache.getCurrentUser()?.profile?.dateFormatOverride ||
+  return !!(currentUserWith(DATE_USER_FIELDS)?.profile?.dateFormatOverride ||
     Utils.getCurrentBoard()?.dateFormatOverride || ReactiveCache.getCurrentSetting()?.hideDateFormat);
 }
 
 export function dateDisplayPreferences() {
   const setting = ReactiveCache.getCurrentSetting();
-  const user = ReactiveCache.getCurrentUser();
+  const user = currentUserWith(DATE_USER_FIELDS);
   const board = Utils.getCurrentBoard();
   if (user) {
     return {

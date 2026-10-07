@@ -1650,11 +1650,12 @@ Cards.helpers({
     // out here, before buildCustomFieldsWD() ever matches a value to it, is
     // the single choke point for every render call site at once, the same
     // way an unmatched/deleted definition is already skipped (#3748 above).
-    const currentUser = Meteor.user && Meteor.user();
-    const isBoardAdmin =
-      !!currentUser &&
-      typeof currentUser.isBoardAdmin === 'function' &&
-      currentUser.isBoardAdmin(card.boardId);
+    // #6745: by id, not the user document - this runs once per minicard, and the
+    // whole user document changes on every card open. Same test as
+    // Users.isBoardAdmin(boardId): board.hasAdmin(userId).
+    const currentUserId = Meteor.userId && Meteor.userId();
+    const cardBoard = currentUserId ? ReactiveCache.getBoard(card.boardId) : null;
+    const isBoardAdmin = !!(cardBoard && cardBoard.hasAdmin(currentUserId));
     const { buildCustomFieldsWD, filterAdminOnlyDefinitions } = require('./lib/customFieldsWD');
     definitions = filterAdminOnlyDefinitions(definitions, isBoardAdmin);
     // #3748: entries whose definition is unavailable are skipped rather than

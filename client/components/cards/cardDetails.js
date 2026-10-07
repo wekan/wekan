@@ -3,6 +3,7 @@ import { canEditCardDependenciesHere } from '/client/lib/dependencyLayers';
 import { relativeCardSort } from '/client/lib/relativeCardPosition';
 import { Random } from 'meteor/random';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { currentUserWith } from '/client/lib/currentUserWith';
 import { TAPi18n } from '/imports/i18n';
 import { ReactiveDict } from 'meteor/reactive-dict';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
@@ -653,8 +654,9 @@ Template.registerHelper('cardCommentCountShown', function cardCommentCountShown(
   return count || null;
 });
 Template.registerHelper('cardHasUnreadComments', function cardHasUnreadComments() {
-  const user = ReactiveCache.getCurrentUser();
-  if (!user || !this._id) return false;
+  if (!this._id) return false;
+  const user = currentUserWith([`profile.cardLastViews.${this._id}`]);
+  if (!user) return false;
   const comments = ReactiveCache.getCardComments({ cardId: this._id }) || [];
   return comments.length > 0 && hasUnreadComments(comments, user.getCardLastViewedAt(this._id));
 });

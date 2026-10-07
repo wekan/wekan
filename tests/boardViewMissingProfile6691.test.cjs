@@ -13,6 +13,9 @@ const context = {
   allowBoardView: () => true,
   pendingBoardView: { get: () => pending, set: value => { pending = value; } },
   ReactiveCache: { getCurrentUser: () => user },
+  // #6745: storedBoardView reads the user through currentUserWith (only the two
+  // board-view fields); here that is the same stub user.
+  currentUserWith: () => user,
   window: { localStorage: { getItem: () => browserView,
     setItem: () => { throw Error('Reading a view must not write storage'); } } },
 };

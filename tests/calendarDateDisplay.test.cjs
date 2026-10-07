@@ -13,13 +13,18 @@ const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
   let setting = {};
   let profile = { calendar: 'gregorian', format: 'YYYY-MM-DD' };
   let storage = { calendarSystem: 'jalali', dateFormat: 'DD-MM-YYYY' };
+  const currentUser = () => profile && ({
+    profile: { dateFormatOverride: profile.override !== false },
+    getCalendarSystem: () => profile.calendar,
+    getDateFormat: () => profile.format,
+  });
+  // #6745: dateDisplay.js reads only the date fields of the user
+  // (client/lib/currentUserWith.js); the stub records which ones.
+  const requestedFields = new Set();
   const context = {
     Utils: { getCurrentBoard: () => null },
-    ReactiveCache: { getCurrentSetting: () => setting, getCurrentUser: () => profile && ({
-      profile: { dateFormatOverride: profile.override !== false },
-      getCalendarSystem: () => profile.calendar,
-      getDateFormat: () => profile.format,
-    }) },
+    ReactiveCache: { getCurrentSetting: () => setting, getCurrentUser: currentUser },
+    currentUserWith: fields => { fields.forEach(field => requestedFields.add(field)); return currentUser(); },
     window: { localStorage: { getItem: key => storage[key] } },
     TAPi18n: { getLanguage: () => 'en', __: key => key },
     formatDateByUserPreference, formatJalaliDate, gregorianToJalali,
@@ -41,6 +46,10 @@ const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
     }
   }
   profile = { calendar: 'gregorian', format: 'YYYY-MM-DD' };
+
+  assert.deepEqual([...requestedFields].sort(),
+    ['profile.calendarSystem', 'profile.dateFormat', 'profile.dateFormatOverride'],
+    'only the date fields, so a card open does not re-run every date badge');
 
   assert.equal(display(date), '2026-03-21 09:05');
   profile.override = false;
