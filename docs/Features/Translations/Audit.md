@@ -7013,6 +7013,18 @@ The focused run passes 42 checks. Two existing catalog checks still fail on the
 missing shortcut elsewhere. All 21 human-preference checks pass. Browser and
 screen-reader checks were not run. Remaining locales and wording review stay open.
 
+## Due-date shortcut inventory repair: 14 more languages
+
+Added shortcut-edit-due-date to am, ckb, ha, ht, kn, ku, ky, mg, my, ps, sd, si,
+tg and yo. Existing values were preserved. Each affected catalog matches
+English's key inventory and order. Tests cover source tokens and opened-card
+scope in representative languages, but do not establish fluency. Translations
+remain provisional pending speaker review.
+
+The focused run passes 43 checks. Two existing catalog checks still fail on the
+missing shortcut elsewhere. All 21 human-preference checks pass. Browser and
+screen-reader checks were not run. Remaining locales and wording review stay open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
