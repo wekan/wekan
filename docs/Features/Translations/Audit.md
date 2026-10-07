@@ -4693,6 +4693,14 @@ mixed-language audit remains open.
 - Existing browser flows cover field editing for all eight locales. They do not assert spoken field-type output; that accessibility verification remains outstanding. This batch adds no claim of browser execution or fluency.
 - Validation: focused Blockly/completeness tests, human-preference checks and browser-spec syntax checking. This batch removes 88 ordinary English placeholders; unrelated in-progress Tigre changes are outside this commit.
 
+### Blockly field-type labels: Turkmen, Odia, Konkani, Papiamento and Wu Chinese
+
+- Filled 55 English field-type placeholders in `tk_TM`, `or_IN`, `kok`, `pap` and `wuu-Hans`. The protected fill preserves existing translations and source arguments.
+- Followed existing date, checkbox and dropdown vocabulary where suitable. Odia field labels omit the stray trailing vertical bars present in older generic labels; those older values were not overwritten by this fill.
+- Extended the existing field-type regression to these five locales, including distinctions between image/pixel image, dropdown/grid dropdown, input/input name and input/function names. Existing browser field-editing flows already include all five; spoken type announcements remain unverified.
+- Low confidence: Papiamento pixel/grid terminology and the new dropdown paraphrase need review; Turkmen grid terminology and Konkani technical compounds remain provisional. Wu uses shared written Chinese technical vocabulary; this does not establish regional spoken output. External searches did not provide authoritative attestations for the new full phrases.
+- Validation: focused Blockly/completeness suite, human-preference checks and browser-spec syntax. This batch removes 55 ordinary English placeholders. Unrelated in-progress locale and deployment changes remain outside the batch.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
