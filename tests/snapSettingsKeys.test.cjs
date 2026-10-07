@@ -28,12 +28,14 @@ function test(name, fn) {
 }
 
 function readConfig(configPath) {
+  // The path goes in through the environment, never into the script text
+  // (CodeQL js/shell-command-injection-from-environment).
   const r = spawnSync('bash', ['-c', `
-    source "${configPath}"
+    source "$SNAP_CONFIG_PATH"
     for k in $keys; do
       kv="KEY_$k"; dv="DEFAULT_$k"; sv="DESCRIPTION_$k"
       printf '%s\\t%s\\t%s\\t%s\\n' "$k" "\${!kv}" "\${!dv+set}" "\${!sv+set}"
-    done`], { encoding: 'utf8' });
+    done`], { encoding: 'utf8', env: { ...process.env, SNAP_CONFIG_PATH: configPath } });
   assert.strictEqual(r.status, 0, r.stderr);
   return r.stdout.trim().split('\n').map((line) => {
     const [name, key, hasDefault, hasDescription] = line.split('\t');

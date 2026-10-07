@@ -9,8 +9,8 @@ const { spawnSync } = require('node:child_process');
 const ROOT = path.join(__dirname, '..');
 const helper = path.join(ROOT, 'snap-src/bin/raise-nofile-limit');
 const run = (soft, env = {}) => {
-  const result = spawnSync('bash', ['-c', `ulimit -Sn ${soft} && source "${helper}" && raise_nofile_limit >/dev/null 2>&1; ulimit -Sn; ulimit -Hn`],
-    { env: { PATH: process.env.PATH, ...env }, encoding: 'utf8' });
+  const result = spawnSync('bash', ['-c', 'ulimit -Sn "$SOFT_LIMIT" && source "$NOFILE_HELPER" && raise_nofile_limit >/dev/null 2>&1; ulimit -Sn; ulimit -Hn'],
+    { env: { PATH: process.env.PATH, SOFT_LIMIT: String(soft), NOFILE_HELPER: helper, ...env }, encoding: 'utf8' });
   assert.equal(result.status, 0, result.stderr);
   const [after, hard] = result.stdout.trim().split('\n');
   return { after, hard };

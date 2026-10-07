@@ -39,8 +39,8 @@ for (const [name, contents] of Object.entries(fixtures)) {
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'wekan-os-release-'));
     const file = path.join(dir, 'os-release');
     fs.writeFileSync(file, contents);
-    const result = spawnSync('bash', ['-c', `. "${helper}"; _et_linux_family`], {
-      encoding: 'utf8', env: { ...process.env, WEKAN_OS_RELEASE_FILE: file },
+    const result = spawnSync('bash', ['-c', '. "$ET_HELPER"; _et_linux_family'], {
+      encoding: 'utf8', env: { ...process.env, ET_HELPER: helper, WEKAN_OS_RELEASE_FILE: file },
     });
     fs.rmSync(dir, { recursive: true, force: true });
     assert.strictEqual(result.status, 0, result.stderr);
@@ -50,8 +50,8 @@ for (const [name, contents] of Object.entries(fixtures)) {
 }
 
 test('macOS is detected without relying on the invoking shell', () => {
-  const result = spawnSync('bash', ['-c', `. "${helper}"; _et_os`], {
-    encoding: 'utf8', env: { ...process.env, WEKAN_UNAME_S: 'Darwin' },
+  const result = spawnSync('bash', ['-c', '. "$ET_HELPER"; _et_os'], {
+    encoding: 'utf8', env: { ...process.env, ET_HELPER: helper, WEKAN_UNAME_S: 'Darwin' },
   });
   assert.strictEqual(result.status, 0, result.stderr);
   assert.strictEqual(result.stdout.trim(), 'macos');

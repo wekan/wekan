@@ -36,12 +36,14 @@ function test(name, fn) {
 function bash(script, env = {}) {
   return spawnSync('bash', ['-c', script], {
     encoding: 'utf8',
-    env: { ...process.env, SNAP_INSTANCE_NAME: 'wekan', ...env },
+    // The helper's path goes in through the environment, never into the
+    // script text (CodeQL js/shell-command-injection-from-environment).
+    env: { ...process.env, SNAP_INSTANCE_NAME: 'wekan', SOCKET_DENIED_HELPER: helper, ...env },
   });
 }
 
 function denied(err) {
-  return bash(`source "${helper}"; socket_denied "$ERR"`, { ERR: err }).status === 0;
+  return bash(`source "$SOCKET_DENIED_HELPER"; socket_denied "$ERR"`, { ERR: err }).status === 0;
 }
 
 // The exact errors the reporter posted: mongorestore (Go driver) and db-eval
@@ -69,7 +71,7 @@ test('negative: a database that is merely not up is not called an AppArmor probl
 });
 
 test('the explanation names the denial, the upstream bug, and both ways out', () => {
-  const r = bash(`source "${helper}"; socket_denied_hint`);
+  const r = bash(`source "$SOCKET_DENIED_HELPER"; socket_denied_hint`);
   assert.strictEqual(r.status, 0, r.stderr);
   assert.match(r.stdout, /journalctl -k \| grep -i denied/);
   assert.match(r.stdout, /operation="file_perm" class="net"/);
@@ -80,7 +82,7 @@ test('the explanation names the denial, the upstream bug, and both ways out', ()
   assert.match(r.stdout, /sudo snap revert snapd/);
   assert.match(r.stdout, /sudo snap restart wekan/);
   // A parallel install (wekan_2) is told to restart ITSELF.
-  const r2 = bash(`source "${helper}"; socket_denied_hint`, { SNAP_INSTANCE_NAME: 'wekan_2' });
+  const r2 = bash(`source "$SOCKET_DENIED_HELPER"; socket_denied_hint`, { SNAP_INSTANCE_NAME: 'wekan_2' });
   assert.match(r2.stdout, /sudo snap restart wekan_2/);
 });
 
@@ -112,8 +114,8 @@ test('show_socket_denied prints only for a refusal, and says so in the log', () 
   const start = control.indexOf('show_socket_denied() {');
   const fn = control.slice(start, control.indexOf('\n}\n', start) + 3);
   const run = (err) => bash(
-    `source "${helper}"; MONGO_HOST=127.0.0.1; MONGO_PORT=27019\n${fn}\nshow_socket_denied FerretDB "$ERR"`,
-    { ERR: err },
+    'source "$SOCKET_DENIED_HELPER"; MONGO_HOST=127.0.0.1; MONGO_PORT=27019; eval "$SHOW_FN"; show_socket_denied FerretDB "$ERR"',
+    { ERR: err, SHOW_FN: fn },
   );
   const yes = run(REPORTED[0]);
   assert.strictEqual(yes.status, 0);
