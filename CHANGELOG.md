@@ -386,9 +386,10 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **44,565 untranslated locale/string values in 70 languages**. It
-  excludes **148 source keys tracked separately as pending Transifex**, which
-  already have non-English values but still require wording review. Counts are a
+  report counts **44,492 untranslated locale/string values in 70 languages**. It
+  excludes **149 source keys tracked separately as pending Transifex**: 148
+  already have non-English values requiring wording review; the newly added
+  `shortcut-edit-due-date` still needs translations. Counts are a
   snapshot; they do not establish the quality or language of other values.
 - The 13 activity-notification preference keys have no empty or exact
   English-placeholder values in all 234 non-English locale paths and have left
@@ -2074,6 +2075,18 @@ uses the same word as `checklist` itself.
 </details>
 
 **Translations** — continued language coverage and corrections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7c27073ac10efdf97dc5371a2f41d7efa6cc119e">Translate 75 Northern Sotho Blockly list messages.</a></summary>
+
+- Fill 73 counted placeholders and two short fragments omitted by the counter; preserve existing translations and tokens.
+- Verify list retrieval/removal, insertion/replacement, copies, sorting and conversion direction.
+- Validation: 53 focused checks and 21 human-preference checks pass. Two all-catalog structural checks fail on the concurrently added shortcut-edit-due-date key missing from other catalogs. Browser checks were not run. Wording remains low confidence pending fluent-speaker review.
+- Remaining counted English placeholders: 44,492 across 70 languages. The broader language and wording audit continues.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/360697a4f081fd96c19ed8896f6eaa192ca0828c">Translate 22 Northern Sotho Blockly variable messages.</a></summary>
