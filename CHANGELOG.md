@@ -2173,6 +2173,23 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cd96952a9066b3b9a925ee9e8531b48c48d2a40c">Translate due-date shortcuts in twenty-three further locales</a></summary>
+
+- Add the shortcut in Bashkir, Buryat, Bislama, Fijian, Hawaiian, Konkani,
+  Cornish, Luganda, Māori, Northern Ndebele, Northern Sotho, Chichewa, Oromo,
+  Papiamento, Kirundi, Kinyarwanda, Samoan, Swati, Southern Sotho, Tswana,
+  Tigrinya, Uyghur and South African Zulu, preserving existing translations.
+- Buryat, Fijian, Konkani, Cornish, Kirundi, Swati and Tigrinya wording remains
+  low confidence pending fluent review.
+- Focused checks: 47 pass; two catalog checks still fail on missing shortcuts
+  elsewhere. All 21 human-preference checks pass. Browser and screen-reader
+  checks were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9a1d04e3ae306f2fe47d3627dbbdf46ab7d62a61">Translate missing due-date shortcuts in twenty languages</a></summary>
 
 - Add the shortcut in Aragonese, Asturian, Breton, Corsican, Faroese, Friulian,
