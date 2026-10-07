@@ -6900,6 +6900,18 @@ The combined translation run passes 160 checks. Two existing catalog checks fail
 on the missing due-date shortcut key. All 21 human-preference checks pass.
 Browser and screen-reader checks were not run. The wider audit remains open.
 
+## Tok Pisin avatar and repository wording audit
+
+Corrected 15 mixed-language or misleading avatar, repository and interface
+labels. WIP Limit Groups previously described enabling a limit; it now names
+groups. Checks preserve consistent avatar controls, editing versus enabling
+limits, and the sign-in prerequisite for uploads. Technical wording remains
+provisional pending fluent-speaker review.
+
+The combined translation run passes 162 checks. Two existing catalog checks fail
+on the missing due-date shortcut key. All 21 human-preference checks pass.
+Browser and screen-reader checks were not run. The wider audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

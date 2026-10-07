@@ -2668,3 +2668,41 @@ test('Tok Pisin rule labels distinguish completion and schedule periods',()=>{
  assert.match(data['r-uncheck-all'],/Rausim mak tik/);
  assert.match(data['r-unselect-all'],/olgeta samting yu makim/);
 });
+
+
+test('Tok Pisin avatar and repository labels retain tokens without mixed English',()=>{
+ const keys=[
+  "adminChangeAvatarPopup-title",
+  "change-avatar",
+  "changeAvatarPopup-title",
+  "deleteAvatarPopup-title",
+  "default-avatar",
+  "available-repositories",
+  "repository-name",
+  "create-repository",
+  "sign-in-to-upload",
+  "advanced-filter-label",
+  "impersonate-user",
+  "edit-wip-limit",
+  "enable-wip-limit",
+  "wip-limit-groups",
+  "addReactionPopup-title"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:Avatar|avatar|Repositories|Repository|repositories|Advanced|Impersonate|Limit|reaction)\b/,key);
+ }
+});
+
+test('Tok Pisin avatar controls agree and WIP groups remain groups',()=>{
+ assert.equal(data['adminChangeAvatarPopup-title'],data['change-avatar']);
+ assert.equal(data['changeAvatarPopup-title'],data['change-avatar']);
+ assert.match(data['deleteAvatarPopup-title'],/^Rausim piksa bilong yusa\?$/);
+ assert.match(data['default-avatar'],/long stat$/);
+ assert.match(data['wip-limit-groups'],/^Ol grup.*WIP$/);
+ assert.doesNotMatch(data['wip-limit-groups'],/Larim|Lis/);
+ assert.match(data['edit-wip-limit'],/^Senisim/);
+ assert.match(data['enable-wip-limit'],/^Larim/);
+ assert.match(data['sign-in-to-upload'],/^Go insait.*i go antap$/);
+});
