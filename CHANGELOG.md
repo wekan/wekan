@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/53b178bb16236aa0e1e74dba03ff1de07112ac9e">Correct 14 mixed-language Akan account and card-loading messages.</a></summary>
+
+- Rewrite lockout states, account controls, storage paths, cron notices and card-loading guidance. Preserve configuration literals and experimental view limitations.
+- Add source-token, opposite-action, scope and configuration checks. Specialized account/loading wording remains provisional.
+- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
+- Validation: 68 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b79ac288c2b3898b4951cd2fe8cc0ad80d5b0e7c">Correct 14 mixed-language Akan storage and support messages.</a></summary>
 
 - Rewrite attachment repair, storage defaults, compaction, PDF support and account protection descriptions. Preserve the English source's ordering, exceptions and access restrictions.
