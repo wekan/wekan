@@ -1890,6 +1890,17 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/44e386567359d1697696894f792de789eb84f91c">Translate map view into Bislama, Tok Pisin, Maori and Samoan.</a></summary>
+
+- Filled 28 placeholders. Floor-plan phrases and Samoan UI wording remain provisional.
+- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but execution awaits Playwright and a running application.
+- The seven map-view keys remain English in 37 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0b1aab5795362d96d854fe6e12b09f72270e37d4">Translate map view into Swati, Ndebele, Tsonga and Venda.</a></summary>
 
 - Filled 28 placeholders. Technical wording remains provisional, especially floor-plan and click terminology.
