@@ -1890,6 +1890,15 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b985c0c590a0e048455b362a816e8a11897593d7">Translate signed-in board visibility in ten locales</a>. Thanks to xet7.</summary>
+
+- Fill 30 English placeholders in Moroccan Arabic, Central Kurdish, Kurdish, Bhojpuri, Maithili, Odia, Konkani, Turkmen, Tatar and Yiddish. Preserve the distinction between viewing by signed-in users and editing by board members, and the confirmation's emphasis. Lower-confidence wording is recorded in the translation audit for fluent-speaker review.
+- Regression checks cover source key order, placeholders, exact markup and rendered emphasis. Board visibility and permission tests pass. The existing browser suite was syntax-checked only; the application stack is unavailable.
+- These three keys remain English in 56 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/486543fc04f346f7bdfd092e3cf573e424af509c">Fill Cherokee URL hint and verify all locale scheme identifiers</a>. Thanks to xet7.</summary>
 
 - Fill the final English URL-scheme hint in Cherokee and document low-confidence
