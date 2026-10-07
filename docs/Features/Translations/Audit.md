@@ -3838,6 +3838,14 @@ Filled three English placeholders in each of `ary`, `gv`, `ve-CC`, `rup` and `se
 
 Extended locale and browser coverage to all five locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in 11 locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
 
+## Multiple-parent controls: Inuktitut and Greenlandic - 2026-10-07
+
+Filled three English placeholders in each of `iu` and `kl` (six values) through the protected fill workflow. Parent labels use larger/main-task descriptions, and removal wording ends the subordinate relationship without describing deletion.
+
+The [Inuktitut publication](https://www.itk.ca/wp-content/uploads/2016/10/2000-0086-InuktitutMagazine-IUCANS-IULATN-EN.pdf) and [Greenlandic work terminology glossary](https://at.gl/media/snzb0g4a/arbejdslivsbegreber-sprogsekretariatet-gl.pdf) support task vocabulary. They do not verify these UI phrases. Both sets of technical sentences and inflections remain low-confidence drafts requiring language review, including whether the larger-task paraphrases convey a parent relationship clearly.
+
+Extended locale and browser coverage to both locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in nine locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
