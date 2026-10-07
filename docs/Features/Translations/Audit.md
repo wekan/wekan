@@ -2825,6 +2825,29 @@ browser scenarios were syntax-checked but not run without the application stack.
 17 locale paths still need these labels. Both source keys remain pending; the
 ordinary backlog remains 51,575 values plus 174 pending source keys.
 
+### Move-position labels — five further locales (2026-10-07)
+
+Filled both relative-placement labels in Buryat, Chuvash, Yakut, Aromanian and
+Klingon (ten values). The placeholder-only merge preserved existing translations.
+No translation service was used.
+
+References: [Buryat spatial postpositions](https://sciup.org/poslelogi-mesta-v-burjatskom-i-tureckom-jazykah-148182581),
+[Chuvash front](https://ru.samahsar.chuvash.org/s/7/впереди) and
+[behind](https://ru.samah.chv.su/s/позади),
+[Yakut postposition](https://en.wiktionary.org/wiki/кэннигэр),
+[Aromanian dictionary](https://vivliuteca.org/wp-content/uploads/2025/06/dictsiunararmanescu_dec2008.pdf),
+and [Klingon location phrases](https://www.kli.org/duolingo/discuss-locations/).
+Klingon uses spatial `tlhopDaq` and `'emDaq`, rather than time expressions.
+Standalone UI phrasing, especially Aromanian and the three Cyrillic-language
+options, remains subject to native review; dictionary matches do not verify fluency.
+
+The structural-selection suite now covers the pair in 54 recently filled locales.
+Runtime selection, exact tokens, key order, distinct opposite labels, all-locale
+structure and 21 human-preference checks pass. The existing browser suite was
+syntax-checked but not run without the app stack. Twelve locale paths still need
+these labels; both keys remain pending. The ordinary backlog remains 51,575 values
+plus 174 pending source keys. Broader language-quality work remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
