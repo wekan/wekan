@@ -164,6 +164,29 @@ mutation scenario includes both languages; syntax checking passes, but no
 browser execution was available. Older unrelated or mixed-language values
 elsewhere in the catalogs still require the broader audit.
 
+## Acehnese and Bambara archiving/date filters — 2026-10-07
+
+Filled 23 English placeholders each in Acehnese (`ace`) and Bambara (`bm`).
+The comparison against the previous commit confirms 46 English-placeholder
+replacements. Also corrected the Acehnese `days` label from Indonesian
+`hari` to `uroe`. The standard backlog falls by 40 to 51,775 values; six
+auto-archive values belong to the separately tracked pending keys.
+
+The [Kamus Basa Acèh dictionary](https://core.ac.uk/download/pdf/160609809.pdf)
+supports day/month vocabulary. [Peace Corps Bambara lessons](https://files.peacecorps.gov/uploads/wws/lesson-plans/files/ML_Bambara_Language_Lessons.pdf)
+support day/week/month terms, alongside the existing catalog's vocabulary.
+These references support components rather than full sentences. Both sets
+remain provisional and low confidence, especially relative elapsed time,
+inclusive bounds and quoted field names. Older Malay/Indonesian-seeded
+Acehnese labels elsewhere still need review; they are not validated by
+these new feature translations.
+
+The shared feature suite now checks 59 locales for exact tokens, numbers,
+query examples and the two negative rules. All-locale structure,
+human-preference and the relevant language suites pass. Both languages
+are included in the existing browser mutation scenario; it is syntax-checked,
+not browser-executed in this environment.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
