@@ -1889,6 +1889,22 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b5818255c9ab38bab1f55084e893d783eae414d9">Translate Cherokee notification settings and check all locales</a>. Thanks to xet7.</summary>
+
+- Fill 13 Cherokee notification strings with provisional wording; document
+  reference limitations and fluent-speaker review needs in
+  `docs/Features/Translations/Audit.md`.
+- All 234 non-English locale paths now pass checks for nonempty values, no exact
+  English placeholders and preserved tokens in this group. Detailed notification
+  coverage includes 66 locales. Human-preference and all-locale checks pass;
+  browser coverage is syntax-checked only because its application stack is unavailable.
+- Language-quality review and the wider translation backlog remain in TODO Later.
+  The ordinary count is still 51,575 values plus 201 pending source keys; this
+  group's pending manifest entries still need reconciliation.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7138ed19e0c2d7371256b7781b58b4405f1f7345">Translate Tigre notification settings</a>. Thanks to xet7.</summary>
 
 - Fill 13 Tigre notification strings while preserving existing translations.
