@@ -386,10 +386,11 @@ Status checked on 2026-10-08. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **44,304 untranslated locale/string values in 70 languages**. It
-  excludes **148 source keys tracked separately as pending Transifex**, whose
-  non-English values still require wording review. Counts are a snapshot; they
-  do not establish the quality or language of other values.
+  report counts **44,218 untranslated locale/string values in 70 languages**. It
+  excludes **149 source keys tracked separately as pending Transifex**: 148
+  have non-English values requiring wording review; the newly added
+  `shortcut-edit-due-date` still needs translations. Counts are a snapshot;
+  they do not establish the quality or language of other values.
 - The 13 activity-notification preference keys have no empty or exact
   English-placeholder values in all 234 non-English locale paths and have left
   the pending queue. Provisional wording still needs language review.
@@ -2145,6 +2146,23 @@ uses the same word as `checklist` itself.
 </details>
 
 **Translations** — continued language coverage and corrections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3dd40f61f2e6c42d1f14725100929c5cb379fa67">Translate 86 Northern Sotho mathematical messages.</a></summary>
+
+- Preserve source tokens, formulas, numerical boundaries, operand order and
+  degree/radian distinctions. Existing translations are retained.
+- All 23 Northern Sotho checks pass. The combined run passes 59 checks but
+  two catalog checks fail on the concurrent due-date shortcut key mismatch;
+  the same mismatch affects one of 21 human-preference checks.
+- Browser and screen-reader checks were not run. Statistical compounds and
+  trigonometric wording remain low confidence pending fluent-speaker review.
+- Remaining counted English placeholders: 44,218 across 70 languages. The
+  broader language and wording audit continues.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/56a4dabd1cc446def7472ebce7223f71219aebce">Translate 46 Northern Sotho block-editing and accessibility messages.</a></summary>
