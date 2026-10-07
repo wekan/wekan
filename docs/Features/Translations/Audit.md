@@ -788,6 +788,23 @@ with all-locale structure and human-preference checks. The Northern Sámi
 browser mute/unmute scenario passes syntax checking only; no browser
 execution was available.
 
+## Acehnese notification preferences — 2026-10-07
+
+Filled 13 English placeholders in Acehnese (`ace`), preserving all existing
+translated values. The keys remain pending elsewhere; the standard backlog
+remains 51,575 values and 201 pending source keys.
+
+Vocabulary was checked against the
+[Acehnese–Indonesian–English thesaurus](https://dokumen.pub/kamus-basa-aceh-kamus-bahasa-aceh-acehneseindonesianenglish-thesaurus-0858835061.html),
+including geunta for bell. These are direct translations without a translation
+service. Technical compounds and the complete instruction remain low confidence
+pending speaker review. Broader Malay/Indonesian-seeded values remain to review.
+
+Shared notification checks now cover 48 locales. Exact tokens, source order,
+people-category distinctions and the reminder/mention exception pass, together
+with all-locale structure and human-preference checks. The browser mute/unmute
+scenario includes Acehnese and is syntax-checked only; it was not executed.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -7,7 +7,7 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('notification-activity-'));
 assert.equal(keys.length, 13);
-for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts', 'om', 'fj', 'to', 'gv', 'wa', 'wa-RR', 'ak', 'lg', 'bm', 'wo', 'ee', 'rup', 'bua', 'sah', 'cv', 've', 've-CC', 'se']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts', 'om', 'fj', 'to', 'gv', 'wa', 'wa-RR', 'ak', 'lg', 'bm', 'wo', 'ee', 'rup', 'bua', 'sah', 'cv', 've', 've-CC', 'se', 'ace']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: key order`);
   for (const key of keys) {
@@ -123,4 +123,6 @@ assert.match(venda.assignees, /avhelwaho mushumo/);
 assert.match(venda.swimlane, /Nḓila ya mushumo/);
 assert.match(read('se')['notification-activity-description'], /Váldde mearkka eret/);
 assert.match(read('se')['notification-activity-description'], /Áigemeari muittuhusat ja @-namahusat bohtet álo/);
-console.log('Notification activity translations: 13 messages in 47 locales passed');
+assert.match(read('ace')['notification-activity-description'], /Bôh tanda/);
+assert.match(read('ace')['notification-activity-description'], /Haba peuingat keu uroe akhé.*@ sabe teuka/);
+console.log('Notification activity translations: 13 messages in 48 locales passed');
