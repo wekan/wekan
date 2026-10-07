@@ -721,7 +721,61 @@ const correctedKeys = [
   "blockly-PROCEDURES_DEFRETURN_COMMENT",
   "blockly-PROCEDURES_DEFRETURN_PROCEDURE",
   "blockly-TEXT_APPEND_VARIABLE",
-  "blockly-TEXT_CREATE_JOIN_ITEM_TITLE_ITEM"
+  "blockly-TEXT_CREATE_JOIN_ITEM_TITLE_ITEM",
+  "r-blocks-view",
+  "r-blocks-help",
+  "r-blocks-discard",
+  "r-blocks-unavailable",
+  "r-blocks-invalid",
+  "r-blocks-conflict",
+  "r-blocks-permission",
+  "r-blocks-unsaved",
+  "r-blocks-saved",
+  "r-blocks-reload",
+  "board-view-product-backlog",
+  "board-view-sprints",
+  "board-view-sprint-report",
+  "board-view-velocity",
+  "scrum-settings",
+  "scrum-product-owner",
+  "scrum-master",
+  "scrum-developers",
+  "scrum-working-days",
+  "scrum-enabled",
+  "scrum-product-goal",
+  "scrum-definition-of-done",
+  "scrum-estimate-source",
+  "scrum-estimate-unit",
+  "scrum-completion-policy",
+  "scrum-source-poker",
+  "scrum-source-customField",
+  "scrum-policy-dueComplete",
+  "scrum-policy-doneLists",
+  "scrum-sprints",
+  "scrum-sprint",
+  "scrum-start-sprint",
+  "scrum-close-sprint",
+  "scrum-cancel-sprint",
+  "scrum-rollover-sprint",
+  "scrum-cancel-reason",
+  "scrum-product-backlog",
+  "scrum-edit-sprint",
+  "scrum-sprint-goal",
+  "scrum-capacity",
+  "scrum-new-sprint",
+  "scrum-releases",
+  "scrum-release",
+  "scrum-select-sprint",
+  "scrum-backlog",
+  "scrum-backlog-help",
+  "scrum-estimate",
+  "scrum-backlog-rank",
+  "scrum-issue-type",
+  "scrum-acceptance-criteria",
+  "scrum-events",
+  "scrum-event-kind",
+  "scrum-timebox",
+  "scrum-notes"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -860,6 +914,14 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   for (const suffix of ['COMMENT', 'PROCEDURE']) {
     assert.equal(waray['blockly-PROCEDURES_DEFRETURN_' + suffix], waray['blockly-PROCEDURES_DEFNORETURN_' + suffix]);
   }
+  assert.match(waray['r-blocks-invalid'], /usa la.*usa la.*antes magtipig/);
+  assert.match(waray['r-blocks-permission'], /administrador han pisara/);
+  assert.match(waray['r-blocks-conflict'], /Ikarga utro.*antes magtipig/);
+  assert.notEqual(waray['scrum-close-sprint'], waray['scrum-cancel-sprint']);
+  assert.match(waray['scrum-rollover-sprint'], /waray pa matapos/);
+  assert.notEqual(waray['scrum-policy-dueComplete'], waray['scrum-policy-doneLists']);
+  assert.equal(waray['board-view-product-backlog'], waray['scrum-product-backlog']);
+  assert.equal(waray['board-view-sprints'], waray['scrum-sprints']);
   const statistics = ['AVERAGE', 'MEDIAN', 'MODE', 'STD_DEV', 'SUM'].map(s => waray['blockly-MATH_ONLIST_OPERATOR_' + s]);
   assert.equal(new Set(statistics).size, statistics.length);
   assert.match(waray['blockly-MATH_ONLIST_TOOLTIP_MODE'], /lista han mga butang/);

@@ -5067,6 +5067,12 @@ mixed-language audit remains open.
 - Kept search keyboard shortcuts and next/previous directions intact. Added shortcut, fragment-spacing, empty-workspace, get/set and shared-function-label regression checks.
 - Search-focus and variable-type language remains provisional pending contextual review. The remaining placeholder inventory still includes rule-editor and Scrum prose as well as keyboard names, platform names and mathematical notation; this batch does not complete Waray. Browser and spoken accessibility checks were not run.
 
+### Waray rule editor and Scrum planning
+
+- Filled 54 English placeholders through the protected workflow: block-rule messages, backlog views, Scrum roles/settings, estimates, sprint actions and planning labels. Reused the existing trigger/action/rule terms.
+- Preserved exactly-one trigger/action validation, administrator permission, reload-before-save conflicts, unfinished-work rollover and distinct completion policies. Added regression checks for these constraints and shared view labels.
+- Scrum Master, velocity, capacity and increment wording is provisional and requires domain-aware language review. Remaining Scrum report/event messages are still untranslated. Browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
