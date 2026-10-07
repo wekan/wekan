@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/291c84d5b104be12fbb490ab9984403f4e0cf070">Correct 24 mixed-language Akan configuration and rule messages.</a></summary>
+
+- Rewrite avatar/auth settings, domain help, deletion confirmations, rule triggers and a due-date activity. Restore a damaged example hostname while preserving configuration identifiers.
+- Add source-token, literal-identifier, deletion-condition and newline checks. Rule fragments and authentication/tenant wording remain provisional.
+- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
+- Validation: 56 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/857961d5d1e81302e42877c9f6f30e96cb64d6d9">Correct 32 mixed-language Akan board warnings and notifications.</a></summary>
 
 - Rewrite deletion, archiving, privacy, import and notification messages containing English clauses and malformed substitutions. Match current board-restore guidance.
