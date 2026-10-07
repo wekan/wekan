@@ -7001,6 +7001,18 @@ The focused run passes 41 checks. Two existing catalog checks still fail on the
 missing shortcut elsewhere. All 21 human-preference checks pass. Browser and
 screen-reader checks were not run. Remaining locales and wording review stay open.
 
+## Due-date shortcut inventory repair: 16 additional variant catalogs
+
+Added shortcut-edit-due-date to af_ZA, ca@valencia, ca_ES, de_DE, en_AU, en_ID,
+en_SG, en_TR, en_ZA, es_CO, pt_PT, sl_SI, cmn, zh, zh_SG and gl-ES, using the
+corresponding language translation. Existing values were preserved. Each affected
+catalog matches English's key inventory and order; English regional catalogs
+intentionally retain English wording, including underscore-based locale names.
+
+The focused run passes 42 checks. Two existing catalog checks still fail on the
+missing shortcut elsewhere. All 21 human-preference checks pass. Browser and
+screen-reader checks were not run. Remaining locales and wording review stay open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
