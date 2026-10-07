@@ -180,3 +180,22 @@ test('Akan remaining status labels remove generic filler and preserve schedules'
  assert.equal(data['event-severity'],data['recovery-severity']);
  assert.equal(data['flow-size'],data['scrum-estimate']);
 });
+
+test('Akan board warnings preserve deletion consequences, privacy and recipient tokens', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["archive-permanent-delete-disabled-hint", "personal-list-width-description", "fixed-list-width-note", "app-is-offline", "auto-watch", "board-private-info", "board-public-info", "card-delete-notice", "card-delete-pop", "card-archive-pop", "list-archive-pop", "swimlane-archive-pop", "vote-delete-pop", "poker-delete-pop", "close-board-pop", "custom-field-delete-pop", "export-card-excel-no-disk-space", "import-board-instruction-about-errors", "import-trello-zip-progress", "trello-cancel-delete-confirm", "import-members-map-note", "label-delete-pop", "last-admin-desc", "leave-board-pop", "list-archive-cards-pop", "list-delete-pop", "muted-info", "public-desc", "remove-member-pop", "star-board-title", "tracking-info", "watching-info"];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.ok(!/\b(will|cannot|please|histanaay|wanaaks|restanaae|nore)\b/i.test(data[key]),key);
+ }
+ for(const key of ['board-private-info','board-public-info']) assert.deepEqual(data[key].match(/<[^>]+>/g),english[key].match(/<[^>]+>/g));
+ assert.notEqual(data['board-private-info'],data['board-public-info']);
+ for(const key of ['card-delete-pop','custom-field-delete-pop','label-delete-pop','list-delete-pop']) assert.match(data[key],/Wuntumi nsan nyi/);
+ assert.match(data['public-desc'],/Google.*nkutoo/);
+ assert.match(data['remove-member-pop'],/nyinaa.*amanneɛ/);
+ assert.match(data['last-admin-desc'],/sohwɛfo biako/);
+ assert.match(data['muted-info'],/remmɔ.*da/);
+ assert.match(data['watching-info'],/bɛbɔ/);
+ assert.match(data['import-trello-zip-progress'],/\.zip/);
+ assert.match(data['close-board-pop'],/Bɔɔd Nyinaa/);
+});

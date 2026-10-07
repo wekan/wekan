@@ -5315,6 +5315,12 @@ Corrected the remaining 99 exact occurrences of `Nsɛm a ɛfa dwumadi yi ho`, co
 
 A full-catalog regression rejects that exact filler phrase. Batch checks cover source placeholders, scheduling intervals, technical values, opposite actions and shared labels. Migration, diagnostic and short grammatical wording remains provisional; mixed-language and semantic review continues. Browser checks were not run.
 
+### Akan mixed-language correction: board warnings and notifications
+
+Rewrote 32 mixed-language values containing English clauses and malformed substitutions. Covered permanent deletion, archiving, private/public access, imports, member removal and notification scope. Corrected the outdated board-restore description to refer to Archive on the All Boards page, matching the current English source.
+
+Tests preserve all source placeholders and HTML tags, deletion consequences, membership scope, last-admin restrictions and notification distinctions. Short menu references and administrative terminology need contextual review. Browser checks were not run. This batch does not change the exact-English placeholder count; the broader mixed-language audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
