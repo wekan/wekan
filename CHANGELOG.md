@@ -2055,6 +2055,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/65fe9d72218e6ce2c8eb0466997d3c6110d35377">Correct 30 further Walloon values in Waray notes and favorites.</a></summary>
+
+- Correct note, favorite, permanent-delete, text-matching, import, selection and interruption labels. Restore the missing Markdown-import explanation for plain bulleted lists without checkboxes.
+- Preserve placeholders, Markdown examples and the guarantee that enabling permanent deletion does not itself delete content. Extend operation and language regressions; technical wording remains provisional.
+- These wrong-language corrections leave 46,995 English placeholders across 70 languages. Further Waray corrections, 148 pending source keys and broader semantic review remain open.
+- Validation: 27 focused tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6c95ad716d5c0c390741a98900b06a5798d5992d">Correct 40 Walloon values in Waray board and import controls.</a></summary>
 
 - Replace wrong-language board membership, home/default board, view, deadline, import/export, user mapping and note labels with Waray. Preserve day-count tokens and non-deletion guarantees.
