@@ -3710,6 +3710,14 @@ The [Klingon Language Institute discussion](https://lists.kli.org/archives/list/
 
 Extended regression and browser coverage to both locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Coverage and placeholder checks do not establish fluency.
 
+## Map view: Veps and Greenlandic - 2026-10-07
+
+Filled seven English placeholders in each of `ve-PP` and `kl` (14 values) through the protected fill workflow. Both placement methods and the image examples are retained. The seven keys remain English in six locale paths and stay in the pending queue; the broader backlog remains 51,575 ordinary placeholders across 70 languages plus 160 pending source keys.
+
+[Greenland's NunaGIS](https://nunagis.gl/nittartakkatigut-kiffartuussissutit/) supports the map term. Veps dictionary searches found the corpus resource but did not verify the proposed map and floor-plan compounds. Veps wording is low confidence; Greenlandic technical inflections and floor-plan phrasing also remain provisional and need speaker review. The Greenlandic administrator's upload action was revised to an active form during review.
+
+Extended regression and browser coverage to both locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Structural checks do not establish fluent or accurate language.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

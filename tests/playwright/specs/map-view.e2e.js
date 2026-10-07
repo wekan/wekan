@@ -12,7 +12,7 @@ async function openMap(page) {
   await expect(page.locator('.js-map-view')).toBeVisible({ timeout: 15000 });
 }
 
-for (const language of ['en', 'ku', 'ckb', 'tt', 'tk_TM', 'yi', 'ary', 'bho', 'mai', 'or_IN', 'kok', 'so', 'om', 'rw', 'rn', 'ny', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've', 'bi', 'tpi', 'mi', 'sm', 'pap', 'wa', 'ace', 'haw', 'wa-RR', 'fj', 'to', 'lg', 'wo', 'bua', 'cv', 'sah', 'bo', 'dz', 'ti', 'gv', 've-CC', 'rup', 'ak', 'ee', 'bm', 'qu', 'ay', 'gn', 'se', 'ff', 'ks', 'tlh', 'vo']) {
+for (const language of ['en', 'ku', 'ckb', 'tt', 'tk_TM', 'yi', 'ary', 'bho', 'mai', 'or_IN', 'kok', 'so', 'om', 'rw', 'rn', 'ny', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've', 'bi', 'tpi', 'mi', 'sm', 'pap', 'wa', 'ace', 'haw', 'wa-RR', 'fj', 'to', 'lg', 'wo', 'bua', 'cv', 'sah', 'bo', 'dz', 'ti', 'gv', 've-CC', 'rup', 'ak', 'ee', 'bm', 'qu', 'ay', 'gn', 'se', 'ff', 'ks', 'tlh', 'vo', 've-PP', 'kl']) {
 const locale = require(`../../../imports/i18n/data/${language}.i18n.json`);
 test(`a board admin uploads a map, and members place and move cards on it in ${language}`, async ({ boardPage: page, board }) => {
   const cards = Object.fromEntries(db.find('cards', { boardId: board.boardId }).map(c => [c.title, c._id]));
