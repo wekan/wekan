@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/339a425511eceecd553afdaf1ad8fa0bbce99b7d">Correct 40 Akan activity and report values containing embedded filler.</a></summary>
+
+- A substring audit found generic filler embedded in 40 further values. Rewrite activity, email-template, rule-date, flow-report and time-adjustment messages; the phrase now occurs nowhere in Akan.
+- Add source-token, simulation-limit, percentile, overlap and date-fallback checks. Statistical and forecasting wording remains low confidence.
+- English placeholders remain 45,599 across 70 languages because these corrections replace non-English values. The broader language audit continues.
+- Validation: 71 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/fdee0c6fb3ad4a91091f2bd612ae4fbf0ba018d0">Correct 20 mixed-language Akan account and repair-result messages.</a></summary>
 
 - Rewrite account errors, partial repair results, import controls and flow-history labels. Preserve count placeholders, file extensions and card-number query syntax.
