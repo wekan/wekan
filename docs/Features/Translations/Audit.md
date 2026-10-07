@@ -6697,6 +6697,18 @@ The counted English-placeholder inventory remains 42,838 across 70 languages;
 that report excludes pending source keys and mixed-language corrections.
 Browser and screen-reader checks were not run. The wider audit remains open.
 
+## Tok Pisin Azure and Google Cloud wording audit
+
+Corrected 26 mixed-language cloud-storage settings and instructions. External
+Azure and Google Cloud console labels and the client_email JSON key remain
+literal. Checks distinguish optional credentials, keeping saved secrets, file
+versus pasted-JSON input, read/write permissions and connection outcomes.
+Technical wording remains provisional pending fluent-speaker review.
+
+The combined translation run passes 126 checks. Two existing catalog checks fail
+on the missing due-date shortcut key. All 21 human-preference checks pass.
+Browser and screen-reader checks were not run. The wider audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

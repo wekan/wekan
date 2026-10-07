@@ -1855,3 +1855,58 @@ test('Tok Pisin storage help preserves paths, external menu labels and access wa
  assert.match(data['s3-disabled'],/i no wok$/);
  assert.match(data['s3-enabled'],/i wok$/);
 });
+
+
+test('Tok Pisin cloud storage settings preserve tokens and replace mixed English prose',()=>{
+ const keys=[
+  "azure-account-key",
+  "azure-connection-string-description",
+  "gcs-key-filename",
+  "gcs-key-filename-description",
+  "gcs-credentials",
+  "gcs-credentials-description",
+  "gcs-permissions-note",
+  "cloud-secret-keep-blank",
+  "azure-account-name-description",
+  "azure-container-description",
+  "gcs-project-id-description",
+  "gcs-bucket-description",
+  "azure-account-name-menu-path",
+  "azure-account-key-menu-path",
+  "azure-connection-string-menu-path",
+  "azure-container-menu-path",
+  "gcs-project-id-menu-path",
+  "gcs-bucket-menu-path",
+  "gcs-key-filename-menu-path",
+  "gcs-credentials-menu-path",
+  "cloud-secret-set",
+  "cloud-secret-none",
+  "cloud-connection-success",
+  "cloud-connection-failed",
+  "cloud-settings-saved",
+  "cloud-settings-save-failed"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:instead|blank|keep|shown|downloads|downloaded|contents|failed|successful)\b/,key);
+ }
+});
+
+test('Tok Pisin cloud setup keeps external controls and optional secret behavior',()=>{
+ const menus={
+  'azure-account-name-menu-path':['Storage accounts','Security + networking','Access keys','Storage account name'],
+  'azure-account-key-menu-path':['Storage accounts','key1','Show','Key'],
+  'azure-connection-string-menu-path':['Storage accounts','Connection string','Show'],
+  'azure-container-menu-path':['Data storage','Containers','+ Container'],
+  'gcs-permissions-note':['Permissions','Grant access','New principals','client_email','Storage Object Admin','Save'],
+  'gcs-credentials-menu-path':['Service accounts','Keys','Add key','Create new key','JSON','Create']
+ };
+ for(const [key,literals] of Object.entries(menus)) for(const literal of literals) assert.ok(data[key].includes(literal),key+': '+literal);
+ for(const key of ['azure-connection-string-description','gcs-key-filename-description','gcs-credentials-description']) assert.match(data[key],/^Sapos yu laik:/);
+ assert.match(data['cloud-secret-keep-blank'],/Larim i stap nating.*holim veliu bilong nau/);
+ assert.match(data['gcs-key-filename-menu-path'],/Yusim dispela O putim kopi bilong JSON/);
+ assert.match(data['gcs-permissions-note'],/rait long ritim na raitim/);
+ assert.match(data['cloud-connection-failed'],/i no wok$/);
+ assert.match(data['cloud-connection-success'],/i wok gut$/);
+});
