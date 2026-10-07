@@ -1,18 +1,6 @@
 {
   "keys": [
     {
-      "key": "instance",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "instance-desc",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "board-instance-info",
-      "since": "2026-09-29"
-    },
-    {
       "key": "import-report-heading",
       "since": "2026-09-29"
     },

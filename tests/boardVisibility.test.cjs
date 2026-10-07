@@ -73,12 +73,12 @@ test('instance visibility translations retain source tokens and confirmation emp
   const readLocale = code => JSON.parse(fs.readFileSync(path.join(root, `imports/i18n/data/${code}.i18n.json`), 'utf8'));
   const en = readLocale('en');
   const keys = ['instance', 'instance-desc', 'board-instance-info'];
-  for (const code of ['ary', 'ckb', 'ku', 'bho', 'mai', 'or_IN', 'kok', 'tk_TM', 'tt', 'yi',
-    'so', 'om', 'rw', 'rn', 'ny', 'st', 'tn', 'nso', 'zu', 'zu-ZA',
-    'bi', 'tpi', 'mi', 'sm', 'haw', 'pap', 'xh', 'nd',
-    'ak', 'lg', 'wo', 'ss', 'ts', 've', 'wa-RR', 've-CC',
-    'ace', 'bm', 'ee', 'ff', 'fj', 'to', 'bua', 'cv', 'sah', 'se', 'bo', 'dz', 'ks',
-    'gv', 'wa', 'rup', 'gn', 'qu', 'ay', 'ti', 'tlh', 'vo', 've-PP', 'kl', 'nah', 'zgh', 'iu', 'wal', 'tig']) {
+  const codes = fs.readdirSync(path.join(root, 'imports/i18n/data'))
+    .filter(file => file.endsWith('.i18n.json') && !/^en(?:[-_]|\.)/.test(file))
+    .map(file => file.replace('.i18n.json', ''));
+  const pending = JSON.parse(fs.readFileSync(path.join(root, 'releases/translations/pending-transifex.json'), 'utf8'));
+  for (const key of keys) assert.ok(!pending.keys.some(entry => entry.key === key), key + ': filled group leaves pending inventory');
+  for (const code of codes) {
     const locale = readLocale(code);
     assert.deepStrictEqual(Object.keys(locale), Object.keys(en), `${code}: source order`);
     for (const key of keys) {

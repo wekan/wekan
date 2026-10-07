@@ -3308,6 +3308,14 @@ Filled three English placeholders in `tig`. The direct draft preserves the signe
 
 Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English only in Cherokee. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
 
+### Signed-in board visibility: Cherokee and all-locale check
+
+Filled the final three English placeholders in Cherokee. The draft uses the [Cherokee Language Consortium's 2024 word list](https://language.cherokee.org/media/vdiic5hr/2024consortium.pdf), including its login term, with the existing board terminology. No translation service was used; the fill utility protected existing translations. Relative clauses, membership wording, agreement and technical phrasing have low confidence and require fluent-speaker review. The word list supports individual vocabulary only, not the full drafted sentences.
+
+All 234 non-English locales now have nonempty values different from English for `instance`, `instance-desc` and `board-instance-info`. Removed these three keys from the pending inventory, reducing it from 171 to 168. The existing board-visibility test now discovers every non-English locale and checks source key order, placeholder inventories, exact markup and rendered confirmation emphasis, plus pending-inventory absence. Its malformed-markup negative check remains in place.
+
+Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. The ordinary backlog remains 51,575 missing values across 70 languages, alongside 168 pending source keys. The broader goal and language-quality review remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
