@@ -1889,6 +1889,20 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7138ed19e0c2d7371256b7781b58b4405f1f7345">Translate Tigre notification settings</a>. Thanks to xet7.</summary>
+
+- Fill 13 Tigre notification strings while preserving existing translations.
+  Record low-confidence wording, reference limits and possible Tigrinya influence
+  in the broader locale in `docs/Features/Translations/Audit.md`.
+- Shared notification coverage now includes 65 locales. Notification, script,
+  all-locale structure/token and human-preference checks pass. Browser coverage
+  is syntax-checked only; its application stack was unavailable.
+- Cherokee still needs this notification group. The ordinary backlog remains
+  51,575 values plus 201 pending source keys; remaining work stays in TODO Later.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/56fd350ada934e8a6833833b1867d43e2b0ca64f">Translate Wolaytta notification settings</a>. Thanks to xet7.</summary>
 
 - Fill 13 Wolaytta notification strings while preserving existing translations.
