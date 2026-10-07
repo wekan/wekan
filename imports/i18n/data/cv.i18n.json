@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "Пулӑшу уйрӑм ҫыхӑнӑвӗн URLӗ",
   "text-below-custom-login-logo": "Системӑна кӗмелли уйрӑм лого айӗнчи текст",
   "automatic-linked-url-schemes": "Хӑй тӗллӗн пусма пулмалли уйрӑм URL схемисем. Кашни йӗркере пӗр URL схеми",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Пуҫламӑшра пушӑ, ҫавӑнпа веб тата электронлӑ почта ҫыхӑнӑвӗсем ҫине кӑна пусма пулать. Списока кӗртнӗ кашни схема, сӑмахран thunderlink е onenote, хӑйӗн валли ҫырса хунӑ программӑна уҫать. javascript, data, vbscript тата ҫавӑн пек схемӑсене нихӑҫан та ҫыхӑну туса памастпӑр.",
   "external-link-pattern": "Тулаш ыйтусене тытса пыракан системӑна автоматла ҫыхӑнтарни",
   "external-link-pattern-description": "Карточка текстӗнче тупӑннӑ \"#1234\" евӗр паллӑсене тулаш ыйтусене тытса пыракан системӑпа автоматла ҫыхӑнтарать. Тапхӑра пушӑ хӑварса вӑл ӗҫлемест.",
   "external-link-pattern-prefix": "Паллӑ префиксӗ",

@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "Тусхай туһаламжын холбооһоной URL",
   "text-below-custom-login-logo": "Нэбтэрэлгын тусхай логотипой доорохи бэшэг",
   "automatic-linked-url-schemes": "Автоматаар дарагдадаг болохо тусхай URL схемэнүүд. Мүр бүхэндэ нэгэ URL схемэ",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Анхандаа хооһон, тиимэһээ гансал веб болон сахим захидалай холбооһонууд дээрэ даража болохо. Жагсаалтада оруулагдаһан схемэ бүхэн, жэшээнь thunderlink гү, али onenote, тэрээндэ бүридхэгдэһэн программые нээнэ. javascript, data, vbscript болон эдээндэ адли схемэнүүд хэзээдэшье холбооһон болгогдохогүй.",
   "external-link-pattern": "Гадаадын асуудалай хиналтада автоматаар холбоо",
   "external-link-pattern-description": "Хартын текстдэ олдоhон \"#1234\" маягай тэмдэгүүдые гадаадын асуудалай хиналтада автоматаар холбоно. Таhалхада негэ хосые хооhон орхигты.",
   "external-link-pattern-prefix": "Тэмдэгэй урдаhан",

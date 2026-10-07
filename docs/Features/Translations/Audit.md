@@ -3078,6 +3078,14 @@ Technical wording in these four drafts has lower confidence and needs native-spe
 
 The URL-scheme suite now checks 45 recently filled locales and exercises parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes UI test was syntax-checked only; the application stack is unavailable. This hint remains English in 21 locales. The broader backlog remains 51,575 ordinary missing values plus 172 pending source keys, with translation quality review still open.
 
+### URL scheme hint: Buryat, Sakha and Chuvash
+
+Filled the English-only `automatic-linked-url-schemes-hint` in `bua`, `sah` and `cv` directly through the placeholder-only fill utility. Existing translated values were retained. The translations preserve all five scheme identifiers and describe the empty default, clickable web/mail links, registered applications and permanently excluded schemes.
+
+These three technical drafts have lower confidence and need native-speaker review. Terminology follows each locale's existing link/email labels. Supporting language references include [Buryat syntax lessons](https://buryadxelen.com/backend/web/burlang/default/tutorial?part_id=202) and [Chuvash technology vocabulary](https://www.chuvash.org/wiki/Кӑсӑк%20технологи%20сӑмахӗсем). Neither reference establishes that the complete translated hints are idiomatic or technically precise. No translation service was used.
+
+Validation covers 48 recently filled hints, exact scheme identifiers, source tokens and key order, together with parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only because the application stack is unavailable. This hint remains English in 18 locales. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; language quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

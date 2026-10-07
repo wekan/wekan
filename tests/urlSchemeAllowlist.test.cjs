@@ -20,7 +20,7 @@ async function main() {
   const source = JSON.parse(read('imports/i18n/data/en.i18n.json'));
   const key = 'automatic-linked-url-schemes-hint';
   const schemes = text => (text.match(/\b(?:thunderlink|onenote|javascript|data|vbscript)\b/g) || []).sort();
-  for (const code of ["ary", "ckb", "ku", "bho", "mai", "or_IN", "kok", "tk_TM", "tt", "yi", "tpi", "bi", "pap", "so", "om", "ny", "zu", "xh", "nd", "ss", "st", "tn", "nso", "zu-ZA", "rw", "rn", "lg", "ts", "ve", "mi", "sm", "to", "fj", "haw", "ve-CC", "wa", "rup", "wa-RR", "ace", "gv", "se", "ti", "ak", "wo", "gn"]) {
+  for (const code of ["ary", "ckb", "ku", "bho", "mai", "or_IN", "kok", "tk_TM", "tt", "yi", "tpi", "bi", "pap", "so", "om", "ny", "zu", "xh", "nd", "ss", "st", "tn", "nso", "zu-ZA", "rw", "rn", "lg", "ts", "ve", "mi", "sm", "to", "fj", "haw", "ve-CC", "wa", "rup", "wa-RR", "ace", "gv", "se", "ti", "ak", "wo", "gn", "bua", "sah", "cv"]) {
     const locale = JSON.parse(read(`imports/i18n/data/${code}.i18n.json`));
     assert.deepEqual(Object.keys(locale), Object.keys(source), `${code}: source order`);
     assert.ok(locale[key]?.trim(), `${code}: nonempty hint`);
@@ -29,7 +29,7 @@ async function main() {
     assert.deepEqual(schemes(locale[key]), schemes(source[key]), `${code}: exact scheme identifiers`);
   }
   assert.notDeepEqual(schemes('thunderlink onenote javascript data'), schemes(source[key]), 'missing blocked scheme is detected');
-  console.log('  ok - URL scheme hint translations in 45 locales preserve identifiers');
+  console.log('  ok - URL scheme hint translations in 48 locales preserve identifiers');
   // Parsing: how people write schemes, one per line or separated by commas.
   assert.deepEqual(parseAllowedUrlSchemes('thunderlink\nOneNote:\nfile://, conisio ; x-my-app'),
     ['conisio', 'file', 'onenote', 'thunderlink', 'x-my-app']);

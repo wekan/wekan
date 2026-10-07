@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "Туспа көмө сигэтин URL-а",
   "text-below-custom-login-logo": "Киирии туспа логотун аллараа тиэкис",
   "automatic-linked-url-schemes": "Бэйэлэрэ баттанар туспа URL сиэмэлэрэ. Хас устуруокаҕа биир URL сиэмэтэ",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Саҕаланыытыгар кураанах, онон веб уонна электроннай почта сигэлэрин эрэ баттыырга сөп. Испииһэккэ баар схемата аайы, холобур thunderlink эбэтэр onenote, бэйэтигэр бэлиэтэммит программаны аһар. javascript, data, vbscript уонна кинилэргэ майгынныыр схемалар хаһан да сигэ буолбаттар.",
   "external-link-pattern": "Тас проблема батыытыгар автомайын сыһыаран",
   "external-link-pattern-description": "Карточка тиэксин иһиттэн булуллубут \"#1234\" курдук бэлиэлэри тас проблема батыытыгар автомайын сыһыарар. Хаһыы соппото туттарга биир хонооҕу куотатыгыт.",
   "external-link-pattern-prefix": "Бэлиэ префиксэ",
