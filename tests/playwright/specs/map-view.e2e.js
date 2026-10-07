@@ -12,7 +12,7 @@ async function openMap(page) {
   await expect(page.locator('.js-map-view')).toBeVisible({ timeout: 15000 });
 }
 
-for (const language of ['en', 'ku', 'ckb', 'tt', 'tk_TM', 'yi', 'ary', 'bho', 'mai', 'or_IN', 'kok', 'so', 'om', 'rw', 'rn', 'ny', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've']) {
+for (const language of ['en', 'ku', 'ckb', 'tt', 'tk_TM', 'yi', 'ary', 'bho', 'mai', 'or_IN', 'kok', 'so', 'om', 'rw', 'rn', 'ny', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've', 'bi', 'tpi', 'mi', 'sm']) {
 const locale = require(`../../../imports/i18n/data/${language}.i18n.json`);
 test(`a board admin uploads a map, and members place and move cards on it in ${language}`, async ({ boardPage: page, board }) => {
   const cards = Object.fromEntries(db.find('cards', { boardId: board.boardId }).map(c => [c.title, c._id]));

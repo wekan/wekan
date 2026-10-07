@@ -3630,6 +3630,14 @@ The [Swati education curriculum](https://www.education.gov.za/Portals/0/CD/Natio
 
 Extended the locale regression and browser scenario to these four paths. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Text differences and placeholder inventories do not establish fluent wording.
 
+## Map view: Bislama, Tok Pisin, Maori and Samoan - 2026-10-07
+
+Filled seven English placeholders in each of `bi`, `tpi`, `mi` and `sm` (28 values) through the protected fill workflow. The image examples and both placement methods are retained. Bislama uses the descriptive view label Map blong ples; Tok Pisin uses Mep. The seven keys remain English in 37 locale paths and stay in the pending queue. The broader backlog remains 51,575 ordinary placeholders across 70 languages plus 160 pending source keys.
+
+Terminology references: [Vanuatu ClimateWatch instructions](https://content.vmgd.gov.vu/wp-content/uploads/2024/12/CW-Van-How-To-Pamphlet-Bislama.pdf) for Bislama map/upload/click usage; [YUS community map](https://www.zoo.org/file/conservation-documents/YUS-Community-Map---webbw.pdf) for Tok Pisin mep; [Te Aka mahere](https://maoridictionary.co.nz/search?histLoanWords=&idiom=&keywords=mahere&loan=&phrase=&proverb=); and [Austronesian Comparative Dictionary](https://acd.clld.org/valuesets/401-1d78dc8ed51214e518b5114fe24490ae) for Samoan map vocabulary. The references support terms, not complete technical sentences. Floor-plan phrasing and Samoan UI wording remain provisional and need speaker review.
+
+Extended the regression and browser scenario to these four paths. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Checks do not establish linguistic fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
