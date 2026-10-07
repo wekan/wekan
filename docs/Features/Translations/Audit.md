@@ -2297,6 +2297,28 @@ not run; the app stack was unavailable. 37 locale paths still need this group.
 The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
 broader language-quality review remains open.
 
+### Rule-builder instructions — Oromo, Fijian and Tongan (2026-10-07)
+
+Filled seven pending strings in om, fj and to (21 values), preserving existing
+correct-language translations and all literal variable expressions. No translation
+service was used. Two Tongan labels containing prefixed English (Trigger and Action)
+were replaced with Meʻa kamata and Ngāue; regression checks reject the old forms.
+The text retains any-trigger behavior, ordered actions, username/email context and
+card-derived variables. Fijian and Tongan technical prose has lower confidence;
+recipient fields, variable values and composed date fragments need native/UI review.
+Fijian lawa was checked in the
+[Fijian dictionary entry](https://kaikki.org/dictionary/Fijian/meaning/l/la/lawa.html).
+Published [Tongan prose](https://tahatu.govt.nz/api/documents/serve/263/Career_Malaga_Student_Workbook__Tongan.pdf)
+provides examples of ngāue and hokohoko. These references support vocabulary,
+not the accuracy of the full sentences.
+
+The existing trigger-variable suite now checks 32 recently filled locales for
+source order and exact brace/underscore/percent tokens. Runtime matching,
+all-locale structural and human-preference checks pass. Browser scenarios were
+not run; the app stack was unavailable. 34 locale paths still need this group.
+The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
+broader language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
