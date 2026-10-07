@@ -1890,6 +1890,17 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/797d236c7b70ff2974009ee42f437fa916b9b700">Translate parent-card controls in seven Pacific locales</a></summary>
+
+- Filled 21 placeholders in Bislama, Tok Pisin, Maori, Samoan, Fijian, Tongan and Hawaiian. Provisional technical wording and terminology references are recorded in the translation audit.
+- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
+- These controls remain English in 37 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d58d0ffa4e996408c6ad77a6e7c78444841c34b9">Translate parent-card controls in southern African locales</a></summary>
 
 - Filled 30 placeholders across Sesotho, Setswana, Northern Sotho, both Zulu locales, Xhosa, Swati, Ndebele, Tsonga and Venda. Provisional terminology and language-quality limitations are recorded in the translation audit.
