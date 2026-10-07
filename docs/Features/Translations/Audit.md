@@ -4912,6 +4912,13 @@ mixed-language audit remains open.
 - Technical metaphors, grammatical agreement, value terminology and block/part loans remain provisional. Kinyarwanda and Kirundi retain their distinct `iby-`/`ivy-` and `bifite`/`bifise` forms; related vocabulary alone cannot establish language correctness.
 - Extended token, non-placeholder and distinction checks. Browser and spoken accessibility checks remain unexecuted; 148 pending source keys and broader semantic review remain open.
 
+### Tsonga and Venda block and bubble labels
+
+- Filled 32 English placeholders through the protected workflow, preserving arguments and existing translations. Statement uses instruction wording and bubble uses a text-box paraphrase; collapsed/folded remains distinct from disabled/prevented from working.
+- Vocabulary references: the [multilingual mathematics dictionary](https://ulspace.ul.ac.za/bitstream/handle/10386/3519/multilingual%20mathematics%20dictionary%20R%20-%206_march_2013.pdf?isAllowed=y&sequence=1) supports Tsonga `nkoka` for value; the [multilingual dictionary hosted by the University of Limpopo](https://ulspace.ul.ac.za/server/api/core/bitstreams/a1a05d26-ee2d-49d5-9be8-4a33ebd145e8/content) supports Venda `tshifaredzi` for container.
+- Stack is a pile/group of blocks, which remains provisional, especially the broad Venda group wording. Block loans, replacement phrasing, numeral agreement and text-box metaphors also need contextual review. The vocabulary references do not validate the composed labels.
+- Extended token, non-placeholder and distinction checks. Browser and spoken accessibility checks remain unexecuted; 148 pending source keys and the broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
