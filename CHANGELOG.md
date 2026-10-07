@@ -2173,6 +2173,21 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e8c0a1c4ef6619240d89f1fe9d57bb96663a86d9">Correct 17 Tok Pisin export options and instructions.</a></summary>
+
+- Replace mixed English in export fields and related import instructions.
+  Restore Jira API and Trello menu literals and preserve placeholders.
+  Wording remains provisional pending fluent-speaker review.
+- The combined run passes 88 checks; two catalog checks still fail on the
+  missing due-date shortcut key. All 21 human-preference checks pass.
+  Browser and screen-reader checks were not run.
+- The broader translation and wording audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ad33767527e971ddc507b9d43c38e2486ff57570">Correct 29 Tok Pisin import translations.</a></summary>
 
 - Replace mixed English in import instructions, archive errors and member
