@@ -3,14 +3,15 @@ const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const english=require('../imports/i18n/data/en.i18n.json');
 const {translationTokens}=require('../releases/translations/placeholder-tokens.mjs');
-const tags=["de", "fr", "es", "it", "pt", "pt-BR", "nl", "sv", "da", "nb", "fi", "pl", "cs", "sk", "uk", "ru", "el", "tr", "ja", "ko", "zh-CN", "zh-TW", "ar", "he", "id", "vi", "hu", "ro", "bg", "hr", "ca", "eu", "gl", "af", "sq", "be", "bs", "sr", "sl", "mk", "lt", "lv", "is", "ms", "tl", "sw", "hi", "bn", "ta", "ml", "mr", "pa", "ur", "fa", "th", "km"];
+const tags=["de", "fr", "es", "it", "pt", "pt-BR", "nl", "sv", "da", "nb", "fi", "pl", "cs", "sk", "uk", "ru", "el", "tr", "ja", "ko", "zh-CN", "zh-TW", "ar", "he", "id", "vi", "hu", "ro", "bg", "hr", "ca", "eu", "gl", "af", "sq", "be", "bs", "sr", "sl", "mk", "lt", "lv", "is", "ms", "tl", "sw", "hi", "bn", "ta", "ml", "mr", "pa", "ur", "fa", "th", "km", "az", "uz", "kk", "mn", "hy", "ka", "ne", "eo", "cy", "ga", "et-EE", "te-IN", "gu-IN", "en-GB"];
 test('due-date shortcut translations exist in the restored locale key order',()=>{
  for(const tag of tags){
   const data=require('../imports/i18n/data/'+tag+'.i18n.json');
   assert.deepEqual(Object.keys(data),Object.keys(english),tag);
   const value=data['shortcut-edit-due-date'];
   assert.ok(value.trim(),tag);
-  assert.notEqual(value,english['shortcut-edit-due-date'],tag);
+  if(!tag.startsWith('en-')) assert.notEqual(value,english['shortcut-edit-due-date'],tag);
+  else assert.equal(value,english['shortcut-edit-due-date'],tag);
   assert.deepEqual(translationTokens(value),translationTokens(english['shortcut-edit-due-date']),tag);
  }
 });
@@ -35,4 +36,14 @@ test('additional due-date shortcuts retain opened-card wording across scripts',(
  assert.match(read('bn'),/খোলা কার্ডের/);
  assert.match(read('fa'),/کارت بازشده/);
  assert.match(read('th'),/การ์ดที่เปิดอยู่/);
+});
+
+test('additional shortcut labels retain open-card scope and the English variant',()=>{
+ const read=tag=>require('../imports/i18n/data/'+tag+'.i18n.json')['shortcut-edit-due-date'];
+ assert.match(read('eo'),/malfermita karto/);
+ assert.match(read('et-EE'),/avatud kaardi/);
+ assert.match(read('mn'),/Нээлттэй картын/);
+ assert.match(read('cy'),/cerdyn agored/);
+ assert.match(read('ga'),/chárta oscailte/);
+ assert.equal(read('en-GB'),english['shortcut-edit-due-date']);
 });

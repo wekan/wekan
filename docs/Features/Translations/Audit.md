@@ -6974,6 +6974,19 @@ fail on the missing shortcut in other locales. All 21 human-preference checks
 pass. Browser and screen-reader checks were not run. Remaining languages and the
 broader wording audit remain open.
 
+## Due-date shortcut inventory repair: 14 additional locales
+
+Added shortcut-edit-due-date to az, cy, en-GB, eo, et-EE, ga, gu-IN, hy, ka, kk,
+mn, ne, te-IN and uz. British English intentionally retains the English wording.
+Each catalog matches English's key inventory and order without changing existing
+values. Checks cover tokens and opened-card scope in representative languages;
+they do not establish fluency. Wording remains subject to speaker review.
+
+The focused translation run passes 40 checks. Two existing catalog checks still
+fail on the missing shortcut in other locales. All 21 human-preference checks
+pass. Browser and screen-reader checks were not run. Remaining locales and the
+broader wording audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
