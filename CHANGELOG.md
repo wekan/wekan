@@ -2173,6 +2173,21 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/50b8617c468eeaa4c167d24b7fbbddc54de62c72">Correct 24 Tok Pisin movement and copy messages.</a></summary>
+
+- Replace mixed English and clarify copy, movement and conversion controls.
+  Preserve placeholders and verify directions, scope and valid JSON examples.
+  Wording remains provisional pending fluent-speaker review.
+- The combined run passes 101 checks; two catalog checks still fail on the
+  missing due-date shortcut key. All 21 human-preference checks pass.
+  Browser and screen-reader checks were not run.
+- The broader translation and wording audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/648280808f04818bfa6e8998317e7eb98223a9e3">Correct 19 Tok Pisin date and time messages.</a></summary>
 
 - Replace mixed English and distinguish due dates from end dates. Preserve
