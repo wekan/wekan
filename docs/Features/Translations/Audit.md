@@ -3806,6 +3806,14 @@ The [Austronesian Comparative Dictionary](https://acd.clld.org/cognatesets/25618
 
 Extended locale and browser coverage to all four locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in 25 locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
 
+## Multiple-parent controls: Buryat, Chuvash and Sakha - 2026-10-07
+
+Filled three English placeholders in each of `bua`, `cv` and `sah` (nine values) through the protected fill workflow. Removal wording ends the subordinate-task relationship without describing card deletion.
+
+The [Buryat educational text](https://www.burunen.ru/media/42626-buryaad-kheleer-testn-d-8-9-klassuud/) supports task vocabulary, the [Chuvash work entry](https://ru.glosbe.com/ru/cv/%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0) supplies the work noun, and the [Sakha dictionary](https://sakhatyla.ru/translate?q=%D1%81%D0%BE%D1%80%D1%83%D0%B4%D0%B0%D1%85) supports sorudakh. These references do not validate the complete technical phrases. Parent metaphors, subtask terminology and inflections remain provisional and require language review.
+
+Extended locale and browser coverage to all three locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in 22 locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
