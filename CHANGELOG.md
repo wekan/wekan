@@ -382,15 +382,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 <details>
 <summary>Translation work in progress: remaining new strings in all languages.</summary>
 
-Status checked on 2026-10-07. Translation work has resumed, including keys
+Status checked on 2026-10-08. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **44,350 untranslated locale/string values in 70 languages**. It
-  excludes **149 source keys tracked separately as pending Transifex**: 148
-  already have non-English values requiring wording review; the newly added
-  `shortcut-edit-due-date` still needs translations. Counts are a
-  snapshot; they do not establish the quality or language of other values.
+  report counts **44,304 untranslated locale/string values in 70 languages**. It
+  excludes **148 source keys tracked separately as pending Transifex**, whose
+  non-English values still require wording review. Counts are a snapshot; they
+  do not establish the quality or language of other values.
 - The 13 activity-notification preference keys have no empty or exact
   English-placeholder values in all 234 non-English locale paths and have left
   the pending queue. Provisional wording still needs language review.
@@ -2146,6 +2145,21 @@ uses the same word as `checklist` itself.
 </details>
 
 **Translations** — continued language coverage and corrections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/56a4dabd1cc446def7472ebce7223f71219aebce">Translate 46 Northern Sotho block-editing and accessibility messages.</a></summary>
+
+- Preserve source tokens, deletion counts, editing action distinctions and
+  screen-reader on/off announcements. Existing translations are retained.
+- All 59 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. Accessibility and backpack terminology
+  remains low confidence pending fluent-speaker review.
+- Remaining counted English placeholders: 44,304 across 70 languages. The
+  broader language and wording audit continues.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/57a52806644ed3142cacdc4954592bc133860d61">Translate 61 Northern Sotho Blockly input and bitmap labels.</a></summary>
