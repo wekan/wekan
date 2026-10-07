@@ -7,7 +7,7 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('notification-activity-'));
 assert.equal(keys.length, 13);
-for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: key order`);
   for (const key of keys) {
@@ -66,4 +66,10 @@ assert.match(read('kok')['notification-activity-description'], /निमाण�
 assert.match(read('ary')['notification-activity-description'], /التذكيرات بآخر أجل.*@ كيوصلو ديما/);
 assert.match(read('kok')['notification-activity-description'], /खूण काडात/);
 assert.match(read('ary')['notification-activity-description'], /حيّد العلامة/);
-console.log('Notification activity translations: 13 messages in 24 locales passed');
+assert.match(read('yi')['notification-activity-description'], /דערמאָנונגען וועגן דעם לעצטן טערמין.*@ קומען שטענדיק אָן/);
+assert.match(read('nd')['notification-activity-description'], /Izikhumbuzo zosuku lokucina.*@ kuhlala kufika/);
+assert.match(read('ss')['notification-activity-description'], /Tikhumbuto telusuku lwekugcina.*@ kuhlala kufika/);
+assert.match(read('yi')['notification-activity-description'], /נעמט אַראָפּ דעם צייכן/);
+assert.match(read('nd')['notification-activity-description'], /Susa uphawu/);
+assert.match(read('ss')['notification-activity-description'], /Susa luphawu/);
+console.log('Notification activity translations: 13 messages in 27 locales passed');

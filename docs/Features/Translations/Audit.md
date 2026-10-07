@@ -557,6 +557,28 @@ pass, together with all-locale structure and human-preference checks. The
 browser mute/unmute scenario checks all 13 strings for both new locales.
 It passes syntax checking only; no browser execution was available.
 
+## Yiddish, Northern Ndebele and Swati notification preferences — 2026-10-07
+
+Filled 13 English placeholders each in Yiddish (`yi`), Northern Ndebele
+(`nd`) and Swati (`ss`): 39 values. Comparison against the previous commit
+confirms existing translations are unchanged. The keys remain pending in
+other languages; the standard backlog stays at 51,575 values with 201
+pending source keys.
+
+The wording distinguishes members from assigned workers and preserves the
+reminder/@mention exception after an activity category is unchecked. Card,
+list and attachment terms follow existing catalogs. Swati uses a lane term
+rather than copying the older unrelated generic label. Archive and custom-
+field wording, particularly in Northern Ndebele and Swati, remains provisional
+pending speaker review. Existing mixed-language labels outside this batch
+remain part of the wider audit.
+
+Shared notification coverage now includes 27 locales. Exact tokens, source
+order, distinct people categories, mention markers and muting exceptions
+pass, together with all-locale structure and human-preference checks. The
+browser mute/unmute scenario checks all 13 strings for the new locales and
+passes syntax checking only; it was not browser-executed.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
