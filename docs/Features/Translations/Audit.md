@@ -4709,6 +4709,14 @@ mixed-language audit remains open.
 - Extended image/selector/name distinctions and token coverage. Existing browser flows include these locales, but spoken type output and browser execution remain unverified.
 - This batch removes 34 ordinary placeholders and corrects three wrong-language values. The broader semantic audit and 148 pending source keys remain open.
 
+### Sesotho, Setswana, Sepedi, Zulu and Xhosa field-type labels
+
+- Filled 66 English placeholders across `st`, `tn`, `nso`, `zu`, `zu-ZA` and `xh`, preserving correct-language translations and all source arguments through the protected fill.
+- [Multilingual Mathematics](https://lwimilinks.sadilar.org/media/documents/Multilingual_Mathematics.pdf), PDF pages 23 and 79, supplies angle terms and grid terms for the Sotho languages and Xhosa. [Microsoft's Zulu installation instructions](https://www.microsoft.com/zu-za/download/details.aspx?id=52668) attest `ibhokisi lokuqoka` for checkbox. Full field labels are new direct translations, not quoted human translations.
+- Low confidence remains for pixel loanword morphology, Zulu grid wording, input nomenclature and the use of ordinary work/task nouns for programming functions. Existing dropdown wording was retained as the terminology reference, not independently certified as fluent.
+- Added all six locale paths to positive/token checks and distinctions between pixel/plain images, grid/plain dropdowns and input/function names. Existing browser flows cover field editing in all six; they do not prove correct spoken type announcements. Browser execution remains outstanding.
+- This batch removes 66 ordinary English placeholders. The broader semantic audit and 148 pending source keys remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
