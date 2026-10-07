@@ -1890,6 +1890,17 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5da7829eb150f64b2b169c6d213562db8aed60a2">Fill ten further rule variable picker translations</a></summary>
+
+- Filled ten English labels. Full clauses remain provisional, especially Bambara, Ewe, Aymara, Guarani, Manx and Aromanian.
+- Extended locale and browser coverage. All 13 focused Node tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
+- This label remains untranslated in twelve locales. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 149 pending source keys.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2ab05383f473073528df0b54d4807ddb67965e58">Translate ten more rule variable picker labels</a></summary>
 
 - Filled ten English labels. Full clauses remain provisional, especially Dzongkha, Buryat, Chuvash, Sakha and Acehnese.
