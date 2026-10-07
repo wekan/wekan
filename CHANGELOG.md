@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0866c90b972d32c90bb779a262ee97dfd4db6bc5">Translate Kurdish Blockly aliases and rule-editor messages</a></summary>
+
+- Fill 25 English placeholders for search, zoom, repeated Blockly labels and
+  rule-editor help, errors and status, preserving existing translations and tokens.
+- Trigger and zoom terminology remains low confidence pending fluent review.
+- All 51 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4ecc063c0a9a2f3ffe3308b20838a6f837e4f340">Translate Kurdish Blockly replacement and workspace messages</a></summary>
 
 - Fill 36 English placeholders for replacement, trimming, variables, workspace
