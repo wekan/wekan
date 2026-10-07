@@ -618,6 +618,29 @@ pass, together with all-locale structure and human-preference checks. The
 browser mute/unmute scenario checks all 13 strings for the new locales.
 It passes syntax checking only; no browser execution was available.
 
+## Manx, Walloon and Waray-Waray notification preferences — 2026-10-07
+
+Filled 13 English placeholders each in Manx (`gv`), Walloon (`wa`) and
+Waray-Waray (`wa-RR`): 39 values. The language registry explicitly names
+`wa-RR` Wáray-Wáray; it is not a regional Walloon translation. Existing
+translated values are preserved. These keys remain pending elsewhere;
+the standard backlog remains 51,575 values and 201 pending source keys.
+
+Manx notice, reminder and mention vocabulary was checked against the
+[Manx dictionary](https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/dict2/dictionary2e.html).
+Walloon wording follows the existing catalog and the
+[Walloon dictionary's usage](https://dtw.walon.org/index.php).
+The [Waray phrasebook](https://en.wikivoyage.org/wiki/Waray_phrasebook)
+provides additional language context. These are direct translations, not
+output from a translation service. Complete technical clauses, lane and
+custom-field terminology remain low confidence pending speaker review.
+
+Shared notification coverage now includes 35 locales, checking source order,
+exact placeholders, distinct people categories and the reminder/mention
+exception to muting. The all-locale structural and human-preference checks
+also pass. The browser mute/unmute scenario includes these three languages;
+it is syntax-checked only, with no browser execution available.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
