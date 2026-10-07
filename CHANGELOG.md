@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **48,332 untranslated locale/string values in 70 languages**. It
+  report counts **48,317 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -1932,6 +1932,18 @@ snap.
 and updates the following translations:
 
 **Activity notifications** - choosing which card activity sends notifications.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/22a15f2b10963074e18384414d16031b70306682">Translate Greenlandic Blockly comment and accessibility controls.</a></summary>
+
+- Fill fifteen English placeholders while preserving source arguments and existing translations. Extend opposite-action regressions and translated comment-menu assertions.
+- Record vocabulary sources and low-confidence technical paraphrases in the translation audit. Full wording and spoken angle-symbol output still need review.
+- Ordinary untranslated values decrease from 48,332 to 48,317 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 13 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b983642a9f1c2df7dd869f55e77e4f404829a8de">Translate Standard Moroccan Tamazight Blockly accessibility labels.</a></summary>
