@@ -1890,6 +1890,17 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/73030eb1c5d36b61dcc9aaf8e89e0bdc60c9bd0d">Translate parent-card controls into Fulah and Veps</a></summary>
+
+- Filled six placeholders. Low-confidence wording, agreement and terminology limitations are recorded in the translation audit.
+- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
+- These controls remain English in five locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4e372a695f76b4d0fe1fcd49008fd2d8a746681c">Translate parent-card controls into Klingon and Volapuk</a></summary>
 
 - Filled six placeholders. Provisional parent-card metaphors and vocabulary limitations are documented in the translation audit.
