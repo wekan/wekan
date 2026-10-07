@@ -3,7 +3,14 @@ const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { openBoard, loginWithToken } = require('../helpers/auth');
 async function openFilter(page) {
-  if (!(await page.locator('.js-filter-preset-name').isVisible())) await page.locator('.js-open-filter-view').click();
+  // The board header can still be re-rendering (the language was just set),
+  // and a click on the old toggle opens nothing (WebKit under a full run).
+  // Click until the filter is really open.
+  const field = page.locator('.js-field-card-filter');
+  for (let attempt = 0; attempt < 3 && !(await field.isVisible()); attempt++) {
+    if (!(await page.locator('.js-filter-preset-name').isVisible())) await page.locator('.js-open-filter-view').click();
+    await field.waitFor({ state: 'visible', timeout: 5000 }).catch(() => {});
+  }
 }
 const method = (page, name, ...args) => page.evaluate(async ({ name, args }) => {
   try { return { value: await Meteor.callAsync(name, ...args) }; }

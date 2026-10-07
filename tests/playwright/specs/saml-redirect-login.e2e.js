@@ -54,7 +54,17 @@ test('an Assertion-only identity provider logs in by full-page redirect', async 
         () => typeof Meteor !== 'undefined' && Meteor.userId(), null, { timeout: 30000 })).jsonValue();
       created.push(userId);
       expect(db.findOne('users', { _id: userId }).authenticationMethod).toBe('saml');
-      expect(await client.evaluate(() => sessionStorage.getItem('wekan-saml-pending-token'))).toBeNull();
+      // WebKit can still be finishing the exchange's last navigation here; read
+      // the pending token from the page that settles, not the one going away.
+      let pending;
+      for (let attempt = 0; ; attempt++) {
+        try { pending = await client.evaluate(() => sessionStorage.getItem('wekan-saml-pending-token')); break; }
+        catch (error) {
+          if (attempt === 2 || !/Execution context was destroyed|navigation/i.test(error.message)) throw error;
+          await client.waitForLoadState('load');
+        }
+      }
+      expect(pending).toBeNull();
     } finally { await context.close(); }
 
     // Tampered Assertion: refused, shown on the sign-in page, nobody logged in.
