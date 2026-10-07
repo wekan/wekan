@@ -1890,6 +1890,15 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0f9c7196928cb6c8a3c3737abcd834345217c92c">Translate history recovery in Waray, Fijian, Tongan, Luganda and Wolof</a>. Thanks to xet7.</summary>
+
+- Translate 25 recovery messages, preserving undo/redo, retry/forget and safe request repetition. Full clauses and technical wording remain provisional for language review.
+- Translation/token, recovery-notice, request-logic and 234-locale structural tests pass, along with human-preference checks. Localized browser cases are syntax-checked; execution requires Playwright and a running application.
+- This five-key group remains English in 28 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5f7f29363962373a9584c5c67bdeee98ca90df78">Translate history recovery in Papiamentu, Walloon, Acehnese and Hawaiian</a>. Thanks to xet7.</summary>
 
 - Translate 20 recovery messages, preserving undo/redo, retry/forget and safe request repetition. Full clauses and technical wording remain provisional for language review.
