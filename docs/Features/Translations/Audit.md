@@ -3256,6 +3256,12 @@ Tigrinya login vocabulary follows [Telegram's Tigrinya localization](https://tra
 
 Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in nine locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
 
+### Signed-in board visibility: Volapük
+
+Filled the three Volapük board visibility strings, preserving confirmation emphasis and the viewing/editing distinction. Existing translations were protected by the fill utility; no translation service was used. The draft uses `nunädön oki` for login and the existing board term. [Midgley's English–Volapük dictionary](https://xn--volapk-7ya.com/EnVoDictionary-20100830.pdf) supplies vocabulary including `lüükön`, `jonön` and `te`. Person references and verb forms were reviewed during drafting, but technical phrasing and grammatical agreement remain lower-confidence and need fluent-speaker review.
+
+Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in eight locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
