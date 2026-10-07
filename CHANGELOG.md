@@ -2173,6 +2173,22 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8c9f34a3e65a8338427fdf6663d0c3cf15c44977">Correct 40 Tok Pisin search-help translations.</a></summary>
+
+- Replace unprefixed mixed English in search instructions and errors.
+  Preserve source tokens and verify AND/OR, negation, sorting and limit
+  meanings. Wording remains provisional pending fluent-speaker review.
+- The combined run passes 80 checks; two catalog checks still fail on the
+  missing due-date shortcut key. All 21 human-preference checks pass.
+  Browser and screen-reader checks were not run.
+- The broader language audit and existing multiword query-operator syntax
+  review remain unfinished.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/70c93974a71b998c6e0cc1b78570946596a3e648">Correct 27 Tok Pisin analytics translations.</a></summary>
 
 - Replace the remaining English-seeded prefix values in analytics and time
