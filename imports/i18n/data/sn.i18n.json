@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Kuitazve kwako kwekupedzisira hakusati kwasimbiswa nesevha.",
   "history-request-hint": "Kuedzazve kunodzokorora chikumbiro chimwe chete, saka hakugoni kudzosa shanduko yechipiri.",
   "history-request-retry": "Edzazve",
-  "history-request-forget": "Kanganwa nezvazvo"
+  "history-request-forget": "Kanganwa nezvazvo",
+  "header-login": "Kupinda kuburikidza nemisoro yeHTTP",
+  "login-setting-clear-secret": "Bvisa kukosha kwakachengetwa mupeneri yevatariri",
+  "login-setting-after-restart": "Zvichatanga kushanda mushure mekunge WeKan yatangwazve"
 }

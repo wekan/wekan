@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Ambætarin hevur ikki enn váttað tína seinastu endurgerð.",
   "history-request-hint": "Ein nýggj roynd endurtekur somu umbøn og kann tí ongantíð taka eina aðra broyting aftur.",
   "history-request-retry": "Royn aftur",
-  "history-request-forget": "Gloym tað"
+  "history-request-forget": "Gloym tað",
+  "header-login": "Innritan við HTTP-høvdum",
+  "login-setting-clear-secret": "Strika virðið, sum er goymt á umsitaraborðinum",
+  "login-setting-after-restart": "Fær gildi, tá ið WeKan verður byrjað av nýggjum"
 }

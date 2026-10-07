@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Your last redo has not been confirmed by the server yet.",
   "history-request-hint": "Trying again repeats the same request, so it can never take back a second change.",
   "history-request-retry": "Try again",
-  "history-request-forget": "Forget it"
+  "history-request-forget": "Forget it",
+  "header-login": "HTTP हेडर सँ प्रवेश",
+  "login-setting-clear-secret": "प्रशासक पैनलमे सुरक्षित कयल मान हटाउ",
+  "login-setting-after-restart": "WeKan फेर शुरू भेला बाद लागू होयत"
 }

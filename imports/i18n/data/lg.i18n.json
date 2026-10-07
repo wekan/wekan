@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Your last redo has not been confirmed by the server yet.",
   "history-request-hint": "Trying again repeats the same request, so it can never take back a second change.",
   "history-request-retry": "Try again",
-  "history-request-forget": "Forget it"
+  "history-request-forget": "Forget it",
+  "header-login": "Okuyingira okuyita mu mitwe gya HTTP",
+  "login-setting-clear-secret": "Ggyawo omuwendo oguterekeddwa mu kifo ky'abaddukanya",
+  "login-setting-after-restart": "Kitandika okukola nga WeKan etandikiddwa buto"
 }

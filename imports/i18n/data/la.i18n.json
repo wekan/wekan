@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Ultima repetitio tua a ministro nondum confirmata est.",
   "history-request-hint": "Iterum conari eandem petitionem repetit, itaque alteram mutationem numquam revocare potest.",
   "history-request-retry": "Iterum conare",
-  "history-request-forget": "Obliviscere"
+  "history-request-forget": "Obliviscere",
+  "header-login": "Introitus per capita HTTP",
+  "login-setting-clear-secret": "Aufer valorem in tabula administratoris servatum",
+  "login-setting-after-restart": "Valet postquam WeKan denuo incipit"
 }

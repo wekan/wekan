@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Agas daswul diwettha nyns yw afydhys gans an servell hwath.",
   "history-request-hint": "Assaya arta a wra dasleverel an keth govyn, ytho ny yll diswul nessa chanj nevra.",
   "history-request-retry": "Assaya arta",
-  "history-request-forget": "Ankevi henna"
+  "history-request-forget": "Ankevi henna",
+  "header-login": "Omgelmi dre bennrewyow HTTP",
+  "login-setting-clear-secret": "Dilea an dalgh gwithys yn panel an menystrer",
+  "login-setting-after-restart": "Devedh a wra yn fyw wosa dasdalleth WeKan"
 }

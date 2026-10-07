@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Sáfà kò tíì jẹ́rìí àtúnṣe rẹ tó gbẹ̀yìn.",
   "history-request-hint": "Títún gbìyànjú ń tún ìbéèrè kan náà ṣe, nítorí náà kò lè mú àyípadà kejì padà sẹ́yìn láé.",
   "history-request-retry": "Tún gbìyànjú",
-  "history-request-forget": "Gbàgbé rẹ̀"
+  "history-request-forget": "Gbàgbé rẹ̀",
+  "header-login": "Wọlé nípasẹ̀ àwọn àkọlé HTTP",
+  "login-setting-clear-secret": "Yọ iye tí a fi pamọ́ sínú ìgbìmọ̀ alákóso",
+  "login-setting-after-restart": "Yóò bẹ̀rẹ̀ sí ṣiṣẹ́ lẹ́yìn tí WeKan bá tún bẹ̀rẹ̀"
 }

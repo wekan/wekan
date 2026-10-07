@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Nkesa akwadobeghị mmegharị ọzọ ikpeazụ gị.",
   "history-request-hint": "Ịnwale ọzọ na-emeghachi otu arịrịọ ahụ, ya mere ọ nweghị ike iweghachite mgbanwe nke abụọ azụ.",
   "history-request-retry": "Nwaa ọzọ",
-  "history-request-forget": "Chefuo ya"
+  "history-request-forget": "Chefuo ya",
+  "header-login": "Ịbanye site na nkụnye HTTP",
+  "login-setting-clear-secret": "Wepụ uru echekwara n'ogwe nchịkwa",
+  "login-setting-after-restart": "Ọ ga-arụ ọrụ mgbe WeKan malitere ọzọ"
 }

@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Är lescht Widderhuelungsaktioun gouf nach net vum Server bestätegt.",
   "history-request-hint": "En neie Versuch widderhëlt déiselwecht Ufro a kann dofir ni eng zweet Ännerung réckgängeg maachen.",
   "history-request-retry": "Nach eng Kéier probéieren",
-  "history-request-forget": "Vergiessen"
+  "history-request-forget": "Vergiessen",
+  "header-login": "Umeldung iwwer HTTP-Headeren",
+  "login-setting-clear-secret": "De Wäert läschen, deen am Admin-Panel gespäichert ass",
+  "login-setting-after-restart": "Gëtt nom Neistart vu WeKan aktiv"
 }

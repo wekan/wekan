@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "S'ùrtimu rifaghimentu tuo non est ancora istadu cunfirmadu dae su serbidore.",
   "history-request-hint": "Torrare a proare repetit sa matessi rechesta, duncas non podet mai annullare unu segundu càmbiu.",
   "history-request-retry": "Torra a proare",
-  "history-request-forget": "Iscaressi-lu"
+  "history-request-forget": "Iscaressi-lu",
+  "header-login": "Atzessu cun intestatziones HTTP",
+  "login-setting-clear-secret": "Boga su valore sarvadu in su pannellu de s’amministradore",
+  "login-setting-after-restart": "Tenet efetu a pustis de torrare a aviare WeKan"
 }

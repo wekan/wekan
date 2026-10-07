@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Your last redo has not been confirmed by the server yet.",
   "history-request-hint": "Trying again repeats the same request, so it can never take back a second change.",
   "history-request-retry": "Try again",
-  "history-request-forget": "Forget it"
+  "history-request-forget": "Forget it",
+  "header-login": "Calaquiliztli ica HTTP itzontecon",
+  "login-setting-clear-secret": "Xicquixti in ipatiuh tlen ipan tepachoani ihuapal mopia",
+  "login-setting-after-restart": "Tequitiz ihcuac WeKan occepa pehuaz"
 }

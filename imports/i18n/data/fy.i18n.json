@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Dyn lêste opnij dwaan is noch net troch de tsjinner befêstige.",
   "history-request-hint": "Opnij besykje werhellet itselde fersyk en kin dêrom nea in twadde wiziging weromdraaie.",
   "history-request-retry": "Besykje opnij",
-  "history-request-forget": "Ferjit it"
+  "history-request-forget": "Ferjit it",
+  "header-login": "Oanmelde fia HTTP-koppen",
+  "login-setting-clear-secret": "Ferwiderje de wearde dy’t yn it adminpaniel bewarre is",
+  "login-setting-after-restart": "Wurdt aktyf nei it opnij starten fan WeKan"
 }

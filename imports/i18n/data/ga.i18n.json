@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Níl d'athdhéanamh deireanach deimhnithe ag an bhfreastalaí fós.",
   "history-request-hint": "Athdhéanann triail eile an iarraidh chéanna, mar sin ní féidir léi an dara hathrú a chealú riamh.",
   "history-request-retry": "Bain triail eile as",
-  "history-request-forget": "Déan dearmad air"
+  "history-request-forget": "Déan dearmad air",
+  "header-login": "Logáil isteach trí cheanntásca HTTP",
+  "login-setting-clear-secret": "Bain an luach atá sábháilte i bpainéal an riarthóra",
+  "login-setting-after-restart": "Beidh sé i bhfeidhm tar éis WeKan a atosú"
 }

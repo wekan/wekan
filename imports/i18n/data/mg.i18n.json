@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Tsy mbola nohamarinin'ny mpizara ny famerenana farany nataonao.",
   "history-request-hint": "Mamerina ilay fangatahana ihany ny fanandramana indray, ka tsy afaka manafoana fanovana faharoa mihitsy.",
   "history-request-retry": "Andramo indray",
-  "history-request-forget": "Adinoy izany"
+  "history-request-forget": "Adinoy izany",
+  "header-login": "Fidirana amin’ny alalan’ny lohateny HTTP",
+  "login-setting-clear-secret": "Esory ny sanda voatahiry ao amin’ny efitry ny mpitantana",
+  "login-setting-after-restart": "Mihatra rehefa averina alefa ny WeKan"
 }

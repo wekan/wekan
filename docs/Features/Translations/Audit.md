@@ -1,6 +1,54 @@
 # Translation audit progress
 
-Audit date: **2026-09-12**. Last updated: **2026-10-01**.
+Audit date: **2026-09-12**. Last updated: **2026-10-07**.
+
+## Login-setting fill resumed — 2026-10-07
+
+The three login-setting keys now have text in all 234 non-English locale
+paths. English variants retain English. They leave `pending-transifex.json`
+after locale-wide source-key/order and exact-placeholder validation; the
+remaining 204 pending source keys and the larger ordinary backlog stay open.
+Existing values were preserved byte-for-value in this batch. This fills
+missing messages, not the complete catalogs or the semantic audit below.
+
+The new minority-language compounds are provisional. In particular, Cherokee,
+Inuktitut, Tigre, Wolaytta, Aymara, Nahuatl, Tamazight, Veps, Ladin, Aromanian,
+Volapük and Klingon need speaker review of HTTP headers, stored values and
+restart clauses. Script and no-English assertions cannot establish fluency.
+
+Terminology evidence used for these drafts:
+
+- [Mozilla's Upper Sorbian troubleshooting](https://support.mozilla.org/hsb/kb/firefox-wisa-abo-hizo-njereaguje)
+  uses `znowa startować` for restarting.
+- [Wolof dictionary](https://wolofresources.org/language/download/wollof.pdf)
+  gives the start/begin verb `taambali`; the draft uses modern orthography.
+- [Bambara dictionary](https://www.mooreburkina.com/sites/www.mooreburkina.com/files/pdf-files/Bambara%20Lexique.pdf)
+  supplies the start root `daminɛ`; full software phrasing is assembled.
+- [Nahuatl dictionary](https://nahuatl.wired-humanities.org/content/pehua)
+  supports the begin root. The HTTP compound is provisional.
+- [Volapük vocabulary](https://en.wikisource.org/wiki/Hand-book_of_Volap%C3%BCk/VOCABULARY)
+  supplies the value noun. Modern software compounds require separate review.
+- [Wolaytta verb list](https://kaikki.org/dictionary/Wolaytta/pos-verb/index.html)
+  gives `doomma` for beginning an activity. The restart clause is a draft,
+  not an attested complete sentence.
+- [Tigre field notes](https://www.speaktigre.com/_files/ugd/7e068a_028156790a9f4428a3bca4ad04c7f99e.pdf)
+  distinguish the start, repeat and work roots and after-constructions
+  (printed pages 23, 27–30 and 70). The draft uses Tigre constructions rather
+  than copying the Tigrinya message. Ethiopic spelling and full grammar remain
+  low confidence; the lexical evidence does not validate the assembled clause.
+
+The 237 translation suites pass. The existing Finnish, Arabic and Japanese
+browser scenarios are syntax-checked only; no browser execution is claimed.
+
+Unflagged text observed while choosing vocabulary still needs repair:
+`database-migration-description` in Corsican is mixed with Italian; Aymara
+and Wolaytta retain English clauses; Quechua contains English with added
+suffixes and altered command literals. Several generic `login` labels still
+have language-name prefixes or unrelated wording (Akan, Aymara, Latin,
+Quechua, Tok Pisin, Wolaytta). These are not accepted as correct merely
+because they differ from English. They remain part of the broader audit.
+
+## Original flagged inventory
 
 | Status | Flagged keys |
 | --- | ---: |

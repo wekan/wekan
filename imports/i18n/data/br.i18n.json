@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "N'en deus ket ar servijer kadarnaet hoc'h adober diwezhañ c'hoazh.",
   "history-request-hint": "Klask en-dro a adkas an hevelep goulenn, setu ne c'hall morse dizober un eil cheñchamant.",
   "history-request-retry": "Klask en-dro",
-  "history-request-forget": "Ankounac'haat"
+  "history-request-forget": "Ankounac'haat",
+  "header-login": "Kevreañ dre dalbennoù HTTP",
+  "login-setting-clear-secret": "Dilemel ar werzh enrollet e bord an ardoer",
+  "login-setting-after-restart": "Talvoudek e vo goude adloc’hañ WeKan"
 }

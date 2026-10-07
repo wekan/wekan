@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "آخرگی قیته بجریش عملینگیز سېرۋېر تامانیدن هلی تصدیقلنمه‌گن.",
   "history-request-hint": "قیته اورینیش اۉشه سۉراونی تکرارلیدی، شونینگ اوچون او هېچ قچان ایککینچی اۉزگریشنی بېکار قیلمیدی.",
   "history-request-retry": "قیته اورینیش",
-  "history-request-forget": "اونوتیش"
+  "history-request-forget": "اونوتیش",
+  "header-login": "HTTP سرلوحه‌لری ارقلی کیریش",
+  "login-setting-clear-secret": "ادمینیستراتور پنلیده سقلنگن قیمَتنی اۉچیریش",
+  "login-setting-after-restart": "WeKan قیته ایشگه توشیرلگندن کیین کُچگه کیرادی"
 }

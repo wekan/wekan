@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Your last redo has not been confirmed by the server yet.",
   "history-request-hint": "Trying again repeats the same request, so it can never take back a second change.",
   "history-request-retry": "Try again",
-  "history-request-forget": "Forget it"
+  "history-request-forget": "Forget it",
+  "header-login": "HTTP མགོ་ཡིག་བརྒྱུད་དེ་ནང་འཛུལ།",
+  "login-setting-clear-secret": "འཛིན་སྐྱོང་པང་ལེབ་ནང་སྲུང་བཞག་མི་གནས་གོང་བཏོན་གཏང་།",
+  "login-setting-after-restart": "WeKan ལོག་འགོ་བཙུགས་པའི་ཤུལ་ལས་ལཱ་འབད་འོང་།"
 }

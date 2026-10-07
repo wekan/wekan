@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Serwer waše poslednje wospjetowanje hišće njeje wobkrućił.",
   "history-request-hint": "Nowy pospyt samsne naprašowanje wospjetuje, tak zo njemóže ženje druhu změnu cofnyć.",
   "history-request-retry": "Hišće raz spytać",
-  "history-request-forget": "Zabyć"
+  "history-request-forget": "Zabyć",
+  "header-login": "Přizjewjenje přez HTTP-hłowy",
+  "login-setting-clear-secret": "Hódnotu, kotraž je w administratorskim panelu składowana, wotstronić",
+  "login-setting-after-restart": "Budźe po nowym startowanju WeKan skutkować"
 }

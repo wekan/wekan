@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "O servidor encara no ha confirmau a tuya zaguera acción de refer.",
   "history-request-hint": "Tornar a intentar repite a mesma petición, asinas que nunca no puede desfer un segundo cambio.",
   "history-request-retry": "Tornar a intentar",
-  "history-request-forget": "Xuplidar-lo"
+  "history-request-forget": "Xuplidar-lo",
+  "header-login": "Inicio de sesión por cabeceras HTTP",
+  "login-setting-clear-secret": "Eliminar a valor alzada en o panel d’administrador",
+  "login-setting-after-restart": "Tiene efecto dimpués de reiniciar WeKan"
 }

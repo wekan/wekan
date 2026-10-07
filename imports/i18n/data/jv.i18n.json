@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Pambalen tumindak pungkasan sampeyan durung dipesthekake dening server.",
   "history-request-hint": "Nyoba maneh mbaleni panjaluk sing padha, mula ora bakal mbatalake owah-owahan kapindho.",
   "history-request-retry": "Coba maneh",
-  "history-request-forget": "Lalekake"
+  "history-request-forget": "Lalekake",
+  "header-login": "Mlebu liwat irah-irahan HTTP",
+  "login-setting-clear-secret": "Busak nilai sing disimpen ing panel admin",
+  "login-setting-after-restart": "Ditrapake sawise WeKan diwiwiti maneh"
 }

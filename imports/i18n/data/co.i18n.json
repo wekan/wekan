@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "U vostru ultimu rifacimentu ùn hè ancu statu cunfirmatu da u servitore.",
   "history-request-hint": "Pruvà torna ripete a listessa dumanda, dunque ùn pò mai annullà un secondu cambiamentu.",
   "history-request-retry": "Pruvà torna",
-  "history-request-forget": "Scurdà lu"
+  "history-request-forget": "Scurdà lu",
+  "header-login": "Cunnessione cù l’intestazioni HTTP",
+  "login-setting-clear-secret": "Caccià u valore arregistratu in u pannellu d’amministratore",
+  "login-setting-after-restart": "Hà effettu dopu à u riavviu di WeKan"
 }

@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Lu tò ùrtimu rifacimentu nun fu ancora cunfirmatu di lu sirvituri.",
   "history-request-hint": "Pruvari arrè ripeti la stissa richiesta, perciò nun pò mai annullari un secunnu canciamentu.",
   "history-request-retry": "Prova arrè",
-  "history-request-forget": "Scòrdalu"
+  "history-request-forget": "Scòrdalu",
+  "header-login": "Trasuta cu intestazzioni HTTP",
+  "login-setting-clear-secret": "Leva lu valuri sarvatu ntô pannellu di l’amministraturi",
+  "login-setting-after-restart": "Havi effettu doppu lu riavviu di WeKan"
 }

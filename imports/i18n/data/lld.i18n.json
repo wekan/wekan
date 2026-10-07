@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Vosta ultima repetiziun ne é mo nia unida cunfermeda dal server.",
   "history-request-hint": "Proé danüef repët la medema domanda, y per chël ne pò nia anulé na segunda mudaziun.",
   "history-request-retry": "Proé danüef",
-  "history-request-forget": "Desmentié"
+  "history-request-forget": "Desmentié",
+  "header-login": "Azes cun intestazions HTTP",
+  "login-setting-clear-secret": "Scancelé le valur salvé tl panel d’aministrazion",
+  "login-setting-after-restart": "À efet do avëi inviè indô WeKan"
 }

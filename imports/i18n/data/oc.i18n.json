@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Vòstre darrièr restabliment es pas encara estat confirmat pel servidor.",
   "history-request-hint": "Tornar ensajar repetís la meteissa demanda, doncas aquò pòt pas jamai anullar un segond cambiament.",
   "history-request-retry": "Tornar ensajar",
-  "history-request-forget": "Oblidar"
+  "history-request-forget": "Oblidar",
+  "header-login": "Connexion per entèstas HTTP",
+  "login-setting-clear-secret": "Suprimir la valor salvada dins l’interfàcia d’admin",
+  "login-setting-after-restart": "Pren efièch aprèp lo reaviament de WeKan"
 }

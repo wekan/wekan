@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Cha do dhearbh am frithealaiche an ath-dhèanamh mu dheireadh agad fhathast.",
   "history-request-hint": "Nì ath-fheuchainn an aon iarrtas a-rithist, mar sin chan urrainn dha dàrna atharrachadh a thoirt air ais gu bràth.",
   "history-request-retry": "Feuch a-rithist",
-  "history-request-forget": "Dìochuimhnich e"
+  "history-request-forget": "Dìochuimhnich e",
+  "header-login": "Clàradh a-steach le bannan-cinn HTTP",
+  "login-setting-clear-secret": "Thoir air falbh an luach a chaidh a shàbhaladh sa phanail rianachd",
+  "login-setting-after-restart": "Thig e gu buil às dèidh WeKan ath-thòiseachadh"
 }

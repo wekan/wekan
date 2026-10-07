@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "伺服器仲未確認你上一次嘅重做操作。",
   "history-request-hint": "再試會重複同一個要求，所以絕對唔會復原多一個變更。",
   "history-request-retry": "再試一次",
-  "history-request-forget": "唔再理會"
+  "history-request-forget": "唔再理會",
+  "header-login": "透過 HTTP 標頭登入",
+  "login-setting-clear-secret": "刪除管理面板入面儲存嘅值",
+  "login-setting-after-restart": "重新啟動 WeKan 之後生效"
 }

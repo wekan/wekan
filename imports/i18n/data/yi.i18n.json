@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Your last redo has not been confirmed by the server yet.",
   "history-request-hint": "Trying again repeats the same request, so it can never take back a second change.",
   "history-request-retry": "Try again",
-  "history-request-forget": "Forget it"
+  "history-request-forget": "Forget it",
+  "header-login": "אַרײַנלאָגירן דורך HTTP־קעפּלעך",
+  "login-setting-clear-secret": "אַראָפּנעמען דעם ווערט וואָס איז געהיט אינעם אַדמין־פּאַנעל",
+  "login-setting-after-restart": "ווערט אַקטיוו נאָכן ווידער אָנהייבן WeKan"
 }

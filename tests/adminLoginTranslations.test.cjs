@@ -1,4 +1,4 @@
-// Login-setting translation coverage grows as each language is reviewed.
+// Every locale has login-setting text; grammar review remains separate.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -7,7 +7,14 @@ const root = path.resolve(__dirname, '..');
 const read = code => JSON.parse(fs.readFileSync(path.join(root, `imports/i18n/data/${code}.i18n.json`), 'utf8'));
 const english = read('en');
 const keys = ['header-login', 'login-setting-clear-secret', 'login-setting-after-restart'];
-const locales = ["af", "af_ZA", "ar", "ar-DZ", "ar-EG", "az", "az-AZ", "az-LA", "be", "bg", "bn", "bs", "ca", "ca_ES", "cmn", "cs", "cs-CZ", "cy", "cy-GB", "da", "de", "de-AT", "de-CH", "de_DE", "el", "el-GR", "eo", "es", "es-AR", "es-CL", "es-CO", "es-LA", "es-MX", "es-PE", "es-PY", "es_CO", "et-EE", "eu", "fa", "fa-IR", "fi", "fr", "fr-BE", "fr-CA", "fr-CH", "fr-FR", "gl", "gl-ES", "gu-IN", "ha", "he", "he-IL", "hi", "hi-IN", "hr", "hu", "hy", "id", "is", "it", "ja", "ja-HI", "ja-JP", "ka", "kk", "km", "km-KH", "km_KH", "kn", "ko", "ko-KR", "ky", "lt", "lv", "mk", "ml", "mn", "mr", "ms", "ms-MY", "mt", "my", "nb", "ne", "nl", "nl-NL", "pa", "pl", "pl-PL", "ps", "pt", "pt-BR", "pt-PT", "pt_PT", "ro", "ro-RO", "ru", "ru-RU", "ru-UA", "ru_RU", "sd", "si", "sk", "sl", "sl_SI", "so", "sq", "sr", "sv", "sw", "ta", "te-IN", "tg", "th", "tl", "tr", "ug", "uk", "uk-UA", "ur", "uz", "uz-LA", "uz-UZ", "vi", "vi-VN", "zh", "zh-CN", "zh-GB", "zh-HK", "zh-Hans", "zh-Hant", "zh-TW", "zh_SG"];
+const locales = fs.readdirSync(path.join(root, 'imports/i18n/data'))
+  .filter(file => file.endsWith('.i18n.json') && !/^en(?:[-_]|\.)/.test(file))
+  .map(file => file.replace('.i18n.json', '')).sort();
+assert.equal(locales.length, 234, 'every registered non-English locale is covered');
+const pending = JSON.parse(fs.readFileSync(path.join(root,
+  'releases/translations/pending-transifex.json'), 'utf8'));
+for (const key of keys) assert.ok(!pending.keys.some(row => row.key === key),
+  `${key}: filled in every locale, no longer pending`);
 for (const code of locales) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(english), `${code}: source key order`);
@@ -21,6 +28,21 @@ for (const code of locales) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: exact placeholders`);
   }
 }
+// Shared scripts do not establish language correctness, but script regressions
+// and accidental copying from related locales must still be rejected.
+for (const [code, script] of Object.entries({
+  chr: /[\u13A0-\u13FF]/, iu: /[\u1400-\u167F]/,
+  zgh: /[\u2D30-\u2D7F]/, bo: /[\u0F00-\u0FFF]/,
+  dz: /[\u0F00-\u0FFF]/, 'uz-AR': /[\u0600-\u06FF]/,
+})) {
+  for (const key of keys) assert.match(read(code)[key], script, `${code}:${key}: native script`);
+}
+for (const key of keys) {
+  assert.notEqual(read('tig')[key], read('ti')[key], `${key}: Tigre is not a Tigrinya copy`);
+  assert.notEqual(read('ve')[key], read('zu')[key], `${key}: Venda is not a Zulu copy`);
+}
+assert.match(read('tig')['login-setting-clear-secret'], /እት/);
+assert.match(read('wal')['login-setting-after-restart'], /doomm/);
 assert.match(read('fi')['login-setting-clear-secret'], /hallintapaneeliin/);
 assert.match(read('ar')['login-setting-clear-secret'], /لوحة التحكم/);
 assert.match(read('ja')['login-setting-after-restart'], /再起動後/);

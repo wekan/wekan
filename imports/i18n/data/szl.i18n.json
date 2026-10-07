@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Twoje ôstatnie ponowienie niy je jeszcze potwierdzōne bez serwer.",
   "history-request-hint": "Nastympnŏ prōba powtŏrzŏ to samo żōndanie, tōż nigdy niy może cofnōńć drugij zmiany.",
   "history-request-retry": "Sprōbuj zaś",
-  "history-request-forget": "Zapōmnij"
+  "history-request-forget": "Zapōmnij",
+  "header-login": "Logowanie bez nagłōwki HTTP",
+  "login-setting-clear-secret": "Wyciepnōńć wartość spamiyntanõ we panelu administratora",
+  "login-setting-after-restart": "Zacznie działać po zaś włōnczyniu WeKan"
 }

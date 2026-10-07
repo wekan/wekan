@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Your last redo has not been confirmed by the server yet.",
   "history-request-hint": "Trying again repeats the same request, so it can never take back a second change.",
   "history-request-retry": "Try again",
-  "history-request-forget": "Forget it"
+  "history-request-forget": "Forget it",
+  "header-login": "Header login",
+  "login-setting-clear-secret": "Remove the value stored in the Admin Panel",
+  "login-setting-after-restart": "Takes effect after WeKan restarts"
 }

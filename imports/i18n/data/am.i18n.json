@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "የመጨረሻው የእርስዎ ድጋሚ ማድረግ ገና በአገልጋዩ አልተረጋገጠም።",
   "history-request-hint": "እንደገና መሞከር ተመሳሳይ ጥያቄን ይደግማል፣ ስለዚህ ሁለተኛ ለውጥን መቀልበስ ፈጽሞ አይችልም።",
   "history-request-retry": "እንደገና ሞክር",
-  "history-request-forget": "እርሳው"
+  "history-request-forget": "እርሳው",
+  "header-login": "በHTTP ራስጌዎች በኩል መግባት",
+  "login-setting-clear-secret": "በአስተዳዳሪ ፓነል ውስጥ የተቀመጠውን እሴት አስወግድ",
+  "login-setting-after-restart": "WeKan እንደገና ከተጀመረ በኋላ ይተገበራል"
 }

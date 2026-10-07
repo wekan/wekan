@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "El sirvidor entá nun confirmó la to última aición de refacer.",
   "history-request-hint": "Volver intentar repite la mesma solicitú, polo que nunca pue desfacer un segundu cambéu.",
   "history-request-retry": "Volver intentalo",
-  "history-request-forget": "Escaecelo"
+  "history-request-forget": "Escaecelo",
+  "header-login": "Aniciu de sesión per cabeceres HTTP",
+  "login-setting-clear-secret": "Desaniciar el valor guardáu nel panel del administrador",
+  "login-setting-after-restart": "Tien efeutu dempués de reaniciar WeKan"
 }

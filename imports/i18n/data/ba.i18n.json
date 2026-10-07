@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Һуңғы яңынан башҡарыу ғәмәлегеҙҙе сервер әле раҫламаған.",
   "history-request-hint": "Ҡабатлап ҡарау шул уҡ һорауҙы ҡабатлай, шуға күрә ул икенсе үҙгәреште бер ҡасан да кире ҡайтара алмай.",
   "history-request-retry": "Ҡабатлап ҡарарға",
-  "history-request-forget": "Оноторға"
+  "history-request-forget": "Оноторға",
+  "header-login": "HTTP башлыҡтары аша инеү",
+  "login-setting-clear-secret": "Идарасы панелендә һаҡланған ҡиммәтте юйыу",
+  "login-setting-after-restart": "WeKan яңынан эшләтелгәндән һуң ғәмәлгә инә"
 }

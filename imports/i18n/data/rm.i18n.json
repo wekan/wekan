@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Tes ultim repeter n’è anc betg vegnì confermà dal server.",
   "history-request-hint": "Empruvar da nov repeta la medema dumonda e na po perquai mai far enavos ina segunda midada.",
   "history-request-retry": "Empruvar da nov",
-  "history-request-forget": "Emblidar quai"
+  "history-request-forget": "Emblidar quai",
+  "header-login": "Access cun chaus HTTP",
+  "login-setting-clear-secret": "Allontanar la valur memorisada en il panel d’administraziun",
+  "login-setting-after-restart": "Daventa activ suenter avair reavià WeKan"
 }

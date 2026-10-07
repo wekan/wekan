@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "আপুনি শেষবাৰ পুনৰ কৰা কাৰ্য চাৰ্ভাৰে এতিয়াও নিশ্চিত কৰা নাই।",
   "history-request-hint": "পুনৰ চেষ্টা কৰিলে একেটা অনুৰোধ পুনৰ পঠিওৱা হয়, সেয়ে ই দ্বিতীয় এটা পৰিৱৰ্তন কেতিয়াও ঘূৰাই নলয়।",
   "history-request-retry": "পুনৰ চেষ্টা কৰক",
-  "history-request-forget": "বাদ দিয়ক"
+  "history-request-forget": "বাদ দিয়ক",
+  "header-login": "HTTP হেডাৰৰ জৰিয়তে লগইন",
+  "login-setting-clear-secret": "প্ৰশাসক পেনেলত সংৰক্ষণ কৰা মান আঁতৰাওক",
+  "login-setting-after-restart": "WeKan পুনৰ আৰম্ভ কৰাৰ পিছত কাৰ্যকৰী হ’ব"
 }

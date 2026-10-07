@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Sèvè a poko konfime dènye aksyon ou te refè a.",
   "history-request-hint": "Reeseye repete menm demann lan, kidonk li pa janm ka anile yon dezyèm chanjman.",
   "history-request-retry": "Eseye ankò",
-  "history-request-forget": "Bliye li"
+  "history-request-forget": "Bliye li",
+  "header-login": "Koneksyon atravè antèt HTTP",
+  "login-setting-clear-secret": "Retire valè ki anrejistre nan panèl administratè a",
+  "login-setting-after-restart": "Pran efè apre WeKan rekòmanse"
 }

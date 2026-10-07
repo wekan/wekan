@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Serwer jesz nie pòcwierdzył Twòjégò slédnégò pòwtórzeniô.",
   "history-request-hint": "Pònownô próba pòwtôrzô ne samé żądanié, przez co nigdë nie mòże cofnąc drëdżi zmianë.",
   "history-request-retry": "Spróbùjë znowa",
-  "history-request-forget": "Zabôczë ò tim"
+  "history-request-forget": "Zabôczë ò tim",
+  "header-login": "Logowanié przez nagłówczi HTTP",
+  "login-setting-clear-secret": "Rëmac wôrtnotã zapisaną w panelu administratora",
+  "login-setting-after-restart": "Zacznie dzejac pò zrëszenim WeKan jesz rôz"
 }

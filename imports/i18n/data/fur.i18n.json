@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Il servidôr nol à ancjemò confermât la tô ultime azion di tornâ a fâ.",
   "history-request-hint": "Tornâ a provâ al ripet la stesse domande, duncje nol pues mai disfâ une seconde modifiche.",
   "history-request-retry": "Torne a provâ",
-  "history-request-forget": "Dismentee"
+  "history-request-forget": "Dismentee",
+  "header-login": "Jentrade cun intestazions HTTP",
+  "login-setting-clear-secret": "Gjave il valôr salvât tal panel di aministratôr",
+  "login-setting-after-restart": "Al à efet dopo vê tornât a inviâ WeKan"
 }

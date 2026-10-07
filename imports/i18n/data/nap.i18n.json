@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Ll'ùrdema ripetizzione toja nun è ancora cunfermata dô server.",
   "history-request-hint": "Ripruvà ripete 'a stessa richiesta, accussì nun pò maje annullà nu secunno cagnamento.",
   "history-request-retry": "Ripruova",
-  "history-request-forget": "Scuordate"
+  "history-request-forget": "Scuordate",
+  "header-login": "Trasuta cu ’e intestazzione HTTP",
+  "login-setting-clear-secret": "Leva ’o valore sarvato dint’ ’o pannello ’e ll’amministratore",
+  "login-setting-after-restart": "Fa effetto doppo ’o riavvio ’e WeKan"
 }

@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Your last redo has not been confirmed by the server yet.",
   "history-request-hint": "Trying again repeats the same request, so it can never take back a second change.",
   "history-request-retry": "Try again",
-  "history-request-forget": "Forget it"
+  "history-request-forget": "Forget it",
+  "header-login": "الدخول باستعمال ترويسات HTTP",
+  "login-setting-clear-secret": "حيد القيمة اللي محفوظة فلوحة التحكم",
+  "login-setting-after-restart": "غادي يتطبق من بعد ما يعاود WeKan يتشعل"
 }
