@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/13631ec0ceebb203a5bf8dc31210ba57ecc4f36f">Correct 20 mixed-language Akan storage and administration messages.</a></summary>
+
+- Rewrite storage guidance and administration controls. Restore repair identifiers; preserve provider names, configuration alternatives and all-item scope.
+- Add source-token, identifier and scope regression checks. Technical terminology remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace mixed-language values. The broader language audit continues.
+- Validation: 79 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/052f48895e87ce2d18d02544e09c06351b6ff374">Correct 24 mixed-language Akan file and memory labels.</a></summary>
 
 - Rewrite file, attachment-migration and memory labels. Restore Node and Meteor-Files names; preserve migration destinations, board scope and checklist order.
