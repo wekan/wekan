@@ -1890,6 +1890,20 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/256a6b36cf8df7ac42ec1ca33481582a4c8c239c">Translate due reminders into Tigre</a>. Thanks to xet7.</summary>
+
+- Fill six English placeholders, retaining signed offsets, server defaults,
+  whole-day bounds, the ten-entry limit and outgoing webhook delivery. Full phrases
+  and technical terms are low confidence and need native review.
+- Reminder checks now cover 65 translated locales. Translation, all-locale structural
+  and human-preference checks pass. Browser scenarios were syntax-checked only
+  because the app stack was unavailable.
+- Cherokee still needs this reminder group. The ordinary backlog remains
+  51,575 values plus 188 pending source keys; wider language review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/dc84805547893f3340156980a71e2646f191d26b">Translate due reminders into Wolaytta</a>. Thanks to xet7.</summary>
 
 - Fill six English placeholders, retaining signed offsets, server defaults,
