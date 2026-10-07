@@ -2040,3 +2040,47 @@ test('Tok Pisin customization keeps HTML boundaries, asset name and logo locatio
  assert.match(data['editTranslationPopup-title'],/^Senisim/);
  assert.match(data['settingsTranslationPopup-title'],/^Rausim.*\?$/);
 });
+
+
+test('Tok Pisin diagnostic and storage messages retain tokens without mixed English',()=>{
+ const keys=[
+  "MongoDB_version",
+  "MongoDB_storage_engine",
+  "Node_heap_number_of_native_contexts",
+  "Node_heap_number_of_detached_contexts",
+  "version-check-failed",
+  "ldap-test-connection",
+  "ldap-test-connection-success",
+  "ldap-test-connection-error",
+  "map-provider-saved",
+  "default-save-storage-saved",
+  "default-save-storage-save-failed",
+  "filesystem-path-description",
+  "filesystem-enabled-description",
+  "backup-storage",
+  "gridfs-enabled-description",
+  "writable-path-description",
+  "fix-avatar-urls-migration-description",
+  "fix-all-file-urls-migration-description",
+  "migration-batch-size-description",
+  "migration-cpu-threshold-description",
+  "cpu-usage-current"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:compatible|storage|engine|number|native|detached|contexts|Connection|connection|Base|Use|Updates|backend|fixes|broken|Number|process|batch|Pause|exceeds|usage)\b/,key);
+ }
+});
+
+test('Tok Pisin diagnostics retain thresholds, outcomes and repair scope',()=>{
+ assert.match(data['migration-batch-size-description'],/wanwan bung \(1-100\)$/);
+ assert.match(data['migration-cpu-threshold-description'],/sapos yus bilong CPU i winim.*\(10-90\)$/);
+ assert.match(data['ldap-test-connection-success'],/i wok gut$/);
+ assert.match(data['ldap-test-connection-error'],/i no wok: %s$/);
+ assert.match(data['default-save-storage-save-failed'],/^I no inap seivim/);
+ assert.match(data['default-save-storage-saved'],/i seiv pinis$/);
+ assert.match(data['fix-avatar-urls-migration-description'],/URL bilong piksa.*memba bilong bot.*referens bilong piksa i bagarap/);
+ assert.match(data['fix-all-file-urls-migration-description'],/URL bilong olgeta fail.*dispela bot.*referens bilong fail i bagarap/);
+ assert.match(data['Node_heap_number_of_detached_contexts'],/lus long koneksen/);
+});

@@ -6744,6 +6744,17 @@ The combined translation run passes 132 checks. Two existing catalog checks fail
 on the missing due-date shortcut key. All 21 human-preference checks pass.
 Browser and screen-reader checks were not run. The wider audit remains open.
 
+## Tok Pisin diagnostics and storage status wording audit
+
+Corrected 21 English or mixed-language diagnostic and storage messages. Checks
+preserve batch and CPU limits, success/failure distinctions, connection-error
+tokens and file/avatar repair scope. Technical descriptions of heap contexts
+are low confidence and need fluent-speaker review, as does the wider wording.
+
+The combined translation run passes 134 checks. Two existing catalog checks fail
+on the missing due-date shortcut key. All 21 human-preference checks pass.
+Browser and screen-reader checks were not run. The wider audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
