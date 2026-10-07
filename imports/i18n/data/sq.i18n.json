@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Ribërja jote e fundit nuk është konfirmuar ende nga serveri.",
   "history-request-hint": "Riprovimi përsërit të njëjtën kërkesë, prandaj nuk mund të zhbëjë kurrë një ndryshim të dytë.",
   "history-request-retry": "Provo sërish",
-  "history-request-forget": "Harroje"
+  "history-request-forget": "Harroje",
+  "header-login": "Hyrje përmes titujve HTTP",
+  "login-setting-clear-secret": "Hiq vlerën e ruajtur në panelin e administratorit",
+  "login-setting-after-restart": "Hyn në fuqi pas rinisjes së WeKan"
 }

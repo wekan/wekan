@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Oxirgi qayta bajarish amalingiz server tomonidan hali tasdiqlanmagan.",
   "history-request-hint": "Qayta urinish oʻsha soʻrovni takrorlaydi, shuning uchun u hech qachon ikkinchi oʻzgarishni bekor qilmaydi.",
   "history-request-retry": "Qayta urinish",
-  "history-request-forget": "Unutish"
+  "history-request-forget": "Unutish",
+  "header-login": "HTTP sarlavhalari orqali kirish",
+  "login-setting-clear-secret": "Administrator panelida saqlangan qiymatni oʻchirish",
+  "login-setting-after-restart": "WeKan qayta ishga tushirilgandan keyin kuchga kiradi"
 }

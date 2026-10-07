@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "ការធ្វើឡើងវិញចុងក្រោយរបស់អ្នកមិនទាន់ត្រូវបានបញ្ជាក់ដោយម៉ាស៊ីនមេទេ។",
   "history-request-hint": "ការព្យាយាមម្តងទៀតធ្វើសំណើដដែលឡើងវិញ ដូច្នេះវាមិនអាចត្រឡប់ការផ្លាស់ប្តូរទីពីរទៅសភាពដើមបានទេ។",
   "history-request-retry": "ព្យាយាមម្តងទៀត",
-  "history-request-forget": "បំភ្លេចវា"
+  "history-request-forget": "បំភ្លេចវា",
+  "header-login": "ចូលតាមរយៈក្បាល HTTP",
+  "login-setting-clear-secret": "លុបតម្លៃដែលបានរក្សាទុកក្នុងផ្ទាំងគ្រប់គ្រង",
+  "login-setting-after-restart": "មានប្រសិទ្ធភាពបន្ទាប់ពីចាប់ផ្ដើម WeKan ឡើងវិញ"
 }

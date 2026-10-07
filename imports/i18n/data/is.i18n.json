@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Þjónninn hefur ekki enn staðfest síðustu endurtekningu þína.",
   "history-request-hint": "Endurtekin tilraun endurtekur sömu beiðni og getur því aldrei afturkallað aðra breytingu.",
   "history-request-retry": "Reyna aftur",
-  "history-request-forget": "Gleyma"
+  "history-request-forget": "Gleyma",
+  "header-login": "Innskráning með HTTP-hausum",
+  "login-setting-clear-secret": "Fjarlægja gildið sem er vistað á stjórnborðinu",
+  "login-setting-after-restart": "Tekur gildi eftir að WeKan er endurræst"
 }

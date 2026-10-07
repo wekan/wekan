@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "ඔබ අවසන් වරට කළ නැවත කිරීම සේවාදායකය තවමත් තහවුරු කර නැත.",
   "history-request-hint": "නැවත උත්සාහ කිරීම එම ඉල්ලීමම යළි යවයි, එබැවින් එයට කිසිවිටෙක දෙවන වෙනස්කමක් ආපසු හැරවිය නොහැක.",
   "history-request-retry": "නැවත උත්සාහ කරන්න",
-  "history-request-forget": "එය අමතක කරන්න"
+  "history-request-forget": "එය අමතක කරන්න",
+  "header-login": "HTTP ශීර්ෂ හරහා පිවිසීම",
+  "login-setting-clear-secret": "පරිපාලක පුවරුවේ සුරැකි අගය ඉවත් කරන්න",
+  "login-setting-after-restart": "WeKan නැවත ආරම්භ කිරීමෙන් පසු ක්‍රියාත්මක වේ"
 }

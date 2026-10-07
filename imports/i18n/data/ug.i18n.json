@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "ئاخىرقى قايتا قىلىشىڭىزنى مۇلازىمېتىر تېخى جەزملەشتۈرمىدى.",
   "history-request-hint": "قايتا سىناش ئوخشاش تەلەپنى تەكرارلايدۇ، شۇڭا ئۇ ئىككىنچى ئۆزگەرتىشنى ھەرگىز قايتۇرۇۋالمايدۇ.",
   "history-request-retry": "قايتا سىناڭ",
-  "history-request-forget": "ئۇنتۇڭ"
+  "history-request-forget": "ئۇنتۇڭ",
+  "header-login": "HTTP باشلىرى ئارقىلىق كىرىش",
+  "login-setting-clear-secret": "باشقۇرۇش تاختىسىدا ساقلانغان قىممەتنى ئۆچۈرۈش",
+  "login-setting-after-restart": "WeKan قايتا قوزغىتىلغاندىن كېيىن كۈچكە ئىگە بولىدۇ"
 }

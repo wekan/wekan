@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "તમારા છેલ્લા ફરી કરવાના કાર્યની સર્વરે હજી પુષ્ટિ કરી નથી.",
   "history-request-hint": "ફરી પ્રયાસથી એ જ વિનંતી પુનરાવર્તિત થાય છે, તેથી તે બીજા ફેરફારને ક્યારેય પાછો લઈ શકતું નથી.",
   "history-request-retry": "ફરી પ્રયાસ કરો",
-  "history-request-forget": "ભૂલી જાઓ"
+  "history-request-forget": "ભૂલી જાઓ",
+  "header-login": "HTTP હેડર દ્વારા લૉગિન",
+  "login-setting-clear-secret": "એડમિન પેનલમાં સાચવેલું મૂલ્ય દૂર કરો",
+  "login-setting-after-restart": "WeKan ફરી શરૂ થયા પછી અમલમાં આવશે"
 }

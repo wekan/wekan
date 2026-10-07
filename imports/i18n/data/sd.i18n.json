@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "توهان جي آخري ٻيهر ڪرڻ واري عمل جي سرور اڃا تصديق نه ڪئي آهي.",
   "history-request-hint": "ٻيهر ڪوشش ساڳي درخواست ورجائي ٿي، تنهنڪري اها ڪڏهن به ٻي تبديلي واپس نٿي ڪري سگهي.",
   "history-request-retry": "ٻيهر ڪوشش ڪريو",
-  "history-request-forget": "وساري ڇڏيو"
+  "history-request-forget": "وساري ڇڏيو",
+  "header-login": "HTTP هيڊرن ذريعي لاگ ان",
+  "login-setting-clear-secret": "ايڊمن پينل ۾ محفوظ ڪيل قدر هٽايو",
+  "login-setting-after-restart": "WeKan ٻيهر شروع ٿيڻ کان پوءِ لاڳو ٿيندو"
 }

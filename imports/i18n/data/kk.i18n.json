@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Соңғы қайталау әрекетіңізді сервер әлі растаған жоқ.",
   "history-request-hint": "Қайталап көру сол сұрауды қайта жібереді, сондықтан екінші өзгерісті ешқашан кері қайтармайды.",
   "history-request-retry": "Қайталап көру",
-  "history-request-forget": "Ұмыту"
+  "history-request-forget": "Ұмыту",
+  "header-login": "HTTP тақырыптары арқылы кіру",
+  "login-setting-clear-secret": "Әкімші панелінде сақталған мәнді жою",
+  "login-setting-after-restart": "WeKan қайта іске қосылғаннан кейін күшіне енеді"
 }

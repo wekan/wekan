@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Son təkrar etmə əməliyyatınız hələ server tərəfindən təsdiqlənməyib.",
   "history-request-hint": "Yenidən cəhd eyni sorğunu təkrarlayır, buna görə heç vaxt ikinci dəyişikliyi geri ala bilməz.",
   "history-request-retry": "Yenidən cəhd et",
-  "history-request-forget": "Unut"
+  "history-request-forget": "Unut",
+  "header-login": "HTTP başlıqları ilə giriş",
+  "login-setting-clear-secret": "İdarəetmə panelində saxlanılan dəyəri sil",
+  "login-setting-after-restart": "WeKan yenidən başladıldıqdan sonra qüvvəyə minir"
 }

@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Таны сүүлийн дахин хийх үйлдлийг сервер хараахан баталгаажуулаагүй байна.",
   "history-request-hint": "Дахин оролдох нь ижил хүсэлтийг давтдаг тул хоёр дахь өөрчлөлтийг хэзээ ч буцаахгүй.",
   "history-request-retry": "Дахин оролдох",
-  "history-request-forget": "Мартах"
+  "history-request-forget": "Мартах",
+  "header-login": "HTTP толгойгоор нэвтрэх",
+  "login-setting-clear-secret": "Админ самбарт хадгалсан утгыг устгах",
+  "login-setting-after-restart": "WeKan-ийг дахин эхлүүлсний дараа хүчинтэй болно"
 }

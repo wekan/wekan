@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Акыркы кайталооңуз сервер тарабынан ырастала элек.",
   "history-request-hint": "Кайра аракет кылуу ошол эле суроону кайталайт, ошондуктан экинчи өзгөрүүнү эч качан артка кайтарбайт.",
   "history-request-retry": "Кайра аракет кылуу",
-  "history-request-forget": "Унутуу"
+  "history-request-forget": "Унутуу",
+  "header-login": "HTTP баш аттары аркылуу кирүү",
+  "login-setting-clear-secret": "Администратор панелинде сакталган маанини өчүрүү",
+  "login-setting-after-restart": "WeKan кайра иштетилгенден кийин күчүнө кирет"
 }

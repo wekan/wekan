@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "ನಿಮ್ಮ ಕೊನೆಯ ಮರುಮಾಡುವಿಕೆಯನ್ನು ಸರ್ವರ್ ಇನ್ನೂ ಖಚಿತಪಡಿಸಿಲ್ಲ.",
   "history-request-hint": "ಮತ್ತೆ ಪ್ರಯತ್ನಿಸುವುದು ಅದೇ ವಿನಂತಿಯನ್ನು ಪುನರಾವರ್ತಿಸುತ್ತದೆ, ಆದ್ದರಿಂದ ಅದು ಎರಡನೇ ಬದಲಾವಣೆಯನ್ನು ಎಂದಿಗೂ ಹಿಂದಕ್ಕೆ ತೆಗೆದುಕೊಳ್ಳುವುದಿಲ್ಲ.",
   "history-request-retry": "ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ",
-  "history-request-forget": "ಇದನ್ನು ಮರೆತುಬಿಡಿ"
+  "history-request-forget": "ಇದನ್ನು ಮರೆತುಬಿಡಿ",
+  "header-login": "HTTP ಹೆಡರ್‌ಗಳ ಮೂಲಕ ಲಾಗಿನ್",
+  "login-setting-clear-secret": "ನಿರ್ವಾಹಕ ಫಲಕದಲ್ಲಿ ಸಂಗ್ರಹಿಸಿದ ಮೌಲ್ಯವನ್ನು ತೆಗೆದುಹಾಕಿ",
+  "login-setting-after-restart": "WeKan ಮರುಪ್ರಾರಂಭವಾದ ನಂತರ ಜಾರಿಗೆ ಬರುತ್ತದೆ"
 }

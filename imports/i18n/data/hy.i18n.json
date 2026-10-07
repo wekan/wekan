@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Ձեր վերջին կրկնակի կատարումը սերվերը դեռ չի հաստատել։",
   "history-request-hint": "Կրկին փորձելը կրկնում է նույն հարցումը, ուստի այն երբեք չի կարող հետարկել երկրորդ փոփոխությունը։",
   "history-request-retry": "Կրկին փորձել",
-  "history-request-forget": "Մոռանալ"
+  "history-request-forget": "Մոռանալ",
+  "header-login": "Մուտք HTTP վերնագրերի միջոցով",
+  "login-setting-clear-secret": "Հեռացնել ադմինիստրատորի վահանակում պահպանված արժեքը",
+  "login-setting-after-restart": "Ուժի մեջ է մտնում WeKan-ի վերագործարկումից հետո"
 }

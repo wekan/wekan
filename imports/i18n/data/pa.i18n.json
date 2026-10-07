@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "ਤੁਹਾਡੀ ਆਖ਼ਰੀ ਦੁਬਾਰਾ ਕਰਨ ਦੀ ਕਾਰਵਾਈ ਦੀ ਸਰਵਰ ਨੇ ਹਾਲੇ ਪੁਸ਼ਟੀ ਨਹੀਂ ਕੀਤੀ ਹੈ।",
   "history-request-hint": "ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰਨ ਨਾਲ ਉਹੀ ਬੇਨਤੀ ਦੁਹਰਾਈ ਜਾਂਦੀ ਹੈ, ਇਸ ਲਈ ਇਹ ਕਦੇ ਵੀ ਦੂਜੀ ਤਬਦੀਲੀ ਵਾਪਸ ਨਹੀਂ ਕਰ ਸਕਦੀ।",
   "history-request-retry": "ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ",
-  "history-request-forget": "ਇਸ ਨੂੰ ਭੁੱਲ ਜਾਓ"
+  "history-request-forget": "ਇਸ ਨੂੰ ਭੁੱਲ ਜਾਓ",
+  "header-login": "HTTP ਹੈਡਰਾਂ ਰਾਹੀਂ ਲਾਗਿਨ",
+  "login-setting-clear-secret": "ਐਡਮਿਨ ਪੈਨਲ ਵਿੱਚ ਸਟੋਰ ਕੀਤਾ ਮੁੱਲ ਹਟਾਓ",
+  "login-setting-after-restart": "WeKan ਮੁੜ ਚਾਲੂ ਹੋਣ ਤੋਂ ਬਾਅਦ ਲਾਗੂ ਹੋਵੇਗਾ"
 }

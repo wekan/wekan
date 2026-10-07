@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Nid yw'r gweinydd wedi cadarnhau eich ail-wneud diwethaf eto.",
   "history-request-hint": "Mae rhoi cynnig arall arni yn ailadrodd yr un cais, felly ni all byth ddadwneud ail newid.",
   "history-request-retry": "Rhoi cynnig arall arni",
-  "history-request-forget": "Anghofio amdano"
+  "history-request-forget": "Anghofio amdano",
+  "header-login": "Mewngofnodi drwy benawdau HTTP",
+  "login-setting-clear-secret": "Dileu’r gwerth sydd wedi’i gadw yn y panel gweinyddol",
+  "login-setting-after-restart": "Daw i rym ar ôl ailgychwyn WeKan"
 }

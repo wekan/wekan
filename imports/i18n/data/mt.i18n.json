@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "L-aħħar azzjoni tiegħek biex terġa’ tapplika bidla għadha ma ġietx ikkonfermata mis-servitur.",
   "history-request-hint": "Tentattiv ieħor jirrepeti l-istess talba, għalhekk qatt ma jista’ jreġġa’ lura bidla oħra.",
   "history-request-retry": "Erġa’ pprova",
-  "history-request-forget": "Insieha"
+  "history-request-forget": "Insieha",
+  "header-login": "Dħul permezz ta’ headers HTTP",
+  "login-setting-clear-secret": "Neħħi l-valur maħżun fil-panel tal-amministratur",
+  "login-setting-after-restart": "Jidħol fis-seħħ wara li jerġa’ jinbeda WeKan"
 }

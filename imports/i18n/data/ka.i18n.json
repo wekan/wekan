@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "თქვენი ბოლო გამეორება სერვერს ჯერ არ დაუდასტურებია.",
   "history-request-hint": "ხელახალი ცდა იმავე მოთხოვნას იმეორებს, ამიტომ ის მეორე ცვლილებას არასოდეს გააუქმებს.",
   "history-request-retry": "ხელახლა ცდა",
-  "history-request-forget": "დავიწყება"
+  "history-request-forget": "დავიწყება",
+  "header-login": "შესვლა HTTP სათაურებით",
+  "login-setting-clear-secret": "ადმინის პანელში შენახული მნიშვნელობის წაშლა",
+  "login-setting-after-restart": "ამოქმედდება WeKan-ის ხელახლა გაშვების შემდეგ"
 }

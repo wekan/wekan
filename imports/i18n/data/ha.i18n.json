@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Sabar ba ta tabbatar da sake aiwatar da canjinka na ƙarshe ba tukuna.",
   "history-request-hint": "Sake gwadawa yana maimaita buƙatar ɗaya, don haka ba zai taɓa soke canji na biyu ba.",
   "history-request-retry": "Sake gwadawa",
-  "history-request-forget": "Manta da shi"
+  "history-request-forget": "Manta da shi",
+  "header-login": "Shiga ta kanun HTTP",
+  "login-setting-clear-secret": "Cire ƙimar da aka adana a panel na admin",
+  "login-setting-after-restart": "Zai fara aiki bayan an sake kunna WeKan"
 }

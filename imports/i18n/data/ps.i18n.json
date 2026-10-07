@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "ستاسو وروستی بيا کول لا د سرور له خوا نه دي تاييد شوي.",
   "history-request-hint": "بيا هڅه هماغه غوښتنه تکراروي، نو هېڅکله دويم بدلون بېرته نه شي ګرځولی.",
   "history-request-retry": "بيا هڅه وکړئ",
-  "history-request-forget": "هېر یې کړئ"
+  "history-request-forget": "هېر یې کړئ",
+  "header-login": "د HTTP سرلیکونو له لارې ننوتل",
+  "login-setting-clear-secret": "په اداري پینل کې خوندي شوی ارزښت لرې کړئ",
+  "login-setting-after-restart": "د WeKan له بیا پیلولو وروسته نافذېږي"
 }

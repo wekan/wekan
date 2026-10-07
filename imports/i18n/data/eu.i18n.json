@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Zerbitzariak ez du oraindik zure azken berregitea berretsi.",
   "history-request-hint": "Berriro saiatzeak eskaera bera errepikatzen du; beraz, ezin du inoiz bigarren aldaketa bat desegin.",
   "history-request-retry": "Saiatu berriro",
-  "history-request-forget": "Ahaztu"
+  "history-request-forget": "Ahaztu",
+  "header-login": "Saioa hasi HTTP goiburuen bidez",
+  "login-setting-clear-secret": "Kudeaketa panelean gordetako balioa kendu",
+  "login-setting-after-restart": "WeKan berrabiarazi ondoren izango du eragina"
 }

@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "మీ చివరి పునరావృత చర్యను సర్వర్ ఇంకా నిర్ధారించలేదు.",
   "history-request-hint": "మళ్లీ ప్రయత్నించడం అదే అభ్యర్థనను పునరావృతం చేస్తుంది, కాబట్టి అది రెండవ మార్పును ఎన్నడూ వెనక్కి తీసుకోదు.",
   "history-request-retry": "మళ్లీ ప్రయత్నించండి",
-  "history-request-forget": "దాన్ని మర్చిపోండి"
+  "history-request-forget": "దాన్ని మర్చిపోండి",
+  "header-login": "HTTP హెడర్‌ల ద్వారా లాగిన్",
+  "login-setting-clear-secret": "అడ్మిన్ ప్యానెల్‌లో నిల్వ చేసిన విలువను తొలగించండి",
+  "login-setting-after-restart": "WeKan పునఃప్రారంభమైన తర్వాత అమలులోకి వస్తుంది"
 }

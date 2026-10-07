@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Сервер ҳанӯз иҷрои дубораи амали охирини шуморо тасдиқ накардааст.",
   "history-request-hint": "Кӯшиши дубора ҳамон дархостро такрор мекунад, бинобар ин ҳеҷ гоҳ тағйироти дуюмро барнамегардонад.",
   "history-request-retry": "Дубора кӯшиш кунед",
-  "history-request-forget": "Фаромӯш кардан"
+  "history-request-forget": "Фаромӯш кардан",
+  "header-login": "Воридшавӣ тавассути сарлавҳаҳои HTTP",
+  "login-setting-clear-secret": "Нест кардани қимати дар панели маъмур захирашуда",
+  "login-setting-after-restart": "Пас аз аз нав оғоз кардани WeKan эътибор пайдо мекунад"
 }
