@@ -1104,3 +1104,19 @@ test('Akan voting and invitation labels preserve subjects and endpoint alternati
  assert.match(data['s3-endpoint-menu-path'],/^AWS:.*hɔ kwa.*ɔmantam/);
  for(const literal of ['S3','Endpoint URL','MinIO','Cloudflare R2','Backblaze B2','Wasabi','DigitalOcean Spaces']) assert.ok(data['s3-endpoint-menu-path'].includes(literal),literal);
 });
+
+
+test('Akan prompts preserve membership boundaries and font sample digits', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["what-to-do", "password-again", "migration-progress-note", "user-exists", "export-select-what-to-include", "board-members-same-org-only", "board-members-same-team-only", "font-preview-text", "card-aging", "fullname"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.match(data['board-members-same-org-only'],/ahyehyɛde koro no ara mufo nkutoo/);
+ assert.match(data['board-members-same-team-only'],/kuw koro no ara mufo nkutoo/);
+ assert.match(data['font-preview-text'],/0123456789$/);
+ assert.match(data['font-preview-text'],/Sakraman.*ɔkraman/);
+ assert.match(data['password-again'],/san hyɛ bio/);
+ assert.match(data['user-exists'],/wɔ hɔ dedaw/);
+ assert.match(data['card-aging'],/dedaw.*kɔla ano brɛ ase/);
+ assert.match(data['migration-progress-note'],/twɛn.*foforo/);
+ assert.match(data['export-select-what-to-include'],/: $/);
+});

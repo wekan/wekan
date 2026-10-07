@@ -5715,6 +5715,16 @@ instructions. Added token, subject and provider-name checks. Wording remains
 low confidence pending fluent-speaker review; browser and live provider-console
 checks remain unrun. English-placeholder counts are unchanged.
 
+## Akan prompts and font-sample corrections (batch 61)
+
+Corrected 10 mixed-language prompts, membership settings and display values.
+Preserved same-organization/team restrictions, password repetition, font-preview
+digits and card-fading behavior. The font sample translates the source sentence;
+it is not claimed to be an Akan pangram. Vocabulary references: [fox](https://learnakandictionary.com/english-twi/fox/)
+and [brown color wording](https://ghanasky.com/akan-twi-dictionary-translator/).
+Added token, scope and digit checks. Wording remains low confidence pending
+fluent-speaker review; browser checks remain unrun. Placeholder counts unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
