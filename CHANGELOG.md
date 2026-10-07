@@ -1889,6 +1889,20 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cdf21e4dbb975b3939ac53a67e5279da6e5642b4">Translate Tamazight notification settings</a>. Thanks to xet7.</summary>
+
+- Fill 13 Standard Moroccan Tamazight notification strings in Tifinagh without
+  overwriting existing translations. Record low-confidence wording and vocabulary
+  references in `docs/Features/Translations/Audit.md`.
+- Shared notification coverage now includes 62 locales, with Tifinagh checks for
+  this batch. Notification, all-locale structure/token and human-preference checks
+  pass. Browser coverage is syntax-checked only; its application stack was unavailable.
+- Four locales still need this notification group. The ordinary backlog remains
+  51,575 values plus 201 pending source keys; remaining work stays in TODO Later.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/54f5243cc81fa118dd455d484c26d004bc19845f">Translate Veps notification settings</a>. Thanks to xet7.</summary>
 
 - Fill 13 Veps notification strings without overwriting existing translations.
