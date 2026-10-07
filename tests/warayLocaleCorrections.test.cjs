@@ -451,7 +451,34 @@ const correctedKeys = [
   "blockly-LOGIC_COMPARE_TOOLTIP_NEQ",
   "blockly-LOGIC_NEGATE_TITLE",
   "blockly-LOGIC_NEGATE_TOOLTIP",
-  "blockly-LOGIC_NULL_TOOLTIP"
+  "blockly-LOGIC_NULL_TOOLTIP",
+  "blockly-LOGIC_OPERATION_AND",
+  "blockly-LOGIC_OPERATION_TOOLTIP_AND",
+  "blockly-LOGIC_OPERATION_TOOLTIP_OR",
+  "blockly-LOGIC_TERNARY_CONDITION",
+  "blockly-LOGIC_TERNARY_IF_FALSE",
+  "blockly-LOGIC_TERNARY_IF_TRUE",
+  "blockly-LOGIC_TERNARY_TOOLTIP",
+  "blockly-MATH_ADDITION_SYMBOL_ARIA",
+  "blockly-MATH_ARITHMETIC_TOOLTIP_ADD",
+  "blockly-MATH_ARITHMETIC_TOOLTIP_DIVIDE",
+  "blockly-MATH_ARITHMETIC_TOOLTIP_MINUS",
+  "blockly-MATH_ARITHMETIC_TOOLTIP_MULTIPLY",
+  "blockly-MATH_ARITHMETIC_TOOLTIP_POWER",
+  "blockly-MATH_ATAN2_TITLE",
+  "blockly-MATH_ATAN2_TOOLTIP",
+  "blockly-MATH_CHANGE_TITLE",
+  "blockly-MATH_CHANGE_TOOLTIP",
+  "blockly-MATH_CONSTANT_GOLDEN_RATIO_ARIA",
+  "blockly-MATH_CONSTANT_INFINITY_ARIA",
+  "blockly-MATH_CONSTANT_SQRT1_2_ARIA",
+  "blockly-MATH_CONSTANT_SQRT2_ARIA",
+  "blockly-MATH_CONSTANT_TOOLTIP",
+  "blockly-MATH_CONSTRAIN_TITLE",
+  "blockly-MATH_CONSTRAIN_TOOLTIP",
+  "blockly-MATH_DIVISION_SYMBOL_ARIA",
+  "blockly-MATH_IS_DIVISIBLE_BY",
+  "blockly-MATH_IS_EVEN"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -533,6 +560,13 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   assert.match(waray['blockly-LISTS_REVERSE_TOOLTIP'], /kopya han lista/);
   assert.match(waray['blockly-LISTS_GET_SUBLIST_TOOLTIP'], /kopya/);
   assert.match(waray['blockly-LISTS_SORT_TOOLTIP'], /kopya/);
+  assert.match(waray['blockly-LOGIC_OPERATION_TOOLTIP_AND'], /tinuod an duha/);
+  assert.match(waray['blockly-LOGIC_OPERATION_TOOLTIP_OR'], /bisan usa/);
+  assert.match(waray['blockly-MATH_CONSTRAIN_TOOLTIP'], /upod an mga utlanan mismo/);
+  assert.match(waray['blockly-MATH_ATAN2_TOOLTIP'], /-180 tubtob 180/);
+  for (const notation of ['π (3.141…)', 'e (2.718…)', 'φ (1.618…)', 'sqrt(2) (1.414…)', 'sqrt(½) (0.707…)', '∞']) {
+    assert.ok(waray['blockly-MATH_CONSTANT_TOOLTIP'].includes(notation), notation);
+  }
   for (const comparison of ['GT', 'LT']) {
     assert.doesNotMatch(waray['blockly-LOGIC_COMPARE_' + comparison + '_ARIA'], /katugbang/);
     assert.match(waray['blockly-LOGIC_COMPARE_' + comparison + 'E_ARIA'], /o katugbang/);

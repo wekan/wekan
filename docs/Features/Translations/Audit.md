@@ -5023,6 +5023,12 @@ mixed-language audit remains open.
 - Retained sorting a copy, case-insensitive versus ordinary alphabetic ordering, strict versus inclusive comparisons and both branches of boolean negation. Split and join retain delimiter semantics.
 - Extended token, copy, comparison-boundary, sort-direction and negation checks. Delimiter, ordering and comparison phrasing remains provisional and needs contextual review. Browser and spoken accessibility checks remain unexecuted.
 
+### Waray Blockly conjunction, arithmetic and constants
+
+- Filled 27 English placeholders through the protected workflow, covering conjunction/ternary logic, arithmetic, atan2, constants, inclusive limits and divisibility. Preserved numbered arguments, mathematical notation, coordinate labels and the -180 to 180 range.
+- Kept both-input conjunction distinct from at-least-one disjunction, and retained both branches of the conditional expression. Bounds explicitly include the endpoints; evenness is paraphrased as divisibility by 2 without remainder.
+- Extended token, boolean-quantifier, inclusive-bound, angle-range and constant-notation checks. Square-root, golden-ratio and exponent terminology is lower confidence and needs contextual mathematical review. Browser and spoken accessibility checks remain unexecuted.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
