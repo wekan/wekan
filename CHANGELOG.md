@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b79ac288c2b3898b4951cd2fe8cc0ad80d5b0e7c">Correct 14 mixed-language Akan storage and support messages.</a></summary>
+
+- Rewrite attachment repair, storage defaults, compaction, PDF support and account protection descriptions. Preserve the English source's ordering, exceptions and access restrictions.
+- Add source-token, operational-scope and identifier checks. Specialized storage wording remains provisional.
+- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
+- Validation: 67 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c174c06c9263db5087029853cea831c4a189e565">Correct 18 mixed-language Akan diagnostic and report messages.</a></summary>
 
 - Rewrite diagnostic, reporting, creator and membership messages. Preserve log commands, API settings, report scope and nonempty-group deletion guards.
