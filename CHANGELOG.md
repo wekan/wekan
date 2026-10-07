@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **47,539 untranslated locale/string values in 70 languages**. It
+  report counts **47,475 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -1986,6 +1986,18 @@ snap.
 and updates the following translations:
 
 **Activity notifications** - choosing which card activity sends notifications.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cad48f4a2064b5dfae456662c3659b2c941bcf85">Translate Yiddish, Turkmen, Bhojpuri and Maithili block and bubble labels.</a></summary>
+
+- Fill 64 English placeholders, preserving numbered arguments and existing correct-language translations. Extend block-state, input and bubble distinction checks.
+- Document lower-confidence stack/row, bubble and container terminology; contextual accessibility review remains open.
+- Ordinary untranslated values decrease from 47,539 to 47,475 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 26 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fa8167b30a49098d8df0ab015bd36a5a36be142d">Translate Kurdish and Tatar block and bubble labels.</a></summary>
