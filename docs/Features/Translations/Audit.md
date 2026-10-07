@@ -1831,6 +1831,26 @@ includes Tamazight but was syntax-checked only; the app stack was unavailable.
 Four locale paths still need this reminder group. The ordinary backlog remains
 51,575 values plus 188 pending source keys. These checks do not certify fluency.
 
+### Due reminders — Inuktitut (2026-10-07)
+
+Filled six English placeholders in `iu`, retaining syllabic writing and existing
+reminder, due-date, board and save vocabulary. The descriptions retain zero as the
+due day, positive/before and negative/after offsets, blank/server defaults, whole
+days, the signed range and ten-entry limit, disabling and outgoing webhooks.
+No existing translations were overwritten and no translation service was used.
+
+Full phrases and technical terminology are low confidence and need native review.
+References include [Tusaalanga's glossary](https://www.tusaalanga.ca/glossary/inuktitut?l=t)
+for ten, [Inhabit educational material](https://nti-inhabit.com/wp-content/uploads/2020/04/BW_EduResundertheice_r4.pdf)
+for ahead of time, and [bilingual craft instructions](https://inuusiq.com/wp-content/uploads/2025/04/ELC-Arts-Crafts-Adult-Book-IK-EN-FINAL-1.pdf)
+for after. These references support vocabulary, not validation of the full phrases.
+
+Reminder checks now cover 63 translated locales. Translation checks, all-locale
+structural checks and human-preference checks pass. The existing browser scenario
+includes Inuktitut but was syntax-checked only; the app stack was unavailable.
+Three locale paths still need this reminder group. The ordinary backlog remains
+51,575 values plus 188 pending source keys; broader language-quality review is open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
