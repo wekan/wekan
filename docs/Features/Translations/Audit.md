@@ -4926,6 +4926,13 @@ mixed-language audit remains open.
 - Stack is a connected string/pile of blocks; the Venetian bubble uses a text-balloon metaphor. Venetian container, disabled and bubble terminology, and regional Wu wording, remain lower confidence and need contextual review.
 - Extended token, non-placeholder and distinction checks. These do not prove fluent or semantically equivalent wording. Browser and spoken accessibility checks remain unexecuted; 148 pending source keys and broader semantic review remain open.
 
+### Walloon and Waray block labels; correction of mistaken locale identity
+
+- The registry explicitly names `wa-RR` Wáray-Wáray and `wa` Walon. Earlier audit entries and a field-label regression incorrectly treated both as Walloon. Those conclusions were wrong: the existing Waray comments were valid, while the subsequently inserted Walloon field labels were wrong-language text.
+- Filled 32 English block/bubble placeholders in the two languages separately. Corrected 15 wrong-language Waray values: eleven field types, date, checkbox, dropdown and multi-select. Replaced the regression that had enforced Walloon in the Waray catalog with Waray expectations and checks against copying the Walloon field labels.
+- Vocabulary references: Walloon [bouyote](https://wa.wiktionary.org/wiki/bouyote) and the [Waray corpus dictionary](https://dictionary.corporaproject.org/index.php?glossary=S&sort=word). Stack/pile, block loans, container and replacement phrasing remain provisional; dictionary vocabulary does not prove the composed labels fluent.
+- Preserved numbered arguments and extended existing block-label checks. Browser and spoken accessibility checks remain unexecuted. Further wrong-language review of `wa-RR`, the 148 pending keys and the broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

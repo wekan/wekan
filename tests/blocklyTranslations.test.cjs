@@ -47,11 +47,16 @@ test('filled comment and accessibility controls preserve arguments and opposite 
  for(const [code,value] of [['qu','Qillqasqa'],['vo','Vödem'],['tlh','ghItlh']])assert.equal(require(`../imports/i18n/data/${code}.i18n.json`).text,value);
 });
 
-test('Walloon generic field labels do not retain foreign seed text',()=>{
+test('Waray field labels do not retain Walloon seed text',()=>{
  const data=require('../imports/i18n/data/wa-RR.i18n.json');
- assert.equal(data.date,'Date do calindrî');
- assert.equal(data['custom-field-dropdown'],"Djivêye ki s' droûle");
- assert.equal(data['custom-field-checkbox'],'Boesse a clitchî');
+ assert.equal(data.date,'Petsa');
+ assert.equal(data['custom-field-dropdown'],'Lista nga naabri tipaubos');
+ assert.equal(data['custom-field-checkbox'],'Kahon nga mamarkahan');
+ assert.equal(data['custom-field-dropdownMultiSelect'],'Lista nga mahimo pumili hin damu');
+ const walloon=require('../imports/i18n/data/wa.i18n.json');
+ for(const key of Object.keys(english).filter(k=>k.startsWith('blockly-ARIA_TYPE_FIELD_'))){
+  assert.notEqual(data[key],walloon[key],key);
+ }
 });
 
 test('Venda and Tsonga field labels replace foreign seeds and filler',()=>{
@@ -160,7 +165,7 @@ test('filled field types distinguish images, selectors and input names', async()
 test('filled block and bubble labels preserve arguments and semantic distinctions',async()=>{
  const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
  const keys=Object.keys(english).filter(k=>/^blockly-(BLOCK_LABEL_|BUBBLE_LABEL_)/.test(k));
- for(const code of ['ku','ckb','tt','yi','tk_TM','bho','mai','so','ary','or_IN','kok','mi','sm','haw','to','bi','tpi','fj','pap','zu','zu-ZA','xh','ss','nd','st','tn','nso','rw','rn','lg','ny','ts','ve','wuu-Hans','ve-CC']){
+ for(const code of ['ku','ckb','tt','yi','tk_TM','bho','mai','so','ary','or_IN','kok','mi','sm','haw','to','bi','tpi','fj','pap','zu','zu-ZA','xh','ss','nd','st','tn','nso','rw','rn','lg','ny','ts','ve','wuu-Hans','ve-CC','wa','wa-RR']){
   const data=require(`../imports/i18n/data/${code}.i18n.json`);
   for(const key of keys){
    assert.ok(data[key]?.trim(),`${code}:${key}`);
