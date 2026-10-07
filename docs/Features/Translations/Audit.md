@@ -3158,6 +3158,14 @@ This draft has lower confidence in technical terminology and grammatical agreeme
 
 Validation covers 63 recently filled hints, exact identifiers, source tokens and key order, plus parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. This hint remains English in three locales. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; language quality review remains open.
 
+### URL scheme hint: Wolaytta
+
+Filled the English-only `automatic-linked-url-schemes-hint` in `wal` directly through the placeholder-only fill utility. Existing translated values were retained. The five literal scheme names remain unchanged. The draft describes the initially empty setting, clickable web/mail links, registered applications and schemes that never become links.
+
+This draft has lower confidence, especially technical loanwords, the descriptive URL-type term and grammatical agreement. It needs fluent-speaker review. [Lamberti and Sottile's grammar](https://dokumen.pub/the-wolaytta-language.html) gives `dooyy-` for open; [Wakasa's sketch grammar](https://www.janestudies.org/wp-content/uploads/2018/files/NES_no19%282014%29_Wakasa.pdf) documents negative imperfective endings including third-person plural `-okkona`. Neither validates the complete draft or its software terminology. The existing `Wolayttatto: Open` label is still English after a language prefix and remains a broader quality-audit item. No translation service was used.
+
+Validation covers 64 recently filled hints, exact identifiers, source tokens and key order, plus parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. This hint remains English in two locales. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; language quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
