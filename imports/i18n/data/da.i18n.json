@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Serveren har endnu ikke bekræftet din seneste gendannelse.",
   "history-request-hint": "Et nyt forsøg gentager den samme anmodning og kan derfor aldrig fortryde endnu en ændring.",
   "history-request-retry": "Prøv igen",
-  "history-request-forget": "Glem anmodningen"
+  "history-request-forget": "Glem anmodningen",
+  "header-login": "Login via HTTP-headere",
+  "login-setting-clear-secret": "Fjern værdien gemt i administrationspanelet",
+  "login-setting-after-restart": "Træder i kraft, når WeKan genstartes"
 }

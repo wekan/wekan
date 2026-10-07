@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Máy chủ chưa xác nhận lần làm lại gần nhất của bạn.",
   "history-request-hint": "Thử lại sẽ lặp lại cùng yêu cầu, nên không thể hoàn tác thêm một thay đổi thứ hai.",
   "history-request-retry": "Thử lại",
-  "history-request-forget": "Bỏ qua"
+  "history-request-forget": "Bỏ qua",
+  "header-login": "Đăng nhập qua tiêu đề HTTP",
+  "login-setting-clear-secret": "Xóa giá trị đã lưu trong bảng quản trị",
+  "login-setting-after-restart": "Có hiệu lực sau khi WeKan khởi động lại"
 }

@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "השרת עדיין לא אישר את הביצוע החוזר האחרון שלך.",
   "history-request-hint": "ניסיון נוסף חוזר על אותה בקשה, ולכן לעולם אינו יכול לבטל שינוי נוסף.",
   "history-request-retry": "ניסיון נוסף",
-  "history-request-forget": "שכח מזה"
+  "history-request-forget": "שכח מזה",
+  "header-login": "כניסה באמצעות כותרות HTTP",
+  "login-setting-clear-secret": "הסרת הערך השמור בלוח הניהול",
+  "login-setting-after-restart": "ייכנס לתוקף לאחר הפעלה מחדש של WeKan"
 }

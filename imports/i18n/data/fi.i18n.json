@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Palvelin ei ole vielä vahvistanut viimeisintä uudelleentekoasi.",
   "history-request-hint": "Uusi yritys toistaa saman pyynnön, joten se ei voi kumota toista muutosta.",
   "history-request-retry": "Yritä uudelleen",
-  "history-request-forget": "Unohda pyyntö"
+  "history-request-forget": "Unohda pyyntö",
+  "header-login": "Kirjautuminen HTTP-otsakkeilla",
+  "login-setting-clear-secret": "Poista hallintapaneeliin tallennettu arvo",
+  "login-setting-after-restart": "Tulee voimaan WeKanin uudelleenkäynnistyksen jälkeen"
 }

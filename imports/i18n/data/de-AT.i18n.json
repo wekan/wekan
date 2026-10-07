@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Der Server hat dein letztes Wiederherstellen noch nicht bestätigt.",
   "history-request-hint": "Ein erneuter Versuch wiederholt dieselbe Anfrage und kann daher niemals eine zweite Änderung rückgängig machen.",
   "history-request-retry": "Erneut versuchen",
-  "history-request-forget": "Anfrage vergessen"
+  "history-request-forget": "Anfrage vergessen",
+  "header-login": "Anmeldung über HTTP-Header",
+  "login-setting-clear-secret": "Den in der Administration gespeicherten Wert entfernen",
+  "login-setting-after-restart": "Wird nach einem Neustart von WeKan wirksam"
 }

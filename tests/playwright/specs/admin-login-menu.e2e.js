@@ -33,3 +33,30 @@ test('People opens Email and lists separate authentication panes after Shared te
     await expect(page.locator('.side-menu li.active a')).toHaveAttribute('data-id', id);
   }
 });
+
+for (const language of ['fi', 'ar', 'ja']) {
+  test(`login settings render localized labels in ${language}`, async ({ page, adminUser }) => {
+    const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
+    await loginWithToken(page, adminUser.id, adminUser.token);
+    await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
+    await navigateInApp(page, '/admin/people/login');
+    await expect(page.locator('.side-menu a[data-id="header-login-setting"]')).toHaveText(strings['header-login']);
+    const restart = page.locator('.accounts-form').filter({ has: page.locator('#auth-loginExpirationInDays') });
+    await expect(restart).toContainText(strings['login-setting-after-restart']);
+    await expect(restart).not.toContainText('Takes effect after WeKan restarts');
+    await expect(page.locator('html')).toHaveAttribute('dir', language === 'ar' ? 'rtl' : 'ltr');
+    try {
+      await navigateInApp(page, '/admin/people/oidc');
+      await page.locator('#auth-secret').fill('translation-test-secret');
+      await page.locator('.js-auth-provider-save').click();
+      const clear = page.locator('.auth-secret-clear').filter({ has: page.locator('[data-key="secret"]') });
+      await expect(clear).toContainText(strings['login-setting-clear-secret']);
+      await expect(clear).not.toContainText('Remove the value stored in the Admin Panel');
+      await page.locator('.js-auth-secret-clear[data-key="secret"]').check();
+      await page.locator('.js-auth-provider-save').click();
+      await expect(clear).toHaveCount(0);
+    } finally {
+      await page.evaluate(() => Meteor.callAsync('saveAuthConfigSettings', 'oidc', { clearSecrets: ['secret'] }));
+    }
+  });
+}

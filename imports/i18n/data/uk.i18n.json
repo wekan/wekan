@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Сервер ще не підтвердив останнє повторення дії.",
   "history-request-hint": "Повторна спроба надсилає той самий запит, тому ніколи не може скасувати другу зміну.",
   "history-request-retry": "Спробувати ще раз",
-  "history-request-forget": "Забути запит"
+  "history-request-forget": "Забути запит",
+  "header-login": "Вхід за допомогою HTTP-заголовків",
+  "login-setting-clear-secret": "Видалити значення, збережене в панелі адміністратора",
+  "login-setting-after-restart": "Набуває чинності після перезапуску WeKan"
 }

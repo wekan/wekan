@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Serveren har ennå ikke bekreftet den siste gjør om-handlingen din.",
   "history-request-hint": "Et nytt forsøk gjentar den samme forespørselen og kan derfor aldri angre en annen endring.",
   "history-request-retry": "Prøv igjen",
-  "history-request-forget": "Glem forespørselen"
+  "history-request-forget": "Glem forespørselen",
+  "header-login": "Innlogging via HTTP-hoder",
+  "login-setting-clear-secret": "Fjern verdien som er lagret i administrasjonspanelet",
+  "login-setting-after-restart": "Trer i kraft etter at WeKan startes på nytt"
 }

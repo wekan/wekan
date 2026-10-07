@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Η τελευταία επανάληψή σας δεν έχει επιβεβαιωθεί ακόμη από τον διακομιστή.",
   "history-request-hint": "Μια νέα προσπάθεια επαναλαμβάνει το ίδιο αίτημα, οπότε δεν μπορεί ποτέ να αναιρέσει δεύτερη αλλαγή.",
   "history-request-retry": "Δοκιμή ξανά",
-  "history-request-forget": "Παράβλεψη"
+  "history-request-forget": "Παράβλεψη",
+  "header-login": "Σύνδεση μέσω κεφαλίδων HTTP",
+  "login-setting-clear-secret": "Κατάργηση της τιμής που έχει αποθηκευτεί στον πίνακα διαχείρισης",
+  "login-setting-after-restart": "Τίθεται σε ισχύ μετά την επανεκκίνηση του WeKan"
 }

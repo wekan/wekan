@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Serveris vēl nav apstiprinājis jūsu pēdējo darbības atjaunošanu.",
   "history-request-hint": "Atkārtots mēģinājums atkārto to pašu pieprasījumu, tāpēc tas nekad nevar atsaukt otru izmaiņu.",
   "history-request-retry": "Mēģināt vēlreiz",
-  "history-request-forget": "Aizmirst"
+  "history-request-forget": "Aizmirst",
+  "header-login": "Pieteikšanās ar HTTP galvenēm",
+  "login-setting-clear-secret": "Noņemt administrēšanas panelī saglabāto vērtību",
+  "login-setting-after-restart": "Stājas spēkā pēc WeKan restartēšanas"
 }

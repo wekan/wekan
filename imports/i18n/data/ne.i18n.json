@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "तपाईंको पछिल्लो पुनः गर्ने कार्य सर्भरले अझै पुष्टि गरेको छैन।",
   "history-request-hint": "फेरि प्रयास गर्दा उही अनुरोध दोहोरिन्छ, त्यसैले यसले दोस्रो परिवर्तन कहिल्यै उल्टाउन सक्दैन।",
   "history-request-retry": "फेरि प्रयास गर्नुहोस्",
-  "history-request-forget": "बिर्सनुहोस्"
+  "history-request-forget": "बिर्सनुहोस्",
+  "header-login": "HTTP हेडरमार्फत लगइन",
+  "login-setting-clear-secret": "प्रशासक प्यानलमा सुरक्षित गरिएको मान हटाउनुहोस्",
+  "login-setting-after-restart": "WeKan पुनः सुरु भएपछि लागू हुन्छ"
 }

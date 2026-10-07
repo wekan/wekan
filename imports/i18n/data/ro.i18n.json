@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Serverul nu a confirmat încă ultima refacere.",
   "history-request-hint": "Reîncercarea repetă aceeași cerere, deci nu poate anula niciodată o a doua modificare.",
   "history-request-retry": "Încearcă din nou",
-  "history-request-forget": "Uită cererea"
+  "history-request-forget": "Uită cererea",
+  "header-login": "Autentificare prin antete HTTP",
+  "login-setting-clear-secret": "Elimină valoarea salvată în panoul de administrare",
+  "login-setting-after-restart": "Intră în vigoare după repornirea WeKan"
 }

@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "سرور هنوز آخرین انجام مجدد شما را تأیید نکرده است.",
   "history-request-hint": "تلاش دوباره همان درخواست را تکرار می‌کند، بنابراین هرگز نمی‌تواند تغییر دیگری را برگرداند.",
   "history-request-retry": "تلاش دوباره",
-  "history-request-forget": "فراموشش کن"
+  "history-request-forget": "فراموشش کن",
+  "header-login": "ورود از طریق سرآیندهای HTTP",
+  "login-setting-clear-secret": "حذف مقدار ذخیره‌شده در پنل مدیریت",
+  "login-setting-after-restart": "پس از راه‌اندازی مجدد WeKan اعمال می‌شود"
 }

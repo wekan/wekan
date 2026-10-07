@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Tindakan buat semula terakhir anda belum disahkan oleh pelayan.",
   "history-request-hint": "Mencuba lagi mengulangi permintaan yang sama, jadi ia tidak sekali-kali boleh membuat asal perubahan kedua.",
   "history-request-retry": "Cuba lagi",
-  "history-request-forget": "Lupakan"
+  "history-request-forget": "Lupakan",
+  "header-login": "Log masuk melalui pengepala HTTP",
+  "login-setting-clear-secret": "Alih keluar nilai yang disimpan dalam panel pentadbir",
+  "login-setting-after-restart": "Berkuat kuasa selepas WeKan dimulakan semula"
 }

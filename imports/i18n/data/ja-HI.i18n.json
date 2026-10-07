@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "最後のやり直しは、まだサーバーによって確認されていません。",
   "history-request-hint": "再試行しても同じリクエストを繰り返すため、別の変更まで取り消されることはありません。",
   "history-request-retry": "再試行",
-  "history-request-forget": "リクエストを破棄"
+  "history-request-forget": "リクエストを破棄",
+  "header-login": "HTTPヘッダーによるログイン",
+  "login-setting-clear-secret": "管理パネルに保存された値を削除",
+  "login-setting-after-restart": "WeKanの再起動後に有効になります"
 }

@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "De server heeft je laatste opnieuw uitgevoerde actie nog niet bevestigd.",
   "history-request-hint": "Opnieuw proberen herhaalt hetzelfde verzoek en kan dus nooit een tweede wijziging ongedaan maken.",
   "history-request-retry": "Opnieuw proberen",
-  "history-request-forget": "Verzoek vergeten"
+  "history-request-forget": "Verzoek vergeten",
+  "header-login": "Aanmelden via HTTP-headers",
+  "login-setting-clear-secret": "Verwijder de waarde die in het beheerpaneel is opgeslagen",
+  "login-setting-after-restart": "Wordt van kracht nadat WeKan opnieuw is gestart"
 }

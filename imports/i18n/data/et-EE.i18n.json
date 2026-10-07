@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Server pole sinu viimast uuestitegemist veel kinnitanud.",
   "history-request-hint": "Uuesti proovimine kordab sama päringut, seega ei saa see kunagi teist muudatust tagasi võtta.",
   "history-request-retry": "Proovi uuesti",
-  "history-request-forget": "Unusta see"
+  "history-request-forget": "Unusta see",
+  "header-login": "Sisselogimine HTTP-päiste abil",
+  "login-setting-clear-secret": "Eemalda halduspaneelile salvestatud väärtus",
+  "login-setting-after-restart": "Jõustub pärast WeKani taaskäivitamist"
 }

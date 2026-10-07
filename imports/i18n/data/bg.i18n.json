@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Сървърът все още не е потвърдил последното повторение на действие.",
   "history-request-hint": "Повторният опит изпраща същата заявка, така че никога не може да отмени втора промяна.",
   "history-request-retry": "Опитайте отново",
-  "history-request-forget": "Забравяне на заявката"
+  "history-request-forget": "Забравяне на заявката",
+  "header-login": "Вход чрез HTTP заглавки",
+  "login-setting-clear-secret": "Премахване на стойността, записана в администраторския панел",
+  "login-setting-after-restart": "Влиза в сила след рестартиране на WeKan"
 }

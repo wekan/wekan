@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Urudiaji wako wa mwisho bado haujathibitishwa na seva.",
   "history-request-hint": "Kujaribu tena hurudia ombi lilelile, kwa hiyo hakuwezi kutengua badiliko la pili.",
   "history-request-retry": "Jaribu tena",
-  "history-request-forget": "Lisahau"
+  "history-request-forget": "Lisahau",
+  "header-login": "Kuingia kupitia vichwa vya HTTP",
+  "login-setting-clear-secret": "Ondoa thamani iliyohifadhiwa kwenye paneli ya msimamizi",
+  "login-setting-after-restart": "Itaanza kutumika baada ya WeKan kuanzishwa upya"
 }

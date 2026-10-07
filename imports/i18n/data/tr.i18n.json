@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Son yineleme işleminiz sunucu tarafından henüz onaylanmadı.",
   "history-request-hint": "Yeniden denemek aynı isteği tekrarlar; bu nedenle ikinci bir değişikliği geri alamaz.",
   "history-request-retry": "Yeniden dene",
-  "history-request-forget": "İsteği unut"
+  "history-request-forget": "İsteği unut",
+  "header-login": "HTTP üst bilgileriyle giriş",
+  "login-setting-clear-secret": "Yönetici panelinde saklanan değeri kaldır",
+  "login-setting-after-restart": "WeKan yeniden başlatıldıktan sonra geçerli olur"
 }

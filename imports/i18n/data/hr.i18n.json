@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Poslužitelj još nije potvrdio vaše posljednje ponavljanje.",
   "history-request-hint": "Ponovni pokušaj ponavlja isti zahtjev pa nikada ne može poništiti još jednu promjenu.",
   "history-request-retry": "Pokušaj ponovno",
-  "history-request-forget": "Zaboravi"
+  "history-request-forget": "Zaboravi",
+  "header-login": "Prijava putem HTTP zaglavlja",
+  "login-setting-clear-secret": "Ukloni vrijednost spremljenu na administratorskoj ploči",
+  "login-setting-after-restart": "Stupa na snagu nakon ponovnog pokretanja WeKana"
 }

@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "El servidor encara no ha confirmat la vostra última acció de refer.",
   "history-request-hint": "Tornar-ho a provar repeteix la mateixa petició, de manera que mai no pot desfer un segon canvi.",
   "history-request-retry": "Torna-ho a provar",
-  "history-request-forget": "Oblida-ho"
+  "history-request-forget": "Oblida-ho",
+  "header-login": "Inici de sessió mitjançant capçaleres HTTP",
+  "login-setting-clear-secret": "Elimina el valor desat al tauler d’administració",
+  "login-setting-after-restart": "Té efecte després de reiniciar el WeKan"
 }

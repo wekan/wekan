@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "سرور نے آپ کی آخری دوبارہ کرنے کی کارروائی کی ابھی تصدیق نہیں کی۔",
   "history-request-hint": "دوبارہ کوشش سے وہی درخواست دہرائی جاتی ہے، اس لیے یہ کبھی دوسری تبدیلی واپس نہیں لے سکتی۔",
   "history-request-retry": "دوبارہ کوشش کریں",
-  "history-request-forget": "بھول جائیں"
+  "history-request-forget": "بھول جائیں",
+  "header-login": "HTTP ہیڈرز کے ذریعے لاگ ان",
+  "login-setting-clear-secret": "منتظم پینل میں محفوظ کردہ قدر ہٹائیں",
+  "login-setting-after-restart": "WeKan دوبارہ شروع ہونے کے بعد مؤثر ہوگا"
 }

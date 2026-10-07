@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "O servidor ainda não confirmou sua última ação de refazer.",
   "history-request-hint": "Tentar novamente repete a mesma solicitação, portanto nunca pode desfazer uma segunda alteração.",
   "history-request-retry": "Tentar novamente",
-  "history-request-forget": "Esquecer a solicitação"
+  "history-request-forget": "Esquecer a solicitação",
+  "header-login": "Login por cabeçalhos HTTP",
+  "login-setting-clear-secret": "Remover o valor salvo no Painel Administrativo",
+  "login-setting-after-restart": "Entra em vigor após reiniciar o WeKan"
 }

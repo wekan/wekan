@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "सर्वर ने अभी आपके अंतिम फिर से करने की पुष्टि नहीं की है।",
   "history-request-hint": "फिर प्रयास करने पर वही अनुरोध दोहराया जाता है, इसलिए यह कभी दूसरे बदलाव को वापस नहीं ले सकता।",
   "history-request-retry": "फिर प्रयास करें",
-  "history-request-forget": "भूल जाएँ"
+  "history-request-forget": "भूल जाएँ",
+  "header-login": "HTTP हेडर से लॉगिन",
+  "login-setting-clear-secret": "व्यवस्थापक पैनल में सहेजा गया मान हटाएँ",
+  "login-setting-after-restart": "WeKan के पुनः आरंभ होने के बाद लागू होगा"
 }

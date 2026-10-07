@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "لم يؤكد الخادم آخر عملية إعادة أجريتها بعد.",
   "history-request-hint": "تكرر المحاولة مجددًا الطلب نفسه، لذا لا يمكنها التراجع عن تغيير ثانٍ.",
   "history-request-retry": "حاول مجددًا",
-  "history-request-forget": "تجاهل الطلب"
+  "history-request-forget": "تجاهل الطلب",
+  "header-login": "تسجيل الدخول عبر ترويسات HTTP",
+  "login-setting-clear-secret": "إزالة القيمة المحفوظة في لوحة التحكم",
+  "login-setting-after-restart": "يسري بعد إعادة تشغيل WeKan"
 }

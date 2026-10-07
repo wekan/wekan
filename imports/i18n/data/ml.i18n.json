@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "നിങ്ങളുടെ അവസാന വീണ്ടും ചെയ്യൽ സർവർ ഇതുവരെ സ്ഥിരീകരിച്ചിട്ടില്ല.",
   "history-request-hint": "വീണ്ടും ശ്രമിക്കുന്നത് അതേ അഭ്യർത്ഥന ആവർത്തിക്കുന്നു, അതിനാൽ അതിന് ഒരിക്കലും രണ്ടാമത്തെ മാറ്റം പഴയപടിയാക്കാനാകില്ല.",
   "history-request-retry": "വീണ്ടും ശ്രമിക്കുക",
-  "history-request-forget": "അത് മറക്കുക"
+  "history-request-forget": "അത് മറക്കുക",
+  "header-login": "HTTP ഹെഡറുകൾ വഴിയുള്ള പ്രവേശനം",
+  "login-setting-clear-secret": "അഡ്മിൻ പാനലിൽ സൂക്ഷിച്ച മൂല്യം നീക്കം ചെയ്യുക",
+  "login-setting-after-restart": "WeKan പുനരാരംഭിച്ചതിന് ശേഷം പ്രാബല്യത്തിൽ വരും"
 }

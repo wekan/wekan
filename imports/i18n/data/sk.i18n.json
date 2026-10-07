@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Server zatiaľ nepotvrdil posledné opakovanie akcie.",
   "history-request-hint": "Ďalší pokus opakuje rovnakú požiadavku, takže nikdy nemôže vrátiť späť druhú zmenu.",
   "history-request-retry": "Skúsiť znova",
-  "history-request-forget": "Zabudnúť požiadavku"
+  "history-request-forget": "Zabudnúť požiadavku",
+  "header-login": "Prihlásenie pomocou hlavičiek HTTP",
+  "login-setting-clear-secret": "Odstrániť hodnotu uloženú v paneli správcu",
+  "login-setting-after-restart": "Prejaví sa po reštartovaní WeKan"
 }

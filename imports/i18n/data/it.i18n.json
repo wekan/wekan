@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Il server non ha ancora confermato la tua ultima operazione di ripristino.",
   "history-request-hint": "Riprovare ripete la stessa richiesta, quindi non può mai annullare una seconda modifica.",
   "history-request-retry": "Riprova",
-  "history-request-forget": "Dimentica la richiesta"
+  "history-request-forget": "Dimentica la richiesta",
+  "header-login": "Accesso tramite intestazioni HTTP",
+  "login-setting-clear-secret": "Rimuovi il valore salvato nel pannello di amministrazione",
+  "login-setting-after-restart": "Ha effetto dopo il riavvio di WeKan"
 }

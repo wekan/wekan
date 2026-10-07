@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Server belum mengonfirmasi tindakan ulangi terakhir Anda.",
   "history-request-hint": "Mencoba lagi mengulangi permintaan yang sama, sehingga tidak akan pernah mengurungkan perubahan kedua.",
   "history-request-retry": "Coba lagi",
-  "history-request-forget": "Lupakan permintaan"
+  "history-request-forget": "Lupakan permintaan",
+  "header-login": "Masuk melalui header HTTP",
+  "login-setting-clear-secret": "Hapus nilai yang disimpan di panel admin",
+  "login-setting-after-restart": "Berlaku setelah WeKan dimulai ulang"
 }

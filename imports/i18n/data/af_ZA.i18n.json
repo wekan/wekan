@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Jou laaste herdoening is nog nie deur die bediener bevestig nie.",
   "history-request-hint": "Om weer te probeer herhaal dieselfde versoek, dus kan dit nooit 'n tweede verandering ongedaan maak nie.",
   "history-request-retry": "Probeer weer",
-  "history-request-forget": "Vergeet dit"
+  "history-request-forget": "Vergeet dit",
+  "header-login": "Aanmelding via HTTP-kopskrifte",
+  "login-setting-clear-secret": "Verwyder die waarde wat in die administrasiepaneel gestoor is",
+  "login-setting-after-restart": "Tree in werking nadat WeKan herbegin is"
 }

@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Serveris dar nepatvirtino paskutinio veiksmo pakartojimo.",
   "history-request-hint": "Bandant dar kartą kartojama ta pati užklausa, todėl ji niekada negali atšaukti antro pakeitimo.",
   "history-request-retry": "Bandyti dar kartą",
-  "history-request-forget": "Pamiršti"
+  "history-request-forget": "Pamiršti",
+  "header-login": "Prisijungimas naudojant HTTP antraštes",
+  "login-setting-clear-secret": "Pašalinti administravimo skydelyje išsaugotą reikšmę",
+  "login-setting-after-restart": "Įsigalioja iš naujo paleidus WeKan"
 }

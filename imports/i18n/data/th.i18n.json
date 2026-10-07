@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "เซิร์ฟเวอร์ยังไม่ได้ยืนยันการทำซ้ำครั้งล่าสุดของคุณ",
   "history-request-hint": "การลองอีกครั้งจะส่งคำขอเดิมซ้ำ จึงไม่สามารถย้อนกลับการเปลี่ยนแปลงที่สองได้",
   "history-request-retry": "ลองอีกครั้ง",
-  "history-request-forget": "ลืมคำขอนี้"
+  "history-request-forget": "ลืมคำขอนี้",
+  "header-login": "เข้าสู่ระบบผ่านส่วนหัว HTTP",
+  "login-setting-clear-secret": "ลบค่าที่บันทึกไว้ในแผงผู้ดูแลระบบ",
+  "login-setting-after-restart": "มีผลหลังจากเริ่ม WeKan ใหม่"
 }

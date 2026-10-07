@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "A kiszolgáló még nem erősítette meg az utolsó újraalkalmazást.",
   "history-request-hint": "Az újrapróbálkozás ugyanazt a kérést ismétli meg, így soha nem vonhat vissza egy második módosítást.",
   "history-request-retry": "Újrapróbálkozás",
-  "history-request-forget": "Kérés elfelejtése"
+  "history-request-forget": "Kérés elfelejtése",
+  "header-login": "Bejelentkezés HTTP-fejlécekkel",
+  "login-setting-clear-secret": "Az adminisztrációs panelen tárolt érték eltávolítása",
+  "login-setting-after-restart": "A WeKan újraindítása után lép érvénybe"
 }

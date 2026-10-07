@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Serwer nie potwierdził jeszcze ostatniego ponowienia.",
   "history-request-hint": "Ponowna próba powtarza to samo żądanie, więc nigdy nie może cofnąć drugiej zmiany.",
   "history-request-retry": "Spróbuj ponownie",
-  "history-request-forget": "Zapomnij żądanie"
+  "history-request-forget": "Zapomnij żądanie",
+  "header-login": "Logowanie za pomocą nagłówków HTTP",
+  "login-setting-clear-secret": "Usuń wartość zapisaną w panelu administratora",
+  "login-setting-after-restart": "Zacznie obowiązywać po ponownym uruchomieniu WeKan"
 }

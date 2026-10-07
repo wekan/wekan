@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "서버가 아직 마지막 다시 실행을 확인하지 않았습니다.",
   "history-request-hint": "다시 시도하면 동일한 요청이 반복되므로 두 번째 변경 사항이 취소되는 일은 없습니다.",
   "history-request-retry": "다시 시도",
-  "history-request-forget": "요청 잊기"
+  "history-request-forget": "요청 잊기",
+  "header-login": "HTTP 헤더를 통한 로그인",
+  "login-setting-clear-secret": "관리자 패널에 저장된 값 제거",
+  "login-setting-after-restart": "WeKan을 다시 시작한 후 적용됩니다"
 }

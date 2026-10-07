@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Via lasta refaro ankoraŭ ne estas konfirmita de la servilo.",
   "history-request-hint": "Reprovi ripetas la saman peton, do ĝi neniam povas malfari duan ŝanĝon.",
   "history-request-retry": "Reprovi",
-  "history-request-forget": "Forgesi ĝin"
+  "history-request-forget": "Forgesi ĝin",
+  "header-login": "Ensaluto per HTTP-kapoj",
+  "login-setting-clear-secret": "Forigi la valoron konservitan en la administra panelo",
+  "login-setting-after-restart": "Efikas post restartigo de WeKan"
 }

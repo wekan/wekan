@@ -3892,5 +3892,8 @@
   "history-request-pending-redo": "Hindi pa nakukumpirma ng server ang huli mong muling paggawa.",
   "history-request-hint": "Inuulit ng muling pagsubok ang parehong kahilingan, kaya hindi nito kailanman mababawi ang pangalawang pagbabago.",
   "history-request-retry": "Subukang muli",
-  "history-request-forget": "Kalimutan ito"
+  "history-request-forget": "Kalimutan ito",
+  "header-login": "Pag-login gamit ang mga HTTP header",
+  "login-setting-clear-secret": "Alisin ang halagang nakaimbak sa panel ng admin",
+  "login-setting-after-restart": "Magkakabisa pagkatapos i-restart ang WeKan"
 }
