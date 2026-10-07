@@ -5777,6 +5777,24 @@ especially snapshot, increment and retrospective, remain low-confidence drafts
 pending fluent-speaker review. Automated checks establish structure and selected
 semantic distinctions, not fluency. Browser checks were not run.
 
+## Somali Sync conflicts, previews and reports — 2026-10-07
+
+Filled 63 English placeholders in `so`. Existing translations are preserved.
+Conflict wording distinguishes keeping local content from removing its Sync
+mapping, retaining subcards, replacement-card reuse and review-only scope.
+Preview and diagnostic messages preserve omitted source data, the two separate
+100-entry/path limits, 20-run retention over 30 days, full-list permissions and
+reports that cannot resume or undo work. Jira hints preserve `null`, the
+missing-versus-explicit-null distinction, hours and exactly one matching field.
+Archive wording follows the existing `U gudbi kaydka` label.
+
+Four new regression tests cover these distinctions and source placeholders.
+Together with the Somali Scrum checks and all-catalog structural check, eight
+tests pass; 21 human-preference checks pass. Browser checks were not run.
+Technical compounds for mappings, parser output and source baselines remain
+low-confidence drafts pending fluent-speaker review. No external translation
+service was used. The all-language backlog and wording audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
