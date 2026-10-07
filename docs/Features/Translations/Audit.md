@@ -3408,6 +3408,14 @@ Filled three English placeholders in `vo`. The fill utility protected existing t
 
 Ten translation/token regressions, import-loss positive/negative checks, all 234 locale structure checks and 21 human-preference checks pass. Extended the browser case to Volapük; it was syntax-checked only because the local Playwright executable and running application are unavailable. Each source key remains English in eight locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
 
+### Import warning report: Veps
+
+Filled three English placeholders in `ve-PP` and corrected the Venda recovery-menu seed `U wanululwa` to Veps `Endištand`. The fill utility protected existing non-English translations; the wrong-language correction was applied separately. The description retains board creation, incomplete transfer and a matching recovery-menu path. The heading paraphrases warnings as reported problems.
+
+The [Noid Veps-English dictionary](https://vepsnoid.blogspot.com/p/dictionary.html) supplies opening, bringing and keeping verbs. Wiktionary supplies [tedotuz (report)](https://en.wiktionary.org/wiki/tedotuz) and [endištada (restore)](https://en.wiktionary.org/wiki/endi%C5%A1tada); the latter also matches the existing restore control. These support individual words, not the complete sentences. Full clauses, inflection, the derived recovery noun and the warning paraphrase remain low confidence and need fluent-speaker review. Other wrong-language seeds in this locale remain in the broader review queue.
+
+The translation/token, import-loss positive/negative and 234-locale structure suites pass (12 tests combined), as do 21 human-preference checks. Extended the browser case to Veps and syntax-checked it; browser execution remains unavailable because the local Playwright executable and running application are absent. Each source key remains English in seven locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
