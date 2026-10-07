@@ -1890,6 +1890,17 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/48d3e716484edffde1fa4abbefda10b68f986a8b">Add Greenlandic and Inuktitut Leo import instructions</a></summary>
+
+- Filled two English instructions. Both full translations remain low-confidence drafts requiring linguistic review.
+- Extended locale and browser coverage. All 12 focused Node tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
+- The Leo instruction remains untranslated in five locales. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 150 pending source keys.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/fc9749b1139373c2e0fc199936cd80a09b165bb1">Translate five more Leo import instructions</a></summary>
 
 - Filled five English instructions in Kashmiri, Fulah, Veps, Volapük and Klingon. All five complete instructions remain low-confidence drafts requiring linguistic review.
