@@ -1890,6 +1890,20 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/73af562b00b75c2eb5a05e059bbf1d957a469702">Translate rule-builder instructions in Bambara and Ewe</a>. Thanks to xet7.</summary>
+
+- Fill seven strings in each locale, preserving literal variables, any-trigger
+  behavior and ordered actions. Both translations have lower confidence;
+  technical terms and composed date fragments need native/UI review.
+- Translation checks now cover 40 recently filled locales. Runtime variable,
+  all-locale structural and human-preference checks pass. Browser scenarios were
+  not run; the app stack was unavailable.
+- 26 locale paths still need this group. The ordinary backlog remains 51,575 values
+  plus 181 pending source keys; broader language-quality review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/04b3ad18b93ef3e331bb5bbc9d7e8a7299e53ec2">Translate rule-builder instructions in Luganda and Wolof</a>. Thanks to xet7.</summary>
 
 - Fill seven strings in each locale and replace Luganda's English trigger label.
