@@ -6346,6 +6346,23 @@ The shared catalog-completeness check still fails on missing shortcut-edit-due-d
 keys in other locales. Browser and screen-reader checks were not run. The broader
 language and wording audit remains open.
 
+## Tok Pisin synchronization — 2026-10-08
+
+Filled 63 English placeholders for Sync conflicts, previews, source-field
+reports, retained runs, recovery diagnostics and estimate mappings. Existing
+translations remain unchanged. Wording follows the catalog's Sink, sos, bokis
+and skelim terms. Parser behavior is paraphrased as a data-reading process.
+Mapping, normalization, retention and partial-run wording remains low confidence
+pending fluent-speaker review.
+
+Six focused checks and all 21 human-preference checks pass. Tests cover all
+Sync source-token inventories, shared labels, no source writes, retained local
+content, unchanged subcards, replacement reuse, full-list permissions, retention
+periods and missing-versus-explicit-null behavior. The shared catalog-completeness
+check still fails on missing shortcut-edit-due-date keys in other locales.
+Browser and screen-reader checks were not run. The broader language and wording
+audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
