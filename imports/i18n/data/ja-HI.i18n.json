@@ -985,6 +985,7 @@
   "shortcut-autocomplete-members": "メンバーの補完",
   "shortcut-clear-filters": "すべてのフィルターを解除する",
   "shortcut-close-dialog": "ダイアログを閉じる",
+  "shortcut-edit-due-date": "開いているカードの期限を編集",
   "shortcut-filter-my-cards": "カードをフィルター",
   "shortcut-filter-my-assigned-cards": "自分に割り当てられたカードをフィルタ",
   "shortcut-show-shortcuts": "このショートカットリストを表示する",

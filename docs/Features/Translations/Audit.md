@@ -6987,6 +6987,20 @@ fail on the missing shortcut in other locales. All 21 human-preference checks
 pass. Browser and screen-reader checks were not run. Remaining locales and the
 broader wording audit remain open.
 
+## Due-date shortcut inventory repair: 47 regional variants
+
+Added the missing shortcut to regional variants of Arabic, Azerbaijani, Czech,
+Welsh, German, Greek, English, Spanish, Persian, French, Hebrew, Hindi, Japanese,
+Khmer, Korean, Malay, Dutch, Polish, Portuguese, Romanian, Russian, Ukrainian,
+Uzbek, Vietnamese and Chinese. English variants retain English; Chinese variants
+use their existing simplified/traditional script. Existing values were preserved.
+Each affected catalog matches English's key inventory and order. Tests cover
+source tokens and correspondence to the base-language translation.
+
+The focused run passes 41 checks. Two existing catalog checks still fail on the
+missing shortcut elsewhere. All 21 human-preference checks pass. Browser and
+screen-reader checks were not run. Remaining locales and wording review stay open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
