@@ -6176,6 +6176,24 @@ All 21 human-preference checks pass. The shared catalog-completeness check
 still fails because some locales lack shortcut-edit-due-date. Browser and
 screen-reader checks were not run. The broader language audit remains open.
 
+## Māori activity recovery and rule editing — 2026-10-08
+
+Filled 46 English placeholders for rule blocks, mail failure categories and
+activity-notification recovery. Existing translations are preserved. The
+confirmation wording follows the catalog's whakaū and the corresponding
+[Te Aka dictionary entry](https://maoridictionary.co.nz/search?keywords=whakau).
+Notification, mail and rule vocabulary also follows existing Māori values.
+Worker reservations, recovery metadata and receipt terminology remain
+provisional pending fluent-speaker review.
+
+Nine focused Māori checks and all 21 human-preference checks pass. Regression
+coverage preserves source tokens, the one-trigger/one-action constraint,
+administrator permissions, stale-rule reload, uncertain versus failed delivery,
+no activity recreation, retained work and irreversible cancellation without
+recalling queued mail. The shared catalog completeness check still fails on
+missing shortcut-edit-due-date keys in other locales. Browser and screen-reader
+checks were not run. The broader language and wording audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
