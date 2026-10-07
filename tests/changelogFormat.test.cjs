@@ -201,7 +201,10 @@ test('lines are wrapped at 80 columns, links excepted', () => {
     .filter(l => l.text.length > 80 && !/https?:\/\//.test(l.text)
       && !/\[[^\]]+\]\([^\s)]+\)/.test(l.text)
       && !l.text.startsWith('<summary>') && !l.text.startsWith('**Languages updated:** ')
-      && l.text !== CLOSING);
+      && l.text !== CLOSING
+      // A subsection header is one line by rule (the In short check and the
+      // release notes find it that way); CodeQL's established one is 86 long.
+      && !/^(This release|and) .*:$/.test(l.text));
   // Relative Markdown links, like absolute URLs, must remain intact. All other
   // prose is wrapped; do not let a growing allowance hide new formatting errors.
   assert.strictEqual(over.length, 0,

@@ -1893,6 +1893,31 @@ each for the reason given:
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Two **GitHub CodeQL** code-scanning alerts in the test suite are
+fixed: tests no longer build `bash -c` scripts from absolute paths, and a guard
+keeps that shape out of every test.
+
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/433e58a618d87e58f8b42b419b2d7829488c47c5">Tests pass shell paths through the environment, not into bash -c scripts</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+Alerts #549 and #550 (`js/shell-command-injection-from-environment`):
+`tests/snapSettingsKeys.test.cjs` and `tests/snapSocketDenied.test.cjs`
+interpolated an absolute path built from `__dirname` into a `bash -c` script
+(`source "${helper}"`), so a checkout path with a quote, `$(` or a backtick
+would change the command. Two more tests had the same shape. All four pass the
+path in an environment variable now, and `tests/testShellPathsFromEnv.test.cjs`
+fails on any test that sources an interpolated value. These are test files, so
+no attempt against a running WeKan is possible and nothing is logged in Admin
+Panel -> Problems.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.22 2026-10-08 WeKan ® release
 
 **In short:** The **Snap** now says at once when the computer's AppArmor policy,

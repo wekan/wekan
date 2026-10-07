@@ -17,7 +17,10 @@ const CLOSING = 'Thanks to above GitHub users for their contributions and transl
 
 export function exempt(line) {
   return line.length <= 80 || /https?:\/\//.test(line) || /\[[^\]]+\]\([^\s)]+\)/.test(line)
-    || line.startsWith('<summary>') || line.startsWith('**Languages updated:** ') || line === CLOSING;
+    || line.startsWith('<summary>') || line.startsWith('**Languages updated:** ') || line === CLOSING
+    // A subsection header ("This release fixes ...:", "and updates ...:") is
+    // found by being ONE line ending in a colon; wrapping it hides it.
+    || /^(This release|and) .*:$/.test(line);
 }
 
 // A continuation line must not start something markdown would read as block syntax.

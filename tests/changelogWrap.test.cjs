@@ -16,15 +16,18 @@ const { pathToFileURL } = require('node:url');
     `**Languages updated:** ${long}`,
     '```', `code ${long}`, '```',
     `- ${'x '.repeat(38)}#6514 is an issue number, not a heading`,
+    'This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:',
   ].join('\n');
   const out = wrapChangelog(input);
   const lines = out.split('\n');
   // Every changed line now fits; the exempt ones are untouched.
   for (const line of lines) {
-    if (/https?:\/\/|^<summary>|^\*\*Languages updated|^code /.test(line)) continue;
+    if (/https?:\/\/|^<summary>|^\*\*Languages updated|^code |^This release /.test(line)) continue;
     assert.ok(line.length <= 80, line);
   }
   assert.ok(lines.includes(`code ${long}`), 'fenced code is left alone');
+  assert.ok(lines.includes('This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:'),
+    'a subsection header stays one line');
   // Only whitespace changed.
   assert.equal(out.replace(/\s+/g, ' '), input.replace(/\s+/g, ' '));
   // A bullet continues two spaces in, and no wrapped line starts a heading.
