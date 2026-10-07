@@ -385,7 +385,7 @@ held only issues \#4774 and \#4055, and both are closed now.
 Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
-- The current `node releases/translations/fill-translations.mjs --missing` report counts **51,575 untranslated locale/string values in 70 languages**. It excludes **182 source keys tracked separately as pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
+- The current `node releases/translations/fill-translations.mjs --missing` report counts **51,575 untranslated locale/string values in 70 languages**. It excludes **181 source keys tracked separately as pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
 - The 13 activity-notification preference keys have no empty or exact English-placeholder values in all 234 non-English locale paths and have left the pending queue. Provisional wording still needs language review.
 - Automatic-archiving and date-filter messages now have non-English values in all 234 non-English locale paths. Continue the remaining feature families and the language-quality audit; coverage does not establish fluent wording.
 - Fill English placeholders in every language, including minority and constructed languages. Audit mixed-language and wrong-language seed text, and review provisional wording with speakers when available. Preserve correct-language human translations, source key order, exact placeholders, technical identifiers and query examples. Use direct translation and dictionary research, not an external translation service.
@@ -1888,6 +1888,23 @@ Minority-language wording remains provisional and needs speaker review.
 This release updates the following translations:
 
 **Activity notifications** - choosing which card activity sends notifications.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4ab30ce556980bdb6aad10772bc23cbfc768d60c">Fill remaining SAML errors and reconcile all-locale coverage</a>. Thanks to xet7.</summary>
+
+- Fill Tigre and Cherokee placeholders. Full phrases are low confidence; Cherokee
+  retains borrowed browser/tab labels. Native terminology and grammar review remains.
+- All 234 non-English locale paths have nonempty values different from English with
+  exact placeholders for this message. Remove its pending entry, leaving 181 keys.
+  These checks establish coverage, not fluency or correct-language text.
+- Popup-error tests pass, including positive and negative login-boundary cases and
+  detailed translation checks for 66 recently filled locales. All-locale structural
+  and human-preference checks pass. Browser scenarios were not run; the app stack
+  was unavailable.
+- The ordinary backlog remains 51,575 values in 70 languages. Wider language-quality
+  review remains in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6023f4a7e86ac38184d000e49693eeda8dad0606">Translate SAML error into Nahuatl and Tamazight</a>. Thanks to xet7.</summary>
