@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a97cdfd445f9fd6419ba2212968505ae479c3029">Correct 30 mixed-language Akan rule and reminder messages.</a></summary>
+
+- Rewrite rule imports, due reminders, deletion confirmations and search/template scope. Preserve technical names, placeholders and count-prefix spacing.
+- Add source-token, opposite-state, formatting and permission checks. Rule fragments and template terminology remains provisional.
+- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
+- Validation: 64 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8f254da4ecf94dc51aeff962e93ae4748c130705">Correct 24 mixed-language Akan invitation and membership messages.</a></summary>
 
 - Rewrite Trello controls, membership guidance, invitation email and limits. Preserve administrator scope and separate WeKan/Sandstorm access behavior.
