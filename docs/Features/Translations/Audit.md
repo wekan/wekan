@@ -3590,6 +3590,14 @@ The [Cherokee Microsoft localization style guide](https://device.report/m/ec97d0
 
 Extended the regression to discover all non-English locale files, verify non-empty/non-English values and exact placeholder inventories, and reject identical undo/redo or retry/forget labels. Added Cherokee to the existing browser scenario with lost-reply, retry, forget, stale-request and wrong-board checks. The 13 focused tests, 21 human-preference checks and browser syntax check pass. Browser execution remains unavailable without Playwright and a running application; language-quality review remains open.
 
+## Map view: Kurdish, Sorani, Tatar, Turkmen and Yiddish — 2026-10-07
+
+Filled seven English map-view placeholders in each of `ku`, `ckb`, `tt`, `tk_TM` and `yi` (35 values), preserving existing translations through the protected fill workflow. The empty state describes a floor plan, site map or drawing, and the placement hint preserves both dragging and selecting/clicking. These seven keys still have English placeholders in 61 locale paths; keep them in the pending queue. The broader backlog remains 51,575 ordinary placeholders across 70 languages plus 160 pending source keys.
+
+The Kurdish [nexşerê dictionary entry](https://ku.wiktionary.org/wiki/nex%C5%9Fer%C3%AA) supports the map vocabulary. A [Turkmen technical text](https://tituki.nesil.edu.tm/pluginfile.php/11383/mod_resource/content/0/B%C3%A4%C5%9Fimow%20A_%C3%96n%C3%BCm%C3%A7iligi%20gurnamak%20we%20dolandyrmak-2010TPI.pdf) provides usage of karta and meýilnama. These references support terms, not the complete sentences. Technical compounds and especially the Turkmen wording remain provisional and need speaker review. Existing Turkmen `upload` contains mixed English (`Uploadükle`); this new group uses ýükläň, but a broader cleanup remains open.
+
+Extended the locale regression and existing map browser scenario to these five languages, checking all seven messages, both placement methods, and the transition to all cards placed. The existing read-only negative scenario remains. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains unverified without Playwright and a running application.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -12,16 +12,24 @@ async function openMap(page) {
   await expect(page.locator('.js-map-view')).toBeVisible({ timeout: 15000 });
 }
 
-test('a board admin uploads a map, and members place and move cards on it', async ({ boardPage: page, board }) => {
+for (const language of ['en', 'ku', 'ckb', 'tt', 'tk_TM', 'yi']) {
+const locale = require(`../../../imports/i18n/data/${language}.i18n.json`);
+test(`a board admin uploads a map, and members place and move cards on it in ${language}`, async ({ boardPage: page, board }) => {
   const cards = Object.fromEntries(db.find('cards', { boardId: board.boardId }).map(c => [c.title, c._id]));
   try {
+    await page.evaluate(async language => { await Meteor.callAsync('setLanguage', language); }, language);
     await openMap(page);
-    await expect(page.locator('.js-map-view')).toContainText('no map image yet');
+    await expect(page.locator('.map-view-empty p')).toHaveText(locale['map-view-empty']);
+    await expect(page.locator('.js-map-upload-button')).toHaveText(locale['map-view-upload']);
     const png = await solidPng(page, 800, 400, '#dfe9f3');
     await page.locator('.js-map-upload-input').setInputFiles({ name: 'plan.png', mimeType: 'image/png', buffer: png });
     await expect.poll(() => db.findOne('boards', { _id: board.boardId }).mapImageAttachmentId, { timeout: 20000 }).toBeTruthy();
     const image = page.locator('.map-view-image');
     await expect(image).toBeVisible();
+    await expect(image).toHaveAttribute('alt', locale['board-view-map']);
+    await expect(page.locator('.map-view-side h3')).toHaveText(locale['map-view-unplaced']);
+    await expect(page.locator('.map-view-side p.quiet')).toHaveText(locale['map-view-place-hint']);
+    await expect(page.locator('.js-map-remove-image')).toHaveText(locale['map-view-remove-image']);
     await expect.poll(() => image.evaluate(img => img.naturalWidth)).toBe(800);
     await expect(page.locator('.js-map-unplaced')).toHaveCount(3);
 
@@ -40,6 +48,12 @@ test('a board admin uploads a map, and members place and move cards on it', asyn
     await expect.poll(() => db.findOne('cards', { _id: cards['Alpha Card'] }).mapY).toBeCloseTo(90, 0);
     await expect(page.locator('.js-map-unplaced')).toHaveCount(1);
 
+    // Placing the last card replaces the instruction with the completion message.
+    await page.locator('.js-map-unplaced').click();
+    await page.mouse.click(box.x + box.width * 0.6, box.y + box.height * 0.6);
+    await expect(page.locator('.js-map-unplaced')).toHaveCount(0);
+    await expect(page.locator('.map-view-side p.quiet')).toHaveText(locale['map-view-all-placed']);
+
     // A marker opens its card.
     await page.locator(`.js-map-marker[data-card-id="${cards['Beta Card']}"]`).click();
     await expect(page).toHaveURL(new RegExp(cards['Beta Card']));
@@ -47,6 +61,7 @@ test('a board admin uploads a map, and members place and move cards on it', asyn
     db.updateMany('cards', { boardId: board.boardId }, { $unset: { mapX: '', mapY: '' } });
   }
 });
+}
 
 test('a read-only member sees the markers but cannot place cards', async ({ page, board, user2 }) => {
   const alpha = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });

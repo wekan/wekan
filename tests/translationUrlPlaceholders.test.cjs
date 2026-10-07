@@ -228,7 +228,7 @@ test('history recovery messages have non-English values and distinct controls in
 test('map view instructions and controls are translated in reviewed locales', async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   const source = JSON.parse(fs.readFileSync(path.join(directory, 'en.i18n.json')));
-  for (const code of ["fi", "ar", "ar-DZ", "ar-EG", "tr", "es", "es-AR", "es-CL", "es-CO", "es-LA", "es-MX", "es-PE", "es-PY", "es_CO", "it", "pt", "pt-PT", "pt_PT", "pt-BR", "gl", "gl-ES", "ko", "ko-KR", "ja", "ja-JP", "ja-HI", "zh-Hant", "zh-TW", "zh-HK", "zh", "zh-CN", "zh-Hans", "zh-GB", "zh_SG", "cmn", "fr", "fr-FR", "fr-BE", "fr-CH", "fr-CA", "de", "de-AT", "de_DE", "de-CH", "sv", "da", "nb", "nl", "nl-NL", "ro", "ro-RO", "id", "pl", "cs", "sk", "hu", "uk", "ru", "bg"]) {
+  for (const code of ["fi", "ar", "ar-DZ", "ar-EG", "tr", "es", "es-AR", "es-CL", "es-CO", "es-LA", "es-MX", "es-PE", "es-PY", "es_CO", "it", "pt", "pt-PT", "pt_PT", "pt-BR", "gl", "gl-ES", "ko", "ko-KR", "ja", "ja-JP", "ja-HI", "zh-Hant", "zh-TW", "zh-HK", "zh", "zh-CN", "zh-Hans", "zh-GB", "zh_SG", "cmn", "fr", "fr-FR", "fr-BE", "fr-CH", "fr-CA", "de", "de-AT", "de_DE", "de-CH", "sv", "da", "nb", "nl", "nl-NL", "ro", "ro-RO", "id", "pl", "cs", "sk", "hu", "uk", "ru", "bg", "ku", "ckb", "tt", "tk_TM", "yi"]) {
     const locale = JSON.parse(fs.readFileSync(path.join(directory, code + '.i18n.json')));
     for (const key of ["board-view-map", "map-view-empty", "map-view-upload", "map-view-remove-image", "map-view-unplaced", "map-view-place-hint", "map-view-all-placed"]) {
       assert.ok(locale[key]?.trim(), code + ':' + key);
