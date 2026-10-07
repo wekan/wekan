@@ -7,7 +7,7 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('due-reminder-'));
 assert.equal(keys.length, 6);
-for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -70,4 +70,12 @@ for (const code of ['bho', 'mai', 'kok']) {
   for (const key of keys) assert.match(read(code)[key], /[\u0900-\u097F]/u, `${code}:${key}: Devanagari`);
 }
 for (const key of keys) assert.match(read('or_IN')[key], /[\u0B00-\u0B7F]/u, `${key}: Odia script`);
-console.log('Due reminder translations: 6 messages in 23 locales passed');
+assert.match(read('ary')['due-reminder-days-label'], /بفواصل.*الموجبة.*قبل.*السالبة.*بعدو.*خاوية/);
+assert.match(read('yi')['due-reminder-days-label'], /קאָמעס.*פּאָזיטיווע.*פֿאַר.*נעגאַטיווע.*נאָך.*ליידיק/);
+assert.match(read('ary')['due-reminder-invalid'], /أعداد صحيحة.*بحد أقصى عشرة/);
+assert.match(read('yi')['due-reminder-invalid'], /ביז צען גאַנצע צאָלן/);
+for (const key of keys) {
+  assert.match(read('ary')[key], /[\u0600-\u06FF]/u, `${key}: Arabic script`);
+  assert.match(read('yi')[key], /[\u0590-\u05FF]/u, `${key}: Hebrew script`);
+}
+console.log('Due reminder translations: 6 messages in 25 locales passed');

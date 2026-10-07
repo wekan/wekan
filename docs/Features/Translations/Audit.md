@@ -1295,6 +1295,25 @@ coverage is syntax-checked only because the application stack is unavailable.
 Forty-three locale paths still need this group. The ordinary backlog remains
 51,575 values plus 188 pending source keys.
 
+### Due reminders — Moroccan Arabic and Yiddish (2026-10-07)
+
+Filled the six due-reminder strings in `ary` and `yi` (12 values), retaining
+existing board terminology. The instructions preserve comma-separated offsets,
+zero as the due day, positive days before and negative days after, the empty
+server-default setting, at most ten integers between -14 and 14, board disabling
+and outgoing webhook delivery. Existing correct-language values were preserved.
+
+Regression checks cover the instructions, bounds, scripts and exact source-token
+inventories; the existing browser scenario now includes both locales (25 translated
+locales total). Translation, all-locale structural and human-preference checks
+pass. Browser scenarios were syntax-checked only; the app stack was unavailable.
+Script checks do not certify fluency or right-to-left rendering. No external
+translation service was used. Technical compounds remain open to native review.
+
+41 locale paths still need this six-string group. The ordinary backlog remains
+51,575 values, with 188 additional pending source keys; the wider language-quality
+review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
