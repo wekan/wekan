@@ -3150,6 +3150,14 @@ This draft has lower confidence in technical terminology and grammatical agreeme
 
 Validation covers 62 recently filled hints, exact scheme identifiers, source tokens and key order, plus parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. This hint remains English in four locales. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; language quality review remains open.
 
+### URL scheme hint: Inuktitut
+
+Filled the English-only `automatic-linked-url-schemes-hint` in `iu` directly through the placeholder-only fill utility. Existing translations were retained. The draft uses syllabics and preserves all five literal scheme identifiers. It describes the empty default, web/mail links, applications registered for listed schemes and permanently excluded schemes.
+
+This draft has lower confidence in technical terminology and grammatical agreement and needs fluent-speaker review. [Tusaalanga's South Qikiqtaaluk glossary](https://tusaalanga.ca/glossary?showall=1) provides `ikiaqqivik` (website), `ikiaqqijjut` (Internet) and `matuiqtuq` (opens). The existing locale supplies link/email terminology. The descriptive wording for URL scheme and registered application is not established as standard by those sources; neither the glossary nor the automated checks validate the complete translation. No translation service was used.
+
+Validation covers 63 recently filled hints, exact identifiers, source tokens and key order, plus parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. This hint remains English in three locales. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; language quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
