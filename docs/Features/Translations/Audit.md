@@ -1153,6 +1153,30 @@ pass; browser coverage is syntax-checked only because its application stack is
 unavailable. The ordinary backlog remains 51,575 values in 70 languages plus 201
 pending source keys because this batch belongs to the pending group.
 
+## Cherokee notification preferences — 2026-10-07
+
+Filled 13 `notification-activity-*` English placeholders in `chr` using Cherokee
+syllabics and the locale's existing UI terms. Existing translations are preserved.
+The intended description covers removing the activity mark, bell/email delivery,
+and the due-date reminder and @mention exception.
+
+Vocabulary references: [bell entry](https://www.cherokeedictionary.net/share/73796)
+and the indexed [Cherokee word list](https://language.cherokee.org/media/ykahxw4v/oudictionaryeuglutan.pdf)
+for reminder/removal vocabulary. The latter's full PDF redirected to an inaccessible
+URL; its search excerpts alone do not verify the whole phrase. This entire batch
+is low-confidence, especially verb inflection, grammatical agreement, custom-field
+values and the complete description. It needs fluent-speaker review; syllabic
+spelling and dictionary roots do not establish grammatical sentences.
+
+All 234 non-English locale files now contain non-English values for this group
+of 13 keys. The feature test now checks all of them for nonempty values, English
+placeholders and exact source tokens; detailed checks/browser registration cover
+66 locales. This is structural completion of this group, not language-quality
+approval. Notification, all-locale and human-preference checks pass; browser
+coverage is syntax-checked only because the application stack is unavailable.
+The ordinary backlog remains 51,575 values in 70 languages plus 201 pending source
+keys; the pending manifest has not yet been reconciled for this group.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

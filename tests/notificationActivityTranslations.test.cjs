@@ -7,7 +7,7 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('notification-activity-'));
 assert.equal(keys.length, 13);
-for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts', 'om', 'fj', 'to', 'gv', 'wa', 'wa-RR', 'ak', 'lg', 'bm', 'wo', 'ee', 'rup', 'bua', 'sah', 'cv', 've', 've-CC', 'se', 'ace', 'bo', 'dz', 'ti', 'ks', 'qu', 'ay', 'gn', 'ff', 'vo', 'tlh', 'kl', 'nah', 've-PP', 'zgh', 'iu', 'wal', 'tig']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts', 'om', 'fj', 'to', 'gv', 'wa', 'wa-RR', 'ak', 'lg', 'bm', 'wo', 'ee', 'rup', 'bua', 'sah', 'cv', 've', 've-CC', 'se', 'ace', 'bo', 'dz', 'ti', 'ks', 'qu', 'ay', 'gn', 'ff', 'vo', 'tlh', 'kl', 'nah', 've-PP', 'zgh', 'iu', 'wal', 'tig', 'chr']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: key order`);
   for (const key of keys) {
@@ -178,4 +178,22 @@ for (const key of keys) {
   assert.match(read('tig')[key], /[\u1200-\u137F]/u, `tig:${key}: Ethiopic text`);
   assert.doesNotMatch(read('tig')[key], /[A-Za-z]/, `tig:${key}: no English seed text`);
 }
-console.log('Notification activity translations: 13 messages in 65 locales passed');
+assert.match(read('chr')['notification-activity-description'], /ᎪᏪᎳᏅᎯ ᎯᏲᏍᏓ/);
+assert.match(read('chr')['notification-activity-description'], /ᎠᏓᏅᏓᏗᏍᏙᏗ.*@.*ᏂᎪᎯᎸ/);
+for (const key of keys) {
+  assert.match(read('chr')[key], /[\u13A0-\u13FF]/u, `chr:${key}: Cherokee syllabics`);
+  assert.doesNotMatch(read('chr')[key], /[A-Za-z]/, `chr:${key}: no English seed text`);
+}
+const localeFiles = fs.readdirSync(path.join(__dirname, '../imports/i18n/data'))
+  .filter(file => file.endsWith('.i18n.json') && !/^en(?:[-_.])/.test(file));
+assert.equal(localeFiles.length, 234, 'all non-English locale paths are covered');
+for (const file of localeFiles) {
+  const code = file.replace('.i18n.json', '');
+  const locale = read(code);
+  for (const key of keys) {
+    assert.ok(locale[key]?.trim(), `${code}:${key}: nonempty`);
+    assert.notEqual(locale[key], en[key], `${code}:${key}: no English placeholder`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(en[key]), `${code}:${key}: exact tokens`);
+  }
+}
+console.log('Notification activity translations: 13 messages in all 234 non-English locales; detailed checks in 66 locales passed');
