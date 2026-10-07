@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **45,345 untranslated locale/string values in 70 languages**. It
+  report counts **45,272 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -2074,6 +2074,18 @@ uses the same word as `checklist` itself.
 </details>
 
 **Translations** — continued language coverage and corrections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/37525e3ceef97a9038d6d19563f7957f169e8131">Translate 75 Somali Blockly list messages.</a></summary>
+
+- Fill 73 counted placeholders and translate two English fragments excluded by the counter. Preserve existing translations, source-empty suffixes, help URLs and index symbols.
+- Verify indexing, missing and empty results, removal versus retrieval, copied lists, sorting and text/list conversion direction.
+- Validation: 53 translation and structural tests and 21 human-preference checks pass. Browser checks were not run. Technical wording remains low confidence pending fluent-speaker review.
+- Remaining counted English placeholders: 45,272 across 70 languages. The broader language audit continues, including prose omitted by the counter.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4415e8b4d471e8b6bc918b5cb38e0a0937bdbcb6">Translate 61 Somali Blockly editing and control-flow messages.</a></summary>
