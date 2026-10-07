@@ -7130,6 +7130,16 @@ Vocabulary references: [Ladin davierta](https://en.wiktionary.org/wiki/davierta)
 [Wolaytta grammar and word list](https://external.dandelon.com/download/attachments/dandelon/ids/DE006004286393F16AF24C1257A3600455B73.pdf),
 [Tamazight opening vocabulary](https://imassn.com/dictionnaire/mot/arzam-11398).
 
+### Kurdish Blockly controls and colours
+
+Translated 26 English placeholders covering collapsed blocks, variable deletion,
+colour mixing and loop/conditional instructions. The placeholder-only merge
+preserved existing translations. Tests compare source token inventories and key
+order, and check loop restrictions and numeric colour ranges. Technical wording
+for loops and collapsed blocks remains low confidence pending fluent review.
+Browser and screen-reader checks were not run. Product names and mathematical
+notation found in other locales were not changed merely to lower the count.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
