@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **47,027 untranslated locale/string values in 70 languages**. It
+  report counts **46,995 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -2088,6 +2088,18 @@ snap.
 and updates the following translations:
 
 **Activity notifications** - choosing which card activity sends notifications.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6c5433f4d1d977b5e2219857fee36b9842a3b5a3">Translate Walloon and Waray block labels and correct mistaken locale identity.</a></summary>
+
+- Fill 32 English placeholders and correct 15 Walloon field labels mistakenly inserted into the Waray catalog. The registry identifies wa-RR as Waray-Waray; earlier claims that its Waray text was foreign were incorrect.
+- Repair the regression that enforced wrong-language labels and extend block-label checks. Preserve arguments and document provisional terminology and further language review.
+- Ordinary untranslated values decrease from 47,027 to 46,995 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 26 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f8107ec9b23a34778fe9b3ba45792a4e45ff35bb">Translate Wu Chinese and Venetian block and bubble labels.</a></summary>
