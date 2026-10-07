@@ -7317,6 +7317,16 @@ trigonometric notation remain unchanged. Tests verify key order, source tokens,
 key-name recognition and cancellation caveats. Browser and screen-reader checks
 were not run; fluency remains subject to review.
 
+### Bhojpuri Blockly controls and colours
+
+Filled 20 English placeholders for block controls, variable deletion and colour
+selection/mixing. Existing translations are preserved. Tests compare source
+tokens and key order, retain numeric colour ranges and the deletion prohibition,
+and check representative Bhojpuri vocabulary. Variable/function terminology is
+low confidence pending fluent review. Browser and screen-reader checks were not run.
+A current check also found all 149 pending-Transifex keys already have non-English
+values in Kurdish; that establishes coverage, not linguistic quality.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
