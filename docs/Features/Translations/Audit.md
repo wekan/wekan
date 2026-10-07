@@ -3142,6 +3142,14 @@ This draft has lower confidence, particularly regional grammar and computer term
 
 Validation covers 61 recently filled hints, exact scheme identifiers, source tokens and key order, plus parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. This hint remains English in five locales. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; language quality review remains open.
 
+### URL scheme hint: Standard Moroccan Tamazight
+
+Filled the English-only `automatic-linked-url-schemes-hint` in `zgh` directly through the placeholder-only fill utility. Existing translations were retained. The draft uses Tifinagh prose while preserving the five literal scheme names and URL abbreviation. It describes the empty default, clickable web/mail links, registered applications and permanently excluded schemes.
+
+This draft has lower confidence in technical terminology and grammatical agreement and needs fluent-speaker review. It describes a scheme as a URL type. References include [the Amazigh computing lexicon](https://cedric.cnam.fr/~bouzefra/books/amawal.pdf) for application terminology and [IRCAM's school lexicon](https://www.ircam.ma/index.php/fr/edition/lexique-scolaire) as a Moroccan terminology resource. The broader computing lexicon includes regional vocabulary; its terms do not by themselves prove Moroccan-standard usage. These references do not validate the complete sentences. No translation service was used.
+
+Validation covers 62 recently filled hints, exact scheme identifiers, source tokens and key order, plus parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. This hint remains English in four locales. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; language quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

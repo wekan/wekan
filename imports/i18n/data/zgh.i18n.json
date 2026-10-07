@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "URL ⵏ ⵓⵙⵖⵏ ⵉⵥⵍⵉⵏ ⵏ ⵜⵡⵉⵙⵉ",
   "text-below-custom-login-logo": "ⴰⴹⵕⵉⵚ ⴷⴷⴰⵡ ⵏ ⵓⵍⵓⴳⵓ ⵉⵥⵍⵉⵏ ⵏ ⵓⴽⵛⵛⵓⵎ",
   "automatic-linked-url-schemes": "ⵉⵙⵖⴰⵏ URL ⵉⵥⵍⵉⵏ ⵏⵏⴰ ⵉⵇⵇⴰⵏ ⴰⴷ ⵜⵜⵓⵙⵙⵉⵜⵏ ⵙ ⵓⵡⵓⵔⵎⴰⵏ. ⵢⴰⵏ ⵓⵙⵖⵏ URL ⴳ ⵢⴰⵍ ⵉⵣⵉⵔⵉⴳ",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "ⵉⵍⵍⴰ ⴷ ⵉⵍⵎ ⴳ ⵜⴰⵣⵡⴰⵔⴰ, ⵉⵀⵉ ⵉⵙⵖⴰⵏ ⵏ ⵡⵉⴱ ⴷ ⵉⵎⴰⵢⵍ ⴽⴰⵏ ⴰⵢ ⵉⵣⵎⵔⵏ ⴰⴷ ⵜⵜⵡⴰⵙⵉⵜⵏ. ⴽⵓ ⴰⵏⴰⵡ ⵏ URL ⵉⵜⵜⵡⴰⵢⴰⵔⴰⵏ ⴳ ⵜⴰⴱⴷⴰⵔⵜ, ⵣⵓⵏⴷ thunderlink ⵏⵖ onenote, ⴰⵔ ⵉⵔⵥⵥⵎ ⴰⵙⵏⴰⵙ ⵉⵜⵜⵡⴰⵣⵎⵎⴻⵎⵏ ⴷⴰⵔⵙ. javascript, data, vbscript ⴷ ⵡⴰⵏⴰⵡⵏ ⵉⵜⵏ ⵉⵔⵡⴰⵙⵏ ⵓⵔ ⴷⴰ ⵜⵜⵓⵖⴰⵍⵏ ⴷ ⵉⵙⵖⴰⵏ ⵄⵎⵎⴰⵔ.",
   "external-link-pattern": "Azdday awurman ɣer umeḍfar n wugur azɣaray",
   "external-link-pattern-description": "Yezdi s wudem awurman timrarin am \"#1234\" i yettwafen deg uḍris n tkarḍa ɣer umeḍfar n wugur azɣaray. Eǧǧ tirrigt yellan d ilem akken ad tessens.",
   "external-link-pattern-prefix": "Amzwaru n tmerna",
