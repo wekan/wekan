@@ -5411,6 +5411,12 @@ Rewrote 20 mixed-language or malformed account, repair-result, import and flow-h
 
 Tests compare source tokens and query examples and cover failed/partial outcomes, format names and distinct history labels. Flow-history and repair wording remains provisional. Browser checks were not run; broader language review continues.
 
+### Akan embedded filler correction: activities and flow reports
+
+A substring audit found 40 additional values containing the generic activity-information phrase inside longer strings; these were not exact matches in the earlier 596-entry inventory. Rewrote all 40, covering activity fragments, email templates, rule dates, flow reports and time adjustments. No occurrence of that phrase remains anywhere in the Akan catalog.
+
+Tests compare source placeholders, preserve `{{size}}`, simulation counts/UTC/horizon, percentile sample requirements, independent overlapping causes and date fallbacks. Statistical and forecasting terminology is low confidence and needs contextual review. Browser checks were not run; eliminating this phrase does not prove the catalog is fully correct.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -444,3 +444,20 @@ test('Akan account and repair results preserve counts and incomplete outcomes', 
  assert.deepEqual(data[key].match(/<[^>]+>/g),english[key].match(/<[^>]+>/g));
  assert.notEqual(data['flow-samples'],data['flow-episodes']);
 });
+
+test('Akan embedded filler corrections preserve report limits and activity tokens', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["activity-joined", "activity-on", "activity-unjoined", "board-nb-stars", "label-default", "email-templates-title", "email-templates-invite-subject", "email-templates-invite-body", "email-templates-activity-subject", "email-templates-activity-body", "r-edit-rule-trigger-action", "r-when-a-due-date-changed", "r-when-a-end-date-changed", "r-when-a-received-date-changed", "r-remove-all-labels", "almostdue", "pastdue", "duenow", "act-withDue", "background-too-big", "wip-limit-group-apply-swimlane", "board-view-blocker-analysis", "board-view-size-cycle-time", "flow-cycle-days", "flow-age-days", "flow-p85", "flow-unusual", "flow-active", "flow-blocked-days", "flow-unknown-start", "flow-target-count", "flow-finish-days", "flow-beyond-horizon", "flow-size-source", "flow-note-agingWip", "flow-note-blockerAnalysis", "flow-note-monteCarlo", "flow-note-sizeCycleTime", "time-adjustments", "time-adjustment-note"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ for(const [key,value] of Object.entries(data)) assert.ok(!value.includes('Nsɛm a ɛfa dwumadi yi ho'),key);
+ assert.ok(data['background-too-big'].includes('{{size}}'));
+ assert.equal(new Set(['almostdue','pastdue','duenow'].map(k=>data[k])).size,3);
+ assert.match(data['flow-note-agingWip'],/85.*anum.*wonnim/);
+ assert.match(data['flow-note-monteCarlo'],/2,000.*UTC.*3,650/);
+ assert.match(data['flow-note-monteCarlo'],/ɛn[y]?yɛ bɔhyɛ/);
+ assert.match(data['flow-note-monteCarlo'],/nkɔmhyɛ biara nni hɔ/);
+ assert.match(data['flow-note-blockerAnalysis'],/bere koro mu.*mmiako mmiako/);
+ assert.match(data['flow-note-sizeCycleTime'],/Mfiase nni hɔ.*bere a wɔyɛe.*Awiei nni hɔ.*adekorabea/);
+ assert.match(data['time-adjustment-note'],/nyɛ bere biara.*0 yɛ nsiesie.*Wɔrentumi/);
+ assert.notEqual(data['email-templates-invite-subject'],data['email-templates-invite-body']);
+});
