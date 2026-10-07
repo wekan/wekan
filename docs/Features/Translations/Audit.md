@@ -2496,6 +2496,25 @@ not run; the app stack was unavailable. 16 locale paths still need this group.
 The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
 broader language-quality review remains open.
 
+### Rule-builder instructions — Tigrinya and Kashmiri (2026-10-07)
+
+Filled seven pending strings in ti and ks (14 values), preserving existing
+translations and all literal variable expressions. No translation service was used.
+The text retains any-trigger behavior, ordered actions, username/email context and
+card-derived variables. Kashmiri prose has lower confidence; technical terms,
+recipient fields and composed date fragments in both locales need native/UI review.
+Kashmiri also needs browser review of right-to-left text around Latin variables.
+References include [Tigrinya ሕጊ](https://en.wiktionary.org/wiki/%E1%88%95%E1%8C%8A)
+and [Kashmiri کٲم](https://en.wiktionary.org/wiki/%DA%A9%D9%B2%D9%85).
+These references support vocabulary, not full-sentence accuracy.
+
+The existing trigger-variable suite now checks 52 recently filled locales for
+source order and exact brace/underscore/percent tokens. Runtime matching,
+all-locale structural and human-preference checks pass. Browser scenarios were
+not run; the app stack was unavailable. 14 locale paths still need this group.
+The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
+broader language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
