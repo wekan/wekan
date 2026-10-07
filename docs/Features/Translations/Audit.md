@@ -6629,6 +6629,19 @@ The combined translation run passes 113 checks. Two existing catalog checks fail
 on the missing due-date shortcut key. All 21 human-preference checks pass.
 Browser and screen-reader checks were not run. The wider audit remains open.
 
+## Tok Pisin help and migration wording audit
+
+Corrected 25 mixed-language help messages, including advanced filtering, imports,
+backup scope, migration confirmations and recovery warnings. Filter examples and
+shell commands remain unchanged; menu references match the translated controls.
+Checks retain organization-only restore scope, archived-item distinctions and
+irreversibility warnings. Technical wording remains provisional pending speaker
+review.
+
+The combined translation run passes 116 checks. Two existing catalog checks fail
+on the missing due-date shortcut key. All 21 human-preference checks pass.
+Browser and screen-reader checks were not run. The wider audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

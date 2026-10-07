@@ -1595,3 +1595,57 @@ test('Tok Pisin label instructions distinguish toggle, bulk addition and bulk re
  assert.match(data['hide-minicard-label-text'],/^Haitim rait bilong mak/);
  for(const type of ['teams','organizations']) assert.match(data['add-'+type+'-label'],/yu putim pinis i stap aninit:$/);
 });
+
+
+test('Tok Pisin remaining help and migration instructions preserve source tokens',()=>{
+ const keys=[
+  "advanced-filter-description",
+  "import-timeout",
+  "trello-api-credentials-required",
+  "list-archive-cards-pop",
+  "muted-info",
+  "remove-member-pop",
+  "show-cards-minimum-count",
+  "star-board-title",
+  "wipLimitErrorPopup-dialog-pt2",
+  "open-many-cards-at-once-description",
+  "server-error-troubleshooting",
+  "recovery-maintenance-note",
+  "backup-scope-description",
+  "run-comprehensive-migration-confirm",
+  "run-delete-duplicate-empty-lists-migration-confirm",
+  "run-restore-lost-cards-migration-confirm",
+  "run-restore-all-archived-migration-confirm",
+  "run-fix-missing-lists-migration-confirm",
+  "run-fix-avatar-urls-migration-confirm",
+  "run-fix-all-file-urls-migration-confirm",
+  "migration-progress-note",
+  "conversion-info-text",
+  "migration-warning-text",
+  "account-locked",
+  "problems-summary-help"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:Please|allows|following|contains|will|should|using|without|normally|Continue|automatically)\b/,key);
+ }
+});
+
+test('Tok Pisin advanced filter examples and troubleshooting commands remain executable text',()=>{
+ const examples=["== != <= >= && || ( )", "Field1 == Value1", "'Field 1' == 'Value 1'", "Field1 == I\\'m", "F1 == V1 || F1 == V2", "F1 == V1 && ( F2 == V2 || F2 == V3 )", "F1 == /Tes.*/i"];
+ for(const example of examples){assert.ok(english['advanced-filter-description'].includes(example),example);assert.ok(data['advanced-filter-description'].includes(example),example);}
+ assert.deepEqual(data['server-error-troubleshooting'].match(/`[^`]+`/g),english['server-error-troubleshooting'].match(/`[^`]+`/g));
+ assert.equal(data['server-error-troubleshooting'].split('\n').length,3);
+ assert.match(data['run-restore-lost-cards-migration-confirm'],/swimlaneId o listId.*no stap long akaiv tasol/);
+ assert.match(data['run-restore-all-archived-migration-confirm'],/OLGETA.*akaiv.*hatwok/);
+ assert.match(data['backup-scope-description'],/no gat ol akaun.*seting.*bot bilong dispela oganaisesen tasol/);
+ assert.match(data['run-delete-duplicate-empty-lists-migration-confirm'],/pastaim.*Bihain.*wankain nem na i gat ol kat/);
+ assert.match(data['migration-warning-text'],/No ken pasim brausa.*go het long baksait.*longpela taim moa/);
+});
+
+
+test('Tok Pisin help references the translated menu and acknowledgment controls',()=>{
+ assert.ok(data['list-archive-cards-pop'].includes('“'+data.menu+'” > “'+data.archive+'”'));
+ assert.ok(data['problems-summary-help'].includes('“'+data.acknowledge+'”'));
+});
