@@ -3678,6 +3678,14 @@ The [Manx dictionary entry](https://glosbe.com/en/gv/map) supports caslys vocabu
 
 Extended the regression and map browser scenario to these three paths. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These checks establish structure and placeholder preservation, not linguistic quality.
 
+## Map view: Akan, Ewe and Bambara - 2026-10-07
+
+Filled seven English placeholders in each of `ak`, `ee` and `bm` (21 values) through the protected fill workflow. The image examples and both placement methods are retained. The seven keys remain English in 16 locale paths and stay in the pending queue; the broader backlog remains 51,575 ordinary placeholders across 70 languages plus 160 pending source keys.
+
+References include the [Akan picture dictionary entry](https://www.akandictionary.com/2021/12/12/mfonin/), [Ewe educational text](https://www.dol.gov/sites/dolgov/files/ILAB/EWE%201.pdf) using picture vocabulary, and a [Bambara lexicon](https://mooreburkina.com/sites/www.mooreburkina.com/files/pdf-files/Bambara%20Lexicon.pdf) with geographical-map compounds. These support component vocabulary rather than every drafted compound or sentence. Floor-plan descriptions, upload/click terminology and Ewe technical clauses remain provisional and need speaker review.
+
+Extended regression and browser coverage to these three locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Coverage and token inventories do not establish fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
