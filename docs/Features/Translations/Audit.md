@@ -4263,6 +4263,13 @@ mixed-language audit remains open.
 - Extended the existing placeholder/state checks and browser report flow to these nine locales. All 17 focused Node tests and 21 human-preference checks pass; browser syntax passes, but execution remains unverified because the local Playwright executable is unavailable.
 - These ten report strings remain English in 31 locales. Ordinary placeholders decrease from 51,325 to 51,235 across 70 languages; 148 pending keys still require wording review.
 
+## Rule email report labels: seven further European and Asian locales (2026-10-07)
+
+- Filled ten English report strings each in Walloon, Waray, Acehnese, Manx, Northern Sami, Venetian and Aromanian (70 values). Used existing email-action vocabulary. Full technical clauses remain provisional, especially Acehnese, Manx and Aromanian.
+- Terminology references include [UiT's geahččaleapmi entry](https://sanit.oahpa.no/detail/sme/fin/geah%C4%8D%C4%8Daleapmi.html) and [the Manx dictionary's eab entry](https://upload.wikimedia.org/wikipedia/commons/e/e2/The_Manx_dictionary_%28IA_cu31924027086945%29.pdf). These support the attempt terminology, not sentence-level fluency.
+- Extended the existing placeholder/state checks and browser report flow to these seven locales. All 17 focused Node tests and 21 human-preference checks pass; browser syntax passes, but execution remains unverified because the local Playwright executable is unavailable.
+- These ten report strings remain English in 24 locales. Ordinary placeholders decrease from 51,235 to 51,165 across 70 languages; 148 pending keys still require wording review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
