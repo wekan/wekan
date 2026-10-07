@@ -2848,6 +2848,27 @@ syntax-checked but not run without the app stack. Twelve locale paths still need
 these labels; both keys remain pending. The ordinary backlog remains 51,575 values
 plus 174 pending source keys. Broader language-quality work remains open.
 
+### Move-position labels — Acehnese, Fula, Guarani and Veps (2026-10-07)
+
+Filled eight placement labels in ace, ff, gn and ve-PP. Existing translations
+were preserved through the placeholder-only merge; no translation service was used.
+
+Vocabulary references: [Acehnese spatial examples](https://digilib.uin-suka.ac.id/id/eprint/17128/1/Proceeding%20AICIS%20XIV%20Buku_2.pdf),
+[Fula directions](https://wisc.pb.unizin.org/lctlresources/chapter/giving-directions/),
+[Guarani dictionary](https://guaraniayvu.org/), and the Veps descendants in the
+[Finnic front](https://en.wiktionary.org/wiki/Reconstruction:Proto-Finnic/eci) and
+[back](https://en.wiktionary.org/wiki/Reconstruction:Proto-Finnic/taka) entries.
+Guarani uses independent t- forms for standalone options. Veps placement wording
+has lower confidence; native/UI review of the options remains open. These references
+support vocabulary, not a claim of fully verified localization.
+
+The structural-selection suite now checks the pair in 58 recently filled locales,
+including exact source tokens, key order and distinct opposite labels. Runtime,
+all-locale structural and 21 human-preference checks pass. Browser scenarios were
+syntax-checked but not run without the application stack. Eight locale paths still
+need this pair, so both keys remain pending. The ordinary backlog remains 51,575
+values plus 174 pending source keys; broader language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
