@@ -1010,6 +1010,30 @@ coverage is syntax-checked only because its application stack is unavailable.
 These pending keys do not change the ordinary backlog of 51,575 values in 70
 languages or the 201 separately tracked pending source keys. Work remains.
 
+## Nahuatl notification preferences — 2026-10-07
+
+Filled the 13 `notification-activity-*` English placeholders in `nah`, preserving
+existing translations. The new values use the current locale's card, list, lane,
+member, assignee, comment and attachment terminology. The description preserves
+unchecking the activity, bell/email delivery and continued delivery of due-date
+reminders and @mentions.
+
+Vocabulary references include the University of Oregon dictionary's
+[coyolli entry](https://nahuatl.wired-humanities.org/node/177283) for bell and
+[ilnamiqui entry](https://nahuatl.wired-humanities.org/node/172227) for remembering;
+[UNAM's Nahuatl narratives](https://revistas-filologicas.unam.mx/tlalocan/index.php/tl/article/download/182/182/183)
+attest `nochipa` as always. The complete sentences and UI compounds are direct,
+low-confidence translations, not quotations or dictionary-approved phrases.
+In particular, the inherited custom-field, checklist and assignee terminology
+needs fluent-speaker review; the locale mixes technical coinages and does not
+identify a regional variety. This batch does not establish their linguistic quality.
+
+Shared notification regression tests and registered browser scenarios now cover
+60 locales. Notification, all-locale structure/token and human-preference checks
+pass; the browser scenario is syntax-checked only because the application stack
+is unavailable. These pending keys do not change the ordinary backlog of 51,575
+values in 70 languages or the 201 pending source keys. The wider goal remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
