@@ -353,3 +353,19 @@ test('Akan rule imports and due reminders preserve state and permission scope', 
  assert.match(data['globalSearchViewChange-choice-all-description'],/wowɔ ho kwan.*ahyɛ wo nsa.*nkutoo/);
  assert.match(data['roles-status-desc'],/ansa na woasie/);
 });
+
+test('Akan search help preserves operator syntax and filtering semantics', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["globalSearch-instructions-operators", "globalSearch-instructions-operator-label", "globalSearch-instructions-operator-user", "globalSearch-instructions-operator-member", "globalSearch-instructions-operator-assignee", "globalSearch-instructions-operator-creator", "globalSearch-instructions-operator-due", "globalSearch-instructions-operator-status", "globalSearch-instructions-operator-has", "globalSearch-instructions-operator-sort", "globalSearch-instructions-operator-limit", "globalSearch-instructions-notes-1", "globalSearch-instructions-notes-3", "globalSearch-instructions-notes-3-2", "globalSearch-instructions-notes-5", "sort-is-on"];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.deepEqual(data[key].match(/`[^`]+`/g),english[key].match(/`[^`]+`/g),key);
+  assert.deepEqual(data[key].match(/<[^>]+>/g),english[key].match(/<[^>]+>/g),key);
+ }
+ assert.match(data['globalSearch-instructions-operator-has'],/botae biara nni/);
+ assert.match(data['globalSearch-instructions-operator-sort'],/soro ba fam/);
+ assert.match(data['globalSearch-instructions-operator-limit'],/nɔma mũ a ɛboro 0/);
+ assert.match(data['globalSearch-instructions-notes-3'],/AND.*nyinaa hyia nkutoo/);
+ assert.match(data['globalSearch-instructions-notes-5'],/wɔnhwehwɛ.*adekorabea/);
+ assert.notEqual(data['globalSearch-instructions-operator-member'],data['globalSearch-instructions-operator-assignee']);
+});

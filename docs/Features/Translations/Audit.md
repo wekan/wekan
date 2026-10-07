@@ -5375,6 +5375,12 @@ Rewrote 30 mixed-language rule triggers, import guidance, due reminders, deletio
 
 Tests compare source tokens, distinct due states, paired actions, deletion restrictions, product identifiers and formatting. Rule fragments, checklist and shared-template terminology remains provisional. Browser checks were not run; broader semantic review continues.
 
+### Akan mixed-language correction: search operator help
+
+Rewrote 16 mixed-language search-help values covering operator syntax, membership, dates, existence, sorting, limits and combined conditions. Preserve all operator/predicate placeholders, inline-code examples and angle-bracket metavariables exactly as supplied by English.
+
+Tests compare token, inline-code and metavariable inventories and cover absence checks, descending sort, positive integer limits, AND conditions and archived-card exclusion. Search terminology remains provisional. Existing parser regressions also pass; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
