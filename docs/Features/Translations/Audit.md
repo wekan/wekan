@@ -6642,6 +6642,19 @@ The combined translation run passes 116 checks. Two existing catalog checks fail
 on the missing due-date shortcut key. All 21 human-preference checks pass.
 Browser and screen-reader checks were not run. The wider audit remains open.
 
+## Tok Pisin administration and privacy wording audit
+
+Corrected 16 mixed-language or incorrect administration descriptions. The account
+anonymization confirmation previously repeated export help; it now explains
+permanent replacement of identity, removal of the avatar, disabled login and
+preserved history. Restored literal CARDS_LOADING options and identity examples.
+Checks retain storage-operation ordering, deletion warnings and code-display
+behavior. Technical wording remains provisional pending fluent-speaker review.
+
+The combined translation run passes 118 checks. Two existing catalog checks fail
+on the missing due-date shortcut key. All 21 human-preference checks pass.
+Browser and screen-reader checks were not run. The wider audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

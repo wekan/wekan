@@ -1649,3 +1649,49 @@ test('Tok Pisin help references the translated menu and acknowledgment controls'
  assert.ok(data['list-archive-cards-pop'].includes('“'+data.menu+'” > “'+data.archive+'”'));
  assert.ok(data['problems-summary-help'].includes('“'+data.acknowledge+'”'));
 });
+
+
+test('Tok Pisin administration descriptions retain tokens and replace mixed English',()=>{
+ const keys=[
+  "trello-cancel-delete-confirm",
+  "set-default-board-title",
+  "unset-default-board-title",
+  "r-board-note",
+  "mongodb-compact-description",
+  "mongodb-compact-warning",
+  "sandstorm-delete-raw-mongodb-description",
+  "sandstorm-delete-raw-mongodb-confirm",
+  "cards-loading-description",
+  "render-links-as-plain-text-description",
+  "always-show-code-as-text-description",
+  "anonymize-import-users-description",
+  "anonymize-export-users-description",
+  "anonymize-account-confirm-popup",
+  "disable-watch-description",
+  "repair-broken-cards-done-unfixable"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:When|This|cannot|Only|every|automatically|replaces|contains|Default|Running)\b/,key);
+ }
+});
+
+test('Tok Pisin privacy and storage instructions retain critical distinctions',()=>{
+ const account=data['anonymize-account-confirm-popup'];
+ assert.match(account,/inap oltaim.*rausim piksa.*pasim rot bilong go insait/);
+ assert.match(account,/no rausim akaun.*holim histori.*akaun yet.*no inap senisim/);
+ assert.notEqual(account,data['anonymize-export-users-description']);
+ for(const direction of ['import','export']){
+  const value=data['anonymize-'+direction+'-users-description'];
+  for(const token of ['user1, user2, ...','@username','requested-by / assigned-by']) assert.ok(value.includes(token),token);
+  assert.match(value,/i no wok long stat/);
+ }
+ assert.match(data['cards-loading-description'],/CARDS_LOADING \(all\/lazy\/auto\).*CARDS_LOADING_LAZY_THRESHOLD/);
+ assert.match(data['mongodb-compact-warning'],/secondary pastaim.*bihain long primary.*wanpela nod.*primary tasol/);
+ assert.match(data['mongodb-compact-description'],/bihain tasol.*movim planti fail i pinis/);
+ for(const type of ['description','confirm']) assert.match(data['sandstorm-delete-raw-mongodb-'+type],/FerretDB.*sistem bilong ol fail.*no inap senisim/);
+ assert.ok(data['render-links-as-plain-text-description'].includes('[label](url)'));
+ assert.ok(data['render-links-as-plain-text-description'].includes('<a href>'));
+ assert.match(data['always-show-code-as-text-description'],/<!-- -->.*no inap klikim.*no ran/);
+});
