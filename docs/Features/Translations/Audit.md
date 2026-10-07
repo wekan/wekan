@@ -3846,6 +3846,14 @@ The [Inuktitut publication](https://www.itk.ca/wp-content/uploads/2016/10/2000-0
 
 Extended locale and browser coverage to both locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in nine locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
 
+## Multiple-parent controls: Klingon and Volapuk - 2026-10-07
+
+Filled three English placeholders in each of `tlh` and `vo` (six values) through the protected fill workflow. The removal labels describe no longer being a subordinate task, rather than card deletion.
+
+The [English-Volapuk dictionary](https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary) supports task vocabulary and the [kinship glossary](https://www.omniglot.com/language/kinship/volapuk.htm) supplies the parent root. Existing Klingon task/card terms informed its draft; searches did not independently validate the complete software expressions. The inherited Klingon elder-card metaphor and Volapuk parent adjective remain provisional, as do the full clauses. They require language review and are not validated by non-English coverage.
+
+Extended locale and browser coverage to both locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in seven locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
