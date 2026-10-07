@@ -4768,6 +4768,14 @@ mixed-language audit remains open.
 - Low confidence: regional Quechua spelling, Aymara corner/angle terminology and inflection, pixel loans, grid descriptions using boxes, input/entry ambiguity and work nouns for programming functions need review. Date labels currently follow day terminology and need contextual review as calendar dates.
 - Existing browser flows cover all three locales; browser execution and spoken accessibility remain unverified. This batch removes 33 ordinary placeholders and corrects four mixed-language values; the 148 pending source keys and wider semantic audit remain open.
 
+### Tibetan, Dzongkha, Tigrinya and Kashmiri field types
+
+- Filled 44 English field-type placeholders through the protected fill; preserved existing correct-language translations and exact source arguments.
+- References: [Dzongkha Computer Terms](https://dokumen.pub/dzongkha-computer-terms-9789698961060.html) supplies pixel and grid loans and checkbox vocabulary, although its text extraction drops some Tibetan glyphs; [Tigrinya physics textbook](https://files.ethiopialearning.com/textbooks/Grade%2008/Grade_8_Subject_PHYSICS_Chapter_7_Language_TIGRIGNA_Retrieved_20150101.pdf) uses angle and color vocabulary. Other terms follow existing locale labels and direct drafts, not independently attested full translations.
+- Low confidence: Tibetan/Dzongkha programming-function nomenclature, reconstructed Dzongkha loan spelling, Tigrinya grid phrasing and Kashmiri dropdown agreement/technical loans need review. Shared scripts do not prove correct-language vocabulary. None of these drafts certifies semantic completeness.
+- Extended image, selector and input/function-name distinction checks plus token coverage. Existing browser field-editing flows include all four locales; browser and spoken accessibility checks remain unrun.
+- This batch removes 44 ordinary placeholders. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
