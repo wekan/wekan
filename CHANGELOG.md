@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3c5a19f3a094533ac4bf56ed237a68929dd1c193">Translate Bhojpuri arithmetic and number tests</a></summary>
+
+- Fill 28 English placeholders for arithmetic, constants, bounds, divisibility,
+  number types and remainders, preserving formulas and formatting tokens.
+- Inverse trigonometry wording remains low confidence pending fluent review.
+- All 48 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/989dfa33a68c012fbb93a9222693b5ae1c4ba14c">Translate Bhojpuri Blockly logic and comparisons</a></summary>
 
 - Fill 29 English placeholders for splitting/joining, Boolean values,
