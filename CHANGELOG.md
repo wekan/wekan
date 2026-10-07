@@ -2173,6 +2173,24 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8d9ebb2fa175bce16d8588bab2bb3e6aa500df06">Correct 83 Tok Pisin interface labels containing prefixed English.</a></summary>
+
+- Replace mixed-language labels for selection states, invitations, file
+  metadata, previews and time units. Wording remains provisional pending
+  fluent-speaker review. Another 417 values containing the same prefix
+  remain for review; unprefixed wording also needs a language audit.
+- The combined run passes 61 checks; two catalog checks still fail on the
+  missing due-date shortcut key. All 21 human-preference checks pass.
+  Browser and screen-reader checks were not run.
+- The English-placeholder count remains 42,838 across 70 languages. It
+  excludes prefixed English and therefore does not measure all unfinished
+  translation work.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/09b1db010fdd59c97d481b662a14478243ef77b6">Translate 86 Tok Pisin Blockly maths messages.</a></summary>
 
 - Preserve source tokens, constants, numeric bounds, operand order and
