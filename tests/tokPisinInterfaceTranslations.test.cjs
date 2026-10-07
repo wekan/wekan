@@ -117,3 +117,109 @@ test('Tok Pisin interface labels distinguish states, invitations and time units'
  assert.equal(data['preview'],data['previewAttachedImagePopup-title']);
  assert.equal(data['preview'],data['previewClipboardImagePopup-title']);
 });
+
+
+test('Tok Pisin rules and schedules replace prefixed English with intact placeholders',()=>{
+ const keys=[
+  "r-rule",
+  "r-view-rule",
+  "r-edit-rule-trigger-action",
+  "r-workflow-view",
+  "r-when",
+  "r-import-done",
+  "r-workflow-format",
+  "r-format-auto",
+  "r-set-scheduled-triggers",
+  "r-set-button-triggers",
+  "r-schedule-type",
+  "r-schedule-once",
+  "r-schedule-daily",
+  "r-schedule-weekday",
+  "r-schedule-on-weekday",
+  "r-due-is-set",
+  "r-due-soon",
+  "r-due-overdue",
+  "r-run",
+  "r-later",
+  "r-unit-minutes",
+  "r-unit-hours",
+  "r-unit-days",
+  "r-when-a-due-date-changed",
+  "r-when-a-end-date-changed",
+  "r-made-incomplete",
+  "r-checked",
+  "r-unchecked",
+  "r-check",
+  "r-uncheck",
+  "r-item",
+  "r-subject",
+  "r-rule-details",
+  "r-d-send-email-subject",
+  "r-d-check-one",
+  "r-d-uncheck-one",
+  "r-items-list",
+  "r-set",
+  "r-df-start-at",
+  "r-df-due-at",
+  "r-df-end-at",
+  "act-newDue",
+  "act-withDue",
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+  "sunday",
+  "day",
+  "cron-jobs",
+  "cron-migrations",
+  "cron-job-paused",
+  "cron-job-resumed",
+  "cron-job-started",
+  "cron-migration-errors",
+  "cron-migration-warnings",
+  "cron-error-severity",
+  "cron-error-details",
+  "cron-resume-paused",
+  "cron-migrations-resumed",
+  "backup-frequency",
+  "backup-frequency-off",
+  "backup-frequency-daily",
+  "backup-frequency-weekly",
+  "backup-frequency-monthly",
+  "every-1-day",
+  "every-1-hour",
+  "every-1-minute",
+  "every-10-minutes",
+  "every-30-minutes",
+  "every-5-minutes",
+  "every-6-hours"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.doesNotMatch(data[key],/Toksave:/,key);
+  assert.notEqual(data[key],english[key],key);
+ }
+});
+
+test('Tok Pisin scheduling wording preserves recurrence, due dates and checklist states',()=>{
+ assert.match(data['r-schedule-once'],/Wanpela taim/);
+ assert.match(data['r-schedule-weekday'],/Mande–Fraide/);
+ assert.match(data['r-when-a-due-date-changed'],/makim o senisim.*i mas pinis/);
+ assert.doesNotMatch(data['r-when-a-end-date-changed'],/i mas pinis/);
+ assert.match(data['r-due-soon'],/klostu/);
+ assert.match(data['r-due-overdue'],/lus pinis/);
+ assert.match(data['r-check'],/^Putim/);
+ assert.match(data['r-uncheck'],/^Rausim/);
+ assert.match(data['r-made-incomplete'],/i no pinis/);
+ assert.match(data['act-newDue'],/fes tok.*__board__/);
+ assert.equal(data['r-items-list'].split(',').length,3);
+ for(const [key,n,unit] of [['every-1-day',1,'de'],['every-1-hour',1,'aua'],['every-1-minute',1,'minit'],['every-5-minutes',5,'minit'],['every-10-minutes',10,'minit'],['every-30-minutes',30,'minit'],['every-6-hours',6,'aua']]) assert.equal(data[key],`Long olgeta ${n} ${unit}`);
+ assert.match(data['cron-job-paused'],/malolo liklik/);
+ assert.match(data['cron-job-resumed'],/go het gen/);
+ assert.match(data['cron-job-started'],/stat pinis/);
+ assert.equal(data['backup-frequency-off'],'I no wok');
+ assert.match(data['backup-frequency-weekly'],/wik/);
+ assert.match(data['backup-frequency-monthly'],/mun/);
+});

@@ -6455,6 +6455,12 @@ Corrected 83 mixed-language values containing the `Toksave:` prefix followed by 
 
 Validation: 61 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. The English-placeholder counter remains 42,838 across 70 languages because prefixed English was already excluded by that counter; it does not prove language completeness. There are 149 source keys pending review.
 
+## Tok Pisin rule and scheduling wording audit
+
+Corrected 74 mixed-language values containing the `Toksave:` prefix, covering rules, recurrence, due-date reminders, checklist actions, weekdays, scheduled jobs and backup frequency. Preserved placeholder inventories and numeric intervals; distinguished due dates from end dates and pause/resume/start states. Existing correct-language values remain unchanged. The prefix inventory falls from 417 to 343; unprefixed values also need review. Technical wording remains provisional pending fluent-speaker review; browser and screen-reader checks were not run.
+
+Validation: 63 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
