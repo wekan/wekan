@@ -1264,6 +1264,21 @@ do human-preference checks. Browser scenarios are syntax-checked only because
 the application stack is unavailable. Fifty locale paths still need this group.
 The ordinary backlog remains 51,575 values plus 188 pending source keys.
 
+## Kinyarwanda, Kirundi and Chichewa due reminders — 2026-10-07
+
+Filled six `due-reminder-*` placeholders each in `rw`, `rn` and `ny` (18 values),
+using existing notification and board terminology. Existing translations remain
+untouched. The description retains comma separation, zero as the due day,
+positive-before / negative-after offsets and blank/server fallback. Ten whole
+days maximum and -14 to 14 remain explicit; webhook forwarding is separate.
+
+Shared translation checks and the board-reminder browser scenario now cover 19
+locales. Source-order/token, numeric and wording checks pass, as do human-preference
+checks. Browser coverage is syntax-checked only because the application stack is
+unavailable. Forty-seven locale paths still need this group. The ordinary backlog
+remains 51,575 values plus 188 pending source keys. No external translation service
+was used.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

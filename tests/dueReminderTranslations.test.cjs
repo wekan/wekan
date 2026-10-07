@@ -7,7 +7,7 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('due-reminder-'));
 assert.equal(keys.length, 6);
-for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -52,4 +52,10 @@ assert.match(read('tn')['due-reminder-days-label'], /diphegelwana.*fetang.*pele.
 assert.match(read('xh')['due-reminder-invalid'], /ezingadlulanga kwishumi.*apheleleyo/);
 assert.match(read('st')['due-reminder-invalid'], /sa feteng leshome.*felletseng/);
 assert.match(read('tn')['due-reminder-invalid'], /sa feteng lesome.*feletseng/);
-console.log('Due reminder translations: 6 messages in 16 locales passed');
+assert.match(read('rw')['due-reminder-days-label'], /udukitso.*iruta 0.*ibanziriza.*munsi ya 0.*iwukurikira.*ubusa/);
+assert.match(read('rn')['due-reminder-days-label'], /udukitso.*biruta 0.*ibanziriza.*munsi ya 0.*iwukurikira.*ubusa/);
+assert.match(read('ny')['due-reminder-days-label'], /makoma.*oposa 0.*asanafike.*ochepera 0.*pambuyo.*popanda kanthu/);
+assert.match(read('rw')['due-reminder-invalid'], /itarenze icumi.*yuzuye/);
+assert.match(read('rn')['due-reminder-invalid'], /itarenga cumi.*vyuzuye/);
+assert.match(read('ny')['due-reminder-invalid'], /osapitirira khumi.*athunthu/);
+console.log('Due reminder translations: 6 messages in 19 locales passed');
