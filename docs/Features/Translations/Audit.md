@@ -3758,6 +3758,14 @@ The [Wolayttatto teaching guide](https://camaraethiopia.org.et/SNNPR/moe/content
 
 The map-view regression now discovers every non-English locale and checks removal from the pending inventory, token preservation and distinct upload/remove and placed/unplaced controls. Added Wolaytta to the browser scenario. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. The broader wrong-language and meaning audit remains open.
 
+## Multiple-parent controls: first remaining-locale batch - 2026-10-07
+
+Filled three English placeholders in each of `ku`, `ckb`, `tt`, `tk_TM`, `yi`, `so` and `ny` (21 values) through the protected fill workflow. The strings describe another parent relationship and ending that relationship, not deleting either card. Source review confirms that the remove control calls `card.removeParent`. Existing locale terminology informed the drafts; technical phrasing, particularly Kurdish, Tatar and Chichewa, remains provisional. The existing Tatar subtask label mixes language varieties and was not copied into these new values.
+
+Extended locale regression coverage and parameterized the parent-removal browser scenario for these languages. Browser assertions cover all three labels, retention of the primary parent and survival of both parent cards. Existing cycle-prevention coverage remains in place. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application.
+
+These controls remain English in 59 locale paths, so their keys stay pending. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys. Structural coverage does not establish fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
