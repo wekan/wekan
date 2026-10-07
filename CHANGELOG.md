@@ -1890,6 +1890,19 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a6e89219ff77ada412054733f7d923b5493bd7a3">Translate URL scheme hint in Nahuatl</a>. Thanks to xet7.</summary>
+
+- Fill the English hint while preserving literal scheme names and existing
+  translations. Record lower-confidence regional grammar and technical wording.
+- Hint checks cover 61 recently filled locales. Parser, sanitizer, locale structure
+  and human-preference checks pass. Browser scenarios were syntax-checked only;
+  the application stack is unavailable.
+- Five locales still need this hint. The broader backlog remains 51,575 ordinary
+  missing values plus 172 pending source keys; quality review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1a6d51f5023bb8cbde7766274beec7a5369ea132">Translate URL scheme hint in Klingon</a>. Thanks to xet7.</summary>
 
 - Fill the English hint while preserving literal scheme names and existing
