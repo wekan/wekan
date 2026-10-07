@@ -2731,6 +2731,26 @@ were not run because the application stack is unavailable. Two locale paths stil
 need this seven-string group. The ordinary backlog remains 51,575 values, plus
 181 pending source keys; broader language-quality review remains open.
 
+### Rule-builder instructions — Tigre (2026-10-07)
+
+Filled seven pending strings in `tig` directly, preserving literal variable
+expressions and existing translations. No translation service was used.
+
+The technical prose has low confidence and needs Tigre speaker review. This is
+not a claim that the existing catalog is free of Tigrinya seed text. References:
+[Raz, Tigre Grammar and Texts](https://studylib.net/doc/29012541/tigre-grammar-and-texts--shlomo-raz---z-library.sk--1lib....),
+especially temporal `dol` and the imperative of “remove”, and
+[Beurmann/Merx vocabulary](https://www.speaktigre.com/_files/ugd/7e068a_a5fbea1fb5e544e69d94cab002762da2.pdf?index=true).
+The references support individual forms, not complete modern software sentences.
+Trigger terminology, noun agreement and composed date wording remain review items.
+
+The rule-variable suite now covers 65 recently filled locales, including exact
+brace variables, source tokens and key order. Runtime, all-locale structural and
+human-preference checks pass. Browser scenarios were not run because the app stack
+is unavailable. Cherokee is the remaining locale for this seven-string group.
+The ordinary backlog remains 51,575 values plus 181 pending source keys; broader
+language-quality work remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
