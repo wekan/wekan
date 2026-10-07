@@ -23,7 +23,7 @@ Body &lt;script&gt;alert(1)&lt;/script&gt;2</t>
 </tnodes>
 </leo_file>`;
 
-for (const language of ['en', 'ku', 'ckb', 'tt', 'tk_TM', 'yi', 'so', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've', 'bi', 'tpi', 'mi', 'sm', 'fj', 'to', 'haw', 'pap', 'om', 'rw', 'rn', 'lg', 'ary', 'wa', 'wa-RR', 'ace', 'gv', 'se', 've-CC', 'rup', 'ak', 'bm', 'ee', 'wo', 'bua', 'cv', 'sah', 'bo', 'dz', 'ti', 'qu', 'ay', 'gn', 'ks', 'ff', 've-PP', 'vo', 'tlh', 'kl', 'iu', 'nah', 'zgh', 'tig', 'wal']) {
+for (const language of ['en', 'ku', 'ckb', 'tt', 'tk_TM', 'yi', 'so', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've', 'bi', 'tpi', 'mi', 'sm', 'fj', 'to', 'haw', 'pap', 'om', 'rw', 'rn', 'lg', 'ary', 'wa', 'wa-RR', 'ace', 'gv', 'se', 've-CC', 'rup', 'ak', 'bm', 'ee', 'wo', 'bua', 'cv', 'sah', 'bo', 'dz', 'ti', 'qu', 'ay', 'gn', 'ks', 'ff', 've-PP', 'vo', 'tlh', 'kl', 'iu', 'nah', 'zgh', 'tig', 'wal', 'chr']) {
 const locale = require(`../../../imports/i18n/data/${language}.i18n.json`);
 test(`a Leo outline imports lists, cards, bodies and checklists (${language})`, async ({ loggedInPage: page }) => {
   let boardId;

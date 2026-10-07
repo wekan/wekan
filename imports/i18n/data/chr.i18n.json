@@ -779,7 +779,7 @@
   "import-board-instruction-asana": "Asana tasks ᎤᏄᎪᏫᏍᏔᏅ JSON ᎯᏍᏓᏱ ({ \"data\": [...] } ᎠᎴ GET /tasks). Tasks sections (memberships) ᎠᏂ ᎤᎾᏓᏡᎬ; ᎠᏍᏆᏛ tasks Done ᎢᏗᏢ ᏗᎦᏅᎯ.",
   "import-board-instruction-zenkit": "ZenKit ᏗᎪᏪᎵ ᎤᏄᎪᏫᏍᏔᏅ JSON ᎯᏍᏓᏱ ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages ᏗᎪᏪᎵ ᏂᎦᎵᏍᏔᏂ ᎠᎴ items ᏗᎪᏪᎵ ᏗᏍᏗ ᏂᎦᎵᏍᏔᏂ.",
   "import-board-instruction-markdown": "ᎠᏗᏔᏫ ᏗᎫᎪᏙᏗ ᎠᏓᏅᏖᏗ ᎦᏂᎳᏫᏍᎩ ᎢᏣᏌᎳᏛ (Obsidian Kanban ᎾᏍᎩᏯ ᎢᏳᏍᏗ ᏗᎫᎪᏙᏗ ᎠᎬᏙᏗ): \"## ᏗᎫᎪᏙᏗ ᏚᏙᎥ\" ᏗᎧᏃᎩᏛ, \"- [ ]\"/\"- [x]\" ᏗᏂᏰᎸᎢ ᎭᏫᎠ. ᏗᎧᏃᎩᏛ ᏗᎫᎪᏙᏗ ᎨᏎᏍᏗ ᎠᎴ ᏗᏂᏰᎸᎢ ᎦᏟᎶᏍᏙᏗ ᎨᏎᏍᏗ.",
-  "import-board-instruction-leo": "Paste a Leo outline (.leo file). Top-level nodes become lists, their children become cards with the node body as the description, and deeper nodes become checklists. Marked nodes import as done.",
+  "import-board-instruction-leo": "Leo ᏗᏙᏢᏅ (.leo ᎪᏪᎵ) ᎯᏢᎥᎦ. ᎦᎸᎳᏗ ᎠᏯᏙᎸᎢ ᎠᏎᏊᎢ ᏓᏓᏁᎸᎢ. ᎾᏍᎩ ᎡᎳᏗ ᏧᎾᏍᏗ ᎠᏯᏙᎸᎢ ᎪᏪᎵ ᏓᏓᏁᎸᎢ, ᎠᎴ ᎠᏯᏙᎸᎢ ᏗᎪᏪᎶᏗ ᎪᏪᎵ ᎧᏃᎮᏗ ᎠᏓᏁᎸᎢ. ᎤᏟ ᎡᎳᏗ ᎠᏯᏙᎸᎢ ᎠᎦᏎᏍᏗ ᎠᏎᏊᎢ ᏓᏓᏁᎸᎢ. ᎠᏯᏙᎸᎢ ᏗᎪᏪᎸ ᎠᎵᏍᏆᏛ ᎢᏳᏍᏗ ᏗᏴᏔᏅ.",
   "import-board-instruction-todotxt": "todo.txt ᎪᏪᎵ ᎯᏢᎯ: ᏌᏊ ᎢᏳᏍᏗ ᎢᏳᏅᏁᏗ ᏌᏊ ᎤᏓᏡᎬ, todo.txt ᎠᎴ ᎤᏠᏱ ᏗᎬᏙᏗ ᏚᏃᏪᎳᏅ ᎢᏳᏍᏗ. ᎠᎵᏍᏆᏛ ᏗᎦᎸᏫᏍᏓᏁᏗ (\"x\") \"ᎠᎵᏍᏆᏛ\" ᏗᏜ ᏓᏂᏴᎵ, +project ᎠᎴ @context ᏗᎪᏪᎸ ᏓᎾᏓᎴᏂ, (A) ᎢᎬᏱ ᎢᏳᏅᏁᏗ ᎪᏪᎸ ᎨᏎᏍᏗ, due: ᎠᎴ t: ᎠᎵᏍᏆᏗ ᎠᎴ ᎠᎴᏅᏗ ᎢᎦ ᏓᎾᏓᎴᏂ.",
   "import-board-instruction-taskwarrior": "task export ᎤᏓᏅᏖᏗ ᎦᏯᎸᏗ: JSON ᎠᏎᏊᎢ, ᎠᎴ ᏌᏊ ᏗᎸᏫᏍᏓᏁᏗ ᎾᎿ ᏂᎦᏓ ᎪᏪᎵ ᎤᏓᏅᏅ. ᏗᎸᏫᏍᏓᏁᏗ ᎠᏍᏆᏛᎯ Done ᏓᎦᏅᎭ, project ᎠᎴ priority ᏗᎪᏪᎳᏅᎯ ᏓᎦᏁᎳ, annotations ᏗᎯᏬᏂᎯᏍᏗ ᏓᎦᏁᎳ, ᎠᎴ depends ᎠᎵᏍᎦᏍᏙᏗ ᏗᏓᏚᏓᎸ ᏓᎦᏁᎳ, ᏅᏩᏓᎴ ᏗᎸᏫᏍᏓᏁᏗ ᎾᏍᎩ ᏓᏓᎴᏫᏍᏓ.",
   "import-board-instruction-focalboard": ".boardarchive ᎪᏪᎵ ᎠᏍᏚᎢᏍᏗ ᎠᎴ ᎦᏍᎩᎸ board.jsonl ᎦᏯᎸᏗ, ᎤᏓᏅᏅ ᎢᎪᎯ ᎢᎬᏁᎸ ᎢᏳᏓᎵᎭ ᎠᎴ ᏂᎨᏒᎾ. ᎦᏍᎩᎸ ᎠᎦᏙᎲᏍᏗ ᎾᎿ ᎠᏓᏟᏌᏅ ᎤᏑᏰᏍᏔᏅ ᏗᎠᏎᏊᎢ ᏓᎦᏁᎳ, ᏅᏩᏓᎴ ᏗᏑᏰᏍᏙᏗ ᏗᎪᏪᎳᏅᎯ ᏓᎦᏁᎳ, ᎪᏪᎵ ᎠᎴ ᎠᎦᏎᏍᏗ ᏗᎧᏁᏍᏔ ᏗᎦᏚᏓᎸ ᎧᏃᎮᏗ ᎠᎴ ᎠᎦᏎᏍᏗ ᎠᏎᏊᎢ ᏓᎦᏁᎳ, ᎠᎴ ᏗᎯᏬᏂᎯᏍᏗ ᏓᏓᏂᏴᏍᎦ. ᏗᏟᎶᏍᏔᏅ ᎠᎴ ᏗᏓᏁᏥ Ꮭ ᏱᏓᏓᏴᏍᎦ.",

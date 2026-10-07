@@ -280,9 +280,13 @@ test('multiple-parent card controls have non-English values in all locales', asy
   assert.doesNotMatch(fi['remove-parent-card'], /poista|tuhoa/i);
 });
 
-test('Leo outline import instructions are translated in reviewed locales', async () => {
+test('Leo outline import instructions have non-English values in all locales', async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
-  const codes = ["fi", "ar", "ar-DZ", "ar-EG", "tr", "es", "es-AR", "es-CL", "es-CO", "es-LA", "es-MX", "es-PE", "es-PY", "es_CO", "it", "pt", "pt-PT", "pt_PT", "pt-BR", "gl", "gl-ES", "ko", "ko-KR", "ja", "ja-JP", "ja-HI", "zh-Hant", "zh-TW", "zh-HK", "zh", "zh-CN", "zh-Hans", "zh-GB", "zh_SG", "cmn", "fr", "fr-FR", "fr-BE", "fr-CH", "fr-CA", "de", "de-AT", "de_DE", "de-CH", "sv", "da", "nb", "nl", "nl-NL", "ro", "ro-RO", "id", "pl", "cs", "sk", "hu", "uk", "ru", "bg", "ku", "ckb", "tt", "tk_TM", "yi", "so", "ny", "bho", "mai", "or_IN", "kok", "st", "tn", "nso", "zu", "zu-ZA", "xh", "ss", "nd", "ts", "ve", "bi", "tpi", "mi", "sm", "fj", "to", "haw", "pap", "om", "rw", "rn", "lg", "ary", "wa", "wa-RR", "ace", "gv", "se", "ve-CC", "rup", "ak", "bm", "ee", "wo", "bua", "cv", "sah", "bo", "dz", "ti", "qu", "ay", "gn", "ks", "ff", "ve-PP", "vo", "tlh", "kl", "iu", "nah", "zgh", "tig", "wal"];
+  const codes = fs.readdirSync(directory)
+    .filter(file => file.endsWith('.i18n.json') && !/^en(?:[-_]|\.)/.test(file))
+    .map(file => file.replace('.i18n.json', ''));
+  assert.equal(codes.length, 234);
+  assert.ok(!require('../releases/translations/pending-transifex.json').keys.some(entry => entry.key === 'import-board-instruction-leo'));
   const ary = JSON.parse(fs.readFileSync(path.join(directory, 'ary.i18n.json')));
   assert.equal(ary.done, 'سالا');
   assert.doesNotMatch(ary.done, /انجام|شده/);

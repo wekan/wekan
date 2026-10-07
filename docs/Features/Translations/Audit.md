@@ -4107,6 +4107,27 @@ Playwright is unavailable. Cherokee is the remaining English Leo instruction.
 The wider backlog remains 51,575 ordinary placeholders in 70 languages plus 150
 pending source keys. Structural coverage does not establish linguistic accuracy.
 
+## Leo import instruction: Cherokee draft and complete placeholder coverage
+
+Filled the final English `import-board-instruction-leo` placeholder in Cherokee
+through the protected helper. Existing non-English values were preserved. Used
+the existing UI nouns and consulted the [Cherokee-English dictionary](https://www.cherokeedictionary.net/first500)
+as a vocabulary reference; this does not validate the complete instruction.
+The Cherokee draft remains very low-confidence, particularly the hierarchy,
+paste, marked-node and completion clauses, and requires linguistic review.
+
+A fresh scan finds a nonempty, non-English value for this key in all 234
+non-English locales. Removed the key from the pending queue (150 to 149) and
+made the regression discover all locales, check token inventories and literal
+Leo/`.leo`, and reject reintroduction into the pending queue. Extended the browser
+import scenario to Cherokee; existing invalid-input coverage remains.
+
+All 12 focused Node tests and 21 human-preference checks pass. Browser syntax
+passes; execution remains unverified because Playwright is unavailable. The
+ordinary backlog remains 51,575 values across 70 languages. Non-English coverage
+is not a claim that this instruction is linguistically verified in every locale;
+the low-confidence drafts and broader mixed-language audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

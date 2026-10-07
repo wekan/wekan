@@ -1,10 +1,6 @@
 {
   "keys": [
     {
-      "key": "import-board-instruction-leo",
-      "since": "2026-09-29"
-    },
-    {
       "key": "r-insert-variable",
       "since": "2026-09-29"
     },
