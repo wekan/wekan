@@ -1889,6 +1889,20 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/96c33f68d5e0337a9fcf1826fa16f6c26b21fc95">Translate Acehnese notification settings</a>. Thanks to xet7.</summary>
+
+- Fill 13 English placeholders, preserving existing translations and the
+  due-date reminder/@mention exception.
+- Shared notification checks now cover 48 locales. Feature, all-locale
+  structure and human-preference checks pass. Browser scenarios are
+  syntax-checked only. Technical wording is low confidence pending speaker
+  review; vocabulary references are recorded in the audit.
+- The standard backlog remains 51,575 values plus 201 pending source keys.
+  Remaining languages and broader language review stay in TODO Later.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b9a183544df25ff9bdf0d38a777edcffb625558f">Translate Northern Sámi notification settings</a>. Thanks to xet7.</summary>
 
 - Fill 13 English placeholders in Northern Sámi, preserving existing
