@@ -2458,6 +2458,24 @@ not run; the app stack was unavailable. 20 locale paths still need this group.
 The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
 broader language-quality review remains open.
 
+### Rule-builder instructions — Northern Sámi and Acehnese (2026-10-07)
+
+Filled seven pending strings in se and ace (14 values), preserving existing
+translations and all literal variable expressions. No translation service was used.
+The text retains any-trigger behavior, ordered actions, username/email context and
+card-derived variables. Both translations have lower confidence; technical terms,
+case endings, recipient fields and composed date fragments need native/UI review.
+References include [Northern Sámi prose using njuolggadus](https://www.regjeringen.no/globalassets/upload/aid/temadokumenter/sami/sami_samekonvensjon_samisk_h-2183.pdf)
+and [Acehnese buët](https://en.wiktionary.org/wiki/bu%C3%ABt).
+These references support vocabulary, not full-sentence accuracy.
+
+The existing trigger-variable suite now checks 48 recently filled locales for
+source order and exact brace/underscore/percent tokens. Runtime matching,
+all-locale structural and human-preference checks pass. Browser scenarios were
+not run; the app stack was unavailable. 18 locale paths still need this group.
+The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
+broader language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -74,7 +74,7 @@ console.log('  ok - rules find token triggers, and the editor keeps and explains
   const english = readLocale('en');
   const keys = ["r-vars-people-hint", "r-when-card-date", "r-rule-any-trigger-help", "r-add-trigger-to-rule", "r-add-action-to-rule", "r-remove-rule-part", "r-trigger-vars-hint"];
   const braceTokens = text => (text.match(/\{[^{}]+\}/g) || []).sort();
-  for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts', 'om', 'fj', 'to', 'gv', 'wa', 'wa-RR', 'ak', 'lg', 'wo', 'bm', 'ee', 'rup', 've-CC', 'bua', 'sah', 'cv', 've']) {
+  for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts', 'om', 'fj', 'to', 'gv', 'wa', 'wa-RR', 'ak', 'lg', 'wo', 'bm', 'ee', 'rup', 've-CC', 'bua', 'sah', 'cv', 've', 'se', 'ace']) {
     const locale = readLocale(code);
     assert.deepEqual(Object.keys(locale), Object.keys(english), `${code}: source order`);
     for (const key of keys) {
@@ -122,5 +122,5 @@ console.log('  ok - rules find token triggers, and the editor keeps and explains
     assert.doesNotMatch(darija[key], /[پچژگکی]/, `${key}: no Persian letters from the wrong-language seed`);
   }
   assert.notDeepEqual(braceTokens('{customField:Name}'), braceTokens('{customField:Translated}'));
-  console.log('Rule builder translations: 7 strings in 46 locales passed');
+  console.log('Rule builder translations: 7 strings in 48 locales passed');
 }
