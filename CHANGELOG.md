@@ -2055,6 +2055,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7ff98db7a5b1a29b79f89cee35b0502e282db0c3">Correct 25 Walloon values in Waray organization and template controls.</a></summary>
+
+- Correct external issue-link, email-template, database metadata, organization, field-order and rule labels. Preserve template variables, configuration identifiers and organization-admin restrictions.
+- Extend brace-token, authorization-negation and up/down checks. Technical terminology remains provisional and further wrong-language corrections remain necessary.
+- English placeholders remain at 46,995 across 70 languages; 148 pending source keys and broader semantic review remain open.
+- Validation: 27 focused tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/65fe9d72218e6ce2c8eb0466997d3c6110d35377">Correct 30 further Walloon values in Waray notes and favorites.</a></summary>
 
 - Correct note, favorite, permanent-delete, text-matching, import, selection and interruption labels. Restore the missing Markdown-import explanation for plain bulleted lists without checkboxes.
