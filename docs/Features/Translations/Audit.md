@@ -4537,6 +4537,13 @@ mixed-language audit remains open.
 - All twelve focused Node tests and 21 human-preference checks pass. Extended token-inventory and distinct-direction coverage alongside existing negative import tests. Added all six locales to the localized editor drag/edit/context-menu browser flow; syntax passes, but browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
 - Ordinary placeholders decrease from 49,461 to 49,389 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## Blockly movement announcements: six American, European and constructed locales (2026-10-07)
+
+- Filled twelve movement and scrolling announcements in Quechua, Aymara, Guaraní, Veps, Volapük and Klingon (72 values). The protected fill utility preserved existing translations. Arguments and distinct directions are retained. Technical phrasing is provisional, particularly Aymara, Veps, Volapük and Klingon. Descriptions of moving the visible content stand in for a dedicated scrolling term where uncertain.
+- Vocabulary references include [Quechua pedagogical vocabulary](https://repositorio.minedu.gob.pe/bitstream/handle/20.500.12799/7490/Yachachinapaq%20simikuna%20-%20Urin%20Qichwa%20vocabulario%20pedag%C3%B3gico%20quechua%20sure%C3%B1o.pdf?isAllowed=y&sequence=1), [Veps sirtta inflection](https://en.wiktionary.org/wiki/sirtta), the [Volapük dictionary](https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary) and [Klingon movement discussion](https://www.kli.org/tlhIngan-Hol/1994/March/msg00003.html). Corrected the new Veps draft's movement forms against the inflection table. These references support vocabulary rather than validate complete clauses.
+- All twelve focused Node tests and 21 human-preference checks pass. Extended token-inventory and distinct-direction checks alongside existing negative import tests. Added all six locales to the localized editor drag/edit/context-menu browser flow. Syntax passes; browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
+- Ordinary placeholders decrease from 49,389 to 49,317 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
