@@ -12,7 +12,7 @@ const placeholders=value=>(String(value).match(/%\d+(?:\$[a-z])?|%[a-z]|__[A-Za-
 test('movement announcements preserve arguments and distinguish directions in newly filled locales', async()=>{
  const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
  const names='CANT_SCROLL_FURTHER MOVE_AFTER MOVE_AROUND MOVE_BEFORE MOVE_CANCELED MOVE_INSIDE MOVE_TO MOVE_WORKSPACE SCROLLED_DOWN SCROLLED_LEFT SCROLLED_RIGHT SCROLLED_UP'.split(' ');
- for(const code of ['ku','ckb','tt','so','ny','mi','sm','tk_TM','yi','bho','mai','or_IN','kok','pap','ary','st','tn','nso','zu','zu-ZA','xh','ss','nd','ts','ve','bi','tpi','fj','to','haw','om','rw','rn','lg','wa','wa-RR','ace','gv','se','ve-CC','rup','ak','bm','ee','wo','ff','ks','bua','cv','sah','bo','dz','ti','qu','ay','gn','ve-PP','vo','tlh']){
+ for(const code of ['ku','ckb','tt','so','ny','mi','sm','tk_TM','yi','bho','mai','or_IN','kok','pap','ary','st','tn','nso','zu','zu-ZA','xh','ss','nd','ts','ve','bi','tpi','fj','to','haw','om','rw','rn','lg','wa','wa-RR','ace','gv','se','ve-CC','rup','ak','bm','ee','wo','ff','ks','bua','cv','sah','bo','dz','ti','qu','ay','gn','ve-PP','vo','tlh','nah','wal','zgh','wuu-Hans']){
   const data=require(`../imports/i18n/data/${code}.i18n.json`);
   for(const name of names){
    const key=`blockly-ANNOUNCE_${name}`;

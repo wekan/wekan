@@ -4544,6 +4544,13 @@ mixed-language audit remains open.
 - All twelve focused Node tests and 21 human-preference checks pass. Extended token-inventory and distinct-direction checks alongside existing negative import tests. Added all six locales to the localized editor drag/edit/context-menu browser flow. Syntax passes; browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
 - Ordinary placeholders decrease from 49,389 to 49,317 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## Blockly movement announcements: four further locales (2026-10-07)
+
+- Filled twelve movement and scrolling announcements in Nahuatl, Wolaytta, Standard Moroccan Tamazight and Wu Chinese (48 values). Used the protected fill utility and retained arguments and distinct directions. Nahuatl, Wolaytta and Tamazight technical clauses are low confidence; grammatical and dialect review remains necessary. Tamazight prose uses Tifinagh, and scrolling uses a description of moving what is visible.
+- Vocabulary references include [Nahuatl olinia](https://nahuatl.wired-humanities.org/content/olinia), [Nahuatl opochcopa](https://gdn.iib.unam.mx/diccionario/opochcopa/58883), [Wakasa's Wolaytta grammar](https://theswissbay.ch/pdf/Books/Linguistics/Mega%20linguistics%20pack/Afro-Asiatic/Omotic/Wolaytta%20Language,%20A%20Descriptive%20Study%20of%20the%20Modern%20(Wakasa)%20(1).pdf) and the [Tamazight dictionary](https://www.livelingua.com/peace-corps/Tamazight/Tamazight-English-Dictionary-2007.pdf). Wakasa gives movement and spatial constructions; references do not validate the complete announcement clauses.
+- All twelve focused Node tests and 21 human-preference checks pass. Extended exact token and distinct-direction checks alongside existing negative import tests. Added all four locales to the localized editor drag/edit/context-menu browser flow. Syntax passes; browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
+- Ordinary placeholders decrease from 49,317 to 49,269 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
