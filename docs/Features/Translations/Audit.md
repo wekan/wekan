@@ -537,6 +537,26 @@ pass, together with all-locale structure and human-preference checks. The
 browser mute/unmute scenario checks the 13 strings in each new locale. It
 passes syntax checking only; no browser execution was available.
 
+## Konkani and Moroccan Arabic notification preferences — 2026-10-07
+
+Filled 13 English placeholders each in Konkani (`kok`) and Moroccan Arabic
+(`ary`): 26 values. Comparison against the previous commit confirms existing
+translations are unchanged. The keys remain pending in other languages,
+so the standard backlog stays at 51,575 values with 201 pending source keys.
+
+The messages distinguish members from assigned workers and explain that
+unchecking an activity category stops its bell/email notices while deadline
+reminders and @mentions continue. Existing catalog vocabulary supplies
+card/list/attachment terms; Moroccan Arabic prose uses Darija constructions.
+Technical field/lane terminology and Konkani inflection remain open to
+speaker review.
+
+The shared notification suite now covers 24 locales. Exact tokens, source
+order, people-category distinctions, mention markers and muting exceptions
+pass, together with all-locale structure and human-preference checks. The
+browser mute/unmute scenario checks all 13 strings for both new locales.
+It passes syntax checking only; no browser execution was available.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

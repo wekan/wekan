@@ -15,7 +15,7 @@ async function openMemberNotificationSettings(page) {
   await expect(page.locator('.notification-activity-settings')).toBeVisible();
 }
 
-for (const language of ['en', 'tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN']) {
+for (const language of ['en', 'tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary']) {
 test(`muting label activity keeps labels out of the bell, and nothing else in ${language}`, async ({ boardPage: owner, browser, board, user, user2 }) => {
   const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
   db.updateOne('boards', { _id: board.boardId }, { $set: {
