@@ -3718,6 +3718,14 @@ Filled seven English placeholders in each of `ve-PP` and `kl` (14 values) throug
 
 Extended regression and browser coverage to both locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Structural checks do not establish fluent or accurate language.
 
+## Map view: Nahuatl and Standard Moroccan Tamazight - 2026-10-07
+
+Filled seven English placeholders in each of `nah` and `zgh` (14 values) through the protected fill workflow. The image examples and both placement methods are retained. The seven keys remain English in four locale paths and stay in the pending queue; the broader backlog remains 51,575 ordinary placeholders across 70 languages plus 160 pending source keys.
+
+The [Nahuatl dictionary](https://ossyriams.pueblosoriginarios.com/lenguas/nahuatl.php) supplies tlalmachiotl for map. [IRCAM's audiovisual lexicon](https://biblio.ircam.ma/pmb/uploads/publications/197.pdf) supports the card noun, while geographical uses found in other Amazigh varieties do not directly validate Standard Moroccan usage. Both sets of technical sentences are low-confidence drafts. Floor-plan terms, grammar and the Tamazight map/task-card distinction require further language review; Tifinagh script alone is not proof of correct language.
+
+Extended regression and browser coverage to both locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Coverage and placeholder checks do not establish fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
