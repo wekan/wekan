@@ -1890,6 +1890,15 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ec3a8cd7981850b51b371e544817becbd997fd91">Translate import reports in Volapük</a>. Thanks to xet7.</summary>
+
+- Fill three English values for import warnings, incomplete transfer explanations and opening the created board. Preserve existing translations and recovery paths. Low-confidence grammar and technical phrasing remain recorded for fluent-speaker review.
+- Extend source-order, placeholder and localized browser coverage. Translation, import-loss and human-preference checks pass; browser coverage was syntax-checked only because the local Playwright executable and running application are unavailable.
+- These three keys remain English in eight locales. The broader backlog remains 51,575 ordinary missing values and 168 pending source keys, with language-quality review open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d94f256dcbe559121f225bfd075e4f37d05f454e">Translate import reports in Tigrinya and Klingon</a>. Thanks to xet7.</summary>
 
 - Fill six English values for import warnings, incomplete transfer explanations and opening the created board. Preserve existing translations and recovery paths. Low-confidence grammar and technical paraphrases remain recorded for fluent-speaker review.
