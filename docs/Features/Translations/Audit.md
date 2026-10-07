@@ -5273,6 +5273,12 @@ Corrected 60 generic filler values for login customization, registration, file l
 
 Tests cover source tokens, distinct attachment modes, shared labels, technical identifiers, time units and received/end dates. Operating-system, software-package and version terminology remains descriptive and provisional. Browser checks were not run.
 
+### Akan generic filler correction: rule schedules and actions
+
+Corrected 60 generic values for scheduling, rule triggers/actions, due-date conditions, checklist controls and email fragments. Preserve once/daily/weekday/weekly/monthly distinctions, Monday–Friday scope and opposite check/uncheck actions. The exact filler inventory decreases from 416 to 356.
+
+Tests check source placeholders, schedule cadence, time units, paired controls and shared labels. Short rule fragments and prepositions remain provisional because their combined wording needs contextual UI review. Browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

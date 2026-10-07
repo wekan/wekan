@@ -56,3 +56,19 @@ test('Akan administration labels preserve units, modes and service names', async
  assert.notEqual(data['card-received-on'],data['card-end-on']);
  assert.equal(new Set(['hours','minutes','seconds'].map(k=>data[k])).size,3);
 });
+
+test('Akan rule schedules preserve cadence, units and opposite actions', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["requested-by", "default", "defaultdefault", "queue", "cover-image", "no-parent", "r-rule", "r-when", "r-drop-trigger", "r-drop-action", "r-format-auto", "r-when-scheduled", "r-schedule-type", "r-schedule-once", "r-schedule-daily", "r-schedule-weekday", "r-schedule-weekly", "r-schedule-monthly", "r-schedule-at-time", "r-schedule-on-weekday", "r-schedule-on-date", "r-due-is-set", "r-due-soon", "r-due-overdue", "r-days-after", "r-button-label", "r-run", "r-sort-by", "r-sort-due", "r-later", "r-unit-minutes", "r-unit-hours", "r-unit-days", "r-unit-weeks", "r-unit-months", "r-trigger", "r-action", "r-is", "r-when-a-label-is", "r-made-incomplete", "r-checked", "r-unchecked", "r-top-of", "r-bottom-of", "r-label", "r-check-all", "r-uncheck-all", "r-check", "r-uncheck", "r-item", "r-to", "r-of", "r-subject", "r-rule-details", "r-d-send-email-to", "r-d-send-email-subject", "r-d-send-email-message", "r-d-check-one", "r-d-uncheck-one", "r-by"];
+ for(const key of keys){
+  assert.notEqual(data[key],'Nsɛm a ɛfa dwumadi yi ho',key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ assert.equal(new Set(['once','daily','weekday','weekly','monthly'].map(s=>data['r-schedule-'+s])).size,5);
+ assert.match(data['r-schedule-weekday'],/Dwoda–Fida/);
+ assert.equal(new Set(['minutes','hours','days','weeks','months'].map(s=>data['r-unit-'+s])).size,5);
+ for(const [a,b] of [['r-check','r-uncheck'],['r-check-all','r-uncheck-all'],['r-checked','r-unchecked'],['r-d-check-one','r-d-uncheck-one'],['r-top-of','r-bottom-of'],['r-trigger','r-action'],['r-due-soon','r-due-overdue']]) assert.notEqual(data[a],data[b]);
+ assert.equal(data['r-subject'],data['r-d-send-email-subject']);
+ assert.equal(data.default,data.defaultdefault);
+ assert.equal(data['r-rule'],data.rules);
+});
