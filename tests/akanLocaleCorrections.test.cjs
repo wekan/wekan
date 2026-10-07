@@ -1035,3 +1035,22 @@ test('Akan activity and assignment labels preserve direction and permission scop
  assert.match(data['migration-progress-title'],/rekɔ so$/);
  assert.notEqual(data['job-name'],data['job-description']);
 });
+
+
+test('Akan checklist and activity labels preserve completion triggers and sound defaults', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["filter-no-label", "show-activities", "hide-activities", "remove-labels-multiselect", "activity-added-label", "activity-removed-label", "activity-added-label-card", "activity-removed-label-card", "r-items-check", "r-d-add-label", "r-d-remove-label", "r-with-items", "checklist-ding-sound", "checklist-ding-sound-description", "hide-checked-items", "no-items-message", "board-activities", "editChecklistItemsAsTextPopup-title", "max-avatar-filesize", "allowed-avatar-filetypes", "lost-cards-list"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.match(data['activity-added-label'],/kaa.*ho$/);
+ assert.match(data['activity-removed-label'],/fii.*ho$/);
+ assert.match(data['remove-labels-multiselect'],/yi.*1-9 fi ho/);
+ assert.match(data['checklist-ding-sound-description'],/tiaa.*agyirae sɛ wɔawie.*Wɔadum fi mfiase/);
+ assert.match(data['hide-checked-items'],/agyirae sɛ wɔawie/);
+ assert.match(data['max-avatar-filesize'],/bytes.*: $/);
+ assert.match(data['allowed-avatar-filetypes'],/: $/);
+ assert.match(data['show-activities'],/^Kyerɛ/); assert.match(data['hide-activities'],/^Suma/);
+ assert.match(data['filter-no-label'],/nni hɔ/);
+ assert.match(data['no-items-message'],/biara nni hɔ/);
+ assert.match(data['lost-cards-list'],/wɔasan de aba/);
+ assert.match(data['editChecklistItemsAsTextPopup-title'],/nsɛm a wɔakyerɛw/);
+});

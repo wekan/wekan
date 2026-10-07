@@ -5680,6 +5680,14 @@ used the corrected Normal role name. Added token, direction and scope checks.
 Wording remains low confidence pending fluent-speaker review; browser checks
 remain unrun. English-placeholder counts are unchanged.
 
+## Akan checklist and activity corrections (batch 57)
+
+Corrected 21 mixed-language checklist, activity and avatar labels. Preserved
+add/remove directions, numeric label shortcuts, completion-triggered sound and
+its default-off state, plus avatar size units. Added token, state and action
+checks. Wording remains low confidence pending fluent-speaker review; browser
+checks remain unrun. English-placeholder counts are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
