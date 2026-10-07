@@ -2706,3 +2706,29 @@ test('Tok Pisin avatar controls agree and WIP groups remain groups',()=>{
  assert.match(data['enable-wip-limit'],/^Larim/);
  assert.match(data['sign-in-to-upload'],/^Go insait.*i go antap$/);
 });
+
+
+test('Tok Pisin organization and board labels preserve tokens and consistent actions',()=>{
+ const keys=[
+  "org-propagate-members-to-boards",
+  "org-sync-members-from-auth",
+  "org-domains",
+  "org-admins",
+  "team-propagate-members-to-boards",
+  "team-sync-members-from-auth",
+  "board-backgrounds",
+  "boardBackgrounds-title"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:Propagate|Sync|Auth|Provider|Domains|admins|backgrounds)\b/,key);
+ }
+ for(const scope of ['org','team']){
+  assert.match(data[scope+'-propagate-members-to-boards'],/memba i go long ol bot/);
+  assert.match(data[scope+'-sync-members-from-auth'],/wankain wantaim sevis.*go insait/);
+ }
+ assert.equal(data['org-propagate-members-to-boards'],data['team-propagate-members-to-boards']);
+ assert.equal(data['org-sync-members-from-auth'],data['team-sync-members-from-auth']);
+ assert.equal(data['board-backgrounds'],data['boardBackgrounds-title']);
+});

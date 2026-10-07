@@ -6912,6 +6912,17 @@ The combined translation run passes 162 checks. Two existing catalog checks fail
 on the missing due-date shortcut key. All 21 human-preference checks pass.
 Browser and screen-reader checks were not run. The wider audit remains open.
 
+## Tok Pisin organization and background labels wording audit
+
+Corrected eight mixed-language organization, team and board-background labels.
+Checks preserve member-propagation direction, authentication-provider sync scope,
+source tokens and matching labels for equivalent actions. Wording remains
+provisional pending fluent-speaker review.
+
+The combined translation run passes 163 checks. Two existing catalog checks fail
+on the missing due-date shortcut key. All 21 human-preference checks pass.
+Browser and screen-reader checks were not run. The wider audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
