@@ -2399,6 +2399,27 @@ not run; the app stack was unavailable. 26 locale paths still need this group.
 The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
 broader language-quality review remains open.
 
+### Rule-builder instructions — Aromanian and Venetian (2026-10-07)
+
+Filled seven pending strings in rup and ve-CC (14 values), preserving existing
+correct-language translations and all literal variable expressions. No translation
+service was used. Replaced disparador and Azione in both locales and Carril in
+Venetian; regression checks cover the five corrected labels.
+The text retains any-trigger behavior, ordered actions, username/email context and
+card-derived variables. Aromanian technical prose has lower confidence. Recipient
+fields, dialectal spelling, technical terms and composed date fragments in both
+locales need native/UI review.
+References include [Aromanian numã](https://en.wiktionary.org/wiki/num%C3%A3)
+and [Venetian zonta and orthography](https://dizionario.dejudicibus.it/veneziano/veneziano.html).
+These references support vocabulary, not full-sentence accuracy.
+
+The existing trigger-variable suite now checks 42 recently filled locales for
+source order and exact brace/underscore/percent tokens. Runtime matching,
+all-locale structural and human-preference checks pass. Browser scenarios were
+not run; the app stack was unavailable. 24 locale paths still need this group.
+The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
+broader language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

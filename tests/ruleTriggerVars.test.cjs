@@ -74,7 +74,7 @@ console.log('  ok - rules find token triggers, and the editor keeps and explains
   const english = readLocale('en');
   const keys = ["r-vars-people-hint", "r-when-card-date", "r-rule-any-trigger-help", "r-add-trigger-to-rule", "r-add-action-to-rule", "r-remove-rule-part", "r-trigger-vars-hint"];
   const braceTokens = text => (text.match(/\{[^{}]+\}/g) || []).sort();
-  for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts', 'om', 'fj', 'to', 'gv', 'wa', 'wa-RR', 'ak', 'lg', 'wo', 'bm', 'ee']) {
+  for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts', 'om', 'fj', 'to', 'gv', 'wa', 'wa-RR', 'ak', 'lg', 'wo', 'bm', 'ee', 'rup', 've-CC']) {
     const locale = readLocale(code);
     assert.deepEqual(Object.keys(locale), Object.keys(english), `${code}: source order`);
     for (const key of keys) {
@@ -84,6 +84,13 @@ console.log('  ok - rules find token triggers, and the editor keeps and explains
       assert.deepEqual(braceTokens(locale[key]), braceTokens(english[key]), `${code}:${key}: literal rule variables`);
     }
   }
+  for (const [code, trigger, action] of [['rup', 'Evenimentu di porniri', 'Acțiuni'], ['ve-CC', 'Evento de avìo', 'Asion']]) {
+    const locale = readLocale(code);
+    assert.equal(locale['r-trigger'], trigger);
+    assert.equal(locale['r-action'], action);
+    assert.doesNotMatch(locale['r-trigger'] + locale['r-action'], /disparador|Azione/);
+  }
+  assert.equal(readLocale('ve-CC').swimlane, 'Corsia');
   const luganda = readLocale('lg');
   assert.equal(luganda['r-trigger'], 'Ekitandika etteeka');
   assert.doesNotMatch(luganda['r-trigger'], /Trigger|mu Luganda/);
@@ -108,5 +115,5 @@ console.log('  ok - rules find token triggers, and the editor keeps and explains
     assert.doesNotMatch(darija[key], /[پچژگکی]/, `${key}: no Persian letters from the wrong-language seed`);
   }
   assert.notDeepEqual(braceTokens('{customField:Name}'), braceTokens('{customField:Translated}'));
-  console.log('Rule builder translations: 7 strings in 40 locales passed');
+  console.log('Rule builder translations: 7 strings in 42 locales passed');
 }
