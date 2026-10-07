@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "Ikiuinermut linkip URL-ia nammineq toqqagaq",
   "text-below-custom-login-logo": "Isernermi logop nammineq toqqakkap ataani allagaq",
   "automatic-linked-url-schemes": "URL Schemes nammineq toqqakkat nammineerlutik toorneqarsinnaasussat. Titarneq ataaseq URL Scheme-mut ataatsimut",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Aallaqqaataani imaqanngilaq, taamaattumik webimut e-mailimullu linkit kisimik toorneqarsinnaapput. Skema allattorsimaffimmiittoq sunaluunnit, assersuutigalugu thunderlink imaluunniit onenote, programimik skemamut nalunaarsorneqarsimasumik ammaassaaq. javascript, data, vbscript aamma skemat taakkununnga assingusut linkinngortinneqanngisaannarput.",
   "external-link-pattern": "Naatsorsuutit avataaneersut aqqutigalugit killiffimmut aallaqqaataasumik attaveqarneq",
   "external-link-pattern-description": "Naatsorsuutit \"#1234\"-mi ittut immikkoortitat kortimi allassimasuni naatsorsuutit avataaneersunut aqqutigalugit aallaqqaataasumik attavigaat. Immikkoortoq ataaseq imaqanngitsutut nassat.",
   "external-link-pattern-prefix": "Immikkoortoq siulliq",

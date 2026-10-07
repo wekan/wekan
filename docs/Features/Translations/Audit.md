@@ -3110,6 +3110,14 @@ All three drafts have lower confidence, especially the terminology for URI schem
 
 Validation covers 55 recently filled hints, exact scheme identifiers, source tokens and key order, plus parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. This hint remains English in 11 locales. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; language quality review remains open.
 
+### URL scheme hint: Greenlandic and Kashmiri
+
+Filled the English-only `automatic-linked-url-schemes-hint` in `kl` and `ks` directly through the placeholder-only fill utility. Existing translated values were retained. The five literal scheme names are unchanged; both drafts describe the empty default, web/mail links, registered applications and permanently excluded schemes.
+
+Both drafts have lower confidence in technical terminology and grammatical agreement. Native-speaker review remains necessary, as does browser review of the Kashmiri text with Latin scheme identifiers. Greenlandic vocabulary references include [Iserasuaat's examination guidance](https://iserasuaat.gl/-/media/iserasuaat/folkeskole/5_afsluttende_evaluering/5-proevevejledninger/prvevejledning-lokale-valg-2009-kal.pdf), which uses `programmit`; Kashmiri reference resources include [Grierson's dictionary](https://dsal.uchicago.edu/dictionaries/grierson/). These sources do not validate the full technical sentences. No translation service was used.
+
+Validation covers 57 recently filled hints, exact scheme identifiers, source tokens and key order, plus parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. This hint remains English in nine locales. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; language quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

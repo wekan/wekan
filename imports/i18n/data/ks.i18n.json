@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "مخصوص مدد لنک URL",
   "text-below-custom-login-logo": "مخصوص لاگ اِن لوگو بۄن متن",
   "automatic-linked-url-schemes": "مخصوص URL سکیم یِم خودکار کلک کرنہٕ یِن۔ ہر سطرس منٛز اکھ URL سکیم",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "شروٗعس منٛز چھُ یہِ خٲلی، تٔمۍ کِنۍ ہیکو صرف ویب تہٕ ای میل لنکن پؠٹھ کلِک کٔرِتھ۔ فہرستس منٛز درج کٔرِمژ ہر سکیٖم، مِثالہٕ پٲٹھۍ thunderlink یا onenote، چھِ تَتھ خٲطرٕ رجسٹر کٔرِمژ ایپلی کیشن کھولان۔ javascript، data، vbscript تہٕ تِمن ہِشہٕ سکیٖمہٕ چھِ نہٕ زانہہ لنک بناونہٕ یوان۔",
   "external-link-pattern": "بیرنی مسئلہٕ ٹریکَرَس منٛز خودکار لِنک",
   "external-link-pattern-description": "کارڈچ متن منز ملُن والا \"#1234\" ژٲنٛس ٹوکن خودکار طورٕ بیرنی مسئلہٕ ٹریکَرَس منٛز جوڑان۔ غیر فعال کرنہٕ خٲطرٕ کانٛہہ خانہٕ خالی چھوڈیو۔",
   "external-link-pattern-prefix": "ٹوکنَس منٛز اکس اڳر",
