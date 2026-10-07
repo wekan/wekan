@@ -883,3 +883,52 @@ test('Tok Pisin account messages distinguish reset, verification and validation 
  assert.match(data['invite-people-error'],/^Rong/);
  assert.match(data['email-domain-allowed-to-invite'],/rait.*no ken raitim nem bilong ol yet/);
 });
+
+
+test('Tok Pisin file settings preserve tokens and replace mixed English prose',()=>{
+ const keys=[
+  "attachment-transfer-limits-title",
+  "attachment-transfer-limits-description",
+  "attachment-transfer-limits-saved",
+  "attachment-transfer-limits-save-failed",
+  "attachment-transfer-limits-invalid-value",
+  "attachment-upload-limit-label",
+  "attachment-download-limit-label",
+  "attachment-limit-mode-max-size",
+  "attachment-limit-unit-bytes",
+  "attachment-count",
+  "upload-background",
+  "attachment-move-storage-fs",
+  "attachment-last-move",
+  "attachment-repair-locations",
+  "attachment-repair-locations-description",
+  "attachment-repair-running",
+  "attachment-id",
+  "max-upload-filesize",
+  "allowed-upload-filetypes",
+  "attachment-storage-configuration",
+  "attachment-migration",
+  "attachment-monitoring",
+  "attachment-settings",
+  "attachment-storage-settings",
+  "upload-repository"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.doesNotMatch(data[key],/Configure|maximum|Please enter|whose recorded|no longer|filetypes|filesize/,key);
+ }
+});
+
+test('Tok Pisin file settings distinguish transfer directions, limits and repair behavior',()=>{
+ assert.match(data['attachment-upload-limit-label'],/salim i go antap/);
+ assert.match(data['attachment-download-limit-label'],/kisim i kam daun/);
+ assert.match(data['attachment-transfer-limits-invalid-value'],/bikpela moa long 0/);
+ assert.match(data['attachment-transfer-limits-save-failed'],/I no inap seivim/);
+ assert.match(data['attachment-transfer-limits-saved'],/pinis/);
+ assert.match(data['attachment-transfer-limits-description'],/API.*narapela mak.*seva/);
+ assert.match(data['attachment-repair-locations-description'],/GridFS.*no wankain moa.*Stretim detabes.*ples tru/);
+ assert.equal(data['attachment-limit-unit-gb'],'GB');
+ assert.equal(data['attachment-limit-unit-mb'],'MB');
+ assert.equal(data['attachment-limit-unit-bytes'],'Bait');
+ assert.match(data['max-upload-filesize'],/bait/);
+});

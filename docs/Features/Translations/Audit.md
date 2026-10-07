@@ -6521,6 +6521,12 @@ Corrected 34 unprefixed mixed-language account, invitation, email-template and v
 
 Validation: 82 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
 
+## Tok Pisin file-handling wording audit
+
+Corrected 25 unprefixed mixed-language attachment, transfer-limit and storage-setting messages. Preserved all source tokens, units and product identifiers. Tests distinguish upload/download direction, successful/failed saving, positive limits and database-location repair. Existing coherent deletion warnings remain unchanged. Technical wording remains provisional pending fluent-speaker review; browser and screen-reader checks were not run.
+
+Validation: 84 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
