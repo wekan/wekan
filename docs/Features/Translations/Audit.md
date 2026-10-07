@@ -5279,6 +5279,12 @@ Corrected 60 generic values for scheduling, rule triggers/actions, due-date cond
 
 Tests check source placeholders, schedule cadence, time units, paired controls and shared labels. Short rule fragments and prepositions remain provisional because their combined wording needs contextual UI review. Browser checks were not run.
 
+### Akan generic filler correction: calendar and settings labels
+
+Corrected 43 generic values covering date fields, weekdays, role/status labels, read/unread controls and custom head settings. Restored protocol names, URL and the literal context separator. The exact filler inventory decreases from 356 to 313.
+
+Regression coverage checks source tokens, distinct weekdays, weekday-schedule consistency, read/unread states, shared templates, comma-separated examples and HTML/JSON identifiers. Role, domain and manifest terminology remains provisional. Search-operator filler remains for a dedicated pass with parser validation. Browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

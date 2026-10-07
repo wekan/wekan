@@ -72,3 +72,22 @@ test('Akan rule schedules preserve cadence, units and opposite actions', async()
  assert.equal(data.default,data.defaultdefault);
  assert.equal(data['r-rule'],data.rules);
 });
+
+test('Akan settings and calendar labels preserve identifiers and weekday distinctions', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["r-items-list", "r-set", "r-datefield", "r-df-start-at", "r-df-due-at", "r-df-end-at", "r-df-received-at", "r-to-current-datetime", "ldap", "oauth2", "cas", "settings-group-url", "settings-group-logo", "custom-head-meta-tags", "custom-head-link-tags", "custom-head-manifest-content", "custom-assetlinks-content", "previous_as", "mark-all-as-read", "mark-all-as-unread", "roles", "roles-status", "roles-status-role", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday", "status", "owner", "last-modified-at", "voting", "task", "domains", "domain", "shared-templates", "website", "person", "context-separator", "myCardsViewChange-choice-table", "dueCardsViewChange-choice-me"];
+ for(const key of keys){
+  assert.notEqual(data[key],'Nsɛm a ɛfa dwumadi yi ho',key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ for(const key of ['ldap','oauth2','cas','settings-group-url','context-separator']) assert.equal(data[key],english[key]);
+ const days=['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+ assert.equal(new Set(days.map(k=>data[k])).size,7);
+ assert.ok(data['r-schedule-weekday'].includes(data.monday+'–'+data.friday));
+ assert.notEqual(data['mark-all-as-read'],data['mark-all-as-unread']);
+ assert.equal(data['shared-templates'],data['org-shared-templates']);
+ assert.equal(data['r-items-list'].split(',').length,3);
+ for(const key of ['custom-head-meta-tags','custom-head-link-tags']) assert.match(data[key],/HTML/);
+ for(const key of ['custom-head-manifest-content','custom-assetlinks-content']) assert.match(data[key],/JSON/);
+ assert.match(data['custom-assetlinks-content'],/assetlinks\.json/);
+});
