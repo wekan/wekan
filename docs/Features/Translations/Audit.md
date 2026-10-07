@@ -1872,6 +1872,26 @@ includes Wolaytta but was syntax-checked only; the app stack was unavailable.
 Two locale paths still need this reminder group. The ordinary backlog remains
 51,575 values plus 188 pending source keys; broader language review remains open.
 
+### Due reminders — Tigre (2026-10-07)
+
+Filled six English placeholders in `tig`, retaining due-day zero, signed offsets,
+before/after, blank/server defaults, whole-day bounds, ten-entry limit, board
+disabling and outgoing webhooks. Existing translated values were preserved and no
+translation service was used.
+
+Full phrases and technical terminology are low confidence and need native review.
+References include [The Tigre Language of Gindaʿ](https://www.speaktigre.com/_files/ugd/7e068a_adcb2a9df2c340898e3155ef3905c61e.pdf?index=true)
+for ten and [Kekia's lessons](https://www.scribd.com/document/92835181/Tigre-Grammar)
+for after and connective forms. The newly filled strings were reviewed for Tigrinya
+carryover; the wider locale review remains open. Shared script does not prove that
+the vocabulary or grammar belongs to Tigre.
+
+Reminder checks now cover 65 translated locales. Translation checks, all-locale
+structural checks and human-preference checks pass. The existing browser scenario
+includes Tigre but was syntax-checked only; the app stack was unavailable.
+Cherokee still needs this reminder group. The ordinary backlog remains
+51,575 values plus 188 pending source keys; broader language-quality review is open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
