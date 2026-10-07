@@ -2173,6 +2173,23 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/70c93974a71b998c6e0cc1b78570946596a3e648">Correct 27 Tok Pisin analytics translations.</a></summary>
+
+- Replace the remaining English-seeded prefix values in analytics and time
+  adjustments. Preserve forecast bounds, history gaps and fallback meanings.
+  Statistical wording remains provisional pending fluent-speaker review.
+- The combined run passes 78 checks; two catalog checks still fail on the
+  missing due-date shortcut key. All 21 human-preference checks pass.
+  Browser and screen-reader checks were not run.
+- No Tok Pisin values retain the English-seeding prefix. This completes only
+  that cleanup: unprefixed wording, search syntax and the broader language
+  audit remain unfinished.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/09bb20da8ca954cabd7512ef4cb803eb0bb13a43">Correct 25 Tok Pisin colour translations.</a></summary>
 
 - Replace prefixed English colour labels with dictionary-supported basic
