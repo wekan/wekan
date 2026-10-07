@@ -5946,6 +5946,21 @@ Browser and screen-reader checks were not run. The 28 remaining counted Somali
 entries appear to be keycaps, platform names and technical literals; the broader
 catalog wording audit and all-language task are not complete.
 
+## Northern Sotho rule editing and notification recovery — 2026-10-07
+
+Filled 46 English placeholders in `nso` without changing existing translations.
+Wording follows the catalog's Poto, Melao, Imeile and Ditsebišo terminology.
+Vocabulary reference: [Sepedi terminology from Onke Solutions](https://www.onkesolutions.com/sepedi/)
+for confirmation and notification verbs. Technical compounds for triggers,
+delivery reservations and recovery metadata remain low-confidence drafts pending
+fluent-speaker review.
+
+Two focused tests and the structural check across 234 non-English catalogs pass,
+as do 21 human-preference checks. Tests preserve rule constraints, temporary
+versus permanent rejection, uncertain delivery, retained pending work, no
+activity recreation and cancellation without recall of queued/delivered messages.
+Browser checks were not run. The remaining language and wording audit stays open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
