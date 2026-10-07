@@ -5093,6 +5093,12 @@ mixed-language audit remains open.
 - Distinguished missing source values from explicit null, temporary from permanent SMTP rejection, and unconfirmed delivery from a saved receipt failure. Added regression checks for these distinctions and report actions that cannot resume or undo runs.
 - Diagnostic and authentication terminology is provisional and needs technical-language review. Browser checks were not run; automated coverage does not establish fluency.
 
+### Waray activity notification recovery
+
+- Filled 27 English placeholders through the protected workflow, covering pending activity notifications, delivery state, retry, pause/resume/cancel controls and rule-email loading failures.
+- Preserved the fact that retries never recreate activities, failed deliveries retain pending work, cancellation cannot be resumed and already queued/delivered messages are not recalled. Added negative-behavior, retention, conflict-review and distinct-action checks.
+- Delivery reservation, recipient-plan and metadata terminology remains provisional and requires technical-language review. Browser checks were not run. The next remaining-placeholder review must distinguish recognizable keyboard/platform names and mathematical notation from untranslated prose; this batch alone does not prove locale completeness.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

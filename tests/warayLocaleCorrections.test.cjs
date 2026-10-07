@@ -888,7 +888,34 @@ const correctedKeys = [
   "email-failure-retry-limit",
   "sync-original-time",
   "sync-remaining-time",
-  "sync-time-estimate-hint"
+  "sync-time-estimate-hint",
+  "activity-recovery-heading",
+  "activity-recovery-description",
+  "activity-recovery-empty",
+  "activity-recovery-unavailable",
+  "activity-recovery-retry",
+  "activity-recovery-retrying",
+  "activity-recovery-status-pending",
+  "activity-recovery-status-preparing",
+  "activity-recovery-status-processing",
+  "activity-recovery-status-missing",
+  "activity-recovery-status-changed",
+  "activity-recovery-status-invalid",
+  "activity-recovery-status-inconsistent",
+  "activity-recovery-busy",
+  "activity-recovery-denied",
+  "activity-recovery-source-unavailable",
+  "activity-recovery-disabled",
+  "activity-recovery-failed",
+  "activity-recovery-pause",
+  "activity-recovery-resume",
+  "activity-recovery-paused",
+  "activity-recovery-control-conflict",
+  "activity-recovery-control-failed",
+  "activity-recovery-status-cancelled",
+  "activity-recovery-cancel",
+  "activity-recovery-cancel-confirm",
+  "rule-email-recovery-unavailable"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -1068,6 +1095,13 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   assert.match(waray['email-failure-smtp-temporary'], /^Temporaryo/);
   assert.match(waray['email-failure-smtp-rejected'], /^Permanente/);
   assert.match(waray['email-failure-delivery-unconfirmed'], /usisaha antes magsulay utro/);
+  assert.match(waray['activity-recovery-description'], /diri gud naghihimo utro hin aktibidad/);
+  assert.match(waray['activity-recovery-source-unavailable'], /Waray ginhimo utro/);
+  assert.match(waray['activity-recovery-failed'], /Gintipigan.*buruhaton/);
+  assert.match(waray['activity-recovery-cancel-confirm'], /Permanente.*Diri na ini maipapadayon.*nakapila na.*naipadara na.*diri mababawi/);
+  assert.match(waray['activity-recovery-control-conflict'], /Usisaha.*antes magsulay utro/);
+  const recoveryActions = ['pause', 'resume', 'cancel'].map(a => waray['activity-recovery-' + a]);
+  assert.equal(new Set(recoveryActions).size, 3);
   const statistics = ['AVERAGE', 'MEDIAN', 'MODE', 'STD_DEV', 'SUM'].map(s => waray['blockly-MATH_ONLIST_OPERATOR_' + s]);
   assert.equal(new Set(statistics).size, statistics.length);
   assert.match(waray['blockly-MATH_ONLIST_TOOLTIP_MODE'], /lista han mga butang/);
