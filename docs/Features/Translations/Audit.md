@@ -1177,6 +1177,21 @@ coverage is syntax-checked only because the application stack is unavailable.
 The ordinary backlog remains 51,575 values in 70 languages plus 201 pending source
 keys; the pending manifest has not yet been reconciled for this group.
 
+## Notification pending-key reconciliation — 2026-10-07
+
+Removed all 13 `notification-activity-*` entries from the pending manifest after
+checking all 234 non-English locale paths for nonempty values, absence of exact
+English placeholders and source-token preservation. The feature regression test
+now also prevents these keys from returning to the pending queue. Pending source
+keys decrease from 201 to 188; the ordinary missing-value count remains 51,575.
+Language-quality review remains explicitly open, including the provisional
+minority-language batches above. This is queue reconciliation, not fluent review.
+
+The next feature group is the six `due-reminder-*` strings. A fresh source scan
+found all six still English in 66 locales (396 values). Its description must retain
+comma separation, zero meaning the due day, positive offsets before it, negative
+offsets after it, blank meaning server default, and the -14 to 14 / ten-day limit.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

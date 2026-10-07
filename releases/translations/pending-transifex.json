@@ -81,58 +81,6 @@
       "since": "2026-09-29"
     },
     {
-      "key": "notification-activity-heading",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "notification-activity-description",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "notification-activity-labels",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "notification-activity-members",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "notification-activity-assignees",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "notification-activity-comments",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "notification-activity-moves",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "notification-activity-dates",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "notification-activity-checklists",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "notification-activity-attachments",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "notification-activity-customFields",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "notification-activity-archive",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "notification-activity-created",
-      "since": "2026-09-29"
-    },
-    {
       "key": "import-report-heading",
       "since": "2026-09-29"
     },
