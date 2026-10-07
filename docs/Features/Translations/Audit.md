@@ -3734,6 +3734,14 @@ The [Inuit Tapiriit Kanatami publication](https://www.itk.ca/wp-content/uploads/
 
 Extended regression and browser coverage to Inuktitut. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Structural checks do not establish fluency.
 
+## Map view: Cherokee - 2026-10-07
+
+Filled seven English placeholders in `chr` through the protected fill workflow. The seven map-view keys remain English in two locale paths and stay in the pending queue; the broader backlog remains 51,575 ordinary placeholders across 70 languages plus 160 pending source keys.
+
+The [Cherokee Nation maps page](https://www.cherokee.gov/About-The-Nation/Maps) supplies the map label. The [Cherokee dictionary vocabulary list](https://www.cherokeedictionary.net/first500) provides drawing and pulling vocabulary; existing locale strings supplied card and control terminology. These references do not establish correct full sentences. The floor-plan paraphrase, administrator term, verb forms, placement and clicking instructions are low-confidence drafts requiring language review. Syllabary and placeholder checks are not evidence of fluency.
+
+Extended regression and browser coverage to Cherokee. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
