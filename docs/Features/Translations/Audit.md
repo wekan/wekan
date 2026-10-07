@@ -3446,6 +3446,14 @@ The [IRCAM Amazigh-French-Arabic dictionary](https://www.ircam.ma/sites/default/
 
 Translation/token, import-loss positive/negative and 234-locale structure suites pass (12 tests combined), as do 21 human-preference checks. Extended the Tamazight browser case and syntax-checked it; execution remains unavailable without the local Playwright executable and running application. Each source key remains English in two locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
 
+### Import warning report: Tigre
+
+Filled three English placeholders in `tig` and replaced the Tigrinya Admin Panel wording `ናይ መምሕዳር ሰሌዳ` with `ምዱድ ለሓክም`, using existing board/panel and administrator nouns. The fill utility protected existing non-English values; the wrong-language correction was applied separately. Regression checks reject the former menu phrase and require a matching recovery path.
+
+[Beurmann's Tigre vocabulary](https://www.speaktigre.com/_files/ugd/7e068a_a5fbea1fb5e544e69d94cab002762da2.pdf?index=true), printed page 35, gives the opening root; [Tigre Studies in the 21st Century](https://www.speaktigre.com/_files/ugd/7e068a_b8160a06029949149ec728daaac5b9b4.pdf?index=true) has native usage of `ተቅሪር` for a report. These support individual vocabulary, not full-sentence accuracy. The heading paraphrases warnings as problems. Passive forms, agreement, the incomplete-transfer clause and the administrator compound remain low confidence and need fluent-speaker review. Existing administrator/recovery terminology and other possible Tigrinya seeds remain in the broader review queue. A separately found generated parallel-corpus phrasebook was not used as native validation.
+
+Translation/token, import-loss positive/negative and 234-locale structure suites pass (12 tests combined), as do 21 human-preference checks. Extended the Tigre browser case and syntax-checked it; execution remains unavailable without the local Playwright executable and running application. Each source key remains English in Cherokee only. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
