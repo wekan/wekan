@@ -985,6 +985,7 @@
   "shortcut-autocomplete-members": "멤버 자동완성",
   "shortcut-clear-filters": "모든 필터 초기화",
   "shortcut-close-dialog": "대화 상자 닫기",
+  "shortcut-edit-due-date": "열려 있는 카드의 마감일 수정",
   "shortcut-filter-my-cards": "내 카드 필터링",
   "shortcut-filter-my-assigned-cards": "내게 할당된 카드 필더",
   "shortcut-show-shortcuts": "바로가기 목록을 가져오십시오.",
