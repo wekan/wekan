@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4dbef0cf0fe6381a10e0028fb1aa5cfbd1f40b84">Correct 20 Walloon values in Waray reporting and recovery labels.</a></summary>
+
+- Correct activity, security, login-location, API, recovery and history messages. Preserve configuration names and report aggregation, first/last and edited/moved distinctions.
+- Extend regressions and document provisional technical wording. Further Waray corrections and contextual language review remain necessary.
+- English placeholders remain at 46,995 across 70 languages; 148 source keys are tracked separately for wording review.
+- Validation: all 27 focused translation tests and 21 human-preference checks pass; the Blockly dependency is available again. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/98fb2bf52d82e72902c2581bedb942206e8fc239">Correct 25 Walloon values in Waray role and table-view labels.</a></summary>
 
 - Correct checklist sound, public/private defaults, role summaries, table toggles, search and layout labels. Preserve default-off and read-only meanings and each toggle's inverse action.
