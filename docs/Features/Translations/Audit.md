@@ -4170,6 +4170,24 @@ There are 32 locales still using this English label. The broader backlog remains
 51,575 ordinary placeholders in 70 languages plus 149 pending source keys;
 linguistic review remains open.
 
+## Rule variable picker: ten further locales
+
+Filled `r-insert-variable` in Tibetan, Dzongkha, Tigrinya, Buryat, Chuvash, Sakha,
+Walloon, Waray, Acehnese and Venetian. The protected fill preserved existing
+non-English translations. The labels refer to the text field most recently
+selected; Dzongkha, Buryat, Chuvash and Sakha describe a symbol representing a
+changing value. Full clauses remain provisional, especially those paraphrases
+and Acehnese technical wording. Related-language terminology is not proof that
+a term is correct for the locale.
+
+Extended locale and browser picker coverage to all ten locales. Existing
+insertion, focus-switching and admin-only-field exclusion checks remain. All 13
+focused Node tests and 21 human-preference checks pass. Browser syntax passes;
+execution remains unverified because Playwright is unavailable. There are 22
+locales still using this English label. The broader backlog remains 51,575
+ordinary placeholders in 70 languages plus 149 pending source keys. Linguistic
+review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

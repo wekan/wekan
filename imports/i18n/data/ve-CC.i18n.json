@@ -1438,7 +1438,7 @@
   "r-subject": "oggetto",
   "r-email-vars-hint": "Zwiredzo zwi wanalaho: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "I campi de lista, corsia, titolo, lista de controło e utente i aceta anca {creator}, {assignees}, {members} e {customField:Name}. I so valori i vien leti da la scheda co se controla la règola.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Insarisi na variàbiłe inte l'ultimo canpo de testo che te gà sełesionà:",
   "r-vars-people-hint": "Anca: {creator}, {assignees}, {members} (nomi utente inte el testo, indirisi email inte el campo del destinatario) e {customField:Field name}. I funsiona anca inte i nomi dei membri, de le liste e de le corsie de altre asion.",
   "r-rule-details": "Dettagli della regola",
   "r-rule-any-trigger-help": "La règola la parte co capita uno qualsiasi dei eventi che la fa partir. Le so asion le vien fate una drio l’altra, in ordine.",

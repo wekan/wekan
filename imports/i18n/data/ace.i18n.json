@@ -1438,7 +1438,7 @@
   "r-subject": "subyek",
   "r-email-vars-hint": "Tag nyang na tersedia: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Teumpat dapeuta, jalur, judul, dapeuta peumeriksa ngon ureuëng ngui cit jiteurimong {creator}, {assignees}, {members} ngon {customField:Name}. Nilè jih jibeuet nibak kartu watee atôran jipeurèksa.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Peutamong variabel bak kotak teks nyang droeneuh pileh paléng akhé:",
   "r-vars-people-hint": "Meunan cit: {creator}, {assignees}, {members} (nan ureuëng ngui lam teks, alamat email lam teumpat ureuëng teurimong) ngon {customField:Field name}. Nyang nyoe cit jeuet jingui lam nan anggota, dapeuta ngon jalur nibak buët laén.",
   "r-rule-details": "Perincian Peraturan",
   "r-rule-any-trigger-help": "Atôran jimeujalan meunyo salah saboh keujadian nyang peuawoeh jih teujadi. Buët-buët jih jipeubuët saboh-saboh meuurôt.",

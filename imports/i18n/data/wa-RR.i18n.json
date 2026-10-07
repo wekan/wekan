@@ -1438,7 +1438,7 @@
   "r-subject": "sujet",
   "r-email-vars-hint": "Etiketes k’on pout eployî: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "An mga kahon para ha lista, agianan, titulo, lista han pagsusi ngan gumaramit nakarawat liwat hin {creator}, {assignees}, {members} ngan {customField:Name}. Ginbabasa an ira mga balor tikang ha kard kon ginsususi an patakaran.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Isulod an baryabol ha kahon han teksto nga imo kataposan nga ginpili:",
   "r-vars-people-hint": "Dugang pa: {creator}, {assignees}, {members} (mga ngaran han gumaramit ha teksto, mga adres han email ha kahon han makarawat) ngan {customField:Field name}. Nagagamit liwat ini ha mga ngaran han mga miyembro, lista ngan agianan han iba nga mga aksyon.",
   "r-rule-details": "Detalye han surundon",
   "r-rule-any-trigger-help": "Naandar an patakaran kon nahitatabo an bisan usa han mga panhitabo nga nagpapagana hini. An mga aksyon hini ginbubuhat hin sunod-sunod.",

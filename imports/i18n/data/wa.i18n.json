@@ -1438,7 +1438,7 @@
   "r-subject": "sudjet",
   "r-email-vars-hint": "Etiketes k’on pout eployî: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Les tchamps di djivêye, coridôr, tite, djivêye di verifiaedje et uzeu acceptèt ossu {creator}, {assignees}, {members} et {customField:Name}. Leus valixhances sont léjhowes dins l’ cåte cwand l’ rîle est verifeye.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Sititchîz ene variåbe dins l' tchamp di tecse ki vos avoz tchoezi li dierin côp:",
   "r-vars-people-hint": "Ossu: {creator}, {assignees}, {members} (nos d’ uzeus dins l’ tecse, adresses emile dins l’ tchamp do rçuveu) et {customField:Field name}. Çoula rote ossu dins les nos des mimbes, des djivêyes et des coridôrs des ôtès accions.",
   "r-rule-details": "Détails de rèye",
   "r-rule-any-trigger-help": "Li rîle est enondêye cwand onk di ses enondeus si produit. Ses accions sont fwaites dins l’ ôre.",

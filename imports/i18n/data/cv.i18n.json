@@ -1438,7 +1438,7 @@
   "r-subject": "темӑ",
   "r-email-vars-hint": "Пур тегсем: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Список, ҫул, пуҫламӑш, тӗрӗслев списокӗ тата усӑ куракан уйӗсем {creator}, {assignees}, {members} тата {customField:Name} йышӑнаҫҫӗ. Правилӑна тӗрӗслеме вӗсен пӗлтерӗшӗсене карточкӑран вуланаҫҫӗ.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Юлашки хут суйланӑ текст уйӗне улшӑнакан пӗлтерӗш паллине лартӑр:",
   "r-vars-people-hint": "Тата: {creator}, {assignees}, {members} (текстра усӑ куракансен ячӗсем, илекен уйӗнче электронлӑ пошта адресӗсем) тата {customField:Field name}. Вӗсем ытти ӗҫсен хутшӑнакан, список тата ҫул ячӗсенче те ӗҫлеҫҫӗ.",
   "r-rule-details": "Правило детальӗсем",
   "r-rule-any-trigger-help": "Правилӑн триггерӗсенчен пӗри пулсан, правило ӗҫлет. Унӑн ӗҫӗсем йӗркипе пурнӑҫланаҫҫӗ.",
