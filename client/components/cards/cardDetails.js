@@ -376,8 +376,8 @@ Template.cardDetails.onCreated(function () {
       Session.set('currentCard', null);
     }
     if (Session.get('popupCardId') === openedCardId) {
-      Session.delete('popupCardId');
-      Session.delete('popupCardBoardId');
+      Session.set('popupCardId', null);
+      Session.set('popupCardBoardId', null);
       Popup.close();
     }
 
@@ -1141,8 +1141,8 @@ Template.cardDetails.events({
     // is hidden, so this is the only close button. Close the popup and clear its
     // session state instead of running the board/route close flow below.
     if (Popup.isOpen() && Utils.getPopupCardId()) {
-      Session.delete('popupCardId');
-      Session.delete('popupCardBoardId');
+      Session.set('popupCardId', null);
+      Session.set('popupCardBoardId', null);
       Popup.close();
       return;
     }
@@ -1176,8 +1176,8 @@ Template.cardDetails.events({
 
     // Mini-screen/card-route flow: clear active card state and go back to board.
     Session.set('currentCard', null);
-    Session.delete('popupCardId');
-    Session.delete('popupCardBoardId');
+    Session.set('popupCardId', null);
+    Session.set('popupCardBoardId', null);
 
     if (boardId) {
       Utils.goBoardId(boardId);
@@ -1617,8 +1617,8 @@ Template.cardDetails.helpers({
   }
 });
 Template.cardDetailsPopup.onDestroyed(() => {
-  Session.delete('popupCardId');
-  Session.delete('popupCardBoardId');
+  Session.set('popupCardId', null);
+  Session.set('popupCardBoardId', null);
 });
 Template.cardDetailsPopup.helpers({
   popupCard() {
@@ -1756,8 +1756,8 @@ Template.cardDetailsActionsPopup.events({
     Filter.resetExceptions();
     Session.set('openCards', (Session.get('openCards') || []).filter(id => id !== card._id));
     if (Session.get('currentCard') === card._id) Session.set('currentCard', null);
-    Session.delete('popupCardId');
-    Session.delete('popupCardBoardId');
+    Session.set('popupCardId', null);
+    Session.set('popupCardBoardId', null);
     Popup.close();
     Utils.goBoardId(card.boardId);
     getSidebarInstance().setView('filter');

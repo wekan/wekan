@@ -118,7 +118,9 @@ test('opening a DIFFERENT card from a title click still works', () => {
   assert.ok(/Session\.set\('currentCard', card\._id\)/.test(branch) &&
             /openCardWindow\(card\._id\)/.test(branch),
     'a click on a card that is not open must still open it');
-  assert.ok(/Session\.delete\('popupCardId'\)/.test(branch),
+  // #6745: cleared to null, as every route does, rather than deleted - a delete
+  // followed by a route's set(null) was a change that re-ran every minicard.
+  assert.ok(/Session\.set\('popupCardId', null\)/.test(branch),
     'and still clear the phone popup ids, which is what that branch did before');
 });
 

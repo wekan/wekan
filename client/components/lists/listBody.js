@@ -93,8 +93,12 @@ function closeCardWindow(cardId) {
   if (Session.equals('currentCard', cardId)) {
     Session.set('currentCard', null);
   }
-  Session.delete('popupCardId');
-  Session.delete('popupCardBoardId');
+  // #6745: null, the same value every route sets - never Session.delete. A
+  // delete followed by a route's set(null) is a CHANGE of popupCardBoardId, and
+  // Utils.getCurrentBoardId() reads it, so every minicard re-ran its
+  // currentBoard helpers on a card open or close.
+  Session.set('popupCardId', null);
+  Session.set('popupCardBoardId', null);
   // A card opened by its own URL IS the route, and then the board has to be
   // navigated back to. A card opened by clicking a minicard is not, and
   // navigating would reset the board view for nothing.
@@ -413,8 +417,8 @@ Template.listBody.onCreated(function () {
         closeCardWindow(card._id);
         return;
       }
-      Session.delete('popupCardId');
-      Session.delete('popupCardBoardId');
+      Session.set('popupCardId', null);
+      Session.set('popupCardBoardId', null);
       Session.set('currentCard', card._id);
       openCardWindow(card._id);
       return;

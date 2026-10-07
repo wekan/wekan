@@ -37,7 +37,10 @@ test('card details clears desktop, mobile route and popup state', () => {
   assert.ok(source.includes("ReactiveCache.getCard(openedCardId)"));
   assert.ok(source.includes("Session.get('openCards')"));
   assert.ok(source.includes("Session.set('currentCard', null)"));
-  assert.ok(source.includes("Session.delete('popupCardId')"));
+  // #6745: cleared to null like every route does, not deleted - a delete then a
+  // set(null) is a change that re-ran every minicard's currentBoard helpers.
+  assert.ok(source.includes("Session.set('popupCardId', null)"));
+  assert.ok(!source.includes("Session.delete('popupCardId')"));
   assert.ok(source.includes('Utils.goBoardId(openedBoardId)'));
 });
 

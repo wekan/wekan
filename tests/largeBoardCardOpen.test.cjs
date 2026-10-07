@@ -213,4 +213,34 @@ test('every route that renders the board goes through renderBoardLayout', () => 
   assert.ok(/function renderBoardLayout\(ctx, boardId, routeName\) \{\s*if \(mustRenderBoardLayout/.test(router));
 });
 
+// ---- fix 3: the popup-card Session keys are cleared to null, never deleted ----
+
+// Every .js file under these directories, skipping generated output.
+function sourceFiles(dirs) {
+  const out = [];
+  const walk = dir => {
+    fs.readdirSync(path.join(repoRoot, dir), { withFileTypes: true }).forEach(entry => {
+      const rel = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        if (!['node_modules', '_build', '.build', '.tools'].includes(entry.name)) walk(rel);
+      } else if (/\.js$/.test(entry.name)) out.push(rel);
+    });
+  };
+  dirs.forEach(walk);
+  return out;
+}
+
+test('a card close and the routes agree on null for popupCardId/popupCardBoardId', () => {
+  const listBody = bodyOf(read('client/components/lists/listBody.js'), 'function closeCardWindow(');
+  assert.ok(/Session\.set\('popupCardId', null\)/.test(listBody));
+  assert.ok(/Session\.set\('popupCardBoardId', null\)/.test(listBody));
+  assert.ok(/Session\.set\('popupCardBoardId', null\)/.test(bodyOf(read('config/router.js'), "name: 'card',")));
+});
+
+test('nowhere deletes them: a delete then set(null) re-runs every minicard (negative)', () => {
+  const offenders = sourceFiles(['client', 'config', 'models', 'imports'])
+    .filter(file => /Session\.delete\(\s*['"]popupCard(Board)?Id['"]/.test(read(file)));
+  assert.deepStrictEqual(offenders, []);
+});
+
 console.log(`largeBoardCardOpen: ${passed} passed`);
