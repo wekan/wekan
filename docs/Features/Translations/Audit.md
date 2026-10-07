@@ -3248,6 +3248,14 @@ References include the [GuaraniAyvu dictionary](https://www.guaraniayvu.com/) fo
 
 Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in 11 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
 
+### Signed-in board visibility: Tigrinya and Klingon
+
+Filled three visibility strings in each locale: six English placeholders. Direct drafts preserve the signed-in viewing condition, anonymous exclusion, editing restriction and confirmation emphasis. Existing translations were protected by the fill utility; no translation service was used. Technical login phrasing has lower confidence; Klingon relative-clause structure and the metaphor of entering the application also need fluent-speaker review.
+
+Tigrinya login vocabulary follows [Telegram's Tigrinya localization](https://translations.telegram.org/tigrinya-ti/tdesktop/login/). Klingon viewing and restriction constructions were checked against the [Klingon Language Institute's sentence examples](https://www.kli.org/duolingo/identify-people/) and [Klingonska Akademien's adverb reference](https://klingonska.org/ref/adv.html). These references support vocabulary and grammar components, not the complete drafted sentences.
+
+Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in nine locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
