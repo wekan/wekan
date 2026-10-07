@@ -4813,6 +4813,13 @@ mixed-language audit remains open.
 - Low confidence: these are provisional technical paraphrases, mixing historical vocabulary with the catalog's modern relative construction. Corner is used for angle, day for date, and work for function. Pixel is a loan; checkbox uses a coined mark-container compound; grid dropdown describes a descending list with small containers. Input and name phrases need grammatical and Blockly-specific review. The cited entries attest components, not the complete UI phrases.
 - Existing Nahuatl browser flow remains registered but unexecuted. Spoken announcements, the 148 pending source keys and the broader semantic audit remain open.
 
+### Greenlandic field types
+
+- Filled 11 English field-type placeholders through the protected fill and extended field-type distinctions and source-token checks. Existing non-English values were preserved.
+- Vocabulary references: the [Greenland transport commission's satellite report](https://kanat.gl/-/media/transportkommissionen/rapporter/telekommunikation/kal/redegrelse_for_satellitkommunikation_i_grnland_kal.pdf) uses `qiverneq` in an angle explanation; [Oqaasileriffik's morphology resource](https://mofo.oqa.dk/Morphemes/kl/affix/nv/-iqluiq) identifies `qalipaat` as color/paint. [MitID's Greenlandic interface guide](https://www.mitid.dk/kl-gl/ikiortigit/hjaelpeuniversimi/mitid-quppernerit/) uses `allaffissaq` for a field, and [MitID Erhverv](https://www.mitid-erhverv.dk/gl/mitid-erhverv-imi-annertusisamik-atuuffiit/lokal-idm/) supplies software-function vocabulary. [This art-history discussion](https://www.journal18.org/issue12/poqs-temporal-sovereignty-and-the-inuit-printing-of-colonial-history/) describes `assiliaq` as image.
+- Low confidence: pixel inflection and the image-made-of-pixels phrase, a markable item for checkbox, grid as division into boxes, and the grammatical form of input/function names need review. Dropdown reuses the catalog's selection-list phrase; date uses day. The references attest component vocabulary and related uses, not the complete technical labels.
+- Existing Greenlandic browser flow is registered but unexecuted. Spoken announcements, the 148 pending source keys and the broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
