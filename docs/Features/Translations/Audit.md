@@ -4502,6 +4502,13 @@ mixed-language audit remains open.
 - All twelve focused Node tests and 21 human-preference checks pass. Extended exact token-inventory and distinct-direction checks, alongside existing negative import tests. Extended localized editor drag/edit/context-menu browser coverage; syntax passes, but execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
 - Ordinary placeholders decrease from 49,917 to 49,821 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## Blockly movement announcements: ten southern African locale files (2026-10-07)
+
+- Filled twelve movement and scrolling announcements in Sesotho, Setswana, Sepedi, Zulu (`zu` and `zu-ZA`), Xhosa, Swati, Northern Ndebele, Tsonga and Venda (120 values). The protected fill utility preserved existing translations. Arguments and distinct directions are retained. Technical phrasing, particularly Swati, Northern Ndebele and Venda, remains low confidence and needs fluent-speaker review.
+- Direction vocabulary was cross-checked against the [Sesuto-English dictionary](https://emandulo.apc.uct.ac.za/collection/FHYA%20Depot/Mabille_Adolphe_Sesuto_English_Dictionary.pdf), [Swati school terminology](https://www.education.gov.za/LinkClick.aspx?fileticket=4wAu1c3Kfts%3D&mid=14442&portalid=0&tabid=5590) and [Venda dictionary](https://www.scribd.com/document/781724274/67089703335-1). These references do not validate complete technical clauses.
+- All twelve focused Node tests and 21 human-preference checks pass. Extended token-inventory and distinct-direction checks alongside existing negative import tests. Added the ten locales to the localized editor drag/edit/context-menu browser flow. Syntax passes; browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
+- Ordinary placeholders decrease from 49,821 to 49,701 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
