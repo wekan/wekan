@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **47,916 untranslated locale/string values in 70 languages**. It
+  report counts **47,883 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -1986,6 +1986,18 @@ snap.
 and updates the following translations:
 
 **Activity notifications** - choosing which card activity sends notifications.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cc1086bcf2558f28a77fa77cee58640a99235f0d">Translate Māori, Tongan and Hawaiian field-type labels.</a></summary>
+
+- Fill 33 English placeholders and repair four selector labels, preserving source arguments and existing correct-language translations.
+- Extend field-type distinctions and selector-label regressions. Vocabulary references and low-confidence technical phrases are documented in the translation audit.
+- Ordinary untranslated values decrease from 47,916 to 47,883 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 19 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4282d46703c0ec3354c60e8965f70abdfa56f90a">Translate Pacific Blockly field-type labels.</a></summary>
