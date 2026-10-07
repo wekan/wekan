@@ -6380,6 +6380,23 @@ check still fails on missing shortcut-edit-due-date keys in other locales.
 Browser and screen-reader checks were not run. The broader language and
 wording audit remains open.
 
+## Tok Pisin Blockly text operations — 2026-10-08
+
+Filled 55 English placeholders for text creation, search, replacement, letter
+case, character positions, prompts and trimming. Existing translations remain
+unchanged. Left/right wording uses han kais and han sut, attested in the
+[dictionary's kais entry](https://www.tokpisin.info/category/tok-pisin-to-english/k/)
+and [sut entry](https://www.tokpisin.info/sut/). Variable, index and substring
+wording remains low confidence pending fluent-speaker review.
+
+The combined focused run passes 47 checks, including all 11 Tok Pisin checks.
+Two shared catalog checks still fail on missing shortcut-edit-due-date keys
+in other locales. All 21 human-preference checks pass. Coverage preserves
+source tokens, search operands and failure return, replacement arguments,
+all-occurrence semantics, case distinctions, trim directions and number/text
+prompts. Browser and screen-reader checks were not run. The broader language
+and wording audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
