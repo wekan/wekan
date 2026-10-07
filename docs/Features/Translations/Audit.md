@@ -7253,6 +7253,14 @@ and retain unfinished-work and planned/active sprint qualifications.
 Scrum-role and increment terminology remains low confidence pending fluent
 review. Browser and screen-reader checks were not run.
 
+### Kurdish sprint report and event labels
+
+Filled 35 English placeholders for sprint events, totals, estimates, lifecycle
+states, workflow categories and import references. Existing translations are
+preserved. Tests check key order, token inventories and distinct event and
+lifecycle labels. Retrospective and swimlane terminology remains low confidence
+pending fluent review. Browser and screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
