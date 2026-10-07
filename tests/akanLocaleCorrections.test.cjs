@@ -1054,3 +1054,20 @@ test('Akan checklist and activity labels preserve completion triggers and sound 
  assert.match(data['lost-cards-list'],/wɔasan de aba/);
  assert.match(data['editChecklistItemsAsTextPopup-title'],/nsɛm a wɔakyerɛw/);
 });
+
+
+test('Akan conversion and authorization messages preserve requirements and formats', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["convertChecklistItemToCardPopup-title", "deleteDuplicateListsPopup-title", "import-json-placeholder", "import-csv-placeholder", "delete-duplicate-lists", "duplicate-board", "duplicate-board-confirm", "convert-to-markdown", "step-fix-orphaned-cards", "repair-broken-cards", "error-board-notAdmin", "error-board-notAMember", "error-notAllowed", "error-org-domain-taken"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.equal(data['deleteDuplicateListsPopup-title'],data['delete-duplicate-lists']);
+ assert.match(data['import-json-placeholder'],/JSON.*ɛfata/);
+ assert.match(data['import-csv-placeholder'],/CSV\/TSV.*ɛfata/);
+ assert.match(data['convert-to-markdown'],/markdown/);
+ assert.match(data['duplicate-board-confirm'],/nsɛso\?$/);
+ assert.match(data['error-board-notAdmin'],/bɔɔd yi sohwɛfo ansa/);
+ assert.match(data['error-board-notAMember'],/bɔɔd yi muni ansa/);
+ assert.match(data['error-notAllowed'],/mma wo kwan/);
+ assert.match(data['error-org-domain-taken'],/ahyehyɛde foforo dedaw: $/);
+ assert.notEqual(data['step-fix-orphaned-cards'],data['repair-broken-cards']);
+});

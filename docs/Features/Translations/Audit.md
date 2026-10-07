@@ -5688,6 +5688,15 @@ its default-off state, plus avatar size units. Added token, state and action
 checks. Wording remains low confidence pending fluent-speaker review; browser
 checks remain unrun. English-placeholder counts are unchanged.
 
+## Akan conversion and authorization corrections (batch 58)
+
+Corrected 14 mixed-language conversion, import and authorization messages.
+Preserved JSON/CSV/TSV formats, administrator versus member requirements, denial
+of permission and the domain-conflict prefix. Aligned duplicate-list labels and
+kept orphaned-card and broken-card repair distinct. Added token, format and
+requirement checks. Wording remains low confidence pending fluent-speaker review;
+browser checks remain unrun. English-placeholder counts are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
