@@ -4298,6 +4298,13 @@ mixed-language audit remains open.
 - Extended the existing placeholder/state checks and browser report flow to these locales, and checked Tifinagh use without Arabic or Latin prose in the ten Tamazight strings. All 17 focused Node tests and 21 human-preference checks pass; script checks do not prove language accuracy. Browser syntax passes, but execution remains unverified because the local Playwright executable is unavailable.
 - These ten report strings remain English in Cherokee, Inuktitut and Tigre. Ordinary placeholders decrease from 50,985 to 50,955 across 70 languages; 148 pending keys still require wording review.
 
+## Rule email report labels: final three placeholder locales (2026-10-07)
+
+- Filled ten English report strings each in Cherokee, Inuktitut and Tigre (30 values). All three sets remain low-confidence technical drafts, especially Cherokee's full clauses and the server/invocation paraphrases; semantic review remains open.
+- Used existing locale vocabulary and consulted the [Cherokee try-verb reference](https://www.culturev.com/cherokee/vtry.html) and [Inuktut affix dictionary](https://www.taiguusiliuqtiit.ca/en/file-download/download/public/56). These references do not establish sentence-level fluency.
+- Expanded the report translation check to all 234 non-English locales, checking nonempty non-English values, token inventory and distinct delivery states. All 17 focused Node tests and 21 human-preference checks pass. Extended browser coverage for the final three locales; syntax passes, but execution remains unverified because the local Playwright executable is unavailable.
+- All ten report strings now have non-English values in all non-English locales. Ordinary placeholders decrease from 50,955 to 50,925 across 70 languages; 148 pending keys still require wording review. This completes placeholder coverage for this group, not the full translation or semantic audit.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

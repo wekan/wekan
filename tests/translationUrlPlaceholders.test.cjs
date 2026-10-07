@@ -315,7 +315,11 @@ test('rule email report translations preserve tokens and distinct delivery state
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   const source = JSON.parse(fs.readFileSync(path.join(directory, 'en.i18n.json')));
   const suffixes = ['heading', 'description', 'all', 'unconfirmed', 'sent', 'invalid', 'identifiers', 'started', 'finished', 'empty'];
-  for (const code of ['ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm', 'tk_TM', 'yi', 'bho', 'mai', 'or_IN', 'kok', 'pap', 'ary', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've', 'bi', 'tpi', 'fj', 'to', 'haw', 'om', 'rw', 'rn', 'lg', 'wa', 'wa-RR', 'ace', 'gv', 'se', 've-CC', 'rup', 'ak', 'bm', 'ee', 'wo', 'ff', 'ks', 'bua', 'cv', 'sah', 'bo', 'dz', 'ti', 'qu', 'ay', 'gn', 've-PP', 'vo', 'tlh', 'nah', 'wal', 'zgh']) {
+  const codes = fs.readdirSync(directory)
+    .filter(file => file.endsWith('.i18n.json') && !/^en(?:[-_]|\.)/.test(file))
+    .map(file => file.replace('.i18n.json', ''));
+  assert.equal(codes.length, 234);
+  for (const code of codes) {
     const locale = JSON.parse(fs.readFileSync(path.join(directory, code + '.i18n.json')));
     for (const suffix of suffixes) {
       const key = 'rule-email-recovery-' + suffix;
