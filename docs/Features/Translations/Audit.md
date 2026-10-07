@@ -5043,6 +5043,12 @@ mixed-language audit remains open.
 - Added checks distinguishing upward/downward rounding, integer/float bounds, base-10 logarithms and sign reversal. Existing inventory checks cover all added keys and their placeholders.
 - Statistical, rounding and logarithm terminology remains provisional; mathematical fluency and spoken accessibility need contextual review. Browser checks were not run.
 
+### Waray Blockly trigonometry, variables and procedures
+
+- Filled 51 English placeholders through the protected workflow, covering trigonometry accessibility labels and tooltips, workspace controls, variables, function definitions and calls. Retained mathematical abbreviations and numbered arguments.
+- Kept degree/radian distinctions, inverse operations, return/no-return functions, disabled-definition restrictions and rename-all scope explicit. Added regression assertions for those distinctions alongside the existing token inventory checks.
+- Trigonometric loanwords, inverse-function wording and programming metaphors remain low confidence. Dictionary searches did not establish standard Waray trigonometric terminology; these proposed terms require fluent mathematical review. Browser and spoken accessibility checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

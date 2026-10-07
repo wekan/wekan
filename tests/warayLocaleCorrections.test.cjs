@@ -531,7 +531,58 @@ const correctedKeys = [
   "blockly-MATH_SINGLE_TOOLTIP_NEG",
   "blockly-MATH_SINGLE_TOOLTIP_POW10",
   "blockly-MATH_SINGLE_TOOLTIP_ROOT",
-  "blockly-MATH_SUBTRACTION_SYMBOL_ARIA"
+  "blockly-MATH_SUBTRACTION_SYMBOL_ARIA",
+  "blockly-MATH_TRIG_ACOS_ARIA",
+  "blockly-MATH_TRIG_ASIN_ARIA",
+  "blockly-MATH_TRIG_ATAN_ARIA",
+  "blockly-MATH_TRIG_COS_ARIA",
+  "blockly-MATH_TRIG_SIN_ARIA",
+  "blockly-MATH_TRIG_TAN_ARIA",
+  "blockly-MATH_TRIG_TOOLTIP_ACOS",
+  "blockly-MATH_TRIG_TOOLTIP_ASIN",
+  "blockly-MATH_TRIG_TOOLTIP_ATAN",
+  "blockly-MATH_TRIG_TOOLTIP_COS",
+  "blockly-MATH_TRIG_TOOLTIP_SIN",
+  "blockly-MATH_TRIG_TOOLTIP_TAN",
+  "blockly-MINIMAP_ARIA_LABEL",
+  "blockly-MOVE_BLOCK",
+  "blockly-NEW_COLOUR_VARIABLE",
+  "blockly-NEW_NUMBER_VARIABLE",
+  "blockly-NEW_STRING_VARIABLE",
+  "blockly-NEW_VARIABLE",
+  "blockly-NEW_VARIABLE_TITLE",
+  "blockly-NEW_VARIABLE_TYPE_TITLE",
+  "blockly-NO_PARENT_ANNOUNCEMENT",
+  "blockly-OPEN_BACKPACK",
+  "blockly-OPEN_TRASH",
+  "blockly-PARENT_BLOCKS_ANNOUNCEMENT",
+  "blockly-PASTE_ALL_FROM_BACKPACK",
+  "blockly-PASTE_SHORTCUT",
+  "blockly-PROCEDURES_ALLOW_STATEMENTS",
+  "blockly-PROCEDURES_BEFORE_PARAMS",
+  "blockly-PROCEDURES_CALLNORETURN_TOOLTIP",
+  "blockly-PROCEDURES_CALLRETURN_TOOLTIP",
+  "blockly-PROCEDURES_CALL_BEFORE_PARAMS",
+  "blockly-PROCEDURES_CALL_DISABLED_DEF_WARNING",
+  "blockly-PROCEDURES_CREATE_DO",
+  "blockly-PROCEDURES_DEFNORETURN_COMMENT",
+  "blockly-PROCEDURES_DEFNORETURN_PROCEDURE",
+  "blockly-PROCEDURES_DEFNORETURN_TOOLTIP",
+  "blockly-PROCEDURES_DEFRETURN_RETURN",
+  "blockly-PROCEDURES_DEFRETURN_TOOLTIP",
+  "blockly-PROCEDURES_DEF_DUPLICATE_WARNING",
+  "blockly-PROCEDURES_HIGHLIGHT_DEF",
+  "blockly-PROCEDURES_IFRETURN_TOOLTIP",
+  "blockly-PROCEDURES_IFRETURN_WARNING",
+  "blockly-PROCEDURES_MUTATORARG_TITLE",
+  "blockly-PROCEDURES_MUTATORARG_TOOLTIP",
+  "blockly-PROCEDURES_MUTATORCONTAINER_TITLE",
+  "blockly-PROCEDURES_MUTATORCONTAINER_TOOLTIP",
+  "blockly-REDO",
+  "blockly-REMOVE_FROM_BACKPACK",
+  "blockly-RENAME_VARIABLE",
+  "blockly-RENAME_VARIABLE_TITLE",
+  "blockly-RESET_ZOOM"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -626,6 +677,15 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   assert.match(waray['blockly-MATH_ROUND_OPERATOR_ROUNDUP'], /tipaigbaw/);
   assert.match(waray['blockly-MATH_SINGLE_OP_LOG10_ARIA'], /base nga 10/);
   assert.match(waray['blockly-MATH_SINGLE_TOOLTIP_NEG'], /positibo nagigin negatibo.*negatibo nagigin positibo/);
+  for (const op of ['COS', 'SIN', 'TAN']) {
+    assert.match(waray['blockly-MATH_TRIG_TOOLTIP_' + op], /grado \(diri radian\)/);
+    assert.match(waray['blockly-MATH_TRIG_A' + op + '_ARIA'], /^baliktad/);
+  }
+  assert.match(waray['blockly-PROCEDURES_DEFNORETURN_TOOLTIP'], /waray ibinabalik/);
+  assert.match(waray['blockly-PROCEDURES_DEFRETURN_TOOLTIP'], /may ibinabalik/);
+  assert.match(waray['blockly-PROCEDURES_IFRETURN_WARNING'], /la ha sulod han depinisyon/);
+  assert.match(waray['blockly-PROCEDURES_CALL_DISABLED_DEF_WARNING'], /diri aktibo an bloke han depinisyon/);
+  assert.match(waray['blockly-RENAME_VARIABLE_TITLE'], /ngatanan/);
   const statistics = ['AVERAGE', 'MEDIAN', 'MODE', 'STD_DEV', 'SUM'].map(s => waray['blockly-MATH_ONLIST_OPERATOR_' + s]);
   assert.equal(new Set(statistics).size, statistics.length);
   assert.match(waray['blockly-MATH_ONLIST_TOOLTIP_MODE'], /lista han mga butang/);
