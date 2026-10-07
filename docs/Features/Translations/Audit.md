@@ -3362,6 +3362,14 @@ References include the [Bambara lexicon](https://mooreburkina.com/sites/www.moor
 
 Ten translation/token regressions, import-loss positive/negative checks, all 234 locale structure checks and 21 human-preference checks pass. Extended the browser cases to six more locales; they were syntax-checked only because the local Playwright executable and running application are unavailable. Each of the three source keys remains English in 24 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
 
+### Import warning report: Buryat, Chuvash, Sakha and Northern Sámi
+
+Filled twelve English placeholders in `bua`, `cv`, `sah` and `se`. The fill utility protected existing translations; no translation service was used. The drafts retain board creation, incomplete transfer and the two-arrow recovery-menu path using existing menu terminology.
+
+Vocabulary references include [Buryat warning usage](https://www.stepbible.org/?q=version%3DBxrBBL2024%40reference%3DPro.1), the [Chuvash-Russian dictionary](https://elbib.nbchr.ru/lib_files/0/kchy_0_0000117.pdf) for `асӑрхаттару`, [Sakha сэрэтии](https://sakhatyla.ru/translate?q=сэрэтии), and the [Northern Sámi-English vocabulary](https://www.scribd.com/document/400707253/Makarainen-K-Sami-English-vocabulary-pdf) for `váruhus`. The references support vocabulary, not full-sentence accuracy. All four drafts have low-confidence case endings, passive/negative constructions and technical phrasing that need fluent-speaker review. Shared Cyrillic script does not prove Buryat, Chuvash or Sakha correctness.
+
+Ten translation/token regressions, import-loss positive/negative checks, all 234 locale structure checks and 21 human-preference checks pass. Extended the browser cases to these four locales; they were syntax-checked only because the local Playwright executable and running application are unavailable. Each of the three source keys remains English in 20 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
