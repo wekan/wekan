@@ -1890,6 +1890,19 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/91054ae84d3b3fca114705dd14b520377043a3ad">Translate placement labels in Nahuatl, Tamazight and Tigre</a>. Thanks to xet7.</summary>
+
+- Fill six placement labels, preserving existing translations. Record vocabulary
+  sources and lower-confidence standalone wording for native/UI review.
+- Placement checks cover 64 recently filled locales. Runtime, structural and
+  human-preference checks pass; browser scenarios were syntax-checked but not run
+  without the application stack.
+- Cherokee and Wolaytta still need this pair. The ordinary backlog remains 51,575
+  values plus 174 pending source keys; broader language-quality work remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/737de798ce62275269f192e7a69f0b1fc14526a5">Translate placement labels in Dzongkha, Greenlandic and Inuktitut</a>. Thanks to xet7.</summary>
 
 - Fill six spatial placement labels, preserving existing translations. Record
