@@ -1890,6 +1890,15 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/64ed67170dd07f14316cce450926de15c93871f7">Translate board visibility in Standard Moroccan Tamazight</a>. Thanks to xet7.</summary>
+
+- Fill three English values in Tifinagh, preserving viewing and editing distinctions and confirmation emphasis. Record low-confidence login phrasing and grammar for fluent-speaker review.
+- Extend existing source-order, token, markup and rendered-emphasis checks. Translation and permission tests pass; the browser suite was syntax-checked only because the application stack is unavailable.
+- These three keys remain English in four locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys, with language-quality review open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6a516f1442d85b1d61b8d3e0a92feacae68ba8a0">Translate board visibility in Nahuatl</a>. Thanks to xet7.</summary>
 
 - Fill three English values, preserving viewing and editing distinctions and confirmation emphasis. Record references and low-confidence software terminology and grammar for fluent-speaker review.
