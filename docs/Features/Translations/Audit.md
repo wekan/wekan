@@ -4969,6 +4969,12 @@ mixed-language audit remains open.
 - Preserved IPv4/IPv6, REST API, MongoDB and `WITH_API=true`. API reporting retains one row per account/endpoint rather than per request; recovery wording distinguishes no recorded events from the database being healthy, and waiting from recovery completion.
 - Extended corrected-key, configuration, aggregation and first/last/edited/moved distinction checks. Technical language for corruption, recovery and database growth remains provisional; tests do not establish fluent wording. Browser checks and further wrong-language review remain open.
 
+### Waray storage, backup scope and board-status labels
+
+- Corrected 25 verified Walloon values in `wa-RR`, covering checklist text editing, identifiers, storage, board timing/status, lazy loading and organization backup scope. Product names and identifiers remain intact.
+- Backup guidance retains the exclusion of user accounts and instance settings and limits restoration writes to boards owned by the organization. Lazy-loading wording retains the restriction to large boards; time spent and remaining time remain distinct.
+- Extended the corrected-key regression, product-name checks and scope/restriction checks. Technical wording for compaction, connection strings, tenant overrides and subtasks remains provisional. Browser checks, further Waray contamination and broader semantic review remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

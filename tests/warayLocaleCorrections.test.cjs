@@ -168,7 +168,32 @@ const correctedKeys = [
   "history-change-edited",
   "history-change-moved",
   "email-domain-allowed-to-invite",
-  "edit-checklist-items-as-text"
+  "edit-checklist-items-as-text",
+  "editChecklistItemsAsTextPopup-title",
+  "move-storage-fs",
+  "card-id",
+  "attachment-id",
+  "gridfs-file-id",
+  "s3-file-id",
+  "mongodb-compact",
+  "board-status",
+  "board-status-loading-mode",
+  "board-status-time-spent-total",
+  "board-status-cards-with-time",
+  "board-status-overtime-cards",
+  "board-status-remaining-time-total",
+  "uncheckAllItems",
+  "hideCompletedSubtasks",
+  "azure-blob-storage-description",
+  "azure-connection-string",
+  "gcs-storage-description",
+  "cards-loading-auto",
+  "backup-scope",
+  "backup-scope-description",
+  "theme-override-all-tenants",
+  "backup-frequency-off",
+  "gcs-project-id",
+  "s3-endpoint"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -212,6 +237,12 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   assert.match(waray['api-report-desc'], /diri gud usa nga linya para ha tagsa nga hangyo/);
   assert.notEqual(waray['office-first-seen'], waray['office-last-seen']);
   assert.notEqual(waray['history-change-edited'], waray['history-change-moved']);
+  assert.match(waray['backup-scope-description'], /waray mga account.*waray mga setting/);
+  assert.match(waray['backup-scope-description'], /nagsusurat la ha mga board nga gintatag-iya/);
+  assert.match(waray['cards-loading-auto'], /para la ha dagko nga board/);
+  for (const [key, name] of [['gridfs-file-id', 'GridFS'], ['s3-file-id', 'S3'], ['azure-blob-storage-description', 'Microsoft Azure Blob Storage'], ['gcs-storage-description', 'Google Cloud Storage']]) {
+    assert.ok(waray[key].includes(name), key);
+  }
   for (const key of ['operator-org', 'predicate-projection']) {
     assert.doesNotMatch(waray[key], /\s|:/, key);
   }
