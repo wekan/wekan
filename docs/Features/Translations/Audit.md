@@ -4318,6 +4318,12 @@ mixed-language audit remains open.
 - Extended the existing positive browser save/reload/apply/replace/delete flow and negative invalid-expression flow to these eight locales. All 15 focused Node tests and 21 human-preference checks pass. Browser syntax passes; execution remains unverified because the local Playwright executable is unavailable.
 - These ten strings remain English in 51 locales. Ordinary placeholders decrease from 50,855 to 50,775 across 70 languages; 148 pending keys still require wording review.
 
+## Saved filter labels: ten southern African locale files (2026-10-07)
+
+- Filled ten English strings each in Southern Sotho, Tswana, Northern Sotho, both Zulu locales, Xhosa, Swati, Northern Ndebele, Tsonga and Venda (100 values), using each locale's existing filtering vocabulary. Preserved the private-per-user, per-board scope and same-name replacement semantics. Technical clauses remain provisional, especially Swati, Northern Ndebele, Tsonga and Venda.
+- Extended the existing positive browser save/reload/apply/replace/delete flow and negative invalid-expression flow to these ten locales. All 15 focused Node tests and 21 human-preference checks pass. Browser syntax passes; execution remains unverified because the local Playwright executable is unavailable.
+- These ten strings remain English in 41 locales. Ordinary placeholders decrease from 50,775 to 50,675 across 70 languages; 148 pending keys still require wording review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
