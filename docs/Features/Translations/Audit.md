@@ -4471,6 +4471,13 @@ mixed-language audit remains open.
 - Both focused Node tests and 21 human-preference checks pass, including positive/negative drag-policy assertions. Extended localized heading and disable/re-enable persistence browser coverage. Browser syntax passes; execution remains unverified because Playwright is unavailable locally.
 - Ordinary placeholders decrease from 50,033 to 50,020 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## Board drag-permission label: twelve further locales (2026-10-07)
+
+- Filled `draggable` in Buryat, Chuvash, Sakha, Tibetan, Dzongkha, Tigrinya, Quechua, Aymara, Guarani, Veps, Volapük and Klingon. Technical wording remains provisional, particularly Chuvash, Veps and the constructed languages.
+- Used the Volapük pull root `tirön` from the [Midgley dictionary](https://xn--volapk-7ya.com/EnVoDictionary-20100830.pdf). Refined Klingon to `HoqlaH vay'`, avoiding incompatible suffixes and the abrupt yank verb; the [KLI discussion](https://lists.kli.org/archives/list/tlhingan-hol%40lists.kli.org/thread/T3TNKU5ES7COQ3NDWFQOL6U5SMQ7NCQV/) distinguishes pulling an object along from yanking. The complete UI labels still require semantic review.
+- Both focused Node tests and 21 human-preference checks pass, including positive/negative drag-policy assertions. Extended localized heading and disable/re-enable persistence browser coverage. Browser syntax passes; execution remains unverified because Playwright is unavailable locally.
+- Ordinary placeholders decrease from 50,020 to 50,008 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
