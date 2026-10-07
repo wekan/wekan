@@ -2615,6 +2615,25 @@ not run; the app stack was unavailable. 8 locale paths still need this group.
 The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
 broader language-quality review remains open.
 
+### Rule-builder instructions — Greenlandic (2026-10-07)
+
+Filled seven pending strings in kl, preserving existing translations and all
+literal variable expressions. No translation service was used. The text retains
+any-trigger behavior, ordered actions, username/email context and card-derived
+variables. Technical prose has lower confidence; inflections, recipient fields,
+variable values and composed date fragments need native/UI review.
+References include the [Greenlandic-English dictionary](https://daka.gl/2018-kal-eng/)
+for malittarisassaq and
+[ateq usage](https://learngreenlandic.com/online/lg1/5.1/text/?lang=eng).
+These references support vocabulary, not full-sentence accuracy.
+
+The existing trigger-variable suite now checks 59 recently filled locales for
+source order and exact brace/underscore/percent tokens. Runtime matching,
+all-locale structural and human-preference checks pass. Browser scenarios were
+not run; the app stack was unavailable. 7 locale paths still need this group.
+The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
+broader language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
