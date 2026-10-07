@@ -428,3 +428,19 @@ test('Akan backup and migration descriptions preserve ownership and deletion sco
  assert.notEqual(data['disable-import-avatars'],data['disable-export-avatars']);
  assert.notEqual(data['anonymize-import-users'],data['anonymize-export-users']);
 });
+
+test('Akan account and repair results preserve counts and incomplete outcomes', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["monitoring-export-failed", "account-locked", "username-password-required", "password-mismatch", "account-created", "problems-summary-help", "problems-none-in-progress", "repair-broken-cards-done-unfixable", "restore-list-swimlanes-done", "export-card-details", "import-here-instruction", "import-not-wekan-export", "globalSearch-instructions-operator-number", "import-board-source", "import-parts-instruction", "import-wekan-file", "flow-samples", "flow-episodes", "flow-history-days", "flow-details"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.match(data['account-locked'],/bere tiaa bi.*akyiri yi/);
+ assert.match(data['password-mismatch'],/nhyia/);
+ assert.match(data['repair-broken-cards-done-unfixable'],/__unfixable__ nni bɔɔd.*ntumi nsiesie/);
+ assert.match(data['restore-list-swimlanes-done'],/Wɔantumi.*__remaining__/);
+ for(const key of ['import-here-instruction','import-wekan-file']) assert.match(data[key],/\.json.*\.zip/);
+ assert.match(data['import-parts-instruction'],/nkutoo.*ara di dwuma/);
+ const key='globalSearch-instructions-operator-number';
+ assert.deepEqual(data[key].match(/`[^`]+`/g),english[key].match(/`[^`]+`/g));
+ assert.deepEqual(data[key].match(/<[^>]+>/g),english[key].match(/<[^>]+>/g));
+ assert.notEqual(data['flow-samples'],data['flow-episodes']);
+});

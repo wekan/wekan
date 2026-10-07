@@ -5405,6 +5405,12 @@ Rewrote 16 mixed-language labels and descriptions for transfer controls, anonymi
 
 Tests cover source tokens, ownership and deletion restrictions, technical identifiers, admin-only scope and shared anonymization labels. Backup and migration terminology remains provisional. Browser checks were not run; broader semantic review continues.
 
+### Akan mixed-language correction: account errors, repair results and flow labels
+
+Rewrote 20 mixed-language or malformed account, repair-result, import and flow-history messages. Preserve temporary-lockout behavior, unfixable/remaining counts, file extensions, selective-import scope and card-number query syntax.
+
+Tests compare source tokens and query examples and cover failed/partial outcomes, format names and distinct history labels. Flow-history and repair wording remains provisional. Browser checks were not run; broader language review continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
