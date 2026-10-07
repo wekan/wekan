@@ -5005,6 +5005,12 @@ mixed-language audit remains open.
 - Kept dividend/divisor, minimum/maximum, x/y, find/replace and statement/value distinct. Navigation wording retains holding the first key, accepting with the second and distinguishing copied from cut content.
 - Extended token, operand, opposite-operation and navigation-sequence checks. Division paraphrases, coordinate terminology and unconstrained movement wording remain provisional and need contextual accessibility review. Browser and spoken checks remain unexecuted.
 
+### Waray Blockly list creation and retrieval
+
+- Filled 27 English placeholders through the protected workflow, covering list creation, first/last/random/indexed retrieval and removal, and an end-relative sublist bound. Retained keyboard/platform names and the literal `#` position marker.
+- Distinguished returning an item without removal, removing and returning it, and removal alone across all four position modes. Empty-list wording retains length 0 and no data records.
+- Extended corrected-key/token checks and positive/negative operation wording checks. Programming return, random selection and end-relative indexing terminology remains provisional and needs contextual review. Browser and spoken accessibility checks remain unexecuted.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

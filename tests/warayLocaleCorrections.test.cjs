@@ -365,7 +365,34 @@ const correctedKeys = [
   "blockly-KEYBOARD_NAV_CUT_HINT",
   "blockly-KEYBOARD_NAV_FLYOUT_LABEL_HINT",
   "blockly-KEYBOARD_NAV_UNCONSTRAINED_MOVE_HINT",
-  "blockly-KEYBOARD_NAV_WORKSPACE_NAVIGATION_HINT"
+  "blockly-KEYBOARD_NAV_WORKSPACE_NAVIGATION_HINT",
+  "blockly-LISTS_CREATE_EMPTY_TITLE",
+  "blockly-LISTS_CREATE_EMPTY_TOOLTIP",
+  "blockly-LISTS_CREATE_WITH_CONTAINER_TITLE_ADD",
+  "blockly-LISTS_CREATE_WITH_CONTAINER_TOOLTIP",
+  "blockly-LISTS_CREATE_WITH_INPUT_WITH",
+  "blockly-LISTS_CREATE_WITH_ITEM_TOOLTIP",
+  "blockly-LISTS_CREATE_WITH_TOOLTIP",
+  "blockly-LISTS_GET_INDEX_FIRST",
+  "blockly-LISTS_GET_INDEX_FROM_END",
+  "blockly-LISTS_GET_INDEX_GET",
+  "blockly-LISTS_GET_INDEX_GET_REMOVE",
+  "blockly-LISTS_GET_INDEX_LAST",
+  "blockly-LISTS_GET_INDEX_RANDOM",
+  "blockly-LISTS_GET_INDEX_REMOVE",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_GET_FIRST",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_GET_FROM",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_GET_LAST",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_GET_RANDOM",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_FIRST",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_FROM",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_LAST",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_RANDOM",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_FIRST",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_FROM",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_LAST",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_RANDOM",
+  "blockly-LISTS_GET_SUBLIST_END_FROM_END"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -434,6 +461,15 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   }
   assert.match(waray['blockly-KEYBOARD_NAV_UNCONSTRAINED_MOVE_HINT'], /Pugngi an %1.*%2 basi karawaton/);
   assert.notEqual(waray['blockly-KEYBOARD_NAV_COPIED_HINT'], waray['blockly-KEYBOARD_NAV_CUT_HINT']);
+  for (const position of ['FIRST', 'FROM', 'LAST', 'RANDOM']) {
+    const prefix = 'blockly-LISTS_GET_INDEX_TOOLTIP_';
+    assert.match(waray[prefix + 'GET_' + position], /^Nagbabalik/);
+    assert.doesNotMatch(waray[prefix + 'GET_' + position], /Nagtatanggal/);
+    assert.match(waray[prefix + 'GET_REMOVE_' + position], /^Nagtatanggal ngan nagbabalik/);
+    assert.match(waray[prefix + 'REMOVE_' + position], /^Nagtatanggal/);
+    assert.doesNotMatch(waray[prefix + 'REMOVE_' + position], /nagbabalik/);
+  }
+  assert.ok(waray['blockly-LISTS_GET_INDEX_FROM_END'].includes('#'));
   for (const kind of ['COMMENT', 'WARNING']) {
     assert.match(waray['blockly-ICON_LABEL_' + kind + '_CLOSED'], /^Abrihi/);
     assert.match(waray['blockly-ICON_LABEL_' + kind + '_OPEN'], /^Isara/);
