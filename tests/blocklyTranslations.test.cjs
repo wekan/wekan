@@ -157,10 +157,10 @@ test('filled field types distinguish images, selectors and input names', async()
  }
 });
 
-test('Kurdish and Tatar block and bubble labels preserve arguments and semantic distinctions',async()=>{
+test('filled block and bubble labels preserve arguments and semantic distinctions',async()=>{
  const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
  const keys=Object.keys(english).filter(k=>/^blockly-(BLOCK_LABEL_|BUBBLE_LABEL_)/.test(k));
- for(const code of ['ku','ckb','tt']){
+ for(const code of ['ku','ckb','tt','yi','tk_TM','bho','mai']){
   const data=require(`../imports/i18n/data/${code}.i18n.json`);
   for(const key of keys){
    assert.ok(data[key]?.trim(),`${code}:${key}`);

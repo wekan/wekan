@@ -4862,6 +4862,13 @@ mixed-language audit remains open.
 - Kurdish container, replaceability and bubble terminology remains lower confidence; accessibility wording and the stack/statement paraphrases need contextual review. Structural distinction checks do not prove semantic equivalence.
 - Added token and non-placeholder checks plus distinction regressions. Existing browser flows cover these locales but remain unexecuted; spoken announcements, the 148 pending source keys and the broader semantic audit remain open.
 
+### Yiddish, Turkmen, Bhojpuri and Maithili block and bubble labels
+
+- Filled 64 English placeholders through the protected fill: block-state/type labels, stack descriptions, input/branch counts and comment/warning bubbles. Numbered arguments and existing correct-language values are preserved.
+- Direct translations follow general programming vocabulary and the catalogs. Stack is expressed as a block chain/row and statement as a command/instruction. Bhojpuri and Maithili use their own clause endings; shared technical loans alone do not determine language identity.
+- Lower-confidence wording includes the stack/row and bubble metaphors, container loans and plural-input paraphrases. These labels need contextual accessibility review; distinct strings and intact tokens are structural checks, not proof of fluent wording.
+- Extended existing token, non-placeholder and distinction regressions to all four locales. Existing browser flows cover these languages but remain unexecuted. Spoken announcements, the 148 pending source keys and the broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
