@@ -1250,6 +1250,20 @@ stack is unavailable. Fifty-five locales still need this group. The ordinary
 backlog remains 51,575 values plus 188 pending source keys. No external translation
 service was used.
 
+## Zulu, Xhosa, Sesotho and Setswana due reminders — 2026-10-07
+
+Filled six `due-reminder-*` placeholders in `zu`, `zu-ZA`, `xh`, `st` and `tn`
+(30 values), preserving existing translations. Both Zulu paths receive the same
+new strings. The translations retain commas, zero as due day, above-zero/before
+and below-zero/after offsets, blank/server fallback, whole days, ten-entry limit
+and the signed -14 to 14 range. Webhook remains a technical term.
+
+Shared translation checks and the existing board-reminder browser scenario now
+cover 16 locales. Source-order/token, numeric-limit and wording checks pass, as
+do human-preference checks. Browser scenarios are syntax-checked only because
+the application stack is unavailable. Fifty locale paths still need this group.
+The ordinary backlog remains 51,575 values plus 188 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
