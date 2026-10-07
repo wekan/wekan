@@ -495,6 +495,26 @@ pass, together with all-locale structure and human-preference checks. The
 existing browser mute/unmute scenario checks all 13 strings for each added
 locale. It is syntax-checked only; no browser execution was available.
 
+## Kinyarwanda, Kirundi and Chichewa notification preferences — 2026-10-07
+
+Filled 13 English placeholders each in Kinyarwanda (`rw`), Kirundi (`rn`)
+and Chichewa (`ny`): 39 values. Comparison against the previous commit
+confirms all edits replace English placeholders. The keys remain pending
+elsewhere; the standard backlog stays at 51,575 values with 201 pending
+source keys.
+
+Existing catalog terms supply card/list/member/attachment vocabulary.
+The messages distinguish members from assigned workers, and explain that
+unchecking a category stops its bell/email notices while deadline reminders
+and @mentions continue. Custom-field and lane terminology remains open to
+speaker review; related languages retain their own wording.
+
+The shared notification suite now covers 19 locales. Exact tokens, source
+order, distinct people categories, mention markers and muting exceptions
+pass, together with all-locale structure and human-preference checks. The
+browser mute/unmute scenario includes all three locales and checks all 13
+strings. It passes syntax checking only; no browser execution was available.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
