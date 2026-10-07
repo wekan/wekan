@@ -1889,6 +1889,22 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/06000469c2842d815bf6338bfa426607eb4b8323">Translate activity notifications into five more languages</a>. Thanks to xet7.</summary>
+
+- Fill 65 English placeholders in Kurmanji, Sorani, Papiamento, Tok Pisin
+  and Bislama. Preserve existing translations and explain that reminders
+  and @mentions continue when an activity category is muted.
+- Extend the shared translation suite to eight locales. Feature, locale
+  structure and human-preference checks pass. The browser mute/unmute
+  scenario checks all new labels and explanations; syntax checks pass,
+  but browser execution was unavailable.
+- All values belong to separately tracked pending source keys. The standard
+  51,575-value backlog is unchanged; remaining languages and terminology
+  review remain open in TODO Later.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/36be01e480044b8238ad6bc8518bb68654e5f681">Translate activity notification settings into three languages</a>. Thanks to xet7.</summary>
 
 - Fill 39 English placeholders in Turkmen, Tatar and Somali. Clarify that
