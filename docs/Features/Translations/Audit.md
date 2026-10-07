@@ -2575,6 +2575,25 @@ not run; the app stack was unavailable. 10 locale paths still need this group.
 The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
 broader language-quality review remains open.
 
+### Rule-builder instructions — Veps (2026-10-07)
+
+Filled seven pending strings in ve-PP, preserving existing translations and all
+literal variable expressions. No translation service was used. The text retains
+any-trigger behavior, ordered actions, username/email context and card-derived
+variables. Technical prose has lower confidence; inflections, recipient fields,
+variable values and composed date fragments need native/UI review. Existing
+Sänd, Käivitai and Ujundšoid terminology was retained and also needs review.
+The [Veps-English dictionary](https://vepsnoid.blogspot.com/p/dictionary.html)
+provides lugeda (read) and inflection guidance. It does not validate the full
+sentences or the existing software terminology.
+
+The existing trigger-variable suite now checks 57 recently filled locales for
+source order and exact brace/underscore/percent tokens. Runtime matching,
+all-locale structural and human-preference checks pass. Browser scenarios were
+not run; the app stack was unavailable. 9 locale paths still need this group.
+The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
+broader language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
