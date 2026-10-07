@@ -98,7 +98,32 @@ const correctedKeys = [
   "r-rule-title-required",
   "r-toggle-rule-enabled",
   "r-list-view",
-  "r-workspace"
+  "r-workspace",
+  "r-when-a-card-matches-advanced-filter",
+  "r-when-a-card-title-or-description-contains",
+  "r-add-actinguser-member",
+  "r-email-vars-hint",
+  "ldap-test-connection",
+  "oauth-providers-title",
+  "oauth-providers-hint",
+  "oauth-providers-login-style",
+  "oauth-providers-merge-existing-users",
+  "oauth-account-conflict",
+  "sign-in-with",
+  "passwordless-enabled",
+  "passwordless-hint",
+  "passwordless-login",
+  "passwordless-code-sent",
+  "passwordless-enter-code",
+  "passwordless-sign-in",
+  "card-counter-list",
+  "board-member-list",
+  "clone-board-without-cards",
+  "lock-list-width-resize",
+  "lock-swimlane-height-resize",
+  "same-width-for-all-lists",
+  "toggle-header-icons-collapsed",
+  "drag-to-resize-sidebar"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -118,13 +143,20 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   }
   assert.match(waray['import-board-instruction-markdown'], /waray mga checkbox/);
   assert.notEqual(waray['click-to-star-page'], waray['click-to-unstar-page']);
-  for (const key of ['external-link-pattern-url', 'email-templates-invite-vars-hint', 'email-templates-activity-vars-hint']) {
-    const braces = value => value.match(/\{[a-z]+\}/g) || [];
+  for (const key of ['external-link-pattern-url', 'email-templates-invite-vars-hint', 'email-templates-activity-vars-hint', 'r-email-vars-hint']) {
+    const braces = value => value.match(/\{[a-zA-Z]+\}/g) || [];
     assert.deepEqual(braces(waray[key]), braces(english[key]), key);
   }
   assert.ok(waray['org-domains-description'].includes('MULTITENANCY=true'));
   assert.match(waray['org-admins-description'], /Diri gud.*Admin.*diri gud/);
   assert.notEqual(waray['card-field-order-move-up'], waray['card-field-order-move-down']);
+  assert.ok(waray['oauth-providers-hint'].includes('OAUTH_*_ENABLED'));
+  assert.match(waray['oauth-providers-hint'], /diri gud ipinapakita/);
+  for (const setting of ['MAIL_URL', 'PASSWORDLESS_ENABLED']) {
+    assert.ok(waray['passwordless-hint'].includes(setting), setting);
+  }
+  assert.match(waray['passwordless-enabled'], /makausa la/);
+  assert.notEqual(waray['passwordless-login'], waray['passwordless-code-sent']);
   assert.notEqual(waray['due-days-left'], waray['due-days-overdue']);
   for (const kind of ['Swimlane', 'List']) {
     assert.notEqual(waray['export' + kind + 'Popup-title'], waray['import' + kind + 'Popup-title']);

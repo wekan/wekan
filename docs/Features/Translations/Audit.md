@@ -4951,6 +4951,12 @@ mixed-language audit remains open.
 - Preserved brace-delimited template variables, `#1234`, domain examples, `MULTITENANCY=true`, `DDP_TRANSPORT` and the database mode identifiers. Organization-admin wording retains both prohibitions: granting site-wide Admin privileges and managing a site administrator. Domain branding wording states which branding replaces which.
 - Extended the corrected-key set and added brace-token, setting-literal, authorization-negation and up/down distinction checks. Technical paraphrases for database/reactivity, tenant and branding remain provisional; structural checks do not establish fluency. Further Waray contamination, browser checks and broader semantic review remain open.
 
+### Waray authentication, rule and layout labels
+
+- Corrected 25 verified Walloon values in `wa-RR`, covering rule conditions/actions, LDAP/OAuth, passwordless login, board/card lists and layout controls. Preserved the distinction between requesting a code and confirming it was sent, one-time use, account conflict and the server-held secret never being displayed.
+- Preserved `%s`, camel-case `{cardLink}`, the other rule variables, `OAUTH_*_ENABLED`, `MAIL_URL` and `PASSWORDLESS_ENABLED`. Restored the header-icons hint's mobile/desktop notification detail omitted by the previous value.
+- Extended the corrected-key and brace-token checks, including camel-case names, configuration literals and authentication-state distinctions. Environment-variable, layout and login terminology remains provisional and requires contextual review. No authentication behavior changed. Browser checks and further wrong-language review remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
