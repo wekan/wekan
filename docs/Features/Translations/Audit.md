@@ -5177,6 +5177,12 @@ mixed-language audit remains open.
 - Kept return-only, remove-only and remove-and-return behavior distinct for first, last, indexed and random items. Added those checks plus not-found sentinel and copy/reversal assertions.
 - List and sublist wording is descriptive and provisional; contextual language and accessibility review remains open. Browser and spoken checks were not run.
 
+### Akan Blockly list mutation, sorting and logic
+
+- Filled 47 English placeholders through the protected workflow, covering insertion/replacement, sorting, split/join, comparisons, negation and conditional expressions. Preserved numbered arguments and the null literal in its tooltip.
+- Added per-key token checks, insertion/replacement distinctions, strict/inclusive comparison boundaries, both/at-least-one boolean conditions and conditional-label consistency.
+- Sorting direction and programming wording remain provisional, especially for alphabetic ordering and case handling. Browser and spoken accessibility checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -427,3 +427,25 @@ test('Akan list retrieval distinguishes returning and removing values', async()=
  assert.match(data['blockly-LISTS_REVERSE_TOOLTIP'],/no bi/);
  assert.ok(data['blockly-LISTS_GET_INDEX_FROM_END'].includes('#'));
 });
+
+test('Akan list mutation and logic preserve operation and comparison boundaries', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const data=require('../imports/i18n/data/ak.i18n.json');
+ const keys=["blockly-LISTS_SET_INDEX_INSERT", "blockly-LISTS_SET_INDEX_SET", "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_FIRST", "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_FROM", "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_LAST", "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_RANDOM", "blockly-LISTS_SET_INDEX_TOOLTIP_SET_FIRST", "blockly-LISTS_SET_INDEX_TOOLTIP_SET_FROM", "blockly-LISTS_SET_INDEX_TOOLTIP_SET_LAST", "blockly-LISTS_SET_INDEX_TOOLTIP_SET_RANDOM", "blockly-LISTS_SORT_ORDER_ASCENDING", "blockly-LISTS_SORT_ORDER_DESCENDING", "blockly-LISTS_SORT_TITLE", "blockly-LISTS_SORT_TOOLTIP", "blockly-LISTS_SORT_TYPE_IGNORECASE", "blockly-LISTS_SORT_TYPE_NUMERIC", "blockly-LISTS_SORT_TYPE_TEXT", "blockly-LISTS_SPLIT_LIST_FROM_TEXT", "blockly-LISTS_SPLIT_TEXT_FROM_LIST", "blockly-LISTS_SPLIT_TOOLTIP_JOIN", "blockly-LISTS_SPLIT_TOOLTIP_SPLIT", "blockly-LISTS_SPLIT_WITH_DELIMITER", "blockly-LOGIC_BOOLEAN_FALSE", "blockly-LOGIC_BOOLEAN_TOOLTIP", "blockly-LOGIC_BOOLEAN_TRUE", "blockly-LOGIC_COMPARE_EQ_ARIA", "blockly-LOGIC_COMPARE_GTE_ARIA", "blockly-LOGIC_COMPARE_GT_ARIA", "blockly-LOGIC_COMPARE_LTE_ARIA", "blockly-LOGIC_COMPARE_LT_ARIA", "blockly-LOGIC_COMPARE_NEQ_ARIA", "blockly-LOGIC_COMPARE_TOOLTIP_EQ", "blockly-LOGIC_COMPARE_TOOLTIP_GT", "blockly-LOGIC_COMPARE_TOOLTIP_GTE", "blockly-LOGIC_COMPARE_TOOLTIP_LT", "blockly-LOGIC_COMPARE_TOOLTIP_LTE", "blockly-LOGIC_COMPARE_TOOLTIP_NEQ", "blockly-LOGIC_NEGATE_TITLE", "blockly-LOGIC_NEGATE_TOOLTIP", "blockly-LOGIC_NULL_TOOLTIP", "blockly-LOGIC_OPERATION_AND", "blockly-LOGIC_OPERATION_TOOLTIP_AND", "blockly-LOGIC_OPERATION_TOOLTIP_OR", "blockly-LOGIC_TERNARY_CONDITION", "blockly-LOGIC_TERNARY_IF_FALSE", "blockly-LOGIC_TERNARY_IF_TRUE", "blockly-LOGIC_TERNARY_TOOLTIP"];
+ for(const key of keys){
+  assert.notEqual(data[key],english[key],key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ for(const pos of ['FIRST','FROM','LAST','RANDOM']){
+  assert.match(data['blockly-LISTS_SET_INDEX_TOOLTIP_SET_'+pos],/^Ɛhyɛ.*botae/);
+  assert.notEqual(data['blockly-LISTS_SET_INDEX_TOOLTIP_SET_'+pos],data['blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_'+pos]);
+ }
+ for(const op of ['GT','LT']){
+  assert.doesNotMatch(data['blockly-LOGIC_COMPARE_'+op+'_ARIA'],/yɛ pɛ/);
+  assert.match(data['blockly-LOGIC_COMPARE_'+op+'E_ARIA'],/anaa.*yɛ pɛ/);
+ }
+ assert.match(data['blockly-LOGIC_OPERATION_TOOLTIP_AND'],/abien.*nyinaa/);
+ assert.match(data['blockly-LOGIC_OPERATION_TOOLTIP_OR'],/biako mpo/);
+ assert.match(data['blockly-LISTS_SORT_TOOLTIP'],/no bi/);
+ for(const key of ['CONDITION','IF_FALSE','IF_TRUE']) assert.ok(data['blockly-LOGIC_TERNARY_TOOLTIP'].includes(data['blockly-LOGIC_TERNARY_'+key]));
+});
