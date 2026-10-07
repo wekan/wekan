@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **45,889 untranslated locale/string values in 70 languages**. It
+  report counts **45,834 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -2074,6 +2074,18 @@ uses the same word as `checklist` itself.
 </details>
 
 **Translations** — continued language coverage and corrections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aecde9ea7794abb325ebe7e657e333f29f4b6f94">Translate 55 Akan Blockly text-operation messages.</a></summary>
+
+- Fill text construction, character and substring access, searches, replacement, prompts and trimming. Preserve numbered arguments and first/last endpoints.
+- Add placeholder, absent-match, reverse-order, trim-side and input-type checks. Case and substring terminology remains provisional and needs contextual review.
+- English placeholders decrease from 45,889 to 45,834 across 70 languages, with 148 source keys tracked separately for wording review.
+- Validation: 37 focused translation tests and 21 human-preference checks pass. Browser and spoken-accessibility checks were not run.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/dab652b0aed5cc5dc795430c25862b2f98b735ee">Translate 39 Akan Blockly navigation shortcuts.</a></summary>
