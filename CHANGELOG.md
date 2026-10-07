@@ -1890,6 +1890,15 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/90e72235594e885db9b8b62c3b932ad907c67723">Translate import reports in Veps</a>. Thanks to xet7.</summary>
+
+- Translate three import-report messages and replace a Venda recovery-menu seed in Veps. Full clauses and derived terminology remain low confidence, documented in the translation audit.
+- Translation/token, import-loss and 234-locale structural tests pass, along with human-preference checks. The Veps browser case is syntax-checked; browser execution requires Playwright and a running application.
+- This group remains English in seven locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ec3a8cd7981850b51b371e544817becbd997fd91">Translate import reports in Volapük</a>. Thanks to xet7.</summary>
 
 - Fill three English values for import warnings, incomplete transfer explanations and opening the created board. Preserve existing translations and recovery paths. Low-confidence grammar and technical phrasing remain recorded for fluent-speaker review.
