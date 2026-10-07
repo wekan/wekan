@@ -4484,6 +4484,12 @@ mixed-language audit remains open.
 - Both focused Node tests and 21 human-preference checks pass, including positive/negative drag-policy assertions. Extended localized heading and disable/re-enable persistence browser coverage. Browser syntax passes; execution remains unverified because Playwright is unavailable locally.
 - Cherokee still has the English drag-permission label; its vocabulary lookup remains unfinished. Ordinary placeholders decrease from 50,008 to 50,002 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## Board drag-permission label: final placeholder locale (2026-10-07)
+
+- Filled the Cherokee `draggable` label using a provisional ability-to-pull phrase. The [Cherokee verb vocabulary guide](https://www.scribd.com/document/104661676/CWY-Verb-Vocab-2012), page 76, supplies the pulling stem through `Jinasanea` and `Hinsanagi`. The derived label is low-confidence: this reference does not establish its grammatical correctness, and semantic review remains open.
+- Expanded the label check to all 234 non-English locales. Both focused Node tests and 21 human-preference checks pass, including token inventories and positive/negative drag-policy assertions. Added Cherokee to the localized browser heading and disable/re-enable persistence flow. Browser syntax passes; execution remains unverified because Playwright is unavailable locally.
+- The drag-permission label now has non-English text in every non-English locale. Ordinary placeholders decrease from 50,002 to 50,001 across 70 languages. The 148 pending source keys and broader semantic audit remain open; placeholder coverage is not proof of fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
