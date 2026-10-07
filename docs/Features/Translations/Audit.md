@@ -6277,6 +6277,22 @@ in other locales. All 21 human-preference checks pass. Browser and screen-reader
 checks were not run. Workspace, stack and accessibility compounds remain
 provisional pending fluent-speaker review. The broader language audit is open.
 
+## Māori Blockly inputs and bitmap fields — 2026-10-08
+
+Translated 61 English values: 60 counted placeholders and the short on label
+omitted by the counter. Existing translations remain unchanged. Dividend and
+divisor follow the [Paekupu mathematics glossary](https://media.paekupu.co.nz/words/wordlist/p%C4%81ngarau/english-to-maori),
+and coordinates follow its [ordered-pair entry](https://media.paekupu.co.nz/word/takirua-raupapa).
+Full-sentence accessibility and technical compounds remain provisional pending
+fluent-speaker review.
+
+The combined focused run passes 56 checks, including all 20 Māori checks.
+Two shared catalog checks still fail on missing shortcut-edit-due-date keys
+in other locales. All 21 human-preference checks pass. Coverage preserves
+source tokens, bitmap row/column arguments, pixel states, operand roles,
+first/second inputs, coordinates and shared endpoint/repeat labels. Browser
+and screen-reader checks were not run. The broader language audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
