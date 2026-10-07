@@ -5478,6 +5478,15 @@ scope and distinct-metric checks. Browser checks remain unrun. Two product-only
 values now correctly equal English; the placeholder tool excludes them, so its
 count remains 45,599 across 70 languages.
 
+## Akan storage guidance corrections (batch 35)
+
+Corrected 20 mixed-language administration/storage messages, including translated
+repair identifiers restored to `swimlaneId` and `listId`. Preserved provider names,
+optional key-file input versus pasted JSON, all-item scope and freed-space result
+wording. Added source-token, identifier and scope regression checks. Technical
+wording remains low confidence pending fluent-speaker review. Browser checks
+remain unrun; English-placeholder counts are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

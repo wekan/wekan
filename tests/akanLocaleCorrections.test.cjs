@@ -606,3 +606,25 @@ test('Akan file and memory labels preserve products and migration scope', async(
  assert.match(data['newlineBecomesNewChecklistItemOriginOrder'],/mfiase/);
  assert.notEqual(data['remove-team-from-table'],data['remove-organization-from-board']);
 });
+
+
+test('Akan storage guidance preserves provider names and repair identifiers', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["hideAllChecklistItems", "accounts-lockout-confirm-unlock-all", "filesystem-path-description", "filesystem-enabled-description", "database-migrate-to-ferretdb", "database-migrate-to-mongodb", "sandstorm-delete-raw-mongodb", "sandstorm-raw-mongodb-deleted", "disable-activities", "disable-notifications", "theme-override-all-tenants", "gcs-key-filename-description", "azure-container-description", "gcs-bucket-description", "gcs-key-filename-menu-path", "gridfs-enabled-description", "s3-bucket-description", "s3-enabled-description", "restore-all-archived-migration-description", "fix-all-file-urls-migration"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.match(data['database-migrate-to-ferretdb'],/FerretDB v1 \(SQLite\)/);
+ assert.match(data['database-migrate-to-mongodb'],/MongoDB/);
+ assert.match(data['gridfs-enabled-description'],/MongoDB GridFS/);
+ assert.match(data['s3-enabled-description'],/AWS S3.*anaa MinIO/);
+ assert.match(data['gcs-key-filename-description'],/^Ɛnyɛ ahyɛde.*JSON/);
+ assert.match(data['gcs-key-filename-menu-path'],/WeKan.*ANAA.*JSON/);
+ assert.match(data['gcs-bucket-description'],/Cloud Storage/);
+ assert.match(data['restore-all-archived-migration-description'],/adwuma akwan.*din a wɔahyehyɛ.*kaad.*nyinaa/);
+ for(const identifier of ['swimlaneId','listId']) assert.ok(data['restore-all-archived-migration-description'].includes(identifier));
+ assert.match(data['accounts-lockout-confirm-unlock-all'],/yi akwansiw.*nyinaa/);
+ assert.match(data['hideAllChecklistItems'],/^Suma.*nyinaa/);
+ assert.match(data['disable-activities'],/^Dum.*nyinaa/);
+ assert.match(data['disable-notifications'],/^Dum.*nyinaa/);
+ assert.match(data['sandstorm-raw-mongodb-deleted'],/^Wɔapopa.*beae a ada hɔ$/);
+ assert.match(data['fix-all-file-urls-migration'],/URL nyinaa/);
+});
