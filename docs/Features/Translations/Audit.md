@@ -4685,6 +4685,14 @@ mixed-language audit remains open.
 - Ordinary placeholders decrease from 48,317 to 48,302 across 70 languages. Three locales remain in this accessibility group; the 148 pending source keys and broader language audit remain open.
 - Validation: focused Blockly/completeness tests and human-preference checks; browser spec syntax checked. Browser and spoken accessibility checks were not run.
 
+### Blockly field-type labels: Kurdish, Tatar, Somali, Yiddish, Darija, Bhojpuri and Maithili
+
+- Filled 88 English field-type placeholders across `ku`, `ckb`, `tt`, `so`, `yi`, `ary`, `bho` and `mai` through the protected fill. Existing translations and source token inventories are preserved.
+- Translated angle, pixel image, checkbox, color, date, dropdown, grid dropdown, image, input, input name and function name. Added positive/token checks and negative distinctions for pixel/plain images, grid/plain dropdowns, and input/function names.
+- Technical wording is provisional, particularly Kurdish dropdown/grid compounds, the Somali function paraphrase, and Bhojpuri/Maithili selector descriptions. These are direct drafts; unsuccessful terminology searches are not evidence of attested usage. A first Sorani draft meaning a collapsed list was corrected to an opening-list description before committing.
+- Existing browser flows cover field editing for all eight locales. They do not assert spoken field-type output; that accessibility verification remains outstanding. This batch adds no claim of browser execution or fluency.
+- Validation: focused Blockly/completeness tests, human-preference checks and browser-spec syntax checking. This batch removes 88 ordinary English placeholders; unrelated in-progress Tigre changes are outside this commit.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

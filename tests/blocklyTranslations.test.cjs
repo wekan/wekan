@@ -47,6 +47,23 @@ test('filled comment and accessibility controls preserve arguments and opposite 
  for(const [code,value] of [['qu','Qillqasqa'],['vo','Vödem'],['tlh','ghItlh']])assert.equal(require(`../imports/i18n/data/${code}.i18n.json`).text,value);
 });
 
+test('filled field types distinguish images, selectors and input names', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const names='ANGLE BITMAP CHECKBOX COLOUR DATE DROPDOWN GRID IMAGE INPUT TEXT_INPUT_ARGUMENT TEXT_INPUT_PROCEDURE'.split(' ');
+ for(const code of ['ku','ckb','tt','so','yi','ary','bho','mai']){
+  const data=require(`../imports/i18n/data/${code}.i18n.json`);
+  for(const name of names){
+   const key='blockly-ARIA_TYPE_FIELD_'+name;
+   assert.ok(data[key]?.trim(),`${code}:${key}`);
+   assert.notEqual(data[key],english[key],`${code}:${key}`);
+   assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),`${code}:${key}`);
+  }
+  for(const [a,b] of [['BITMAP','IMAGE'],['GRID','DROPDOWN'],['INPUT','TEXT_INPUT_ARGUMENT'],['TEXT_INPUT_ARGUMENT','TEXT_INPUT_PROCEDURE']]){
+   assert.notEqual(data['blockly-ARIA_TYPE_FIELD_'+a],data['blockly-ARIA_TYPE_FIELD_'+b],`${code}:${a}/${b}`);
+  }
+ }
+});
+
 test('every Blockly message resolves through all WeKan locale catalogs with intact placeholders',()=>{
   assert.deepEqual(Object.keys(mapping).sort(),Object.keys(upstream).sort());
   for(const file of fs.readdirSync(path.join(root,'imports/i18n/data')).filter(f=>f.endsWith('.i18n.json'))){
