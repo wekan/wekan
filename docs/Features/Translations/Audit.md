@@ -7150,6 +7150,16 @@ open/closed controls, and retain bitmap row/column placeholders. Technical
 wording for inline inputs and bitmap controls remains low confidence.
 Browser and screen-reader checks were not run; tests do not prove fluency.
 
+### Kurdish Blockly input labels and keyboard navigation
+
+Filled 57 English placeholders for list, number, text and statement input
+labels, keyboard navigation and empty-list creation. The placeholder-only merge
+preserved existing translations. Regression checks cover source tokens, key
+order, distinct operands and list boundaries, and hold-key instructions.
+Technical wording for statement positions, iteration and replacement remains
+low confidence pending fluent review. Browser and screen-reader checks were
+not run; structural checks do not establish fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
