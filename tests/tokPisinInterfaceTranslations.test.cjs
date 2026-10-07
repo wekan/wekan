@@ -1121,3 +1121,46 @@ test('Tok Pisin notifications preserve tokens and distinguish delivery and read 
  assert.match(data['act-pastdue'],/i lus pinis$/);
  assert.match(data['act-duenow'],/em nau$/);
 });
+
+
+test('Tok Pisin checklist and subtask messages preserve tokens and replace mixed English',()=>{
+ const keys=[
+  "default-subtasks-board",
+  "subtask-settings",
+  "boardSubtaskSettingsPopup-title",
+  "deposit-subtasks-board",
+  "deposit-subtasks-list",
+  "checklist-count-on-minicard",
+  "checklist-count",
+  "hide-finished-checklist",
+  "checklistActionsPopup-title",
+  "newlineBecomesNewChecklistItem",
+  "newlineBecomesNewChecklistItemOriginOrder",
+  "subtaskActionsPopup-title",
+  "show-subtasks-field",
+  "collapse-checklist",
+  "expand-checklist",
+  "hideCheckedChecklistItems",
+  "checklist-reset-interval-none",
+  "checklist-ding-sound-description"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.doesNotMatch(data[key],/Subtasks|Deposit|Landing|Each line|becomes|finished|Collapse|Expand|checked/,key);
+ }
+});
+
+test('Tok Pisin checklist controls retain completion filters, order and disabled defaults',()=>{
+ assert.match(data['hide-finished-checklist'],/lis bilong sekim i pinis/);
+ assert.match(data.hideCheckedChecklistItems,/samting i gat mak tik/);
+ assert.match(data['checklist-reset-interval-none'],/I no wok.*no ken risetim/);
+ assert.match(data['checklist-ding-sound-description'],/olsem pinis.*Long stat dispela i no wok/);
+ assert.match(data['collapse-checklist'],/^Pasim.*liklik/);
+ assert.match(data['expand-checklist'],/^Opim.*olgeta/);
+ for(const key of ['checklist-count','checklist-count-on-minicard']) assert.ok(data[key].includes('(0/0)'));
+ assert.match(data.newlineBecomesNewChecklistItemOriginOrder,/oda bilong pastaim/);
+ assert.match(data.newlineBecomesNewChecklistItem,/Wan wan lain.*wanpela samting/);
+ assert.equal(data['subtask-settings'],data['boardSubtaskSettingsPopup-title']);
+ assert.match(data['deposit-subtasks-board'],/bot:/);
+ assert.match(data['deposit-subtasks-list'],/^Lis/);
+});

@@ -6557,6 +6557,12 @@ Corrected 10 mixed-language notification subscription hints, read/unread actions
 
 Validation: 93 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
 
+## Tok Pisin checklist and subtask wording audit
+
+Corrected 18 mixed-language or misleading checklist and subtask messages, including the automatic-reset off label and sound default. Preserved source tokens and counters. Tests distinguish completion filters, collapse/expand, original line order, disabled defaults and board/list destinations. Existing coherent nearby translations remain unchanged. Wording remains provisional pending fluent-speaker review; browser and screen-reader checks were not run.
+
+Validation: 95 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
