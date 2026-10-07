@@ -4643,6 +4643,14 @@ mixed-language audit remains open.
 - Extended exact-placeholder/opposing-operation regressions and translated add-comment browser assertions. Blockly/completeness: 13 tests pass; human-preference verification: 21 checks pass. Browser coverage is syntax-checked only because Playwright is absent locally; spoken accessibility and fluent wording remain unverified.
 - Ordinary placeholders decrease from 48,461 to 48,390 across 70 languages. The 148 pending source keys and broader translation/semantic audit remain open.
 
+## Veps Blockly comment and accessibility controls
+
+- Filled fifteen English placeholders in `ve-PP` through the protected merge: comment actions, conditional branches, inputs, list items, text, button, collapse/expand, angle degrees and empty trash.
+- Read [Veps MediaWiki messages](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json) for add/delete, comment, collapse/expand and field vocabulary. The [Veps–Hungarian dictionary](https://adoc.pub/vepsze-magyar-kisszotar-veps-vengrialaine-pen-vajehnik.html) supports `nübl’` (clothing button), `gradus` (degree), `rujobak` (trash container) and `nügüd’` (now). Extending the clothing-button word to a UI control remains provisional.
+- Replaced the unapplied draft's unverified button/input forms and Finnish-shaped trash compound. Its `eht` is “evening,” not “condition”; the new secondary-branch label uses a provisional “another if-rule” paraphrase. `tedopöud` is a drafted data-field compound, and block inputs are not necessarily text fields. Full phrases, inflection and these adaptations remain **low confidence** and require semantic review.
+- Extended exact-placeholder/opposing-action regression coverage and the existing translated add-comment browser assertion to Veps. Blockly/completeness: 13 tests pass; human-preference verification: 21 checks pass. Browser coverage is syntax-checked only because Playwright is absent locally. Neither browser interaction nor spoken accessibility was executed; structural checks do not establish fluency.
+- Ordinary placeholders decrease from 48,390 to 48,375 across 70 languages. The 148 pending source keys and broader translation/semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
