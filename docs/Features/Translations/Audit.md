@@ -4277,6 +4277,13 @@ mixed-language audit remains open.
 - Extended the existing placeholder/state checks and browser report flow to these six locales. All 17 focused Node tests and 21 human-preference checks pass; browser syntax passes, but execution remains unverified because the local Playwright executable is unavailable.
 - These ten report strings remain English in 18 locales. Ordinary placeholders decrease from 51,165 to 51,105 across 70 languages; 148 pending keys still require wording review.
 
+## Rule email report labels: six further locales (2026-10-07)
+
+- Filled ten English report strings each in Buryat, Chuvash, Sakha, Tibetan, Dzongkha and Tigrinya (60 values). Used existing email-action vocabulary. Full technical clauses remain provisional, especially Buryat, Chuvash and Dzongkha.
+- Checked Sakha attempt terminology against [SakhaTyla's холон entry](https://sakhatyla.ru/translate?q=%D1%85%D0%BE%D0%BB%D0%BE%D0%BD). This supports vocabulary, not sentence-level fluency or the other locales' wording.
+- Extended the existing placeholder/state checks and browser report flow to these six locales. All 17 focused Node tests and 21 human-preference checks pass; browser syntax passes, but execution remains unverified because the local Playwright executable is unavailable.
+- These ten report strings remain English in 12 locales. Ordinary placeholders decrease from 51,105 to 51,045 across 70 languages; 148 pending keys still require wording review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
