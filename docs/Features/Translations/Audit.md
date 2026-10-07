@@ -5369,6 +5369,12 @@ Rewrote 24 mixed-language entries covering Trello controls, membership, private-
 
 Tests cover source tokens, email formatting, permission restrictions, archive retention and separate API caps. Membership, storage and WIP terminology remains provisional. Browser checks were not run; broader language review continues.
 
+### Akan mixed-language correction: rule imports, reminders and search scope
+
+Rewrote 30 mixed-language rule triggers, import guidance, due reminders, deletion confirmations and search/template descriptions. Preserve activity placeholders, opposite trigger states, technical product names and permission-limited search scope. Count prefixes retain their trailing spaces.
+
+Tests compare source tokens, distinct due states, paired actions, deletion restrictions, product identifiers and formatting. Rule fragments, checklist and shared-template terminology remains provisional. Browser checks were not run; broader semantic review continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

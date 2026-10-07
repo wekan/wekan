@@ -339,3 +339,17 @@ test('Akan invitations and membership notices preserve scope and message formatt
  assert.notEqual(data['trello-cancel-delete'],data['trello-resume']);
  assert.match(data['list-delete-suggest-archive'],/woakora dwumadi kyerɛwtohɔ/);
 });
+
+test('Akan rule imports and due reminders preserve state and permission scope', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["r-w-card-archived", "r-w-card-unarchived", "r-w-label-added", "r-w-label-removed", "r-w-member-added", "r-w-member-removed", "r-w-checklist-added", "r-w-attachment-added", "r-import-paste", "r-import-trello-note", "r-import-workflow-note", "r-is-moved", "r-checklist-note", "error-ldap-login", "org-number", "team-number", "people-number", "act-almostdue", "act-pastdue", "act-duenow", "delete-user-confirm-popup", "delete-team-confirm-popup", "delete-org-confirm-popup", "roles-status-desc", "delete-linked-card-before-this-card", "delete-linked-cards-before-this-list", "shared-templates-info", "dueCardsViewChange-choice-all-description", "globalSearchViewChange-choice-all-description", "dueCards-noResults-description"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ for(const [a,b] of [['r-w-card-archived','r-w-card-unarchived'],['r-w-label-added','r-w-label-removed'],['r-w-member-added','r-w-member-removed']]) assert.notEqual(data[a],data[b]);
+ assert.equal(new Set(['act-almostdue','act-pastdue','act-duenow'].map(k=>data[k])).size,3);
+ for(const key of ['org-number','team-number','people-number']) assert.ok(data[key].endsWith(': '),key);
+ for(const key of ['delete-user-confirm-popup','delete-team-confirm-popup','delete-org-confirm-popup']) assert.match(data[key],/Wuntumi nsan nyi/);
+ for(const name of ['n8n','Node-RED','WeKan']) assert.ok(data['r-import-workflow-note'].includes(name));
+ assert.match(data['r-import-trello-note'],/Trello.*Butler.*ammataa ho/);
+ assert.match(data['globalSearchViewChange-choice-all-description'],/wowɔ ho kwan.*ahyɛ wo nsa.*nkutoo/);
+ assert.match(data['roles-status-desc'],/ansa na woasie/);
+});
