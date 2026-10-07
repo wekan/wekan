@@ -3598,6 +3598,14 @@ The Kurdish [nexşerê dictionary entry](https://ku.wiktionary.org/wiki/nex%C5%9
 
 Extended the locale regression and existing map browser scenario to these five languages, checking all seven messages, both placement methods, and the transition to all cards placed. The existing read-only negative scenario remains. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains unverified without Playwright and a running application.
 
+## Map view: Moroccan Arabic, Bhojpuri, Maithili, Odia and Konkani - 2026-10-07
+
+Filled seven English placeholders in each of `ary`, `bho`, `mai`, `or_IN` and `kok` (35 values) through the protected fill workflow. The translations retain the floor-plan/site-map/drawing examples and both drag and select/click placement methods. These seven keys remain English in 56 locale paths and remain in the pending queue. The broader backlog remains 51,575 ordinary placeholders across 70 languages plus 160 pending source keys.
+
+The [Odisha government portal](https://odisha.gov.in/or) supports the Odia map terminology. The [IndoWordNet-derived dictionary entry](https://www.transliteral.org/dictionary/%E0%AC%AE%E0%AC%BE%E0%AC%A8%E0%AC%9A%E0%AC%BF%E0%AC%A4%E0%AD%8D%E0%AC%B0/word) includes the Konkani equivalent. These are terminology references, not verification of the drafted sentences. Technical phrases, especially the floor-plan wording in Konkani, remain provisional and need speaker review.
+
+Extended the locale regression and existing browser scenario to these five languages. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. The tests cover exact placeholder inventories, distinct controls and the existing map behavior, not linguistic fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
