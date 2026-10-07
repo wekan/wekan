@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/fdd4a301dbbdce135196dba55baad5d1c336a601">Correct 18 malformed or mixed-language Akan rule and history messages.</a></summary>
+
+- Rewrite rule fragments, permissions and history states. Preserve movement direction, restrictions on others' comments and pending/inactive states.
+- Add source-token, direction and restriction checks. Wording remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
+- Validation: 103 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bc356adf2168bb80fdc9c6d503bceadc03a3fc80">Correct 14 mixed-language Akan conversion and authorization messages.</a></summary>
 
 - Rewrite conversion, import and permission text. Preserve import formats, distinct administrator/member requirements and domain-conflict wording.
