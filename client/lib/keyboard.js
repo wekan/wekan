@@ -9,6 +9,7 @@ import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
 import { newHistoryRequestId, runKeystroke } from '/client/lib/historyKeyRequest';
 import { historyRequestStorage, refreshPendingHistoryRequest } from '/client/lib/historyKeyRecovery';
+import { findDueDateControl } from '/client/lib/dueDateHotkey';
 
 // Late-bind Sidebar to avoid circular dependency (sidebar.js needs its template first)
 let _Sidebar;
@@ -373,6 +374,34 @@ hotkeys('n', (event) => {
   }
 });
 
+// #6750: `d` (and Shift+D, so a capital D works too) opens the Due date
+// editor of the OPENED card - the same popup as clicking the due date `+` or
+// badge in the card details, by clicking that very control. Like every
+// shortcut here it runs only through hotkeys.filter above: nothing when the
+// user turned keyboard shortcuts off, nothing while typing in an input,
+// textarea or contentEditable. It needs an opened card (a hovered minicard has
+// no due date editor to open) and Utils.canModifyCard for it; the card details
+// render the control only for a user who may edit the due date, so without
+// one nothing happens.
+export function openDueDateEditorOfOpenedCard() {
+  const cardId = Utils.getCurrentCardId();
+  if (!cardId || Meteor.userId() === null) return false;
+  const card = ReactiveCache.getCard(cardId);
+  if (!card) return false;
+  const control = findDueDateControl(document, {
+    cardId,
+    canModifyCard: Utils.canModifyCard(card),
+    dataOf: element => Blaze.getData(element),
+  });
+  if (!control) return false;
+  control.click();
+  return true;
+}
+hotkeys('d, shift+d', (event) => {
+  event.preventDefault();
+  openDueDateEditorOfOpenedCard();
+});
+
 Template.keyboardShortcuts.helpers({
   mapping: [
     {
@@ -422,6 +451,10 @@ Template.keyboardShortcuts.helpers({
     {
       keys: ['m'],
       action: 'shortcut-assign-self',
+    },
+    {
+      keys: ['d'],
+      action: 'shortcut-edit-due-date',
     },
     {
       keys: ['c', '\xf7', '-'],

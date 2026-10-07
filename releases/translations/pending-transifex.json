@@ -591,6 +591,10 @@
     {
       "key": "scrum-history-job-failed",
       "since": "2026-10-03"
+    },
+    {
+      "key": "shortcut-edit-due-date",
+      "since": "2026-10-07"
     }
   ]
 }
