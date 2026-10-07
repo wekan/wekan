@@ -3576,6 +3576,12 @@ Filled five English placeholders in `wal` with the protected fill utility. The d
 
 Extended the translation/token regression and existing localized browser scenario to Wolaytta. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 2 locales: Tigre and Cherokee. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
 
+### History recovery: Tigre
+
+Filled five English placeholders in `tig` with the protected fill utility. The drafts distinguish reversing a change from doing it again and retain the same-request explanation. [Beurmann and Merx's Vocabulary of the Tigre Language](https://www.speaktigre.com/_files/ugd/7e068a_a5fbea1fb5e544e69d94cab002762da2.pdf?index=true) gives the forgetting root and grammatical examples. This historical reference supplies limited vocabulary evidence and does not validate modern technical usage or the full recovery sentences. Confirmation, retry/redo nominalizations, inflection and clause structure remain low-confidence drafts for fluent-speaker review. The Ethiopic script does not by itself distinguish Tigre from the Tigrinya seeds still awaiting correction elsewhere in the locale.
+
+Extended the translation/token regression and existing localized browser scenario to Tigre. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in one locale: Cherokee. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
