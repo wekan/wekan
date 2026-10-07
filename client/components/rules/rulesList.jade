@@ -23,7 +23,7 @@ template(name="rulesList")
     ul.rules-list
       each rules
         li.rules-lists-item
-          input.js-rule-select(type="checkbox" data-rule-id="{{_id}}" checked=isSelected)
+          input.js-rule-select(type="checkbox" data-rule-id="{{_id}}" aria-label="{{title}}" checked=isSelected)
           p
             if isEditing
               textarea.js-edit-rule-input(rows="2" autofocus)= title

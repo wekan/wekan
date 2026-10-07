@@ -27,6 +27,29 @@
   float: inline-start;
   margin: 6px 8px 0 0;
 }
+/* #6749: the rule selection checkboxes are NATIVE inputs, and forms.css hides
+   every native checkbox app-wide (WeKan draws its own .materialCheckBox) with
+   display: none, visibility: hidden AND a -9999px offset. So the boxes were
+   never on screen: "Select all" / "Unselect all" changed their state, but there
+   was nothing to see change, and no rule could be ticked one at a time for
+   "Delete selected" / "Export selected" either. Undo all three parts of that
+   rule here, plus the 41px form-field height forms.css gives every input. The
+   selector carries the attribute so it outranks `[type="checkbox"]:checked`. */
+.rules-lists-item input.js-rule-select[type="checkbox"] {
+  display: inline-block;
+  visibility: visible;
+  position: static;
+  inset-inline-start: auto;
+  width: 16px;
+  height: 16px;
+  min-height: 0;
+  flex: 0 0 16px;
+  padding: 0;
+  margin: 0;
+  appearance: auto;
+  -webkit-appearance: checkbox;
+  cursor: pointer;
+}
 .rules-lists-item .js-edit-rule-input {
   width: 60%;
 }

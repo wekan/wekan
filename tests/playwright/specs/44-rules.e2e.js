@@ -94,6 +94,50 @@ test.describe('Board Rules', () => {
     }
   });
 
+  test('#6749: Rules list — Select all / Unselect all visibly tick and untick every rule', async ({ page, adminUser }) => {
+    const board = await db.seedBoard({ ownerId: adminUser.id, title: 'Rules Select All Board' });
+    const ids = seedRules(board.boardId);
+    try {
+      await loginWithToken(page, adminUser.id, adminUser.token);
+      await navigateInApp(page, `/b/${board.boardId}/${board.slug}/rules`);
+      const boxes = page.locator('ul.rules-list li.rules-lists-item input.js-rule-select');
+      await expect(boxes).toHaveCount(2, { timeout: 15_000 });
+
+      // The bug: forms.css hid every native checkbox, so the boxes these buttons
+      // change were never on screen. toBeChecked() alone passed while they were
+      // invisible - visibility and a real size are what the reporter could not see.
+      for (const box of await boxes.all()) {
+        await expect(box).toBeVisible();
+        const size = await box.boundingBox();
+        expect(size && size.width).toBeGreaterThan(8);
+        expect(size && size.height).toBeGreaterThan(8);
+        await expect(box).not.toBeChecked();
+      }
+
+      await page.locator('.js-rules-select-all').click();
+      for (const box of await boxes.all()) {
+        await expect(box).toBeVisible();
+        await expect(box).toBeChecked();
+      }
+
+      await page.locator('.js-rules-select-none').click();
+      for (const box of await boxes.all()) {
+        await expect(box).toBeVisible();
+        await expect(box).not.toBeChecked();
+      }
+
+      // A single rule can be ticked by hand, and Select all then completes it.
+      await boxes.first().click();
+      await expect(boxes.first()).toBeChecked();
+      await expect(boxes.nth(1)).not.toBeChecked();
+      await page.locator('.js-rules-select-all').click();
+      await expect(boxes.nth(1)).toBeChecked();
+    } finally {
+      cleanupRules(ids);
+      db.cleanup({ boardIds: [board.boardId] });
+    }
+  });
+
   test('#6489: Rules Workflow view renders the palette and can add a rule', async ({ page, adminUser }) => {
     const board = await db.seedBoard({ ownerId: adminUser.id, title: 'Rules Workflow Board' });
     try {
