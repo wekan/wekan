@@ -1104,6 +1104,29 @@ syntax-checked only because its application stack is unavailable. These pending
 keys leave the ordinary backlog at 51,575 values in 70 languages plus 201 pending
 source keys. The wider task remains open.
 
+## Wolaytta notification preferences — 2026-10-07
+
+Filled 13 `notification-activity-*` English placeholders in `wal`, preserving
+existing translations and using the locale's card, list, lane, member, assignee,
+attachment and checklist terms. The description retains removal of the category
+mark and continued delivery of reminders and @mentions.
+
+Wording references include the Wolaytta corpus passages for
+[remembering and informing](https://textgridrep.org/browse/49hp6.0),
+[always](https://textgridrep.de/browse/49hp3.0) and
+[reminding](https://www.bible.com/bible/3205/JOS.4.WOB).
+These attest roots and usage, not approval of the technical translation. The bell
+term was not independently verified in an authoritative dictionary in this session.
+The full description, bell, custom-field values and inherited technical compounds
+remain low-confidence and require fluent-speaker review. Existing noun choices
+are not proven correct simply because this batch reuses them.
+
+Shared notification tests and registered browser scenarios now cover 64 locales.
+Notification, all-locale structure/token and human-preference checks pass; browser
+coverage is syntax-checked only because its application stack is unavailable.
+These pending keys do not change the ordinary backlog of 51,575 values in 70
+languages or the 201 pending source keys. The broader task remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
