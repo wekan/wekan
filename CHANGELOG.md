@@ -1889,6 +1889,21 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/173ce86ceb83a4dabbc5e8a5b16258084914632a">Translate Akan, Luganda and Bambara notification settings</a>. Thanks to xet7.</summary>
+
+- Fill 39 English placeholders across Akan, Luganda and Bambara, preserving
+  existing translations and the reminder/@mention exception to muting.
+- Shared notification coverage now checks 38 locales. Feature, all-locale
+  structure and human-preference checks pass. Browser mute/unmute scenarios
+  are syntax-checked only. Technical wording is low confidence pending
+  speaker review; vocabulary references are recorded in the audit.
+- These values belong to pending source keys, so the standard backlog
+  remains 51,575 values plus 201 pending source keys. Remaining languages
+  and broader language review stay in TODO Later.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7d2b5f717c9dc847cf1e0ff18b75b91f668ba27d">Translate Manx, Walloon and Waray notification settings</a>. Thanks to xet7.</summary>
 
 - Fill 39 English placeholders across Manx, Walloon and Waray-Waray.
