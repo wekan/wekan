@@ -4760,6 +4760,14 @@ mixed-language audit remains open.
 - Extended pixel/plain image, grid/plain dropdown and input/function-name distinctions, plus token coverage. Existing browser flows cover field editing for these locales; browser execution and spoken type announcements remain unverified.
 - This batch removes 33 ordinary placeholders. The 148 pending source keys and broader semantic audit remain open.
 
+### Quechua, Aymara and Guarani field types
+
+- Filled 33 English field-type placeholders through the protected fill, preserving existing correct-language values and source arguments.
+- Corrected four mixed-language Quechua/Aymara selector labels, including `Kay willaymi: Checkboxta` and `Aymar aruna: Checkbox`, with descriptive local wording. Added exact correction regressions and shared type distinctions.
+- Vocabulary references: [Quechua k'uchu](https://aulex.org/qu-es/?busca=%22uchu%22), [Aymara educational vocabulary](https://cdn.www.gob.pe/uploads/document/file/4973488/item_55_vocabulario_aymara.pdf?v=1692022988), [Guarani dictionary](https://guaraniayvu.org/) and [Guarani takamby](https://www.proyectomontoya.org.py/nthg/takamby). These support basic words, not all new compounds. The attempted full-text Aymara angle lookup failed; its specific mathematical sense remains unconfirmed.
+- Low confidence: regional Quechua spelling, Aymara corner/angle terminology and inflection, pixel loans, grid descriptions using boxes, input/entry ambiguity and work nouns for programming functions need review. Date labels currently follow day terminology and need contextual review as calendar dates.
+- Existing browser flows cover all three locales; browser execution and spoken accessibility remain unverified. This batch removes 33 ordinary placeholders and corrects four mixed-language values; the 148 pending source keys and wider semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
