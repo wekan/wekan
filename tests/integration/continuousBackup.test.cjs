@@ -149,10 +149,14 @@ test('file streams: attachments, avatars and logs, with watching, restored to a 
   let state = {};
   const engine = await new FileEngine({ sources, target, generation, scanMs: 3600000, sealMs: 100,
     onError: error => { throw error; }, onState: async s => { state = s; } }).start();
+  // Its seal and scan timers keep the process alive: stop it however this test
+  // ends, or a failed assertion below becomes a 300 s suite timeout.
+  t.after(() => engine.stop());
   assert.equal(engine.status().files, 4, 'the symbolic link is skipped');
-  // Watching notices a change without a rescan.
+  // Watching notices a change without a rescan (the scan runs hourly here).
+  // File-system events can lag by seconds on a loaded machine: allow 20 s.
   fs.appendFileSync(path.join(live, 'logs', 'wekan.log'), 'line 2\n');
-  for (let i = 0; i < 50 && engine.status().puts < 5; i += 1) await sleep(100);
+  for (let i = 0; i < 200 && engine.status().puts < 5; i += 1) await sleep(100);
   assert.equal(engine.status().puts, 5, 'the appended log line was streamed by watching');
   await sleep(20); const middle = Date.now(); await sleep(20);
   fs.writeFileSync(path.join(live, 'attachments', 'board', 'one.txt'), 'one, edited');
