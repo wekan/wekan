@@ -3750,6 +3750,14 @@ Consulted [Beurmann and Merx's Tigre vocabulary and grammatical sketch](https://
 
 Extended regression and browser coverage to Tigre. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These results establish structural preservation, not linguistic accuracy.
 
+## Map view: Wolaytta and complete placeholder coverage - 2026-10-07
+
+Filled seven English placeholders in `wal` through the protected fill workflow. All seven map-view keys now have nonempty, non-English values with matching placeholder inventories in all 234 non-English locales. Removed these keys from the pending inventory, reducing it from 160 to 153. Ordinary untranslated values remain 51,575 across 70 languages. This is placeholder coverage, not completed linguistic validation.
+
+The [Wolayttatto teaching guide](https://camaraethiopia.org.et/SNNPR/moe/content/SNE_TB/Sign%20Language%20G1-12/03-Wolayitato-Books-Sign-Language/03-Wolayitato-ESL-PDF/05-Wolayitato-ESL-G5-TG.pdf) supplies image vocabulary. The geographic-map paraphrase, floor-plan phrase and technical sentences remain low-confidence drafts. During review, an uncertain click verb was replaced with a mouse-button selection paraphrase; that paraphrase also requires language review. Existing locale text containing English or language-name prefixes was not used as evidence of fluent wording.
+
+The map-view regression now discovers every non-English locale and checks removal from the pending inventory, token preservation and distinct upload/remove and placed/unplaced controls. Added Wolaytta to the browser scenario. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. The broader wrong-language and meaning audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
