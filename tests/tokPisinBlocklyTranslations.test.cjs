@@ -170,3 +170,119 @@ test('Tok Pisin input labels preserve tokens and distinguish input roles',()=>{
  assert.match(data['blockly-INPUT_LABEL_TEXT_APPEND'],/putim long pinis/);
  assert.match(data['blockly-INPUT_LABEL_TEXT_TO_REPLACE'],/rausim na putim nupela/);
 });
+
+
+test('Tok Pisin editing commands preserve every source placeholder',()=>{
+ const keys=[
+  "blockly-CHANGE_VALUE_TITLE",
+  "blockly-CLEAN_UP",
+  "blockly-CLOSE_BACKPACK",
+  "blockly-COLLAPSED_WARNINGS_WARNING",
+  "blockly-COLLAPSE_ALL",
+  "blockly-COLLAPSE_BLOCK",
+  "blockly-COPY_ALL_TO_BACKPACK",
+  "blockly-COPY_SHORTCUT",
+  "blockly-COPY_TO_BACKPACK",
+  "blockly-CUT_SHORTCUT",
+  "blockly-DELETE_ALL_BLOCKS",
+  "blockly-DELETE_BLOCK",
+  "blockly-DELETE_X_BLOCKS",
+  "blockly-DISABLE_BLOCK",
+  "blockly-DUPLICATE_BLOCK",
+  "blockly-DUPLICATE_COMMENT",
+  "blockly-EDIT_BLOCK_CONTENTS",
+  "blockly-EMPTY_BACKPACK",
+  "blockly-ENABLE_BLOCK",
+  "blockly-EXPAND_ALL",
+  "blockly-EXPAND_BLOCK",
+  "blockly-EXTERNAL_INPUTS",
+  "blockly-HELP_PROMPT",
+  "blockly-ICON_LABEL_COMMENT_CLOSED",
+  "blockly-ICON_LABEL_COMMENT_OPEN",
+  "blockly-ICON_LABEL_DEFAULT",
+  "blockly-ICON_LABEL_MUTATOR_CLOSED",
+  "blockly-ICON_LABEL_MUTATOR_OPEN",
+  "blockly-ICON_LABEL_WARNING_CLOSED",
+  "blockly-ICON_LABEL_WARNING_OPEN",
+  "blockly-INLINE_INPUTS",
+  "blockly-MOVE_BLOCK",
+  "blockly-OPEN_BACKPACK",
+  "blockly-PASTE_ALL_FROM_BACKPACK",
+  "blockly-PASTE_SHORTCUT",
+  "blockly-REDO",
+  "blockly-REMOVE_FROM_BACKPACK",
+  "blockly-SCREENREADER_HINT",
+  "blockly-SCREENREADER_MODE_DISABLED",
+  "blockly-SCREENREADER_MODE_ENABLED",
+  "blockly-SHORTCUTS_ABORT_MOVE",
+  "blockly-SHORTCUTS_CLEANUP",
+  "blockly-SHORTCUTS_CODE_NAVIGATION",
+  "blockly-SHORTCUTS_DISCONNECT",
+  "blockly-SHORTCUTS_DUPLICATE",
+  "blockly-SHORTCUTS_EDITING",
+  "blockly-SHORTCUTS_ESCAPE",
+  "blockly-SHORTCUTS_EXTENDED_INFORMATION",
+  "blockly-SHORTCUTS_FINISH_MOVE",
+  "blockly-SHORTCUTS_FOCUS_TOOLBOX",
+  "blockly-SHORTCUTS_GENERAL",
+  "blockly-SHORTCUTS_INFORMATION",
+  "blockly-SHORTCUTS_JUMP_BLOCK_END",
+  "blockly-SHORTCUTS_JUMP_BLOCK_START",
+  "blockly-SHORTCUTS_JUMP_BOTTOM_STACK",
+  "blockly-SHORTCUTS_JUMP_FIRST_BLOCK",
+  "blockly-SHORTCUTS_JUMP_LAST_BLOCK",
+  "blockly-SHORTCUTS_JUMP_NEXT_PAGE",
+  "blockly-SHORTCUTS_JUMP_PREVIOUS_PAGE",
+  "blockly-SHORTCUTS_JUMP_TOP_STACK",
+  "blockly-SHORTCUTS_MOVE_DOWN",
+  "blockly-SHORTCUTS_MOVE_LEFT",
+  "blockly-SHORTCUTS_MOVE_RIGHT",
+  "blockly-SHORTCUTS_MOVE_UP",
+  "blockly-SHORTCUTS_NEXT_HEADING",
+  "blockly-SHORTCUTS_NEXT_STACK",
+  "blockly-SHORTCUTS_PERFORM_ACTION",
+  "blockly-SHORTCUTS_PREVIOUS_HEADING",
+  "blockly-SHORTCUTS_PREVIOUS_STACK",
+  "blockly-SHORTCUTS_SCROLL_DOWN",
+  "blockly-SHORTCUTS_SCROLL_LEFT",
+  "blockly-SHORTCUTS_SCROLL_RIGHT",
+  "blockly-SHORTCUTS_SCROLL_UP",
+  "blockly-SHORTCUTS_SHOW_CONTEXT_MENU",
+  "blockly-SHORTCUTS_SHOW_TOOLTIP",
+  "blockly-SHORTCUTS_START_MOVE",
+  "blockly-SHORTCUTS_START_MOVE_STACK",
+  "blockly-SHORTCUTS_TOGGLE_SCREENREADER_MODE",
+  "blockly-TODAY",
+  "blockly-UNDO",
+  "blockly-UNKNOWN",
+  "blockly-UNNAMED_KEY"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+ }
+});
+
+test('Tok Pisin editing commands distinguish destructive actions and navigation directions',()=>{
+ assert.match(data['blockly-DELETE_ALL_BLOCKS'],/olgeta %1/);
+ assert.match(data['blockly-EMPTY_BACKPACK'],/Rausim olgeta samting/);
+ assert.match(data['blockly-COPY_ALL_TO_BACKPACK'],/Kopim olgeta.*i go long bekpek/);
+ assert.match(data['blockly-PASTE_ALL_FROM_BACKPACK'],/Putim kopi.*i kam long bekpek/);
+ assert.match(data['blockly-DISABLE_BLOCK'],/i no wok/);
+ assert.doesNotMatch(data['blockly-ENABLE_BLOCK'],/no wok/);
+ for(const kind of ['COMMENT','WARNING']){
+  assert.match(data['blockly-ICON_LABEL_'+kind+'_CLOSED'],/^Opim/);
+  assert.match(data['blockly-ICON_LABEL_'+kind+'_OPEN'],/^Pasim/);
+ }
+ assert.match(data['blockly-SCREENREADER_MODE_DISABLED'],/i no wok.*%1.*mekim i wok/);
+ assert.match(data['blockly-SCREENREADER_MODE_ENABLED'],/i wok.*%1.*mekim i no wok/);
+ for(const action of ['MOVE','SCROLL']){
+  assert.match(data['blockly-SHORTCUTS_'+action+'_LEFT'],/han kais/);
+  assert.match(data['blockly-SHORTCUTS_'+action+'_RIGHT'],/han sut/);
+  assert.match(data['blockly-SHORTCUTS_'+action+'_UP'],/antap/);
+  assert.match(data['blockly-SHORTCUTS_'+action+'_DOWN'],/daun/);
+ }
+ assert.match(data['blockly-SHORTCUTS_ABORT_MOVE'],/Kanselim/);
+ assert.match(data['blockly-SHORTCUTS_FINISH_MOVE'],/Pinisim/);
+ assert.notEqual(data['blockly-REDO'],data['blockly-UNDO']);
+});

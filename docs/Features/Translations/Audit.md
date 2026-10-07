@@ -6437,6 +6437,12 @@ Translated 61 Blockly input and field labels, including the short pixel-on label
 
 Validation: 55 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. Remaining inventory: 43,006 English placeholders across 70 languages, with 149 source keys pending review.
 
+## Tok Pisin editing commands and accessibility shortcuts
+
+Translated 82 Blockly editing, backpack, warning, navigation and screen-reader messages. Preserved source placeholders and distinguished deletion scope, copy/paste direction, enabling/disabling, opening/closing and directional shortcuts. Existing correct-language values remain unchanged. Technical wording remains provisional pending fluent-speaker review; browser and screen-reader checks were not run.
+
+Validation: 57 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. Remaining inventory: 42,924 English placeholders across 70 languages, with 149 source keys pending review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
