@@ -386,7 +386,7 @@ Status checked on 2026-10-08. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **43,233 untranslated locale/string values in 70 languages**. It
+  report counts **43,207 untranslated locale/string values in 70 languages**. It
   excludes **149 source keys tracked separately as pending Transifex**: 148
   have non-English values requiring wording review; the newly added
   `shortcut-edit-due-date` still needs translations. Counts are a snapshot;
@@ -2171,6 +2171,22 @@ uses the same word as `checklist` itself.
 </details>
 
 **Translations** — continued language coverage and corrections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c2e74b871294956e416057951453ca4dd6679369">Translate 33 Tok Pisin Blockly loop-control messages.</a></summary>
+
+- Fill 26 counted placeholders and seven short labels, preserving source
+  tokens, loop exits and conditional branches. Technical wording remains
+  provisional pending fluent-speaker review.
+- The combined run passes 50 checks; two catalog checks still fail on the
+  missing due-date shortcut key. All 21 human-preference checks pass.
+  Browser and screen-reader checks were not run.
+- Remaining counted English placeholders: 43,207 across 70 languages.
+  The broader language and wording audit continues.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5bd8ced1f7e5624e339c9527360e731dc0416fbd">Translate 50 Tok Pisin Blockly logic and function messages.</a></summary>
