@@ -841,3 +841,22 @@ test('Akan drag and account guidance preserve optional inputs and provider label
  assert.equal(data['event-category'],data['theme-category']);
  assert.match(data['accounts-allowEmailChange'],/Ma kwan.*sesa/);
 });
+
+
+test('Akan field and rule labels preserve restore scope and administrator visibility', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["board-view-timeline-hint", "board-view-timeline-restore-confirm", "roadmap-empty-no-custom-fields", "rulesImportExportPopup-title", "createCustomField", "createCustomFieldPopup-title", "deleteCustomFieldPopup-title", "editCustomFieldPopup-title", "list-label-modifiedAt", "createBoardFromCardPopup-title", "show-field-on-card", "showLabel-field-on-card", "admin-only-field", "card-field-order", "r-board-rules", "r-add-rule", "r-delete-rule", "r-no-rules", "r-edit-rule", "r-export-json"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.equal(data.createCustomField,data['createCustomFieldPopup-title']);
+ assert.match(data['deleteCustomFieldPopup-title'],/^Popa.*\?$/);
+ assert.match(data['admin-only-field'],/Bɔɔd sohwɛfo nkutoo/);
+ assert.match(data['showLabel-field-on-card'],/agyiraehyɛde.*kaad ketewa/);
+ assert.match(data['board-view-timeline-restore-confirm'],/asɛmti.*nkyerɛkyerɛmu.*din a wɔahyehyɛ.*agyiraehyɛde.*mufo.*da/);
+ assert.match(data['board-view-timeline-restore-confirm'],/botae a wɔakyerɛ.*Wɔmpopa biribiara/);
+ for(const literal of ['Version','Release']) assert.ok(data['roadmap-empty-no-custom-fields'].includes('"'+literal+'"'));
+ assert.match(data['r-export-json'],/JSON/);
+ assert.match(data['r-no-rules'],/biara nni hɔ/);
+ assert.equal(new Set(['r-add-rule','r-delete-rule','r-edit-rule'].map(k=>data[k])).size,3);
+ assert.match(data['list-label-modifiedAt'],/nea etwa to/);
+ assert.match(data['card-field-order'],/nnidiso nnidiso/);
+});

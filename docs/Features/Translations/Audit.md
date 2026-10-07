@@ -5590,6 +5590,15 @@ connection-string alternatives. Added token, name and behavior checks. Provider
 navigation is not independently verified against live consoles. Wording remains
 low confidence pending fluent-speaker review; browser checks remain unrun.
 
+## Akan field and rule corrections (batch 47)
+
+Corrected 20 mixed-language or misleading field, rule and timeline messages.
+Restored the timeline confirmation's full field list, displayed-value target and
+no-deletion statement; preserved board-admin-only visibility. Aligned field
+creation labels and clarified rule actions. Added token, scope and state checks.
+Wording remains low confidence pending fluent-speaker review; browser checks
+remain unrun. English-placeholder counts are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
