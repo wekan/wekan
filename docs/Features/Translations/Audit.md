@@ -4355,6 +4355,12 @@ mixed-language audit remains open.
 - Extended the existing positive browser save/reload/apply/replace/delete flow and negative invalid-expression flow to these six locales. All 15 focused Node tests and 21 human-preference checks pass. Browser syntax passes; execution remains unverified because the local Playwright executable is unavailable.
 - These ten strings remain English in seven locales. Ordinary placeholders decrease from 50,395 to 50,335 across 70 languages; 148 pending keys still require wording review.
 
+## Saved filter labels: four further locales (2026-10-07)
+
+- Filled ten English strings each in Nahuatl, Wolaytta, Standard Moroccan Tamazight and Greenlandic (40 values). All four sets remain low-confidence technical drafts requiring semantic review. Greenlandic uses a provisional sorting-tool paraphrase for filter rather than the existing form label.
+- Extended the existing positive browser save/reload/apply/replace/delete flow and negative invalid-expression flow to these four locales. All 15 focused Node tests and 21 human-preference checks pass. Browser syntax passes; execution remains unverified because the local Playwright executable is unavailable.
+- These ten strings remain English in Cherokee, Inuktitut and Tigre. Ordinary placeholders decrease from 50,335 to 50,295 across 70 languages; 148 pending keys still require wording review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
