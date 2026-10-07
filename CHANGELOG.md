@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **47,203 untranslated locale/string values in 70 languages**. It
+  report counts **47,155 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -1905,8 +1905,8 @@ each for the reason given:
 **In short:** The **Snap** now says at once when the computer's AppArmor policy,
 not the database, refuses WeKan's own database connection, with the fix for the
 known snapd 2.77.1 kernel problem behind it, four SAML settings can be set
-with `snap set` again, and the **Rules** "Set color to" action can pick any card
-color.
+with `snap set` again, the **Rules** "Set color to" action can pick any card
+color, and the Rules list's selection checkboxes are visible again.
 
 This release fixes the following bugs:
 
@@ -1951,7 +1951,7 @@ that fails like the real one.
 
 </details>
 
-**Rules** - the actions a rule can run.
+**Rules** - the actions a rule can run, and choosing rules in the list.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1ad558f3710f69a307202eeb65d9ec0033d534cb">The Set color to action can pick any card color, not only green</a>. Thanks to titver968 and xet7.</summary>
@@ -1966,6 +1966,22 @@ handlers for every color, checks that a click without a color keeps the
 selection, and scans every palette handler under `client/` for the same
 mistake. A Playwright spec picks red in the Rules editor and checks the saved
 action; it was not run here.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2c16c3f173e25bf1d22f602906487f7a4c0f823f">Select all and Unselect all visibly tick and untick every rule</a>. Thanks to titver968 and xet7.</summary>
+
+In [#6749](https://github.com/wekan/wekan/issues/6749) both buttons seemed to do
+nothing. They did set the selection, but the checkboxes they change were never
+on screen: `forms.css` hides every native checkbox app-wide, because WeKan
+draws its own, and the rules list used native ones. So no rule could be ticked
+by hand for Delete selected or Export selected either. `rules.css` now undoes
+that hiding for the rules list, and each box is labelled with its rule's title.
+`tests/rulesSelectAllCheckboxes.test.cjs` runs both buttons and single ticks
+with several rules, and checks that no native checkbox in the Rules editor is
+left hidden. A Playwright spec checks the boxes are visible and follow both
+buttons; it was not run here.
 
 </details>
 
@@ -2061,6 +2077,18 @@ snap.
 and updates the following translations:
 
 **Activity notifications** - choosing which card activity sends notifications.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b69e4681c4aed2cc011a129298d3579a587477ca">Translate Sesotho, Setswana and Northern Sotho block and bubble labels.</a></summary>
+
+- Fill 48 English placeholders while preserving numbered arguments and existing translations. Extend block-state, input and bubble distinction checks.
+- Record vocabulary evidence and provisional technical metaphors and number agreement. Contextual language and spoken accessibility review remain open.
+- Ordinary untranslated values decrease from 47,203 to 47,155 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 26 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c910255500a0c94a9ce8d73e3fcb3ea2a1b75833">Translate Zulu, Xhosa, Swati and Northern Ndebele block and bubble labels.</a></summary>
