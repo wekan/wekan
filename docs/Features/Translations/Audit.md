@@ -4496,6 +4496,12 @@ mixed-language audit remains open.
 - All twelve focused Node tests and 21 human-preference checks pass. Added exact token-inventory and distinct-direction checks; existing negative import tests reject broken placeholders and protect local translations. Extended the localized editor drag/edit/context-menu browser flow to these seven locales. Browser syntax passes, but execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
 - Ordinary placeholders decrease from 50,001 to 49,917 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## Blockly movement announcements: eight further locales (2026-10-07)
+
+- Filled twelve movement and scrolling announcements in Turkmen, Yiddish, Bhojpuri, Maithili, Odia, Konkani, Papiamento and Moroccan Arabic (96 values). Preserved `%1` and `%2` and distinct movement/scrolling directions. Technical phrasing remains provisional, particularly Maithili, Konkani and Papiamento.
+- All twelve focused Node tests and 21 human-preference checks pass. Extended exact token-inventory and distinct-direction checks, alongside existing negative import tests. Extended localized editor drag/edit/context-menu browser coverage; syntax passes, but execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
+- Ordinary placeholders decrease from 49,917 to 49,821 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
