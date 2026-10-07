@@ -3416,6 +3416,14 @@ The [Noid Veps-English dictionary](https://vepsnoid.blogspot.com/p/dictionary.ht
 
 The translation/token, import-loss positive/negative and 234-locale structure suites pass (12 tests combined), as do 21 human-preference checks. Extended the browser case to Veps and syntax-checked it; browser execution remains unavailable because the local Playwright executable and running application are absent. Each source key remains English in seven locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
 
+### Import warning report: Greenlandic and Nahuatl
+
+Filled six English placeholders in `kl` and `nah`, preserving existing non-English values through the fill utility. Descriptions retain board creation, incomplete transfer and the recovery-menu path. Greenlandic uses `allattarfik`, consistent with its recent board-visibility descriptions; the older `board` label and import instructions still use `ilisarnaat` and remain in the broader terminology-review queue.
+
+The [Greenlandic-English dictionary](https://daka.gl/2018-kal-eng/) supplies `aarlerisaarut` (warning) and `allattarfik` (blackboard); [Greenland government publications](https://naalakkersuisut.gl/publikationer?sc_lang=kl-GL) attest `nalunaarusiaq` for reports. UNAM's dictionary supplies Nahuatl [tenonotzaliztli](https://gdn.iib.unam.mx/diccionario/tenonotzaliztli/275458) (advice/admonition) and [tlanonotzaliztli](https://gdn.iib.unam.mx/diccionario/tlanonotzaliztli/70386) (account/information). These establish vocabulary, not complete-sentence accuracy. Both drafts have low-confidence software terminology and inflection; the Nahuatl warning paraphrase and incomplete-transfer clause particularly need fluent-speaker review.
+
+Translation/token, import-loss positive/negative and all 234 locale structure suites pass (12 tests combined), as do 21 human-preference checks. Extended both browser cases and syntax-checked them; execution remains unavailable without the local Playwright executable and running application. Each source key remains English in five locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
