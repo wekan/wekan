@@ -5608,6 +5608,15 @@ CSV, count tokens and the existing Sync now label. Added token, aggregate and
 state checks. Wording remains low confidence pending fluent-speaker review;
 browser checks remain unrun. English-placeholder counts are unchanged.
 
+## Akan timing and completion corrections (batch 49)
+
+Corrected 24 mixed-language timing, checklist and status messages. Preserved
+received/start/due/end distinctions, old/new activity values and the import
+timeout's retry guidance and possible causes. Aligned duplicate completion text.
+Added token, value-direction and state checks. Wording remains low confidence
+pending fluent-speaker review; browser checks remain unrun. Placeholder counts
+are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -882,3 +882,20 @@ test('Akan grouping and field summaries preserve aggregates and synchronization 
   assert.match(data[prefix+'private-board'],/kokoam/);
  }
 });
+
+
+test('Akan timing and completion messages preserve old/new values and timeout uncertainty', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["act-completeChecklist", "activity-checklist-completed", "activity-checklist-completed-card", "activity-receivedDate", "activity-dueDate", "activity-endDate", "cardCustomField-datePopup-title", "editVoteEndDatePopup-title", "editPokerEndDatePopup-title", "editCardDueDatePopup-title", "editCardSpentTimePopup-title", "filter-dates-label", "filter-no-due-date", "inactive-member", "import-timeout", "editCardReceivedDatePopup-title", "editCardEndDatePopup-title", "act-a-endAt", "act-a-startAt", "act-a-receivedAt", "a-dueAt", "a-endAt", "a-startAt", "a-receivedAt"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.equal(data['act-completeChecklist'],data['activity-checklist-completed-card']);
+ assert.match(data['activity-checklist-completed'],/^awie/);
+ for(const suffix of ['endAt','startAt','receivedAt']) assert.match(data['act-a-'+suffix],/__timeValue__ fi \(__timeOldValue__\)/);
+ assert.equal(new Set(['endAt','startAt','receivedAt','dueAt'].map(s=>data['a-'+s])).size,4);
+ assert.match(data['editPokerEndDatePopup-title'],/Planning Poker.*awiei da/);
+ assert.match(data['filter-no-due-date'],/nni hɔ/);
+ assert.match(data['import-timeout'],/kyɛe dodo.*wɔgyaee.*san sɔ hwɛ.*ebia.*anaa/);
+ assert.match(data['editCardSpentTimePopup-title'],/bere a wɔde yɛɛ/);
+ assert.notEqual(data['editCardDueDatePopup-title'],data['editCardEndDatePopup-title']);
+ assert.match(data['inactive-member'],/ɔnyɛ adwuma seesei/);
+});
