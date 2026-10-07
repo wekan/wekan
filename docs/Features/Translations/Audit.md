@@ -2775,6 +2775,30 @@ checks pass. Existing browser scenarios were syntax-checked but not run because
 the app stack is unavailable. The ordinary backlog remains 51,575 values across
 70 languages; wrong-language and low-confidence review remains open.
 
+### Move-position labels — first remaining batch (2026-10-07)
+
+Filled “Before” and “After” in 36 locale paths (72 values): ary, bho, bi, bo,
+ckb, haw, kok, ks, ku, mai, mi, nd, nso, ny, om, or_IN, pap, rn, rw, sm,
+so, ss, st, ti, tk_TM, tn, to, tpi, ts, tt, ve, wo, xh, yi, zu-ZA and zu.
+The structural-selection popup uses these for relative placement of lists, lanes,
+cards and checklist content, including horizontal placement. Existing correct
+translations were preserved, and no translation service was used.
+
+Wolof uses spatial “Ci kanam” / “Ci gannaaw”, supported by the
+[Wolof training manual](https://publish.illinois.edu/wolof201fall14/files/2014/08/NEW_WOLOF_BOOK.pdf),
+rather than a temporal-only “before”. Minority-language wording, especially
+Kashmiri, Swati and Tibetan, has lower confidence and needs native/UI review.
+
+Extended the structural-selection suite with key-order, placeholder, nonempty,
+non-English and distinct-opposite-label checks for all 36 paths. Existing runtime
+selection checks, all-locale structural checks and 21 human-preference checks pass.
+The existing browser suite covers placement and rejects invalid targets; it was
+syntax-checked but not run without the application stack.
+
+30 locale paths still need these two labels; both keys remain pending.
+The ordinary backlog is 51,575 values plus 174 pending source keys. Broader
+language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

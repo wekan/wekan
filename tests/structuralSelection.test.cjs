@@ -82,3 +82,23 @@ assert.equal(preview.children[2].children[1].textContent, 'Second list');
 assert.equal(preview.children[3].children[1].textContent, 'A selected card');
 assert.equal(buildPreview(Array.from({length:10},()=>({kind:'list',id:'b'}))).children.at(-1).textContent, '+2');
 console.log('structuralSelection: named mixed preview, literal title text and bounded large selections passed');
+
+// Localized placement labels must remain distinct and preserve source tokens.
+{
+  const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
+  const localeRoot = require('node:path').join(__dirname, '../imports/i18n/data');
+  const loadLocale = code => JSON.parse(fs.readFileSync(`${localeRoot}/${code}.i18n.json`, 'utf8'));
+  const source = loadLocale('en');
+  const codes = ["ary", "bho", "bi", "bo", "ckb", "haw", "kok", "ks", "ku", "mai", "mi", "nd", "nso", "ny", "om", "or_IN", "pap", "rn", "rw", "sm", "so", "ss", "st", "ti", "tk_TM", "tn", "to", "tpi", "ts", "tt", "ve", "wo", "xh", "yi", "zu-ZA", "zu"];
+  for (const code of codes) {
+    const locale = loadLocale(code);
+    assert.deepEqual(Object.keys(locale), Object.keys(source), `${code}: source key order`);
+    for (const key of ['move-selection-before', 'move-selection-after']) {
+      assert.ok(locale[key]?.trim(), `${code}:${key}: nonempty`);
+      assert.notEqual(locale[key], source[key], `${code}:${key}: translated`);
+      assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), `${code}:${key}: source tokens`);
+    }
+    assert.notEqual(locale['move-selection-before'], locale['move-selection-after'], `${code}: opposite placements must differ`);
+  }
+  console.log(`structuralSelection: placement translations in ${codes.length} locales passed`);
+}
