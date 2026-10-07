@@ -4148,6 +4148,28 @@ unverified because Playwright is unavailable. There are 49 locales still using
 this English label. The wider backlog remains 51,575 ordinary placeholders in
 70 languages plus 149 pending source keys; linguistic review remains open.
 
+## Rule variable picker: African and Pacific batch
+
+Filled `r-insert-variable` in 17 more locales: Northern Sotho, Zulu and its South
+Africa locale, Xhosa, Swati, Northern Ndebele, Tsonga, Venda, Bislama, Tok Pisin,
+Fijian, Tongan, Hawaiian, Oromo, Kinyarwanda, Kirundi and Luganda. The protected
+fill preserved existing translations. The labels refer to the most recently
+selected text field; several paraphrase a variable as a symbol representing a
+changing value.
+
+The [Kinyarwanda algebra glossary](https://www.rcsdk12.org/cms/lib/NY01001156/Centricity/Domain/4194/hs_integrated_algebra_kinyarwanda-13p.pdf)
+supports `impinduragaciro`. Word-level evidence does not verify all clauses.
+Technical wording remains provisional, especially the paraphrases in Northern
+Sotho, Tsonga, Venda, Fijian, Tongan, Hawaiian and Kirundi.
+
+Extended locale and browser picker coverage to these 17 locales. The browser
+scenario retains focus switching, insertion and exclusion of admin-only fields.
+All 13 focused Node tests and 21 human-preference checks pass; browser syntax
+passes. Browser execution remains unverified because Playwright is unavailable.
+There are 32 locales still using this English label. The broader backlog remains
+51,575 ordinary placeholders in 70 languages plus 149 pending source keys;
+linguistic review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

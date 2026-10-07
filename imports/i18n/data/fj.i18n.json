@@ -1438,7 +1438,7 @@
   "r-subject": "ulutaga",
   "r-email-vars-hint": "Tag e rawa: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Na vanua ni lisi, sala, ulutaga, lisi ni veidikevi kei na dauvakayagataka e ciqoma tale ga na {creator}, {assignees}, {members} kei na {customField:Name}. Na kedra isau e wiliki mai na kadi ni dikevi na lawa.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Curuma e dua na ivakatakilakila ni isau e rawa ni veisau ena vanua ni volavola o digitaka ena iotioti ni gauna:",
   "r-vars-people-hint": "Kei na: {creator}, {assignees}, {members} (na yaca ni vakayagataki ena volavola, na itikotiko ni imeli ena vanua ni ciqoma) kei na {customField:Field name}. Era cakacaka tale ga ena yaca ni lewenilawalawa, lisi kei na sala ni cakacaka tale eso.",
   "r-rule-details": "iVakamacala ni lawa",
   "r-rule-any-trigger-help": "E cakacaka na lawa ni yaco e dua ga vei ira na kena ivakatubu. Na kena cakacaka e vakayacori vakaveitaravi.",

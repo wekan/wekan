@@ -1438,7 +1438,7 @@
   "r-subject": "Toksave: subject",
   "r-email-vars-hint": "Ol tag i stap: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Ol hap bilong lista, rot, taitel, lista bilong sekim na yusa i ken kisim tu {creator}, {assignees}, {members} na {customField:Name}. Sistem i ritim ol dispela long kat taim em i sekim lo.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Putim wanpela mak bilong makim wanpela veliu i save senis long bokis bilong rait yu bin makim las:",
   "r-vars-people-hint": "Na tu: {creator}, {assignees}, {members} (nem bilong ol yusa insait long teks, adres imel long hap I go long) na {customField:Field name}. Ol dispela i wok tu insait long nem bilong memba, lista na rot bilong ol arapela wok.",
   "r-rule-details": "Toksave: Rule details",
   "r-rule-any-trigger-help": "Lo i wok taim wanpela bilong ol samting bilong kirapim em i kamap. Ol wok bilong en i kamap wanwan bihainim oda bilong ol.",

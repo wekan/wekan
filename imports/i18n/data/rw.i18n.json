@@ -1438,7 +1438,7 @@
   "r-subject": "umutwe",
   "r-email-vars-hint": "Ibimenyetso bihari: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Imyanya y’urutonde, umurongo, umutwe, urutonde rwo kugenzura n’umukoresha na yo yemera {creator}, {assignees}, {members} na {customField:Name}, bisomwa ku ikarita igihe itegeko rigenzurwa.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Shyira impinduragaciro mu mwanya w'inyandiko wahisemo bwa nyuma:",
   "r-vars-people-hint": "Nanone: {creator}, {assignees}, {members} (amazina y’abakoresha mu nyandiko, aderesi za imeyili mu mwanya wa Uwohererezwa) na {customField:Field name}. Ibi binakora mu mazina y’abanyamuryango, intonde n’imirongo y’ibindi bikorwa.",
   "r-rule-details": "Ibisobanuro by'itegeko",
   "r-rule-any-trigger-help": "Itegeko rikora iyo habaye imwe mu mbarutso zaryo. Ibikorwa byaryo bikorwa bikurikiranye.",

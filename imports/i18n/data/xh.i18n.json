@@ -1438,7 +1438,7 @@
   "r-subject": "umxholo",
   "r-email-vars-hint": "Iitegi ezikhoyo: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Iindawo zoluhlu, umzila, isihloko, uluhlu lokukhangela nomsebenzisi zikwamkela i-{creator}, {assignees}, {members} kunye ne-{customField:Name}, ezifundwa ekhadini xa kuhlolwa umgaqo.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Faka okuguquguqukayo kwindawo yombhalo oyikhethe mva nje:",
   "r-vars-people-hint": "Kwakhona: {creator}, {assignees}, {members} (amagama abasebenzisi kumbhalo, iidilesi ze-imeyile kwindawo ethi Iya ku) kunye ne-{customField:Field name}. Ezi zikwasebenza kumagama amalungu, izintlu nemizila yezinye izenzo.",
   "r-rule-details": "Iinkcukacha zomthetho",
   "r-rule-any-trigger-help": "Umgaqo usebenza xa kusenzeka nasiphi na isiganeko esiwuqalisayo. Izenzo zawo zenziwa ngokulandelelana.",

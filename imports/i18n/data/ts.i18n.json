@@ -1438,7 +1438,7 @@
   "r-subject": "Hi Xitsonga: mhaka",
   "r-email-vars-hint": "Swikombiso leswi kumekaka: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Tindhawu ta nxaxamelo, ndlela, nhloko-mhaka, nxaxamelo wo kambela ni mutirhisi ti tlhela ti amukela {creator}, {assignees}, {members} na {customField:Name}. Mimpimo ya swona yi hlayiwa eka khadi loko nawu wu kamberiwa.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Nghenisa mfungho lowu yimelaka nkoka lowu cincaka eka ndhawu ya tsalwa leyi u yi hlawuleke ro hetelela:",
   "r-vars-people-hint": "Nakambe: {creator}, {assignees}, {members} (mavito ya vatirhisi eka tsalwa, tiadirese ta imeyili eka ndhawu ya muamukeri) na {customField:Field name}. Swi tlhela swi tirha eka mavito ya swirho, minxaxamelo ni tindlela ta swiendlo swin’wana.",
   "r-rule-details": "Hi Xitsonga: mhaka mhaka",
   "r-rule-any-trigger-help": "Nawu wu tirha loko ku humelela xin’wana xa swiendlakalo leswi wu sungulaka. Swiendlo swa wona swi endliwa hi ku landzelelana.",

@@ -1438,7 +1438,7 @@
   "r-subject": "Tok blong sistem: subject",
   "r-email-vars-hint": "Ol tag we i stap: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Ol bokis blong lis, rod, taetol, lis blong jekem mo yusa oli akseptem tu {creator}, {assignees}, {members} mo {customField:Name}. Sistem i ridim olgeta ya long kad taem hem i jekem rul.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Putum wan mak we i tekem ples blong wan valiu we i save jenis long bokis blong teks we yu jusum laswan:",
   "r-vars-people-hint": "Mo tu: {creator}, {assignees}, {members} (ol nem blong yusa insaed long teks, ol imel adres long bokis I go long) mo {customField:Field name}. Olgeta ya oli wok tu long ol nem blong memba, lis mo rod blong ol narafala aksen.",
   "r-rule-details": "Tok blong sistem: Rule details",
   "r-rule-any-trigger-help": "Rul i wok taem wan long ol samting we i statem hem i hapen. Ol aksen blong hem oli hapen wanwan folem oda blong olgeta.",

@@ -1438,7 +1438,7 @@
   "r-subject": "sihloko",
   "r-email-vars-hint": "Tiphawulo letikhona: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Tinkhaba teluhla, indlela, sihloko, luhla lwekuhlola nemsebentisi temukela ne-{creator}, {assignees}, {members} kanye ne-{customField:Name}. Emanani ato afundvwa ekhadini nakuhlolwa umtsetfo.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Faka lokugucukako endzaweni yembhalo loyikhetse kwekugcina:",
   "r-vars-people-hint": "Futsi: {creator}, {assignees}, {members} (emagama ebasebentisi embhalweni, emakheli e-imeyili enkhabeni yemamukeli) kanye ne-{customField:Field name}. Loku kuyasebenta nasemagameni emalunga, tinhluhla netindlela taletinye tento.",
   "r-rule-details": "Imininingwane yemtsetfo",
   "r-rule-any-trigger-help": "Umtsetfo uyasebenta nangabe kwenteka nobe ngusiphi sicupho sawo. Tento tawo tentiwa ngekulandzelana.",

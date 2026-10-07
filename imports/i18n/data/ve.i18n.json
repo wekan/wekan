@@ -1438,7 +1438,7 @@
   "r-subject": "isihloko",
   "r-email-vars-hint": "Zwiredzo zwi wanalaho: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Fhethu ha mutevhe, nḓila, ṱhoho, mutevhe wa u ṱola na mushumisi hu dovha ha ṱanganedza {creator}, {assignees}, {members} na {customField:Name}. Ndeme dzazwo dzi vhaliwa kha garaṱa musi mulayo u tshi ṱolwa.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Dzhenisani tshiga tshine tsha imela ndeme ine ya shanduka fhethu ha maṅwalwa he na khetha lwa u fhedzisela:",
   "r-vars-people-hint": "Na: {creator}, {assignees}, {members} (madzina a vhashumisi kha maṅwalwa, ḓiresi dza imeiḽi kha fhethu ha muṱanganedzi) na {customField:Field name}. Izwi zwi dovha zwa shuma kha madzina a miraḓo, mitevhe na nḓila dza miṅwe mishumo.",
   "r-rule-details": "Imininingwane yomthetho",
   "r-rule-any-trigger-help": "Mulayo u shuma musi tshiṅwe tsha zwiwo zwine zwa u thoma tshi tshi bvelela. Mishumo yawo i itwa nga u tevhekana.",

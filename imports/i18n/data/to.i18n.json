@@ -1438,7 +1438,7 @@
   "r-subject": "Faka-Tonga: subject",
   "r-email-vars-hint": "Ngaahi fakaʻilonga ʻoku ai: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "ʻOku toe tali ʻe he ngaahi puha ki he lisi, hala, kaveinga, lisi sivi mo e tokotaha ngāueʻaki ʻa e {creator}, {assignees}, {members} mo e {customField:Name}. ʻOku lau ʻa honau ngaahi mahuʻinga mei he kaati ʻi he taimi ʻoku vakaiʻi ai ʻa e tuʻutuʻuni.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Fakahū ha fakaʻilonga ʻo ha mahuʻinga ʻoku lava ke liliu ki he puha tohi naʻá ke toki filí:",
   "r-vars-people-hint": "Pea mo e: {creator}, {assignees}, {members} (hingoa ngāueʻaki ʻi he tohi, tuʻasila ʻīmeili ʻi he puha ki he tokotaha ʻoku ne maʻu) mo e {customField:Field name}. ʻOku toe ngāue foki ʻeni ʻi he hingoa ʻo e kau mēmipa, ngaahi lisi mo e ngaahi hala ʻo e ngaahi ngāue kehe.",
   "r-rule-details": "Faka-Tonga: Rule details",
   "r-rule-any-trigger-help": "ʻOku fakahoko ʻa e tuʻutuʻuni ʻi he hoko ha taha pē ʻo e ngaahi meʻa ʻoku kamata ai. ʻOku fakahoko hokohoko ʻa hono ngaahi ngāue.",

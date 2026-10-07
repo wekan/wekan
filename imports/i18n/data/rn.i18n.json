@@ -1438,7 +1438,7 @@
   "r-subject": "umutwe",
   "r-email-vars-hint": "Ivyapa bihari: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Ibibanza vy’urutonde, umurongo, umutwe, urutonde rwo kugenzura n’umukoresha na vyo vyemera {creator}, {assignees}, {members} na {customField:Name}, bisomwa ku ikarata igihe itegeko risuzumwa.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Shira ikimenyetso gisubirira agaciro gahinduka mu kibanza c'igisomwa wahisemwo ubwa nyuma:",
   "r-vars-people-hint": "Kandi: {creator}, {assignees}, {members} (amazina y’abakoresha mu nyandiko, aderese za imeyili mu kibanza c’Uwohererezwa) na {customField:Field name}. Ivyo birakora no mu mazina y’abanyamuryango, intonde n’imirongo y’ibindi bikorwa.",
   "r-rule-details": "Ibisobanuro vy'itegeko",
   "r-rule-any-trigger-help": "Itegeko rikora iyo habaye imwe mu mbarutso zaryo. Ibikorwa vyaryo bikorwa bikurikirana.",

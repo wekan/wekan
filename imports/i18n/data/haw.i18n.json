@@ -1438,7 +1438,7 @@
   "r-subject": "kupakekaka",
   "r-email-vars-hint": "Nā puni loaʻa: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "ʻAe pū nā kahua papa inoa, ala, poʻo inoa, papa hōʻoia a me ka mea hoʻohana iā {creator}, {assignees}, {members} a me {customField:Name}. Heluhelu ʻia kēia mau mea mai ke kāleka ke nānā ʻia ka lula.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Hoʻokomo i kekahi hōʻailona no ka waiwai loli i ke kahua kikokikona āu i koho hope ai:",
   "r-vars-people-hint": "Eia pū: {creator}, {assignees}, {members} (nā inoa mea hoʻohana ma ke kikokikona, nā helu leka uila ma ke kahua Iā) a me {customField:Field name}. Hiki nō ke hoʻohana i kēia mau mea ma nā inoa lālā, papa inoa a me nā ala o nā hana ʻē aʻe.",
   "r-rule-details": "lule nā kikoʻī",
   "r-rule-any-trigger-help": "Holo ka lula ke kū kekahi o nā hanana e hoʻomaka ai. Hoʻokō ʻia kāna mau hana ma ke kaʻina.",

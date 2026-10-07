@@ -1438,7 +1438,7 @@
   "r-subject": "isihloko",
   "r-email-vars-hint": "Izilebeli ezitholakalayo: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Izinkambu zohlu, umzila, isihloko, uhlu lokuhlola nomsebenzisi zamukela futhi i-{creator}, {assignees}, {members} kanye ne-{customField:Name}, okufundwa ekhadini lapho kuhlolwa umthetho.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Faka okuguquguqukayo endaweni yombhalo oyikhethe okokugcina:",
   "r-vars-people-hint": "Futhi: {creator}, {assignees}, {members} (amagama abasebenzisi embhalweni, amakheli e-imeyili enkambini ethi Kuya ku) kanye ne-{customField:Field name}. Lokhu kusebenza nasemagameni amalungu, izinhlu nemizila yezinye izenzo.",
   "r-rule-details": "Imininingwane yomthetho",
   "r-rule-any-trigger-help": "Umthetho usebenza lapho kwenzeka noma yisiphi sezehlakalo eziwuqalisayo. Izenzo zawo zenziwa ngokulandelana.",

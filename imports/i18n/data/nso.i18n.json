@@ -1438,7 +1438,7 @@
   "r-subject": "sehlogo",
   "r-email-vars-hint": "Dipego tše di lego gona: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Mašemo a lelokelelo, tsela, sehlogo, lelokelelo la tlhahlobo le modiriši a amogela gape {creator}, {assignees}, {members} le {customField:Name}. Boleng bja tšona bo balwa karateng ge molao o lekolwa.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Tsenya leswao leo le emelago boleng bjo bo fetogago lefelong la sengwalwa leo o le kgethilego la mafelelo:",
   "r-vars-people-hint": "Gape: {creator}, {assignees}, {members} (maina a badiriši sengwalweng, diaterese tša imeile ka tšhemong ya moamogedi) le {customField:Field name}. Tše di šoma gape maineng a maloko, manane le ditsela tša ditiro tše dingwe.",
   "r-rule-details": "Dintlha tša molao",
   "r-rule-any-trigger-help": "Molao o šoma ge go direga se sengwe sa dithomiši tša wona. Ditiro tša wona di dirwa ka tatelano.",

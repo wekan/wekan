@@ -1438,7 +1438,7 @@
   "r-subject": "dhimma",
   "r-email-vars-hint": "Mallattoowwan jiran: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Dirreewwan tarree, karaa, mata-duree, tarree qorannoo fi fayyadamaa {creator}, {assignees}, {members} fi {customField:Name} ni fudhatu. Gatiiwwan isaanii yeroo seerri sakatta’amu kaardii irraa dubbifamu.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Jijjiiramaa gara dirree barruu isa dhuma filatteetti galchi:",
   "r-vars-people-hint": "Dabalataan: {creator}, {assignees}, {members} (barreeffama keessatti maqaa fayyadamtootaa, dirree fudhataa keessatti teessoo imeelii) fi {customField:Field name}. Isaan kun maqaa miseensotaa, tarreewwanii fi karaawwan tarkaanfiiwwan biroo keessattis ni hojjetu.",
   "r-rule-details": "Bal'ina seeraa",
   "r-rule-any-trigger-help": "Seerri yeroo kaka’umsa isaa keessaa tokko kamiyyuu uumamu hojjeta. Tarkaanfiiwwan isaa tartiibaan raawwatamu.",

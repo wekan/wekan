@@ -313,7 +313,7 @@ test('Leo outline import instructions have non-English values in all locales', a
 
  test('rule variable picker labels preserve source tokens in the next locale batch', async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
-  const codes = ["ku","ckb","tt","tk_TM","yi","so","ny","bho","mai","or_IN","kok","ary","pap","mi","sm","st","tn"];
+  const codes = ["ku","ckb","tt","tk_TM","yi","so","ny","bho","mai","or_IN","kok","ary","pap","mi","sm","st","tn", "nso", "zu", "zu-ZA", "xh", "ss", "nd", "ts", "ve", "bi", "tpi", "fj", "to", "haw", "om", "rw", "rn", "lg"];
   const key = 'r-insert-variable';
   const source = JSON.parse(fs.readFileSync(path.join(directory, 'en.i18n.json')))[key];
   for (const code of codes) {
