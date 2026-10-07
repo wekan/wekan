@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **47,652 untranslated locale/string values in 70 languages**. It
+  report counts **47,641 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -1986,6 +1986,18 @@ snap.
 and updates the following translations:
 
 **Activity notifications** - choosing which card activity sends notifications.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f38e44d41ad6400acc59a264e2fe09118bcaa0ac">Translate Greenlandic field types.</a></summary>
+
+- Fill 11 English placeholders while preserving source arguments and existing non-English translations. Extend field-type distinction checks.
+- Record vocabulary references and low-confidence technical wording in the translation audit; grammatical and programming-specific review remains necessary.
+- Ordinary untranslated values decrease from 47,652 to 47,641 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 23 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f3ab4a79cf69145d7d2231f5fbc3b2d5c6729b73">Translate Nahuatl field types.</a></summary>
