@@ -214,3 +214,18 @@ test('Akan configuration and rule messages preserve identifiers and deletion con
  for(const key of keys.filter(k=>k.startsWith('r-when-'))) assert.match(data[key],/^Bere a/);
  assert.equal(data['act-a-dueAt'].split('\n').length,english['act-a-dueAt'].split('\n').length);
 });
+
+test('Akan search and migration guidance preserves syntax and configuration examples', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["open-many-cards-at-once-description", "submit-on-enter-description", "roles-info", "globalSearch-instructions-description", "recovery-maintenance-note", "history", "email-domain-allowed-to-invite", "to-create-teams-contact-admin", "to-create-organizations-contact-admin", "database-migration-description", "database-migration-confirm", "sandstorm-migration-description", "sandstorm-delete-raw-mongodb-description", "sandstorm-delete-raw-mongodb-confirm", "globalSearch-instructions-notes-2"];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.ok(!/\b(will|cannot|When|Histanaay|Snestanaam|directanaaies)\b/.test(data[key]),key);
+ }
+ for(const literal of ['Enter','Shift+Enter','Ctrl/Cmd+Enter']) assert.ok(data['submit-on-enter-description'].includes(literal));
+ for(const key of ['globalSearch-instructions-description','globalSearch-instructions-notes-2']) assert.deepEqual(data[key].match(/`[^`]+`/g),english[key].match(/`[^`]+`/g));
+ for(const literal of ['mongodb://127.0.0.1:27018','mongodb://127.0.0.1:27019','WEKAN_FERRETDB_URL','WEKAN_MONGODB_URL','MONGO_URL','snap set wekan database=ferretdb','=mongodb']) assert.ok(data['database-migration-description'].includes(literal),literal);
+ for(const literal of ['Sandstorm','MongoDB 3','FerretDB v1','SQLite','files/attachments','files/avatars']) assert.ok(data['sandstorm-migration-description'].includes(literal),literal);
+ for(const key of ['sandstorm-delete-raw-mongodb-description','sandstorm-delete-raw-mongodb-confirm']) assert.match(data[key],/Wuntumi nsan nyi/);
+ assert.match(data['database-migration-confirm'],/mfonini.*nsesa/);
+});

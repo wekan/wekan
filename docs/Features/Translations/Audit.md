@@ -5327,6 +5327,12 @@ Rewrote 24 mixed-language entries covering avatar/auth settings, organization do
 
 Tests cover tokens, literal identifiers, duplicate-list deletion conditions, irreversible warnings and shared auth labels. Rule fragments and authentication/tenant wording remain provisional pending contextual review. Browser checks were not run; other mixed-language values remain under audit.
 
+### Akan mixed-language correction: search and migration guidance
+
+Rewrote 15 mixed-language descriptions for card-window behavior, keyboard saving, permissions, search syntax, administration and database/Sandstorm migration. Restored damaged Sandstorm names and attachment paths; preserved both database URLs, environment variables and Snap command examples.
+
+Tests compare source placeholders and inline-code spans, verify paths/configuration literals, and cover unchanged filesystem data and irreversible deletion. Migration, tenant administration and rule/search wording remains descriptive and provisional. Browser checks were not run; other mixed-language values remain under review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
