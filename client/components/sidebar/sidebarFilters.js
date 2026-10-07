@@ -559,11 +559,17 @@ Template.selectionDestinationPicker.onCreated(function() {
 
 Template.selectionDestinationPicker.helpers({
   boards() {
+    // A user without a templates board has an undefined id here, and
+    // ReactiveCache keys - and re-reads - its selector through
+    // EJSON.stringify, which drops undefined: `{ $ne: undefined }` became
+    // `_id: {}` and matched NO board, so the list was empty. Exclude the
+    // templates board only when there is one.
+    const templatesBoardId = ReactiveCache.getCurrentUser()?.getTemplatesBoardId();
     return ReactiveCache.getBoards(
       {
         archived: false,
         'members.userId': Meteor.userId(),
-        _id: { $ne: ReactiveCache.getCurrentUser().getTemplatesBoardId() },
+        ...(templatesBoardId ? { _id: { $ne: templatesBoardId } } : {}),
       },
       {
         sort: { sort: 1 },

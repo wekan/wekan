@@ -48,15 +48,25 @@ test(`Card → More lists the other parents and removes one in ${language}`, asy
   await bp.clickCard(board.listIds[0], 'Alpha Card');
   const details = new CardPage(page);
   await details.waitForOpen();
-  await page.evaluate(() => {
-    const opener = document.querySelector('.js-more') || document.body;
-    Popup.open('cardMore')({ currentTarget: opener, target: opener, preventDefault() {}, stopPropagation() {} });
-  });
+  // The parents were written straight to the database; the client sees
+  // parentIds a moment before parentId, and More reads the primary parent once,
+  // when it opens. Wait until this browser has both, as a member's would.
+  await expect.poll(() => page.evaluate(id => Meteor.connection._stores.cards?._getCollection().findOne(id)?.parentId, a._id)).toBe(b._id);
+  // Open More the way a member does: the card's menu, then More. A popup
+  // opened from document.body has no card behind it, so it cannot know the
+  // parent's board and never shows the "add parent" choice checked below.
+  await details.openActionsMenu();
+  await details.clickAction('.js-more');
   const others = page.locator('.card-other-parents');
   await expect(others).toContainText('Gamma Card');
   await expect(others.locator(':scope > span')).toHaveText(locale['other-parent-cards'] + ':');
   await expect(page.locator('label').filter({ has: page.locator('.js-field-add-parent-card') })).toContainText(locale['add-parent-card']);
   await expect(others.locator('.js-remove-other-parent')).toHaveAttribute('title', locale['remove-parent-card']);
+  // The source board list is not empty for a user without a templates board:
+  // its selector used to read `_id: { $ne: undefined }`, which ReactiveCache's
+  // EJSON key turned into `_id: {}` - matching no board at all.
+  await expect(page.locator('.js-pop-over .js-field-parent-board option[value="' + board.boardId + '"]')).toHaveCount(1);
+  await expect(page.locator('.js-pop-over .js-field-add-parent-card option[value="' + b._id + '"]')).toHaveCount(1);
   await others.locator('.js-remove-other-parent').click();
   await expect.poll(() => byTitle('Alpha Card').parentIds).toEqual([b._id]);
   expect(byTitle('Alpha Card').parentId).toBe(b._id);
