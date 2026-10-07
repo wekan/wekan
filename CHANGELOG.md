@@ -1912,7 +1912,7 @@ This release fixes the following bugs:
 **Snap database tools** - backup, restore and WeKan's wait for its database.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/941aa9192920aa4b468d8456dd279aae53f1c27e">A database connection refused by AppArmor is named at once, with the fix</a>. Thanks to fabiosalles and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f927cb3c50708c2e84ad57323edf36761a7d3165">A database connection refused by AppArmor is named at once, with the fix</a>. Thanks to fabiosalles and xet7.</summary>
 
 The kernel log in [#6746](https://github.com/wekan/wekan/issues/6746) held 1300
 lines of `apparmor="DENIED" operation="file_perm" class="net"` for
@@ -1935,7 +1935,7 @@ connection. Not run in an installed snap or on an affected kernel.
 **Snap settings** - the `snap set` names behind each WeKan setting.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/941aa9192920aa4b468d8456dd279aae53f1c27e">Every service log no longer starts with four snapctl get errors</a>. Thanks to fabiosalles and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f927cb3c50708c2e84ad57323edf36761a7d3165">Every service log no longer starts with four snapctl get errors</a>. Thanks to fabiosalles and xet7.</summary>
 
 `SAML_IDP_PROFILE`, `SAML_WANT_RESPONSE_SIGNED`, `SAML_WANT_ASSERTIONS_SIGNED`
 and `SAML_LOGIN_FLOW` were listed in `bin/config` without a `snap set` name, so
@@ -1947,6 +1947,62 @@ name falls back to its default instead of calling snapctl.
 `tests/snapSettingsKeys.test.cjs` requires a key, default and description for
 every setting, rejects shared keys, and runs the real reader against a snapctl
 that fails like the real one.
+
+</details>
+
+and has the following developer-tooling fixes:
+
+**Release builds** - the Snap builds Launchpad makes for the extra
+architectures.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a3048e4a7a41231d60e91f4ee96719fd45c6e1ea">A stopped Launchpad build is retried with a new build, and a proxy failure is named</a>. Thanks to xet7.</summary>
+
+The v12.21 s390x snap failed: Launchpad's own package proxy answered "501
+Gateway error" for one stage-package, and the retries could not help. The
+third attempt ran `remote-build --recover`, which reconnects to the build that
+had already stopped. Now a build that ended Stopped, Failed or Cancelled is
+retried with a new build, while recovery still reconnects after a polling or
+TLS error. Each attempt prints only its own Launchpad log, and a 5xx from the
+build farm's proxy is named as infrastructure, with the package. The tests in
+`tests/releaseSnapRecovery.test.cjs` run the real step with a stand-in
+snapcraft. Not run on GitHub Actions or Launchpad here.
+
+</details>
+
+**Tests** - checks that failed on timing or on formatting, not on WeKan.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/576a8438aaba05760620692c92fc7aba7507c092">The activity notification intent test names each intent by its activity</a>. Thanks to xet7.</summary>
+
+The mocha test failed about one run in four. The two activities' insert hooks
+dispatch at the same time, and when the second one reached the subscriber
+first, the test waited for the intent it makes fail on purpose. Intents are now
+recorded against their activity, and the call counts allow for the recovery
+scan that retries a pending intent every second. It passed 12 of 12 runs.
+
+</details>
+
+- [CHANGELOG prose is wrapped at 80 columns and no link shows a commit hash](https://github.com/wekan/wekan/commit/2632b0d8e1737884c4028ca08ada315831cc2b3a), [again for later lines](https://github.com/wekan/wekan/commit/bc3f99aa1ba24f9dc1166146e49cc5e3e4e1bae4). Thanks to xet7.
+
+and improves the following translations:
+
+**Tigre and Tamazight** - words borrowed from the wrong language.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/256a09d5553b314e84f1b896c37ab360e29aff59">Tigre uses its own words for card, name and file in 15 new strings</a>. Thanks to xet7.</summary>
+
+New hints used the Tigrinya forms instead of the Tigre ones the rest of the
+file uses: ወረቀት ካርድ for card, ስሜት for name, አስማይ for names and ፈይል for
+file. Low confidence: the wording around them still needs a Tigre speaker.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/867154fd4ad67eee4a5050656711902b4125f809">Tamazight uses its checklist word in the rule trigger variables hint</a>. Thanks to xet7.</summary>
+
+The hint named checklist fields with a noun the Tamazight checks reject; it now
+uses the same word as `checklist` itself.
 
 </details>
 
@@ -1990,10 +2046,16 @@ and updates the following translations:
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b74cc1a1475e351e8df7d44c20a5f63ba34c4358">Translate Māori, Samoan, Hawaiian and Tongan block and bubble labels.</a></summary>
 
-- Fill 64 English placeholders while preserving numbered arguments and existing translations. Extend block-state, input and bubble distinction checks.
-- Document dictionary references and lower-confidence stack, container and bubble metaphors. Contextual language and spoken accessibility review remain open.
-- Ordinary untranslated values decrease from 47,411 to 47,347 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 26 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 64 English placeholders while preserving numbered arguments and existing
+  translations. Extend block-state, input and bubble distinction checks.
+- Document dictionary references and lower-confidence stack, container and
+  bubble metaphors. Contextual language and spoken accessibility review remain
+  open.
+- Ordinary untranslated values decrease from 47,411 to 47,347 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 26 focused tests and 21 human-preference checks pass. Browser
+  coverage is syntax-checked; browser and spoken accessibility checks were not
+  run.
 
 Thanks to xet7 !
 
@@ -2002,10 +2064,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/be02e9bf43f5ab50b3f5fa6aabd29f3b1e349848">Translate Somali, Moroccan Arabic, Odia and Konkani block and bubble labels.</a></summary>
 
-- Fill 64 English placeholders while preserving numbered arguments and existing translations. Extend block-state, input and bubble distinction checks.
-- Document lower-confidence technical metaphors, particularly Somali and Konkani wording; contextual accessibility review remains open.
-- Ordinary untranslated values decrease from 47,475 to 47,411 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 26 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 64 English placeholders while preserving numbered arguments and existing
+  translations. Extend block-state, input and bubble distinction checks.
+- Document lower-confidence technical metaphors, particularly Somali and Konkani
+  wording; contextual accessibility review remains open.
+- Ordinary untranslated values decrease from 47,475 to 47,411 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 26 focused tests and 21 human-preference checks pass. Browser
+  coverage is syntax-checked; browser and spoken accessibility checks were not
+  run.
 
 Thanks to xet7 !
 
@@ -2014,10 +2081,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cad48f4a2064b5dfae456662c3659b2c941bcf85">Translate Yiddish, Turkmen, Bhojpuri and Maithili block and bubble labels.</a></summary>
 
-- Fill 64 English placeholders, preserving numbered arguments and existing correct-language translations. Extend block-state, input and bubble distinction checks.
-- Document lower-confidence stack/row, bubble and container terminology; contextual accessibility review remains open.
-- Ordinary untranslated values decrease from 47,539 to 47,475 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 26 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 64 English placeholders, preserving numbered arguments and existing
+  correct-language translations. Extend block-state, input and bubble
+  distinction checks.
+- Document lower-confidence stack/row, bubble and container terminology;
+  contextual accessibility review remains open.
+- Ordinary untranslated values decrease from 47,539 to 47,475 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 26 focused tests and 21 human-preference checks pass. Existing
+  browser coverage is syntax-checked; browser and spoken accessibility checks
+  were not run.
 
 Thanks to xet7 !
 
@@ -2026,10 +2099,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fa8167b30a49098d8df0ab015bd36a5a36be142d">Translate Kurdish and Tatar block and bubble labels.</a></summary>
 
-- Fill 48 English placeholders across Northern Kurdish, Central Kurdish and Tatar, preserving numbered arguments and existing correct-language translations.
-- Add checks for singular/plural input, collapsed/disabled, statement/value and comment/warning distinctions. Contextual wording review remains open, with lower-confidence terms documented in the audit.
-- Ordinary untranslated values decrease from 47,587 to 47,539 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 26 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 48 English placeholders across Northern Kurdish, Central Kurdish and
+  Tatar, preserving numbered arguments and existing correct-language
+  translations.
+- Add checks for singular/plural input, collapsed/disabled, statement/value and
+  comment/warning distinctions. Contextual wording review remains open, with
+  lower-confidence terms documented in the audit.
+- Ordinary untranslated values decrease from 47,587 to 47,539 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 26 focused tests and 21 human-preference checks pass. Existing
+  browser coverage is syntax-checked; browser and spoken accessibility checks
+  were not run.
 
 Thanks to xet7 !
 
@@ -2038,10 +2118,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a71977d57795c77c26cfc3150dacb06bbd58f922">Translate Cherokee field types.</a></summary>
 
-- Fill 11 English placeholders while preserving source arguments and existing non-English translations. Extend field-type distinction checks.
-- Record vocabulary references and very low confidence in technical wording; grammatical and semantic review remains necessary.
-- Ordinary untranslated values decrease from 47,598 to 47,587 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 25 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 11 English placeholders while preserving source arguments and existing
+  non-English translations. Extend field-type distinction checks.
+- Record vocabulary references and very low confidence in technical wording;
+  grammatical and semantic review remains necessary.
+- Ordinary untranslated values decrease from 47,598 to 47,587 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 25 focused tests and 21 human-preference checks pass. Existing
+  browser coverage is syntax-checked; browser and spoken accessibility checks
+  were not run.
 
 Thanks to xet7 !
 
@@ -2050,10 +2135,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8cc6c614f8dafd1a57b569ea43a9dd71de522dec">Translate Wolaytta field labels and remove English control filler.</a></summary>
 
-- Fill ten English placeholders and replace three prefixed-English controls. Preserve source arguments and existing correct-language translations.
-- Add token/type distinction checks and correction regressions. Vocabulary references and low-confidence technical wording are recorded in the audit; angle remains pending vocabulary evidence.
-- Ordinary untranslated values decrease from 47,608 to 47,598 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 25 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill ten English placeholders and replace three prefixed-English controls.
+  Preserve source arguments and existing correct-language translations.
+- Add token/type distinction checks and correction regressions. Vocabulary
+  references and low-confidence technical wording are recorded in the audit;
+  angle remains pending vocabulary evidence.
+- Ordinary untranslated values decrease from 47,608 to 47,598 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 25 focused tests and 21 human-preference checks pass. Existing
+  browser coverage is syntax-checked; browser and spoken accessibility checks
+  were not run.
 
 Thanks to xet7 !
 
@@ -2062,10 +2153,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/96fd0432bd380b00216e7cf282db308e3d867458">Translate Tigre field types and correct calendar date label.</a></summary>
 
-- Fill 11 English placeholders and correct the date control's fruit/date ambiguity. Preserve source arguments and existing correct-language translations.
-- Extend field-type distinctions and add a date regression. Vocabulary references and low-confidence technical phrases are recorded in the audit.
-- Ordinary untranslated values decrease from 47,619 to 47,608 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 24 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 11 English placeholders and correct the date control's fruit/date
+  ambiguity. Preserve source arguments and existing correct-language
+  translations.
+- Extend field-type distinctions and add a date regression. Vocabulary
+  references and low-confidence technical phrases are recorded in the audit.
+- Ordinary untranslated values decrease from 47,619 to 47,608 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 24 focused tests and 21 human-preference checks pass. Existing
+  browser coverage is syntax-checked; browser and spoken accessibility checks
+  were not run.
 
 Thanks to xet7 !
 
@@ -2074,10 +2171,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ff8c9bd0e62f4afe313fc22eb2d69fa781d01897">Translate Tamazight field types.</a></summary>
 
-- Fill 11 English placeholders in Tifinagh while preserving source arguments and existing non-English translations. Extend field-type distinction checks.
-- Record Moroccan Tamazight catalog references and wider Amazigh vocabulary sources in the audit, including low-confidence technical compounds that need review.
-- Ordinary untranslated values decrease from 47,630 to 47,619 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 23 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 11 English placeholders in Tifinagh while preserving source arguments and
+  existing non-English translations. Extend field-type distinction checks.
+- Record Moroccan Tamazight catalog references and wider Amazigh vocabulary
+  sources in the audit, including low-confidence technical compounds that need
+  review.
+- Ordinary untranslated values decrease from 47,630 to 47,619 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 23 focused tests and 21 human-preference checks pass. Existing
+  browser coverage is syntax-checked; browser and spoken accessibility checks
+  were not run.
 
 Thanks to xet7 !
 
@@ -2086,10 +2189,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0f4a4545cf9869d502ea57f0244ed35950eef3e6">Translate Inuktitut field types.</a></summary>
 
-- Fill 11 English placeholders while preserving source arguments and existing non-English translations. Extend field-type distinction checks.
-- Record vocabulary sources and low-confidence angle, grid, pixel and programming terms in the translation audit; wording review remains necessary.
-- Ordinary untranslated values decrease from 47,641 to 47,630 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 23 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 11 English placeholders while preserving source arguments and existing
+  non-English translations. Extend field-type distinction checks.
+- Record vocabulary sources and low-confidence angle, grid, pixel and
+  programming terms in the translation audit; wording review remains necessary.
+- Ordinary untranslated values decrease from 47,641 to 47,630 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 23 focused tests and 21 human-preference checks pass. Existing
+  browser coverage is syntax-checked; browser and spoken accessibility checks
+  were not run.
 
 Thanks to xet7 !
 
@@ -2098,10 +2206,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f38e44d41ad6400acc59a264e2fe09118bcaa0ac">Translate Greenlandic field types.</a></summary>
 
-- Fill 11 English placeholders while preserving source arguments and existing non-English translations. Extend field-type distinction checks.
-- Record vocabulary references and low-confidence technical wording in the translation audit; grammatical and programming-specific review remains necessary.
-- Ordinary untranslated values decrease from 47,652 to 47,641 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 23 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 11 English placeholders while preserving source arguments and existing
+  non-English translations. Extend field-type distinction checks.
+- Record vocabulary references and low-confidence technical wording in the
+  translation audit; grammatical and programming-specific review remains
+  necessary.
+- Ordinary untranslated values decrease from 47,652 to 47,641 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 23 focused tests and 21 human-preference checks pass. Existing
+  browser coverage is syntax-checked; browser and spoken accessibility checks
+  were not run.
 
 Thanks to xet7 !
 
@@ -2110,10 +2224,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f3ab4a79cf69145d7d2231f5fbc3b2d5c6729b73">Translate Nahuatl field types.</a></summary>
 
-- Fill 11 English placeholders while preserving source arguments and existing non-English translations. Extend field-type distinction checks.
-- Record dictionary references and low-confidence technical paraphrases in the translation audit; these labels still need wording review.
-- Ordinary untranslated values decrease from 47,663 to 47,652 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 23 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 11 English placeholders while preserving source arguments and existing
+  non-English translations. Extend field-type distinction checks.
+- Record dictionary references and low-confidence technical paraphrases in the
+  translation audit; these labels still need wording review.
+- Ordinary untranslated values decrease from 47,663 to 47,652 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 23 focused tests and 21 human-preference checks pass. Existing
+  browser coverage is syntax-checked; browser and spoken accessibility checks
+  were not run.
 
 Thanks to xet7 !
 
@@ -2122,10 +2241,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c7df9973e10de218b1ad48e1d504a183cb2337f5">Translate Ewe and Fulah field types.</a></summary>
 
-- Fill 22 English placeholders while preserving source arguments and existing correct-language translations. Extend field-type distinction checks to both locales.
-- Dictionary references and low-confidence technical wording are recorded in the translation audit.
-- Ordinary untranslated values decrease from 47,685 to 47,663 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 23 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 22 English placeholders while preserving source arguments and existing
+  correct-language translations. Extend field-type distinction checks to both
+  locales.
+- Dictionary references and low-confidence technical wording are recorded in the
+  translation audit.
+- Ordinary untranslated values decrease from 47,685 to 47,663 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 23 focused tests and 21 human-preference checks pass. Existing
+  browser coverage is syntax-checked; browser and spoken accessibility checks
+  were not run.
 
 Thanks to xet7 !
 
@@ -2134,10 +2259,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0cf084715f6a1dc9d304142440adacd9ca999dc4">Translate Volapük and Klingon field types.</a></summary>
 
-- Fill 22 English placeholders and correct three foreign-language text/date controls. Preserve source arguments and existing correct-language translations.
-- Extend field-type distinctions and correction regressions. Dictionary references and low-confidence technical paraphrases are recorded in the translation audit.
-- Ordinary untranslated values decrease from 47,707 to 47,685 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 23 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 22 English placeholders and correct three foreign-language text/date
+  controls. Preserve source arguments and existing correct-language
+  translations.
+- Extend field-type distinctions and correction regressions. Dictionary
+  references and low-confidence technical paraphrases are recorded in the
+  translation audit.
+- Ordinary untranslated values decrease from 47,707 to 47,685 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 23 focused tests and 21 human-preference checks pass. Existing
+  browser coverage is syntax-checked; browser and spoken accessibility checks
+  were not run.
 
 Thanks to xet7 !
 
@@ -2146,10 +2278,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6f02165e88d05d53d884ac63d317625d5d179135">Translate Akan, Bambara and Wolof field types.</a></summary>
 
-- Fill 33 English placeholders and correct two Akan selector labels. Preserve source arguments and existing correct-language translations.
-- Extend field-type distinctions and Akan correction regressions. Sources and low-confidence technical wording are documented in the translation audit.
-- Ordinary untranslated values decrease from 47,740 to 47,707 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 22 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 33 English placeholders and correct two Akan selector labels. Preserve
+  source arguments and existing correct-language translations.
+- Extend field-type distinctions and Akan correction regressions. Sources and
+  low-confidence technical wording are documented in the translation audit.
+- Ordinary untranslated values decrease from 47,740 to 47,707 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 22 focused tests and 21 human-preference checks pass. Existing
+  browser coverage is syntax-checked; browser and spoken accessibility checks
+  were not run.
 
 Thanks to xet7 !
 
@@ -2158,10 +2295,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/92a60e35f01eac41d1cdab84f91ae5b6d9888c61">Translate Northern Sámi, Veps and Acehnese field types.</a></summary>
 
-- Fill 33 English placeholders and correct two Malay-seeded Acehnese selectors. Preserve source arguments and existing correct-language translations.
-- Extend field-type distinctions, Acehnese correction checks and Veps vocabulary regressions. Sources and low-confidence technical wording are documented in the translation audit.
-- Ordinary untranslated values decrease from 47,773 to 47,740 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 21 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 33 English placeholders and correct two Malay-seeded Acehnese selectors.
+  Preserve source arguments and existing correct-language translations.
+- Extend field-type distinctions, Acehnese correction checks and Veps vocabulary
+  regressions. Sources and low-confidence technical wording are documented in
+  the translation audit.
+- Ordinary untranslated values decrease from 47,773 to 47,740 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 21 focused tests and 21 human-preference checks pass. Existing
+  browser coverage is syntax-checked; browser and spoken accessibility checks
+  were not run.
 
 Thanks to xet7 !
 
@@ -2170,10 +2313,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8d4d8c91dd2fb9dceac217cc04aab4705fbe08b8">Translate Tibetan, Dzongkha, Tigrinya and Kashmiri field types.</a></summary>
 
-- Fill 44 English placeholders while preserving source arguments and existing correct-language translations. Extend image, selector and input/function-name distinction checks.
-- Vocabulary references and provisional technical compounds are documented in the translation audit. Shared scripts alone do not establish correct-language wording.
-- Ordinary untranslated values decrease from 47,817 to 47,773 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 20 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 44 English placeholders while preserving source arguments and existing
+  correct-language translations. Extend image, selector and input/function-name
+  distinction checks.
+- Vocabulary references and provisional technical compounds are documented in
+  the translation audit. Shared scripts alone do not establish correct-language
+  wording.
+- Ordinary untranslated values decrease from 47,817 to 47,773 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 20 focused tests and 21 human-preference checks pass. Existing
+  browser coverage is syntax-checked; browser and spoken accessibility checks
+  were not run.
 
 Thanks to xet7 !
 
@@ -2182,10 +2332,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ea88c056a5d244d748c17126ccf7b08a1f938928">Translate Quechua, Aymara and Guarani field-type labels.</a></summary>
 
-- Fill 33 English placeholders and correct four mixed-language selector labels while preserving source arguments and existing correct-language translations.
-- Extend field-type distinctions and selector regressions. Vocabulary references and low-confidence technical phrasing are documented in the translation audit.
-- Ordinary untranslated values decrease from 47,850 to 47,817 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 20 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 33 English placeholders and correct four mixed-language selector labels
+  while preserving source arguments and existing correct-language translations.
+- Extend field-type distinctions and selector regressions. Vocabulary references
+  and low-confidence technical phrasing are documented in the translation audit.
+- Ordinary untranslated values decrease from 47,850 to 47,817 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 20 focused tests and 21 human-preference checks pass. Existing
+  browser coverage is syntax-checked; browser and spoken accessibility checks
+  were not run.
 
 Thanks to xet7 !
 
@@ -2194,10 +2349,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6007aa45b2204e93463a81b5bc4b970aa18b7291">Translate Buryat, Chuvash and Sakha field-type labels.</a></summary>
 
-- Fill 33 English placeholders while preserving source arguments and existing translations. Extend image, selector and input/function-name distinctions.
-- Vocabulary sources and provisional technical compounds are documented in the translation audit; script checks do not establish fluency.
-- Ordinary untranslated values decrease from 47,883 to 47,850 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 19 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 33 English placeholders while preserving source arguments and existing
+  translations. Extend image, selector and input/function-name distinctions.
+- Vocabulary sources and provisional technical compounds are documented in the
+  translation audit; script checks do not establish fluency.
+- Ordinary untranslated values decrease from 47,883 to 47,850 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 19 focused tests and 21 human-preference checks pass. Existing
+  browser coverage is syntax-checked; browser and spoken accessibility checks
+  were not run.
 
 Thanks to xet7 !
 
@@ -2206,10 +2366,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cc1086bcf2558f28a77fa77cee58640a99235f0d">Translate Māori, Tongan and Hawaiian field-type labels.</a></summary>
 
-- Fill 33 English placeholders and repair four selector labels, preserving source arguments and existing correct-language translations.
-- Extend field-type distinctions and selector-label regressions. Vocabulary references and low-confidence technical phrases are documented in the translation audit.
-- Ordinary untranslated values decrease from 47,916 to 47,883 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 19 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 33 English placeholders and repair four selector labels, preserving
+  source arguments and existing correct-language translations.
+- Extend field-type distinctions and selector-label regressions. Vocabulary
+  references and low-confidence technical phrases are documented in the
+  translation audit.
+- Ordinary untranslated values decrease from 47,916 to 47,883 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 19 focused tests and 21 human-preference checks pass. Existing
+  browser coverage is syntax-checked; browser and spoken accessibility checks
+  were not run.
 
 Thanks to xet7 !
 
@@ -2218,10 +2384,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4282d46703c0ec3354c60e8965f70abdfa56f90a">Translate Pacific Blockly field-type labels.</a></summary>
 
-- Fill 44 English placeholders in Bislama, Tok Pisin, Fijian and Samoan; correct four mixed-language selector labels. Preserve source arguments and correct-language translations.
-- Extend field-type distinctions and selector-label regressions. Vocabulary references and low-confidence technical wording are documented in the translation audit.
-- Ordinary untranslated values decrease from 47,960 to 47,916 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 18 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 44 English placeholders in Bislama, Tok Pisin, Fijian and Samoan; correct
+  four mixed-language selector labels. Preserve source arguments and
+  correct-language translations.
+- Extend field-type distinctions and selector-label regressions. Vocabulary
+  references and low-confidence technical wording are documented in the
+  translation audit.
+- Ordinary untranslated values decrease from 47,960 to 47,916 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 18 focused tests and 21 human-preference checks pass. Existing
+  browser coverage is syntax-checked; browser and spoken accessibility checks
+  were not run.
 
 Thanks to xet7 !
 
@@ -2230,10 +2403,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a1f34d5d40929c55aacaf9764db69db6325f2723">Translate field types in five further African languages.</a></summary>
 
-- Fill 55 English placeholders in Kinyarwanda, Kirundi, Luganda, Oromo and Chichewa; correct two mixed-language Luganda control labels. Preserve source arguments and existing correct-language translations.
-- Extend image, selector and input/function-name distinctions and Luganda semantic regressions. Terminology references and low-confidence wording are documented in the translation audit.
-- Ordinary untranslated values decrease from 48,015 to 47,960 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 17 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 55 English placeholders in Kinyarwanda, Kirundi, Luganda, Oromo and
+  Chichewa; correct two mixed-language Luganda control labels. Preserve source
+  arguments and existing correct-language translations.
+- Extend image, selector and input/function-name distinctions and Luganda
+  semantic regressions. Terminology references and low-confidence wording are
+  documented in the translation audit.
+- Ordinary untranslated values decrease from 48,015 to 47,960 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 17 focused tests and 21 human-preference checks pass. Existing
+  browser coverage is syntax-checked; browser and spoken accessibility checks
+  were not run.
 
 Thanks to xet7 !
 
