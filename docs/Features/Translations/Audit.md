@@ -3174,6 +3174,16 @@ This draft has low confidence in software terminology and agreement and needs fl
 
 Validation covers 65 recently filled hints, exact identifiers, source tokens and key order, plus parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. Only Cherokee still has this hint in English. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; language quality review remains open.
 
+### URL scheme hint: Cherokee and all-locale coverage
+
+Filled the English-only `automatic-linked-url-schemes-hint` in `chr` directly through the placeholder-only fill utility. Existing translations were retained. The draft uses syllabics and preserves all five literal scheme identifiers. It describes the empty default, clickable web/mail links, registered applications and permanently excluded schemes.
+
+The Cherokee draft has low confidence, especially the URL-type description, registration phrase and verb agreement, and needs fluent-speaker review. The [Cherokee Language Consortium's 2024 word list](https://language.cherokee.org/media/vdiic5hr/2024consortium.pdf) supplies vocabulary for clicking, email, programs and registration. Lexical support does not validate the complete sentences. The previously documented low-confidence drafts in other locales still require language-quality review. No translation service was used.
+
+All 234 non-English locales now contain a nonempty value different from English for this hint. The URL-scheme regression suite discovers them dynamically and checks source key order, placeholder inventories and the five exact scheme identifiers; it also exercises parser/sanitizer positive and negative cases. The hint has been removed from the pending source-key inventory, reducing it from 172 to 171. This records completed placeholder filling, not linguistic certification.
+
+All-locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. The ordinary backlog remains 51,575 missing values across 70 languages, alongside 171 pending source keys. The broader goal and language-quality review remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

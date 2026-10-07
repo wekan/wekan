@@ -1,10 +1,6 @@
 {
   "keys": [
     {
-      "key": "automatic-linked-url-schemes-hint",
-      "since": "2026-09-29"
-    },
-    {
       "key": "instance",
       "since": "2026-09-29"
     },
