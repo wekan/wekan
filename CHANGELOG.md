@@ -2173,6 +2173,21 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bd52ecab159572c8bf4238772b94093539daa801">Add the due-date shortcut to 47 regional variants.</a></summary>
+
+- Reuse the corresponding language and script for regional shortcut labels.
+  Preserve existing values and source order, including the underlying catalogs
+  used by the Khmer and Russian aliases. English variants remain English.
+- The focused run passes 41 checks; two catalog checks still fail on the missing
+  shortcut in other locales. All 21 human-preference checks pass. Browser and
+  screen-reader checks were not run.
+- The broader translation and wording audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1734c4d2950f01aefa2b92331167231f4a1602ce">Add the due-date shortcut to 14 more locales.</a></summary>
 
 - Add the shortcut to Azerbaijani, Welsh, British English, Esperanto, Estonian,
