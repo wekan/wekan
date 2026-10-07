@@ -2173,6 +2173,21 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/24e9e0543d949cb7f94084c838547255b2dcc898">Correct 26 Tok Pisin cloud storage settings and instructions.</a></summary>
+
+- Replace mixed English in Azure and Google Cloud setup. Preserve external
+  console labels, JSON identifiers, optional credentials and saved-secret
+  behavior. Technical wording remains provisional pending fluent-speaker review.
+- The combined run passes 126 checks; two catalog checks still fail on the
+  missing due-date shortcut key. All 21 human-preference checks pass.
+  Browser and screen-reader checks were not run.
+- The broader translation and wording audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/13b32af7275f947b3beed1267fb7098f6831f93f">Translate 38 Tok Pisin S3 and Sandstorm storage messages.</a></summary>
 
 - Replace English and mixed-language storage text, restore literal directory
