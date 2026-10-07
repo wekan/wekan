@@ -6031,6 +6031,19 @@ All 50 focused translation/structural tests and 21 human-preference checks pass.
 Browser checks were not run. Programming terminology remains low confidence
 pending fluent-speaker review. The wider language and wording audit stays open.
 
+## Northern Sotho Blockly functions — 2026-10-07
+
+Translated 24 English values: 22 counted placeholders and two function-definition
+labels omitted by the counter. Existing translations, help URLs, numeric hues
+and source-empty suffixes are preserved. Checks cover every function key,
+argument tokens, shared definition labels, output versus no output, disabled
+definitions, duplicate parameters and function-only conditional returns.
+
+All 51 focused translation/structural tests and 21 human-preference checks pass.
+Browser checks were not run. Technical vocabulary for functions and parameters
+remains low confidence pending fluent-speaker review. The broader language and
+wording audit stays open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

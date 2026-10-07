@@ -48,3 +48,20 @@ test('Northern Sotho Blockly logic preserves truth conditions and comparison bou
  for(const s of ['GT','LT']) assert.doesNotMatch(data['blockly-LOGIC_COMPARE_TOOLTIP_'+s],/goba e lekana/);
  for(const s of ['CONDITION','IF_TRUE','IF_FALSE']) assert.ok(data['blockly-LOGIC_TERNARY_TOOLTIP'].includes("'"+data['blockly-LOGIC_TERNARY_'+s]+"'"));
 });
+
+test('Northern Sotho Blockly functions preserve arguments and output distinctions',()=>{
+ for(const key of Object.keys(english).filter(k=>k.startsWith('blockly-PROCEDURES_'))){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  if(english[key]&&!key.endsWith('_HELPURL')&&!key.endsWith('_HUE')) assert.notEqual(data[key],english[key],key);
+ }
+ for(const suffix of ['COMMENT','PROCEDURE','TITLE']) assert.equal(data['blockly-PROCEDURES_DEFNORETURN_'+suffix],data['blockly-PROCEDURES_DEFRETURN_'+suffix]);
+ assert.equal(data['blockly-PROCEDURES_BEFORE_PARAMS'],data['blockly-PROCEDURES_CALL_BEFORE_PARAMS']);
+ assert.match(data['blockly-PROCEDURES_DEFNORETURN_TOOLTIP'],/wo o se nago poelo/);
+ assert.match(data['blockly-PROCEDURES_DEFRETURN_TOOLTIP'],/wo o nago le poelo/);
+ assert.match(data['blockly-PROCEDURES_CALLRETURN_TOOLTIP'],/šomiše poelo ya wona/);
+ assert.doesNotMatch(data['blockly-PROCEDURES_CALLNORETURN_TOOLTIP'],/poelo/);
+ assert.match(data['blockly-PROCEDURES_CALL_DISABLED_DEF_WARNING'],/Ga go kgonege.*'%1'.*boloko ya tlhaloso e thibetšwe/);
+ assert.match(data['blockly-PROCEDURES_DEF_DUPLICATE_WARNING'],/dipharamitha tše di ipoeletšago/);
+ assert.match(data['blockly-PROCEDURES_IFRETURN_WARNING'],/fela ka gare ga tlhaloso ya mošomo/);
+ assert.match(data['blockly-PROCEDURES_IFRETURN_TOOLTIP'],/nnete.*boleng bja bobedi/);
+});
