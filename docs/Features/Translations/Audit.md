@@ -6551,6 +6551,12 @@ Corrected 13 mixed-language or mistranslated custom-field messages, including th
 
 Validation: 92 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
 
+## Tok Pisin notification wording audit
+
+Corrected 10 mixed-language notification subscription hints, read/unread actions, due reminders and mention messages. Preserved all source tokens. Tests distinguish participant/watcher scope, read/unread/removal actions and approaching/current/overdue reminders. Existing coherent notification settings remain unchanged. Wording remains provisional pending fluent-speaker review; browser and screen-reader checks were not run.
+
+Validation: 93 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

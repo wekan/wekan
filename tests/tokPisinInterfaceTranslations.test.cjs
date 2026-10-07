@@ -1093,3 +1093,31 @@ test('Tok Pisin custom-field controls retain deletion scope and formatting instr
  assert.match(data['activity-unset-customfield'],/rausim veliu/);
  assert.equal(data.createCustomField,data['createCustomFieldPopup-title']);
 });
+
+
+test('Tok Pisin notifications preserve tokens and distinguish delivery and read states',()=>{
+ const keys=[
+  "notify-participate",
+  "notify-watch",
+  "watching-info",
+  "mark-all-as-read",
+  "mark-all-as-unread",
+  "remove-all-read",
+  "act-almostdue",
+  "act-pastdue",
+  "act-duenow",
+  "act-atUserComment"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.doesNotMatch(data[key],/updates|participate|notified|Mark|unread|Was reminding|Mentioned/,key);
+ }
+ assert.match(data['mark-all-as-read'],/olgeta olsem ritim pinis/);
+ assert.match(data['mark-all-as-unread'],/olgeta olsem i no ritim yet/);
+ assert.match(data['remove-all-read'],/Rausim olgeta yu ritim pinis/);
+ assert.match(data['notify-participate'],/man i bin mekim o memba/);
+ assert.match(data['notify-watch'],/bot, lis o kat/);
+ assert.match(data['act-almostdue'],/i klostu$/);
+ assert.match(data['act-pastdue'],/i lus pinis$/);
+ assert.match(data['act-duenow'],/em nau$/);
+});
