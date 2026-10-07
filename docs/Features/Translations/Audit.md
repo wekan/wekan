@@ -5117,6 +5117,12 @@ mixed-language audit remains open.
 - Added real-parser checks for twelve text operators, positive/negative attachment existence, invalid predicates and the apostrophe-bearing modified-date operator. Existing token inventory checks cover every corrected value.
 - Compacted query aliases such as `takdangpetsa` and `listahansusi` are provisional technical labels, not claims of standard orthography. Quarter terminology and wider locale fluency still require review. The English-placeholder count is unchanged; browser checks were not run.
 
+### Waray wrong-language audit: remaining accented prose
+
+- Corrected 41 French, Walloon or mixed-language values found by broadening the accent/vocabulary scan, including charts, previews, rule fragments, recurrence controls, storage and authentication status. Read each English source before replacing the foreign prose.
+- Preserved the reactivity environment-variable identifier and distinguished work remaining/completed, reset/recur, public/private and all-label scope. Added operation, shared-preview and authentication-state checks.
+- The exact-English count is unchanged. Removing these flagged values is not proof that all foreign text is gone: unaccented foreign words and semantic errors still require review. Flow-efficiency, accessibility and two-factor terminology remains provisional; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

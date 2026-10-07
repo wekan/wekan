@@ -1022,7 +1022,48 @@ const correctedKeys = [
   "predicate-member",
   "predicate-public",
   "predicate-private",
-  "predicate-selector"
+  "predicate-selector",
+  "zoom-out",
+  "board-view-group-by-assignee",
+  "board-view-burndown",
+  "board-view-burnup",
+  "board-view-flow-efficiency",
+  "font-size-default",
+  "label-text-override",
+  "multi-selection",
+  "preview",
+  "previewAttachedImagePopup-title",
+  "previewClipboardImagePopup-title",
+  "custom-private-desc",
+  "custom-public-desc",
+  "overtime",
+  "welcome-list2",
+  "Reactivity_order",
+  "visibility",
+  "default",
+  "defaultdefault",
+  "r-edit-rule-trigger-action",
+  "r-label",
+  "r-remove-all-labels",
+  "r-item",
+  "r-to",
+  "r-d-send-email-to",
+  "roles-status-sees-assigned",
+  "due-date",
+  "history-change-removed",
+  "legalNotice",
+  "board-status-time-summary",
+  "checklist-reset-interval-none",
+  "card-recurrence-interval-none",
+  "accessibility",
+  "gcs-bucket",
+  "s3-bucket",
+  "s3-secret-key",
+  "event-source",
+  "export-select-what-to-include",
+  "import-done",
+  "twoFactorAuth-enabled",
+  "chart-forecast-none-remaining"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -1226,6 +1267,15 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   assert.match(waray['list-sync-credential-status-set'], /^May/);
   assert.match(waray['list-sync-credential-status-unset'], /^Waray/);
   assert.match(waray['list-sync-now-error'], /%s/);
+  assert.notEqual(waray['board-view-burndown'], waray['board-view-burnup']);
+  assert.match(waray['board-view-burndown'], /nahibilin/);
+  assert.match(waray['board-view-burnup'], /natapos/);
+  assert.notEqual(waray['checklist-reset-interval-none'], waray['card-recurrence-interval-none']);
+  for (const key of ['checklist-reset-interval-none', 'card-recurrence-interval-none']) assert.match(waray[key], /diri awtomatiko/);
+  for (const key of ['previewAttachedImagePopup-title', 'previewClipboardImagePopup-title']) assert.equal(waray[key], waray['preview']);
+  assert.ok(waray['Reactivity_order'].includes('METEOR_REACTIVITY_ORDER'));
+  assert.match(waray['r-remove-all-labels'], /ngatanan/);
+  assert.match(waray['twoFactorAuth-enabled'], /^Aktibo.*duha/);
   const statistics = ['AVERAGE', 'MEDIAN', 'MODE', 'STD_DEV', 'SUM'].map(s => waray['blockly-MATH_ONLIST_OPERATOR_' + s]);
   assert.equal(new Set(statistics).size, statistics.length);
   assert.match(waray['blockly-MATH_ONLIST_TOOLTIP_MODE'], /lista han mga butang/);
