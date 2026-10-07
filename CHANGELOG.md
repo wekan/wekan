@@ -1888,14 +1888,6 @@ each for the reason given:
   nothing calls it. Its synchronous `Meteor.user()` was made async on
   2026-10-05 so the whole-tree test holds; wire it to a "Sync now" button or
   remove it.
-- Browser tests: Meteor allows 30 refreshes of the HttpOnly login cookie per 10
-  seconds per address (`/_accounts/cookie/refresh`, then `429`). Every test runs
-  from localhost, so a fast Chromium run that switches users often can exceed it
-  and the next `loginWithToken` lands on the sign-in page. Seen on 2026-10-05
-  with the login settings specs; their full-page loads were reduced so they
-  pass. A retry after a `429` in `tests/playwright/helpers/auth.js`, or a higher
-  `httpOnlyCookieRateLimit` for the test server only, would remove it for every
-  spec.
 
 </details>
 </details>
@@ -1996,6 +1988,23 @@ buttons; it was not run here.
 
 </details>
 
+**Board lists in card popups** - which boards a card can be moved to or under.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9ae7388a7e72de02a7327fcbbf14b28b64da35d2">Card More and multi-selection list every board for a user without a templates board</a>. Thanks to xet7.</summary>
+
+"Change card's parent -> Source board" and the multi-selection destination
+picker were empty for a user who has no templates board. Both excluded
+`getTemplatesBoardId()`, which is then undefined, and the client
+ReactiveCache runs its query through `EJSON.stringify`, which drops
+undefined: `_id: { $ne: undefined }` became `_id: {}` and matched no board.
+The templates board is now excluded only when there is one.
+`tests/reactiveCacheUndefinedSelector.test.cjs` fails on any ReactiveCache
+selector with such a call under `$ne`, and the browser spec of several parents
+opens More from the card menu and checks the board is offered.
+
+</details>
+
 and has the following developer-tooling fixes:
 
 **Release builds** - the Snap builds Launchpad makes for the extra
@@ -2017,6 +2026,18 @@ snapcraft. Not run on GitHub Actions or Launchpad here.
 </details>
 
 **Tests** - checks that failed on timing or on formatting, not on WeKan.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/63a7fba46571bf61071ae74110da245bd34ef326">The browser tests no longer sign themselves out on Meteor's cookie refresh limit</a>. Thanks to xet7.</summary>
+
+Meteor allows 30 refreshes of the login cookie per 10 seconds per address, and
+every page load is one; the whole browser suite comes from localhost.
+`ACCOUNTS_COOKIE_REFRESH_RATE_LIMIT` now raises that allowance - the test
+server sets it, and an install behind an untrusted proxy can too - and
+`loginWithToken` waits out a 429 on the refresh. Anything but a positive whole
+number keeps Meteor's default. `tests/cookieRefreshRateLimit.test.cjs`.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/576a8438aaba05760620692c92fc7aba7507c092">The activity notification intent test names each intent by its activity</a>. Thanks to xet7.</summary>
@@ -2055,12 +2076,30 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c182b9ac42bacb82b99d00842f3423667a7f0a39">Correct 25 Walloon values in Waray login, rule and layout labels.</a></summary>
+
+- Correct rule, LDAP/OAuth, passwordless login and layout labels while preserving template variables and configuration names. Retain one-time-code, account-conflict and secret-visibility meanings.
+- Extend camel-case brace-token, configuration and login-state checks. Restore omitted mobile/desktop notification detail; contextual wording review remains necessary.
+- English placeholders remain at 46,995 across 70 languages; 148 pending source keys and further wrong-language corrections remain open.
+- Validation: 27 focused tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7ff98db7a5b1a29b79f89cee35b0502e282db0c3">Correct 25 Walloon values in Waray organization and template controls.</a></summary>
 
-- Correct external issue-link, email-template, database metadata, organization, field-order and rule labels. Preserve template variables, configuration identifiers and organization-admin restrictions.
-- Extend brace-token, authorization-negation and up/down checks. Technical terminology remains provisional and further wrong-language corrections remain necessary.
-- English placeholders remain at 46,995 across 70 languages; 148 pending source keys and broader semantic review remain open.
-- Validation: 27 focused tests and 21 human-preference checks pass. Browser checks were not run.
+- Correct external issue-link, email-template, database metadata, organization,
+  field-order and rule labels. Preserve template variables, configuration
+  identifiers and organization-admin restrictions.
+- Extend brace-token, authorization-negation and up/down checks. Technical
+  terminology remains provisional and further wrong-language corrections remain
+  necessary.
+- English placeholders remain at 46,995 across 70 languages; 148 pending source
+  keys and broader semantic review remain open.
+- Validation: 27 focused tests and 21 human-preference checks pass. Browser
+  checks were not run.
 
 Thanks to xet7 !
 
@@ -2069,10 +2108,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/65fe9d72218e6ce2c8eb0466997d3c6110d35377">Correct 30 further Walloon values in Waray notes and favorites.</a></summary>
 
-- Correct note, favorite, permanent-delete, text-matching, import, selection and interruption labels. Restore the missing Markdown-import explanation for plain bulleted lists without checkboxes.
-- Preserve placeholders, Markdown examples and the guarantee that enabling permanent deletion does not itself delete content. Extend operation and language regressions; technical wording remains provisional.
-- These wrong-language corrections leave 46,995 English placeholders across 70 languages. Further Waray corrections, 148 pending source keys and broader semantic review remain open.
-- Validation: 27 focused tests and 21 human-preference checks pass. Browser checks were not run.
+- Correct note, favorite, permanent-delete, text-matching, import, selection and
+  interruption labels. Restore the missing Markdown-import explanation for plain
+  bulleted lists without checkboxes.
+- Preserve placeholders, Markdown examples and the guarantee that enabling
+  permanent deletion does not itself delete content. Extend operation and
+  language regressions; technical wording remains provisional.
+- These wrong-language corrections leave 46,995 English placeholders across 70
+  languages. Further Waray corrections, 148 pending source keys and broader
+  semantic review remain open.
+- Validation: 27 focused tests and 21 human-preference checks pass. Browser
+  checks were not run.
 
 Thanks to xet7 !
 
@@ -2081,10 +2127,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6c95ad716d5c0c390741a98900b06a5798d5992d">Correct 40 Walloon values in Waray board and import controls.</a></summary>
 
-- Replace wrong-language board membership, home/default board, view, deadline, import/export, user mapping and note labels with Waray. Preserve day-count tokens and non-deletion guarantees.
-- Add regression checks for the corrected values, known Walloon vocabulary, source arguments and operation distinctions. More Walloon contamination remains in the Waray catalog; technical wording still needs contextual review.
-- The ordinary English-placeholder count remains 46,995 across 70 languages because these corrections replace non-English text. The 148 pending source keys and broader semantic audit remain open.
-- Validation: 27 focused tests and 21 human-preference checks pass. Browser checks were not run.
+- Replace wrong-language board membership, home/default board, view, deadline,
+  import/export, user mapping and note labels with Waray. Preserve day-count
+  tokens and non-deletion guarantees.
+- Add regression checks for the corrected values, known Walloon vocabulary,
+  source arguments and operation distinctions. More Walloon contamination
+  remains in the Waray catalog; technical wording still needs contextual review.
+- The ordinary English-placeholder count remains 46,995 across 70 languages
+  because these corrections replace non-English text. The 148 pending source
+  keys and broader semantic audit remain open.
+- Validation: 27 focused tests and 21 human-preference checks pass. Browser
+  checks were not run.
 
 Thanks to xet7 !
 
@@ -2093,10 +2146,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6c5433f4d1d977b5e2219857fee36b9842a3b5a3">Translate Walloon and Waray block labels and correct mistaken locale identity.</a></summary>
 
-- Fill 32 English placeholders and correct 15 Walloon field labels mistakenly inserted into the Waray catalog. The registry identifies wa-RR as Waray-Waray; earlier claims that its Waray text was foreign were incorrect.
-- Repair the regression that enforced wrong-language labels and extend block-label checks. Preserve arguments and document provisional terminology and further language review.
-- Ordinary untranslated values decrease from 47,027 to 46,995 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 26 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 32 English placeholders and correct 15 Walloon field labels mistakenly
+  inserted into the Waray catalog. The registry identifies wa-RR as Waray-Waray;
+  earlier claims that its Waray text was foreign were incorrect.
+- Repair the regression that enforced wrong-language labels and extend
+  block-label checks. Preserve arguments and document provisional terminology
+  and further language review.
+- Ordinary untranslated values decrease from 47,027 to 46,995 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 26 focused tests and 21 human-preference checks pass. Browser
+  coverage is syntax-checked; browser and spoken accessibility checks were not
+  run.
 
 Thanks to xet7 !
 
@@ -2105,10 +2165,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f8107ec9b23a34778fe9b3ba45792a4e45ff35bb">Translate Wu Chinese and Venetian block and bubble labels.</a></summary>
 
-- Fill 32 English placeholders while preserving numbered arguments and existing translations. Extend block-state, input and bubble distinction checks.
-- Document provisional regional wording and technical metaphors. Contextual language and spoken accessibility review remain open.
-- Ordinary untranslated values decrease from 47,059 to 47,027 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 26 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 32 English placeholders while preserving numbered arguments and existing
+  translations. Extend block-state, input and bubble distinction checks.
+- Document provisional regional wording and technical metaphors. Contextual
+  language and spoken accessibility review remain open.
+- Ordinary untranslated values decrease from 47,059 to 47,027 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 26 focused tests and 21 human-preference checks pass. Browser
+  coverage is syntax-checked; browser and spoken accessibility checks were not
+  run.
 
 Thanks to xet7 !
 
@@ -2117,10 +2182,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7ef3e29237d8516ea23ef1566b71847ce5d0fe3f">Translate Tsonga and Venda block and bubble labels.</a></summary>
 
-- Fill 32 English placeholders while preserving numbered arguments and existing translations. Extend block-state, input and bubble distinction checks.
-- Document vocabulary references and provisional stack, replacement and text-box wording. Contextual language and spoken accessibility review remain open.
-- Ordinary untranslated values decrease from 47,091 to 47,059 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 26 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 32 English placeholders while preserving numbered arguments and existing
+  translations. Extend block-state, input and bubble distinction checks.
+- Document vocabulary references and provisional stack, replacement and text-box
+  wording. Contextual language and spoken accessibility review remain open.
+- Ordinary untranslated values decrease from 47,091 to 47,059 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 26 focused tests and 21 human-preference checks pass. Browser
+  coverage is syntax-checked; browser and spoken accessibility checks were not
+  run.
 
 Thanks to xet7 !
 
@@ -2129,10 +2199,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4276db8d68aa64a238d4d2616ba3452b8e20564b">Translate Kinyarwanda, Kirundi, Luganda and Chichewa block and bubble labels.</a></summary>
 
-- Fill 64 English placeholders while preserving numbered arguments and existing translations. Extend block-state, input and bubble distinction checks.
-- Record vocabulary corrections and provisional technical metaphors and grammatical agreement. Contextual language and spoken accessibility review remain open.
-- Ordinary untranslated values decrease from 47,155 to 47,091 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 26 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 64 English placeholders while preserving numbered arguments and existing
+  translations. Extend block-state, input and bubble distinction checks.
+- Record vocabulary corrections and provisional technical metaphors and
+  grammatical agreement. Contextual language and spoken accessibility review
+  remain open.
+- Ordinary untranslated values decrease from 47,155 to 47,091 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 26 focused tests and 21 human-preference checks pass. Browser
+  coverage is syntax-checked; browser and spoken accessibility checks were not
+  run.
 
 Thanks to xet7 !
 
@@ -2141,10 +2217,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b69e4681c4aed2cc011a129298d3579a587477ca">Translate Sesotho, Setswana and Northern Sotho block and bubble labels.</a></summary>
 
-- Fill 48 English placeholders while preserving numbered arguments and existing translations. Extend block-state, input and bubble distinction checks.
-- Record vocabulary evidence and provisional technical metaphors and number agreement. Contextual language and spoken accessibility review remain open.
-- Ordinary untranslated values decrease from 47,203 to 47,155 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 26 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 48 English placeholders while preserving numbered arguments and existing
+  translations. Extend block-state, input and bubble distinction checks.
+- Record vocabulary evidence and provisional technical metaphors and number
+  agreement. Contextual language and spoken accessibility review remain open.
+- Ordinary untranslated values decrease from 47,203 to 47,155 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 26 focused tests and 21 human-preference checks pass. Browser
+  coverage is syntax-checked; browser and spoken accessibility checks were not
+  run.
 
 Thanks to xet7 !
 
@@ -2153,10 +2234,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c910255500a0c94a9ce8d73e3fcb3ea2a1b75833">Translate Zulu, Xhosa, Swati and Northern Ndebele block and bubble labels.</a></summary>
 
-- Fill 80 English placeholders across five catalogs, including both Zulu paths, while preserving numbered arguments and existing translations. Extend block-state, input and bubble distinction checks.
-- Record lower-confidence technical metaphors and agreement around arbitrary numbers. Contextual language and spoken accessibility review remain open.
-- Ordinary untranslated values decrease from 47,283 to 47,203 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 26 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 80 English placeholders across five catalogs, including both Zulu paths,
+  while preserving numbered arguments and existing translations. Extend
+  block-state, input and bubble distinction checks.
+- Record lower-confidence technical metaphors and agreement around arbitrary
+  numbers. Contextual language and spoken accessibility review remain open.
+- Ordinary untranslated values decrease from 47,283 to 47,203 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 26 focused tests and 21 human-preference checks pass. Browser
+  coverage is syntax-checked; browser and spoken accessibility checks were not
+  run.
 
 Thanks to xet7 !
 
@@ -2165,10 +2252,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9e71da2b4eef5fa627e53c3492ef1ef8b5c05837">Translate Bislama, Tok Pisin, Fijian and Papiamento block and bubble labels.</a></summary>
 
-- Fill 64 English placeholders while preserving numbered arguments and existing translations. Extend block-state, input and bubble distinction checks.
-- Document contextual bubble paraphrases and lower-confidence technical wording, particularly Fijian value terminology. Language and spoken accessibility review remain open.
-- Ordinary untranslated values decrease from 47,347 to 47,283 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 26 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 64 English placeholders while preserving numbered arguments and existing
+  translations. Extend block-state, input and bubble distinction checks.
+- Document contextual bubble paraphrases and lower-confidence technical wording,
+  particularly Fijian value terminology. Language and spoken accessibility
+  review remain open.
+- Ordinary untranslated values decrease from 47,347 to 47,283 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 26 focused tests and 21 human-preference checks pass. Browser
+  coverage is syntax-checked; browser and spoken accessibility checks were not
+  run.
 
 Thanks to xet7 !
 
