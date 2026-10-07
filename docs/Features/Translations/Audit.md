@@ -3498,6 +3498,12 @@ Filled 20 English placeholders in `bi`, `tpi`, `mi` and `sm` with the protected 
 
 Extended the translation/token regression and existing localized browser scenario to the four locales. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 37 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
 
+### History recovery: Papiamentu, Walloon, Acehnese and Hawaiian
+
+Filled 20 English placeholders in `pap`, `wa`, `ace` and `haw` with the protected fill utility. The drafts distinguish undo/redo and retry/forget and retain the same-request explanation. Vocabulary references include [the Walloon dictionary's retry entry](https://dtw.walon.org/index.php?query=say%C3%AE&type=artike), [Acehnese tuwo](https://www.kamusdaerah.com/aceh-indonesia/tuwo), [Kouwenberg and Murray's Papiamentu grammar](https://theswissbay.ch/pdf/Books/Linguistics/Mega%20linguistics%20pack/Creoles/Papiamentu%20%28Kouwenberg%20%26%20Murray%29.pdf) for `deshasí` (undo), and [Hitchcock's English-Hawaiian dictionary](https://upload.wikimedia.org/wikipedia/commons/5/56/An_English-Hawaiian_dictionary%3B_%28IA_englishhawaiiand00hitc%29.pdf) for confirmation vocabulary. These support individual terms, not the composed software sentences. Full clauses remain provisional, especially Walloon nominalizations, Acehnese technical phrasing and the Hawaiian distinction between removing a change and undoing it, and need fluent-speaker review.
+
+Extended the translation/token regression and existing localized browser scenario to the four locales. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 33 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
