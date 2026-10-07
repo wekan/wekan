@@ -2173,6 +2173,23 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f746e8e683502d4be892ec4d377822cc983d6302">Correct 57 Tok Pisin card, account and ticket translations.</a></summary>
+
+- Replace mixed-language card, location, ticket and account labels. Preserve
+  placeholders and distinguish account actions, ticket states and coordinate
+  directions. Technical wording remains provisional pending fluent-speaker review.
+- The combined run passes 71 checks; two catalog checks still fail on the
+  missing due-date shortcut key. All 21 human-preference checks pass.
+  Browser and screen-reader checks were not run.
+- Another 141 Tok Pisin values containing the same English-seeding prefix
+  remain for review. Such values are excluded by the English-placeholder
+  counter; the broader language audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/efeb64ca3bc23fea0344bf4694472163b91239ab">Correct 48 Tok Pisin system and connection translations.</a></summary>
 
 - Replace mixed-language runtime, memory, SMTP, webhook and cloud labels.
