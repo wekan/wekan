@@ -3878,6 +3878,14 @@ The [Cherokee vocabulary list](https://cherokeedictionary.net/first500) supplies
 
 Extended locale and browser coverage to Cherokee. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in two locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
 
+## Multiple-parent controls: Tigre, Wolaytta and complete placeholder coverage - 2026-10-07
+
+Filled three English placeholders in each of `tig` and `wal` (six values) through the protected fill workflow. All three multiple-parent controls now have nonempty, non-English values with preserved tokens in all 234 non-English locales. Removed the three keys from the pending inventory, reducing it from 153 to 150. A fresh missing report still counts 51,575 ordinary untranslated values across 70 languages. This establishes placeholder coverage, not linguistic accuracy.
+
+The [Tigre biographical text](https://www.kwhna.com/wp-content/uploads/2015/08/Tirgum-Hachir-Tarik-Aboy-Grazmatch-Lijam-in-Tigre-with-pics.pdf) provides work vocabulary in context, and the [Wolayttatto curriculum](https://pdf.usaid.gov/pdf_docs/PA00MQWZ.pdf) includes ooso. Neither validates the full drafted UI sentences. Both sets are low confidence: parent-card paraphrases, time/negation wording and grammar require review, including possible Tigrinya interference in Tigre. The Tigre removal draft was revised during review to express a change from now onward. Existing Wolaytta English filler was not copied.
+
+Expanded the locale regression to discover all non-English locales and verify these keys are absent from the pending inventory. Added Tigre and Wolaytta to the existing browser scenario, which checks labels, unlinking and preservation of both parent cards. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. The broader meaning and wrong-language audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

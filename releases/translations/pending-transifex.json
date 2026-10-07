@@ -1,18 +1,6 @@
 {
   "keys": [
     {
-      "key": "other-parent-cards",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "add-parent-card",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "remove-parent-card",
-      "since": "2026-09-29"
-    },
-    {
       "key": "import-board-instruction-leo",
       "since": "2026-09-29"
     },
