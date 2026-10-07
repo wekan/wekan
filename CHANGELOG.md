@@ -385,7 +385,7 @@ held only issues \#4774 and \#4055, and both are closed now.
 Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
-- The current `node releases/translations/fill-translations.mjs --missing` report counts **51,165 untranslated locale/string values in 70 languages**. It excludes **148 source keys tracked separately as pending Transifex**, which already have non-English values but still require wording review. Counts are a snapshot; they do not establish the quality or language of other values.
+- The current `node releases/translations/fill-translations.mjs --missing` report counts **51,105 untranslated locale/string values in 70 languages**. It excludes **148 source keys tracked separately as pending Transifex**, which already have non-English values but still require wording review. Counts are a snapshot; they do not establish the quality or language of other values.
 - The 13 activity-notification preference keys have no empty or exact English-placeholder values in all 234 non-English locale paths and have left the pending queue. Provisional wording still needs language review.
 - Automatic-archiving and date-filter messages now have non-English values in all 234 non-English locale paths. Continue the remaining feature families and the language-quality audit; coverage does not establish fluent wording.
 - Fill English placeholders in every language, including minority and constructed languages. Audit mixed-language and wrong-language seed text, and review provisional wording with speakers when available. Preserve correct-language human translations, source key order, exact placeholders, technical identifiers and query examples. Use direct translation and dictionary research, not an external translation service.
@@ -1888,6 +1888,17 @@ Minority-language wording remains provisional and needs speaker review.
 This release updates the following translations:
 
 **Activity notifications** - choosing which card activity sends notifications.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f561ee6ca6565a54977a7b2031fecff52910621b">Translate rule email reports in six further locales</a></summary>
+
+- Filled 60 English placeholders in Akan, Bambara, Ewe, Wolof, Fulah and Kashmiri. Technical clauses remain provisional, especially Ewe, Fulah and Kashmiri.
+- All 17 focused Node tests and 21 human-preference checks pass. Extended browser report coverage and checked its syntax; execution remains unverified because the local Playwright executable is unavailable.
+- These ten report strings remain English in 18 locales. Ordinary untranslated values decrease from 51,165 to 51,105 across 70 languages; 148 pending source keys still require wording review.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7535a1c0dc45246f38f61f7508a6cd80d51ad6bd">Translate rule email reports in seven further locales</a></summary>
