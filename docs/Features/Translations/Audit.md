@@ -3929,6 +3929,29 @@ There are 45 locales still using this English instruction. The broader backlog
 remains 51,575 ordinary placeholders across 70 languages plus 150 pending source
 keys. Non-English coverage does not establish translation accuracy.
 
+## Leo import instruction: Pacific, Papiamento and eastern African batch
+
+Filled 12 English placeholders for `import-board-instruction-leo`: Bislama, Tok
+Pisin, Māori, Samoan, Fijian, Tongan, Hawaiian, Papiamento, Oromo, Kinyarwanda,
+Kirundi and Luganda. The protected fill retained existing non-English values.
+The instructions preserve the hierarchy, body-as-description mapping, deeper
+checklists and marked completion state, with Leo and `.leo` unchanged.
+
+Used the existing locale terminology and the [Te Aka entry for hanganga](https://maoridictionary.co.nz/search?keywords=hanganga)
+as a reference for Māori structure terminology. This does not validate complete
+sentences. Kinyarwanda and Kirundi drafts were revised to describe child parts
+at the next level rather than using a temporal expression for “immediately”.
+Technical terminology and full clauses remain provisional, particularly Fijian,
+Tongan, Hawaiian, Oromo and Kirundi; speaker review remains open.
+
+Extended the locale regression and the existing browser import scenario for all
+12 locales. Existing invalid-input tests remain in place. All 12 focused Node
+tests and 21 human-preference checks pass. Browser syntax passes, but execution
+remains unverified because Playwright is unavailable. There are 33 locales still
+using this English instruction. The broader backlog remains 51,575 ordinary
+placeholders across 70 languages plus 150 pending source keys. These checks
+establish structural coverage, not linguistic accuracy.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
