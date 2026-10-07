@@ -2438,6 +2438,26 @@ not run; the app stack was unavailable. 22 locale paths still need this group.
 The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
 broader language-quality review remains open.
 
+### Rule-builder instructions — Chuvash and Venda (2026-10-07)
+
+Filled seven pending strings in cv and ve (14 values), preserving existing
+correct-language translations and all literal variable expressions. No translation
+service was used. Replaced Venda's Nguni labels Qalisa, Isenzo and Isihloko with
+Venda trigger, action and title labels; regression checks reject the old forms.
+The text retains any-trigger behavior, ordered actions, username/email context and
+card-derived variables. Both translations have lower confidence; technical terms,
+case endings, noun agreement and composed date fragments need native/UI review.
+References include [Chuvash ят](https://ru.wiktionary.org/wiki/%D1%8F%D1%82)
+and [published Venda prose](https://justice.gov.za/EQCact/legislation/2000-04-venda.pdf)
+for mulayo and mutevhe. These references support vocabulary, not full-sentence accuracy.
+
+The existing trigger-variable suite now checks 46 recently filled locales for
+source order and exact brace/underscore/percent tokens. Runtime matching,
+all-locale structural and human-preference checks pass. Browser scenarios were
+not run; the app stack was unavailable. 20 locale paths still need this group.
+The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
+broader language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
