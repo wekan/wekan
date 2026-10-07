@@ -2173,6 +2173,20 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/294759f773ecb929d55cf3d00b0d732537df8c4c">Translate the due-date shortcut in eight further languages</a></summary>
+
+- Add the shortcut in Acehnese, Aymara, Fulah, Greenlandic, Nahuatl,
+  Neapolitan, Volapük and Klingon, preserving existing translations.
+- These additions remain low confidence pending fluent review.
+- Focused checks: 50 pass; two catalog checks still fail on missing shortcuts
+  elsewhere. All 21 human-preference checks pass. Browser and screen-reader
+  checks were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/565dbccc50c2bf63931040a33cf87a7c67816dba">Translate the due-date shortcut in eleven further locales</a></summary>
 
 - Add the shortcut in Tibetan, Dzongkha, Kashmiri, Quechua, Tongan, Upper
