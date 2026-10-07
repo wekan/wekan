@@ -579,6 +579,25 @@ pass, together with all-locale structure and human-preference checks. The
 browser mute/unmute scenario checks all 13 strings for the new locales and
 passes syntax checking only; it was not browser-executed.
 
+## Northern Sotho and Tsonga notification preferences — 2026-10-07
+
+Filled 13 English placeholders each in Northern Sotho (`nso`) and Tsonga
+(`ts`): 26 values. Comparison against the previous commit confirms existing
+translations are unchanged. The keys remain pending in other languages,
+so the standard backlog stays at 51,575 values with 201 pending source keys.
+
+The messages distinguish members from assigned workers and preserve the
+reminder/@mention exception after an activity category is unchecked. Existing
+catalog vocabulary supplies card/list/attachment terms. Custom-field values,
+archive actions and lane terminology remain provisional pending speaker
+review; structural checks do not establish fluent technical wording.
+
+Shared notification coverage now includes 29 locales. Exact tokens, source
+order, people-category distinctions, mention markers and muting exceptions
+pass, together with all-locale structure and human-preference checks. The
+browser mute/unmute scenario checks all 13 strings in both new locales.
+It passes syntax checking only; no browser execution was available.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

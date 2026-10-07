@@ -7,7 +7,7 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('notification-activity-'));
 assert.equal(keys.length, 13);
-for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: key order`);
   for (const key of keys) {
@@ -72,4 +72,8 @@ assert.match(read('ss')['notification-activity-description'], /Tikhumbuto telusu
 assert.match(read('yi')['notification-activity-description'], /נעמט אַראָפּ דעם צייכן/);
 assert.match(read('nd')['notification-activity-description'], /Susa uphawu/);
 assert.match(read('ss')['notification-activity-description'], /Susa luphawu/);
-console.log('Notification activity translations: 13 messages in 27 locales passed');
+assert.match(read('nso')['notification-activity-description'], /Dikgopotšo tša letšatši la mafelelo.*@ di fihla ka mehla/);
+assert.match(read('ts')['notification-activity-description'], /Switsundzuxo swa siku ro hetelela.*@ swi fika nkarhi hinkwawo/);
+assert.match(read('nso')['notification-activity-description'], /Tloša leswao/);
+assert.match(read('ts')['notification-activity-description'], /Susa mfungho/);
+console.log('Notification activity translations: 13 messages in 29 locales passed');
