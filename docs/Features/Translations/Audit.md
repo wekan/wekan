@@ -4270,6 +4270,13 @@ mixed-language audit remains open.
 - Extended the existing placeholder/state checks and browser report flow to these seven locales. All 17 focused Node tests and 21 human-preference checks pass; browser syntax passes, but execution remains unverified because the local Playwright executable is unavailable.
 - These ten report strings remain English in 24 locales. Ordinary placeholders decrease from 51,235 to 51,165 across 70 languages; 148 pending keys still require wording review.
 
+## Rule email report labels: six further African and Asian locales (2026-10-07)
+
+- Filled ten English report strings each in Akan, Bambara, Ewe, Wolof, Fulah and Kashmiri (60 values). Used existing email-action vocabulary; technical clauses remain provisional, especially Ewe, Fulah and Kashmiri.
+- Consulted [Bamadaba's vocabulary](https://bamadaba.coastsystems.net/lexicon/s/) for examination terminology and [Janga Wolof's attempt entry](https://jangawolof.org/dictionary-old/english-wolof/a/). These are word-level references, not verification of full technical sentences.
+- Extended the existing placeholder/state checks and browser report flow to these six locales. All 17 focused Node tests and 21 human-preference checks pass; browser syntax passes, but execution remains unverified because the local Playwright executable is unavailable.
+- These ten report strings remain English in 18 locales. Ordinary placeholders decrease from 51,165 to 51,105 across 70 languages; 148 pending keys still require wording review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
