@@ -6019,6 +6019,18 @@ Browser checks were not run. Programming vocabulary for variables, indexes,
 substrings and case conversion remains low confidence pending fluent-speaker
 review. The remaining language and wording audit stays open.
 
+## Northern Sotho Blockly logic — 2026-10-07
+
+Translated 26 English values: 25 counted placeholders and the short `or` label
+omitted by the counter. Existing translations, null, help URLs and numeric hues
+remain unchanged. Checks preserve source tokens, true/false and negation,
+AND/OR truth conditions, strict versus inclusive comparisons and references to
+the three ternary labels.
+
+All 50 focused translation/structural tests and 21 human-preference checks pass.
+Browser checks were not run. Programming terminology remains low confidence
+pending fluent-speaker review. The wider language and wording audit stays open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

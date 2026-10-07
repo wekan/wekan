@@ -31,3 +31,20 @@ test('Northern Sotho text controls distinguish case, trim directions and prompt 
  assert.match(data['blockly-TEXT_PROMPT_TOOLTIP_TEXT'],/sengwalwa/);
  assert.equal(data['blockly-TEXT_APPEND_VARIABLE'],data['blockly-TEXT_CREATE_JOIN_ITEM_TITLE_ITEM']);
 });
+
+test('Northern Sotho Blockly logic preserves truth conditions and comparison boundaries',()=>{
+ for(const key of Object.keys(english).filter(k=>k.startsWith('blockly-LOGIC_'))){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  if(!key.endsWith('_HELPURL')&&!key.endsWith('_HUE')&&key!=='blockly-LOGIC_NULL') assert.notEqual(data[key],english[key],key);
+ }
+ assert.equal(data['blockly-LOGIC_NULL'],'null');
+ assert.equal(data['blockly-LOGIC_BOOLEAN_TRUE'],'nnete');
+ assert.equal(data['blockly-LOGIC_BOOLEAN_FALSE'],'maaka');
+ assert.match(data['blockly-LOGIC_OPERATION_TOOLTIP_AND'],/ka bobedi/);
+ assert.match(data['blockly-LOGIC_OPERATION_TOOLTIP_OR'],/bonyane tsenyo e tee/);
+ assert.match(data['blockly-LOGIC_NEGATE_TOOLTIP'],/nnete ge tsenyo e le maaka.*maaka ge tsenyo e le nnete/);
+ assert.equal(new Set(['EQ','NEQ','GT','GTE','LT','LTE'].map(s=>data['blockly-LOGIC_COMPARE_'+s+'_ARIA'])).size,6);
+ for(const s of ['GTE','LTE']) assert.match(data['blockly-LOGIC_COMPARE_TOOLTIP_'+s],/goba e lekana/);
+ for(const s of ['GT','LT']) assert.doesNotMatch(data['blockly-LOGIC_COMPARE_TOOLTIP_'+s],/goba e lekana/);
+ for(const s of ['CONDITION','IF_TRUE','IF_FALSE']) assert.ok(data['blockly-LOGIC_TERNARY_TOOLTIP'].includes("'"+data['blockly-LOGIC_TERNARY_'+s]+"'"));
+});
