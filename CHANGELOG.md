@@ -1901,9 +1901,31 @@ known snapd 2.77.1 kernel problem behind it, four SAML settings can be set
 with `snap set` again, the **Rules** "Set color to" action can pick any card
 color, the Rules list's selection checkboxes are visible again, **card
 filters** follow a member's access changes even when the board observer
-stalls, and **pbkdf2** is updated for a denial-of-service advisory.
+stalls, the **D** keyboard shortcut opens the opened card's due date, and
+**pbkdf2** is updated for a denial-of-service advisory.
 
-This release updates the following dependencies:
+This release adds the following new features:
+
+**Keyboard shortcuts** - a key for the opened card's due date.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/784d529003ebb47c70fb29e1066aa47d7bd82d5b">D opens the Due date editor of the opened card</a>. Thanks to mimZD and xet7.</summary>
+
+With keyboard shortcuts turned on in the member settings, pressing `d` (or
+Shift+D) opens the same Due date popup as clicking the due date `+` or badge in
+the opened card's details. It does so by clicking that control, so it works
+only where a click would: the board allows due dates and the member may edit
+the card. Typing `d` in the card title, a comment or any other field does not
+trigger it, and nothing happens with shortcuts turned off. The keyboard
+shortcuts help (`?`) lists it. `tests/dueDateKeyboardShortcut.test.cjs` pins
+the binding, the shared filter, the opened-card and permission rules and the
+help entry, with negative cases; the Playwright spec
+`due-date-keyboard-shortcut.e2e.js` covers the popup, shortcuts off and typing
+in fields.
+
+</details>
+
+and updates the following dependencies:
 
 - **pbkdf2 3.1.3 → 3.1.7** — key derivation in the browser crypto stubs that
   meteor-node-stubs bundles; fixes long passwords being hashed again on every
