@@ -5733,6 +5733,15 @@ distinct card/list/board templates. Aligned template-container titles. Added tok
 target and direction checks. Wording remains low confidence pending fluent-speaker
 review; browser checks remain unrun. English-placeholder counts are unchanged.
 
+## Akan navigation and swimlane corrections (batch 63)
+
+Corrected 18 mixed-language navigation, detail and swimlane messages. Aligned
+move/copy/detail titles, Home and All Boards references and the close-dialog
+shortcut. Preserved the home-removal confirmation's explicit no-deletion meaning.
+Added token, scope and label-consistency checks. Wording remains low confidence
+pending fluent-speaker review; browser checks remain unrun. Placeholder counts
+are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

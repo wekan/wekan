@@ -1136,3 +1136,21 @@ test('Akan template and swimlane labels preserve targets and resize permissions'
  assert.match(data['starred-swimlanes'],/nsoromma/);
  assert.match(data['custom-field-dropdown-options'],/wubetumi apaw/);
 });
+
+
+test('Akan navigation and swimlane labels preserve home removal without deletion', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["swimlane-title-not-found", "location-detect-done", "move-swimlane", "moveSwimlanePopup-title", "copy-swimlane", "copySwimlanePopup-title", "cardDetailsPopup-title", "minicardDetailsActionsPopup-title", "step-ensure-per-swimlane-lists", "step-ensure-lost-cards-swimlane", "allboards.workspace-menu", "unset-selected-home", "home-board-remove", "home-board-remove-confirm", "show-at-all-boards-page", "page-not-found", "shortcut-close-dialog", "back-to-settings"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ for(const action of ['move','copy']) assert.equal(data[action+'-swimlane'],data[action+'SwimlanePopup-title']);
+ assert.notEqual(data['move-swimlane'],data['copy-swimlane']);
+ assert.equal(data['cardDetailsPopup-title'],data['minicardDetailsActionsPopup-title']);
+ assert.equal(data['shortcut-close-dialog'],data['close-dialog']);
+ for(const key of ['unset-selected-home','home-board-remove','home-board-remove-confirm']) assert.ok(data[key].includes(data.home));
+ assert.match(data['home-board-remove-confirm'],/Wɔmpopa bɔɔd no ankasa/);
+ assert.ok(data['show-at-all-boards-page'].includes(data['all-boards']));
+ assert.match(data['step-ensure-per-swimlane-lists'],/kwan biara/);
+ assert.match(data['step-ensure-lost-cards-swimlane'],/kaad a ayera/);
+ assert.match(data['location-detect-done'],/Wɔahyɛ.*ase ha/);
+ assert.match(data['page-not-found'],/^Wɔanhu/);
+});
