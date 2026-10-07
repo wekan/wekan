@@ -1890,6 +1890,21 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9bedd51e10052768bec7a25d7f8cded7c544a3c2">Translate due reminders into Volapük</a>. Thanks to xet7.</summary>
+
+- Fill six strings, preserving signed offsets, server defaults, integer bounds,
+  board disabling and outgoing webhook delivery. Complete instructions and technical
+  compounds remain low-confidence drafts for fluent-speaker review.
+- Translation checks and existing browser scenarios now cover 57 translated locales.
+  Translation, all-locale structural and human-preference checks pass; browser
+  scenarios were syntax-checked only because the app stack was unavailable.
+- 9 locale paths still need this reminder group. The ordinary backlog remains
+  51,575 values plus 188 pending source keys; wider language-quality review remains
+  in TODO Later.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c092aabc2ec9be4fa60a20ccc6a4b73df433f16a">Translate due reminders into Fulah</a>. Thanks to xet7.</summary>
 
 - Fill six strings, preserving signed offsets, server defaults, integer bounds,
