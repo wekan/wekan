@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **47,155 untranslated locale/string values in 70 languages**. It
+  report counts **47,091 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -2088,6 +2088,18 @@ snap.
 and updates the following translations:
 
 **Activity notifications** - choosing which card activity sends notifications.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4276db8d68aa64a238d4d2616ba3452b8e20564b">Translate Kinyarwanda, Kirundi, Luganda and Chichewa block and bubble labels.</a></summary>
+
+- Fill 64 English placeholders while preserving numbered arguments and existing translations. Extend block-state, input and bubble distinction checks.
+- Record vocabulary corrections and provisional technical metaphors and grammatical agreement. Contextual language and spoken accessibility review remain open.
+- Ordinary untranslated values decrease from 47,155 to 47,091 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 26 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b69e4681c4aed2cc011a129298d3579a587477ca">Translate Sesotho, Setswana and Northern Sotho block and bubble labels.</a></summary>
