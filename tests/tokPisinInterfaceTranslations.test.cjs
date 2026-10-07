@@ -1164,3 +1164,44 @@ test('Tok Pisin checklist controls retain completion filters, order and disabled
  assert.match(data['deposit-subtasks-board'],/bot:/);
  assert.match(data['deposit-subtasks-list'],/^Lis/);
 });
+
+
+test('Tok Pisin role messages preserve tokens and replace mixed English',()=>{
+ const keys=[
+  "board-members-same-org-only",
+  "board-members-same-team-only",
+  "comment-only-desc",
+  "read-only-desc",
+  "normal-desc",
+  "normal-assigned-only",
+  "normal-assigned-only-desc",
+  "board-member-list",
+  "roles-info",
+  "roles-status",
+  "roles-status-desc",
+  "roles-status-sees",
+  "roles-status-manage",
+  "roles-status-sees-assigned",
+  "roles-status-empty",
+  "admin-people-filter-locked",
+  "admin-people-active-status",
+  "admin-people-user-active",
+  "admin-people-user-inactive"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.doesNotMatch(data[key],/Can |Can't|Assigned|Choose which|allowed|cannot|What each|checkboxes|Locked|deactivate|activate/,key);
+ }
+});
+
+test('Tok Pisin role descriptions retain permission boundaries and account actions',()=>{
+ assert.match(data['read-only-desc'],/lukim.*tasol.*no inap senisim/);
+ assert.match(data['comment-only-desc'],/koment.*tasol/);
+ assert.match(data['normal-desc'],/lukim na senisim ol kat.*no inap senisim ol seting/);
+ assert.match(data['normal-assigned-only-desc'],/givim wok long yu tasol/);
+ assert.match(data['roles-info'],/olgeta rait oltaim.*no inap pasim/);
+ assert.match(data['roles-status-desc'],/ritim tasol.*bipo long yu seivim/);
+ assert.match(data['admin-people-user-active'],/i wok.*mekim i no wok/);
+ assert.match(data['admin-people-user-inactive'],/i no wok.*mekim i wok/);
+ for(const suffix of ['org','team']) assert.match(data['board-members-same-'+suffix+'-only'],/wankain.*tasol/);
+});

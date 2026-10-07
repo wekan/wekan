@@ -6563,6 +6563,12 @@ Corrected 18 mixed-language or misleading checklist and subtask messages, includ
 
 Validation: 95 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
 
+## Tok Pisin role and membership wording audit
+
+Corrected 19 mixed-language role descriptions, membership restrictions and account activation labels. Preserved all source tokens. Tests cover read-only/comment-only restrictions, normal-role settings restrictions, assigned-card visibility, global-admin rights, unsaved role previews and activation directions. Existing coherent nearby translations remain unchanged. Wording remains provisional pending fluent-speaker review; browser and screen-reader checks were not run.
+
+Validation: 97 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
