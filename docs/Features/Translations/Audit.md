@@ -923,6 +923,26 @@ people-category distinctions and the reminder/mention exception pass,
 together with all-locale structure and human-preference checks. The Guaraní
 browser mute/unmute scenario is syntax-checked only; it was not executed.
 
+## Fulfulde notification preferences — 2026-10-07
+
+Filled 13 English placeholders in Fulfulde (`ff`), preserving existing
+translations. These keys remain pending elsewhere; the standard backlog
+remains 51,575 values and 201 pending source keys.
+
+The catalog supplies notification, removal, restoration and category terms.
+Reminder usage was checked against the
+[Pulaar terminology excerpt](https://pt.scribd.com/document/960600363/Terminologia-Pulaar-fusao).
+The [Fulfulde dictionary index](https://www.webonary.org/fulfuldeburkina/files/English-Fulfulde-Index.pdf)
+was discoverable but returned HTTP 403 on retrieval; it was not treated as
+verification of full phrases. These are direct translations without a
+translation service. Technical wording, noun-class agreement, the borrowed
+bell term and dialect consistency remain low confidence pending speaker review.
+
+Shared notification checks now cover 56 locales. Exact tokens, source order,
+people-category distinctions and the reminder/mention exception pass,
+together with all-locale structure and human-preference checks. The Fulfulde
+browser mute/unmute scenario is syntax-checked only; it was not executed.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
