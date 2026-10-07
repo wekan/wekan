@@ -7289,6 +7289,15 @@ values and partial-change warnings. Parser, path and representation terminology
 remains low confidence pending fluent review. Browser and screen-reader checks
 were not run.
 
+### Kurdish Sync diagnostics and mail failure labels
+
+Filled 21 English placeholders for run outcomes, diagnostics, estimate mapping
+and mail failures. Existing translations are preserved. Tests verify source
+tokens and key order, full-list permissions, 30-day history, no resume/undo,
+missing-versus-null values and review before retrying unconfirmed delivery.
+Diagnostic and receipt terminology remains low confidence pending fluent review.
+Browser and screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
