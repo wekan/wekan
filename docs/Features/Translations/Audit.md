@@ -4897,6 +4897,14 @@ mixed-language audit remains open.
 - Technical metaphors, noun-class agreement around arbitrary numbers, and Swati/Northern Ndebele wording remain lower confidence. Northern Ndebele clauses use `kule-` and `-nengi`; Swati uses its own noun forms. Related-language resemblance alone is not evidence that a value is wrong-language text.
 - Extended token, non-placeholder and distinction checks to all five catalogs. These are structural checks, not proof of fluent or semantically equivalent labels. Browser and spoken accessibility checks remain unexecuted; 148 pending source keys and the broader wording audit remain open.
 
+### Sesotho, Setswana and Northern Sotho block and bubble labels
+
+- Checked container vocabulary against the [government multilingual mathematics dictionary](https://www.dsac.gov.za/sites/default/files/2023-11/Multilingual%20Mathematics%20Dictionary.pdf); corrected the new Northern Sotho draft to `setšhelo`. This supports the noun, not the surrounding software metaphors.
+- Filled 48 English placeholders through the protected workflow, preserving numbered arguments and existing translations. Input and comment terminology follows each catalog.
+- Stack is expressed as a pile of blocks, statement as an instruction, and bubble as a text box. Collapsed uses folded wording, distinct from the disabled/prevented-from-working state.
+- Technical metaphors, block loans and noun agreement around arbitrary numbered arguments remain provisional. Sesotho, Setswana and Northern Sotho retain their own clause forms and orthography. Related vocabulary does not by itself establish either correct or wrong-language wording.
+- Extended existing token, non-placeholder and distinction checks. These do not establish fluent wording. Browser and spoken accessibility checks remain unexecuted; 148 pending source keys and the broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
