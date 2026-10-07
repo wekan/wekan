@@ -104,3 +104,21 @@ test('Akan search translations replace mixed prose and preserve argument tokens'
  for(const key of ['operator-title','operator-attachment-text','operator-assignee','operator-customfield']) assert.ok(!/\s/.test(data[key]),key);
  for(const key of ['operator-unknown-error','operator-number-expected','operator-sort-invalid','operator-status-invalid','operator-has-invalid','operator-limit-invalid','operator-debug-invalid']) assert.ok(!/expected|invalid|valid|operatanaa/.test(data[key]),key);
 });
+
+test('Akan dependency and report labels preserve direction and first/last distinctions', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["next-page", "previous-page", "globalSearch-instructions-notes-4", "excel-font", "number", "archived-at", "due-complete", "card-mark-complete", "card-mark-incomplete", "stickers", "card-dependencies", "dependency-type", "dependency-icon", "dependency-type-related-to", "dependency-type-blocks", "dependency-type-is-blocked-by", "dependency-type-fixes", "dependency-type-is-fixed-by", "location", "location-latitude", "location-longitude", "location-detect", "map-region-usa", "map-region-europe", "map-region-asia", "links-heading", "custom-field-stringtemplate", "speedReportTitle", "testsReportTitle", "cpuReportTitle", "databaseReportTitle", "acknowledge", "officeReportTitle", "office-location", "office-logins", "office-first-seen", "office-last-seen", "office-shared", "apiReportTitle", "api-endpoint", "api-calls", "api-first-called", "api-last-called", "recovery-event", "recovery-severity", "recovery-db", "recovery-detail", "reason", "wait-spinner", "Bounce", "Cube", "Cube-Grid", "Dot", "Double-Bounce", "Rotateplane", "Scaleout", "Wave", "subject", "details", "ticket"];
+ for(const key of keys){
+  assert.notEqual(data[key],'Nsɛm a ɛfa dwumadi yi ho',key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ for(const [a,b] of [['next-page','previous-page'],['card-mark-complete','card-mark-incomplete'],['dependency-type-blocks','dependency-type-is-blocked-by'],['dependency-type-fixes','dependency-type-is-fixed-by'],['location-latitude','location-longitude']]) assert.notEqual(data[a],data[b]);
+ for(const [first,last] of [['office-first-seen','office-last-seen'],['api-first-called','api-last-called']]){
+  assert.match(data[first],/edi kan/);
+  assert.match(data[last],/etwa to/);
+ }
+ for(const key of ['excel-font','apiReportTitle','api-endpoint']) assert.equal(data[key],english[key]);
+ assert.equal(data.location,data['office-location']);
+ assert.equal(data['recovery-db'],data.Database);
+ assert.equal(new Set(['Bounce','Cube','Cube-Grid','Dot','Double-Bounce','Rotateplane','Scaleout','Wave'].map(k=>data[k])).size,8);
+});

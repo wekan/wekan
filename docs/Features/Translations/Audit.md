@@ -5291,6 +5291,12 @@ Corrected 49 search entries: 34 exact generic fillers and 15 mixed-language, mal
 
 The actual query parser now has Akan regression checks for quoted values, translated operators, positive/negative existence predicates, invalid limits, modified-date filters and ascending/descending sorts. Locale tests preserve source tokens and shared aliases. Compound technical search words remain low confidence and need language review. Browser checks were not run.
 
+### Akan generic filler correction: dependencies, locations and reports
+
+Corrected 60 generic values for navigation, completion, dependency relations, locations, diagnostics and wait indicators. Restore the Arial font name and API labels. Preserve relation direction, first/last observations and distinct wait animations. The exact filler inventory decreases from 279 to 219.
+
+Tests check source tokens, paired actions, inverse relations, geographic distinctions, identifiers and shared labels. Latitude/longitude, dependency and animation terms are descriptive and provisional. Browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
