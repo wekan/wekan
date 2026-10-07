@@ -4608,6 +4608,14 @@ mixed-language audit remains open.
 - Extended the fifteen-label regression and translated add-comment browser assertions to these nine locales. Blockly/completeness: 13 tests pass. Human-preference verification: 21 checks pass. Browser coverage is syntax-checked only; Playwright is absent locally and spoken accessibility was not exercised.
 - Ordinary placeholders decrease from 48,847 to 48,712 across 70 languages. The 148 pending source keys and broader translation/semantic audit remain open.
 
+## Blockly comment and accessibility controls: five more locales
+
+- Filled fifteen English placeholders each in Walloon (`wa`), Waray (`wa-RR`), Acehnese (`ace`), Northern Sámi (`se`) and Venetian (`ve-CC`): 75 values. Existing Manx (`gv`) and Aromanian (`rup`) labels were preserved and added to the same regression scope. The group covers comments, conditional branches, inputs, list items, text, buttons, collapse/expand, angle degrees and empty trash.
+- Vocabulary references: [Walo+ Walloon lexicon](https://www.beljike.be/mots-courants-wallon-lexique/) for button, [Northern Sámi button entry](https://glosbe.com/fr/se/bouton), and [Sámi signage guidance](https://www.eupicto.com/media/ax2jgjrq/user-manual-polish.pdf) for `čállingieddi`/`čállingietti` (writing area). The latter supports a word and inflection, not the full Blockly input phrase; input may represent a connection rather than a text field, so that paraphrase remains low confidence.
+- The initial Finnish-shaped Sámi input draft was replaced before commit. Acehnese technical loans and condition phrasing, Waray condition phrasing and Venetian regional terminology also remain provisional. These entries require semantic review; non-English coverage is not proof of fluent wording.
+- Extended exact-placeholder and opposing-operation checks and visible translated add-comment browser assertions to the seven locales. Blockly/completeness: 13 tests pass. Human-preference verification: 21 checks pass. Browser coverage is syntax-checked only because Playwright is absent locally; spoken accessibility was not exercised.
+- Ordinary placeholders decrease from 48,712 to 48,637 across 70 languages. The 148 pending source keys and broader translation/semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
