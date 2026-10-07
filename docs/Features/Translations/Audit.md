@@ -689,6 +689,29 @@ with all-locale structure and human-preference checks. Browser mute/unmute
 scenarios include both locales and pass syntax checking only; no browser
 execution was available.
 
+## Aromanian notification preferences — 2026-10-07
+
+Filled 13 English placeholders in Aromanian (`rup`), preserving existing
+translations. These keys remain pending elsewhere; the standard backlog
+stays at 51,575 values with 201 pending source keys.
+
+Vocabulary references include Vrabie's
+[English–Aromanian dictionary](https://vivliuteca.org/wp-content/uploads/2025/06/an-english-aromanian-macedo-romanian-dictionary-society-farsharotu.pdf)
+for notice and removal vocabulary and the
+[entry for totãna](https://en.wiktionary.org/wiki/tot%C3%A3na)
+for the unconditional reminder/mention clause. The bell term follows the
+[Aromanian derivative of campana](https://wiki.rus.family/content/wiktionary_en_all_nopic_2025-07/campana).
+These are direct translations without a translation service. Complete
+technical clauses, inflection and lane/custom-field terms remain low
+confidence pending speaker review. Existing wrong-language values outside
+this group remain part of the broader review.
+
+Shared notification checks now cover 41 locales. Exact placeholders, source
+order, distinct people categories and the muting exception pass, together
+with all-locale structure and human-preference checks. The Aromanian browser
+mute/unmute scenario passes syntax checking only; no browser execution was
+available.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
