@@ -385,8 +385,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
-- The current `node releases/translations/fill-translations.mjs --missing` report counts **51,715 untranslated locale/string values in 70 languages**. It excludes **204 source keys tracked separately as pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
-- Continue automatic-archiving and date-filter translations beyond the sixty-two locales recorded in completed changelog entries, then the remaining feature families.
+- The current `node releases/translations/fill-translations.mjs --missing` report counts **51,695 untranslated locale/string values in 70 languages**. It excludes **204 source keys tracked separately as pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
+- Continue automatic-archiving and date-filter translations beyond the sixty-three locales recorded in completed changelog entries, then the remaining feature families.
 - Fill English placeholders in every language, including minority and constructed languages. Audit mixed-language and wrong-language seed text, and review provisional wording with speakers when available. Preserve correct-language human translations, source key order, exact placeholders, technical identifiers and query examples. Use direct translation and dictionary research, not an external translation service.
 - Keep regression and human-preference checks passing. Passing tests does not establish translation completeness or fluency; rerun relevant checks for each batch and the broad suite before declaring all-language work complete.
 - The three Admin Panel login-setting keys added on 2026-10-05 now have
@@ -1881,12 +1881,27 @@ each for the reason given:
 
 **In short:** All supported languages now have **login-setting text** for
 HTTP-header authentication, stored-value removal and restart guidance.
-Twenty-three more languages also gain archiving and date-filter guidance.
+Twenty-four more languages also gain archiving and date-filter guidance.
 Minority-language wording remains provisional and needs speaker review.
 
 This release updates the following translations:
 
 **Archiving and date filters** - guidance for inactive cards and time ranges.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5a17ee898e6a0087084b60dc13c6cd90d08c368c">Translate Greenlandic archiving and date filters</a>. Thanks to xet7.</summary>
+
+- Fill 23 English placeholders while preserving existing translations,
+  numeric bounds, exact placeholders and literal query examples. Audit
+  notes record vocabulary evidence and low-confidence wording for review.
+- Extend feature coverage to 63 locales. Feature, locale structure,
+  Greenlandic progress/calendar and human-preference checks pass. The
+  browser mutation scenario includes Greenlandic and is syntax-checked only.
+- Reduce the standard backlog by 20 values; three auto-archive values
+  belong to separately tracked pending keys. All-language translation
+  and language-quality review remain open in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5c4176bcbfd1c3e75d8ebd7633e5ab423783915f">Translate Nahuatl archiving and date filters</a>. Thanks to xet7.</summary>
