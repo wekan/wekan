@@ -1871,9 +1871,11 @@ each for the reason given:
 
 # Upcoming WeKan ® release
 
-**In short:** Verifies that the reported disclosure of a board's **domain
-sharing** (GHSA-r3c4-5xwp-vf54) does not apply: the route was always limited to
-site administrators. Its documentation and tests now say and prove so.
+**In short:** Makes opening and closing a card on a **large board** fast again:
+one card open no longer re-renders every card on the board, and a card opened
+by its address no longer rebuilds the board. The **snap** now loads big boards
+lazily by default. Also verifies that the reported disclosure of a board's
+**domain sharing** (GHSA-r3c4-5xwp-vf54) does not apply.
 
 This release verifies the following security report:
 
@@ -1899,6 +1901,91 @@ one, and a site admin reads the list. A whole-tree negative test checks that
 every REST route with `:boardId` checks that board or a site admin, and that a
 login check alone would be caught. The report's proof of concept, run against a
 running WeKan in Chromium, WebKit and Firefox, gets 403.
+
+</details>
+
+and fixes the following bugs:
+
+**Large boards** - opening or closing a card took seconds on a big board
+([#6745](https://github.com/wekan/wekan/issues/6745)), because one card open
+made the browser redo the work of every card on the board.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6d5f24ee27">A card open no longer re-renders every card: lists and cards read only the user fields they use</a>. Thanks to markusst1982 and xet7.</summary>
+
+Opening a card saves when it was last viewed into the user document (#3078).
+The board view, which every list's card loop reads, and the helpers each
+minicard runs read the WHOLE user document, so that one write re-ran every
+list's card loop, and Blaze then re-evaluated every minicard. Measured in the
+running app, one card open on a 40-card board caused 37,452 Tracker
+invalidations; it now causes 390.
+
+`client/lib/currentUserWith.js` reads the current user with only the fields a
+helper needs, and minimongo re-runs such a query only when one of those fields
+changes. The board view, feature preview, unread comments, folds, drag
+handles, label text, dependency layers, date format, week number, mobile mode
+and the admin-only custom field check use it. The "last viewed" write now sets
+one entry instead of the whole map, which is capped at 5,000 cards.
+`tests/largeBoardCardOpen.test.cjs` checks every such helper and that none
+reads the whole user document again.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4387185002">A card opened or closed by its address no longer rebuilds the whole board</a>. Thanks to markusst1982 and xet7.</summary>
+
+A card link, the up/down card keys, back/forward and closing a card opened
+from a link all re-rendered the board layout, which re-created every swimlane,
+list and minicard. The router now remembers which board is on screen and the
+card and board routes reuse it. Another board, a first load and the list and
+swimlane links still render. `tests/playwright/specs/large-board-card-open.e2e.js`
+checks in Chromium, Firefox and WebKit that the board survives, that a card on
+another board still renders that board, and that a click open and close stay
+within a fixed amount of work per minicard.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ecbfe59e50">Closing a card no longer makes every card re-read the current board</a>. Thanks to markusst1982 and xet7.</summary>
+
+The routes cleared the popup card values to null and a card open or close
+deleted them. Switching between the two is a change, and the current board is
+read through one of them, so every minicard re-ran its board helpers. They are
+now always cleared to null, and a test fails if anything deletes them again.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a0f2550e5d">Drag-and-drop options are set only when they change</a>. Thanks to markusst1982 and xet7.</summary>
+
+The card, list and swimlane drag-and-drop setup re-applied its options on
+every user or board change, and jQuery UI re-tags every card of a list when
+the drag handle option is set, even to the same value: about k² work for k
+cards, in every list. Only the options whose value differs are set now. The
+swimlanes setup also stopped following the open card.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/96dff057a1">Opening a card no longer leaves a subscription running after it closes</a>. Thanks to markusst1982 and xet7.</summary>
+
+Every card open started one more `unsaved-edits` subscription that nothing
+stopped. It now belongs to the card and stops when the card closes.
+
+</details>
+
+**Snap** - how a snap install loads a board's cards.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2122214fb6">The snap now defaults cards-loading to auto, so big boards load only their visible cards</a>. Thanks to markusst1982 and xet7.</summary>
+
+The snap set `CARDS_LOADING=all` whenever `cards-loading` was not set, so every
+board on a snap sent all of its cards, comments, checklists and attachment
+records to the browser. Every other platform defaults to `auto`: a board with
+more than 500 cards loads only the cards currently visible. The snap does too
+now, and `snap set wekan cards-loading='all'` still loads everything. The snap
+description and help, which pointed at an Admin Panel setting that no longer
+exists, are corrected.
 
 </details>
 
