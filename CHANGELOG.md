@@ -1890,6 +1890,20 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8924e8c936c50330950ebb4c5623feb69594078a">Translate due reminders into Inuktitut</a>. Thanks to xet7.</summary>
+
+- Fill six English placeholders, retaining signed offsets, server defaults,
+  whole-day bounds, the ten-entry limit and outgoing webhook delivery. Full phrases
+  and technical terms are low confidence and need native review.
+- Reminder checks now cover 63 translated locales. Translation, all-locale structural
+  and human-preference checks pass. Browser scenarios were syntax-checked only
+  because the app stack was unavailable.
+- Three locale paths still need this reminder group. The ordinary backlog remains
+  51,575 values plus 188 pending source keys; wider language review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a5f345f6cf1ac4cb52a979ee35685aa7fd874421">Translate due reminders into Standard Moroccan Tamazight</a>. Thanks to xet7.</summary>
 
 - Fill six English placeholders in Tifinagh, retaining signed offsets, server
