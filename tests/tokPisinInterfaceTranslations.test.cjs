@@ -452,3 +452,90 @@ test('Tok Pisin system labels retain identifiers and distinguish metrics and con
  assert.match(data['bidirectional-webhooks'],/i go na i kam/);
  assert.equal(data['outgoing-webhooks'],data['outgoingWebhooksPopup-title']);
 });
+
+
+test('Tok Pisin card and account labels replace prefixed English with intact tokens',()=>{
+ const keys=[
+  "authentication-method",
+  "authentication-type",
+  "display-authentication-method",
+  "roles",
+  "roles-status-role",
+  "voting",
+  "task",
+  "domains",
+  "domain",
+  "website",
+  "person",
+  "myCardsViewChange-choice-table",
+  "heading-notes",
+  "number",
+  "sort-boards-custom",
+  "card-mark-incomplete",
+  "stickers",
+  "card-dependencies",
+  "dependency-type",
+  "dependency-icon",
+  "dependency-type-blocks",
+  "dependency-type-is-blocked-by",
+  "dependency-type-fixes",
+  "dependency-type-is-fixed-by",
+  "import-dependencies-done",
+  "location",
+  "location-latitude",
+  "location-longitude",
+  "location-detect",
+  "links-heading",
+  "custom-field-stringtemplate-format",
+  "creator",
+  "creator-on-minicard",
+  "filename-invisible-legend",
+  "acknowledge",
+  "impersonation-admin",
+  "reason",
+  "subject",
+  "details",
+  "ticket",
+  "tickets",
+  "ticket-number",
+  "closed",
+  "resolved",
+  "cancelled",
+  "history",
+  "request",
+  "requests",
+  "help-request",
+  "confirm-btn",
+  "otp",
+  "login",
+  "login-allow",
+  "confirm",
+  "logout",
+  "accounts-lockout-period",
+  "accounts-lockout-failure-window"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.doesNotMatch(data[key],/Toksave:/,key);
+  assert.notEqual(data[key],english[key],key);
+ }
+});
+
+test('Tok Pisin card and account labels distinguish actions, coordinates and ticket states',()=>{
+ assert.equal(data.login,'Go insait');
+ assert.equal(data.logout,'Go ausait');
+ assert.match(data['card-mark-incomplete'],/i no pinis/);
+ assert.match(data['location-latitude'],/not o saut/);
+ assert.match(data['location-longitude'],/is o wes/);
+ assert.equal(data.closed,'Pasim pinis');
+ assert.equal(data.resolved,'Stretim pinis');
+ assert.equal(data.cancelled,'Kanselim pinis');
+ assert.match(data['accounts-lockout-period'],/tambuim go insait.*seken/);
+ assert.match(data['accounts-lockout-failure-window'],/kaunim ol traim i no wok.*seken/);
+ assert.match(data['import-dependencies-done'],/__imported__.*__unmatched__/);
+ assert.ok(data['custom-field-stringtemplate-format'].includes('%{value}'));
+ assert.match(data['filename-invisible-legend'],/^Ret:.*no inap lukim/);
+ assert.equal(data['confirm-btn'],data.confirm);
+ assert.notEqual(data['dependency-type-blocks'],data['dependency-type-is-blocked-by']);
+ assert.notEqual(data['dependency-type-fixes'],data['dependency-type-is-fixed-by']);
+});

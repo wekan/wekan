@@ -6479,6 +6479,12 @@ Corrected 48 mixed-language values containing the `Toksave:` prefix, covering ru
 
 Validation: 69 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
 
+## Tok Pisin card, account and ticket wording audit
+
+Corrected 57 mixed-language values containing the `Toksave:` prefix, covering card dependencies, locations, ticket states, accounts, authentication labels and lockout timing. Preserved source placeholders, including `%{value}`, and distinguished login/logout, ticket states and coordinate directions. Existing correct-language values remain unchanged. The prefix inventory falls from 198 to 141; unprefixed values also need review. Technical wording remains provisional pending fluent-speaker review; browser and screen-reader checks were not run.
+
+Validation: 71 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
