@@ -2257,6 +2257,25 @@ not run; the app stack was unavailable. 43 locale paths still need this group.
 The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
 broader language-quality review remains open.
 
+### Rule-builder instructions — Moroccan Arabic and Yiddish (2026-10-07)
+
+Filled seven pending strings in ary and yi (14 values), preserving existing
+correct-language translations and all literal variable expressions. No translation
+service was used. Replaced three Persian seed labels in ary: trigger, action and
+swimlane now use Arabic/Darija vocabulary and spelling. Regression checks cover
+these replacements and reject the Persian letters found in the old seed labels.
+Vocabulary was inspected as well; script checks alone do not establish language.
+
+The text retains any-trigger behavior, ordered actions, username/email context and
+card-derived variables. Technical terms, composed date-condition fragments and
+right-to-left display with literal Latin variable expressions need native/UI review.
+The existing trigger-variable suite now checks 25 recently filled locales for
+source order and exact brace/underscore/percent tokens. Runtime matching,
+all-locale structural and human-preference checks pass. Browser scenarios were
+not run; the app stack was unavailable. 41 locale paths still need this group.
+The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
+broader language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
