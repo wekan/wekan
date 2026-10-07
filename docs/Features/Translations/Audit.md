@@ -7271,6 +7271,15 @@ partial visibility and lifecycle effects. Snapshot and observation terminology
 remains low confidence pending fluent review. Browser and screen-reader checks
 were not run.
 
+### Kurdish Sync conflicts and preview labels
+
+Filled 26 English placeholders for conflict resolution, duplicate mapping,
+archival restrictions, replacement cards and preview actions. Existing text is
+preserved. Tests check source tokens and key order, no source-system writes,
+content preservation, unchanged subcards, replacement reuse and limited review
+scope. Mapping and baseline terminology remains low confidence pending fluent
+review. Browser and screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
