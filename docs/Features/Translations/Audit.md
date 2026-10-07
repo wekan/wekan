@@ -2799,6 +2799,32 @@ syntax-checked but not run without the application stack.
 The ordinary backlog is 51,575 values plus 174 pending source keys. Broader
 language-quality review remains open.
 
+### Move-position labels — spatial terminology batch (2026-10-07)
+
+Filled both placement labels in 13 more locale paths: gv, vo, wa, bm, lg, ee,
+fj, qu, ak, wa-RR, se, ve-CC and ay (26 values). Existing translations were
+preserved through the placeholder-only merge; no translation service was used.
+
+Used spatial opposites for the move-selection dialog. References include
+[Manx lessons](https://archive.gaelg.im/www.gaelg.iofm.net/LESSONS/mona/Lessons.pdf),
+[Volapük grammar](https://en.wikibooks.org/wiki/Volap%C3%BCk),
+[Walloon dictionary](https://dtw.walon.org/index.php?query=divant),
+[Intermediate Bambara](https://files.eric.ed.gov/fulltext/ED132856.pdf),
+[Ewe Basic Course](https://celt.indiana.edu/materials/ewe/b03/ewe-basic-course.pdf),
+[Fijian dictionary](https://www.unitec.ac.nz/umisc/jmctest/fijian_english_dictionary/fijian_eng_dict.html),
+[Quechua educational guide](https://peib.mineduc.cl/wp-content/uploads/2016/06/Guia-Del-Educador-Tradicional-2do-Basico-Qhishwa-Simi.pdf)
+and [Akan spatial examples](https://wikieducator.org/images/3/3c/The_Akan_Phrasal_Verb_as_a.pdf).
+Aymara, Northern Sami and Waray placement phrasing has lower confidence and
+remains subject to native/UI review. Dictionary vocabulary alone does not prove
+that every standalone option is idiomatic in its UI context.
+
+The structural-selection suite now checks these labels in 49 recently filled
+locales, including key order, exact source tokens and distinct opposite choices.
+Runtime selection, all-locale structural and human-preference checks pass. Existing
+browser scenarios were syntax-checked but not run without the application stack.
+17 locale paths still need these labels. Both source keys remain pending; the
+ordinary backlog remains 51,575 values plus 174 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
