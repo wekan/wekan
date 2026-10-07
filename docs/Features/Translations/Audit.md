@@ -112,6 +112,33 @@ The feature, all-locale structure and human-preference checks pass. The
 browser mutation scenario includes these five locales and passes syntax
 checking; no browser run was available in this environment.
 
+## Aymara and Quechua archiving/date filters — 2026-10-07
+
+Filled 23 English placeholders each in Aymara (`ay`) and Quechua (`qu`).
+A comparison against the previous commit confirms that the 46 feature
+changes replace only English placeholders. Also corrected four basic labels:
+Aymara week/month contained English prefixed with the language name, while
+Quechua day/month labels contained the unrelated “Kay willaymi” prefix.
+The labels now read `Simana` / `Phaxsi` and `P'unchawkuna` / `Killa`.
+The standard backlog falls by 40 to 51,855 values; six auto-archive values
+are tracked separately in the pending-Transifex queue.
+
+The [Peruvian education Aymara vocabulary](https://cdn.www.gob.pe/uploads/document/file/4973488/item_55_vocabulario_aymara.pdf?v=1692022988)
+supports `simana`, `phaxsi` and `urasa`; the
+[University of Texas Quechua lesson](https://quechuatinkuy.coerll.utexas.edu/es/yachana-6/)
+provides day/month and past-day usage. These are component references,
+not validation of the full messages. The longer explanations remain low
+confidence, particularly Aymara list terminology, inclusive bounds and
+list-age negation. Technical loans are retained where appropriate. Broader
+wrong-language and prefixed-filler findings in these catalogs remain open.
+
+The shared feature suite now covers 55 locales, including exact tokens,
+numbers and query examples, separate date endpoints, and the rules that
+templates are never archived and edits do not restart list age. Locale-wide
+structure, human-preference, both language progress suites and their shared
+list-width suite pass. The existing browser mutation scenario includes both
+languages and passes syntax checking; it was not browser-executed.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
