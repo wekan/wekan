@@ -386,7 +386,7 @@ Status checked on 2026-10-08. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **43,482 untranslated locale/string values in 70 languages**. It
+  report counts **43,419 untranslated locale/string values in 70 languages**. It
   excludes **149 source keys tracked separately as pending Transifex**: 148
   have non-English values requiring wording review; the newly added
   `shortcut-edit-due-date` still needs translations. Counts are a snapshot;
@@ -2171,6 +2171,22 @@ uses the same word as `checklist` itself.
 </details>
 
 **Translations** — continued language coverage and corrections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bb3ce92dd835bf950ced37282769c91e224fd0e2">Translate 63 Tok Pisin synchronization messages.</a></summary>
+
+- Preserve existing translations, source tokens, conflict choices, local
+  content, report limits and missing-versus-null estimate behavior. Technical
+  wording remains low confidence pending fluent-speaker review.
+- Six focused checks and all 21 human-preference checks pass. The catalog
+  completeness check still fails on the concurrent due-date shortcut key.
+  Browser and screen-reader checks were not run.
+- Remaining counted English placeholders: 43,419 across 70 languages. The
+  broader language and wording audit continues.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d0f781c34992b999e64679a5568385d2b6987d3e">Translate 46 Tok Pisin recovery messages and correct two rule labels.</a></summary>
