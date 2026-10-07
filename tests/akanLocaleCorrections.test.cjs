@@ -398,3 +398,17 @@ test('Akan storage maintenance and support messages preserve operational limits'
  assert.match(data['delete-translation-confirm-popup'],/Wuntumi nsan nyi/);
  assert.match(data['invalid-file'],/wɔgyae/);
 });
+
+test('Akan account states and card loading preserve opposite actions and configuration', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["accounts-lockout-settings-updated", "accounts-lockout-no-locked-users", "accounts-lockout-user-unlocked", "accounts-lockout-user-locked", "admin-people-user-active", "admin-people-user-inactive", "accounts-lockout-all-users-unlocked", "attachments-path-description", "avatars-path-description", "cron-no-errors", "cron-errors-cleared", "cards-loading-description", "cards-loading-lazy-note", "disable-all-import"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.match(data['admin-people-user-active'],/reyɛ adwuma.*dum no/);
+ assert.match(data['admin-people-user-inactive'],/adum.*sɔ no/);
+ assert.notEqual(data['accounts-lockout-user-locked'],data['accounts-lockout-user-unlocked']);
+ assert.match(data['accounts-lockout-all-users-unlocked'],/nyinaa/);
+ for(const literal of ['CARDS_LOADING','all/lazy/auto','CARDS_LOADING_LAZY_THRESHOLD']) assert.ok(data['cards-loading-description'].includes(literal));
+ assert.match(data['cards-loading-lazy-note'],/sɔhwɛ mu.*yɛ pɛpɛɛpɛ.*Gantt.*nkutoo.*san bue/);
+ assert.match(data['cron-no-errors'],/Mfomso biara nni hɔ/);
+ assert.match(data['disable-all-import'],/nyinaa/);
+});

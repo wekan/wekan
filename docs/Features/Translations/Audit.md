@@ -5393,6 +5393,12 @@ Rewrote 14 mixed-language values covering attachment location repair, storage de
 
 Tests cover source tokens, operational scope, product/format identifiers, logged-in-only support and irreversible deletion. Replica-set and compaction terms retain recognizable technical names within Akan prose and remain provisional. Browser checks were not run; this translation does not independently validate the operational guidance.
 
+### Akan mixed-language correction: lockouts and card loading
+
+Rewrote 14 account-state, lockout, storage-path, cron and card-loading messages. Preserve activation/deactivation direction, all-user unlock scope, the loading environment variables and the experimental partial-view warning.
+
+Tests compare source tokens, opposite controls, configuration literals and lazy-loading limitations. Resource/loading and account-protection terminology remains provisional. Browser checks were not run; broader language review continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
