@@ -107,3 +107,31 @@ test('Somali Blockly functions distinguish output, disabled definitions and dupl
  assert.match(data['blockly-PROCEDURES_DEF_DUPLICATE_WARNING'],/soo noqnoqda/);
  assert.match(data['blockly-PROCEDURES_IFRETURN_WARNING'],/oo keliya gudaha qeexidda hawl/);
 });
+
+test('Somali Blockly text messages preserve arguments, indexing and empty results',()=>{
+ for(const key of Object.keys(english).filter(k=>k.startsWith('blockly-TEXT_'))){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  if(english[key] && !key.endsWith('_HELPURL') && !key.endsWith('_HUE')) assert.notEqual(data[key],english[key],key);
+ }
+ assert.match(data['blockly-TEXT_INDEXOF_TOOLTIP'],/koowaad.*labaad.*%1 haddii qoraalka la waayo/);
+ assert.match(data['blockly-TEXT_ISEMPTY_TOOLTIP'],/run haddii.*madhan yahay/);
+ assert.match(data['blockly-TEXT_LENGTH_TOOLTIP'],/ku jiraan meelaha bannaan/);
+ assert.match(data['blockly-TEXT_CHARAT_FROM_END'],/laga soo tiriyey dhammaadka/);
+ assert.notEqual(data['blockly-TEXT_CHARAT_FIRST'],data['blockly-TEXT_CHARAT_LAST']);
+ assert.match(data['blockly-TEXT_REPLACE_MESSAGE0'],/%1.*%2.*%3/);
+ assert.match(data['blockly-TEXT_REPLACE_TOOLTIP'],/dhammaan/);
+});
+
+test('Somali Blockly text formatting preserves direction and input types',()=>{
+ assert.match(data['blockly-TEXT_CHANGECASE_OPERATOR_LOWERCASE'],/far yaryar/);
+ assert.match(data['blockly-TEXT_CHANGECASE_OPERATOR_UPPERCASE'],/FAR WAAWEYN/);
+ assert.match(data['blockly-TEXT_CHANGECASE_OPERATOR_TITLECASE'],/hore ee eray kasta/);
+ assert.match(data['blockly-TEXT_TRIM_OPERATOR_LEFT'],/bidix/);
+ assert.match(data['blockly-TEXT_TRIM_OPERATOR_RIGHT'],/midig/);
+ assert.match(data['blockly-TEXT_TRIM_OPERATOR_BOTH'],/labada dhinac/);
+ assert.match(data['blockly-TEXT_TRIM_TOOLTIP'],/nuqul.*hal daraf ama labada daraf/);
+ assert.match(data['blockly-TEXT_PROMPT_TOOLTIP_NUMBER'],/tiro/);
+ assert.match(data['blockly-TEXT_PROMPT_TOOLTIP_TEXT'],/qoraal/);
+ assert.equal(data['blockly-TEXT_APPEND_VARIABLE'],data['blockly-TEXT_CREATE_JOIN_ITEM_TITLE_ITEM']);
+ assert.equal(data['blockly-TEXT_LENGTH_TITLE'],data['blockly-LISTS_LENGTH_TITLE']);
+});

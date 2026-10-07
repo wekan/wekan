@@ -5857,6 +5857,20 @@ Browser checks were not run. Function and parameter vocabulary remains
 low-confidence technical wording pending fluent-speaker review. This batch
 leaves the remaining Blockly and all-language audit work open.
 
+## Somali Blockly text operations — 2026-10-07
+
+Filled 55 English placeholders while preserving existing Somali translations.
+Checks cover every text-operation key, source token inventories, first/last and
+from-end indexing, missing-text results, empty text, lengths including spaces,
+replacement of all occurrences, copies, case conversion, trim direction and
+numeric versus text prompts. Shared list/text length and item labels agree.
+Help URLs, numeric hues and source-empty suffixes remain unchanged.
+
+All 58 focused translation/structural tests and 21 human-preference checks pass.
+Browser checks were not run. Programming vocabulary and case-conversion wording
+remain low-confidence drafts pending fluent-speaker review. Remaining Blockly
+families and the all-language wording audit are still open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
