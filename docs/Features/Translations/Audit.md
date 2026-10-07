@@ -4677,6 +4677,14 @@ mixed-language audit remains open.
 - Ordinary placeholders decrease from 48,332 to 48,317 across 70 languages. Four locales still have English labels in this group. The 148 pending source keys and wider semantic audit remain open.
 - Validation: Blockly/completeness tests and human-preference checks pass; browser spec syntax checked. Browser/spoken accessibility execution remains unverified.
 
+### Inuktitut comment and accessibility labels
+
+- Filled fifteen English Blockly comment/accessibility placeholders in `iu` through the protected fill; preserved existing values and exact arguments. Added the locale to opposite-action/token tests and the translated comment-menu browser assertion.
+- References: [Tusaalanga glossary](https://tusaalanga.ca/glossary?showall=1) supplies `sanikkuvik` (garbage can), `imaqanngittuq` (empty) and window open/close commands; [Angirrami learning resources](https://angirrami.com/) attest `ᐃᓚᓕᐅᑎᒍᒃ`; [Inuit Circumpolar Council](https://www.inuitcircumpolar.com/%E1%93%B1%E1%95%88%E1%93%B0%E1%91%A6-%E1%93%84%E1%93%87%E1%95%90%E1%94%AA%E1%90%8A%E1%96%93%E1%91%A6/%E1%90%83%E1%93%95%E1%92%8B%E1%91%A6-%E1%90%83%E1%93%84%E1%92%83%E1%91%8E%E1%91%90%E1%91%A6-%E1%90%85%E1%96%83%E1%93%AA%E1%93%9A%E1%92%8B%E1%90%8A%E1%92%83%E1%93%B4%E1%96%85/?lang=iu) uses the button noun in plural. These establish vocabulary, not the new complete phrases.
+- Low confidence: else-if is paraphrased as another rule and does not explicitly express the preceding false branch; input uses a placing/entry-place draft; list-item case endings and delete imperative need review. Open/close paraphrases expand/collapse. Comment and text follow existing short labels. `%1°` preserves the angle argument but spoken output is untested. These strings require semantic review, not just script checks.
+- Ordinary placeholders decrease from 48,317 to 48,302 across 70 languages. Three locales remain in this accessibility group; the 148 pending source keys and broader language audit remain open.
+- Validation: focused Blockly/completeness tests and human-preference checks; browser spec syntax checked. Browser and spoken accessibility checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
