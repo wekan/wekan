@@ -1791,6 +1791,27 @@ browser scenarios were syntax-checked only because the app stack was unavailable
 6 locale paths still need this six-string group. The ordinary backlog remains
 51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
 
+### Due reminders — Veps (2026-10-07)
+
+Filled all six English reminder placeholders in `ve-PP`, retaining signed offsets,
+zero as the due day, blank/server default, whole-day bounds and the ten-entry limit,
+board disabling, webhook delivery and saved-state wording. No existing translated
+values were overwritten and no translation service was used.
+
+Full phrases and technical terminology are low confidence and need native review.
+Existing Veps terms were compared with the
+[Veps-English dictionary](https://vepsnoid.blogspot.com/p/dictionary.html)
+(for example, after, send and preserve), and
+[VepKar](https://dictorpus.krc.karelia.ru/en/dict/lemma/49056) for whole/full.
+Unrelated wrong-language values remain, including `home-board-empty` and
+`set-default-board-template`; this batch does not certify the locale's language quality.
+
+Reminder regression checks now cover 61 translated locales. Translation checks,
+all-locale structural checks and human-preference checks pass. The existing browser
+scenario includes Veps and was syntax-checked only; the app stack was unavailable.
+Five locale paths still need this reminder group. The ordinary backlog remains
+51,575 values plus 188 pending source keys; the wider language review stays open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
