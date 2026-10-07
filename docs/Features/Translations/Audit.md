@@ -7234,6 +7234,15 @@ copy semantics, leading separator spaces and literal keyboard combinations.
 Workspace-stack and search-focus terminology remains low confidence pending fluent
 review. Browser and screen-reader checks were not run.
 
+### Kurdish Blockly aliases and rule-editor messages
+
+Filled 25 English placeholders for search results, zoom, repeated Blockly labels
+and the rule editor. Existing translations were preserved. Tests verify source
+tokens, key order, alias consistency, one-trigger/one-action restrictions,
+administrator permission and reloading before saving a conflicting edit.
+Trigger and zoom terminology remains low confidence pending fluent review.
+Browser and screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
