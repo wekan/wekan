@@ -1890,6 +1890,15 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ae9af70f64bc1458b9b4ca8cf65b0ac8ef833d7a">Translate import reports in Greenlandic and Nahuatl</a>. Thanks to xet7.</summary>
+
+- Translate six import-report messages, retaining board creation, incomplete transfer and recovery navigation. Full clauses and technical terminology remain low confidence, documented in the translation audit.
+- Translation/token, import-loss and 234-locale structural tests pass, along with human-preference checks. Both browser cases are syntax-checked; execution requires Playwright and a running application.
+- This group remains English in five locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/90e72235594e885db9b8b62c3b932ad907c67723">Translate import reports in Veps</a>. Thanks to xet7.</summary>
 
 - Translate three import-report messages and replace a Venda recovery-menu seed in Veps. Full clauses and derived terminology remain low confidence, documented in the translation audit.
