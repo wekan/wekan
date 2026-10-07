@@ -823,3 +823,63 @@ test('Tok Pisin search help distinguishes union, intersection, negation and limi
  assert.match(data['globalSearch-instructions-status-all'],/akaiv.*no stap long akaiv/);
  assert.match(data['globalSearch-instructions-description'],/kolon.*spes.*tupela mak/);
 });
+
+
+test('Tok Pisin account messages preserve tokens and replace mixed English prose',()=>{
+ const keys=[
+  "email-enrollAccount-subject",
+  "email-enrollAccount-text",
+  "email-fail",
+  "email-fail-text",
+  "email-invite",
+  "email-invite-subject",
+  "email-invite-text",
+  "push-invite-title",
+  "push-invite-text",
+  "email-resetPassword-subject",
+  "email-resetPassword-text",
+  "email-verifyEmail-subject",
+  "email-verifyEmail-text",
+  "error-username-taken",
+  "error-email-taken",
+  "just-invited",
+  "import-usernames",
+  "email-addresses",
+  "email-templates-title",
+  "email-templates-activity-body",
+  "email-invite-register-subject",
+  "email-invite-register-text",
+  "email-smtp-test-subject",
+  "email-smtp-test-text",
+  "allow-invite-to-board",
+  "roles-status-invite",
+  "invite-people-success",
+  "invite-people-error",
+  "email-domain-allowed-to-invite",
+  "password-again",
+  "username-password-required",
+  "password-mismatch",
+  "username-too-short",
+  "list-sync-username-placeholder"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.doesNotMatch(data[key],/simply|Please follow|invitation|collaborations|already taken|at least|are i mas|Passwords|while sending/,key);
+ }
+});
+
+test('Tok Pisin account messages distinguish reset, verification and validation outcomes',()=>{
+ assert.match(data['email-resetPassword-text'],/nupela paswot.*klikim/s);
+ assert.match(data['email-verifyEmail-text'],/sekim imel bilong akaun/);
+ for(const key of ['email-enrollAccount-text','email-resetPassword-text','email-verifyEmail-text','email-invite-text','email-invite-register-text']) assert.ok(data[key].includes('\n\n'));
+ assert.equal(data['email-invite-text'],data['push-invite-text']);
+ assert.equal(data['email-invite-subject'],data['push-invite-title']);
+ assert.match(data['email-invite-register-text'],/__url__.*__icode__/s);
+ assert.match(data['password-mismatch'],/Tupela.*no wankain/);
+ assert.match(data['username-too-short'],/3 mak o moa/);
+ assert.match(data['username-password-required'],/i mas stap/);
+ assert.match(data['list-sync-username-placeholder'],/i no mas putim/);
+ assert.match(data['invite-people-success'],/i go gut pinis/);
+ assert.match(data['invite-people-error'],/^Rong/);
+ assert.match(data['email-domain-allowed-to-invite'],/rait.*no ken raitim nem bilong ol yet/);
+});
