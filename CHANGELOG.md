@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f1a2ccfcc0d91b4c601b675b03317d7079965b55">Correct the remaining 99 exact generic-filler values in Akan.</a></summary>
+
+- Replace generic filler in migration controls, schedules, login, diagnostics and flow labels. Preserve interval numbers, units and technical identifiers.
+- Add a catalog-wide check against the repeated filler phrase, plus placeholder, interval and state checks. Specialized wording remains provisional; other mixed-language and semantic issues still need review.
+- The exact generic-filler inventory decreases from 99 to zero. English placeholders remain 45,599 across 70 languages because these corrections replace non-English values.
+- Validation: 54 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7bb67bc8a9aa736cdd8c5ecc23d22b408d0216ef">Correct 60 Akan cloud-storage, backup and migration translations.</a></summary>
 
 - Replace generic filler in cloud credentials, backups, migrations and connection tests. Preserve product names, region examples and replacement scope.
