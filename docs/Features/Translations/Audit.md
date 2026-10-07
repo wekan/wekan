@@ -1439,6 +1439,29 @@ browser scenarios were syntax-checked only because the app stack was unavailable
 24 locale paths still need this six-string group. The ordinary backlog remains
 51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
 
+### Due reminders — Buryat and Sakha (2026-10-07)
+
+Filled six reminder strings in each of `bua` and `sah` (12 values).
+The instructions preserve comma-separated offsets, zero as the due day, positive
+days before and negative days after, the empty server-default setting, at most
+ten integers from -14 to 14, board disabling and outgoing webhook delivery.
+Only English placeholders were filled; no external translation service was used.
+Full instructions and technical compounds remain low-confidence drafts for native
+review. Cyrillic checks do not distinguish these languages from Russian and do
+not establish fluency; the prose was composed with their existing vocabulary.
+
+Vocabulary evidence: the [Buryat dictionary](https://edbl.ru/b/b%D2%AFheli/)
+attests `бүхэли тоо` for a whole number. A [Sakha teaching program](https://dkencheeri.ou14.ru/wp-content/uploads/sites/24/2022/05/toshol.pdf)
+uses `бүтүн` and `чыыһыла` in number instruction. These references support
+individual terms, not complete software instructions.
+
+Translation checks now cover 44 locales, including offset direction, defaults,
+bounds and source-token inventories. Existing browser scenarios include both
+locales. Translation, all-locale structural and human-preference checks pass;
+browser scenarios were syntax-checked only because the app stack was unavailable.
+22 locale paths still need this six-string group. The ordinary backlog remains
+51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

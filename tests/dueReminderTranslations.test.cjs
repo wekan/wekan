@@ -7,7 +7,7 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('due-reminder-'));
 assert.equal(keys.length, 6);
-for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts', 'om', 'fj', 'to', 'gv', 'wa', 'wa-RR', 'ak', 'lg', 'bm', 'wo', 'ee', 'rup', 've-CC']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts', 'om', 'fj', 'to', 'gv', 'wa', 'wa-RR', 'ak', 'lg', 'bm', 'wo', 'ee', 'rup', 've-CC', 'bua', 'sah']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -112,4 +112,11 @@ assert.match(read('rup')['due-reminder-days-label'], /virguli.*mai mari di 0.*di
 assert.match(read('ve-CC')['due-reminder-days-label'], /virgole.*positivi.*prima.*negativi.*dopo.*vodo/);
 assert.match(read('rup')['due-reminder-invalid'], /cel mult dzatsi.*numiri întredzi/);
 assert.match(read('ve-CC')['due-reminder-invalid'], /al màsimo diexe.*nùmari intieri/);
-console.log('Due reminder translations: 6 messages in 42 locales passed');
+assert.match(read('bua')['due-reminder-days-label'], /запятойгоор.*ехэ.*урдахи.*бага.*һүүлдэхи.*хооһон/);
+assert.match(read('sah')['due-reminder-days-label'], /запятойынан.*улахан.*иннинээҕи.*кыра.*кэннинээҕи.*кураанах/);
+assert.match(read('bua')['due-reminder-invalid'], /бүхэли тоонуудые.*арбанһаа олон бэшэ/);
+assert.match(read('sah')['due-reminder-invalid'], /бүтүн чыыһылалары.*уонтан элбэх буолбатах/);
+for (const code of ['bua', 'sah']) {
+  for (const key of keys) assert.match(read(code)[key], /[\u0400-\u04FF]/u, `${code}:${key}: Cyrillic`);
+}
+console.log('Due reminder translations: 6 messages in 44 locales passed');
