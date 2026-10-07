@@ -143,3 +143,30 @@ test('Tok Pisin workspace and colour messages preserve navigation and announceme
  assert.match(data['blockly-WORKSPACE_SEARCH_INPUT_LABEL'],/Enter.*neks.*Shift\+Enter.*bipo.*Escape.*pasim.*fokas/);
  assert.notEqual(data['blockly-WORKSPACE_SEARCH_FIND_NEXT'],data['blockly-WORKSPACE_SEARCH_FIND_PREVIOUS']);
 });
+
+test('Tok Pisin input labels preserve tokens and distinguish input roles',()=>{
+ for(const key of Object.keys(english).filter(k=>/^blockly-(INPUT_LABEL_|FIELD_)/.test(k))){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+ }
+ assert.equal(data['blockly-FIELD_BITMAP_PIXEL_ON'],'i lait');
+ assert.equal(data['blockly-FIELD_BITMAP_PIXEL_OFF'],'i no lait');
+ assert.match(data['blockly-FIELD_BITMAP_ARIA_VALUE'],/%1.*%2.*%3 piksel i lait/);
+ assert.match(data['blockly-FIELD_BITMAP_PIXEL_LABEL'],/arere %2.*daun %3/);
+ for(const group of ['LISTS','TEXT']){
+  assert.match(data['blockly-INPUT_LABEL_'+group+'_START_POSITION'],/stat/);
+  assert.match(data['blockly-INPUT_LABEL_'+group+'_END_POSITION'],/pinis/);
+ }
+ for(const group of ['NUMBER','VALUE','CONDITION']){
+  assert.match(data['blockly-INPUT_LABEL_'+group+'_A'],/^fes/);
+  assert.match(data['blockly-INPUT_LABEL_'+group+'_B'],/^namba tu/);
+ }
+ assert.match(data['blockly-INPUT_LABEL_NUMBER_MAX'],/bikpela/);
+ assert.match(data['blockly-INPUT_LABEL_NUMBER_MIN'],/liklik/);
+ assert.doesNotMatch(data['blockly-INPUT_LABEL_MATH_DIVIDEND'],/wantaim/);
+ assert.match(data['blockly-INPUT_LABEL_MATH_DIVISOR'],/wantaim/);
+ assert.match(data['blockly-INPUT_LABEL_LISTS_LIST_FROM_TEXT'],/teks bilong brukim/);
+ assert.match(data['blockly-INPUT_LABEL_LISTS_TEXT_FROM_LIST'],/lis bilong joinim/);
+ assert.match(data['blockly-INPUT_LABEL_TEXT_APPEND'],/putim long pinis/);
+ assert.match(data['blockly-INPUT_LABEL_TEXT_TO_REPLACE'],/rausim na putim nupela/);
+});
