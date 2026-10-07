@@ -5081,6 +5081,12 @@ mixed-language audit remains open.
 - Retained unknown-versus-zero estimates, matching-unit/policy comparisons, assigned-card-only reports, omitted missing days and the distinction between observation exports and sprint-result exports. Added checks for these key constraints and different close/cancel outcomes.
 - Snapshot, retrospective and observation terminology is provisional and needs domain-aware language review. Browser checks were not run; tests cover tokens and selected semantic distinctions, not fluency.
 
+### Waray synchronization conflicts and previews
+
+- Filled 43 English placeholders through the protected workflow, covering conflict choices, replacement cards, previews and source-field omissions. Preserved source/local distinctions and both 100-entry/path limits.
+- Kept no-source-write behavior, retained local content, unchanged subcards, reused replacements and whole-list-sync exclusions explicit. Added checks for these distinctions and shared preview/source labels.
+- Synchronization, mapping, normalized-field and parser terminology remains provisional; the descriptive parser wording needs technical-language review. Browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -816,7 +816,50 @@ const correctedKeys = [
   "scrum-daily-empty",
   "scrum-observed-scope",
   "scrum-daily-observations-export-help",
-  "scrum-import-pending"
+  "scrum-import-pending",
+  "sync-conflict-heading",
+  "sync-conflict-hint",
+  "sync-conflict-local",
+  "sync-conflict-keep-local",
+  "sync-conflict-use-source",
+  "sync-conflict-refresh",
+  "sync-conflict-review-complete",
+  "sync-conflict-duplicate",
+  "sync-conflict-keep-mapping",
+  "sync-conflict-detach",
+  "sync-conflict-detach-hint",
+  "sync-conflict-archive",
+  "sync-conflict-archive-hint",
+  "sync-conflict-keep-card-local",
+  "sync-conflict-creation",
+  "sync-conflict-creation-hint",
+  "sync-conflict-create-replacement",
+  "sync-preview-button",
+  "sync-preview-heading",
+  "sync-preview-saved",
+  "sync-preview-unavailable",
+  "sync-preview-blocked",
+  "sync-preview-create",
+  "sync-preview-update",
+  "sync-preview-archive",
+  "sync-preview-baseline",
+  "sync-preview-truncated",
+  "sync-preview-omissions",
+  "sync-preview-scope",
+  "sync-preview-excluded",
+  "sync-preview-unmapped",
+  "sync-preview-parser-warnings",
+  "sync-preview-parser-unsupported",
+  "sync-source-heading",
+  "sync-source-scope",
+  "sync-source-unmapped",
+  "sync-source-excluded",
+  "sync-source-converted",
+  "sync-source-fallback",
+  "sync-source-excluded-item",
+  "sync-source-occurrences",
+  "sync-source-truncated",
+  "sync-source-omitted"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -977,6 +1020,14 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   assert.match(waray['scrum-confirm-cancel'], /magpapabilin.*tubtob/);
   assert.equal(waray['export'], 'Pag-eksport');
   assert.ok(waray['scrum-daily-observations-help'].includes(waray['export']));
+  assert.match(waray['sync-conflict-hint'], /Waray iginpapadara ngadto ha sistema/);
+  assert.match(waray['sync-conflict-review-complete'], /Waray padagana.*bug-os nga lista/);
+  assert.match(waray['sync-conflict-detach-hint'], /sulod hito magpapabilin ha WeKan/);
+  assert.match(waray['sync-conflict-archive-hint'], /Diri ginbabag-o an mga subkard/);
+  assert.match(waray['sync-conflict-creation-hint'], /nauna nga kard nga waray pagbag-o.*amo gihapon nga kasaliwan/);
+  assert.match(waray['sync-source-scope'], /diri iginpapakita an mga bili/);
+  for (const key of ['sync-preview-truncated', 'sync-source-truncated']) assert.ok(waray[key].includes('100'));
+  for (const suffix of ['unmapped', 'excluded']) assert.equal(waray['sync-preview-' + suffix], waray['sync-source-' + suffix]);
   const statistics = ['AVERAGE', 'MEDIAN', 'MODE', 'STD_DEV', 'SUM'].map(s => waray['blockly-MATH_ONLIST_OPERATOR_' + s]);
   assert.equal(new Set(statistics).size, statistics.length);
   assert.match(waray['blockly-MATH_ONLIST_TOOLTIP_MODE'], /lista han mga butang/);
