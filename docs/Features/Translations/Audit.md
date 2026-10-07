@@ -7207,6 +7207,15 @@ restrictions, function-only blocks and return-value distinctions. Parent-block
 and procedure-output terminology remains low confidence pending fluent review.
 Browser and screen-reader checks were not run.
 
+### Kurdish Blockly keyboard shortcuts and announcements
+
+Filled 44 English placeholders for variable renaming, screen-reader state,
+keyboard navigation, movement, scrolling and announcements. The placeholder-only
+merge preserved existing translations. Tests compare source tokens and key order,
+and distinguish directions, movement lifecycle and accessibility mode toggles.
+Keyboard-focus and block-stack terminology remains low confidence pending fluent
+review. Browser and screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
