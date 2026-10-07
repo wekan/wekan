@@ -310,3 +310,71 @@ test('Tok Pisin migration controls preserve state changes, scope and units',()=>
  assert.equal(data['fix-avatar-urls-migration'],data['step-fix-avatar-urls']);
  assert.equal(data['storage'],data['sandstorm-storage-item']);
 });
+
+
+test('Tok Pisin reports replace prefixed English with intact source tokens',()=>{
+ const keys=[
+  "reports",
+  "securityReportTitle",
+  "speedReportTitle",
+  "testsReportTitle",
+  "cpuReportTitle",
+  "rulesReportTitle",
+  "impersonationReportTitle",
+  "officeReportTitle",
+  "office-location",
+  "office-logins",
+  "office-first-seen",
+  "office-last-seen",
+  "office-shared",
+  "api-calls",
+  "api-first-called",
+  "api-last-called",
+  "recovery-event",
+  "recovery-severity",
+  "recovery-detail",
+  "cpu-cores",
+  "cpu-usage",
+  "duration",
+  "errors",
+  "job-details",
+  "job-queue",
+  "last-run",
+  "max-concurrent",
+  "memory-usage",
+  "operation-type",
+  "refresh-monitoring",
+  "start-test-operation",
+  "total-operations",
+  "api-endpoints",
+  "cpu-cores-suffix",
+  "cpu-load-average",
+  "event-category",
+  "event-severity",
+  "event-source",
+  "event-detail",
+  "event-attempts",
+  "integrityReportTitle"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.doesNotMatch(data[key],/Toksave:/,key);
+  assert.notEqual(data[key],english[key],key);
+ }
+});
+
+test('Tok Pisin monitoring labels distinguish chronology, queues and resource usage',()=>{
+ assert.match(data['office-first-seen'],/^Fes/);
+ assert.match(data['office-last-seen'],/^Las/);
+ assert.match(data['api-first-called'],/^Fes/);
+ assert.match(data['api-last-called'],/^Las/);
+ assert.match(data['max-concurrent'],/Bikpela tru namba.*wankain taim/);
+ assert.match(data['job-queue'],/ol wok i wet/);
+ assert.match(data['memory-usage'],/memori/);
+ assert.match(data['cpu-usage'],/CPU/);
+ assert.match(data['cpu-cores'],/koa.*CPU/);
+ assert.match(data['impersonationReportTitle'],/akaun olsem narapela man/);
+ assert.equal(data['recovery-severity'],data['event-severity']);
+ assert.equal(data['recovery-detail'],data['event-detail']);
+ assert.equal(data['cpuReportTitle'],data['cpu-usage']);
+});
