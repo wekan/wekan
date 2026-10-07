@@ -7116,6 +7116,20 @@ Vocabulary references: [Acehnese thesaurus](https://fileserver-az.core.ac.uk/dow
 [Klingon dictionary](https://klingonska.org/dict/). These support vocabulary,
 not certification of the composed sentences.
 
+### Final missing due-date shortcut entries
+
+Added the shortcut in Cherokee, Inuktitut, Ladin, Aromanian, Tigre,
+Arabic-script Uzbek, Wolaytta and Standard Moroccan Tamazight. All eight
+are low confidence pending fluent review. Existing strings are preserved;
+wrong-language strings elsewhere still need correction. Tests cover source
+key order, placeholders, script and representative opened-card wording.
+Browser and screen-reader checks were not run. Fluency is not established.
+
+Vocabulary references: [Ladin davierta](https://en.wiktionary.org/wiki/davierta),
+[Aromanian dishcljid](https://kaikki.org/dictionary/Aromanian/meaning/d/di/dishcljid.html),
+[Wolaytta grammar and word list](https://external.dandelon.com/download/attachments/dandelon/ids/DE006004286393F16AF24C1257A3600455B73.pdf),
+[Tamazight opening vocabulary](https://imassn.com/dictionnaire/mot/arzam-11398).
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
