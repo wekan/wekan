@@ -4020,6 +4020,29 @@ the English instruction. The wider backlog remains 51,575 ordinary placeholders
 across 70 languages plus 150 pending source keys. Coverage is not proof of
 linguistic accuracy.
 
+## Leo import instruction: Kashmiri, Fulah, Veps and constructed languages
+
+Filled five English placeholders for `import-board-instruction-leo` in Kashmiri,
+Fulah, Veps (`ve-PP`), Volapük and Klingon. The protected fill preserved existing
+translations. The drafts retain the hierarchy, cards, descriptions, deeper
+checklists and marked completion state; Leo and `.leo` remain literal.
+
+The [Midgley English–Volapük dictionary](https://volapuk.evertype.com/EnVoDictionary-20100830.pdf)
+provided `binod` (structure) and `nüveigön` (import goods), replacing unverified
+initial draft roots. Their use for software is a terminology adaptation.
+The [Fulfulde manual](https://www.livelingua.com/peace-corps/Fulfulde/fulfulde%20peace%20corps.pdf)
+helped identify `leɗɗe` as inappropriate for levels; the draft now describes
+deeper parts. Klingon wording uses a data record rather than a physical filing
+tool. All five complete instructions remain low-confidence drafts needing
+vocabulary and grammar review; word references do not validate the sentences.
+
+Extended locale regression and the browser import scenario for all five locales,
+retaining existing invalid-input coverage. All 12 focused Node tests and 21
+preservation checks pass. Browser syntax passes; execution remains unverified
+because Playwright is unavailable. Seven locales still use this English
+instruction. The wider backlog remains 51,575 ordinary placeholders across 70
+languages plus 150 pending source keys. Coverage is not proof of fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
