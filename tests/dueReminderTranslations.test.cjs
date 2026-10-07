@@ -7,7 +7,7 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('due-reminder-'));
 assert.equal(keys.length, 6);
-for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts', 'om', 'fj', 'to', 'gv', 'wa', 'wa-RR', 'ak', 'lg', 'bm', 'wo', 'ee', 'rup', 've-CC', 'bua', 'sah', 'cv', 've', 'se', 'ace', 'bo', 'dz', 'ti', 'ks', 'qu', 'ay', 'gn', 'ff', 'vo', 'tlh', 'kl', 'nah', 've-PP', 'zgh', 'iu']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts', 'om', 'fj', 'to', 'gv', 'wa', 'wa-RR', 'ak', 'lg', 'bm', 'wo', 'ee', 'rup', 've-CC', 'bua', 'sah', 'cv', 've', 'se', 'ace', 'bo', 'dz', 'ti', 'ks', 'qu', 'ay', 'gn', 'ff', 'vo', 'tlh', 'kl', 'nah', 've-PP', 'zgh', 'iu', 'wal']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -162,4 +162,6 @@ assert.match(read('zgh')['due-reminder-days-label'], /",".*ⵉⴳⴳⵓⵜⵏ.*�
 assert.match(read('zgh')['due-reminder-invalid'], /ⵉⴽⵎⵎⵍⵏ.*ⴰⴷ ⵓⵔ ⵜⵣⵔⵉⵜ ⵎⵔⴰⵡ/);
 assert.match(read('iu')['due-reminder-days-label'], /",".*ᐊᖏᓂᖅᓴᐃᑦ.*ᓯᕗᕐᖓᒍᑦ.*ᒥᑭᓂᖅᓴᐃᑦ.*ᑭᖑᓂᐊᒍᑦ.*ᐃᓗᓕᖃᖏᑎᓪᓗᒍ/);
 assert.match(read('iu')['due-reminder-invalid'], /ᐅᓪᓗᓕᒫᓂᒃ.*ᖁᓕᓂᒃ.*ᐅᖓᑖᓅᙱᓪᓗᑎᑦ/);
-console.log('Due reminder translations: 6 messages in 63 locales passed');
+assert.match(read('wal')['due-reminder-days-label'], /",".*0-ppe daro.*kase.*0-ppe guutta.*guyye.*mela/);
+assert.match(read('wal')['due-reminder-invalid'], /kumetta.*tammu gallassaappe daro go'ettoppa/);
+console.log('Due reminder translations: 6 messages in 64 locales passed');

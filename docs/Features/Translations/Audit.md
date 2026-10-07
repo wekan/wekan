@@ -1851,6 +1851,27 @@ includes Inuktitut but was syntax-checked only; the app stack was unavailable.
 Three locale paths still need this reminder group. The ordinary backlog remains
 51,575 values plus 188 pending source keys; broader language-quality review is open.
 
+### Due reminders — Wolaytta (2026-10-07)
+
+Filled six English placeholders in `wal`. The descriptions retain due-day zero,
+positive/before and negative/after offsets, blank/server defaults, whole-day range,
+ten-entry limit, board disabling and outgoing webhook delivery. Existing translated
+values were preserved; no translation service was used.
+
+Full phrases and technical terminology are low confidence and need native review.
+References include [Wolaytta numerals](https://www.omniglot.com/language/numbers/wolaytta.htm)
+for ten, [Wakasa's grammar](https://www.janestudies.org/wp-content/uploads/2018/files/NES_no19(2014)_Wakasa.pdf)
+for temporal construction, and the bilingual description of
+[Samad in the Forest](https://www.buscalibre.cl/libro-samad-in-the-forest-english-wolayita-bilingual-edition-english-wolayita/9781916688667/p/57458539)
+for whole day. Unrelated mixed-language values such as `default` and `act-almostdue`
+remain part of the wider review; this batch does not certify language quality.
+
+Reminder checks now cover 64 translated locales. Translation checks, all-locale
+structural checks and human-preference checks pass. The existing browser scenario
+includes Wolaytta but was syntax-checked only; the app stack was unavailable.
+Two locale paths still need this reminder group. The ordinary backlog remains
+51,575 values plus 188 pending source keys; broader language review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
