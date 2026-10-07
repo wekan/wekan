@@ -4573,6 +4573,15 @@ mixed-language audit remains open.
 - Registered Cherokee in the existing Blockly editor browser flow and syntax-checked it. Playwright is absent locally, so neither that flow nor spoken screen-reader announcements were executed. Structural checks do not establish translation fluency.
 - Ordinary placeholders decrease from 49,233 to 49,221 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## Blockly comment and accessibility controls: first seven locales
+
+- Filled 104 English placeholders across Kurmanji (`ku`), Central Kurdish (`ckb`), Tatar (`tt`), Somali (`so`), Chichewa (`ny`), Māori (`mi`) and Samoan (`sm`). The fifteen-key group covers add/remove comment and thirteen accessibility labels for conditional branches, inputs, list items, text, buttons, comment collapse/expand, angle degrees and the empty trash. The existing Kurmanji add-comment translation was preserved by the protected merge.
+- Corrected Tatar's generic `text` label from Crimean Tatar `Метин` to Tatar `Текст`; the new Blockly labels use the same term. Remaining mixed-language values are outside this batch and still require review.
+- Existing locale terminology guided the drafts. Māori input/button vocabulary was checked against [Te Aka tāuru](https://maoridictionary.co.nz/search?keywords=t%C4%81uru), [Te Aka pātene](https://maoridictionary.co.nz/search?keywords=patene) and [Taiuru's computer terminology](https://www.taiuru.maori.nz/publicationslib/Dictionary-of-Computer-Related-Terms-Edition-2.pdf). Full conditional-branch phrases and Samoan input paraphrases remain provisional; Chichewa, Kurdish and Samoan technical wording is low confidence.
+- The regression checks every value in this batch for nonempty/non-English prose and exact source placeholder inventories, distinguishes opposing operations, and locks the Tatar correction. Blockly/completeness: 13 tests pass. Human-preference verification: 21 checks pass.
+- Added visible translated add-comment context-menu assertions to the existing seven-language editor flows; syntax checked only. Playwright is absent locally, so browser and assistive-technology execution remain unverified. Structural checks do not establish fluent wording.
+- Ordinary placeholders decrease from 49,221 to 49,117 across 70 languages. The 148 pending source keys and the broader all-language and semantic work remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

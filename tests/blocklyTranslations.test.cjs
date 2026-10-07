@@ -26,6 +26,24 @@ test('movement announcements preserve arguments and distinguish directions in ev
  }
 });
 
+test('filled comment and accessibility controls preserve arguments and opposite actions', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const names=['ADD_COMMENT','REMOVE_COMMENT',...'ADD_ELSE_IF ADD_INPUT ADD_LIST_ITEM ADD_TEXT BUTTON COMMENT_COLLAPSE COMMENT_EXPAND FIELD_ANGLE REMOVE_ELSE_IF REMOVE_INPUT REMOVE_LIST_ITEM REMOVE_TEXT TRASH_EMPTY'.split(' ').map(n=>'ARIA_LABEL_'+n)];
+ for(const code of ['ku','ckb','tt','so','ny','mi','sm']){
+  const data=require(`../imports/i18n/data/${code}.i18n.json`);
+  for(const name of names){
+   const key='blockly-'+name;
+   assert.ok(data[key]?.trim(),`${code}:${key}`);
+   assert.notEqual(data[key],english[key],`${code}:${key}`);
+   assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),`${code}:${key}`);
+  }
+  for(const kind of ['ELSE_IF','INPUT','LIST_ITEM','TEXT'])assert.notEqual(data['blockly-ARIA_LABEL_ADD_'+kind],data['blockly-ARIA_LABEL_REMOVE_'+kind],`${code}:${kind}`);
+  assert.notEqual(data['blockly-ARIA_LABEL_COMMENT_COLLAPSE'],data['blockly-ARIA_LABEL_COMMENT_EXPAND'],code);
+  assert.notEqual(data['blockly-ADD_COMMENT'],data['blockly-REMOVE_COMMENT'],code);
+ }
+ assert.equal(require('../imports/i18n/data/tt.i18n.json').text,'Текст');
+});
+
 test('every Blockly message resolves through all WeKan locale catalogs with intact placeholders',()=>{
   assert.deepEqual(Object.keys(mapping).sort(),Object.keys(upstream).sort());
   for(const file of fs.readdirSync(path.join(root,'imports/i18n/data')).filter(f=>f.endsWith('.i18n.json'))){
