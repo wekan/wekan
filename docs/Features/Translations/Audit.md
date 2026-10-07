@@ -7243,6 +7243,16 @@ administrator permission and reloading before saving a conflicting edit.
 Trigger and zoom terminology remains low confidence pending fluent review.
 Browser and screen-reader checks were not run.
 
+### Kurdish Scrum settings and planning labels
+
+Filled 36 English placeholders for board views, Scrum roles and settings,
+estimates, completion policies, sprint controls and backlog help. Existing
+translations are preserved. Tests check tokens and key order, distinguish
+cancellation from completion and marked-complete from list-based completion,
+and retain unfinished-work and planned/active sprint qualifications.
+Scrum-role and increment terminology remains low confidence pending fluent
+review. Browser and screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
