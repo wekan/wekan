@@ -4427,6 +4427,12 @@ mixed-language audit remains open.
 - All four focused Node tests and 21 human-preference checks pass, covering locale token inventories, distinct labels, inverse relations, serialization and invalid board/deleted-card targets. Extended the existing localized browser editing and undo/redo flow to fifteen locales; existing REST negative tests retain self-link and foreign-board rejection coverage. Browser syntax passes, but execution remains unverified because Playwright is unavailable locally.
 - Ordinary placeholders decrease from 50,199 to 50,169 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## Duplicate-card relationship labels: nineteen further locales (2026-10-07)
+
+- Filled both directed relationship labels in Sesotho, Setswana, Northern Sotho, both Zulu locales, Xhosa, Swati, Northern Ndebele, Xitsonga, Venda, Bislama, Tok Pisin, Fijian, Tongan, Hawaiian, Oromo, Kinyarwanda, Kirundi and Luganda (38 values). Used paired descriptions of which item is a copy of the other. Pronoun agreement and technical wording remain provisional, particularly Swati, Northern Ndebele, Venda, Fijian and Tongan.
+- All four focused Node tests and 21 human-preference checks pass, covering distinct translated labels, tokens, inverse relations and invalid targets. Extended the browser editing and undo/redo flow to these locales; existing REST tests cover self-link and foreign-board rejection. Browser syntax passes, but execution remains unverified because Playwright is unavailable locally.
+- Ordinary placeholders decrease from 50,169 to 50,131 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
