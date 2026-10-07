@@ -386,7 +386,7 @@ Status checked on 2026-10-08. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **44,071 untranslated locale/string values in 70 languages**. It
+  report counts **44,025 untranslated locale/string values in 70 languages**. It
   excludes **149 source keys tracked separately as pending Transifex**: 148
   have non-English values requiring wording review; the newly added
   `shortcut-edit-due-date` still needs translations. Counts are a snapshot;
@@ -2146,6 +2146,22 @@ uses the same word as `checklist` itself.
 </details>
 
 **Translations** — continued language coverage and corrections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1d9176bc01ccadc84c94ccdd862a5b661c893339">Translate 46 Māori recovery and rule-editing messages.</a></summary>
+
+- Preserve existing translations, source tokens, editor constraints, delivery
+  uncertainty and cancellation limits. Recovery terminology remains provisional
+  pending fluent-speaker review.
+- Nine focused checks and all 21 human-preference checks pass. The catalog
+  completeness check still fails on the concurrent due-date shortcut key.
+  Browser and screen-reader checks were not run.
+- Remaining counted English placeholders: 44,025 across 70 languages. The
+  broader language and wording audit continues.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8b381e19de809e4d14f042b04df450a92652c952">Translate 147 Māori Scrum and synchronization messages.</a></summary>
