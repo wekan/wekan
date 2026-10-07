@@ -6327,6 +6327,25 @@ contrasts, operand order, signs and distinct statistical/rounding operations.
 Browser and screen-reader checks were not run. The broader language audit
 remains open.
 
+## Tok Pisin activity recovery and rule editing — 2026-10-08
+
+Filled 46 English placeholders for rule blocks, mail failures and activity
+notification recovery. Corrected two English-seeded labels, rules and r-trigger,
+which previously merely prefixed Rules and Trigger with Toksave:. Other existing
+translations remain unchanged. Message and sending vocabulary follows the
+[Tok Pisin dictionary's tok entry](https://tokpisin.info/tok/) and
+[salim entry](https://tokpisin.info/salim/). Technical worker reservations,
+metadata, mail authentication and permanent-failure wording remain low confidence
+pending fluent-speaker review. Other English-prefixed seed values still need audit.
+
+Two focused checks and all 21 human-preference checks pass. Coverage preserves
+source tokens, the one-trigger/one-action rule, administrator permissions,
+stale-rule reload, uncertain versus failed delivery, no activity recreation,
+retained work and irreversible cancellation without recalling queued mail.
+The shared catalog-completeness check still fails on missing shortcut-edit-due-date
+keys in other locales. Browser and screen-reader checks were not run. The broader
+language and wording audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
