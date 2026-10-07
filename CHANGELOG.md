@@ -1642,9 +1642,11 @@ and about 16 GB of memory, so it cannot run on the arm64 machine used here.
 
 [#6746](https://github.com/wekan/wekan/issues/6746) (a reinstalled snap never
 got FerretDB answering, and the restore saw "write: permission denied" on
-loopback. The backup and restore tools now start the database and print the
-real error, but the cause needs `sudo snap logs -n 100 wekan.ferretdb` and
-`journalctl -k | grep -i denied` from that server.)
+loopback. The reporter's kernel log shows the cause is on the host: AppArmor
+denies socket writes for every snap there, a known problem of snapd 2.77.1 on
+some kernels ([snapd bug 2169038](https://bugs.launchpad.net/snapd/+bug/2169038)).
+WeKan now names it at once (see Upcoming); waiting for the reporter to confirm
+that a kernel update or `sudo snap revert snapd` fixes it.)
 
 </details>
 
@@ -1897,6 +1899,58 @@ each for the reason given:
 
 </details>
 </details>
+
+# Upcoming WeKan ® release
+
+**In short:** The **Snap** now says at once when the computer's AppArmor policy,
+not the database, refuses WeKan's own database connection, with the fix for the
+known snapd 2.77.1 kernel problem behind it, and four SAML settings can be set
+with `snap set` again.
+
+This release fixes the following bugs:
+
+**Snap database tools** - backup, restore and WeKan's wait for its database.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/941aa9192920aa4b468d8456dd279aae53f1c27e">A database connection refused by AppArmor is named at once, with the fix</a>. Thanks to fabiosalles and xet7.</summary>
+
+The kernel log in [#6746](https://github.com/wekan/wekan/issues/6746) held 1300
+lines of `apparmor="DENIED" operation="file_perm" class="net"` for
+`snap.wekan.wekan` on 127.0.0.1:27019, and the same denial for two other snaps.
+FerretDB was running; the kernel refused the first write on an accepted
+connection. That is snapd 2.77.1 on a kernel with an AppArmor socket bug
+([snapd bug 2169038](https://bugs.launchpad.net/snapd/+bug/2169038)), fixed by
+a newer kernel and worked around by `sudo snap revert snapd`. WeKan cannot lift
+the denial, so the new `bin/socket-denied` recognises it and prints what to
+look for and both ways out. WeKan's FerretDB and MongoDB waits print it on the
+first refused attempt instead of "not ready yet" for two minutes, and backup
+and restore stop at once instead of starting a running service and waiting 90
+seconds. `tests/snapSocketDenied.test.cjs` checks the reporter's exact errors,
+with negative tests that a database which is merely down gets no AppArmor
+advice; `tests/snapDatabaseRestore.test.cjs` runs both tools against a refused
+connection. Not run in an installed snap or on an affected kernel.
+
+</details>
+
+**Snap settings** - the `snap set` names behind each WeKan setting.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/941aa9192920aa4b468d8456dd279aae53f1c27e">Every service log no longer starts with four snapctl get errors</a>. Thanks to fabiosalles and xet7.</summary>
+
+`SAML_IDP_PROFILE`, `SAML_WANT_RESPONSE_SIGNED`, `SAML_WANT_ASSERTIONS_SIGNED`
+and `SAML_LOGIN_FLOW` were listed in `bin/config` without a `snap set` name, so
+`wekan-read-settings` ran a bare `snapctl get` for each one. Every service log
+showed "error: snapctl: get which option?" and those settings could never be
+set. They are now `saml-idp-profile`, `saml-want-response-signed`,
+`saml-want-assertions-signed` and `saml-login-flow`, and a setting without a
+name falls back to its default instead of calling snapctl.
+`tests/snapSettingsKeys.test.cjs` requires a key, default and description for
+every setting, rejects shared keys, and runs the real reader against a snapctl
+that fails like the real one.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.21 2026-10-07 WeKan ® release
 
