@@ -3742,6 +3742,14 @@ The [Cherokee Nation maps page](https://www.cherokee.gov/About-The-Nation/Maps) 
 
 Extended regression and browser coverage to Cherokee. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application.
 
+## Map view: Tigre - 2026-10-07
+
+Filled seven English placeholders in `tig` through the protected fill workflow. The seven map-view keys remain English in `wal` and stay in the pending queue; the broader backlog remains 51,575 ordinary placeholders across 70 languages plus 160 pending source keys.
+
+Consulted [Beurmann and Merx's Tigre vocabulary and grammatical sketch](https://www.speaktigre.com/_files/ugd/7e068a_a5fbea1fb5e544e69d94cab002762da2.pdf?index=true), especially the place, after and negation forms. This historical source does not verify modern map/upload/click vocabulary. Existing locale terminology is also not independent evidence of correct Tigre. All seven values are low-confidence drafts; modern terms, inflections and potential Tigrinya interference still need language review. Script checks alone cannot distinguish these languages.
+
+Extended regression and browser coverage to Tigre. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These results establish structural preservation, not linguistic accuracy.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
