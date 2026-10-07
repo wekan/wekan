@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/39620087ca2eeb00a39677edc1f0b3f96ce681a6">Correct 21 mixed-language Akan checklist and activity labels.</a></summary>
+
+- Rewrite checklist, activity and avatar text. Preserve action direction, completion sound defaults, numeric shortcuts and size units.
+- Add source-token, state and action regression checks. Wording remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
+- Validation: 101 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/92684bde59902087caa91a1c3cf7c7ac859a86b5">Correct 25 mixed-language Akan activity and assignment labels.</a></summary>
 
 - Rewrite activity, assignment, avatar and job text. Preserve activity tokens, add/remove direction and assigned-only scope.
