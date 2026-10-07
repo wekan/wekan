@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d6d82b0023eb41a07dbac447a4da01fa89bc1d8f">Correct 24 damaged or mixed-language Akan sorting and report labels.</a></summary>
+
+- Rewrite sorting, report and field labels. Restore literal search syntax and preserve format placeholders and HTML space entities.
+- Add source-token, syntax, entity and report-distinction checks. Wording remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
+- Validation: 86 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9ec083daa1630c0705c476a3c6808f3081da0ed5">Correct 24 damaged or misleading Akan workflow and sorting labels.</a></summary>
 
 - Rewrite workflow, archive and sorting labels. Correct the rule toggle and preserve archive direction, placeholders and literal markup.
