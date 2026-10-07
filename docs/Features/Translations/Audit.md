@@ -4516,6 +4516,13 @@ mixed-language audit remains open.
 - All twelve focused Node tests and 21 human-preference checks pass. Extended token-inventory and distinct-direction checks alongside existing negative import tests. Added the nine locales to the localized editor drag/edit/context-menu browser flow. Syntax passes; browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
 - Ordinary placeholders decrease from 49,701 to 49,593 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## Blockly movement announcements: five further locales (2026-10-07)
+
+- Filled twelve movement and scrolling announcements in Walloon, Waray, Acehnese, Northern Sámi and Venetian (60 values). The protected fill utility left the already translated Manx and Aromanian announcements unchanged. Added all seven locales to the direction and token-inventory checks. Technical wording remains provisional, particularly Walloon, Acehnese and Northern Sámi; structural checks do not prove fluency.
+- Vocabulary references include [Walloon bodjî](https://dtw.walon.org/index.php?query=bodj%C3%AE), [Acehnese direction words](https://abvd.eva.mpg.de/austronesian/language.php?id=648), [Northern Sámi computing vocabulary](https://samifaga.org/samis/samis17-18/files/assets/common/downloads/publication.pdf) and [Venetian scórare](https://de.scribd.com/document/382989660/Basso-W-dizionario-Da-Scarsela-Veneto-Italiano). The Sámi vocabulary explicitly gives rullet for scrolling a computer page. These references support terms, not complete clauses.
+- All twelve focused Node tests and 21 human-preference checks pass. Existing negative import tests protect translations and reject broken placeholders. Extended localized editor drag/edit/context-menu browser coverage to the seven locales; syntax passes, but browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
+- Ordinary placeholders decrease from 49,593 to 49,533 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
