@@ -1205,3 +1205,45 @@ test('Tok Pisin role descriptions retain permission boundaries and account actio
  assert.match(data['admin-people-user-inactive'],/i no wok.*mekim i wok/);
  for(const suffix of ['org','team']) assert.match(data['board-members-same-'+suffix+'-only'],/wankain.*tasol/);
 });
+
+
+test('Tok Pisin date and time messages preserve tokens and replace mixed English',()=>{
+ const keys=[
+  "date-format",
+  "start-day-of-week",
+  "due-complete",
+  "start-time",
+  "editCardSpentTimePopup-title",
+  "spent-time-hours",
+  "has-overtime-cards",
+  "has-spenttime-cards",
+  "card-received-on",
+  "editCardReceivedDatePopup-title",
+  "editCardDueDatePopup-title",
+  "editCardEndDatePopup-title",
+  "r-w-set-received-now",
+  "r-when-a-received-date-changed",
+  "act-a-receivedAt",
+  "a-receivedAt",
+  "board-status-time-spent-total",
+  "board-status-overtime-cards",
+  "activity-receivedDate"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.doesNotMatch(data[key],/Spent|spent|hours|Modified|Start taim|Det Format|Has overtime|Set kisim/,key);
+ }
+});
+
+test('Tok Pisin date labels distinguish due, end, received and spent time',()=>{
+ assert.match(data['editCardDueDatePopup-title'],/wok i mas pinis/);
+ assert.doesNotMatch(data['editCardEndDatePopup-title'],/mas pinis/);
+ assert.match(data['editCardEndDatePopup-title'],/wok i pinis/);
+ assert.match(data['spent-time-hours'],/\(aua\)/);
+ assert.match(data['r-when-a-received-date-changed'],/makim o senisim/);
+ assert.match(data['r-w-set-received-now'],/nau$/);
+ assert.match(data['act-a-receivedAt'],/i go long __timeValue__ i kam long \(__timeOldValue__\)/);
+ assert.match(data['board-status-time-spent-total'],/^Olgeta/);
+ assert.match(data['start-day-of-week'],/stat bilong wik/);
+ for(const format of ['yyyy-mm-dd','dd-mm-yyyy','mm-dd-yyyy']) assert.equal(data['date-format-'+format],english['date-format-'+format]);
+});

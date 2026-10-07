@@ -6569,6 +6569,12 @@ Corrected 19 mixed-language role descriptions, membership restrictions and accou
 
 Validation: 97 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
 
+## Tok Pisin date and time wording audit
+
+Corrected 19 mixed-language or ambiguous date/time messages, including distinct due-date and end-date edit labels. Preserved source tokens and date-format literals. Tests cover hour units, received-date changes, old/new timestamp direction, total spent time and week-start selection. Existing coherent reminders remain unchanged. Wording remains provisional pending fluent-speaker review; browser and screen-reader checks were not run.
+
+Validation: 99 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
