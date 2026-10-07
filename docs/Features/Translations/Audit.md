@@ -4945,6 +4945,12 @@ mixed-language audit remains open.
 - Preserved `%s`, Markdown examples and the statement that enabling permanent deletion does not itself delete content. Menu uses a choices paraphrase and normal uses usual/common wording. The initial shared-loan drafts lacked supporting Waray usage evidence; no equality exception was added for them. Technical loans and phrasing remain provisional.
 - Extended the Waray regression key set, token checks, import syntax checks and negative-operation distinctions. More wrong-language text remains; no claim of complete or fluent Waray coverage is made. Browser checks and the broader semantic audit remain open.
 
+### Waray organization, template and rule controls
+
+- Corrected 25 verified Walloon values in `wa-RR`, covering external issue links, email-template variable hints, database metadata, organization domains/admins, card field ordering and rule controls.
+- Preserved brace-delimited template variables, `#1234`, domain examples, `MULTITENANCY=true`, `DDP_TRANSPORT` and the database mode identifiers. Organization-admin wording retains both prohibitions: granting site-wide Admin privileges and managing a site administrator. Domain branding wording states which branding replaces which.
+- Extended the corrected-key set and added brace-token, setting-literal, authorization-negation and up/down distinction checks. Technical paraphrases for database/reactivity, tenant and branding remain provisional; structural checks do not establish fluency. Further Waray contamination, browser checks and broader semantic review remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

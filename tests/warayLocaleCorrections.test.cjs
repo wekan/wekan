@@ -73,7 +73,32 @@ const correctedKeys = [
   "no-starred-items",
   "flow-add-interruption",
   "flow-interruptions",
-  "pomodoro-break"
+  "pomodoro-break",
+  "external-link-pattern",
+  "external-link-pattern-description",
+  "external-link-pattern-url",
+  "email-templates-invite-vars-hint",
+  "email-templates-activity-vars-hint",
+  "Database",
+  "Database_commit",
+  "FerretDB_commit",
+  "Reactivity_mode",
+  "DDP_transport",
+  "admin-only-field",
+  "org-tenant",
+  "org-domains",
+  "org-domains-description",
+  "error-org-domain-taken",
+  "org-admins",
+  "org-admins-description",
+  "org-admin",
+  "card-field-order",
+  "card-field-order-move-up",
+  "card-field-order-move-down",
+  "r-rule-title-required",
+  "r-toggle-rule-enabled",
+  "r-list-view",
+  "r-workspace"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -93,6 +118,13 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   }
   assert.match(waray['import-board-instruction-markdown'], /waray mga checkbox/);
   assert.notEqual(waray['click-to-star-page'], waray['click-to-unstar-page']);
+  for (const key of ['external-link-pattern-url', 'email-templates-invite-vars-hint', 'email-templates-activity-vars-hint']) {
+    const braces = value => value.match(/\{[a-z]+\}/g) || [];
+    assert.deepEqual(braces(waray[key]), braces(english[key]), key);
+  }
+  assert.ok(waray['org-domains-description'].includes('MULTITENANCY=true'));
+  assert.match(waray['org-admins-description'], /Diri gud.*Admin.*diri gud/);
+  assert.notEqual(waray['card-field-order-move-up'], waray['card-field-order-move-down']);
   assert.notEqual(waray['due-days-left'], waray['due-days-overdue']);
   for (const kind of ['Swimlane', 'List']) {
     assert.notEqual(waray['export' + kind + 'Popup-title'], waray['import' + kind + 'Popup-title']);
