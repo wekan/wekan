@@ -3386,6 +3386,14 @@ The [Manx raaue entry](https://en.wiktionary.org/wiki/raaue) supplies the warnin
 
 Ten translation/token regressions, import-loss positive/negative checks, all 234 locale structure checks and 21 human-preference checks pass. Extended browser cases to these three locales; they were syntax-checked only because the local Playwright executable and running application are unavailable. Each of the three source keys remains English in 14 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
 
+### Import warning report: Guarani, Quechua and Aymara
+
+Filled nine English placeholders in `gn`, `qu` and `ay`. The fill utility protected existing translations; no translation service was used. The drafts retain board creation, incomplete transfer and the two-arrow recovery-report path. Replaced four prefixed-English menu values: Quechua `Kay willaymi: Problemsta` and `Kay willaymi: Recoveryta` become `Sasachakuykuna` and `Kutichiy`; Aymara `Aymar aruna: Problems` and `Aymar aruna: Recovery` become `Jan waltʼäwinaka` and `Kuttʼayaña`. Regression checks reject the old filler and require matching, distinct menu labels.
+
+Vocabulary references include [Guarani usage from the language-policy secretariat](https://spl.gov.py/files/Guarani%20comunicativo/Propuestas_de_Expresiones_en_Guarani.pdf), the [Quechua-Spanish dictionary](https://fcctp.usmp.edu.pe/librosfcctp/DICCIONARIO-Quechua-espanol-VOL_2.pdf) for report/notice vocabulary, and the [multilingual Arusimiñee dictionary](https://www.illaa.org/pirwa/diccionarios/arusiminee.pdf) for Aymara advice terminology. These support individual words, not full-sentence correctness. All three drafts have low-confidence technical nouns, incomplete-transfer clauses and inflection requiring fluent-speaker review; existing board/menu wording remains open to broader review.
+
+Ten translation/token regressions, import-loss positive/negative checks, all 234 locale structure checks and 21 human-preference checks pass. Extended browser cases to these three locales; they were syntax-checked only because the local Playwright executable and running application are unavailable. Each source key remains English in 11 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

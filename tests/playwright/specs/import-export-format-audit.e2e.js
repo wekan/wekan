@@ -531,7 +531,7 @@ test('Trello HTTP import enforces the Admin Panel import switch and rejects inva
   }
 });
 
-for (const language of ['ary', 'ckb', 'ku', 'bho', 'mai', 'or_IN', 'kok', 'tk_TM', 'tt', 'yi', 'so', 'om', 'rw', 'rn', 'ny', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'bi', 'tpi', 'mi', 'sm', 'haw', 'pap', 'xh', 'nd', 'ak', 'lg', 'wo', 'ss', 'ts', 've', 'wa-RR', 've-CC', 'ace', 'bm', 'ee', 'ff', 'fj', 'to', 'bua', 'cv', 'sah', 'se', 'bo', 'dz', 'ks', 'gv', 'wa', 'rup']) {
+for (const language of ['ary', 'ckb', 'ku', 'bho', 'mai', 'or_IN', 'kok', 'tk_TM', 'tt', 'yi', 'so', 'om', 'rw', 'rn', 'ny', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'bi', 'tpi', 'mi', 'sm', 'haw', 'pap', 'xh', 'nd', 'ak', 'lg', 'wo', 'ss', 'ts', 've', 'wa-RR', 've-CC', 'ace', 'bm', 'ee', 'ff', 'fj', 'to', 'bua', 'cv', 'sah', 'se', 'bo', 'dz', 'ks', 'gv', 'wa', 'rup', 'gn', 'qu', 'ay']) {
   test(`import loss report keeps its localized explanation and board action in ${language}`, async ({ loggedInPage: page }) => {
     const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
     let boardId;
