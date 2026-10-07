@@ -2052,42 +2052,19 @@ uses the same word as `checklist` itself.
 
 </details>
 
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v12.21 2026-10-07 WeKan ® release
-
-**In short:** The **Snap** backup and restore commands now start the database
-they need and say why it does not answer. All supported languages now have
-**login-setting text** for HTTP-header authentication, stored-value removal and
-restart guidance, and archiving and date-filter text. Minority-language wording
-remains provisional and needs speaker review.
-
-This release fixes the following bugs:
-
-**Snap database tools** - backup, restore and WeKan's wait for its database.
+**Translations** — continued language coverage and corrections.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/fa75d59fd0">Backup and restore start the database first, and every wait says why it fails</a>. Thanks to fabiosalles and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6c95ad716d5c0c390741a98900b06a5798d5992d">Correct 40 Walloon values in Waray board and import controls.</a></summary>
 
-`wekan.database-restore` and `wekan.database-backup` only talked to whatever
-was on the database port. After `snap stop wekan` nothing is there. On a
-FerretDB snap the database is a service of its own, so they failed after 30
-seconds with a driver topology dump ([#6746](https://github.com/wekan/wekan/issues/6746)).
-`bin/database-ready` asks `bin/database-role` which database holds the data,
-starts that service and waits for it. If it still does not answer, it stops
-with the driver's error and the `snap logs` command to run. A "permission
-denied" is named as a security-policy denial on the server. WeKan's own wait
-for FerretDB now shows the ping error too, and no longer suggests the removed
-`database` setting. The backup path may contain spaces.
-`tests/snapDatabaseRestore.test.cjs` runs both tools in a stand-in snap, with
-negative tests for a database that never answers. Not run in an installed
-snap.
+- Replace wrong-language board membership, home/default board, view, deadline, import/export, user mapping and note labels with Waray. Preserve day-count tokens and non-deletion guarantees.
+- Add regression checks for the corrected values, known Walloon vocabulary, source arguments and operation distinctions. More Walloon contamination remains in the Waray catalog; technical wording still needs contextual review.
+- The ordinary English-placeholder count remains 46,995 across 70 languages because these corrections replace non-English text. The 148 pending source keys and broader semantic audit remain open.
+- Validation: 27 focused tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
 
 </details>
-
-and updates the following translations:
-
-**Activity notifications** - choosing which card activity sends notifications.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6c5433f4d1d977b5e2219857fee36b9842a3b5a3">Translate Walloon and Waray block labels and correct mistaken locale identity.</a></summary>
@@ -2735,6 +2712,43 @@ Thanks to xet7 !
 Thanks to xet7 !
 
 </details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v12.21 2026-10-07 WeKan ® release
+
+**In short:** The **Snap** backup and restore commands now start the database
+they need and say why it does not answer. All supported languages now have
+**login-setting text** for HTTP-header authentication, stored-value removal and
+restart guidance, and archiving and date-filter text. Minority-language wording
+remains provisional and needs speaker review.
+
+This release fixes the following bugs:
+
+**Snap database tools** - backup, restore and WeKan's wait for its database.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fa75d59fd0">Backup and restore start the database first, and every wait says why it fails</a>. Thanks to fabiosalles and xet7.</summary>
+
+`wekan.database-restore` and `wekan.database-backup` only talked to whatever
+was on the database port. After `snap stop wekan` nothing is there. On a
+FerretDB snap the database is a service of its own, so they failed after 30
+seconds with a driver topology dump ([#6746](https://github.com/wekan/wekan/issues/6746)).
+`bin/database-ready` asks `bin/database-role` which database holds the data,
+starts that service and waits for it. If it still does not answer, it stops
+with the driver's error and the `snap logs` command to run. A "permission
+denied" is named as a security-policy denial on the server. WeKan's own wait
+for FerretDB now shows the ping error too, and no longer suggests the removed
+`database` setting. The backup path may contain spaces.
+`tests/snapDatabaseRestore.test.cjs` runs both tools in a stand-in snap, with
+negative tests for a database that never answers. Not run in an installed
+snap.
+
+</details>
+
+and updates the following translations:
+
+**Activity notifications** - choosing which card activity sends notifications.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/28b9ce74072a241db36a1029b3d9d1031c905cd4">Translate Blockly controls in Quechua, Aymara, Guarani, Volapük and Klingon.</a></summary>
