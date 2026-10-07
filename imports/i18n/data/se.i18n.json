@@ -1438,7 +1438,7 @@
   "r-subject": "ášši",
   "r-email-vars-hint": "Fidnemis mearkkat: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Listu-, bálggis-, namahus-, dárkkistanlistu- ja geavaheaddjigiettit dohkkehit maiddái {creator}, {assignees}, {members} ja {customField:Name}. Daid árvvut lohkojuvvojit kárttas go njuolggadus dárkkistuvvo.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Bija rievdavaš árvvu mearkka maŋemuš geardde válljejuvvon teakstagieddái:",
   "r-vars-people-hint": "Maid: {creator}, {assignees}, {members} (geavaheaddjinamat teavsttas, e-boastačujuhusat vuostáiváldi-giettis) ja {customField:Field name}. Dát doibmet maiddái eará doaimmaid lahtuid, listtuid ja bálgáid namain.",
   "r-rule-details": "Njuolggadusa dieđut",
   "r-rule-any-trigger-help": "Njuolggadus doibmá go muhtin dan álggaheaddji dáhpáhuvvá. Dan doaimmat čađahuvvojit ortnegis.",

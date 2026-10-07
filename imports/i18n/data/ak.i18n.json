@@ -1438,7 +1438,7 @@
   "r-subject": "Nsɛm a ɛfa dwumadi yi ho",
   "r-email-vars-hint": "Nsɛnkyerɛnne a ɛwɔ hɔ: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Afã a ɛfa din a wɔahyehyɛ, kwan, asɛmti, nhwehwɛmu din a wɔahyehyɛ ne nea ɔde di dwuma ho no nso gye {creator}, {assignees}, {members} ne {customField:Name}. Wɔkenkan wɔn bo fi kaad no so bere a wɔrehwɛ mmara no mu no.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Fa agyiraehyɛde a egyina hɔ ma bo a ɛsakra hyɛ nsɛm no afã a wopaw no nea etwa to no mu:",
   "r-vars-people-hint": "Afei nso: {creator}, {assignees}, {members} (wɔn a wɔde di dwuma no din wɔ nkyerɛwee mu, wɔn imel address wɔ nea ogye no afã) ne {customField:Field name}. Eyinom nso yɛ adwuma wɔ dwumadi afoforo no mufo, din a wɔahyehyɛ ne akwan din mu.",
   "r-rule-details": "Nsɛm a ɛfa dwumadi yi ho",
   "r-rule-any-trigger-help": "Mmara no yɛ adwuma bere a nsɛm a ɛhyɛ ase no biara mu baako si no. Wɔyɛ ne dwumadi ahorow no nnidiso nnidiso.",

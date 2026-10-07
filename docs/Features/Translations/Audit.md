@@ -4188,6 +4188,26 @@ locales still using this English label. The broader backlog remains 51,575
 ordinary placeholders in 70 languages plus 149 pending source keys. Linguistic
 review remains open.
 
+## Rule variable picker: ten additional language drafts
+
+Filled `r-insert-variable` in Akan, Bambara, Ewe, Wolof, Quechua, Aymara, Guarani,
+Manx, Northern Sami and Aromanian. The protected helper preserved existing
+translations. The labels refer to the most recently selected text field; most
+describe a variable as a symbol representing a changing value. Corrected an
+initial Bambara draft that accidentally negated change before applying it.
+
+The [Peruvian education ministry vocabulary](https://repositorio.minedu.gob.pe/bitstream/handle/20.500.12799/7196/Yachachinapaq%20shimikuna%20-%20chawpin%20qichwa%20Vocabulario%20pedag%C3%B3gico%20quechua%20central.pdf)
+supplies `tikraq` for variable in Central Quechua; wider variety consistency still
+requires review. All ten complete labels remain provisional, especially Bambara,
+Ewe, Aymara, Guarani, Manx and Aromanian technical phrasing.
+
+Extended locale and browser picker coverage, retaining insertion, focus-switch
+and admin-only-field exclusion checks. All 13 focused Node tests and 21
+human-preference checks pass. Browser syntax passes; execution remains unverified
+because Playwright is unavailable. Twelve locales still use the English label.
+The wider backlog remains 51,575 ordinary placeholders in 70 languages plus 149
+pending source keys. These checks do not establish linguistic accuracy.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

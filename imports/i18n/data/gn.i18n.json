@@ -1438,7 +1438,7 @@
   "r-subject": "mba'e",
   "r-email-vars-hint": "Marandu oĩva: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Tysýi, tape, myakãha, tysýi ñehesa’ỹijo ha puruhára rendakuéra omoneĩ avei {creator}, {assignees}, {members} ha {customField:Name}. Oñemoñe’ẽ hepykuéra kuatia’ígui oñehesa’ỹijo jave tembiapoukapy.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Emoĩ peteĩ techaukaha omyengoviáva mba'e repy ikatúva oñemoambue pe jehaipy rendápe reiporavo ramovéva:",
   "r-vars-people-hint": "Aveí: {creator}, {assignees}, {members} (puruhára réra jehaipýpe, ñanduti veve kundaharape ohupytýtava rendápe) ha {customField:Field name}. Ko’ãva omba’apo avei ambue tembiapokuéra apytépe, atyguakuéra, tysýi ha tape rérape.",
   "r-rule-details": "Mbojojaha marandu",
   "r-rule-any-trigger-help": "Tembiapoukapy omba’apo oiko jave oimeraẽva umi mba’e omoñepyrũva chupe. Hembiapokuéra ojejapo peteĩ rire ambue, hendápe.",

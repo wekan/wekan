@@ -1438,7 +1438,7 @@
   "r-subject": "oggetto",
   "r-email-vars-hint": "Etichete disponibile: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Cãmpurili di listã, cali, titlu, listã di verificari shi utilizator primescu shi {creator}, {assignees}, {members} shi {customField:Name}. Valorili a lor s’ citescu di tu cartu cãndu s’ verificã regula.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Bagã un semnu trã unã valoari tsi s'ascãmbã tu cãmpulu di textu tsi lu alepsişi ma dit soni:",
   "r-vars-people-hint": "Încã: {creator}, {assignees}, {members} (numili a utilizatorilor tu textu, adresili di email tu cãsuța a primitorlui) shi {customField:Field name}. Aesti lucreadzã shi tu numili a membrilor, a listilor shi a calilor di alti acțiuni.",
   "r-rule-details": "Dettagli della regola",
   "r-rule-any-trigger-help": "Regula lucreadzã cãndu s’ fãți vãrã un evenimentu cari u porneashte. Acțiunili a ljei s’ fac unã dupã altã.",

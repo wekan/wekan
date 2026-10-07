@@ -1438,7 +1438,7 @@
   "r-subject": "tanya",
   "r-email-vars-hint": "Dzesideŋuwo si li: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Akpawo na xexlẽdzesi, mɔ, tanya, dodokpɔ xexlẽdzesi kple ezãla xɔa {creator}, {assignees}, {members} kple {customField:Name} hã. Woxlẽa woƒe asixɔxɔwo tso kaɖi la dzi ne wole se la me kpɔm.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Tsɔ dzesi si le asixɔxɔ si ate ŋu atrɔ teƒe de nuŋɔŋlɔ ƒe nuto si nètia mamlɛa me:",
   "r-vars-people-hint": "Gakpe ɖe eŋu: {creator}, {assignees}, {members} (ezãlawo ƒe ŋkɔwo le nuŋɔŋlɔ me, email ƒe adreswo le esixɔla ƒe akpa me) kple {customField:Field name}. Esiawo hã wɔa dɔ le hameviwo, xexlẽdzesiawo kple mɔwo ƒe ŋkɔwo me le nuwɔna bubuwo me.",
   "r-rule-details": "Se ƒe nyatakaka",
   "r-rule-any-trigger-help": "Se la wɔa dɔ ne eƒe gɔmedzedzenuwo dometɔ aɖe dzɔ. Wowɔa eƒe nuwɔnawo ɖe wo nɔɖoɖo nu.",

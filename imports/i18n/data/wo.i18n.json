@@ -1438,7 +1438,7 @@
   "r-subject": "menn benn",
   "r-email-vars-hint": "Baatam yi am: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Wàll yi ñuy bind lim, yoon, bopp, limu bu seetlu ak jëfandikukat dañuy nangu itam {creator}, {assignees}, {members} ak {customField:Name}. Dañuy jàng seen solo ci kart bi bu ñuy seetlu sàrt bi.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Dugal màndarga buy taxawu njëg guy soppeeku ci barabu mbind bi nga mujjee tann:",
   "r-vars-people-hint": "Itam: {creator}, {assignees}, {members} (turi jëfandikukat yi ci mbind mi, màkkaani imeel yi ci wàllu kiy jot) ak {customField:Field name}. Lii itam mën nañu koo jëfandikoo ci turi bokk yi, lim yi ak yoon yi ci yeneen jëf yi.",
   "r-rule-details": "Benn-bennal yi bu ña joxe",
   "r-rule-any-trigger-help": "Sàrt bi dafay dox bu benn ci xew-xew yi koy tàmbali amee. Jëf yi mu àndal dañuy am ci seen toftale.",

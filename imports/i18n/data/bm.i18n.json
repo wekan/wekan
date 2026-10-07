@@ -1438,7 +1438,7 @@
   "r-subject": "kunnafoni kun",
   "r-email-vars-hint": "Taagiw minnu bɛ sɔrɔ: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Sɛbɛn, sira, kunnafoni kuntigi, sɛgɛsɛgɛli sɛbɛn ani baarakɛla yɔrɔw bɛ {creator}, {assignees}, {members} ani {customField:Name} minɛ fana. U nafa bɛ kalan kariti la sariya sɛgɛsɛgɛli waati la.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Taamasiyɛn min bɛ nafa min bɛ se ka yɛlɛma nɔ ta, o don sɛbɛn yɔrɔ la i ye min sugandi laban:",
   "r-vars-people-hint": "Ninw fana: {creator}, {assignees}, {members} (baarakɛlaw tɔgɔw sɛbɛnni kɔnɔ, imɛri ladɛrɛsiw cikan minɛbaa yɔrɔ la) ani {customField:Field name}. Ninw bɛ baara kɛ fana kɛwale wɛrɛw ka jɛkulu mɔgɔw, sɛbɛnw ani siraw tɔgɔw kɔnɔ.",
   "r-rule-details": "Sariya kunnafoniw",
   "r-rule-any-trigger-help": "Sariya bɛ baara kɛ ni a daminɛlaw la dɔ o dɔ kɛra. A kɛwalew bɛ kɛ kelen kelen, u ɲɔgɔn kɔ.",

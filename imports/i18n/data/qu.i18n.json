@@ -1438,7 +1438,7 @@
   "r-subject": "Kay willaymi: subjectta",
   "r-email-vars-hint": "Kaq etiquetakuna: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Sutisuyu, ñan, uma suti, qhawana sutisuyu, llamk’achiq kasillakunaqa {creator}, {assignees}, {members} chaymanta {customField:Name} nisqakunatapas chaskinku. Kamachiyta qhawachkaptinmi chaykunap chaninkuna tarjetamanta ñawinchakun.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Qhipa akllasqayki qillqa pampaman huk tikraqta churay:",
   "r-vars-people-hint": "Hinallataq: {creator}, {assignees}, {members} (qillqasqapi llamk’achiqkunap sutinkuna, chaskiqpa kasillanpi correo electrónico tiyayninkuna) chaymanta {customField:Field name}. Kaykunaqa huk ruranakunap masinkuna, sutisuyukuna, ñankuna sutinkunapipas llamk’anku.",
   "r-rule-details": "Kay willaymi: Ruleta detailsta",
   "r-rule-any-trigger-help": "Kamachiyqa qallariqninmanta mayqin hukninpas kaptinmi llamk’an. Ruranankunaqa hukninpa qhipan huknin ruwakun.",

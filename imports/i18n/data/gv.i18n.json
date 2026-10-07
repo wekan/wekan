@@ -1438,7 +1438,7 @@
   "r-subject": "cooish",
   "r-email-vars-hint": "Bolagyn t’astoilagh: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Ta ny magheryn son rolley, cassan, ard-ennym, rolley scrutaghey as ymmydeyr goaill rish {creator}, {assignees}, {members} as {customField:Name} myrgeddin. Ta ny leaghyn oc goll er lhaih veih’n kaart tra ta’n reill goll er scrutaghey.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Cur cowrey son leagh caghlaaee 'sy vagher teks ren oo reih dy s'jerree:",
   "r-vars-people-hint": "Myrgeddin: {creator}, {assignees}, {members} (enmyn ymmydeyryn ayns y teks, enmyssyn post-l ayns y vagher «Da») as {customField:Field name}. T’ad gobbraghey myrgeddin ayns enmyn olteynyn, rolleyghyn as cassanyn jeh jantyssyn elley.",
   "r-rule-details": "Fysseree reill",
   "r-rule-any-trigger-help": "Ta’n reill gobbraghey tra ta veg jeh ny greesagyn eck taghyrt. Ta ny jantyssyn eck goll er cooilleeney ayns oardagh.",

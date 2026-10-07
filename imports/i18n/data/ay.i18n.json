@@ -1438,7 +1438,7 @@
   "r-subject": "Aymar aruna: subject",
   "r-email-vars-hint": "Utjasita sañunaka: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Sutinaka, thakhi, p’iqi suti, uñakipaña sutinaka ukhamaraki apnaqiri utanakaxa {creator}, {assignees}, {members} ukhamaraki {customField:Name} katuqarakiwa. Kamachi uñakipaski ukhaxa ukanakan chaninakapaxa tarjetat ullasi.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Qhip qhipa ajllitam qillqañ chiqawjaru mayjt'ir chanin chimpump yapxatam:",
   "r-vars-people-hint": "Ukhamaraki: {creator}, {assignees}, {members} (qillqatan apnaqirinakan sutinakapa, katuqirin utapan correo electrónico uñt’awinakapa) ukhamaraki {customField:Field name}. Akanakaxa yaqha luräwinakan tamankirinakapa, sutinaka ukhamaraki thakhinaka sutinakapanxa irnaqarakiwa.",
   "r-rule-details": "Rule qhanañchäwinaka",
   "r-rule-any-trigger-help": "Kamachixa qalltayirinakapat maynixa utjki ukhaxa irnaqi. Luräwinakapaxa mayat mayaru phuqhasi.",
