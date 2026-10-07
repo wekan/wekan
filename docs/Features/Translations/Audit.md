@@ -3614,6 +3614,14 @@ Terminology references include [Oromo kaartaa](https://glosbe.com/en/om/map), th
 
 Extended the regression and map browser scenario to these five locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Exact placeholder and text-distinction checks do not prove fluency.
 
+## Map view: Sesotho, Setswana, Northern Sotho, Zulu and Xhosa - 2026-10-07
+
+Filled seven English placeholders in `st`, `tn`, `nso`, `zu`, `zu-ZA` and `xh` (42 values). Both Zulu locale paths were filled independently through the protected fill workflow. The map-image examples and both card-placement methods are retained. These seven source keys remain English in 45 locale paths and stay in the pending queue. The broader backlog remains 51,575 ordinary placeholders across 70 languages plus 160 pending source keys.
+
+South African education references support [Xhosa map and image terminology](https://www.education.gov.za/LinkClick.aspx?fileticket=7ovTZUutS3A%3D&mid=1565&portalid=0&tabid=572) and [Setswana map and plan terminology](https://www.education.gov.za/LinkClick.aspx?fileticket=I75wDWMXc9c%3D&mid=14088&portalid=0&tabid=5383). These references do not verify the full technical sentences. Floor-plan compounds, especially Northern Sotho, remain provisional and need speaker review.
+
+Extended the locale regression and map browser scenario to all six paths. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Passing tests establish structure and placeholder preservation, not linguistic accuracy.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
