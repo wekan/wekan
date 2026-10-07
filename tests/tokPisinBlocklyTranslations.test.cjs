@@ -31,3 +31,36 @@ test('Tok Pisin text controls distinguish case, trim directions and prompt types
  assert.match(data['blockly-TEXT_PROMPT_TOOLTIP_TEXT'],/sampela teks/);
  assert.equal(data['blockly-TEXT_APPEND_VARIABLE'],data['blockly-TEXT_CREATE_JOIN_ITEM_TITLE_ITEM']);
 });
+
+test('Tok Pisin logic preserves truth conditions and comparison boundaries',()=>{
+ for(const key of Object.keys(english).filter(k=>k.startsWith('blockly-LOGIC_'))){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  if(!key.endsWith('_HELPURL')&&!key.endsWith('_HUE')&&key!=='blockly-LOGIC_NULL') assert.notEqual(data[key],english[key],key);
+ }
+ assert.equal(data['blockly-LOGIC_NULL'],'null');
+ assert.equal(data['blockly-LOGIC_BOOLEAN_TRUE'],'tru');
+ assert.equal(data['blockly-LOGIC_BOOLEAN_FALSE'],'giaman');
+ assert.match(data['blockly-LOGIC_OPERATION_TOOLTIP_AND'],/tupela input i tru/);
+ assert.match(data['blockly-LOGIC_OPERATION_TOOLTIP_OR'],/wanpela o tupela input i tru/);
+ assert.match(data['blockly-LOGIC_NEGATE_TOOLTIP'],/tru sapos input i giaman.*giaman sapos input i tru/);
+ for(const op of ['GT','LT']){
+  assert.doesNotMatch(data['blockly-LOGIC_COMPARE_TOOLTIP_'+op],/wankain/);
+  assert.match(data['blockly-LOGIC_COMPARE_TOOLTIP_'+op+'E'],/o tupela i wankain/);
+ }
+ for(const suffix of ['CONDITION','IF_TRUE','IF_FALSE']) assert.ok(data['blockly-LOGIC_TERNARY_TOOLTIP'].includes("'"+data['blockly-LOGIC_TERNARY_'+suffix]+"'"));
+});
+
+test('Tok Pisin function messages preserve arguments and return behavior',()=>{
+ for(const key of Object.keys(english).filter(k=>k.startsWith('blockly-PROCEDURES_'))){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  if(english[key]&&!key.endsWith('_HELPURL')&&!key.endsWith('_HUE')) assert.notEqual(data[key],english[key],key);
+ }
+ assert.match(data['blockly-PROCEDURES_DEFNORETURN_TOOLTIP'],/i no givim bek risal/);
+ assert.match(data['blockly-PROCEDURES_DEFRETURN_TOOLTIP'],/i givim bek risal/);
+ assert.match(data['blockly-PROCEDURES_CALLRETURN_TOOLTIP'],/%1.*yusa.*yusim risal/);
+ assert.match(data['blockly-PROCEDURES_CALL_DISABLED_DEF_WARNING'],/No inap.*%1.*blok.*i no wok/);
+ assert.match(data['blockly-PROCEDURES_IFRETURN_WARNING'],/insait.*tasol/);
+ assert.match(data['blockly-PROCEDURES_IFRETURN_TOOLTIP'],/tru.*namba tu veliu/);
+ assert.match(data['blockly-PROCEDURES_DEF_DUPLICATE_WARNING'],/paramita i wankain/);
+ for(const suffix of ['TITLE','COMMENT','PROCEDURE']) assert.equal(data['blockly-PROCEDURES_DEFRETURN_'+suffix],data['blockly-PROCEDURES_DEFNORETURN_'+suffix]);
+});

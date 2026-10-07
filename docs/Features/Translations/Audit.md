@@ -6397,6 +6397,22 @@ all-occurrence semantics, case distinctions, trim directions and number/text
 prompts. Browser and screen-reader checks were not run. The broader language
 and wording audit remains open.
 
+## Tok Pisin Blockly logic and functions — 2026-10-08
+
+Translated 50 English values: 47 counted placeholders and three short labels
+omitted by the counter. Existing translations remain unchanged. Function
+behavior is described as a named work operation. Technical input/parameter
+loans and function-definition wording remain low confidence pending fluent
+speaker review.
+
+The combined focused run passes 49 checks, including all 13 Tok Pisin checks.
+Two shared catalog checks still fail on missing shortcut-edit-due-date keys
+in other locales. All 21 human-preference checks pass. Coverage preserves
+source tokens, true/false negation, strict/inclusive comparisons, both-versus-one
+conditions, ternary label references, return/no-return distinctions, disabled
+function warnings and matching definition labels. Browser and screen-reader
+checks were not run. The broader language and wording audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
