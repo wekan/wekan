@@ -515,6 +515,28 @@ pass, together with all-locale structure and human-preference checks. The
 browser mute/unmute scenario includes all three locales and checks all 13
 strings. It passes syntax checking only; no browser execution was available.
 
+## Bhojpuri, Maithili and Odia notification preferences — 2026-10-07
+
+Filled 13 English placeholders each in Bhojpuri (`bho`), Maithili (`mai`)
+and Odia (`or_IN`): 39 values. Comparison against the previous commit
+confirms existing translated values are preserved. These keys remain pending
+elsewhere, so the standard backlog stays at 51,575 values with 201 pending
+source keys.
+
+The wording distinguishes members from assigned workers and preserves the
+exception that deadline reminders and @mentions continue after a category
+is unchecked. Related languages retain their own grammar. Odia uses a row
+term for swimlanes rather than the older generic swimming label, and does
+not copy stray punctuation from old card/list labels. Those older entries
+remain part of the broader audit. Technical field/lane terminology can
+benefit from speaker review.
+
+The shared notification suite now covers 22 locales. Exact tokens, source
+order, people-category distinctions, mention markers and muting exceptions
+pass, together with all-locale structure and human-preference checks. The
+browser mute/unmute scenario checks the 13 strings in each new locale. It
+passes syntax checking only; no browser execution was available.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

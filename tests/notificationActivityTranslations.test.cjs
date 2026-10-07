@@ -7,7 +7,7 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 const en = read('en');
 const keys = Object.keys(en).filter(key => key.startsWith('notification-activity-'));
 assert.equal(keys.length, 13);
-for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny']) {
+for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: key order`);
   for (const key of keys) {
@@ -56,4 +56,10 @@ assert.match(read('rn')['notification-activity-description'], /Ivyibutsa igihe n
 assert.match(read('ny')['notification-activity-description'], /Zokumbutsa tsiku lomaliza.*@ zimafikabe nthawi zonse/);
 for (const code of ['rw', 'rn']) assert.match(read(code)['notification-activity-description'], /Kuraho akamenyetso/);
 assert.match(read('ny')['notification-activity-description'], /Chotsani chizindikiro/);
-console.log('Notification activity translations: 13 messages in 19 locales passed');
+assert.match(read('bho')['notification-activity-description'], /आखिरी तारीख.*@.*हमेशा आई/);
+assert.match(read('mai')['notification-activity-description'], /अंतिम तिथिक स्मरण.*@.*सदिखन अबैत रहत/);
+assert.match(read('or_IN')['notification-activity-description'], /ଶେଷ ତାରିଖର ସ୍ମାରକ.*@.*ସବୁବେଳେ ଆସିବ/);
+assert.match(read('bho')['notification-activity-description'], /निशान हटा दीं/);
+assert.match(read('mai')['notification-activity-description'], /चिन्ह हटा दिअ/);
+assert.match(read('or_IN')['notification-activity-description'], /ଚିହ୍ନ ହଟାନ୍ତୁ/);
+console.log('Notification activity translations: 13 messages in 22 locales passed');
