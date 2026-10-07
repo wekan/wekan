@@ -2414,3 +2414,48 @@ test('Tok Pisin aging levels and role labels retain distinctions',()=>{
  assert.match(data['anonymize-account'],/akaun$/);
  assert.doesNotMatch(data['anonymize-account'],/kisim i kam/);
 });
+
+
+test('Tok Pisin import controls preserve tokens and replace mixed English prose',()=>{
+ const keys=[
+  "imported-member-no-account",
+  "import-without-mapping-members",
+  "import-json-placeholder",
+  "import-csv-placeholder",
+  "import-attachments-zip",
+  "import-trello-json-file",
+  "import-trello-zip-file",
+  "import-trello-zip-progress",
+  "import-trello-workspace",
+  "trello-api-import",
+  "trello-api-key",
+  "trello-api-token",
+  "trello-list-workspaces",
+  "trello-import-selected",
+  "trello-importing",
+  "trello-import-results",
+  "trello-select-boards",
+  "trello-import-progress",
+  "trello-cancel-delete",
+  "trello-delete-imported",
+  "trello-import-errors"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:Imported|matching|mapping|later|Paste|valid|here|Importing|please|wait|directly|manually|generated|results|least|progress|imported|errors)\b/,key);
+ }
+});
+
+test('Tok Pisin import help retains file types, external tool name and selection minimum',()=>{
+ assert.ok(data['import-attachments-zip'].includes('Trello Card Attachments Downloader'));
+ assert.match(data['import-attachments-zip'],/sapos yu laik/);
+ assert.ok(data['trello-api-key'].includes('https://trello.com/app-key'));
+ assert.match(data['trello-api-token'],/yu wokim yet aninit long ki bilong API/);
+ assert.match(data['import-trello-json-file'],/\.json/);
+ assert.match(data['import-trello-zip-file'],/\.zip/);
+ assert.match(data['trello-select-boards'],/wanpela bot o moa/);
+ assert.match(data['import-without-mapping-members'],/no linkim.*linkim bihain/);
+ assert.match(data['trello-delete-imported'],/bot i kam insait pinis/);
+ assert.match(data['imported-member-no-account'],/no gat akaun i wankain yet/);
+});

@@ -6834,6 +6834,17 @@ The combined translation run passes 148 checks. Two existing catalog checks fail
 on the missing due-date shortcut key. All 21 human-preference checks pass.
 Browser and screen-reader checks were not run. The wider audit remains open.
 
+## Tok Pisin import controls wording audit
+
+Corrected 21 mixed-language import controls and progress messages. Checks
+preserve file extensions, the external Trello attachment tool name, API-key URL,
+optional input, member mapping deferred until later and minimum board selection.
+Wording remains provisional pending fluent-speaker review.
+
+The combined translation run passes 150 checks. Two existing catalog checks fail
+on the missing due-date shortcut key. All 21 human-preference checks pass.
+Browser and screen-reader checks were not run. The wider audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
