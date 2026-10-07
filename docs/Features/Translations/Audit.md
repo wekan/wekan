@@ -2949,6 +2949,24 @@ and remains open for native/UI review. Fifty-six locale paths still need this hi
 so its source key remains pending. The ordinary backlog remains 51,575 values plus
 172 pending source keys; broader language-quality work remains open.
 
+### Custom URL scheme hint — six further languages (2026-10-07)
+
+Filled the hint in Tok Pisin, Bislama, Papiamento, Somali, Oromo and Nyanja
+(tpi, bi, pap, so, om, ny). The placeholder-only merge preserved existing
+translations. No translation service was used. All five scheme identifiers remain
+literal; the hint retains the empty default, clickable web/mail links, registered
+application handling and the permanent exclusion of the dangerous scheme examples.
+
+The allowlist suite now covers these hints in 16 recently filled locales. Exact
+identifiers, missing-identifier rejection, source tokens and key order pass, as do
+the existing parser/sanitizer tests, all-locale structure and 21 human-preference
+checks. Browser scenarios were syntax-checked but not run without the app stack.
+
+Technical prose, especially Oromo and Nyanja, has lower confidence and remains
+open for native/UI review. Fifty locale paths still need this hint, so the source
+key remains pending. The ordinary backlog remains 51,575 values plus 172 pending
+source keys; broader language-quality work remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

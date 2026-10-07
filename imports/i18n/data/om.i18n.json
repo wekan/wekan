@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "URL Geessituu Gargaarsaa Dhuunfaa",
   "text-below-custom-login-logo": "Barruu Asxaa Seensaa Dhuunfaa jalaa",
   "automatic-linked-url-schemes": "Sirna URL dhuunfaa ofumaan cuqaasamuu qabu. Tokkoon tokkoon sararaatti Sirna URL tokko",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Durtii duwwaa dha; kanaaf geessitoota weebii fi imeelii qofa cuqaasuun ni danda’ama. Gosti geessituu tarree keessa jiru hundi, fakkeenyaaf thunderlink yookaan onenote, sagantaa isaaf galmaa’e bana. javascript, data, vbscript fi gosoonni isaan fakkaatan matumaa geessitoota cuqaafamanitti hin jijjiiraman.",
   "external-link-pattern": "Hidhaa ofumaa gara hordoffii rakkoo alaa",
   "external-link-pattern-description": "Mallattoolee akka \"#1234\" barreeffama kaardii keessatti argaman gara hordoffii rakkoo alaatti ofumaan hidha. Meeshaa tokko duwwaa dhiisuun dhaamsi.",
   "external-link-pattern-prefix": "Dursaa mallattoo",

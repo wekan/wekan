@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "URL ya ulalo wapadera wa thandizo",
   "text-below-custom-login-logo": "Mawu pansi pa logo yapadera yolowera",
   "automatic-linked-url-schemes": "Mitundu yapadera ya URL yomwe iyenera kudinika yokha. Mtundu umodzi wa URL pa mzere",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Poyambira pamakhala popanda kanthu, choncho maulalo a pa intaneti ndi imelo okha ndi amene mungadina. Mtundu uliwonse wa ulalo womwe uli pa mndandanda, monga thunderlink kapena onenote, umatsegula pulogalamu yolembetsedwa kuti igwire nawo ntchito. javascript, data, vbscript ndi mitundu yofanana nayo sizisandulidwa kukhala maulalo odinika konse.",
   "external-link-pattern": "Kulumikizana kwaokha ndi chotsata mavuto akunja",
   "external-link-pattern-description": "Imalumikiza yokha zizindikiro monga \"#1234\" zomwe zapezeka mu mawu a khadi kupita ku chotsata mavuto akunja. Siyani munda umodzi wopanda kanthu kuti muzimitse.",
   "external-link-pattern-prefix": "Chiyambi cha chizindikiro",

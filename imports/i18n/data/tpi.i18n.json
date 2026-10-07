@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "URL bilong link bilong helpim yu yet i makim",
   "text-below-custom-login-logo": "Rait aninit long Custom Login Logo",
   "automatic-linked-url-schemes": "Toksave: Custom URL Schemes which should automatically be clickable. One URL Scheme per line",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Long namba wan seting dispela i stap nating, olsem na yu ken klikim ol link bilong web na imel tasol. Olgeta kain link long lista, olsem thunderlink o onenote, i opim program ol i bin makim bilong en. javascript, data, vbscript na ol kain olsem i no save kamap link long wanpela taim.",
   "external-link-pattern": "Otomatik lingk i go long ausait tracker bilong problem",
   "external-link-pattern-description": "Em i save autolink ol tok olsem \"#1234\" i stap long rait bilong kaad i go long ausait tracker bilong problem. Larim wanpela hap i stap nating bilong pasim dispela.",
   "external-link-pattern-prefix": "Nem paslain bilong tok",

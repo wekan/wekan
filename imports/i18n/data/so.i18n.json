@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "URL-ka Xiriiriyaha Caawinta Gaarka ah",
   "text-below-custom-login-logo": "Qoraalka ka hooseeya Astaanta Gelitaanka Gaarka ah",
   "automatic-linked-url-schemes": "Qaababka URL Gaarka ah ee si toos ah loo gujin karo. Hal Qaab URL safkiiba",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Dejinta caadiga ah waa madhan tahay, sidaas darteed keliya xiriiriyeyaasha webka iyo iimaylka ayaa la gujin karaa. Nooc kasta oo xiriiriye ah oo liiska ku jira, tusaale ahaan thunderlink ama onenote, wuxuu furaa barnaamijka loo diiwaangeliyey. javascript, data, vbscript iyo noocyada la midka ah weligood looma beddelo xiriiriyeyaal la gujin karo.",
   "external-link-pattern": "Xiriirinta otomaatig ee la socodka dhibaatooyinka dibadda",
   "external-link-pattern-description": "Si otomaatig ah ayey ugu xiriirisaa calaamadaha noocan \"#1234\" ah ee laga helo qoraalka kaardhka la socodka dhibaatooyinka dibadda. Ka tag meel banaan si aad u damiso.",
   "external-link-pattern-prefix": "Xarafka horyaalka calaamadda",

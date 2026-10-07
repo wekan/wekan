@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "Spesel Help Link URL",
   "text-below-custom-login-logo": "Raeting below Spesel Go insaed Logo",
   "automatic-linked-url-schemes": "Spesel URL Schemes which should automatically stap clickable. One URL Scheme per line",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Long fas setting, hem i emti, mekem se yu save klik long ol link blong web mo imel nomo. Evri kaen link long lis, olsem thunderlink o onenote, i openem program we oli rejistarem blong hem. javascript, data, vbscript mo ol kaen olsem oli neva kam ol link we yu save klik long olgeta.",
   "external-link-pattern": "Otomatik link i go long wan aotsaed tracker blong problem",
   "external-link-pattern-description": "Hem i save mekem olsem \"#1234\" we oli stap long text blong kad i kam wan link i go long wan aotsaed tracker blong problem. Lego wan spes nomo blong pasem samting ia.",
   "external-link-pattern-prefix": "Prefiks blong tok",
