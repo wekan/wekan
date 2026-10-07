@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **45,599 untranslated locale/string values in 70 languages**. It
+  report counts **45,515 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -2074,6 +2074,18 @@ uses the same word as `checklist` itself.
 </details>
 
 **Translations** — continued language coverage and corrections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d6600d93451400bf59cc6ec6f7ebe2e12d97256c">Translate 84 Somali Scrum planning and reporting messages.</a></summary>
+
+- Fill English placeholders for planning, sprint lifecycle and reports while preserving existing Somali translations.
+- Cover all 102 Scrum and related view messages with token checks and regressions for cancellation versus closure, unknown estimates, partial reports and daily-observation limits.
+- Validation: three Somali regression tests, the structural check across 234 non-English catalogs and 21 human-preference checks pass. Browser checks were not run. Technical compounds remain low confidence pending fluent-speaker review.
+- Remaining English placeholders: 45,515 across 70 languages. The separate pending-key wording review and broader language audit continue.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/89d9e0f13183d1528f2d171536ce544aaca9aac9">Correct 17 mixed-language Akan action and account labels.</a></summary>
