@@ -4883,6 +4883,13 @@ mixed-language audit remains open.
 - Lower-confidence wording includes collapsed as shortened/folded, container and bubble metaphors, and value as worth/value. Tongan and Samoan clause construction and all spoken accessibility labels need contextual review. Distinct strings are not proof of semantic equivalence or fluency.
 - Extended existing token and block-label distinction checks. Browser and spoken accessibility checks remain unexecuted; the 148 pending source keys and broader semantic audit remain open.
 
+### Bislama, Tok Pisin, Fijian and Papiamento block and bubble labels
+
+- Filled 64 English placeholders through the protected workflow, preserving arguments and existing translations. Input and comment vocabulary follows the catalogs; statement uses command/instruction wording and stack uses a pile of blocks.
+- Bubble is paraphrased as a speech/information/text box. The [Fijian dictionary](https://www.folksong.org.nz/isa_lei/Fijian-English_Dictionary.pdf) gives vuso as froth/foam/spray; that does not establish an appropriate interface bubble label. The [Papiamentu word list](https://www.studiotaalwetenschap.nl/Bestanden/Lexilijst%20Papiaments.pdf) distinguishes a balloon (blas/blaas) from a box (kaha/caha); these labels use a contextual box paraphrase instead of assuming balloon means a software bubble.
+- Collapsed as shortened/folded, branches as arms/branches, container and value terminology remain provisional, particularly Fijian isau. Bislama and Tok Pisin retain their distinct clause spellings. Contextual and spoken accessibility review remains necessary; structural distinction tests do not establish fluency.
+- Extended token, non-placeholder and distinction checks. Browser checks remain unexecuted; the 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
