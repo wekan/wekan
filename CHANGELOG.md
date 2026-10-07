@@ -1890,6 +1890,17 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/29a4180ec324c9f1d30af22be20760f3178d68bc">Translate map view into Cherokee</a></summary>
+
+- Filled seven placeholders. The map label follows Cherokee Nation usage; technical sentences remain low-confidence drafts, with terminology references and limitations recorded in the translation audit.
+- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution still awaits Playwright and a running application.
+- Two locale paths still have English map-view strings. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 160 pending source keys.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9169523ae25b78d2803ae20d3070c42ebbc78b5a">Translate map view into Inuktitut</a></summary>
 
 - Filled seven placeholders, retaining both placement methods and the image examples. Technical wording remains low confidence; terminology evidence and limitations are recorded in the translation audit.
