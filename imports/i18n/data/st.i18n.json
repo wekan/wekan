@@ -1438,7 +1438,7 @@
   "r-subject": "sehlooho",
   "r-email-vars-hint": "Ditshwaontlha tse teng: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Masimo a lenane, tsela, sehlooho, lenane la tlhahlobo le mosebelisi a boetse a amohela {creator}, {assignees}, {members} le {customField:Name}, tse balwang kareteng ha molao o hlahlojwa.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Kenya letshwao le emelang boleng bo fetohang sebakeng sa mongolo seo u se khethileng la ho qetela:",
   "r-vars-people-hint": "Hape: {creator}, {assignees}, {members} (mabitso a basebelisi mongolong, liaterese tsa imeile karolong ea E eang ho) le {customField:Field name}. Tsena li sebetsa le mabitsong a litho, manane le litsela tsa liketso tse ling.",
   "r-rule-details": "Dintlha tsa molao",
   "r-rule-any-trigger-help": "Molao o sebetsa ha ho etsahala e nngwe ya diketsahalo tse o qalang. Diketso tsa wona di etsoa ka tatellano.",

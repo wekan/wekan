@@ -1438,7 +1438,7 @@
   "r-subject": "mowzuk",
   "r-email-vars-hint": "Elýeterli tegler: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Sanaw, zolak, at, barlag sanawy we ulanyjy meýdanlary {creator}, {assignees}, {members} we {customField:Name} üýtgeýänlerini hem kabul edýär; olaryň bahalary düzgün barlananda kartdan alynýar.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Üýtgeýjini iň soň saýlanan tekst meýdanyna giriziň:",
   "r-vars-people-hint": "Şeýle hem: {creator}, {assignees}, {members} (tekstde ulanyjy atlary, Alyjy meýdanynda e-poçta salgylary) we {customField:Field name}. Bular beýleki hereketleriň agza, sanaw we zolak atlarynda hem işleýär.",
   "r-rule-details": "Düzgünnama",
   "r-rule-any-trigger-help": "Düzgün onuň işledijileriniň islendigi ýüze çykanda ýerine ýetirilýär. Hereketleri yzygiderlikde ýerine ýetirilýär.",

@@ -1438,7 +1438,7 @@
   "r-subject": "kaupapa",
   "r-email-vars-hint": "Ngā tohu e wātea ana: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Ka whakaae hoki ngā āpure rārangi, ara, taitara, rārangi taki me te kaiwhakamahi ki {creator}, {assignees}, {members} me {customField:Name}. Ka pānuitia ēnei i te kāri ina tirohia te ture.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Kōkuhua he taurangi ki te āpure kuputuhi i tīpakohia whakamutungatia:",
   "r-vars-people-hint": "Waihoki: {creator}, {assignees}, {members} (ngā ingoa kaiwhakamahi i te kuputuhi, ngā wāhitau īmēra i te āpure Ki) me {customField:Field name}. Ka mahi hoki ēnei i ngā ingoa mema, rārangi me ngā ara o ētahi atu hohenga.",
   "r-rule-details": "Ngā taipitopito ture",
   "r-rule-any-trigger-help": "Ka whakahaeretia te ture ina puta tētahi o ōna keu. Ka whakahaeretia ōna hohenga i runga i te raupapa.",

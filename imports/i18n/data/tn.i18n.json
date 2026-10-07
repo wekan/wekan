@@ -1438,7 +1438,7 @@
   "r-subject": "setlhogo",
   "r-email-vars-hint": "Matshwao a a leng teng: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Mafelo a lenane, tsela, setlhogo, lenane la tlhahlobo le modirisi a amogela gape {creator}, {assignees}, {members} le {customField:Name}, tse di balwang mo karateng fa molao o tlhatlhobiwa.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Tsenya letshwao le le emelang boleng jo bo fetogang mo lefelong la mokwalo le o le tlhophileng la bofelo:",
   "r-vars-people-hint": "Gape: {creator}, {assignees}, {members} (maina a badirisi mo mokwalong, diaterese tsa imeile mo karolong ya Go ya go) le {customField:Field name}. Tseno di dira gape mo maineng a maloko, manane le ditsela tsa ditiro tse dingwe.",
   "r-rule-details": "Molao dintlha",
   "r-rule-any-trigger-help": "Molao o dira fa go diragala nngwe ya ditiragalo tse di o simololang. Ditiro tsa one di dirwa ka tatelano.",

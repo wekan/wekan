@@ -1438,7 +1438,7 @@
   "r-subject": "mataupu",
   "r-email-vars-hint": "Fa’ailoga o lo’o iai: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "E talia foʻi e avanoa mo lisi, ala, ulutala, lisi siaki ma tagata faaaogā le {creator}, {assignees}, {members} ma le {customField:Name}. E faitau nei mea mai le kata pe a siaki le tulafono.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Faaofi se fesuiaiga i le pusa tusitusiga na e filifilia mulimuli:",
   "r-vars-people-hint": "Faapea foʻi: {creator}, {assignees}, {members} (igoa o tagata faaaogā i tusitusiga, tuatusi imeli i le avanoa Mo) ma {customField:Field name}. E aogā foʻi nei mea i igoa o sui, lisi ma ala o isi gaoioiga.",
   "r-rule-details": "Faamatalaga o le tulafono",
   "r-rule-any-trigger-help": "E faatino le tulafono pe a tupu se tasi o ona faaoso. E faatino ona gaoioiga i le faasologa.",

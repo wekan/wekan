@@ -1438,7 +1438,7 @@
   "r-subject": "विषय",
   "r-email-vars-hint": "उपलब्ध टैग: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "सूची, रस्ता, शीर्षक, जाँच सूची आ इस्तेमाल करे वाला के खाना में {creator}, {assignees}, {members} आ {customField:Name} भी डालल जा सकेला। नियम जाँचत घरी ई मान कार्ड से पढ़ल जालें।",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "सबसे आखिर में चुनल पाठ वाला खाना में चर जोड़ीं:",
   "r-vars-people-hint": "ईहो: {creator}, {assignees}, {members} (लिखल पाठ में इस्तेमाल करे वाला लोग के नाँव, भेजे के पता वाला खाना में ईमेल पता) आ {customField:Field name}। ई सभ दोसरा कार्रवाई के सदस्य, सूची आ रस्ता के नाँव में भी काम करेला।",
   "r-rule-details": "नियम के विवरण",
   "r-rule-any-trigger-help": "नियम तब चलेला जब ओकरा के शुरू करे वाला कवनो एक घटना होखेला। ओकर कार्रवाई सभ बारी-बारी से क्रम में चलेलीं।",

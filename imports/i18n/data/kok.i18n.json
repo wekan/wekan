@@ -1438,7 +1438,7 @@
   "r-subject": "विशय",
   "r-email-vars-hint": "उपलब्ध टॅग्स: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "वळेरी, वाट, माथाळो, तपासणी वळेरी आनी वापरपी हांच्या घरांनी {creator}, {assignees}, {members} आनी {customField:Name} वापरूं येता. नियम तपासतना हीं मोलां कार्डांतल्यान वाचतात.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "निमाणे वेंचिल्ल्या मजकूर क्षेत्रांत बदलपी मोलाची खूण घालात:",
   "r-vars-people-hint": "तशेंच: {creator}, {assignees}, {members} (मजकुरांत वापरप्यांचीं नांवां, प्राप्तकर्त्याच्या घरांत ईमेल पत्ते) आनी {customField:Field name}। हें हेर कृतींच्या वांगडी, वळेरी आनी वाट हांच्या नांवांनीय वापरूं येता.",
   "r-rule-details": "नेम तपशील",
   "r-rule-any-trigger-help": "नियमाचो खंयचोय एक चालक घडल्यार नियम चालता. ताच्यो कृती क्रमाप्रमाणें चलतात.",

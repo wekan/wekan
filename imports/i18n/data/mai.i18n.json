@@ -1438,7 +1438,7 @@
   "r-subject": "विषय",
   "r-email-vars-hint": "उपलब्ध टैग: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "सूची, मार्ग, शीर्षक, जाँच सूची आ प्रयोक्ताक खाना मे {creator}, {assignees}, {members} आ {customField:Name} सेहो देल जा सकैत अछि। नियमक जाँचक समय ई मान कार्ड सँ पढ़ल जाइत अछि।",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "सभसँ अन्तमे चुनल पाठक खानामे चर जोड़ू:",
   "r-vars-people-hint": "ईहो: {creator}, {assignees}, {members} (पाठ मे प्रयोक्ताक नाम, प्राप्तकर्ताक खाना मे ईमेल पता) आ {customField:Field name}। ई सभ आन कार्रवाईक सदस्य, सूची आ मार्गक नाम मे सेहो काज करैत अछि।",
   "r-rule-details": "नियमक विवरण",
   "r-rule-any-trigger-help": "नियम तखन चलैत अछि जखन ओकर कोनो एक ट्रिगर घटना होइत अछि। ओकर कार्रवाई सभ क्रम सँ चलैत अछि।",

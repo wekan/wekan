@@ -310,3 +310,17 @@ test('Leo outline import instructions have non-English values in all locales', a
   assert.match(fi, /syvemm.*tarkistuslistoja/);
   assert.match(fi, /Merkityt solmut tuodaan valmiina/);
 });
+
+ test('rule variable picker labels preserve source tokens in the next locale batch', async () => {
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  const codes = ["ku","ckb","tt","tk_TM","yi","so","ny","bho","mai","or_IN","kok","ary","pap","mi","sm","st","tn"];
+  const key = 'r-insert-variable';
+  const source = JSON.parse(fs.readFileSync(path.join(directory, 'en.i18n.json')))[key];
+  for (const code of codes) {
+    const value = JSON.parse(fs.readFileSync(path.join(directory, code + '.i18n.json')))[key];
+    assert.ok(value?.trim(), code);
+    assert.notEqual(value, source, code);
+    assert.deepEqual(translationTokens(value), translationTokens(source), code);
+    assert.ok(value.endsWith(':'), code);
+  }
+});

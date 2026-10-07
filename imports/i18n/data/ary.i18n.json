@@ -1438,7 +1438,7 @@
   "r-subject": "عنوان",
   "r-email-vars-hint": "الوسوم المتوفرة: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "خانات اللائحة والمسار والعنوان ولائحة التحقق والمستخدم كتقبل حتى {creator} و{assignees} و{members} و{customField:Name}. القيم ديالهم كتتقرا من البطاقة ملي كتتفحص القاعدة.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "زيد متغيّر فخانة النص اللي ختاريتي آخر مرة:",
   "r-vars-people-hint": "وزيد عليهم: {creator} و{assignees} و{members} (سميات المستخدمين فالنص، وعناوين الإيميل فخانة المرسل إليه) و{customField:Field name}. هادو كيخدمو حتى فسميات الأعضاء واللوائح والمسارات ديال الإجراءات الأخرى.",
   "r-rule-details": "جزئیات قاعده",
   "r-rule-any-trigger-help": "القاعدة كتخدم ملي كيوقع شي واحد من الأحداث اللي كيشعلوها. الإجراءات ديالها كيتنفذو بالترتيب.",

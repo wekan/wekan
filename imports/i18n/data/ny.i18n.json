@@ -1438,7 +1438,7 @@
   "r-subject": "mutu",
   "r-email-vars-hint": "Zizindikiro zomwe zilipo: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Magawo a mndandanda, njira, mutu, mndandanda wowunika ndi wogwiritsa ntchito amalandiranso {creator}, {assignees}, {members} ndi {customField:Name}, zomwe zimawerengedwa pa khadi pamene lamulo likuwunikidwa.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Ikani chosinthika m'bokosi la mawu limene mwasankha komaliza:",
   "r-vars-people-hint": "Komanso: {creator}, {assignees}, {members} (mayina a ogwiritsa ntchito m’mawu, maadiresi a imelo m’gawo la Wolandira) ndi {customField:Field name}. Izi zimagwiranso ntchito m’mayina a mamembala, mindandanda ndi njira za zochita zina.",
   "r-rule-details": "Zambiri za lamulo",
   "r-rule-any-trigger-help": "Lamulo limagwira ntchito pamene chimodzi mwa zoyambitsa zake chachitika. Zochita zake zimachitika motsatizana.",

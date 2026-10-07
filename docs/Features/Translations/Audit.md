@@ -4128,6 +4128,26 @@ ordinary backlog remains 51,575 values across 70 languages. Non-English coverage
 is not a claim that this instruction is linguistically verified in every locale;
 the low-confidence drafts and broader mixed-language audit remain open.
 
+## Rule variable picker: first remaining locale batch
+
+Filled `r-insert-variable` in 17 locales: Kurdish, Central Kurdish, Tatar,
+Turkmen, Yiddish, Somali, Chichewa, Bhojpuri, Maithili, Odia, Konkani, Moroccan
+Arabic, Papiamento, Māori, Samoan, Southern Sotho and Tswana. The protected fill
+preserved existing non-English translations. The source remembers the last
+focused text field, so the drafts describe the field most recently selected.
+Konkani, Southern Sotho and Tswana paraphrase a variable as a symbol representing
+a changing value. The full technical phrasing remains provisional, particularly
+those paraphrases and the Chichewa and Samoan terminology.
+
+Added token and label coverage to the locale regression. Parameterized the
+existing browser picker scenario for these languages plus English, checking
+the visible label in both trigger and action editors while retaining insertion,
+focus switching and exclusion of admin-only fields. All 13 focused Node tests
+and 21 human-preference checks pass. Browser syntax passes; execution remains
+unverified because Playwright is unavailable. There are 49 locales still using
+this English label. The wider backlog remains 51,575 ordinary placeholders in
+70 languages plus 149 pending source keys; linguistic review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

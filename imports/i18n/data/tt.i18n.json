@@ -1438,7 +1438,7 @@
   "r-subject": "Кону",
   "r-email-vars-hint": "Файдаланырлык теглар: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Исемлек, юл, исем, тикшерү исемлеге һәм кулланучы кырлары шулай ук {creator}, {assignees}, {members} һәм {customField:Name} үзгәрешлеләрен кабул итә; алар кагыйдә тикшерелгәндә карточкадан укыла.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Үзгәрешчене соңгы тапкыр сайланган текст кырына өстәгез:",
   "r-vars-people-hint": "Шулай ук: {creator}, {assignees}, {members} (текстта — кулланучы исемнәре, Кемгә кырында — электрон почта адреслары) һәм {customField:Field name}. Болар башка гамәлләрнең әгъза, исемлек һәм юл исемнәрендә дә эшли.",
   "r-rule-details": "Курал Детайлары",
   "r-rule-any-trigger-help": "Кагыйдә аның теләсә кайсы эшләтеп җибәрүче вакыйгасы булганда эшли. Аның гамәлләре эзлекле рәвештә башкарыла.",

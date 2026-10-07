@@ -1438,7 +1438,7 @@
   "r-subject": "mawduuc",
   "r-email-vars-hint": "Calaamadaha diyaarka ah: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Goobaha liiska, waddada, cinwaanka, liiska hubinta iyo isticmaalaha waxay sidoo kale aqbalaan {creator}, {assignees}, {members} iyo {customField:Name}, kuwaas oo laga akhriyo kaarka marka xeerka la hubinayo.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Ku dar doorsoome goobta qoraalka ee aad ugu dambayn dooratay:",
   "r-vars-people-hint": "Sidoo kale: {creator}, {assignees}, {members} (magacyada isticmaaleyaasha qoraalka dhexdiisa, cinwaannada iimaylka goobta Ku socota) iyo {customField:Field name}. Kuwani waxay sidoo kale ka shaqeeyaan magacyada xubnaha, liisaska iyo waddooyinka ee ficillada kale.",
   "r-rule-details": "Faahfaahinta xeerka",
   "r-rule-any-trigger-help": "Xeerku wuxuu shaqeeyaa marka mid ka mid ah kiciyeyaashiisu dhaco. Ficilladiisu waxay u dhacaan siday u kala horreeyaan.",

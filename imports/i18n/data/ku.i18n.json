@@ -1438,7 +1438,7 @@
   "r-subject": "mijar",
   "r-email-vars-hint": "Nîşaneyên berdest: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Qadên lîste, rêç, sernav, lîsteya kontrolê û bikarhêneran her wiha {creator}, {assignees}, {members} û {customField:Name} qebûl dikin; dema rêzik tê kontrolkirin, ev ji kartê tên xwendin.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Guherbarekê têxe qada nivîsê ya ku te herî dawî hilbijart:",
   "r-vars-people-hint": "Her wiha: {creator}, {assignees}, {members} (navên bikarhêneran di nivîsê de, navnîşanên e-nameyê di qada Ji bo de) û {customField:Field name}. Ev di navên endam, lîste û rêçan ên kiryarên din de jî dixebitin.",
   "r-rule-details": "Hûrguliyên rêbazê",
   "r-rule-any-trigger-help": "Dema ku yek ji destpêkerên wê pêk tê, rêzik dixebite. Kiryarên wê bi rêzê tên kirin.",

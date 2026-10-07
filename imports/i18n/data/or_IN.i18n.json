@@ -1438,7 +1438,7 @@
   "r-subject": "ବିଷୟ",
   "r-email-vars-hint": "ଉପଲବ୍ଧ ଟାଗ୍: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "ତାଲିକା, ସ୍ୱିମଲେନ୍, ଶୀର୍ଷକ, ଯାଞ୍ଚତାଲିକା ଏବଂ ବ୍ୟବହାରକାରୀ ଘରଗୁଡ଼ିକରେ {creator}, {assignees}, {members} ଏବଂ {customField:Name} ମଧ୍ୟ ବ୍ୟବହାର କରିପାରିବେ। ନିୟମ ଯାଞ୍ଚ କରାଯିବା ସମୟରେ ଏଗୁଡ଼ିକର ମୂଲ୍ୟ କାର୍ଡରୁ ପଢ଼ାଯାଏ।",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "ଶେଷ ଥର ଚୟନ କରିଥିବା ପାଠ୍ୟ କ୍ଷେତ୍ରରେ ଏକ ଚଳ ଭର୍ତ୍ତି କରନ୍ତୁ:",
   "r-vars-people-hint": "ଏହା ସହିତ: {creator}, {assignees}, {members} (ପାଠ୍ୟରେ ବ୍ୟବହାରକାରୀଙ୍କ ନାମ, ପ୍ରାପ୍ତକର୍ତ୍ତା ଘରେ ଇମେଲ୍ ଠିକଣା) ଏବଂ {customField:Field name}। ଏଗୁଡ଼ିକ ଅନ୍ୟ କାର୍ଯ୍ୟଗୁଡ଼ିକର ସଦସ୍ୟ, ତାଲିକା ଏବଂ ସ୍ୱିମଲେନ୍ ନାମରେ ମଧ୍ୟ କାମ କରେ।",
   "r-rule-details": "ନିୟମ ବିବରଣୀ",
   "r-rule-any-trigger-help": "ନିୟମର ଯେକୌଣସି ଗୋଟିଏ ଟ୍ରିଗର ଘଟିଲେ ନିୟମଟି ଚାଲେ। ଏହାର କାର୍ଯ୍ୟଗୁଡ଼ିକ କ୍ରମ ଅନୁସାରେ ଚାଲେ।",

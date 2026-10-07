@@ -1438,7 +1438,7 @@
   "r-subject": "asunto",
   "r-email-vars-hint": "Etiketnan disponibel: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "E kamponan di lista, kaminda, título, lista di kontrol i usuario ta aseptá tambe {creator}, {assignees}, {members} i {customField:Name}, ku ta lesa for di e karta ora ta kontrolá e regla.",
-  "r-insert-variable": "Insert variable into the last text field:",
+  "r-insert-variable": "Inserta un variabel den e último vak di teksto ku bo a selektá:",
   "r-vars-people-hint": "Tambe: {creator}, {assignees}, {members} (nòmbernan di usuario den teksto, adrèsnan di email den Pa) i {customField:Field name}. Esakinan ta funshoná tambe den nòmbernan di miembro, lista i kaminda di otro akshonnan.",
   "r-rule-details": "Detaye di e regla",
   "r-rule-any-trigger-help": "E regla ta ehekutá ora kualke un di su disparadornan sosodé. Su akshonnan ta ehekutá den òrdu.",
