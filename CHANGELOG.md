@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/03b327fcf9f94bdee4a6fe3bc69487ef5e8c9c5d">Correct 15 mixed-language or misleading Akan account and connection messages.</a></summary>
+
+- Rewrite account, watch and connection text. Correct OAuth setting precedence while preserving secret visibility and account states.
+- Add source-token, precedence and account-state regression checks. Wording remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
+- Validation: 96 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/937086b9fb5a5e905965b9e25e60b52c8f1b75ea">Correct 25 mixed-language Akan movement and ordering labels.</a></summary>
 
 - Rewrite movement, ordering and guidance text. Preserve directions, list scope, oldest-first ordering and recurring time tokens.
