@@ -2476,6 +2476,26 @@ not run; the app stack was unavailable. 18 locale paths still need this group.
 The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
 broader language-quality review remains open.
 
+### Rule-builder instructions — Tibetan and Dzongkha (2026-10-07)
+
+Filled seven pending strings in bo and dz (14 values), preserving existing
+translations and all literal variable expressions. No translation service was used.
+The text retains any-trigger behavior, ordered actions, username/email context and
+card-derived variables. Dzongkha uses its own plural and verbal forms rather than
+copying Tibetan prose. Both translations have lower confidence; technical terms,
+recipient fields and composed date fragments need native/UI review.
+References consulted include the
+[Dzongkha Development Commission dictionary resources](https://www.dzongkha.gov.bt/dz/dictionary/search)
+and [Tibetan rule vocabulary](https://linguatools.info/?prefix=1&query=rule&st=1).
+These references do not validate full-sentence accuracy.
+
+The existing trigger-variable suite now checks 50 recently filled locales for
+source order and exact brace/underscore/percent tokens. Runtime matching,
+all-locale structural and human-preference checks pass. Browser scenarios were
+not run; the app stack was unavailable. 16 locale paths still need this group.
+The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
+broader language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
