@@ -1525,6 +1525,27 @@ browser scenarios were syntax-checked only because the app stack was unavailable
 19 locale paths still need this six-string group. The ordinary backlog remains
 51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
 
+### Due reminders — Acehnese (2026-10-07)
+
+Filled six reminder strings in `ace`. Instructions retain comma-separated offsets,
+zero as the due day, positive days before and negative days after, the empty
+server-default setting, at most ten integers from -14 to 14, board disabling and
+outgoing webhook delivery. Only English placeholders were filled; no external
+translation service was used. Complete instructions and technical compounds remain
+low-confidence drafts for native review. Existing Indonesian/Malay seeds elsewhere
+in this locale remain part of the wider audit.
+
+The [Acehnese Swadesh list](https://bahasaaceh.com/wp-content/uploads/2012/07/acehnese_swadesh_word_list.pdf)
+attests `siplôh` for ten. This supports the numeral, not the complete software
+instructions. Structural checks do not establish fluency.
+
+Translation checks now cover 48 locales, including offset direction, defaults,
+bounds and source-token inventories. The existing browser scenario includes
+Acehnese. Translation, all-locale structural and human-preference checks pass;
+browser scenarios were syntax-checked only because the app stack was unavailable.
+18 locale paths still need this six-string group. The ordinary backlog remains
+51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
