@@ -1,30 +1,6 @@
 {
   "keys": [
     {
-      "key": "r-vars-people-hint",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "r-when-card-date",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "r-rule-any-trigger-help",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "r-add-trigger-to-rule",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "r-add-action-to-rule",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "r-remove-rule-part",
-      "since": "2026-09-29"
-    },
-    {
       "key": "move-selection-before",
       "since": "2026-09-29"
     },
@@ -34,10 +10,6 @@
     },
     {
       "key": "automatic-linked-url-schemes-hint",
-      "since": "2026-09-29"
-    },
-    {
-      "key": "r-trigger-vars-hint",
       "since": "2026-09-29"
     },
     {

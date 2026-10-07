@@ -73,8 +73,15 @@ console.log('  ok - rules find token triggers, and the editor keeps and explains
   const readLocale = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
   const english = readLocale('en');
   const keys = ["r-vars-people-hint", "r-when-card-date", "r-rule-any-trigger-help", "r-add-trigger-to-rule", "r-add-action-to-rule", "r-remove-rule-part", "r-trigger-vars-hint"];
+  const pending = JSON.parse(read('releases/translations/pending-transifex.json')).keys;
+  for (const key of keys) {
+    assert.ok(!pending.some(entry => entry.key === key), `${key}: completed placeholder fill is not pending`);
+  }
   const braceTokens = text => (text.match(/\{[^{}]+\}/g) || []).sort();
-  for (const code of ['tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'st', 'tn', 'rw', 'rn', 'ny', 'bho', 'mai', 'or_IN', 'kok', 'ary', 'yi', 'nd', 'ss', 'nso', 'ts', 'om', 'fj', 'to', 'gv', 'wa', 'wa-RR', 'ak', 'lg', 'wo', 'bm', 'ee', 'rup', 've-CC', 'bua', 'sah', 'cv', 've', 'se', 'ace', 'bo', 'dz', 'ti', 'ks', 'qu', 'ay', 'gn', 'ff', 've-PP', 'vo', 'kl', 'nah', 'tlh', 'zgh', 'iu', 'wal', 'tig']) {
+  const localeCodes = fs.readdirSync(path.join(__dirname, '../imports/i18n/data'))
+    .filter(file => file.endsWith('.i18n.json') && !/^en(?:[-_.])/.test(file))
+    .map(file => file.replace(/\.i18n\.json$/, ''));
+  for (const code of localeCodes) {
     const locale = readLocale(code);
     assert.deepEqual(Object.keys(locale), Object.keys(english), `${code}: source order`);
     for (const key of keys) {
@@ -139,5 +146,5 @@ console.log('  ok - rules find token triggers, and the editor keeps and explains
     assert.doesNotMatch(darija[key], /[پچژگکی]/, `${key}: no Persian letters from the wrong-language seed`);
   }
   assert.notDeepEqual(braceTokens('{customField:Name}'), braceTokens('{customField:Translated}'));
-  console.log('Rule builder translations: 7 strings in 65 locales passed');
+  console.log(`Rule builder translations: 7 strings in ${localeCodes.length} locales passed`);
 }

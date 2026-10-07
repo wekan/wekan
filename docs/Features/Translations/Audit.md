@@ -2751,6 +2751,30 @@ is unavailable. Cherokee is the remaining locale for this seven-string group.
 The ordinary backlog remains 51,575 values plus 181 pending source keys; broader
 language-quality work remains open.
 
+### Rule-builder instructions — Cherokee and catalog coverage (2026-10-07)
+
+Filled seven pending strings in `chr`, preserving existing translations and all
+literal variable expressions. No translation service was used. Technical prose
+has low confidence, especially condition clauses, field terminology and the date
+fragment that is composed with date choices in the UI. Native review remains open.
+Vocabulary references: the Cherokee Nation's
+[2024 Consortium list](https://language.cherokee.gov/media/vdiic5hr/2024consortium.pdf)
+for sequence-of-events vocabulary and its
+[OU word list](https://language.cherokee.gov/media/ykahxw4v/oudictionaryeuglutan.pdf)
+for “another”. These do not validate the complete translated sentences.
+
+All seven keys now have non-English values in all 234 non-English locale paths.
+The existing regression suite now discovers every locale rather than enumerating
+recent batches, checking key order, nonempty non-English values, underscore and
+percent tokens, and exact brace expressions. Removed these seven keys from the
+pending placeholder inventory, reducing it from 181 to 174; this is not a claim
+that every translation has been linguistically validated.
+
+Rule-variable runtime checks, all-locale structural checks and 21 human-preference
+checks pass. Existing browser scenarios were syntax-checked but not run because
+the app stack is unavailable. The ordinary backlog remains 51,575 values across
+70 languages; wrong-language and low-confidence review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
