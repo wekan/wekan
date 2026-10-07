@@ -4890,6 +4890,13 @@ mixed-language audit remains open.
 - Collapsed as shortened/folded, branches as arms/branches, container and value terminology remain provisional, particularly Fijian isau. Bislama and Tok Pisin retain their distinct clause spellings. Contextual and spoken accessibility review remains necessary; structural distinction tests do not establish fluency.
 - Extended token, non-placeholder and distinction checks. Browser checks remain unexecuted; the 148 pending source keys and broader semantic audit remain open.
 
+### Zulu, Xhosa, Swati and Northern Ndebele block and bubble labels
+
+- Filled 80 English placeholders in five catalogs (including both Zulu paths) through the protected workflow, preserving numbered arguments and existing translations. Input and comment wording follows each catalog.
+- Stack uses a pile of blocks, statement uses a command, and bubble is paraphrased as a text box. Collapsed is folded, while disabled is unavailable/prevented from operating; separate labels preserve those distinct states.
+- Technical metaphors, noun-class agreement around arbitrary numbers, and Swati/Northern Ndebele wording remain lower confidence. Northern Ndebele clauses use `kule-` and `-nengi`; Swati uses its own noun forms. Related-language resemblance alone is not evidence that a value is wrong-language text.
+- Extended token, non-placeholder and distinction checks to all five catalogs. These are structural checks, not proof of fluent or semantically equivalent labels. Browser and spoken accessibility checks remain unexecuted; 148 pending source keys and the broader wording audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
