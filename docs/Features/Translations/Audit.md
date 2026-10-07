@@ -1377,6 +1377,23 @@ browser scenarios were syntax-checked only because the app stack was unavailable
 31 locale paths still need this six-string group. The ordinary backlog remains
 51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
 
+### Due reminders — Akan and Luganda (2026-10-07)
+
+Filled six reminder strings in each of `ak` and `lg` (12 values), using the
+existing board and reminder terminology. The instructions retain comma-separated
+offsets, zero as the due day, positive days before and negative days after, the
+empty server-default setting, at most ten integers from -14 to 14, board disabling
+and outgoing webhook delivery. Only English placeholders were filled; no external
+translation service was used. Technical compounds remain low-confidence drafts
+for native review; structural checks do not establish fluency.
+
+Translation checks now cover 37 locales, including offset direction, defaults,
+bounds and source-token inventories. Existing browser scenarios include both
+locales. Translation, all-locale structural and human-preference checks pass;
+browser scenarios were syntax-checked only because the app stack was unavailable.
+29 locale paths still need this six-string group. The ordinary backlog remains
+51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
