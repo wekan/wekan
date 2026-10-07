@@ -6605,6 +6605,18 @@ Corrected 18 mixed-language or misleading visibility and template-sharing messag
 
 Validation: 109 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. Mixed-language values require this wording audit independently of the English-placeholder counter.
 
+## Tok Pisin filter and sorting wording audit
+
+Corrected 34 mixed-language or misleading filter and sorting values. The labels
+now distinguish assigned work, empty lists, archived lists and selected cards.
+Restored the literal alphabetical endpoints A and Z: the earlier wording had
+translated A as “wanpela” (one). Source tokens remain unchanged. Technical wording
+is provisional pending fluent-speaker review.
+
+The combined translation run passes 111 checks. Two existing catalog checks fail
+on the missing due-date shortcut key. All 21 human-preference checks pass.
+Browser and screen-reader checks were not run. The wider audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -1496,3 +1496,62 @@ test('Tok Pisin sharing wording retains public visibility and member-only editin
  assert.match(data['shared-templates-select-scope'],/Makim wanpela hap antap/);
  assert.equal(data['org-shared-templates'],data['team-shared-templates']);
 });
+
+
+test('Tok Pisin filter and sorting labels retain tokens without mixed English',()=>{
+ const keys=[
+  "remove-sort",
+  "sort-desc",
+  "list-sort-by",
+  "list-label-modifiedAt",
+  "list-label-sort",
+  "filter",
+  "filter-dates-label",
+  "filter-due-today",
+  "filter-due-this-week",
+  "filter-due-next-week",
+  "filter-due-tomorrow",
+  "list-filter-label",
+  "filter-clear",
+  "filter-labels-label",
+  "filter-member-label",
+  "filter-assignee-label",
+  "filter-no-assignee",
+  "filter-show-archive",
+  "filter-hide-empty",
+  "filter-on",
+  "filter-on-desc",
+  "filter-to-selection",
+  "shortcut-clear-filters",
+  "shortcut-filter-my-cards",
+  "shortcut-filter-my-assigned-cards",
+  "shortcut-toggle-filterbar",
+  "set-filter",
+  "filter-by-unread",
+  "sort-boards-title-asc",
+  "sort-boards-title-desc",
+  "sort-is-on",
+  "filter-dependencies-label",
+  "filter-invisible-filenames",
+  "filter-card-title-label"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:by|Due|Clear|assignee|archived|selection|Toggle|Unread|dependencies|filenames|invisible|Access|Manual|Order)\b/,key);
+ }
+});
+
+test('Tok Pisin filters distinguish assignments, visibility and alphabetical endpoints',()=>{
+ for(const when of ['today','tomorrow','this-week','next-week']) assert.match(data['filter-due-'+when],/^Wok i mas pinis/);
+ assert.match(data['filter-no-assignee'],/^I no gat manmeri i kisim wok$/);
+ assert.match(data['shortcut-filter-my-assigned-cards'],/mi kisim wok/);
+ assert.match(data['filter-show-archive'],/^Soim.*akaiv$/);
+ assert.match(data['filter-hide-empty'],/^Haitim.*i no gat samting$/);
+ assert.match(data['filter-to-selection'],/yu makim tasol$/);
+ assert.match(data['shortcut-toggle-filterbar'],/^Soim o haitim/);
+ assert.match(data['filter-invisible-filenames'],/nem bilong fail.*no inap lukim tasol$/);
+ assert.match(data['sort-boards-title-asc'],/\(A → Z\)$/);
+ assert.match(data['sort-boards-title-desc'],/\(Z → A\)$/);
+ assert.doesNotMatch(data['sort-boards-title-asc']+data['sort-boards-title-desc'],/wanpela/);
+});
