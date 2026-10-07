@@ -7377,6 +7377,15 @@ sort directions and text/list conversion. Index and case-insensitive sorting
 terminology remains low confidence pending fluent review. Browser and
 screen-reader checks were not run.
 
+### Bhojpuri Blockly logic and comparisons
+
+Filled 29 English placeholders for splitting/joining, Boolean values, comparisons,
+negation and conditional expressions. Existing translations and the null literal
+are preserved. Tests compare source tokens and key order, distinguish strict and
+inclusive comparisons and AND/OR behavior, and ensure conditional tooltips use
+the visible field labels. Delimiter and Boolean terminology remains low confidence
+pending fluent review. Browser and screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
