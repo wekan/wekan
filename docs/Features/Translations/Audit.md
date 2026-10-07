@@ -4558,6 +4558,13 @@ mixed-language audit remains open.
 - All twelve focused Node tests and 21 human-preference checks pass. Extended exact token and distinct-direction checks alongside existing negative import tests. Added both locales to the localized editor drag/edit/context-menu browser flow. Syntax passes; browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
 - Ordinary placeholders decrease from 49,269 to 49,245 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## Blockly movement announcements: Tigre (2026-10-07)
+
+- Filled twelve Tigre movement and scrolling announcements with the protected fill utility. Retained arguments and distinct directions. These are low-confidence technical clauses, especially the movement verb, cancellation and the paraphrase for scrolling; they require grammatical and dialect review. They were drafted separately from Tigrinya.
+- Consulted [Omar M. Kekia's Tigre lessons](https://www.speaktigre.com/_files/ugd/7e068a_d791dde4087041feaf3dedb6b109829c.pdf?index=true), especially lessons 26–28 for spatial expressions, and [Beurmann's Tigre vocabulary](https://www.speaktigre.com/_files/ugd/7e068a_a5fbea1fb5e544e69d94cab002762da2.pdf?index=true), printed pages 46 and 52 for left/right. These support individual spatial terms and constructions, not the full announcement clauses. The old vocabulary's transliteration adds uncertainty when rendered in Ethiopic script.
+- All twelve focused Node tests and 21 human-preference checks pass. Extended exact token and distinct-direction checks alongside existing negative import tests. Added Tigre to the localized editor drag/edit/context-menu browser flow. Syntax passes; browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
+- Ordinary placeholders decrease from 49,245 to 49,233 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
