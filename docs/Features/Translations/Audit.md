@@ -209,6 +209,30 @@ never archived and edits do not restart list age. Feature, all-locale
 structure and human-preference checks pass. The browser mutation scenario
 includes Sakha; syntax checking passes, but it was not browser-executed.
 
+## Volapük archiving/date filters — 2026-10-07
+
+Filled 23 English placeholders in Volapük (`vo`), verified against the
+previous commit. Also corrected date/week/month labels to `Dät`, `Vig` and
+`Mul`; the old labels used `Dato` and adverb forms. The standard backlog
+falls by 20 to 51,735 values; three auto-archive values are tracked separately
+among pending keys.
+
+The [English–Volapük dictionary](https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary)
+supports `dät`, `vagik`, `nükömön`, `rot` and `logädik`; the
+[time vocabulary reference](https://omniglot.com/language/time/volapuk.htm)
+supports hour/day/week/month terms. Dictionary review corrected initial
+draft terms before commit. The complete software phrases remain low
+confidence pending review, especially inclusive ranges, the list-age
+explanation and compounds for quoting custom field names. These references
+support vocabulary components rather than sentence-level fluency.
+
+The shared feature suite now checks 61 locales. Exact tokens, numeric
+bounds, query examples and negative rules are covered; date/week/month
+repairs have regression assertions. Feature, all-locale structure,
+human-preference and related language suites pass. Volapük is included in
+the browser mutation scenario, which passes syntax checking but was not
+browser-executed in this environment.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
