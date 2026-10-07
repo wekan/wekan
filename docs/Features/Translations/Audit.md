@@ -2157,6 +2157,23 @@ scenarios were not run; the app stack was unavailable. 58 locale paths still nee
 this group. The snapshot remains 51,575 ordinary missing values plus 181 pending
 keys; broader language-quality review remains open.
 
+### Rule-builder instructions — Māori, Samoan and Hawaiian (2026-10-07)
+
+Filled seven pending strings in mi, sm and haw (21 values), preserving existing
+translations and all literal variable expressions. No translation service was used.
+Any-trigger behavior, ordered actions, username/email context and card-derived
+variables remain explicit. Reading `scheduledTriggers.jade` confirmed that the date
+label precedes a set/soon/overdue selector; the new fragments avoid implying arrival.
+
+Full Samoan and Hawaiian phrases, technical terms and composed date-condition
+labels are lower confidence and need native/UI review. Māori interface terminology
+also needs contextual review. The existing trigger-variable suite now checks 11
+recently filled locales for source order and exact brace/underscore/percent tokens.
+Runtime matching, all-locale structural and human-preference checks pass. Browser
+scenarios were not run; the app stack was unavailable. 55 locale paths still need
+this group. The snapshot remains 51,575 ordinary missing values plus 181 pending
+keys; broader language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
