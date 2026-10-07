@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "דער בליצבריוו איז שוין געשיקט געוואָרן, מען האָט שוין פּרוּווט אים שיקן, אָדער ער איז אַוועקגעוואָרפֿן געוואָרן.",
   "rule-email-legacy-not-legacy": "דער בליצבריוו איז שוין מחדש פֿאַרבונדן געוואָרן.",
   "rule-email-legacy-failed": "מען האָט נישט געקענט פֿאַרענדיקן די אַקציע. דערפֿרישט און פּרוּווט ווידער.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "די SAML־אַרײַנלאָגירונג איז נישט אָנגעהויבן געוואָרן אין דעם קוויטל פֿונעם בלעטערער. ביטע לאָגירט זיך ווידער אַרײַן.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

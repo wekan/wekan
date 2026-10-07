@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "ଏହି ଇମେଲ୍ ପୂର୍ବରୁ ପଠାଯାଇଛି, ପଠାଇବାକୁ ଚେଷ୍ଟା କରାଯାଇଛି କିମ୍ବା ପରିତ୍ୟାଗ କରାଯାଇଛି।",
   "rule-email-legacy-not-legacy": "ଏହି ଇମେଲ୍ ପୂର୍ବରୁ ପୁନଃ ସଂଯୋଗ କରାଯାଇଛି।",
   "rule-email-legacy-failed": "ଏହି କାର୍ଯ୍ୟ ସମାପ୍ତ ହୋଇପାରିଲା ନାହିଁ। ପୃଷ୍ଠା ରିଫ୍ରେସ୍ କରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "ଏହି SAML ସାଇନ୍-ଇନ୍ ଏହି ବ୍ରାଉଜର୍ ଟ୍ୟାବ୍‌ରେ ଆରମ୍ଭ ହୋଇନଥିଲା। ଦୟାକରି ପୁଣି ସାଇନ୍ ଇନ୍ କରନ୍ତୁ।",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

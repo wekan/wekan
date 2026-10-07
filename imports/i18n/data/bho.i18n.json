@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "ई ईमेल पहिले से भेजल गइल बा, भेजे के कोशिश भइल बा, चाहे हटा दिहल गइल बा।",
   "rule-email-legacy-not-legacy": "ई ईमेल पहिले से दोबारा जोड़ल गइल बा।",
   "rule-email-legacy-failed": "ई काम पूरा ना हो सकल। पन्ना फेर लोड करीं आ दोबारा कोशिश करीं।",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "ई SAML लॉगिन एह ब्राउजर टैब में शुरू ना भइल रहे। कृपया फेर से लॉग इन करीं।",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

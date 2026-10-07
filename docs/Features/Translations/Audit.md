@@ -1928,6 +1928,25 @@ SAML browser scenarios were syntax-checked only; the app stack was unavailable.
 There are 47 locale paths still needing this message. The key remains pending;
 the overall snapshot stays 51,575 ordinary missing values and 182 pending keys.
 
+### SAML browser-tab error — second remaining batch (2026-10-07)
+
+Filled `saml-login-not-started` in bho, mai, or_IN, kok, ary, yi, nd, ss, nso, ts,
+om, fj and to (13 locale paths). Existing translations were preserved and no
+translation service was used. The message retains the current browser-tab boundary
+and asks the user to sign in again. Browser/tab terminology in nd, ss, nso, ts, om,
+fj and to is lower confidence and needs native review.
+
+Vocabulary references include the [Fijian-English dictionary](https://www.unitec.ac.nz/umisc/jmctest/fijian_english_dictionary/fijian_eng_dict.html)
+for begin and [UCLA's Tongan word list](https://archive.phonetics.ucla.edu/Language/TON/ton_word-list_1984_01.html)
+for again. These support individual words, not validation of complete phrases.
+
+The existing popup-error suite now checks this translation in 32 recently filled
+locales and passes its positive and negative login-boundary cases. All-locale
+structural and human-preference checks pass. Browser scenarios were not run; the
+app stack was unavailable. 34 locale paths still need this message. The snapshot
+remains 51,575 ordinary missing values plus 182 pending keys; broader language
+review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

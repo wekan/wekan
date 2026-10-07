@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "هاد الإيميل راه تصيفط من قبل، ولا كانت محاولة باش يتصيفط، ولا تحيد.",
   "rule-email-legacy-not-legacy": "هاد الإيميل راه تعاود تربط من قبل.",
   "rule-email-legacy-failed": "ما قدرناش نكملو هاد العملية. حدّث الصفحة وعاود جرّب.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "هاد الدخول بـ SAML ما تبداش فهاد التبويبة ديال المتصفح. عافاك عاود دخل.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

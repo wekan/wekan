@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Imeeliin kun duraan ergameera, erguun yaalameera yookaan gatameera.",
   "rule-email-legacy-not-legacy": "Imeeliin kun duraan deebi'ee hidhameera.",
   "rule-email-legacy-failed": "Gocha kana xumuruun hin danda'amne. Fuula haaromsiitii irra deebi'ii yaali.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Seensi SAML kun caancala biraawzarii kana keessatti hin jalqabamne. Maaloo irra deebiʼii seeni.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

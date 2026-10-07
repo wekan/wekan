@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Imeyili leyi yi rhumeriwile se, ku ringetiwile ku yi rhumela, kumbe yi lahliwile.",
   "rule-email-legacy-not-legacy": "Imeyili leyi yi hlanganisiwile nakambe se.",
   "rule-email-legacy-failed": "Xiendlo lexi a xi kotanga ku hetiwa. Pfuxeta tluka kutani u ringeta nakambe.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Ku nghena loku hi SAML a ku sunguriwanga eka thebhu leyi ya burawuza. Hi kombela u nghena nakambe.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",
