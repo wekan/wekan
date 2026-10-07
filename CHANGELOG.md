@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2d7f4743da66abae03fad57504489147e4e0186b">Correct 26 mixed-language Akan result and scheduling messages.</a></summary>
+
+- Rewrite search results, missing-data guidance and scheduling text. Preserve count tokens, missing-only restoration and distinct scheduling states.
+- Add source-token, count and state regression checks. Wording remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
+- Validation: 99 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e2c0cb513d9b3d7574ba1933964d17d854a285af">Correct 25 mixed-language Akan view and customization labels.</a></summary>
 
 - Rewrite view, attachment and customization text. Align matching titles and preserve visibility scope and technical filenames.
