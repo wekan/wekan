@@ -1889,6 +1889,22 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/279fbe4c5eef0286626fe31aa53a5841f3ca608f">Translate Oromo, Fijian and Tongan notification settings</a>. Thanks to xet7.</summary>
+
+- Fill 39 English placeholders while preserving existing translations.
+  Distinguish members from assigned workers and retain the reminder and
+  @mention exception when activity categories are muted.
+- Extend shared feature coverage to 32 locales. Feature, locale structure
+  and human-preference checks pass. Browser mute/unmute scenarios check
+  all new strings; syntax checks pass, but browser execution was unavailable.
+  Provisional technical wording is documented for speaker review.
+- These values belong to pending source keys, so the standard 51,575-value
+  backlog is unchanged. Other languages and the broader audit remain open
+  in TODO Later.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e656bc76aa9db465990a0927c4a81287f3939924">Translate Northern Sotho and Tsonga notification settings</a>. Thanks to xet7.</summary>
 
 - Fill 26 English placeholders while preserving existing translations.
