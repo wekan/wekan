@@ -6497,6 +6497,12 @@ Corrected 21 mixed-language search keywords containing the `Toksave:` prefix. So
 
 Validation: 75 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
 
+## Tok Pisin colour wording audit
+
+Corrected all 25 colour labels containing the `Toksave:` prefix. Basic terms blak, blu, grin, ret, wait and yelo are supported by the [Tok Pisin dictionary colour entries](https://www.tokpisin.info/tag/colours-kala-tok-pisin/). Less common shades use distinct descriptive phrases; these approximations are low confidence and need fluent-speaker and visual review. Tests preserve source tokens and distinguish the 25 labels, but cannot prove perceptual colour accuracy. Existing correct-language values remain unchanged. The prefix inventory falls from 52 to 27; unprefixed values also need review. Browser and screen-reader checks were not run.
+
+Validation: 76 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

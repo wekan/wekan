@@ -689,3 +689,20 @@ test('Tok Pisin repaired search operators are registered and do not collide',()=
  assert.equal(data['predicate-quarter'],'tripelamun');
  assert.equal(data['operator-assignee'],data['predicate-assignee']);
 });
+
+test('Tok Pisin colour labels replace English prefixes without merging shades',()=>{
+ const keys=Object.keys(english).filter(k=>k.startsWith('color-'));
+ assert.equal(keys.length,25);
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.doesNotMatch(data[key],/Toksave:/,key);
+  assert.notEqual(data[key],english[key],key);
+ }
+ assert.equal(new Set(keys.map(k=>data[k])).size,keys.length);
+ for(const [name,value] of Object.entries({black:'blak',blue:'blu',green:'grin',red:'ret',white:'wait',yellow:'yelo'})) assert.equal(data['color-'+name],value);
+ assert.match(data['color-darkgreen'],/grin i tudak/);
+ assert.match(data['color-lime'],/grin i lait/);
+ assert.match(data['color-navy'],/blu i tudak/);
+ assert.match(data['color-sky'],/skai/);
+ assert.match(data['color-gray'],/blak.*wait/);
+});
