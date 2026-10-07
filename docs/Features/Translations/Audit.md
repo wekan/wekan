@@ -943,6 +943,27 @@ people-category distinctions and the reminder/mention exception pass,
 together with all-locale structure and human-preference checks. The Fulfulde
 browser mute/unmute scenario is syntax-checked only; it was not executed.
 
+## Volapük notification preferences — 2026-10-07
+
+Filled 13 English placeholders in Volapük (`vo`) and replaced the Esperanto
+member label Membroj with Limans. Other existing translations are preserved.
+The keys remain pending elsewhere; the standard backlog remains 51,575
+values and 201 pending source keys.
+
+[Midgley's dictionary](https://paperzz.com/doc/7911017/pdf-format---volap%C3%BCk.com)
+supplies liman (human member), klok (bell), memön (remember) and ai (always).
+The reminder wording uses a causative derivation from remember. Existing
+category terminology supplies the other labels. These are direct translations
+without a translation service. Full clauses and technical compounds remain
+low confidence pending speaker review; dictionary roots do not certify
+modern software terminology. Broader wrong-language review remains open.
+
+Shared notification checks now cover 57 locales. Exact tokens, source order,
+people-category distinctions, the corrected member label and the reminder/
+mention exception pass, together with all-locale structure and human-preference
+checks. The Volapük browser mute/unmute scenario is syntax-checked only;
+it was not executed.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
