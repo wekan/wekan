@@ -5141,6 +5141,12 @@ mixed-language audit remains open.
 - Preserved CPU, OTP, IP versions, XmR and percent notation. Added shared-label, no-active-work and identifier checks; the number search alias is a single token.
 - Statistical moving-range, confidence and server terminology remains provisional and needs technical-language review. English-placeholder counts are unchanged. Color/date labels and recognizable shared terms still need separate review; browser checks were not run.
 
+### Waray wrong-language audit: colors and date-format labels
+
+- Corrected 15 values: eleven French/Walloon color names, three French date-format labels and an incomplete ISO-week calendar label. Retained the actual YYYY/MM/DD format notation and added Waray component names in the correct order.
+- Read the date-format options in `client/components/settings/settingBody.jade`: the stored option values are independent of their translated display labels. Added component-order, ISO-week and color-family checks.
+- Fine color distinctions and descriptive color wording remain low confidence and need visual/fluent-speaker review. English-placeholder counts are unchanged. Browser checks were not run; valid shared terms and further semantic review remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

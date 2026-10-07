@@ -1237,7 +1237,22 @@ const correctedKeys = [
   "flow-confidence",
   "flow-mean",
   "flow-moving-range",
-  "flow-mr-mean"
+  "flow-mr-mean",
+  "calendar-system-iso8601",
+  "color-indigo",
+  "color-lime",
+  "color-magenta",
+  "color-mistyrose",
+  "color-navy",
+  "color-orange",
+  "color-paleturquoise",
+  "color-plum",
+  "color-saddlebrown",
+  "color-sky",
+  "color-slateblue",
+  "date-format-yyyy-mm-dd",
+  "date-format-dd-mm-yyyy",
+  "date-format-mm-dd-yyyy"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -1476,6 +1491,13 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   assert.match(waray['problems-none-in-progress'], /^Waray nagpapadayon/);
   assert.match(waray['no-new-problems'], /^Waray bag-o/);
   assert.equal(waray['operator-number'], 'numero');
+  for (const [pattern, order] of [['YYYY-MM-DD', 'tuig-bulan-adlaw'], ['DD-MM-YYYY', 'adlaw-bulan-tuig'], ['MM-DD-YYYY', 'bulan-adlaw-tuig']]) {
+    assert.equal(waray['date-format-' + pattern.toLowerCase()], `${pattern} (${order})`);
+  }
+  assert.match(waray['calendar-system-iso8601'], /Gregoriano.*semana.*ISO 8601/);
+  assert.match(waray['color-navy'], /madulom.*asul/);
+  assert.match(waray['color-lime'], /masanag.*berde/);
+  assert.match(waray['color-paleturquoise'], /mapusyaw.*asul-berde/);
   const statistics = ['AVERAGE', 'MEDIAN', 'MODE', 'STD_DEV', 'SUM'].map(s => waray['blockly-MATH_ONLIST_OPERATOR_' + s]);
   assert.equal(new Set(statistics).size, statistics.length);
   assert.match(waray['blockly-MATH_ONLIST_TOOLTIP_MODE'], /lista han mga butang/);
