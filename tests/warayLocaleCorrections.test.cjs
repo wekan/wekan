@@ -422,7 +422,36 @@ const correctedKeys = [
   "blockly-LISTS_SET_INDEX_TOOLTIP_SET_FROM",
   "blockly-LISTS_SET_INDEX_TOOLTIP_SET_LAST",
   "blockly-LISTS_SET_INDEX_TOOLTIP_SET_RANDOM",
-  "blockly-LISTS_SORT_ORDER_ASCENDING"
+  "blockly-LISTS_SORT_ORDER_ASCENDING",
+  "blockly-LISTS_SORT_ORDER_DESCENDING",
+  "blockly-LISTS_SORT_TITLE",
+  "blockly-LISTS_SORT_TOOLTIP",
+  "blockly-LISTS_SORT_TYPE_IGNORECASE",
+  "blockly-LISTS_SORT_TYPE_NUMERIC",
+  "blockly-LISTS_SORT_TYPE_TEXT",
+  "blockly-LISTS_SPLIT_LIST_FROM_TEXT",
+  "blockly-LISTS_SPLIT_TEXT_FROM_LIST",
+  "blockly-LISTS_SPLIT_TOOLTIP_JOIN",
+  "blockly-LISTS_SPLIT_TOOLTIP_SPLIT",
+  "blockly-LISTS_SPLIT_WITH_DELIMITER",
+  "blockly-LOGIC_BOOLEAN_FALSE",
+  "blockly-LOGIC_BOOLEAN_TOOLTIP",
+  "blockly-LOGIC_BOOLEAN_TRUE",
+  "blockly-LOGIC_COMPARE_EQ_ARIA",
+  "blockly-LOGIC_COMPARE_GTE_ARIA",
+  "blockly-LOGIC_COMPARE_GT_ARIA",
+  "blockly-LOGIC_COMPARE_LTE_ARIA",
+  "blockly-LOGIC_COMPARE_LT_ARIA",
+  "blockly-LOGIC_COMPARE_NEQ_ARIA",
+  "blockly-LOGIC_COMPARE_TOOLTIP_EQ",
+  "blockly-LOGIC_COMPARE_TOOLTIP_GT",
+  "blockly-LOGIC_COMPARE_TOOLTIP_GTE",
+  "blockly-LOGIC_COMPARE_TOOLTIP_LT",
+  "blockly-LOGIC_COMPARE_TOOLTIP_LTE",
+  "blockly-LOGIC_COMPARE_TOOLTIP_NEQ",
+  "blockly-LOGIC_NEGATE_TITLE",
+  "blockly-LOGIC_NEGATE_TOOLTIP",
+  "blockly-LOGIC_NULL_TOOLTIP"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -503,6 +532,13 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   assert.match(waray['blockly-LISTS_INDEX_OF_TOOLTIP'], /%1 kon waray mabilngi/);
   assert.match(waray['blockly-LISTS_REVERSE_TOOLTIP'], /kopya han lista/);
   assert.match(waray['blockly-LISTS_GET_SUBLIST_TOOLTIP'], /kopya/);
+  assert.match(waray['blockly-LISTS_SORT_TOOLTIP'], /kopya/);
+  for (const comparison of ['GT', 'LT']) {
+    assert.doesNotMatch(waray['blockly-LOGIC_COMPARE_' + comparison + '_ARIA'], /katugbang/);
+    assert.match(waray['blockly-LOGIC_COMPARE_' + comparison + 'E_ARIA'], /o katugbang/);
+  }
+  assert.match(waray['blockly-LOGIC_NEGATE_TOOLTIP'], /tinuod kon diri tinuod.*diri tinuod kon tinuod/);
+  assert.notEqual(waray['blockly-LISTS_SORT_ORDER_ASCENDING'], waray['blockly-LISTS_SORT_ORDER_DESCENDING']);
   for (const position of ['FIRST', 'FROM', 'LAST', 'RANDOM']) {
     const prefix = 'blockly-LISTS_SET_INDEX_TOOLTIP_';
     assert.notEqual(waray[prefix + 'INSERT_' + position], waray[prefix + 'SET_' + position]);

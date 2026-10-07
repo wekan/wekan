@@ -5017,6 +5017,12 @@ mixed-language audit remains open.
 - Retained the not-found return value, copy semantics of sublist/reversal operations, and distinctions between insertion and changing an existing value. First/last and counting from the end remain separate.
 - Extended token, missing-result, copy and operation checks. Index terminology and ascending-order phrasing remain provisional, particularly for nonnumeric sorting. Browser and spoken accessibility checks remain unexecuted; contextual language review remains open.
 
+### Waray Blockly sorting, text/list conversion and comparisons
+
+- Filled 29 English placeholders through the protected workflow, covering sorting, split/join, booleans, comparison announcements/tooltips, negation and the null tooltip. Preserved numbered arguments, keyboard/platform names and the programming literal `null`.
+- Retained sorting a copy, case-insensitive versus ordinary alphabetic ordering, strict versus inclusive comparisons and both branches of boolean negation. Split and join retain delimiter semantics.
+- Extended token, copy, comparison-boundary, sort-direction and negation checks. Delimiter, ordering and comparison phrasing remains provisional and needs contextual review. Browser and spoken accessibility checks remain unexecuted.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
