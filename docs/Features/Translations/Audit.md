@@ -7103,6 +7103,19 @@ Tests check source key order, tokens and representative opened-card wording,
 including rejection of known wrong-language prefixes. Browser and
 screen-reader checks were not run; tests do not establish linguistic fluency.
 
+### Missing due-date shortcut: eight further languages
+
+Added the shortcut in Acehnese, Aymara, Fulah, Greenlandic, Nahuatl,
+Neapolitan, Volapük and Klingon. Existing values remain unchanged; source
+key order and token inventories are checked. These additions are low
+confidence pending fluent review. Tests check representative opened-card
+wording, not grammatical fluency. Browser and screen-reader checks were not run.
+
+Vocabulary references: [Acehnese thesaurus](https://fileserver-az.core.ac.uk/download/160609809.pdf),
+[Volapük dictionary](https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary),
+[Klingon dictionary](https://klingonska.org/dict/). These support vocabulary,
+not certification of the composed sentences.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
