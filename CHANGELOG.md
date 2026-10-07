@@ -1890,6 +1890,21 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/876845a7212e4d42b9ddaed41da30478bc47498b">Translate due reminders into Bambara, Wolof and Ewe</a>. Thanks to xet7.</summary>
+
+- Fill 18 strings, preserving signed offsets, server defaults, integer bounds,
+  board disabling and outgoing webhook delivery. Complete instructions and technical
+  compounds remain low-confidence drafts for native review.
+- Translation checks and existing browser scenarios now cover 40 translated locales.
+  Translation, all-locale structural and human-preference checks pass; browser
+  scenarios were syntax-checked only because the app stack was unavailable.
+- 26 locale paths still need this reminder group. The ordinary backlog remains
+  51,575 values plus 188 pending source keys; wider language-quality review remains
+  in TODO Later.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6c1d3f0d4a3806c97db18ccbf3ba5fbe34f7fe16">Translate due reminders into Akan and Luganda</a>. Thanks to xet7.</summary>
 
 - Fill 12 strings, preserving signed offsets, server defaults, integer bounds,
