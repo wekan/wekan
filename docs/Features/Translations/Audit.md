@@ -3558,6 +3558,12 @@ Filled 10 English placeholders in `ve-PP` and `kl` with the protected fill utili
 
 Extended the translation/token regression and existing localized browser scenario to the two locales. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 6 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
 
+### History recovery: Nahuatl and Standard Moroccan Tamazight
+
+Filled 10 English placeholders in `nah` and `zgh` with the protected fill utility. The drafts distinguish undo/redo and retry/forget and retain the same-request explanation. References include [Nahuatl occeppa](https://nahuatl.wired-humanities.org/node/185251) and [ilcahua](https://gdn.iib.unam.mx/diccionario/ilcahua/179340), and [IRCAM published usage](https://biblio.ircam.ma/pmb/uploads/publications/376.pdf) of `ⴰⵙⵓⵜⵔ`. These support limited vocabulary, not the composed clauses. Nahuatl nominalizations and grammar, and Tamazight server/confirmation/undo terminology and dialect choices, remain low-confidence drafts for fluent-speaker review. Tifinagh script alone does not validate Standard Moroccan Tamazight wording. Unrelated Arabic and mixed-language seed labels remain part of the broader audit.
+
+Extended the translation/token regression and existing localized browser scenario to the two locales. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 4 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
