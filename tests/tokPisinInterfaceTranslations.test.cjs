@@ -1247,3 +1247,56 @@ test('Tok Pisin date labels distinguish due, end, received and spent time',()=>{
  assert.match(data['start-day-of-week'],/stat bilong wik/);
  for(const format of ['yyyy-mm-dd','dd-mm-yyyy','mm-dd-yyyy']) assert.equal(data['date-format-'+format],english['date-format-'+format]);
 });
+
+
+test('Tok Pisin movement messages preserve tokens and replace mixed English',()=>{
+ const keys=[
+  "move-card-up",
+  "move-card-down",
+  "move-list-left",
+  "move-list-right",
+  "copy-card-link-to-clipboard",
+  "copy-link-to-clipboard",
+  "copy-text-to-clipboard",
+  "copy-to-clipboard",
+  "copyManyCardsPopup-title",
+  "copyManyCardsPopup-instructions",
+  "copyManyCardsPopup-format",
+  "move-selection",
+  "copy-selection",
+  "moveCardToBottom-title",
+  "moveCardToTop-title",
+  "moveSelectionPopup-title",
+  "copySelectionPopup-title",
+  "move-all-attachments-to-fs",
+  "move-all-attachments-of-board-to-fs",
+  "move-attachments-none-found",
+  "convert-to-markdown",
+  "converting-board",
+  "converting-board-description",
+  "move-reason"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.doesNotMatch(data[key],/Destination|Titles|Descriptions|selection|Bottom|Top|Nothing is|Converting|improved functionality/,key);
+ }
+});
+
+test('Tok Pisin movement controls retain directions, selection and valid JSON examples',()=>{
+ assert.match(data['move-card-up'],/antap$/);
+ assert.match(data['move-card-down'],/daun$/);
+ assert.match(data['move-list-left'],/han kais$/);
+ assert.match(data['move-list-right'],/han sut$/);
+ assert.match(data['moveCardToBottom-title'],/daun tru$/);
+ assert.match(data['moveCardToTop-title'],/antap tru$/);
+ assert.equal(data['move-selection'],data['moveSelectionPopup-title']);
+ assert.equal(data['copy-selection'],data['copySelectionPopup-title']);
+ assert.match(data['move-reason'],/i no mas putim/);
+ assert.match(data['move-attachments-none-found'],/no gat samting.*sos.*no gat samting bilong muvim/);
+ const example=JSON.parse(data['copyManyCardsPopup-format']);
+ assert.equal(example.length,3);
+ for(const card of example) assert.deepEqual(Object.keys(card),['title','description']);
+ assert.match(example[0].title,/fes/);
+ assert.match(example[1].title,/namba tu/);
+ assert.match(example[2].title,/las/);
+});

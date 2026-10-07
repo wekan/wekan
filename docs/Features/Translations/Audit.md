@@ -6575,6 +6575,12 @@ Corrected 19 mixed-language or ambiguous date/time messages, including distinct 
 
 Validation: 99 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
 
+## Tok Pisin movement and copy wording audit
+
+Corrected 24 mixed-language or incomplete copy, movement and conversion messages. Preserved source tokens and JSON field names while translating sample values. Tests parse the JSON example and verify directions, selected-item scope, absent source data and optional move reasons. Existing coherent nearby translations remain unchanged. Technical wording remains provisional pending fluent-speaker review; browser and screen-reader checks were not run.
+
+Validation: 101 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
