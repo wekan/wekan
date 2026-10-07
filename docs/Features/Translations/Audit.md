@@ -5225,6 +5225,12 @@ Filled 42 English placeholders covering variable reads/writes and name conflicts
 
 Regression checks cover all source placeholders, zero/one/many counts, leading spaces in comment fragments, keyboard shortcuts, opposite actions and shared labels. Variable/type and workspace terminology remains provisional. Browser rendering and spoken accessibility were not run.
 
+### Akan rule editing and Scrum planning
+
+Filled 54 English placeholders for block-rule editing, Scrum roles, backlog ordering, sprint controls, estimates and event planning. Corrected the existing generic activity-information phrase under `rules` to `Mmara`; the original value did not describe rules.
+
+Checks preserve source tokens, one-trigger/one-action restrictions, administrator permission, distinct start/close/cancel controls, minute units and shared board-view labels. Scrum roles, sprint and estimate terminology are descriptive and provisional. Browser checks were not run; string checks do not prove fluent wording.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
