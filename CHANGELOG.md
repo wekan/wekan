@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5cc289611b9bdfbf8b842d53efb8677637fbb7d1">Correct 24 mixed-language Akan permission and error messages.</a></summary>
+
+- Rewrite access descriptions, account errors and export labels. Preserve assigned-only visibility, read-only restrictions and the distinction between enabling deletion and deleting data.
+- Add source-token, restriction, disabled/missing-account and format-identifier checks. Role and soft-deletion wording remains provisional.
+- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
+- Validation: 61 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1bacb18aaa60a467fcce3aa05811ebc6dbe5a1ca">Correct 24 mixed-language Akan import and archive messages.</a></summary>
 
 - Rewrite activity logs, width notes, archive guidance and member mapping. Correct an anonymization title that referred to importing users.
