@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/088a3f1ef7f84bb16c704d85ce9ffa6d4de44b8a">Correct 60 Akan dependency, location and report labels.</a></summary>
+
+- Replace generic filler in navigation, completion, dependency relations, locations, reports and wait indicators. Restore Arial and API identifiers.
+- Add token, inverse-relation, first/last, identifier and shared-label checks. Geographic, dependency and animation wording remains provisional.
+- The exact generic-filler inventory decreases from 279 to 219. English placeholders remain 45,599 across 70 languages because these corrections replace non-English values.
+- Validation: 51 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/91f7a5eba0e68e9e88cfb985a0f1793c1539bc53">Correct 49 Akan search operators, predicates and errors.</a></summary>
 
 - Replace 34 generic fillers and 15 mixed-language or unusable search values. Restore short aliases and make translated title/attachment operators usable by the parser.
