@@ -1890,6 +1890,20 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/15af3c9f521bcee668f9f38405899115812f6b48">Translate rule-builder instructions in Inuktitut</a>. Thanks to xet7.</summary>
+
+- Fill seven strings in syllabics, preserving literal variables, any-trigger
+  behavior and ordered actions. Technical prose has lower confidence;
+  dialect, inflections and composed date fragments need native/UI review.
+- Translation checks now cover 63 recently filled locales. Runtime variable,
+  all-locale structural and human-preference checks pass. Browser scenarios were
+  not run; the app stack was unavailable.
+- 3 locale paths still need this group. The ordinary backlog remains 51,575 values
+  plus 181 pending source keys; broader language-quality review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/58c0d84d7ab78bcf1d8e17c256c1f5b99b178ffd">Translate rule-builder instructions in Standard Moroccan Tamazight</a>. Thanks to xet7.</summary>
 
 - Fill seven strings in Tifinagh, preserving literal variables, any-trigger
