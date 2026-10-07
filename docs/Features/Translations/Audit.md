@@ -2276,6 +2276,27 @@ not run; the app stack was unavailable. 41 locale paths still need this group.
 The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
 broader language-quality review remains open.
 
+### Rule-builder instructions — Northern Ndebele, Swati, Northern Sotho and Tsonga (2026-10-07)
+
+Filled seven pending strings in nd, ss, nso and ts (28 values), preserving existing
+translations and all literal variable expressions. No translation service was used.
+The text retains any-trigger behavior, ordered actions, username/email context and
+card-derived variables. Northern Ndebele and Swati prose has lower confidence;
+technical terms, noun agreement and composed date-condition fragments need native/UI
+review. The existing Swati swimlane label and Tsonga trigger label remain terminology
+review items; these new explanations use path and trigger-event descriptions.
+Swati vocabulary was cross-checked against the
+[Swati word list](https://www.polytranslator.com/dictionary/swati/), which lists
+indlela for way, and [published Swati prose](https://www.justice.gov.za/EQCact/legislation/2000-04-siswati.pdf).
+These sources support individual words, not the accuracy of the complete translations.
+
+The existing trigger-variable suite now checks 29 recently filled locales for
+source order and exact brace/underscore/percent tokens. Runtime matching,
+all-locale structural and human-preference checks pass. Browser scenarios were
+not run; the app stack was unavailable. 37 locale paths still need this group.
+The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
+broader language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
