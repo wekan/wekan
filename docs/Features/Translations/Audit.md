@@ -7412,6 +7412,15 @@ base 10 and e, and distinguish inverse functions and absolute value/negation.
 Technical trigonometry terminology remains low confidence pending fluent review.
 Browser and screen-reader checks were not run.
 
+### Bhojpuri workspace and function controls
+
+Filled 37 English placeholders for workspace navigation, variables, backpack actions,
+and function definitions and calls. Existing translations and source placeholders
+are preserved. Regression coverage checks the batch token inventories, return versus
+no-return descriptions, named invocations, disabled definitions and function-only
+return restrictions. Technical wording remains low confidence pending speaker review.
+Browser and screen-reader checks were not run; the broader language audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
