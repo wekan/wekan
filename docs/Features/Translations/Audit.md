@@ -5617,6 +5617,15 @@ Added token, value-direction and state checks. Wording remains low confidence
 pending fluent-speaker review; browser checks remain unrun. Placeholder counts
 are unchanged.
 
+## Akan status and count corrections (batch 50)
+
+Corrected 23 mixed-language or misleading status, count and permission labels.
+Preserved stopped/completed migration distinctions, read-assigned-only scope,
+compact timing uncertainty, count notation and batch bounds. WIP groups now
+names groups rather than enabling a limit. Added source-token, unit and scope
+checks. Wording remains low confidence pending fluent-speaker review; browser
+checks remain unrun. English-placeholder counts are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -899,3 +899,23 @@ test('Akan timing and completion messages preserve old/new values and timeout un
  assert.notEqual(data['editCardDueDatePopup-title'],data['editCardEndDatePopup-title']);
  assert.match(data['inactive-member'],/ɔnyɛ adwuma seesei/);
 });
+
+
+test('Akan status and count labels preserve units, limits and permission scope', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["invite-people-success", "mongodb-compact-running", "board-status", "board-status-cards-with-time", "admin-people-active-status", "backup-datetime", "migration-stopped", "migration-successful", "event-datetime", "show-card-counter-per-list", "read-only", "read-assigned-only", "edit-wip-limit", "enable-wip-limit", "badge-attachment-on-minicard", "checklist-count-on-minicard", "checklist-count", "attachment-count", "r-remove-value-from", "office-report-desc", "s3-force-path-style-description", "migration-batch-size-description", "wip-limit-groups"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.match(data['mongodb-compact-running'],/compact.*betumi.*simma/);
+ assert.equal(data['backup-datetime'],data['event-datetime']);
+ assert.match(data['migration-stopped'],/Wɔagyae/);
+ assert.match(data['migration-successful'],/awie yiye/);
+ assert.match(data['read-assigned-only'],/ahyɛ wo nsa nkutoo/);
+ assert.notEqual(data['read-only'],data['read-assigned-only']);
+ assert.match(data['enable-wip-limit'],/^Sɔ WIP/);
+ assert.match(data['wip-limit-groups'],/akuw$/);
+ for(const key of ['checklist-count','checklist-count-on-minicard']) assert.ok(data[key].includes('(0/0)'));
+ assert.match(data['migration-batch-size-description'],/kuw biara.*1-100/);
+ assert.match(data['office-report-desc'],/IPv4.*IPv6.*ɔman.*kurow.*mpɛn dodow/);
+ assert.match(data['s3-force-path-style-description'],/MinIO.*dodow no ara.*S3.*ɛnyɛ AWS/);
+ assert.match(data['show-card-counter-per-list'],/biara mu/);
+});
