@@ -280,6 +280,28 @@ human-preference and Greenlandic progress/calendar checks pass. The existing
 browser mutation scenario includes Greenlandic and is syntax-checked only;
 no browser execution was available in this environment.
 
+## Dzongkha archiving/date filters — 2026-10-07
+
+Filled 23 English placeholders in Dzongkha (`dz`). Comparison against the
+previous commit confirms that existing translated values are unchanged.
+The standard backlog falls by 20 to 51,675 values; three auto-archive values
+belong to separately tracked pending keys.
+
+The [Bhutan technology agency's time phrasebook](https://dnlp.tech.gov.bt/phrasebook/time)
+provides month/hour vocabulary. [The Grammar of Dzongkha](https://escholarship.org/content/qt1h4211k0/qt1h4211k0_noSplash_b3843a79888f78f39713ded5f61ad772.pdf?t=s10u2j)
+attests the hour term; existing catalog terminology supplies card/list/template
+labels. The messages use Dzongkha constructions rather than copying the
+Tibetan catalog. References support components, not full software sentences.
+Longer explanations remain low confidence pending speaker review, especially
+inclusive bounds, list age and quoting custom field names.
+
+The shared feature suite now covers 64 locales, checking exact placeholders,
+numbers and query examples. Dzongkha assertions distinguish past-week from
+next-month wording, preserve the negative rules and reject copying the
+Tibetan auto-archive hint. Feature, all-locale structure, human-preference
+and the Dzongkha progress suite pass. The browser mutation scenario includes
+Dzongkha and passes syntax checking only; it was not browser-executed.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
