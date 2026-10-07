@@ -2186,3 +2186,44 @@ test('Tok Pisin restore choices distinguish missing-only from full replacement',
  assert.match(data['cron-job-pause-failed'],/^I no inap.*malolo liklik/);
  assert.match(data['cron-job-resume-failed'],/^I no inap kirapim gen/);
 });
+
+
+test('Tok Pisin navigation and view labels replace mixed English and preserve tokens',()=>{
+ const keys=[
+  "comment-assigned-only-desc",
+  "read-assigned-only-desc",
+  "shortcut-toggle-searchbar",
+  "shortcut-toggle-sidebar",
+  "toggle-assignees",
+  "r-list-view",
+  "r-card-button",
+  "r-board-button",
+  "oidc-button-text",
+  "view-all",
+  "displayName",
+  "myCardsViewChange-title",
+  "myCardsViewChangePopup-title",
+  "dueCardsViewChange-title",
+  "dueCardsViewChangePopup-title",
+  "globalSearchViewChange-title",
+  "globalSearchViewChangePopup-title",
+  "display-card-creator",
+  "cards-loading-lazy"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:assigned|visible|Can|Toggle|Sidebar|assignees|order|addition|view|View|button|Customize|Display|My|Due|Creator|Lazy)\b/,key);
+ }
+});
+
+test('Tok Pisin view labels keep assigned-only restrictions and matching popup titles',()=>{
+ for(const role of ['comment','read']) assert.match(data[role+'-assigned-only-desc'],/kisim wok bilong ol tasol i kamap ples klia/);
+ assert.match(data['comment-assigned-only-desc'],/putim tok tasol/);
+ assert.match(data['read-assigned-only-desc'],/no inap senisim/);
+ for(const view of ['myCards','dueCards','globalSearch']) assert.equal(data[view+'ViewChange-title'],data[view+'ViewChangePopup-title']);
+ for(const bar of ['searchbar','sidebar']) assert.match(data['shortcut-toggle-'+bar],/^Soim o haitim/);
+ assert.match(data['toggle-assignees'],/^Putim o rausim.*1-9.*oda ol i kam insait long bot/);
+ assert.match(data['cards-loading-lazy'],/kat i kamap ples klia tasol$/);
+ assert.match(data['oidc-button-text'],/OIDC/);
+});
