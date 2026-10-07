@@ -1127,6 +1127,32 @@ coverage is syntax-checked only because its application stack is unavailable.
 These pending keys do not change the ordinary backlog of 51,575 values in 70
 languages or the 201 pending source keys. The broader task remains open.
 
+## Tigre notification preferences — 2026-10-07
+
+Filled the 13 `notification-activity-*` English placeholders in `tig` in Ethiopic
+script. Existing translations are preserved. The draft separates members from
+people assigned work and retains muting the activity while receiving reminders
+and @mentions.
+
+References: Omar M. Kekia's
+[Dehai Tigre grammar](https://www.speaktigre.com/_files/ugd/7e068a_d791dde4087041feaf3dedb6b109829c.pdf?index=true)
+provides `aw` for or and `dima` for always; Palmer's
+[Relative Clauses in Tigre](https://www.tandfonline.com/doi/pdf/10.1080/00437956.1961.11659745)
+identifies the relative marker `la`. Beurmann's
+[vocabulary and grammar sketch](https://www.speaktigre.com/_files/ugd/7e068a_a5fbea1fb5e544e69d94cab002762da2.pdf?index=true)
+was also inspected, but did not resolve modern UI compounds. These references
+support limited vocabulary/grammar, not the complete translation. The full
+batch, especially bell/reminder compounds, custom fields and passive inflection,
+is low-confidence and needs fluent Tigre review. Existing checklist and custom
+field labels show possible Tigrinya influence; a broader vocabulary audit remains
+necessary. Ethiopic script alone cannot distinguish these languages.
+
+Shared notification regression and registered browser scenarios now cover 65
+locales. Notification, all-locale structure/token and human-preference checks
+pass; browser coverage is syntax-checked only because its application stack is
+unavailable. The ordinary backlog remains 51,575 values in 70 languages plus 201
+pending source keys because this batch belongs to the pending group.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
