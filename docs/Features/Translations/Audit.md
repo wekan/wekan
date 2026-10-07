@@ -6682,6 +6682,21 @@ The combined translation run passes 122 checks. Two existing catalog checks fail
 on the missing due-date shortcut key. All 21 human-preference checks pass.
 Browser and screen-reader checks were not run. The wider audit remains open.
 
+## Tok Pisin S3 and Sandstorm wording audit
+
+Corrected 38 English or mixed-language storage strings. Restored literal
+files/attachments and files/avatars paths in migration help, retained AWS menu
+labels and hostname examples, and clarified that hiding a member in WeKan does
+not revoke Sandstorm access. Tests cover secret-key requirements, single-display
+warnings and enabled/disabled states. Technical wording remains provisional
+pending fluent-speaker review.
+
+The combined translation run passes 124 checks. Two existing catalog checks fail
+on the missing due-date shortcut key. All 21 human-preference checks pass.
+The counted English-placeholder inventory remains 42,838 across 70 languages;
+that report excludes pending source keys and mixed-language corrections.
+Browser and screen-reader checks were not run. The wider audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -1792,3 +1792,66 @@ test('Tok Pisin report descriptions retain scope, limits and configuration synta
  assert.match(data['accounts-lockout-user-locked'],/^Yusa i lok$/);
  assert.match(data['dueCards-noResults-description'],/no gat kat.*de bilong pinisim wok/);
 });
+
+
+test('Tok Pisin S3 and Sandstorm messages preserve source tokens and replace English prose',()=>{
+ const keys=[
+  "sandstorm-remove-member-warning",
+  "s3-file-id",
+  "s3-minio-storage-description",
+  "s3-force-path-style-description",
+  "sandstorm-migration-description",
+  "sandstorm-migration-status",
+  "sandstorm-migration-pending",
+  "sandstorm-raw-mongodb",
+  "sandstorm-delete-raw-mongodb",
+  "sandstorm-raw-mongodb-deleted",
+  "s3-endpoint-menu-path",
+  "s3-region-menu-path",
+  "s3-bucket-menu-path",
+  "s3-access-key-menu-path",
+  "s3-secret-key-menu-path",
+  "s3-disabled",
+  "s3-access-key",
+  "s3-access-key-description",
+  "s3-bucket",
+  "s3-bucket-description",
+  "s3-connection-failed",
+  "s3-connection-success",
+  "s3-enabled",
+  "s3-enabled-description",
+  "s3-endpoint",
+  "s3-endpoint-description",
+  "s3-minio-storage",
+  "s3-port",
+  "s3-port-description",
+  "s3-region",
+  "s3-secret-key",
+  "s3-secret-key-description",
+  "s3-secret-key-required",
+  "s3-settings-saved",
+  "s3-ssl-enabled",
+  "s3-ssl-enabled-description",
+  "s3-attachments",
+  "s3-size"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:Required|When|Disabled|Enabled|successful|successfully|authentication|migrated|freed|Shown)\b/,key);
+ }
+});
+
+test('Tok Pisin storage help preserves paths, external menu labels and access warnings',()=>{
+ const migration=data['sandstorm-migration-description'];
+ for(const literal of ['MongoDB 3','FerretDB v1 (SQLite)','files/attachments','files/avatars']) assert.ok(migration.includes(literal),literal);
+ assert.match(migration,/fes taim em i stat/);
+ assert.match(data['sandstorm-remove-member-warning'],/WeKan tasol.*no rausim rait.*Share access/);
+ for(const literal of ['Users','Security credentials','Access keys','Create access key','Application running outside AWS','Access key ID']) assert.ok(data['s3-access-key-menu-path'].includes(literal),literal);
+ for(const literal of ['Secret access key','Download .csv']) assert.ok(data['s3-secret-key-menu-path'].includes(literal),literal);
+ assert.match(data['s3-secret-key-menu-path'],/wanpela taim tasol/);
+ for(const literal of ['s3.amazonaws.com','minio.example.com']) assert.ok(data['s3-endpoint-description'].includes(literal),literal);
+ assert.match(data['s3-secret-key-required'],/^Yu mas putim/);
+ assert.match(data['s3-disabled'],/i no wok$/);
+ assert.match(data['s3-enabled'],/i wok$/);
+});
