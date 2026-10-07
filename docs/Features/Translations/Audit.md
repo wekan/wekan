@@ -7280,6 +7280,15 @@ content preservation, unchanged subcards, replacement reuse and limited review
 scope. Mapping and baseline terminology remains low confidence pending fluent
 review. Browser and screen-reader checks were not run.
 
+### Kurdish Sync omissions and run reports
+
+Filled 23 English placeholders for preview limits, source omissions, conversion,
+parser warnings and run history. Existing text is preserved. Tests check source
+tokens and key order, 100-entry/path limits, 20-run/30-day retention, hidden
+values and partial-change warnings. Parser, path and representation terminology
+remains low confidence pending fluent review. Browser and screen-reader checks
+were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
