@@ -6923,6 +6923,18 @@ The combined translation run passes 163 checks. Two existing catalog checks fail
 on the missing due-date shortcut key. All 21 human-preference checks pass.
 Browser and screen-reader checks were not run. The wider audit remains open.
 
+## Tok Pisin history and notification wording audit
+
+Corrected six mixed-language descriptions and status messages. Checks distinguish
+disabling activity recording from suppressing notifications while retaining
+recording, preserve avatar-export exclusions and default-off settings, and retain
+the minimum-administrator requirement. Wording remains provisional pending
+fluent-speaker review.
+
+The combined translation run passes 164 checks. Two existing catalog checks fail
+on the missing due-date shortcut key. All 21 human-preference checks pass.
+Browser and screen-reader checks were not run. The wider audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

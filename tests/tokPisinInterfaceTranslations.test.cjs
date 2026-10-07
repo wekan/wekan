@@ -2732,3 +2732,26 @@ test('Tok Pisin organization and board labels preserve tokens and consistent act
  assert.equal(data['org-sync-members-from-auth'],data['team-sync-members-from-auth']);
  assert.equal(data['board-backgrounds'],data['boardBackgrounds-title']);
 });
+
+
+test('Tok Pisin history and notification settings preserve tokens and exclusions',()=>{
+ const keys=[
+  "last-admin-desc",
+  "mongodb-compact-running",
+  "mongodb-compact-success",
+  "disable-export-avatars-description",
+  "disable-activities-description",
+  "disable-notifications-description"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:roles|because|least|Running|may|several|minutes|Collections|compacted|When|avatars|pictures|included|exporting|Usernames|other|still|exported|omitted|entries|recorded|shown|anywhere|history|sends|unless|suppressed)\b/,key);
+ }
+ assert.match(data['last-admin-desc'],/no inap senisim.*wanpela admin o moa/);
+ assert.match(data['disable-export-avatars-description'],/WeKan JSON na CSV.*nem bilong yusa na arapela data i go aut yet/);
+ assert.match(data['disable-activities-description'],/rekot bilong ol wok i no seiv.*no kamap.*no gat histori/);
+ assert.match(data['disable-notifications-description'],/wok inap gat rekot yet.*sapos yu no pasim dispela tu.*toksave tasol/);
+ for(const setting of ['export-avatars','activities','notifications']) assert.match(data['disable-'+setting+'-description'],/i no wok long stat\.$/);
+ assert.match(data['mongodb-compact-running'],/inap kisim sampela minit/);
+});
