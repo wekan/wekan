@@ -4478,6 +4478,12 @@ mixed-language audit remains open.
 - Both focused Node tests and 21 human-preference checks pass, including positive/negative drag-policy assertions. Extended localized heading and disable/re-enable persistence browser coverage. Browser syntax passes; execution remains unverified because Playwright is unavailable locally.
 - Ordinary placeholders decrease from 50,020 to 50,008 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## Board drag-permission label: six further locales (2026-10-07)
+
+- Filled `draggable` in Nahuatl, Wolaytta, Standard Moroccan Tamazight, Greenlandic, Inuktitut and Tigre. These labels remain low-confidence technical drafts requiring semantic review. The [Nahuatl dictionary](https://nahuatl.wired-humanities.org/content/tilana) supports the pull root `tilana`; this does not validate all wording.
+- Both focused Node tests and 21 human-preference checks pass, including positive/negative drag-policy assertions. Extended localized heading and disable/re-enable persistence browser coverage. Browser syntax passes; execution remains unverified because Playwright is unavailable locally.
+- Cherokee still has the English drag-permission label; its vocabulary lookup remains unfinished. Ordinary placeholders decrease from 50,008 to 50,002 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
