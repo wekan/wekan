@@ -1602,6 +1602,28 @@ browser scenarios were syntax-checked only because the app stack was unavailable
 15 locale paths still need this six-string group. The ordinary backlog remains
 51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
 
+### Due reminders — Kashmiri (2026-10-07)
+
+Filled six reminder strings in `ks`, using existing reminder and board terminology.
+Instructions retain comma-separated offsets, zero as the due day, positive days
+before and negative days after, the empty server-default setting, at most ten
+integers from -14 to 14, board disabling and outgoing webhook delivery.
+Only English placeholders were filled; no external translation service was used.
+Complete instructions and technical compounds remain low-confidence drafts for
+native review. Script checks do not establish fluency or right-to-left rendering.
+
+Vocabulary evidence: [`دٔہ`](https://en.wiktionary.org/wiki/%D8%AF%D9%94%DB%81)
+means ten; [Unicode's Kashmiri locale data](https://www.unicode.org/cldr/charts/42/summary/ks.html)
+uses `برونٹھ` for before in era labels. These references support individual terms,
+not the complete instructions or their inflections.
+
+Translation checks now cover 52 locales, including offset direction, defaults,
+bounds and source-token inventories. The existing browser scenario includes
+Kashmiri. Translation, all-locale structural and human-preference checks pass;
+browser scenarios were syntax-checked only because the app stack was unavailable.
+14 locale paths still need this six-string group. The ordinary backlog remains
+51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
