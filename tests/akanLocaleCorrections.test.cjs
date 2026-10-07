@@ -264,3 +264,20 @@ test('Akan migration confirmations preserve scope, limits and diagnostic quotes'
  for(const literal of ['Must be logged in','Loading, please wait']) assert.ok(data['problems-in-progress-help'].includes(literal));
  assert.match(data['migration-warning-text'],/bɛtoa so wɔ akyi/);
 });
+
+test('Akan import activities and archive guidance preserve targets and permission limits', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["act-importBoard", "act-importCard", "act-importList", "act-restoredCard", "activity-imported", "activity-imported-board", "no-boards-selected", "list-width-shared-note", "list-width-personal-note", "admin-desc", "attachment-delete-pop", "avatar-too-big", "card-archived", "board-archived", "card-comments-title", "card-delete-suggest-archive", "card-archive-suggest-cancel", "list-archive-suggest", "swimlane-archive-suggest", "userAnonymizePopup-title", "listWidthErrorPopup-title", "swimlaneHeightErrorPopup-title", "map-to-existing-user-desc", "map-to-existing-user-not-member"];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.ok(!/impanaat|restanaa|erranaa|\b(has|can|is|yet)\b/.test(data[key]),key);
+ }
+ for(const key of ['act-importCard','act-importList','act-restoredCard']) assert.match(data[key],/adwuma kwan __swimlane__.*bɔɔd __board__/);
+ assert.match(data['attachment-delete-pop'],/korakora.*Wuntumi nsan nyi/);
+ assert.match(data['card-delete-suggest-archive'],/woakora dwumadi kyerɛwtohɔ/);
+ for(const key of ['card-archive-suggest-cancel','list-archive-suggest','swimlane-archive-suggest']) assert.match(data[key],/asan.*Adekorabea.*akyiri yi/);
+ assert.match(data['avatar-too-big'],/ɛnsɛ sɛ ɛboro __size__/);
+ assert.match(data['map-to-existing-user-desc'],/rentumi mma hokwan a ɛboro/);
+ assert.match(data['userAnonymizePopup-title'],/akontaabu/);
+ assert.notEqual(data['list-width-shared-note'],data['list-width-personal-note']);
+});

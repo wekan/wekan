@@ -5345,6 +5345,12 @@ Rewrote 12 mixed-language values for migration confirmations, CPU limits, backgr
 
 Regression checks cover source tokens, continuation prompts, scopes, technical identifiers and quoted messages. Migration terminology remains descriptive and provisional. Browser checks were not run; the catalog still needs further language review.
 
+### Akan mixed-language correction: import activities and archive guidance
+
+Rewrote 24 malformed or mixed-language entries covering activity logs, list widths, archive/restore guidance, account anonymization and imported-user mapping. Corrected the anonymization popup title, which incorrectly referred to importing users, and preserved the no-extra-permissions condition when mapping an imported member.
+
+Tests compare all source placeholder inventories, activity targets, archive retention/restoration, size limits and mapping permissions. Mapping and administrative wording remains provisional. Browser checks were not run; broader semantic review continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
