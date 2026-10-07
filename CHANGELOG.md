@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **48,317 untranslated locale/string values in 70 languages**. It
+  report counts **48,302 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -1932,6 +1932,18 @@ snap.
 and updates the following translations:
 
 **Activity notifications** - choosing which card activity sends notifications.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1f4f00c8807477cf088a5924ec2c591a66686efb">Translate Inuktitut Blockly comment and accessibility labels.</a></summary>
+
+- Fill fifteen English placeholders while preserving source arguments and existing translations. Extend opposite-action regressions and translated comment-menu assertions.
+- Vocabulary references and low-confidence technical paraphrases are recorded in the translation audit. Full phrases, including conditional branches and input connections, still need semantic review.
+- Ordinary untranslated values decrease from 48,317 to 48,302 across 70 languages; 148 pending source keys and the broader language audit remain open.
+- Validation: 13 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/22a15f2b10963074e18384414d16031b70306682">Translate Greenlandic Blockly comment and accessibility controls.</a></summary>
