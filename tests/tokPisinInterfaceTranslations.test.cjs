@@ -2261,3 +2261,45 @@ test('Tok Pisin location results and assigned-only roles remain distinct',()=>{
  assert.match(data['submit-on-enter'],/^Seivim.*Enter$/);
  for(const type of ['CardActions','Swimlane','List']) assert.equal(data['set'+type+'ColorPopup-title'],'Makim wanpela kala');
 });
+
+
+test('Tok Pisin confirmation and connection help retains tokens without mixed English',()=>{
+ const keys=[
+  "smtp-port-description",
+  "smtp-tls-description",
+  "webhook-token",
+  "default-authentication-method",
+  "preview-pdf-not-supported",
+  "delete-avatar-confirm",
+  "comment-delete",
+  "confirm-subtask-delete-popup",
+  "confirm-checklist-delete-popup",
+  "confirm-checklist-item-delete-popup",
+  "leave-board-pop",
+  "duplicate-board-confirm",
+  "remove-domain-from-board",
+  "remove-team-from-table",
+  "remove-organization-from-board",
+  "accounts-lockout-confirm-unlock",
+  "accounts-lockout-confirm-unlock-all",
+  "migrations-description"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:uses|outgoing|emails|support|Authentication|Method|device|does|Try|want|duplicate|domain|unlock|locked|Run|Each|executed)\b/,key);
+ }
+});
+
+test('Tok Pisin confirmations preserve affected objects and single versus all-user scope',()=>{
+ assert.match(data['leave-board-pop'],/__boardTitle__.*olgeta kat long dispela bot/);
+ assert.match(data['accounts-lockout-confirm-unlock'],/dispela yusa\?$/);
+ assert.match(data['accounts-lockout-confirm-unlock-all'],/olgeta yusa i lok\?$/);
+ assert.match(data['confirm-checklist-delete-popup'],/dispela lis bilong sekim\?$/);
+ assert.match(data['confirm-checklist-item-delete-popup'],/dispela samting long lis bilong sekim\?$/);
+ assert.match(data['duplicate-board-confirm'],/mekim kopi bilong dispela bot/);
+ assert.match(data['preview-pdf-not-supported'],/no inap soim PDF.*kisim fail i kam daun/);
+ assert.match(data['smtp-port-description'],/SMTP.*imel i go aut/);
+ assert.match(data['smtp-tls-description'],/SMTP.*TLS/);
+ assert.match(data['webhook-token'],/sapos yu laik/);
+});

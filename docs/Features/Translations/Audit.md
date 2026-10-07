@@ -6800,6 +6800,17 @@ The combined translation run passes 142 checks. Two existing catalog checks fail
 on the missing due-date shortcut key. All 21 human-preference checks pass.
 Browser and screen-reader checks were not run. The wider audit remains open.
 
+## Tok Pisin confirmations and connection help wording audit
+
+Corrected 18 mixed-language confirmations and connection-help messages. Checks
+preserve affected objects, single versus all-user unlocking, board placeholders,
+optional authentication tokens, SMTP/TLS labels and PDF download fallback.
+Wording remains provisional pending fluent-speaker review.
+
+The combined translation run passes 144 checks. Two existing catalog checks fail
+on the missing due-date shortcut key. All 21 human-preference checks pass.
+Browser and screen-reader checks were not run. The wider audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
