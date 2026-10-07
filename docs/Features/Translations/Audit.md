@@ -3024,6 +3024,24 @@ Thirty-two locale paths still need this hint, so its source key remains pending.
 The ordinary backlog remains 51,575 values plus 172 pending source keys; broader
 language-quality work remains open.
 
+### Custom URL scheme hint — Venetian, Walloon and Aromanian (2026-10-07)
+
+Filled the hint in ve-CC, wa and rup through the placeholder-only merge, preserving
+existing translations. No translation service was used. Literal scheme identifiers,
+the empty default, registered-application behavior and permanent exclusion of the
+dangerous scheme examples are retained. Technical wording has lower confidence
+and needs native/UI review, especially Aromanian grammar and Walloon terminology.
+The [Walloon dictionary](https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf)
+supports the opening verb; it does not validate the complete software sentences.
+
+The allowlist suite now covers the hint in 37 recently filled locales. Exact
+identifier inventories, negative omission checks, source tokens and key order pass,
+as do parser/sanitizer tests, all-locale structure and 21 human-preference checks.
+Browser scenarios were syntax-checked but not run without the application stack.
+Twenty-nine locale paths still need this hint, so its source key remains pending.
+The ordinary backlog remains 51,575 values plus 172 pending source keys; broader
+language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

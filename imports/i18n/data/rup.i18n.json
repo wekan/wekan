@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "URL di ligãturã personalizatã ti agiutor",
   "text-below-custom-login-logo": "Text di ma njos di logo-lu personalizat ti intrari",
   "automatic-linked-url-schemes": "Esquemas di URL personalizados que deberían ser clicables automáticamente. Un esquema di URL por línea.",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Tu arãnduseala di ninti easti gol, di-aclo numa ligãturli di web shi di poștã electronicã pot s-hibã clicati. Cadhunã schemã di ligãturã tu listã, ca thunderlink icã onenote, dishcljidi programa înregistratã ti ea. javascript, data, vbscript shi schemili di-același soi nu s-fac nica oarã ligãturi.",
   "external-link-pattern": "Ligãtura automata cãtã un tracker di problemi din nafoarã",
   "external-link-pattern-description": "Leagã automat token-lu ca \"#1234\" aflat tu textul di carti cãtã un tracker di problemi din nafoarã. Alasã unã hãlicã goalã ti dizactivari.",
   "external-link-pattern-prefix": "Prefixul a token-lui",

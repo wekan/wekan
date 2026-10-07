@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "URL del hårdêye d' aidance da vosse",
   "text-below-custom-login-logo": "Tecse pa dzo l' logo d' elodjaedje da vosse",
   "automatic-linked-url-schemes": "Schêmas d' URL da vosse ki dvrént esse otomaticmint clitchåves. On schêma d' URL pa roye",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Vude å cminçmint, ça fwait ki seuls les loyéns do waibe et del emile sont clitchåves. Tchaeke sikinme di loyén el djivêye, come thunderlink ou onenote, droûve li programe eredjistré po lu. javascript, data, vbscript et les sikinmes pareys ni sont måy candjîs e loyéns.",
   "external-link-pattern": "Loyén otomatike viè on shuvleu di problinmes difoû",
   "external-link-pattern-description": "Loye otomatikmint les tokens come \"#1234\" trové dins l' tecse del cård a on shuvleu di problinmes difoû. Léyîz on tchamp vûde po dismete çoula.",
   "external-link-pattern-prefix": "Prefikse do token",

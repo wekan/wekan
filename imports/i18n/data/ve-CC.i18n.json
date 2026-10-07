@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "URL del łigamento de juto personałizà",
   "text-below-custom-login-logo": "Testo soto el logo de acesso personałizà",
   "automatic-linked-url-schemes": "Esquemas de URL personalizados que deberían ser clicables automáticamente. Un esquema de URL por línea.",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "De partensa el xe vodo, parciò se pol clicar soło sui cołegamenti web e de posta ełetrònega. Ogni schema de cołegamento inte ła lista, par esempio thunderlink o onenote, el verze el programa rejistrà par quel schema. javascript, data, vbscript e i schemi simiłi no vien mai trasformài in cołegamenti.",
   "external-link-pattern": "Vhuthihi ha u ḓidzudzanya na muṱoli wa thaidzo dza nnḓa",
   "external-link-pattern-description": "I ṱanganyisa nga hu ḓidzudzanyaho zwiga zwo fanaho na \"#1234\" zwi wanalaho kha maṅwalo a khadi na muṱoli wa thaidzo dza nnḓa. Siyani muvhundu muthihi u si na tshithu u itela u dzhia.",
   "external-link-pattern-prefix": "Themendulo ya tshiga",
