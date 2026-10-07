@@ -6057,6 +6057,19 @@ Browser checks were not run. Programming vocabulary for loops, variables and
 conditions remains low confidence pending fluent-speaker review. The remaining
 language and wording audit stays open.
 
+## Northern Sotho Blockly variables — 2026-10-07
+
+Filled 22 English placeholders without changing existing translations. Checks
+preserve every variable-message token, deletion counts, function-definition
+restrictions, rename-all scope, conflicting types and parameter names, getter
+versus setter controls and distinct colour/number/text types. The default item
+name matches the text-operation label.
+
+All 53 focused translation/structural tests and 21 human-preference checks pass.
+Browser checks were not run. Variable and parameter terminology remains low
+confidence pending fluent-speaker review. Remaining Blockly and all-language
+wording work stays open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

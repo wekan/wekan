@@ -83,3 +83,20 @@ test('Northern Sotho Blockly loops retain continuation and boolean conditions',(
  assert.equal(data['blockly-CONTROLS_IF_IF_TITLE_IF'],data['blockly-CONTROLS_IF_MSG_IF']);
  for(const kind of ['FOREACH','FOR','WHILEUNTIL']) assert.equal(data['blockly-CONTROLS_'+kind+'_INPUT_DO'],data['blockly-CONTROLS_REPEAT_INPUT_DO']);
 });
+
+test('Northern Sotho Blockly variable controls preserve names, counts and definition restrictions',()=>{
+ const keys=Object.keys(english).filter(k=>k.startsWith('blockly-')&&k.includes('VARIABLE'));
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  if(!key.endsWith('_HELPURL')&&!key.endsWith('_HUE')) assert.notEqual(data[key],english[key],key);
+ }
+ assert.match(data['blockly-CANNOT_DELETE_VARIABLE_PROCEDURE'],/Ga go kgonege.*'%1'.*tlhaloso ya mošomo.*'%2'/);
+ assert.match(data['blockly-DELETE_VARIABLE_CONFIRMATION'],/ditšhomišo tše %1.*'%2'/);
+ assert.match(data['blockly-RENAME_VARIABLE_TITLE'],/ka moka.*'%1'/);
+ assert.match(data['blockly-VARIABLE_ALREADY_EXISTS_FOR_ANOTHER_TYPE'],/'%1'.*mohuta wo mongwe: '%2'/);
+ assert.match(data['blockly-VARIABLE_ALREADY_EXISTS_FOR_A_PARAMETER'],/'%1'.*pharamitha.*'%2'/);
+ assert.match(data['blockly-VARIABLES_SET'],/%1.*%2/);
+ assert.notEqual(data['blockly-VARIABLES_GET_CREATE_SET'],data['blockly-VARIABLES_SET_CREATE_GET']);
+ assert.equal(data['blockly-VARIABLES_DEFAULT_NAME'],data['blockly-TEXT_APPEND_VARIABLE']);
+ assert.equal(new Set(['COLOUR','NUMBER','STRING'].map(s=>data['blockly-NEW_'+s+'_VARIABLE'])).size,3);
+});
