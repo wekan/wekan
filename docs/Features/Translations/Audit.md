@@ -3516,6 +3516,12 @@ Filled 15 English placeholders in `bua`, `cv` and `sah` with the protected fill 
 
 Extended the translation/token regression and existing localized browser scenario to the three locales. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 25 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
 
+### History recovery: Tibetan, Dzongkha and Tigrinya
+
+Filled 15 English placeholders in `bo`, `dz` and `ti` with the protected fill utility. The drafts distinguish undo/redo and retry/forget and retain the same-request explanation. References include [Wisconsin's Tibetan software guidance](https://hr.wisc.edu/docs/cls/whatsapp-best-practices-tibetan.pdf) for confirmation phrasing and [Geez Experience's Tigrinya dictionary](https://www.geezexperience.com/?dr=0&searchkey=forget) for forgetting vocabulary. The [Dzongkha Development Commission dictionary](https://www.dzongkha.gov.bt/dz/publications/title/english-dzongkha-pocket-dictionary) was located, but its PDF fetch timed out, so it does not verify the drafted terms. Full clauses, undo/redo wording and Dzongkha technical terminology remain low-confidence drafts for fluent-speaker review. Shared script does not establish that Tibetan and Dzongkha wording is interchangeable.
+
+Extended the translation/token regression and existing localized browser scenario to the three locales. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 22 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
