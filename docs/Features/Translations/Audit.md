@@ -4841,6 +4841,13 @@ mixed-language audit remains open.
 - Low confidence: corner is used for angle, dropdown is paraphrased as a downward list, and grid adds boxes. Pixel is a loan; entry and duty/function may need more specific programming terms. Inflections, noun phrases and regional usage remain provisional. Tigrinya search results were not used as Tigre evidence.
 - Extended token/type distinctions and added a calendar-date correction regression. Existing browser coverage is registered but unexecuted; spoken announcements, the 148 pending source keys and the broader semantic audit remain open.
 
+### Wolaytta field types and control filler
+
+- Filled ten English field-type placeholders through the protected fill and replaced three prefixed-English checkbox, dropdown and text controls. The angle label remains untranslated pending usable vocabulary evidence.
+- References: the [Wolayttatto teaching material](https://camaraethiopia.org.et/SNNPR/moe/content/SNE_TB/Sign%20Language%20G1-12/03-Wolayitato-Books-Sign-Language/07-HD-ESL-G7-SB.pdf) uses picture and paint vocabulary; [Lamberti and Sottile](https://dokumen.pub/the-wolaytta-language.html) document writing, entering and opening roots. Existing catalog vocabulary supplies list, name, date and work terms. These references do not attest the full technical phrases.
+- Low confidence: color uses paint vocabulary, date uses day, input uses entering and function uses ordinary work. Checkbox describes a box for marking; grid dropdown adds boxes to a list opening downward. Pixel is a loan. Orthography, compounds and grammatical endings need review; prefixed-English filler was not treated as a protected translation.
+- Added token/type distinction checks and exact correction regressions. Existing browser coverage remains registered but unexecuted. Angle, spoken announcements, the 148 pending source keys and the broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

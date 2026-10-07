@@ -125,6 +125,21 @@ test('Tigre date controls use calendar-date vocabulary',()=>{
  assert.equal(tig['blockly-ARIA_TYPE_FIELD_DATE'],tig['custom-field-date']);
 });
 
+test('Wolaytta field labels replace English filler and preserve source tokens',async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const wal=require('../imports/i18n/data/wal.i18n.json');
+ for(const name of 'BITMAP CHECKBOX COLOUR DATE DROPDOWN GRID IMAGE INPUT TEXT_INPUT_ARGUMENT TEXT_INPUT_PROCEDURE'.split(' ')){
+  const key='blockly-ARIA_TYPE_FIELD_'+name;
+  assert(wal[key].trim());
+  assert.notEqual(wal[key],english[key]);
+  assert.deepEqual(translationTokens(wal[key]),translationTokens(english[key]));
+ }
+ for(const [left,right] of [['BITMAP','IMAGE'],['GRID','DROPDOWN'],['INPUT','TEXT_INPUT_ARGUMENT'],['TEXT_INPUT_ARGUMENT','TEXT_INPUT_PROCEDURE']]) assert.notEqual(wal['blockly-ARIA_TYPE_FIELD_'+left],wal['blockly-ARIA_TYPE_FIELD_'+right]);
+ assert.equal(wal['custom-field-checkbox'],'Malaata wottiyo saaxiniyaa');
+ assert.equal(wal['custom-field-dropdown'],'Duge dooyettiya mazgabaa');
+ assert.equal(wal['custom-field-text'],'Xaafetta');
+});
+
 test('filled field types distinguish images, selectors and input names', async()=>{
  const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
  const names='ANGLE BITMAP CHECKBOX COLOUR DATE DROPDOWN GRID IMAGE INPUT TEXT_INPUT_ARGUMENT TEXT_INPUT_PROCEDURE'.split(' ');
