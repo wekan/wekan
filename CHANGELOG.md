@@ -1890,6 +1890,17 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f5990d89ac508365cb00232c636a3342d7ce3bc7">Translate multiple-parent controls in seven more locales</a></summary>
+
+- Filled 21 placeholders in Kurdish, Sorani, Tatar, Turkmen, Yiddish, Somali and Chichewa. The removal label describes ending a parent relationship; provisional technical wording is documented in the translation audit.
+- Extended locale and browser coverage, including preservation of both parent cards. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
+- These controls remain English in 59 locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/399d8787fb81e5205f7272f8a95b4ee1d65f0436">Fill Wolaytta map strings and verify map-view coverage across all locales</a></summary>
 
 - Filled seven Wolaytta placeholders. All seven map-view keys now have non-English values in all 234 non-English locales; low-confidence wording and further language review remain documented in the translation audit.
