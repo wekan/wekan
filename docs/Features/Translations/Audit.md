@@ -986,6 +986,30 @@ syntax-checked because the application/browser stack is unavailable. These are
 pending source keys, so the ordinary backlog remains 51,575 values in 70 languages
 plus 201 separately tracked pending source keys. This does not complete the goal.
 
+## Greenlandic notification preferences — 2026-10-07
+
+Filled the 13 `notification-activity-*` placeholders in `kl`, using the locale's
+existing card, list, lane, member, assignee, label and attachment terminology.
+The description preserves the uncheck action, bell/email channels and continued
+delivery of due-date reminders and @mentions. No existing translation was replaced.
+
+References: [Greenlandic dictionary portal](https://ordbog.gl/) and
+[Chicago/Oqaasileriffik dictionary](https://daka.gl/2018-kal-eng/) were consulted,
+but their dynamic entry display did not expose the requested definitions in this
+session. Bell vocabulary is supported by the bilingual
+[Inatsisartut bell description](https://www.inatsisartut.gl/media/wevg0ao2/d-inatsisartut-website-inatsisartutgl-media-35028-rundvisning-i-inatsisartut-kl_da_en-a5-web-4.pdf).
+Deadline terminology is attested in
+[Inatsisartut consultation instructions](https://ina.gl/gl/allagaatit/nutaarsiassat/inatsisissatut-siunnersuut-inatsisartut-siulittaasoqarfiat-sinnerlugu-tusarniaatigineqarpoq/).
+These sources support vocabulary rather than the complete translation. The full
+description and technical compounds, especially custom-field values and swimlanes,
+remain low-confidence and need fluent-speaker review.
+
+Shared notification tests and registered browser scenarios now cover 59 locales.
+Notification, all-locale structure/token and human-preference checks pass; browser
+coverage is syntax-checked only because its application stack is unavailable.
+These pending keys do not change the ordinary backlog of 51,575 values in 70
+languages or the 201 separately tracked pending source keys. Work remains.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
