@@ -5049,6 +5049,12 @@ mixed-language audit remains open.
 - Kept degree/radian distinctions, inverse operations, return/no-return functions, disabled-definition restrictions and rename-all scope explicit. Added regression assertions for those distinctions alongside the existing token inventory checks.
 - Trigonometric loanwords, inverse-function wording and programming metaphors remain low confidence. Dictionary searches did not establish standard Waray trigonometric terminology; these proposed terms require fluent mathematical review. Browser and spoken accessibility checks were not run.
 
+### Waray Blockly screen-reader and navigation shortcuts
+
+- Filled 42 English placeholders through the protected workflow, covering screen-reader mode, directional movement and scrolling, stack navigation, focus, announcements and editing shortcuts. Preserved shortcut arguments and explicit on/off state transitions.
+- Kept scrolling the visible area distinct from moving a block, and retained start/end, first/last, previous/next and top/bottom distinctions. Added direction, state-transition and opposite-action regression checks alongside placeholder comparisons.
+- Screen-reader, focus and stack terminology remains provisional and needs contextual accessibility review. Browser and spoken screen-reader checks were not run; automated checks do not establish linguistic fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

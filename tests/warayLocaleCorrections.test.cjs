@@ -582,7 +582,49 @@ const correctedKeys = [
   "blockly-REMOVE_FROM_BACKPACK",
   "blockly-RENAME_VARIABLE",
   "blockly-RENAME_VARIABLE_TITLE",
-  "blockly-RESET_ZOOM"
+  "blockly-RESET_ZOOM",
+  "blockly-SCREENREADER_HINT",
+  "blockly-SCREENREADER_MODE_DISABLED",
+  "blockly-SCREENREADER_MODE_ENABLED",
+  "blockly-SHORTCUTS_ABORT_MOVE",
+  "blockly-SHORTCUTS_CLEANUP",
+  "blockly-SHORTCUTS_CODE_NAVIGATION",
+  "blockly-SHORTCUTS_DISCONNECT",
+  "blockly-SHORTCUTS_DUPLICATE",
+  "blockly-SHORTCUTS_EDITING",
+  "blockly-SHORTCUTS_ESCAPE",
+  "blockly-SHORTCUTS_EXTENDED_INFORMATION",
+  "blockly-SHORTCUTS_FINISH_MOVE",
+  "blockly-SHORTCUTS_FOCUS_TOOLBOX",
+  "blockly-SHORTCUTS_FOCUS_WORKSPACE",
+  "blockly-SHORTCUTS_GENERAL",
+  "blockly-SHORTCUTS_INFORMATION",
+  "blockly-SHORTCUTS_JUMP_BLOCK_END",
+  "blockly-SHORTCUTS_JUMP_BLOCK_START",
+  "blockly-SHORTCUTS_JUMP_BOTTOM_STACK",
+  "blockly-SHORTCUTS_JUMP_FIRST_BLOCK",
+  "blockly-SHORTCUTS_JUMP_LAST_BLOCK",
+  "blockly-SHORTCUTS_JUMP_NEXT_PAGE",
+  "blockly-SHORTCUTS_JUMP_PREVIOUS_PAGE",
+  "blockly-SHORTCUTS_JUMP_TOP_STACK",
+  "blockly-SHORTCUTS_MOVE_DOWN",
+  "blockly-SHORTCUTS_MOVE_LEFT",
+  "blockly-SHORTCUTS_MOVE_RIGHT",
+  "blockly-SHORTCUTS_MOVE_UP",
+  "blockly-SHORTCUTS_NEXT_HEADING",
+  "blockly-SHORTCUTS_NEXT_STACK",
+  "blockly-SHORTCUTS_PERFORM_ACTION",
+  "blockly-SHORTCUTS_PREVIOUS_HEADING",
+  "blockly-SHORTCUTS_PREVIOUS_STACK",
+  "blockly-SHORTCUTS_SCROLL_DOWN",
+  "blockly-SHORTCUTS_SCROLL_LEFT",
+  "blockly-SHORTCUTS_SCROLL_RIGHT",
+  "blockly-SHORTCUTS_SCROLL_UP",
+  "blockly-SHORTCUTS_SHOW_CONTEXT_MENU",
+  "blockly-SHORTCUTS_SHOW_TOOLTIP",
+  "blockly-SHORTCUTS_START_MOVE",
+  "blockly-SHORTCUTS_START_MOVE_STACK",
+  "blockly-SHORTCUTS_TOGGLE_SCREENREADER_MODE"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -686,6 +728,16 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   assert.match(waray['blockly-PROCEDURES_IFRETURN_WARNING'], /la ha sulod han depinisyon/);
   assert.match(waray['blockly-PROCEDURES_CALL_DISABLED_DEF_WARNING'], /diri aktibo an bloke han depinisyon/);
   assert.match(waray['blockly-RENAME_VARIABLE_TITLE'], /ngatanan/);
+  assert.match(waray['blockly-SCREENREADER_MODE_DISABLED'], /^Naka-off.*basi i-on/);
+  assert.match(waray['blockly-SCREENREADER_MODE_ENABLED'], /^Naka-on.*basi i-off/);
+  for (const [direction, wording] of [['DOWN', 'tipaubos'], ['UP', 'tipaigbaw'], ['LEFT', 'ha wala'], ['RIGHT', 'ha tuo']]) {
+    assert.ok(waray['blockly-SHORTCUTS_MOVE_' + direction].includes(wording));
+    assert.ok(waray['blockly-SHORTCUTS_SCROLL_' + direction].includes(wording));
+    assert.match(waray['blockly-SHORTCUTS_SCROLL_' + direction], /nakikita nga bahin/);
+  }
+  for (const [a, b] of [['ABORT_MOVE', 'FINISH_MOVE'], ['JUMP_BLOCK_START', 'JUMP_BLOCK_END'], ['JUMP_FIRST_BLOCK', 'JUMP_LAST_BLOCK'], ['JUMP_TOP_STACK', 'JUMP_BOTTOM_STACK'], ['NEXT_HEADING', 'PREVIOUS_HEADING'], ['NEXT_STACK', 'PREVIOUS_STACK']]) {
+    assert.notEqual(waray['blockly-SHORTCUTS_' + a], waray['blockly-SHORTCUTS_' + b]);
+  }
   const statistics = ['AVERAGE', 'MEDIAN', 'MODE', 'STD_DEV', 'SUM'].map(s => waray['blockly-MATH_ONLIST_OPERATOR_' + s]);
   assert.equal(new Set(statistics).size, statistics.length);
   assert.match(waray['blockly-MATH_ONLIST_TOOLTIP_MODE'], /lista han mga butang/);
