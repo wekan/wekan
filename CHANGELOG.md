@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6db36bf895f81e34c49901c604e54487743b62ae">Translate Bhojpuri Blockly controls and colours</a></summary>
+
+- Fill 20 English placeholders for block controls, variable deletion and colour
+  selection/mixing, preserving existing translations and formatting tokens.
+- Variable and function terminology remains low confidence pending review.
+- All 40 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0b7a3ad75dfa053eb4937202461449be9de4c82a">Translate Kurdish recovery cancellation and keyboard labels</a></summary>
 
 - Fill three recovery messages and eighteen keyboard labels, preserving
