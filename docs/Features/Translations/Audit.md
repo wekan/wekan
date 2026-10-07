@@ -4625,6 +4625,15 @@ mixed-language audit remains open.
 - Browser coverage is syntax-checked only because Playwright is absent locally. Browser interaction, spoken accessibility and language fluency remain unverified.
 - Ordinary placeholders decrease from 48,637 to 48,549 across 70 languages. The 148 pending source keys and broader translation/semantic audit remain open.
 
+## Blockly comment and accessibility controls: Buryat through Tigrinya
+
+- Filled 88 English placeholders across Buryat (`bua`), Chuvash (`cv`), Sakha (`sah`), Tibetan (`bo`), Dzongkha (`dz`) and Tigrinya (`ti`). Two existing Tigrinya values were preserved. The fifteen-key group covers comment actions, conditional branches, inputs, list items, text, button, collapse/expand, angle degrees and empty trash.
+- Existing catalog terminology guided the drafts. [Dzongkha computer terminology](https://download-mirror.savannah.gnu.org/releases/dzongkha-gnome/dzongkha_computer_terms.pdf) supports the button and input terms; [the Sakha dictionary](https://www.lexicons.ru/modern/ja/sakha/_pdf/sakha-english.pdf) supports `тимэх` (button). The references establish vocabulary, not full UI sentences.
+- Buryat, Chuvash and Sakha technical condition/input wording and Tibetan/Dzongkha conditional clauses remain low confidence. Inflection and the distinction between a secondary condition and an unconditional alternative still need semantic review.
+- Extended the fifteen-key regression and visible translated add-comment browser assertion to these six locales. Exact source arguments and distinct opposing operations are checked. Blockly/completeness: 13 tests pass; human-preference verification: 21 checks pass.
+- Browser coverage is syntax-checked only because Playwright is absent locally. Browser interaction and spoken accessibility were not exercised; structural tests do not establish fluency.
+- Ordinary placeholders decrease from 48,549 to 48,461 across 70 languages. The 148 pending source keys and broader translation/semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
