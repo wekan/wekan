@@ -985,6 +985,7 @@
   "shortcut-autocomplete-members": "เติมสมาชิกอัตโนมัติ",
   "shortcut-clear-filters": "ล้างตัวกรองทั้งหมด",
   "shortcut-close-dialog": "ปิดหน้าต่าง",
+  "shortcut-edit-due-date": "แก้ไขวันครบกำหนดของการ์ดที่เปิดอยู่",
   "shortcut-filter-my-cards": "กรองการ์ดฉัน",
   "shortcut-filter-my-assigned-cards": "กรองการ์ดที่ได้รับมอบหมายของฉัน",
   "shortcut-show-shortcuts": "นำรายการทางลัดนี้ขึ้น",
