@@ -1890,6 +1890,19 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4becd76fa0008e7d540972262429c314041bc996">Translate due reminders into five more languages</a>. Thanks to xet7.</summary>
+
+- Fill 30 strings in Kurdish, Sorani, Papiamento, Tok Pisin and Bislama, preserving
+  signed offset directions, comma separation, numeric limits and server fallback.
+- Translation checks and existing browser scenarios now cover eight locales.
+  Translation, all-locale and human-preference checks pass; browser coverage is
+  syntax-checked only because its application stack was unavailable.
+- Fifty-eight locales still need this six-key group. The ordinary backlog remains
+  51,575 values plus 188 pending source keys; wider review stays in TODO Later.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0ba3f9fc23f24237fd28a1250f257678a9046365">Translate due reminders into Turkmen, Tatar and Somali</a>. Thanks to xet7.</summary>
 
 - Fill 18 due-reminder strings in three locales, preserving positive-before and
