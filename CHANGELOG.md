@@ -1890,6 +1890,19 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/978296fa9db4a7fe910bb67aff35464fc1b34542">Translate URL scheme hint in Manx and Northern Sami</a>. Thanks to xet7.</summary>
+
+- Fill two hints while preserving literal scheme identifiers and existing
+  translations. Lower-confidence technical wording is recorded for native/UI review.
+- Hint checks cover 41 recently filled locales. Parser, sanitizer, structural and
+  human-preference checks pass; browser scenarios were syntax-checked but not run
+  without the application stack.
+- Twenty-five locale paths still need this hint. The ordinary backlog remains
+  51,575 values plus 172 pending source keys; broader translation work remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/cdaa7d0cb32b0b7240c7b53157358c86de06f4b1">Translate URL scheme hint in Waray and Acehnese</a>. Thanks to xet7.</summary>
 
 - Fill two hints while preserving literal scheme identifiers and existing
