@@ -148,7 +148,27 @@ const correctedKeys = [
   "predicate-projection",
   "dependency-icon",
   "location-latitude",
-  "location-longitude"
+  "location-longitude",
+  "board-activities",
+  "securityReportTitle",
+  "databaseReportTitle",
+  "office-report-desc",
+  "office-first-seen",
+  "office-last-seen",
+  "office-shared",
+  "office-no-results",
+  "api-report-desc",
+  "api-first-called",
+  "api-no-calls",
+  "recovery-report-desc",
+  "recovery-db",
+  "recovery-no-events",
+  "recovery-maintenance-title",
+  "recovery-maintenance-note",
+  "history-change-edited",
+  "history-change-moved",
+  "email-domain-allowed-to-invite",
+  "edit-checklist-items-as-text"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -187,6 +207,11 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   }
   assert.match(waray['checklist-ding-sound-description'], /nakaparong/);
   assert.match(waray['roles-status-desc'], /Para la basahon/);
+  assert.ok(waray['api-no-calls'].includes('WITH_API=true'));
+  for (const version of ['IPv4', 'IPv6']) assert.ok(waray['office-report-desc'].includes(version));
+  assert.match(waray['api-report-desc'], /diri gud usa nga linya para ha tagsa nga hangyo/);
+  assert.notEqual(waray['office-first-seen'], waray['office-last-seen']);
+  assert.notEqual(waray['history-change-edited'], waray['history-change-moved']);
   for (const key of ['operator-org', 'predicate-projection']) {
     assert.doesNotMatch(waray[key], /\s|:/, key);
   }

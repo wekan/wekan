@@ -4963,6 +4963,12 @@ mixed-language audit remains open.
 - Preserved the sound's default-off state, the role summary's read-only status, and each table toggle's current state and inverse action. Search operator/predicate names are localized in `globalSearch.js`; the replacement names remain single tokens without spaces or colons.
 - Extended corrected-key checks and added toggle, default-state, read-only and search-token regressions. Role/default and swimlane wording remains provisional and needs contextual review. Browser validation, further Waray contamination and broader semantic review remain open.
 
+### Waray reports, data recovery and history labels
+
+- Corrected 20 verified Walloon values in `wa-RR`, covering activity/security/database reports, login-location reporting, API usage, recovery, history and invitation-domain guidance.
+- Preserved IPv4/IPv6, REST API, MongoDB and `WITH_API=true`. API reporting retains one row per account/endpoint rather than per request; recovery wording distinguishes no recorded events from the database being healthy, and waiting from recovery completion.
+- Extended corrected-key, configuration, aggregation and first/last/edited/moved distinction checks. Technical language for corruption, recovery and database growth remains provisional; tests do not establish fluent wording. Browser checks and further wrong-language review remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
