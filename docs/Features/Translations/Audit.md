@@ -7327,6 +7327,14 @@ low confidence pending fluent review. Browser and screen-reader checks were not 
 A current check also found all 149 pending-Transifex keys already have non-English
 values in Kurdish; that establishes coverage, not linguistic quality.
 
+### Bhojpuri Blockly loops and conditions
+
+Filled 24 English placeholders for loop flow, iteration, repetition and conditional
+branches. Existing translations are preserved. Tests compare source tokens and key
+order, retain loop-only restrictions, distinguish true/false conditions and check
+the final fallback branch. Loop and iteration terminology remains low confidence
+pending fluent review. Browser and screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
