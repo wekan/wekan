@@ -6485,6 +6485,12 @@ Corrected 57 mixed-language values containing the `Toksave:` prefix, covering ca
 
 Validation: 71 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
 
+## Tok Pisin general controls wording audit
+
+Corrected 68 mixed-language values containing the `Toksave:` prefix, covering general controls, support, accessibility, loading indicators, work limits and storage summaries. Preserved source placeholders, units and technical identifiers; distinguished pause/stop, collapse/expand and single-run scope. Existing correct-language values remain unchanged. The prefix inventory falls from 141 to 73; unprefixed values also need review. Technical wording remains provisional pending fluent-speaker review; browser and screen-reader checks were not run.
+
+Validation: 73 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -539,3 +539,100 @@ test('Tok Pisin card and account labels distinguish actions, coordinates and tic
  assert.notEqual(data['dependency-type-blocks'],data['dependency-type-is-blocked-by']);
  assert.notEqual(data['dependency-type-fixes'],data['dependency-type-is-fixed-by']);
 });
+
+
+test('Tok Pisin general controls replace prefixed English with intact tokens',()=>{
+ const keys=[
+  "unset-color",
+  "soft-wip-limit",
+  "setWipLimitPopup-title",
+  "automatic-linked-url-schemes",
+  "package",
+  "layout",
+  "globalSearch-instructions-notes-1",
+  "map-region-europe",
+  "wait-spinner",
+  "Bounce",
+  "Cube",
+  "Cube-Grid",
+  "Dot",
+  "Double-Bounce",
+  "Rotateplane",
+  "Scaleout",
+  "Wave",
+  "custom-legal-notice-link-url",
+  "legalNotice",
+  "originOrder",
+  "calculating-counts",
+  "stats-scope",
+  "stats-count",
+  "mongodb-compact-run",
+  "path",
+  "size",
+  "uploading",
+  "speed",
+  "translation",
+  "collapse",
+  "uncollapse",
+  "support",
+  "supportPopup-title",
+  "support-content",
+  "accessibility",
+  "accessibility-content",
+  "idle",
+  "sandstorm-disk-usage",
+  "collections",
+  "features-performance",
+  "features-security",
+  "pause",
+  "stop",
+  "writable-path",
+  "steps",
+  "view",
+  "has-swimlanes",
+  "step-finalize",
+  "step-fix-missing-ids",
+  "cleanup",
+  "filesystem-size",
+  "gridfs-size",
+  "page",
+  "refresh",
+  "run-once",
+  "schedule",
+  "showing",
+  "total-size",
+  "weight",
+  "repositories",
+  "repository",
+  "size-bytes",
+  "last-modified",
+  "log",
+  "protocol",
+  "summary",
+  "repairing",
+  "wip-limit-group-apply-swimlane"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.doesNotMatch(data[key],/Toksave:/,key);
+  assert.notEqual(data[key],english[key],key);
+ }
+});
+
+test('Tok Pisin general controls distinguish scope, movement and support content',()=>{
+ assert.match(data['soft-wip-limit'],/WIP.*tok lukaut tasol/);
+ assert.match(data['automatic-linked-url-schemes'],/URL.*Wanpela.*wan wan lain/);
+ assert.equal(data.pause,'Malolo liklik');
+ assert.equal(data.stop,'Stopim');
+ assert.equal(data.collapse,'Pasim liklik');
+ assert.equal(data.uncollapse,'Opim olgeta');
+ assert.match(data['run-once'],/wanpela taim/);
+ assert.match(data['size-bytes'],/\(bait\)/);
+ assert.match(data['total-size'],/^Olgeta/);
+ assert.match(data['mongodb-compact-run'],/Compact.*MongoDB/);
+ assert.match(data['gridfs-size'],/GridFS/);
+ assert.match(data['step-fix-missing-ids'],/ID i no stap/);
+ assert.equal(data.support,data['supportPopup-title']);
+ assert.match(data['support-content'],/toksave/);
+ assert.match(data['wip-limit-group-apply-swimlane'],/rot bilong kat/);
+});
