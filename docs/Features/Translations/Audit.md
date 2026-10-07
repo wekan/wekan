@@ -4452,6 +4452,12 @@ mixed-language audit remains open.
 - Expanded the locale check to all 234 non-English locales. All four focused Node tests and 21 human-preference checks pass, checking non-English values, token inventories, distinct labels, inverse relations and invalid targets. Extended localized browser editing and undo/redo coverage to the final seven locales. Browser syntax passes, but execution remains unverified because Playwright is unavailable locally.
 - Both labels now have non-English values in every non-English locale. Ordinary placeholders decrease from 50,081 to 50,067 across 70 languages. The 148 pending source keys and broader semantic audit remain open; this completes placeholder coverage for the pair, not the overall task.
 
+## Board drag-permission label: fifteen locales (2026-10-07)
+
+- Filled `draggable` in Kurmanji, Sorani, Tatar, Somali, Chichewa, Māori, Samoan, Turkmen, Yiddish, Bhojpuri, Maithili, Odia, Konkani, Papiamento and Moroccan Arabic. Used ability-to-drag wording for the checkbox column controlling board dragging. Chichewa, Maithili and Konkani wording remains particularly provisional.
+- Both focused Node tests and 21 human-preference checks pass, including catalog tokens and existing positive/negative board-drag policy assertions. Extended browser heading checks and independent disable/re-enable persistence coverage to the fifteen locales. Existing browser negatives cover unauthorized changes, disabled dragging and explicit menu moves. Browser syntax passes; execution remains unverified because Playwright is unavailable locally.
+- Ordinary placeholders decrease from 50,067 to 50,052 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

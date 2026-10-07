@@ -8,9 +8,13 @@ async function openSettings(page, section) {
     Popup.open(`board${section}Settings`)({currentTarget: opener, target: opener, preventDefault() {}, stopPropagation() {}});
   }, section);
 }
-test('board drag columns default checked, persist independently and update sortables', async ({ boardPage: page, board }) => {
+for (const language of ['en', 'ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm', 'tk_TM', 'yi', 'bho', 'mai', 'or_IN', 'kok', 'pap', 'ary']) {
+const locale = require(`../../../imports/i18n/data/${language}.i18n.json`);
+test(`board drag columns default checked, persist independently and update sortables (${language})`, async ({ boardPage: page, board }) => {
+  await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
   for (const [section, kinds] of [['Swimlane', ['swimlane']], ['List', ['list']], ['Card', ['card', 'checklist', 'item', 'subtask']]]) {
     await openSettings(page, section);
+    await expect(page.locator('.board-drag-settings thead th').nth(1)).toContainText(locale.draggable);
     for (const kind of kinds) {
       const checkbox = page.locator(`.js-board-drag-setting[data-kind="${kind}"]`);
       await expect(checkbox).toBeChecked();
@@ -30,6 +34,7 @@ test('board drag columns default checked, persist independently and update sorta
   await expect.poll(() => db.findOne('boards', {_id: board.boardId}).allowsCardDragging).toBe(true);
   expect(db.findOne('boards', {_id: board.boardId}).allowsChecklistItemDragging).toBe(false);
 });
+}
 test('deny foreign board settings and disabled mixed drag, retain explicit menu moves', async ({ boardPage: page, board, user2 }) => {
   const other = db.seedBoard({ownerId: user2.id, cardTitlesPerList: [['Private']]});
   const call = (method, ...args) => page.evaluate(async ({method, args}) => {
