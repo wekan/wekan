@@ -3284,6 +3284,12 @@ References include the Oregon Nahuatl dictionary entries for [calaqui](https://n
 
 Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in five locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
 
+### Signed-in board visibility: Standard Moroccan Tamazight
+
+Filled three English placeholders in `zgh` using Tifinagh. The direct draft preserves signed-in viewing, anonymous exclusion, board-member editing and confirmation emphasis. Existing translations were protected by the fill utility; no translation service was used. The board noun follows the locale's `Tafelwit` in Tifinagh, and the viewing verb is documented in the [Tamazight dictionary entry for ⵥⵕ](https://zgh.wiktionary.org/wiki/%E2%B5%A5%E2%B5%95). Login phrasing, passive morphology and dialect consistency have low confidence and need fluent-speaker review; script correctness alone does not establish linguistic accuracy.
+
+Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in four locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
