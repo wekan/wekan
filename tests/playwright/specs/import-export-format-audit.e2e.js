@@ -530,3 +530,29 @@ test('Trello HTTP import enforces the Admin Panel import switch and rejects inva
     db.updateOne('settings', { _id: settings._id }, { $set: { disableAllImport: original } });
   }
 });
+
+for (const language of ['ary', 'ckb', 'ku', 'bho', 'mai', 'or_IN', 'kok', 'tk_TM', 'tt', 'yi']) {
+  test(`import loss report keeps its localized explanation and board action in ${language}`, async ({ loggedInPage: page }) => {
+    const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
+    let boardId;
+    try {
+      await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
+      await navigateInApp(page, '/import/deck');
+      await page.locator('#import-textarea').fill('{broken');
+      await page.locator('.js-import-without-mapping').click();
+      await expect(page.locator('.warning').first()).toBeVisible();
+      await expect(page.locator('.js-import-report')).toHaveCount(0);
+      await page.locator('#import-textarea').fill(JSON.stringify(read('deck')));
+      await page.locator('.js-import-without-mapping').click();
+      const report = page.locator('.js-import-report');
+      await expect(report).toBeVisible();
+      await expect(report.locator('h2')).toHaveText(strings['import-report-heading']);
+      await expect(report.locator('p')).toHaveText(strings['import-report-description']);
+      await expect(report.locator('.js-open-imported-board')).toHaveText(strings['import-report-open-board']);
+      await expect(page).toHaveURL(/\/import\/deck$/);
+      await waitForImportedBoard(page);
+      boardId = page.url().match(/\/b\/([^/]+)/)[1];
+      await expect(page.locator('.minicard-title').first()).toContainText(expected.title);
+    } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+  });
+}

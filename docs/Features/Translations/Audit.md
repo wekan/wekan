@@ -3316,6 +3316,16 @@ All 234 non-English locales now have nonempty values different from English for 
 
 Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. The ordinary backlog remains 51,575 missing values across 70 languages, alongside 168 pending source keys. The broader goal and language-quality review remain open.
 
+### Import warning report: ten further locales
+
+Filled 30 English placeholders for the warning heading, explanation and open-board action in Moroccan Arabic (`ary`), Sorani (`ckb`), Kurmanji (`ku`), Bhojpuri (`bho`), Maithili (`mai`), Odia (`or_IN`), Konkani (`kok`), Turkmen (`tk_TM`), Tatar (`tt`) and Yiddish (`yi`). The fill utility preserved existing translations. No translation service was used. The explanation retains the created-board outcome, incomplete file transfer and two-arrow recovery-menu path.
+
+Also replaced the Tatar menu values `Сорунлар` and `Куртарма` with `Проблемалар` and `Торгызу`: the old forms follow other Turkic wording rather than the declared Tatar locale. The report uses the corrected path, with regression assertions against the old vocabulary. Existing board nouns and other menu labels were followed where possible; some inherited terminology still needs review.
+
+Vocabulary references include [Sorani ئاگاداری](https://ckb.wiktionary.org/wiki/ئاگاداری), [Konkani opening vocabulary](https://konkanivocabulary.in/category/इ,%20ई%20आनी%20उ%20अक्षरांचीं%20क्रियापदां), the [Turkmen-English dictionary](https://www.webonary.org/turkmen/files/sozluk.pdf) for warning terminology, and [Tatar usage of торгызу](https://ebook.tatar/default/files/documents/pdf/history-tat_10_tat_30-10-2020.pdf). These support individual words, not full-sentence accuracy. Konkani, Bhojpuri, Maithili, Turkmen and Kurdish technical phrasing have lower confidence; all drafts remain open to fluent-speaker review.
+
+Ten translation/token regressions, import-loss positive/negative checks, all 234 locale structure checks and 21 human-preference checks pass. Added ten browser cases covering rejected malformed input, localized report text and opening the imported board. Browser tests were syntax-checked only. The local Playwright executable is missing and no application server is listening on port 3000, so browser execution and runner discovery were not verified. Each of the three source keys remains English in 56 locales. The ordinary backlog remains 51,575 values across 70 languages and the pending inventory remains 168 source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
