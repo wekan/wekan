@@ -1890,6 +1890,15 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b6d6908fad06767bf2043482cfa2d2fd8f5d6574">Translate eight more import reports and repair recovery paths</a>. Thanks to xet7.</summary>
+
+- Fill 24 English values in Akan, Luganda, Wolof, Swati, Tsonga, Venda, Waray and Venetian. Correct eleven generic or wrong-language menu values so the report points to matching recovery labels. Lower-confidence technical phrasing remains recorded for fluent-speaker review.
+- Extend source-order, placeholder, menu-path, vocabulary and localized browser coverage. Translation, import-loss and human-preference checks pass; browser cases were syntax-checked only because the local Playwright executable and running application are unavailable.
+- These three keys remain English in 30 locales. The broader backlog remains 51,575 ordinary missing values and 168 pending source keys, with language-quality review open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4ab324cfeb3aed52733d34981f05efc51bb08d71">Translate import reports in eight locales and repair recovery labels</a>. Thanks to xet7.</summary>
 
 - Fill 24 English values in Bislama, Tok Pisin, Māori, Samoan, Hawaiian, Papiamentu, Xhosa and Northern Ndebele. Replace five mixed-language or malformed menu values in Bislama, Tok Pisin and Hawaiian. Lower-confidence technical phrasing remains recorded for fluent-speaker review.
