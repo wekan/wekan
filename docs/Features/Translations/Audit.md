@@ -6158,6 +6158,24 @@ because some locales lack the concurrent shortcut-edit-due-date source key.
 Human-preference verification passed 20 checks; its actual-merge check failed
 on that same catalog key mismatch. The broader language audit remains open.
 
+## Māori Scrum and synchronization — 2026-10-08
+
+Filled 147 English placeholders: 84 Scrum planning/reporting messages and 63
+Sync conflict, preview, report and estimate-mapping messages. Existing Māori
+translations are preserved. Sprint wording follows the catalog's wā mahi poto,
+and synchronization uses its existing tukutahi and papā vocabulary. Pūrongo is
+attested in [Te Aka Māori Dictionary](https://maoridictionary.co.nz/word/6307).
+Technical compounds for snapshots, scope, mapping and parser behavior remain
+provisional and need fluent-speaker review.
+
+Seven focused checks pass, covering all 102 Scrum keys and all Sync keys with
+source-token inventories, shared labels, cancellation membership, unknown
+estimates, daily sampling, distinct export actions, local-data preservation,
+read-only diagnostics, retention periods and missing-versus-null semantics.
+All 21 human-preference checks pass. The shared catalog-completeness check
+still fails because some locales lack shortcut-edit-due-date. Browser and
+screen-reader checks were not run. The broader language audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
