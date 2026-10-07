@@ -4043,6 +4043,27 @@ because Playwright is unavailable. Seven locales still use this English
 instruction. The wider backlog remains 51,575 ordinary placeholders across 70
 languages plus 150 pending source keys. Coverage is not proof of fluency.
 
+## Leo import instruction: Greenlandic and Inuktitut drafts
+
+Filled the English `import-board-instruction-leo` value in Greenlandic and
+Inuktitut through the protected fill, preserving existing translations. The
+drafts describe upper parts, subordinate cards, body descriptions, deeper
+checklists and marked completion state. Leo and `.leo` remain literal.
+
+Used the existing locale UI nouns and consulted the [Greenlandic dictionary index](https://ordbog.gl/)
+and [Greenlandic–English dictionary](https://daka.gl/2018-kal-eng/) as language
+references. These references do not validate the complete instructions. Both
+drafts remain low-confidence: node hierarchy terminology, inflected card/list
+forms and the Inuktitut body-description clause require linguistic review.
+
+Extended locale regression and the existing browser import scenario for both
+locales; invalid-input coverage remains in place. All 12 focused Node tests and
+21 human-preference checks pass. Browser syntax passes, but execution remains
+unverified because Playwright is unavailable. Five locales still use the English
+Leo instruction. The wider backlog remains 51,575 ordinary placeholders in 70
+languages plus 150 pending source keys. Structural coverage does not establish
+linguistic accuracy.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
