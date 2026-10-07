@@ -4957,6 +4957,12 @@ mixed-language audit remains open.
 - Preserved `%s`, camel-case `{cardLink}`, the other rule variables, `OAUTH_*_ENABLED`, `MAIL_URL` and `PASSWORDLESS_ENABLED`. Restored the header-icons hint's mobile/desktop notification detail omitted by the previous value.
 - Extended the corrected-key and brace-token checks, including camel-case names, configuration literals and authentication-state distinctions. Environment-variable, layout and login terminology remains provisional and requires contextual review. No authentication behavior changed. Browser checks and further wrong-language review remain open.
 
+### Waray role summaries, table views and layout controls
+
+- Corrected 25 verified Walloon values in `wa-RR`, covering sidebar resizing, checklist sound, public/private defaults, role summaries, table-view toggles, global search and coordinate labels.
+- Preserved the sound's default-off state, the role summary's read-only status, and each table toggle's current state and inverse action. Search operator/predicate names are localized in `globalSearch.js`; the replacement names remain single tokens without spaces or colons.
+- Extended corrected-key checks and added toggle, default-state, read-only and search-token regressions. Role/default and swimlane wording remains provisional and needs contextual review. Browser validation, further Waray contamination and broader semantic review remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

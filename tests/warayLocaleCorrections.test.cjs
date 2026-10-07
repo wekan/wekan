@@ -123,7 +123,32 @@ const correctedKeys = [
   "lock-swimlane-height-resize",
   "same-width-for-all-lists",
   "toggle-header-icons-collapsed",
-  "drag-to-resize-sidebar"
+  "drag-to-resize-sidebar",
+  "drag-to-resize-left-menu",
+  "checklist-ding-sound",
+  "checklist-ding-sound-description",
+  "default-on-public-board",
+  "show-on-public-board",
+  "default-on-private-board",
+  "show-on-private-board",
+  "roles-status",
+  "roles-status-desc",
+  "roles-status-invite",
+  "roles-status-sees",
+  "roles-status-write",
+  "roles-status-manage",
+  "roles-status-empty",
+  "board-table-card-title-wrap-on",
+  "board-table-card-title-wrap-off",
+  "board-table-group-by-swimlane-on",
+  "board-table-group-by-swimlane-off",
+  "globalSearchViewChange-title",
+  "globalSearchViewChangePopup-title",
+  "operator-org",
+  "predicate-projection",
+  "dependency-icon",
+  "location-latitude",
+  "location-longitude"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -157,6 +182,14 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   }
   assert.match(waray['passwordless-enabled'], /makausa la/);
   assert.notEqual(waray['passwordless-login'], waray['passwordless-code-sent']);
+  for (const prefix of ['board-table-card-title-wrap', 'board-table-group-by-swimlane']) {
+    assert.notEqual(waray[prefix + '-on'], waray[prefix + '-off']);
+  }
+  assert.match(waray['checklist-ding-sound-description'], /nakaparong/);
+  assert.match(waray['roles-status-desc'], /Para la basahon/);
+  for (const key of ['operator-org', 'predicate-projection']) {
+    assert.doesNotMatch(waray[key], /\s|:/, key);
+  }
   assert.notEqual(waray['due-days-left'], waray['due-days-overdue']);
   for (const kind of ['Swimlane', 'List']) {
     assert.notEqual(waray['export' + kind + 'Popup-title'], waray['import' + kind + 'Popup-title']);
