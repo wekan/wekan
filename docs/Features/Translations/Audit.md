@@ -3290,6 +3290,12 @@ Filled three English placeholders in `zgh` using Tifinagh. The direct draft pres
 
 Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in four locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
 
+### Signed-in board visibility: Inuktitut
+
+Filled three English placeholders in `iu` using syllabics. The direct draft retains the viewing/editing distinction, anonymous exclusion and confirmation emphasis, with the existing board term. Existing translations were protected by the fill utility; no translation service was used. The editing vocabulary follows the locale's `Aaqqigiarli`, also attested in [the Inuktitut editing dictionary entry](https://es.glosbe.com/es/iu/modificar). Login phrasing, agreement, negation and the expression for adding people have low confidence and need fluent-speaker review; syllabic text alone does not prove linguistic accuracy.
+
+Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in three locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
