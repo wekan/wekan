@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "Kay willaymi: Sapanchasqa Yanapay T'inkina URLta",
   "text-below-custom-login-logo": "Kay willaymi: Textta belowta Sapanchasqa Yaykuy Logota",
   "automatic-linked-url-schemes": "Kay willaymi: Sapanchasqa URLta Schemesta whichta shouldta automaticallyta beta clickableta. Oneta URLta Schemeta perta lineta",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Qallariypiqa chusaqmi, chayrayku web hinaspa elektroniku chaski wataykunallatam ñitʼiyta atinki. Listapi sapa esquema, ahinataq thunderlink utaq onenote, paypaq qillqasqa programata kichan. javascript, data, vbscript hinaspa chaykunaman rikchʼakuq esquemakunaqa manam haykʼaqpas watayman tukuchisqachu kanku.",
   "external-link-pattern": "Waqaychasqa kikinchakuy hawa sasachakuykunata qhawaqman",
   "external-link-pattern-description": "\"#1234\" hina simikunata kartapa qillqasqanpi tarisqata hawa sasachakuykunata qhawaqman kikinchan. Huk kamachiyta ch'usaqta saqiy amachu kanampaq.",
   "external-link-pattern-prefix": "Simip ñawpaqnin",

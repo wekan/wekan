@@ -3086,6 +3086,14 @@ These three technical drafts have lower confidence and need native-speaker revie
 
 Validation covers 48 recently filled hints, exact scheme identifiers, source tokens and key order, together with parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only because the application stack is unavailable. This hint remains English in 18 locales. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; language quality review remains open.
 
+### URL scheme hint: Quechua and Aymara
+
+Filled the English-only `automatic-linked-url-schemes-hint` in `qu` and `ay` directly through the placeholder-only fill utility. All five literal scheme names remain unchanged. The drafts describe the empty default, clickable web/mail links, registered applications and schemes that never become links. No existing translated value was overwritten and no translation service was used.
+
+Both drafts have lower confidence, particularly technical loanwords, link terminology and regional spelling; native-speaker review remains necessary. The Quechua draft uses `kichan` without copying the unrelated `Kay willaymi:` prefix present in the locale's existing open label. References include the [Apurimac Quechua dictionary](https://www.illaa.org/pirwa/diccionarios/DicAMLQApurimacQuechua.pdf) for `kichay` and `chusaq`, and [ILLA's Andean dictionaries](https://www.illaa.org/index.php/diccionarios/) for Aymara lexical resources. These references are not validation of the complete technical sentences.
+
+Validation covers 50 recently filled hints, exact identifiers, tokens and source key order, plus parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. This hint remains English in 16 locales. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; language quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
