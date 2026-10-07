@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Nece email-kirj om jo oigendud, oigendust om koitud vai kirj om heittud.",
   "rule-email-legacy-not-legacy": "Nece email-kirj om jo sidotud tošti.",
   "rule-email-legacy-failed": "Necid toimindad ei voind lopeta. Udišta da koita tošti.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Nece SAML-sizälekirjutand ei olend zavoditud täs brauzeran välilehtes. Ole hüvä, kirjuta sizäle uzin.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

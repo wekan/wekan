@@ -2037,6 +2037,21 @@ checks pass. Browser scenarios were not run; the app stack was unavailable.
 Eight locale paths still need this message. The snapshot remains 51,575 ordinary
 missing values plus 182 pending keys; broader language review remains open.
 
+### SAML browser-tab error — Veps and Wolaytta (2026-10-07)
+
+Filled `saml-login-not-started` in ve-PP and wal, retaining the current browser-tab
+boundary and instruction to sign in again. Existing translated values were
+preserved; no translation service was used. Full phrases and browser/tab terms
+are low confidence and need native review. Wolaytta's start verb was checked
+against [The Wolaytta Language](https://dokumen.pub/the-wolaytta-language.html);
+Veps uses existing sign-in terminology. These checks do not establish fluency.
+
+The popup-error suite now checks 60 recently filled locales and passes, including
+positive and negative login-boundary cases. All-locale structural and human-preference
+checks pass. Browser scenarios were not run; the app stack was unavailable.
+Six locale paths still need this message. The snapshot remains 51,575 ordinary
+missing values plus 182 pending keys; broader language review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

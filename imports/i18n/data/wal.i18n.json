@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Ha iimeeliyaa kase yedettiis, yeddanau paacettiis, woikko agettiis.",
   "rule-email-legacy-not-legacy": "Ha iimeeliyaa kase zaaridi qashettiis.",
   "rule-email-legacy-failed": "Ha oosuwaa polanau danddayettibeenna. Ooraxissada zaaridi paacca.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Ha SAML geliyoogee ha braawuzariya taabiyan doomettibeenna. Hayyanaa, zaare gela.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",
