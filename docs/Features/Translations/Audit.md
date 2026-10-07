@@ -6108,6 +6108,21 @@ structural checks still fail on the concurrent `shortcut-edit-due-date` addition
 Browser and screen-reader checks were not run. Colour and navigation terminology
 remains low confidence pending fluent-speaker review. The broader audit is open.
 
+## Northern Sotho Blockly inputs and bitmap fields — 2026-10-07
+
+Translated 61 English values: 60 counted placeholders and the short on label
+omitted by the counter. Existing translations remain unchanged. Tests preserve
+all input/field tokens, row/column arguments, pixel states, operand roles,
+first/second inputs, coordinates and shared endpoint/repeat labels.
+Coordinate terminology follows the dihlomathišo usage in
+[Twinkl's Sepedi coordinate worksheet](https://www.twinkl.co.za/resource/winter-olympics-coordinates-worksheets-sepedi-za-m-1753884301).
+
+The 56 focused checks and 21 human-preference checks pass. Two all-catalog
+structural checks still fail on the concurrent `shortcut-edit-due-date` addition.
+Browser and screen-reader checks were not run. Mathematical and accessibility
+wording remains low confidence pending fluent-speaker review. The broader audit
+stays open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -170,3 +170,27 @@ test('Northern Sotho colours and navigation preserve tokens, ranges and directio
  assert.match(data['blockly-SHORTCUTS_TOGGLE_SCREENREADER_MODE'],/Bulela goba tima/);
  for(const suffix of ['HEADING','STACK']) assert.notEqual(data['blockly-SHORTCUTS_NEXT_'+suffix],data['blockly-SHORTCUTS_PREVIOUS_'+suffix]);
 });
+
+test('Northern Sotho input and bitmap labels preserve tokens, states and operand roles',()=>{
+ for(const key of Object.keys(english).filter(k=>k.startsWith('blockly-FIELD_')||k.startsWith('blockly-INPUT_LABEL_'))){
+  assert.notEqual(data[key],english[key],key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ assert.equal(data['blockly-FIELD_BITMAP_PIXEL_ON'],'e butšwe');
+ assert.equal(data['blockly-FIELD_BITMAP_PIXEL_OFF'],'e timilwe');
+ assert.match(data['blockly-FIELD_BITMAP_ARIA_VALUE'],/%1.*%2.*%3.*di butšwe/);
+ assert.match(data['blockly-FIELD_BITMAP_PIXEL_LABEL'],/%1.*mothaladi wa %2.*kholomo ya %3/);
+ for(const suffix of ['START_POSITION','END_POSITION']) assert.equal(data['blockly-INPUT_LABEL_LISTS_'+suffix],data['blockly-INPUT_LABEL_TEXT_'+suffix]);
+ assert.equal(data['blockly-INPUT_LABEL_LISTS_REPEAT_NUM'],data['blockly-INPUT_LABEL_LOOP_TIMES']);
+ assert.equal(data['blockly-INPUT_LABEL_LISTS_VALUE_TO_SET'],data['blockly-INPUT_LABEL_VARIABLES_SET']);
+ for(const kind of ['CONDITION','NUMBER','VALUE']){
+  assert.match(data['blockly-INPUT_LABEL_'+kind+'_A'],/mathomo/);
+  assert.match(data['blockly-INPUT_LABEL_'+kind+'_B'],/bobedi/);
+ }
+ assert.match(data['blockly-INPUT_LABEL_MATH_DIVIDEND'],/^nomoro ye e arolwago$/);
+ assert.match(data['blockly-INPUT_LABEL_MATH_DIVISOR'],/^nomoro ye go arolwago ka yona$/);
+ assert.match(data['blockly-INPUT_LABEL_NUMBER_ATAN2_X'],/ x$/);
+ assert.match(data['blockly-INPUT_LABEL_NUMBER_ATAN2_Y'],/ y$/);
+ assert.notEqual(data['blockly-INPUT_LABEL_NUMBER_MIN'],data['blockly-INPUT_LABEL_NUMBER_MAX']);
+ assert.notEqual(data['blockly-INPUT_LABEL_TEXT_TO_FIND'],data['blockly-INPUT_LABEL_TEXT_TO_REPLACE']);
+});
