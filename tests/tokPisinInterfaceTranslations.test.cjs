@@ -2143,3 +2143,46 @@ test('Tok Pisin migration instructions preserve command syntax and data exclusio
  assert.match(data['migration-stop-confirm'],/stopim olgeta/);
  assert.match(data['migration-resume-failed'],/no inap statim gen/);
 });
+
+
+test('Tok Pisin backup and scheduled-job labels preserve tokens and replace mixed English',()=>{
+ const keys=[
+  "backup-day-of-week",
+  "backup-day-of-month",
+  "backup-list",
+  "backup-path",
+  "backup-restore-add-missing",
+  "backup-restore-replace-all",
+  "backup-restore-select-first",
+  "cron-job-delete-confirm",
+  "cron-job-delete-failed",
+  "cron-job-pause-failed",
+  "cron-job-resume-failed",
+  "cron-job-start-failed",
+  "cron-no-errors",
+  "cron-clear-errors",
+  "cron-retry-failed",
+  "cron-no-failed-migrations",
+  "cron-no-paused-migrations",
+  "schedule-board-archive",
+  "schedule-board-cleanup"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:Day|weekly|monthly|backups|path|missing|Replace|first|scheduled|job|pause|resume|start|errors|display|Clear|Retry|Migrations|paused|Schedule|Cleanup)\b/,key);
+ }
+});
+
+test('Tok Pisin restore choices distinguish missing-only from full replacement',()=>{
+ assert.match(data['backup-restore-add-missing'],/^Putim data i no stap tasol$/);
+ assert.match(data['backup-restore-replace-all'],/^Kisim ples bilong olgeta data$/);
+ assert.match(data['backup-restore-select-first'],/Makim wanpela.*long lis pastaim/);
+ assert.match(data['backup-day-of-month'],/olgeta mun, 1-28/);
+ assert.match(data['backup-day-of-week'],/olgeta wik/);
+ assert.match(data['cron-no-failed-migrations'],/I no gat.*i no wok.*traim gen/);
+ assert.match(data['cron-no-paused-migrations'],/I no gat.*malolo liklik.*kirapim gen/);
+ assert.match(data['cron-job-delete-confirm'],/^Yu laik tru.*\?$/);
+ assert.match(data['cron-job-pause-failed'],/^I no inap.*malolo liklik/);
+ assert.match(data['cron-job-resume-failed'],/^I no inap kirapim gen/);
+});

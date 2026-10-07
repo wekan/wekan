@@ -6767,6 +6767,17 @@ The combined translation run passes 136 checks. Two existing catalog checks fail
 on the missing due-date shortcut key. All 21 human-preference checks pass.
 Browser and screen-reader checks were not run. The wider audit remains open.
 
+## Tok Pisin backup and scheduled-job wording audit
+
+Corrected 19 mixed-language backup and scheduled-job messages. Checks distinguish
+missing-only restoration from replacing all data, retain monthly limits and
+selection prerequisites, and distinguish paused and failed jobs. Technical
+wording remains provisional pending fluent-speaker review.
+
+The combined translation run passes 138 checks. Two existing catalog checks fail
+on the missing due-date shortcut key. All 21 human-preference checks pass.
+Browser and screen-reader checks were not run. The wider audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
