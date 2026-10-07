@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5279638c3894425cb09293f9ac738a8ed1bd4404">Translate Kurdish sprint report and event labels</a></summary>
+
+- Fill 35 English placeholders for events, totals, estimates, lifecycle states,
+  workflow categories and import references, preserving existing translations.
+- Retrospective and swimlane terminology remains low confidence pending review.
+- All 41 focused checks pass. Browser and screen-reader checks were not run.
+  The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/70af858ee7afefbe549796cbea68738bfe14792f">Translate Kurdish Scrum settings and planning labels</a></summary>
 
 - Fill 36 English placeholders for board views, Scrum roles, settings,
