@@ -5,7 +5,7 @@
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 
-for (const language of ['en', 'bo', 'bua', 'cv', 'ks', 'ti', 'gv', 've-CC', 've-PP', 've']) {
+for (const language of ['en', 'gn', 'ee', 'wo', 'ff', 'tlh', 'bo', 'bua', 'cv', 'ks', 'ti', 'gv', 've-CC', 've-PP', 've']) {
   test(`a board admin turns auto-archive on and off in ${language}`, async ({ boardPage: page, board }) => {
     const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
     await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);

@@ -82,6 +82,36 @@ human-preference checks pass. The existing browser mutation scenario now
 covers the nine locales' labels and hints as well as setting/clearing the
 threshold; it is syntax-checked, not browser-executed in this environment.
 
+## Further archiving and date filters — 2026-10-07
+
+Filled 23 English placeholders each in Guaraní (`gn`), Ewe (`ee`), Wolof
+(`wo`), Fulah (`ff`) and Klingon (`tlh`). A comparison against the previous
+commit confirms that all 115 replacements were English placeholders;
+existing translations are preserved. The standard backlog falls by 100 to
+51,895 values, with 15 auto-archive values counted separately as pending
+Transifex. The shared feature suite now covers 53 locale paths.
+
+The [Corrientes education dictionary](https://www.mec.gob.ar/descargas/Bibliograf%C3%ADa/Educaci%C3%B3n%20Intercultural%20Biling%C3%BCe/GUARANI/avane-Diccionario-Guarani-Esp-Esp-Guarani.pdf)
+supports Guaraní week vocabulary. The [Basic Ewe word list](https://www.peterlin.pl/ewe/words.html)
+provides week terms, while the [Wolof dictionary](https://jangawolof.org/dictionary/)
+provides day, week and hour terms. Fulah terminology follows the existing
+[Fulah review](Fulah-Review.md) and its Senegal education terminology source;
+Pulaar/Pular dialect consistency still needs speaker review.
+[Klingonska time vocabulary](https://klingonska.org/ref/time.html) supports
+week/month constructions alongside existing catalog terminology.
+
+These sources support individual components, not the full sentences. All
+five additions are provisional and low confidence pending speaker review,
+especially inclusive date ranges, negation and list-age explanations.
+Klingon technical compounds and the explanation of quoted field names also
+need review. Older mixed-language values elsewhere remain unresolved.
+
+Feature checks preserve numbers, exact placeholder inventories and query
+examples, and distinguish past/future periods and the two negative rules.
+The feature, all-locale structure and human-preference checks pass. The
+browser mutation scenario includes these five locales and passes syntax
+checking; no browser run was available in this environment.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

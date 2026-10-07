@@ -30,7 +30,7 @@ const keys = [
   "filter-column-age-hint",
   "advanced-filter-card-dates-hint"
 ];
-for (const code of ['gv', 've-CC', 've-PP', 've', 'bo', 'bua', 'cv', 'ks', 'ti', 'tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'yi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'rw', 'rn', 'or_IN', 'bho', 'mai', 'kok', 'ary', 'nso', 'nd', 'ss', 'ts', 'om', 'fj', 'to', 'hsb', 'szl', 'se', 'wa', 'wa-RR', 'wuu-Hans', 'rup']) {
+for (const code of ['gn', 'ee', 'wo', 'ff', 'tlh', 'gv', 've-CC', 've-PP', 've', 'bo', 'bua', 'cv', 'ks', 'ti', 'tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'yi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'rw', 'rn', 'or_IN', 'bho', 'mai', 'kok', 'ary', 'nso', 'nd', 'ss', 'ts', 'om', 'fj', 'to', 'hsb', 'szl', 'se', 'wa', 'wa-RR', 'wuu-Hans', 'rup']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -148,4 +148,16 @@ assert.match(read('ve')['auto-archive-hint'], /a dzi iswi.*na luthihi/);
 assert.match(read('ve')['filter-column-age-hint'], /a zwi thomi hafhu/);
 assert.match(read('ve')['filter-recency-day'], /awara/);
 assert.doesNotMatch(read('ve')['filter-due-next-month'], /Inyanga|ngenyanga/);
-console.log('Archiving and date filters: 23 messages in 48 locales passed');
+assert.match(read('gn')['auto-archive-hint'], /araka'eve ndojeguerahái/);
+assert.match(read('gn')['filter-column-age-hint'], /nomoñepyrũjeýi/);
+assert.match(read('ee')['auto-archive-hint'], /womeʋua.*gbeɖe o/);
+assert.match(read('ee')['filter-column-age-hint'], /mewɔa.*egɔme o/);
+assert.match(read('wo')['auto-archive-hint'], /duñu yóbbu.*mukk/);
+assert.match(read('wo')['filter-column-age-hint'], /du tàmbaliwaat/);
+assert.match(read('ff')['auto-archive-hint'], /mbaɗaaka.*hay sahaa/);
+assert.match(read('ff')['filter-column-age-hint'], /fuɗɗintaako/);
+assert.match(read('tlh')['auto-archive-hint'], /not chenmoHmeH ghantoHmey/);
+assert.match(read('tlh')['filter-column-age-hint'], /taghqa'moHbe'lu'/);
+assert.match(read('tlh')['filter-due-previous-week'], /Hogh rInpu'bogh/);
+assert.match(read('tlh')['filter-due-next-month'], /jar veb/);
+console.log('Archiving and date filters: 23 messages in 53 locales passed');
