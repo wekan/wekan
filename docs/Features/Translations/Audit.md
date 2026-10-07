@@ -4668,6 +4668,15 @@ mixed-language audit remains open.
 - Ordinary placeholders decrease from 48,345 to 48,332 across 70 languages. Five locales still have English accessibility labels in this group. The 148 pending source keys and broader semantic audit remain open.
 - Validation: Blockly/completeness and human-preference suites, plus browser-spec syntax checking. Browser execution remains unavailable without the provisioned Playwright/app stack.
 
+### Greenlandic comment and accessibility labels
+
+- Filled fifteen English Blockly comment/accessibility placeholders in `kl` using the protected fill. Source arguments and existing translations remain intact.
+- Added Greenlandic to the control/opposite-action/token regression and the existing translated context-menu browser assertion.
+- References: [Sullissivik application guide](https://www.sullissivik.gl/Emner/Teknik_og_miljoe/Arealtildeling/-/media/0354379CD749405E94CA6701433FCECA.ashx) uses `ilannguguk`, `peeruk` and `toortagaq`; [MitID input guidance](https://www.mitid.dk/kl-gl/ikiortigit/hjaelpeuniversimi/kode-isissut/mitid-mut-kode-isissut-nutaaq/?language=kl-gl) uses `allaffissaq`; [Greenlandic-English dictionary](https://daka.gl/2018-kal-eng/) includes `eqqaavik`. These are vocabulary references, not attestations of the new full phrases.
+- Low confidence: “another condition” paraphrases else-if without explicitly stating the preceding branch failed; input uses a writing-field term although Blockly inputs can be connections; hide/show paraphrases collapse/expand. Case endings and full wording need review. Angle uses `%1°`; screen-reader pronunciation remains unverified.
+- Ordinary placeholders decrease from 48,332 to 48,317 across 70 languages. Four locales still have English labels in this group. The 148 pending source keys and wider semantic audit remain open.
+- Validation: Blockly/completeness tests and human-preference checks pass; browser spec syntax checked. Browser/spoken accessibility execution remains unverified.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
