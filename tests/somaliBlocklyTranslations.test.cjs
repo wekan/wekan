@@ -186,3 +186,32 @@ test('Somali Blockly navigation preserves shortcuts, movement directions and acc
  for(const suffix of ['HEADING','STACK']) assert.notEqual(data['blockly-SHORTCUTS_NEXT_'+suffix],data['blockly-SHORTCUTS_PREVIOUS_'+suffix]);
  assert.notEqual(data['blockly-SHORTCUTS_JUMP_TOP_STACK'],data['blockly-SHORTCUTS_JUMP_BOTTOM_STACK']);
 });
+
+test('Somali Blockly input and bitmap labels preserve tokens and active states',()=>{
+ for(const key of Object.keys(english).filter(k=>k.startsWith('blockly-FIELD_')||k.startsWith('blockly-INPUT_LABEL_'))){
+  assert.notEqual(data[key],english[key],key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ assert.equal(data['blockly-FIELD_BITMAP_PIXEL_ON'],'shidan');
+ assert.equal(data['blockly-FIELD_BITMAP_PIXEL_OFF'],'dansan');
+ assert.match(data['blockly-FIELD_BITMAP_ARIA_VALUE'],/%1.*%2.*%3.*shidan/);
+ assert.match(data['blockly-FIELD_BITMAP_PIXEL_LABEL'],/%1.*safka %2.*tiirka %3/);
+ assert.equal(data['blockly-FIELD_LABEL_EMPTY'],data['blockly-INPUT_LABEL_EMPTY'].toLowerCase());
+});
+
+test('Somali Blockly input labels retain operand roles and shared endpoints',()=>{
+ for(const suffix of ['START_POSITION','END_POSITION']) assert.equal(data['blockly-INPUT_LABEL_LISTS_'+suffix],data['blockly-INPUT_LABEL_TEXT_'+suffix]);
+ assert.equal(data['blockly-INPUT_LABEL_LISTS_REPEAT_NUM'],data['blockly-INPUT_LABEL_LOOP_TIMES']);
+ assert.equal(data['blockly-INPUT_LABEL_LISTS_VALUE_TO_SET'],data['blockly-INPUT_LABEL_VARIABLES_SET']);
+ for(const kind of ['CONDITION','NUMBER','VALUE']){
+  assert.match(data['blockly-INPUT_LABEL_'+kind+'_A'],/koowaad/);
+  assert.match(data['blockly-INPUT_LABEL_'+kind+'_B'],/labaad/);
+ }
+ assert.match(data['blockly-INPUT_LABEL_MATH_DIVIDEND'],/^tirada la qaybinayo$/);
+ assert.match(data['blockly-INPUT_LABEL_MATH_DIVISOR'],/^tirada wax lagu qaybinayo$/);
+ assert.match(data['blockly-INPUT_LABEL_NUMBER_ATAN2_X'],/ x$/);
+ assert.match(data['blockly-INPUT_LABEL_NUMBER_ATAN2_Y'],/ y$/);
+ assert.notEqual(data['blockly-INPUT_LABEL_NUMBER_MIN'],data['blockly-INPUT_LABEL_NUMBER_MAX']);
+ assert.notEqual(data['blockly-INPUT_LABEL_LISTS_LIST_FROM_TEXT'],data['blockly-INPUT_LABEL_LISTS_TEXT_FROM_LIST']);
+ assert.notEqual(data['blockly-INPUT_LABEL_TEXT_TO_FIND'],data['blockly-INPUT_LABEL_TEXT_TO_REPLACE']);
+});

@@ -5899,6 +5899,20 @@ Browser and screen-reader checks were not run. Wording for focus, block stacks,
 tooltips and spoken announcements remains low confidence pending fluent-speaker
 review. Remaining Blockly and all-language audit work stays open.
 
+## Somali Blockly inputs and bitmap fields — 2026-10-07
+
+Translated 61 English values: 60 counted placeholders and the short bitmap `on`
+label omitted by the counter. Existing Somali translations remain unchanged.
+Tests cover every input and field label, source token inventories, row/column
+positions, pixel on/off states, first/second operands, dividend/divisor roles,
+x/y coordinates, min/max distinctions and shared start/end and repeat labels.
+
+All 63 focused translation/structural tests and 21 human-preference checks pass.
+Browser and screen-reader checks were not run. Mathematical and accessibility
+vocabulary, especially coordinates and bitmap descriptions, remains low
+confidence pending fluent-speaker review. Remaining Blockly messages and the
+broader language audit stay open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
