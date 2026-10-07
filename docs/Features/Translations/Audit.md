@@ -3394,6 +3394,14 @@ Vocabulary references include [Guarani usage from the language-policy secretaria
 
 Ten translation/token regressions, import-loss positive/negative checks, all 234 locale structure checks and 21 human-preference checks pass. Extended browser cases to these three locales; they were syntax-checked only because the local Playwright executable and running application are unavailable. Each source key remains English in 11 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
 
+### Import warning report: Tigrinya and Klingon
+
+Filled six English placeholders in `ti` and `tlh`. The fill utility protected existing translations; no translation service was used. The drafts retain board creation, incomplete transfer and the two-arrow recovery-report path. Klingon uses an explicit system subject in the failed-transfer clause rather than combining the incompatible `-laH` and `-luʼ` suffixes.
+
+References include [Tigrinya warning usage](https://www.lni.wa.gov/safety-health/preventing-injuries-illnesses/hazardalerts/BusDriverHazardAlertTigrinya_Web.pdf) and the [Klingon Language Institute's alert entry](https://lists.kli.org/archives/list/tlhingan-hol%40lists.kli.org/thread/SK2LYBSBELRGXPUOWRHGNJI2R3E3LWO4/). These support vocabulary, not full-sentence correctness. Both drafts have low-confidence technical phrasing and agreement requiring fluent-speaker review. Klingon expresses importing through acquisition and the retained report through its information; these paraphrases and the existing menu terminology need particular review.
+
+Ten translation/token regressions, import-loss positive/negative checks, all 234 locale structure checks and 21 human-preference checks pass. Extended browser cases to both locales; they were syntax-checked only because the local Playwright executable and running application are unavailable. Each source key remains English in nine locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 168 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
