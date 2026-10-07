@@ -6617,6 +6617,18 @@ The combined translation run passes 111 checks. Two existing catalog checks fail
 on the missing due-date shortcut key. All 21 human-preference checks pass.
 Browser and screen-reader checks were not run. The wider audit remains open.
 
+## Tok Pisin label and compact-card wording audit
+
+Corrected 18 mixed-language values for labels, multiple selection, compact-card
+settings, API file-size limits and added teams or organizations. Label shortcuts
+now distinguish toggling one card from adding or removing labels on multiple
+cards; the deletion warning retains both irreversibility and loss of history.
+Source tokens are preserved. Wording is provisional pending fluent-speaker review.
+
+The combined translation run passes 113 checks. Two existing catalog checks fail
+on the missing due-date shortcut key. All 21 human-preference checks pass.
+Browser and screen-reader checks were not run. The wider audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

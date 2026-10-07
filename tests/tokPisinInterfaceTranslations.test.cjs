@@ -1555,3 +1555,43 @@ test('Tok Pisin filters distinguish assignments, visibility and alphabetical end
  assert.match(data['sort-boards-title-desc'],/\(Z → A\)$/);
  assert.doesNotMatch(data['sort-boards-title-asc']+data['sort-boards-title-desc'],/wanpela/);
 });
+
+
+test('Tok Pisin labels and compact card controls replace mixed English and preserve tokens',()=>{
+ const keys=[
+  "label-delete-pop",
+  "multi-selection-label",
+  "multi-selection-member",
+  "toggle-labels",
+  "remove-labels-multiselect",
+  "api-upload-limit-label",
+  "api-download-limit-label",
+  "show-parent-in-minicard",
+  "description-on-minicard",
+  "cover-attachment-on-minicard",
+  "badge-attachment-on-minicard",
+  "card-sorting-by-number-on-minicard",
+  "r-button-label",
+  "hide-minicard-label-text",
+  "label-colors",
+  "label-names",
+  "add-teams-label",
+  "add-organizations-label"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/There|undo|destroy|selection|Toggle|Multi-Selection|adds|removes|\bmax\b|\bsize\b|parent|\bin\b|\bon\b|Count|sorting|Button|Colors|Names|are displayed/,key);
+ }
+});
+
+test('Tok Pisin label instructions distinguish toggle, bulk addition and bulk removal',()=>{
+ assert.match(data['label-delete-pop'],/no inap kisim bek.*olgeta kat.*histori bilong en olgeta/);
+ assert.match(data['toggle-labels'],/^Putim o rausim ol mak 1-9.*planti kat wantaim.*putim ol mak 1-9/);
+ assert.match(data['remove-labels-multiselect'],/planti kat wantaim.*rausim ol mak 1-9/);
+ assert.match(data['api-upload-limit-label'],/Bikpela tru sais.*salim i go antap.*API/);
+ assert.match(data['api-download-limit-label'],/Bikpela tru sais.*kisim i kam daun.*API/);
+ assert.match(data['badge-attachment-on-minicard'],/^Hamas fail i pas/);
+ assert.match(data['hide-minicard-label-text'],/^Haitim rait bilong mak/);
+ for(const type of ['teams','organizations']) assert.match(data['add-'+type+'-label'],/yu putim pinis i stap aninit:$/);
+});
