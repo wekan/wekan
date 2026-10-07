@@ -725,3 +725,24 @@ test('Akan upload and diagnostics labels preserve protocols and configuration na
  for(const key of ['setCardActionsColorPopup-title','setSwimlaneColorPopup-title']) assert.equal(data[key],data['select-color']);
  assert.match(data['upload-completed'],/awie$/);
 });
+
+
+test('Akan workflow labels preserve toggles, archive direction and literal markup', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["setListColorPopup-title", "card-sorting-by-number", "default-subtasks-board", "deposit-subtasks-list", "card-sorting-by-number-on-minicard", "r-new-rule-name", "r-toggle-rule-enabled", "r-workflow-view", "r-import-trello", "r-import-workflow", "r-workflow-format", "r-of-cards-in-list", "r-days-before", "r-for-n-days", "r-sort-list", "r-archived", "r-unarchived", "r-unarchive", "r-d-archive", "r-d-unarchive", "add-custom-html-before-body-end", "addmore-detail", "new", "newOrgPopup-title"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.equal(data['setListColorPopup-title'],data['select-color']);
+ assert.equal(data['r-sort-list'],data['listsortPopup-title']);
+ assert.match(data['r-toggle-rule-enabled'],/^Sɔ.*anaa dum/);
+ assert.match(data['r-import-trello'],/Trello Butler.*wobetumi/);
+ assert.match(data['r-for-n-days'],/N/);
+ assert.match(data['r-days-before'],/ansa/);
+ assert.match(data['r-archived'],/akɔ adekorabea/);
+ assert.match(data['r-unarchived'],/afi adekorabea aba/);
+ assert.match(data['r-d-archive'],/kaad kɔ adekorabea/);
+ assert.match(data['r-d-unarchive'],/kaad fi adekorabea ba/);
+ assert.match(data['add-custom-html-before-body-end'],/HTML.*ansa.*<\/body>/);
+ assert.match(data['card-sorting-by-number-on-minicard'],/nɔma.*kaad ketewa/);
+ assert.match(data['deposit-subtasks-list'],/: $/);
+ assert.match(data['default-subtasks-board'],/__board__/);
+});

@@ -5533,6 +5533,15 @@ identifier and action checks. Technical terminology remains low confidence pendi
 fluent-speaker review. Browser checks remain unrun. Node is intentionally a product
 name rather than translated prose.
 
+## Akan workflow and sorting corrections (batch 41)
+
+Corrected 24 damaged, mixed-language or misleading workflow/sorting labels.
+Repaired the enable/disable rule label, which previously repeated the same action.
+Preserved archive direction, Trello Butler best-effort wording, N-day and board
+placeholders and the literal closing body tag. Added source-token, direction and
+markup checks. Wording remains low confidence pending fluent-speaker review;
+browser checks remain unrun. English-placeholder counts are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
