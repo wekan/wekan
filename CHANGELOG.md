@@ -1889,6 +1889,21 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/96aa165b5d4333268e577f677d9fed81ce7d5ebc">Translate Volapük notification settings</a>. Thanks to xet7.</summary>
+
+- Fill 13 notification preferences in Volapük and replace the Esperanto member
+  label with Volapük. Record provisional technical vocabulary in
+  `docs/Features/Translations/Audit.md` for fluent-speaker review.
+- Shared notification checks now cover 57 locales. Notification, all-locale
+  structure/token and human-preference checks pass. Browser coverage is registered
+  and syntax-checked, but the browser stack was unavailable for execution.
+- The standard backlog remains 51,575 values plus 201 pending source keys;
+  these notification strings belong to the pending group. Remaining languages
+  and broader language review stay in TODO Later.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/eb30d42396363aeb3ef07711fb395c69fc856dc0">Translate Fulfulde notification settings</a>. Thanks to xet7.</summary>
 
 - Fill 13 English placeholders, preserving existing translations and the
