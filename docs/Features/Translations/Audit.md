@@ -3822,6 +3822,14 @@ The [Tibetan task entry](https://rywiki.tsadra.org/index.php/las_%27gan) support
 
 Extended locale and browser coverage to all three locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in 19 locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
 
+## Multiple-parent controls: Quechua, Aymara and Guarani - 2026-10-07
+
+Filled three English placeholders in each of `qu`, `ay` and `gn` (nine values) through the protected fill workflow. New Quechua and Aymara labels do not reuse the English filler in the older subtask/parent labels. Those older values remain in the broader language-quality backlog.
+
+The [Quechua work entry](https://en.wiktionary.org/wiki/llamkay), [Aymara pedagogical vocabulary](https://formacionenservicio.minedu.gob.pe/sifods/centro-recurso/2022/Material-educativo/Libro/vocabulario-pedagogico-aimara.pdf), and [Guarani dictionary](https://guaraniayvu.org/) supply work/action terminology. These sources do not verify complete UI phrases or parent-card metaphors. Quechua variety consistency, Aymara inflections and technical wording remain provisional and require language review.
+
+Extended locale and browser coverage to all three locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in 16 locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
