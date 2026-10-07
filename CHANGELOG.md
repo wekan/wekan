@@ -1990,10 +1990,17 @@ and updates the following translations:
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/941aa9192920aa4b468d8456dd279aae53f1c27e">Translate Swati, Tsonga, Venda and Northern Ndebele field types.</a></summary>
 
-- Fill 44 English placeholders and correct five wrong-language or filler labels in Venda and Tsonga. Preserve existing correct-language translations and source arguments.
-- Extend field-type distinctions and semantic regression coverage. Dictionary references and low-confidence technical terminology are documented in the translation audit.
-- Ordinary untranslated values decrease from 48,059 to 48,015 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 16 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 44 English placeholders and correct five wrong-language or filler labels
+  in Venda and Tsonga. Preserve existing correct-language translations and
+  source arguments.
+- Extend field-type distinctions and semantic regression coverage. Dictionary
+  references and low-confidence technical terminology are documented in the
+  translation audit.
+- Ordinary untranslated values decrease from 48,059 to 48,015 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 16 focused tests and 21 human-preference checks pass. Existing
+  browser coverage is syntax-checked; browser and spoken accessibility checks
+  were not run.
 
 Thanks to xet7 !
 
@@ -2002,10 +2009,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/918a76c246b9444bbe48788d2bc769903745c7fd">Translate southern African Blockly field-type labels.</a></summary>
 
-- Fill 66 English placeholders across Sesotho, Setswana, Sepedi, both Zulu locale paths and Xhosa. Preserve existing translations and exact source arguments.
-- Extend image, selector and input/function-name regression distinctions. Dictionary references and provisional technical terminology are documented in the translation audit.
-- Ordinary untranslated values decrease from 48,125 to 48,059 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 15 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 66 English placeholders across Sesotho, Setswana, Sepedi, both Zulu
+  locale paths and Xhosa. Preserve existing translations and exact source
+  arguments.
+- Extend image, selector and input/function-name regression distinctions.
+  Dictionary references and provisional technical terminology are documented in
+  the translation audit.
+- Ordinary untranslated values decrease from 48,125 to 48,059 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 15 focused tests and 21 human-preference checks pass. Existing
+  browser coverage is syntax-checked; browser and spoken accessibility checks
+  were not run.
 
 Thanks to xet7 !
 
@@ -2014,10 +2028,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5a416160e04d0182de6291a9da095b4a9c8e4bda">Translate Walloon, Venetian and Manx field-type labels.</a></summary>
 
-- Fill 34 English placeholders and correct three wrong-language generic labels in the Walloon catalog. Preserve existing correct-language values and source arguments.
-- Extend field-type distinctions and wrong-language regressions. Technical compounds remain provisional and are documented in the translation audit.
-- Ordinary untranslated values decrease from 48,159 to 48,125 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 15 focused tests and 21 human-preference checks pass. Existing browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 34 English placeholders and correct three wrong-language generic labels
+  in the Walloon catalog. Preserve existing correct-language values and source
+  arguments.
+- Extend field-type distinctions and wrong-language regressions. Technical
+  compounds remain provisional and are documented in the translation audit.
+- Ordinary untranslated values decrease from 48,159 to 48,125 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 15 focused tests and 21 human-preference checks pass. Existing
+  browser coverage is syntax-checked; browser and spoken accessibility checks
+  were not run.
 
 Thanks to xet7 !
 
@@ -2026,10 +2046,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d674ee1e7ff2bd087ed80461053f33b215e03622">Translate Blockly field-type labels in five more languages.</a></summary>
 
-- Fill 55 English placeholders in Turkmen, Odia, Konkani, Papiamento and Wu Chinese, preserving source arguments and existing translations.
-- Extend image, selector and input/function-name distinctions in the regression suite. Provisional technical terminology is documented in the translation audit.
-- Ordinary untranslated values decrease from 48,214 to 48,159 across 70 languages; 148 pending source keys and the broader language audit remain open.
-- Validation: 14 focused tests and 21 human-preference checks pass. Existing browser field-editing coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 55 English placeholders in Turkmen, Odia, Konkani, Papiamento and Wu
+  Chinese, preserving source arguments and existing translations.
+- Extend image, selector and input/function-name distinctions in the regression
+  suite. Provisional technical terminology is documented in the translation
+  audit.
+- Ordinary untranslated values decrease from 48,214 to 48,159 across 70
+  languages; 148 pending source keys and the broader language audit remain open.
+- Validation: 14 focused tests and 21 human-preference checks pass. Existing
+  browser field-editing coverage is syntax-checked; browser and spoken
+  accessibility checks were not run.
 
 Thanks to xet7 !
 
@@ -2038,10 +2064,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9eb2f5ebb8010bec399d3d24f0202483de272e48">Translate Blockly field-type labels in eight languages.</a></summary>
 
-- Fill 88 placeholders in Kurmanji, Sorani, Tatar, Somali, Yiddish, Moroccan Arabic, Bhojpuri and Maithili. Preserve source arguments and existing translations.
-- Add regression distinctions for image types, dropdown types and input/function names. Technical compounds remain provisional and are documented in the translation audit.
-- Ordinary untranslated values decrease from 48,302 to 48,214 across 70 languages; 148 pending source keys and the broader language audit remain open.
-- Validation: 14 focused tests and 21 human-preference checks pass. Existing browser field-editing coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill 88 placeholders in Kurmanji, Sorani, Tatar, Somali, Yiddish, Moroccan
+  Arabic, Bhojpuri and Maithili. Preserve source arguments and existing
+  translations.
+- Add regression distinctions for image types, dropdown types and input/function
+  names. Technical compounds remain provisional and are documented in the
+  translation audit.
+- Ordinary untranslated values decrease from 48,302 to 48,214 across 70
+  languages; 148 pending source keys and the broader language audit remain open.
+- Validation: 14 focused tests and 21 human-preference checks pass. Existing
+  browser field-editing coverage is syntax-checked; browser and spoken
+  accessibility checks were not run.
 
 Thanks to xet7 !
 
@@ -2050,10 +2083,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1f4f00c8807477cf088a5924ec2c591a66686efb">Translate Inuktitut Blockly comment and accessibility labels.</a></summary>
 
-- Fill fifteen English placeholders while preserving source arguments and existing translations. Extend opposite-action regressions and translated comment-menu assertions.
-- Vocabulary references and low-confidence technical paraphrases are recorded in the translation audit. Full phrases, including conditional branches and input connections, still need semantic review.
-- Ordinary untranslated values decrease from 48,317 to 48,302 across 70 languages; 148 pending source keys and the broader language audit remain open.
-- Validation: 13 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill fifteen English placeholders while preserving source arguments and
+  existing translations. Extend opposite-action regressions and translated
+  comment-menu assertions.
+- Vocabulary references and low-confidence technical paraphrases are recorded in
+  the translation audit. Full phrases, including conditional branches and input
+  connections, still need semantic review.
+- Ordinary untranslated values decrease from 48,317 to 48,302 across 70
+  languages; 148 pending source keys and the broader language audit remain open.
+- Validation: 13 focused tests and 21 human-preference checks pass. Browser
+  coverage is syntax-checked; browser and spoken accessibility checks were not
+  run.
 
 Thanks to xet7 !
 
@@ -2062,10 +2102,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/22a15f2b10963074e18384414d16031b70306682">Translate Greenlandic Blockly comment and accessibility controls.</a></summary>
 
-- Fill fifteen English placeholders while preserving source arguments and existing translations. Extend opposite-action regressions and translated comment-menu assertions.
-- Record vocabulary sources and low-confidence technical paraphrases in the translation audit. Full wording and spoken angle-symbol output still need review.
-- Ordinary untranslated values decrease from 48,332 to 48,317 across 70 languages; 148 pending source keys and the broader semantic audit remain open.
-- Validation: 13 focused tests and 21 human-preference checks pass. Browser coverage is syntax-checked; browser and spoken accessibility checks were not run.
+- Fill fifteen English placeholders while preserving source arguments and
+  existing translations. Extend opposite-action regressions and translated
+  comment-menu assertions.
+- Record vocabulary sources and low-confidence technical paraphrases in the
+  translation audit. Full wording and spoken angle-symbol output still need
+  review.
+- Ordinary untranslated values decrease from 48,332 to 48,317 across 70
+  languages; 148 pending source keys and the broader semantic audit remain open.
+- Validation: 13 focused tests and 21 human-preference checks pass. Browser
+  coverage is syntax-checked; browser and spoken accessibility checks were not
+  run.
 
 Thanks to xet7 !
 
