@@ -1622,6 +1622,12 @@ and every case agreed, after a MySQL range fix it found (see Upcoming). **Only
 SAP HANA is untested**: its image is amd64-only and needs a licence acceptance
 and about 16 GB of memory, so it cannot run on the arm64 machine used here.
 
+[#6746](https://github.com/wekan/wekan/issues/6746) (a reinstalled snap never
+got FerretDB answering, and the restore saw "write: permission denied" on
+loopback. The backup and restore tools now start the database and print the
+real error, but the cause needs `sudo snap logs -n 100 wekan.ferretdb` and
+`journalctl -k | grep -i denied` from that server.)
+
 </details>
 
 <details>
@@ -1880,12 +1886,36 @@ each for the reason given:
 
 # Upcoming WeKan ® release
 
-**In short:** All supported languages now have **login-setting text** for
-HTTP-header authentication, stored-value removal and restart guidance.
-All supported languages also have archiving and date-filter text.
-Minority-language wording remains provisional and needs speaker review.
+**In short:** The **Snap** backup and restore commands now start the database
+they need and say why it does not answer. All supported languages now have
+**login-setting text** for HTTP-header authentication, stored-value removal and
+restart guidance, and archiving and date-filter text. Minority-language wording
+remains provisional and needs speaker review.
 
-This release updates the following translations:
+This release fixes the following bugs:
+
+**Snap database tools** - backup, restore and WeKan's wait for its database.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fa75d59fd0">Backup and restore start the database first, and every wait says why it fails</a>. Thanks to fabiosalles and xet7.</summary>
+
+`wekan.database-restore` and `wekan.database-backup` only talked to whatever
+was on the database port. After `snap stop wekan` nothing is there. On a
+FerretDB snap the database is a service of its own, so they failed after 30
+seconds with a driver topology dump ([#6746](https://github.com/wekan/wekan/issues/6746)).
+`bin/database-ready` asks `bin/database-role` which database holds the data,
+starts that service and waits for it. If it still does not answer, it stops
+with the driver's error and the `snap logs` command to run. A "permission
+denied" is named as a security-policy denial on the server. WeKan's own wait
+for FerretDB now shows the ping error too, and no longer suggests the removed
+`database` setting. The backup path may contain spaces.
+`tests/snapDatabaseRestore.test.cjs` runs both tools in a stand-in snap, with
+negative tests for a database that never answers. Not run in an installed
+snap.
+
+</details>
+
+and updates the following translations:
 
 **Activity notifications** - choosing which card activity sends notifications.
 
