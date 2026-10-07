@@ -2106,6 +2106,25 @@ The ordinary backlog remains 51,575 values in 70 languages. This is placeholder
 coverage, not a claim of fluent or correct-language text; the wider review and
 low-confidence SAML phrases remain open.
 
+### Rule-builder instructions — Turkmen, Tatar and Somali (2026-10-07)
+
+Filled seven pending rule-builder strings in tk_TM, tt and so (21 values): people
+variables, card-date trigger label, any-trigger/ordered-actions help, add-trigger,
+add-action, remove-part and trigger-variable help. Existing translated values were
+preserved; no translation service was used. Literal brace expressions, including
+`{customField:Field name}` and `{customField:Name}`, remain exactly as in English.
+
+Extended the existing trigger-variable regression suite to compare brace-token
+inventories as well as underscore/percent tokens, source order and nonempty values.
+It includes a negative check for a renamed custom-field example. Runtime variable
+matching cases, all-locale structural checks and human-preference checks pass.
+The existing browser scenario was syntax-checked only; the app stack was unavailable.
+
+Trigger and swimlane terminology and the composed date-condition fragments need
+native/UI review, especially where existing locale labels use inconsistent terms.
+63 locale paths still need this seven-string group. The snapshot remains 51,575
+ordinary missing values plus 181 pending keys; broader language review stays open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

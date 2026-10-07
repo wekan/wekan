@@ -66,3 +66,24 @@ assert.match(read('client/components/rules/rulesMain.js'), /if \(triggerValueHas
 assert.match(read('client/components/rules/rulesTriggers.jade'), /js-trigger-vars-hint \{\{_ 'r-trigger-vars-hint'\}\}/);
 assert.ok(JSON.parse(read('imports/i18n/data/en.i18n.json'))['r-trigger-vars-hint'].includes('{customField:Name}'));
 console.log('  ok - rules find token triggers, and the editor keeps and explains them');
+
+// Literal example variables must survive translation unchanged.
+{
+  const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
+  const readLocale = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
+  const english = readLocale('en');
+  const keys = ["r-vars-people-hint", "r-when-card-date", "r-rule-any-trigger-help", "r-add-trigger-to-rule", "r-add-action-to-rule", "r-remove-rule-part", "r-trigger-vars-hint"];
+  const braceTokens = text => (text.match(/\{[^{}]+\}/g) || []).sort();
+  for (const code of ['tk_TM', 'tt', 'so']) {
+    const locale = readLocale(code);
+    assert.deepEqual(Object.keys(locale), Object.keys(english), `${code}: source order`);
+    for (const key of keys) {
+      assert.ok(locale[key]?.trim(), `${code}:${key}: nonempty`);
+      assert.notEqual(locale[key], english[key], `${code}:${key}: no English fallback`);
+      assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: source tokens`);
+      assert.deepEqual(braceTokens(locale[key]), braceTokens(english[key]), `${code}:${key}: literal rule variables`);
+    }
+  }
+  assert.notDeepEqual(braceTokens('{customField:Name}'), braceTokens('{customField:Translated}'));
+  console.log('Rule builder translations: 7 strings in 3 locales passed');
+}
