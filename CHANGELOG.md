@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7bb67bc8a9aa736cdd8c5ecc23d22b408d0216ef">Correct 60 Akan cloud-storage, backup and migration translations.</a></summary>
+
+- Replace generic filler in cloud credentials, backups, migrations and connection tests. Preserve product names, region examples and replacement scope.
+- Add token, identifier, lifecycle and shared-label checks. Specialized storage and migration wording remains provisional.
+- The exact generic-filler inventory decreases from 159 to 99. English placeholders remain 45,599 across 70 languages because these corrections replace non-English values.
+- Validation: 53 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d254baf5a1d07cc9b586ba000b73e659b26fedb7">Correct 60 Akan attachment, storage and account-control translations.</a></summary>
 
 - Replace generic filler in tickets, attachment moves, storage diagnostics, accessibility and account lockouts. Restore storage provider names and preserve identifiers and second units.
