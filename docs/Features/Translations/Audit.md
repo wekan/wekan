@@ -6473,6 +6473,12 @@ Corrected 41 mixed-language values containing the `Toksave:` prefix, covering re
 
 Validation: 67 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
 
+## Tok Pisin system and connection wording audit
+
+Corrected 48 mixed-language values containing the `Toksave:` prefix, covering runtime and OS information, memory metrics, SMTP, webhooks, custom HTML/JSON and cloud connections. Preserved source placeholders, product names, configuration identifiers and region examples; distinguished free/total/used memory, webhook directions and access/secret keys. Existing correct-language values remain unchanged. The prefix inventory falls from 246 to 198; unprefixed values also need review. Technical loan words and metric descriptions remain low confidence pending fluent-speaker review; browser and screen-reader checks were not run.
+
+Validation: 69 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

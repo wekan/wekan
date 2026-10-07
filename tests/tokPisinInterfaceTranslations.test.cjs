@@ -378,3 +378,77 @@ test('Tok Pisin monitoring labels distinguish chronology, queues and resource us
  assert.equal(data['recovery-detail'],data['event-detail']);
  assert.equal(data['cpuReportTitle'],data['cpu-usage']);
 });
+
+
+test('Tok Pisin system labels replace prefixed English with intact source tokens',()=>{
+ const keys=[
+  "Node_version",
+  "Meteor_version",
+  "FerretDB_version",
+  "FerretDB_commit",
+  "Reactivity_mode",
+  "Reactivity_order",
+  "DDP_transport",
+  "OS_Arch",
+  "OS_Cpus",
+  "OS_Freemem",
+  "OS_Loadavg",
+  "OS_Platform",
+  "OS_Release",
+  "OS_Totalmem",
+  "OS_Type",
+  "OS_Uptime",
+  "Node_heap_total_heap_size",
+  "Node_heap_total_heap_size_executable",
+  "Node_heap_total_physical_size",
+  "Node_heap_used_heap_size",
+  "Node_heap_heap_size_limit",
+  "Node_heap_malloced_memory",
+  "Node_heap_peak_malloced_memory",
+  "Node_heap_does_zap_garbage",
+  "Node_memory_usage_rss",
+  "Node_memory_usage_heap_used",
+  "Node_memory_usage_external",
+  "Mongo_sessions_count",
+  "smtp-host",
+  "smtp-port",
+  "smtp-tls",
+  "outgoing-webhooks",
+  "bidirectional-webhooks",
+  "outgoingWebhooksPopup-title",
+  "custom-head-meta-tags",
+  "custom-head-link-tags",
+  "custom-head-manifest-content",
+  "custom-assetlinks-content",
+  "s3-force-path-style",
+  "azure-connection-string",
+  "azure-container",
+  "gcs-project-id",
+  "gcs-bucket",
+  "test-cloud-connection",
+  "s3-access-key-placeholder",
+  "s3-region-description",
+  "s3-secret-key-placeholder",
+  "test-s3-connection"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.doesNotMatch(data[key],/Toksave:/,key);
+  assert.notEqual(data[key],english[key],key);
+ }
+});
+
+test('Tok Pisin system labels retain identifiers and distinguish metrics and connection types',()=>{
+ for(const [key,tokens] of Object.entries({Reactivity_mode:['changeStreams','oplog','polling'],Reactivity_order:['METEOR_REACTIVITY_ORDER'],DDP_transport:['DDP_TRANSPORT'],'custom-assetlinks-content':['assetlinks.json','JSON'],'s3-region-description':['AWS S3','us-east-1']})) for(const token of tokens) assert.ok(data[key].includes(token),key);
+ assert.match(data['OS_Freemem'],/fri/);
+ assert.match(data['OS_Totalmem'],/Olgeta/);
+ assert.match(data['Node_heap_heap_size_limit'],/mak bilong sais/);
+ assert.match(data['Node_heap_peak_malloced_memory'],/bikpela tru.*malloc/);
+ assert.match(data['Node_heap_used_heap_size'],/yusim pinis/);
+ assert.match(data['Node_memory_usage_rss'],/RAM/);
+ assert.match(data['s3-secret-key-placeholder'],/hait ki/);
+ assert.doesNotMatch(data['s3-access-key-placeholder'],/hait ki/);
+ assert.match(data['outgoing-webhooks'],/i go aut/);
+ assert.match(data['bidirectional-webhooks'],/i go na i kam/);
+ assert.equal(data['outgoing-webhooks'],data['outgoingWebhooksPopup-title']);
+});
