@@ -6443,6 +6443,12 @@ Translated 82 Blockly editing, backpack, warning, navigation and screen-reader m
 
 Validation: 57 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. Remaining inventory: 42,924 English placeholders across 70 languages, with 149 source keys pending review.
 
+## Tok Pisin maths messages
+
+Translated 86 Blockly maths messages. Preserved source placeholders, mathematical symbols, constant values, operand order, inclusive/exclusive limits and degree/radian distinctions. Tests cover aggregation types, signs, rounding and logarithm bases. Existing correct-language values remain unchanged. Searches for Tok Pisin mathematical terminology did not establish standard terms for advanced operations. Loan spellings and paraphrases for trigonometry, logarithms, roots, prime numbers, golden ratio and standard deviation are low confidence and require fluent-speaker review; these checks do not establish linguistic correctness. Browser and screen-reader checks were not run.
+
+Validation: 59 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. Remaining inventory: 42,838 English placeholders across 70 languages, with 149 source keys pending review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

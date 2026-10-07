@@ -286,3 +286,37 @@ test('Tok Pisin editing commands distinguish destructive actions and navigation 
  assert.match(data['blockly-SHORTCUTS_FINISH_MOVE'],/Pinisim/);
  assert.notEqual(data['blockly-REDO'],data['blockly-UNDO']);
 });
+
+test('Tok Pisin maths preserves placeholders, constants and literal operation symbols',()=>{
+ const literals=new Set(['+','÷','×','^','-','e','pi','acos','asin','atan','cos','sin','tan','230']);
+ for(const key of Object.keys(english).filter(k=>k.startsWith('blockly-MATH_'))){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  if(key.endsWith('_HELPURL')||literals.has(english[key])) assert.equal(data[key],english[key],key);
+  else assert.notEqual(data[key],english[key],key);
+ }
+ for(const constant of ['π (3.141…)','e (2.718…)','φ (1.618…)','sqrt(2) (1.414…)','sqrt(½) (0.707…)','∞']) assert.ok(data['blockly-MATH_CONSTANT_TOOLTIP'].includes(constant));
+ assert.match(data['blockly-MATH_RANDOM_FLOAT_TOOLTIP'],/0\.0 \(i insait\).*1\.0 \(i no insait\)/);
+ assert.match(data['blockly-MATH_RANDOM_INT_TOOLTIP'],/tupela mak tu i insait/);
+ assert.match(data['blockly-MATH_CONSTRAIN_TOOLTIP'],/tupela mak tu i insait/);
+ assert.match(data['blockly-MATH_ATAN2_TOOLTIP'],/\(X, Y\).*digri.*-180.*180/);
+ for(const op of ['COS','SIN','TAN']) assert.match(data['blockly-MATH_TRIG_TOOLTIP_'+op],/digri \(i no long radian\)/);
+});
+
+test('Tok Pisin maths distinguishes operands, aggregations and numeric signs',()=>{
+ assert.match(data['blockly-MATH_ARITHMETIC_TOOLTIP_MINUS'],/rausim namba tu namba long fes namba/);
+ assert.match(data['blockly-MATH_ARITHMETIC_TOOLTIP_DIVIDE'],/brukim fes namba long namba tu namba/);
+ assert.match(data['blockly-MATH_ARITHMETIC_TOOLTIP_POWER'],/fes namba.*pawa.*namba tu/);
+ assert.match(data['blockly-MATH_ONLIST_TOOLTIP_AVERAGE'],/bungim olgeta.*brukim long hamas/);
+ assert.match(data['blockly-MATH_ONLIST_TOOLTIP_MODE'],/lis.*kamap planti moa taim/);
+ assert.match(data['blockly-MATH_ONLIST_TOOLTIP_MAX'],/bikpela tru/);
+ assert.match(data['blockly-MATH_ONLIST_TOOLTIP_MIN'],/liklik tru/);
+ assert.match(data['blockly-MATH_IS_EVEN'],/no gat hap i stap yet/);
+ assert.match(data['blockly-MATH_IS_ODD'],/1 i stap yet/);
+ assert.match(data['blockly-MATH_IS_NEGATIVE'],/liklik moa long 0/);
+ assert.match(data['blockly-MATH_IS_POSITIVE'],/bikpela moa long 0/);
+ assert.match(data['blockly-MATH_SINGLE_TOOLTIP_NEG'],/plus i go long minus.*minus i go long plus/);
+ assert.match(data['blockly-MATH_SINGLE_TOOLTIP_LN'],/beis e/);
+ assert.match(data['blockly-MATH_SINGLE_TOOLTIP_LOG10'],/beis 10/);
+ assert.match(data['blockly-MATH_ROUND_OPERATOR_ROUNDDOWN'],/daun/);
+ assert.match(data['blockly-MATH_ROUND_OPERATOR_ROUNDUP'],/antap/);
+});
