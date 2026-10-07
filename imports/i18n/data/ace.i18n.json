@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Surat èlektronik nyoe ka geukirem, ka geucuba kirem, atawa ka geubôh.",
   "rule-email-legacy-not-legacy": "Surat èlektronik nyoe ka geupeusambông lom.",
   "rule-email-legacy-failed": "Hana jeuet geupeuseuleusoe buet nyoe. Muat lom ngon cuba lom.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Tamong SAML nyoe hana geupeuphon bak tab browser nyoe. Neu tamong lom, meunyoe jeuet.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

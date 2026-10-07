@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "እዚ ኢመይል ድሮ ተላኢኹ፣ ንምልኣኹ ተፈቲኑ ወይ ተወጊዱ እዩ።",
   "rule-email-legacy-not-legacy": "እዚ ኢመይል ድሮ ዳግም ተኣሳሲሩ እዩ።",
   "rule-email-legacy-failed": "እዚ ስጉምቲ ክዛዘም ኣይተኻእለን። ኣሐድስ እሞ ደጊምካ ፈትን።",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "እዚ ብSAML ምእታው ኣብዚ ታብ መርበብ ሓበሬታ መቃለቢ ኣይተጀመረን። በጃኹም እንደገና እተዉ።",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

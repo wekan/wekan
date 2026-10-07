@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "གློག་འཕྲིན་འདི་ཧེ་མ་ལས་བཏང་ཡོདཔ་དང་ ཡང་ན་གཏང་ནི་འབད་བལྟ་ཡོདཔ་དང་ ཡང་ན་བཏོན་བཏང་ཡོད།",
   "rule-email-legacy-not-legacy": "གློག་འཕྲིན་འདི་ཧེ་མ་ལས་ལོག་མཐུད་ཡོད།",
   "rule-email-legacy-failed": "བྱ་བ་འདི་མཇུག་བསྡུ་མ་ཚུགས། བསྐྱར་གསོ་འབད་དེ་ལོག་འབད་བལྟ།",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "SAML ནང་འཛུལ་འདི་ ཡོངས་འབྲེལ་འཆར་སྒོའི་ཨེབ་ལྡེ་འདི་ནང་ འགོ་བཙུགས་བཙུགསཔ་མེན། ལོག་སྟེ་ནང་འཛུལ་འབད་གནང་།",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

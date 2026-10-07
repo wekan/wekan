@@ -1983,6 +1983,25 @@ checks pass. Browser scenarios were not run; the app stack was unavailable.
 19 locale paths still need this message. The snapshot remains 51,575 ordinary
 missing values plus 182 pending keys; language-quality review remains open.
 
+### SAML browser-tab error — fifth remaining batch (2026-10-07)
+
+Filled `saml-login-not-started` in ace, bo, dz, ti and ks (five locale paths).
+Existing translations were preserved and no translation service was used. The
+message retains the current-tab boundary and request to sign in again. Browser-tab
+terminology and full Acehnese and Dzongkha phrases are low confidence and need
+native review; script checks cannot establish correct vocabulary or grammar.
+
+References include the [Acehnese thesaurus](https://openresearch-repository.anu.edu.au/server/api/core/bitstreams/a9fa3ff5-837d-40db-a316-81bbe13d3bf4/content)
+for again and [Dzongkha browser configuration guidance](https://www.dzongkha.gov.bt/dz/article/configuring-web-browsers-for-dzongkha)
+for browser terminology. These references support individual terms, not the full
+translation. Existing unrelated mixed-language values remain in the wider review.
+
+The popup-error suite now checks 52 recently filled locales and passes, including
+positive and negative login-boundary cases. All-locale structural and human-preference
+checks pass. Browser scenarios were not run; the app stack was unavailable.
+14 locale paths still need this message. The snapshot remains 51,575 ordinary
+missing values plus 182 pending keys; broader language review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
