@@ -4651,6 +4651,14 @@ mixed-language audit remains open.
 - Extended exact-placeholder/opposing-action regression coverage and the existing translated add-comment browser assertion to Veps. Blockly/completeness: 13 tests pass; human-preference verification: 21 checks pass. Browser coverage is syntax-checked only because Playwright is absent locally. Neither browser interaction nor spoken accessibility was executed; structural checks do not establish fluency.
 - Ordinary placeholders decrease from 48,390 to 48,375 across 70 languages. The 148 pending source keys and broader translation/semantic audit remain open.
 
+## Wu Chinese and Nahuatl Blockly accessibility labels
+
+- Filled fifteen English placeholders each in Wu Chinese (`wuu-Hans`) and Nahuatl (`nah`): 30 values, using the protected merge. The group covers comment controls, conditional branches, inputs, list items, text, button, collapse/expand, angle degrees and empty trash.
+- Wu Chinese uses simplified characters and regional phrasing such as `删脱`, `里向` and `空个`. The variety-wide suitability of these forms remains provisional.
+- Nahuatl vocabulary research used [pachoa (press)](https://nahuatl.wired-humanities.org/content/pachoa), [tlazolli (trash)](https://nahuatl.wired-humanities.org/content/tlazolli) and [tlalia (place/set up)](https://nahuatl.wired-humanities.org/content/tlalia). The button is paraphrased as something pressed; add uses a placement verb. Replaced the initial raising/shrinking drafts before commit. Complete clauses, modern technical nouns, the degree loan and condition/input paraphrases remain **low confidence**; the dictionary does not attest the full UI sentences.
+- Extended exact-placeholder and opposing-operation checks and visible translated add-comment browser assertions to both locales. Blockly/completeness: 13 tests pass; human-preference verification: 21 checks pass. Browser coverage is syntax-checked only because Playwright is absent locally. Spoken accessibility and fluent wording remain unverified.
+- Ordinary placeholders decrease from 48,375 to 48,345 across 70 languages. Six locales still have English placeholders in this accessibility-label group. The 148 pending source keys and broader translation/semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
