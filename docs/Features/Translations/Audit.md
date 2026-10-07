@@ -4855,6 +4855,13 @@ mixed-language audit remains open.
 - Very low confidence: corner is used for angle, day for date and process for function. Pixel is an unverified syllabic loan; grid adds a four-cornered shape to the dropdown description. Transcription, grammatical agreement, noun phrases, input meaning and the existing dropdown/checkbox terms all require review. Correct script, distinct labels and token preservation do not establish fluent Cherokee.
 - Existing browser coverage is registered but unexecuted. Spoken announcements, the 148 pending source keys and the broader semantic audit remain open.
 
+### Kurdish and Tatar block and bubble labels
+
+- Filled 48 English placeholders in Northern Kurdish, Central Kurdish and Tatar: block-state/type labels, stack descriptions, input/branch counts and comment/warning bubble labels. Protected filling preserves existing correct-language values; numbered arguments are unchanged.
+- Stack is described as a sequence/chain of blocks and statement as a command. Distinguish singular/plural input, collapsed/disabled, statement/value and comment/warning. These are direct translations using the existing catalogs and general programming terminology, without a translation service.
+- Kurdish container, replaceability and bubble terminology remains lower confidence; accessibility wording and the stack/statement paraphrases need contextual review. Structural distinction checks do not prove semantic equivalence.
+- Added token and non-placeholder checks plus distinction regressions. Existing browser flows cover these locales but remain unexecuted; spoken announcements, the 148 pending source keys and the broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

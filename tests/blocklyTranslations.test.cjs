@@ -157,6 +157,22 @@ test('filled field types distinguish images, selectors and input names', async()
  }
 });
 
+test('Kurdish and Tatar block and bubble labels preserve arguments and semantic distinctions',async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=Object.keys(english).filter(k=>/^blockly-(BLOCK_LABEL_|BUBBLE_LABEL_)/.test(k));
+ for(const code of ['ku','ckb','tt']){
+  const data=require(`../imports/i18n/data/${code}.i18n.json`);
+  for(const key of keys){
+   assert.ok(data[key]?.trim(),`${code}:${key}`);
+   assert.notEqual(data[key],english[key],`${code}:${key}`);
+   assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),`${code}:${key}`);
+  }
+  for(const [left,right] of [['BLOCK_LABEL_HAS_INPUT','BLOCK_LABEL_HAS_INPUTS'],['BLOCK_LABEL_COLLAPSED','BLOCK_LABEL_DISABLED'],['BLOCK_LABEL_STATEMENT','BLOCK_LABEL_VALUE'],['BUBBLE_LABEL_COMMENT','BUBBLE_LABEL_WARNING']]){
+   assert.notEqual(data['blockly-'+left],data['blockly-'+right],`${code}:${left}/${right}`);
+  }
+ }
+});
+
 test('every Blockly message resolves through all WeKan locale catalogs with intact placeholders',()=>{
   assert.deepEqual(Object.keys(mapping).sort(),Object.keys(upstream).sort());
   for(const file of fs.readdirSync(path.join(root,'imports/i18n/data')).filter(f=>f.endsWith('.i18n.json'))){
