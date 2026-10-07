@@ -3302,6 +3302,12 @@ Filled three English placeholders in `wal`. The direct draft preserves signed-in
 
 Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in two locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
 
+### Signed-in board visibility: Tigre
+
+Filled three English placeholders in `tig`. The direct draft preserves the signed-in viewing condition, anonymous exclusion, board-member editing and confirmation emphasis. Existing translations were protected by the fill utility; no translation service was used. [Omar M. Kekia's Tigre lessons](https://www.speaktigre.com/_files/ugd/7e068a_d791dde4087041feaf3dedb6b109829c.pdf?index=true) inform the `et` and `egl` constructions, negative prefix and `lieTa` restriction. Software vocabulary, relative clauses and verb agreement have low confidence and need fluent-speaker review. The shared Ethiopic script does not establish correctness or distinguish Tigre from Tigrinya by itself.
+
+Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English only in Cherokee. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
