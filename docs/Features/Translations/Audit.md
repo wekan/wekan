@@ -4752,6 +4752,14 @@ mixed-language audit remains open.
 - Existing browser field-editing flows include all three locales; browser execution and spoken type announcements remain outstanding. Structural checks do not certify fluency.
 - This batch removes 33 ordinary placeholders and repairs four selector labels; the 148 pending source keys and broader semantic audit remain open.
 
+### Buryat, Chuvash and Sakha field types
+
+- Filled 33 English field-type placeholders in `bua`, `cv` and `sah` through the protected fill, preserving existing translations and exact source arguments.
+- Vocabulary references: [Buryat grammar](https://altaica.ru/LIBRARY/mong/BuriatGrammar.pdf) includes `булан` for corner/angle; [Chuvash angle entry](https://ru.wiktionary.org/wiki/%D1%83%D0%B3%D0%BE%D0%BB) gives `кӗтес`; [Sakha dictionary](https://sakhatyla.ru/translate?q=%D0%BC%D1%83%D0%BD%D0%BD%D1%83%D0%BA) distinguishes the mathematical use of `муннук`. The remaining phrases combine existing UI vocabulary with direct drafts and technical loans.
+- Low confidence: grid and checkbox descriptions, loanword morphology, dropdown phrasing and the date/day distinction require review. Sakha checkbox uses a square to be marked; an initial narrowness-based draft was rejected before application. Cyrillic script alone does not establish the correct language or meaning.
+- Extended pixel/plain image, grid/plain dropdown and input/function-name distinctions, plus token coverage. Existing browser flows cover field editing for these locales; browser execution and spoken type announcements remain unverified.
+- This batch removes 33 ordinary placeholders. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
