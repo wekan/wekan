@@ -5989,6 +5989,22 @@ Browser checks were not run. Technical compounds for diagnostics and mapped
 estimate fields remain low confidence pending fluent-speaker review. Remaining
 feature families and the all-language wording audit stay open.
 
+## Northern Sotho Scrum planning and reports — 2026-10-07
+
+Filled 84 English placeholders without changing existing translations. Tests
+cover all 102 Scrum and related view messages, including 18 earlier translations,
+and preserve source tokens, shared labels, distinct lifecycle states,
+unfinished-card movement, cancellation membership, partial reports, unknown
+versus zero estimates, first UTC observations, omitted days and the 366 limit.
+Export instructions use the existing Romela label and distinguish the section
+control from the toolbar control.
+
+Ten focused translation/structural tests and 21 human-preference checks pass.
+Browser checks were not run. Sprint is described as a work cycle; Scrum and
+Planning Poker remain method names. Technical compounds for snapshots,
+retrospectives, increments and scope remain low confidence pending fluent-speaker
+review. The remaining Blockly and all-language wording audit stays open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
