@@ -7179,6 +7179,15 @@ comparisons and AND/OR behavior, and match tooltip field names to visible labels
 Technical wording for case-insensitive sorting remains low confidence pending
 fluent review. Browser and screen-reader checks were not run.
 
+### Kurdish Blockly arithmetic and statistics labels
+
+Filled 40 English placeholders for arithmetic, constants, bounds, number tests,
+remainders and list statistics. Existing translations and mathematical notation
+are preserved. Tests check key order, placeholders, literal constants, degree
+ranges, inclusive bounds and distinct operations. Technical terminology for
+roots, prime numbers and standard deviation remains low confidence pending
+fluent review. Browser and screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
