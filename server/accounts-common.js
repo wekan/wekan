@@ -10,6 +10,20 @@ import { authEnv, authConfigReady } from '/server/lib/authConfig';
 // change applies from the next start; the cookie below uses the same value.
 let loginExpirationDays = 90;
 
+// Meteor answers more than 30 refreshes of the HttpOnly login cookie per 10
+// seconds from one client address with 429, and every page load is one. That
+// is per ADDRESS: behind a reverse proxy that is not trusted for the client
+// address (HTTP_FORWARDED_COUNT), every user shares one, and the browser tests
+// all come from localhost, where a quick run signs itself out mid-test.
+// ACCOUNTS_COOKIE_REFRESH_RATE_LIMIT raises the per-10-seconds allowance; a
+// value that is not a positive whole number leaves Meteor's default.
+export function cookieRefreshRateLimit(value) {
+  const max = Number(value);
+  return Number.isSafeInteger(max) && max > 0
+    ? { httpOnlyCookieRateLimit: { max, windowMs: 10000 } }
+    : {};
+}
+
 Meteor.startup(async () => {
   await authConfigReady;
   loginExpirationDays = Number(authEnv('ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS')) || 90;
@@ -24,6 +38,7 @@ Meteor.startup(async () => {
     // over a trillion values, and a code now lives 15 minutes.
     tokenSequenceLength: 10,
     loginTokenExpirationHours: 0.25,
+    ...cookieRefreshRateLimit(process.env.ACCOUNTS_COOKIE_REFRESH_RATE_LIMIT),
   });
 });
 

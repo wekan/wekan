@@ -1373,6 +1373,10 @@ function run_all_tests(){
 	# The Docker and Snap default, so the browser tests see the framing policy
 	# (FrameBleed) the way a real install sends it.
 	export BROWSER_POLICY_ENABLED=true
+	# Every page load refreshes the login cookie, and Meteor allows 30 per 10
+	# seconds per address; the whole browser suite comes from localhost, so a
+	# quick run signed its own test users out (server/accounts-common.js).
+	export ACCOUNTS_COOKIE_REFRESH_RATE_LIMIT="${ACCOUNTS_COOKIE_REFRESH_RATE_LIMIT:-100000}"
 	if [ "${WEKAN_TEST_SERVER_MODE:-bundle}" = source ]; then
 		export WEKAN_PLAYWRIGHT_PROBE=0
 		local WRITABLE_ABS="$WEKAN_DIR/.tools/test-writable"

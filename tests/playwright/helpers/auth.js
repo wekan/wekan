@@ -70,13 +70,37 @@ async function loginWithToken(page, userId, token) {
     .evaluate(() => typeof Meteor !== 'undefined' && typeof Meteor.subscribe === 'function')
     .catch(() => false);
   if (!onLoadedApp) {
-    await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'commit' });
-    await waitForMeteor(page);
-    // Cookie retrieval precedes Accounts.loggingIn(). Wait for the resume itself,
-    // rather than interpreting that initial false value as a finished login.
-    await page.waitForFunction(
-      id => Meteor.userId() === id && !Meteor.loggingIn(), userId, { timeout: 30_000 },
-    );
+    // Meteor answers more than 30 refreshes of the HttpOnly login cookie per 10
+    // seconds from one address with 429, and every test runs from localhost, so
+    // a run that switches users quickly can hit it: the resume then never lands
+    // and the page stays on sign-in. Notice exactly that answer, and only after
+    // it wait the window out and load once more; any other failure still fails.
+    let throttled = false;
+    const onResponse = response => {
+      if (response.status() === 429 && response.url().includes('/_accounts/cookie/refresh')) throttled = true;
+    };
+    // Real pages always have events; the unit tests' stand-in page does not.
+    const listens = typeof page.on === 'function' && typeof page.off === 'function';
+    if (listens) page.on('response', onResponse);
+    const resume = async () => {
+      await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'commit' });
+      await waitForMeteor(page);
+      // Cookie retrieval precedes Accounts.loggingIn(). Wait for the resume itself,
+      // rather than interpreting that initial false value as a finished login.
+      await page.waitForFunction(
+        id => Meteor.userId() === id && !Meteor.loggingIn(), userId, { timeout: 30_000 },
+      );
+    };
+    try {
+      await resume();
+    } catch (error) {
+      if (!throttled) throw error;
+      throttled = false;
+      await page.waitForTimeout(11_000);
+      await resume();
+    } finally {
+      if (listens) page.off('response', onResponse);
+    }
   }
 
   // Wait for any stored-session resume that is still in flight to finish, so the

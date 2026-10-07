@@ -27,6 +27,13 @@ Under them, the Login pane's own environment variables, each overridable:
 `PASSWORD_LOGIN_ENABLED`, `DEFAULT_AUTHENTICATION_METHOD` and
 `ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS` (applied when WeKan starts).
 
+`ACCOUNTS_COOKIE_REFRESH_RATE_LIMIT` is environment-only and also applied when
+WeKan starts: how many login-cookie refreshes one client address may make per
+10 seconds (Meteor's default is 30; every page load is one). Raise it when many
+users reach WeKan through a proxy that WeKan does not trust for the client
+address (`HTTP_FORWARDED_COUNT`), because they then share one address. The
+browser tests set it, as they all come from localhost.
+
 ## Provider settings
 
 Every login environment variable can be overridden in the Admin Panel, in the
