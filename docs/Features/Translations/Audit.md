@@ -7261,6 +7261,16 @@ preserved. Tests check key order, token inventories and distinct event and
 lifecycle labels. Retrospective and swimlane terminology remains low confidence
 pending fluent review. Browser and screen-reader checks were not run.
 
+### Kurdish sprint report caveats and lifecycle confirmations
+
+Filled 13 English placeholders for snapshots, report limitations, sprint close
+and cancel confirmations, daily observations and incomplete imports. Existing
+translations are preserved. Tests compare source tokens and key order, check
+unknown-versus-zero estimates, UTC and missing days, the 366-observation limit,
+partial visibility and lifecycle effects. Snapshot and observation terminology
+remains low confidence pending fluent review. Browser and screen-reader checks
+were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
