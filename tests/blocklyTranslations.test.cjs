@@ -124,9 +124,14 @@ test('Volapük and Klingon controls replace foreign-language seeds',()=>{
  assert.equal(tlh['blockly-ARIA_TYPE_FIELD_BITMAP'],"HaStay' mIllogh");
 });
 
-test('Tigre date controls use calendar-date vocabulary',()=>{
+test('Tigre date controls use the file\'s one date word',()=>{
+ // 96fd0432bd changed only these two to ዕለት, reasoning that ተመር is also the
+ // date fruit. ተመር is the reviewed Tigre "date" everywhere else (`date`, every
+ // date popup title, the audited repair table - 42 values), so one control
+ // diverged and two guards failed. Whether ተመር should become ዕለት is ONE
+ // decision for a Tigre speaker, for every value at once, not for one key.
  const tig=require('../imports/i18n/data/tig.i18n.json');
- assert.equal(tig['custom-field-date'],'ዕለት');
+ assert.equal(tig['custom-field-date'],tig.date);
  assert.equal(tig['blockly-ARIA_TYPE_FIELD_DATE'],tig['custom-field-date']);
 });
 
