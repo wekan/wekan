@@ -187,6 +187,28 @@ human-preference and the relevant language suites pass. Both languages
 are included in the existing browser mutation scenario; it is syntax-checked,
 not browser-executed in this environment.
 
+## Sakha archiving/date filters — 2026-10-07
+
+Filled 23 English placeholders in Sakha (`sah`). Comparison against the
+previous commit confirms that existing translated values are unchanged.
+The standard backlog falls by 20 to 51,755 values; the three auto-archive
+values belong to separately tracked pending keys.
+
+[Unicode CLDR Sakha date fields](https://unicode.org/cldr/charts/44/summary/sah.html)
+support past-time and week vocabulary. The
+[Sakha-English dictionary](https://www.lexicons.ru/modern/ja/sakha/_pdf/sakha-english.pdf)
+and existing catalog support the time-unit terms. These are component
+references, not validation of complete software messages. Longer phrases
+remain low confidence pending speaker review, particularly inclusive bounds,
+list-age explanations and the instruction to quote a custom field name.
+
+The feature suite now covers 60 locales and checks exact placeholder
+inventories, numeric bounds and query examples. Sakha regressions distinguish
+past-week from next-month wording and retain the rules that templates are
+never archived and edits do not restart list age. Feature, all-locale
+structure and human-preference checks pass. The browser mutation scenario
+includes Sakha; syntax checking passes, but it was not browser-executed.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
