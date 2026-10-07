@@ -1890,6 +1890,15 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6b1005d6532ffbb6279f433c91891952b5589de4">Translate board visibility in Volapük</a>. Thanks to xet7.</summary>
+
+- Fill three English values, preserving viewing and editing distinctions and confirmation emphasis. Record vocabulary references and lower-confidence phrasing for fluent-speaker review.
+- Extend existing source-order, token, markup and rendered-emphasis checks. Translation and permission tests pass; the browser suite was syntax-checked only because the application stack is unavailable.
+- These three keys remain English in eight locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys, with language-quality review open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/712e503516279f1bbe54169a42ee8fef6eb356bc">Translate board visibility in Tigrinya and Klingon</a>. Thanks to xet7.</summary>
 
 - Fill six English values, preserving viewing and editing distinctions and confirmation emphasis. Record references and lower-confidence technical phrasing and clause structure for fluent-speaker review.
