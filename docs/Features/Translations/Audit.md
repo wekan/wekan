@@ -5061,6 +5061,12 @@ mixed-language audit remains open.
 - Kept append-at-end, not-found results, space-inclusive length, replace-all scope and copy semantics explicit. Added regression assertions for these behaviors and left/right/both trimming directions.
 - Title-case and substring wording is paraphrased and remains provisional pending contextual language review. Browser and spoken accessibility checks were not run; automated checks establish structure and selected semantic distinctions, not fluency.
 
+### Waray Blockly variables and workspace descriptions
+
+- Filled 44 English placeholders through the protected workflow, covering variable creation/conflicts, workspace counts/search, default names and shared list/function labels. Preserved numbered tokens and the leading spaces needed when comment-count fragments join workspace descriptions.
+- Kept search keyboard shortcuts and next/previous directions intact. Added shortcut, fragment-spacing, empty-workspace, get/set and shared-function-label regression checks.
+- Search-focus and variable-type language remains provisional pending contextual review. The remaining placeholder inventory still includes rule-editor and Scrum prose as well as keyboard names, platform names and mathematical notation; this batch does not complete Waray. Browser and spoken accessibility checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -677,7 +677,51 @@ const correctedKeys = [
   "blockly-TEXT_TRIM_OPERATOR_BOTH",
   "blockly-TEXT_TRIM_OPERATOR_LEFT",
   "blockly-TEXT_TRIM_OPERATOR_RIGHT",
-  "blockly-TEXT_TRIM_TOOLTIP"
+  "blockly-TEXT_TRIM_TOOLTIP",
+  "blockly-TODAY",
+  "blockly-UNDO",
+  "blockly-UNKNOWN",
+  "blockly-UNNAMED_KEY",
+  "blockly-VARIABLES_DEFAULT_NAME",
+  "blockly-VARIABLES_GET_CREATE_SET",
+  "blockly-VARIABLES_GET_TOOLTIP",
+  "blockly-VARIABLES_SET",
+  "blockly-VARIABLES_SET_CREATE_GET",
+  "blockly-VARIABLES_SET_TOOLTIP",
+  "blockly-VARIABLE_ALREADY_EXISTS",
+  "blockly-VARIABLE_ALREADY_EXISTS_FOR_ANOTHER_TYPE",
+  "blockly-VARIABLE_ALREADY_EXISTS_FOR_A_PARAMETER",
+  "blockly-WORKSPACE_COMMENT_DEFAULT_TEXT",
+  "blockly-WORKSPACE_CONTENTS_BLOCKS_MANY",
+  "blockly-WORKSPACE_CONTENTS_BLOCKS_ONE",
+  "blockly-WORKSPACE_CONTENTS_BLOCKS_ZERO",
+  "blockly-WORKSPACE_CONTENTS_COMMENTS_MANY",
+  "blockly-WORKSPACE_CONTENTS_COMMENTS_ONE",
+  "blockly-WORKSPACE_LABEL_1_STACK",
+  "blockly-WORKSPACE_LABEL_FLYOUT_WORKSPACE",
+  "blockly-WORKSPACE_LABEL_MANY_STACKS",
+  "blockly-WORKSPACE_LABEL_MUTATOR_WORKSPACE",
+  "blockly-WORKSPACE_LABEL_PLAIN",
+  "blockly-WORKSPACE_SEARCH_CLOSE",
+  "blockly-WORKSPACE_SEARCH_FIND_NEXT",
+  "blockly-WORKSPACE_SEARCH_FIND_PREVIOUS",
+  "blockly-WORKSPACE_SEARCH_INPUT_LABEL",
+  "blockly-WORKSPACE_SEARCH_MATCH",
+  "blockly-WORKSPACE_SEARCH_NO_MATCHES",
+  "blockly-WORKSPACE_SEARCH_PLACEHOLDER",
+  "blockly-ZOOM_TO_FIT_ARIA_LABEL",
+  "blockly-CONTROLS_IF_ELSEIF_TITLE_ELSEIF",
+  "blockly-CONTROLS_IF_ELSE_TITLE_ELSE",
+  "blockly-LISTS_CREATE_WITH_ITEM_TITLE",
+  "blockly-LISTS_GET_INDEX_INPUT_IN_LIST",
+  "blockly-LISTS_GET_SUBLIST_INPUT_IN_LIST",
+  "blockly-LISTS_INDEX_OF_INPUT_IN_LIST",
+  "blockly-LISTS_SET_INDEX_INPUT_IN_LIST",
+  "blockly-MATH_CHANGE_TITLE_ITEM",
+  "blockly-PROCEDURES_DEFRETURN_COMMENT",
+  "blockly-PROCEDURES_DEFRETURN_PROCEDURE",
+  "blockly-TEXT_APPEND_VARIABLE",
+  "blockly-TEXT_CREATE_JOIN_ITEM_TITLE_ITEM"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -804,6 +848,17 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   for (const kind of ['TEXT_CHARAT_FROM_END', 'TEXT_GET_SUBSTRING_START_FROM_END', 'TEXT_GET_SUBSTRING_END_FROM_END']) {
     assert.ok(waray['blockly-' + kind].includes('#'));
     assert.match(waray['blockly-' + kind], /tikang ha kataposan/);
+  }
+  const workspaceSearch = waray['blockly-WORKSPACE_SEARCH_INPUT_LABEL'];
+  for (const shortcut of ['Enter', 'Shift+Enter', 'Escape']) assert.ok(workspaceSearch.includes(shortcut));
+  assert.match(workspaceSearch, /Enter para ha sunod.*Shift\+Enter para ha nauna/);
+  for (const count of ['ONE', 'MANY']) {
+    assert.match(waray['blockly-WORKSPACE_CONTENTS_COMMENTS_' + count], /^ ngan /);
+  }
+  assert.match(waray['blockly-WORKSPACE_CONTENTS_BLOCKS_ZERO'], /^Waray/);
+  assert.notEqual(waray['blockly-VARIABLES_GET_CREATE_SET'], waray['blockly-VARIABLES_SET_CREATE_GET']);
+  for (const suffix of ['COMMENT', 'PROCEDURE']) {
+    assert.equal(waray['blockly-PROCEDURES_DEFRETURN_' + suffix], waray['blockly-PROCEDURES_DEFNORETURN_' + suffix]);
   }
   const statistics = ['AVERAGE', 'MEDIAN', 'MODE', 'STD_DEV', 'SUM'].map(s => waray['blockly-MATH_ONLIST_OPERATOR_' + s]);
   assert.equal(new Set(statistics).size, statistics.length);
