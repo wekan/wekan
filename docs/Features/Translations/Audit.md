@@ -3670,6 +3670,14 @@ Terminology references include [Tibetan Map](https://www.tibetanmap.com/), [Dzon
 
 Extended regression and browser coverage to these three locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Coverage and placeholder checks do not establish fluency.
 
+## Map view: Manx, Venetian and Aromanian - 2026-10-07
+
+Filled seven English placeholders in each of `gv`, `ve-CC` and `rup` (21 values) using the protected fill workflow. The map-image examples and both placement methods are retained. The seven keys remain English in 19 locale paths and stay in the pending queue; the broader backlog remains 51,575 ordinary placeholders across 70 languages plus 160 pending source keys.
+
+The [Manx dictionary entry](https://glosbe.com/en/gv/map) supports caslys vocabulary. Searches for Venetian mostly returned Italian-language pages and do not verify the Venetian draft. The [Society Farsharotu dictionary](https://farsharotu.org/wp-content/uploads/2020/07/An-English-Aromanian-Macedo-Romanian-Dictionary-%C2%A9Society-Farsharotu.pdf) was inspected, but its OCR did not reliably locate the map entry; a spurious map result in the H entries was not treated as evidence. Aromanian technical clauses are low-confidence drafts. Floor-plan wording and sentence fluency remain provisional throughout this batch and need speaker review.
+
+Extended the regression and map browser scenario to these three paths. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These checks establish structure and placeholder preservation, not linguistic quality.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
