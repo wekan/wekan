@@ -30,7 +30,7 @@ const keys = [
   "filter-column-age-hint",
   "advanced-filter-card-dates-hint"
 ];
-for (const code of ['wal', 'zgh', 'tig', 'dz', 'kl', 'nah', 'vo', 'sah', 'ace', 'bm', 'ak', 'lg', 'ay', 'qu', 'gn', 'ee', 'wo', 'ff', 'tlh', 'gv', 've-CC', 've-PP', 've', 'bo', 'bua', 'cv', 'ks', 'ti', 'tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'yi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'rw', 'rn', 'or_IN', 'bho', 'mai', 'kok', 'ary', 'nso', 'nd', 'ss', 'ts', 'om', 'fj', 'to', 'hsb', 'szl', 'se', 'wa', 'wa-RR', 'wuu-Hans', 'rup']) {
+for (const code of ['iu', 'wal', 'zgh', 'tig', 'dz', 'kl', 'nah', 'vo', 'sah', 'ace', 'bm', 'ak', 'lg', 'ay', 'qu', 'gn', 'ee', 'wo', 'ff', 'tlh', 'gv', 've-CC', 've-PP', 've', 'bo', 'bua', 'cv', 'ks', 'ti', 'tk_TM', 'tt', 'so', 'ku', 'ckb', 'pap', 'tpi', 'bi', 'yi', 'mi', 'sm', 'haw', 'zu', 'zu-ZA', 'xh', 'ny', 'st', 'tn', 'rw', 'rn', 'or_IN', 'bho', 'mai', 'kok', 'ary', 'nso', 'nd', 'ss', 'ts', 'om', 'fj', 'to', 'hsb', 'szl', 'se', 'wa', 'wa-RR', 'wuu-Hans', 'rup']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(en), `${code}: source key order`);
   for (const key of keys) {
@@ -221,4 +221,13 @@ assert.match(read('wal')['filter-due-next-month'], /Kaalliya aginan/);
 assert.equal(read('wal').days, 'Gallassata');
 assert.equal(read('wal').week, 'Saaminttaa');
 assert.equal(read('wal').month, 'Aginaa');
-console.log('Archiving and date filters: 23 messages in 67 locales passed');
+assert.match(read('iu')['auto-archive-hint'], /ᖃᖓᒃᑯᑐᐃᓐᓇᖅ ᑐᖅᑯᕐᕕᒻᒧᑦ ᓅᑕᐅᙱᓚᑦ/);
+assert.match(read('iu')['filter-column-age-hint'], /ᐱᒋᐊᖅᑎᑦᑎᒃᑲᓐᓂᙱᓚᖅ/);
+assert.match(read('iu')['filter-due-previous-week'], /ᐊᓂᒍᖅᑐᒥ/);
+assert.match(read('iu')['filter-due-next-month'], /ᐊᒡᒋᖅᑐᒥ/);
+for (const key of keys) {
+  const prose = read('iu')[key].replace(/@endAt >= '2026-01-01'|@endAt = none|@[A-Za-z]+/g, '');
+  assert.match(prose, /[\u1400-\u167F]/, `iu:${key}: syllabic prose`);
+  assert.doesNotMatch(prose, /[A-Za-z]/, `iu:${key}: no Latin fallback`);
+}
+console.log('Archiving and date filters: 23 messages in 68 locales passed');

@@ -375,6 +375,29 @@ Feature, all-locale structure, human-preference and the related Wolaytta
 progress/list-width checks pass. The browser mutation scenario includes
 Wolaytta and is syntax-checked only; it was not browser-executed.
 
+## Inuktitut archiving/date filters — 2026-10-07
+
+Filled 23 English placeholders in Inuktitut (`iu`). Comparison against the
+previous commit confirms that existing translated values are unchanged.
+The standard backlog falls by 20 to 51,595 values; three auto-archive values
+belong to separately tracked pending keys.
+
+The [Inuktut Tusaalanga glossary](https://tusaalanga.ca/glossary?l=I)
+provides hour vocabulary; the [Nunavut mathematics resource](https://nunavuteducators.com/lang_downloads/Complete-NunavutMath-Gr1.pdf)
+provides syllabic week/elapsed-time usage. Existing catalog terminology
+supplies card/list/template labels. These references support components,
+not complete software sentences. Longer messages remain low confidence
+pending speaker review, especially technical noun choices, inclusive ranges,
+list-age negation and quotation-mark instructions.
+
+The shared feature suite covers 68 locales and preserves exact tokens,
+numbers and query examples. New checks require syllabic prose after
+excluding literal code and distinguish past/future periods and the two
+negative rules. Feature, all-locale structure, human-preference and the
+related Inuktitut progress/list-width checks pass. The browser mutation
+scenario includes Inuktitut and is syntax-checked only; no browser execution
+was available. Script checks do not establish language quality.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
