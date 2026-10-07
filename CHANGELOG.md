@@ -1890,6 +1890,20 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ba6d41e1e573e772cdd6fa72c930bf85d57c43be">Translate placement labels in 13 more locales</a>. Thanks to xet7.</summary>
+
+- Fill 26 “Before” and “After” labels using spatial terminology. Preserve existing
+  translations and record vocabulary references. Lower-confidence Aymara, Northern
+  Sami and Waray wording remains open for native/UI review.
+- Placement translation checks cover 49 recently filled locales. Runtime selection,
+  structural and human-preference checks pass. Browser scenarios were syntax-checked
+  but not run without the application stack.
+- Seventeen locale paths still need these labels. The ordinary backlog remains
+  51,575 values plus 174 pending source keys; broader language review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e32e50a5e1beb9ba406284ee58b384c4c42d4101">Translate move-position labels in 36 locales</a>. Thanks to xet7.</summary>
 
 - Fill 72 “Before” and “After” labels for relative placement of selected objects.
