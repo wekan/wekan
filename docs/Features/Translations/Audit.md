@@ -3262,6 +3262,14 @@ Filled the three Volapük board visibility strings, preserving confirmation emph
 
 Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in eight locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
 
+### Signed-in board visibility: Veps
+
+Filled three English placeholders in `ve-PP`, the Veps locale. The direct draft keeps the existing board term, uses entering the system for login, and preserves the viewing/editing distinction and confirmation emphasis. The fill utility protected existing translations; no translation service was used. Login phrasing, passive constructions and case endings have low confidence and require fluent-speaker review.
+
+References include the [Veps dictionary inventory](https://kaikki.org/dictionary/Veps/words/lep--lo%C5%A1tta.html) for `ližata`, [Kodima](https://vepslaine.ru/wp-content/uploads/2025/08/Kodima-7-small.pdf) for `voib nähta`, and the [ELDIA Veps report](https://phaidra.univie.ac.at/detail/o%3A315545.pdf) for `nikonz`. These support individual terms and constructions, not the accuracy of the complete draft.
+
+Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in seven locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
