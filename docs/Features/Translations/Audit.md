@@ -3702,6 +3702,14 @@ Filled seven English placeholders in each of `se`, `ff` and `ks` (21 values) thr
 
 Extended regression and browser coverage to these three locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Text coverage and placeholder inventories do not establish fluency.
 
+## Map view: Klingon and Volapuk - 2026-10-07
+
+Filled seven English placeholders in each of `tlh` and `vo` (14 values) through the protected fill workflow. The map-image examples and both placement methods are retained. The seven keys remain English in eight locale paths and stay in the pending queue; the broader backlog remains 51,575 ordinary placeholders across 70 languages plus 160 pending source keys.
+
+The [Klingon Language Institute discussion](https://lists.kli.org/archives/list/tlhingan-hol%40lists.kli.org/thread/IHUHL4HVJ44JT4ERHMTMDPYQFCZWETUO/) supports the map, board and card terms. The [English-Volapuk dictionary](https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary) supports kaed, magod, tead, dragging terminology and the mouse-selection paraphrase for clicking. During review, the Volapuk draft was corrected to use the dictionary's drag and drawing terms and click paraphrase. These sources do not validate the full sentences; UI terminology and grammar remain provisional and need speaker review.
+
+Extended regression and browser coverage to both locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Coverage and placeholder checks do not establish fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
