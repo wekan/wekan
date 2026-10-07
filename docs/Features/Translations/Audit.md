@@ -3166,6 +3166,14 @@ This draft has lower confidence, especially technical loanwords, the descriptive
 
 Validation covers 64 recently filled hints, exact identifiers, source tokens and key order, plus parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. This hint remains English in two locales. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; language quality review remains open.
 
+### URL scheme hint: Tigre
+
+Filled the English-only `automatic-linked-url-schemes-hint` in `tig` directly through the placeholder-only fill utility. Existing translated values were retained. The draft preserves all five literal scheme identifiers and describes the empty default, web/mail links, applications registered for listed schemes and permanently excluded schemes.
+
+This draft has low confidence in software terminology and agreement and needs fluent Tigre review. [Omar M. Kekia's Dehai Tigre lessons](https://www.speaktigre.com/_files/ugd/7e068a_d791dde4087041feaf3dedb6b109829c.pdf?index=true) document the negative prefix, `we` (and), `aw` (or), `et` (in), and `lieTa` (only). The draft uses Tigre grammatical forms rather than copying the Tigrinya hint. The descriptive URL-type term and registered-application wording remain unvalidated, and Ethiopic script alone does not establish correct language. No translation service was used.
+
+Validation covers 65 recently filled hints, exact identifiers, source tokens and key order, plus parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. Only Cherokee still has this hint in English. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; language quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
