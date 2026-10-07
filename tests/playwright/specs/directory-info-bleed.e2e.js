@@ -10,7 +10,14 @@ test('the sign-in page is not sent the LDAP server details', async ({ page }) =>
   try {
     await page.goto('/sign-in');
     await page.waitForFunction(() => typeof Meteor !== 'undefined' && Meteor.connection._stores.settings);
-    await expect.poll(() => page.evaluate(() => !!Meteor.connection._stores.settings._getCollection().findOne())).toBe(true);
+    // The settings were changed straight in the database just above, and the
+    // publication delivers that change a moment later: wait for the public
+    // field to arrive, so the private ones are checked on the CHANGED document
+    // rather than on the one the page received before the update.
+    await expect.poll(() => page.evaluate(() => {
+      const doc = Meteor.connection._stores.settings._getCollection().findOne();
+      return doc && doc.ldap && doc.ldap.enabled;
+    })).toBe(false);
     const ldap = await page.evaluate(() => Meteor.connection._stores.settings._getCollection().findOne().ldap || {});
     expect(ldap.host).toBeUndefined();
     expect(ldap.authentificationUserDN).toBeUndefined();

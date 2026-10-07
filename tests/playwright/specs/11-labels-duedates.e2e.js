@@ -266,6 +266,11 @@ test.describe('Labels & due dates', () => {
     const [listA] = board.listIds;
     await bp.clickCard(listA, 'Alpha Card');
     await cp.waitForOpen();
+    // #6607 is about CHANGING a due date. The one above was written straight to
+    // the database, so wait until this card shows it: opened earlier, the card
+    // offers "+ add due date", which is replaced by the date badge mid-click -
+    // a timeout, or worse, a test of adding instead of changing.
+    await expect(cp.root.locator('a.js-edit-date.card-date').first()).toBeVisible();
 
     await cp.setDueDate('2099-12-31');
     await expect.poll(() => {
