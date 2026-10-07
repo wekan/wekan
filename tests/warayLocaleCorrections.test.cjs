@@ -915,7 +915,51 @@ const correctedKeys = [
   "activity-recovery-status-cancelled",
   "activity-recovery-cancel",
   "activity-recovery-cancel-confirm",
-  "rule-email-recovery-unavailable"
+  "rule-email-recovery-unavailable",
+  "addExistingSubtaskPopup-title",
+  "checklistItem-linked-subtask",
+  "admin",
+  "template",
+  "attachment",
+  "roadmap-group-by",
+  "roadmap-empty-no-custom-fields",
+  "board-view-control-chart",
+  "color-peachpuff",
+  "exportChartPopup-title",
+  "label-text-follows-board",
+  "label-text-use-board-default",
+  "createBoardFromCardPopup-title",
+  "custom-private-desc-placeholder",
+  "custom-public-desc-placeholder",
+  "pomodoro-work",
+  "smtp-host",
+  "cloneBoardPopup-title",
+  "open-many-cards-at-once",
+  "open-many-cards-at-once-description",
+  "notification-settings-popup-description",
+  "custom-field-stringtemplate",
+  "filter-invisible-filenames",
+  "filename-invisible-legend",
+  "impersonation-admin",
+  "wait-spinner",
+  "Bounce",
+  "Cube",
+  "Dot",
+  "Wave",
+  "copyChecklistFromTemplate",
+  "copyChecklistFromTemplatePopup-title",
+  "s3-access-key",
+  "repository",
+  "api-endpoints",
+  "import-here-instruction",
+  "date-range-of-fields",
+  "twoFactorAuth-explanation",
+  "twoFactorAuth-scan-instructions",
+  "twoFactorAuth-manual-entry",
+  "twoFactorCode-prompt",
+  "twoFactorCode-invalid",
+  "chart-forecast-no-velocity",
+  "chart-forecast-projected"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -1102,6 +1146,14 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   assert.match(waray['activity-recovery-control-conflict'], /Usisaha.*antes magsulay utro/);
   const recoveryActions = ['pause', 'resume', 'cancel'].map(a => waray['activity-recovery-' + a]);
   assert.equal(new Set(recoveryActions).size, 3);
+  assert.match(waray['twoFactorAuth-scan-instructions'], /6 ka digit/);
+  for (const name of ['QR', 'Google Authenticator', 'Authy']) assert.ok(waray['twoFactorAuth-scan-instructions'].includes(name));
+  assert.match(waray['twoFactorAuth-explanation'], /tagsa nga pag-log in/);
+  assert.match(waray['twoFactorAuth-manual-entry'], /: $/);
+  assert.equal(waray['admin'], waray['impersonation-admin']);
+  assert.equal(waray['export'], waray['exportChartPopup-title']);
+  assert.equal(waray['copyChecklistFromTemplate'], waray['copyChecklistFromTemplatePopup-title']);
+  assert.match(waray['open-many-cards-at-once-description'], /kalugaringon nga bintana.*nagsasara/);
   const statistics = ['AVERAGE', 'MEDIAN', 'MODE', 'STD_DEV', 'SUM'].map(s => waray['blockly-MATH_ONLIST_OPERATOR_' + s]);
   assert.equal(new Set(statistics).size, statistics.length);
   assert.match(waray['blockly-MATH_ONLIST_TOOLTIP_MODE'], /lista han mga butang/);

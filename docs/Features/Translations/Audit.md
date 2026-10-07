@@ -5099,6 +5099,12 @@ mixed-language audit remains open.
 - Preserved the fact that retries never recreate activities, failed deliveries retain pending work, cancellation cannot be resumed and already queued/delivered messages are not recalled. Added negative-behavior, retention, conflict-review and distinct-action checks.
 - Delivery reservation, recipient-plan and metadata terminology remains provisional and requires technical-language review. Browser checks were not run. The next remaining-placeholder review must distinguish recognizable keyboard/platform names and mathematical notation from untranslated prose; this batch alone does not prove locale completeness.
 
+### Waray wrong-language audit: controls and authentication
+
+- Corrected 44 French, Walloon or mixed-language values directly after reading their English source and inspecting the stored vocabulary. These values were not protected correct-language Waray translations; the earlier Walloon-catalog equality scan missed them because the other catalog had different wording.
+- Covered board controls, labels, attachments, templates, loading indicators, authentication and forecasting. Preserved authentication app names, six-digit requirements, manual-entry spacing, file extensions and all forecast tokens. Added shared-label, multi-window and authentication regression checks.
+- The remaining-placeholder count is unchanged by these corrections. More wrong-language candidates remain, including list synchronization and attachment-query terms. Color, roadmap and API terminology is provisional; browser and fluent-speaker review remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
