@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e2c0cb513d9b3d7574ba1933964d17d854a285af">Correct 25 mixed-language Akan view and customization labels.</a></summary>
+
+- Rewrite view, attachment and customization text. Align matching titles and preserve visibility scope and technical filenames.
+- Add source-token, label-consistency and scope checks. Wording remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
+- Validation: 98 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/035fba3d421436feeb9fdf6912cb29a6eaf1e1b7">Correct 23 mixed-language Akan display, attachment and role labels.</a></summary>
 
 - Rewrite display and attachment text. Preserve units, HTML links and assigned-only visibility; align the Normal role label with its description.
