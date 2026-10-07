@@ -2208,6 +2208,23 @@ not run; the app stack was unavailable. 50 locale paths still need this group.
 The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
 broader language-quality review remains open.
 
+### Rule-builder instructions — Kinyarwanda, Kirundi and Chichewa (2026-10-07)
+
+Filled seven pending strings in rw, rn and ny (21 values), preserving existing
+translations and literal variable expressions. No translation service was used.
+The descriptions retain any-trigger behavior, sequential actions, username/email
+context and values read from the card. Kirundi and Kinyarwanda use their respective
+forms rather than copying an entire translation between languages. Technical
+terminology, recipient labels and composed date-condition fragments need native/UI
+review, especially the full Kirundi technical phrases.
+
+The existing trigger-variable suite now checks 19 recently filled locales for
+source order and exact brace/underscore/percent tokens. Runtime matching,
+all-locale structural and human-preference checks pass. Browser scenarios were
+not run; the app stack was unavailable. 47 locale paths still need this group.
+The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
+broader language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
