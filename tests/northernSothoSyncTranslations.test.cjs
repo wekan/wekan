@@ -30,3 +30,28 @@ test('Northern Sotho Sync choices preserve local content and limit review scope'
  assert.match(data['sync-source-truncated'],/ditsela tše 100.*khutsofaditšwego/);
  assert.match(data['sync-source-scope'],/boleng bja tšona ga bo bontšhwe/);
 });
+
+test('Northern Sotho Sync reports preserve retention, permissions and recovery limits',()=>{
+ for(const key of Object.keys(english).filter(k=>k.startsWith('sync-'))){
+  assert.notEqual(data[key],english[key],key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ assert.match(data['sync-report-retention'],/20.*matšatši a 30/);
+ assert.match(data['sync-report-partial'],/di ka ba di fetotše.*ga di tšwetše pele goba go bušetša morago/);
+ assert.match(data['sync-report-unavailable'],/ngwala lenaneong ka moka.*sebara/);
+ assert.match(data['sync-recovery-description'],/30.*ID.*se sa šoma goba se šitišitšwe.*di ka se tšwetše pele goba go bušetša morago/);
+ assert.match(data['sync-recovery-unavailable'],/phihlelelo ya molaodi.*sebara/);
+ assert.equal(new Set(['unfinished','failed','completed','completed-with-warnings','skipped','review-only'].map(s=>data['sync-report-'+s])).size,6);
+});
+
+test('Northern Sotho estimate mappings distinguish missing values from explicit null',()=>{
+ for(const key of ['sync-estimate-field-hint','sync-time-estimate-hint']){
+  assert.match(data[key],/Jira/);
+  assert.match(data[key],/dithulano/);
+  assert.match(data[key],/bjo bo sego gona bo hlokomologwa/);
+  assert.match(data[key],/null ye e filwego ka go lebanya e phumola/);
+ }
+ assert.match(data['sync-time-estimate-hint'],/lefelo le tee fela/);
+ for(const key of ['sync-original-time','sync-remaining-time']) assert.match(data[key],/\(diiri\)/);
+ assert.notEqual(data['sync-original-time'],data['sync-remaining-time']);
+});

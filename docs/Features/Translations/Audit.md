@@ -5975,6 +5975,20 @@ human-preference checks. Browser checks were not run. Technical compounds for
 synchronization, mappings, parsers and source baselines remain low confidence
 pending fluent-speaker review. Remaining language work stays open.
 
+## Northern Sotho Sync reports and estimates — 2026-10-07
+
+Filled the remaining 20 English Sync placeholders, preserving existing values.
+Tests now check tokens and non-English prose throughout the Sync family. New
+semantic checks preserve 20-run/30-day retention, partial changes after failure,
+reports that cannot resume or undo work, full-list write permissions, server
+availability, hours, exactly one matching field and missing versus explicit
+null source values. Jira and null remain technical literals.
+
+Seven focused translation/structural tests and 21 human-preference checks pass.
+Browser checks were not run. Technical compounds for diagnostics and mapped
+estimate fields remain low confidence pending fluent-speaker review. Remaining
+feature families and the all-language wording audit stay open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
