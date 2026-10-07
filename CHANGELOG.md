@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **45,698 untranslated locale/string values in 70 languages**. It
+  report counts **45,655 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -2074,6 +2074,18 @@ uses the same word as `checklist` itself.
 </details>
 
 **Translations** — continued language coverage and corrections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b47d76131183df8da9a9a2cd2c981bb6c94a948a">Translate 43 Akan synchronization conflict and preview messages.</a></summary>
+
+- Fill conflict choices, duplicate mapping removal, archive restrictions, replacement creation and preview omissions. Preserve local content, unchanged subcards, retries and display limits.
+- Add source-token, action, content-retention and limit checks. Synchronization and parser terminology remains provisional and needs contextual review.
+- English placeholders decrease from 45,698 to 45,655 across 70 languages, with 148 source keys tracked separately for wording review.
+- Validation: 41 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fcd7871303f7d6d27c9b0243af30d5256697c65f">Translate 40 Akan sprint-report and completion messages.</a></summary>
