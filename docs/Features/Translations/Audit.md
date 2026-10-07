@@ -4458,6 +4458,12 @@ mixed-language audit remains open.
 - Both focused Node tests and 21 human-preference checks pass, including catalog tokens and existing positive/negative board-drag policy assertions. Extended browser heading checks and independent disable/re-enable persistence coverage to the fifteen locales. Existing browser negatives cover unauthorized changes, disabled dragging and explicit menu moves. Browser syntax passes; execution remains unverified because Playwright is unavailable locally.
 - Ordinary placeholders decrease from 50,067 to 50,052 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## Board drag-permission label: nineteen further locales (2026-10-07)
+
+- Filled `draggable` in Sesotho, Setswana, Northern Sotho, both Zulu locales, Xhosa, Swati, Northern Ndebele, Xitsonga, Venda, Bislama, Tok Pisin, Fijian, Tongan, Hawaiian, Oromo, Kinyarwanda, Kirundi and Luganda. Used can-be-dragged wording for the permission column. Pronoun agreement across cards, lists and swimlanes and technical wording remain provisional, particularly Swati, Northern Ndebele, Venda, Fijian and Tongan.
+- Both focused Node tests and 21 human-preference checks pass, including catalog tokens and existing positive/negative drag-policy assertions. Extended localized heading and disable/re-enable persistence browser coverage to these locales. Browser syntax passes; execution remains unverified because Playwright is unavailable locally.
+- Ordinary placeholders decrease from 50,052 to 50,033 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
