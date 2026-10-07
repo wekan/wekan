@@ -3118,6 +3118,14 @@ Both drafts have lower confidence in technical terminology and grammatical agree
 
 Validation covers 57 recently filled hints, exact scheme identifiers, source tokens and key order, plus parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. This hint remains English in nine locales. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; language quality review remains open.
 
+### URL scheme hint: Veps and Volapük
+
+Filled the English-only `automatic-linked-url-schemes-hint` in `ve-PP` (Veps) and `vo` directly through the placeholder-only fill utility. Existing translated values were retained. The five literal scheme names remain unchanged. The drafts describe the empty default, clickable web/mail links, registered applications and permanently excluded schemes.
+
+Both drafts have lower confidence, especially URI-scheme terminology, grammatical agreement and technical compounds. References include [Veps `avaita`](https://en.wiktionary.org/wiki/avaita), including its inflection, and [Midgley's English–Volapük dictionary](https://xn--volapk-7ya.com/EnVoDictionary-20100830.pdf), including link, program, open and click terminology. The Volapük hint uses `vüyümäd` rather than the Esperanto-looking `Ligilo` in the existing link label; that label remains a broader quality-audit item. Dictionary support is not validation of complete sentences or idiomatic UI wording. No translation service was used.
+
+Validation covers 59 recently filled hints, exact scheme identifiers, source tokens and key order, plus parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. This hint remains English in seven locales. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; language quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

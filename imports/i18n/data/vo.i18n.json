@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "URL yüma yufa lönik",
   "text-below-custom-login-logo": "Vödem donü sümbol lönik nunädama",
   "automatic-linked-url-schemes": "Skemats URL lönik, kels mutonsöv binön itjäfidiko klikovik. Skemat URL bal pro lien alik",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "In prim binon vagik, klu te vüyümäds vüretoda e pota leäktronik kanons pavälön me musaparat. Skemat alik palisedöl, samo thunderlink u onenote, maifükon programi peregistaröl pro on. javascript, data, vbscript e skemats sümik neai vedons vüyümäds.",
   "external-link-pattern": "Yümotik lün mafül dö tikäd votik",
   "external-link-pattern-description": "Bevünon telid \"#1234\" e bevunobs in bevünäd kadi lü mafül dö tikäd votik yümiko. Läzös fold ün büdik las yümön binön.",
   "external-link-pattern-prefix": "Bevünäd fori pärod",

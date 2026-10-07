@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "Kävutajan märitud abun linkan URL",
   "text-below-custom-login-logo": "Tekst kävutajan märitud sistemaha tulendan logon al",
   "automatic-linked-url-schemes": "Kävutajan märitud URL shemad, miččid voib avtomatižesti paina. Üks' URL shem rives.",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Alguperäiželt om tühj, sikš vai weban da email-počtan ühtenzoitoid voib painada. Kaik skemad, kudambad oma luetelmas, ezimerkiks thunderlink vai onenote, avaidaba niid varten registriruidun programman. javascript, data, vbscript da niidennägöižed skemad ei konzai tehta ühtenzoitoik.",
   "external-link-pattern": "Vhuthihi ha u ḓidzudzanya na muṱoli wa thaidzo dza nnḓa",
   "external-link-pattern-description": "I ṱanganyisa nga hu ḓidzudzanyaho zwiga zwo fanaho na \"#1234\" zwi wanalaho kha maṅwalo a khadi na muṱoli wa thaidzo dza nnḓa. Siyani muvhundu muthihi u si na tshithu u itela u dzhia.",
   "external-link-pattern-prefix": "Themendulo ya tshiga",
