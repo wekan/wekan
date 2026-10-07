@@ -284,4 +284,28 @@ test('the swimlanes autorun no longer follows the open card (negative)', () => {
   assert.ok(!/canModifyCard\(\)/.test(call), 'canModifyCard() with no card reads Session currentCard');
 });
 
+// ---- fix 5: the snap defaults to auto, like every other platform ----
+
+test('the snap default is auto, so a big board loads only its visible cards', () => {
+  const config = read('snap-src/bin/config');
+  assert.match(config, /^DEFAULT_CARDS_LOADING="auto"$/m);
+  const description = config.match(/^DESCRIPTION_CARDS_LOADING="(.*)"$/m)[1];
+  assert.ok(/'auto' \(default/.test(description), 'the description names auto as the default');
+  const { resolveCardsLoadingMode, effectiveBoardCardsMode } = require('../models/lib/cardsLoading.js');
+  assert.strictEqual(resolveCardsLoadingMode('auto'), 'auto');
+  assert.strictEqual(effectiveBoardCardsMode('auto', 2000, 500), 'lazy');
+  assert.strictEqual(effectiveBoardCardsMode('auto', 100, 500), 'all');
+});
+
+test('no snap text still calls all the default or points at a removed toggle (negative)', () => {
+  const config = read('snap-src/bin/config');
+  assert.ok(!/^DEFAULT_CARDS_LOADING="all"$/m.test(config));
+  assert.ok(!/'all' \(default/.test(config));
+  const help = read('snap-src/bin/wekan-help');
+  assert.ok(!/cards-loading[^\n]*Admin Panel \/ Features|Card loading mode[^\n]*Admin Panel \/ Features/.test(help),
+    'there is no Admin Panel toggle for it any more');
+  assert.ok(/cards-loading='auto'/.test(help), 'and the help says how to go back to the default');
+  assert.ok(!/all\s+\(default\)/.test(read('server/cards-loading.js')));
+});
+
 console.log(`largeBoardCardOpen: ${passed} passed`);

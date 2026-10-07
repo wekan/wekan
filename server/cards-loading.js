@@ -1,6 +1,10 @@
 // CARDS_LOADING controls how a board loads its cards.
 //
-//   all  (default) — the `board` publication ships every non-archived card into
+//   auto (default) — per board: a board with more than
+//                    CARDS_LOADING_LAZY_THRESHOLD (500) cards loads as `lazy`,
+//                    a smaller one as `all` (#6480). Every platform's default,
+//                    the snap's too since #6745.
+//   all            — the `board` publication ships every non-archived card into
 //                    the client's minimongo. Filtering, search, counts, sorting
 //                    and drag-and-drop all run client-side. Simple and fully
 //                    featured, but a board with thousands of cards pushes a large
@@ -9,7 +13,9 @@
 //                    infinite-scroll window) via a per-list windowed publication,
 //                    and card counts come from a reactive server count. The board
 //                    publication then does NOT ship all cards. Lower memory / less
-//                    data for very large boards. Opt-in / experimental.
+//                    data for very large boards.
+//
+// models/lib/cardsLoading.js holds the rules.
 //
 // Exposed to the client as Meteor.settings.public.cardsLoading so both the
 // publications (server) and the board rendering (client) agree on the mode.

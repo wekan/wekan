@@ -181,8 +181,8 @@ DESCRIPTION_WITH_API="Enable/disable the api of wekan"
 DEFAULT_WITH_API="true"
 KEY_WITH_API="with-api"
 
-DESCRIPTION_CARDS_LOADING="How a board loads its cards: 'all' (default, every card into the browser) or 'lazy' (each list loads only the visible cards on demand, for very large boards). Example: sudo snap set wekan cards-loading='lazy'"
-DEFAULT_CARDS_LOADING="all"
+DESCRIPTION_CARDS_LOADING="How a board loads its cards: 'auto' (default, a board with more than 500 cards loads only the visible cards per list, smaller boards load every card), 'all' (every card of every board into the browser) or 'lazy' (only the visible cards per list, on every board). Example: sudo snap set wekan cards-loading='lazy'"
+DEFAULT_CARDS_LOADING="auto"
 KEY_CARDS_LOADING="cards-loading"
 
 DESCRIPTION_CARD_OPENED_WEBHOOK_ENABLED="Card opened, send webhook message. Default: false https://github.com/wekan/wekan/issues/2518"
