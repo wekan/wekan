@@ -428,6 +428,29 @@ pass. The browser mutation scenario includes Cherokee and is syntax-checked
 only; no browser execution was available. The wider language-quality and
 remaining-feature audit is still open.
 
+## Activity-notification preferences — 2026-10-07
+
+Filled 13 English placeholders each in Turkmen (`tk_TM`), Tatar (`tt`) and
+Somali (`so`): 39 values covering notification categories and the explanation
+of muting. Comparison against the previous commit confirms all changes
+replace English placeholders and preserve existing translations. All 13
+source keys remain pending in other locales, so the standard backlog stays
+at 51,575 values and the pending queue still contains 201 source keys.
+
+The wording distinguishes board members from assigned people, unchecking a
+category from enabling it, and ordinary activity from due-date reminders and
+@mentions that always arrive. Turkmen uses a descriptive horizontal-lane term;
+the older mixed-language generic swimlane label is not copied into this text.
+Existing catalogs provide the other card/list/attachment terminology.
+
+The new shared feature test checks exact placeholder inventories, source
+order, nonempty translations, the mention marker and the muting exception.
+Feature, all-locale structure and human-preference checks pass. The existing
+browser mute/unmute scenario now runs per language and checks all 13 visible
+strings before testing notification delivery. It passes syntax checking but
+was not browser-executed in this environment. Structural checks do not prove
+fluency; technical terminology can still benefit from speaker review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

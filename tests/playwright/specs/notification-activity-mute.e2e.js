@@ -15,7 +15,8 @@ async function openMemberNotificationSettings(page) {
   await expect(page.locator('.notification-activity-settings')).toBeVisible();
 }
 
-test('muting label activity keeps labels out of the bell, and nothing else', async ({ boardPage: owner, browser, board, user, user2 }) => {
+for (const language of ['en', 'tk_TM', 'tt', 'so']) {
+test(`muting label activity keeps labels out of the bell, and nothing else in ${language}`, async ({ boardPage: owner, browser, board, user, user2 }) => {
   const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
   db.updateOne('boards', { _id: board.boardId }, { $set: {
     labels: [{ _id: 'lblmute', name: 'Urgent', color: 'red' }],
@@ -29,7 +30,17 @@ test('muting label activity keeps labels out of the bell, and nothing else', asy
   try {
     await loginWithToken(member, user2.id, user2.token);
     await openBoard(member, board.boardId, board.slug);
+    await member.evaluate(language => Meteor.callAsync('setLanguage', language), language);
     await openMemberNotificationSettings(member);
+    const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
+    const settings = member.locator('.notification-activity-settings');
+    await expect(settings.locator('.title')).toHaveText(strings['notification-activity-heading']);
+    await expect(settings.locator('p.quiet')).toHaveText(strings['notification-activity-description']);
+    for (const key of Object.keys(strings).filter(key => key.startsWith('notification-activity-') && !['notification-activity-heading', 'notification-activity-description'].includes(key))) {
+      const group = key.slice('notification-activity-'.length);
+      await expect(settings.locator(`[data-group="${group}"] span`)).toHaveText(strings[key]);
+    }
+    if (language !== 'en') await expect(settings).not.toContainText('Untick a kind of card activity');
     const labels = member.locator('.js-notify-activity[data-group="labels"]');
     await expect(labels).toHaveAttribute('aria-checked', 'true');
     await labels.click();
@@ -64,3 +75,4 @@ test('muting label activity keeps labels out of the bell, and nothing else', asy
     await context.close();
   }
 });
+}
