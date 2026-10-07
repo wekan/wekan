@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ada36f426b727d8caa285466505958b73638d534">Correct 18 mixed-language Akan template and swimlane labels.</a></summary>
+
+- Rewrite template, subtask and swimlane text. Preserve template targets, insertion direction and resize permissions; align duplicate titles.
+- Add source-token, target and direction regression checks. Wording remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
+- Validation: 106 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ea7df95fc5dcd38a89c7a20b0556030b1fddcaad">Correct 10 mixed-language Akan prompts and display messages.</a></summary>
 
 - Rewrite prompts, membership settings and font sample. Preserve scope restrictions and preview digits; the sample is not claimed to be an Akan pangram.
