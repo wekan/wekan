@@ -5812,6 +5812,21 @@ delivery reservations and rule blocks remain low-confidence drafts pending
 fluent-speaker review. The remaining Somali English-placeholder queue consists
 of Blockly messages; the broader language and wording audit remains open.
 
+## Somali Blockly editing, colours and control flow — 2026-10-07
+
+Filled 61 English placeholders in `so`. Existing translations, keyboard keycaps
+and platform names remain unchanged. Regression checks preserve Blockly argument
+inventories, variable-deletion restrictions, deletion counts, enabled/disabled
+controls, separate RGB channels, the 0–100 channel range and 0.0–1.0 blend ratio.
+Control-flow checks distinguish exiting a loop from continuing the next iteration,
+while-true from until-true, and the final conditional fallback.
+
+The Somali and Blockly suites plus the 234-catalog structural gate pass (51 tests),
+as do 21 human-preference checks. Browser checks were not run. Programming terms
+for variables, functions, loops and the block backpack remain low-confidence
+drafts pending fluent-speaker review. This batch does not complete Blockly or
+the all-language audit.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
