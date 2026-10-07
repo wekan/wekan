@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/be0032f2ed093cf2c4181757ef01a03402988fec">Correct 24 damaged or mixed-language Akan support and lockout labels.</a></summary>
+
+- Rewrite support, memory, storage and lockout labels. Preserve technical identifiers, credential distinctions and enabled/disabled states.
+- Add source-token, identifier and state regression checks. Technical terminology remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
+- Validation: 87 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d6d82b0023eb41a07dbac447a4da01fa89bc1d8f">Correct 24 damaged or mixed-language Akan sorting and report labels.</a></summary>
 
 - Rewrite sorting, report and field labels. Restore literal search syntax and preserve format placeholders and HTML space entities.
