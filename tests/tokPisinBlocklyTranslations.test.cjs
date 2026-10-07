@@ -64,3 +64,19 @@ test('Tok Pisin function messages preserve arguments and return behavior',()=>{
  assert.match(data['blockly-PROCEDURES_DEF_DUPLICATE_WARNING'],/paramita i wankain/);
  for(const suffix of ['TITLE','COMMENT','PROCEDURE']) assert.equal(data['blockly-PROCEDURES_DEFRETURN_'+suffix],data['blockly-PROCEDURES_DEFNORETURN_'+suffix]);
 });
+
+test('Tok Pisin loop controls preserve branch conditions, loop exits and source tokens',()=>{
+ for(const key of Object.keys(english).filter(k=>k.startsWith('blockly-CONTROLS_'))){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  if(english[key]&&!key.endsWith('_HELPURL')&&!key.endsWith('_HUE')) assert.notEqual(data[key],english[key],key);
+ }
+ assert.match(data['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL'],/veliu i giaman/);
+ assert.match(data['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE'],/veliu i tru/);
+ assert.match(data['blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_BREAK'],/Lusim.*insait/);
+ assert.match(data['blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_CONTINUE'],/Kalapim.*neks raun/);
+ assert.match(data['blockly-CONTROLS_FLOW_STATEMENTS_WARNING'],/insait.*tasol/);
+ assert.match(data['blockly-CONTROLS_IF_TOOLTIP_4'],/fes veliu.*namba tu veliu.*no gat wanpela veliu i tru.*las blok/);
+ assert.match(data['blockly-CONTROLS_FOREACH_TOOLTIP'],/wan wan samting.*%1/);
+ assert.match(data['blockly-CONTROLS_FOR_TITLE'],/%1.*%2.*%3.*%4/);
+ assert.notEqual(data['blockly-CONTROLS_IF_MSG_IF'],data['blockly-CONTROLS_IF_MSG_ELSE']);
+});

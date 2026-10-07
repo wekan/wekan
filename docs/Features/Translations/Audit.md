@@ -6413,6 +6413,12 @@ conditions, ternary label references, return/no-return distinctions, disabled
 function warnings and matching definition labels. Browser and screen-reader
 checks were not run. The broader language and wording audit remains open.
 
+## Tok Pisin loop controls
+
+Translated 33 Blockly loop and conditional messages, including seven short labels excluded by the placeholder counter. Preserved source placeholders and distinguished while/until truth conditions, break/continue behavior, counted loops and conditional branches. Technical wording is provisional and needs fluent-speaker review; browser and screen-reader checks were not run.
+
+Validation: 50 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. Remaining inventory: 43,207 English placeholders across 70 languages, with 149 source keys pending review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
