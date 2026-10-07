@@ -3474,6 +3474,12 @@ Filled 25 English placeholders in `ary`, `bho`, `mai`, `or_IN` and `kok` using t
 
 Extended the translation/token regression and existing localized browser scenario to all five locales. Translation, recovery-notice, request logic and 234-locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 56 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
 
+### History recovery: Somali, Oromo, Kinyarwanda, Kirundi and Chichewa
+
+Filled 25 English placeholders in `so`, `om`, `rw`, `rn` and `ny` with the protected fill utility. The drafts distinguish undo from redo and retry from forgetting, retaining the explanation that repeating the request cannot undo another change. Oromo undo terminology follows [LibreOffice's Oromo undo help](https://help.libreoffice.org/latest/om/text/shared/01/02010000.html), whose translated passages use `Gaabbii`; that partially translated source supports the term, not these full sentences. Full clauses and technical terms remain provisional, especially the Oromo redo construction and Kinyarwanda/Kirundi reversal wording, and need fluent-speaker review.
+
+Extended the translation/token regression and existing localized browser scenario to these five locales. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 51 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
