@@ -3622,6 +3622,14 @@ South African education references support [Xhosa map and image terminology](htt
 
 Extended the locale regression and map browser scenario to all six paths. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Passing tests establish structure and placeholder preservation, not linguistic accuracy.
 
+## Map view: Swati, Ndebele, Tsonga and Venda - 2026-10-07
+
+Filled seven English placeholders in each of `ss`, `nd`, `ts` and `ve` (28 values) using the protected fill workflow. The floor-plan/site-map/drawing examples and both drag and select/click placement methods are retained. The seven keys remain English in 41 locale paths and stay in the pending queue. The broader backlog remains 51,575 ordinary placeholders across 70 languages plus 160 pending source keys.
+
+The [Swati education curriculum](https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20Life%20Skills%20Siswati%20_%20Gr%20R-3%20FS.pdf) supports libalave and picture-map terminology. [Statistics South Africa terminology](https://www.statssa.gov.za/wp-content/uploads/2015/11/Multilingual_Statistical_-terminology_2013.pdf) supports map vocabulary for Venda and Tsonga. These sources support words rather than the complete drafted sentences. Floor-plan compounds, click terminology and Venda technical phrasing remain provisional and need speaker review.
+
+Extended the locale regression and browser scenario to these four paths. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Text differences and placeholder inventories do not establish fluent wording.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
