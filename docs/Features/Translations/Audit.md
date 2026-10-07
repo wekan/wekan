@@ -5662,6 +5662,15 @@ card loading, combined attachment/avatar scope and assetlinks.json. Added token,
 label-consistency and scope checks. Wording remains low confidence pending
 fluent-speaker review; browser checks remain unrun. Placeholder counts unchanged.
 
+## Akan results and scheduling corrections (batch 55)
+
+Corrected 26 mixed-language search-result, missing-data and scheduling messages.
+Preserved result/count tokens, missing-only restoration, scheduled versus executed
+outcomes and distinct pause/resume/start actions. Retained the source's coming-soon
+placeholder meaning. Added token, count and state checks. Wording remains low
+confidence pending fluent-speaker review; browser checks remain unrun.
+English-placeholder counts are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

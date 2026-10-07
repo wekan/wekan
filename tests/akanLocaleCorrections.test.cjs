@@ -996,3 +996,22 @@ test('Akan view and customization labels preserve matching titles and private-on
  assert.match(data['settingsTranslationPopup-title'],/^Popa.*\?$/);
  assert.match(data['editTranslationPopup-title'],/^Sesa/);
 });
+
+
+test('Akan search results and scheduling outcomes preserve counts and execution states', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["add-existing-card-as-subtask-empty", "authentication-method", "dueCards-noResults-title", "no-cards-found", "one-card-found", "n-cards-found", "n-n-of-n-cards-found", "attachment-repair-broken", "backup-restore-add-missing", "fix-missing-lists-migration", "no-issues-found", "step-create-missing-lists", "app-try-reconnect", "active-cron-jobs", "add-cron-job", "add-cron-job-placeholder", "board-archive-scheduled", "board-backup-scheduled", "board-cleanup-scheduled", "cron-job-deleted", "cron-job-paused", "cron-job-resumed", "cron-job-started", "schedule-board-backup", "schedule-board-cleanup", "scheduled-board-operations"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.match(data['n-n-of-n-cards-found'],/__start__-__end__.*__total__/);
+ assert.match(data['one-card-found'],/biako/);
+ for(const key of ['no-cards-found','no-issues-found','dueCards-noResults-title']) assert.match(data[key],/^Wɔanhu.*biara$/);
+ assert.match(data['backup-restore-add-missing'],/enni hɔ nkutoo/);
+ assert.equal(data['authentication-method'],data['authentication-type']);
+ for(const kind of ['archive','backup','cleanup']) assert.match(data['board-'+kind+'-scheduled'],/^Wɔahyɛ bere/);
+ assert.equal(new Set(['deleted','paused','resumed','started'].map(s=>data['cron-job-'+s])).size,4);
+ assert.match(data['cron-job-paused'],/kakra/);
+ assert.match(data['cron-job-resumed'],/^Wɔasan atoa.*so/);
+ assert.match(data['cron-job-started'],/^Wɔafi.*ase/);
+ assert.match(data['add-cron-job-placeholder'],/reba nnansa yi/);
+ assert.notEqual(data['fix-missing-lists-migration'],data['step-create-missing-lists']);
+});
