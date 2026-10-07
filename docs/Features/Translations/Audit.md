@@ -2712,6 +2712,25 @@ not run; the app stack was unavailable. 3 locale paths still need this group.
 The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
 broader language-quality review remains open.
 
+### Rule-builder instructions — Wolaytta (2026-10-07)
+
+Filled seven pending strings in `wal`, preserving existing translations and all
+literal variable expressions. Corrected five related labels that used language-name
+prefixes and English rule/trigger words. No translation service was used.
+
+Technical prose has lower confidence and needs native review, especially trigger,
+member and field terminology and the composed date fragment. Vocabulary references:
+[Wolaytta dictionary](https://kaikki.org/dictionary/Wolaytta/index.html) and
+[Wakasa's descriptive grammar](https://theswissbay.ch/pdf/Books/Linguistics/Mega%20linguistics%20pack/Afro-Asiatic/Omotic/Wolaytta%20Language%2C%20A%20Descriptive%20Study%20of%20the%20Modern%20%28Wakasa%29%20%281%29.pdf).
+These references do not validate the complete translated sentences.
+
+The rule-variable suite now covers 64 recently filled locales, exact variables,
+source tokens and order, and rejects the corrected prefixed English labels.
+Runtime, all-locale structural and human-preference checks pass. Browser scenarios
+were not run because the application stack is unavailable. Two locale paths still
+need this seven-string group. The ordinary backlog remains 51,575 values, plus
+181 pending source keys; broader language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
