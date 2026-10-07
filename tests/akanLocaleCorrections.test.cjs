@@ -369,3 +369,17 @@ test('Akan search help preserves operator syntax and filtering semantics', async
  assert.match(data['globalSearch-instructions-notes-5'],/wɔnhwehwɛ.*adekorabea/);
  assert.notEqual(data['globalSearch-instructions-operator-member'],data['globalSearch-instructions-operator-assignee']);
 });
+
+test('Akan diagnostics preserve commands, report granularity and deletion guards', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["import-dependencies-parse-error", "location-detect-none", "now-activities-of-all-boards-are-hidden", "creator", "creator-on-minicard", "filename-invisible-legend", "office-no-results", "api-report-desc", "api-no-calls", "recovery-report-desc", "recovery-no-events", "display-card-creator", "delete-org-warning-message", "delete-team-warning-message", "add-teams-label", "add-organizations-label", "move-attachments-none-found", "server-error-troubleshooting"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.deepEqual(data['server-error-troubleshooting'].match(/`[^`]+`/g),english['server-error-troubleshooting'].match(/`[^`]+`/g));
+ assert.equal(data['server-error-troubleshooting'].split('\n').length,english['server-error-troubleshooting'].split('\n').length);
+ assert.match(data['api-no-calls'],/WITH_API=true/);
+ assert.match(data['api-report-desc'],/akontaabu.*nkitahodi beae.*ɛnyɛ nkyerɛw biako ma adesrɛ biara/);
+ for(const key of ['delete-org-warning-message','delete-team-warning-message']) assert.match(data[key],/rentumi mpopa.*biako ka ho/);
+ assert.match(data['move-attachments-none-found'],/biribiara nni hɔ/);
+ assert.match(data['recovery-report-desc'],/MongoDB/);
+ assert.match(data['filename-invisible-legend'],/Kɔkɔɔ/);
+});

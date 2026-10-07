@@ -5381,6 +5381,12 @@ Rewrote 16 mixed-language search-help values covering operator syntax, membershi
 
 Tests compare token, inline-code and metavariable inventories and cover absence checks, descending sort, positive integer limits, AND conditions and archived-card exclusion. Search terminology remains provisional. Existing parser regressions also pass; browser checks were not run.
 
+### Akan mixed-language correction: diagnostics and report descriptions
+
+Rewrote 18 mixed-language diagnostic, API/recovery report, creator and membership messages. Preserve log commands, the `WITH_API=true` setting, account/endpoint report granularity and deletion guards for nonempty organizations/teams. Existing literal `has:-due` and AND examples were reviewed and retained rather than mistaken for untranslated prose.
+
+Tests compare source tokens and command spans and check line breaks, identifiers, report scope and deletion restrictions. Recovery and API wording remains provisional. Browser checks were not run; the broader audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
