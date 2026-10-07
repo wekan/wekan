@@ -5249,6 +5249,12 @@ Filled 29 English messages for retained Sync reports, diagnostics, Jira estimate
 
 Regression coverage checks source tokens, retention limits, distinct outcomes, exact-one-field and missing/null semantics. Diagnostics and authentication terminology remains provisional. Browser checks were not run.
 
+### Akan activity-notification recovery
+
+Filled 27 English messages for pending notification delivery, retries, pause/resume/cancel controls and rule-email recovery. Preserve retained pending work, no recreation of original activities, permanent cancellation and the exclusion of already queued/delivered messages from recall.
+
+Regression checks compare source tokens, distinguish delivery states and controls, and cover retained work and cancellation language. Recovery and reservation terminology remains provisional. Browser checks were not run. Akan now has 29 exact-English entries in the placeholder report, consisting of keyboard names, operating-system names and mathematical notation; this does not establish the correctness of the rest of the catalog.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

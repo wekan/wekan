@@ -45,3 +45,20 @@ test('Akan Sync reports and email failures preserve limits and missing-value sem
  assert.notEqual(data['email-failure-delivery-unconfirmed'],data['email-failure-delivery-failed']);
  assert.notEqual(data['email-failure-smtp-authentication'],data['email-failure-smtp-configuration']);
 });
+
+test('Akan notification recovery preserves cancellation and retained work', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["activity-recovery-heading", "activity-recovery-description", "activity-recovery-empty", "activity-recovery-unavailable", "activity-recovery-retry", "activity-recovery-retrying", "activity-recovery-status-pending", "activity-recovery-status-preparing", "activity-recovery-status-processing", "activity-recovery-status-missing", "activity-recovery-status-changed", "activity-recovery-status-invalid", "activity-recovery-status-inconsistent", "activity-recovery-busy", "activity-recovery-denied", "activity-recovery-source-unavailable", "activity-recovery-disabled", "activity-recovery-failed", "activity-recovery-pause", "activity-recovery-resume", "activity-recovery-paused", "activity-recovery-control-conflict", "activity-recovery-control-failed", "activity-recovery-status-cancelled", "activity-recovery-cancel", "activity-recovery-cancel-confirm", "rule-email-recovery-unavailable"];
+ for(const key of keys){
+  assert.notEqual(data[key],english[key],key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ assert.equal(new Set(['pause','resume','cancel'].map(s=>data['activity-recovery-'+s])).size,3);
+ assert.equal(new Set(['pending','preparing','processing','missing','changed','invalid','inconsistent','cancelled'].map(s=>data['activity-recovery-status-'+s])).size,8);
+ assert.match(data['activity-recovery-description'],/wɔnyɛ dwumadi no foforo da/);
+ assert.match(data['activity-recovery-source-unavailable'],/Wɔanyɛ biribiara foforo/);
+ assert.match(data['activity-recovery-failed'],/Wɔakora adwuma a ɛretwɛn no so/);
+ assert.match(data['activity-recovery-cancel-confirm'],/korakora.*Wuntumi ntoa eyi so bio/);
+ assert.match(data['activity-recovery-cancel-confirm'],/email.*twɛn mu dedaw.*akɔdu dedaw/);
+ assert.match(data['activity-recovery-control-conflict'],/ans[a] na woasan asɔ ahwɛ/);
+});
