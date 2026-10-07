@@ -1234,6 +1234,22 @@ checks; human-preference checks pass too. Existing browser scenarios now cover
 these locales but are syntax-checked only. Fifty-eight locales still need this
 group. Ordinary backlog and pending-key counts remain 51,575 and 188 respectively.
 
+## Māori, Samoan and Hawaiian due reminders — 2026-10-07
+
+Filled six `due-reminder-*` placeholders each in `mi`, `sm` and `haw` (18 values),
+using existing notification terminology and preserving prior translations.
+The description retains comma separation, zero as the due day, positive-before /
+negative-after offsets and blank/server fallback. The maximum of ten whole-number
+days and the -14 to 14 range remain explicit. Webhook is retained as a technical
+term; the compounds for outgoing webhooks merit speaker review.
+
+Shared translation checks and the existing board-reminder browser scenario now
+cover 11 locales. Numeric, token, source-order, semantic wording and human-preference
+checks pass; browser coverage is syntax-checked only because its application
+stack is unavailable. Fifty-five locales still need this group. The ordinary
+backlog remains 51,575 values plus 188 pending source keys. No external translation
+service was used.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
