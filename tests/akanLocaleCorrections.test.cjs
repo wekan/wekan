@@ -519,3 +519,24 @@ test('Akan migration and deletion messages preserve failure states and confirmat
  assert.match(data['custom-private-desc-placeholder'],/hɔ kwa.*kokoam/);
  assert.match(data['custom-public-desc-placeholder'],/hɔ kwa.*baguam/);
 });
+
+
+test('Akan storage controls preserve credential retention and provider navigation', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["rescue-card-description-dialogue", "shortcut-add-self", "shortcut-assign-self", "custom-top-left-corner-logo-height", "default-authentication-method", "accounts-allowUserDelete", "start-day-of-week", "board-background-delete-pop", "default-save-storage", "default-save-storage-saved", "board-status-loading-mode", "max-upload-filesize", "allowed-upload-filetypes", "cron-job-delete-confirm", "cron-no-paused-migrations", "cards-loading", "gcs-credentials-description", "cloud-secret-keep-blank", "azure-container-menu-path", "gcs-credentials-menu-path", "cloud-secret-set", "migration-stop-confirm", "pause-all-migrations", "start-all-migrations", "stop-all-migrations", "step-update-cards", "start-time", "upload-repository", "sign-in-to-upload"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.equal(data['cards-loading'],data['board-status-loading-mode']);
+ assert.match(data['max-upload-filesize'],/bytes.*: $/);
+ assert.match(data['allowed-upload-filetypes'],/: $/);
+ assert.match(data['custom-top-left-corner-logo-height'],/soro benkum.*27/);
+ assert.notEqual(data['shortcut-add-self'],data['shortcut-assign-self']);
+ for(const key of ['cloud-secret-keep-blank','cloud-secret-set']) assert.match(data[key],/hɔ kwa/);
+ assert.match(data['gcs-credentials-description'],/Ɛnyɛ ahyɛde.*JSON.*hɔ kwa.*anaa/);
+ for(const text of ['Azure Portal','Storage accounts','Data storage','Containers','+ Container']) assert.ok(data['azure-container-menu-path'].includes(text),text);
+ for(const text of ['Google Cloud Console','IAM & Admin','Service accounts','Keys','Add key','Create new key','JSON','Create']) assert.ok(data['gcs-credentials-menu-path'].includes(text),text);
+ assert.match(data['pause-all-migrations'],/nyinaa kakra$/);
+ assert.match(data['stop-all-migrations'],/nyinaa$/);
+ assert.match(data['start-all-migrations'],/nyinaa ase$/);
+ assert.match(data['migration-stop-confirm'],/nyinaa\?$/);
+ assert.match(data['rescue-card-description-dialogue'],/ananmu\?$/);
+});

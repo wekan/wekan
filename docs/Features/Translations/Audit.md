@@ -5442,6 +5442,15 @@ pause/stop/resume operations. Added source-token and behavior-wording checks.
 Technical terminology remains low confidence pending fluent-speaker review;
 browser checks have not been run. English-placeholder counts are unchanged.
 
+## Akan controls and storage corrections (batch 31)
+
+Corrected 29 mixed-language values for card controls, upload limits, credential
+retention and migration controls. Restored exact Azure/Google Cloud menu labels
+inside translated navigation guidance. Preserved bytes, the logo height default,
+blank-to-retain behavior and distinct membership/assignment actions. Added token,
+menu-label and control checks. Technical wording remains low confidence pending
+fluent-speaker review. Browser checks remain unrun; placeholder counts unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
