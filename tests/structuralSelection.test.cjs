@@ -89,7 +89,7 @@ console.log('structuralSelection: named mixed preview, literal title text and bo
   const localeRoot = require('node:path').join(__dirname, '../imports/i18n/data');
   const loadLocale = code => JSON.parse(fs.readFileSync(`${localeRoot}/${code}.i18n.json`, 'utf8'));
   const source = loadLocale('en');
-  const codes = ["ary", "bho", "bi", "bo", "ckb", "haw", "kok", "ks", "ku", "mai", "mi", "nd", "nso", "ny", "om", "or_IN", "pap", "rn", "rw", "sm", "so", "ss", "st", "ti", "tk_TM", "tn", "to", "tpi", "ts", "tt", "ve", "wo", "xh", "yi", "zu-ZA", "zu", "gv", "vo", "wa", "bm", "lg", "ee", "fj", "qu", "ak", "wa-RR", "se", "ve-CC", "ay", "bua", "cv", "sah", "rup", "tlh", "ace", "ff", "gn", "ve-PP", "dz", "kl", "iu"];
+  const codes = ["ary", "bho", "bi", "bo", "ckb", "haw", "kok", "ks", "ku", "mai", "mi", "nd", "nso", "ny", "om", "or_IN", "pap", "rn", "rw", "sm", "so", "ss", "st", "ti", "tk_TM", "tn", "to", "tpi", "ts", "tt", "ve", "wo", "xh", "yi", "zu-ZA", "zu", "gv", "vo", "wa", "bm", "lg", "ee", "fj", "qu", "ak", "wa-RR", "se", "ve-CC", "ay", "bua", "cv", "sah", "rup", "tlh", "ace", "ff", "gn", "ve-PP", "dz", "kl", "iu", "nah", "zgh", "tig"];
   for (const code of codes) {
     const locale = loadLocale(code);
     assert.deepEqual(Object.keys(locale), Object.keys(source), `${code}: source key order`);

@@ -2888,6 +2888,27 @@ syntax-checked but not run without the app stack. Five locale paths still need
 the pair; both keys remain pending. The ordinary backlog remains 51,575 values
 plus 174 pending source keys, with broader language-quality review open.
 
+### Move-position labels — Nahuatl, Tamazight and Tigre (2026-10-07)
+
+Filled six placement labels in nah, zgh and tig using the placeholder-only merge.
+Existing translations were preserved; no translation service was used.
+
+References: Nahuatl [ixpan](https://gdn.iib.unam.mx/diccionario/ixpan/19313)
+and [icampa](https://nahuatl.wired-humanities.org/content/icampa),
+[IRCAM syntax study](https://biblio.ircam.ma/pmb/uploads/publications/221.pdf)
+for zdat/deffir, and
+[Raz's Tigre grammar](https://studylib.net/doc/29012541/tigre-grammar-and-texts--shlomo-raz---z-library.sk--1lib....)
+for qadam and spatial darb. These support spatial vocabulary; standalone software
+wording, especially Tigre orthography and Tamazight standardization, remains lower
+confidence and subject to native/UI review.
+
+The structural-selection suite now covers this pair in 64 recently filled locales.
+Runtime selection, source-token and key-order checks, distinct opposite labels,
+all-locale structure and 21 human-preference checks pass. Browser scenarios were
+syntax-checked but not run without the application stack. Cherokee and Wolaytta
+still need the pair; both keys remain pending. The ordinary backlog remains
+51,575 values plus 174 pending source keys, with broader language review open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
