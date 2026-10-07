@@ -149,3 +149,24 @@ test('Northern Sotho workspace announcements preserve counts, search keys and ed
  assert.notEqual(data['blockly-UNDO'],data['blockly-REDO']);
  assert.equal(new Set(['COPY','CUT','PASTE'].map(k=>data['blockly-'+k+'_SHORTCUT'])).size,3);
 });
+
+test('Northern Sotho colours and navigation preserve tokens, ranges and directions',()=>{
+ for(const key of Object.keys(english).filter(k=>k.startsWith('blockly-COLOUR_')||k.startsWith('blockly-KEYBOARD_NAV_')||k.startsWith('blockly-SHORTCUTS_'))){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  if(!key.endsWith('_HELPURL')&&!key.endsWith('_HUE')) assert.notEqual(data[key],english[key],key);
+ }
+ assert.equal(new Set(['RED','GREEN','BLUE'].map(s=>data['blockly-COLOUR_RGB_'+s])).size,3);
+ assert.match(data['blockly-COLOUR_RGB_TOOLTIP'],/0 le 100/);
+ assert.match(data['blockly-COLOUR_BLEND_TOOLTIP'],/0\.0 - 1\.0/);
+ const directions={UP:'godimo',DOWN:'fase',LEFT:'nngele',RIGHT:'go ja'};
+ for(const [key,word] of Object.entries(directions)){
+  for(const action of ['MOVE','SCROLL']) assert.ok(data['blockly-SHORTCUTS_'+action+'_'+key].endsWith(word));
+  assert.notEqual(data['blockly-SHORTCUTS_MOVE_'+key],data['blockly-SHORTCUTS_SCROLL_'+key]);
+ }
+ assert.match(data['blockly-KEYBOARD_NAV_UNCONSTRAINED_MOVE_HINT'],/Swara %1.*ka tokologo.*%2.*amogela boemo/);
+ assert.match(data['blockly-KEYBOARD_NAV_CONSTRAINED_MOVE_HINT'],/mesebe.*%1.*amogela boemo/);
+ assert.notEqual(data['blockly-KEYBOARD_NAV_COPIED_HINT'],data['blockly-KEYBOARD_NAV_CUT_HINT']);
+ assert.equal(new Set(['ABORT','FINISH','START'].map(s=>data['blockly-SHORTCUTS_'+s+'_MOVE'])).size,3);
+ assert.match(data['blockly-SHORTCUTS_TOGGLE_SCREENREADER_MODE'],/Bulela goba tima/);
+ for(const suffix of ['HEADING','STACK']) assert.notEqual(data['blockly-SHORTCUTS_NEXT_'+suffix],data['blockly-SHORTCUTS_PREVIOUS_'+suffix]);
+});

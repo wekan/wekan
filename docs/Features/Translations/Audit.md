@@ -6096,6 +6096,18 @@ key missing from other catalogs. Browser and screen-reader checks were not run.
 Workspace-stack and focus terminology remains low confidence pending fluent-
 speaker review. The broader language and wording audit stays open.
 
+## Northern Sotho Blockly colours and navigation — 2026-10-07
+
+Filled 59 English placeholders, preserving existing translations. Checks retain
+source tokens, distinct RGB channels, the 0–100 channel range, 0.0–1.0 blend
+ratio, four directions, movement versus scrolling, move confirmation and
+start/finish/abort distinctions. Screen-reader mode includes both on and off.
+
+The 55 focused checks and 21 human-preference checks pass. Two all-catalog
+structural checks still fail on the concurrent `shortcut-edit-due-date` addition.
+Browser and screen-reader checks were not run. Colour and navigation terminology
+remains low confidence pending fluent-speaker review. The broader audit is open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
