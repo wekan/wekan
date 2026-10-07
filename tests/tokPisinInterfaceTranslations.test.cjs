@@ -2755,3 +2755,25 @@ test('Tok Pisin history and notification settings preserve tokens and exclusions
  for(const setting of ['export-avatars','activities','notifications']) assert.match(data['disable-'+setting+'-description'],/i no wok long stat\.$/);
  assert.match(data['mongodb-compact-running'],/inap kisim sampela minit/);
 });
+
+
+test('Tok Pisin shortcut labels preserve tokens and distinguish membership from assignment',()=>{
+ const keys=[
+  "shortcut-add-self",
+  "shortcut-assign-self",
+  "shortcut-autocomplete-members",
+  "shortcut-close-dialog",
+  "shortcut-show-shortcuts",
+  "shortcut-edit-due-date"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:yourself|Assign|Autocomplete|Dialog|Bring|up|shortcuts)\b/,key);
+ }
+ assert.match(data['shortcut-add-self'],/yu yet olsem memba/);
+ assert.match(data['shortcut-assign-self'],/yu yet bilong kisim wok/);
+ assert.match(data['shortcut-edit-due-date'],/de wok i mas pinis.*kat i stap op/);
+ assert.match(data['shortcut-autocomplete-members'],/nem bilong ol memba/);
+ assert.deepEqual(Object.keys(data),Object.keys(english));
+});

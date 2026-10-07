@@ -6935,6 +6935,19 @@ The combined translation run passes 164 checks. Two existing catalog checks fail
 on the missing due-date shortcut key. All 21 human-preference checks pass.
 Browser and screen-reader checks were not run. The wider audit remains open.
 
+## Tok Pisin shortcut wording and key inventory audit
+
+Corrected five mixed-language shortcut labels and added the missing due-date
+shortcut translation. Tok Pisin now matches English's full key inventory and
+order. Checks distinguish adding oneself as a member from taking an assignment,
+and preserve the opened-card scope of due-date editing. Wording remains
+provisional pending fluent-speaker review.
+
+The combined translation run passes 165 checks. Two existing catalog checks
+still fail on the missing due-date shortcut key in other locales. All 21
+human-preference checks pass. Browser and screen-reader checks were not run.
+The wider translation and wording audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
