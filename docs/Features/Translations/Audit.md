@@ -1058,6 +1058,29 @@ pass. Browser coverage is syntax-checked only because its application stack is
 unavailable. These pending keys do not change the ordinary backlog of 51,575
 values in 70 languages or the 201 separately tracked pending source keys.
 
+## Standard Moroccan Tamazight notification preferences — 2026-10-07
+
+Filled the 13 `notification-activity-*` placeholders in `zgh` in Tifinagh.
+Existing translations are preserved. The description retains the remove-mark
+instruction, bell/email channels and the exception for reminders and @mentions.
+Member and assignee categories stay separate.
+
+Vocabulary reference: the
+[Peace Corps Tamazight–English dictionary](https://www.livelingua.com/peace-corps/Tamazight/Tamazight-English-Dictionary-2007.pdf)
+gives `abda` for always, `srsar` for bell, `sktiy` for remind and `kks` for remove.
+These roots inform the direct wording; the source is a regional learner dictionary,
+not validation of Standard Moroccan Tamazight UI terminology or full sentences.
+Technical compounds, passive agreement and inherited checklist/attachment terms
+remain low-confidence and need fluent-speaker review. The broader locale also
+mixes Latin and Tifinagh spellings; this batch does not audit that whole inventory.
+
+Shared notification regression and registered browser scenarios now cover 62
+locales. Added Tifinagh/no-English checks for these 13 strings alongside exact
+source-token checks. Notification, all-locale structure/token and human-preference
+checks pass; browser coverage is syntax-checked only because its application
+stack is unavailable. The ordinary backlog remains 51,575 values in 70 languages,
+plus 201 pending source keys, because this feature is in the pending group.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
