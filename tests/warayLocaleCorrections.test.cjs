@@ -298,7 +298,41 @@ const correctedKeys = [
   "blockly-FIELD_LABEL_OPTION_INDEX",
   "blockly-FIELD_LABEL_VARIABLE",
   "blockly-FIELD_MULTILINEINPUT_FINISH_EDITING",
-  "blockly-FIELD_MULTILINEINPUT_NEW_LINE"
+  "blockly-FIELD_MULTILINEINPUT_NEW_LINE",
+  "blockly-HELP_PROMPT",
+  "blockly-ICON_LABEL_COMMENT_CLOSED",
+  "blockly-ICON_LABEL_COMMENT_OPEN",
+  "blockly-ICON_LABEL_DEFAULT",
+  "blockly-ICON_LABEL_MUTATOR_CLOSED",
+  "blockly-ICON_LABEL_MUTATOR_OPEN",
+  "blockly-ICON_LABEL_WARNING_CLOSED",
+  "blockly-ICON_LABEL_WARNING_OPEN",
+  "blockly-INLINE_INPUTS",
+  "blockly-INPUT_LABEL_CONDITION",
+  "blockly-INPUT_LABEL_CONDITION_A",
+  "blockly-INPUT_LABEL_CONDITION_B",
+  "blockly-INPUT_LABEL_EMPTY",
+  "blockly-INPUT_LABEL_END_STATEMENT",
+  "blockly-INPUT_LABEL_INDEX",
+  "blockly-INPUT_LABEL_LISTS_CREATE_WITH_ITEM",
+  "blockly-INPUT_LABEL_LISTS_DELIMITER",
+  "blockly-INPUT_LABEL_LISTS_END_POSITION",
+  "blockly-INPUT_LABEL_LISTS_LIST_FROM_TEXT",
+  "blockly-INPUT_LABEL_LISTS_POSITION",
+  "blockly-INPUT_LABEL_LISTS_REPEAT_ITEM",
+  "blockly-INPUT_LABEL_LISTS_REPEAT_NUM",
+  "blockly-INPUT_LABEL_LISTS_START_POSITION",
+  "blockly-INPUT_LABEL_LISTS_TEXT_FROM_LIST",
+  "blockly-INPUT_LABEL_LISTS_TO_CHANGE",
+  "blockly-INPUT_LABEL_LISTS_TO_CHECK",
+  "blockly-INPUT_LABEL_LISTS_VALUE_TO_SET",
+  "blockly-INPUT_LABEL_LOOP_BY",
+  "blockly-INPUT_LABEL_LOOP_FROM",
+  "blockly-INPUT_LABEL_LOOP_LIST",
+  "blockly-INPUT_LABEL_LOOP_TIMES",
+  "blockly-INPUT_LABEL_LOOP_TO",
+  "blockly-INPUT_LABEL_MATH_CHANGE_BY",
+  "blockly-INPUT_LABEL_MATH_CONSTRAIN_VALUE"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -362,6 +396,13 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
     assert.notEqual(waray['blockly-' + a], waray['blockly-' + b]);
   }
   assert.match(waray['blockly-FIELD_BITMAP_PIXEL_LABEL'], /laray %2, kolum %3/);
+  for (const kind of ['COMMENT', 'WARNING']) {
+    assert.match(waray['blockly-ICON_LABEL_' + kind + '_CLOSED'], /^Abrihi/);
+    assert.match(waray['blockly-ICON_LABEL_' + kind + '_OPEN'], /^Isara/);
+  }
+  for (const [a, b] of [['CONDITION_A', 'CONDITION_B'], ['LISTS_START_POSITION', 'LISTS_END_POSITION'], ['LOOP_FROM', 'LOOP_TO'], ['LISTS_LIST_FROM_TEXT', 'LISTS_TEXT_FROM_LIST']]) {
+    assert.notEqual(waray['blockly-INPUT_LABEL_' + a], waray['blockly-INPUT_LABEL_' + b]);
+  }
   for (const [key, name] of [['gridfs-file-id', 'GridFS'], ['s3-file-id', 'S3'], ['azure-blob-storage-description', 'Microsoft Azure Blob Storage'], ['gcs-storage-description', 'Google Cloud Storage']]) {
     assert.ok(waray[key].includes(name), key);
   }

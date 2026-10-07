@@ -4993,6 +4993,12 @@ mixed-language audit remains open.
 - Until repeats while the condition is false; while repeats while it is true. Bitmap labels retain row/column ordering and the count of enabled pixels. Existing catalog wording guided translations; backpack, external-input and bitmap terminology remains provisional.
 - Extended token, condition-polarity, opposite-action and row/column regressions. Browser and spoken accessibility checks remain unexecuted; structural checks do not establish full fluency or semantic equivalence.
 
+### Waray Blockly icon actions and input descriptions
+
+- Filled 34 English placeholders through the protected workflow: keyboard help, comment/warning/editor icon actions and condition/list/loop/math input descriptions. Preserved numbered arguments and existing keyboard legends.
+- Closed comment/warning icons announce opening; open icons announce closing. Input wording distinguishes start/end, first/second conditions, splitting text and joining lists, repeated values and repetition counts.
+- Extended token, icon-action and input-distinction regressions. Delimiter, inline-input, loop increment and mathematical constraint wording remains provisional and needs contextual accessibility review. Browser/spoken checks remain unexecuted; structural checks do not establish fluent wording.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
