@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/096fe6c6cb747848ef02e86877407bf120929618">Correct 31 Walloon values in Waray repair and import guidance.</a></summary>
+
+- Correct migration, repair, import/export, search, synchronization and forecast messages. Preserve count tokens, unsuccessful-repair meanings, search syntax, extensions and product names.
+- Extend regressions. The exact-Walloon vocabulary scan now has no candidates, but this heuristic does not establish complete or fluent Waray coverage; contextual review remains necessary.
+- English placeholders remain at 46,995 across 70 languages, with 148 source keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/92db84756ca91a70b09fea35638338f8cc39cf0f">Correct 25 Walloon values in Waray storage and backup labels.</a></summary>
 
 - Correct storage, identifiers, board status, timing, checklist and backup labels. Preserve product names, organization-backup exclusions, restoration scope and the large-board lazy-loading restriction.
