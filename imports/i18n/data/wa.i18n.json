@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Cist emile a ddja stî evoyî ou abandné, ou ene saye d' evoyaedje a ddja stî fwaite.",
   "rule-email-legacy-not-legacy": "Cist emile a ddja stî riloyî.",
   "rule-email-legacy-failed": "Nén moyén di fini ciste accion. Raftchisshoz eyet rissayîz.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Ci raloyaedje SAML n’ a nén stî ataké dins cisse linwete do betchteu. Raloyîz vs co on côp, s’ i vs plait.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

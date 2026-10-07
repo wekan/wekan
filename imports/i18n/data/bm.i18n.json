@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Imɛli nin cira ka ban, a cili lajɛra ka ban, walima a filila ka ban.",
   "rule-email-legacy-not-legacy": "Imɛli nin sirira tuguni ka ban.",
   "rule-email-legacy-failed": "Nin kɛwale ma se ka ban. Ɲɛ in dayɛlɛ tuguni ka a lajɛ tuguni.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Nin SAML donni ma daminɛ nin navigatɛri taabu kɔnɔ. I ka don kokura, n b’i deli.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

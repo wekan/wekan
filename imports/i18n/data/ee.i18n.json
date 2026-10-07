@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Woɖo e-mail sia ɖa, wodze agbagba be yewoɖoe ɖa, alo wogblẽe ɖi xoxo.",
   "rule-email-legacy-not-legacy": "Wogbugbɔ bla e-mail sia ɖe eŋu xoxo.",
   "rule-email-legacy-failed": "Womete ŋu wu nuwɔna sia nu o. Gbugbɔ ʋu axa la eye nàgbugbɔ adze agbagba.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Womede SAML me gege sia gɔme le browser ƒe tab sia me o. Taflatse, ge ɖe eme ake.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

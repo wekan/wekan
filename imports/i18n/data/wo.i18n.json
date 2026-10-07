@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Bataaxal bii yónnee nañu ko, jéem nañu koo yónnee walla sànni nañu ko ba noppi.",
   "rule-email-legacy-not-legacy": "Bataaxal bii lëkkalewaat nañu ko ba noppi.",
   "rule-email-legacy-failed": "Mënuñu sottal jëf jii. Yeesalal xët wi te jéemaat.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Dugg bii ak SAML tàmbaliwul ci onglet bii ci joowkat bi. Baal nga, duggaat.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

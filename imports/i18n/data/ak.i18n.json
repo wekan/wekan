@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Wɔde imeel yi akɔ dedaw, wɔasɔ ahwɛ sɛ wɔde bɛkɔ, anaa wɔatow akyene.",
   "rule-email-legacy-not-legacy": "Wɔasan de imeel yi abata ho dedaw.",
   "rule-email-legacy-failed": "Wɔantumi anwie adeyɛ yi. Bue kratafa no bio na sɔ hwɛ bio.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Wɔamfi SAML mu hyɛn yi ase wɔ brawsa no tab yi mu. Yɛsrɛ wo, san hyɛn mu.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

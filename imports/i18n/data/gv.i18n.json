@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Ta'n post-l shoh currit hannah, ta prowal er ve jeant dy chur eh, ny t'eh tilgit ersooyl.",
   "rule-email-legacy-not-legacy": "Ta'n post-l shoh kianglt reesht hannah.",
   "rule-email-legacy-failed": "Cha dod shin cooilleeney y jantys shoh. Jean noaaghey as prow reesht.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Cha row yn çheet stiagh SAML shoh er ny hoshiaght ayns y tab shoh jeh’n vranser. Tar stiagh reesht, my sailliu.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

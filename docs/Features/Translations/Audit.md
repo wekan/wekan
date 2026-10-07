@@ -1947,6 +1947,22 @@ app stack was unavailable. 34 locale paths still need this message. The snapshot
 remains 51,575 ordinary missing values plus 182 pending keys; broader language
 review remains open.
 
+### SAML browser-tab error — third remaining batch (2026-10-07)
+
+Filled `saml-login-not-started` in gv, wa, wa-RR, ak, lg, bm, wo and ee (eight
+locale paths), preserving the tab-specific failed-start explanation and instruction
+to sign in again. No existing translations were overwritten and no translation
+service was used. Full Manx and Walloon phrases and browser/tab terminology across
+this batch are low confidence and need native review. Manx vocabulary was checked
+against [Learn Manx](https://www.learnmanx.com/learning/intermediate/lesson-1-toshiaght---introduction--1025/)
+for beginning and again; this does not validate the full technical phrase.
+
+The popup-error suite now checks 40 recently filled locales and passes, including
+positive and negative login-boundary cases. All-locale structural and human-preference
+checks pass. Browser scenarios were not run; the app stack was unavailable.
+26 locale paths still need this message. The overall snapshot remains 51,575
+ordinary missing values plus 182 pending keys; broader language review stays open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

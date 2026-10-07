@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Ini nga email naipadara na, nasarihan na nga ipadara, o naiwakli na.",
   "rule-email-legacy-not-legacy": "Ini nga email naikonektar na utro.",
   "rule-email-legacy-failed": "Waray matapos ini nga aksyon. I-refresh ngan sarihi utro.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Ini nga pagsulod pinaagi han SAML waray tikangi hini nga tab han browser. Alayon pagsulod utro.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",

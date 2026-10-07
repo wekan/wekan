@@ -3885,7 +3885,7 @@
   "rule-email-legacy-attempt-exists": "Imeyilo eno yasindikibwa dda, yagezesebwa okusindikibwa, oba yasuulibwa.",
   "rule-email-legacy-not-legacy": "Imeyilo eno yaddamu dda okuyungibwa.",
   "rule-email-legacy-failed": "Tekisobose kumaliriza kikolwa kino. Ddamu otikke era ogezeeko nate.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "saml-login-not-started": "Okuyingira kuno okwa SAML tekwatandikidde mu tabu eno eya bulawuza. Ddamu oyingire.",
   "move-selection-before": "Before",
   "move-selection-after": "After",
   "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",
