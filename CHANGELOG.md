@@ -385,7 +385,7 @@ held only issues \#4774 and \#4055, and both are closed now.
 Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
-- The current `node releases/translations/fill-translations.mjs --missing` report counts **51,575 untranslated locale/string values in 70 languages**. It excludes **150 source keys tracked separately as pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
+- The current `node releases/translations/fill-translations.mjs --missing` report counts **51,575 untranslated locale/string values in 70 languages**. It excludes **149 source keys tracked separately as pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
 - The 13 activity-notification preference keys have no empty or exact English-placeholder values in all 234 non-English locale paths and have left the pending queue. Provisional wording still needs language review.
 - Automatic-archiving and date-filter messages now have non-English values in all 234 non-English locale paths. Continue the remaining feature families and the language-quality audit; coverage does not establish fluent wording.
 - Fill English placeholders in every language, including minority and constructed languages. Audit mixed-language and wrong-language seed text, and review provisional wording with speakers when available. Preserve correct-language human translations, source key order, exact placeholders, technical identifiers and query examples. Use direct translation and dictionary research, not an external translation service.
@@ -1888,6 +1888,17 @@ Minority-language wording remains provisional and needs speaker review.
 This release updates the following translations:
 
 **Activity notifications** - choosing which card activity sends notifications.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9afc5bf221138091c8ec718d8a898dd05725787b">Fill the Cherokee Leo instruction and cover all locales</a></summary>
+
+- Filled the final English Leo instruction placeholder. All 234 non-English locales now have a value; the Cherokee draft remains very low-confidence and linguistic review stays open.
+- Added all-locale regression coverage and extended the browser import scenario. All 12 focused Node tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
+- Removed the Leo instruction from the pending queue: 150 to 149 source keys. The broader backlog remains 51,575 ordinary untranslated values across 70 languages.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/598893c70b7402fd96597ece006ce6be1d31f1a1">Add Tigre and Wolaytta Leo import instructions</a></summary>
