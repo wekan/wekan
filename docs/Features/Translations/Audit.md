@@ -5599,6 +5599,15 @@ creation labels and clarified rule actions. Added token, scope and state checks.
 Wording remains low confidence pending fluent-speaker review; browser checks
 remain unrun. English-placeholder counts are unchanged.
 
+## Akan grouping and field-summary corrections (batch 48)
+
+Corrected 18 mixed-language or misleading rule, board and field-summary messages.
+Restored number-field summation instead of a people count, opposite grouping
+states/actions and the synchronization interval's minutes unit. Preserved JSON/
+CSV, count tokens and the existing Sync now label. Added token, aggregate and
+state checks. Wording remains low confidence pending fluent-speaker review;
+browser checks remain unrun. English-placeholder counts are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

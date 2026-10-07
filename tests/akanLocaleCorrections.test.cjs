@@ -860,3 +860,25 @@ test('Akan field and rule labels preserve restore scope and administrator visibi
  assert.match(data['list-label-modifiedAt'],/nea etwa to/);
  assert.match(data['card-field-order'],/nnidiso nnidiso/);
 });
+
+
+test('Akan grouping and field summaries preserve aggregates and synchronization interval', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["r-export-csv", "r-import-json", "r-import-csv", "r-import-done", "cloneBoardPopup-title", "same-width-for-all-lists", "default-on-public-board", "show-on-public-board", "default-on-private-board", "show-on-private-board", "notification-settings-popup-description", "board-table-group-by-swimlane-on", "board-table-group-by-swimlane-off", "show-subtasks-field", "sum-of-number-fields", "date-range-of-fields", "listSyncPopup-title", "list-sync-description"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.match(data['r-export-csv'],/CSV/);
+ assert.match(data['r-import-json'],/JSON/);
+ assert.match(data['r-import-csv'],/CSV/);
+ assert.match(data['r-import-done'],/__count__/);
+ assert.match(data['board-table-group-by-swimlane-on'],/^Wɔakyekyɛ.*Klik.*wɔnkyekyɛɛ/);
+ assert.match(data['board-table-group-by-swimlane-off'],/^Wɔakyerɛ.*wɔnkyekyɛɛ.*Klik na kyekyɛ/);
+ assert.match(data['sum-of-number-fields'],/nɔma.*atifi.*nyinaa a wɔaka abom/);
+ assert.match(data['date-range-of-fields'],/nna.*atifi.*nna ntam/);
+ assert.match(data['list-sync-description'],/simma 15 biara/);
+ assert.ok(data['list-sync-description'].includes('"'+data['list-sync-now']+'"'));
+ assert.match(data['notification-settings-popup-description'],/sohwɛfo.*afei bɔɔd.*afei wo ankasa/);
+ for(const prefix of ['default-on-','show-on-']){
+  assert.match(data[prefix+'public-board'],/baguam/);
+  assert.match(data[prefix+'private-board'],/kokoam/);
+ }
+});
