@@ -4361,6 +4361,12 @@ mixed-language audit remains open.
 - Extended the existing positive browser save/reload/apply/replace/delete flow and negative invalid-expression flow to these four locales. All 15 focused Node tests and 21 human-preference checks pass. Browser syntax passes; execution remains unverified because the local Playwright executable is unavailable.
 - These ten strings remain English in Cherokee, Inuktitut and Tigre. Ordinary placeholders decrease from 50,335 to 50,295 across 70 languages; 148 pending keys still require wording review.
 
+## Saved filter labels: final three placeholder locales (2026-10-07)
+
+- Filled ten English strings each in Cherokee, Inuktitut and Tigre (30 values). All three sets remain low-confidence technical drafts requiring semantic review, especially Cherokee's clauses and the filtering paraphrases. Inuktitut describes filters as tools for choosing what is displayed.
+- Expanded the saved-filter translation check to all 234 non-English locales, checking nonempty non-English values, token inventory and distinct operation messages. All 15 focused Node tests and 21 human-preference checks pass. Extended positive and negative browser coverage to the final three locales; syntax passes, but execution remains unverified because the local Playwright executable is unavailable.
+- All ten saved-filter strings now have non-English values in all non-English locales. Ordinary placeholders decrease from 50,295 to 50,265 across 70 languages; 148 pending keys still require wording review. This completes placeholder coverage for this group, not the full translation or semantic audit.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
