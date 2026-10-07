@@ -5153,6 +5153,12 @@ mixed-language audit remains open.
 - Preserved every numbered argument and singular/plural input distinction. Registered Akan in the shared block/bubble regression suite, which checks tokens and distinct collapsed/disabled, statement/value and comment/warning labels.
 - Warning vocabulary was checked against the [Akan dictionary entry for kɔkɔbɔ](https://www.akandictionary.com/2022/01/16/kokobo-2/). Stack/container metaphors and the borrowed block term remain provisional and need contextual accessibility review. Browser and spoken checks were not run.
 
+### Akan Blockly editing, colors and control flow
+
+- Filled 44 English placeholders through the protected workflow, covering editing, color composition, loops and conditional branches. Preserved numbered arguments, blend bounds and RGB limits.
+- Corrected three generic filler values in the main red/green/blue labels directly; all previously said an unrelated phrase about task information. Matched these to the translated Blockly color controls.
+- Added per-key token checks, distinct color/operation checks, loop-only restrictions and opposite while/until conditions. Programming metaphors, variable and iteration wording remain provisional. Browser and fluent-speaker checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

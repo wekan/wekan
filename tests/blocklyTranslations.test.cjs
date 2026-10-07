@@ -351,3 +351,21 @@ test('Silesian keyboard labels preserve navigation direction and key identity',(
  for(const name of ['CHROME_OS','LINUX','MAC_OS','WINDOWS','MATH_ADDITION_SYMBOL_ARIA','MATH_SUBTRACTION_SYMBOL_ARIA','MATH_TRIG_ACOS','MATH_TRIG_ASIN','MATH_TRIG_ATAN','MATH_TRIG_COS','MATH_TRIG_SIN','MATH_TRIG_TAN'])
   assert.equal(szl[`blockly-${name}`],english[`blockly-${name}`]);
 });
+
+test('Akan editing, colors and flow controls preserve arguments and operation distinctions', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const data=require('../imports/i18n/data/ak.i18n.json');
+ const keys=["blockly-CANNOT_DELETE_VARIABLE_PROCEDURE", "blockly-CHANGE_VALUE_TITLE", "blockly-CLEAN_UP", "blockly-CLOSE_BACKPACK", "blockly-COLLAPSED_WARNINGS_WARNING", "blockly-COLLAPSE_ALL", "blockly-COLLAPSE_BLOCK", "blockly-COLOUR_BLEND_COLOUR1", "blockly-COLOUR_BLEND_COLOUR2", "blockly-COLOUR_BLEND_RATIO", "blockly-COLOUR_BLEND_TITLE", "blockly-COLOUR_BLEND_TOOLTIP", "blockly-COLOUR_PICKER_TOOLTIP", "blockly-COLOUR_RANDOM_TITLE", "blockly-COLOUR_RANDOM_TOOLTIP", "blockly-COLOUR_RGB_BLUE", "blockly-COLOUR_RGB_GREEN", "blockly-COLOUR_RGB_RED", "blockly-COLOUR_RGB_TITLE", "blockly-COLOUR_RGB_TOOLTIP", "blockly-CONTROLS_FLOW_STATEMENTS_OPERATOR_BREAK", "blockly-CONTROLS_FLOW_STATEMENTS_OPERATOR_CONTINUE", "blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_BREAK", "blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_CONTINUE", "blockly-CONTROLS_FLOW_STATEMENTS_WARNING", "blockly-CONTROLS_FOREACH_TITLE", "blockly-CONTROLS_FOREACH_TOOLTIP", "blockly-CONTROLS_FOR_TITLE", "blockly-CONTROLS_FOR_TOOLTIP", "blockly-CONTROLS_IF_ELSEIF_TOOLTIP", "blockly-CONTROLS_IF_ELSE_TOOLTIP", "blockly-CONTROLS_IF_IF_TOOLTIP", "blockly-CONTROLS_IF_MSG_ELSE", "blockly-CONTROLS_IF_MSG_ELSEIF", "blockly-CONTROLS_IF_TOOLTIP_1", "blockly-CONTROLS_IF_TOOLTIP_2", "blockly-CONTROLS_IF_TOOLTIP_3", "blockly-CONTROLS_IF_TOOLTIP_4", "blockly-CONTROLS_REPEAT_TITLE", "blockly-CONTROLS_REPEAT_TOOLTIP", "blockly-CONTROLS_WHILEUNTIL_OPERATOR_UNTIL", "blockly-CONTROLS_WHILEUNTIL_OPERATOR_WHILE", "blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL", "blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE"];
+ for(const key of keys){
+  assert.notEqual(data[key],english[key],key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ for(const color of ['BLUE','GREEN','RED']) assert.equal(data['blockly-COLOUR_RGB_'+color],data['color-'+color.toLowerCase()]);
+ assert.equal(new Set(['blue','green','red'].map(c=>data['color-'+c])).size,3);
+ assert.match(data['blockly-COLOUR_BLEND_TOOLTIP'],/0\.0 - 1\.0/);
+ assert.match(data['blockly-COLOUR_RGB_TOOLTIP'],/0 ne 100/);
+ assert.match(data['blockly-CONTROLS_FLOW_STATEMENTS_WARNING'],/mu nkutoo/);
+ assert.match(data['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL'],/nyɛ nokware/);
+ assert.match(data['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE'],/no yɛ nokware/);
+ assert.notEqual(data['blockly-CONTROLS_FLOW_STATEMENTS_OPERATOR_BREAK'],data['blockly-CONTROLS_FLOW_STATEMENTS_OPERATOR_CONTINUE']);
+});
