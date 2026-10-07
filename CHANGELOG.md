@@ -1889,6 +1889,21 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b9a183544df25ff9bdf0d38a777edcffb625558f">Translate Northern Sámi notification settings</a>. Thanks to xet7.</summary>
+
+- Fill 13 English placeholders in Northern Sámi, preserving existing
+  translations and the reminder/@mention exception to muting.
+- Shared notification coverage now checks 47 locales. Feature, all-locale
+  structure and human-preference checks pass. Browser mute/unmute scenarios
+  are syntax-checked only. Technical wording is low confidence pending
+  speaker review; vocabulary references are recorded in the audit.
+- These values belong to pending source keys, so the standard backlog
+  remains 51,575 values plus 201 pending source keys. Remaining languages
+  and broader language review stay in TODO Later.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/28fad83e87abe12839b84674f5b5db800589b3a2">Translate Venda and Venetian notification settings</a>. Thanks to xet7.</summary>
 
 - Fill 26 English placeholders across Venda and Venetian, preserving the
