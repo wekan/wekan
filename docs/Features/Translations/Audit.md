@@ -4464,6 +4464,13 @@ mixed-language audit remains open.
 - Both focused Node tests and 21 human-preference checks pass, including catalog tokens and existing positive/negative drag-policy assertions. Extended localized heading and disable/re-enable persistence browser coverage to these locales. Browser syntax passes; execution remains unverified because Playwright is unavailable locally.
 - Ordinary placeholders decrease from 50,052 to 50,033 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## Board drag-permission label: thirteen further locales (2026-10-07)
+
+- Filled `draggable` in Walloon, Waray, Acehnese, Manx, Northern Sami, Venetian, Aromanian, Akan, Bambara, Ewe, Wolof, Fulah and Kashmiri. Technical wording remains provisional, particularly Aromanian, Fulah and Kashmiri; the external Fulah word lookup was inconclusive.
+- References attest Manx [tayrn](https://en.wiktionary.org/wiki/tayrn) and Northern Sami [geassit](https://en.wiktionary.org/wiki/-a%C5%A1it) as pull/drag vocabulary, without validating the full labels.
+- Both focused Node tests and 21 human-preference checks pass, including positive/negative drag-policy assertions. Extended localized heading and disable/re-enable persistence browser coverage. Browser syntax passes; execution remains unverified because Playwright is unavailable locally.
+- Ordinary placeholders decrease from 50,033 to 50,020 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
