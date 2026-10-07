@@ -1890,6 +1890,20 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/013b40fa0751f8d03cabf6fabc6dfb3e8094568e">Translate rule-builder instructions in Northern Sámi and Acehnese</a>. Thanks to xet7.</summary>
+
+- Fill seven strings in each locale, preserving literal variables, any-trigger
+  behavior and ordered actions. Both translations have lower confidence;
+  technical terms and composed date fragments need native/UI review.
+- Translation checks now cover 48 recently filled locales. Runtime variable,
+  all-locale structural and human-preference checks pass. Browser scenarios were
+  not run; the app stack was unavailable.
+- 18 locale paths still need this group. The ordinary backlog remains 51,575 values
+  plus 181 pending source keys; broader language-quality review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e825c8e1dd81eba327ad97d57bb83af7a8e686ba">Translate rule-builder instructions in Chuvash and Venda</a>. Thanks to xet7.</summary>
 
 - Fill seven strings in each locale and correct three Nguni seed labels in Venda.
