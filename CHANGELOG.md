@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d53166480fb1438e51c74d89240d207e00bac579">Correct 43 Akan calendar and settings translations.</a></summary>
+
+- Replace generic filler in date fields, weekdays, roles, read states and custom head settings. Restore protocol names and the context separator.
+- Add token, weekday, shared-label, state and technical-identifier checks. Role, domain and manifest wording remains provisional.
+- The exact generic-filler inventory decreases from 356 to 313. English placeholders remain 45,599 across 70 languages because these corrections replace non-English values.
+- Validation: 48 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c2d88822cb61d65d27cdfe3495d1f3c4d3b86dd6">Correct 60 Akan rule-schedule and action translations.</a></summary>
 
 - Replace generic filler in schedules, due-date conditions, checklist actions and email fields. Preserve time units, Monday–Friday scope and opposite controls.
