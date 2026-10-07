@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b83566a83c361aa15018026fd774d47ae4cb2aab">Translate Kurdish Blockly arithmetic and statistics labels</a></summary>
+
+- Fill 40 English placeholders for arithmetic, constants, bounds, number tests,
+  remainders and statistics, preserving formulas, tokens and existing translations.
+- Root, prime-number and standard-deviation wording remains low confidence.
+- All 45 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a5ed81ad373ddc2a68c8deabb254e89ef470578d">Translate Kurdish Blockly sorting and logic instructions</a></summary>
 
 - Fill 29 English placeholders for sorting, splitting, comparisons, Boolean
