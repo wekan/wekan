@@ -5351,6 +5351,12 @@ Rewrote 24 malformed or mixed-language entries covering activity logs, list widt
 
 Tests compare all source placeholder inventories, activity targets, archive retention/restoration, size limits and mapping permissions. Mapping and administrative wording remains provisional. Browser checks were not run; broader semantic review continues.
 
+### Akan mixed-language correction: permissions and account errors
+
+Rewrote 24 mixed-language permission, existence/error and export labels. Preserve assigned-only visibility, read-only/comment-only restrictions, worker self-assignment and the fact that enabling permanent deletion does not itself delete data. Keep source count placeholders and JSON/CSV/TSV/Excel identifiers.
+
+Regression checks cover source tokens, negative permissions, separate disabled/missing accounts and re-import guidance. Role and soft-deletion wording remains descriptive and provisional. Browser checks were not run; other mixed-language values remain under audit.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

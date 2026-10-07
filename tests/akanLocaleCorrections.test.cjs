@@ -281,3 +281,21 @@ test('Akan import activities and archive guidance preserve targets and permissio
  assert.match(data['userAnonymizePopup-title'],/akontaabu/);
  assert.notEqual(data['list-width-shared-note'],data['list-width-personal-note']);
 });
+
+test('Akan permission and error messages preserve access restrictions', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["and-n-other-card", "and-n-other-card_plural", "comment-only-desc", "comment-assigned-only-desc", "no-comments-desc", "read-only-desc", "read-assigned-only-desc", "worker-desc", "enable-permanent-delete-description", "error-board-doesNotExist", "error-watch-disabled", "error-json-schema", "error-csv-schema", "error-import-empty-board", "error-list-doesNotExist", "error-user-disabled", "error-user-doesNotExist", "error-user-notAllowSelf", "error-username-taken", "error-orgname-taken", "error-teamname-taken", "user-can-not-export-excel", "export-card-excel-fields", "export-card-field-people"];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.ok(!/\b(Can|can|does|already|People)\b|expanaat|Creatanaa/.test(data[key]),key);
+ }
+ for(const key of ['comment-assigned-only-desc','read-assigned-only-desc']) assert.match(data[key],/ahyɛ ne nsa nkutoo/);
+ for(const key of ['read-only-desc','read-assigned-only-desc']) assert.match(data[key],/Ontumi nsesa/);
+ assert.match(data['no-comments-desc'],/Ontumi nhu/);
+ assert.match(data['enable-permanent-delete-description'],/nko ara mmpopa biribiara/);
+ assert.match(data['worker-desc'],/ankasa.*nkutoo/);
+ assert.match(data['error-json-schema'],/JSON/);
+ assert.match(data['error-csv-schema'],/CSV.*TSV/);
+ assert.match(data['error-import-empty-board'],/fael foforo/);
+ assert.notEqual(data['error-user-disabled'],data['error-user-doesNotExist']);
+});
