@@ -5213,6 +5213,12 @@ mixed-language audit remains open.
 - Added per-key token checks, four-direction assertions, visible-area scrolling distinctions, opposite-action checks and explicit previous-item wording.
 - Focus, stack and announcement wording remains provisional and needs contextual accessibility review. Browser and spoken checks were not run.
 
+### Akan Blockly text operations
+
+Filled 55 English placeholders for text construction, character/sub-string access, searching, replacement, case changes, prompts and trimming. Preserved numbered arguments, absent-match results and spaces in length calculations; help URLs and numeric constants remain unchanged.
+
+Regression checks cover source-token inventories, first/last endpoints, reverse order, trim sides and distinct input types. Case and substring terminology remains provisional. Browser rendering and spoken accessibility were not run; automated checks do not establish fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

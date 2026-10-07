@@ -537,3 +537,26 @@ test('Akan shortcuts preserve navigation direction and action distinctions', asy
  for(const [a,b] of [['ABORT_MOVE','FINISH_MOVE'],['JUMP_BLOCK_START','JUMP_BLOCK_END'],['JUMP_TOP_STACK','JUMP_BOTTOM_STACK'],['NEXT_HEADING','PREVIOUS_HEADING'],['NEXT_STACK','PREVIOUS_STACK']]) assert.notEqual(data['blockly-SHORTCUTS_'+a],data['blockly-SHORTCUTS_'+b]);
  for(const key of ['JUMP_PREVIOUS_PAGE','PREVIOUS_HEADING','PREVIOUS_STACK']) assert.match(data['blockly-SHORTCUTS_'+key],/atwam/);
 });
+
+test('Akan text operations preserve arguments, endpoints and empty results', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const data=require('../imports/i18n/data/ak.i18n.json');
+ const keys=["blockly-TEXT_APPEND_TITLE", "blockly-TEXT_APPEND_TOOLTIP", "blockly-TEXT_CHANGECASE_OPERATOR_LOWERCASE", "blockly-TEXT_CHANGECASE_OPERATOR_TITLECASE", "blockly-TEXT_CHANGECASE_OPERATOR_UPPERCASE", "blockly-TEXT_CHANGECASE_TOOLTIP", "blockly-TEXT_CHARAT_FIRST", "blockly-TEXT_CHARAT_FROM_END", "blockly-TEXT_CHARAT_FROM_START", "blockly-TEXT_CHARAT_LAST", "blockly-TEXT_CHARAT_RANDOM", "blockly-TEXT_CHARAT_TITLE", "blockly-TEXT_CHARAT_TOOLTIP", "blockly-TEXT_COUNT_MESSAGE0", "blockly-TEXT_COUNT_TOOLTIP", "blockly-TEXT_CREATE_JOIN_ITEM_TOOLTIP", "blockly-TEXT_CREATE_JOIN_TITLE_JOIN", "blockly-TEXT_CREATE_JOIN_TOOLTIP", "blockly-TEXT_FROM_END_ARIA", "blockly-TEXT_FROM_START_ARIA", "blockly-TEXT_GET_SUBSTRING_END_FROM_END", "blockly-TEXT_GET_SUBSTRING_END_FROM_START", "blockly-TEXT_GET_SUBSTRING_END_LAST", "blockly-TEXT_GET_SUBSTRING_INPUT_IN_TEXT", "blockly-TEXT_GET_SUBSTRING_START_FIRST", "blockly-TEXT_GET_SUBSTRING_START_FROM_END", "blockly-TEXT_GET_SUBSTRING_START_FROM_START", "blockly-TEXT_GET_SUBSTRING_TOOLTIP", "blockly-TEXT_INDEXOF_OPERATOR_FIRST", "blockly-TEXT_INDEXOF_OPERATOR_LAST", "blockly-TEXT_INDEXOF_TITLE", "blockly-TEXT_INDEXOF_TOOLTIP", "blockly-TEXT_ISEMPTY_TITLE", "blockly-TEXT_ISEMPTY_TOOLTIP", "blockly-TEXT_JOIN_TITLE_CREATEWITH", "blockly-TEXT_JOIN_TOOLTIP", "blockly-TEXT_LENGTH_TITLE", "blockly-TEXT_LENGTH_TOOLTIP", "blockly-TEXT_PRINT_TITLE", "blockly-TEXT_PRINT_TOOLTIP", "blockly-TEXT_PROMPT_TOOLTIP_NUMBER", "blockly-TEXT_PROMPT_TOOLTIP_TEXT", "blockly-TEXT_PROMPT_TYPE_NUMBER", "blockly-TEXT_PROMPT_TYPE_TEXT", "blockly-TEXT_REPLACE_MESSAGE0", "blockly-TEXT_REPLACE_TOOLTIP", "blockly-TEXT_REVERSE_MESSAGE0", "blockly-TEXT_REVERSE_TOOLTIP", "blockly-TEXT_TEXT_TOOLTIP", "blockly-TEXT_TRIM_OPERATOR_BOTH", "blockly-TEXT_TRIM_OPERATOR_LEFT", "blockly-TEXT_TRIM_OPERATOR_RIGHT", "blockly-TEXT_TRIM_TOOLTIP", "blockly-TEXT_APPEND_VARIABLE", "blockly-TEXT_CREATE_JOIN_ITEM_TITLE_ITEM"];
+ for(const key of keys){
+  assert.notEqual(data[key],english[key],key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ for(const family of ['CHARAT','INDEXOF_OPERATOR']){
+  assert.match(data['blockly-TEXT_'+family+'_FIRST'],/edi kan/);
+  assert.match(data['blockly-TEXT_'+family+'_LAST'],/etwa to/);
+ }
+ assert.match(data['blockly-TEXT_INDEXOF_TOOLTIP'],/wɔanhu.*%1/);
+ assert.match(data['blockly-TEXT_LENGTH_TOOLTIP'],/ntam kwan ka ho/);
+ assert.match(data['blockly-TEXT_TRIM_OPERATOR_BOTH'],/abien nyinaa/);
+ assert.match(data['blockly-TEXT_TRIM_OPERATOR_LEFT'],/benkum/);
+ assert.match(data['blockly-TEXT_TRIM_OPERATOR_RIGHT'],/nifa/);
+ assert.match(data['blockly-TEXT_REVERSE_TOOLTIP'],/etwa to.*edi kan/);
+ assert.notEqual(data['blockly-TEXT_PROMPT_TYPE_NUMBER'],data['blockly-TEXT_PROMPT_TYPE_TEXT']);
+ for(const suffix of ['LOWERCASE','TITLECASE','UPPERCASE']) assert.ok(data['blockly-TEXT_CHANGECASE_OPERATOR_'+suffix]);
+ assert.equal(new Set(['LOWERCASE','TITLECASE','UPPERCASE'].map(s=>data['blockly-TEXT_CHANGECASE_OPERATOR_'+s])).size,3);
+});
