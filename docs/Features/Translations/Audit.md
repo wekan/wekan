@@ -4509,6 +4509,13 @@ mixed-language audit remains open.
 - All twelve focused Node tests and 21 human-preference checks pass. Extended token-inventory and distinct-direction checks alongside existing negative import tests. Added the ten locales to the localized editor drag/edit/context-menu browser flow. Syntax passes; browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
 - Ordinary placeholders decrease from 49,821 to 49,701 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
 
+## Blockly movement announcements: nine Pacific and African locales (2026-10-07)
+
+- Filled twelve movement and scrolling announcements in Bislama, Tok Pisin, Fijian, Tongan, Hawaiian, Oromo, Kinyarwanda, Kirundi and Luganda (108 values). The protected fill utility preserved existing translations. Arguments and distinct directions are retained. Technical phrasing remains provisional, particularly Tongan, Hawaiian and Luganda. Luganda scrolling uses a paraphrase about moving the visible content after the initial draft's proposed scrolling verb could not be substantiated.
+- Direction vocabulary was checked against the [Bislama workbook](https://www.livelingua.com/peace-corps/Bislama/Bislama%20Handbook%20-%20Revision%20July%202011.pdf), [Tongan bilingual dictionary](https://education.nsw.gov.au/content/dam/main-education/teaching-and-learning/curriculum/multicultural-education/eald/eald-bilingual-dictionary-tongan.pdf), [Tok Pisin dictionary](https://www.tok-pisin.com/define.php?id=MTMzNg%3D%3D&tokpisin=paspas-bilong-han) and [Kirundi dictionary](https://www.matana.de/index1.php?deep=&q=left). These references support individual terms, not complete technical clauses.
+- All twelve focused Node tests and 21 human-preference checks pass. Extended token-inventory and distinct-direction checks alongside existing negative import tests. Added the nine locales to the localized editor drag/edit/context-menu browser flow. Syntax passes; browser execution and actual screen-reader announcement behavior remain unverified because Playwright is unavailable locally.
+- Ordinary placeholders decrease from 49,701 to 49,593 across 70 languages. The 148 pending source keys and broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
