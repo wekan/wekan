@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6d2be5215acd890299a01bb28092a690e8858864">Correct 28 damaged or mixed-language Akan import and invitation messages.</a></summary>
+
+- Restore OpenProject import names and endpoint; rewrite invitation, archive, shortcut and card-control text. Preserve tokens and action meanings.
+- Add source-token, endpoint and behavior regression checks. Wording remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
+- Validation: 83 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ed00230a897e77e04e4343a6ebb25399ee2c78ac">Correct 25 damaged or mixed-language Akan archive and color labels.</a></summary>
 
 - Align archive and color terminology and rewrite card-control text. Preserve archive targets, confirmations and activity placeholders.
