@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **45,738 untranslated locale/string values in 70 languages**. It
+  report counts **45,698 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -2074,6 +2074,18 @@ uses the same word as `checklist` itself.
 </details>
 
 **Translations** — continued language coverage and corrections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fcd7871303f7d6d27c9b0243af30d5256697c65f">Translate 40 Akan sprint-report and completion messages.</a></summary>
+
+- Fill remaining Scrum event, report, lifecycle, daily-observation and import-status messages. Preserve unknown-versus-zero estimates, partial data and separate close/cancel behavior.
+- Add placeholder, lifecycle, UTC observation, limit and shared-label checks. Reporting terminology remains low confidence and needs contextual review.
+- English placeholders decrease from 45,738 to 45,698 across 70 languages, with 148 source keys tracked separately for wording review.
+- Validation: 40 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/44a707acf5c5617b66990bc7065edc103eb14a81">Translate 54 Akan rule-editor and Scrum planning messages.</a></summary>
