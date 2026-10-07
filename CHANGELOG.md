@@ -2173,6 +2173,20 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e50a3f5b87994e387472167634adb22bea1c6f14">Translate Kurdish Blockly editing and accessibility instructions</a></summary>
+
+- Fill 54 English placeholders for conditions, repetition, editing controls,
+  bitmap labels, keyboard help and icon announcements, preserving existing
+  translations and formatting tokens.
+- Inline input and bitmap terminology remains low confidence pending review.
+- All 41 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/89af4691e66ada4dd8f937f94b877c9ac06e2a5c">Translate Kurdish Blockly control and colour instructions</a></summary>
 
 - Fill 26 English placeholders for block controls, variable deletion, colour
