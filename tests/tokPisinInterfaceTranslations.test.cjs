@@ -1058,3 +1058,38 @@ test('Tok Pisin destructive-action warnings retain restrictions and restoration 
  assert.match(data['restore-list-swimlanes-done'],/__restored__.*no inap kisim __remaining__/);
  assert.match(data['list-delete-suggest-archive'],/akaiv.*holim ol wok/);
 });
+
+
+test('Tok Pisin custom-field messages preserve tokens and replace mixed English',()=>{
+ const keys=[
+  "createCustomField",
+  "createCustomFieldPopup-title",
+  "custom-field-delete-pop",
+  "custom-field-dropdown-options",
+  "custom-field-dropdown-options-placeholder",
+  "custom-field-dropdownMultiSelect",
+  "editCustomFieldPopup-title",
+  "filter-custom-fields-label",
+  "activity-set-customfield",
+  "activity-unset-customfield",
+  "custom-field-stringtemplate",
+  "custom-field-stringtemplate-separator",
+  "custom-field-stringtemplate-item-placeholder"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.doesNotMatch(data[key],/There is|destroy|Press enter|more items|Dropdown|String templet|Separator|Sivim by/,key);
+ }
+});
+
+test('Tok Pisin custom-field controls retain deletion scope and formatting instructions',()=>{
+ assert.match(data['custom-field-delete-pop'],/no inap kisim bek.*olgeta kat.*olgeta rekot/);
+ assert.match(data['custom-field-dropdownMultiSelect'],/makim planti/);
+ assert.doesNotMatch(data['custom-field-dropdownMultiSelect'],/planim/);
+ assert.match(data['custom-field-dropdown-options-placeholder'],/Presim Enter/);
+ assert.match(data['custom-field-stringtemplate-item-placeholder'],/Presim Enter/);
+ for(const literal of ['&#32;','&nbsp;']) assert.ok(data['custom-field-stringtemplate-separator'].includes(literal));
+ assert.match(data['activity-set-customfield'],/'%s'.*'%s'.*%s/);
+ assert.match(data['activity-unset-customfield'],/rausim veliu/);
+ assert.equal(data.createCustomField,data['createCustomFieldPopup-title']);
+});

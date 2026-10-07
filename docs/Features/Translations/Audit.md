@@ -6545,6 +6545,12 @@ Corrected 24 mixed-language deletion confirmations, linked-item restrictions and
 
 Validation: 90 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
 
+## Tok Pisin custom-field wording audit
+
+Corrected 13 mixed-language or mistranslated custom-field messages, including the multi-select label that used planting vocabulary. Preserved source placeholders, positional order and HTML space entities. Tests cover deletion scope, multiple selection, Enter-key instructions and setting/unsetting values. Existing coherent nearby labels remain unchanged. Wording remains provisional pending fluent-speaker review; browser and screen-reader checks were not run.
+
+Validation: 92 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
