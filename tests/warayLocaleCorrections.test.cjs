@@ -959,7 +959,28 @@ const correctedKeys = [
   "twoFactorCode-prompt",
   "twoFactorCode-invalid",
   "chart-forecast-no-velocity",
-  "chart-forecast-projected"
+  "chart-forecast-projected",
+  "operator-attachment-text",
+  "predicate-attachment",
+  "list-sync-menu",
+  "listSyncPopup-title",
+  "list-sync-description",
+  "list-sync-source-type",
+  "list-sync-source-none",
+  "list-sync-project-key",
+  "list-sync-project-key-placeholder",
+  "list-sync-credential",
+  "list-sync-credential-placeholder",
+  "list-sync-credential-status-set",
+  "list-sync-credential-status-unset",
+  "list-sync-enabled",
+  "list-sync-last-synced",
+  "list-sync-last-error",
+  "list-sync-now",
+  "list-sync-now-pending",
+  "list-sync-now-success",
+  "list-sync-now-error",
+  "list-sync-clear"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -1154,6 +1175,15 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   assert.equal(waray['export'], waray['exportChartPopup-title']);
   assert.equal(waray['copyChecklistFromTemplate'], waray['copyChecklistFromTemplatePopup-title']);
   assert.match(waray['open-many-cards-at-once-description'], /kalugaringon nga bintana.*nagsasara/);
+  for (const key of ['operator-attachment-text', 'predicate-attachment']) {
+    assert.equal(waray[key], 'kalakip');
+    assert.doesNotMatch(waray[key], /\s|:/);
+  }
+  assert.match(waray['list-sync-description'], /15 ka minuto/);
+  assert.ok(waray['list-sync-description'].includes(waray['list-sync-now']));
+  assert.match(waray['list-sync-credential-status-set'], /^May/);
+  assert.match(waray['list-sync-credential-status-unset'], /^Waray/);
+  assert.match(waray['list-sync-now-error'], /%s/);
   const statistics = ['AVERAGE', 'MEDIAN', 'MODE', 'STD_DEV', 'SUM'].map(s => waray['blockly-MATH_ONLIST_OPERATOR_' + s]);
   assert.equal(new Set(statistics).size, statistics.length);
   assert.match(waray['blockly-MATH_ONLIST_TOOLTIP_MODE'], /lista han mga butang/);

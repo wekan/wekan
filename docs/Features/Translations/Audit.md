@@ -5105,6 +5105,12 @@ mixed-language audit remains open.
 - Covered board controls, labels, attachments, templates, loading indicators, authentication and forecasting. Preserved authentication app names, six-digit requirements, manual-entry spacing, file extensions and all forecast tokens. Added shared-label, multi-window and authentication regression checks.
 - The remaining-placeholder count is unchanged by these corrections. More wrong-language candidates remain, including list synchronization and attachment-query terms. Color, roadmap and API terminology is provisional; browser and fluent-speaker review remain open.
 
+### Waray wrong-language audit: list synchronization
+
+- Corrected 21 French or Walloon values directly: list synchronization controls, credential state, source settings and attachment query terms. Preserved the 15-minute interval, API/PROJECT identifiers and `%s` failure argument.
+- Read the localized operator/predicate registrations in `config/query-classes.js` and search-help use in `client/components/main/globalSearch.js`. Attachment aliases now use the single word `kalakip`, matching the Waray attachment label and avoiding the former embedded space.
+- Added interval, action-label, credential-state and query-token checks. The English-placeholder count is unchanged. More French query aliases remain for the next audit batch; credential terminology remains provisional and browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
