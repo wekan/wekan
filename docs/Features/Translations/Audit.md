@@ -5261,6 +5261,12 @@ Found 596 entries using the same unrelated activity-information phrase (`Nsɛm a
 
 Regression coverage rejects the old filler, checks source token inventories, literal voting values, the zoom range and opposite controls. Specialized theme, dependency and template labels remain provisional. Browser checks were not run; 536 instances of this exact filler remain for subsequent correction.
 
+### Akan generic filler correction: colors, fields and account controls
+
+Corrected another 60 unrelated filler values covering color names, custom fields, login, subscription and time tracking. Restored the intentionally empty comment placeholder, literal abbreviated list labels and Gantt name. The exact generic-filler inventory decreases from 536 to 476.
+
+Basic color terms were checked against [Boston University's Akan colors](https://www.bu.edu/200word/akan-twi/colors/) and [LearnAkan's color vocabulary](https://learnakan.com/colours-in-twi/). Uncommon shades use provisional descriptions or recognizable borrowed shade names; these and version/WIP terminology need contextual review. Tests check source tokens, empty/literal values, count and hour units, color distinctions and opposite controls. Browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
