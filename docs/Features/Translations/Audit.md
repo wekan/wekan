@@ -1482,6 +1482,27 @@ browser scenarios were syntax-checked only because the app stack was unavailable
 21 locale paths still need this six-string group. The ordinary backlog remains
 51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
 
+### Due reminders — Venda (2026-10-07)
+
+Filled six reminder strings in `ve` (Venda, distinct from Venetian `ve-CC` and
+Veps `ve-PP`). Instructions retain comma-separated offsets, zero as the due day,
+positive days before and negative days after, the empty server-default setting,
+at most ten integers from -14 to 14, board disabling and outgoing webhook delivery.
+Only English placeholders were filled; no external translation service was used.
+Technical compounds remain low-confidence drafts for native review. Existing
+wrong-language seeds elsewhere in the locale remain part of the wider audit.
+
+The [Tshivenda mathematics terminology document](https://www.education.gov.za/Portals/0/Documents/MTbBE/mttbe%20terminology/Tshivenda%20Grade%204%20and%205%20MathematicsTerminology.pdf?ver=2025-11-06-164434-523)
+provides contextual number vocabulary. It does not verify these complete software
+instructions or their fluency.
+
+Translation checks now cover 46 locales, including offset direction, defaults,
+bounds and source-token inventories. The existing browser scenario includes
+Venda. Translation, all-locale structural and human-preference checks pass;
+browser scenarios were syntax-checked only because the app stack was unavailable.
+20 locale paths still need this six-string group. The ordinary backlog remains
+51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
