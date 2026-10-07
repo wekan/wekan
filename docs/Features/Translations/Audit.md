@@ -4284,6 +4284,13 @@ mixed-language audit remains open.
 - Extended the existing placeholder/state checks and browser report flow to these six locales. All 17 focused Node tests and 21 human-preference checks pass; browser syntax passes, but execution remains unverified because the local Playwright executable is unavailable.
 - These ten report strings remain English in 12 locales. Ordinary placeholders decrease from 51,105 to 51,045 across 70 languages; 148 pending keys still require wording review.
 
+## Rule email report labels: six further locales including constructed languages (2026-10-07)
+
+- Filled ten English report strings each in Quechua, Aymara, Guarani, Veps, Volapük and Klingon (60 values). All six sets remain low-confidence technical drafts, especially the full Veps, Volapük and Klingon clauses.
+- Used existing email-action vocabulary and consulted the [Volapük dictionary](https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary) and [Klingon dictionary](https://engineering.thetafleet.net/Journals/Other/Franchise%20-%20The%20Klingon%20Dictionary.pdf). Root vocabulary does not establish fluency; the report and attempt expressions include paraphrases. Corrected the draft Quechua attempt root before applying it.
+- Extended the existing placeholder/state checks and browser report flow to these six locales. All 17 focused Node tests and 21 human-preference checks pass; browser syntax passes, but execution remains unverified because the local Playwright executable is unavailable.
+- These ten report strings remain English in six locales. Ordinary placeholders decrease from 51,045 to 50,985 across 70 languages; 148 pending keys still require wording review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
