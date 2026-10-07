@@ -223,3 +223,90 @@ test('Tok Pisin scheduling wording preserves recurrence, due dates and checklist
  assert.match(data['backup-frequency-weekly'],/wik/);
  assert.match(data['backup-frequency-monthly'],/mun/);
 });
+
+
+test('Tok Pisin storage and migration labels replace prefixed English with intact tokens',()=>{
+ const keys=[
+  "move-source",
+  "move-destination",
+  "move-storage-fs",
+  "attachment-repair-done",
+  "attachment-repair-scanned",
+  "attachment-repair-repaired",
+  "move-scope-avatars",
+  "move-progress-pause",
+  "move-progress-resume",
+  "avatars",
+  "storage",
+  "progress",
+  "max-avatar-filesize",
+  "allowed-avatar-filetypes",
+  "avatars-path",
+  "storage-read",
+  "database-migration-phase",
+  "sandstorm-migration-success",
+  "sandstorm-storage-item",
+  "backup-scope",
+  "backup-scope-instance",
+  "backup-now",
+  "backup-schedule",
+  "migration-starting",
+  "migration-pausing",
+  "migration-stopping",
+  "migration-paused",
+  "migration-progress",
+  "migration-started",
+  "migration-stopped",
+  "automatic-migration",
+  "fix-avatar-urls-migration",
+  "migration-needed",
+  "migration-running",
+  "migrations",
+  "run-migration",
+  "migration-progress-overall",
+  "migration-progress-details",
+  "step-validate-migration",
+  "step-fix-avatar-urls",
+  "filesystem-storage",
+  "idle-migration",
+  "migration-batch-size",
+  "migration-cpu-threshold",
+  "migration-delay-ms",
+  "migration-detector",
+  "migration-log",
+  "migration-markers",
+  "migration-resumed",
+  "migration-steps",
+  "overall-progress",
+  "pause-migration",
+  "resume-migration",
+  "step-progress",
+  "stop-migration",
+  "storage-distribution"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.doesNotMatch(data[key],/Toksave:/,key);
+  assert.notEqual(data[key],english[key],key);
+ }
+});
+
+test('Tok Pisin migration controls preserve state changes, scope and units',()=>{
+ assert.match(data['move-source'],/i kam/);
+ assert.match(data['move-destination'],/i go/);
+ assert.match(data['migration-pausing'],/^I mekim.*malolo liklik/);
+ assert.match(data['migration-stopping'],/^I stopim/);
+ assert.match(data['migration-paused'],/malolo liklik pinis/);
+ assert.match(data['migration-stopped'],/stop pinis/);
+ assert.match(data['resume-migration'],/^Go het gen/);
+ assert.match(data['pause-migration'],/malolo liklik/);
+ assert.match(data['stop-migration'],/^Stopim/);
+ assert.match(data['migration-delay-ms'],/\(ms\)/);
+ assert.match(data['migration-cpu-threshold'],/CPU \(%\)/);
+ assert.match(data['max-avatar-filesize'],/Bikpela tru.*bait/);
+ assert.match(data['backup-scope-instance'],/sistem olgeta/);
+ assert.match(data['backup-now'],/nau$/);
+ assert.equal(data['migration-progress-overall'],data['overall-progress']);
+ assert.equal(data['fix-avatar-urls-migration'],data['step-fix-avatar-urls']);
+ assert.equal(data['storage'],data['sandstorm-storage-item']);
+});
