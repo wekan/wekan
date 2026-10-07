@@ -1173,3 +1173,21 @@ test('Akan migration labels preserve warning/error and execution distinctions', 
  assert.match(data['source-board'],/nsɛm no fi mu/);
  assert.match(data['board-status-time-summary'],/Bere a wɔde yɛɛ adwuma/);
 });
+
+
+test('Akan action and account labels preserve product names and timing distinctions', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["trello-import-results", "signupPopup-title", "Meteor_version", "version-name", "cron-error-message", "create-account", "card-spent", "cardDetailsActionsPopup-title", "disambiguateMultiLabelPopup-title", "disambiguateMultiMemberPopup-title", "filter-due-this-week", "r-add-trigger", "r-add-action", "myCardsSortChange-choice-dueat", "dueCards-title", "checklistActionsPopup-title", "accounts-lockout-remaining-time"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.equal(data['signupPopup-title'],data['create-account']);
+ assert.match(data.Meteor_version,/^Meteor /);
+ assert.match(data['filter-due-this-week'],/dapɛn yi/);
+ assert.match(data['myCardsSortChange-choice-dueat'],/da a ɛsɛ sɛ ewie/);
+ assert.match(data['accounts-lockout-remaining-time'],/Bere a aka/);
+ assert.notEqual(data['card-spent'],data['accounts-lockout-remaining-time']);
+ assert.notEqual(data['r-add-trigger'],data['r-add-action']);
+ assert.match(data['r-add-trigger'],/hyɛ adwuma ase/);
+ assert.match(data['disambiguateMultiLabelPopup-title'],/agyiraehyɛde.*pefee/);
+ assert.match(data['disambiguateMultiMemberPopup-title'],/ɔmannifo.*pefee/);
+ assert.notEqual(data['checklistActionsPopup-title'],data['cardDetailsActionsPopup-title']);
+});

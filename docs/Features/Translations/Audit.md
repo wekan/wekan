@@ -5750,6 +5750,14 @@ Added token, state and terminology checks. Technical wording remains low confide
 pending fluent-speaker review; browser checks remain unrun. Placeholder counts
 are unchanged.
 
+## Akan action and account-label corrections (batch 65)
+
+Corrected 17 mixed-language account, action and timing labels. Restored Meteor's
+name and preserved trigger/action distinctions, this-week due filtering and
+spent-versus-remaining time. Aligned account-creation titles. Added token, product
+and meaning checks. Technical wording remains low confidence pending fluent-speaker
+review; browser checks remain unrun. English-placeholder counts are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
