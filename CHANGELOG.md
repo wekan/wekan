@@ -1890,6 +1890,19 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9fc66b2b71181bf84a6d9f1b5c5acc8e8cc97223">Translate placement labels in Acehnese, Fula, Guarani and Veps</a>. Thanks to xet7.</summary>
+
+- Fill eight relative-placement labels and preserve existing translations.
+  Record vocabulary references and lower-confidence Veps wording for native/UI review.
+- Placement checks cover 58 recently filled locales. Runtime, structural and
+  human-preference checks pass; browser scenarios were syntax-checked but not run
+  without the application stack.
+- Eight locale paths still need this pair. The ordinary backlog remains 51,575
+  values plus 174 pending source keys; broader language-quality work remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/88f728a49d83f5835ad1e5cd3f44977f0cecb2ea">Translate placement labels in five further languages</a>. Thanks to xet7.</summary>
 
 - Fill ten Buryat, Chuvash, Yakut, Aromanian and Klingon placement labels,
