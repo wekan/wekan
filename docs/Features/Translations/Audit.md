@@ -5297,6 +5297,12 @@ Corrected 60 generic values for navigation, completion, dependency relations, lo
 
 Tests check source tokens, paired actions, inverse relations, geographic distinctions, identifiers and shared labels. Latitude/longitude, dependency and animation terms are descriptive and provisional. Browser checks were not run.
 
+### Akan generic filler correction: attachments, storage and account controls
+
+Corrected 60 generic values for tickets, file moves and repairs, storage diagnostics, accessibility and account lockouts. Restored storage provider names and preserved IDs, second units and distinct source/destination and pause/resume controls. The exact filler inventory decreases from 219 to 159.
+
+Tests cover source tokens, identifiers, units, paired controls and shared labels. Compaction, migration, session and accessibility terminology remains descriptive and provisional. Browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

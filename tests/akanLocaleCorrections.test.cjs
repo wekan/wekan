@@ -122,3 +122,20 @@ test('Akan dependency and report labels preserve direction and first/last distin
  assert.equal(data['recovery-db'],data.Database);
  assert.equal(new Set(['Bounce','Cube','Cube-Grid','Dot','Double-Bounce','Rotateplane','Scaleout','Wave'].map(k=>data[k])).size,8);
 });
+
+test('Akan storage and account controls preserve identities, units and opposite states', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["tickets", "ticket-number", "pending", "resolved", "request", "requests", "custom-legal-notice-link-url", "legalNotice", "copied", "subtaskActionsPopup-title", "attachmentActionsPopup-title", "move-source", "move-destination", "move-storage-collectionfs", "move-storage-fs", "move-storage-s3", "attachment-last-move", "attachment-repair-locations", "attachment-repair-done", "attachment-repair-repaired", "move-scope-avatars", "move-progress-file", "move-progress-pause", "move-progress-resume", "calculate-file-counts", "calculating-counts", "stats-scope", "stats-collectionfs", "stats-count", "avatars", "attachment-id", "gridfs-file-id", "s3-file-id", "mongodb-compact", "mongodb-compact-run", "mongodb-compact-success", "path", "size", "action", "board-status-time-spent-total", "remaining_time", "speed", "progress", "Mongo_sessions_count", "translation", "translation-text", "collapse", "uncollapse", "accessibility", "accessibility-content", "accounts-lockout-period", "accounts-lockout-failure-window", "accounts-lockout-status", "attachments-path", "avatars-path", "cron-jobs", "cron-migrations", "cron-resume-paused", "complete", "idle"];
+ for(const key of keys){
+  assert.notEqual(data[key],'Nsɛm a ɛfa dwumadi yi ho',key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ for(const key of ['move-storage-collectionfs','move-storage-s3','stats-collectionfs']) assert.equal(data[key],english[key]);
+ for(const [key,name] of [['attachment-id','ID'],['gridfs-file-id','GridFS'],['s3-file-id','S3']]) assert.ok(data[key].includes(name));
+ for(const key of ['accounts-lockout-period','accounts-lockout-failure-window']) assert.match(data[key],/sɛkɛnd/);
+ for(const [a,b] of [['move-source','move-destination'],['move-progress-pause','move-progress-resume'],['collapse','uncollapse'],['pending','resolved'],['complete','idle']]) assert.notEqual(data[a],data[b]);
+ assert.equal(data['move-scope-avatars'],data.avatars);
+ assert.equal(data.action,data['r-action']);
+ assert.equal(data['accounts-lockout-status'],data.status);
+ assert.equal(data.speed,data.speedReportTitle);
+});
