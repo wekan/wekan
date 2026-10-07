@@ -3480,6 +3480,12 @@ Filled 25 English placeholders in `so`, `om`, `rw`, `rn` and `ny` with the prote
 
 Extended the translation/token regression and existing localized browser scenario to these five locales. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 51 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
 
+### History recovery: Southern Sotho, Tswana, Northern Sotho, Zulu and Xhosa
+
+Filled 30 English placeholders in `st`, `tn`, `nso`, `zu`, `zu-ZA` and `xh` with the protected fill utility. The drafts distinguish reversing the last change from doing it again and retain the explanation that retry repeats the same request without reversing a second change. Both Zulu variants use the same wording. Targeted searches for Northern Sotho/Zulu software glossary entries returned no usable reference; these are direct drafts, not externally validated translations. Complete clauses, agreement and undo/redo terminology remain provisional and need fluent-speaker review.
+
+Extended the translation/token regression and existing localized browser scenario to all six locale paths. Translation, recovery-notice, request logic and 234-locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 45 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
