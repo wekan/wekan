@@ -5562,6 +5562,16 @@ provisional explanations. Added token, identifier and state checks. Technical
 wording remains low confidence pending fluent-speaker review; browser checks
 remain unrun. English-placeholder counts are unchanged.
 
+## Akan cloud-storage corrections (batch 44)
+
+Corrected 25 damaged or mixed-language storage messages. Restored Azure/Google
+product names, provider navigation labels, the Storage Object Admin role and
+client_email key. Preserved read/write permissions, disabled state and lazy-load
+scope. Added token, name and scope checks. Provider instructions are translated
+from the English source, not independently revalidated against live consoles.
+Technical wording remains low confidence; browser/fluent-speaker checks remain
+unrun. Product-only labels intentionally match English.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

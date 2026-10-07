@@ -787,3 +787,19 @@ test('Akan support and lockout labels preserve state and credential distinctions
  assert.equal(data['office-address'],data['location-address']);
  assert.match(data.originOrder,/mfiase/);
 });
+
+
+test('Akan cloud storage guidance preserves provider navigation and role names', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["s3-minio-storage-description", "s3-force-path-style", "azure-blob-storage", "azure-blob-storage-description", "gcs-storage", "gcs-storage-description", "sandstorm-storage-item", "features-performance", "cards-loading-auto", "backup-storage", "gcs-permissions-note", "azure-account-name-description", "azure-account-name-menu-path", "azure-account-key-menu-path", "azure-connection-string-menu-path", "gcs-bucket-menu-path", "move-storage-gcs", "attachment-move-storage-azure", "attachment-move-storage-gcs", "s3-disabled", "mongodb-gridfs-storage", "s3-access-key-description", "s3-minio-storage", "s3-port", "s3-port-description"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ for(const key of ['azure-blob-storage','azure-blob-storage-description','gcs-storage','gcs-storage-description','move-storage-gcs']) assert.equal(data[key],english[key]);
+ for(const literal of ['AWS S3','MinIO','Cloudflare R2','Backblaze B2','Wasabi','DigitalOcean Spaces']) assert.ok(data['s3-minio-storage-description'].includes(literal));
+ for(const key of ['azure-account-name-menu-path','azure-account-key-menu-path','azure-connection-string-menu-path']) for(const label of ['Azure Portal','Storage accounts','Security + networking','Access keys']) assert.ok(data[key].includes(label));
+ for(const label of ['Google Cloud Console','Cloud Storage','Buckets','Permissions','Grant access','New principals','client_email','Storage Object Admin','Save']) assert.ok(data['gcs-permissions-note'].includes(label),label);
+ assert.match(data['gcs-permissions-note'],/ɛkenkan.*ɛkyerɛw/);
+ assert.match(data['s3-disabled'],/^Wɔadum/);
+ assert.match(data['s3-force-path-style'],/path-style URL/);
+ assert.match(data['cards-loading-auto'],/nkutoo.*bɔɔd akɛse/);
+ assert.equal(data['sandstorm-storage-item'],data.storage);
+});
