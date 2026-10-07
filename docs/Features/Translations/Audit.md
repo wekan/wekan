@@ -4634,6 +4634,15 @@ mixed-language audit remains open.
 - Browser coverage is syntax-checked only because Playwright is absent locally. Browser interaction and spoken accessibility were not exercised; structural tests do not establish fluency.
 - Ordinary placeholders decrease from 48,549 to 48,461 across 70 languages. The 148 pending source keys and broader translation/semantic audit remain open.
 
+## Blockly comment and accessibility controls: Quechua, Aymara, Guarani, Volapük and Klingon
+
+- Filled 71 English placeholders in `qu`, `ay`, `gn`, `vo` and `tlh`, preserving four existing Guarani/Klingon translations. The fifteen-key group covers comment actions, conditional branches, inputs, list items, text, buttons, collapse/expand, angle degrees and empty trash.
+- Corrected generic text labels: Quechua's prefixed-English filler to `Qillqasqa`, Volapük's Esperanto-shaped `Teksto` to `Vödem`, and Klingon's French `Texte` to `ghItlh`. Added regression coverage for these corrections.
+- Vocabulary references: [Volapük dictionary](https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary), [Volapük text usage](https://wikisource.org/wiki/Main_Page/Volap%C3%BCk), [KLI button vocabulary](https://www.kli.org/about-klingon/new-klingon-words/date/) and [KLI angular-degree vocabulary](https://www.kli.org/about-klingon/new-language-information/qepa-wejmahdich-new-words/). Corrected the Volapük trash draft to the dictionary term `defaliär`; used Klingon `leQ` and `lawrI'`.
+- Conditional branches are paraphrased and remain low confidence: a secondary condition must not be confused with an unconditional alternative. Aymara input wording and Volapük technical compounds also need semantic review. The references support individual words, not complete UI sentences. Veps was inspected but its draft was not applied; terminology research is still needed for that locale.
+- Extended exact-placeholder/opposing-operation regressions and translated add-comment browser assertions. Blockly/completeness: 13 tests pass; human-preference verification: 21 checks pass. Browser coverage is syntax-checked only because Playwright is absent locally; spoken accessibility and fluent wording remain unverified.
+- Ordinary placeholders decrease from 48,461 to 48,390 across 70 languages. The 148 pending source keys and broader translation/semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
