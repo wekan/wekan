@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/72333e3bd233207371a51ecf628a855997a389c4">Correct 16 mixed-language Akan backup and migration messages.</a></summary>
+
+- Rewrite transfer/anonymization labels and backup/migration descriptions. Preserve organization ownership, excluded data and duplicate-list deletion conditions.
+- Add source-token, scope, identifier and background-continuation checks. Specialized backup and migration wording remains provisional.
+- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
+- Validation: 69 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/53b178bb16236aa0e1e74dba03ff1de07112ac9e">Correct 14 mixed-language Akan account and card-loading messages.</a></summary>
 
 - Rewrite lockout states, account controls, storage paths, cron notices and card-loading guidance. Preserve configuration literals and experimental view limitations.
