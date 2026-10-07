@@ -706,3 +706,57 @@ test('Tok Pisin colour labels replace English prefixes without merging shades',(
  assert.match(data['color-sky'],/skai/);
  assert.match(data['color-gray'],/blak.*wait/);
 });
+
+
+test('Tok Pisin analytics removes remaining English-seeding prefixes and retains tokens',()=>{
+ const keys=[
+  "board-view-blocker-analysis",
+  "board-view-size-cycle-time",
+  "flow-unknown",
+  "flow-cycle-days",
+  "flow-age-days",
+  "flow-p85",
+  "flow-samples",
+  "flow-signal",
+  "flow-unusual",
+  "flow-blocker",
+  "flow-episodes",
+  "flow-active",
+  "flow-blocked-days",
+  "flow-unknown-start",
+  "flow-target-count",
+  "flow-finish-days",
+  "flow-history-days",
+  "flow-beyond-horizon",
+  "flow-size-source",
+  "flow-size",
+  "flow-details",
+  "flow-note-agingWip",
+  "flow-note-blockerAnalysis",
+  "flow-note-monteCarlo",
+  "flow-note-sizeCycleTime",
+  "time-adjustments",
+  "time-adjustment-note"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+ }
+ for(const [key,value] of Object.entries(data)) assert.doesNotMatch(value,/Toksave:/,key);
+});
+
+test('Tok Pisin analytics preserves forecast caveats, history gaps and fallback meanings',()=>{
+ const forecast=data['flow-note-monteCarlo'];
+ assert.match(forecast,/2,000.*UTC.*no gat wok i pinis/);
+ assert.match(forecast,/bikpela veliu.*liklik veliu/);
+ assert.match(forecast,/i no promis/);
+ assert.match(forecast,/3,650 de/);
+ assert.match(forecast,/no gat wok i pinis, i no gat skelim/);
+ assert.match(data['flow-note-agingWip'],/85 pesen.*faivpela taim o moa.*no stap, i no save/);
+ assert.match(data['flow-note-blockerAnalysis'],/dilit pinis.*kopi.*stap yet.*wankain taim.*wan wan/);
+ assert.match(data['flow-note-sizeCycleTime'],/Planning Poker.*no gat skelim.*de i no stret/);
+ assert.match(data['flow-note-sizeCycleTime'],/Stat.*taim bilong mekim.*Pinis.*akaiv/);
+ assert.match(data['time-adjustment-note'],/i no ol wan wan taim.*minus.*stretim.*no inap makim husat/);
+ assert.match(data['flow-active'],/i no pinis yet/);
+ assert.match(data['flow-unusual'],/Ausait/);
+});

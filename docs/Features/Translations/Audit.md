@@ -6503,6 +6503,12 @@ Corrected all 25 colour labels containing the `Toksave:` prefix. Basic terms bla
 
 Validation: 76 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
 
+## Tok Pisin analytics wording audit
+
+Corrected the remaining 27 values containing the `Toksave:` English-seeding prefix, covering flow analytics, forecast explanations and time adjustments. Preserved source tokens, trial counts, UTC days, forecast bounds, missing-history caveats and start/end fallback descriptions. Existing correct-language values remain unchanged. No values retain that prefix; this only completes the prefix-specific cleanup, not the language audit. Unprefixed values, search syntax and low-confidence terminology still require review. Statistical descriptions remain provisional pending fluent-speaker review; browser and screen-reader checks were not run.
+
+Validation: 78 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
