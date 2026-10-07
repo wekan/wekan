@@ -6070,6 +6070,19 @@ Browser checks were not run. Variable and parameter terminology remains low
 confidence pending fluent-speaker review. Remaining Blockly and all-language
 wording work stays open.
 
+## Northern Sotho Blockly lists — 2026-10-07
+
+Translated 75 English values: 73 counted placeholders and two short to/as
+fragments omitted by the counter. Existing translations are preserved. Checks
+cover list tokens, empty and missing results, retrieval versus removal,
+insertion versus replacement, copies, sort direction and text/list conversion.
+
+The 53 focused translation tests and 21 human-preference checks pass. Two
+all-catalog structural checks fail because concurrent work added the English
+key `shortcut-edit-due-date` before adding it to the other catalogs; this batch
+does not alter that work. Browser checks were not run. List/index terminology
+remains low confidence pending fluent-speaker review. The broader audit is open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

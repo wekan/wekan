@@ -100,3 +100,33 @@ test('Northern Sotho Blockly variable controls preserve names, counts and defini
  assert.equal(data['blockly-VARIABLES_DEFAULT_NAME'],data['blockly-TEXT_APPEND_VARIABLE']);
  assert.equal(new Set(['COLOUR','NUMBER','STRING'].map(s=>data['blockly-NEW_'+s+'_VARIABLE'])).size,3);
 });
+
+test('Northern Sotho Blockly lists preserve tokens, empty results and removal semantics',()=>{
+ for(const key of Object.keys(english).filter(k=>k.startsWith('blockly-LISTS_'))){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  if(!key.endsWith('_HELPURL')&&/[A-Za-z]{2}/.test(english[key])) assert.notEqual(data[key],english[key],key);
+ }
+ assert.match(data['blockly-LISTS_CREATE_EMPTY_TOOLTIP'],/0.*le le se nago/);
+ assert.match(data['blockly-LISTS_INDEX_OF_TOOLTIP'],/%1 ge selo se sa hwetšwe/);
+ assert.match(data['blockly-LISTS_ISEMPTY_TOOLTIP'],/nnete ge lenaneo le se na selo/);
+ for(const suffix of ['FIRST','FROM','LAST','RANDOM']){
+  assert.match(data['blockly-LISTS_GET_INDEX_TOOLTIP_GET_'+suffix],/^Bušetša/);
+  assert.match(data['blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_'+suffix],/^Tloša gomme o bušetše/);
+  assert.match(data['blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_'+suffix],/^Tloša/);
+  assert.doesNotMatch(data['blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_'+suffix],/bušetše/);
+  assert.notEqual(data['blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_'+suffix],data['blockly-LISTS_SET_INDEX_TOOLTIP_SET_'+suffix]);
+ }
+});
+
+test('Northern Sotho Blockly list conversion and ordering preserve direction and copies',()=>{
+ for(const key of ['blockly-LISTS_GET_SUBLIST_TOOLTIP','blockly-LISTS_REVERSE_TOOLTIP','blockly-LISTS_SORT_TOOLTIP']) assert.match(data[key],/khophi/);
+ assert.match(data['blockly-LISTS_SORT_ORDER_ASCENDING'],/godimo/);
+ assert.match(data['blockly-LISTS_SORT_ORDER_DESCENDING'],/fase/);
+ assert.match(data['blockly-LISTS_SORT_TYPE_IGNORECASE'],/hlokomologa bogolo bja ditlhaka/);
+ assert.match(data['blockly-LISTS_SPLIT_LIST_FROM_TEXT'],/lenaneo go tšwa sengwalweng/);
+ assert.match(data['blockly-LISTS_SPLIT_TEXT_FROM_LIST'],/sengwalwa go tšwa lenaneong/);
+ assert.match(data['blockly-LISTS_SPLIT_TOOLTIP_JOIN'],/sengwalwa se tee.*leswao/);
+ assert.match(data['blockly-LISTS_SPLIT_TOOLTIP_SPLIT'],/leswaong le lengwe le le lengwe/);
+ for(const key of ['GET_INDEX','GET_SUBLIST','INDEX_OF','SET_INDEX']) assert.equal(data['blockly-LISTS_'+key+'_INPUT_IN_LIST'],data['blockly-LISTS_INLIST']);
+ assert.equal(data['blockly-LISTS_LENGTH_TITLE'],data['blockly-TEXT_LENGTH_TITLE']);
+});
