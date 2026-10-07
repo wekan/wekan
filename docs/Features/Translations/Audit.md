@@ -4291,6 +4291,13 @@ mixed-language audit remains open.
 - Extended the existing placeholder/state checks and browser report flow to these six locales. All 17 focused Node tests and 21 human-preference checks pass; browser syntax passes, but execution remains unverified because the local Playwright executable is unavailable.
 - These ten report strings remain English in six locales. Ordinary placeholders decrease from 51,045 to 50,985 across 70 languages; 148 pending keys still require wording review.
 
+## Rule email report labels: Nahuatl, Wolaytta and Tamazight (2026-10-07)
+
+- Filled ten English report strings each in Nahuatl, Wolaytta and Standard Moroccan Tamazight (30 values). All three sets remain low-confidence technical drafts requiring semantic review.
+- Consulted the [Nahuatl dictionary's attestation of trying](https://nahuatl.wired-humanities.org/content/macehualli) and the [comparative Berber computer lexicon](https://www.temehu.com/imazighen/dictionaries/Amawals/Computer_dictionary_Berber_English_French.pdf). The latter spans varieties and does not validate Moroccan sentence-level usage; Wolaytta uses the existing locale vocabulary with provisional technical paraphrases.
+- Extended the existing placeholder/state checks and browser report flow to these locales, and checked Tifinagh use without Arabic or Latin prose in the ten Tamazight strings. All 17 focused Node tests and 21 human-preference checks pass; script checks do not prove language accuracy. Browser syntax passes, but execution remains unverified because the local Playwright executable is unavailable.
+- These ten report strings remain English in Cherokee, Inuktitut and Tigre. Ordinary placeholders decrease from 50,985 to 50,955 across 70 languages; 148 pending keys still require wording review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
