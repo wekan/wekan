@@ -1727,6 +1727,28 @@ browser scenarios were syntax-checked only because the app stack was unavailable
 9 locale paths still need this six-string group. The ordinary backlog remains
 51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
 
+### Due reminders — Klingon (2026-10-07)
+
+Filled six reminder strings in `tlh`, following existing reminder and board terms.
+Instructions retain comma-separated offsets (showing the literal comma), zero as
+the due day, positive days before and negative days after, the empty server-default
+setting, at most ten whole-day offsets from -14 to 14, board disabling and outgoing
+webhook delivery. Only English placeholders were filled; no external translation
+service was used. Full instructions, comparisons and technical compounds remain
+low-confidence drafts for fluent-speaker review. Structural checks do not establish fluency.
+
+[Hol 'ampaS number guidance](https://hol.kag.org/page/Numbers.html) was consulted
+for numerical usage. The UI keeps the source's ASCII signed bounds and uses
+comparisons to zero, with whole days expressed as `jaj naQmey`. This research does
+not verify the complete software wording.
+
+Translation checks now cover 58 locales, including offset direction, defaults,
+bounds and source-token inventories. The existing browser scenario includes
+Klingon. Translation, all-locale structural and human-preference checks pass;
+browser scenarios were syntax-checked only because the app stack was unavailable.
+8 locale paths still need this six-string group. The ordinary backlog remains
+51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
