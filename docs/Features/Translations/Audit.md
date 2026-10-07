@@ -3886,6 +3886,25 @@ The [Tigre biographical text](https://www.kwhna.com/wp-content/uploads/2015/08/T
 
 Expanded the locale regression to discover all non-English locales and verify these keys are absent from the pending inventory. Added Tigre and Wolaytta to the existing browser scenario, which checks labels, unlinking and preservation of both parent cards. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. The broader meaning and wrong-language audit remains open.
 
+## Leo import instruction: first remaining locale batch
+
+Filled `import-board-instruction-leo` in Kurdish, Central Kurdish, Tatar,
+Turkmen, Yiddish, Somali and Chichewa (seven English placeholders). The protected
+fill preserved existing non-English values. Leo and `.leo` remain literal.
+The source parser confirms the list/card/description/checklist mapping and marked
+completion state. Somali uses a descriptive hierarchy of parts rather than an
+unverified anatomical word for node. The full technical clauses, especially
+Somali and Chichewa, remain provisional and need speaker review.
+
+Extended the locale regression and parameterized the existing positive Leo
+browser import test for these seven languages plus English, checking the visible
+instruction before importing. Existing invalid-input coverage remains in place.
+All 12 focused Node tests and 21 human-preference checks pass; browser syntax
+passes. Browser execution remains unverified because Playwright is unavailable.
+There are still 59 locales with this English instruction. The broader backlog
+remains 51,575 ordinary placeholders in 70 languages plus 150 pending source
+keys; coverage is not a claim of linguistic quality.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
