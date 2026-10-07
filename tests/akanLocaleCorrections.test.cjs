@@ -383,3 +383,18 @@ test('Akan diagnostics preserve commands, report granularity and deletion guards
  assert.match(data['recovery-report-desc'],/MongoDB/);
  assert.match(data['filename-invisible-legend'],/Kɔkɔɔ/);
 });
+
+test('Akan storage maintenance and support messages preserve operational limits', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["attachment-repair-locations-description", "default-save-storage-description", "mongodb-compact-description", "mongodb-compact-warning", "if-you-already-have-an-account", "invalid-file", "preview-pdf-not-supported", "translation-number", "delete-translation-confirm-popup", "import-board-zip", "support-info-not-added-yet", "support-info-only-for-logged-in-users", "accessibility-info-not-added-yet", "accounts-lockout-info"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.match(data['mongodb-compact-description'],/MongoDB GridFS.*so ntew ankasa.*wɔawie.*nkutoo/);
+ assert.match(data['mongodb-compact-warning'],/secondaries.*afei primary/);
+ assert.match(data['mongodb-compact-warning'],/afiri biako.*oplog.*Meteor.*primary no nkutoo/);
+ assert.match(data['attachment-repair-locations-description'],/GridFS.*cloud.*beae ankasa/);
+ assert.match(data['import-board-zip'],/\.zip.*JSON/);
+ assert.match(data['preview-pdf-not-supported'],/PDF/);
+ assert.match(data['support-info-only-for-logged-in-users'],/wɔakɔ mu nkutoo/);
+ assert.match(data['delete-translation-confirm-popup'],/Wuntumi nsan nyi/);
+ assert.match(data['invalid-file'],/wɔgyae/);
+});

@@ -5387,6 +5387,12 @@ Rewrote 18 mixed-language diagnostic, API/recovery report, creator and membershi
 
 Tests compare source tokens and command spans and check line breaks, identifiers, report scope and deletion restrictions. Recovery and API wording remains provisional. Browser checks were not run; the broader audit continues.
 
+### Akan mixed-language correction: storage maintenance and support
+
+Rewrote 14 mixed-language values covering attachment location repair, storage defaults, MongoDB compaction, PDF support, custom translations and login protection. Preserve secondaries-before-primary order, the single-node exception and the after-file-moves restriction from the English source.
+
+Tests cover source tokens, operational scope, product/format identifiers, logged-in-only support and irreversible deletion. Replica-set and compaction terms retain recognizable technical names within Akan prose and remain provisional. Browser checks were not run; this translation does not independently validate the operational guidance.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
