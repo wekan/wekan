@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/102c8ad390cce1439d193b503db7e2d0c3f8f08c">Correct 30 mixed-language Akan migration and deletion messages.</a></summary>
+
+- Rewrite storage/migration outcomes, deletion confirmations, account enrollment and card membership/date text. Preserve email tokens, millisecond limits and permanent deletion semantics.
+- Add source-token and confirmation/outcome regression checks. Technical terminology remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace mixed-language values. The broader language audit continues.
+- Validation: 74 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/42da9d05ba08ca911ed7a976ef5aaab776d39d54">Correct 22 mixed-language Akan input and scheduled-job messages.</a></summary>
 
 - Rewrite default-board, search, upload, storage, lockout and scheduled-job messages. Preserve positive limits, domain syntax and distinct failed operations.
