@@ -1,11 +1,15 @@
 'use strict';
-const { test, expect } = require('../fixtures');
+const { test, expect: baseExpect } = require('../fixtures');
 const db = require('../helpers/db');
 const { openBoard } = require('../helpers/auth');
 
 test('literal text filter finds every text source beyond a lazy window and reacts to edits and access changes', async ({ loggedInPage: page, board, user }) => {
   // Standalone MongoDB uses Meteor polling for these successive raw-driver edits.
   test.setTimeout(150000);
+  // A raw-driver write reaches the page on the next poll, about ten seconds
+  // later; under a full parallel run one cycle overran the default 15 s wait
+  // (Firefox, restoring the membership). Give every check two poll cycles.
+  const expect = baseExpect.configure({ timeout: 40_000 });
   const cards = db.find('cards', { boardId: board.boardId });
   const [title, description, comment] = cards;
   const term = '[Needle].*';

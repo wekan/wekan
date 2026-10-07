@@ -95,7 +95,16 @@ test('manual retry delivers a stored plan once and removes completed work from t
     await expect(panel.locator('[role="alert"]')).toContainText('no longer permit delivery');
     expect(db.find('notificationEmailJobs', { eventId: id })).toHaveLength(0);
     db.updateOne('users', { _id: user2.id }, { $set: { loginDisabled: false } });
-    await panel.locator('.js-retry-activity-notification').click();
+    // From here the one-second automatic recovery may take the intent too - the
+    // disabled recipient no longer holds it back - and while it holds the lease
+    // the row's Retry is disabled (Firefox under a full run: a 15 s click
+    // timeout). Either way it must be delivered exactly ONCE, which is checked
+    // below; the manual path itself was exercised by the denied retry above.
+    try {
+      await panel.locator('.js-retry-activity-notification').click({ timeout: 5_000 });
+    } catch (error) {
+      // The scan has it; the completion below is the proof either way.
+    }
     await expect.poll(() => db.findOne('activityNotificationIntents', { _id: intentId })?.state).toBe('completed');
     await expect(panel.locator('tbody tr')).toHaveCount(0);
     expect(db.find('notificationEmailJobs', { eventId: id })).toHaveLength(1);

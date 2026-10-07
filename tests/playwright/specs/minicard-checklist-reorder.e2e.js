@@ -70,8 +70,20 @@ for (const handles of [false, true]) {
     await expect(target).toHaveCount(1);
     // Fit both swimlanes on screen without changing the drag implementation.
     await page.setViewportSize({ width: 1500, height: 1300 });
-    const from = await (handles ? source.locator('.checklistitem-handle') : source).boundingBox();
-    const to = await target.boundingBox();
+    // The board re-lays itself out after the resize; measured mid-reflow under a
+    // full run (Firefox), the drop missed the target. Measure once it is still.
+    const stableBox = async locator => {
+      let previous = null;
+      for (let i = 0; i < 50; i++) {
+        const box = await locator.boundingBox();
+        if (box && previous && ['x', 'y', 'width', 'height'].every(k => Math.abs(box[k] - previous[k]) < 0.5)) return box;
+        previous = box;
+        await page.waitForTimeout(100);
+      }
+      return previous;
+    };
+    const from = await stableBox(handles ? source.locator('.checklistitem-handle') : source);
+    const to = await stableBox(target);
     const count = db.countDocuments('cards', { boardId: board.boardId });
     await page.mouse.move(from.x + from.width / 2, from.y + from.height / 2);
     await page.mouse.down();

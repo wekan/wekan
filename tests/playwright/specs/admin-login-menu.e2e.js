@@ -48,9 +48,14 @@ for (const language of ['fi', 'ar', 'ja']) {
     try {
       await navigateInApp(page, '/admin/people/oidc');
       await page.locator('#auth-secret').fill('translation-test-secret');
+      // If the form re-rendered after the fill, Save would store nothing and the
+      // clear control below would never come: say so here instead.
+      await expect(page.locator('#auth-secret')).toHaveValue('translation-test-secret');
       await page.locator('.js-auth-provider-save').click();
       const clear = page.locator('.auth-secret-clear').filter({ has: page.locator('[data-key="secret"]') });
-      await expect(clear).toContainText(strings['login-setting-clear-secret']);
+      // Save, then the form reloads its settings; under a full Firefox run that
+      // round trip outlasted the default 15 s once.
+      await expect(clear).toContainText(strings['login-setting-clear-secret'], { timeout: 30_000 });
       await expect(clear).not.toContainText('Remove the value stored in the Admin Panel');
       await page.locator('.js-auth-secret-clear[data-key="secret"]').check();
       await page.locator('.js-auth-provider-save').click();
