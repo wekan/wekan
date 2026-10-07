@@ -7307,6 +7307,16 @@ versus null values, no activity recreation and retention of pending work.
 Reservation and recovery-metadata terminology remains low confidence pending
 fluent review. Browser and screen-reader checks were not run.
 
+### Kurdish final recovery messages and keyboard labels
+
+Filled three recovery placeholders and eighteen Blockly keyboard labels.
+Cancellation retains permanent/no-resume wording and the caveat that queued
+email and delivered notifications are not recalled. Keyboard labels add Kurdish
+descriptions while preserving physical key names; product names, null and
+trigonometric notation remain unchanged. Tests verify key order, source tokens,
+key-name recognition and cancellation caveats. Browser and screen-reader checks
+were not run; fluency remains subject to review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
