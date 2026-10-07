@@ -1071,3 +1071,22 @@ test('Akan conversion and authorization messages preserve requirements and forma
  assert.match(data['error-org-domain-taken'],/ahyehyɛde foforo dedaw: $/);
  assert.notEqual(data['step-fix-orphaned-cards'],data['repair-broken-cards']);
 });
+
+
+test('Akan rule fragments and history states preserve direction and restrictions', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["restrict-comment-editing", "added", "other-filters-label", "r-added-to", "r-attachment-added-to", "r-removed-from", "r-attachment-removed-from", "r-moved-to", "r-moved-from", "allow-rename", "allowRenamePopup-title", "allow-invite-to-board", "history-change-removed", "history-change-moved", "history-change-restored", "admin-people-filter-inactive", "sandstorm-migration-pending", "gcs-project-id-description"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.match(data['restrict-comment-editing'],/^Siw bɔɔd sohwɛfo.*sesa anaa.*popa afoforo/);
+ assert.equal(data['r-added-to'],data['r-attachment-added-to']);
+ assert.equal(data['r-removed-from'],data['r-attachment-removed-from']);
+ assert.match(data['r-moved-to'],/kɔɔ$/); assert.match(data['r-moved-from'],/fii$/);
+ assert.equal(data['allow-rename'],data['allowRenamePopup-title']);
+ assert.match(data['allow-invite-to-board'],/^Ma kwan.*bɔɔd mu/);
+ assert.equal(new Set(['removed','moved','restored'].map(s=>data['history-change-'+s])).size,3);
+ assert.match(data['history-change-restored'],/asan de aba/);
+ assert.match(data['admin-people-filter-inactive'],/^Ɔnyɛ/);
+ assert.match(data['sandstorm-migration-pending'],/^Wɔnnya/);
+ assert.match(data['gcs-project-id-description'],/Google Cloud.*ID/);
+ for(const key of keys) assert.doesNotMatch(data[key],/Daabit|Nyinaaow|hoed|Yid|Tud|brad|Wor/);
+});

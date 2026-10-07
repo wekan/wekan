@@ -5697,6 +5697,15 @@ kept orphaned-card and broken-card repair distinct. Added token, format and
 requirement checks. Wording remains low confidence pending fluent-speaker review;
 browser checks remain unrun. English-placeholder counts are unchanged.
 
+## Akan rule-fragment and history corrections (batch 59)
+
+Corrected 18 malformed or mixed-language rule fragments, permissions and history
+states. Preserved move-to/from direction, restrictions on editing others' comments,
+inactive/pending states and Google Cloud ID. Aligned equivalent rule and rename
+labels. Added token, direction and restriction checks. Wording remains low
+confidence pending fluent-speaker review; browser checks remain unrun.
+English-placeholder counts are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
