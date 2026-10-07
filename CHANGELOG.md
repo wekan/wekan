@@ -1890,6 +1890,15 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8e0084b1c7ac1ef1a5749a80c509194a96c95773">Translate import warning reports in ten further languages</a>. Thanks to xet7.</summary>
+
+- Fill 30 English values in Moroccan Arabic, Sorani, Kurmanji, Bhojpuri, Maithili, Odia, Konkani, Turkmen, Tatar and Yiddish. Correct two Tatar recovery menu labels so the report points to the matching menu. Lower-confidence technical wording is recorded for fluent-speaker review.
+- Extend source-order, token and vocabulary regressions and add ten localized browser cases covering malformed input, the warning report and opening the imported board. Node checks pass; browser cases were syntax-checked only because the local Playwright executable and running application stack are unavailable.
+- These three keys remain English in 56 locales. The broader backlog remains 51,575 ordinary missing values and 168 pending source keys, with language-quality review open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d5aa3a4f1087c7ebab616deb386aec27a71ec82f">Fill final board visibility translations and verify all locales</a>. Thanks to xet7.</summary>
 
 - Fill the final three English values in Cherokee. All 234 non-English locales now have nonempty values different from English for the signed-in visibility label, description and confirmation. Low-confidence grammar and technical phrasing remain recorded for fluent-speaker review.
