@@ -7160,6 +7160,16 @@ Technical wording for statement positions, iteration and replacement remains
 low confidence pending fluent review. Browser and screen-reader checks were
 not run; structural checks do not establish fluency.
 
+### Kurdish Blockly list operations
+
+Filled 52 English placeholders for creating lists, retrieving and removing
+items, sublists, indexing, repetition, reversal, insertion and sorting.
+Existing translations are preserved. Tests check source tokens and key order,
+distinguish retrieval from removal and replacement from insertion, and retain
+copy semantics and the not-found sentinel. Index and sublist terminology
+remains low confidence pending fluent review. Browser and screen-reader checks
+were not run; tests do not establish fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
