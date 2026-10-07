@@ -5635,6 +5635,15 @@ menu labels from the English source. Added token, direction and scope checks.
 Wording remains low confidence pending fluent-speaker review; browser and live
 provider-console checks remain unrun. Placeholder counts are unchanged.
 
+## Akan account and connection corrections (batch 52)
+
+Corrected 15 mixed-language or misleading account, watch and connection messages.
+Fixed OAuth guidance to state that the local setting overrides the environment
+value, rather than follows it, while preserving server-only secret storage and
+never-shown wording. Added token, precedence and account-state checks. Wording
+remains low confidence pending fluent-speaker review; browser checks remain
+unrun. English-placeholder counts are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

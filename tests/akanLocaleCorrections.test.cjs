@@ -940,3 +940,21 @@ test('Akan movement labels preserve direction, selected scope and ordering', asy
  for(const label of ['Google Cloud Console','Cloud overview','Dashboard','Project info','Project ID']) assert.ok(data['gcs-project-id-menu-path'].includes(label),label);
  assert.match(data['wip-limit-group-add'],/WIP anohyeto kuw/);
 });
+
+
+test('Akan account guidance preserves OAuth precedence and secret visibility', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["allboards.delete-workspace-confirm-check", "boardChangeWatchPopup-title", "roles-status-write", "disable-watch", "login-allow", "cardType-linkedBoard", "map-to-existing-user-no-results", "imported-member-no-account", "trello-api-import", "smtp-host-description", "send-smtp-test", "prefix-with-full-path", "subtext-with-full-path", "oauth-providers-hint", "server-error"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.match(data['oauth-providers-hint'],/OAUTH_\*_ENABLED/);
+ assert.match(data['oauth-providers-hint'],/botae a wohyɛ wɔ ha no si.*ananmu/);
+ assert.match(data['oauth-providers-hint'],/Wɔsie kokoam safoa.*sɛɛva.*wɔnkyerɛ da/);
+ assert.match(data['send-smtp-test'],/sɔhwɛ email.*wo ankasa/);
+ assert.match(data['smtp-host-description'],/SMTP/);
+ assert.match(data['trello-api-import'],/Trello.*API safoa ne token/);
+ assert.match(data['imported-member-no-account'],/akontaabu.*nni hɔ/);
+ assert.match(data['map-to-existing-user-no-results'],/^Wɔanhu/);
+ assert.match(data['login-allow'],/ma ho kwan/);
+ assert.match(data['roles-status-write'],/Yɛ na sesa/);
+ assert.notEqual(data['prefix-with-full-path'],data['subtext-with-full-path']);
+});
