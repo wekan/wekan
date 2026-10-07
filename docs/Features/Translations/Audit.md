@@ -5706,6 +5706,15 @@ labels. Added token, direction and restriction checks. Wording remains low
 confidence pending fluent-speaker review; browser checks remain unrun.
 English-placeholder counts are unchanged.
 
+## Akan voting and invitation corrections (batch 60)
+
+Corrected 12 mixed-language voting, invitation and endpoint messages. Aligned
+invitation subjects, preserved inviter tokens and leave/delete confirmations,
+and translated the source's AWS blank-endpoint versus compatible-provider URL
+instructions. Added token, subject and provider-name checks. Wording remains
+low confidence pending fluent-speaker review; browser and live provider-console
+checks remain unrun. English-placeholder counts are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -1090,3 +1090,17 @@ test('Akan rule fragments and history states preserve direction and restrictions
  assert.match(data['gcs-project-id-description'],/Google Cloud.*ID/);
  for(const key of keys) assert.doesNotMatch(data[key],/Daabit|Nyinaaow|hoed|Yid|Tud|brad|Wor/);
 });
+
+
+test('Akan voting and invitation labels preserve subjects and endpoint alternatives', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["card-edit-voting", "vote-public", "deleteVotePopup-title", "deletePokerPopup-title", "email-invite-subject", "push-invite-title", "leave-board", "leaveBoardPopup-title", "email-invite-register-subject", "roles-status-invite", "invite-people-error", "s3-endpoint-menu-path"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.equal(new Set(['email-invite-subject','email-invite-register-subject','push-invite-title'].map(k=>data[k])).size,1);
+ assert.match(data['vote-public'],/obiara too aba maa/);
+ for(const key of ['deleteVotePopup-title','deletePokerPopup-title']) assert.match(data[key],/^Popa.*\?$/);
+ assert.equal(data['leaveBoardPopup-title'],data['leave-board']+'?');
+ assert.match(data['invite-people-error'],/^Mfomso.*ɔfrɛ.*kyerɛw wɔn din/);
+ assert.match(data['s3-endpoint-menu-path'],/^AWS:.*hɔ kwa.*ɔmantam/);
+ for(const literal of ['S3','Endpoint URL','MinIO','Cloudflare R2','Backblaze B2','Wasabi','DigitalOcean Spaces']) assert.ok(data['s3-endpoint-menu-path'].includes(literal),literal);
+});
