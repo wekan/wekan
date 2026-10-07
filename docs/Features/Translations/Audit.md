@@ -7049,6 +7049,21 @@ Maithili and Odia wording remains low confidence pending fluent review.
 Tests check key order, placeholder inventories and opened-card scope; they do
 not establish fluency. Browser and screen-reader checks were not run.
 
+### Missing due-date shortcut: twenty additional languages
+
+Added the missing shortcut in Aragonese, Asturian, Breton, Corsican, Faroese,
+Friulian, Scottish Gaelic, Manx, Javanese, Romansh, Sardinian, Sicilian,
+Turkmen, Tatar, Yiddish, Zulu, Xhosa, Somali, Igbo and Shona. Existing values
+are preserved, with source key order and placeholder inventories checked.
+Aragonese, Breton, Faroese, Friulian, Manx, Romansh, Sardinian and Igbo
+wording is low confidence pending fluent review. Browser and screen-reader
+checks were not run. Tests establish catalog structure, not fluency.
+
+Vocabulary references: [Friulian vierte](https://en.wiktionary.org/wiki/vierte),
+[Breton digor](https://fr.wiktionary.org/wiki/ouvert),
+[Romansh avert](https://fr.wiktionary.org/wiki/avert) and
+[Sardinian dictionary](https://www.limbasardasudsardigna.it/sar/images/Documenti/Didatica_e_Ainas/Vocabolariu_Sardu_Italianu_Spano.pdf).
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
