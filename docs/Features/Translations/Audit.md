@@ -5147,6 +5147,12 @@ mixed-language audit remains open.
 - Read the date-format options in `client/components/settings/settingBody.jade`: the stored option values are independent of their translated display labels. Added component-order, ISO-week and color-family checks.
 - Fine color distinctions and descriptive color wording remain low confidence and need visual/fluent-speaker review. English-placeholder counts are unchanged. Browser checks were not run; valid shared terms and further semantic review remain open.
 
+### Akan Blockly block and bubble labels
+
+- Filled 16 English placeholders through the protected workflow. Reused existing Akan input/comment terminology and translated block state, branch counts, stack descriptions, categories and warning bubbles.
+- Preserved every numbered argument and singular/plural input distinction. Registered Akan in the shared block/bubble regression suite, which checks tokens and distinct collapsed/disabled, statement/value and comment/warning labels.
+- Warning vocabulary was checked against the [Akan dictionary entry for kɔkɔbɔ](https://www.akandictionary.com/2022/01/16/kokobo-2/). Stack/container metaphors and the borrowed block term remain provisional and need contextual accessibility review. Browser and spoken checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
