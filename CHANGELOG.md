@@ -1889,6 +1889,20 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/56fd350ada934e8a6833833b1867d43e2b0ca64f">Translate Wolaytta notification settings</a>. Thanks to xet7.</summary>
+
+- Fill 13 Wolaytta notification strings while preserving existing translations.
+  Document terminology references and low-confidence wording in
+  `docs/Features/Translations/Audit.md`.
+- Shared notification coverage now includes 64 locales. Notification, all-locale
+  structure/token and human-preference checks pass. Browser coverage was
+  syntax-checked only because its application stack was unavailable.
+- Two locales still need this notification group. The ordinary backlog remains
+  51,575 values plus 201 pending source keys; remaining work stays in TODO Later.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/360ffe7c50171401a27c492d0bb795dfde1a581d">Translate Inuktitut notification settings</a>. Thanks to xet7.</summary>
 
 - Fill 13 Inuktitut notification strings in syllabics without overwriting existing
