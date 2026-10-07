@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/805768b31558fa5296ab986f952315c896501770">Translate Kurdish sprint report caveats and confirmations</a></summary>
+
+- Fill 13 English placeholders for snapshots, report limitations, lifecycle
+  confirmations, daily observations and incomplete imports, preserving tokens.
+- Snapshot and observation wording remains low confidence pending fluent review.
+- All 42 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5279638c3894425cb09293f9ac738a8ed1bd4404">Translate Kurdish sprint report and event labels</a></summary>
 
 - Fill 35 English placeholders for events, totals, estimates, lifecycle states,
