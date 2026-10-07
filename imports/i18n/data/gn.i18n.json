@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "Ñepytyvõ joajuha ñemomba'e URL",
   "text-below-custom-login-logo": "Moñe'ẽrã jeike logo ñemomba'e guýpe",
   "automatic-linked-url-schemes": "URL reko ñemomba'e oikova'erã joajuha ojeikutukuaa ijehegui. Peteĩ URL reko tysýi rehe",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Iñepyrũme inandi, upévare ñanduti ha ñanduti veve juajuha añónte ikatu ojepoko hese. Káda esquema oĩva tysýipe, techapyrã thunderlink térã onenote, oipeʼa tembiporu oñemboguapýva chupe g̃uarã. javascript, data, vbscript ha esquema ojoguáva umívape arakaʼeve ndojejapói juajuháramo.",
   "external-link-pattern": "Jehai automático peteĩ external issue tracker-pe",
   "external-link-pattern-description": "Ojehai automáticamente umi token \"#1234\" oñeguahẽva kuatia ñe'ẽme peteĩ external issue tracker-pe. Ehejánte peteĩ campo nandi ojeity hag̃ua.",
   "external-link-pattern-prefix": "Token ypy",

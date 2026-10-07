@@ -3070,6 +3070,14 @@ These technical translations have lower confidence and need native-speaker UI re
 
 Validation: the URL scheme suite covers 41 recently filled locales, including exact identifiers, source tokens, key order and parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The existing custom-URL-schemes browser test was syntax-checked only; the application stack is unavailable. This hint remains English in 25 locales. The broader backlog remains 51,575 ordinary missing values and 172 pending source keys; translation quality review remains open.
 
+### URL scheme hint: Tigrinya, Akan, Wolof and Guarani
+
+Filled the English-only `automatic-linked-url-schemes-hint` in `ti`, `ak`, `wo` and `gn` directly. Existing translations were protected by the fill utility. All five literal scheme names remain unchanged; the prose describes the empty default, web/mail links, registered applications and permanently blocked schemes.
+
+Technical wording in these four drafts has lower confidence and needs native-speaker review. Lexical references include [UCLA's Wolof word list](https://archive.phonetics.ucla.edu/Language/WOL/wol_word-list_1981_01.html) for `ubbi` (open), [Tigrinya application instructions](https://applications.migration.gov.gr/wp-content/uploads/2020/07/LOGIN_INSTRUCTIONS_TIGRINYA.pdf) for `መተግበሪ`, and [Guarani digital-language research](https://dialnet.unirioja.es/descarga/articulo/7330473.pdf) for digital vocabulary. These references do not validate the complete translated sentences. Akan follows the locale's existing spelling and uses technical loanwords. No translation service was used.
+
+The URL-scheme suite now checks 45 recently filled locales and exercises parser/sanitizer positive and negative cases. All 234 locale structure/token checks and 21 human-preference checks pass. The custom-URL-schemes UI test was syntax-checked only; the application stack is unavailable. This hint remains English in 21 locales. The broader backlog remains 51,575 ordinary missing values plus 172 pending source keys, with translation quality review still open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

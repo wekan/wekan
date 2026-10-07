@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "ብሕታዊ URL መላግቦ ሓገዝ",
   "text-below-custom-login-logo": "ጽሑፍ ኣብ ትሕቲ ብሕታዊ ኣርማ መእተዊ",
   "automatic-linked-url-schemes": "ብራስ-ሰር ክጥወቑ ዝግብኦም ብሕታዊ URL Schemes። ኣብ ነፍሲ ወከፍ መስመር ሓደ URL Scheme",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "ብነባሪ ባዶ እዩ፣ ስለዚ ናይ ድረ-ገጽን ኢመይልን መላግቦታት ጥራይ ክጥወቑ ይኽእሉ። ነፍሲ ወከፍ ኣብ ዝርዝር ዘሎ ስኪም፣ ንኣብነት thunderlink ወይ onenote፣ ነቲ ንዕኡ ዝተመዝገበ መተግበሪ ይኸፍት። javascript፣ data፣ vbscriptን ተመሳሰልቲ ስኪማትን ፈጺሞም ናብ መላግቦታት ኣይቅየሩን።",
   "external-link-pattern": "ናብ ናይ ደገ ናይ ጸገማት ተከታታሊ ብቐጥታ ምትእስሳር",
   "external-link-pattern-description": "ኣብ ጽሑፍ ካርድ ዝርከቡ ከም \"#1234\" ዝኣመሰሉ ምልክታት ብቐጥታ ናብ ናይ ደገ ናይ ጸገማት ተከታታሊ የራኽቦም። ንምስራዝ ሓደ ካብቶም ቦታታት ባዶ ግደፍ።",
   "external-link-pattern-prefix": "ናይ ምልክት ቅድመ-ቅጥያ",

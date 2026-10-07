@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "Custom Mmoa Link URL",
   "text-below-custom-login-logo": "Nsɛm a ɛfa dwumadi yi ho",
   "automatic-linked-url-schemes": "Nsɛm a ɛfa dwumadi yi ho",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Mfitiaseɛ no, ɛyɛ hunu, enti wɛb ne ɛmɛl nkitahodie nko ara na wobɛtumi aklika so. Scheme biara a ɛwɔ din no mu, sɛ nhwɛsoɔ no thunderlink anaa onenote, bue app a wɔakyerɛw ne din ama no no. Wɔnyɛ javascript, data, vbscript ne scheme a ɛte saa no nkitahodie da.",
   "external-link-pattern": "Ntoatoaso ahomaso a ɛkɔ nsɛnnennennee foforo so",
   "external-link-pattern-description": "Ɛde \"#1234\" ntɛtɛe a ɛwɔ kad no mu nsɛm no kɔtoto nsɛnnennennee a ɛwɔ mfikyi ahomaso mu. Gyaw baabi ma emu nna hɔ kwan ma wonyi eyi fi.",
   "external-link-pattern-prefix": "Ntɛtɛe ɔhyɛase",

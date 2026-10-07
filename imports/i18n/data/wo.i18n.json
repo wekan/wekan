@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "URL bu lëkkalekaayu ndimbal bu ñu def ci soxla",
   "text-below-custom-login-logo": "Mbind ci suufu logo bu dugg bu ñu def ci soxla",
   "automatic-linked-url-schemes": "Tëralinu URL yi ñu def ci soxla te ñu war a man a bës ci boppam. Benn tëralinu URL ci rëdd bu nekk",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Ci njëlbéen, dafa neen, moo tax lëkkalekaayi web ak e-mail rekk lañu mën a bës. Xeetu màkkaane bu nekk ci lim bi, ci misaal thunderlink walla onenote, day ubbi jëfekaay bi ñu bindal ko. javascript, data, vbscript ak xeet yi ni mel, duñu leen def lëkkalekaay mukk.",
   "external-link-pattern": "Jaay pa ci njëfëndikat mbir yu biti",
   "external-link-pattern-description": "Dafay jaay pa ci marqe yu mel ni \"#1234\" yi ëpp ci mbind bii ci karit ci njëfëndikat mbir yu biti. Bàyyi benn barab wàkk ngir mu jóg.",
   "external-link-pattern-prefix": "Njëkk marqe",
