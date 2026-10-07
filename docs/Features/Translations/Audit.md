@@ -5524,6 +5524,15 @@ linked-card restrictions, numeric shortcuts and strict count threshold wording.
 Added token, endpoint and behavior checks. Wording remains low confidence pending
 fluent-speaker review; browser checks remain unrun. Placeholder counts unchanged.
 
+## Akan upload and diagnostics corrections (batch 40)
+
+Corrected 24 damaged or mixed-language upload, SMTP, diagnostics and color labels.
+Restored Node and preserved protocol/configuration names, optional webhook token
+wording, completed upload status and multi-selection label behavior. Added token,
+identifier and action checks. Technical terminology remains low confidence pending
+fluent-speaker review. Browser checks remain unrun. Node is intentionally a product
+name rather than translated prose.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

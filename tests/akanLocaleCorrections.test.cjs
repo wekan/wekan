@@ -704,3 +704,24 @@ test('Akan import and invitation corrections preserve endpoints and message stru
  assert.match(data['filter-due-tomorrow'],/ɔkyena/);
  assert.match(data['show-cards-minimum-count'],/boro$/);
 });
+
+
+test('Akan upload and diagnostics labels preserve protocols and configuration names', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["toggle-labels", "upload", "upload-avatar", "uploaded-avatar", "upload-completed", "custom-top-left-corner-logo-image-url", "custom-top-left-corner-logo-link-url", "email-addresses", "smtp-port-description", "smtp-tls-description", "smtp-port", "smtp-tls", "webhook-token", "new-outgoing-webhook", "Platform", "Node", "Node_version", "Reactivity_order", "DDP_transport", "MongoDB_storage_engine", "OS_Freemem", "OS_Platform", "setCardActionsColorPopup-title", "setSwimlaneColorPopup-title"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.equal(data.Node,english.Node);
+ assert.match(data.Node_version,/^Node /);
+ assert.match(data.Reactivity_order,/\(METEOR_REACTIVITY_ORDER\)/);
+ assert.match(data.DDP_transport,/DDP.*\(DDP_TRANSPORT\)/);
+ assert.match(data.MongoDB_storage_engine,/MongoDB/);
+ assert.match(data.OS_Freemem,/^OS .*ɛda hɔ/);
+ assert.match(data['smtp-tls-description'],/SMTP.*kwan.*TLS/);
+ assert.match(data['smtp-port-description'],/Port.*SMTP.*email.*abɔnten/);
+ assert.match(data['webhook-token'],/ɛnyɛ ahyɛde/);
+ assert.match(data['toggle-labels'],/1-9.*anaa yi fi ho.*1-9 ka ho$/);
+ for(const kind of ['image','link']) assert.match(data['custom-top-left-corner-logo-'+kind+'-url'],/soro benkum.*URL/);
+ assert.notEqual(data['custom-top-left-corner-logo-image-url'],data['custom-top-left-corner-logo-link-url']);
+ for(const key of ['setCardActionsColorPopup-title','setSwimlaneColorPopup-title']) assert.equal(data[key],data['select-color']);
+ assert.match(data['upload-completed'],/awie$/);
+});
