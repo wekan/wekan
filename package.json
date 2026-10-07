@@ -34,7 +34,7 @@
     "test:playwright:all": "cd tests/playwright && WEKAN_PLAYWRIGHT_ALL=1 npx playwright test --project=chromium --project=firefox --project=webkit",
     "test:playwright:report": "cd tests/playwright && npx playwright show-report",
     "playwright:install": "cd tests/playwright && npx playwright install --with-deps",
-    "postinstall": "node scripts/patch-yargs-dirname.cjs && node scripts/patch-pdfkit-entry.cjs"
+    "postinstall": "node scripts/patch-yargs-dirname.cjs && node scripts/patch-pdfkit-entry.cjs && node scripts/patch-meteor-node-stubs-pbkdf2.cjs"
   },
   "devDependencies": {
     "@meteorjs/rspack": "^3.0.0-beta.3",
@@ -106,6 +106,7 @@
     "meteor-accounts-t9n": "^2.6.0",
     "meteor-node-stubs": "^1.2.30",
     "papaparse": "^5.5.4",
+    "pbkdf2": "^3.1.7",
     "pdfjs-dist": "~6.2.108",
     "pdfkit": "^0.20.2",
     "pretty-ms": "^9.3.1",
