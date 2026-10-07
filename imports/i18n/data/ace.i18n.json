@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "URL Taut Bantuan Khusus",
   "text-below-custom-login-logo": "Teks di miyup logo login khusus",
   "automatic-linked-url-schemes": "Skema URL khusus nyang haroh jeuet geuklik ngon otomatis. Saboh skema URL bak tiep bareh",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Bak atôran awai mantöng soh, jadi nyang jeuet teuklik cit tautan web ngon imèl. Tiep jeunéh tautan nyang na lam dapeuta, lagee thunderlink atawa onenote, jipeuhah aplikasi nyang ka teudaftar keu jeunéh nyan. javascript, data, vbscript ngon jeunéh nyang saban hana tom jeuet keu tautan.",
   "external-link-pattern": "Sambong otomatis ubak peurunoe masalah lua",
   "external-link-pattern-description": "Sambong otomatis token cara \"#1234\" nyang na lam naskah kartu ubak peurunoe masalah lua. Peutrok saboh gampong tan sapeu keu pumate.",
   "external-link-pattern-prefix": "Awai token",

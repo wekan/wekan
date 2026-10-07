@@ -3042,6 +3042,26 @@ Twenty-nine locale paths still need this hint, so its source key remains pending
 The ordinary backlog remains 51,575 values plus 172 pending source keys; broader
 language-quality review remains open.
 
+### Custom URL scheme hint — Waray and Acehnese (2026-10-07)
+
+Filled the hint in wa-RR and ace through the placeholder-only merge, preserving
+existing translations. No translation service was used. All five scheme names,
+the empty default, registered-application behavior and permanent exclusion of the
+dangerous scheme examples are retained.
+
+Vocabulary references: [Waray opening verb](https://dictionary.corporaproject.org/index.php?glossary=A&sort=word)
+and [Acehnese thesaurus](https://fileserver-az.core.ac.uk/download/pdf/160609809.pdf)
+for peuhah. Technical prose has lower confidence, especially Acehnese loanword
+choices, and needs native/UI review; these sources do not validate whole sentences.
+
+The allowlist suite now checks the hint in 39 recently filled locales. Exact
+identifier and negative omission checks, source tokens and key order pass, as do
+parser/sanitizer behavior, all-locale structure and 21 human-preference checks.
+Browser scenarios were syntax-checked but not run without the application stack.
+Twenty-seven locale paths still need this hint, so its source key remains pending.
+The ordinary backlog remains 51,575 values plus 172 pending source keys; broader
+language-quality work remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

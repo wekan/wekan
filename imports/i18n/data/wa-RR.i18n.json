@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "URL han Custom nga Help Link",
   "text-below-custom-login-logo": "Teksto ha ilarom han Custom nga Login Logo",
   "automatic-linked-url-schemes": "Custom nga mga URL Scheme nga sadang awtomatiko nga ma-klik. Usa nga URL Scheme kada linya",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Waray sulod ha orihinal nga mga setting, salit mga sumpay la ha web ngan email an puydi i-klik. An tagsa nga klase hin sumpay ha lista, sugad han thunderlink o onenote, nag-aabri han aplikasyon nga nakarehistro para hito. An javascript, data, vbscript ngan mga kapariho nga klase diri gud ginhihimo nga mga sumpay.",
   "external-link-pattern": "Loyén otomatike viè on shuvleu di problinmes difoû",
   "external-link-pattern-description": "Loye otomatikmint les tokens come \"#1234\" trové dins l' tecse del cård a on shuvleu di problinmes difoû. Léyîz on tchamp vûde po dismete çoula.",
   "external-link-pattern-prefix": "Prefikse do token",
