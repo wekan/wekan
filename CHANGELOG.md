@@ -1890,6 +1890,17 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a129d9709e6dd4e934083ec6563898f55a1effc0">Translate parent-card controls into Cherokee</a></summary>
+
+- Filled three placeholders. Low-confidence phrasing, the larger-task paraphrase and grammar limitations are documented in the translation audit.
+- Extended locale and browser coverage. All 12 focused tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
+- These controls remain English in two locale paths. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3c79e6d538e95b1cd9842eac8913cf8332c67a56">Translate parent-card controls into Nahuatl and Moroccan Tamazight</a></summary>
 
 - Filled six placeholders. Low-confidence phrases, parent-card metaphors and vocabulary references are documented in the translation audit.
