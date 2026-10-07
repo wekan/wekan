@@ -5267,6 +5267,12 @@ Corrected another 60 unrelated filler values covering color names, custom fields
 
 Basic color terms were checked against [Boston University's Akan colors](https://www.bu.edu/200word/akan-twi/colors/) and [LearnAkan's color vocabulary](https://learnakan.com/colours-in-twi/). Uncommon shades use provisional descriptions or recognizable borrowed shade names; these and version/WIP terminology need contextual review. Tests check source tokens, empty/literal values, count and hour units, color distinctions and opposite controls. Browser checks were not run.
 
+### Akan generic filler correction: administration and diagnostics
+
+Corrected 60 generic filler values for login customization, registration, file limits, webhooks, database/OS diagnostics and card dates. Restore literal file-size units and preserve technical names such as FerretDB, MongoDB, CPU and reactivity mode identifiers. The exact generic-filler inventory decreases from 476 to 416.
+
+Tests cover source tokens, distinct attachment modes, shared labels, technical identifiers, time units and received/end dates. Operating-system, software-package and version terminology remains descriptive and provisional. Browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

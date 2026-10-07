@@ -36,3 +36,23 @@ test('Akan colors and field controls replace filler without changing literal lab
  for(const key of ['spent-time-hours','overtime-hours']) assert.match(data[key],/nnɔnhwerew/);
  assert.equal(new Set(keys.filter(k=>k.startsWith('color-')).map(k=>data[k])).size,20);
 });
+
+test('Akan administration labels preserve units, modes and service names', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["tracking", "type", "custom-login-logo-image-url", "custom-login-logo-link-url", "text-below-custom-login-logo", "automatic-linked-url-schemes", "watching", "welcome-swimlane", "welcome-list1", "welcome-list2", "wipLimitErrorPopup-title", "attachment-transfer-limits-title", "attachment-limits", "attachment-limit-mode-unlimited", "attachment-limit-mode-max-size", "attachment-limit-mode-blocked", "attachment-limit-unit-gb", "attachment-limit-unit-mb", "attachment-limit-unit-bytes", "registration", "self-registration", "invite", "invite-people", "smtp-host", "send-from", "invitation-code", "email-smtp-test-subject", "outgoing-webhooks", "bidirectional-webhooks", "outgoingWebhooksPopup-title", "global-webhook", "no-name", "package", "OS", "Database", "Database_type", "Database_commit", "FerretDB_version", "FerretDB_commit", "Reactivity_mode", "MongoDB_version", "OS_Arch", "OS_Cpus", "OS_Loadavg", "OS_Release", "OS_Type", "OS_Uptime", "hours", "minutes", "seconds", "visibility", "modifiedAt", "verified", "org-shared-templates", "team-shared-templates", "card-received", "card-received-on", "card-end", "card-end-on", "assigned-by"];
+ for(const key of keys){
+  assert.notEqual(data[key],'Nsɛm a ɛfa dwumadi yi ho',key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ for(const suffix of ['gb','mb','bytes']) assert.equal(data['attachment-limit-unit-'+suffix],english['attachment-limit-unit-'+suffix]);
+ assert.equal(new Set(['unlimited','max-size','blocked'].map(s=>data['attachment-limit-mode-'+s])).size,3);
+ assert.equal(data['outgoing-webhooks'],data['outgoingWebhooksPopup-title']);
+ assert.notEqual(data['outgoing-webhooks'],data['bidirectional-webhooks']);
+ assert.equal(data['org-shared-templates'],data['team-shared-templates']);
+ for(const name of ['changeStreams','oplog','polling']) assert.ok(data.Reactivity_mode.includes(name));
+ for(const key of ['FerretDB_version','FerretDB_commit']) assert.match(data[key],/FerretDB/);
+ assert.match(data.MongoDB_version,/MongoDB/);
+ assert.match(data.OS_Cpus,/CPU/);
+ assert.notEqual(data['card-received-on'],data['card-end-on']);
+ assert.equal(new Set(['hours','minutes','seconds'].map(k=>data[k])).size,3);
+});
