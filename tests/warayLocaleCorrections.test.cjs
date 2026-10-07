@@ -43,7 +43,37 @@ const correctedKeys = [
   "map-to-existing-user-not-member",
   "map-to-existing-user-no-results",
   "text-notes",
-  "add-text-note"
+  "add-text-note",
+  "edit-text-note",
+  "delete-text-note",
+  "text-note-delete-pop",
+  "cardTextNoteEditPopup-title",
+  "cardTextNoteDeletePopup-title",
+  "click-to-star-page",
+  "click-to-unstar-page",
+  "enable-permanent-delete",
+  "enable-permanent-delete-description",
+  "error-watch-disabled",
+  "filter-label-excluded",
+  "text-contains-trigger-label",
+  "text-contains-trigger-description",
+  "import-board-instruction-markdown",
+  "import-excel-file",
+  "import-timeout",
+  "label-text-overridden",
+  "orgAdminsPopup-title",
+  "menu",
+  "moveCardPopup-leave-link-at-origin",
+  "multi-selection-off",
+  "normal",
+  "starred-pages",
+  "star-item",
+  "starred-lists",
+  "starred-cards",
+  "no-starred-items",
+  "flow-add-interruption",
+  "flow-interruptions",
+  "pomodoro-break"
 ];
 
 test('Waray board controls replace Walloon prose while preserving source tokens', async () => {
@@ -57,6 +87,12 @@ test('Waray board controls replace Walloon prose while preserving source tokens'
   }
   assert.match(waray['home-board-remove-confirm'], /Diri matatanggal an board mismo/);
   assert.match(waray['board-view-timeline-restore-confirm'], /Waray matatanggal/);
+  assert.match(waray['enable-permanent-delete-description'], /diri nagtatanggal/);
+  for (const syntax of ['## ', '- [ ]', '- [x]']) {
+    assert.ok(waray['import-board-instruction-markdown'].includes(syntax), syntax);
+  }
+  assert.match(waray['import-board-instruction-markdown'], /waray mga checkbox/);
+  assert.notEqual(waray['click-to-star-page'], waray['click-to-unstar-page']);
   assert.notEqual(waray['due-days-left'], waray['due-days-overdue']);
   for (const kind of ['Swimlane', 'List']) {
     assert.notEqual(waray['export' + kind + 'Popup-title'], waray['import' + kind + 'Popup-title']);

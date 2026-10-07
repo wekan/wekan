@@ -4939,6 +4939,12 @@ mixed-language audit remains open.
 - These are wrong-language corrections, not English-placeholder fills; the missing count does not change. Many additional Walloon values remain in the Waray catalog and require subsequent correction. Prior assertions that these shared Walloon values were correct translations for `wa-RR` must not be relied upon.
 - Added regression checks for the corrected key set, source tokens, known Walloon vocabulary, import/export distinctions and the non-deletion guarantees. The tests cannot prove fluent Waray. Template/default, swimlane and chart terminology remains provisional and needs contextual review; browser checks were not run.
 
+### Waray notes, favorites and related controls
+
+- Corrected 30 further Walloon values in `wa-RR`: note actions, favorites, permanent-delete settings, rule text matching, import guidance, selection and interruption labels. Source review restored the missing Markdown-import explanation that plain bulleted lists without checkboxes become open cards.
+- Preserved `%s`, Markdown examples and the statement that enabling permanent deletion does not itself delete content. Menu uses a choices paraphrase and normal uses usual/common wording. The initial shared-loan drafts lacked supporting Waray usage evidence; no equality exception was added for them. Technical loans and phrasing remain provisional.
+- Extended the Waray regression key set, token checks, import syntax checks and negative-operation distinctions. More wrong-language text remains; no claim of complete or fluent Waray coverage is made. Browser checks and the broader semantic audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
