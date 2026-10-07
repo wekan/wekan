@@ -479,3 +479,23 @@ test('Akan display toggles preserve enabled states and opposite next actions', a
  assert.match(data['invalid-year'],/anan.*2026/);
  assert.match(data['trello-api-credentials-required'],/Trello API.*token.*nyinaa/);
 });
+
+
+test('Akan input and scheduled-job errors preserve limits and distinct operations', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["search-example", "set-default-board-title", "unset-default-board-title", "upload-failed", "attachment-transfer-limits-save-failed", "attachment-transfer-limits-invalid-value", "add-custom-html-after-body-start", "submit-on-enter", "roles-status-manage", "invalid-domain", "custom-field-stringtemplate-item-placeholder", "move-storage-all", "default-save-storage-save-failed", "support-page-enabled", "accounts-lockout-locked-users-info", "board-archive-failed", "board-backup-failed", "board-cleanup-failed", "cron-job-delete-failed", "cron-job-pause-failed", "cron-job-resume-failed", "cron-job-start-failed"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ for(const key of ['search-example','submit-on-enter','custom-field-stringtemplate-item-placeholder']) assert.match(data[key],/Enter/);
+ assert.match(data['attachment-transfer-limits-invalid-value'],/ɛboro 0/);
+ assert.match(data['invalid-domain'],/example\.com.*@.*ntam kwan nni mu/);
+ assert.match(data['add-custom-html-after-body-start'],/<body>.*akyi/);
+ assert.match(data['set-default-board-title'],/mbue ankasa/);
+ assert.match(data['unset-default-board-title'],/gyae.*ebue ankasa/);
+ for(const kind of ['archive','backup','cleanup']) assert.match(data['board-'+kind+'-failed'],/Wɔantumi anhyɛ bere/);
+ const jobs=['delete','pause','resume','start'].map(action=>data['cron-job-'+action+'-failed']);
+ assert.equal(new Set(jobs).size,4);
+ for(const value of jobs) assert.match(value,/^Wɔantumi/);
+ assert.match(data['cron-job-pause-failed'],/kakra/);
+ assert.match(data['cron-job-resume-failed'],/ansan antoa.*so/);
+ assert.match(data['accounts-lockout-locked-users-info'],/seesei.*mpɛn pii.*wɔantumi/);
+});

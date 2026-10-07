@@ -5423,6 +5423,16 @@ Rewrote 22 mixed-language values for board selection/home behavior, width/keyboa
 
 Tests cover source tokens, opposite toggle actions, one-board selection, tier numbers, Enter, the four-digit year example and both Trello credentials. Fading and display terminology remains provisional. Browser checks were not run; broader language review continues.
 
+## Akan input and scheduled-job corrections (batch 29)
+
+Corrected 22 mixed-English values for search input, default boards, attachment
+limits, storage, account lockouts and scheduled-job failures. Preserved Enter,
+`<body>`, `example.com`, the prohibition on @/spaces, positive limits and distinct
+schedule/delete/pause/resume/start outcomes. Technical Akan wording remains
+provisional; browser rendering and fluent-speaker review have not been performed.
+Source-token and operation/limit regression checks accompany these corrections.
+These were mixed-language values, so the English-placeholder count is unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
