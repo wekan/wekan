@@ -2173,6 +2173,21 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/86193927615c4eb53f0b52f175171bce66683b16">Correct 19 Tok Pisin backup and scheduled-job messages.</a></summary>
+
+- Replace mixed English in backup controls and scheduled jobs. Preserve source
+  tokens, restore choices, schedule limits and job-state distinctions.
+  Technical wording remains provisional pending fluent-speaker review.
+- The combined run passes 138 checks; two catalog checks still fail on the
+  missing due-date shortcut key. All 21 human-preference checks pass.
+  Browser and screen-reader checks were not run.
+- The broader translation and wording audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/aff335693bf9245deccf37031178de863c9e9907">Correct 36 Tok Pisin migration and repair messages.</a></summary>
 
 - Replace mixed English and restore the literal Snap database setting name.
