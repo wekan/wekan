@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.19
+  version: v12.20
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2288,8 +2288,9 @@ paths:
       summary: Get the email domains a board is shared with
       description: |
         #5850: returns the `domains` array of a board. Each entry is an
-         object `{ domain: "example.com", isActive: true }`. Anyone able to read the
-         board may list its domains. Requires the caller to be authenticated.
+         object `{ domain: "example.com", isActive: true }`. Requires a site admin
+         (Authentication.checkUserId); a board's own members get the same list as
+         part of GET /api/boards/:boardId.
       tags:
         - Boards
         - Boards
