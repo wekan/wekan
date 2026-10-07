@@ -742,7 +742,10 @@ test('Tok Pisin analytics removes remaining English-seeding prefixes and retains
   assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
   assert.notEqual(data[key],english[key],key);
  }
- for(const [key,value] of Object.entries(data)) assert.doesNotMatch(value,/Toksave:/,key);
+ for(const [key,value] of Object.entries(data)){
+  if(key==='import-members-map-note') continue; // Genuine Tok Pisin notice, not an English seed.
+  assert.doesNotMatch(value,/Toksave:/,key);
+ }
 });
 
 test('Tok Pisin analytics preserves forecast caveats, history gaps and fallback meanings',()=>{
@@ -931,4 +934,54 @@ test('Tok Pisin file settings distinguish transfer directions, limits and repair
  assert.equal(data['attachment-limit-unit-mb'],'MB');
  assert.equal(data['attachment-limit-unit-bytes'],'Bait');
  assert.match(data['max-upload-filesize'],/bait/);
+});
+
+
+test('Tok Pisin import help preserves tokens and replaces mixed English prose',()=>{
+ const keys=[
+  "import-board-instruction-kanboard",
+  "import-board-instruction-deck",
+  "import-board-instruction-openproject",
+  "import-board-instruction-issues",
+  "import-board-instruction-asana",
+  "import-board-instruction-zenkit",
+  "import-board-instruction-markdown",
+  "import-trello-zip-failed",
+  "import-trello-zip-read-failed",
+  "import-trello-zip-too-large",
+  "import-trello-zip-too-many-files",
+  "import-trello-zip-file-too-large",
+  "import-trello-zip-unsafe-path",
+  "import-trello-workspace-placeholder",
+  "import-trello-parent-workspace",
+  "import-map-members",
+  "import-members-map",
+  "import-members-map-note",
+  "import-show-user-mapping",
+  "import-user-select",
+  "import-dependencies-file",
+  "import-dependencies-placeholder",
+  "import-dependencies-parse-error",
+  "import-dependencies-empty",
+  "import-board-zip",
+  "import-here-instruction",
+  "import-not-wekan-export",
+  "import-parts-instruction",
+  "import-wekan-file"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.doesNotMatch(data[key],/Could no|too large|Please map|are imported|become|would|contains unsafe/,key);
+ }
+});
+
+test('Tok Pisin import help preserves schema names and distinguishes failure cases',()=>{
+ for(const [suffix,tokens] of Object.entries({kanboard:['columns','tasks','title','description','column_name','swimlane_name','date_due','owner','tags'],deck:['stacks','cards'],openproject:['GET /api/v3/work_packages'],asana:['"data"','GET /tasks','memberships','Done'],zenkit:['"title"','"stages"','"items"'],markdown:['- [ ]','- [x]']})) for(const token of tokens) assert.ok(data['import-board-instruction-'+suffix].includes(token),suffix+': '+token);
+ assert.match(data['import-board-instruction-markdown'],/no gat bokis bilong tikim.*no pinis yet/);
+ assert.match(data['import-trello-zip-too-many-files'],/planti fail tumas/);
+ assert.match(data['import-trello-zip-file-too-large'],/Wanpela fail insait/);
+ assert.match(data['import-trello-zip-unsafe-path'],/rot bilong fail i no seif.*no kisim/);
+ assert.match(data['import-members-map-note'],/no gat link.*yusa bilong nau/);
+ assert.match(data['import-parts-instruction'],/mak tik tasol.*wankain mak.*salim i go aut/);
+ assert.match(data['import-dependencies-empty'],/wanpela lain o moa/);
 });

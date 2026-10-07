@@ -6527,6 +6527,12 @@ Corrected 25 unprefixed mixed-language attachment, transfer-limit and storage-se
 
 Validation: 84 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
 
+## Tok Pisin import wording audit
+
+Corrected 29 mixed-language import instructions, archive errors and member-mapping messages. Restored literal schema names such as `title` and `cards` that had been translated inside examples, preserved source tokens and added the missing plain-bulleted-Markdown behavior. Tests cover schema literals, file-count versus file-size failures, unsafe paths, unmapped members and selected import/export parts. The prefix regression allows the genuine Tok Pisin notice in `import-members-map-note`; a translated notice is not an English seed. Technical wording remains provisional pending fluent-speaker review; browser and screen-reader checks were not run.
+
+Validation: 86 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. These corrections do not reduce the English-placeholder counter, which excludes mixed-language values differing from English.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
