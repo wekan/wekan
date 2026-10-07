@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/857961d5d1e81302e42877c9f6f30e96cb64d6d9">Correct 32 mixed-language Akan board warnings and notifications.</a></summary>
+
+- Rewrite deletion, archiving, privacy, import and notification messages containing English clauses and malformed substitutions. Match current board-restore guidance.
+- Add source-token, HTML, deletion-consequence, permission and notification checks. Administrative wording and menu references remain provisional.
+- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
+- Validation: 55 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f1a2ccfcc0d91b4c601b675b03317d7079965b55">Correct the remaining 99 exact generic-filler values in Akan.</a></summary>
 
 - Replace generic filler in migration controls, schedules, login, diagnostics and flow labels. Preserve interval numbers, units and technical identifiers.
