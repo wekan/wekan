@@ -3462,6 +3462,12 @@ All 234 non-English locale paths now have nonempty, non-English values for the t
 
 Translation/token, import-loss positive/negative and all-locale structural suites pass (12 tests combined), as do 21 human-preference checks. Added Cherokee to the existing browser cases and syntax-checked the file; browser execution remains unavailable without the local Playwright executable and running application. A fresh missing-value report still counts **51,575** ordinary English values across **70** languages. Wrong-language and low-confidence wording throughout the catalogs remains under review.
 
+### History recovery: Kurmanji, Sorani, Tatar, Turkmen and Yiddish
+
+Filled 25 English placeholders in `ku`, `ckb`, `tt`, `tk_TM` and `yi` using the protected fill utility. The five messages distinguish pending undo from pending redo, explain that retry resends the same request without undoing a second change, and distinguish retry from forgetting the request. The UI and request implementation were checked before drafting. Turkmen retry wording is also attested on the [Türkmenhimiýa site](https://turkmenhimiya.gov.tm/news/novye-gorizonty-sotrudnichestva). Full clauses, particularly the undo/redo terminology in Sorani, Kurmanji and Yiddish, remain provisional and need fluent-speaker review; passing structural tests does not validate language quality.
+
+Extended the translation/token regression and parameterized the existing browser scenario for English and these five locales, checking exact localized pending messages, the safety explanation and both buttons while retaining retry/forget behavior and wrong-board/expired-request negative cases. Translation, recovery-notice, request logic and 234-locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. The five source keys remain English in 61 locales. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
