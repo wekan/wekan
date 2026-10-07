@@ -3276,6 +3276,14 @@ Filled three English placeholders in `kl`. The direct draft preserves viewing by
 
 Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in six locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
 
+### Signed-in board visibility: Nahuatl
+
+Filled three English placeholders in `nah`. The direct draft preserves the signed-in viewing condition, anonymous exclusion, board-member editing and confirmation emphasis. It follows the locale's existing `tequitini` and `huapalli` terminology. Existing translations were protected by the fill utility; no translation service was used. Software terminology, the passive construction for added people and dialect consistency have low confidence and need fluent-speaker review.
+
+References include the Oregon Nahuatl dictionary entries for [calaqui](https://nahuatl.wired-humanities.org/node/171978) and [tlalia](https://nahuatl.wired-humanities.org/content/tlalia), plus UNAM's [patla entry](https://gdn.iib.unam.mx/diccionario/patla/19409). These references support component vocabulary and do not validate the complete draft.
+
+Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in five locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
