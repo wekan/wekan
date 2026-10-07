@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0afec6037cce53a78e1c1e08125ba51d41e21858">Correct 18 mixed-language or misleading Akan grouping and field-summary messages.</a></summary>
+
+- Restore number-field summation, opposite grouping states/actions and the synchronization interval's minutes unit; rewrite related rule and board labels.
+- Add source-token, aggregate and state regression checks. Wording remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
+- Validation: 92 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0991c3971ef0a603c67fd3a90067900f8ed698ef">Correct 20 mixed-language or misleading Akan field and rule messages.</a></summary>
 
 - Rewrite field, rule and timeline messages. Preserve full restore scope, the no-deletion statement and board-admin-only visibility.
