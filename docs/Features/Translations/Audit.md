@@ -233,6 +233,31 @@ human-preference and related language suites pass. Volapük is included in
 the browser mutation scenario, which passes syntax checking but was not
 browser-executed in this environment.
 
+## Nahuatl archiving/date filters — 2026-10-07
+
+Filled 23 English placeholders in Nahuatl (`nah`). Comparison against the
+previous commit confirms existing translated values are preserved. The
+standard backlog falls by 20 to 51,715 values; three auto-archive values
+belong to separately tracked pending keys.
+
+The [Nahuatl Dictionary day entry](https://nahuatl.wired-humanities.org/content/tonalli)
+and [time entry](https://nahuatl.wired-humanities.org/content/cahuitl) support
+component vocabulary. Existing card, list, template and archive terminology
+is retained for this batch. Longer messages remain low confidence, especially
+inclusive ranges, elapsed list age and the quoted custom-field explanation.
+Hour and quotation-mark terms use Spanish loans. The generic locale does
+not select a regional standard; morphology, dialect consistency and these
+technical compounds require speaker review. Component references do not
+establish fluent complete sentences.
+
+The shared feature suite now covers 62 locales, preserving placeholder
+inventories, numbers and query examples. Nahuatl checks distinguish the
+previous week from the next month and retain the rules that templates are
+never archived and edits do not reset list age. Feature, all-locale structure,
+human-preference and the related list-width suite pass. The browser mutation
+scenario includes Nahuatl and passes syntax checking only; it was not
+browser-executed in this environment.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
