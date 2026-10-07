@@ -385,7 +385,7 @@ held only issues \#4774 and \#4055, and both are closed now.
 Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
-- The current `node releases/translations/fill-translations.mjs --missing` report counts **50,395 untranslated locale/string values in 70 languages**. It excludes **148 source keys tracked separately as pending Transifex**, which already have non-English values but still require wording review. Counts are a snapshot; they do not establish the quality or language of other values.
+- The current `node releases/translations/fill-translations.mjs --missing` report counts **50,335 untranslated locale/string values in 70 languages**. It excludes **148 source keys tracked separately as pending Transifex**, which already have non-English values but still require wording review. Counts are a snapshot; they do not establish the quality or language of other values.
 - The 13 activity-notification preference keys have no empty or exact English-placeholder values in all 234 non-English locale paths and have left the pending queue. Provisional wording still needs language review.
 - Automatic-archiving and date-filter messages now have non-English values in all 234 non-English locale paths. Continue the remaining feature families and the language-quality audit; coverage does not establish fluent wording.
 - Fill English placeholders in every language, including minority and constructed languages. Audit mixed-language and wrong-language seed text, and review provisional wording with speakers when available. Preserve correct-language human translations, source key order, exact placeholders, technical identifiers and query examples. Use direct translation and dictionary research, not an external translation service.
@@ -1888,6 +1888,17 @@ Minority-language wording remains provisional and needs speaker review.
 This release updates the following translations:
 
 **Activity notifications** - choosing which card activity sends notifications.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5791adc9f5d1a211f027f95bca4d2670577850e2">Fill six further saved filter translations</a></summary>
+
+- Filled 60 English placeholders in Quechua, Aymara, Guarani, Veps, Volapük and Klingon. All six sets remain low-confidence technical drafts, particularly Veps, Volapük and Klingon.
+- All 15 focused Node tests and 21 human-preference checks pass. Extended positive and negative browser filter coverage and checked its syntax; execution remains unverified because the local Playwright executable is unavailable.
+- These ten filter strings remain English in seven locales. Ordinary untranslated values decrease from 50,395 to 50,335 across 70 languages; 148 pending source keys still require wording review.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e46f22e4e38317cb85586afda6ae4d8b4f192d7c">Translate saved filter controls in six more locales</a></summary>
