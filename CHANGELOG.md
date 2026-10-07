@@ -64,10 +64,10 @@ on 2026-09-28 after the security and SAML fixes. Scrum, Sync and the other
 requirements below remain unfinished. Completed increments are recorded in
 Upcoming with test evidence; remaining requirements and external verification
 blockers stay here.
-Do not add translation into all languages to the current work queue, including
-after the non-translation work. The maintainer is trying Transifex's translation
-features and intends to obtain most translations from Transifex. Existing
-translation checkpoints below are reference material, not active assignments.
+Translation into all languages resumed at the maintainer's explicit request
+on 2026-10-07. This supersedes the earlier pause while Transifex was being
+evaluated. Preserve correct-language human translations; the checkpoints below
+record remaining work rather than completion.
 Local commits do not publish or release these changes.
 
 Pass of 2026-09-29: the six external import adapters were brought up to their
@@ -382,14 +382,19 @@ held only issues \#4774 and \#4055, and both are closed now.
 <details>
 <summary>Translation work in progress: remaining new strings in all languages.</summary>
 
-Status checked on 2026-10-03. The later translation request resumed this work;
-the earlier pause above remains historical. Completed work is recorded in Upcoming.
+Status checked on 2026-10-07. Translation work has resumed, including keys
+previously held for Transifex. Completed work is recorded in Upcoming.
 
-- The current `node releases/translations/fill-translations.mjs --missing` report counts **52,189 untranslated locale/string values in 70 languages**. It excludes **204 source keys deliberately left in English pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
+- The current `node releases/translations/fill-translations.mjs --missing` report counts **52,175 untranslated locale/string values in 70 languages**. It excludes **207 source keys tracked separately as pending Transifex**, which also require later review. Counts are a snapshot; they do not establish the quality or language of other values.
 - Continue automatic-archiving and date-filter translations beyond the thirty-nine locales recorded in completed changelog entries, then the remaining feature families.
 - Fill English placeholders in every language, including minority and constructed languages. Audit mixed-language and wrong-language seed text, and review provisional wording with speakers when available. Preserve correct-language human translations, source key order, exact placeholders, technical identifiers and query examples. Use direct translation and dictionary research, not an external translation service.
 - Keep regression and human-preference checks passing. Passing tests does not establish translation completeness or fluency; rerun relevant checks for each batch and the broad suite before declaring all-language work complete.
-- Added 2026-10-05 for the Admin Panel login settings, English only and pending Transifex: `header-login`, `login-setting-clear-secret` and `login-setting-after-restart`. Until every locale file has them, the 76 key-order suites fail on exactly these three keys (`allTranslationCompleteness`, `danishTranslations` and the rest); nothing else in those suites fails. `node releases/translations/add-pending-keys.mjs --all-locales` would put the English text in every locale meanwhile, if the maintainer prefers that to waiting.
+- The three Admin Panel login-setting keys added on 2026-10-05 now have
+  translations in 101 locale paths (100 physical catalogs). Continue the
+  remaining languages. The standard missing count excludes these pending keys,
+  so that count does not measure this batch. Catalogs without the new keys
+  still fail full key-order checks. Browser scenarios for Finnish, Arabic and
+  Japanese are syntax-checked but await Playwright and a running application.
 
 </details>
 
@@ -1450,7 +1455,7 @@ Wrong-language and wrong-meaning repairs resumed at the maintainer's request
 after the 2026-09-27 Transifex download. The first reviewed batch corrects 487
 locale/key pairs and retains valid downloaded translations. The broader
 semantic audit remains in progress; filling untranslated strings in every
-language is still excluded from the work queue.
+language resumed on 2026-10-07; the dated pause below is historical.
 See the [download review](docs/Features/Translations/Transifex-2026-09-27.md).
 The dated findings below remain historical checkpoints, not proof of global
 translation completion.
@@ -1868,6 +1873,32 @@ each for the reason given:
 
 </details>
 </details>
+
+# Upcoming WeKan ® release
+
+**In short:** More languages now show translated **login settings**, including
+HTTP-header authentication, stored-value removal and restart guidance.
+
+This release updates the following translations:
+
+**Login settings** - clearer guidance in the Admin Panel.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/30881d1c41d1d22618ecd97810097bc4cea3ad7c">Translate login-setting messages in 101 locales</a>. Thanks to xet7.</summary>
+
+- Add three messages in 100 physical catalogs and one shared regional alias.
+  Existing translations remain unchanged; HTTP-header login is explicit.
+- Locale-wide key-order and placeholder checks pass, as do human-preference,
+  URL-placeholder, menu-wiring and board-item checks.
+- Finnish, Arabic and Japanese browser scenarios cover labels, restart guidance
+  and clearing a stored secret. Syntax checks pass; browser execution awaits
+  Playwright and a running application.
+- The remaining languages, pending feature strings and terminology review stay
+  open in TODO Later. No translation-completeness claim is made for this batch.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.20 2026-10-07 WeKan ® release
 
