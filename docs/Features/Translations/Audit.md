@@ -4869,6 +4869,13 @@ mixed-language audit remains open.
 - Lower-confidence wording includes the stack/row and bubble metaphors, container loans and plural-input paraphrases. These labels need contextual accessibility review; distinct strings and intact tokens are structural checks, not proof of fluent wording.
 - Extended existing token, non-placeholder and distinction regressions to all four locales. Existing browser flows cover these languages but remain unexecuted. Spoken announcements, the 148 pending source keys and the broader semantic audit remain open.
 
+### Somali, Moroccan Arabic, Odia and Konkani block and bubble labels
+
+- Filled 64 English placeholders with the protected fill workflow, preserving all numbered arguments and existing translations. Input and comment terminology follows the respective catalogs.
+- Stack is described as a chain of blocks; statement uses command/instruction vocabulary. Moroccan Arabic uses local clauses such as `فيه` and `يقدر يتبدّل`; Konkani uses `आसा`/`आसात` and `बदलूंक येता` rather than Hindi clauses.
+- Container, bubble and stack metaphors, particularly Somali and Konkani technical wording, remain lower confidence and need contextual review. The collapsed/disabled and singular/plural checks establish distinctions, not fluency or semantic equivalence.
+- Extended the existing token and distinction regressions. Browser and spoken accessibility checks remain unexecuted; the 148 pending source keys and broader mixed-language audit remain open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
