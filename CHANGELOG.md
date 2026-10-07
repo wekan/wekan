@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0dfafdd3d63101360f3306e9290dbfdeea9cd111">Correct 14 mixed-language Akan migration and summary labels.</a></summary>
+
+- Rewrite migration and summary text. Preserve error/warning and execution-state distinctions, including paused, resumed and not-needed states.
+- Add source-token, state and terminology checks. Technical wording remains low confidence pending fluent-speaker review.
+- English placeholders remain 45,599 across 70 languages because these replace non-English values. The broader language audit continues.
+- Validation: 108 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/51da67e8776d7b874e785525ba55be92265bdf3e">Correct 18 mixed-language Akan navigation and swimlane messages.</a></summary>
 
 - Rewrite navigation, detail and swimlane text. Align matching titles and preserve home removal without board deletion.
