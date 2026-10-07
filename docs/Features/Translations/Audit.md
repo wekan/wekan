@@ -3570,6 +3570,12 @@ Filled five English placeholders in `iu` with the protected fill utility. The dr
 
 Extended the translation/token regression and existing localized browser scenario to Inuktitut. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 3 locales: Tigre, Cherokee and Wolaytta. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
 
+### History recovery: Wolaytta
+
+Filled five English placeholders in `wal` with the protected fill utility. The drafts distinguish reversing a change from doing it again and retain the same-request explanation. [Lamberti and Sottile's The Wolaytta Language](https://dokumen.pub/the-wolaytta-language.html) gives forgetting vocabulary and grammatical examples. This limited evidence does not validate the drafted recovery sentences. Server borrowing, confirmation paraphrase, undo/redo wording and full clauses remain low-confidence drafts for fluent-speaker review. Existing prefixed-English Wolaytta labels are still unfinished audit work.
+
+Extended the translation/token regression and existing localized browser scenario to Wolaytta. Translation, recovery-notice, request logic and all 234 locale structural suites pass (13 tests combined), as do 21 human-preference checks. Browser cases are syntax-checked only; local Playwright and a running application remain unavailable. Each of the five source keys remains English in 2 locales: Tigre and Cherokee. The broader backlog remains 51,575 ordinary missing values across 70 languages and 165 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
