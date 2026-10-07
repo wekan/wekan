@@ -386,7 +386,7 @@ Status checked on 2026-10-07. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **46,305 untranslated locale/string values in 70 languages**. It
+  report counts **46,289 untranslated locale/string values in 70 languages**. It
   excludes **148 source keys tracked separately as pending Transifex**, which
   already have non-English values but still require wording review. Counts are a
   snapshot; they do not establish the quality or language of other values.
@@ -2074,6 +2074,18 @@ uses the same word as `checklist` itself.
 </details>
 
 **Translations** — continued language coverage and corrections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/41797709b994230a14d3971c8803f11cb5f61fd0">Translate 16 Akan Blockly block and bubble labels.</a></summary>
+
+- Fill block states, branches, inputs, stack descriptions, categories and comment/warning bubbles. Preserve numbered arguments and singular/plural distinctions.
+- Register Akan in the shared block/bubble checks. Technical metaphors remain provisional and need accessibility review.
+- English placeholders decrease from 46,305 to 46,289 across 70 languages, with 148 source keys tracked separately for wording review.
+- Validation: 26 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d212877d4b1a733ee522b43157334f232caf4a0a">Correct 15 Waray color and date-format labels.</a></summary>
