@@ -1812,6 +1812,25 @@ scenario includes Veps and was syntax-checked only; the app stack was unavailabl
 Five locale paths still need this reminder group. The ordinary backlog remains
 51,575 values plus 188 pending source keys; the wider language review stays open.
 
+### Due reminders — Standard Moroccan Tamazight (2026-10-07)
+
+Filled six English placeholders in `zgh` using Tifinagh and existing reminder,
+date, board and save terminology. Signed offsets, due-day zero, blank/server
+default, integer range, ten-entry limit, disabling and webhook delivery remain
+explicit. Existing translations were preserved; no translation service was used.
+
+Full phrases and technical terminology are low confidence and need native review.
+Vocabulary references include the
+[Atlas Cultural Foundation dictionary](https://atlasculturalfoundation.org/wp-content/uploads/2016/01/tamazight-english-dictionary-acf.pdf)
+for before and the [Amawal dictionary](https://www.amazigh.online/dictionary)
+for day and ten. The locale's wider mixed-script and vocabulary review remains open.
+
+Reminder checks now cover 62 translated locales. Translation checks, all-locale
+structural checks and human-preference checks pass. The existing browser scenario
+includes Tamazight but was syntax-checked only; the app stack was unavailable.
+Four locale paths still need this reminder group. The ordinary backlog remains
+51,575 values plus 188 pending source keys. These checks do not certify fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
