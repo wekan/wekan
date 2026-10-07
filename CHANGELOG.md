@@ -1890,6 +1890,17 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3e174595ba4e0d1c593f6406e0b10d946a4515f2">Translate Leo import instructions in fourteen more locales</a></summary>
+
+- Filled fourteen English placeholders in four Indic and ten southern African locales. Technical phrasing remains provisional, especially Konkani, Swati, Northern Ndebele and Venda.
+- Extended locale and browser coverage. All 12 focused Node tests and 21 human-preference checks pass; browser syntax passes, but browser execution remains unverified.
+- This instruction remains untranslated in 45 locales. The broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 150 pending source keys.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8a2a7dbd0dbb3fff600e78601d90be7af0f2d1f6">Translate Leo import instructions in seven more locales</a></summary>
 
 - Filled seven English placeholders in Kurdish, Central Kurdish, Tatar, Turkmen, Yiddish, Somali and Chichewa. Technical phrasing, especially Somali and Chichewa, remains provisional.
