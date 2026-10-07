@@ -5339,6 +5339,12 @@ Rewrote 12 mixed-language descriptions for plain-text display, import/export con
 
 Checks cover source tokens, default-off statements, product names, literal examples and separate avatar/notification scope. Privacy and rich-text terminology remains descriptive and provisional; these string checks do not establish fluency. Browser checks were not run.
 
+### Akan mixed-language correction: migration confirmations and diagnostics
+
+Rewrote 12 mixed-language values for migration confirmations, CPU limits, background execution, minimum username length and S3 key guidance. Preserve archived/non-archived scope, duplicate-list removal conditions, IDs, numeric limits and named console controls. Quoted diagnostic messages remain literal English so users can recognize them.
+
+Regression checks cover source tokens, continuation prompts, scopes, technical identifiers and quoted messages. Migration terminology remains descriptive and provisional. Browser checks were not run; the catalog still needs further language review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

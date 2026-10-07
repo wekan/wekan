@@ -248,3 +248,19 @@ test('Akan display and data controls preserve defaults, examples and feature sco
  assert.match(data['disable-notifications-description'],/amanneɛbɔ nkutoo/);
  for(const key of ['disable-import-avatars-description','disable-export-avatars-description']) assert.match(data[key],/mfonini nkutoo/);
 });
+
+test('Akan migration confirmations preserve scope, limits and diagnostic quotes', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["s3-secret-key-menu-path", "run-comprehensive-migration-confirm", "run-delete-duplicate-empty-lists-migration-confirm", "run-restore-lost-cards-migration-confirm", "run-restore-all-archived-migration-confirm", "run-fix-missing-lists-migration-confirm", "run-fix-avatar-urls-migration-confirm", "run-fix-all-file-urls-migration-confirm", "migration-cpu-threshold-description", "migration-warning-text", "username-too-short", "problems-in-progress-help"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ for(const key of keys.filter(k=>k.startsWith('run-'))) assert.ok(data[key].endsWith('Toa so?'),key);
+ for(const literal of ['Lost Cards','swimlaneId','listId']) assert.ok(data['run-restore-lost-cards-migration-confirm'].includes(literal));
+ assert.match(data['run-restore-lost-cards-migration-confirm'],/wɔmfa nkɔɔ adekorabea.*nkutoo/);
+ assert.match(data['run-restore-all-archived-migration-confirm'],/NYINAA.*ID.*Ɛnyɛ mmerɛw/);
+ assert.match(data['run-delete-duplicate-empty-lists-migration-confirm'],/asɛmti koro.*kura kaad.*nkutoo/);
+ assert.match(data['migration-cpu-threshold-description'],/CPU.*10-90/);
+ assert.match(data['username-too-short'],/3/);
+ for(const literal of ['Access key ID','Secret access key','Download .csv']) assert.ok(data['s3-secret-key-menu-path'].includes(literal));
+ for(const literal of ['Must be logged in','Loading, please wait']) assert.ok(data['problems-in-progress-help'].includes(literal));
+ assert.match(data['migration-warning-text'],/bɛtoa so wɔ akyi/);
+});
