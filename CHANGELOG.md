@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/989dfa33a68c012fbb93a9222693b5ae1c4ba14c">Translate Bhojpuri Blockly logic and comparisons</a></summary>
+
+- Fill 29 English placeholders for splitting/joining, Boolean values,
+  comparisons, negation and conditional expressions, preserving tokens.
+- Delimiter and Boolean terminology remains low confidence pending review.
+- All 47 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6191084788cfb2b65c3e0718d58aecd40d0c5a7b">Translate Bhojpuri list indexing and editing instructions</a></summary>
 
 - Fill 32 English placeholders for indexing, length, repetition, reversal,
