@@ -3654,6 +3654,14 @@ The [Wolof lexicon](https://jangawolof.org/2015/01/06/wolof-lexicon/) supplies k
 
 Extended the regression and map browser scenario to all five paths. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Placeholder and coverage checks do not establish fluency.
 
+## Map view: Buryat, Chuvash and Sakha - 2026-10-07
+
+Filled seven English placeholders in each of `bua`, `cv` and `sah` (21 values) through the protected fill workflow. The examples and both placement methods are retained. The seven keys remain English in 25 locale paths and stay in the pending queue; the broader backlog remains 51,575 ordinary placeholders across 70 languages plus 160 pending source keys.
+
+The [Buryat language resource](https://buryadxelen.com/backend/web/burlang/ajax/info?id=2921) uses the geographical-map phrase, and the [Sakha dictionary entry](https://glosbe.com/nl/sah/landkaart) supports the map noun. The Chuvash search returned ambiguous card-related dictionary material rather than verification of the drafted technical sentences. Floor-plan wording and the longer clauses remain provisional, particularly Chuvash, and need speaker review. A Latin lookalike in the Buryat draft was removed before application.
+
+Extended the regression and browser scenario to these three locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Exact placeholder preservation and text coverage do not establish fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
