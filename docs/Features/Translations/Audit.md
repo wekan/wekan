@@ -5433,6 +5433,15 @@ provisional; browser rendering and fluent-speaker review have not been performed
 Source-token and operation/limit regression checks accompany these corrections.
 These were mixed-language values, so the English-placeholder count is unchanged.
 
+## Akan migration and deletion corrections (batch 30)
+
+Corrected 30 mixed-English messages for migrations, storage settings, sign-in,
+account enrollment, deletion confirmations and card dates/membership. Preserved
+S3, millisecond bounds, email paragraphs/tokens, permanent deletion and distinct
+pause/stop/resume operations. Added source-token and behavior-wording checks.
+Technical terminology remains low confidence pending fluent-speaker review;
+browser checks have not been run. English-placeholder counts are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

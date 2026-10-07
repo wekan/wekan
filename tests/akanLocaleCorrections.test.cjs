@@ -499,3 +499,23 @@ test('Akan input and scheduled-job errors preserve limits and distinct operation
  assert.match(data['cron-job-resume-failed'],/ansan antoa.*so/);
  assert.match(data['accounts-lockout-locked-users-info'],/seesei.*mpɛn pii.*wɔantumi/);
 });
+
+
+test('Akan migration and deletion messages preserve failure states and confirmation targets', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["cron-no-failed-migrations", "cron-migrations-retried", "cloud-settings-saved", "cloud-settings-save-failed", "migration-pause-failed", "migration-start-failed", "migration-stop-failed", "s3-settings-save-failed", "s3-settings-saved", "migration-delay-ms-description", "migration-resume-failed", "monitoring-refresh-failed", "invalid-credentials", "account-creation-failed", "import-scoped-failed", "activity-startDate", "allboards.delete-workspace-confirm", "card_members", "card_assignees", "delete-avatar-confirm", "comment-delete", "confirm-subtask-delete-popup", "confirm-checklist-delete-popup", "confirm-checklist-item-delete-popup", "enable-permanent-delete", "editCardStartDatePopup-title", "email-enrollAccount-text", "export-card-field-dates", "custom-private-desc-placeholder", "custom-public-desc-placeholder"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ for(const kind of ['pause','start','stop','resume']) assert.match(data['migration-'+kind+'-failed'],/^Wɔantumi/);
+ assert.equal(new Set(['pause','start','stop','resume'].map(k=>data['migration-'+k+'-failed'])).size,4);
+ assert.match(data['migration-delay-ms-description'],/sekan nkyem apem.*100-10000/);
+ for(const key of ['s3-settings-saved','s3-settings-save-failed']) assert.match(data[key],/S3/);
+ assert.match(data['cloud-settings-saved'],/^Wɔasie/);
+ assert.match(data['cloud-settings-save-failed'],/^Wɔantumi ansie/);
+ for(const key of ['allboards.delete-workspace-confirm','delete-avatar-confirm','comment-delete','confirm-subtask-delete-popup','confirm-checklist-delete-popup','confirm-checklist-item-delete-popup']) assert.match(data[key],/^Wugye di.*wopopa.*\?$/);
+ assert.notEqual(data['confirm-checklist-delete-popup'],data['confirm-checklist-item-delete-popup']);
+ assert.match(data['enable-permanent-delete'],/sohwɛfo panyin.*korakora/);
+ assert.equal(data['email-enrollAccount-text'].split('\n\n').length,english['email-enrollAccount-text'].split('\n\n').length);
+ assert.notEqual(data['card_members'],data['card_assignees']);
+ assert.match(data['custom-private-desc-placeholder'],/hɔ kwa.*kokoam/);
+ assert.match(data['custom-public-desc-placeholder'],/hɔ kwa.*baguam/);
+});
