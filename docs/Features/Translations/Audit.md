@@ -6005,6 +6005,20 @@ Planning Poker remain method names. Technical compounds for snapshots,
 retrospectives, increments and scope remain low confidence pending fluent-speaker
 review. The remaining Blockly and all-language wording audit stays open.
 
+## Northern Sotho Blockly text operations — 2026-10-07
+
+Filled 55 English placeholders without changing existing translations. Tests
+cover all text-operation tokens, indexing and missing-text results, empty text,
+lengths including spaces, replacement of every occurrence, case conversion,
+trim direction and numeric versus text prompts. Replacement wording puts the
+replacement argument before the original, retaining their numbered identities.
+Help URLs, numeric hues and source-empty suffixes remain unchanged.
+
+All 49 focused translation/structural tests and 21 human-preference checks pass.
+Browser checks were not run. Programming vocabulary for variables, indexes,
+substrings and case conversion remains low confidence pending fluent-speaker
+review. The remaining language and wording audit stays open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
