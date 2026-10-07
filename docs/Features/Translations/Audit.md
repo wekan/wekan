@@ -7225,6 +7225,15 @@ append direction and not-found results, and check spaces in length calculations.
 Case-conversion and substring terminology remains low confidence pending fluent
 review. Browser and screen-reader checks were not run.
 
+### Kurdish Blockly replacement, variables and workspace messages
+
+Filled 36 English placeholders for text replacement/trimming, variable controls,
+workspace descriptions and search navigation. Existing translations are preserved.
+Tests verify source tokens, key order, replacement direction, all-occurrence scope,
+copy semantics, leading separator spaces and literal keyboard combinations.
+Workspace-stack and search-focus terminology remains low confidence pending fluent
+review. Browser and screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
