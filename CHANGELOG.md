@@ -1890,6 +1890,15 @@ This release updates the following translations:
 **Activity notifications** - choosing which card activity sends notifications.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/663833ed9a8429533c183aa47339649bc1cdb7f4">Translate board visibility in four further locales</a>. Thanks to xet7.</summary>
+
+- Fill 12 English values in Buryat, Chuvash, Sakha and Northern Sámi. Preserve viewing and editing distinctions and confirmation emphasis; record terminology references and lower-confidence grammar for fluent-speaker review.
+- Extend the existing source-order, token, markup and rendered-emphasis regression. Translation and permission checks pass; the browser suite was syntax-checked only because the application stack is unavailable.
+- These three keys remain English in 20 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys, with language-quality review open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1b9c99d97d5cc0707c15a813bd0bee15d45e0c06">Translate board visibility in six further locales</a>. Thanks to xet7.</summary>
 
 - Fill 18 English values in Acehnese, Bambara, Ewe, Fulah, Fijian and Tongan, preserving the viewing/editing distinction and confirmation emphasis. The audit records lower-confidence login terminology and grammar for fluent-speaker review.
