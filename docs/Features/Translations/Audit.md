@@ -805,6 +805,26 @@ people-category distinctions and the reminder/mention exception pass, together
 with all-locale structure and human-preference checks. The browser mute/unmute
 scenario includes Acehnese and is syntax-checked only; it was not executed.
 
+## Tibetan notification preferences — 2026-10-07
+
+Filled 13 English placeholders in Tibetan (`bo`), preserving existing
+translations. These keys remain pending elsewhere; the standard backlog
+remains 51,575 values and 201 pending source keys.
+
+Existing catalog terms supply card/list/category vocabulary. Reminder
+terminology was checked against the
+[English–Tibetan dictionary](https://linguatools.info/?l=%E0%BD%91&lang=tib&page=11&per_page=10&prefix=1&st=1),
+and notice vocabulary is also used by the
+[Central Institute of Higher Tibetan Studies](https://cihts.ac.in/ti/admission-notification/).
+These are direct translations without a translation service. Full technical
+clauses, custom-field and lane terminology remain provisional pending speaker
+review. Tibetan script alone does not establish translation quality.
+
+Shared notification coverage now includes 49 locales. Exact tokens, source
+order, distinct people categories and the reminder/mention exception pass,
+together with all-locale structure and human-preference checks. The Tibetan
+browser mute/unmute scenario is syntax-checked only; it was not executed.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
