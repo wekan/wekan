@@ -2361,6 +2361,26 @@ not run; the app stack was unavailable. 30 locale paths still need this group.
 The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
 broader language-quality review remains open.
 
+### Rule-builder instructions — Luganda and Wolof (2026-10-07)
+
+Filled seven pending strings in lg and wo (14 values), preserving existing
+correct-language translations and all literal variable expressions. No translation
+service was used. Replaced Luganda's English trigger label with Ekitandika etteeka;
+regression checks reject the old parenthetical English form.
+The text retains any-trigger behavior, ordered actions, username/email context and
+card-derived variables. Technical prose has lower confidence; recipient fields,
+variable values, noun agreement and composed date fragments need native/UI review.
+References: the [English–Luganda glossary](https://www.luganda.com/wp-content/uploads/2021/09/An_English-Luganda_Glossary_of_Basic_Scientific_Terms1-combined-document-2.pdf)
+for etteeka and the [Wolof dictionary](https://wolofresources.org/language/download/wollof.pdf)
+for lim. These references support vocabulary, not full-sentence accuracy.
+
+The existing trigger-variable suite now checks 38 recently filled locales for
+source order and exact brace/underscore/percent tokens. Runtime matching,
+all-locale structural and human-preference checks pass. Browser scenarios were
+not run; the app stack was unavailable. 28 locale paths still need this group.
+The snapshot remains 51,575 ordinary missing values plus 181 pending keys;
+broader language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
