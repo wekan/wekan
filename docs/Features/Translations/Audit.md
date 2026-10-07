@@ -3790,6 +3790,14 @@ The [University of Hawaii dictionary](https://wehe.hilo.hawaii.edu/?q=parent) su
 
 Extended locale and browser coverage to these seven locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in 37 locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
 
+## Multiple-parent controls: eastern and western African locales - 2026-10-07
+
+Filled three English placeholders in each of `om`, `rw`, `rn`, `lg`, `wo`, `ak`, `ee` and `bm` (24 values) through the protected fill workflow. The removal labels describe ending a relationship, not deleting a card. Existing English filler in Luganda and generic Akan text were not used as evidence of task terminology.
+
+The [Bambara lexicon](https://mooreburkina.com/sites/www.mooreburkina.com/files/pdf-files/Bambara%20Lexique.pdf) supports baara as task/work vocabulary, while [Basic Ewe](https://philtypo3.uni-koeln.de/sites/inst_afrika/pdf/BASIC_EWE_2nd_ed.pdf) provides task and parent vocabulary. These references do not validate the complete software phrases. Parent metaphors, agreement and word order remain provisional, particularly Luganda, Akan, Ewe and Bambara, and require language review.
+
+Extended locale and browser coverage to all eight locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. These controls remain English in 29 locale paths and stay pending; the broader backlog remains 51,575 ordinary untranslated values across 70 languages plus 153 pending source keys.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
