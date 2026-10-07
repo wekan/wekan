@@ -1954,3 +1954,49 @@ test('Tok Pisin loading and maintenance help retains operational limits',()=>{
  assert.match(data['migration-info-text'],/wanpela taim.*go het long baksait maski yu pasim brausa/);
  assert.match(data['problems-in-progress-help'],/wok i pinis na yus bilong CPU i go daun/);
 });
+
+
+test('Tok Pisin policy and scheduling messages preserve tokens without mixed English',()=>{
+ const keys=[
+  "error-board-notAdmin",
+  "error-board-notAMember",
+  "trello-api-import-desc",
+  "smtp-host-description",
+  "error-ldap-login",
+  "act-a-dueAt",
+  "submit-on-enter-description",
+  "accounts-lockout-locked-users-info",
+  "accounts-lockout-user-unlocked",
+  "board-archive-scheduled",
+  "board-backup-scheduled",
+  "board-cleanup-scheduled",
+  "cron-job-deleted",
+  "cron-errors-cleared",
+  "cron-migrations-retried",
+  "disable-all-import-description",
+  "disable-all-export-description",
+  "disable-import-avatars-description"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:need|handles|occurred|When|Where|Modified|pressing|currently|unlocked|scheduled|successfully|features|rejects|Names)\b/,key);
+ }
+});
+
+test('Tok Pisin editing shortcuts and import restrictions retain their conditions',()=>{
+ const enter=data['submit-on-enter-description'];
+ for(const literal of ['Enter','Shift+Enter','Ctrl/Cmd+Enter']) assert.ok(enter.includes(literal),literal);
+ assert.match(enter,/Sapos dispela i wok.*Shift\+Enter.*nupela lain.*Sapos dispela i no wok.*Ctrl\/Cmd\+Enter i seivim/);
+ assert.match(data['error-board-notAdmin'],/mas stap admin/);
+ assert.match(data['error-board-notAMember'],/mas stap memba/);
+ for(const direction of ['import','export']){
+  const value=data['disable-all-'+direction+'-description'];
+  for(const literal of ['WeKan JSON','Kanboard','NextCloud Deck','OpenProject','GitHub','GitLab','Gitea','Forgejo']) assert.ok(value.includes(literal),literal);
+  assert.match(value,/menyu i hait na server i no orait.*i no wok long stat/);
+ }
+ assert.match(data['disable-all-import-description'],/mekim kopi bilong bot tu/);
+ assert.match(data['disable-all-export-description'],/wanpela fail i pas/);
+ assert.match(data['disable-import-avatars-description'],/LDAP, OIDC\/OAuth2.*nem na arapela data i kam insait yet.*tasol/);
+ assert.match(data['act-a-dueAt'],/__timeValue__\nPles: __card__\n.*bipo.*__timeOldValue__/);
+});
