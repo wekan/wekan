@@ -5171,6 +5171,12 @@ mixed-language audit remains open.
 - Kept dividend/divisor, start/end, first/second, maximum/minimum, split/join and copy/cut distinctions. Added per-key token checks and input-role/navigation assertions.
 - Mathematical input roles and keyboard terminology use descriptive, provisional wording requiring contextual review. Browser and spoken accessibility checks were not run.
 
+### Akan Blockly list creation and retrieval
+
+- Filled 46 English placeholders through the protected workflow, covering list creation, get/remove variants, sublists, search, length, repetition and reversal. Preserved numbered arguments and position markers.
+- Kept return-only, remove-only and remove-and-return behavior distinct for first, last, indexed and random items. Added those checks plus not-found sentinel and copy/reversal assertions.
+- List and sublist wording is descriptive and provisional; contextual language and accessibility review remains open. Browser and spoken checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
