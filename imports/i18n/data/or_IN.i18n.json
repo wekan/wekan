@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "କଷ୍ଟମ୍ ହେଲପ୍ ଲିଙ୍କ୍ URL |",
   "text-below-custom-login-logo": "କଷ୍ଟମ୍ ଲଗଇନ୍ ଲୋଗୋ ତଳେ ପାଠ |",
   "automatic-linked-url-schemes": "କଷ୍ଟମ୍ URL ସ୍କିମ୍ ଯାହା ସ୍ୱୟଂଚାଳିତ ଭାବରେ କ୍ଲିକ୍ ହେବା ଉଚିତ | ପ୍ରତି ଧାଡିରେ ଗୋଟିଏ URL ସ୍କିମ୍ |",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "ଡିଫଲ୍ଟ ଭାବରେ ଖାଲି ଥାଏ, ତେଣୁ କେବଳ ୱେବ୍ ଓ ଇମେଲ୍ ଲିଙ୍କରେ କ୍ଲିକ୍ କରିହୁଏ। ତାଲିକାରେ ଥିବା ପ୍ରତ୍ୟେକ ଲିଙ୍କ ସ୍କିମ୍, ଯଥା thunderlink କିମ୍ବା onenote, ସେଥିପାଇଁ ପଞ୍ଜୀକୃତ ଆପ୍ଲିକେସନ୍ ଖୋଲେ। javascript, data, vbscript ଓ ସେହିଭଳି ସ୍କିମ୍‌ଗୁଡ଼ିକୁ କେବେବି କ୍ଲିକ୍ କରିହେବା ଲିଙ୍କରେ ପରିଣତ କରାଯାଏ ନାହିଁ।",
   "external-link-pattern": "ବାହ୍ୟ ସମସ୍ୟା ଟ୍ରାକରକୁ ସ୍ୱୟଂ-ଲିଙ୍କ",
   "external-link-pattern-description": "କାର୍ଡ ପାଠ୍ୟରେ ମିଳୁଥିବା \"#1234\" ପ୍ରକାରର ଟୋକନଗୁଡ଼ିକୁ ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଏକ ବାହ୍ୟ ସମସ୍ୟା ଟ୍ରାକର ସହିତ ଲିଙ୍କ କରେ। ଅକ୍ଷମ କରିବାକୁ ଯେକୌଣସି ଏକ କ୍ଷେତ୍ର ଖାଲି ଛାଡ଼ନ୍ତୁ।",
   "external-link-pattern-prefix": "ଟୋକନ ଉପସର୍ଗ",

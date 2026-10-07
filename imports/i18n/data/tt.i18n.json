@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "Өзел Йардым сылтамасы URL'си",
   "text-below-custom-login-logo": "Өзел Отурум ачма Логосунун алтындаки метин",
   "automatic-linked-url-schemes": "Отоматик олэзләк тыкланабилир олмасы герекен Өзел URL Шемалары. Сатыр башына бир URL Шемасы",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Килешү буенча буш, шуңа күрә веб һәм электрон почта сылтамаларына гына басып була. Исемлектәге һәр URL схемасы, мәсәлән, thunderlink яки onenote, аның өчен теркәлгән кушымтаны ача. javascript, data, vbscript һәм шуңа охшаш схемалар беркайчан да сылтамага әйләндерелми.",
   "external-link-pattern": "Читтән торган проблемаларны күзәтү системасына автоматик сылтама",
   "external-link-pattern-description": "Карточка тексты эчендә табылган \"#1234\" рәвешендәге тамгаларны читтән торган проблемаларны күзәтү системасына автоматик сылтый. Сүндерү өчен кырны буш калдырыгыз.",
   "external-link-pattern-prefix": "Тамга префиксы",

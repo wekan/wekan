@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "अनुकूलित सहायता लिंक URL",
   "text-below-custom-login-logo": "अनुकूलित लॉगिन लोगोक नीचाँ पाठ",
   "automatic-linked-url-schemes": "अनुकूलित URL स्कीम जे स्वतः क्लिक योग्य होबाक चाही। प्रत्येक पंक्तिमे एक URL स्कीम",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "मूल सेटिंगमे खाली रहैत अछि, तेँ केवल वेब आ ईमेलक लिंक पर क्लिक कएल जा सकैत अछि। सूचीमे देल प्रत्येक लिंक स्कीम, जेना thunderlink वा onenote, अपन लेल पंजीकृत ऐप खोलैत अछि। javascript, data, vbscript आ एहने स्कीम सभकेँ कहियो क्लिक करबाक योग्य लिंक नहि बनाओल जाइत अछि।",
   "external-link-pattern": "बाहरी समस्या ट्रैकर सँ स्वतः-लिंक",
   "external-link-pattern-description": "कार्ड टेक्स्टमे भेटैत \"#1234\" शैलीक टोकनकेँ स्वतः बाहरी समस्या ट्रैकरसँ जोड़ैत अछि। असक्षम करबाक लेल कोनो एकटा क्षेत्र खाली छोड़ू।",
   "external-link-pattern-prefix": "टोकन उपसर्ग",

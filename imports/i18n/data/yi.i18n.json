@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "מנהג הילף לינק URL",
   "text-below-custom-login-logo": "טעקסט אונטן מנהג לאָגין לאָגאָ",
   "automatic-linked-url-schemes": "מנהג URL סקימז וואָס זאָל זיין אויטאָמאַטיש קליקקאַבלע. איין URL סכעמע פּער שורה",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "לויט די אָריגינעלע באַשטעטיקונגען איז דאָס ליידיק, אַזוי אַז מע קען קליקן נאָר אויף וועב־ און בליצפּאָסט־לינקס. יעדע אויסגערעכנטע URL־סכעמע, למשל thunderlink אָדער onenote, עפֿנט די אַפּליקאַציע וואָס איז רעגיסטרירט פֿאַר איר. javascript, data, vbscript און ענלעכע סכעמעס ווערן קיינמאָל נישט פֿאַרוואַנדלט אין לינקס.",
   "external-link-pattern": "אויטאמאטישע פֿאַרבינדונג צו אַן אויסערן פּראָבלעם־טראַקער",
   "external-link-pattern-description": "פֿאַרבינדט אויטאמאטיש טאָקנס אין דעם סטיל \"#1234\" געפֿונען אין דעם טעקסט פֿון דער קאָרטע צו אַן אויסערן פּראָבלעם־טראַקער. לאָז איין פֿעלד ליידיק צו דעאַקטיווירן.",
   "external-link-pattern-prefix": "פרעפיקס פֿון טאָקן",

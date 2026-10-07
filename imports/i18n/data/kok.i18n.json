@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "सानुकूल मदत दुवो URL",
   "text-below-custom-login-logo": "सानुकूल प्रवेश लोगो सकयलो मजकूर",
   "automatic-linked-url-schemes": "आपोआप क्लिक करपायोग्य आसपाच्यो सानुकूल URL पद्दती. दरेक वळेर एक URL पद्दत",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "मूळ मांडावळींत रिकामें आसता, देखून फकत वेब आनी ईमेल दुव्यांचेर क्लिक करूं येता. वळेरींतली दरेक दुव्याची योजना, देखीक thunderlink वा onenote, ताचे खातीर नोंद केल्लें ॲप्लिकेशन उगडटा. javascript, data, vbscript आनी तशेंच हेर योजनांक केन्नाच क्लिक करपाचे दुवे करिनात.",
   "external-link-pattern": "भायल्या इश्यू ट्रॅकरा कडेन स्वयं-लिंक",
   "external-link-pattern-description": "कार्ड मजकुरांत मेळपी \"#1234\" प्रकारच्या टोकनांक स्वयंचलितपणान भायल्या इश्यू ट्रॅकराशी जोडटा. असक्षम करपाक खंयचोय एक क्षेत्र रिकामो सोडात.",
   "external-link-pattern-prefix": "टोकन उपसर्ग",

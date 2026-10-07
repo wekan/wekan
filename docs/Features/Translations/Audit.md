@@ -2930,6 +2930,25 @@ Browser scenarios were syntax-checked but not run without the application stack.
 The ordinary backlog remains 51,575 values across 70 languages, plus 172 pending
 source keys. Broader wrong-language and low-confidence review remains open.
 
+### Custom URL scheme hint — first remaining batch (2026-10-07)
+
+Filled the Admin Panel hint in ary, ckb, ku, bho, mai, or_IN, kok, tk_TM, tt
+and yi (ten values), preserving existing translations with the placeholder-only
+merge. No translation service was used. The hint retains the empty default,
+web/mail-only behavior, registered-application handling and the categorical
+exclusion of javascript, data and vbscript schemes.
+
+The allowlist suite now verifies these ten translations, source key order,
+underscore/percent placeholders and all five exact scheme identifiers. A negative
+assertion rejects an omitted scheme identifier. Existing parser, sanitizer and
+wiring tests, all-locale structure and 21 human-preference checks pass. The browser
+suite was syntax-checked but not run because the app stack is unavailable.
+
+Technical wording, particularly Konkani, Maithili and Turkmen, has lower confidence
+and remains open for native/UI review. Fifty-six locale paths still need this hint,
+so its source key remains pending. The ordinary backlog remains 51,575 values plus
+172 pending source keys; broader language-quality work remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

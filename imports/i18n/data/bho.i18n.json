@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "मनपसंद मदद कड़ी URL",
   "text-below-custom-login-logo": "मनपसंद लॉग इन लोगो के नीचे लिखाई",
   "automatic-linked-url-schemes": "मनपसंद URL योजना जे अपने-आप क्लिक करे लायक होखे। हर पाँति में एगो URL योजना",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "डिफॉल्ट रूप से खाली बा, एहसे खाली वेब आ ईमेल के लिंक पर क्लिक कइल जा सकेला। सूची में दिहल हर लिंक स्कीम, जइसे thunderlink भा onenote, अपना खातिर पंजीकृत ऐप खोलेला। javascript, data, vbscript आ एह तरह के स्कीम के कबो क्लिक करे लायक लिंक ना बनावल जाला।",
   "external-link-pattern": "बाहरी इश्यू ट्रैकर से खुदे-खुद लिंक",
   "external-link-pattern-description": "कार्ड के टेक्स में मिले \"#1234\" वाला टोकन के खुदे-खुद बाहरी इश्यू ट्रैकर से जोड़ देला। बंद करे खातिर कवनो एक फील्ड खाली छोड़ीं।",
   "external-link-pattern-prefix": "टोकन के उपसर्ग",

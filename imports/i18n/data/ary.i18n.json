@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "رابط صفحة المساعدة المخصص URL",
   "text-below-custom-login-logo": "متن پایین لوگوی سفارشی در فرم لاگین",
   "automatic-linked-url-schemes": "مخططات URL المخصصة التي يجب أن تكون قابلة للنقر تلقائياً. مخطط URL واحد لكل سطر",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "كتكون خاوية فالإعدادات الأصلية، وداكشي علاش غير روابط الويب والإيميل اللي كتقدر تكليكي عليها. كل نوع رابط فاللائحة، بحال thunderlink ولا onenote، كيفتح التطبيق المسجل ديالو. javascript وdata وvbscript والأنواع المشابهة ما كيتحوّلوش لروابط نهائياً.",
   "external-link-pattern": "الربط التلقائي بمتتبع مشاكل خارجي",
   "external-link-pattern-description": "يربط تلقائيًا الرموز من نوع \"#1234\" الموجودة في نص البطاقة بمتتبع مشاكل خارجي. اترك أحد الحقلين فارغًا لتعطيل هذه الميزة.",
   "external-link-pattern-prefix": "بادئة الرمز",

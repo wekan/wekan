@@ -1052,7 +1052,7 @@
   "custom-help-link-url": "Helpörite kömek baglanyşygy URL",
   "text-below-custom-login-logo": "Customörite giriş logotipiniň aşagyndaky tekst",
   "automatic-linked-url-schemes": "Awtomatiki basyp bolýan URLörite URL shemalary. Her setirde bir URL shemasy",
-  "automatic-linked-url-schemes-hint": "Empty by default, so only web and mail links are clickable. Each listed scheme, for example thunderlink or onenote, opens the application registered for it. javascript, data, vbscript and similar schemes are never linked.",
+  "automatic-linked-url-schemes-hint": "Deslapdan boş bolýar, şonuň üçin diňe web we e-poçta baglanyşyklaryna basyp bolýar. Sanawdaky her bir URL shemasy, mysal üçin thunderlink ýa-da onenote, onuň üçin bellige alnan programmany açýar. javascript, data, vbscript we şular ýaly shemalar hiç haçan baglanyşyga öwrülmeýär.",
   "external-link-pattern": "Daşky mesele yzarlaýja awtomatik baglanyşyk",
   "external-link-pattern-description": "Kartanyň tekstinde tapylan \"#1234\" görnüşli nyşanlary daşky mesele yzarlaýja awtomatik baglanyşdyrýar. Öçürmek üçin islendik meýdany boş goýuň.",
   "external-link-pattern-prefix": "Nyşan öňi",
