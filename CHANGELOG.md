@@ -2076,6 +2076,18 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/fdee0c6fb3ad4a91091f2bd612ae4fbf0ba018d0">Correct 20 mixed-language Akan account and repair-result messages.</a></summary>
+
+- Rewrite account errors, partial repair results, import controls and flow-history labels. Preserve count placeholders, file extensions and card-number query syntax.
+- Add source-token, partial-outcome, scope and exact-example checks. Flow-history and repair wording remains provisional.
+- English placeholders remain 45,599 across 70 languages because these corrections replace mixed-language values. The broader language audit continues.
+- Validation: 70 focused translation/parser tests and 21 human-preference checks pass. Browser checks were not run.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/72333e3bd233207371a51ecf628a855997a389c4">Correct 16 mixed-language Akan backup and migration messages.</a></summary>
 
 - Rewrite transfer/anonymization labels and backup/migration descriptions. Preserve organization ownership, excluded data and duplicate-list deletion conditions.
