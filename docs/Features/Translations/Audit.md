@@ -3270,6 +3270,12 @@ References include the [Veps dictionary inventory](https://kaikki.org/dictionary
 
 Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in seven locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
 
+### Signed-in board visibility: Greenlandic
+
+Filled three English placeholders in `kl`. The direct draft preserves viewing by signed-in users, anonymous exclusion, board-member editing and confirmation emphasis. The fill utility protected existing translations; no translation service was used. Login wording follows the `atuisutut`/`iser-` constructions in [MitID's Greenlandic guidance](https://www.mitid.dk/kl-gl/ikiortigit/hjaelpeuniversimi/mitid-mi-isumannaallisaanerit-pillugit-ilitsersuutit/). The board noun `allattarfik` is attested by the [Oqaasileriffik/University of Chicago dictionary](https://daka.gl/2018-kal-eng/). The existing `board` value `Ilisarnaat` needs a separate terminology review; it was not overwritten in this placeholder fill. Technical phrasing and inflection remain lower-confidence and need fluent-speaker review.
+
+Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three source keys remains English in six locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
