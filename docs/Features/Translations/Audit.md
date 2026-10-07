@@ -6419,6 +6419,12 @@ Translated 33 Blockly loop and conditional messages, including seven short label
 
 Validation: 50 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. Remaining inventory: 43,207 English placeholders across 70 languages, with 149 source keys pending review.
 
+## Tok Pisin list operations
+
+Translated 75 Blockly list messages, including two short labels excluded by the placeholder counter. Preserved source placeholders, index directions, empty-list behavior, copy semantics, sorting and split/join behavior. Tests distinguish fetching, removing and fetching with removal, as well as insertion and replacement. Existing correct-language values remain unchanged. Technical wording, including random selection, remains provisional pending fluent-speaker review; browser and screen-reader checks were not run.
+
+Validation: 52 tests passed; two existing catalog-wide tests still fail because catalogs lack `shortcut-edit-due-date`. Human-preference checks: 21 passed. Remaining inventory: 43,134 English placeholders across 70 languages, with 149 source keys pending review.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -80,3 +80,35 @@ test('Tok Pisin loop controls preserve branch conditions, loop exits and source 
  assert.match(data['blockly-CONTROLS_FOR_TITLE'],/%1.*%2.*%3.*%4/);
  assert.notEqual(data['blockly-CONTROLS_IF_MSG_IF'],data['blockly-CONTROLS_IF_MSG_ELSE']);
 });
+
+test('Tok Pisin list messages preserve source tokens, indexing and empty results',()=>{
+ for(const key of Object.keys(english).filter(k=>k.startsWith('blockly-LISTS_'))){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  if(english[key]&&!key.endsWith('_HELPURL')&&!key.endsWith('_HUE')&&english[key]!=='#') assert.notEqual(data[key],english[key],key);
+ }
+ assert.equal(data['blockly-LISTS_GET_INDEX_FROM_START'],'#');
+ assert.match(data['blockly-LISTS_CREATE_EMPTY_TOOLTIP'],/longpela 0.*no gat/);
+ assert.match(data['blockly-LISTS_ISEMPTY_TOOLTIP'],/tru sapos lis i no gat samting/);
+ assert.match(data['blockly-LISTS_INDEX_OF_TOOLTIP'],/fes\/las.*%1 sapos i no painim/);
+ assert.match(data['blockly-LISTS_INDEX_FROM_END_TOOLTIP'],/%1.*las/);
+ assert.match(data['blockly-LISTS_INDEX_FROM_START_TOOLTIP'],/%1.*fes/);
+ for(const pos of ['FIRST','FROM','LAST','RANDOM']){
+  assert.match(data['blockly-LISTS_GET_INDEX_TOOLTIP_GET_'+pos],/^Givim bek/);
+  assert.doesNotMatch(data['blockly-LISTS_GET_INDEX_TOOLTIP_GET_'+pos],/Rausim/);
+  assert.match(data['blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_'+pos],/^Rausim na givim bek/);
+  assert.match(data['blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_'+pos],/^Rausim/);
+  assert.doesNotMatch(data['blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_'+pos],/givim bek/);
+  assert.match(data['blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_'+pos],/^Putim/);
+  assert.match(data['blockly-LISTS_SET_INDEX_TOOLTIP_SET_'+pos],/^Senisim/);
+ }
+});
+
+test('Tok Pisin list transformations distinguish copies, sorting and split versus join',()=>{
+ for(const suffix of ['REVERSE_TOOLTIP','SORT_TOOLTIP','GET_SUBLIST_TOOLTIP']) assert.match(data['blockly-LISTS_'+suffix],/kopi/);
+ assert.match(data['blockly-LISTS_SORT_ORDER_ASCENDING'],/liklik.*bikpela/);
+ assert.match(data['blockly-LISTS_SORT_ORDER_DESCENDING'],/bikpela.*liklik/);
+ assert.match(data['blockly-LISTS_SORT_TYPE_IGNORECASE'],/no ken skelim bikpela na liklik leta/);
+ assert.match(data['blockly-LISTS_SPLIT_TOOLTIP_JOIN'],/^Joinim.*wanpela teks/);
+ assert.match(data['blockly-LISTS_SPLIT_TOOLTIP_SPLIT'],/^Brukim teks.*lis.*wan wan mak/);
+ assert.match(data['blockly-LISTS_REPEAT_TITLE'],/%1.*%2 taim/);
+});
