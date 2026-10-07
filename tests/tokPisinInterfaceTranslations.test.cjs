@@ -1748,3 +1748,47 @@ test('Tok Pisin access help retains permission limits and literal import identif
  assert.match(data['pastdue'],/lus pinis$/);
  assert.match(data['duenow'],/em tude$/);
 });
+
+
+test('Tok Pisin status and reporting messages preserve tokens and replace mixed English',()=>{
+ const keys=[
+  "set-color-list",
+  "set-wip-limit-value",
+  "setCardColorPopup-title",
+  "setSelectionColorPopup-title",
+  "dueCards-noResults-description",
+  "set-as-active",
+  "background-too-big",
+  "now-activities-of-all-boards-are-hidden",
+  "office-report-desc",
+  "office-no-results",
+  "api-report-desc",
+  "api-no-calls",
+  "recovery-no-events",
+  "default-save-storage-description",
+  "if-you-already-have-an-account",
+  "translation-number",
+  "support-info-not-added-yet",
+  "support-info-only-for-logged-in-users",
+  "accessibility-info-not-added-yet",
+  "accounts-lockout-info",
+  "accounts-lockout-no-locked-users",
+  "accounts-lockout-user-locked"
+];
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  assert.notEqual(data[key],english[key],key);
+  assert.doesNotMatch(data[key],/\b(?:Set|Show|Choose|Background|Maximum|Now|Where|Each|Nobody|Which|There|Number|Support|Accessibility|logged|recorded|locked)\b/,key);
+ }
+});
+
+test('Tok Pisin report descriptions retain scope, limits and configuration syntax',()=>{
+ assert.deepEqual(data['background-too-big'].match(/{{[^}]+}}/g),english['background-too-big'].match(/{{[^}]+}}/g));
+ assert.match(data['office-report-desc'],/wanwan manmeri.*IPv4 o IPv6.*sapos dispela save i stap.*hamas taim/);
+ assert.match(data['api-report-desc'],/Wanpela lain bilong wanwan akaun na endpoint.*hap taim.*i no wanpela lain bilong wanwan rikwes/);
+ assert.match(data['api-no-calls'],/no gat rekot.*no wok sapos yu no setim WITH_API=true/);
+ assert.match(data['support-info-only-for-logged-in-users'],/go insait pinis tasol/);
+ assert.match(data['accounts-lockout-no-locked-users'],/no gat yusa i lok/);
+ assert.match(data['accounts-lockout-user-locked'],/^Yusa i lok$/);
+ assert.match(data['dueCards-noResults-description'],/no gat kat.*de bilong pinisim wok/);
+});

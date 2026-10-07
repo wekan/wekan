@@ -6670,6 +6670,18 @@ The English-placeholder report still counts 42,838 values across 70 languages;
 it excludes most mixed-language corrections. Browser and screen-reader checks
 were not run. The wider audit remains open.
 
+## Tok Pisin controls and reporting wording audit
+
+Corrected 22 mixed-language control, reporting, support and account-status
+messages. Checks preserve the image-size template token, API configuration
+literal, report aggregation scope, available location information and the
+difference between no locked accounts and a locked account. Technical wording
+remains provisional pending fluent-speaker review.
+
+The combined translation run passes 122 checks. Two existing catalog checks fail
+on the missing due-date shortcut key. All 21 human-preference checks pass.
+Browser and screen-reader checks were not run. The wider audit remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
