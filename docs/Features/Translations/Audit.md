@@ -1624,6 +1624,27 @@ browser scenarios were syntax-checked only because the app stack was unavailable
 14 locale paths still need this six-string group. The ordinary backlog remains
 51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
 
+### Due reminders — Quechua (2026-10-07)
+
+Filled six reminder strings in `qu`, following the existing Southern Quechua-style
+reminder and board terminology. Instructions retain comma-separated offsets,
+zero as the due day, positive days before and negative days after, the empty
+server-default setting, at most ten integers from -14 to 14, board disabling and
+outgoing webhook delivery. Only English placeholders were filled; no external
+translation service was used. Complete instructions and technical compounds remain
+low-confidence drafts for native review, including consistency across dialects.
+
+[Quechua Tinkuy's counting lesson](https://quechuatinkuy.coerll.utexas.edu/en/yachana-3/)
+attests `chunka` for ten. This supports the numeral, not the full instructions.
+Structural checks do not establish fluency.
+
+Translation checks now cover 53 locales, including offset direction, defaults,
+bounds and source-token inventories. The existing browser scenario includes
+Quechua. Translation, all-locale structural and human-preference checks pass;
+browser scenarios were syntax-checked only because the app stack was unavailable.
+13 locale paths still need this six-string group. The ordinary backlog remains
+51,575 values, plus 188 pending source keys. Wider language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
