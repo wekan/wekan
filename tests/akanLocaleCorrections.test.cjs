@@ -803,3 +803,23 @@ test('Akan cloud storage guidance preserves provider navigation and role names',
  assert.match(data['cards-loading-auto'],/nkutoo.*bɔɔd akɛse/);
  assert.equal(data['sandstorm-storage-item'],data.storage);
 });
+
+
+test('Akan repair and monitoring labels preserve repair scope and technical names', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["s3-secret-key-description", "s3-ssl-enabled-description", "schedule-board-archive", "attachment-monitoring", "attachment-storage-settings", "comprehensive-board-migration-description", "restore-all-archived-migration", "fix-missing-lists-migration-description", "fix-avatar-urls-migration-description", "converting-board-description", "cpu-cores", "export-monitoring", "filesystem-storage", "force-board-scan", "memory-usage", "refresh-monitoring", "storage-distribution", "available-repositories", "repositories", "repository", "repository-name", "no-repositories", "create-repository", "cpu-cores-suffix"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.match(data['s3-secret-key-description'],/AWS S3 kokoam safoa/);
+ assert.match(data['s3-ssl-enabled-description'],/SSL\/TLS.*S3/);
+ assert.match(data['comprehensive-board-migration-description'],/nnidiso nnidiso.*kaad gyinabea.*adwuma akwan/);
+ assert.match(data['fix-missing-lists-migration-description'],/ayera anaa asɛe/);
+ assert.match(data['fix-avatar-urls-migration-description'],/mufo mfonini URL.*akorabea.*asɛe/);
+ assert.match(data['converting-board-description'],/betumi agye bere kakra/);
+ assert.match(data['restore-all-archived-migration'],/nyinaa ba$/);
+ assert.match(data['schedule-board-archive'],/Hyɛ bere/);
+ assert.equal(data['cpu-cores'],'CPU '+data['cpu-cores-suffix']);
+ assert.match(data['no-repositories'],/^Wɔanhu.*biara$/);
+ for(const key of ['available-repositories','repository-name','create-repository']) assert.ok(data[key].toLowerCase().includes(data.repository.toLowerCase()));
+ assert.notEqual(data['export-monitoring'],data['refresh-monitoring']);
+ assert.equal(data['attachment-storage-settings'],data.storage+' nhyehyɛe');
+});

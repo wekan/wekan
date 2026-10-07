@@ -5572,6 +5572,15 @@ from the English source, not independently revalidated against live consoles.
 Technical wording remains low confidence; browser/fluent-speaker checks remain
 unrun. Product-only labels intentionally match English.
 
+## Akan repair and monitoring corrections (batch 45)
+
+Corrected 24 damaged or mixed-language repair, monitoring and repository labels.
+Preserved missing/corrupted alternatives, list/card/swimlane repair scope, possible
+conversion delay and AWS S3/SSL/TLS identifiers. Aligned repository terminology
+and CPU suffix. Added token, scope and terminology checks. Technical wording
+remains low confidence pending fluent-speaker review; browser checks remain
+unrun. English-placeholder counts are unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
