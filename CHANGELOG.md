@@ -2078,10 +2078,15 @@ uses the same word as `checklist` itself.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5d9498914d40ccbae1450b5bd5a7cca3dc02c5d4">Translate 39 Waray Blockly editing, color and control-flow messages.</a></summary>
 
-- Fill English placeholders while preserving numbered arguments and numeric ranges. Keep loop break/continue and conditional fallback meanings distinct; retain keyboard legends and product names.
-- Extend translation and control-flow regressions. Technical terminology remains provisional and contextual language review remains open.
-- English placeholders decrease from 46,995 to 46,956 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Fill English placeholders while preserving numbered arguments and numeric
+  ranges. Keep loop break/continue and conditional fallback meanings distinct;
+  retain keyboard legends and product names.
+- Extend translation and control-flow regressions. Technical terminology remains
+  provisional and contextual language review remains open.
+- English placeholders decrease from 46,995 to 46,956 across 70 languages, with
+  148 source keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2090,10 +2095,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/096fe6c6cb747848ef02e86877407bf120929618">Correct 31 Walloon values in Waray repair and import guidance.</a></summary>
 
-- Correct migration, repair, import/export, search, synchronization and forecast messages. Preserve count tokens, unsuccessful-repair meanings, search syntax, extensions and product names.
-- Extend regressions. The exact-Walloon vocabulary scan now has no candidates, but this heuristic does not establish complete or fluent Waray coverage; contextual review remains necessary.
-- English placeholders remain at 46,995 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Correct migration, repair, import/export, search, synchronization and forecast
+  messages. Preserve count tokens, unsuccessful-repair meanings, search syntax,
+  extensions and product names.
+- Extend regressions. The exact-Walloon vocabulary scan now has no candidates,
+  but this heuristic does not establish complete or fluent Waray coverage;
+  contextual review remains necessary.
+- English placeholders remain at 46,995 across 70 languages, with 148 source
+  keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2102,10 +2113,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/92db84756ca91a70b09fea35638338f8cc39cf0f">Correct 25 Walloon values in Waray storage and backup labels.</a></summary>
 
-- Correct storage, identifiers, board status, timing, checklist and backup labels. Preserve product names, organization-backup exclusions, restoration scope and the large-board lazy-loading restriction.
-- Extend product-name and scope checks; technical wording remains provisional and further language corrections remain necessary.
-- English placeholders remain at 46,995 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: 27 focused translation tests and 21 human-preference checks pass. Browser checks were not run.
+- Correct storage, identifiers, board status, timing, checklist and backup
+  labels. Preserve product names, organization-backup exclusions, restoration
+  scope and the large-board lazy-loading restriction.
+- Extend product-name and scope checks; technical wording remains provisional
+  and further language corrections remain necessary.
+- English placeholders remain at 46,995 across 70 languages, with 148 source
+  keys tracked separately for wording review.
+- Validation: 27 focused translation tests and 21 human-preference checks pass.
+  Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2114,10 +2130,15 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4dbef0cf0fe6381a10e0028fb1aa5cfbd1f40b84">Correct 20 Walloon values in Waray reporting and recovery labels.</a></summary>
 
-- Correct activity, security, login-location, API, recovery and history messages. Preserve configuration names and report aggregation, first/last and edited/moved distinctions.
-- Extend regressions and document provisional technical wording. Further Waray corrections and contextual language review remain necessary.
-- English placeholders remain at 46,995 across 70 languages; 148 source keys are tracked separately for wording review.
-- Validation: all 27 focused translation tests and 21 human-preference checks pass; the Blockly dependency is available again. Browser checks were not run.
+- Correct activity, security, login-location, API, recovery and history
+  messages. Preserve configuration names and report aggregation, first/last and
+  edited/moved distinctions.
+- Extend regressions and document provisional technical wording. Further Waray
+  corrections and contextual language review remain necessary.
+- English placeholders remain at 46,995 across 70 languages; 148 source keys are
+  tracked separately for wording review.
+- Validation: all 27 focused translation tests and 21 human-preference checks
+  pass; the Blockly dependency is available again. Browser checks were not run.
 
 Thanks to xet7 !
 
@@ -2126,10 +2147,17 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/98fb2bf52d82e72902c2581bedb942206e8fc239">Correct 25 Walloon values in Waray role and table-view labels.</a></summary>
 
-- Correct checklist sound, public/private defaults, role summaries, table toggles, search and layout labels. Preserve default-off and read-only meanings and each toggle's inverse action.
-- Extend operation and localized search-token checks. Technical wording remains provisional; further Waray corrections and contextual review remain open.
-- English placeholders remain at 46,995 across 70 languages, with 148 source keys tracked separately for wording review.
-- Validation: the Waray regression, all-234-locale completeness/token check and 21 human-preference checks pass. The broader Blockly suite could not start because node_modules/blockly/msg/en.js was missing. Browser checks were not run.
+- Correct checklist sound, public/private defaults, role summaries, table
+  toggles, search and layout labels. Preserve default-off and read-only meanings
+  and each toggle's inverse action.
+- Extend operation and localized search-token checks. Technical wording remains
+  provisional; further Waray corrections and contextual review remain open.
+- English placeholders remain at 46,995 across 70 languages, with 148 source
+  keys tracked separately for wording review.
+- Validation: the Waray regression, all-234-locale completeness/token check and
+  21 human-preference checks pass. The broader Blockly suite could not start
+  because node_modules/blockly/msg/en.js was missing. Browser checks were not
+  run.
 
 Thanks to xet7 !
 
@@ -2138,10 +2166,16 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c182b9ac42bacb82b99d00842f3423667a7f0a39">Correct 25 Walloon values in Waray login, rule and layout labels.</a></summary>
 
-- Correct rule, LDAP/OAuth, passwordless login and layout labels while preserving template variables and configuration names. Retain one-time-code, account-conflict and secret-visibility meanings.
-- Extend camel-case brace-token, configuration and login-state checks. Restore omitted mobile/desktop notification detail; contextual wording review remains necessary.
-- English placeholders remain at 46,995 across 70 languages; 148 pending source keys and further wrong-language corrections remain open.
-- Validation: 27 focused tests and 21 human-preference checks pass. Browser checks were not run.
+- Correct rule, LDAP/OAuth, passwordless login and layout labels while
+  preserving template variables and configuration names. Retain one-time-code,
+  account-conflict and secret-visibility meanings.
+- Extend camel-case brace-token, configuration and login-state checks. Restore
+  omitted mobile/desktop notification detail; contextual wording review remains
+  necessary.
+- English placeholders remain at 46,995 across 70 languages; 148 pending source
+  keys and further wrong-language corrections remain open.
+- Validation: 27 focused tests and 21 human-preference checks pass. Browser
+  checks were not run.
 
 Thanks to xet7 !
 

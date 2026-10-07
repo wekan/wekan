@@ -205,7 +205,8 @@ test('lines are wrapped at 80 columns, links excepted', () => {
   // Relative Markdown links, like absolute URLs, must remain intact. All other
   // prose is wrapped; do not let a growing allowance hide new formatting errors.
   assert.strictEqual(over.length, 0,
-    `${over.length} over-long lines without a link, e.g. line ${over[0] && over[0].line}`);
+    `${over.length} over-long lines without a link, e.g. line ${over[0] && over[0].line}` +
+    ' - run `node releases/changelog-wrap.mjs` to wrap them (whitespace only)');
 });
 
 test('the newest release follows the rules to the letter', () => {
