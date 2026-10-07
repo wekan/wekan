@@ -165,3 +165,24 @@ test('Somali Blockly workspace announcements preserve counts and keyboard naviga
  assert.match(data['blockly-WORKSPACE_SEARCH_MATCH'],/%1.*%2.*%3/);
  assert.match(data['blockly-PASTE_ALL_FROM_BACKPACK'],/dhammaan/);
 });
+
+test('Somali Blockly navigation preserves shortcuts, movement directions and acceptance',()=>{
+ const keys=Object.keys(english).filter(k=>k.startsWith('blockly-KEYBOARD_NAV_')||k.startsWith('blockly-SHORTCUTS_')||k==='blockly-MOVE_BLOCK');
+ for(const key of keys){
+  assert.notEqual(data[key],english[key],key);
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ }
+ const directions={UP:'Kor',DOWN:'Hoos',LEFT:'Bidix',RIGHT:'Midig'};
+ for(const [direction,word] of Object.entries(directions)){
+  for(const action of ['MOVE','SCROLL']) assert.ok(data['blockly-SHORTCUTS_'+action+'_'+direction].startsWith(word));
+  assert.notEqual(data['blockly-SHORTCUTS_MOVE_'+direction],data['blockly-SHORTCUTS_SCROLL_'+direction]);
+ }
+ assert.match(data['blockly-KEYBOARD_NAV_UNCONSTRAINED_MOVE_HINT'],/Hay %1.*xor ah.*%2.*aqbasho/);
+ assert.match(data['blockly-KEYBOARD_NAV_CONSTRAINED_MOVE_HINT'],/fallaadhaha.*%1.*aqbasho/);
+ assert.notEqual(data['blockly-KEYBOARD_NAV_COPIED_HINT'],data['blockly-KEYBOARD_NAV_CUT_HINT']);
+ assert.equal(new Set(['ABORT','FINISH','START'].map(s=>data['blockly-SHORTCUTS_'+s+'_MOVE'])).size,3);
+ assert.equal(data['blockly-SHORTCUTS_DUPLICATE'],data['blockly-DUPLICATE_BLOCK']);
+ assert.match(data['blockly-SHORTCUTS_TOGGLE_SCREENREADER_MODE'],/Daar ama dami/);
+ for(const suffix of ['HEADING','STACK']) assert.notEqual(data['blockly-SHORTCUTS_NEXT_'+suffix],data['blockly-SHORTCUTS_PREVIOUS_'+suffix]);
+ assert.notEqual(data['blockly-SHORTCUTS_JUMP_TOP_STACK'],data['blockly-SHORTCUTS_JUMP_BOTTOM_STACK']);
+});

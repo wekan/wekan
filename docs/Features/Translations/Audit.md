@@ -5885,6 +5885,20 @@ types, parameters, block stacks and focus remains low confidence pending
 fluent-speaker review. Remaining Blockly messages and the broader audit remain
 open.
 
+## Somali Blockly navigation and accessibility — 2026-10-07
+
+Filled 45 English placeholders for keyboard navigation and shortcut descriptions.
+Existing Somali translations are preserved. Tests retain shortcut placeholders,
+movement versus scrolling, four directions, start/finish/abort distinctions,
+next/previous headings and stacks, top/bottom targets and move acceptance.
+Duplicate controls share their existing label and screen-reader mode explicitly
+supports both enabling and disabling.
+
+All 61 focused translation/structural tests and 21 human-preference checks pass.
+Browser and screen-reader checks were not run. Wording for focus, block stacks,
+tooltips and spoken announcements remains low confidence pending fluent-speaker
+review. Remaining Blockly and all-language audit work stays open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
