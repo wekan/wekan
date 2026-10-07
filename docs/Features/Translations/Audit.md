@@ -3686,6 +3686,14 @@ References include the [Akan picture dictionary entry](https://www.akandictionar
 
 Extended regression and browser coverage to these three locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Coverage and token inventories do not establish fluency.
 
+## Map view: Quechua, Aymara and Guarani - 2026-10-07
+
+Filled seven English placeholders in each of `qu`, `ay` and `gn` (21 values) through the protected fill workflow. The map-image examples and both drag and select/click placement methods are retained. These seven keys remain English in 13 locale paths and stay in the pending queue; the broader backlog remains 51,575 ordinary placeholders across 70 languages plus 160 pending source keys.
+
+The [Guarani dictionary](https://guarani-raity.com.py/guarani_castellano_y.html) gives the map term. Quechua and Aymara dictionary searches located language resources but did not directly verify the drafted map compounds or technical clauses. The floor-plan examples, upload wording and longer sentences are provisional and need speaker review. Existing Quechua generic prefixed text elsewhere in the locale remains a separate cleanup item; it was not copied into these messages.
+
+Extended regression and browser coverage to these three locales. All 12 focused tests and 21 human-preference checks pass; browser syntax passes. Browser execution remains pending without Playwright and a running application. Coverage and placeholder preservation do not establish fluency.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
