@@ -5842,6 +5842,21 @@ Browser checks were not run. Programming vocabulary for indexing, delimiters
 and sorting remains low confidence pending fluent-speaker review. The broader
 language audit continues; placeholder counts alone omit some untranslated prose.
 
+## Somali Blockly logic and functions — 2026-10-07
+
+Translated 50 English values: 47 counted placeholders and three short labels
+(`or` and two function-definition `to` labels) excluded by the counter. The
+technical literal `null`, help URLs, numeric hues and empty suffixes remain
+unchanged. Existing Somali translations are preserved. Regression checks cover
+all logic and function messages, source tokens, strict versus inclusive
+comparisons, AND/OR and negation truth conditions, ternary label references,
+output versus no output, disabled definitions and duplicate parameters.
+
+All 56 focused translation/structural tests and 21 human-preference checks pass.
+Browser checks were not run. Function and parameter vocabulary remains
+low-confidence technical wording pending fluent-speaker review. This batch
+leaves the remaining Blockly and all-language audit work open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

@@ -73,3 +73,37 @@ test('Somali Blockly list sorting and conversion preserve copies and direction',
  assert.match(data['blockly-LISTS_SPLIT_TOOLTIP_SPLIT'],/meel kasta.*calaamadda kala soocdu/);
  for(const key of ['GET_INDEX','GET_SUBLIST','INDEX_OF','SET_INDEX']) assert.equal(data['blockly-LISTS_'+key+'_INPUT_IN_LIST'],data['blockly-LISTS_INLIST']);
 });
+
+test('Somali Blockly logic and functions retain placeholders and technical literals',()=>{
+ const keys=Object.keys(english).filter(k=>k.startsWith('blockly-LOGIC_')||k.startsWith('blockly-PROCEDURES_'));
+ for(const key of keys){
+  assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+  if(english[key] && !key.endsWith('_HELPURL') && !key.endsWith('_HUE') && key!=='blockly-LOGIC_NULL') assert.notEqual(data[key],english[key],key);
+ }
+ assert.equal(data['blockly-LOGIC_NULL'],'null');
+ assert.match(data['blockly-LOGIC_NULL_TOOLTIP'],/null/);
+ for(const suffix of ['COMMENT','PROCEDURE','TITLE']) assert.equal(data['blockly-PROCEDURES_DEFNORETURN_'+suffix],data['blockly-PROCEDURES_DEFRETURN_'+suffix]);
+ assert.equal(data['blockly-PROCEDURES_BEFORE_PARAMS'],data['blockly-PROCEDURES_CALL_BEFORE_PARAMS']);
+});
+
+test('Somali Blockly boolean operators preserve their truth conditions',()=>{
+ assert.equal(data['blockly-LOGIC_BOOLEAN_TRUE'],'run');
+ assert.equal(data['blockly-LOGIC_BOOLEAN_FALSE'],'been');
+ assert.match(data['blockly-LOGIC_OPERATION_TOOLTIP_AND'],/labada gelinba run/);
+ assert.match(data['blockly-LOGIC_OPERATION_TOOLTIP_OR'],/ugu yaraan mid/);
+ assert.match(data['blockly-LOGIC_NEGATE_TOOLTIP'],/run haddii gelintu been.*been haddii gelintu run/);
+ assert.equal(new Set(['EQ','NEQ','GT','GTE','LT','LTE'].map(s=>data['blockly-LOGIC_COMPARE_'+s+'_ARIA'])).size,6);
+ for(const s of ['GTE','LTE']) assert.match(data['blockly-LOGIC_COMPARE_TOOLTIP_'+s],/ama la mid/);
+ for(const s of ['GT','LT']) assert.doesNotMatch(data['blockly-LOGIC_COMPARE_TOOLTIP_'+s],/ama la mid/);
+ for(const s of ['CONDITION','IF_TRUE','IF_FALSE']) assert.ok(data['blockly-LOGIC_TERNARY_TOOLTIP'].includes("'"+data['blockly-LOGIC_TERNARY_'+s]+"'"));
+});
+
+test('Somali Blockly functions distinguish output, disabled definitions and duplicate inputs',()=>{
+ assert.match(data['blockly-PROCEDURES_DEFNORETURN_TOOLTIP'],/aan lahayn wax-soo-saar/);
+ assert.match(data['blockly-PROCEDURES_DEFRETURN_TOOLTIP'],/leh wax-soo-saar/);
+ assert.match(data['blockly-PROCEDURES_CALLRETURN_TOOLTIP'],/adeegso wax-soo-saarkeeda/);
+ assert.doesNotMatch(data['blockly-PROCEDURES_CALLNORETURN_TOOLTIP'],/wax-soo-saar/);
+ assert.match(data['blockly-PROCEDURES_CALL_DISABLED_DEF_WARNING'],/Lama fulin karo.*'%1'.*la damiyey/);
+ assert.match(data['blockly-PROCEDURES_DEF_DUPLICATE_WARNING'],/soo noqnoqda/);
+ assert.match(data['blockly-PROCEDURES_IFRETURN_WARNING'],/oo keliya gudaha qeexidda hawl/);
+});
