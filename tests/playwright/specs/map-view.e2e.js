@@ -7,8 +7,19 @@ const { loginWithToken, openBoard } = require('../helpers/auth');
 
 // Through the Board View menu, as a person switches views (it reloads the page).
 async function openMap(page) {
-  await page.locator('.js-toggle-board-view').first().click();
-  await page.locator('.pop-over .js-open-map-view').click();
+  // The language was switched just before: applying it re-renders the header,
+  // which can close the Board View popup between its two clicks (WebKit under
+  // a full run: a 15 s timeout on the map item). Open it again until the item
+  // is actually clicked.
+  for (let attempt = 0; ; attempt++) {
+    await page.locator('.js-toggle-board-view').first().click();
+    try {
+      await page.locator('.pop-over .js-open-map-view').click({ timeout: 5000 });
+      break;
+    } catch (error) {
+      if (attempt === 2) throw error;
+    }
+  }
   await expect(page.locator('.js-map-view')).toBeVisible({ timeout: 15000 });
 }
 
