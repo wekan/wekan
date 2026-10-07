@@ -3204,6 +3204,12 @@ Filled `instance`, `instance-desc` and `board-instance-info` in Bislama, Tok Pis
 
 Extended the existing translation regression. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three keys remains English in 38 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
 
+### Signed-in board visibility: Akan through Venetian
+
+Filled the three signed-in board visibility keys in Akan, Luganda, Wolof, Swati, Tsonga, Venda, Waray and Venetian: 24 English placeholders. Direct drafts preserve the signed-in viewing condition, the anonymous-viewing exclusion, the board-member editing restriction and confirmation emphasis. The fill utility protected existing translations; no translation service was used. Technical phrasing has lower confidence across this batch and needs fluent-speaker review, especially agreement and login terminology. Venda `vhashumisi` is attested in the [GCIS Tshivenda manual](https://www.gcis.gov.za/sites/default/files/GCIS%20PAIA%20Manual-%20Tshivenda%20Final.pdf); that terminology reference does not validate these complete sentences.
+
+Extended the existing translation regression to these eight locales. Seven board-visibility tests, five permission checks, all 234 locale structure/token checks and 21 human-preference checks pass. The browser suite was syntax-checked only; the application stack is unavailable. Each of the three keys remains English in 30 locales. The broader backlog remains 51,575 ordinary missing values and 171 pending source keys; language-quality review remains open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

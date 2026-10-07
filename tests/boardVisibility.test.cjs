@@ -75,7 +75,8 @@ test('instance visibility translations retain source tokens and confirmation emp
   const keys = ['instance', 'instance-desc', 'board-instance-info'];
   for (const code of ['ary', 'ckb', 'ku', 'bho', 'mai', 'or_IN', 'kok', 'tk_TM', 'tt', 'yi',
     'so', 'om', 'rw', 'rn', 'ny', 'st', 'tn', 'nso', 'zu', 'zu-ZA',
-    'bi', 'tpi', 'mi', 'sm', 'haw', 'pap', 'xh', 'nd']) {
+    'bi', 'tpi', 'mi', 'sm', 'haw', 'pap', 'xh', 'nd',
+    'ak', 'lg', 'wo', 'ss', 'ts', 've', 'wa-RR', 've-CC']) {
     const locale = readLocale(code);
     assert.deepStrictEqual(Object.keys(locale), Object.keys(en), `${code}: source order`);
     for (const key of keys) {
