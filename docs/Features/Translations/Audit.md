@@ -5515,6 +5515,15 @@ placeholders. Added token, target and terminology checks. Wording remains
 provisional pending fluent-speaker review. Browser checks remain unrun;
 English-placeholder counts are unchanged.
 
+## Akan import and invitation corrections (batch 39)
+
+Corrected 28 mixed-language or damaged values for imports, invitations, archive
+empty states, shortcuts and card controls. Restored the OpenProject product name
+and GET /api/v3/work_packages endpoint. Preserved invitation paragraphs/tokens,
+linked-card restrictions, numeric shortcuts and strict count threshold wording.
+Added token, endpoint and behavior checks. Wording remains low confidence pending
+fluent-speaker review; browser checks remain unrun. Placeholder counts unchanged.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

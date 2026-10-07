@@ -685,3 +685,22 @@ test('Akan archive and color labels preserve targets and activity tokens', async
  assert.match(data['vote-for-it'],/gye tom/);
  for(const key of keys) assert.doesNotMatch(data[key],/Kanaaabea|Colanaa|colanaa|fanaa/);
 });
+
+
+test('Akan import and invitation corrections preserve endpoints and message structure', async()=>{
+ const {translationTokens}=await import('../releases/translations/placeholder-tokens.mjs');
+ const keys=["theme-category", "color-orange", "worker", "copyManyCardsPopup-instructions", "custom-color", "date-format", "email-enrollAccount-subject", "email-invite-text", "push-invite-text", "error-linked-card-not-allowed", "export-card-attachment-uploaded-by", "export-card-attachment-uploaded-at", "sorted", "remove-sort", "list-sort-by", "filter-due-tomorrow", "import-board-instruction-openproject", "trello-import-more", "keyboard-shortcuts", "selection-color", "no-archived-cards", "no-archived-lists", "no-archived-swimlanes", "rescue-card-description", "select-color", "shortcut-show-shortcuts", "show-cards-minimum-count", "toggle-assignees"];
+ for(const key of keys) assert.deepEqual(translationTokens(data[key]),translationTokens(english[key]),key);
+ assert.match(data['import-board-instruction-openproject'],/OpenProject.*GET \/api\/v3\/work_packages/);
+ assert.equal(data['email-invite-text'],data['push-invite-text']);
+ for(const key of ['email-invite-text','push-invite-text']) assert.equal(data[key].split('\n\n').length,english[key].split('\n\n').length);
+ for(const suffix of ['cards','lists','swimlanes']) assert.match(data['no-archived-'+suffix],/biara nni adekorabea/);
+ assert.equal(new Set(['cards','lists','swimlanes'].map(s=>data['no-archived-'+s])).size,3);
+ assert.equal(data['select-color'],data['setCardColorPopup-title']);
+ assert.notEqual(data['export-card-attachment-uploaded-by'],data['export-card-attachment-uploaded-at']);
+ assert.match(data['toggle-assignees'],/1-9.*nnidiso nnidiso/);
+ assert.match(data['error-linked-card-not-allowed'],/nkutoo.*Wɔmma kwan.*san ba bɔɔd/);
+ assert.match(data['rescue-card-description'],/wɔnsiee.*ansa/);
+ assert.match(data['filter-due-tomorrow'],/ɔkyena/);
+ assert.match(data['show-cards-minimum-count'],/boro$/);
+});
