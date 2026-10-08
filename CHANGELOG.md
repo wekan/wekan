@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/10a3a73023">Translate Scottish Gaelic Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
+
+Translate 31 values, preserving exact variables, keyboard names and count roles.
+Regression checks distinguish rollback from keeping records and preserve planning.
+Focused checks, placeholder and language wiring suites, and all 21 preservation
+checks pass. The completion suite still finds an untranslated Kashubian release
+label. Recovery prose has lower confidence and needs native review. Browser checks
+and the remaining all-language translations are still outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4611b60670">Translate Welsh Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 62 values in Welsh and British Welsh, preserving exact variables,
