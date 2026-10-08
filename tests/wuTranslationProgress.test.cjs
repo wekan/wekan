@@ -852,3 +852,13 @@ assert.match(wu['r-checklist-note'], /逗号分隔/);
 assert.equal(wu['r-items-list'].split(',').length, 3);
 assert.ok(wu['oauth-providers-hint'].includes('OAUTH_*_ENABLED'));
 assert.match(wu['oauth-providers-hint'], /搿搭设置个值会覆盖环境变量.*服务器.*绝勿会显示/);
+
+const loginLiterals = ["oauth-provider-secret-set", "oauth-providers-merge-existing-users", "oauth-account-conflict", "sign-in-with", "passwordless-enabled", "passwordless-hint", "passwordless-login", "passwordless-code-sent", "passwordless-enter-code", "passwordless-sign-in", "cas", "add-custom-html-after-body-start", "add-custom-html-before-body-end", "error-undefined", "error-ldap-login", "duplicate-board"];
+for (const key of loginLiterals) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.equal(wu.cas, 'CAS');
+assert.match(wu['oauth-account-conflict'], /已经存在.*勿是.*登录方法创建/);
+assert.match(wu['passwordless-enabled'], /电子邮件.*一趟有效.*登录码.*代替密码/);
+for (const literal of ['MAIL_URL', 'PASSWORDLESS_ENABLED']) assert.ok(wu['passwordless-hint'].includes(literal));
+assert.match(wu['add-custom-html-after-body-start'], /<body>.*后头.*HTML/);
+assert.match(wu['add-custom-html-before-body-end'], /<\/body>.*前头.*HTML/);
+assert.equal(wu['duplicate-board'], '复制看板');

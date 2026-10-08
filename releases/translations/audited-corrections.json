@@ -164925,5 +164925,117 @@
     "before": "每个提供方都可以在此处或通过其 OAUTH_*_ENABLED 环境变量启用；此处设置的值会覆盖环境变量。密钥保存在服务器上，永不显示。",
     "after": "每个提供方侪可以勒搿搭启用，或者用伊个 OAUTH_*_ENABLED 环境变量启用；搿搭设置个值会覆盖环境变量。密钥保存在服务器浪，绝勿会显示。",
     "reason": "2026-10-08: Correct Wu rule-field actions and configuration prose, preserving delimiter and environment-variable literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "oauth-provider-secret-set",
+    "before": "已设置密钥",
+    "after": "密钥设置好仔",
+    "reason": "2026-10-08: Correct Wu login/configuration prose; restore CAS protocol name and preserve placeholders, environment names and HTML tags. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "oauth-providers-merge-existing-users",
+    "before": "与使用相同邮箱的现有账户合并",
+    "after": "搭用相同电子邮件地址个现有账户合并",
+    "reason": "2026-10-08: Correct Wu login/configuration prose; restore CAS protocol name and preserve placeholders, environment names and HTML tags. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "oauth-account-conflict",
+    "before": "使用此邮箱的账户已存在，且不是通过此登录方式创建的",
+    "after": "用搿个电子邮件地址个账户已经存在，而且勿是用搿种登录方法创建个",
+    "reason": "2026-10-08: Correct Wu login/configuration prose; restore CAS protocol name and preserve placeholders, environment names and HTML tags. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "sign-in-with",
+    "before": "使用 %s 登录",
+    "after": "用 %s 登录",
+    "reason": "2026-10-08: Correct Wu login/configuration prose; restore CAS protocol name and preserve placeholders, environment names and HTML tags. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "passwordless-enabled",
+    "before": "通过邮箱发送一次性登录码，代替密码",
+    "after": "用电子邮件发一趟有效个登录码，代替密码",
+    "reason": "2026-10-08: Correct Wu login/configuration prose; restore CAS protocol name and preserve placeholders, environment names and HTML tags. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "passwordless-hint",
+    "before": "需要外发邮件 (MAIL_URL)，以及 PASSWORDLESS_ENABLED。",
+    "after": "需要外发邮件（MAIL_URL），还要 PASSWORDLESS_ENABLED。",
+    "reason": "2026-10-08: Correct Wu login/configuration prose; restore CAS protocol name and preserve placeholders, environment names and HTML tags. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "passwordless-login",
+    "before": "通过邮箱给我发送登录码",
+    "after": "用电子邮件畀我发登录码",
+    "reason": "2026-10-08: Correct Wu login/configuration prose; restore CAS protocol name and preserve placeholders, environment names and HTML tags. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "passwordless-code-sent",
+    "before": "我们已将登录码发送到您的邮箱",
+    "after": "登录码发到侬个电子邮箱仔",
+    "reason": "2026-10-08: Correct Wu login/configuration prose; restore CAS protocol name and preserve placeholders, environment names and HTML tags. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "passwordless-enter-code",
+    "before": "输入邮件中的登录码",
+    "after": "输入邮件里向个登录码",
+    "reason": "2026-10-08: Correct Wu login/configuration prose; restore CAS protocol name and preserve placeholders, environment names and HTML tags. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "passwordless-sign-in",
+    "before": "使用登录码登录",
+    "after": "用登录码登录",
+    "reason": "2026-10-08: Correct Wu login/configuration prose; restore CAS protocol name and preserve placeholders, environment names and HTML tags. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cas",
+    "before": "中科院",
+    "after": "CAS",
+    "reason": "2026-10-08: Correct Wu login/configuration prose; restore CAS protocol name and preserve placeholders, environment names and HTML tags. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "add-custom-html-after-body-start",
+    "before": "<body> 启动后添加自定义 HTML",
+    "after": "勒 <body> 开始标签后头添加自定义 HTML",
+    "reason": "2026-10-08: Correct Wu login/configuration prose; restore CAS protocol name and preserve placeholders, environment names and HTML tags. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "add-custom-html-before-body-end",
+    "before": "在 </body> 结束之前添加自定义 HTML",
+    "after": "勒 </body> 结束标签前头添加自定义 HTML",
+    "reason": "2026-10-08: Correct Wu login/configuration prose; restore CAS protocol name and preserve placeholders, environment names and HTML tags. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-undefined",
+    "before": "出了点问题",
+    "after": "出问题仔",
+    "reason": "2026-10-08: Correct Wu login/configuration prose; restore CAS protocol name and preserve placeholders, environment names and HTML tags. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-ldap-login",
+    "before": "尝试登录时发生错误",
+    "after": "尝试登录个辰光出错仔",
+    "reason": "2026-10-08: Correct Wu login/configuration prose; restore CAS protocol name and preserve placeholders, environment names and HTML tags. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "duplicate-board",
+    "before": "重复板",
+    "after": "复制看板",
+    "reason": "2026-10-08: Correct Wu login/configuration prose; restore CAS protocol name and preserve placeholders, environment names and HTML tags. Lower-confidence prose needs native review."
   }
 ]
