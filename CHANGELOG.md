@@ -975,6 +975,20 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2108d855ca">Translate Hungarian controls and stuck Sync recovery</a>. Thanks to xet7.</summary>
+
+Fill 44 messages for board controls, link rules, import formats, assignment
+actions, LDAP, OAuth, server-only login settings and stuck Sync recovery.
+Preserve source variables, configuration names and the distinction between
+retained applied changes and discarded pending changes.
+
+Hungarian, global placeholder, import-format and translation audit suites
+pass, together with 21 human-preference checks. No browser or screen-reader
+session was run. Other translations and linguistic review remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/56600a495a">Translate Hungarian interrupted import recovery</a>. Thanks to xet7.</summary>
 
 Fill 25 interrupted-import messages. Preserve source variables, permanent
