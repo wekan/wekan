@@ -487,6 +487,17 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9fffd1cb8b">Translate Papiamento board settings and rules</a>. Thanks to xet7.</summary>
+
+Translate 30 board, link-rule, assignment, LDAP, login and block-editor strings,
+preserving placeholders, link templates, URLs and configuration names.
+Four focused translation suites and 21 human-preference checks pass.
+Specialized wording is lower confidence and needs native review. No browser
+session was run. Remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ed5d5895b8">Complete current Papiamento Blockly translations</a>. Thanks to xet7.</summary>
 
 Translate 44 variable, workspace, search and alias messages. The current full fill
