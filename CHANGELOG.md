@@ -487,6 +487,17 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5f64302d59">Translate Papiamento imports and Scrum planning</a>. Thanks to xet7.</summary>
+
+Translate 45 import instructions and Scrum planning labels, preserving format
+keywords, application names, priority syntax and keyboard names.
+Four focused translation suites and 21 human-preference checks pass.
+Specialized wording is lower confidence and needs native review. No browser
+session was run. Remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9fffd1cb8b">Translate Papiamento board settings and rules</a>. Thanks to xet7.</summary>
 
 Translate 30 board, link-rule, assignment, LDAP, login and block-editor strings,
