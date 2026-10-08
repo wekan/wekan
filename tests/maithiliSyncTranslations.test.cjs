@@ -4,7 +4,7 @@ const assert=require('node:assert/strict');
 const english=require('../imports/i18n/data/en.i18n.json');
 const locale=require('../imports/i18n/data/mai.i18n.json');
 const {translationTokens}=require('../releases/translations/placeholder-tokens.mjs');
-const keys=["scrum-observed-scope","scrum-daily-observations-export-help","scrum-import-pending","sync-conflict-heading","sync-conflict-hint","sync-conflict-local","sync-conflict-keep-local","sync-conflict-use-source","sync-conflict-refresh","sync-conflict-review-complete","sync-conflict-duplicate","sync-conflict-keep-mapping","sync-conflict-detach","sync-conflict-detach-hint","sync-conflict-archive","sync-conflict-archive-hint","sync-conflict-keep-card-local","sync-conflict-creation","sync-conflict-creation-hint","sync-conflict-create-replacement","sync-preview-button","sync-preview-heading","sync-preview-saved"];
+const keys=["scrum-observed-scope", "scrum-daily-observations-export-help", "scrum-import-pending", "sync-conflict-heading", "sync-conflict-hint", "sync-conflict-local", "sync-conflict-keep-local", "sync-conflict-use-source", "sync-conflict-refresh", "sync-conflict-review-complete", "sync-conflict-duplicate", "sync-conflict-keep-mapping", "sync-conflict-detach", "sync-conflict-detach-hint", "sync-conflict-archive", "sync-conflict-archive-hint", "sync-conflict-keep-card-local", "sync-conflict-creation", "sync-conflict-creation-hint", "sync-conflict-create-replacement", "sync-preview-button", "sync-preview-heading", "sync-preview-saved", "sync-preview-unavailable", "sync-preview-blocked", "sync-preview-create", "sync-preview-update", "sync-preview-archive", "sync-preview-baseline", "sync-preview-truncated", "sync-preview-omissions", "sync-preview-scope", "sync-preview-excluded", "sync-preview-unmapped", "sync-preview-parser-warnings", "sync-preview-parser-unsupported", "sync-source-heading", "sync-source-scope", "sync-source-unmapped", "sync-source-excluded", "sync-source-converted", "sync-source-fallback", "sync-source-excluded-item"];
 test('Maithili sync translations preserve order, script and tokens',()=>{
  assert.deepEqual(Object.keys(locale),Object.keys(english));
  for(const key of keys){
@@ -22,4 +22,14 @@ test('Maithili sync conflicts preserve local data and review scope',()=>{
  assert.notEqual(locale['sync-conflict-keep-local'],locale['sync-conflict-use-source']);
  assert.ok(locale['scrum-import-pending'].includes('\u0909\u092a\u0932\u092c\u094d\u0927 \u0928\u0939\u093f'));
  assert.ok(locale['scrum-daily-observations-export-help'].includes('UTC'));
+});
+
+test('Maithili sync previews preserve limits and omitted data caveats',()=>{
+ assert.ok(locale['sync-preview-truncated'].includes('100'));
+ assert.ok(locale['sync-preview-scope'].includes('\u091b\u094b\u0921\u093c\u093f \u0938\u0915\u0948\u0924 \u0905\u091b\u093f'));
+ assert.ok(locale['sync-source-scope'].includes('\u092e\u093e\u0928 \u0928\u0939\u093f \u0926\u0947\u0916\u093e\u0913\u0932'));
+ assert.ok(locale['sync-preview-unavailable'].includes('\u092a\u0939\u093f\u0928\u0947'));
+ for(const suffix of ['unmapped','excluded']) assert.equal(locale['sync-source-'+suffix],locale['sync-preview-'+suffix]);
+ assert.equal(new Set(['create','update','archive'].map(k=>locale['sync-preview-'+k])).size,3);
+ assert.notEqual(locale['sync-preview-excluded'],locale['sync-preview-unmapped']);
 });

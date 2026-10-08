@@ -9193,6 +9193,15 @@ and token inventories. Technical wording remains low confidence pending speaker
 review. Browser checks were not run; further Maithili translations and the broader
 audit remain unfinished.
 
+## Maithili sync preview and source fields
+
+Filled 20 English placeholders for sync previews and omitted source fields.
+The placeholder-only merge retained existing translations. Preserved the 100-entry
+limit, parser omission caveats and hidden values for unmapped objects. Regression
+coverage checks those details, repeated labels, script, key order and tokens.
+Technical wording remains low confidence pending speaker review. Browser checks
+were not run; further Maithili translations and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
