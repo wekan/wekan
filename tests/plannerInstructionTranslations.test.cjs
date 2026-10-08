@@ -292,3 +292,22 @@ for (const code of ['pt', 'pt-BR', 'pt-PT', 'pt_PT']) {
   assert.match(locale['import-board-instruction-ticktick'], code === 'pt-BR' ? /uma raia/ : /uma pista/);
   assert.match(locale['import-board-instruction-planner'], code === 'pt-BR' ? /arquivo/ : /ficheiro/);
 }
+
+for (const code of ['pt', 'pt-BR', 'pt-PT', 'pt_PT']) {
+  const locale = read(code);
+  const literals = {...newerImportLiterals, ...Object.fromEntries(['pivotal', 'tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja'].map(format => [format, importLiterals[format]]))};
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), code + ': ' + key);
+    for (const value of values) assert.ok(locale[key].includes(value), code + ': ' + value);
+  }
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /anexos não são importados/);
+  assert.match(locale['import-board-instruction-notion'], /relações, imagens e anexos não são importados/);
+  assert.match(locale['import-board-instruction-plane'], /não contém descrições nem anexos.*não são importados/);
+  assert.match(locale['import-board-instruction-businessmap'], /mude primeiro a linha de cabeçalhos para inglês/);
+  assert.match(locale['import-board-instruction-redmine'], /English em My account antes de exportar/);
+  assert.match(locale['import-board-instruction-teamwork'], /um nível mais profundo/);
+  assert.match(locale['import-board-instruction-superproductivity'], /tarefas arquivadas tornam-se cartões arquivados/);
+  assert.match(locale['import-board-instruction-plane'], code === 'pt-BR' ? /raias/ : /pistas/);
+}

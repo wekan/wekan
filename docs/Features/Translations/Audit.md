@@ -1,6 +1,15 @@
 # Translation audit progress
 
-Audit date: **2026-09-12**. Last updated: **2026-10-08**.
+Audit date: **2026-09-12**. Last updated: **2026-10-09**.
+
+## Portuguese import instructions, remaining group — 2026-10-09
+
+Translate 13 remaining instructions in four Portuguese catalogs (52 values),
+completing all 21 import instructions in those catalogs. Preserve regional terms,
+commands, columns, extensions and hierarchy markers. Regression checks cover
+excluded data, English header requirements and archived tasks. Import-instruction
+and placeholder suites and all 21 preservation checks pass. Browser review and
+the wider all-language translation backlog remain outstanding.
 
 ## Portuguese import instructions, first group — 2026-10-08
 
