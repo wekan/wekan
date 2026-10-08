@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Tatar, Bashkir, Tajik and Turkmen sign-in warnings — 2026-10-08
+
+Translate four warning values, preserving the locale scripts, both occurrences
+of each address variable and ROOT_URL. Warning coverage now includes 128 catalog
+paths. Warning and placeholder suites and all 21 preservation checks pass.
+These translations have lower confidence and need native review. Browser review
+and the wider all-language backlog remain outstanding.
+
 ## Sindhi, Pashto, Kurdish and Uyghur sign-in warnings — 2026-10-08
 
 Translate five values in Sindhi, Pashto, Kurmanji, Sorani and Uyghur, retaining

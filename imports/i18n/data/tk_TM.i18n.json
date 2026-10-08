@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Bu e-poçtaly hasap eýýäm bar we ol bu giriş usuly bilen döredilmedik",
   "sign-in-with": "%s bilen gir",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Bu salgyda başga hyzmat arkaly girişi tamamlamak mümkin däl. WeKan __expected__ üçin sazlanan, emma bu sahypa __actual__ salgysynda açyldy. WeKan-y __expected__ salgysynda açyň ýa-da administratordan ROOT_URL bahasyny __actual__ edip bellemegi haýyş ediň.",
   "passwordless-title": "Parolsyz giriş",
   "passwordless-enabled": "Parolyň ýerine e-poçta arkaly bir gezeklik giriş koduny iber",
   "passwordless-hint": "Çykýan e-poçta gerek (MAIL_URL). Şeýle hem PASSWORDLESS_ENABLED.",

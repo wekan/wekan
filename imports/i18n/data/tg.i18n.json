@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Ҳисоб бо ин почтаи электронӣ аллакай вуҷуд дорад ва бо ин усули вуруд сохта нашудааст",
   "sign-in-with": "Ворид шудан тавассути %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Дар ин нишонӣ воридшавӣ тавассути хидмати дигар анҷом дода намешавад. WeKan барои __expected__ танзим шудааст, аммо ин саҳифа дар __actual__ кушода шудааст. WeKan-ро дар __expected__ кушоед ё аз маъмур хоҳиш кунед, ки қимати ROOT_URL-ро ба __actual__ гузорад.",
   "passwordless-title": "Вуруд бидуни рамз",
   "passwordless-enabled": "Ба ҷои рамз бо почтаи электронӣ рамзи якдафъаинаи вуруд фиристодан",
   "passwordless-hint": "Почтаи содиротӣ лозим аст (MAIL_URL). Ҳамчунин PASSWORDLESS_ENABLED.",
