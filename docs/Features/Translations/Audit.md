@@ -8714,6 +8714,15 @@ Regression coverage checks token roles and distinct copy/cut and get/remove
 actions alongside script and key order. Technical wording remains low confidence
 pending speaker review. Browser checks were not run; further translations remain.
 
+## Odia list retrieval and removal
+
+Filled 20 English placeholders for list item retrieval, removal and sublist
+selection. Preserved first/last/random positions, index markers and the difference
+between returning, removing and returning with removal. The placeholder-only merge
+retained existing translations. Regression coverage checks these meanings alongside
+script, key order and token inventories. Technical wording remains low confidence
+pending speaker review. Browser checks were not run; further translations remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
