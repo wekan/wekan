@@ -189,12 +189,16 @@ test('the server saves it in the site-admin-only Features method (negative: no o
       if (['node_modules', '.meteor', '_build', '.build', '.tools'].includes(entry.name)) continue;
       const rel = path.join(dir, entry.name);
       if (entry.isDirectory()) walk(rel);
-      else if (/\.js$/.test(entry.name) && /cardFieldStates\s*[:=]|'cardFieldStates'|"cardFieldStates"/.test(read(rel))) writers.push(rel);
+      // A projection - `cardFieldStates: 1` in a fields/publication list - only
+      // reads it (server/moveBoardObjects.js reads it to drop hidden fields), so
+      // it is not counted as a writer.
+      else if (/\.js$/.test(entry.name)
+        && /cardFieldStates\s*[:=]|'cardFieldStates'|"cardFieldStates"/.test(read(rel).replace(/cardFieldStates:\s*1\b/g, ''))) writers.push(rel);
     }
   };
   ['server', 'client', 'models', 'imports'].forEach(walk);
   assert.deepEqual(writers.sort(), ['models/lib/cardFieldVisibility.js', 'models/settings.js',
-    'server/methods/instanceFeatures.js', 'server/publications/settings.js'].sort());
+    'server/methods/instanceFeatures.js'].sort());
   assert.match(read('models/settings.js'), /cardFieldStates: \{\s*type: Object,\s*optional: true,\s*blackbox: true,/);
   assert.match(read('server/publications/settings.js'), /\n  cardFieldStates: 1,/);
 });
