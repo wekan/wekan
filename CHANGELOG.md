@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9aea43a6d9">Correct Wu member and list-operation translations</a>. Thanks to xet7.</summary>
+
+Correct twenty-six Wu member, role and list-operation values. Preserve variables,
+last-administrator protection and the distinction between archiving and deletion.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/efbc4911e2">Correct Wu Trello import translations</a>. Thanks to xet7.</summary>
 
 Correct twenty-five Wu Trello import and cancellation values. Preserve technical
