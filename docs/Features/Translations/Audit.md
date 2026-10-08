@@ -2,6 +2,20 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Croatian import instructions and verification refresh — 2026-10-09
+
+Translate all 21 import instructions in hr, preserving commands, columns,
+extensions, hierarchy markers and variables. Regression checks cover first-board
+selection, completion dates, excluded data, English headers, task hierarchy and
+archived cards. The final import-instruction and placeholder suites and all 21
+preservation checks pass. The broader translation/language/placeholder/completion
+selection also passes: 333 suites, no failures, 129 seconds.
+
+The refreshed missing report lists 32,567 ordinary untranslated values across 46
+locales. That report excludes 271 deferred source keys; those keys remain within
+the translation goal. Passing tests does not establish translation completeness.
+Browser review and the wider all-language translation backlog remain outstanding.
+
 ## Bulgarian import instructions, remaining group — 2026-10-09
 
 Translate the remaining 13 instructions in bg, completing all 21 import
