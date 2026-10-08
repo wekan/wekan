@@ -146,3 +146,19 @@ assert.match(papiamento['blockly-LISTS_INDEX_FROM_END_TOOLTIP'], /último/);
 assert.match(papiamento['blockly-LISTS_SORT_TYPE_IGNORECASE'], /ignorá mayúskula i minúskula/);
 assert.match(papiamento['blockly-LISTS_SPLIT_TOOLTIP_JOIN'], /^Uni/);
 assert.match(papiamento['blockly-LISTS_SPLIT_TOOLTIP_SPLIT'], /^Separá.*kada separadó/);
+
+const blocklyLogic = ["blockly-LOGIC_BOOLEAN_FALSE", "blockly-LOGIC_BOOLEAN_TOOLTIP", "blockly-LOGIC_BOOLEAN_TRUE", "blockly-LOGIC_COMPARE_EQ_ARIA", "blockly-LOGIC_COMPARE_GTE_ARIA", "blockly-LOGIC_COMPARE_GT_ARIA", "blockly-LOGIC_COMPARE_LTE_ARIA", "blockly-LOGIC_COMPARE_LT_ARIA", "blockly-LOGIC_COMPARE_NEQ_ARIA", "blockly-LOGIC_COMPARE_TOOLTIP_EQ", "blockly-LOGIC_COMPARE_TOOLTIP_GT", "blockly-LOGIC_COMPARE_TOOLTIP_GTE", "blockly-LOGIC_COMPARE_TOOLTIP_LT", "blockly-LOGIC_COMPARE_TOOLTIP_LTE", "blockly-LOGIC_COMPARE_TOOLTIP_NEQ", "blockly-LOGIC_NEGATE_TITLE", "blockly-LOGIC_NEGATE_TOOLTIP", "blockly-LOGIC_NULL_TOOLTIP", "blockly-LOGIC_OPERATION_AND", "blockly-LOGIC_OPERATION_TOOLTIP_AND", "blockly-LOGIC_OPERATION_TOOLTIP_OR", "blockly-LOGIC_TERNARY_CONDITION", "blockly-LOGIC_TERNARY_IF_FALSE", "blockly-LOGIC_TERNARY_IF_TRUE", "blockly-LOGIC_TERNARY_TOOLTIP"];
+for (const key of blocklyLogic) {
+  assert.notEqual(papiamento[key], english[key], key);
+  assert.deepEqual(tokens(papiamento[key]), tokens(english[key]), key);
+}
+for (const comparison of ['GT', 'LT']) {
+  assert.doesNotMatch(papiamento[`blockly-LOGIC_COMPARE_TOOLTIP_${comparison}`], /òf igual/);
+  assert.match(papiamento[`blockly-LOGIC_COMPARE_TOOLTIP_${comparison}E`], /òf igual/);
+}
+assert.match(papiamento['blockly-LOGIC_COMPARE_TOOLTIP_NEQ'], /no ta igual/);
+assert.match(papiamento['blockly-LOGIC_OPERATION_TOOLTIP_AND'], /tur dos/);
+assert.match(papiamento['blockly-LOGIC_OPERATION_TOOLTIP_OR'], /por lo ménos un/);
+assert.match(papiamento['blockly-LOGIC_NEGATE_TOOLTIP'], /berdat si e entrada ta falsu.*falsu si e entrada ta berdat/);
+assert.match(papiamento['blockly-LOGIC_NULL_TOOLTIP'], /null/);
+for (const label of ['CONDITION', 'IF_FALSE', 'IF_TRUE']) assert.ok(papiamento['blockly-LOGIC_TERNARY_TOOLTIP'].includes(papiamento[`blockly-LOGIC_TERNARY_${label}`]));

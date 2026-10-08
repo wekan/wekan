@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Papiamento Blockly logic — 2026-10-08
+
+Translate 25 English logic messages. Preserve variables and null; check strict
+versus inclusive comparisons, equality versus inequality, both versus at least
+one input, negation and matching conditional labels. Specialized wording is lower
+confidence and needs native review. No browser or screen-reader session was run.
+Remaining translations are unfinished.
+
 ## Papiamento Blockly list mutation and sorting — 2026-10-08
 
 Translate 42 English list messages. Preserve variables and index markers; check
