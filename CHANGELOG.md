@@ -487,6 +487,17 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7b62fbbdd6">Translate Papiamento Sync outcomes and mail failures</a>. Thanks to xet7.</summary>
+
+Translate 35 Sync, estimate, planning, mail-failure and activity messages,
+preserving variables and checking failure states, null values and retry behavior.
+Three focused translation suites and 21 human-preference checks pass.
+Specialized wording is lower confidence and needs native review. No browser
+session was run. Remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bd576b6355">Translate Papiamento Sync previews and source reports</a>. Thanks to xet7.</summary>
 
 Translate 30 replacement, preview and source-report messages, preserving variables
