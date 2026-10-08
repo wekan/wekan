@@ -933,6 +933,21 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f73ce87d54">Translate remaining Aromanian Scrum instructions</a>. Thanks to xet7.</summary>
+
+Translate 20 instructions and recovery messages, preserving unknown estimates,
+UTC sampling, cancelled-sprint membership and rollback eligibility. Cover all
+current Scrum keys and the reporting/recovery distinctions alongside the
+source variable inventory. Full wording remains low-confidence pending fluent
+review.
+
+Aromanian, global placeholder and translation audit suites pass. No browser
+or screen-reader session was run. Other untranslated and wrong-language
+values remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4eec94b7c8">Translate Aromanian Scrum labels and reporting controls</a>. Thanks to xet7.</summary>
 
 Translate 73 labels, actions, states and short reports. Preserve counters,
