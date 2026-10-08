@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Broad verification after Wu archive corrections — 2026-10-08
+
+Run `node tests/run-node-suites.cjs Translation translation`: 299 selected suites,
+zero failures in 100 seconds. This is filename-filtered translation coverage, not
+every repository test. The missing report counts 32,567 values across 46 languages,
+excluding 250 source keys pending Transifex. Wu's full fill list is empty, but older
+wrong-language wording remains to review. Browser tests were not run. Native review
+and the remaining all-language work are unfinished.
+
 ## Wu archive and attachment corrections — 2026-10-08
 
 Correct 30 archive, attachment, loading and board-setting values. Distinguish

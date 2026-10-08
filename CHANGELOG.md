@@ -90,14 +90,15 @@ Status checked on 2026-10-08. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **33,092 untranslated locale/string values in 47 languages**.
+  report counts **32,567 untranslated locale/string values in 46 languages**.
   It excludes **250 source keys tracked separately as pending Transifex**.
   Exact Blockly OS brands and compact math/code symbols no longer inflate
   the prose backlog. Counts are a snapshot; they do not establish the quality
   or language of other values.
-  After the Papiamento fill, all 298 suites selected by the `Translation` and
-  `translation` filename filters passed in 99 seconds. The full Papiamento fill
-  list is empty; this does not establish linguistic completeness or fluency.
+  After the Wu archive corrections, all 299 suites selected by the `Translation`
+  and `translation` filename filters passed in 100 seconds. The full Wu and
+  Papiamento fill lists are empty; this does not establish linguistic completeness
+  or fluency.
 - Placeholder inventories match English across all 246 locale paths. Fill now
   rejects damaged token batches before writing. Both card-field visibility
   keys are translated in 175 non-English paths; 59 paths still need them.
