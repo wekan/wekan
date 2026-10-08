@@ -648,3 +648,17 @@ assert.ok(wu["import-board-instruction-excel"].includes("Description"));
 assert.ok(wu["import-board-instruction-excel"].includes("Status/List"));
 assert.ok(wu["import-board-instruction-excel"].includes("Members"));
 assert.ok(wu["import-board-instruction-excel"].includes("Labels"));
+
+const trelloImports = ["import-trello-json-file-hint", "import-trello-zip-file-hint", "import-trello-zip-no-boards", "import-trello-zip-progress", "import-trello-failed", "import-timeout", "import-trello-zip-failed", "import-trello-zip-read-failed", "import-trello-zip-too-large", "import-trello-zip-too-many-files", "import-trello-zip-file-too-large", "import-trello-zip-unsafe-path", "import-trello-workspace-placeholder", "import-trello-parent-workspace", "trello-api-import", "trello-api-import-desc", "trello-api-token", "trello-import-selected", "trello-importing", "trello-api-credentials-required", "trello-api-credentials-saved", "trello-select-boards", "trello-cancel-delete", "trello-cancel-delete-confirm", "trello-delete-imported"];
+for (const key of trelloImports) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.match(wu['import-trello-json-file-hint'], /API key.*token.*附件、看板背景搭成员头像.*下载/);
+assert.match(wu['import-trello-zip-file-hint'], /Trello Card Attachments Downloader.*所有看板侪会导入/);
+assert.match(wu['import-timeout'], /停脱仔.*再试一趟.*看板忒大或者数据库忙/);
+assert.match(wu['import-trello-zip-too-many-files'], /文件忒多/);
+assert.match(wu['import-trello-zip-file-too-large'], /有只文件忒大/);
+assert.match(wu['import-trello-zip-unsafe-path'], /勿安全个文件路径.*拒绝/);
+assert.match(wu['import-trello-workspace-placeholder'], /假使勿存在.*创建/);
+assert.match(wu['trello-api-credentials-required'], /API key.*token 两样侪/);
+assert.match(wu['trello-api-credentials-saved'], /保存好仔.*勿用重新输入/);
+assert.match(wu['trello-select-boards'], /至少选一块/);
+assert.match(wu['trello-cancel-delete-confirm'], /搿趟任务已经导入个看板.*勿能撤销/);

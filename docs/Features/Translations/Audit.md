@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu Trello import corrections — 2026-10-08
+
+Correct 25 Trello import, archive-error and cancellation values. Preserve file
+extensions, product names and API credential terms. Retain both required credentials,
+all-board ZIP import, conditional workspace creation and irreversible deletion limited
+to the current job's imported boards. Refresh exact-value audit records and preserve
+source tokens. Wu prose needs native review; browser tests were not run and the
+all-language work remains unfinished.
+
 ## Wu import-instruction corrections — 2026-10-08
 
 Correct 19 import labels and instructions. Preserve source variables, API paths,
@@ -12592,7 +12601,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,216** exact before/after values, including unflagged
+records contain **23,241** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

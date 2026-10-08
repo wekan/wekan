@@ -162510,5 +162510,180 @@
     "before": "或选择一个 Trello JSON 文件",
     "after": "或者选一只 Trello JSON 文件",
     "reason": "2026-10-08: Correct Wu import instructions while preserving API paths, schema keys and source variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-trello-json-file-hint",
+    "before": "导出为 .json 的一个 Trello 看板。如果你已保存 Trello API key 和 token，其附件、看板背景和成员头像也会被下载。",
+    "after": "导出成 .json 个一块 Trello 看板。假使侬已经保存仔 Trello API key 搭 token，伊个附件、看板背景搭成员头像也会下载下来。",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-trello-zip-file-hint",
+    "before": "一个包含一个或多个看板 .json 文件及其附件（位于以看板名命名的子文件夹中，来自 Trello Card Attachments Downloader）的 .zip。所有看板都会被导入。",
+    "after": "一只 .zip，里向有一块或者多块看板个 .json 文件搭附件，放勒用看板名字命名个子文件夹里向（来自 Trello Card Attachments Downloader）。所有看板侪会导入。",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-trello-zip-no-boards",
+    "before": "在 .zip 中未找到任何 Trello 看板 .json 文件。",
+    "after": "勒 .zip 里向呒没寻着 Trello 看板个 .json 文件。",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-trello-zip-progress",
+    "before": "正在从 .zip 导入看板，请稍候…",
+    "after": "勒从 .zip 导入看板，请等一歇…",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-trello-failed",
+    "before": "从 Trello 导入失败。",
+    "after": "从 Trello 导入失败仔。",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-timeout",
+    "before": "导入耗时过长已被停止。请重试；如果反复出现，可能是看板过大或数据库繁忙。",
+    "after": "导入用个辰光忒长，停脱仔。请再试一趟；假使一直搿能，可能是看板忒大或者数据库忙。",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-trello-zip-failed",
+    "before": "导入 .zip 失败。",
+    "after": "导入 .zip 失败仔。",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-trello-zip-read-failed",
+    "before": "无法读取上传的 .zip。",
+    "after": "读勿出上传个 .zip。",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-trello-zip-too-large",
+    "before": ".zip 太大，无法导入。",
+    "after": ".zip 忒大，导入勿进。",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-trello-zip-too-many-files",
+    "before": ".zip 中的文件太多，无法导入。",
+    "after": ".zip 里向个文件忒多，导入勿进。",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-trello-zip-file-too-large",
+    "before": ".zip 内的某个文件太大，无法导入。",
+    "after": ".zip 里向有只文件忒大，导入勿进。",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-trello-zip-unsafe-path",
+    "before": ".zip 包含不安全的文件路径，已被拒绝。",
+    "after": ".zip 里向有勿安全个文件路径，拒绝仔。",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-trello-workspace-placeholder",
+    "before": "导入的看板将放置在此工作区下，如不存在则创建",
+    "after": "导入个看板放勒搿个工作区底下；工作区假使勿存在，就创建一只",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-trello-parent-workspace",
+    "before": "将导入的工作区放置于",
+    "after": "拿导入个工作区放到搿个位置底下",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "trello-api-import",
+    "before": "使用 API key 和 token 直接从 Trello 导入",
+    "after": "用 API key 搭 token 直接从 Trello 导入",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "trello-api-import-desc",
+    "before": "粘贴你的 Trello API key 和 token 以列出你的 Trello 工作区和看板，然后连同附件一起导入所选的看板。",
+    "after": "贴进侬个 Trello API key 搭 token，列出侬个 Trello 工作区搭看板，再拿选中个连附件一淘导入。",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "trello-api-token",
+    "before": "Trello API token（在 API key 下方手动生成）",
+    "after": "Trello API token（勒 API key 下头手动生成）",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "trello-import-selected",
+    "before": "导入所选看板",
+    "after": "导入选中个看板",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "trello-importing",
+    "before": "正在导入看板…",
+    "after": "勒导入看板…",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "trello-api-credentials-required",
+    "before": "请同时输入 Trello API key 和 token。",
+    "after": "请拿 Trello API key 搭 token 两样侪输进去。",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "trello-api-credentials-saved",
+    "before": "Trello API key 和 token 已保存。你无需重新输入即可列出工作区。",
+    "after": "Trello API key 搭 token 保存好仔。侬勿用重新输入，就可以列出工作区。",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "trello-select-boards",
+    "before": "请至少选择一个要导入的看板。",
+    "after": "请至少选一块要导入个看板。",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "trello-cancel-delete",
+    "before": "取消并删除已导入内容",
+    "after": "取消搭删脱已经导入个内容",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "trello-cancel-delete-confirm",
+    "before": "取消导入并删除本任务已导入的看板？此操作无法撤销。",
+    "after": "要取消导入，再删脱搿趟任务已经导入个看板伐？搿个操作勿能撤销。",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "trello-delete-imported",
+    "before": "删除已导入的看板",
+    "after": "删脱已经导入个看板",
+    "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
   }
 ]
