@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu Chinese settings — 2026-10-08
+
+Translate 17 board, link, assignment and LDAP strings in `wuu-Hans`, preserving
+variables, link-template braces, examples and environment names. Extend checks for
+Wu wording, permissions and opposite movement and success/failure labels. Existing
+Mandarin-like passages still require a vocabulary audit; script checks cannot prove
+Wu language correctness. Wording is lower confidence and needs native review.
+References: [Wu writing](https://zh.wikipedia.org/wiki/吴语字) and existing Wu
+catalog phrasing. No browser session was run. Remaining translations are unfinished.
+
 ## Broad verification after Papiamento filling — 2026-10-08
 
 Run `node tests/run-node-suites.cjs Translation translation`: 298 selected suites,
