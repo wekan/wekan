@@ -9084,6 +9084,16 @@ and token inventories. Technical terminology remains low confidence pending
 speaker review. Browser and screen-reader checks were not run; further Maithili
 translations and the broader audit remain unfinished.
 
+## Maithili procedure and rename controls
+
+Filled 25 English values for procedure definitions, calls, parameters and variable
+renaming. Existing translations were retained; the filter-excluded short title
+was filled directly after verifying equality with English. Preserved function-name
+tokens, output/no-output distinctions and disabled-definition warnings. Regression
+coverage checks these details, script, key order and token inventories. Technical
+wording remains low confidence pending speaker review. Browser checks were not
+run; further Maithili translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
