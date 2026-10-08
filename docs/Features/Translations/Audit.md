@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Bislama artificial wrapper correction — 2026-10-08
+
+Correct 120 older values that merely prefixed English with “Tok blong sistem:”.
+Board controls, dimensions, fonts, colors, voting, filters and invitation labels now use Bislama
+prose; numeric poker options, date-format tokens and punctuation retain their exact source values.
+Gantt and Planning Poker retain the existing shared technical-name policy.
+The wrapper queue falls from 653 to 533; an empty fill report did not detect it.
+Tests check the repaired keys, numeric options, zoom bounds and substitutions.
+Existing dictionary references below support vocabulary, while full software
+compounds remain provisional pending fluent review. No browser session was run.
+The [Bislama spelling dictionary](https://bislama.org/images/dictionary/BislamaSpellingDictionary-EN-BI-v1.1.pdf)
+and [ANU Bislama introduction](https://openresearch-repository.anu.edu.au/bitstreams/eeeaefaf-73b7-4d4d-afae-5287f83f91a3/download)
+support basic color vocabulary. Fine color shades use provisional descriptive
+phrases, rather than claiming a standardized technical color glossary.
+
 ## Bislama workspace, Scrum, Sync and recovery — 2026-10-08
 
 Translate the remaining 224 reported values and 10 skipped short labels for Bislama: Blockly workspace

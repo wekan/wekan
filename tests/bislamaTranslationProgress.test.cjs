@@ -149,3 +149,23 @@ for (const [key, source] of Object.entries(english)) {
     assert.notEqual(bislama[key], source, key);
   }
 }
+
+const repairedWrappers = ["activity-unjoined", "allboards.starred", "allboards.remaining", "allboards.workspaces", "setListWidthPopup-title", "set-list-width", "setSwimlaneHeightPopup-title", "set-swimlane-height", "set-swimlane-height-value", "admin", "admin-announcement", "apply", "template-container", "board-nb-stars", "changeFontPopup-title", "desktop-mode", "mobile-mode", "zoom-in", "zoom-out", "zoom-level", "enter-zoom-level", "board-view-cal", "board-view-multiboard-cal", "board-view-collapse", "board-view-gantt", "board-view-table", "board-view-stats", "cardAttachmentsPopup-title", "positiveVoteMembersPopup-title", "negativeVoteMembersPopup-title", "vote-question", "vote-against", "poker-question", "poker-one", "poker-two", "poker-three", "poker-five", "poker-eight", "poker-thirteen", "poker-twenty", "poker-forty", "poker-oneHundred", "poker-unsure", "poker-finish", "poker-result-votes", "poker-result-who", "poker-replay", "set-estimation", "cardDependencyIconPopup-title", "cardStickersPopup-title", "invitePeoplePopup-title", "theme-category", "theme-category-flat", "theme-category-clear", "theme-category-dark", "theme-category-special", "change-font", "font", "font-size", "font-size-smaller", "font-size-small", "font-size-large", "font-size-larger", "font-size-largest", "subtasks", "card-aging-days", "modal-title", "color-black", "color-crimson", "color-darkgreen", "color-gold", "color-gray", "color-indigo", "color-lime", "color-magenta", "color-mistyrose", "color-navy", "color-orange", "color-paleturquoise", "color-peachpuff", "color-pink", "color-plum", "color-purple", "color-saddlebrown", "color-silver", "color-sky", "color-slateblue", "color-white", "color-yellow", "unset-color", "worker", "computer", "custom-field-currency", "custom-field-currency-option", "custom-field-dropdown-unknown", "custom-field-number", "date-format-yyyy-mm-dd", "date-format-dd-mm-yyyy", "date-format-mm-dd-yyyy", "decline", "discard", "soft-wip-limit", "export-ical-feed", "export-card-subtasks", "export-card-attachment-filename", "export-card-attachment-size", "export-card-attachment-type", "export-card-attachment-uploaded-by", "export-card-attachment-uploaded-at", "export-card-excel-free", "export-card-excel-needed", "sorted", "list-label-short-modifiedAt", "list-label-short-title", "list-label-short-sort", "filter-overdue", "filter-clear", "filter-creator-label", "advanced-filter-label", "link"];
+for (const key of repairedWrappers) {
+  assert.doesNotMatch(bislama[key], /Tok blong sistem/);
+}
+// Numeric poker choices and punctuation are values, not prose to prefix.
+for (const key of ['poker-one', 'poker-two', 'poker-three', 'poker-five', 'poker-eight', 'poker-thirteen', 'poker-twenty', 'poker-forty', 'poker-oneHundred', 'poker-unsure']) {
+  assert.equal(bislama[key], english[key], key);
+}
+assert.match(bislama['enter-zoom-level'], /50-300%/);
+assert.notEqual(bislama['positiveVoteMembersPopup-title'], bislama['negativeVoteMembersPopup-title']);
+assert.deepEqual(tokens(bislama['activity-unjoined']), ['%s']);
+
+for (const key of ['date-format-yyyy-mm-dd', 'date-format-dd-mm-yyyy', 'date-format-mm-dd-yyyy', 'list-label-short-modifiedAt', 'list-label-short-title', 'list-label-short-sort']) {
+  assert.equal(bislama[key], english[key], key);
+}
+for (const [key, value] of [['color-black', 'blak'], ['color-white', 'waet'], ['color-yellow', 'yelo']]) {
+  assert.equal(bislama[key], value);
+}
+assert.match(bislama['soft-wip-limit'], /woning nomo/);
