@@ -9064,6 +9064,16 @@ details, script, key order and token inventories. Statistical terminology remain
 low confidence pending speaker review. Browser checks were not run; further
 Maithili translations and the broader audit remain unfinished.
 
+## Maithili rounding and random numbers
+
+Filled 24 English placeholders for random numbers, rounding, powers, logarithms
+and spoken operators. The placeholder-only merge retained existing translations.
+Preserved inclusive/exclusive random bounds, indexed limits and e/base-10 notation.
+Regression coverage checks those details, distinct rounding directions, script,
+key order and token inventories. Mathematical terminology remains low confidence
+pending speaker review. Browser checks were not run; further Maithili translations
+and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
