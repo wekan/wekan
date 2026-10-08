@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c0e538a582">Translate five additional African sign-in warnings</a>. Thanks to xet7.</summary>
+
+Add Kinyarwanda, Kirundi, Chichewa, Sesotho and Setswana warning translations.
+Tests now cover 139 paths, checking repeated address variables, rendering order
+and ROOT_URL. Warning and placeholder suites and all 21 preservation checks pass.
+These translations have lower confidence and need native review. Browser review
+and the wider all-language backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/45f9929be3">Translate additional African sign-in warnings</a>. Thanks to xet7.</summary>
 
 Add six warning values for Yoruba, Igbo, Shona, Zulu and Xhosa catalogs.
