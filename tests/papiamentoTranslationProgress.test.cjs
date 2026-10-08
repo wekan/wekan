@@ -12,9 +12,7 @@ const readLocale = code => JSON.parse(fs.readFileSync(
 ));
 const english = readLocale('en');
 const papiamento = readLocale('pap');
-const tokens = value => [...value.matchAll(
-  /__[A-Za-z0-9_]+__|%[0-9$]*[A-Za-z]|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g,
-)].map(([token]) => token).sort();
+const { translationTokens: tokens } = require('../releases/translations/placeholder-tokens.mjs');
 const tags = value => [...value.matchAll(/<\/?[A-Za-z][^>]*>/g)]
   .map(([tag]) => tag).sort();
 
@@ -47,4 +45,19 @@ assert.deepEqual(tokens(papiamento['act-deleteCard']),
 assert.deepEqual(tokens(papiamento['restore-list-swimlanes-done']),
   ['__remaining__', '__restored__']);
 
-console.log('papiamentoTranslationProgress: complete locale passed');
+console.log('papiamentoTranslationProgress: historical baseline passed; newer entries checked separately');
+
+const blocklyControls = ["blockly-ALT_KEY", "blockly-BACKSPACE_KEY", "blockly-CANNOT_DELETE_VARIABLE_PROCEDURE", "blockly-CAPS_LOCK_KEY", "blockly-CHANGE_VALUE_TITLE", "blockly-CLEAN_UP", "blockly-CLOSE_BACKPACK", "blockly-COLLAPSED_WARNINGS_WARNING", "blockly-COLLAPSE_ALL", "blockly-COLLAPSE_BLOCK", "blockly-COLOUR_BLEND_COLOUR1", "blockly-COLOUR_BLEND_COLOUR2", "blockly-COLOUR_BLEND_RATIO", "blockly-COLOUR_BLEND_TITLE", "blockly-COLOUR_BLEND_TOOLTIP", "blockly-COLOUR_PICKER_TOOLTIP", "blockly-COLOUR_RANDOM_TITLE", "blockly-COLOUR_RANDOM_TOOLTIP", "blockly-COLOUR_RGB_BLUE", "blockly-COLOUR_RGB_GREEN", "blockly-COLOUR_RGB_RED", "blockly-COLOUR_RGB_TITLE", "blockly-COLOUR_RGB_TOOLTIP", "blockly-COMMAND_KEY", "blockly-CONTEXT_MENU_KEY", "blockly-CONTROLS_FLOW_STATEMENTS_OPERATOR_BREAK", "blockly-CONTROLS_FLOW_STATEMENTS_OPERATOR_CONTINUE", "blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_BREAK", "blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_CONTINUE", "blockly-CONTROLS_FLOW_STATEMENTS_WARNING"];
+for (const key of blocklyControls) {
+  assert.notEqual(papiamento[key], english[key], key);
+  assert.deepEqual(tokens(papiamento[key]), tokens(english[key]), key);
+}
+assert.equal(papiamento['blockly-COLOUR_RGB_BLUE'], 'blou');
+assert.equal(papiamento['blockly-COLOUR_RGB_GREEN'], 'bèrde');
+assert.equal(papiamento['blockly-COLOUR_RGB_RED'], 'kòrá');
+assert.match(papiamento['blockly-CANNOT_DELETE_VARIABLE_PROCEDURE'], /^No por borra/);
+assert.match(papiamento['blockly-COLOUR_BLEND_TOOLTIP'], /0\.0 - 1\.0/);
+assert.match(papiamento['blockly-COLOUR_RGB_TOOLTIP'], /entre 0 i 100/);
+assert.match(papiamento['blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_CONTINUE'], /Salta e resto.*siguiente repetishon/);
+assert.match(papiamento['blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_BREAK'], /Sali for di e siklo/);
+assert.match(papiamento['blockly-CONTROLS_FLOW_STATEMENTS_WARNING'], /solamente den un siklo/);

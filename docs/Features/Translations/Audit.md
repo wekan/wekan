@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Papiamento Blockly editing and colors — 2026-10-08
+
+Translate 30 English Blockly editing, color and loop-control messages. Preserve
+variables, key names and numeric bounds; check forbidden deletion and loop scope.
+Use the shared token parser in the locale test so numbered Blockly variables are
+covered. Color vocabulary follows the Papiamentu column in
+[the comparison table](https://nl.wikibooks.org/wiki/Papiamento), matching the
+catalog's existing spelling style. Specialized wording is lower confidence and
+needs native review. No browser or screen-reader session was run. Remaining
+translations are unfinished.
+
 ## Broad verification after Yiddish filling — 2026-10-08
 
 Run `node tests/run-node-suites.cjs Translation translation`: 298 selected suites,
