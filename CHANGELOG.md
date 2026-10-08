@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b37c643b17">Correct Wu settings help and anonymization warning</a>. Thanks to xet7.</summary>
+
+Correct 20 Wu values, including stale loading help and an account-anonymization warning
+that incorrectly described export. Preserve configuration names and rendering examples.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/202684210a">Correct Wu storage and database migration help</a>. Thanks to xet7.</summary>
 
 Correct 17 Wu values, preserving database URLs, settings, commands, file paths and
