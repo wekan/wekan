@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu board visibility and membership corrections — 2026-10-08
+
+Correct 20 board, assignment, visibility and view strings. Replace committee,
+motherboard, wristwatch and physical-collapse mistranslations. Translate private
+and public prose while retaining strong tags, star count and workspace variables.
+Distinguish all-card assignments from current-card assignments. Refresh exact-value
+audit records. Wu wording needs native review; browser tests were not run and the
+all-language work remains unfinished.
+
 ## Broad verification after Wu archive corrections — 2026-10-08
 
 Run `node tests/run-node-suites.cjs Translation translation`: 299 selected suites,
@@ -12497,7 +12506,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,978** exact before/after values, including unflagged
+records contain **22,998** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

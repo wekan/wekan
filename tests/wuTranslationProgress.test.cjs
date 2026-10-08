@@ -465,3 +465,21 @@ assert.match(wu['avatar-too-big'], /最大 __size__/);
 assert.equal(wu['and-n-other-card'], wu['and-n-other-card_plural']);
 assert.match(wu['no-archived-boards'], /归档里向呒没看板/);
 for (const key of ['archive-board', 'archive-card', 'archive-list', 'archive-swimlane', 'archive-selection']) assert.match(wu[key], /移到归档里向/);
+
+const boardVisibility = ["show-card-counter-per-list", "card_members", "board_assignees", "card_assignees", "board-nb-stars", "board-not-found", "board-private-info", "board-public-info", "board-drag-drop-reorder-or-click-open", "board-open-and-move-between-remaining-and-workspaces", "boardChangeColorPopup-title", "boardChangeTitlePopup-title", "boardChangeWatchPopup-title", "boardMenuPopup-title", "boardChangeViewPopup-title", "boards", "board-view", "mobile-desktop-toggle", "board-view-multiboard-cal", "board-view-collapse"];
+for (const key of boardVisibility) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+for (const key of ['card_members', 'board_assignees', 'card_assignees']) {
+  assert.match(wu[key], /搿块看板浪/);
+  assert.doesNotMatch(wu[key], /委员会|受让人/);
+}
+assert.match(wu.board_assignees, /所有卡片个所有负责人/);
+assert.match(wu.card_assignees, /当前卡片个所有负责人/);
+assert.match(wu.card_members, /当前卡片个所有成员/);
+assert.match(wu['board-private-info'], /<strong>私有<\/strong>/);
+assert.match(wu['board-public-info'], /<strong>公开<\/strong>/);
+for (const key of ['board-private-info', 'board-public-info']) assert.deepEqual(wu[key].match(/<[^>]+>/g), english[key].match(/<[^>]+>/g));
+assert.match(wu['board-open-and-move-between-remaining-and-workspaces'], /拖动手柄.*__workspaces__.*侧栏.*工作区/);
+assert.match(wu['boardChangeWatchPopup-title'], /关注/);
+assert.doesNotMatch(wu['boardChangeWatchPopup-title'], /手表/);
+assert.equal(wu['board-view-collapse'], '收拢');
+assert.equal(wu['board-view'], wu['boardChangeViewPopup-title']);

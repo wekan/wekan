@@ -160844,5 +160844,145 @@
     "before": "所有板设置",
     "after": "所有看板设置",
     "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "show-card-counter-per-list",
+    "before": "显示每个列表的卡片数量",
+    "after": "显示每只列表个卡片数量",
+    "reason": "2026-10-08: Correct Wu board, assignment and visibility meanings while preserving placeholders and markup; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card_members",
+    "before": "该委员会当前卡的所有成员",
+    "after": "搿块看板浪当前卡片个所有成员",
+    "reason": "2026-10-08: Correct Wu board, assignment and visibility meanings while preserving placeholders and markup; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board_assignees",
+    "before": "该委员会所有卡的所有受让人",
+    "after": "搿块看板浪所有卡片个所有负责人",
+    "reason": "2026-10-08: Correct Wu board, assignment and visibility meanings while preserving placeholders and markup; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card_assignees",
+    "before": "该委员会当前卡的所有受让人",
+    "after": "搿块看板浪当前卡片个所有负责人",
+    "reason": "2026-10-08: Correct Wu board, assignment and visibility meanings while preserving placeholders and markup; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-nb-stars",
+    "before": "%s星星",
+    "after": "%s 个星标",
+    "reason": "2026-10-08: Correct Wu board, assignment and visibility meanings while preserving placeholders and markup; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-not-found",
+    "before": "未找到主板",
+    "after": "呒没寻着看板",
+    "reason": "2026-10-08: Correct Wu board, assignment and visibility meanings while preserving placeholders and markup; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-private-info",
+    "before": "该板将是<strong>private</strong>。",
+    "after": "搿块看板会设成<strong>私有</strong>。",
+    "reason": "2026-10-08: Correct Wu board, assignment and visibility meanings while preserving placeholders and markup; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-public-info",
+    "before": "该委员会将是<strong>public</strong>。",
+    "after": "搿块看板会设成<strong>公开</strong>。",
+    "reason": "2026-10-08: Correct Wu board, assignment and visibility meanings while preserving placeholders and markup; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-drag-drop-reorder-or-click-open",
+    "before": "拖放以重新排序板图标。单击图板图标可打开图板。",
+    "after": "拖放可以调整看板图标个次序。点看板图标就打开看板。",
+    "reason": "2026-10-08: Correct Wu board, assignment and visibility meanings while preserving placeholders and markup; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-open-and-move-between-remaining-and-workspaces",
+    "before": "点击打开看板。使用拖动手柄将板分配给__workspaces__（放在侧边栏中的工作区上）。",
+    "after": "点一下打开看板。用拖动手柄拿看板分配到 __workspaces__（放到侧栏里向个工作区浪）。",
+    "reason": "2026-10-08: Correct Wu board, assignment and visibility meanings while preserving placeholders and markup; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "boardChangeColorPopup-title",
+    "before": "更改板背景",
+    "after": "修改看板背景",
+    "reason": "2026-10-08: Correct Wu board, assignment and visibility meanings while preserving placeholders and markup; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "boardChangeTitlePopup-title",
+    "before": "重命名板",
+    "after": "修改看板名字",
+    "reason": "2026-10-08: Correct Wu board, assignment and visibility meanings while preserving placeholders and markup; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "boardChangeWatchPopup-title",
+    "before": "更换手表",
+    "after": "修改关注设置",
+    "reason": "2026-10-08: Correct Wu board, assignment and visibility meanings while preserving placeholders and markup; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "boardMenuPopup-title",
+    "before": "棋盘设置",
+    "after": "看板设置",
+    "reason": "2026-10-08: Correct Wu board, assignment and visibility meanings while preserving placeholders and markup; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "boardChangeViewPopup-title",
+    "before": "板视图",
+    "after": "看板视图",
+    "reason": "2026-10-08: Correct Wu board, assignment and visibility meanings while preserving placeholders and markup; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "boards",
+    "before": "板",
+    "after": "看板",
+    "reason": "2026-10-08: Correct Wu board, assignment and visibility meanings while preserving placeholders and markup; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-view",
+    "before": "板视图",
+    "after": "看板视图",
+    "reason": "2026-10-08: Correct Wu board, assignment and visibility meanings while preserving placeholders and markup; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "mobile-desktop-toggle",
+    "before": "在移动和桌面模式之间切换",
+    "after": "勒移动模式搭桌面模式之间切换",
+    "reason": "2026-10-08: Correct Wu board, assignment and visibility meanings while preserving placeholders and markup; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-view-multiboard-cal",
+    "before": "日历 (所有板)",
+    "after": "多个看板个日历",
+    "reason": "2026-10-08: Correct Wu board, assignment and visibility meanings while preserving placeholders and markup; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-view-collapse",
+    "before": "坍塌",
+    "after": "收拢",
+    "reason": "2026-10-08: Correct Wu board, assignment and visibility meanings while preserving placeholders and markup; lower-confidence prose needs native review."
   }
 ]
