@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/260b4946e6">Translate Cherokee warning and verify every non-English warning catalog</a>. Thanks to xet7.</summary>
+
+Finish the remaining English sign-in warning and discover all 234 non-English
+catalog paths in its regression test. Reject missing and empty values, and check
+exact variables, address roles, ROOT_URL and substitution. Warning and placeholder
+suites and all 21 preservation checks pass. Cherokee prose has low confidence and
+needs native review. The wider translation backlog remains unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/204bb32c1d">Translate Tamazight and Inuktitut sign-in warnings</a>. Thanks to xet7.</summary>
 
 Preserve address variables and ROOT_URL, with checks for Tifinagh and Canadian
