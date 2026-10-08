@@ -846,6 +846,30 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
   "interrupted-import-scrum",
   "interrupted-import-counts"
 ]);
+  keys.push(...[
+  "interrupted-import-no-board",
+  "interrupted-import-keep",
+  "interrupted-import-discard",
+  "interrupted-import-keep-confirm",
+  "interrupted-import-discard-confirm",
+  "interrupted-import-refresh",
+  "interrupted-import-empty",
+  "interrupted-import-truncated",
+  "interrupted-import-unavailable",
+  "interrupted-import-missing",
+  "interrupted-import-not-interrupted",
+  "interrupted-import-foreign-board",
+  "interrupted-import-scrum-busy",
+  "interrupted-import-failed",
+  "scrum-history-checkpoint-stuck",
+  "scrum-history-checkpoint-counts",
+  "scrum-history-checkpoint-hint",
+  "scrum-history-checkpoint-rollback",
+  "scrum-history-checkpoint-discard",
+  "scrum-history-checkpoint-discard-confirm",
+  "scrum-history-checkpoint-ask-admin",
+  "login-setting-env-only"
+]);
   for (const language of ['zu', 'zu-ZA']) {
     const locale = read(language);
     for (const key of keys) {
@@ -1032,6 +1056,16 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
     ['swimlanes', 'lists', 'cards', 'checklists', 'comments', 'attachments'].forEach((name, index) => { counts = counts.replace('__' + name + '__', String(index + 1)); });
     assert.match(counts, /1.*2.*3.*4.*5.*6/);
     assert.doesNotMatch(counts, /__\w+__/);
+    assert.match(locale['interrupted-import-keep-confirm'], /Akukho okususwayo/);
+    assert.match(locale['interrupted-import-discard-confirm'], /kususwa unomphela/);
+    assert.match(locale['interrupted-import-foreign-board'], /alidalwanga.*alithintwanga/);
+    assert.match(locale['scrum-history-checkpoint-hint'], /kuphela uma kungekho omunye umuntu/);
+    assert.match(locale['scrum-history-checkpoint-hint'], /akushintshi amarekhodi/);
+    assert.match(locale['login-setting-env-only'], /yeseva kuphela.*kufundwe kuphela/);
+    let checkpoint = locale['scrum-history-checkpoint-counts'];
+    ['applied', 'total', 'pending', 'conflicted'].forEach((name, index) => { checkpoint = checkpoint.replace('__' + name + '__', String(index + 1)); });
+    assert.match(checkpoint, /1.*2.*3.*4/);
+    assert.doesNotMatch(checkpoint, /__\w+__/);
     const failure = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
     assert.ok(failure.includes('E_LDAP'));
     assert.ok(!failure.includes('%s'));

@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Zulu recovery decisions and history checkpoints — 2026-10-09
+
+Translate 22 messages per Zulu catalog (44 values): interrupted-import decisions,
+history checkpoints and read-only server settings. Tests render checkpoint
+variables and retain keep/discard distinctions, foreign-board protection,
+rollback restrictions and read-only semantics. Both targeted suites and all
+21 preservation checks pass. Specialized terminology remains low confidence
+pending speaker review. Browser execution and remaining translations are outstanding.
+
 ## Zulu interrupted board imports — 2026-10-09
 
 Translate 25 messages per Zulu catalog (50 values) for stuck-sync outcomes and
