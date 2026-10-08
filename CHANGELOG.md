@@ -1897,8 +1897,8 @@ each for the reason given:
 
 **In short:** Two **GitHub CodeQL** code-scanning alerts in the test suite are
 fixed: tests no longer build `bash -c` scripts from absolute paths, and a guard
-keeps that shape out of every test. **Multi-Selection** can set a custom
-card color.
+keeps that shape out of every test. A **minicard comment** is readable again
+beside many assignees. **Multi-Selection** can set a custom card color.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
@@ -1939,6 +1939,28 @@ vulnerability stands behind it. `tests/multiSelectionCustomColor.test.cjs` pins
 the rule, the swatch list and the wiring;
 `tests/playwright/specs/multiselection-custom-color.e2e.js` colors two cards
 light yellow and checks a comment-only linked card stays unchanged.
+
+</details>
+
+and fixes the following bugs:
+
+**Minicards** - the comment preview gets a full-width line of its own.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c2ad25d3bfc22698667d145e54f016a4a4593f2e">The comment preview is no longer cut to a few characters beside the assignees</a>. Thanks to xet7.</summary>
+
+With Board Settings / Card / Comments "Show on Minicard" on, a card with seven
+assignees showed its comment as "Någr…" on the same line as the avatars. The
+avatar rows float to the inline end and the badges to the inline start; each
+comment line was `overflow: hidden`, which a float narrows to the width it
+leaves, and `white-space: nowrap` cut the text there. The comments now clear
+both floats and start at full width under them, and the text wraps, clamped to
+three lines with the ellipsis at the end, in LTR and RTL.
+`tests/minicardCommentsOnMinicard.test.cjs` pins the clear, the wrap and the
+clamp and fails on any minicard comment rule that goes back to `nowrap`,
+absolute positioning or a one-sided clear;
+`tests/playwright/specs/minicard-comment-beside-assignees.e2e.js` reproduces the
+report with seven assignees and asserts no avatar overlaps the comment.
 
 </details>
 
@@ -2357,7 +2379,8 @@ Thanks to xet7 !
   states, movement versus scrolling and navigation endpoints.
 - Technical wording remains low confidence pending speaker review.
 - All 51 focused checks and 21 human-preference checks pass. Browser and
-  screen-reader checks were not run. Further translations and the audit continue.
+  screen-reader checks were not run. Further translations and the audit
+  continue.
 
 Thanks to xet7 !
 
@@ -2367,10 +2390,12 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/cbaf5b65fe137541c1fa0d5c22bbfff6c25d4c87">Translate Turkmen variables and function controls</a></summary>
 
 - Fill 36 Turkmen placeholders, preserving existing translations, return-value
-  distinctions, disabled-definition warnings, scope restrictions and input types.
+  distinctions, disabled-definition warnings, scope restrictions and input
+  types.
 - Technical wording remains low confidence pending speaker review.
 - All 50 focused checks and 21 human-preference checks pass. Browser and
-  screen-reader checks were not run. Further translations and the audit continue.
+  screen-reader checks were not run. Further translations and the audit
+  continue.
 
 Thanks to xet7 !
 
@@ -2432,7 +2457,8 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/2c5cb11dc663a487b632d9b54ee5ebf9ab8dbe9f">Translate Turkmen list search, updates and sorting</a></summary>
 
 - Fill 31 Turkmen placeholders, preserving existing translations, missing-item
-  results, insertion versus assignment, sort directions and letter-case handling.
+  results, insertion versus assignment, sort directions and letter-case
+  handling.
 - Technical wording remains low confidence pending speaker review.
 - All 45 focused checks and 21 human-preference checks pass. Browser checks
   were not run. Further Turkmen translations and the broader audit continue.
@@ -2461,7 +2487,8 @@ Thanks to xet7 !
   distinctions, coordinates, search/replacement roles and shortcut instructions.
 - Technical wording remains low confidence pending speaker review.
 - All 43 focused checks and 21 human-preference checks pass. Browser and
-  screen-reader checks were not run. Further translations and the audit continue.
+  screen-reader checks were not run. Further translations and the audit
+  continue.
 
 Thanks to xet7 !
 
@@ -2474,7 +2501,8 @@ Thanks to xet7 !
   coordinates, opposite actions, input roles and keyboard hints.
 - Technical wording remains low confidence pending speaker review.
 - All 42 focused checks and 21 human-preference checks pass. Browser and
-  screen-reader checks were not run. Further translations and the audit continue.
+  screen-reader checks were not run. Further translations and the audit
+  continue.
 
 Thanks to xet7 !
 
@@ -2526,7 +2554,8 @@ Thanks to xet7 !
   recognizable key markings, ordinal roles and control-clause distinctions.
 - Technical wording remains low confidence pending speaker review.
 - All 74 focused checks and 21 human-preference checks pass. Browser and
-  screen-reader checks were not run. Further translations and the audit continue.
+  screen-reader checks were not run. Further translations and the audit
+  continue.
 
 Thanks to xet7 !
 
@@ -2614,10 +2643,12 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/4cb8d596b8e0926f9e72e46aecacf1a220dd0ff7">Translate Konkani workspace announcements and rule editor</a></summary>
 
 - Fill 40 Konkani placeholders, preserving existing translations, composed
-  counts, search shortcuts and rule-validation, conflict and permission guidance.
+  counts, search shortcuts and rule-validation, conflict and permission
+  guidance.
 - Technical wording remains low confidence pending speaker review.
 - All 60 focused checks and 21 human-preference checks pass. Browser and
-  screen-reader checks were not run. Further translations and the audit continue.
+  screen-reader checks were not run. Further translations and the audit
+  continue.
 
 Thanks to xet7 !
 
@@ -2643,7 +2674,8 @@ Thanks to xet7 !
   mode states, navigation distinctions and text operand roles.
 - Technical wording remains low confidence pending speaker review.
 - All 56 focused checks and 21 human-preference checks pass. Browser and
-  screen-reader checks were not run. Further translations and the audit continue.
+  screen-reader checks were not run. Further translations and the audit
+  continue.
 
 Thanks to xet7 !
 
@@ -2665,7 +2697,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/294faaff6a351e087234b4e18bc62094edd859f8">Translate Konkani powers, logarithms and trigonometry</a></summary>
 
-- Fill 29 Konkani placeholders, preserving existing translations, logarithm bases,
+- Fill 29 Konkani placeholders, preserving existing translations, logarithm
+  bases,
   sign reversal and degree-versus-radian caveats.
 - Mathematical terminology remains low confidence pending speaker review.
 - All 53 focused checks and 21 human-preference checks pass. Browser checks
@@ -2691,7 +2724,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b7e59a922dc9f7cd4cdab951a7c05181ffb86a28">Translate Konkani constants and number properties</a></summary>
 
-- Fill 21 Konkani values, preserving existing translations, mathematical constants,
+- Fill 21 Konkani values, preserving existing translations, mathematical
+  constants,
   inclusive limits and remainder operands.
 - Mathematical terminology remains low confidence pending speaker review.
 - All 51 focused checks and 21 human-preference checks pass. Browser checks
@@ -2743,7 +2777,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/91240780fa590bbe281cebf66b307a79b872aaee">Translate Konkani list retrieval and removal</a></summary>
 
-- Fill 23 Konkani values, preserving existing translations, return-versus-removal
+- Fill 23 Konkani values, preserving existing translations,
+  return-versus-removal
   semantics, index markers and copy behavior.
 - Technical wording remains low confidence pending speaker review.
 - All 47 focused checks and 21 human-preference checks pass. Browser checks
@@ -2756,7 +2791,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ca54f57cbc7fcbedfe9c557bd4141d09c10c030a">Translate Konkani keyboard navigation and list creation</a></summary>
 
-- Fill 24 Konkani placeholders, preserving existing translations, key-token roles,
+- Fill 24 Konkani placeholders, preserving existing translations, key-token
+  roles,
   empty-list length, index markers and retrieval actions.
 - Technical wording remains low confidence pending speaker review.
 - All 46 focused checks and 21 human-preference checks pass. Browser and
@@ -2769,7 +2805,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/46356156ddc472038ba6399f5d67cbd9dd380bbf">Translate Konkani mathematical and text input labels</a></summary>
 
-- Fill 32 Konkani placeholders, preserving existing translations, coordinate axes,
+- Fill 32 Konkani placeholders, preserving existing translations, coordinate
+  axes,
   operand roles, indexed values and start/end positions.
 - Technical wording remains low confidence pending speaker review.
 - All 45 focused checks and 21 human-preference checks pass. Browser checks
@@ -2847,7 +2884,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b634313d8d2098e4fc2dad4df62d3b32c3074c1e">Translate Maithili keyboard announcements and short labels</a></summary>
 
-- Fill 21 Maithili values, preserving existing translations, indexed announcement
+- Fill 21 Maithili values, preserving existing translations, indexed
+  announcement
   roles and the menu symbol.
 - Keyboard transliterations remain low confidence pending speaker review.
 - All 72 focused checks and 21 human-preference checks pass. Browser and
@@ -2899,7 +2937,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ded9b5029fbac53b5b86df5f0d76b464a0da44c8">Translate Maithili sync preview and source fields</a></summary>
 
-- Fill 20 Maithili placeholders, preserving existing translations, preview limits,
+- Fill 20 Maithili placeholders, preserving existing translations, preview
+  limits,
   parser omissions and hidden source values.
 - Technical wording remains low confidence pending speaker review.
 - All 66 focused checks and 21 human-preference checks pass. Browser checks
@@ -3042,7 +3081,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cfa8ed7ba7ed02eaba7408e9ebe3f4932fe4470d">Translate Maithili procedure and rename controls</a></summary>
 
-- Fill 25 Maithili values, preserving existing translations, function-name tokens,
+- Fill 25 Maithili values, preserving existing translations, function-name
+  tokens,
   output distinctions and disabled-definition warnings.
 - Technical wording remains low confidence pending speaker review.
 - All 53 focused checks and 21 human-preference checks pass. Browser checks
@@ -3068,7 +3108,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/63c0ad6116e53d8ed0fe1c3dd6a6ad616f829260">Translate Maithili rounding and random numbers</a></summary>
 
-- Fill 24 Maithili placeholders, preserving existing translations, random bounds,
+- Fill 24 Maithili placeholders, preserving existing translations, random
+  bounds,
   indexed limits, logarithm bases and rounding directions.
 - Mathematical terminology remains low confidence pending speaker review.
 - All 51 focused checks and 21 human-preference checks pass. Browser checks
@@ -3107,7 +3148,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ed7d6dd234f49992f21cadcc6a81c9a7b3266a42">Translate Maithili logic controls and comparisons</a></summary>
 
-- Fill 25 Maithili values, preserving existing translations, inclusive comparisons,
+- Fill 25 Maithili values, preserving existing translations, inclusive
+  comparisons,
   Boolean distinctions, conditional labels and tokens.
 - Technical wording remains low confidence pending speaker review.
 - All 48 focused checks and 21 human-preference checks pass. Browser checks
@@ -3159,7 +3201,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bd3133c6fd30635461db1da61abb982d064ab8cb">Translate Maithili mathematical and text input labels</a></summary>
 
-- Fill 32 Maithili placeholders, preserving existing translations, coordinate axes,
+- Fill 32 Maithili placeholders, preserving existing translations, coordinate
+  axes,
   operand roles, indexed values and start/end positions.
 - Technical wording remains low confidence pending speaker review.
 - All 44 focused checks and 21 human-preference checks pass. Browser checks
@@ -3185,7 +3228,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/46ea73e57b6c439f3301c4111aa926c857cc301c">Translate Maithili conditions and block editing</a></summary>
 
-- Fill 36 Maithili values, preserving existing translations, conditional branches,
+- Fill 36 Maithili values, preserving existing translations, conditional
+  branches,
   true/false loop conditions and indexed deletion tokens.
 - Technical wording remains low confidence pending speaker review.
 - All 42 focused checks and 21 human-preference checks pass. Browser checks
@@ -3198,7 +3242,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fe596305d1f651d5d4788cc920435a64f00c37c2">Translate Maithili Blockly colours and loop controls</a></summary>
 
-- Fill 31 Maithili placeholders, preserving existing translations, colour bounds,
+- Fill 31 Maithili placeholders, preserving existing translations, colour
+  bounds,
   indexed tokens and loop-control distinctions.
 - Technical terminology remains low confidence pending speaker review.
 - All 41 focused checks and 21 human-preference checks pass. Browser checks
@@ -3251,7 +3296,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/630cd35b4b5d17a5cc2183925d33f5b3232e3af4">Translate Odia source omissions and sync reports</a></summary>
 
-- Fill 18 Odia source and sync-report placeholders, preserving existing translations,
+- Fill 18 Odia source and sync-report placeholders, preserving existing
+  translations,
   report limits, hidden values and partial-change caveats.
 - Technical wording remains low confidence pending speaker review.
 - All 70 focused checks and 21 human-preference checks pass. Browser checks
@@ -3278,7 +3324,8 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/1039789a4b67ccdff50bf199069fcc3eb733011b">Translate Odia sync conflict guidance</a></summary>
 
 - Fill 16 Odia Scrum-import and sync-conflict placeholders, preserving existing
-  translations, source-write restrictions, review scope and local data retention.
+  translations, source-write restrictions, review scope and local data
+  retention.
 - Technical wording remains low confidence pending speaker review.
 - All 68 focused checks and 21 human-preference checks pass. Browser checks
   were not run. Further Odia translations and the broader audit continue.
@@ -3290,8 +3337,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c1fc0c0fd22be5b2d94179a3c5b5172d641b24b1">Translate Odia sprint lifecycle and observations</a></summary>
 
-- Fill 25 Odia sprint and observation placeholders, preserving existing translations,
-  partial-report restrictions, UTC days, observation limits and unknown estimates.
+- Fill 25 Odia sprint and observation placeholders, preserving existing
+  translations,
+  partial-report restrictions, UTC days, observation limits and unknown
+  estimates.
 - Technical wording remains low confidence pending speaker review.
 - All 66 focused checks and 21 human-preference checks pass. Browser checks
   were not run. Further Odia translations and the broader audit continue.
@@ -3303,7 +3352,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/843339b916a2d5e483bfc7cf9cd8493b0bb00c4b">Translate Odia sprint reports and events</a></summary>
 
-- Fill 30 Odia sprint-report and event placeholders, preserving existing translations,
+- Fill 30 Odia sprint-report and event placeholders, preserving existing
+  translations,
   report counts, minute units and unknown-estimate caveats.
 - Technical wording remains low confidence pending speaker review.
 - All 65 focused checks and 21 human-preference checks pass. Browser checks
@@ -3342,7 +3392,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/10a806b11a8f0a427405a1a685684d3ae24a895a">Translate Odia workspace search and shared block labels</a></summary>
 
-- Fill 21 Odia search and block-label placeholders, preserving existing translations,
+- Fill 21 Odia search and block-label placeholders, preserving existing
+  translations,
   keyboard shortcuts, match counts and shared label consistency.
 - Technical wording remains low confidence pending speaker review.
 - All 61 focused checks and 21 human-preference checks pass. Browser checks
@@ -3355,7 +3406,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/49412e659e4382931b7858aed698212e8f89089a">Translate Odia variable warnings and workspace counts</a></summary>
 
-- Fill 19 Odia variable and workspace placeholders, preserving existing translations,
+- Fill 19 Odia variable and workspace placeholders, preserving existing
+  translations,
   variable references, count distinctions and comment suffix spacing.
 - Technical wording remains low confidence pending speaker review.
 - All 60 focused checks and 21 human-preference checks pass. Browser checks
@@ -3382,7 +3434,8 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/cce628eb04004338f812319b35a360dc0e7e8e06">Translate Odia text joining and substring messages</a></summary>
 
 - Fill 22 Odia text-building and substring placeholders, preserving existing
-  translations, position markers, search operand roles and not-found return values.
+  translations, position markers, search operand roles and not-found return
+  values.
 - Technical wording remains low confidence pending speaker review.
 - All 58 focused checks and 21 human-preference checks pass. Browser checks
   were not run. Further Odia translations and the broader audit continue.
@@ -3498,7 +3551,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b87568cd434fa104ad6cc2c7ee75b9812f468bb0">Translate Odia Boolean logic and arithmetic messages</a></summary>
 
-- Fill 21 Odia logic and arithmetic placeholders, preserving existing translations,
+- Fill 21 Odia logic and arithmetic placeholders, preserving existing
+  translations,
   conditional labels, coordinate references and numeric domains.
 - Technical wording remains low confidence pending speaker review.
 - All 49 focused checks and 21 human-preference checks pass. Browser checks
@@ -3537,7 +3591,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9fd3f94aba8969b5c2805e5c7330734086e6990f">Translate Odia list retrieval and removal tooltips</a></summary>
 
-- Fill 20 Odia list-item and sublist placeholders, preserving existing translations,
+- Fill 20 Odia list-item and sublist placeholders, preserving existing
+  translations,
   index markers and distinct retrieval and removal effects.
 - Technical wording remains low confidence pending speaker review.
 - All 46 focused checks and 21 human-preference checks pass. Browser checks
@@ -3550,7 +3605,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/acd7db180d6ba66f17d5871719364c6b78e35bf8">Translate Odia list creation and keyboard navigation</a></summary>
 
-- Fill 22 Odia list and navigation placeholders, preserving existing translations,
+- Fill 22 Odia list and navigation placeholders, preserving existing
+  translations,
   shortcut tokens, index markers and distinct selection actions.
 - Technical wording remains low confidence pending speaker review.
 - All 45 focused checks and 21 human-preference checks pass. Browser checks
@@ -3602,7 +3658,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d0c0d238f12708609aa76ff38bbf91d5550f6bc8">Translate Odia Blockly loops and conditionals</a></summary>
 
-- Fill 20 Odia placeholders for loop controls and conditional branches, preserving
+- Fill 20 Odia placeholders for loop controls and conditional branches,
+  preserving
   existing translations, indexed tokens and true/false condition meanings.
 - Technical wording remains low confidence pending speaker review.
 - All 41 focused checks and 21 human-preference checks pass. Browser checks
@@ -3615,7 +3672,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/17ba35125774d597acdaf39f0068dbd9a71870ae">Translate Odia Blockly colours and controls</a></summary>
 
-- Fill 24 Odia placeholders for Blockly colours, block operations and loop controls,
+- Fill 24 Odia placeholders for Blockly colours, block operations and loop
+  controls,
   preserving existing translations, format tokens and numeric bounds.
 - Technical wording remains low confidence pending speaker review.
 - All 40 focused checks and 21 human-preference checks pass. Browser checks
@@ -3632,7 +3690,8 @@ Thanks to xet7 !
   field names in its example.
 - Technical wording remains low confidence pending speaker review.
 - All 151 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3645,7 +3704,8 @@ Thanks to xet7 !
   preserving forecast limits, date fallbacks and time adjustment caveats.
 - Statistical wording remains low confidence pending speaker review.
 - All 150 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3658,7 +3718,8 @@ Thanks to xet7 !
   statistical distinctions, day units and group meanings.
 - Statistical terminology remains low confidence pending speaker review.
 - All 149 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3668,10 +3729,12 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/b6eaa54879431d429698cd8cc3c853bb346f3db7">Correct Tatar event and import translations</a></summary>
 
 - Correct 21 wrong-language event and import strings, preserving address labels,
-  file extensions, provider names, search syntax and import selection restrictions.
+  file extensions, provider names, search syntax and import selection
+  restrictions.
 - Technical wording remains low confidence pending speaker review.
 - All 148 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3684,7 +3747,8 @@ Thanks to xet7 !
   counts, failure conditions and the existing acknowledgement button label.
 - Technical wording remains low confidence pending speaker review.
 - All 147 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3697,7 +3761,8 @@ Thanks to xet7 !
   preserving technical labels, byte units and temporary lockout wording.
 - Technical wording remains low confidence pending speaker review.
 - All 146 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3710,7 +3775,8 @@ Thanks to xet7 !
   time units, resource identifiers and background processing notices.
 - Technical wording remains low confidence pending speaker review.
 - All 145 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3723,7 +3789,8 @@ Thanks to xet7 !
   storage names, resource identifiers, scheduling intervals and batch limits.
 - Technical wording remains low confidence pending speaker review.
 - All 144 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3736,7 +3803,8 @@ Thanks to xet7 !
   technical identifiers, recovery targets and the continued board use notice.
 - Technical wording remains low confidence pending speaker review.
 - All 143 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3746,10 +3814,12 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/6b8beeca6ab1add014271ef7e7ded0f8cf7695b3">Correct Tatar board migration and recovery translations</a></summary>
 
 - Correct 45 wrong-language storage and migration strings, preserving technical
-  identifiers, administrator restrictions, deletion conditions and recovery warnings.
+  identifiers, administrator restrictions, deletion conditions and recovery
+  warnings.
 - Technical wording remains low confidence pending speaker review.
 - All 142 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3762,7 +3832,8 @@ Thanks to xet7 !
   and migration controls, preserving hostnames, region codes and SSL/TLS labels.
 - Technical wording remains low confidence pending speaker review.
 - All 141 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3775,7 +3846,8 @@ Thanks to xet7 !
   distinct migration and connection outcomes.
 - Technical wording remains low confidence pending speaker review.
 - All 140 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3788,7 +3860,8 @@ Thanks to xet7 !
   credential states and pause versus stop distinctions.
 - Technical wording remains low confidence pending speaker review.
 - All 139 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3797,11 +3870,13 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0cf1c99b06d668eb93d3e9f83f9f7e280edc9259">Correct Tatar cloud credentials and console paths</a></summary>
 
-- Correct 22 cloud-credential values, restoring console labels, credential fields
+- Correct 22 cloud-credential values, restoring console labels, credential
+  fields
   and file extensions from English. External consoles were not revalidated.
 - Technical wording remains low confidence pending speaker review.
 - All 138 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3814,7 +3889,8 @@ Thanks to xet7 !
   formats, the monthly range and distinct restore modes.
 - Technical wording remains low confidence pending speaker review.
 - All 137 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3827,7 +3903,8 @@ Thanks to xet7 !
   distinctions and organization backup boundaries.
 - Technical wording remains low confidence pending speaker review.
 - All 136 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3837,10 +3914,12 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/b66f0cbc4016e75b4d5545702bf8905d8821639f">Correct Tatar import export and anonymization guidance</a></summary>
 
 - Correct 14 import/export values and replace incorrect account-anonymization
-  guidance with its actual irreversible consequences; restore service identifiers.
+  guidance with its actual irreversible consequences; restore service
+  identifiers.
 - Technical wording remains low confidence pending speaker review.
 - All 135 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3853,7 +3932,8 @@ Thanks to xet7 !
   with English and restoring configuration names and code examples.
 - Technical wording remains low confidence pending speaker review.
 - All 134 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3866,7 +3946,8 @@ Thanks to xet7 !
   migration prerequisites and irreversible deletion warnings.
 - Technical wording remains low confidence pending speaker review.
 - All 133 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3879,7 +3960,8 @@ Thanks to xet7 !
   database URLs, environment variables, commands and directory paths.
 - Technical wording remains low confidence pending speaker review.
 - All 132 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3892,7 +3974,8 @@ Thanks to xet7 !
   resume and filesystem-state distinctions.
 - Technical wording remains low confidence pending speaker review.
 - All 131 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3905,7 +3988,8 @@ Thanks to xet7 !
   outcomes, job actions and distinct storage paths.
 - Technical wording remains low confidence pending speaker review.
 - All 130 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3918,7 +4002,8 @@ Thanks to xet7 !
   and opposing activation actions.
 - Technical wording remains low confidence pending speaker review.
 - All 129 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3931,7 +4016,8 @@ Thanks to xet7 !
   restrictions, username distinctions and lockout units.
 - Technical wording remains low confidence pending speaker review.
 - All 128 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3944,7 +4030,8 @@ Thanks to xet7 !
   identifiers and distinguishing card recurrence from checklist reset.
 - Technical wording remains low confidence pending speaker review.
 - All 127 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3957,7 +4044,8 @@ Thanks to xet7 !
   placeholders, technical identifiers and irreversible deletion warnings.
 - Technical wording remains low confidence pending speaker review.
 - All 126 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3970,7 +4058,8 @@ Thanks to xet7 !
   transfer measurements and the compaction error prefix.
 - Technical wording remains low confidence pending speaker review.
 - All 125 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3983,7 +4072,8 @@ Thanks to xet7 !
   compaction prerequisites and source warnings.
 - Technical wording remains low confidence pending speaker review.
 - All 124 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -3996,7 +4086,8 @@ Thanks to xet7 !
   attachment-and-avatar repair scope and distinct progress states.
 - Technical wording remains low confidence pending speaker review.
 - All 123 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4009,7 +4100,8 @@ Thanks to xet7 !
   copy modes and single, global and board-scoped attachment moves.
 - Technical wording remains low confidence pending speaker review.
 - All 122 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4022,7 +4114,8 @@ Thanks to xet7 !
   identifiers, distinct memory metrics and checklist line mapping.
 - Technical wording remains low confidence pending speaker review.
 - All 121 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4035,7 +4128,8 @@ Thanks to xet7 !
   conditions, board-scoped removal and distinct Node metrics.
 - Technical wording remains low confidence pending speaker review.
 - All 120 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4048,7 +4142,8 @@ Thanks to xet7 !
   deletion restrictions, distinct ticket states and Cc notation.
 - Technical wording remains low confidence pending speaker review.
 - All 119 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4061,7 +4156,8 @@ Thanks to xet7 !
   call ordering and automatic continuation after recovery.
 - Technical wording remains low confidence pending speaker review.
 - All 118 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4074,7 +4170,8 @@ Thanks to xet7 !
   login counts and API aggregation semantics.
 - Technical wording remains low confidence pending speaker review.
 - All 117 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4087,7 +4184,8 @@ Thanks to xet7 !
   log commands and preserving detection states and sorting distinctions.
 - Technical wording remains low confidence pending speaker review.
 - All 116 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4100,7 +4198,8 @@ Thanks to xet7 !
   directions, JSON/SVG identifiers, import counters and image-size tokens.
 - Technical wording remains low confidence pending speaker review.
 - All 115 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4113,7 +4212,8 @@ Thanks to xet7 !
   sort direction and opposing visibility, addition and removal actions.
 - Technical wording remains low confidence pending speaker review.
 - All 114 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4126,7 +4226,8 @@ Thanks to xet7 !
   OR/AND distinctions, negation, sort syntax and the Arial font name.
 - Technical wording remains low confidence pending speaker review.
 - All 113 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4139,7 +4240,8 @@ Thanks to xet7 !
   examples, operator placeholders and syntax metavariables.
 - Technical wording remains low confidence pending speaker review.
 - All 112 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4152,7 +4254,8 @@ Thanks to xet7 !
   distinct single-word aliases accepted by the search parser.
 - Technical wording remains low confidence pending speaker review.
 - All 111 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4162,10 +4265,12 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/d802535c04d50100489f6ebf0fc9305562a5c856">Correct Tatar search views and result messages</a></summary>
 
 - Correct 34 search-view and due-card values, preserving permission scope,
-  member-or-assignee filtering, incomplete-card criteria and result placeholders.
+  member-or-assignee filtering, incomplete-card criteria and result
+  placeholders.
 - Technical wording remains low confidence pending speaker review.
 - All 110 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4178,7 +4283,8 @@ Thanks to xet7 !
   syntax, validation restrictions and shared-template scope.
 - Technical wording remains low confidence pending speaker review.
 - All 109 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4191,7 +4297,8 @@ Thanks to xet7 !
   administrator rights, read states and linked-card deletion prerequisites.
 - Technical wording remains low confidence pending speaker review.
 - All 108 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4204,7 +4311,8 @@ Thanks to xet7 !
   keyboard shortcuts, editor modes and multiple-card window behavior.
 - Technical wording remains low confidence pending speaker review.
 - All 107 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4214,10 +4322,12 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/b688f5acf17071fc3551eb581927a87eaaf63aa0">Correct Tatar reminders and account deletion messages</a></summary>
 
 - Correct 33 reminder, positioning and deletion values, preserving date and
-  mention placeholders, reminder distinctions and irreversible deletion warnings.
+  mention placeholders, reminder distinctions and irreversible deletion
+  warnings.
 - Technical wording remains low confidence pending speaker review.
 - All 106 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4230,7 +4340,8 @@ Thanks to xet7 !
   protocol names, assetlinks.json, HTML boundaries and JSON markers.
 - Technical wording remains low confidence pending speaker review.
 - All 105 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4243,7 +4354,8 @@ Thanks to xet7 !
   sequential label/card and field/value/card arguments verified from source.
 - Technical wording remains low confidence pending speaker review.
 - All 104 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4256,7 +4368,8 @@ Thanks to xet7 !
   deletion warnings, duplicate-list conditions and board placeholders.
 - Technical wording remains low confidence pending speaker review.
 - All 103 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4266,10 +4379,12 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/34e568ba07d41cd5072570f315d49afa46e8361d">Correct Tatar custom fields and organization settings</a></summary>
 
 - Correct 33 custom-field, time-unit and organization settings values, restoring
-  domain syntax and preserving administrator restrictions and field-sum semantics.
+  domain syntax and preserving administrator restrictions and field-sum
+  semantics.
 - Technical wording remains low confidence pending speaker review.
 - All 102 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4282,7 +4397,8 @@ Thanks to xet7 !
   identifiers and preserving webhook directions and memory/version distinctions.
 - Technical wording remains low confidence pending speaker review.
 - All 101 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4295,7 +4411,8 @@ Thanks to xet7 !
   preserving protocol names, invitation fields and optional authentication.
 - Technical wording remains low confidence pending speaker review.
 - All 100 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4305,10 +4422,12 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/7287a1e98becfbf7b03170a0d8a7cda596a3b78d">Correct Tatar settings and transfer limits</a></summary>
 
 - Correct 33 settings, watching, welcome and transfer-limit values, preserving
-  defaults, WIP identifiers, transfer directions and autolink disabling behavior.
+  defaults, WIP identifiers, transfer directions and autolink disabling
+  behavior.
 - Technical wording remains low confidence pending speaker review.
 - All 99 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4321,7 +4440,8 @@ Thanks to xet7 !
   shortcut ranges and distinct upload states.
 - Technical wording remains low confidence pending speaker review.
 - All 98 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4334,7 +4454,8 @@ Thanks to xet7 !
   sidebar targets, automatic-opening states and hour units.
 - Technical wording remains low confidence pending speaker review.
 - All 97 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4347,7 +4468,8 @@ Thanks to xet7 !
   removal consequences and membership/assignment distinctions.
 - Technical wording remains low confidence pending speaker review.
 - All 96 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4360,7 +4482,8 @@ Thanks to xet7 !
   tokens, login markup and membership-only editing restrictions.
 - Technical wording remains low confidence pending speaker review.
 - All 95 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4373,7 +4496,8 @@ Thanks to xet7 !
   action aliases, assigned-only visibility and settings restrictions.
 - Technical wording remains low confidence pending speaker review.
 - All 94 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4386,7 +4510,8 @@ Thanks to xet7 !
   bulk-action scope and list deletion/archive distinctions.
 - Technical wording remains low confidence pending speaker review.
 - All 93 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4399,7 +4524,8 @@ Thanks to xet7 !
   year/admin requirements and board-leaving/deletion consequences.
 - Technical wording remains low confidence pending speaker review.
 - All 92 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4412,7 +4538,8 @@ Thanks to xet7 !
   cancellation distinctions and the current-user mapping fallback.
 - Technical wording remains low confidence pending speaker review.
 - All 91 focused checks and 21 human-preference checks pass. Browser and import
-  runtime checks were not run. Further corrections and the broader audit continue.
+  runtime checks were not run. Further corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4422,10 +4549,12 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/d017b1cbe4b6daf11b0ffb48baa1594c33f1b944">Correct Tatar Trello import options and errors</a></summary>
 
 - Correct 28 import and workspace strings, restoring file extensions and
-  downloader names while preserving source tokens and archive-error distinctions.
+  downloader names while preserving source tokens and archive-error
+  distinctions.
 - Technical wording remains low confidence pending speaker review.
 - All 90 focused checks and 21 human-preference checks pass. Browser and import
-  runtime checks were not run. Further corrections and the broader audit continue.
+  runtime checks were not run. Further corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4435,10 +4564,12 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/5349f6e0b028a5d7a151b50fda7b05824f0a958d">Correct Tatar import guidance and technical examples</a></summary>
 
 - Correct 25 filter and import strings, restoring literal API paths, JSON keys,
-  file extensions and filter examples, plus missing Markdown bullet-list guidance.
+  file extensions and filter examples, plus missing Markdown bullet-list
+  guidance.
 - Technical wording remains low confidence pending speaker review.
 - All 89 focused checks and 21 human-preference checks pass. Browser and import
-  runtime checks were not run. Further corrections and the broader audit continue.
+  runtime checks were not run. Further corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4447,11 +4578,13 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f761b206f43508bc1b61f8d64e517fdcb5ebf890">Correct Tatar sorting and filtering controls</a></summary>
 
-- Correct 34 sorting and filtering strings, preserving source tokens and distinct
+- Correct 34 sorting and filtering strings, preserving source tokens and
+  distinct
   date, creator/assignee and sorting-abbreviation meanings.
 - Technical wording remains low confidence pending speaker review.
 - All 88 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4464,7 +4597,8 @@ Thanks to xet7 !
   tokens, format names and inability/disk-space conditions.
 - Technical wording remains low confidence pending speaker review.
 - All 87 focused checks and 21 human-preference checks pass. Browser and export
-  runtime checks were not run. Further corrections and the broader audit continue.
+  runtime checks were not run. Further corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4477,7 +4611,8 @@ Thanks to xet7 !
   paragraph structure, format names and permission distinctions.
 - Technical wording remains low confidence pending speaker review.
 - All 86 focused checks and 21 human-preference checks pass. Browser and email
-  delivery checks were not run. Further corrections and the broader audit continue.
+  delivery checks were not run. Further corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4490,7 +4625,8 @@ Thanks to xet7 !
   preserving source tokens and distinct field options.
 - Technical wording remains low confidence pending speaker review.
 - All 85 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4503,7 +4639,8 @@ Thanks to xet7 !
   tokens, valid embedded JSON and restricted-role meanings.
 - Technical wording remains low confidence pending speaker review.
 - All 84 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4516,7 +4653,8 @@ Thanks to xet7 !
   placeholder, preserving source tokens and permission distinctions.
 - Specialized color wording remains low confidence pending speaker review.
 - All 83 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4529,7 +4667,8 @@ Thanks to xet7 !
   movement directions, toggle states and three fading levels.
 - Technical wording remains low confidence pending speaker review.
 - All 82 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4542,7 +4681,8 @@ Thanks to xet7 !
   permission limits, font-size distinctions and preview digits.
 - Technical wording remains low confidence pending speaker review.
 - All 81 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4552,10 +4692,12 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/14cbd1404fa81f6af1f2a60ad6e12d7f81a673c0">Correct Tatar popup and account action labels</a></summary>
 
 - Correct 30 dependency, account, import and restoration labels, preserving
-  source tokens and distinctions between account actions and restoration targets.
+  source tokens and distinctions between account actions and restoration
+  targets.
 - Technical wording remains low confidence pending speaker review.
 - All 80 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4568,7 +4710,8 @@ Thanks to xet7 !
   labels with inappropriate prose appended. Preserve source placeholders.
 - Technical terminology remains low confidence pending speaker review.
 - All 79 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4578,10 +4721,12 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/66c6211e8af3d3dd179264c42789d60df951db3c">Correct Tatar card archival and editing guidance</a></summary>
 
 - Correct 29 calendar and card-control strings, preserving placeholders and
-  distinctions between archive restoration, permanent deletion and overdue dates.
+  distinctions between archive restoration, permanent deletion and overdue
+  dates.
 - Technical wording remains low confidence pending speaker review.
 - All 78 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4594,7 +4739,8 @@ Thanks to xet7 !
   placeholders, zoom limits and product names.
 - Technical wording remains low confidence pending speaker review.
 - All 77 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4607,7 +4753,8 @@ Thanks to xet7 !
   visibility markup and permanent versus recoverable deletion distinctions.
 - Technical wording remains low confidence pending speaker review.
 - All 76 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4620,7 +4767,8 @@ Thanks to xet7 !
   placeholders and the loading warning about refresh-related data loss.
 - Technical wording remains low confidence pending speaker review.
 - All 75 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4630,10 +4778,12 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/2dcf2f2596ad4167ee2a515b52a9fdca7a3e6884">Correct Tatar board selection and layout controls</a></summary>
 
 - Correct 33 board selection and layout strings, preserving placeholders and
-  distinctions between personal/shared settings, width/height and home removal/deletion.
+  distinctions between personal/shared settings, width/height and home
+  removal/deletion.
 - Technical wording remains low confidence pending speaker review.
 - All 74 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4643,10 +4793,12 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/1aedd9578e1f7b9cf12a2bcddd7948e65adce031">Correct Tatar checklist activities and workspace controls</a></summary>
 
 - Correct 35 checklist activity, date activity and workspace strings, preserving
-  source placeholders and argument roles confirmed against the activity template.
+  source placeholders and argument roles confirmed against the activity
+  template.
 - Technical wording remains low confidence pending speaker review.
 - All 72 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4659,7 +4811,8 @@ Thanks to xet7 !
   and the meanings of sequential import and movement arguments.
 - Technical wording remains low confidence pending speaker review.
 - All 71 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4669,11 +4822,13 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/01b12e1f4c348649aff27303f110cab4d8ebb4b6">Correct Tatar activity messages and title argument order</a></summary>
 
 - Correct 31 activity and comment-control strings, including the new-title and
-  card argument order in an earlier translation. Preserve placeholder case/counts
+  card argument order in an earlier translation. Preserve placeholder
+  case/counts
   and distinguish adding, removing, checking and completing actions.
 - Technical wording remains low confidence pending speaker review.
 - All 70 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4687,7 +4842,8 @@ Thanks to xet7 !
 - Technical wording and composed fragments remain low confidence pending
   speaker review.
 - All 68 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4701,7 +4857,8 @@ Thanks to xet7 !
 - Technical wording and composed fragments remain low confidence pending
   speaker review.
 - All 67 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4711,11 +4868,13 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/7904a3b4dcac36331b4c234993e4df71dcec4b8c">Correct Tatar trigger events and date-change wording</a></summary>
 
 - Correct 37 trigger, movement and checklist strings, preserving source tokens
-  and distinguishing date types, setting versus changing dates, and archive states.
+  and distinguishing date types, setting versus changing dates, and archive
+  states.
 - Technical wording and composed fragments remain low confidence pending
   speaker review.
 - All 66 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4728,7 +4887,8 @@ Thanks to xet7 !
   source placeholders, product names and correct existing translations.
 - Technical wording remains low confidence pending speaker review.
 - All 65 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4737,12 +4897,14 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/caf9ebdfe4092f6675dc8ee92033cade4441f28a">Correct wrong-language Tatar rule editor strings</a></summary>
 
-- Correct 46 rule, trigger and import/export strings, preserving correct existing
+- Correct 46 rule, trigger and import/export strings, preserving correct
+  existing
   translations and source placeholders. Regression checks cover vocabulary and
   event polarity as well as script.
 - Technical wording remains low confidence pending speaker review.
 - All 64 focused checks and 21 human-preference checks pass. Browser checks
-  were not run. Further wrong-language corrections and the broader audit continue.
+  were not run. Further wrong-language corrections and the broader audit
+  continue.
 
 Thanks to xet7 !
 
@@ -4766,7 +4928,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bdb0a7938fdb09e6e1477bda15a37f4a9b8b164c">Translate Tatar synchronization diagnostics and recovery</a></summary>
 
-- Fill 56 source diagnostics, run report, mail failure and recovery placeholders,
+- Fill 56 source diagnostics, run report, mail failure and recovery
+  placeholders,
   preserving source tokens, numeric limits and explicit null semantics.
 - Technical terminology remains low confidence pending speaker review.
 - All 61 focused checks and 21 human-preference checks pass. Browser checks
@@ -4793,7 +4956,8 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/6eb52f9385371d55cc6efb64e68a92f89be22c4b">Translate Tatar Scrum planning and sprint reports</a></summary>
 
 - Fill 61 planning, sprint lifecycle and reporting placeholders, preserving
-  source tokens and distinctions between completion policies and estimate states.
+  source tokens and distinctions between completion policies and estimate
+  states.
 - Technical terminology remains low confidence pending speaker review.
 - All 58 focused checks and 21 human-preference checks pass. Browser checks
   were not run. Further Tatar corrections and the broader audit continue.
@@ -4848,7 +5012,8 @@ Thanks to xet7 !
   and source placeholders.
 - Technical wording remains low confidence pending speaker review.
 - All 53 focused checks and 21 human-preference checks pass. Browser and
-  screen-reader checks were not run. Further Tatar corrections and the broader audit continue.
+  screen-reader checks were not run. Further Tatar corrections and the broader
+  audit continue.
 
 Thanks to xet7 !
 
@@ -4861,7 +5026,8 @@ Thanks to xet7 !
   and source placeholders.
 - Technical wording remains low confidence pending speaker review.
 - All 52 focused checks and 21 human-preference checks pass. Browser and
-  screen-reader checks were not run. Further Tatar corrections and the broader audit continue.
+  screen-reader checks were not run. Further Tatar corrections and the broader
+  audit continue.
 
 Thanks to xet7 !
 
@@ -4874,7 +5040,8 @@ Thanks to xet7 !
   standard mathematical symbols and source placeholders.
 - Technical wording remains low confidence pending speaker review.
 - All 51 focused checks and 21 human-preference checks pass. Browser and
-  screen-reader checks were not run. Further Tatar corrections and the broader audit continue.
+  screen-reader checks were not run. Further Tatar corrections and the broader
+  audit continue.
 
 Thanks to xet7 !
 
@@ -4948,11 +5115,13 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/aa47a81037cb3840ead446b2d95e5f938d634421">Translate Tatar navigation and list construction</a></summary>
 
-- Fill 29 navigation and list-operation strings, preserving existing translations
+- Fill 29 navigation and list-operation strings, preserving existing
+  translations
   and source placeholders.
 - Technical wording remains low confidence pending speaker review.
 - All 45 focused checks and 21 human-preference checks pass. Browser and
-  screen-reader checks were not run. Further Tatar corrections and the broader audit continue.
+  screen-reader checks were not run. Further Tatar corrections and the broader
+  audit continue.
 
 Thanks to xet7 !
 
@@ -4965,7 +5134,8 @@ Thanks to xet7 !
   and source placeholders.
 - Technical wording remains low confidence pending speaker review.
 - All 44 focused checks and 21 human-preference checks pass. Browser and
-  screen-reader checks were not run. Further Tatar corrections and the broader audit continue.
+  screen-reader checks were not run. Further Tatar corrections and the broader
+  audit continue.
 
 Thanks to xet7 !
 
@@ -4978,7 +5148,8 @@ Thanks to xet7 !
   translations and source placeholders.
 - Technical wording remains low confidence pending speaker review.
 - All 43 focused checks and 21 human-preference checks pass. Browser and
-  screen-reader checks were not run. Further Tatar corrections and the broader audit continue.
+  screen-reader checks were not run. Further Tatar corrections and the broader
+  audit continue.
 
 Thanks to xet7 !
 
@@ -5001,7 +5172,8 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/5383509a30509b3dfb0a7e2fc1c905cfe4373ebb">Translate Tatar block controls and correct activity wording</a></summary>
 
 - Fill 24 Blockly placeholders and correct nine mixed-language activity and
-  comment strings, preserving source placeholders and correct Tatar translations.
+  comment strings, preserving source placeholders and correct Tatar
+  translations.
 - Technical wording remains low confidence pending speaker review.
 - All 41 focused checks and 21 human-preference checks pass. Browser checks
   were not run. Further Tatar corrections and the broader audit continue.
@@ -5013,9 +5185,11 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/dd19d28474693171688ab18f6625df5009cb322d">Translate Central Kurdish recovery controls</a></summary>
 
-- Fill 25 Sorani recovery strings, preserving existing translations and placeholders.
+- Fill 25 Sorani recovery strings, preserving existing translations and
+  placeholders.
   The default inventory now retains only product names and mathematical symbols;
-  none of the 149 pending-Transifex keys remain identical to English in this locale.
+  none of the 149 pending-Transifex keys remain identical to English in this
+  locale.
 - Technical wording remains low confidence pending speaker review.
 - All 59 focused checks and 21 human-preference checks pass. Browser and
   right-to-left layout checks were not run. The broader audit continues.
@@ -5083,7 +5257,8 @@ Thanks to xet7 !
   translations, physical key inscriptions and source placeholders.
 - Technical wording remains low confidence pending speaker review.
 - All 52 focused checks and 21 human-preference checks pass. Browser,
-  screen-reader and right-to-left layout checks were not run. The broader audit continues.
+  screen-reader and right-to-left layout checks were not run. The broader audit
+  continues.
 
 Thanks to xet7 !
 
@@ -5096,7 +5271,8 @@ Thanks to xet7 !
   source placeholders.
 - Technical wording remains low confidence pending speaker review.
 - All 51 focused checks and 21 human-preference checks pass. Browser,
-  screen-reader and right-to-left layout checks were not run. The broader audit continues.
+  screen-reader and right-to-left layout checks were not run. The broader audit
+  continues.
 
 Thanks to xet7 !
 
@@ -5109,7 +5285,8 @@ Thanks to xet7 !
   translations and source placeholders.
 - Technical wording remains low confidence pending speaker review.
 - All 50 focused checks and 21 human-preference checks pass. Browser,
-  screen-reader and right-to-left layout checks were not run. The broader audit continues.
+  screen-reader and right-to-left layout checks were not run. The broader audit
+  continues.
 
 Thanks to xet7 !
 
@@ -5122,7 +5299,8 @@ Thanks to xet7 !
   existing translations and source placeholders.
 - Technical wording remains low confidence pending speaker review.
 - All 49 focused checks and 21 human-preference checks pass. Browser,
-  screen-reader and right-to-left layout checks were not run. The broader audit continues.
+  screen-reader and right-to-left layout checks were not run. The broader audit
+  continues.
 
 Thanks to xet7 !
 
@@ -5135,7 +5313,8 @@ Thanks to xet7 !
   existing translations, standard symbols and source placeholders.
 - Technical wording remains low confidence pending speaker review.
 - All 48 focused checks and 21 human-preference checks pass. Browser,
-  screen-reader and right-to-left layout checks were not run. The broader audit continues.
+  screen-reader and right-to-left layout checks were not run. The broader audit
+  continues.
 
 Thanks to xet7 !
 
@@ -5148,7 +5327,8 @@ Thanks to xet7 !
   translations and source placeholders.
 - Technical wording remains low confidence pending speaker review.
 - All 47 focused checks and 21 human-preference checks pass. Browser,
-  screen-reader and right-to-left layout checks were not run. The broader audit continues.
+  screen-reader and right-to-left layout checks were not run. The broader audit
+  continues.
 
 Thanks to xet7 !
 
@@ -5161,7 +5341,8 @@ Thanks to xet7 !
   and source placeholders.
 - Technical wording remains low confidence pending speaker review.
 - All 46 focused checks and 21 human-preference checks pass. Browser,
-  screen-reader and right-to-left layout checks were not run. The broader audit continues.
+  screen-reader and right-to-left layout checks were not run. The broader audit
+  continues.
 
 Thanks to xet7 !
 
@@ -5174,7 +5355,8 @@ Thanks to xet7 !
   translations and source placeholders.
 - Technical wording remains low confidence pending speaker review.
 - All 45 focused checks and 21 human-preference checks pass. Browser,
-  screen-reader and right-to-left layout checks were not run. The broader audit continues.
+  screen-reader and right-to-left layout checks were not run. The broader audit
+  continues.
 
 Thanks to xet7 !
 
@@ -5187,7 +5369,8 @@ Thanks to xet7 !
   source placeholders.
 - Technical wording remains low confidence pending speaker review.
 - All 44 focused checks and 21 human-preference checks pass. Browser,
-  screen-reader and right-to-left layout checks were not run. The broader audit continues.
+  screen-reader and right-to-left layout checks were not run. The broader audit
+  continues.
 
 Thanks to xet7 !
 
@@ -5200,7 +5383,8 @@ Thanks to xet7 !
   and source placeholders.
 - Technical wording remains low confidence pending speaker review.
 - All 43 focused checks and 21 human-preference checks pass. Browser,
-  screen-reader and right-to-left layout checks were not run. The broader audit continues.
+  screen-reader and right-to-left layout checks were not run. The broader audit
+  continues.
 
 Thanks to xet7 !
 
@@ -5213,7 +5397,8 @@ Thanks to xet7 !
   translations and source placeholders.
 - Technical wording remains low confidence pending speaker review.
 - All 42 focused checks and 21 human-preference checks pass. Browser,
-  screen-reader and right-to-left layout checks were not run. The broader audit continues.
+  screen-reader and right-to-left layout checks were not run. The broader audit
+  continues.
 
 Thanks to xet7 !
 
@@ -5226,7 +5411,8 @@ Thanks to xet7 !
   translations and source placeholders.
 - Technical wording remains low confidence pending speaker review.
 - All 41 focused checks and 21 human-preference checks pass. Browser and
-  right-to-left layout checks were not run. The broader translation audit continues.
+  right-to-left layout checks were not run. The broader translation audit
+  continues.
 
 Thanks to xet7 !
 
@@ -5237,7 +5423,8 @@ Thanks to xet7 !
 
 - Fill six recovery strings, preserving existing translations and placeholders.
   The default inventory now retains only product names and mathematical symbols;
-  none of the 149 pending-Transifex keys remain identical to English in Bhojpuri.
+  none of the 149 pending-Transifex keys remain identical to English in
+  Bhojpuri.
 - Technical wording remains low confidence pending speaker review.
 - All 61 focused checks and 21 human-preference checks pass. Browser checks
   were not run. The broader translation audit continues.
@@ -5327,7 +5514,8 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f3fd1f108dda50e198ce09500d31ca70927ed95e">Translate Bhojpuri workspace and function controls</a></summary>
 
-- Fill 37 workspace, variable, backpack and function strings, preserving existing
+- Fill 37 workspace, variable, backpack and function strings, preserving
+  existing
   translations and source placeholders.
 - Technical wording remains low confidence pending speaker review.
 - All 51 focused checks and 21 human-preference checks pass. Browser and
@@ -5499,7 +5687,8 @@ Thanks to xet7 !
 
 - Fill 26 English placeholders for time estimates, activity notifications,
   retry states and delivery controls, preserving existing text and tokens.
-- Reservation and recovery-metadata wording remains low confidence pending review.
+- Reservation and recovery-metadata wording remains low confidence pending
+  review.
 - All 40 focused checks and 21 human-preference checks pass. Browser and
   screen-reader checks were not run. The broader translation audit continues.
 
@@ -5589,7 +5778,8 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/0866c90b972d32c90bb779a262ee97dfd4db6bc5">Translate Kurdish Blockly aliases and rule-editor messages</a></summary>
 
 - Fill 25 English placeholders for search, zoom, repeated Blockly labels and
-  rule-editor help, errors and status, preserving existing translations and tokens.
+  rule-editor help, errors and status, preserving existing translations and
+  tokens.
 - Trigger and zoom terminology remains low confidence pending fluent review.
 - All 51 focused checks and 21 human-preference checks pass. Browser and
   screen-reader checks were not run. The broader translation audit continues.
@@ -5603,7 +5793,8 @@ Thanks to xet7 !
 
 - Fill 36 English placeholders for replacement, trimming, variables, workspace
   descriptions and search navigation, preserving existing text and tokens.
-- Workspace-stack and search-focus wording remains low confidence pending review.
+- Workspace-stack and search-focus wording remains low confidence pending
+  review.
 - All 50 focused checks and 21 human-preference checks pass. Browser and
   screen-reader checks were not run. The broader translation audit continues.
 
@@ -5615,7 +5806,8 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/1b40c8c20492b5b435cb8c2948624b47e321f7d9">Translate Kurdish Blockly text operations</a></summary>
 
 - Fill 41 English placeholders for appending, case conversion, characters,
-  substrings, counting, searching, joining, length and prompts, preserving tokens.
+  substrings, counting, searching, joining, length and prompts, preserving
+  tokens.
 - Case-conversion and substring wording remains low confidence pending review.
 - All 49 focused checks and 21 human-preference checks pass. Browser and
   screen-reader checks were not run. The broader translation audit continues.
@@ -5667,7 +5859,8 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/b83566a83c361aa15018026fd774d47ae4cb2aab">Translate Kurdish Blockly arithmetic and statistics labels</a></summary>
 
 - Fill 40 English placeholders for arithmetic, constants, bounds, number tests,
-  remainders and statistics, preserving formulas, tokens and existing translations.
+  remainders and statistics, preserving formulas, tokens and existing
+  translations.
 - Root, prime-number and standard-deviation wording remains low confidence.
 - All 45 focused checks and 21 human-preference checks pass. Browser and
   screen-reader checks were not run. The broader translation audit continues.
@@ -5693,7 +5886,8 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/62b71bc22d70b35698e37bcb0e2b11575167a53d">Translate Kurdish Blockly list operations</a></summary>
 
 - Fill 52 English placeholders for list creation, retrieval, removal, sublists,
-  indexing, repetition, reversal, insertion and sorting, preserving existing text.
+  indexing, repetition, reversal, insertion and sorting, preserving existing
+  text.
 - Index and sublist terminology remains low confidence pending fluent review.
 - All 43 focused checks and 21 human-preference checks pass. Browser and
   screen-reader checks were not run. The broader translation audit continues.
@@ -5749,7 +5943,8 @@ Thanks to xet7 !
   Arabic-script Uzbek, Wolaytta and Standard Moroccan Tamazight.
   All eight additions remain low confidence pending fluent review.
 - All locales now contain the shortcut. All 53 focused catalog checks and
-  21 human-preference checks pass. Browser and screen-reader checks were not run.
+  21 human-preference checks pass. Browser and screen-reader checks were not
+  run.
 - This closes the missing-key gap, not the broader translation audit:
   untranslated strings remain in 70 languages, and 149 keys are excluded
   from that inventory as pending Transifex. Wrong-language wording also remains.
@@ -5824,7 +6019,8 @@ Thanks to xet7 !
 
 - Add the shortcut in Aragonese, Asturian, Breton, Corsican, Faroese, Friulian,
   Scottish Gaelic, Manx, Javanese, Romansh, Sardinian, Sicilian, Turkmen, Tatar,
-  Yiddish, Zulu, Xhosa, Somali, Igbo and Shona, preserving existing translations.
+  Yiddish, Zulu, Xhosa, Somali, Igbo and Shona, preserving existing
+  translations.
 - Aragonese, Breton, Faroese, Friulian, Manx, Romansh, Sardinian and Igbo
   wording remains low confidence pending fluent review.
 - Focused checks: 46 pass; two catalog checks still fail on missing shortcuts
@@ -5952,7 +6148,8 @@ Thanks to xet7 !
   Finnish, French, Hebrew, Croatian, Hungarian, Indonesian, Italian, Japanese,
   Korean, Norwegian Bokmål, Dutch, Polish, Portuguese, Brazilian Portuguese,
   Romanian, Russian, Slovak, Swedish, Turkish, Ukrainian, Vietnamese, Simplified
-  Chinese and Traditional Chinese. Preserve existing values and source key order.
+  Chinese and Traditional Chinese. Preserve existing values and source key
+  order.
 - The focused run passes 38 checks; two catalog checks still fail on the missing
   shortcut in other locales. All 21 human-preference checks pass. Browser and
   screen-reader checks were not run.
@@ -5996,7 +6193,8 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/e4e146494217f2783f84f4aa80284da84e336e38">Correct eight Tok Pisin organization and background labels.</a></summary>
 
 - Replace mixed English in organization, team and board-background controls.
-  Preserve source tokens, action scope and matching labels for equivalent actions.
+  Preserve source tokens, action scope and matching labels for equivalent
+  actions.
   Wording remains provisional pending fluent-speaker review.
 - The combined run passes 163 checks; two catalog checks still fail on the
   missing due-date shortcut key. All 21 human-preference checks pass.
@@ -6497,7 +6695,8 @@ Thanks to xet7 !
 
 - Replace mixed English in role descriptions and membership controls.
   Preserve placeholders and verify permission boundaries, global-admin
-  rights and activation actions. Wording remains provisional pending fluent-speaker review.
+  rights and activation actions. Wording remains provisional pending
+  fluent-speaker review.
 - The combined run passes 97 checks; two catalog checks still fail on the
   missing due-date shortcut key. All 21 human-preference checks pass.
   Browser and screen-reader checks were not run.
@@ -6542,7 +6741,8 @@ Thanks to xet7 !
 
 - Replace mixed English and repair the multi-select wording. Preserve
   placeholders and formatting literals, with checks for deletion scope and
-  setting/unsetting values. Wording remains provisional pending fluent-speaker review.
+  setting/unsetting values. Wording remains provisional pending fluent-speaker
+  review.
 - The combined run passes 92 checks; two catalog checks still fail on the
   missing due-date shortcut key. All 21 human-preference checks pass.
   Browser and screen-reader checks were not run.
@@ -6716,7 +6916,8 @@ Thanks to xet7 !
 
 - Replace mixed-language card, location, ticket and account labels. Preserve
   placeholders and distinguish account actions, ticket states and coordinate
-  directions. Technical wording remains provisional pending fluent-speaker review.
+  directions. Technical wording remains provisional pending fluent-speaker
+  review.
 - The combined run passes 71 checks; two catalog checks still fail on the
   missing due-date shortcut key. All 21 human-preference checks pass.
   Browser and screen-reader checks were not run.
