@@ -8817,6 +8817,16 @@ Regression coverage checks directional consistency, distinct navigation targets,
 script, key order and token inventories. Technical wording remains low confidence
 pending speaker review. Browser checks were not run; further translations remain.
 
+## Odia text case and character selection
+
+Filled 20 English placeholders for shortcut help, text appending, case conversion
+and character selection. Preserved indexed roles, position markers and copy
+semantics. Case conversion wording refers to letter case rather than font size.
+The placeholder-only merge retained existing translations. Regression coverage
+checks these details alongside script, key order and token inventories. Technical
+wording remains low confidence pending speaker review. Browser checks were not
+run; further Odia translations remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
