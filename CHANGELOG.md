@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bf69929f30">Correct Wu Markdown, recurrence and lockout wording</a>. Thanks to xet7.</summary>
+
+Correct 28 Wu values, preserving format names and distinguishing card recurrence from
+checklist reset. Clarify login-failure counts and single/all-user unlock scope.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5bf865dd39">Correct Wu storage, progress and workspace wording</a>. Thanks to xet7.</summary>
 
 Correct 25 Wu values, restoring path, upload-progress and board-ID meanings. Preserve
