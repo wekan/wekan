@@ -8864,6 +8864,16 @@ merge. Regression coverage checks these details alongside script, key order and
 token inventories. Technical wording remains low confidence pending speaker review.
 Browser checks were not run; rule-editor help and further translations remain.
 
+## Odia rule editor guidance
+
+Filled nine English placeholders for rule editing, validation and permissions.
+Preserved the one-trigger/one-action requirement, administrator permission and
+reload-before-save conflict guidance. Existing translations were retained by the
+placeholder-only merge. Regression coverage checks restrictions and state labels
+alongside script, key order and token inventories. Technical wording remains low
+confidence pending speaker review. Browser checks were not run; further Odia
+feature translations remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
