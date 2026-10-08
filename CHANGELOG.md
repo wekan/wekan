@@ -487,6 +487,16 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e13249115e">Translate Wu Blockly loops and editing</a>. Thanks to xet7.</summary>
+
+Translate 35 loop, condition, copy, deletion and enable/disable messages, preserving
+variables and checking opposite conditions and actions. Four focused translation
+suites and 21 human-preference checks pass. Wu wording is lower confidence and
+needs native review. No browser session was run. Remaining work is unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7410bfc2db">Translate Wu imports and Blockly controls</a>. Thanks to xet7.</summary>
 
 Translate 35 import, login, keyboard, color and control-flow messages, preserving
