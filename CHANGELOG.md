@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/294faaff6a351e087234b4e18bc62094edd859f8">Translate Konkani powers, logarithms and trigonometry</a></summary>
+
+- Fill 29 Konkani placeholders, preserving existing translations, logarithm bases,
+  sign reversal and degree-versus-radian caveats.
+- Mathematical terminology remains low confidence pending speaker review.
+- All 53 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Konkani translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/302f99524ee1e1ad33cfd0e7be659491c0944850">Translate Konkani statistics and random-number bounds</a></summary>
 
 - Fill 24 Konkani placeholders, preserving existing translations, statistical
