@@ -7715,6 +7715,15 @@ inclusive comparison bounds and copy semantics. Technical wording remains low
 confidence pending speaker review. Browser checks were not run. Further Tatar
 mixed-language corrections and the broader translation audit continue.
 
+### Tatar logic and arithmetic explanations
+
+Filled 25 English placeholders for Boolean operations, conditional values, arithmetic,
+constants and numeric bounds. Existing translations and source tokens are preserved.
+Regression checks cover source order, placeholders, mathematical constants, coordinates,
+conditional label references and logical distinctions. Technical wording remains low
+confidence pending speaker review. Browser checks were not run. Further Tatar
+mixed-language corrections and the broader translation audit continue.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
