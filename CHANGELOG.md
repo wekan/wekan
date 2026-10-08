@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d3fed5749caeb6141b2b2f986ae4ccd2771f8103">Correct Tatar support and login lockout labels</a></summary>
+
+- Correct 22 support, accessibility and lockout values, preserving access
+  restrictions, username distinctions and lockout units.
+- Technical wording remains low confidence pending speaker review.
+- All 128 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9f47dd11ed28591ab0d86749a3c0b1def947bcc5">Correct Tatar recurrence and checklist visibility</a></summary>
 
 - Correct 11 import, checklist and recurrence values, preserving archive
