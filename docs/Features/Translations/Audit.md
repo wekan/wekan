@@ -9024,6 +9024,16 @@ Regression coverage checks those details, script, key order and token inventorie
 Technical wording remains low confidence pending speaker review. Browser checks
 were not run; further Maithili translations and the broader audit remain.
 
+## Maithili list editing and sorting
+
+Filled 28 English values for repetition, insertion, replacement, sorting and
+splitting/joining lists. Existing translations were retained; filter-excluded
+short labels were filled directly after verifying equality with English. Preserved
+indexed item/count roles, copy semantics and case-insensitive sorting meaning.
+Regression coverage checks those details, script, key order and token inventories.
+Technical wording remains low confidence pending speaker review. Browser checks
+were not run; further Maithili translations and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
