@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Ukrainian import instructions, remaining group — 2026-10-09
+
+Translate the remaining 13 instructions in uk and uk-UA, replacing 26 English
+values and completing all 21 instructions in this group in both catalogs.
+Preserve commands, column names, extensions, hierarchy markers and variables.
+Regression checks cover excluded data, English headers, task hierarchy and
+archived tasks. Import-instruction and placeholder suites and all 21 preservation
+checks pass. Browser review and the wider all-language translation backlog remain
+outstanding, including three older import instructions still in English in uk-UA.
+
 ## Ukrainian import instructions, first group — 2026-10-09
 
 Translate eight instructions in uk and uk-UA: Planner, MeisterTask, Obsidian,
