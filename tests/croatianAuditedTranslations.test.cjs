@@ -202,6 +202,20 @@ assert.match(data['flow-note-processBehavior'], /XmR.*najmanje dva/);
 assert.match(data['flow-note-sizeCycleTime'], /nevaljani datumi izostavljaju/);
 assert.match(data['time-adjustment-note'], /Negativne vrijednosti.*ispravke/);
 assert.match(data['time-adjustment-note'], /neevidentirano vrijeme ne može/);
+const syncRecoveryKeys = Object.keys(english).filter(key => key.startsWith('stuck-sync-operation-'));
+assert.equal(syncRecoveryKeys.length, 23);
+for (const key of syncRecoveryKeys) {
+  assert.notEqual(data[key], english[key], key);
+  assert.doesNotMatch(data[key], /[\p{Script=Cyrillic}]/u, key);
+  assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), key);
+}
+assert.match(data['stuck-sync-operation-description'], /već primijenjene promjene ostaju/);
+assert.match(data['stuck-sync-operation-description'], /preostale spremljene promjene nikada se ne zapisuju/);
+assert.match(data['stuck-sync-operation-replayable-now'], /ne može odbaciti/);
+assert.match(data['stuck-sync-operation-not-stuck'], /ne može odbaciti/);
+assert.match(data['stuck-sync-operation-reason-access-denied'], /pravo pisanja za cijeli popis/);
+assert.match(data['stuck-sync-operation-truncated'], /50 najstarijih/);
+assert.match(data['stuck-sync-operation-busy'], /upravo sinkronizira/);
 assert.equal(data.board, 'Ploča');
 assert.equal(data.swimlane, 'Traka');
 assert.deepEqual(Object.keys(data), Object.keys(english));

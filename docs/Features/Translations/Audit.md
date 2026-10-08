@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Croatian List Sync recovery — 2026-10-08
+
+Translate all 23 remaining English List Sync recovery messages into Croatian.
+Preserve counters and explain retained changes, discarded pending changes,
+revoked access, replayable operations and the oldest-50 display limit. Regression
+checks cover these distinctions and exact source variables. No browser or
+screen-reader session was run; other translations and vocabulary review remain.
+
 ## Croatian monitoring and flow explanations — 2026-10-08
 
 Correct the remaining 66 Cyrillic-containing Croatian values, covering jobs,
