@@ -437,7 +437,7 @@ used.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.25 2026-10-08 WeKan ® release
 
 **In short:** Sign-in through **Google**, **OAuth2/OIDC**, **SAML** and **CAS**
 now leaves for the identity provider and comes back in the same window by
