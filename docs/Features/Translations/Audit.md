@@ -8256,6 +8256,15 @@ and edit actions distinct. Existing valid neighboring translations remain.
 Technical wording remains low confidence pending speaker review. Focused tests
 cover key order, source tokens and editor behavior; browser checks were not run.
 
+## Tatar role settings and weekday corrections
+
+Corrected 41 wrong-language notification controls, role settings, weekdays and
+task labels. Preserved global administrators' unrestricted rights, the read-only
+permission preview before saving, read/unread distinctions and linked-card deletion
+prerequisites. Existing correct-language notification preferences remain. Technical
+wording remains low confidence pending speaker review. Focused tests cover key
+order, source tokens, permissions and weekday names; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
