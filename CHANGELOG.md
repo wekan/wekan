@@ -975,6 +975,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cca57e46b5">Correct Italian-seeded Aromanian rule-builder labels</a>. Thanks to xet7.</summary>
+
+Replace 35 wrong-language conditions, actions and fragments. Preserve
+check/uncheck and top/bottom distinctions, shared checklist wording and
+past-state meaning. New phrasing remains low-confidence pending fluent review.
+
+Aromanian, global placeholder and translation audit suites pass. No browser
+or screen-reader session was run. Further linguistic review and translation
+work remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6f4a96b8c0">Translate Northern Sotho planning imports and repair locale suites</a>. Thanks to xet7.</summary>
 
 Translate 20 messages and extend the Scrum inventory to 127 while retaining
