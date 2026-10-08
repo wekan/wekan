@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu Blockly list positions and removal — 2026-10-08
+
+Translate 30 list-removal, slicing, lookup and repetition messages. Preserve exact
+variables; check removal with/without return, start/end indexing, not-found results,
+value/count roles and copying before reversing. Wu wording is lower confidence
+and needs native review. No browser or screen-reader session was run. Remaining
+English strings and older Mandarin-like passages still require work.
+
 ## Wu Blockly navigation and list retrieval — 2026-10-08
 
 Translate 35 input, keyboard-navigation and list messages. Preserve variables and
