@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Scottish Gaelic Scrum planning and recovery — 2026-10-08
+
+Translate 31 values using existing terminology. Preserve exact variables,
+keyboard names and count roles. Focused assertions, placeholder and language
+wiring suites, and all 21 preservation checks pass. The completion suite now
+reaches an untranslated Kashubian release label. Recovery prose has lower
+confidence and needs native review; browser checks and the all-language backlog
+remain open.
+
 ## Welsh Scrum planning and recovery — 2026-10-08
 
 Translate 62 values across Welsh and British Welsh using existing terminology.
