@@ -1026,3 +1026,18 @@ assert.match(wu['mongodb-compact-warning'], /先自动整理全部从节点，�
 assert.match(wu['mongodb-compact-warning'], /oplog.*单节点副本集.*只整理主节点/);
 assert.match(wu['invalid-file'], /文件名无效.*上传或者重命名.*取消/);
 assert.match(wu['preview-pdf-not-supported'], /勿支持预览 PDF.*下载/);
+
+const recurrenceLockoutWu = ["delete-translation-confirm-popup", "newTranslationPopup-title", "settingsTranslationPopup-title", "show-week-of-year", "convert-to-markdown", "import-board-zip", "collapse", "hideCheckedChecklistItems", "card-recurrence-interval", "cardRecurrenceIntervalPopup-title", "card-recurrence-interval-none", "support-info-not-added-yet", "support-info-only-for-logged-in-users", "accessibility-page-enabled", "accessibility-info-not-added-yet", "accounts-lockout-info", "accounts-lockout-known-users", "accounts-lockout-unknown-users", "accounts-lockout-failures-before", "accounts-lockout-settings-updated", "accounts-lockout-locked-users", "accounts-lockout-locked-users-info", "accounts-lockout-no-locked-users", "accounts-lockout-failed-attempts", "accounts-lockout-remaining-time", "accounts-lockout-user-unlocked", "accounts-lockout-confirm-unlock", "accounts-lockout-confirm-unlock-all"];
+for (const key of recurrenceLockoutWu) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.match(wu['convert-to-markdown'], /Markdown/);
+assert.doesNotMatch(wu['convert-to-markdown'], /降价/);
+assert.equal(wu['card-recurrence-interval'], wu['cardRecurrenceIntervalPopup-title']);
+assert.match(wu['card-recurrence-interval'], /卡片.*重复/);
+assert.doesNotMatch(wu['card-recurrence-interval-none'], /重置/);
+assert.match(wu['import-board-zip'], /\.zip.*JSON.*看板名字.*附件.*子目录/);
+assert.match(wu['show-week-of-year'], /ISO 8601/);
+assert.match(wu['delete-translation-confirm-popup'], /撤销勿了/);
+assert.match(wu['accounts-lockout-known-users'], /用户名正确，密码错误/);
+assert.match(wu['accounts-lockout-unknown-users'], /用户名勿存在/);
+assert.match(wu['accounts-lockout-failures-before'], /失败次数/);
+assert.match(wu['accounts-lockout-confirm-unlock-all'], /全部锁定个用户/);

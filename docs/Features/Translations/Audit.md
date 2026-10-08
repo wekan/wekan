@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu recurrence and lockout corrections — 2026-10-08
+
+Correct 28 translation-control, recurrence, support and lockout values. Restore Markdown
+as the format name and card recurrence rather than checklist reset, checked against
+server/cardRecurrenceSchedule.js. Preserve ZIP/JSON/ISO literals, irreversible deletion,
+known/unknown user distinctions and single/all-user unlock scope. Refresh exact-value
+audit records. Wu prose needs native review; browser tests were not run and all-language
+work remains unfinished.
+
 ## Wu storage and progress corrections — 2026-10-08
 
 Correct 25 storage, progress and workspace values. Restore filesystem path, upload
@@ -12845,7 +12854,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,865** exact before/after values, including unflagged
+records contain **23,893** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

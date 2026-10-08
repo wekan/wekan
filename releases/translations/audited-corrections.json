@@ -167053,5 +167053,201 @@
     "before": "自定义翻译字符串的数量为：",
     "after": "自定义翻译字符串个数量是：",
     "reason": "2026-10-08: Correct Wu storage, progress and workspace instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "delete-translation-confirm-popup",
+    "before": "您确定要删除此自定义翻译字符串吗？无法撤消。",
+    "after": "侬确定要删脱搿条自定义翻译字符串伐？删脱就撤销勿了。",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "newTranslationPopup-title",
+    "before": "新的自定义翻译字符串",
+    "after": "新个自定义翻译字符串",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "settingsTranslationPopup-title",
+    "before": "删除这个自定义翻译字符串吗？",
+    "after": "要删脱搿条自定义翻译字符串伐？",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "show-week-of-year",
+    "before": "显示一年中的第几周 (ISO 8601)",
+    "after": "显示一年里向个第几周（ISO 8601）",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "convert-to-markdown",
+    "before": "转换为降价",
+    "after": "转换成 Markdown",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-board-zip",
+    "before": "添加包含板 JSON 文件和带有附件的板名称子目录的 .zip 文件",
+    "after": "添加一只 .zip 文件，里向有看板 JSON 文件，搭以看板名字命名、存放附件个子目录",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "collapse",
+    "before": "坍塌",
+    "after": "折叠",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "hideCheckedChecklistItems",
+    "before": "隐藏选中的清单项目",
+    "after": "隐藏勾选好个清单项目",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-recurrence-interval",
+    "before": "自动重置",
+    "after": "卡片周期重复",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cardRecurrenceIntervalPopup-title",
+    "before": "自动重置",
+    "after": "卡片周期重复",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-recurrence-interval-none",
+    "before": "关脱（勿会自动重置）",
+    "after": "关脱（勿会自动重复）",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "support-info-not-added-yet",
+    "before": "尚未添加支持信息",
+    "after": "还朆添加支持信息",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "support-info-only-for-logged-in-users",
+    "before": "支持信息仅适用于登录用户。",
+    "after": "支持信息只有登录好个用户好看。",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "accessibility-page-enabled",
+    "before": "已启用辅助功能页面",
+    "after": "无障碍页面已经启用仔",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "accessibility-info-not-added-yet",
+    "before": "尚未添加辅助功能信息",
+    "after": "还朆添加无障碍信息",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "accounts-lockout-info",
+    "before": "这些设置控制如何保护登录尝试免受暴力攻击。",
+    "after": "搿些设置控制登录尝试个暴力破解防护。",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "accounts-lockout-known-users",
+    "before": "已知用户的设置（正确的用户名，错误的密码）",
+    "after": "已知用户个设置（用户名正确，密码错误）",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "accounts-lockout-unknown-users",
+    "before": "未知用户的设置（不存在的用户名）",
+    "after": "未知用户个设置（用户名勿存在）",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "accounts-lockout-failures-before",
+    "before": "锁定前的故障",
+    "after": "触发锁定个失败次数",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "accounts-lockout-settings-updated",
+    "before": "暴力破解保护设置已更新",
+    "after": "暴力破解防护设置已经更新仔",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "accounts-lockout-locked-users",
+    "before": "锁定用户",
+    "after": "锁定个用户",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "accounts-lockout-locked-users-info",
+    "before": "由于登录尝试失败次数过多，用户当前被锁定",
+    "after": "因为登录失败次数忒多，目前畀锁定个用户",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "accounts-lockout-no-locked-users",
+    "before": "目前没有锁定用户",
+    "after": "目前呒没锁定个用户",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "accounts-lockout-failed-attempts",
+    "before": "失败的尝试",
+    "after": "失败尝试次数",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "accounts-lockout-remaining-time",
+    "before": "剩余时间",
+    "after": "剩下个辰光",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "accounts-lockout-user-unlocked",
+    "before": "用户已解锁成功",
+    "after": "用户已经解锁成功仔",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "accounts-lockout-confirm-unlock",
+    "before": "您确定要解锁该用户吗？",
+    "after": "侬确定要解锁搿只用户伐？",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "before": "您确定要解锁所有锁定的用户吗？",
+    "after": "侬确定要解锁全部锁定个用户伐？",
+    "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
   }
 ]
