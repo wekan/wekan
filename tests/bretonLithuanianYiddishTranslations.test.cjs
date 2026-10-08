@@ -645,3 +645,23 @@ assert.match(locales.yi['scrum-confirm-cancel'], /בלײַבן מיטגלידע�
 assert.equal(new Set(['planned', 'active', 'closed', 'cancelled'].map(state => locales.yi[`scrum-state-${state}`])).size, 4);
 assert.equal(locales.yi['scrum-product-backlog'], locales.yi['board-view-product-backlog']);
 assert.match(locales.yi['scrum-timebox'], /מינוטן/);
+
+const yiddishScrumImports = ["scrum-swimlane-purpose", "scrum-category-backlog", "scrum-category-todo", "scrum-category-doing", "scrum-category-done", "scrum-partial-report", "scrum-state-released", "scrum-released-at", "scrum-follow-up-cards", "scrum-import-reference-omitted", "scrum-partial-snapshot", "scrum-resume-close", "scrum-daily-observations", "scrum-daily-observations-help", "scrum-daily-truncated", "scrum-daily-empty", "scrum-observed-scope", "scrum-daily-observations-export-help", "scrum-import-pending", "scrum-import-into-board", "scrum-import-into-board-hint", "scrum-import-preview", "scrum-import-choose-file", "scrum-import-invalid-file", "scrum-import-preview-sprints", "scrum-import-preview-releases", "scrum-import-preview-cards", "scrum-import-preview-nothing", "scrum-import-into-board-done", "scrum-import-card-not-matched", "scrum-import-card-ambiguous", "scrum-import-card-on-another-board", "scrum-import-record-ambiguous", "scrum-import-record-not-imported", "scrum-import-sprint-finished"];
+for (const key of yiddishScrumImports) {
+  assert.notEqual(locales.yi[key], english[key], key);
+  assert.match(locales.yi[key], /[\u0590-\u05ff]/, key);
+  assert.deepEqual(translationTokens(locales.yi[key]), translationTokens(english[key]), key);
+}
+for (const key of ['scrum-daily-observations-help', 'scrum-daily-observations-export-help']) {
+  assert.match(locales.yi[key], /UTC/);
+  assert.match(locales.yi[key], /פֿעלנדיקע טעג ווערן אויסגעלאָזט/);
+  assert.match(locales.yi[key], /נישט יעדע ענדערונג/);
+  assert.match(locales.yi[key], /אָפּשאַצונגען זענען נישט נול/);
+}
+assert.match(locales.yi['scrum-daily-truncated'], /366/);
+assert.match(locales.yi['scrum-import-into-board-hint'], /קיינמאָל נישט דופּליקירט/);
+assert.match(locales.yi['scrum-import-into-board-hint'], /ID/);
+assert.match(locales.yi['scrum-import-card-on-another-board'], /געבליבן אומגעענדערט/);
+assert.match(locales.yi['scrum-import-sprint-finished'], /נישט אַריבערגעפֿירט/);
+assert.match(locales.yi['scrum-import-invalid-file'], /JSON/);
+assert.match(locales.yi['scrum-partial-report'], /נאָר קאָרטן.*צוגעטיילט צו אײַך/);

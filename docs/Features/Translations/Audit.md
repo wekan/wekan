@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Yiddish Scrum imports and observations — 2026-10-08
+
+Translate 35 English Scrum import, observation and partial-report messages.
+Preserve counters, references, UTC, JSON and ID. Check omitted days, unknown
+estimates versus zero, the 366 limit, duplicate prevention, unchanged foreign-board
+cards and finished-sprint protection. Specialized wording is lower confidence and
+needs native review. No browser or screen-reader session was run. Remaining
+translations are unfinished.
+
 ## Yiddish sprint planning and reports — 2026-10-08
 
 Translate 45 English Scrum planning, release and reporting messages. Preserve
