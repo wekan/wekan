@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/72f614759f">Translate Catalan and Valencian outline imports</a>. Thanks to xet7.</summary>
+
+Translate OPML, Org mode and Todoist instructions in three catalogs, replacing
+nine English values. Preserve format keywords, commands, variables, label syntax
+and priority identifiers. Regression checks cover completion, hierarchy, subtasks
+and note-to-comment mapping. Import and placeholder suites and all 21 preservation
+checks pass. Browser review and the wider translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7a54cfdb01">Translate remaining Catalan and Valencian import instructions</a>. Thanks to xet7.</summary>
 
 Translate the remaining 13 instructions in three catalogs, replacing 39 English
