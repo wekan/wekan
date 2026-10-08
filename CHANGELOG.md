@@ -593,6 +593,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e39aa19360">Translate Hebrew Scrum imports and recovery; refresh coverage count</a>. Thanks to xet7.</summary>
+
+Translate 56 values across both Hebrew catalogs, preserving variables, keyboard
+names, multi-release selection and rollback/keep-board distinctions. Correct the
+README coverage figure to 188 catalogs above 90 percent non-English text. Language
+wiring, placeholder checks, focused Hebrew checks and 21 preservation checks pass.
+The large completion suite now reaches untranslated Persian release text; remaining
+translations, native review and browser validation are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/42797d6418">Translate Super Productivity, Taiga and Vikunja imports</a>. Thanks to xet7.</summary>
 
 Translate nine instructions in Wu Chinese, Papiamento and Yiddish. Preserve menu
