@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9f47dd11ed28591ab0d86749a3c0b1def947bcc5">Correct Tatar recurrence and checklist visibility</a></summary>
+
+- Correct 11 import, checklist and recurrence values, preserving archive
+  identifiers and distinguishing card recurrence from checklist reset.
+- Technical wording remains low confidence pending speaker review.
+- All 127 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e492230be383c0b9adeab29982d2c22ca45584e7">Correct Tatar upload validation and custom translations</a></summary>
 
 - Correct 21 upload and custom-translation values, preserving byte units,
