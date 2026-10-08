@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu sorting and filter corrections — 2026-10-08
+
+Correct 27 sorting, filtering and navigation values. Restore sort abbreviations and
+single-quoted advanced-filter examples; preserve operators, escapes and regex syntax.
+Distinguish creators from assignees and retain case-insensitive text-trigger behavior.
+Retain existing Wu date-range and list-age safeguards. Refresh exact-value records.
+Wu prose needs native review; browser tests were not run and all-language work remains
+unfinished.
+
 ## Wu errors and export corrections — 2026-10-08
 
 Correct 30 import-error, account and export values. Preserve technical literals,
@@ -12574,7 +12583,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,170** exact before/after values, including unflagged
+records contain **23,197** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

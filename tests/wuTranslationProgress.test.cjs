@@ -601,3 +601,20 @@ assert.match(wu['export-card-excel-no-disk-space'], /Excel.*磁盘空间勿够/)
 assert.match(wu['user-can-not-export-excel'], /Excel/);
 assert.doesNotMatch(wu['user-can-not-export-excel'], /[\u200b-\u200f]/);
 assert.match(wu['export-card-field-people'], /创建者、所有者、成员、负责人/);
+
+const sortFilters = ["sort", "remove-sort", "sort-desc", "list-label-title", "list-label-sort", "list-label-short-modifiedAt", "list-label-short-sort", "filter-cards", "filter-no-due-date", "filter-due-this-week", "filter-due-next-week", "filter-clear", "filter-no-label", "filter-no-member", "filter-assignee-label", "filter-creator-label", "filter-no-assignee", "filter-show-archive", "filter-on-desc", "advanced-filter-description", "text-contains-trigger-description", "header-logo-title", "show-activities", "headerBarCreateBoardPopup-title", "home", "import", "imported-member-no-account"];
+for (const key of sortFilters) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.equal(wu.sort, '排序');
+for (const key of ['list-label-short-modifiedAt', 'list-label-short-sort']) assert.equal(wu[key], english[key]);
+assert.match(wu['filter-creator-label'], /创建者/);
+assert.doesNotMatch(wu['filter-creator-label'], /负责人|受让人/);
+assert.match(wu['filter-assignee-label'], /负责人/);
+assert.match(wu['text-contains-trigger-description'], /创建卡片.*修改.*标题、描述.*新文本包含.*勿区分大小写/);
+assert.ok(wu['advanced-filter-description'].includes("== != <= >= && || ( )"));
+assert.ok(wu['advanced-filter-description'].includes("Field1 == Value1"));
+assert.ok(wu['advanced-filter-description'].includes("'Field 1' == 'Value 1'"));
+assert.ok(wu['advanced-filter-description'].includes("(' \\/)"));
+assert.ok(wu['advanced-filter-description'].includes("Field1 == I\\'m"));
+assert.ok(wu['advanced-filter-description'].includes("F1 == V1 || F1 == V2"));
+assert.ok(wu['advanced-filter-description'].includes("F1 == V1 && ( F2 == V2 || F2 == V3 )"));
+assert.ok(wu['advanced-filter-description'].includes("F1 == /Tes.*/i"));
