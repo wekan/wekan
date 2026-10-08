@@ -932,6 +932,21 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4eec94b7c8">Translate Aromanian Scrum labels and reporting controls</a>. Thanks to xet7.</summary>
+
+Translate 73 labels, actions, states and short reports. Preserve counters,
+reference variables, minute units and the 366-observation limit. Extend
+regression coverage for shared labels and distinct lifecycle states and use
+the shared Unicode-aware token scanner. New terminology and phrasing remain
+low-confidence pending fluent review.
+
+Aromanian, global placeholder and translation audit suites pass, as do 21
+human-preference checks. No browser or screen-reader session was run.
+Untranslated messages and older wrong-language values still require work.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4b0fde93ef">Translate new Scrum messages and repair four locale suites</a>. Thanks to xet7.</summary>
 
 Translate 36 release-selection and recovery messages in Māori, Northern Sotho,
