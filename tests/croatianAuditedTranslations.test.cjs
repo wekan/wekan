@@ -109,6 +109,25 @@ assert.equal(data['r-bottom-of'], 'Dno');
 assert.equal(data['r-items-list'].split(',').length, 3);
 assert.match(data['r-when-a-end-date-changed'], /završetka/);
 assert.match(data['r-when-a-received-date-changed'], /primitka/);
+const correctedSearchControls = ["below-selected-card", "duenow", "assignee", "no-assignee", "cardAssigneesPopup-title", "addmore-detail", "show-on-card", "show-on-minicard", "new", "editOrgPopup-title", "newOrgPopup-title", "editTeamPopup-title", "newTeamPopup-title", "editUserPopup-title", "newUserPopup-title", "notifications", "view-all", "filter-by-unread", "mark-all-as-read", "remove-all-read", "allow-rename", "allowRenamePopup-title", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday", "status", "owner", "last-modified-at", "last-activity", "voting", "archived", "task", "create-task", "ok", "organizations", "teams", "displayName", "shortName", "website", "person", "my-attachments", "list", "myCardsViewChange-title", "myCardsViewChange-choice-table", "myCardsSortChange-choice-dueat", "dueCards-title", "dueCardsViewChange-title", "dueCardsViewChangePopup-title", "dueCardsViewChange-choice-me", "dueCardsViewChange-choice-all", "globalSearch-title", "n-n-of-n-cards-found", "operator-board", "operator-board-abbrev", "operator-swimlane", "operator-swimlane-abbrev", "operator-list-abbrev", "operator-label", "operator-user", "operator-member", "operator-member-abbrev", "operator-assignee", "operator-assignee-abbrev", "operator-creator", "operator-status", "operator-due", "operator-created", "operator-modified", "operator-sort", "operator-comment", "operator-has", "operator-limit", "operator-debug", "operator-org", "operator-team", "operator-description"];
+for (const key of correctedSearchControls) {
+  assert.doesNotMatch(data[key], /[\p{Script=Cyrillic}]/u, key);
+  assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), key);
+}
+const searchAbbreviations = Object.entries(data).filter(([key]) => /^operator-.*-abbrev$/.test(key)).map(([, value]) => value);
+assert.equal(new Set(searchAbbreviations).size, searchAbbreviations.length);
+for (const key of correctedSearchControls.filter(key => key.startsWith('operator-'))) {
+  assert.match(data[key], /^[\p{Letter}\p{Mark}]+$/u, key + ': searchable operator syntax');
+}
+assert.equal(data['operator-board'], 'ploča');
+assert.equal(data['operator-swimlane'], 'traka');
+assert.equal(data['operator-member'], 'član');
+assert.equal(data['operator-assignee'], 'zaduženi');
+assert.match(data['filter-by-unread'], /nepročitano/);
+assert.match(data['mark-all-as-read'], /Označi.*pročitano/);
+assert.match(data['remove-all-read'], /Ukloni.*pročitano/);
+assert.equal(data['wednesday'], 'Srijeda');
+assert.equal(data['myCardsViewChange-choice-table'], 'Tablica');
 assert.equal(data.board, 'Ploča');
 assert.equal(data.swimlane, 'Traka');
 assert.deepEqual(Object.keys(data), Object.keys(english));

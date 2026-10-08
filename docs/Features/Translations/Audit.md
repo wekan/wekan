@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Croatian search and notification controls — 2026-10-08
+
+Replace 80 Serbian values with Croatian, covering search operators, notifications,
+weekdays, organizations, assignments and card views. Preserve source variables
+and distinct search abbreviations. Check read/unread actions, board and swimlane
+vocabulary, and member/assignee distinctions. No browser or screen-reader session
+was run; further wrong-language review and remaining translations are unfinished.
+
 ## Croatian rule actions and triggers — 2026-10-08
 
 Replace 80 Serbian values with Croatian, covering rule triggers, actions,
