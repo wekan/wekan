@@ -1006,6 +1006,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/eebff1cdfc">Correct Slovenian settings and notification translations</a>. Thanks to xet7.</summary>
+
+Replace 70 Serbian values in each Slovenian catalog, for 140 corrections.
+Cover filters, settings, uploads, notifications, weekdays and task labels,
+preserving variables, format names and count-label spacing.
+
+Four focused translation suites and 21 human-preference checks pass.
+No browser or screen-reader session was run. Further wrong-language review
+and remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2c55b838ac">Correct Slovenian workspace and board controls</a>. Thanks to xet7.</summary>
 
 Replace 65 Serbian values in each Slovenian catalog, for 130 corrections.
