@@ -1006,6 +1006,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4a9629d4f7">Translate Bulgarian controls and planning</a>. Thanks to xet7.</summary>
+
+Fill 51 messages covering controls, import guidance, LDAP, login settings,
+planning imports and history recovery. Preserve variables, literal examples,
+matching priority, non-duplication and recovery choices.
+
+Four focused translation suites and 21 human-preference checks pass.
+The current Bulgarian fill list is empty. No browser or screen-reader session
+was run; other languages and linguistic review remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ae15d9657f">Translate Bulgarian import and synchronization recovery</a>. Thanks to xet7.</summary>
 
 Fill 48 recovery messages, preserving source variables, existing translations,
