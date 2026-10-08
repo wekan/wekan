@@ -8355,6 +8355,15 @@ remains low confidence pending speaker review. Focused tests cover key order,
 source tokens, runtime identifiers and distinct animation names; browser checks
 were not run.
 
+## Tatar ticket states and deletion constraints corrections
+
+Corrected 18 wrong-language card sizing, ticket, request and history labels.
+Preserved the restriction against deleting organizations or teams with members,
+distinct pending/closed/resolved/cancelled states and literal Cc: mail notation.
+Existing correct-language history actions remain. Technical wording remains low
+confidence pending speaker review. Focused tests cover key order, source tokens,
+state distinctions and deletion constraints; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
