@@ -549,7 +549,7 @@ Template.boardMenuPopup.events({
     Popup.back();
   },
   'click .js-change-board-color': Popup.open('boardChangeColor'),
-  'click .js-open-board-announcement': Popup.open('boardAnnouncement'),
+  'click .js-open-board-announcement': Popup.open('boardAnnouncement', { titleKey: 'board-announcement' }),
   'click .js-change-background-image': Popup.open('boardChangeBackgroundImage'),
   'click .js-open-notification-settings': Popup.open('notificationSettings', {
     titleKey: 'notifications',

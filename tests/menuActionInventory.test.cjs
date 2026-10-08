@@ -14,6 +14,9 @@ const delegated = new Map([
   // 58d166029: the per-board due-reminder Save is a type=submit button inside
   // form.js-due-reminder-form; 'submit .js-due-reminder-form' handles it.
   ['notificationSettingsPopup/js-due-reminder-save', 'form submission'],
+  // #1566: the board announcement's Save is a type=submit button inside
+  // form.js-board-announcement-form; 'submit .js-board-announcement-form' handles it.
+  ['boardAnnouncementPopup/js-board-announcement-save', 'form submission'],
   ['listHeader/js-list-handle', 'sortable drag handle'],
   ['swimlaneFixedHeader/js-swimlane-header-handle', 'sortable drag handle'],
   ['header/js-header-collapsible-icon', 'styling; another action class handles click'],
@@ -39,6 +42,17 @@ assert.equal(missing([{ template: 'newMenuPopup', selector: 'js-working', handle
   const form = jade.slice(jade.indexOf('form.js-due-reminder-form'));
   const formIndent = jade.slice(jade.lastIndexOf('\n', jade.indexOf('form.js-due-reminder-form')) + 1).search(/\S/);
   const save = form.split('\n').find(line => line.includes('js-due-reminder-save'));
+  assert.ok(save && /type="submit"/.test(save), 'Save is a submit button');
+  assert.ok(save.search(/\S/) > formIndent, 'and it is nested inside the form it submits');
+}
+{
+  const fs = require('node:fs');
+  const js = fs.readFileSync('client/components/boards/boardAnnouncement.js', 'utf8');
+  const jade = fs.readFileSync('client/components/boards/boardAnnouncement.jade', 'utf8');
+  assert.match(js, /'submit \.js-board-announcement-form'\(event, tpl\)/, 'the announcement form has a submit handler');
+  const formAt = jade.indexOf('form.js-board-announcement-form');
+  const formIndent = jade.slice(jade.lastIndexOf('\n', formAt) + 1).search(/\S/);
+  const save = jade.slice(formAt).split('\n').find(line => line.includes('js-board-announcement-save'));
   assert.ok(save && /type="submit"/.test(save), 'Save is a submit button');
   assert.ok(save.search(/\S/) > formIndent, 'and it is nested inside the form it submits');
 }
