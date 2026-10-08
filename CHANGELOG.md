@@ -975,6 +975,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7e3ae95014">Translate Romanian planning imports and history recovery</a>. Thanks to xet7.</summary>
+
+Fill 29 messages in each Romanian catalog for release selection, planning
+imports, Sync planning and history recovery. Preserve source variables,
+matching priority, unchanged cards and recovery decisions.
+
+Romanian, global placeholder and translation audit suites pass, together
+with 21 human-preference checks. No browser or screen-reader session was run.
+Other translations and broader linguistic review remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b67435dd6d">Translate Romanian controls and stuck Sync recovery</a>. Thanks to xet7.</summary>
 
 Fill 44 messages in each Romanian catalog for board controls, link rules,
