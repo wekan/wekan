@@ -29,6 +29,7 @@ const { ensureScrumHistoryOperation, claimScrumHistoryWorker, assertScrumHistory
 const { scrumHistoryWriteState, inspectScrumHistoryWrites, verifyScrumHistoryWrites, plannedIncarnations } = require('./scrumHistoryWriteState');
 const { scrumHistoryWriteSelector } = require('./scrumHistoryWriteSelector');
 const { readScrumHistoryRequestCompletion } = require('./scrumHistoryCompletion');
+const { RETRY_FAILURES } = require('./scrumHistoryRecovery');
 const batches = new AsyncLocalStorage();
 const conflict = () => { throw new Meteor.Error('scrum-conflict', 'Scrum data changed. Reload History before retrying.'); };
 
@@ -208,106 +209,132 @@ export async function applyScrumHistory(row, content, direction, request) {
     let journal = await ScrumHistoryPending.findOneAsync(row.boardId);
     if (journal && (journal.rowId !== row._id || journal.direction !== direction || journal.userId !== userId ||
         (operationId && journal.operationId !== operationId) || !EJSON.equals(journal.content, content))) conflict();
-    if (!journal) {
-      if (await ScrumSprints.findOneAsync({ boardId: row.boardId, ...ROLLOVER_PENDING })) conflict();
-      const current = await Promise.all(targets.map(entry => collections[entry.type].findOneAsync(entry.id)));
-      await validateTargets(board, userId, targets, current);
-      await assertNoPendingScrumImport(row.boardId);
-      const live = { records: targets.map((entry, index) => ({ type: entry.type, id: entry.id, document: historyDocument(entry.type, current[index]) })) };
-      const expected = direction === 'undo' ? row.newContent : row.previousContent;
-      if (direction !== 'restore' && !EJSON.equals(live, expected)) conflict();
-      journal = { _id: row.boardId, rowId: row._id, direction, userId, operationId: operationId || Random.id(), content: EJSON.clone(content),
-        before: live, revisions: current.map((doc,index) => doc ? (METADATA_TYPES.has(targets[index].type) ? doc.scrumRevision || 0 : doc.revision || 0) : null),
-        // Which lifetime of each record this plan was made against, and which
-        // one a record it creates will have (scrumHistoryWriteState.js).
-        incarnations: plannedIncarnations({ targets, current, newId: () => Random.id() }) };
-      await ScrumHistoryPending.insertAsync(journal);
-    } else {
-      const current = await Promise.all(targets.map(entry => collections[entry.type].findOneAsync(entry.id)));
-      await validateTargets(board, userId, targets, current);
-      await assertNoPendingScrumImport(row.boardId);
+    // A board administrator or an operator is resolving it (scrumHistoryRecovery.js).
+    if (journal?.resolving) {
+      throw new Meteor.Error('scrum-history-pending', 'The interrupted Scrum History operation is being resolved by a board administrator.');
     }
-    await assertSource();
-    journal = await ensureScrumHistoryOperation(ScrumHistoryPending, journal);
-    // This worker's claim on the operation; a newer resume displaces it.
-    const worker = await claimScrumHistoryWorker(ScrumHistoryPending, journal);
-    const assertCurrent = async () => {
-      await assertScrumHistoryWorker(ScrumHistoryPending, journal, worker);
-      await assertSourceState();
-    };
-    const verifyWrites = async (entries = targets, before = journal.before.records, revisions = journal.revisions,
-      incarnations = journal.incarnations) => {
-      try { await verifyScrumHistoryWrites({ targets: entries, before, revisions, incarnations, assertCurrent,
+    let worker = null;
+    try {
+      if (!journal) {
+        if (await ScrumSprints.findOneAsync({ boardId: row.boardId, ...ROLLOVER_PENDING })) conflict();
+        const current = await Promise.all(targets.map(entry => collections[entry.type].findOneAsync(entry.id)));
+        await validateTargets(board, userId, targets, current);
+        await assertNoPendingScrumImport(row.boardId);
+        const live = { records: targets.map((entry, index) => ({ type: entry.type, id: entry.id, document: historyDocument(entry.type, current[index]) })) };
+        const expected = direction === 'undo' ? row.newContent : row.previousContent;
+        if (direction !== 'restore' && !EJSON.equals(live, expected)) conflict();
+        journal = { _id: row.boardId, rowId: row._id, direction, userId, operationId: operationId || Random.id(), content: EJSON.clone(content),
+          before: live, revisions: current.map((doc,index) => doc ? (METADATA_TYPES.has(targets[index].type) ? doc.scrumRevision || 0 : doc.revision || 0) : null),
+          // Which lifetime of each record this plan was made against, and which
+          // one a record it creates will have (scrumHistoryWriteState.js).
+          incarnations: plannedIncarnations({ targets, current, newId: () => Random.id() }) };
+        await ScrumHistoryPending.insertAsync(journal);
+      } else {
+        const current = await Promise.all(targets.map(entry => collections[entry.type].findOneAsync(entry.id)));
+        await validateTargets(board, userId, targets, current);
+        await assertNoPendingScrumImport(row.boardId);
+      }
+      await assertSource();
+      journal = await ensureScrumHistoryOperation(ScrumHistoryPending, journal);
+      // This worker's claim on the operation; a newer resume displaces it.
+      worker = await claimScrumHistoryWorker(ScrumHistoryPending, journal);
+      const assertCurrent = async () => {
+        await assertScrumHistoryWorker(ScrumHistoryPending, journal, worker);
+        await assertSourceState();
+      };
+      const verifyWrites = async (entries = targets, before = journal.before.records, revisions = journal.revisions,
+        incarnations = journal.incarnations) => {
+        try { await verifyScrumHistoryWrites({ targets: entries, before, revisions, incarnations, assertCurrent,
+          read: entry => collections[entry.type].findOneAsync(entry.id) }); }
+        catch (error) { conflict(); }
+      };
+      // Refuse already-visible conflicts anywhere in the saved batch before
+      // advancing its first unfinished write. Per-write guards remain necessary
+      // because this read-only preflight is not an atomic database snapshot.
+      try { await inspectScrumHistoryWrites({ targets, before: journal.before.records,
+        revisions: journal.revisions, incarnations: journal.incarnations, assertCurrent,
         read: entry => collections[entry.type].findOneAsync(entry.id) }); }
       catch (error) { conflict(); }
-    };
-    // Refuse already-visible conflicts anywhere in the saved batch before
-    // advancing its first unfinished write. Per-write guards remain necessary
-    // because this read-only preflight is not an atomic database snapshot.
-    try { await inspectScrumHistoryWrites({ targets, before: journal.before.records,
-      revisions: journal.revisions, incarnations: journal.incarnations, assertCurrent,
-      read: entry => collections[entry.type].findOneAsync(entry.id) }); }
-    catch (error) { conflict(); }
-    await withoutRecording(async () => {
-      for (let index = 0; index < targets.length; index += 1) {
-        await assertCurrent();
-        const entry = targets[index]; const collection = collections[entry.type];
-        const current = await collection.findOneAsync(entry.id);
-        const before = journal.before.records[index];
-        if (before?.type !== entry.type || before?.id !== entry.id) conflict();
-        const originalRevision = journal.revisions[index];
-        let state;
-        const incarnation = journal.incarnations?.[index];
-        try { state = scrumHistoryWriteState({ type: entry.type, current,
-          before: before.document, after: entry.document, revision: originalRevision, incarnation }); }
-        catch (error) { conflict(); }
-        if (state === 'applied') continue;
-        const metadata = METADATA_TYPES.has(entry.type);
-        const selector = current ? scrumHistoryWriteSelector(entry.type, current) : null;
-        await assertCurrent();
-        if (!entry.document) {
-          if (!await collection.removeAsync(selector)) conflict();
-        } else if (metadata) {
-          if (!await collection.updateAsync(selector, { $set: { scrum: EJSON.clone(entry.document.scrum), scrumRevision: originalRevision + 1 } })) conflict();
-        } else if (!current) {
-          await collection.insertAsync({ ...EJSON.clone(entry.document), revision: 1, updatedAt: new Date(), updatedBy: userId,
-            ...(incarnation?.after ? { incarnation: incarnation.after } : {}) });
-        } else {
-          const { _id, ...fields } = EJSON.clone(entry.document);
-          // `incarnation` is not History content (historyDocument leaves it
-          // out) and must survive an update: it is the same record.
-          const unset = Object.fromEntries(Object.keys(current).filter(key => !['_id','revision','updatedAt','updatedBy','incarnation'].includes(key) && !(key in fields)).map(key => [key,'']));
-          const modifier = { $set: { ...fields, revision: originalRevision + 1, updatedAt: new Date(), updatedBy: userId } };
-          if (Object.keys(unset).length) modifier.$unset = unset;
-          if (!await collection.updateAsync(selector, modifier)) conflict();
+      await withoutRecording(async () => {
+        for (let index = 0; index < targets.length; index += 1) {
+          await assertCurrent();
+          const entry = targets[index]; const collection = collections[entry.type];
+          const current = await collection.findOneAsync(entry.id);
+          const before = journal.before.records[index];
+          if (before?.type !== entry.type || before?.id !== entry.id) conflict();
+          const originalRevision = journal.revisions[index];
+          let state;
+          const incarnation = journal.incarnations?.[index];
+          try { state = scrumHistoryWriteState({ type: entry.type, current,
+            before: before.document, after: entry.document, revision: originalRevision, incarnation }); }
+          catch (error) { conflict(); }
+          if (state === 'applied') continue;
+          const metadata = METADATA_TYPES.has(entry.type);
+          const selector = current ? scrumHistoryWriteSelector(entry.type, current) : null;
+          await assertCurrent();
+          if (!entry.document) {
+            if (!await collection.removeAsync(selector)) conflict();
+          } else if (metadata) {
+            if (!await collection.updateAsync(selector, { $set: { scrum: EJSON.clone(entry.document.scrum), scrumRevision: originalRevision + 1 } })) conflict();
+          } else if (!current) {
+            await collection.insertAsync({ ...EJSON.clone(entry.document), revision: 1, updatedAt: new Date(), updatedBy: userId,
+              ...(incarnation?.after ? { incarnation: incarnation.after } : {}) });
+          } else {
+            const { _id, ...fields } = EJSON.clone(entry.document);
+            // `incarnation` is not History content (historyDocument leaves it
+            // out) and must survive an update: it is the same record.
+            const unset = Object.fromEntries(Object.keys(current).filter(key => !['_id','revision','updatedAt','updatedBy','incarnation'].includes(key) && !(key in fields)).map(key => [key,'']));
+            const modifier = { $set: { ...fields, revision: originalRevision + 1, updatedAt: new Date(), updatedBy: userId } };
+            if (Object.keys(unset).length) modifier.$unset = unset;
+            if (!await collection.updateAsync(selector, modifier)) conflict();
+          }
+          await verifyWrites([entry], [before], [originalRevision], journal.incarnations ? [incarnation] : undefined);
         }
-        await verifyWrites([entry], [before], [originalRevision], journal.incarnations ? [incarnation] : undefined);
-      }
-    });
-    // Keep recovery durable until BOTH the timeline and the undo-stack flag
-    // are saved. A retry after either write uses the same operation ID.
-    const authors = direction === 'restore' ? [...new Set([row.userId, userId])] : [userId];
-    for (const author of authors) {
-      await verifyWrites();
-      await recordScrumRestoreOnce(ChangeHistory, {
-        boardId: row.boardId, swimlaneId: row.swimlaneId, listId: row.listId, cardId: row.cardId,
-        entityType: row.entityType, entityId: row.entityId, group: row.group,
-        changeType: 'restored', previousContent: journal.before, newContent: content,
-        userId: author, restoredFromId: row._id, restoredByUserId: userId,
-        isCheckpoint: direction !== 'restore', batchId: journal.operationId,
-      }).catch(() => {
-        throw new Meteor.Error('scrum-history-pending',
-          'History could not be verified or saved. The recovery checkpoint was retained.');
       });
+      // Keep recovery durable until BOTH the timeline and the undo-stack flag
+      // are saved. A retry after either write uses the same operation ID.
+      const authors = direction === 'restore' ? [...new Set([row.userId, userId])] : [userId];
+      for (const author of authors) {
+        await verifyWrites();
+        await recordScrumRestoreOnce(ChangeHistory, {
+          boardId: row.boardId, swimlaneId: row.swimlaneId, listId: row.listId, cardId: row.cardId,
+          entityType: row.entityType, entityId: row.entityId, group: row.group,
+          changeType: 'restored', previousContent: journal.before, newContent: content,
+          userId: author, restoredFromId: row._id, restoredByUserId: userId,
+          isCheckpoint: direction !== 'restore', batchId: journal.operationId,
+        }).catch(() => {
+          throw new Meteor.Error('scrum-history-pending',
+            'History could not be verified or saved. The recovery checkpoint was retained.');
+        });
+      }
+      await verifyWrites();
+      await finishScrumHistory({ history: ChangeHistory, pending: ScrumHistoryPending,
+        completions: ScrumHistoryCompletions, row, journal }).catch(() => {
+        throw new Meteor.Error('scrum-history-pending',
+          'History finalization could not be verified. Retry the pending operation.');
+      });
+      return true;
+    } catch (error) {
+      await recordScrumHistoryFailure(journal, worker, error);
+      throw error;
     }
-    await verifyWrites();
-    await finishScrumHistory({ history: ChangeHistory, pending: ScrumHistoryPending,
-      completions: ScrumHistoryCompletions, row, journal }).catch(() => {
-      throw new Meteor.Error('scrum-history-pending',
-        'History finalization could not be verified. Retry the pending operation.');
-    });
-    return true;
   });
+}
+
+// A retry that failed for a reason the next retry would meet again marks its
+// checkpoint, so a board administrator can resolve it
+// (scrumHistoryRecovery.js). Only the checkpoint this call worked on, and only
+// while this worker still holds it: a displaced worker's failure is not the
+// checkpoint's. Never in the way of the error itself.
+async function recordScrumHistoryFailure(journal, worker, error) {
+  if (!(error instanceof Meteor.Error) || !RETRY_FAILURES.has(error.error) ||
+      typeof journal?.operationId !== 'string' || !journal.operationId) return;
+  try {
+    await ScrumHistoryPending.rawCollection().updateOne({ _id: journal._id, rowId: journal.rowId, userId: journal.userId,
+      direction: journal.direction, operationId: journal.operationId, ...(worker ? { worker } : {}),
+      resolving: { $exists: false } },
+    { $set: { lastFailure: { at: new Date(), error: error.error, reason: String(error.reason || '').slice(0, 300) } } });
+  } catch (failure) { /* the retry's own error is the one returned */ }
 }
 
 export async function pendingScrumHistoryRow(boardId, userId, direction) {

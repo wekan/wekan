@@ -1,5 +1,7 @@
 //- Keyboard undo/redo that is still waiting for the server
-  (client/lib/historyKeyRecovery.js).
+  (client/lib/historyKeyRecovery.js), and a Scrum History undo or redo that
+  stopped on a conflict and blocks the board's Scrum edits
+  (server/lib/scrumHistoryRecovery.js).
 template(name="historyRecoveryNotice")
   if pending
     .history-recovery-notice.js-history-recovery-notice(role="status" aria-live="polite")
@@ -7,3 +9,16 @@ template(name="historyRecoveryNotice")
       p.quiet {{_ 'history-request-hint'}}
       button.primary.js-history-retry(type="button" disabled=busy) {{_ 'history-request-retry'}}
       button.js-history-forget(type="button" disabled=busy) {{_ 'history-request-forget'}}
+  if checkpoint
+    .history-recovery-notice.history-checkpoint-notice.js-history-checkpoint-notice(role="status" aria-live="polite" class=checkpointPlacement)
+      p {{_ 'scrum-history-checkpoint-stuck'}}
+      if checkpoint.canResolve
+        p.quiet.js-history-checkpoint-counts {{_ 'scrum-history-checkpoint-counts' applied=checkpoint.applied total=checkpoint.total pending=checkpoint.pending conflicted=checkpoint.conflicted}}
+        p.quiet {{_ 'scrum-history-checkpoint-hint'}}
+        if checkpoint.canRollback
+          button.primary.js-history-checkpoint-rollback(type="button" disabled=busy) {{_ 'scrum-history-checkpoint-rollback'}}
+        button.js-history-checkpoint-discard(type="button" disabled=busy) {{_ 'scrum-history-checkpoint-discard'}}
+      else
+        p.quiet {{_ 'scrum-history-checkpoint-ask-admin'}}
+      if checkpointError
+        p.warning(role="alert") {{checkpointError}}

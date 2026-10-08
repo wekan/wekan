@@ -25,7 +25,11 @@ function fixture(direction = 'undo') {
   };
   const pending = {
     async findOneAsync(query) {
-      return state.checkpoint && Object.keys(query).every(key => canonical(state.checkpoint[key]) === canonical(query[key]?.$eq ?? query[key]))
+      // `$exists: false`: a checkpoint being resolved (scrumHistoryRecovery.js)
+      // is never finished by its author (scrumHistoryOwnership.js).
+      return state.checkpoint && Object.keys(query).every(key => query[key]?.$exists === false
+        ? !Object.hasOwn(state.checkpoint, key)
+        : canonical(state.checkpoint[key]) === canonical(query[key]?.$eq ?? query[key]))
         ? structuredClone(state.checkpoint) : null;
     },
     async removeAsync(query) {
@@ -263,4 +267,11 @@ test('a saved request can read only the receipt for its original source, actor a
   }
   f.state.receipt.planHash = 'bad';
   await assert.rejects(read(f.completions, request), /completion conflict/);
+});
+test('a checkpoint a board administrator is resolving is not finished by its author', async () => {
+  const f = fixture();
+  f.state.checkpoint.resolving = { token: 'admin', action: 'rollback', offline: false, at: new Date(1) };
+  await assert.rejects(finishScrumHistory(f), /conflict/);
+  assert.ok(f.state.checkpoint); assert.equal(f.state.deletes, 0); assert.equal(f.state.updates, 0);
+  assert.equal(f.state.receipt, undefined, 'no completion receipt either');
 });

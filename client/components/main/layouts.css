@@ -1343,3 +1343,11 @@ a:not(.disabled).is-active i.fa {
 .history-recovery-notice button {
   margin-inline-end: 8px;
 }
+/* A Scrum History undo or redo stopped on a conflict (historyRecoveryNotice):
+   the same box, raised above the waiting-request notice when both show. */
+.history-checkpoint-notice.history-checkpoint-notice-raised {
+  bottom: calc(176px + env(safe-area-inset-bottom, 0px));
+}
+.history-checkpoint-notice .warning {
+  color: #b00020;
+}

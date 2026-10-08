@@ -28,6 +28,8 @@ import { ROLLOVER_PENDING, hasRolloverPending, storeRolloverPlan, nextRolloverCh
   rolloverTouches } from '/server/lib/scrumRolloverStore';
 const { replaySprintScope, changesOf: scopeChangesOf, MAX_SCOPE_REPLAY_ROWS } = require('/models/lib/scrumScopeReplay');
 import ChangeHistory from '/models/changeHistory';
+import RecoveryEvents from '/models/recoveryEvents';
+import { recordRecoveryAudit } from '/server/lib/recoveryAudit';
 const { DEFAULT_SCRUM_SETTINGS, normalizeScrumSettings, normalizeScrumMetadata,
   normalizeScrumRecord, sprintSnapshot, scrumRevisionSelector, validateScrumRevision,
   cardReleaseIds, applyCardReleaseChange } = require('/models/lib/scrum');
@@ -444,6 +446,51 @@ async function recoverScrumImportOnline(userId, boardId, action) {
     }
   });
 }
+// A Scrum History checkpoint that a conflict has stranded
+// (server/lib/scrumHistoryRecovery.js). Any member who can write sees that one
+// blocks the board, and whether it is theirs; a board administrator sees what
+// it holds and resolves it - the same role that finishes an interrupted Scrum
+// import, since both are the board's Scrum data and nobody outside the board
+// needs to act. Each resolution, and each failed one, is a row in Admin Panel
+// -> Problems -> Recovery.
+async function inspectScrumHistoryCheckpointOnline(userId, boardId) {
+  const board = await boardFor(userId, boardId);
+  if (!userId || !allowIsBoardMemberWithWriteAccess(userId, board)) throw new Meteor.Error('not-authorized');
+  const { inspectScrumHistoryCheckpoint } = require('/server/lib/scrumHistoryRecovery');
+  const report = await inspectScrumHistoryCheckpoint(MongoInternals.defaultRemoteCollectionDriver().mongo.db, boardId);
+  if (!report.present) return null;
+  if (board.hasAdmin(userId)) return { ...report, canResolve: true };
+  return { present: true, key: report.key, direction: report.direction, stuck: report.stuck,
+    own: report.userId === userId, canResolve: false };
+}
+async function resolveScrumHistoryCheckpointOnline(userId, connection, boardId, key, action) {
+  check(key, String); check(action, Match.OneOf('rollback', 'discard'));
+  const board = await boardFor(userId, boardId, true);
+  const { resolveScrumHistoryCheckpoint, describeResolution, ScrumHistoryRecoveryError } = require('/server/lib/scrumHistoryRecovery');
+  const user = await Meteor.users.findOneAsync(userId, { fields: { username: 1 } });
+  const who = `Board admin ${user?.username || userId} (${userId})`;
+  const audit = async entry => {
+    try {
+      await recordRecoveryAudit({ type: RecoveryEvents.types.SCRUM_HISTORY_CHECKPOINT_RESOLVED, user, connection,
+        boards: [board], ...entry });
+    } catch (error) { /* the record never decides the resolution */ }
+  };
+  let result;
+  try {
+    result = await withScrumBoardLock(boardId, () => resolveScrumHistoryCheckpoint(
+      MongoInternals.defaultRemoteCollectionDriver().mongo.db, boardId, { action, key, online: true, actor: userId }));
+  } catch (error) {
+    await audit({ done: false, detail: `${who} could not ${action === 'rollback' ? 'roll back' : 'discard'} the stopped ` +
+      `Scrum History operation ${key} on board ${boardId}: ${error.message || error.reason || 'unknown error'}` });
+    if (error instanceof ScrumHistoryRecoveryError) throw new Meteor.Error('scrum-history-recovery', error.message);
+    throw error;
+  }
+  if (result.changed) {
+    await audit({ done: true, deletedData: result.removedRecords > 0, severity: 'warning',
+      detail: describeResolution({ ...result, boardId }, who) });
+  }
+  return result;
+}
 const methods = {
   async 'scrum.getBoardData'(boardId) { check(boardId, String); return getScrumBoardData(this.userId, boardId); },
   async 'scrum.getDailyHistory'(boardId, sprintId) { return getScrumDailyHistory(this.userId, boardId, sprintId); },
@@ -453,6 +500,13 @@ const methods = {
   // has run out.
   async 'scrum.resumeImport'(boardId) { return recoverScrumImportOnline(this.userId, boardId, 'resume'); },
   async 'scrum.discardImport'(boardId) { return recoverScrumImportOnline(this.userId, boardId, 'discard'); },
+  // A Scrum History undo or redo stopped on a conflict, inspected by a member
+  // and rolled back or discarded by a board administrator.
+  async 'scrum.inspectHistoryCheckpoint'(boardId) { check(boardId, String); return inspectScrumHistoryCheckpointOnline(this.userId, boardId); },
+  async 'scrum.resolveHistoryCheckpoint'(boardId, key, action) {
+    check(boardId, String);
+    return resolveScrumHistoryCheckpointOnline(this.userId, this.connection, boardId, key, action);
+  },
   async 'scrum.configure'(boardId, changes, expectedRevision = null) {
     check(boardId, String); check(changes, Object); check(expectedRevision, Match.OneOf(Number, null));
     return locked(boardId, async () => {

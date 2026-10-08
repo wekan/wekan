@@ -35,6 +35,10 @@ RecoveryEvents.types = {
   // until an administrator discards it (server/lib/listSyncStuck.js).
   LIST_SYNC_OPERATION_STUCK: 'list-sync-operation-stuck',
   LIST_SYNC_OPERATION_DISCARDED: 'list-sync-operation-discarded',
+  // A Scrum History undo or redo stopped on a conflict, rolled back or
+  // discarded by a board administrator or the offline command
+  // (server/lib/scrumHistoryRecovery.js).
+  SCRUM_HISTORY_CHECKPOINT_RESOLVED: 'scrum-history-checkpoint-resolved',
 };
 
 RecoveryEvents.attachSchema(

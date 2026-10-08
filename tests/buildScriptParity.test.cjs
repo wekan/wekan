@@ -343,6 +343,10 @@ test('every script in releases/ is reachable from BOTH menus', () => {
       + '      MONGO_URL, --board/--null-board, the exact writer or migration UUID\n'
       + '      and --offline, which asserts every writer is stopped. Run by hand\n'
       + '      during recovery, never from a build menu',
+    'recover-scrum-history.cjs': 'an offline Scrum History recovery tool: it needs\n'
+      + '      MONGO_URL, --board, the inspected --checkpoint key and --offline,\n'
+      + '      which asserts every writer is stopped. Run by hand during recovery,\n'
+      + '      never from a build menu',
     'recover-rule-email.cjs': 'an offline rule-email reconciliation tool: it needs\n'
       + '      the command hash, attempt UUID, operator, evidence reference,\n'
       + '      --offline and --confirm-accepted after SMTP acceptance was verified\n'

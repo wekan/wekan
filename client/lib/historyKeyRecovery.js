@@ -5,6 +5,7 @@
 // (historyRecoveryNotice) shows while the current board has such a request,
 // with "Try again", which repeats the SAME request ID and so cannot undo a
 // second change, and "Forget it", which drops the request.
+import { Meteor } from 'meteor/meteor';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { readStoredRequest, writeStoredRequest } from '/client/lib/historyKeyRequest';
 
@@ -22,4 +23,33 @@ export function refreshPendingHistoryRequest(storage = historyRequestStorage()) 
 export function forgetPendingHistoryRequest(storage = historyRequestStorage()) {
   writeStoredRequest(storage, null);
   refreshPendingHistoryRequest(storage);
+}
+
+// A Scrum History undo or redo that stopped on a conflict keeps a checkpoint
+// on the server that blocks every Scrum edit on its board, and retrying it
+// fails the same way each time (server/lib/scrumHistoryRecovery.js). The
+// notice shows it to anyone who can write on the board, and to a board
+// administrator the two ways out: roll back, or keep the board as it is.
+export const scrumHistoryCheckpoint = new ReactiveVar(null);
+const callServer = (...args) => Meteor.callAsync(...args);
+
+export async function refreshScrumHistoryCheckpoint(boardId, call = callServer) {
+  let report = null;
+  if (boardId) {
+    try { report = await call('scrum.inspectHistoryCheckpoint', boardId); } catch (e) { report = null; }
+  }
+  const shown = report && report.present && report.stuck ? { ...report, boardId } : null;
+  scrumHistoryCheckpoint.set(shown);
+  return shown;
+}
+
+// Resolve the checkpoint the notice showed, by its key: one already resolved
+// (by another administrator or server) is a no-op on the server, never
+// another checkpoint.
+export async function resolveScrumHistoryCheckpoint(checkpoint, action, call = callServer) {
+  try {
+    return await call('scrum.resolveHistoryCheckpoint', checkpoint.boardId, checkpoint.key, action);
+  } finally {
+    await refreshScrumHistoryCheckpoint(checkpoint.boardId, call);
+  }
 }

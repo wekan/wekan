@@ -103,6 +103,7 @@ import './undoRedoClaim.tests';
 
 import './scrumHistoryConfirmation.tests';
 import './scrumIncarnation.tests';
+import './scrumHistoryRecovery.tests';
 
 import "./cardListEntry.tests";
 import './autoArchiveCards.tests';

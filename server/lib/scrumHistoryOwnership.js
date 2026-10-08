@@ -18,8 +18,13 @@ function scrumHistorySelector(journal) {
     content: { $eq: journal.content }, before: { $eq: journal.before }, revisions: { $eq: journal.revisions },
     ...(Object.hasOwn(journal, 'incarnations') ? { incarnations: { $eq: journal.incarnations } } : {}) };
 }
+// A checkpoint a board administrator or an operator is resolving
+// (scrumHistoryRecovery.js) is no longer its author's: it is neither resumed
+// nor finished. `resolving` stays out of scrumHistorySelector for the same
+// reason `worker` does: the completion's planHash digests that selector.
+const unresolved = { resolving: { $exists: false } };
 async function assertScrumHistoryOperation(pending, journal) {
-  if (!journal.operationId || !await pending.findOneAsync(scrumHistorySelector(journal))) fail();
+  if (!journal.operationId || !await pending.findOneAsync({ ...scrumHistorySelector(journal), ...unresolved })) fail();
 }
 // Upgrade old checkpoints with compare-and-set, then adopt only the winning ID
 // for the unchanged plan. Concurrent workers never overwrite each other's ID.
@@ -49,7 +54,7 @@ async function claimScrumHistoryWorker(pending, journal, worker = randomUUID()) 
   if (!journal?.operationId || typeof worker !== 'string' || !worker) fail();
   const selector = scrumHistorySelector(journal);
   let error;
-  try { await pending.updateAsync(selector, { $set: { worker } }); }
+  try { await pending.updateAsync({ ...selector, ...unresolved }, { $set: { worker } }); }
   catch (failure) { error = failure; }
   let saved;
   try { saved = await pending.findOneAsync({ ...selector, worker }); } catch (failure) { throw error || failure; }

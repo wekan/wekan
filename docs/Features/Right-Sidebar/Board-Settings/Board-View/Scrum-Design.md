@@ -196,6 +196,15 @@ discarded as described and never replaced by a one-argument call. Non-Scrum
 keystrokes therefore still lack idempotent replay, and there is no visible
 recovery control yet; adding one needs new translated interface text.
 
+### An undo or redo that stopped on a conflict
+
+A checkpoint whose retry keeps failing - a record changed by somebody else, a
+changed History row, an author without write access - used to block the
+board's Scrum edits for good. A board administrator can now roll it back to its
+"before" values or keep the board as it is from the History recovery notice,
+and an operator can do the same offline. See
+[Resolve a Scrum History undo or redo that stopped on a conflict](Scrum-History-Recovery.md).
+
 Cancelling records a reason and preserves the history. Scrum accountabilities
 are visible information and do not grant access: all mutations must also satisfy
 the existing board/card write permissions. Board configuration and lifecycle

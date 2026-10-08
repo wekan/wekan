@@ -755,6 +755,34 @@
     {
       "key": "read-only-field",
       "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-history-checkpoint-stuck",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-history-checkpoint-counts",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-history-checkpoint-hint",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-history-checkpoint-rollback",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-history-checkpoint-discard",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-history-checkpoint-discard-confirm",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-history-checkpoint-ask-admin",
+      "since": "2026-10-08"
     }
   ]
 }
