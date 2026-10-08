@@ -1069,3 +1069,32 @@ for (const code of ['sl', 'sl_SI']) {
   assert.match(locale['import-board-instruction-teamwork'], /jedan nivo dublje/);
   assert.match(locale['import-board-instruction-superproductivity'], /arhivirani zadaci postaju arhivirane kartice/);
 }
+
+{
+  const locale = read('et-EE');
+  const literals = {
+    planner: ['Microsoft Planner', 'Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+    meistertask: ['MeisterTask', 'Export project', 'CSV'],
+    ...importLiterals, ...newerImportLiterals,
+  };
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+    for (const value of values) assert.ok(locale[key].includes(value), key + ': ' + value);
+  }
+  for (const format of ['nullboard', 'kanri']) {
+    assert.match(locale['import-board-instruction-' + format], /imporditakse ainult esimene tahvel/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /imporditakse kõik tahvlid/);
+  }
+  assert.match(locale['import-board-instruction-meistertask'], /lõpetatud ülesannete lõpetamise kuupäev säilib/);
+  assert.match(locale['import-board-instruction-obsidian'], /arhiiv muutub arhiveeritud kaartideks/);
+  assert.match(locale['import-board-instruction-ticktick'], /TickTicki loetelu muutub ujumisrajaks/);
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /Manuseid ei impordita/);
+  assert.match(locale['import-board-instruction-notion'], /Seoseid, pilte ega manuseid ei impordita/);
+  assert.match(locale['import-board-instruction-plane'], /ei sisalda kirjeldusi ega manuseid.*ei impordita/);
+  assert.match(locale['import-board-instruction-businessmap'], /muutke esmalt päiserea nimed ingliskeelseks/);
+  assert.match(locale['import-board-instruction-redmine'], /enne eksportimist.*My account keeleks English/);
+  assert.match(locale['import-board-instruction-teamwork'], /ühe taseme võrra sügavamale/);
+  assert.match(locale['import-board-instruction-superproductivity'], /arhiveeritud ülesanded muutuvad arhiveeritud kaartideks/);
+}

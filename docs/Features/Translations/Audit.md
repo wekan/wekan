@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Estonian import instructions — 2026-10-09
+
+Translate all 21 instructions in this group in et-EE. Preserve commands, column
+names, extensions, hierarchy markers and variables. Regression checks cover
+first-board selection, completed-task dates, archived cards, swimlane mappings,
+excluded data, English headers and task hierarchy. Import-instruction and
+placeholder suites and all 21 preservation checks pass. Browser review and the
+wider all-language translation backlog remain outstanding.
+
 ## Bosnian import instructions, remaining group — 2026-10-09
 
 Translate the remaining 13 instructions in bs, completing all 21 import
