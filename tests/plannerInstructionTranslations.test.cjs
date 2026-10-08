@@ -969,3 +969,21 @@ for (const code of ['sl', 'sl_SI']) {
   assert.match(locale['import-board-instruction-obsidian'], /arhiv pa postane arhivirane kartice/);
   assert.match(locale['import-board-instruction-ticktick'], /seznam TickTick postane plavalna steza/);
 }
+
+for (const code of ['sl', 'sl_SI']) {
+  const locale = read(code);
+  const literals = {...newerImportLiterals, ...Object.fromEntries(['pivotal', 'tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja'].map(format => [format, importLiterals[format]]))};
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), code + ': ' + key);
+    for (const value of values) assert.ok(locale[key].includes(value), code + ': ' + value);
+  }
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /Priloge se ne uvozijo/);
+  assert.match(locale['import-board-instruction-notion'], /Relacije, slike in priloge se ne uvozijo/);
+  assert.match(locale['import-board-instruction-plane'], /ne vsebuje opisov ali prilog.*ne uvozijo/);
+  assert.match(locale['import-board-instruction-businessmap'], /najprej preimenujte naslovno vrstico v angleščino/);
+  assert.match(locale['import-board-instruction-redmine'], /pred izvozom.*English v My account/);
+  assert.match(locale['import-board-instruction-teamwork'], /eno raven globlje/);
+  assert.match(locale['import-board-instruction-superproductivity'], /arhivirane naloge postanejo arhivirane kartice/);
+}
