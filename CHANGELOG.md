@@ -931,6 +931,22 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4b0fde93ef">Translate new Scrum messages and repair four locale suites</a>. Thanks to xet7.</summary>
+
+Translate 36 release-selection and recovery messages in Māori, Northern Sotho,
+Somali and Tok Pisin. Update the expected Scrum inventory from 102 to 111 while
+retaining per-key translation and token checks. Cover keyboard legends,
+distinct rollback and retain actions, and all four recovery counters.
+Full new wording remains low-confidence pending fluent review.
+
+All 322 translation suites pass after these repairs, including the global
+placeholder checks. The 21 human-preference checks also pass. No browser or
+screen-reader session was run.
+Other translation and linguistic review work remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/478fcc07f0">Translate pending imports and recovery messages in German locales</a>. Thanks to xet7.</summary>
 
 Translate 144 values across four German catalogs, preserving Swiss spelling,

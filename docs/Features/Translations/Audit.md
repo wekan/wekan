@@ -15,7 +15,10 @@ Vocabulary references: [Te Aka, whakahoki](https://maoridictionary.co.nz/search?
 [Department of Basic Education Northern Sotho wordlist](https://www.education.gov.za/LinkClick.aspx?fileticket=AZf94H84go4%3D&mid=4487&portalid=0&tabid=642),
 [Zorc Somali dictionary](https://zorc.net/RDZorc/SOMALI/SOMALI-ENGLISH%3DDICTIONARY.pdf),
 and [Tok Pisin senis](https://tokpisin.info/senis/).
-No browser or screen-reader session was run. Broader translation work remains.
+All 322 translation suites pass after these repairs (110 seconds), as do the
+21 human-preference checks. No browser or screen-reader session was run.
+The ordinary backlog remains 34,717 values in 52 locales, excluding 196 source
+keys tracked separately as pending. Broader translation work remains.
 
 ## Planning regressions exposed by new source keys — 2026-10-08
 
