@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Bosnian interrupted board imports — 2026-10-08
+
+Translate 25 English import recovery messages into Bosnian, preserving exact
+source variables and existing board, swimlane and attachment terminology.
+Check permanent deletion including later additions, keeping a partial board,
+foreign-board protection, Scrum recovery and the oldest-50 limit. No browser or
+screen-reader session was run; other translations and vocabulary review remain.
+
 ## Bosnian List Sync recovery — 2026-10-08
 
 Translate 23 English List Sync recovery messages into Bosnian, preserving

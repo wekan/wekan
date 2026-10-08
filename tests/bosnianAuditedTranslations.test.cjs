@@ -423,3 +423,18 @@ assert.match(data['stuck-sync-operation-replayable-now'], /ne može odbaciti/);
 assert.match(data['stuck-sync-operation-not-stuck'], /ne može odbaciti/);
 assert.match(data['stuck-sync-operation-truncated'], /50 najstarijih/);
 assert.match(data['stuck-sync-operation-busy'], /upravo sinhronizira/);
+
+const interruptedImportKeys = Object.keys(englishRecoverySource).filter(key => key.startsWith('interrupted-import-'));
+assert.equal(interruptedImportKeys.length, 25);
+for (const key of interruptedImportKeys) {
+  assert.notEqual(data[key], englishRecoverySource[key], key);
+  assert.deepEqual(translationTokens(data[key]), translationTokens(englishRecoverySource[key]), key);
+}
+assert.match(data['interrupted-import-description'], /izvorna datoteka ne čuva/);
+assert.match(data['interrupted-import-description'], /sve što je dodano nakon uvoza/);
+assert.match(data['interrupted-import-counts'], /__swimlanes__ traka/);
+assert.match(data['interrupted-import-discard-confirm'], /trajno se uklanjaju/);
+assert.match(data['interrupted-import-keep-confirm'], /Ništa se ne uklanja/);
+assert.match(data['interrupted-import-foreign-board'], /nije promijenjena/);
+assert.match(data['interrupted-import-truncated'], /50 najstarijih/);
+assert.match(data['interrupted-import-scrum-busy'], /još se upisuje ili oporavlja/);
