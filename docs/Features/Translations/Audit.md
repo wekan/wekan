@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Afrikaans planning and settings — 2026-10-08
+
+Translate 51 remaining English fill-list entries in each Afrikaans catalog
+(102 values), covering planning, imports, link rules and settings. Preserve
+variables, import syntax, environment names and examples. Check first-sync
+retention, duplicate prevention and conflict recovery. Both current fill lists
+are empty. No browser or screen-reader session was run; broader vocabulary
+review and translations in other languages are unfinished.
+
 ## Afrikaans interrupted board imports — 2026-10-08
 
 Translate 25 English import recovery messages in each Afrikaans catalog (50
