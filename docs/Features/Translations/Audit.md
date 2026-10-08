@@ -9424,6 +9424,17 @@ plus script, key order and tokens. Technical wording remains low confidence
 pending speaker review. Browser checks were not run; further Konkani
 translations and the broader audit remain unfinished.
 
+## Konkani sprint reports and daily observations
+
+Filled 36 English placeholders for sprint reports, lifecycle states, partial
+snapshots and daily observations. The placeholder-only merge retained existing
+translations. Regression coverage checks unknown-versus-zero estimates,
+comparable units and policies, membership retention, partial-report scope,
+UTC sampling, missing days, export destinations and the 366-observation limit,
+plus script, key order and tokens. Technical wording remains low confidence
+pending speaker review. Browser checks were not run; further Konkani
+translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
