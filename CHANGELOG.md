@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2ab39fc863">Correct Wu visibility and member-removal translations</a>. Thanks to xet7.</summary>
+
+Correct twenty-four Wu visibility, profile, removal and unsaved-description values.
+Preserve variables, login markup, access restrictions and member notification scope.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f3a7f4f6ed">Correct Wu selection and notification translations</a>. Thanks to xet7.</summary>
 
 Correct twenty-seven Wu selection, membership and notification values. Preserve
