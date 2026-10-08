@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8c362db0e41af6db619b283761b1b29726a68d14">Translate Odia Blockly editing and bitmap labels</a></summary>
+
+- Fill 30 Odia editing and accessibility placeholders, preserving existing
+  translations and indexed variable, count, row and column references.
+- Technical wording remains low confidence pending speaker review.
+- All 42 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Odia translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d0c0d238f12708609aa76ff38bbf91d5550f6bc8">Translate Odia Blockly loops and conditionals</a></summary>
 
 - Fill 20 Odia placeholders for loop controls and conditional branches, preserving
