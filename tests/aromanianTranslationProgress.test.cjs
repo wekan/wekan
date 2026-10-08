@@ -147,3 +147,23 @@ assert.equal(new Set(['start','close','cancel']
 assert.match(aromanian['scrum-total'], /__count__.*__estimate__.*__unknown__/);
 assert.match(aromanian['scrum-daily-truncated'], /366/);
 assert.match(aromanian['scrum-timebox'], /minuti/);
+
+for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
+  assert.ok(aromanian[key]?.trim(), key);
+  assert.notEqual(aromanian[key], english[key], `${key}: Scrum prose remains English`);
+}
+for (const key of ['scrum-daily-observations-help','scrum-daily-observations-export-help']) {
+  assert.match(aromanian[key], /UTC/);
+  assert.match(aromanian[key], /[Dd]zãlili cari lipsescu nu suntu bãgati/);
+  assert.match(aromanian[key], /nu scriu cafi alãxiri/);
+  assert.match(aromanian[key], /nicunuscuti nu suntu zero/);
+}
+assert.match(aromanian['scrum-report-help'], /unitãtsili sh-regulili.*idhii/);
+assert.match(aromanian['scrum-confirm-cancel'], /armãn ligati.*pãnã/);
+assert.match(aromanian['scrum-confirm-close'], /nibitisiti.*destinatsia aleasã/);
+assert.match(aromanian['scrum-history-checkpoint-hint'], /nitsi un altu nu alãxi/);
+assert.match(aromanian['scrum-history-checkpoint-hint'], /nu alãxeashti nitsi un registru/);
+assert.notEqual(aromanian['scrum-history-checkpoint-rollback'],
+  aromanian['scrum-history-checkpoint-discard']);
+assert.deepEqual(tokens(aromanian['scrum-history-checkpoint-counts']),
+  ['__applied__','__conflicted__','__pending__','__total__']);

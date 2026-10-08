@@ -2,6 +2,19 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Aromanian Scrum instructions — 2026-10-08
+
+Translate 20 remaining Scrum instructions and recovery messages. Preserve
+unknown-versus-zero estimates, comparable estimate units/policies, UTC daily
+sampling, omitted days, the two export actions, retained cancelled-sprint
+membership and rollback eligibility. Extend coverage to all current Scrum
+keys and these distinctions, alongside the catalog-wide token inventory.
+
+Use the existing Aromanian vocabulary and the Farsharotu reference linked
+below. Complete software phrases and grammar remain low-confidence pending
+fluent review. No browser or screen-reader session was run; English and
+wrong-language values elsewhere in the catalog remain to be addressed.
+
 ## Aromanian Scrum labels — 2026-10-08
 
 Translate 73 Scrum labels, actions, states and short reporting messages.
