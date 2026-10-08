@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Indonesian import instructions, first group — 2026-10-09
+
+Translate eight instructions in id: Planner, MeisterTask, Obsidian, Linear,
+TickTick, ClickUp, Nullboard and Kanri. Preserve commands, extensions and variables.
+Regression checks cover completed-task dates, archived cards, first-board selection
+and swimlane mappings. Import-instruction and placeholder suites and all 21
+preservation checks pass. Remaining Indonesian instructions, browser review and
+the wider translation backlog remain outstanding.
+
 ## Korean import instructions, remaining group — 2026-10-09
 
 Translate the remaining 13 instructions in ko and ko-KR (26 values), completing
