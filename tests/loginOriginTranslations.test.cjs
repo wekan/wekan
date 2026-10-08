@@ -16,6 +16,7 @@ codes.push('mn', 'kk', 'ky', 'uz', 'az', 'ka', 'hy', 'uz-LA', 'uz-UZ', 'az-AZ', 
 codes.push('cy', 'ga', 'gd', 'oc', 'co', 'mt', 'lb', 'fy', 'cy-GB', 'fy-NL');
 codes.push('jv', 'ht', 'mg', 'so', 'ha');
 codes.push('am', 'my', 'km', 'km-KH', 'km_KH', 'bi', 'tpi');
+codes.push('sd', 'ps', 'ku', 'ckb', 'ug');
 for (const code of codes) {
   const value = read(code)[key];
   assert.notEqual(value, source, code);
@@ -35,7 +36,7 @@ assert.match(read('es')[key], /No se puede completar/);
 assert.match(read('ja')[key], /ログインを完了できません/);
 assert.match(read('zh-CN')[key], /无法在此地址完成/);
 assert.match(read('zh-TW')[key], /無法在此位址完成/);
-console.log('Sign-in origin warning: 119 catalog paths, repeated address roles and literal configuration key pass');
+console.log('Sign-in origin warning: 124 catalog paths, repeated address roles and literal configuration key pass');
 
 assert.match(read('ar')[key], /لا يمكن إكمال تسجيل الدخول/);
 assert.match(read('fa')[key], /تکمیل نمی‌شود/);
@@ -88,3 +89,9 @@ assert.match(read('km')[key], /មិនអាចបញ្ចប់/);
 assert.match(read('bi')[key], /Yu no save finisim/);
 assert.match(read('tpi')[key], /Yu no inap pinisim/);
 assert.equal(read('km-KH')[key], read('km_KH')[key]);
+
+assert.match(read('sd')[key], /مڪمل نٿو ڪري سگهجي/);
+assert.match(read('ps')[key], /نه شي بشپړېدای/);
+assert.match(read('ku')[key], /nayê temamkirin/);
+assert.match(read('ckb')[key], /ناتوانرێت.*تەواو بکرێت/);
+assert.match(read('ug')[key], /تاماملىغىلى بولمايدۇ/);

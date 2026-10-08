@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Sindhi, Pashto, Kurdish and Uyghur sign-in warnings — 2026-10-08
+
+Translate five values in Sindhi, Pashto, Kurmanji, Sorani and Uyghur, retaining
+their respective scripts. Warning coverage now includes 124 catalog paths with
+exact repeated address variables, rendering order and ROOT_URL checks. Warning
+and placeholder suites and all 21 preservation checks pass. This prose has lower
+confidence and needs native review; right-to-left browser rendering and the wider
+all-language backlog remain outstanding.
+
 ## Amharic, Burmese, Khmer and Pacific sign-in warnings — 2026-10-08
 
 Translate six physical catalog values for Amharic, Burmese, Khmer, Bislama and

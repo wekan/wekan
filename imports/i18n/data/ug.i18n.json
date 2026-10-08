@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "بۇ ئېلخەتلىك ھېسابات ئاللىقاچان مەۋجۇت ۋە ئۇ بۇ كىرىش ئۇسۇلى بىلەن قۇرۇلمىغان",
   "sign-in-with": "%s ئارقىلىق كىرىش",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "بۇ ئادرېستا باشقا مۇلازىمەت ئارقىلىق كىرىشنى تاماملىغىلى بولمايدۇ. WeKan __expected__ ئۈچۈن تەڭشەلگەن، ئەمما بۇ بەت __actual__ دا ئېچىلغان. WeKan نى __expected__ دا ئېچىڭ ياكى باشقۇرغۇچىدىن ROOT_URL نى __actual__ قىلىپ تەڭشەشنى سوراڭ.",
   "passwordless-title": "پارولسىز كىرىش",
   "passwordless-enabled": "پارولنىڭ ئورنىغا ئېلخەت ئارقىلىق بىر قېتىملىق كىرىش كودى ئەۋەتىش",
   "passwordless-hint": "چىقىش ئېلخىتى كېرەك (MAIL_URL). يەنە PASSWORDLESS_ENABLED.",

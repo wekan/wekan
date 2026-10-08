@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "هەژمارێک بەم ئیمەیلە پێشتر هەیە و بەم شێوازی چوونەژوورەوەیە دروست نەکراوە",
   "sign-in-with": "چوونەژوورەوە بە %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "لە ئەم ناونیشانەدا ناتوانرێت چوونەژوورەوە لە ڕێگەی خزمەتگوزارییەکی دیکەوە تەواو بکرێت. WeKan بۆ __expected__ ڕێکخراوە، بەڵام ئەم پەڕەیە لە __actual__ کراوەتەوە. WeKan لە __expected__ بکەرەوە، یان داوا لە بەڕێوەبەر بکە ROOT_URL بۆ __actual__ ڕێک بخات.",
   "passwordless-title": "چوونەژوورەوە بەبێ وشەی نهێنی",
   "passwordless-enabled": "لە جیاتی وشەی نهێنی، کۆدی چوونەژوورەوەی یەکجارەکی بە ئیمەیل بنێرە",
   "passwordless-hint": "پێویستی بە ئیمەیلی دەرچوو هەیە (MAIL_URL). هەروەها PASSWORDLESS_ENABLED.",

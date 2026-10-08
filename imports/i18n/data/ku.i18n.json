@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Hesabek bi vê e-nameyê jixwe heye û bi vê rêbaza têketinê nehatiye çêkirin",
   "sign-in-with": "Bi %s têkeve",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Têketin bi rêya xizmeteke din li vê navnîşanê nayê temamkirin. WeKan ji bo __expected__ hatiye mîhengkirin, lê ev rûpel li __actual__ hatiye vekirin. WeKan li __expected__ veke, an ji rêveber bixwaze ku ROOT_URL bike __actual__.",
   "passwordless-title": "Têketina bê şîfre",
   "passwordless-enabled": "Li şûna şîfreyê, koda têketinê ya yekcarî bi e-nameyê bişîne",
   "passwordless-hint": "E-nameya derketî pêwîst e (MAIL_URL). Her wiha PASSWORDLESS_ENABLED.",
