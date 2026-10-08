@@ -737,6 +737,7 @@ avatar always wins, and the initials come back when the image does not load.
 - [A card moved or copied to another board brings its labels, created there when the mover is that board's admin](https://github.com/wekan/wekan/commit/125e0960eb). Thanks to d3dbit and xet7.
 - [A board view chosen on a board stays on that board instead of changing every board](https://github.com/wekan/wekan/commit/80fb317fda). Thanks to DimDz, Meeques and xet7.
 - [A list can colour the cards that have no colour of their own, so cards change colour as they move](https://github.com/wekan/wekan/commit/998a9cc336). Thanks to C0rn3j and xet7.
+- [Each board can have an announcement of its own, shown to its members until dismissed](https://github.com/wekan/wekan/commit/7ccd987eb1). Thanks to TiibCD and xet7.
 - [Lists can be archived and restored through the REST API](https://github.com/wekan/wekan/commit/0a80496acf). Thanks to stevekiss and xet7.
 
 and hardens the login settings:
