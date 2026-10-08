@@ -1880,21 +1880,15 @@ each for the reason given:
   are offered by the snap and the start scripts, but no code reads them, so
   they do nothing. Implement them or remove them from the platforms - a
   maintainer decision.
-- `ldap_sync_now` (`packages/wekan-ldap/server/syncUser.js`) is never loaded and
-  nothing calls it. Its synchronous `Meteor.user()` was made async on
-  2026-10-05 so the whole-tree test holds; wire it to a "Sync now" button or
-  remove it.
 
-Maintainer decisions of 2026-10-08 for the items above (header login and
-LDAP Test connection, decided the same day, are built and in Upcoming):
+Maintainer decisions of 2026-10-08 for the items above (header login, LDAP
+Test connection and LDAP Sync now, decided the same day, are built and in
+Upcoming):
 
 - **Automatic logout: implement it.** `LOGOUT_WITH_TIMER=true` signs a user
   out after `LOGOUT_IN` days, or daily at `LOGOUT_ON_HOURS`:`LOGOUT_ON_MINUTES`,
   and the four become overridable in Admin Panel / People like the other login
   variables.
-- **`ldap_sync_now`: wire it to a "Sync now" button** in Admin Panel / People /
-  LDAP, loaded and restricted to administrators, with its English string
-  pending Transifex.
 - **[#5724](https://github.com/wekan/wekan/issues/5724) secrets from files:**
   `MONGO_PASSWORD_FILE` is replaced by `MONGO_URL_FILE`, which the launchers
   (start scripts, snap, Docker entrypoint) read and pass only to the node
@@ -1912,8 +1906,9 @@ LDAP Test connection, decided the same day, are built and in Upcoming):
 **In short:** Translation filling now protects interpolation variables before
 writing a batch. Locale catalogs include the new card-field settings, with
 more translated help text and refreshed translation audit checks.
-**Header login** is now set by the server environment only, and **LDAP Test
-connection** reports success only when the directory answered.
+**Header login** is now set by the server environment only, **LDAP Test
+connection** reports success only when the directory answered, and **LDAP Sync
+now** runs the background sync on demand.
 
 This release hardens the login settings:
 
@@ -2017,6 +2012,21 @@ and shows the directory's own error when that fails; without a base DN it says
 nothing could be tested. `tests/ldapTestConnectionProbe.test.cjs` pins the
 decision and runs the search with the shipped ldapts against a port where
 nothing listens. A login against a real directory was not run here.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/95147fc999">LDAP has a Sync now button that runs the background sync once</a>. Thanks to xet7.</summary>
+
+`ldap_sync_now` was never loaded, so no button could call it, and it imported
+every directory user regardless of the sync settings. It now runs the
+background sync once with `LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS` and
+`LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED` as they are set, for an
+active site administrator only, and shares one run at a time with the
+scheduled job. `tests/ldapSyncNow.test.cjs` pins it and fails when any other
+wekan-ldap methods file is left unloaded; the Playwright spec
+`admin-login-env-overrides` drives the button. A sync against a real directory
+was not run here.
 
 </details>
 
