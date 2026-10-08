@@ -9173,6 +9173,16 @@ states, script, key order and token inventories. Scrum terminology remains low
 confidence pending speaker review. Browser checks were not run; further Maithili
 translations and the broader audit remain unfinished.
 
+## Maithili sprint observations and partial reports
+
+Filled 21 English placeholders for sprint closure, partial reports and daily
+observations. The placeholder-only merge retained existing translations. Preserved
+source-reference tokens, UTC, the 366-observation limit and the first-observation
+versus end-of-day distinction. Regression coverage checks report limitations,
+script, key order and token inventories. Technical wording remains low confidence
+pending speaker review. Browser checks were not run; further Maithili translations
+and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
