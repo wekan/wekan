@@ -1788,6 +1788,18 @@ This release adds the following new features:
 report for what the other tool has no place for.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e33df4be4c">Repair Bislama import instructions and literal examples</a>. Thanks to xet7.</summary>
+
+- Correct 13 mixed-language import instructions and translate OPML and Org mode
+  help. Restore JSON field names and the Jira endpoint while preserving format
+  syntax, menu actions and interpolation variables.
+- Three relevant suites pass. A broader literal scan found 103 candidate entries
+  in 45 locale files; some are valid quotation variants, others need repair.
+  Full prose remains provisional; browser sessions were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3c082ec6e5">Replace remaining Bislama artificial English wrappers</a>. Thanks to xet7.</summary>
 
 - Correct 236 storage, migration, backup and report values. Preserve provider
