@@ -442,6 +442,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e17d58820d">Expose short untranslated prose for locale review</a>. Thanks to xet7.</summary>
+
+Add a read-only audit for short English UI words hidden by the fill tool's invariant
+filter. The working catalog has 1,907 candidates across 198 locale files; shared words
+still require language-specific review. Preserve arguments and exclude technical notation.
+Both regression tests pass. The all-language translation work remains unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/07a09ca77d">Translate remaining English Wu Blockly labels</a>. Thanks to xet7.</summary>
 
 Translate 15 Blockly labels omitted from the missing-string report. Preserve indexed
