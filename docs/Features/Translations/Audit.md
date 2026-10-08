@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Russian import instructions, first group — 2026-10-09
+
+Translate eight instructions in ru, ru_RU and ru-UA, also serving the ru-RU
+symlink: 24 stored values across four locale paths. Preserve the alias, commands,
+extensions and variables. Regression checks cover first-board selection,
+completed-task dates, archived cards and swimlane mappings. Import-instruction and
+placeholder suites and all 21 preservation checks pass. Both Ukrainian fill lists
+are now empty, which does not prove language quality. Remaining Russian imports,
+browser review and the wider translation backlog remain outstanding.
+
 ## Ukrainian regional planning and recovery — 2026-10-09
 
 Fill 94 English values in uk-UA from reviewed existing Ukrainian translations:

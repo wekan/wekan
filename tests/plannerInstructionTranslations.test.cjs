@@ -1219,3 +1219,26 @@ for (const code of ['uk', 'uk-UA']) {
   assert.doesNotMatch(locale['import-board-instruction-todoist'], /підзавдання — картками/);
   assert.match(locale['import-board-instruction-todoist'], /примітки — коментарями/);
 }
+
+for (const code of ['ru', 'ru-RU', 'ru_RU', 'ru-UA']) {
+  const locale = read(code);
+  const literals = {
+    planner: ['Microsoft Planner', 'Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+    meistertask: ['MeisterTask', 'Export project', 'CSV'],
+    ...Object.fromEntries(['obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri'].map(format => [format, importLiterals[format]])),
+  };
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), code + ': ' + key);
+    assert.match(locale[key], /\p{Script=Cyrillic}/u, key);
+    for (const value of values) assert.ok(locale[key].includes(value), code + ': ' + key + ': ' + value);
+  }
+  for (const format of ['nullboard', 'kanri']) {
+    assert.match(locale['import-board-instruction-' + format], /импортируется только первая доска/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /импортируются все доски/);
+  }
+  assert.match(locale['import-board-instruction-meistertask'], /завершённые задачи сохраняют дату завершения/);
+  assert.match(locale['import-board-instruction-obsidian'], /архив превращается в архивированные карточки/);
+  assert.match(locale['import-board-instruction-ticktick'], /список TickTick становится дорожкой/);
+}
