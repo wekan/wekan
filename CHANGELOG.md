@@ -487,6 +487,17 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/57b32d6d15">Translate Papiamento Blockly text operations</a>. Thanks to xet7.</summary>
+
+Translate 53 text-operation labels and explanations, preserving variables and
+checking text positions, letter case, trimming sides and replacement semantics.
+Four focused translation suites and 21 human-preference checks pass.
+Specialized wording is lower confidence and needs native review. No browser or
+screen-reader session was run. Remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ef911475c0">Translate Papiamento Blockly keyboard shortcuts</a>. Thanks to xet7.</summary>
 
 Translate 41 shortcut and key labels, preserving variables and key names and
