@@ -670,6 +670,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cafca6bf33">Translate 21 import instructions in four German catalogs</a>. Thanks to xet7.</summary>
+
+Fill 84 values while preserving product commands, extensions, columns and hierarchy
+markers. Regression checks cover variables, first-board selection, archived and
+completed tasks and excluded data. Import-instruction and placeholder suites and
+all 21 preservation checks pass. The wider translation backlog remains unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/260b4946e6">Translate Cherokee warning and verify every non-English warning catalog</a>. Thanks to xet7.</summary>
 
 Finish the remaining English sign-in warning and discover all 234 non-English
