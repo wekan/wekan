@@ -8763,6 +8763,15 @@ alongside script, key order and placeholder inventories. Technical wording remai
 low confidence pending speaker review. Browser checks were not run; further
 Odia translations remain.
 
+## Odia list statistics and random fractions
+
+Filled 21 English placeholders for list statistics and random fractions. Preserved
+distinctions between mean, median and mode, the list-valued mode result, and
+inclusive zero versus exclusive one bounds. The placeholder-only merge retained
+existing translations. Regression coverage checks those details alongside script,
+key order and token inventories. Statistical wording remains low confidence pending
+speaker review. Browser checks were not run; further Odia translations remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
