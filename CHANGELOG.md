@@ -1006,6 +1006,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/841a5aaeda">Translate Slovenian import recovery and correct core labels</a>. Thanks to xet7.</summary>
+
+Fill 25 interrupted-import messages in each Slovenian catalog and replace
+Serbian board and swimlane labels with Slovenian, for 54 corrected values.
+Preserve variables and recovery choices, including permanent deletion.
+
+Four focused translation suites and 21 human-preference checks pass.
+No browser or screen-reader session was run. Remaining translations and
+further wrong-language review are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4a9629d4f7">Translate Bulgarian controls and planning</a>. Thanks to xet7.</summary>
 
 Fill 51 messages covering controls, import guidance, LDAP, login settings,
