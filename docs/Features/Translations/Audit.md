@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu imports and Blockly controls — 2026-10-08
+
+Translate 35 import, login, keyboard, color and control-flow messages. Preserve
+source variables, import keywords, key names and numeric limits; check prohibited
+variable deletion, loop-only use and break/continue distinctions. Wu wording is
+lower confidence and needs native review. No browser session was run. Older
+Mandarin-like passages and remaining English strings still require work.
+
 ## Wu Chinese settings — 2026-10-08
 
 Translate 17 board, link, assignment and LDAP strings in `wuu-Hans`, preserving
