@@ -670,6 +670,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6de5319b8b">Translate eight import instructions in nine Spanish catalogs</a>. Thanks to xet7.</summary>
+
+Fill 72 values with preserved commands, extensions and variables. Regression checks
+cover first-board selection, completion dates, archived cards and import mappings.
+Import-instruction and placeholder suites and all 21 preservation checks pass.
+The remaining Spanish instructions and wider translation backlog remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7d52e278f3">Finish import instructions in five French catalogs</a>. Thanks to xet7.</summary>
 
 Translate 65 more values, completing all 21 import instructions in these catalogs.
