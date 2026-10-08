@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Zulu number properties, powers and roots — 2026-10-09
+
+Translate 26 mathematical values per Zulu catalog (52 values), retaining
+constants, formulas and numerical notation. Root and prime terminology follows
+the [government mathematics dictionary](https://www.dsac.gov.za/sites/default/files/2023-11/Multilingual%20Mathematics%20Dictionary.pdf).
+Specialized wording is low confidence pending speaker review. Regression checks
+preserve constant expressions and distinguish even/odd, rounding directions,
+absolute values and negation. Both targeted suites and all 21 preservation
+checks pass. Browser execution and remaining translations are outstanding.
+
 ## Zulu keyboard navigation and screen-reader messages — 2026-10-09
 
 Translate 50 navigation and accessibility messages per Zulu catalog (100 values).
