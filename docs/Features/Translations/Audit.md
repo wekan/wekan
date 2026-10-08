@@ -7833,6 +7833,18 @@ Technical terminology remains low confidence pending speaker review. Browser che
 were not run. Further Tatar translations and wrong-language corrections, and the
 broader language audit, remain unfinished.
 
+### Tatar keyboard labels and remaining recovery controls
+
+Filled 28 English placeholders for keyboard labels and activity delivery controls.
+Key-cap names remain recognizable alongside Tatar descriptions. Regression coverage
+checks pause/resume/cancel distinctions and the warning that permanent cancellation
+cannot resume or recall queued mail and delivered notifications. Source tokens and
+locale key order remain intact. The default inventory now contains only 11 product
+names and mathematical identifiers, preserved unchanged; this is not a fluency or
+wrong-language audit. Older Tatar strings still require wrong-language corrections.
+Technical wording remains low confidence pending speaker review. Browser checks
+were not run. The broader language audit remains unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
