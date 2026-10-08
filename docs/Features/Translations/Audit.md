@@ -9505,6 +9505,16 @@ Technical wording remains low confidence pending speaker review. Browser
 checks were not run. Further Turkmen translations and the wider fluency
 audit remain unfinished.
 
+## Turkmen loops, conditions and editing
+
+Filled 35 English placeholders for loops, conditional branches and block editing.
+The placeholder-only merge retained existing translations. Coverage checks
+true/false loop conditions, fallback branches, count bounds, list/item roles,
+deletion confirmation operands and distinct editing actions, plus key order
+and token inventories. Technical wording remains low confidence pending
+speaker review. Browser checks were not run; further Turkmen translations
+and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
