@@ -17,7 +17,7 @@ export function validateImportSourceShape(source, value) {
     case 'csv': valid = Array.isArray(value) && value.length > 0 && value.every(Array.isArray); break;
     case 'kanri': valid = arrayAt(value, 'columns') || arrayAt(value, 'boards'); break;
     case 'excel': case 'planner': valid = typeof value?.excelBase64 === 'string' && value.excelBase64.length > 0; break;
-    case 'markdown': case 'todotxt': case 'taskwarrior': case 'focalboard': case 'todoist': case 'meistertask': case 'obsidian': case 'linear': case 'ticktick': case 'clickup': case 'nullboard': case 'orgmode': valid = typeof value === 'string' && value.trim().length > 0; break;
+    case 'markdown': case 'todotxt': case 'taskwarrior': case 'focalboard': case 'todoist': case 'meistertask': case 'obsidian': case 'linear': case 'ticktick': case 'clickup': case 'nullboard': case 'pivotal': case 'orgmode': valid = typeof value === 'string' && value.trim().length > 0; break;
     case 'leo': valid = typeof value === 'string' && /<leo_file[\s>]/.test(value); break;
     case 'opml': valid = typeof value === 'string' && /<opml[\s>]/.test(value); break;
   }

@@ -246,6 +246,16 @@ Meteor.methods({
         }
         creator = new KanboardCreator(data, 'nullboard');
         break;
+      case 'pivotal':
+        // A Pivotal Tracker stories CSV - see models/lib/pivotalCsvFormat.js.
+        check(board, String);
+        try {
+          importedBoard = EXTERNAL_PARSERS.pivotal(importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        creator = new KanboardCreator(data, 'pivotal');
+        break;
       case 'planner':
         // Microsoft Planner's "Export plan to Excel" workbook - see
         // models/lib/plannerFormat.js. It arrives like the Excel import, as

@@ -1031,6 +1031,10 @@
     {
       "key": "import-board-instruction-kanri",
       "since": "2026-10-08"
+    },
+    {
+      "key": "import-board-instruction-pivotal",
+      "since": "2026-10-08"
     }
   ]
 }

@@ -20,6 +20,8 @@
 //   * Asana (Tasks API): a milestone task (`resource_subtype: "milestone"`)
 //     becomes a release, carried by the milestone's own card and by the tasks
 //     it depends on. Asana has no sprint record.
+//   * Pivotal Tracker (stories CSV): a story's iteration becomes a sprint
+//     with its start and end dates, its estimate the Scrum estimate in points.
 //   * Trello has no sprints or releases at all; Power-Up data, which is the
 //     only place a Scrum Power-Up keeps its state, has no published schema
 //     and is reported (trelloScrumLosses).
@@ -369,6 +371,45 @@ function asanaScrumPlanning(items) {
   return p.finish();
 }
 
+// --- Pivotal Tracker ---------------------------------------------------------
+
+// Tracker's stories CSV (models/lib/pivotalCsvFormat.js) gives each story its
+// iteration number with the iteration's start and end dates, and its estimate
+// in points. The export has no iteration state. Tracker moves a story that is
+// not accepted on to the next iteration, so an iteration holding only
+// accepted stories is a finished one: reported and not imported, like a
+// closed GitLab iteration. Any other iteration is imported as planned and
+// reported. `stories` are { index, row, iteration, start, end, accepted,
+// estimate }, start and end ISO dates or undefined.
+function pivotalScrumPlanning(stories) {
+  const p = createPlanner('pivotal');
+  const list = (Array.isArray(stories) ? stories : []).filter(story => story && typeof story === 'object');
+  const finished = new Map();
+  list.forEach(story => {
+    if (!story.iteration) return;
+    finished.set(story.iteration, (finished.has(story.iteration) ? finished.get(story.iteration) : true) && story.accepted === true);
+  });
+  let estimate = false;
+  list.forEach(story => {
+    if (typeof story.estimate === 'number' && Number.isFinite(story.estimate) && story.estimate >= 0) estimate = true;
+    if (!story.iteration) return;
+    const key = String(story.iteration);
+    const name = `Iteration ${key}`.slice(0, 200);
+    const label = `iteration ${shown(key)}`;
+    const path = `/iterations/${key}`;
+    const sprintId = p.record(p.sprints, 'sprint', key, 'iteration', () => {
+      if (finished.get(story.iteration)) {
+        p.lost(path, `${label} holds only accepted stories, so it is finished; it is not imported: the export has no commitment or close snapshot`);
+        return null;
+      }
+      p.lost(path, `${label} has no state in the export and is imported as planned`);
+      return { name, goal: '', state: 'planned', ...p.dates(path, label, story.start, story.end) };
+    });
+    p.assign(story.index, 'sprintId', sprintId, `/row/${story.row}/Iteration`, label);
+  });
+  return p.finish({ estimate: estimate ? { field: STORY_POINTS_FIELD, unit: 'points' } : null });
+}
+
 // --- Trello -----------------------------------------------------------------
 
 // Trello has no native sprint or release records. Scrum Power-Ups keep their
@@ -392,4 +433,5 @@ function trelloScrumLosses(board) {
 }
 
 module.exports = { taskCardId, sourceDate, gitlabScrumPlanning, openProjectScrumPlanning, asanaScrumPlanning,
+  pivotalScrumPlanning,
   trelloScrumLosses, STORY_POINTS_FIELD, GITLAB_ITERATION_STATES };

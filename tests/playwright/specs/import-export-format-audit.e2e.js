@@ -337,7 +337,7 @@ test('every external export menu link returns text and refuses an unrelated user
   // Include description through the actual shared selection controls.
   const details = page.locator('.js-export-card-details-toggle');
   if (await details.getAttribute('aria-checked') !== 'true') await details.click();
-  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri', 'opml', 'orgmode']) {
+  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri', 'pivotal', 'opml', 'orgmode']) {
     await test.step(format, async () => {
       const anchor = page.locator(`.js-pop-over a[href*="/export/${format}?"]`);
       await expect(anchor).toBeVisible();
@@ -429,6 +429,39 @@ test('Kanri: an all-data export imports its first board; other documents are ref
   });
   expect(results).toEqual(['invalid-import-format', 'invalid-import-format']);
   await expect(page).toHaveURL(/\/import\/kanri$/);
+});
+
+// Pivotal Tracker's stories CSV: states as lists, repeated Owned By, Comment
+// and Task columns, the estimate as the Story points field.
+test('Pivotal Tracker: a stories CSV imports with its states, labels, comments and tasks', async ({ loggedInPage: page }) => {
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/pivotal');
+    await page.locator('#import-textarea').fill([
+      'Id,Title,Labels,Iteration,Iteration Start,Iteration End,Type,Estimate,Priority,Current State,Created at,Accepted at,Deadline,Requested By,Description,URL,Owned By,Owned By,Comment,Task,Task Status,Task,Task Status',
+      `101,${expected.title},"${expected.label}, urgent",,,,bug,2,p1 - High,started,"Oct 1, 2026",,,Ana Lee,"Two of them, DN50",,Ana Lee,Bo Chen,"Looks good (Ana Lee - Oct 2, 2026)",Call,completed,Pay,not completed`,
+      '102,Finished story,,,,,feature,,,accepted,"Sep 1, 2026","Sep 3, 2026",,Ana Lee,,,,,,,,,',
+    ].join('\r\n'));
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    const board = db.findOne('boards', { _id: boardId });
+    const cards = db.find('cards', { boardId });
+    expect(cards).toHaveLength(2);
+    const open = cards.find(card => card.title === expected.title);
+    expect(open.labelIds.map(id => board.labels.find(l => l._id === id).name).sort()).toEqual(['bug', expected.label, 'urgent'].sort());
+    expect(open.description).toBe('Two of them, DN50');
+    expect(open.requestedBy).toBe('Ana Lee');
+    const lists = db.find('lists', { boardId });
+    expect(lists.find(list => list._id === open.listId).title).toBe('Started');
+    const done = cards.find(card => card.title === 'Finished story');
+    expect(lists.find(list => list._id === done.listId).title).toBe('Accepted');
+    expect(new Date(done.endAt).toISOString()).toBe('2026-09-03T00:00:00.000Z');
+    expect(db.find('card_comments', { cardId: open._id }).map(c => c.text)).toEqual(['Ana Lee: Looks good']);
+    const items = db.find('checklistItems', { cardId: open._id });
+    expect(items.map(item => [item.title, item.isFinished]).sort()).toEqual([['Call', true], ['Pay', false]]);
+    await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });
 
 // A ClickUp workspace export: status, list, assignee, tags, a due date in milliseconds and a subtask.
