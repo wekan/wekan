@@ -123,3 +123,20 @@ const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/mk.i1
   assert.equal(data.swimlane, 'Лента');
   console.log('macedonianAuditedTranslations: actual date and label rendering, checklist removal meaning and native labels passed');
 })().catch(error => { console.error(error); process.exitCode = 1; });
+
+const englishRecoverySource = require('../imports/i18n/data/en.i18n.json');
+const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
+const interruptedImportKeys = Object.keys(englishRecoverySource).filter(key => key.startsWith('interrupted-import-'));
+assert.equal(interruptedImportKeys.length, 25);
+for (const key of interruptedImportKeys) {
+  assert.notEqual(data[key], englishRecoverySource[key], key);
+  assert.deepEqual(translationTokens(data[key]), translationTokens(englishRecoverySource[key]), key);
+  assert.match(data[key], /[ЃѓЌќЏџЉљЊњЈјЅѕА-Яа-я]/u, key);
+}
+assert.match(data['interrupted-import-description'], /изворната датотека не се чува/);
+assert.match(data['interrupted-import-description'], /сè што е додадено потоа/);
+assert.match(data['interrupted-import-discard-confirm'], /трајно се отстрануваат/);
+assert.match(data['interrupted-import-keep-confirm'], /Ништо не се отстранува/);
+assert.match(data['interrupted-import-foreign-board'], /не е променето/);
+assert.match(data['interrupted-import-truncated'], /50 најстари/);
+assert.match(data['interrupted-import-scrum-busy'], /сè уште се запишува или обновува/);

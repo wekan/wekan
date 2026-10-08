@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Macedonian interrupted board imports — 2026-10-08
+
+Translate 25 English import recovery messages into Macedonian, preserving source
+variables and existing board/card terminology. Check permanent deletion including
+later additions, keeping a partial board, foreign-board protection, Scrum recovery
+and the oldest-50 limit. No browser or screen-reader session was run; remaining
+translations and broader vocabulary review are unfinished.
+
 ## Bosnian planning and settings — 2026-10-08
 
 Translate 51 remaining English fill-list entries into Bosnian, covering planning,
