@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Galician import instructions, middle group — 2026-10-09
+
+Translate six instructions in gl and gl-ES, replacing 12 English values:
+Pivotal Tracker, Tasks.org, monday.com, Super Productivity, Taiga and Vikunja.
+Preserve commands, extensions and variables. Regression checks cover excluded
+attachments, completion dates, update-to-comment mapping, archived tasks and
+iterations as sprints. Three relevant suites and all 21 preservation checks pass.
+Remaining imports, language auditing and browser review are outstanding.
+
 ## Shared Galician terminology corrections — 2026-10-09
 
 Correct 53 mixed-language messages in each of gl and gl-ES: 106 values covering

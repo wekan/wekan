@@ -1356,3 +1356,21 @@ for (const code of ['gl', 'gl-ES']) {
   assert.match(locale['import-board-instruction-obsidian'], /arquivo convértese en tarxetas arquivadas/);
   assert.match(locale['import-board-instruction-ticktick'], /lista de TickTick convértese nun carril/);
 }
+
+for (const code of ['gl', 'gl-ES']) {
+  const locale = read(code);
+  for (const format of ['pivotal', 'tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja']) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+    for (const value of importLiterals[format]) assert.ok(locale[key].includes(value), key + ': ' + value);
+  }
+  for (const format of ['taiga', 'vikunja']) {
+    assert.match(locale['import-board-instruction-' + format], /Os anexos non se importan/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /Os anexos impórtanse/);
+  }
+  assert.match(locale['import-board-instruction-tasksorg'], /tarefas completadas conservan a data de finalización/);
+  assert.match(locale['import-board-instruction-monday'], /actualizacións en comentarios/);
+  assert.match(locale['import-board-instruction-superproductivity'], /tarefas arquivadas convértense en tarxetas arquivadas/);
+  assert.match(locale['import-board-instruction-pivotal'], /iteracións en sprints/);
+}
