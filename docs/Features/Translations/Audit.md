@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Galician interrupted-import and history recovery — 2026-10-09
+
+Translate 34 messages in gl and gl-ES, replacing 68 English values: interrupted
+imports, Scrum history recovery, an action error and server-only login settings.
+Preserve all counters and reference variables. Regression checks cover missing
+source files, deletion including later additions, non-destructive keep,
+foreign-board preservation, conflict blocking and rollback restrictions.
+Both relevant suites and all 21 preservation checks pass. Both current fill lists
+are empty; that does not prove language quality. Existing wording, browser review
+and the wider all-language translation backlog remain outstanding.
+
 ## Galician synchronization recovery — 2026-10-09
 
 Translate 21 messages in gl and gl-ES, replacing 42 English values: stalled-sync

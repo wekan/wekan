@@ -626,3 +626,24 @@ for (const code of ['gl', 'gl-ES']) {
   assert.match(catalog['stuck-sync-operation-replayable'], /non se descartou/);
   assert.match(catalog['stuck-sync-operation-truncated'], /50 máis antigas/);
 }
+
+const recoveryResultKeys = ["stuck-sync-operation-failed", "interrupted-import-heading", "interrupted-import-description", "interrupted-import-board", "interrupted-import-progress", "interrupted-import-created", "interrupted-import-source", "interrupted-import-state-stopped", "interrupted-import-state-failed", "interrupted-import-state-discarding", "interrupted-import-scrum", "interrupted-import-counts", "interrupted-import-no-board", "interrupted-import-keep", "interrupted-import-discard", "interrupted-import-keep-confirm", "interrupted-import-discard-confirm", "interrupted-import-refresh", "interrupted-import-empty", "interrupted-import-truncated", "interrupted-import-unavailable", "interrupted-import-missing", "interrupted-import-not-interrupted", "interrupted-import-foreign-board", "interrupted-import-scrum-busy", "interrupted-import-failed", "scrum-history-checkpoint-stuck", "scrum-history-checkpoint-counts", "scrum-history-checkpoint-hint", "scrum-history-checkpoint-rollback", "scrum-history-checkpoint-discard", "scrum-history-checkpoint-discard-confirm", "scrum-history-checkpoint-ask-admin", "login-setting-env-only"];
+for (const code of ['gl', 'gl-ES']) {
+  const catalog = require('../imports/i18n/data/' + code + '.i18n.json');
+  for (const key of recoveryResultKeys) {
+    assert.ok(catalog[key]?.trim(), key);
+    assert.notEqual(catalog[key], englishLabels[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(catalog[key]), translationTokens(englishLabels[key]), key);
+  }
+  assert.match(catalog['interrupted-import-description'], /non se pode continuar porque non se conserva o ficheiro de orixe/);
+  assert.match(catalog['interrupted-import-description'], /incluído todo o que se engadiu desde entón/);
+  assert.match(catalog['interrupted-import-keep-confirm'], /Non se elimina nada/);
+  assert.match(catalog['interrupted-import-discard-confirm'], /todo o seu contido elimínanse permanentemente/);
+  assert.match(catalog['interrupted-import-foreign-board'], /non se modificou/);
+  assert.match(catalog['interrupted-import-truncated'], /50 máis antigas/);
+  assert.match(catalog['scrum-history-checkpoint-hint'], /só se ofrece cando ninguén máis modificou/);
+  assert.match(catalog['scrum-history-checkpoint-hint'], /non modifica ningún rexistro/);
+  assert.match(catalog['scrum-history-checkpoint-stuck'], /bloqueada ata que se resolva/);
+  assert.match(catalog['login-setting-env-only'], /Só o contorno do servidor.*só para lectura/);
+  assert.doesNotMatch(catalog['interrupted-import-keep-confirm'], /elimínase o taboleiro/);
+}
