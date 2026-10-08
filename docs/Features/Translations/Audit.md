@@ -8292,6 +8292,15 @@ Existing correct-language aliases remain. Technical wording remains low confiden
 pending speaker review. Focused tests cover tokens, key order, parser-compatible
 characters and alias uniqueness; browser checks were not run.
 
+## Tatar search instructions and validation corrections
+
+Corrected 32 wrong-language search validation, pagination and instruction values.
+Restored executable list:Blocked and user:<username> examples, preserved operator
+placeholders and syntax metavariables, and repaired unmatched formatting in the
+due-date and label help. Technical wording remains low confidence pending speaker
+review. Focused tests cover key order, tokens, syntax markers and balanced inline
+code; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
