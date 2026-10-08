@@ -7879,6 +7879,17 @@ Source placeholder inventories and key order remain intact. Technical wording is
 low confidence pending speaker review. Browser checks were not run. Further
 wrong-language corrections and the broader audit remain unfinished.
 
+### Tatar checklist, movement and email action corrections
+
+Corrected 31 wrong-language rule action values, including remove, check/uncheck,
+list positions, archive restoration and email labels. Retained correct existing
+labels and variable-help translations, including their brace-delimited tags.
+Regression coverage checks Tatar position vocabulary, removal and checking
+polarity, member versus label removal, and equivalent email action labels.
+Source token inventories and key order remain intact. Technical wording and
+composed fragments remain low confidence pending speaker review. Browser checks
+were not run. Further wrong-language corrections and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
