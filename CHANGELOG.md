@@ -1021,6 +1021,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2228f212d0">Translate Slovenian controls and planning</a>. Thanks to xet7.</summary>
+
+Fill 51 messages in each Slovenian catalog, for 102 values. Cover controls,
+import guidance, LDAP, login settings, planning imports and history recovery.
+Preserve variables, literal examples, matching priority and recovery choices.
+
+Five focused translation suites and 21 human-preference checks pass.
+Both current Slovenian fill lists are empty. No browser or screen-reader session
+was run; other languages and linguistic review remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1603813d9d">Translate Slovenian stalled synchronization recovery</a>. Thanks to xet7.</summary>
 
 Fill 23 messages in each Slovenian catalog, for 46 values. Preserve variables,
