@@ -487,6 +487,16 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4226317591">Translate Wu Blockly keyboard shortcuts</a>. Thanks to xet7.</summary>
+
+Translate 37 shortcut and key labels, preserving key names and checking directions,
+navigation pairs and focus destinations. Four focused translation suites and
+21 human-preference checks pass. Wu wording is lower confidence and needs native
+review. No browser or screen-reader session was run. Work remains unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f6d83cebb3">Translate Wu Blockly procedures and accessibility modes</a>. Thanks to xet7.</summary>
 
 Translate 30 procedure and accessibility messages, preserving variables and
