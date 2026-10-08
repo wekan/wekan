@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu Blockly text positions — 2026-10-08
+
+Translate 30 text append, case, counting and substring messages. Preserve exact
+source variables; check lowercase/uppercase/title case, copied text, first/last
+letters and indexing from either end. Wu wording is lower confidence and needs
+native review. No browser or screen-reader session was run. Remaining translations
+and older Mandarin-like passages require work.
+
 ## Wu Blockly keyboard shortcuts — 2026-10-08
 
 Translate 37 shortcut and key labels. Preserve source variables and key names;

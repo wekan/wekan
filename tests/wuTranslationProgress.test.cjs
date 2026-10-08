@@ -258,3 +258,22 @@ assert.match(wu['blockly-SHORTCUTS_FOCUS_WORKSPACE'], /工作区/);
 assert.match(wu['blockly-SHORTCUTS_START_MOVE_STACK'], /积木堆/);
 assert.match(wu['blockly-SPACE_KEY'], /Space/);
 assert.match(wu['blockly-TAB_KEY'], /Tab/);
+
+const textPositions = ["blockly-TEXT_APPEND_TITLE", "blockly-TEXT_APPEND_TOOLTIP", "blockly-TEXT_CHANGECASE_OPERATOR_LOWERCASE", "blockly-TEXT_CHANGECASE_OPERATOR_TITLECASE", "blockly-TEXT_CHANGECASE_OPERATOR_UPPERCASE", "blockly-TEXT_CHANGECASE_TOOLTIP", "blockly-TEXT_CHARAT_FIRST", "blockly-TEXT_CHARAT_FROM_END", "blockly-TEXT_CHARAT_FROM_START", "blockly-TEXT_CHARAT_LAST", "blockly-TEXT_CHARAT_RANDOM", "blockly-TEXT_CHARAT_TITLE", "blockly-TEXT_CHARAT_TOOLTIP", "blockly-TEXT_COUNT_MESSAGE0", "blockly-TEXT_COUNT_TOOLTIP", "blockly-TEXT_CREATE_JOIN_ITEM_TOOLTIP", "blockly-TEXT_CREATE_JOIN_TITLE_JOIN", "blockly-TEXT_CREATE_JOIN_TOOLTIP", "blockly-TEXT_FROM_END_ARIA", "blockly-TEXT_FROM_START_ARIA", "blockly-TEXT_GET_SUBSTRING_END_FROM_END", "blockly-TEXT_GET_SUBSTRING_END_FROM_START", "blockly-TEXT_GET_SUBSTRING_END_LAST", "blockly-TEXT_GET_SUBSTRING_INPUT_IN_TEXT", "blockly-TEXT_GET_SUBSTRING_START_FIRST", "blockly-TEXT_GET_SUBSTRING_START_FROM_END", "blockly-TEXT_GET_SUBSTRING_START_FROM_START", "blockly-TEXT_GET_SUBSTRING_TOOLTIP", "blockly-TEXT_INDEXOF_OPERATOR_FIRST", "blockly-TEXT_INDEXOF_OPERATOR_LAST"];
+for (const key of textPositions) {
+  assert.notEqual(wu[key], english[key], key);
+  assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+}
+assert.match(wu['blockly-TEXT_CHANGECASE_OPERATOR_LOWERCASE'], /小写/);
+assert.match(wu['blockly-TEXT_CHANGECASE_OPERATOR_UPPERCASE'], /大写/);
+assert.match(wu['blockly-TEXT_CHANGECASE_OPERATOR_TITLECASE'], /每个词首字母大写/);
+assert.match(wu['blockly-TEXT_CHANGECASE_TOOLTIP'], /副本/);
+assert.match(wu['blockly-TEXT_CHARAT_FIRST'], /第一个/);
+assert.match(wu['blockly-TEXT_CHARAT_LAST'], /最后一个/);
+for (const prefix of ['TEXT_CHARAT', 'TEXT_GET_SUBSTRING_START', 'TEXT_GET_SUBSTRING_END']) {
+  assert.match(wu[`blockly-${prefix}_FROM_END`], /末尾倒数/);
+  assert.doesNotMatch(wu[`blockly-${prefix}_FROM_START`], /末尾倒数/);
+}
+assert.match(wu['blockly-TEXT_INDEXOF_OPERATOR_FIRST'], /头一趟/);
+assert.match(wu['blockly-TEXT_INDEXOF_OPERATOR_LAST'], /最后一趟/);
+assert.match(wu['blockly-TEXT_COUNT_MESSAGE0'], /%1.*%2.*几趟/);
