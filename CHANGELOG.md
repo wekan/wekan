@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d98f3aff31e79fd2a915d40aba11c600b13477f5">Translate Bhojpuri navigation and screen-reader controls</a></summary>
+
+- Fill 39 navigation, editing and screen-reader strings, preserving existing
+  translations and source placeholders.
+- Accessibility wording remains low confidence pending speaker review.
+- All 52 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f3fd1f108dda50e198ce09500d31ca70927ed95e">Translate Bhojpuri workspace and function controls</a></summary>
 
 - Fill 37 workspace, variable, backpack and function strings, preserving existing
