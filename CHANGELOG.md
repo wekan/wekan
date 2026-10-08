@@ -1055,6 +1055,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/97d0483ca8">Correct Croatian search and notification translations</a>. Thanks to xet7.</summary>
+
+Replace 80 Serbian values with Croatian. Cover search, notifications, weekdays,
+organizations, assignments and card views. Preserve variables and unique search
+abbreviations; test operator syntax and distinctions between actions and roles.
+
+Four focused translation suites and 21 human-preference checks pass.
+No browser or screen-reader session was run. Further wrong-language review
+and remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e629bbf57">Correct Croatian rule actions and triggers</a>. Thanks to xet7.</summary>
 
 Replace 80 Serbian values with Croatian. Cover rule triggers, actions,
