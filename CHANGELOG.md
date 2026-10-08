@@ -313,13 +313,9 @@ Directory domain, and a real SSPI handshake to build or verify at all; it also
 sits directly in the authentication path, where a wrong implementation done
 without that environment is a security risk rather than a convenience. The
 maintainer's own comment on the issue already flags Node 20 compatibility
-doubts and asks for a Windows/AD-experienced contributor),
-[#6744](https://github.com/wekan/wekan/issues/6744) (fixed with
-`LDAP_GROUP_FILTER_NESTED`, see Upcoming; the in-chain filter was checked to
-parse and encode correctly with ldapts 4.2.6, but a login through a nested group
-against a real Active Directory - the only directory with that matching rule -
-has not been run, as no AD server is available here). UCS (Univention App
-Center) and the Nextcloud ExApp take their settings from their own repositories,
+doubts and asks for a Windows/AD-experienced contributor).
+UCS (Univention App Center) and the Nextcloud ExApp take their settings from
+their own repositories,
 not this one: whether the login variables added on 2026-10-05 (the 14 missing
 ones, `LDAP_GROUP_FILTER_NESTED` and the `*_FILE` secrets) are offered there is
 not checked; with the Admin Panel overrides, those installs can set them in
@@ -335,22 +331,6 @@ People either way.
 fixed; the separate HistoryIntegrity checksum mismatch needs the affected
 stored row and predecessor to reproduce. Do not regenerate hashes to hide it.
 See [investigation notes](docs/DeveloperDocs/LDAP-6692.md)).
-
-[#6509](https://github.com/wekan/wekan/issues/6509) — a request to TEST FerretDB
-v1 on MySQL, MariaDB and SAP HANA. MySQL and MariaDB are now confirmed: on
-2026-09-29 the conformance harness (`./build.sh` → Tests → All databases) ran
-its 110-case catalogue on SQLite, PostgreSQL 18, MySQL 9.7 and MariaDB 12.3
-and every case agreed, after a MySQL range fix it found (see Upcoming). **Only
-SAP HANA is untested**: its image is amd64-only and needs a licence acceptance
-and about 16 GB of memory, so it cannot run on the arm64 machine used here.
-
-[#6746](https://github.com/wekan/wekan/issues/6746) (a reinstalled snap never
-got FerretDB answering, and the restore saw "write: permission denied" on
-loopback. The reporter's kernel log shows the cause is on the host: AppArmor
-denies socket writes for every snap there, a known problem of snapd 2.77.1 on
-some kernels ([snapd bug 2169038](https://bugs.launchpad.net/snapd/+bug/2169038)).
-WeKan now names it at once (see Upcoming); waiting for the reporter to confirm
-that a kernel update or `sudo snap revert snapd` fixes it.)
 
 </details>
 
