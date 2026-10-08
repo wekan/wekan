@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu shared-template and card-view corrections — 2026-10-08
+
+Correct 22 shared-template and card-view values. Restore board/table meanings and
+personal attachment scope. Preserve nonempty template-board filtering, authorized-board
+scope, incomplete due cards and the member-or-assignee search restriction. Retain existing
+Wu table-view toggle descriptions. Refresh exact-value audit records and source-token
+checks. Wu prose needs native review; browser tests were not run and all-language work
+remains unfinished.
+
 ## Wu calendar and domain corrections — 2026-10-08
 
 Correct 15 weekday, status, checklist and domain values. Preserve linked-card deletion
@@ -12764,7 +12773,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,645** exact before/after values, including unflagged
+records contain **23,667** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

@@ -909,3 +909,14 @@ assert.match(wu['hide-checked-items'], /勾选好/);
 assert.match(wu['hide-finished-checklist'], /完成好/);
 assert.match(wu['invalid-domain'], /example\.com.*勿要有 @ 或者空格/);
 assert.match(wu['remove-domain-from-board'], /从搿块看板.*移脱.*域名/);
+
+const sharedCardViews = ["no-items-message", "shared-templates-info", "shared-templates-select-scope", "no-shared-templates", "my-cards", "my-attachments", "today", "week", "board", "myCardsViewChange-title", "myCardsViewChangePopup-title", "myCardsViewChange-choice-boards", "myCardsViewChange-choice-table", "myCardsSortChange-title", "myCardsSortChangePopup-title", "dueCards-title", "dueCardsViewChange-title", "dueCardsViewChangePopup-title", "dueCardsViewChange-choice-all-description", "globalSearchViewChange-choice-me", "globalSearchViewChange-choice-all-description", "dueCards-noResults-title"];
+for (const key of sharedCardViews) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.match(wu['shared-templates-info'], /组织、团队或者电子邮件域名.*一只或者多只范围.*只列出.*有内容个用户/);
+assert.equal(wu.board, '看板');
+assert.equal(wu['myCardsViewChange-choice-table'], '表格');
+assert.match(wu['my-attachments'], /我个附件/);
+assert.match(wu['dueCardsViewChange-choice-all-description'], /有权限查看.*到期.*还朆完成/);
+assert.match(wu['globalSearchViewChange-choice-all-description'], /有权限.*我个卡片.*成员或者负责人/);
+assert.equal(wu['globalSearchViewChange-choice-me'], wu['my-cards']);
+assert.equal(wu['dueCardsViewChange-title'], wu['dueCardsViewChangePopup-title']);

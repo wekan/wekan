@@ -165513,5 +165513,159 @@
     "before": "无效的域。请使用 example.com 之类的域（不含 @ 或空格）。",
     "after": "域名无效。请用 example.com 搿能个域名（勿要有 @ 或者空格）。",
     "reason": "2026-10-08: Correct Wu weekday, status and domain prose, preserving linked-card prerequisites and domain examples; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "no-items-message",
+    "before": "无项目。",
+    "after": "呒没项目。",
+    "reason": "2026-10-08: Correct Wu shared-template and card-view prose, preserving permission and member/assignee scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "shared-templates-info",
+    "before": "浏览用户可共享的模板看板，按组织、团队或电子邮件域分组。在下方选择一个或多个范围以显示匹配的共享模板。仅列出模板看板不为空的用户。",
+    "after": "浏览用户可以共享个模板看板，按组织、团队或者电子邮件域名分组。勒下头选一只或者多只范围，就显示匹配个共享模板。只列出模板看板里向有内容个用户。",
+    "reason": "2026-10-08: Correct Wu shared-template and card-view prose, preserving permission and member/assignee scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "shared-templates-select-scope",
+    "before": "在上方选择一个范围（组织、团队或域）以显示共享模板。",
+    "after": "勒上头选一只范围（组织、团队或者域名），来显示共享模板。",
+    "reason": "2026-10-08: Correct Wu shared-template and card-view prose, preserving permission and member/assignee scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "no-shared-templates",
+    "before": "无共享模板",
+    "after": "呒没共享模板",
+    "reason": "2026-10-08: Correct Wu shared-template and card-view prose, preserving permission and member/assignee scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "my-cards",
+    "before": "我的卡片",
+    "after": "我个卡片",
+    "reason": "2026-10-08: Correct Wu shared-template and card-view prose, preserving permission and member/assignee scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "my-attachments",
+    "before": "附件",
+    "after": "我个附件",
+    "reason": "2026-10-08: Correct Wu shared-template and card-view prose, preserving permission and member/assignee scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "today",
+    "before": "今天",
+    "after": "今朝",
+    "reason": "2026-10-08: Correct Wu shared-template and card-view prose, preserving permission and member/assignee scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "week",
+    "before": "星期",
+    "after": "礼拜",
+    "reason": "2026-10-08: Correct Wu shared-template and card-view prose, preserving permission and member/assignee scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board",
+    "before": "木板",
+    "after": "看板",
+    "reason": "2026-10-08: Correct Wu shared-template and card-view prose, preserving permission and member/assignee scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "myCardsViewChange-title",
+    "before": "我的卡片视图",
+    "after": "我个卡片视图",
+    "reason": "2026-10-08: Correct Wu shared-template and card-view prose, preserving permission and member/assignee scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "myCardsViewChangePopup-title",
+    "before": "我的卡片视图",
+    "after": "我个卡片视图",
+    "reason": "2026-10-08: Correct Wu shared-template and card-view prose, preserving permission and member/assignee scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "myCardsViewChange-choice-boards",
+    "before": "板",
+    "after": "看板",
+    "reason": "2026-10-08: Correct Wu shared-template and card-view prose, preserving permission and member/assignee scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "myCardsViewChange-choice-table",
+    "before": "桌子",
+    "after": "表格",
+    "reason": "2026-10-08: Correct Wu shared-template and card-view prose, preserving permission and member/assignee scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "myCardsSortChange-title",
+    "before": "我的卡片排序",
+    "after": "我个卡片排序",
+    "reason": "2026-10-08: Correct Wu shared-template and card-view prose, preserving permission and member/assignee scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "myCardsSortChangePopup-title",
+    "before": "我的卡片排序",
+    "after": "我个卡片排序",
+    "reason": "2026-10-08: Correct Wu shared-template and card-view prose, preserving permission and member/assignee scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "dueCards-title",
+    "before": "到期卡",
+    "after": "到期卡片",
+    "reason": "2026-10-08: Correct Wu shared-template and card-view prose, preserving permission and member/assignee scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "dueCardsViewChange-title",
+    "before": "到期卡视图",
+    "after": "到期卡片视图",
+    "reason": "2026-10-08: Correct Wu shared-template and card-view prose, preserving permission and member/assignee scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "dueCardsViewChangePopup-title",
+    "before": "到期卡视图",
+    "after": "到期卡片视图",
+    "reason": "2026-10-08: Correct Wu shared-template and card-view prose, preserving permission and member/assignee scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "dueCardsViewChange-choice-all-description",
+    "before": "显示用户有权查看的论坛中所有带有“到期”日期的不完整卡片。",
+    "after": "显示用户有权限查看个看板浪，所有设仔*到期*日期、还朆完成个卡片。",
+    "reason": "2026-10-08: Correct Wu shared-template and card-view prose, preserving permission and member/assignee scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "globalSearchViewChange-choice-me",
+    "before": "我的卡片",
+    "after": "我个卡片",
+    "reason": "2026-10-08: Correct Wu shared-template and card-view prose, preserving permission and member/assignee scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "globalSearchViewChange-choice-all-description",
+    "before": "搜索你有权限的所有看板上的所有卡片。选择 *我的卡片* 可将结果限制为你是成员或指派人的卡片。",
+    "after": "搜索侬有权限个看板浪所有卡片。选*我个卡片*，就只显示侬是成员或者负责人个卡片。",
+    "reason": "2026-10-08: Correct Wu shared-template and card-view prose, preserving permission and member/assignee scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "dueCards-noResults-title",
+    "before": "未找到到期卡",
+    "after": "呒没寻着到期卡片",
+    "reason": "2026-10-08: Correct Wu shared-template and card-view prose, preserving permission and member/assignee scope; lower-confidence prose needs native review."
   }
 ]
