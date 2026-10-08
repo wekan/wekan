@@ -52,7 +52,68 @@ const currentKeys = [
   "stuck-sync-operation-not-stuck",
   "stuck-sync-operation-replayable",
   "stuck-sync-operation-busy",
-  "stuck-sync-operation-failed"
+  "stuck-sync-operation-failed",
+  "board-announcement",
+  "board-announcement-enabled",
+  "cards-use-list-color",
+  "external-link-rules",
+  "external-link-rules-description",
+  "external-link-identifier-aliases",
+  "read-only-field",
+  "r-moved-forward",
+  "r-moved-back",
+  "scrum-import-into-board",
+  "scrum-import-into-board-hint",
+  "scrum-import-preview",
+  "scrum-import-choose-file",
+  "scrum-import-invalid-file",
+  "scrum-import-preview-sprints",
+  "scrum-import-preview-releases",
+  "scrum-import-preview-cards",
+  "scrum-import-preview-nothing",
+  "scrum-import-into-board-done",
+  "scrum-import-card-not-matched",
+  "scrum-import-card-ambiguous",
+  "scrum-import-card-on-another-board",
+  "scrum-import-record-ambiguous",
+  "scrum-import-record-not-imported",
+  "scrum-import-sprint-finished",
+  "sync-planning-sprint",
+  "sync-planning-releases",
+  "sync-planning-fields",
+  "sync-planning-hint",
+  "interrupted-import-heading",
+  "interrupted-import-description",
+  "interrupted-import-board",
+  "interrupted-import-progress",
+  "interrupted-import-created",
+  "interrupted-import-source",
+  "interrupted-import-state-stopped",
+  "interrupted-import-state-failed",
+  "interrupted-import-state-discarding",
+  "interrupted-import-scrum",
+  "interrupted-import-counts",
+  "interrupted-import-no-board",
+  "interrupted-import-keep",
+  "interrupted-import-discard",
+  "interrupted-import-keep-confirm",
+  "interrupted-import-discard-confirm",
+  "interrupted-import-refresh",
+  "interrupted-import-empty",
+  "interrupted-import-truncated",
+  "interrupted-import-unavailable",
+  "interrupted-import-missing",
+  "interrupted-import-not-interrupted",
+  "interrupted-import-foreign-board",
+  "interrupted-import-scrum-busy",
+  "interrupted-import-failed",
+  "scrum-history-checkpoint-stuck",
+  "scrum-history-checkpoint-counts",
+  "scrum-history-checkpoint-hint",
+  "scrum-history-checkpoint-rollback",
+  "scrum-history-checkpoint-discard",
+  "scrum-history-checkpoint-discard-confirm",
+  "scrum-history-checkpoint-ask-admin"
 ];
 
 (async () => {
@@ -89,6 +150,26 @@ const currentKeys = [
   for (const literal of ['@labels', 'p1', 'p3', 'CSV']) {
     assert.ok(locale['import-board-instruction-todoist'].includes(literal), literal);
   }
+  assert.match(locale['scrum-import-into-board-hint'], /dupliseres aldri/);
+  assert.match(locale['scrum-import-into-board-hint'], /ID eller kortnummer og tittel/);
+  assert.match(locale['scrum-import-card-on-another-board'], /stående uendret/);
+  assert.match(locale['scrum-import-sprint-finished'], /ikke flyttet/);
+  assert.match(locale['sync-planning-hint'], /først etter kilde-ID og deretter etter navn/);
+  assert.match(locale['sync-planning-hint'], /første synkroniseringen fjerner aldri/);
+  assert.match(locale['interrupted-import-description'], /kan ikke gjenopptas/);
+  assert.match(locale['interrupted-import-description'], /også alt som er lagt til siden/);
+  assert.match(locale['interrupted-import-keep-confirm'], /Ingenting fjernes/);
+  assert.match(locale['interrupted-import-discard-confirm'], /fjernes permanent/);
+  assert.match(locale['interrupted-import-truncated'], /50 eldste/);
+  assert.match(locale['interrupted-import-foreign-board'], /derfor ikke endret/);
+  assert.match(locale['scrum-history-checkpoint-hint'], /bare hvis ingen andre/);
+  assert.match(locale['scrum-history-checkpoint-hint'], /uten å endre noen oppføringer/);
+  assert.match(locale['scrum-history-checkpoint-discard-confirm'], /allerede har skrevet/);
+  assert.notEqual(locale['r-moved-forward'], locale['r-moved-back']);
+  for (const literal of ['{number}', '{identifier}', '[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}']) {
+    assert.ok(locale['external-link-rules-description'].includes(literal), literal);
+  }
+  assert.ok(locale['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
   assert.equal(locale['move-selection-before'], 'Før');
   assert.equal(locale['move-selection-after'], 'Etter');
   assert.equal(locale['blockly-MATH_ADDITION_SYMBOL_ARIA'], 'pluss');
