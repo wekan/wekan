@@ -670,6 +670,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/204bb32c1d">Translate Tamazight and Inuktitut sign-in warnings</a>. Thanks to xet7.</summary>
+
+Preserve address variables and ROOT_URL, with checks for Tifinagh and Canadian
+Aboriginal syllabics. Warning coverage includes 206 paths; warning and placeholder
+suites and all 21 preservation checks pass. These translations have lower confidence
+and need native review. The Cherokee warning and wider translation backlog remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8fc5a2b440">Translate Tigre and Wolaytta warnings and correct three Wolaytta labels</a>. Thanks to xet7.</summary>
 
 Preserve address variables and ROOT_URL in two warnings and replace three prefixed
