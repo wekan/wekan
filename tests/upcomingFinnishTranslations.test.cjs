@@ -86,3 +86,69 @@ console.log(`\nupcomingFinnishTranslations: ${passed} tests passed`);
       english['blockly-MATH_ADDITION_SYMBOL_ARIA']);
   });
 })().catch(error => { console.error(error); process.exitCode = 1; });
+
+const pendingKeys = [
+  "import-board-instruction-opml",
+  "import-board-instruction-orgmode",
+  "import-board-instruction-todoist",
+  "r-assignee",
+  "r-add-actinguser-assignee",
+  "r-remove-all-assignees",
+  "ldap-sync-now",
+  "ldap-sync-now-done",
+  "ldap-sync-now-error",
+  "ldap-sync-now-nothing",
+  "oauth-providers-allowed-email-domains",
+  "scrum-release-scope",
+  "scrum-releases-select-help",
+  "stuck-sync-operation-heading",
+  "stuck-sync-operation-description",
+  "stuck-sync-operation-list",
+  "stuck-sync-operation-progress",
+  "stuck-sync-operation-reason",
+  "stuck-sync-operation-applied",
+  "stuck-sync-operation-reason-scope-changed",
+  "stuck-sync-operation-reason-access-denied",
+  "stuck-sync-operation-reason-trigger-unknown",
+  "stuck-sync-operation-reason-intent-missing",
+  "stuck-sync-operation-reason-unknown",
+  "stuck-sync-operation-replayable-now",
+  "stuck-sync-operation-discard",
+  "stuck-sync-operation-discard-confirm",
+  "stuck-sync-operation-refresh",
+  "stuck-sync-operation-empty",
+  "stuck-sync-operation-truncated",
+  "stuck-sync-operation-unavailable",
+  "stuck-sync-operation-missing",
+  "stuck-sync-operation-not-stuck",
+  "stuck-sync-operation-replayable",
+  "stuck-sync-operation-busy",
+  "stuck-sync-operation-failed"
+];
+
+test('new import, assignment, login and recovery messages are translated', () => {
+  for (const key of pendingKeys) {
+    assert.ok(finnish[key]?.trim(), key);
+    assert.notStrictEqual(finnish[key], english[key], key);
+  }
+});
+
+test('recovery retains applied changes but never writes the remainder', () => {
+  assert.match(finnish['stuck-sync-operation-discard-confirm'], /Jo tehdyt muutokset säilyvät/);
+  assert.match(finnish['stuck-sync-operation-discard-confirm'], /ei koskaan kirjoiteta/);
+  assert.match(finnish['stuck-sync-operation-description'], /seuraava synkronointi vertaa listaa uudelleen sen lähteeseen/);
+  assert.match(finnish['stuck-sync-operation-replayable-now'], /ei voi hylätä/);
+  assert.match(finnish['stuck-sync-operation-replayable'], /ei hylätty/);
+  assert.match(finnish['stuck-sync-operation-truncated'], /50 vanhinta/);
+});
+
+test('configuration names and multi-release selection remain precise', () => {
+  for (const name of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS',
+    'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) {
+    assert.ok(finnish['ldap-sync-now-nothing'].includes(name), name);
+  }
+  assert.match(finnish['scrum-releases-select-help'], /useaan julkaisuun/);
+  assert.match(finnish['scrum-releases-select-help'], /Ctrl/);
+  assert.match(finnish['scrum-releases-select-help'], /Cmd/);
+  assert.match(finnish['scrum-releases-select-help'], /kaikista julkaisuista/);
+});

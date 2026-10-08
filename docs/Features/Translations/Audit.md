@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Pending Finnish messages — 2026-10-08
+
+Translate 36 pending import, assignment, LDAP, login, release-selection and
+stuck List Sync messages. Preserve configuration names and import syntax,
+interpolation variables, multiple-release selection and oldest-50 ordering.
+Recovery wording keeps applied changes, never writes the saved remainder,
+and permits a fresh comparison with the source. Extend the existing Finnish
+regression suite for these distinctions and retain its full token inventory.
+No browser or screen-reader session was run. Other languages and older
+linguistic defects remain under review.
+
 ## Manx pending release and stuck Sync messages — 2026-10-08
 
 Translate 25 newly pending messages about release membership and discarding
