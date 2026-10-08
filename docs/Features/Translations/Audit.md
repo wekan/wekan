@@ -9759,6 +9759,18 @@ Technical Darija wording remains low confidence pending speaker review. Browser,
 RTL and screen-reader checks were not run. Remaining placeholders and the older
 catalog's dialect and semantic audit remain open.
 
+## Moroccan Arabic workspace and accessible input labels
+
+Filled 54 English placeholders and the short bitmap-on label excluded from the
+ordinary listing. Existing translations were retained. Tests cover script,
+source order and tokens, open/close and enable/disable actions, bitmap on/off,
+row/column arguments, deletion count/variable roles and list start/end positions.
+Of 42 checks, 40 passed; two repository-wide checks still fail because other
+locales lack the new card-field-visibility keys. All 21 human-preference checks
+passed. Technical Darija wording remains low confidence pending speaker review.
+Browser, RTL and screen-reader checks were not run. Further placeholders and
+the broader dialect and semantic audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
