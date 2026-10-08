@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Broad verification after Papiamento filling — 2026-10-08
+
+Run `node tests/run-node-suites.cjs Translation translation`: 298 selected suites,
+zero failures in 99 seconds. This is filename-filtered coverage, not every repository
+test. The missing report counts 33,092 values across 47 languages and excludes
+250 source keys pending Transifex. Papiamento's full fill list is empty. Native
+review, wrong-language audits and remaining translations are still unfinished.
+
 ## Papiamento current fill list completed — 2026-10-08
 
 Translate the final 49 recovery, import, history and environment-setting strings.
