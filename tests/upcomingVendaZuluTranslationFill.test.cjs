@@ -733,6 +733,38 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
   "sync-preview-unmapped",
   "sync-preview-parser-warnings"
 ]);
+  keys.push(...[
+  "sync-preview-parser-unsupported",
+  "sync-source-heading",
+  "sync-source-scope",
+  "sync-source-unmapped",
+  "sync-source-excluded",
+  "sync-source-converted",
+  "sync-source-fallback",
+  "sync-source-excluded-item",
+  "sync-source-occurrences",
+  "sync-source-truncated",
+  "sync-source-omitted",
+  "sync-report-button",
+  "sync-report-retention",
+  "sync-report-partial",
+  "sync-report-unfinished",
+  "sync-report-failed",
+  "sync-report-completed",
+  "sync-report-completed-with-warnings",
+  "sync-report-skipped",
+  "sync-report-review-only",
+  "sync-report-unavailable",
+  "sync-report-empty",
+  "sync-recovery-heading",
+  "sync-recovery-description",
+  "sync-recovery-unavailable",
+  "sync-recovery-all",
+  "sync-estimate-field",
+  "sync-estimate-field-hint",
+  "email-failure-smtp-temporary",
+  "email-failure-smtp-rejected"
+]);
   for (const language of ['zu', 'zu-ZA']) {
     const locale = read(language);
     for (const key of keys) {
@@ -885,6 +917,16 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
     assert.match(locale['sync-preview-blocked'], /Xazulula ukungqubuzana.*ngaphambi/);
     assert.match(locale['sync-preview-truncated'], /kokuqala okungu-100/);
     assert.match(locale['sync-preview-scope'], /ingase ingafakwa/);
+    assert.match(locale['sync-source-scope'], /amanani azo awaboniswa/);
+    assert.match(locale['sync-source-truncated'], /100/);
+    assert.match(locale['sync-report-retention'], /20.*30/);
+    assert.match(locale['sync-report-partial'], /ayiqhubeki.*ayihlehlisi/);
+    assert.match(locale['sync-recovery-description'], /ungase usaqhubeka noma uphazamisekile/);
+    assert.match(locale['sync-report-unavailable'], /imvume yokubhala kulo lonke uhlu/);
+    for (const literal of ['Jira', 'ID', 'null']) assert.ok(locale['sync-estimate-field-hint'].includes(literal));
+    assert.match(locale['sync-estimate-field-hint'], /angekho awanakwa.*null.*lisula/);
+    assert.match(locale['email-failure-smtp-temporary'], /kwesikhashana.*SMTP/);
+    assert.match(locale['email-failure-smtp-rejected'], /unomphela.*SMTP/);
     const failure = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
     assert.ok(failure.includes('E_LDAP'));
     assert.ok(!failure.includes('%s'));

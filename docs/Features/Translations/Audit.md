@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Zulu sync reports and diagnostics — 2026-10-09
+
+Translate 30 messages per Zulu catalog (60 values), covering source omissions,
+run reports, diagnostics, Jira estimate mapping and SMTP rejection categories.
+Tests preserve retention and truncation limits, hidden values, incomplete-run
+caveats, permissions and missing-versus-null semantics. Both targeted suites
+and all 21 preservation checks pass. Specialized terminology remains low
+confidence pending speaker review. Browser execution and remaining translations
+are outstanding.
+
 ## Zulu sync recovery and previews — 2026-10-09
 
 Translate 25 sync messages per Zulu catalog (50 values). Tests preserve local
