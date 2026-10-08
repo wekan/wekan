@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Veps, Volapük and Klingon warnings — 2026-10-08
+
+Translate three warnings with exact repeated address variables and ROOT_URL.
+Warning coverage includes 200 catalog paths; warning and placeholder suites and
+all 21 preservation checks pass. Vocabulary references include the
+[Volapük dictionary](https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary)
+and [Klingon lexicon](https://www.frathwiki.com/Klingon/lexicon).
+These translations have lower confidence and need native review. The warning
+still has seven English paths; browser review and the wider translation backlog
+remain outstanding.
+
 ## Arabic-script Uzbek and Kashmiri warnings — 2026-10-08
 
 Translate two warnings with exact repeated address variables and ROOT_URL.

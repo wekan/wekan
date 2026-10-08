@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Kal labü pot elektronik at ya dabinon e no pejafon me nunädamod at",
   "sign-in-with": "Nunädön me %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Nükömam medü dün votik no kanon pafinädon pö ladet at. WeKan päbinükon pro __expected__, ab pad at pämaifikon pö __actual__. Maifikolöd eli WeKan pö __expected__, u begolöd guvani ad binükön eli ROOT_URL as __actual__.",
   "passwordless-title": "Nunäd nen pasvöd",
   "passwordless-enabled": "Sedön me pot elektronik nunädakodi balik pla pasvöd",
   "passwordless-hint": "Nedon poti elektronik segolöl (MAIL_URL). I PASSWORDLESS_ENABLED.",
