@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Catalan and Valencian recovery controls — 2026-10-09
+
+Translate 22 messages in ca, ca_ES and ca@valencia, replacing 66 English values:
+stalled-sync reasons and controls, plus the interrupted-import explanation.
+Preserve placeholders and regional wording. Regression checks cover access
+restrictions, operations that cannot be discarded, retained applied changes,
+unwritten pending changes, oldest-first limits and deletion of the entire partial
+board including later additions. Four relevant suites and all 21 preservation
+checks pass. Browser review and the wider translation backlog remain outstanding.
+
 ## Catalan and Valencian planning results — 2026-10-09
 
 Translate 20 messages in ca, ca_ES and ca@valencia, replacing 60 English values:

@@ -54,3 +54,24 @@ for (const code of ['ca', 'ca_ES', 'ca@valencia']) {
   assert.match(data['stuck-sync-operation-description'], /canvis desats pendents mai no s’escriuen/);
   assert.doesNotMatch(data['stuck-sync-operation-description'], /els canvis ja aplicats s’eliminen/);
 }
+
+const recoveryKeys = ["stuck-sync-operation-reason-scope-changed", "stuck-sync-operation-reason-access-denied", "stuck-sync-operation-reason-trigger-unknown", "stuck-sync-operation-reason-intent-missing", "stuck-sync-operation-reason-unknown", "stuck-sync-operation-replayable-now", "stuck-sync-operation-discard", "stuck-sync-operation-discard-confirm", "stuck-sync-operation-refresh", "stuck-sync-operation-empty", "stuck-sync-operation-truncated", "stuck-sync-operation-unavailable", "stuck-sync-operation-missing", "stuck-sync-operation-not-stuck", "stuck-sync-operation-replayable", "stuck-sync-operation-busy", "stuck-sync-operation-failed", "interrupted-import-heading", "interrupted-import-description", "interrupted-import-board", "interrupted-import-progress", "interrupted-import-created"];
+for (const code of ['ca', 'ca_ES', 'ca@valencia']) {
+  const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data', code + '.i18n.json'), 'utf8'));
+  for (const key of recoveryKeys) {
+    assert.ok(data[key]?.trim(), key);
+    assert.notEqual(data[key], english[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), code + ': ' + key);
+  }
+  assert.match(data['stuck-sync-operation-reason-access-denied'], /ja no té accés d’escriptura a tota la llista/);
+  assert.match(data['stuck-sync-operation-replayable-now'], /no es pot descartar/);
+  assert.match(data['stuck-sync-operation-replayable'], /no s’ha descartat/);
+  assert.match(data['stuck-sync-operation-not-stuck'], /no es pot descartar/);
+  assert.match(data['stuck-sync-operation-discard-confirm'], /canvis que ja ha aplicat es conserven/);
+  assert.match(data['stuck-sync-operation-discard-confirm'], /la resta no s’escriuen mai/);
+  assert.doesNotMatch(data['stuck-sync-operation-discard-confirm'], /canvis que ja ha aplicat s’eliminen/);
+  assert.match(data['stuck-sync-operation-truncated'], /50 més antigues/);
+  assert.match(data['interrupted-import-description'], /no es pot continuar perquè no es conserva el fitxer d’origen/);
+  assert.match(data['interrupted-import-description'], /elimina el tauler.*tot el seu contingut/);
+  assert.match(data['interrupted-import-description'], /inclòs tot el que s’hi ha(?:gi|ja) afegit des de llavors/);
+}
