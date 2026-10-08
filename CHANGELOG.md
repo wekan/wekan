@@ -880,6 +880,37 @@ later login. A provider that sends no email is refused while it is set.
 
 and fixes the following bugs:
 
+**Addresses** - which address WeKan's links and sign-in use when ROOT_URL is
+not the one people opened.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0f2e81e01b">Copied links use the address WeKan was opened at, not the snap's 127.0.0.1</a>. Thanks to n8willis and xet7.</summary>
+
+The snap's default ROOT_URL is 127.0.0.1, and every link built in the browser
+- Copy link of a card, list or swimlane, comment permalinks - read it, so a
+browser that opened WeKan by the machine's name copied a link nobody else
+could follow. When ROOT_URL is loopback and the page is not, the browser now
+builds those links from the page's own address, keeping ROOT_URL's path. A
+real ROOT_URL still wins, and emails keep ROOT_URL: `snap set wekan
+root-url=...` is still the setting for them. `tests/browserRootUrl.test.cjs`
+covers both directions.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4fc4f19f02">The sign-in page says why a Google login keeps returning to it</a>. Thanks to xet7.</summary>
+
+Signing in with Google returned to the sign-in page every time, with no
+error, when WeKan was opened at another address than ROOT_URL: the provider
+returns to ROOT_URL, and the login secret is left in that address's browser
+storage, where the sign-in page cannot read it. The provider accepts only its
+registered address, so the page cannot repair this; when a provider login is
+offered at another address, it now names both and says what to change.
+`tests/loginOriginMismatch.test.cjs` covers each kind of difference and the
+cases where nothing is shown.
+
+</details>
+
 **People and teams** - who belongs where after a login.
 
 <details>
