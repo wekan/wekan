@@ -183,6 +183,25 @@ assert.equal(data['migration-complete'], 'Dovršeno');
 assert.match(data['every-6-hours'], /6 sati/);
 assert.match(data['every-30-minutes'], /30 minuta/);
 assert.match(data['export-monitoring'], /Izvezi podatke/);
+const correctedFlowMessages = ["idle-migration", "job-description", "job-details", "job-name", "job-queue", "last-run", "max-concurrent", "memory-usage", "migration-batch-size", "migration-delay-ms", "migration-detector", "migration-log", "migration-markers", "migration-resumed", "migration-steps", "next", "next-run", "operation-type", "overall-progress", "page", "pause-migration", "previous", "refresh", "resume-migration", "run-once", "s3-size", "scanning-status", "schedule", "showing", "start-test-operation", "start-time", "step-progress", "stop-migration", "storage-distribution", "system-resources", "total-operations", "total-size", "unmigrated-boards", "weight", "cron", "current-step", "confirm", "problems-status-title", "wip-limit-group-select-swimlane", "wip-limit-group-apply-swimlane", "board-view-aging-wip", "board-view-size-cycle-time", "flow-age-days", "flow-p85", "flow-samples", "flow-episodes", "flow-active", "flow-finish-days", "flow-finish-date", "flow-history-days", "flow-size-source", "flow-size", "flow-details", "flow-note-agingWip", "flow-note-blockerAnalysis", "flow-note-monteCarlo", "flow-note-processBehavior", "flow-note-sizeCycleTime", "move-reason", "ask-move-reason", "time-adjustment-note"];
+for (const key of correctedFlowMessages) {
+  assert.doesNotMatch(data[key], /[\p{Script=Cyrillic}]/u, key);
+  assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), key);
+}
+assert.equal(data['cron'], 'Cron');
+assert.match(data['migration-delay-ms'], /\(ms\)/);
+assert.match(data['resume-migration'], /Nastavi/);
+assert.match(data['stop-migration'], /Zaustavi/);
+assert.match(data['flow-note-agingWip'], /85.*najmanje pet/);
+assert.match(data['flow-note-agingWip'], /nepoznato/);
+assert.match(data['flow-note-blockerAnalysis'], /preklapaju.*zasebno/);
+assert.match(data['flow-note-monteCarlo'], /2\.000.*UTC/);
+assert.match(data['flow-note-monteCarlo'], /bez dovršenih stavki/);
+assert.match(data['flow-note-monteCarlo'], /nije jamstvo.*3\.650/);
+assert.match(data['flow-note-processBehavior'], /XmR.*najmanje dva/);
+assert.match(data['flow-note-sizeCycleTime'], /nevaljani datumi izostavljaju/);
+assert.match(data['time-adjustment-note'], /Negativne vrijednosti.*ispravke/);
+assert.match(data['time-adjustment-note'], /neevidentirano vrijeme ne može/);
 assert.equal(data.board, 'Ploča');
 assert.equal(data.swimlane, 'Traka');
 assert.deepEqual(Object.keys(data), Object.keys(english));

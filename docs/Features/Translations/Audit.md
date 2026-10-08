@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Croatian monitoring and flow explanations — 2026-10-08
+
+Correct the remaining 66 Cyrillic-containing Croatian values, covering jobs,
+monitoring, flow analysis and time adjustments. Preserve variables and technical
+names. Check forecast limits, unknown history, sample thresholds and correction
+semantics. No Cyrillic values remain, but this does not certify all vocabulary.
+No browser or screen-reader session was run; remaining translations and review
+are unfinished.
+
 ## Croatian migrations and storage — 2026-10-08
 
 Replace 80 Serbian values with Croatian, covering migrations, S3 storage,
