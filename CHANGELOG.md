@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f0282acf1e40cbbc50d1ff05d90631aa7755092f">Translate Konkani short rule and board labels</a></summary>
+
+- Fill nine English-identical labels, preserving existing translations and
+  distinguishing sorting, actors, recipients and totals.
+- Assembled sentence order remains low confidence pending speaker review.
+- All 75 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. The broader translation and fluency audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9ae6dc8b6a9ed4c975beacec804dc361c5c79842">Translate Konkani keyboard names and short Blockly labels</a></summary>
 
 - Fill 27 English-identical values, preserving existing translations,
