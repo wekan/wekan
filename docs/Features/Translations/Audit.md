@@ -9163,6 +9163,16 @@ key order and token inventories. Scrum terminology remains low confidence pendin
 speaker review. Browser checks were not run; further Maithili translations and
 the broader audit remain unfinished.
 
+## Maithili sprint reports and planning messages
+
+Filled 30 English placeholders for sprint events, reports, backlog planning and
+states. The placeholder-only merge retained existing translations. Preserved
+minute units, report count/estimate/unknown tokens and the distinction between
+unknown and zero estimates. Regression coverage checks those details, separate
+states, script, key order and token inventories. Scrum terminology remains low
+confidence pending speaker review. Browser checks were not run; further Maithili
+translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
