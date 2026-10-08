@@ -9880,6 +9880,18 @@ passed. Technical Darija wording remains low confidence pending speaker review.
 Browser, RTL and screen-reader checks were not run. Remaining placeholders and
 the broader language audit stay open.
 
+## Moroccan Arabic rule editor and Scrum entry labels
+
+Filled 31 placeholders without replacing existing translations. Tests check
+source order, script, tokens, Blockly alias consistency, one-trigger/one-action
+validation, disconnected/extra block removal, concurrent-edit reload warnings,
+board-admin permission, unsaved-change discard and distinct Scrum roles.
+Of 52 checks, 50 passed; two repository-wide checks still fail because other
+locales lack the new card-field-visibility keys. All 21 human-preference checks
+passed. Technical Darija and Scrum terminology remain low confidence pending
+speaker review. Browser, RTL and screen-reader checks were not run. Remaining
+placeholders and the broader language audit stay open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
