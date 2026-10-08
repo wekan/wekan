@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a6ee59a0322332dd003982b67adc9af074ba0aa6">Correct Tatar shared templates and domain labels</a></summary>
+
+- Correct 19 domain, shared-template and calendar values, preserving domain
+  syntax, validation restrictions and shared-template scope.
+- Technical wording remains low confidence pending speaker review.
+- All 109 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5df7256c9997afa8f9e0b6f0b054ce3659dc1016">Correct Tatar role settings and weekdays</a></summary>
 
 - Correct 41 notification-control, role, weekday and task values, preserving
