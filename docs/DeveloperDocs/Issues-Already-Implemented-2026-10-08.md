@@ -69,3 +69,10 @@ Board reports have ten charts - dashboard, burndown, burnup, cumulative flow,
 control chart, cycle time, flow efficiency, lead time, throughput and WIP run
 (client/components/boards/charts/, server/lib/boardChartData.js) - with PDF and
 Excel export (models/server/ExporterChartPDF.js, ExporterChartExcel.js).
+
+## [#2145](https://github.com/wekan/wekan/issues/2145) Mini date field
+
+A custom field of type date is shown on the minicard as a compact date badge,
+its label can be hidden (showLabelOnMiniCard), and the date formats include
+date-only variants that drop the time (client/components/cards/cardDate.jade,
+client/lib/dateDisplay.js).
