@@ -94,3 +94,26 @@ assert.match(belarusianRecovery['interrupted-import-keep-confirm'], /Нічог�
 assert.match(belarusianRecovery['interrupted-import-foreign-board'], /не была зменена/);
 assert.match(belarusianRecovery['interrupted-import-truncated'], /50 найстарэйшых/);
 assert.match(belarusianRecovery['interrupted-import-scrum-busy'], /яшчэ запісваецца або аднаўляецца/);
+
+const translatedPlanningControls = ["board-announcement", "board-announcement-enabled", "cards-use-list-color", "import-board-instruction-opml", "import-board-instruction-orgmode", "import-board-instruction-todoist", "external-link-rules", "external-link-rules-description", "external-link-identifier-aliases", "read-only-field", "r-moved-forward", "r-moved-back", "r-assignee", "r-add-actinguser-assignee", "r-remove-all-assignees", "ldap-sync-now", "ldap-sync-now-done", "ldap-sync-now-error", "ldap-sync-now-nothing", "oauth-providers-allowed-email-domains", "login-origin-mismatch", "scrum-release-scope", "scrum-releases-select-help", "scrum-import-into-board", "scrum-import-into-board-hint", "scrum-import-preview", "scrum-import-choose-file", "scrum-import-invalid-file", "scrum-import-preview-sprints", "scrum-import-preview-releases", "scrum-import-preview-cards", "scrum-import-preview-nothing", "scrum-import-into-board-done", "scrum-import-card-not-matched", "scrum-import-card-ambiguous", "scrum-import-card-on-another-board", "scrum-import-record-ambiguous", "scrum-import-record-not-imported", "scrum-import-sprint-finished", "sync-planning-sprint", "sync-planning-releases", "sync-planning-fields", "sync-planning-hint", "scrum-history-checkpoint-stuck", "scrum-history-checkpoint-counts", "scrum-history-checkpoint-hint", "scrum-history-checkpoint-rollback", "scrum-history-checkpoint-discard", "scrum-history-checkpoint-discard-confirm", "scrum-history-checkpoint-ask-admin", "login-setting-env-only"];
+for (const key of translatedPlanningControls) {
+  assert.notEqual(belarusianRecovery[key], en[key], key);
+  assert.deepEqual(translationTokens(belarusianRecovery[key]), translationTokens(en[key]), key);
+}
+for (const literal of ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED']) {
+  assert.ok(belarusianRecovery['import-board-instruction-orgmode'].includes(literal), literal);
+}
+for (const literal of ['@labels', 'p1', 'p3', 'CSV']) {
+  assert.ok(belarusianRecovery['import-board-instruction-todoist'].includes(literal), literal);
+}
+assert.ok(belarusianRecovery['external-link-rules-description'].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
+assert.ok(belarusianRecovery['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+for (const literal of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS', 'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) {
+  assert.ok(belarusianRecovery['ldap-sync-now-nothing'].includes(literal), literal);
+}
+assert.match(belarusianRecovery['login-origin-mismatch'], /ROOT_URL/);
+assert.match(belarusianRecovery['sync-planning-hint'], /першая сінхранізацыя ніколі не выдаляе/);
+assert.match(belarusianRecovery['scrum-import-into-board-hint'], /ніколі не дублююцца/);
+assert.match(belarusianRecovery['scrum-history-checkpoint-hint'], /ніхто іншы.*не змяніў/);
+assert.match(belarusianRecovery['scrum-history-checkpoint-hint'], /не змяняе запісы/);
+assert.match(belarusianRecovery['login-setting-env-only'], /толькі для чытання/);
