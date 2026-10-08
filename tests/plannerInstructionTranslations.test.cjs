@@ -1391,3 +1391,25 @@ for (const code of ['gl', 'gl-ES']) {
   assert.match(locale['import-board-instruction-redmine'], /antes de exportar.*English en My account/);
   assert.match(locale['import-board-instruction-teamwork'], /un nivel máis profundo/);
 }
+
+{
+  const locale = read('af');
+  const literals = {
+    planner: ['Microsoft Planner', 'Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+    meistertask: ['MeisterTask', 'Export project', 'CSV'],
+    ...Object.fromEntries(['obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri'].map(format => [format, importLiterals[format]])),
+  };
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+    for (const value of values) assert.ok(locale[key].includes(value), key + ': ' + value);
+  }
+  for (const format of ['nullboard', 'kanri']) {
+    assert.match(locale['import-board-instruction-' + format], /slegs die eerste bord ingevoer/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /alle borde ingevoer/);
+  }
+  assert.match(locale['import-board-instruction-meistertask'], /voltooide take behou hul voltooiingsdatum/);
+  assert.match(locale['import-board-instruction-obsidian'], /argief word geargiveerde kaarte/);
+  assert.match(locale['import-board-instruction-ticktick'], /TickTick-lys word ’n swembaan/);
+}

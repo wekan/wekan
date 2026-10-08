@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Afrikaans import instructions, first group — 2026-10-09
+
+The broad run after the Galician corrections passed all 333 translation-related
+suites in 129 seconds. Translate eight Afrikaans instructions: Planner,
+MeisterTask, Obsidian, Linear, TickTick, ClickUp, Nullboard and Kanri. Preserve
+commands, extensions and variables. After these edits, import-instruction and
+whole-catalog placeholder suites pass; preservation checks also passed this run.
+Regression checks cover completion, archives, first-board selection and swimlanes.
+Remaining translations, language auditing and browser review are outstanding.
+
 ## Galician interrupted-import and history recovery — 2026-10-09
 
 Translate 34 messages in gl and gl-ES, replacing 68 English values: interrupted
