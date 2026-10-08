@@ -442,6 +442,18 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/77002d3ef6">Translate seven import formats in Wu, Papiamento and Yiddish</a>. Thanks to xet7.</summary>
+
+Translate 21 instructions for Obsidian, Linear, TickTick, ClickUp, Nullboard, Kanri
+and Pivotal Tracker. Preserve menu labels, file extensions, archive behavior and
+first-board-only imports. Instruction and catalog-wide placeholder suites pass,
+as do all 21 human-translation preservation checks. Three catalog-completeness
+suites now fail on a concurrently added Tasks.org instruction. Native review,
+browser validation and the remaining all-language translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/85fad588e2">Translate short Punjabi, Swahili and Uzbek Blockly labels</a>. Thanks to xet7.</summary>
 
 Translate 62 English values across five catalogs, retaining indexed movement
