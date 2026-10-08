@@ -975,6 +975,20 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/afafc47bf0">Translate Spanish planning imports and recovery messages</a>. Thanks to xet7.</summary>
+
+Fill 61 messages in each of nine Spanish catalogs, preserving existing
+localized values and shared planning terminology. Cover board controls,
+link rules, planning imports, Sync and import/history recovery. Preserve
+variables, literal examples, matching priority and permanent-deletion warnings.
+
+Spanish, global placeholder and translation audit suites pass, together with
+21 human-preference checks. No browser or screen-reader session was run.
+Newer untranslated messages and broader linguistic review remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9687307660">Translate Italian planning and recovery messages</a>. Thanks to xet7.</summary>
 
 Fill 97 current messages for board controls, import formats, LDAP, OAuth,
