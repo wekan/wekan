@@ -8191,6 +8191,15 @@ optional webhook authentication. Existing correct-language values were retained.
 Technical wording remains low confidence pending speaker review. Focused tests
 cover key order, source tokens and these distinctions; browser checks were not run.
 
+## Tatar webhooks and system information corrections
+
+Corrected 35 webhook and system-information values, including two product names
+with spurious language suffixes. Restored literal changeStreams, oplog, polling,
+METEOR_REACTIVITY_ORDER and DDP_TRANSPORT identifiers. Kept webhook directions,
+free/total memory and version/commit labels distinct; retained valid neighbors.
+Technical wording remains low confidence pending speaker review. Focused tests
+cover key order, source tokens and runtime identifiers; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
