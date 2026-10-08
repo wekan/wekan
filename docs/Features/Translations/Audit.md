@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Mongolian short Blockly labels — 2026-10-08
+
+Translate 14 short English values using Mongolian control and pixel-state vocabulary
+already present in the tooltips. Preserve movement context and input argument roles,
+list position markers and equivalent control/procedure labels. Composed labels need
+native review; browser and screen-reader validation were not run. The wider backlog
+remains unfinished.
+
 ## Remaining-work snapshot — 2026-10-08
 
 The standard missing report still counts 32,567 values across 46 languages, excluding

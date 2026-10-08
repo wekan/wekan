@@ -170665,5 +170665,103 @@
     "before": "to",
     "after": "ਪਰਿਭਾਸ਼ਿਤ ਕਰੋ",
     "reason": "Translate short Blockly prose using locale control terminology; retain indexed argument roles and distinguish pixel states."
+  },
+  {
+    "locale": "mn",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%2 дахь %1",
+    "reason": "Replace short English Blockly prose with Mongolian; preserve movement roles, list position and on/off distinctions."
+  },
+  {
+    "locale": "mn",
+    "key": "blockly-CONTROLS_IF_MSG_IF",
+    "before": "if",
+    "after": "хэрэв",
+    "reason": "Replace short English Blockly prose with Mongolian; preserve movement roles, list position and on/off distinctions."
+  },
+  {
+    "locale": "mn",
+    "key": "blockly-CONTROLS_REPEAT_INPUT_DO",
+    "before": "do",
+    "after": "гүйцэтгэх",
+    "reason": "Replace short English Blockly prose with Mongolian; preserve movement roles, list position and on/off distinctions."
+  },
+  {
+    "locale": "mn",
+    "key": "blockly-FIELD_BITMAP_PIXEL_ON",
+    "before": "on",
+    "after": "асаалттай",
+    "reason": "Replace short English Blockly prose with Mongolian; preserve movement roles, list position and on/off distinctions."
+  },
+  {
+    "locale": "mn",
+    "key": "blockly-LISTS_GET_SUBLIST_END_FROM_START",
+    "before": "to #",
+    "after": "# хүртэл",
+    "reason": "Replace short English Blockly prose with Mongolian; preserve movement roles, list position and on/off distinctions."
+  },
+  {
+    "locale": "mn",
+    "key": "blockly-LISTS_SET_INDEX_INPUT_TO",
+    "before": "as",
+    "after": "утга",
+    "reason": "Replace short English Blockly prose with Mongolian; preserve movement roles, list position and on/off distinctions."
+  },
+  {
+    "locale": "mn",
+    "key": "blockly-LOGIC_OPERATION_OR",
+    "before": "or",
+    "after": "эсвэл",
+    "reason": "Replace short English Blockly prose with Mongolian; preserve movement roles, list position and on/off distinctions."
+  },
+  {
+    "locale": "mn",
+    "key": "blockly-PROCEDURES_DEFNORETURN_TITLE",
+    "before": "to",
+    "after": "тодорхойлох",
+    "reason": "Replace short English Blockly prose with Mongolian; preserve movement roles, list position and on/off distinctions."
+  },
+  {
+    "locale": "mn",
+    "key": "blockly-CONTROLS_FOREACH_INPUT_DO",
+    "before": "do",
+    "after": "гүйцэтгэх",
+    "reason": "Replace short English Blockly prose with Mongolian; preserve movement roles, list position and on/off distinctions."
+  },
+  {
+    "locale": "mn",
+    "key": "blockly-CONTROLS_FOR_INPUT_DO",
+    "before": "do",
+    "after": "гүйцэтгэх",
+    "reason": "Replace short English Blockly prose with Mongolian; preserve movement roles, list position and on/off distinctions."
+  },
+  {
+    "locale": "mn",
+    "key": "blockly-CONTROLS_IF_IF_TITLE_IF",
+    "before": "if",
+    "after": "хэрэв",
+    "reason": "Replace short English Blockly prose with Mongolian; preserve movement roles, list position and on/off distinctions."
+  },
+  {
+    "locale": "mn",
+    "key": "blockly-CONTROLS_IF_MSG_THEN",
+    "before": "do",
+    "after": "гүйцэтгэх",
+    "reason": "Replace short English Blockly prose with Mongolian; preserve movement roles, list position and on/off distinctions."
+  },
+  {
+    "locale": "mn",
+    "key": "blockly-CONTROLS_WHILEUNTIL_INPUT_DO",
+    "before": "do",
+    "after": "гүйцэтгэх",
+    "reason": "Replace short English Blockly prose with Mongolian; preserve movement roles, list position and on/off distinctions."
+  },
+  {
+    "locale": "mn",
+    "key": "blockly-PROCEDURES_DEFRETURN_TITLE",
+    "before": "to",
+    "after": "тодорхойлох",
+    "reason": "Replace short English Blockly prose with Mongolian; preserve movement roles, list position and on/off distinctions."
   }
 ]
