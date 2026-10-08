@@ -123,7 +123,68 @@ const pendingKeys = [
   "stuck-sync-operation-not-stuck",
   "stuck-sync-operation-replayable",
   "stuck-sync-operation-busy",
-  "stuck-sync-operation-failed"
+  "stuck-sync-operation-failed",
+  "board-announcement",
+  "board-announcement-enabled",
+  "cards-use-list-color",
+  "external-link-rules",
+  "external-link-rules-description",
+  "external-link-identifier-aliases",
+  "read-only-field",
+  "r-moved-forward",
+  "r-moved-back",
+  "scrum-import-into-board",
+  "scrum-import-into-board-hint",
+  "scrum-import-preview",
+  "scrum-import-choose-file",
+  "scrum-import-invalid-file",
+  "scrum-import-preview-sprints",
+  "scrum-import-preview-releases",
+  "scrum-import-preview-cards",
+  "scrum-import-preview-nothing",
+  "scrum-import-into-board-done",
+  "scrum-import-card-not-matched",
+  "scrum-import-card-ambiguous",
+  "scrum-import-card-on-another-board",
+  "scrum-import-record-ambiguous",
+  "scrum-import-record-not-imported",
+  "scrum-import-sprint-finished",
+  "sync-planning-sprint",
+  "sync-planning-releases",
+  "sync-planning-fields",
+  "sync-planning-hint",
+  "interrupted-import-heading",
+  "interrupted-import-description",
+  "interrupted-import-board",
+  "interrupted-import-progress",
+  "interrupted-import-created",
+  "interrupted-import-source",
+  "interrupted-import-state-stopped",
+  "interrupted-import-state-failed",
+  "interrupted-import-state-discarding",
+  "interrupted-import-scrum",
+  "interrupted-import-counts",
+  "interrupted-import-no-board",
+  "interrupted-import-keep",
+  "interrupted-import-discard",
+  "interrupted-import-keep-confirm",
+  "interrupted-import-discard-confirm",
+  "interrupted-import-refresh",
+  "interrupted-import-empty",
+  "interrupted-import-truncated",
+  "interrupted-import-unavailable",
+  "interrupted-import-missing",
+  "interrupted-import-not-interrupted",
+  "interrupted-import-foreign-board",
+  "interrupted-import-scrum-busy",
+  "interrupted-import-failed",
+  "scrum-history-checkpoint-stuck",
+  "scrum-history-checkpoint-counts",
+  "scrum-history-checkpoint-hint",
+  "scrum-history-checkpoint-rollback",
+  "scrum-history-checkpoint-discard",
+  "scrum-history-checkpoint-discard-confirm",
+  "scrum-history-checkpoint-ask-admin"
 ];
 
 test('new import, assignment, login and recovery messages are translated', () => {
@@ -151,4 +212,27 @@ test('configuration names and multi-release selection remain precise', () => {
   assert.match(finnish['scrum-releases-select-help'], /Ctrl/);
   assert.match(finnish['scrum-releases-select-help'], /Cmd/);
   assert.match(finnish['scrum-releases-select-help'], /kaikista julkaisuista/);
+});
+
+test('planning import and recovery choices retain their meaning and syntax', () => {
+  assert.match(finnish['scrum-import-into-board-hint'], /ei.*koskaan luoda kaksoiskappaleita/);
+  assert.match(finnish['scrum-import-into-board-hint'], /tunnisteen tai kortin numeron ja otsikon/);
+  assert.match(finnish['scrum-import-card-on-another-board'], /jätettiin ennalleen/);
+  assert.match(finnish['scrum-import-sprint-finished'], /ei siirretty/);
+  assert.match(finnish['sync-planning-hint'], /ensin lähdetunnisteen ja sitten nimen/);
+  assert.match(finnish['sync-planning-hint'], /ensimmäinen synkronointi koskaan poista/);
+  assert.match(finnish['interrupted-import-description'], /ei voi jatkaa/);
+  assert.match(finnish['interrupted-import-description'], /myös tuonnin jälkeen lisätyt tiedot/);
+  assert.match(finnish['interrupted-import-keep-confirm'], /Mitään ei poisteta/);
+  assert.match(finnish['interrupted-import-discard-confirm'], /poistetaan pysyvästi/);
+  assert.match(finnish['interrupted-import-truncated'], /50 vanhinta/);
+  assert.match(finnish['interrupted-import-foreign-board'], /sitä ei muutettu/);
+  assert.match(finnish['scrum-history-checkpoint-hint'], /vain, jos kukaan muu ei/);
+  assert.match(finnish['scrum-history-checkpoint-hint'], /muuttamatta tietueita/);
+  assert.match(finnish['scrum-history-checkpoint-discard-confirm'], /jo kirjoittamat muutokset/);
+  assert.notStrictEqual(finnish['r-moved-forward'], finnish['r-moved-back']);
+  for (const literal of ['{number}', '{identifier}', '[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}']) {
+    assert.ok(finnish['external-link-rules-description'].includes(literal), literal);
+  }
+  assert.ok(finnish['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
 });
