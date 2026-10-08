@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Bulgarian import instructions, remaining group — 2026-10-09
+
+Translate the remaining 13 instructions in bg, completing all 21 import
+instructions there. Preserve commands, columns, extensions, hierarchy markers and
+variables. Regression checks cover excluded data, English headers, task hierarchy
+and archived tasks. Import-instruction, placeholder and Vietnamese/Bulgarian
+completion suites and all 21 preservation checks pass. Browser review and the
+wider translation backlog remain outstanding.
+
 ## Bulgarian import instructions, first group — 2026-10-09
 
 Translate eight instructions in bg: Planner, MeisterTask, Obsidian, Linear,

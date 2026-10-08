@@ -889,3 +889,21 @@ for (const code of ['vi', 'vi-VN']) {
   assert.match(locale['import-board-instruction-obsidian'], /архивът се превръща в архивирани карти/);
   assert.match(locale['import-board-instruction-ticktick'], /списък на TickTick става коридор/);
 }
+
+{
+  const locale = read('bg');
+  const literals = {...newerImportLiterals, ...Object.fromEntries(['pivotal', 'tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja'].map(format => [format, importLiterals[format]]))};
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+    for (const value of values) assert.ok(locale[key].includes(value), key + ': ' + value);
+  }
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /Прикачените файлове не се импортират/);
+  assert.match(locale['import-board-instruction-notion'], /Релациите, изображенията и прикачените файлове не се импортират/);
+  assert.match(locale['import-board-instruction-plane'], /не съдържа описания или прикачени файлове.*не се импортират/);
+  assert.match(locale['import-board-instruction-businessmap'], /първо преименувайте заглавния ред на английски/);
+  assert.match(locale['import-board-instruction-redmine'], /преди експорта.*English в My account/);
+  assert.match(locale['import-board-instruction-teamwork'], /едно ниво по-навътре/);
+  assert.match(locale['import-board-instruction-superproductivity'], /архивираните задачи стават архивирани карти/);
+}
