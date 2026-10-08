@@ -8516,6 +8516,15 @@ correct-language backup-path description. Technical wording remains low confiden
 pending speaker review. Focused checks cover tokens, key order and scope semantics;
 browser checks were not run.
 
+## Tatar backup scheduling and restore-mode corrections
+
+Corrected 15 wrong-language schedule, restore-mode and cloud credential labels.
+Preserved HH:MM, the 1-28 monthly range and add-missing versus replace-all modes.
+Reviewed and retained the existing correct-language continuous-backup messages,
+including encryption, retention and restore safeguards. Technical wording remains
+low confidence pending speaker review. Focused tests cover tokens, key order,
+formats and mode distinctions; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
