@@ -715,3 +715,16 @@ assert.match(wu['unset-default-board-title'], /点一下.*勿再自动打开/);
 assert.match(wu['star-board-title'], /看板列表顶浪/);
 assert.match(wu['starred-lists'], /列表/);
 assert.match(wu['spent-time-hours'], /小时/);
+
+const trackingLinks = ["overtime", "has-overtime-cards", "has-spenttime-cards", "toggle-assignees", "toggle-labels", "remove-labels-multiselect", "tracking-info", "unsaved-description", "unwatch", "automatic-linked-url-schemes", "external-link-pattern-description", "view-it", "warn-list-archived", "watch", "watching", "watching-info", "welcome-board", "welcome-list2"];
+for (const key of trackingLinks) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.equal(wu.overtime, wu['overtime-hours'].replace('（小时）', ''));
+assert.equal(wu.watch, '关注');
+assert.match(wu.unwatch, /取消关注/);
+assert.match(wu['toggle-assignees'], /1-9.*负责人.*加入看板个次序/);
+assert.match(wu['toggle-labels'], /多选.*添加第 1-9/);
+assert.match(wu['remove-labels-multiselect'], /多选.*移脱第 1-9/);
+assert.match(wu['tracking-info'], /创建者或者成员.*卡片.*任何改动/);
+assert.match(wu['watching-info'], /看板.*任何改动/);
+assert.match(wu['external-link-pattern-description'], /#1234.*随便留空一只.*关脱/);
+assert.match(wu['automatic-linked-url-schemes'], /每行一只 URL 协议/);

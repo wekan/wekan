@@ -962,8 +962,8 @@
     "locale": "wuu-Hans",
     "key": "toggle-assignees",
     "before": "切换卡的受让人 1-9（按添加到董事会的顺序）。",
-    "after": "切换卡的受让人 1-9（按添加到看板的顺序）。",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "切换卡片个第 1-9 位负责人（按加入看板个次序）。",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Correct Wu tracking and link prose, preserving shortcut ranges and disable conditions; lower-confidence prose needs native review."
   },
   {
     "locale": "zh-CN",
@@ -163385,5 +163385,124 @@
     "before": "花费时间（小时）",
     "after": "花脱个辰光（小时）",
     "reason": "2026-10-08: Correct Wu shortcuts and starred-item meanings, preserving assignment direction and opposite default-board actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "overtime",
+    "before": "随着时间的推移",
+    "after": "加班时间",
+    "reason": "2026-10-08: Correct Wu tracking and link prose, preserving shortcut ranges and disable conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "has-overtime-cards",
+    "before": "有加班卡",
+    "after": "有记录加班时间个卡片",
+    "reason": "2026-10-08: Correct Wu tracking and link prose, preserving shortcut ranges and disable conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "has-spenttime-cards",
+    "before": "已花时间打卡",
+    "after": "有记录花脱辰光个卡片",
+    "reason": "2026-10-08: Correct Wu tracking and link prose, preserving shortcut ranges and disable conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "toggle-labels",
+    "before": "切换卡片的标签 1-9。多选添加标签 1-9",
+    "after": "切换卡片个第 1-9 只标签。多选个辰光添加第 1-9 只标签",
+    "reason": "2026-10-08: Correct Wu tracking and link prose, preserving shortcut ranges and disable conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "remove-labels-multiselect",
+    "before": "多项选择删除标签 1-9",
+    "after": "多选个辰光移脱第 1-9 只标签",
+    "reason": "2026-10-08: Correct Wu tracking and link prose, preserving shortcut ranges and disable conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "tracking-info",
+    "before": "如果您作为创建者或会员参与的卡片发生任何更改，您将收到通知。",
+    "after": "侬作为创建者或者成员参与个卡片，任何改动侪会通知侬。",
+    "reason": "2026-10-08: Correct Wu tracking and link prose, preserving shortcut ranges and disable conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "unsaved-description",
+    "before": "您有未保存的描述。",
+    "after": "侬有一份还朆保存个描述。",
+    "reason": "2026-10-08: Correct Wu tracking and link prose, preserving shortcut ranges and disable conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "unwatch",
+    "before": "取消观看",
+    "after": "取消关注",
+    "reason": "2026-10-08: Correct Wu tracking and link prose, preserving shortcut ranges and disable conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "automatic-linked-url-schemes",
+    "before": "应自动可点击的自定义 URL 方案。每行一个 URL 方案",
+    "after": "要自动变成可点击链接个自定义 URL 协议。每行一只 URL 协议",
+    "reason": "2026-10-08: Correct Wu tracking and link prose, preserving shortcut ranges and disable conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "external-link-pattern-description",
+    "before": "自动将卡片文本中形如“#1234”的标记链接到外部问题跟踪系统。留空任一字段即可禁用此功能。",
+    "after": "拿卡片文本里向像“#1234”搿能个标记自动连到外部问题跟踪系统。两只字段里向随便留空一只，就关脱搿个功能。",
+    "reason": "2026-10-08: Correct Wu tracking and link prose, preserving shortcut ranges and disable conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "view-it",
+    "before": "查看它",
+    "after": "查看伊",
+    "reason": "2026-10-08: Correct Wu tracking and link prose, preserving shortcut ranges and disable conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "warn-list-archived",
+    "before": "警告：此卡位于存档列表中",
+    "after": "警告：搿张卡片勒归档个列表里向",
+    "reason": "2026-10-08: Correct Wu tracking and link prose, preserving shortcut ranges and disable conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "watch",
+    "before": "手表",
+    "after": "关注",
+    "reason": "2026-10-08: Correct Wu tracking and link prose, preserving shortcut ranges and disable conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "watching",
+    "before": "观看",
+    "after": "关注中",
+    "reason": "2026-10-08: Correct Wu tracking and link prose, preserving shortcut ranges and disable conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "watching-info",
+    "before": "此版块如有任何变更，您将收到通知",
+    "after": "搿块看板浪任何改动侪会通知侬",
+    "reason": "2026-10-08: Correct Wu tracking and link prose, preserving shortcut ranges and disable conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "welcome-board",
+    "before": "欢迎板",
+    "after": "欢迎看板",
+    "reason": "2026-10-08: Correct Wu tracking and link prose, preserving shortcut ranges and disable conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "welcome-list2",
+    "before": "先进的",
+    "after": "进阶",
+    "reason": "2026-10-08: Correct Wu tracking and link prose, preserving shortcut ranges and disable conditions; lower-confidence prose needs native review."
   }
 ]

@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu tracking and link corrections — 2026-10-08
+
+Correct 18 time-tracking, shortcut, watching and link values. Replace wristwatch and
+elapsed-time mistranslations; retain shortcut ranges and opposite label actions.
+Preserve the either-field-empty disable condition and source tokens. Leave existing
+URL-scheme restrictions and link-template examples intact. Refresh exact-value audit
+records. Wu prose needs native review; browser tests were not run and all-language
+work remains unfinished.
+
 ## Wu shortcuts and starred-item corrections — 2026-10-08
 
 Correct 25 shortcut, threshold and starred-item values. Distinguish card membership
@@ -12633,7 +12642,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,341** exact before/after values, including unflagged
+records contain **23,358** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
