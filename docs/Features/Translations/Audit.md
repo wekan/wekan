@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Bislama login, notifications and system labels — 2026-10-08
+
+Correct 145 more artificial English wrappers in navigation, subscriptions,
+attachment limits, invitation email, webhooks, system diagnostics and rule
+scheduling. Keep before/after and checked/unchecked instructions distinct. Keep
+product names, storage units and runtime/environment identifiers literal.
+The wrapper queue falls from 533 to 388. Translate the newly added Todoist
+import guidance too, preserving its menu action, CSV format, @labels and p1–p3
+priority references. Existing valid non-English translations remain untouched.
+
+Tests cover the source-wide token inventory, the corrected wrapper keys,
+blocked/unlimited states and Todoist checklist mapping. Vocabulary follows
+existing catalog and dictionary references below; full compounds remain
+provisional pending fluent review. No browser session was run.
+The affirmative label uses `Yo`, recorded as “yes, ok” in the
+[Bislama spelling dictionary](https://bislama.org/images/dictionary/BislamaSpellingDictionary-EN-BI-v1.1.pdf).
+
 ## Bislama artificial wrapper correction — 2026-10-08
 
 Correct 120 older values that merely prefixed English with “Tok blong sistem:”.
