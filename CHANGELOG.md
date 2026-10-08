@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bdb0a7938fdb09e6e1477bda15a37f4a9b8b164c">Translate Tatar synchronization diagnostics and recovery</a></summary>
+
+- Fill 56 source diagnostics, run report, mail failure and recovery placeholders,
+  preserving source tokens, numeric limits and explicit null semantics.
+- Technical terminology remains low confidence pending speaker review.
+- All 61 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Tatar corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c1fda3091646ce95f75605c2feec03d10de38c03">Translate Tatar observations and synchronization controls</a></summary>
 
 - Fill 56 sprint observation, synchronization conflict and preview placeholders,
