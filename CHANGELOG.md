@@ -593,6 +593,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7c5dbdba52">Translate Nepali Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
+
+Translate 31 values, preserving placeholders, reordered count roles, keyboard names
+and recovery choices. Placeholder and language-wiring suites, focused Nepali checks
+and all 21 preservation checks pass. The large completion suite now reaches
+untranslated Urdu release text. Native review, browser checks and the remaining
+all-language backlog are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/fb648cd0be">Translate Tamil Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 31 values, preserving placeholders, reordered count roles, keyboard names
