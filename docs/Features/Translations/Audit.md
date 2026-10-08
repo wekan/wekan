@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Bislama storage, lockout and backup controls — 2026-10-08
+
+Correct 236 artificial English wrappers in storage moves, attachment repair,
+account lockout, migrations, backup controls and flow reports. Preserve product identifiers,
+JSON credential format and seconds as the lockout time unit. Distinguish pause
+from resume, failure retry from paused-work continuation, and all backup
+frequencies. The explicit “Tok blong sistem:” wrapper queue falls from 236 to zero.
+This does not establish overall Bislama quality: other mixed-language seeds
+and provisional wording still need review. Flow reports preserve the 2,000
+trials, UTC sampling, 3,650-day horizon, uncertainty, overlapping causes and
+creation/archive fallbacks. Statistical terminology remains low-confidence.
+
+Regression coverage checks these distinctions and the complete catalog's token
+inventory. Vocabulary follows the existing catalog and dictionary references
+below; technical compounds remain provisional pending fluent review. No browser
+session was run.
+
 ## Bislama search syntax, support and memory reports — 2026-10-08
 
 Correct 76 artificial wrappers in search terms, support tickets, loading indicators
