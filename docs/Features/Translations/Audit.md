@@ -7923,6 +7923,16 @@ activity labels were retained. Technical wording remains low confidence pending
 speaker review. Browser checks were not run. Further wrong-language corrections
 and the broader audit remain unfinished.
 
+### Tatar checklist activity and workspace corrections
+
+Corrected 35 checklist activity, date activity and workspace values. Confirmed
+argument roles against activities.jade: checklist/item precedes card, and date
+precedes card. Regression coverage checks those roles, completion polarity,
+workspace aliases and distinct subworkspace labels. Correct adjacent labels were
+retained. Source placeholders and key order remain intact. Technical wording
+remains low confidence pending speaker review. Browser checks were not run.
+Further wrong-language corrections and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
