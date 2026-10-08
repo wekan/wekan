@@ -487,6 +487,17 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/04f20bc654">Translate Papiamento Blockly loops and deletion</a>. Thanks to xet7.</summary>
+
+Translate 35 English loop, condition and editing messages. Preserve numbered
+variables; check opposite conditions, fallback branches, loop bounds and deletion
+counts. Four focused translation suites and 21 human-preference checks pass.
+Specialized wording is lower confidence and needs native review. No browser or
+screen-reader session was run. Remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/46816ff9b5">Translate Papiamento Blockly editing and color messages</a>. Thanks to xet7.</summary>
 
 Translate 30 English Blockly messages. Preserve numbered variables, key names and
