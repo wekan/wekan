@@ -2,6 +2,20 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Manx pending release and stuck Sync messages — 2026-10-08
+
+Translate 25 newly pending messages about release membership and discarding
+unreplayable List Sync operations. Preserve multiple-release selection,
+Ctrl/Cmd legends, applied/total counters, oldest-50 ordering and the distinction
+between refusing a discard now and reporting that no discard occurred.
+The confirmation keeps applied changes, never writes the remaining saved
+changes, and permits a fresh source comparison on the next Sync.
+
+Regression checks cover these consequences and the catalog-wide source token
+inventory. Full wording and grammar remain low-confidence pending fluent review,
+using the existing catalog and dictionary references below. No browser or
+screen-reader session was run. Other locales and older language defects remain.
+
 ## Remaining reported Manx messages — 2026-10-08
 
 Translate 47 remaining reported messages: import instructions, assignment rules,

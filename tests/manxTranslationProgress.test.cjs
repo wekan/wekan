@@ -83,3 +83,13 @@ assert.equal(manx['blockly-MATH_TRIG_COS_ARIA'], 'co-heenys');
 assert.equal(manx['blockly-MATH_TRIG_SIN_ARIA'], 'sheenys');
 assert.equal(manx['blockly-MATH_TRIG_TAN_ARIA'], 'tanjent');
 assert.notEqual(manx['blockly-PAGE_DOWN_KEY'], manx['blockly-PAGE_UP_KEY']);
+
+const pendingBatch = ["scrum-release-scope", "scrum-releases-select-help", "stuck-sync-operation-heading", "stuck-sync-operation-description", "stuck-sync-operation-list", "stuck-sync-operation-progress", "stuck-sync-operation-reason", "stuck-sync-operation-applied", "stuck-sync-operation-reason-scope-changed", "stuck-sync-operation-reason-access-denied", "stuck-sync-operation-reason-trigger-unknown", "stuck-sync-operation-reason-intent-missing", "stuck-sync-operation-reason-unknown", "stuck-sync-operation-replayable-now", "stuck-sync-operation-discard", "stuck-sync-operation-discard-confirm", "stuck-sync-operation-refresh", "stuck-sync-operation-empty", "stuck-sync-operation-truncated", "stuck-sync-operation-unavailable", "stuck-sync-operation-missing", "stuck-sync-operation-not-stuck", "stuck-sync-operation-replayable", "stuck-sync-operation-busy", "stuck-sync-operation-failed"];
+for (const key of pendingBatch) assert.notEqual(manx[key], english[key], key);
+assert.deepEqual(tokens(manx['stuck-sync-operation-applied']), ['__applied__', '__total__']);
+assert.match(manx['stuck-sync-operation-discard-confirm'], /tannaghtyn.*cha bee.*screeu rieau/);
+assert.match(manx['stuck-sync-operation-description'], /nah Sync.*cosoyley.*vun reesht/);
+assert.match(manx['stuck-sync-operation-replayable-now'], /cha nod.*ceaut magh/);
+assert.match(manx['stuck-sync-operation-replayable'], /cha row.*ceaut magh/);
+assert.match(manx['stuck-sync-operation-truncated'], /50 s'shinney/);
+assert.match(manx['scrum-releases-select-help'], /Ctrl.*Cmd.*Mac.*glen ad ooilley/);
