@@ -440,6 +440,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/51e3e8b375">Correct Wu checklist roles and Markdown label</a>. Thanks to xet7.</summary>
+
+Correct eight activity and workspace values, preserving placeholder roles and
+restoring the Markdown format name. Three focused suites and 21 human-preference
+checks pass. Wu prose is lower confidence and needs native review. No browser
+session was run. The broader language audit remains unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/fc8a66d6ab">Correct Wu activity summary argument roles</a>. Thanks to xet7.</summary>
 
 Correct 25 activity summaries to Wu, repairing positional placeholder roles in
