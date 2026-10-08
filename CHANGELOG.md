@@ -975,6 +975,20 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/eb846b6ca0">Translate Tok Pisin planning imports and repair locale suites</a>. Thanks to xet7.</summary>
+
+Translate 20 messages and extend the Scrum inventory to 127 without weakening
+per-key translation and token checks. Preserve matching priority,
+non-duplication and first-sync protection of planning. Full new wording
+remains low-confidence pending fluent review.
+
+Both Tok Pisin suites, global placeholder and translation audit checks pass.
+Six failures from the latest broad run still need repair. No browser or
+screen-reader session was run; the all-language work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f06dd84b40">Translate Ukrainian Scrum import and Sync planning messages</a>. Thanks to xet7.</summary>
 
 Translate 20 messages and restore the Ukrainian planning suite. Preserve
