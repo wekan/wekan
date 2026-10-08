@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Akhawunti leyi nga na imeyili leyi yi kona ana naswona a yi endliwanga hi ndlela leyi ya ku nghena",
   "sign-in-with": "Nghena hi %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Ku nghena hi vukorhokeri byin’wana a ku nge hetiseki eka adirese leyi. WeKan yi lulamiseriwe __expected__, kambe pheji leri ri pfuriwile eka __actual__. Pfula WeKan eka __expected__, kumbe kombela mulawuri ku veka ROOT_URL eka __actual__.",
   "passwordless-title": "Ku nghena handle ka xiletelo xa xihundla",
   "passwordless-enabled": "Rhumela hi imeyili khodi ya ku nghena ya kan'we ematshan'wini ya xiletelo xa xihundla",
   "passwordless-hint": "Yi lava imeyili leyi humaka (MAIL_URL). Na PASSWORDLESS_ENABLED.",

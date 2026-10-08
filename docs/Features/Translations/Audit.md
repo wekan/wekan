@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Southern African warnings and Venda label — 2026-10-08
+
+Translate five warnings in Northern Sotho, Ndebele, Swati, Tsonga and Venda.
+Correct the Venda login label from Zulu to “U dzhena” and record it in the audit
+ledger. Preserve the separate Venetian and Veps catalogs: their legacy identifiers
+ve-CC and ve-PP are explicitly registered as those languages, not Venda variants.
+Warning coverage now includes 169 paths. Warning, placeholder and audited-correction
+suites and all 21 preservation checks pass. The prose has lower confidence and needs
+native review. The warning still has 38 English paths; browser review and the wider
+all-language backlog remain outstanding.
+
 ## Māori, Hawaiian, Samoan, Tongan and Fijian warnings — 2026-10-08
 
 Translate five warning values with exact variables. Māori sign-in terminology

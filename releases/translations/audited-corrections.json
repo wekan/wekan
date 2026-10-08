@@ -170861,5 +170861,12 @@
     "before": "Latine: Introitus",
     "after": "Introitus",
     "reason": "Use native sign-in label; remove foreign-language wording or language-name prefix."
+  },
+  {
+    "locale": "ve",
+    "key": "login",
+    "before": "Ngena ngemvume",
+    "after": "U dzhena",
+    "reason": "Replace a Zulu sign-in label with Venda; keep legacy Venetian and Veps catalogs separate."
   }
 ]
