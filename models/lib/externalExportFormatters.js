@@ -176,6 +176,7 @@ export const formatters = {
           description: i.description,
           status: { name: i.listTitle, ...(i.jiraScrum?.statusCategory ? { statusCategory: i.jiraScrum.statusCategory } : {}) },
           ...(i.jiraScrum?.issuetype ? { issuetype: i.jiraScrum.issuetype } : {}),
+          ...(i.jiraScrum?.fixVersions ? { fixVersions: i.jiraScrum.fixVersions } : {}),
           ...(i.jiraEstimate || {}),
           labels: i.labels,
           duedate: i.dueAt,

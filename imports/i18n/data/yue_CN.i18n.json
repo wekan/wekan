@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "新衝刺",
   "scrum-releases": "發佈同增量",
   "scrum-release": "發佈",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "揀一個衝刺嚟睇佢嘅報告。",
   "scrum-backlog": "待辦清單",
   "scrum-backlog-help": "按待辦清單排名排列工作。將卡片分配到已規劃或者進行中嘅衝刺。",

@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Sbrint newydd",
   "scrum-releases": "Rhyddhadau a chynyddrannau",
   "scrum-release": "Rhyddhad",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Dewiswch sbrint i weld ei adroddiad.",
   "scrum-backlog": "Ôl-groniad gwaith",
   "scrum-backlog-help": "Trefnwch waith yn ôl ei safle yn yr ôl-groniad. Neilltuwch gardiau i sbrint wedi'i gynllunio neu weithredol.",

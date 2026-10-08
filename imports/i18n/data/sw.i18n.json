@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Kipindi kipya cha kazi",
   "scrum-releases": "Matoleo na nyongeza za bidhaa",
   "scrum-release": "Toleo",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Chagua kipindi cha kazi ili kuona ripoti yake.",
   "scrum-backlog": "Kazi zinazosubiri",
   "scrum-backlog-help": "Panga kazi kulingana na nafasi katika orodha ya kazi zinazosubiri. Weka kadi katika kipindi cha kazi kilichopangwa au kinachoendelea.",

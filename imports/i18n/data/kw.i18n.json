@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Termyn sprint nowydh",
   "scrum-releases": "Dyllansow ha keworansow",
   "scrum-release": "Dyllans",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Dewisewgh termyn sprint rag gweles y dherivas.",
   "scrum-backlog": "Rol oberow",
   "scrum-backlog-help": "Ordenewgh ober herwydh y le y'n rol oberow. Apoyntyewgh kartennow dhe dermyn sprint towlenys po gweythresek.",

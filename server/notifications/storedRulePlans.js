@@ -716,7 +716,7 @@ async function boardMoveInputs({ raw, model, fromBoard, toBoard, target, swimlan
     mapped: { labelIds, cardNumber: await toBoard.getNextCardNumber(),
       customFields: Array.isArray(customFields) ? customFields : [],
       // Its sprint and release by name on that board (models/lib/scrumCopy.js).
-      scrumPlanning: raw.scrum && (raw.scrum.sprintId || raw.scrum.releaseId)
+      scrumPlanning: raw.scrum && (raw.scrum.sprintId || require('/models/lib/scrum').cardReleaseIds(raw.scrum).length)
         ? await scrumPlanningPair(fromBoard._id, toBoard._id) : null },
     allowedMemberIds: (toBoard.members || []).filter(member => member.isActive === true).map(member => member.userId),
     titles: { boardName: toBoard.title, oldBoardName: fromBoard.title, swimlaneName: swimlaneTitle } };

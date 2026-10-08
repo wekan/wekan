@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Novi sprint",
   "scrum-releases": "Izdanja i prirasti",
   "scrum-release": "Izdanje",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Odaberite sprint za prikaz njegovog izvještaja.",
   "scrum-backlog": "Lista zahtjeva",
   "scrum-backlog-help": "Poredajte posao prema redoslijedu na listi zahtjeva. Dodijelite kartice planiranom ili aktivnom sprintu.",

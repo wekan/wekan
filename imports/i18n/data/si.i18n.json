@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "නව ස්ප්‍රින්ට් එකක්",
   "scrum-releases": "නිකුතු සහ නිෂ්පාදන වර්ධක",
   "scrum-release": "නිකුතුව",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "වාර්තාව බැලීමට ස්ප්‍රින්ට් එකක් තෝරන්න.",
   "scrum-backlog": "වැඩ ලැයිස්තුව",
   "scrum-backlog-help": "වැඩ ලැයිස්තුවේ ප්‍රමුඛතා අනුපිළිවෙළට වැඩ සකසන්න. සැලසුම් කළ හෝ සක්‍රිය ස්ප්‍රින්ට් එකකට කාඩ්පත් පවරන්න.",

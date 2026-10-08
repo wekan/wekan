@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Neie Sprint",
   "scrum-releases": "Verëffentlechungen a Produktzouwächs",
   "scrum-release": "Verëffentlechung",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Wielt e Sprint, fir säi Rapport ze gesinn.",
   "scrum-backlog": "Backlog",
   "scrum-backlog-help": "Uerdent d’Aarbecht no hirer Positioun am Backlog. Weist Kaarte engem geplangten oder aktive Sprint zou.",

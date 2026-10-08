@@ -117,7 +117,7 @@ Swimlanes.before.remove(async function(userId, doc) {
 Swimlanes.before.update(async (userId, doc, fieldNames, modifier) => {
   const boardId = modifier && modifier.$set && modifier.$set.boardId;
   if (typeof boardId !== 'string' || boardId === doc.boardId || Object.hasOwn(modifier.$set, 'scrumRevision')) return;
-  const planning = doc.scrum && (doc.scrum.sprintId || doc.scrum.releaseId)
+  const planning = doc.scrum && (doc.scrum.sprintId || require('/models/lib/scrum').cardReleaseIds(doc.scrum).length)
     ? await scrumPlanningPair(doc.boardId, boardId) : null;
   Object.assign(modifier.$set, movedScrumMetadata(doc, boardId, planning));
 });

@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "سپرینتی نوێ",
   "scrum-releases": "وەشانەکان و زیادەکانی بەرهەم",
   "scrum-release": "وەشان",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "سپرینتێک هەڵبژێرە بۆ بینینی ڕاپۆرتەکەی.",
   "scrum-backlog": "لیستی کارە ماوەکان",
   "scrum-backlog-help": "کارەکان بە ڕیزبەندی لیستی کارە ماوەکان ڕێک بخە. کارتەکان بۆ سپرینتێکی پلان بۆ دانراو یان چالاک دیاری بکە.",

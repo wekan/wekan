@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Новый спринт",
   "scrum-releases": "Выпуски и приращения",
   "scrum-release": "Выпуск",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Выберите спринт, чтобы просмотреть его отчёт.",
   "scrum-backlog": "Бэклог",
   "scrum-backlog-help": "Упорядочьте работу по позиции в бэклоге. Назначьте карточки запланированному или активному спринту.",

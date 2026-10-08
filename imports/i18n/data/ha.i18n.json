@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Sabon zangon aiki",
   "scrum-releases": "Sigar da aka fitar da ƙarin sassan samfur",
   "scrum-release": "Sigar da aka fitar",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Zaɓi zangon aiki don ganin rahotonsa.",
   "scrum-backlog": "Jerin ayyukan da ake jira",
   "scrum-backlog-help": "Jera ayyuka bisa matsayinsu a jerin ayyukan da ake jira. Sanya katuna a zangon aikin da aka tsara ko wanda ake yi yanzu.",

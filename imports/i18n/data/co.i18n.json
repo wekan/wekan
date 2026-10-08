@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Nova iterazione",
   "scrum-releases": "Versioni è incrementi",
   "scrum-release": "Versione",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Selezziunà un'iterazione per vede u so raportu.",
   "scrum-backlog": "Riserva di travagliu",
   "scrum-backlog-help": "Urganizà u travagliu secondu u so rangu in a riserva. Assignà carte à un'iterazione pianificata o attiva.",

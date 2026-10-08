@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Novo sprint",
   "scrum-releases": "Versões e incrementos",
   "scrum-release": "Versão",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Selecione um sprint para ver o seu relatório.",
   "scrum-backlog": "Lista de trabalho pendente",
   "scrum-backlog-help": "Ordene o trabalho pela posição na lista de trabalho pendente. Atribua cartões a um sprint planejado ou ativo.",

@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Novus cursus brevis",
   "scrum-releases": "Editiones et incrementa",
   "scrum-release": "Editio",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Cursum brevem elige ut relationem eius videas.",
   "scrum-backlog": "Opera pendentia",
   "scrum-backlog-help": "Opera secundum locum in indice operum pendentium ordina. Chartas cursui brevi destinato vel activo assigna.",

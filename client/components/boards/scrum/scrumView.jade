@@ -133,6 +133,8 @@ template(name="scrumView")
                 each releases
                   article
                     h4 {{name}} — {{stateLabel}}
+                    p.scrum-release-scope(data-release-id=_id) {{_ 'scrum-release-scope'}}: {{scopeLabel}}
+                    p.scrum-release-done(data-release-id=_id) {{_ 'scrum-completed'}}: {{doneLabel}}
                     p {{goal}}
                     p {{startLabel}} — {{endLabel}}
                     if releasedAt
@@ -207,10 +209,10 @@ template(name="scrumView")
                             label {{_ 'scrum-backlog-rank'}}
                               input(type="number" name="backlogRank" min="0" step="any" value=rankValue)
                             label {{_ 'scrum-release'}}
-                              select(name="releaseId")
-                                option(value="") —
+                              select(name="releaseIds" multiple)
                                 each cardReleaseOptions
                                   option(value=_id selected=selected) {{name}}
+                              small.scrum-multiple-help {{_ 'scrum-releases-select-help'}}
                             label {{_ 'scrum-issue-type'}}
                               textarea(name="issueType" rows="1") {{scrum.issueType}}
                             label {{_ 'scrum-acceptance-criteria'}}

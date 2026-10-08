@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Àkókò iṣẹ́ kúkúrú tuntun",
   "scrum-releases": "Àwọn àtẹ̀jáde àti àfikún ọjà",
   "scrum-release": "Àtẹ̀jáde",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Yan àkókò iṣẹ́ kúkúrú kan láti wo ìròyìn rẹ̀.",
   "scrum-backlog": "Àkọjọ iṣẹ́ tó kù",
   "scrum-backlog-help": "Ṣètò iṣẹ́ gẹ́gẹ́ bí ipò rẹ̀ nínú àkọjọ iṣẹ́ tó kù. Yan àkókò iṣẹ́ kúkúrú tí a ti ṣètò tàbí tó ń lọ lọ́wọ́ fún àwọn káàdì.",

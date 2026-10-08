@@ -15,9 +15,9 @@
 //     search JSON has none, so it is not invented. A CLOSED sprint is
 //     reported and not imported, for the same reason (no close snapshot).
 //   * a fix version becomes a release: released (with its date) or planned.
-//     A card takes its first fix version; further ones are reported, since a
-//     card has one release. Fix versions still become version: labels too, as
-//     before.
+//     A card takes EVERY fix version as one of its releases (2026-10-08; it
+//     used to keep the first and report the rest). Fix versions still become
+//     version: labels too, as before.
 //   * the card's sprint is its open (future or active) sprint, the last one
 //     listed when there are several.
 //   * the rank (Jira's LexoRank string) orders the backlog: backlogRank 1..n
@@ -31,6 +31,7 @@
 // import (server/lib/scrumTransferImport.js). Pure: tested by
 // tests/jiraScrumPlanning.test.cjs.
 const { jiraScrumMetadata } = require('./jiraScrumMetadata');
+const { portableCardReleases } = require('./scrum');
 
 const SCHEMA = {
   sprint: 'com.pyxis.greenhopper.jira:gh-sprint',
@@ -124,7 +125,11 @@ function jiraScrumPlanning(data, { estimate = null } = {}) {
     // Fix versions.
     const versions = (Array.isArray(f.fixVersions) ? f.fixVersions : [])
       .filter(version => version && version.id !== undefined && typeof version.name === 'string' && version.name.trim());
-    versions.forEach((version, i) => {
+    // Every fix version is one of the card's releases (2026-10-08; a card has
+    // several now, models/lib/scrum.js cardReleaseIds), in Jira's order, the
+    // same version listed twice counted once.
+    const cardReleases = [];
+    versions.forEach(version => {
       const id = String(version.id);
       if (!releases.has(id)) {
         const date = typeof version.releaseDate === 'string' && Number.isFinite(new Date(version.releaseDate).getTime())
@@ -135,9 +140,11 @@ function jiraScrumPlanning(data, { estimate = null } = {}) {
           ...(date ? { plannedEnd: date } : {}), ...(date && version.released === true ? { releasedAt: date } : {}),
           provenance: { system: 'jira', recordId: id } });
       }
-      if (i === 0) scrum.releaseId = releaseId(id);
-      else lost(`${at}/fixVersions/${i}`, `fix version "${version.name}" is not the card's release: a card has one release`);
+      cardReleases.push(releaseId(id));
     });
+    // The file's portable form: one release as `releaseId` alone, several
+    // with `releaseIds` beside it.
+    Object.assign(scrum, portableCardReleases({ releaseIds: cardReleases }));
     // Rank.
     const rank = fields.rank ? f[fields.rank] : undefined;
     if (typeof rank === 'string' && rank) ranks.push({ index, rank });

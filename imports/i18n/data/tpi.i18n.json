@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Nupela sprint",
   "scrum-releases": "Ol rilisim na ol hap prodak i kamap nupela",
   "scrum-release": "Rilisim",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Makim wanpela sprint long lukim ripot bilong en.",
   "scrum-backlog": "Ol wok i wet yet",
   "scrum-backlog-help": "Putim ol wok long oda bilong lis bilong wok i wet yet. Givim ol kat long wanpela sprint ol i plenim o i wok yet.",

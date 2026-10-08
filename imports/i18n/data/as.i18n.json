@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "নতুন স্প্ৰিণ্ট",
   "scrum-releases": "মুক্তি আৰু পণ্যৰ সংযোজনসমূহ",
   "scrum-release": "মুক্তি",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "প্ৰতিবেদন চাবলৈ এটা স্প্ৰিণ্ট বাছক।",
   "scrum-backlog": "বাকী কামৰ তালিকা",
   "scrum-backlog-help": "বাকী কামৰ অগ্ৰাধিকাৰ অনুসৰি কাম সজাওক। কাৰ্ডবোৰ পৰিকল্পিত বা সক্ৰিয় স্প্ৰিণ্টত নিযুক্ত কৰক।",

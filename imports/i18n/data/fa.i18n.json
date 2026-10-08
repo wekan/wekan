@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "اسپرینت جدید",
   "scrum-releases": "انتشارها و افزوده‌های محصول",
   "scrum-release": "انتشار",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "برای دیدن گزارش، یک اسپرینت انتخاب کنید.",
   "scrum-backlog": "فهرست کارها",
   "scrum-backlog-help": "کارها را بر اساس رتبه در فهرست کارها مرتب کنید. کارت‌ها را به یک اسپرینت برنامه‌ریزی‌شده یا فعال اختصاص دهید.",

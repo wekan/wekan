@@ -20,7 +20,7 @@ const { assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 const { METADATA_TYPES, historyDocument, historyRecords, historySide, historyParts } = require('/models/lib/scrumHistory');
 const { calculateObjectSize } = require('bson');
 import { ROLLOVER_PENDING } from './scrumRolloverStore';
-const { normalizeScrumMetadata, normalizeScrumSettings, DEFAULT_SCRUM_SETTINGS } = require('/models/lib/scrum');
+const { normalizeScrumMetadata, normalizeScrumSettings, DEFAULT_SCRUM_SETTINGS, cardReleaseIds } = require('/models/lib/scrum');
 const collections = { board: Boards, card: Cards, list: Lists, swimlane: Swimlanes,
   'scrum-sprint': ScrumSprints, 'scrum-release': ScrumReleases, 'scrum-event': ScrumEvents };
 const { recordScrumRestoreOnce } = require('./scrumHistoryRestoreWriter');
@@ -129,7 +129,9 @@ async function validateTargets(board, userId, records, current) {
     }
     const metadata = METADATA_TYPES.has(entry.type) ? target?.scrum : target;
     await reference('scrum-sprint', metadata?.sprintId);
-    await reference('scrum-release', metadata?.releaseId);
+    // Every release of a card (models/lib/scrum.js cardReleaseIds), a
+    // swimlane's one: each must still be this board's.
+    for (const id of cardReleaseIds(metadata)) await reference('scrum-release', id);
     for (const id of metadata?.pastSprintIds || []) await reference('scrum-sprint', id);
     if (entry.type === 'board' && target?.scrum?.estimateSource === 'customField') {
       if (!await CustomFields.findOneAsync({ _id: target.scrum.estimateCustomFieldId, boardIds: board._id, type: 'number' })) throw new Meteor.Error('invalid-scrum-reference');
@@ -145,12 +147,16 @@ async function validateTargets(board, userId, records, current) {
         if (type === 'card' && field === 'sprintId') {
           delete selector['scrum.sprintId']; selector.$or = [{ 'scrum.sprintId': entry.id }, { 'scrum.pastSprintIds': entry.id }];
         }
+        if (type === 'card' && field === 'releaseId') {
+          delete selector['scrum.releaseId']; selector.$or = [{ 'scrum.releaseId': entry.id }, { 'scrum.releaseIds': entry.id }];
+        }
         const refs = await collections[type].find({ boardId: board._id, ...selector }).fetchAsync();
         for (const ref of refs) {
           const key = `${type}:${ref._id}`;
           if (!final.has(key)) conflict();
           const after = final.get(key); const meta = METADATA_TYPES.has(type) ? after?.scrum : after;
-          if (meta?.[field] === entry.id || (field === 'sprintId' && meta?.pastSprintIds?.includes(entry.id))) conflict();
+          if (meta?.[field] === entry.id || (field === 'sprintId' && meta?.pastSprintIds?.includes(entry.id)) ||
+            (field === 'releaseId' && cardReleaseIds(meta).includes(entry.id))) conflict();
         }
       }
     }

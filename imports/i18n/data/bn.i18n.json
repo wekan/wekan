@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "নতুন স্প্রিন্ট",
   "scrum-releases": "প্রকাশনা ও পণ্যের সংযোজন",
   "scrum-release": "প্রকাশনা",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "প্রতিবেদন দেখতে একটি স্প্রিন্ট বেছে নিন।",
   "scrum-backlog": "অপেক্ষমাণ কাজ",
   "scrum-backlog-help": "অপেক্ষমাণ কাজের অগ্রাধিকার অনুযায়ী কাজ সাজান। কার্ডগুলো পরিকল্পিত বা চলমান স্প্রিন্টে যুক্ত করুন।",

@@ -100,7 +100,7 @@ names; it never guesses a `customfield_*` number. Then:
 | Future sprint | Planned sprint with its goal and dates; the card's sprint |
 | Active sprint | Planned sprint, reported in Admin Panel → Problems → Recovery: issue search has no commitment snapshot, so start it in WeKan to begin measuring |
 | Closed sprint | Not imported, reported: WeKan does not invent a commitment or close snapshot |
-| Fix version | Release, released with its date or planned; the card's release is its first version, the others are reported (a card has one release). Versions still also become `version:` labels |
+| Fix version | Release, released with its date or planned. Every fix version is one of the card's releases (a card can be in several since 2026-10-08). Versions still also become `version:` labels |
 | Rank | Backlog order: backlog rank 1, 2, ... in Jira's rank order |
 | Epic Link | The card's parent when the epic is imported too; otherwise reported. Newer Jira's `parent` was already followed |
 
@@ -108,6 +108,12 @@ Both of Jira's sprint forms are read: sprint objects, and the older
 `com.atlassian.greenhopper.service.sprint.Sprint@...[id=...,state=...]`
 strings. The board's Scrum settings are turned on when sprints or releases are
 imported. These fields are not also imported as text custom fields.
+
+Jira export writes each of a card's releases as one of its `fixVersions` when
+Scrum is selected: the original Jira version id when the release came from
+Jira (the WeKan release id otherwise), whether it is released, its planned end
+as `releaseDate` and its notes as `description`. Importing that file gives the
+card the same releases again.
 
 ## Migrate from Jira Server (Atlassian) to Wekan
 

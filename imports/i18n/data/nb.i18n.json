@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Ny sprint",
   "scrum-releases": "Utgivelser og inkrementer",
   "scrum-release": "Utgivelse",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Velg en sprint for å se rapporten.",
   "scrum-backlog": "Oppgavekø",
   "scrum-backlog-help": "Sorter arbeidet etter plassering i oppgavekøen. Tildel kort til en planlagt eller aktiv sprint.",

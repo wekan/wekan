@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Bag-o nga sprint",
   "scrum-releases": "Mga pagpagawas ngan mga nadugang ha produkto",
   "scrum-release": "Pagpagawas",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Pagpili hin sprint basi makita an report hito.",
   "scrum-backlog": "Lista han buruhaton",
   "scrum-backlog-help": "Isunod an mga buruhaton sumala han ranggo ha lista han buruhaton. Itoka an mga kard ngadto ha ginplano o aktibo nga sprint.",

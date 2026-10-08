@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Yeni sprint",
   "scrum-releases": "Buraxılışlar və artımlar",
   "scrum-release": "Buraxılış",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Hesabatına baxmaq üçün sprint seçin.",
   "scrum-backlog": "İş siyahısı",
   "scrum-backlog-help": "İşləri iş siyahısındakı sırasına görə düzün. Kartları planlaşdırılmış və ya aktiv sprintə təyin edin.",

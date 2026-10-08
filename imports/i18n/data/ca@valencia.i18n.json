@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Iteració nova",
   "scrum-releases": "Versions i increments",
   "scrum-release": "Versió",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Seleccioneu una iteració per veure'n l'informe.",
   "scrum-backlog": "Tasques pendents",
   "scrum-backlog-help": "Ordeneu la feina segons la prioritat de les tasques pendents. Assigneu fitxes a una iteració planificada o activa.",

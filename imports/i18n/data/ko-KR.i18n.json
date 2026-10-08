@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "새 스프린트",
   "scrum-releases": "릴리스 및 증분",
   "scrum-release": "릴리스",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "보고서를 볼 스프린트를 선택하세요.",
   "scrum-backlog": "백로그",
   "scrum-backlog-help": "백로그 순위에 따라 작업을 정렬하세요. 카드를 계획된 스프린트나 진행 중인 스프린트에 배정하세요.",

@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Nieuwe sprint",
   "scrum-releases": "Uitgaven en incrementen",
   "scrum-release": "Uitgave",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Selecteer een sprint om het rapport te bekijken.",
   "scrum-backlog": "Werkvoorraad",
   "scrum-backlog-help": "Orden het werk op rang in de werkvoorraad. Wijs kaarten toe aan een geplande of actieve sprint.",

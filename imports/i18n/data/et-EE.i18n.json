@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Uus sprint",
   "scrum-releases": "Väljalasked ja juurdekasvud",
   "scrum-release": "Väljalase",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Vali sprint, mille aruannet soovid vaadata.",
   "scrum-backlog": "Tööde loend",
   "scrum-backlog-help": "Järjesta tööd tööde loendi järjekorra järgi. Määra kaardid kavandatud või aktiivsesse sprinti.",

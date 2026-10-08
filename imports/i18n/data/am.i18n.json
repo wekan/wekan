@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "አዲስ ስፕሪንት",
   "scrum-releases": "ልቀቶች እና የምርት ጭማሪዎች",
   "scrum-release": "ልቀት",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "ሪፖርቱን ለማየት ስፕሪንት ይምረጡ።",
   "scrum-backlog": "ቀሪ ሥራዎች",
   "scrum-backlog-help": "ሥራዎችን በቀሪ ሥራ ቅደም ተከተል ያደራጁ። ካርዶችን ለታቀደ ወይም በሂደት ላይ ላለ ስፕሪንት ይመድቡ።",

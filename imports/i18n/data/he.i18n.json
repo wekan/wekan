@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "ספרינט חדש",
   "scrum-releases": "גרסאות ותוספות מוצר",
   "scrum-release": "גרסה",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "יש לבחור ספרינט כדי לצפות בדוח שלו.",
   "scrum-backlog": "רשימת עבודות",
   "scrum-backlog-help": "יש לסדר את העבודה לפי הדירוג ברשימת העבודות. אפשר לשייך כרטיסים לספרינט מתוכנן או פעיל.",

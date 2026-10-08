@@ -29,13 +29,16 @@ test('backlog release assignment saves, clears and restores through History',asy
   await page.locator('.pop-over .js-open-product-backlog-view').click();
   const row=page.locator(`tr[data-card-id="${card._id}"]`);
   const form=row.locator('.js-scrum-card');
-  await form.locator('[name="releaseId"]').selectOption(release._id);
+  // A card's releases are a multiple select since 2026-10-08
+  // (scrum-multiple-releases.e2e.js); `releaseId` stays the first of them.
+  await form.locator('[name="releaseIds"]').selectOption([release._id]);
   await form.locator('button[type="submit"]').click();
   await expect(row.locator('.scrum-card-release')).toHaveText('Planned delivery');
-  await expect(form.locator('[name="releaseId"]')).toHaveValue(release._id);
-  await form.locator('[name="releaseId"]').selectOption('');
+  await expect(form.locator('[name="releaseIds"]')).toHaveValue(release._id);
+  await form.locator('[name="releaseIds"]').selectOption([]);
   await form.locator('button[type="submit"]').click();
   await expect.poll(()=>db.findOne('cards',{_id:card._id}).scrum?.releaseId).toBeNull();
+  expect(db.findOne('cards',{_id:card._id}).scrum.releaseIds).toEqual([]);
   await call(page,'changeHistory.undoLast',board.boardId);
   expect(db.findOne('cards',{_id:card._id}).scrum.releaseId).toBe(release._id);
   const current=db.findOne('cards',{_id:card._id});

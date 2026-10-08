@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Nov cicli da lavur",
   "scrum-releases": "Versiuns ed increments",
   "scrum-release": "Versiun",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Tscherner in cicli da lavur per vesair ses rapport.",
   "scrum-backlog": "Glista da lavurs",
   "scrum-backlog-help": "Ordinar las lavurs tenor lur rang en la glista da lavurs. Attribuir cartas ad in cicli da lavur planisà u activ.",

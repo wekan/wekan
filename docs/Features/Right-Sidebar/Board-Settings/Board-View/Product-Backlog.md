@@ -1,11 +1,16 @@
 # Product Backlog
 
-The planning table displays each card's release and provides a release selector
-beside its sprint and rank controls. Select a release from the current board or
-the dash to clear the assignment. The same editor is used for sprint work.
-Saving uses existing card write permissions, board-local reference validation,
-revision checks and Scrum History undo/redo. Release assignments do not create
-planning records or change the release's lifecycle state.
+The planning table displays each card's releases and provides a release selector
+beside its sprint and rank controls. A card can be in several releases
+(2026-10-08): the selector is a multiple select, so hold Ctrl (Cmd on a Mac) to
+choose more than one, and clear every choice to take the card out of all
+releases. Only the current board's releases are offered and accepted. The same
+editor is used for sprint work. Saving uses existing card write permissions,
+board-local reference validation, revision checks and Scrum History undo/redo.
+Release assignments do not create planning records or change the release's
+lifecycle state. See
+[Scrum-Design.md](Scrum-Design.md#several-releases-per-card) for how cards
+saved with one release are read.
 
 Board View / Product Backlog shows non-archived cards without a current sprint.
 It reuses existing card estimates. Missing estimates are displayed as unknown.

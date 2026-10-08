@@ -69,12 +69,75 @@ function normalizeScrumSettings(value) {
 function normalizeScrumMetadata(kind, value) {
   const definitions = {
     card: { sprintId: id, pastSprintIds: ids, backlogRank: nullableNumber, releaseId: id,
+      releaseIds: v => { const list = ids(v); if (list.length > MAX_CARD_RELEASES) fail('Too many releases'); return list; },
       issueType: v => text(v, 100), acceptanceCriteria: text },
     list: { category: v => choice(v, ['backlog', 'todo', 'doing', 'done']) },
     swimlane: { sprintId: id, releaseId: id, purpose: v => text(v, 1000) },
   };
   if (!definitions[kind]) fail('Invalid metadata kind');
   return normalize(value, definitions[kind]);
+}
+// A card's releases (2026-10-08). A card used to have one release,
+// `scrum.releaseId`; it now has a list, `scrum.releaseIds`. Nothing is migrated
+// in bulk: a card written before keeps `releaseId` alone and is read as a list
+// of that one release, and every write from here on stores the list AND keeps
+// `releaseId` as its first entry, so an older reader (a downgraded server, an
+// older importer, a REST client) still sees a release it knows. Reading both
+// fields, and always the same way, is what makes mixed data safe:
+//   - `releaseIds` is the list when it is an array;
+//   - `releaseId`, when set and not already in it, is one more release, read
+//     FIRST - it is what an older writer that knew only that field last set.
+// Duplicates collapse, and the result is the same however often it is read or
+// written back (cardReleaseIds(withCardReleaseIds(x, cardReleaseIds(x))) is
+// cardReleaseIds(x)).
+const MAX_CARD_RELEASES = 100;
+const releaseIdString = value => typeof value === 'string' && value !== '';
+function cardReleaseIds(scrum) {
+  if (!scrum || typeof scrum !== 'object') return [];
+  const list = Array.isArray(scrum.releaseIds) ? scrum.releaseIds.filter(releaseIdString) : [];
+  return [...new Set([...(releaseIdString(scrum.releaseId) ? [scrum.releaseId] : []), ...list])];
+}
+const hasReleaseFields = scrum => !!scrum && typeof scrum === 'object' && (own(scrum, 'releaseId') || own(scrum, 'releaseIds'));
+// The stored form: both fields, the list deduplicated, `releaseId` its first.
+function withCardReleaseIds(scrum, releaseIds) {
+  const list = [...new Set((releaseIds || []).filter(releaseIdString))];
+  return { ...(scrum || {}), releaseId: list[0] ?? null, releaseIds: list };
+}
+// What one metadata write does to the releases, from the fields it names
+// (`changes` already through normalizeScrumMetadata):
+//   - `releaseIds` replaces the list; a `releaseId` sent with it must be its
+//     first entry (or null with an empty list), never a contradiction;
+//   - `releaseId` alone is an older caller's single release: null clears the
+//     releases, an id becomes the FIRST release and the others stay - the
+//     release that caller showed was the first one, and it cannot see the rest;
+//   - neither: the releases stay as they were, in the stored form.
+function applyCardReleaseChange(before, changes) {
+  const merged = { ...(before || {}), ...changes };
+  let list;
+  if (own(changes, 'releaseIds')) {
+    list = changes.releaseIds;
+    if (own(changes, 'releaseId') && changes.releaseId !== (list[0] ?? null)) fail('releaseId must be the first of releaseIds');
+  } else if (own(changes, 'releaseId')) {
+    list = changes.releaseId === null ? [] : [changes.releaseId, ...cardReleaseIds(before).slice(1)];
+  } else {
+    if (!hasReleaseFields(before)) return merged;
+    list = cardReleaseIds(before);
+  }
+  return withCardReleaseIds(merged, list);
+}
+// For files other WeKan versions read (the native Scrum transfer, Jira's
+// import plan): one release is written as `releaseId` alone, exactly as before,
+// so an older importer still reads it; only a card with several carries
+// `releaseIds`, which an older importer refuses as an unknown field instead of
+// silently keeping one of them.
+function portableCardReleases(scrum) {
+  if (!hasReleaseFields(scrum)) return scrum;
+  const list = cardReleaseIds(scrum);
+  const result = { ...scrum };
+  delete result.releaseId; delete result.releaseIds;
+  if (list.length) result.releaseId = list[0];
+  if (list.length > 1) result.releaseIds = list;
+  return result;
 }
 function normalizeScrumRecord(kind, value) {
   const common = { name: v => text(v, 200).trim() || fail('Name is required'), goal: text,
@@ -124,4 +187,5 @@ function scrumRevisionSelector(doc) {
 }
 module.exports = { DEFAULT_SCRUM_SETTINGS, normalizeScrumSettings, normalizeScrumMetadata,
   normalizeScrumRecord, getCardEstimate, isScrumCardDone, sprintSnapshot, scrumRevisionSelector,
-  validateScrumRevision: revision };
+  validateScrumRevision: revision, cardReleaseIds, withCardReleaseIds, applyCardReleaseChange,
+  portableCardReleases, MAX_CARD_RELEASES };

@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Яңы спринт",
   "scrum-releases": "Сығарылыштар һәм өҫтәмәләр",
   "scrum-release": "Сығарылыш",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Отчетын ҡарау өсөн спринтты һайлағыҙ.",
   "scrum-backlog": "Көтөлгән эштәр исемлеге",
   "scrum-backlog-help": "Эштәрҙе көтөлгән эштәр исемлегендәге урыны буйынса тәртипләгеҙ. Карточкаларҙы планлаштырылған йәки әүҙем спринтҡа тәғәйенләгеҙ.",

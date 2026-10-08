@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Ráib nua",
   "scrum-releases": "Eisiúintí agus incrimintí",
   "scrum-release": "Eisiúint",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Roghnaigh ráib chun a tuairisc a fheiceáil.",
   "scrum-backlog": "Riaráiste",
   "scrum-backlog-help": "Cuir obair in ord de réir céime sa riaráiste. Sann cártaí do ráib phleanáilte nó ghníomhach.",

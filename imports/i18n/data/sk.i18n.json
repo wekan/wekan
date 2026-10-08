@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Nový šprint",
   "scrum-releases": "Vydania a prírastky",
   "scrum-release": "Vydanie",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Vyberte šprint, ktorého správu chcete zobraziť.",
   "scrum-backlog": "Zásobník práce",
   "scrum-backlog-help": "Zoraďte prácu podľa poradia v zásobníku. Priraďte karty k plánovanému alebo aktívnemu šprintu.",

@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Nýr sprettur",
   "scrum-releases": "Útgáfur og viðbætur",
   "scrum-release": "Útgáfa",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Veldu sprett til að skoða skýrslu hans.",
   "scrum-backlog": "Verkefnalisti",
   "scrum-backlog-help": "Raðaðu verkum eftir sæti þeirra á verkefnalistanum. Úthlutaðu spjöldum á áætlaðan eða virkan sprett.",

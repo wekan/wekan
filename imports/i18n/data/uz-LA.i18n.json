@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Yangi sprint",
   "scrum-releases": "Relizlar va mahsulot qoʻshimchalari",
   "scrum-release": "Reliz",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Hisobotini koʻrish uchun sprintni tanlang.",
   "scrum-backlog": "Vazifalar roʻyxati",
   "scrum-backlog-help": "Ishlarni vazifalar roʻyxatidagi oʻrniga qarab tartiblang. Kartalarni rejalashtirilgan yoki faol sprintga biriktiring.",

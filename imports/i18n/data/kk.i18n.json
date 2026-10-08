@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Жаңа спринт",
   "scrum-releases": "Шығарылымдар мен инкременттер",
   "scrum-release": "Шығарылым",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Есебін көру үшін спринтті таңдаңыз.",
   "scrum-backlog": "Тапсырмалар тізімі",
   "scrum-backlog-help": "Жұмысты тапсырмалар тізіміндегі басымдығы бойынша реттеңіз. Карточкаларды жоспарланған немесе белсенді спринтке тағайындаңыз.",

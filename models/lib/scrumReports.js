@@ -95,4 +95,25 @@ function velocityReports(sprints) {
     .slice().sort((a, b) => new Date(a.closeSnapshot.at) - new Date(b.closeSnapshot.at))
     .map(s => s.report);
 }
-module.exports = { total, reportTotals, sprintReport, velocityRows, velocityReports, reportChartGroups, plannedWorkingDays };
+// Each release with the cards in it now (2026-10-08): its scope and the part
+// of it that is done, under the board's completion policy. A card counts in
+// EACH of its releases (models/lib/scrum.js cardReleaseIds - a card has
+// several; the legacy single `releaseId` is one), so the releases' totals may
+// add up to more than the board's cards; a card counts once in a release
+// however its releases were written. Archived cards are not scope. `cards` are
+// the ones the reader may see, so a restricted reader's totals are theirs.
+function releaseReports(releases, cards, settings, lists = []) {
+  const { cardReleaseIds, getCardEstimate, isScrumCardDone } = require('./scrum');
+  const members = new Map((releases || []).map(release => [release._id, []]));
+  for (const card of cards || []) {
+    if (card.archived) continue;
+    const row = { estimate: getCardEstimate(card, settings), done: isScrumCardDone(card, settings, lists) };
+    for (const id of cardReleaseIds(card.scrum)) if (members.has(id)) members.get(id).push(row);
+  }
+  return (releases || []).map(release => {
+    const rows = members.get(release._id);
+    return { releaseId: release._id, name: release.name, state: release.state,
+      scope: total(rows), done: total(rows.filter(row => row.done)) };
+  });
+}
+module.exports = { releaseReports, total, reportTotals, sprintReport, velocityRows, velocityReports, reportChartGroups, plannedWorkingDays };

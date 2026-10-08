@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Ny sprint",
   "scrum-releases": "Utgåvor och inkrement",
   "scrum-release": "Utgåva",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Välj en sprint för att visa dess rapport.",
   "scrum-backlog": "Backlogg",
   "scrum-backlog-help": "Ordna arbetet efter plats i backloggen. Tilldela kort till en planerad eller aktiv sprint.",

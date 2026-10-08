@@ -45,6 +45,11 @@ async function collect(boardId, fields, format) {
   const timeFields = format === 'jira' && want('custom-fields')
     ? await ReactiveCache.getCustomFields({ boardIds: boardId, type: 'number' }) : [];
   const estimateMapping = format === 'jira' ? jiraEstimateExportMapping(timeFields, wanted) : null;
+  // Each card's releases become its fix versions (jiraScrumMetadata.js).
+  const releases = format === 'jira' && want('scrum')
+    ? new Map((await require('/models/scrumReleases').default.find({ boardId }, { fields: { _id: 1, boardId: 1, name: 1,
+      state: 1, plannedEnd: 1, releasedAt: 1, notes: 1, provenance: 1 } }).fetchAsync()).map(release => [release._id, release]))
+    : null;
 
   // The rest of a card, read once per board and only when selected. Custom
   // fields reach this export only after server/lib/adminOnlyCustomFields
@@ -82,7 +87,7 @@ async function collect(boardId, fields, format) {
     return {
       ...(format === 'jira' ? { jiraEstimate: jiraEstimateExportValue(c, estimateMapping) } : {}),
       ...(format === 'jira' ? { timetracking: jiraTimeTrackingExport(c, timeFields, wanted) } : {}),
-      ...(format === 'jira' ? { jiraScrum: jiraScrumMetadataExport(c, listRecords.get(c.listId), wanted) } : {}),
+      ...(format === 'jira' ? { jiraScrum: jiraScrumMetadataExport(c, listRecords.get(c.listId), wanted, releases) } : {}),
       cardId: c._id,
       listId: c.listId,
       title: c.title,

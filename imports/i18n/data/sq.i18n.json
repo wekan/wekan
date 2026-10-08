@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Sprint i ri",
   "scrum-releases": "Publikimet dhe shtesat",
   "scrum-release": "Publikimi",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Zgjidh një sprint për të parë raportin e tij.",
   "scrum-backlog": "Lista e punëve",
   "scrum-backlog-help": "Rendit punën sipas renditjes në listën e punëve. Cakto kartat në një sprint të planifikuar ose aktiv.",

@@ -29,7 +29,8 @@ import { ROLLOVER_PENDING, hasRolloverPending, storeRolloverPlan, nextRolloverCh
 const { replaySprintScope, changesOf: scopeChangesOf, MAX_SCOPE_REPLAY_ROWS } = require('/models/lib/scrumScopeReplay');
 import ChangeHistory from '/models/changeHistory';
 const { DEFAULT_SCRUM_SETTINGS, normalizeScrumSettings, normalizeScrumMetadata,
-  normalizeScrumRecord, sprintSnapshot, scrumRevisionSelector, validateScrumRevision } = require('/models/lib/scrum');
+  normalizeScrumRecord, sprintSnapshot, scrumRevisionSelector, validateScrumRevision,
+  cardReleaseIds, applyCardReleaseChange } = require('/models/lib/scrum');
 
 const { loadScrumSnapshotInputs } = require('./lib/scrumSnapshotInputs');
 const { assertScrumLifecycleSize } = require('./lib/scrumLifecycleSize');
@@ -76,8 +77,12 @@ async function boardFor(userId, boardId, admin = false) {
   return board;
 }
 async function references(boardId, metadata) {
-  for (const [field, collection] of [['sprintId', ScrumSprints], ['releaseId', ScrumReleases]]) {
-    if (metadata[field] && !(await collection.findOneAsync({ _id: metadata[field], boardId }))) invalid('Reference does not belong to this board');
+  if (metadata.sprintId && !(await ScrumSprints.findOneAsync({ _id: metadata.sprintId, boardId }))) invalid('Reference does not belong to this board');
+  // Every release of a card (several since 2026-10-08), or a swimlane's one,
+  // must be this board's: one read for all of them.
+  const releaseIds = cardReleaseIds(metadata);
+  if (releaseIds.length && await ScrumReleases.find({ _id: { $in: releaseIds }, boardId }, { fields: { _id: 1 } }).countAsync() !== releaseIds.length) {
+    invalid('Reference does not belong to this board');
   }
   for (const sprintId of metadata.pastSprintIds || []) {
     if (!(await ScrumSprints.findOneAsync({ _id: sprintId, boardId }))) invalid('Historical sprint does not belong to this board');
@@ -222,7 +227,9 @@ async function updateMetadata(userId, kind, boardId, recordId, metadata, expecte
   if (!userId || !allowed) throw new Meteor.Error('not-authorized');
   expect(before, expectedRevision, 'scrumRevision');
   const clean = validate(() => normalizeScrumMetadata(kind, metadata));
-  const scrum = { ...(before.scrum || {}), ...clean };
+  // A card's releases: the list, its legacy first entry, both kept in step
+  // (models/lib/scrum.js applyCardReleaseChange).
+  const scrum = kind === 'card' ? validate(() => applyCardReleaseChange(before.scrum || {}, clean)) : { ...(before.scrum || {}), ...clean };
   await references(boardId, scrum);
   if (kind === 'card') {
     // Historical membership is lifecycle evidence, never editable by a metadata form.

@@ -11,8 +11,8 @@ import { TAPi18n } from '/imports/i18n';
 import { Utils } from '/client/lib/utils';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { ReactiveCache } from '/imports/reactiveCache';
-const { DEFAULT_SCRUM_SETTINGS, getCardEstimate } = require('/models/lib/scrum');
-const { velocityReports, reportChartGroups } = require('/models/lib/scrumReports');
+const { DEFAULT_SCRUM_SETTINGS, getCardEstimate, cardReleaseIds } = require('/models/lib/scrum');
+const { velocityReports, reportChartGroups, releaseReports } = require('/models/lib/scrumReports');
 const { compareScrumCards } = require('/models/lib/scrumCardOrder');
 const current = () => Template.instance();
 const data = () => current().dataState.get();
@@ -162,7 +162,17 @@ Template.scrumView.helpers({
   sprintOpen: () => ['planned', 'active'].includes(selectedSprint(current())?.state),
   sprintStart: () => dateValue(selectedSprint(current())?.plannedStart),
   sprintEnd: () => dateValue(selectedSprint(current())?.plannedEnd),
-  releases: () => (data()?.releases || []).map(r => ({ ...r, stateLabel: stateLabel(r.state), startLabel: dateValue(r.plannedStart), endLabel: dateValue(r.plannedEnd), releasedLabel: r.releasedAt ? new Date(r.releasedAt).toLocaleString() : '' })),
+  // Each release with the cards in it: a card with several releases counts in
+  // each (models/lib/scrumReports.js releaseReports), only the cards this
+  // reader may see.
+  releases() {
+    const result = data(); if (!result) return [];
+    const totals = new Map(releaseReports(result.releases, result.cards, { ...DEFAULT_SCRUM_SETTINGS, ...result.settings }, result.lists)
+      .map(report => [report.releaseId, report]));
+    const label = value => t('scrum-total', { count: value.count, estimate: value.estimate, unknown: value.unknown });
+    return result.releases.map(r => ({ ...r, stateLabel: stateLabel(r.state), startLabel: dateValue(r.plannedStart), endLabel: dateValue(r.plannedEnd), releasedLabel: r.releasedAt ? new Date(r.releasedAt).toLocaleString() : '',
+      scopeLabel: label(totals.get(r._id).scope), doneLabel: label(totals.get(r._id).done) }));
+  },
   selectedRelease: () => selectedRelease(current()),
   releaseOptions: () => (data()?.releases || []).map(r => ({ ...r, selected: r._id === current().releaseId.get() })),
   releaseStates: () => ['planned', 'released', 'cancelled'].map(value => ({ value, label: t(`scrum-state-${value}`), selected: value === (selectedRelease(current())?.state || 'planned') })),
@@ -192,8 +202,8 @@ Template.scrumView.helpers({
           rankLabel: card.scrum?.backlogRank ?? '—',
           rankValue: card.scrum?.backlogRank ?? '',
           sprintName: result.sprints.find(s => s._id === card.scrum?.sprintId)?.name || t('scrum-product-backlog'),
-          releaseName: result.releases.find(release => release._id === card.scrum?.releaseId)?.name || '—',
-          cardReleaseOptions: result.releases.map(release => ({ ...release, selected: release._id === card.scrum?.releaseId })),
+          releaseName: cardReleaseIds(card.scrum).map(id => result.releases.find(release => release._id === id)?.name).filter(Boolean).join(', ') || '—',
+          cardReleaseOptions: result.releases.map(release => ({ ...release, selected: cardReleaseIds(card.scrum).includes(release._id) })),
           cardUrl: FlowRouter.path('card', { boardId: board._id, slug: board.slug, cardId: card._id }),
           assignmentOptions: result.sprints.filter(s => ['planned', 'active'].includes(s.state)).map(s => ({ ...s, selected: s._id === card.scrum?.sprintId })) };
       });
@@ -274,7 +284,9 @@ Template.scrumView.events({
   async 'submit .js-scrum-card'(event, tpl) {
     event.preventDefault(); const values = fields(event.currentTarget);
     const card = tpl.dataState.get()?.cards.find(c => c._id === event.currentTarget.dataset.cardId);
-    if (card) await mutate(tpl, 'scrum.updateCard', card._id, { sprintId: nullable(values.sprintId), releaseId: nullable(values.releaseId), backlogRank: values.backlogRank === '' ? null : Number(values.backlogRank), issueType: values.issueType, acceptanceCriteria: values.acceptanceCriteria }, card.scrumRevision || 0);
+    // Every chosen release (none clears them), as the list.
+    const releaseIds = new FormData(event.currentTarget).getAll('releaseIds').filter(Boolean);
+    if (card) await mutate(tpl, 'scrum.updateCard', card._id, { sprintId: nullable(values.sprintId), releaseIds, backlogRank: values.backlogRank === '' ? null : Number(values.backlogRank), issueType: values.issueType, acceptanceCriteria: values.acceptanceCriteria }, card.scrumRevision || 0);
   },
   async 'submit .js-scrum-release'(event, tpl) {
     event.preventDefault(); const form = event.currentTarget; const values = fields(form);

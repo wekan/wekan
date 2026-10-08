@@ -71,6 +71,12 @@ the release selector to create a record, or select an existing release to edit
 its name, goal, planned dates, status, release timestamp and notes. Saving an
 existing release updates that record instead of creating another one.
 
+Each release shows the cards in it and the part of them that is done, under
+the board's completion policy, as counts and estimates with unknown estimates
+counted separately. A card in several releases counts in each of them, so the
+releases together can hold more cards than the board; archived cards are not
+counted, and a member who sees only assigned cards sees their totals.
+
 Select a sprint to manage its planning, daily, review and retrospective events.
 Choose Add or an existing event, then set its name, kind, local date and time,
 timebox, notes and follow-up cards. Follow-up choices use cards visible to the
@@ -110,7 +116,9 @@ than importing the source board's History records.
 
 A card or swimlane copied or moved to another board takes that board's sprint
 and release of the same name when exactly one matches (a planned or active
-sprint, a release that is not cancelled), and drops them otherwise; past sprints
+sprint, a release that is not cancelled), and drops them otherwise. A card with
+several releases has each of them linked this way on its own, keeping every
+one the destination board also has; past sprints
 and backlog rank always go. Issue type, acceptance criteria and swimlane purpose
 stay. Lists carry only their
 workflow category, which is not board-specific.

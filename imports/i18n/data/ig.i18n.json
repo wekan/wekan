@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Oge ọrụ dị mkpirikpi ọhụrụ",
   "scrum-releases": "Mwepụta na mgbakwunye ngwaahịa",
   "scrum-release": "Mwepụta",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Họrọ oge ọrụ dị mkpirikpi iji hụ akụkọ ya.",
   "scrum-backlog": "Ndepụta ọrụ fọdụrụ",
   "scrum-backlog-help": "Hazie ọrụ dịka ọkwa ya na ndepụta ọrụ fọdụrụ. Kenye kaadị na oge ọrụ dị mkpirikpi e mere atụmatụ ma ọ bụ nke na-aga nʼihu.",

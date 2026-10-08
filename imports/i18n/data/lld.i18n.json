@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Nuef sprint",
   "scrum-releases": "Publicazions y incremënc",
   "scrum-release": "Publicazion",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Chirì fora n sprint per udëi sia relazion.",
   "scrum-backlog": "Laours da fé",
   "scrum-backlog-help": "Ordené l laour aldò dla posizion tla lista di laours da fé. Assegné les ciartes a n sprint planifié o atif.",

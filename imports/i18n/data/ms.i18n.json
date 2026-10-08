@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Pecutan baharu",
   "scrum-releases": "Keluaran dan pertambahan produk",
   "scrum-release": "Keluaran",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Pilih pecutan untuk melihat laporannya.",
   "scrum-backlog": "Senarai kerja",
   "scrum-backlog-help": "Susun kerja mengikut kedudukan dalam senarai kerja. Tetapkan kad kepada pecutan yang dirancang atau aktif.",

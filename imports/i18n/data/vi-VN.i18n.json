@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Đợt phát triển mới",
   "scrum-releases": "Các bản phát hành và phần tăng trưởng",
   "scrum-release": "Bản phát hành",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Chọn một đợt phát triển để xem báo cáo.",
   "scrum-backlog": "Danh sách công việc tồn đọng",
   "scrum-backlog-help": "Sắp xếp công việc theo thứ hạng tồn đọng. Giao thẻ cho một đợt phát triển đã lên kế hoạch hoặc đang diễn ra.",

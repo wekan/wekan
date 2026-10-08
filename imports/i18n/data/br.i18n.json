@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Sprint nevez",
   "scrum-releases": "Stummoù hag ouzhpennadennoù",
   "scrum-release": "Stumm embannet",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Diuzit ur sprint evit gwelet e zanevell.",
   "scrum-backlog": "Roll labour da ober",
   "scrum-backlog-help": "Urzhiañ al labour hervez e renk er roll labour. Reiñ kartennoù d'ur sprint steuñvet pe oberiant.",

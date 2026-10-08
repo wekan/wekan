@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Nguva pfupi yebasa itsva",
   "scrum-releases": "Zvaburitswa nezvikamu zvakawedzerwa",
   "scrum-release": "Chaburitswa",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Sarudza nguva pfupi yebasa kuti uone mushumo wayo.",
   "scrum-backlog": "Mabasa akamirira kuitwa",
   "scrum-backlog-help": "Ronga mabasa nenhanho yawo murondedzero yeakamirira kuitwa. Isa makadhi munguva pfupi yebasa yakarongwa kana iri kushanda.",

@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Նոր սպրինտ",
   "scrum-releases": "Թողարկումներ և հավելումներ",
   "scrum-release": "Թողարկում",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Ընտրեք սպրինտ՝ դրա հաշվետվությունը դիտելու համար։",
   "scrum-backlog": "Աշխատանքների ցանկ",
   "scrum-backlog-help": "Աշխատանքը դասավորեք ըստ աշխատանքների ցանկում ունեցած հերթականության։ Քարտերը նշանակեք պլանավորված կամ ակտիվ սպրինտի։",

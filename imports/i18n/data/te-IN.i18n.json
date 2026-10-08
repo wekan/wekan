@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "కొత్త స్ప్రింట్",
   "scrum-releases": "విడుదలలు మరియు అదనపు అభివృద్ధులు",
   "scrum-release": "విడుదల",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "నివేదికను చూడటానికి స్ప్రింట్‌ను ఎంచుకోండి.",
   "scrum-backlog": "చేయాల్సిన పనుల జాబితా",
   "scrum-backlog-help": "పనులను జాబితా ప్రాధాన్య క్రమంలో అమర్చండి. కార్డులను ప్రణాళికలో ఉన్న లేదా కొనసాగుతున్న స్ప్రింట్‌కు కేటాయించండి.",

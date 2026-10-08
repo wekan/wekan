@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Nije wurkperioade",
   "scrum-releases": "Utjeften en produktútwreidingen",
   "scrum-release": "Utjefte",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Selektearje in wurkperioade om it rapport te besjen.",
   "scrum-backlog": "Wurklist",
   "scrum-backlog-help": "Oarderje it wurk neffens de rang yn de wurklist. Wiis kaarten ta oan in plande of aktive wurkperioade.",

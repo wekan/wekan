@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "नव स्प्रिंट",
   "scrum-releases": "रिलीज आ इन्क्रीमेंट सभ",
   "scrum-release": "रिलीज",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "रिपोर्ट देखबाक लेल एकटा स्प्रिंट चुनू।",
   "scrum-backlog": "लंबित काजक सूची",
   "scrum-backlog-help": "लंबित काजक क्रम अनुसार काज सजाउ। कार्ड सभ केँ नियोजित वा सक्रिय स्प्रिंटमे सौंपू।",

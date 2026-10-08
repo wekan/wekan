@@ -1040,7 +1040,7 @@ Cards.after.update(async function(userId, doc, fieldNames) {
   if (!fieldNames.includes('boardId') || fieldNames.includes('scrumRevision')) return;
   const oldBoardId = (this.previous || {}).boardId;
   if (!oldBoardId || oldBoardId === doc.boardId) return;
-  const planning = doc.scrum && (doc.scrum.sprintId || doc.scrum.releaseId)
+  const planning = doc.scrum && (doc.scrum.sprintId || require('/models/lib/scrum').cardReleaseIds(doc.scrum).length)
     ? await scrumPlanningPair(oldBoardId, doc.boardId) : null;
   const moved = movedScrumMetadata({ ...doc, boardId: oldBoardId }, doc.boardId, planning);
   if (!moved.scrum) return;

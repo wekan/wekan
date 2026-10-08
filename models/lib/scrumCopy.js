@@ -15,7 +15,14 @@
 // `planning` names both boards' records: { from: { sprints, releases },
 // to: { sprints, releases } }, each a list of { _id, name, state }. Without it
 // (no planning loaded, or a board without Scrum) the references are dropped.
-const BOARD_SCOPED = ['sprintId', 'pastSprintIds', 'releaseId', 'backlogRank'];
+//
+// A card has several releases since 2026-10-08 (models/lib/scrum.js
+// cardReleaseIds): EACH is linked by name on its own, and the ones without a
+// single match are dropped, so a card keeps every release the destination
+// also has. One stored the old way, `releaseId` alone, stays that way; one
+// with the list keeps the list and its first entry in step.
+const { cardReleaseIds, withCardReleaseIds } = require('./scrum');
+const BOARD_SCOPED = ['sprintId', 'pastSprintIds', 'releaseId', 'releaseIds', 'backlogRank'];
 const OPEN_SPRINT = ['planned', 'active'];
 
 function counterpart(sourceId, from = [], to = [], usable) {
@@ -32,10 +39,11 @@ function boardScrum(scrum, planning) {
   if (!planning) return result;
   const sprintId = scrum.sprintId && counterpart(scrum.sprintId, planning.from?.sprints, planning.to?.sprints,
     record => OPEN_SPRINT.includes(record.state));
-  const releaseId = scrum.releaseId && counterpart(scrum.releaseId, planning.from?.releases, planning.to?.releases,
-    record => record.state !== 'cancelled');
+  const releaseIds = [...new Set(cardReleaseIds(scrum).map(id => counterpart(id, planning.from?.releases, planning.to?.releases,
+    record => record.state !== 'cancelled')).filter(Boolean))];
   if (sprintId) result.sprintId = sprintId;
-  if (releaseId) result.releaseId = releaseId;
+  if (Array.isArray(scrum.releaseIds)) return withCardReleaseIds(result, releaseIds);
+  if (releaseIds.length) result.releaseId = releaseIds[0];
   return result;
 }
 
@@ -43,6 +51,7 @@ function copiedScrumMetadata(card, destinationBoardId, { omit = false, planning 
   if (omit || !card.scrum) return {};
   let scrum = { ...card.scrum };
   if (Array.isArray(scrum.pastSprintIds)) scrum.pastSprintIds = [...scrum.pastSprintIds];
+  if (Array.isArray(scrum.releaseIds)) scrum.releaseIds = [...scrum.releaseIds];
   if (card.boardId !== destinationBoardId) scrum = boardScrum(card.scrum, planning);
   return { scrum, scrumRevision: 1 };
 }

@@ -11,6 +11,7 @@ import { ScrumImportPending } from './scrumImportJournal';
 import { withSnapshotRows, withDailyRows } from './scrumSnapshotStore';
 import { hasRolloverPending } from './scrumRolloverStore';
 const { normalizeScrumTransfer, SCRUM_TRANSFER_FORMAT } = require('/models/lib/scrumTransfer');
+const { cardReleaseIds, portableCardReleases } = require('/models/lib/scrum');
 
 // Call only after the existing export route has authorized the board and scope.
 // Never export private recovery checkpoints or destination revision counters.
@@ -37,7 +38,8 @@ export async function exportScrumTransfer(boardId, cardIds, listIds, swimlaneIds
   for (const row of [...cards, ...swimlanes]) {
     if (row.scrum.sprintId) sprintIds.add(row.scrum.sprintId);
     for (const id of row.scrum.pastSprintIds || []) sprintIds.add(id);
-    if (row.scrum.releaseId) releaseIds.add(row.scrum.releaseId);
+    // A card's releases, all of them (models/lib/scrum.js cardReleaseIds).
+    for (const id of cardReleaseIds(row.scrum)) releaseIds.add(id);
   }
   // Rollover destinations remain structural references, even in a scoped file.
   let changed = true;
@@ -55,7 +57,10 @@ export async function exportScrumTransfer(boardId, cardIds, listIds, swimlaneIds
     return data;
   };
   const metadata = rows => rows.map(row => ({ _id: row._id, scrum: row.scrum }));
-  const transfer = { format: SCRUM_TRANSFER_FORMAT, settings: board.scrum || {}, cards: metadata(cards), lists: metadata(lists), swimlanes: metadata(swimlanes),
+  // One release as `releaseId` alone, as before, so an older importer still
+  // reads the file; only a card with several carries `releaseIds`.
+  const transfer = { format: SCRUM_TRANSFER_FORMAT, settings: board.scrum || {},
+    cards: cards.map(row => ({ _id: row._id, scrum: portableCardReleases(row.scrum) })), lists: metadata(lists), swimlanes: metadata(swimlanes),
     sprints: sprints.filter(s => !scoped || sprintIds.has(s._id)).map(clean),
     releases: releases.filter(r => !scoped || releaseIds.has(r._id)).map(clean),
     events: events.filter(e => !scoped || sprintIds.has(e.sprintId)).map(clean) };

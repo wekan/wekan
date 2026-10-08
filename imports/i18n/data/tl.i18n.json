@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Bagong sprint",
   "scrum-releases": "Mga paglabas at dagdag sa produkto",
   "scrum-release": "Paglabas ng produkto",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Pumili ng sprint upang makita ang ulat nito.",
   "scrum-backlog": "Mga nakabinbing gawain",
   "scrum-backlog-help": "Ayusin ang mga gawain ayon sa ranggo sa mga nakabinbing gawain. Italaga ang mga kard sa nakaplano o aktibong sprint.",

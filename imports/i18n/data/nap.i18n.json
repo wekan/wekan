@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Iterazzione nova",
   "scrum-releases": "Versione e incremente",
   "scrum-release": "Versione",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Sceglie n'iterazzione pe vedé 'o rapporto sujo.",
   "scrum-backlog": "Riserva 'e fatica",
   "scrum-backlog-help": "Miette 'a fatica 'n ordine seconno 'a pusizzione dint'a riserva. Assigna carte a n'iterazzione pianificata o attiva.",

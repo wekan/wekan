@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Спринти нав",
   "scrum-releases": "Нашрҳо ва афзоишҳои маҳсулот",
   "scrum-release": "Нашр",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Барои дидани гузориш спринтеро интихоб кунед.",
   "scrum-backlog": "Рӯйхати корҳои интизорӣ",
   "scrum-backlog-help": "Корҳоро аз рӯйи дараҷаи афзалият дар рӯйхати корҳои интизорӣ тартиб диҳед. Кортҳоро ба спринти ба нақша гирифташуда ё фаъол таъин кунед.",

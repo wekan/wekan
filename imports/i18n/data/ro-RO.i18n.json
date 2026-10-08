@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Sprint nou",
   "scrum-releases": "Versiuni publicate și incremente",
   "scrum-release": "Versiune publicată",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Selectați un sprint pentru a-i vedea raportul.",
   "scrum-backlog": "Listă de lucru",
   "scrum-backlog-help": "Ordonați lucrul după poziția în lista de lucru. Atribuiți carduri unui sprint planificat sau activ.",

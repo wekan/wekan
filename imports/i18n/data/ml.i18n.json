@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "പുതിയ സ്പ്രിന്റ്",
   "scrum-releases": "റിലീസുകളും ഇൻക്രിമെന്റുകളും",
   "scrum-release": "റിലീസ്",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "റിപ്പോർട്ട് കാണാൻ ഒരു സ്പ്രിന്റ് തിരഞ്ഞെടുക്കുക.",
   "scrum-backlog": "ശേഷിക്കുന്ന ജോലികൾ",
   "scrum-backlog-help": "ശേഷിക്കുന്ന ജോലികൾ അവയുടെ മുൻഗണനാക്രമത്തിൽ ക്രമീകരിക്കുക. ആസൂത്രണം ചെയ്തതോ സജീവമായതോ ആയ സ്പ്രിന്റിലേക്ക് കാർഡുകൾ നിയോഗിക്കുക.",

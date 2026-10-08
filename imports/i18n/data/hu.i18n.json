@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Új sprint",
   "scrum-releases": "Kiadások és növekmények",
   "scrum-release": "Kiadás",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Válasszon sprintet a jelentése megtekintéséhez.",
   "scrum-backlog": "Feladatlista",
   "scrum-backlog-help": "Rendezze a munkát a feladatlistabeli sorrend szerint. Rendelje a kártyákat egy tervezett vagy aktív sprinthez.",

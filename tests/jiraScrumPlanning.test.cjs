@@ -53,18 +53,22 @@ test('the transfer: open sprints planned, versions as releases, rank order, epic
   assert.deepEqual(t.releases.map(r => [r._id, r.state, r.releasedAt?.toISOString().slice(0, 10) ?? null]),
     [['jira-version-100', 'released', '2026-08-30'], ['jira-version-101', 'planned', null]]);
   const byKey = Object.fromEntries(t.cards.map(c => [c._id, c.scrum]));
+  // Every fix version is one of the card's releases (2026-10-08): the first
+  // as `releaseId` too, so an older reader still sees one.
   assert.deepEqual(byKey['P-2'], { issueType: 'Story', sprintId: 'jira-sprint-9', releaseId: 'jira-version-100',
-    backlogRank: 1 }, 'the open sprint, the first version, and the rank before P-1\'s');
+    releaseIds: ['jira-version-100', 'jira-version-101'], backlogRank: 1 },
+  'the open sprint, every version, and the rank before P-1\'s');
   assert.deepEqual(byKey['P-1'], { issueType: 'Epic', backlogRank: 2 });
   assert.deepEqual(byKey['P-3'], { sprintId: 'jira-sprint-10', releaseId: 'jira-version-101' });
   assert.deepEqual(plan.epicParents, { 'P-2': 'P-1' });
   assert.deepEqual(t.settings, { enabled: true });
   assert.deepEqual(plan.skipFields.sort(), ['customfield_10014', 'customfield_10019', 'customfield_10020']);
-  // Reported, never invented: the closed sprint, the active one's snapshot, the
-  // second version and the epic outside the import.
+  // Reported, never invented: the closed sprint, the active one's snapshot and
+  // the epic outside the import. A second fix version is no loss any more.
   const reasons = plan.losses.map(l => l.reason).join('\n');
   for (const text of ['closed sprint "Sprint 8, the old one" is not imported', 'active sprint "Sprint 9" is imported as planned',
-    'fix version "1.1" is not the card\'s release', 'epic X-9 is not part of this import']) assert.ok(reasons.includes(text), text);
+    'epic X-9 is not part of this import']) assert.ok(reasons.includes(text), text);
+  assert.doesNotMatch(reasons, /fix version|one release/, 'every fix version is kept, none reported');
   // It is a valid native transfer.
   assert.doesNotThrow(() => normalizeScrumTransfer(t));
 });

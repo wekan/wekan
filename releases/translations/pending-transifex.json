@@ -651,6 +651,14 @@
     {
       "key": "oauth-providers-allowed-email-domains",
       "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-release-scope",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-releases-select-help",
+      "since": "2026-10-08"
     }
   ]
 }

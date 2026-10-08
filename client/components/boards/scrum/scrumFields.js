@@ -5,12 +5,15 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { Session } from 'meteor/session';
 import { Tracker } from 'meteor/tracker';
 import { ReactiveCache } from '/imports/reactiveCache';
+const { cardReleaseIds } = require('/models/lib/scrum');
+// A card's Release is a list (`releaseIds`, models/lib/scrum.js
+// cardReleaseIds - its legacy `releaseId` read too); a swimlane keeps one.
 const definitions = {
-  card: [['Sprint', 'sprintId', 'scrum-sprint'], ['PastSprints', 'pastSprintIds', 'scrum-past-sprints'], ['Release', 'releaseId', 'scrum-release'], ['IssueType', 'issueType', 'scrum-issue-type'], ['AcceptanceCriteria', 'acceptanceCriteria', 'scrum-acceptance-criteria'], ['BacklogRank', 'backlogRank', 'scrum-backlog-rank']],
+  card: [['Sprint', 'sprintId', 'scrum-sprint'], ['PastSprints', 'pastSprintIds', 'scrum-past-sprints'], ['Release', 'releaseIds', 'scrum-release'], ['IssueType', 'issueType', 'scrum-issue-type'], ['AcceptanceCriteria', 'acceptanceCriteria', 'scrum-acceptance-criteria'], ['BacklogRank', 'backlogRank', 'scrum-backlog-rank']],
   // The issue type is not a Scrum minicard field any more: the minicard shows
   // it as a badge with an icon (models/lib/issueTypeIcon.js), turned on and off
   // by its own Board Settings / Card row.
-  minicard: [['Sprint', 'sprintId', 'scrum-sprint'], ['PastSprints', 'pastSprintIds', 'scrum-past-sprints'], ['Release', 'releaseId', 'scrum-release'], ['AcceptanceCriteria', 'acceptanceCriteria', 'scrum-acceptance-criteria'], ['BacklogRank', 'backlogRank', 'scrum-backlog-rank']],
+  minicard: [['Sprint', 'sprintId', 'scrum-sprint'], ['PastSprints', 'pastSprintIds', 'scrum-past-sprints'], ['Release', 'releaseIds', 'scrum-release'], ['AcceptanceCriteria', 'acceptanceCriteria', 'scrum-acceptance-criteria'], ['BacklogRank', 'backlogRank', 'scrum-backlog-rank']],
   list: [['Category', 'category', 'scrum-list-category']],
   swimlane: [['Sprint', 'sprintId', 'scrum-sprint'], ['Release', 'releaseId', 'scrum-release'], ['Purpose', 'purpose', 'scrum-swimlane-purpose']],
 };
@@ -84,9 +87,15 @@ function safeNames(context) {
 function fieldRows(context, editing = false) {
   const state = safeNames(context); const metadata = context.record?.scrum || {};
   return visibleFields(context).filter(([, field]) => !editing || field !== 'pastSprintIds').map(([, field, label]) => {
-    const raw = metadata[field]; let value = raw ?? '';
-    let options;
-    if (['sprintId', 'releaseId', 'pastSprintIds'].includes(field)) {
+    const raw = field === 'releaseIds' ? cardReleaseIds(metadata) : metadata[field]; let value = raw ?? '';
+    let options; let multiple = false;
+    if (field === 'releaseIds') {
+      // Several releases: a multiple select, every release of the board.
+      const records = state?.releases;
+      value = raw.map(id => records?.find(row => row._id === id)?.name || '').filter(Boolean).join(', ');
+      options = (records || []).map(row => ({ value: row._id, label: row.name, selected: raw.includes(row._id) }));
+      multiple = true;
+    } else if (['sprintId', 'releaseId', 'pastSprintIds'].includes(field)) {
       const records = field === 'releaseId' ? state?.releases : state?.sprints;
       value = field === 'pastSprintIds' ? (raw || []).map(id => records?.find(row => row._id === id)?.name || '').filter(Boolean).join(', ') : records?.find(row => row._id === raw)?.name || '';
       options = [{ value: '', label: '—', selected: !raw }, ...(records || []).filter(row => field === 'releaseId' || ['planned', 'active'].includes(row.state) || row._id === raw).map(row => ({ value: row._id, label: row.name, selected: row._id === raw }))];
@@ -94,7 +103,7 @@ function fieldRows(context, editing = false) {
       value = raw ? t(`scrum-category-${raw}`) : '';
       options = ['backlog', 'todo', 'doing', 'done'].map(category => ({ value: category, label: t(`scrum-category-${category}`), selected: raw === category }));
     }
-    return { field, label: t(label), value, options, number: field === 'backlogRank' };
+    return { field, label: t(label), value, options, multiple, number: field === 'backlogRank' };
   });
 }
 Template.scrumMetadata.helpers({
@@ -112,8 +121,12 @@ Template.scrumMetadata.events({
   async 'submit .js-scrum-metadata'(event, tpl) {
     event.preventDefault(); event.stopPropagation();
     const context = Template.currentData(); const record = context.record;
-    const metadata = Object.fromEntries(new FormData(event.currentTarget));
+    const form = new FormData(event.currentTarget);
+    const metadata = Object.fromEntries(form);
     for (const key of ['sprintId', 'releaseId']) if (key in metadata) metadata[key] = metadata[key] || null;
+    // A multiple select sends one entry per chosen release, none when it is
+    // cleared: read them all, by the select being there rather than by a value.
+    if (event.currentTarget.querySelector('select[name="releaseIds"]')) metadata.releaseIds = form.getAll('releaseIds').filter(Boolean);
     if ('backlogRank' in metadata) metadata.backlogRank = metadata.backlogRank === '' ? null : Number(metadata.backlogRank);
     const method = { card: 'Card', list: 'List', swimlane: 'Swimlane' }[context.kind];
     if (!method || tpl.busy.get()) return;

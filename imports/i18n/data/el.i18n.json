@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Νέος κύκλος ανάπτυξης",
   "scrum-releases": "Εκδόσεις και προσαυξήσεις προϊόντος",
   "scrum-release": "Έκδοση",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Επιλέξτε έναν κύκλο ανάπτυξης για να δείτε την αναφορά του.",
   "scrum-backlog": "Εκκρεμότητες",
   "scrum-backlog-help": "Ταξινομήστε τις εργασίες βάσει της κατάταξης εκκρεμοτήτων. Αναθέστε κάρτες σε προγραμματισμένο ή ενεργό κύκλο ανάπτυξης.",

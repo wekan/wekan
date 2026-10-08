@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Iteración nueva",
   "scrum-releases": "Llanzamientos ya incrementos",
   "scrum-release": "Llanzamientu",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Escueyi una iteración pa ver el so informe.",
   "scrum-backlog": "Reserva de trabayu",
   "scrum-backlog-help": "Ordena'l trabayu pola so posición na reserva. Asigna tarxetes a una iteración planificada o activa.",

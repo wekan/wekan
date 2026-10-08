@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "ಹೊಸ ಸ್ಪ್ರಿಂಟ್",
   "scrum-releases": "ಬಿಡುಗಡೆಗಳು ಮತ್ತು ಉತ್ಪನ್ನದ ಸೇರ್ಪಡೆಗಳು",
   "scrum-release": "ಬಿಡುಗಡೆ",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "ವರದಿ ನೋಡಲು ಸ್ಪ್ರಿಂಟ್ ಆಯ್ಕೆಮಾಡಿ.",
   "scrum-backlog": "ಬಾಕಿ ಕೆಲಸಗಳು",
   "scrum-backlog-help": "ಬಾಕಿ ಕೆಲಸದ ಆದ್ಯತೆಯಂತೆ ಕೆಲಸಗಳನ್ನು ಜೋಡಿಸಿ. ಯೋಜಿತ ಅಥವಾ ಸಕ್ರಿಯ ಸ್ಪ್ರಿಂಟ್‌ಗೆ ಕಾರ್ಡ್‌ಗಳನ್ನು ನಿಯೋಜಿಸಿ.",

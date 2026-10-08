@@ -1,4 +1,5 @@
 'use strict';
+const { cardReleaseIds } = require('../../models/lib/scrum');
 const fields = [
   ['Sprint', 'sprintId', 'Scrum sprint'], ['PastSprints', 'pastSprintIds', 'Past Scrum sprints'],
   ['Release', 'releaseId', 'Scrum release'], ['IssueType', 'issueType', 'Scrum issue type'],
@@ -11,7 +12,10 @@ async function appendRuleCardScrum({ card, board, readRecord, add }) {
     if (!visibility[index]) continue;
     const [, field, label] = fields[index], value = card.scrum?.[field];
     if (!['sprintId', 'pastSprintIds', 'releaseId'].includes(field)) { add(label, value); continue; }
-    const ids = field === 'pastSprintIds' ? (Array.isArray(value) ? value : []) : [value];
+    // A card's releases are a list (models/lib/scrum.js cardReleaseIds), its
+    // legacy single `releaseId` included.
+    const ids = field === 'pastSprintIds' ? (Array.isArray(value) ? value : [])
+      : field === 'releaseId' ? cardReleaseIds(card.scrum) : [value];
     const names = [], kind = field === 'releaseId' ? 'release' : 'sprint';
     for (const id of [...new Set(ids)]) {
       if (typeof id !== 'string' || !id) continue;

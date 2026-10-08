@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Sprint baru",
   "scrum-releases": "Rilis dan inkremen",
   "scrum-release": "Rilis",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Pilih sprint untuk melihat laporannya.",
   "scrum-backlog": "Daftar pekerjaan",
   "scrum-backlog-help": "Urutkan pekerjaan berdasarkan peringkat dalam daftar pekerjaan. Tetapkan kartu ke sprint yang direncanakan atau aktif.",

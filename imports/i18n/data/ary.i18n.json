@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "سبرينت جديد",
   "scrum-releases": "الإصدارات والزيادات فالمنتوج",
   "scrum-release": "الإصدار",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "ختار سبرينت باش تشوف التقرير ديالو.",
   "scrum-backlog": "الأشغال المنتظرة",
   "scrum-backlog-help": "رتّب الخدمة حسب الرتبة فلائحة الأشغال المنتظرة. عيّن البطاقات لسبرينت مخطّط ليه ولا جاري.",

@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "สปรินต์ใหม่",
   "scrum-releases": "รุ่นเผยแพร่และส่วนเพิ่มของผลิตภัณฑ์",
   "scrum-release": "รุ่นเผยแพร่",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "เลือกสปรินต์เพื่อดูรายงาน",
   "scrum-backlog": "งานค้าง",
   "scrum-backlog-help": "เรียงงานตามลำดับความสำคัญในงานค้าง กำหนดการ์ดให้กับสปรินต์ที่วางแผนไว้หรือกำลังดำเนินอยู่",

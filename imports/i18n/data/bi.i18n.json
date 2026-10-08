@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Niufala sprint",
   "scrum-releases": "Ol rilisim mo ol niufala haf blong prodak",
   "scrum-release": "Rilisim",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Jusum wan sprint blong luk ripot blong hem.",
   "scrum-backlog": "Lis blong wok we i stap wet",
   "scrum-backlog-help": "Putum wok long oda blong lis blong wok we i stap wet. Putum ol kad long wan sprint we oli planem o we i aktif.",

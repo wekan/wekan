@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "नयाँ स्प्रिन्ट",
   "scrum-releases": "प्रकाशनहरू र उत्पादनका थप अंशहरू",
   "scrum-release": "प्रकाशन",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "प्रतिवेदन हेर्न एउटा स्प्रिन्ट छान्नुहोस्।",
   "scrum-backlog": "बाँकी कामहरू",
   "scrum-backlog-help": "बाँकी कामको प्राथमिकताअनुसार काम मिलाउनुहोस्। कार्डहरू योजना गरिएको वा सक्रिय स्प्रिन्टमा तोक्नुहोस्।",

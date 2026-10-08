@@ -35,8 +35,10 @@ open sprints, fix versions, rank and epic links to sprints, releases, backlog
 rank and parents, reporting closed and active sprints' missing snapshots
 (2026-10-02, models/lib/jiraScrumPlanning.js). See the
 [Jira guide](../../../ImportExport/Jira/Jira.md) for mappings, selection controls
-and limitations. External sprint snapshots, multiple release assignments,
-epic relationships remain pending. Explicit numeric Jira estimate-field mapping
+and limitations. Since 2026-10-08 a card can be in several releases, and Jira
+import maps every fix version and Jira export writes them all (see
+[Several releases per card](#several-releases-per-card)). External sprint
+snapshots and epic relationships remain pending. Explicit numeric Jira estimate-field mapping
 is implemented; automatic field/schema discovery remains pending.
 
 ## Existing features to reuse
@@ -97,7 +99,8 @@ estimation fields rather than parallel copies of the same information.
   start/completion dates, state (`planned`, `active`, `closed`, `cancelled`),
   cancellation reason, optional capacity with units, provenance and revision.
 - Cards: current sprint reference, historical sprint references, independent
-  backlog rank, optional release/increment reference and source issue type.
+  backlog rank, optional release/increment references (several; see
+  [Several releases per card](#several-releases-per-card)) and source issue type.
   Use existing estimates and parent relationships; imported points map to the
   configured numeric field rather than a competing second estimate.
 - Swimlanes: optional sprint/release association and purpose. A sprint may span
@@ -252,6 +255,62 @@ are supported; single accountabilities and the developer list can be cleared.
 Saving uses the existing administrator-only configuration method, revision
 checks and History undo/redo. Four new label keys are present in all locale
 catalogs with English placeholders where translations are not yet supplied.
+
+## Several releases per card
+
+Implemented 2026-10-08. A card used to have one release, `scrum.releaseId`. It
+now has a list, `scrum.releaseIds`; a swimlane keeps its one `releaseId`.
+
+**Storage and compatibility - read-time, not a bulk migration.** Existing cards
+are not rewritten. Every reader goes through one helper,
+`cardReleaseIds(scrum)` in `models/lib/scrum.js`, which reads both fields the
+same way everywhere: `releaseIds` when it is an array, plus `releaseId` when it
+is set and not already in the list, read first (it is what an older writer that
+knew only that field last set). Duplicates collapse. Every write from the new
+code stores the list AND `releaseId` as its first entry (`withCardReleaseIds`),
+so a downgraded server, an older importer or a REST reader still sees a release
+it knows. A legacy card is brought to that form by its next Scrum write, once;
+reading or writing it back again changes nothing, so mixed data - some cards
+with `releaseId` alone, some with both - is safe at any time. A bulk migration
+was rejected because it would rewrite and re-revision every Scrum card on every
+board for no reader's benefit, and an interrupted one would leave exactly the
+mixed state the read rule already handles.
+
+**Writes (`scrum.updateCard`).** `releaseIds` replaces the list; a `releaseId`
+sent with it must be its first entry (or null with an empty list), otherwise
+the write is refused. `releaseId` alone is an older caller's single release:
+null clears the releases, an id becomes the first release and the others stay,
+because the release such a caller showed was the first one and it cannot see
+the rest. Every release must be the board's own: one query checks them all, and
+a release of another board - even of the same name - is refused. At most 100
+releases per card.
+
+**Copy, move and transfer.** Copies and moves to another board link each
+release by name on its own (`models/lib/scrumCopy.js`) and drop the ones
+without exactly one match. The native transfer writes a card with one release
+as `releaseId` alone, exactly as before, and only a card with several carries
+`releaseIds` (`portableCardReleases`): an older importer still reads ordinary
+files and refuses a several-release card loudly as an unknown field, rather
+than keeping one release silently. Import remaps every release; a release that
+is not in the file is refused as a foreign reference.
+
+**Jira.** Import maps every fix version of an issue to one of the card's
+releases (it used to keep the first and report the rest). Jira export writes
+each of the card's releases as a fix version - its Jira id when it came from
+Jira, released state, planned end as the release date and notes as the
+description - when Scrum is selected; the importer reads them back.
+
+**Reports, History, rules.** Each release in Board View / Sprints shows its
+cards and the done part (`releaseReports` in `models/lib/scrumReports.js`); a
+card counts in each of its releases. Scrum History records the whole card
+metadata, so undo and redo restore the list; its restore checks every release
+against the board, and undoing a release's creation is refused while any card
+still lists it. Rule e-mail card details name every release.
+
+**Not covered.** There are no Scrum release filters or search operators, and
+Sync does not map sprints or releases (see below), so neither needed a change.
+The REST API returns the card's `scrum` object as stored, with both fields;
+Scrum metadata is written only through the `scrum.updateCard` method.
 
 ## Import, export, copy and synchronization
 

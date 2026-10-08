@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "ینگی سپرینت",
   "scrum-releases": "رېلیز‌لر و محصول قۉشیمچه‌لری",
   "scrum-release": "رېلیز",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "حساباتینی کۉریش اوچون سپرینتنی تنلنگ.",
   "scrum-backlog": "وظیفه‌لر رۉیختی",
   "scrum-backlog-help": "ایش‌لرنی وظیفه‌لر رۉیختیدگی اۉرنیگه قرب ترتیب‌لنگ. کارت‌لرنی رېجه‌لشتریلگن یاکی فعال سپرینتگه بیریکتیرینگ.",

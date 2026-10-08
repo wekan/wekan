@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Nowi sprint",
   "scrum-releases": "Wëdania i przërostë",
   "scrum-release": "Wëdanié",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Wëbierzë sprint, żebë òbezdrzec jegò rapòrt.",
   "scrum-backlog": "Lësta robòtë do zrobieniô",
   "scrum-backlog-help": "Ùłożë robòtã wedle placu na lësce robòtë. Przëpiszë kôrtë do zaplanowónégò abò aktiwnégò sprintu.",

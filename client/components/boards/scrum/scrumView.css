@@ -58,3 +58,8 @@
   background: #3cb500;
   transition: width 0.3s ease;
 }
+
+/* A card's releases: a multiple select (several releases per card). Some
+   global form rules give selects one row's height; show a few rows. */
+.scrum-view select[multiple], .scrum-metadata select[multiple] { min-height: 5.5em; height: auto; }
+.scrum-multiple-help { display: block; opacity: .8; max-width: 32em; }

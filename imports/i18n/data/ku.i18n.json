@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Sprinta nû",
   "scrum-releases": "Weşan û zêdekirinên hilberê",
   "scrum-release": "Weşan",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Ji bo dîtina rapora wê sprintekê hilbijêre.",
   "scrum-backlog": "Lîsteya karên li bendê",
   "scrum-backlog-help": "Karê li gorî rêza lîsteya karên li bendê rêz bike. Kartan ji sprinteke plankirî an çalak re diyar bike.",

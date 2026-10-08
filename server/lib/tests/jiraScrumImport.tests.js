@@ -32,7 +32,8 @@ describe('Jira import of Scrum planning data', function () {
           customfield_10020: [{ id: 8, name: 'Sprint 8', state: 'closed' },
             { id: 9, name: 'Sprint 9', state: 'active', goal: 'Pumps', startDate: '2026-08-15T09:00:00.000Z',
               endDate: '2026-08-28T17:00:00.000Z' }],
-          fixVersions: [{ id: '100', name: '1.0', released: true, releaseDate: '2026-08-30' }] } },
+          fixVersions: [{ id: '100', name: '1.0', released: true, releaseDate: '2026-08-30' },
+            { id: '101', name: '1.1', released: false }] } },
       ],
     };
     let boardId;
@@ -43,13 +44,16 @@ describe('Jira import of Scrum planning data', function () {
       assert.deepEqual(sprints.map(s => [s.name, s.state, s.goal, s.provenance.system, s.provenance.recordId]),
         [['Sprint 9', 'planned', 'Pumps', 'jira', '9']], 'the active sprint, planned; the closed one not invented');
       assert.equal(sprints[0].scrumImportPending, undefined, 'the import finished');
-      const releases = await ScrumReleases.rawCollection().find({ boardId }).toArray();
-      assert.deepEqual(releases.map(r => [r.name, r.state]), [['1.0', 'released']]);
+      const releases = (await ScrumReleases.rawCollection().find({ boardId }).toArray())
+        .sort((a, b) => a.name.localeCompare(b.name));
+      assert.deepEqual(releases.map(r => [r.name, r.state]), [['1.0', 'released'], ['1.1', 'planned']]);
       const cards = await Cards.rawCollection().find({ boardId }).toArray();
       const byTitle = Object.fromEntries(cards.map(c => [c.title, c]));
       const story = byTitle['[P-2] Story'], epic = byTitle['[P-1] Epic'];
       assert.deepEqual([story.scrum.sprintId, story.scrum.releaseId, story.scrum.backlogRank, story.scrum.issueType],
         [sprints[0]._id, releases[0]._id, 1, 'Story']);
+      // Every fix version is one of its releases, remapped to this board's ids.
+      assert.deepEqual(story.scrum.releaseIds, [releases[0]._id, releases[1]._id]);
       assert.equal(epic.scrum.backlogRank, 2);
       assert.equal(story.parentId, epic._id, 'the Epic Link is the parent');
       // The planning fields are not also imported as text custom fields.

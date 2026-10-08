@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Nouvo sprint",
   "scrum-releases": "Vèsyon ak amelyorasyon pwodwi a",
   "scrum-release": "Vèsyon",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Chwazi yon sprint pou wè rapò li.",
   "scrum-backlog": "Travay ki annatant",
   "scrum-backlog-help": "Mete travay yo nan lòd selon ran yo nan lis travay ki annatant lan. Asiyen kat yo nan yon sprint planifye oswa aktif.",

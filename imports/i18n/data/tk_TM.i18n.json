@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Täze sprint",
   "scrum-releases": "Neşirler we önüm artdyrymlary",
   "scrum-release": "Neşir",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Hasabatyny görmek üçin sprint saýla.",
   "scrum-backlog": "Garaşýan işler",
   "scrum-backlog-help": "Işleri garaşýan işleriň tertibine görä ýerleşdir. Kartoçkalary meýilleşdirilen ýa-da işjeň sprinte belle.",

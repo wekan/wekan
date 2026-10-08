@@ -2,7 +2,8 @@
 
 // Shared data contract for native transfer, duplication and external adapters.
 // Authorization, ID allocation and database writes belong to the caller.
-const { normalizeScrumSettings, normalizeScrumMetadata, normalizeScrumRecord } = require('./scrum');
+const { normalizeScrumSettings, normalizeScrumMetadata, normalizeScrumRecord, cardReleaseIds,
+  portableCardReleases } = require('./scrum');
 const FORMAT = 'wekan-scrum-2';
 const own = (value, key) => Object.prototype.hasOwnProperty.call(value, key);
 const fail = message => { throw new Error(`Invalid Scrum transfer: ${message}`); };
@@ -119,7 +120,11 @@ function normalizeScrumTransfer(value) {
   for (const [plural, kind] of [['cards','card'],['lists','list'],['swimlanes','swimlane']]) {
     result[plural] = unique(rows(value[plural], Infinity).map(value => {
       object(value, ['_id', 'scrum']);
-      return { _id: id(value._id), scrum: normalizeScrumMetadata(kind, value.scrum) };
+      // A card's releases in the file's own form: one as `releaseId` alone,
+      // several as both fields in step (models/lib/scrum.js portableCardReleases),
+      // duplicates collapsed - whatever form the writer used.
+      const scrum = normalizeScrumMetadata(kind, value.scrum);
+      return { _id: id(value._id), scrum: kind === 'card' ? portableCardReleases(scrum) : scrum };
     }));
   }
   const sprintIds = new Set(result.sprints.map(row => row._id));
@@ -147,7 +152,8 @@ function normalizeScrumTransfer(value) {
   const releaseIds = new Set(result.releases.map(row => row._id));
   function present(ids, value) { if (value != null && !ids.has(value)) fail(`foreign planning reference ${value}`); }
   for (const row of [...result.events, ...result.cards.map(row => row.scrum), ...result.swimlanes.map(row => row.scrum)]) {
-    present(sprintIds, row.sprintId); present(releaseIds, row.releaseId);
+    present(sprintIds, row.sprintId);
+    for (const releaseId of cardReleaseIds(row)) present(releaseIds, releaseId);
     for (const sprintId of row.pastSprintIds || []) present(sprintIds, sprintId);
   }
   const next = new Map(result.sprints.map(row => [row._id, row.rolloverSprintId]));
@@ -182,6 +188,8 @@ function remapScrumTransfer(value, maps) {
     for (const [field, kind] of [['sprintId','sprints'],['releaseId','releases']]) {
       if (own(meta, field)) meta[field] = ref(kind, meta[field], `${path}.${field}`);
     }
+    // Each of a card's releases (2026-10-08). The first is `releaseId` above.
+    if (meta.releaseIds) meta.releaseIds = meta.releaseIds.map(sourceId => ref('releases', sourceId, `${path}.releaseIds`));
     if (meta.pastSprintIds) meta.pastSprintIds = meta.pastSprintIds.map(sourceId => ref('sprints', sourceId, `${path}.pastSprintIds`));
   }
   function remapSnapshot(snap, path) {

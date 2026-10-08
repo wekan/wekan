@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "புதிய ஸ்பிரிண்ட்",
   "scrum-releases": "வெளியீடுகள் மற்றும் தயாரிப்பு மேம்பாடுகள்",
   "scrum-release": "வெளியீடு",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "அறிக்கையைப் பார்க்க ஒரு ஸ்பிரிண்டைத் தேர்ந்தெடுக்கவும்.",
   "scrum-backlog": "நிலுவைப் பணிகள்",
   "scrum-backlog-help": "நிலுவைப் பணிகளின் முன்னுரிமைப்படி பணிகளை வரிசைப்படுத்தவும். திட்டமிட்ட அல்லது செயலிலுள்ள ஸ்பிரிண்டுக்கு அட்டைகளை ஒதுக்கவும்.",

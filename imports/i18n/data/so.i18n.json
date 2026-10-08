@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Wareeg shaqo oo cusub",
   "scrum-releases": "Sii-deynaha iyo kordhinnada badeecadda",
   "scrum-release": "Sii-deyn",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Dooro wareeg shaqo si aad u aragto warbixintiisa.",
   "scrum-backlog": "Shaqooyinka sugaya",
   "scrum-backlog-help": "Shaqada u kala hor mari darajada shaqooyinka sugaya. Kaararka u qoondee wareeg shaqo oo qorshaysan ama socda.",

@@ -26,9 +26,11 @@ template(name="scrumMetadata")
               each editors
                 label {{label}}
                   if options
-                    select(name=field)
+                    select(name=field multiple=multiple)
                       each options
                         option(value=value selected=selected) {{label}}
+                    if multiple
+                      small.scrum-multiple-help {{_ 'scrum-releases-select-help'}}
                   else
                     if number
                       input(type="number" name=field value=value min="0" step="any")

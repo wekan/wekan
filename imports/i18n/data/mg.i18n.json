@@ -3650,6 +3650,8 @@
   "scrum-new-sprint": "Tsingerin'asa vaovao",
   "scrum-releases": "Famoahana sy fanampim-bokatra",
   "scrum-release": "Famoahana",
+  "scrum-release-scope": "Cards in this release",
+  "scrum-releases-select-help": "A card can be in several releases. Hold Ctrl (Cmd on a Mac) to choose more than one; clear them all to remove the card from every release.",
   "scrum-select-sprint": "Misafidiana tsingerin'asa hijerena ny tatitra momba azy.",
   "scrum-backlog": "Asa mbola miandry",
   "scrum-backlog-help": "Alaharo araka ny laharan'ny asa miandry ny asa. Tendreo ho ao amin'ny tsingerin'asa voalahatra na mandeha ny karatra.",
