@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Icelandic planning and settings — 2026-10-08
+
+Translate 51 remaining English fill-list entries into Icelandic, covering
+planning, imports, link rules, settings and Scrum recovery. Preserve variables,
+import syntax, environment names and examples. Check first-sync retention,
+nonduplicating imports, conflict recovery and read-only settings. The current
+Icelandic fill list is empty. Other languages and vocabulary review remain;
+no browser or screen-reader session was run.
+
 ## Icelandic interrupted board imports — 2026-10-08
 
 Translate 25 English import recovery messages into Icelandic, preserving source

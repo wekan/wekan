@@ -213,3 +213,26 @@ assert.match(icelandic['interrupted-import-keep-confirm'], /Ekkert er fjarlægt/
 assert.match(icelandic['interrupted-import-foreign-board'], /var því ekki breytt/);
 assert.match(icelandic['interrupted-import-truncated'], /50 elstu/);
 assert.match(icelandic['interrupted-import-scrum-busy'], /Enn er verið að skrifa eða endurheimta/);
+
+const translatedPlanningControls = ["board-announcement", "board-announcement-enabled", "cards-use-list-color", "import-board-instruction-opml", "import-board-instruction-orgmode", "import-board-instruction-todoist", "external-link-rules", "external-link-rules-description", "external-link-identifier-aliases", "read-only-field", "r-moved-forward", "r-moved-back", "r-assignee", "r-add-actinguser-assignee", "r-remove-all-assignees", "ldap-sync-now", "ldap-sync-now-done", "ldap-sync-now-error", "ldap-sync-now-nothing", "oauth-providers-allowed-email-domains", "login-origin-mismatch", "scrum-release-scope", "scrum-releases-select-help", "scrum-import-into-board", "scrum-import-into-board-hint", "scrum-import-preview", "scrum-import-choose-file", "scrum-import-invalid-file", "scrum-import-preview-sprints", "scrum-import-preview-releases", "scrum-import-preview-cards", "scrum-import-preview-nothing", "scrum-import-into-board-done", "scrum-import-card-not-matched", "scrum-import-card-ambiguous", "scrum-import-card-on-another-board", "scrum-import-record-ambiguous", "scrum-import-record-not-imported", "scrum-import-sprint-finished", "sync-planning-sprint", "sync-planning-releases", "sync-planning-fields", "sync-planning-hint", "scrum-history-checkpoint-stuck", "scrum-history-checkpoint-counts", "scrum-history-checkpoint-hint", "scrum-history-checkpoint-rollback", "scrum-history-checkpoint-discard", "scrum-history-checkpoint-discard-confirm", "scrum-history-checkpoint-ask-admin", "login-setting-env-only"];
+for (const key of translatedPlanningControls) {
+  assert.notEqual(icelandic[key], english[key], key);
+  assert.deepEqual(translationTokens(icelandic[key]), translationTokens(english[key]), key);
+}
+for (const literal of ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED']) {
+  assert.ok(icelandic['import-board-instruction-orgmode'].includes(literal), literal);
+}
+for (const literal of ['@labels', 'p1', 'p3', 'CSV']) {
+  assert.ok(icelandic['import-board-instruction-todoist'].includes(literal), literal);
+}
+assert.ok(icelandic['external-link-rules-description'].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
+assert.ok(icelandic['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+for (const literal of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS', 'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) {
+  assert.ok(icelandic['ldap-sync-now-nothing'].includes(literal), literal);
+}
+assert.match(icelandic['login-origin-mismatch'], /ROOT_URL/);
+assert.match(icelandic['sync-planning-hint'], /fyrsta samstilling fjarlægir aldrei/);
+assert.match(icelandic['scrum-import-into-board-hint'], /aldrei tvítekin/);
+assert.match(icelandic['scrum-history-checkpoint-hint'], /enginn annar hefur síðan breytt/);
+assert.match(icelandic['scrum-history-checkpoint-hint'], /breytir engum færslum/);
+assert.match(icelandic['login-setting-env-only'], /aðeins sýnt til lestrar/);
