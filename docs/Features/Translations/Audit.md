@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Bislama functions and accessible navigation — 2026-10-08
+
+Translate 175 remaining Blockly messages for mathematics, functions, variables,
+keyboard navigation, text operations and screen-reader controls. Preserve return/no-return
+semantics, degree-versus-radian units, restricted function scope, opposite
+screen-reader states and numbered placeholders. Regression checks cover these
+distinctions and the complete catalog's source token and HTML inventories.
+
+Mathematical loanwords, notably logarithms and trigonometric function names,
+are provisional phonetic adaptations alongside explanatory Bislama prose.
+Text operations preserve all-occurrence replacement, failed-search sentinels,
+whitespace counting, trimming direction and append-at-end semantics.
+Existing dictionary references below support general vocabulary; these drafts
+still need fluent technical review. No existing non-English values were replaced.
+Browser and screen-reader sessions were not run.
+
 ## Bislama lists, logic and mathematics — 2026-10-08
 
 Translate 155 values, including four pending LDAP notices, and directly repair
