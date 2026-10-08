@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## French import instructions, first group — 2026-10-08
+
+Translate eight instructions in fr, fr-BE, fr-CA, fr-CH and fr-FR (40 values):
+Planner, MeisterTask, Obsidian, Linear, TickTick, ClickUp, Nullboard and Kanri.
+Preserve source-product commands, file extensions and variables. Regression checks
+cover mappings, archived/completed tasks and first-board selection. Import-instruction
+and placeholder suites and all 21 preservation checks pass. The other French import
+instructions, browser review and the wider translation backlog remain outstanding.
+
 ## German import instructions — 2026-10-08
 
 Translate 21 import instructions in de, de-AT, de-CH and de_DE (84 values).
