@@ -8117,6 +8117,16 @@ permanent label deletion, removal from all cards when leaving a board and
 label-creation aliases. Technical wording remains low confidence pending speaker
 review. Browser checks were not run. Further corrections and the broader audit remain.
 
+### Tatar list actions and settings corrections
+
+Corrected 21 list, settings and login values. Restored the explicit inability to
+recover a deleted list and retained the archive alternative that preserves history.
+Preserved correct neighboring labels and source tokens. Regression coverage checks
+bulk-card scope, distinct settings targets, deletion versus archival guidance,
+calendar/Gantt/login aliases and Excel CSV/TSV naming. Technical wording remains
+low confidence pending speaker review. Browser checks were not run. Further
+wrong-language corrections and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
