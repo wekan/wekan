@@ -440,6 +440,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/16ef038d8b">Complete current Wu translation fill list</a>. Thanks to xet7.</summary>
+
+Translate the final 33 recovery and environment-setting strings. The full current
+Wu fill list is empty. Three focused suites and 21 human-preference checks pass.
+Wu wording is lower confidence and needs native review. No browser session was
+run. Older Mandarin-like passages and other languages remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7564f2a073">Translate Wu Sync planning and interrupted operations</a>. Thanks to xet7.</summary>
 
 Translate 25 planning and recovery messages, preserving variables and checking
