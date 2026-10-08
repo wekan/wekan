@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/39626be9b0">Translate the sign-in address warning in South Asian languages</a>. Thanks to xet7.</summary>
+
+Add 13 translated catalog values. The warning regression suite now checks 71
+catalogs for repeated expected and actual address variables, rendering order
+and the literal ROOT_URL key. The warning and placeholder suites and all 21
+preservation checks pass. Native review, complex-script and right-to-left
+browser rendering, and the wider all-language backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/94ab6a2168">Translate the sign-in address warning in 32 more catalogs</a>. Thanks to xet7.</summary>
 
 Extend regional coverage and add Arabic, Persian, Hebrew and Ukrainian wording.
