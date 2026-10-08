@@ -40,6 +40,29 @@ const githubLike = ({ items }) =>
 // OpenProject reads ids from HAL hrefs ending in a number.
 const numericIds = items => new Map(items.map((item, index) => [item.cardId, index + 1]));
 
+// Sprints and releases, for the formats with a place for them (GitLab
+// iterations and milestones, OpenProject sprints and versions), numbered as
+// those APIs number theirs. What the importer reads back is
+// models/lib/externalScrumPlanning.js. A cancelled sprint or release has no
+// equivalent in either and is left out, with its cards unassigned.
+const day = value => (value ? new Date(value).toISOString().slice(0, 10) : undefined);
+function planningIndex({ scrumSprints, scrumReleases }) {
+  const numbered = rows => new Map(list(rows).filter(row => row && row.state !== 'cancelled')
+    .map((row, index) => [row._id, { ...row, number: index + 1 }]));
+  return { sprints: numbered(scrumSprints), releases: numbered(scrumReleases) };
+}
+const GITLAB_ITERATION_STATE = { planned: 1, active: 2, closed: 3 };
+const OPENPROJECT_SPRINT_STATUS = { planned: 'in_planning', active: 'active', closed: 'completed' };
+const OPENPROJECT_SPRINT_TITLE = { planned: 'In planning', active: 'Active', closed: 'Completed' };
+const sprintOf = (planning, item) => (item.scrum && planning.sprints.get(item.scrum.sprintId)) || null;
+const releaseOf = (planning, item) => (item.scrum && planning.releases.get(item.scrum.firstReleaseId)) || null;
+// Backlog rank as OpenProject's integer position: 1..n in rank order.
+function positions(items) {
+  const ranked = items.filter(i => i.scrum && typeof i.scrum.backlogRank === 'number')
+    .sort((a, b) => a.scrum.backlogRank - b.scrum.backlogRank);
+  return new Map(ranked.map((item, index) => [item.cardId, index + 1]));
+}
+
 export const formatters = {
   // NextCloud Deck: board with stacks, each stack carrying its cards.
   deck: ({ board, lists, items }) => ({
@@ -87,13 +110,28 @@ export const formatters = {
     })),
   }),
   // OpenProject: a work-packages collection with HAL links.
-  openproject: ({ items }) => {
+  openproject: collected => {
+    const { items } = collected;
     const ids = numericIds(items);
+    const planning = planningIndex(collected);
+    const ranks = positions(items);
+    const versions = [...planning.releases.values()].map(r => ({ _type: 'Version', id: r.number, name: r.name,
+      ...(has(r.notes) ? { description: { raw: r.notes } } : {}),
+      ...(r.plannedStart ? { startDate: day(r.plannedStart) } : {}), ...(r.plannedEnd ? { endDate: day(r.plannedEnd) } : {}),
+      status: r.state === 'released' ? 'closed' : 'open' }));
+    const sprints = [...planning.sprints.values()].map(sp => ({ _type: 'Sprint', id: sp.number, name: sp.name,
+      ...(has(sp.goal) ? { description: { raw: sp.goal } } : {}),
+      ...(sp.plannedStart ? { startDate: day(sp.plannedStart) } : {}), ...(sp.plannedEnd ? { finishDate: day(sp.plannedEnd) } : {}),
+      _links: { self: { href: `/api/v3/sprints/${sp.number}`, title: sp.name },
+        status: { href: `urn:openproject-org:api:v3:sprints:status:${OPENPROJECT_SPRINT_STATUS[sp.state] || 'in_planning'}`,
+          title: OPENPROJECT_SPRINT_TITLE[sp.state] || 'In planning' } } }));
     const fieldNames = [...new Set(items.flatMap(i => Object.keys(i.customFields || {})))];
     const fieldKey = name => `customField${fieldNames.indexOf(name) + 1}`;
     return {
       _embedded: {
         ...(fieldNames.length ? { schemas: [Object.fromEntries(fieldNames.map(name => [fieldKey(name), { name }]))] } : {}),
+        ...(versions.length ? { versions } : {}),
+        ...(sprints.length ? { sprints } : {}),
         elements: items.map(i => ({
           id: ids.get(i.cardId),
           subject: i.title,
@@ -101,9 +139,14 @@ export const formatters = {
           dueDate: i.dueAt,
           ...(has(i.startAt) ? { startDate: i.startAt } : {}),
           ...(has(i.createdAt) ? { createdAt: i.createdAt } : {}),
+          ...(ranks.has(i.cardId) ? { position: ranks.get(i.cardId) } : {}),
           ...Object.fromEntries(Object.entries(i.customFields || {}).map(([name, value]) => [fieldKey(name), value])),
           _links: {
             status: { title: i.listTitle },
+            ...(releaseOf(planning, i) ? { version: { href: `/api/v3/versions/${releaseOf(planning, i).number}`,
+              title: releaseOf(planning, i).name } } : {}),
+            ...(sprintOf(planning, i) ? { sprint: { href: `/api/v3/sprints/${sprintOf(planning, i).number}`,
+              title: sprintOf(planning, i).name } } : {}),
             ...(has(i.owner) ? { assignee: { title: i.owner } } : {}),
             ...(list(i.assignees).length ? { responsible: { title: i.assignees[0] } } : {}),
             ...(has(i.creator) ? { author: { title: i.creator } } : {}),
@@ -123,8 +166,10 @@ export const formatters = {
   // GitLab: an Issues API v4 array, carrying what parseGitlab reads (#2698):
   // every assignee, the author, creation and close dates and comments as
   // notes. No iid: a re-import would then add a second "Source:" line.
-  gitlab: ({ items }) =>
-    items.map(i => ({
+  // Sprints and releases go out as each issue's iteration and milestone.
+  gitlab: collected => {
+    const planning = planningIndex(collected);
+    return collected.items.map(i => ({
       title: i.title,
       description: i.description,
       state: isClosed(i.listTitle) ? 'closed' : 'opened',
@@ -136,7 +181,14 @@ export const formatters = {
       ...(isClosed(i.listTitle) && has(i.endAt) ? { closed_at: i.endAt } : {}),
       ...(list(i.comments).length ? { notes: i.comments.map(c => ({ body: c.text,
         author: { username: c.author }, created_at: c.date, system: false })) } : {}),
-    })),
+      ...(sprintOf(planning, i) ? { iteration: (sp => ({ id: sp.number, iid: sp.number, title: sp.name,
+        description: sp.goal || '', state: GITLAB_ITERATION_STATE[sp.state] || 1,
+        start_date: day(sp.plannedStart), due_date: day(sp.plannedEnd) }))(sprintOf(planning, i)) } : {}),
+      ...(releaseOf(planning, i) ? { milestone: (r => ({ id: r.number, iid: r.number, title: r.name,
+        description: r.notes || '', state: r.state === 'released' ? 'closed' : 'active',
+        start_date: day(r.plannedStart), due_date: day(r.plannedEnd) }))(releaseOf(planning, i)) } : {}),
+    }));
+  },
   // Trello board JSON (round-trips with WeKan's Trello import).
   trello: ({ board, lists, items }) => ({
     name: board.title,

@@ -4,6 +4,9 @@ import { parseTaskwarrior } from './taskwarriorFormat.js';
 import { parseFocalboard } from './focalboardFormat.js';
 import { parseTodoistCsv } from './todoistCsvFormat.js';
 import { parseOrgMode } from './orgModeFormat.js';
+import {
+  gitlabScrumPlanning, openProjectScrumPlanning, asanaScrumPlanning, STORY_POINTS_FIELD,
+} from './externalScrumPlanning.js';
 // Jira Cloud v3 descriptions use Atlassian Document Format, not strings.
 // Preserve readable text and block boundaries; rich source formatting is not
 // treated as trusted HTML. Input has already passed the import security boundary.
@@ -285,6 +288,10 @@ export function parseOpenProject(data) {
     const estimated = isoDurationHours(wp.estimatedTime);
     if (estimated !== undefined) custom['Estimated time (hours)'] = estimated;
     if (typeof wp.percentageDone === 'number') custom['Progress (%)'] = wp.percentageDone;
+    // Backlogs story points: the board's Scrum estimate (externalScrumPlanning.js).
+    if (typeof wp.storyPoints === 'number' && Number.isFinite(wp.storyPoints) && wp.storyPoints >= 0) {
+      custom[STORY_POINTS_FIELD] = wp.storyPoints;
+    }
 
     const id = wp.id !== undefined && wp.id !== null ? String(wp.id) : undefined;
     const dependencies = [];
@@ -332,6 +339,8 @@ export function parseOpenProject(data) {
     };
   });
   const project = elements[0] && elements[0]._links && halTitle(elements[0]._links.project);
+  // Versions as releases, sprints, backlog position and story points.
+  const scrum = openProjectScrumPlanning(data, elements);
   return {
     board: { name: (data._links && data._links.self && data._links.self.title) || project || 'Imported OpenProject' },
     columns: uniq(tasks.map(t => t.column_name)).map(title => ({ title })),
@@ -339,6 +348,9 @@ export function parseOpenProject(data) {
     tasks,
     warnings: [],
     unsupported,
+    // Applied by the creator only when Scrum is part of the import selection.
+    ...(scrum.transfer ? { scrumTransfer: scrum.transfer } : {}),
+    ...(scrum.losses.length ? { scrumLosses: scrum.losses } : {}),
   };
 }
 
@@ -460,9 +472,14 @@ export function parseGitlab(data) {
   const tasks = issues.map((issue, index) => {
     const path = `/${index}`;
     const tags = (issue.labels || []).map(l => (typeof l === 'string' ? l : l && l.name)).filter(Boolean);
+    // Milestones and iterations are releases and sprints now
+    // (externalScrumPlanning.js); the tags stay, because List Sync writes
+    // tags and not Scrum planning, and boards imported before keep filtering
+    // by them. Not twice, when a re-imported export already carries them.
+    const tag = name => { if (!tags.includes(name)) tags.push(name); };
     const milestoneTitle = issue.milestone && issue.milestone.title;
-    if (milestoneTitle) tags.push(`milestone:${milestoneTitle}`);
-    if (issue.iteration && issue.iteration.title) tags.push(`iteration:${issue.iteration.title}`);
+    if (milestoneTitle) tag(`milestone:${milestoneTitle}`);
+    if (issue.iteration && issue.iteration.title) tag(`iteration:${issue.iteration.title}`);
     if (issue.issue_type && issue.issue_type !== 'issue') tags.push(`type:${issue.issue_type}`);
     if (issue.confidential) {
       tags.push('confidential');
@@ -519,6 +536,8 @@ export function parseGitlab(data) {
       ...(dependencies.length ? { dependencies } : {}),
     };
   });
+  // Iterations as sprints and milestones as releases.
+  const scrum = gitlabScrumPlanning(issues);
   return {
     board: { name: 'Imported GitLab issues' },
     columns: [{ title: 'Open' }, { title: 'Closed' }],
@@ -526,6 +545,9 @@ export function parseGitlab(data) {
     tasks,
     warnings,
     unsupported,
+    // Applied by the creator only when Scrum is part of the import selection.
+    ...(scrum.transfer ? { scrumTransfer: scrum.transfer } : {}),
+    ...(scrum.losses.length ? { scrumLosses: scrum.losses } : {}),
   };
 }
 
@@ -608,6 +630,8 @@ export function parseAsana(data) {
         .map(story => ({ text: story.text, author: asanaUser(story.created_by), date: story.created_at })),
     };
   });
+  // Milestone tasks as releases; Asana has no sprint record.
+  const scrum = asanaScrumPlanning(items);
   return {
     board: { name: (data.project && data.project.name)
       || (items[0] && items[0].memberships && items[0].memberships[0] && items[0].memberships[0].project
@@ -618,6 +642,9 @@ export function parseAsana(data) {
     tasks,
     warnings: [],
     unsupported,
+    // Applied by the creator only when Scrum is part of the import selection.
+    ...(scrum.transfer ? { scrumTransfer: scrum.transfer } : {}),
+    ...(scrum.losses.length ? { scrumLosses: scrum.losses } : {}),
   };
 }
 

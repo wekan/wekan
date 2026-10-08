@@ -13,6 +13,7 @@ or all fields from these products are supported. No vendor account was used.
 | `openproject.json` | [API v3](https://www.openproject.org/docs/api/) | HAL work-package collection; attachment metadata is not file content. |
 | `github.json` | [REST issues](https://docs.github.com/en/rest/issues/issues) | Current supported API version 2026-03-10; comments require separate requests. |
 | `gitlab.json` | [API v4 issues](https://docs.gitlab.com/api/issues/) | Issue array, not project-export archive; notes/files are separate. |
+| `gitlab-scrum.json` | [API v4 issues](https://docs.gitlab.com/api/issues/) with the documented `milestone` and `iteration` objects | Two issues sharing an active milestone, one in an upcoming iteration; Scrum import and export (`gitlab-scrum-import.e2e.js`). |
 | `gitea.json` | [API usage](https://docs.gitea.com/development/api-usage/) | Issue array; actual schema/version depends on the source server. |
 | `forgejo.json` | [API usage](https://forgejo.org/docs/latest/user/api/usage/) | Issue array; actual schema/version depends on the source server. |
 | `asana.json` | [API v1 tasks](https://developers.asana.com/reference/gettasks) | Tasks response; newest bulk JSONL.gz resource export is not supported. |

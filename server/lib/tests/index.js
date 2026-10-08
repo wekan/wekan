@@ -120,6 +120,7 @@ import './cardMoveLabelActivities.tests';
 import './storedRuleMoveBoard.tests';
 import './ruleEmailFollowedMove.tests';
 import './jiraScrumImport.tests';
+import './externalScrumImport.tests';
 import './listSyncGitlabEstimate.tests';
 import './scrumScopeHistory.tests';
 import './scrumSnapshotRows.tests';

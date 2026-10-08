@@ -38,6 +38,8 @@ import {
 } from '/imports/lib/dateUtils';
 import getSlug from 'limax';
 import { fetchImportedAttachment } from './lib/importAttachmentDownload';
+import { recordImportLosses } from '/models/lib/importedCardChildren';
+const { trelloScrumLosses } = require('./lib/externalScrumPlanning');
 import { runImportPipeline, writeImportedEntity } from './lib/importPipeline';
 
 const DateString = Match.Where(function(dateAsString) {
@@ -1057,7 +1059,19 @@ export class TrelloCreator {
       { method: 'createChecklists', source: 'checklists' },
       { method: 'importActions', source: 'actions' },
       { method: 'recordImportedUsernames' },
+      { method: 'recordScrumLosses' },
     ]);
+  }
+
+  // Trello has no sprints or releases; Scrum Power-Ups keep theirs in
+  // pluginData, which has no published schema. Counted in the import loss
+  // report rather than dropped silently (models/lib/externalScrumPlanning.js).
+  async recordScrumLosses(board, boardId) {
+    if (!Meteor.isServer) return;
+    const unsupported = trelloScrumLosses(board);
+    if (!unsupported.length) return;
+    await recordImportLosses({ source: 'trello', unsupported, boardId,
+      boardTitle: board.name || undefined, userId: Meteor.userId() });
   }
 
   // Pick a free username: keep the original if it is not taken, else suffix it so we

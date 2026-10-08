@@ -1,7 +1,8 @@
 # Recover an interrupted Scrum import
 
-New native board imports and board copies stage private Scrum write plans before
-changing Scrum data. An interrupted plan keeps the incomplete-import warning and
+New native board imports, board copies, and the Scrum planning of Jira, GitLab,
+OpenProject and Asana imports stage private Scrum write plans before changing
+Scrum data. An interrupted plan keeps the incomplete-import warning and
 blocks Scrum edits and reports. The maintenance command below can continue a
 complete stored plan using the original destination IDs.
 

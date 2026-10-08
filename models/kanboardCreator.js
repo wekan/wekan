@@ -13,6 +13,8 @@ import {
   planImportedTask,
 } from '/models/lib/importedTaskPlan';
 import { normalizeDependency } from '/models/metadata/dependencies';
+const { normalizeScrumTransfer } = require('./lib/scrumTransfer');
+const { taskCardId } = require('./lib/externalScrumPlanning');
 import CustomFields from '/models/customFields';
 import { writeImportedEntity } from '/models/lib/importPipeline';
 import {
@@ -51,6 +53,14 @@ export class KanboardCreator {
     this.members = data && data.membersMapping ? data.membersMapping : {};
     this.lists = {};
     this.swimlanes = {};
+    this.cardIds = [];
+    this.customFieldIds = {};
+    // The import selection (#1173). Raw external documents are not pruned of
+    // Scrum data before parsing, so the creator leaves the parsed planning
+    // out when Scrum settings were not selected.
+    const fields = data && Array.isArray(data.importFields)
+      ? data.importFields.filter(field => typeof field === 'string') : [];
+    this.wantsScrum = fields.length === 0 || fields.includes('scrum');
   }
 
   _now(dateString) {
@@ -181,7 +191,7 @@ export class KanboardCreator {
     const firstSwimlane = Object.values(this.swimlanes)[0];
     const tasks = this._tasks(data);
     const fieldIds = await this.createCustomFields(tasks, boardId);
-    const cardIds = [];
+    const cardIds = this.cardIds;
     for (let index = 0; index < tasks.length; index += 1) {
       const task = tasks[index];
       const columnName = task.column_name || task.column || this._columnNames(data)[0];
@@ -228,7 +238,7 @@ export class KanboardCreator {
     const customFieldPlan = planImportedCustomFields(tasks);
     this.customFieldPlan = customFieldPlan.fields;
     this.losses.push(...customFieldPlan.unsupported);
-    const ids = {};
+    const ids = this.customFieldIds;
     for (const field of this.customFieldPlan) {
       ids[field.name] = await writeImportedEntity(CustomFields, {
         boardIds: [boardId], name: field.name, type: field.type, settings: {},
@@ -254,7 +264,43 @@ export class KanboardCreator {
     }
   }
 
+  // Sprints, releases, backlog rank and estimate a parser found
+  // (models/lib/externalScrumPlanning.js: GitLab iterations and milestones,
+  // OpenProject versions and sprints, Asana milestones), written through the
+  // same journaled Scrum import stage as Jira and WeKan JSON
+  // (server/lib/scrumTransferImport.js), so an interrupted import is
+  // recovered like theirs (server/lib/scrumImportRecovery.js). The parser
+  // names cards after their task index; here they are the cards just made.
+  async createScrumPlanning(board, boardId) {
+    if (!Meteor.isServer || !this.wantsScrum || !board.scrumTransfer) return;
+    const transfer = board.scrumTransfer;
+    const cards = {};
+    this.cardIds.forEach((cardId, index) => { if (cardId) cards[taskCardId(index)] = cardId; });
+    let settings = transfer.settings;
+    const customFields = {};
+    if (settings.estimateSource === 'customField') {
+      const name = settings.estimateCustomFieldId;
+      const field = (this.customFieldPlan || []).find(f => f.name === name);
+      if (field && field.type === 'number' && this.customFieldIds[name]) {
+        customFields[name] = this.customFieldIds[name];
+      } else {
+        const { estimateSource, estimateCustomFieldId, estimateUnit, ...rest } = settings;
+        settings = rest;
+        this.losses.push({ path: `/custom_fields/${name}`,
+          reason: `"${name}" is not a numeric field on this board, so it is not the Scrum estimate` });
+      }
+    }
+    const { importScrumTransfer } = require('/server/lib/scrumTransferImport');
+    await importScrumTransfer({ cards, lists: {}, swimlanes: {}, members: {}, customFields },
+      { scrumTransfer: { ...transfer, settings } }, boardId);
+  }
+
   async create(board, currentBoardId) {
+    // Checked as a native Scrum transfer before anything is written.
+    if (this.wantsScrum && board && board.scrumTransfer) {
+      try { normalizeScrumTransfer(board.scrumTransfer); }
+      catch (error) { throw new Meteor.Error('invalid-scrum-transfer', error.message); }
+    }
     const isSandstorm =
       Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
     if (isSandstorm && currentBoardId) {
@@ -265,10 +311,12 @@ export class KanboardCreator {
     await this.createSwimlanes(board, boardId);
     await this.createLists(board, boardId);
     await this.createCards(board, boardId);
+    await this.createScrumPlanning(board, boardId);
     await recordImportLosses({
       source: this.source,
       warnings: board.warnings,
-      unsupported: [...(Array.isArray(board.unsupported) ? board.unsupported : []), ...this.losses],
+      unsupported: [...(Array.isArray(board.unsupported) ? board.unsupported : []),
+        ...(this.wantsScrum && Array.isArray(board.scrumLosses) ? board.scrumLosses : []), ...this.losses],
       boardId,
       boardTitle: board.board && (board.board.name || board.board.title),
       userId: Meteor.userId(),

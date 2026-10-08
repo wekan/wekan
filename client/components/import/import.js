@@ -415,7 +415,9 @@ Template.import.onCreated(function () {
     Meteor.call(
       'importBoard',
       pruneImportDocument(importedData, selectedFields()),
-      { membersMapping: mappingById },
+      // The selection again, for the parts only a creator can leave out:
+      // the Scrum planning external parsers find (models/kanboardCreator.js).
+      { membersMapping: mappingById, importFields: selectedFields() },
       this.importSource,
       Session.get('fromBoard'),
       (err, res) => {

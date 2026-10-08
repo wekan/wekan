@@ -28,6 +28,20 @@ function gateItem(item, wanted) {
 
 const iso = value => (value ? new Date(value).toISOString() : undefined);
 
+// Formats with a place for sprints and releases: GitLab iterations and
+// milestones, OpenProject sprints and versions (externalExportFormatters.js).
+const SCRUM_FORMATS = new Set(['gitlab', 'openproject']);
+const PLANNING_FIELDS = { _id: 1, name: 1, goal: 1, notes: 1, state: 1, plannedStart: 1, plannedEnd: 1, releasedAt: 1 };
+async function scrumPlanning(boardId) {
+  const ScrumSprints = require('/models/scrumSprints').default;
+  const ScrumReleases = require('/models/scrumReleases').default;
+  const [sprints, releases] = await Promise.all([
+    ScrumSprints.find({ boardId }, { fields: PLANNING_FIELDS, sort: { plannedStart: 1, name: 1 } }).fetchAsync(),
+    ScrumReleases.find({ boardId }, { fields: PLANNING_FIELDS, sort: { plannedEnd: 1, name: 1 } }).fetchAsync(),
+  ]);
+  return { sprints, releases };
+}
+
 async function collect(boardId, fields, format) {
   const board = await ReactiveCache.getBoard(boardId);
   const lists = await ReactiveCache.getLists({ boardId, archived: false }, { sort: { sort: 1 } });
@@ -50,6 +64,7 @@ async function collect(boardId, fields, format) {
     ? new Map((await require('/models/scrumReleases').default.find({ boardId }, { fields: { _id: 1, boardId: 1, name: 1,
       state: 1, plannedEnd: 1, releasedAt: 1, notes: 1, provenance: 1 } }).fetchAsync()).map(release => [release._id, release]))
     : null;
+  const planning = SCRUM_FORMATS.has(format) && want('scrum') ? await scrumPlanning(boardId) : null;
 
   // The rest of a card, read once per board and only when selected. Custom
   // fields reach this export only after server/lib/adminOnlyCustomFields
@@ -88,6 +103,9 @@ async function collect(boardId, fields, format) {
       ...(format === 'jira' ? { jiraEstimate: jiraEstimateExportValue(c, estimateMapping) } : {}),
       ...(format === 'jira' ? { timetracking: jiraTimeTrackingExport(c, timeFields, wanted) } : {}),
       ...(format === 'jira' ? { jiraScrum: jiraScrumMetadataExport(c, listRecords.get(c.listId), wanted, releases) } : {}),
+      ...(planning && c.scrum ? { scrum: { sprintId: c.scrum.sprintId || undefined,
+        // One release in these formats: the card's first (models/lib/scrum.js).
+        firstReleaseId: require('./scrum').cardReleaseIds(c.scrum)[0] || undefined, backlogRank: c.scrum.backlogRank ?? undefined } } : {}),
       cardId: c._id,
       listId: c.listId,
       title: c.title,
@@ -109,6 +127,7 @@ async function collect(boardId, fields, format) {
     };
   });
   return { board, lists, swimlanes, jiraEstimateMapping: estimateMapping,
+    ...(planning ? { scrumSprints: planning.sprints, scrumReleases: planning.releases } : {}),
     items: items.map(item => gateItem(item, wanted)) };
 }
 

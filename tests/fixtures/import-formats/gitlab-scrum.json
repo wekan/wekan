@@ -1,0 +1,65 @@
+[
+  {
+    "id": 501,
+    "iid": 1,
+    "project_id": 4,
+    "title": "Pump controller",
+    "description": "Replace the pump controller.",
+    "state": "opened",
+    "labels": ["backend"],
+    "author": { "username": "dummy" },
+    "assignees": [],
+    "due_date": "2026-10-15",
+    "milestone": {
+      "id": 11,
+      "iid": 3,
+      "project_id": 4,
+      "title": "v3.0",
+      "description": "Spring release",
+      "state": "active",
+      "created_at": "2026-09-01T10:00:00.000Z",
+      "updated_at": "2026-09-01T10:00:00.000Z",
+      "start_date": "2026-10-01",
+      "due_date": "2026-10-30",
+      "web_url": "https://example.invalid/group/project/-/milestones/3"
+    },
+    "iteration": {
+      "id": 90,
+      "iid": 4,
+      "sequence": 2,
+      "group_id": 162,
+      "title": "Sprint 12",
+      "description": null,
+      "state": 1,
+      "created_at": "2026-09-14T05:21:11.929Z",
+      "updated_at": "2026-09-14T05:21:11.929Z",
+      "start_date": "2026-10-05",
+      "due_date": "2026-10-16",
+      "web_url": "https://example.invalid/groups/group/-/iterations/90"
+    },
+    "web_url": "https://example.invalid/group/project/-/issues/1"
+  },
+  {
+    "id": 502,
+    "iid": 2,
+    "project_id": 4,
+    "title": "Release notes",
+    "description": "",
+    "state": "opened",
+    "labels": [],
+    "author": { "username": "dummy" },
+    "assignees": [],
+    "milestone": {
+      "id": 11,
+      "iid": 3,
+      "project_id": 4,
+      "title": "v3.0",
+      "description": "Spring release",
+      "state": "active",
+      "start_date": "2026-10-01",
+      "due_date": "2026-10-30"
+    },
+    "iteration": null,
+    "web_url": "https://example.invalid/group/project/-/issues/2"
+  }
+]

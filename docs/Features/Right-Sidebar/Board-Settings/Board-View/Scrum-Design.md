@@ -41,6 +41,16 @@ import maps every fix version and Jira export writes them all (see
 snapshots and epic relationships remain pending. Explicit numeric Jira estimate-field mapping
 is implemented; automatic field/schema discovery remains pending.
 
+GitLab iterations and milestones, OpenProject versions, sprints, position and
+story points, and Asana milestone tasks now become sprints, releases, backlog
+rank and the estimate field through the same journaled Scrum import stage
+(2026-10-08, models/lib/externalScrumPlanning.js); started and finished sprints
+are reported the same way as Jira's. Trello has no sprint or release data and
+its Power-Up data is reported. GitLab and OpenProject exports write sprints and
+releases back. See the
+[Format coverage](../../../ImportExport/Format-Coverage.md#scrum-planning-from-importers-other-than-jira)
+table for each source's fields and losses.
+
 ## Existing features to reuse
 
 | Scrum need | Existing implementation | Remaining gap |
@@ -57,8 +67,8 @@ is implemented; automatic field/schema discovery remains pending.
 | Visibility | Board Settings / Swimlane, List and Card, card/minicard field ordering | Opt-in Scrum fields in those same settings, independently selectable |
 | Native backup | `models/exporter.js` and `models/wekanCreator.js` | Sprint records and complete ID remapping for new references |
 | Jira import | `models/jiraCreator.js` creates status lists, cards, labels and issue dependencies; retains time totals, issue types, workflow categories and selected numeric estimate fields | Sprint, epic, version, rank and automatic schema-driven custom-field mapping remain pending |
-| External formats and sync | `models/lib/externalParsers.js`, `externalExporters.js`, list synchronization | Current common fields omit Scrum data; advertised format coverage is not evidence of actual support |
-| Trello import | `models/trelloCreator.js`, custom fields and board structures | No universal Trello sprint schema: explicit mappings for custom fields and Power-Up data are required |
+| External formats and sync | `models/lib/externalParsers.js`, `externalExporters.js`, list synchronization; GitLab, OpenProject and Asana import sprints and releases (`externalScrumPlanning.js`), GitLab and OpenProject export them | List Sync writes no Scrum planning; GitHub, Gitea and Forgejo milestones stay labels |
+| Trello import | `models/trelloCreator.js`, custom fields and board structures; Power-Up data is counted in the import loss report | No universal Trello sprint schema: explicit mappings for custom fields and Power-Up data are required |
 
 The existing [manual Scrum guide](../../../Cards/Scrum.md) remains accurate for
 current releases. Do not describe its custom-field/swimlane conventions as a

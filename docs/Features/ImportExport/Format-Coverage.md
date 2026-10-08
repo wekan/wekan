@@ -39,11 +39,11 @@ code/API schema rather than old sample files:
 | Jira Cloud | [REST API v3 issue search](https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issue-search/) and per-project/type schemas | ADF or string descriptions, status, type, priority, reporter/assignee, labels, components, versions, sprint/epic/parent links, subtasks, dates, estimates, comments, attachments and schema-described custom fields |
 | Kanboard | [JSON-RPC API](https://docs.kanboard.org/v1/api/) and current project export | Project, columns, swimlanes, tasks, order/color/category, assignee/creator, dates/time estimates, subtasks, links, comments, tags, metadata and files |
 | Nextcloud Deck | Current Deck server API/code objects | Board, ACL, labels, stacks, cards, order/type, assignees, dates, comments and attachments |
-| OpenProject | [API v3 HAL+JSON](https://www.openproject.org/docs/api/introduction/), work-package collection and embedded per-project/type [schemas](https://www.openproject.org/docs/development/concepts/resource-schemas/) | HAL links, status/type/priority, assignee/responsible, dates/duration, hierarchy/relations, watchers, comments, attachments and schema-described custom fields |
+| OpenProject | [API v3 HAL+JSON](https://www.openproject.org/docs/api/introduction/), work-package collection and embedded per-project/type [schemas](https://www.openproject.org/docs/development/concepts/resource-schemas/) | HAL links, status/type/priority, assignee/responsible, dates/duration, hierarchy/relations, watchers, comments, attachments, schema-described custom fields, and versions, sprints, position and story points as Scrum planning |
 | GitHub | Versioned [Issues REST API](https://docs.github.com/en/rest/issues/issues), comments, events and attachments referenced from Markdown | Issues excluding pull requests, open/closed state, state reason, labels with colors, assignees, reporter, milestone, dates, comments, relationships and URLs; pagination must be completed by API clients |
-| GitLab | Current [Issues API v4](https://docs.gitlab.com/api/issues/) | State, labels with details, assignees, author, milestone, iteration, weight, due date, time stats, task completion, links, discussions and attachments |
+| GitLab | Current [Issues API v4](https://docs.gitlab.com/api/issues/) | State, labels with details, assignees, author, milestone (as a Scrum release), iteration (as a Scrum sprint), weight, due date, time stats, task completion, links, discussions and attachments |
 | Gitea / Forgejo | Current issue API and release schema of the selected server | GitHub-like fields plus milestone, deadline, assignees, comments and server-specific labels/state metadata |
-| Asana | Current [Tasks API](https://developers.asana.com/reference/tasks) with opt-in fields | Sections/memberships, completion, assignee/followers, start/due dates, dependencies, subtasks, tags, stories, attachments and all supported custom-field value kinds |
+| Asana | Current [Tasks API](https://developers.asana.com/reference/tasks) with opt-in fields | Sections/memberships, completion, assignee/followers, start/due dates, dependencies, subtasks, tags, stories, attachments, all supported custom-field value kinds, and milestone tasks as Scrum releases |
 | Zenkit | Current documented export accepted by the selected Zenkit product | Collections/lists, stages, items, hierarchy, members, dates, labels and exported custom fields; retain unknown fields in the loss report because products differ |
 | iCalendar | RFC 5545 plus RFC 7986 additive properties | Unfolded/escaped UTF-8 content lines, UID identity, recurrence, exclusions, timezone, start/end/duration, status, summary, description, URL, attendees and categories |
 | CSV / TSV | RFC 4180 CSV and tab-delimited UTF-8 with a header row | Quoted separators/newlines/quotes, BOM, CRLF/LF, locale-independent ISO dates and every documented WeKan column/custom field |
@@ -82,7 +82,8 @@ remains unverified because no schema is published.
 GitLab ([#2698](https://github.com/wekan/wekan/issues/2698)) now meets the
 same contract as GitHub: every assignee, the author, creation and close dates,
 time spent, labels with details, milestone, iteration, issue type and
-confidentiality as tags, weight, time estimate and task completion as custom
+confidentiality as tags (milestones and iterations are also Scrum releases and
+sprints, below), weight, time estimate and task completion as custom
 fields, embedded `notes` as comments (system notes skipped), embedded `links`
 as dependencies, and the `group/project#iid` reference and web URL at the end
 of the description. A confidential issue is warned about, because on the board
@@ -90,6 +91,32 @@ the board's visibility decides who reads it. Epics, which are group-level, and
 comments that exist upstream but were not embedded are reported in
 `unsupported`. List Sync still writes only title, description and time fields
 on existing cards; the others apply when a card is created.
+
+### Scrum planning from importers other than Jira
+
+GitLab, OpenProject and Asana imports now create Scrum sprints and releases
+from what their exports really carry (`models/lib/externalScrumPlanning.js`),
+written through the same journaled Scrum import stage as Jira and WeKan JSON
+(`server/lib/scrumTransferImport.js`), so an interrupted import is recovered
+like theirs ([Scrum import recovery](./Scrum-Import-Recovery.md)). The import
+page's **Scrum settings** part decides whether any of it is imported.
+
+| Source | Sprints | Releases | Also | Reported, not imported |
+| --- | --- | --- | --- | --- |
+| GitLab ([Issues API v4](https://docs.gitlab.com/api/issues/)) | An issue's `iteration`: `title` (an untitled cadence iteration is named by its dates, as GitLab shows it), `description` as the goal, `start_date`, `due_date`; `state` 1/`upcoming` planned | An issue's `milestone`: `title`, `description`, `start_date`, `due_date`; `state` `active` planned, `closed` released | The `milestone:` and `iteration:` labels stay, because List Sync writes labels and not Scrum planning, and earlier boards filter by them | A current (2) iteration is imported as planned: no commitment snapshot. A closed (3) iteration is not imported: no commitment or close snapshot. A closed milestone has no close date. Malformed dates, unknown states, untitled milestones, iterations with neither id nor title |
+| OpenProject ([API v3](https://www.openproject.org/docs/api/endpoints/work-packages/)) | A work package's `sprint` link ([Sprint](https://www.openproject.org/docs/api/endpoints/sprints/): `name`, `startDate`, `finishDate`, status URN `in_planning` planned) | A work package's `version` link ([Version](https://www.openproject.org/docs/api/endpoints/versions/): `name`, `description`, `startDate`, `endDate`; `open`/`locked` planned, `closed` released) | `position` as the backlog rank; `storyPoints` as a numeric **Story points** field that becomes the board's Scrum estimate | The collection only links versions and sprints: their dates and status are read when embedded (on the work package, or as `_embedded.versions` / `_embedded.sprints` beside the elements); a link alone keeps its title and is reported. An `active` sprint is imported as planned, a `completed` one not at all, for the same snapshot reasons |
+| Asana ([Tasks API](https://developers.asana.com/reference/tasks)) | None: Asana has no sprint record, and sections stay lists | A milestone task (`resource_subtype: "milestone"`): `name`, `notes`, `start_on`, `due_on`; completed is released at `completed_at`. The milestone's own card and the tasks it waits for (its `dependencies`, or tasks listing it in `dependents`) carry it | | A second milestone of one task (a card has one release), a dependency outside the import, a completed milestone without a valid completion date |
+| Trello | None | None | | Trello has no sprints or releases. Power-Up data (`pluginData`), where Scrum Power-Ups keep their state, has no published schema and is counted in the report |
+
+Two records with the same name stay two records and are reported; one source id
+listed on many issues is one record. A card in an iteration or sprint that is
+not imported stays in the backlog. The GitLab export writes each card's sprint
+and release back as `iteration` and `milestone`, and the OpenProject export as
+`sprint` and `version` links with `_embedded.sprints` / `_embedded.versions` and
+`position`, when Scrum settings are selected; a cancelled sprint or release has
+no equivalent there and is left out. Neither format carries a commitment
+snapshot, so an exported active or closed sprint comes back as the import
+above describes. GitHub, Gitea and Forgejo milestones remain labels.
 
 An import with losses records one `import-completed-with-warnings` row in
 Admin Panel → Problems → Recovery, with the board, the importing user and a
