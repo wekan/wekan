@@ -1995,260 +1995,6 @@ report with seven assignees and asserts no avatar overlaps the comment.
 
 </details>
 
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v12.22 2026-10-08 WeKan ® release
-
-**In short:** The **Snap** now says at once when the computer's AppArmor policy,
-not the database, refuses WeKan's own database connection, with the fix for the
-known snapd 2.77.1 kernel problem behind it, four SAML settings can be set
-with `snap set` again, the **Rules** "Set color to" action can pick any card
-color, the Rules list's selection checkboxes are visible again, **card
-filters** follow a member's access changes even when the board observer
-stalls, the **D** keyboard shortcut opens the opened card's due date, today
-stands out in the **calendars**, and **pbkdf2** is updated for a
-denial-of-service advisory.
-
-This release adds the following new features:
-
-**Keyboard shortcuts** - a key for the opened card's due date.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/784d529003ebb47c70fb29e1066aa47d7bd82d5b">D opens the Due date editor of the opened card</a>. Thanks to mimZD and xet7.</summary>
-
-With keyboard shortcuts turned on in the member settings, pressing `d` (or
-Shift+D) opens the same Due date popup as clicking the due date `+` or badge in
-the opened card's details. It does so by clicking that control, so it works
-only where a click would: the board allows due dates and the member may edit
-the card. Typing `d` in the card title, a comment or any other field does not
-trigger it, and nothing happens with shortcuts turned off. The keyboard
-shortcuts help (`?`) lists it. `tests/dueDateKeyboardShortcut.test.cjs` pins
-the binding, the shared filter, the opened-card and permission rules and the
-help entry, with negative cases; the Playwright spec
-`due-date-keyboard-shortcut.e2e.js` covers the popup, shortcuts off and typing
-in fields.
-
-</details>
-
-**Calendar** - today is easy to find in the date popup and the board Calendar.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/519fb2c105f8a2b6e41d6125c3fe28501acfb360">Today's day stands out in the date popup and the board Calendar view</a>. Thanks to mimZD and xet7.</summary>
-
-The due, start and end date popup's calendar did not mark today at all. Today's
-day button now has the `is-today` class and `aria-current="date"`, and its cell
-`is-today-cell`: a ring and underline drawn in the button's own text colour and
-a subtle cell tint, so it stays visible on every board colour theme, custom
-theme colour, light and dark, and in RTL. The rule is more specific than the
-themes' picker button rules so none of them can hide it. The board Calendar
-view already tinted today's cell; its day number is now also a filled circle in
-the board theme's colour. `tests/calendarTodayMarker.test.cjs` pins the marker
-on today only, in Gregorian and Jalali, and that no CSS rule in `client/`
-overrides or hides it; the Playwright spec `calendar-today-marker.e2e.js`
-compares today with a neighbouring day in both calendars.
-
-</details>
-
-and updates the following dependencies:
-
-- **pbkdf2 3.1.3 → 3.1.7** — key derivation in the browser crypto stubs that
-  meteor-node-stubs bundles; fixes long passwords being hashed again on every
-  iteration, [GHSA-477h-4r7f-fvrx](https://github.com/advisories/GHSA-477h-4r7f-fvrx).
-  The bundled copy cannot be overridden, so a postinstall script replaces it
-  with the top-level package ([the update](https://github.com/wekan/wekan/commit/f5836c3a375b5596f24331cbce3d2f83ace23eb7)).
-
-Thanks to dependabot.
-
-and fixes the following bugs:
-
-**Snap database tools** - backup, restore and WeKan's wait for its database.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/f927cb3c50708c2e84ad57323edf36761a7d3165">A database connection refused by AppArmor is named at once, with the fix</a>. Thanks to fabiosalles and xet7.</summary>
-
-The kernel log in [#6746](https://github.com/wekan/wekan/issues/6746) held 1300
-lines of `apparmor="DENIED" operation="file_perm" class="net"` for
-`snap.wekan.wekan` on 127.0.0.1:27019, and the same denial for two other snaps.
-FerretDB was running; the kernel refused the first write on an accepted
-connection. That is snapd 2.77.1 on a kernel with an AppArmor socket bug
-([snapd bug 2169038](https://bugs.launchpad.net/snapd/+bug/2169038)), fixed by
-a newer kernel and worked around by `sudo snap revert snapd`. WeKan cannot lift
-the denial, so the new `bin/socket-denied` recognises it and prints what to
-look for and both ways out. WeKan's FerretDB and MongoDB waits print it on the
-first refused attempt instead of "not ready yet" for two minutes, and backup
-and restore stop at once instead of starting a running service and waiting 90
-seconds. `tests/snapSocketDenied.test.cjs` checks the reporter's exact errors,
-with negative tests that a database which is merely down gets no AppArmor
-advice; `tests/snapDatabaseRestore.test.cjs` runs both tools against a refused
-connection. Not run in an installed snap or on an affected kernel.
-
-</details>
-
-**Snap settings** - the `snap set` names behind each WeKan setting.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/f927cb3c50708c2e84ad57323edf36761a7d3165">Every service log no longer starts with four snapctl get errors</a>. Thanks to fabiosalles and xet7.</summary>
-
-`SAML_IDP_PROFILE`, `SAML_WANT_RESPONSE_SIGNED`, `SAML_WANT_ASSERTIONS_SIGNED`
-and `SAML_LOGIN_FLOW` were listed in `bin/config` without a `snap set` name, so
-`wekan-read-settings` ran a bare `snapctl get` for each one. Every service log
-showed "error: snapctl: get which option?" and those settings could never be
-set. They are now `saml-idp-profile`, `saml-want-response-signed`,
-`saml-want-assertions-signed` and `saml-login-flow`, and a setting without a
-name falls back to its default instead of calling snapctl.
-`tests/snapSettingsKeys.test.cjs` requires a key, default and description for
-every setting, rejects shared keys, and runs the real reader against a snapctl
-that fails like the real one.
-
-</details>
-
-**Rules** - the actions a rule can run, and choosing rules in the list.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/1ad558f3710f69a307202eeb65d9ec0033d534cb">The Set color to action can pick any card color, not only green</a>. Thanks to titver968 and xet7.</summary>
-
-In [#6748](https://github.com/wekan/wekan/issues/6748) the color stayed green
-whatever swatch was clicked. The popup's swatch handler read the color from
-`Template.currentData()`, which in a Blaze event handler is the popup's own
-data, not the clicked swatch, so every click selected nothing. It now reads the
-swatch with `Blaze.getData(event.currentTarget)`, like the card, list and
-swimlane color popups. `tests/ruleSetColorActionPicker.test.cjs` runs the real
-handlers for every color, checks that a click without a color keeps the
-selection, and scans every palette handler under `client/` for the same
-mistake. A Playwright spec picks red in the Rules editor and checks the saved
-action; it was not run here.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/2c16c3f173e25bf1d22f602906487f7a4c0f823f">Select all and Unselect all visibly tick and untick every rule</a>. Thanks to titver968 and xet7.</summary>
-
-In [#6749](https://github.com/wekan/wekan/issues/6749) both buttons seemed to do
-nothing. They did set the selection, but the checkboxes they change were never
-on screen: `forms.css` hides every native checkbox app-wide, because WeKan
-draws its own, and the rules list used native ones. So no rule could be ticked
-by hand for Delete selected or Export selected either. `rules.css` now undoes
-that hiding for the rules list, and each box is labelled with its rule's title.
-`tests/rulesSelectAllCheckboxes.test.cjs` runs both buttons and single ticks
-with several rules, and checks that no native checkbox in the Rules editor is
-left hidden. A Playwright spec checks the boxes are visible and follow both
-buttons; it was not run here.
-
-</details>
-
-**Board lists in card popups** - which boards a card can be moved to or under.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/9ae7388a7e72de02a7327fcbbf14b28b64da35d2">Card More and multi-selection list every board for a user without a templates board</a>. Thanks to xet7.</summary>
-
-"Change card's parent -> Source board" and the multi-selection destination
-picker were empty for a user who has no templates board. Both excluded
-`getTemplatesBoardId()`, which is then undefined, and the client
-ReactiveCache runs its query through `EJSON.stringify`, which drops
-undefined: `_id: { $ne: undefined }` became `_id: {}` and matched no board.
-The templates board is now excluded only when there is one.
-`tests/reactiveCacheUndefinedSelector.test.cjs` fails on any ReactiveCache
-selector with such a call under `$ne`, and the browser spec of several parents
-opens More from the card menu and checks the board is offered.
-
-</details>
-
-**Card filters** - which matches a member's filter may return.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/479f530da05a33e1b21166cd3ad9052fd474dea1">Filter matches follow a member's access even when the board observer stalls</a>. Thanks to xet7.</summary>
-
-After a member's assigned-only restriction was lifted, the text filter kept
-showing only the assigned cards. On a busy server polling MongoDB, the
-filter's board observer delivered its first result and then nothing more, so
-no access change reached it - and a narrowing would have been missed the same
-way, leaving matches the member may no longer see. Text matches, movement
-matches and table pages now also re-read the board every 10 seconds and rescan
-when its permission or members differ from those the result was computed
-from. `tests/boardTextPublication.test.cjs` widens, narrows and revokes with the
-observer silent.
-
-</details>
-
-and has the following developer-tooling fixes:
-
-**Release builds** - the Snap builds Launchpad makes for the extra
-architectures.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/a3048e4a7a41231d60e91f4ee96719fd45c6e1ea">A stopped Launchpad build is retried with a new build, and a proxy failure is named</a>. Thanks to xet7.</summary>
-
-The v12.21 s390x snap failed: Launchpad's own package proxy answered "501
-Gateway error" for one stage-package, and the retries could not help. The
-third attempt ran `remote-build --recover`, which reconnects to the build that
-had already stopped. Now a build that ended Stopped, Failed or Cancelled is
-retried with a new build, while recovery still reconnects after a polling or
-TLS error. Each attempt prints only its own Launchpad log, and a 5xx from the
-build farm's proxy is named as infrastructure, with the package. The tests in
-`tests/releaseSnapRecovery.test.cjs` run the real step with a stand-in
-snapcraft. Not run on GitHub Actions or Launchpad here.
-
-</details>
-
-**Tests** - checks that failed on timing or on formatting, not on WeKan.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/63a7fba46571bf61071ae74110da245bd34ef326">The browser tests no longer sign themselves out on Meteor's cookie refresh limit</a>. Thanks to xet7.</summary>
-
-Meteor allows 30 refreshes of the login cookie per 10 seconds per address, and
-every page load is one; the whole browser suite comes from localhost.
-`ACCOUNTS_COOKIE_REFRESH_RATE_LIMIT` now raises that allowance - the test
-server sets it, and an install behind an untrusted proxy can too - and
-`loginWithToken` waits out a 429 on the refresh. Anything but a positive whole
-number keeps Meteor's default. `tests/cookieRefreshRateLimit.test.cjs`.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/576a8438aaba05760620692c92fc7aba7507c092">The activity notification intent test names each intent by its activity</a>. Thanks to xet7.</summary>
-
-The mocha test failed about one run in four. The two activities' insert hooks
-dispatch at the same time, and when the second one reached the subscriber
-first, the test waited for the intent it makes fail on purpose. Intents are now
-recorded against their activity, and the call counts allow for the recovery
-scan that retries a pending intent every second. It passed 12 of 12 runs.
-
-</details>
-
-- [CHANGELOG prose is wrapped at 80 columns and no link shows a commit hash](https://github.com/wekan/wekan/commit/2632b0d8e1737884c4028ca08ada315831cc2b3a), [again for later lines](https://github.com/wekan/wekan/commit/bc3f99aa1ba24f9dc1166146e49cc5e3e4e1bae4). Thanks to xet7.
-
-- [Browser specs wait for database writes to reach the page before using them](https://github.com/wekan/wekan/commit/cf5060c1936dbc1935c04c21cc98198d497f8711). Thanks to xet7.
-- [card-first-position places and clicks the minicard again after a re-render](https://github.com/wekan/wekan/commit/409950f73080aba39ed9d49cac1312d30f58256b). Thanks to xet7.
-- [rules-blocks expects no comment item in the Blocks menu, which is off by design](https://github.com/wekan/wekan/commit/259c4fc7e82d2b011ba015ffcdfaec7881415700). Thanks to xet7.
-- [Firefox specs wait for stable layout, saved settings and the recovery scan](https://github.com/wekan/wekan/commit/994e01a994c8f2cebaf2ebb360cbb0bc8156f2a1). Thanks to xet7.
-- [map-view reopens the Board View popup that a language switch closed](https://github.com/wekan/wekan/commit/09c67fd327f7c37b144e3ef490fee8c3afeed2ee). Thanks to xet7.
-- [WebKit specs reopen the filter and read SAML state after the last navigation](https://github.com/wekan/wekan/commit/5de9f418a8ff97579b5c8a77474c4a7fcbd9a45f). Thanks to xet7.
-- [releases/changelog-wrap.mjs wraps CHANGELOG prose at 80 columns, and the format test names it](https://github.com/wekan/wekan/commit/c09de3f1ab27acda11b4f412345cfac272fdbca1). Thanks to xet7.
-
-and improves the following translations:
-
-**Tigre, Tamazight and Veps** - words borrowed from the wrong language.
-
-- [Tigre keeps its one date word in the date field and the date block](https://github.com/wekan/wekan/commit/969bb91fedeed915a014a893e5d0f518b610fbbe); whether it should change is left to a Tigre speaker. Thanks to xet7.
-- [Veps kuva for the Blockly image field is recorded as an attested shared term](https://github.com/wekan/wekan/commit/90aabcce0f8dee49ca6ee64ea9a7785cd90e0f4a). Thanks to xet7.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/256a09d5553b314e84f1b896c37ab360e29aff59">Tigre uses its own words for card, name and file in 15 new strings</a>. Thanks to xet7.</summary>
-
-New hints used the Tigrinya forms instead of the Tigre ones the rest of the
-file uses: ወረቀት ካርድ for card, ስሜት for name, አስማይ for names and ፈይል for
-file. Low confidence: the wording around them still needs a Tigre speaker.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/867154fd4ad67eee4a5050656711902b4125f809">Tamazight uses its checklist word in the rule trigger variables hint</a>. Thanks to xet7.</summary>
-
-The hint named checklist fields with a noun the Tamazight checks reject; it now
-uses the same word as `checklist` itself.
-
-</details>
-
 **Translations** — continued language coverage and corrections.
 
 <details>
@@ -7395,6 +7141,263 @@ Thanks to xet7 !
 Thanks to xet7 !
 
 </details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v12.22 2026-10-08 WeKan ® release
+
+**In short:** The **Snap** now says at once when the computer's AppArmor policy,
+not the database, refuses WeKan's own database connection, with the fix for the
+known snapd 2.77.1 kernel problem behind it, four SAML settings can be set
+with `snap set` again, the **Rules** "Set color to" action can pick any card
+color, the Rules list's selection checkboxes are visible again, **card
+filters** follow a member's access changes even when the board observer
+stalls, the **D** keyboard shortcut opens the opened card's due date, today
+stands out in the **calendars**, and **pbkdf2** is updated for a
+denial-of-service advisory.
+
+This release adds the following new features:
+
+**Keyboard shortcuts** - a key for the opened card's due date.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/784d529003ebb47c70fb29e1066aa47d7bd82d5b">D opens the Due date editor of the opened card</a>. Thanks to mimZD and xet7.</summary>
+
+With keyboard shortcuts turned on in the member settings, pressing `d` (or
+Shift+D) opens the same Due date popup as clicking the due date `+` or badge in
+the opened card's details. It does so by clicking that control, so it works
+only where a click would: the board allows due dates and the member may edit
+the card. Typing `d` in the card title, a comment or any other field does not
+trigger it, and nothing happens with shortcuts turned off. The keyboard
+shortcuts help (`?`) lists it. `tests/dueDateKeyboardShortcut.test.cjs` pins
+the binding, the shared filter, the opened-card and permission rules and the
+help entry, with negative cases; the Playwright spec
+`due-date-keyboard-shortcut.e2e.js` covers the popup, shortcuts off and typing
+in fields.
+
+</details>
+
+**Calendar** - today is easy to find in the date popup and the board Calendar.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/519fb2c105f8a2b6e41d6125c3fe28501acfb360">Today's day stands out in the date popup and the board Calendar view</a>. Thanks to mimZD and xet7.</summary>
+
+The due, start and end date popup's calendar did not mark today at all. Today's
+day button now has the `is-today` class and `aria-current="date"`, and its cell
+`is-today-cell`: a ring and underline drawn in the button's own text colour and
+a subtle cell tint, so it stays visible on every board colour theme, custom
+theme colour, light and dark, and in RTL. The rule is more specific than the
+themes' picker button rules so none of them can hide it. The board Calendar
+view already tinted today's cell; its day number is now also a filled circle in
+the board theme's colour. `tests/calendarTodayMarker.test.cjs` pins the marker
+on today only, in Gregorian and Jalali, and that no CSS rule in `client/`
+overrides or hides it; the Playwright spec `calendar-today-marker.e2e.js`
+compares today with a neighbouring day in both calendars.
+
+</details>
+
+and updates the following dependencies:
+
+- **pbkdf2 3.1.3 → 3.1.7** — key derivation in the browser crypto stubs that
+  meteor-node-stubs bundles; fixes long passwords being hashed again on every
+  iteration, [GHSA-477h-4r7f-fvrx](https://github.com/advisories/GHSA-477h-4r7f-fvrx).
+  The bundled copy cannot be overridden, so a postinstall script replaces it
+  with the top-level package ([the update](https://github.com/wekan/wekan/commit/f5836c3a375b5596f24331cbce3d2f83ace23eb7)).
+
+Thanks to dependabot.
+
+and fixes the following bugs:
+
+**Snap database tools** - backup, restore and WeKan's wait for its database.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f927cb3c50708c2e84ad57323edf36761a7d3165">A database connection refused by AppArmor is named at once, with the fix</a>. Thanks to fabiosalles and xet7.</summary>
+
+The kernel log in [#6746](https://github.com/wekan/wekan/issues/6746) held 1300
+lines of `apparmor="DENIED" operation="file_perm" class="net"` for
+`snap.wekan.wekan` on 127.0.0.1:27019, and the same denial for two other snaps.
+FerretDB was running; the kernel refused the first write on an accepted
+connection. That is snapd 2.77.1 on a kernel with an AppArmor socket bug
+([snapd bug 2169038](https://bugs.launchpad.net/snapd/+bug/2169038)), fixed by
+a newer kernel and worked around by `sudo snap revert snapd`. WeKan cannot lift
+the denial, so the new `bin/socket-denied` recognises it and prints what to
+look for and both ways out. WeKan's FerretDB and MongoDB waits print it on the
+first refused attempt instead of "not ready yet" for two minutes, and backup
+and restore stop at once instead of starting a running service and waiting 90
+seconds. `tests/snapSocketDenied.test.cjs` checks the reporter's exact errors,
+with negative tests that a database which is merely down gets no AppArmor
+advice; `tests/snapDatabaseRestore.test.cjs` runs both tools against a refused
+connection. Not run in an installed snap or on an affected kernel.
+
+</details>
+
+**Snap settings** - the `snap set` names behind each WeKan setting.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f927cb3c50708c2e84ad57323edf36761a7d3165">Every service log no longer starts with four snapctl get errors</a>. Thanks to fabiosalles and xet7.</summary>
+
+`SAML_IDP_PROFILE`, `SAML_WANT_RESPONSE_SIGNED`, `SAML_WANT_ASSERTIONS_SIGNED`
+and `SAML_LOGIN_FLOW` were listed in `bin/config` without a `snap set` name, so
+`wekan-read-settings` ran a bare `snapctl get` for each one. Every service log
+showed "error: snapctl: get which option?" and those settings could never be
+set. They are now `saml-idp-profile`, `saml-want-response-signed`,
+`saml-want-assertions-signed` and `saml-login-flow`, and a setting without a
+name falls back to its default instead of calling snapctl.
+`tests/snapSettingsKeys.test.cjs` requires a key, default and description for
+every setting, rejects shared keys, and runs the real reader against a snapctl
+that fails like the real one.
+
+</details>
+
+**Rules** - the actions a rule can run, and choosing rules in the list.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1ad558f3710f69a307202eeb65d9ec0033d534cb">The Set color to action can pick any card color, not only green</a>. Thanks to titver968 and xet7.</summary>
+
+In [#6748](https://github.com/wekan/wekan/issues/6748) the color stayed green
+whatever swatch was clicked. The popup's swatch handler read the color from
+`Template.currentData()`, which in a Blaze event handler is the popup's own
+data, not the clicked swatch, so every click selected nothing. It now reads the
+swatch with `Blaze.getData(event.currentTarget)`, like the card, list and
+swimlane color popups. `tests/ruleSetColorActionPicker.test.cjs` runs the real
+handlers for every color, checks that a click without a color keeps the
+selection, and scans every palette handler under `client/` for the same
+mistake. A Playwright spec picks red in the Rules editor and checks the saved
+action; it was not run here.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2c16c3f173e25bf1d22f602906487f7a4c0f823f">Select all and Unselect all visibly tick and untick every rule</a>. Thanks to titver968 and xet7.</summary>
+
+In [#6749](https://github.com/wekan/wekan/issues/6749) both buttons seemed to do
+nothing. They did set the selection, but the checkboxes they change were never
+on screen: `forms.css` hides every native checkbox app-wide, because WeKan
+draws its own, and the rules list used native ones. So no rule could be ticked
+by hand for Delete selected or Export selected either. `rules.css` now undoes
+that hiding for the rules list, and each box is labelled with its rule's title.
+`tests/rulesSelectAllCheckboxes.test.cjs` runs both buttons and single ticks
+with several rules, and checks that no native checkbox in the Rules editor is
+left hidden. A Playwright spec checks the boxes are visible and follow both
+buttons; it was not run here.
+
+</details>
+
+**Board lists in card popups** - which boards a card can be moved to or under.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9ae7388a7e72de02a7327fcbbf14b28b64da35d2">Card More and multi-selection list every board for a user without a templates board</a>. Thanks to xet7.</summary>
+
+"Change card's parent -> Source board" and the multi-selection destination
+picker were empty for a user who has no templates board. Both excluded
+`getTemplatesBoardId()`, which is then undefined, and the client
+ReactiveCache runs its query through `EJSON.stringify`, which drops
+undefined: `_id: { $ne: undefined }` became `_id: {}` and matched no board.
+The templates board is now excluded only when there is one.
+`tests/reactiveCacheUndefinedSelector.test.cjs` fails on any ReactiveCache
+selector with such a call under `$ne`, and the browser spec of several parents
+opens More from the card menu and checks the board is offered.
+
+</details>
+
+**Card filters** - which matches a member's filter may return.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/479f530da05a33e1b21166cd3ad9052fd474dea1">Filter matches follow a member's access even when the board observer stalls</a>. Thanks to xet7.</summary>
+
+After a member's assigned-only restriction was lifted, the text filter kept
+showing only the assigned cards. On a busy server polling MongoDB, the
+filter's board observer delivered its first result and then nothing more, so
+no access change reached it - and a narrowing would have been missed the same
+way, leaving matches the member may no longer see. Text matches, movement
+matches and table pages now also re-read the board every 10 seconds and rescan
+when its permission or members differ from those the result was computed
+from. `tests/boardTextPublication.test.cjs` widens, narrows and revokes with the
+observer silent.
+
+</details>
+
+and has the following developer-tooling fixes:
+
+**Release builds** - the Snap builds Launchpad makes for the extra
+architectures.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a3048e4a7a41231d60e91f4ee96719fd45c6e1ea">A stopped Launchpad build is retried with a new build, and a proxy failure is named</a>. Thanks to xet7.</summary>
+
+The v12.21 s390x snap failed: Launchpad's own package proxy answered "501
+Gateway error" for one stage-package, and the retries could not help. The
+third attempt ran `remote-build --recover`, which reconnects to the build that
+had already stopped. Now a build that ended Stopped, Failed or Cancelled is
+retried with a new build, while recovery still reconnects after a polling or
+TLS error. Each attempt prints only its own Launchpad log, and a 5xx from the
+build farm's proxy is named as infrastructure, with the package. The tests in
+`tests/releaseSnapRecovery.test.cjs` run the real step with a stand-in
+snapcraft. Not run on GitHub Actions or Launchpad here.
+
+</details>
+
+**Tests** - checks that failed on timing or on formatting, not on WeKan.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/63a7fba46571bf61071ae74110da245bd34ef326">The browser tests no longer sign themselves out on Meteor's cookie refresh limit</a>. Thanks to xet7.</summary>
+
+Meteor allows 30 refreshes of the login cookie per 10 seconds per address, and
+every page load is one; the whole browser suite comes from localhost.
+`ACCOUNTS_COOKIE_REFRESH_RATE_LIMIT` now raises that allowance - the test
+server sets it, and an install behind an untrusted proxy can too - and
+`loginWithToken` waits out a 429 on the refresh. Anything but a positive whole
+number keeps Meteor's default. `tests/cookieRefreshRateLimit.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/576a8438aaba05760620692c92fc7aba7507c092">The activity notification intent test names each intent by its activity</a>. Thanks to xet7.</summary>
+
+The mocha test failed about one run in four. The two activities' insert hooks
+dispatch at the same time, and when the second one reached the subscriber
+first, the test waited for the intent it makes fail on purpose. Intents are now
+recorded against their activity, and the call counts allow for the recovery
+scan that retries a pending intent every second. It passed 12 of 12 runs.
+
+</details>
+
+- [CHANGELOG prose is wrapped at 80 columns and no link shows a commit hash](https://github.com/wekan/wekan/commit/2632b0d8e1737884c4028ca08ada315831cc2b3a), [again for later lines](https://github.com/wekan/wekan/commit/bc3f99aa1ba24f9dc1166146e49cc5e3e4e1bae4). Thanks to xet7.
+
+- [Browser specs wait for database writes to reach the page before using them](https://github.com/wekan/wekan/commit/cf5060c1936dbc1935c04c21cc98198d497f8711). Thanks to xet7.
+- [card-first-position places and clicks the minicard again after a re-render](https://github.com/wekan/wekan/commit/409950f73080aba39ed9d49cac1312d30f58256b). Thanks to xet7.
+- [rules-blocks expects no comment item in the Blocks menu, which is off by design](https://github.com/wekan/wekan/commit/259c4fc7e82d2b011ba015ffcdfaec7881415700). Thanks to xet7.
+- [Firefox specs wait for stable layout, saved settings and the recovery scan](https://github.com/wekan/wekan/commit/994e01a994c8f2cebaf2ebb360cbb0bc8156f2a1). Thanks to xet7.
+- [map-view reopens the Board View popup that a language switch closed](https://github.com/wekan/wekan/commit/09c67fd327f7c37b144e3ef490fee8c3afeed2ee). Thanks to xet7.
+- [WebKit specs reopen the filter and read SAML state after the last navigation](https://github.com/wekan/wekan/commit/5de9f418a8ff97579b5c8a77474c4a7fcbd9a45f). Thanks to xet7.
+- [releases/changelog-wrap.mjs wraps CHANGELOG prose at 80 columns, and the format test names it](https://github.com/wekan/wekan/commit/c09de3f1ab27acda11b4f412345cfac272fdbca1). Thanks to xet7.
+
+and improves the following translations:
+
+**Tigre, Tamazight and Veps** - words borrowed from the wrong language.
+
+- [Tigre keeps its one date word in the date field and the date block](https://github.com/wekan/wekan/commit/969bb91fedeed915a014a893e5d0f518b610fbbe); whether it should change is left to a Tigre speaker. Thanks to xet7.
+- [Veps kuva for the Blockly image field is recorded as an attested shared term](https://github.com/wekan/wekan/commit/90aabcce0f8dee49ca6ee64ea9a7785cd90e0f4a). Thanks to xet7.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/256a09d5553b314e84f1b896c37ab360e29aff59">Tigre uses its own words for card, name and file in 15 new strings</a>. Thanks to xet7.</summary>
+
+New hints used the Tigrinya forms instead of the Tigre ones the rest of the
+file uses: ወረቀት ካርድ for card, ስሜት for name, አስማይ for names and ፈይል for
+file. Low confidence: the wording around them still needs a Tigre speaker.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/867154fd4ad67eee4a5050656711902b4125f809">Tamazight uses its checklist word in the rule trigger variables hint</a>. Thanks to xet7.</summary>
+
+The hint named checklist fields with a noun the Tamazight checks reject; it now
+uses the same word as `checklist` itself.
+
+</details>
+
+**Translations** — continued language coverage and corrections.
+
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3dd40f61f2e6c42d1f14725100929c5cb379fa67">Translate 86 Northern Sotho mathematical messages.</a></summary>
