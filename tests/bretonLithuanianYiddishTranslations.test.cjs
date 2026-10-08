@@ -525,3 +525,18 @@ assert.match(locales.yi['blockly-NO_PARENT_ANNOUNCEMENT'], /נישט קיין ע
 assert.match(locales.yi['blockly-PAGE_DOWN_KEY'], /אַראָפּ.*Page Down/);
 assert.match(locales.yi['blockly-PAGE_UP_KEY'], /אַרויף.*Page Up/);
 assert.match(locales.yi['blockly-MATH_SINGLE_TOOLTIP_POW10'], /10/);
+
+const yiddishBlocklyShortcuts = ["blockly-PROCEDURES_DEF_DUPLICATE_WARNING", "blockly-PROCEDURES_HIGHLIGHT_DEF", "blockly-PROCEDURES_IFRETURN_TOOLTIP", "blockly-PROCEDURES_IFRETURN_WARNING", "blockly-PROCEDURES_MUTATORARG_TITLE", "blockly-PROCEDURES_MUTATORARG_TOOLTIP", "blockly-PROCEDURES_MUTATORCONTAINER_TITLE", "blockly-PROCEDURES_MUTATORCONTAINER_TOOLTIP", "blockly-REDO", "blockly-REMOVE_FROM_BACKPACK", "blockly-RENAME_VARIABLE", "blockly-RENAME_VARIABLE_TITLE", "blockly-RESET_ZOOM", "blockly-SCREENREADER_HINT", "blockly-SCREENREADER_MODE_DISABLED", "blockly-SCREENREADER_MODE_ENABLED", "blockly-SHIFT_KEY", "blockly-SHORTCUTS_ABORT_MOVE", "blockly-SHORTCUTS_CLEANUP", "blockly-SHORTCUTS_CODE_NAVIGATION", "blockly-SHORTCUTS_DISCONNECT", "blockly-SHORTCUTS_DUPLICATE", "blockly-SHORTCUTS_EDITING", "blockly-SHORTCUTS_ESCAPE", "blockly-SHORTCUTS_EXTENDED_INFORMATION", "blockly-SHORTCUTS_FINISH_MOVE", "blockly-SHORTCUTS_FOCUS_TOOLBOX", "blockly-SHORTCUTS_FOCUS_WORKSPACE", "blockly-SHORTCUTS_GENERAL", "blockly-SHORTCUTS_INFORMATION", "blockly-SHORTCUTS_JUMP_BLOCK_END", "blockly-SHORTCUTS_JUMP_BLOCK_START", "blockly-SHORTCUTS_JUMP_BOTTOM_STACK", "blockly-SHORTCUTS_JUMP_FIRST_BLOCK", "blockly-SHORTCUTS_JUMP_LAST_BLOCK", "blockly-SHORTCUTS_JUMP_NEXT_PAGE", "blockly-SHORTCUTS_JUMP_PREVIOUS_PAGE", "blockly-SHORTCUTS_JUMP_TOP_STACK", "blockly-SHORTCUTS_MOVE_DOWN", "blockly-SHORTCUTS_MOVE_LEFT", "blockly-SHORTCUTS_MOVE_RIGHT", "blockly-SHORTCUTS_MOVE_UP", "blockly-SHORTCUTS_NEXT_HEADING", "blockly-SHORTCUTS_NEXT_STACK", "blockly-SHORTCUTS_PERFORM_ACTION"];
+for (const key of yiddishBlocklyShortcuts) {
+  assert.notEqual(locales.yi[key], english[key], key);
+  assert.match(locales.yi[key], /[\u0590-\u05ff]/, key);
+  assert.deepEqual(translationTokens(locales.yi[key]), translationTokens(english[key]), key);
+}
+for (const [key, word] of Object.entries({ MOVE_DOWN: 'אַראָפּ', MOVE_UP: 'אַרויף', MOVE_LEFT: 'לינקס', MOVE_RIGHT: 'רעכטס', JUMP_BLOCK_START: 'אָנהייב', JUMP_BLOCK_END: 'סוף', JUMP_NEXT_PAGE: 'קומענדיקן', JUMP_PREVIOUS_PAGE: 'פֿריִערדיקן', ABORT_MOVE: 'אָפּברעכן', FINISH_MOVE: 'ענדיקן' })) {
+  assert.ok(locales.yi[`blockly-SHORTCUTS_${key}`].includes(word));
+}
+assert.match(locales.yi['blockly-SCREENREADER_MODE_DISABLED'], /איז אויסגעשלאָסן.*%1 אים אײַנצושליסן/);
+assert.match(locales.yi['blockly-SCREENREADER_MODE_ENABLED'], /איז אײַנגעשלאָסן.*%1 אים אויסצושליסן/);
+assert.match(locales.yi['blockly-PROCEDURES_IFRETURN_WARNING'], /נאָר אינעווייניק אין אַ פֿונקציע/);
+assert.match(locales.yi['blockly-RENAME_VARIABLE_TITLE'], /אַלע וואַריאַבלעס '%1'/);
+assert.match(locales.yi['blockly-SHIFT_KEY'], /Shift/);
