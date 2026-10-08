@@ -2173,6 +2173,20 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/01b12e1f4c348649aff27303f110cab4d8ebb4b6">Correct Tatar activity messages and title argument order</a></summary>
+
+- Correct 31 activity and comment-control strings, including the new-title and
+  card argument order in an earlier translation. Preserve placeholder case/counts
+  and distinguish adding, removing, checking and completing actions.
+- Technical wording remains low confidence pending speaker review.
+- All 70 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1a236cea3e3d6290aea820b770d340069bc97aa7">Correct Tatar rule descriptions and checklist guidance</a></summary>
 
 - Correct 31 rule descriptions and instructions, preserving source placeholders,
