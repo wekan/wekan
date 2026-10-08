@@ -731,8 +731,8 @@
     "locale": "wuu-Hans",
     "key": "admin-only-field",
     "before": "仅董事会管理员可见",
-    "after": "仅看板管理员可见",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "只有看板管理员看得见",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Correct Wu administration and field scope, preserving product names and multitenancy literals; lower-confidence prose needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -955,8 +955,8 @@
     "locale": "wuu-Hans",
     "key": "tableVisibilityMode-allowPrivateOnly",
     "before": "董事会可见性：仅允许私人董事会",
-    "after": "看板可见性：仅允许私人看板",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "看板可见性：只允许私有看板",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Correct Wu administration and field scope, preserving product names and multitenancy literals; lower-confidence prose needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -163672,5 +163672,124 @@
     "before": "您已成功发送电子邮件",
     "after": "侬成功发出一封电子邮件仔",
     "reason": "2026-10-08: Correct Wu limits and mail settings, preserving invitation variables, technical names and separate safety caps; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-invitation-code-not-exist",
+    "before": "邀请码不存在",
+    "after": "搿个邀请码勿存在",
+    "reason": "2026-10-08: Correct Wu administration and field scope, preserving product names and multitenancy literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-notAuthorized",
+    "before": "您无权查看此页面。",
+    "after": "侬呒没权限看搿个页面。",
+    "reason": "2026-10-08: Correct Wu administration and field scope, preserving product names and multitenancy literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "disable-webhook",
+    "before": "禁用此 Webhook",
+    "after": "禁用搿只 Webhook",
+    "reason": "2026-10-08: Correct Wu administration and field scope, preserving product names and multitenancy literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "Node_version",
+    "before": "节点版本",
+    "after": "Node 版本",
+    "reason": "2026-10-08: Correct Wu administration and field scope, preserving product names and multitenancy literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "Meteor_version",
+    "before": "流星版",
+    "after": "Meteor 版本",
+    "reason": "2026-10-08: Correct Wu administration and field scope, preserving product names and multitenancy literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "show-field-on-card",
+    "before": "在卡上显示此字段",
+    "after": "勒卡片浪显示搿只字段",
+    "reason": "2026-10-08: Correct Wu administration and field scope, preserving product names and multitenancy literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "automatically-field-on-card",
+    "before": "将字段添加到新卡",
+    "after": "拿字段加到新卡片浪",
+    "reason": "2026-10-08: Correct Wu administration and field scope, preserving product names and multitenancy literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "always-field-on-card",
+    "before": "为所有卡片添加字段",
+    "after": "拿字段加到所有卡片浪",
+    "reason": "2026-10-08: Correct Wu administration and field scope, preserving product names and multitenancy literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "showLabel-field-on-card",
+    "before": "在迷你卡上显示字段标签",
+    "after": "勒迷你卡片浪显示字段标签",
+    "reason": "2026-10-08: Correct Wu administration and field scope, preserving product names and multitenancy literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "showSum-field-on-list",
+    "before": "在列表顶部显示字段总和",
+    "after": "勒列表顶浪显示字段总和",
+    "reason": "2026-10-08: Correct Wu administration and field scope, preserving product names and multitenancy literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "active",
+    "before": "积极的",
+    "after": "启用",
+    "reason": "2026-10-08: Correct Wu administration and field scope, preserving product names and multitenancy literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "active-team",
+    "before": "活跃团队",
+    "after": "启用团队",
+    "reason": "2026-10-08: Correct Wu administration and field scope, preserving product names and multitenancy literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "active-org",
+    "before": "积极的组织",
+    "after": "启用组织",
+    "reason": "2026-10-08: Correct Wu administration and field scope, preserving product names and multitenancy literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "org-propagate-members-to-boards",
+    "before": "将成员传播到看板",
+    "after": "拿成员同步到看板",
+    "reason": "2026-10-08: Correct Wu administration and field scope, preserving product names and multitenancy literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "org-tenant",
+    "before": "多租户：将该组织作为租户",
+    "after": "多租户：拿搿个组织当租户",
+    "reason": "2026-10-08: Correct Wu administration and field scope, preserving product names and multitenancy literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "org-domains",
+    "before": "该组织的域名",
+    "after": "搿个组织个域名",
+    "reason": "2026-10-08: Correct Wu administration and field scope, preserving product names and multitenancy literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "org-domains-description",
+    "before": "该组织所使用的主机名，用逗号分隔，例如 a.example.com、kanban.example.org。对其中任一域名的请求即视为该组织的请求，下面的品牌设置将替代实例的品牌设置。仅在服务器以 MULTITENANCY=true 启动时生效。若该组织不是租户，请留空。",
+    "after": "搿个组织提供服务用个主机名，用逗号分隔，比方讲 a.example.com、kanban.example.org。访问其中任何一只域名个请求，侪算搿个组织个请求，下头个品牌设置会替换实例个品牌设置。只有服务器用 MULTITENANCY=true 启动个辰光才生效。搿个组织假使勿是租户，就留空。",
+    "reason": "2026-10-08: Correct Wu administration and field scope, preserving product names and multitenancy literals; lower-confidence prose needs native review."
   }
 ]

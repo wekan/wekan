@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu administration and field-scope corrections — 2026-10-08
+
+Correct 19 administration, custom-field and organization values. Restore Node and
+Meteor product names and distinguish adding fields to new versus all cards. Preserve
+administrator-only visibility, example domains and MULTITENANCY=true. Retain the
+existing read-only field permission explanation. Refresh exact-value audit records.
+Wu prose needs native review; browser tests were not run and all-language work remains
+unfinished.
+
 ## Wu limits and mail-setting corrections — 2026-10-08
 
 Correct 24 task-limit, transfer-limit, invitation and mail-setting values. Preserve
@@ -12650,7 +12659,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,382** exact before/after values, including unflagged
+records contain **23,399** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

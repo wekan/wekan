@@ -739,3 +739,14 @@ assert.equal(wu['send-from'], '发件人');
 assert.match(wu['email-invite-register-text'], /__inviter__.*邀请侬.*__icode__/s);
 assert.equal(wu['email-invite-register-subject'], wu['email-invite-subject']);
 for (const key of ['email-templates-invite-vars-hint', 'email-templates-activity-vars-hint']) assert.deepEqual(wu[key].match(/\{[^}]+\}/g), english[key].match(/\{[^}]+\}/g));
+
+const adminFields = ["error-invitation-code-not-exist", "error-notAuthorized", "disable-webhook", "Node_version", "Meteor_version", "show-field-on-card", "automatically-field-on-card", "always-field-on-card", "showLabel-field-on-card", "showSum-field-on-list", "admin-only-field", "tableVisibilityMode-allowPrivateOnly", "active", "active-team", "active-org", "org-propagate-members-to-boards", "org-tenant", "org-domains", "org-domains-description"];
+for (const key of adminFields) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.equal(wu.Node_version, 'Node 版本');
+assert.equal(wu.Meteor_version, 'Meteor 版本');
+assert.match(wu['automatically-field-on-card'], /新卡片/);
+assert.match(wu['always-field-on-card'], /所有卡片/);
+assert.match(wu['admin-only-field'], /只有看板管理员看得见/);
+assert.match(wu['tableVisibilityMode-allowPrivateOnly'], /只允许私有看板/);
+for (const literal of ['a.example.com', 'kanban.example.org', 'MULTITENANCY=true']) assert.ok(wu['org-domains-description'].includes(literal));
+assert.match(wu['org-domains-description'], /只有服务器.*才生效.*勿是租户.*留空/);
