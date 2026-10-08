@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/73622c9539">Translate eight Finnish import instructions</a>. Thanks to xet7.</summary>
+
+Translate instructions for Planner, MeisterTask, Obsidian, Linear, TickTick,
+ClickUp, Nullboard and Kanri. Preserve product commands, file extensions,
+first-board limits, archived-card mapping and completion dates. The registered
+import-instruction suite and all 21 preservation checks pass. A full scan verifies
+exact placeholder inventories for 988,920 values across 246 catalog paths.
+Native review, browser checks and the remaining translations are still outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6b08c3d3dd">Translate Kashubian Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 31 values, preserving exact variables, keyboard names and count roles.
