@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Papiamento Blockly list mutation and sorting — 2026-10-08
+
+Translate 42 English list messages. Preserve variables and index markers; check
+insertion versus replacement, operations on copies, missing-item results, first
+and last positions, case-insensitive sorting and join/split distinctions.
+Specialized wording is lower confidence and needs native review. No browser or
+screen-reader session was run. Remaining translations are unfinished.
+
 ## Papiamento Blockly navigation and retrieval — 2026-10-08
 
 Translate 34 English navigation and list messages. Preserve variables and index

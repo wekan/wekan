@@ -129,3 +129,20 @@ assert.match(papiamento['blockly-LISTS_CREATE_EMPTY_TOOLTIP'], /largura 0.*sin n
 assert.match(papiamento['blockly-KEYBOARD_NAV_UNCONSTRAINED_MOVE_HINT'], /Tene %1 primí.*%2 pa aseptá/);
 assert.match(papiamento['blockly-KEYBOARD_NAV_COPIED_HINT'], /^Kopiá/);
 assert.match(papiamento['blockly-KEYBOARD_NAV_CUT_HINT'], /^Kortá/);
+
+const blocklyListMutation = ["blockly-LISTS_GET_SUBLIST_END_FROM_END", "blockly-LISTS_GET_SUBLIST_END_LAST", "blockly-LISTS_GET_SUBLIST_START_FIRST", "blockly-LISTS_GET_SUBLIST_START_FROM_END", "blockly-LISTS_GET_SUBLIST_START_FROM_START", "blockly-LISTS_GET_SUBLIST_TOOLTIP", "blockly-LISTS_INDEX_FROM_END_TOOLTIP", "blockly-LISTS_INDEX_FROM_START_TOOLTIP", "blockly-LISTS_INDEX_OF_FIRST", "blockly-LISTS_INDEX_OF_LAST", "blockly-LISTS_INDEX_OF_TOOLTIP", "blockly-LISTS_INLIST", "blockly-LISTS_ISEMPTY_TITLE", "blockly-LISTS_ISEMPTY_TOOLTIP", "blockly-LISTS_LENGTH_TITLE", "blockly-LISTS_LENGTH_TOOLTIP", "blockly-LISTS_REPEAT_TITLE", "blockly-LISTS_REPEAT_TOOLTIP", "blockly-LISTS_REVERSE_MESSAGE0", "blockly-LISTS_REVERSE_TOOLTIP", "blockly-LISTS_SET_INDEX_INSERT", "blockly-LISTS_SET_INDEX_SET", "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_FIRST", "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_FROM", "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_LAST", "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_RANDOM", "blockly-LISTS_SET_INDEX_TOOLTIP_SET_FIRST", "blockly-LISTS_SET_INDEX_TOOLTIP_SET_FROM", "blockly-LISTS_SET_INDEX_TOOLTIP_SET_LAST", "blockly-LISTS_SET_INDEX_TOOLTIP_SET_RANDOM", "blockly-LISTS_SORT_ORDER_ASCENDING", "blockly-LISTS_SORT_ORDER_DESCENDING", "blockly-LISTS_SORT_TITLE", "blockly-LISTS_SORT_TOOLTIP", "blockly-LISTS_SORT_TYPE_IGNORECASE", "blockly-LISTS_SORT_TYPE_NUMERIC", "blockly-LISTS_SORT_TYPE_TEXT", "blockly-LISTS_SPLIT_LIST_FROM_TEXT", "blockly-LISTS_SPLIT_TEXT_FROM_LIST", "blockly-LISTS_SPLIT_TOOLTIP_JOIN", "blockly-LISTS_SPLIT_TOOLTIP_SPLIT", "blockly-LISTS_SPLIT_WITH_DELIMITER"];
+for (const key of blocklyListMutation) {
+  assert.notEqual(papiamento[key], english[key], key);
+  assert.deepEqual(tokens(papiamento[key]), tokens(english[key]), key);
+}
+for (const position of ['FIRST', 'FROM', 'LAST', 'RANDOM']) {
+  assert.match(papiamento[`blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_${position}`], /^(Insertá|Agregá)/);
+  assert.match(papiamento[`blockly-LISTS_SET_INDEX_TOOLTIP_SET_${position}`], /^Asigná e balor/);
+}
+for (const key of ['LISTS_GET_SUBLIST_TOOLTIP', 'LISTS_REVERSE_TOOLTIP', 'LISTS_SORT_TOOLTIP']) assert.match(papiamento[`blockly-${key}`], /kopia/);
+assert.match(papiamento['blockly-LISTS_INDEX_OF_TOOLTIP'], /%1 si no a haña/);
+assert.match(papiamento['blockly-LISTS_INDEX_FROM_START_TOOLTIP'], /promé/);
+assert.match(papiamento['blockly-LISTS_INDEX_FROM_END_TOOLTIP'], /último/);
+assert.match(papiamento['blockly-LISTS_SORT_TYPE_IGNORECASE'], /ignorá mayúskula i minúskula/);
+assert.match(papiamento['blockly-LISTS_SPLIT_TOOLTIP_JOIN'], /^Uni/);
+assert.match(papiamento['blockly-LISTS_SPLIT_TOOLTIP_SPLIT'], /^Separá.*kada separadó/);
