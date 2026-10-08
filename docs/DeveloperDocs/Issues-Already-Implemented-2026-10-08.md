@@ -76,3 +76,11 @@ A custom field of type date is shown on the minicard as a compact date badge,
 its label can be hidden (showLabelOnMiniCard), and the date formats include
 date-only variants that drop the time (client/components/cards/cardDate.jade,
 client/lib/dateDisplay.js).
+
+## [#2148](https://github.com/wekan/wekan/issues/2148) Notification mail
+template
+
+Admin Panel / Settings / Email Templates customizes the subject and body of
+invitation and activity emails, with {board} {card} {list} {username} {url}
+{comment} {action} variables escaped on the server
+(client/components/settings/settingBody.jade, server/notifications/email.js).
