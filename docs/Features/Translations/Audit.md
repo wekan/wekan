@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Zulu statistics and trigonometry — 2026-10-09
+
+Translate 27 mathematical messages per Zulu catalog (54 values), retaining
+function identifiers and coordinate variables. Mean, median and mode vocabulary
+follows the [Oxford English–IsiZulu maths dictionary](https://www.oxford.co.za/files/lookinside/9780190734381.pdf).
+Regression checks distinguish these statistics, preserve function symbols and
+base 10, render coordinates and retain degrees rather than radians. Both targeted
+suites and all 21 preservation checks pass. Specialized terminology remains low
+confidence pending speaker review. Browser execution and remaining translations
+are outstanding.
+
 ## Zulu number properties, powers and roots — 2026-10-09
 
 Translate 26 mathematical values per Zulu catalog (52 values), retaining
