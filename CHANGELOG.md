@@ -593,6 +593,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/473b565285">Translate Hindi Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
+
+Translate 62 values across both Hindi catalogs, preserving placeholders, count
+roles, keyboard names, matching errors and rollback/keep-board distinctions.
+Placeholder and language-wiring suites, focused Hindi checks and all 21 preservation
+checks pass. The large completion suite now reaches untranslated Bengali release
+text. Native review, browser checks and the remaining backlog are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8d68bd56cb">Translate Malay and Indonesian Scrum planning and recovery</a>. Thanks to xet7.</summary>
 
 Translate 93 values across three catalogs. Preserve placeholders, keyboard names,
