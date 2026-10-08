@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Spanish import formats and stuck Sync recovery — 2026-10-08
+
+Translate 36 more current values in each of the nine Spanish catalogs, for
+324 filled values. Cover OPML, Org mode and Todoist guidance, assignment
+rules, LDAP, OAuth, release selection and stuck Sync recovery. Preserve
+format literals and configuration names, retained applied changes, unwritten
+pending changes and the difference between cannot discard and was not
+discarded. Extend the existing nine-locale regression suite. No browser or
+screen-reader session was run; broader translation work remains open.
+
 ## Spanish planning and recovery messages — 2026-10-08
 
 Translate 61 current English values in each of nine Spanish catalogs
