@@ -337,7 +337,7 @@ test('every external export menu link returns text and refuses an unrelated user
   // Include description through the actual shared selection controls.
   const details = page.locator('.js-export-card-details-toggle');
   if (await details.getAttribute('aria-checked') !== 'true') await details.click();
-  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist']) {
+  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'opml']) {
     await test.step(format, async () => {
       const anchor = page.locator(`.js-pop-over a[href*="/export/${format}?"]`);
       await expect(anchor).toBeVisible();
@@ -422,6 +422,36 @@ test('Todoist: a project template imports with its sections, labels, description
     expect(new Date(open.dueAt).toISOString().slice(0, 10)).toBe('2026-10-10');
     expect(db.find('card_comments', { cardId: open._id }).map(comment => comment.text)).toEqual(['Ordered']);
     expect(db.find('checklistItems', { cardId: open._id }).map(item => [item.title, item.isFinished])).toEqual([['Call vendor', false]]);
+    const lists = db.find('lists', { boardId });
+    expect(lists.find(list => list._id === open.listId).title).toBe('Doing');
+    expect(lists.find(list => list._id === cards.find(card => card.title === 'Finished task').listId).title).toBe('Done');
+    await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
+
+// An OPML outline as Workflowy writes it: lists, cards with their notes, a
+// checklist and the done state (models/lib/opmlOutline.js).
+test('OPML: an outline imports with its lists, notes, checklist and done state', async ({ loggedInPage: page }) => {
+  let boardId;
+  const attr = value => value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/\n/g, '&#10;');
+  try {
+    await navigateInApp(page, '/import/opml');
+    await page.locator('#import-textarea').fill([
+      '<?xml version="1.0"?>',
+      '<opml version="2.0"><head><title>From OPML</title></head><body>',
+      `<outline text="Doing"><outline text="${attr(expected.title)}" _note="${attr(expected.description)}">`,
+      '<outline text="Call vendor" _complete="true"/></outline></outline>',
+      '<outline text="Done"><outline text="Finished task" _complete="true"/></outline>',
+      '</body></opml>',
+    ].join('\n'));
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    const cards = db.find('cards', { boardId });
+    expect(cards).toHaveLength(2);
+    const open = cards.find(card => card.title === expected.title);
+    expect(open.description).toBe(expected.description);
+    expect(db.find('checklistItems', { cardId: open._id }).map(item => [item.title, item.isFinished])).toEqual([['Call vendor', true]]);
     const lists = db.find('lists', { boardId });
     expect(lists.find(list => list._id === open.listId).title).toBe('Doing');
     expect(lists.find(list => list._id === cards.find(card => card.title === 'Finished task').listId).title).toBe('Done');

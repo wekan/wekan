@@ -356,7 +356,7 @@ if (Meteor.isServer) {
       // Markdown, the Leo outline (XML), todo.txt and Taskwarrior's JSON are
       // files of their own, sent as the formatter wrote them.
       const textType = { markdown: 'text/markdown', leo: 'application/xml', todotxt: 'text/plain',
-        taskwarrior: 'application/json', focalboard: 'application/x-ndjson', todoist: 'text/csv' }[format];
+        taskwarrior: 'application/json', focalboard: 'application/x-ndjson', todoist: 'text/csv', opml: 'text/x-opml' }[format];
       if (textType) {
         res.writeHead(200, { 'Content-Type': `${textType}; charset=utf-8` });
         res.end(String(built == null ? '' : built));

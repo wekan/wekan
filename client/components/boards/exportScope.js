@@ -237,6 +237,7 @@ const EXPORT_FORMAT_GROUPS = [
       { key: 'kanboard', icon: 'fa-upload', label: 'Kanboard', path: 'export/kanboard', ext: 'json', scopes: BOARD_ONLY },
       { key: 'markdown', icon: 'fa-file-text-o', label: 'Markdown', path: 'export/markdown', ext: 'md', scopes: BOARD_ONLY },
       { key: 'leo', icon: 'fa-sitemap', label: 'Leo', path: 'export/leo', ext: 'leo', scopes: BOARD_ONLY },
+      { key: 'opml', icon: 'fa-indent', label: 'OPML', path: 'export/opml', ext: 'opml', scopes: BOARD_ONLY },
       { key: 'todotxt', icon: 'fa-list-ul', label: 'todo.txt', path: 'export/todotxt', ext: 'txt', scopes: BOARD_ONLY },
       { key: 'taskwarrior', icon: 'fa-terminal', label: 'Taskwarrior', path: 'export/taskwarrior', ext: 'json', scopes: BOARD_ONLY },
       { key: 'focalboard', icon: 'fa-th-large', label: 'Focalboard', path: 'export/focalboard', ext: 'jsonl', scopes: BOARD_ONLY },

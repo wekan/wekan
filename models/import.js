@@ -81,7 +81,7 @@ Meteor.methods({
     // feature lookup, creator or write is reached before authentication.
     // String is accepted alongside Object/Array for markdown-kanban text
     // imports (models/lib/externalParsers.js parseMarkdownKanban); the
-    // 'markdown', 'todotxt', 'taskwarrior', 'focalboard', 'todoist' and 'leo' cases below are the only
+    // 'markdown', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'leo' and 'opml' cases below are the only
     // ones that let a string through their own per-source check().
     check(board, Match.OneOf(Object, Array, String));
     check(data, Object);
@@ -99,9 +99,11 @@ Meteor.methods({
     try { validateImportSourceShape(importSource, board); }
     catch (error) { throw new Meteor.Error('invalid-import-format', error.message); }
     let creator;
-    // A .leo outline is XML: sanitizing the raw text would strip its tags as
-    // markup. It is parsed first and the parsed tasks are sanitized instead.
-    let importedBoard = importSource === 'leo' ? board : sanitizeImported(board, importSource, this);
+    // A .leo or OPML outline is XML: sanitizing the raw text would strip its
+    // tags as markup. It is parsed first and the parsed tasks are sanitized
+    // instead.
+    let importedBoard = importSource === 'leo' || importSource === 'opml' ? board
+      : sanitizeImported(board, importSource, this);
     switch (importSource) {
       case 'trello':
         check(board, Object);
@@ -195,6 +197,19 @@ Meteor.methods({
         }
         importedBoard = sanitizeImported(importedBoard, 'leo', this);
         creator = new KanboardCreator(data, 'leo');
+        break;
+      case 'opml':
+        // An OPML outline (Workflowy, Dynalist, OmniOutliner, Logseq) - see
+        // models/lib/opmlOutline.js.
+        check(board, String);
+        if (!Meteor.isServer) return undefined;
+        try {
+          importedBoard = require('/server/lib/opmlImport').parseOpml(board);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        importedBoard = sanitizeImported(importedBoard, 'opml', this);
+        creator = new KanboardCreator(data, 'opml');
         break;
       default:
         // NextCloud Deck / OpenProject / GitHub / GitLab / Gitea / Forgejo:

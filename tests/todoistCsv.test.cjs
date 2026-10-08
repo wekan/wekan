@@ -110,7 +110,7 @@ async function main() {
 
   test('wired in: import page, server import, export menu and route', () => {
     assert.match(read('client/components/import/import.js'), /\{ key: 'todoist', name: 'Todoist' \}/);
-    assert.match(read('client/components/import/import.js'), /dataSource === 'todoist'\)/);
+    assert.match(read('client/components/import/import.js'), /\|\| dataSource === 'todoist'[ )|]/, 'sent as text');
     assert.match(read('models/import.js'), /case 'todoist':\s*\/\/[^\n]*\n\s*check\(board, String\);/);
     assert.match(read('models/import.js'), /new KanboardCreator\(data, 'todoist'\)/);
     assert.match(read('client/components/boards/exportScope.js'), /key: 'todoist'[^\n]*path: 'export\/todoist', ext: 'csv'/);

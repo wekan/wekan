@@ -126,7 +126,8 @@ Body &amp; more</t>
   });
   await test('the import parses the raw XML server-side and sanitizes the parsed tasks', () => {
     const src = read('models/import.js');
-    assert.match(src, /importSource === 'leo' \? board : sanitizeImported\(board, importSource, this\)/);
+    // OPML is XML too, and is parsed first the same way (tests/opmlOutline.test.cjs).
+    assert.match(src, /importSource === 'leo' \|\| importSource === 'opml' \? board\s*: sanitizeImported\(board, importSource, this\)/);
     const leoCase = src.slice(src.indexOf("case 'leo':"), src.indexOf('default:', src.indexOf("case 'leo':")));
     assert.match(leoCase, /check\(board, String\)/);
     assert.match(leoCase, /if \(!Meteor\.isServer\) return undefined;/);

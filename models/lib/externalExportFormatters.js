@@ -16,6 +16,7 @@ import { formatTodoTxt } from './todoTxtFormat.js';
 import { formatTaskwarrior } from './taskwarriorFormat.js';
 import { formatFocalboard } from './focalboardFormat.js';
 import { formatTodoistCsv } from './todoistCsvFormat.js';
+import { formatOpml } from './opmlOutlineFormat.js';
 
 // A WeKan list maps to a "closed" issue state when its name looks terminal.
 function isClosed(listTitle) {
@@ -252,6 +253,8 @@ export const formatters = {
   focalboard: data => formatFocalboard(data),
   // A Todoist project template (CSV); round-trips with parseTodoistCsv (todoistCsvFormat.js).
   todoist: formatTodoistCsv,
+  // An OPML outline; round-trips with parseOpml (opmlOutline.js, server-only).
+  opml: formatOpml,
 };
 
 export const EXTERNAL_EXPORT_FORMATS = Object.keys(formatters);

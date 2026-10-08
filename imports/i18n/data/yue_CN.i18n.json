@@ -780,6 +780,7 @@
   "import-board-instruction-zenkit": "粘贴 ZenKit 列表导出 JSON（{ \"title\", \"stages\":[...], \"items\":[...] }）。Stages 成为列表，items 成为卡片。",
   "import-board-instruction-markdown": "貼上一個 markdown 任務清單（好似 Obsidian Kanban 咁嘅 markdown-kanban 工具用嘅慣例）：「## 清單名」標題，下面有「- [ ]」/「- [x]」項目。標題會變成清單，項目會變成卡片；冇checkbox嘅普通項目符號清單都可以匯入，變成開放卡片。",
   "import-board-instruction-leo": "貼上 Leo 大綱（.leo 檔案）。最上層節點會變成清單，子節點會變成卡片，節點內文會用作描述，更深層嘅節點會變成檢查清單。有標記嘅節點會匯入為已完成。",
+  "import-board-instruction-opml": "Paste an OPML outline, as Workflowy, Dynalist, OmniOutliner, Logseq and other outliners export it. Top-level items become lists, their children become cards with the note as the description, and deeper items become checklists. Completed items import as done.",
   "import-board-instruction-todotxt": "貼上 todo.txt 檔案：每行一項任務，格式同 todo.txt 應用程式及相容程式寫出嚟嘅一樣。已完成嘅任務（\"x\"）會放入「已完成」，+project 同 @context 會變成標籤，(A) 會變成優先次序標籤，而 due: 同 t: 會變成到期日同開始日期。",
   "import-board-instruction-taskwarrior": "貼上 task export 嘅輸出：可以係 JSON 陣列，或者每行一個工作。做完嘅工作會去 Done，project 同 priority 會變成標籤，annotations 會變成留言，depends 會變成對阻住佢嘅工作嘅依賴關係。",
   "import-board-instruction-focalboard": "解壓 .boardarchive 檔案，再貼上看板嘅 board.jsonl 內容，可以有或者冇版本嗰行。看板檢視嘅分組屬性會變成列表，其他選擇屬性會變成標籤，文字同核取方塊區塊會變成描述同清單，留言會保留。圖片同附件唔會匯入。",
