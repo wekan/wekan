@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b6f202a2b8">Translate Estonian import instructions</a>. Thanks to xet7.</summary>
+
+Translate all 21 Estonian instructions in this import group. Preserve commands,
+column names, extensions, hierarchy markers and variables. Regression checks
+cover first-board selection, completed-task dates, archives, swimlane mappings,
+excluded data, English headers and task hierarchy. Import-instruction and
+placeholder suites and all 21 preservation checks pass. Browser review and the
+wider translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/848345e329">Translate remaining Bosnian import instructions</a>. Thanks to xet7.</summary>
 
 Translate the remaining 13 Bosnian import instructions, completing all 21 in
