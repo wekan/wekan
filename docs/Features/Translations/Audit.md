@@ -7440,6 +7440,17 @@ order, trim sides and number/text prompts. Technical wording remains low confide
 pending speaker review. Browser and screen-reader checks were not run; the broader
 translation audit continues.
 
+### Bhojpuri workspace search and block rule editor
+
+Filled 59 English placeholders for keyboard names, workspace counts and search,
+remaining shared block labels, and rule-editor messages. Keyboard names retain the
+physical key inscriptions with Bhojpuri descriptions. Product names and mathematical
+symbols remain unchanged. Existing translations and source placeholders are preserved.
+Regression checks cover search shortcuts, count-fragment spacing, rule-state labels,
+and administrator and single-trigger restrictions. Technical wording remains low
+confidence pending speaker review. Browser and screen-reader checks were not run;
+Scrum and other feature translations remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
