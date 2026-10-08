@@ -415,3 +415,15 @@ assert.match(wu['activity-editComment'], /改过评论/);
 assert.match(wu['activity-deleteComment'], /删脱评论/);
 assert.match(wu['allboards.edit-workspace-icon'], /Markdown/);
 assert.doesNotMatch(wu['allboards.edit-workspace-icon'], /降价/);
+
+const workspaceCorrections = ["allboards.delete-workspace-confirm", "multi-selection-active", "archive-permanent-delete-disabled-hint", "no-boards-selected", "select-only-one-board", "set-selected-starred", "set-selected-unstarred", "set-selected-home", "unset-selected-home", "home-board-badge", "home-board-empty", "home-board-remove", "home-board-remove-confirm", "activity-dueDate", "activity-endDate"];
+for (const key of workspaceCorrections) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.match(wu['home-board-empty'], /只拖一块看板.*登录以后/);
+assert.match(wu['select-only-one-board'], /只选一块/);
+assert.match(wu['home-board-remove-confirm'], /看板自家勿会删脱/);
+assert.match(wu['archive-permanent-delete-disabled-hint'], /假使.*全局管理员启用永久删除.*就会显示/);
+assert.match(wu['no-boards-selected'], /还朆选/);
+assert.match(wu['set-selected-starred'], /加星标/);
+assert.match(wu['set-selected-unstarred'], /星标取消/);
+assert.equal(wu['home-board-badge'], wu['set-selected-home'].replace('设成', ''));
+for (const key of ['activity-dueDate', 'activity-endDate']) assert.match(wu[key], /日期改成 %s.*所属项目是 %s/);

@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu workspace and home-board corrections — 2026-10-08
+
+Correct 15 workspace, selection, home-board and date messages. Restore the missing
+single-board restriction, preserve the distinction between removing from Home and
+deleting a board, and clarify positional date roles. Preserve source tokens and
+refresh exact-value audit evidence. Wu prose is lower confidence and needs native
+review. No browser session was run. The broader language audit remains unfinished.
+
 ## Wu checklist dates and Markdown correction — 2026-10-08
 
 Correct eight checklist, comment, date and workspace-icon values. Restore item
@@ -12457,7 +12465,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,904** exact before/after values, including unflagged
+records contain **22,919** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

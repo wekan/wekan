@@ -160326,5 +160326,110 @@
     "before": "工作区图标（降价）",
     "after": "工作区图标（Markdown）",
     "reason": "2026-10-08: Correct Wu activity wording and positional roles; restore Markdown format name instead of price-reduction mistranslation. Wu prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "allboards.delete-workspace-confirm",
+    "before": "您确定要删除此工作区吗？",
+    "after": "侬确定要删脱搿个工作区伐？",
+    "reason": "2026-10-08: Correct Wu workspace wording, single-board restriction and positional date roles; preserve exact tokens. Wu prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "multi-selection-active",
+    "before": "单击复选框以选择板",
+    "after": "点复选框来选看板",
+    "reason": "2026-10-08: Correct Wu workspace wording, single-board restriction and positional date roles; preserve exact tokens. Wu prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "archive-permanent-delete-disabled-hint",
+    "before": "如果在“管理面板 / 问题 / 删除”中勾选“为全局管理员启用永久删除”，此处将显示“删除”按钮。",
+    "after": "假使勒“管理面板 / 问题 / 删除”里向勾选“畀全局管理员启用永久删除”，搿搭就会显示“删除”按钮。",
+    "reason": "2026-10-08: Correct Wu workspace wording, single-board restriction and positional date roles; preserve exact tokens. Wu prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "no-boards-selected",
+    "before": "您尚未选择任何看板。",
+    "after": "侬还朆选任何看板。",
+    "reason": "2026-10-08: Correct Wu workspace wording, single-board restriction and positional date roles; preserve exact tokens. Wu prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "select-only-one-board",
+    "before": "请仅选择一个看板",
+    "after": "请只选一块看板",
+    "reason": "2026-10-08: Correct Wu workspace wording, single-board restriction and positional date roles; preserve exact tokens. Wu prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "set-selected-starred",
+    "before": "为所选看板加星标",
+    "after": "畀选好个看板加星标",
+    "reason": "2026-10-08: Correct Wu workspace wording, single-board restriction and positional date roles; preserve exact tokens. Wu prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "set-selected-unstarred",
+    "before": "取消所选看板的星标",
+    "after": "拿选好个看板个星标取消",
+    "reason": "2026-10-08: Correct Wu workspace wording, single-board restriction and positional date roles; preserve exact tokens. Wu prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "set-selected-home",
+    "before": "设为主看板（登录后打开）",
+    "after": "设成主页看板（登录以后打开）",
+    "reason": "2026-10-08: Correct Wu workspace wording, single-board restriction and positional date roles; preserve exact tokens. Wu prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "unset-selected-home",
+    "before": "取消设为主页看板",
+    "after": "取消主页看板个设置",
+    "reason": "2026-10-08: Correct Wu workspace wording, single-board restriction and positional date roles; preserve exact tokens. Wu prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "home-board-badge",
+    "before": "主看板（登录后打开）",
+    "after": "主页看板（登录以后打开）",
+    "reason": "2026-10-08: Correct Wu workspace wording, single-board restriction and positional date roles; preserve exact tokens. Wu prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "home-board-empty",
+    "before": "将看板拖到此处，登录后即可打开",
+    "after": "只拖一块看板到搿搭，登录以后就打开伊",
+    "reason": "2026-10-08: Correct Wu workspace wording, single-board restriction and positional date roles; preserve exact tokens. Wu prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "home-board-remove",
+    "before": "从首页移除",
+    "after": "从主页里向移脱",
+    "reason": "2026-10-08: Correct Wu workspace wording, single-board restriction and positional date roles; preserve exact tokens. Wu prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "home-board-remove-confirm",
+    "before": "将此看板从首页移除？看板本身不会被删除。",
+    "after": "要拿搿块看板从主页里向移脱伐？看板自家勿会删脱。",
+    "reason": "2026-10-08: Correct Wu workspace wording, single-board restriction and positional date roles; preserve exact tokens. Wu prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-dueDate",
+    "before": "编辑截止日期为 %s 的 %s",
+    "after": "截止日期改成 %s 仔，所属项目是 %s",
+    "reason": "2026-10-08: Correct Wu workspace wording, single-board restriction and positional date roles; preserve exact tokens. Wu prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-endDate",
+    "before": "将结束日期编辑为 %s 的 %s",
+    "after": "结束日期改成 %s 仔，所属项目是 %s",
+    "reason": "2026-10-08: Correct Wu workspace wording, single-board restriction and positional date roles; preserve exact tokens. Wu prose is lower confidence and needs native review."
   }
 ]
