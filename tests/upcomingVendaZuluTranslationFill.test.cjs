@@ -792,6 +792,33 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
   "activity-recovery-status-missing",
   "activity-recovery-status-changed"
 ]);
+  keys.push(...[
+  "activity-recovery-status-invalid",
+  "activity-recovery-status-inconsistent",
+  "activity-recovery-busy",
+  "activity-recovery-denied",
+  "activity-recovery-source-unavailable",
+  "activity-recovery-disabled",
+  "activity-recovery-failed",
+  "activity-recovery-pause",
+  "activity-recovery-resume",
+  "activity-recovery-paused",
+  "activity-recovery-control-conflict",
+  "activity-recovery-control-failed",
+  "activity-recovery-status-cancelled",
+  "activity-recovery-cancel",
+  "activity-recovery-cancel-confirm",
+  "rule-email-recovery-unavailable",
+  "stuck-sync-operation-heading",
+  "stuck-sync-operation-description",
+  "stuck-sync-operation-list",
+  "stuck-sync-operation-progress",
+  "stuck-sync-operation-reason",
+  "stuck-sync-operation-applied",
+  "stuck-sync-operation-reason-scope-changed",
+  "stuck-sync-operation-reason-access-denied",
+  "stuck-sync-operation-reason-trigger-unknown"
+]);
   for (const language of ['zu', 'zu-ZA']) {
     const locale = read(language);
     for (const key of keys) {
@@ -961,6 +988,14 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
     assert.match(locale['sync-planning-hint'], /kokuqala akukaze kususe ukuhlela/);
     assert.match(locale['activity-recovery-description'], /akukaze kudale kabusha umsebenzi/);
     assert.notStrictEqual(locale['activity-recovery-status-missing'], locale['activity-recovery-status-changed']);
+    assert.match(locale['activity-recovery-cancel-confirm'], /unomphela.*ngeke kuqhutshwe futhi.*azibuyiswa/);
+    assert.match(locale['activity-recovery-failed'], /osalindile ugciniwe/);
+    assert.match(locale['activity-recovery-source-unavailable'], /Akukho okudalwe kabusha/);
+    assert.match(locale['stuck-sync-operation-description'], /esezisetshenzisiwe ziyahlala.*azibhalwa nhlobo/);
+    assert.match(locale['stuck-sync-operation-reason-access-denied'], /akasenayo/);
+    const applied = locale['stuck-sync-operation-applied'].replace('__applied__', '2').replace('__total__', '5');
+    assert.match(applied, /2.*5/);
+    assert.doesNotMatch(applied, /__\w+__/);
     const failure = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
     assert.ok(failure.includes('E_LDAP'));
     assert.ok(!failure.includes('%s'));

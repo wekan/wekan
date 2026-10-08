@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Zulu notification controls and stuck sync operations — 2026-10-09
+
+Translate 25 recovery messages per Zulu catalog (50 values), preserving applied
+and total variables. Tests render progress counts and retain irreversible
+cancellation, retained pending work, no-recreation and already-applied-change
+guarantees. Both targeted suites and all 21 preservation checks pass. Specialized
+terminology remains low confidence pending speaker review. Browser execution
+and remaining translations are outstanding.
+
 ## Zulu mail failures and notification recovery — 2026-10-09
 
 Translate 25 messages per Zulu catalog (50 values), covering mail failures,
