@@ -9841,6 +9841,9 @@ for (const code of ['fa', 'fa-IR']) {
     assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
   }
+  for (const keyName of ['Ctrl', 'Cmd', 'Mac']) assert.ok(locale['scrum-releases-select-help'].includes(keyName), `${code}: preserve ${keyName}`);
+  assert.match(locale['scrum-history-checkpoint-hint'], /هیچ رکوردی را تغییر نمی‌دهد/);
+  assert.notEqual(locale['scrum-history-checkpoint-rollback'], locale['scrum-history-checkpoint-discard']);
   assert.match(locale['sync-conflict-hint'], /چیزی به سامانهٔ منبع فرستاده نمی‌شود/);
   assert.match(locale['sync-conflict-detach-hint'], /محتوای آن در WeKan باقی می‌ماند/);
   assert.match(locale['sync-report-partial'], /ادامه نمی‌دهند.*برنمی‌گردانند/);

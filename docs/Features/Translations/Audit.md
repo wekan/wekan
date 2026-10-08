@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Persian Scrum import and recovery — 2026-10-08
+
+Translate 56 values in both Persian catalogs: release selection, import previews,
+matching failures and interrupted-operation recovery. Preserve every variable and
+keyboard name, and distinguish rollback from keeping already-written records.
+Extend the existing Persian regression block for keyboard names and recovery
+semantics. Catalog-wide placeholder and language-wiring tests pass; the large
+completion suite advances beyond Persian to an untranslated Malay release label.
+All 21 human-translation preservation checks pass. Native review, browser checks
+and the wider backlog remain unfinished.
+
 ## Hebrew Scrum import/recovery and coverage count — 2026-10-08
 
 Translate 56 values in both Hebrew catalogs: release scope, multi-release selection,
