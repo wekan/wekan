@@ -25,6 +25,9 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.deepEqual(sk['advanced-filter-card-dates-hint'].match(/@[A-Za-z]+/g),
     en['advanced-filter-card-dates-hint'].match(/@[A-Za-z]+/g));
   assert.match(sk['advanced-filter-card-dates-hint'], /@endAt = none/);
+  assert.match(sk['sync-planning-hint'], /Prvá synchronizácia nikdy neodstraňuje plánovanie/);
+  assert.match(sk['scrum-import-card-on-another-board'], /zostala bez zmeny/);
+  assert.match(sk['scrum-import-into-board-hint'], /nikdy sa neduplikujú/);
   assert.match(sk['scrum-report-help'], /nie sú to nulové odhady/);
   assert.match(sk['scrum-daily-observations-help'], /nezaznamenávajú každú zmenu/);
   assert.match(sk['filter-column-age-hint'], /Úprava karty nevynuluje/);

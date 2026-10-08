@@ -9,6 +9,11 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 (async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   const en = read('en'), hu = read('hu');
+  assert.match(hu['scrum-import-into-board-hint'], /soha nem duplikálódnak/);
+  assert.match(hu['scrum-import-card-on-another-board'], /változatlan maradt/);
+  assert.match(hu['sync-planning-hint'], /először a forrásbeli azonosító, majd a név/);
+  assert.match(hu['sync-planning-hint'], /Az első szinkronizálás soha nem távolítja el a tervezést/);
+
   assert.deepEqual(Object.keys(hu), Object.keys(en));
   for (const key of Object.keys(en)) {
     assert.deepEqual(translationTokens(hu[key]), translationTokens(en[key]), key);

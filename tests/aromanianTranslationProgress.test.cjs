@@ -476,3 +476,57 @@ assert.match(aromanian['has-overtime-cards'], /timpu pisti limitã/);
 assert.match(aromanian['overtime-hours'], /oari/);
 assert.notEqual(aromanian['outgoing-webhooks'], aromanian['bidirectional-webhooks']);
 assert.equal(aromanian['outgoing-webhooks'], aromanian['outgoingWebhooksPopup-title']);
+
+const repairedItalianAdminControls = {
+  "OS_Arch": "Architettura SO",
+  "OS_Cpus": "Numero CPU SO",
+  "OS_Freemem": "Memoria libera SO",
+  "OS_Loadavg": "Carico medio SO",
+  "OS_Platform": "Piattaforma SO",
+  "OS_Release": "Versione di rilascio SO",
+  "OS_Totalmem": "Memoria totale SO",
+  "OS_Uptime": "Tempo di attività del SO",
+  "tableVisibilityMode": "Visibilità bacheche",
+  "modifiedAt": "Modificato il",
+  "editCardReceivedDatePopup-title": "Cambia data ricezione",
+  "editCardEndDatePopup-title": "Cambia data finale",
+  "setCardColorPopup-title": "Imposta il colore",
+  "setCardActionsColorPopup-title": "Scegli un colore",
+  "setSwimlaneColorPopup-title": "Scegli un colore",
+  "setListColorPopup-title": "Scegli un colore",
+  "boardDeletePopup-title": "Eliminare la bacheca?",
+  "delete-board": "Elimina bacheca",
+  "card-settings": "Impostazioni scheda",
+  "boardCardSettingsPopup-title": "Impostazioni scheda",
+  "prefix-with-parent": "Prefisso con genitore",
+  "subtext-with-parent": "Sotto-testo con genitore",
+  "parent-card": "Scheda genitore",
+  "source-board": "Bacheca d'origine",
+  "no-parent": "Non mostrare i genitori",
+  "activity-added-label-card": "aggiunta etichetta '%s'",
+  "activity-delete-attach-card": "cancella un allegato",
+  "r-add-trigger": "Aggiungi trigger",
+  "r-add-action": "Aggiungi azione",
+  "r-board-rules": "Regole della bacheca",
+  "r-add-rule": "Aggiungi regola",
+  "r-view-rule": "Visualizza regola",
+  "r-delete-rule": "Elimina regola",
+  "r-new-rule-name": "Titolo nuova regola"
+};
+for (const [key, italian] of Object.entries(repairedItalianAdminControls)) {
+  assert.notEqual(aromanian[key], italian, `${key}: Italian seed must not return`);
+  assert.notEqual(aromanian[key], english[key], `${key}: English is not a correction`);
+}
+assert.deepEqual(tokens(aromanian['activity-added-label-card']), ['%s']);
+assert.match(aromanian['activity-delete-attach-card'], /ashtearsi/);
+assert.match(aromanian['delete-board'], /Ashteardzi/);
+assert.equal(aromanian['card-settings'], aromanian['boardCardSettingsPopup-title']);
+assert.equal(new Set(['setCardActionsColorPopup-title','setSwimlaneColorPopup-title',
+  'setListColorPopup-title'].map(key => aromanian[key])).size, 1);
+assert.notEqual(aromanian.OS_Freemem, aromanian.OS_Totalmem);
+assert.match(aromanian.OS_Cpus, /CPU/);
+
+assert.match(aromanian['scrum-import-into-board-hint'], /nu s-duplicã vãrnãoarã/);
+assert.match(aromanian['scrum-import-into-board-hint'], /dupã ID icã dupã numirlu sh-titlul/);
+assert.match(aromanian['scrum-import-card-on-another-board'], /lãsatã nialãxitã/);
+assert.match(aromanian['scrum-import-sprint-finished'], /nu fu mutatã/);

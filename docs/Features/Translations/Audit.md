@@ -2,6 +2,53 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Hungarian planning import regressions — 2026-10-08
+
+Translate 20 new Scrum import and Sync planning messages. Preserve all
+counters/reference variables, non-duplication, unchanged foreign-board cards,
+source-ID matching priority and first-sync protection of existing planning.
+Extend the existing planning suite for these consequences. The Hungarian
+suite and global placeholder checks pass; ten failures from the latest broad
+run remain to repair. No browser or screen-reader session was run.
+
+## Russian planning import regressions — 2026-10-08
+
+Translate 20 new Scrum import and Sync planning messages in each Russian
+catalog (40 values). Preserve non-duplication, unchanged foreign-board cards,
+source-ID matching priority and first-sync protection of existing planning.
+Extend the planning suite to both catalogs for these messages and their token
+inventories. The Russian suite and global placeholder checks pass. Eleven
+other failures from the latest broad run still need repair. No browser or
+screen-reader session was run.
+
+## Czech and Slovak planning import regressions — 2026-10-08
+
+Translate 20 newly added Scrum import and Sync planning messages in each
+catalog (40 values). Preserve import counters, reference variables, source-ID
+matching priority, non-duplication, unchanged cards belonging to another
+board and first-sync protection of existing planning. Extend the existing
+planning suites for these consequences; both suites and global placeholder
+checks pass. Twelve other failures from the latest broad run remain to repair.
+No browser or screen-reader session was run.
+
+## Aromanian system and rule language corrections — 2026-10-08
+
+Replace 34 clearly Italian values in system information, card settings,
+parent-card display and rule controls. Preserve CPU and the activity label's
+%s variable; correct the deleted-attachment activity to past tense. Keep
+shared color-dialog and card-setting labels consistent. Leave the candidate
+“Commit FerretDB” unchanged because shared technical wording alone does not
+establish a wrong-language value.
+
+Also translate 16 newly added Scrum import messages, preserving matching
+priority, non-duplication, unchanged foreign-board cards and all counters.
+Tests reject the old Italian strings and English substitutions and check
+these distinctions. New wording remains low-confidence pending fluent
+review. The focused Aromanian and global placeholder checks pass. A fresh 322-suite
+run exposes fourteen other locale failures on the new Scrum import keys or changed
+Scrum inventory counts; those repairs remain open. No browser or screen-reader
+session was run; wider review continues.
+
 ## Aromanian account and webhook language corrections — 2026-10-08
 
 Replace 35 clearly Italian values in account, invitation, template, time and

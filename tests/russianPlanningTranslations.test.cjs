@@ -9,6 +9,17 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 (async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   const en = read('en'), ru = read('ru');
+  for (const code of ['ru', 'ru_RU']) {
+    const data = read(code);
+    assert.match(data['scrum-import-into-board-hint'], /не дублируются/);
+    assert.match(data['scrum-import-card-on-another-board'], /оставлена без изменений/);
+    assert.match(data['sync-planning-hint'], /сначала по ID в источнике, затем по названию/);
+    assert.match(data['sync-planning-hint'], /Первая синхронизация никогда не удаляет планирование/);
+    for (const key of Object.keys(en).filter(key => key.startsWith('scrum-import-') || key.startsWith('sync-planning-'))) {
+      assert.notEqual(data[key], en[key], `${code}:${key}`);
+      assert.deepEqual(translationTokens(data[key]), translationTokens(en[key]), `${code}:${key}`);
+    }
+  }
   assert.deepEqual(Object.keys(ru), Object.keys(en));
   for (const key of Object.keys(en)) {
     assert.deepEqual(translationTokens(ru[key]), translationTokens(en[key]), key);
