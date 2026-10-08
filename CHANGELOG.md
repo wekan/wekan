@@ -484,6 +484,18 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0d02ac276a">Translate Yiddish Sync planning and notification diagnostics</a>. Thanks to xet7.</summary>
+
+Translate 30 English Sync, mail-failure and activity-recovery messages. Preserve
+variables and literals; check missing/null values, matching, first-sync planning
+retention, retries and temporary/permanent failures. Three focused translation
+suites and 21 human-preference checks pass. Specialized wording is lower confidence
+and needs native review. No browser or screen-reader session was run. Remaining
+translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/26a63bf7c5">Translate Yiddish Sync source and run reports</a>. Thanks to xet7.</summary>
 
 Translate 25 English source-field and run-report messages. Check display and
