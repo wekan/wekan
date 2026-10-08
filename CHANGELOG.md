@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e68355df82b6d9f257e9b0c11f285671f024aa8a">Translate Maithili variable warnings and workspace search</a></summary>
+
+- Fill 28 Maithili values, preserving existing translations, name/type roles,
+  workspace counts, comment tokens and search-key names.
+- Technical wording remains low confidence pending speaker review.
+- All 58 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2b01fd9903ebc466a8758f42d8cb9d5edf241628">Translate Maithili text processing and input prompts</a></summary>
 
 - Fill 25 Maithili placeholders, preserving existing translations, replacement
