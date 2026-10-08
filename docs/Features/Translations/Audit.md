@@ -2,6 +2,34 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Further card-field translations — 2026-10-08
+
+Fill 44 card-field values in 22 additional locale paths: Amharic, Aragonese,
+Asturian, Breton, Corsican, Faroese, West Frisian (both paths), Haitian Creole,
+Hausa, Igbo, Latin, Luxembourgish, Malagasy, Maltese, Occitan, Brazilian
+Portuguese, Romansh, Sardinian, Scottish Gaelic, Sicilian and Yoruba. Both
+messages now have translated text in 153 non-English locale paths; 81 remain.
+Existing translations were retained. The ordinary backlog is unchanged because
+these two keys are tracked separately in the pending queue.
+
+The wording retains all-card and all-board scope, hiding on minicards and in
+board settings, no data/settings mutation, restoration when checked again,
+and each board's own field order. The shared catalog rendering and full token
+inventory tests cover these locales. Minority-language wording, particularly
+Breton, Faroese, Romansh, Sardinian, Scottish Gaelic and Sicilian, is provisional
+and should receive fluent-speaker review. Browser execution remains open.
+
+Terminology references, rather than external translation services:
+
+- [Maltese field terminology](https://glosbe.com/en/mt/field) distinguishes the
+  computing sense `qasam` from agricultural land.
+- [Breton hidden terminology](https://geriafurch.bzh/br/brfr/kuzhet) includes
+  the computing sense of `kuzhet`.
+- [Scottish Gaelic field terminology](https://www.faclair.com/?txtSearch=raon)
+  supports the noun `raon`; the complete software sentence is a draft.
+- [Sicilian hide terminology](https://dizziunariu.napizia.com/traina/?palora=ammucciari)
+  supports `ammucciari` rather than an Italian replacement.
+
 ## Placeholder validation and current catalog repair — 2026-10-08
 
 All 246 locale paths were checked against the 3,900-key English catalog.
