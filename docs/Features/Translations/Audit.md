@@ -2,6 +2,44 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Additional card-field locales and Bislama Blockly — 2026-10-08
+
+Add 30 card-field values across Assamese, Bashkir, Bhojpuri, Cantonese, Javanese,
+Konkani, Kurmanji Kurdish, Maithili, Odia, Pashto, Sindhi, Sorani Kurdish,
+Uyghur, Wu Chinese and Yiddish. Add another 44 Bislama card-field and Blockly
+values, and replace three artificial system-text color wrappers with native
+color names. Card-field coverage reaches 175 non-English locale paths; 59 remain.
+The ordinary report shows 35,585 missing values in 54 locales, with 151 source
+keys still tracked separately. Neither metric proves fluency.
+
+Bislama Blockly prose preserves variable-deletion restrictions, color ratios
+and ranges, loop bounds, break versus continue, and conditional fall-through.
+The locale-wide test now uses the shared token inventory, including numbered
+Blockly substitutions. Existing translated prose is preserved; the three color
+wrappers were deliberate wrong-language repairs. The native word `red` is
+exempted only for its two exact labels and exact source value. A fixture proves
+that changed source sentences and other locales are not exempted.
+
+Sources for terminology and dialect distinctions:
+
+- [Bislama dictionary](https://www.bislama.org/bislama-dictionary) and
+  [Bislama introduction and vocabulary](https://mtranslation.com.au/Bislama.pdf)
+  support `jenisim`, `kala`, `blu`, and the existing locale's grammatical pattern.
+- [Bislama green](https://en.wiktionary.org/wiki/gr%C4%ABn) records `grin` and
+  distinguishes it from the older broad blue/green color category.
+- [Kurmanji hiding](https://ku.wiktionary.org/wiki/ve%C5%9Fartin) supports the
+  hide verb and distinguishes related Sorani forms.
+- [Wu all/everything](https://en.wiktionary.org/wiki/%E4%B8%80%E5%84%95) supports
+  the dialectal all-scope vocabulary; the complete software phrasing remains
+  provisional, as do new compounds in the other minority-language drafts.
+
+Validation: 37 relevant suites pass after correcting the native Bislama red
+classification; the additional invariant suite and 21 human-preference checks
+pass. Card-field tests cover scripts, distinct Cantonese/Wu wording, and actual
+translated rendering. No browser or screen-reader session was run. Bislama's
+older mixed-English prose, including the card-loading explanation, remains
+visible work for the broader audit and is not certified by its historical gate.
+
 ## Six keyboard-label and card-field batches — 2026-10-08
 
 Fill 119 values in Akan, Māori, Northern Sotho, Somali, Tok Pisin and Waray.

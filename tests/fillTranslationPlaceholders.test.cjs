@@ -69,10 +69,22 @@ test('technical symbols do not hide adjacent Blockly prose or changed source tex
       'blockly-LOGIC_NULL_TOOLTIP': 'Returns null.',
       'blockly-WINDOWS': 'Choose Windows as the operating system',
       ordinary: 'Keep the card __card__',
+      'color-red': 'red', 'blockly-COLOUR_RGB_RED': 'red',
     };
     for (const code of ['en', 'xx']) fs.writeFileSync(path.join(directory, code + '.i18n.json'), JSON.stringify(source));
     const result = spawnSync(process.execPath, [script, '--list', 'xx'], { cwd: fixture, encoding: 'utf8' });
     assert.equal(result.status, 0, result.stderr);
     assert.deepEqual(JSON.parse(result.stdout), Object.fromEntries(Object.entries(source).slice(3)));
+    fs.writeFileSync(path.join(directory, 'bi.i18n.json'), JSON.stringify(source));
+    const listBislama = () => spawnSync(process.execPath, [script, '--list', 'bi'], { cwd: fixture, encoding: 'utf8' });
+    const native = listBislama();
+    assert.equal(native.status, 0, native.stderr);
+    assert.equal(Object.hasOwn(JSON.parse(native.stdout), 'color-red'), false);
+    assert.equal(Object.hasOwn(JSON.parse(native.stdout), 'blockly-COLOUR_RGB_RED'), false);
+    source['color-red'] = 'Select the red color';
+    fs.writeFileSync(path.join(directory, 'en.i18n.json'), JSON.stringify(source));
+    fs.writeFileSync(path.join(directory, 'bi.i18n.json'), JSON.stringify(source));
+    assert.equal(JSON.parse(listBislama().stdout)['color-red'], source['color-red'],
+      'a native shared color word never exempts a later English sentence');
   } finally { fs.rmSync(fixture, { recursive: true, force: true }); }
 });

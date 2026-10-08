@@ -12,9 +12,7 @@ const readLocale = code => JSON.parse(fs.readFileSync(
 ));
 const english = readLocale('en');
 const bislama = readLocale('bi');
-const tokens = value => [...value.matchAll(
-  /__[A-Za-z0-9_]+__|%[0-9$]*[A-Za-z]|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g,
-)].map(([token]) => token).sort();
+const { translationTokens: tokens } = require('../releases/translations/placeholder-tokens.mjs');
 const tags = value => [...value.matchAll(/<\/?[A-Za-z][^>]*>/g)]
   .map(([tag]) => tag).sort();
 
@@ -48,4 +46,22 @@ assert.deepEqual(tokens(bislama['act-deleteCard']),
 assert.deepEqual(tokens(bislama['restore-list-swimlanes-done']),
   ['__remaining__', '__restored__']);
 
-console.log('bislamaTranslationProgress: complete locale passed');
+
+const batch = ["card-field-visibility","card-field-visibility-desc","blockly-ALT_KEY","blockly-BACKSPACE_KEY","blockly-CANNOT_DELETE_VARIABLE_PROCEDURE","blockly-CAPS_LOCK_KEY","blockly-CHANGE_VALUE_TITLE","blockly-CLEAN_UP","blockly-CLOSE_BACKPACK","blockly-COLLAPSED_WARNINGS_WARNING","blockly-COLLAPSE_ALL","blockly-COLLAPSE_BLOCK","blockly-COLOUR_BLEND_COLOUR1","blockly-COLOUR_BLEND_COLOUR2","blockly-COLOUR_BLEND_RATIO","blockly-COLOUR_BLEND_TITLE","blockly-COLOUR_BLEND_TOOLTIP","blockly-COLOUR_PICKER_TOOLTIP","blockly-COLOUR_RANDOM_TITLE","blockly-COLOUR_RANDOM_TOOLTIP","blockly-COLOUR_RGB_BLUE","blockly-COLOUR_RGB_GREEN","blockly-COLOUR_RGB_TITLE","blockly-COLOUR_RGB_TOOLTIP","blockly-COMMAND_KEY","blockly-CONTEXT_MENU_KEY","blockly-CONTROLS_FLOW_STATEMENTS_OPERATOR_BREAK","blockly-CONTROLS_FLOW_STATEMENTS_OPERATOR_CONTINUE","blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_BREAK","blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_CONTINUE","blockly-CONTROLS_FLOW_STATEMENTS_WARNING","blockly-CONTROLS_FOREACH_TITLE","blockly-CONTROLS_FOREACH_TOOLTIP","blockly-CONTROLS_FOR_TITLE","blockly-CONTROLS_FOR_TOOLTIP","blockly-CONTROLS_IF_ELSEIF_TOOLTIP","blockly-CONTROLS_IF_ELSE_TOOLTIP","blockly-CONTROLS_IF_IF_TOOLTIP","blockly-CONTROLS_IF_MSG_ELSE","blockly-CONTROLS_IF_MSG_ELSEIF","blockly-CONTROLS_IF_TOOLTIP_1","blockly-CONTROLS_IF_TOOLTIP_2","blockly-CONTROLS_IF_TOOLTIP_3","blockly-CONTROLS_IF_TOOLTIP_4"];
+for (const key of batch) {
+  assert.ok(bislama[key]?.trim(), key);
+  assert.notEqual(bislama[key], english[key], key);
+}
+assert.deepEqual(tokens(bislama['blockly-CONTROLS_FOR_TITLE']), ['%1', '%2', '%3', '%4']);
+assert.deepEqual(tokens(bislama['blockly-CANNOT_DELETE_VARIABLE_PROCEDURE']), ['%1', '%2']);
+assert.match(bislama['blockly-CANNOT_DELETE_VARIABLE_PROCEDURE'], /no save tekemaot/);
+assert.match(bislama['blockly-COLOUR_BLEND_TOOLTIP'], /0\.0 - 1\.0/);
+assert.match(bislama['blockly-COLOUR_RGB_TOOLTIP'], /0 mo 100/);
+assert.match(bislama['blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_BREAK'], /Aot/);
+assert.match(bislama['blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_CONTINUE'], /nekis raon/);
+assert.match(bislama['blockly-CONTROLS_IF_TOOLTIP_4'], /no gat wan valiu.*las blok/);
+for (const [color, word] of [['blue', 'blu'], ['green', 'grin'], ['red', 'red']]) {
+  assert.equal(bislama['color-' + color], word);
+  assert.doesNotMatch(bislama['color-' + color], /Tok blong sistem/);
+}
+console.log('bislamaTranslationProgress: historical catalog and new Blockly batch pass; broader language review remains');

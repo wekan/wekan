@@ -7,7 +7,7 @@ const i18next = require('i18next');
 const directory = path.join(__dirname, '../imports/i18n/data');
 const read = code => JSON.parse(fs.readFileSync(path.join(directory, code + '.i18n.json')));
 const source = read('en');
-const completed = ["af","af_ZA","ak","am","an","ar","ar-DZ","ar-EG","ary","ast-ES","az","az-AZ","az-LA","be","bg","bn","br","bs","ca","ca@valencia","ca_ES","cmn","co","cs","cs-CZ","cy","cy-GB","da","de","de-AT","de-CH","de_DE","el","el-GR","eo","es","es-AR","es-CL","es-CO","es-LA","es-MX","es-PE","es-PY","es_CO","et-EE","eu","fa","fa-IR","fi","fo","fr","fr-BE","fr-CA","fr-CH","fr-FR","fy","fy-NL","ga","gd","gl","gl-ES","gu-IN","ha","he","he-IL","hi","hi-IN","hr","ht","hu","hy","id","ig","is","it","ja","ja-HI","ja-JP","ka","kk","km","km-KH","km_KH","kn","ko","ko-KR","ky","la","lb","lt","lv","mg","mi","mk","ml","mn","mr","ms","ms-MY","mt","my","nb","ne","nl","nl-NL","nso","oc","pa","pl","pl-PL","pt","pt-BR","pt-PT","pt_PT","rm","ro","ro-RO","ru","ru-RU","ru-UA","ru_RU","sc","scn","si","sk","sl","sl_SI","so","sq","sr","sv","sw","ta","te-IN","tg","th","tk_TM","tl","tpi","tr","tt","uk","uk-UA","ur","uz","uz-LA","uz-UZ","vi","vi-VN","wa-RR","yo","zh","zh-CN","zh-GB","zh-HK","zh-Hans","zh-Hant","zh-TW","zh_SG"];
+const completed = ["af","af_ZA","ak","am","an","ar","ar-DZ","ar-EG","ary","as","ast-ES","az","az-AZ","az-LA","ba","be","bg","bho","bi","bn","br","bs","ca","ca@valencia","ca_ES","ckb","cmn","co","cs","cs-CZ","cy","cy-GB","da","de","de-AT","de-CH","de_DE","el","el-GR","eo","es","es-AR","es-CL","es-CO","es-LA","es-MX","es-PE","es-PY","es_CO","et-EE","eu","fa","fa-IR","fi","fo","fr","fr-BE","fr-CA","fr-CH","fr-FR","fy","fy-NL","ga","gd","gl","gl-ES","gu-IN","ha","he","he-IL","hi","hi-IN","hr","ht","hu","hy","id","ig","is","it","ja","ja-HI","ja-JP","jv","ka","kk","km","km-KH","km_KH","kn","ko","ko-KR","kok","ku","ky","la","lb","lt","lv","mai","mg","mi","mk","ml","mn","mr","ms","ms-MY","mt","my","nb","ne","nl","nl-NL","nso","oc","or_IN","pa","pl","pl-PL","ps","pt","pt-BR","pt-PT","pt_PT","rm","ro","ro-RO","ru","ru-RU","ru-UA","ru_RU","sc","scn","sd","si","sk","sl","sl_SI","so","sq","sr","sv","sw","ta","te-IN","tg","th","tk_TM","tl","tpi","tr","tt","ug","uk","uk-UA","ur","uz","uz-LA","uz-UZ","vi","vi-VN","wa-RR","wuu-Hans","yi","yo","yue_CN","zh","zh-CN","zh-GB","zh-HK","zh-Hans","zh-Hant","zh-TW","zh_SG"];
 const keys = ['card-field-visibility', 'card-field-visibility-desc'];
 
 test('all locale catalogs contain the current source keys in order', () => {
@@ -76,4 +76,18 @@ test('six completed keyboard label batches retain key identities and navigation 
     assert.match(read(code)['blockly-PAGE_UP_KEY'], up, code);
     assert.match(read(code)['blockly-PAGE_DOWN_KEY'], down, code);
   }
+});
+
+test('additional card-field locales preserve their scripts and localized hiding clauses', () => {
+  for (const code of ['ckb', 'ps', 'sd', 'ug']) {
+    assert.match(read(code)['card-field-visibility-desc'], /\p{Script=Arabic}/u, code);
+    assert.doesNotMatch(read(code)['card-field-visibility-desc'], /[A-Za-z]/, code);
+  }
+  assert.match(read('yi')['card-field-visibility-desc'], /\p{Script=Hebrew}/u);
+  assert.match(read('or_IN')['card-field-visibility-desc'], /\p{Script=Oriya}/u);
+  assert.match(read('as')['card-field-visibility-desc'], /\p{Script=Bengali}/u);
+  assert.match(read('ba')['card-field-visibility-desc'], /[ҡғҙҫң]/);
+  assert.match(read('yue_CN')['card-field-visibility-desc'], /唔會改變/);
+  assert.match(read('wuu-Hans')['card-field-visibility-desc'], /侪勿会改变/);
+  assert.match(read('ku')['card-field-visibility-desc'], /naguherin/);
 });
