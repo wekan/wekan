@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Papiamento Scrum reports and observations — 2026-10-08
+
+Translate 45 Scrum event, state, report and daily-observation messages. Preserve
+source variables, UTC and the 366-observation limit. Check opposite scope changes,
+close/cancel behavior, partial-report scope, unknown-versus-zero estimates and
+unavailable operations during incomplete imports. Specialized wording is lower
+confidence and needs native review. No browser session was run. Work remains unfinished.
+
 ## Papiamento imports and Scrum planning — 2026-10-08
 
 Translate 45 import instructions and Scrum planning labels. Preserve format and

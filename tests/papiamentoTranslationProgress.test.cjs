@@ -327,3 +327,25 @@ assert.match(papiamento['scrum-policy-dueComplete'], /marká komo kompletá/);
 assert.match(papiamento['scrum-policy-doneLists'], /lista.*kategoria/);
 for (const literal of ['Ctrl', 'Cmd', 'Mac']) assert.ok(papiamento['scrum-releases-select-help'].includes(literal));
 assert.match(papiamento['scrum-releases-select-help'], /kita tur selekshon.*tur vershon/);
+
+const scrumReports = ["scrum-events", "scrum-event-kind", "scrum-timebox", "scrum-notes", "scrum-event-planning", "scrum-event-daily", "scrum-event-review", "scrum-event-retrospective", "scrum-committed", "scrum-completed", "scrum-added", "scrum-removed", "scrum-incomplete", "scrum-no-closed-sprints", "scrum-report-help", "scrum-total", "scrum-state-planned", "scrum-state-active", "scrum-state-closed", "scrum-state-cancelled", "scrum-unknown-estimate", "scrum-confirm-close", "scrum-confirm-cancel", "scrum-past-sprints", "scrum-list-category", "scrum-swimlane-purpose", "scrum-category-backlog", "scrum-category-todo", "scrum-category-doing", "scrum-category-done", "scrum-partial-report", "scrum-state-released", "scrum-released-at", "scrum-follow-up-cards", "scrum-import-reference-omitted", "scrum-partial-snapshot", "scrum-resume-close", "scrum-daily-observations", "scrum-daily-observations-help", "scrum-daily-truncated", "scrum-daily-empty", "scrum-observed-scope", "scrum-daily-observations-export-help", "scrum-import-pending", "scrum-import-into-board"];
+for (const key of scrumReports) {
+  assert.notEqual(papiamento[key], english[key], key);
+  assert.deepEqual(tokens(papiamento[key]), tokens(english[key]), key);
+}
+assert.equal(new Set(['planned', 'active', 'closed', 'cancelled'].map(state => papiamento[`scrum-state-${state}`])).size, 4);
+assert.match(papiamento['scrum-added'], /Agregá/);
+assert.match(papiamento['scrum-removed'], /Kitá/);
+assert.match(papiamento['scrum-confirm-close'], /sin terminá.*destino selektá/);
+assert.match(papiamento['scrum-confirm-cancel'], /keda den e sprint.*asigná atrobe/);
+assert.match(papiamento['scrum-partial-report'], /solamente.*asigná na bo/);
+assert.match(papiamento['scrum-report-help'], /no ta estimashon di zero/);
+for (const suffix of ['help', 'export-help']) {
+  const text = papiamento[`scrum-daily-observations-${suffix}`];
+  assert.match(text, /UTC/);
+  assert.match(text, /no ta registrá tur kambio/);
+  assert.match(text, /no ta zero/);
+}
+assert.match(papiamento['scrum-daily-truncated'], /366/);
+assert.match(papiamento['scrum-import-pending'], /inkompleto.*No por editá Scrum ni eksportá rapòrt/);
+assert.equal(papiamento['scrum-category-backlog'], papiamento['scrum-backlog']);
