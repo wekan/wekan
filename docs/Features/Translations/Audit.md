@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Papiamento Blockly keyboard shortcuts — 2026-10-08
+
+Translate 41 English shortcut and key labels. Preserve source variables and key
+names; check movement and scrolling directions, first/last and next/previous
+navigation, abort/finish actions and focus destinations. Specialized wording is
+lower confidence and needs native review. No browser or screen-reader session
+was run. Remaining translations are unfinished.
+
 ## Papiamento Blockly procedures and screen-reader modes — 2026-10-08
 
 Translate 28 English procedure, variable and accessibility messages. Preserve

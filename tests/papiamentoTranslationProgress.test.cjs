@@ -226,3 +226,16 @@ assert.match(papiamento['blockly-PROCEDURES_IFRETURN_WARNING'], /solamente den u
 assert.match(papiamento['blockly-RENAME_VARIABLE_TITLE'], /tur variabel '%1'/);
 assert.match(papiamento['blockly-SCREENREADER_MODE_DISABLED'], /ta desaktivá.*%1 pa aktiv'é/);
 assert.match(papiamento['blockly-SCREENREADER_MODE_ENABLED'], /ta aktivá.*%1 pa desaktiv'é/);
+
+const blocklyShortcuts = ["blockly-SHORTCUTS_ABORT_MOVE", "blockly-SHORTCUTS_CLEANUP", "blockly-SHORTCUTS_CODE_NAVIGATION", "blockly-SHORTCUTS_DISCONNECT", "blockly-SHORTCUTS_DUPLICATE", "blockly-SHORTCUTS_EDITING", "blockly-SHORTCUTS_ESCAPE", "blockly-SHORTCUTS_EXTENDED_INFORMATION", "blockly-SHORTCUTS_FINISH_MOVE", "blockly-SHORTCUTS_FOCUS_TOOLBOX", "blockly-SHORTCUTS_FOCUS_WORKSPACE", "blockly-SHORTCUTS_GENERAL", "blockly-SHORTCUTS_INFORMATION", "blockly-SHORTCUTS_JUMP_BLOCK_END", "blockly-SHORTCUTS_JUMP_BLOCK_START", "blockly-SHORTCUTS_JUMP_BOTTOM_STACK", "blockly-SHORTCUTS_JUMP_FIRST_BLOCK", "blockly-SHORTCUTS_JUMP_LAST_BLOCK", "blockly-SHORTCUTS_JUMP_NEXT_PAGE", "blockly-SHORTCUTS_JUMP_PREVIOUS_PAGE", "blockly-SHORTCUTS_JUMP_TOP_STACK", "blockly-SHORTCUTS_MOVE_DOWN", "blockly-SHORTCUTS_MOVE_LEFT", "blockly-SHORTCUTS_MOVE_RIGHT", "blockly-SHORTCUTS_MOVE_UP", "blockly-SHORTCUTS_NEXT_HEADING", "blockly-SHORTCUTS_NEXT_STACK", "blockly-SHORTCUTS_PERFORM_ACTION", "blockly-SHORTCUTS_PREVIOUS_HEADING", "blockly-SHORTCUTS_PREVIOUS_STACK", "blockly-SHORTCUTS_SCROLL_DOWN", "blockly-SHORTCUTS_SCROLL_LEFT", "blockly-SHORTCUTS_SCROLL_RIGHT", "blockly-SHORTCUTS_SCROLL_UP", "blockly-SHORTCUTS_SHOW_CONTEXT_MENU", "blockly-SHORTCUTS_SHOW_TOOLTIP", "blockly-SHORTCUTS_START_MOVE", "blockly-SHORTCUTS_START_MOVE_STACK", "blockly-SHORTCUTS_TOGGLE_SCREENREADER_MODE", "blockly-SPACE_KEY", "blockly-TAB_KEY"];
+for (const key of blocklyShortcuts) {
+  assert.notEqual(papiamento[key], english[key], key);
+  assert.deepEqual(tokens(papiamento[key]), tokens(english[key]), key);
+}
+for (const action of ['MOVE', 'SCROLL']) {
+  for (const [direction, word] of Object.entries({ DOWN: 'abou', UP: 'ariba', LEFT: 'robes', RIGHT: 'drechi' })) assert.ok(papiamento[`blockly-SHORTCUTS_${action}_${direction}`].includes(word));
+}
+for (const [key, word] of Object.entries({ JUMP_BLOCK_START: 'kuminsamentu', JUMP_BLOCK_END: 'fin', JUMP_FIRST_BLOCK: 'promé', JUMP_LAST_BLOCK: 'último', JUMP_NEXT_PAGE: 'siguiente', JUMP_PREVIOUS_PAGE: 'anterior', ABORT_MOVE: 'Kanselá', FINISH_MOVE: 'Terminá' })) assert.ok(papiamento[`blockly-SHORTCUTS_${key}`].includes(word));
+assert.match(papiamento['blockly-SPACE_KEY'], /Space/);
+assert.match(papiamento['blockly-TAB_KEY'], /Tab/);
+assert.notEqual(papiamento['blockly-SHORTCUTS_FOCUS_TOOLBOX'], papiamento['blockly-SHORTCUTS_FOCUS_WORKSPACE']);
