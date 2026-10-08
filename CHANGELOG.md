@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e696cc805e">Correct Wu calendar and domain translations</a>. Thanks to xet7.</summary>
+
+Correct fifteen Wu weekday, status, checklist and domain values. Preserve variables,
+linked-card deletion prerequisites and domain-validation examples and restrictions.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/19b36056dc">Correct Wu notification-control and role translations</a>. Thanks to xet7.</summary>
 
 Correct thirteen Wu display, notification and role values. Preserve variables,
