@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d4c35a997ef07eebb4c27b2c341f06ccfac031a5">Translate Tatar logic and arithmetic explanations</a></summary>
+
+- Fill 25 logic and arithmetic strings, preserving existing translations,
+  mathematical notation and source placeholders.
+- Technical wording remains low confidence pending speaker review.
+- All 48 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Tatar corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/58dcd3a7a9d4adca785c5163be914bf999b2e314">Translate Tatar sorting and logic comparisons</a></summary>
 
 - Fill 32 sorting, conversion and comparison strings, preserving existing
