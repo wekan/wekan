@@ -7537,6 +7537,15 @@ insertion versus replacement, copy semantics, sort direction and inclusive compa
 Technical wording remains low confidence pending speaker review. Browser, screen-reader
 and right-to-left layout checks were not run. The broader translation audit continues.
 
+### Central Kurdish logic and arithmetic
+
+Filled 35 English placeholders for comparisons, Boolean operations, conditional
+values, arithmetic, constants and numeric bounds. Existing translations and source
+tokens are preserved. Regression checks cover source order, script, placeholders,
+referenced conditional labels, constant notation, coordinates and operator distinctions.
+Technical wording remains low confidence pending speaker review. Browser, screen-reader
+and right-to-left layout checks were not run. The broader translation audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
