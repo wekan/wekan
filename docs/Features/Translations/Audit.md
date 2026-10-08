@@ -8265,6 +8265,15 @@ prerequisites. Existing correct-language notification preferences remain. Techni
 wording remains low confidence pending speaker review. Focused tests cover key
 order, source tokens, permissions and weekday names; browser checks were not run.
 
+## Tatar shared-template and domain corrections
+
+Corrected 19 wrong-language domain, shared-template, identity and calendar labels.
+Restored the literal example.com validation example, the prohibition on @ and
+spaces, multiple-scope selection and the nonempty Templates board condition.
+Existing correct-language table-view and calendar values remain. Technical wording
+remains low confidence pending speaker review. Focused checks cover key order,
+source tokens, domain syntax and sharing scope; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
