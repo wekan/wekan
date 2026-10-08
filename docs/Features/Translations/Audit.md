@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu timeline and card lifecycle corrections — 2026-10-08
+
+Correct 22 timeline, calendar and card lifecycle values. Preserve the comment
+count and ISO identifier. Restore the table-view meaning and calendar date-display
+scope; retain all timeline restoration fields and the no-deletion guarantee.
+Distinguish irreversible deletion from recoverable card/list archiving. Refresh
+exact-value audit records. Wu prose needs native review; browser tests were not run
+and the all-language work remains unfinished.
+
 ## Wu board visibility and membership corrections — 2026-10-08
 
 Correct 20 board, assignment, visibility and view strings. Replace committee,
@@ -12506,7 +12515,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,998** exact before/after values, including unflagged
+records contain **23,019** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

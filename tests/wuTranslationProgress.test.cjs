@@ -483,3 +483,16 @@ assert.match(wu['boardChangeWatchPopup-title'], /关注/);
 assert.doesNotMatch(wu['boardChangeWatchPopup-title'], /手表/);
 assert.equal(wu['board-view-collapse'], '收拢');
 assert.equal(wu['board-view'], wu['boardChangeViewPopup-title']);
+
+const timelineCards = ["board-view-table", "board-view-timeline-hint", "board-view-timeline-showing", "board-view-timeline-restore", "board-view-timeline-restore-confirm", "board-view-group-by-assignee", "board-view-not-yet-implemented", "calendar-system", "calendar-system-iso8601", "card-archived", "board-archived", "card-comments-title", "card-comments-more", "card-has-unread-comments", "card-settings-linked-card", "card-delete-notice", "card-delete-pop", "card-delete-suggest-archive", "card-archive-pop", "card-archive-suggest-cancel", "list-archive-pop", "list-archive-suggest"];
+for (const key of timelineCards) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.equal(wu['board-view-table'], '表格');
+assert.match(wu['board-view-timeline-restore-confirm'], /标题、描述、列表、标签、成员搭截止日期.*恢复.*啥内容侪勿会删脱/);
+assert.match(wu['calendar-system'], /日期显示/);
+assert.match(wu['calendar-system-iso8601'], /公历.*ISO 8601.*周/);
+assert.match(wu['card-delete-notice'], /永久删脱.*所有操作记录/);
+assert.match(wu['card-delete-pop'], /活动记录.*删脱.*勿能重新打开.*勿能撤销/);
+assert.match(wu['card-delete-suggest-archive'], /归档.*保留活动记录/);
+assert.match(wu['card-archive-suggest-cancel'], /以后.*恢复卡片/);
+assert.match(wu['list-archive-suggest'], /看板设置.*归档.*恢复.*列表/);
+assert.match(wu['card-has-unread-comments'], /还朆看过/);

@@ -2880,8 +2880,8 @@
     "locale": "wuu-Hans",
     "key": "calendar-system",
     "before": "Kalendar sistem (data görünüşü)",
-    "after": "日历",
-    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+    "after": "日历系统（日期显示）",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology. 2026-10-08: Correct Wu timeline, calendar and card lifecycle meanings, preserving variables and ISO identifier; lower-confidence prose needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -160984,5 +160984,152 @@
     "before": "坍塌",
     "after": "收拢",
     "reason": "2026-10-08: Correct Wu board, assignment and visibility meanings while preserving placeholders and markup; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-view-table",
+    "before": "桌子",
+    "after": "表格",
+    "reason": "2026-10-08: Correct Wu timeline, calendar and card lifecycle meanings, preserving variables and ISO identifier; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-view-timeline-hint",
+    "before": "点击时间线上的任意一点，查看看板当时的样子。",
+    "after": "点一只时间点，就可以看搿个辰光个看板样子。",
+    "reason": "2026-10-08: Correct Wu timeline, calendar and card lifecycle meanings, preserving variables and ISO identifier; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-view-timeline-showing",
+    "before": "显示状态截至:",
+    "after": "显示搿个辰光个状态：",
+    "reason": "2026-10-08: Correct Wu timeline, calendar and card lifecycle meanings, preserving variables and ISO identifier; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-view-timeline-restore",
+    "before": "恢复到此状态",
+    "after": "恢复到搿个状态",
+    "reason": "2026-10-08: Correct Wu timeline, calendar and card lifecycle meanings, preserving variables and ISO identifier; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-view-timeline-restore-confirm",
+    "before": "此操作会将卡片的标题、描述、列表、标签、成员和截止日期恢复为显示的值。不会删除任何内容。是否继续？",
+    "after": "搿个操作会拿卡片个标题、描述、列表、标签、成员搭截止日期恢复成显示出来个值。啥内容侪勿会删脱。要继续伐？",
+    "reason": "2026-10-08: Correct Wu timeline, calendar and card lifecycle meanings, preserving variables and ISO identifier; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-view-group-by-assignee",
+    "before": "按承担人分组",
+    "after": "按负责人分组",
+    "reason": "2026-10-08: Correct Wu timeline, calendar and card lifecycle meanings, preserving variables and ISO identifier; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-view-not-yet-implemented",
+    "before": "该个视图还没实现。",
+    "after": "搿个视图还朆实现。",
+    "reason": "2026-10-08: Correct Wu timeline, calendar and card lifecycle meanings, preserving variables and ISO identifier; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "公历（ISO 8601 周）",
+    "reason": "2026-10-08: Correct Wu timeline, calendar and card lifecycle meanings, preserving variables and ISO identifier; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-archived",
+    "before": "这张卡已移至存档。",
+    "after": "搿张卡片移到归档里向仔。",
+    "reason": "2026-10-08: Correct Wu timeline, calendar and card lifecycle meanings, preserving variables and ISO identifier; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-archived",
+    "before": "该板已移至存档。",
+    "after": "搿块看板移到归档里向仔。",
+    "reason": "2026-10-08: Correct Wu timeline, calendar and card lifecycle meanings, preserving variables and ISO identifier; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-comments-title",
+    "before": "这张卡有%s评论。",
+    "after": "搿张卡片有 %s 条评论。",
+    "reason": "2026-10-08: Correct Wu timeline, calendar and card lifecycle meanings, preserving variables and ISO identifier; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-comments-more",
+    "before": "更多的",
+    "after": "更多",
+    "reason": "2026-10-08: Correct Wu timeline, calendar and card lifecycle meanings, preserving variables and ISO identifier; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-has-unread-comments",
+    "before": "未读评论",
+    "after": "有还朆看过个评论",
+    "reason": "2026-10-08: Correct Wu timeline, calendar and card lifecycle meanings, preserving variables and ISO identifier; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-settings-linked-card",
+    "before": "联动卡",
+    "after": "关联卡片",
+    "reason": "2026-10-08: Correct Wu timeline, calendar and card lifecycle meanings, preserving variables and ISO identifier; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-delete-notice",
+    "before": "删除是永久性的。您将失去与此卡相关的所有操作。",
+    "after": "删脱就是永久删脱。侬会失去搭搿张卡片有关个所有操作记录。",
+    "reason": "2026-10-08: Correct Wu timeline, calendar and card lifecycle meanings, preserving variables and ISO identifier; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-delete-pop",
+    "before": "所有操作都将从活动源中删除，并且您将无法重新打开该卡。无法撤消。",
+    "after": "所有操作记录侪会从活动记录里向删脱，侬也勿能重新打开搿张卡片。搿个操作勿能撤销。",
+    "reason": "2026-10-08: Correct Wu timeline, calendar and card lifecycle meanings, preserving variables and ISO identifier; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-delete-suggest-archive",
+    "before": "您可以将卡片移至存档以将其从看板中删除并保留活动。",
+    "after": "侬可以拿卡片移到归档里向，让伊从看板浪移脱，同时保留活动记录。",
+    "reason": "2026-10-08: Correct Wu timeline, calendar and card lifecycle meanings, preserving variables and ISO identifier; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-archive-pop",
+    "before": "归档卡后，卡在此列表中将不可见。",
+    "after": "卡片归档以后，勒搿只列表里向就看勿见伊仔。",
+    "reason": "2026-10-08: Correct Wu timeline, calendar and card lifecycle meanings, preserving variables and ISO identifier; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-archive-suggest-cancel",
+    "before": "您稍后可以从存档中恢复卡。",
+    "after": "侬以后可以从归档里向恢复卡片。",
+    "reason": "2026-10-08: Correct Wu timeline, calendar and card lifecycle meanings, preserving variables and ISO identifier; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "list-archive-pop",
+    "before": "存档后，列表在板上将不可见。",
+    "after": "列表归档以后，勒看板浪就看勿见伊仔。",
+    "reason": "2026-10-08: Correct Wu timeline, calendar and card lifecycle meanings, preserving variables and ISO identifier; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "list-archive-suggest",
+    "before": "您稍后可以从“板设置”中的“存档”恢复该列表。",
+    "after": "侬以后可以从看板设置个归档里向恢复搿只列表。",
+    "reason": "2026-10-08: Correct Wu timeline, calendar and card lifecycle meanings, preserving variables and ISO identifier; lower-confidence prose needs native review."
   }
 ]
