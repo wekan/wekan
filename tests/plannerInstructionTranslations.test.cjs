@@ -311,3 +311,26 @@ for (const code of ['pt', 'pt-BR', 'pt-PT', 'pt_PT']) {
   assert.match(locale['import-board-instruction-superproductivity'], /tarefas arquivadas tornam-se cartões arquivados/);
   assert.match(locale['import-board-instruction-plane'], code === 'pt-BR' ? /raias/ : /pistas/);
 }
+
+{
+  const locale = read('it');
+  const literals = {...importLiterals, ...newerImportLiterals,
+    planner: ['Microsoft Planner', 'Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+    meistertask: ['MeisterTask', 'Export project', 'CSV']};
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+    for (const value of values) assert.ok(locale[key].includes(value), key + ': ' + value);
+  }
+  for (const format of ['nullboard', 'kanri']) {
+    assert.match(locale['import-board-instruction-' + format], /importata solo la prima bacheca/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /importate tutte le bacheche/);
+  }
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /allegati non vengono importati/);
+  assert.match(locale['import-board-instruction-notion'], /Relazioni, immagini e allegati non vengono importati/);
+  assert.match(locale['import-board-instruction-plane'], /non contiene descrizioni né allegati.*non vengono importati/);
+  assert.match(locale['import-board-instruction-businessmap'], /rinomina prima la riga delle intestazioni in inglese/);
+  assert.match(locale['import-board-instruction-teamwork'], /un livello più profondo/);
+  assert.match(locale['import-board-instruction-superproductivity'], /attività archiviate diventano schede archiviate/);
+}

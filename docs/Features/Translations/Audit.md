@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Italian import instructions — 2026-10-09
+
+Translate all 21 import instructions in the Italian catalog, preserving commands,
+column names, extensions, hierarchy markers and variables. Regression checks cover
+first-board selection, excluded data, English header requirements and archived
+tasks. Import-instruction and placeholder suites and all 21 preservation checks
+pass. Browser review and the wider translation backlog remain outstanding.
+
 ## Portuguese import instructions, remaining group — 2026-10-09
 
 Translate 13 remaining instructions in four Portuguese catalogs (52 values),
