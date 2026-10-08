@@ -2173,6 +2173,20 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c8ad1c5c33718c0128a818b14c77932cf1f83e2b">Translate Turkmen text values and variable assignments</a></summary>
+
+- Fill 31 Turkmen placeholders, preserving existing translations, replacement
+  roles, whitespace boundaries and assignment/collision distinctions.
+- Technical wording remains low confidence pending speaker review.
+- 51 checks and 21 human-preference checks pass. Two repository-wide checks
+  fail because other locales lack the new custom-colors-in-use source key.
+  Browser checks were not run. Further translations and the audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2ccb33ae8c23e2ffcfd35dcf84a2d78c723a62e8">Translate Turkmen text operations and search</a></summary>
 
 - Fill 37 Turkmen placeholders, preserving existing translations, letter
