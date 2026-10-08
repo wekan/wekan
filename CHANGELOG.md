@@ -975,6 +975,20 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b67435dd6d">Translate Romanian controls and stuck Sync recovery</a>. Thanks to xet7.</summary>
+
+Fill 44 messages in each Romanian catalog for board controls, link rules,
+import formats, assignment actions, LDAP, OAuth, server-only login settings
+and stuck Sync recovery. Preserve source variables, configuration names and
+the distinction between retained applied changes and discarded pending changes.
+
+Romanian, global placeholder, import-format and translation audit suites
+pass, together with 21 human-preference checks. No browser or screen-reader
+session was run. Other translations and linguistic review remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/09a5b44862">Translate Romanian interrupted import recovery</a>. Thanks to xet7.</summary>
 
 Fill 25 interrupted-import messages in each Romanian catalog. Preserve
