@@ -413,7 +413,7 @@ Problems → Recovery and on the import page. Left open:
   Zenkit, GitHub/GitLab): their exports carry attachment metadata only, so the
   bytes need live API connectors with credentials.
 - Zenkit's native single-file export is unverified: Zenkit publishes no schema.
-- Formats WeKan does not read or write yet. On 2026-10-08 fourteen tools were
+- Formats WeKan does not read or write yet. On 2026-10-08 twenty-one tools were
   added (see Upcoming) and the export formats of about forty were researched.
   Left: tools with no export file, only an API - Planka (its JSON export was
   never merged), Microsoft To Do, KanbanFlow, Basecamp, Taskcafe - which need
@@ -445,17 +445,17 @@ used.
 
 # Upcoming WeKan ® release
 
-**In short:** Boards now import from and export to fourteen more tools:
-**Microsoft Planner**, **monday.com**, **ClickUp**, **Linear**, **Taiga**,
-**Vikunja**, **Pivotal Tracker**, **TickTick**, **Tasks.org**, **MeisterTask**,
-**Super Productivity**, **Kanri**, **Nullboard** and **Obsidian Kanban**, each
-following that tool's documented or source-verified format, with a loss report
-for what WeKan has no place for. Translation work continues.
+**In short:** Boards now import from and export to twenty more tools, among
+them **Microsoft Planner**, **monday.com**, **ClickUp**, **Linear**, **Notion**,
+**Redmine**, **Wrike**, **Taiga** and **Vikunja**, and import from **Plane**,
+each following that tool's documented or source-verified format, with a loss
+report for what WeKan has no place for. Translation work continues.
 
 This release adds the following new features:
 
-**Import and export** - fourteen more tools, each a round trip where the tool
-can read its own file back, matched by the tool's own column and field names.
+**Import and export** - twenty-one more tools, each a round trip where the tool
+can read its own file back (Plane, which has no file import, is import only),
+matched by the tool's own column and field names.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7ef5b875fa">Microsoft Planner: the Excel workbook its Export plan to Excel writes</a>. Thanks to xet7.</summary>
@@ -585,6 +585,83 @@ The first kanban view's buckets become lists, several projects swimlanes, HTML
 descriptions text with TipTap task lists as checklists, and relations parent
 cards and dependencies. The zip is opened on the server under size and inflate
 limits; export writes the same zip.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/979edf4c3b">Quire: the CSV its Import CSV reads and its Export CSV writes</a>. Thanks to xet7.</summary>
+
+Columns are matched by header name in any order, and the task hierarchy is read
+in all three ways Quire writes it: a Parent column, ID columns by depth, and an
+ID path such as "#6, #8". Statuses become lists, Assignee the owner, Tag labels
+and Priority a custom field; Duration, Estimate, Time log and Successors are
+reported. Export writes the import columns with cards numbered #1 and onward.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/063365e8b9">Wrike: its Excel import template and official sample</a>. Thanks to xet7.</summary>
+
+Wrike documents the columns of its import, not its export, so that template is
+what is read and written. Folder rows become swimlanes, Status the lists, Parent
+Task the parent card, Assigned To the owner and assignees, and Depends On a
+blocked-by dependency. Export writes the WeKan list as a custom column named
+WeKan list rather than as Wrike's custom workflow statuses, which the import
+reads back.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7aa90f7a00">Teamwork.com: the Excel template of its task import</a>. Thanks to xet7.</summary>
+
+The ten documented columns, from Tasklist to Status. Task lists become lists, a
+"-", "#" or ">" before a task name makes it a subtask of the task above, and
+Estimated time is read in every form the article shows (25, 01:30, 1h 15m). An
+.xls file is refused with a request to save it as .xlsx.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/edb808e266">Businessmap (Kanbanize): its Advanced Search Excel export and import tool</a>. Thanks to xet7.</summary>
+
+Header names are matched in English in any order; a header in another account
+language is refused with that explanation. Column becomes lists and Lane
+swimlanes, Owner and Co-Owners the owner and assignees, Color the card color,
+and Priority, Size, Type and Card ID custom fields, so an export imported back
+into Businessmap updates the same cards.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6c9ffd63d4">Redmine: its issues CSV, and the columns of its own importer</a>. Thanks to xet7.</summary>
+
+Read as Redmine's csv.rb writes it, with a comma or semicolon separator and the
+issue id first. Statuses become lists, projects swimlanes and trackers labels;
+Parent task and Related issues ("Blocked by #12, Precedes (3 days) #9") become
+parent cards and dependencies. Headers are matched by Redmine's English labels,
+so a file in another language is refused with a request to export in English.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b7d3274780">Notion: its Markdown and CSV export zip, or one database CSV</a>. Thanks to xet7.</summary>
+
+The zip is opened on the server under size limits, the database's full _all.csv
+is preferred over the exported view, and each row's page body becomes the card
+description. A Status column (else a select-like one) becomes the lists, and the
+choice is said in the import report. Export writes a database CSV that Notion's
+CSV import reads.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d21a263393">Plane: its issue export zip of CSV, JSON or XLSX, import only</a>. Thanks to xet7.</summary>
+
+Read as Plane's export task and IssueExportSerializer write it. States become
+lists, projects swimlanes, and parents, labels, dates, links and comments keep
+their places; priority, estimate, cycles and modules become custom fields. The
+XLSX variant writes its links and comments as Python text, which is reported
+rather than guessed at. Plane has no file import to export to.
 
 </details>
 
