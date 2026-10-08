@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Zulu Blockly list operations — 2026-10-09
+
+Translate 75 list-operation strings in each of zu and zu-ZA (150 values),
+covering creation, indexing, retrieval, removal, insertion, sorting and splitting.
+Preserve numbered placeholders and non-prose configuration values. Tests distinguish
+retrieval from removal and combined operations, ascending from descending order,
+and render repeated-item variables. Both targeted suites and all 21 preservation
+checks pass. Specialized programming terms are low confidence pending speaker
+review. Browser execution and the remaining catalog backlog are outstanding.
+
 ## Zulu Blockly editor and accessibility labels — 2026-10-09
 
 Fill 50 more English values in each Zulu catalog (zu and zu-ZA): editor actions,

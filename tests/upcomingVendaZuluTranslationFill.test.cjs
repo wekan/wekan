@@ -134,6 +134,83 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
   "blockly-ICON_LABEL_WARNING_OPEN",
   "blockly-INLINE_INPUTS"
 ]);
+  keys.push(...[
+  "blockly-LISTS_CREATE_EMPTY_TITLE",
+  "blockly-LISTS_CREATE_EMPTY_TOOLTIP",
+  "blockly-LISTS_CREATE_WITH_CONTAINER_TITLE_ADD",
+  "blockly-LISTS_CREATE_WITH_CONTAINER_TOOLTIP",
+  "blockly-LISTS_CREATE_WITH_INPUT_WITH",
+  "blockly-LISTS_CREATE_WITH_ITEM_TOOLTIP",
+  "blockly-LISTS_CREATE_WITH_TOOLTIP",
+  "blockly-LISTS_GET_INDEX_FIRST",
+  "blockly-LISTS_GET_INDEX_FROM_END",
+  "blockly-LISTS_GET_INDEX_GET",
+  "blockly-LISTS_GET_INDEX_GET_REMOVE",
+  "blockly-LISTS_GET_INDEX_LAST",
+  "blockly-LISTS_GET_INDEX_RANDOM",
+  "blockly-LISTS_GET_INDEX_REMOVE",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_GET_FIRST",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_GET_FROM",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_GET_LAST",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_GET_RANDOM",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_FIRST",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_FROM",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_LAST",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_RANDOM",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_FIRST",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_FROM",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_LAST",
+  "blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_RANDOM",
+  "blockly-LISTS_GET_SUBLIST_END_FROM_END",
+  "blockly-LISTS_GET_SUBLIST_END_FROM_START",
+  "blockly-LISTS_GET_SUBLIST_END_LAST",
+  "blockly-LISTS_GET_SUBLIST_START_FIRST",
+  "blockly-LISTS_GET_SUBLIST_START_FROM_END",
+  "blockly-LISTS_GET_SUBLIST_START_FROM_START",
+  "blockly-LISTS_GET_SUBLIST_TOOLTIP",
+  "blockly-LISTS_INDEX_FROM_END_TOOLTIP",
+  "blockly-LISTS_INDEX_FROM_START_TOOLTIP",
+  "blockly-LISTS_INDEX_OF_FIRST",
+  "blockly-LISTS_INDEX_OF_LAST",
+  "blockly-LISTS_INDEX_OF_TOOLTIP",
+  "blockly-LISTS_INLIST",
+  "blockly-LISTS_ISEMPTY_TITLE",
+  "blockly-LISTS_ISEMPTY_TOOLTIP",
+  "blockly-LISTS_LENGTH_TITLE",
+  "blockly-LISTS_LENGTH_TOOLTIP",
+  "blockly-LISTS_REPEAT_TITLE",
+  "blockly-LISTS_REPEAT_TOOLTIP",
+  "blockly-LISTS_REVERSE_MESSAGE0",
+  "blockly-LISTS_REVERSE_TOOLTIP",
+  "blockly-LISTS_SET_INDEX_INPUT_TO",
+  "blockly-LISTS_SET_INDEX_INSERT",
+  "blockly-LISTS_SET_INDEX_SET",
+  "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_FIRST",
+  "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_FROM",
+  "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_LAST",
+  "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_RANDOM",
+  "blockly-LISTS_SET_INDEX_TOOLTIP_SET_FIRST",
+  "blockly-LISTS_SET_INDEX_TOOLTIP_SET_FROM",
+  "blockly-LISTS_SET_INDEX_TOOLTIP_SET_LAST",
+  "blockly-LISTS_SET_INDEX_TOOLTIP_SET_RANDOM",
+  "blockly-LISTS_SORT_ORDER_ASCENDING",
+  "blockly-LISTS_SORT_ORDER_DESCENDING",
+  "blockly-LISTS_SORT_TITLE",
+  "blockly-LISTS_SORT_TOOLTIP",
+  "blockly-LISTS_SORT_TYPE_IGNORECASE",
+  "blockly-LISTS_SORT_TYPE_NUMERIC",
+  "blockly-LISTS_SORT_TYPE_TEXT",
+  "blockly-LISTS_SPLIT_LIST_FROM_TEXT",
+  "blockly-LISTS_SPLIT_TEXT_FROM_LIST",
+  "blockly-LISTS_SPLIT_TOOLTIP_JOIN",
+  "blockly-LISTS_SPLIT_TOOLTIP_SPLIT",
+  "blockly-LISTS_SPLIT_WITH_DELIMITER",
+  "blockly-LISTS_CREATE_WITH_ITEM_TITLE",
+  "blockly-LISTS_GET_INDEX_INPUT_IN_LIST",
+  "blockly-LISTS_GET_SUBLIST_INPUT_IN_LIST",
+  "blockly-LISTS_INDEX_OF_INPUT_IN_LIST",
+  "blockly-LISTS_SET_INDEX_INPUT_IN_LIST"
+]);
   for (const language of ['zu', 'zu-ZA']) {
     const locale = read(language);
     for (const key of keys) {
@@ -154,6 +231,20 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
     assert.doesNotMatch(deletion, /%[12]/);
     const pixel = locale['blockly-FIELD_BITMAP_PIXEL_LABEL'].replace('%1', 'kuvuliwe').replace('%2', '4').replace('%3', '7');
     assert.match(pixel, /kuvuliwe.*umugqa 4.*ikholomu 7/);
+    for (const suffix of ['FIRST', 'FROM', 'LAST', 'RANDOM']) {
+      assert.match(locale['blockly-LISTS_GET_INDEX_TOOLTIP_GET_' + suffix], /^Ibuyisa/);
+      assert.match(locale['blockly-LISTS_GET_INDEX_TOOLTIP_REMOVE_' + suffix], /^Isusa/);
+      assert.match(locale['blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_' + suffix], /^Isusa futhi ibuyise/);
+    }
+    assert.match(locale['blockly-LISTS_INDEX_OF_TOOLTIP'], /%1 uma into ingatholakali/);
+    assert.match(locale['blockly-LISTS_SORT_ORDER_ASCENDING'], /ngokwenyuka/);
+    assert.match(locale['blockly-LISTS_SORT_ORDER_DESCENDING'], /ngokwehla/);
+    const repeat = locale['blockly-LISTS_REPEAT_TITLE'].replace('%1', 'sample').replace('%2', '5');
+    assert.match(repeat, /sample.*izikhathi ezingu-5/);
+    assert.doesNotMatch(repeat, /%[12]/);
+    for (const key of ['blockly-LISTS_GET_INDEX_FROM_START', 'blockly-LISTS_GET_INDEX_TAIL', 'blockly-LISTS_GET_SUBLIST_TAIL', 'blockly-LISTS_HUE']) {
+      assert.strictEqual(locale[key], source[key], key + ': retain non-prose configuration');
+    }
     const failure = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
     assert.ok(failure.includes('E_LDAP'));
     assert.ok(!failure.includes('%s'));
