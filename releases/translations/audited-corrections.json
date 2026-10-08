@@ -160634,5 +160634,215 @@
     "before": "所有板",
     "after": "所有看板",
     "reason": "2026-10-08: Restore Wu checklist, member and administrator meanings; prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "and-n-other-card",
+    "before": "和__count__其他卡",
+    "after": "还有另外 __count__ 张卡片",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "and-n-other-card_plural",
+    "before": "以及__count__其他卡",
+    "after": "还有另外 __count__ 张卡片",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "apply",
+    "before": "申请",
+    "after": "应用",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "app-is-offline",
+    "before": "正在加载，请稍候。刷新页面会导致数据丢失。如果加载失败，请检查服务器是否已停止。",
+    "after": "勒加载，请等一歇。刷新页面会拿数据弄丢。假使加载勿成功，请检查服务器有呒没停脱。",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "app-try-reconnect",
+    "before": "尝试重新连接。",
+    "after": "试试看重新连接。",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "archive",
+    "before": "移至存档",
+    "after": "移到归档里向",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "archive-all",
+    "before": "全部移至存档",
+    "after": "全部移到归档里向",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "archive-board",
+    "before": "将板移至存档",
+    "after": "拿看板移到归档里向",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "archive-board-confirm",
+    "before": "您确定要存档此板吗？",
+    "after": "侬确定要拿搿块看板归档伐？",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "archive-card",
+    "before": "将卡移至存档",
+    "after": "拿卡片移到归档里向",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "archive-list",
+    "before": "将列表移至存档",
+    "after": "拿列表移到归档里向",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "archive-swimlane",
+    "before": "将泳道移至存档",
+    "after": "拿泳道移到归档里向",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "archive-selection",
+    "before": "将选择移至存档",
+    "after": "拿选中个项目移到归档里向",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "archiveBoardPopup-title",
+    "before": "将板移至存档？",
+    "after": "拿看板移到归档里向伐？",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "archived-items",
+    "before": "档案",
+    "after": "归档",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "archived-boards",
+    "before": "存档中的板",
+    "after": "归档里向个看板",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "restore-board",
+    "before": "恢复板",
+    "after": "恢复看板",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "no-archived-boards",
+    "before": "存档中没有板。",
+    "after": "归档里向呒没看板。",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "archives",
+    "before": "档案",
+    "after": "归档",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "attached",
+    "before": "随附的",
+    "after": "附加好仔",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "attachment",
+    "before": "依恋",
+    "after": "附件",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "attachment-delete-pop",
+    "before": "删除附件是永久性的。无法撤消。",
+    "after": "附件一旦删脱就永久删脱仔，勿能撤销。",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "attachment-soft-delete-pop",
+    "before": "附件从该卡片上移除，文件保留。任何能编辑该卡片的人都可以从卡片历史中恢复它。",
+    "after": "附件从搿张卡片浪移脱，文件还保留。能够修改搿张卡片个人，侪可以从卡片历史里向恢复伊。",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "attachmentDeletePopup-title",
+    "before": "删除附件？",
+    "after": "要删脱附件伐？",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "auto-watch",
+    "before": "创建板时自动监视板",
+    "after": "看板创建好个辰光自动关注伊",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "avatar-too-big",
+    "before": "头像太大（__size__ max）",
+    "after": "头像忒大仔（最大 __size__）",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "show-at-all-boards-page",
+    "before": "在所有图板页面显示",
+    "after": "勒所有看板页面浪显示",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-info-on-my-boards",
+    "before": "所有板设置",
+    "after": "所有看板设置",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "before": "所有板设置",
+    "after": "所有看板设置",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "boardInfoOnMyBoards-title",
+    "before": "所有板设置",
+    "after": "所有看板设置",
+    "reason": "2026-10-08: Correct Wu archive, attachment and loading meanings; preserve source tokens. Prose is lower confidence and needs native review."
   }
 ]

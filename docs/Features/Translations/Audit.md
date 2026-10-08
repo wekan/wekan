@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu archive and attachment corrections — 2026-10-08
+
+Correct 30 archive, attachment, loading and board-setting values. Distinguish
+permanent deletion from recoverable removal, retain the loading data-loss warning,
+and preserve card-count and size variables. Retain the existing administrator-only
+board-creation restriction. Refresh exact-value audit records. Wu prose needs native
+review; browser tests were not run and the wider translation audit is unfinished.
+
 ## Wu checklist and member corrections — 2026-10-08
 
 Correct 18 checklist, card, membership and administrator strings. Restore matching
@@ -12480,7 +12488,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,948** exact before/after values, including unflagged
+records contain **22,978** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

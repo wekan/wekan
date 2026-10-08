@@ -452,3 +452,16 @@ assert.doesNotMatch(wu.added, /额外/);
 assert.equal(wu.admin, '管理员');
 assert.match(wu['admin-desc'], /查看搭修改卡片.*移脱成员.*修改看板设置.*查看活动/);
 assert.equal(wu['add-members'], wu['addMemberPopup-title']);
+
+const archiveAttachments = ["and-n-other-card", "and-n-other-card_plural", "apply", "app-is-offline", "app-try-reconnect", "archive", "archive-all", "archive-board", "archive-board-confirm", "archive-card", "archive-list", "archive-swimlane", "archive-selection", "archiveBoardPopup-title", "archived-items", "archived-boards", "restore-board", "no-archived-boards", "archives", "attached", "attachment", "attachment-delete-pop", "attachment-soft-delete-pop", "attachmentDeletePopup-title", "auto-watch", "avatar-too-big", "show-at-all-boards-page", "board-info-on-my-boards", "boardInfoOnMyBoardsPopup-title", "boardInfoOnMyBoards-title"];
+for (const key of archiveAttachments) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.match(wu['app-is-offline'], /刷新页面.*数据弄丢.*加载勿成功.*服务器.*停脱/);
+assert.match(wu['attachment-delete-pop'], /永久删脱.*勿能撤销/);
+assert.match(wu['attachment-soft-delete-pop'], /卡片浪移脱.*文件还保留.*修改.*卡片历史.*恢复/);
+assert.doesNotMatch(wu['attachment-soft-delete-pop'], /永久删脱/);
+assert.equal(wu.attachment, wu.attachments);
+assert.notEqual(wu.apply, '申请');
+assert.match(wu['avatar-too-big'], /最大 __size__/);
+assert.equal(wu['and-n-other-card'], wu['and-n-other-card_plural']);
+assert.match(wu['no-archived-boards'], /归档里向呒没看板/);
+for (const key of ['archive-board', 'archive-card', 'archive-list', 'archive-swimlane', 'archive-selection']) assert.match(wu[key], /移到归档里向/);
