@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Galician planning results — 2026-10-09
+
+Translate 17 messages in gl and gl-ES, replacing 34 English values: Scrum import
+results, reference warnings, planning synchronization and the stalled-sync heading.
+Preserve all counters and reference variables. Regression checks cover invalid
+JSON, unchanged foreign-board cards, finished sprints, source-ID matching order,
+retained local changes and first-sync behavior. Both relevant suites and all 21
+preservation checks pass. Remaining translations, language auditing and browser
+review are outstanding.
+
 ## Galician settings and planning — 2026-10-09
 
 Translate 20 messages in gl and gl-ES, replacing 40 English values: link rules,

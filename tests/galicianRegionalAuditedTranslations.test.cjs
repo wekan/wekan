@@ -590,3 +590,20 @@ for (const code of ['gl', 'gl-ES']) {
   assert.deepEqual(catalog['external-link-rules-description'].match(/\{[^{}]+\}/g), englishLabels['external-link-rules-description'].match(/\{[^{}]+\}/g));
   assert.ok(catalog['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
 }
+
+const planningKeys = ["scrum-import-invalid-file", "scrum-import-preview-sprints", "scrum-import-preview-releases", "scrum-import-preview-cards", "scrum-import-preview-nothing", "scrum-import-into-board-done", "scrum-import-card-not-matched", "scrum-import-card-ambiguous", "scrum-import-card-on-another-board", "scrum-import-record-ambiguous", "scrum-import-record-not-imported", "scrum-import-sprint-finished", "sync-planning-sprint", "sync-planning-releases", "sync-planning-fields", "sync-planning-hint", "stuck-sync-operation-heading"];
+for (const code of ['gl', 'gl-ES']) {
+  const catalog = require('../imports/i18n/data/' + code + '.i18n.json');
+  for (const key of planningKeys) {
+    assert.ok(catalog[key]?.trim(), key);
+    assert.notEqual(catalog[key], englishLabels[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(catalog[key]), translationTokens(englishLabels[key]), key);
+  }
+  assert.match(catalog['scrum-import-invalid-file'], /non é JSON válido/);
+  assert.match(catalog['scrum-import-card-on-another-board'], /outro taboleiro.*sen cambios/);
+  assert.match(catalog['scrum-import-sprint-finished'], /Non se moveu.*sprint finalizado/);
+  assert.match(catalog['sync-planning-hint'], /primeiro polo ID da fonte e despois polo nome/);
+  assert.match(catalog['sync-planning-hint'], /primeira sincronización nunca elimina a planificación/);
+  assert.match(catalog['sync-planning-hint'], /cambio local.*mantense ata que a fonte cambia/);
+  assert.doesNotMatch(catalog['sync-planning-hint'], /primeira sincronización elimina/);
+}
