@@ -337,7 +337,7 @@ test('every external export menu link returns text and refuses an unrelated user
   // Include description through the actual shared selection controls.
   const details = page.locator('.js-export-card-details-toggle');
   if (await details.getAttribute('aria-checked') !== 'true') await details.click();
-  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'opml', 'orgmode']) {
+  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'linear', 'opml', 'orgmode']) {
     await test.step(format, async () => {
       const anchor = page.locator(`.js-pop-over a[href*="/export/${format}?"]`);
       await expect(anchor).toBeVisible();
@@ -351,6 +351,33 @@ test('every external export menu link returns text and refuses an unrelated user
       expect([401, 403]).toContain(refused.status());
     });
   }
+});
+
+// Linear's CSV export: statuses, a team swimlane, labels, priority and the parent issue.
+test('Linear: a CSV export imports with its statuses, team, labels, priority and parent issue', async ({ loggedInPage: page }) => {
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/linear');
+    await page.locator('#import-textarea').fill([
+      'ID,Team,Title,Description,Status,Priority,Labels,Due Date,Parent issue',
+      `ENG-1,Engineering,${expected.title},"Two of them, DN50",In Progress,High,"${expected.label}, UI",2026-10-10,`,
+      'ENG-2,Engineering,Child task,,Done,No priority,,,ENG-1',
+    ].join('\r\n'));
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    const cards = db.find('cards', { boardId });
+    expect(cards).toHaveLength(2);
+    const open = cards.find(card => card.title === expected.title);
+    const child = cards.find(card => card.title === 'Child task');
+    expect(open.description).toBe('Two of them, DN50');
+    expect(child.parentId).toBe(open._id);
+    const board = db.findOne('boards', { _id: boardId });
+    expect(open.labelIds.map(id => board.labels.find(l => l._id === id).name).sort()).toEqual([expected.label, 'UI'].sort());
+    expect(db.find('swimlanes', { boardId }).map(lane => lane.title)).toContain('Engineering');
+    expect(db.find('customFields', { boardIds: boardId }).map(field => field.name)).toContain('Priority');
+    await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });
 
 // An Obsidian Kanban plugin board: a lane limit, tags, a date, a Complete lane

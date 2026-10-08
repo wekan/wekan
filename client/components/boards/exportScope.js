@@ -246,6 +246,7 @@ const EXPORT_FORMAT_GROUPS = [
       { key: 'planner', icon: 'fa-th-list', label: 'Microsoft Planner', path: 'export/planner', ext: 'xlsx', scopes: BOARD_ONLY },
       { key: 'meistertask', icon: 'fa-tasks', label: 'MeisterTask', path: 'export/meistertask', ext: 'csv', scopes: BOARD_ONLY },
       { key: 'obsidian', icon: 'fa-diamond', label: 'Obsidian Kanban', path: 'export/obsidian', ext: 'md', scopes: BOARD_ONLY },
+      { key: 'linear', icon: 'fa-bars', label: 'Linear', path: 'export/linear', ext: 'csv', scopes: BOARD_ONLY },
       ...[
         ['trello', 'Trello'], ['jira', 'Jira'], ['deck', 'NextCloud Deck'],
         ['openproject', 'OpenProject'], ['github', 'GitHub'], ['gitlab', 'GitLab'],

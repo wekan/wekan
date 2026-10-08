@@ -19,6 +19,7 @@ import { formatTodoistCsv } from './todoistCsvFormat.js';
 import { formatPlannerRows } from './plannerFormat.js';
 import { formatMeisterTaskCsv } from './meistertaskCsvFormat.js';
 import { formatObsidianKanban } from './obsidianKanbanFormat.js';
+import { formatLinearCsv } from './linearCsvFormat.js';
 import { formatOpml } from './opmlOutlineFormat.js';
 import { formatOrgMode } from './orgModeFormat.js';
 
@@ -317,6 +318,8 @@ export const formatters = {
   meistertask: formatMeisterTaskCsv,
   // The Obsidian Kanban plugin's board file; round-trips with parseObsidianKanban.
   obsidian: formatObsidianKanban,
+  // Linear's CSV export columns; round-trips with parseLinearCsv.
+  linear: formatLinearCsv,
   // An OPML outline; round-trips with parseOpml (opmlOutline.js, server-only).
   opml: formatOpml,
   // An Org mode outline; round-trips with parseOrgMode (orgModeFormat.js).

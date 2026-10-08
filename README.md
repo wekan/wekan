@@ -33,7 +33,7 @@ that by providing one-click installation on various platforms.
     - Shared Templates: Boards, Lists, Cards
     - Add Board / Import:
       - WeKan JSON/.zip, CSV/TSV, Excel, Markdown, Obsidian Kanban, Leo, OPML, Org mode, todo.txt
-      - Trello, Jira, Asana, Zenkit, Focalboard, Todoist, Microsoft Planner, MeisterTask
+      - Trello, Jira, Asana, Zenkit, Focalboard, Todoist, Microsoft Planner, MeisterTask, Linear
       - Kanboard, Nextcloud Deck, OpenProject, Taskwarrior
       - GitHub, GitLab, Gitea, Forgejo
   - Change Color: Board theme and background image, Swimlane, List, Card
@@ -80,7 +80,7 @@ that by providing one-click installation on various platforms.
       - Export to: PDF, Excel, HTML, Calendar feed (iCal), Dependencies JSON/SVG,
        CSV , ; TSV, JSON with/without attachmeents, .zip (Attachments),
        Kanboard, Markdown, Leo, OPML, Org mode, todo.txt, Taskwarrior, Focalboard, Todoist,
-       Microsoft Planner, MeisterTask, Obsidian Kanban,
+       Microsoft Planner, MeisterTask, Obsidian Kanban, Linear,
        Trello, Jira, NextCloud Deck, OpenProject, GitHub, GitLab,
        Gitea, Forgejo, Asana, Zenkit
     - Scrum Settings

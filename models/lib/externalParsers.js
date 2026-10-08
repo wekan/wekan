@@ -6,6 +6,7 @@ import { parseTodoistCsv } from './todoistCsvFormat.js';
 import { parsePlannerRows } from './plannerFormat.js';
 import { parseMeisterTaskCsv } from './meistertaskCsvFormat.js';
 import { parseObsidianKanban } from './obsidianKanbanFormat.js';
+import { parseLinearCsv } from './linearCsvFormat.js';
 import { parseOrgMode } from './orgModeFormat.js';
 import {
   gitlabScrumPlanning, openProjectScrumPlanning, asanaScrumPlanning, STORY_POINTS_FIELD,
@@ -966,6 +967,8 @@ export const EXTERNAL_PARSERS = {
   meistertask: parseMeisterTaskCsv,
   // The Obsidian Kanban plugin's board file (obsidianKanbanFormat.js).
   obsidian: parseObsidianKanban,
+  // Linear's CSV export (linearCsvFormat.js).
+  linear: parseLinearCsv,
   orgmode: parseOrgMode,
   jira: parseJira,
 };

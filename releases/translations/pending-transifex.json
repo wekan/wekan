@@ -1011,6 +1011,10 @@
     {
       "key": "import-board-instruction-obsidian",
       "since": "2026-10-08"
+    },
+    {
+      "key": "import-board-instruction-linear",
+      "since": "2026-10-08"
     }
   ]
 }
