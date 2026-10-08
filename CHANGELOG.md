@@ -1921,12 +1921,6 @@ each for the reason given:
   `MAIL_SERVICE_PASSWORD` itself is read by nothing either (mail is configured
   by `MAIL_URL` or the Admin Panel mail settings), and S3 reads
   `S3_SECRET_KEY`, not `S3_SECRET`.
-- LDAP **Test connection** answers success without having connected when no
-  service account (`LDAP_AUTHENTIFICATION`) is set: it binds only with that
-  account, and ldapts opens the socket lazily. Checked on 2026-10-05 with an
-  unresolvable host. Needs a decision on what a test without credentials does -
-  an anonymous base search of `LDAP_BASEDN`, or saying that nothing was tested -
-  and a directory to verify it against.
 - `LOGOUT_WITH_TIMER`, `LOGOUT_IN`, `LOGOUT_ON_HOURS` and `LOGOUT_ON_MINUTES`
   are offered by the snap and the start scripts, but no code reads them, so
   they do nothing. Implement them or remove them from the platforms - a
@@ -1936,17 +1930,13 @@ each for the reason given:
   2026-10-05 so the whole-tree test holds; wire it to a "Sync now" button or
   remove it.
 
-Maintainer decisions of 2026-10-08 for the items above (header login,
-decided the same day, is built and in Upcoming):
+Maintainer decisions of 2026-10-08 for the items above (header login and
+LDAP Test connection, decided the same day, are built and in Upcoming):
 
 - **Automatic logout: implement it.** `LOGOUT_WITH_TIMER=true` signs a user
   out after `LOGOUT_IN` days, or daily at `LOGOUT_ON_HOURS`:`LOGOUT_ON_MINUTES`,
   and the four become overridable in Admin Panel / People like the other login
   variables.
-- **LDAP Test connection without a service account: anonymous base search.**
-  An anonymous bind and a base-scope search of `LDAP_BASEDN`; success only when
-  the directory answered, otherwise its actual error. Verifying it still needs
-  a directory.
 - **`ldap_sync_now`: wire it to a "Sync now" button** in Admin Panel / People /
   LDAP, loaded and restricted to administrators, with its English string
   pending Transifex.
@@ -1967,7 +1957,8 @@ decided the same day, is built and in Upcoming):
 **In short:** Translation filling now protects interpolation variables before
 writing a batch. Locale catalogs include the new card-field settings, with
 more translated help text and refreshed translation audit checks.
-**Header login** is now set by the server environment only.
+**Header login** is now set by the server environment only, and **LDAP Test
+connection** reports success only when the directory answered.
 
 This release hardens the login settings:
 
@@ -1985,6 +1976,20 @@ and shown in Admin Panel → Problems as ProxyBleed. Every other login section
 stays overridable. `tests/authConfigCatalog.test.cjs` pins the resolution, the
 refusal and that only this section is environment-only; the Playwright spec
 `admin-login-env-overrides` drives the read-only pane and the refused save.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9d27f4be4d">LDAP Test connection without a service account searches the base DN before saying success</a>. Thanks to xet7.</summary>
+
+ldapts opens its socket lazily, and Test connection bound only when
+`LDAP_AUTHENTIFICATION` was set, so without a service account no operation
+ran and it reported success even for a host that does not resolve. It now
+does an anonymous base-scope search of `LDAP_BASEDN`, reading no attributes,
+and shows the directory's own error when that fails; without a base DN it says
+nothing could be tested. `tests/ldapTestConnectionProbe.test.cjs` pins the
+decision and runs the search with the shipped ldapts against a port where
+nothing listens. A login against a real directory was not run here.
 
 </details>
 
