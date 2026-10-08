@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e71fa762a1">Translate Czech import instructions</a>. Thanks to xet7.</summary>
+
+Translate 21 import instructions in both Czech catalogs, preserving commands,
+column names, variables and import limitations. Regression checks cover first-board
+selection, excluded data, English headers, completion dates and archived tasks.
+Translation, placeholder and preservation checks pass; browser review and the
+wider translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5256aa752d">Translate Polish import instructions</a>. Thanks to xet7.</summary>
 
 Translate 21 import instructions in both Polish catalogs, preserving commands,
