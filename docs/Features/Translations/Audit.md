@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## German planning and recovery messages — 2026-10-08
+
+Translate 61 current English values in each of the four German catalogs
+(de, de-AT, de-CH and de_DE), for 244 filled values, preserving existing
+localized values. Use Swiss spelling in de-CH. Cover board controls,
+link-rule syntax, Scrum planning imports, Sync planning, interrupted board
+imports and conflicted history recovery. Extend the existing German suite
+with per-key translation checks and assertions for recovery decisions,
+matching priority, non-duplication, permanent removal and literal examples.
+No browser or screen-reader session was run; other locales remain unfinished.
+
 ## French planning and recovery messages — 2026-10-08
 
 Translate 61 current English values in each of the five French catalogs
