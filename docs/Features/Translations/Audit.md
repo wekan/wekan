@@ -8836,6 +8836,16 @@ by the placeholder-only merge. Regression coverage checks these details alongsid
 script, key order and token inventories. Technical wording remains low confidence
 pending speaker review. Browser checks were not run; further translations remain.
 
+## Odia text replacement and whitespace
+
+Filled 21 English placeholders for text prompts, replacement, reversal, trimming
+and basic editor labels. Preserved indexed replacement roles, replacement of all
+occurrences, spaces in length counts and trimming at text ends. Existing
+translations were retained by the placeholder-only merge. Regression coverage
+checks these details alongside script, key order and token inventories. Technical
+wording remains low confidence pending speaker review. Browser checks were not
+run; further Odia translations remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
