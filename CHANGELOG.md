@@ -2171,6 +2171,22 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1c7ace6c4d7b65e9e1711738d3d41aaa38d5f210">Translate Moroccan Arabic navigation and letter case</a></summary>
+
+- Fill 37 placeholders, retaining existing translations. Check movement and
+  scrolling directions, block-sequence ends, page navigation, append arguments
+  and letter case, together with script, source order and placeholders.
+- Validation: 47 translation checks and 21 human-preference checks pass. Two
+  repository-wide checks fail on new card-field-visibility keys missing from
+  other locales. Browser, RTL and screen-reader checks were not run.
+- Technical Darija wording remains low confidence pending speaker review;
+  remaining placeholders and the broader language audit stay open.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5b7f2d18d89c4d2ed35f6a607def4cdf96c9bdfe">Translate Moroccan Arabic procedures and accessibility controls</a></summary>
 
 - Fill 39 placeholders, retaining existing translations. Check return values,

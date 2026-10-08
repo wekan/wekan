@@ -100,9 +100,24 @@ for (const language of ['fi','ar','gu-IN','sv','sl','vi','ku','ckb','tt','so','n
     const blockY=()=>block.evaluate(element=>element.transform.baseVal.consolidate().matrix.f);
     const beforeY=await blockY();
     const before=await block.boundingBox();
-    await page.mouse.move(before.x+before.width/2,before.y+12);
+    // Grab the block body near its leading edge: at the centre, a longer
+    // translated label (fj, rw) puts an editable field under the pointer, and
+    // pressing a field edits it instead of dragging the block.
+    const grabX=await block.evaluate((element,{x,y,width})=>{
+      // Right-to-left editors were always grabbed at the centre and drag fine
+      // there; only left-to-right labels can put a field under the centre.
+      if(document.documentElement.dir==='rtl')return x+width/2;
+      for(let dx=4;dx<width;dx+=4){
+        for(const px of [x+dx]){
+          const hit=document.elementFromPoint(px,y);
+          if(hit&&element.contains(hit)&&!hit.closest('.blocklyEditableField, .blocklyText, .blocklyFieldRect')&&hit.closest('.blocklyDraggable')===element)return px;
+        }
+      }
+      return x+width/2;
+    },{x:before.x,y:before.y+12,width:before.width});
+    await page.mouse.move(grabX,before.y+12);
     await page.mouse.down();
-    await page.mouse.move(before.x+before.width/2+65,before.y+72,{steps:12});
+    await page.mouse.move(grabX+65,before.y+72,{steps:12});
     await page.mouse.up();
     await expect.poll(async()=>Math.abs(await blockY()-beforeY)).toBeGreaterThan(20);
     await block.locator('.blocklyEditableField').first().dblclick();
