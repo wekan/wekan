@@ -7942,6 +7942,15 @@ switch distinctions, home removal without board deletion and date argument order
 Technical wording remains low confidence pending speaker review. Browser checks
 were not run. Further wrong-language corrections and the broader audit remain.
 
+### Tatar common controls, announcements and loading warning
+
+Corrected 23 wrong-language checklist, administrator, announcement, reconnect and
+archive values. Retained correct adjacent controls and source placeholders.
+Regression coverage checks empty-result negation, add/edit form distinctions,
+checklist aliases, plural counts and the warning about data loss when refreshing
+during loading. Technical wording remains low confidence pending speaker review.
+Browser checks were not run. Further corrections and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
