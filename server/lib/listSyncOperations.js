@@ -8,6 +8,8 @@ const { runSyncOperation } = require('/server/lib/syncOperationJournal');
 const { intentIdentity, ensureSyncOperationIntent, readSyncOperationIntent, loadSyncOperationIntent } = require('/server/lib/syncOperationIntent');
 const { createSyncOperationScopeGuard } = require('/server/lib/syncOperationScope');
 const { reuseWithinEvaluation } = require('/server/lib/syncGuardWindow');
+const { markStuckOperation, listStuckOperations, completeDecidedDiscard,
+  discardStuckOperation } = require('/server/lib/listSyncStuck');
 
 // Private durable storage. No publications, client writes or TTL: incomplete
 // plans and immutable completion receipts must survive restarts and deletion
@@ -16,7 +18,10 @@ const intents = new Mongo.Collection('listSyncOperationIntents');
 const operations = new Mongo.Collection('listSyncOperations');
 const steps = new Mongo.Collection('listSyncOperationSteps');
 const completions = new Mongo.Collection('listSyncOperationCompletions');
-for (const collection of [intents, operations, steps, completions]) {
+// One immutable record per operation an administrator discarded
+// (server/lib/listSyncStuck.js); kept as the audit of that decision.
+const discards = new Mongo.Collection('listSyncOperationDiscards');
+for (const collection of [intents, operations, steps, completions, discards]) {
   collection.deny({ insert: () => true, update: () => true, remove: () => true });
 }
 Meteor.startup(async () => {
@@ -98,4 +103,31 @@ export async function discardPreparingListSyncOperation({ listId, operationId, a
 export async function listPendingListSyncOperations(limit = 100) {
   return operations.rawCollection().find({ state: { $in: ['preparing', 'applying', 'completed', 'cleaning'] } },
     { projection: { _id: 1 } }).sort({ touchedAt: 1 }).limit(limit).toArray();
+}
+
+// Operations that can no longer be replayed (server/lib/listSyncStuck.js).
+// The intent as stored, for the live replayability check.
+export async function readListSyncOperationIntent(intentId) {
+  return loadSyncOperationIntent({ intents: intents.rawCollection(), intentId });
+}
+
+// Returns the operation when this call recorded it as stuck for the first time.
+export async function markStuckListSyncOperation({ listId, operationId, reason }) {
+  return markStuckOperation({ operations: operations.rawCollection(), listId, operationId, reason });
+}
+
+export async function listStuckListSyncOperations({ inspect }) {
+  return listStuckOperations({ operations: operations.rawCollection(), discards: discards.rawCollection(), inspect });
+}
+
+// The caller holds the list lease.
+export async function completeDecidedListSyncDiscard({ listId, assertCurrent }) {
+  return completeDecidedDiscard({ operations: operations.rawCollection(), steps: steps.rawCollection(),
+    discards: discards.rawCollection(), listId, assertCurrent });
+}
+
+// The caller holds the list lease.
+export async function discardStuckListSyncOperation({ listId, operationId, operator, inspect, assertCurrent }) {
+  return discardStuckOperation({ operations: operations.rawCollection(), steps: steps.rawCollection(),
+    discards: discards.rawCollection(), listId, operationId, operator, inspect, assertCurrent });
 }

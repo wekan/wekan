@@ -353,7 +353,11 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
       const code = e?.code || e?.message || '';
       // The code only - never card values or provider text.
       console.error('listSync: durable run stopped for list', list._id, String(code).slice(0, 120));
-      const error = code === 'sync-operation-local-state-changed'
+      // An earlier operation of this list that cannot be replayed blocks every
+      // new run until an administrator discards it (server/lib/listSyncStuck.js).
+      const error = e?.listSyncStuck
+        ? 'An earlier Sync of this list cannot be finished, so Sync is blocked. An administrator can review and discard it in Admin Panel → Problems → Recovery.'
+        : code === 'sync-operation-local-state-changed'
         ? 'Sync creation conflict: a card for this source item already exists. Retry Sync to review a replacement in the Sync popup.'
         : ['sync-card-changed', 'sync-operation-write-unconfirmed'].includes(code)
           ? 'Sync card changed while applying updates; retry sync.'

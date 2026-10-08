@@ -31,6 +31,10 @@ RecoveryEvents.types = {
   ATTACHMENT_PERMANENTLY_DELETED: 'attachment-permanently-deleted',
   // Detail lists what an import could not bring over (models/lib/importLossReport.js).
   IMPORT_COMPLETED_WITH_WARNINGS: 'import-completed-with-warnings',
+  // A saved list Sync operation that cannot be replayed blocks the list's Sync
+  // until an administrator discards it (server/lib/listSyncStuck.js).
+  LIST_SYNC_OPERATION_STUCK: 'list-sync-operation-stuck',
+  LIST_SYNC_OPERATION_DISCARDED: 'list-sync-operation-discarded',
 };
 
 RecoveryEvents.attachSchema(

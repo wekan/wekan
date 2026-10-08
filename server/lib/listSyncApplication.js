@@ -17,8 +17,11 @@ import Triggers from '/models/triggers';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 import { runStoredSyncActivityDelivery } from '/server/notifications/storedActivityDelivery';
 import { withListSyncLease } from '/server/lib/listSyncLease';
+import Lists from '/models/lists';
+import RecoveryEvents from '/models/recoveryEvents';
 import { runStoredListSyncOperation, readPendingListSyncOperation, discardPreparingListSyncOperation,
-  listPendingListSyncOperations } from '/server/lib/listSyncOperations';
+  listPendingListSyncOperations, readListSyncOperationIntent, markStuckListSyncOperation,
+  completeDecidedListSyncDiscard } from '/server/lib/listSyncOperations';
 const { randomUUID } = require('node:crypto');
 const { memberCan } = require('/models/lib/boardRoleCapabilities');
 const { ruleActionIds } = require('/models/lib/ruleParts');
@@ -31,6 +34,8 @@ const { createSyncHookedActivities } = require('/server/lib/syncHookedActivities
 const { syncEffectPolicy } = require('/server/lib/syncEffectPolicy');
 const { syncSourceKey } = require('/models/lib/listSyncSourceIdentity');
 const { durableRuleActionType } = require('/server/lib/syncRuleMoveCommand');
+const { createSyncOperationScopeGuard } = require('/server/lib/syncOperationScope');
+const { stuckReason } = require('/server/lib/listSyncStuck');
 
 const withActor = (userId, work) => DDP._CurrentMethodInvocation.withValue({ userId, isSimulation: false }, work);
 const readPolicy = async () => syncEffectPolicy(getFeatureFlags());
@@ -104,21 +109,72 @@ const validateEffects = (effects, step, context) =>
   validateSyncEffects(effects, step, syncOperationEffectId(context.operationId, context.index));
 
 // Finish the list's unfinished operation first: a new run cannot start while
-// one is pending, and it must not be left behind.
+// one is pending, and it must not be left behind. An operation that cannot be
+// replayed any more is recorded once for Problems -> Recovery
+// (server/lib/listSyncStuck.js), where an administrator can discard it.
 async function resumePending({ listId, lease }) {
-  const pending = await readPendingListSyncOperation(listId);
-  if (!pending) return null;
-  if (pending.state === 'preparing') {
-    await discardPreparingListSyncOperation({ listId, operationId: pending.operationId, assertCurrent: lease.assertCurrent });
-    return { discarded: pending.operationId };
+  const decided = await completeDecidedListSyncDiscard({ listId, assertCurrent: lease.assertCurrent });
+  if (decided) return { discarded: decided };
+  let pending = null;
+  try {
+    pending = await readPendingListSyncOperation(listId);
+    if (!pending) return null;
+    if (pending.state === 'preparing') {
+      await discardPreparingListSyncOperation({ listId, operationId: pending.operationId, assertCurrent: lease.assertCurrent });
+      return { discarded: pending.operationId };
+    }
+    if (!pending.trigger) throw Object.assign(new Error('sync-operation-trigger-unknown'), { code: 'sync-operation-trigger-unknown' });
+    return await runStoredListSyncOperation({ scope: pending.scope, actorId: pending.actorId, trigger: pending.trigger,
+      intentId: pending.intentId, lease,
+      assertAccess: current => assertListWriter(current),
+      build: () => { throw new Error('sync-operation-replay-cannot-build'); },
+      prepareEffects: () => { throw new Error('sync-operation-replay-cannot-build'); },
+      validateEffects, apply: applier({ actorId: pending.actorId, trigger: pending.trigger }) });
+  } catch (error) {
+    const reason = stuckReason(error);
+    if (reason) error.listSyncStuck = { reason, recorded: await noteStuck({ listId, operationId: pending?.operationId, reason }) };
+    throw error;
   }
-  if (!pending.trigger) throw Object.assign(new Error('sync-operation-trigger-unknown'), { code: 'sync-operation-trigger-unknown' });
-  return runStoredListSyncOperation({ scope: pending.scope, actorId: pending.actorId, trigger: pending.trigger,
-    intentId: pending.intentId, lease,
-    assertAccess: current => assertListWriter(current),
-    build: () => { throw new Error('sync-operation-replay-cannot-build'); },
-    prepareEffects: () => { throw new Error('sync-operation-replay-cannot-build'); },
-    validateEffects, apply: applier({ actorId: pending.actorId, trigger: pending.trigger }) });
+}
+
+// One Recovery event when an operation is first found stuck, never one per
+// retry. Best effort: recording must not hide the refusal it records.
+async function noteStuck({ listId, operationId, reason }) {
+  let marked;
+  try { marked = await markStuckListSyncOperation({ listId, operationId, reason }); } catch (_) { return false; }
+  if (!marked) return false;
+  const boardId = marked.scope?.boardId;
+  await RecoveryEvents.record(RecoveryEvents.types.LIST_SYNC_OPERATION_STUCK, {
+    done: false, severity: 'warning', source: 'server', boardIds: boardId ? [boardId] : undefined,
+    detail: `List Sync of list ${listId} is blocked: its saved operation ${marked.operationId} cannot be replayed ` +
+      `(${reason}); ${marked.checkpoint || 0} of ${marked.total || 0} steps were applied. ` +
+      'Review and discard it under "List Sync operations that cannot be replayed" on this page.',
+  });
+  return true;
+}
+
+// Can this stored operation be replayed NOW? Returns null when it can, or the
+// reason it cannot - the same checks a replay makes before writing anything:
+// the stored intent and trigger, the list's exact scope, and the actor's
+// full-list write access. Other read failures are thrown, never reported as
+// "cannot be replayed", so a transient error cannot unlock a discard.
+export async function inspectListSyncOperation(row) {
+  let intent;
+  try { intent = await readListSyncOperationIntent(row.intentId); } catch (error) {
+    const reason = stuckReason(error);
+    if (reason) return reason;
+    throw error;
+  }
+  if (!intent.trigger) return 'trigger-unknown';
+  try {
+    await createSyncOperationScopeGuard({ lists: Lists, boards: Boards, scope: row.scope, assertCurrent: async () => {},
+      assertAccess: current => assertListWriter({ ...current, userId: intent.actorId }) })();
+    return null;
+  } catch (error) {
+    const reason = stuckReason(error);
+    if (reason) return reason;
+    throw error;
+  }
 }
 
 // The durable write phase of one reconcile. `lease` is the list lease the run
@@ -156,14 +212,21 @@ export async function runDurableListSync({ list, trigger, actorId, lease, plan, 
 
 // Replay after a restart: every unfinished operation, under its list's lease.
 export async function replayStoredListSync() {
-  const result = { resumed: 0, discarded: 0, busy: 0, failed: 0 };
+  const result = { resumed: 0, discarded: 0, busy: 0, failed: 0, stuck: 0 };
   for (const { _id: listId } of await listPendingListSyncOperations()) {
     try {
       const outcome = await withListSyncLease(listId, lease => resumePending({ listId, lease }));
       if (outcome?.discarded) result.discarded++; else if (outcome) result.resumed++;
     } catch (error) {
       if (error?.error === 'sync-busy') result.busy++;
-      else {
+      else if (error?.listSyncStuck) {
+        // Waits for an administrator in Problems -> Recovery; said once.
+        result.stuck++;
+        if (error.listSyncStuck.recorded) {
+          console.error(`List Sync replay of list ${listId} cannot continue (${error.listSyncStuck.reason}); ` +
+            'it is listed in Admin Panel -> Problems -> Recovery.');
+        }
+      } else {
         result.failed++;
         // Kept for the next pass; say why, or a stuck replay is invisible.
         console.error('List Sync replay failed; it is retried on the next pass:', error?.message || error);

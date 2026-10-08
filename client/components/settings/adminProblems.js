@@ -1796,3 +1796,60 @@ Template.syncRuleEmailLegacyCommands.events({
     t.load(r.page + (event.currentTarget.classList.contains('js-rule-email-legacy-next') ? 1 : -1));
   },
 });
+
+// List Sync operations that can no longer be replayed (server/lib/listSyncStuck.js):
+// an administrator discards one so the list's Sync can run again.
+// The server refuses with list-sync-stuck-<reason>; each known reason has its
+// own stuck-sync-operation-<reason> text.
+const LIST_SYNC_STUCK_REFUSALS = ['missing', 'not-stuck', 'replayable', 'busy'];
+const listSyncStuckErrorKey = code => {
+  const reason = typeof code === 'string' && code.startsWith('list-sync-stuck-') ? code.slice('list-sync-stuck-'.length) : '';
+  return `stuck-sync-operation-${LIST_SYNC_STUCK_REFUSALS.includes(reason) ? reason : 'failed'}`;
+};
+Template.listSyncStuckOperations.onCreated(function () {
+  this.result = new ReactiveVar({ rows: [], truncated: false });
+  this.error = new ReactiveVar(''); this.busy = new ReactiveVar(false); this.request = 0;
+  this.load = () => {
+    const request = ++this.request;
+    Meteor.call('listSyncStuckOperations', (error, result) => {
+      if (this.view.isDestroyed || request !== this.request) return;
+      if (error) { this.error.set(TAPi18n.__('stuck-sync-operation-unavailable')); return; }
+      this.result.set(result);
+    });
+  };
+  this.discard = (listId, operationId) => {
+    if (this.busy.get() || !window.confirm(TAPi18n.__('stuck-sync-operation-discard-confirm'))) return;
+    this.busy.set(true); this.error.set('');
+    Meteor.call('listSyncStuckDiscard', { listId, operationId }, error => {
+      if (this.view.isDestroyed) return;
+      this.busy.set(false);
+      if (error) this.error.set(TAPi18n.__(listSyncStuckErrorKey(error.error)));
+      this.load();
+    });
+  };
+  this.load();
+});
+Template.listSyncStuckOperations.helpers({
+  error() { return Template.instance().error.get(); },
+  busy() { return Template.instance().busy.get(); },
+  truncated() { return Template.instance().result.get().truncated; },
+  rows() {
+    const t = Template.instance();
+    return t.result.get().rows.map(row => ({ ...row, reasonKey: `stuck-sync-operation-reason-${row.reason || 'unknown'}`,
+      stuckAtText: row.stuckAt ? formatDate(row.stuckAt) : '', replayableNow: row.replayable === true,
+      // Only an operation known NOT to be replayable now can be discarded;
+      // the server checks again under the list lease.
+      discardDisabled: t.busy.get() || row.replayable !== false }));
+  },
+});
+Template.listSyncStuckOperations.events({
+  'click .js-list-sync-stuck-discard'(event, t) {
+    event.preventDefault(); event.stopPropagation();
+    const row = event.currentTarget.closest('tr');
+    t.discard(row.dataset.list, row.dataset.operation);
+  },
+  'click .js-list-sync-stuck-refresh'(event, t) {
+    event.preventDefault(); event.stopPropagation();
+    t.error.set(''); t.load();
+  },
+});

@@ -364,4 +364,66 @@ describe('Durable list Sync', function () {
       await Meteor.users.rawCollection().deleteMany({ _id: actor });
     }
   });
+  // A stored operation whose list was reconfigured can never be replayed. It
+  // is recorded once for Problems -> Recovery, and an administrator's discard
+  // (server/lib/listSyncStuck.js) unblocks the list, once.
+  it('records a stale operation once and lets an administrator discard it', async function () {
+    if (!Meteor.isAppTest) this.skip();
+    const actor = Random.id(), admin = Random.id(), member = Random.id(), boardId = Random.id(), listId = Random.id();
+    const db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
+    const RecoveryEvents = db.collection('recoveryEvents');
+    const call = (userId, name, args) => DDP._CurrentMethodInvocation.withValue({ userId, isSimulation: false, connection: null,
+      setUserId() {}, unblock() {} }, () => Meteor.server.method_handlers[name].apply({ userId, connection: null }, args));
+    const { randomUUID } = require('node:crypto');
+    const { syncSourceKey } = require('/models/lib/listSyncSourceIdentity');
+    const intentId = randomUUID(), operationId = randomUUID();
+    const scope = { listId, boardId, incarnation: Random.id(), revision: Random.id(),
+      sourceKey: syncSourceKey({ type: 'jira', url: 'https://jira.example.org', projectKey: 'P' }) };
+    try {
+      await Meteor.users.rawCollection().insertMany([{ _id: actor, username: `stuck-${actor}`, profile: {} },
+        { _id: admin, username: `admin-${admin}`, isAdmin: true, profile: {} }, { _id: member, username: `member-${member}`, profile: {} }]);
+      await Boards.rawCollection().insertOne({ _id: boardId, title: 'Stuck Sync', permission: 'private', archived: false,
+        members: [{ userId: actor, isAdmin: true, isActive: true }] });
+      // The list was reconfigured after the operation was saved: a new revision.
+      await Lists.rawCollection().insertOne({ _id: listId, boardId, title: 'Watched', archived: false, sort: 0,
+        syncCredentialIncarnation: scope.incarnation, syncRevision: Random.id(),
+        syncSource: { type: 'jira', url: 'https://jira.example.org', projectKey: 'P' } });
+      await db.collection('listSyncOperationIntents').insertOne({ _id: intentId, version: 2, actorId: actor, trigger: 'manual',
+        scope, createdAt: new Date() });
+      await db.collection('listSyncOperations').insertOne({ _id: listId, operationId, intentId, scope, effectPlans: true,
+        state: 'applying', checkpoint: 0, total: 1, planChecksum: 'c'.repeat(64), attempts: 1, startedAt: new Date() });
+      await db.collection('listSyncOperationSteps').insertOne({ _id: `${operationId}:0`, operationId, index: 0, checksum: 'c'.repeat(64) });
+
+      for (let pass = 0; pass < 3; pass++) {
+        const replay = await replayStoredListSync();
+        assert.ok(replay.stuck >= 1, JSON.stringify(replay));
+      }
+      assert.equal((await db.collection('listSyncOperations').findOne({ _id: listId })).stuck.reason, 'scope-changed');
+      assert.equal(await RecoveryEvents.countDocuments({ type: 'list-sync-operation-stuck', detail: new RegExp(operationId) }), 1,
+        'recorded once, not on every pass');
+
+      await assert.rejects(call(member, 'listSyncStuckOperations', []), /not-authorized/);
+      await assert.rejects(call(member, 'listSyncStuckDiscard', [{ listId, operationId }]), /not-authorized/);
+      const listed = await call(admin, 'listSyncStuckOperations', []);
+      const row = listed.rows.find(candidate => candidate.listId === listId);
+      assert.deepEqual([row.operationId, row.reason, row.replayable], [operationId, 'scope-changed', false]);
+
+      const discarded = await call(admin, 'listSyncStuckDiscard', [{ listId, operationId }]);
+      assert.equal(discarded.status, 'discarded');
+      assert.equal(await db.collection('listSyncOperations').countDocuments({ _id: listId }), 0, 'the list can Sync again');
+      assert.equal(await db.collection('listSyncOperationSteps').countDocuments({ operationId }), 0);
+      const again = await call(admin, 'listSyncStuckDiscard', [{ listId, operationId }]);
+      assert.equal(again.status, 'already-discarded');
+      assert.equal(await RecoveryEvents.countDocuments({ type: 'list-sync-operation-discarded', detail: new RegExp(operationId) }), 1);
+    } finally {
+      await db.collection('listSyncOperations').deleteMany({ _id: listId });
+      await db.collection('listSyncOperationSteps').deleteMany({ operationId });
+      await db.collection('listSyncOperationIntents').deleteMany({ _id: intentId });
+      await db.collection('listSyncOperationDiscards').deleteMany({ _id: operationId });
+      await RecoveryEvents.deleteMany({ detail: new RegExp(operationId) });
+      await Lists.rawCollection().deleteMany({ _id: listId });
+      await Boards.rawCollection().deleteMany({ _id: boardId });
+      await Meteor.users.rawCollection().deleteMany({ _id: { $in: [actor, admin, member] } });
+    }
+  });
 });

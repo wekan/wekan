@@ -659,6 +659,98 @@
     {
       "key": "scrum-releases-select-help",
       "since": "2026-10-08"
+    },
+    {
+      "key": "stuck-sync-operation-heading",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "stuck-sync-operation-description",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "stuck-sync-operation-list",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "stuck-sync-operation-progress",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "stuck-sync-operation-reason",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "stuck-sync-operation-applied",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "stuck-sync-operation-reason-scope-changed",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "stuck-sync-operation-reason-access-denied",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "stuck-sync-operation-reason-trigger-unknown",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "stuck-sync-operation-reason-intent-missing",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "stuck-sync-operation-reason-unknown",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "stuck-sync-operation-replayable-now",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "stuck-sync-operation-discard",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "stuck-sync-operation-discard-confirm",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "stuck-sync-operation-refresh",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "stuck-sync-operation-empty",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "stuck-sync-operation-truncated",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "stuck-sync-operation-unavailable",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "stuck-sync-operation-missing",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "stuck-sync-operation-not-stuck",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "stuck-sync-operation-replayable",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "stuck-sync-operation-busy",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "stuck-sync-operation-failed",
+      "since": "2026-10-08"
     }
   ]
 }

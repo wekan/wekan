@@ -276,6 +276,14 @@ with status filters, literal board/list ID search and ten-row server pagination.
 That view checks administrator permission before and after reading; it includes
 retained diagnostics for deleted lists and offers no replay or undo action.
 
+If a list's saved Sync operation can no longer be finished - for example the
+list was reconfigured or the user who started it lost write access - that list
+cannot Sync and its popup reports it. An instance administrator can discard the
+operation in
+[Problems → Recovery](../Admin-Panel/Problems/Recovery.md#list-sync-operations-that-cannot-be-replayed);
+changes already applied stay and the next Sync compares the list with its
+source again.
+
 ### Repair duplicate mappings
 
 If multiple visible cards map to the same source item, the popup shows each

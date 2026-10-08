@@ -95,6 +95,54 @@ can inspect retained diagnostics for deleted lists here until retention expires.
 Replay checkpoints, write fencing and automatic restart recovery are separate
 unfinished work; a diagnostic report is not a recovery plan.
 
+## List Sync operations that cannot be replayed
+
+Manual and scheduled Sync of a list write through a saved operation plan
+([durable operations](Durable-Operations.md#manual-and-scheduled-sync-use-the-engine-2026-09-30)).
+While a list has an unfinished operation, no new Sync of that list starts: the
+`wekan-list-sync-replay` job resumes it first, every minute. A replay re-checks
+what the plan was made for - the list's board, lifetime, settings revision and
+source, the stored intent and trigger, and that the user who started it still
+has write access to the whole list. When one of those went stale (the list was
+removed, recreated or reconfigured, or the user lost access), the operation can
+never be finished and the list's Sync stays blocked.
+
+WeKan records such an operation **once**: it marks the operation and adds one
+`list-sync-operation-stuck` Recovery event naming the list, the operation, the
+reason and how many of its steps were applied. Later passes that fail the same
+way add no event and no console line. A manual Sync of the blocked list reports
+that an administrator can discard the earlier operation here.
+
+The **List Sync operations that cannot be replayed** section lists every marked
+operation - board and list ID, when it was found, steps applied of the total,
+and the reason - checked again against the current list, board and user each
+time the page loads. **Discard** is enabled only when that check confirms the
+operation still cannot be replayed; one whose access was restored is shown as
+replayable and finishes by itself.
+
+Discarding, after confirmation:
+
+- writes nothing to cards: steps applied before the operation went stale keep
+  their changes, the remaining saved steps are never written, and the next Sync
+  compares the list with its source again;
+- first stores one immutable decision (collection `listSyncOperationDiscards`,
+  keyed by the operation ID, with the administrator, reason and progress), then
+  removes the operation's saved steps and its marker, reading each removal back;
+- runs under the list's Sync lease, the same one a replay and a new run hold,
+  so it never interleaves with them on this or another server; a list that is
+  syncing right now reports busy;
+- is idempotent: a retry or a second administrator finds the decision and only
+  finishes the removal, or reports it already discarded. A replay or new run
+  that finds a decided but unfinished discard completes it instead of resuming;
+- keeps the stored intent and any completion receipts as evidence, and adds one
+  `list-sync-operation-discarded` Recovery event with the administrator's
+  address.
+
+Only a currently enabled instance administrator can list or discard; the server
+checks before reading and again with the lease around every write. Operations
+still being prepared are not listed - they have written nothing and are
+discarded automatically.
+
 ## What each layer does
 
 ### FerretDB (the database engine)

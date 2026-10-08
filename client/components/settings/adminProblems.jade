@@ -17,6 +17,7 @@ template(name="adminProblems")
             +activityNotificationRecoveryReports
             +syncRuleEmailRecoveryReports
             +syncRuleEmailLegacyCommands
+            +listSyncStuckOperations
             +syncRecoveryReports
           if loading.get
             +spinner
@@ -396,3 +397,40 @@ template(name="syncRuleEmailLegacyCommands")
         button.js-rule-email-legacy-next(type="button" disabled=noNext) &rsaquo;
     else
       p.quiet {{_ 'rule-email-legacy-empty'}}
+
+//- A saved List Sync operation that can no longer be replayed blocks that
+//- list's Sync; an administrator reviews and discards it here
+//- (server/lib/listSyncStuck.js, docs/Features/Admin-Panel/Problems/Recovery.md).
+template(name="listSyncStuckOperations")
+  section.list-sync-stuck-operations
+    h2 {{_ 'stuck-sync-operation-heading'}}
+    p.quiet {{_ 'stuck-sync-operation-description'}}
+    if error
+      p.error(role="alert") {{error}}
+    if rows.length
+      table
+        thead
+          tr
+            th {{_ 'stuck-sync-operation-list'}}
+            th {{_ 'stuck-sync-operation-progress'}}
+            th {{_ 'stuck-sync-operation-reason'}}
+            th {{_ 'actions'}}
+        tbody
+          each rows
+            tr(data-list=listId data-operation=operationId)
+              td
+                p {{_ 'board'}}: {{boardId}}
+                p {{_ 'list'}}: {{listId}}
+                p.quiet {{stuckAtText}}
+              td {{_ 'stuck-sync-operation-applied' applied=applied total=total}}
+              td
+                p {{_ reasonKey}}
+                if replayableNow
+                  p.quiet {{_ 'stuck-sync-operation-replayable-now'}}
+              td
+                button.js-list-sync-stuck-discard(type="button" disabled=discardDisabled) {{_ 'stuck-sync-operation-discard'}}
+      if truncated
+        p.quiet {{_ 'stuck-sync-operation-truncated'}}
+    else
+      p.quiet {{_ 'stuck-sync-operation-empty'}}
+    button.js-list-sync-stuck-refresh(type="button" disabled=busy) {{_ 'stuck-sync-operation-refresh'}}
