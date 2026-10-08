@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Broad verification after Yiddish filling — 2026-10-08
+
+Run `node tests/run-node-suites.cjs Translation translation`: 298 selected suites,
+zero failures, 97 seconds. This is a filename-filtered run, not every repository
+test. The current missing report counts 33,800 values across 48 languages and
+excludes 250 source keys tracked separately as pending Transifex. Yiddish's full
+fill list is empty. Placeholder validation is structural evidence, not proof of
+correct language or fluency. No browser or screen-reader session was run;
+remaining translations and broader vocabulary review are unfinished.
+
 ## Yiddish remaining import and history recovery — 2026-10-08
 
 Translate 33 remaining English fill-list entries. Preserve counters; check

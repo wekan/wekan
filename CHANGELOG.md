@@ -90,11 +90,14 @@ Status checked on 2026-10-08. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **34,717 untranslated locale/string values in 52 languages**.
-  It excludes **188 source keys tracked separately as pending Transifex**.
+  report counts **33,800 untranslated locale/string values in 48 languages**.
+  It excludes **250 source keys tracked separately as pending Transifex**.
   Exact Blockly OS brands and compact math/code symbols no longer inflate
   the prose backlog. Counts are a snapshot; they do not establish the quality
   or language of other values.
+  After the Yiddish fill, all 298 suites selected by the `Translation` and
+  `translation` filename filters passed in 97 seconds. The full Yiddish fill
+  list is empty; this does not establish linguistic completeness or fluency.
 - Placeholder inventories match English across all 246 locale paths. Fill now
   rejects damaged token batches before writing. Both card-field visibility
   keys are translated in 175 non-English paths; 59 paths still need them.
