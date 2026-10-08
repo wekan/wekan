@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu Blockly rounding and unary math — 2026-10-08
+
+Translate 30 random-number, rounding, unary-math and inverse-trigonometry messages.
+Preserve variables and mathematical literals; check inclusive/exclusive random
+bounds, rounding directions, exponential bases, logarithms and negation. Wu wording
+is lower confidence and needs native review. No browser or screen-reader session
+was run. Remaining translations and older Mandarin-like passages require work.
+
 ## Wu Blockly number properties and statistics — 2026-10-08
 
 Translate 30 number-property and statistics messages. Preserve variables and the

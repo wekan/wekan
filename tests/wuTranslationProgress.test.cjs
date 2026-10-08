@@ -192,3 +192,20 @@ assert.match(wu['blockly-MATH_ONLIST_TOOLTIP_MAX'], /最大/);
 assert.match(wu['blockly-MATH_ONLIST_TOOLTIP_MIN'], /最小/);
 assert.match(wu['blockly-MATH_ONLIST_TOOLTIP_AVERAGE'], /算术平均数/);
 assert.notEqual(wu['blockly-MATH_DIVISION_SYMBOL_ARIA'], wu['blockly-MATH_MULTIPLICATION_SYMBOL_ARIA']);
+
+const rounding = ["blockly-MATH_ONLIST_TOOLTIP_STD_DEV", "blockly-MATH_ONLIST_TOOLTIP_SUM", "blockly-MATH_POWER_SYMBOL_ARIA", "blockly-MATH_RANDOM_FLOAT_TITLE_RANDOM", "blockly-MATH_RANDOM_FLOAT_TOOLTIP", "blockly-MATH_RANDOM_INT_TITLE", "blockly-MATH_RANDOM_INT_TOOLTIP", "blockly-MATH_ROUND_OPERATOR_ROUND", "blockly-MATH_ROUND_OPERATOR_ROUNDDOWN", "blockly-MATH_ROUND_OPERATOR_ROUNDUP", "blockly-MATH_ROUND_TOOLTIP", "blockly-MATH_SINGLE_OP_ABSOLUTE", "blockly-MATH_SINGLE_OP_ABSOLUTE_ARIA", "blockly-MATH_SINGLE_OP_EXP_ARIA", "blockly-MATH_SINGLE_OP_LN_ARIA", "blockly-MATH_SINGLE_OP_LOG10_ARIA", "blockly-MATH_SINGLE_OP_NEG_ARIA", "blockly-MATH_SINGLE_OP_POW10_ARIA", "blockly-MATH_SINGLE_OP_ROOT", "blockly-MATH_SINGLE_TOOLTIP_ABS", "blockly-MATH_SINGLE_TOOLTIP_EXP", "blockly-MATH_SINGLE_TOOLTIP_LN", "blockly-MATH_SINGLE_TOOLTIP_LOG10", "blockly-MATH_SINGLE_TOOLTIP_NEG", "blockly-MATH_SINGLE_TOOLTIP_POW10", "blockly-MATH_SINGLE_TOOLTIP_ROOT", "blockly-MATH_SUBTRACTION_SYMBOL_ARIA", "blockly-MATH_TRIG_ACOS_ARIA", "blockly-MATH_TRIG_ASIN_ARIA", "blockly-MATH_TRIG_ATAN_ARIA"];
+for (const key of rounding) {
+  assert.notEqual(wu[key], english[key], key);
+  assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+}
+assert.match(wu['blockly-MATH_RANDOM_FLOAT_TOOLTIP'], /0\.0（包括）.*1\.0（勿包括）/);
+assert.match(wu['blockly-MATH_RANDOM_INT_TOOLTIP'], /上下限侪包括/);
+assert.match(wu['blockly-MATH_ROUND_OPERATOR_ROUNDDOWN'], /朝下/);
+assert.match(wu['blockly-MATH_ROUND_OPERATOR_ROUNDUP'], /朝上/);
+assert.match(wu['blockly-MATH_ROUND_OPERATOR_ROUND'], /四舍五入/);
+assert.match(wu['blockly-MATH_SINGLE_TOOLTIP_EXP'], /e 个/);
+assert.match(wu['blockly-MATH_SINGLE_TOOLTIP_POW10'], /10 个/);
+assert.match(wu['blockly-MATH_SINGLE_TOOLTIP_LOG10'], /10 为底/);
+assert.match(wu['blockly-MATH_SINGLE_TOOLTIP_LN'], /自然对数/);
+assert.match(wu['blockly-MATH_SINGLE_TOOLTIP_NEG'], /相反数/);
+for (const [op, word] of Object.entries({ ACOS: '反余弦', ASIN: '反正弦', ATAN: '反正切' })) assert.equal(wu[`blockly-MATH_TRIG_${op}_ARIA`], word);
