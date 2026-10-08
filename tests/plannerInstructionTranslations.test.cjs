@@ -584,3 +584,25 @@ for (const code of ['ro', 'ro-RO']) {
   assert.match(locale['import-board-instruction-superproductivity'], /arşivlenmiş görevler arşivlenmiş kartlara dönüşür/);
   assert.match(locale['import-board-instruction-meistertask'], /tamamlanan görevlerin tamamlanma tarihleri korunur/);
 }
+
+for (const code of ['el', 'el-GR']) {
+  const locale = read(code);
+  const literals = {
+    planner: ['Microsoft Planner', 'Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+    meistertask: ['MeisterTask', 'Export project', 'CSV'],
+    ...Object.fromEntries(['obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri'].map(format => [format, importLiterals[format]])),
+  };
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), code + ': ' + key);
+    for (const value of values) assert.ok(locale[key].includes(value), code + ': ' + value);
+  }
+  for (const format of ['nullboard', 'kanri']) {
+    assert.match(locale['import-board-instruction-' + format], /εισάγεται μόνο ο πρώτος πίνακας/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /εισάγονται όλοι οι πίνακες/);
+  }
+  assert.match(locale['import-board-instruction-meistertask'], /ολοκληρωμένες εργασίες διατηρούν την ημερομηνία ολοκλήρωσής τους/);
+  assert.match(locale['import-board-instruction-obsidian'], /μετατρέπεται σε αρχειοθετημένες κάρτες/);
+  assert.match(locale['import-board-instruction-ticktick'], /γίνεται διάδρομος/);
+}

@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Greek import instructions, first group — 2026-10-09
+
+Translate eight instructions in el and el-GR (16 values): Planner, MeisterTask,
+Obsidian, Linear, TickTick, ClickUp, Nullboard and Kanri. Preserve commands,
+extensions and variables. Regression checks cover completed-task dates, archived
+cards, first-board selection and swimlane mappings. Import-instruction and
+placeholder suites and all 21 preservation checks pass. Remaining Greek
+instructions, browser review and the wider translation backlog remain outstanding.
+
 ## Turkish import instructions — 2026-10-09
 
 Translate all 21 import instructions in tr, preserving commands, columns,
