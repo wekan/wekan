@@ -670,6 +670,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7d52e278f3">Finish import instructions in five French catalogs</a>. Thanks to xet7.</summary>
+
+Translate 65 more values, completing all 21 import instructions in these catalogs.
+Preserve commands, columns, extensions and hierarchy markers; check excluded data,
+English header requirements and archived tasks. Import-instruction and placeholder
+suites and all 21 preservation checks pass. The wider translation backlog remains unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/034eea1a80">Translate eight import instructions in five French catalogs</a>. Thanks to xet7.</summary>
 
 Fill 40 values while preserving product commands, extensions and variables.
