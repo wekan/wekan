@@ -2,6 +2,18 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Aromanian account and webhook language corrections — 2026-10-08
+
+Replace 35 clearly Italian values in account, invitation, template, time and
+webhook controls. Correct the overtime filter's old overdue-card wording to
+match overtime, preserve hour units, invitation variables and SMTP/Node/Meteor
+names, and distinguish outgoing from two-way webhooks. Regression checks
+reject the old Italian text and English substitutions.
+
+New wording follows existing catalog vocabulary and remains low-confidence
+pending fluent review. No browser or screen-reader session was run. Other
+wrong-language candidates and the wider translation backlog remain open.
+
 ## Aromanian board-control language corrections — 2026-10-08
 
 Replace 35 further clearly Italian values in board/member actions, movement,

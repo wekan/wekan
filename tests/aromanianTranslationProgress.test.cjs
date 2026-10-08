@@ -426,3 +426,53 @@ assert.match(aromanian['listImportCardsTsvPopup-title'], /Excel CSV\/TSV/);
 assert.notEqual(aromanian['moveCardToBottom-title'], aromanian['moveCardToTop-title']);
 assert.notEqual(aromanian['remove-member-from-card'], aromanian['remove-from-board']);
 assert.match(aromanian['listDeletePopup-title'], /Ashteardzi/);
+
+const repairedItalianAccountControls = {
+  "shortcut-filter-my-cards": "Filtra le mie schede",
+  "sidebar-close": "Chiudi sidebar",
+  "signupPopup-title": "Crea un account",
+  "starred-boards": "Bacheche preferite",
+  "this-board": "questa bacheca",
+  "this-card": "questa scheda",
+  "spent-time-hours": "Tempo trascorso (ore)",
+  "overtime-hours": "Overtime (ore)",
+  "has-overtime-cards": "Ci sono schede scadute",
+  "unassign-member": "Rimuovi membro",
+  "upload-avatar": "Carica un avatar",
+  "uploaded-avatar": "Avatar caricato",
+  "import-usernames": "Importa username",
+  "watching": "Stai seguendo",
+  "welcome-board": "Bacheca di benvenuto",
+  "card-templates-swimlane": "Template schede",
+  "list-templates-swimlane": "Template liste",
+  "board-templates-swimlane": "Template bacheche",
+  "registration": "Registrazione",
+  "invite-people": "Invita persone",
+  "to-boards": "Alla/e bacheca/e",
+  "email-addresses": "Indirizzi email",
+  "invitation-code": "Codice d'invito",
+  "email-invite-register-subject": "__inviter__ ti ha inviato un invito",
+  "email-smtp-test-subject": "E-Mail di test SMTP",
+  "outgoing-webhooks": "Webhook in uscita",
+  "bidirectional-webhooks": "Webhook a due vie",
+  "outgoingWebhooksPopup-title": "Webhook in uscita",
+  "boardCardTitlePopup-title": "Filtro per titolo scheda",
+  "disable-webhook": "Disattiva questo webhook",
+  "global-webhook": "Webhook globali",
+  "new-outgoing-webhook": "Nuovo webhook in uscita",
+  "no-name": "(Sconosciuto)",
+  "Node_version": "Versione Node",
+  "Meteor_version": "Versione Meteor"
+};
+for (const [key, italian] of Object.entries(repairedItalianAccountControls)) {
+  assert.notEqual(aromanian[key], italian, `${key}: Italian seed must not return`);
+  assert.notEqual(aromanian[key], english[key], `${key}: English is not a correction`);
+}
+assert.equal(aromanian['email-invite-register-subject'], aromanian['email-invite-subject']);
+assert.match(aromanian['email-smtp-test-subject'], /SMTP/);
+assert.match(aromanian.Node_version, /Node/);
+assert.match(aromanian.Meteor_version, /Meteor/);
+assert.match(aromanian['has-overtime-cards'], /timpu pisti limitã/);
+assert.match(aromanian['overtime-hours'], /oari/);
+assert.notEqual(aromanian['outgoing-webhooks'], aromanian['bidirectional-webhooks']);
+assert.equal(aromanian['outgoing-webhooks'], aromanian['outgoingWebhooksPopup-title']);
