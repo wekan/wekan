@@ -8781,6 +8781,15 @@ Regression coverage checks rounding directions and function distinctions alongsi
 script, key order and token inventories. Technical wording remains low confidence
 pending speaker review. Browser checks were not run; further translations remain.
 
+## Odia trigonometry and variable creation
+
+Filled 22 English placeholders for trigonometric descriptions, workspace movement
+and variable creation. Retained literal function abbreviations and preserved degree
+versus radian wording and distinct variable types. The placeholder-only merge
+retained existing translations. Regression coverage checks these details alongside
+script, key order and token inventories. Technical wording remains low confidence
+pending speaker review. Browser checks were not run; further translations remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
