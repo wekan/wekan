@@ -59,6 +59,28 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
     assert.doesNotMatch(uk[key], /[ыэъЫЭЪ]/, key);
   }
   assert.match(uk['sync-conflict-hint'], /нічого не надсилається/);
+  for (const key of Object.keys(en).filter(key => /^(interrupted-import-|stuck-sync-operation-|ldap-sync-now)/.test(key))) {
+    assert.notEqual(uk[key], en[key], key);
+    assert.match(uk[key], /[А-Яа-яІіЇїЄєҐґ]/, key);
+    assert.doesNotMatch(uk[key], /[ыэъЫЭЪ]/, key);
+  }
+  assert.match(uk['interrupted-import-description'], /неможливо продовжити/);
+  assert.match(uk['interrupted-import-description'], /включно з усім, що додали відтоді/);
+  assert.match(uk['interrupted-import-keep-confirm'], /Нічого не видаляється/);
+  assert.match(uk['interrupted-import-discard-confirm'], /видалено назавжди/);
+  assert.match(uk['interrupted-import-foreign-board'], /її не змінено/);
+  assert.match(uk['interrupted-import-truncated'], /50 найстаріших/);
+  assert.match(uk['stuck-sync-operation-description'], /уже застосовані зміни зберігаються/);
+  assert.match(uk['stuck-sync-operation-description'], /ніколи не записуються/);
+  assert.match(uk['stuck-sync-operation-replayable-now'], /не можна відкинути/);
+  assert.match(uk['stuck-sync-operation-replayable'], /не було відкинуто/);
+  assert.match(uk['ldap-sync-now-nothing'], /LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS/);
+  assert.match(uk['ldap-sync-now-nothing'], /LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED/);
+  assert.ok(uk['external-link-rules-description'].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
+  assert.ok(uk['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+  assert.match(uk['r-moved-forward'], /вперед/);
+  assert.match(uk['r-moved-back'], /назад/);
+  assert.match(uk['login-origin-mismatch'], /ROOT_URL/);
   assert.match(uk['activity-recovery-cancel-confirm'], /не можна буде відновити/);
   assert.match(uk['email-recovery-confirm-cancel'], /Нові повідомлення.*буде збережено/);
   assert.match(uk['sync-time-estimate-hint'], /явне null очищує/);

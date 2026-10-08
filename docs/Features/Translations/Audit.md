@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Ukrainian controls and recovery — 2026-10-08
+
+Translate 69 current messages for controls, import guidance, LDAP, login address
+errors, stalled synchronization and interrupted board imports. Preserve existing
+translations, source variables and literal examples. Extend the Ukrainian suite
+with recovery decisions, opposite movement directions and Ukrainian prose checks.
+No browser or screen-reader session was run; other languages and broader
+linguistic review remain unfinished.
+
 ## Greek planning and import recovery — 2026-10-08
 
 Translate 98 messages in each Greek catalog, for 196 filled values, preserving
