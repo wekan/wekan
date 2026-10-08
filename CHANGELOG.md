@@ -892,6 +892,21 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/20cae59763">Translate pending imports and recovery messages in French locales</a>. Thanks to xet7.</summary>
+
+Translate 180 values across the five French catalogs for imports, assignment,
+LDAP, login, release selection and stuck List Sync recovery. Preserve variables,
+configuration names and import syntax. Regression checks cover retained applied
+changes, the unwritten remainder, replay eligibility and multiple releases.
+
+The French suite, catalog-wide placeholder and import literal checks,
+translation audit suite and 21 human-preference checks pass. No browser or
+screen-reader session was run. Other translation and linguistic review work
+remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bffc32f899">Translate pending Finnish import and Sync recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 36 pending messages for imports, assignment rules, LDAP, login,
