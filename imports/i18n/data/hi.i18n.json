@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "क्षेत्र निर्माण",
   "current": "वर्तमान",
   "custom-color": "कस्टम रंग",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "कोई पूर्ववत् नहीं है । यह सभी कार्ड से इस कस्टम क्षेत्र को हटा दें और इसके इतिहास को नष्ट कर देगा ।",
   "custom-field-checkbox": "निशानबक्से",
   "custom-field-currency": "मुद्रा",

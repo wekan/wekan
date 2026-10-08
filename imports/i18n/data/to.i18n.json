@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Faka-Tonga: faʻu Field",
   "current": "Faka-Tonga: current",
   "custom-color": "Faka-Tonga: Custom color",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Faka-Tonga: There is no undo. This will toʻo this custom field from all kaati and destroy its history.",
   "custom-field-checkbox": "Puha fakaʻilonga",
   "custom-field-currency": "Faka-Tonga: Currency",

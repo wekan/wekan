@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Maydon yaratish",
   "current": "joriy",
   "custom-color": "Maxsus rang",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Bekor qilish yo'q. Bu barcha kartalardan ushbu maxsus maydonni olib tashlaydi va uning tarixini yo'q qiladi.",
   "custom-field-checkbox": "Belgilash katagi",
   "custom-field-currency": "Valyuta",

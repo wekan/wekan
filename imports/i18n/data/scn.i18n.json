@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Crea campo",
   "current": "corrente",
   "custom-color": "Culuri personalizzato",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Nnu potrai tornare indietro. Chista azzzioni rimuoverà chistu campo personalizzato da tutte li schede ed eliminerà ogni sua traccia.",
   "custom-field-checkbox": "Casella di scelta",
   "custom-field-currency": "Valuta",

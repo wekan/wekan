@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "ಕ್ಷೇತ್ರ ರಚಿಸಿ",
   "current": "ಪ್ರಸ್ತುತ",
   "custom-color": "ಕಸ್ಟಮ್ ಬಣ್ಣ",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "ಇದನ್ನು ರದ್ದುಗೊಳಿಸಲಾಗುವುದಿಲ್ಲ. ಇದು ಎಲ್ಲ ಕಾರ್ಡ್‌ಗಳಿಂದ ಈ ಕಸ್ಟಮ್ ಕ್ಷೇತ್ರವನ್ನು ತೆಗೆದು ಅದರ ಇತಿಹಾಸವನ್ನು ಅಳಿಸುತ್ತದೆ.",
   "custom-field-checkbox": "ಗುರುತುಪೆಟ್ಟಿಗೆ",
   "custom-field-currency": "ಕರೆನ್ಸಿ",

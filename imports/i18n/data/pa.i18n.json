@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "ਫੀਲਡ ਬਣਾਓ",
   "current": "ਮੌਜੂਦਾ",
   "custom-color": "ਕਸਟਮ ਰੰਗ",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "ਕੋਈ ਅਨਡੂ ਨਹੀਂ ਹੈ। ਇਹ ਸਾਰੇ ਕਾਰਡਾਂ ਤੋਂ ਇਸ ਕਸਟਮ ਖੇਤਰ ਨੂੰ ਹਟਾ ਦੇਵੇਗਾ ਅਤੇ ਇਸਦੇ ਇਤਿਹਾਸ ਨੂੰ ਨਸ਼ਟ ਕਰ ਦੇਵੇਗਾ।",
   "custom-field-checkbox": "ਚੈੱਕਬਾਕਸ",
   "custom-field-currency": "ਮੁਦਰਾ",

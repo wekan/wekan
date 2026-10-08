@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Ялан булдырырға",
   "current": "ағымдағы",
   "custom-color": "Махсус төҫ",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Кире ҡайтарып булмай. Был махсус яланды бөтә карточкаларҙан алып ташлаясаҡ һәм уның тарихын юҡ итәсәк.",
   "custom-field-checkbox": "Флажок",
   "custom-field-currency": "Валюта",

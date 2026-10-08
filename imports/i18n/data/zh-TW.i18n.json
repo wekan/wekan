@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "建立欄位",
   "current": "目前",
   "custom-color": "自訂顏色",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "此操作將會從所有卡片中移除自訂欄位以及銷毀歷史紀錄，並且無法撤銷。",
   "custom-field-checkbox": "核取方塊",
   "custom-field-currency": "貨幣",

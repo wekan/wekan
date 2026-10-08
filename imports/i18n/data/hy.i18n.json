@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Ստեղծել դաշտ",
   "current": "ընթացիկ",
   "custom-color": "Հատուկ գույն",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Չեղարկվել: Սա կհեռացնի այս հատուկ դաշտը բոլոր քարտերից և կկործանի դրա պատմությունը:",
   "custom-field-checkbox": "Նշավանդակ",
   "custom-field-currency": "Արժույթ",

@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Створити поле",
   "current": "поточний",
   "custom-color": "Власний колір",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Немає відкату. Це видалить це налаштоване поле з усіх карток і знищить його історію.",
   "custom-field-checkbox": "Прапорець",
   "custom-field-currency": "Валюта",

@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Luo kenttä",
   "current": "nykyinen",
   "custom-color": "Mukautettu väri",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Tätä ei voi peruuttaa. Tämä poistaa tämän mukautetun kentän kaikista korteista ja poistaa sen historian.",
   "custom-field-checkbox": "Valintaruutu",
   "custom-field-currency": "Valuutta",

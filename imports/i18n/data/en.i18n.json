@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Create Field",
   "current": "current",
   "custom-color": "Custom color",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "There is no undo. This will remove this custom field from all cards and destroy its history.",
   "custom-field-checkbox": "Checkbox",
   "custom-field-currency": "Currency",

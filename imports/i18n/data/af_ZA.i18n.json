@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Skep veld",
   "current": "huidige",
   "custom-color": "Pasgemaakte kleur",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Daar is geen ongedaan maak nie. Dit sal hierdie pasgemaakte veld van alle kaarte verwyder en sy geskiedenis vernietig.",
   "custom-field-checkbox": "Merkblokkie",
   "custom-field-currency": "Geldeenheid",

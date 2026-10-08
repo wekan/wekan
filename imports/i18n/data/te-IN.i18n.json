@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "ఫీల్డ్‌ని సృష్టించండి",
   "current": "ప్రస్తుత",
   "custom-color": "అనుకూల రంగు",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "రద్దు చేయడం లేదు. ఇది అన్ని కార్డ్‌ల నుండి ఈ అనుకూల ఫీల్డ్‌ని తీసివేసి, దాని చరిత్రను నాశనం చేస్తుంది.",
   "custom-field-checkbox": "చెక్‌బాక్స్",
   "custom-field-currency": "కరెన్సీ",

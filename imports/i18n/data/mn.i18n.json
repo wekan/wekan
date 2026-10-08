@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Талбар үүсгэх",
   "current": "одоогийн",
   "custom-color": "Тусгай өнгө",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Буцаах боломжгүй. Энэ нь тусгай талбарыг бүх картаас хасаж, түүхийг нь устгана.",
   "custom-field-checkbox": "Тэмдэглэх нүд",
   "custom-field-currency": "Валют",

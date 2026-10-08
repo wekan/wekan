@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Стварыць поле",
   "current": "бягучы",
   "custom-color": "Карыстальніцкі колер",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Скасаваць немагчыма. Гэта выдаліць гэтае карыстальніцкае поле з усіх картак і знішчыць яго гісторыю.",
   "custom-field-checkbox": "Сцяжок",
   "custom-field-currency": "Валюта",

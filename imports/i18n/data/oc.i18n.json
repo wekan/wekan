@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Crear un camp",
   "current": "actual",
   "custom-color": "Color personalizada",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Aquesta accion se pòt pas anullar. Levarà aqueste camp personalizat de totas las cartas e destruirà son istoric.",
   "custom-field-checkbox": "Casa de croiar",
   "custom-field-currency": "Monèa",

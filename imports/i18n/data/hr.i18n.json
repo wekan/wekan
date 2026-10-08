@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Dodaj polje",
   "current": "текуће",
   "custom-color": "Prilagođena boja",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Ova se radnja ne može poništiti. Prilagođeno polje bit će uklonjeno sa svih kartica i njegova će povijest biti izbrisana.",
   "custom-field-checkbox": "Lista provjere",
   "custom-field-currency": "Valuta",

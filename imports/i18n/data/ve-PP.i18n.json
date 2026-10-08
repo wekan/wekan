@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Tege pöud",
   "current": "Nügüdläine",
   "custom-color": "Ičemäne muju",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Ei sa pördutada. Nece heitäb necen kävutajan märitud pöudon kaikiš kartoišpäi da heitäb sen istorijan.",
   "custom-field-checkbox": "Valičuznellik",
   "custom-field-currency": "Valüt",

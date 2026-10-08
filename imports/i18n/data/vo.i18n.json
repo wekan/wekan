@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Jafön feli",
   "current": "anuik",
   "custom-color": "Köl pösodik",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Sädunam binon nemögik. Fel lönik at pomoükon de kads valik, e jenotem ona podistukon.",
   "custom-field-checkbox": "Välabog",
   "custom-field-currency": "Valuta",

@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Tạo Trường",
   "current": "hiện tại",
   "custom-color": "Màu tùy chỉnh",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Không thể hoàn tác. Thao tác này sẽ xóa trường tùy chỉnh này khỏi tất cả các thẻ và hủy lịch sử của nó.",
   "custom-field-checkbox": "Hộp kiểm",
   "custom-field-currency": "Tiền tệ",

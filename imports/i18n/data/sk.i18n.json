@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Vytvoriť pole",
   "current": "Aktuální",
   "custom-color": "Vlastná farba",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Nedá sa to vrátiť späť. Toto vlastné pole sa odstráni zo všetkých kariet a jeho história sa zničí.",
   "custom-field-checkbox": "Pole wyboru",
   "custom-field-currency": "Měna",

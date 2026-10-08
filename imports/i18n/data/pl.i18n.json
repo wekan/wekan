@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Utwórz pole",
   "current": "obecnie otwarta",
   "custom-color": "Kolor niestandardowy",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Nie ma możliwości cofnięcia tej operacji. Usuniesz to niestandardowe pole ze wszystkich kart oraz całą jego historię.",
   "custom-field-checkbox": "Pole wyboru",
   "custom-field-currency": "Waluta",

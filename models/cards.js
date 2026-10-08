@@ -1676,20 +1676,31 @@ Cards.helpers({
     return buildCustomFieldsWD(card.customFields, definitions);
   },
 
-  colorClass() {
+  // #4756: the card's own colour, else its list's when the list asks for it
+  // (models/lib/cardDisplayColor.js). The list is the one this card is shown
+  // in, so a linked card follows the list it sits in.
+  displayColor() {
     const card = this.getRealCard();
+    if (card.color) return card.color;
+    const { effectiveCardColor } = require('/models/lib/cardDisplayColor');
+    const list = this.listId ? ReactiveCache.getList(this.listId) : null;
+    return effectiveCardColor(card, list && typeof list.then !== 'function' ? list : null);
+  },
+
+  colorClass() {
+    const color = this.displayColor();
     // #5514: a custom '#rrggbb' hex has no CSS class (templates prepend
     // `minicard-` / `card-details-`); it is applied inline via colorStyle().
-    if (card.color && !isHexColor(card.color)) return card.color;
+    if (color && !isHexColor(color)) return color;
     return '';
   },
 
   colorStyle() {
-    const card = this.getRealCard();
+    const color = this.displayColor();
     // #5514: for a custom hex color, set the background inline plus an
     // automatically readable text color. Empty for named colors.
-    if (isHexColor(card.color)) {
-      return `background-color:${card.color} !important;color:${contrastText(card.color)} !important;`;
+    if (isHexColor(color)) {
+      return `background-color:${color} !important;color:${contrastText(color)} !important;`;
     }
     return '';
   },

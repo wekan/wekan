@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Crea campo",
   "current": "corrente",
   "custom-color": "Colore personalizzato",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Nun potrai tornare indietro. Chesta azione rimuoverà chisto campo personalizzato da tutte le carte ed eliminerà ogni sua traccia.",
   "custom-field-checkbox": "Casella di scelta",
   "custom-field-currency": "Valuta",

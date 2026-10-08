@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Gwruthyl maes",
   "current": "a-lemmyn",
   "custom-color": "Liw a-vusur",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Nyns eus distrei. Hemma a wra treylya an maes a-vusur ma dhyworth pub karten ha distrujya y istori.",
   "custom-field-checkbox": "Box checkya",
   "custom-field-currency": "Arghans",

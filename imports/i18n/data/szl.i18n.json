@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Zrychtuj pole",
   "current": "obecnie otwarta",
   "custom-color": "Farba włŏsny",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Niy ma możliwości cofnięcia tej operacji. Usuniesz to włŏsne pole ze wszyskich kart i tyż całą jego historię.",
   "custom-field-checkbox": "Pole wyboru",
   "custom-field-currency": "Waluta",

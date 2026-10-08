@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Нова рубрика",
   "current": "текуће",
   "custom-color": "Употребљена боја",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Опозив ове радње неће бити могућ. Радњом се уклања ова придружена рубрика из свих предмета и уништива њена претходна историја употребе.",
   "custom-field-checkbox": "Поље за штиклирање",
   "custom-field-currency": "Валута",

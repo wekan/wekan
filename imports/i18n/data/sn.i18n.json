@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "gadzira ndima",
   "current": "yazvino",
   "custom-color": "Custom ruvara",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "There iri kwete undo. This will bvisa this ndima yakagadzirirwa kubva zvose makadhi uye destroy its nhoroondo.",
   "custom-field-checkbox": "Bhokisi rekumaka",
   "custom-field-currency": "Mari",

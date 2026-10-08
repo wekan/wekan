@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Dala Indzawo",
   "current": "kwamanje",
   "custom-color": "Umbala lokhetsekile",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Kute kubuyisela emuva. Loku kutawususa lendzawo lekhetsekile kuwo onkhe emakhadi kuphindze kubhubhise umlandvo wayo.",
   "custom-field-checkbox": "Libhokisi lekuhlola",
   "custom-field-currency": "Luhlobo lwemali",

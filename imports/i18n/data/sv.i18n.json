@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Skapa fält",
   "current": "aktuell",
   "custom-color": "Anpassad färg",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Det går inte att ångra. Detta tar bort det här anpassade fältet från alla kort och raderar dess historik.",
   "custom-field-checkbox": "Kryssruta",
   "custom-field-currency": "Valuta",

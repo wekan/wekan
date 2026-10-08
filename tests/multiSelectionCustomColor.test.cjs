@@ -144,7 +144,9 @@ test('a card color reaches an inline style only after the hex check', () => {
   const cards = read('models/cards.js');
   const colorStyle = cards.match(/\n {2}colorStyle\(\) \{[\s\S]*?\n {2}\},/);
   assert.ok(colorStyle);
-  assert.ok(/if \(isHexColor\(card\.color\)\) \{\s*return `background-color:\$\{card\.color\}/.test(colorStyle[0]));
+  // #4756: the colour is the card's own or its list's (displayColor), still
+  // only through the hex check.
+  assert.ok(/const color = this\.displayColor\(\);\s*\/\/[^\n]*\n\s*\/\/[^\n]*\n\s*if \(isHexColor\(color\)\) \{\s*return `background-color:\$\{color\}/.test(colorStyle[0]));
   // The swatch template writes only values from customColorsInUse (hex only).
   const jade = read('client/components/cards/cardDetails.jade');
   const swatches = jade.split('template(name="customCardColorSwatches")')[1].split('\ntemplate(')[0];

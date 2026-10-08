@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Maghimo hin Field",
   "current": "yana",
   "custom-color": "Custom nga kolor",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Waray undo. Tatangtangon ini nga custom field tikang ha ngatanan nga card ngan pupuohon an kasaysayan hini.",
   "custom-field-checkbox": "Kahon nga mamarkahan",
   "custom-field-currency": "Kwarta",

@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Sukurti lauką",
   "current": "srovė",
   "custom-color": "Pasirinktinė spalva",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Anuliuoti negalima. Tai pašalins šį tinkintą lauką iš visų kortelių ir sunaikins jo istoriją.",
   "custom-field-checkbox": "Žymimasis laukelis",
   "custom-field-currency": "Valiuta",

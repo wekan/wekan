@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Талбар байгуулха",
   "current": "мүнөө үеын",
   "custom-color": "Тусхай үнгэ",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Бусааха аргагүй. Энэ тусхай талбар бүхы картануудһаа усадхагдажа, түүхэнь үгы болохо.",
   "custom-field-checkbox": "Тэмдэглэхэ хайрсаг",
   "custom-field-currency": "Мүнгэнэй нэгэжэ",

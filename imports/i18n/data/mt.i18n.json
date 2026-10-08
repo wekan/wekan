@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Oħloq Field",
   "current": "attwali",
   "custom-color": "Personalizzat color",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "There huwa no undo. Dan will remove dan custom field minn all kards u destroy its history.",
   "custom-field-checkbox": "Kaxxa tal-għażla",
   "custom-field-currency": "Munita",

@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Crear Campo",
   "current": "actual",
   "custom-color": "Color personalizado",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Se eliminará este campo personalizado de todas las tarjetas y se destruirá su historial. Esta acción no puede deshacerse.",
   "custom-field-checkbox": "Casilla de verificación",
   "custom-field-currency": "Moneda",

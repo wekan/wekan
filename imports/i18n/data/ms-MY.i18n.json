@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Cipta ruangan",
   "current": "terkini",
   "custom-color": "Warna tersuai",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Tidak boleh undur semula. Ianya akan menghapuskan ruangan khas daripada semua kad dan padamkan sejarahnya.",
   "custom-field-checkbox": "kotak semak",
   "custom-field-currency": "Matawang",

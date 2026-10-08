@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "필드 생성",
   "current": "경향",
   "custom-color": "사용자 지정 색상",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "되돌릴 수 없습니다. 이 사용자 지정 필드가 모든 카드에서 제거되고 기록도 사라집니다.",
   "custom-field-checkbox": "체크 박스",
   "custom-field-currency": "통화",

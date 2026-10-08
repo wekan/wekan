@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "खेत बनाईं",
   "current": "मौजूदा",
   "custom-color": "मनपसंद रंग",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "एकरा के वापस ना कइल जा सकेला। ई सभ कार्ड से एह मनपसंद खेत के हटाके एकर इतिहास नष्ट कर दी।",
   "custom-field-checkbox": "जाँच-खाना",
   "custom-field-currency": "मुद्रा",

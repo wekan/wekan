@@ -795,7 +795,16 @@ Template.setListColorPopup.onCreated(function () {
   const data = Template.currentData();
   this.currentList = Lists.findOne(data._id) || data;
   this.currentColor = new ReactiveVar(this.currentList.color);
+  this.cardsUseListColor = new ReactiveVar(this.currentList.cardsUseListColor === true);
 });
+
+// #4756: save the colour and whether cards follow it, together.
+async function saveListColor(tpl, color) {
+  await tpl.currentList.setColor(color);
+  if ((tpl.currentList.cardsUseListColor === true) !== tpl.cardsUseListColor.get()) {
+    await tpl.currentList.setCardsUseListColor(tpl.cardsUseListColor.get());
+  }
+}
 
 Template.setListColorPopup.helpers({
   colors() {
@@ -810,6 +819,9 @@ Template.setListColorPopup.helpers({
       return tpl.currentColor.get() === color;
     }
   },
+  cardsUseListColor() {
+    return Template.instance().cardsUseListColor.get();
+  },
   // #5514: current color as a '#rrggbb' hex for the native color wheel <input>.
   currentColorHex() {
     return toHex(Template.instance().currentColor.get()) || '#0079bf';
@@ -821,6 +833,10 @@ Template.setListColorPopup.events({
     const paletteData = Blaze.getData(event.currentTarget);
     tpl.currentColor.set(paletteData?.color);
   },
+  'click .js-cards-use-list-color'(event, tpl) {
+    event.preventDefault();
+    tpl.cardsUseListColor.set(!tpl.cardsUseListColor.get());
+  },
   // #5514: picking from the native color wheel stores a custom hex.
   'input .js-list-color-wheel'(event, tpl) {
     const value = event.currentTarget.value;
@@ -831,7 +847,7 @@ Template.setListColorPopup.events({
   async 'submit form'(event, tpl) {
     event.preventDefault();
     try {
-      await tpl.currentList.setColor(tpl.currentColor.get());
+      await saveListColor(tpl, tpl.currentColor.get());
     } catch (err) {
       console.error('[ListColor] submit form setColor error:', err);
     }
@@ -840,7 +856,7 @@ Template.setListColorPopup.events({
   async 'click .js-submit'(event, tpl) {
     event.preventDefault();
     try {
-      await tpl.currentList.setColor(tpl.currentColor.get());
+      await saveListColor(tpl, tpl.currentColor.get());
     } catch (err) {
       console.error('[ListColor] click submit setColor error:', err);
     }

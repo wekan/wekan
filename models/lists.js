@@ -245,6 +245,14 @@ Lists.attachSchema(
       type: Boolean,
       defaultValue: false,
     },
+    cardsUseListColor: {
+      /**
+       * #4756: cards without a colour of their own are shown in this list's
+       * colour (models/lib/cardDisplayColor.js); nothing is written to them.
+       */
+      type: Boolean,
+      optional: true,
+    },
     color: {
       /**
        * the color of the list
@@ -715,6 +723,11 @@ Lists.helpers({
 
   async setWipLimit(limit) {
     return await Lists.updateAsync(this._id, { $set: { 'wipLimit.value': limit } });
+  },
+
+  // #4756: show cards without a colour of their own in this list's colour.
+  async setCardsUseListColor(enabled) {
+    return await Lists.updateAsync(this._id, { $set: { cardsUseListColor: enabled === true } });
   },
 
   async setColor(newColor) {

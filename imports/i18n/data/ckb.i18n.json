@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "خانە دروست بکە",
   "current": "ئێستا",
   "custom-color": "ڕەنگی تایبەت",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "گەڕانەوەی نییە. ئەمە ئەم خانە تایبەتییە لە هەموو کارتەکان لادەبات و مێژووەکەی لەناو دەبات.",
   "custom-field-checkbox": "خانەی نیشانکردن",
   "custom-field-currency": "دراو",

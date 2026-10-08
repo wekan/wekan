@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "ક્ષેત્ર બનાવો",
   "current": "વર્તમાન",
   "custom-color": "કસ્ટમ રંગ",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "ત્યાં કોઈ પૂર્વવત્ નથી. આ બધા કાર્ડમાંથી આ કસ્ટમ ફીલ્ડને દૂર કરશે અને તેનો ઇતિહાસ નાશ કરશે.",
   "custom-field-checkbox": "ચેકબોક્સ",
   "custom-field-currency": "ચલણ",

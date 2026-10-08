@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "ایجاد فیلد",
   "current": "جاری",
   "custom-color": "رنگ سفارشی",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "این اقدام فیلد سفارشی را بهمراه تمامی تاریخچه آن از کارت ها پاک می کند و برگشت پذیر نمی باشد",
   "custom-field-checkbox": "جعبه انتخابی",
   "custom-field-currency": "واحد پولی",

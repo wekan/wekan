@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "क्षेत्र बनाउ",
   "current": "वर्तमान",
   "custom-color": "अनुकूलित रंग",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "एकरा वापस नहि कएल जा सकैत अछि। ई अनुकूलित क्षेत्र सभ कार्ड सँ हटि जाएत आ एकर इतिहास नष्ट भऽ जाएत।",
   "custom-field-checkbox": "चेकबॉक्स",
   "custom-field-currency": "मुद्रा",

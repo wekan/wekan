@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Latine: Crea Campus",
   "current": "Latine: praesens",
   "custom-color": "Latine: Custom color",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Latine: There est non solve. Hoc erit remove hoc campus proprius ex omnia schedae et destroy its historia.",
   "custom-field-checkbox": "Latine: Checkbox",
   "custom-field-currency": "Latine: Currency",

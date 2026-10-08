@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Өріс жасау",
   "current": "ағымдағы",
   "custom-color": "Арнайы түс",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Мұны қайтару мүмкін емес. Бұл пайдаланушы өрісі барлық карточкалардан алынып, оның тарихы жойылады.",
   "custom-field-checkbox": "Құсбелгі",
   "custom-field-currency": "Валюта",

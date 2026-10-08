@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Паалатаны оҥор",
   "current": "билиҥҥи",
   "custom-color": "Туспа өҥ",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Төннөрөр кыах суох. Бу ураты паалата бары карточкаттан сотуллуо уонна устуоруйата сүтүө.",
   "custom-field-checkbox": "Бэлиэ квадрата",
   "custom-field-currency": "Харчы көрүҥэ",

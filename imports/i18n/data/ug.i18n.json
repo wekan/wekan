@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "مەيدان قۇرۇش",
   "current": "نۆۋەتتىكى",
   "custom-color": "ئىختىيارىي رەڭ",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "ئەمەلدىن قالدۇرۇش يوق. بۇ بارلىق كارتا ئىچىدىكى بۇ خاسلىقنى ئۆچۈرۈۋېتىدۇ ۋە ئۇنىڭ تارىخىنى يوقىتىدۇ.",
   "custom-field-checkbox": "تەكشۈرۈش رامكىسى",
   "custom-field-currency": "پۇل",

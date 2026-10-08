@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Сохтани майдон",
   "current": "ҷорӣ",
   "custom-color": "Ранги фармоишӣ",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Онро баргардонидан мумкин нест. Ин майдони фармоиширо аз ҳамаи кортҳо дур карда, таърихи онро нест мекунад.",
   "custom-field-checkbox": "Қуттии қайд",
   "custom-field-currency": "Асъор",

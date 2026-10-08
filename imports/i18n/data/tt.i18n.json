@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Кыр төзү",
   "current": "хәзерге",
   "custom-color": "Махсус төс",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Моны кире кайтарып булмый. Бу өстәмә кыр барлык карточкалардан бетереләчәк һәм аның тарихы юкка чыгарылачак.",
   "custom-field-checkbox": "Билгеләү шакмагы",
   "custom-field-currency": "Валюта",

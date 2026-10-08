@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Cruthaich Raon",
   "current": "làithreach",
   "custom-color": "Dath gnàthaichte",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Cha ghabh seo a neo-dhèanamh. Bheir seo an raon gnàthaichte seo far gach cairt agus sgriosaidh e an eachdraidh aige.",
   "custom-field-checkbox": "Bogsa-dearbhaidh",
   "custom-field-currency": "Airgead",

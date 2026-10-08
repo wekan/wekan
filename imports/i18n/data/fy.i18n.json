@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Meitsje fjild",
   "current": "aktueel",
   "custom-color": "Oanpaste kleur",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Der is gjin undo. Dit sil fuortsmite dit oanpaste fjild fan alle kaarten en ferneatigje syn skiednis.",
   "custom-field-checkbox": "Karfakje",
   "custom-field-currency": "Faluta",

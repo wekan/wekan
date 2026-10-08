@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "انشاء حقل",
   "current": "الحالي",
   "custom-color": "لون مخصص",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "لا يمكن التراجع. سيؤدي هذا إلى إزالة الحقل المخصص من جميع البطاقات وحذف سجله.",
   "custom-field-checkbox": "جعبه انتخابی",
   "custom-field-currency": "عملة",

@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "क्षेत्र तयार करा",
   "current": "सध्याचे",
   "custom-color": "सानुकूल रंग",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "हे पूर्ववत करता येणार नाही. यामुळे हे सानुकूल क्षेत्र सर्व कार्डांवरून काढले जाईल आणि त्याचा इतिहास नष्ट होईल.",
   "custom-field-checkbox": "चेकबॉक्स",
   "custom-field-currency": "चलन",

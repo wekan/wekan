@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "ველის შექმნა",
   "current": "მიმდინარე",
   "custom-color": "მორგებული ფერი",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "ქმედება გამოიწვევს მომხმარებლის ველის წაშლას ყველა ბარათიდან და გაანადგურებს მის ისტორიას, რის შემდეგაც შეუძლებელი იქნება მისი უკან დაბრუნება.",
   "custom-field-checkbox": "მოსანიშნი გრაფა",
   "custom-field-currency": "ვალუტა",

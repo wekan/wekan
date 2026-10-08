@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "ས་སྒོ་གསར་བསྐྲུན་འབད།",
   "current": "ད་ལྟོའི།",
   "custom-color": "སྒེར་གྱི་ཚོས་གཞི།",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "ལོག་བཟོ་མི་ཚུགས། འདི་གིས་སྒེར་གྱི་ས་སྒོ་འདི་ཤོག་བྱང་ཆ་མཉམ་ལས་བཏོན་ཏེ་འདིའི་ལོ་རྒྱུས་མེདཔ་བཟོ་འོང་།",
   "custom-field-checkbox": "ཞིབ་སྒྲོམ།",
   "custom-field-currency": "དངུལ།",

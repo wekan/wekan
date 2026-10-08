@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Ustvari polje",
   "current": "trenutno",
   "custom-color": "Barva po meri",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Razveljavitve ni. To bo odstranilo to poljubno polje iz vseh kartic in izbrisalo njegovo zgodovino.",
   "custom-field-checkbox": "Potrditveno polje",
   "custom-field-currency": "Valuta",

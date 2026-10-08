@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "ዓውዲ ፍጠር",
   "current": "ህሉው",
   "custom-color": "ብሕታዊ ሕብሪ",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "ምቕልባስ የለን። እዚ ብሕታዊ ዓውዲ ካብ ኩሎም ካርድታት ከውጽኦን ታሪኹ ከጥፍኦን እዩ።",
   "custom-field-checkbox": "ሳጹን ምልክት",
   "custom-field-currency": "ባጤራ",

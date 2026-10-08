@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Krijo fushë",
   "current": "aktuale",
   "custom-color": "Ngjyrë e personalizuar",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Nuk mund të zhbëhet. Kjo do ta heqë këtë fushë të personalizuar nga të gjitha kartat dhe do të shkatërrojë historikun e saj.",
   "custom-field-checkbox": "Kuti zgjedhjeje",
   "custom-field-currency": "Monedhë",

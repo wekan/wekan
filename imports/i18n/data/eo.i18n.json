@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Krei kampon",
   "current": "nuna",
   "custom-color": "Propra koloro",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Ne eblas malfari. Ĉi tio forigos ĉi tiun propran kampon el ĉiuj kartoj kaj detruos ĝian historion.",
   "custom-field-checkbox": "Markobutono",
   "custom-field-currency": "Valuto",

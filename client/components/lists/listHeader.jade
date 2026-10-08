@@ -414,6 +414,10 @@ template(name="setListColorPopup")
     .color-wheel-wrap
       label(for="listColorWheel") {{_ 'custom-color'}}
       input.js-list-color-wheel#listColorWheel(type="color" value=currentColorHex title="{{_ 'custom-color'}}")
+    //- #4756: cards without a colour of their own follow the list's.
+    a.flex.js-cards-use-list-color(class="{{#if cardsUseListColor}}is-checked{{/if}}")
+      .materialCheckBox(class="{{#if cardsUseListColor}}is-checked{{/if}}")
+      span {{_ 'cards-use-list-color'}}
     button.primary.confirm.js-submit {{_ 'save'}}
     button.js-remove-color.negate.wide.right {{_ 'remove-btn'}}
 

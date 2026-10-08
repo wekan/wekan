@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Gumawa Field",
   "current": "kasalukuyan",
   "custom-color": "Pasadya kulay",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "There ay hindi undo. Ito ay alisin ito pasadyang patlang mula sa lahat kards at destroy its kasaysayan.",
   "custom-field-checkbox": "Kahon ng tsek",
   "custom-field-currency": "Salapi",

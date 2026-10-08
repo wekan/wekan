@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Креирај Поле",
   "current": "сегашен",
   "custom-color": "Прилагодена боја",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Ова не може да се поништи. Приспособеното поле ќе биде отстрането од сите карти и неговата историја ќе биде уништена.",
   "custom-field-checkbox": "Чекбокс",
   "custom-field-currency": "Валута",

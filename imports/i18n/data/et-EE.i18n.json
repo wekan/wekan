@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Loo väli",
   "current": "praegune",
   "custom-color": "Kohandatud värv",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Tagasivõtmist ei ole võimalik teha. See eemaldab selle kohandatud välja kõikidest kaartidest ja hävitab selle ajaloo.",
   "custom-field-checkbox": "Kontrollkast",
   "custom-field-currency": "Valuuta",

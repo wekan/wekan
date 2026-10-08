@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Crear un campo",
   "current": "actual",
   "custom-color": "Color personalizáu",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Nun se puede desfacer. Esto va quitar esti campu personalizáu de toles tarxetes y destruyir el so historial.",
   "custom-field-checkbox": "Casilla de verificación",
   "custom-field-currency": "Moneda",

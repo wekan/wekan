@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Gawe Kolom",
   "current": "saiki",
   "custom-color": "Werna kustom",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Ora bisa dibatalake. Iki bakal mbusak kolom kustom iki saka kabeh kertu lan ngrusak riwayate.",
   "custom-field-checkbox": "Kothak centhang",
   "custom-field-currency": "Mata uang",

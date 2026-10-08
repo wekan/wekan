@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "ক্ষেত্ৰ সৃষ্টি কৰক",
   "current": "বৰ্তমান",
   "custom-color": "স্বনিৰ্বাচিত ৰং",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "ইয়াক পূৰ্বাৱস্থালৈ ঘূৰাব নোৱাৰি। ই সকলো কাৰ্ডৰ পৰা এই স্বনিৰ্বাচিত ক্ষেত্ৰ আঁতৰাব আৰু ইয়াৰ ইতিহাস নষ্ট কৰিব।",
   "custom-field-checkbox": "চেকবাকচ",
   "custom-field-currency": "মুদ্ৰা",

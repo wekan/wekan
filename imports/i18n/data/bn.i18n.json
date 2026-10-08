@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "ক্ষেত্র তৈরি করুন",
   "current": "বর্তমান",
   "custom-color": "কাস্টম রং",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "এটি ফেরানো যাবে না। এটি সব কার্ড থেকে এই কাস্টম ক্ষেত্র সরিয়ে এর ইতিহাস নষ্ট করবে।",
   "custom-field-checkbox": "চেকবক্স",
   "custom-field-currency": "মুদ্রা",

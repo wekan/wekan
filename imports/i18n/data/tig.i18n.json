@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "ሜዳ ፍጠር",
   "current": "እዋናዊ",
   "custom-color": "ብሕታዊ ሕብር",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "ምምላስ የለን። እዚ ብሕታዊ ሜዳ ካብ ኩሎም ወረቀት ካርዳት ከውጽኦን ታሪኹ ክድምስስን እዩ።",
   "custom-field-checkbox": "ሳጹን ምልክት",
   "custom-field-currency": "ግሩሽ",

@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "အကွက် ဖန်တီးရန်",
   "current": "လက်ရှိ",
   "custom-color": "စိတ်ကြိုက်အရောင်",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "ပြန်ဖျက်၍ မရပါ။ ဤစိတ်ကြိုက်အကွက်ကို ကတ်အားလုံးမှ ဖယ်ရှားပြီး ၎င်း၏မှတ်တမ်းကို ဖျက်မည်။",
   "custom-field-checkbox": "အမှန်ခြစ်ကွက်",
   "custom-field-currency": "ငွေကြေး",

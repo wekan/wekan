@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "መስክ ፍጠር",
   "current": "የአሁኑ",
   "custom-color": "ብጁ ቀለም",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "ይህን መመለስ አይቻልም። ይህ ብጁ መስክ ከሁሉም ካርዶች ይወገዳል እና ታሪኩ ይሰረዛል።",
   "custom-field-checkbox": "ምልክት ሳጥን",
   "custom-field-currency": "ምንዛሬ",

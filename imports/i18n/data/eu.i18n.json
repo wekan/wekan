@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Sortu eremua",
   "current": "unekoa",
   "custom-color": "Kolore pertsonalizatua",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Ez du atzera bueltarik. Honek eremu pertsonalizatua txartel guztietatik kenduko du eta bere historia ezabatuko du.",
   "custom-field-checkbox": "Kontrol-laukia",
   "custom-field-currency": "Moneta",

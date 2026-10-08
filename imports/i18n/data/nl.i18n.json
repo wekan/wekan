@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Veld aanmaken",
   "current": "Huidige",
   "custom-color": "Aangepaste kleur",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Er is geen herstelmogelijkheid. Deze actie zal dit maatwerkveld van alle kaarten verwijderen en de bijbehorende historie wissen.",
   "custom-field-checkbox": "Selectievakje",
   "custom-field-currency": "Valuta",

@@ -783,6 +783,10 @@
     {
       "key": "scrum-history-checkpoint-ask-admin",
       "since": "2026-10-08"
+    },
+    {
+      "key": "cards-use-list-color",
+      "since": "2026-10-08"
     }
   ]
 }

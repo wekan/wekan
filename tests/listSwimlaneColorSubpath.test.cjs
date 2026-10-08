@@ -35,10 +35,13 @@ test('#4652 list color submit and click paths both prevent navigation', () => {
     events,
     /'click \.js-submit'\(event, tpl\) \{\s*event\.preventDefault\(\)/,
   );
+  // #4756: both paths save the colour (and whether cards follow it) through
+  // saveListColor, which still calls the list's setColor.
   assert.match(
     events,
-    /await tpl\.currentList\.setColor\(tpl\.currentColor\.get\(\)\)/,
+    /await saveListColor\(tpl, tpl\.currentColor\.get\(\)\)/,
   );
+  assert.match(lists, /async function saveListColor\(tpl, color\) \{\s*await tpl\.currentList\.setColor\(color\);/);
   assert.match(listMarkup, /button\.primary\.confirm\.js-submit/);
 });
 

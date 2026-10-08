@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Δημιουργία Πεδίου",
   "current": "τρέχων",
   "custom-color": "Προσαρμοσμένο χρώμα",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Δεν υπάρχει αναίρεση. Αυτό θα αφαιρέσει το προσαρμοσμένο πεδίο από όλες τις κάρτες και θα καταστρέψει το ιστορικό του.",
   "custom-field-checkbox": "Πλαίσιο ελέγχου",
   "custom-field-currency": "Νόμισμα",

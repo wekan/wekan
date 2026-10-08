@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Criar campo",
   "current": "atual",
   "custom-color": "Cor personalizada",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Não existe desfazer. Isso irá excluir o campo customizado de todos os cartões e destruir seu histórico",
   "custom-field-checkbox": "Caixa de seleção",
   "custom-field-currency": "Moeda",

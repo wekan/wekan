@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Búa til reit",
   "current": "núverandi",
   "custom-color": "Sérsniðinn litur",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Ekki er hægt að afturkalla þetta. Sérsniðni reiturinn verður fjarlægður af öllum spjöldum og ferill hans eyðilagður.",
   "custom-field-checkbox": "Gátreitur",
   "custom-field-currency": "Gjaldmiðill",

@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "יצירת שדה",
   "current": "נוכחי",
   "custom-color": "צבע מותאם אישית",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "אין אפשרות לבטל את הפעולה. הפעולה תסיר את השדה שהותאם אישית מכל הכרטיסים ותשמיד את ההיסטוריה שלו.",
   "custom-field-checkbox": "תיבת סימון",
   "custom-field-currency": "מטבע",

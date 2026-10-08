@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Sahə yaradın",
   "current": "cari",
   "custom-color": "Xüsusi rəng",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Geri qaytarma yoxdur. Bu, bu fərdi sahəni bütün kartlardan siləcək və onun tarixçəsini məhv edəcək.",
   "custom-field-checkbox": "Yoxlama qutusu",
   "custom-field-currency": "Valyuta",

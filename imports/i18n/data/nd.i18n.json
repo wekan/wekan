@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Dala inkambu",
   "current": "okwamanje",
   "custom-color": "Umbala owenziwe ngokwezifiso",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Akubuyiseki. Lokhu kuzasusa le inkambu eyenziwe ngokwezifiso kuwo wonke amakhadi futhi kuqede umlando wayo.",
   "custom-field-checkbox": "Ibhokisi lokuhlola",
   "custom-field-currency": "Imali",

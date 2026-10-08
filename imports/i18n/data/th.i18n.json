@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "สร้างฟิลด์",
   "current": "ปัจจุบัน",
   "custom-color": "สีที่กำหนดเอง",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "ไม่สามารถย้อนกลับได้ การกระทำนี้จะนำฟิลด์ที่กำหนดเองนี้ออกจากการ์ดทั้งหมดและลบประวัติของมัน",
   "custom-field-checkbox": "ช่องทำเครื่องหมาย",
   "custom-field-currency": "สกุลเงิน",

@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Mező létrehozása",
   "current": "jelenlegi",
   "custom-color": "Egyéni szín",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Nincs visszavonás. Ez el fogja távolítani az egyéni mezőt az összes kártyáról, és megsemmisíti az előzményeit.",
   "custom-field-checkbox": "Jelölőnégyzet",
   "custom-field-currency": "Pénznem",

@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "फिल्ड सिर्जना गर्नुहोस्",
   "current": "हालको",
   "custom-color": "अनुकूल रङ",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "यसलाई पूर्ववत् गर्न सकिँदैन। यसले सबै कार्डबाट यो अनुकूल फिल्ड हटाउनेछ र यसको इतिहास नष्ट गर्नेछ।",
   "custom-field-checkbox": "जाँच बाकस",
   "custom-field-currency": "मुद्रा",

@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Crea campo",
   "current": "corrente",
   "custom-color": "Culoare personalizată",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Acțiunea nu poate fi anulată. Acest câmp personalizat va fi eliminat de pe toate cardurile și istoricul său va fi distrus.",
   "custom-field-checkbox": "Casella di scelta",
   "custom-field-currency": "Valuta",

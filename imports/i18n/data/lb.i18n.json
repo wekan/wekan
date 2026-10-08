@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Feld erstellen",
   "current": "aktuell",
   "custom-color": "Benutzerdefinierte Faarf",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Dies gëtt dat Feld aus allen Kaarten ewechhuelen un den dazugehörigen Verlauf läschen. Die Aktion kann net rückgängig gemacht ginn.",
   "custom-field-checkbox": "Kontrollkëschten",
   "custom-field-currency": "Währung",

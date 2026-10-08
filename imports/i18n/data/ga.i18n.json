@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Cruthaigh Réimse",
   "current": "reatha",
   "custom-color": "Dath saincheaptha",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Ní féidir é seo a chealú. Bainfidh sé an réimse saincheaptha seo de gach cárta agus scriosfaidh sé a stair.",
   "custom-field-checkbox": "Ticbhosca",
   "custom-field-currency": "Airgeadra",

@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "ක්ෂේත්‍රයක් නිර්මාණය කරන්න",
   "current": "වත්මන්",
   "custom-color": "අභිරුචි වර්ණය",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "මෙය අහෝසි කළ නොහැක. මෙය සියලු කාඩ්පත්වලින් මෙම අභිරුචි ක්ෂේත්‍රය ඉවත් කර එහි ඉතිහාසය විනාශ කරයි.",
   "custom-field-checkbox": "සලකුණු කොටුව",
   "custom-field-currency": "මුදල් වර්ගය",

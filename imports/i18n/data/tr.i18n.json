@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Alanı yarat",
   "current": "mevcut",
   "custom-color": "Özel renk",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Bunun geri dönüşü yoktur. Bu özel alan tüm kartlardan kaldırılıp tarihçesi yokedilecektir.",
   "custom-field-checkbox": "İşaret kutusu",
   "custom-field-currency": "Para birimi",

@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Crea campo",
   "current": "corrente",
   "custom-color": "Culer personalizzato",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "No potrai tornare indô. Questa azion rimuoverà questo campo personalizzato da dutes le ciartes ed eliminerà ogni sua traccia.",
   "custom-field-checkbox": "Casella di scelta",
   "custom-field-currency": "Valuta",

@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "ډګر جوړ کړئ",
   "current": "اوسنی",
   "custom-color": "دوديز رنګ",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "بېرته ستنول نشته. دا به دغه دوديز ډګر له ټولو کارتونو لرې او تاريخ به يې له منځه يوسي.",
   "custom-field-checkbox": "نښه‌خانه",
   "custom-field-currency": "پيسه",

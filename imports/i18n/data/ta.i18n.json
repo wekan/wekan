@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "புலத்தை உருவாக்கு",
   "current": "தற்போதைய",
   "custom-color": "தனிப்பயன் நிறம்",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "மீட்க வழி இல்லை. இது அனைத்து அட்டைகளிலிருந்தும் இந்தத் தனிப்பயன் புலத்தை நீக்கி அதன் வரலாற்றை அழிக்கும்.",
   "custom-field-checkbox": "தேர்வுப்பெட்டி",
   "custom-field-currency": "நாணயம்",

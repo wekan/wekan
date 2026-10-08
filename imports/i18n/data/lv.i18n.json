@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Izveidot lauku",
   "current": "šobrīdējs",
   "custom-color": "Pielāgota krāsa",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Darbību nevar atsaukt. Ar šo lauks tiks dzēsts no visām kartiņām un tā vēsture tiks iznīcināta.",
   "custom-field-checkbox": "Kastīte",
   "custom-field-currency": "Valūta",

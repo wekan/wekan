@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Créer un champ personnalisé",
   "current": "actuel",
   "custom-color": "Couleur personnalisée",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Cette action est irréversible. Elle supprimera ce champ personnalisé de toutes les cartes et détruira son historique.",
   "custom-field-checkbox": "Case à cocher",
   "custom-field-currency": "Devise",

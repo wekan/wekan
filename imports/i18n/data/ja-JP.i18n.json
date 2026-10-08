@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "フィールドを作成",
   "current": "現在",
   "custom-color": "カスタム色",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "この操作は取り消しできません。このカスタムフィールドはすべてのカードから外され履歴からも見えなくなります。",
   "custom-field-checkbox": "チェックボックス",
   "custom-field-currency": "通貨",

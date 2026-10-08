@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Stovna øki",
   "current": "núverandi",
   "custom-color": "Sjálvvaldur litur",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Tað kann ikki angrast. Hetta tekur hetta egna økið av øllum kortum og strikar søguna hjá tí.",
   "custom-field-checkbox": "Valrútur",
   "custom-field-currency": "Gjaldoyra",

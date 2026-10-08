@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Създай Поле",
   "current": "сегашен",
   "custom-color": "Персонализиран цвят",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Действието е необратимо. Това ще премахне потребителското поле от всички карти и ще унищожи историята му.",
   "custom-field-checkbox": "Чекбокс",
   "custom-field-currency": "Валута",

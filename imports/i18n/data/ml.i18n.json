@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "ഫീൽഡ് സൃഷ്ടിക്കുക",
   "current": "നിലവിലുള്ളത്",
   "custom-color": "ഇഷ്ടാനുസൃത നിറം",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "പഴയപടിയാക്കാനാവില്ല. ഇത് എല്ലാ കാർഡുകളിൽ നിന്നും ഈ ഇഷ്ടാനുസൃത ഫീൽഡ് നീക്കി അതിന്റെ ചരിത്രം നശിപ്പിക്കും.",
   "custom-field-checkbox": "ചെക്ക്ബോക്സ്",
   "custom-field-currency": "കറൻസി",

@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Opprett Felt",
   "current": "gjeldende",
   "custom-color": "Egendefinert farge",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Ingen angremulighet. Dette vil slette tilpassede felt fra alle kort og slette tilhørende historikk.",
   "custom-field-checkbox": "Sjekkboks",
   "custom-field-currency": "Valuta",

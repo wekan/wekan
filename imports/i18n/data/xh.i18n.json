@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Yenza iNdawo",
   "current": "yangoku",
   "custom-color": "Umbala wesiko",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Akukho kuguqulwa. Oku kuya kususa le ndawo yesiko kuwo onke amakhadi kwaye itshabalalise imbali yayo.",
   "custom-field-checkbox": "Ibhokisi yokujonga",
   "custom-field-currency": "Imali",

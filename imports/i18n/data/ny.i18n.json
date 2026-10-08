@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Pangani Malo",
   "current": "wapano",
   "custom-color": "Mtundu wapadera",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "Sizingabwezedwe. Izi zichotsa malo apaderawa pa makhadi onse ndi kuwononga mbiri yake.",
   "custom-field-checkbox": "Bokosi lowunika",
   "custom-field-currency": "Ndalama",

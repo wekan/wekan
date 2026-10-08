@@ -587,6 +587,7 @@
   "createCustomFieldPopup-title": "Crear campament",
   "current": "Real",
   "custom-color": "Color personalitzat",
+  "cards-use-list-color": "Cards without a colour of their own use this colour",
   "custom-field-delete-pop": "No hi ha cap desfer. Això eliminarà aquest camp personalitzat de totes les cartes i destruirà el seu historial.",
   "custom-field-checkbox": "casella de selecció",
   "custom-field-currency": "Moneda",
