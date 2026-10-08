@@ -18,6 +18,7 @@ import { parseSuperProductivity } from './superProductivityFormat.js';
 import { parseTaiga } from './taigaFormat.js';
 import { parseVikunjaExport } from './vikunjaFormat.js';
 import { parseWrikeRows } from './wrikeFormat.js';
+import { parseTeamworkSheet } from './teamworkFormat.js';
 import { parseQuireCsv } from './quireCsvFormat.js';
 import { parseOrgMode } from './orgModeFormat.js';
 import {
@@ -1003,6 +1004,8 @@ export const EXTERNAL_PARSERS = {
   vikunja: parseVikunjaExport,
   // Wrike's Excel import template, as rows of its Tasks sheet (server/lib/wrikeWorkbook.js).
   wrike: parseWrikeRows,
+  // Teamwork.com's Excel task import template, as a sheet of rows (server/lib/teamworkWorkbook.js).
+  teamwork: parseTeamworkSheet,
   // A Quire project CSV, columns matched by name (quireCsvFormat.js).
   quire: parseQuireCsv,
   orgmode: parseOrgMode,

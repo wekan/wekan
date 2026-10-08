@@ -31,6 +31,7 @@ import { formatSuperProductivity } from './superProductivityFormat.js';
 import { formatTaiga } from './taigaFormat.js';
 import { formatVikunja } from './vikunjaFormat.js';
 import { formatWrikeRows } from './wrikeFormat.js';
+import { formatTeamworkSheet } from './teamworkFormat.js';
 import { formatQuireCsv } from './quireCsvFormat.js';
 import { formatOpml } from './opmlOutlineFormat.js';
 import { formatOrgMode } from './orgModeFormat.js';
@@ -358,6 +359,9 @@ export const formatters = {
   // Wrike's Excel import template: rows models/export.js writes as .xlsx
   // (server/lib/wrikeWorkbook.js); round-trips with parseWrikeRows.
   wrike: formatWrikeRows,
+  // Teamwork.com's Excel task import template: rows models/export.js writes as
+  // .xlsx (server/lib/teamworkWorkbook.js); round-trips with parseTeamworkSheet.
+  teamwork: formatTeamworkSheet,
   // The CSV Quire's Import CSV reads; round-trips with parseQuireCsv (quireCsvFormat.js).
   quire: formatQuireCsv,
   // An OPML outline; round-trips with parseOpml (opmlOutline.js, server-only).

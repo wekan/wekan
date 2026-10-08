@@ -284,6 +284,21 @@ Meteor.methods({
         importedBoard = sanitizeImported(importedBoard, 'monday', this);
         creator = new KanboardCreator(data, 'monday');
         break;
+      case 'teamwork':
+        // Teamwork.com's Excel task import template - see
+        // models/lib/teamworkFormat.js. Like Planner, { excelBase64 }; the
+        // parsed tasks are sanitized again below.
+        check(board, Object);
+        if (!Meteor.isServer) return undefined;
+        try {
+          importedBoard = await require('/server/lib/teamworkWorkbook').readTeamworkWorkbook(importedBoard.excelBase64);
+          importedBoard = EXTERNAL_PARSERS.teamwork(importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        importedBoard = sanitizeImported(importedBoard, 'teamwork', this);
+        creator = new KanboardCreator(data, 'teamwork');
+        break;
       case 'superproductivity':
         // A Super Productivity backup (sp-backup_*.json), sent as text - see
         // models/lib/superProductivityFormat.js.

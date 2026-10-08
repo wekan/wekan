@@ -386,6 +386,13 @@ if (Meteor.isServer) {
         res.end(workbook);
         return;
       }
+      // Teamwork.com's task import template is an Excel workbook (models/lib/teamworkFormat.js).
+      if (format === 'teamwork') {
+        const workbook = await require('/server/lib/teamworkWorkbook').writeTeamworkWorkbook(built);
+        res.writeHead(200, { 'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        res.end(workbook);
+        return;
+      }
       // Microsoft Planner's export is an Excel workbook (models/lib/plannerFormat.js).
       if (format === 'planner') {
         const workbook = await require('/server/lib/plannerWorkbook').writePlannerWorkbook(built);

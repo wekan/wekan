@@ -876,6 +876,42 @@ test('Wrike: an import template imports with its folder, status, dates and depen
   } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });
 
+// Teamwork.com's Excel task import template: a task list, a task with its
+// people, due date, priority, estimate and tags, and a "-" subtask.
+test('Teamwork.com: an import template imports with its task list, fields and subtask', async ({ loggedInPage: page }) => {
+  const ExcelJS = require('../../../node_modules/@wekanteam/exceljs');
+  let boardId;
+  try {
+    const workbook = new ExcelJS.Workbook();
+    const sheet = workbook.addWorksheet('From Teamwork');
+    [['Tasklist', 'Task', 'Description', 'Assign to', 'Start date', 'Due date', 'Priority', 'Estimated time', 'Tags', 'Status'],
+      ['Audit list', expected.title, expected.description, 'ann@example.com', '', '2026-10-10', 'high', '1h 30m', expected.label, 'Active'],
+      ['', '-Audit child', '', '', '', '', '', '', '', 'Complete']].forEach(row => sheet.addRow(row));
+    await navigateInApp(page, '/import/teamwork');
+    await page.locator('.js-import-excel-file').setInputFiles({
+      name: 'teamwork.xlsx', mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      buffer: Buffer.from(await workbook.xlsx.writeBuffer()),
+    });
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    expect(db.findOne('boards', { _id: boardId }).title).toBe('From Teamwork');
+    const cards = db.find('cards', { boardId });
+    const first = cards.find(c => c.title === expected.title);
+    const child = cards.find(c => c.title === 'Audit child');
+    expect(child.parentId).toBe(first._id);
+    expect(first.description).toBe(expected.description);
+    expect(new Date(first.dueAt).toISOString().slice(0, 10)).toBe('2026-10-10');
+    const lists = Object.fromEntries(db.find('lists', { boardId }).map(l => [l._id, l.title]));
+    expect([lists[first.listId], lists[child.listId]]).toEqual(['Audit list', 'Audit list']);
+    const fields = Object.fromEntries(db.find('customFields', { boardIds: boardId }).map(f => [f._id, f.name]));
+    expect(Object.fromEntries(first.customFields.map(v => [fields[v._id], v.value])))
+      .toEqual({ Priority: 'High', 'Estimated time (hours)': 1.5 });
+    expect(Object.fromEntries(child.customFields.map(v => [fields[v._id], v.value]))).toEqual({ Complete: true });
+    await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
+
 // Microsoft Planner's export is an Excel workbook, not text: its own case.
 test('Microsoft Planner: the export menu link returns a Planner workbook and refuses an unrelated user', async ({ boardPage: page, user2 }) => {
   const ExcelJS = require('../../../node_modules/@wekanteam/exceljs');

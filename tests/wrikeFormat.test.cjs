@@ -189,8 +189,9 @@ async function main() {
     assert.match(read('models/export.js'), /if \(format === 'wrike'\) \{\s*const workbook = await require\('\/server\/lib\/wrikeWorkbook'\)\.writeWrikeWorkbook\(built\);/);
     const page = read('client/components/import/import.js');
     assert.match(page, /\{ key: 'wrike', name: 'Wrike' \}/);
-    assert.match(page, /dataSource === 'monday' \|\| dataSource === 'wrike'/);
-    assert.match(page, /\['excel', 'planner', 'monday', 'wrike'\]\.includes/);
+    // The workbook sources share one branch and one list; later ones follow.
+    assert.match(page, /if \(dataSource === 'excel'[^)]*\|\| dataSource === 'wrike'/);
+    assert.match(page, /\['excel', 'planner', 'monday', 'wrike'(, '[a-z]+')*\]\.includes/);
     assert.match(read('client/components/boards/exportScope.js'), /key: 'wrike'[^}]*path: 'export\/wrike', ext: 'xlsx'/);
     // The instruction is added to en.i18n.json in English, pending Transifex.
     const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
