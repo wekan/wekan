@@ -936,6 +936,21 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5e251e53ac">Translate Aromanian imports, controls and Sync planning</a>. Thanks to xet7.</summary>
+
+Translate 47 messages, preserving import syntax, link-rule variables and
+examples, configuration identifiers and physical keyboard legends. Cover
+read-only fields, unchanged card data and Sync source-ID matching priority
+and its first-run protection of existing planning. New wording remains
+low-confidence pending fluent review.
+
+Aromanian, global placeholder, import literal and translation audit suites
+pass. No browser or screen-reader session was run. Other untranslated and
+wrong-language values remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/43a7b0246e">Translate Aromanian Sync choices and diagnostics</a>. Thanks to xet7.</summary>
 
 Translate 63 conflict, preview, report and estimate messages. Preserve local
