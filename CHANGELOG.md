@@ -671,6 +671,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6dc4df5e0a">Translate Zulu notification controls and stuck sync messages</a>. Thanks to xet7.</summary>
+
+Fill 25 recovery messages per Zulu catalog. Tests preserve progress variables,
+cancellation warnings, pending work and already-applied-change guarantees.
+Both targeted suites and all 21 preservation checks pass. Specialized terminology
+needs speaker review; browser execution and remaining translations are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/578a802281">Translate Zulu mail and notification recovery messages</a>. Thanks to xet7.</summary>
 
 Fill 25 messages per Zulu catalog. Tests cover retry warnings, null semantics,
