@@ -8943,6 +8943,16 @@ checks those details alongside script, key order and token inventories. Technica
 wording remains low confidence pending speaker review. Browser checks were not
 run; further Odia translations remain.
 
+## Odia email failures and notification recovery
+
+Filled 36 English placeholders for email failures and activity notification
+recovery. Preserved SMTP identifiers, temporary versus permanent failures,
+retained pending work, retry limitations and irreversible cancellation caveats.
+Existing translations were retained by the placeholder-only merge. Regression
+coverage checks script, key order, token inventories and those distinctions.
+Technical wording remains low confidence pending speaker review. Browser checks
+were not run; the broader translation audit remains unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
