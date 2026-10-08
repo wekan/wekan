@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/515b7d85ed">Translate first Bosnian import instructions</a>. Thanks to xet7.</summary>
+
+Translate eight Bosnian import instructions, preserving commands, extensions and
+variables. Regression checks cover first-board selection, completion dates,
+archived cards and swimlane mappings. Translation, placeholder and preservation
+checks pass; remaining Bosnian instructions, browser review and the wider
+translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2fda0df675">Translate remaining Serbian import instructions</a>. Thanks to xet7.</summary>
 
 Translate the remaining 13 Serbian instructions in Cyrillic, completing all 21
