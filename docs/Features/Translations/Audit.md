@@ -8581,6 +8581,16 @@ checks those semantics alongside key order and placeholder inventories. Technica
 wording remains low confidence pending speaker review. Browser checks were not
 run; the broader wrong-language audit continues.
 
+## Tatar job monitoring corrections
+
+Corrected 39 wrong-language job, resource monitoring and migration setting
+values, including restoring the literal GridFS storage name. Retained the correct
+existing errors translation. Preserved CPU, GridFS and S3 identifiers, numeric
+intervals, percentage units and the 1-100 batch range. Regression coverage checks
+these details alongside placeholder inventories and key order. Technical wording
+remains low confidence pending speaker review. Browser checks were not run; the
+broader wrong-language audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
