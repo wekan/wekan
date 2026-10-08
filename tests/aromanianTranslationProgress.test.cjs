@@ -577,3 +577,68 @@ assert.notEqual(aromanian['r-check-all'], aromanian['r-uncheck-all']);
 assert.notEqual(aromanian['r-d-check-one'], aromanian['r-d-uncheck-one']);
 assert.equal(aromanian['r-of-checklist'], aromanian['r-d-check-of-list']);
 assert.match(aromanian['r-made-incomplete'], /Fãcut nibitisit/);
+
+const repairedItalianSearchControls = {
+  "r-d-add-checklist": "Aggiungi checklist",
+  "r-d-remove-checklist": "Rimuovi checklist",
+  "r-add-checklist": "Aggiungi checklist",
+  "r-add-swimlane": "Aggiungi swimlane",
+  "r-swimlane-name": "nome swimlane",
+  "r-to-current-datetime": "a data/ora corrente",
+  "r-remove-value-from": "Rimuovi valore da",
+  "authentication-method": "Metodo di autenticazione",
+  "authentication-type": "Tipo di autenticazione",
+  "hide-logo": "Nascondi il logo",
+  "error-undefined": "Qualcosa è andato storto",
+  "duplicate-board": "Duplica bacheca",
+  "team-number": "Il numero di squadre è:",
+  "people-number": "Il numero di persone è:",
+  "swimlaneDeletePopup-title": "Eliminare la swimlane?",
+  "restore-all": "Ripristina tutto",
+  "delete-all": "Elimina tutto",
+  "previous_as": "l'ultima volta è stata",
+  "a-dueAt": "scadenza modificata in",
+  "act-newDue": "__list__/__card__ ha un 1° sollecito [__board__]",
+  "show-on-card": "Mostra sulla scheda",
+  "editOrgPopup-title": "Modifica Organizzazione",
+  "newOrgPopup-title": "Nuova Organizzazione",
+  "editTeamPopup-title": "Modifica team",
+  "editUserPopup-title": "Modifica utente",
+  "filter-by-unread": "Filtra per non letto",
+  "mark-all-as-read": "Segna tutto come letto",
+  "allow-rename": "Consenti Rinomina",
+  "allowRenamePopup-title": "Consenti Rinomina",
+  "last-modified-at": "Ultima modifica il",
+  "last-activity": "Ultima attività",
+  "displayName": "Nome da visualizzare",
+  "shortName": "Nome abbreviato",
+  "myCardsViewChange-title": "Vista mie schede",
+  "myCardsViewChangePopup-title": "Vista mie schede",
+  "list-title-not-found": "Lista '%s' non trovata.",
+  "team-name-not-found": "Team '%s' non trovato.",
+  "no-cards-found": "Nessuna scheda trovata",
+  "one-card-found": "Una scheda trovata",
+  "n-cards-found": "%s scheda trovata",
+  "n-n-of-n-cards-found": "__start__-__end__ di __total__ schede trovate",
+  "operator-unknown-error": "%s non è un operatore",
+  "next-page": "Pagina successiva",
+  "previous-page": "Pagina precedente",
+  "globalSearch-instructions-heading": "Istruzioni ricerca",
+  "globalSearch-instructions-operators": "Operatori disponibili:",
+  "globalSearch-instructions-status-archived": "`__predicate_archived__` - schede archiviate",
+  "link-to-search": "Link a questa ricerca"
+};
+for (const [key, italian] of Object.entries(repairedItalianSearchControls)) {
+  assert.notEqual(aromanian[key], italian, `${key}: Italian seed must not return`);
+  assert.notEqual(aromanian[key], english[key], `${key}: English is not a correction`);
+  assert.deepEqual(tokens(aromanian[key]), tokens(english[key]), `${key}: preserve variables`);
+}
+assert.equal(aromanian['r-add-checklist'], aromanian['add-checklist']);
+assert.equal(aromanian['r-d-add-checklist'], aromanian['add-checklist']);
+assert.equal(aromanian['r-add-swimlane'], aromanian['add-swimlane']);
+assert.equal(aromanian['allow-rename'], aromanian['allowRenamePopup-title']);
+assert.equal(aromanian['myCardsViewChange-title'], aromanian['myCardsViewChangePopup-title']);
+assert.notEqual(aromanian['restore-all'], aromanian['delete-all']);
+assert.notEqual(aromanian['next-page'], aromanian['previous-page']);
+assert.match(aromanian['act-newDue'], /prota/);
+assert.match(aromanian['globalSearch-instructions-status-archived'], /`__predicate_archived__`/);

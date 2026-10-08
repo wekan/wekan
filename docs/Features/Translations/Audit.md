@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Aromanian search and organization language corrections — 2026-10-08
+
+Replace 48 Italian values in search, organization dialogs, rule actions and
+card controls. Preserve due-reminder variables, search-result counts and
+predicate syntax. Regression checks reject the previous Italian and English
+fallbacks, compare tokens, and preserve shared labels and opposite actions.
+New wording follows existing catalog terminology and remains low-confidence
+pending fluent review. No browser or screen-reader session was run; the
+remaining translation backlog and wrong-language review are still open.
+
 ## Aromanian rule-builder language corrections — 2026-10-08
 
 Replace 35 clearly Italian rule conditions, actions and fragments. Preserve
