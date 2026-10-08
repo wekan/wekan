@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8ab081b960">Correct Wu search-predicate translations</a>. Thanks to xet7.</summary>
+
+Correct seventeen Wu search-predicate and validation values. Preserve operator/value
+variables, percent placeholders, calendar-quarter meaning and positive-integer limits.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c890e36ab9">Correct Wu search-result and operator translations</a>. Thanks to xet7.</summary>
 
 Correct twenty-seven Wu search-result and operator values. Preserve placeholders,
