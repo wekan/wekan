@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bbe0210801b035a0a2bdb535ff2342bdac3c3d9d">Translate Odia trigonometry and variable creation</a></summary>
+
+- Fill 22 Odia trigonometry and workspace placeholders, preserving existing
+  translations, angle units, function abbreviations and variable types.
+- Technical wording remains low confidence pending speaker review.
+- All 53 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Odia translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6c9916945105ac1a8213081079c7e1df5970b5df">Translate Odia rounding and mathematical functions</a></summary>
 
 - Fill 23 Odia mathematical placeholders, preserving existing translations,
