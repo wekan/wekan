@@ -442,6 +442,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/736dac75d9">Correct Wu account messages and repair result counts</a>. Thanks to xet7.</summary>
+
+Correct 22 Wu values, preserving repair-result count variables and username minimums.
+Restore Cron and status labels and clarify the missing-board repair limitation.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d8b8afd73f">Correct Wu job controls and migration ranges</a>. Thanks to xet7.</summary>
 
 Correct 26 Wu values, restoring task and board meanings. Preserve batch, CPU and delay
