@@ -1374,3 +1374,20 @@ for (const code of ['gl', 'gl-ES']) {
   assert.match(locale['import-board-instruction-superproductivity'], /tarefas arquivadas convértense en tarxetas arquivadas/);
   assert.match(locale['import-board-instruction-pivotal'], /iteracións en sprints/);
 }
+
+for (const code of ['gl', 'gl-ES']) {
+  const locale = read(code);
+  for (const [format, values] of Object.entries(newerImportLiterals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+    for (const value of values) assert.ok(locale[key].includes(value), key + ': ' + value);
+  }
+  assert.match(locale['import-board-instruction-quire'], /non contén comentarios nin anexos/);
+  assert.match(locale['import-board-instruction-notion'], /As relacións, imaxes e anexos non se importan/);
+  assert.match(locale['import-board-instruction-plane'], /non contén descricións nin anexos.*non se importan/);
+  assert.doesNotMatch(locale['import-board-instruction-notion'], /os anexos impórtanse/);
+  assert.match(locale['import-board-instruction-businessmap'], /primeiro cambia os nomes da fila de cabeceira ao inglés/);
+  assert.match(locale['import-board-instruction-redmine'], /antes de exportar.*English en My account/);
+  assert.match(locale['import-board-instruction-teamwork'], /un nivel máis profundo/);
+}

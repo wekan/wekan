@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Galician import instructions, final group — 2026-10-09
+
+Translate seven instructions in gl and gl-ES, replacing 14 English values:
+Quire, Wrike, Teamwork.com, Businessmap, Redmine, Notion and Plane. This completes
+the newer group of 21 imports in both catalogs. Preserve commands, column names,
+extensions, hierarchy markers and variables. Regression checks cover excluded
+data, English headers and task hierarchy. Three relevant suites and all 21
+preservation checks pass. Remaining translations, language auditing and browser
+review are outstanding.
+
 ## Galician import instructions, middle group — 2026-10-09
 
 Translate six instructions in gl and gl-ES, replacing 12 English values:
