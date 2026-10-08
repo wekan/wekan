@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2535250fc60ee0540af9d487bb9a87e73f8dfbe0">Translate Central Kurdish diagnostics and mail failures</a></summary>
+
+- Fill 37 Sorani diagnostic and mail-failure strings, preserving existing
+  translations and source placeholders.
+- Technical wording remains low confidence pending speaker review.
+- All 42 focused checks and 21 human-preference checks pass. Browser and
+  right-to-left layout checks were not run. The broader audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/36a39e467e873ed045cd261c5a844c0ae7c650e0">Translate Central Kurdish Sync conflicts and preview</a></summary>
 
 - Fill 37 Sorani Sync-conflict and preview strings, preserving existing
