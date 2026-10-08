@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/91be958efb">Correct Wu timeline and card lifecycle translations</a>. Thanks to xet7.</summary>
+
+Correct twenty-two Wu timeline, calendar and card lifecycle values. Preserve
+variables, restoration fields and the difference between deletion and archiving.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0da6bfb61b">Correct Wu board visibility and membership translations</a>. Thanks to xet7.</summary>
 
 Correct twenty Wu board, assignment, visibility and view strings. Preserve HTML
