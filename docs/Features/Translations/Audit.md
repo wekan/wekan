@@ -8855,6 +8855,15 @@ merge. Regression coverage checks those details alongside script and key order.
 Technical wording remains low confidence pending speaker review. Browser checks
 were not run; further Odia translations remain.
 
+## Odia workspace search and shared labels
+
+Filled 21 English placeholders for workspace search, shared block labels and the
+rule-editor tab. Preserved keyboard shortcut names, match index/total roles and
+consistent duplicate labels. Existing translations were retained by the placeholder-only
+merge. Regression coverage checks these details alongside script, key order and
+token inventories. Technical wording remains low confidence pending speaker review.
+Browser checks were not run; rule-editor help and further translations remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
