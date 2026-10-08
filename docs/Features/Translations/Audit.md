@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Slovak controls, import guidance and stuck Sync recovery — 2026-10-08
+
+Translate 43 further current Slovak values for board controls, link rules,
+import formats, assignment actions, LDAP, OAuth and stuck Sync recovery.
+Preserve existing localized values. Extend the existing suite with format
+literals, configuration names, retained applied changes, unwritten pending
+changes and opposite movement directions. No browser or screen-reader
+session was run; other translations and linguistic review remain open.
+
 ## Slovak interrupted import recovery — 2026-10-08
 
 Translate 25 current Slovak interrupted-import messages, preserving existing
