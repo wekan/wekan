@@ -165856,5 +165856,124 @@
     "before": "依恋",
     "after": "附件",
     "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "predicate-overdue",
+    "before": "逾期的",
+    "after": "逾期",
+    "reason": "2026-10-08: Correct Wu search predicates and validation messages, preserving operator/value roles and positive-integer restriction; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "predicate-week",
+    "before": "星期",
+    "after": "礼拜",
+    "reason": "2026-10-08: Correct Wu search predicates and validation messages, preserving operator/value roles and positive-integer restriction; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "predicate-quarter",
+    "before": "四分之一",
+    "after": "季度",
+    "reason": "2026-10-08: Correct Wu search predicates and validation messages, preserving operator/value roles and positive-integer restriction; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "predicate-due",
+    "before": "到期的",
+    "after": "到期",
+    "reason": "2026-10-08: Correct Wu search predicates and validation messages, preserving operator/value roles and positive-integer restriction; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "predicate-modified",
+    "before": "修改的",
+    "after": "修改过",
+    "reason": "2026-10-08: Correct Wu search predicates and validation messages, preserving operator/value roles and positive-integer restriction; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "predicate-attachment",
+    "before": "依恋",
+    "after": "附件",
+    "reason": "2026-10-08: Correct Wu search predicates and validation messages, preserving operator/value roles and positive-integer restriction; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "predicate-end",
+    "before": "结尾",
+    "after": "结束",
+    "reason": "2026-10-08: Correct Wu search predicates and validation messages, preserving operator/value roles and positive-integer restriction; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "predicate-assignee",
+    "before": "受让人",
+    "after": "负责人",
+    "reason": "2026-10-08: Correct Wu search predicates and validation messages, preserving operator/value roles and positive-integer restriction; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "predicate-public",
+    "before": "民众",
+    "after": "公开",
+    "reason": "2026-10-08: Correct Wu search predicates and validation messages, preserving operator/value roles and positive-integer restriction; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "predicate-private",
+    "before": "私人的",
+    "after": "私有",
+    "reason": "2026-10-08: Correct Wu search predicates and validation messages, preserving operator/value roles and positive-integer restriction; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "operator-unknown-error",
+    "before": "%s 不是运算符",
+    "after": "%s 勿是运算符",
+    "reason": "2026-10-08: Correct Wu search predicates and validation messages, preserving operator/value roles and positive-integer restriction; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "operator-number-expected",
+    "before": "操作员 __operator__ 期望一个数字，得到“__value__”",
+    "after": "运算符 __operator__ 需要一只数字，收到个是“__value__”",
+    "reason": "2026-10-08: Correct Wu search predicates and validation messages, preserving operator/value roles and positive-integer restriction; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "operator-sort-invalid",
+    "before": "'%s' 的排序无效",
+    "after": "“%s”个排序无效",
+    "reason": "2026-10-08: Correct Wu search predicates and validation messages, preserving operator/value roles and positive-integer restriction; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "operator-status-invalid",
+    "before": "“%s”不是有效状态",
+    "after": "“%s”勿是有效个状态",
+    "reason": "2026-10-08: Correct Wu search predicates and validation messages, preserving operator/value roles and positive-integer restriction; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "operator-has-invalid",
+    "before": "%s 不是有效的存在检查",
+    "after": "%s 勿是有效个存在检查",
+    "reason": "2026-10-08: Correct Wu search predicates and validation messages, preserving operator/value roles and positive-integer restriction; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "operator-limit-invalid",
+    "before": "%s 不是有效的限制。  限制应该是一个正整数。",
+    "after": "%s 勿是有效个限制。限制一定要是正整数。",
+    "reason": "2026-10-08: Correct Wu search predicates and validation messages, preserving operator/value roles and positive-integer restriction; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "operator-debug-invalid",
+    "before": "%s 不是有效的调试谓词",
+    "after": "%s 勿是有效个调试条件",
+    "reason": "2026-10-08: Correct Wu search predicates and validation messages, preserving operator/value roles and positive-integer restriction; lower-confidence prose needs native review."
   }
 ]

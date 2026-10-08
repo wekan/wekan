@@ -930,3 +930,14 @@ assert.equal(wu['operator-board'], '看板');
 assert.equal(wu['operator-sort'], '排序');
 assert.equal(wu['operator-attachment-text'], '附件');
 assert.match(wu['n-cards-found'], /寻着 %s 张卡片/);
+
+const searchPredicatesWu = ["predicate-overdue", "predicate-week", "predicate-quarter", "predicate-due", "predicate-modified", "predicate-attachment", "predicate-end", "predicate-assignee", "predicate-public", "predicate-private", "operator-unknown-error", "operator-number-expected", "operator-sort-invalid", "operator-status-invalid", "operator-has-invalid", "operator-limit-invalid", "operator-debug-invalid"];
+for (const key of searchPredicatesWu) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.equal(wu['predicate-quarter'], '季度');
+assert.equal(wu['predicate-attachment'], '附件');
+assert.equal(wu['predicate-assignee'], '负责人');
+assert.equal(wu['predicate-public'], '公开');
+assert.equal(wu['predicate-private'], '私有');
+assert.match(wu['operator-number-expected'], /运算符 __operator__.*数字.*收到.*__value__/);
+assert.match(wu['operator-limit-invalid'], /%s.*勿是有效.*正整数/);
+assert.doesNotMatch(wu['operator-number-expected'], /操作员/);

@@ -2,6 +2,13 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu search-predicate corrections — 2026-10-08
+
+Correct 17 search-predicate and validation values. Restore calendar-quarter, attachment,
+assignee and visibility meanings. Preserve operator/value variables, percent placeholders
+and positive-integer validation. Refresh exact-value audit records. Wu prose needs native
+review; browser tests were not run and all-language work remains unfinished.
+
 ## Wu search-result and operator corrections — 2026-10-08
 
 Correct 27 search-result and operator values. Preserve missing-item placeholders and
@@ -12781,7 +12788,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,694** exact before/after values, including unflagged
+records contain **23,711** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
