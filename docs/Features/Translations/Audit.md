@@ -9346,6 +9346,16 @@ checks those details, script, key order and tokens. Technical wording remains lo
 confidence pending speaker review. Browser checks were not run; further Konkani
 translations and the broader audit remain unfinished.
 
+## Konkani constants and number properties
+
+Filled 21 English values for constants, bounded numbers, number properties and
+remainders. Existing translations were retained; the spoken pi label was filled
+directly after verifying equality with English. Preserved numeric constants,
+inclusive limits and remainder operands. Regression coverage checks these details,
+script, key order and tokens. Mathematical terminology remains low confidence
+pending speaker review. Browser checks were not run; further Konkani translations
+and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
