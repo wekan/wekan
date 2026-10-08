@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1c1e84323f">Translate first Afrikaans import instruction group</a>. Thanks to xet7.</summary>
+
+Translate eight instructions while preserving commands, extensions and variables.
+Regression checks cover completion, archives, first-board selection and swimlanes.
+The broad run after Galician corrections passed all 333 translation-related suites;
+import and whole-catalog placeholder checks pass after this Afrikaans batch.
+Preservation checks pass. Remaining translations, language auditing and browser
+review are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/35a643cb6e">Translate Galician interrupted-import and history recovery</a>. Thanks to xet7.</summary>
 
 Translate 68 values across two catalogs for interrupted imports, Scrum history
