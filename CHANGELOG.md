@@ -1006,6 +1006,20 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a9b2601c30">Translate Turkish controls and synchronization recovery</a>. Thanks to xet7.</summary>
+
+Fill 44 messages covering board controls, import guidance, assignment, LDAP,
+OAuth, login address errors and stalled synchronization. Preserve variables,
+literal examples and the distinction between cancellation and retaining
+changes already applied.
+
+Four focused translation suites and 21 human-preference checks pass. The
+preceding full run passed all 322 translation suites. No browser or
+screen-reader session was run; broader translation work remains unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/16bfc9ebab">Translate Turkish interrupted import recovery</a>. Thanks to xet7.</summary>
 
 Fill 25 interrupted-import messages. Preserve source variables, permanent
