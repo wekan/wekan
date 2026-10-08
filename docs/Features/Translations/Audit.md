@@ -9555,6 +9555,16 @@ tokens. Technical wording remains low confidence pending speaker review.
 Browser checks were not run; further Turkmen translations and the broader
 audit remain unfinished.
 
+## Turkmen comparisons and Boolean logic
+
+Filled 33 English placeholders for text/list conversion, comparisons, Boolean
+logic and initial arithmetic help. The placeholder-only merge retained existing
+translations. Coverage checks equality boundaries, negation, both-versus-any
+conditions, ternary labels, null notation and delimiter roles, plus key order
+and tokens. Technical wording remains low confidence pending speaker review.
+Browser checks were not run; further Turkmen translations and the broader
+audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
