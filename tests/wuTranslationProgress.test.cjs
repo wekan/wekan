@@ -360,3 +360,17 @@ assert.match(wu['scrum-history-checkpoint-hint'], /呒没别个人改过.*才好
 assert.match(wu['scrum-history-checkpoint-hint'], /勿改任何记录/);
 assert.match(wu['login-setting-env-only'], /只好由服务器环境.*勿好改/);
 assert.deepEqual(JSON.parse(remainingWu.stdout), {}, 'the full current Wu fill list is empty');
+
+const correctedActivities = ["activity-changedTitle", "activity-changedDescription", "act-deleteCard", "act-removeBoard", "act-removeList", "act-removeSwimlane", "board-members-same-org-only", "board-members-same-team-only", "restrict-comment-editing", "due-date-changed-times", "error-user-notSameOrgOrTeam", "act-addAttachment", "act-deleteAttachment", "act-addSubtask", "act-addLabel", "act-addedLabel", "act-removeLabel", "act-removedLabel", "act-addChecklist", "act-addChecklistItem", "act-removeChecklist", "act-removeChecklistItem", "act-checkedItem", "act-uncheckedItem", "act-completeChecklist", "act-uncompleteChecklist"];
+for (const key of correctedActivities) {
+  assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+  assert.match(wu[key], /仔|里向|勿准|趟/, `${key}: Wu vocabulary beyond script`);
+}
+assert.match(wu['activity-changedTitle'], /标题改成 %s.*所属项目是 %s/);
+assert.match(wu['act-checkedItem'], /^勾选/);
+assert.match(wu['act-uncheckedItem'], /^取消.*勾选/);
+assert.match(wu['act-uncompleteChecklist'], /还朆完成/);
+assert.equal(wu['act-addLabel'], wu['act-addedLabel']);
+assert.equal(wu['act-removeLabel'], wu['act-removedLabel']);
+assert.match(wu['act-removeChecklistItem'], /__checkList__/);
+assert.match(wu['restrict-comment-editing'], /勿准.*别个用户个评论/);

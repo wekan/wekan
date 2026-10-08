@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu activity language corrections — 2026-10-08
+
+Replace 26 Mandarin-like activity and permission messages directly with Wu wording.
+The English-placeholder fill cannot correct these existing values. Preserve every
+source token, including `__checkList__` case, and repair title-argument order.
+Check checked/unchecked and completed/incomplete actions, shared label aliases and
+Wu vocabulary beyond Han script. Wording is lower confidence and needs native
+review. No browser session was run. The broader language audit remains unfinished.
+
 ## Wu current fill list completed — 2026-10-08
 
 Translate the final 33 interrupted-import, history and environment-setting strings.
@@ -12424,7 +12433,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,836** exact before/after values, including unflagged
+records contain **22,857** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

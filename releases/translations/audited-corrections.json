@@ -626,8 +626,8 @@
     "locale": "wuu-Hans",
     "key": "act-addChecklist",
     "before": "将清单 __checklist__ 添加到卡片 __card__ 列表 __list__ 泳道 __swimlane__ 董事会 __board__",
-    "after": "将清单 __checklist__ 添加到卡片 __card__ 列表 __list__ 泳道 __swimlane__ 看板 __board__",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "拿检查清单 __checklist__ 加到卡片 __card__ 仔，勒列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -640,15 +640,15 @@
     "locale": "wuu-Hans",
     "key": "act-addLabel",
     "before": "添加标签__label__到卡__card__在列表__list__在泳道__swimlane__在董事会__board__",
-    "after": "添加标签__label__到卡__card__在列表__list__在泳道__swimlane__在看板__board__",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "拿标签 __label__ 加到卡片 __card__ 仔，勒列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
   },
   {
     "locale": "wuu-Hans",
     "key": "act-addedLabel",
     "before": "添加标签__label__到卡__card__在列表__list__在泳道__swimlane__在董事会__board__",
-    "after": "添加标签__label__到卡__card__在列表__list__在泳道__swimlane__在看板__board__",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "拿标签 __label__ 加到卡片 __card__ 仔，勒列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -710,15 +710,15 @@
     "locale": "wuu-Hans",
     "key": "act-removeChecklist",
     "before": "从卡 __card__ 删除清单 __checklist__ 泳道 __swimlane__ 列表 __list__ 董事会 __board__",
-    "after": "从卡 __card__ 删除清单 __checklist__ 泳道 __swimlane__ 列表 __list__ 看板 __board__",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "从卡片 __card__ 移脱检查清单 __checklist__ 仔，勒列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
   },
   {
     "locale": "wuu-Hans",
     "key": "act-removeChecklistItem",
     "before": "从清单 __checkList__ 删除了清单项目 __checklistItem__ 在卡 __card__ 在列表 __list__ 在泳道 __swimlane__ 在董事会 __board__",
-    "after": "从清单 __checkList__ 删除了清单项目 __checklistItem__ 在卡 __card__ 在列表 __list__ 在泳道 __swimlane__ 在看板 __board__",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "从检查清单 __checkList__ 移脱清单项目 __checklistItem__ 仔，勒卡片 __card__、列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -159850,5 +159850,152 @@
     "before": "item1, item2, item3",
     "after": "butang1,butang2,butang3",
     "reason": "Replace the previously accepted English example with Waray butang (thing/item), keeping three comma-separated numbered items. Terminology: https://dictionary.corporaproject.org/index.php?glossary=B&sort=word"
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-changedTitle",
+    "before": "将 %s 的标题修改为 %s",
+    "after": "标题改成 %s 仔，所属项目是 %s",
+    "reason": "2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-changedDescription",
+    "before": "修改了 %s 的描述",
+    "after": "改过 %s 个描述仔",
+    "reason": "2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-deleteCard",
+    "before": "从看板 __board__ 泳道 __swimlane__ 的列表 __list__ 中删除了卡片 __card__",
+    "after": "删脱卡片 __card__ 仔，原来勒列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-removeBoard",
+    "before": "删除了看板 __board__",
+    "after": "删脱看板 __board__ 仔",
+    "reason": "2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-removeList",
+    "before": "删除了看板 __board__ 中的列表 __list__",
+    "after": "删脱看板 __board__ 里向个列表 __list__ 仔",
+    "reason": "2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-removeSwimlane",
+    "before": "删除了看板 __board__ 中的泳道 __swimlane__",
+    "after": "删脱看板 __board__ 里向个泳道 __swimlane__ 仔",
+    "reason": "2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-members-same-org-only",
+    "before": "仅添加同一组织的看板成员",
+    "after": "只好添加同一个组织里向个看板成员",
+    "reason": "2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-members-same-team-only",
+    "before": "仅添加同一团队的看板成员",
+    "after": "只好添加同一个团队里向个看板成员",
+    "reason": "2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "restrict-comment-editing",
+    "before": "禁止看板管理员编辑或删除其他用户的评论",
+    "after": "勿准看板管理员编辑或者删脱别个用户个评论",
+    "reason": "2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "due-date-changed-times",
+    "before": "截止日期已变更 %s 次",
+    "after": "截止日期改过 %s 趟仔",
+    "reason": "2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-user-notSameOrgOrTeam",
+    "before": "只能添加来自同一组织或团队的用户",
+    "after": "侬只好添加同一个组织或者团队里向个用户",
+    "reason": "2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-addAttachment",
+    "before": "添加了附件__attachment__到卡__card__在列表__list__在泳道__swimlane__在板__board__",
+    "after": "拿附件 __attachment__ 加到卡片 __card__ 仔，勒列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-deleteAttachment",
+    "before": "已删除附件__attachment__ 卡__card__ 列表__list__ 泳道__swimlane__ 板__board__",
+    "after": "删脱附件 __attachment__ 仔，勒卡片 __card__、列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-addSubtask",
+    "before": "将子任务 __subtask__ 添加到卡片 __card__ 列表 __list__ 泳道 __swimlane__ 板 __board__",
+    "after": "拿子任务 __subtask__ 加到卡片 __card__ 仔，勒列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-removeLabel",
+    "before": "已从卡__card__、列表__list__、泳道__swimlane__、板__board__中删除标签__label__",
+    "after": "从卡片 __card__ 移脱标签 __label__ 仔，勒列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-removedLabel",
+    "before": "已从卡__card__、列表__list__、泳道__swimlane__、板__board__中删除标签__label__",
+    "after": "从卡片 __card__ 移脱标签 __label__ 仔，勒列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-addChecklistItem",
+    "before": "添加了清单项目__checklistItem__到清单__checklist__卡__card__列表__list__@泳道__swimlane__板__board__",
+    "after": "拿清单项目 __checklistItem__ 加到检查清单 __checklist__ 仔，勒卡片 __card__、列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-checkedItem",
+    "before": "检查清单 __checklistItem__ __checklist__ 卡 __card__ 列表 __list__ 泳道 __swimlane__ 板 __board__",
+    "after": "勾选检查清单 __checklist__ 个项目 __checklistItem__ 仔，勒卡片 __card__、列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-uncheckedItem",
+    "before": "未选中的__checklistItem__ 检查表__checklist__ 卡__card__ 列表__list__ 泳道__swimlane__ 板__board__",
+    "after": "取消检查清单 __checklist__ 个项目 __checklistItem__ 个勾选仔，勒卡片 __card__、列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-completeChecklist",
+    "before": "已完成的检查表 __checklist__ 在卡 __card__ 在列表 __list__ 在泳道 __swimlane__ 在板 __board__",
+    "after": "完成检查清单 __checklist__ 仔，勒卡片 __card__、列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-uncompleteChecklist",
+    "before": "未完成的清单 __checklist__ 在卡 __card__ 在列表 __list__ 在泳道 __swimlane__ 在板 __board__",
+    "after": "拿检查清单 __checklist__ 改回还朆完成仔，勒卡片 __card__、列表 __list__、泳道 __swimlane__、看板 __board__ 里向",
+    "reason": "2026-10-08: Replace Mandarin-like activity wording with Wu phrasing; preserve exact source tokens and action meanings. Wording is lower confidence and needs native review."
   }
 ]
