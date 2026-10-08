@@ -975,6 +975,20 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d9b585135d">Translate German planning imports and recovery messages</a>. Thanks to xet7.</summary>
+
+Fill 61 messages in each of four German catalogs, preserving existing
+localized values and Swiss spelling. Cover board controls, link rules,
+planning imports, Sync and import/history recovery. Preserve source
+variables, literal examples, matching priority and permanent-removal warnings.
+
+German, global placeholder and translation audit suites pass, together with
+21 human-preference checks. No browser or screen-reader session was run.
+Other locale translations and broader linguistic review remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/93c380310f">Translate French planning imports and recovery messages</a>. Thanks to xet7.</summary>
 
 Fill 61 messages in each of the five French catalogs, preserving existing
