@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu Sync planning and interrupted operations — 2026-10-08
+
+Translate 25 planning and interrupted-Sync messages. Preserve exact variables and
+ID; check source matching order, first-Sync planning retention, applied changes
+remaining after discard, suppressed unwritten changes and replayable operations.
+Wu wording is lower confidence and needs native review. No browser session was
+run. Remaining English strings and older Mandarin-like passages require work.
+
 ## Wu rules and Scrum imports — 2026-10-08
 
 Translate 30 rule-editor and Scrum import messages. Preserve exact source tokens,

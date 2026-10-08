@@ -329,3 +329,18 @@ assert.match(wu['scrum-import-invalid-file'], /勿是.*JSON/);
 assert.match(wu['scrum-import-card-ambiguous'], /多张卡片侪匹配/);
 assert.match(wu['scrum-import-card-on-another-board'], /别块看板.*保持原样/);
 assert.match(wu['scrum-import-sprint-finished'], /呒没移到.*结束/);
+
+const stuckSync = ["sync-planning-fields", "sync-planning-hint", "stuck-sync-operation-heading", "stuck-sync-operation-description", "stuck-sync-operation-list", "stuck-sync-operation-progress", "stuck-sync-operation-reason", "stuck-sync-operation-applied", "stuck-sync-operation-reason-scope-changed", "stuck-sync-operation-reason-access-denied", "stuck-sync-operation-reason-trigger-unknown", "stuck-sync-operation-reason-intent-missing", "stuck-sync-operation-reason-unknown", "stuck-sync-operation-replayable-now", "stuck-sync-operation-discard", "stuck-sync-operation-discard-confirm", "stuck-sync-operation-refresh", "stuck-sync-operation-empty", "stuck-sync-operation-truncated", "stuck-sync-operation-unavailable", "stuck-sync-operation-missing", "stuck-sync-operation-not-stuck", "stuck-sync-operation-replayable", "stuck-sync-operation-busy", "stuck-sync-operation-failed"];
+for (const key of stuckSync) {
+  assert.notEqual(wu[key], english[key], key);
+  assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+}
+assert.match(wu['sync-planning-hint'], /先照来源 ID.*再照名字/);
+assert.match(wu['sync-planning-hint'], /头一趟同步绝勿移脱计划/);
+assert.match(wu['stuck-sync-operation-description'], /已经应用个改动保留.*剩下来.*绝勿再写入/);
+assert.match(wu['stuck-sync-operation-discard-confirm'], /已经应用个改动保留.*剩下来.*绝勿再写入/);
+assert.match(wu['stuck-sync-operation-reason-access-denied'], /呒没整只列表个写入权限/);
+assert.match(wu['stuck-sync-operation-replayable-now'], /勿好丢弃/);
+assert.match(wu['stuck-sync-operation-replayable'], /呒没丢弃/);
+assert.match(wu['stuck-sync-operation-not-stuck'], /还朆确定.*勿好丢弃/);
+assert.match(wu['stuck-sync-operation-truncated'], /最早个 50/);
