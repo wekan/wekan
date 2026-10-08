@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/31138d20fd6aba234df707a00099db3fae69bd36">Translate Turkmen arithmetic and number properties</a></summary>
+
+- Fill 29 Turkmen placeholders, preserving existing translations, constants,
+  formulas, degree units, inclusive bounds and number-property distinctions.
+- Mathematical terminology remains low confidence pending speaker review.
+- All 47 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Turkmen translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/45ae3addd696f38dbd5b505c6046bb840543c145">Translate Turkmen comparisons and Boolean logic</a></summary>
 
 - Fill 33 Turkmen placeholders, preserving existing translations, equality
