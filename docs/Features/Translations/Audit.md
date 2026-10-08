@@ -8220,6 +8220,15 @@ translations remain. Technical wording remains low confidence pending speaker
 review. Focused checks cover tokens, key order, deletion scope and matching popup
 labels; browser checks were not run.
 
+## Tatar minicard and label activity corrections
+
+Corrected 23 wrong-language minicard, hierarchy and activity values. Preserved
+checklist counters and sequential label/card and field/value/card arguments,
+verified against activities.jade and the labelActivityMessage helper. Existing
+correct-language parent-card labels were retained. Technical wording remains low
+confidence pending speaker review. Focused tests check tokens, key order, counter
+notation and rendered argument roles; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
