@@ -337,7 +337,7 @@ test('every external export menu link returns text and refuses an unrelated user
   // Include description through the actual shared selection controls.
   const details = page.locator('.js-export-card-details-toggle');
   if (await details.getAttribute('aria-checked') !== 'true') await details.click();
-  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri', 'pivotal', 'tasksorg', 'superproductivity', 'opml', 'orgmode']) {
+  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri', 'pivotal', 'tasksorg', 'superproductivity', 'taiga', 'opml', 'orgmode']) {
     await test.step(format, async () => {
       const anchor = page.locator(`.js-pop-over a[href*="/export/${format}?"]`);
       await expect(anchor).toBeVisible();
@@ -551,6 +551,68 @@ test('Super Productivity: a backup imports with its projects, lists, labels and 
     expect(db.find('swimlanes', { boardId }).map(lane => lane.title)).toContain('From Super Productivity');
     await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
   } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
+
+// A Taiga project dump (tests/fixtures/taiga/project-dump.json): statuses as
+// lists, stories as cards with their tasks as subtasks, epics and issues in
+// swimlanes of their own, comments, custom fields, tag colors and the open
+// sprint (models/lib/taigaFormat.js). The page leaves the embedded attachment
+// bytes out before sending.
+test('Taiga: a project dump imports with its stories, tasks, epics, issues, comments, fields and sprint', async ({ loggedInPage: page }) => {
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/taiga');
+    await page.locator('#import-textarea').fill(fs.readFileSync(path.resolve(__dirname, '../../fixtures/taiga/project-dump.json'), 'utf8'));
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    const board = db.findOne('boards', { _id: boardId });
+    expect(board.title).toBe('Website relaunch');
+    expect(board.labels.find(label => label.name === 'copy').color).toBe('red');
+    const lists = db.find('lists', { boardId });
+    expect(lists.map(list => list.title).sort()).toEqual(['Archived', 'Done', 'In progress', 'Needs Info', 'New', 'Ready']);
+    expect(db.find('swimlanes', { boardId }).map(lane => lane.title).sort()).toEqual(['Default', 'Epics', 'Issues']);
+    const cards = db.find('cards', { boardId });
+    expect(cards).toHaveLength(7);
+    const story = cards.find(card => card.title === 'Write copy');
+    expect(lists.find(list => list._id === story.listId).title).toBe('In progress');
+    expect(story.requestedBy).toBe('carol@example.com');
+    expect(new Date(story.dueAt).toISOString().slice(0, 10)).toBe('2024-03-15');
+    expect(db.find('card_comments', { cardId: story._id }).map(comment => comment.text)).toEqual(['Ann: Looks good']);
+    const epic = cards.find(card => card.title === 'Content');
+    expect(story.parentId).toBe(epic._id);
+    expect(cards.filter(card => card.parentId === story._id).map(card => card.title).sort()).toEqual(['Intro paragraph', 'Outro paragraph']);
+    expect(cards.find(card => card.title === 'Old landing page').archived).toBe(true);
+    const issue = cards.find(card => card.title === 'Broken footer link');
+    expect(issue.labelIds.map(id => board.labels.find(l => l._id === id).name).sort())
+      .toEqual(['priority:High', 'severity:Critical', 'type:Bug']);
+    const fields = db.find('customFields', { boardIds: boardId }).map(field => field.name);
+    for (const name of ['Audience', 'Words', 'Story points', 'Task status', 'Blocked']) expect(fields).toContain(name);
+    const sprints = db.find('scrumSprints', { boardId });
+    expect(sprints.map(sprint => [sprint.name, sprint.state])).toEqual([['Sprint 1', 'planned']]);
+    expect(story.scrum.sprintId).toBe(sprints[0]._id);
+    expect(db.find('attachments', { 'meta.boardId': boardId })).toHaveLength(0);
+    await expect(page.locator('.minicard-title', { hasText: 'Write copy' })).toBeVisible();
+  } finally {
+    if (boardId) {
+      db.deleteMany('scrumSprints', { boardId });
+      db.deleteMany('scrumImportSteps', { boardId });
+      db.cleanup({ boardIds: [boardId] });
+    }
+  }
+});
+
+test('Taiga: malformed JSON and a document that is not a dump are rejected', async ({ loggedInPage: page }) => {
+  await navigateInApp(page, '/import/taiga');
+  await page.locator('#import-textarea').fill('{broken');
+  await page.locator('.js-import-without-mapping').click();
+  await expect(page.locator('.warning').first()).toBeVisible();
+  const result = await page.evaluate(async () => {
+    try { await Meteor.callAsync('importBoard', { name: 'not a dump', tasks: [] }, {}, 'taiga'); return 'allowed'; }
+    catch (e) { return e.error; }
+  });
+  expect(result).toBe('invalid-import-format');
+  await expect(page).toHaveURL(/\/import\/taiga$/);
 });
 
 // A ClickUp workspace export: status, list, assignee, tags, a due date in milliseconds and a subtask.

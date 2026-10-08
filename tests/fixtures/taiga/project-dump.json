@@ -1,0 +1,247 @@
+{
+  "watchers": ["ann@example.com"],
+  "name": "Website relaunch",
+  "slug": "ann-website-relaunch",
+  "description": "Relaunch of the company website",
+  "created_date": "2024-03-01T10:15:00+0000",
+  "logo": null,
+  "total_milestones": 2,
+  "total_story_points": 20.0,
+  "is_epics_activated": true,
+  "is_backlog_activated": true,
+  "is_kanban_activated": true,
+  "is_wiki_activated": true,
+  "is_issues_activated": true,
+  "videoconferences": null,
+  "videoconferences_extra_data": null,
+  "creation_template": "kanban",
+  "is_private": true,
+  "is_featured": false,
+  "is_looking_for_people": false,
+  "looking_for_people_note": "",
+  "epics_csv_uuid": null,
+  "userstories_csv_uuid": null,
+  "tasks_csv_uuid": null,
+  "issues_csv_uuid": null,
+  "transfer_token": null,
+  "blocked_code": null,
+  "totals_updated_datetime": "2024-03-05T08:00:00+0000",
+  "total_fans": 0,
+  "total_fans_last_week": 0,
+  "total_fans_last_month": 0,
+  "total_fans_last_year": 0,
+  "total_activity": 12,
+  "total_activity_last_week": 3,
+  "total_activity_last_month": 12,
+  "total_activity_last_year": 12,
+  "anon_permissions": [],
+  "public_permissions": [],
+  "modified_date": "2024-03-05T08:00:00+0000",
+  "roles": [
+    {"name": "UX", "slug": "ux", "order": 10, "computable": true, "permissions": ["view_project", "view_us", "add_us", "modify_us"]},
+    {"name": "Design", "slug": "design", "order": 20, "computable": true, "permissions": ["view_project", "view_us"]},
+    {"name": "Stakeholder", "slug": "stakeholder", "order": 50, "computable": false, "permissions": ["view_project", "view_us"]}
+  ],
+  "owner": "ann@example.com",
+  "memberships": [
+    {"user": "ann@example.com", "role": "UX", "invited_by": null, "is_admin": true, "email": "ann@example.com",
+     "created_at": "2024-03-01T10:15:00+0000", "invitation_extra_text": null, "user_order": 1},
+    {"user": "bob@example.com", "role": "Design", "invited_by": "ann@example.com", "is_admin": false, "email": "bob@example.com",
+     "created_at": "2024-03-01T10:16:00+0000", "invitation_extra_text": null, "user_order": 2}
+  ],
+  "points": [
+    {"name": "?", "order": 1, "value": null},
+    {"name": "1", "order": 3, "value": 1.0},
+    {"name": "2", "order": 4, "value": 2.0},
+    {"name": "3", "order": 5, "value": 3.0},
+    {"name": "5", "order": 6, "value": 5.0}
+  ],
+  "epic_statuses": [
+    {"name": "New", "slug": "new", "order": 1, "is_closed": false, "color": "#70728F"},
+    {"name": "Ready", "slug": "ready", "order": 2, "is_closed": false, "color": "#E44057"},
+    {"name": "In progress", "slug": "in-progress", "order": 3, "is_closed": false, "color": "#E47C40"},
+    {"name": "Done", "slug": "done", "order": 5, "is_closed": true, "color": "#A8E440"}
+  ],
+  "us_statuses": [
+    {"name": "New", "slug": "new", "order": 1, "is_closed": false, "is_archived": false, "color": "#70728F", "wip_limit": null},
+    {"name": "Ready", "slug": "ready", "order": 2, "is_closed": false, "is_archived": false, "color": "#E44057", "wip_limit": null},
+    {"name": "In progress", "slug": "in-progress", "order": 3, "is_closed": false, "is_archived": false, "color": "#E47C40", "wip_limit": 3},
+    {"name": "Done", "slug": "done", "order": 5, "is_closed": true, "is_archived": false, "color": "#A8E440", "wip_limit": null},
+    {"name": "Archived", "slug": "archived", "order": 6, "is_closed": true, "is_archived": true, "color": "#A9AABC", "wip_limit": null}
+  ],
+  "us_duedates": [
+    {"name": "Default", "order": 1, "by_default": true, "color": "#9dce0a", "days_to_due": null},
+    {"name": "Due soon", "order": 2, "by_default": false, "color": "#ff9900", "days_to_due": 14},
+    {"name": "Past due", "order": 3, "by_default": false, "color": "#ff8a84", "days_to_due": 0}
+  ],
+  "task_statuses": [
+    {"name": "New", "slug": "new", "order": 1, "is_closed": false, "color": "#70728F"},
+    {"name": "In progress", "slug": "in-progress", "order": 2, "is_closed": false, "color": "#E47C40"},
+    {"name": "Closed", "slug": "closed", "order": 4, "is_closed": true, "color": "#A8E440"}
+  ],
+  "task_duedates": [],
+  "issue_types": [
+    {"name": "Bug", "order": 1, "color": "#E44057"},
+    {"name": "Question", "order": 2, "color": "#5178D3"},
+    {"name": "Enhancement", "order": 3, "color": "#40E4CE"}
+  ],
+  "issue_statuses": [
+    {"name": "New", "slug": "new", "order": 1, "is_closed": false, "color": "#70728F"},
+    {"name": "Needs Info", "slug": "needs-info", "order": 5, "is_closed": false, "color": "#E44057"},
+    {"name": "Closed", "slug": "closed", "order": 4, "is_closed": true, "color": "#A8E440"}
+  ],
+  "issue_duedates": [],
+  "priorities": [
+    {"name": "Low", "order": 1, "color": "#A9AABC"},
+    {"name": "Normal", "order": 3, "color": "#4DC8A8"},
+    {"name": "High", "order": 5, "color": "#D35450"}
+  ],
+  "severities": [
+    {"name": "Normal", "order": 3, "color": "#4DC8A8"},
+    {"name": "Critical", "order": 5, "color": "#D35450"}
+  ],
+  "swimlanes": [],
+  "tags_colors": [["copy", "#E44057"], ["design", "#5178D3"], ["seo", null]],
+  "default_points": "?",
+  "default_epic_status": "New",
+  "default_us_status": "New",
+  "default_task_status": "New",
+  "default_priority": "Normal",
+  "default_severity": "Normal",
+  "default_issue_status": "New",
+  "default_issue_type": "Bug",
+  "default_swimlane": null,
+  "epiccustomattributes": [],
+  "userstorycustomattributes": [
+    {"name": "Audience", "description": "Who reads it", "type": "text", "order": 1,
+     "created_date": "2024-03-01T10:15:00+0000", "modified_date": "2024-03-01T10:15:00+0000"},
+    {"name": "Words", "description": "", "type": "number", "order": 2,
+     "created_date": "2024-03-01T10:15:00+0000", "modified_date": "2024-03-01T10:15:00+0000"}
+  ],
+  "taskcustomattributes": [],
+  "issuecustomattributes": [],
+  "epics": [
+    {
+      "ref": 7, "owner": "ann@example.com", "status": "In progress", "epics_order": 1,
+      "created_date": "2024-03-01T10:18:00+0000", "modified_date": "2024-03-01T10:18:00+0000",
+      "subject": "Content", "description": "All the words on the site", "color": "#E44057",
+      "assigned_to": "ann@example.com", "client_requirement": false, "team_requirement": true,
+      "version": 1, "blocked_note": "", "is_blocked": false, "tags": ["copy"],
+      "related_user_stories": [
+        {"user_story": 1, "order": 1, "source_project_slug": null},
+        {"user_story": 9, "order": 2, "source_project_slug": "other-project"}
+      ],
+      "attachments": [], "history": [], "watchers": [], "custom_attributes_values": {}
+    }
+  ],
+  "user_stories": [
+    {
+      "watchers": ["bob@example.com"],
+      "role_points": [{"role": "UX", "points": "3"}, {"role": "Design", "points": "2"}, {"role": "Stakeholder", "points": "5"}],
+      "owner": "carol@example.com", "assigned_to": "ann@example.com", "assigned_users": ["ann@example.com", "bob@example.com"],
+      "status": "In progress", "swimlane": null, "milestone": "Sprint 1",
+      "modified_date": "2024-03-02T09:00:00+0000", "created_date": "2024-03-01T10:20:00+0000", "finish_date": null,
+      "generated_from_issue": 6, "generated_from_task": null, "from_task_ref": null,
+      "ref": 1, "is_closed": false, "backlog_order": 2, "sprint_order": 1, "kanban_order": 2,
+      "subject": "Write copy", "description": "Draft the **intro**",
+      "client_requirement": false, "team_requirement": false, "external_reference": null, "tribe_gig": null,
+      "version": 3, "blocked_note": "Waiting for the brand guide", "is_blocked": true, "tags": ["copy", "seo"],
+      "due_date": "2024-03-15", "due_date_reason": "Launch",
+      "attachments": [
+        {"owner": "ann@example.com", "attached_file": {"data": "SGVsbG8=", "name": "brief.txt"},
+         "created_date": "2024-03-01T10:30:00+0000", "modified_date": "2024-03-01T10:30:00+0000",
+         "description": "", "is_deprecated": false, "name": "brief.txt", "order": 1, "sha1": "", "size": 5}
+      ],
+      "history": [
+        {"user": ["ann@example.com", "Ann"], "diff": {"status": [1, 3]}, "snapshot": null, "values": {},
+         "comment": "", "delete_comment_date": null, "delete_comment_user": [], "comment_versions": null,
+         "created_at": "2024-03-01T10:40:00+0000", "edit_comment_date": null, "is_hidden": false, "is_snapshot": false, "type": 1},
+        {"user": ["ann@example.com", "Ann"], "diff": {}, "snapshot": null, "values": {},
+         "comment": "Looks good", "delete_comment_date": null, "delete_comment_user": [], "comment_versions": null,
+         "created_at": "2024-03-01T11:00:00+0000", "edit_comment_date": null, "is_hidden": false, "is_snapshot": false, "type": 1},
+        {"user": ["bob@example.com", "Bob"], "diff": {}, "snapshot": null, "values": {},
+         "comment": "Wrong card", "delete_comment_date": "2024-03-01T12:00:00+0000", "delete_comment_user": ["bob@example.com", "Bob"],
+         "comment_versions": null, "created_at": "2024-03-01T11:30:00+0000", "edit_comment_date": null,
+         "is_hidden": false, "is_snapshot": false, "type": 1}
+      ],
+      "custom_attributes_values": {"Audience": "Customers", "Words": 800}
+    },
+    {
+      "watchers": [], "role_points": [{"role": "UX", "points": "?"}],
+      "owner": "ann@example.com", "assigned_to": null, "assigned_users": [],
+      "status": "New", "swimlane": null, "milestone": "Sprint 0",
+      "modified_date": "2024-03-01T10:22:00+0000", "created_date": "2024-03-01T10:22:00+0000", "finish_date": null,
+      "generated_from_issue": null, "generated_from_task": null, "from_task_ref": null,
+      "ref": 2, "is_closed": false, "backlog_order": 1, "sprint_order": 1, "kanban_order": 1,
+      "subject": "Design hero", "description": "",
+      "client_requirement": true, "team_requirement": false, "external_reference": null, "tribe_gig": null,
+      "version": 1, "blocked_note": "", "is_blocked": false, "tags": ["design"],
+      "due_date": null, "due_date_reason": "", "attachments": [], "history": [], "custom_attributes_values": null
+    },
+    {
+      "watchers": [], "role_points": [],
+      "owner": "ann@example.com", "assigned_to": null, "assigned_users": [],
+      "status": "Archived", "swimlane": null, "milestone": null,
+      "modified_date": "2024-02-01T10:00:00+0000", "created_date": "2024-02-01T10:00:00+0000", "finish_date": "2024-02-10T10:00:00+0000",
+      "generated_from_issue": null, "generated_from_task": null, "from_task_ref": null,
+      "ref": 3, "is_closed": true, "backlog_order": 3, "sprint_order": 1, "kanban_order": 3,
+      "subject": "Old landing page", "description": "",
+      "client_requirement": false, "team_requirement": false, "external_reference": null, "tribe_gig": null,
+      "version": 1, "blocked_note": "", "is_blocked": false, "tags": [],
+      "due_date": null, "due_date_reason": "", "attachments": [], "history": [], "custom_attributes_values": {}
+    }
+  ],
+  "tasks": [
+    {
+      "owner": "ann@example.com", "status": "Closed", "user_story": 1, "milestone": "Sprint 1", "assigned_to": "dave@example.com",
+      "modified_date": "2024-03-03T10:40:00+0000", "created_date": "2024-03-01T10:41:00+0000", "finished_date": "2024-03-03T10:40:00+0000",
+      "ref": 5, "subject": "Outro paragraph", "us_order": 2, "taskboard_order": 2, "description": "",
+      "is_iocaine": false, "external_reference": null, "version": 1, "blocked_note": "", "is_blocked": false,
+      "tags": [], "due_date": null, "due_date_reason": "", "attachments": [], "history": [], "watchers": [],
+      "custom_attributes_values": {}
+    },
+    {
+      "owner": "ann@example.com", "status": "In progress", "user_story": 1, "milestone": "Sprint 1", "assigned_to": "dave@example.com",
+      "modified_date": "2024-03-01T10:40:00+0000", "created_date": "2024-03-01T10:40:00+0000", "finished_date": null,
+      "ref": 4, "subject": "Intro paragraph", "us_order": 1, "taskboard_order": 1, "description": "About us, in three lines",
+      "is_iocaine": true, "external_reference": null, "version": 1, "blocked_note": "", "is_blocked": false,
+      "tags": ["copy"], "due_date": "2024-03-10T00:00:00+0000", "due_date_reason": "", "attachments": [],
+      "history": [
+        {"user": ["dave@example.com", "Dave"], "diff": {}, "snapshot": null, "values": {},
+         "comment": "First draft is in", "delete_comment_date": null, "delete_comment_user": [], "comment_versions": null,
+         "created_at": "2024-03-02T09:00:00+0000", "edit_comment_date": null, "is_hidden": false, "is_snapshot": false, "type": 1}
+      ],
+      "watchers": [], "custom_attributes_values": {}
+    }
+  ],
+  "milestones": [
+    {"name": "Sprint 0", "owner": "ann@example.com", "created_date": "2024-02-15T10:00:00+0000", "modified_date": "2024-02-29T10:00:00+0000",
+     "estimated_start": "2024-02-15", "estimated_finish": "2024-02-29", "slug": "sprint-0", "closed": true,
+     "disponibility": 0.0, "order": 1, "watchers": []},
+    {"name": "Sprint 1", "owner": "ann@example.com", "created_date": "2024-03-01T10:00:00+0000", "modified_date": "2024-03-01T10:00:00+0000",
+     "estimated_start": "2024-03-01", "estimated_finish": "2024-03-14", "slug": "sprint-1", "closed": false,
+     "disponibility": 0.0, "order": 2, "watchers": []}
+  ],
+  "issues": [
+    {
+      "owner": "bob@example.com", "status": "Needs Info", "assigned_to": "ann@example.com",
+      "priority": "High", "severity": "Critical", "type": "Bug", "milestone": null, "votes": ["ann@example.com"],
+      "modified_date": "2024-03-01T10:50:00+0000", "created_date": "2024-03-01T10:50:00+0000", "finished_date": null,
+      "ref": 6, "subject": "Broken footer link", "description": "The imprint link 404s",
+      "external_reference": null, "version": 1, "blocked_note": "", "is_blocked": false, "tags": [],
+      "due_date": null, "due_date_reason": "", "attachments": [], "history": [], "watchers": [],
+      "custom_attributes_values": {}
+    }
+  ],
+  "wiki_links": [{"title": "Home", "href": "home", "order": 1}],
+  "wiki_pages": [
+    {"slug": "home", "owner": "ann@example.com", "last_modifier": "ann@example.com",
+     "modified_date": "2024-03-01T10:15:00+0000", "created_date": "2024-03-01T10:15:00+0000",
+     "content": "Project notes", "version": 1, "attachments": [], "history": [], "watchers": []}
+  ],
+  "tags": null,
+  "timeline": [
+    {"data": {}, "data_content_type": ["userstories", "userstory"], "event_type": "userstories.userstory.create", "created": "2024-03-01T10:20:00+0000"},
+    {"data": {}, "data_content_type": ["tasks", "task"], "event_type": "tasks.task.create", "created": "2024-03-01T10:40:00+0000"}
+  ]
+}

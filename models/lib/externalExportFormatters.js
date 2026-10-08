@@ -28,6 +28,7 @@ import { formatPivotalCsv } from './pivotalCsvFormat.js';
 import { formatTasksOrgBackup } from './tasksorgFormat.js';
 import { formatMondaySheets } from './mondayFormat.js';
 import { formatSuperProductivity } from './superProductivityFormat.js';
+import { formatTaiga } from './taigaFormat.js';
 import { formatOpml } from './opmlOutlineFormat.js';
 import { formatOrgMode } from './orgModeFormat.js';
 
@@ -346,6 +347,8 @@ export const formatters = {
   // A Super Productivity backup its "Import from File" reads; round-trips
   // with parseSuperProductivity.
   superproductivity: collected => formatSuperProductivity(collected),
+  // A Taiga project dump that Taiga's load_dump reads; round-trips with parseTaiga (taigaFormat.js).
+  taiga: data => formatTaiga(data),
   // An OPML outline; round-trips with parseOpml (opmlOutline.js, server-only).
   opml: formatOpml,
   // An Org mode outline; round-trips with parseOrgMode (orgModeFormat.js).

@@ -426,7 +426,7 @@ if (Meteor.isServer) {
      * @tag Boards
      * @summary Export the board as a NextCloud Deck / Kanboard / OpenProject /
      * GitHub / GitLab / Gitea / Forgejo / Jira / Asana / Zenkit / Trello style
-     * JSON, or Markdown.
+     * JSON, a Taiga project dump (JSON), or Markdown.
      * @param {string} boardId the ID of the board we are exporting
      * @param {string} authToken the loginToken
      */

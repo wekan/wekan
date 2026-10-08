@@ -29,8 +29,9 @@ function gateItem(item, wanted) {
 const iso = value => (value ? new Date(value).toISOString() : undefined);
 
 // Formats with a place for sprints and releases: GitLab iterations and
-// milestones, OpenProject sprints and versions (externalExportFormatters.js).
-const SCRUM_FORMATS = new Set(['gitlab', 'openproject']);
+// milestones, OpenProject sprints and versions, Taiga milestones
+// (externalExportFormatters.js).
+const SCRUM_FORMATS = new Set(['gitlab', 'openproject', 'taiga']);
 const PLANNING_FIELDS = { _id: 1, name: 1, goal: 1, notes: 1, state: 1, plannedStart: 1, plannedEnd: 1, releasedAt: 1 };
 async function scrumPlanning(boardId) {
   const ScrumSprints = require('/models/scrumSprints').default;

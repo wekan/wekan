@@ -22,6 +22,9 @@
 //     it depends on. Asana has no sprint record.
 //   * Pivotal Tracker (stories CSV): a story's iteration becomes a sprint
 //     with its start and end dates, its estimate the Scrum estimate in points.
+//   * Taiga (project dump): `milestones` become sprints (estimated start and
+//     finish; a closed one is reported), an item's `milestone` its sprint and
+//     a user story's `backlog_order` its backlog rank. Taiga has no releases.
 //   * Trello has no sprints or releases at all; Power-Up data, which is the
 //     only place a Scrum Power-Up keeps its state, has no published schema
 //     and is reported (trelloScrumLosses).
@@ -410,6 +413,51 @@ function pivotalScrumPlanning(stories) {
   return p.finish({ estimate: estimate ? { field: STORY_POINTS_FIELD, unit: 'points' } : null });
 }
 
+// --- Taiga ------------------------------------------------------------------
+
+// A Taiga project dump (models/lib/taigaFormat.js): `milestones` are its
+// sprints - name, slug, estimated_start, estimated_finish (dates) and
+// `closed` - and a user story, task or issue names its sprint by `milestone`.
+// A user story's `backlog_order` is its backlog rank. Taiga has no releases.
+// `items[index]` is `{ milestone, backlogOrder, path }` for the parser's task
+// at that index (or nothing). Every open sprint is imported, also an empty
+// one: in Taiga a sprint exists before stories are planned into it.
+function taigaScrumPlanning(milestones, items, { estimate = false } = {}) {
+  const p = createPlanner('taiga');
+  const byName = new Map();
+  (Array.isArray(milestones) ? milestones : []).forEach((milestone, position) => {
+    const name = milestone && typeof milestone === 'object' ? text(milestone.name, 200) : '';
+    const path = `/milestones/${position}`;
+    if (!name) { p.lost(path, 'a sprint without a name is not imported'); return; }
+    if (byName.has(name)) { p.lost(path, `sprint ${shown(name)} is listed twice; the first one is imported`); return; }
+    const key = text(milestone.slug, 200) || name;
+    const sprintId = p.record(p.sprints, 'sprint', key, 'sprint', () => {
+      const label = `sprint "${name}"`;
+      if (milestone.closed === true) {
+        p.lost(path, `closed ${label} is not imported: the export has no commitment or close snapshot; its items stay in the backlog`);
+        return null;
+      }
+      return { name, state: 'planned', ...p.dates(path, label, milestone.estimated_start, milestone.estimated_finish) };
+    });
+    byName.set(name, sprintId);
+  });
+  (Array.isArray(items) ? items : []).forEach((item, index) => {
+    if (!item) return;
+    const name = text(item.milestone, 200);
+    if (name) {
+      if (!byName.has(name)) {
+        p.lost(`${item.path}/milestone`, `sprint ${shown(name)} is not among the dump's milestones; the item stays in the backlog`);
+      } else {
+        p.assign(index, 'sprintId', byName.get(name), `${item.path}/milestone`, `sprint ${shown(name)}`);
+      }
+    }
+    if (typeof item.backlogOrder === 'number' && Number.isFinite(item.backlogOrder)) {
+      p.ranks.push({ index, rank: item.backlogOrder });
+    }
+  });
+  return p.finish({ estimate: estimate ? { field: STORY_POINTS_FIELD, unit: 'points' } : null });
+}
+
 // --- Trello -----------------------------------------------------------------
 
 // Trello has no native sprint or release records. Scrum Power-Ups keep their
@@ -433,5 +481,5 @@ function trelloScrumLosses(board) {
 }
 
 module.exports = { taskCardId, sourceDate, gitlabScrumPlanning, openProjectScrumPlanning, asanaScrumPlanning,
-  pivotalScrumPlanning,
+  pivotalScrumPlanning, taigaScrumPlanning,
   trelloScrumLosses, STORY_POINTS_FIELD, GITLAB_ITERATION_STATES };

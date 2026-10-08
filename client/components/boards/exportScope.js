@@ -259,7 +259,7 @@ const EXPORT_FORMAT_GROUPS = [
         ['trello', 'Trello'], ['jira', 'Jira'], ['deck', 'NextCloud Deck'],
         ['openproject', 'OpenProject'], ['github', 'GitHub'], ['gitlab', 'GitLab'],
         ['gitea', 'Gitea'], ['forgejo', 'Forgejo'], ['asana', 'Asana'],
-        ['zenkit', 'Zenkit'],
+        ['zenkit', 'Zenkit'], ['taiga', 'Taiga'],
       ].map(([format, label]) => ({
         key: format,
         icon: 'fa-upload',

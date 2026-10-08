@@ -138,9 +138,14 @@ export class KanboardCreator {
       stars: 0,
       title,
     };
-    // Tags -> board labels, black unless the source gives a color.
+    // Tags -> board labels, black unless the source gives a color: on the tag
+    // itself (Kanri), or in the board's `label_colors` { name: color } (Taiga's
+    // tags_colors, already mapped to WeKan label colors).
+    const sourceColors = data.label_colors && typeof data.label_colors === 'object' ? data.label_colors : {};
     for (const { name, color } of planImportedLabels(this._tasks(data), LABEL_COLORS)) {
-      boardToCreate.labels.push({ _id: Random.id(6), color, name });
+      const named = Object.prototype.hasOwnProperty.call(sourceColors, name) ? sourceColors[name] : undefined;
+      const chosen = color === 'black' && LABEL_COLORS.includes(named) ? named : color;
+      boardToCreate.labels.push({ _id: Random.id(6), color: chosen, name });
     }
 
     const boardId = await Boards.direct.insertAsync(boardToCreate);

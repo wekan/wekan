@@ -16,6 +16,7 @@ export function validateImportSourceShape(source, value) {
       || (arrayAt(value, 'elements') && (arrayAt(value, 'entries') || arrayAt(value, 'listEntries'))); break;
     case 'tasksorg': valid = arrayAt(value?.data, 'tasks'); break;
     case 'csv': valid = Array.isArray(value) && value.length > 0 && value.every(Array.isArray); break;
+    case 'taiga': valid = arrayAt(value, 'user_stories'); break;
     case 'kanri': valid = arrayAt(value, 'columns') || arrayAt(value, 'boards'); break;
     case 'excel': case 'planner': case 'monday': valid = typeof value?.excelBase64 === 'string' && value.excelBase64.length > 0; break;
     case 'markdown': case 'todotxt': case 'taskwarrior': case 'focalboard': case 'todoist': case 'meistertask': case 'obsidian': case 'linear': case 'ticktick': case 'clickup': case 'nullboard': case 'pivotal': case 'superproductivity': case 'orgmode': valid = typeof value === 'string' && value.trim().length > 0; break;

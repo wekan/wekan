@@ -15,6 +15,7 @@ import { parsePivotalCsv } from './pivotalCsvFormat.js';
 import { parseTasksOrgBackup } from './tasksorgFormat.js';
 import { parseMondaySheets } from './mondayFormat.js';
 import { parseSuperProductivity } from './superProductivityFormat.js';
+import { parseTaiga } from './taigaFormat.js';
 import { parseOrgMode } from './orgModeFormat.js';
 import {
   gitlabScrumPlanning, openProjectScrumPlanning, asanaScrumPlanning, STORY_POINTS_FIELD,
@@ -993,6 +994,8 @@ export const EXTERNAL_PARSERS = {
   monday: parseMondaySheets,
   // A Super Productivity backup, as JSON text (superProductivityFormat.js).
   superproductivity: parseSuperProductivity,
+  // A Taiga project dump (JSON), see taigaFormat.js.
+  taiga: parseTaiga,
   orgmode: parseOrgMode,
   jira: parseJira,
 };

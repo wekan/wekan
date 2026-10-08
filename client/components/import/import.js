@@ -16,6 +16,7 @@ import {
   readExportFile,
 } from '/client/components/boards/exportScope';
 import { pruneImportDocument } from '/models/lib/importParts';
+import { slimTaigaDump } from '/models/lib/taigaFormat';
 import { TAPi18n } from '/imports/i18n';
 import TrelloImportJobs from '/models/trelloImportJobs';
 
@@ -312,6 +313,9 @@ Template.import.onCreated(function () {
         this.workspaceName = wsEl && wsEl.value ? wsEl.value.trim() : '';
       }
 
+      // A Taiga dump embeds every attachment as base64; they are not
+      // imported, so they are not sent (models/lib/taigaFormat.js).
+      if (dataSource === 'taiga') dataObject = slimTaigaDump(dataObject);
       this.importedData.set(dataObject);
       const membersToMap = _prepareAdditionalData(dataObject);
       // store members data and mapping in Session
@@ -476,6 +480,7 @@ const IMPORT_SOURCES = [
   { key: 'tasksorg', name: 'Tasks.org' },
   { key: 'monday', name: 'monday.com' },
   { key: 'superproductivity', name: 'Super Productivity' },
+  { key: 'taiga', name: 'Taiga' },
 ];
 
 Template.import.helpers({

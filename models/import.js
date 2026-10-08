@@ -292,6 +292,17 @@ Meteor.methods({
         }
         creator = new KanboardCreator(data, 'superproductivity');
         break;
+      case 'taiga':
+        // A Taiga project dump (one JSON object) - see models/lib/taigaFormat.js.
+        // The browser sends it without the attachment bytes it embeds.
+        check(board, Object);
+        try {
+          importedBoard = EXTERNAL_PARSERS.taiga(importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        creator = new KanboardCreator(data, 'taiga');
+        break;
       case 'planner':
         // Microsoft Planner's "Export plan to Excel" workbook - see
         // models/lib/plannerFormat.js. It arrives like the Excel import, as
