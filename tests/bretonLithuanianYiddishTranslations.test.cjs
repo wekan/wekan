@@ -679,3 +679,19 @@ assert.match(locales.yi['sync-conflict-archive-hint'], /אונטערקאָרטן
 assert.match(locales.yi['sync-conflict-creation-hint'], /פֿריִערדיקן קאָרט אומגעענדערט/);
 assert.match(locales.yi['sync-conflict-creation-hint'], /דער זעלבער פֿאַרבײַט־קאָרט/);
 assert.match(locales.yi['sync-preview-saved'], /קאָנטראָלירט ווידער דעם מקור/);
+
+const yiddishSyncReports = ["sync-preview-baseline", "sync-preview-truncated", "sync-preview-omissions", "sync-preview-scope", "sync-preview-excluded", "sync-preview-unmapped", "sync-preview-parser-warnings", "sync-preview-parser-unsupported", "sync-source-heading", "sync-source-scope", "sync-source-unmapped", "sync-source-excluded", "sync-source-converted", "sync-source-fallback", "sync-source-excluded-item", "sync-source-occurrences", "sync-source-truncated", "sync-source-omitted", "sync-report-button", "sync-report-retention", "sync-report-partial", "sync-report-unfinished", "sync-report-failed", "sync-report-completed", "sync-report-completed-with-warnings"];
+for (const key of yiddishSyncReports) {
+  assert.notEqual(locales.yi[key], english[key], key);
+  assert.match(locales.yi[key], /[\u0590-\u05ff]/, key);
+  assert.deepEqual(translationTokens(locales.yi[key]), translationTokens(english[key]), key);
+}
+assert.match(locales.yi['sync-preview-truncated'], /ערשטע 100/);
+assert.match(locales.yi['sync-source-truncated'], /100 פּאַטס/);
+assert.match(locales.yi['sync-source-scope'], /ווערטן ווערן נישט געוויזן/);
+assert.match(locales.yi['sync-report-retention'], /20.*30 טעג/);
+assert.match(locales.yi['sync-report-partial'], /זעצן נישט פֿאָר און נעמען נישט צוריק/);
+assert.match(locales.yi['sync-report-failed'], /טיילווײַזע ענדערונגען זענען מעגלעך/);
+assert.match(locales.yi['sync-report-unfinished'], /רעזולטאַט נישט פֿאַרשריבן/);
+assert.equal(locales.yi['sync-preview-unmapped'], locales.yi['sync-source-unmapped']);
+assert.equal(locales.yi['sync-preview-excluded'], locales.yi['sync-source-excluded']);

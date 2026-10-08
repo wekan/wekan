@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Yiddish Sync source and run reports — 2026-10-08
+
+Translate 25 English source-field and run-report messages. Preserve variables;
+check 100-entry/path limits, 20-run and 30-day retention, hidden values, possible
+partial changes and reports that neither resume nor undo a run. Specialized
+wording is lower confidence and needs native review. No browser or screen-reader
+session was run. Remaining translations are unfinished.
+
 ## Yiddish Sync conflicts and preview — 2026-10-08
 
 Translate 25 English conflict and preview messages. Check that no changes are
