@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/35a643cb6e">Translate Galician interrupted-import and history recovery</a>. Thanks to xet7.</summary>
+
+Translate 68 values across two catalogs for interrupted imports, Scrum history
+recovery and server-only login settings. Preserve counters and reference variables.
+Regression checks cover permanent deletion, non-destructive keep, foreign-board
+preservation, conflict blocking and rollback restrictions. Both relevant suites
+and all 21 preservation checks pass. Both current fill lists are empty; language
+auditing, browser review and the wider translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/19b1c2d879">Translate Galician synchronization recovery</a>. Thanks to xet7.</summary>
 
 Translate 42 values across two catalogs for stalled-sync explanations, reasons,
