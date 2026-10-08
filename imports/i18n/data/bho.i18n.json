@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "ई ईमेल वाला खाता पहिले से बा आ ई लॉगिन तरीका से ना बनावल गइल रहे",
   "sign-in-with": "%s से लॉग इन करीं",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "एह पता पर दोसर सेवा के जरिए लॉग इन पूरा ना हो सकेला। WeKan के __expected__ खातिर सेट कइल गइल बा, बाकिर ई पन्ना __actual__ पर खोलल गइल रहे। __expected__ पर WeKan खोलीं, भा प्रशासक से ROOT_URL के मान __actual__ रखे के कहीं।",
   "passwordless-title": "पासवर्ड बिना लॉगिन",
   "passwordless-enabled": "पासवर्ड के बदले ईमेल से एक बेर के लॉगिन कोड भेजीं",
   "passwordless-hint": "बाहर जाए वाला ईमेल चाहीं (MAIL_URL)। साथे PASSWORDLESS_ENABLED।",

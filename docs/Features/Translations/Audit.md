@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Assamese, Odia, Maithili, Bhojpuri and Konkani warnings — 2026-10-08
+
+Translate five warning values in the existing catalog scripts. Warning coverage
+now includes 154 paths with exact repeated address variables, rendering order
+and ROOT_URL checked. Warning and placeholder suites and all 21 preservation
+checks pass. These translations have lower confidence and need native review.
+This warning still has 53 English catalog paths; browser review and the wider
+all-language backlog remain outstanding.
+
 ## Breton, Kashubian, Upper Sorbian, Silesian and Faroese warnings — 2026-10-08
 
 Translate five warning values with exact variables and existing sign-in terms.
