@@ -9183,6 +9183,16 @@ script, key order and token inventories. Technical wording remains low confidenc
 pending speaker review. Browser checks were not run; further Maithili translations
 and the broader audit remain unfinished.
 
+## Maithili sync conflicts and import caveats
+
+Filled 23 English placeholders for remaining Scrum caveats, sync conflicts and
+preview headings. The placeholder-only merge retained existing translations.
+Preserved UTC, WeKan, local-data retention, unchanged subcards, review scope and
+replacement reuse. Regression coverage checks those details, script, key order
+and token inventories. Technical wording remains low confidence pending speaker
+review. Browser checks were not run; further Maithili translations and the broader
+audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
