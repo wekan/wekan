@@ -70,9 +70,6 @@ that used to sit here are in git history.
   Problems → Recovery needs a list of them and a discard action.
 - A Scrum History undo or redo that hits a conflict leaves a checkpoint that
   blocks Scrum edits and cannot be discarded, online or offline.
-- The coordinated History chain is switched on only by the offline
-  releases/recover-history-writer.cjs; an online rollout first needs a decided
-  way to prove that older servers no longer write.
 - More than one release per card (a card has one `releaseId`), with copy,
   transfer, reports, the card UI and Jira fix versions.
 - Scrum planning from importers other than Jira: GitLab milestones and
@@ -411,6 +408,14 @@ hangs.
 <details>
 <summary>Needs a maintainer decision on the intended contract (partly already works).</summary>
 
+The coordinated History chain (server/lib/storedHistoryChain.js) is switched
+on per board only by the offline releases/recover-history-writer.cjs, with
+every writer stopped. Switching it on online needs proof that no older server
+still writes History the legacy way, and a server older than the writer
+heartbeat cannot be seen at all - so the choice is between keeping the
+offline step, or requiring all servers to run a heartbeat-capable version
+before an online switch may assume it.
+
 [#2460](https://github.com/wekan/wekan/issues/2460) (SQRL login - the
 report is a single comment-free link to https://www.grc.com/sqrl from 2019.
 SQRL has no official Meteor/Node package, unlike accounts-2fa (#3058);
@@ -430,34 +435,23 @@ open as it is, with no implementation attempted.).
 </details>
 
 <details>
-<summary>Import/export: more formats, and the six existing ones brought up to full field fidelity.</summary>
+<summary>Import/export: attachment contents, Zenkit, and formats not read yet.</summary>
 
-docs/Features/ImportExport/Format-Coverage.md is the design contract for every
-import/export format. Trello, the canonical WeKan zip, CSV/TSV, XLSX and PDF/
-HTML/SVG already meet it, each with real code and tests. GitHub/Gitea/Forgejo
-was brought up to it earlier (second assignee, milestone, state reason,
-comments, an `unsupported` loss report). The Jira, Kanboard, Nextcloud Deck,
-OpenProject, Asana and Zenkit IMPORT adapters now have their own fixture/spec
-passes (see Upcoming): comments, subtasks/hierarchy, dependencies, custom
-fields, dates, members and a loss report recorded in Problems → Recovery.
-The import page now shows the loss report itself (see Upcoming). Still open
-for them: (2) file CONTENTS - these JSON sources carry
-attachment metadata only, so bytes need live API connectors with credentials;
-(3) OpenProject watchers and Asana followers now become card watchers for
-board members (2026-09-30); Deck sharing rules have no
-safe mapping (an import never grants access); (4) Zenkit's native
-single-file export is unverified because Zenkit publishes no schema. The
-EXPORT formatters now carry what each importer reads (see Upcoming).
+docs/Features/ImportExport/Format-Coverage.md is the contract every format is
+held to, and every importer and exporter now meets it, with a loss report in
+Problems → Recovery and on the import page. Left open:
 
-Additional formats not yet researched or built: whatever other kanban/outline
-tools use for import/export that WeKan does not read or write yet (the Leo
-`.leo` outline is done, todo.txt was added on 2026-09-30, Taskwarrior and
-Focalboard on 2026-10-02, see Upcoming).
-Each new format costs roughly what todo.txt cost: a parser, a formatter,
-tests, the import picker and export menu wiring, and one instruction string,
-added in English and marked pending Transifex (the maintainer's 2026-09-29
-decision). Take them one at a time, following the todo.txt commit as the
-template.
+- Attachment CONTENTS from the JSON sources (Jira, Deck, OpenProject, Asana,
+  Zenkit, GitHub/GitLab): their exports carry attachment metadata only, so the
+  bytes need live API connectors with credentials.
+- Zenkit's native single-file export is unverified: Zenkit publishes no schema.
+- Formats WeKan does not read or write yet. Todoist, OPML and Org mode were
+  added on 2026-10-08; candidates not researched yet are Vikunja, Planka,
+  Taiga, Microsoft Planner and Notion. Each costs what todo.txt cost - a
+  parser, a formatter, tests, the picker and menu wiring and one instruction
+  string in English pending Transifex - and is taken one at a time.
+
+Deck sharing rules are not imported by design: an import never grants access.
 
 </details>
 
