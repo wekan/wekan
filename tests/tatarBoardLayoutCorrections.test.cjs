@@ -4,7 +4,7 @@ const assert=require('node:assert/strict');
 const english=require('../imports/i18n/data/en.i18n.json');
 const locale=require('../imports/i18n/data/tt.i18n.json');
 const {translationTokens}=require('../releases/translations/placeholder-tokens.mjs');
-const keys=["no-boards-selected", "select-only-one-board", "selected-label", "set-selected-starred", "set-selected-unstarred", "set-selected-home", "unset-selected-home", "home-board-badge", "home-board-empty", "home-board-remove", "home-board-remove-confirm", "activity-dueDate", "activity-endDate", "add-card-to-top-of-list", "add-card-to-bottom-of-list", "setListWidthPopup-title", "set-list-width", "set-list-width-value", "list-width-shared-note", "list-width-personal-note", "personal-list-width", "personal-list-width-description", "fixed-list-width", "click-to-enable-fixed-list-width", "click-to-disable-fixed-list-width", "fixed-list-width-note", "keyboard-shortcuts-enabled", "keyboard-shortcuts-disabled", "setSwimlaneHeightPopup-title", "set-swimlane-height", "set-swimlane-height-value", "swimlane-height-error-message", "add-subtask", "add-existing-card-as-subtask-empty", "add-checklist", "close-add-checklist-item", "close-edit-checklist-item", "convertChecklistItemToCardPopup-title", "add-cover", "add-after-list", "added", "admin", "admin-desc", "admin-announcement", "admin-announcement-active", "admin-announcement-title", "all-boards-hide", "public-boards", "and-n-other-card", "and-n-other-card_plural", "apply", "app-is-offline", "app-try-reconnect", "archive-board-confirm", "archive-list", "archive-swimlane"];
+const keys=["no-boards-selected", "select-only-one-board", "selected-label", "set-selected-starred", "set-selected-unstarred", "set-selected-home", "unset-selected-home", "home-board-badge", "home-board-empty", "home-board-remove", "home-board-remove-confirm", "activity-dueDate", "activity-endDate", "add-card-to-top-of-list", "add-card-to-bottom-of-list", "setListWidthPopup-title", "set-list-width", "set-list-width-value", "list-width-shared-note", "list-width-personal-note", "personal-list-width", "personal-list-width-description", "fixed-list-width", "click-to-enable-fixed-list-width", "click-to-disable-fixed-list-width", "fixed-list-width-note", "keyboard-shortcuts-enabled", "keyboard-shortcuts-disabled", "setSwimlaneHeightPopup-title", "set-swimlane-height", "set-swimlane-height-value", "swimlane-height-error-message", "add-subtask", "add-existing-card-as-subtask-empty", "add-checklist", "close-add-checklist-item", "close-edit-checklist-item", "convertChecklistItemToCardPopup-title", "add-cover", "add-after-list", "added", "admin", "admin-desc", "admin-announcement", "admin-announcement-active", "admin-announcement-title", "all-boards-hide", "public-boards", "and-n-other-card", "and-n-other-card_plural", "apply", "app-is-offline", "app-try-reconnect", "archive-board-confirm", "archive-list", "archive-swimlane", "archive-selection", "archiveBoardPopup-title", "archived-items", "archived-boards", "restore-board", "no-archived-boards", "archives", "assign-member", "attached", "attachment-delete-pop", "attachmentDeletePopup-title", "auto-watch", "avatar-too-big", "board-change-color", "board-change-background-image", "board-background-image-url", "add-background-image", "remove-background-image", "show-at-all-boards-page", "board-info-on-my-boards", "boardInfoOnMyBoardsPopup-title", "boardInfoOnMyBoards-title", "show-card-counter-per-list", "show-board_members-avatar", "board_members", "card_members", "board_assignees", "card_assignees", "board-nb-stars", "board-not-found", "board-private-info", "board-public-info"];
 test('Tatar board layout corrections preserve keys and placeholders',()=>{
  assert.deepEqual(Object.keys(locale),Object.keys(english));
  for(const key of keys){
@@ -36,4 +36,18 @@ test('Tatar common controls preserve empty results, form actions and loading war
  assert.match(locale['app-is-offline'],/\u0442\u0443\u043a\u0442\u0430\u043c\u0430\u0433\u0430\u043d\u044b\u043d/);
  assert.notEqual(locale['archive-list'],locale['archive-swimlane']);
  assert.match(locale['admin'],/^\u0410\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0442\u043e\u0440$/);
+});
+
+
+test('Tatar archive and board controls preserve deletion, visibility and member scope',()=>{
+ assert.equal(locale['archives'],locale['archived-items']);
+ assert.match(locale['no-archived-boards'],/\u044e\u043a/);
+ assert.match(locale['attachment-delete-pop'],/\u043a\u0438\u0440\u0435 \u043a\u0430\u0439\u0442\u0430\u0440\u044b\u043f \u0431\u0443\u043b\u043c\u044b\u0439/);
+ assert.notEqual(locale['attachment-delete-pop'],locale['attachment-soft-delete-pop']);
+ assert.equal(locale['board-info-on-my-boards'],locale['boardInfoOnMyBoardsPopup-title']);
+ assert.equal(locale['board-info-on-my-boards'],locale['boardInfoOnMyBoards-title']);
+ for(const visibility of ['private','public']) assert.match(locale['board-'+visibility+'-info'],/<strong>[^<]+<\/strong>/);
+ assert.notEqual(locale['board-private-info'],locale['board-public-info']);
+ assert.equal(new Set(['board_members','card_members','board_assignees','card_assignees'].map(key=>locale[key])).size,4);
+ assert.notEqual(locale['add-background-image'],locale['remove-background-image']);
 });

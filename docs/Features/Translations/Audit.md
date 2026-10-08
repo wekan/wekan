@@ -7951,6 +7951,16 @@ checklist aliases, plural counts and the warning about data loss when refreshing
 during loading. Technical wording remains low confidence pending speaker review.
 Browser checks were not run. Further corrections and the broader audit remain.
 
+### Tatar archive, attachments and board visibility corrections
+
+Corrected 32 archive, attachment, background and board-membership values. Kept
+correct adjacent translations, including the soft-delete explanation. Preserved
+source placeholders, strong markup and key order. Regression coverage checks
+permanent deletion versus soft deletion, empty archive negation, board-settings
+aliases, private/public distinctions and board/card member/assignee scopes.
+Technical wording remains low confidence pending speaker review. Browser checks
+were not run. Further wrong-language corrections and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
