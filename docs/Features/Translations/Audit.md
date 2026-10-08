@@ -8610,6 +8610,16 @@ alongside key order and placeholder inventories. Technical wording remains
 low confidence pending speaker review. Browser checks were not run; the
 broader language audit continues.
 
+## Tatar repair status corrections
+
+Corrected 25 wrong-language account, repair status and resource labels. Retained
+five correct neighboring values. Preserved repair count placeholders, the missing
+board condition preventing automatic repair, CPU labels and the three-character
+username minimum. The problem summary references the existing acknowledgement
+button translation. Regression coverage checks these details alongside key order
+and placeholder inventories. Technical wording remains low confidence pending
+speaker review. Browser checks were not run; the broader audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
