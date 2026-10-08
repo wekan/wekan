@@ -8687,6 +8687,15 @@ Regression coverage checks key order, script, tokens and distinct opposing actio
 Technical wording remains low confidence pending speaker review. Browser checks
 were not run; further Odia translations and the broader audit remain unfinished.
 
+## Odia Blockly help and input labels
+
+Filled 29 English placeholders for keyboard help, icon actions and list input
+labels. Preserved indexed tokens, open/close actions, first/second conditions
+and start/end positions. Existing translations were retained by the placeholder-only
+merge. Regression coverage checks these distinctions alongside script, key order
+and token inventories. Technical wording remains low confidence pending speaker
+review. Browser checks were not run; further Odia translations remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
