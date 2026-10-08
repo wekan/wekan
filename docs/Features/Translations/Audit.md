@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Turkish controls, import guidance and stalled synchronization — 2026-10-08
+
+Translate 44 current Turkish messages, retaining localized values. Cover board
+controls, import formats, assignment, LDAP, OAuth, login address mismatches and
+stalled synchronization. Preserve literal examples, configuration names and
+variables, and distinguish cancellation from retaining already applied changes.
+Extend Turkish regression checks for these meanings. The preceding full run
+passed all 322 translation suites; this batch receives focused verification.
+No browser or screen-reader session was run. Translation work remains open.
+
 ## Turkish interrupted import recovery — 2026-10-08
 
 Translate 25 current Turkish interrupted-import messages, preserving existing

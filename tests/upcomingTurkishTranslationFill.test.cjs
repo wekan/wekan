@@ -42,6 +42,21 @@ console.log('upcomingTurkishTranslationFill: 5 tests passed');
   assert.match(translated['interrupted-import-truncated'], /en eski 50/);
   assert.match(translated['interrupted-import-foreign-board'], /değiştirilmedi/);
   assert.match(translated['interrupted-import-state-discarding'], /yeniden silin/);
+  for (const key of Object.keys(en).filter(key => key.startsWith('stuck-sync-operation-') || key.startsWith('ldap-sync-now'))) {
+    assert.notStrictEqual(translated[key], en[key], `${key}: translate recovery and LDAP`);
+  }
+  assert.match(translated['stuck-sync-operation-description'], /uygulanmış değişiklikler korunur/);
+  assert.match(translated['stuck-sync-operation-description'], /hiçbir zaman yazılmaz/);
+  assert.match(translated['stuck-sync-operation-replayable-now'], /iptal edilemez/);
+  assert.match(translated['stuck-sync-operation-replayable'], /iptal edilmedi/);
+  assert.match(translated['stuck-sync-operation-truncated'], /en eski 50/);
+  assert.match(translated['ldap-sync-now-nothing'], /LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS/);
+  assert.match(translated['ldap-sync-now-nothing'], /LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED/);
+  assert.ok(translated['external-link-rules-description'].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
+  assert.ok(translated['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+  assert.match(translated['r-moved-forward'], /ilerideki/);
+  assert.match(translated['r-moved-back'], /önceki/);
+  assert.match(translated['login-origin-mismatch'], /ROOT_URL/);
   assert.strictEqual(translated['scrum-product-backlog'], 'Ürün İş Listesi');
   assert.strictEqual(translated['scrum-sprint'], 'Sprint', 'established Turkish Scrum vocabulary');
   assert.strictEqual(translated['blockly-ENTER_KEY'], 'Enter', 'keyboard legend');
