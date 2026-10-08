@@ -1431,3 +1431,20 @@ for (const code of ['gl', 'gl-ES']) {
   assert.match(locale['import-board-instruction-superproductivity'], /geargiveerde take word geargiveerde kaarte/);
   assert.match(locale['import-board-instruction-pivotal'], /iterasies word naellope/);
 }
+
+{
+  const locale = read('af');
+  for (const [format, values] of Object.entries(newerImportLiterals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+    for (const value of values) assert.ok(locale[key].includes(value), key + ': ' + value);
+  }
+  assert.match(locale['import-board-instruction-quire'], /bevat nie opmerkings of aanhegsels nie/);
+  assert.match(locale['import-board-instruction-notion'], /Verwantskappe, beelde en aanhegsels word nie ingevoer nie/);
+  assert.match(locale['import-board-instruction-plane'], /geen beskrywings of aanhegsels nie.*nie ingevoer nie/);
+  assert.doesNotMatch(locale['import-board-instruction-notion'], /aanhegsels word ingevoer/);
+  assert.match(locale['import-board-instruction-businessmap'], /verander eers die kopry se name na Engels/);
+  assert.match(locale['import-board-instruction-redmine'], /voor uitvoer.*My account na English/);
+  assert.match(locale['import-board-instruction-teamwork'], /een vlak dieper/);
+}

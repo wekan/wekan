@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Afrikaans import instructions, final group — 2026-10-09
+
+Translate seven instructions in af: Quire, Wrike, Teamwork.com, Businessmap,
+Redmine, Notion and Plane, completing the newer group of 21 imports. Preserve
+commands, column names, extensions, hierarchy markers and variables. Regression
+checks cover excluded data, English headers and task hierarchy. Import-instruction
+and placeholder suites and all 21 preservation checks pass. The current Afrikaans
+fill list is empty; language quality, browser review and the wider translation
+backlog remain outstanding.
+
 ## Afrikaans import instructions, middle group — 2026-10-09
 
 Translate six instructions in af: Pivotal Tracker, Tasks.org, monday.com,
