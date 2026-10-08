@@ -386,7 +386,7 @@ Status checked on 2026-10-08. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **35,144 untranslated locale/string values in 54 languages**.
+  report counts **34,920 untranslated locale/string values in 53 languages**.
   It excludes **156 source keys tracked separately as pending Transifex**.
   Exact Blockly OS brands and compact math/code symbols no longer inflate
   the prose backlog. Counts are a snapshot; they do not establish the quality
@@ -1872,6 +1872,19 @@ database, mail and S3 URLs. Sixteen long-open requests were closed as already
 implemented.
 
 This release hardens the login settings:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d787085c30">Translate remaining reported Bislama messages and short controls</a>. Thanks to xet7.</summary>
+
+- Translate 224 workspace, Scrum, Sync and notification-recovery messages
+  plus ten short Blockly labels skipped by the fill report. Preserve variables,
+  report limits, missing/null distinctions and cancellation consequences.
+- Three relevant suites pass, including the catalog-wide placeholder check.
+  The Bislama fill report is empty, but 653 older values with the artificial
+  “Tok blong sistem:” prefix still require language correction. Technical
+  compounds remain provisional. Browser and screen-reader sessions were not run.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/74e4048f32">Translate Bislama functions, navigation and text operations</a>. Thanks to xet7.</summary>
