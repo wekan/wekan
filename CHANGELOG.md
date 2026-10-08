@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/96c33af8937a50cf5f1b88df04c845ab8a42ea19">Correct Tatar deletion and subtask settings</a></summary>
+
+- Correct 33 date, color, deletion and subtask values, preserving irreversible
+  deletion warnings, duplicate-list conditions and board placeholders.
+- Technical wording remains low confidence pending speaker review.
+- All 103 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/34e568ba07d41cd5072570f315d49afa46e8361d">Correct Tatar custom fields and organization settings</a></summary>
 
 - Correct 33 custom-field, time-unit and organization settings values, restoring
