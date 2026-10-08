@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a454a4511aea16878b4d8a16f2852a0cade36c6e">Translate Central Kurdish text operations</a></summary>
+
+- Fill 47 Sorani text-operation strings, preserving existing translations and
+  source placeholders.
+- Technical wording remains low confidence pending speaker review.
+- All 51 focused checks and 21 human-preference checks pass. Browser,
+  screen-reader and right-to-left layout checks were not run. The broader audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/eb39ca6b7545ee5fb47faef4ecc0d262e6b13c02">Translate Central Kurdish keyboard shortcuts</a></summary>
 
 - Fill 39 Sorani shortcut and navigation strings, preserving existing
