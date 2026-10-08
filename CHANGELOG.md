@@ -483,576 +483,16 @@ a live Caddy.
 
 </details>
 
-# v12.24 2026-10-08 WeKan ® release
-
-**In short:** The login settings left open in October are finished:
-**header login** is environment-only, **automatic logout** works again,
-**LDAP** gets an honest Test connection and Sync now, and **secrets from
-files** cover database, mail and S3. Boards import and export as **Todoist**,
-**OPML** and **Org mode**, **rules** can set assignees, **webhooks** name the
-people they are about, and **OAuth providers** can be limited to email
-domains. **Scrum** planning syncs from Jira and GitLab and imports into an
-existing board, and an **interrupted import** can be kept or discarded.
-Seventeen long-open requests were closed as already implemented.
-
-This release adds the following new features:
-
-**Import and export** - three more formats, each a round trip with a loss
-report for what the other tool has no place for.
-
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ee0806b4c0">Translate Manx release and stuck Sync recovery messages</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a9527ce88c">Translate Yiddish Sync conflicts and preview</a>. Thanks to xet7.</summary>
 
-- Translate 25 pending messages, preserving release selection, applied/total
-  counters, discard consequences and oldest-first limits. Manx now has no
-  reported placeholders; older language defects still require review.
-- Three relevant suites pass. Complete wording remains low-confidence pending
-  fluent review. Browser and screen-reader sessions were not run.
+Translate 25 English conflict and preview messages. Check retained content,
+unchanged source data and subcards, limited-review scope and replacement reuse.
+Three focused translation suites and 21 human-preference checks pass. Specialized
+wording is lower confidence and needs native review. No browser or screen-reader
+session was run. Remaining translations are unfinished.
 
 </details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/8378a4c706">Translate remaining reported Manx controls and guidance</a>. Thanks to xet7.</summary>
-
-- Translate 47 messages, preserving import syntax, environment names, report
-  limits and named variables. The ordinary Manx backlog is cleared; 25 newly
-  added pending messages and older language quality remain under review.
-- Four relevant suites pass. Complete grammar remains low-confidence pending
-  fluent review. Browser and screen-reader sessions were not run.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/30013762c3">Translate Manx Sync conflicts and diagnostic reports</a>. Thanks to xet7.</summary>
-
-- Translate 63 messages while preserving source/local distinctions, missing/null
-  behavior, retention limits and reports that cannot resume or undo changes.
-- Three relevant suites pass. Sync terminology and full grammar remain
-  low-confidence pending fluent review. Browser and screen-reader sessions
-  were not run.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/0691f5589d">Translate Manx notification delivery and recovery messages</a>. Thanks to xet7.</summary>
-
-- Translate 36 messages while preserving temporary/permanent rejection,
-  missing/changed activities, pause/cancel distinctions and non-recall warnings.
-- Three relevant suites pass. Delivery terminology and full grammar remain
-  low-confidence pending fluent review. Browser and screen-reader sessions
-  were not run.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/e54ad20004">Translate Manx Scrum planning labels and states</a>. Thanks to xet7.</summary>
-
-- Translate 71 planning, estimate, event, state and report labels/messages.
-  Preserve named variables, time units and distinct completion/cancellation
-  states. Extend the Manx suite to use the shared placeholder scanner.
-- Three relevant suites pass. Scrum terminology and grammar remain
-  low-confidence
-  pending fluent review. Browser and screen-reader sessions were not run.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/c1d3de6691">Restore Asana and OpenProject import literals</a>. Thanks to xet7.</summary>
-
-- Repair 16 messages in 11 locale files, restoring the data property and API
-  endpoints. Extend catalog-wide literal checks to ten import formats while
-  accepting valid grammatical affixes around filenames and commands.
-- Three relevant suites and 21 human-preference checks pass. Mixed-language
-  prose and untranslated messages remain under review. Browser sessions were
-  not run.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/416aedc706">Restore import example identifiers across locales</a>. Thanks to xet7.</summary>
-
-- Repair 73 Kanboard, Deck, ZenKit and Jira import messages in 25 locale files.
-  Restore case-sensitive field names and API paths, preserving surrounding
-  prose and valid quotation styles. Test these literals across every locale.
-- All 322 translation/i18n suites pass, including positive and negative checks
-  for localized typography and damaged identifiers. Other import formats and
-  mixed-language prose remain under review. Browser sessions were not run.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/e33df4be4c">Repair Bislama import instructions and literal examples</a>. Thanks to xet7.</summary>
-
-- Correct 13 mixed-language import instructions and translate OPML and Org mode
-  help. Restore JSON field names and the Jira endpoint while preserving format
-  syntax, menu actions and interpolation variables.
-- Three relevant suites pass. A broader literal scan found 103 candidate entries
-  in 45 locale files; some are valid quotation variants, others need repair.
-  Full prose remains provisional; browser sessions were not run.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/3c082ec6e5">Replace remaining Bislama artificial English wrappers</a>. Thanks to xet7.</summary>
-
-- Correct 236 storage, migration, backup and report values. Preserve provider
-  identifiers, time units, simulation limits, uncertainty and counting rules.
-  The explicit “Tok blong sistem:” queue is empty; other mixed-language text
-  and damaged technical examples still require review.
-- Three relevant suites pass, including the catalog-wide token inventory.
-  Statistical terminology and complete technical prose remain low-confidence.
-  Browser and screen-reader sessions were not run.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/d332e18edb">Correct Bislama search syntax and report translations</a>. Thanks to xet7.</summary>
-
-- Correct 76 artificial English wrappers and 12 search labels/messages.
-  Use valid one-word query operators, preserve portable abbreviations and
-  verify quoted values, missing fields and invalid input with the real parser.
-  The remaining wrapper queue contains 236 values.
-- Four relevant suites pass, including catalog-wide placeholders and parser
-  execution. Technical compounds remain provisional pending fluent review.
-  Browser and screen-reader sessions were not run.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/1eabb367e7">Boards import and export as Todoist project templates (CSV)</a>. Thanks to xet7.</summary>
-
-Sections become lists, tasks cards, indented sub-tasks a checklist and notes
-comments. `@label` words and priorities p1-p3 become labels, RESPONSIBLE the
-owner, and DATE and DEADLINE the start and due dates. Recurring dates in
-words, durations and orphan rows are reported. Export writes Todoist's own
-columns and `view_style=board` row. `tests/todoistCsv.test.cjs` covers quoted
-fields, the round trip and the negatives; a Playwright case imports through
-the page.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/e6c8f85518">Boards import and export as OPML outlines from Workflowy, Dynalist, Logseq and others</a>. Thanks to xet7.</summary>
-
-Top-level outlines become lists, their children cards with `_note` as the
-description, and deeper outlines checklists; a completed item is marked done.
-Like the Leo outline the XML is parsed on the server only, never resolving
-DTDs or external entities. `tests/opmlOutline.test.cjs` includes an external
-entity and a node bomb among its negatives; a Playwright case imports through
-the page.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/711303af32">Boards import and export as Org mode outlines</a>. Thanks to xet7.</summary>
-
-Level-1 headings become lists and level-2 headings cards, keeping TODO
-keywords (including custom `#+TODO` ones), priorities, tags, SCHEDULED,
-DEADLINE and CLOSED, and turning checkboxes and deeper headings into
-checklists. Timestamps have no zone in Org and are read as UTC; repeaters are
-reported. `tests/orgMode.test.cjs` covers custom keywords, localized day names
-and the round trip; a Playwright case imports through the page.
-
-</details>
-
-**Rules** - the two parts of making rules less clunky that were still open.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/f735eba194">A rule can set and clear assignees, and needs no title</a>. Thanks to xeruf and xet7.</summary>
-
-Add and Remove assignee actions take a username, a `{creator}` style token,
-the user who triggered the rule, or every assignee, and are durable through
-Sync like the member actions - so a new card can be assigned to its creator,
-as [#4294](https://github.com/wekan/wekan/issues/4294) asked. A rule added
-without a title is named after its trigger and action and renamed in place.
-This also fixed "Remove all members from the card", which iterated the
-assignees while removing members, so it removed only people who were both;
-its guards now read `models/cards.js` instead of assuming the field. A
-Playwright case creates an untitled rule and a card that gets its creator as
-assignee.
-
-</details>
-
-- [A rule can fire when a card moves forward to a later list or back to an earlier one](https://github.com/wekan/wekan/commit/eac524380f). Thanks to rlach and xet7.
-
-**Scrum** - planning a card across releases, and bringing planning in from
-elsewhere.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/958e9e13f3">GitLab, OpenProject and Asana imports bring their sprints and releases</a>. Thanks to xet7.</summary>
-
-Only Jira imports created Scrum planning. GitLab iterations and milestones,
-OpenProject versions and sprints, and Asana milestone tasks now become sprints
-and releases with their dates and state, through the same journaled stage as
-Jira, so an interrupted import is recovered the same way; OpenProject story
-points become the estimate field. Trello has none, and its Power-Up data is
-counted in the loss report. What an export cannot prove - a finished sprint,
-a bad date, an unknown state - is reported, never invented. GitLab and
-OpenProject exports write the planning back.
-`tests/externalScrumPlanning.test.cjs`
-covers each source and the negatives.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/727ceedd01">A card can be in more than one release</a>. Thanks to xet7.</summary>
-
-A card had one release, so Jira import kept only an issue's first fix version
-and Jira export wrote none. Releases are now a list, with the old single
-field kept as its first entry so older readers still see one; existing cards
-are read the same way and move to the list on their next Scrum save. Every
-release must belong to the board. Copies and moves link each release by name,
-the native transfer and Jira import and export carry them all, Board View /
-Sprints shows each release's cards and progress, and the Product Backlog and
-card details pick several. `tests/scrumMultipleReleases.test.cjs` fails if any
-code reads the single field directly.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/c06bf8d0e9">List Sync brings an issue's sprint and releases into Scrum planning</a>. Thanks to xet7.</summary>
-
-While Scrum is enabled on the board, List Sync from Jira or GitLab carries an
-issue's sprint and fix versions or milestones into the card's planning. A
-missing sprint or release is created with the source's dates; an existing one
-is matched by its source ID, then by name. A local planning change stays until
-the source changes that issue's planning, and a first Sync never removes
-planning. The writes go through the durable Sync journal.
-`tests/listSyncPlanning.test.cjs` covers matching, creation and the
-negatives; a Meteor test and a Playwright spec drive it end to end. It has not
-been verified against live Jira or GitLab.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/ef54907836">Scrum planning can be imported into a board that already exists</a>. Thanks to xet7.</summary>
-
-Every Scrum import created a new board. A board administrator can now import
-a wekan-scrum-2 transfer or a WeKan board export into the current board from
-the Sprints view, with a Preview that writes nothing. Sprints and releases are
-matched by ID, then provenance, then a name unique on both sides, and the rest
-are created once, so a second import of the same file changes nothing. Cards
-are only matched, never created; unmatched, ambiguous and other boards' cards
-are reported. The writes use the journaled Scrum import stage and are one
-Scrum History change. `tests/scrumTransferMerge.test.cjs` covers it.
-
-</details>
-
-**Sync and recovery** - what an administrator can do about a stuck Sync.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/e8fac5e85c">An interrupted board import can be kept or discarded in Recovery</a>. Thanks to xet7.</summary>
-
-An import that stopped halfway left a partial board nothing recorded. Every
-board import, copy, Trello zip and Trello API import now records its run,
-with the new board's id, before the first write, and the board carries the
-run's id. A heartbeat keeps the run alive; a scan flags a stopped or failed
-run once in Admin Panel → Problems → Recovery, where an administrator keeps
-the partial board or discards it. Discard removes only the board stamped with
-that run, through the board's own removal, and is refused while its Scrum
-stage is busy. Resume is deliberately not offered, because the source file is
-not kept: import it again. `tests/importRuns.test.cjs` covers both decisions
-and the refusals.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/cb69750b17">A List Sync operation that can never be replayed can be discarded in Recovery</a>. Thanks to xet7.</summary>
-
-When a list was removed, recreated or reconfigured, or its actor lost write
-access, its saved Sync operation failed every minute with a console line and
-blocked that list's Sync. It is now marked once in Admin Panel → Problems →
-Recovery, a blocked manual Sync says why, and an administrator can discard it
-while the replay checks still fail. The discard holds the list's Sync lease,
-records one decision and writes no card; a retry or a second administrator
-only finishes it. `tests/listSyncStuck.test.cjs` covers the refusals and a
-second discard; a Playwright case drives the Recovery page.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/9ad9813c09">A Scrum undo or redo stuck on a conflict can be rolled back or discarded</a>. Thanks to xet7.</summary>
-
-Such a checkpoint blocked every Scrum edit on its board for good, as only its
-author could retry it and every retry failed the same way. A board
-administrator now sees it in the History recovery notice and can roll it
-back, when nobody changed its records since, or keep the board as it is;
-either way is recorded in Recovery, a repeat is a no-op, and
-`releases/recover-scrum-history.cjs` does the same offline. A checkpoint not
-stuck on a conflict stays its author's to retry.
-
-</details>
-
-**Custom fields** - who may change a field's value.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/87ae8895c3">A custom field can be read-only: every member sees it, only board admins set it</a>. Thanks to CarloRampini and xet7.</summary>
-
-For a score or a value computed elsewhere
-([#3143](https://github.com/wekan/wekan/issues/3143)). The card offers editing
-only to board admins, and the server refuses anybody else through the same
-write guard as admin-only fields, so the REST API and rules acting as an admin
-still set it.
-
-</details>
-
-**Webhooks** - what an outgoing webhook says about an event.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/5f413c12eb">An outgoing webhook names the list, board, swimlane, card link and the person assigned</a>. Thanks to chrisi51 and xet7.</summary>
-
-The payload carried mostly ids, and for an assignment it said who assigned
-but not who was assigned. The default payload now also has `list`, `board`,
-`swimlane` and `url`, `member` and `memberUsername` for joining or leaving a
-card, and `assignee`, `assigneeUsername` and `assigneeId` for an assignment
-([#3297](https://github.com/wekan/wekan/issues/3297)), so a chat integration
-can message that person. `WEBHOOKS_ATTRIBUTES` still replaces the list.
-
-</details>
-
-**People and lists** - two small requests that only needed doing.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/b426f9cfa8">A user without an avatar can be shown one from DEFAULT_AVATAR_URL</a>. Thanks to jLouzado and xet7.</summary>
-
-An environment-only URL template - an intranet photo server or a
-Gravatar-style service - with `{username}`, `{userId}`, `{emailMd5}` or
-`{emailSha256}` replaced ([#824](https://github.com/wekan/wekan/issues/824)).
-The browser is redirected there; the server fetches nothing. An uploaded
-avatar always wins, and the initials come back when the image does not load.
-
-</details>
-
-- [Accounts created by an OAuth2/OIDC login can join a default organization, OAUTH2_DEFAULT_ORGANIZATION](https://github.com/wekan/wekan/commit/dfcd115ff3). Thanks to vasyugan and xet7.
-- [A card moved or copied to another board brings its labels, created there when the mover is that board's admin](https://github.com/wekan/wekan/commit/125e0960eb). Thanks to d3dbit and xet7.
-- [A board view chosen on a board stays on that board instead of changing every board](https://github.com/wekan/wekan/commit/80fb317fda). Thanks to DimDz, Meeques and xet7.
-- [A list can colour the cards that have no colour of their own, so cards change colour as they move](https://github.com/wekan/wekan/commit/998a9cc336). Thanks to C0rn3j and xet7.
-- [Each board can have an announcement of its own, shown to its members until dismissed](https://github.com/wekan/wekan/commit/7ccd987eb1). Thanks to TiibCD and xet7.
-- [References like [TK:1223] link to other tools through rules with {identifier} and abbreviations](https://github.com/wekan/wekan/commit/ed993fef84). Thanks to rzoss and xet7.
-- [Lists can be archived and restored through the REST API](https://github.com/wekan/wekan/commit/0a80496acf). Thanks to stevekiss and xet7.
-
-and hardens the login settings:
-
-**Admin Panel / People** - the login settings the 2026-10-05 work left open,
-each now doing what its name says.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/a7628504f1">Header login is set by the environment only, and shown read-only in the Admin Panel</a>. Thanks to xet7.</summary>
-
-With `HEADER_LOGIN_ID` and `HEADER_LOGIN_TRUSTED_IPS` set, a proxy at a
-trusted address signs in as anyone it names. Since the 2026-10-05 Admin Panel
-work a site administrator could switch that on from People / Header login, so
-a stolen administrator session was enough to open every account. The six
-`HEADER_LOGIN_*` settings now come from the environment only: a value stored
-in the Admin Panel by an earlier version is ignored, the pane shows the values
-in effect read-only with no Save button, and a save sent by hand is refused
-and shown in Admin Panel → Problems as ProxyBleed. Every other login section
-stays overridable. `tests/authConfigCatalog.test.cjs` pins the resolution, the
-refusal and that only this section is environment-only; the Playwright spec
-`admin-login-env-overrides` drives the read-only pane and the refused save.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/9d27f4be4d">LDAP Test connection without a service account searches the base DN before saying success</a>. Thanks to xet7.</summary>
-
-ldapts opens its socket lazily, and Test connection bound only when
-`LDAP_AUTHENTIFICATION` was set, so without a service account no operation
-ran and it reported success even for a host that does not resolve. It now
-does an anonymous base-scope search of `LDAP_BASEDN`, reading no attributes,
-and shows the directory's own error when that fails; without a base DN it says
-nothing could be tested. `tests/ldapTestConnectionProbe.test.cjs` pins the
-decision and runs the search with the shipped ldapts against a port where
-nothing listens. A login against a real directory was not run here.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/95147fc999">LDAP has a Sync now button that runs the background sync once</a>. Thanks to xet7.</summary>
-
-`ldap_sync_now` was never loaded, so no button could call it, and it imported
-every directory user regardless of the sync settings. It now runs the
-background sync once with `LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS` and
-`LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED` as they are set, for an
-active site administrator only, and shares one run at a time with the
-scheduled job. `tests/ldapSyncNow.test.cjs` pins it and fails when any other
-wekan-ldap methods file is left unloaded; the Playwright spec
-`admin-login-env-overrides` drives the button. A sync against a real directory
-was not run here.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/c1d1a04790">Automatic logout with LOGOUT_WITH_TIMER and the LOGOUT_* settings works again</a>. Thanks to xet7.</summary>
-
-The platforms offered `LOGOUT_WITH_TIMER`, `LOGOUT_IN`, `LOGOUT_ON_HOURS` and
-`LOGOUT_ON_MINUTES` since 2018, but the code that read them went with the job
-queue it ran on. A login now ends `LOGOUT_IN` days after it was made, or at
-`LOGOUT_ON_HOURS`:`LOGOUT_ON_MINUTES` server time; once a minute the server
-removes the expired login tokens in one query and the browsers using them are
-signed out. All four are overridable in Admin Panel / People / Login. An
-unusable combination signs nobody out and the log says why.
-`tests/logoutTimer.test.cjs` checks the one-query cutoff against each login's
-deadline over two years of logins in three time zones; the Playwright spec
-`admin-login-env-overrides` drives it from the Admin Panel.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/71cd2aed05">MONGO_URL_FILE, MAIL_URL_FILE and S3_SECRET_KEY_FILE replace three secret files nothing read</a>. Thanks to xet7.</summary>
-
-`MAIL_SERVICE_PASSWORD_FILE`, `MONGO_PASSWORD_FILE` and `S3_SECRET_FILE` were
-offered on every platform and read by nothing ([#5724](https://github.com/wekan/wekan/issues/5724)).
-`MONGO_URL_FILE` holds the whole database URL and is read by the Docker
-entrypoint, the snap and both start scripts, because Meteor connects before
-WeKan's code runs; an unreadable file stops the start rather than falling back
-to a default database, and the snap log no longer prints a password written
-in `MONGO_URL`. `MAIL_URL_FILE` and `S3_SECRET_KEY_FILE` are read by the
-server at start. The dead names are gone from every platform, and a warning
-names the replacement when one is still set. `tests/envSecretFiles.test.cjs`
-runs the entrypoint's block for real and fails if any platform offers a
-retired name again.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/fe60911408">OAuth login providers can be restricted to email domains</a>. Thanks to jakubgs and xet7.</summary>
-
-Google, GitHub and the other Meteor login providers let anyone with an
-account there sign in ([#1904](https://github.com/wekan/wekan/issues/1904)).
-`OAUTH_PROVIDERS_ALLOWED_EMAIL_DOMAINS`, or its field under Admin Panel /
-People / OAuth login providers, restricts them with the same rule as
-`OAUTH2_ALLOWED_EMAIL_DOMAINS`, before an account is created and on every
-later login. A provider that sends no email is refused while it is set.
-
-</details>
-
-and fixes the following bugs:
-
-**Addresses** - which address WeKan's links and sign-in use when ROOT_URL is
-not the one people opened.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/0f2e81e01b">Copied links use the address WeKan was opened at, not the snap's 127.0.0.1</a>. Thanks to n8willis and xet7.</summary>
-
-The snap's default ROOT_URL is 127.0.0.1, and every link built in the browser
-- Copy link of a card, list or swimlane, comment permalinks - read it, so a
-browser that opened WeKan by the machine's name copied a link nobody else
-could follow. When ROOT_URL is loopback and the page is not, the browser now
-builds those links from the page's own address, keeping ROOT_URL's path. A
-real ROOT_URL still wins, and emails keep ROOT_URL: `snap set wekan
-root-url=...` is still the setting for them. `tests/browserRootUrl.test.cjs`
-covers both directions.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/4fc4f19f02">The sign-in page says why a Google login keeps returning to it</a>. Thanks to xet7.</summary>
-
-Signing in with Google returned to the sign-in page every time, with no
-error, when WeKan was opened at another address than ROOT_URL: the provider
-returns to ROOT_URL, and the login secret is left in that address's browser
-storage, where the sign-in page cannot read it. The provider accepts only its
-registered address, so the page cannot repair this; when a provider login is
-offered at another address, it now names both and says what to change.
-`tests/loginOriginMismatch.test.cjs` covers each kind of difference and the
-cases where nothing is shown.
-
-</details>
-
-**People and teams** - who belongs where after a login.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/29bca6f757">A login merged into an existing account keeps that account's boards</a>. Thanks to xet7.</summary>
-
-Merging an OIDC or OAuth login into an existing account removes that user
-and lets Meteor insert it again under the same id. The removal ran the
-account-deletion cleanup, which took the user off every board, card and team
-and deleted their avatar. It now removes without the hooks.
-`tests/mergedUserKeepsBoards.test.cjs` fails if any code removes an account
-through the hooks and then returns it.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/d560e2fcf8">LDAP- and OIDC-synced team members become members of the team's boards</a>. Thanks to xet7.</summary>
-
-The login providers' group syncs added the team to the user with a plain
-push, skipping the board membership an Admin Panel team change grants
-(#4593), so such users could see the team's boards but not work on them. Both
-now run the same board sync; a test fails if any code adds a team without it.
-
-</details>
-
-**Subtasks** - where a new subtask lands.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/42c9a396e2">A subtask lands in the list its main board chose on the deposit board</a>. Thanks to TiibCD and xet7.</summary>
-
-The choice made in Board Settings / Subtasks was ignored, and a deposit
-board that itself sends subtasks elsewhere gave its subtasks a list of a third
-board. Several boards sharing one deposit board can now each land their
-subtasks in their own list ([#1781](https://github.com/wekan/wekan/issues/1781)).
-
-</details>
-
-**Admin Panel / Layout** - what the custom head settings put on the page.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/6c3db838ac">Custom head meta tags reach the page, as meta elements only</a>. Thanks to xet7.</summary>
-
-The field was saved but never rendered. It is now, when custom head tags are
-enabled, keeping only `<meta>` elements and dropping scripts, styles and the
-`http-equiv` refresh and set-cookie that would act on every visitor.
-
-</details>
-
-and has the following developer-facing fixes:
-
-- [The receipt collections are pinned to the minimal form the 90-day retention decision asks for](https://github.com/wekan/wekan/commit/c0c424657e). Thanks to xet7.
-- [The card-field visibility writer guard counts only writes, not a read projection](https://github.com/wekan/wekan/commit/a9dc8faa98). Thanks to xet7.
-- [The release risk baseline knows the format specification links](https://github.com/wekan/wekan/commit/49353db813). Thanks to xet7.
-
-and closes these issues, which were already implemented:
-
-Where each one is in the code:
-[Issues-Already-Implemented-2026-10-08.md](docs/DeveloperDocs/Issues-Already-Implemented-2026-10-08.md).
-
-- [Auto add user name to a moved card, done by a rule](https://github.com/wekan/wekan/commit/e27ca445d5). Thanks to xet7.
-- [Receive notifications from other users only](https://github.com/wekan/wekan/commit/595f6aaed6). Thanks to gpelouze and xet7.
-- [Move lists to a different board](https://github.com/wekan/wekan/commit/f7879e95e6). Thanks to h0jeZvgoxFepBQ2C and xet7.
-- [Use the EXIF orientation of uploaded pictures](https://github.com/wekan/wekan/commit/1fbb9f4011). Thanks to CWempe and xet7.
-- [Smart search of cards](https://github.com/wekan/wekan/commit/f94cb41c00). Thanks to usmcamp0811 and xet7.
-- [Resend verification or change the verified flag](https://github.com/wekan/wekan/commit/0f85328f15). Thanks to lucg71 and xet7.
-- [Hide subtask boards on All Boards](https://github.com/wekan/wekan/commit/78899b673f). Thanks to nmd3 and xet7.
-- [Progress charts and work statistics for each board](https://github.com/wekan/wekan/commit/939aa8a95e). Thanks to xet7.
-- [Mini date field](https://github.com/wekan/wekan/commit/fcbd268d43). Thanks to gerroon and xet7.
-- [Edit rules, and send a card with its content and attachments by email](https://github.com/wekan/wekan/commit/054c6e091d). Thanks to kabi178 and xet7.
-- [Notification mail template](https://github.com/wekan/wekan/commit/dd410a3a8b). Thanks to hingerlanton and xet7.
-- [Auth0 redirect to the full-screen login page](https://github.com/wekan/wekan/commit/948020275b). Thanks to xet7.
-- [Common WIP limit for several columns](https://github.com/wekan/wekan/commit/61ad1272bb). Thanks to aviertio and xet7.
-- [All Boards drag and drop, and colour](https://github.com/wekan/wekan/commit/0a8c38f395). Thanks to compumatter and xet7.
-- [Master dashboard like Kanboard's Bigboard plugin](https://github.com/wekan/wekan/commit/d10fe621be). Thanks to Jieiku and xet7.
-- [Move a checklist from one card to another card](https://github.com/wekan/wekan/commit/9158772a61). Thanks to qiutian00 and xet7.
-- [Restrict the WeKan port to loopback](https://github.com/wekan/wekan/commit/68bdd70a51). Thanks to galletl and xet7.
-
-and improves translations and their validation:
-
-**Languages updated:** Afrikaans, Akan, Albanian, Amharic, Arabic, Aragonese,
-Armenian, Assamese, Asturian, Azerbaijani, Bashkir, Basque, Belarusian,
-Bengali, Bhojpuri, Bislama, Bosnian, Breton, Bulgarian, Burmese, Cantonese,
-Catalan, Chinese, Corsican, Croatian, Czech, Danish, Dutch, Esperanto,
-Estonian, Faroese, French, Galician, Georgian, German, Greek, Gujarati, Haitian
-Creole, Hausa, Hebrew, Hindi, Hungarian, Icelandic, Igbo, Indonesian, Irish,
-Japanese, Javanese, Kannada, Kazakh, Khmer, Konkani, Korean, Kurmanji Kurdish,
-Kyrgyz, Latin, Latvian, Lithuanian, Luxembourgish, Macedonian, Maithili,
-Malagasy, Malay, Malayalam, Maltese, Marathi, Mongolian, Māori, Nepali,
-Northern Sotho, Norwegian Bokmål, Occitan, Odia, Pashto, Persian, Polish,
-Portuguese, Punjabi, Romanian, Romansh, Russian, Sardinian, Scottish Gaelic,
-Serbian, Sicilian, Sindhi, Sinhala, Slovak, Slovenian, Somali, Sorani Kurdish,
-Spanish, Swahili, Tagalog, Tajik, Tamil, Tatar, Telugu, Thai, Tok Pisin,
-Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
-West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fe18e6aaeb">Translate Yiddish Scrum imports and observations</a>. Thanks to xet7.</summary>
@@ -1867,6 +1307,707 @@ The current Lithuanian fill list is empty. No browser or screen-reader session
 was run; other languages and linguistic review remain unfinished.
 
 </details>
+
+# v12.24 2026-10-08 WeKan ® release
+
+**In short:** The login settings left open in October are finished:
+**header login** is environment-only, **automatic logout** works again,
+**LDAP** gets an honest Test connection and Sync now, and **secrets from
+files** cover database, mail and S3. Boards import and export as **Todoist**,
+**OPML** and **Org mode**, **rules** can set assignees, **webhooks** name the
+people they are about, and **OAuth providers** can be limited to email
+domains. **Scrum** planning syncs from Jira and GitLab and imports into an
+existing board, and an **interrupted import** can be kept or discarded.
+Seventeen long-open requests were closed as already implemented.
+
+This release adds the following new features:
+
+**Import and export** - three more formats, each a round trip with a loss
+report for what the other tool has no place for.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ee0806b4c0">Translate Manx release and stuck Sync recovery messages</a>. Thanks to xet7.</summary>
+
+- Translate 25 pending messages, preserving release selection, applied/total
+  counters, discard consequences and oldest-first limits. Manx now has no
+  reported placeholders; older language defects still require review.
+- Three relevant suites pass. Complete wording remains low-confidence pending
+  fluent review. Browser and screen-reader sessions were not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8378a4c706">Translate remaining reported Manx controls and guidance</a>. Thanks to xet7.</summary>
+
+- Translate 47 messages, preserving import syntax, environment names, report
+  limits and named variables. The ordinary Manx backlog is cleared; 25 newly
+  added pending messages and older language quality remain under review.
+- Four relevant suites pass. Complete grammar remains low-confidence pending
+  fluent review. Browser and screen-reader sessions were not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/30013762c3">Translate Manx Sync conflicts and diagnostic reports</a>. Thanks to xet7.</summary>
+
+- Translate 63 messages while preserving source/local distinctions, missing/null
+  behavior, retention limits and reports that cannot resume or undo changes.
+- Three relevant suites pass. Sync terminology and full grammar remain
+  low-confidence pending fluent review. Browser and screen-reader sessions
+  were not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0691f5589d">Translate Manx notification delivery and recovery messages</a>. Thanks to xet7.</summary>
+
+- Translate 36 messages while preserving temporary/permanent rejection,
+  missing/changed activities, pause/cancel distinctions and non-recall warnings.
+- Three relevant suites pass. Delivery terminology and full grammar remain
+  low-confidence pending fluent review. Browser and screen-reader sessions
+  were not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e54ad20004">Translate Manx Scrum planning labels and states</a>. Thanks to xet7.</summary>
+
+- Translate 71 planning, estimate, event, state and report labels/messages.
+  Preserve named variables, time units and distinct completion/cancellation
+  states. Extend the Manx suite to use the shared placeholder scanner.
+- Three relevant suites pass. Scrum terminology and grammar remain
+  low-confidence
+  pending fluent review. Browser and screen-reader sessions were not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c1d3de6691">Restore Asana and OpenProject import literals</a>. Thanks to xet7.</summary>
+
+- Repair 16 messages in 11 locale files, restoring the data property and API
+  endpoints. Extend catalog-wide literal checks to ten import formats while
+  accepting valid grammatical affixes around filenames and commands.
+- Three relevant suites and 21 human-preference checks pass. Mixed-language
+  prose and untranslated messages remain under review. Browser sessions were
+  not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/416aedc706">Restore import example identifiers across locales</a>. Thanks to xet7.</summary>
+
+- Repair 73 Kanboard, Deck, ZenKit and Jira import messages in 25 locale files.
+  Restore case-sensitive field names and API paths, preserving surrounding
+  prose and valid quotation styles. Test these literals across every locale.
+- All 322 translation/i18n suites pass, including positive and negative checks
+  for localized typography and damaged identifiers. Other import formats and
+  mixed-language prose remain under review. Browser sessions were not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e33df4be4c">Repair Bislama import instructions and literal examples</a>. Thanks to xet7.</summary>
+
+- Correct 13 mixed-language import instructions and translate OPML and Org mode
+  help. Restore JSON field names and the Jira endpoint while preserving format
+  syntax, menu actions and interpolation variables.
+- Three relevant suites pass. A broader literal scan found 103 candidate entries
+  in 45 locale files; some are valid quotation variants, others need repair.
+  Full prose remains provisional; browser sessions were not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3c082ec6e5">Replace remaining Bislama artificial English wrappers</a>. Thanks to xet7.</summary>
+
+- Correct 236 storage, migration, backup and report values. Preserve provider
+  identifiers, time units, simulation limits, uncertainty and counting rules.
+  The explicit “Tok blong sistem:” queue is empty; other mixed-language text
+  and damaged technical examples still require review.
+- Three relevant suites pass, including the catalog-wide token inventory.
+  Statistical terminology and complete technical prose remain low-confidence.
+  Browser and screen-reader sessions were not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d332e18edb">Correct Bislama search syntax and report translations</a>. Thanks to xet7.</summary>
+
+- Correct 76 artificial English wrappers and 12 search labels/messages.
+  Use valid one-word query operators, preserve portable abbreviations and
+  verify quoted values, missing fields and invalid input with the real parser.
+  The remaining wrapper queue contains 236 values.
+- Four relevant suites pass, including catalog-wide placeholders and parser
+  execution. Technical compounds remain provisional pending fluent review.
+  Browser and screen-reader sessions were not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1eabb367e7">Boards import and export as Todoist project templates (CSV)</a>. Thanks to xet7.</summary>
+
+Sections become lists, tasks cards, indented sub-tasks a checklist and notes
+comments. `@label` words and priorities p1-p3 become labels, RESPONSIBLE the
+owner, and DATE and DEADLINE the start and due dates. Recurring dates in
+words, durations and orphan rows are reported. Export writes Todoist's own
+columns and `view_style=board` row. `tests/todoistCsv.test.cjs` covers quoted
+fields, the round trip and the negatives; a Playwright case imports through
+the page.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e6c8f85518">Boards import and export as OPML outlines from Workflowy, Dynalist, Logseq and others</a>. Thanks to xet7.</summary>
+
+Top-level outlines become lists, their children cards with `_note` as the
+description, and deeper outlines checklists; a completed item is marked done.
+Like the Leo outline the XML is parsed on the server only, never resolving
+DTDs or external entities. `tests/opmlOutline.test.cjs` includes an external
+entity and a node bomb among its negatives; a Playwright case imports through
+the page.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/711303af32">Boards import and export as Org mode outlines</a>. Thanks to xet7.</summary>
+
+Level-1 headings become lists and level-2 headings cards, keeping TODO
+keywords (including custom `#+TODO` ones), priorities, tags, SCHEDULED,
+DEADLINE and CLOSED, and turning checkboxes and deeper headings into
+checklists. Timestamps have no zone in Org and are read as UTC; repeaters are
+reported. `tests/orgMode.test.cjs` covers custom keywords, localized day names
+and the round trip; a Playwright case imports through the page.
+
+</details>
+
+**Rules** - the two parts of making rules less clunky that were still open.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f735eba194">A rule can set and clear assignees, and needs no title</a>. Thanks to xeruf and xet7.</summary>
+
+Add and Remove assignee actions take a username, a `{creator}` style token,
+the user who triggered the rule, or every assignee, and are durable through
+Sync like the member actions - so a new card can be assigned to its creator,
+as [#4294](https://github.com/wekan/wekan/issues/4294) asked. A rule added
+without a title is named after its trigger and action and renamed in place.
+This also fixed "Remove all members from the card", which iterated the
+assignees while removing members, so it removed only people who were both;
+its guards now read `models/cards.js` instead of assuming the field. A
+Playwright case creates an untitled rule and a card that gets its creator as
+assignee.
+
+</details>
+
+- [A rule can fire when a card moves forward to a later list or back to an earlier one](https://github.com/wekan/wekan/commit/eac524380f). Thanks to rlach and xet7.
+
+**Scrum** - planning a card across releases, and bringing planning in from
+elsewhere.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/958e9e13f3">GitLab, OpenProject and Asana imports bring their sprints and releases</a>. Thanks to xet7.</summary>
+
+Only Jira imports created Scrum planning. GitLab iterations and milestones,
+OpenProject versions and sprints, and Asana milestone tasks now become sprints
+and releases with their dates and state, through the same journaled stage as
+Jira, so an interrupted import is recovered the same way; OpenProject story
+points become the estimate field. Trello has none, and its Power-Up data is
+counted in the loss report. What an export cannot prove - a finished sprint,
+a bad date, an unknown state - is reported, never invented. GitLab and
+OpenProject exports write the planning back.
+`tests/externalScrumPlanning.test.cjs`
+covers each source and the negatives.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/727ceedd01">A card can be in more than one release</a>. Thanks to xet7.</summary>
+
+A card had one release, so Jira import kept only an issue's first fix version
+and Jira export wrote none. Releases are now a list, with the old single
+field kept as its first entry so older readers still see one; existing cards
+are read the same way and move to the list on their next Scrum save. Every
+release must belong to the board. Copies and moves link each release by name,
+the native transfer and Jira import and export carry them all, Board View /
+Sprints shows each release's cards and progress, and the Product Backlog and
+card details pick several. `tests/scrumMultipleReleases.test.cjs` fails if any
+code reads the single field directly.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c06bf8d0e9">List Sync brings an issue's sprint and releases into Scrum planning</a>. Thanks to xet7.</summary>
+
+While Scrum is enabled on the board, List Sync from Jira or GitLab carries an
+issue's sprint and fix versions or milestones into the card's planning. A
+missing sprint or release is created with the source's dates; an existing one
+is matched by its source ID, then by name. A local planning change stays until
+the source changes that issue's planning, and a first Sync never removes
+planning. The writes go through the durable Sync journal.
+`tests/listSyncPlanning.test.cjs` covers matching, creation and the
+negatives; a Meteor test and a Playwright spec drive it end to end. It has not
+been verified against live Jira or GitLab.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ef54907836">Scrum planning can be imported into a board that already exists</a>. Thanks to xet7.</summary>
+
+Every Scrum import created a new board. A board administrator can now import
+a wekan-scrum-2 transfer or a WeKan board export into the current board from
+the Sprints view, with a Preview that writes nothing. Sprints and releases are
+matched by ID, then provenance, then a name unique on both sides, and the rest
+are created once, so a second import of the same file changes nothing. Cards
+are only matched, never created; unmatched, ambiguous and other boards' cards
+are reported. The writes use the journaled Scrum import stage and are one
+Scrum History change. `tests/scrumTransferMerge.test.cjs` covers it.
+
+</details>
+
+**Sync and recovery** - what an administrator can do about a stuck Sync.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e8fac5e85c">An interrupted board import can be kept or discarded in Recovery</a>. Thanks to xet7.</summary>
+
+An import that stopped halfway left a partial board nothing recorded. Every
+board import, copy, Trello zip and Trello API import now records its run,
+with the new board's id, before the first write, and the board carries the
+run's id. A heartbeat keeps the run alive; a scan flags a stopped or failed
+run once in Admin Panel → Problems → Recovery, where an administrator keeps
+the partial board or discards it. Discard removes only the board stamped with
+that run, through the board's own removal, and is refused while its Scrum
+stage is busy. Resume is deliberately not offered, because the source file is
+not kept: import it again. `tests/importRuns.test.cjs` covers both decisions
+and the refusals.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cb69750b17">A List Sync operation that can never be replayed can be discarded in Recovery</a>. Thanks to xet7.</summary>
+
+When a list was removed, recreated or reconfigured, or its actor lost write
+access, its saved Sync operation failed every minute with a console line and
+blocked that list's Sync. It is now marked once in Admin Panel → Problems →
+Recovery, a blocked manual Sync says why, and an administrator can discard it
+while the replay checks still fail. The discard holds the list's Sync lease,
+records one decision and writes no card; a retry or a second administrator
+only finishes it. `tests/listSyncStuck.test.cjs` covers the refusals and a
+second discard; a Playwright case drives the Recovery page.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9ad9813c09">A Scrum undo or redo stuck on a conflict can be rolled back or discarded</a>. Thanks to xet7.</summary>
+
+Such a checkpoint blocked every Scrum edit on its board for good, as only its
+author could retry it and every retry failed the same way. A board
+administrator now sees it in the History recovery notice and can roll it
+back, when nobody changed its records since, or keep the board as it is;
+either way is recorded in Recovery, a repeat is a no-op, and
+`releases/recover-scrum-history.cjs` does the same offline. A checkpoint not
+stuck on a conflict stays its author's to retry.
+
+</details>
+
+**Custom fields** - who may change a field's value.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/87ae8895c3">A custom field can be read-only: every member sees it, only board admins set it</a>. Thanks to CarloRampini and xet7.</summary>
+
+For a score or a value computed elsewhere
+([#3143](https://github.com/wekan/wekan/issues/3143)). The card offers editing
+only to board admins, and the server refuses anybody else through the same
+write guard as admin-only fields, so the REST API and rules acting as an admin
+still set it.
+
+</details>
+
+**Webhooks** - what an outgoing webhook says about an event.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5f413c12eb">An outgoing webhook names the list, board, swimlane, card link and the person assigned</a>. Thanks to chrisi51 and xet7.</summary>
+
+The payload carried mostly ids, and for an assignment it said who assigned
+but not who was assigned. The default payload now also has `list`, `board`,
+`swimlane` and `url`, `member` and `memberUsername` for joining or leaving a
+card, and `assignee`, `assigneeUsername` and `assigneeId` for an assignment
+([#3297](https://github.com/wekan/wekan/issues/3297)), so a chat integration
+can message that person. `WEBHOOKS_ATTRIBUTES` still replaces the list.
+
+</details>
+
+**People and lists** - two small requests that only needed doing.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b426f9cfa8">A user without an avatar can be shown one from DEFAULT_AVATAR_URL</a>. Thanks to jLouzado and xet7.</summary>
+
+An environment-only URL template - an intranet photo server or a
+Gravatar-style service - with `{username}`, `{userId}`, `{emailMd5}` or
+`{emailSha256}` replaced ([#824](https://github.com/wekan/wekan/issues/824)).
+The browser is redirected there; the server fetches nothing. An uploaded
+avatar always wins, and the initials come back when the image does not load.
+
+</details>
+
+- [Accounts created by an OAuth2/OIDC login can join a default organization, OAUTH2_DEFAULT_ORGANIZATION](https://github.com/wekan/wekan/commit/dfcd115ff3). Thanks to vasyugan and xet7.
+- [A card moved or copied to another board brings its labels, created there when the mover is that board's admin](https://github.com/wekan/wekan/commit/125e0960eb). Thanks to d3dbit and xet7.
+- [A board view chosen on a board stays on that board instead of changing every board](https://github.com/wekan/wekan/commit/80fb317fda). Thanks to DimDz, Meeques and xet7.
+- [A list can colour the cards that have no colour of their own, so cards change colour as they move](https://github.com/wekan/wekan/commit/998a9cc336). Thanks to C0rn3j and xet7.
+- [Each board can have an announcement of its own, shown to its members until dismissed](https://github.com/wekan/wekan/commit/7ccd987eb1). Thanks to TiibCD and xet7.
+- [References like [TK:1223] link to other tools through rules with {identifier} and abbreviations](https://github.com/wekan/wekan/commit/ed993fef84). Thanks to rzoss and xet7.
+- [Lists can be archived and restored through the REST API](https://github.com/wekan/wekan/commit/0a80496acf). Thanks to stevekiss and xet7.
+
+and hardens the login settings:
+
+**Admin Panel / People** - the login settings the 2026-10-05 work left open,
+each now doing what its name says.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a7628504f1">Header login is set by the environment only, and shown read-only in the Admin Panel</a>. Thanks to xet7.</summary>
+
+With `HEADER_LOGIN_ID` and `HEADER_LOGIN_TRUSTED_IPS` set, a proxy at a
+trusted address signs in as anyone it names. Since the 2026-10-05 Admin Panel
+work a site administrator could switch that on from People / Header login, so
+a stolen administrator session was enough to open every account. The six
+`HEADER_LOGIN_*` settings now come from the environment only: a value stored
+in the Admin Panel by an earlier version is ignored, the pane shows the values
+in effect read-only with no Save button, and a save sent by hand is refused
+and shown in Admin Panel → Problems as ProxyBleed. Every other login section
+stays overridable. `tests/authConfigCatalog.test.cjs` pins the resolution, the
+refusal and that only this section is environment-only; the Playwright spec
+`admin-login-env-overrides` drives the read-only pane and the refused save.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9d27f4be4d">LDAP Test connection without a service account searches the base DN before saying success</a>. Thanks to xet7.</summary>
+
+ldapts opens its socket lazily, and Test connection bound only when
+`LDAP_AUTHENTIFICATION` was set, so without a service account no operation
+ran and it reported success even for a host that does not resolve. It now
+does an anonymous base-scope search of `LDAP_BASEDN`, reading no attributes,
+and shows the directory's own error when that fails; without a base DN it says
+nothing could be tested. `tests/ldapTestConnectionProbe.test.cjs` pins the
+decision and runs the search with the shipped ldapts against a port where
+nothing listens. A login against a real directory was not run here.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/95147fc999">LDAP has a Sync now button that runs the background sync once</a>. Thanks to xet7.</summary>
+
+`ldap_sync_now` was never loaded, so no button could call it, and it imported
+every directory user regardless of the sync settings. It now runs the
+background sync once with `LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS` and
+`LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED` as they are set, for an
+active site administrator only, and shares one run at a time with the
+scheduled job. `tests/ldapSyncNow.test.cjs` pins it and fails when any other
+wekan-ldap methods file is left unloaded; the Playwright spec
+`admin-login-env-overrides` drives the button. A sync against a real directory
+was not run here.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c1d1a04790">Automatic logout with LOGOUT_WITH_TIMER and the LOGOUT_* settings works again</a>. Thanks to xet7.</summary>
+
+The platforms offered `LOGOUT_WITH_TIMER`, `LOGOUT_IN`, `LOGOUT_ON_HOURS` and
+`LOGOUT_ON_MINUTES` since 2018, but the code that read them went with the job
+queue it ran on. A login now ends `LOGOUT_IN` days after it was made, or at
+`LOGOUT_ON_HOURS`:`LOGOUT_ON_MINUTES` server time; once a minute the server
+removes the expired login tokens in one query and the browsers using them are
+signed out. All four are overridable in Admin Panel / People / Login. An
+unusable combination signs nobody out and the log says why.
+`tests/logoutTimer.test.cjs` checks the one-query cutoff against each login's
+deadline over two years of logins in three time zones; the Playwright spec
+`admin-login-env-overrides` drives it from the Admin Panel.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/71cd2aed05">MONGO_URL_FILE, MAIL_URL_FILE and S3_SECRET_KEY_FILE replace three secret files nothing read</a>. Thanks to xet7.</summary>
+
+`MAIL_SERVICE_PASSWORD_FILE`, `MONGO_PASSWORD_FILE` and `S3_SECRET_FILE` were
+offered on every platform and read by nothing ([#5724](https://github.com/wekan/wekan/issues/5724)).
+`MONGO_URL_FILE` holds the whole database URL and is read by the Docker
+entrypoint, the snap and both start scripts, because Meteor connects before
+WeKan's code runs; an unreadable file stops the start rather than falling back
+to a default database, and the snap log no longer prints a password written
+in `MONGO_URL`. `MAIL_URL_FILE` and `S3_SECRET_KEY_FILE` are read by the
+server at start. The dead names are gone from every platform, and a warning
+names the replacement when one is still set. `tests/envSecretFiles.test.cjs`
+runs the entrypoint's block for real and fails if any platform offers a
+retired name again.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fe60911408">OAuth login providers can be restricted to email domains</a>. Thanks to jakubgs and xet7.</summary>
+
+Google, GitHub and the other Meteor login providers let anyone with an
+account there sign in ([#1904](https://github.com/wekan/wekan/issues/1904)).
+`OAUTH_PROVIDERS_ALLOWED_EMAIL_DOMAINS`, or its field under Admin Panel /
+People / OAuth login providers, restricts them with the same rule as
+`OAUTH2_ALLOWED_EMAIL_DOMAINS`, before an account is created and on every
+later login. A provider that sends no email is refused while it is set.
+
+</details>
+
+and fixes the following bugs:
+
+**Addresses** - which address WeKan's links and sign-in use when ROOT_URL is
+not the one people opened.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0f2e81e01b">Copied links use the address WeKan was opened at, not the snap's 127.0.0.1</a>. Thanks to n8willis and xet7.</summary>
+
+The snap's default ROOT_URL is 127.0.0.1, and every link built in the browser
+- Copy link of a card, list or swimlane, comment permalinks - read it, so a
+browser that opened WeKan by the machine's name copied a link nobody else
+could follow. When ROOT_URL is loopback and the page is not, the browser now
+builds those links from the page's own address, keeping ROOT_URL's path. A
+real ROOT_URL still wins, and emails keep ROOT_URL: `snap set wekan
+root-url=...` is still the setting for them. `tests/browserRootUrl.test.cjs`
+covers both directions.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4fc4f19f02">The sign-in page says why a Google login keeps returning to it</a>. Thanks to xet7.</summary>
+
+Signing in with Google returned to the sign-in page every time, with no
+error, when WeKan was opened at another address than ROOT_URL: the provider
+returns to ROOT_URL, and the login secret is left in that address's browser
+storage, where the sign-in page cannot read it. The provider accepts only its
+registered address, so the page cannot repair this; when a provider login is
+offered at another address, it now names both and says what to change.
+`tests/loginOriginMismatch.test.cjs` covers each kind of difference and the
+cases where nothing is shown.
+
+</details>
+
+**People and teams** - who belongs where after a login.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/29bca6f757">A login merged into an existing account keeps that account's boards</a>. Thanks to xet7.</summary>
+
+Merging an OIDC or OAuth login into an existing account removes that user
+and lets Meteor insert it again under the same id. The removal ran the
+account-deletion cleanup, which took the user off every board, card and team
+and deleted their avatar. It now removes without the hooks.
+`tests/mergedUserKeepsBoards.test.cjs` fails if any code removes an account
+through the hooks and then returns it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d560e2fcf8">LDAP- and OIDC-synced team members become members of the team's boards</a>. Thanks to xet7.</summary>
+
+The login providers' group syncs added the team to the user with a plain
+push, skipping the board membership an Admin Panel team change grants
+(#4593), so such users could see the team's boards but not work on them. Both
+now run the same board sync; a test fails if any code adds a team without it.
+
+</details>
+
+**Subtasks** - where a new subtask lands.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/42c9a396e2">A subtask lands in the list its main board chose on the deposit board</a>. Thanks to TiibCD and xet7.</summary>
+
+The choice made in Board Settings / Subtasks was ignored, and a deposit
+board that itself sends subtasks elsewhere gave its subtasks a list of a third
+board. Several boards sharing one deposit board can now each land their
+subtasks in their own list ([#1781](https://github.com/wekan/wekan/issues/1781)).
+
+</details>
+
+**Admin Panel / Layout** - what the custom head settings put on the page.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6c3db838ac">Custom head meta tags reach the page, as meta elements only</a>. Thanks to xet7.</summary>
+
+The field was saved but never rendered. It is now, when custom head tags are
+enabled, keeping only `<meta>` elements and dropping scripts, styles and the
+`http-equiv` refresh and set-cookie that would act on every visitor.
+
+</details>
+
+and has the following developer-facing fixes:
+
+- [The receipt collections are pinned to the minimal form the 90-day retention decision asks for](https://github.com/wekan/wekan/commit/c0c424657e). Thanks to xet7.
+- [The card-field visibility writer guard counts only writes, not a read projection](https://github.com/wekan/wekan/commit/a9dc8faa98). Thanks to xet7.
+- [The release risk baseline knows the format specification links](https://github.com/wekan/wekan/commit/49353db813). Thanks to xet7.
+
+and closes these issues, which were already implemented:
+
+Where each one is in the code:
+[Issues-Already-Implemented-2026-10-08.md](docs/DeveloperDocs/Issues-Already-Implemented-2026-10-08.md).
+
+- [Auto add user name to a moved card, done by a rule](https://github.com/wekan/wekan/commit/e27ca445d5). Thanks to xet7.
+- [Receive notifications from other users only](https://github.com/wekan/wekan/commit/595f6aaed6). Thanks to gpelouze and xet7.
+- [Move lists to a different board](https://github.com/wekan/wekan/commit/f7879e95e6). Thanks to h0jeZvgoxFepBQ2C and xet7.
+- [Use the EXIF orientation of uploaded pictures](https://github.com/wekan/wekan/commit/1fbb9f4011). Thanks to CWempe and xet7.
+- [Smart search of cards](https://github.com/wekan/wekan/commit/f94cb41c00). Thanks to usmcamp0811 and xet7.
+- [Resend verification or change the verified flag](https://github.com/wekan/wekan/commit/0f85328f15). Thanks to lucg71 and xet7.
+- [Hide subtask boards on All Boards](https://github.com/wekan/wekan/commit/78899b673f). Thanks to nmd3 and xet7.
+- [Progress charts and work statistics for each board](https://github.com/wekan/wekan/commit/939aa8a95e). Thanks to xet7.
+- [Mini date field](https://github.com/wekan/wekan/commit/fcbd268d43). Thanks to gerroon and xet7.
+- [Edit rules, and send a card with its content and attachments by email](https://github.com/wekan/wekan/commit/054c6e091d). Thanks to kabi178 and xet7.
+- [Notification mail template](https://github.com/wekan/wekan/commit/dd410a3a8b). Thanks to hingerlanton and xet7.
+- [Auth0 redirect to the full-screen login page](https://github.com/wekan/wekan/commit/948020275b). Thanks to xet7.
+- [Common WIP limit for several columns](https://github.com/wekan/wekan/commit/61ad1272bb). Thanks to aviertio and xet7.
+- [All Boards drag and drop, and colour](https://github.com/wekan/wekan/commit/0a8c38f395). Thanks to compumatter and xet7.
+- [Master dashboard like Kanboard's Bigboard plugin](https://github.com/wekan/wekan/commit/d10fe621be). Thanks to Jieiku and xet7.
+- [Move a checklist from one card to another card](https://github.com/wekan/wekan/commit/9158772a61). Thanks to qiutian00 and xet7.
+- [Restrict the WeKan port to loopback](https://github.com/wekan/wekan/commit/68bdd70a51). Thanks to galletl and xet7.
+
+and improves translations and their validation:
+
+**Languages updated:** Afrikaans, Akan, Albanian, Amharic, Arabic, Aragonese,
+Armenian, Assamese, Asturian, Azerbaijani, Bashkir, Basque, Belarusian,
+Bengali, Bhojpuri, Bislama, Bosnian, Breton, Bulgarian, Burmese, Cantonese,
+Catalan, Chinese, Corsican, Croatian, Czech, Danish, Dutch, Esperanto,
+Estonian, Faroese, French, Galician, Georgian, German, Greek, Gujarati, Haitian
+Creole, Hausa, Hebrew, Hindi, Hungarian, Icelandic, Igbo, Indonesian, Irish,
+Japanese, Javanese, Kannada, Kazakh, Khmer, Konkani, Korean, Kurmanji Kurdish,
+Kyrgyz, Latin, Latvian, Lithuanian, Luxembourgish, Macedonian, Maithili,
+Malagasy, Malay, Malayalam, Maltese, Marathi, Mongolian, Māori, Nepali,
+Northern Sotho, Norwegian Bokmål, Occitan, Odia, Pashto, Persian, Polish,
+Portuguese, Punjabi, Romanian, Romansh, Russian, Sardinian, Scottish Gaelic,
+Serbian, Sicilian, Sindhi, Sinhala, Slovak, Slovenian, Somali, Sorani Kurdish,
+Spanish, Swahili, Tagalog, Tajik, Tamil, Tatar, Telugu, Thai, Tok Pisin,
+Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
+West Frisian, Wu Chinese, Yiddish, Yoruba.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/faf6725f9a">Translate Lithuanian import and synchronization recovery</a>. Thanks to xet7.</summary>
