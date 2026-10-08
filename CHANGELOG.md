@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/63c592bd9481143bcc05c1f8954788129d939685">Correct Tatar report and office activity labels</a></summary>
+
+- Correct 28 report, office and API values, preserving protocol identifiers,
+  login counts and API aggregation semantics.
+- Technical wording remains low confidence pending speaker review.
+- All 117 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/30aa9e2706e25ecc028c25cd7cbb1e6b1e3d5882">Correct Tatar map detection and diagnostics</a></summary>
 
 - Correct 21 map, diagnostic, sorting and creator values, restoring executable
