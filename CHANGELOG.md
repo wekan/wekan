@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/dd6bd0df11">Correct Portuguese labels in the Galician regional catalog</a>. Thanks to xet7.</summary>
+
+Replace 33 Portuguese labels and messages with reviewed Galician wording for
+board and card controls, archives, exports and password reset. Record each change
+in the audited correction ledger. Regression checks reject Portuguese wording
+and preserve exact variables. Three relevant suites and all 21 preservation
+checks pass. Further language corrections, translations and browser review remain
+outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/521cb051f5">Translate Galician announcements and initial imports</a>. Thanks to xet7.</summary>
 
 Translate 28 values across two catalogs for announcements, list colors, outline
