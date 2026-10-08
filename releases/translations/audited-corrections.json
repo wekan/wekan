@@ -171176,5 +171176,656 @@
     "before": "Exportar cartão",
     "after": "Exportar a tarxeta",
     "reason": "Replace Portuguese wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-createBoard",
+    "before": "criou o quadro __board__",
+    "after": "creou o taboleiro __board__",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-importBoard",
+    "before": "importou o quadro __board__",
+    "after": "importou o taboleiro __board__",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "leaveBoardPopup-title",
+    "before": "Sair do Quadro ?",
+    "after": "Saír do taboleiro?",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "link-card",
+    "before": "Ligar a este cartão",
+    "after": "Ligar a esta tarxeta",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "linkCardToBoardPopup-title",
+    "before": "Ligar a este Quadro",
+    "after": "Ligar ao taboleiro",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "linkCardToNewBoard",
+    "before": "Crear taboleiro (Cartão)",
+    "after": "Crear taboleiro a partir desta tarxeta",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "my-boards",
+    "before": "Meus Quadros",
+    "after": "Os meus taboleiros",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "no-archived-cards",
+    "before": "Sem cartões no Arquivo.",
+    "after": "Non hai tarxetas no Arquivo.",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "remove-from-board",
+    "before": "Remover do Quadro",
+    "after": "Eliminar do taboleiro",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "remove-member-from-card",
+    "before": "Remover do Cartão",
+    "after": "Eliminar da tarxeta",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "rename-board",
+    "before": "Renomear Quadro",
+    "after": "Renomear o taboleiro",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "select-board",
+    "before": "Selecione Quadro",
+    "after": "Seleccionar taboleiro",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "shortcut-filter-my-cards",
+    "before": "Filtrar os meus cartões",
+    "after": "Filtrar as miñas tarxetas",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "starred-boards",
+    "before": "Quadros Favoritos",
+    "after": "Taboleiros destacados",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "go-to-board",
+    "before": "Ir para o Quadro",
+    "after": "Ir ao taboleiro",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "card-templates-swimlane",
+    "before": "Modelos de Cartão",
+    "after": "Modelos de tarxeta",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-templates-swimlane",
+    "before": "Modelos de Quadro",
+    "after": "Modelos de taboleiro",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "tableVisibilityMode",
+    "before": "Visibilidade do Quadro",
+    "after": "Visibilidade dos taboleiros",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "boardDeletePopup-title",
+    "before": "Apagar Quadro?",
+    "after": "Eliminar o taboleiro?",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "delete-board",
+    "before": "Apagar Quadro",
+    "after": "Eliminar taboleiro",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "card-settings",
+    "before": "Definições do Cartão",
+    "after": "Configuración da tarxeta",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "boardCardSettingsPopup-title",
+    "before": "Definições do Cartão",
+    "after": "Configuración da tarxeta",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "description-on-minicard",
+    "before": "Descrição no mini cartão",
+    "after": "Descrición na minitarxeta",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "change-card-parent",
+    "before": "Alterar o pai do cartão",
+    "after": "Cambiar o pai da tarxeta",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "parent-card",
+    "before": "Pai do cartão",
+    "after": "Tarxeta pai",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "source-board",
+    "before": "Quadro fonte",
+    "after": "Taboleiro de orixe",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-board-rules",
+    "before": "Regras do quadro",
+    "after": "Regras do taboleiro",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-board",
+    "before": "Quadro",
+    "after": "Taboleiro",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-mark-complete",
+    "before": "Marcar o cartão como completo",
+    "after": "Marcar a tarxeta como completa",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-mark-incomplete",
+    "before": "Marcar o cartão como incompleto",
+    "after": "Marcar a tarxeta como incompleta",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-when-a-card",
+    "before": "Quando um cartão",
+    "after": "Cando unha tarxeta",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-the-board",
+    "before": "o quadro",
+    "after": "o taboleiro",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-move-card-to",
+    "before": "Mover cartão para",
+    "after": "Mover a tarxeta a",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-card",
+    "before": "cartão",
+    "after": "tarxeta",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-remove-all-labels",
+    "before": "Remover todos os etiquetas do cartão",
+    "after": "Elimina todas as etiquetas da tarxeta",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-create-card",
+    "before": "Criar novo cartão",
+    "after": "Crear nova tarxeta",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-link-card",
+    "before": "Ligar cartão a",
+    "after": "Ligar a tarxeta a",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "duplicate-board",
+    "before": "Duplicar Quadro",
+    "after": "Duplicar taboleiro",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "above-selected-card",
+    "before": "Selecionar cartão acima",
+    "after": "Enriba da tarxeta seleccionada",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "below-selected-card",
+    "before": "Selecionar cartão abaixo",
+    "after": "Debaixo da tarxeta seleccionada",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "show-on-card",
+    "before": "Mostrar no Cartão",
+    "after": "Mostrar na tarxeta",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "show-on-minicard",
+    "before": "Mostrar no Mini cartão",
+    "after": "Mostrar na minitarxeta",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-admin",
+    "before": "Administrador do quadro",
+    "after": "Administrador do taboleiro",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "my-cards",
+    "before": "Meus Cartões",
+    "after": "As miñas tarxetas",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "myCardsViewChange-title",
+    "before": "Visão de Meus Cartões",
+    "after": "Vista das miñas tarxetas",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "myCardsViewChangePopup-title",
+    "before": "Visão de Meus Cartões",
+    "after": "Vista das miñas tarxetas",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "myCardsSortChange-title",
+    "before": "Ordenar os meus Cartões",
+    "after": "Ordenación das miñas tarxetas",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "myCardsSortChangePopup-title",
+    "before": "Ordenar os meus Cartões",
+    "after": "Ordenación das miñas tarxetas",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "myCardsSortChange-choice-board",
+    "before": "Por Quadro",
+    "after": "Por taboleiro",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "dueCards-title",
+    "before": "Cartões Data Limite",
+    "after": "Tarxetas con vencemento",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearchViewChange-choice-me",
+    "before": "Os meus cartões",
+    "after": "As miñas tarxetas",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearchViewChange-choice-all",
+    "before": "Todos os cartões",
+    "after": "Todas as tarxetas",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "broken-cards",
+    "before": "Cartões Defeituosos",
+    "after": "Tarxetas danadas",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "no-cards-found",
+    "before": "Sem Cartões Encontrados",
+    "after": "Non se atoparon tarxetas",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "one-card-found",
+    "before": "Um Cartão Encontrado",
+    "after": "Atopouse unha tarxeta",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "n-cards-found",
+    "before": "%s Cartões Encontrados",
+    "after": "Atopáronse %s tarxetas",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "operator-board",
+    "before": "quadro",
+    "after": "taboleiro",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-instructions-status-archived",
+    "before": "`__predicate_archived__` - cartões arquivados",
+    "after": "`__predicate_archived__` - tarxetas arquivadas",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "sort-cards",
+    "before": "Ordenar Cartões",
+    "after": "Ordenar tarxetas",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "sort-boards",
+    "before": "Ordenar quadros",
+    "after": "Ordenar taboleiros",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cardsSortPopup-title",
+    "before": "Ordenar Cartões",
+    "after": "Ordenar tarxetas",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "creator-on-minicard",
+    "before": "Criador no mini cartão",
+    "after": "Creador na minitarxeta",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "boardsReportTitle",
+    "before": "Relatório de Quadros",
+    "after": "Informe de taboleiros",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cardsReportTitle",
+    "before": "Relatório de Cartões",
+    "after": "Informe de tarxetas",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "maximize-card",
+    "before": "Maximizar Cartão",
+    "after": "Maximizar tarxeta",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "minimize-card",
+    "before": "Minimizar Cartão",
+    "after": "Minimizar tarxeta",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cardDetailsPopup-title",
+    "before": "Detalhes do cartão",
+    "after": "Detalles da tarxeta",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "card-show-lists",
+    "before": "Cartão mostra listas",
+    "after": "A tarxeta mostra as listas",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "card-id",
+    "before": "ID do cartão",
+    "after": "ID da tarxeta",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-id",
+    "before": "ID do Quadro",
+    "after": "ID do taboleiro",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-title",
+    "before": "Título do Quadro",
+    "after": "Título do taboleiro",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-status",
+    "before": "Estado do quadro",
+    "after": "Estado do taboleiro",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-status-cards-with-time",
+    "before": "Cartões com tempo gasto",
+    "after": "Tarxetas con tempo empregado",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "password-again",
+    "before": "Senha (novamente)",
+    "after": "Contrasinal (de novo)",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "forgot-password",
+    "before": "Esqueci minha senha",
+    "after": "Esqueceu o contrasinal",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "minicardDetailsActionsPopup-title",
+    "before": "Detalhes do cartão",
+    "after": "Detalles da tarxeta",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "drag-board",
+    "before": "Arrastar quadro",
+    "after": "Arrastrar taboleiro",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "accounts-lockout-locked-users",
+    "before": "Usuários Bloqueados",
+    "after": "Usuarios bloqueados",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "accounts-lockout-user-locked",
+    "before": "Usuário está bloqueado",
+    "after": "O usuario está bloqueado",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-operations",
+    "before": "Operações de Quadro",
+    "after": "Operacións do taboleiro",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "schedule-board-backup",
+    "before": "Agendar Backup de Quadro",
+    "after": "Programar a copia de seguridade do taboleiro",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "attachment-settings",
+    "before": "Configurações de Anexo",
+    "after": "Configuración de anexos",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "back-to-settings",
+    "before": "Voltar às Configurações",
+    "after": "Volver á configuración",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-migration",
+    "before": "Migração de Quadro",
+    "after": "Migración do taboleiro",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-migrations",
+    "before": "Migração de Quadros",
+    "after": "Migracións de taboleiros",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "lost-cards",
+    "before": "Cartões Perdidos",
+    "after": "Tarxetas perdidas",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "step-fix-orphaned-cards",
+    "before": "Corrigir Cartões Órfãos",
+    "after": "Corrixir as tarxetas orfas",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "step-update-cards",
+    "before": "Atualizar Cartões",
+    "after": "Actualizar as tarxetas",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "step-restore-cards",
+    "before": "Restaurar Cartões",
+    "after": "Restaurar as tarxetas",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "converting-board",
+    "before": "Convertendo Quadro",
+    "after": "Convertendo o taboleiro",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "unmigrated-boards",
+    "before": "Quadros não migrados",
+    "after": "Taboleiros sen migrar",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "password-mismatch",
+    "before": "As senhas não coincidem",
+    "after": "Os contrasinais non coinciden",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "user-exists",
+    "before": "O usuário já existe",
+    "after": "O usuario xa existe",
+    "reason": "Replace Portuguese board, card or account wording with reviewed Galician terminology for the declared locale."
   }
 ]
