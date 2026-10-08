@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Portuguese import instructions, first group — 2026-10-08
+
+Translate eight instructions in pt, pt-BR, pt-PT and pt_PT (32 values), preserving
+commands, extensions and variables. Brazilian Portuguese uses raia/arquivo while
+the other catalogs use pista/ficheiro. Regression checks cover those distinctions,
+first-board selection, completed-task dates and archived cards. Import-instruction
+and placeholder suites and all 21 preservation checks pass. Remaining Portuguese
+instructions, browser review and the wider translation backlog remain outstanding.
+
 ## Spanish import instructions, remaining group — 2026-10-08
 
 Translate 13 remaining instructions in nine Spanish catalogs (117 values),
