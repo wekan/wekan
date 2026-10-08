@@ -84,3 +84,11 @@ Admin Panel / Settings / Email Templates customizes the subject and body of
 invitation and activity emails, with {board} {card} {list} {username} {url}
 {comment} {action} variables escaped on the server
 (client/components/settings/settingBody.jade, server/notifications/email.js).
+
+## [#2211](https://github.com/wekan/wekan/issues/2211) Auth0: redirect to the
+full-screen login page instead of a popup
+
+Auth0 signs in through the OAuth2/OIDC service, whose login style can be
+`redirect` (OAUTH2_LOGIN_STYLE, also in Admin Panel / People / OAuth2); with
+OIDC_REDIRECTION_ENABLED=true the login page goes straight to the provider
+(client/components/main/layouts.js, server/models/settings.js).
