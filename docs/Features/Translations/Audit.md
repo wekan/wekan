@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Yiddish Blockly text positions — 2026-10-08
+
+Translate 45 English text and navigation messages. Preserve variables and index
+markers; check scrolling directions, letter-case distinctions, first/last and
+end-relative positions, copying and missing-text results. Specialized wording is
+lower confidence and needs native review. No browser or screen-reader session
+was run. Remaining translations are unfinished.
+
 ## Yiddish Blockly shortcuts and accessibility — 2026-10-08
 
 Translate 45 English procedure, shortcut and screen-reader messages. Preserve
