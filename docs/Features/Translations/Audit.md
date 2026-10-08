@@ -8827,6 +8827,15 @@ checks these details alongside script, key order and token inventories. Technica
 wording remains low confidence pending speaker review. Browser checks were not
 run; further Odia translations remain.
 
+## Odia text joining and substrings
+
+Filled 22 English placeholders for text joining, substring selection and search.
+Preserved index markers, first/last search distinctions, not-found return tokens
+and the first-text-in-second-text relationship. Existing translations were retained
+by the placeholder-only merge. Regression coverage checks these details alongside
+script, key order and token inventories. Technical wording remains low confidence
+pending speaker review. Browser checks were not run; further translations remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
