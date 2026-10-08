@@ -1006,6 +1006,18 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/faf6725f9a">Translate Lithuanian import and synchronization recovery</a>. Thanks to xet7.</summary>
+
+Fill 48 recovery messages, preserving source variables, existing translations,
+permanent deletion warnings and retention of changes already applied.
+
+Three focused translation suites and 21 human-preference checks pass.
+No browser or screen-reader session was run. Remaining Lithuanian messages,
+other languages and linguistic review remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/be43a70825">Translate Latvian controls and planning</a>. Thanks to xet7.</summary>
 
 Fill 51 messages covering controls, import guidance, LDAP, login settings,
