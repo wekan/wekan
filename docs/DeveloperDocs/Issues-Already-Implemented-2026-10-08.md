@@ -92,3 +92,11 @@ Auth0 signs in through the OAuth2/OIDC service, whose login style can be
 `redirect` (OAUTH2_LOGIN_STYLE, also in Admin Panel / People / OAuth2); with
 OIDC_REDIRECTION_ENABLED=true the login page goes straight to the provider
 (client/components/main/layouts.js, server/models/settings.js).
+
+## [#2489](https://github.com/wekan/wekan/issues/2489) Common WIP limit for
+several columns
+
+Board WIP limit groups share one limit across several lists (wipLimitGroups in
+models/boards.js, models/lib/wipLimitGroupDecision.js), set in the sidebar
+popup, and the list headers highlight a group over its limit
+(client/components/lists/listHeader.js).
