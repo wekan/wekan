@@ -1055,6 +1055,18 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/89421b54b9">Translate Yiddish Blockly statistics and rounding</a>. Thanks to xet7.</summary>
+
+Translate 45 English math messages, preserving variables and notation. Check
+random-number endpoints, rounding directions, minimum/maximum, statistical
+operations and sign inversion. Four focused translation suites and 21
+human-preference checks pass. Specialized mathematical wording is lower confidence
+and needs native review. No browser or screen-reader session was run.
+Remaining translation work is unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bc67a1295e">Translate Yiddish Blockly comparisons and arithmetic</a>. Thanks to xet7.</summary>
 
 Translate 45 English logic and arithmetic messages. Preserve variables and
