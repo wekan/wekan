@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/696bd0eade22cb7d571309c9f4fdea093ff17392">Correct Tatar notification controls and backup scope</a></summary>
+
+- Correct 18 notification and backup values, preserving activity-recording
+  distinctions and organization backup boundaries.
+- Technical wording remains low confidence pending speaker review.
+- All 136 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b66f0cbc4016e75b4d5545702bf8905d8821639f">Correct Tatar import export and anonymization guidance</a></summary>
 
 - Correct 14 import/export values and replace incorrect account-anonymization
