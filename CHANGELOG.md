@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cbaf5b65fe137541c1fa0d5c22bbfff6c25d4c87">Translate Turkmen variables and function controls</a></summary>
+
+- Fill 36 Turkmen placeholders, preserving existing translations, return-value
+  distinctions, disabled-definition warnings, scope restrictions and input types.
+- Technical wording remains low confidence pending speaker review.
+- All 50 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. Further translations and the audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/be9ba700ef477d7b4acc8a952a2b5af202ac3e64">Translate Turkmen mathematical functions and workspace controls</a></summary>
 
 - Fill 27 Turkmen placeholders, preserving existing translations, logarithm
