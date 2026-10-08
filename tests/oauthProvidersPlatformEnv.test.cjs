@@ -84,7 +84,8 @@ test('the Dockerfile ENV block defaults every variable, *_ENABLED to false', () 
     for (const v of ENABLED_VARS) {
       assert.ok(new RegExp(`^\\s+${esc(v)}=false \\\\$`, 'm').test(src), `${file}: ${v} must default to false`);
     }
-    assert.ok(/^\s+OAUTH_PROVIDERS_LOGIN_STYLE="popup" \\$/m.test(src), `${file}: login style defaults to popup`);
+    // redirect since 2026-10-08 (was popup), like OAUTH2_LOGIN_STYLE.
+    assert.ok(/^\s+OAUTH_PROVIDERS_LOGIN_STYLE="redirect" \\$/m.test(src), `${file}: login style defaults to redirect`);
     assert.ok(/^\s+OAUTH_PROVIDERS_MERGE_EXISTING_USERS=false \\$/m.test(src), `${file}: merge defaults to false`);
   }
 });
@@ -117,7 +118,7 @@ test('the Snap config lists every variable with a DESCRIPTION_/DEFAULT_/KEY_ tri
   for (const v of ENABLED_VARS) {
     assert.ok(new RegExp(`^DEFAULT_${esc(v)}="false"$`, 'm').test(src), `snap config: ${v} defaults to false`);
   }
-  assert.ok(/^DEFAULT_OAUTH_PROVIDERS_LOGIN_STYLE="popup"$/m.test(src));
+  assert.ok(/^DEFAULT_OAUTH_PROVIDERS_LOGIN_STYLE="redirect"$/m.test(src));
   // The help text names every snap set key.
   const help = read('snap-src/bin/wekan-help');
   for (const v of VARS) {

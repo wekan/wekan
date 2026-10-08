@@ -26,4 +26,9 @@ sudo snap set wekan oauth2-email-map='email'
 sudo snap set wekan oauth2-username-map='email'
 sudo snap set wekan oauth2-fullname-map='name'
 sudo snap set wekan oauth2-request-permissions='openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
+sudo snap set wekan oauth2-login-style='redirect'
 ```
+`redirect` is the default login style; a popup can look closed to WeKan as soon
+as Google's sign-in page opens, and the login then returns to the sign-in page.
+Open WeKan at its `root-url` only: Google returns there, and a login started at
+any other address cannot finish.

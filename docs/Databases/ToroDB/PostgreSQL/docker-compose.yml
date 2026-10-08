@@ -718,8 +718,8 @@ services:
       #- OAUTH_MEETUP_SECRET=
       # OAUTH_MEETUP_SECRET_FILE : read the secret from a file (Docker secrets) instead
       #- OAUTH_MEETUP_SECRET_FILE=/run/secrets/oauth_meetup_secret
-      # OAUTH_PROVIDERS_LOGIN_STYLE : popup or redirect, for all providers above. Default: popup
-      #- OAUTH_PROVIDERS_LOGIN_STYLE=popup
+      # OAUTH_PROVIDERS_LOGIN_STYLE : redirect or popup, for all providers above. Default: redirect
+      #- OAUTH_PROVIDERS_LOGIN_STYLE=redirect
       # OAUTH_PROVIDERS_MERGE_EXISTING_USERS : link a provider login to an existing WeKan
       # account with the same email. Default: false = the login is refused, not merged,
       # like OAUTH2_MERGE_EXISTING_USERS. Enable only if you trust the provider's emails.

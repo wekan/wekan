@@ -77,8 +77,14 @@ async function main() {
 
   // Profiles and per-setting overrides.
   const standard = resolveSamlConfig({}, base);
+  // The signatures are what WeKan always required. The login flow changed on
+  // 2026-10-08, at the maintainer's request, from popup to full-page redirect
+  // for every profile: a popup is blocked in iframes and on some phones, and
+  // an identity provider's Cross-Origin-Opener-Policy can cut it off.
   assert.deepEqual([standard.config.wantResponseSigned, standard.config.wantAssertionsSigned, standard.config.loginFlow],
-    [true, false, 'popup'], 'the default is what WeKan always did');
+    [true, false, 'redirect'], 'the standard profile: signed Response, redirect login');
+  // Negative: popup is still chosen when asked for.
+  assert.equal(resolveSamlConfig({}, { ...base, SAML_LOGIN_FLOW: 'popup' }).config.loginFlow, 'popup');
   assert.equal(standard.sources.loginFlow.source, 'profile');
   const redirect = resolveSamlConfig({ idpProfile: 'signed-assertion-redirect' }, base).config;
   assert.deepEqual([redirect.wantResponseSigned, redirect.wantAssertionsSigned, redirect.loginFlow], [false, true, 'redirect']);
@@ -122,7 +128,9 @@ async function main() {
   assert.match(server, /sign-in\?samlToken=\$\{encodeURIComponent\(credentialToken\)\}/);
   assert.match(server, /slice\(0, 200\)/, 'error text in the redirect is bounded');
   const client = read('packages/wekan-accounts-saml/saml_client.js');
-  assert.match(client, /config\.loginFlow === 'redirect'/);
+  // Redirect unless the configuration says popup (popup was the fallback
+  // before 2026-10-08), so a configuration not loaded yet still redirects.
+  assert.match(client, /config && config\.loginFlow === 'popup' \? 'popup' : 'redirect'/);
   assert.match(client, /setItem\(SAML_PENDING_TOKEN, credentialToken\)/);
   assert.match(client, /if \(!expected \|\| expected !== credentialToken\)/, 'a token this tab did not start is not exchanged');
   assert.match(client, /window\.history\.replaceState/);

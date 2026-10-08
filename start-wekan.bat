@@ -304,8 +304,8 @@ REM ## preventing account takeover via spoofed email claims. Only enable if you
 REM ## fully trust your OIDC provider's email claims, and even then the provider
 REM ## must send email_verified=true for the merge to happen.
 REM # SET OAUTH2_MERGE_EXISTING_USERS=false
-REM ## OAuth2 login style: popup or redirect.
-REM SET OAUTH2_LOGIN_STYLE=popup
+REM ## OAuth2 login style: redirect (default) or popup.
+REM SET OAUTH2_LOGIN_STYLE=redirect
 REM ## Application GUID captured during app registration:
 REM SET OAUTH2_CLIENT_ID=xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx
 REM ## Secret key generated during app registration:
@@ -335,8 +335,8 @@ REM ##    Use https://your.wekan/_oauth/oidc for the redirect URI.
 REM ## 2) Configure the environment variables. This differs slightly
 REM ##     by installation type, but make sure you have the following:
 REM SET OAUTH2_ENABLED=true
-REM ## OAuth2 login style: popup or redirect.
-REM SET OAUTH2_LOGIN_STYLE=popup
+REM ## OAuth2 login style: redirect (default) or popup.
+REM SET OAUTH2_LOGIN_STYLE=redirect
 REM ## Application GUID captured during app registration:
 REM SET OAUTH2_CLIENT_ID=xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx
 REM ## Secret key generated during app registration:
@@ -359,8 +359,8 @@ REM ------------------------------------------------------------
 REM ## ==== OAUTH2 KEYCLOAK ====
 REM ## https://github.com/wekan/wekan/wiki/Keycloak  <== MAPPING INFO, REQUIRED
 REM SET OAUTH2_ENABLED=true
-REM ## OAuth2 login style: popup or redirect.
-REM SET OAUTH2_LOGIN_STYLE=popup
+REM ## OAuth2 login style: redirect (default) or popup.
+REM SET OAUTH2_LOGIN_STYLE=redirect
 REM SET OAUTH2_CLIENT_ID=<Keycloak create Client ID>
 REM SET OAUTH2_SERVER_URL=<Keycloak server url - https://keycloak.example.com>
 REM SET OAUTH2_AUTH_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/auth
@@ -380,8 +380,8 @@ REM ## https://github.com/wekan/wekan/wiki/OAuth2
 REM ## Enable the OAuth2 connection
 REM SET OAUTH2_ENABLED=true
 REM ## OAuth2 docs: https://github.com/wekan/wekan/wiki/OAuth2
-REM ## OAuth2 login style: popup or redirect.
-REM SET OAUTH2_LOGIN_STYLE=popup
+REM ## OAuth2 login style: redirect (default) or popup.
+REM SET OAUTH2_LOGIN_STYLE=redirect
 REM ## OAuth2 Client ID.
 REM SET OAUTH2_CLIENT_ID=abcde12345
 REM ## OAuth2 Secret.
@@ -921,8 +921,8 @@ REM SET OAUTH_MEETUP_CLIENT_ID=
 REM SET OAUTH_MEETUP_SECRET=
 REM # OAUTH_MEETUP_SECRET_FILE : read the secret from a file (Docker secrets) instead
 REM SET OAUTH_MEETUP_SECRET_FILE=/run/secrets/oauth_meetup_secret
-REM # OAUTH_PROVIDERS_LOGIN_STYLE : popup or redirect, for all providers above. Default: popup
-REM SET OAUTH_PROVIDERS_LOGIN_STYLE=popup
+REM # OAUTH_PROVIDERS_LOGIN_STYLE : redirect or popup, for all providers above. Default: redirect
+REM SET OAUTH_PROVIDERS_LOGIN_STYLE=redirect
 REM # OAUTH_PROVIDERS_MERGE_EXISTING_USERS : link a provider login to an existing WeKan
 REM # account with the same email. Default: false = the login is refused, not merged,
 REM # like OAUTH2_MERGE_EXISTING_USERS. Enable only if you trust the provider's emails.

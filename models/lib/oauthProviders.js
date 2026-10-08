@@ -216,9 +216,12 @@ function resolveProviderConfig(provider, admin, env = process.env, readFile) {
   };
 }
 
-// popup is the default, like OAUTH2_LOGIN_STYLE (#5695).
+// redirect is the default, like OAUTH2_LOGIN_STYLE; popup only when asked
+// for. A provider's sign-in page (Google's among them) can send
+// Cross-Origin-Opener-Policy, which makes Meteor's popup look closed at once,
+// so the login is tried before the provider answered and fails silently.
 function normalizeLoginStyle(value) {
-  return String(value || '').trim().toLowerCase() === 'redirect' ? 'redirect' : 'popup';
+  return String(value || '').trim().toLowerCase() === 'popup' ? 'popup' : 'redirect';
 }
 
 /**

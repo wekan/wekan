@@ -70,7 +70,7 @@ Template.userFormsLayout.onCreated(function () {
 });
 
 Template.userFormsLayout.onRendered(function () {
-  if (pendingSamlError) Meteor.defer(() => showLoginError(samlErrorForDisplay(pendingSamlError)));
+  if (pendingRedirectLoginError) Meteor.defer(() => showLoginError(redirectLoginErrorForDisplay(pendingRedirectLoginError)));
   const instance = this;
   // Login / register pages scroll on <body>; enable drag-to-scroll there so the
   // gesture works the same as on the board swimlanes view.
@@ -458,23 +458,38 @@ Template.userFormsLayout.events({
 
 // The same ARIA live region config/accounts.js writes the password form's
 // login errors into, so a provider or code error reads the same way.
-// wekan-accounts-saml's redirect flow finishes after the page reloads, and
-// may report before the sign-in form exists: keep the last error until then.
-// It also arrives before translations load, so a message key is translated
-// each time it is shown, and shown again once the language is ready.
-let pendingSamlError = null;
-const samlErrorForDisplay = error => (error && error.error === 'saml-login-not-started'
+// A redirect login - OAuth2/OIDC and Google & co (Meteor's accounts-oauth),
+// SAML, CAS; redirect is the default for all of them - finishes after the page
+// has reloaded, where no button callback is left to show its error. Without
+// this, a refused login just landed on the sign-in page again, silently. Each
+// reports here instead, possibly before the sign-in form exists: keep the last
+// error until then. It also arrives before translations load, so a message key
+// is translated each time it is shown, and shown again once the language is
+// ready.
+let pendingRedirectLoginError = null;
+const redirectLoginErrorForDisplay = error => (error && error.error === 'saml-login-not-started'
   ? { reason: TAPi18n.__('saml-login-not-started') } : error);
-window.addEventListener('wekan-saml-login', event => {
-  const error = event.detail && event.detail.error;
+function reportRedirectLoginError(error) {
   if (!error) return;
-  pendingSamlError = error;
-  showLoginError(samlErrorForDisplay(error));
+  pendingRedirectLoginError = error;
+  showLoginError(redirectLoginErrorForDisplay(error));
+}
+// wekan-accounts-saml and wekan-accounts-cas report through an event.
+for (const name of ['wekan-saml-login', 'wekan-cas-login']) {
+  window.addEventListener(name, event => reportRedirectLoginError(event.detail && event.detail.error));
+}
+// accounts-oauth reports a redirect login's result through Accounts'
+// page-load hook. A resumed session is not a login the user just tried.
+Accounts.onPageLoadLogin(attempt => {
+  if (attempt && attempt.type !== 'resume' && attempt.error) reportRedirectLoginError(attempt.error);
 });
+Accounts.onLogin(() => { pendingRedirectLoginError = null; });
 Tracker.autorun(() => {
   TAPi18n.ready.get();
   TAPi18n.revision.get();
-  if (pendingSamlError) Tracker.nonreactive(() => showLoginError(samlErrorForDisplay(pendingSamlError)));
+  if (pendingRedirectLoginError) {
+    Tracker.nonreactive(() => showLoginError(redirectLoginErrorForDisplay(pendingRedirectLoginError)));
+  }
 });
 
 function showLoginError(err) {
@@ -564,7 +579,8 @@ Template.userFormsLayout.onRendered(function () {
     submitPassword: form => form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true })),
     login(method, username, password, callback) {
       if (method === 'ldap') Meteor.loginWithLDAP(username, password, callback);
-      else if (method === 'cas') Meteor.loginWithCas(username, password, callback);
+      // CAS signs in on the CAS server's own page: no username or password.
+      else if (method === 'cas') Meteor.loginWithCas({}, callback);
       else Meteor.loginWithSaml({ provider: Meteor.settings.public.SAML_PROVIDER }, callback);
     },
     setBusy(busy) {

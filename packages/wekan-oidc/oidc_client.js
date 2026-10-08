@@ -29,8 +29,9 @@ Oidc.requestCredential = function (options, credentialRequestCompleteCallback) {
       // with loginStyle 'redirect', drop the generic popup default so the
       // full-page redirect flow is used. An explicit
       // { loginStyle: 'redirect' } from a caller (the OIDC_REDIRECTION_ENABLED
-      // auto-login) keeps working regardless of the configured style, and
-      // popup remains the default when OAUTH2_LOGIN_STYLE is unset or popup.
+      // auto-login) keeps working regardless of the configured style. The
+      // server configures 'redirect' unless OAUTH2_LOGIN_STYLE is popup
+      // (server/authentication.js), so popup is used only when asked for.
       if (config.loginStyle === 'redirect') {
         options.loginStyle = 'redirect';
       }

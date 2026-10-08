@@ -92,8 +92,8 @@ token response instead of calling a userinfo endpoint.
 
 Apple's authorization endpoint requires the request to use `response_mode=form_post`
 whenever the `name`/`email` scopes are requested; if your Wekan instance needs
-those on first login and the popup flow does not complete, try
-`OAUTH2_LOGIN_STYLE=redirect` (see [OAuth2.md](./OAuth2.md)).
+those on first login, keep the default `OAUTH2_LOGIN_STYLE=redirect`: the
+popup flow may not complete (see [OAuth2.md](./OAuth2.md)).
 
 ## Others
 

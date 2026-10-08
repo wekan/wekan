@@ -71,7 +71,7 @@ Meteor.settings = {
 			"serviceParam": "service",
 			"popupWidth": 810,
 			"popupHeight": 610,
-			"popup": true,
+			"popup": false,
 		}
 	}
 }
@@ -82,12 +82,18 @@ Meteor.settings = {
 Then, to start authentication, you have to call the following method from the client (for example in a click handler) :
 
 ```
-Meteor.loginWithCas([callback]);
+Meteor.loginWithCas({}, [callback]);
 ```
 
-It must open a popup containing you CAS login form or redirect to the CAS login form (depending on "popup" setting).
-
-If popup is disabled (== false), then it's required to execute `Meteor.initCas([callback])` in `Meteor.startup` of the client side. ATM, `Meteor.initCas()` completes authentication.
+By default the browser leaves for the CAS login form and comes back to the
+same page, which completes the login: this package calls
+`Meteor.initCas()` at client startup, and reports the result as a
+`wekan-cas-login` window event (`event.detail.error`), because the
+callback did not survive the page change. Set both the server's and the
+public `"popup": true` to open the CAS login form in a popup instead; a popup
+is blocked in iframes and on some phones, and a CAS server's
+Cross-Origin-Opener-Policy can cut it off from the page, so the login never
+finishes.
 
 ## Examples
 

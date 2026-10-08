@@ -23,7 +23,9 @@ async function port() { const server = net.createServer(); await new Promise(r =
   const smtp = await smtpSink(smtpPort); provider.state.messages = smtp.messages;
   const appPort = await port(), dbPort = await port();
   const base = `http://127.0.0.1:${appPort}`;
-  const cas = { loginUrl: provider.url + '/cas/login', validateUrl: 'https://cas.identity.invalid/serviceValidate', popup: true, serviceParam: 'service', attributes: {} };
+  // No `popup`: CAS logs in by full-page redirect by default, as the other
+  // providers here do (no *_LOGIN_STYLE / SAML_LOGIN_FLOW is set either).
+  const cas = { loginUrl: provider.url + '/cas/login', validateUrl: 'https://cas.identity.invalid/serviceValidate', serviceParam: 'service', attributes: {} };
   // Do not inherit deployment credentials or MONGO_URL into this test instance.
   const env = { PATH: process.env.PATH, HOME: process.env.HOME, LANG: process.env.LANG, TZ: process.env.TZ, TMPDIR: work, DO_NOT_TRACK: '1', BIND_IP: '127.0.0.1',
     HEADER_LOGIN_ID: 'x-fixture-user', HEADER_LOGIN_EMAIL: 'x-fixture-email', HEADER_LOGIN_FIRSTNAME: 'x-fixture-firstname', HEADER_LOGIN_LASTNAME: 'x-fixture-lastname', HEADER_LOGIN_TRUSTED_PROXIES: '127.0.0.1', HEADER_LOGIN_TRUSTED_IPS: '192.0.2.10',

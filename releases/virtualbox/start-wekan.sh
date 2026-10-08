@@ -161,7 +161,7 @@
       # Azure AD B2C. https://github.com/wekan/wekan/issues/5242
       #- OAUTH2_B2C_ENABLED=false
       # OAuth2 docs: https://github.com/wekan/wekan/wiki/OAuth2
-      # OAuth2 login style: popup or redirect.
+      # OAuth2 login style: redirect (default) or popup.
       #export OAUTH2_LOGIN_STYLE=redirect
       # Application GUID captured during app registration:
       #export OAUTH2_CLIENT_ID=xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx
@@ -183,7 +183,7 @@
       # ==== OAUTH2 KEYCLOAK ====
       # https://github.com/wekan/wekan/wiki/Keycloak  <== MAPPING INFO, REQUIRED
       #export OAUTH2_ENABLED=true
-      # OAuth2 login style: popup or redirect.
+      # OAuth2 login style: redirect (default) or popup.
       #export OAUTH2_LOGIN_STYLE=redirect
       #export OAUTH2_CLIENT_ID=<Keycloak create Client ID>
       #export OAUTH2_SERVER_URL=<Keycloak server name>/auth
@@ -198,7 +198,7 @@
       # https://github.com/wekan/wekan/wiki/OAuth2
       # Enable the OAuth2 connection
       #export OAUTH2_ENABLED=true
-      # OAuth2 login style: popup or redirect.
+      # OAuth2 login style: redirect (default) or popup.
       #export OAUTH2_LOGIN_STYLE=redirect
       # OAuth2 Client ID.
       #export OAUTH2_CLIENT_ID=abcde12345
@@ -483,8 +483,8 @@
       #export OAUTH_MEETUP_SECRET=
       # OAUTH_MEETUP_SECRET_FILE : read the secret from a file (Docker secrets) instead
       #export OAUTH_MEETUP_SECRET_FILE=/run/secrets/oauth_meetup_secret
-      # OAUTH_PROVIDERS_LOGIN_STYLE : popup or redirect, for all providers above. Default: popup
-      #export OAUTH_PROVIDERS_LOGIN_STYLE=popup
+      # OAUTH_PROVIDERS_LOGIN_STYLE : redirect or popup, for all providers above. Default: redirect
+      #export OAUTH_PROVIDERS_LOGIN_STYLE=redirect
       # OAUTH_PROVIDERS_MERGE_EXISTING_USERS : link a provider login to an existing WeKan
       # account with the same email. Default: false = the login is refused, not merged,
       # like OAUTH2_MERGE_EXISTING_USERS. Enable only if you trust the provider's emails.

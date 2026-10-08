@@ -353,7 +353,7 @@ DESCRIPTION_OAUTH2_MERGE_EXISTING_USERS="SECURITY GHSA-mp7g-hj5q-gxhq: Link an O
 DEFAULT_OAUTH2_MERGE_EXISTING_USERS="false"
 KEY_OAUTH2_MERGE_EXISTING_USERS="oauth2-merge-existing-users"
 
-DESCRIPTION_OAUTH2_LOGIN_STYLE="OAuth2 login style: popup or redirect. Default: redirect"
+DESCRIPTION_OAUTH2_LOGIN_STYLE="OAuth2 login style: redirect or popup. Default: redirect"
 DEFAULT_OAUTH2_LOGIN_STYLE="redirect"
 KEY_OAUTH2_LOGIN_STYLE="oauth2-login-style"
 
@@ -934,8 +934,8 @@ DESCRIPTION_OAUTH_MEETUP_SECRET_FILE="File to read the Meetup OAuth secret from 
 DEFAULT_OAUTH_MEETUP_SECRET_FILE=""
 KEY_OAUTH_MEETUP_SECRET_FILE="oauth-meetup-secret-file"
 
-DESCRIPTION_OAUTH_PROVIDERS_LOGIN_STYLE="Login style of the provider buttons above: popup or redirect. Default: popup"
-DEFAULT_OAUTH_PROVIDERS_LOGIN_STYLE="popup"
+DESCRIPTION_OAUTH_PROVIDERS_LOGIN_STYLE="Login style of the provider buttons above: redirect or popup. Default: redirect"
+DEFAULT_OAUTH_PROVIDERS_LOGIN_STYLE="redirect"
 KEY_OAUTH_PROVIDERS_LOGIN_STYLE="oauth-providers-login-style"
 
 DESCRIPTION_OAUTH_PROVIDERS_MERGE_EXISTING_USERS="Link a provider login to an existing WeKan account with the same email. Default: false, the login is refused instead of merged (same rule as OAUTH2_MERGE_EXISTING_USERS)"
@@ -999,6 +999,6 @@ DESCRIPTION_SAML_WANT_ASSERTIONS_SIGNED="Require a signed SAML Assertion (true/f
 DEFAULT_SAML_WANT_ASSERTIONS_SIGNED=""
 KEY_SAML_WANT_ASSERTIONS_SIGNED="saml-want-assertions-signed"
 
-DESCRIPTION_SAML_LOGIN_FLOW="SAML login flow: popup or redirect. Default: from SAML_IDP_PROFILE"
+DESCRIPTION_SAML_LOGIN_FLOW="SAML login flow: redirect or popup. Default: from SAML_IDP_PROFILE, redirect for every profile"
 DEFAULT_SAML_LOGIN_FLOW=""
 KEY_SAML_LOGIN_FLOW="saml-login-flow"

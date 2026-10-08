@@ -33,6 +33,14 @@ the lower-case dash-separated equivalent (for example `oauth2-admin-groups`).
   "auto-add users with domain name" cannot group them. An organization that
   does not exist is not created; the login goes on and the server log says so.
   Also in Admin Panel / People / OAuth2.
+- `OAUTH2_LOGIN_STYLE` (default `redirect`) — `redirect` leaves the WeKan page
+  for the provider and comes back; `popup` opens the provider in a popup
+  window. Redirect is the default because it works in more places: Google's
+  and other providers' sign-in pages can send a `Cross-Origin-Opener-Policy`
+  header that makes the popup look closed at once, so the login never finishes
+  and the user is back on the sign-in page, and popups fail where they are
+  blocked, inside an iframe and on some phones. Set `popup` only to keep the
+  WeKan page open during the login. Also in Admin Panel / People / OAuth2.
 
 ## GitLab providing OAuth2 login to Wekan
 

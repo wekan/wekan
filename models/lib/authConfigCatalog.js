@@ -107,7 +107,7 @@ const SECTIONS = {
       ['enabled', 'OAUTH2_ENABLED', 'boolean', { defaultValue: false }],
       ['oracleOimEnabled', 'ORACLE_OIM_ENABLED', 'boolean', { defaultValue: false }],
       ['redirectionEnabled', 'OIDC_REDIRECTION_ENABLED', 'boolean', { defaultValue: false }],
-      ['loginStyle', 'OAUTH2_LOGIN_STYLE', 'choice', { choices: ['popup', 'redirect'], defaultValue: 'popup' }],
+      ['loginStyle', 'OAUTH2_LOGIN_STYLE', 'choice', { choices: ['popup', 'redirect'], defaultValue: 'redirect' }],
       ['clientId', 'OAUTH2_CLIENT_ID', 'text'],
       ['secret', 'OAUTH2_SECRET', 'secret'],
       ['serverUrl', 'OAUTH2_SERVER_URL', 'url'],

@@ -10,12 +10,34 @@ async function control(request, mode = 'allow', user = 'alice') { await request.
 async function events(request) { return (await request.get(`${provider}/__events`)).json(); }
 async function session(page) { return page.evaluate(() => window.Meteor?.userId() || null); }
 async function signIn(page) { await page.goto('/sign-in'); await waitForMeteor(page); }
-async function invoke(page, method, options = {}) {
-  await page.evaluate(({ method, options }) => {
-    window.identityResult = null;
-    Meteor[method](options, error => { window.identityResult = error ? { error: error.error || error.message, reason: error.reason } : { ok: true }; });
-  }, { method, options });
+// Every provider login is a full-page redirect by default (OAUTH2_LOGIN_STYLE,
+// OAUTH_PROVIDERS_LOGIN_STYLE, SAML_LOGIN_FLOW, CAS "popup"; 2026-10-08): the
+// page leaves for the identity provider and comes back, and no callback
+// survives that. So start the login, then wait on whatever page is current for
+// the outcome: signed in, or the error the sign-in page shows. Reading the old
+// page is harmless - it has neither a user nor an error yet.
+const outcomeInPage = () => {
+  if (typeof Meteor === 'undefined' || !Meteor.status().connected || Meteor.loggingIn()) return null;
+  if (Meteor.userId()) return { userId: Meteor.userId() };
+  const text = document.getElementById('login-error-message')?.textContent?.trim();
+  return text ? { error: text } : null;
+};
+async function loginOutcome(page, start) {
+  await start();
+  const deadline = Date.now() + 45000;
+  for (;;) {
+    let outcome = null;
+    try { outcome = await page.evaluate(outcomeInPage); } catch { /* navigating */ }
+    if (outcome) return outcome;
+    if (Date.now() > deadline) throw new Error(`no login outcome; page is ${page.url()}`);
+    await page.waitForTimeout(250);
+  }
 }
+// Start a Meteor.loginWith… call after evaluate() has returned, because the
+// page itself is about to leave.
+const startLogin = (page, method, options = {}) => () => page.evaluate(({ method, options }) => {
+  setTimeout(() => Meteor[method](options), 0);
+}, { method, options });
 test.describe('real identity provider protocol contracts', () => {
   test.skip(!provider, 'Run tests/integration/login-providers/run.cjs against a prepared bundle');
   test.beforeEach(async ({ context, request, adminUser }) => {
@@ -62,7 +84,10 @@ test.describe('real identity provider protocol contracts', () => {
         expect(user.profile.fullname).toBe('Alice Directory');
         await page.reload(); await waitForMeteor(page); await expect.poll(() => session(page)).toBe(user._id);
       } else {
-        await expect(page.locator('#login-error-message')).toContainText('LDAP Authentication failed');
+        // A wrong password gets the generic 'LDAP authentication failed' since
+        // 679a8b3499 (it does not say whether the account exists); this
+        // expectation predated it.
+        await expect(page.locator('#login-error-message')).toContainText(/LDAP authentication failed/i);
         expect(await session(page)).toBeNull();
         expect(db.findOne('users', { username: 'alice' })).toBeNull();
       }
@@ -92,11 +117,12 @@ test.describe('real identity provider protocol contracts', () => {
   for (const mode of ['allow', 'deny', 'bad-token', 'empty-userinfo']) {
     test(`OAuth2/OIDC authorization, token and profile exchange: ${mode}`, async ({ page, request }) => {
       await control(request, mode); await signIn(page);
-      await invoke(page, 'loginWithOidc');
-      await expect.poll(() => page.evaluate(() => window.identityResult)).toBeTruthy();
+      const outcome = await loginOutcome(page, startLogin(page, 'loginWithOidc'));
+      // Redirect, not popup: the provider was reached in this window.
+      expect((await events(request)).some(e => e.operation === 'authorize')).toBe(true);
       if (mode === 'allow') {
-        await expect.poll(() => session(page)).toBeTruthy();
-        const user = db.findOne('users', { _id: await session(page) });
+        expect(outcome.userId).toBeTruthy();
+        const user = db.findOne('users', { _id: outcome.userId });
         expect(user.services.oidc.id).toBe('alice-oidc'); expect(user.services.oidc.email).toBe('alice.oidc@example.invalid');
         expect(user.isAdmin).not.toBe(true);
         const wire = await events(request);
@@ -104,7 +130,8 @@ test.describe('real identity provider protocol contracts', () => {
         expect(wire.find(e => e.operation === 'token')).toMatchObject({ clientId: 'fixture-client', secretMatches: true, grant: 'authorization_code', accepted: true });
         expect(wire.some(e => e.operation === 'userinfo' && e.bearerAccepted)).toBe(true);
       } else {
-        expect((await page.evaluate(() => window.identityResult)).error).toBeTruthy();
+        // The refusal is shown on the sign-in page the browser came back to.
+        expect(outcome.error).toBeTruthy();
         expect(await session(page)).toBeNull();
         expect(db.find('users', { 'services.oidc.id': 'alice-oidc' })).toHaveLength(0);
       }
@@ -114,15 +141,13 @@ test.describe('real identity provider protocol contracts', () => {
   for (const mode of ['allow', 'unsigned', 'tampered', 'expired']) {
     test(`SAML signed assertion and mapped account: ${mode}`, async ({ page, request }) => {
       await control(request, mode); await signIn(page);
-      await invoke(page, 'loginWithSaml', { provider: 'fixture' });
-      await expect.poll(() => page.evaluate(() => window.identityResult)).toBeTruthy();
-      const result = await page.evaluate(() => window.identityResult);
+      const outcome = await loginOutcome(page, startLogin(page, 'loginWithSaml', { provider: 'fixture' }));
       if (mode === 'allow') {
-        expect(result).toEqual({ ok: true });
-        const user = db.findOne('users', { _id: await session(page) });
+        expect(outcome.userId).toBeTruthy();
+        const user = db.findOne('users', { _id: outcome.userId });
         expect(user.emails[0].address).toBe('alice.saml@example.invalid');
         expect(user.authenticationMethod).toBe('saml'); expect(user.profile.fullname).toBe('Alice SAML');
-      } else { expect(result.error).toBeTruthy(); expect(await session(page)).toBeNull(); }
+      } else { expect(outcome.error).toBeTruthy(); expect(await session(page)).toBeNull(); }
       expect((await events(request)).some(e => e.protocol === 'saml' && e.operation === 'authorize')).toBe(true);
     });
   }
@@ -130,16 +155,17 @@ test.describe('real identity provider protocol contracts', () => {
   for (const mode of ['allow', 'deny']) {
     test(`CAS ticket validation: ${mode}`, async ({ page, request }) => {
       await control(request, mode); await signIn(page);
-      await invoke(page, 'loginWithCas');
+      const outcome = await loginOutcome(page, startLogin(page, 'loginWithCas'));
       await expect.poll(async () => (await events(request)).some(e => e.protocol === 'cas' && e.operation === 'validate')).toBe(true);
       if (mode === 'allow') {
-        await expect.poll(() => session(page)).toBeTruthy();
-        const user = db.findOne('users', { _id: await session(page) });
+        expect(outcome.userId).toBeTruthy();
+        // The casToken the CAS server sent back is not left in the address.
+        await expect.poll(() => page.url()).not.toContain('casToken=');
+        const user = db.findOne('users', { _id: outcome.userId });
         expect(user.username).toBe('alice.cas'); expect(user.emails[0].address).toBe('alice.cas@example.invalid');
         expect(user.profile.fullname).toBe('Alice CAS'); expect(user.authenticationMethod).toBe('cas');
       } else {
-        await expect.poll(() => page.evaluate(() => window.identityResult)).toBeTruthy();
-        expect((await page.evaluate(() => window.identityResult)).error).toBeTruthy(); expect(await session(page)).toBeNull();
+        expect(outcome.error).toBeTruthy(); expect(await session(page)).toBeNull();
       }
     });
   }
@@ -147,10 +173,10 @@ test.describe('real identity provider protocol contracts', () => {
   for (const service of ['google', 'github', 'facebook', 'twitter', 'meteor-developer', 'weibo', 'meetup']) {
     for (const mode of ['allow', 'deny']) test(`${service} real Meteor adapter: ${mode}`, async ({ page, request }) => {
       await control(request, mode); await signIn(page);
-      await page.locator(`.js-oauth-provider[data-provider="${service}"]`).click();
+      const outcome = await loginOutcome(page, () => page.locator(`.js-oauth-provider[data-provider="${service}"]`).click());
       if (mode === 'allow') {
-        await expect.poll(() => session(page)).toBeTruthy();
-        const user = db.findOne('users', { _id: await session(page) });
+        expect(outcome.userId).toBeTruthy();
+        const user = db.findOne('users', { _id: outcome.userId });
         expect(user.services[service].id).toBe(service === 'weibo' ? '123456789' : `alice-${service}`);
         expect(user.authenticationMethod).toBe(service);
         expect(user.profile.fullname).toBe(service === 'weibo' ? 'alice.weibo' : service === 'twitter' ? 'Alice Twitter' : `Alice ${service}`);
@@ -160,7 +186,7 @@ test.describe('real identity provider protocol contracts', () => {
         expect(wire.some(e => e.operation === 'token' && e.secretMatches && e.accepted)).toBe(true);
         expect(wire.some(e => e.operation === 'userinfo' && e.bearerAccepted)).toBe(true);
       } else {
-        await expect(page.locator('#login-error-message')).not.toBeEmpty();
+        expect(outcome.error).toBeTruthy();
         expect(await session(page)).toBeNull();
       }
     });

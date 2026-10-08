@@ -24,14 +24,17 @@ const SAML_FIELDS = [
 
 // What each identity-provider profile means.
 //   standard                  the Response is signed (node-saml's default and
-//                             WeKan's behaviour so far); login opens in a popup.
+//                             WeKan's behaviour so far).
 //   signed-assertion-redirect the identity provider signs the Assertion and
 //                             not the Response - SAML 2.0 allows either - so
-//                             the Assertion signature is required instead;
-//                             the browser leaves WeKan for the identity
-//                             provider and comes back in the same window.
+//                             the Assertion signature is required instead.
+// Both log in by full-page redirect: the browser leaves WeKan for the identity
+// provider and comes back in the same window. It used to be a popup for
+// `standard`; a popup is blocked in iframes and on some phones, and an
+// identity provider's Cross-Origin-Opener-Policy can cut it off from WeKan so
+// the login never finishes. SAML_LOGIN_FLOW=popup still chooses the popup.
 const SAML_PROFILES = {
-  standard: { wantResponseSigned: true, wantAssertionsSigned: false, loginFlow: 'popup' },
+  standard: { wantResponseSigned: true, wantAssertionsSigned: false, loginFlow: 'redirect' },
   'signed-assertion-redirect': { wantResponseSigned: false, wantAssertionsSigned: true, loginFlow: 'redirect' },
 };
 const PROFILE_KEYS = ['wantResponseSigned', 'wantAssertionsSigned', 'loginFlow'];

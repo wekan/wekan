@@ -8,7 +8,9 @@ function setup() {
   const popup = { closed: false, focus() {}, close() { this.closed = true; }, document: { getElementById: () => null } };
   const Meteor = { Error: class extends Error { constructor(code, reason) { super(reason); this.error = code; this.reason = reason; } }, startup() {} };
   vm.runInNewContext(source, { Meteor, Random: { id: () => 'token' }, window: { screenX: 0, screenY: 0, outerWidth: 1000, outerHeight: 800, open: () => popup },
-    ServiceConfiguration: { configurations: { findOne: () => ({ service: 'saml' }) } }, URLSearchParams,
+    // This suite is about the popup flow: redirect is the default since
+    // 2026-10-08, so the configuration asks for the popup.
+    ServiceConfiguration: { configurations: { findOne: () => ({ service: 'saml', loginFlow: 'popup' }) } }, URLSearchParams,
     Accounts: { callLoginMethod({ methodArguments, userCallback }) { calls++; assert.equal(methodArguments[0].saml.credentialToken, 'token'); userCallback(); } },
     setInterval(fn) { tick = fn; return 1; }, clearInterval() { cleared++; } });
   Meteor.loginWithSaml({}, error => { result = error || 'success'; });

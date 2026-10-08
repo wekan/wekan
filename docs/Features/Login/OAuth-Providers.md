@@ -74,7 +74,7 @@ And three settings that apply to all of them at once:
 
 | Variable | Meaning |
 | --- | --- |
-| `OAUTH_PROVIDERS_LOGIN_STYLE` | `popup` (default) opens the provider in a popup window; `redirect` leaves the page and comes back. Use `redirect` where popups are blocked, for example inside an iframe or on some phones. |
+| `OAUTH_PROVIDERS_LOGIN_STYLE` | `redirect` (default) leaves the page for the provider and comes back; `popup` opens the provider in a popup window. Redirect is the default because a provider's sign-in page, Google's among them, can send `Cross-Origin-Opener-Policy`, which makes the popup look closed at once so the login never finishes; popups also fail where they are blocked, inside an iframe and on some phones. |
 | `OAUTH_PROVIDERS_MERGE_EXISTING_USERS` | Default `false`: a provider login whose email already belongs to a WeKan account made another way (password, LDAP, OAuth2, ...) is refused. `true` links the provider to that account instead. This is the same rule as `OAUTH2_MERGE_EXISTING_USERS`: only enable it when you trust every enabled provider to have verified the email, or an attacker who controls an account at one provider with your user's email gets your user's boards. |
 | `OAUTH_PROVIDERS_ALLOWED_EMAIL_DOMAINS` | Comma-separated email domains, for example `example.com,example.org`: only a provider login whose email is in one of them may sign in, on its first login and every later one, so narrowing it also applies to existing accounts. A provider that sends no email (GitHub with a private address) is refused while it is set. Empty allows every domain. The same rule as `OAUTH2_ALLOWED_EMAIL_DOMAINS` for OAuth2/OIDC; also in Admin Panel / People / OAuth login providers (#1904). |
 | `PASSWORDLESS_ENABLED` | Not a provider, but the other Meteor accounts login: a one-time code by email. See [Passwordless](Passwordless.md). |
@@ -152,9 +152,10 @@ see [REST API](../../API/REST-API.md#admin-panel-oauth-login-providers-and-passw
   `sudo snap set wekan root-url='https://wekan.example.com'`) and register
   `<ROOT_URL>/_oauth/<service>` at the provider. The sign-in page says this,
   naming both addresses, when it happens.
-- The popup closes and nothing happens: the browser blocked third-party
-  cookies for the popup, or WeKan is inside an iframe. Set
-  `OAUTH_PROVIDERS_LOGIN_STYLE=redirect`.
+- With `OAUTH_PROVIDERS_LOGIN_STYLE=popup`, the popup closes and nothing
+  happens: the browser blocked third-party cookies for the popup, the
+  provider's `Cross-Origin-Opener-Policy` cut the popup off, or WeKan is inside
+  an iframe. Use `redirect`, the default.
 - *"Login refused: an account with this email already exists"*: that is
   `OAUTH_PROVIDERS_MERGE_EXISTING_USERS=false` doing its job. Either the user
   logs in the way the account was made, or the administrator enables merging

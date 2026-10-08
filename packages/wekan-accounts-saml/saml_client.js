@@ -29,9 +29,12 @@ var openCenteredPopup = function (url, width, height) {
 // sent - must not log the browser into the account behind it.
 var SAML_PENDING_TOKEN = 'wekan-saml-pending-token';
 
+// Redirect unless the server's configuration says popup: the server resolves
+// SAML_LOGIN_FLOW (redirect for every profile by default), and a configuration
+// not loaded yet must not bring back the popup.
 function samlLoginFlow() {
   var config = ServiceConfiguration.configurations.findOne({ service: 'saml' });
-  return config && config.loginFlow === 'redirect' ? 'redirect' : 'popup';
+  return config && config.loginFlow === 'popup' ? 'popup' : 'redirect';
 }
 
 function reportSamlResult(error) {

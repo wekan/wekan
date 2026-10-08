@@ -4,6 +4,17 @@
 
 Please send pull requests if CAS login does not work.
 
+## Login style
+
+CAS signs in by full-page redirect: the browser leaves WeKan for the CAS login
+form and comes back to the same page, which finishes the login and shows any
+error on the sign-in page. To open the CAS form in a popup instead, set
+`"popup": true` in both `cas` and `public.cas` of `METEOR_SETTINGS`. A popup is
+blocked in iframes and on some phones, and a CAS server's
+`Cross-Origin-Opener-Policy` can cut it off from WeKan so the login never
+finishes, which is why redirect is the default (before 2026-10-08 it was the
+popup, and a redirect login could not finish at all).
+
 Wekan clientside code is at `wekan/client/components/main/layouts.*`
 
 Wekan serverside code is at:

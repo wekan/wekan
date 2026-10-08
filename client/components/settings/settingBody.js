@@ -1512,8 +1512,8 @@ Template.general.helpers({
     const current = ReactiveCache.getCurrentSetting()?.oauthProvidersLoginStyle || '';
     return [
       { value: '', label: OAUTH_SHARED_ENV_VARS.loginStyle, selected: current === '' },
-      { value: 'popup', label: 'popup', selected: current === 'popup' },
       { value: 'redirect', label: 'redirect', selected: current === 'redirect' },
+      { value: 'popup', label: 'popup', selected: current === 'popup' },
     ];
   },
 });

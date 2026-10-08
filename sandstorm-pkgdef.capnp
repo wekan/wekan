@@ -294,7 +294,7 @@ const myCommand :Spk.Manifest.Command = (
     (key = "OAUTH_MEETUP_CLIENT_ID", value=""),
     (key = "OAUTH_MEETUP_SECRET", value=""),
     (key = "OAUTH_MEETUP_SECRET_FILE", value=""),
-    (key = "OAUTH_PROVIDERS_LOGIN_STYLE", value="popup"),
+    (key = "OAUTH_PROVIDERS_LOGIN_STYLE", value="redirect"),
     (key = "OAUTH_PROVIDERS_MERGE_EXISTING_USERS", value="false"),
     (key = "SAML_ENABLED", value="false"),
     (key = "SAML_PROVIDER", value=""),

@@ -4,6 +4,24 @@ function addParameterToURL(url, param){
   return url+(urlSplit.length>0 ? '?':'&') + param;
 }
 
+// A login that comes back from the CAS server in this window (the redirect
+// login, the default) carries ?casToken=. Completing it is this package's
+// job, so it is done here at startup rather than left to every app; the
+// result goes to the app as a 'wekan-cas-login' event, because the button's
+// callback did not survive the page change.
+// docs/Features/Login/CAS.md
+function reportCasResult(error) {
+  window.dispatchEvent(new CustomEvent('wekan-cas-login', { detail: { error: error || null } }));
+}
+
+// CAS logs in by full-page redirect unless the settings ask for the popup
+// (`"popup": true`). A popup is blocked in iframes and on some phones, and a
+// CAS server's Cross-Origin-Opener-Policy can cut it off from this window,
+// so the login would never finish.
+function casUsesPopup(settings) {
+  return Boolean(settings && settings.popup === true);
+}
+
 Meteor.initCas = function(callback) {
     const casTokenMatch = window.location.href.match(/[?&]casToken=([^&]+)/);
     if (casTokenMatch == null) {
@@ -53,7 +71,7 @@ Meteor.loginWithCas = function(options, callback) {
         "?" + (settings.serviceParam || "service") + "=" +
         encodeURIComponent(serviceURL)
 
-    if (settings.popup == false) {
+    if (!casUsesPopup(settings)) {
       window.location = loginUrl;
       return;
     }
@@ -124,3 +142,7 @@ var openCenteredPopup = function(url, width, height) {
     newwindow.focus();
   return newwindow;
 };
+
+Meteor.startup(function () {
+  Meteor.initCas(reportCasResult);
+});

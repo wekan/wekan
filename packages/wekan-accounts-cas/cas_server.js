@@ -295,8 +295,15 @@ const _retrieveCredential = (credentialToken) => {
   return result;
 }
 
+// CAS logs in by full-page redirect unless the settings ask for the popup
+// ("popup": true), as in cas_client.js.
+const casUsesPopup = () => Boolean(Meteor.settings.cas && Meteor.settings.cas.popup === true);
+
+const escapeHtml = value => String(value).replace(/[&<>"']/g, c => (
+  { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
 const closePopup = (res) => {
-  if (Meteor.settings.cas && Meteor.settings.cas.popup == false) {
+  if (!casUsesPopup()) {
     return;
   }
   res.writeHead(200, {'Content-Type': 'text/html'});
@@ -306,15 +313,17 @@ const closePopup = (res) => {
 
 const redirect = (res, whereTo) => {
   res.writeHead(302, {'Location': whereTo});
-  const content = '<html><head><meta http-equiv="refresh" content="0; url='+whereTo+'" /></head><body>Redirection to <a href='+whereTo+'>'+whereTo+'</a></body></html>';
+  // whereTo comes from the request URL: escape it everywhere it is HTML.
+  const html = escapeHtml(whereTo);
+  const content = '<html><head><meta http-equiv="refresh" content="0; url='+html+'" /></head><body>Redirection to <a href="'+html+'">'+html+'</a></body></html>';
   res.end(content, 'utf-8');
   return
 }
 
 const end = (res, whereTo) => {
-  if (Meteor.settings.cas && Meteor.settings.cas.popup == false) {
-    redirect(res, whereTo);
-  } else {
+  if (casUsesPopup()) {
     closePopup(res);
+  } else {
+    redirect(res, whereTo);
   }
 }

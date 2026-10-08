@@ -556,7 +556,7 @@ Result (`source` is `env`, `admin` or `unset`):
     },
     "github": { "enabled": { "source": "unset", "value": null }, "id": { "source": "unset", "value": null }, "secret": { "source": "unset", "hasValue": false } }
   },
-  "loginStyle": { "source": "env", "value": "popup" },
+  "loginStyle": { "source": "env", "value": "redirect" },
   "mergeExistingUsers": { "source": "unset", "value": null },
   "passwordless": { "source": "admin", "value": false }
 }

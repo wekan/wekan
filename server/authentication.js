@@ -206,10 +206,13 @@ export async function reconfigureOidc() {
     { service: 'oidc' },
     {
       $set: {
-        // #5695: the client now honors a configured 'redirect' style, so
-        // the fallback here must stay 'popup' to keep popup the default
-        // behavior when OAUTH2_LOGIN_STYLE is not set.
-        loginStyle: authEnv('OAUTH2_LOGIN_STYLE') === 'redirect' ? 'redirect' : 'popup',
+        // Redirect is the default; popup only when OAUTH2_LOGIN_STYLE says
+        // so. Google's sign-in pages send Cross-Origin-Opener-Policy, which can
+        // make Meteor's popup look closed at once: the login is then tried
+        // before the provider answered and the user lands on the sign-in page
+        // again with no error. The full-page redirect has no popup to lose.
+        // (#5695 made the client honor the configured style.)
+        loginStyle: authEnv('OAUTH2_LOGIN_STYLE') === 'popup' ? 'popup' : 'redirect',
         clientId: authEnv('OAUTH2_CLIENT_ID'),
         // Meteor's loginServiceConfiguration publication leaves `secret` out.
         secret: authEnv('OAUTH2_SECRET'),
@@ -241,7 +244,8 @@ export async function reconfigureCas() {
         serviceParam: 'service',
         popupWidth: 810,
         popupHeight: 610,
-        popup: true,
+        // Redirect, like the package's own default (wekan-accounts-cas).
+        popup: false,
         autoClose: true,
         // CAS_VALIDATE_URL is the documented name; the code used to read only
         // the misspelling CASE_VALIDATE_URL, which authEnv still falls back to.

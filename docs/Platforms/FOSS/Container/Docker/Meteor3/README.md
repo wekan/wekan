@@ -39,7 +39,8 @@ wekan.customer.com {
   visitor as the proxy's `127.0.0.1`. All users then share the login cookie
   refresh limit of 30 per 10 seconds per address, so at busy times users are
   signed out, and a Google login returns to the sign-in page.
-- **Google login (OAuth2/OIDC):** also set `OAUTH2_LOGIN_STYLE=redirect`, and
+- **Google login (OAuth2/OIDC):** keep `OAUTH2_LOGIN_STYLE=redirect`, the
+  default (set it explicitly on WeKan versions that defaulted to `popup`), and
   open WeKan only at its `ROOT_URL`. Google's sign-in pages can break the popup
   login style, and a login started at any other address cannot finish.
 

@@ -548,7 +548,8 @@ Settings.attachSchema(
       optional: true,
       blackbox: true,
     },
-    // OAUTH_PROVIDERS_LOGIN_STYLE ('popup' | 'redirect') for every provider.
+    // OAUTH_PROVIDERS_LOGIN_STYLE ('redirect', the default, | 'popup') for
+    // every provider.
     oauthProvidersLoginStyle: {
       type: String,
       optional: true,

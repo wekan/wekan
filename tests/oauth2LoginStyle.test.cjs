@@ -162,27 +162,38 @@ test('NEGATIVE: loginStyle is not leaked into the authorization URL', () => {
   assert.ok(!l2.loginUrl.includes('loginStyle'), l2.loginUrl);
 });
 
-// --- Server side: default stays popup, redirect only when asked --------------
+// --- Server side: redirect by default, popup only when asked -----------------
+// Until 2026-10-08 the default was popup and this section pinned that. The
+// maintainer made redirect the default: Google's sign-in pages can send
+// Cross-Origin-Opener-Policy, which makes Meteor's popup look closed at once,
+// so the login was tried before the provider answered and the user was back
+// on the sign-in page with no error. The full-page redirect has no popup.
 const authSrc = fs.readFileSync(
   path.join(__dirname, '..', 'server', 'authentication.js'),
   'utf8',
 );
 
-test('server config maps OAUTH2_LOGIN_STYLE to redirect only when set to redirect', () => {
-  assert.ok(
-    // Read through authEnv (Admin Panel / People / OAuth2 override, else the
-    // environment variable); the explicit comparison is what this pins.
-    authSrc.includes("authEnv('OAUTH2_LOGIN_STYLE') === 'redirect'"),
-    'authentication.js must check for the redirect value explicitly',
-  );
+test('server config maps OAUTH2_LOGIN_STYLE to popup only when set to popup', () => {
+  // Read through authEnv (Admin Panel / People / OAuth2 override, else the
+  // environment variable); the explicit comparison is what this pins.
+  assert.ok(/loginStyle:\s*\n?\s*authEnv\('OAUTH2_LOGIN_STYLE'\) === 'popup'\s*\n?\s*\?\s*'popup'\s*\n?\s*:\s*'redirect'/.test(authSrc),
+    authSrc.match(/OAUTH2_LOGIN_STYLE[^\n]*/g).join('\n'));
+  // The decision itself, for every value an administrator can give.
+  const decide = value => (value === 'popup' ? 'popup' : 'redirect');
+  for (const value of [undefined, '', 'redirect', 'REDIRECT', 'nonsense']) assert.strictEqual(decide(value), 'redirect', String(value));
+  assert.strictEqual(decide('popup'), 'popup');
 });
 
-test("NEGATIVE: server no longer defaults the stored loginStyle to 'redirect'", () => {
-  // The old `process.env.OAUTH2_LOGIN_STYLE || 'redirect'` default would flip
-  // every deployment without the env var to redirect now that the client
-  // honors the stored style; the fallback must be 'popup'.
-  assert.ok(!authSrc.includes("OAUTH2_LOGIN_STYLE || 'redirect'"), authSrc.match(/OAUTH2_LOGIN_STYLE[^\n]*/g).join('\n'));
-  assert.ok(/loginStyle:\s*\n?\s*authEnv\('OAUTH2_LOGIN_STYLE'\) === 'redirect'\s*\n?\s*\?\s*'redirect'\s*\n?\s*:\s*'popup'/.test(authSrc));
+test("NEGATIVE: nothing else on the OAuth2/OIDC path falls back to popup", () => {
+  // `|| 'popup'` or a `: 'popup'` fallback would bring the old default back.
+  assert.ok(!/OAUTH2_LOGIN_STYLE'\)\s*\|\|\s*'popup'/.test(authSrc));
+  assert.ok(!/=== 'redirect'\s*\?\s*'redirect'\s*:\s*'popup'/.test(authSrc), 'the old popup fallback is gone');
+  // The Admin Panel shows the same default the server applies.
+  const catalog = fs.readFileSync(path.join(__dirname, '..', 'models', 'lib', 'authConfigCatalog.js'), 'utf8');
+  assert.match(catalog, /\['loginStyle', 'OAUTH2_LOGIN_STYLE', 'choice', \{ choices: \['popup', 'redirect'\], defaultValue: 'redirect' \}\]/);
+  // And the packaged defaults agree.
+  assert.match(fs.readFileSync(path.join(__dirname, '..', 'Dockerfile'), 'utf8'), /^\s+OAUTH2_LOGIN_STYLE=redirect \\$/m);
+  assert.match(fs.readFileSync(path.join(__dirname, '..', 'snap-src', 'bin', 'config'), 'utf8'), /^DEFAULT_OAUTH2_LOGIN_STYLE="redirect"$/m);
 });
 
 // --- Secondary ask: OIDC_REDIRECTION_ENABLED auto-login actually runs --------

@@ -158,16 +158,21 @@ test('the Admin Panel override wins over the env var, and says so in `sources`',
   assert.deepStrictEqual(e.sources, { enabled: 'env', id: 'env', secret: 'env', loginStyle: 'default' });
 });
 
-test('OAUTH_PROVIDERS_LOGIN_STYLE is popup unless it says redirect', () => {
-  assert.strictEqual(normalizeLoginStyle(undefined), 'popup');
-  assert.strictEqual(normalizeLoginStyle('popup'), 'popup');
-  assert.strictEqual(normalizeLoginStyle('Redirect'), 'redirect');
-  assert.strictEqual(normalizeLoginStyle('something'), 'popup');
-  const c = resolveProviderConfig(providerByKey('weibo'), undefined, {
-    OAUTH_WEIBO_ENABLED: 'true', OAUTH_WEIBO_CLIENT_ID: 'i', OAUTH_WEIBO_SECRET: 's',
-    OAUTH_PROVIDERS_LOGIN_STYLE: 'redirect',
-  });
-  assert.strictEqual(c.loginStyle, 'redirect');
+// The default was popup until 2026-10-08; the maintainer made it redirect,
+// as for OAUTH2_LOGIN_STYLE: a provider's Cross-Origin-Opener-Policy can make
+// the popup look closed at once, and the login then fails silently.
+test('OAUTH_PROVIDERS_LOGIN_STYLE is redirect unless it says popup', () => {
+  assert.strictEqual(normalizeLoginStyle(undefined), 'redirect');
+  assert.strictEqual(normalizeLoginStyle(''), 'redirect');
+  assert.strictEqual(normalizeLoginStyle('redirect'), 'redirect');
+  assert.strictEqual(normalizeLoginStyle('Popup'), 'popup');
+  assert.strictEqual(normalizeLoginStyle('something'), 'redirect');
+  const env = { OAUTH_WEIBO_ENABLED: 'true', OAUTH_WEIBO_CLIENT_ID: 'i', OAUTH_WEIBO_SECRET: 's' };
+  assert.strictEqual(resolveProviderConfig(providerByKey('weibo'), undefined, env).loginStyle, 'redirect');
+  // Negative: an explicit popup, from the environment or the Admin Panel, wins.
+  const c = resolveProviderConfig(providerByKey('weibo'), undefined, { ...env, OAUTH_PROVIDERS_LOGIN_STYLE: 'popup' });
+  assert.strictEqual(c.loginStyle, 'popup');
+  assert.strictEqual(resolveProviderConfig(providerByKey('weibo'), { loginStyle: 'popup' }, env).loginStyle, 'popup');
 });
 
 test('enabledProviderKeys lists exactly the enabled ones, in catalog order', () => {

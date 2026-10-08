@@ -24,14 +24,17 @@ Enable it with these environment variables (see the commented example in
 | `SAML_IDP_PROFILE` | What the identity provider signs and how login opens: `standard` (default) or `signed-assertion-redirect`. See below. |
 | `SAML_WANT_RESPONSE_SIGNED` | `true`/`false`: require a signed SAML Response. Default: from the profile. |
 | `SAML_WANT_ASSERTIONS_SIGNED` | `true`/`false`: require a signed Assertion. Default: from the profile. |
-| `SAML_LOGIN_FLOW` | `popup` or `redirect`. Default: from the profile. |
+| `SAML_LOGIN_FLOW` | `redirect` or `popup`. Default: from the profile, `redirect` for both. |
 
-The client opens a popup at `/_saml/authorize`, which redirects to the
-identity provider (`SAML_ENTRYPOINT`); the IdP posts the signed assertion
-back to `/_saml/validate` (WeKan's Assertion Consumer Service URL -
+The browser goes to `/_saml/authorize`, which redirects to the identity
+provider (`SAML_ENTRYPOINT`); the IdP posts the signed assertion back to
+`/_saml/validate` (WeKan's Assertion Consumer Service URL -
 `<WeKan URL>/_saml/validate/<SAML_PROVIDER>`), which is registered as the
-service's callback URL with the IdP. This mirrors the existing CAS
-popup-based login flow (`packages/wekan-accounts-cas`).
+service's callback URL with the IdP, and the browser comes back to WeKan's
+sign-in page, signed in. With `SAML_LOGIN_FLOW=popup` the same happens in a
+popup window instead; a popup is blocked in iframes and on some phones, and an
+identity provider's `Cross-Origin-Opener-Policy` can cut it off from WeKan so
+the login never finishes, which is why redirect is the default.
 
 ## Identity-provider profiles
 
@@ -41,7 +44,7 @@ so WeKan has a profile for each common arrangement:
 
 | `SAML_IDP_PROFILE` | Signed Response required | Signed Assertion required | Login |
 | --- | --- | --- | --- |
-| `standard` (default) | yes | no | popup |
+| `standard` (default) | yes | no | full-page redirect |
 | `signed-assertion-redirect` | no | yes | full-page redirect |
 
 Each of the three settings can also be chosen on its own in **Admin Panel /
@@ -94,7 +97,7 @@ identity mapping. Its Admin Panel override follows the same precedence rules.
 Configuration and route tests and Chromium settings tests cover this integration.
 End-to-end interoperability with a live identity provider still requires testing.
 
-## Popup closes but sign-in does not finish
+## Sign-in does not finish (popup or redirect)
 
 A successful IdP response still needs to pass WeKan validation and establish a
 Meteor session. The response replay guard reads node-saml's string property
@@ -102,8 +105,9 @@ Meteor session. The response replay guard reads node-saml's string property
 The verified ID is consumed once. Missing IDs and replays remain rejected, and
 `validateInResponseTo` stays `always`.
 
-If the ACS rejects a response, the popup's error marker now passes its message
-to the sign-in page. No credential exchange is attempted for that failed
+If the ACS rejects a response, its error reaches the sign-in page: in the
+redirect flow when the browser comes back, in the popup flow through the
+popup's error marker. No credential exchange is attempted for that failed
 response. Error text is rendered as text, and cleared before the next attempt.
 
 For an IdP that supplies a short account name in the `username` attribute and
