@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Sicilian Scrum planning and recovery — 2026-10-08
+
+Translate 31 planning, import and recovery values using existing terminology.
+Preserve every variable, keyboard name and count role, and distinguish rollback
+from keeping records. Check canciari/canciamentu vocabulary against
+https://scn.wiktionary.org/wiki/canciari . Recovery prose has lower confidence and
+needs native review. Focused Sicilian, placeholder and language-wiring checks pass,
+as do all 21 preservation checks. The large completion suite now reaches an
+untranslated Neapolitan release label. Browser checks and the wider backlog remain
+unfinished.
+
 ## Sardinian Scrum planning and recovery — 2026-10-08
 
 Translate 31 planning, import and recovery values using existing iteratzione,
