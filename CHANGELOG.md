@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9821da6b21038e4018690637424f4c1feeaa51ff">Correct Tatar export and account conflict messages</a></summary>
+
+- Correct 29 account, export and attachment-metadata strings, preserving source
+  tokens, format names and inability/disk-space conditions.
+- Technical wording remains low confidence pending speaker review.
+- All 87 focused checks and 21 human-preference checks pass. Browser and export
+  runtime checks were not run. Further corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f22b4c3f9414b544a70a337f12da47738bca3077">Correct Tatar email templates and error messages</a></summary>
 
 - Correct 34 editing, email and error strings, preserving source placeholders,
