@@ -10,7 +10,11 @@ const copyBody = source.slice(source.indexOf('  async copy('), source.indexOf('\
 const linkStart = source.indexOf('  async link(');
 const linkBody = source.slice(linkStart, source.indexOf('\n  list()', linkStart));
 const { normalizeDependencies } = await import('../models/metadata/dependencies.js');
-const { filterCopiedLabelIds } = await import('../server/lib/cardCopyHelpers.js');
+// #1759: cross-board labels go through the pure plan (models/lib/crossBoardLabels.js);
+// here as a member who is not the destination board's admin, so nothing is created.
+const { planCrossBoardLabels } = require('../models/lib/crossBoardLabels');
+const crossBoardLabelIds = async (card, oldBoard, newBoard) => planCrossBoardLabels({ sourceLabels: oldBoard.labels,
+  labelIds: card.labelIds, destLabels: newBoard.labels, canCreate: false, newId: () => 'unused' }).labelIds;
 const { buildCopiedSubtaskFields } = await import('../models/lib/subtaskCopy.js');
 async function exercise({ sameBoard = false, cache = true, fail = false, withChildren = false, cardIdMap = null } = {}) {
   const original = {
@@ -42,8 +46,8 @@ async function exercise({ sameBoard = false, cache = true, fail = false, withChi
   };
   // #3626: copy() finds the card's subtasks with the shared children selector.
   const { childrenSelector } = require('../models/lib/cardParents');
-  const copy = new Function('ReactiveCache', 'Cards', 'Meteor', 'filterCopiedLabelIds', 'normalizeDependencies', 'require', 'childrenSelector',
-    `return ({${copyBody}}).copy;`)(ReactiveCache, Cards, { isServer: false }, filterCopiedLabelIds, normalizeDependencies,
+  const copy = new Function('ReactiveCache', 'Cards', 'Meteor', 'crossBoardLabelIds', 'normalizeDependencies', 'require', 'childrenSelector',
+    `return ({${copyBody}}).copy;`)(ReactiveCache, Cards, { isServer: false }, crossBoardLabelIds, normalizeDependencies,
       specifier => {
         // The copy path now also delegates Scrum metadata to its pure helper.
         if (specifier === './lib/scrumCopy') return require('../models/lib/scrumCopy');

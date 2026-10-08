@@ -308,6 +308,10 @@ test.describe('Cards – operations', () => {
       // (models/lib/scrumCopy.js movedScrumMetadata).
       db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' }, { $set: {
         scrum: { sprintId: 'sprint-here', releaseId: 'release-here', backlogRank: 1, issueType: 'Story' } } });
+      // #1759: a label only the source board has comes along; the mover created
+      // the target board, so may create labels on it.
+      db.updateOne('boards', { _id: board.boardId }, { $push: { labels: { _id: 'e2e-moved', name: 'E2E moved label', color: 'purple' } } });
+      db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' }, { $addToSet: { labelIds: 'e2e-moved' } });
       await openBoard(boardPage, board.boardId, board.slug);
       const bp = new BoardPage(boardPage);
       const cp = new CardPage(boardPage);
@@ -341,6 +345,11 @@ test.describe('Cards – operations', () => {
       // the board it left's sprint and release.
       await expect.poll(() => db.findOne('cards', { boardId: target.boardId, title: 'Alpha Card' })?.scrum)
         .toEqual({ issueType: 'Story' });
+      await expect.poll(() => {
+        const created = (db.findOne('boards', { _id: target.boardId }).labels || []).find(label => label.name === 'E2E moved label');
+        const moved = db.findOne('cards', { boardId: target.boardId, title: 'Alpha Card' });
+        return created && created.color === 'purple' && (moved.labelIds || []).includes(created._id);
+      }).toBe(true);
 
       await openBoard(boardPage, target.boardId, target.slug);
       const movedPage = new BoardPage(boardPage);
