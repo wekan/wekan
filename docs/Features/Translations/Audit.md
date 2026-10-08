@@ -8591,6 +8591,15 @@ these details alongside placeholder inventories and key order. Technical wording
 remains low confidence pending speaker review. Browser checks were not run; the
 broader wrong-language audit continues.
 
+## Tatar migration threshold corrections
+
+Corrected 35 wrong-language threshold, migration control, monitoring and minicard
+values. Restored the literal S3 storage name. Preserved numeric ranges, CPU and
+S3 identifiers, millisecond units, pause versus resume, and the background
+processing notices. Regression coverage checks these details alongside key order
+and placeholder inventories. Technical wording remains low confidence pending
+speaker review. Browser checks were not run; the broader audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
