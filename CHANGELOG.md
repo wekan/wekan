@@ -936,6 +936,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/76b35e70c6">Translate Aromanian stuck Sync recovery messages</a>. Thanks to xet7.</summary>
+
+Translate 23 messages, preserving applied changes, the unwritten remainder,
+replay eligibility and oldest-50 ordering. New wording remains low-confidence
+pending fluent review. The reported English-placeholder queue is empty;
+older mixed-language values and skipped short strings still need review.
+
+Aromanian, global placeholder and translation audit suites pass. No browser
+or screen-reader session was run. The all-language translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5e251e53ac">Translate Aromanian imports, controls and Sync planning</a>. Thanks to xet7.</summary>
 
 Translate 47 messages, preserving import syntax, link-rule variables and
