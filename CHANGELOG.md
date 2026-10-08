@@ -442,6 +442,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7b7f419f00">Translate short Blockly labels in Finnish, German and French</a>. Thanks to xet7.</summary>
+
+Translate 20 movement-announcement and pixel-state values across ten locale paths.
+Preserve indexed input/context roles, including Finnish word order. Four focused suites
+and all 21 human-preference checks pass. Screen-reader/browser validation was not run;
+the all-language translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f462841831">Translate MeisterTask import instructions in Wu, Papiamento and Yiddish</a>. Thanks to xet7.</summary>
 
 Translate the new instruction, preserving menu labels, CSV format, section/task mapping
