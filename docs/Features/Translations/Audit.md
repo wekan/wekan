@@ -2,6 +2,19 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Manx notification delivery and recovery — 2026-10-08
+
+Translate 36 notification-recovery and email-failure messages. Distinguish
+permanent rejection from temporary rejection, missing from changed activity,
+pause from cancellation, retained pending work and irreversible cancellation.
+Preserve the warning that retries do not recreate activities and cancellation
+does not recall already queued mail or delivered notifications.
+
+Existing Manx regression coverage checks these distinctions and the source-wide
+placeholder inventory. Vocabulary follows the catalog and dictionary references
+below; delivery/recovery terminology and full grammar remain low-confidence
+pending fluent review. No browser or screen-reader session was run.
+
 ## Manx Scrum planning labels — 2026-10-08
 
 Translate 71 Scrum labels and short messages for planning, estimates, sprint

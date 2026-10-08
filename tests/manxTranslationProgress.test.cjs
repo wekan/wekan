@@ -43,3 +43,13 @@ assert.match(manx['scrum-timebox'], /mynnidyn/);
 assert.equal(manx['scrum-product-backlog'], manx['board-view-product-backlog']);
 assert.equal(manx['scrum-sprints'], manx['board-view-sprints']);
 assert.equal(new Set(['planned', 'active', 'closed', 'cancelled'].map(state => manx['scrum-state-' + state])).size, 4);
+
+const recoveryBatch = ["email-failure-smtp-temporary", "email-failure-smtp-rejected", "email-failure-smtp-authentication", "email-failure-smtp-configuration", "email-failure-recipient-unavailable", "email-failure-delivery-unconfirmed", "email-failure-acknowledgement-failed", "email-failure-delivery-failed", "email-failure-retry-limit", "activity-recovery-heading", "activity-recovery-description", "activity-recovery-empty", "activity-recovery-unavailable", "activity-recovery-retry", "activity-recovery-retrying", "activity-recovery-status-pending", "activity-recovery-status-preparing", "activity-recovery-status-processing", "activity-recovery-status-missing", "activity-recovery-status-changed", "activity-recovery-status-invalid", "activity-recovery-status-inconsistent", "activity-recovery-busy", "activity-recovery-denied", "activity-recovery-source-unavailable", "activity-recovery-disabled", "activity-recovery-failed", "activity-recovery-pause", "activity-recovery-resume", "activity-recovery-paused", "activity-recovery-control-conflict", "activity-recovery-control-failed", "activity-recovery-status-cancelled", "activity-recovery-cancel", "activity-recovery-cancel-confirm", "rule-email-recovery-unavailable"];
+for (const key of recoveryBatch) assert.notEqual(manx[key], english[key], key);
+assert.match(manx['email-failure-smtp-temporary'], /shallidagh/);
+assert.match(manx['email-failure-smtp-rejected'], /beayn/);
+assert.match(manx['activity-recovery-description'], /Cha jean.*chroo reesht rieau/);
+assert.match(manx['activity-recovery-cancel-confirm'], /dy beayn.*Cha nod.*Cha bee.*er nyn goyrt er ash/);
+assert.match(manx['activity-recovery-failed'], /er ny reayll/);
+assert.notEqual(manx['activity-recovery-status-missing'], manx['activity-recovery-status-changed']);
+assert.notEqual(manx['activity-recovery-pause'], manx['activity-recovery-cancel']);
