@@ -9114,6 +9114,15 @@ details, script, key order and token inventories. Technical wording remains low
 confidence pending speaker review. Browser and screen-reader checks were not run;
 further Maithili translations and the broader audit remain unfinished.
 
+## Maithili substrings and text search
+
+Filled 24 English placeholders for text extraction, counting, joining and search.
+The placeholder-only merge retained existing translations. Preserved indexed
+search/count roles, character index markers and missing-match return tokens.
+Regression coverage checks those details, script, key order and token inventories.
+Technical wording remains low confidence pending speaker review. Browser checks
+were not run; further Maithili translations and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
