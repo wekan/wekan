@@ -169573,5 +169573,145 @@
     "before": "to",
     "after": "定义",
     "reason": "2026-10-08: Translate remaining English Wu Blockly labels; preserve indexed announcement roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "fi",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%2: %1",
+    "reason": "2026-10-08: Translate short English Blockly announcement and pixel state; preserve input/context argument roles."
+  },
+  {
+    "locale": "fi",
+    "key": "blockly-FIELD_BITMAP_PIXEL_ON",
+    "before": "on",
+    "after": "päällä",
+    "reason": "2026-10-08: Translate short English Blockly announcement and pixel state; preserve input/context argument roles."
+  },
+  {
+    "locale": "de",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%1 von %2",
+    "reason": "2026-10-08: Translate short English Blockly announcement and pixel state; preserve input/context argument roles."
+  },
+  {
+    "locale": "de",
+    "key": "blockly-FIELD_BITMAP_PIXEL_ON",
+    "before": "on",
+    "after": "an",
+    "reason": "2026-10-08: Translate short English Blockly announcement and pixel state; preserve input/context argument roles."
+  },
+  {
+    "locale": "de-CH",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%1 von %2",
+    "reason": "2026-10-08: Translate short English Blockly announcement and pixel state; preserve input/context argument roles."
+  },
+  {
+    "locale": "de-CH",
+    "key": "blockly-FIELD_BITMAP_PIXEL_ON",
+    "before": "on",
+    "after": "an",
+    "reason": "2026-10-08: Translate short English Blockly announcement and pixel state; preserve input/context argument roles."
+  },
+  {
+    "locale": "de-AT",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%1 von %2",
+    "reason": "2026-10-08: Translate short English Blockly announcement and pixel state; preserve input/context argument roles."
+  },
+  {
+    "locale": "de-AT",
+    "key": "blockly-FIELD_BITMAP_PIXEL_ON",
+    "before": "on",
+    "after": "an",
+    "reason": "2026-10-08: Translate short English Blockly announcement and pixel state; preserve input/context argument roles."
+  },
+  {
+    "locale": "de_DE",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%1 von %2",
+    "reason": "2026-10-08: Translate short English Blockly announcement and pixel state; preserve input/context argument roles."
+  },
+  {
+    "locale": "de_DE",
+    "key": "blockly-FIELD_BITMAP_PIXEL_ON",
+    "before": "on",
+    "after": "an",
+    "reason": "2026-10-08: Translate short English Blockly announcement and pixel state; preserve input/context argument roles."
+  },
+  {
+    "locale": "fr",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%1 de %2",
+    "reason": "2026-10-08: Translate short English Blockly announcement and pixel state; preserve input/context argument roles."
+  },
+  {
+    "locale": "fr",
+    "key": "blockly-FIELD_BITMAP_PIXEL_ON",
+    "before": "on",
+    "after": "allumé",
+    "reason": "2026-10-08: Translate short English Blockly announcement and pixel state; preserve input/context argument roles."
+  },
+  {
+    "locale": "fr-CH",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%1 de %2",
+    "reason": "2026-10-08: Translate short English Blockly announcement and pixel state; preserve input/context argument roles."
+  },
+  {
+    "locale": "fr-CH",
+    "key": "blockly-FIELD_BITMAP_PIXEL_ON",
+    "before": "on",
+    "after": "allumé",
+    "reason": "2026-10-08: Translate short English Blockly announcement and pixel state; preserve input/context argument roles."
+  },
+  {
+    "locale": "fr-FR",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%1 de %2",
+    "reason": "2026-10-08: Translate short English Blockly announcement and pixel state; preserve input/context argument roles."
+  },
+  {
+    "locale": "fr-FR",
+    "key": "blockly-FIELD_BITMAP_PIXEL_ON",
+    "before": "on",
+    "after": "allumé",
+    "reason": "2026-10-08: Translate short English Blockly announcement and pixel state; preserve input/context argument roles."
+  },
+  {
+    "locale": "fr-BE",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%1 de %2",
+    "reason": "2026-10-08: Translate short English Blockly announcement and pixel state; preserve input/context argument roles."
+  },
+  {
+    "locale": "fr-BE",
+    "key": "blockly-FIELD_BITMAP_PIXEL_ON",
+    "before": "on",
+    "after": "allumé",
+    "reason": "2026-10-08: Translate short English Blockly announcement and pixel state; preserve input/context argument roles."
+  },
+  {
+    "locale": "fr-CA",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%1 de %2",
+    "reason": "2026-10-08: Translate short English Blockly announcement and pixel state; preserve input/context argument roles."
+  },
+  {
+    "locale": "fr-CA",
+    "key": "blockly-FIELD_BITMAP_PIXEL_ON",
+    "before": "on",
+    "after": "allumé",
+    "reason": "2026-10-08: Translate short English Blockly announcement and pixel state; preserve input/context argument roles."
   }
 ]

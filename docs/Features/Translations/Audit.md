@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Finnish, German and French short Blockly labels — 2026-10-08
+
+Translate 20 English values across Finnish, four German and five French locale paths:
+the input/context movement announcement and the lit bitmap-pixel state. Preserve
+indexed argument roles, using context-before-input wording in Finnish. Existing
+non-English values are not overwritten. Extend regression coverage for the exact
+argument roles and preserve the technical notation excluded by the short-prose audit.
+Screen-reader/browser validation and the wider translation work remain unfinished.
+
 ## MeisterTask instruction translations — 2026-10-08
 
 Translate the new MeisterTask import instruction into Wu, Papiamento and Yiddish.

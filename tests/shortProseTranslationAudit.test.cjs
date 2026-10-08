@@ -19,3 +19,21 @@ test('short prose audit excludes technical notation and changed or missing value
   // Same spelling can be native: report it for review, never assert it is wrong.
   assert.deepEqual(shortProseCandidates({ word: 'No' }, { word: 'No' }), { word: 'No' });
 });
+
+test('Finnish, German and French short labels preserve input/context roles and pixel state', async () => {
+  const fs = require('node:fs');
+  const path = require('node:path');
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', code + '.i18n.json'), 'utf8'));
+  const source = read('en');
+  for (const code of ['fi', 'de', 'de-CH', 'de-AT', 'de_DE', 'fr', 'fr-CH', 'fr-FR', 'fr-BE', 'fr-CA']) {
+    const locale = read(code);
+    for (const key of ['blockly-ANNOUNCE_MOVE_OF', 'blockly-FIELD_BITMAP_PIXEL_ON']) {
+      assert.notEqual(locale[key], source[key], code + ': ' + key);
+      assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), code + ': ' + key);
+    }
+    const rendered = locale['blockly-ANNOUNCE_MOVE_OF'].replace('%1', 'INPUT').replace('%2', 'BLOCK');
+    assert.equal(rendered, code === 'fi' ? 'BLOCK: INPUT' : code.startsWith('de') ? 'INPUT von BLOCK' : 'INPUT de BLOCK', code);
+    assert.notEqual(locale['blockly-FIELD_BITMAP_PIXEL_ON'], locale['blockly-FIELD_BITMAP_PIXEL_OFF'], code);
+  }
+});
