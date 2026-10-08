@@ -251,3 +251,21 @@ for (const code of ['es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 
   assert.match(locale['import-board-instruction-obsidian'], /archivo se convierte en tarjetas archivadas/);
   assert.match(locale['import-board-instruction-planner'], /depósitos se convierten en listas y las tareas en tarjetas/);
 }
+
+for (const code of ['es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO']) {
+  const locale = read(code);
+  const literals = {...newerImportLiterals, ...Object.fromEntries(['pivotal', 'tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja'].map(format => [format, importLiterals[format]]))};
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), code + ': ' + key);
+    for (const value of values) assert.ok(locale[key].includes(value), code + ': ' + value);
+  }
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /archivos adjuntos no se importan/);
+  assert.match(locale['import-board-instruction-notion'], /relaciones, imágenes y archivos adjuntos no se importan/);
+  assert.match(locale['import-board-instruction-plane'], /no contiene descripciones ni archivos adjuntos.*no se importan/);
+  assert.match(locale['import-board-instruction-businessmap'], /cambia primero la fila de encabezados al inglés/);
+  assert.match(locale['import-board-instruction-redmine'], /English en My account antes de exportar/);
+  assert.match(locale['import-board-instruction-teamwork'], /un nivel más profundo/);
+  assert.match(locale['import-board-instruction-superproductivity'], /tareas archivadas se convierten en tarjetas archivadas/);
+}

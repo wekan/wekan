@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Spanish import instructions, remaining group — 2026-10-08
+
+Translate 13 remaining instructions in nine Spanish catalogs (117 values),
+completing all 21 import instructions in those catalogs. Preserve commands,
+columns, extensions and hierarchy markers. Regression checks cover excluded data,
+English header requirements and archived tasks. Import-instruction and placeholder
+suites and all 21 preservation checks pass. Browser review and the wider
+all-language translation backlog remain outstanding.
+
 ## Spanish import instructions, first group — 2026-10-08
 
 Translate eight instructions in nine Spanish catalogs (72 values): Planner,
