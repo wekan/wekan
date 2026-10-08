@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/76665c8a84">Correct Wu reminders and card-control translations</a>. Thanks to xet7.</summary>
+
+Correct nineteen Wu reminder, deletion and card-control values. Preserve named
+variables, deadline meanings, deletion warnings and multiple-window behavior.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7deea150f7">Correct Wu date and placement translations</a>. Thanks to xet7.</summary>
 
 Correct twenty-two Wu copying, deletion, date-activity and placement values. Preserve
