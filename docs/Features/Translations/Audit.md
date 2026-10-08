@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Serbian interrupted board imports — 2026-10-08
+
+Translate 25 English import recovery messages into Serbian, preserving source
+variables and existing legal-workflow terminology. Check permanent deletion
+including later additions, keeping partial data, foreign-board protection,
+Scrum recovery and the oldest-50 limit. No browser or screen-reader session was
+run; remaining translations and broader vocabulary review are unfinished.
+
 ## Serbian List Sync recovery — 2026-10-08
 
 Translate 23 English List Sync recovery messages into Serbian, preserving source
