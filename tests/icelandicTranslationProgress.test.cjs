@@ -183,3 +183,18 @@ assert.deepEqual(tokens(icelandic['globalSearch-instructions-operator-number']),
   ['__operator_number__']);
 assert.deepEqual(tags(icelandic['globalSearch-instructions-operator-number']),
   tags(english['globalSearch-instructions-operator-number']));
+
+const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
+const recoveryKeys = Object.keys(english).filter(key => key.startsWith('stuck-sync-operation-'));
+assert.equal(recoveryKeys.length, 23);
+for (const key of recoveryKeys) {
+  assert.notEqual(icelandic[key], english[key], key);
+  assert.deepEqual(translationTokens(icelandic[key]), translationTokens(english[key]), key);
+}
+assert.match(icelandic['stuck-sync-operation-description'], /breytingar sem þegar hafa verið gerðar haldast/);
+assert.match(icelandic['stuck-sync-operation-description'], /breytingar sem eftir eru verða aldrei skrifaðar/);
+assert.match(icelandic['stuck-sync-operation-reason-access-denied'], /skrifaðgang að öllum listanum/);
+assert.match(icelandic['stuck-sync-operation-replayable-now'], /ekki er hægt að farga/);
+assert.match(icelandic['stuck-sync-operation-not-stuck'], /ekki er hægt að farga/);
+assert.match(icelandic['stuck-sync-operation-truncated'], /50 elstu/);
+assert.match(icelandic['stuck-sync-operation-busy'], /samstilla þennan lista núna/);

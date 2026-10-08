@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Icelandic List Sync recovery — 2026-10-08
+
+Translate 23 English recovery messages into Icelandic, preserving source counters
+and existing board/list terminology. Check retained changes, unwritten changes,
+revoked access, replayable operations and the oldest-50 limit. No browser or
+screen-reader session was run; remaining translations and vocabulary review
+are unfinished.
+
 ## Albanian planning and settings — 2026-10-08
 
 Translate 51 remaining English fill-list entries into Albanian, covering planning,
