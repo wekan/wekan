@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Indonesian import instructions, remaining group — 2026-10-09
+
+Translate the remaining 13 instructions in id, completing all 21 import
+instructions there. Preserve commands, columns, extensions, hierarchy markers and
+variables. Regression checks cover excluded data, English headers, task hierarchy
+and archived tasks. Import-instruction and placeholder suites and all 21
+preservation checks pass. Browser review and the wider translation backlog remain
+outstanding.
+
 ## Indonesian import instructions, first group — 2026-10-09
 
 Translate eight instructions in id: Planner, MeisterTask, Obsidian, Linear,
