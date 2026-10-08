@@ -9455,6 +9455,17 @@ delivery uncertainty, plus script, key order and tokens. Technical wording
 remains low confidence pending speaker review. Browser checks were not run;
 further Konkani translations and the broader audit remain unfinished.
 
+## Konkani notification recovery
+
+Filled 27 English placeholders for notification delivery recovery and controls.
+The placeholder-only merge retained existing translations. Regression coverage
+checks that retries never recreate activities, pending work is retained,
+recipient restrictions remain effective, and permanent cancellation cannot
+resume or recall queued email and delivered notifications, plus script,
+key order and tokens. Technical wording remains low confidence pending
+speaker review. Browser checks were not run; the excluded-English audit,
+further Konkani translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
