@@ -7706,6 +7706,15 @@ first/last positions and insertion versus replacement. Technical wording remains
 confidence pending speaker review. Browser checks were not run. Further Tatar
 mixed-language corrections and the broader translation audit continue.
 
+### Tatar sorting and logic comparisons
+
+Filled 32 English placeholders for list replacement, sorting, text/list conversion,
+Boolean values and comparisons. Existing translations and source tokens are preserved.
+Regression checks cover key order, placeholders, sort direction, conversion direction,
+inclusive comparison bounds and copy semantics. Technical wording remains low
+confidence pending speaker review. Browser checks were not run. Further Tatar
+mixed-language corrections and the broader translation audit continue.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
