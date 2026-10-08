@@ -9525,6 +9525,16 @@ plus key order and tokens. Technical wording remains low confidence pending
 speaker review. Browser and screen-reader checks were not run; further
 Turkmen translations and the broader audit remain unfinished.
 
+## Turkmen mathematical inputs and keyboard navigation
+
+Filled 38 English placeholders for mathematical and text operands, value
+positions and keyboard navigation. The placeholder-only merge retained existing
+translations. Coverage checks dividend/divisor distinctions, bounds, coordinates,
+search/replacement roles and held-key versus confirmation shortcuts, plus key
+order and tokens. Technical wording remains low confidence pending speaker
+review. Browser and screen-reader checks were not run; further Turkmen
+translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
