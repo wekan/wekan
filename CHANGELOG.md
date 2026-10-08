@@ -975,6 +975,20 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/93c380310f">Translate French planning imports and recovery messages</a>. Thanks to xet7.</summary>
+
+Fill 61 messages in each of the five French catalogs, preserving existing
+localized values. Cover board controls, link rules, planning imports, Sync,
+interrupted imports and conflicted history recovery. Preserve variables,
+literal examples, source matching priority and permanent-discard warnings.
+
+French, global placeholder and translation audit suites pass, together with
+21 human-preference checks. No browser or screen-reader session was run.
+Other locale translations and broader linguistic review remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/cc7ff1c856">Translate Aromanian import recovery and repair mixed-language controls</a>. Thanks to xet7.</summary>
 
 Translate 25 interrupted-import messages and replace 65 Italian or Spanish
