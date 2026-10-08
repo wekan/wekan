@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/80b30b3b13">Translate remaining Japanese import instructions</a>. Thanks to xet7.</summary>
+
+Translate the remaining 13 instructions in ja and ja-JP, completing all 21 import
+instructions there. Preserve commands, columns, variables and import limitations.
+Regression checks cover excluded data, English headers, hierarchy and archived
+tasks. Translation, placeholder and preservation checks pass; Hiragana wording,
+browser review and the wider translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1c2bbe874c">Translate first Japanese import instructions</a>. Thanks to xet7.</summary>
 
 Translate eight instructions in ja and ja-JP, preserving commands, extensions and
