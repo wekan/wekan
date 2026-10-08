@@ -2,6 +2,19 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Manx Sync conflicts and diagnostics — 2026-10-08
+
+Translate 63 Sync conflict, preview, source-field, run-report and estimate
+messages. Preserve local/source scope, unchanged subcards, reuse of replacement
+cards, 100-entry/path limits, 20-run/30-day retention, missing-versus-null values,
+and the requirement for exactly one matching time field. Reports remain unable
+to resume or undo a run. Existing non-English values are preserved.
+
+Extend Manx regression checks for these distinctions alongside the complete
+source placeholder inventory. Vocabulary follows the existing catalog and the
+Manx references below; Sync terminology and full grammar remain low-confidence
+pending fluent review. No browser or screen-reader session was run.
+
 ## Manx notification delivery and recovery — 2026-10-08
 
 Translate 36 notification-recovery and email-failure messages. Distinguish

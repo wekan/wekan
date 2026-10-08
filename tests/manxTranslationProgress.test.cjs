@@ -53,3 +53,16 @@ assert.match(manx['activity-recovery-cancel-confirm'], /dy beayn.*Cha nod.*Cha b
 assert.match(manx['activity-recovery-failed'], /er ny reayll/);
 assert.notEqual(manx['activity-recovery-status-missing'], manx['activity-recovery-status-changed']);
 assert.notEqual(manx['activity-recovery-pause'], manx['activity-recovery-cancel']);
+
+const syncBatch = ["sync-conflict-heading", "sync-conflict-hint", "sync-conflict-local", "sync-conflict-keep-local", "sync-conflict-use-source", "sync-conflict-refresh", "sync-conflict-review-complete", "sync-conflict-duplicate", "sync-conflict-keep-mapping", "sync-conflict-detach", "sync-conflict-detach-hint", "sync-conflict-archive", "sync-conflict-archive-hint", "sync-conflict-keep-card-local", "sync-conflict-creation", "sync-conflict-creation-hint", "sync-conflict-create-replacement", "sync-preview-button", "sync-preview-heading", "sync-preview-saved", "sync-preview-unavailable", "sync-preview-blocked", "sync-preview-create", "sync-preview-update", "sync-preview-archive", "sync-preview-baseline", "sync-preview-truncated", "sync-preview-omissions", "sync-preview-scope", "sync-preview-excluded", "sync-preview-unmapped", "sync-preview-parser-warnings", "sync-preview-parser-unsupported", "sync-source-heading", "sync-source-scope", "sync-source-unmapped", "sync-source-excluded", "sync-source-converted", "sync-source-fallback", "sync-source-excluded-item", "sync-source-occurrences", "sync-source-truncated", "sync-source-omitted", "sync-report-button", "sync-report-retention", "sync-report-partial", "sync-report-unfinished", "sync-report-failed", "sync-report-completed", "sync-report-completed-with-warnings", "sync-report-skipped", "sync-report-review-only", "sync-report-unavailable", "sync-report-empty", "sync-recovery-heading", "sync-recovery-description", "sync-recovery-unavailable", "sync-recovery-all", "sync-estimate-field", "sync-estimate-field-hint", "sync-original-time", "sync-remaining-time", "sync-time-estimate-hint"];
+for (const key of syncBatch) assert.notEqual(manx[key], english[key], key);
+assert.match(manx['sync-conflict-hint'], /Cha nel red erbee.*gys coarys y vun/);
+assert.match(manx['sync-conflict-archive-hint'], /Cha nel ny fo-chaartyn.*gaghlaa/);
+assert.match(manx['sync-conflict-creation-hint'], /kaart noa cheddin/);
+assert.match(manx['sync-report-retention'], /20.*30 laa/);
+assert.match(manx['sync-preview-truncated'], /100/);
+assert.match(manx['sync-source-truncated'], /100/);
+assert.match(manx['sync-estimate-field-hint'], /lhiggey shaghey.*null.*dolley magh/);
+assert.match(manx['sync-time-estimate-hint'], /un vagher.*ny lomarcan/);
+assert.match(manx['sync-recovery-description'], /cha nod.*toshiaght reesht.*cur caghlaaghyn er ash/);
+assert.notEqual(manx['sync-conflict-keep-local'], manx['sync-conflict-use-source']);
