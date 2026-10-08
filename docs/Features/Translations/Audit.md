@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Croatian sidebars, uploads and email settings — 2026-10-08
+
+Replace 75 Serbian values with Croatian, covering sidebars, uploads, time labels,
+SMTP, email templates, webhooks and system labels. Preserve variables and technical
+names. Extend native-vocabulary checks and distinctions between opposite actions,
+upload outcomes, email subjects and bodies, and webhook directions.
+No browser or screen-reader session was run; further wrong-language review and
+remaining translations are unfinished.
+
 ## Croatian filters, archives and selection — 2026-10-08
 
 Replace 70 Serbian values with Croatian, covering filters, imports, archive

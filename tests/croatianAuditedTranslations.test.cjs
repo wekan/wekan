@@ -61,6 +61,25 @@ assert.match(data['shortcut-add-self'], /Dodaj sebe/);
 assert.match(data['shortcut-assign-self'], /Dodijeli sebe/);
 assert.match(data['search-example'], /Enter/);
 assert.match(data['listImportCardsTsvPopup-title'], /Excel CSV\/TSV/);
+const correctedSidebar = ["shortcut-close-dialog", "shortcut-filter-my-cards", "shortcut-toggle-filterbar", "shortcut-toggle-searchbar", "shortcut-toggle-sidebar", "show-cards-minimum-count", "sidebar-open", "sidebar-close", "signupPopup-title", "starred-boards", "starred-boards-description", "team", "this-board", "this-card", "spent-time-hours", "overtime-hours", "has-overtime-cards", "has-spenttime-cards", "tracking", "unassign-member", "unsaved-description", "unwatch", "upload", "upload-avatar", "uploaded-avatar", "uploading-files", "upload-failed", "upload-completed", "import-usernames", "view-it", "warn-list-archived", "watching", "welcome-board", "welcome-swimlane", "card-templates-swimlane", "list-templates-swimlane", "board-templates-swimlane", "what-to-do", "wipLimitErrorPopup-title", "wipLimitErrorPopup-dialog-pt2", "people", "invite-people", "to-boards", "email-addresses", "smtp-host-description", "smtp-port-description", "smtp-tls-description", "smtp-host", "smtp-port", "smtp-tls", "send-smtp-test", "email-templates-title", "email-templates-invite-subject", "email-templates-invite-body", "email-templates-activity-subject", "email-templates-activity-body", "invitation-code", "email-invite-register-subject", "email-smtp-test-subject", "email-smtp-test-text", "error-invitation-code-not-exist", "error-notAuthorized", "webhook-title", "webhook-token", "outgoing-webhooks", "bidirectional-webhooks", "outgoingWebhooksPopup-title", "boardCardTitlePopup-title", "disable-webhook", "global-webhook", "new-outgoing-webhook", "MongoDB_storage_engine", "MongoDB_Oplog_enabled", "OS_Arch", "OS_Cpus"];
+for (const key of correctedSidebar) {
+  assert.doesNotMatch(data[key], /[\p{Script=Cyrillic}]/u, key);
+  assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), key);
+}
+assert.equal(data['sidebar-open'], 'Otvori bočnu traku');
+assert.equal(data['sidebar-close'], 'Zatvori bočnu traku');
+assert.match(data['upload-failed'], /nije uspio/);
+assert.match(data['upload-completed'], /je dovršen/);
+assert.match(data['unsaved-description'], /nespremljen opis/);
+assert.match(data['wipLimitErrorPopup-dialog-pt2'], /Premjestite.*ili.*veće WIP/);
+assert.match(data['smtp-port-description'], /odlaznu e-poštu/);
+assert.match(data['smtp-tls-description'], /TLS.*SMTP/);
+assert.match(data['email-templates-invite-subject'], /Predmet/);
+assert.match(data['email-templates-invite-body'], /Sadržaj/);
+assert.match(data['disable-webhook'], /Onemogući/);
+assert.match(data['bidirectional-webhooks'], /Dvosmjerni/);
+assert.match(data['error-notAuthorized'], /Nemate ovlasti/);
+assert.equal(data['welcome-swimlane'], 'Prekretnica 1');
 assert.equal(data.board, 'Ploča');
 assert.equal(data.swimlane, 'Traka');
 assert.deepEqual(Object.keys(data), Object.keys(english));
