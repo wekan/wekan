@@ -487,6 +487,17 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bd576b6355">Translate Papiamento Sync previews and source reports</a>. Thanks to xet7.</summary>
+
+Translate 30 replacement, preview and source-report messages, preserving variables
+and checking replacement reuse, omitted values and report limits.
+Three focused translation suites and 21 human-preference checks pass.
+Specialized wording is lower confidence and needs native review. No browser
+session was run. Remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/487e0b16e1">Translate Papiamento import previews and Sync conflicts</a>. Thanks to xet7.</summary>
 
 Translate 30 import-preview and Sync-conflict messages, preserving variables and
