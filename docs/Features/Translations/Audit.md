@@ -8953,6 +8953,19 @@ coverage checks script, key order, token inventories and those distinctions.
 Technical wording remains low confidence pending speaker review. Browser checks
 were not run; the broader translation audit remains unfinished.
 
+## Odia short labels and keyboard announcements
+
+Filled 37 remaining English labels, including short Blockly words omitted by the
+usual missing-string filter, spoken mathematical constants and keyboard names.
+Preserved indexed announcement tokens, menu symbol and list index marker.
+Operating-system brands, null and trigonometric function notation remain literal.
+The merge filled 18 keyboard names; 19 filter-excluded English values were
+filled directly after verifying equality with English. Existing translations were
+retained. Regression coverage checks script, token inventories, key order and
+repeated control labels.
+Keyboard transliterations and technical wording remain low confidence pending
+speaker review. Browser and screen-reader checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
