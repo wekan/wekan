@@ -8966,6 +8966,15 @@ repeated control labels.
 Keyboard transliterations and technical wording remain low confidence pending
 speaker review. Browser and screen-reader checks were not run.
 
+## Maithili Blockly colours and loop controls
+
+Filled 31 English placeholders for block controls, colour selection and loop
+instructions. Preserved colour bounds and indexed variable/function/list tokens.
+The placeholder-only merge retained existing translations. Regression coverage
+checks script, key order, token inventories and loop-control distinctions.
+Technical terminology remains low confidence pending speaker review. Browser
+checks were not run; further Maithili strings and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
