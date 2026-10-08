@@ -1055,6 +1055,18 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/80e6c6982e">Finish Yiddish Blockly search and legacy label translations</a>. Thanks to xet7.</summary>
+
+Translate the last 20 English Blockly fill-list entries in Yiddish. Preserve
+search variables and shortcuts; check navigation and legacy-label consistency.
+No Blockly entries remain in the full Yiddish fill list. Four focused translation
+suites and 21 human-preference checks pass. Specialized wording is lower confidence
+and needs native review. No browser or screen-reader session was run. Other
+Yiddish messages and the wider translation backlog remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1ad1f9bd95">Translate Yiddish Blockly text values and workspace counts</a>. Thanks to xet7.</summary>
 
 Translate 45 English text, variable and workspace messages. Preserve variables
