@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/260875da30">Translate remaining Russian import instructions</a>. Thanks to xet7.</summary>
+
+Translate the remaining 13 instructions across four Russian locale paths,
+replacing 39 stored English values and completing this group of 21. Preserve the
+shared alias, commands, column names, extensions, hierarchy markers and variables.
+Regression checks cover excluded data, English headers, task hierarchy and
+archives. Import and placeholder suites and all 21 preservation checks pass.
+Browser review and the wider translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/dd9084b716">Translate first Russian import instruction group</a>. Thanks to xet7.</summary>
 
 Translate eight instructions across four Russian locale paths, replacing 24
