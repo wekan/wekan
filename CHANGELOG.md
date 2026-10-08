@@ -487,6 +487,17 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0ae625d8a4">Translate Papiamento Blockly procedures and accessibility modes</a>. Thanks to xet7.</summary>
+
+Translate 28 English procedure, variable and accessibility messages. Preserve
+variables; check return values, disabled definitions, rename scope and opposite
+screen-reader transitions. Four focused translation suites and 21 human-preference
+checks pass. Specialized wording is lower confidence and needs native review.
+No browser or screen-reader session was run. Remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5180e1cfb8">Translate Papiamento Blockly trigonometry and workspace</a>. Thanks to xet7.</summary>
 
 Translate 42 English math, variable and workspace messages. Preserve variables,
