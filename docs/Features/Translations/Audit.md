@@ -9290,6 +9290,15 @@ and token inventories. Technical wording remains low confidence pending speaker
 review. Browser and screen-reader checks were not run; further Konkani translations
 and the broader audit remain unfinished.
 
+## Konkani mathematical and text input labels
+
+Filled 32 English placeholders for list, loop, mathematical and text inputs.
+The placeholder-only merge retained existing translations. Preserved coordinate
+axes, indexed values and distinct dividend/divisor, minimum/maximum and start/end
+roles. Regression coverage checks those details, script, key order and tokens.
+Technical wording remains low confidence pending speaker review. Browser checks
+were not run; further Konkani translations and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
