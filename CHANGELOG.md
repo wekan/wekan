@@ -387,7 +387,7 @@ previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **34,920 untranslated locale/string values in 53 languages**.
-  It excludes **156 source keys tracked separately as pending Transifex**.
+  It excludes **159 source keys tracked separately as pending Transifex**.
   Exact Blockly OS brands and compact math/code symbols no longer inflate
   the prose backlog. Counts are a snapshot; they do not establish the quality
   or language of other values.
@@ -1785,6 +1785,19 @@ This release adds the following new features:
 
 **Import and export** - three more formats, each a round trip with a loss
 report for what the other tool has no place for.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3c082ec6e5">Replace remaining Bislama artificial English wrappers</a>. Thanks to xet7.</summary>
+
+- Correct 236 storage, migration, backup and report values. Preserve provider
+  identifiers, time units, simulation limits, uncertainty and counting rules.
+  The explicit “Tok blong sistem:” queue is empty; other mixed-language text
+  and damaged technical examples still require review.
+- Three relevant suites pass, including the catalog-wide token inventory.
+  Statistical terminology and complete technical prose remain low-confidence.
+  Browser and screen-reader sessions were not run.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d332e18edb">Correct Bislama search syntax and report translations</a>. Thanks to xet7.</summary>
