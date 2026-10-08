@@ -9714,6 +9714,17 @@ custom-colors-in-use. All 21 human-preference checks passed. Technical wording
 remains low confidence pending speaker review. Browser checks were not run;
 further translations and the broader audit remain unfinished.
 
+## Turkmen notification recovery
+
+Filled 27 English placeholders for notification recovery and delivery controls.
+Existing translations were retained. Removed the obsolete custom-colors-in-use
+entry and its test reference after concurrent work removed that English key.
+Coverage checks no activity recreation, retained pending work, recipient
+restrictions and irreversible cancellation, plus key order and tokens.
+All 64 translation checks and 21 human-preference checks pass. Technical
+wording remains low confidence pending speaker review. Browser checks were
+not run; the excluded-English audit and broader translation work remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
