@@ -975,6 +975,22 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cc7ff1c856">Translate Aromanian import recovery and repair mixed-language controls</a>. Thanks to xet7.</summary>
+
+Translate 25 interrupted-import messages and replace 65 Italian or Spanish
+card, checklist, attachment, board and account labels. Preserve source
+variables, recovery decisions, permanent-discard warnings, shared dialog
+wording and opposite actions. New phrasing remains low-confidence pending
+fluent review.
+
+Aromanian, global placeholder and translation audit suites pass. The fill
+tool reports no remaining English placeholders in Aromanian; broader
+wrong-language review and other locale translations remain unfinished.
+No browser or screen-reader session was run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/fd90691e00">Correct Italian-seeded Aromanian search and organization labels</a>. Thanks to xet7.</summary>
 
 Replace 48 wrong-language search, organization, rule and card labels.
