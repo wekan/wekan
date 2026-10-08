@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Otur bilen bölünen ulanyjy atlary",
   "feature-pilot-users-unknown": "Saklandy. Bu ulanyjy atlary tapylmady:",
   "feature-saved": "Saklandy.",
+  "card-field-visibility": "Kart meýdanlary",
+  "card-field-visibility-desc": "Tagtalaryň görkezip bilýän Tagta sazlamalary / Kart bölümindäki meýdanlar. Bellik aýrylan meýdan ähli tagtalaryň ähli kartlarynda, kiçi kartlarynda we Tagta sazlamalary / Kart bölüminde gizlenýär. Kart maglumatlary we tagta sazlamalary üýtgemeýär. Gaýtadan bellik goýlanda her tagta öňki sazlamalaryna görä görkezilýär. Her tagtanyň öz meýdan tertibi bar.",
   "features-performance": "Öndürijilik",
   "cards-loading": "Kartoçka ýüklemek",
   "cards-loading-auto": "Awtomatik (diňe uly tagtalar üçin haýal ýükleme)",

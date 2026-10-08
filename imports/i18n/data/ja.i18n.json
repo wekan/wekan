@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "ユーザー名をカンマで区切って入力",
   "feature-pilot-users-unknown": "保存しました。次のユーザー名は見つかりませんでした：",
   "feature-saved": "保存しました。",
+  "card-field-visibility": "カードの項目",
+  "card-field-visibility-desc": "ボードで表示できる「ボード設定 / カード」の項目です。チェックを外した項目は、すべてのボードのカード、ミニカード、および「ボード設定 / カード」で非表示になります。カードのデータやボードの設定は変更されません。再びチェックを入れると、各ボードの以前の設定に従って表示されます。項目の順序はボードごとに設定されます。",
   "features-performance": "パフォーマンス",
   "cards-loading": "カードの読み込み",
   "cards-loading-auto": "自動（大きなボードのみ遅延読み込み）",

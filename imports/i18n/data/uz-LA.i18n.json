@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Vergul bilan ajratilgan foydalanuvchi nomlari",
   "feature-pilot-users-unknown": "Saqlandi. Ushbu foydalanuvchi nomlari topilmadi:",
   "feature-saved": "Saqlandi.",
+  "card-field-visibility": "Karta maydonlari",
+  "card-field-visibility-desc": "Doskalar koʻrsatishi mumkin boʻlgan Doska sozlamalari / Karta boʻlimidagi maydonlar. Belgisi olib tashlangan maydon barcha doskalarning barcha kartalari, kichik kartalari va Doska sozlamalari / Karta boʻlimida yashiriladi. Karta maʼlumotlari va doska sozlamalari oʻzgarmaydi. Qayta belgilansa, har bir doska avvalgi sozlamalariga muvofiq koʻrsatiladi. Maydonlar tartibi har bir doskaning oʻziga tegishli.",
   "features-performance": "Unumdorlik",
   "cards-loading": "Karta yuklash",
   "cards-loading-auto": "Avtomatik (faqat katta doskalar uchun kechiktirilgan yuklash)",

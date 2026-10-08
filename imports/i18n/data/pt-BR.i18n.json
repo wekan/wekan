@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Nomes de usuário separados por vírgulas",
   "feature-pilot-users-unknown": "Salvo. Estes nomes de usuário não foram encontrados:",
   "feature-saved": "Salvo.",
+  "card-field-visibility": "Card fields",
+  "card-field-visibility-desc": "The fields of Board Settings / Card that boards can show. An unticked field is hidden from every card, minicard and Board Settings / Card of every board. No card data or board setting changes, and ticking it again shows each board as it was set. The order of the fields is each board's own.",
   "features-performance": "Desempenho",
   "cards-loading": "Carregamento de cartão",
   "cards-loading-auto": "Automático (lazy apenas para quadros grandes)",

@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Miona brëkòwników, rozdzéloné przecënkama",
   "feature-pilot-users-unknown": "Zapisóné. Nie nalazłë sã ne miona brëkòwników:",
   "feature-saved": "Zapisóné.",
+  "card-field-visibility": "Card fields",
+  "card-field-visibility-desc": "The fields of Board Settings / Card that boards can show. An unticked field is hidden from every card, minicard and Board Settings / Card of every board. No card data or board setting changes, and ticking it again shows each board as it was set. The order of the fields is each board's own.",
   "features-performance": "Wëdajnosc",
   "cards-loading": "Ladowanié kôrtów",
   "cards-loading-auto": "Aùtomatno (lénowò blós dlô wiôldżich tôflów)",

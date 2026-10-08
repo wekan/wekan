@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Ismijiet tal-utent, separati b'virgoli",
   "feature-pilot-users-unknown": "Issejvjat. Dawn l-ismijiet tal-utent ma nstabux:",
   "feature-saved": "Issejvjat.",
+  "card-field-visibility": "Card fields",
+  "card-field-visibility-desc": "The fields of Board Settings / Card that boards can show. An unticked field is hidden from every card, minicard and Board Settings / Card of every board. No card data or board setting changes, and ticking it again shows each board as it was set. The order of the fields is each board's own.",
   "features-performance": "Prestazzjoni",
   "cards-loading": "Kard loading",
   "cards-loading-auto": "Automatic (lazy biss għal big bordijiet)",

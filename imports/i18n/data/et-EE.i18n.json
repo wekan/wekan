@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Kasutajanimed komadega eraldatult",
   "feature-pilot-users-unknown": "Salvestatud. Neid kasutajanimesid ei leitud:",
   "feature-saved": "Salvestatud.",
+  "card-field-visibility": "Kaardi väljad",
+  "card-field-visibility-desc": "Tahvlitel kuvatavad väljad jaotises Tahvli seaded / Kaart. Märkimata väli peidetakse kõigi tahvlite kõigil kaartidel, minikaartidel ja jaotises Tahvli seaded / Kaart. Kaartide andmed ja tahvlite seaded ei muutu. Välja uuesti märkimisel kuvatakse iga tahvel selle varasemate seadete järgi. Igal tahvlil on oma väljade järjekord.",
   "features-performance": "Jõudlus",
   "cards-loading": "Kaartide laadimine",
   "cards-loading-auto": "Automaatne (viivitusega ainult suurte tahvlite puhul)",

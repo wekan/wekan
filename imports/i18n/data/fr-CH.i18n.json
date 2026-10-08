@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Noms d’utilisateur, séparés par des virgules",
   "feature-pilot-users-unknown": "Enregistré. Ces noms d’utilisateur sont introuvables :",
   "feature-saved": "Enregistré.",
+  "card-field-visibility": "Champs des cartes",
+  "card-field-visibility-desc": "Les champs de Paramètres du tableau / Carte que les tableaux peuvent afficher. Un champ décoché est masqué sur toutes les cartes, les minicartes et dans Paramètres du tableau / Carte de tous les tableaux. Aucune donnée de carte ni aucun paramètre de tableau ne change. Cocher à nouveau le champ rétablit l’affichage selon les réglages de chaque tableau. Chaque tableau conserve son propre ordre des champs.",
   "features-performance": "Performances",
   "cards-loading": "Chargement des cartes",
   "cards-loading-auto": "Automatique (paresseux uniquement pour les grands tableaux)",

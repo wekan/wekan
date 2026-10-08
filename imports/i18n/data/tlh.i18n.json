@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "lo'wI' pongmey; pongmey chev , Deghmey",
   "feature-pilot-users-unknown": "pollu'ta'. pongmeyvam tu'be'lu':",
   "feature-saved": "pollu'ta'.",
+  "card-field-visibility": "Card fields",
+  "card-field-visibility-desc": "The fields of Board Settings / Card that boards can show. An unticked field is hidden from every card, minicard and Board Settings / Card of every board. No card data or board setting changes, and ticking it again shows each board as it was set. The order of the fields is each board's own.",
   "features-performance": "Do",
   "cards-loading": "navmey Suq",
   "cards-loading-auto": "vI'Ha' (raSmey tIn neH: lIch nI')",

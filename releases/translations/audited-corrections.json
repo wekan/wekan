@@ -159822,5 +159822,33 @@
     "before": "ዝተራኸበ ወረቀት ካርድ",
     "after": "ለትአሰረ ወረቀት ካርድ",
     "reason": "2026-10-02: Replace the remaining Tigrinya relative clause in the linked-card label with a Tigre relative form, retaining the established card noun. Low-confidence specialist wording; speaker review remains welcome."
+  },
+  {
+    "locale": "ak",
+    "key": "copyManyCardsPopup-format",
+    "before": "[{\"title\": \"First kaad ti asɛm\",\"description\": \"First kaad nkyerɛmu\"},{\"title\": \"Second kaad ti asɛm\",\"description\": \"Second kaad nkyerɛmu\"},{\"title\": \"Last kaad ti asɛm\",\"description\": \"Last kaad nkyerɛmu\"}]",
+    "after": "[ {\"title\": \"Kaad a edi kan no asɛmti\", \"description\":\"Kaad a edi kan no nkyerɛkyerɛmu\"}, {\"title\":\"Kaad a ɛto so abien no asɛmti\",\"description\":\"Kaad a ɛto so abien no nkyerɛkyerɛmu\"},{\"title\":\"Kaad a etwa to no asɛmti\",\"description\":\"Kaad a etwa to no nkyerɛkyerɛmu\"} ]",
+    "reason": "Supersede the JSON-key-only repair with the later Akan sample prose: first, second and last are translated while literal title and description properties remain intact."
+  },
+  {
+    "locale": "tpi",
+    "key": "copyManyCardsPopup-format",
+    "before": "[{\"title\": \"First kat nem\",\"description\": \"First kat toksave\"},{\"title\": \"Second kat nem\",\"description\": \"Second kat toksave\"},{\"title\": \"Last kat nem\",\"description\": \"Last kat toksave\"}]",
+    "after": "[{\"title\": \"Nem bilong fes kat\", \"description\": \"Toksave bilong fes kat\"}, {\"title\": \"Nem bilong namba tu kat\", \"description\": \"Toksave bilong namba tu kat\"}, {\"title\": \"Nem bilong las kat\", \"description\": \"Toksave bilong las kat\"}]",
+    "reason": "Supersede the JSON-key-only repair with the later Tok Pisin sample prose: fes, namba tu and las distinguish the cards while literal title and description properties remain intact."
+  },
+  {
+    "locale": "tpi",
+    "key": "custom-login-logo-link-url",
+    "before": "URL bilong link bilong logo long pes bilong log in yu yet i makim",
+    "after": "URL bilong link bilong logo long pes bilong go insait yu yet i makim",
+    "reason": "Record the later Tok Pisin go insait wording for signing in; retain URL and logo as technical terms."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "r-items-list",
+    "before": "item1, item2, item3",
+    "after": "butang1,butang2,butang3",
+    "reason": "Replace the previously accepted English example with Waray butang (thing/item), keeping three comma-separated numbered items. Terminology: https://dictionary.corporaproject.org/index.php?glossary=B&sort=word"
   }
 ]

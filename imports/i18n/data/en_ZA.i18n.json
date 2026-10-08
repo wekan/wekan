@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Usernames, separated by commas",
   "feature-pilot-users-unknown": "Saved. These usernames were not found:",
   "feature-saved": "Saved.",
+  "card-field-visibility": "Card fields",
+  "card-field-visibility-desc": "The fields of Board Settings / Card that boards can show. An unticked field is hidden from every card, minicard and Board Settings / Card of every board. No card data or board setting changes, and ticking it again shows each board as it was set. The order of the fields is each board's own.",
   "features-performance": "Performance",
   "cards-loading": "Card loading",
   "cards-loading-auto": "Automatic (lazy only for big boards)",

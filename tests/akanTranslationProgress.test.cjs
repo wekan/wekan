@@ -40,7 +40,8 @@ assert.equal(akan.save, 'Sie');
 assert.match(akan['act-deleteCard'], /pepaae kaad/);
 assert.deepEqual(tokens(akan['act-deleteCard']),
   ['__board__', '__card__', '__list__', '__swimlane__']);
-assert.match(akan['board-members-same-org-only'], /Ahyehyɛde/);
+// The organization noun now occurs inside the sentence, in lowercase.
+assert.match(akan['board-members-same-org-only'], /ahyehyɛde/i);
 assert.match(akan['due-date-changes'], /Awiei da/);
 
 console.log('akanTranslationProgress: complete locale passed');

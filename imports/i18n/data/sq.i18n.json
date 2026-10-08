@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Emra përdoruesish, të ndarë me presje",
   "feature-pilot-users-unknown": "U ruajt. Këta emra përdoruesish nuk u gjetën:",
   "feature-saved": "U ruajt.",
+  "card-field-visibility": "Fushat e kartave",
+  "card-field-visibility-desc": "Fushat te Cilësimet e tabelës / Kartë që tabelat mund të shfaqin. Një fushë e pazgjedhur fshihet nga të gjitha kartat, minikartat dhe nga Cilësimet e tabelës / Kartë të çdo tabele. Të dhënat e kartave dhe cilësimet e tabelave nuk ndryshojnë. Kur fusha zgjidhet sërish, çdo tabelë shfaqet sipas cilësimeve të mëparshme. Çdo tabelë ka renditjen e vet të fushave.",
   "features-performance": "Rendimenti",
   "cards-loading": "Ngarkimi i kartave",
   "cards-loading-auto": "Automatik (me vonesë vetëm për tabelat e mëdha)",

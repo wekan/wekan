@@ -1,6 +1,45 @@
 # Translation audit progress
 
-Audit date: **2026-09-12**. Last updated: **2026-10-07**.
+Audit date: **2026-09-12**. Last updated: **2026-10-08**.
+
+## Placeholder validation and current catalog repair — 2026-10-08
+
+All 246 locale paths were checked against the 3,900-key English catalog.
+Underscore interpolation names, printf arguments, numbered Blockly arguments,
+percent-braced variables and escaped percent tokens have matching spelling,
+case and multiplicity. No current token repairs were needed. The shared scanner
+now also recognizes non-Latin underscore names, so an extra translated token
+cannot escape validation. Fill rejects a damaged batch before writing anything;
+existing correct-language translations remain protected.
+
+Restore the two missing card-field visibility keys in source order. This batch
+adds 240 translated values; both keys now have non-English text in 131 locale
+paths. The other 103 non-English paths retain visible English placeholders for
+continued translation. English variants intentionally retain English. No other
+locale values were changed by this batch. Runtime i18next checks verify that
+completed messages render without falling back to English. Browser tests were
+not run. New wording still benefits from fluent-speaker review.
+
+The fill report no longer counts exact Blockly OS brands and compact math/code
+symbols as untranslated prose. These exemptions match both key and value;
+changed source prose, tooltips and accessibility labels remain translatable.
+The current ordinary backlog is 35,735 values in 60 locales, plus 151 source
+keys tracked separately in the pending queue. Neither these figures nor the
+passing tests establish full translation completion or fluency.
+
+Four stale audit findings now record the later Akan, Tok Pisin and Waray wording
+without restoring older English fragments. JSON examples retain their literal
+`title` and `description` property names. The Waray comma-separated example
+uses `butang` (thing/item), supported by the
+[Waray dictionary](https://dictionary.corporaproject.org/index.php?glossary=B&sort=word).
+Tok Pisin ordinal terminology can also be checked in the
+[Tok Pisin dictionary](https://tokpisin.info/namba/). The Akan organization
+assertion now accepts the noun in lowercase within a sentence.
+
+Validation: all 320 selected translation, placeholder and i18n suites pass;
+the additional card-field catalog/rendering suite passes, and all 21
+human-preference checks pass. CLI regression fixtures reject renamed, missing,
+extra and malformed tokens and verify that failed batches write no changes.
 
 ## Login-setting fill resumed — 2026-10-07
 
@@ -9983,9 +10022,9 @@ review; the remaining catalogs and broader language audit are unfinished.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,880 |
+| Corrected | 15,881 |
 | Restored pre-pull; awaiting validation | 0 |
-| Reviewed; retained unchanged | 4,201 |
+| Reviewed; retained unchanged | 4,200 |
 | Pending review or repair | 0 |
 | Total tracked | 20,081 |
 
@@ -10364,7 +10403,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,831** exact before/after values, including unflagged
+records contain **22,836** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Enmyn ymmydeyr, scarrit liorish cammyn",
   "feature-pilot-users-unknown": "Sauailt. Cha row ny enmyn ymmydeyr shoh ry-gheddyn:",
   "feature-saved": "Sauailt.",
+  "card-field-visibility": "Card fields",
+  "card-field-visibility-desc": "The fields of Board Settings / Card that boards can show. An unticked field is hidden from every card, minicard and Board Settings / Card of every board. No card data or board setting changes, and ticking it again shows each board as it was set. The order of the fields is each board's own.",
   "features-performance": "Coaylleeaght",
   "cards-loading": "Laadey kaartyn",
   "cards-loading-auto": "Hene-obbragh (lhiastey ny lomarcan son boayrdyn mooarey)",

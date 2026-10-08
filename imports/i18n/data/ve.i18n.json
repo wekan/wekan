@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Madzina a vhashumisi, o khethekanywaho nga khoma",
   "feature-pilot-users-unknown": "Zwo vhulungwa. Madzina aya a vhashumisi ha ngo wanala:",
   "feature-saved": "Zwo vhulungwa.",
+  "card-field-visibility": "Card fields",
+  "card-field-visibility-desc": "The fields of Board Settings / Card that boards can show. An unticked field is hidden from every card, minicard and Board Settings / Card of every board. No card data or board setting changes, and ticking it again shows each board as it was set. The order of the fields is each board's own.",
   "features-performance": "Kushumele",
   "cards-loading": "U layishwa ha khaḓi",
   "cards-loading-auto": "Zwi ḓi itaho (u laisa ho lengaho kha mabodo mahulu fhedzi)",

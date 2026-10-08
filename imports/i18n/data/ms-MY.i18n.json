@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Nama pengguna, dipisahkan dengan koma",
   "feature-pilot-users-unknown": "Disimpan. Nama pengguna ini tidak ditemui:",
   "feature-saved": "Disimpan.",
+  "card-field-visibility": "Medan kad",
+  "card-field-visibility-desc": "Medan dalam Tetapan Papan / Kad yang boleh dipaparkan oleh papan. Medan yang tidak ditandakan disembunyikan pada semua kad, kad mini dan dalam Tetapan Papan / Kad bagi setiap papan. Data kad dan tetapan papan tidak berubah. Menandakan medan itu semula memaparkan setiap papan mengikut tetapan sebelumnya. Setiap papan mempunyai susunan medannya sendiri.",
   "features-performance": "Prestasi",
   "cards-loading": "Pemuatan kad",
   "cards-loading-auto": "Automatik (pemuatan tertunda untuk papan besar sahaja)",

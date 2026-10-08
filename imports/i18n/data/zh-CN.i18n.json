@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "用户名，以逗号分隔",
   "feature-pilot-users-unknown": "已保存。未找到以下用户名：",
   "feature-saved": "已保存。",
+  "card-field-visibility": "卡片字段",
+  "card-field-visibility-desc": "看板可显示的“看板设置 / 卡片”字段。取消勾选后，该字段会在所有看板的卡片、迷你卡片及“看板设置 / 卡片”中隐藏。卡片数据和看板设置均不会改变。重新勾选后，各看板会按原有设置显示。字段顺序由各看板自行设置。",
   "features-performance": "性能",
   "cards-loading": "卡片加载",
   "cards-loading-auto": "自动（仅大型看板延迟加载）",

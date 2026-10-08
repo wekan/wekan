@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Lietotājvārdi, atdalīti ar komatiem",
   "feature-pilot-users-unknown": "Saglabāts. Šie lietotājvārdi netika atrasti:",
   "feature-saved": "Saglabāts.",
+  "card-field-visibility": "Kartīšu lauki",
+  "card-field-visibility-desc": "Lauki sadaļā Dēļa iestatījumi / Kartīte, kurus dēļi var parādīt. Lauks bez atzīmes tiek paslēpts visās kartītēs, minikartītēs un visu dēļu sadaļā Dēļa iestatījumi / Kartīte. Kartīšu dati un dēļu iestatījumi nemainās. Atzīmējot lauku vēlreiz, katrs dēlis tiek parādīts atbilstoši iepriekšējiem iestatījumiem. Katram dēlim ir sava lauku secība.",
   "features-performance": "Veiktspēja",
   "cards-loading": "Kartiņu ielāde",
   "cards-loading-auto": "Automātiski (slinkā ielāde tikai lielām tāfelēm)",

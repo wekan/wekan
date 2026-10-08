@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Ainmneacha úsáideora, scartha le camóga",
   "feature-pilot-users-unknown": "Sábháilte. Níor aimsíodh na hainmneacha úsáideora seo:",
   "feature-saved": "Sábháilte.",
+  "card-field-visibility": "Réimsí cártaí",
+  "card-field-visibility-desc": "Na réimsí i Socruithe cláir / Cárta is féidir le cláir a thaispeáint. Cuirtear réimse gan tic i bhfolach ar gach cárta, mionchárta agus i Socruithe cláir / Cárta gach cláir. Ní athraítear sonraí na gcártaí ná socruithe na gclár. Má chuirtear tic leis arís, taispeántar gach clár de réir a shocruithe roimhe sin. Tá a ord féin ag gach clár do na réimsí.",
   "features-performance": "Feidhmíocht",
   "cards-loading": "Lódáil cártaí",
   "cards-loading-auto": "Uathoibríoch (lódáil leisciúil do chláir mhóra amháin)",

@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Amazina y'abakoresha, atandukanijwe n'udukitso",
   "feature-pilot-users-unknown": "Vyabitswe. Aya mazina y'abakoresha ntiyabonetse:",
   "feature-saved": "Vyabitswe.",
+  "card-field-visibility": "Card fields",
+  "card-field-visibility-desc": "The fields of Board Settings / Card that boards can show. An unticked field is hidden from every card, minicard and Board Settings / Card of every board. No card data or board setting changes, and ticking it again shows each board as it was set. The order of the fields is each board's own.",
   "features-performance": "Umuvuduko w'imikorere",
   "cards-loading": "Ugushira amakarata",
   "cards-loading-auto": "Ubwavyo (buke gusa ku bicapo binini)",

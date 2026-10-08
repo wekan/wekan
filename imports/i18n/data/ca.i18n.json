@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Noms d'usuari separats per comes",
   "feature-pilot-users-unknown": "Desat. No s'han trobat aquests noms d'usuari:",
   "feature-saved": "Desat.",
+  "card-field-visibility": "Camps de les fitxes",
+  "card-field-visibility-desc": "Els camps de Configuració del tauler / Fitxa que els taulers poden mostrar. Un camp desmarcat s'amaga a totes les fitxes, minifitxes i a Configuració del tauler / Fitxa de tots els taulers. Les dades de les fitxes i la configuració dels taulers no canvien. Tornar a marcar el camp restableix la visualització segons la configuració anterior de cada tauler. Cada tauler té el seu propi ordre dels camps.",
   "features-performance": "Rendiment",
   "cards-loading": "Càrrega de fitxes",
   "cards-loading-auto": "Automàtic (diferit només en taulers grans)",

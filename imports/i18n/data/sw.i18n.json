@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Majina ya watumiaji, yakitenganishwa kwa koma",
   "feature-pilot-users-unknown": "Imehifadhiwa. Majina haya ya watumiaji hayakupatikana:",
   "feature-saved": "Imehifadhiwa.",
+  "card-field-visibility": "Sehemu za kadi",
+  "card-field-visibility-desc": "Sehemu katika Mipangilio ya bodi / Kadi ambazo bodi zinaweza kuonyesha. Sehemu isiyotiwa alama hufichwa kwenye kadi zote, kadi ndogo na Mipangilio ya bodi / Kadi ya kila bodi. Data za kadi na mipangilio ya bodi hazibadiliki. Kuitia alama tena huonyesha kila bodi kulingana na mipangilio yake ya awali. Kila bodi ina mpangilio wake wa sehemu.",
   "features-performance": "Utendaji",
   "cards-loading": "Upakiaji wa kadi",
   "cards-loading-auto": "Kiotomatiki (upakiaji wa polepole kwa mbao kubwa pekee)",

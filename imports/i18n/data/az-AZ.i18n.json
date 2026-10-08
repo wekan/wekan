@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Vergüllə ayrılmış istifadəçi adları",
   "feature-pilot-users-unknown": "Saxlanıldı. Bu istifadəçi adları tapılmadı:",
   "feature-saved": "Saxlanıldı.",
+  "card-field-visibility": "Kart sahələri",
+  "card-field-visibility-desc": "Lövhələrin göstərə biləcəyi Lövhə parametrləri / Kart bölməsindəki sahələr. İşarəsi götürülən sahə bütün lövhələrin bütün kartlarında, mini kartlarında və Lövhə parametrləri / Kart bölməsində gizlədilir. Kart məlumatları və lövhə parametrləri dəyişmir. Sahə yenidən işarələndikdə hər lövhə əvvəlki parametrlərinə uyğun göstərilir. Hər lövhənin öz sahə sırası var.",
   "features-performance": "Performans",
   "cards-loading": "Kart yüklənməsi",
   "cards-loading-auto": "Avtomatik (yalnız böyük lövhələr üçün gecikmiş yükləmə)",

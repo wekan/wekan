@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Enwau defnyddwyr, wedi'u gwahanu gan atalnodau",
   "feature-pilot-users-unknown": "Wedi cadw. Ni chanfuwyd yr enwau defnyddwyr hyn:",
   "feature-saved": "Wedi cadw.",
+  "card-field-visibility": "Meysydd cardiau",
+  "card-field-visibility-desc": "Y meysydd yn Gosodiadau bwrdd / Cerdyn y gall byrddau eu dangos. Mae maes heb dic wedi'i guddio ar bob cerdyn, cerdyn bach ac yn Gosodiadau bwrdd / Cerdyn pob bwrdd. Nid yw data cardiau na gosodiadau byrddau yn newid. Bydd ticio'r maes eto yn dangos pob bwrdd yn ôl ei osodiadau blaenorol. Mae gan bob bwrdd ei drefn ei hun ar gyfer y meysydd.",
   "features-performance": "Perfformiad",
   "cards-loading": "Llwytho cardiau",
   "cards-loading-auto": "Awtomatig (llwytho araf ar gyfer byrddau mawr yn unig)",

@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Inɗe kuutortooɓe, ceertinaaɗe e komaaɓe",
   "feature-pilot-users-unknown": "Danndaama. Ɗee inɗe kuutortooɓe njiytaaka:",
   "feature-saved": "Danndaama.",
+  "card-field-visibility": "Card fields",
+  "card-field-visibility-desc": "The fields of Board Settings / Card that boards can show. An unticked field is hidden from every card, minicard and Board Settings / Card of every board. No card data or board setting changes, and ticking it again shows each board as it was set. The order of the fields is each board's own.",
   "features-performance": "Jaaɓgol",
   "cards-loading": "Loowgol karte",
   "cards-loading-auto": "E jaajol (loowgol seeɗa tan ngam alluuje mawɗe)",

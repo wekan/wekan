@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Nama pengguna, dipisahkan dengan koma",
   "feature-pilot-users-unknown": "Disimpan. Nama pengguna berikut tidak ditemukan:",
   "feature-saved": "Disimpan.",
+  "card-field-visibility": "Kolom kartu",
+  "card-field-visibility-desc": "Kolom di Setelan Papan / Kartu yang dapat ditampilkan papan. Kolom yang tidak dicentang disembunyikan dari semua kartu, kartu mini, dan Setelan Papan / Kartu di setiap papan. Data kartu dan setelan papan tidak berubah. Mencentangnya kembali menampilkan setiap papan sesuai setelan sebelumnya. Setiap papan memiliki urutan kolomnya sendiri.",
   "features-performance": "Performa",
   "cards-loading": "Pemuatan kartu",
   "cards-loading-auto": "Otomatis (pemuatan tertunda hanya untuk papan besar)",

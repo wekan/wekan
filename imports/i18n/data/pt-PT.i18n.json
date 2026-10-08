@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Nomes de utilizador separados por vírgulas",
   "feature-pilot-users-unknown": "Guardado. Estes nomes de utilizador não foram encontrados:",
   "feature-saved": "Guardado.",
+  "card-field-visibility": "Campos dos cartões",
+  "card-field-visibility-desc": "Os campos de Configurações do quadro / Cartão que os quadros podem apresentar. Um campo desmarcado fica oculto em todos os cartões, minicartões e em Configurações do quadro / Cartão de todos os quadros. Os dados dos cartões e as configurações dos quadros não são alterados. Ao marcar o campo novamente, cada quadro é apresentado conforme as suas configurações anteriores. Cada quadro tem a sua própria ordem dos campos.",
   "features-performance": "Desempenho",
   "cards-loading": "Carregamento de cartões",
   "cards-loading-auto": "Automático (carregamento diferido apenas para quadros grandes)",

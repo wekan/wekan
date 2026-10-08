@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Nazwy użytkowników rozdzielone przecinkami",
   "feature-pilot-users-unknown": "Zapisano. Nie znaleziono tych nazw użytkowników:",
   "feature-saved": "Zapisano.",
+  "card-field-visibility": "Pola kart",
+  "card-field-visibility-desc": "Pola w Ustawieniach tablicy / Karta, które tablice mogą wyświetlać. Odznaczone pole jest ukryte na wszystkich kartach, minikartach i w Ustawieniach tablicy / Karta każdej tablicy. Dane kart i ustawienia tablic nie zmieniają się. Ponowne zaznaczenie pola przywraca widok zgodny z ustawieniami każdej tablicy. Każda tablica ma własną kolejność pól.",
   "features-performance": "Wydajność",
   "cards-loading": "Ładowanie kart",
   "cards-loading-auto": "Automatycznie (leniwie tylko dla dużych tablic)",

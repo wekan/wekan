@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "কমাৰে পৃথক কৰা ব্যৱহাৰকাৰীৰ নামসমূহ",
   "feature-pilot-users-unknown": "সংৰক্ষণ কৰা হ'ল। এই ব্যৱহাৰকাৰীৰ নামসমূহ পোৱা নগ'ল:",
   "feature-saved": "সংৰক্ষণ কৰা হ'ল।",
+  "card-field-visibility": "Card fields",
+  "card-field-visibility-desc": "The fields of Board Settings / Card that boards can show. An unticked field is hidden from every card, minicard and Board Settings / Card of every board. No card data or board setting changes, and ticking it again shows each board as it was set. The order of the fields is each board's own.",
   "features-performance": "কাৰ্যক্ষমতা",
   "cards-loading": "কাৰ্ড লোড কৰা",
   "cards-loading-auto": "স্বয়ংক্ৰিয় (কেৱল ডাঙৰ বৰ্ডৰ বাবে অলস)",

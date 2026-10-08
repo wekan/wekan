@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Tên người dùng, phân cách bằng dấu phẩy",
   "feature-pilot-users-unknown": "Đã lưu. Không tìm thấy các tên người dùng này:",
   "feature-saved": "Đã lưu.",
+  "card-field-visibility": "Các trường của thẻ",
+  "card-field-visibility-desc": "Các trường trong Cài đặt bảng / Thẻ mà bảng có thể hiển thị. Trường không được đánh dấu sẽ bị ẩn trên mọi thẻ, thẻ thu nhỏ và trong Cài đặt bảng / Thẻ của mọi bảng. Dữ liệu thẻ và cài đặt bảng không thay đổi. Đánh dấu lại sẽ hiển thị từng bảng theo cài đặt trước đó. Mỗi bảng có thứ tự trường riêng.",
   "features-performance": "Hiệu suất",
   "cards-loading": "Tải thẻ",
   "cards-loading-auto": "Tự động (chỉ tải lười với bảng lớn)",

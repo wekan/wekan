@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Mavito ya vatirhisi, lama hambanisiweke hi tikhoma",
   "feature-pilot-users-unknown": "Swi hlayisiwile. Mavito lawa ya vatirhisi a ma kumekanga:",
   "feature-saved": "Swi hlayisiwile.",
+  "card-field-visibility": "Card fields",
+  "card-field-visibility-desc": "The fields of Board Settings / Card that boards can show. An unticked field is hidden from every card, minicard and Board Settings / Card of every board. No card data or board setting changes, and ticking it again shows each board as it was set. The order of the fields is each board's own.",
   "features-performance": "Hi Xitsonga: mhaka",
   "cards-loading": "khadi ku layicha",
   "cards-loading-auto": "swa xiothomethi (mhaka mhaka mhaka mhaka tibodo)",

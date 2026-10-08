@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Tequitinih intocah, xexeloltih ica coma",
   "feature-pilot-users-unknown": "Omopix. Inin tequitinih intocah amo monextihqueh:",
   "feature-saved": "Omopix.",
+  "card-field-visibility": "Card fields",
+  "card-field-visibility-desc": "The fields of Board Settings / Card that boards can show. An unticked field is hidden from every card, minicard and Board Settings / Card of every board. No card data or board setting changes, and ticking it again shows each board as it was set. The order of the fields is each board's own.",
   "features-performance": "Iciuhquiliztli",
   "cards-loading": "Amatlapaltin calaquiliztli",
   "cards-loading-auto": "Isel (zan huehueyi huapaltin ica yolihui)",

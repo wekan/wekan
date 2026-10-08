@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Uporabniška imena, ločena z vejicami",
   "feature-pilot-users-unknown": "Shranjeno. Teh uporabniških imen ni bilo mogoče najti:",
   "feature-saved": "Shranjeno.",
+  "card-field-visibility": "Polja kartic",
+  "card-field-visibility-desc": "Polja v Nastavitvah table / Kartica, ki jih table lahko prikazujejo. Neoznačeno polje se skrije na vseh karticah, minikarticah in v Nastavitvah table / Kartica vseh tabel. Podatki kartic in nastavitve tabel se ne spremenijo. Ko polje znova označite, se vsaka tabla prikaže po svojih prejšnjih nastavitvah. Vsaka tabla ima svoj vrstni red polj.",
   "features-performance": "Zmogljivost",
   "cards-loading": "Nalaganje kartic",
   "cards-loading-auto": "Samodejno (leno nalaganje samo za velike table)",

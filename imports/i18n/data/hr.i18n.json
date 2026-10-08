@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Korisnička imena odvojena zarezima",
   "feature-pilot-users-unknown": "Spremljeno. Ova korisnička imena nisu pronađena:",
   "feature-saved": "Spremljeno.",
+  "card-field-visibility": "Polja kartica",
+  "card-field-visibility-desc": "Polja u Postavkama ploče / Kartica koja ploče mogu prikazivati. Neoznačeno polje skriva se na svim karticama, minikarticama i u Postavkama ploče / Kartica svih ploča. Podaci kartica i postavke ploča ne mijenjaju se. Ponovnim označavanjem svaka se ploča prikazuje prema svojim prethodnim postavkama. Svaka ploča ima vlastiti redoslijed polja.",
   "features-performance": "Performanse",
   "cards-loading": "Učitavanje kartica",
   "cards-loading-auto": "Automatski (lijeno učitavanje samo za velike ploče)",

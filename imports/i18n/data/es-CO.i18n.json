@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Nombres de usuario separados por comas",
   "feature-pilot-users-unknown": "Guardado. No se encontraron estos nombres de usuario:",
   "feature-saved": "Guardado.",
+  "card-field-visibility": "Campos de las tarjetas",
+  "card-field-visibility-desc": "Los campos de Configuración del tablero / Tarjeta que pueden mostrar los tableros. Un campo desmarcado se oculta en todas las tarjetas, minitarjetas y en Configuración del tablero / Tarjeta de todos los tableros. No se modifican los datos de las tarjetas ni la configuración de los tableros. Al marcarlo de nuevo, cada tablero se muestra según su configuración anterior. Cada tablero tiene su propio orden de campos.",
   "features-performance": "Rendimiento",
   "cards-loading": "Carga de tarjetas",
   "cards-loading-auto": "Automático (perezoso solo para tableros grandes)",

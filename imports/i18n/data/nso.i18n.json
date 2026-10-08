@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Maina a badiriši, a arogantšwe ka difegelwana",
   "feature-pilot-users-unknown": "Di bolokilwe. Maina a a badiriši ga se a hwetšwa:",
   "feature-saved": "Di bolokilwe.",
+  "card-field-visibility": "Card fields",
+  "card-field-visibility-desc": "The fields of Board Settings / Card that boards can show. An unticked field is hidden from every card, minicard and Board Settings / Card of every board. No card data or board setting changes, and ticking it again shows each board as it was set. The order of the fields is each board's own.",
   "features-performance": "Tshepetšo",
   "cards-loading": "Go laiša dikarata",
   "cards-loading-auto": "Ka go itiriša (go diegišwa feela dibotong tše dikgolo)",

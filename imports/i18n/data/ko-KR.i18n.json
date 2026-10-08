@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "쉼표로 구분한 사용자 이름",
   "feature-pilot-users-unknown": "저장했습니다. 다음 사용자 이름을 찾을 수 없습니다:",
   "feature-saved": "저장했습니다.",
+  "card-field-visibility": "카드 필드",
+  "card-field-visibility-desc": "보드에 표시할 수 있는 보드 설정 / 카드의 필드입니다. 선택을 해제한 필드는 모든 보드의 모든 카드, 미니 카드 및 보드 설정 / 카드에서 숨겨집니다. 카드 데이터나 보드 설정은 변경되지 않습니다. 다시 선택하면 각 보드가 이전 설정에 따라 표시됩니다. 필드 순서는 각 보드의 설정을 따릅니다.",
   "features-performance": "성능",
   "cards-loading": "카드 로딩",
   "cards-loading-auto": "자동 (큰 보드에만 지연 로딩)",

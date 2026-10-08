@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Orúkọ àwọn aṣàmúlò, tí a fi kọ́má yà sọ́tọ̀",
   "feature-pilot-users-unknown": "A ti fi pamọ́. A kò rí orúkọ àwọn aṣàmúlò wọ̀nyí:",
   "feature-saved": "A ti fi pamọ́.",
+  "card-field-visibility": "Card fields",
+  "card-field-visibility-desc": "The fields of Board Settings / Card that boards can show. An unticked field is hidden from every card, minicard and Board Settings / Card of every board. No card data or board setting changes, and ticking it again shows each board as it was set. The order of the fields is each board's own.",
   "features-performance": "Iṣẹ",
   "cards-loading": "Ikojọpọ kaadi",
   "cards-loading-auto": "Aládàáṣe (ọ̀lẹ fún àwọn ọkọ̀ ńlá nìkan)",

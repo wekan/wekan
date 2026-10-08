@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Gebruikersname, deur kommas geskei",
   "feature-pilot-users-unknown": "Gestoor. Hierdie gebruikersname is nie gevind nie:",
   "feature-saved": "Gestoor.",
+  "card-field-visibility": "Kaartvelde",
+  "card-field-visibility-desc": "Die velde onder Bordinstellings / Kaart wat borde kan wys. 'n Veld wat nie gemerk is nie, word op alle kaarte, minikaarte en onder Bordinstellings / Kaart van alle borde versteek. Kaartdata en bordinstellings verander nie. Wanneer die veld weer gemerk word, verskyn elke bord volgens sy vorige instellings. Elke bord het sy eie veldvolgorde.",
   "features-performance": "Werkverrigting",
   "cards-loading": "Kaartlaai",
   "cards-loading-auto": "Outomaties (vertraagde laai slegs vir groot borde)",

@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Notendanöfn, aðskilin með kommum",
   "feature-pilot-users-unknown": "Vistað. Þessi notendanöfn fundust ekki:",
   "feature-saved": "Vistað.",
+  "card-field-visibility": "Reitir spjalda",
+  "card-field-visibility-desc": "Reitir í Stillingar töflu / Spjald sem töflur geta sýnt. Reitur sem ekki er hakað við er falinn á öllum spjöldum, smáspjöldum og í Stillingar töflu / Spjald á öllum töflum. Gögn spjalda og stillingar taflna breytast ekki. Þegar hakað er við reitinn aftur birtist hver tafla samkvæmt fyrri stillingum sínum. Hver tafla hefur sína eigin röð reita.",
   "features-performance": "Afköst",
   "cards-loading": "Hleðsla spjalda",
   "cards-loading-auto": "Sjálfvirk (sein aðeins fyrir stórar töflur)",

@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Uživatelská jména oddělená čárkami",
   "feature-pilot-users-unknown": "Uloženo. Tato uživatelská jména nebyla nalezena:",
   "feature-saved": "Uloženo.",
+  "card-field-visibility": "Pole karet",
+  "card-field-visibility-desc": "Pole v Nastavení tabla / Karta, která mohou tabla zobrazovat. Nezaškrtnuté pole se skryje na všech kartách, minikartách a v Nastavení tabla / Karta všech tabel. Data karet ani nastavení tabel se nemění. Po opětovném zaškrtnutí se každé tablo zobrazí podle svého původního nastavení. Každé tablo má vlastní pořadí polí.",
   "features-performance": "Výkon",
   "cards-loading": "Načítání karet",
   "cards-loading-auto": "Automaticky (líně jen pro velké nástěnky)",

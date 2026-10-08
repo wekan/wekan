@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Mga username, na pinaghihiwalay ng kuwit",
   "feature-pilot-users-unknown": "Na-save. Hindi nahanap ang mga username na ito:",
   "feature-saved": "Na-save.",
+  "card-field-visibility": "Mga field ng kard",
+  "card-field-visibility-desc": "Mga field sa Mga setting ng pisara / Kard na maaaring ipakita ng mga pisara. Ang field na hindi nilagyan ng tsek ay nakatago sa lahat ng kard, munting kard at Mga setting ng pisara / Kard ng lahat ng pisara. Hindi nagbabago ang datos ng kard o mga setting ng pisara. Kapag nilagyan itong muli ng tsek, lalabas ang bawat pisara ayon sa dati nitong mga setting. May sariling ayos ng mga field ang bawat pisara.",
   "features-performance": "Pagganap",
   "cards-loading": "kard naglo-load",
   "cards-loading-auto": "Awtomatiko (tamad lamang para sa big pisaras)",

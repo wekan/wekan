@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Uzantnomoj, apartigitaj per komoj",
   "feature-pilot-users-unknown": "Konservite. Ĉi tiuj uzantnomoj ne estis trovitaj:",
   "feature-saved": "Konservite.",
+  "card-field-visibility": "Kampoj de kartoj",
+  "card-field-visibility-desc": "La kampoj en Agordoj de tabulo / Karto, kiujn tabuloj povas montri. Nemarkita kampo estas kaŝita sur ĉiuj kartoj, etaj kartoj kaj en Agordoj de tabulo / Karto de ĉiuj tabuloj. La kartaj datumoj kaj tabulaj agordoj ne ŝanĝiĝas. Remarki la kampon restarigas la montradon laŭ la antaŭaj agordoj de ĉiu tabulo. Ĉiu tabulo havas sian propran ordon de kampoj.",
   "features-performance": "Efikeco",
   "cards-loading": "Karta ŝargado",
   "cards-loading-auto": "Aŭtomata (prokrastita ŝargado nur por grandaj tabuloj)",

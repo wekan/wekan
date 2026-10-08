@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Ainmean-cleachdaiche, air an sgaradh le cromagan",
   "feature-pilot-users-unknown": "Air a shàbhaladh. Cha deach na h-ainmean-cleachdaiche seo a lorg:",
   "feature-saved": "Air a shàbhaladh.",
+  "card-field-visibility": "Card fields",
+  "card-field-visibility-desc": "The fields of Board Settings / Card that boards can show. An unticked field is hidden from every card, minicard and Board Settings / Card of every board. No card data or board setting changes, and ticking it again shows each board as it was set. The order of the fields is each board's own.",
   "features-performance": "Dèanadas",
   "cards-loading": "Luchdachadh chairtean",
   "cards-loading-auto": "Fèin-obrachail (leisg a-mhàin airson bùird mhòra)",

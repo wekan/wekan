@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "ناوی بەکارهێنەران، جیاکراوە بە کۆما",
   "feature-pilot-users-unknown": "پاشەکەوت کرا. ئەم ناوانەی بەکارهێنەر نەدۆزرانەوە:",
   "feature-saved": "پاشەکەوت کرا.",
+  "card-field-visibility": "Card fields",
+  "card-field-visibility-desc": "The fields of Board Settings / Card that boards can show. An unticked field is hidden from every card, minicard and Board Settings / Card of every board. No card data or board setting changes, and ticking it again shows each board as it was set. The order of the fields is each board's own.",
   "features-performance": "کارایی",
   "cards-loading": "بارکردنی کارت",
   "cards-loading-auto": "خۆکار (تەنها بۆ تەختە گەورەکان تەمبەڵ)",

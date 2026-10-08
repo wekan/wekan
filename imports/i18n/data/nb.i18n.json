@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Brukernavn atskilt med kommaer",
   "feature-pilot-users-unknown": "Lagret. Disse brukernavnene ble ikke funnet:",
   "feature-saved": "Lagret.",
+  "card-field-visibility": "Kortfelter",
+  "card-field-visibility-desc": "Feltene under Tavleinnstillinger / Kort som tavler kan vise. Et felt uten avkrysning skjules på alle kort, minikort og under Tavleinnstillinger / Kort på alle tavler. Kortdata og tavleinnstillinger endres ikke. Krysses feltet av igjen, vises hver tavle med sine tidligere innstillinger. Hver tavle har sin egen feltrekkefølge.",
   "features-performance": "Ytelse",
   "cards-loading": "Kortinnlasting",
   "cards-loading-auto": "Automatisk (lat kun for store tavler)",

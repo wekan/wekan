@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "ལག་ལེན་པའི་མིང་ཚུ་ ལྷོད་རྟགས་ཀྱིས་སོ་སོ་འཕྱེ།",
   "feature-pilot-users-unknown": "སྲུང་ཡོད། ལག་ལེན་པའི་མིང་འདི་ཚུ་མ་ཐོབ།",
   "feature-saved": "སྲུང་ཡོད།",
+  "card-field-visibility": "Card fields",
+  "card-field-visibility-desc": "The fields of Board Settings / Card that boards can show. An unticked field is hidden from every card, minicard and Board Settings / Card of every board. No card data or board setting changes, and ticking it again shows each board as it was set. The order of the fields is each board's own.",
   "features-performance": "ལས་ནུས།",
   "cards-loading": "ཤོག་བྱང་འཇུག་པ།",
   "cards-loading-auto": "རང་འགུལ། (བྱང་གཞི་ཆེན་པོར་ལེ་ལོ་ཁོ་ན།)",

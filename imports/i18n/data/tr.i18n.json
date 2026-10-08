@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Virgülle ayrılmış kullanıcı adları",
   "feature-pilot-users-unknown": "Kaydedildi. Şu kullanıcı adları bulunamadı:",
   "feature-saved": "Kaydedildi.",
+  "card-field-visibility": "Kart alanları",
+  "card-field-visibility-desc": "Panoların gösterebileceği Pano Ayarları / Kart bölümündeki alanlar. İşareti kaldırılan alan, tüm panoların bütün kartlarında, mini kartlarında ve Pano Ayarları / Kart bölümünde gizlenir. Kart verileri ve pano ayarları değişmez. Alan yeniden işaretlendiğinde her pano önceki ayarlarına göre gösterilir. Her panonun alan sırası kendine aittir.",
   "features-performance": "Performans",
   "cards-loading": "Kart yükleme",
   "cards-loading-auto": "Otomatik (yalnızca büyük panolar için tembel)",

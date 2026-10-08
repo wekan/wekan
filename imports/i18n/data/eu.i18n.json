@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Erabiltzaile-izenak, komaz bereizita",
   "feature-pilot-users-unknown": "Gordeta. Erabiltzaile-izen hauek ez dira aurkitu:",
   "feature-saved": "Gordeta.",
+  "card-field-visibility": "Txartelen eremuak",
+  "card-field-visibility-desc": "Arbelek erakuts ditzaketen Arbelaren ezarpenak / Txartela ataleko eremuak. Markatu gabeko eremua arbel guztietako txartel, txartel txiki eta Arbelaren ezarpenak / Txartela atal guztietan ezkutatzen da. Txartelen datuak eta arbelen ezarpenak ez dira aldatzen. Berriro markatzean, arbel bakoitza aurreko ezarpenen arabera erakusten da. Arbel bakoitzak bere eremuen ordena du.",
   "features-performance": "Errendimendua",
   "cards-loading": "Txartelen kargatzea",
   "cards-loading-auto": "Automatikoa (alferra arbel handietan bakarrik)",

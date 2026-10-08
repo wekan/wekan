@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Nume de utilizator separate prin virgulă",
   "feature-pilot-users-unknown": "Salvat. Aceste nume de utilizator nu au fost găsite:",
   "feature-saved": "Salvat.",
+  "card-field-visibility": "Câmpurile cardurilor",
+  "card-field-visibility-desc": "Câmpurile din Setările panoului / Card pe care panourile le pot afișa. Un câmp debifat este ascuns pe toate cardurile, minicardurile și în Setările panoului / Card ale tuturor panourilor. Datele cardurilor și setările panourilor nu se schimbă. Bifarea din nou restabilește afișarea conform setărilor anterioare ale fiecărui panou. Fiecare panou are propria ordine a câmpurilor.",
   "features-performance": "Performanță",
   "cards-loading": "Încărcarea cardurilor",
   "cards-loading-auto": "Automatico (pigro solo per bacheche grandi)",

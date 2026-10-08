@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "使用者名稱，以逗號分隔",
   "feature-pilot-users-unknown": "已儲存。找不到下列使用者名稱：",
   "feature-saved": "已儲存。",
+  "card-field-visibility": "卡片欄位",
+  "card-field-visibility-desc": "看板可顯示的「看板設定 / 卡片」欄位。取消勾選後，該欄位會在所有看板的卡片、迷你卡片及「看板設定 / 卡片」中隱藏。卡片資料和看板設定均不會改變。重新勾選後，各看板會依原有設定顯示。欄位順序由各看板自行設定。",
   "features-performance": "效能",
   "cards-loading": "卡片載入",
   "cards-loading-auto": "自動（僅大型看板延遲載入）",

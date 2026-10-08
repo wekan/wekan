@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Naudotojų vardai, atskirti kableliais",
   "feature-pilot-users-unknown": "Išsaugota. Šie naudotojų vardai nerasti:",
   "feature-saved": "Išsaugota.",
+  "card-field-visibility": "Kortelių laukai",
+  "card-field-visibility-desc": "Laukai skiltyje Lentos nustatymai / Kortelė, kuriuos lentos gali rodyti. Nepažymėtas laukas slepiamas visose kortelėse, mažose kortelėse ir visų lentų skiltyje Lentos nustatymai / Kortelė. Kortelių duomenys ir lentų nustatymai nesikeičia. Pažymėjus lauką iš naujo, kiekviena lenta rodoma pagal ankstesnius jos nustatymus. Kiekviena lenta turi savo laukų tvarką.",
   "features-performance": "Našumas",
   "cards-loading": "Kortelių įkėlimas",
   "cards-loading-auto": "Automatinis (tingus įkėlimas tik didelėms lentoms)",

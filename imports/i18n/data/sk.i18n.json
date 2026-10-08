@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Používateľské mená oddelené čiarkami",
   "feature-pilot-users-unknown": "Uložené. Tieto používateľské mená sa nenašli:",
   "feature-saved": "Uložené.",
+  "card-field-visibility": "Polia kariet",
+  "card-field-visibility-desc": "Polia v Nastaveniach nástenky / Karta, ktoré môžu nástenky zobrazovať. Nezaškrtnuté pole sa skryje na všetkých kartách, minikartách a v Nastaveniach nástenky / Karta všetkých násteniek. Údaje kariet ani nastavenia násteniek sa nemenia. Po opätovnom zaškrtnutí sa každá nástenka zobrazí podľa svojho pôvodného nastavenia. Každá nástenka má vlastné poradie polí.",
   "features-performance": "Výkon",
   "cards-loading": "Načítavanie kariet",
   "cards-loading-auto": "Automaticky (lenivé načítanie len pre veľké tabule)",

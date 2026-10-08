@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Nomes de usuario separados por comas",
   "feature-pilot-users-unknown": "Gardado. Non se atoparon estes nomes de usuario:",
   "feature-saved": "Gardado.",
+  "card-field-visibility": "Campos das tarxetas",
+  "card-field-visibility-desc": "Os campos de Configuración do taboleiro / Tarxeta que os taboleiros poden mostrar. Un campo desmarcado agóchase en todas as tarxetas, minitarxetas e en Configuración do taboleiro / Tarxeta de todos os taboleiros. Os datos das tarxetas e a configuración dos taboleiros non cambian. Ao marcalo de novo, cada taboleiro móstrase segundo a súa configuración anterior. Cada taboleiro ten a súa propia orde dos campos.",
   "features-performance": "Rendemento",
   "cards-loading": "Carga de cartões",
   "cards-loading-auto": "Automático (preguiçoso só para quadros grandes)",

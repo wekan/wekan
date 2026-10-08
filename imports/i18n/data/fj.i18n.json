@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Yaca ni dauvakayagataka, tawase ena koma",
   "feature-pilot-users-unknown": "Sa maroroi. E sega ni kune na yaca ni dauvakayagataka oqo:",
   "feature-saved": "Sa maroroi.",
+  "card-field-visibility": "Card fields",
+  "card-field-visibility-desc": "The fields of Board Settings / Card that boards can show. An unticked field is hidden from every card, minicard and Board Settings / Card of every board. No card data or board setting changes, and ticking it again shows each board as it was set. The order of the fields is each board's own.",
   "features-performance": "iVakarau ni cakacaka",
   "cards-loading": "Vakavodoki ni kadi",
   "cards-loading-auto": "Vakataki koya (vakamalua ga ena vola levu)",

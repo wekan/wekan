@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Anvioù implijer, dispartiet gant skejoù",
   "feature-pilot-users-unknown": "Enrollet. N'eo ket bet kavet an anvioù implijer-mañ:",
   "feature-saved": "Enrollet.",
+  "card-field-visibility": "Card fields",
+  "card-field-visibility-desc": "The fields of Board Settings / Card that boards can show. An unticked field is hidden from every card, minicard and Board Settings / Card of every board. No card data or board setting changes, and ticking it again shows each board as it was set. The order of the fields is each board's own.",
   "features-performance": "Performañs",
   "cards-loading": "Kargañ ar c'hartennoù",
   "cards-loading-auto": "Emgefreek (kargañ dale evit an taolennoù bras hepken)",

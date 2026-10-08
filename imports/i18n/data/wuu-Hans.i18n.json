@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "用户名，用逗号分开",
   "feature-pilot-users-unknown": "保存好了。寻勿着下底个用户名：",
   "feature-saved": "保存好了。",
+  "card-field-visibility": "Card fields",
+  "card-field-visibility-desc": "The fields of Board Settings / Card that boards can show. An unticked field is hidden from every card, minicard and Board Settings / Card of every board. No card data or board setting changes, and ticking it again shows each board as it was set. The order of the fields is each board's own.",
   "features-performance": "性能",
   "cards-loading": "卡片加载",
   "cards-loading-auto": "自动（仅大型看板延迟加载）",

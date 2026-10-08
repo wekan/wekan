@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Brugernavne adskilt af kommaer",
   "feature-pilot-users-unknown": "Gemt. Disse brugernavne blev ikke fundet:",
   "feature-saved": "Gemt.",
+  "card-field-visibility": "Kortfelter",
+  "card-field-visibility-desc": "Felterne under Tavleindstillinger / Kort, som tavler kan vise. Et felt uden flueben skjules på alle kort, minikort og under Tavleindstillinger / Kort på alle tavler. Kortdata og tavleindstillinger ændres ikke. Markeres feltet igen, vises hver tavle efter sine tidligere indstillinger. Hver tavle har sin egen rækkefølge af felter.",
   "features-performance": "Ydeevne",
   "cards-loading": "Indlæsning af kort",
   "cards-loading-auto": "Automatisk (doven kun for store tavler)",

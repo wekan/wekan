@@ -318,12 +318,6 @@
     "reason": "The placeholder demonstrates three comma-separated checklist item names. Keep the translated target-language item nouns and the comma input syntax."
   },
   {
-    "locale": "wa-RR",
-    "key": "r-items-list",
-    "value": "item1, item2, item3",
-    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
-  },
-  {
     "locale": "wa",
     "key": "r-items-list",
     "value": "elemint1,elemint2,elemint3",

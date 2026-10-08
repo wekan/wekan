@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Felhasználónevek vesszővel elválasztva",
   "feature-pilot-users-unknown": "Mentve. Ezek a felhasználónevek nem találhatók:",
   "feature-saved": "Mentve.",
+  "card-field-visibility": "Kártyamezők",
+  "card-field-visibility-desc": "A Táblabeállítások / Kártya rész azon mezői, amelyeket a táblák megjeleníthetnek. A jelöletlen mező minden tábla összes kártyáján, minikártyáján és a Táblabeállítások / Kártya részben rejtve marad. A kártyaadatok és a táblabeállítások nem változnak. Újbóli bejelöléskor minden tábla a korábbi beállításai szerint jelenik meg. A mezők sorrendje táblánként külön állítható be.",
   "features-performance": "Teljesítmény",
   "cards-loading": "Kártyák betöltése",
   "cards-loading-auto": "Automatikus (késleltetett betöltés csak nagy tábláknál)",

@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Nā inoa mea hoʻohana, hoʻokaʻawale ʻia e nā koma",
   "feature-pilot-users-unknown": "Ua mālama ʻia. ʻAʻole i loaʻa kēia mau inoa mea hoʻohana:",
   "feature-saved": "Ua mālama ʻia.",
+  "card-field-visibility": "Card fields",
+  "card-field-visibility-desc": "The fields of Board Settings / Card that boards can show. An unticked field is hidden from every card, minicard and Board Settings / Card of every board. No card data or board setting changes, and ticking it again shows each board as it was set. The order of the fields is each board's own.",
   "features-performance": "pelapolamanake",
   "cards-loading": "kāleka ke hoʻouka nei",
   "cards-loading-auto": "ʻakomi (lakawa wale nō pola pika nā papa)",
