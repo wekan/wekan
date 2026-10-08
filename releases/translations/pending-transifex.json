@@ -1007,6 +1007,10 @@
     {
       "key": "import-board-instruction-meistertask",
       "since": "2026-10-08"
+    },
+    {
+      "key": "import-board-instruction-obsidian",
+      "since": "2026-10-08"
     }
   ]
 }

@@ -32,7 +32,7 @@ that by providing one-click installation on various platforms.
     - Board icons at Remaining, (Sub)Workspaces, Archive
     - Shared Templates: Boards, Lists, Cards
     - Add Board / Import:
-      - WeKan JSON/.zip, CSV/TSV, Excel, Markdown, Leo, OPML, Org mode, todo.txt
+      - WeKan JSON/.zip, CSV/TSV, Excel, Markdown, Obsidian Kanban, Leo, OPML, Org mode, todo.txt
       - Trello, Jira, Asana, Zenkit, Focalboard, Todoist, Microsoft Planner, MeisterTask
       - Kanboard, Nextcloud Deck, OpenProject, Taskwarrior
       - GitHub, GitLab, Gitea, Forgejo
@@ -80,7 +80,7 @@ that by providing one-click installation on various platforms.
       - Export to: PDF, Excel, HTML, Calendar feed (iCal), Dependencies JSON/SVG,
        CSV , ; TSV, JSON with/without attachmeents, .zip (Attachments),
        Kanboard, Markdown, Leo, OPML, Org mode, todo.txt, Taskwarrior, Focalboard, Todoist,
-       Microsoft Planner, MeisterTask,
+       Microsoft Planner, MeisterTask, Obsidian Kanban,
        Trello, Jira, NextCloud Deck, OpenProject, GitHub, GitLab,
        Gitea, Forgejo, Asana, Zenkit
     - Scrum Settings

@@ -337,7 +337,7 @@ test('every external export menu link returns text and refuses an unrelated user
   // Include description through the actual shared selection controls.
   const details = page.locator('.js-export-card-details-toggle');
   if (await details.getAttribute('aria-checked') !== 'true') await details.click();
-  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'opml', 'orgmode']) {
+  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'opml', 'orgmode']) {
     await test.step(format, async () => {
       const anchor = page.locator(`.js-pop-over a[href*="/export/${format}?"]`);
       await expect(anchor).toBeVisible();
@@ -351,6 +351,37 @@ test('every external export menu link returns text and refuses an unrelated user
       expect([401, 403]).toContain(refused.status());
     });
   }
+});
+
+// An Obsidian Kanban plugin board: a lane limit, tags, a date, a Complete lane
+// and the settings footer (models/lib/obsidianKanbanFormat.js).
+test('Obsidian Kanban: a plugin board imports with its lanes, limit, tags, due date and done cards', async ({ loggedInPage: page }) => {
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/obsidian');
+    await page.locator('#import-textarea').fill([
+      '---', '', 'kanban-plugin: board', '', '---', '',
+      '## Doing (2)', '', `- [ ] ${expected.title} #${expected.label.replace(/ /g, '-')} @{2026-10-10}`, '    Two of them', '', '', '',
+      '## Done', '', '**Complete**', '- [x] Finished task', '', '', '',
+      '%% kanban:settings', '```', '{"kanban-plugin":"board"}', '```', '%%',
+    ].join('\n'));
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    const cards = db.find('cards', { boardId });
+    expect(cards).toHaveLength(2);
+    const open = cards.find(card => card.title === expected.title);
+    expect(open.description).toBe('Two of them');
+    expect(new Date(open.dueAt).toISOString().slice(0, 10)).toBe('2026-10-10');
+    const lists = db.find('lists', { boardId });
+    const doing = lists.find(list => list._id === open.listId);
+    expect(doing.title).toBe('Doing');
+    expect(doing.wipLimit).toMatchObject({ value: 2, enabled: true });
+    const board = db.findOne('boards', { _id: boardId });
+    const done = cards.find(card => card.title === 'Finished task');
+    expect(done.labelIds.map(id => board.labels.find(l => l._id === id).name)).toEqual(['done']);
+    await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });
 
 // MeisterTask's own import sample shape: sections, notes, due date, status and tags.

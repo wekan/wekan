@@ -172,15 +172,25 @@ export class KanboardCreator {
     }
   }
 
+  // A column's limit: `wip_limit` (Obsidian Kanban's "## Lane (5)") or
+  // Kanboard's own `task_limit`; 0 or nothing is no limit.
+  _columnLimit(data, name) {
+    const column = (Array.isArray(data.columns) ? data.columns : []).find(c => (c.title || c.name) === name);
+    const limit = column ? Number(column.wip_limit ?? column.task_limit) : NaN;
+    return Number.isInteger(limit) && limit > 0 ? limit : undefined;
+  }
+
   async createLists(data, boardId) {
     let sort = 0;
     for (const name of this._columnNames(data)) {
+      const limit = this._columnLimit(data, name);
       const listId = await Lists.direct.insertAsync({
         archived: false,
         boardId,
         createdAt: this._now(),
         title: name,
         sort,
+        ...(limit ? { wipLimit: { value: limit, enabled: true, soft: false } } : {}),
       });
       this.lists[name] = listId;
       sort += 1;

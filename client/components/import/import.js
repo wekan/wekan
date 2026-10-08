@@ -243,7 +243,7 @@ Template.import.onCreated(function () {
     // Focalboard's board.jsonl is one JSON object per line too, and a Todoist
     // template is CSV text with its own columns.
     if (dataSource === 'markdown' || dataSource === 'leo' || dataSource === 'todotxt' || dataSource === 'taskwarrior' ||
-        dataSource === 'focalboard' || dataSource === 'todoist' || dataSource === 'meistertask' || dataSource === 'opml' || dataSource === 'orgmode') {
+        dataSource === 'focalboard' || dataSource === 'todoist' || dataSource === 'meistertask' || dataSource === 'obsidian' || dataSource === 'opml' || dataSource === 'orgmode') {
       const input = this.find('.js-import-json').value;
       if (!input || !input.trim()) {
         this.setError('error-json-malformed');
@@ -466,6 +466,7 @@ const IMPORT_SOURCES = [
   { key: 'todoist', name: 'Todoist' },
   { key: 'planner', name: 'Microsoft Planner' },
   { key: 'meistertask', name: 'MeisterTask' },
+  { key: 'obsidian', name: 'Obsidian Kanban' },
 ];
 
 Template.import.helpers({

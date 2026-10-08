@@ -5,6 +5,7 @@ import { parseFocalboard } from './focalboardFormat.js';
 import { parseTodoistCsv } from './todoistCsvFormat.js';
 import { parsePlannerRows } from './plannerFormat.js';
 import { parseMeisterTaskCsv } from './meistertaskCsvFormat.js';
+import { parseObsidianKanban } from './obsidianKanbanFormat.js';
 import { parseOrgMode } from './orgModeFormat.js';
 import {
   gitlabScrumPlanning, openProjectScrumPlanning, asanaScrumPlanning, STORY_POINTS_FIELD,
@@ -129,7 +130,8 @@ export function parseKanboard(data) {
   return {
     board: { name: (data.board && (data.board.name || data.board.title)) || data.name || 'Imported Kanboard project' },
     columns: Array.isArray(data.columns) && data.columns.length
-      ? data.columns.map(c => ({ title: c.title || c.name })).filter(c => c.title)
+      // Kanboard's task_limit is the column's WIP limit (KanboardCreator).
+      ? data.columns.map(c => ({ title: c.title || c.name, ...(Number(c.task_limit) > 0 ? { task_limit: Number(c.task_limit) } : {}) })).filter(c => c.title)
       : uniq(tasks.map(t => t.column_name)).map(title => ({ title })),
     swimlanes: Array.isArray(data.swimlanes) && data.swimlanes.length
       ? data.swimlanes.map(s => ({ name: s.name || s.title })).filter(s => s.name)
@@ -962,6 +964,8 @@ export const EXTERNAL_PARSERS = {
   planner: parsePlannerRows,
   // MeisterTask's project CSV, its import or export shape (meistertaskCsvFormat.js).
   meistertask: parseMeisterTaskCsv,
+  // The Obsidian Kanban plugin's board file (obsidianKanbanFormat.js).
+  obsidian: parseObsidianKanban,
   orgmode: parseOrgMode,
   jira: parseJira,
 };
