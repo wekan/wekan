@@ -141,3 +141,14 @@ inventoried in [Card-Email-Content-Audit.md](Card-Email-Content-Audit.md).
 Delivery passes against a local SMTP server for filesystem and GridFS
 attachments. Interoperability with live external mail providers was not
 tested, as no real mail accounts were available.
+
+## [#5050](https://github.com/wekan/wekan/issues/5050) Add all users to a board
+
+The maintainer's answer on the issue - put the users in an organization or
+team and give the board to it - is what WeKan does now. Admin Panel / People
+selects every user on a page with the header checkbox and adds the selection
+to a team in one step, and an organization gains new users automatically by
+email domain (`orgAutoAddUsersWithDomainName`). With "propagate members to
+boards" on the team or organization (server/propagateOrgTeamMembers.js), its
+members become normal members of every board it is added to, and later
+members join those boards too (#4593).
