@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Slovenian settings and notifications — 2026-10-08
+
+Replace 70 Serbian values in each Slovenian catalog, for 140 corrections.
+Cover filters, settings, uploads, notifications, weekdays and task labels.
+Preserve source tokens, format names and trailing count-label spacing.
+Extend regression checks with native vocabulary and opposite action meanings.
+No browser or screen-reader session was run; further wrong-language review and
+remaining translations are unfinished.
+
 ## Slovenian workspace and board controls — 2026-10-08
 
 Replace 65 Serbian values in each Slovenian catalog, for 130 corrections.

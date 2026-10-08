@@ -21,6 +21,26 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.equal(data['filter-due-today'], 'Rok danes');
   assert.equal(data['filter-due-tomorrow'], 'Rok jutri');
   assert.match(data['enter-zoom-level'], /50-300%/);
+  const correctedSettings = ["filter-assignee-label", "filter-creator-label", "filter-custom-fields-label", "other-filters-label", "show-activities", "settingsUserPopup-title", "settingsTeamPopup-title", "settingsOrgPopup-title", "listImportCardsTsvPopup-title", "gantt", "copySelectionPopup-title", "selection-color", "multi-selection-member", "normal-assigned-only", "remove-cover", "select-board", "shortcut-add-self", "shortcut-toggle-filterbar", "shortcut-toggle-searchbar", "uploading-files", "upload-failed", "upload-completed", "import-usernames", "smtp-host", "email-templates-invite-subject", "email-templates-activity-subject", "tableVisibilityMode", "modifiedAt", "setSelectionColorPopup-title", "delete-all-notifications", "minicard-settings", "boardMinicardSettingsPopup-title", "description-on-minicard", "cover-attachment-on-minicard", "badge-attachment-on-minicard", "r-board", "r-trigger", "r-action", "team-number", "above-selected-card", "below-selected-card", "show-on-minicard", "editOrgPopup-title", "newOrgPopup-title", "editTeamPopup-title", "newTeamPopup-title", "notifications", "view-all", "filter-by-unread", "mark-all-as-read", "remove-all-read", "allow-rename", "allowRenamePopup-title", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday", "status", "owner", "last-modified-at", "last-activity", "voting", "archived", "task", "create-task", "ok", "organizations"];
+  for (const key of correctedSettings) {
+    assert.doesNotMatch(data[key], /[\u0400-\u04ff]/, `${locale}:${key}`);
+    assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), `${locale}:${key}`);
+  }
+  assert.equal(data['settingsUserPopup-title'], 'Uporabniške nastavitve');
+  assert.equal(data['settingsTeamPopup-title'], 'Nastavitve ekipe');
+  assert.equal(data['settingsOrgPopup-title'], 'Nastavitve organizacije');
+  assert.match(data['upload-failed'], /ni uspelo/);
+  assert.match(data['upload-completed'], /je končano/);
+  assert.match(data['filter-by-unread'], /neprebranih/);
+  assert.match(data['mark-all-as-read'], /vse kot prebrano/);
+  assert.match(data['remove-all-read'], /Odstrani vse prebrano/);
+  assert.equal(data.monday, 'Ponedeljek');
+  assert.equal(data.thursday, 'Četrtek');
+  assert.equal(data.sunday, 'Nedelja');
+  assert.equal(data['above-selected-card'], 'Nad izbrano kartico');
+  assert.equal(data['below-selected-card'], 'Pod izbrano kartico');
+  assert.equal(data['team-number'], 'Število ekip je: ');
+  assert.match(data['listImportCardsTsvPopup-title'], /Excel CSV\/TSV/);
   assert.equal(data.board, 'Tabla');
   assert.equal(data.swimlane, 'Plavalna steza');
   for (const key of Object.keys(english).filter(key => key.startsWith('interrupted-import-'))) {
