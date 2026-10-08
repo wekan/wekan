@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Papiamento Blockly loops and deletion — 2026-10-08
+
+Translate 35 English loop, condition and editing messages. Preserve numbered
+variables and key names; check opposite loop conditions, final fallback branches,
+loop bounds, deletion counts and copy/cut distinctions. Specialized wording is
+lower confidence and needs native review. No browser or screen-reader session
+was run. Remaining translations are unfinished.
+
 ## Papiamento Blockly editing and colors — 2026-10-08
 
 Translate 30 English Blockly editing, color and loop-control messages. Preserve

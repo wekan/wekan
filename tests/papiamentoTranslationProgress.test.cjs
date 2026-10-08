@@ -61,3 +61,18 @@ assert.match(papiamento['blockly-COLOUR_RGB_TOOLTIP'], /entre 0 i 100/);
 assert.match(papiamento['blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_CONTINUE'], /Salta e resto.*siguiente repetishon/);
 assert.match(papiamento['blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_BREAK'], /Sali for di e siklo/);
 assert.match(papiamento['blockly-CONTROLS_FLOW_STATEMENTS_WARNING'], /solamente den un siklo/);
+
+const blocklyLoops = ["blockly-CONTROLS_FOREACH_TITLE", "blockly-CONTROLS_FOREACH_TOOLTIP", "blockly-CONTROLS_FOR_TITLE", "blockly-CONTROLS_FOR_TOOLTIP", "blockly-CONTROLS_IF_ELSEIF_TOOLTIP", "blockly-CONTROLS_IF_ELSE_TOOLTIP", "blockly-CONTROLS_IF_IF_TOOLTIP", "blockly-CONTROLS_IF_MSG_ELSE", "blockly-CONTROLS_IF_MSG_ELSEIF", "blockly-CONTROLS_IF_TOOLTIP_1", "blockly-CONTROLS_IF_TOOLTIP_2", "blockly-CONTROLS_IF_TOOLTIP_3", "blockly-CONTROLS_IF_TOOLTIP_4", "blockly-CONTROLS_REPEAT_TITLE", "blockly-CONTROLS_REPEAT_TOOLTIP", "blockly-CONTROLS_WHILEUNTIL_OPERATOR_UNTIL", "blockly-CONTROLS_WHILEUNTIL_OPERATOR_WHILE", "blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL", "blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE", "blockly-CONTROL_KEY", "blockly-COPY_ALL_TO_BACKPACK", "blockly-COPY_SHORTCUT", "blockly-COPY_TO_BACKPACK", "blockly-CURRENT_BLOCK_ANNOUNCEMENT", "blockly-CUT_SHORTCUT", "blockly-DELETE_ALL_BLOCKS", "blockly-DELETE_BLOCK", "blockly-DELETE_VARIABLE", "blockly-DELETE_VARIABLE_CONFIRMATION", "blockly-DELETE_X_BLOCKS", "blockly-DISABLE_BLOCK", "blockly-DUPLICATE_BLOCK", "blockly-DUPLICATE_COMMENT", "blockly-EDIT_BLOCK_CONTENTS", "blockly-EMPTY_BACKPACK"];
+for (const key of blocklyLoops) {
+  assert.notEqual(papiamento[key], english[key], key);
+  assert.deepEqual(tokens(papiamento[key]), tokens(english[key]), key);
+}
+assert.match(papiamento['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL'], /ta falsu/);
+assert.doesNotMatch(papiamento['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL'], /ta berdat/);
+assert.match(papiamento['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE'], /ta berdat/);
+assert.match(papiamento['blockly-CONTROLS_IF_TOOLTIP_4'], /Si niun.*último blòk/);
+assert.match(papiamento['blockly-CONTROLS_FOR_TITLE'], /%1 for di %2 te %3 ku paso di %4/);
+assert.match(papiamento['blockly-DELETE_ALL_BLOCKS'], /tur %1/);
+assert.match(papiamento['blockly-DELETE_VARIABLE_CONFIRMATION'], /%1 uso.*'%2'/);
+assert.notEqual(papiamento['blockly-COPY_SHORTCUT'], papiamento['blockly-CUT_SHORTCUT']);
+assert.match(papiamento['blockly-CONTROL_KEY'], /Control/);
