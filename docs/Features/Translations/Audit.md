@@ -7778,6 +7778,17 @@ count argument order and the not-found result. Technical wording remains low con
 pending speaker review. Browser checks were not run. Further Tatar corrections and
 the broader language audit continue.
 
+### Tatar text formatting and variable controls
+
+Filled 34 English placeholders covering text joining, length, printing, input
+prompts, replacement, reversal, whitespace trimming, and variable access and
+conflict messages. Source placeholder inventories and locale key order are
+preserved. Regression coverage checks replacement arguments, distinct trim sides,
+number versus text prompts, and quoted variable and procedure references.
+Technical wording remains low confidence pending speaker review. Browser and
+screen-reader checks were not run. Further Tatar corrections and the broader
+language audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
