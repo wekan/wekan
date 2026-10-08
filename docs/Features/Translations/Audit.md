@@ -8337,6 +8337,15 @@ syntax guidance remains. Technical wording remains low confidence pending speake
 review. Focused tests cover key order, source tokens, executable commands and
 ordering distinctions; browser checks were not run.
 
+## Tatar report and office activity corrections
+
+Corrected 28 wrong-language report, office and API values, including two literal
+API labels. Restored IPv4/IPv6 and REST identifiers, preserved successful-login
+counts and API aggregation by account and endpoint rather than individual request.
+Existing correct-language labels remain. Technical wording remains low confidence
+pending speaker review. Focused tests cover key order, tokens, protocol names and
+reporting distinctions; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
