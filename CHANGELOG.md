@@ -442,6 +442,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/09c9ce2915">Translate short Czech, Japanese and Chinese labels</a>. Thanks to xet7.</summary>
+
+Translate 14 values across 12 locale paths. Distinguish Czech rule actors from sort
+criteria, translate Japanese or and preserve reordered Chinese movement arguments.
+Five focused suites and 21 human-preference checks pass, including Chinese translation
+protection. Browser/screen-reader validation was not run; wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c07736a824">Translate short Blockly labels in Yiddish and Papiamento</a>. Thanks to xet7.</summary>
 
 Translate 29 labels, preserving indexed movement roles and equivalent control-flow
