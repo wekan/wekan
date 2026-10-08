@@ -1006,6 +1006,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/02ee6a37c9">Translate Turkish planning imports and history recovery</a>. Thanks to xet7.</summary>
+
+Fill 29 messages covering release selection, planning imports, planning
+synchronization and conflicted history recovery. Preserve variables,
+matching priority, non-duplication and recovery choices.
+
+Three focused translation suites and 21 human-preference checks pass.
+The current Turkish fill list is empty. No browser or screen-reader session
+was run; other languages and broader linguistic review remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a9b2601c30">Translate Turkish controls and synchronization recovery</a>. Thanks to xet7.</summary>
 
 Fill 44 messages covering board controls, import guidance, assignment, LDAP,
