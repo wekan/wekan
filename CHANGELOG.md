@@ -1055,6 +1055,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/efdce09e90">Translate Albanian List Sync recovery messages</a>. Thanks to xet7.</summary>
+
+Translate 23 English recovery messages into Albanian. Preserve counters and
+existing terminology; check retained changes, unwritten changes, revoked access
+and replayability. Clarify that the older test reports a historical baseline.
+
+Three focused translation suites and 21 human-preference checks pass.
+No browser or screen-reader session was run. Further vocabulary review
+and remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c4cd73669d">Translate Belarusian planning and settings messages</a>. Thanks to xet7.</summary>
 
 Translate 51 English messages for planning, imports, link rules, settings and
