@@ -65,8 +65,6 @@ that used to sit here are in git history.
 
 **Can be built here** - Scrum, Sync and retention:
 
-- Scrum planning from importers other than Jira: GitLab milestones and
-  iterations, OpenProject versions, Asana and Trello.
 - Planning Sync: sprints and releases through List Sync. Verifying it live
   needs Jira or GitLab credentials.
 - Importing Scrum data into an existing board; every import creates a new one.
@@ -634,6 +632,22 @@ assignee.
 </details>
 
 **Scrum** - planning a card across releases.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/958e9e13f3">GitLab, OpenProject and Asana imports bring their sprints and releases</a>. Thanks to xet7.</summary>
+
+Only Jira imports created Scrum planning. GitLab iterations and milestones,
+OpenProject versions and sprints, and Asana milestone tasks now become sprints
+and releases with their dates and state, through the same journaled stage as
+Jira, so an interrupted import is recovered the same way; OpenProject story
+points become the estimate field. Trello has none, and its Power-Up data is
+counted in the loss report. What an export cannot prove - a finished sprint,
+a bad date, an unknown state - is reported, never invented. GitLab and
+OpenProject exports write the planning back.
+`tests/externalScrumPlanning.test.cjs`
+covers each source and the negatives.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/727ceedd01">A card can be in more than one release</a>. Thanks to xet7.</summary>
