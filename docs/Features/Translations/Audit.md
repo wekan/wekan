@@ -8319,6 +8319,15 @@ import/export messages remain. Technical wording remains low confidence pending
 speaker review. Focused tests cover key order, source tokens, sort directions and
 action distinctions; browser checks were not run.
 
+## Tatar dependency import, backgrounds and location corrections
+
+Corrected 26 wrong-language dependency, background and location values. Preserved
+relationship directions, JSON/SVG identifiers, import counters, the image-size
+token and distinct latitude/longitude labels. Existing valid neighboring values
+remain. Technical wording remains low confidence pending speaker review. Focused
+tests cover key order, source tokens, file formats and relationship distinctions;
+browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
