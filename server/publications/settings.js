@@ -69,6 +69,9 @@ const SETTING_FIELDS = {
   featureApprovalRequired: 1,
   featureKnownKeys: 1,
   featurePreviewAdmins: 1,
+  // The card fields every board shows (models/lib/cardFieldVisibility.js):
+  // every client hides the unticked ones; no secret.
+  cardFieldStates: 1,
   hideBoardMemberList: 1,
   hideDateFormat: 1,
   globalDateFormat: 1,

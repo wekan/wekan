@@ -28,6 +28,36 @@ Each row is ticked when the thing is **hidden**.
 - **Wait Spinner** — which spinner is shown while something loads. See
   [Wait Spinners](../../Troubleshooting/Wait-Spinners.md).
 
+## Features
+
+Which optional features this WeKan offers. An unticked feature is hidden from
+everyone's interface; its data is kept and no permission changes.
+
+### Card fields
+
+Above the Features **Save** there is one tick per field type of the board right
+sidebar's **Board Settings / Card** (Received, Start, Due, End, Members, Assignee,
+Labels, Description, Checklists, Pomodoro, each Scrum field, and the rest), with the
+same icons and names. All are ticked by default.
+
+Unticking a field, for example **Pomodoro**, and saving hides it on every board of
+this WeKan:
+
+- its row is not offered in any board's Board Settings / Card;
+- it is not shown on any opened card or minicard, whatever the board itself chose.
+
+It is **visibility only**. No card data is deleted or changed, and no board setting
+is written: each board keeps its own choice, and ticking the field again shows every
+board exactly as it was set. A board admin's whole-column tick in Board Settings /
+Card leaves the hidden fields' values alone for the same reason.
+
+There is **no ordering** here: the order of the fields on a card and a minicard is
+each board's own, set by drag and drop in Board Settings / Card.
+
+Stored on the settings document as `cardFieldStates` (`{ field: true|false }`;
+a missing field is shown), saved by the site-admin-only Features save. The catalog
+and the decisions are `models/lib/cardFieldVisibility.js`.
+
 ## URL
 
 - **Support** — the link to `/support`, whether the page is enabled, whether it is

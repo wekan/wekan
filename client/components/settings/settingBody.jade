@@ -374,6 +374,22 @@ template(name='tableVisibilityModeSettings')
         .title {{_ 'feature-pilot-users'}}
         .form-group
           textarea.wekan-form-control#feature-pilot-users(data-editor-submit=".js-visibility-features-save" rows="2" placeholder="{{_ 'feature-pilot-users-placeholder'}}")= featurePilotUsernames
+      //- The card fields every board shows: one tick per field type of Board
+      //- Settings / Card, all ticked by default. Unticked hides it on every
+      //- card, minicard and Board Settings / Card - visibility only, no data or
+      //- board setting changes. No ordering here: the order is each board's own.
+      //- models/lib/cardFieldVisibility.js
+      li.tableVisibilityMode-form
+        .title {{_ 'card-field-visibility'}}
+        .feature-desc {{_ 'card-field-visibility-desc'}}
+      each cardFieldRows
+        li.tableVisibilityMode-form.js-card-field-row(data-card-field=key)
+          a.flex.js-toggle-feature
+            .materialCheckBox.js-card-field-enabled(class="{{#if enabled}}is-checked{{/if}}")
+            span.card-field-visibility-label
+              each icon in icons
+                i.fa(class=icon)
+              |  {{title}}
       li
         button.js-visibility-features-save.primary {{_ 'save'}}
         span.js-visibility-features-status

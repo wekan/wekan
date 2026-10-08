@@ -30,6 +30,7 @@ const {
   orderedMinicardSections,
   orderedMinicardFieldsOf,
 } = require('/models/lib/cardFieldOrder');
+const { isCardFieldHiddenOnBoard } = require('/models/lib/cardFieldVisibility');
 
 function getMinicardFlag(board, onMinicardField, legacyField, defaultValue) {
   if (!board) return false;
@@ -393,7 +394,10 @@ Template.minicard.helpers({
     // 2. This specific card has the setting enabled
     const currentBoard = this.board();
     if (!currentBoard) return false;
-    return currentBoard.allowsShowListsOnMinicard || this.getRealCard().showListOnMinicard;
+    if (currentBoard.allowsShowListsOnMinicard) return true;
+    // The card's own List title, unless unticked in Admin Panel / Settings /
+    // Visibility / Features (models/lib/cardFieldVisibility.js).
+    return !isCardFieldHiddenOnBoard(currentBoard, 'listTitle') && Boolean(this.getRealCard().showListOnMinicard);
   },
 
   // #2426: the swimlane a card belongs to isn't otherwise visible on its

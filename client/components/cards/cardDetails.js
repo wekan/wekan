@@ -9,6 +9,7 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { resolveShowCardLabelText } from '/client/lib/minicardLabelText';
+const { isCardFieldHiddenOnBoard } = require('/models/lib/cardFieldVisibility');
 import { hasUnreadComments } from '/models/lib/unreadComments';
 import {
   DEPENDENCY_TYPES,
@@ -863,6 +864,13 @@ Template.cardDetails.helpers({
     return !Utils.getPopupCardId() && maximized;
   },
 
+  // List title, Show on Card: the card's own choice, unless the
+  // administrator unticked List title in Admin Panel / Settings / Visibility /
+  // Features (models/lib/cardFieldVisibility.js). The card keeps its choice.
+  showListOnCard() {
+    const board = this?.board?.();
+    return Boolean(this?.showListOnCard) && !isCardFieldHiddenOnBoard(board, 'listTitle');
+  },
   // Card color, Show on Card: the header's color, on unless turned off.
   showCardColorOnCard() {
     return Utils.getCurrentBoard()?.allowsCardColorOnCard !== false;

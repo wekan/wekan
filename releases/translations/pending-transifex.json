@@ -595,6 +595,14 @@
     {
       "key": "shortcut-edit-due-date",
       "since": "2026-10-07"
+    },
+    {
+      "key": "card-field-visibility",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "card-field-visibility-desc",
+      "since": "2026-10-08"
     }
   ]
 }

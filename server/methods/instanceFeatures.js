@@ -6,6 +6,7 @@ import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import Settings from '/models/settings';
 const { featureSettingsModifier, parsePilotUsernames } = require('/models/lib/instanceFeatures');
+const { cardFieldStatesValue } = require('/models/lib/cardFieldVisibility');
 
 async function requireSiteAdmin() {
   const user = await Meteor.userAsync();
@@ -31,10 +32,17 @@ Meteor.methods({
       approvalRequired: Boolean,
       previewAdmins: Boolean,
       pilotUsernames: Match.Optional(String),
+      // The card fields every board shows (models/lib/cardFieldVisibility.js).
+      cardFields: Match.Optional(Object),
     });
-    const { pilotUsernames, ...decisions } = input;
+    const { pilotUsernames, cardFields, ...decisions } = input;
     const modifier = featureSettingsModifier(decisions);
     if (modifier.error) throw new Meteor.Error('invalid-features', modifier.error);
+    if (cardFields !== undefined) {
+      const value = cardFieldStatesValue(cardFields);
+      if (value.error) throw new Meteor.Error('invalid-card-fields', value.error);
+      modifier.$set.cardFieldStates = value.cardFieldStates;
+    }
     const setting = await Settings.findOneAsync({});
     if (!setting) throw new Meteor.Error('settings-not-found');
     await Settings.updateAsync(setting._id, modifier);

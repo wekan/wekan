@@ -18,6 +18,7 @@ import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { format } from '/imports/lib/dateUtils';
 const { ALL_MAIL_SERVICES, mailServiceStorageKey } = require('/models/lib/mailServices');
 const instanceFeatures = require('/models/lib/instanceFeatures');
+const { cardFieldRows } = require('/models/lib/cardFieldVisibility');
 
 // Helper functions shared across the template
 function checkField(selector) {
@@ -921,6 +922,14 @@ Template.tableVisibilityModeSettings.helpers({
   featureRows() {
     return instanceFeatures.featureRows(ReactiveCache.getCurrentSetting());
   },
+  // The card fields every board shows, with Board Settings / Card's own icons
+  // and labels; ticks only, no order. models/lib/cardFieldVisibility.js
+  cardFieldRows() {
+    return cardFieldRows(ReactiveCache.getCurrentSetting()).map(row => ({
+      ...row,
+      title: row.label.map(key => TAPi18n.__(key)).join(row.labelSeparator),
+    }));
+  },
   featurePilotUsernames() {
     return Template.instance().featurePilotUsernames.get();
   },
@@ -1024,6 +1033,10 @@ Template.tableVisibilityModeSettings.events({
     instance.$('.js-feature-row').each((i, row) => {
       states[row.dataset.feature] = $(row).find('.js-feature-enabled').hasClass('is-checked');
     });
+    const cardFields = {};
+    instance.$('.js-card-field-row').each((i, row) => {
+      cardFields[row.dataset.cardField] = $(row).find('.js-card-field-enabled').hasClass('is-checked');
+    });
     const status = instance.$('.js-visibility-features-status');
     try {
       const result = await Meteor.callAsync('saveInstanceFeatures', {
@@ -1031,6 +1044,7 @@ Template.tableVisibilityModeSettings.events({
         approvalRequired: instance.$('#feature-approval-required').hasClass('is-checked'),
         previewAdmins: instance.$('#feature-preview-admins').hasClass('is-checked'),
         pilotUsernames: instance.$('#feature-pilot-users').val() || '',
+        cardFields,
       });
       const names = await Meteor.callAsync('getFeaturePilotUsernames');
       instance.featurePilotUsernames.set(names.join(', '));

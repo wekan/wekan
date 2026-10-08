@@ -274,6 +274,15 @@ Settings.attachSchema(
       type: Boolean,
       optional: true,
     },
+    // Admin Panel / Settings / Visibility / Features: the card fields shown
+    // on every board (models/lib/cardFieldVisibility.js), { '<field key>':
+    // true|false }. Missing means shown. Visibility only: no board setting or
+    // card data changes.
+    cardFieldStates: {
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
     // How a board loads its cards: 'all' (default — every card into minimongo)
     // or 'lazy' (only the visible per-list window, via a windowed publication).
     // Seeded from the CARDS_LOADING env var; changeable in Admin Panel.

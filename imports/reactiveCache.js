@@ -3,6 +3,7 @@ import { EJSON } from 'meteor/ejson';
 import { DataCache } from '/imports/lib/dataCache';
 import { groupBy, indexBy } from '/imports/lib/collectionHelpers';
 const { publicCommentOptions } = require('/models/lib/commentPrivateFields');
+const { applyCardFieldVisibility } = require('/models/lib/cardFieldVisibility');
 
 function lazyCollectionProxy(loadCollection) {
   return new Proxy(
@@ -399,7 +400,12 @@ const ReactiveCacheClient = {
       );
     }
     const ret = this.__board.get(EJSON.stringify(idOrFirstObjectSelect));
-    return ret;
+    // Admin Panel / Settings / Visibility / Features: a card field the
+    // administrator unticked reads as off on every board, so each card and
+    // minicard template that reads the board's flag hides it without a
+    // second condition. The same object when nothing is hidden; the database
+    // is never written. models/lib/cardFieldVisibility.js
+    return applyCardFieldVisibility(ret, this.getCurrentSetting());
   },
   getBoards(selector = {}, options = {}, getQuery = false) {
     const select = { selector, options, getQuery };

@@ -20,6 +20,7 @@ const {
   isMovableKey,
 } = require('/models/lib/cardFieldOrder');
 const { rowsForSide, CARD_SETTINGS_ROWS } = require('/models/lib/cardSettingsRows');
+const { isRowVisible } = require('/models/lib/cardFieldVisibility');
 import { invalidateScrumNames } from '/client/components/boards/scrum/scrumFields';
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 import '/client/components/boards/exportScope';
@@ -1894,6 +1895,10 @@ function buildCardSettingsRows(side, data) {
     // Only when the popup was opened for a card (its own menu passes it in):
     // from Board Settings there is no card for the row to change.
     .filter(row => !row[side].needsCard || (Boolean(data?.card?._id) && Utils.canModifyCard(data)))
+    // A field the administrator unticked in Admin Panel / Settings /
+    // Visibility / Features is not offered on any board; the board keeps its
+    // own choice for when it is ticked again. models/lib/cardFieldVisibility.js
+    .filter(row => isRowVisible(ReactiveCache.getCurrentSetting(), row.key))
     .map(row => {
       const spec = row[side];
       const helper = boardCardSettingsHelpers[spec.field];

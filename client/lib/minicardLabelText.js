@@ -5,6 +5,7 @@ import {
   resolveShowLabelText as resolveShowLabelTextValue,
   nextShowLabelTextOverride,
 } from '/models/lib/labelTextVisibility';
+const { isCardFieldHiddenOnBoard } = require('/models/lib/cardFieldVisibility');
 
 // "Show minicard label text" - the labels on a minicard as coloured WORDS,
 // or as coloured bars with the words left out (#4256).
@@ -23,6 +24,9 @@ import {
 // on, so they keep the old, simpler localStorage-only personal toggle,
 // falling back to the board's own setting.
 export function resolveShowLabelText(board) {
+  // Unticked in Admin Panel / Settings / Visibility / Features: no label text
+  // anywhere, the user's override included. models/lib/cardFieldVisibility.js
+  if (isCardFieldHiddenOnBoard(board, 'labelText')) return false;
   const boardShowLabelText = board && typeof board.showLabelText === 'boolean'
     ? board.showLabelText
     : null;
@@ -76,6 +80,7 @@ export function toggleMinicardLabelText() {
 // (shown unless turned off) and the user's profile.cardLabelTextOverride.
 // A reader who is not logged in follows the board.
 export function resolveShowCardLabelText(board) {
+  if (isCardFieldHiddenOnBoard(board, 'labelText')) return false;
   const boardValue = board && typeof board.allowsLabelTextOnCard === 'boolean' ? board.allowsLabelTextOnCard : null;
   const currentUser = ReactiveCache.getCurrentUser();
   const override = currentUser ? (currentUser.profile || {}).cardLabelTextOverride : null;

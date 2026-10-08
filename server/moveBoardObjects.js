@@ -9,6 +9,8 @@ import ChecklistItems from '/models/checklistItems';
 import Activities from '/models/activities';
 import { allowIsBoardAdminOrSiteAdmin } from '/server/lib/utils';
 const { columnModifier, columnScrumVisibility } = require('/models/lib/boardSettingsColumns');
+const { hiddenCardFieldKeys } = require('/models/lib/cardFieldVisibility');
+import Settings from '/models/settings';
 const { DRAG_SETTINGS, canDragSelection } = require('/models/lib/boardDragging');
 import { requireBoardMutation } from '/models/lib/boardMutationGuard';
 const { memberCan } = require('/models/lib/boardRoleCapabilities');
@@ -63,13 +65,16 @@ async function positionGroup(kind, ids, selector, anchor, after) {
 Meteor.methods({
   async setBoardSettingsColumn(boardId, section, column, enabled) {
     check(boardId, String); check(section, String); check(column, String); check(enabled, Boolean);
-    const modifier = columnModifier(section, column, enabled);
+    // Card fields unticked in Admin Panel / Settings / Visibility / Features
+    // are not offered, so the column's tick leaves their board value alone.
+    const hidden = hiddenCardFieldKeys(await Settings.findOneAsync({}, { fields: { cardFieldStates: 1 } }));
+    const modifier = columnModifier(section, column, enabled, hidden);
     if (!modifier) throw new Meteor.Error('invalid-setting');
     const board = await Boards.findOneAsync(boardId);
     if (!this.userId || !board || !(await allowIsBoardAdminOrSiteAdmin(this.userId, board))) throw new Meteor.Error('not-authorized');
     const updated = await Boards.updateAsync(boardId, modifier);
     // The Scrum rows of a card column, through the Scrum settings' own method.
-    const visibility = columnScrumVisibility(section, column, enabled);
+    const visibility = columnScrumVisibility(section, column, enabled, hidden);
     if (Object.keys(visibility).length) {
       await Meteor.server.method_handlers['scrum.configure'].call(this, boardId, { visibility }, null);
     }
