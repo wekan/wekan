@@ -67,3 +67,19 @@ test('technical tokens and universal API labels remain recognizable', () => {
 });
 
 console.log(`\nupcomingMacedonianSerbianTranslations: ${passed} tests passed`);
+
+const serbianRecovery = readLanguage('sr');
+const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
+const recoveryKeys = Object.keys(english).filter(key => key.startsWith('stuck-sync-operation-'));
+assert.equal(recoveryKeys.length, 23);
+for (const key of recoveryKeys) {
+  assert.notEqual(serbianRecovery[key], english[key], key);
+  assert.deepEqual(translationTokens(serbianRecovery[key]), translationTokens(english[key]), key);
+}
+assert.match(serbianRecovery['stuck-sync-operation-description'], /већ примењене промене остају/);
+assert.match(serbianRecovery['stuck-sync-operation-description'], /преостале сачуване промене никада се не уписују/);
+assert.match(serbianRecovery['stuck-sync-operation-reason-access-denied'], /право уписа у цео део поступка/);
+assert.match(serbianRecovery['stuck-sync-operation-replayable-now'], /не може одбацити/);
+assert.match(serbianRecovery['stuck-sync-operation-not-stuck'], /не може одбацити/);
+assert.match(serbianRecovery['stuck-sync-operation-truncated'], /50 најстаријих/);
+assert.match(serbianRecovery['stuck-sync-operation-busy'], /управо синхронизује/);
