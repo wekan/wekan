@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Remaining reported Manx messages — 2026-10-08
+
+Translate 47 remaining reported messages: import instructions, assignment rules,
+LDAP and login settings, card fields, keyboard/math labels and Scrum report
+explanations. Preserve import syntax, environment identifiers, percent variables,
+UTC observations, 366-record limits and unknown-versus-zero estimates.
+Keyboard labels retain physical Alt/Command/Enter/Tab legends where useful;
+other key functions and spoken mathematical terms use Manx words.
+
+Phil Kelly's dictionary linked below attests co-heenys, sheenys, tanjent and
+ogher arree. Complete software phrases and grammar remain low-confidence
+pending fluent review. The ordinary missing-value report now has no Manx entry; 25 newly added
+pending messages still need translation. Neither count proves that older values
+or skipped short strings are correct. No browser
+or screen-reader session was run.
+
 ## Manx Sync conflicts and diagnostics — 2026-10-08
 
 Translate 63 Sync conflict, preview, source-field, run-report and estimate

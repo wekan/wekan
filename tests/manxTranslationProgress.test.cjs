@@ -66,3 +66,20 @@ assert.match(manx['sync-estimate-field-hint'], /lhiggey shaghey.*null.*dolley ma
 assert.match(manx['sync-time-estimate-hint'], /un vagher.*ny lomarcan/);
 assert.match(manx['sync-recovery-description'], /cha nod.*toshiaght reesht.*cur caghlaaghyn er ash/);
 assert.notEqual(manx['sync-conflict-keep-local'], manx['sync-conflict-use-source']);
+
+const remainingBatch = ["import-board-instruction-opml", "import-board-instruction-orgmode", "import-board-instruction-todoist", "r-assignee", "r-add-actinguser-assignee", "r-remove-all-assignees", "ldap-sync-now", "ldap-sync-now-done", "ldap-sync-now-error", "ldap-sync-now-nothing", "oauth-providers-allowed-email-domains", "card-field-visibility", "card-field-visibility-desc", "blockly-ALT_KEY", "blockly-BACKSPACE_KEY", "blockly-CAPS_LOCK_KEY", "blockly-COMMAND_KEY", "blockly-CONTROL_KEY", "blockly-END_KEY", "blockly-ENTER_KEY", "blockly-ESCAPE", "blockly-HOME_KEY", "blockly-INSERT_KEY", "blockly-MATH_TRIG_COS_ARIA", "blockly-MATH_TRIG_SIN_ARIA", "blockly-MATH_TRIG_TAN_ARIA", "blockly-OPTION_KEY", "blockly-PAGE_DOWN_KEY", "blockly-PAGE_UP_KEY", "blockly-PAUSE_KEY", "blockly-SHIFT_KEY", "blockly-TAB_KEY", "blockly-UNNAMED_KEY", "scrum-report-help", "scrum-confirm-close", "scrum-confirm-cancel", "scrum-partial-report", "scrum-partial-snapshot", "scrum-resume-close", "scrum-daily-observations", "scrum-daily-observations-help", "scrum-daily-truncated", "scrum-daily-empty", "scrum-observed-scope", "scrum-daily-observations-export-help", "scrum-import-pending", "login-setting-env-only"];
+for (const key of remainingBatch) assert.notEqual(manx[key], english[key], key);
+for (const token of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS', 'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) {
+  assert.ok(manx['ldap-sync-now-nothing'].includes(token));
+}
+assert.deepEqual(tokens(manx['ldap-sync-now-error']), ['%s']);
+assert.match(manx['scrum-report-help'], /cha nee ooley nearee/);
+assert.match(manx['scrum-daily-observations-help'], /UTC.*Cha nel.*dagh caghlaa/);
+assert.match(manx['scrum-daily-observations-help'], /ayrn shoh.*varr greie/);
+assert.match(manx['scrum-daily-truncated'], /366/);
+assert.match(manx['card-field-visibility-desc'], /Cha nel data kaart.*chaghlaa/);
+assert.match(manx['login-setting-env-only'], /lhaih ny lomarcan/);
+assert.equal(manx['blockly-MATH_TRIG_COS_ARIA'], 'co-heenys');
+assert.equal(manx['blockly-MATH_TRIG_SIN_ARIA'], 'sheenys');
+assert.equal(manx['blockly-MATH_TRIG_TAN_ARIA'], 'tanjent');
+assert.notEqual(manx['blockly-PAGE_DOWN_KEY'], manx['blockly-PAGE_UP_KEY']);
