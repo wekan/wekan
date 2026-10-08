@@ -8200,6 +8200,16 @@ free/total memory and version/commit labels distinct; retained valid neighbors.
 Technical wording remains low confidence pending speaker review. Focused tests
 cover key order, source tokens and runtime identifiers; browser checks were not run.
 
+## Tatar custom fields and organization settings corrections
+
+Corrected 33 wrong-language values for time units, custom fields, account settings,
+visibility and organization/team administration. Restored domain examples and the
+literal MULTITENANCY=true setting. Preserved administrator scope restrictions,
+new/all card distinctions and the sum-of-fields meaning rather than a field count.
+Existing correct-language translations were retained. Technical wording remains
+low confidence pending speaker review. Focused checks cover tokens, key order,
+domain syntax and administration restrictions; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
