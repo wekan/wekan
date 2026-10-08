@@ -693,6 +693,8 @@ REM SET OAUTH2_AVATAR_MAP=
 
 REM # OAUTH2_ALLOWED_EMAIL_DOMAINS : Comma separated e-mail domains allowed to log in with OAuth2/OIDC. Empty: every domain. Example: example.com,example.org
 REM SET OAUTH2_ALLOWED_EMAIL_DOMAINS=
+REM # OAUTH2_DEFAULT_ORGANIZATION : an existing organization (short name, display name or id) that every account created by an OAuth2/OIDC login joins.
+REM SET OAUTH2_DEFAULT_ORGANIZATION=
 
 REM # PROPAGATE_OIDC_DATA : Update groups, admin status, e-mail, full name and username from the OIDC provider at every login (true). Default: false
 REM SET PROPAGATE_OIDC_DATA=

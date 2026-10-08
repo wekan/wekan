@@ -1835,6 +1835,28 @@ Meteor.methods({
 // document is inserted, so the membership is stored atomically with the user and
 // existing entries are never duplicated. Failures are logged, never fatal to
 // sign-up.
+// #5339: OAUTH2_DEFAULT_ORGANIZATION (or Admin Panel / People / OAuth2) names
+// an EXISTING organization - by short name, display name or id - that every
+// account created by an OAuth2/OIDC login joins. Users of one identity
+// provider (a Nextcloud, say) often share no email domain, so the domain rule
+// above cannot group them. An organization that does not exist is not created:
+// the login goes on without it and the log says why.
+const addDefaultOauthOrganization = async user => {
+  try {
+    const name = String(authEnv('OAUTH2_DEFAULT_ORGANIZATION') || '').trim();
+    if (!name) return;
+    const org = (await ReactiveCache.getOrgs({ $or: [{ orgShortName: name }, { orgDisplayName: name }, { _id: name }] }))[0];
+    if (!org) {
+      console.warn(`OAUTH2_DEFAULT_ORGANIZATION: no organization "${name}"; the new user joins none.`);
+      return;
+    }
+    if ((user.orgs || []).some(o => o && o.orgId === org._id)) return;
+    user.orgs = (user.orgs || []).concat({ orgId: org._id, orgDisplayName: org.orgDisplayName || org.orgShortName || org._id });
+  } catch (error) {
+    console.error('addDefaultOauthOrganization failed:', error);
+  }
+};
+
 const autoAddOrgsByDomain = async user => {
   try {
     const emails = Array.isArray(user.emails) ? user.emails : [];
@@ -2009,6 +2031,7 @@ Accounts.onCreateUser(async (options, user) => {
 
     if (!existingUser) {
       await autoAddOrgsByDomain(user);
+      await addDefaultOauthOrganization(user);
       return user;
     }
 

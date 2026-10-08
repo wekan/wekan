@@ -129,6 +129,8 @@ const SECTIONS = {
       ['autoRegistration', 'OAUTH2_AUTO_REGISTRATION', 'boolean', { defaultValue: true }],
       ['adminGroups', 'OAUTH2_ADMIN_GROUPS', 'text'],
       ['allowedEmailDomains', 'OAUTH2_ALLOWED_EMAIL_DOMAINS', 'text'],
+      // #5339: the organization every account created by an OAuth2/OIDC login joins.
+      ['defaultOrganization', 'OAUTH2_DEFAULT_ORGANIZATION', 'text'],
       ['propagateOidcData', 'PROPAGATE_OIDC_DATA', 'boolean', { defaultValue: false }],
       ['secretJwtKeyPath', 'OAUTH2_SECRET_JWT_KEY_PATH', 'path'],
       ['secretJwtIssuer', 'OAUTH2_SECRET_JWT_ISSUER', 'text'],

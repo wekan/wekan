@@ -633,6 +633,9 @@ services:
       #- OAUTH2_EMAIL_MAP=email
       # Optional exact email domains for generic OAuth2/OIDC login (on-premise supported).
       #- OAUTH2_ALLOWED_EMAIL_DOMAINS=example.internal,other.internal
+      # OAUTH2_DEFAULT_ORGANIZATION : an existing organization that every account
+      # created by an OAuth2/OIDC login joins (short name, display name or id).
+      #- OAUTH2_DEFAULT_ORGANIZATION=Nextcloud users
       #-----------------------------------------------------------------
       # ==== OAUTH2 Nextcloud ====
       # 1) Register the application with Nextcloud: https://your.nextcloud/index.php/settings/admin/security

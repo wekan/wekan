@@ -643,6 +643,8 @@
       #
       # OAUTH2_ALLOWED_EMAIL_DOMAINS : Comma separated e-mail domains allowed to log in with OAuth2/OIDC. Empty: every domain. Example: example.com,example.org
       #export OAUTH2_ALLOWED_EMAIL_DOMAINS=
+      # OAUTH2_DEFAULT_ORGANIZATION : an existing organization (short name, display name or id) that every account created by an OAuth2/OIDC login joins.
+      #export OAUTH2_DEFAULT_ORGANIZATION=
       #
       # PROPAGATE_OIDC_DATA : Update groups, admin status, e-mail, full name and username from the OIDC provider at every login (true). Default: false
       #export PROPAGATE_OIDC_DATA=

@@ -26,6 +26,13 @@ the lower-case dash-separated equivalent (for example `oauth2-admin-groups`).
 - `OAUTH2_ADMIN_GROUPS` (default empty) — comma/space-separated list of OIDC group
   names whose members become Wekan admins. This mirrors `LDAP_SYNC_ADMIN_GROUPS`
   for OAuth2/OIDC.
+- `OAUTH2_DEFAULT_ORGANIZATION` (default empty) — an existing organization,
+  by short name, display name or id, that every account created by an
+  OAuth2/OIDC login joins (#5339). Users of one identity provider, such as a
+  Nextcloud, often share no email domain, so the organization's
+  "auto-add users with domain name" cannot group them. An organization that
+  does not exist is not created; the login goes on and the server log says so.
+  Also in Admin Panel / People / OAuth2.
 
 ## GitLab providing OAuth2 login to Wekan
 
