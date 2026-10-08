@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Croatian card settings and rules — 2026-10-08
+
+Replace 70 Serbian values with Croatian, covering system labels, card settings,
+deletion notices, activity messages and rules. Preserve source variables and test
+permanent deletion, added versus removed labels, full paths versus parents, and
+triggers versus actions. No browser or screen-reader session was run; further
+wrong-language review and remaining translations are unfinished.
+
 ## Croatian sidebars, uploads and email settings — 2026-10-08
 
 Replace 75 Serbian values with Croatian, covering sidebars, uploads, time labels,

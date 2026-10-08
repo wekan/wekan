@@ -80,6 +80,19 @@ assert.match(data['disable-webhook'], /Onemogući/);
 assert.match(data['bidirectional-webhooks'], /Dvosmjerni/);
 assert.match(data['error-notAuthorized'], /Nemate ovlasti/);
 assert.equal(data['welcome-swimlane'], 'Prekretnica 1');
+const correctedCardSettings = ["OS_Freemem", "OS_Loadavg", "OS_Platform", "OS_Release", "OS_Totalmem", "OS_Type", "OS_Uptime", "show-field-on-card", "showLabel-field-on-card", "tableVisibilityMode", "createdAt", "modifiedAt", "verified", "active", "card-received", "card-received-on", "card-end", "card-end-on", "editCardReceivedDatePopup-title", "editCardEndDatePopup-title", "setCardColorPopup-title", "setSelectionColorPopup-title", "setCardActionsColorPopup-title", "setSwimlaneColorPopup-title", "setListColorPopup-title", "board-delete-notice", "delete-board-confirm-popup", "delete-all-notifications", "default-subtasks-board", "queue", "subtask-settings", "card-settings", "minicard-settings", "boardSubtaskSettingsPopup-title", "boardCardSettingsPopup-title", "boardMinicardSettingsPopup-title", "deposit-subtasks-board", "show-parent-in-minicard", "description-on-minicard", "cover-attachment-on-minicard", "badge-attachment-on-minicard", "prefix-with-full-path", "prefix-with-parent", "subtext-with-full-path", "subtext-with-parent", "change-card-parent", "parent-card", "source-board", "no-parent", "activity-added-label", "activity-removed-label", "activity-delete-attach", "activity-added-label-card", "activity-removed-label-card", "activity-delete-attach-card", "r-rule", "r-add-trigger", "r-add-action", "r-board-rules", "r-view-rule", "r-delete-rule", "r-new-rule-name", "r-no-rules", "r-edit-rule-trigger-action", "r-w-assignee-added", "r-w-assignee-removed", "r-board", "r-sort-by", "r-trigger", "r-action"];
+for (const key of correctedCardSettings) {
+  assert.doesNotMatch(data[key], /[\p{Script=Cyrillic}]/u, key);
+  assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), key);
+}
+assert.match(data['board-delete-notice'], /Brisanje je trajno/);
+assert.match(data['delete-board-confirm-popup'], /nije moguće poništiti/);
+assert.match(data['activity-added-label'], /dodao/);
+assert.match(data['activity-removed-label'], /uklonio/);
+assert.match(data['prefix-with-full-path'], /punom putanjom/);
+assert.match(data['prefix-with-parent'], /nadređenom karticom/);
+assert.equal(data['r-trigger'], 'Okidač');
+assert.equal(data['r-action'], 'Radnja');
 assert.equal(data.board, 'Ploča');
 assert.equal(data.swimlane, 'Traka');
 assert.deepEqual(Object.keys(data), Object.keys(english));
