@@ -423,3 +423,21 @@ assert.match(papiamento['activity-recovery-control-conflict'], /Revisá.*promé 
 assert.match(papiamento['stuck-sync-operation-description'], /kambionan apliká kaba ta keda/);
 assert.match(papiamento['stuck-sync-operation-description'], /restante nunka ta wordu skirbí/);
 assert.match(papiamento['stuck-sync-operation-description'], /kompará e lista ku su fuente atrobe/);
+
+const finalRecovery = ["stuck-sync-operation-reason-access-denied", "stuck-sync-operation-reason-trigger-unknown", "stuck-sync-operation-reason-intent-missing", "stuck-sync-operation-reason-unknown", "stuck-sync-operation-replayable-now", "stuck-sync-operation-discard", "stuck-sync-operation-discard-confirm", "stuck-sync-operation-refresh", "stuck-sync-operation-empty", "stuck-sync-operation-truncated", "stuck-sync-operation-unavailable", "stuck-sync-operation-missing", "stuck-sync-operation-not-stuck", "stuck-sync-operation-replayable", "stuck-sync-operation-busy", "stuck-sync-operation-failed", "interrupted-import-heading", "interrupted-import-description", "interrupted-import-board", "interrupted-import-progress", "interrupted-import-created", "interrupted-import-source", "interrupted-import-state-stopped", "interrupted-import-state-failed", "interrupted-import-state-discarding", "interrupted-import-scrum", "interrupted-import-counts", "interrupted-import-no-board", "interrupted-import-keep", "interrupted-import-discard", "interrupted-import-keep-confirm", "interrupted-import-discard-confirm", "interrupted-import-refresh", "interrupted-import-empty", "interrupted-import-truncated", "interrupted-import-unavailable", "interrupted-import-missing", "interrupted-import-not-interrupted", "interrupted-import-foreign-board", "interrupted-import-scrum-busy", "interrupted-import-failed", "scrum-history-checkpoint-stuck", "scrum-history-checkpoint-counts", "scrum-history-checkpoint-hint", "scrum-history-checkpoint-rollback", "scrum-history-checkpoint-discard", "scrum-history-checkpoint-discard-confirm", "scrum-history-checkpoint-ask-admin", "login-setting-env-only"];
+for (const key of finalRecovery) {
+  assert.notEqual(papiamento[key], english[key], key);
+  assert.deepEqual(tokens(papiamento[key]), tokens(english[key]), key);
+}
+assert.match(papiamento['stuck-sync-operation-discard-confirm'], /apliká kaba ta keda.*restu nunka ta wordu skirbí/);
+assert.match(papiamento['stuck-sync-operation-replayable-now'], /no por deskart/);
+assert.match(papiamento['stuck-sync-operation-replayable'], /no a wordu deskartá/);
+assert.match(papiamento['interrupted-import-description'], /fail di fuente no ta wordu wardá/);
+assert.match(papiamento['interrupted-import-description'], /inklusivo loke a wordu agregá despues/);
+assert.match(papiamento['interrupted-import-keep-confirm'], /No ta kita nada/);
+assert.match(papiamento['interrupted-import-discard-confirm'], /kitá permanentemente/);
+assert.match(papiamento['interrupted-import-foreign-board'], /no a wordu toká/);
+for (const prefix of ['stuck-sync-operation', 'interrupted-import']) assert.match(papiamento[`${prefix}-truncated`], /50 mas bieu/);
+assert.match(papiamento['scrum-history-checkpoint-hint'], /ningun otro hende a kambia/);
+assert.match(papiamento['login-setting-env-only'], /Solamente e ambiente di servidor.*solamente pa lesa/);
+assert.deepEqual(JSON.parse(remainingPapiamento.stdout), {}, 'the full current Papiamento fill list is empty');
