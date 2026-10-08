@@ -211,3 +211,18 @@ assert.match(papiamento['blockly-MATH_SINGLE_TOOLTIP_NEG'], /signo invertí/);
 assert.match(papiamento['blockly-NO_PARENT_ANNOUNCEMENT'], /no tin/);
 assert.match(papiamento['blockly-PAGE_DOWN_KEY'], /abou.*Page Down/);
 assert.match(papiamento['blockly-PAGE_UP_KEY'], /ariba.*Page Up/);
+
+const blocklyProcedures = ["blockly-PROCEDURES_BEFORE_PARAMS", "blockly-PROCEDURES_CALLNORETURN_TOOLTIP", "blockly-PROCEDURES_CALLRETURN_TOOLTIP", "blockly-PROCEDURES_CALL_BEFORE_PARAMS", "blockly-PROCEDURES_CALL_DISABLED_DEF_WARNING", "blockly-PROCEDURES_CREATE_DO", "blockly-PROCEDURES_DEFNORETURN_COMMENT", "blockly-PROCEDURES_DEFNORETURN_PROCEDURE", "blockly-PROCEDURES_DEFNORETURN_TOOLTIP", "blockly-PROCEDURES_DEFRETURN_RETURN", "blockly-PROCEDURES_DEFRETURN_TOOLTIP", "blockly-PROCEDURES_DEF_DUPLICATE_WARNING", "blockly-PROCEDURES_HIGHLIGHT_DEF", "blockly-PROCEDURES_IFRETURN_TOOLTIP", "blockly-PROCEDURES_IFRETURN_WARNING", "blockly-PROCEDURES_MUTATORARG_TITLE", "blockly-PROCEDURES_MUTATORARG_TOOLTIP", "blockly-PROCEDURES_MUTATORCONTAINER_TITLE", "blockly-PROCEDURES_MUTATORCONTAINER_TOOLTIP", "blockly-REDO", "blockly-REMOVE_FROM_BACKPACK", "blockly-RENAME_VARIABLE", "blockly-RENAME_VARIABLE_TITLE", "blockly-RESET_ZOOM", "blockly-SCREENREADER_HINT", "blockly-SCREENREADER_MODE_DISABLED", "blockly-SCREENREADER_MODE_ENABLED", "blockly-SHIFT_KEY"];
+for (const key of blocklyProcedures) {
+  assert.notEqual(papiamento[key], english[key], key);
+  assert.deepEqual(tokens(papiamento[key]), tokens(english[key]), key);
+}
+assert.match(papiamento['blockly-PROCEDURES_DEFNORETURN_TOOLTIP'], /sin resultado/);
+assert.match(papiamento['blockly-PROCEDURES_DEFRETURN_TOOLTIP'], /ku resultado/);
+assert.match(papiamento['blockly-PROCEDURES_CALLRETURN_TOOLTIP'], /usa su resultado/);
+assert.doesNotMatch(papiamento['blockly-PROCEDURES_CALLNORETURN_TOOLTIP'], /usa su resultado/);
+assert.match(papiamento['blockly-PROCEDURES_CALL_DISABLED_DEF_WARNING'], /No por ehekutá.*desaktivá/);
+assert.match(papiamento['blockly-PROCEDURES_IFRETURN_WARNING'], /solamente den un definishon di funshon/);
+assert.match(papiamento['blockly-RENAME_VARIABLE_TITLE'], /tur variabel '%1'/);
+assert.match(papiamento['blockly-SCREENREADER_MODE_DISABLED'], /ta desaktivá.*%1 pa aktiv'é/);
+assert.match(papiamento['blockly-SCREENREADER_MODE_ENABLED'], /ta aktivá.*%1 pa desaktiv'é/);

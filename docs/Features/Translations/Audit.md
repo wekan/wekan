@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Papiamento Blockly procedures and screen-reader modes — 2026-10-08
+
+Translate 28 English procedure, variable and accessibility messages. Preserve
+variables and key names; check returning/non-returning functions, disabled
+definitions, function scope, rename scope and opposite screen-reader transitions.
+Specialized wording is lower confidence and needs native review. No browser or
+screen-reader session was run. Remaining translations are unfinished.
+
 ## Papiamento Blockly trigonometry and workspace — 2026-10-08
 
 Translate 42 English math, variable and workspace messages. Preserve variables,
