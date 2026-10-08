@@ -9327,6 +9327,15 @@ actions. Regression coverage checks those details, script, key order and tokens.
 Technical wording remains low confidence pending speaker review. Browser checks
 were not run; further Konkani translations and the broader audit remain.
 
+## Konkani list conversion and comparisons
+
+Filled 24 English placeholders for splitting/joining lists, Boolean values and
+comparisons. The placeholder-only merge retained existing translations. Preserved
+delimiter behavior, inclusive comparisons and negation of true/false values.
+Regression coverage checks those details, script, key order and token inventories.
+Technical wording remains low confidence pending speaker review. Browser checks
+were not run; further Konkani translations and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
