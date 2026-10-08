@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## MeisterTask instruction translations — 2026-10-08
+
+Translate the new MeisterTask import instruction into Wu, Papiamento and Yiddish.
+Preserve the Export project menu label, CSV format, section/task mapping, completion
+dates and support for MeisterTask's own import format. Extend the existing import
+instruction regression test. These translations need native review, particularly
+Papiamento technical vocabulary; browser tests and wider translation work remain
+unfinished.
+
 ## Planner instruction translations — 2026-10-08
 
 The Planner source instruction has landed in 7ef5b875fa. Finalize its Wu, Papiamento

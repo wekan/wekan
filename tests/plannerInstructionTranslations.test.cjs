@@ -20,3 +20,14 @@ assert.match(read('yi')[key], /גרופּעס ווערן רשימות און א�
 console.log('Planner instructions: translations, mapping meanings and literals passed');
 
 assert.doesNotMatch(read('wuu-Hans')[key], /存储桶/);
+
+const meisterKey = 'import-board-instruction-meistertask';
+for (const code of ['wuu-Hans', 'pap', 'yi']) {
+  const value = read(code)[meisterKey];
+  assert.notEqual(value, read('en')[meisterKey], code);
+  assert.deepEqual(translationTokens(value), translationTokens(read('en')[meisterKey]), code);
+  for (const literal of ['MeisterTask', 'Export project', 'CSV']) assert.ok(value.includes(literal), code + ': ' + literal);
+}
+assert.match(read('wuu-Hans')[meisterKey], /分段变成列表，任务变成卡片.*保留完成日期.*自家导入格式/);
+assert.match(read('pap')[meisterKey], /tareanan terminá ta warda nan fecha di terminashon/);
+assert.match(read('yi')[meisterKey], /פֿאַרענדיקטע אויפֿגאַבעס האַלטן זייער פֿאַרענדיקונג־דאַטע/);
