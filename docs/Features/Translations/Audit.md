@@ -8182,6 +8182,15 @@ and successful/failed saves distinct. Existing correct-language neighbors remain
 Technical wording remains low confidence pending speaker review. Focused tests
 cover key order, source tokens and these distinctions; browser checks were not run.
 
+## Tatar email and registration settings corrections
+
+Corrected 31 wrong-language values for size limits, registration, invitations,
+SMTP configuration, email templates and webhook labels. Preserved SMTP/TLS names,
+invitation placeholders and paragraph structure, subject/body distinctions and
+optional webhook authentication. Existing correct-language values were retained.
+Technical wording remains low confidence pending speaker review. Focused tests
+cover key order, source tokens and these distinctions; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
