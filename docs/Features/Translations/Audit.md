@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Papiamento board settings and rules — 2026-10-08
+
+Translate 30 board, link-rule, assignment, LDAP, login and block-editor strings.
+Preserve source placeholders, link-template braces and examples, configuration
+names and URLs. Check permissions, opposite movement directions, saved/unsaved
+states and success/failure messages. Specialized wording is lower confidence and
+needs native review. No browser session was run. Other translations remain unfinished.
+
 ## Papiamento final Blockly messages — 2026-10-08
 
 Translate 44 variable, workspace, search and alias messages. The full current

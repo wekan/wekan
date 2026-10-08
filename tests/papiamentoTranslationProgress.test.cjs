@@ -279,3 +279,28 @@ const remainingPapiamento = spawnSync(process.execPath, [
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(remainingPapiamento.status, 0, remainingPapiamento.stderr);
 assert.deepEqual(Object.keys(JSON.parse(remainingPapiamento.stdout)).filter(key => key.startsWith('blockly-')), [], 'all current Blockly messages are translated');
+
+const settingsAndRules = ["board-announcement", "board-announcement-enabled", "cards-use-list-color", "external-link-rules", "external-link-rules-description", "external-link-identifier-aliases", "read-only-field", "r-moved-forward", "r-moved-back", "r-assignee", "r-add-actinguser-assignee", "r-remove-all-assignees", "ldap-sync-now", "ldap-sync-now-done", "ldap-sync-now-error", "ldap-sync-now-nothing", "oauth-providers-allowed-email-domains", "login-origin-mismatch", "card-field-visibility", "card-field-visibility-desc", "r-blocks-view", "r-blocks-help", "r-blocks-discard", "r-blocks-unavailable", "r-blocks-invalid", "r-blocks-conflict", "r-blocks-permission", "r-blocks-unsaved", "r-blocks-saved", "r-blocks-reload"];
+for (const key of settingsAndRules) {
+  assert.notEqual(papiamento[key], english[key], key);
+  assert.deepEqual(tokens(papiamento[key]), tokens(english[key]), key);
+}
+for (const key of ['external-link-rules-description', 'external-link-identifier-aliases']) {
+  const braceTokens = value => [...value.matchAll(/\{(?:number|identifier)\}/g)].map(match => match[0]).sort();
+  assert.deepEqual(braceTokens(papiamento[key]), braceTokens(english[key]));
+}
+assert.ok(papiamento['external-link-rules-description'].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
+assert.ok(papiamento['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+for (const name of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS', 'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) assert.ok(papiamento['ldap-sync-now-nothing'].includes(name));
+assert.match(papiamento['login-origin-mismatch'], /ROOT_URL/);
+assert.equal(papiamento['r-assignee'], papiamento.assignee.toLowerCase());
+assert.match(papiamento['r-moved-forward'], /dilanti.*despues/);
+assert.match(papiamento['r-moved-back'], /bèk.*promé/);
+assert.match(papiamento['read-only-field'], /solamente administradónan/);
+assert.match(papiamento['r-remove-all-assignees'], /tur enkargá/);
+assert.match(papiamento['r-blocks-invalid'], /eksaktamente un disparador ku un akshon/);
+assert.match(papiamento['r-blocks-unsaved'], /no ta wardá/);
+assert.doesNotMatch(papiamento['r-blocks-saved'], /no ta/);
+assert.match(papiamento['ldap-sync-now-done'], /terminá/);
+assert.match(papiamento['ldap-sync-now-error'], /faya: %s/);
+assert.match(papiamento['oauth-providers-allowed-email-domains'], /bashí ta permití tur/);
