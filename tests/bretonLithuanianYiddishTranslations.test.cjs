@@ -728,3 +728,17 @@ assert.match(locales.yi['activity-recovery-cancel-confirm'], /פּערמאַנע
 assert.match(locales.yi['activity-recovery-cancel-confirm'], /קען דאָס נישט פֿאָרזעצן/);
 assert.match(locales.yi['activity-recovery-cancel-confirm'], /וואַרטריי.*ווערן נישט צוריקגערופֿן/);
 assert.equal(new Set(['pause', 'resume', 'cancel'].map(action => locales.yi[`activity-recovery-${action}`])).size, 3);
+
+const yiddishStuckSync = Object.keys(english).filter(key => key.startsWith('stuck-sync-operation-'));
+assert.equal(yiddishStuckSync.length, 23);
+for (const key of yiddishStuckSync) {
+  assert.notEqual(locales.yi[key], english[key], key);
+  assert.deepEqual(translationTokens(locales.yi[key]), translationTokens(english[key]), key);
+}
+assert.match(locales.yi['stuck-sync-operation-description'], /שוין דורכגעפֿירטע ענדערונגען בלײַבן/);
+assert.match(locales.yi['stuck-sync-operation-description'], /ווערן קיינמאָל נישט געשריבן/);
+assert.match(locales.yi['stuck-sync-operation-reason-access-denied'], /גאַנצער רשימה/);
+assert.match(locales.yi['stuck-sync-operation-replayable-now'], /נישט אַוועקוואַרפֿן/);
+assert.match(locales.yi['stuck-sync-operation-not-stuck'], /נישט אַוועקוואַרפֿן/);
+assert.match(locales.yi['stuck-sync-operation-replayable'], /נישט אַוועקגעוואָרפֿן/);
+assert.match(locales.yi['stuck-sync-operation-truncated'], /עלטסטע 50/);

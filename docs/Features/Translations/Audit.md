@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Yiddish List Sync recovery — 2026-10-08
+
+Translate 23 English recovery messages. Preserve counters; check retained applied
+changes, unwritten pending changes, whole-list access, replayable-operation
+protection and the oldest-50 limit. Specialized wording is lower confidence and
+needs native review. No browser or screen-reader session was run. Remaining
+translations are unfinished.
+
 ## Yiddish activity notification recovery — 2026-10-08
 
 Translate 23 English activity-recovery and rule-email messages. Preserve source
