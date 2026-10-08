@@ -1,5 +1,6 @@
 import LDAP from './ldap';
 import { runWithLdapDisconnect } from './connectionGuard';
+import { connectionProbe, anonymousSearchOptions } from './testConnectionProbe';
 
 Meteor.methods({
   async ldap_test_connection() {
@@ -40,10 +41,21 @@ Meteor.methods({
     // #6467/#6469: always disconnect the test connection (success or failure),
     // otherwise repeated admin "Test Connection" clicks leak connections too.
     return await runWithLdapDisconnect(ldap, async () => {
+      // A service account binds, which proves the directory answered. Without
+      // one, ldapts has not even opened the socket yet, so an anonymous base
+      // search of LDAP_BASEDN has to succeed instead (testConnectionProbe.js).
+      const probe = connectionProbe(ldap.options);
+      if (probe.error) {
+        throw new Meteor.Error('LDAP_not_tested', probe.error);
+      }
       try {
-        await ldap.bindIfNecessary();
+        if (probe.kind === 'bind') {
+          await ldap.bindIfNecessary();
+        } else {
+          await ldap.client.search(probe.baseDN, anonymousSearchOptions());
+        }
       } catch (error) {
-        throw new Meteor.Error(error.name || error.message);
+        throw new Meteor.Error(error.name || error.message, error.message);
       }
 
       return {

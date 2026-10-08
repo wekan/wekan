@@ -72,7 +72,11 @@ are shown with any password written inside a URL masked by the server, and a
 URL field refuses a user name or password in it.
 
 The LDAP section has **Test connection**, which tries the LDAP settings in
-effect. The list of variables per section is
+effect. With a service account (`LDAP_AUTHENTIFICATION`) it binds with it;
+without one it does an anonymous base-scope search of `LDAP_BASEDN`, reading
+no attributes. Either way it reports success only when the directory answered,
+and otherwise shows the directory's own error; without a service account and
+without `LDAP_BASEDN` it says that nothing could be tested. The list of variables per section is
 `models/lib/authConfigCatalog.js`; SAML's is `models/lib/samlConfig.js` and the
 OAuth login providers' is `models/lib/oauthProviders.js`.
 
