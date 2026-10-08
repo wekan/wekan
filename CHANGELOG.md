@@ -442,6 +442,17 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/24e73687c9">Translate Planner import instructions in Wu, Papiamento and Yiddish</a>. Thanks to xet7.</summary>
+
+Translate the new Planner instruction in three languages, preserving menu and field
+names and the .xlsx extension. Distinguish Planner groups from storage buckets.
+The literal/mapping regression passes. Three completeness suites passed before the next
+MeisterTask source addition and now flag that new string. Native review and wider
+translation work remain unfinished; browser tests were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e17d58820d">Expose short untranslated prose for locale review</a>. Thanks to xet7.</summary>
 
 Add a read-only audit for short English UI words hidden by the fill tool's invariant
