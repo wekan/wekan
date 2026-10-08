@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/abdd2ff10a600efa6064d98f688d97b8dcfe21ef">Correct Tatar storage statistics and compaction</a></summary>
+
+- Correct 19 storage statistics and compaction values, preserving identifiers,
+  compaction prerequisites and source warnings.
+- Technical wording remains low confidence pending speaker review.
+- All 124 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9b0069f35356793e48702c5f373fe2a7350d78d1">Correct Tatar storage repair and default destination</a></summary>
 
 - Correct 19 storage values, preserving identifiers, read eligibility,
