@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cfa8ed7ba7ed02eaba7408e9ebe3f4932fe4470d">Translate Maithili procedure and rename controls</a></summary>
+
+- Fill 25 Maithili values, preserving existing translations, function-name tokens,
+  output distinctions and disabled-definition warnings.
+- Technical wording remains low confidence pending speaker review.
+- All 53 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Maithili translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d0883d9463bf581165b2910ffcea49aa9ea40c7d">Translate Maithili trigonometry and variable controls</a></summary>
 
 - Fill 26 Maithili placeholders, preserving existing translations, angle units,
