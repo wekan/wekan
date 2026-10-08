@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/dc9b4d721109ee092bfd77c1b3a29206191bfda1">Translate Maithili Blockly aliases and rule editor</a></summary>
+
+- Fill 25 Maithili values, preserving existing translations, rule validation,
+  administrator permissions and repeated Blockly labels.
+- Technical wording remains low confidence pending speaker review.
+- All 59 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Maithili translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e68355df82b6d9f257e9b0c11f285671f024aa8a">Translate Maithili variable warnings and workspace search</a></summary>
 
 - Fill 28 Maithili values, preserving existing translations, name/type roles,
