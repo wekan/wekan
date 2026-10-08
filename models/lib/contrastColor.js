@@ -105,8 +105,43 @@ function contrastText(bgHexOrNamed) {
   return luminance > 0.179 ? '#000000' : '#ffffff';
 }
 
+// The one rule for what a card's `color` may hold, shared by the Cards schema
+// (models/cards.js, enforced on the server for every write) and the color
+// popups: empty, one of the named palette colors, or a strict '#rrggbb' hex.
+// Anything else - 'red;background:url(x)', '</style>', 'javascript:...', a
+// '#rgb' shorthand, an rgb() expression - is refused, so a stored color can
+// only ever be a palette class name or a plain hex inside the inline style.
+function isAllowedCardColor(value, namedColors) {
+  if (value === undefined || value === null || value === '') return true;
+  if (typeof value !== 'string') return false;
+  if (Array.isArray(namedColors) && namedColors.includes(value)) return true;
+  return isHexColor(value);
+}
+
+// The custom '#rrggbb' colors already used on a board's cards, so the color
+// popups (one card, and Multi-Selection) can offer them beside the ready-made
+// palette: pick a lighter yellow once, and it is one click away for the next
+// cards. Most used first, ties in first-seen order, lower-cased, de-duplicated,
+// capped at `max`. Named palette colors and invalid values are skipped - the
+// palette already shows the former, and the latter must never be rendered.
+function customColorsInUse(values, max = 12) {
+  const counts = new Map();
+  for (const value of Array.isArray(values) ? values : []) {
+    if (!isHexColor(value)) continue;
+    const hex = value.toLowerCase();
+    counts.set(hex, (counts.get(hex) || 0) + 1);
+  }
+  // Map keys keep insertion order, so the index is the first-seen position.
+  const firstSeen = new Map([...counts.keys()].map((hex, i) => [hex, i]));
+  return [...counts.keys()]
+    .sort((a, b) => counts.get(b) - counts.get(a) || firstSeen.get(a) - firstSeen.get(b))
+    .slice(0, Math.max(0, max));
+}
+
 export {
   NAMED_COLOR_HEX,
+  isAllowedCardColor,
+  customColorsInUse,
   isHexColor,
   normalizeHex,
   toHex,

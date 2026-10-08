@@ -1558,12 +1558,25 @@ template(name="setCardColorPopup")
           span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
             if(isSelected color)
               i.fa.fa-check
+    +customCardColorSwatches(colors=customColors selected=selectedColor)
     // #5514: native color wheel for picking a custom RGB / hex color
     .color-wheel-wrap
       label(for="cardColorWheel") {{_ 'custom-color'}}
       input.js-card-color-wheel#cardColorWheel(type="color" value=currentColorHex title="{{_ 'custom-color'}}")
   button.primary.confirm.js-submit {{_ 'save'}}
   button.js-remove-color.negate.wide.right {{_ 'remove-btn'}}
+
+//- The custom '#rrggbb' colors already used on this board's cards, offered
+  beside the ready-made palette in both card color popups (one card, and
+  Multi-Selection). Every value is a validated hex (customColorsInUse), and
+  Blaze escapes the attributes it is written into.
+template(name="customCardColorSwatches")
+  if colors
+    .custom-palette-colors(title="{{_ 'custom-color'}}" aria-label="{{_ 'custom-color'}}")
+      each hex in colors
+        span.card-label.palette-color.js-custom-palette-color(style="background-color:{{hex}}" data-color=hex title=hex)
+          if $eq hex selected
+            i.fa.fa-check(style="color:{{contrastTextFor hex}}")
 
 template(name="cardDeletePopup")
   p {{_ "card-delete-pop"}}

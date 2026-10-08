@@ -66,6 +66,15 @@
 .color-wheel-wrap label {
   margin: 0;
 }
+/* Custom card colors already used on this board, offered beside the palette in
+   the card and Multi-Selection color popups. */
+.custom-palette-colors {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  margin: 6px 0 4px 0;
+}
 .color-wheel-wrap input[type="color"] {
   width: 44px;
   height: 28px;

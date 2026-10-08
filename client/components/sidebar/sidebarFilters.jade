@@ -422,6 +422,12 @@ template(name="setSelectionColorPopup")
         span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
           if(isSelected color)
             i.fa.fa-check
+    +customCardColorSwatches(colors=customColors selected=selectedColor)
+    //- The same custom color as one card's popup (#5514): one '#rrggbb' hex,
+      written to every selected card the user may edit.
+    .color-wheel-wrap
+      label(for="selectionColorWheel") {{_ 'custom-color'}}
+      input.js-selection-color-wheel#selectionColorWheel(type="color" value=currentColorHex title="{{_ 'custom-color'}}")
     button.primary.confirm.js-submit {{_ 'save'}}
     button.js-remove-color.negate.wide.right {{_ 'remove-btn'}}
 

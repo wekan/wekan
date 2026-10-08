@@ -59,7 +59,7 @@ import Lists from '/models/lists';
 import CardComments from '/models/cardComments';
 import { ALLOWED_COLORS } from '/config/const';
 import { CARD_RECURRENCE_INTERVALS } from '/models/lib/cardRecurrenceSchedule';
-import { isHexColor, toHex } from '/models/lib/contrastColor';
+import { isHexColor, isAllowedCardColor, toHex, contrastText, customColorsInUse } from '/models/lib/contrastColor';
 import { uniqBy } from '/imports/lib/collectionHelpers';
 import { memberTargetBoardId } from '/models/lib/linkedCardMembers';
 import { isSubmitKey } from '/models/lib/editorSubmitKey';
@@ -2580,12 +2580,22 @@ Template.setCardColorPopup.helpers({
   currentColorHex() {
     return toHex(Template.instance().currentColor.get()) || '#0079bf';
   },
+  customColors() {
+    return boardCustomCardColors(Template.instance().currentCard?.boardId);
+  },
+  selectedColor() {
+    return Template.instance().currentColor.get();
+  },
 });
 
 Template.setCardColorPopup.events({
   'click .js-palette-color'(event, tpl) {
     const paletteData = Blaze.getData(event.currentTarget);
     tpl.currentColor.set(paletteData?.color);
+  },
+  'click .js-custom-palette-color'(event, tpl) {
+    const value = event.currentTarget.getAttribute('data-color');
+    if (isHexColor(value)) tpl.currentColor.set(value);
   },
   // #5514: picking from the native color wheel stores a custom hex.
   'input .js-card-color-wheel'(event, tpl) {
@@ -2610,6 +2620,42 @@ Template.setCardColorPopup.events({
   },
 });
 
+// The custom '#rrggbb' colors already on this board's cards (both popups
+// offer them beside the palette). customColorsInUse keeps only strict hex.
+function boardCustomCardColors(boardId) {
+  if (!boardId) return [];
+  const cards = ReactiveCache.getCards(
+    { boardId, archived: false, color: { $regex: '^#' } },
+    { fields: { color: 1 } },
+  );
+  return customColorsInUse(cards.map(card => card.color));
+}
+
+Template.customCardColorSwatches.helpers({
+  contrastTextFor(hex) {
+    return contrastText(hex);
+  },
+});
+
+// Multi-Selection writes the color per card, through the same Card.setColor
+// and the same server allow rule as one card's popup. Cards the user may not
+// edit (Utils.canModifyCard - the client side of that rule, e.g. a linked card
+// whose source board is comment-only for them) are skipped rather than sent to
+// be refused, and one refusal no longer stops the rest of the selection.
+async function setColorOfSelectedCards(color) {
+  const cards = ReactiveCache.getCards(MultiSelection.getMongoSelector(), { sort: ['sort'] });
+  let failed = 0;
+  for (const card of cards) {
+    if (!Utils.canModifyCard(card)) continue;
+    try {
+      await card.setColor(color);
+    } catch (error) {
+      failed += 1;
+    }
+  }
+  return failed;
+}
+
 Template.setSelectionColorPopup.onCreated(function () {
   const selectedCards = ReactiveCache.getCards(MultiSelection.getMongoSelector());
   const uniqueColors = [...new Set(selectedCards.map(card => card.color || null))];
@@ -2624,6 +2670,15 @@ Template.setSelectionColorPopup.helpers({
   isSelected(color) {
     return Template.instance().currentColor.get() === color;
   },
+  selectedColor() {
+    return Template.instance().currentColor.get();
+  },
+  currentColorHex() {
+    return toHex(Template.instance().currentColor.get()) || '#0079bf';
+  },
+  customColors() {
+    return boardCustomCardColors(Session.get('currentBoard'));
+  },
 });
 
 Template.setSelectionColorPopup.events({
@@ -2634,32 +2689,39 @@ Template.setSelectionColorPopup.events({
     const color = colorClass ? colorClass.replace('card-details-', '') : null;
     tpl.currentColor.set(color);
   },
+  'click .js-custom-palette-color'(event, tpl) {
+    const value = event.currentTarget.getAttribute('data-color');
+    if (isHexColor(value)) tpl.currentColor.set(value);
+  },
+  // The color wheel yields '#rrggbb'; anything else is ignored, as in one
+  // card's popup. The server schema refuses it regardless.
+  'input .js-selection-color-wheel, change .js-selection-color-wheel'(event, tpl) {
+    const value = event.currentTarget.value;
+    if (isHexColor(value)) tpl.currentColor.set(value.toLowerCase());
+  },
   async 'submit form.edit-label'(event, tpl) {
     event.preventDefault();
     const color = tpl.currentColor.get();
-    try {
-      for (const card of ReactiveCache.getCards(MultiSelection.getMongoSelector())) {
-        await card.setColor(color);
-      }
-      Popup.back();
-    } catch (error) {
-      alert(error?.reason || error?.message || 'Failed to save selection color');
+    if (!isAllowedCardColor(color, ALLOWED_COLORS)) return;
+    const failed = await setColorOfSelectedCards(color);
+    if (failed) {
+      alert(TAPi18n.__('server-error'));
+      return;
     }
+    Popup.back();
   },
   async 'click .js-submit'(event, tpl) {
     event.preventDefault();
     await tpl.$('form.edit-label').trigger('submit');
   },
-  async 'click .js-remove-color'(event, tpl) {
+  async 'click .js-remove-color'(event) {
     event.preventDefault();
-    try {
-      for (const card of ReactiveCache.getCards(MultiSelection.getMongoSelector())) {
-        await card.setColor(null);
-      }
-      Popup.back();
-    } catch (error) {
-      alert(error?.reason || error?.message || 'Failed to unset selection color');
+    const failed = await setColorOfSelectedCards(null);
+    if (failed) {
+      alert(TAPi18n.__('server-error'));
+      return;
     }
+    Popup.back();
   },
 });
 

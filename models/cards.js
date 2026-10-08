@@ -30,7 +30,7 @@ import {
   TYPE_LINKED_CARD,
 } from '../config/const';
 import { CARD_COLORS } from '/models/metadata/colors';
-import { isHexColor, contrastText } from '/models/lib/contrastColor';
+import { isHexColor, isAllowedCardColor, contrastText } from '/models/lib/contrastColor';
 import { resolveCoverId } from '/models/lib/linkedCardCover';
 import { liveAttachments, isLiveAttachment } from '/models/lib/attachmentSoftDelete';
 import {
@@ -190,9 +190,8 @@ Cards.attachSchema(
       // #5514: accept a named palette color OR a custom '#rrggbb' hex chosen
       // from the color wheel (instead of a fixed allowedValues enum).
       custom() {
-        const v = this.value;
-        if (v === undefined || v === null || v === '') return undefined;
-        if (CARD_COLORS.includes(v) || isHexColor(v)) return undefined;
+        // Multi-Selection writes the same field the same way, per card.
+        if (isAllowedCardColor(this.value, CARD_COLORS)) return undefined;
         return 'notAllowed';
       },
     },
