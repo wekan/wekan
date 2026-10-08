@@ -941,3 +941,15 @@ assert.equal(wu['predicate-private'], '私有');
 assert.match(wu['operator-number-expected'], /运算符 __operator__.*数字.*收到.*__value__/);
 assert.match(wu['operator-limit-invalid'], /%s.*勿是有效.*正整数/);
 assert.doesNotMatch(wu['operator-number-expected'], /操作员/);
+
+const searchHelpWu = ["globalSearch-instructions-description", "globalSearch-instructions-operator-board", "globalSearch-instructions-operator-list", "globalSearch-instructions-operator-swimlane", "globalSearch-instructions-operator-comment", "globalSearch-instructions-operator-label", "globalSearch-instructions-operator-hash", "globalSearch-instructions-operator-user", "globalSearch-instructions-operator-at", "globalSearch-instructions-operator-member", "globalSearch-instructions-operator-assignee", "globalSearch-instructions-operator-creator", "globalSearch-instructions-operator-org", "globalSearch-instructions-operator-team", "globalSearch-instructions-operator-created", "globalSearch-instructions-operator-modified"];
+for (const key of searchHelpWu) {
+  assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+  assert.deepEqual(wu[key].match(/`[^`]+`/g), english[key].match(/`[^`]+`/g), key + ' examples');
+  assert.deepEqual((wu[key].match(/<[^>]+>/g) || []).sort(), (english[key].match(/<[^>]+>/g) || []).sort(), key + ' arguments');
+}
+assert.match(wu['globalSearch-instructions-description'], /空格或者特殊字符.*引号/);
+assert.match(wu['globalSearch-instructions-operator-user'], /成员.*或者.*负责人/);
+for (const kind of ['created', 'modified']) assert.match(wu['globalSearch-instructions-operator-' + kind], /最近.*<n>.*天里向/);
+assert.match(wu['globalSearch-instructions-operator-org'], /看板分配畀组织/);
+assert.match(wu['globalSearch-instructions-operator-team'], /看板分配畀团队/);
