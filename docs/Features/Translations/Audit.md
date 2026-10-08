@@ -7602,6 +7602,15 @@ trim directions. Technical wording remains low confidence pending speaker review
 Browser, screen-reader and right-to-left layout checks were not run. The broader
 translation audit continues.
 
+### Central Kurdish rule editor and Scrum planning
+
+Filled 49 English placeholders for rule-editor guidance, Scrum settings, roles,
+estimates, backlog ordering and sprint controls. Existing translations and source
+tokens are preserved. Regression checks cover key order, script, placeholders,
+shared navigation labels, distinct sprint actions and single-trigger restrictions.
+Technical wording remains low confidence pending speaker review. Browser and
+right-to-left layout checks were not run. The broader translation audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
