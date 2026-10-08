@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7a0460e755">Correct Wu anonymization and cloud storage help</a>. Thanks to xet7.</summary>
+
+Correct 19 Wu values, preserving anonymization examples, field names, cloud console
+labels, credential fallbacks and the once-only secret-key display warning.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b37c643b17">Correct Wu settings help and anonymization warning</a>. Thanks to xet7.</summary>
 
 Correct 20 Wu values, including stale loading help and an account-anonymization warning
