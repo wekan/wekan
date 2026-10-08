@@ -1098,3 +1098,32 @@ for (const code of ['sl', 'sl_SI']) {
   assert.match(locale['import-board-instruction-teamwork'], /ühe taseme võrra sügavamale/);
   assert.match(locale['import-board-instruction-superproductivity'], /arhiveeritud ülesanded muutuvad arhiveeritud kaartideks/);
 }
+
+{
+  const locale = read('lv');
+  const literals = {
+    planner: ['Microsoft Planner', 'Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+    meistertask: ['MeisterTask', 'Export project', 'CSV'],
+    ...importLiterals, ...newerImportLiterals,
+  };
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+    for (const value of values) assert.ok(locale[key].includes(value), key + ': ' + value);
+  }
+  for (const format of ['nullboard', 'kanri']) {
+    assert.match(locale['import-board-instruction-' + format], /tiek importēts tikai pirmais dēlis/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /tiek importēti visi dēļi/);
+  }
+  assert.match(locale['import-board-instruction-meistertask'], /pabeigtie uzdevumi saglabā pabeigšanas datumu/);
+  assert.match(locale['import-board-instruction-obsidian'], /arhīvs kļūst par arhivētām kartiņām/);
+  assert.match(locale['import-board-instruction-ticktick'], /TickTick saraksts kļūst par joslu/);
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /Pielikumi netiek importēti/);
+  assert.match(locale['import-board-instruction-notion'], /Relācijas, attēli un pielikumi netiek importēti/);
+  assert.match(locale['import-board-instruction-plane'], /nesatur aprakstus un pielikumus.*netiek importēti/);
+  assert.match(locale['import-board-instruction-businessmap'], /vispirms pārdēvējiet galvenes rindas nosaukumus angļu valodā/);
+  assert.match(locale['import-board-instruction-redmine'], /pirms eksportēšanas.*My account.*English/);
+  assert.match(locale['import-board-instruction-teamwork'], /vienu līmeni dziļāk/);
+  assert.match(locale['import-board-instruction-superproductivity'], /arhivētie uzdevumi kļūst par arhivētām kartiņām/);
+}
