@@ -9605,6 +9605,16 @@ order and tokens. Technical wording remains low confidence pending speaker
 review. Browser and screen-reader checks were not run; further Turkmen
 translations and the broader audit remain unfinished.
 
+## Turkmen accessibility shortcuts
+
+Filled 41 English placeholders for screen-reader states, navigation and editing
+shortcuts. The placeholder-only merge retained existing translations. Coverage
+checks mode-state reversals, block movement versus scrolling, movement
+cancellation/completion, navigation endpoints and spoken information, plus
+key order and tokens. Technical wording remains low confidence pending
+speaker review. Browser and screen-reader checks were not run; further
+Turkmen translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
