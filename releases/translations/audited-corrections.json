@@ -168873,5 +168873,159 @@
     "before": "未迁移的主板",
     "after": "还朆迁移个看板",
     "reason": "2026-10-08: Correct Wu job controls, numeric-range help and monitoring meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cron",
+    "before": "克朗",
+    "after": "Cron",
+    "reason": "2026-10-08: Correct Wu account messages and repair results, preserving count variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "already-account",
+    "before": "已经有帐户？登入",
+    "after": "已经有账户伐？登录",
+    "reason": "2026-10-08: Correct Wu account messages and repair results, preserving count variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "available-repositories",
+    "before": "可用的存储库",
+    "after": "可用个存储库",
+    "reason": "2026-10-08: Correct Wu account messages and repair results, preserving count variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "no-repositories",
+    "before": "未找到存储库",
+    "after": "呒没寻着存储库",
+    "reason": "2026-10-08: Correct Wu account messages and repair results, preserving count variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "api-endpoints",
+    "before": "API端点",
+    "after": "API 端点",
+    "reason": "2026-10-08: Correct Wu account messages and repair results, preserving count variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "sign-in-to-upload",
+    "before": "登录以上传存储库",
+    "after": "登录以后好上传存储库",
+    "reason": "2026-10-08: Correct Wu account messages and repair results, preserving count variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "account-locked",
+    "before": "由于登录尝试失败次数过多，帐户被暂时锁定。请稍后重试。",
+    "after": "登录失败次数忒多，账户暂时锁定仔。请过一歇再试。",
+    "reason": "2026-10-08: Correct Wu account messages and repair results, preserving count variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "otp-required",
+    "before": "需要 OTP 代码",
+    "after": "必须提供 OTP 验证码",
+    "reason": "2026-10-08: Correct Wu account messages and repair results, preserving count variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "invalid-credentials",
+    "before": "用户名或密码无效",
+    "after": "用户名或者密码无效",
+    "reason": "2026-10-08: Correct Wu account messages and repair results, preserving count variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "username-password-required",
+    "before": "需要用户名和密码",
+    "after": "必须提供用户名搭密码",
+    "reason": "2026-10-08: Correct Wu account messages and repair results, preserving count variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "password-mismatch",
+    "before": "密码不匹配",
+    "after": "两趟输入个密码勿一样",
+    "reason": "2026-10-08: Correct Wu account messages and repair results, preserving count variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "username-too-short",
+    "before": "用户名必须至少 3 个字符",
+    "after": "用户名至少要有 3 只字符",
+    "reason": "2026-10-08: Correct Wu account messages and repair results, preserving count variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "user-exists",
+    "before": "用户已存在",
+    "after": "用户已经存在仔",
+    "reason": "2026-10-08: Correct Wu account messages and repair results, preserving count variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "account-created",
+    "before": "帐户已创建！您现在可以登录。",
+    "after": "账户创建好仔！侬现在好登录仔。",
+    "reason": "2026-10-08: Correct Wu account messages and repair results, preserving count variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "account-creation-failed",
+    "before": "创建帐户失败",
+    "after": "创建账户失败仔",
+    "reason": "2026-10-08: Correct Wu account messages and repair results, preserving count variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "problems-status-title",
+    "before": "地位",
+    "after": "状态",
+    "reason": "2026-10-08: Correct Wu account messages and repair results, preserving count variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "problems-in-progress-help",
+    "before": "这些迁移或修复正在进行中。在它们完成、CPU 负载下降之前，登录可能很慢，或显示“必须登录”或“正在加载，请稍候”的转圈提示。",
+    "after": "搿些迁移或者修复正在运行。等伊拉完成、CPU 负载降下来以前，登录可能慢，或者显示“必须登录”搭“正在加载，请等一歇”个等待动画。",
+    "reason": "2026-10-08: Correct Wu account messages and repair results, preserving count variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "problems-none-in-progress",
+    "before": "没有正在进行的迁移或修复。",
+    "after": "呒没正在运行个迁移或者修复。",
+    "reason": "2026-10-08: Correct Wu account messages and repair results, preserving count variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "repair-broken-cards",
+    "before": "修复损坏的卡片",
+    "after": "修复损坏个卡片",
+    "reason": "2026-10-08: Correct Wu account messages and repair results, preserving count variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "repair-broken-cards-done",
+    "before": "已修复 __fixed__ 张卡片。",
+    "after": "修复好 __fixed__ 张卡片仔。",
+    "reason": "2026-10-08: Correct Wu account messages and repair results, preserving count variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "repair-broken-cards-done-unfixable",
+    "before": "已修复 __fixed__ 张卡片。__unfixable__ 张卡片没有所属看板，无法自动修复。",
+    "after": "修复好 __fixed__ 张卡片仔。__unfixable__ 张卡片呒没所属看板，自动修复勿了。",
+    "reason": "2026-10-08: Correct Wu account messages and repair results, preserving count variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "restore-list-swimlanes-done",
+    "before": "已恢复 __restored__ 个列表。__remaining__ 个无法恢复。",
+    "after": "恢复好 __restored__ 只列表仔。__remaining__ 只恢复勿了。",
+    "reason": "2026-10-08: Correct Wu account messages and repair results, preserving count variables; lower-confidence prose needs native review."
   }
 ]

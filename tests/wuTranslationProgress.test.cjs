@@ -1153,3 +1153,13 @@ assert.match(wu['migration-warning-text'], /勿要关脱浏览器.*后台继续.
 for (const key of ['job-description', 'job-details', 'job-name', 'job-queue']) assert.match(wu[key], /^任务/);
 assert.match(wu['unmigrated-boards'], /还朆迁移个看板/);
 assert.equal(wu['total-operations'], '操作总数');
+
+const repairResultsWu = ["cron", "already-account", "available-repositories", "no-repositories", "api-endpoints", "sign-in-to-upload", "account-locked", "otp-required", "invalid-credentials", "username-password-required", "password-mismatch", "username-too-short", "user-exists", "account-created", "account-creation-failed", "problems-status-title", "problems-in-progress-help", "problems-none-in-progress", "repair-broken-cards", "repair-broken-cards-done", "repair-broken-cards-done-unfixable", "restore-list-swimlanes-done"];
+for (const key of repairResultsWu) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.equal(wu.cron, english.cron);
+assert.equal(wu['problems-status-title'], '状态');
+assert.match(wu['username-too-short'], /至少.*3.*字符/);
+assert.match(wu['account-locked'], /失败次数忒多.*暂时锁定.*再试/);
+assert.match(wu['repair-broken-cards-done-unfixable'], /修复好 __fixed__ 张.*__unfixable__ 张卡片呒没所属看板，自动修复勿了/);
+assert.match(wu['restore-list-swimlanes-done'], /恢复好 __restored__ 只.*__remaining__ 只恢复勿了/);
+assert.match(wu['problems-none-in-progress'], /呒没正在运行个迁移或者修复/);
