@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Breton, Kashubian, Upper Sorbian, Silesian and Faroese warnings — 2026-10-08
+
+Translate five warning values with exact variables and existing sign-in terms.
+Warning tests now cover 149 catalog paths, checking repeated variables, address
+order and ROOT_URL. Warning and placeholder suites and all 21 preservation checks
+pass. These translations have lower confidence and need native review. This
+warning still has 58 English catalog paths; browser review and the wider
+all-language backlog remain outstanding.
+
 ## Regional Romance sign-in warnings — 2026-10-08
 
 Translate five values in Aragonese, Asturian, Sardinian, Sicilian and Neapolitan.

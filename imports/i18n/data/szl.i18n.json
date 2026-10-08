@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Kōnto z tym mejlym już istnieje i niy było stworzōne tōm metodōm logowaniŏ",
   "sign-in-with": "Zaloguj bez %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Niy idzie skōńczyć logowaniŏ bez inkszo usuga pod tym adrysym. WeKan je skonfigurowany dlŏ __expected__, ale ta strōna ôstała ôtwŏrtŏ pod __actual__. Ôtwōrz WeKan pod __expected__ abo poproś administratora, coby nastawiōł ROOT_URL na __actual__.",
   "passwordless-title": "Logowanie bez hasła",
   "passwordless-enabled": "Poślij mejlym jednorazowy kod logowaniŏ zamiast hasła",
   "passwordless-hint": "Wymŏgŏ wychodzōncyj poczty (MAIL_URL). Tyż PASSWORDLESS_ENABLED.",
