@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Zulu import instructions, first group — 2026-10-09
+
+Translate eight instructions per Zulu catalog (16 values): OPML, Org mode,
+Todoist, Planner, MeisterTask, Obsidian, Linear and TickTick. Preserve export
+commands, format names and variables. Tests retain completed-item and archive
+behavior, completion dates and swimlane mapping. All three targeted suites and
+21 preservation checks pass. Specialized terminology remains low confidence
+pending speaker review. Browser execution and remaining translations are outstanding.
+
 ## Zulu recovery decisions and history checkpoints — 2026-10-09
 
 Translate 22 messages per Zulu catalog (44 values): interrupted-import decisions,

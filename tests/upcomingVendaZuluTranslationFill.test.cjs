@@ -870,6 +870,16 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
   "scrum-history-checkpoint-ask-admin",
   "login-setting-env-only"
 ]);
+  keys.push(...[
+  "import-board-instruction-opml",
+  "import-board-instruction-orgmode",
+  "import-board-instruction-todoist",
+  "import-board-instruction-planner",
+  "import-board-instruction-meistertask",
+  "import-board-instruction-obsidian",
+  "import-board-instruction-linear",
+  "import-board-instruction-ticktick"
+]);
   for (const language of ['zu', 'zu-ZA']) {
     const locale = read(language);
     for (const key of keys) {
@@ -1066,6 +1076,21 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
     ['applied', 'total', 'pending', 'conflicted'].forEach((name, index) => { checkpoint = checkpoint.replace('__' + name + '__', String(index + 1)); });
     assert.match(checkpoint, /1.*2.*3.*4/);
     assert.doesNotMatch(checkpoint, /__\w+__/);
+    const importCommands = {
+      opml: ['OPML', 'Workflowy', 'Dynalist', 'OmniOutliner', 'Logseq'],
+      orgmode: ['Org mode', 'Emacs', 'Orgzly', 'Beorg', 'TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED'],
+      todoist: ['Export as a template', 'CSV', '@labels', 'p1', 'p3'],
+      planner: ['Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+      meistertask: ['Export project', 'CSV'],
+      obsidian: ['Markdown', '.md'],
+      linear: ['Settings', 'Import / Export', 'Export data', 'CSV'],
+      ticktick: ['Settings', 'Account', 'Backup & Import', 'CSV'],
+    };
+    for (const [format, values] of Object.entries(importCommands)) for (const literal of values) assert.ok(locale['import-board-instruction-' + format].includes(literal));
+    assert.match(locale['import-board-instruction-opml'], /eziqediwe zingeniswa njengeziqediwe/);
+    assert.match(locale['import-board-instruction-meistertask'], /eqediwe igcina usuku lwayo lokuqedwa/);
+    assert.match(locale['import-board-instruction-obsidian'], /amakhadi afakwe kungobo yomlando/);
+    assert.match(locale['import-board-instruction-ticktick'], /ngalunye lwe-TickTick luba umzila/);
     const failure = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
     assert.ok(failure.includes('E_LDAP'));
     assert.ok(!failure.includes('%s'));
