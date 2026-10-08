@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5bf8f7493b">Correct Wu rule movement and completion translations</a>. Thanks to xet7.</summary>
+
+Correct eighteen Wu rule fragments. Preserve variables, movement and completion
+meanings, all-card scope, N-day duration and dates relative to now.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/64513444e5">Correct Wu rule-import and schedule translations</a>. Thanks to xet7.</summary>
 
 Correct eighteen Wu rule-import and schedule values. Preserve count variables,
