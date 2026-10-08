@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5c5bf6c1418a9fba54607486f7e41432c83bc609">Translate Odia Scrum planning settings</a></summary>
+
+- Fill 28 Odia Scrum planning placeholders, preserving existing translations,
+  role and completion-policy distinctions and separate sprint actions.
+- Technical wording remains low confidence pending speaker review.
+- All 64 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Odia translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5b693f3276fc3578e3a2465be0c575d39149da62">Translate Odia rule editor guidance</a></summary>
 
 - Fill nine Odia rule-editor placeholders, preserving existing translations,
