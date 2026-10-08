@@ -489,6 +489,18 @@ This release adds the following new features:
 report for what the other tool has no place for.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c1d3de6691">Restore Asana and OpenProject import literals</a>. Thanks to xet7.</summary>
+
+- Repair 16 messages in 11 locale files, restoring the data property and API
+  endpoints. Extend catalog-wide literal checks to ten import formats while
+  accepting valid grammatical affixes around filenames and commands.
+- Three relevant suites and 21 human-preference checks pass. Mixed-language
+  prose and untranslated messages remain under review. Browser sessions were
+  not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/416aedc706">Restore import example identifiers across locales</a>. Thanks to xet7.</summary>
 
 - Repair 73 Kanboard, Deck, ZenKit and Jira import messages in 25 locale files.
