@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Slovenian stalled synchronization recovery — 2026-10-08
+
+Translate 23 messages in each Slovenian catalog, for 46 filled values.
+Preserve every source variable and existing localized values. Extend the
+Slovenian suite with checks for retained applied changes, unwritten pending
+changes and the distinction between unavailable and unnecessary discard actions.
+No browser or screen-reader session was run; remaining translations and
+broader linguistic review are unfinished.
+
 ## Slovenian monitoring and flow explanations — 2026-10-08
 
 Replace 81 Serbian values in each Slovenian catalog, for 162 corrections.

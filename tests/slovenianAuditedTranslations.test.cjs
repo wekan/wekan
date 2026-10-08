@@ -116,6 +116,17 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.match(data['time-adjustment-note'], /niso posamezne delovne seje/);
   assert.match(data['time-adjustment-note'], /Negativne vrednosti so popravki/);
   assert.equal(data.board, 'Tabla');
+  for (const key of Object.keys(english).filter(key => key.startsWith('stuck-sync-operation-'))) {
+    assert.notEqual(data[key], english[key], `${locale}:${key}`);
+    assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), `${locale}:${key}`);
+  }
+  assert.match(data['stuck-sync-operation-description'], /že uveljavljene spremembe ostanejo/);
+  assert.match(data['stuck-sync-operation-description'], /preostale shranjene spremembe se nikoli ne zapišejo/);
+  assert.match(data['stuck-sync-operation-discard-confirm'], /že uveljavila, ostanejo/);
+  assert.match(data['stuck-sync-operation-replayable-now'], /ni mogoče zavreči/);
+  assert.match(data['stuck-sync-operation-replayable'], /ni bila zavržena/);
+  assert.match(data['stuck-sync-operation-truncated'], /50 najstarejših/);
+  assert.match(data['stuck-sync-operation-reason-access-denied'], /nima več pravice do pisanja/);
   assert.equal(data.swimlane, 'Plavalna steza');
   for (const key of Object.keys(english).filter(key => key.startsWith('interrupted-import-'))) {
     assert.notEqual(data[key], english[key], `${locale}:${key}`);
