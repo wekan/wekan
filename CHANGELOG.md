@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/633ec0348d52aa875a32d6ef8f3be872b15faa77">Correct Tatar ticket states and deletion constraints</a></summary>
+
+- Correct 18 ticket, request and card-sizing values, preserving member-related
+  deletion restrictions, distinct ticket states and Cc notation.
+- Technical wording remains low confidence pending speaker review.
+- All 119 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f105370d32c66d019afa02d2a00f7381675c5fc6">Correct Tatar API recovery and waiting animations</a></summary>
 
 - Correct 25 API, recovery and animation values, preserving runtime identifiers,
