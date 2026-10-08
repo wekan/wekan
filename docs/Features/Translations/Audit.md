@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Aromanian rule-builder language corrections — 2026-10-08
+
+Replace 35 clearly Italian rule conditions, actions and fragments. Preserve
+check/uncheck and top/bottom distinctions, shared checklist wording and the
+past-state meaning of made-incomplete. Regression checks reject the old
+Italian strings and English substitutions while retaining the full token
+inventory. New wording follows existing catalog terminology and remains
+low-confidence pending fluent review. No browser or screen-reader session
+was run; further wrong-language review and translation work remain open.
+
 ## Northern Sotho planning import regressions — 2026-10-08
 
 Translate 20 new Scrum import and Sync planning messages. Extend the Scrum

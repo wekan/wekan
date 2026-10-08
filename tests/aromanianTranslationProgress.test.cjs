@@ -530,3 +530,50 @@ assert.match(aromanian['scrum-import-into-board-hint'], /nu s-duplicã vãrnãoa
 assert.match(aromanian['scrum-import-into-board-hint'], /dupã ID icã dupã numirlu sh-titlul/);
 assert.match(aromanian['scrum-import-card-on-another-board'], /lãsatã nialãxitã/);
 assert.match(aromanian['scrum-import-sprint-finished'], /nu fu mutatã/);
+
+const repairedItalianRuleControls = {
+  "r-no-rules": "Nessuna regola",
+  "r-when-a-card": "Quando una scheda",
+  "r-is-moved": "viene spostata",
+  "set-filter": "Imposta un filtro",
+  "r-moved-from": "Spostato/a da",
+  "r-archived": "Spostato/a nell'archivio",
+  "r-when-the-label": "Quando l'etichetta viene",
+  "r-when-a-member": "Quando un membro viene",
+  "r-when-the-member": "Quando un membro viene",
+  "r-when-a-attach": "Quando un allegato",
+  "r-when-a-checklist": "Quando una checklist è",
+  "r-when-the-checklist": "Quando la checklist",
+  "r-made-incomplete": "Rendi incompleto",
+  "r-move-card-to": "Sposta scheda a",
+  "r-top-of": "Al di sopra di",
+  "r-bottom-of": "Al di sotto di",
+  "r-unarchive": "Ripristina dall'archivio",
+  "r-set-color": "Imposta il colore",
+  "r-check-all": "Seleziona tutti",
+  "r-uncheck-all": "Togli la spunta a tutti",
+  "r-items-check": "Elementi della checklist",
+  "r-uncheck": "Togli la spunta",
+  "r-of-checklist": "della checklist",
+  "r-send-email": "Invia un'e-mail",
+  "r-rule-details": "Dettagli della regola",
+  "r-d-add-label": "Aggiungi etichetta",
+  "r-d-remove-label": "Rimuovi etichetta",
+  "r-create-card": "Crea una nuova scheda",
+  "r-in-swimlane": "nella swimlane",
+  "r-d-add-member": "Aggiungi membro",
+  "r-d-remove-member": "Rimuovi membro",
+  "r-d-remove-all-member": "Rimuovi tutti i membri",
+  "r-d-check-one": "Seleziona elemento",
+  "r-d-uncheck-one": "Deseleziona elemento",
+  "r-d-check-of-list": "della checklist"
+};
+for (const [key, italian] of Object.entries(repairedItalianRuleControls)) {
+  assert.notEqual(aromanian[key], italian, `${key}: Italian seed must not return`);
+  assert.notEqual(aromanian[key], english[key], `${key}: English is not a correction`);
+}
+assert.notEqual(aromanian['r-top-of'], aromanian['r-bottom-of']);
+assert.notEqual(aromanian['r-check-all'], aromanian['r-uncheck-all']);
+assert.notEqual(aromanian['r-d-check-one'], aromanian['r-d-uncheck-one']);
+assert.equal(aromanian['r-of-checklist'], aromanian['r-d-check-of-list']);
+assert.match(aromanian['r-made-incomplete'], /Fãcut nibitisit/);
