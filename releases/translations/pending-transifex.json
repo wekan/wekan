@@ -815,6 +815,22 @@
     {
       "key": "r-moved-back",
       "since": "2026-10-08"
+    },
+    {
+      "key": "sync-planning-sprint",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "sync-planning-releases",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "sync-planning-fields",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "sync-planning-hint",
+      "since": "2026-10-08"
     }
   ]
 }

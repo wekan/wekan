@@ -47,6 +47,9 @@ function syncTextSelector(card, boardId, listId) {
   const selector = { _id: card._id, boardId, listId };
   const fields = ['title', 'description', 'spentTime', 'archived', 'syncExternalId', 'syncSourceType', 'syncSourceKey', 'syncLastSource'];
   if (['estimate', 'originalEstimate', 'remainingEstimate'].some(field => Object.hasOwn(card, field))) fields.push('customFields');
+  // A run that maps planning compares the card's Scrum planning and its
+  // revision too, so a concurrent Scrum edit is a retry, not a lost edit.
+  if (Object.hasOwn(card, 'scrum')) fields.push('scrum', 'scrumRevision');
   Object.assign(selector, exactFieldSelector(card, fields));
   return selector;
 }

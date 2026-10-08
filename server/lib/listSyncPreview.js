@@ -54,8 +54,9 @@ function describeSyncPreview({ plan, cards, coverage, blocked }) {
     title: (task.title || 'Imported item').slice(0, 500), fields: SYNC_FIELDS.filter(field => task[field] !== undefined) });
   for (const update of plan.toUpdate) {
     const card = byId.get(update.cardId);
+    // A planning change is one item, `scrum`; its revision is bookkeeping.
     append({ action: 'update', externalId: String(card.syncExternalId), title: (card.title || '').slice(0, 500),
-      fields: Object.keys(update.changes) });
+      fields: Object.keys(update.changes).filter(field => field !== 'scrumRevision') });
   }
   for (const cardId of plan.toArchive) {
     const card = byId.get(cardId);

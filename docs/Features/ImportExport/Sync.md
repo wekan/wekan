@@ -430,8 +430,8 @@ configurations. The shared Jira parser converts numeric seconds using the same
 conversion as import. Zero is a real value; an absent total never clears local
 time. The source baseline and conditional update include spent hours, so timer
 or manual time edits participate in conflict detection. This syncs the aggregate
-total, not individual worklogs. Scrum planning records remain pending Sync
-mappings.
+total, not individual worklogs. Sprints and releases sync through their own
+opt-in switches; see "Sprints and releases (Scrum planning)" below.
 
 Jira also offers **Original time estimate (hours)** and **Remaining time estimate
 (hours)**. Each is opt-in and uses the numeric field created by Jira import,
@@ -498,6 +498,100 @@ separate operations; these checks do not provide cross-document atomicity.
 Configuration methods: `setListSyncSource`, `hasListSyncCredential`,
 `syncListNow`, `previewListSync` (`server/methods/listSync.js`), all requiring board write
 access.
+
+### Sprints and releases (Scrum planning)
+
+The Sync settings offer **Sprint (Scrum planning)** and **Releases (Scrum
+planning)** as opt-in switches, off for existing configurations, and only for
+the sources whose issues carry them. A switch a source cannot carry is refused
+when the settings are saved. The mapping is applied only while Scrum is enabled
+on the list's board; otherwise, and while a Scrum import, Scrum History restore
+or sprint rollover is unfinished, the run syncs everything else, leaves planning
+alone and reports `planningSkipped` with the reason.
+
+| Source | Card sprint | Card releases |
+| --- | --- | --- |
+| Jira | the Sprint custom field: its active sprint, otherwise the last future one listed | every entry of `fixVersions`, in Jira's order |
+| GitLab | `iteration` (Premium) | `milestone` |
+| GitHub, Gitea, Forgejo | none (their issues have no sprint) | `milestone` |
+
+Jira's Sprint field id differs per site, so Sync finds it the way the Jira
+import does: by its schema (`com.pyxis.greenhopper.jira:gh-sprint`) in Jira's own
+field list (`GET /rest/api/2/field`). Exactly one field must say it is the Sprint.
+Jira Cloud search then requests that field and `fixVersions` explicitly; Jira
+Server already returns every navigable field. Both the legacy string form and
+the object form of a sprint are read (`models/lib/jiraScrumPlanning.js`).
+
+What a source value means:
+
+- **absent, or malformed** (an attribute the payload does not carry, a sprint
+  value in an unknown form, a fix version without an id or name): the card's
+  planning is left as it is. A source never clears planning by omission.
+- **only finished**: a Jira issue whose only sprints are closed, or a GitLab
+  issue in a closed iteration (`state` 3), names no sprint the card can be in;
+  the card keeps its sprint. A finished WeKan sprint is never given new work.
+- **null or empty** (`iteration: null`, `milestone: null`, an empty Sprint
+  field, `fixVersions: []`): the source says the issue has no sprint or release.
+- **a sprint or releases**: the card is put in them.
+
+Each source sprint or release is found on the list's board by its source id
+first (the record's `provenance` - the source system, the server URL and the
+id, as the Jira import also records it), then by name (case and surrounding
+spaces ignored), skipping a record another source id of the same server already
+claims and, for a sprint, one that is closed or cancelled. Records of any other
+board are never read or used. A record that is not found is created on the
+board with the source's name, goal or description and dates (a GitLab
+iteration without a title is named by its dates), as a planned sprint, or as a
+planned or released release (Jira's `released`, a closed milestone). A date that
+is not a real calendar date is dropped; the record is still created. A sprint is
+always created planned: an active Jira sprint or current GitLab iteration has no
+commitment snapshot in issue JSON, as the Jira import also reports. A created
+record has an id derived from the board and its source, so a retried or replayed
+run finds it instead of making another; it is recorded in Scrum History like a
+sprint or release made by hand. Existing records are not renamed or redated
+by Sync. Only records a planned card change names are created, and a preview
+creates nothing.
+
+The card's planning is compared with the planning Sync last applied, stored in
+the card's source baseline (`syncLastSource.sprint`, an empty string for no
+sprint, and
+`syncLastSource.releases`, both in this board's record ids):
+
+- when the source's planning for the issue changed since that baseline, or there
+  is no baseline yet, the source's value is applied - except that a clear is
+  applied only against a baseline, so a first Sync never removes a card's
+  existing planning;
+- when the source's planning did not change, the card keeps what it has: a local
+  sprint or release change stays until the source changes that issue's planning.
+
+Releases merge as sets: releases the source removed since the baseline leave the
+card, releases it added join it, and a release only WeKan gave the card stays.
+Moving a card out of a sprint adds that sprint to the card's past sprints, as a
+manual move does, and every planning change moves the card's Scrum revision on
+by one, so an open Scrum editor sees the change. Running Sync again with the
+same source changes nothing. Planning never produces a field conflict review.
+
+The writes take the same paths as every other Sync field. On the direct path the
+card's planning and revision are part of the conditional update's comparison, so
+a Scrum edit made meanwhile stops the update with "Sync card changed while
+applying updates" instead of being overwritten; the change is then recorded as
+the same Scrum History row a manual planning change records. On the durable path
+(Sync effects enabled) each card step carries the card's planning and revision
+in its before and after snapshots (`server/lib/listSyncSteps.js`); the journal
+accepts a planning change only when nothing but the sprint, past sprints and
+releases changed, the revision moved on by exactly one, and the step's baseline
+records the planning mapping (`server/lib/syncOperationJournal.js`). Its History
+plan records the Scrum row, so undo and redo restore the card's planning through
+Scrum History, and a replay after a restart applies the same step once
+(`tests/listSyncPlanning.test.cjs`). A record created before a step that names
+it was later deleted is not re-checked when that step replays.
+
+The source-coverage report shows the mapped attributes as converted to `sprint`
+or `releases` when selected; unselected, the GitLab and GitHub milestone and the
+GitLab iteration are still reported as the tags the one-time import makes, and
+Jira's `fixVersions` as unmapped. Sprint goals and release notes are written
+only when a record is created; Jira's epic links, rank and closed-sprint history
+are not synced.
 
 ## Implemented formats and completeness work
 

@@ -3,6 +3,7 @@ const { randomUUID, createHash } = require('node:crypto');
 const { EJSON, calculateObjectSize } = require('bson');
 const { normalizeJiraEstimateMapping } = require('../../models/lib/jiraEstimateMapping');
 const { GITLAB_ESTIMATES } = require('../../models/lib/listSyncEstimate');
+const { validStepScrum, validPlanningBaseline, validatePlanningChange } = require('../../models/lib/listSyncPlanning');
 
 const MAX_STEPS = 10000;
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
@@ -76,8 +77,11 @@ function validateStep(step) {
   // Snapshots contain Sync-owned fields plus the complete custom-field array
   // needed for an exact conditional write. Only explicitly mapped entries may change.
   // Credentials, source documents and arbitrary application records stay out.
+  // `scrum` and `scrumRevision` only with a planning mapping
+  // (models/lib/listSyncPlanning.js validatePlanningChange).
   const allowed = new Set(['_id','boardId','listId','swimlaneId','title','description','spentTime','archived',
-    'archivedAt','dateLastActivity','sort','customFields','syncExternalId','syncSourceType','syncSourceKey','syncLastSource']);
+    'archivedAt','dateLastActivity','sort','customFields','syncExternalId','syncSourceType','syncSourceKey','syncLastSource',
+    'scrum','scrumRevision']);
   for (const snapshot of [step.before, step.after]) {
     if (!snapshot) continue;
     if (snapshot._id !== step.cardId || !['boardId','listId'].every(key => typeof snapshot[key] === 'string' && snapshot[key])) fail('invalid-sync-operation-card');
@@ -93,12 +97,16 @@ function validateStep(step) {
       if (snapshot[key] !== undefined && snapshot[key] !== null && (!(snapshot[key] instanceof Date) || !Number.isFinite(snapshot[key].getTime()))) fail('invalid-sync-operation-date');
     }
     if (Object.hasOwn(snapshot, 'customFields')) validateCustomFields(snapshot.customFields);
-    if (snapshot.syncLastSource !== undefined && snapshot.syncLastSource !== null && (!plain(snapshot.syncLastSource) || Object.keys(snapshot.syncLastSource).some(key => !['title','description','spentTime', ...estimateFields, ...estimateFields.map(field => `${field}Mapping`)].includes(key)))) fail('invalid-sync-operation-baseline');
+    if (Object.hasOwn(snapshot, 'scrum') && !validStepScrum(snapshot.scrum)) fail('invalid-sync-operation-planning');
+    if (Object.hasOwn(snapshot, 'scrumRevision') && (!Number.isSafeInteger(snapshot.scrumRevision) || snapshot.scrumRevision < 0)) fail('invalid-sync-operation-planning');
+    if (snapshot.syncLastSource !== undefined && snapshot.syncLastSource !== null && (!plain(snapshot.syncLastSource) || Object.keys(snapshot.syncLastSource).some(key => !['title','description','spentTime','sprint','releases', ...estimateFields, ...estimateFields.map(field => `${field}Mapping`)].includes(key)))) fail('invalid-sync-operation-baseline');
   }
   for (const snapshot of [step.before, step.after]) {
     const ids = new Set();
     for (const [key, value] of Object.entries(snapshot?.syncLastSource || {})) {
-      if (estimateFields.some(field => key === `${field}Mapping`)) {
+      if (key === 'sprint' || key === 'releases') {
+        if (!validPlanningBaseline(key, value)) fail('invalid-sync-operation-baseline-value');
+      } else if (estimateFields.some(field => key === `${field}Mapping`)) {
         const id = estimateIdentity(value, key.slice(0, -'Mapping'.length));
         if (ids.has(id)) fail('invalid-sync-operation-estimate-mapping');
         ids.add(id);
@@ -109,6 +117,7 @@ function validateStep(step) {
     }
   }
   validateEstimateChange(step);
+  validatePlanningChange(step, fail);
   if (step.kind === 'archive' && step.after.archived !== true) fail('invalid-sync-operation-archive');
   if (Buffer.byteLength(EJSON.stringify(step, { relaxed: false })) > 1024 * 1024) fail('sync-operation-step-too-large');
   return step;

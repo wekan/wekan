@@ -356,7 +356,8 @@ Lists.attachSchema(
     'syncSource.fields': { type: Array, optional: true },
     'syncSource.createCards': { type: Boolean, optional: true },
     'syncSource.archiveCards': { type: Boolean, optional: true },
-    'syncSource.fields.$': { type: String, allowedValues: ['title', 'description', 'spentTime', 'estimate', 'originalEstimate', 'remainingEstimate'] },
+    // `sprint` and `releases`: the card's Scrum planning (models/lib/listSyncPlanning.js).
+    'syncSource.fields.$': { type: String, allowedValues: ['title', 'description', 'spentTime', 'estimate', 'originalEstimate', 'remainingEstimate', 'sprint', 'releases'] },
     'syncSource.enabled': {
       type: Boolean,
       optional: true,

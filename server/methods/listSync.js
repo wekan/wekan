@@ -13,6 +13,7 @@ import Lists from '/models/lists';
 import Cards from '/models/cards';
 import CustomFields from '/models/customFields';
 const { syncEstimateMapping } = require('/models/lib/listSyncEstimate');
+const { syncPlanningFields } = require('/models/lib/listSyncPlanning');
 const { TIME_FIELDS, syncTimeMappings, timeMappingIdentities } = require('/models/lib/listSyncTimeEstimates');
 import ListSyncCredentials from '/models/listSyncCredentials';
 import ListSyncRunReports from '/server/lib/listSyncRunReports';
@@ -59,7 +60,9 @@ Meteor.methods({
       archiveCards: Match.Optional(Boolean),
       estimateCustomFieldId: Match.Optional(String),
       estimateSourceField: Match.Optional(Match.OneOf('weight', 'time_estimate')),
-      fields: Match.Optional([Match.OneOf('title', 'description', 'spentTime', 'estimate', 'originalEstimate', 'remainingEstimate')]),
+      // `sprint` and `releases`: Scrum planning (models/lib/listSyncPlanning.js).
+      fields: Match.Optional([Match.OneOf('title', 'description', 'spentTime', 'estimate', 'originalEstimate', 'remainingEstimate',
+        'sprint', 'releases')]),
       token: Match.Optional(Match.OneOf(String, null)),
       username: Match.Optional(String),
     }));
@@ -91,6 +94,8 @@ Meteor.methods({
       let estimateMapping;
       let timeMappings = {};
       try {
+        // A planning field the source cannot carry is refused, not ignored.
+        if (source) syncPlanningFields(config);
         estimateMapping = source && syncEstimateMapping(config,
           config.estimateCustomFieldId && await CustomFields.findOneAsync({
             _id: config.estimateCustomFieldId, boardIds: list.boardId }));

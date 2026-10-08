@@ -41,7 +41,10 @@ import ListSyncTargets from '/server/lib/listSyncTargets';
 import ListSyncRunReports from '/server/lib/listSyncRunReports';
 const { withSyncRunReport } = require('/server/lib/syncRunReport');
 const { planSyncTextMerge, syncTextSelector, selectSyncTextFields } = require('/models/lib/listSyncTextMerge');
-const { syncSourceKey } = require('/models/lib/listSyncSourceIdentity');
+const { syncSourceKey, normalizeSyncSource } = require('/models/lib/listSyncSourceIdentity');
+const { syncPlanningFields, sourcePlanning, resolvePlanningRecords, planningRecords, localPlanning,
+  planCardPlanning } = require('/models/lib/listSyncPlanning');
+import { planningUnavailable, readBoardPlanningRecords, createPlanningRecords, recordPlanningHistory } from '/server/lib/listSyncPlanning';
 const { readSyncCredential, sweepSyncCredentials } = require('/server/lib/listSyncConfiguration');
 const { describeSyncConflict, planSyncConflictResolution } = require('/server/lib/listSyncConflict');
 const { readSyncTarget, replaceSyncTarget, describeCreationConflict } = require('/server/lib/listSyncTarget');
@@ -79,7 +82,7 @@ export async function syncOneList(list, options = {}) {
       }, { $set: { 'syncSource.lastSyncError': error.message } });
       return { error: error.message };
     }
-    if (error.code === 'sync-estimate-invalid') return { error: error.message };
+    if (error.code === 'sync-estimate-invalid' || error.code === 'sync-planning-invalid') return { error: error.message };
     if (error.error === 'sync-busy' || error.error === 'sync-lease-lost') {
       return { error: error.reason };
     }
@@ -112,6 +115,9 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
   const credential = await readSyncCredential(ListSyncCredentials, list);
 
   let parsed, sourceKey, sourceCoverage, estimateMapping;
+  // Planning (models/lib/listSyncPlanning.js): the selected fields, and the
+  // issues' sprints and releases when the board can take them this run.
+  let planningFields = [], planningByIssue = new Map(), planningSkipped = null;
   let timeMappings = {};
   const readTimeMappings = async () => syncTimeMappings(source,
     source.fields?.some(field => Object.hasOwn(TIME_FIELDS, field))
@@ -136,6 +142,13 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
     }
     const raw = await fetcher(estimateMapping ? { ...source, estimateFieldId: estimateMapping.estimateFieldId } : source, credential);
     validateImportSourceShape(source.type, raw);
+    planningFields = syncPlanningFields(source);
+    if (planningFields.length) {
+      planningSkipped = await planningUnavailable(await Boards.findOneAsync(list.boardId));
+      if (!planningSkipped) planningByIssue = sourcePlanning(source.type, raw, planningFields);
+    }
+    const planningActive = planningFields.length > 0 && !planningSkipped;
+    if (!planningActive) planningFields = [];
     parsed = parser(raw);
     parsed.tasks = addSyncTimeEstimates(addSyncEstimates(parsed.tasks, raw, estimateMapping), raw, timeMappings);
     validateListSyncTasks(parsed?.tasks);
@@ -214,6 +227,8 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
     customFields: c.customFields,
     ...cardSyncTimes(c, timeMappings),
     ...(estimateMapping ? { estimate: cardSyncEstimate(c, estimateMapping) } : {}),
+    // Compared and written only when the run maps planning.
+    ...(planningFields.length ? { scrum: c.scrum, scrumRevision: c.scrumRevision } : {}),
     archived: c.archived,
   }));
 
@@ -244,6 +259,44 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
   }
   const conflicts = merge.conflicts.length ? merge.conflicts : archiveConflicts.length ? archiveConflicts : creationConflicts;
   prepareSyncWrites(plan, merge.baselines);
+  // Planning: each issue's sprint and releases in this board's records, the
+  // missing records planned with ids derived from their source, and each
+  // card's planning merged against its baseline. Only the records a planned
+  // card change names are made, and only when the run writes.
+  const creationPlanning = new Map();
+  let planningCreate = [];
+  if (plan && !conflicts.length && planningFields.length) {
+    const { resolved, create } = resolvePlanningRecords({ boardId: list.boardId, system: source.type,
+      origin: normalizeSyncSource(source).url, records: planningRecords(planningByIssue),
+      existing: await readBoardPlanningRecords(list.boardId) });
+    const named = new Set();
+    const nameRecords = scrum => {
+      if (scrum.sprintId) named.add(scrum.sprintId);
+      for (const id of scrum.releaseIds || []) named.add(id);
+    };
+    const updates = new Map(plan.toUpdate.map(row => [row.cardId, row]));
+    for (const card of existingCards) {
+      const planning = planningByIssue.get(String(card.syncExternalId));
+      if (!planning || card.archived || plan.toArchive.includes(card._id)) continue;
+      const { changes, baseline } = planCardPlanning({ card, incoming: localPlanning(planning, resolved), fields: planningFields });
+      let row = updates.get(card._id);
+      const lastSource = row?.changes.syncLastSource || card.syncLastSource || {};
+      const nextSource = { ...lastSource, ...baseline };
+      const sourceChanged = JSON.stringify(nextSource) !== JSON.stringify(card.syncLastSource || {});
+      if (!changes && !sourceChanged) continue;
+      if (!row) { row = { cardId: card._id, changes: {} }; plan.toUpdate.push(row); updates.set(card._id, row); }
+      if (changes) { Object.assign(row.changes, changes); nameRecords(changes.scrum); }
+      if (sourceChanged) row.changes.syncLastSource = nextSource;
+    }
+    for (const task of plan.toCreate) {
+      const planning = planningByIssue.get(String(task.externalId));
+      if (!planning) continue;
+      const result = planCardPlanning({ incoming: localPlanning(planning, resolved), fields: planningFields });
+      if (result.changes) nameRecords(result.changes.scrum);
+      creationPlanning.set(String(task.externalId), result);
+    }
+    planningCreate = create.filter(row => named.has(row.document._id));
+  }
   if (dryRun) {
     await assertCurrent();
     if (assertConflictAccess && await assertConflictAccess()) return { error: 'Your card access changed. Run preview again.' };
@@ -308,6 +361,19 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
 
   const board = await Boards.findOneAsync(list.boardId);
   const now = new Date();
+  const runActor = currentSyncActor();
+  if (planningCreate.length) {
+    // The board must still take planning when its records are made; the card
+    // writes below compare each card's planning themselves.
+    if (await planningUnavailable(board)) {
+      const error = 'Scrum planning changed while syncing; retry sync.';
+      await assertCurrent();
+      await Lists.updateAsync(listSelector, { $set: { 'syncSource.lastSyncError': error } });
+      return { error };
+    }
+    await assertCurrent();
+    await createPlanningRecords({ boardId: list.boardId, create: planningCreate, actorId: runActor, now, assertCurrent });
+  }
   // Only when something is created: finding the default swimlane may create one.
   const swimlaneId = plan.toCreate.length ? list.swimlaneId || (board && (await board.getDefaultSwimlineAsync())._id) || '' : '';
   const creationDocument = (task, cardId) => ({
@@ -330,7 +396,10 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
       ...(task.description !== undefined ? { description: task.description } : {}),
       ...(task.spentTime !== undefined ? { spentTime: task.spentTime } : {}),
       ...(task.estimate !== undefined ? { estimate: task.estimate, estimateMapping: estimateMapping.identity } : {}),
+      ...(creationPlanning.get(String(task.externalId))?.baseline || {}),
     },
+    // The issue's sprint and releases, as a new card's first planning.
+    ...(creationPlanning.get(String(task.externalId))?.changes || {}),
   });
 
   // Durable path (maintainer decision of 2026-09-30): through the write-ahead
@@ -338,7 +407,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
   // when the board enabled Sync effects and every rule action has a durable
   // adapter (server/lib/listSyncSteps.js). Otherwise the direct writes below.
   const trigger = scheduled ? 'scheduled' : 'manual';
-  const actorId = currentSyncActor();
+  const actorId = runActor;
   const decision = await durableSyncDecision({ list, board, trigger, actorId });
   if (decision.eligible) {
     const creations = plan.toCreate.map(task => {
@@ -370,7 +439,8 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
     await Lists.updateAsync(listSelector, {
       $set: { 'syncSource.lastSyncedAt': now, 'syncSource.lastSyncError': '' },
     });
-    return { created: plan.toCreate.length, updated: plan.toUpdate.length, archived: plan.toArchive.length, durable: true };
+    return { created: plan.toCreate.length, updated: plan.toUpdate.length, archived: plan.toArchive.length, durable: true,
+      ...(planningSkipped ? { planningSkipped } : {}) };
   }
 
   for (const task of plan.toCreate) {
@@ -410,6 +480,12 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
         await Lists.updateAsync(listSelector, { $set: { 'syncSource.lastSyncError': error } });
         return { error };
       }
+      // A planning change is Scrum History's, as a manual one is.
+      if (Object.hasOwn(cardChanges, 'scrum')) {
+        const placed = await Cards.findOneAsync(update.cardId, { fields: { swimlaneId: 1 } });
+        await recordPlanningHistory({ card: { ...previous, boardId: list.boardId, listId: list._id,
+          swimlaneId: placed?.swimlaneId }, scrum: cardChanges.scrum, actorId: runActor });
+      }
     }
 
   }
@@ -437,6 +513,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
     created: plan.toCreate.length,
     updated: plan.toUpdate.length,
     archived: plan.toArchive.length,
+    ...(planningSkipped ? { planningSkipped } : {}),
   };
 }
 

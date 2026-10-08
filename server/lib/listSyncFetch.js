@@ -15,6 +15,10 @@
 // preview and stored in syncSource.lastSyncError for the board to read.
 import { fetchSafe } from '/server/lib/ssrfGuard';
 import { validateAttachmentUrl } from '/models/lib/attachmentUrlValidation';
+// Jira's Sprint field schema, as models/lib/jiraScrumPlanning.js
+// JIRA_PLANNING_SCHEMA.sprint names it (tests/listSyncPlanning.test.cjs keeps
+// the two the same).
+const JIRA_SPRINT_SCHEMA = 'com.pyxis.greenhopper.jira:gh-sprint';
 
 const FETCH_TIMEOUT_MS = 20000;
 const MAX_RESPONSE_BYTES = 32 * 1024 * 1024;
@@ -147,7 +151,23 @@ async function fetchArrayPages(initial, headers) {
 // Basic-auth'd (Jira Cloud: account email + API token). `list.syncSource.url`
 // is the Jira base URL (e.g. https://org.atlassian.net),
 // `list.syncSource.projectKey` the project key.
-async function fetchJiraCloudIssues(base, jql, headers, estimateFieldId) {
+// Planning Sync (models/lib/listSyncPlanning.js): Jira's Sprint field is a
+// custom field whose id differs per site, so it is found the way the Jira
+// import finds it - by its schema - in Jira's own field list. Its id must be
+// a custom field's, and exactly one field may say it is the Sprint.
+async function fetchJiraSprintField(base, headers) {
+  const { body } = await fetchJson(`${base}/rest/api/2/field`, headers);
+  if (!Array.isArray(body)) throw new Error('Invalid Jira field list');
+  const ids = body.filter(field => field && field.schema && field.schema.custom === JIRA_SPRINT_SCHEMA)
+    .map(field => field.id);
+  if (ids.length !== 1 || !/^customfield_\d{1,20}$/.test(ids[0])) throw new Error('Jira has no single Sprint field to sync.');
+  return ids[0];
+}
+// The Sprint field's id in the form Jira's own `expand=schema` gives it, which
+// the planning reader (models/lib/jiraScrumPlanning.js jiraPlanningFields) reads.
+const sprintSchema = id => ({ [id]: { type: 'array', items: 'json', custom: JIRA_SPRINT_SCHEMA } });
+
+async function fetchJiraCloudIssues(base, jql, headers, estimateFieldId, planning = {}) {
   const issues = [], tokens = new Set();
   const url = new URL(`${base}/rest/api/3/search/jql`);
   url.searchParams.set('jql', jql);
@@ -159,13 +179,15 @@ async function fetchJiraCloudIssues(base, jql, headers, estimateFieldId) {
     if (!/^customfield_\d{1,20}$/.test(estimateFieldId)) throw new Error('Invalid Jira estimate field');
     fields.push(estimateFieldId);
   }
+  if (planning.sprintField) fields.push(planning.sprintField);
+  if (planning.releases) fields.push('fixVersions');
   url.searchParams.set('fields', fields.join(','));
   for (let page = 0; page < MAX_SYNC_PAGES; page += 1) {
     const { body } = await fetchJson(url.href, headers);
     if (!body || !Array.isArray(body.issues) || typeof body.isLast !== 'boolean') throw new Error('Invalid Jira Cloud pagination');
     issues.push(...body.issues);
     if (issues.length > MAX_SYNC_ITEMS) throw new Error('Sync item limit exceeded');
-    if (body.isLast) return { issues };
+    if (body.isLast) return planning.sprintField ? { issues, schema: sprintSchema(planning.sprintField) } : { issues };
     const token = body.nextPageToken;
     if (typeof token !== 'string' || !token || token.length > 10000 || tokens.has(token)) throw new Error('Incomplete or repeating Jira Cloud pagination');
     tokens.add(token);
@@ -180,12 +202,16 @@ export async function fetchJiraIssues(syncSource, credential) {
   const jql = encodeURIComponent(query);
   const url = `${base}/rest/api/2/search?jql=${jql}&maxResults=200`;
   const auth = Buffer.from(`${credential.username || ''}:${credential.token}`).toString('base64');
+  const headers = { Authorization: `Basic ${auth}`, Accept: 'application/json' };
+  const fields = Array.isArray(syncSource.fields) ? syncSource.fields : [];
+  const planning = { releases: fields.includes('releases'),
+    sprintField: fields.includes('sprint') ? await fetchJiraSprintField(base, headers) : null };
   if (new URL(base).hostname.endsWith('.atlassian.net')) {
-    return fetchJiraCloudIssues(base, query, { Authorization: `Basic ${auth}`, Accept: 'application/json' }, syncSource.estimateFieldId);
+    return fetchJiraCloudIssues(base, query, headers, syncSource.estimateFieldId, planning);
   }
   const issues = []; let total;
   for (let page = 0; page < MAX_SYNC_PAGES; page += 1) {
-    const { body } = await fetchJson(`${url}&startAt=${issues.length}`, { Authorization: `Basic ${auth}`, Accept: 'application/json' });
+    const { body } = await fetchJson(`${url}&startAt=${issues.length}`, headers);
     if (!body || !Array.isArray(body.issues) || !Number.isSafeInteger(body.total) || body.total < 0 || body.startAt !== issues.length) throw new Error('Invalid Jira pagination');
     if (total !== undefined && total !== body.total) throw new Error('Jira results changed during pagination; retry sync');
     total = body.total;
@@ -193,7 +219,11 @@ export async function fetchJiraIssues(syncSource, credential) {
     if (!body.issues.length && issues.length < total) throw new Error('Incomplete Jira pagination');
     issues.push(...body.issues);
     if (issues.length > total) throw new Error('Invalid Jira result count');
-    if (issues.length === total) return { ...body, startAt: 0, issues };
+    // Jira Server/Data Center returns every navigable field, the Sprint field
+    // and fixVersions included; the field list names which one is the Sprint.
+    if (issues.length === total) {
+      return { ...body, startAt: 0, issues, ...(planning.sprintField ? { schema: sprintSchema(planning.sprintField) } : {}) };
+    }
   }
   throw new Error('Sync pagination did not finish');
 }

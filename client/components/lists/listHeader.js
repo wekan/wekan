@@ -878,7 +878,16 @@ Template.setListColorPopup.events({
 // fields and calls the configuration, Sync and conflict-resolution methods in
 // server/methods/listSync.js. Authority and fresh comparison checks stay there.
 const syncFieldLabel = field => ({ spentTime: 'spent-time-hours', estimate: 'scrum-estimate',
-  originalEstimate: 'sync-original-time', remainingEstimate: 'sync-remaining-time' })[field] || field;
+  originalEstimate: 'sync-original-time', remainingEstimate: 'sync-remaining-time',
+  // Scrum planning (models/lib/listSyncPlanning.js); `scrum` is how a preview
+  // names a card whose planning changes.
+  sprint: 'sync-planning-sprint', releases: 'sync-planning-releases', scrum: 'sync-planning-fields' })[field] || field;
+// The fields each source can sync: planning only where its issues carry it
+// (models/lib/listSyncPlanning.js SOURCE_PLANNING).
+const syncFieldChoices = type => (type === 'jira'
+  ? ['title', 'description', 'spentTime', 'estimate', 'originalEstimate', 'remainingEstimate', 'sprint', 'releases']
+  : type === 'gitlab' ? ['title', 'description', 'estimate', 'sprint', 'releases']
+    : type ? ['title', 'description', 'releases'] : ['title', 'description']);
 
 Template.listSyncPopup.onCreated(function () {
   const tpl = this;
@@ -996,11 +1005,12 @@ Template.listSyncPopup.helpers({
   syncTimeEnabled() {
     return Template.instance().selectedSyncFields.get().some(field => ['originalEstimate', 'remainingEstimate'].includes(field));
   },
+  syncPlanningEnabled() {
+    return Template.instance().selectedSyncFields.get().some(field => ['sprint', 'releases'].includes(field));
+  },
   syncTextFields() {
     const fields = Template.instance().selectedSyncFields.get();
-    const type = Template.instance().selectedSyncType.get();
-    const choices = type === 'jira' ? ['title', 'description', 'spentTime', 'estimate', 'originalEstimate', 'remainingEstimate']
-      : type === 'gitlab' ? ['title', 'description', 'estimate'] : ['title', 'description'];
+    const choices = syncFieldChoices(Template.instance().selectedSyncType.get());
     return choices.map(field => ({ field, label: syncFieldLabel(field), checked: fields.includes(field) }));
   },
   listSyncSourceTypes() {
@@ -1148,9 +1158,8 @@ Template.listSyncPopup.events({
   'change .js-list-sync-type'(event, tpl) {
     tpl.clearSyncPreview();
     tpl.selectedSyncType.set(event.currentTarget.value);
-    const kept = event.currentTarget.value === 'jira' ? null
-      : event.currentTarget.value === 'gitlab' ? ['title', 'description', 'estimate'] : ['title', 'description'];
-    if (kept) tpl.selectedSyncFields.set(tpl.selectedSyncFields.get().filter(field => kept.includes(field)));
+    const kept = syncFieldChoices(event.currentTarget.value);
+    tpl.selectedSyncFields.set(tpl.selectedSyncFields.get().filter(field => kept.includes(field)));
   },
   'click a.js-toggle-list-sync-enabled'(event, tpl) {
     tpl.clearSyncPreview();

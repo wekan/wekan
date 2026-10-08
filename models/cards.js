@@ -361,6 +361,11 @@ Cards.attachSchema(
     'syncLastSource.remainingEstimateMapping': { type: String, optional: true },
     'syncLastSource.estimateMapping': { type: String, optional: true },
     'syncLastSource.spentTime': { type: Number, optional: true, min: 0 },
+    // The planning Sync last applied (models/lib/listSyncPlanning.js), in this
+    // board's record ids; '' is "no sprint".
+    'syncLastSource.sprint': { type: String, optional: true },
+    'syncLastSource.releases': { type: Array, optional: true },
+    'syncLastSource.releases.$': { type: String },
     syncExternalId: {
       type: String,
       optional: true,

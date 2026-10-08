@@ -326,8 +326,8 @@ metadata, so undo and redo restore the list; its restore checks every release
 against the board, and undoing a release's creation is refused while any card
 still lists it. Rule e-mail card details name every release.
 
-**Not covered.** There are no Scrum release filters or search operators, and
-Sync does not map sprints or releases (see below), so neither needed a change.
+**Not covered.** There are no Scrum release filters or search operators.
+List Sync can put a card in several releases (Jira's fix versions; see below).
 The REST API returns the card's `scrum` object as stored, with both fields;
 Scrum metadata is written only through the `scrum.updateCard` method.
 
@@ -483,8 +483,28 @@ The existing Sync popup also selects title/description fields and card
 creation/source-absence archival; these settings retain board write
 authorization. Original/remaining time estimates now sync through the unique
 imported numeric time fields on the board, in hours, with mapping identity
-checks, local-edit review and zero/null/missing handling. Sprint/release and
-other providers' estimate Sync mappings remain pending.
+checks, local-edit review and zero/null/missing handling. GitLab's weight or
+time estimate syncs into a numeric field too.
+
+**Sprints and releases through List Sync** (2026-10-08). Two opt-in Sync
+switches put a synced card in its issue's sprint and releases while Scrum is
+enabled on the board:
+
+| Source | Sprint | Releases |
+| --- | --- | --- |
+| Jira | the Sprint field (found by its schema): the active sprint, else the last future one | `fixVersions` |
+| GitLab | `iteration` | `milestone` |
+| GitHub, Gitea, Forgejo | none | `milestone` |
+
+A missing sprint or release is created on the board, planned (a release may be
+released), with the source's dates; an existing one is found by its source id
+(`provenance`) first, then by name, and never on another board. Finished WeKan
+sprints receive no work. A local planning change stays until the source changes
+that issue's planning; a source omission never clears planning, an explicit
+null or empty value does, but only against the last Sync's baseline. Card
+changes run through Sync's conditional and durable writes, move the card's
+`scrumRevision` on and record the Scrum History row a manual change records, so
+undo works the same. Details: [Sync](../../../ImportExport/Sync.md#sprints-and-releases-scrum-planning).
 Card mappings and credentials now carry a
 provider/server/project identity, preserving old cards when switching sources.
 Legacy configurations require saving once to bind their existing mappings.

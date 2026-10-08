@@ -6,6 +6,7 @@ const { prepareSyncOperationMutation } = require('./syncOperationMutation');
 const { EJSON } = require('bson');
 const { syncOperationEffectId } = require('./syncOperationApply');
 const { exactFieldSelector } = require('../../models/lib/exactFieldSelector');
+const { historyDocument } = require('../../models/lib/scrumHistory');
 const copy = value => EJSON.parse(EJSON.stringify(value), { relaxed: true });
 const fail = () => { throw new Error('sync-history-plan-invalid'); };
 
@@ -63,6 +64,41 @@ const POSITION_KEYS = 'boardId,lastMoveReason,listId,sort,swimlaneId';
 const entityOf = fields => (fields === RULE_CHECKLIST_ITEM_FIELDS ? 'checklistItem'
   : fields === RULE_CHECKLIST_LIFECYCLE ? 'checklist'
     : [SYNC_FIELDS, RULE_CARD_FIELDS, RULE_CARD_POSITION_FIELDS, RULE_CARD_MOVE_BOARD_FIELDS].includes(fields) ? 'card' : fail());
+// A card's Scrum planning, which Sync's planning mapping changes
+// (models/lib/listSyncPlanning.js), is not a card field row: Scrum History
+// records it, as one `scrum` row holding the card's metadata before and after
+// (server/lib/scrumHistory.js recordBatch), and its undo and redo restore it
+// (applyScrumHistory). A Sync step records the same row, so it undoes the same way.
+const scrumRowId = effectId => `sync-history-${sha256(canonical([effectId, 'scrum']))}`;
+const scrumContent = (cardId, document) => ({ records: [{ type: 'card', id: cardId, document }] });
+function scrumHistoryRow({ before, after, effectId, userId, createdAt }) {
+  if (!before || canonical(before.scrum ?? {}) === canonical(after.scrum ?? {})) return null;
+  return { _id: scrumRowId(effectId), boardId: after.boardId, swimlaneId: after.swimlaneId ?? null, listId: after.listId,
+    cardId: after._id, entityType: 'scrum', entityId: after._id, group: 'scrum', changeType: 'edited',
+    previousContent: scrumContent(after._id, historyDocument('card', before)),
+    newContent: scrumContent(after._id, historyDocument('card', after)),
+    userId, batchId: `sync-${effectId}`, restoredFromId: null, restoredByUserId: null, createdAt: new Date(createdAt),
+    undone: false, undoneAt: null, superseded: false, isCheckpoint: false };
+}
+function validateScrumRow(plan, row, ids) {
+  const content = value => value && Object.keys(value).join(',') === 'records' && Array.isArray(value.records) &&
+    value.records.length === 1 && Object.keys(value.records[0]).sort().join(',') === 'document,id,type' &&
+    value.records[0].type === 'card' && value.records[0].id === row.cardId && value.records[0].document &&
+    Object.keys(value.records[0].document).sort().join(',') === '_id,boardId,scrum' &&
+    value.records[0].document._id === row.cardId && value.records[0].document.boardId === plan.boardId &&
+    !!value.records[0].document.scrum && typeof value.records[0].document.scrum === 'object' &&
+    !Array.isArray(value.records[0].document.scrum);
+  if (Object.keys(row).sort().join(',') !== ROW_KEYS || row.entityType !== 'scrum' || row.group !== 'scrum' ||
+      row.changeType !== 'edited' || row._id !== scrumRowId(plan.effectId) || ids.has(row._id) ||
+      row.boardId !== plan.boardId || row.userId !== plan.userId || row.batchId !== `sync-${plan.effectId}` ||
+      typeof row.cardId !== 'string' || !row.cardId || row.entityId !== row.cardId ||
+      typeof row.listId !== 'string' || !row.listId || !(row.createdAt instanceof Date) ||
+      !Number.isFinite(row.createdAt.getTime()) || row.restoredFromId !== null || row.restoredByUserId !== null ||
+      row.isCheckpoint !== false || row.undone !== false || row.undoneAt !== null || row.superseded !== false ||
+      !content(row.previousContent) || !content(row.newContent) ||
+      canonical(row.previousContent) === canonical(row.newContent)) fail();
+  ids.add(row._id);
+}
 const lifecycleRowId = (effectId, entityId) => `sync-history-${sha256(canonical([effectId, 'lifecycle', entityId]))}`;
 // The rows one checklist creation or removal records. `documents` are the
 // checklists as stored (the JSON round trip the hook makes), `where` the card's
@@ -119,6 +155,11 @@ function prepareCardFieldHistory({ before, after, effectId, userId, createdAt, r
       isCheckpoint: false };
     return row;
   });
+  // Sync's own fields: and the card's Scrum planning, as Scrum History records it.
+  if (allowed === SYNC_FIELDS) {
+    const row = scrumHistoryRow({ before, after, effectId, userId, createdAt });
+    if (row) rows.push(row);
+  }
   if (!Array.isArray(redoRows) || redoRows.length > 10000) fail();
   const redo = rows.length ? redoRows.map(redoTarget) : [];
   const plan = { effectId, boardId: after.boardId, userId, rows, redo };
@@ -197,6 +238,7 @@ function validatePlan(plan, allowed = SYNC_FIELDS) {
   for (const row of plan.rows) {
     if (allowed === RULE_CARD_POSITION_FIELDS) { validatePositionRow(plan, row, ids); continue; }
     if (allowed === RULE_CHECKLIST_LIFECYCLE) { validateLifecycleRow(plan, row, ids); continue; }
+    if (allowed === SYNC_FIELDS && row?.entityType === 'scrum') { validateScrumRow(plan, row, ids); continue; }
     const field = row.newContent?.field || row.previousContent?.field;
     const keys = '_id,batchId,boardId,cardId,changeType,createdAt,entityId,entityType,group,isCheckpoint,listId,newContent,previousContent,restoredByUserId,restoredFromId,superseded,swimlaneId,undone,undoneAt,userId';
     if (Object.keys(row).sort().join(',') !== keys || !allowed.includes(field) ||

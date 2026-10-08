@@ -102,11 +102,15 @@ async function durableRuleActionTypes({ boardId, readActions, readBoard, typeOf 
 // Sync-owned card fields a saved step carries: the ones the direct path's
 // conditional update compares, plus placement. SimpleSchema owns
 // dateLastActivity, so it is never part of a step.
+// The card's Scrum planning and its revision only when the run maps planning
+// (models/lib/listSyncPlanning.js): the fetched cards then carry them.
 const SNAPSHOT_FIELDS = ['_id', 'boardId', 'listId', 'swimlaneId', 'title', 'description', 'spentTime', 'archived',
-  'archivedAt', 'customFields', 'syncExternalId', 'syncSourceType', 'syncSourceKey', 'syncLastSource'];
+  'archivedAt', 'customFields', 'syncExternalId', 'syncSourceType', 'syncSourceKey', 'syncLastSource',
+  'scrum', 'scrumRevision'];
+const PLANNING_SNAPSHOT_FIELDS = ['scrum', 'scrumRevision'];
 // Fields the direct path compares against its fetched snapshot before writing.
 const COMPARED_FIELDS = ['title', 'description', 'spentTime', 'archived', 'syncExternalId', 'syncSourceType',
-  'syncSourceKey', 'syncLastSource'];
+  'syncSourceKey', 'syncLastSource', 'scrum', 'scrumRevision'];
 
 function durableSyncEligibility({ list, board, trigger, flags, ruleActionTypes, actorId }) {
   if (!['manual', 'scheduled'].includes(trigger)) return { eligible: false, reason: 'trigger' };
@@ -128,10 +132,11 @@ const same = (a, b) => JSON.stringify(a ?? null) === JSON.stringify(b ?? null);
 // allows a customFields snapshot only with its estimate mapping
 // (syncOperationJournal.js validateEstimateChange), and a card's other custom
 // fields are not Sync's to carry.
-function snapshot(card, withCustomFields) {
+function snapshot(card, withCustomFields, withPlanning) {
   const result = {};
   for (const field of SNAPSHOT_FIELDS) {
     if (field === 'customFields' && !withCustomFields) continue;
+    if (PLANNING_SNAPSHOT_FIELDS.includes(field) && !withPlanning) continue;
     if (card[field] !== undefined) result[field] = card[field];
   }
   return result;
@@ -152,7 +157,7 @@ function buildListSyncSteps({ creations, updates, archives, fetched, current, es
     // A local edit since the run fetched must stop it, as the direct path's
     // conditional update would.
     for (const field of COMPARED_FIELDS) if (Object.hasOwn(seen, field) && !same(stored[field], seen[field])) throw changed();
-    return snapshot(stored, withCustomFields);
+    return snapshot(stored, withCustomFields, Object.hasOwn(seen, 'scrum'));
   };
   const steps = [];
   for (const { cardId, document } of creations) {

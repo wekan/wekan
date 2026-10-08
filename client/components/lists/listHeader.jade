@@ -454,6 +454,8 @@ template(name="listSyncPopup")
             span {{_ label}}
       if syncTimeEnabled
         p.quiet {{_ 'sync-time-estimate-hint'}}
+      if syncPlanningEnabled
+        p.quiet.js-list-sync-planning-hint {{_ 'sync-planning-hint'}}
       each syncOperations
         p
           a.flex.js-toggle-sync-operation(data-operation=operation)

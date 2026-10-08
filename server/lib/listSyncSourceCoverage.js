@@ -2,13 +2,19 @@
 // Unknown objects are reported at their first unmapped path, without traversing
 // or copying their values. Known containers (for example Jira time tracking)
 // are inspected so unused siblings cannot hide beside one mapped field.
-const WRITABLE_FIELDS = new Set(['title', 'description', 'spentTime', 'estimate', 'originalEstimate', 'remainingEstimate']);
+// `sprint` and `releases`: Scrum planning (models/lib/listSyncPlanning.js).
+const WRITABLE_FIELDS = new Set(['title', 'description', 'spentTime', 'estimate', 'originalEstimate', 'remainingEstimate',
+  'sprint', 'releases']);
+const { jiraPlanningFields } = require('../../models/lib/jiraScrumPlanning');
 const mapped = (target, converted = false) => ({ target, converted });
 const unusedFallback = { reason: 'fallback' };
 const present = value => value !== undefined && value !== null && value !== '' &&
   (!Array.isArray(value) || value.length > 0);
 
-function issueRules(type, issue, estimateMapping, timeMappings) {
+// The planning attributes as Sync reads them once selected; otherwise what the
+// one-time import does with them (a tag), as before.
+function issueRules(type, issue, estimateMapping, timeMappings, selected = new Set(), sprintField = null) {
+  const planning = (field, otherwise) => (selected.has(field) ? mapped(field, true) : otherwise);
   if (type === 'jira') {
     const fields = issue.fields || {};
     const timeRules = {}, trackingRules = { timeSpentSeconds: mapped('spentTime', true) };
@@ -24,6 +30,8 @@ function issueRules(type, issue, estimateMapping, timeMappings) {
       assignee: mapped('owner_username'), reporter: mapped('requested_by'),
       timespent: fields.timetracking?.timeSpentSeconds == null ? mapped('spentTime', true) : unusedFallback,
       ...timeRules, timetracking: trackingRules,
+      ...(selected.has('releases') ? { fixVersions: mapped('releases', true) } : {}),
+      ...(sprintField && selected.has('sprint') ? { [sprintField]: mapped('sprint', true) } : {}),
     } };
   }
   if (type === 'gitlab') {
@@ -31,7 +39,8 @@ function issueRules(type, issue, estimateMapping, timeMappings) {
     // level) and is reported by the parser's own loss report too.
     return { iid: mapped('externalId'), id: issue.iid == null ? mapped('externalId') : unusedFallback,
       title: mapped('title'), description: mapped('description'), state: mapped('column_name'),
-      due_date: mapped('date_due'), milestone: mapped('tags'), iteration: mapped('tags'),
+      due_date: mapped('date_due'), milestone: planning('releases', mapped('tags')),
+      iteration: planning('sprint', mapped('tags')),
       issue_type: mapped('tags'), confidential: mapped('tags'),
       assignee: Array.isArray(issue.assignees) && issue.assignees.length ? unusedFallback : mapped('owner_username'),
       assignees: mapped('owner_username'), author: mapped('requested_by'), labels: mapped('tags'),
@@ -53,7 +62,7 @@ function issueRules(type, issue, estimateMapping, timeMappings) {
     state: mapped('column_name'), state_reason: mapped('tags'), labels: mapped('tags'),
     assignee: mapped('owner_username'), assignees: mapped('tags'),
     user: mapped('requested_by'), author: mapped('requested_by'),
-    milestone: mapped('tags'), due_date: mapped('date_due') };
+    milestone: planning('releases', mapped('tags')), due_date: mapped('date_due') };
 }
 
 function describeSyncSourceCoverage(type, raw, fields, estimateMapping = null, timeMappings = {}) {
@@ -99,6 +108,7 @@ function describeSyncSourceCoverage(type, raw, fields, estimateMapping = null, t
     }
   };
   const issues = Array.isArray(raw) ? raw : raw.issues;
+  const sprintField = type === 'jira' ? jiraPlanningFields(raw).sprint || null : null;
   const issuePath = Array.isArray(raw) ? '/*' : '/issues/*';
   for (const issue of issues) {
     if (['github', 'gitea', 'forgejo'].includes(type) && issue.pull_request) {
@@ -106,14 +116,16 @@ function describeSyncSourceCoverage(type, raw, fields, estimateMapping = null, t
       add(issuePath, 'excluded-item');
       continue;
     }
-    inspect(issue, issueRules(type, issue, estimateMapping, timeMappings), issuePath);
+    inspect(issue, issueRules(type, issue, estimateMapping, timeMappings, selected, sprintField), issuePath);
   }
   if (!Array.isArray(raw)) {
     // Pagination counters/tokens are transport state, not issue data. Other
     // envelope extensions remain visible in the report.
     const envelope = { issues: mapped('externalId'), startAt: mapped('externalId'),
       maxResults: mapped('externalId'), total: mapped('externalId'), isLast: mapped('externalId'),
-      nextPageToken: mapped('externalId'), board: { name: mapped('board.name') } };
+      nextPageToken: mapped('externalId'), board: { name: mapped('board.name') },
+      // Which field is the Sprint (server/lib/listSyncFetch.js), not issue data.
+      ...(sprintField ? { schema: mapped('externalId') } : {}) };
     inspect(raw, envelope, '');
   }
   return { rows: [...rows.values()].sort((a, b) => a.path.localeCompare(b.path) || a.reason.localeCompare(b.reason)),

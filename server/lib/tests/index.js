@@ -129,3 +129,4 @@ import './copySubtaskScope.tests';
 import './ruleTriggerScope.tests';
 import './scrumMovedReferences.tests';
 import './editableCardIds.tests';
+import './listSyncPlanning.tests';
