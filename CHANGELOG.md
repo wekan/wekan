@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3d7d096229">Correct Wu repair prompts and migration field names</a>. Thanks to xet7.</summary>
+
+Correct 28 Wu values, restoring exact field-name case and migration status meanings.
+Preserve recovery scope, cleanup order and the difficult-undo warning.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d80d26740e">Correct Wu storage and scheduled task meanings</a>. Thanks to xet7.</summary>
 
 Correct 32 Wu values, preserving storage examples and scheduled board-operation scope.
