@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Catalan and Valencian recovery results — 2026-10-09
+
+Translate 28 messages in ca, ca_ES and ca@valencia, replacing 84 English values:
+interrupted-import results and controls, Scrum history recovery and the
+server-only login settings notice. Preserve all counters, references and regional
+wording. Regression checks cover non-destructive keep, permanent discard,
+foreign-board preservation, conflict blocking and rollback restrictions.
+Four relevant suites and all 21 preservation checks pass. All three current fill
+lists are empty; that does not prove the quality of existing wording. Browser
+review and the wider all-language translation backlog remain outstanding.
+
 ## Catalan and Valencian recovery controls — 2026-10-09
 
 Translate 22 messages in ca, ca_ES and ca@valencia, replacing 66 English values:

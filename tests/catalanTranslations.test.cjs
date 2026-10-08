@@ -75,3 +75,22 @@ for (const code of ['ca', 'ca_ES', 'ca@valencia']) {
   assert.match(data['interrupted-import-description'], /elimina el tauler.*tot el seu contingut/);
   assert.match(data['interrupted-import-description'], /inclòs tot el que s’hi ha(?:gi|ja) afegit des de llavors/);
 }
+
+const recoveryResultKeys = ["interrupted-import-source", "interrupted-import-state-stopped", "interrupted-import-state-failed", "interrupted-import-state-discarding", "interrupted-import-scrum", "interrupted-import-counts", "interrupted-import-no-board", "interrupted-import-keep", "interrupted-import-discard", "interrupted-import-keep-confirm", "interrupted-import-discard-confirm", "interrupted-import-refresh", "interrupted-import-empty", "interrupted-import-truncated", "interrupted-import-unavailable", "interrupted-import-missing", "interrupted-import-not-interrupted", "interrupted-import-foreign-board", "interrupted-import-scrum-busy", "interrupted-import-failed", "scrum-history-checkpoint-stuck", "scrum-history-checkpoint-counts", "scrum-history-checkpoint-hint", "scrum-history-checkpoint-rollback", "scrum-history-checkpoint-discard", "scrum-history-checkpoint-discard-confirm", "scrum-history-checkpoint-ask-admin", "login-setting-env-only"];
+for (const code of ['ca', 'ca_ES', 'ca@valencia']) {
+  const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data', code + '.i18n.json'), 'utf8'));
+  for (const key of recoveryResultKeys) {
+    assert.ok(data[key]?.trim(), key);
+    assert.notEqual(data[key], english[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), code + ': ' + key);
+  }
+  assert.match(data['interrupted-import-keep-confirm'], /No s’elimina res/);
+  assert.match(data['interrupted-import-discard-confirm'], /tot el seu contingut s’eliminen permanentment/);
+  assert.match(data['interrupted-import-foreign-board'], /no s’ha modificat/);
+  assert.match(data['interrupted-import-truncated'], /50 més antigues/);
+  assert.match(data['scrum-history-checkpoint-hint'], /només s’ofereix quan ningú més no ha modificat/);
+  assert.match(data['scrum-history-checkpoint-hint'], /no modifica cap registre/);
+  assert.match(data['scrum-history-checkpoint-stuck'], /bloquejada fins que es resol(?:gui|ga)/);
+  assert.match(data['login-setting-env-only'], /Només l’entorn del servidor.*només per a lectura/);
+  assert.doesNotMatch(data['interrupted-import-keep-confirm'], /s’elimina el tauler/);
+}
