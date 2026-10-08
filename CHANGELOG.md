@@ -1006,6 +1006,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1019dd7970">Correct Slovenian card details and upload translations</a>. Thanks to xet7.</summary>
+
+Replace 70 Serbian values in each Slovenian catalog, for 140 corrections.
+Cover card details, ticket states, checklists, uploads and translation controls.
+Preserve variables and Cc notation, and distinguish copying from moving.
+
+Four focused translation suites and 21 human-preference checks pass.
+No browser or screen-reader session was run. Further wrong-language review
+and remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1750705857">Correct Slovenian search and card view translations</a>. Thanks to xet7.</summary>
 
 Replace 75 Serbian values in each Slovenian catalog, for 150 corrections.
