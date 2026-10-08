@@ -8790,6 +8790,15 @@ retained existing translations. Regression coverage checks these details alongsi
 script, key order and token inventories. Technical wording remains low confidence
 pending speaker review. Browser checks were not run; further translations remain.
 
+## Odia procedure definitions and calls
+
+Filled 22 English placeholders for function definitions, calls, warnings and paste
+actions. Preserved indexed function names, return/no-return distinctions and
+function-only restrictions. Existing translations were retained by the placeholder-only
+merge. Regression coverage checks those details alongside script, key order and
+token inventories. Technical wording remains low confidence pending speaker review.
+Browser checks were not run; further Odia translations remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
