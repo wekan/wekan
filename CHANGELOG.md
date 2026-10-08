@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/19b36056dc">Correct Wu notification-control and role translations</a>. Thanks to xet7.</summary>
+
+Correct thirteen Wu display, notification and role values. Preserve variables,
+read/unread actions, assigned-card scope and the global-administrator exception.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/76665c8a84">Correct Wu reminders and card-control translations</a>. Thanks to xet7.</summary>
 
 Correct nineteen Wu reminder, deletion and card-control values. Preserve named
