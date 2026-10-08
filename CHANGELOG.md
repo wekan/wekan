@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4d73ddf7f3dd490418c17b29c2f77ec187d7e071">Translate Konkani text search and variable assignments</a></summary>
+
+- Fill 47 Konkani placeholders, preserving existing translations, not-found
+  results, replacement operands, whitespace boundaries and collision warnings.
+- Technical wording remains low confidence pending speaker review.
+- All 58 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Konkani translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/094a925dd4d9317c766feed1600e81f3ba533045">Translate Konkani accessibility shortcuts and text controls</a></summary>
 
 - Fill 67 Konkani placeholders, preserving existing translations, screen-reader
