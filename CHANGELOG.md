@@ -1021,6 +1021,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/332f6524ea">Correct Croatian filters and archive translations</a>. Thanks to xet7.</summary>
+
+Replace 70 Serbian values with Croatian. Cover filters, imports, archive
+guidance, settings, selection controls and shortcuts. Preserve variables,
+format names and distinctions between copying, moving and assignment.
+
+Four focused translation suites and 21 human-preference checks pass.
+No browser or screen-reader session was run. Further wrong-language review
+and remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7ee6ee455e">Correct Croatian permissions and email translations</a>. Thanks to xet7.</summary>
 
 Replace 65 Serbian values with Croatian, covering permissions, email, errors,
