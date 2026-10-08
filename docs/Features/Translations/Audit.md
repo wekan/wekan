@@ -8020,6 +8020,16 @@ pairs, three numbered fading tiers, equivalent preference labels and archive
 restoration guidance. Technical wording remains low confidence pending speaker
 review. Browser checks were not run. Further corrections and the broader audit remain.
 
+### Tatar color and comment-permission corrections
+
+Corrected 36 wrong-language color, comment and read-only values and restored the
+source blank comment placeholder, removing an inappropriate language suffix.
+Preserved correct adjacent translations and source tokens. Regression coverage
+checks Tatar color vocabulary, distinct shades, the exact blank placeholder and
+comment/read-only restrictions. Specialized color wording remains low confidence
+pending speaker review. Browser checks were not run. Further wrong-language
+corrections and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
