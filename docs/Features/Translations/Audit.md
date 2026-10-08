@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Spanish planning and recovery messages — 2026-10-08
+
+Translate 61 current English values in each of nine Spanish catalogs
+(es, es-AR, es-CL, es-CO, es-LA, es-MX, es-PE, es-PY and es_CO), for
+549 filled values. Preserve existing localized values and the shared
+Iteración/Versión terminology. Cover board controls, literal link rules,
+planning imports, Sync and import/history recovery. Extend the existing
+Spanish suite with per-key prose checks, recovery decisions, matching
+priority, non-duplication and permanent-deletion assertions. No browser or
+screen-reader session was run; other untranslated messages remain open.
+
 ## Italian current planning and recovery messages — 2026-10-08
 
 Translate 97 current English values, preserving existing localized values.
