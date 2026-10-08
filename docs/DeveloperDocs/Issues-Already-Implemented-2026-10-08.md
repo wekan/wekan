@@ -100,3 +100,11 @@ Board WIP limit groups share one limit across several lists (wipLimitGroups in
 models/boards.js, models/lib/wipLimitGroupDecision.js), set in the sidebar
 popup, and the list headers highlight a group over its limit
 (client/components/lists/listHeader.js).
+
+## [#2796](https://github.com/wekan/wekan/issues/2796) All Boards: drag and
+drop, and colour
+
+Boards on All Boards are reordered by drag and drop into each user's own order
+(client/components/boards/boardsList.js, models/lib/boardSortReorder.js,
+sortBoardsForUser), boards have colours (boardChangeColorPopup), and the All
+Boards table view lists boards as rows.
