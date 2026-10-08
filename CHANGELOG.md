@@ -936,6 +936,20 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/43a7b0246e">Translate Aromanian Sync choices and diagnostics</a>. Thanks to xet7.</summary>
+
+Translate 63 conflict, preview, report and estimate messages. Preserve local
+and source scope, unchanged subcards, replacement reuse, report limits,
+missing-versus-null values and the single matching time-field requirement.
+New wording remains low-confidence pending fluent review.
+
+Aromanian, global placeholder and translation audit suites pass, along with
+21 human-preference checks. No browser or screen-reader session was run.
+Other untranslated and wrong-language values remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a050566954">Translate Aromanian notification recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 36 mail failure and activity-notification recovery messages.
