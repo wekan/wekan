@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Malay import instructions, first group — 2026-10-09
+
+Translate eight instructions in ms and ms-MY (16 values): Planner, MeisterTask,
+Obsidian, Linear, TickTick, ClickUp, Nullboard and Kanri. Preserve commands,
+extensions and variables. Regression checks cover completed-task dates, archived
+cards, first-board selection and swimlane mappings. Import-instruction and
+placeholder suites and all 21 preservation checks pass. Remaining Malay
+instructions, browser review and the wider translation backlog remain outstanding.
+
 ## Indonesian import instructions, remaining group — 2026-10-09
 
 Translate the remaining 13 instructions in id, completing all 21 import
