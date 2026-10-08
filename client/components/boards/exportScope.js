@@ -253,6 +253,7 @@ const EXPORT_FORMAT_GROUPS = [
       { key: 'kanri', icon: 'fa-columns', label: 'Kanri', path: 'export/kanri', ext: 'json', scopes: BOARD_ONLY },
       { key: 'pivotal', icon: 'fa-flag', label: 'Pivotal Tracker', path: 'export/pivotal', ext: 'csv', scopes: BOARD_ONLY },
       { key: 'tasksorg', icon: 'fa-check-circle-o', label: 'Tasks.org', path: 'export/tasksorg', ext: 'json', scopes: BOARD_ONLY },
+      { key: 'monday', icon: 'fa-table', label: 'monday.com', path: 'export/monday', ext: 'xlsx', scopes: BOARD_ONLY },
       ...[
         ['trello', 'Trello'], ['jira', 'Jira'], ['deck', 'NextCloud Deck'],
         ['openproject', 'OpenProject'], ['github', 'GitHub'], ['gitlab', 'GitLab'],

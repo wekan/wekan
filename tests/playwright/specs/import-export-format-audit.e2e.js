@@ -673,6 +673,37 @@ test('Nullboard: a .nbx board imports with its lists, notes and raw note', async
   } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });
 
+// monday.com's Excel export: a group, the Status column, a person, a date and an update.
+test('monday.com: a board export imports with its group, status, person, date and update', async ({ loggedInPage: page }) => {
+  const ExcelJS = require('../../../node_modules/@wekanteam/exceljs');
+  let boardId;
+  try {
+    const workbook = new ExcelJS.Workbook();
+    const sheet = workbook.addWorksheet('from monday');
+    [['From monday'], ['Ideas'], ['Name', 'Person', 'Status', 'Date', 'Tags'],
+      [expected.title, 'Alice Example', 'Working on it', '2026-10-10', expected.label]].forEach(row => sheet.addRow(row));
+    const updates = workbook.addWorksheet('from monday-updates');
+    [['From monday', 'Updates'], ['Item ID', 'Item Name', 'Content Type', 'Content Type', 'User', 'Created At', 'Update Content', 'Likes Count'],
+      ['', expected.title, 'Update', '', 'Alice Example', '27/May/2025 03:26:42 PM', 'Ordered', 0]].forEach(row => updates.addRow(row));
+    await navigateInApp(page, '/import/monday');
+    await page.locator('.js-import-excel-file').setInputFiles({
+      name: 'monday.xlsx', mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      buffer: Buffer.from(await workbook.xlsx.writeBuffer()),
+    });
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    expect(db.findOne('boards', { _id: boardId }).title).toBe('From monday');
+    const [card] = db.find('cards', { boardId });
+    expect(card.title).toBe(expected.title);
+    expect(new Date(card.dueAt).toISOString().slice(0, 10)).toBe('2026-10-10');
+    expect(db.find('lists', { boardId }).find(list => list._id === card.listId).title).toBe('Working on it');
+    expect(db.find('swimlanes', { boardId }).map(lane => lane.title)).toContain('Ideas');
+    expect(db.find('card_comments', { cardId: card._id }).map(comment => comment.text)).toEqual(['Alice Example: Ordered']);
+    await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
+
 // Microsoft Planner's export is an Excel workbook, not text: its own case.
 test('Microsoft Planner: the export menu link returns a Planner workbook and refuses an unrelated user', async ({ boardPage: page, user2 }) => {
   const ExcelJS = require('../../../node_modules/@wekanteam/exceljs');

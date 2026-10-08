@@ -26,6 +26,7 @@ import { formatNullboard } from './nullboardFormat.js';
 import { formatKanri } from './kanriFormat.js';
 import { formatPivotalCsv } from './pivotalCsvFormat.js';
 import { formatTasksOrgBackup } from './tasksorgFormat.js';
+import { formatMondaySheets } from './mondayFormat.js';
 import { formatOpml } from './opmlOutlineFormat.js';
 import { formatOrgMode } from './orgModeFormat.js';
 
@@ -338,6 +339,9 @@ export const formatters = {
   pivotal: formatPivotalCsv,
   // A Tasks.org backup that its Import backup reads; round-trips with parseTasksOrgBackup.
   tasksorg: formatTasksOrgBackup,
+  // monday.com's Excel import table: sheets models/export.js writes as .xlsx
+  // (server/lib/mondayWorkbook.js); round-trips with parseMondaySheets.
+  monday: formatMondaySheets,
   // An OPML outline; round-trips with parseOpml (opmlOutline.js, server-only).
   opml: formatOpml,
   // An Org mode outline; round-trips with parseOrgMode (orgModeFormat.js).

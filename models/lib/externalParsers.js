@@ -13,6 +13,7 @@ import { parseNullboard } from './nullboardFormat.js';
 import { parseKanri } from './kanriFormat.js';
 import { parsePivotalCsv } from './pivotalCsvFormat.js';
 import { parseTasksOrgBackup } from './tasksorgFormat.js';
+import { parseMondaySheets } from './mondayFormat.js';
 import { parseOrgMode } from './orgModeFormat.js';
 import {
   gitlabScrumPlanning, openProjectScrumPlanning, asanaScrumPlanning, STORY_POINTS_FIELD,
@@ -987,6 +988,8 @@ export const EXTERNAL_PARSERS = {
   pivotal: parsePivotalCsv,
   // A Tasks.org backup JSON (tasksorgFormat.js).
   tasksorg: parseTasksOrgBackup,
+  // monday.com's Excel export, as sheets of rows (server/lib/mondayWorkbook.js).
+  monday: parseMondaySheets,
   orgmode: parseOrgMode,
   jira: parseJira,
 };

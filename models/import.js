@@ -266,6 +266,21 @@ Meteor.methods({
         }
         creator = new KanboardCreator(data, 'tasksorg');
         break;
+      case 'monday':
+        // monday.com's "Export board to Excel" workbook - see
+        // models/lib/mondayFormat.js. Like Planner, { excelBase64 }; the
+        // parsed tasks are sanitized again below.
+        check(board, Object);
+        if (!Meteor.isServer) return undefined;
+        try {
+          importedBoard = await require('/server/lib/mondayWorkbook').readMondayWorkbook(importedBoard.excelBase64);
+          importedBoard = EXTERNAL_PARSERS.monday(importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        importedBoard = sanitizeImported(importedBoard, 'monday', this);
+        creator = new KanboardCreator(data, 'monday');
+        break;
       case 'planner':
         // Microsoft Planner's "Export plan to Excel" workbook - see
         // models/lib/plannerFormat.js. It arrives like the Excel import, as

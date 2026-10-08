@@ -1039,6 +1039,10 @@
     {
       "key": "import-board-instruction-tasksorg",
       "since": "2026-10-08"
+    },
+    {
+      "key": "import-board-instruction-monday",
+      "since": "2026-10-08"
     }
   ]
 }

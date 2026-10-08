@@ -218,7 +218,7 @@ Template.import.onCreated(function () {
     // and imported through the CSV creator. Member mapping is skipped (members
     // can be mapped later), so we read the file to base64 and import directly.
     // Microsoft Planner's "Export plan to Excel" file is read the same way.
-    if (dataSource === 'excel' || dataSource === 'planner') {
+    if (dataSource === 'excel' || dataSource === 'planner' || dataSource === 'monday') {
       const el = this.find('.js-import-excel-file');
       if (!el || !el.files || !el.files[0]) {
         this.setError('error-json-malformed');
@@ -474,6 +474,7 @@ const IMPORT_SOURCES = [
   { key: 'kanri', name: 'Kanri' },
   { key: 'pivotal', name: 'Pivotal Tracker' },
   { key: 'tasksorg', name: 'Tasks.org' },
+  { key: 'monday', name: 'monday.com' },
 ];
 
 Template.import.helpers({
@@ -583,7 +584,7 @@ Template.importTextarea.helpers({
     return Session.get('importSource') === 'wekan';
   },
   isExcelImport() {
-    return ['excel', 'planner'].includes(Session.get('importSource'));
+    return ['excel', 'planner', 'monday'].includes(Session.get('importSource'));
   },
   isJiraImport() { return Session.get('importSource') === 'jira'; },
   // The numeric fields the pasted Jira export declares, to pick the estimate.

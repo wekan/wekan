@@ -202,7 +202,8 @@ async function main() {
     const page = read('client/components/import/import.js');
     assert.match(page, /\{ key: 'planner', name: 'Microsoft Planner' \}/);
     assert.match(page, /dataSource === 'excel' \|\| dataSource === 'planner'/);
-    assert.match(page, /isExcelImport\(\) \{\s*return \['excel', 'planner'\]\.includes/);
+    // Other workbook sources (monday.com) share the file input after these two.
+    assert.match(page, /isExcelImport\(\) \{\s*return \['excel', 'planner'(, '[a-z]+')*\]\.includes/);
     assert.match(read('client/components/boards/exportScope.js'),
       /\{ key: 'planner', icon: 'fa-th-list', label: 'Microsoft Planner', path: 'export\/planner', ext: 'xlsx', scopes: BOARD_ONLY \}/);
     const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
