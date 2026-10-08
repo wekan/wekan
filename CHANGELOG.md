@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4e54dda91c">Translate Breton Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
+
+Translate 31 Breton values, preserving variables, keyboard names and count roles.
+Regression checks distinguish rollback from keeping records and preserve planning.
+Focused checks, placeholder and language wiring suites, and all 21 preservation
+checks pass. The completion suite still finds an untranslated Basque release label.
+Recovery prose has lower confidence and needs native review. Browser checks and
+the remaining all-language translations are still outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d5d4735e5b">Translate Occitan Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 31 Occitan values with exact variables, keyboard names and count roles.
