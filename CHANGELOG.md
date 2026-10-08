@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8044a82c3cecd4ec2a67f9865321d543abb806aa">Translate Bhojpuri Scrum planning and sprint controls</a></summary>
+
+- Fill 74 Scrum planning, sprint and report strings, preserving existing
+  translations and source placeholders.
+- Scrum terminology remains low confidence pending speaker review.
+- All 40 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4246f112b009b589140e3a4bbe2ac39788524086">Translate Bhojpuri workspace search and block rule editor</a></summary>
 
 - Fill 59 workspace, keyboard and rule-editor strings, preserving existing
