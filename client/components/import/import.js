@@ -473,6 +473,7 @@ const IMPORT_SOURCES = [
   { key: 'nullboard', name: 'Nullboard' },
   { key: 'kanri', name: 'Kanri' },
   { key: 'pivotal', name: 'Pivotal Tracker' },
+  { key: 'tasksorg', name: 'Tasks.org' },
 ];
 
 Template.import.helpers({

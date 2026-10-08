@@ -12,6 +12,7 @@ import { parseClickUpCsv } from './clickupCsvFormat.js';
 import { parseNullboard } from './nullboardFormat.js';
 import { parseKanri } from './kanriFormat.js';
 import { parsePivotalCsv } from './pivotalCsvFormat.js';
+import { parseTasksOrgBackup } from './tasksorgFormat.js';
 import { parseOrgMode } from './orgModeFormat.js';
 import {
   gitlabScrumPlanning, openProjectScrumPlanning, asanaScrumPlanning, STORY_POINTS_FIELD,
@@ -984,6 +985,8 @@ export const EXTERNAL_PARSERS = {
   kanri: parseKanri,
   // Pivotal Tracker's stories CSV, columns matched by name (pivotalCsvFormat.js).
   pivotal: parsePivotalCsv,
+  // A Tasks.org backup JSON (tasksorgFormat.js).
+  tasksorg: parseTasksOrgBackup,
   orgmode: parseOrgMode,
   jira: parseJira,
 };

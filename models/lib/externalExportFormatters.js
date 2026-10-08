@@ -25,6 +25,7 @@ import { formatClickUpCsv } from './clickupCsvFormat.js';
 import { formatNullboard } from './nullboardFormat.js';
 import { formatKanri } from './kanriFormat.js';
 import { formatPivotalCsv } from './pivotalCsvFormat.js';
+import { formatTasksOrgBackup } from './tasksorgFormat.js';
 import { formatOpml } from './opmlOutlineFormat.js';
 import { formatOrgMode } from './orgModeFormat.js';
 
@@ -335,6 +336,8 @@ export const formatters = {
   kanri: formatKanri,
   // The stories CSV Pivotal Tracker's import reads; round-trips with parsePivotalCsv.
   pivotal: formatPivotalCsv,
+  // A Tasks.org backup that its Import backup reads; round-trips with parseTasksOrgBackup.
+  tasksorg: formatTasksOrgBackup,
   // An OPML outline; round-trips with parseOpml (opmlOutline.js, server-only).
   opml: formatOpml,
   // An Org mode outline; round-trips with parseOrgMode (orgModeFormat.js).

@@ -337,7 +337,7 @@ test('every external export menu link returns text and refuses an unrelated user
   // Include description through the actual shared selection controls.
   const details = page.locator('.js-export-card-details-toggle');
   if (await details.getAttribute('aria-checked') !== 'true') await details.click();
-  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri', 'pivotal', 'opml', 'orgmode']) {
+  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri', 'pivotal', 'tasksorg', 'opml', 'orgmode']) {
     await test.step(format, async () => {
       const anchor = page.locator(`.js-pop-over a[href*="/export/${format}?"]`);
       await expect(anchor).toBeVisible();
@@ -460,6 +460,48 @@ test('Pivotal Tracker: a stories CSV imports with its states, labels, comments a
     expect(db.find('card_comments', { cardId: open._id }).map(c => c.text)).toEqual(['Ana Lee: Looks good']);
     const items = db.find('checklistItems', { cardId: open._id });
     expect(items.map(item => [item.title, item.isFinished]).sort()).toEqual([['Call', true], ['Pay', false]]);
+    await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
+
+// A Tasks.org backup as its exporter writes it: defaults left out, the list
+// from caldavTasks[].calendar, a subtask from remoteParent, priority 0 = high.
+test('Tasks.org: a backup imports with its lists, notes, tags, priority, due date and subtask', async ({ loggedInPage: page }) => {
+  const due = Date.UTC(2026, 9, 10, 8, 0) + 1000;
+  const backup = { version: 151300, timestamp: due, data: {
+    tasks: [
+      { task: { title: expected.title, priority: 0, dueDate: due, notes: 'Two of them, DN50', remoteId: 'audit-1' },
+        tags: [{ name: expected.label, tagUid: 'audit-tag' }],
+        caldavTasks: [{ calendar: 'audit-list', remoteId: 'audit-1', object: 'audit-1.ics' }] },
+      { task: { title: 'Audit subtask', completionDate: due, remoteId: 'audit-2' },
+        caldavTasks: [{ calendar: 'audit-list', remoteId: 'audit-2', object: 'audit-2.ics', remoteParent: 'audit-1' }] },
+    ],
+    tags: [{ remoteId: 'audit-tag', name: expected.label }],
+    caldavAccounts: [{ uuid: 'audit-account', name: 'From Tasks.org', accountType: 2 }],
+    caldavCalendars: [{ account: 'audit-account', uuid: 'audit-list', name: 'Doing' }],
+  } };
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/tasksorg');
+    await page.locator('#import-textarea').fill(JSON.stringify(backup));
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    const board = db.findOne('boards', { _id: boardId });
+    expect(board.title).toBe('From Tasks.org');
+    const cards = db.find('cards', { boardId });
+    expect(cards).toHaveLength(2);
+    const open = cards.find(card => card.title === expected.title);
+    const sub = cards.find(card => card.title === 'Audit subtask');
+    expect(sub.parentId).toBe(open._id);
+    expect(new Date(sub.endAt).toISOString()).toBe(new Date(due).toISOString());
+    expect(open.labelIds.map(id => board.labels.find(l => l._id === id).name)).toEqual([expected.label]);
+    expect(open.description).toBe('Two of them, DN50');
+    expect(new Date(open.dueAt).toISOString()).toBe('2026-10-10T08:00:00.000Z');
+    const priority = db.find('customFields', { boardIds: boardId }).find(field => field.name === 'Priority');
+    expect(open.customFields.find(value => value._id === priority._id).value).toBe('High');
+    const lists = db.find('lists', { boardId });
+    expect(lists.find(list => list._id === open.listId).title).toBe('Doing');
     await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
   } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });

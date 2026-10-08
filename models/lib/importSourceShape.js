@@ -14,6 +14,7 @@ export function validateImportSourceShape(source, value) {
     case 'asana': valid = Array.isArray(value) || arrayAt(value, 'data'); break;
     case 'zenkit': valid = Array.isArray(value) || arrayAt(value, 'items')
       || (arrayAt(value, 'elements') && (arrayAt(value, 'entries') || arrayAt(value, 'listEntries'))); break;
+    case 'tasksorg': valid = arrayAt(value?.data, 'tasks'); break;
     case 'csv': valid = Array.isArray(value) && value.length > 0 && value.every(Array.isArray); break;
     case 'kanri': valid = arrayAt(value, 'columns') || arrayAt(value, 'boards'); break;
     case 'excel': case 'planner': valid = typeof value?.excelBase64 === 'string' && value.excelBase64.length > 0; break;

@@ -256,6 +256,16 @@ Meteor.methods({
         }
         creator = new KanboardCreator(data, 'pivotal');
         break;
+      case 'tasksorg':
+        // A Tasks.org backup (JSON) - see models/lib/tasksorgFormat.js.
+        check(board, Object);
+        try {
+          importedBoard = EXTERNAL_PARSERS.tasksorg(importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        creator = new KanboardCreator(data, 'tasksorg');
+        break;
       case 'planner':
         // Microsoft Planner's "Export plan to Excel" workbook - see
         // models/lib/plannerFormat.js. It arrives like the Excel import, as
