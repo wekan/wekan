@@ -8090,6 +8090,15 @@ show/hide distinctions. Technical wording remains low confidence pending speaker
 review. Browser and import-runtime checks were not run. Further corrections and
 the broader audit remain unfinished.
 
+### Tatar Trello import options and archive errors
+
+Corrected 28 Trello import and workspace values. Restored literal .json/.zip
+extensions and the downloader name while preserving the API-key URL and source
+tokens. Regression coverage checks these literals, optional workspace wording,
+and distinct archive-size, file-count, inner-file-size and unsafe-path failures.
+Technical wording remains low confidence pending speaker review. Browser and
+import-runtime checks were not run. Further corrections and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
