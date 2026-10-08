@@ -670,6 +670,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3faee05c50">Translate Veps, Volapük and Klingon sign-in warnings</a>. Thanks to xet7.</summary>
+
+Preserve repeated address variables and ROOT_URL in three warnings. Warning
+coverage includes 200 catalog paths. Warning and placeholder suites and all 21
+preservation checks pass. These translations have lower confidence and need native
+review. Seven English warning paths and the wider translation backlog remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9df171db32">Translate Arabic-script Uzbek and Kashmiri warnings and correct three Uzbek labels</a>. Thanks to xet7.</summary>
 
 Preserve address variables and ROOT_URL in two warnings, and replace Latin-script
