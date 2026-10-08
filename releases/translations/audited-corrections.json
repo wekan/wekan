@@ -822,8 +822,8 @@
     "locale": "wuu-Hans",
     "key": "fix-avatar-urls-migration-description",
     "before": "更新董事会成员的头像 URL，以使用正确的存储后端并修复损坏的头像引用。",
-    "after": "更新看板成员的头像 URL，以使用正确的存储后端并修复损坏的头像引用。",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "更新看板成员个头像 URL，使用正确个存储后端，再修复损坏个头像引用。",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -871,8 +871,8 @@
     "locale": "wuu-Hans",
     "key": "migrations-admin-only",
     "before": "只有董事会管理员可以运行迁移",
-    "after": "只有看板管理员可以运行迁移",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "只有看板管理员才好运行迁移",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -913,8 +913,8 @@
     "locale": "wuu-Hans",
     "key": "run-fix-avatar-urls-migration-confirm",
     "before": "这将更新董事会成员的头像 URL，以使用正确的存储后端。继续？",
-    "after": "这将更新看板成员的头像 URL，以使用正确的存储后端。继续？",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "搿项操作会更新看板成员个头像 URL，使用正确个存储后端。继续伐？",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -168306,5 +168306,180 @@
     "before": "安全删除空的重复列表。仅删除没有卡片且具有包含卡片的相同标题的另一个列表的列表。",
     "after": "安全删脱重复个空列表。只有搿只列表呒没卡片，而且另外有一只同名列表包含卡片，才删脱伊。",
     "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "lost-cards",
+    "before": "丢失卡",
+    "after": "遗失卡片",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "lost-cards-list",
+    "before": "恢复的物品",
+    "after": "恢复好个项目",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "restore-lost-cards-migration",
+    "before": "恢复丢失的卡片",
+    "after": "恢复遗失卡片",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "restore-lost-cards-migration-description",
+    "before": "查找并恢复缺少 SwimlaneId 或 listId 的卡片和列表。创建“丢失的卡片”泳道，使所有丢失的物品再次可见。",
+    "after": "寻出搭恢复缺少 swimlaneId 或者 listId 个卡片搭列表。创建一条“遗失卡片”泳道，让全部遗失个项目重新看得见。",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "restore-all-archived-migration-description",
+    "before": "恢复所有存档的泳道、列表和卡片。自动修复任何丢失的 SwimlaneId 或 listId 以使项目可见。",
+    "after": "恢复全部归档个泳道、列表搭卡片。自动修复缺少个 swimlaneId 或者 listId，让项目看得见。",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "fix-missing-lists-migration-description",
+    "before": "检测并修复板结构中丢失或损坏的列表。",
+    "after": "检测搭修复看板结构里向缺少或者损坏个列表。",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "fix-all-file-urls-migration-description",
+    "before": "更新此板上的所有文件附件 URL 以使用正确的存储后端并修复损坏的文件引用。",
+    "after": "更新搿只看板浪全部文件附件个 URL，使用正确个存储后端，再修复损坏个文件引用。",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-complete",
+    "before": "完全的",
+    "after": "完成",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-running",
+    "before": "跑步...",
+    "after": "正在运行…",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-successful",
+    "before": "迁移成功完成",
+    "after": "迁移已经完成仔",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migrations-description",
+    "before": "对此板运行数据完整性检查和修复。每个迁移都可以单独执行。",
+    "after": "检查搭修复搿只看板个数据完整性。每只迁移侪好单独运行。",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "no-issues-found",
+    "before": "没有发现问题",
+    "after": "呒没寻着问题",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "run-comprehensive-migration-confirm",
+    "before": "这将执行全面的迁移以检查和修复电路板数据完整性。这可能需要一些时间。继续？",
+    "after": "搿项操作会全面迁移，检查搭修复看板数据完整性。可能要等一歇。继续伐？",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "run-delete-duplicate-empty-lists-migration-confirm",
+    "before": "这将首先将所有共享列表转换为每个泳道列表，然后删除具有包含卡片的相同标题的重复列表的空列表。只有真正冗余的空列表才会被删除。继续？",
+    "after": "搿项操作先拿共享列表转换成每条泳道自家个列表，再删脱有同名列表包含卡片个空列表。只有真个多余个空列表才删脱。继续伐？",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "run-restore-lost-cards-migration-confirm",
+    "before": "这将创建一个“丢失的卡”泳道并恢复所有缺少 SwimlaneId 或 listId 的卡和列表。这仅影响未归档的项目。继续？",
+    "after": "搿项操作会创建一条“遗失卡片”泳道，恢复全部缺少 swimlaneId 或者 listId 个卡片搭列表。只影响朆归档个项目。继续伐？",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "run-restore-all-archived-migration-confirm",
+    "before": "这将恢复所有存档的泳道、列表和卡片，使它们再次可见。任何缺少 ID 的项目都将被自动修复。这不能轻易撤销。继续？",
+    "after": "搿项操作会恢复全部归档个泳道、列表搭卡片，让伊拉重新看得见。缺少 ID 个项目会自动修复。搿项操作勿容易撤销。继续伐？",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "run-fix-missing-lists-migration-confirm",
+    "before": "这将检测并修复板结构中丢失或损坏的列表。继续？",
+    "after": "搿项操作会检测搭修复看板结构里向缺少或者损坏个列表。继续伐？",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "run-fix-all-file-urls-migration-confirm",
+    "before": "这将更新此板上的所有文件附件 URL，以使用正确的存储后端。继续？",
+    "after": "搿项操作会更新搿只看板浪全部文件附件个 URL，使用正确个存储后端。继续伐？",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "restore-lost-cards-nothing-to-restore",
+    "before": "无需恢复丢失的泳道、列表或卡片",
+    "after": "呒没遗失个泳道、列表或者卡片好恢复",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-progress-title",
+    "before": "电路板迁移正在进行中",
+    "after": "看板正在迁移",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-progress-overall",
+    "before": "总体进展",
+    "after": "总体进度",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-progress-status",
+    "before": "地位",
+    "after": "状态",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-progress-details",
+    "before": "细节",
+    "after": "详情",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migration-progress-note",
+    "before": "我们正在将您的主板迁移到最新结构，请稍候...",
+    "after": "正在拿侬个看板迁移到最新结构，请等一歇…",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "view",
+    "before": "看法",
+    "after": "查看",
+    "reason": "2026-10-08: Correct Wu repair prompts, exact field-name case and migration scope; lower-confidence prose needs native review."
   }
 ]

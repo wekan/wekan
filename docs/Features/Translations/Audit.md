@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu repair-prompt corrections — 2026-10-08
+
+Correct 28 repair and migration values. Restore exact swimlaneId spelling, running
+rather than jogging, and board rather than circuit-board meanings. Keep non-archived
+scope for lost-card recovery, all-archived scope and the difficult-undo warning for
+archive restoration, and shared-list conversion before duplicate cleanup. Refresh
+exact-value audit records. Wu prose needs native review; browser tests were not run
+and all-language work remains unfinished.
+
 ## Wu storage and task corrections — 2026-10-08
 
 Correct 32 storage, scheduled-task and migration values. Restore task rather than job
@@ -12904,7 +12913,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **24,044** exact before/after values, including unflagged
+records contain **24,069** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

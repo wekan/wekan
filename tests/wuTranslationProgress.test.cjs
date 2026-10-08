@@ -1114,3 +1114,17 @@ assert.equal(wu['add-job'], '添加任务');
 for (const action of ['archive', 'backup', 'cleanup']) assert.match(wu['schedule-board-' + action], /^安排看板/);
 assert.match(wu['delete-duplicate-empty-lists-migration-description'], /呒没卡片，而且.*同名列表包含卡片，才删脱/);
 assert.match(wu['comprehensive-board-migration-description'], /列表顺序、卡片位置搭泳道结构/);
+
+const repairPromptsWu = ["lost-cards", "lost-cards-list", "restore-lost-cards-migration", "restore-lost-cards-migration-description", "restore-all-archived-migration-description", "fix-missing-lists-migration-description", "fix-avatar-urls-migration-description", "fix-all-file-urls-migration-description", "migration-complete", "migration-running", "migration-successful", "migrations-admin-only", "migrations-description", "no-issues-found", "run-comprehensive-migration-confirm", "run-delete-duplicate-empty-lists-migration-confirm", "run-restore-lost-cards-migration-confirm", "run-restore-all-archived-migration-confirm", "run-fix-missing-lists-migration-confirm", "run-fix-avatar-urls-migration-confirm", "run-fix-all-file-urls-migration-confirm", "restore-lost-cards-nothing-to-restore", "migration-progress-title", "migration-progress-overall", "migration-progress-status", "migration-progress-details", "migration-progress-note", "view"];
+for (const key of repairPromptsWu) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+for (const key of ['restore-lost-cards-migration-description', 'restore-all-archived-migration-description', 'run-restore-lost-cards-migration-confirm']) {
+  for (const field of ['swimlaneId', 'listId']) assert.ok(wu[key].includes(field), key + ': ' + field);
+  assert.doesNotMatch(wu[key], /SwimlaneId/);
+}
+assert.match(wu['run-restore-lost-cards-migration-confirm'], /只影响朆归档个项目/);
+assert.match(wu['run-restore-all-archived-migration-confirm'], /全部归档.*勿容易撤销/);
+assert.match(wu['run-delete-duplicate-empty-lists-migration-confirm'], /先拿共享列表转换.*再删脱.*同名列表包含卡片/);
+assert.match(wu['migration-running'], /运行/);
+assert.doesNotMatch(wu['migration-running'], /跑步/);
+assert.match(wu['migrations-admin-only'], /只有看板管理员才好/);
+assert.equal(wu['migration-progress-status'], '状态');
