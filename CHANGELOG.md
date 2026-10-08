@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b6057034cd">Correct Wu email and field-message translations</a>. Thanks to xet7.</summary>
+
+Correct twenty-five Wu field, email, invitation and access messages. Preserve
+named variables, technical literals, role restrictions and deletion-setting scope.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a0ac16de9d">Correct Wu permissions and copying translations</a>. Thanks to xet7.</summary>
 
 Correct twenty-three Wu permissions, confirmation, clipboard and import values.
