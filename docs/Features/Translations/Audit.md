@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## German import instructions — 2026-10-08
+
+Translate 21 import instructions in de, de-AT, de-CH and de_DE (84 values).
+Preserve source-product menu labels, file extensions, column names and hierarchy
+markers. Regression checks cover variables, commands, first-board selection,
+archived/completed tasks and excluded descriptions, relationships and attachments.
+Import-instruction and placeholder suites and all 21 preservation checks pass.
+Browser review and the wider all-language translation backlog remain outstanding.
+
 ## Cherokee warning and complete warning inventory — 2026-10-08
 
 Translate the Cherokee warning, preserving variables and ROOT_URL. Replace the

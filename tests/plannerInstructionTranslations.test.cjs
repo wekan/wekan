@@ -162,3 +162,30 @@ assert.match(read('yi')['import-board-instruction-teamwork'], /איין ניוו
   assert.ok(locale['login-origin-mismatch'].includes('ROOT_URL'));
   assert.match(locale['login-origin-mismatch'], /määritetty osoitteelle __expected__.*avattiin osoitteessa __actual__/);
 }
+
+// German variants preserve actionable commands and information-loss warnings.
+for (const code of ['de', 'de-AT', 'de-CH', 'de_DE']) {
+  const locale = read(code);
+  const literals = {
+    ...importLiterals, ...newerImportLiterals,
+    planner: ['Microsoft Planner', 'Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+    meistertask: ['MeisterTask', 'Export project', 'CSV'],
+  };
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), code + ': ' + key);
+    for (const value of values) assert.ok(locale[key].includes(value), code + ': ' + value);
+  }
+  for (const format of ['nullboard', 'kanri']) {
+    assert.match(locale['import-board-instruction-' + format], /das erste Board importiert/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /alle Boards importiert/);
+  }
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /Anhänge werden nicht importiert/);
+  assert.match(locale['import-board-instruction-notion'], /Beziehungen, Bilder und Anhänge werden nicht importiert/);
+  assert.match(locale['import-board-instruction-plane'], /keine Beschreibungen oder Anhänge.*nicht importiert/);
+  assert.match(locale['import-board-instruction-businessmap'], /zuerst die Kopfzeile auf Englisch/);
+  assert.match(locale['import-board-instruction-teamwork'], /eine Ebene tiefer/);
+  assert.match(locale['import-board-instruction-meistertask'], /erledigte Aufgaben behalten ihr Abschlussdatum/);
+  assert.match(locale['import-board-instruction-superproductivity'], /archivierte Aufgaben werden zu archivierten Karten/);
+}
