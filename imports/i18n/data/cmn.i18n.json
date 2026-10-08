@@ -783,6 +783,7 @@
   "import-board-instruction-todotxt": "粘贴 todo.txt 文件：每行一个任务，采用 todo.txt 应用及兼容应用写出的格式。已完成的任务（\"x\"）归入已完成，+project 和 @context 转为标签，(A) 转为优先级标签，due: 和 t: 转为截止日期和开始日期。",
   "import-board-instruction-taskwarrior": "粘贴 task export 的输出：JSON 数组，或每行一个任务。已完成的任务进入 Done，project 和 priority 转换为标签，annotations 转换为评论，depends 转换为对阻塞任务的依赖关系。",
   "import-board-instruction-focalboard": "解压 .boardarchive 文件并粘贴看板的 board.jsonl 内容，可以包含或省略版本行。看板视图的分组属性转换为列表，其他选择属性转换为标签，文本和复选框区块转换为描述和检查清单，评论会保留。图片和附件不会导入。",
+  "import-board-instruction-todoist": "In Todoist, open the project menu and choose Export as a template, then paste the CSV file. Sections become lists, tasks become cards, sub-tasks become a checklist, notes become comments, and @labels and priorities p1 to p3 become labels.",
   "import-board-instruction-trello": "在你的 Trello 看板中，依次选择“菜单”（Menu）、“更多”（More）、“打印和导出”（Print and Export）、“导出 JSON”（Export JSON），然后复制生成的文本。",
   "import-board-instruction-csv": "粘贴逗号分隔值(CSV)/制表符分隔值(TSV)。",
   "import-board-instruction-jira": "粘贴来自 Jira Cloud REST API issue 搜索（GET /rest/api/2/search）的 JSON，或等效的 { \"issues\": [...] } 对象。Jira 状态成为列表，issues 成为卡片。可选地包含 \"automationRules\" 数组以导入规则。",

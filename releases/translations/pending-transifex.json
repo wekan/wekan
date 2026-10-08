@@ -623,6 +623,10 @@
     {
       "key": "ldap-sync-now-nothing",
       "since": "2026-10-08"
+    },
+    {
+      "key": "import-board-instruction-todoist",
+      "since": "2026-10-08"
     }
   ]
 }

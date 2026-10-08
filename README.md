@@ -79,7 +79,7 @@ that by providing one-click installation on various platforms.
        - Select what to include: Card details, Board, Activities, Labels, People (Creator, Owner, Members, Assignees), Board Info (Board, List, Swimlane), Dates (Created, Received, Start, Due, End), Description, Custom Fields, Checklists, Subtasks, Comments, Attachments, Votin, Plannin Poker, Stickers, Location (link to map based on coordinates), Dependencies, Sort, Scrum Settings
       - Export to: PDF, Excel, HTML, Calendar feed (iCal), Dependencies JSON/SVG,
        CSV , ; TSV, JSON with/without attachmeents, .zip (Attachments),
-       Kanboard, Markdown, Leo, todo.txt, Taskwarrior, Focalboard,
+       Kanboard, Markdown, Leo, todo.txt, Taskwarrior, Focalboard, Todoist,
        Trello, Jira, NextCloud Deck, OpenProject, GitHub, GitLab,
        Gitea, Forgejo, Asana, Zenkit
     - Scrum Settings

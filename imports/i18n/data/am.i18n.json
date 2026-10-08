@@ -783,6 +783,7 @@
   "import-board-instruction-todotxt": "የtodo.txt ፋይል ይለጥፉ፦ የtodo.txt መተግበሪያ እና ተስማሚ መተግበሪያዎች እንደሚጽፉት፣ በእያንዳንዱ መስመር አንድ ተግባር። የተጠናቀቁ ተግባሮች (\"x\") ወደ ተጠናቀቀ ክፍል ይሄዳሉ፣ +project እና @context መለያዎች ይሆናሉ፣ (A) የቅድሚያ መለያ ይሆናል፣ due: እና t: ደግሞ የመጨረሻ እና የመጀመሪያ ቀኖች ይሆናሉ።",
   "import-board-instruction-taskwarrior": "የ task export ውጤትን ይለጥፉ፦ የJSON ድርድር ወይም በእያንዳንዱ መስመር አንድ ተግባር። የተጠናቀቁ ተግባራት ወደ Done ይሄዳሉ፣ project እና priority መለያዎች፣ annotations አስተያየቶች፣ depends ደግሞ በሚያግዱ ተግባራት ላይ ጥገኛ ግንኙነቶች ይሆናሉ።",
   "import-board-instruction-focalboard": "የ .boardarchive ፋይሉን ከመጭመቂያው ያውጡና የሰሌዳውን board.jsonl ይዘት ከስሪት መስመሩ ጋር ወይም ያለ እሱ ይለጥፉ። የሰሌዳ እይታው የመቧደኛ ባህሪ ዝርዝሮች፣ ሌሎች የምርጫ ባህሪያት መለያዎች፣ የጽሑፍና የምልክት ማድረጊያ ሳጥን ክፍሎች መግለጫና የማረጋገጫ ዝርዝር ይሆናሉ፣ አስተያየቶችም ይቀመጣሉ። ምስሎችና አባሪዎች አይመጡም።",
+  "import-board-instruction-todoist": "In Todoist, open the project menu and choose Export as a template, then paste the CSV file. Sections become lists, tasks become cards, sub-tasks become a checklist, notes become comments, and @labels and priorities p1 to p3 become labels.",
   "import-board-instruction-trello": "በTrello ሰሌዳዎ ውስጥ ወደ 'Menu'፣ ከዚያ 'More'፣ 'Print and Export'፣ 'Export JSON' ይሂዱና የተገኘውን ጽሑፍ ይቅዱ።",
   "import-board-instruction-csv": "በነጠላ ሰረዝ የተለዩ እሴቶች (CSV)/በትር የተለዩ እሴቶች (TSV) ይለጥፉ።",
   "import-board-instruction-jira": "ከJira Cloud REST API የጉዳይ ፍለጋ (GET /rest/api/2/search) የተገኘውን JSON ወይም ተመጣጣኝ { \"issues\": [...] } ነገር ይለጥፉ። የJira ሁኔታዎች ዝርዝሮች ይሆናሉ፣ ጉዳዮችም ካርዶች ይሆናሉ። ደንቦችን ለማስመጣት የ\"automationRules\" ድርድር በአማራጭ ያካትቱ።",

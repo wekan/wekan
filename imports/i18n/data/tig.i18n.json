@@ -783,6 +783,7 @@
   "import-board-instruction-todotxt": "todo.txt ፈይል ለጥፍ፦ ዎሮት ሽቅል ዲብ ዎሮት ሴር፣ ከም todo.txt በርናምጅ ወክምሰሉ ለሻቃ በራምጅ ለከትቡዎ። ለተመመ ሽቅል (\"x\") ዲብ \"ተወዲኡ\" ለአቱ፣ +project ወ@context ዕላማት ለገብኡ፣ (A) ዕላመት ቀዳምየት ለገብእ፣ due: ወt: ዕለት መክለሲ ወመአንበቲ ለገብኡ።",
   "import-board-instruction-taskwarrior": "ለምን task export ለወጽአ ለጥፍ: ዝርዝር JSON፣ አው ሐቴ ሽቅል ዲብ ኩል መሰመር። ለታመ ሽቅል ዲብ Done ለጌስ፣ project ወpriority እሻራት ለገብእ፣ annotations ርእይታት ለገብእ፣ ወdepends እብ ብዕድ ሽቅል ለልትዐገብ ዐላቀት ለገብእ።",
   "import-board-instruction-focalboard": "ለፈይል .boardarchive ፍተሕ ወboard.jsonl ናይ ምዱድ ለጥፍ፣ ምስ መሰመር ናይ ንስከት አው በለ እሉ። ዲብ መርኣይ ምዱድ ለናይ ምግማዕ ባህርየት ዝርዝራት ለገብእ፣ ብዕድ ባህርያት ናይ ምንቃይ እሻራት ለገብእ፣ ለናይ ክታበት ወሳንዱቅ እሻረት ክፍል ዋስፎ ወናይ ምርመራ ዝርዝር ለገብእ፣ ወርእይታት ለልትሐፈዝ። ሱረት ወተለጠፍቲ ኢልትአምጸእኒ።",
+  "import-board-instruction-todoist": "In Todoist, open the project menu and choose Export as a template, then paste the CSV file. Sections become lists, tasks become cards, sub-tasks become a checklist, notes become comments, and @labels and priorities p1 to p3 become labels.",
   "import-board-instruction-trello": "ኣብ ምዱድ Trello፣ ናብ 'Menu'፣ ድሕሪኡ 'More'፣ 'Print and Export'፣ 'Export JSON' ኪድ፣ ነቲ ዝተፈጥረ ጽሑፍ ቅዳሕ።",
   "import-board-instruction-csv": "ብኮማ ዝተፈላለዩ ክብርታት (CSV)/ብታብ ዝተፈላለዩ ክብርታት (TSV) ኣብዚ ለጥፍ።",
   "import-board-instruction-jira": "JSON ካብ ምድላይ ጉዳይ Jira Cloud REST API (GET /rest/api/2/search)፣ ወይ ተመሳሳሊ { \"issues\": [...] } ነገር ለጥፍ። ሓላት Jira ዝርዝራት ይኾኑ፣ ጉዳያት ድማ ወረቀት ካርዳት ይኾኑ። ደንብታት ንምእታው ብምርጫ \"automationRules\" ዝርዝር ኣካትት።",
