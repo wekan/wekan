@@ -7620,6 +7620,15 @@ the 366-observation limit, unknown-versus-zero wording and distinct sprint state
 Technical wording remains low confidence pending speaker review. Browser and
 right-to-left layout checks were not run. The broader translation audit continues.
 
+### Central Kurdish Sync conflicts and preview
+
+Filled 37 English placeholders for Sync conflicts, local-card preservation, preview
+and source omissions. Existing translations and source tokens are preserved. Regression
+checks cover source order, script, placeholders, source-system non-writing, unchanged
+subcards, preview limits and shared labels. Technical wording remains low confidence
+pending speaker review. Browser and right-to-left layout checks were not run. The
+broader translation audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
