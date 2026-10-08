@@ -24,3 +24,18 @@ test('Konkani storage labels retain identifiers and configuration distinctions',
  assert.ok(locale['MongoDB_Oplog_enabled'].includes('Oplog'));
  assert.ok(locale['s3-port-description'].includes('\u0915\u094d\u0930\u092e\u093e\u0902\u0915'));
 });
+test('Konkani short UI labels preserve recipient, actor and total roles',()=>{
+ const keys=["r-sort-by","r-is","r-to","r-of","r-d-send-email-to","r-by","of","board-view-bigboard","poker-question"];
+ for(const key of keys){
+  assert.notEqual(locale[key],english[key],key);
+  assert.match(locale[key],/[\u0900-\u097f]/,key);
+  assert.deepEqual(translationTokens(locale[key]),translationTokens(english[key]),key);
+ }
+ assert.equal(locale['r-to'],locale['r-d-send-email-to']);
+ assert.equal(locale['r-of'],locale['of']);
+ assert.notEqual(locale['r-sort-by'],locale['r-by']);
+ assert.ok(locale['r-sort-by'].includes('\u0915\u094d\u0930\u092e'));
+ assert.ok(locale['r-by'].includes('\u0915\u0930\u092a\u0940'));
+ assert.ok(locale['r-of'].includes('\u090f\u0915\u0942\u0923'));
+ assert.equal(locale['poker-question'],'\u0928\u093f\u092f\u094b\u091c\u0928 \u092a\u094b\u0915\u0930');
+});

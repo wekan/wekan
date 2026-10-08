@@ -9486,6 +9486,15 @@ labels, control clauses, script, key order and tokens. Technical wording
 remains low confidence pending speaker review. Browser and screen-reader
 checks were not run; other short labels and the broader audit remain unfinished.
 
+## Konkani short rule and board labels
+
+Filled nine English-identical labels after checking sorting, actor, mail
+recipient and count fragments in their templates. Existing translations were
+retained. Coverage checks recipient/actor distinctions, shared total labels,
+script and tokens. Assembled sentence order and technical wording remain
+low confidence pending speaker review. Browser checks were not run; the
+broader language and fluency audit remains unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
