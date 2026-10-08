@@ -7679,6 +7679,15 @@ and variable references. Technical wording remains low confidence pending speake
 review. Browser and screen-reader checks were not run. Further Tatar mixed-language
 corrections and English placeholders remain; the broader audit continues.
 
+### Tatar list, number and text input labels
+
+Filled 39 English placeholders for list, loop, arithmetic, text and value inputs.
+Existing translations and source tokens are preserved. Regression checks cover key
+order, token inventories, dividend/divisor distinctions, coordinates, start/end positions
+and shared repeat-count labels. Technical wording remains low confidence pending
+speaker review. Browser and screen-reader checks were not run. Further Tatar
+mixed-language corrections and English placeholders remain; the broader audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
