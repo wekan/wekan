@@ -8904,6 +8904,16 @@ alongside script, key order and token inventories. Technical wording remains low
 confidence pending speaker review. Browser checks were not run; further translations
 remain.
 
+## Odia sync conflict guidance
+
+Filled 16 English placeholders: the remaining Scrum import warning and initial
+sync conflict guidance. Preserved local/source distinctions, no-source-write
+assurance, review-only scope and unchanged subcards. The placeholder-only merge
+retained existing translations. Regression coverage checks these restrictions
+alongside script, key order and token inventories. Technical wording remains low
+confidence pending speaker review. Browser checks were not run; further sync
+translations and the broader language audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |

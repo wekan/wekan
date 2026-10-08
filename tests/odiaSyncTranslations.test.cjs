@@ -1,0 +1,23 @@
+'use strict';
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const english=require('../imports/i18n/data/en.i18n.json');
+const locale=require('../imports/i18n/data/or_IN.i18n.json');
+const {translationTokens}=require('../releases/translations/placeholder-tokens.mjs');
+const keys=["scrum-import-pending","sync-conflict-heading","sync-conflict-hint","sync-conflict-local","sync-conflict-keep-local","sync-conflict-use-source","sync-conflict-refresh","sync-conflict-review-complete","sync-conflict-duplicate","sync-conflict-keep-mapping","sync-conflict-detach","sync-conflict-detach-hint","sync-conflict-archive","sync-conflict-archive-hint","sync-conflict-keep-card-local","sync-conflict-creation"];
+test('Odia sync translations preserve key order, script and tokens',()=>{
+ assert.deepEqual(Object.keys(locale),Object.keys(english));
+ for(const key of keys){
+  assert.notEqual(locale[key],english[key],key);
+  assert.match(locale[key],/[\u0b00-\u0b7f]/,key);
+  assert.deepEqual(translationTokens(locale[key]),translationTokens(english[key]),key);
+ }
+});
+test('Odia sync guidance preserves review scope and local data',()=>{
+ assert.ok(locale['sync-conflict-hint'].includes('\u0b15\u0b3f\u0b1b\u0b3f \u0b2a\u0b20\u0b3e\u0b2f\u0b3e\u0b0f \u0b28\u0b3e\u0b39\u0b3f\u0b01'));
+ assert.ok(locale['sync-conflict-review-complete'].includes('\u0b38\u0b2e\u0b4d\u0b2a\u0b42\u0b30\u0b4d\u0b23\u0b4d\u0b23 \u0b24\u0b3e\u0b32\u0b3f\u0b15\u0b3e\u0b30 \u0b38\u0b3f\u0b19\u0b4d\u0b15\u0b4d \u0b1a\u0b32\u0b3e\u0b2f\u0b3e\u0b07\u0b28\u0b3e\u0b39\u0b3f\u0b01'));
+ assert.ok(locale['sync-conflict-archive-hint'].includes('\u0b09\u0b2a\u0b15\u0b3e\u0b30\u0b4d\u0b21\u0b17\u0b41\u0b21\u0b3c\u0b3f\u0b15 \u0b2c\u0b26\u0b33\u0b3e\u0b2f\u0b3e\u0b0f \u0b28\u0b3e\u0b39\u0b3f\u0b01'));
+ assert.ok(locale['sync-conflict-detach-hint'].includes('\u0b2c\u0b3f\u0b37\u0b5f\u0b2c\u0b38\u0b4d\u0b24\u0b41 WeKan \u0b30\u0b47 \u0b30\u0b39\u0b3f\u0b2c'));
+ assert.notEqual(locale['sync-conflict-keep-local'],locale['sync-conflict-use-source']);
+ assert.ok(locale['scrum-import-pending'].includes('\u0b09\u0b2a\u0b32\u0b2c\u0b4d\u0b27 \u0b28\u0b3e\u0b39\u0b3f\u0b01'));
+});
