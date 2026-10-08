@@ -115,3 +115,10 @@ Kanboard's Bigboard plugin
 The Bigboard board view shows several boards on one page
 (client/components/boards/bigboardView.*, docs/Features/Board/Bigboard.md), and
 cards can be dragged between boards in it.
+
+## [#4250](https://github.com/wekan/wekan/issues/4250) Move a checklist from
+one card to another card
+
+The checklist menu has Move Checklist and Copy Checklist with a board /
+swimlane / list / card picker (client/components/cards/checklists.jade,
+checklists.js).
