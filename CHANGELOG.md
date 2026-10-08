@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/24f9ccac4e79d4acfbc86f185e9835641c784616">Translate Turkmen math inputs and keyboard navigation</a></summary>
+
+- Fill 38 Turkmen placeholders, preserving existing translations, operand
+  distinctions, coordinates, search/replacement roles and shortcut instructions.
+- Technical wording remains low confidence pending speaker review.
+- All 43 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. Further translations and the audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8bd132753a6cc80c177f563057ba4a987a6b313e">Translate Turkmen editing and input labels</a></summary>
 
 - Fill 44 Turkmen placeholders, preserving existing translations, bitmap
