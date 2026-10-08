@@ -124,6 +124,7 @@ import './externalScrumImport.tests';
 import './listSyncGitlabEstimate.tests';
 import './scrumScopeHistory.tests';
 import './scrumSnapshotRows.tests';
+import './scrumTransferMerge.tests';
 import './continuousBackup.tests';
 import './copySubtaskScope.tests';
 import './ruleTriggerScope.tests';

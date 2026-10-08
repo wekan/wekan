@@ -358,6 +358,58 @@ start revision 1; existing lists are not silently reclassified by incoming
 cards. Sprint/release references on moved cards and swimlanes, their lifecycle
 coordination and History restoration still need integration.
 
+### Importing Scrum planning into an existing board
+
+Every board import creates a new board. A board administrator can also import
+the Scrum planning of a native transfer INTO a board that already exists
+(2026-10-08): Sprints view, **Import Scrum planning into this board**. The file
+is a WeKan board export (it carries `scrumTransfer`) or a bare `wekan-scrum-2`
+transfer. **Preview** runs the same plan as a dry run and writes nothing;
+**Import** then writes it. The method is `scrum.importIntoBoard(boardId, file,
+{ dryRun })`, administrators only on the server; the matching rules are pure
+(`models/lib/scrumTransferMerge.js`) and the writer is
+`server/lib/scrumTransferMerge.js`.
+
+What matches what, and why:
+
+| What | Matched by, in order | When nothing matches |
+| --- | --- | --- |
+| Sprints, releases | the same `_id` on this board; the same provenance; the same trimmed name, when exactly one record on each side has it | created, with the source's provenance |
+| Events | the same `_id` on this board; the same provenance | created, when its sprint is on this board |
+| Cards | the same `_id` on this board; a board export's card number AND title, exactly one card | reported, left alone - cards are never created |
+
+- **Provenance first, name last** makes a second import of the same file find
+  the records the first one created: they carry `{ system: 'wekan', recordId,
+  projectId }` of the source (or the Jira/GitLab/... provenance the file
+  already had). The name rule is the one card copies and moves follow
+  (`models/lib/scrumCopy.js`).
+- **Never a guess.** Two candidates, or two file records claiming one board
+  record, is `record-ambiguous`: the record is neither linked nor created, and a
+  card that named it keeps its own sprint or releases. A card with no match is
+  `card-not-matched`; one matching two cards, or two file cards matching one, is
+  `card-ambiguous`; a card ID that is another board's card is
+  `card-on-another-board`. Each is in the board's import report and the preview,
+  and nothing is written for it. Linked cards never match.
+- **A matched record is the board's own**: its name, dates, state and daily
+  history are not overwritten. A created sprint brings its lifecycle, snapshots
+  and daily history, remapped to this board's cards and lists; rows of cards or
+  lists that are not here leave the snapshot, which is marked partial.
+- **A matched card** gets the file's sprint, releases, backlog rank, issue type
+  and acceptance criteria; past sprints are added to, and a card leaving a sprint
+  remembers it, as `scrum.updateCard` does. A move into a finished sprint is
+  refused (`sprint-finished`). Estimates are the card's planning poker value or a
+  custom field, not Scrum metadata, and are not in the transfer, so they do not
+  change. Board settings, list categories and swimlane links stay the board's.
+- **Writes** go through the same journaled stage as every Scrum import
+  (`scrumImportWriter.js`): an interrupted import shows the incomplete-import
+  warning and is finished or discarded from the Scrum view, or offline
+  ([Scrum import recovery](../../../ImportExport/Scrum-Import-Recovery.md)). An
+  item's revision moves on by one, as any metadata write. The finished import is
+  recorded as one Scrum History change, like any other Scrum edit; an import
+  finished by recovery is not (no request is there to record it).
+- **Idempotent**: when nothing would change, nothing is written - not even the
+  report - and the preview says so.
+
 Implementation checkpoint: `models/lib/scrumTransfer.js` now defines and tests
 the `wekan-scrum-2` data contract and destination-ID remapping. Version 1 files
 remain importable and receive no invented daily observations. Version 2 files

@@ -243,11 +243,17 @@ function remapScrumTransfer(value, maps) {
   // identifiers are unique, including cards present only in old snapshots.
   return { transfer: normalizeScrumTransfer(result), losses };
 }
+// The last six are what an import INTO an existing board could not place
+// (models/lib/scrumTransferMerge.js): a card with no match, two matches or on
+// another board, a record with two candidates, one it could not create, a
+// card not moved into a finished sprint.
+const LOSS_REASONS = ['not-transferred', 'card-or-list-not-exported', 'card-not-exported', 'estimate-field-not-exported',
+  'card-not-matched', 'card-ambiguous', 'card-on-another-board', 'record-ambiguous', 'record-not-imported', 'sprint-finished'];
 function normalizeScrumTransferLosses(value = []) {
   return rows(value).map(row => {
     object(row, ['path', 'sourceId', 'reason']);
     if (typeof row.path !== 'string' || !row.path || row.path.length > 1000) fail('invalid loss path');
-    if (!['not-transferred', 'card-or-list-not-exported', 'card-not-exported', 'estimate-field-not-exported'].includes(row.reason)) fail('invalid loss reason');
+    if (!LOSS_REASONS.includes(row.reason)) fail('invalid loss reason');
     return { path: row.path, sourceId: id(row.sourceId), reason: row.reason };
   });
 }

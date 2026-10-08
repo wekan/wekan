@@ -9,6 +9,11 @@ class ScrumRecoveryError extends Error {}
 const fail = message => { throw new ScrumRecoveryError(message); };
 const object = value => value && typeof value === 'object' && !Array.isArray(value);
 
+// A new board's import starts every revision at 1. An import into an existing
+// board (server/lib/scrumTransferMerge.js) moves an item's revision on by one,
+// as any Scrum metadata write does - never anything else.
+const importRevision = step => step.after.scrumRevision === 1 ||
+  (Number.isSafeInteger(step.before.scrumRevision) && step.after.scrumRevision === step.before.scrumRevision + 1);
 function validateStep(row, checkpoint, index) {
   if (!row || row._id !== `${checkpoint.operationId}:${index}` || row.operationId !== checkpoint.operationId ||
       row.boardId !== checkpoint._id || row.index !== index) fail('The recovery plan is incomplete or out of order.');
@@ -19,7 +24,7 @@ function validateStep(row, checkpoint, index) {
     if (step.kind !== 'update' || step.boardId !== checkpoint._id || typeof step.id !== 'string' ||
         (step.collection === 'boards' && step.id !== checkpoint._id) || !object(step.before) ||
         Object.keys(step.before).some(key => !fields.includes(key)) ||
-        !equals(Object.keys(step.after).sort(), fields.sort()) || step.after.scrumRevision !== 1) fail('Invalid metadata recovery step.');
+        !equals(Object.keys(step.after).sort(), fields.sort()) || !importRevision(step)) fail('Invalid metadata recovery step.');
   } else if (step.kind !== 'insert' || step.after.boardId !== checkpoint._id ||
       typeof step.after._id !== 'string' || !step.after._id ||
       (step.collection === 'sprints' && step.after.scrumImportPending !== true)) fail('Invalid planning recovery step.');

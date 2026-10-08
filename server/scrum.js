@@ -500,6 +500,20 @@ const methods = {
   // has run out.
   async 'scrum.resumeImport'(boardId) { return recoverScrumImportOnline(this.userId, boardId, 'resume'); },
   async 'scrum.discardImport'(boardId) { return recoverScrumImportOnline(this.userId, boardId, 'discard'); },
+  // A native Scrum transfer imported INTO this board (2026-10-08): sprints and
+  // releases matched or created, cards matched, never a new board
+  // (server/lib/scrumTransferMerge.js). A board administrator's, through the
+  // journaled import stage, recorded in History as one change; `dryRun`
+  // returns what would change and writes nothing.
+  async 'scrum.importIntoBoard'(boardId, file, options = {}) {
+    check(boardId, String); check(file, Object); check(options, { dryRun: Match.Optional(Boolean) });
+    const userId = this.userId;
+    return locked(boardId, async () => {
+      await boardFor(userId, boardId, true); await pending(boardId);
+      const { importScrumTransferIntoBoard } = require('/server/lib/scrumTransferMerge');
+      return importScrumTransferIntoBoard({ userId, boardId, file, dryRun: options.dryRun === true, record: recordScrumChange });
+    });
+  },
   // A Scrum History undo or redo stopped on a conflict, inspected by a member
   // and rolled back or discarded by a board administrator.
   async 'scrum.inspectHistoryCheckpoint'(boardId) { check(boardId, String); return inspectScrumHistoryCheckpointOnline(this.userId, boardId); },

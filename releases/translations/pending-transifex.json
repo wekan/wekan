@@ -831,6 +831,70 @@
     {
       "key": "sync-planning-hint",
       "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-import-into-board",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-import-into-board-hint",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-import-preview",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-import-choose-file",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-import-invalid-file",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-import-preview-sprints",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-import-preview-releases",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-import-preview-cards",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-import-preview-nothing",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-import-into-board-done",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-import-card-not-matched",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-import-card-ambiguous",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-import-card-on-another-board",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-import-record-ambiguous",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-import-record-not-imported",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "scrum-import-sprint-finished",
+      "since": "2026-10-08"
     }
   ]
 }

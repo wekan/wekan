@@ -22,7 +22,7 @@ template(name="scrumView")
           details.scrum-import-report
             summary {{_ 'import'}}
             each data.importLosses
-              p {{_ 'scrum-import-reference-omitted' reference=sourceId}}
+              p {{lossText}}
         if data.partial
           p(role="status" class="scrum-partial-report") {{_ 'scrum-partial-report'}}
         if historyJob
@@ -71,6 +71,24 @@ template(name="scrumView")
                   each completionPolicies
                     option(value=value selected=selected) {{label}}
               button.primary(type="submit" disabled=busy) {{_ 'save'}}
+          details.scrum-transfer-import
+            summary {{_ 'scrum-import-into-board'}}
+            p {{_ 'scrum-import-into-board-hint'}}
+            input.js-scrum-transfer-file(type="file" accept=".json,application/json")
+            button.js-scrum-transfer-preview(type="button" disabled=busy) {{_ 'scrum-import-preview'}}
+            with transferPreview
+              .scrum-transfer-preview(role="status")
+                if changed
+                  p.js-scrum-transfer-done {{_ 'scrum-import-into-board-done'}}
+                p {{_ 'scrum-import-preview-sprints' created=sprints.created.length matched=sprints.matched.length skipped=sprints.skipped.length}}
+                p {{_ 'scrum-import-preview-releases' created=releases.created.length matched=releases.matched.length skipped=releases.skipped.length}}
+                p {{_ 'scrum-import-preview-cards' updated=cards.updated unchanged=cards.unchanged unmatched=cards.unmatched}}
+                if nothingToDo
+                  p.js-scrum-transfer-nothing {{_ 'scrum-import-preview-nothing'}}
+                each losses
+                  p.scrum-transfer-loss {{lossText}}
+                if canApply
+                  button.primary.js-scrum-transfer-apply(type="button" disabled=busy) {{_ 'import'}}
         if isVelocity
           +scrumReportTable(rows=velocity velocity=true)
         else
