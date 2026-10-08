@@ -122,3 +122,10 @@ one card to another card
 The checklist menu has Move Checklist and Copy Checklist with a board /
 swimlane / list / card picker (client/components/cards/checklists.jade,
 checklists.js).
+
+## [#4403](https://github.com/wekan/wekan/issues/4403) Restrict the WeKan port
+to loopback
+
+`snap set wekan bind-ip=127.0.0.1` makes WeKan listen on loopback only
+(snap-src/bin/config, snap-src/bin/wekan-control export BIND_IP, which Meteor
+honours); the bundle and Docker take the BIND_IP environment variable.
