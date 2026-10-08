@@ -987,3 +987,13 @@ assert.equal(wu['display-card-creator'], '显示卡片' + wu.creator);
 assert.doesNotMatch(wu['display-card-creator'], /创建器/);
 for (const entity of ['org', 'team']) assert.match(wu['delete-' + entity + '-warning-message'], /删勿脱.*至少还有一只用户属于/);
 assert.match(wu['recovery-report-desc'], /MongoDB/);
+
+const spinnersInvitationsWu = ["wait-spinner", "Bounce", "Cube", "Cube-Grid", "Dot", "Double-Bounce", "Rotateplane", "Scaleout", "Wave", "carbon-copy", "cardDetailsPopup-title", "add-teams-label", "remove-team-from-table", "remove-btn", "invite-people-success", "invite-people-error", "email-domain-allowed-to-invite", "to-create-teams-contact-admin"];
+for (const key of spinnersInvitationsWu) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+for (const key of ['wait-spinner', 'Bounce', 'Cube', 'Cube-Grid', 'Dot', 'Double-Bounce', 'Rotateplane', 'Scaleout', 'Wave']) assert.match(wu[key], /等待动画/);
+assert.match(wu.Rotateplane, /方块翻转/);
+assert.doesNotMatch(wu.Rotateplane, /飞机/);
+assert.match(wu.Scaleout, /放大淡出/);
+assert.match(wu['carbon-copy'], /Cc:/);
+assert.match(wu['remove-team-from-table'], /团队从看板里向移脱/);
+assert.match(wu['email-domain-allowed-to-invite'], /自助注册关脱.*允许邀请.*电子邮件域名/);

@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu animation and invitation corrections — 2026-10-08
+
+Correct 18 animation, team and invitation values. Check the Rotateplane and Scaleout
+CSS to distinguish the rotating square and expanding/fading animation from an airplane
+and horizontal expansion. Preserve Cc and clarify removal from a board and disabled
+self-registration. Refresh exact-value audit records. Wu prose needs native review;
+browser tests were not run and all-language work remains unfinished.
+
 ## Wu report and template corrections — 2026-10-08
 
 Correct 21 report, template and permission values. Restore the administrator and
@@ -12820,7 +12828,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,778** exact before/after values, including unflagged
+records contain **23,795** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

@@ -906,8 +906,8 @@
     "locale": "wuu-Hans",
     "key": "remove-team-from-table",
     "before": "您确定要从董事会中删除该团队吗？",
-    "after": "您确定要从看板中删除该团队吗？",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "侬确定要拿搿只团队从看板里向移脱伐？",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Correct Wu spinner meanings and team invitation instructions; lower-confidence prose needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -166444,5 +166444,124 @@
     "before": "无法删除该团队，至少有一个用户属于该团队",
     "after": "删勿脱搿只团队，至少还有一只用户属于搿只团队",
     "reason": "2026-10-08: Correct Wu report and template instructions and creator/admin roles; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "wait-spinner",
+    "before": "等待旋转器",
+    "after": "等待动画",
+    "reason": "2026-10-08: Correct Wu spinner meanings and team invitation instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "Bounce",
+    "before": "弹跳等待微调器",
+    "after": "弹跳等待动画",
+    "reason": "2026-10-08: Correct Wu spinner meanings and team invitation instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "Cube",
+    "before": "立方体等待旋转器",
+    "after": "立方体等待动画",
+    "reason": "2026-10-08: Correct Wu spinner meanings and team invitation instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "Cube-Grid",
+    "before": "立方体网格等待旋转器",
+    "after": "立方体网格等待动画",
+    "reason": "2026-10-08: Correct Wu spinner meanings and team invitation instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "Dot",
+    "before": "点等待旋转器",
+    "after": "圆点等待动画",
+    "reason": "2026-10-08: Correct Wu spinner meanings and team invitation instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "Double-Bounce",
+    "before": "双弹跳等待旋转器",
+    "after": "双重弹跳等待动画",
+    "reason": "2026-10-08: Correct Wu spinner meanings and team invitation instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "Rotateplane",
+    "before": "旋转飞机等待微调器",
+    "after": "方块翻转等待动画",
+    "reason": "2026-10-08: Correct Wu spinner meanings and team invitation instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "Scaleout",
+    "before": "横向扩展等待微调器",
+    "after": "放大淡出等待动画",
+    "reason": "2026-10-08: Correct Wu spinner meanings and team invitation instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "Wave",
+    "before": "波等待旋转器",
+    "after": "波浪等待动画",
+    "reason": "2026-10-08: Correct Wu spinner meanings and team invitation instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "carbon-copy",
+    "before": "抄送（抄送：）",
+    "after": "抄送（Cc:）",
+    "reason": "2026-10-08: Correct Wu spinner meanings and team invitation instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cardDetailsPopup-title",
+    "before": "卡详情",
+    "after": "卡片详情",
+    "reason": "2026-10-08: Correct Wu spinner meanings and team invitation instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "add-teams-label",
+    "before": "添加的队伍如下所示：",
+    "after": "加进来个团队显示勒下头：",
+    "reason": "2026-10-08: Correct Wu spinner meanings and team invitation instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "remove-btn",
+    "before": "消除",
+    "after": "移脱",
+    "reason": "2026-10-08: Correct Wu spinner meanings and team invitation instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "invite-people-success",
+    "before": "注册邀请已成功发送",
+    "after": "注册邀请已经发送成功仔",
+    "reason": "2026-10-08: Correct Wu spinner meanings and team invitation instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "invite-people-error",
+    "before": "发送注册邀请时出错",
+    "after": "发送注册邀请个辰光出错仔",
+    "reason": "2026-10-08: Correct Wu spinner meanings and team invitation instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "email-domain-allowed-to-invite",
+    "before": "在关闭自助注册时，允许邀请他人的电子邮件域名",
+    "after": "自助注册关脱个辰光，允许邀请别人个电子邮件域名",
+    "reason": "2026-10-08: Correct Wu spinner meanings and team invitation instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "to-create-teams-contact-admin",
+    "before": "如需创建团队，请联系管理员。",
+    "after": "要创建团队，请联系管理员。",
+    "reason": "2026-10-08: Correct Wu spinner meanings and team invitation instructions; lower-confidence prose needs native review."
   }
 ]
