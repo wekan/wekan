@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu cloud-help corrections — 2026-10-08
+
+Correct 19 anonymization, restore and cloud-storage values. Preserve counter examples,
+mention and field names, credential fallbacks, client_email, console menu labels and
+the once-only secret-key display warning. Existing Wu continuous-backup strings are
+retained. Refresh exact-value audit records. Wu prose needs native review; browser
+tests were not run and all-language work remains unfinished.
+
 ## Wu settings-help corrections — 2026-10-08
 
 Correct 20 loading, rendering, import/export, account, notification and backup values.
@@ -12880,7 +12888,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,970** exact before/after values, including unflagged
+records contain **23,989** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

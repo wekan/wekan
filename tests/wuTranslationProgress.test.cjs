@@ -1078,3 +1078,16 @@ assert.doesNotMatch(wu['anonymize-account-confirm-popup'], /导出看板/);
 assert.match(wu['backup-scope-description'], /勿包含用户账户搭实例设置.*只会写入搿只组织拥有个看板/);
 for (const kind of ['import', 'export']) assert.match(wu['disable-all-' + kind + '-description'], /服务器会拒绝任何.*请求/);
 assert.match(wu['disable-notifications-description'], /活动仍旧好记录.*只停脱通知/);
+
+const cloudHelpWu = ["anonymize-import-users-description", "anonymize-export-users-description", "backup-restore-add-missing", "backup-restore-select-first", "gcs-key-filename-description", "gcs-credentials-description", "gcs-permissions-note", "cloud-secret-keep-blank", "azure-account-name-description", "azure-container-description", "gcs-project-id-description", "gcs-bucket-description", "s3-endpoint-menu-path", "s3-region-menu-path", "s3-bucket-menu-path", "s3-access-key-menu-path", "s3-secret-key-menu-path", "azure-account-name-menu-path", "azure-account-key-menu-path"];
+for (const key of cloudHelpWu) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+for (const kind of ['import', 'export']) {
+  for (const literal of ['user1', 'user2', '@username', 'requested-by', 'assigned-by']) assert.ok(wu['anonymize-' + kind + '-users-description'].includes(literal), literal);
+  assert.match(wu['anonymize-' + kind + '-users-description'], /移脱伊个头像/);
+}
+for (const literal of ['New principals', 'client_email', 'Storage Object Admin', 'Grant access']) assert.ok(wu['gcs-permissions-note'].includes(literal), literal);
+for (const key of ['s3-access-key-menu-path', 's3-secret-key-menu-path']) assert.deepEqual(wu[key].match(/'[^']+'/g), english[key].match(/'[^']+'/g));
+assert.match(wu['s3-secret-key-menu-path'], /创建密钥个辰光显示一趟.*当场复制/);
+assert.match(wu['gcs-credentials-description'], /留空就用密钥文件或者默认凭据/);
+assert.match(wu['cloud-secret-keep-blank'], /留空就保留现在个值/);
+assert.match(wu['azure-account-key-menu-path'], /key1 → Show → Key/);
