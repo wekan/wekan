@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/66c6211e8af3d3dd179264c42789d60df951db3c">Correct Tatar card archival and editing guidance</a></summary>
+
+- Correct 29 calendar and card-control strings, preserving placeholders and
+  distinctions between archive restoration, permanent deletion and overdue dates.
+- Technical wording remains low confidence pending speaker review.
+- All 78 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e628b9bb03852a8a94a88ef87db64bff2a739098">Correct Tatar board views and appearance controls</a></summary>
 
 - Correct 26 navigation, appearance and board-view strings, preserving source
