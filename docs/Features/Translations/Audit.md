@@ -7421,6 +7421,15 @@ no-return descriptions, named invocations, disabled definitions and function-onl
 return restrictions. Technical wording remains low confidence pending speaker review.
 Browser and screen-reader checks were not run; the broader language audit continues.
 
+### Bhojpuri navigation shortcuts and screen-reader controls
+
+Filled 39 English placeholders for variable renaming, zoom reset, screen-reader
+mode and navigation/editing shortcuts. Existing translations and source tokens are
+preserved. Regression checks cover the batch token inventories, distinct movement
+and scrolling directions, next/previous targets, and inverse screen-reader toggle
+actions. Accessibility terminology remains low confidence pending speaker review.
+Browser and screen-reader checks were not run; the broader audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
