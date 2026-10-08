@@ -443,6 +443,153 @@ used.
 
 # Upcoming WeKan ® release
 
+**In short:** Boards now import from and export to fourteen more tools:
+**Microsoft Planner**, **monday.com**, **ClickUp**, **Linear**, **Taiga**,
+**Vikunja**, **Pivotal Tracker**, **TickTick**, **Tasks.org**, **MeisterTask**,
+**Super Productivity**, **Kanri**, **Nullboard** and **Obsidian Kanban**, each
+following that tool's documented or source-verified format, with a loss report
+for what WeKan has no place for. Translation work continues.
+
+This release adds the following new features:
+
+**Import and export** - fourteen more tools, each a round trip where the tool
+can read its own file back, matched by the tool's own column and field names.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7ef5b875fa">Microsoft Planner: the Excel workbook its Export plan to Excel writes</a>. Thanks to xet7.</summary>
+
+Buckets become lists and tasks cards, with assignees, Created By as Requested
+by, the four dates, the checklist, labels, and Progress, Priority and Completed
+By as custom fields. Columns are matched by name; dates written in the
+exporting user's locale are read day/month or month/day for the whole file.
+Export writes the same workbook. The layout follows a real export, the MIT test
+data of the plannr package in `tests/fixtures/planner/`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/804c7183a2">MeisterTask: its project CSV, in its export and its import shape</a>. Thanks to xet7.</summary>
+
+Sections become lists, with notes, due and created dates, the assignee, tags,
+completed and archived tasks. Export writes MeisterTask's import shape, which it
+reads back. Columns without a documented shape are reported.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/435461f939">Obsidian Kanban: the plugin's own board file</a>. Thanks to xet7.</summary>
+
+Follows the plugin's parser and writer: lanes with their card limit (now a WIP
+limit), tags, @{dates}, the Tasks plugin's dates and priority, Dataview fields,
+body task lists as checklists, Complete lanes and the Archive. Imported columns
+can now carry a WIP limit, also Kanboard's own task_limit.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fb7cbc66e6">Linear: its CSV export, read as its own CSV importer reads it</a>. Thanks to xet7.</summary>
+
+Statuses become lists and teams swimlanes; priority names, labels joined by
+", ", the formula guard, the parent issue, estimate, project and cycle are kept.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/46f026ddb6">TickTick: its backup CSV, versions 7.1 and 7.2</a>. Thanks to xet7.</summary>
+
+Each TickTick list becomes a swimlane and its columns lists, with the ▫/▪
+checklist, tags, dates (an all-day date stays on its day in the task's time
+zone), status, priority and subtasks.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1e7911a2d0">ClickUp: its workspace export and Spreadsheets importer CSV</a>. Thanks to xet7.</summary>
+
+Statuses become lists, ClickUp lists swimlanes and the Space the board title,
+with subtasks, assignees, tags, dates in milliseconds or ISO, time, priority and
+attachments as links. Undocumented Checklists and Comments cells are reported.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2725f7a2aa">Nullboard: its .nbx board files, checked as Nullboard checks them</a>. Thanks to xet7.</summary>
+
+Notes split into title and description; a raw note keeps a raw label. Export
+writes one board Nullboard imports, with checklists as [ ] / [x] lines.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eec53eb322">Kanri: its board and all-data JSON exports</a>. Thanks to xet7.</summary>
+
+Columns, cards, due date and its done flag, tasks as a checklist, tags with
+their colors and Kanri's card colors. Imported labels now keep a source's label
+color instead of always being black.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2e5fd9530e">Pivotal Tracker: the stories CSV that remains after its shutdown</a>. Thanks to xet7.</summary>
+
+Repeated columns are collected in order, Current State becomes lists in
+Tracker's workflow order, iterations Scrum sprints, Estimate the Scrum estimate,
+comments keep their author and date, tasks a checklist and #id blockers
+blocked-by links.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/68b2cceb19">Tasks.org: its backup JSON, restorable back into Tasks.org</a>. Thanks to xet7.</summary>
+
+Lists, tasks, tags, priority, the all-day/timed date rule, completion, time,
+comments and subtasks as subtask cards. Export uses stable ids, so a second
+restore skips tasks Tasks.org already has.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1ceaad80f4">monday.com: the workbook its Export board to Excel writes</a>. Thanks to xet7.</summary>
+
+Column titles are matched by meaning: Status lists, groups swimlanes, people,
+dates, timeline, tags; other columns become custom fields, updates comments and
+subitems subtasks. Export writes the flat table monday's own import reads.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b7e515dba6">Super Productivity: its backup JSON, at crossModelVersion 4.5</a>. Thanks to xet7.</summary>
+
+Projects become swimlanes and lists follow its default Kanban states; sub-tasks,
+tags, notes, dates, time spent, estimate, priority and archived tasks are kept.
+Export is checked against Super Productivity's own validation.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bd6a8ce019">Taiga: the project dump its export writes and load_dump reads</a>. Thanks to xet7.</summary>
+
+User story statuses become lists and Taiga swimlanes swimlanes; tasks become
+subtask cards, epics and issues get swimlanes of their own, tag colors become
+label colors and open milestones Scrum sprints. Export writes every key Taiga's
+exporter writes.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a8e73adf48">Vikunja: its data export zip, in both bucket layouts</a>. Thanks to xet7.</summary>
+
+The first kanban view's buckets become lists, several projects swimlanes, HTML
+descriptions text with TipTap task lists as checklists, and relations parent
+cards and dependencies. The zip is opened on the server under size and inflate
+limits; export writes the same zip.
+
+</details>
+
+and improves translations:
+
+**Translations** - continued language coverage and corrections.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/42797d6418">Translate Super Productivity, Taiga and Vikunja imports</a>. Thanks to xet7.</summary>
 
