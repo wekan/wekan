@@ -9394,6 +9394,16 @@ script, key order and tokens. Technical wording remains low confidence pending
 speaker review. Browser and screen-reader checks were not run; further Konkani
 translations and the broader audit remain unfinished.
 
+## Konkani text search and variable assignments
+
+Filled 47 English placeholders for text operations, variable assignments and
+name-collision warnings. The placeholder-only merge retained existing
+translations. Regression coverage checks not-found results, replacement operand
+roles, whitespace boundaries, substring direction and collision contexts, plus
+script, key order and tokens. Technical wording remains low confidence pending
+speaker review. Browser checks were not run; further Konkani translations
+and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
