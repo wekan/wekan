@@ -79,3 +79,18 @@ assert.match(belarusianRecovery['stuck-sync-operation-replayable-now'], /нел�
 assert.match(belarusianRecovery['stuck-sync-operation-not-stuck'], /нельга адкінуць/);
 assert.match(belarusianRecovery['stuck-sync-operation-truncated'], /50 найстарэйшых/);
 assert.match(belarusianRecovery['stuck-sync-operation-busy'], /зараз сінхранізуецца/);
+
+const interruptedImportKeys = Object.keys(en).filter(key => key.startsWith('interrupted-import-'));
+assert.equal(interruptedImportKeys.length, 25);
+for (const key of interruptedImportKeys) {
+  assert.notEqual(belarusianRecovery[key], en[key], key);
+  assert.deepEqual(translationTokens(belarusianRecovery[key]), translationTokens(en[key]), key);
+}
+assert.match(belarusianRecovery['interrupted-import-description'], /зыходны файл не захоўваецца/);
+assert.match(belarusianRecovery['interrupted-import-description'], /ўсё, што было дададзена пазней/);
+assert.match(belarusianRecovery['interrupted-import-counts'], /__swimlanes__ дарожак/);
+assert.match(belarusianRecovery['interrupted-import-discard-confirm'], /выдаленыя назаўсёды/);
+assert.match(belarusianRecovery['interrupted-import-keep-confirm'], /Нічога не выдаляецца/);
+assert.match(belarusianRecovery['interrupted-import-foreign-board'], /не была зменена/);
+assert.match(belarusianRecovery['interrupted-import-truncated'], /50 найстарэйшых/);
+assert.match(belarusianRecovery['interrupted-import-scrum-busy'], /яшчэ запісваецца або аднаўляецца/);
