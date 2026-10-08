@@ -134,7 +134,8 @@ previously held for Transifex. Completed work is recorded in Upcoming.
 <details>
 <summary>Blockly translations paused for release; remaining languages and review.</summary>
 
-Paused again at the maintainer's request on 2026-09-27 for the next release.
+Paused again at the maintainer's request on 2026-09-27 for the next release,
+and kept paused by the maintainer's decision of 2026-10-08.
 Gujarati Blockly prose and Blocks-editor messages now have placeholder coverage;
 resume the remaining catalogs and terminology review only when requested.
 The editable Blocks view
@@ -376,11 +377,10 @@ hangs.
 
 The coordinated History chain (server/lib/storedHistoryChain.js) is switched
 on per board only by the offline releases/recover-history-writer.cjs, with
-every writer stopped. Switching it on online needs proof that no older server
-still writes History the legacy way, and a server older than the writer
-heartbeat cannot be seen at all - so the choice is between keeping the
-offline step, or requiring all servers to run a heartbeat-capable version
-before an online switch may assume it.
+every writer stopped. Decided on 2026-10-08: that stays the only switch. An
+online switch would need proof that no older server still writes History the
+legacy way, and a server older than the writer heartbeat cannot be seen at
+all, so it is not offered.
 
 [#2460](https://github.com/wekan/wekan/issues/2460) (SQRL login - the
 report is a single comment-free link to https://www.grc.com/sqrl from 2019.
@@ -412,10 +412,11 @@ Problems → Recovery and on the import page. Left open:
   bytes need live API connectors with credentials.
 - Zenkit's native single-file export is unverified: Zenkit publishes no schema.
 - Formats WeKan does not read or write yet. Todoist, OPML and Org mode were
-  added on 2026-10-08; candidates not researched yet are Vikunja, Planka,
-  Taiga, Microsoft Planner and Notion. Each costs what todo.txt cost - a
-  parser, a formatter, tests, the picker and menu wiring and one instruction
-  string in English pending Transifex - and is taken one at a time.
+  added on 2026-10-08. Microsoft Planner is next (maintainer decision of
+  2026-10-08); Vikunja, Planka, Taiga and Notion are not researched yet. Each
+  costs what todo.txt cost - a parser, a formatter, tests, the picker and menu
+  wiring and one instruction string in English pending Transifex - and is
+  taken one at a time.
 
 Deck sharing rules are not imported by design: an import never grants access.
 
