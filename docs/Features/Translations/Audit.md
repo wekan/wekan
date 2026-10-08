@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Portuguese planning and recovery messages — 2026-10-08
+
+Translate 61 current English values in each of four Portuguese catalogs
+(pt, pt-PT, pt_PT and pt-BR), for 244 filled values. Preserve existing
+localized values and Brazilian terminology for files, planning and lanes.
+Cover board controls, link rules, planning imports, Sync and import/history
+recovery. Extend the existing suite with per-key prose checks, regional
+wording, recovery decisions, matching priority, permanent removal and literal
+syntax. No browser or screen-reader session was run; other untranslated
+messages remain open.
+
 ## Spanish import formats and stuck Sync recovery — 2026-10-08
 
 Translate 36 more current values in each of the nine Spanish catalogs, for

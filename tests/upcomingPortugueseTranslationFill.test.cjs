@@ -19,7 +19,71 @@ for (const language of ['pt-PT', 'pt', 'pt_PT']) {
   assert.doesNotMatch(translated['office-no-results'], /Nobody|logged in/);
   assert.match(translated['api-no-calls'], /WITH_API=true/);
 }
-console.log('upcomingPortugueseTranslationFill: 15 tests passed');
+console.log('upcomingPortugueseTranslationFill: historical baseline checks passed');
+
+const currentKeys = [
+  "board-announcement",
+  "board-announcement-enabled",
+  "cards-use-list-color",
+  "external-link-rules",
+  "external-link-rules-description",
+  "external-link-identifier-aliases",
+  "read-only-field",
+  "r-moved-forward",
+  "r-moved-back",
+  "scrum-import-into-board",
+  "scrum-import-into-board-hint",
+  "scrum-import-preview",
+  "scrum-import-choose-file",
+  "scrum-import-invalid-file",
+  "scrum-import-preview-sprints",
+  "scrum-import-preview-releases",
+  "scrum-import-preview-cards",
+  "scrum-import-preview-nothing",
+  "scrum-import-into-board-done",
+  "scrum-import-card-not-matched",
+  "scrum-import-card-ambiguous",
+  "scrum-import-card-on-another-board",
+  "scrum-import-record-ambiguous",
+  "scrum-import-record-not-imported",
+  "scrum-import-sprint-finished",
+  "sync-planning-sprint",
+  "sync-planning-releases",
+  "sync-planning-fields",
+  "sync-planning-hint",
+  "interrupted-import-heading",
+  "interrupted-import-description",
+  "interrupted-import-board",
+  "interrupted-import-progress",
+  "interrupted-import-created",
+  "interrupted-import-source",
+  "interrupted-import-state-stopped",
+  "interrupted-import-state-failed",
+  "interrupted-import-state-discarding",
+  "interrupted-import-scrum",
+  "interrupted-import-counts",
+  "interrupted-import-no-board",
+  "interrupted-import-keep",
+  "interrupted-import-discard",
+  "interrupted-import-keep-confirm",
+  "interrupted-import-discard-confirm",
+  "interrupted-import-refresh",
+  "interrupted-import-empty",
+  "interrupted-import-truncated",
+  "interrupted-import-unavailable",
+  "interrupted-import-missing",
+  "interrupted-import-not-interrupted",
+  "interrupted-import-foreign-board",
+  "interrupted-import-scrum-busy",
+  "interrupted-import-failed",
+  "scrum-history-checkpoint-stuck",
+  "scrum-history-checkpoint-counts",
+  "scrum-history-checkpoint-hint",
+  "scrum-history-checkpoint-rollback",
+  "scrum-history-checkpoint-discard",
+  "scrum-history-checkpoint-discard-confirm",
+  "scrum-history-checkpoint-ask-admin"
+];
 
 (async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
@@ -39,6 +103,33 @@ console.log('upcomingPortugueseTranslationFill: 15 tests passed');
     }
     assert.deepStrictEqual(JSON.parse(childProcess.execFileSync(node,
       [fill, '--completed-catalog', '--list', language], { cwd: ROOT, encoding: 'utf8' })), {});
+    for (const key of currentKeys) {
+      assert.ok(translated[key]?.trim(), `${language}:${key}`);
+      assert.notStrictEqual(translated[key], english[key], `${language}:${key} remains English`);
+    }
+    assert.match(translated['scrum-import-into-board-hint'], /nunca duplicados/);
+    assert.match(translated['scrum-import-into-board-hint'], /pelo ID ou pelo número do cartão e título/);
+    assert.match(translated['scrum-import-card-on-another-board'], /deixado inalterado/);
+    assert.match(translated['scrum-import-sprint-finished'], /não foi movido/);
+    assert.match(translated['sync-planning-hint'], /primeiro pelo seu ID.*depois pelo nome/);
+    assert.match(translated['sync-planning-hint'], /primeira sincronização nunca remove/);
+    assert.match(translated['interrupted-import-description'], /não pode ser retomada/);
+    assert.match(translated['interrupted-import-description'], /incluindo tudo o que foi adicionado desde então/);
+    assert.match(translated['interrupted-import-keep-confirm'], /Nada é removido/);
+    assert.match(translated['interrupted-import-discard-confirm'], /removidos permanentemente/);
+    assert.match(translated['interrupted-import-truncated'], /50 mais antigas/);
+    assert.match(translated['interrupted-import-foreign-board'], /não foi alterado/);
+    assert.match(translated['scrum-history-checkpoint-hint'], /só é proposta quando ninguém mais/);
+    assert.match(translated['scrum-history-checkpoint-hint'], /sem alterar qualquer regist/);
+    assert.match(translated['scrum-history-checkpoint-discard-confirm'], /já escreveu/);
+    assert.notStrictEqual(translated['r-moved-forward'], translated['r-moved-back']);
+    assert.match(translated['scrum-import-choose-file'], language === 'pt-BR' ? /arquivo/ : /ficheiro/);
+    assert.match(translated['interrupted-import-counts'], language === 'pt-BR' ? /raias/ : /pistas/);
+    assert.match(translated['sync-planning-sprint'], language === 'pt-BR' ? /planejamento/ : /planeamento/);
+    for (const literal of ['{number}', '{identifier}', '[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}']) {
+      assert.ok(translated['external-link-rules-description'].includes(literal), `${language}: preserve ${literal}`);
+    }
+    assert.ok(translated['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
     assert.match(translated['filter-preset-save'], language === 'pt-BR' ? /Salvar/ : /Guardar/);
     assert.match(translated['r-vars-people-hint'], language === 'pt-BR' ? /usuário.*raias/ : /utilizador.*pistas/);
   }
