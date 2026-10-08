@@ -65,9 +65,6 @@ that used to sit here are in git history.
 
 **Can be built here** - Scrum, Sync and retention:
 
-- A stored List Sync operation that can no longer be replayed (its scope or
-  access went stale) blocks that list's Sync, with a console line only;
-  Problems → Recovery needs a list of them and a discard action.
 - A Scrum History undo or redo that hits a conflict leaves a checkpoint that
   blocks Scrum edits and cannot be discarded, online or offline.
 - Scrum planning from importers other than Jira: GitLab milestones and
@@ -650,6 +647,22 @@ the native transfer and Jira import and export carry them all, Board View /
 Sprints shows each release's cards and progress, and the Product Backlog and
 card details pick several. `tests/scrumMultipleReleases.test.cjs` fails if any
 code reads the single field directly.
+
+</details>
+
+**Sync and recovery** - what an administrator can do about a stuck Sync.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cb69750b17">A List Sync operation that can never be replayed can be discarded in Recovery</a>. Thanks to xet7.</summary>
+
+When a list was removed, recreated or reconfigured, or its actor lost write
+access, its saved Sync operation failed every minute with a console line and
+blocked that list's Sync. It is now marked once in Admin Panel → Problems →
+Recovery, a blocked manual Sync says why, and an administrator can discard it
+while the replay checks still fail. The discard holds the list's Sync lease,
+records one decision and writes no card; a retry or a second administrator
+only finishes it. `tests/listSyncStuck.test.cjs` covers the refusals and a
+second discard; a Playwright case drives the Recovery page.
 
 </details>
 
