@@ -440,6 +440,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5f5c1697d6">Correct Wu activity language and title argument order</a>. Thanks to xet7.</summary>
+
+Replace 26 Mandarin-like activity and permission messages with Wu wording,
+preserving tokens and correcting title-argument order. Refresh exact-value audit
+records. Three focused suites and 21 human-preference checks pass. Wording is
+lower confidence and needs native review. No browser session was run. Work remains.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/16ef038d8b">Complete current Wu translation fill list</a>. Thanks to xet7.</summary>
 
 Translate the final 33 recovery and environment-setting strings. The full current
