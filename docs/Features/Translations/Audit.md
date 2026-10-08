@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Latvian import and synchronization recovery — 2026-10-08
+
+Translate 48 messages for interrupted board imports and stalled synchronization.
+Preserve existing translations and every source variable. Extend the Latvian suite
+with recovery decisions, source order and complete token inventories, including
+permanent deletion, retention of applied changes and protection of unrelated boards.
+No browser or screen-reader session was run; remaining Latvian messages, other
+languages and broader linguistic review are still unfinished.
+
 ## Estonian controls and recovery — 2026-10-08
 
 Translate 70 current messages in et-EE, covering controls, import guidance, LDAP,
