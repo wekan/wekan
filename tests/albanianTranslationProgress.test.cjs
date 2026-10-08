@@ -291,4 +291,19 @@ assert.deepEqual(tags(albanian['globalSearch-instructions-operator-number']),
   ['<number>', '<number>']);
 assert.deepEqual(tokens(albanian['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
-console.log('albanianTranslationProgress: complete Albanian backlog passed');
+console.log('albanianTranslationProgress: historical catalog baseline passed; newer entries checked separately');
+
+const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
+const recoveryKeys = Object.keys(english).filter(key => key.startsWith('stuck-sync-operation-'));
+assert.equal(recoveryKeys.length, 23);
+for (const key of recoveryKeys) {
+  assert.notEqual(albanian[key], english[key], key);
+  assert.deepEqual(translationTokens(albanian[key]), translationTokens(english[key]), key);
+}
+assert.match(albanian['stuck-sync-operation-description'], /ndryshimet e zbatuara mbeten/);
+assert.match(albanian['stuck-sync-operation-description'], /ndryshimet e tjera të ruajtura nuk shkruhen kurrë/);
+assert.match(albanian['stuck-sync-operation-reason-access-denied'], /të drejtë shkrimi në të gjithë listën/);
+assert.match(albanian['stuck-sync-operation-replayable-now'], /nuk mund të hidhet poshtë/);
+assert.match(albanian['stuck-sync-operation-not-stuck'], /nuk mund të hidhet poshtë/);
+assert.match(albanian['stuck-sync-operation-truncated'], /50 veprimet më të vjetra/);
+assert.match(albanian['stuck-sync-operation-busy'], /po sinkronizohet tani/);
