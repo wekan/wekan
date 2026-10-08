@@ -1006,6 +1006,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/27998c617a">Translate Estonian controls and recovery</a>. Thanks to xet7.</summary>
+
+Fill 70 messages covering controls, import guidance, LDAP, login settings,
+stalled synchronization and interrupted imports. Preserve variables, literal
+examples, existing localized values and recovery decisions.
+
+Four focused translation suites and 21 human-preference checks pass.
+The current Estonian fill list is empty. No browser or screen-reader session
+was run; other languages and linguistic review remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/24912011f5">Translate Russian controls and recovery</a>. Thanks to xet7.</summary>
 
 Fill 236 values across three Russian catalogs, covering controls, import
