@@ -9308,6 +9308,16 @@ coverage checks these details, script, key order and token inventories. Technica
 wording remains low confidence pending speaker review. Browser and screen-reader
 checks were not run; further Konkani translations and the broader audit remain.
 
+## Konkani list retrieval, removal and sublists
+
+Filled 23 English values for list retrieval, removal and sublists. Existing
+translations were retained; the filter-excluded short index label was filled
+directly after verifying equality with English. Preserved return-versus-removal
+semantics, index markers and copy behavior. Regression coverage checks those
+details, script, key order and tokens. Technical wording remains low confidence
+pending speaker review. Browser checks were not run; further Konkani translations
+and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
