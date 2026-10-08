@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Bosnian List Sync recovery — 2026-10-08
+
+Translate 23 English List Sync recovery messages into Bosnian, preserving
+counters and existing Bosnian board/list terminology. Check retained changes,
+unwritten pending changes, revoked access, replayable operations and the oldest-50
+limit. No browser or screen-reader session was run. Other translations and the
+broader vocabulary review remain unfinished.
+
 ## Croatian planning and settings — 2026-10-08
 
 Translate the remaining 51 English fill-list entries into Croatian: planning,

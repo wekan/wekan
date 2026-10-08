@@ -407,3 +407,19 @@ for (const example of ['== != <= >= && || ( )', 'Field1 == Value1', "'Field 1' =
 assert.ok(data['advanced-filter-description'].includes(english['advanced-filter-description'].match(/Field1 == I.*?m/)[0]));
 assert.doesNotMatch(data['advanced-filter-description'], /Advanced Filter allows/);
 console.log('bosnianAuditedTranslations: final support, voting, keyboard and filter help checks passed');
+
+const englishRecoverySource = require('../imports/i18n/data/en.i18n.json');
+const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
+const recoveryKeys = Object.keys(englishRecoverySource).filter(key => key.startsWith('stuck-sync-operation-'));
+assert.equal(recoveryKeys.length, 23);
+for (const key of recoveryKeys) {
+  assert.notEqual(data[key], englishRecoverySource[key], key);
+  assert.deepEqual(translationTokens(data[key]), translationTokens(englishRecoverySource[key]), key);
+}
+assert.match(data['stuck-sync-operation-description'], /već primijenjene promjene ostaju/);
+assert.match(data['stuck-sync-operation-description'], /preostale sačuvane promjene nikada se ne upisuju/);
+assert.match(data['stuck-sync-operation-reason-access-denied'], /pravo pisanja za cijelu listu/);
+assert.match(data['stuck-sync-operation-replayable-now'], /ne može odbaciti/);
+assert.match(data['stuck-sync-operation-not-stuck'], /ne može odbaciti/);
+assert.match(data['stuck-sync-operation-truncated'], /50 najstarijih/);
+assert.match(data['stuck-sync-operation-busy'], /upravo sinhronizira/);
