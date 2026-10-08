@@ -65,8 +65,6 @@ that used to sit here are in git history.
 
 **Can be built here** - Scrum, Sync and retention:
 
-- A Scrum History undo or redo that hits a conflict leaves a checkpoint that
-  blocks Scrum edits and cannot be discarded, online or offline.
 - Scrum planning from importers other than Jira: GitLab milestones and
   iterations, OpenProject versions, Asana and Trello.
 - Planning Sync: sprints and releases through List Sync. Verifying it live
@@ -665,6 +663,32 @@ while the replay checks still fail. The discard holds the list's Sync lease,
 records one decision and writes no card; a retry or a second administrator
 only finishes it. `tests/listSyncStuck.test.cjs` covers the refusals and a
 second discard; a Playwright case drives the Recovery page.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9ad9813c09">A Scrum undo or redo stuck on a conflict can be rolled back or discarded</a>. Thanks to xet7.</summary>
+
+Such a checkpoint blocked every Scrum edit on its board for good, as only its
+author could retry it and every retry failed the same way. A board
+administrator now sees it in the History recovery notice and can roll it
+back, when nobody changed its records since, or keep the board as it is;
+either way is recorded in Recovery, a repeat is a no-op, and
+`releases/recover-scrum-history.cjs` does the same offline. A checkpoint not
+stuck on a conflict stays its author's to retry.
+
+</details>
+
+**Custom fields** - who may change a field's value.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/87ae8895c3">A custom field can be read-only: every member sees it, only board admins set it</a>. Thanks to CarloRampini and xet7.</summary>
+
+For a score or a value computed elsewhere
+([#3143](https://github.com/wekan/wekan/issues/3143)). The card offers editing
+only to board admins, and the server refuses anybody else through the same
+write guard as admin-only fields, so the REST API and rules acting as an admin
+still set it.
 
 </details>
 
