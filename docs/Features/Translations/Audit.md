@@ -9231,6 +9231,16 @@ and endpoint examples. Regression coverage checks these details, script, key ord
 and tokens. Technical wording remains low confidence pending speaker review.
 Browser checks were not run; the broader translation audit remains unfinished.
 
+## Maithili keyboard announcements and short labels
+
+Filled 21 English values for keyboard names, indexed movement announcements,
+planning poker and the current-user choice. Existing translations were retained;
+filter-excluded labels were filled directly only after verifying equality with
+English. Preserved indexed announcement roles and the menu symbol. Regression
+coverage checks those details, script, key order and tokens. Keyboard
+transliterations remain low confidence pending speaker review. Browser and
+screen-reader checks were not run; the broader translation audit remains unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
