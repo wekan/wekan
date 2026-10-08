@@ -108,7 +108,7 @@ Status checked on 2026-10-08. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **34,813 untranslated locale/string values in 53 languages**.
+  report counts **34,750 untranslated locale/string values in 53 languages**.
   It excludes **163 source keys tracked separately as pending Transifex**.
   Exact Blockly OS brands and compact math/code symbols no longer inflate
   the prose backlog. Counts are a snapshot; they do not establish the quality
@@ -486,6 +486,17 @@ This release adds the following new features:
 
 **Import and export** - three more formats, each a round trip with a loss
 report for what the other tool has no place for.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/30013762c3">Translate Manx Sync conflicts and diagnostic reports</a>. Thanks to xet7.</summary>
+
+- Translate 63 messages while preserving source/local distinctions, missing/null
+  behavior, retention limits and reports that cannot resume or undo changes.
+- Three relevant suites pass. Sync terminology and full grammar remain
+  low-confidence pending fluent review. Browser and screen-reader sessions
+  were not run.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0691f5589d">Translate Manx notification delivery and recovery messages</a>. Thanks to xet7.</summary>
