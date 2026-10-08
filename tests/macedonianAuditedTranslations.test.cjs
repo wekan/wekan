@@ -140,3 +140,17 @@ assert.match(data['interrupted-import-keep-confirm'], /Ништо не се от
 assert.match(data['interrupted-import-foreign-board'], /не е променето/);
 assert.match(data['interrupted-import-truncated'], /50 најстари/);
 assert.match(data['interrupted-import-scrum-busy'], /сè уште се запишува или обновува/);
+
+const syncRecoveryKeys = Object.keys(englishRecoverySource).filter(key => key.startsWith('stuck-sync-operation-'));
+assert.equal(syncRecoveryKeys.length, 23);
+for (const key of syncRecoveryKeys) {
+  assert.notEqual(data[key], englishRecoverySource[key], key);
+  assert.deepEqual(translationTokens(data[key]), translationTokens(englishRecoverySource[key]), key);
+}
+assert.match(data['stuck-sync-operation-description'], /веќе применетите промени остануваат/);
+assert.match(data['stuck-sync-operation-description'], /преостанатите зачувани промени никогаш не се запишуваат/);
+assert.match(data['stuck-sync-operation-reason-access-denied'], /право за запишување во целиот список/);
+assert.match(data['stuck-sync-operation-replayable-now'], /не може да се отфрли/);
+assert.match(data['stuck-sync-operation-not-stuck'], /не може да се отфрли/);
+assert.match(data['stuck-sync-operation-truncated'], /50 најстари/);
+assert.match(data['stuck-sync-operation-busy'], /се синхронизира во моментов/);
