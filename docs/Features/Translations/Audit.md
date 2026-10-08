@@ -8799,6 +8799,15 @@ merge. Regression coverage checks those details alongside script, key order and
 token inventories. Technical wording remains low confidence pending speaker review.
 Browser checks were not run; further Odia translations remain.
 
+## Odia screen-reader and shortcut commands
+
+Filled 21 English placeholders for variable renaming, screen-reader modes and
+workspace shortcuts. Preserved variable/shortcut tokens and distinguished current
+on/off state from the action to toggle it. Existing translations were retained by
+the placeholder-only merge. Regression coverage checks state/action distinctions,
+script, key order and token inventories. Technical wording remains low confidence
+pending speaker review. Browser checks were not run; further translations remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
