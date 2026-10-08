@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b5d08b94b2">Translate Amharic, Burmese, Khmer and Pacific sign-in warnings</a>. Thanks to xet7.</summary>
+
+Translate six physical catalog values covering seven paths through the preserved
+Khmer regional symlink. Warning tests now cover 119 paths, checking repeated
+variables, address order, ROOT_URL and the shared Khmer value. Warning and
+placeholder suites and all 21 preservation checks pass. Amharic and Pacific
+prose has lower confidence and needs native review. Browser checks and the wider
+all-language backlog remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1b4347dbac">Translate the sign-in address warning in five more languages</a>. Thanks to xet7.</summary>
 
 Add Javanese, Haitian Creole, Malagasy, Somali and Hausa warning translations.
