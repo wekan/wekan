@@ -7961,6 +7961,16 @@ aliases, private/public distinctions and board/card member/assignee scopes.
 Technical wording remains low confidence pending speaker review. Browser checks
 were not run. Further wrong-language corrections and the broader audit remain.
 
+### Tatar board views, appearance and navigation corrections
+
+Corrected 26 wrong-language board navigation, appearance, display-mode and view
+labels. Preserved correct neighboring translations, source placeholders, zoom
+limits and Gantt product names. Regression coverage checks equivalent view/color/
+background labels, zoom direction, display-mode and calendar distinctions, and
+Tatar statistics vocabulary. Technical wording remains low confidence pending
+speaker review. Browser checks were not run. Further corrections and the broader
+audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
