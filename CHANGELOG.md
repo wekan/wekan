@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/13b1df58cc">Translate six further Afrikaans import instructions</a>. Thanks to xet7.</summary>
+
+Translate instructions for Pivotal Tracker, Tasks.org, monday.com, Super
+Productivity, Taiga and Vikunja. Preserve commands, extensions and variables.
+Regression checks cover excluded attachments, completion dates, comments and
+archives. Import and placeholder suites and all 21 preservation checks pass.
+Remaining translations, language auditing and browser review are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1c1e84323f">Translate first Afrikaans import instruction group</a>. Thanks to xet7.</summary>
 
 Translate eight instructions while preserving commands, extensions and variables.
