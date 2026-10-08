@@ -442,6 +442,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f462841831">Translate MeisterTask import instructions in Wu, Papiamento and Yiddish</a>. Thanks to xet7.</summary>
+
+Translate the new instruction, preserving menu labels, CSV format, section/task mapping
+and completion dates. Five focused suites and all 21 human-preference checks pass,
+including the three completeness suites previously blocked by this new source string.
+Wording needs native review; browser tests were not run and wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/24e73687c9">Translate Planner import instructions in Wu, Papiamento and Yiddish</a>. Thanks to xet7.</summary>
 
 Translate the new Planner instruction in three languages, preserving menu and field
