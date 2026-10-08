@@ -54,6 +54,20 @@ https://wekan.fi/status/
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e503945ef1">Report locale text coverage accurately</a>. Thanks to xet7.</summary>
+
+The README now reports 182 of 234 locale catalogs with non-English text for
+more than 90 percent of source keys. This replaces the stale count of 171
+and the stronger, unverified claim that those translations are essentially
+complete. The source-derived language-wiring check retains the exact numeric
+assertion and requires the wording to distinguish coverage from quality.
+
+Validation: all six language-wiring checks pass. The other 21 additional
+locale, notification-language and Transifex suites passed in the related run.
+
+</details>
+
+<details>
 <summary>TODO Later</summary>
 
 <details>
