@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/eb43ced15b00e2e5270490231dd5f06159a4cbeb">Correct Tatar user mapping and appearance text</a></summary>
+
+- Correct 32 login, mapping, theme and font strings, preserving source tokens,
+  permission limits, font-size distinctions and preview digits.
+- Technical wording remains low confidence pending speaker review.
+- All 81 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/14cbd1404fa81f6af1f2a60ad6e12d7f81a673c0">Correct Tatar popup and account action labels</a></summary>
 
 - Correct 30 dependency, account, import and restoration labels, preserving
