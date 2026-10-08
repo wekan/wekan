@@ -393,7 +393,7 @@ previously held for Transifex. Completed work is recorded in Upcoming.
   or language of other values.
 - Placeholder inventories match English across all 246 locale paths. Fill now
   rejects damaged token batches before writing. Both card-field visibility
-  keys are translated in 131 non-English paths; 103 paths still need them.
+  keys are translated in 153 non-English paths; 81 paths still need them.
   Catalog key order, all 321 translation/i18n suites and 21 human-preference
   checks pass. Browser execution and the remaining translation work are open.
 - The 13 activity-notification preference keys have no empty or exact
@@ -1906,15 +1906,32 @@ more translated help text and refreshed translation audit checks.
 
 This release improves translations and their validation:
 
-**Languages updated:** Afrikaans, Albanian, Arabic, Armenian, Azerbaijani,
-Bengali, Basque, Belarusian, Bosnian, Bulgarian, Burmese, Catalan, Chinese,
-Croatian, Czech, Danish, Dutch, Esperanto, Estonian, Tagalog, French, Galician,
-Georgian, German, Greek, Gujarati, Hebrew, Hindi, Hungarian, Icelandic,
-Indonesian, Irish, Japanese, Kannada, Kazakh, Khmer, Korean, Kyrgyz, Latvian,
-Lithuanian, Macedonian, Malay, Malayalam, Marathi, Mongolian, Nepali, Norwegian
-Bokmål, Persian, Polish, Portuguese, Punjabi, Romanian, Russian, Serbian,
-Sinhala, Slovak, Slovenian, Spanish, Swahili, Tajik, Tamil, Tatar, Telugu,
-Thai, Turkish, Turkmen, Ukrainian, Urdu, Uzbek, Vietnamese, Welsh.
+**Languages updated:** Afrikaans, Albanian, Amharic, Arabic, Aragonese,
+Armenian, Asturian, Azerbaijani, Basque, Belarusian, Bengali, Bosnian, Breton,
+Bulgarian, Burmese, Catalan, Chinese, Corsican, Croatian, Czech, Danish, Dutch,
+Esperanto, Estonian, Faroese, French, Galician, Georgian, German, Greek,
+Gujarati, Haitian Creole, Hausa, Hebrew, Hindi, Hungarian, Icelandic, Igbo,
+Indonesian, Irish, Japanese, Kannada, Kazakh, Khmer, Korean, Kyrgyz, Latin,
+Latvian, Lithuanian, Luxembourgish, Macedonian, Malagasy, Malay, Malayalam,
+Maltese, Marathi, Mongolian, Nepali, Norwegian Bokmål, Occitan, Persian,
+Polish, Portuguese, Punjabi, Romanian, Romansh, Russian, Sardinian, Scottish
+Gaelic, Serbian, Sicilian, Sinhala, Slovak, Slovenian, Spanish, Swahili,
+Tagalog, Tajik, Tamil, Tatar, Telugu, Thai, Turkish, Turkmen, Ukrainian, Urdu,
+Uzbek, Vietnamese, Welsh, West Frisian, Yoruba.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5ce7549bcf">Translate more card-field visibility help</a>. Thanks to xet7.</summary>
+
+- Fill 44 values in 22 further locale paths, bringing this message pair to
+  153 translated non-English paths. Preserve hiding scope, stored data and
+  settings, restoration and each board's own field order.
+- All 30 relevant suites pass, including full catalog placeholder inventories
+  and translated-text rendering. Browser tests were not run.
+- Breton, Faroese, Romansh, Sardinian, Scottish Gaelic and Sicilian drafts need
+  fluent-speaker review. Terminology references and remaining work are recorded
+  in the translation audit. No external translation service was used.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/07a33f5d5f">Protect translation variables and restore catalog coverage</a>. Thanks to xet7.</summary>
