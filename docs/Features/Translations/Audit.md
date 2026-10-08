@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Norwegian Bokmål import instructions — 2026-10-09
+
+Translate all 21 import instructions in nb, preserving literal commands, columns,
+extensions, hierarchy markers and variables. Regression checks cover first-board
+selection, excluded data, English headers, completion dates and archived tasks.
+Import-instruction and placeholder suites and all 21 preservation checks pass.
+Browser review and the wider all-language translation backlog remain outstanding.
+
 ## Danish import instructions — 2026-10-09
 
 Translate all 21 import instructions in the Danish catalog, preserving commands,
