@@ -1242,3 +1242,22 @@ for (const code of ['ru', 'ru-RU', 'ru_RU', 'ru-UA']) {
   assert.match(locale['import-board-instruction-obsidian'], /архив превращается в архивированные карточки/);
   assert.match(locale['import-board-instruction-ticktick'], /список TickTick становится дорожкой/);
 }
+
+for (const code of ['ru', 'ru-RU', 'ru_RU', 'ru-UA']) {
+  const locale = read(code);
+  const literals = {...newerImportLiterals, ...Object.fromEntries(['pivotal', 'tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja'].map(format => [format, importLiterals[format]]))};
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), code + ': ' + key);
+    assert.match(locale[key], /\p{Script=Cyrillic}/u, key);
+    for (const value of values) assert.ok(locale[key].includes(value), code + ': ' + key + ': ' + value);
+  }
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /Вложения не импортируются/);
+  assert.match(locale['import-board-instruction-notion'], /Связи, изображения и вложения не импортируются/);
+  assert.match(locale['import-board-instruction-plane'], /не содержит описаний и вложений.*не импортируются/);
+  assert.match(locale['import-board-instruction-businessmap'], /сначала переименуйте заголовки столбцов на английский/);
+  assert.match(locale['import-board-instruction-redmine'], /перед экспортом.*My account.*English/);
+  assert.match(locale['import-board-instruction-teamwork'], /на один уровень глубже/);
+  assert.match(locale['import-board-instruction-superproductivity'], /архивированные задачи становятся архивированными карточками/);
+}

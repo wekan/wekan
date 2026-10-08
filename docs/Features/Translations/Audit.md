@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Russian import instructions, remaining group — 2026-10-09
+
+Translate the remaining 13 instructions in ru, ru_RU and ru-UA, also serving the
+ru-RU symlink: 39 stored values, completing this group of 21 across four paths.
+Preserve commands, column names, extensions, hierarchy markers and variables.
+Regression checks cover excluded data, English headers, task hierarchy and
+archived tasks. Import-instruction and placeholder suites and all 21 preservation
+checks pass. Browser review and the wider translation backlog remain outstanding.
+
 ## Russian import instructions, first group — 2026-10-09
 
 Translate eight instructions in ru, ru_RU and ru-UA, also serving the ru-RU
