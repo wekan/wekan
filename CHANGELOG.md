@@ -442,6 +442,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/07a09ca77d">Translate remaining English Wu Blockly labels</a>. Thanks to xet7.</summary>
+
+Translate 15 Blockly labels omitted from the missing-string report. Preserve indexed
+movement arguments and consistent control-flow and procedure labels.
+Three focused suites, 37 Blockly checks and 21 human-preference checks pass. Wu wording
+needs native review; browser tests were not run and wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3e3a2a4f4c">Restore complete Wu flow report explanations</a>. Thanks to xet7.</summary>
 
 Correct 39 Wu values, replacing abbreviated analytics fragments with complete wording.
