@@ -2173,6 +2173,21 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e18f43bd5e00ed3549b8eff0aa50d903f9ad7350">Translate Tatar keyboard labels and recovery controls</a></summary>
+
+- Fill 28 keyboard and recovery placeholders, preserving key-cap names and
+  distinctions between pausing, resuming and permanent cancellation.
+- Default inventory retains 11 product names and mathematical identifiers.
+  Older wrong-language strings still need correction.
+- Technical wording remains low confidence pending speaker review.
+- All 62 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. The broader language audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bdb0a7938fdb09e6e1477bda15a37f4a9b8b164c">Translate Tatar synchronization diagnostics and recovery</a></summary>
 
 - Fill 56 source diagnostics, run report, mail failure and recovery placeholders,
