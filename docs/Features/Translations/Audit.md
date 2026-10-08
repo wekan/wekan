@@ -9808,6 +9808,18 @@ All 21 human-preference checks passed. Technical Darija wording remains low
 confidence pending speaker review. Browser, RTL and screen-reader checks were
 not run. Remaining placeholders and the broader language audit stay open.
 
+## Moroccan Arabic math and statistics
+
+Filled 50 English placeholders without replacing existing translations. Tests
+check source order, script, tokens, inclusive/exclusive random bounds, constraint
+arguments, angle units and range, base/exponent roles, remainder versus quotient,
+mean/median/mode/deviation, number properties and unchanged constant formulas.
+Of 46 checks, 44 passed; two repository-wide checks still fail because other
+locales lack the new card-field-visibility keys. All 21 human-preference checks
+passed. Technical Darija wording remains low confidence pending speaker review.
+Browser, RTL and screen-reader checks were not run. Remaining placeholders and
+the broader language audit stay open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
