@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f61ff8138223ab485a3b8559177c632d030becc4">Correct Tatar webhooks and system information</a></summary>
+
+- Correct 35 webhook and system-information values, restoring literal runtime
+  identifiers and preserving webhook directions and memory/version distinctions.
+- Technical wording remains low confidence pending speaker review.
+- All 101 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6142935a1b3129e23ec95e20edcc3fc93891ce0b">Correct Tatar email and registration settings</a></summary>
 
 - Correct 31 size-limit, registration, SMTP, invitation and webhook values,
