@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Breton Scrum planning and recovery — 2026-10-08
+
+Translate 31 planning, import and recovery values, preserving exact placeholders,
+keyboard names and count roles. Focused Breton checks, placeholder and language
+wiring suites, and all 21 preservation checks pass. The completion suite now
+reaches an untranslated Basque release label. Recovery prose has lower confidence
+and needs native review; browser checks and the all-language backlog remain open.
+Computing terminology was checked against the [Breton language office glossary](https://www.brezhoneg.bzh/uploads/Document/20/798_536_an-urzhiataerezh.pdf).
+
 ## Occitan Scrum planning and recovery — 2026-10-08
 
 Translate 31 planning, import and recovery values using existing terminology.
