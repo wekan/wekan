@@ -334,3 +334,28 @@ for (const code of ['pt', 'pt-BR', 'pt-PT', 'pt_PT']) {
   assert.match(locale['import-board-instruction-teamwork'], /un livello più profondo/);
   assert.match(locale['import-board-instruction-superproductivity'], /attività archiviate diventano schede archiviate/);
 }
+
+for (const code of ['nl', 'nl-NL']) {
+  const locale = read(code);
+  const literals = {...importLiterals, ...newerImportLiterals,
+    planner: ['Microsoft Planner', 'Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+    meistertask: ['MeisterTask', 'Export project', 'CSV']};
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), code + ': ' + key);
+    for (const value of values) assert.ok(locale[key].includes(value), code + ': ' + value);
+  }
+  for (const format of ['nullboard', 'kanri']) {
+    assert.match(locale['import-board-instruction-' + format], /alleen het eerste bord geïmporteerd/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /alle borden geïmporteerd/);
+  }
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /Bijlagen worden niet geïmporteerd/);
+  assert.match(locale['import-board-instruction-notion'], /Relaties, afbeeldingen en bijlagen worden niet geïmporteerd/);
+  assert.match(locale['import-board-instruction-plane'], /geen beschrijvingen of bijlagen.*niet geïmporteerd/);
+  assert.match(locale['import-board-instruction-businessmap'], /wijzig dan eerst de koprij naar het Engels/);
+  assert.match(locale['import-board-instruction-redmine'], /vóór het exporteren.*English in My account/);
+  assert.match(locale['import-board-instruction-teamwork'], /één niveau dieper/);
+  assert.match(locale['import-board-instruction-superproductivity'], /gearchiveerde taken worden gearchiveerde kaarten/);
+  assert.match(locale['import-board-instruction-meistertask'], /voltooide taken behouden hun voltooiingsdatum/);
+}

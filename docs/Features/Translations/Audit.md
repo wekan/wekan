@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Dutch import instructions — 2026-10-09
+
+Translate all 21 import instructions in nl and nl-NL (42 values), preserving
+commands, columns, extensions, hierarchy markers and variables. Keep the catalogs'
+existing werkbaan terminology. Regression checks cover first-board selection,
+excluded data, English headers, completed-task dates and archived tasks. Both
+import-instruction and placeholder suites and all 21 preservation checks pass.
+Browser review and the wider all-language translation backlog remain outstanding.
+
 ## Italian import instructions — 2026-10-09
 
 Translate all 21 import instructions in the Italian catalog, preserving commands,
