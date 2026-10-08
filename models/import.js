@@ -216,6 +216,16 @@ Meteor.methods({
         }
         creator = new KanboardCreator(data, 'linear');
         break;
+      case 'ticktick':
+        // A TickTick backup CSV - see models/lib/ticktickCsvFormat.js.
+        check(board, String);
+        try {
+          importedBoard = EXTERNAL_PARSERS.ticktick(importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        creator = new KanboardCreator(data, 'ticktick');
+        break;
       case 'planner':
         // Microsoft Planner's "Export plan to Excel" workbook - see
         // models/lib/plannerFormat.js. It arrives like the Excel import, as

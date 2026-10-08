@@ -20,6 +20,7 @@ import { formatPlannerRows } from './plannerFormat.js';
 import { formatMeisterTaskCsv } from './meistertaskCsvFormat.js';
 import { formatObsidianKanban } from './obsidianKanbanFormat.js';
 import { formatLinearCsv } from './linearCsvFormat.js';
+import { formatTickTickCsv } from './ticktickCsvFormat.js';
 import { formatOpml } from './opmlOutlineFormat.js';
 import { formatOrgMode } from './orgModeFormat.js';
 
@@ -320,6 +321,8 @@ export const formatters = {
   obsidian: formatObsidianKanban,
   // Linear's CSV export columns; round-trips with parseLinearCsv.
   linear: formatLinearCsv,
+  // TickTick's backup CSV; round-trips with parseTickTickCsv.
+  ticktick: formatTickTickCsv,
   // An OPML outline; round-trips with parseOpml (opmlOutline.js, server-only).
   opml: formatOpml,
   // An Org mode outline; round-trips with parseOrgMode (orgModeFormat.js).

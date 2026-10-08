@@ -337,7 +337,7 @@ test('every external export menu link returns text and refuses an unrelated user
   // Include description through the actual shared selection controls.
   const details = page.locator('.js-export-card-details-toggle');
   if (await details.getAttribute('aria-checked') !== 'true') await details.click();
-  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'linear', 'opml', 'orgmode']) {
+  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'linear', 'ticktick', 'opml', 'orgmode']) {
     await test.step(format, async () => {
       const anchor = page.locator(`.js-pop-over a[href*="/export/${format}?"]`);
       await expect(anchor).toBeVisible();
@@ -351,6 +351,31 @@ test('every external export menu link returns text and refuses an unrelated user
       expect([401, 403]).toContain(refused.status());
     });
   }
+});
+
+// A TickTick backup: the preamble, a list as swimlane, a column, tags, a due date and a checklist.
+test('TickTick: a backup imports with its list, column, tags, due date and checklist', async ({ loggedInPage: page }) => {
+  let boardId;
+  const q = value => `"${String(value).replace(/"/g, '""')}"`;
+  try {
+    await navigateInApp(page, '/import/ticktick');
+    await page.locator('#import-textarea').fill([
+      q('Date: 2026-10-08+0000'), q('Version: 7.2'), q('Status: \n0 Normal\n1 Completed\n2 Archived'),
+      ['Folder Name', 'List Name', 'Title', 'Kind', 'Tags', 'Content', 'Is Check list', 'Due Date', 'Status', 'Column Name', 'taskId', 'parentId'].map(q).join(','),
+      ['', 'Sprint', expected.title, 'CHECKLIST', expected.label, 'Two of them\n▪Quote\n▫Order', 'Y', '2026-10-10T08:00:00+0000', '0', 'Doing', '1', ''].map(q).join(','),
+    ].join('\n'));
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    const [card] = db.find('cards', { boardId });
+    expect(card.title).toBe(expected.title);
+    expect(card.description).toBe('Two of them');
+    expect(new Date(card.dueAt).toISOString()).toBe('2026-10-10T08:00:00.000Z');
+    expect(db.find('checklistItems', { cardId: card._id }).map(item => [item.title, item.isFinished])).toEqual([['Quote', true], ['Order', false]]);
+    expect(db.find('lists', { boardId }).find(list => list._id === card.listId).title).toBe('Doing');
+    expect(db.find('swimlanes', { boardId }).map(lane => lane.title)).toContain('Sprint');
+    await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });
 
 // Linear's CSV export: statuses, a team swimlane, labels, priority and the parent issue.

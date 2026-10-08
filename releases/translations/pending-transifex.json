@@ -1015,6 +1015,10 @@
     {
       "key": "import-board-instruction-linear",
       "since": "2026-10-08"
+    },
+    {
+      "key": "import-board-instruction-ticktick",
+      "since": "2026-10-08"
     }
   ]
 }
