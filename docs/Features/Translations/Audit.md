@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Zulu keyboard navigation and screen-reader messages — 2026-10-09
+
+Translate 50 navigation and accessibility messages per Zulu catalog (100 values).
+Preserve shortcut variables. Tests render movement shortcuts and distinguish
+screen-reader on/off instructions, left/right directions and cancel/finish
+actions. Both targeted suites and all 21 preservation checks pass. Specialized
+terminology remains low confidence pending speaker review. Browser execution
+and remaining translations are outstanding.
+
 ## Zulu Blockly input accessibility labels — 2026-10-09
 
 Translate 51 input labels per Zulu catalog (102 values), preserving numbered
