@@ -194,3 +194,20 @@ assert.match(papiamento['blockly-MATH_ONLIST_TOOLTIP_AVERAGE'], /media aritméti
 assert.match(papiamento['blockly-MATH_ONLIST_TOOLTIP_MEDIAN'], /mediana/);
 assert.match(papiamento['blockly-MATH_SINGLE_OP_LOG10_ARIA'], /base 10/);
 assert.match(papiamento['blockly-MATH_SINGLE_OP_EXP_ARIA'], /^e /);
+
+const blocklyTrig = ["blockly-MATH_SINGLE_OP_NEG_ARIA", "blockly-MATH_SINGLE_OP_POW10_ARIA", "blockly-MATH_SINGLE_OP_ROOT", "blockly-MATH_SINGLE_TOOLTIP_ABS", "blockly-MATH_SINGLE_TOOLTIP_EXP", "blockly-MATH_SINGLE_TOOLTIP_LN", "blockly-MATH_SINGLE_TOOLTIP_LOG10", "blockly-MATH_SINGLE_TOOLTIP_NEG", "blockly-MATH_SINGLE_TOOLTIP_POW10", "blockly-MATH_SINGLE_TOOLTIP_ROOT", "blockly-MATH_SUBTRACTION_SYMBOL_ARIA", "blockly-MATH_TRIG_ACOS_ARIA", "blockly-MATH_TRIG_ASIN_ARIA", "blockly-MATH_TRIG_ATAN_ARIA", "blockly-MATH_TRIG_COS_ARIA", "blockly-MATH_TRIG_SIN_ARIA", "blockly-MATH_TRIG_TAN_ARIA", "blockly-MATH_TRIG_TOOLTIP_ACOS", "blockly-MATH_TRIG_TOOLTIP_ASIN", "blockly-MATH_TRIG_TOOLTIP_ATAN", "blockly-MATH_TRIG_TOOLTIP_COS", "blockly-MATH_TRIG_TOOLTIP_SIN", "blockly-MATH_TRIG_TOOLTIP_TAN", "blockly-MINIMAP_ARIA_LABEL", "blockly-MOVE_BLOCK", "blockly-NEW_COLOUR_VARIABLE", "blockly-NEW_NUMBER_VARIABLE", "blockly-NEW_STRING_VARIABLE", "blockly-NEW_VARIABLE", "blockly-NEW_VARIABLE_TITLE", "blockly-NEW_VARIABLE_TYPE_TITLE", "blockly-NO_PARENT_ANNOUNCEMENT", "blockly-OPEN_BACKPACK", "blockly-OPEN_TRASH", "blockly-OPTION_KEY", "blockly-PAGE_DOWN_KEY", "blockly-PAGE_UP_KEY", "blockly-PARENT_BLOCKS_ANNOUNCEMENT", "blockly-PASTE_ALL_FROM_BACKPACK", "blockly-PASTE_SHORTCUT", "blockly-PAUSE_KEY", "blockly-PROCEDURES_ALLOW_STATEMENTS"];
+for (const key of blocklyTrig) {
+  assert.notEqual(papiamento[key], english[key], key);
+  assert.deepEqual(tokens(papiamento[key]), tokens(english[key]), key);
+}
+for (const operation of ['COS', 'SIN', 'TAN']) {
+  assert.match(papiamento[`blockly-MATH_TRIG_TOOLTIP_${operation}`], /grado \(no radián\)/);
+  assert.notEqual(papiamento[`blockly-MATH_TRIG_${operation}_ARIA`], papiamento[`blockly-MATH_TRIG_A${operation}_ARIA`]);
+}
+assert.match(papiamento['blockly-MATH_SINGLE_TOOLTIP_LOG10'], /base 10/);
+assert.match(papiamento['blockly-MATH_SINGLE_TOOLTIP_EXP'], /e elevá/);
+assert.match(papiamento['blockly-MATH_SINGLE_TOOLTIP_POW10'], /10 elevá/);
+assert.match(papiamento['blockly-MATH_SINGLE_TOOLTIP_NEG'], /signo invertí/);
+assert.match(papiamento['blockly-NO_PARENT_ANNOUNCEMENT'], /no tin/);
+assert.match(papiamento['blockly-PAGE_DOWN_KEY'], /abou.*Page Down/);
+assert.match(papiamento['blockly-PAGE_UP_KEY'], /ariba.*Page Up/);

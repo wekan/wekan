@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Papiamento Blockly trigonometry and workspace — 2026-10-08
+
+Translate 42 English math, variable and workspace messages. Preserve variables,
+key names and bases; check degrees versus radians, inverse functions, sign
+inversion and page directions. Specialized wording is lower confidence and needs
+native review. No browser or screen-reader session was run. Remaining translations
+are unfinished.
+
 ## Papiamento Blockly statistics and rounding — 2026-10-08
 
 Translate 32 English math messages. Preserve variables and numeric bases; check
