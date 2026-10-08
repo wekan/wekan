@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/37efcb8f8b">Translate six further Galician import instructions</a>. Thanks to xet7.</summary>
+
+Translate 12 values across two catalogs for Pivotal Tracker, Tasks.org, monday.com,
+Super Productivity, Taiga and Vikunja. Preserve commands, extensions and variables.
+Regression checks cover excluded attachments, completion dates, comments, archives
+and sprints. Three relevant suites and all 21 preservation checks pass. Remaining
+translations, language auditing and browser review are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/877eca8186">Correct shared mixed-language Galician terminology</a>. Thanks to xet7.</summary>
 
 Correct 106 values across both Galician catalogs for activity, Home, card actions,
