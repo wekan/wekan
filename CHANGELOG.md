@@ -476,12 +476,11 @@ used.
 
 **In short:** The login settings left open in October are finished:
 **header login** is environment-only, **automatic logout** works again,
-**LDAP** gets an honest Test connection and a Sync now button, and **secrets
-from files** cover the database, mail and S3. Boards now import and export as
-**Todoist**, **OPML** and **Org mode**, **rules** can set assignees, and a
-merged login keeps its boards. Seventeen long-open requests were closed as
-already implemented, and translation filling protects interpolation variables,
-with more translated help text.
+**LDAP** gets an honest Test connection and Sync now, and **secrets from
+files** cover database, mail and S3. Boards import and export as **Todoist**,
+**OPML** and **Org mode**, **rules** can set assignees, **webhooks** name the
+people they are about, and **OAuth providers** can be limited to email
+domains. Seventeen long-open requests were closed as already implemented.
 
 This release adds the following new features:
 
@@ -505,7 +504,8 @@ report for what the other tool has no place for.
 - Translate 71 planning, estimate, event, state and report labels/messages.
   Preserve named variables, time units and distinct completion/cancellation
   states. Extend the Manx suite to use the shared placeholder scanner.
-- Three relevant suites pass. Scrum terminology and grammar remain low-confidence
+- Three relevant suites pass. Scrum terminology and grammar remain
+  low-confidence
   pending fluent review. Browser and screen-reader sessions were not run.
 
 </details>
@@ -627,6 +627,20 @@ assignee.
 
 </details>
 
+**Webhooks** - what an outgoing webhook says about an event.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5f413c12eb">An outgoing webhook names the list, board, swimlane, card link and the person assigned</a>. Thanks to chrisi51 and xet7.</summary>
+
+The payload carried mostly ids, and for an assignment it said who assigned
+but not who was assigned. The default payload now also has `list`, `board`,
+`swimlane` and `url`, `member` and `memberUsername` for joining or leaving a
+card, and `assignee`, `assigneeUsername` and `assigneeId` for an assignment
+([#3297](https://github.com/wekan/wekan/issues/3297)), so a chat integration
+can message that person. `WEBHOOKS_ATTRIBUTES` still replaces the list.
+
+</details>
+
 and hardens the login settings:
 
 **Admin Panel / People** - the login settings the 2026-10-05 work left open,
@@ -711,7 +725,21 @@ retired name again.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fe60911408">OAuth login providers can be restricted to email domains</a>. Thanks to jakubgs and xet7.</summary>
+
+Google, GitHub and the other Meteor login providers let anyone with an
+account there sign in ([#1904](https://github.com/wekan/wekan/issues/1904)).
+`OAUTH_PROVIDERS_ALLOWED_EMAIL_DOMAINS`, or its field under Admin Panel /
+People / OAuth login providers, restricts them with the same rule as
+`OAUTH2_ALLOWED_EMAIL_DOMAINS`, before an account is created and on every
+later login. A provider that sends no email is refused while it is set.
+
+</details>
+
 and fixes the following bugs:
+
+**People and teams** - who belongs where after a login.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/29bca6f757">A login merged into an existing account keeps that account's boards</a>. Thanks to xet7.</summary>
@@ -722,6 +750,39 @@ account-deletion cleanup, which took the user off every board, card and team
 and deleted their avatar. It now removes without the hooks.
 `tests/mergedUserKeepsBoards.test.cjs` fails if any code removes an account
 through the hooks and then returns it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d560e2fcf8">LDAP- and OIDC-synced team members become members of the team's boards</a>. Thanks to xet7.</summary>
+
+The login providers' group syncs added the team to the user with a plain
+push, skipping the board membership an Admin Panel team change grants
+(#4593), so such users could see the team's boards but not work on them. Both
+now run the same board sync; a test fails if any code adds a team without it.
+
+</details>
+
+**Subtasks** - where a new subtask lands.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/42c9a396e2">A subtask lands in the list its main board chose on the deposit board</a>. Thanks to TiibCD and xet7.</summary>
+
+The choice made in Board Settings / Subtasks was ignored, and a deposit
+board that itself sends subtasks elsewhere gave its subtasks a list of a third
+board. Several boards sharing one deposit board can now each land their
+subtasks in their own list ([#1781](https://github.com/wekan/wekan/issues/1781)).
+
+</details>
+
+**Admin Panel / Layout** - what the custom head settings put on the page.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6c3db838ac">Custom head meta tags reach the page, as meta elements only</a>. Thanks to xet7.</summary>
+
+The field was saved but never rendered. It is now, when custom head tags are
+enabled, keeping only `<meta>` elements and dropping scripts, styles and the
+`http-equiv` refresh and set-cookie that would act on every visitor.
 
 </details>
 
