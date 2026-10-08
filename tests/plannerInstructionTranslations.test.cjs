@@ -459,3 +459,28 @@ for (const code of ['pl', 'pl-PL']) {
   assert.match(locale['import-board-instruction-superproductivity'], /zarchiwizowane zadania stają się zarchiwizowanymi kartami/);
   assert.match(locale['import-board-instruction-meistertask'], /ukończone zadania zachowują datę ukończenia/);
 }
+
+for (const code of ['cs', 'cs-CZ']) {
+  const locale = read(code);
+  const literals = {...importLiterals, ...newerImportLiterals,
+    planner: ['Microsoft Planner', 'Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+    meistertask: ['MeisterTask', 'Export project', 'CSV']};
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), code + ': ' + key);
+    for (const value of values) assert.ok(locale[key].includes(value), code + ': ' + value);
+  }
+  for (const format of ['nullboard', 'kanri']) {
+    assert.match(locale['import-board-instruction-' + format], /importuje pouze první tablo/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /importují všechna tabla/);
+  }
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /Přílohy se neimportují/);
+  assert.match(locale['import-board-instruction-notion'], /Relace, obrázky a přílohy se neimportují/);
+  assert.match(locale['import-board-instruction-plane'], /neobsahuje popisy ani přílohy.*neimportují/);
+  assert.match(locale['import-board-instruction-businessmap'], /nejprve přejmenujte záhlaví sloupců na anglické názvy/);
+  assert.match(locale['import-board-instruction-redmine'], /před exportem.*English v My account/);
+  assert.match(locale['import-board-instruction-teamwork'], /o úroveň hlouběji/);
+  assert.match(locale['import-board-instruction-superproductivity'], /archivované úkoly se převedou na archivované karty/);
+  assert.match(locale['import-board-instruction-meistertask'], /dokončené úkoly si zachovají datum dokončení/);
+}
