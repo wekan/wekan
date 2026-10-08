@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Regional Romance sign-in warnings — 2026-10-08
+
+Translate five values in Aragonese, Asturian, Sardinian, Sicilian and Neapolitan.
+Warning tests now cover 144 paths with exact repeated variables, address order
+and ROOT_URL checked. Warning and placeholder suites and all 21 preservation
+checks pass. These translations have lower confidence and need native review.
+The warning alone still has 63 English catalog paths after this batch; browser
+review and the much wider all-language backlog remain outstanding.
+
 ## Kinyarwanda, Kirundi, Chichewa, Sesotho and Setswana warnings — 2026-10-08
 
 Translate five sign-in warning values using existing catalog terminology.

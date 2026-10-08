@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Ya existe una cuenta con iste correu electronico y no se creyó con iste metodo d’inicio de sesión",
   "sign-in-with": "Iniciar sesión con %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "No se puede completar l’inicio de sesión por meyo d’unatro servicio en esta adreza. WeKan ye configurau ta __expected__, pero esta pachina s’ha ubierto en __actual__. Ubre WeKan en __expected__, u pide a l’administrador que configure ROOT_URL como __actual__.",
   "passwordless-title": "Inicio de sesión sin clau de paso",
   "passwordless-enabled": "Ninviar por correu un codigo d’acceso d’un solo uso en cuenta d’una clau de paso",
   "passwordless-hint": "Requiere correu salient (MAIL_URL). Tamién PASSWORDLESS_ENABLED.",

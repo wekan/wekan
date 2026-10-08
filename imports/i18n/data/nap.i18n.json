@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Nu cunto cu sta posta elettronica già ce sta e nun è stato criato cu stu metodo d’accesso",
   "sign-in-with": "Trase cu %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Nun se pò cumpletà l’accesso pe’ n’ato servizio a st’indirizzo. WeKan è cunfigurato pe’ __expected__, ma sta pàggina è stata aperta a __actual__. Arape WeKan a __expected__, oppure chiedi a ll’ammenistratore ’e mpustà ROOT_URL a __actual__.",
   "passwordless-title": "Accesso senza parola d’ordine",
   "passwordless-enabled": "Manna pe posta elettronica nu codice d’accesso d’uso unico mmece ’e na parola d’ordine",
   "passwordless-hint": "Ce vò ’a posta ca jesce (MAIL_URL). Pure PASSWORDLESS_ENABLED.",
