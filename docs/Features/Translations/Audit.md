@@ -9647,6 +9647,17 @@ custom-colors-in-use key. All 21 human-preference checks passed. Technical
 wording remains low confidence pending speaker review. Browser and screen-reader
 checks were not run; further translations and the broader audit remain unfinished.
 
+## Turkmen Scrum planning
+
+Filled 36 English placeholders for Scrum roles, planning, completion policies,
+estimate settings and sprint actions. The placeholder-only merge retained
+existing translations. Coverage checks policy and lifecycle distinctions,
+source versus unit labels and planned/active assignment, plus key order and
+tokens. Of 56 checks, 54 passed; two repository-wide checks still fail because
+other locales lack custom-colors-in-use. All 21 human-preference checks passed.
+Technical wording remains low confidence pending speaker review. Browser
+checks were not run; further translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
