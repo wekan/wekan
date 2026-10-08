@@ -8108,6 +8108,15 @@ permanent-deletion warning, minimum selection and current-user mapping fallback.
 Technical wording remains low confidence pending speaker review. Browser and
 import-runtime checks were not run. Further corrections and the broader audit remain.
 
+### Tatar validation, label and board-membership corrections
+
+Corrected 22 validation, version, label and board-membership values. Preserved
+correct neighboring label-override text and source placeholders. Regression
+coverage checks the four-digit year example, minimum-one-admin requirement,
+permanent label deletion, removal from all cards when leaving a board and
+label-creation aliases. Technical wording remains low confidence pending speaker
+review. Browser checks were not run. Further corrections and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
