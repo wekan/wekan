@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7563d81d24">Correct Wu checklist and movement-action translations</a>. Thanks to xet7.</summary>
+
+Correct eighteen Wu rule-action fragments. Preserve variables, checkbox actions,
+current-versus-selected list scope, any-trigger semantics and action order.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1795e650a1">Correct Wu rule-condition translations</a>. Thanks to xet7.</summary>
 
 Correct twenty-four Wu rule-condition and action fragments. Preserve variables,
