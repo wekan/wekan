@@ -646,3 +646,21 @@ for (const code of ['ja', 'ja-JP']) {
   assert.match(locale['import-board-instruction-obsidian'], /アーカイブはアーカイブ済みカードになります/);
   assert.match(locale['import-board-instruction-ticktick'], /リストはスイムレーンに/);
 }
+
+for (const code of ['ja', 'ja-JP']) {
+  const locale = read(code);
+  const literals = {...newerImportLiterals, ...Object.fromEntries(['pivotal', 'tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja'].map(format => [format, importLiterals[format]]))};
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), code + ': ' + key);
+    for (const value of values) assert.ok(locale[key].includes(value), code + ': ' + value);
+  }
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /添付ファイルはインポートされません/);
+  assert.match(locale['import-board-instruction-notion'], /リレーション、画像、添付ファイルはインポートされません/);
+  assert.match(locale['import-board-instruction-plane'], /説明と添付ファイルが含まれない.*インポートされません/);
+  assert.match(locale['import-board-instruction-businessmap'], /先にヘッダー行を英語名に変更/);
+  assert.match(locale['import-board-instruction-redmine'], /エクスポート前に My account.*English/);
+  assert.match(locale['import-board-instruction-teamwork'], /さらに1階層深く/);
+  assert.match(locale['import-board-instruction-superproductivity'], /アーカイブ済みタスクはアーカイブ済みカードになります/);
+}
