@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/aa47a81037cb3840ead446b2d95e5f938d634421">Translate Tatar navigation and list construction</a></summary>
+
+- Fill 29 navigation and list-operation strings, preserving existing translations
+  and source placeholders.
+- Technical wording remains low confidence pending speaker review.
+- All 45 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. Further Tatar corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2cbea286e7c08690a49bf4f6d596b9966c4c56d2">Translate Tatar input labels</a></summary>
 
 - Fill 39 list, number and text input strings, preserving existing translations
