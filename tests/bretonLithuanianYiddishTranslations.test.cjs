@@ -55,7 +55,7 @@ for (const key of ['email-address', 'webhook-title', 'server-error']) {
 assert.equal(locales.lt['select-none'], 'Nieko nepasirinkti');
 const lt = locales.lt;
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
-for (const key of Object.keys(english).filter(key => /^(interrupted-import-|stuck-sync-operation-)/.test(key))) {
+for (const key of Object.keys(english).filter(key => /^(interrupted-import-|stuck-sync-operation-|scrum-import-|sync-planning-|scrum-history-checkpoint-|ldap-sync-now)/.test(key))) {
   assert.notEqual(lt[key], english[key], key);
   assert.ok(lt[key].trim(), key);
 }
@@ -69,6 +69,22 @@ assert.match(lt['stuck-sync-operation-description'], /jau pritaikyti pakeitimai 
 assert.match(lt['stuck-sync-operation-description'], /niekada neįrašomi/);
 assert.match(lt['stuck-sync-operation-replayable-now'], /atmesti negalima/);
 assert.match(lt['stuck-sync-operation-replayable'], /nebuvo atmesta/);
+assert.match(lt['scrum-import-into-board-hint'], /niekada nedubliuojami/);
+assert.match(lt['scrum-import-card-on-another-board'], /palikta nepakeista/);
+assert.match(lt['scrum-import-sprint-finished'], /nebuvo perkelta/);
+assert.match(lt['sync-planning-hint'], /pirmiausia pagal šaltinio ID, tada pagal pavadinimą/);
+assert.match(lt['sync-planning-hint'], /pirmasis sinchronizavimas niekada nepašalina/);
+assert.match(lt['scrum-history-checkpoint-hint'], /niekas kitas nepakeitė/);
+assert.match(lt['scrum-history-checkpoint-hint'], /nepakeičiamas nė vienas įrašas/);
+assert.match(lt['scrum-history-checkpoint-discard-confirm'], /jau įrašė/);
+assert.match(lt['ldap-sync-now-nothing'], /LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS/);
+assert.match(lt['ldap-sync-now-nothing'], /LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED/);
+assert.ok(lt['external-link-rules-description'].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
+assert.ok(lt['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+assert.match(lt['r-moved-forward'], /pirmyn/);
+assert.match(lt['r-moved-back'], /atgal/);
+assert.match(lt['login-origin-mismatch'], /ROOT_URL/);
+assert.match(lt['login-setting-env-only'], /tik serverio aplinka/);
 (async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   assert.deepEqual(Object.keys(lt), Object.keys(english));
