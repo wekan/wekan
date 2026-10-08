@@ -85,3 +85,24 @@ for (const format of ['taiga', 'vikunja']) {
 assert.match(read('wuu-Hans')['import-board-instruction-superproductivity'], /归档任务变成归档卡片/);
 assert.match(read('pap')['import-board-instruction-superproductivity'], /tareanan archivá ta bira karchinan archivá/);
 assert.match(read('yi')['import-board-instruction-superproductivity'], /אַרכיווירטע אויפֿגאַבעס ווערן אַרכיווירטע קאַרטן/);
+
+// Finnish instructions retain actionable source commands and import mappings.
+{
+  const locale = read('fi');
+  const literalsByFormat = {
+    planner: ['Microsoft Planner', 'Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+    meistertask: ['MeisterTask', 'Export project', 'CSV'],
+    ...Object.fromEntries(['obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri'].map(format => [format, importLiterals[format]])),
+  };
+  for (const [format, literals] of Object.entries(literalsByFormat)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+    for (const literal of literals) assert.ok(locale[key].includes(literal), key + ': ' + literal);
+  }
+  for (const format of ['nullboard', 'kanri']) assert.match(locale['import-board-instruction-' + format], /tuodaan ensimmäinen taulu/);
+  assert.match(locale['import-board-instruction-obsidian'], /arkiston korteista tulee arkistoituja kortteja/);
+  assert.match(locale['import-board-instruction-meistertask'], /Valmiiden tehtävien valmistumispäivä säilyy/);
+  assert.match(locale['import-board-instruction-planner'], /Säilöistä tulee listoja ja tehtävistä kortteja/);
+  assert.doesNotMatch(locale['import-board-instruction-kanri'], /tuodaan kaikki taulut/);
+}

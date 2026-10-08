@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Finnish import instructions and full placeholder scan — 2026-10-08
+
+Translate eight pending import instructions: Planner, MeisterTask, Obsidian,
+Linear, TickTick, ClickUp, Nullboard and Kanri. Preserve product commands, file
+extensions, first-board limits, archived-card mapping and completion dates.
+The registered import-instruction suite and all 21 preservation checks pass.
+A direct full comparison found matching placeholder inventories for 988,920
+values across 246 catalog paths. This count includes locale variants and does
+not establish translation completeness or native quality. The broader translation
+suite run is still being reviewed; native and browser review remain outstanding.
+
 ## Kashubian Scrum planning and recovery — 2026-10-08
 
 Translate 31 values using existing terminology. Preserve exact variables,
