@@ -8373,6 +8373,15 @@ saved-filter text remains. Technical wording remains low confidence pending spea
 review. Focused tests cover key order, tokens, invitation conditions and distinct
 heap metrics; browser checks were not run.
 
+## Tatar memory and checklist-control corrections
+
+Corrected 24 wrong-language memory, organization, legal-notice and checklist
+values. Preserved Node and allocator identifiers, distinct memory measurements,
+board-scoped removal and one-line/one-item mapping with original-order behavior.
+Technical wording remains low confidence pending speaker review. Focused tests
+cover key order, source tokens, technical identifiers and checklist distinctions;
+browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
