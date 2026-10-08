@@ -1055,6 +1055,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/41115d4633">Translate Croatian planning and settings messages</a>. Thanks to xet7.</summary>
+
+Translate 51 English messages for planning, imports, link rules, settings and
+Scrum recovery. Preserve variables, import syntax and configuration literals;
+check retention, conflict recovery and read-only settings. The fill list is empty.
+
+Five focused translation suites and 21 human-preference checks pass.
+No browser or screen-reader session was run. Further vocabulary review
+and translations in other languages are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f4e758ede0">Translate Croatian List Sync recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 23 English recovery messages into Croatian. Preserve counters and
