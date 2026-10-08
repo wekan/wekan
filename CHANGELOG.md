@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8aab17e35a65010a37a23a46a623322e4cb283f1">Correct Tatar validation and board membership text</a></summary>
+
+- Correct 22 validation, label and membership strings, preserving source tokens,
+  year/admin requirements and board-leaving/deletion consequences.
+- Technical wording remains low confidence pending speaker review.
+- All 92 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bd8a1df6d630b2f4d0e74db866a31f06cdffca18">Correct Tatar import progress and member mapping</a></summary>
 
 - Correct 23 import-progress and mapping strings, preserving source tokens,
