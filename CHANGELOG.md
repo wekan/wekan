@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0774342c12">Translate Zulu board settings and Blockly controls</a>. Thanks to xet7.</summary>
+
+Fill 52 English strings in each of zu and zu-ZA, preserving variables and LDAP
+setting names. Regression checks cover rendered substitutions, permission and
+loop restrictions, and RGB bounds. Both targeted suites and all 21 preservation
+checks pass. Specialized programming terminology is low confidence and needs
+speaker review; browser execution and the remaining translations are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4bf0f430d2">Translate Albanian import instructions</a>. Thanks to xet7.</summary>
 
 Translate all 21 newer import instructions, preserving commands, column names,
