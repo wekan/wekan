@@ -2011,6 +2011,23 @@ report with seven assignees and asserts no avatar overlaps the comment.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/486d6229475adb3265e29f94b5108014b21334a3">Translate Moroccan Arabic recovery and short labels</a></summary>
+
+- Fill 44 placeholders, including keyboard names and short labels omitted by the
+  ordinary filter. Preserve printed key names and check cancellation scope,
+  retained pending work, source tokens and matching Blockly aliases.
+- Validation: 58 translation checks and 21 human-preference checks pass. Two
+  repository-wide checks fail on new card-field-visibility keys missing from
+  other locales. Browser, RTL and screen-reader checks were not run.
+- The ordinary list now contains eleven technical names and notation values.
+  Technical wording remains low confidence pending speaker review; the older
+  catalog's dialect and semantic audit and the broader language work stay open.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/77a1829ce17ba9407dcd75204a6cd9fb77a72f61">Translate Moroccan Arabic estimates and notification recovery</a></summary>
 
 - Fill 31 placeholders, retaining existing translations. Check missing/null
