@@ -8079,6 +8079,17 @@ assignee, absent-field negation and sorting abbreviations. Technical wording rem
 low confidence pending speaker review. Browser checks were not run. Further
 wrong-language corrections and the broader audit remain unfinished.
 
+### Tatar advanced-filter and import guidance corrections
+
+Corrected 25 filter, activity and import values. Restored technical examples that
+had been transliterated, including JSON keys, API paths, .xlsx and regex syntax.
+Completed the existing Markdown instruction with its missing plain-bullet behavior.
+Preserved correct neighboring import guidance and source placeholders. Regression
+coverage checks literal identifiers and examples, Markdown bullet guidance and
+show/hide distinctions. Technical wording remains low confidence pending speaker
+review. Browser and import-runtime checks were not run. Further corrections and
+the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
