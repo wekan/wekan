@@ -2,6 +2,20 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Zulu board settings and Blockly controls — 2026-10-09
+
+Translate 52 English placeholders in each of zu and zu-ZA (104 values): board
+announcements, read-only fields, assignee rules, LDAP synchronization, provider
+restrictions, and Blockly colors, loops and conditions. Existing correct-language
+translations are unchanged. Retain exact percent variables and LDAP setting names.
+The existing Venda/Zulu suite now checks these keys, permission and loop
+restrictions, RGB bounds, and rendered variable and error examples. It and the
+whole-catalog placeholder suite pass, along with all 21 preservation checks.
+These are direct fills; specialized Zulu programming terms are low confidence and
+need speaker review. Color vocabulary was checked against the
+[umbala dictionary entry](https://en.wiktionary.org/wiki/umbala).
+Browser execution and the remaining translations are outstanding.
+
 ## Albanian import instructions — 2026-10-09
 
 Translate all 21 newer import instructions in sq. Preserve export commands,
