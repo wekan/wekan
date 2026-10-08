@@ -59,7 +59,68 @@ const swedishCurrentKeys = [
   "stuck-sync-operation-not-stuck",
   "stuck-sync-operation-replayable",
   "stuck-sync-operation-busy",
-  "stuck-sync-operation-failed"
+  "stuck-sync-operation-failed",
+  "board-announcement",
+  "board-announcement-enabled",
+  "cards-use-list-color",
+  "external-link-rules",
+  "external-link-rules-description",
+  "external-link-identifier-aliases",
+  "read-only-field",
+  "r-moved-forward",
+  "r-moved-back",
+  "scrum-import-into-board",
+  "scrum-import-into-board-hint",
+  "scrum-import-preview",
+  "scrum-import-choose-file",
+  "scrum-import-invalid-file",
+  "scrum-import-preview-sprints",
+  "scrum-import-preview-releases",
+  "scrum-import-preview-cards",
+  "scrum-import-preview-nothing",
+  "scrum-import-into-board-done",
+  "scrum-import-card-not-matched",
+  "scrum-import-card-ambiguous",
+  "scrum-import-card-on-another-board",
+  "scrum-import-record-ambiguous",
+  "scrum-import-record-not-imported",
+  "scrum-import-sprint-finished",
+  "sync-planning-sprint",
+  "sync-planning-releases",
+  "sync-planning-fields",
+  "sync-planning-hint",
+  "interrupted-import-heading",
+  "interrupted-import-description",
+  "interrupted-import-board",
+  "interrupted-import-progress",
+  "interrupted-import-created",
+  "interrupted-import-source",
+  "interrupted-import-state-stopped",
+  "interrupted-import-state-failed",
+  "interrupted-import-state-discarding",
+  "interrupted-import-scrum",
+  "interrupted-import-counts",
+  "interrupted-import-no-board",
+  "interrupted-import-keep",
+  "interrupted-import-discard",
+  "interrupted-import-keep-confirm",
+  "interrupted-import-discard-confirm",
+  "interrupted-import-refresh",
+  "interrupted-import-empty",
+  "interrupted-import-truncated",
+  "interrupted-import-unavailable",
+  "interrupted-import-missing",
+  "interrupted-import-not-interrupted",
+  "interrupted-import-foreign-board",
+  "interrupted-import-scrum-busy",
+  "interrupted-import-failed",
+  "scrum-history-checkpoint-stuck",
+  "scrum-history-checkpoint-counts",
+  "scrum-history-checkpoint-hint",
+  "scrum-history-checkpoint-rollback",
+  "scrum-history-checkpoint-discard",
+  "scrum-history-checkpoint-discard-confirm",
+  "scrum-history-checkpoint-ask-admin"
 ];
 
 (async () => {
@@ -91,5 +152,25 @@ const swedishCurrentKeys = [
   for (const literal of ['@labels', 'p1', 'p3', 'CSV']) {
     assert.ok(sv['import-board-instruction-todoist'].includes(literal), literal);
   }
+  assert.match(sv['scrum-import-into-board-hint'], /dupliceras aldrig/);
+  assert.match(sv['scrum-import-into-board-hint'], /ID eller kortnummer och titel/);
+  assert.match(sv['scrum-import-card-on-another-board'], /lämnades oförändrat/);
+  assert.match(sv['scrum-import-sprint-finished'], /flyttades inte/);
+  assert.match(sv['sync-planning-hint'], /först med sitt käll-ID och sedan med namn/);
+  assert.match(sv['sync-planning-hint'], /första synkroniseringen tar aldrig bort/);
+  assert.match(sv['interrupted-import-description'], /kan inte återupptas/);
+  assert.match(sv['interrupted-import-description'], /även sådant som lagts till sedan dess/);
+  assert.match(sv['interrupted-import-keep-confirm'], /Inget tas bort/);
+  assert.match(sv['interrupted-import-discard-confirm'], /tas bort permanent/);
+  assert.match(sv['interrupted-import-truncated'], /50 äldsta/);
+  assert.match(sv['interrupted-import-foreign-board'], /ändrades därför inte/);
+  assert.match(sv['scrum-history-checkpoint-hint'], /bara om ingen annan/);
+  assert.match(sv['scrum-history-checkpoint-hint'], /utan att ändra några poster/);
+  assert.match(sv['scrum-history-checkpoint-discard-confirm'], /redan har skrivit/);
+  assert.notEqual(sv['r-moved-forward'], sv['r-moved-back']);
+  for (const literal of ['{number}', '{identifier}', '[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}']) {
+    assert.ok(sv['external-link-rules-description'].includes(literal), literal);
+  }
+  assert.ok(sv['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
   console.log('Swedish current import and Sync recovery prose, variables and source syntax verified');
 })().catch(error => { console.error(error); process.exitCode = 1; });

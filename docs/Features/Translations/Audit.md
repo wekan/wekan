@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Swedish planning and import recovery messages — 2026-10-08
+
+Translate 61 further current Swedish values, preserving existing localized
+values. Cover board controls, link rules, planning imports, Sync and
+import/history recovery. Extend the existing suite with matching priority,
+non-duplication, unchanged cards, permanent removal, recovery choices and
+literal-example checks. No browser or screen-reader session was run;
+broader translation and linguistic review remain open.
+
 ## Swedish import formats and stuck Sync recovery — 2026-10-08
 
 Translate 36 current Swedish values for import formats, assignment actions,
