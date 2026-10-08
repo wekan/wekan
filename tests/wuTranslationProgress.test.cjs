@@ -1163,3 +1163,14 @@ assert.match(wu['account-locked'], /失败次数忒多.*暂时锁定.*再试/);
 assert.match(wu['repair-broken-cards-done-unfixable'], /修复好 __fixed__ 张.*__unfixable__ 张卡片呒没所属看板，自动修复勿了/);
 assert.match(wu['restore-list-swimlanes-done'], /恢复好 __restored__ 只.*__remaining__ 只恢复勿了/);
 assert.match(wu['problems-none-in-progress'], /呒没正在运行个迁移或者修复/);
+
+const importSyncWu = ["export-select-what-to-include", "export-card-details", "import-here-instruction", "import-not-wekan-export", "globalSearch-instructions-operator-number", "import-parts-instruction", "import-wekan-file", "sum-of-number-fields", "date-range-of-fields", "wip-limit-groups", "wip-limit-group-name-placeholder", "wip-limit-group-add", "wip-limit-group-select-swimlane", "wip-limit-group-apply-swimlane", "subtask-inherit-parent-labels", "list-sync-description", "list-sync-project-key-placeholder", "list-sync-credential-status-set", "list-sync-credential-status-unset", "list-sync-last-synced", "list-sync-last-error", "list-sync-now-success", "add-many-lines-as", "many-items"];
+for (const key of importSyncWu) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.deepEqual(wu['globalSearch-instructions-operator-number'].match(/`[^`]+`/g), english['globalSearch-instructions-operator-number'].match(/`[^`]+`/g));
+assert.match(wu['globalSearch-instructions-operator-number'], /\*<number>\*/);
+for (const key of ['import-here-instruction', 'import-wekan-file']) for (const extension of ['.json', '.zip']) assert.ok(wu[key].includes(extension), key + ': ' + extension);
+assert.match(wu['list-sync-project-key-placeholder'], /PROJECT.*owner\/repo/);
+assert.match(wu['list-sync-description'], /每 15 分钟.*立即同步.*马上检查/);
+assert.match(wu['import-parts-instruction'], /只导入打钩个部分.*导出也用同样个选择/);
+assert.equal(wu['wip-limit-group-add'], '添加 ' + wu['wip-limit-groups']);
+assert.equal(wu['wip-limit-group-apply-swimlane'], '应用到泳道');

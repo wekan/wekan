@@ -169027,5 +169027,173 @@
     "before": "已恢复 __restored__ 个列表。__remaining__ 个无法恢复。",
     "after": "恢复好 __restored__ 只列表仔。__remaining__ 只恢复勿了。",
     "reason": "2026-10-08: Correct Wu account messages and repair results, preserving count variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "export-select-what-to-include",
+    "before": "选择要包含的内容：",
+    "after": "选要包含个内容：",
+    "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "export-card-details",
+    "before": "卡片详情（每张卡片与卡片导出相同）",
+    "after": "卡片详情（每张卡片搭卡片导出一样）",
+    "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-here-instruction",
+    "before": "在此导入 WeKan 导出文件（.json 或 .zip）：",
+    "after": "勒搿搭导入 WeKan 导出文件（.json 或者 .zip）：",
+    "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-not-wekan-export",
+    "before": "该文件不是 WeKan 导出文件",
+    "after": "搿只文件勿是 WeKan 导出文件",
+    "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "globalSearch-instructions-operator-number",
+    "before": "`__operator_number__:<number>` - 卡片编号为 *<number>* 的卡片",
+    "after": "`__operator_number__:<number>` - 卡片编号是 *<number>* 个卡片",
+    "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-parts-instruction",
+    "before": "只导入勾选的部分。导出时使用相同的选择。",
+    "after": "只导入打钩个部分。导出也用同样个选择。",
+    "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-wekan-file",
+    "before": "从 .json 或 .zip 导出文件导入：",
+    "after": "从 .json 或者 .zip 导出文件导入：",
+    "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "sum-of-number-fields",
+    "before": "在清单顶部显示的数字自定义字段的总和",
+    "after": "标记成勒列表顶浪显示个数字自定义字段个总和",
+    "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "date-range-of-fields",
+    "before": "标记为在列表顶部显示的日期类型自定义字段的日期范围",
+    "after": "标记成勒列表顶浪显示个日期自定义字段个日期范围",
+    "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "wip-limit-groups",
+    "before": "启用 WIP 限制 (列表)",
+    "after": "WIP 限制组",
+    "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "wip-limit-group-name-placeholder",
+    "before": "姓名 (选修的)",
+    "after": "组名（可选）",
+    "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "wip-limit-group-add",
+    "before": "添加 启用 WIP 限制",
+    "after": "添加 WIP 限制组",
+    "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "wip-limit-group-select-swimlane",
+    "before": "选择主板 泳道",
+    "after": "选择泳道",
+    "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "wip-limit-group-apply-swimlane",
+    "before": "申请 泳道",
+    "after": "应用到泳道",
+    "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "subtask-inherit-parent-labels",
+    "before": "继承父卡片的标签",
+    "after": "继承父卡片个标签",
+    "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "list-sync-description",
+    "before": "让此列表与外部跟踪系统保持同步。后台任务每 15 分钟检查一次；使用“立即同步”可立即检查。",
+    "after": "让搿只列表搭外部跟踪系统保持同步。后台任务每 15 分钟检查一趟；用“立即同步”好马上检查。",
+    "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "list-sync-project-key-placeholder",
+    "before": "项目 或 所有者/仓库",
+    "after": "PROJECT 或者 owner/repo",
+    "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "list-sync-credential-status-set",
+    "before": "已设置凭据。",
+    "after": "凭据已经设置好仔。",
+    "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "list-sync-credential-status-unset",
+    "before": "尚未设置凭据。",
+    "after": "还朆设置凭据。",
+    "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "list-sync-last-synced",
+    "before": "上次同步",
+    "after": "上一趟同步",
+    "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "list-sync-last-error",
+    "before": "最近的错误",
+    "after": "上一趟错误",
+    "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "list-sync-now-success",
+    "before": "同步已成功完成。",
+    "after": "同步已经完成仔。",
+    "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "add-many-lines-as",
+    "before": "把多行加为：",
+    "after": "拿多行添加成：",
+    "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "many-items",
+    "before": "多个__items__",
+    "after": "多只 __items__",
+    "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
   }
 ]
