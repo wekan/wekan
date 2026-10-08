@@ -294,3 +294,20 @@ assert.match(wu['blockly-TEXT_PROMPT_TYPE_TEXT'], /文字/);
 assert.match(wu['blockly-VARIABLE_ALREADY_EXISTS_FOR_ANOTHER_TYPE'], /别个类型：'%2'/);
 assert.match(wu['blockly-VARIABLES_SET'], /%1 设成 %2/);
 assert.notEqual(wu['blockly-UNDO'], wu['blockly-REDO']);
+
+const finalBlockly = ["blockly-VARIABLE_ALREADY_EXISTS_FOR_A_PARAMETER", "blockly-WORKSPACE_COMMENT_DEFAULT_TEXT", "blockly-WORKSPACE_CONTENTS_BLOCKS_MANY", "blockly-WORKSPACE_CONTENTS_BLOCKS_ONE", "blockly-WORKSPACE_CONTENTS_BLOCKS_ZERO", "blockly-WORKSPACE_CONTENTS_COMMENTS_MANY", "blockly-WORKSPACE_CONTENTS_COMMENTS_ONE", "blockly-WORKSPACE_LABEL_1_STACK", "blockly-WORKSPACE_LABEL_FLYOUT_WORKSPACE", "blockly-WORKSPACE_LABEL_MANY_STACKS", "blockly-WORKSPACE_LABEL_MUTATOR_WORKSPACE", "blockly-WORKSPACE_LABEL_PLAIN", "blockly-WORKSPACE_SEARCH_CLOSE", "blockly-WORKSPACE_SEARCH_FIND_NEXT", "blockly-WORKSPACE_SEARCH_FIND_PREVIOUS", "blockly-WORKSPACE_SEARCH_INPUT_LABEL", "blockly-WORKSPACE_SEARCH_MATCH", "blockly-WORKSPACE_SEARCH_NO_MATCHES", "blockly-WORKSPACE_SEARCH_PLACEHOLDER", "blockly-ZOOM_TO_FIT_ARIA_LABEL", "blockly-CONTROLS_IF_ELSEIF_TITLE_ELSEIF", "blockly-CONTROLS_IF_ELSE_TITLE_ELSE", "blockly-LISTS_CREATE_WITH_ITEM_TITLE", "blockly-LISTS_GET_INDEX_INPUT_IN_LIST", "blockly-LISTS_GET_SUBLIST_INPUT_IN_LIST", "blockly-LISTS_INDEX_OF_INPUT_IN_LIST", "blockly-LISTS_SET_INDEX_INPUT_IN_LIST", "blockly-MATH_CHANGE_TITLE_ITEM", "blockly-PROCEDURES_DEFRETURN_COMMENT", "blockly-PROCEDURES_DEFRETURN_PROCEDURE", "blockly-TEXT_APPEND_VARIABLE", "blockly-TEXT_CREATE_JOIN_ITEM_TITLE_ITEM"];
+for (const key of finalBlockly) {
+  assert.notEqual(wu[key], english[key], key);
+  assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+}
+assert.match(wu['blockly-WORKSPACE_CONTENTS_BLOCKS_ZERO'], /呒没积木/);
+assert.match(wu['blockly-WORKSPACE_CONTENTS_BLOCKS_ONE'], /一堆积木/);
+for (const count of ['MANY', 'ONE']) assert.match(wu[`blockly-WORKSPACE_CONTENTS_COMMENTS_${count}`], /^ 搭仔/);
+assert.match(wu['blockly-WORKSPACE_SEARCH_FIND_NEXT'], /下一个/);
+assert.match(wu['blockly-WORKSPACE_SEARCH_FIND_PREVIOUS'], /上一个/);
+assert.match(wu['blockly-WORKSPACE_SEARCH_INPUT_LABEL'], /Enter.*下一个.*Shift\+Enter.*上一个.*Escape.*关脱/);
+for (const role of ['COMMENT', 'PROCEDURE']) assert.equal(wu[`blockly-PROCEDURES_DEFRETURN_${role}`], wu[`blockly-PROCEDURES_DEFNORETURN_${role}`]);
+for (const key of ['GET_INDEX', 'GET_SUBLIST', 'INDEX_OF', 'SET_INDEX']) assert.equal(wu[`blockly-LISTS_${key}_INPUT_IN_LIST`], wu['blockly-LISTS_INLIST']);
+const remainingWu = require('node:child_process').spawnSync(process.execPath, [path.join(__dirname, '../releases/translations/fill-translations.mjs'), '--list', 'wuu-Hans'], { encoding: 'utf8' });
+assert.equal(remainingWu.status, 0, remainingWu.stderr);
+assert.deepEqual(Object.keys(JSON.parse(remainingWu.stdout)).filter(key => key.startsWith('blockly-')), [], 'all current Wu Blockly fill entries are translated');

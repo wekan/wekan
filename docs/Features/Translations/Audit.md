@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu current Blockly fill list completed — 2026-10-08
+
+Translate 32 workspace, search, variable and alias messages. The full current Wu
+fill list now contains no Blockly entries. Preserve variables and keyboard names;
+check zero/one/many descriptions, search directions and shared aliases. Wu wording
+is lower confidence and needs native review. No browser or screen-reader session
+was run. Other strings and older Mandarin-like passages still require work.
+
 ## Wu Blockly text values and variables — 2026-10-08
 
 Translate 35 text-value, trimming and variable messages. Preserve exact variables;
