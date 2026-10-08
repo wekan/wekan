@@ -5,6 +5,12 @@
       # sockjs is the only transport WeKan ships: no bundle or image carries
       # uWebSockets.js, and DDP_TRANSPORT=uws is coerced to sockjs at startup.
       - DDP_TRANSPORT=sockjs
+      # Caddy sends the visitor's address as the only X-Forwarded-For value
+      # (wekan_proxy in ../caddy/Caddyfile). Without this, every visitor is the
+      # proxy's 127.0.0.1: they share the login cookie refresh limit (30 per 10
+      # seconds per address), so at busy times users are signed out and a
+      # Google login returns to the sign-in page.
+      - HTTP_FORWARDED_COUNT=1
       - WRITABLE_PATH=/data
       - WITH_API=true
       - CARD_OPENED_WEBHOOK_ENABLED=false

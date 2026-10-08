@@ -92,38 +92,77 @@ DNS records:
 * A example.com ip-address
 @ A example.com ip-address
 ```
-Caddyfile, proxy to KVM VM that is running Debian and Sandstorm:
+Caddyfile, proxy to Sandstorm at localhost port 81 (or to a KVM VM running
+Debian and Sandstorm). The same Caddy can also serve many WeKan Docker
+containers: the complete config is
+[Meteor3 caddy/Caddyfile](../Docker/Meteor3/caddy/Caddyfile).
 ```
+{
+	servers {
+		# HTTP/1.1 only, see ../Docker/Meteor3/multitenancy.md
+		protocols h1
+		# Trust CloudFlare's own addresses, and only those, to say who the
+		# visitor is. Ranges from https://www.cloudflare.com/ips-v4 and
+		# https://www.cloudflare.com/ips-v6 (2026-10-08), refresh them when
+		# CloudFlare changes the list.
+		trusted_proxies static 173.245.48.0/20 103.21.244.0/22 103.22.200.0/22 103.31.4.0/22 141.101.64.0/18 108.162.192.0/18 190.93.240.0/20 188.114.96.0/20 197.234.240.0/22 198.41.128.0/17 162.158.0.0/15 104.16.0.0/13 104.24.0.0/14 172.64.0.0/13 131.0.72.0/22 2400:cb00::/32 2606:4700::/32 2803:f800::/32 2405:b500::/32 2405:8100::/32 2a06:98c0::/29 2c0f:f248::/32
+		client_ip_headers CF-Connecting-IP
+	}
+}
+
+(cloudflare_tls) {
+	tls {
+		load /etc/caddy/certs
+	}
+}
+
+# Sandstorm believes an X-Real-IP header from a loopback or private address,
+# and Caddy connects from 127.0.0.1. Set it to the visitor's address, or a
+# visitor's own X-Real-IP header is passed through and recorded.
+(sandstorm_proxy) {
+	handle {
+		# If KVM VM, it's IP address:
+		#reverse_proxy 123.123.123.123:80 {
+		reverse_proxy 127.0.0.1:81 {
+			header_up X-Real-IP {client_ip}
+		}
+	}
+}
+
 # Full domain where Sandstorm login is. Not subdomain. Not sub-url.
+# Wildcard: CloudFlare proxy on (orange cloud) with the Origin Certificate.
 *.example.com example.com {
-        tls {
-                load /etc/caddy/certs
-                alpn http/1.1
-        }
-        # If KVM VM, it's IP address:
-        #reverse_proxy 123.123.123.123:80
-        # Localhost port 81, when not in KVM VM 
-        reverse_proxy 127.0.0.1:81
+	import cloudflare_tls
+	import sandstorm_proxy
 }
 
+# Blog hosted at Sandstorm WordPress, CloudFlare proxy on (orange cloud)
 blog.somecompany.com {
-        tls {
-                load /etc/caddy/certs
-                alpn http/1.1
-        }
-        # Blog hosted at Sandstorm WordPress
-        reverse_proxy 127.0.0.1:81
+	import cloudflare_tls
+	import sandstorm_proxy
 }
 
+# Website hosted at Sandstorm Hacker CMS, CloudFlare proxy off (grey cloud):
+# no tls line, Caddy gets a Let's Encrypt certificate itself.
 othercompany.com {
-        tls {
-                load /etc/caddy/certs
-                alpn http/1.1
-        }
-        # Website hosted at Sandstorm Hacker CMS
-        reverse_proxy 127.0.0.1:81
+	import sandstorm_proxy
 }
 ```
+How Sandstorm uses what Caddy sends, from Sandstorm's
+[gateway.c++](https://github.com/sandstorm-io/sandstorm/blob/master/src/sandstorm/gateway.c++):
+
+- **Host** (Caddy passes it unchanged) decides what is served. `BASE_URL`'s host is
+  Sandstorm itself, `WILDCARD_HOST` its grains and API, and any other name is a
+  website Sandstorm publishes, found through that name's
+  `sandstorm-www.<name>` DNS TXT record, for example
+  `sandstorm-www.blog.somecompany.com`. Add a record for `www.` too when it is
+  served.
+- **https** comes from `BASE_URL`'s scheme, not from `X-Forwarded-Proto`: keep
+  `BASE_URL=https://...` although Caddy talks plain http to Sandstorm.
+- **X-Real-IP** is believed from a loopback or private address. That is why
+  `sandstorm_proxy` always sets it.
+- **One HTTP port** (`PORT=81` below), bound to `127.0.0.1` so only Caddy reaches it.
+
 If having Sandstorm inside of KVM VM: [Many Snaps on LXC](../Snap/Many-Snaps-on-LXC.md)
 
 At /opt/sandstorm/sandstorm.conf is domain where Sandstorm login is, http port etc.

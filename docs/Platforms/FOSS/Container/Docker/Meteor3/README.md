@@ -4,6 +4,47 @@
 
 Use all settings and config files at this page and subdirectories.
 
+### Caddy, CloudFlare and the proxy headers
+
+[caddy/Caddyfile](caddy/Caddyfile) is the Caddy config for this setup: many WeKan
+Docker containers, Sandstorm and websites behind one Caddy. Each WeKan container
+is a few lines:
+
+```
+wekan.customer.com {
+	import cloudflare_tls               # only when CloudFlare proxy is on
+	import wekan_headers_google wekan.customer.com
+	import wekan_well_known
+	import wekan_proxy 3001             # the container's PORT
+}
+```
+
+- **CloudFlare proxy on (orange cloud):** `import cloudflare_tls` loads the
+  CloudFlare Origin Certificate from `/etc/caddy/certs`, with CloudFlare SSL/TLS
+  set to "Full (strict)". Also disable "HTTP/2 to Origin" and caching, see the
+  [cloudflare](cloudflare) screenshots.
+- **CloudFlare proxy off (grey cloud):** leave `cloudflare_tls` out, and Caddy gets
+  a Let's Encrypt certificate itself.
+- **Who the visitor is:** the global options trust CloudFlare's published address
+  ranges, and only those, to say who the visitor is (`CF-Connecting-IP`). A
+  request from anywhere else, including grey cloud sites, uses its own connecting
+  address, so a forged header is ignored. Refresh the ranges from
+  <https://www.cloudflare.com/ips-v4> and <https://www.cloudflare.com/ips-v6>
+  when CloudFlare changes them.
+- **What WeKan receives:** `wekan_proxy` sends `X-Forwarded-Proto: https` and the
+  visitor's address as the only `X-Forwarded-For` and `X-Real-IP` value. Caddy
+  passes `Host` and `X-Forwarded-Host` unchanged.
+- **`HTTP_FORWARDED_COUNT=1` in every container** (already in
+  [restore/docker-end.yml](restore/docker-end.yml)). Without it WeKan sees every
+  visitor as the proxy's `127.0.0.1`. All users then share the login cookie
+  refresh limit of 30 per 10 seconds per address, so at busy times users are
+  signed out, and a Google login returns to the sign-in page.
+- **Google login (OAuth2/OIDC):** also set `OAUTH2_LOGIN_STYLE=redirect`, and
+  open WeKan only at its `ROOT_URL`. Google's sign-in pages can break the popup
+  login style, and a login started at any other address cannot finish.
+
+Sandstorm behind the same Caddy: [Sandstorm](../../Sandstorm/README.md#sandstorm-cloudflare-dns-settings).
+
 ## 2) Backup your previous WeKan server
 
 See backup scripts etc, mongodump and files directory

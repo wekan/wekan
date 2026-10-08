@@ -3,16 +3,34 @@
 #   - Speed/Settings: Disable only "HTTP/2 to Origin"
 #   - Caching/Overview: Development Mode, Temporarily bypass cache
 # - See screenshots at cloudflare directory
-
+#
+# Two kinds of site are served here, and both are correct:
+# - Orange cloud (Cloudflare proxy on): the site has `import cloudflare_tls`,
+#   Caddy uses the Cloudflare Origin Certificate at /etc/caddy/certs, and
+#   CloudFlare SSL/TLS is "Full (strict)".
+# - Grey cloud (Cloudflare proxy off, DNS only): no tls line, Caddy gets a
+#   Let's Encrypt certificate by itself.
+#
+# Each WeKan Docker container also needs HTTP_FORWARDED_COUNT=1
+# (../restore/docker-start.yml), see "What WeKan receives" below.
 {
 	# Using below "servers {protocols h1}" to force Caddy to use only
-        # HTTP/1.1 -protocol (h1) at background connections,
+	# HTTP/1.1 -protocol (h1) at background connections,
 	# to prevent multitenancy round robin bug, see multitenancy.md
 	servers {
 		protocols h1
+		# Who the visitor is. Trust Cloudflare's own addresses, and only those:
+		# {client_ip} is then CF-Connecting-IP for a request that came through
+		# Cloudflare (orange cloud), and the connecting address for everything
+		# else - a grey cloud site, or anybody reaching this server directly -
+		# so a forged CF-Connecting-IP header is ignored.
+		# Ranges from https://www.cloudflare.com/ips-v4 and
+		# https://www.cloudflare.com/ips-v6 (2026-10-08). Refresh them when
+		# Cloudflare changes the list.
+		trusted_proxies static 173.245.48.0/20 103.21.244.0/22 103.22.200.0/22 103.31.4.0/22 141.101.64.0/18 108.162.192.0/18 190.93.240.0/20 188.114.96.0/20 197.234.240.0/22 198.41.128.0/17 162.158.0.0/15 104.16.0.0/13 104.24.0.0/14 172.64.0.0/13 131.0.72.0/22 2400:cb00::/32 2606:4700::/32 2803:f800::/32 2405:b500::/32 2405:8100::/32 2a06:98c0::/29 2c0f:f248::/32
+		client_ip_headers CF-Connecting-IP
 	}
 }
-
 
 # Redirecting http to https
 
@@ -23,6 +41,93 @@
 	redir @http https://{host}{uri}
 }
 
+## Snippets: one WeKan container is a few imports
+#
+#   wekan.customer.com {
+#   	import cloudflare_tls               # orange cloud only
+#   	import wekan_headers_google wekan.customer.com
+#   	import wekan_well_known
+#   	import wekan_proxy 3001
+#   }
+#
+# What WeKan receives from wekan_proxy:
+# - Host, X-Forwarded-Host: the site's own name (Caddy passes both by
+#   default), so ROOT_URL checks and the login cookie match it.
+# - X-Forwarded-Proto https: the browser's scheme, not Caddy's. The login
+#   cookie is marked Secure only when this says https.
+# - X-Forwarded-For, X-Real-IP: the visitor's address ({client_ip}, see the
+#   global trusted_proxies) as the ONLY value. With HTTP_FORWARDED_COUNT=1 in
+#   the container, the login cookie refresh limit (30 per 10 seconds per
+#   address), the login lockout and Admin Panel / Problems see each visitor,
+#   not one shared Cloudflare or proxy address. Without it, at busy times
+#   users get signed out, and a Google login returns to the sign-in page.
+
+# CloudFlare Origin Certificate, for orange cloud sites.
+# ../../../../../Webserver/Caddy.md
+(cloudflare_tls) {
+	tls {
+		load /etc/caddy/certs
+	}
+}
+
+# Security headers for WeKan with Google login allowed. Argument: the site name.
+(wekan_headers_google) {
+	header {
+		-Content-Security-Policy-Report-Only
+		-Content-Security-Policy
+		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://static.cloudflareinsights.com https://accounts.google.com https://apis.google.com; worker-src 'self' blob:; connect-src 'self' wss://{args[0]} https://{args[0]} https://cloudflareinsights.com https://accounts.google.com; img-src 'self' data: https://*.googleusercontent.com; frame-src 'self' https://accounts.google.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:;"
+		Cross-Origin-Opener-Policy "same-origin-allow-popups"
+		X-Content-Type-Options nosniff
+		Strict-Transport-Security "max-age=31536000;"
+		-X-Frame-Options
+		Cache-Control "no-cache, no-store, must-revalidate"
+	}
+}
+
+# Security headers for WeKan without Google login. Argument: the site name.
+(wekan_headers) {
+	header {
+		-Content-Security-Policy-Report-Only
+		-Content-Security-Policy
+		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://static.cloudflareinsights.com; worker-src 'self' blob:; connect-src 'self' wss://{args[0]} https://{args[0]} https://cloudflareinsights.com; img-src 'self'; frame-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data:;"
+		Cross-Origin-Opener-Policy "same-origin-allow-popups"
+		X-Content-Type-Options nosniff
+		Strict-Transport-Security "max-age=31536000;"
+		-X-Frame-Options
+		Cache-Control "no-cache, no-store, must-revalidate"
+	}
+}
+
+(wekan_well_known) {
+	handle /.well-known/* {
+		header Content-Type application/json
+		header Access-Control-Allow-Origin *
+	}
+}
+
+# Argument: the WeKan container's PORT.
+(wekan_proxy) {
+	handle {
+		reverse_proxy 127.0.0.1:{args[0]} {
+			header_up X-Forwarded-Proto https
+			header_up X-Forwarded-For {client_ip}
+			header_up X-Real-IP {client_ip}
+		}
+	}
+}
+
+# Sandstorm on 127.0.0.1:81, see 4) below. Sandstorm believes an X-Real-IP
+# header from a loopback address, and Caddy connects from 127.0.0.1, so it is
+# always set here: otherwise a visitor's own X-Real-IP header would be passed
+# through and Sandstorm would record whatever it said.
+(sandstorm_proxy) {
+	handle {
+		reverse_proxy 127.0.0.1:81 {
+			header_up X-Real-IP {client_ip}
+		}
+	}
+}
+
 ## Hosting examples
 
 # 1) WeKan hosting: Custom Domain with default Let's Encrypt TLS certificate
@@ -31,60 +136,31 @@
 # - WeKan hosting CloudFlare DNS: customer.wekan.team A Server-IPv4-Address
 
 wekan.customer.com {
-	# b) No custom domain, using customer.wekan.team:
-	#   - Using CloudFlare TLS Origin Certificate with Strict Enforcement
-	#   - At CloudFlare DNS change to orange cloud, with CloudFlare proxy,
-	#   - ../../../../../Webserver/Caddy.md
-	# tls {
-	#     load /etc/caddy/certs
-	# }
-	header {
-		-Content-Security-Policy-Report-Only
-		-Content-Security-Policy
-		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://static.cloudflareinsights.com https://accounts.google.com https://apis.google.com; worker-src 'self' blob:; connect-src 'self' wss://wekan.customer.com https://wekan.customer.com https://cloudflareinsights.com https://accounts.google.com; img-src 'self' data: https://*.googleusercontent.com; frame-src 'self' https://accounts.google.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:;"
-		Cross-Origin-Opener-Policy "same-origin-allow-popups"
-		X-Content-Type-Options nosniff
-		Strict-Transport-Security "max-age=31536000;"
-		-X-Frame-Options
-		Cache-Control "no-cache, no-store, must-revalidate"
-	}
-	handle /.well-known/* {
-		header Content-Type application/json
-		header Access-Control-Allow-Origin *
-	}
-	handle {
-		reverse_proxy 127.0.0.1:3001
-	}
+	import wekan_headers_google wekan.customer.com
+	import wekan_well_known
+	import wekan_proxy 3001
 }
 
 ## 2) WeKan hosting: No custom domain, using customer.wekan.team:
 # - Using CloudFlare TLS Origin Certificate with Strict Enforcement
 # - At CloudFlare DNS change to orange cloud, with CloudFlare proxy,
 # - ../../../../../Webserver/Caddy.md
-# - Difference is additional tls section: tls { load /etc/caddy/certs }
+# - Difference is additional line: import cloudflare_tls
 
 customer.wekan.team {
-	tls {
-		load /etc/caddy/certs
-	}
-	header {
-		-Content-Security-Policy-Report-Only
-		-Content-Security-Policy
-		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://static.cloudflareinsights.com https://accounts.google.com https://apis.google.com; worker-src 'self' blob:; connect-src 'self' wss://customer.wekan.team https://customer.wekan.team https://cloudflareinsights.com https://accounts.google.com; img-src 'self' data: https://*.googleusercontent.com; frame-src 'self' https://accounts.google.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:;"
-		Cross-Origin-Opener-Policy "same-origin-allow-popups"
-		X-Content-Type-Options nosniff
-		Strict-Transport-Security "max-age=31536000;" 
-		-X-Frame-Options
-		Cache-Control "no-cache, no-store, must-revalidate"
-	}
-	handle /.well-known/* {
-		header Content-Type application/json
-		header Access-Control-Allow-Origin *
-	}
+	import cloudflare_tls
+	import wekan_headers_google customer.wekan.team
+	import wekan_well_known
+	import wekan_proxy 3002
+}
 
-	handle {
-		reverse_proxy 127.0.0.1:3002
-	}
+# 2.1) WeKan without Google login: wekan_headers instead of wekan_headers_google
+
+nogoogle.wekan.team {
+	import cloudflare_tls
+	import wekan_headers nogoogle.wekan.team
+	import wekan_well_known
+	import wekan_proxy 3003
 }
 
 # 3) Static website
@@ -106,29 +182,39 @@ customer.com {
 
 # 4) Example of Sandstorm https://sandstorm.org web hosting
 # - with WordPress, Hacker CMS, etc
-# - ../../../Sandstorm/Sandstorm.md
+# - ../../../Sandstorm/README.md
+# - Sandstorm routes by the Host header, which Caddy passes unchanged:
+#   BASE_URL's host is Sandstorm itself, WILDCARD_HOST its grains and API,
+#   and any other name a web site it publishes, found through that name's
+#   "sandstorm-www.<name>" DNS TXT record. Whether a request is https comes
+#   from BASE_URL, so no X-Forwarded-Proto is needed.
 
-# 4.1) Using Let's Encrypt: WordPress, Hacker CMS, etc
+# 4.1) Using Let's Encrypt: WordPress, Hacker CMS, etc (grey cloud)
 customer.fi {
-	reverse_proxy 127.0.0.1:81
+	import sandstorm_proxy
 }
 
-# 4.2) Using CloudFlare TLS: WordPress, Hacker CMS, etc
+# 4.2) Using CloudFlare TLS: WordPress, Hacker CMS, etc (orange cloud)
 blog.wekan.fi {
-	tls {
-		load /etc/caddy/certs
-	}
-	reverse_proxy 127.0.0.1:81
+	import cloudflare_tls
+	import sandstorm_proxy
 }
 
-# 4.3) Sandstorm backup: /opt/backup.sh
+# 4.3) Sandstorm itself, at BASE_URL and WILDCARD_HOST of 4.5).
+# Wildcard needs the CloudFlare Origin Certificate (orange cloud).
+*.wekan.dev wekan.dev {
+	import cloudflare_tls
+	import sandstorm_proxy
+}
+
+# 4.4) Sandstorm backup: /opt/backup.sh
 #
 # #!/bin/bash
 # sandstorm stop
 # tar -cf sandstorm-backup-$(date -I).tar /opt/sandstorm
 # sandstorm start
 
-# 4.4) Sandstorm config: /opt/sanstorm/sandstorm.conf
+# 4.5) Sandstorm config: /opt/sandstorm/sandstorm.conf
 #
 # SERVER_USER=sandstorm
 # PORT=81
@@ -204,7 +290,7 @@ hesk.customer.com {
 	php_fastcgi unix//run/php/php-fpm.sock
 	file_server
 	log {
-	    output file /var/log/caddy/hesk_access.log
+		output file /var/log/caddy/hesk_access.log
 	}
 }
 
@@ -219,7 +305,7 @@ hesk.customer.com {
 	php_fastcgi unix//run/php/php-fpm.sock
 	file_server
 	log {
-	    output file /var/log/caddy/hesk_access.log
+		output file /var/log/caddy/hesk_access.log
 	}
 }
 
@@ -244,20 +330,9 @@ hesk.customer.com {
 #       newest WeKan Admin Panel / Settings.
 
 boards.wekan.team {
-	tls {
-		load /etc/caddy/certs
-	}
+	import cloudflare_tls
 
-	header {
-		-Content-Security-Policy-Report-Only
-		-Content-Security-Policy
-		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://static.cloudflareinsights.com https://accounts.google.com https://apis.google.com; worker-src 'self' blob:; connect-src 'self' wss://boards.wekan.team https://boards.wekan.team https://cloudflareinsights.com https://accounts.google.com; img-src 'self' data: https://*.googleusercontent.com; frame-src 'self' https://accounts.google.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:;"
-		Cross-Origin-Opener-Policy "same-origin-allow-popups"
-		X-Content-Type-Options nosniff
-		Strict-Transport-Security "max-age=31536000;"
-		-X-Frame-Options
-		Cache-Control "no-cache, no-store, must-revalidate"
-	}
+	import wekan_headers_google boards.wekan.team
 
 	handle /.well-known/assetlinks.json {
 		header Content-Type application/json
@@ -435,7 +510,5 @@ boards.wekan.team {
 		}`
 	}
 
-	handle {
-		reverse_proxy 127.0.0.1:3025
-	}
+	import wekan_proxy 3025
 }
