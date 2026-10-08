@@ -1066,3 +1066,15 @@ assert.match(wu['database-migration-confirm'], /__db__.*附件搭头像勿受影
 for (const suffix of ['description', 'confirm']) assert.match(wu['sandstorm-delete-raw-mongodb-' + suffix], /撤销勿了/);
 assert.match(wu['sandstorm-delete-raw-mongodb-description'], /迁移成功以后/);
 assert.match(wu['database-migration-description'], /MONGO_URL.*再重启 WeKan/);
+
+const settingsHelpWu = ["cards-loading-auto", "cards-loading-all", "cards-loading-lazy", "cards-loading-description", "cards-loading-lazy-note", "render-links-as-plain-text", "render-links-as-plain-text-description", "always-show-code-as-text", "always-show-code-as-text-description", "disable-all-import-description", "disable-all-export-description", "disable-import-avatars-description", "disable-export-avatars-description", "anonymize-account", "anonymize-account-confirm-popup", "disable-activities-description", "disable-notifications-description", "disable-watch-description", "backup-scope-description", "theme-override-all-tenants"];
+for (const key of settingsHelpWu) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+for (const literal of ['CARDS_LOADING', 'all/lazy/auto', 'CARDS_LOADING_LAZY_THRESHOLD']) assert.ok(wu['cards-loading-description'].includes(literal), literal);
+assert.doesNotMatch(wu['cards-loading-all'], /默认/);
+for (const literal of ['[label](url)', '<a href>']) assert.ok(wu['render-links-as-plain-text-description'].includes(literal), literal);
+assert.ok(wu['always-show-code-as-text-description'].includes('<!-- -->'));
+assert.match(wu['anonymize-account-confirm-popup'], /永久.*用户名、全名搭电子邮件地址.*移脱头像.*停用登录.*保留历史记录.*撤销勿了/);
+assert.doesNotMatch(wu['anonymize-account-confirm-popup'], /导出看板/);
+assert.match(wu['backup-scope-description'], /勿包含用户账户搭实例设置.*只会写入搿只组织拥有个看板/);
+for (const kind of ['import', 'export']) assert.match(wu['disable-all-' + kind + '-description'], /服务器会拒绝任何.*请求/);
+assert.match(wu['disable-notifications-description'], /活动仍旧好记录.*只停脱通知/);

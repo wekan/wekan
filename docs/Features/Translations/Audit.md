@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu settings-help corrections — 2026-10-08
+
+Correct 20 loading, rendering, import/export, account, notification and backup values.
+Replace stale manual-loading help with automatic mode and its threshold setting, and
+replace export help incorrectly used as the account-anonymization confirmation.
+Preserve configuration names, Markdown/HTML examples, avatar scope and organization
+backup exclusions. Refresh exact-value audit records. Wu prose needs native review;
+browser tests were not run and all-language work remains unfinished.
+
 ## Wu migration-help corrections — 2026-10-08
 
 Correct 17 storage and migration-help values. Preserve database URLs, environment
@@ -12871,7 +12880,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,950** exact before/after values, including unflagged
+records contain **23,970** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
