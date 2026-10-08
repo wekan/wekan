@@ -137,3 +137,25 @@ assert.match(wu['blockly-LISTS_REPEAT_TITLE'], /项目 %1.*%2 趟/);
 assert.match(wu['blockly-LISTS_REVERSE_TOOLTIP'], /副本/);
 assert.match(wu['blockly-LISTS_GET_SUBLIST_TOOLTIP'], /复制/);
 assert.match(wu['blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_FIRST'], /插到.*起头/);
+
+const sortingAndLogic = ["blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_FROM", "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_LAST", "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_RANDOM", "blockly-LISTS_SET_INDEX_TOOLTIP_SET_FIRST", "blockly-LISTS_SET_INDEX_TOOLTIP_SET_FROM", "blockly-LISTS_SET_INDEX_TOOLTIP_SET_LAST", "blockly-LISTS_SET_INDEX_TOOLTIP_SET_RANDOM", "blockly-LISTS_SORT_ORDER_ASCENDING", "blockly-LISTS_SORT_ORDER_DESCENDING", "blockly-LISTS_SORT_TITLE", "blockly-LISTS_SORT_TOOLTIP", "blockly-LISTS_SORT_TYPE_IGNORECASE", "blockly-LISTS_SORT_TYPE_NUMERIC", "blockly-LISTS_SORT_TYPE_TEXT", "blockly-LISTS_SPLIT_LIST_FROM_TEXT", "blockly-LISTS_SPLIT_TEXT_FROM_LIST", "blockly-LISTS_SPLIT_TOOLTIP_JOIN", "blockly-LISTS_SPLIT_TOOLTIP_SPLIT", "blockly-LISTS_SPLIT_WITH_DELIMITER", "blockly-LOGIC_BOOLEAN_FALSE", "blockly-LOGIC_BOOLEAN_TOOLTIP", "blockly-LOGIC_BOOLEAN_TRUE", "blockly-LOGIC_COMPARE_EQ_ARIA", "blockly-LOGIC_COMPARE_GTE_ARIA", "blockly-LOGIC_COMPARE_GT_ARIA", "blockly-LOGIC_COMPARE_LTE_ARIA", "blockly-LOGIC_COMPARE_LT_ARIA", "blockly-LOGIC_COMPARE_NEQ_ARIA", "blockly-LOGIC_COMPARE_TOOLTIP_EQ", "blockly-LOGIC_COMPARE_TOOLTIP_GT"];
+for (const key of sortingAndLogic) {
+  assert.notEqual(wu[key], english[key], key);
+  assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+}
+assert.match(wu['blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_FROM'], /插到/);
+assert.match(wu['blockly-LISTS_SET_INDEX_TOOLTIP_SET_FROM'], /设置/);
+assert.match(wu['blockly-LISTS_SORT_ORDER_ASCENDING'], /从小到大/);
+assert.match(wu['blockly-LISTS_SORT_ORDER_DESCENDING'], /从大到小/);
+assert.match(wu['blockly-LISTS_SORT_TOOLTIP'], /副本/);
+assert.match(wu['blockly-LISTS_SORT_TYPE_IGNORECASE'], /勿分大小写/);
+assert.doesNotMatch(wu['blockly-LISTS_SORT_TYPE_TEXT'], /勿分大小写/);
+assert.match(wu['blockly-LISTS_SPLIT_TOOLTIP_JOIN'], /合成一段/);
+assert.match(wu['blockly-LISTS_SPLIT_TOOLTIP_SPLIT'], /每个分隔符.*拆开/);
+assert.equal(wu['blockly-LOGIC_BOOLEAN_TRUE'], '真');
+assert.equal(wu['blockly-LOGIC_BOOLEAN_FALSE'], '假');
+for (const op of ['GT', 'LT']) {
+  assert.match(wu[`blockly-LOGIC_COMPARE_${op}E_ARIA`], /或者等于/);
+  assert.doesNotMatch(wu[`blockly-LOGIC_COMPARE_${op}_ARIA`], /等于/);
+}
+assert.match(wu['blockly-LOGIC_COMPARE_NEQ_ARIA'], /勿等于/);

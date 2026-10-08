@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu Blockly sorting and logic — 2026-10-08
+
+Translate 30 insertion, replacement, sorting, split/join and comparison messages.
+Preserve source variables; check opposite sort directions, copied lists, case
+sensitivity, true/false and inclusive versus strict comparisons. Wu wording is
+lower confidence and needs native review. No browser or screen-reader session
+was run. Remaining translations and older Mandarin-like passages require work.
+
 ## Wu Blockly list positions and removal — 2026-10-08
 
 Translate 30 list-removal, slicing, lookup and repetition messages. Preserve exact
