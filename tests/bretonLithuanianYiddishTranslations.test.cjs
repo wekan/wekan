@@ -629,3 +629,19 @@ assert.match(locales.yi['scrum-source-customField'], /פֿאַר צאָלן/);
 assert.doesNotMatch(locales.yi['scrum-source-customField'], /מנהג/);
 assert.match(locales.yi['scrum-policy-dueComplete'], /אָנגעצייכנט ווי פֿאַרענדיקט/);
 assert.match(locales.yi['scrum-policy-doneLists'], /רשימה.*קאַטעגאָריע/);
+
+const yiddishScrumPlanning = ["scrum-close-sprint", "scrum-cancel-sprint", "scrum-rollover-sprint", "scrum-cancel-reason", "scrum-product-backlog", "scrum-edit-sprint", "scrum-sprint-goal", "scrum-capacity", "scrum-new-sprint", "scrum-releases", "scrum-release", "scrum-release-scope", "scrum-releases-select-help", "scrum-select-sprint", "scrum-backlog", "scrum-backlog-help", "scrum-estimate", "scrum-backlog-rank", "scrum-issue-type", "scrum-acceptance-criteria", "scrum-events", "scrum-event-kind", "scrum-timebox", "scrum-notes", "scrum-event-planning", "scrum-event-daily", "scrum-event-review", "scrum-event-retrospective", "scrum-committed", "scrum-completed", "scrum-added", "scrum-removed", "scrum-incomplete", "scrum-no-closed-sprints", "scrum-report-help", "scrum-total", "scrum-state-planned", "scrum-state-active", "scrum-state-closed", "scrum-state-cancelled", "scrum-unknown-estimate", "scrum-confirm-close", "scrum-confirm-cancel", "scrum-past-sprints", "scrum-list-category"];
+for (const key of yiddishScrumPlanning) {
+  assert.notEqual(locales.yi[key], english[key], key);
+  assert.match(locales.yi[key], /[\u0590-\u05ff]/, key);
+  assert.deepEqual(translationTokens(locales.yi[key]), translationTokens(english[key]), key);
+}
+for (const literal of ['Ctrl', 'Cmd', 'Mac']) assert.ok(locales.yi['scrum-releases-select-help'].includes(literal));
+assert.match(locales.yi['scrum-releases-select-help'], /פֿון יעדער אַרויסגאַבע/);
+assert.match(locales.yi['scrum-report-help'], /נישט נול־אָפּשאַצונגען/);
+assert.match(locales.yi['scrum-report-help'], /נאָר מיט די זעלבע אָפּשאַצונגסאיינהייטן און כּללים/);
+assert.match(locales.yi['scrum-confirm-close'], /נישט־פֿאַרענדיקטע קאָרטן וועלן אַריבערגיין/);
+assert.match(locales.yi['scrum-confirm-cancel'], /בלײַבן מיטגלידער ביז/);
+assert.equal(new Set(['planned', 'active', 'closed', 'cancelled'].map(state => locales.yi[`scrum-state-${state}`])).size, 4);
+assert.equal(locales.yi['scrum-product-backlog'], locales.yi['board-view-product-backlog']);
+assert.match(locales.yi['scrum-timebox'], /מינוטן/);

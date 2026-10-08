@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Yiddish sprint planning and reports — 2026-10-08
+
+Translate 45 English Scrum planning, release and reporting messages. Preserve
+counters and selection shortcuts. Check unknown estimates versus zero, compatible
+comparison units, release removal scope, sprint states and close/cancel outcomes.
+Specialized Scrum wording is lower confidence and needs native review. No browser
+or screen-reader session was run. Remaining translations are unfinished.
+
 ## Yiddish rule validation and Scrum settings — 2026-10-08
 
 Translate 30 English rule-editor and Scrum labels. Preserve source variables and
