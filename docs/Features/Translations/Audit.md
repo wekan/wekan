@@ -7901,6 +7901,17 @@ and the instructions for comma separation and matching all values with an empty 
 Technical wording and composed fragments remain low confidence pending speaker
 review. Browser checks were not run. Further corrections and the broader audit remain.
 
+### Tatar activity messages and title argument order
+
+Corrected 31 activity and comment-control values, including attachment, label,
+checklist, comment and custom-field events. Also corrected an earlier Tatar title
+message that reversed the meanings of its two sequential %s arguments: the activity
+template supplies the new title before the card link. Regression coverage checks
+that order, exact placeholder case/counts, vocabulary, label aliases and action
+polarity. Correct existing nearby translations were retained. Technical wording
+remains low confidence pending speaker review. Browser checks were not run.
+Further wrong-language corrections and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
