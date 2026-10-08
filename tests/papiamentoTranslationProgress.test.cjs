@@ -94,3 +94,20 @@ assert.match(papiamento['blockly-END_KEY'], /Fin.*End/);
 assert.match(papiamento['blockly-INPUT_LABEL_CONDITION_A'], /promé/);
 assert.match(papiamento['blockly-INPUT_LABEL_CONDITION_B'], /di dos/);
 assert.notEqual(papiamento['blockly-ENABLE_BLOCK'], papiamento['blockly-DISABLE_BLOCK']);
+
+const blocklyInputs = ["blockly-INPUT_LABEL_LISTS_DELIMITER", "blockly-INPUT_LABEL_LISTS_END_POSITION", "blockly-INPUT_LABEL_LISTS_LIST_FROM_TEXT", "blockly-INPUT_LABEL_LISTS_POSITION", "blockly-INPUT_LABEL_LISTS_REPEAT_ITEM", "blockly-INPUT_LABEL_LISTS_REPEAT_NUM", "blockly-INPUT_LABEL_LISTS_START_POSITION", "blockly-INPUT_LABEL_LISTS_TEXT_FROM_LIST", "blockly-INPUT_LABEL_LISTS_TO_CHANGE", "blockly-INPUT_LABEL_LISTS_TO_CHECK", "blockly-INPUT_LABEL_LISTS_VALUE_TO_SET", "blockly-INPUT_LABEL_LOOP_BY", "blockly-INPUT_LABEL_LOOP_FROM", "blockly-INPUT_LABEL_LOOP_LIST", "blockly-INPUT_LABEL_LOOP_TIMES", "blockly-INPUT_LABEL_LOOP_TO", "blockly-INPUT_LABEL_MATH_CHANGE_BY", "blockly-INPUT_LABEL_MATH_CONSTRAIN_VALUE", "blockly-INPUT_LABEL_MATH_DIVIDEND", "blockly-INPUT_LABEL_MATH_DIVISOR", "blockly-INPUT_LABEL_NUMBER", "blockly-INPUT_LABEL_NUMBER_A", "blockly-INPUT_LABEL_NUMBER_ATAN2_X", "blockly-INPUT_LABEL_NUMBER_ATAN2_Y", "blockly-INPUT_LABEL_NUMBER_B", "blockly-INPUT_LABEL_NUMBER_LIST", "blockly-INPUT_LABEL_NUMBER_MAX", "blockly-INPUT_LABEL_NUMBER_MIN", "blockly-INPUT_LABEL_NUMBER_TO_CHECK", "blockly-INPUT_LABEL_STATEMENT", "blockly-INPUT_LABEL_TEXT_APPEND", "blockly-INPUT_LABEL_TEXT_END_POSITION", "blockly-INPUT_LABEL_TEXT_JOIN_ITEM", "blockly-INPUT_LABEL_TEXT_POSITION", "blockly-INPUT_LABEL_TEXT_PROMPT_MESSAGE", "blockly-INPUT_LABEL_TEXT_START_POSITION", "blockly-INPUT_LABEL_TEXT_TO_CHANGE", "blockly-INPUT_LABEL_TEXT_TO_CHECK", "blockly-INPUT_LABEL_TEXT_TO_FIND", "blockly-INPUT_LABEL_TEXT_TO_REPLACE", "blockly-INPUT_LABEL_VALUE", "blockly-INPUT_LABEL_VALUE_A", "blockly-INPUT_LABEL_VALUE_B", "blockly-INPUT_LABEL_VARIABLES_SET"];
+for (const key of blocklyInputs) {
+  assert.notEqual(papiamento[key], english[key], key);
+  assert.deepEqual(tokens(papiamento[key]), tokens(english[key]), key);
+}
+for (const type of ['LISTS', 'TEXT']) {
+  assert.match(papiamento[`blockly-INPUT_LABEL_${type}_START_POSITION`], /inisial/);
+  assert.match(papiamento[`blockly-INPUT_LABEL_${type}_END_POSITION`], /final/);
+}
+assert.match(papiamento['blockly-INPUT_LABEL_LOOP_FROM'], /inisial/);
+assert.match(papiamento['blockly-INPUT_LABEL_LOOP_TO'], /final/);
+assert.match(papiamento['blockly-INPUT_LABEL_NUMBER_ATAN2_X'], / x$/);
+assert.match(papiamento['blockly-INPUT_LABEL_NUMBER_ATAN2_Y'], / y$/);
+assert.match(papiamento['blockly-INPUT_LABEL_MATH_DIVIDEND'], /ta wordu dividí/);
+assert.match(papiamento['blockly-INPUT_LABEL_MATH_DIVISOR'], /dor di dje/);
+assert.equal(papiamento['blockly-INPUT_LABEL_LISTS_REPEAT_NUM'], papiamento['blockly-INPUT_LABEL_LOOP_TIMES']);

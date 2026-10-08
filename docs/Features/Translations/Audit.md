@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Papiamento Blockly input roles — 2026-10-08
+
+Translate 44 English list, numeric and text input labels. Preserve variables and
+coordinate letters; check start/end positions, loop bounds, division operand roles
+and repeated labels. Specialized wording is lower confidence and needs native
+review. No browser or screen-reader session was run. Remaining translations are
+unfinished.
+
 ## Papiamento Blockly fields and icons — 2026-10-08
 
 Translate 35 English field, input, keyboard and icon messages. Preserve numbered
