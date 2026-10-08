@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/62f3021f5a">Translate remaining Afrikaans import instructions</a>. Thanks to xet7.</summary>
+
+Translate Quire, Wrike, Teamwork.com, Businessmap, Redmine, Notion and Plane
+instructions, completing the newer group of 21. Preserve commands, column names,
+extensions, hierarchy markers and variables. Regression checks cover excluded
+data, English headers and task hierarchy. Import and placeholder suites and all
+21 preservation checks pass. The current fill list is empty; language quality,
+browser review and the wider translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/13b1df58cc">Translate six further Afrikaans import instructions</a>. Thanks to xet7.</summary>
 
 Translate instructions for Pivotal Tracker, Tasks.org, monday.com, Super
