@@ -7769,6 +7769,15 @@ directions, next/previous targets and screen-reader states. Technical wording re
 low confidence pending speaker review. Browser and screen-reader checks were not run.
 Further Tatar corrections and the broader language audit continue.
 
+### Tatar text positions and search
+
+Filled 32 English placeholders for appending text, case conversion, character retrieval,
+joining, substrings and search. Existing translations and source tokens are preserved.
+Regression checks cover key order, placeholders, first/last distinctions, letter case,
+count argument order and the not-found result. Technical wording remains low confidence
+pending speaker review. Browser checks were not run. Further Tatar corrections and
+the broader language audit continue.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
