@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8fc5a2b440">Translate Tigre and Wolaytta warnings and correct three Wolaytta labels</a>. Thanks to xet7.</summary>
+
+Preserve address variables and ROOT_URL in two warnings and replace three prefixed
+English labels. Warning coverage includes 204 paths; warning, placeholder and
+correction-ledger suites and all 21 preservation checks pass. These translations
+have low confidence and need native review. Three English warning paths and the
+wider translation backlog remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2d4e5fd2dc">Translate Greenlandic and Nahuatl warnings and verify translation regressions</a>. Thanks to xet7.</summary>
 
 Preserve repeated address variables and ROOT_URL in two warnings. Warning coverage
