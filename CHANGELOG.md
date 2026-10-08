@@ -1006,6 +1006,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/24912011f5">Translate Russian controls and recovery</a>. Thanks to xet7.</summary>
+
+Fill 236 values across three Russian catalogs, covering controls, import
+guidance, LDAP, login address errors, planning and recovery. Preserve variables,
+literal examples, existing localized values and recovery decisions.
+
+Four focused translation suites and 21 human-preference checks pass.
+All three current Russian fill lists are empty. No browser or screen-reader
+session was run; other languages and linguistic review remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1b3ea17c28">Translate Ukrainian controls and import recovery</a>. Thanks to xet7.</summary>
 
 Fill 69 messages covering controls, import guidance, LDAP, login address
