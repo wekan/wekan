@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/43e83e3d81eb027f4e8d348c64dc8f5368f50494">Correct Tatar scheduled jobs and storage paths</a></summary>
+
+- Correct 24 scheduled-job and storage-path values, preserving scheduling
+  outcomes, job actions and distinct storage paths.
+- Technical wording remains low confidence pending speaker review.
+- All 130 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8536bd6188946de6edb710b470de2126c8175c5c">Correct Tatar unlock and user activation controls</a></summary>
 
 - Correct 20 lockout and user-management values, preserving unlock scope
