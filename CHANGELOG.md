@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2cf0ad7e2e6909c0ee9191e24b438607b2db15c9">Translate Turkmen statistics and rounding</a></summary>
+
+- Fill 29 Turkmen placeholders, preserving existing translations, aggregate
+  distinctions, random-number bounds, rounding directions and logarithm bases.
+- Mathematical terminology remains low confidence pending speaker review.
+- All 48 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Turkmen translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/31138d20fd6aba234df707a00099db3fae69bd36">Translate Turkmen arithmetic and number properties</a></summary>
 
 - Fill 29 Turkmen placeholders, preserving existing translations, constants,
