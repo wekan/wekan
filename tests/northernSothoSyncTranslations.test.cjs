@@ -55,3 +55,8 @@ test('Northern Sotho estimate mappings distinguish missing values from explicit 
  for(const key of ['sync-original-time','sync-remaining-time']) assert.match(data[key],/\(diiri\)/);
  assert.notEqual(data['sync-original-time'],data['sync-remaining-time']);
 });
+
+test('Northern Sotho planning Sync preserves matching order and existing plans',()=>{
+ assert.match(data['sync-planning-hint'],/pele ka ID ya mothopo, ke moka ka leina/);
+ assert.match(data['sync-planning-hint'],/Nyalantšho ya mathomo ga e tloše peakanyo/);
+});

@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Northern Sotho planning import regressions — 2026-10-08
+
+Translate 20 new Scrum import and Sync planning messages. Extend the Scrum
+inventory from 111 to 127 while retaining per-key prose and token checks.
+Preserve non-duplication, unchanged foreign-board cards, source-ID matching
+priority and first-sync protection of planning. Both focused suites and
+global placeholder checks pass. Full wording follows existing terminology
+and remains low-confidence pending fluent review. No browser or screen-reader
+session was run; broader translation and linguistic review remain open.
+
 ## Maori planning import regressions — 2026-10-08
 
 Translate 20 new Scrum import and Sync planning messages. Extend the Scrum

@@ -7,7 +7,7 @@ const {translationTokens}=require('../releases/translations/placeholder-tokens.m
 const keys=Object.keys(english).filter(k=>k.startsWith('scrum-')||['board-view-product-backlog','board-view-sprints','board-view-sprint-report','board-view-velocity'].includes(k));
 
 test('Northern Sotho Scrum messages preserve coverage, tokens and shared labels',()=>{
- assert.equal(keys.length,111);
+ assert.equal(keys.length,127);
  for(const key of keys){
   assert.ok(data[key].trim(),key);
   assert.notEqual(data[key],english[key],key);
@@ -50,4 +50,9 @@ test('release selection and recovery distinguish retaining records from rollback
  assert.notEqual(data['scrum-history-checkpoint-rollback'],data['scrum-history-checkpoint-discard']);
  assert.deepEqual(translationTokens(data['scrum-history-checkpoint-counts']),
    ['__applied__','__conflicted__','__pending__','__total__']);
+});
+
+test('Northern Sotho imports preserve foreign-board cards and avoid duplicates',()=>{
+ assert.match(data['scrum-import-into-board-hint'],/ga di dirwe dikopi/);
+ assert.match(data['scrum-import-card-on-another-board'],/e tlogetšwe e sa fetolwa/);
 });
