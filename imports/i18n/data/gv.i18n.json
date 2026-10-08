@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Cha nod agh ny reamyn post-l shoh loggal stiagh lesh ny solleyderyn shoh (scarrit liorish cammaghyn; ta magher follym lhiggey da ooilley)",
   "oauth-account-conflict": "Ta coontys lesh y post-l shoh ayn hannah as cha row eh croo lesh yn aght çheet stiagh shoh",
   "sign-in-with": "Çheet stiagh lesh %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Cha nod çheet stiagh trooid shirveish elley ve jeant ec yn enmys shoh. Ta WeKan soit son __expected__, agh va’n duillag shoh foshlit ec __actual__. Foshil WeKan ec __expected__, ny shir er y reireyder ROOT_URL y hoiaghey da __actual__.",
   "passwordless-title": "Çheet stiagh gyn fockle-arrey",
   "passwordless-enabled": "Cur coad çheet stiagh un-cheayrt er post-l ayns ynnyd fockle-arrey",
   "passwordless-hint": "Ta feme er post-l magh (MAIL_URL). Myrgeddin PASSWORDLESS_ENABLED.",

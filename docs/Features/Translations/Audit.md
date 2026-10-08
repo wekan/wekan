@@ -2,6 +2,18 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Flemish, Northern Sámi, Manx and Cornish warnings — 2026-10-08
+
+Translate four warnings, preserving repeated address variables and ROOT_URL.
+Warning coverage includes 178 catalog paths. Warning and placeholder suites and
+all 21 preservation checks pass. Terminology was checked against
+[Sámediggi usage](https://samediggi.fi/dav/diehtosuodji/),
+[the Manx corpus](https://corpus.gaelg.im/Browse/Focklyn-noa-Sage-King) and
+[the Cornish dictionary](https://www.cornishdictionary.org.uk/sites/default/files/SWF_dictionary_20190530_final.pdf).
+Northern Sámi, Manx and Cornish prose has lower confidence and needs native review.
+This warning still has 29 English paths; browser review and the wider all-language
+backlog remain outstanding.
+
 ## Moroccan Arabic, Hiragana, Walloon, Waray and Venetian warnings — 2026-10-08
 
 Translate five warning values according to their registered languages, including

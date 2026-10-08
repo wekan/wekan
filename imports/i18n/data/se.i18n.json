@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Kontu dáinna e-boasttain gávdno juo ii ge leat ráhkaduvvon dáinna sisačáliheami vugiin",
   "sign-in-with": "Čális sisa %s bokte",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Sisačáliheapmi eará bálvalusa bokte ii sáhte geargat dán čujuhusas. WeKan lea heivehuvvon čujuhussii __expected__, muhto dát siidu lea rahppojuvvon čujuhusas __actual__. Raba WeKan čujuhusas __expected__, dahje bivdde hálddašeaddji bidjat ROOT_URL árvun __actual__.",
   "passwordless-title": "Sisačáliheapmi beassansáni haga",
   "passwordless-enabled": "Sádde e-boasttain oktageardásaš sisačáliheami koda beassansáni sadjái",
   "passwordless-hint": "Dárbbaša olggos manni e-boastta (MAIL_URL). Maiddái PASSWORDLESS_ENABLED.",

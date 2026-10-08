@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Yma akont gans an ebost ma seulabrys ha ny veu gwrys gans an fordh omgelmi ma",
   "sign-in-with": "Omgelmi gans %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Ny yll omgelmi dre servis arall bos gorfenys yn an trigva ma. WeKan yw desedhys rag __expected__, mes an folen ma a veu ygor yn __actual__. Ygor WeKan yn __expected__, po govyn orth an menyster dhe gorra ROOT_URL dhe __actual__.",
   "passwordless-title": "Omgelmi heb ger-tremena",
   "passwordless-enabled": "Danvon dre ebost kod omgelmi unnweyth yn le ger-tremena",
   "passwordless-hint": "Res yw ebost a-ves (MAIL_URL). Ynwedh PASSWORDLESS_ENABLED.",
