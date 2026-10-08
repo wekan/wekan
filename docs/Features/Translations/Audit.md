@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu Blockly loops and editing — 2026-10-08
+
+Translate 35 loop, condition, copy, deletion and enable/disable messages. Preserve
+source variables and the Control key name; check true/false loop conditions,
+fallback branches, deletion counts and opposite editing actions. Wu wording is
+lower confidence and needs native review. No browser session was run. Older
+Mandarin-like passages and remaining English strings still require work.
+
 ## Wu imports and Blockly controls — 2026-10-08
 
 Translate 35 import, login, keyboard, color and control-flow messages. Preserve
