@@ -2,6 +2,40 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Six keyboard-label and card-field batches — 2026-10-08
+
+Fill 119 values in Akan, Māori, Northern Sotho, Somali, Tok Pisin and Waray.
+Each locale's full `fill-translations.mjs --list` report is now empty, including
+keys held in the pending queue. This reports exact-English/missing-value
+coverage; it does not certify all existing prose as fluent or correct-language.
+The ordinary backlog drops to 35,628 values across 54 locales; 151 source keys
+remain separately tracked as pending. Card-field coverage reaches 159 of the
+234 non-English paths, with 75 paths still requiring those two messages.
+
+Keyboard labels retain recognizable modifier-key legends and translate
+navigation/editing functions. Home means the beginning, not a dwelling; Page Up
+and Page Down retain opposite directions; Backspace remains distinct from Space.
+Card-field help preserves all-board scope, unchanged stored data and settings,
+restoration on rechecking, and each board's own field order. Existing translated
+values were not overwritten. Wording is provisional, especially the assembled
+software terms in Akan, Northern Sotho and Waray, and merits speaker review.
+
+Terminology references:
+
+- [Te Aka Māori space terminology](https://maoridictionary.co.nz/search?keywords=space)
+  records `pātuhi mokowā` for the space-bar key.
+- [Akan key terminology](https://www.akandictionary.com/2021/05/09/safoa/)
+  supports `safoa`; its use for keyboard keys here is a software-context draft.
+- [Tok Pisin removal terminology](https://tokpisin.info/rausim/)
+  supports the removal verb used in the Backspace explanation.
+- [Somali key terminology](https://glosbe.com/en/so/key)
+  supports `fure`; existing locale terms supply board, card and settings names.
+
+The card-field rendering suite now includes these six locales. Keyboard tests
+check retained legends and distinct navigation directions; the full-catalog
+placeholder test checks spelling and multiplicity. Browser and screen-reader
+sessions were not run.
+
 ## Further card-field translations — 2026-10-08
 
 Fill 44 card-field values in 22 additional locale paths: Amharic, Aragonese,

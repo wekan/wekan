@@ -7,7 +7,7 @@ const i18next = require('i18next');
 const directory = path.join(__dirname, '../imports/i18n/data');
 const read = code => JSON.parse(fs.readFileSync(path.join(directory, code + '.i18n.json')));
 const source = read('en');
-const completed = ["af","af_ZA","am","an","ar","ar-DZ","ar-EG","ary","ast-ES","az","az-AZ","az-LA","be","bg","bn","br","bs","ca","ca@valencia","ca_ES","cmn","co","cs","cs-CZ","cy","cy-GB","da","de","de-AT","de-CH","de_DE","el","el-GR","eo","es","es-AR","es-CL","es-CO","es-LA","es-MX","es-PE","es-PY","es_CO","et-EE","eu","fa","fa-IR","fi","fo","fr","fr-BE","fr-CA","fr-CH","fr-FR","fy","fy-NL","ga","gd","gl","gl-ES","gu-IN","ha","he","he-IL","hi","hi-IN","hr","ht","hu","hy","id","ig","is","it","ja","ja-HI","ja-JP","ka","kk","km","km-KH","km_KH","kn","ko","ko-KR","ky","la","lb","lt","lv","mg","mk","ml","mn","mr","ms","ms-MY","mt","my","nb","ne","nl","nl-NL","oc","pa","pl","pl-PL","pt","pt-BR","pt-PT","pt_PT","rm","ro","ro-RO","ru","ru-RU","ru-UA","ru_RU","sc","scn","si","sk","sl","sl_SI","sq","sr","sv","sw","ta","te-IN","tg","th","tk_TM","tl","tr","tt","uk","uk-UA","ur","uz","uz-LA","uz-UZ","vi","vi-VN","yo","zh","zh-CN","zh-GB","zh-HK","zh-Hans","zh-Hant","zh-TW","zh_SG"];
+const completed = ["af","af_ZA","ak","am","an","ar","ar-DZ","ar-EG","ary","ast-ES","az","az-AZ","az-LA","be","bg","bn","br","bs","ca","ca@valencia","ca_ES","cmn","co","cs","cs-CZ","cy","cy-GB","da","de","de-AT","de-CH","de_DE","el","el-GR","eo","es","es-AR","es-CL","es-CO","es-LA","es-MX","es-PE","es-PY","es_CO","et-EE","eu","fa","fa-IR","fi","fo","fr","fr-BE","fr-CA","fr-CH","fr-FR","fy","fy-NL","ga","gd","gl","gl-ES","gu-IN","ha","he","he-IL","hi","hi-IN","hr","ht","hu","hy","id","ig","is","it","ja","ja-HI","ja-JP","ka","kk","km","km-KH","km_KH","kn","ko","ko-KR","ky","la","lb","lt","lv","mg","mi","mk","ml","mn","mr","ms","ms-MY","mt","my","nb","ne","nl","nl-NL","nso","oc","pa","pl","pl-PL","pt","pt-BR","pt-PT","pt_PT","rm","ro","ro-RO","ru","ru-RU","ru-UA","ru_RU","sc","scn","si","sk","sl","sl_SI","so","sq","sr","sv","sw","ta","te-IN","tg","th","tk_TM","tl","tpi","tr","tt","uk","uk-UA","ur","uz","uz-LA","uz-UZ","vi","vi-VN","wa-RR","yo","zh","zh-CN","zh-GB","zh-HK","zh-Hans","zh-Hant","zh-TW","zh_SG"];
 const keys = ['card-field-visibility', 'card-field-visibility-desc'];
 
 test('all locale catalogs contain the current source keys in order', () => {
@@ -44,5 +44,36 @@ test('card-field help keeps hiding, data preservation and board-specific orderin
   };
   for (const [code, patterns] of Object.entries(samples)) {
     for (const pattern of patterns) assert.match(read(code)[keys[1]], pattern, code);
+  }
+});
+
+// These key names are displayed in Blockly's shortcut help. Retain recognizable
+// physical legends while translating function labels, especially Home vs End.
+test('six completed keyboard label batches retain key identities and navigation direction', async () => {
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  const suffixes = ['ALT_KEY', 'BACKSPACE_KEY', 'CAPS_LOCK_KEY', 'COMMAND_KEY',
+    'CONTEXT_MENU_KEY', 'CONTROL_KEY', 'END_KEY', 'ENTER_KEY', 'ESCAPE', 'HOME_KEY',
+    'INSERT_KEY', 'OPTION_KEY', 'PAGE_DOWN_KEY', 'PAGE_UP_KEY', 'PAUSE_KEY', 'SHIFT_KEY',
+    'SPACE_KEY', 'TAB_KEY'];
+  for (const code of ["ak","mi","nso","so","tpi","wa-RR"]) {
+    const data = read(code);
+    for (const suffix of suffixes) {
+      const key = 'blockly-' + suffix;
+      assert.ok(data[key]?.trim(), code + ':' + key);
+      assert.notEqual(data[key], source[key], code + ':' + key);
+      assert.deepEqual(translationTokens(data[key]), translationTokens(source[key]), code + ':' + key);
+    }
+    for (const name of ['Alt', 'Command', 'Control', 'Option', 'Shift', 'Tab', 'Enter']) {
+      assert.ok(data['blockly-' + name.toUpperCase() + '_KEY'].includes(name), code + ':' + name);
+    }
+    assert.notEqual(data['blockly-HOME_KEY'], data['blockly-END_KEY'], code);
+    assert.notEqual(data['blockly-PAGE_UP_KEY'], data['blockly-PAGE_DOWN_KEY'], code);
+    assert.notEqual(data['blockly-BACKSPACE_KEY'], data['blockly-SPACE_KEY'], code);
+  }
+  for (const [code, up, down] of [['mi', /whakarunga/, /whakararo/],
+    ['tpi', /antap/, /daun/], ['so', /kor/, /hoos/],
+    ['ak', /soro/, /fam/], ['nso', /godimo/, /fase/], ['wa-RR', /tipaigbaw/, /tipaubos/]]) {
+    assert.match(read(code)['blockly-PAGE_UP_KEY'], up, code);
+    assert.match(read(code)['blockly-PAGE_DOWN_KEY'], down, code);
   }
 });
