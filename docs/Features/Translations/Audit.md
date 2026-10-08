@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Yiddish imports and settings — 2026-10-08
+
+Translate 23 English board, import, link-rule, LDAP and login messages. Preserve
+variables, import syntax, configuration names and link examples. Check movement
+directions, read-only permissions and empty-domain behavior. Existing board/card
+terminology is retained. Specialized wording is lower confidence and needs native
+review. No browser or screen-reader session was run. Remaining translations are
+unfinished.
+
 ## Yiddish remaining Blockly search and aliases — 2026-10-08
 
 Translate the last 20 English Blockly fill-list entries: search controls, counters

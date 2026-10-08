@@ -596,3 +596,20 @@ for (const [alias, original] of Object.entries({ CONTROLS_IF_ELSEIF_TITLE_ELSEIF
 const yiddishRemaining = spawnSync(process.execPath, [fillScript, '--list', 'yi'], { cwd: root, encoding: 'utf8' });
 assert.equal(yiddishRemaining.status, 0, yiddishRemaining.stderr);
 assert.deepEqual(Object.keys(JSON.parse(yiddishRemaining.stdout)).filter(key => key.startsWith('blockly-')), []);
+
+const yiddishSettingsImports = ["board-announcement", "board-announcement-enabled", "cards-use-list-color", "import-board-instruction-opml", "import-board-instruction-orgmode", "import-board-instruction-todoist", "external-link-rules", "external-link-rules-description", "external-link-identifier-aliases", "read-only-field", "r-moved-forward", "r-moved-back", "r-assignee", "r-add-actinguser-assignee", "r-remove-all-assignees", "ldap-sync-now", "ldap-sync-now-done", "ldap-sync-now-error", "ldap-sync-now-nothing", "oauth-providers-allowed-email-domains", "login-origin-mismatch", "r-blocks-view", "r-blocks-help"];
+for (const key of yiddishSettingsImports) {
+  assert.notEqual(locales.yi[key], english[key], key);
+  assert.match(locales.yi[key], /[\u0590-\u05ff]/, key);
+  assert.deepEqual(translationTokens(locales.yi[key]), translationTokens(english[key]), key);
+}
+for (const token of ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED']) assert.ok(locales.yi['import-board-instruction-orgmode'].includes(token));
+for (const token of ['CSV', '@labels', 'p1', 'p3']) assert.ok(locales.yi['import-board-instruction-todoist'].includes(token));
+for (const token of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS', 'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) assert.ok(locales.yi['ldap-sync-now-nothing'].includes(token));
+assert.ok(locales.yi['external-link-rules-description'].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
+assert.ok(locales.yi['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+assert.ok(locales.yi['login-origin-mismatch'].includes('ROOT_URL'));
+assert.match(locales.yi['r-moved-forward'], /פֿאָרויס.*שפּעטערדיקער/);
+assert.match(locales.yi['r-moved-back'], /צוריק.*פֿריִערדיקער/);
+assert.match(locales.yi['read-only-field'], /נאָר ברעט־אַדמיניסטראַטאָרן ענדערן/);
+assert.match(locales.yi['oauth-providers-allowed-email-domains'], /ליידיק דערלויבט אַלע/);
