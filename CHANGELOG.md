@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/dd9084b716">Translate first Russian import instruction group</a>. Thanks to xet7.</summary>
+
+Translate eight instructions across four Russian locale paths, replacing 24
+stored English values and preserving the shared catalog alias. Preserve commands,
+extensions and variables. Regression checks cover first-board selection,
+completion dates, archives and swimlane mappings. Import and placeholder suites
+and all 21 preservation checks pass. Remaining instructions, browser review and
+the wider translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/dee430763a">Fill Ukrainian regional planning and recovery translations</a>. Thanks to xet7.</summary>
 
 Fill 94 English regional values using reviewed Ukrainian translations for board
