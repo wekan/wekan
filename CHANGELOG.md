@@ -487,6 +487,17 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/dc7ff85bfa">Complete current Papiamento translation fill list</a>. Thanks to xet7.</summary>
+
+Translate the final 49 recovery, import, history and environment-setting strings.
+The current full Papiamento fill list is empty; other languages remain unfinished.
+Three focused translation suites and 21 human-preference checks pass.
+Specialized wording is lower confidence and needs native review. No browser
+session was run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5a53247e68">Translate Papiamento notification recovery</a>. Thanks to xet7.</summary>
 
 Translate 30 notification-recovery and interrupted-Sync messages, preserving
