@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3f3d5e7bb70f874ff2f2c2aa89867a636763cb08">Translate Maithili arithmetic and number properties</a></summary>
+
+- Fill 28 Maithili values, preserving existing translations, numeric constants,
+  coordinate roles, angle bounds and inclusive limits.
+- Technical wording remains low confidence pending speaker review.
+- All 49 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Maithili translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ed7d6dd234f49992f21cadcc6a81c9a7b3266a42">Translate Maithili logic controls and comparisons</a></summary>
 
 - Fill 25 Maithili values, preserving existing translations, inclusive comparisons,
