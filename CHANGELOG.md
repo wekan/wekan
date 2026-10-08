@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e52c9e9e0da1805b5d134f402ecb092a2c937e80">Translate Maithili Scrum settings and sprint labels</a></summary>
+
+- Fill 30 Maithili placeholders, preserving existing translations, numeric-field
+  meaning, completion policies and distinct sprint actions.
+- Scrum terminology remains low confidence pending speaker review.
+- All 61 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Maithili translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/dc9b4d721109ee092bfd77c1b3a29206191bfda1">Translate Maithili Blockly aliases and rule editor</a></summary>
 
 - Fill 25 Maithili values, preserving existing translations, rule validation,
