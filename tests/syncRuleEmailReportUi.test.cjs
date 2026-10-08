@@ -7,10 +7,12 @@ test('report ignores stale callbacks and destroyed views while sending the curre
   let created; const calls = [];
   // The legacy rule email review and the stuck List Sync operations follow in
   // the same file; they are exercised by tests/syncRuleEmailLegacy.test.cjs,
-  // tests/listSyncStuck.test.cjs and their Playwright specs.
+  // tests/listSyncStuck.test.cjs, tests/importRuns.test.cjs and their
+  // Playwright specs.
   const context = { Template: { syncRuleEmailRecoveryReports: { onCreated(fn) { created = fn; }, helpers() {}, events() {} },
     syncRuleEmailLegacyCommands: { onCreated() {}, helpers() {}, events() {} },
-    listSyncStuckOperations: { onCreated() {}, helpers() {}, events() {} } },
+    listSyncStuckOperations: { onCreated() {}, helpers() {}, events() {} },
+    interruptedImports: { onCreated() {}, helpers() {}, events() {} } },
     ReactiveVar: class { constructor(value) { this.value = value; } get() { return this.value; } set(value) { this.value = value; } },
     TAPi18n: { __: key => key }, Meteor: { call(method, query, callback) { calls.push({ method, query, callback }); } } };
   vm.runInNewContext(source.slice(source.indexOf('Template.syncRuleEmailRecoveryReports.onCreated')), context);

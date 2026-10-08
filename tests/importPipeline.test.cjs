@@ -8,7 +8,7 @@ const root = path.join(__dirname, '..');
 const source = fs.readFileSync(path.join(root, 'models/lib/importPipeline.js'), 'utf8');
 const pipeline = {};
 new Function('exports', source
-  .replace(/export async function (\w+)/g, 'async function $1') +
+  .replace(/export (async )?function (\w+)/g, '$1function $2') +
   '\nexports.writeImportedEntity = writeImportedEntity;' +
   '\nexports.runImportPipeline = runImportPipeline;')(pipeline);
 

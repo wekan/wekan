@@ -4,6 +4,7 @@ import { EJSON } from 'meteor/ejson';
 import { Random } from 'meteor/random';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TrelloCreator } from '/models/trelloCreator';
+import { trackImport } from '/server/importRuns';
 import Users from '/models/users';
 import Boards from '/models/boards';
 import Activities from '/models/activities';
@@ -819,7 +820,8 @@ async function runJob(jobId) {
           direction: 'import', source: 'import:trello-api', userId: job.userId,
         });
         const creator = new TrelloCreator({ membersMapping });
-        const newBoardId = await creator.create(sanitized, null);
+        const newBoardId = await trackImport({ userId: job.userId, source: 'trello-api', creator,
+          execute: () => creator.create(sanitized, null) }).promise;
 
         // The sanitized copy, like the creator above: the organization name is
         // stored as a workspace title, so it is imported text too.

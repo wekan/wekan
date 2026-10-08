@@ -18,6 +18,7 @@ template(name="adminProblems")
             +syncRuleEmailRecoveryReports
             +syncRuleEmailLegacyCommands
             +listSyncStuckOperations
+            +interruptedImports
             +syncRecoveryReports
           if loading.get
             +spinner
@@ -434,3 +435,45 @@ template(name="listSyncStuckOperations")
     else
       p.quiet {{_ 'stuck-sync-operation-empty'}}
     button.js-list-sync-stuck-refresh(type="button" disabled=busy) {{_ 'stuck-sync-operation-refresh'}}
+
+//- A board import that stopped before finishing left a partial board; an
+//- administrator keeps it as it is or discards it here
+//- (server/lib/importRuns.js, docs/Features/ImportExport/Import-Run-Recovery.md).
+template(name="interruptedImports")
+  section.interrupted-imports
+    h2 {{_ 'interrupted-import-heading'}}
+    p.quiet {{_ 'interrupted-import-description'}}
+    if error
+      p.error(role="alert") {{error}}
+    if rows.length
+      table
+        thead
+          tr
+            th {{_ 'interrupted-import-board'}}
+            th {{_ 'interrupted-import-progress'}}
+            th {{_ 'interrupted-import-created'}}
+            th {{_ 'actions'}}
+        tbody
+          each rows
+            tr(data-run=runId)
+              td
+                p {{_ 'board'}}: {{boardLabel}}
+                p.quiet {{_ 'interrupted-import-source' source=source}}
+                p.quiet {{startedAtText}}
+              td
+                p {{_ stateKey stage=stage error=errorCode}}
+                if scrum
+                  p.quiet {{_ 'interrupted-import-scrum' state=scrum.state next=scrum.next total=scrum.total}}
+              td
+                if boardExists
+                  p {{_ 'interrupted-import-counts' swimlanes=counts.swimlanes lists=counts.lists cards=counts.cards checklists=counts.checklists comments=counts.comments attachments=counts.attachments}}
+                else
+                  p {{_ 'interrupted-import-no-board'}}
+              td
+                button.js-interrupted-import-keep(type="button" disabled=keepDisabled) {{_ 'interrupted-import-keep'}}
+                button.js-interrupted-import-discard(type="button" disabled=discardDisabled) {{_ 'interrupted-import-discard'}}
+      if truncated
+        p.quiet {{_ 'interrupted-import-truncated'}}
+    else
+      p.quiet {{_ 'interrupted-import-empty'}}
+    button.js-interrupted-import-refresh(type="button" disabled=busy) {{_ 'interrupted-import-refresh'}}

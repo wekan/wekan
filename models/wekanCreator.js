@@ -50,7 +50,7 @@ import {
 } from '/imports/lib/dateUtils';
 import getSlug from 'limax';
 import { fetchImportedAttachment } from './lib/importAttachmentDownload';
-import { runImportPipeline, writeImportedEntity } from './lib/importPipeline';
+import { plannedBoardFields, runImportPipeline, writeImportedEntity } from './lib/importPipeline';
 const { cardParentIds, parentFields } = require('/models/lib/cardParents');
 
 const DateString = Match.Where(function(dateAsString) {
@@ -325,6 +325,7 @@ export class WekanCreator {
   // You must call parseActions before calling this one.
   async createBoardAndLabels(boardToImport) {
     const boardToCreate = {
+      ...plannedBoardFields(this),
       archived: boardToImport.archived,
       // Imported exports may carry a non-WeKan/legacy color (e.g. Trello's
       // 'bgnone'); fall back to the default so collection2 validation does not

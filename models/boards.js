@@ -426,6 +426,15 @@ Boards.attachSchema(
        */
       type: Boolean,
     },
+    importRunId: {
+      /**
+       * The import run that created this board (server/lib/importRuns.js).
+       * An interrupted import is discarded only from the board that carries
+       * its run's id.
+       */
+      type: String,
+      optional: true,
+    },
     importUsernames: {
       /**
        * Usernames of imported (e.g. Trello) board members that were not mapped

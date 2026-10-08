@@ -350,6 +350,7 @@ import '/server/autoArchiveCards';
 import '/server/listSync';
 import '/server/methods/listSync';
 import '/server/methods/listSyncStuck';
+import '/server/importRuns';
 import '/server/methods/instanceFeatures';
 import '/server/methods/emailRecovery';
 import '/server/methods/importReport';

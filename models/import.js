@@ -247,11 +247,18 @@ Meteor.methods({
     // 3. create all elements, bounded by a hard deadline on the server so a hung
     // import (e.g. a database operation that never returns) surfaces a timeout error
     // to the client instead of spinning forever. The client also runs its own watchdog.
+    // The import runs under a run record written before its first write
+    // (server/importRuns.js), so one that stops halfway is listed in Admin
+    // Panel -> Problems -> Recovery to keep or discard. When the deadline
+    // answers the client, the writer is told to stop at its next stage.
     if (Meteor.isServer) {
+      const replaceId = await replaceableBoardId(this.userId, currentBoard);
+      const tracked = require('/server/importRuns').trackImport({ userId: this.userId, source: importSource, creator,
+        execute: () => creator.create(importedBoard, replaceId) });
       return await withDeadline(
-        creator.create(importedBoard, await replaceableBoardId(this.userId, currentBoard)),
+        tracked.promise,
         importDeadlineMs(),
-        () => new Meteor.Error('import-timeout', 'Import took too long and was aborted'),
+        () => { tracked.abort(); return new Meteor.Error('import-timeout', 'Import took too long and was aborted'); },
       );
     }
     return await creator.create(importedBoard, await replaceableBoardId(this.userId, currentBoard));
@@ -346,6 +353,12 @@ Meteor.methods({
     const creator = new WekanCreator(additionalData);
     //data.title = `${data.title  } - ${  TAPi18n.__('copyCardPopup-title')}`;
     data.title = `${data.title}`;
-    return await creator.create(data, await replaceableBoardId(this.userId, currentBoardId));
+    const replaceId = await replaceableBoardId(this.userId, currentBoardId);
+    if (Meteor.isServer) {
+      // A copy writes a board the way an import does, and stops the same way.
+      return await require('/server/importRuns').trackImport({ userId: this.userId, source: 'clone', creator,
+        execute: () => creator.create(data, replaceId) }).promise;
+    }
+    return await creator.create(data, replaceId);
   },
 });

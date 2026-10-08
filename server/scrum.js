@@ -437,6 +437,11 @@ async function recoverScrumImportOnline(userId, boardId, action) {
   const { recoverImport, discardPreparingImport, ScrumRecoveryError } = require('/server/lib/scrumImportRecovery');
   const db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
   return withScrumBoardLock(boardId, async () => {
+    // The whole import is being discarded (server/lib/importRuns.js): its
+    // board is going, so its Scrum stage is not finished onto it.
+    if (await db.collection('importRuns').findOne({ boardId, state: 'discarding' }, { projection: { _id: 1 } })) {
+      throw new Meteor.Error('scrum-import-recovery', 'The import of this board is being discarded.');
+    }
     try {
       return action === 'discard' ? await discardPreparingImport(db, boardId)
         : await recoverImport(db, boardId, { apply: true, online: true });

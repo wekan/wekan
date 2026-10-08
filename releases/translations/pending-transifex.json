@@ -895,6 +895,106 @@
     {
       "key": "scrum-import-sprint-finished",
       "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-heading",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-description",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-board",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-progress",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-created",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-source",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-state-stopped",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-state-failed",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-state-discarding",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-scrum",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-counts",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-no-board",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-keep",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-discard",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-keep-confirm",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-discard-confirm",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-refresh",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-empty",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-truncated",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-unavailable",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-missing",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-not-interrupted",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-foreign-board",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-scrum-busy",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "interrupted-import-failed",
+      "since": "2026-10-08"
     }
   ]
 }

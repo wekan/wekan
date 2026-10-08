@@ -143,6 +143,26 @@ checks before reading and again with the lease around every write. Operations
 still being prepared are not listed - they have written nothing and are
 discarded automatically.
 
+## Board imports that stopped before finishing
+
+Every board import and board copy is recorded before its first write, with the
+id its new board will have ([details](../../ImportExport/Import-Run-Recovery.md)).
+One that stops - its server restarted, its writer hung for longer than
+`WEKAN_IMPORT_RUN_STALE_MS`, or it failed after creating its board - is
+flagged once by the `wekan-import-run-scan` job and adds one
+`import-interrupted` Recovery event.
+
+The **Board imports that stopped before finishing** section lists each one with
+its board, source, where it stopped, what the board holds now and its Scrum
+checkpoint if any. An instance administrator either **keeps** the partial board
+as it is (`import-kept`) or **discards** it (`import-discarded`): the board the
+import created and stamped with its run id is removed as a permanent delete
+removes one, and whatever else carries that board id is swept. A board the run
+did not create is never touched, a discard that stopped halfway is finished by
+discarding again, and a second discard changes nothing. An import cannot be
+resumed, because its source file is not kept; discard it and import the file
+again.
+
 ## What each layer does
 
 ### FerretDB (the database engine)

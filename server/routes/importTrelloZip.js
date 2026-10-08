@@ -3,6 +3,7 @@ const { declaredZipEntrySize, readZipEntryBounded } = require('/server/lib/bound
 import { Meteor } from 'meteor/meteor';
 import { DDP } from 'meteor/ddp';
 import { TrelloCreator } from '/models/trelloCreator';
+import { trackImport } from '/server/importRuns';
 import { assertImportEnabled } from '/models/lib/importExportSecurity';
 import { validateImportSourceShape } from '/models/lib/importSourceShape';
 import { secureTransfer } from '/server/lib/secureTransfer';
@@ -163,7 +164,8 @@ async function importSingleBoard(payload, userId) {
   }
 
   const creator = new TrelloCreator({ membersMapping });
-  const boardId = await runAsUser(userId, () => creator.create(board, null));
+  const boardId = await runAsUser(userId, () => trackImport({ userId, source: 'trello-zip', creator,
+    execute: () => creator.create(board, null) }).promise);
   return { boardIds: boardId ? [boardId] : [] };
 }
 
@@ -267,7 +269,8 @@ async function importZipBuffer(buffer, userId) {
   for (const board of boards) {
     try {
       const creator = new TrelloCreator({});
-      const boardId = await runAsUser(userId, () => creator.create(board, null));
+      const boardId = await runAsUser(userId, () => trackImport({ userId, source: 'trello-zip', creator,
+        execute: () => creator.create(board, null) }).promise);
       if (boardId) boardIds.push(boardId);
     } catch (e) {
       errors.push({ board: board.name, error: (e && e.message) || 'import-failed' });

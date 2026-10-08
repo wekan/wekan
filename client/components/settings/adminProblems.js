@@ -1853,3 +1853,67 @@ Template.listSyncStuckOperations.events({
     t.error.set(''); t.load();
   },
 });
+
+// Board imports that stopped before finishing (server/lib/importRuns.js): an
+// administrator keeps the partial board as it is, or discards it. The server
+// refuses with import-run-<reason>; each known reason has its own
+// interrupted-import-<reason> text.
+const IMPORT_RUN_REFUSALS = ['missing', 'not-interrupted', 'foreign-board', 'scrum-busy'];
+const importRunErrorKey = code => {
+  const reason = typeof code === 'string' && code.startsWith('import-run-') ? code.slice('import-run-'.length) : '';
+  return `interrupted-import-${IMPORT_RUN_REFUSALS.includes(reason) ? reason : 'failed'}`;
+};
+Template.interruptedImports.onCreated(function () {
+  this.result = new ReactiveVar({ rows: [], truncated: false });
+  this.error = new ReactiveVar(''); this.busy = new ReactiveVar(false); this.request = 0;
+  this.load = () => {
+    const request = ++this.request;
+    Meteor.call('importRunsInterrupted', (error, result) => {
+      if (this.view.isDestroyed || request !== this.request) return;
+      if (error) { this.error.set(TAPi18n.__('interrupted-import-unavailable')); return; }
+      this.result.set(result);
+    });
+  };
+  this.act = (method, runId, confirmKey) => {
+    if (this.busy.get() || !window.confirm(TAPi18n.__(confirmKey))) return;
+    this.busy.set(true); this.error.set('');
+    Meteor.call(method, { runId }, error => {
+      if (this.view.isDestroyed) return;
+      this.busy.set(false);
+      if (error) this.error.set(TAPi18n.__(importRunErrorKey(error.error)));
+      this.load();
+    });
+  };
+  this.load();
+});
+Template.interruptedImports.helpers({
+  error() { return Template.instance().error.get(); },
+  busy() { return Template.instance().busy.get(); },
+  truncated() { return Template.instance().result.get().truncated; },
+  rows() {
+    const t = Template.instance();
+    return t.result.get().rows.map(row => ({ ...row,
+      boardLabel: row.boardTitle ? `${row.boardTitle} (${row.boardId})` : row.boardId,
+      startedAtText: row.startedAt ? formatDate(row.startedAt) : '',
+      // A discard that stopped halfway is finished by discarding again.
+      stateKey: row.state === 'discarding' ? 'interrupted-import-state-discarding'
+        : row.interruptedFrom === 'failed' ? 'interrupted-import-state-failed' : 'interrupted-import-state-stopped',
+      // Only a board this run created is discarded; the server checks again.
+      discardDisabled: t.busy.get() || row.foreignBoard,
+      keepDisabled: t.busy.get() || row.state !== 'interrupted' }));
+  },
+});
+Template.interruptedImports.events({
+  'click .js-interrupted-import-discard'(event, t) {
+    event.preventDefault(); event.stopPropagation();
+    t.act('importRunDiscard', event.currentTarget.closest('tr').dataset.run, 'interrupted-import-discard-confirm');
+  },
+  'click .js-interrupted-import-keep'(event, t) {
+    event.preventDefault(); event.stopPropagation();
+    t.act('importRunKeep', event.currentTarget.closest('tr').dataset.run, 'interrupted-import-keep-confirm');
+  },
+  'click .js-interrupted-import-refresh'(event, t) {
+    event.preventDefault(); event.stopPropagation();
+    t.error.set(''); t.load();
+  },
+});

@@ -35,9 +35,18 @@ test('the reported shape: naming someone else\'s board no longer archives it', a
 });
 
 test('negative: every creator.create in the import methods passes a checked board id', () => {
-  const calls = [...src.matchAll(/creator\.create\(([^\n]*)\)/g)].map(m => m[1]);
-  assert.equal(calls.length, 3);
-  for (const args of calls) assert.match(args, /, await replaceableBoardId\(this\.userId, currentBoard(Id)?\)\)?$/, args);
+  // Server-side, importBoard and cloneBoard run the creator inside an import
+  // run (server/importRuns.js), so the checked id is resolved first into
+  // `replaceId` and passed from there; the client simulation of importBoard
+  // still passes it inline.
+  const calls = [...src.matchAll(/creator\.create\(([^\n]*?)\)( \}\)|;)/g)].map(m => m[1]);
+  assert.equal(calls.length, 4);
+  for (const args of calls) {
+    assert.match(args, /, (await replaceableBoardId\(this\.userId, currentBoard(Id)?\)|replaceId)$/, args);
+  }
+  const assigned = [...src.matchAll(/const replaceId = ([^\n]*);/g)].map(m => m[1]);
+  assert.equal(assigned.length, 2);
+  for (const value of assigned) assert.match(value, /^await replaceableBoardId\(this\.userId, currentBoard(Id)?\)$/, value);
   // Server-side callers never name a board to replace.
   for (const file of ['server/trelloApiImport.js', 'server/routes/importTrelloZip.js']) {
     for (const m of read(file).matchAll(/creator\.create\(([^)]*)\)/g)) assert.match(m[1], /, null$/, file);

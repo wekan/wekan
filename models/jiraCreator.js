@@ -15,7 +15,7 @@ import Swimlanes from '/models/swimlanes';
 import Rules from '/models/rules';
 import Triggers from '/models/triggers';
 import Actions from '/models/actions';
-import { writeImportedEntity } from '/models/lib/importPipeline';
+import { plannedBoardFields, writeImportedEntity } from '/models/lib/importPipeline';
 import {
   insertImportedChecklists,
   insertImportedComments,
@@ -104,6 +104,7 @@ export class JiraCreator {
       `Imported Jira Board ${this._now()}`;
 
     const boardToCreate = {
+      ...plannedBoardFields(this),
       archived: false,
       color: 'belize',
       createdAt: this._now(),

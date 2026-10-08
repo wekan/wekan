@@ -16,7 +16,7 @@ import { normalizeDependency } from '/models/metadata/dependencies';
 const { normalizeScrumTransfer } = require('./lib/scrumTransfer');
 const { taskCardId } = require('./lib/externalScrumPlanning');
 import CustomFields from '/models/customFields';
-import { writeImportedEntity } from '/models/lib/importPipeline';
+import { plannedBoardFields, writeImportedEntity } from '/models/lib/importPipeline';
 import {
   insertImportedChecklists,
   insertImportedComments,
@@ -115,6 +115,7 @@ export class KanboardCreator {
       (data.board && (data.board.name || data.board.title)) ||
       `Imported Kanboard Board ${this._now()}`;
     const boardToCreate = {
+      ...plannedBoardFields(this),
       archived: false,
       color: 'belize',
       createdAt: this._now(),

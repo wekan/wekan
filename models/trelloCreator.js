@@ -40,7 +40,7 @@ import getSlug from 'limax';
 import { fetchImportedAttachment } from './lib/importAttachmentDownload';
 import { recordImportLosses } from '/models/lib/importedCardChildren';
 const { trelloScrumLosses } = require('./lib/externalScrumPlanning');
-import { runImportPipeline, writeImportedEntity } from './lib/importPipeline';
+import { plannedBoardFields, runImportPipeline, writeImportedEntity } from './lib/importPipeline';
 
 const DateString = Match.Where(function(dateAsString) {
   check(dateAsString, String);
@@ -207,6 +207,7 @@ export class TrelloCreator {
     }
 
     const boardToCreate = {
+      ...plannedBoardFields(this),
       archived: trelloBoard.closed,
       color: color,
       // very old boards won't have a creation activity so no creation date

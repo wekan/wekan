@@ -39,6 +39,12 @@ RecoveryEvents.types = {
   // discarded by a board administrator or the offline command
   // (server/lib/scrumHistoryRecovery.js).
   SCRUM_HISTORY_CHECKPOINT_RESOLVED: 'scrum-history-checkpoint-resolved',
+  // A board import that stopped before finishing, flagged once by the run
+  // scan, and an administrator's decision to discard or keep its partial
+  // board (server/lib/importRuns.js).
+  IMPORT_INTERRUPTED: 'import-interrupted',
+  IMPORT_DISCARDED: 'import-discarded',
+  IMPORT_KEPT: 'import-kept',
 };
 
 RecoveryEvents.attachSchema(

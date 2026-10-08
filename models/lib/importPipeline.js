@@ -20,6 +20,17 @@ export async function writeImportedEntity(collection, document, options = {}) {
   return id;
 }
 
+// The new board's id and the import run that creates it, both chosen before
+// the first write (server/lib/importRuns.js). Every creator spreads this into
+// the board it inserts, so an import that stops halfway leaves a board its run
+// names and that names its run - the one an administrator may later discard.
+// Without a run (the client simulation) the board gets an id as before.
+export function plannedBoardFields(creator) {
+  const run = creator && creator.importRun;
+  if (!run || typeof run.boardId !== 'string' || typeof run.runId !== 'string') return {};
+  return { _id: run.boardId, importRunId: run.runId };
+}
+
 // Run normalized source stages in order and carry the created board id into
 // every later writer. Missing collection arrays normalize to empty arrays.
 export async function runImportPipeline(creator, board, stages) {

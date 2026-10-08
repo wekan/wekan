@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { importedTableRows } from './lib/importedTableRows';
+import { plannedBoardFields } from './lib/importPipeline';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Activities from '/models/activities';
 import Boards from './boards';
@@ -171,6 +172,7 @@ export class CsvCreator {
 
   async createBoard(csvData) {
     const boardToCreate = {
+      ...plannedBoardFields(this),
       archived: false,
       color: 'belize',
       createdAt: this._now(),
