@@ -2199,6 +2199,20 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/da438435d6a735bf36e9060ef6cd99f5b0e3ded9">Translate Turkmen notification recovery controls</a></summary>
+
+- Fill 27 Turkmen placeholders, preserving existing translations, retry
+  boundaries, pending work and irreversible cancellation warnings.
+- Remove the obsolete custom-colors-in-use entry after its English source was removed.
+- Technical wording remains low confidence pending speaker review.
+- All 64 translation checks and 21 human-preference checks pass. Browser
+  checks were not run. Further translations and the audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2b5a9d95bfa43579f69d202db45e348e6d64c89b">Translate Turkmen Sync diagnostics and mail failures</a></summary>
 
 - Fill 20 Turkmen placeholders, preserving existing translations, access
