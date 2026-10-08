@@ -9044,6 +9044,16 @@ Regression coverage checks those distinctions, script, key order and tokens.
 Technical wording remains low confidence pending speaker review. Browser checks
 were not run; further Maithili translations and the broader audit remain.
 
+## Maithili arithmetic and number properties
+
+Filled 28 English values for arithmetic, constants, bounded numbers and number
+properties. Existing translations were retained; filter-excluded spoken constants
+were filled directly only after checking equality with English. Preserved numeric
+constants, coordinate roles, angle bounds and inclusive limits. Regression coverage
+checks these details, script, key order and token inventories. Technical wording
+remains low confidence pending speaker review. Browser checks were not run;
+further Maithili translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
