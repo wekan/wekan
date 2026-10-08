@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Kashubian Scrum planning and recovery — 2026-10-08
+
+Translate 31 values using existing terminology. Preserve exact variables,
+keyboard names and count roles. Focused assertions and all 21 preservation
+checks pass. All three suites now pass: completed translation batches, placeholder
+preservation and language wiring. This verifies their registered scope, not full
+translation of every catalog. Recovery prose has lower confidence and needs native
+review; browser checks and the all-language backlog remain open.
+
 ## Scottish Gaelic Scrum planning and recovery — 2026-10-08
 
 Translate 31 values using existing terminology. Preserve exact variables,
