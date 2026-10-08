@@ -76,3 +76,21 @@ assert.match(papiamento['blockly-DELETE_ALL_BLOCKS'], /tur %1/);
 assert.match(papiamento['blockly-DELETE_VARIABLE_CONFIRMATION'], /%1 uso.*'%2'/);
 assert.notEqual(papiamento['blockly-COPY_SHORTCUT'], papiamento['blockly-CUT_SHORTCUT']);
 assert.match(papiamento['blockly-CONTROL_KEY'], /Control/);
+
+const blocklyFields = ["blockly-ENABLE_BLOCK", "blockly-END_KEY", "blockly-ENTER_KEY", "blockly-ESCAPE", "blockly-EXPAND_ALL", "blockly-EXPAND_BLOCK", "blockly-EXTERNAL_INPUTS", "blockly-FIELD_BITMAP_ARIA_VALUE", "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR", "blockly-FIELD_BITMAP_BUTTON_LABEL_RANDOMIZE", "blockly-FIELD_BITMAP_PIXEL_LABEL", "blockly-FIELD_BITMAP_PIXEL_OFF", "blockly-FIELD_LABEL_EDIT_PREFIX", "blockly-FIELD_LABEL_EMPTY", "blockly-FIELD_LABEL_OPTION_INDEX", "blockly-FIELD_LABEL_VARIABLE", "blockly-FIELD_MULTILINEINPUT_FINISH_EDITING", "blockly-FIELD_MULTILINEINPUT_NEW_LINE", "blockly-HELP_PROMPT", "blockly-HOME_KEY", "blockly-ICON_LABEL_COMMENT_CLOSED", "blockly-ICON_LABEL_COMMENT_OPEN", "blockly-ICON_LABEL_DEFAULT", "blockly-ICON_LABEL_MUTATOR_CLOSED", "blockly-ICON_LABEL_MUTATOR_OPEN", "blockly-ICON_LABEL_WARNING_CLOSED", "blockly-ICON_LABEL_WARNING_OPEN", "blockly-INLINE_INPUTS", "blockly-INPUT_LABEL_CONDITION", "blockly-INPUT_LABEL_CONDITION_A", "blockly-INPUT_LABEL_CONDITION_B", "blockly-INPUT_LABEL_EMPTY", "blockly-INPUT_LABEL_END_STATEMENT", "blockly-INPUT_LABEL_INDEX", "blockly-INPUT_LABEL_LISTS_CREATE_WITH_ITEM"];
+for (const key of blocklyFields) {
+  assert.notEqual(papiamento[key], english[key], key);
+  assert.deepEqual(tokens(papiamento[key]), tokens(english[key]), key);
+}
+for (const kind of ['COMMENT', 'WARNING']) {
+  assert.match(papiamento[`blockly-ICON_LABEL_${kind}_CLOSED`], /^Habri/);
+  assert.match(papiamento[`blockly-ICON_LABEL_${kind}_OPEN`], /^Sera/);
+}
+assert.match(papiamento['blockly-FIELD_BITMAP_PIXEL_LABEL'], /fila %2, kolòm %3/);
+assert.match(papiamento['blockly-FIELD_BITMAP_ARIA_VALUE'], /%3 píksel sendí/);
+assert.equal(papiamento['blockly-FIELD_BITMAP_PIXEL_OFF'], 'pagá');
+assert.match(papiamento['blockly-HOME_KEY'], /Kuminsamentu.*Home/);
+assert.match(papiamento['blockly-END_KEY'], /Fin.*End/);
+assert.match(papiamento['blockly-INPUT_LABEL_CONDITION_A'], /promé/);
+assert.match(papiamento['blockly-INPUT_LABEL_CONDITION_B'], /di dos/);
+assert.notEqual(papiamento['blockly-ENABLE_BLOCK'], papiamento['blockly-DISABLE_BLOCK']);

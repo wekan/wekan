@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Papiamento Blockly fields and icons — 2026-10-08
+
+Translate 35 English field, input, keyboard and icon messages. Preserve numbered
+variables and key names; check opening/closing actions, pixel states, row/column
+order, start/end keys and first/second conditions. Specialized wording is lower
+confidence and needs native review. No browser or screen-reader session was run.
+Remaining translations are unfinished.
+
 ## Papiamento Blockly loops and deletion — 2026-10-08
 
 Translate 35 English loop, condition and editing messages. Preserve numbered
