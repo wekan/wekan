@@ -41,7 +41,68 @@ const pendingKeys = [
   "stuck-sync-operation-not-stuck",
   "stuck-sync-operation-replayable",
   "stuck-sync-operation-busy",
-  "stuck-sync-operation-failed"
+  "stuck-sync-operation-failed",
+  "board-announcement",
+  "board-announcement-enabled",
+  "cards-use-list-color",
+  "external-link-rules",
+  "external-link-rules-description",
+  "external-link-identifier-aliases",
+  "read-only-field",
+  "r-moved-forward",
+  "r-moved-back",
+  "scrum-import-into-board",
+  "scrum-import-into-board-hint",
+  "scrum-import-preview",
+  "scrum-import-choose-file",
+  "scrum-import-invalid-file",
+  "scrum-import-preview-sprints",
+  "scrum-import-preview-releases",
+  "scrum-import-preview-cards",
+  "scrum-import-preview-nothing",
+  "scrum-import-into-board-done",
+  "scrum-import-card-not-matched",
+  "scrum-import-card-ambiguous",
+  "scrum-import-card-on-another-board",
+  "scrum-import-record-ambiguous",
+  "scrum-import-record-not-imported",
+  "scrum-import-sprint-finished",
+  "sync-planning-sprint",
+  "sync-planning-releases",
+  "sync-planning-fields",
+  "sync-planning-hint",
+  "interrupted-import-heading",
+  "interrupted-import-description",
+  "interrupted-import-board",
+  "interrupted-import-progress",
+  "interrupted-import-created",
+  "interrupted-import-source",
+  "interrupted-import-state-stopped",
+  "interrupted-import-state-failed",
+  "interrupted-import-state-discarding",
+  "interrupted-import-scrum",
+  "interrupted-import-counts",
+  "interrupted-import-no-board",
+  "interrupted-import-keep",
+  "interrupted-import-discard",
+  "interrupted-import-keep-confirm",
+  "interrupted-import-discard-confirm",
+  "interrupted-import-refresh",
+  "interrupted-import-empty",
+  "interrupted-import-truncated",
+  "interrupted-import-unavailable",
+  "interrupted-import-missing",
+  "interrupted-import-not-interrupted",
+  "interrupted-import-foreign-board",
+  "interrupted-import-scrum-busy",
+  "interrupted-import-failed",
+  "scrum-history-checkpoint-stuck",
+  "scrum-history-checkpoint-counts",
+  "scrum-history-checkpoint-hint",
+  "scrum-history-checkpoint-rollback",
+  "scrum-history-checkpoint-discard",
+  "scrum-history-checkpoint-discard-confirm",
+  "scrum-history-checkpoint-ask-admin"
 ];
 const fillScript = path.join(root, 'releases/translations/fill-translations.mjs');
 for (const language of ['fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'fr']) {
@@ -87,6 +148,26 @@ for (const language of ['fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'fr']) {
       'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) {
       assert.ok(locale['ldap-sync-now-nothing'].includes(name), `${code}:${name}`);
     }
+    assert.match(locale['scrum-import-into-board-hint'], /jamais dupliqués/);
+    assert.match(locale['scrum-import-into-board-hint'], /par identifiant, ou par numéro et titre/);
+    assert.match(locale['scrum-import-card-on-another-board'], /laissée inchangée/);
+    assert.match(locale['scrum-import-sprint-finished'], /n’a pas été déplacée/);
+    assert.match(locale['sync-planning-hint'], /d’abord par leur identifiant.*puis par leur nom/);
+    assert.match(locale['sync-planning-hint'], /première synchronisation ne supprime jamais/);
+    assert.match(locale['interrupted-import-description'], /ne peut pas être repris/);
+    assert.match(locale['interrupted-import-description'], /y compris les éléments ajoutés depuis/);
+    assert.match(locale['interrupted-import-keep-confirm'], /Rien n’est supprimé/);
+    assert.match(locale['interrupted-import-discard-confirm'], /définitivement supprimés/);
+    assert.match(locale['interrupted-import-truncated'], /50 plus anciens/);
+    assert.match(locale['interrupted-import-foreign-board'], /n’a donc pas été modifié/);
+    assert.match(locale['scrum-history-checkpoint-hint'], /que si personne d’autre/);
+    assert.match(locale['scrum-history-checkpoint-hint'], /sans modifier aucun enregistrement/);
+    assert.match(locale['scrum-history-checkpoint-discard-confirm'], /changements déjà écrits/);
+    assert.notEqual(locale['r-moved-forward'], locale['r-moved-back']);
+    for (const literal of ['{number}', '{identifier}', '[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}']) {
+      assert.ok(locale['external-link-rules-description'].includes(literal), `${code}: preserve ${literal}`);
+    }
+    assert.ok(locale['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
     assert.match(locale['filter-preset-save'], /Enregistrer.*filtres/);
     assert.equal(locale['blockly-ARIA_TYPE_FIELD_IMAGE'], 'image');
     assert.equal(locale['blockly-MATH_ONLIST_OPERATOR_MIN_ARIA'], 'minimum');

@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## French planning and recovery messages — 2026-10-08
+
+Translate 61 current English values in each of the five French catalogs
+(fr, fr-FR, fr-BE, fr-CH and fr-CA), for 305 filled values. Existing localized
+values are preserved by the fill helper. Cover board controls, link-rule
+syntax, Scrum planning imports, Sync planning, interrupted board imports
+and conflicted history recovery. Extend the existing French regression
+suite with per-key translation checks and recovery decision, matching-order,
+non-duplication, permanent-deletion and literal-syntax assertions. No browser
+or screen-reader session was run; other locales remain unfinished.
+
 ## Aromanian card actions and account lockout corrections — 2026-10-08
 
 Replace 64 Italian values and a Spanish overtime label with Aromanian card,
