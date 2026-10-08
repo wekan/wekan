@@ -14,16 +14,19 @@
   was never a `.card-date` and must not become one now.
 //- `canModifyCard` decides whether the badge is a link that opens the date
   editor; a custom field's date is never one, and passes nothing.
+//- titleKey: an i18n key translated here. Passing showTitle="{{_ 'card-due'}}"
+//- from a caller does not work - Spacebars does not evaluate {{...}} inside an
+//- argument string, and the minicard badges showed it literally.
 template(name="dateBadgeBody")
   if canModifyCard
-    a.js-edit-date(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{baseClass}} {{classes}}")
+    a.js-edit-date(title="{{#if titleKey}}{{_ titleKey}}{{else}}{{showTitle}}{{/if}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{baseClass}} {{classes}}")
       time(datetime="{{showISODate}}")
         | {{showDate}}
         if showWeekOfYear
           b
             | {{showWeek}}
   else
-    a(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{baseClass}} {{classes}}")
+    a(title="{{#if titleKey}}{{_ titleKey}}{{else}}{{showTitle}}{{/if}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{baseClass}} {{classes}}")
       time(datetime="{{showISODate}}")
         | {{showDate}}
         if showWeekOfYear
@@ -58,19 +61,19 @@ template(name="pokerEndDate")
   +dateBadgeBody(canModifyCard=canModifyCard baseClass="card-date" showTitle=showTitle classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
 
 template(name="minicardReceivedDate")
-  +dateBadgeBody(canModifyCard=canModifyCard showTitle="{{_ 'card-received'}}" baseClass="card-date received-date" classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
+  +dateBadgeBody(canModifyCard=canModifyCard titleKey="card-received" baseClass="card-date received-date" classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
 
 template(name="minicardStartDate")
-  +dateBadgeBody(canModifyCard=canModifyCard showTitle="{{_ 'card-start'}}" baseClass="card-date start-date" classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
+  +dateBadgeBody(canModifyCard=canModifyCard titleKey="card-start" baseClass="card-date start-date" classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
 
 template(name="minicardDueDate")
-  +dateBadgeBody(canModifyCard=canModifyCard showTitle="{{_ 'card-due'}}" baseClass="card-date due-date" classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
+  +dateBadgeBody(canModifyCard=canModifyCard titleKey="card-due" baseClass="card-date due-date" classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
 
 template(name="minicardEndDate")
-  +dateBadgeBody(canModifyCard=canModifyCard showTitle="{{_ 'card-end'}}" baseClass="card-date end-date" classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
+  +dateBadgeBody(canModifyCard=canModifyCard titleKey="card-end" baseClass="card-date end-date" classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
 
 template(name="minicardCustomFieldDate")
-  +dateBadgeBody(showTitle="{{_ 'date'}}" classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
+  +dateBadgeBody(titleKey="date" classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
 
 template(name="editCardReceivedDatePopup")
   +editDateForm(showDate=showDate showTime=showTime error=error datePicker=datePicker)
