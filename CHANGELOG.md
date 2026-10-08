@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/71691a17bd7820a567340243eb2027eef1621838">Translate remaining Konkani storage and system labels</a></summary>
+
+- Fill 33 English-identical values omitted by the fill tool, preserving
+  existing translations, service names, endpoint examples and identifiers.
+- Technical wording remains low confidence pending speaker review.
+- All 73 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Konkani translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/510e137fadab8cc9f294384bb7a8d02196e2f7d6">Translate Konkani notification recovery controls</a></summary>
 
 - Fill 27 Konkani placeholders, preserving existing translations, retry
