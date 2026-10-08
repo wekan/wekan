@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/928efb3d3e">Translate the sign-in address warning in 26 locales</a>. Thanks to xet7.</summary>
+
+Translate the external sign-in origin mismatch warning in 26 locale catalogs.
+Preserve both occurrences of each expected and actual address variable and the
+literal ROOT_URL configuration key. Regression tests verify variable inventories,
+rendering order and repeated address substitution. The targeted warning and
+placeholder suites and all 21 preservation checks pass. Native review, browser
+checks and the wider all-language backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e9f5e08aae">Translate remaining Finnish import and sign-in prose</a>. Thanks to xet7.</summary>
 
 Translate 13 import instructions and the sign-in origin mismatch warning.
