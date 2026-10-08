@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Lithuanian import instructions — 2026-10-09
+
+Translate all 21 instructions in this group in lt. Preserve commands, column
+names, extensions, hierarchy markers and variables. Regression checks cover
+first-board selection, completed-task dates, archived cards, swimlane mappings,
+excluded data, English headers and task hierarchy. Import-instruction and
+placeholder suites and all 21 preservation checks pass. Browser review and the
+wider all-language translation backlog remain outstanding.
+
 ## Latvian import instructions — 2026-10-09
 
 Translate all 21 instructions in this group in lv. Preserve commands, column

@@ -1127,3 +1127,32 @@ for (const code of ['sl', 'sl_SI']) {
   assert.match(locale['import-board-instruction-teamwork'], /vienu līmeni dziļāk/);
   assert.match(locale['import-board-instruction-superproductivity'], /arhivētie uzdevumi kļūst par arhivētām kartiņām/);
 }
+
+{
+  const locale = read('lt');
+  const literals = {
+    planner: ['Microsoft Planner', 'Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+    meistertask: ['MeisterTask', 'Export project', 'CSV'],
+    ...importLiterals, ...newerImportLiterals,
+  };
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+    for (const value of values) assert.ok(locale[key].includes(value), key + ': ' + value);
+  }
+  for (const format of ['nullboard', 'kanri']) {
+    assert.match(locale['import-board-instruction-' + format], /importuojama tik pirmoji lenta/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /importuojamos visos lentos/);
+  }
+  assert.match(locale['import-board-instruction-meistertask'], /užbaigtos užduotys išlaiko užbaigimo datą/);
+  assert.match(locale['import-board-instruction-obsidian'], /archyvas tampa archyvuotomis kortelėmis/);
+  assert.match(locale['import-board-instruction-ticktick'], /TickTick sąrašas tampa plaukimo juosta/);
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /Priedai neimportuojami/);
+  assert.match(locale['import-board-instruction-notion'], /Ryšiai, paveikslai ir priedai neimportuojami/);
+  assert.match(locale['import-board-instruction-plane'], /nėra aprašų ir priedų.*neimportuojami/);
+  assert.match(locale['import-board-instruction-businessmap'], /pirmiausia pakeiskite antraštės eilutės pavadinimus į angliškus/);
+  assert.match(locale['import-board-instruction-redmine'], /prieš eksportuodami.*My account.*English/);
+  assert.match(locale['import-board-instruction-teamwork'], /vienu lygiu giliau/);
+  assert.match(locale['import-board-instruction-superproductivity'], /archyvuotos užduotys tampa archyvuotomis kortelėmis/);
+}
