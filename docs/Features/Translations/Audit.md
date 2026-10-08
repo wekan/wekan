@@ -8894,6 +8894,16 @@ distinctions alongside script, key order and token inventories. Technical wordin
 remains low confidence pending speaker review. Browser checks were not run; further
 Odia translations remain.
 
+## Odia sprint lifecycle and observations
+
+Filled 25 English placeholders for sprint states, closing/cancellation and daily
+observations. Preserved partial-report restrictions, UTC days, the 366 observation
+limit, missing-day omissions and unknown estimates. Existing translations were
+retained by the placeholder-only merge. Regression coverage checks these details
+alongside script, key order and token inventories. Technical wording remains low
+confidence pending speaker review. Browser checks were not run; further translations
+remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
