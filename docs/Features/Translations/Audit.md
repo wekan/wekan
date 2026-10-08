@@ -8328,6 +8328,15 @@ remain. Technical wording remains low confidence pending speaker review. Focused
 tests cover key order, source tokens, file formats and relationship distinctions;
 browser checks were not run.
 
+## Tatar map detection and diagnostics corrections
+
+Corrected 21 wrong-language map, diagnostic, sorting and creator values. Restored
+literal snap and Docker log commands and the Enter key name. Preserved location
+detection states and newest/oldest ordering. Existing correct-language template
+syntax guidance remains. Technical wording remains low confidence pending speaker
+review. Focused tests cover key order, source tokens, executable commands and
+ordering distinctions; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
