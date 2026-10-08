@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu color and comment-role corrections — 2026-10-08
+
+Correct 20 archive-navigation, color and comment-role values. Restore the All Boards
+archive path. Translate color names as colors rather than fruits, food or naval
+forces. Confirm the no-comments key is a board role in source; preserve comment-only
+and assigned-card restrictions. Refresh exact-value audit records and preserve tokens.
+Wu prose needs native review; browser tests were not run and all-language work remains
+unfinished.
+
 ## Wu member search and toggle corrections — 2026-10-08
 
 Correct 20 member-search, font, avatar, toggle and card-aging values. Preserve
@@ -12540,7 +12549,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,074** exact before/after values, including unflagged
+records contain **23,094** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

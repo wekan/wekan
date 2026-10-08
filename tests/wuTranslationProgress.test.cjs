@@ -543,3 +543,16 @@ for (const tier of [1, 2, 3]) {
 assert.match(wu['card-aging-tier1'], /轻度/);
 assert.match(wu['card-aging-tier2'], /中度/);
 assert.match(wu['card-aging-tier3'], /重度/);
+
+const colorsComments = ["close-board-pop", "close-card", "color-gold", "color-lime", "color-mistyrose", "color-navy", "color-orange", "color-paleturquoise", "color-peachpuff", "color-plum", "color-silver", "color-sky", "comment-only", "comment-only-desc", "comment-assigned-only", "comment-assigned-only-desc", "comment-delete", "deleteCommentPopup-title", "no-comments", "no-comments-desc"];
+for (const key of colorsComments) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.match(wu['close-board-pop'], /所有看板页面.*归档.*恢复看板/);
+assert.doesNotMatch(wu['close-board-pop'], /主页标题/);
+for (const key of ['gold', 'lime', 'navy', 'orange', 'peachpuff', 'plum', 'silver', 'sky']) assert.match(wu['color-' + key], /色$/);
+assert.doesNotMatch(wu['color-navy'], /海军/);
+assert.doesNotMatch(wu['color-peachpuff'], /泡芙/);
+assert.match(wu['comment-assigned-only-desc'], /只看得见分配畀自家个卡片.*只可以评论/);
+assert.match(wu['comment-only-desc'], /只可以.*发表评论/);
+assert.match(wu['no-comments'], /勿许看评论/);
+assert.doesNotMatch(wu['no-comments'], /暂无/);
+assert.match(wu['no-comments-desc'], /看勿见/);

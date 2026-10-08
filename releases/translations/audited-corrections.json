@@ -161516,5 +161516,145 @@
     "before": "关闭板",
     "after": "关脱看板",
     "reason": "2026-10-08: Correct Wu member search, opposite toggles and idle-day messages while preserving variables and digits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "close-board-pop",
+    "before": "您可以通过单击主页标题中的“存档”按钮来恢复该板。",
+    "after": "侬可以从所有看板页面浪个“归档”里向恢复看板。",
+    "reason": "2026-10-08: Correct Wu color and comment-role meanings and restore current archive navigation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "close-card",
+    "before": "关闭卡",
+    "after": "关脱卡片",
+    "reason": "2026-10-08: Correct Wu color and comment-role meanings and restore current archive navigation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "color-gold",
+    "before": "金子",
+    "after": "金色",
+    "reason": "2026-10-08: Correct Wu color and comment-role meanings and restore current archive navigation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "color-lime",
+    "before": "酸橙",
+    "after": "亮绿色",
+    "reason": "2026-10-08: Correct Wu color and comment-role meanings and restore current archive navigation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "color-mistyrose",
+    "before": "迷雾玫瑰",
+    "after": "薄雾玫瑰色",
+    "reason": "2026-10-08: Correct Wu color and comment-role meanings and restore current archive navigation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "color-navy",
+    "before": "海军",
+    "after": "藏青色",
+    "reason": "2026-10-08: Correct Wu color and comment-role meanings and restore current archive navigation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "color-orange",
+    "before": "橙子",
+    "after": "橙色",
+    "reason": "2026-10-08: Correct Wu color and comment-role meanings and restore current archive navigation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "color-paleturquoise",
+    "before": "淡绿松石",
+    "after": "浅绿松石色",
+    "reason": "2026-10-08: Correct Wu color and comment-role meanings and restore current archive navigation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "color-peachpuff",
+    "before": "桃子泡芙",
+    "after": "浅桃色",
+    "reason": "2026-10-08: Correct Wu color and comment-role meanings and restore current archive navigation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "color-plum",
+    "before": "李子",
+    "after": "梅紫色",
+    "reason": "2026-10-08: Correct Wu color and comment-role meanings and restore current archive navigation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "color-silver",
+    "before": "银",
+    "after": "银色",
+    "reason": "2026-10-08: Correct Wu color and comment-role meanings and restore current archive navigation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "color-sky",
+    "before": "天空",
+    "after": "天蓝色",
+    "reason": "2026-10-08: Correct Wu color and comment-role meanings and restore current archive navigation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "comment-only",
+    "before": "仅供评论",
+    "after": "只许评论",
+    "reason": "2026-10-08: Correct Wu color and comment-role meanings and restore current archive navigation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "comment-only-desc",
+    "before": "只能对卡片发表评论。",
+    "after": "只可以勒卡片浪发表评论。",
+    "reason": "2026-10-08: Correct Wu color and comment-role meanings and restore current archive navigation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "comment-assigned-only",
+    "before": "仅分配的评论",
+    "after": "只许评论分配畀自家个卡片",
+    "reason": "2026-10-08: Correct Wu color and comment-role meanings and restore current archive navigation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "comment-assigned-only-desc",
+    "before": "仅指定的卡可见。只能评论。",
+    "after": "只看得见分配畀自家个卡片。只可以评论。",
+    "reason": "2026-10-08: Correct Wu color and comment-role meanings and restore current archive navigation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "comment-delete",
+    "before": "您确定要删除评论吗？",
+    "after": "侬确定要删脱搿条评论伐？",
+    "reason": "2026-10-08: Correct Wu color and comment-role meanings and restore current archive navigation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "deleteCommentPopup-title",
+    "before": "删除评论？",
+    "after": "要删脱评论伐？",
+    "reason": "2026-10-08: Correct Wu color and comment-role meanings and restore current archive navigation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "no-comments",
+    "before": "暂无评论",
+    "after": "勿许看评论",
+    "reason": "2026-10-08: Correct Wu color and comment-role meanings and restore current archive navigation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "no-comments-desc",
+    "before": "看不到评论。",
+    "after": "看勿见评论。",
+    "reason": "2026-10-08: Correct Wu color and comment-role meanings and restore current archive navigation; lower-confidence prose needs native review."
   }
 ]
