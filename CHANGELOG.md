@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5fc7eb82cb272a1b47c1bfc234c6a5b21163ce89">Translate Tatar editing and accessibility labels</a></summary>
+
+- Fill 37 editing, bitmap and accessibility strings, preserving existing
+  translations and source placeholders.
+- Technical wording remains low confidence pending speaker review.
+- All 43 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. Further Tatar corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6e6b7b60c2c758afb3e94139a6598cbeebdb3505">Translate Tatar loop and editing controls</a></summary>
 
 - Fill 33 loop, condition and editing strings, preserving existing translations
