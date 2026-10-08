@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/202684210a">Correct Wu storage and database migration help</a>. Thanks to xet7.</summary>
+
+Correct 17 Wu values, preserving database URLs, settings, commands, file paths and
+migration target variables. Keep migration prerequisites and irreversible-deletion warnings.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c3c45288a7">Correct Wu account and scheduled-job wording</a>. Thanks to xet7.</summary>
 
 Correct 43 Wu values, clarifying account enablement and scheduled board operations.
