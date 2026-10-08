@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d3d66f4688">Translate first Ukrainian import instruction group</a>. Thanks to xet7.</summary>
+
+Translate eight instructions in both Ukrainian catalogs, replacing 16 English
+values. Preserve commands, extensions and variables. Regression checks cover
+first-board selection, completed-task dates, archives and swimlane mappings.
+Import-instruction and placeholder suites and all 21 preservation checks pass.
+The remaining instructions, browser review and the wider translation backlog
+remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4d82b3b812">Translate Lithuanian import instructions</a>. Thanks to xet7.</summary>
 
 Translate all 21 Lithuanian instructions in this import group. Preserve commands,
