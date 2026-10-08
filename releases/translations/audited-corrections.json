@@ -738,15 +738,15 @@
     "locale": "wuu-Hans",
     "key": "board-archive-failed",
     "before": "无法安排董事会存档",
-    "after": "无法安排看板存档",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "安排看板归档失败仔",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
   },
   {
     "locale": "wuu-Hans",
     "key": "board-archive-scheduled",
     "before": "董事会存档已成功安排",
-    "after": "看板存档已成功安排",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "看板归档已经安排好仔",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -759,8 +759,8 @@
     "locale": "wuu-Hans",
     "key": "board-operations",
     "before": "董事会运作",
-    "after": "看板运作",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "看板操作",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -167249,5 +167249,285 @@
     "before": "您确定要解锁所有锁定的用户吗？",
     "after": "侬确定要解锁全部锁定个用户伐？",
     "reason": "2026-10-08: Correct Wu Markdown, recurrence and lockout meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "accounts-lockout-show-locked-users",
+    "before": "仅显示锁定的用户",
+    "after": "只显示锁定个用户",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "accounts-lockout-user-locked",
+    "before": "用户已被锁定",
+    "after": "用户已经畀锁定仔",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "accounts-lockout-click-to-unlock",
+    "before": "点击解锁该用户",
+    "after": "点一下来解锁搿只用户",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "accounts-lockout-status",
+    "before": "地位",
+    "after": "状态",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "admin-people-filter-show",
+    "before": "展示：",
+    "after": "显示：",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "admin-people-filter-locked",
+    "before": "仅限锁定用户",
+    "after": "只看锁定个用户",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "admin-people-filter-active",
+    "before": "积极的",
+    "after": "已启用",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "admin-people-filter-inactive",
+    "before": "不活跃",
+    "after": "已停用",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "admin-people-active-status",
+    "before": "活跃状态",
+    "after": "启用状态",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "admin-people-user-active",
+    "before": "用户处于活动状态 - 单击以停用",
+    "after": "用户已经启用，点一下来停用",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "admin-people-user-inactive",
+    "before": "用户处于非活动状态 - 单击以激活",
+    "after": "用户已经停用，点一下来启用",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "accounts-lockout-all-users-unlocked",
+    "before": "所有锁定用户均已解锁",
+    "after": "全部锁定个用户侪解锁仔",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "active-cron-jobs",
+    "before": "活动的预定作业",
+    "after": "启用个计划任务",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "add-cron-job",
+    "before": "添加预定作业",
+    "after": "添加计划任务",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "add-cron-job-placeholder",
+    "before": "添加计划作业功能即将推出",
+    "after": "添加计划任务个功能就要推出仔",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-backup-failed",
+    "before": "无法安排板备份",
+    "after": "安排看板备份失败仔",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-backup-scheduled",
+    "before": "电路板备份计划成功",
+    "after": "看板备份已经安排好仔",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-cleanup-failed",
+    "before": "无法安排电路板清理",
+    "after": "安排看板清理失败仔",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-cleanup-scheduled",
+    "before": "电路板清理已成功安排",
+    "after": "看板清理已经安排好仔",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cron-jobs",
+    "before": "预定的工作",
+    "after": "计划任务",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cron-migrations",
+    "before": "预定的迁移",
+    "after": "计划迁移",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cron-job-delete-confirm",
+    "before": "您确定要删除此预定作业吗？",
+    "after": "侬确定要删脱搿只计划任务伐？",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cron-job-delete-failed",
+    "before": "删除预定作业失败",
+    "after": "删脱计划任务失败仔",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cron-job-deleted",
+    "before": "已成功删除计划作业",
+    "after": "计划任务已经删脱仔",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cron-job-pause-failed",
+    "before": "无法暂停计划的作业",
+    "after": "暂停计划任务失败仔",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cron-job-paused",
+    "before": "计划作业已成功暂停",
+    "after": "计划任务已经暂停仔",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cron-job-resume-failed",
+    "before": "无法恢复预定作业",
+    "after": "恢复计划任务失败仔",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cron-job-resumed",
+    "before": "预定作业已成功恢复",
+    "after": "计划任务已经恢复仔",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cron-job-start-failed",
+    "before": "无法启动预定作业",
+    "after": "启动计划任务失败仔",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cron-job-started",
+    "before": "预定作业成功启动",
+    "after": "计划任务已经启动仔",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cron-no-errors",
+    "before": "没有可显示的错误",
+    "after": "呒没好显示个错误",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cron-error-details",
+    "before": "细节",
+    "after": "详情",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cron-retry-failed",
+    "before": "重试失败的迁移",
+    "after": "重试失败个迁移",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cron-resume-paused",
+    "before": "恢复暂停的迁移",
+    "after": "恢复暂停个迁移",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cron-errors-cleared",
+    "before": "所有错误已成功清除",
+    "after": "全部错误已经清除仔",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cron-no-failed-migrations",
+    "before": "没有失败的迁移可以重试",
+    "after": "呒没失败个迁移好重试",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cron-no-paused-migrations",
+    "before": "暂停的迁移无法恢复",
+    "after": "呒没暂停个迁移好恢复",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cron-migrations-resumed",
+    "before": "迁移已成功恢复",
+    "after": "迁移已经恢复成功仔",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cron-migrations-retried",
+    "before": "失败的迁移重试成功",
+    "after": "失败个迁移已经重试成功仔",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "complete",
+    "before": "完全的",
+    "after": "完成",
+    "reason": "2026-10-08: Correct Wu account enablement and scheduled-job meanings; lower-confidence prose needs native review."
   }
 ]

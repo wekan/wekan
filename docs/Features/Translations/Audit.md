@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu account and scheduled-job corrections — 2026-10-08
+
+Correct 43 account and scheduled-job values. Check peopleBody.jade to distinguish
+account enablement from recent activity. Restore board rather than circuit-board
+meanings and distinguish no paused migrations from an inability to resume migrations.
+Preserve scheduling rather than claiming operations have finished. Refresh exact-value
+audit records. Wu prose needs native review; browser tests were not run and all-language
+work remains unfinished.
+
 ## Wu recurrence and lockout corrections — 2026-10-08
 
 Correct 28 translation-control, recurrence, support and lockout values. Restore Markdown
@@ -12854,7 +12863,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,893** exact before/after values, including unflagged
+records contain **23,933** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

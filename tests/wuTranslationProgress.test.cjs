@@ -1041,3 +1041,17 @@ assert.match(wu['accounts-lockout-known-users'], /用户名正确，密码错误
 assert.match(wu['accounts-lockout-unknown-users'], /用户名勿存在/);
 assert.match(wu['accounts-lockout-failures-before'], /失败次数/);
 assert.match(wu['accounts-lockout-confirm-unlock-all'], /全部锁定个用户/);
+
+const accountsJobsWu = ["accounts-lockout-show-locked-users", "accounts-lockout-user-locked", "accounts-lockout-click-to-unlock", "accounts-lockout-status", "admin-people-filter-show", "admin-people-filter-locked", "admin-people-filter-active", "admin-people-filter-inactive", "admin-people-active-status", "admin-people-user-active", "admin-people-user-inactive", "accounts-lockout-all-users-unlocked", "active-cron-jobs", "add-cron-job", "add-cron-job-placeholder", "board-archive-failed", "board-archive-scheduled", "board-backup-failed", "board-backup-scheduled", "board-cleanup-failed", "board-cleanup-scheduled", "board-operations", "cron-jobs", "cron-migrations", "cron-job-delete-confirm", "cron-job-delete-failed", "cron-job-deleted", "cron-job-pause-failed", "cron-job-paused", "cron-job-resume-failed", "cron-job-resumed", "cron-job-start-failed", "cron-job-started", "cron-no-errors", "cron-error-details", "cron-retry-failed", "cron-resume-paused", "cron-errors-cleared", "cron-no-failed-migrations", "cron-no-paused-migrations", "cron-migrations-resumed", "cron-migrations-retried", "complete"];
+for (const key of accountsJobsWu) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.match(wu['admin-people-user-active'], /启用.*点一下来停用/);
+assert.match(wu['admin-people-user-inactive'], /停用.*点一下来启用/);
+assert.equal(wu['accounts-lockout-status'], '状态');
+for (const operation of ['archive', 'backup', 'cleanup']) {
+  assert.match(wu['board-' + operation + '-scheduled'], /看板.*安排好/);
+  assert.doesNotMatch(wu['board-' + operation + '-scheduled'], /电路板/);
+  assert.match(wu['board-' + operation + '-failed'], /安排看板.*失败/);
+}
+assert.match(wu['cron-no-paused-migrations'], /呒没暂停个迁移好恢复/);
+assert.doesNotMatch(wu['cron-no-paused-migrations'], /无法恢复/);
+assert.match(wu['cron-no-failed-migrations'], /呒没失败个迁移好重试/);
