@@ -1998,6 +1998,22 @@ report with seven assignees and asserts no avatar overlaps the comment.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f215e0c16b9044d15260f766fd551db2a7661cd6">Translate Moroccan Arabic sorting and logic</a></summary>
+
+- Fill 46 placeholders, retaining existing translations. Check comparison
+  boundaries, negation, conditional branches, logical operators, sorting a copy,
+  joining and splitting, plus script, source order and placeholder inventories.
+- Validation: 43 translation checks and 21 human-preference checks pass. Two
+  repository-wide checks fail on new card-field-visibility keys missing from
+  other locales. Browser, RTL and screen-reader checks were not run.
+- Technical Darija wording remains low confidence pending speaker review;
+  remaining placeholders and the broader language audit stay open.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f64e7e8e950e94192a33546be4114bca209040b2">Translate Moroccan Arabic list retrieval and removal</a></summary>
 
 - Fill 42 placeholders, retaining existing translations. Check retrieval/removal
