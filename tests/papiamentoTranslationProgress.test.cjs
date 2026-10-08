@@ -368,3 +368,19 @@ assert.match(papiamento['sync-conflict-archive-hint'], /Subkarchinan no ta kambi
 assert.match(papiamento['sync-conflict-keep-local'], /WeKan/);
 assert.match(papiamento['sync-conflict-use-source'], /fuente/);
 assert.notEqual(papiamento['sync-conflict-keep-local'], papiamento['sync-conflict-use-source']);
+
+const syncPreview = ["sync-conflict-creation-hint", "sync-conflict-create-replacement", "sync-preview-button", "sync-preview-heading", "sync-preview-saved", "sync-preview-unavailable", "sync-preview-blocked", "sync-preview-create", "sync-preview-update", "sync-preview-archive", "sync-preview-baseline", "sync-preview-truncated", "sync-preview-omissions", "sync-preview-scope", "sync-preview-excluded", "sync-preview-unmapped", "sync-preview-parser-warnings", "sync-preview-parser-unsupported", "sync-source-heading", "sync-source-scope", "sync-source-unmapped", "sync-source-excluded", "sync-source-converted", "sync-source-fallback", "sync-source-excluded-item", "sync-source-occurrences", "sync-source-truncated", "sync-source-omitted", "sync-report-button", "sync-report-retention"];
+for (const key of syncPreview) {
+  assert.notEqual(papiamento[key], english[key], key);
+  assert.deepEqual(tokens(papiamento[key]), tokens(english[key]), key);
+}
+assert.match(papiamento['sync-conflict-creation-hint'], /anterior sin kambio.*mes karchi di remplaso/);
+assert.match(papiamento['sync-preview-saved'], /konfigurashon wardá.*fuente atrobe/);
+assert.match(papiamento['sync-preview-blocked'], /Resolvé.*promé ku revisá/);
+assert.equal(new Set(['create', 'update', 'archive'].map(action => papiamento[`sync-preview-${action}`])).size, 3);
+for (const suffix of ['unmapped', 'excluded']) assert.equal(papiamento[`sync-preview-${suffix}`], papiamento[`sync-source-${suffix}`]);
+assert.match(papiamento['sync-source-scope'], /balornan no ta mustrá/);
+assert.match(papiamento['sync-source-fallback'], /no a usa/);
+assert.match(papiamento['sync-preview-truncated'], /promé 100/);
+assert.match(papiamento['sync-source-truncated'], /100 ruta/);
+assert.match(papiamento['sync-report-retention'], /20 ehekushon.*30 dia/);

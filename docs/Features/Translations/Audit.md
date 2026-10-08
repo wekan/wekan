@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Papiamento Sync previews and source reports — 2026-10-08
+
+Translate 30 replacement, preview and source-report messages. Preserve variables
+and numeric limits; check replacement reuse, saved settings, conflict resolution,
+distinct create/update/archive actions, omitted values and report retention.
+Specialized wording is lower confidence and needs native review. No browser
+session was run. Other translations remain unfinished.
+
 ## Papiamento import preview and Sync conflicts — 2026-10-08
 
 Translate 30 Scrum import-preview and Sync-conflict messages. Preserve source
