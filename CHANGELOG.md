@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cd64ce968bf8800ebfde862e3f969fe83ee92ef6">Correct Tatar member removal and search controls</a></summary>
+
+- Correct 22 removal, rescue and search strings, preserving placeholders,
+  removal consequences and membership/assignment distinctions.
+- Technical wording remains low confidence pending speaker review.
+- All 96 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/48909fe48aadec0e2cb701f47569ad7dc60375f7">Correct Tatar visibility and preview guidance</a></summary>
 
 - Correct 17 visibility, notification and preview strings, preserving source
