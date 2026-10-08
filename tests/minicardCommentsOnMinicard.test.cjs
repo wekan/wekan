@@ -128,4 +128,84 @@ test('the "more" link opens the full card via the minicard\'s own existing link,
     'no separate in-place "expand all comments" interaction - that is the scope creep the issue warned against');
 });
 
+// Email report (2026-10-08): with seven assignees the comment preview read
+// "Någr…" beside the row of avatars. The avatar rows are floats, and each
+// .minicard-comment is overflow: hidden - a block formatting context, which a
+// float NARROWS to whatever width it leaves. The comments must clear the
+// floats and wrap instead of being cut on one line.
+function cssRule(css, selector) {
+  const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const m = css.match(new RegExp(`(?:^|\\n)${escaped} \\{([^}]*)\\}`));
+  return m ? m[1] : null;
+}
+function allCss() {
+  const out = [];
+  (function walk(dir) {
+    for (const e of fs.readdirSync(path.join(repoRoot, dir), { withFileTypes: true })) {
+      const rel = path.join(dir, e.name);
+      if (e.isDirectory()) walk(rel);
+      else if (e.name.endsWith('.css')) out.push([rel, read(rel)]);
+    }
+  })('client');
+  return out;
+}
+
+test('the comments start on their own line, under the avatar and badge floats', () => {
+  const css = read('client/components/cards/minicard.css');
+  const avatars = cssRule(css,
+    '.minicard .minicard-members,\n.minicard .minicard-assignees,\n.minicard .minicard-creator');
+  assert.ok(avatars && /float: inline-end/.test(avatars),
+    'precondition: the avatar rows are floats - the reason the comments must clear them');
+  assert.ok(/float: inline-start/.test(cssRule(css, '.minicard .badges')),
+    'precondition: the badges float on the other side');
+  const comments = cssRule(css, '.minicard .minicard-comments');
+  assert.ok(comments, '.minicard .minicard-comments rule');
+  assert.ok(/clear: both;/.test(comments),
+    'clear: both - not inline-start only, the avatars float on the inline-END side');
+  assert.ok(/width: 100%/.test(comments), 'the full width of the minicard');
+
+  const order = require('../models/lib/cardFieldOrder').orderedMinicardSections();
+  assert.ok(order.indexOf('assignee') < order.indexOf('comments'),
+    'precondition: by default the comments come after the assignees, which is how they met');
+});
+
+test('the comment text wraps and is clamped at the end, never cut by nowrap', () => {
+  const css = read('client/components/cards/minicard.css');
+  const text = cssRule(css, '.minicard .minicard-comment-text');
+  assert.ok(text, '.minicard .minicard-comment-text rule');
+  assert.ok(/white-space: normal/.test(text), 'the text wraps');
+  assert.ok(/-webkit-line-clamp: 3/.test(text), 'a three-line clamp, ellipsis at the end');
+  assert.ok(/min-width: 0/.test(text), 'a flex item that may shrink below its content width');
+  assert.ok(/overflow-wrap: anywhere/.test(text), 'a long word or URL breaks instead of overflowing');
+});
+
+test('negative: nothing keeps a minicard comment on one line, or lays avatars over it', () => {
+  for (const [rel, css] of allCss()) {
+    const re = /([^{}]*)\{([^}]*)\}/g;
+    let m;
+    while ((m = re.exec(css))) {
+      const sel = m[1];
+      const body = m[2];
+      if (/\.minicard-comment(?:s|-text|-icon)?\b(?!-more)/.test(sel)) {
+        assert.ok(!/white-space:\s*nowrap/.test(body),
+          `${rel}: "${sel.trim()}" puts the comment back on one line`);
+        assert.ok(!/position:\s*absolute/.test(body),
+          `${rel}: "${sel.trim()}" takes the comment out of the flow`);
+        assert.ok(!/clear:\s*(?:none|inline-start|left|right|inline-end)\b/.test(body),
+          `${rel}: "${sel.trim()}" clears only one side, the avatars float on the other`);
+      }
+      if (/\.minicard-(?:assignees|members|creator)\b/.test(sel) && /\.minicard\b/.test(sel)) {
+        assert.ok(!/position:\s*absolute/.test(body),
+          `${rel}: "${sel.trim()}" lays the avatars over the card's other lines`);
+      }
+    }
+  }
+  const jade = read('client/components/cards/minicard.jade');
+  const assignees = jade.indexOf('.minicard-assignees.js-minicard-assignees');
+  const comments = jade.indexOf('.minicard-comments');
+  const between = jade.slice(assignees, comments);
+  assert.ok(/\n        if \$eq section "comments"/.test(between),
+    'the comments are a section of their own, not nested inside the avatar row');
+});
+
 console.log(`\nminicardCommentsOnMinicard: ${passed} tests passed`);
