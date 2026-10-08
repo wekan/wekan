@@ -7650,6 +7650,17 @@ The Central Kurdish default inventory now retains only 11 product names and math
 symbols. None of the 149 pending-Transifex source keys remain identical to English.
 These counts do not establish fluency or completion of the broader language audit.
 
+### Tatar Blockly controls and opening activity messages
+
+Filled 24 English placeholders for block controls, colours and loop actions. Corrected
+nine opening activity, membership and comment strings whose vocabulary and endings
+were inconsistent with Tatar, including the previous title-change verb and reply labels.
+Source placeholders and correct-language existing translations are preserved. Regression
+checks cover key order, tokens, Tatar vocabulary, colour bounds and loop distinctions.
+Technical wording remains low confidence pending speaker review. Script checks alone
+are not a language audit. Browser checks were not run; further mixed-language entries
+and English placeholders remain in this locale.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
