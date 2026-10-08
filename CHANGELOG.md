@@ -2173,6 +2173,20 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/86d5255294e42b44c8d0a416d301f36ec9c7276c">Translate Turkmen daily observations and import status</a></summary>
+
+- Fill 13 Turkmen placeholders, preserving existing translations, UTC
+  sampling, omitted days, unknown estimates and export distinctions.
+- Technical wording remains low confidence pending speaker review.
+- 56 checks and 21 human-preference checks pass. Two repository-wide checks
+  fail because other locales lack the new custom-colors-in-use source key.
+  Browser checks were not run. Further translations and the audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d7de79a25f67326cbc9f45bf9294b29f323daaa8">Translate Turkmen sprint events and reports</a></summary>
 
 - Fill 35 Turkmen placeholders, preserving existing translations, unknown
