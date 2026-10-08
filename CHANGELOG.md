@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/11bd47aeadeef18a89421a2a973ba827c6bf2a5e">Correct Tatar WIP and flow report labels</a></summary>
+
+- Correct 37 wrong-language or incomplete WIP and flow report labels, preserving
+  statistical distinctions, day units and group meanings.
+- Statistical terminology remains low confidence pending speaker review.
+- All 149 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b6eaa54879431d429698cd8cc3c853bb346f3db7">Correct Tatar event and import translations</a></summary>
 
 - Correct 21 wrong-language event and import strings, preserving address labels,
