@@ -129,3 +129,15 @@ to loopback
 `snap set wekan bind-ip=127.0.0.1` makes WeKan listen on loopback only
 (snap-src/bin/config, snap-src/bin/wekan-control export BIND_IP, which Meteor
 honours); the bundle and Docker take the BIND_IP environment variable.
+
+## [#2713](https://github.com/wekan/wekan/issues/2713) Edit rules; send a card by email
+
+Both requests are built. A rule's trigger and actions are edited in place from
+the rules list (Edit trigger and action, `rules.updateRule` in
+server/rulesButton.js), keeping the rule's id. The send-email rule action can
+include the card's details, custom fields, checklists, public comments and
+live attachments, with access rechecked at send time; the 71 card fields are
+inventoried in [Card-Email-Content-Audit.md](Card-Email-Content-Audit.md).
+Delivery passes against a local SMTP server for filesystem and GridFS
+attachments. Interoperability with live external mail providers was not
+tested, as no real mail accounts were available.
