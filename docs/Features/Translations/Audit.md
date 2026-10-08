@@ -8753,6 +8753,16 @@ and Boolean distinctions alongside script, key order and token inventories.
 Technical wording remains low confidence pending speaker review. Browser checks
 were not run; further Odia translations remain.
 
+## Odia constants and number properties
+
+Filled 22 English placeholders for mathematical constants, bounds and number
+properties. Preserved numeric examples, mathematical symbols, indexed tokens and
+inclusive bounds. The placeholder-only merge retained existing translations.
+Regression coverage checks constant examples and distinct number properties,
+alongside script, key order and placeholder inventories. Technical wording remains
+low confidence pending speaker review. Browser checks were not run; further
+Odia translations remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
