@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Seven additional import formats in three locales — 2026-10-08
+
+Translate 21 instructions in Wu, Papiamento and Yiddish for Quire, Wrike,
+Teamwork.com, Businessmap, Redmine, Notion and Plane. Preserve source commands,
+column names, hierarchy markers, file extensions and warnings about omitted data.
+All three failures from the 332-suite translation run now pass on targeted rerun,
+along with the expanded import-instruction suite, placeholder suite and all 21
+preservation checks. The complete 332-suite run was not repeated after this batch.
+Native and browser review remain outstanding; the wider backlog is unfinished.
+
 ## Finnish import instructions and full placeholder scan — 2026-10-08
 
 Translate eight pending import instructions: Planner, MeisterTask, Obsidian,
