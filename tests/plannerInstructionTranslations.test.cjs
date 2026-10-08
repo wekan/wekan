@@ -384,3 +384,28 @@ for (const code of ['nl', 'nl-NL']) {
   assert.match(locale['import-board-instruction-superproductivity'], /arkiverade uppgifter blir arkiverade kort/);
   assert.match(locale['import-board-instruction-meistertask'], /slutförda uppgifter behåller sitt slutdatum/);
 }
+
+{
+  const locale = read('da');
+  const literals = {...importLiterals, ...newerImportLiterals,
+    planner: ['Microsoft Planner', 'Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+    meistertask: ['MeisterTask', 'Export project', 'CSV']};
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+    for (const value of values) assert.ok(locale[key].includes(value), key + ': ' + value);
+  }
+  for (const format of ['nullboard', 'kanri']) {
+    assert.match(locale['import-board-instruction-' + format], /importeres kun den første tavle/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /alle tavler importeres/);
+  }
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /Vedhæftninger importeres ikke/);
+  assert.match(locale['import-board-instruction-notion'], /Relationer, billeder og vedhæftninger importeres ikke/);
+  assert.match(locale['import-board-instruction-plane'], /ingen beskrivelser eller vedhæftninger.*importeres ikke/);
+  assert.match(locale['import-board-instruction-businessmap'], /først ændre overskriftsrækken til engelsk/);
+  assert.match(locale['import-board-instruction-redmine'], /English i My account før eksporten/);
+  assert.match(locale['import-board-instruction-teamwork'], /ét niveau dybere/);
+  assert.match(locale['import-board-instruction-superproductivity'], /arkiverede opgaver bliver til arkiverede kort/);
+  assert.match(locale['import-board-instruction-meistertask'], /afsluttede opgaver beholder deres afslutningsdato/);
+}
