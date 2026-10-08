@@ -2,6 +2,25 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Bislama lists, logic and mathematics — 2026-10-08
+
+Translate 155 values, including four pending LDAP notices, and directly repair
+the short OR label omitted by the short-string heuristic. Regression checks
+preserve get/remove distinctions, copies versus original lists, AND/OR conditions,
+inclusive integer bounds, the exclusive upper bound for random fractions, exact
+LDAP environment identifiers and all source placeholder inventories.
+
+The ordinary backlog now totals 35,319 values in 54 locales, including 399
+Bislama values. Another 156 source keys are tracked separately as pending; these
+are not evidence of completed translations. Statistics terms and complete software
+phrases remain provisional pending fluent review. Browser and screen-reader
+sessions were not run.
+
+Terminology references include the dictionaries linked below and the
+[Vanuatu education Bislama instruction manual](https://education.gov.vu/docs/ecce-forms/Early%20Child%20Development%20Scales%20Instraksenol%20Manuel%20%28Bislama%29.pdf),
+which provides addition/subtraction vocabulary. These references support words,
+not certification of every drafted sentence.
+
 ## Bislama block controls and read-only login notice — 2026-10-08
 
 Fill 115 Bislama Blockly values and directly translate the short bitmap-on
