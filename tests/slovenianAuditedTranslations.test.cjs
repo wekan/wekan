@@ -41,6 +41,23 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.equal(data['below-selected-card'], 'Pod izbrano kartico');
   assert.equal(data['team-number'], 'Število ekip je: ');
   assert.match(data['listImportCardsTsvPopup-title'], /Excel CSV\/TSV/);
+  const correctedSearch = ["teams", "displayName", "shortName", "person", "my-attachments", "list", "myCardsViewChange-title", "myCardsViewChange-choice-table", "myCardsSortChange-choice-dueat", "dueCards-title", "dueCardsViewChange-title", "dueCardsViewChangePopup-title", "dueCardsViewChange-choice-me", "dueCardsViewChange-choice-all", "globalSearch-title", "n-n-of-n-cards-found", "operator-board", "operator-board-abbrev", "operator-swimlane", "operator-swimlane-abbrev", "operator-list-abbrev", "operator-user", "operator-member-abbrev", "operator-assignee", "operator-assignee-abbrev", "operator-creator", "operator-status", "operator-created", "operator-modified", "operator-sort", "operator-comment", "operator-has", "operator-limit", "operator-debug", "operator-org", "operator-team", "operator-description", "operator-attachment-text", "predicate-archived", "predicate-open", "predicate-ended", "predicate-all", "predicate-overdue", "predicate-week", "predicate-month", "predicate-quarter", "predicate-year", "predicate-modified", "predicate-created", "predicate-attachment", "predicate-description", "predicate-assignee", "predicate-public", "predicate-private", "predicate-selector", "predicate-projection", "operator-unknown-error", "operator-status-invalid", "next-page", "previous-page", "heading-notes", "globalSearch-instructions-status-archived", "link-to-search", "excel-font", "label-colors", "label-names", "archived-at", "sort-cards", "sort-is-on", "cardsSortPopup-title", "due-date", "server-error", "title-alphabetically", "links-heading", "move-swimlane"];
+  for (const key of correctedSearch) {
+    assert.doesNotMatch(data[key], /[\u0400-\u04ff]/, `${locale}:${key}`);
+    assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), `${locale}:${key}`);
+  }
+  const aliases = Object.keys(english).filter(key => /^operator-.*-abbrev$/.test(key)).map(key => data[key]);
+  assert.equal(new Set(aliases).size, aliases.length, 'unique Slovenian search aliases');
+  assert.equal(data['operator-board'], 'tabla');
+  assert.equal(data['operator-swimlane'], 'steza');
+  assert.equal(data['operator-user'], 'uporabnik');
+  assert.equal(data['operator-creator'], 'ustvarjalec');
+  assert.equal(data['predicate-public'], 'javno');
+  assert.equal(data['predicate-private'], 'zasebno');
+  assert.equal(data['next-page'], 'Naslednja stran');
+  assert.equal(data['previous-page'], 'Prejšnja stran');
+  assert.equal(data['excel-font'], 'Arial');
+  assert.equal(data['server-error'], 'Napaka strežnika');
   assert.equal(data.board, 'Tabla');
   assert.equal(data.swimlane, 'Plavalna steza');
   for (const key of Object.keys(english).filter(key => key.startsWith('interrupted-import-'))) {

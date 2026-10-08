@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Slovenian search and card views — 2026-10-08
+
+Replace 75 Serbian values in each Slovenian catalog, for 150 corrections.
+Cover search operators and predicates, card views, sorting and related labels.
+Preserve variables and restore the literal Arial font name. Extend regression
+checks with native vocabulary and unique localized search abbreviations.
+No browser or screen-reader session was run; further wrong-language review and
+remaining translations are unfinished.
+
 ## Slovenian settings and notifications — 2026-10-08
 
 Replace 70 Serbian values in each Slovenian catalog, for 140 corrections.
