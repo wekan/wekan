@@ -936,6 +936,20 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d7ff39eba6">Replace Italian-seeded Aromanian dialogs and filters</a>. Thanks to xet7.</summary>
+
+Correct 47 wrong-language values in dialogs, invitations, export controls and
+filters. Preserve invitation variables and PDF/iCal names; add regression
+checks against restoring the Italian text or replacing it with English.
+New Aromanian phrasing remains low-confidence pending fluent review.
+
+Aromanian, global placeholder and translation audit suites pass. No browser
+or screen-reader session was run. Further Italian-seed candidates and other
+languages remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/76b35e70c6">Translate Aromanian stuck Sync recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 23 messages, preserving applied changes, the unwritten remainder,
