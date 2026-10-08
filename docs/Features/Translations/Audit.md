@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Papiamento Blockly text operations — 2026-10-08
+
+Translate 53 text-operation labels and explanations. Preserve exact source
+variables; check first/last and start/end positions, letter case, trimming sides,
+not-found results, counting spaces and replacing all occurrences. Specialized
+wording is lower confidence and needs native review. No browser or screen-reader
+session was run. Remaining translations are unfinished.
+
 ## Papiamento Blockly keyboard shortcuts — 2026-10-08
 
 Translate 41 English shortcut and key labels. Preserve source variables and key

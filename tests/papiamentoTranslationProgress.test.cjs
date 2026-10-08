@@ -239,3 +239,22 @@ for (const [key, word] of Object.entries({ JUMP_BLOCK_START: 'kuminsamentu', JUM
 assert.match(papiamento['blockly-SPACE_KEY'], /Space/);
 assert.match(papiamento['blockly-TAB_KEY'], /Tab/);
 assert.notEqual(papiamento['blockly-SHORTCUTS_FOCUS_TOOLBOX'], papiamento['blockly-SHORTCUTS_FOCUS_WORKSPACE']);
+
+const blocklyText = ["blockly-TEXT_APPEND_TITLE", "blockly-TEXT_APPEND_TOOLTIP", "blockly-TEXT_CHANGECASE_OPERATOR_LOWERCASE", "blockly-TEXT_CHANGECASE_OPERATOR_TITLECASE", "blockly-TEXT_CHANGECASE_OPERATOR_UPPERCASE", "blockly-TEXT_CHANGECASE_TOOLTIP", "blockly-TEXT_CHARAT_FIRST", "blockly-TEXT_CHARAT_FROM_END", "blockly-TEXT_CHARAT_FROM_START", "blockly-TEXT_CHARAT_LAST", "blockly-TEXT_CHARAT_RANDOM", "blockly-TEXT_CHARAT_TITLE", "blockly-TEXT_CHARAT_TOOLTIP", "blockly-TEXT_COUNT_MESSAGE0", "blockly-TEXT_COUNT_TOOLTIP", "blockly-TEXT_CREATE_JOIN_ITEM_TOOLTIP", "blockly-TEXT_CREATE_JOIN_TITLE_JOIN", "blockly-TEXT_CREATE_JOIN_TOOLTIP", "blockly-TEXT_FROM_END_ARIA", "blockly-TEXT_FROM_START_ARIA", "blockly-TEXT_GET_SUBSTRING_END_FROM_END", "blockly-TEXT_GET_SUBSTRING_END_FROM_START", "blockly-TEXT_GET_SUBSTRING_END_LAST", "blockly-TEXT_GET_SUBSTRING_INPUT_IN_TEXT", "blockly-TEXT_GET_SUBSTRING_START_FIRST", "blockly-TEXT_GET_SUBSTRING_START_FROM_END", "blockly-TEXT_GET_SUBSTRING_START_FROM_START", "blockly-TEXT_GET_SUBSTRING_TOOLTIP", "blockly-TEXT_INDEXOF_OPERATOR_FIRST", "blockly-TEXT_INDEXOF_OPERATOR_LAST", "blockly-TEXT_INDEXOF_TITLE", "blockly-TEXT_INDEXOF_TOOLTIP", "blockly-TEXT_ISEMPTY_TITLE", "blockly-TEXT_ISEMPTY_TOOLTIP", "blockly-TEXT_JOIN_TITLE_CREATEWITH", "blockly-TEXT_JOIN_TOOLTIP", "blockly-TEXT_LENGTH_TITLE", "blockly-TEXT_LENGTH_TOOLTIP", "blockly-TEXT_PRINT_TITLE", "blockly-TEXT_PRINT_TOOLTIP", "blockly-TEXT_PROMPT_TOOLTIP_NUMBER", "blockly-TEXT_PROMPT_TOOLTIP_TEXT", "blockly-TEXT_PROMPT_TYPE_NUMBER", "blockly-TEXT_PROMPT_TYPE_TEXT", "blockly-TEXT_REPLACE_MESSAGE0", "blockly-TEXT_REPLACE_TOOLTIP", "blockly-TEXT_REVERSE_MESSAGE0", "blockly-TEXT_REVERSE_TOOLTIP", "blockly-TEXT_TEXT_TOOLTIP", "blockly-TEXT_TRIM_OPERATOR_BOTH", "blockly-TEXT_TRIM_OPERATOR_LEFT", "blockly-TEXT_TRIM_OPERATOR_RIGHT", "blockly-TEXT_TRIM_TOOLTIP"];
+for (const key of blocklyText) {
+  assert.notEqual(papiamento[key], english[key], key);
+  assert.deepEqual(tokens(papiamento[key]), tokens(english[key]), key);
+}
+for (const prefix of ['TEXT_CHARAT', 'TEXT_INDEXOF_OPERATOR']) {
+  assert.match(papiamento[`blockly-${prefix}_FIRST`], /promé/);
+  assert.match(papiamento[`blockly-${prefix}_LAST`], /último/);
+}
+assert.match(papiamento['blockly-TEXT_CHARAT_FROM_END'], /for di e fin/);
+assert.doesNotMatch(papiamento['blockly-TEXT_CHARAT_FROM_START'], /for di e fin/);
+assert.match(papiamento['blockly-TEXT_CHANGECASE_OPERATOR_LOWERCASE'], /chikí/);
+assert.match(papiamento['blockly-TEXT_CHANGECASE_OPERATOR_UPPERCASE'], /GRANDI/);
+assert.match(papiamento['blockly-TEXT_CHANGECASE_OPERATOR_TITLECASE'], /inisial/);
+for (const [side, word] of Object.entries({ BOTH: 'tur dos', LEFT: 'robes', RIGHT: 'drechi' })) assert.ok(papiamento[`blockly-TEXT_TRIM_OPERATOR_${side}`].includes(word));
+assert.match(papiamento['blockly-TEXT_LENGTH_TOOLTIP'], /inklusivo espasio/);
+assert.match(papiamento['blockly-TEXT_INDEXOF_TOOLTIP'], /%1 si no haña/);
+assert.match(papiamento['blockly-TEXT_REPLACE_TOOLTIP'], /tur aparishon/);
