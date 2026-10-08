@@ -675,3 +675,17 @@ assert.match(wu['list-delete-pop'], /所有操作记录.*勿能恢复.*勿能撤
 assert.match(wu['list-delete-suggest-archive'], /归档.*保留活动记录/);
 assert.match(wu['list-archive-cards-pop'], /所有卡片.*恢复到看板.*菜单.*归档/);
 for (const key of ['list-move-cards', 'list-select-cards']) assert.match(wu[key], /列表里向所有卡片/);
+
+const selectionNotify = ["memberMenuPopup-title", "members", "move-selection", "copy-selection", "moveCardPopup-title", "moveCardToBottom-title", "moveCardToTop-title", "moveSelectionPopup-title", "copySelectionPopup-title", "selection-color", "multi-selection-label", "multi-selection-member", "multi-selection-on", "multi-selection-off", "muted-info", "my-boards", "no-archived-cards", "no-archived-lists", "no-archived-swimlanes", "no-results", "normal-desc", "normal-assigned-only", "normal-assigned-only-desc", "not-accepted-yet", "notify-participate", "notify-watch", "optional"];
+for (const key of selectionNotify) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.equal(wu['move-selection'], wu['moveSelectionPopup-title']);
+assert.equal(wu['copy-selection'], wu['copySelectionPopup-title']);
+for (const key of ['multi-selection-label', 'multi-selection-member']) assert.match(wu[key], /畀选中个项目设置/);
+assert.match(wu['moveCardToBottom-title'], /底下/);
+assert.match(wu['moveCardToTop-title'], /顶浪/);
+assert.match(wu['muted-info'], /任何改动侪勿会通知/);
+assert.match(wu['normal-desc'], /查看搭修改卡片.*勿能修改设置/);
+assert.match(wu['normal-assigned-only-desc'], /只看得见分配畀自家个卡片.*普通用户权限/);
+assert.match(wu['notify-participate'], /创建者或者成员.*任何卡片.*接收通知/);
+assert.match(wu['notify-watch'], /关注.*看板、列表或者卡片.*接收通知/);
+assert.equal(wu.optional, '可选');

@@ -162853,5 +162853,194 @@
     "before": "您可以将列表移至存档以将其从看板中删除并保留活动。",
     "after": "侬可以拿列表移到归档里向，让伊从看板浪移脱，同时保留活动记录。",
     "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "memberMenuPopup-title",
+    "before": "会员设置",
+    "after": "成员设置",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "members",
+    "before": "会员",
+    "after": "成员",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "move-selection",
+    "before": "移动选择",
+    "after": "移动选中个项目",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "copy-selection",
+    "before": "复制选择",
+    "after": "复制选中个项目",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "moveCardPopup-title",
+    "before": "移动卡",
+    "after": "移动卡片",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "moveCardToBottom-title",
+    "before": "移至底部",
+    "after": "移到底下",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "moveCardToTop-title",
+    "before": "移至顶部",
+    "after": "移到顶浪",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "moveSelectionPopup-title",
+    "before": "移动选择",
+    "after": "移动选中个项目",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "copySelectionPopup-title",
+    "before": "复制选择",
+    "after": "复制选中个项目",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "selection-color",
+    "before": "选择颜色",
+    "after": "选中项目个颜色",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "multi-selection-label",
+    "before": "设置标签以供选择",
+    "after": "畀选中个项目设置标签",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "multi-selection-member",
+    "before": "设置成员以供选择",
+    "after": "畀选中个项目设置成员",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "multi-selection-on",
+    "before": "多重选择已开启",
+    "after": "多选打开仔",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "multi-selection-off",
+    "before": "关闭多选",
+    "after": "关脱多选",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "muted-info",
+    "before": "您将永远不会收到有关此版块的任何更改的通知",
+    "after": "搿块看板浪任何改动侪勿会通知侬",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "my-boards",
+    "before": "我的图板",
+    "after": "我个看板",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "no-archived-cards",
+    "before": "存档中没有卡片。",
+    "after": "归档里向呒没卡片。",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "no-archived-lists",
+    "before": "存档中没有列表。",
+    "after": "归档里向呒没列表。",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "no-archived-swimlanes",
+    "before": "存档中没有泳道。",
+    "after": "归档里向呒没泳道。",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "no-results",
+    "before": "没有结果",
+    "after": "呒没结果",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "normal-desc",
+    "before": "可以查看和编辑卡片。无法更改设置。",
+    "after": "可以查看搭修改卡片。勿能修改设置。",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "normal-assigned-only",
+    "before": "仅分配正常",
+    "after": "普通权限，只限分配畀自家个卡片",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "normal-assigned-only-desc",
+    "before": "仅指定的卡可见。以普通用户身份进行编辑。",
+    "after": "只看得见分配畀自家个卡片。可以按普通用户权限修改。",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "not-accepted-yet",
+    "before": "尚未接受邀请",
+    "after": "还朆接受邀请",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "notify-participate",
+    "before": "接收您作为创建者或会员参与的任何卡片的更新",
+    "after": "侬作为创建者或者成员参与个任何卡片有更新，侪接收通知",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "notify-watch",
+    "before": "接收您正在观看的任何图板、列表或卡片的更新",
+    "after": "侬关注个任何看板、列表或者卡片有更新，侪接收通知",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "optional",
+    "before": "选修的",
+    "after": "可选",
+    "reason": "2026-10-08: Correct Wu selection, notification and assigned-role meanings, preserving scope and source tokens; lower-confidence prose needs native review."
   }
 ]

@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu selection and notification corrections — 2026-10-08
+
+Correct 27 selection, membership, archive and notification values. Clarify operations
+on selected items, opposite top/bottom movement, assigned-card visibility and ordinary
+editing limits. Preserve creator/member notification scope and watched objects.
+Refresh exact-value audit records and check source tokens. Wu prose needs native
+review; browser tests were not run and all-language work remains unfinished.
+
 ## Wu member and list-operation corrections — 2026-10-08
 
 Correct 26 member-mapping, role and list-operation values. Preserve board-title
@@ -12609,7 +12617,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,265** exact before/after values, including unflagged
+records contain **23,292** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
