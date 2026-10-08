@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2dcf2f2596ad4167ee2a515b52a9fdca7a3e6884">Correct Tatar board selection and layout controls</a></summary>
+
+- Correct 33 board selection and layout strings, preserving placeholders and
+  distinctions between personal/shared settings, width/height and home removal/deletion.
+- Technical wording remains low confidence pending speaker review.
+- All 74 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1aedd9578e1f7b9cf12a2bcddd7948e65adce031">Correct Tatar checklist activities and workspace controls</a></summary>
 
 - Correct 35 checklist activity, date activity and workspace strings, preserving
