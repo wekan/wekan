@@ -116,6 +116,26 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.match(data['time-adjustment-note'], /niso posamezne delovne seje/);
   assert.match(data['time-adjustment-note'], /Negativne vrednosti so popravki/);
   assert.equal(data.board, 'Tabla');
+  for (const key of Object.keys(english).filter(key => /^(scrum-import-|sync-planning-|scrum-history-checkpoint-|ldap-sync-now)/.test(key))) {
+    assert.notEqual(data[key], english[key], `${locale}:${key}`);
+    assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), `${locale}:${key}`);
+  }
+  assert.match(data['scrum-import-into-board-hint'], /nikoli ne podvojijo/);
+  assert.match(data['scrum-import-card-on-another-board'], /ostala nespremenjena/);
+  assert.match(data['scrum-import-sprint-finished'], /ni bila premaknjena/);
+  assert.match(data['sync-planning-hint'], /najprej po ID-ju v viru, nato po imenu/);
+  assert.match(data['sync-planning-hint'], /prva sinhronizacija pa nikoli ne odstrani/);
+  assert.match(data['scrum-history-checkpoint-hint'], /ni spremenil nihče drug/);
+  assert.match(data['scrum-history-checkpoint-hint'], /noben zapis pa se ne spremeni/);
+  assert.match(data['scrum-history-checkpoint-discard-confirm'], /že zapisala/);
+  assert.match(data['ldap-sync-now-nothing'], /LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS/);
+  assert.match(data['ldap-sync-now-nothing'], /LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED/);
+  assert.ok(data['external-link-rules-description'].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
+  assert.ok(data['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+  assert.match(data['r-moved-forward'], /naprej/);
+  assert.match(data['r-moved-back'], /nazaj/);
+  assert.match(data['login-origin-mismatch'], /ROOT_URL/);
+  assert.match(data['login-setting-env-only'], /samo strežniško okolje/);
   for (const key of Object.keys(english).filter(key => key.startsWith('stuck-sync-operation-'))) {
     assert.notEqual(data[key], english[key], `${locale}:${key}`);
     assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), `${locale}:${key}`);

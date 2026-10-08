@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Slovenian controls and planning — 2026-10-08
+
+Translate 51 messages in each Slovenian catalog, for 102 filled values.
+Cover controls, import guidance, LDAP, login settings, planning imports and
+history recovery. Preserve variables, literal examples and existing translations.
+Extend regression checks for matching priority, non-duplication and recovery choices.
+No browser or screen-reader session was run; other languages and broader
+linguistic review remain unfinished.
+
 ## Slovenian stalled synchronization recovery — 2026-10-08
 
 Translate 23 messages in each Slovenian catalog, for 46 filled values.
