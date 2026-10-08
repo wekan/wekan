@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cf51fdde3bfd4d9d0e25bf5e869f4267feaf56e3">Translate Odia text case and character selection</a></summary>
+
+- Fill 20 Odia shortcut and text-operation placeholders, preserving existing
+  translations, letter case, copy semantics and indexed operand roles.
+- Technical wording remains low confidence pending speaker review.
+- All 57 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Odia translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a1c1b3c713cbe246f1b3134a93ee89049cd53c6e">Translate Odia directional keyboard shortcuts</a></summary>
 
 - Fill 22 Odia navigation placeholders, preserving existing translations,
