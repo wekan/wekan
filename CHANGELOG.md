@@ -1055,6 +1055,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f24679213d">Translate Afrikaans List Sync recovery messages</a>. Thanks to xet7.</summary>
+
+Translate 23 English recovery messages in both Afrikaans catalogs (46 values).
+Preserve counters and existing terminology, with checks for retained changes,
+unwritten changes, revoked access, replayability and the oldest-50 limit.
+
+Three focused translation suites and 21 human-preference checks pass.
+No browser or screen-reader session was run. Further vocabulary review
+and remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/dab22934dd">Translate Icelandic planning and settings messages</a>. Thanks to xet7.</summary>
 
 Translate 51 English messages for planning, imports, link rules, settings and
