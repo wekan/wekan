@@ -9476,6 +9476,16 @@ key order and tokens. Technical wording remains low confidence pending
 speaker review. Browser checks were not run. Short labels and keyboard
 names still need work; the wider language audit remains unfinished.
 
+## Konkani keyboard names and short Blockly labels
+
+Filled 27 English-identical values, including short labels omitted by the fill
+tool, after asserting each still matched English. Existing translations were
+retained. Keyboard names retain recognizable key markings with a Konkani
+key label. Coverage checks markings, ordinal roles, consistent procedure
+labels, control clauses, script, key order and tokens. Technical wording
+remains low confidence pending speaker review. Browser and screen-reader
+checks were not run; other short labels and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
