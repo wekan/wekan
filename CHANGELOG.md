@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6b08c3d3dd">Translate Kashubian Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
+
+Translate 31 values, preserving exact variables, keyboard names and count roles.
+Regression checks distinguish rollback from keeping records and preserve planning.
+The completed translation batches, placeholder and language wiring suites now all
+pass, as do focused checks and all 21 preservation checks. Recovery prose has lower
+confidence and needs native review. These checks cover registered batches; browser
+checks and the remaining all-language translations are still outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/10a3a73023">Translate Scottish Gaelic Scrum planning and recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 31 values, preserving exact variables, keyboard names and count roles.
