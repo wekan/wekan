@@ -1055,6 +1055,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/fb9b6e442e">Correct Croatian monitoring and flow explanations</a>. Thanks to xet7.</summary>
+
+Correct 66 Cyrillic-containing values in jobs, monitoring, flow explanations
+and time adjustments. Preserve variables and technical names. Check forecast
+limits, missing history, sample thresholds and correction semantics.
+
+Four focused translation suites and 21 human-preference checks pass.
+No browser or screen-reader session was run. Further vocabulary review
+and remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/47fb6b7d5a">Correct Croatian migration and storage translations</a>. Thanks to xet7.</summary>
 
 Replace 80 Serbian values with Croatian. Cover migrations, S3 storage,
