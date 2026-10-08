@@ -9375,6 +9375,15 @@ checks those details, script, key order and tokens. Mathematical terminology
 remains low confidence pending speaker review. Browser checks were not run;
 further Konkani translations and the broader audit remain unfinished.
 
+## Konkani workspace navigation and function definitions
+
+Filled 34 English placeholders for navigation, typed variables and functions.
+The placeholder-only merge retained existing translations. Regression coverage
+checks return-value distinctions, disabled-definition and scope warnings,
+distinct variable types, script, key order and tokens. Technical terminology
+remains low confidence pending speaker review. Browser checks were not run;
+further Konkani translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
