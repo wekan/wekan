@@ -671,6 +671,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/956932e01a">Translate final Zulu import instruction group</a>. Thanks to xet7.</summary>
+
+Fill seven instructions per Zulu catalog. Tests preserve commands, columns,
+hierarchy markers, English-header requirements and excluded-data warnings.
+All three targeted suites and 21 preservation checks pass. Specialized terminology
+needs speaker review; browser execution and remaining translations are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2cf65610d4">Translate middle Zulu import instruction group</a>. Thanks to xet7.</summary>
 
 Fill nine instructions per Zulu catalog, preserving commands and formats.
