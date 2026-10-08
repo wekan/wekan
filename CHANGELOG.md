@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ff8985d1bd">Correct Wu administration and field-scope translations</a>. Thanks to xet7.</summary>
+
+Correct nineteen Wu administration, custom-field and organization values. Preserve
+variables, product names, field scope and multitenancy configuration literals.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3511aa9f18">Correct Wu limits and mail-setting translations</a>. Thanks to xet7.</summary>
 
 Correct twenty-four Wu limits, invitation and mail-setting values. Preserve
