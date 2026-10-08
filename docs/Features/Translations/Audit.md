@@ -9703,6 +9703,17 @@ checks passed. Technical wording remains low confidence pending speaker
 review. Browser checks were not run; further translations and the broader
 audit remain unfinished.
 
+## Turkmen Sync diagnostics and mail failures
+
+Filled 20 English placeholders for Sync diagnostics, estimate mappings and
+mail failures. Existing translations were retained. Coverage checks write
+access, uncertain outcomes, missing-versus-null values, hour units and
+delivery uncertainty, plus key order and tokens. Of 62 checks, 60 passed;
+two repository-wide checks still fail because other locales lack
+custom-colors-in-use. All 21 human-preference checks passed. Technical wording
+remains low confidence pending speaker review. Browser checks were not run;
+further translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
