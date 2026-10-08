@@ -1055,6 +1055,18 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8e6ec95241">Translate Yiddish Blockly list mutation and logic</a>. Thanks to xet7.</summary>
+
+Translate 45 English list and logic messages, preserving variables and index
+markers. Check insertion versus replacement, operations on copies, missing-item
+results and Boolean values. Four focused translation suites and 21 human-preference
+checks pass. Specialized programming wording is lower confidence and needs native
+review. No browser or screen-reader session was run. Remaining translations
+are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e4dfedb616">Translate Yiddish Blockly navigation and list messages</a>. Thanks to xet7.</summary>
 
 Translate 50 English text-input, keyboard-navigation and list messages. Preserve
