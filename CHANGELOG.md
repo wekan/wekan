@@ -487,6 +487,17 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/46816ff9b5">Translate Papiamento Blockly editing and color messages</a>. Thanks to xet7.</summary>
+
+Translate 30 English Blockly messages. Preserve numbered variables, key names and
+numeric bounds; use the shared placeholder parser in the locale test and clarify
+its historical baseline. Four focused translation suites and 21 human-preference
+checks pass. Specialized wording is lower confidence and needs native review.
+No browser or screen-reader session was run. Remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3eb64a2c19">Translate remaining Yiddish import and history recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 33 remaining English fill-list entries. Check deletion scope, retained
