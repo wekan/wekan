@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5383509a30509b3dfb0a7e2fc1c905cfe4373ebb">Translate Tatar block controls and correct activity wording</a></summary>
+
+- Fill 24 Blockly placeholders and correct nine mixed-language activity and
+  comment strings, preserving source placeholders and correct Tatar translations.
+- Technical wording remains low confidence pending speaker review.
+- All 41 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Tatar corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/dd19d28474693171688ab18f6625df5009cb322d">Translate Central Kurdish recovery controls</a></summary>
 
 - Fill 25 Sorani recovery strings, preserving existing translations and placeholders.
