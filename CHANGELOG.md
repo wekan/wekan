@@ -487,6 +487,17 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ed5d5895b8">Complete current Papiamento Blockly translations</a>. Thanks to xet7.</summary>
+
+Translate 44 variable, workspace, search and alias messages. The current full fill
+list has no Blockly entries; other Papiamento translations remain unfinished.
+Four focused translation suites and 21 human-preference checks pass.
+Specialized wording is lower confidence and needs native review. No browser or
+screen-reader session was run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/57b32d6d15">Translate Papiamento Blockly text operations</a>. Thanks to xet7.</summary>
 
 Translate 53 text-operation labels and explanations, preserving variables and
