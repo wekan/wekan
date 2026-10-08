@@ -6,7 +6,7 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 (async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   const en = read('en'), bg = read('bg');
-  for (const key of Object.keys(en).filter(key => /^(interrupted-import-|stuck-sync-operation-)/.test(key))) {
+  for (const key of Object.keys(en).filter(key => /^(interrupted-import-|stuck-sync-operation-|scrum-import-|sync-planning-|scrum-history-checkpoint-|ldap-sync-now)/.test(key))) {
     assert.notEqual(bg[key], en[key], key);
     assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
     assert.match(bg[key], /[А-Яа-я]/, key);
@@ -22,6 +22,22 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(bg['stuck-sync-operation-description'], /никога не се записват/);
   assert.match(bg['stuck-sync-operation-replayable-now'], /не може да бъде отхвърлена/);
   assert.match(bg['stuck-sync-operation-replayable'], /не беше отхвърлена/);
+  assert.match(bg['scrum-import-into-board-hint'], /никога не се дублират/);
+  assert.match(bg['scrum-import-card-on-another-board'], /оставена непроменена/);
+  assert.match(bg['scrum-import-sprint-finished'], /не е преместена/);
+  assert.match(bg['sync-planning-hint'], /първо по ID в източника, после по име/);
+  assert.match(bg['sync-planning-hint'], /първото синхронизиране никога не премахва/);
+  assert.match(bg['scrum-history-checkpoint-hint'], /никой друг не е променил/);
+  assert.match(bg['scrum-history-checkpoint-hint'], /не променя нито един запис/);
+  assert.match(bg['scrum-history-checkpoint-discard-confirm'], /вече е записала/);
+  assert.match(bg['ldap-sync-now-nothing'], /LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS/);
+  assert.match(bg['ldap-sync-now-nothing'], /LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED/);
+  assert.ok(bg['external-link-rules-description'].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
+  assert.ok(bg['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+  assert.match(bg['r-moved-forward'], /напред/);
+  assert.match(bg['r-moved-back'], /назад/);
+  assert.match(bg['login-origin-mismatch'], /ROOT_URL/);
+  assert.match(bg['login-setting-env-only'], /само от средата на сървъра/);
   const keys = ['act-createSwimlane', 'act-archivedSwimlane', 'setSwimlaneHeightPopup-title',
     'set-swimlane-height', 'set-swimlane-height-value', 'swimlane-height-error-message',
     'swimlaneActionPopup-title', 'swimlaneAddPopup-title', 'welcome-swimlane',

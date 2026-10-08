@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Bulgarian controls and planning — 2026-10-08
+
+Translate 51 messages for controls, import guidance, LDAP, login settings, planning
+imports, synchronization and history recovery. Preserve existing localized values,
+source variables and literal examples. Extend Bulgarian regression checks for
+matching priority, non-duplication, unchanged cards and recovery choices.
+No browser or screen-reader session was run; other languages and broader
+linguistic review remain unfinished.
+
 ## Bulgarian import and synchronization recovery — 2026-10-08
 
 Translate 48 messages for interrupted imports and stalled synchronization.
