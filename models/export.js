@@ -369,6 +369,8 @@ if (Meteor.isServer) {
         res.end(workbook);
         return;
       }
+      // Every other format is one JSON document - Kanri's board export
+      // (models/lib/kanriFormat.js) among them - sent as it is.
       sendJsonResult(res, { code: 200, data: built });
     };
     if (board.isPublic()) {

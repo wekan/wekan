@@ -337,7 +337,7 @@ test('every external export menu link returns text and refuses an unrelated user
   // Include description through the actual shared selection controls.
   const details = page.locator('.js-export-card-details-toggle');
   if (await details.getAttribute('aria-checked') !== 'true') await details.click();
-  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'opml', 'orgmode']) {
+  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri', 'opml', 'orgmode']) {
     await test.step(format, async () => {
       const anchor = page.locator(`.js-pop-over a[href*="/export/${format}?"]`);
       await expect(anchor).toBeVisible();
@@ -351,6 +351,84 @@ test('every external export menu link returns text and refuses an unrelated user
       expect([401, 403]).toContain(refused.status());
     });
   }
+});
+
+// A Kanri single-board export: columns, a card with its description, due date,
+// tasks, colored tags and card color (models/lib/kanriFormat.js).
+test('Kanri: a board export imports with its columns, description, due date, tasks, tags and colors', async ({ loggedInPage: page }) => {
+  let boardId;
+  const tag = { id: 'g1', text: expected.label, color: '#E44057', style: 'background-color: #E44057; color: #f4f4f5' };
+  try {
+    await navigateInApp(page, '/import/kanri');
+    await page.locator('#import-textarea').fill(JSON.stringify({
+      id: 'kb1', title: 'From Kanri', background: null, lastEdited: '2026-10-01T00:00:00.000Z', globalTags: [tag],
+      columns: [
+        { id: 'c1', title: 'Doing', cards: [{
+          id: 'k1', name: expected.title, description: 'Two of them', color: 'bg-red-600',
+          dueDate: '2026-10-10T12:00:00.000Z', isDueDateCompleted: true,
+          tasks: [{ id: 't1', name: 'Call vendor', finished: true }, { id: 't2', name: 'Pay', finished: false }],
+          tags: [tag],
+        }] },
+        { id: 'c2', title: 'Done', cards: [{ name: 'Finished task', color: '#0D9488' }] },
+      ],
+    }, null, 2));
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    const board = db.findOne('boards', { _id: boardId });
+    expect(board.title).toBe('From Kanri');
+    const cards = db.find('cards', { boardId });
+    expect(cards).toHaveLength(2);
+    const open = cards.find(card => card.title === expected.title);
+    expect(open.labelIds.map(id => board.labels.find(l => l._id === id)).map(l => [l.name, l.color]))
+      .toEqual([[expected.label, '#e44057']]);
+    expect(open.description).toBe('Two of them');
+    expect(open.color).toBe('red');
+    expect(open.dueComplete).toBe(true);
+    expect(new Date(open.dueAt).toISOString().slice(0, 10)).toBe('2026-10-10');
+    expect(db.find('checklistItems', { cardId: open._id }).map(item => [item.title, item.isFinished]))
+      .toEqual([['Call vendor', true], ['Pay', false]]);
+    const finished = cards.find(card => card.title === 'Finished task');
+    expect(finished.color).toBe('#0d9488');
+    const lists = db.find('lists', { boardId });
+    expect(lists.find(list => list._id === open.listId).title).toBe('Doing');
+    expect(lists.find(list => list._id === finished.listId).title).toBe('Done');
+    await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
+
+// Kanri's all-data export holds every board: one import makes one board, the
+// first, and the rest are reported rather than silently dropped.
+test('Kanri: an all-data export imports its first board; other documents are refused', async ({ loggedInPage: page }) => {
+  let boardId;
+  const kanriBoard = (id, title, card) => ({ id, title, columns: [{ id: `${id}-c`, title: 'Todo', cards: [{ name: card }] }] });
+  try {
+    await navigateInApp(page, '/import/kanri');
+    await page.locator('#import-textarea').fill(JSON.stringify({
+      activeTheme: 'dark', colors: {}, pins: [],
+      boards: [kanriBoard('a', 'First Kanri board', expected.title), kanriBoard('b', 'Second Kanri board', 'Not imported')],
+    }));
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    expect(db.findOne('boards', { _id: boardId }).title).toBe('First Kanri board');
+    expect(db.find('cards', { boardId }).map(card => card.title)).toEqual([expected.title]);
+    expect(db.find('boards', { title: 'Second Kanri board' })).toHaveLength(0);
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+  // Negative: malformed JSON, a document without columns or boards, and an
+  // all-data file without boards create nothing.
+  await navigateInApp(page, '/import/kanri');
+  await page.locator('#import-textarea').fill('{broken');
+  await page.locator('.js-import-without-mapping').click();
+  await expect(page.locator('.warning').first()).toBeVisible();
+  const results = await page.evaluate(async () => {
+    const attempt = async doc => {
+      try { await Meteor.callAsync('importBoard', doc, {}, 'kanri'); return 'allowed'; } catch (e) { return e.error; }
+    };
+    return [await attempt({ title: 'Not a Kanri board' }), await attempt({ boards: [], colors: {} })];
+  });
+  expect(results).toEqual(['invalid-import-format', 'invalid-import-format']);
+  await expect(page).toHaveURL(/\/import\/kanri$/);
 });
 
 // A ClickUp workspace export: status, list, assignee, tags, a due date in milliseconds and a subtask.

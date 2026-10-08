@@ -262,6 +262,16 @@ Meteor.methods({
         importedBoard = sanitizeImported(importedBoard, 'planner', this);
         creator = new KanboardCreator(data, 'planner');
         break;
+      case 'kanri':
+        // Kanri's JSON export, one board or all data - see models/lib/kanriFormat.js.
+        check(board, Object);
+        try {
+          importedBoard = EXTERNAL_PARSERS.kanri(importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        creator = new KanboardCreator(data, 'kanri');
+        break;
       case 'orgmode':
         // An Org mode outline (Emacs, Orgzly, Beorg) - see models/lib/orgModeFormat.js.
         check(board, String);

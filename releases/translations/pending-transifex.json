@@ -1027,6 +1027,10 @@
     {
       "key": "import-board-instruction-nullboard",
       "since": "2026-10-08"
+    },
+    {
+      "key": "import-board-instruction-kanri",
+      "since": "2026-10-08"
     }
   ]
 }

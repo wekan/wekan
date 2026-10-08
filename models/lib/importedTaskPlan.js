@@ -8,6 +8,7 @@
 //   date_started, date_end, date_creation   - dates (see importedDate)
 //   archived                                - true for a closed/done-and-archived item
 //   color                                   - a WeKan card color or a hex value
+//   due_complete                            - true when the due date is marked done
 //   spent_hours                             - time already spent, in hours
 //   assignees: [source user key]            - more people besides the owner
 //   checklists: [{ title, items: [{ title, done }] }]
@@ -107,6 +108,7 @@ export function planImportedTask(task, { members = {}, allowedColors = [], board
   }
   const color = importedColor(task.color, allowedColors);
   if (color) card.color = color;
+  if (task.due_complete === true && card.dueAt) card.dueComplete = true;
   const spent = Number(task.spent_hours);
   if (task.spent_hours !== undefined && task.spent_hours !== null && Number.isFinite(spent) && spent > 0) {
     card.spentTime = spent;
@@ -132,6 +134,21 @@ export function planImportedTask(task, { members = {}, allowedColors = [], board
       .map(comment => importedComment(comment, members))
       .filter(Boolean),
   };
+}
+
+// The board labels for the tasks' tags, one per name. A tag is a name, or
+// { name, color } when the source has label colors (Kanri); the first color
+// seen for a name wins, and a tag without a usable color is black, as before.
+export function planImportedLabels(tasks, allowedColors = []) {
+  const labels = new Map();
+  (Array.isArray(tasks) ? tasks : []).forEach(task => {
+    (Array.isArray(task && task.tags) ? task.tags : []).forEach(tag => {
+      const name = typeof tag === 'string' ? tag : tag && tag.name;
+      if (!name || labels.has(name)) return;
+      labels.set(name, importedColor(tag && tag.color, allowedColors) || 'black');
+    });
+  });
+  return [...labels.entries()].map(([name, color]) => ({ name, color }));
 }
 
 // --- Board-level relationships ------------------------------------------------

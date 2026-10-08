@@ -5,10 +5,11 @@ import Boards from './boards';
 import Cards from '/models/cards';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
-import { CARD_COLORS } from '/models/metadata/colors';
+import { CARD_COLORS, LABEL_COLORS } from '/models/metadata/colors';
 import {
   importedCustomFieldValues,
   planImportedCustomFields,
+  planImportedLabels,
   planImportedLinks,
   planImportedTask,
 } from '/models/lib/importedTaskPlan';
@@ -137,13 +138,9 @@ export class KanboardCreator {
       stars: 0,
       title,
     };
-    // Tags -> board labels.
-    const tagNames = new Set();
-    for (const task of this._tasks(data)) {
-      (task.tags || []).forEach(t => tagNames.add(typeof t === 'string' ? t : t.name));
-    }
-    for (const name of tagNames) {
-      if (name) boardToCreate.labels.push({ _id: Random.id(6), color: 'black', name });
+    // Tags -> board labels, black unless the source gives a color.
+    for (const { name, color } of planImportedLabels(this._tasks(data), LABEL_COLORS)) {
+      boardToCreate.labels.push({ _id: Random.id(6), color, name });
     }
 
     const boardId = await Boards.direct.insertAsync(boardToCreate);
@@ -223,7 +220,7 @@ export class KanboardCreator {
       if (cardToCreate.archived) cardToCreate.archivedAt = this._now();
       for (const t of task.tags || []) {
         const name = typeof t === 'string' ? t : t.name;
-        const label = name && board.getLabel(name, 'black');
+        const label = name && (board.labels || []).find(l => l.name === name);
         if (label) cardToCreate.labelIds.push(label._id);
       }
       if (plan.memberIds.length) cardToCreate.members = plan.memberIds;

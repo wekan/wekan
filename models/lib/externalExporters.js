@@ -113,6 +113,8 @@ async function collect(boardId, fields, format) {
       listTitle: listById[c.listId] || '',
       swimlaneTitle: swById[c.swimlaneId] || 'Default',
       dueAt: iso(c.dueAt),
+      ...(c.dueAt && c.dueComplete ? { dueComplete: true } : {}),
+      ...(c.color ? { color: c.color } : {}),
       labelIds: c.labelIds || [],
       labels: (c.labelIds || []).map(id => labelById[id]).filter(Boolean),
       ...(want('dates') ? { startAt: iso(c.startAt), endAt: iso(c.endAt), createdAt: iso(c.createdAt) } : {}),

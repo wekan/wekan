@@ -471,6 +471,7 @@ const IMPORT_SOURCES = [
   { key: 'ticktick', name: 'TickTick' },
   { key: 'clickup', name: 'ClickUp' },
   { key: 'nullboard', name: 'Nullboard' },
+  { key: 'kanri', name: 'Kanri' },
 ];
 
 Template.import.helpers({

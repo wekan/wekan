@@ -10,6 +10,7 @@ import { parseLinearCsv } from './linearCsvFormat.js';
 import { parseTickTickCsv } from './ticktickCsvFormat.js';
 import { parseClickUpCsv } from './clickupCsvFormat.js';
 import { parseNullboard } from './nullboardFormat.js';
+import { parseKanri } from './kanriFormat.js';
 import { parseOrgMode } from './orgModeFormat.js';
 import {
   gitlabScrumPlanning, openProjectScrumPlanning, asanaScrumPlanning, STORY_POINTS_FIELD,
@@ -978,6 +979,8 @@ export const EXTERNAL_PARSERS = {
   clickup: parseClickUpCsv,
   // A Nullboard .nbx board file, JSON text (nullboardFormat.js).
   nullboard: parseNullboard,
+  // Kanri's JSON export: one board, or all data (its first board).
+  kanri: parseKanri,
   orgmode: parseOrgMode,
   jira: parseJira,
 };

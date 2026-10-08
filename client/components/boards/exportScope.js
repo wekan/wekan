@@ -250,6 +250,7 @@ const EXPORT_FORMAT_GROUPS = [
       { key: 'ticktick', icon: 'fa-check-circle-o', label: 'TickTick', path: 'export/ticktick', ext: 'csv', scopes: BOARD_ONLY },
       { key: 'clickup', icon: 'fa-check-square', label: 'ClickUp', path: 'export/clickup', ext: 'csv', scopes: BOARD_ONLY },
       { key: 'nullboard', icon: 'fa-sticky-note-o', label: 'Nullboard', path: 'export/nullboard', ext: 'nbx', scopes: BOARD_ONLY },
+      { key: 'kanri', icon: 'fa-columns', label: 'Kanri', path: 'export/kanri', ext: 'json', scopes: BOARD_ONLY },
       ...[
         ['trello', 'Trello'], ['jira', 'Jira'], ['deck', 'NextCloud Deck'],
         ['openproject', 'OpenProject'], ['github', 'GitHub'], ['gitlab', 'GitLab'],
