@@ -8238,6 +8238,15 @@ existing correct-language OAuth/passwordless translations. Technical wording
 remains low confidence pending speaker review. Focused tests cover key order,
 source tokens and literal configuration syntax; browser checks were not run.
 
+## Tatar due reminders and account-deletion corrections
+
+Corrected 33 wrong-language reminder, positioning, deletion and display values.
+Preserved old/new date tokens, all mention fields, the first-reminder distinction,
+and irreversible user/team/organization/swimlane deletion warnings. Retained valid
+loading and card-edit messages. Technical wording remains low confidence pending
+speaker review. Focused tests check key order, placeholder inventories, reminder
+states and deletion warnings; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
