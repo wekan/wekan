@@ -71,3 +71,14 @@ try {
 } finally {
   fs.rmSync(dir, { recursive: true, force: true });
 }
+
+// A prose mention of Upcoming inside Status is not a release heading. Linked
+// completed-change summaries belong below an actual top-level release heading.
+{
+  const changelog = require('node:fs').readFileSync(require('node:path').join(__dirname, '../CHANGELOG.md'), 'utf8');
+  const release = /^# (?:Upcoming WeKan ® release|v\d[^\n]*release)$/m.exec(changelog);
+  require('node:assert/strict').ok(release, 'a top-level release heading exists');
+  require('node:assert/strict').doesNotMatch(changelog.slice(0, release.index),
+    /<summary><a href="https:\/\/github\.com\/wekan\/wekan\/commit\//,
+    'completed change entries must not be inserted in Status or TODO Later');
+}

@@ -54,51 +54,6 @@ https://wekan.fi/status/
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/58ce223329">Translate more card-field help and Bislama blocks</a>. Thanks to xet7.</summary>
-
-- Add 74 translations across 16 locales and correct three Bislama color
-  wrappers. Preserve field hiding/restoration semantics, color ranges,
-  variable-deletion restrictions and Blockly loop/conditional behavior.
-- Preserve exact placeholders, including numbered Blockly arguments. Keep
-  Bislama's native red label without exempting English sentences or other
-  locales. Tests cover both valid terms and changed-source rejection.
-- The 37 relevant suites, the additional invariant suite and 21 human-preference
-  checks pass. Script and translated rendering checks cover the card fields.
-  Browser and screen-reader sessions were not run. Provisional wording and the
-  remaining mixed-language/translation audit stay open.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/3ec8138130">Translate remaining keyboard labels in six locales</a>. Thanks to xet7.</summary>
-
-- Fill 119 keyboard and card-field strings in Akan, Māori, Northern Sotho,
-  Somali, Tok Pisin and Waray. Their full fill reports now contain no remaining
-  placeholders; this measures coverage rather than fluency.
-- Preserve recognizable physical keys, opposite navigation directions,
-  card-field hiding scope and exact source variables. Existing translations
-  are retained. All 31 relevant suites and 21 human-preference checks pass.
-- New software wording is provisional, especially in Akan, Northern Sotho and
-  Waray. Terminology sources are recorded in the translation audit. Browser
-  and screen-reader sessions were not run; the broader translation work remains.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/e503945ef1">Report locale text coverage accurately</a>. Thanks to xet7.</summary>
-
-The README now reports 182 of 234 locale catalogs with non-English text for
-more than 90 percent of source keys. This replaces the stale count of 171
-and the stronger, unverified claim that those translations are essentially
-complete. The source-derived language-wiring check retains the exact numeric
-assertion and requires the wording to distinguish coverage from quality.
-
-Validation: all six language-wiring checks pass. The other 21 additional
-locale, notification-language and Transifex suites passed in the related run.
-
-</details>
-
-<details>
 <summary>TODO Later</summary>
 
 <details>
@@ -431,7 +386,7 @@ Status checked on 2026-10-08. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **35,585 untranslated locale/string values in 54 languages**.
+  report counts **35,470 untranslated locale/string values in 54 languages**.
   It excludes **151 source keys tracked separately as pending Transifex**.
   Exact Blockly OS brands and compact math/code symbols no longer inflate
   the prose backlog. Counts are a snapshot; they do not establish the quality
@@ -1961,6 +1916,66 @@ more translated help text and refreshed translation audit checks.
 connection** reports success only when the directory answered.
 
 This release hardens the login settings:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/59e67383ec">Translate Bislama controls and read-only login guidance</a>. Thanks to xet7.</summary>
+
+- Translate 116 Bislama Blockly labels, including the short bitmap-on label,
+  and 62 environment-only login notices visible through 63 locale paths.
+  Preserve bitmap states, operand roles, placeholder order and read-only scope.
+- All 321 translation/i18n suites and 21 human-preference checks pass.
+  Browser and screen-reader sessions were not run; Bislama software compounds
+  remain provisional and the broader translation audit continues.
+- This shared-checkout commit also contains catalog additions being staged by
+  the concurrent login-settings workflow. Their English placeholders remain
+  tracked for translation; no unrelated implementation code was included.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/58ce223329">Translate more card-field help and Bislama blocks</a>. Thanks to xet7.</summary>
+
+- Add 74 translations across 16 locales and correct three Bislama color
+  wrappers. Preserve field hiding/restoration semantics, color ranges,
+  variable-deletion restrictions and Blockly loop/conditional behavior.
+- Preserve exact placeholders, including numbered Blockly arguments. Keep
+  Bislama's native red label without exempting English sentences or other
+  locales. Tests cover both valid terms and changed-source rejection.
+- The 37 relevant suites, the additional invariant suite and 21 human-preference
+  checks pass. Script and translated rendering checks cover the card fields.
+  Browser and screen-reader sessions were not run. Provisional wording and the
+  remaining mixed-language/translation audit stay open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3ec8138130">Translate remaining keyboard labels in six locales</a>. Thanks to xet7.</summary>
+
+- Fill 119 keyboard and card-field strings in Akan, Māori, Northern Sotho,
+  Somali, Tok Pisin and Waray. Their full fill reports now contain no remaining
+  placeholders; this measures coverage rather than fluency.
+- Preserve recognizable physical keys, opposite navigation directions,
+  card-field hiding scope and exact source variables. Existing translations
+  are retained. All 31 relevant suites and 21 human-preference checks pass.
+- New software wording is provisional, especially in Akan, Northern Sotho and
+  Waray. Terminology sources are recorded in the translation audit. Browser
+  and screen-reader sessions were not run; the broader translation work remains.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e503945ef1">Report locale text coverage accurately</a>. Thanks to xet7.</summary>
+
+The README now reports 182 of 234 locale catalogs with non-English text for
+more than 90 percent of source keys. This replaces the stale count of 171
+and the stronger, unverified claim that those translations are essentially
+complete. The source-derived language-wiring check retains the exact numeric
+assertion and requires the wording to distinguish coverage from quality.
+
+Validation: all six language-wiring checks pass. The other 21 additional
+locale, notification-language and Transifex suites passed in the related run.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a7628504f1">Header login is set by the environment only, and shown read-only in the Admin Panel</a>. Thanks to xet7.</summary>
