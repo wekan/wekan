@@ -57,6 +57,17 @@ console.log('upcomingTurkishTranslationFill: 5 tests passed');
   assert.match(translated['r-moved-forward'], /ilerideki/);
   assert.match(translated['r-moved-back'], /önceki/);
   assert.match(translated['login-origin-mismatch'], /ROOT_URL/);
+  for (const key of Object.keys(en).filter(key => /^(scrum-import-|sync-planning-|scrum-history-checkpoint-)/.test(key))) {
+    assert.notStrictEqual(translated[key], en[key], `${key}: translate planning recovery`);
+  }
+  assert.match(translated['scrum-import-into-board-hint'], /asla çoğaltılmaz/);
+  assert.match(translated['scrum-import-card-on-another-board'], /değiştirilmeden bırakıldı/);
+  assert.match(translated['scrum-import-sprint-finished'], /taşınmadı/);
+  assert.match(translated['sync-planning-hint'], /önce kaynak kimliğine, ardından ada/);
+  assert.match(translated['sync-planning-hint'], /ilk eşitleme planlamayı asla kaldırmaz/);
+  assert.match(translated['scrum-history-checkpoint-hint'], /başka hiç kimse değiştirmemişse/);
+  assert.match(translated['scrum-history-checkpoint-hint'], /hiçbir kaydı değiştirmez/);
+  assert.match(translated['scrum-history-checkpoint-discard-confirm'], /zaten yazdığı değişiklikler de dahil/);
   assert.strictEqual(translated['scrum-product-backlog'], 'Ürün İş Listesi');
   assert.strictEqual(translated['scrum-sprint'], 'Sprint', 'established Turkish Scrum vocabulary');
   assert.strictEqual(translated['blockly-ENTER_KEY'], 'Enter', 'keyboard legend');

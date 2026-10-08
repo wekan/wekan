@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Turkish planning imports and history recovery — 2026-10-08
+
+Translate 29 current messages for release selection, planning imports,
+planning synchronization and conflicted history recovery. Preserve source
+variables, matching priority, non-duplication and recovery choices. Extend
+the Turkish suite with positive and negative decision checks. No browser
+or screen-reader session was run; broader linguistic review remains open.
+
 ## Turkish controls, import guidance and stalled synchronization — 2026-10-08
 
 Translate 44 current Turkish messages, retaining localized values. Cover board
