@@ -36,3 +36,21 @@ for (const language of ['af', 'af_ZA']) {
   assert.match(locale['stuck-sync-operation-truncated'], /50 oudste/);
   assert.match(locale['stuck-sync-operation-busy'], /sinchroniseer tans/);
 }
+
+const interruptedImportKeys = Object.keys(english).filter(key => key.startsWith('interrupted-import-'));
+assert.equal(interruptedImportKeys.length, 25);
+for (const language of ['af', 'af_ZA']) {
+  const locale = JSON.parse(fs.readFileSync(path.join(root, `imports/i18n/data/${language}.i18n.json`), 'utf8'));
+  for (const key of interruptedImportKeys) {
+    assert.notEqual(locale[key], english[key], key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), key);
+  }
+  assert.match(locale['interrupted-import-description'], /bronlêer nie bewaar word nie/);
+  assert.match(locale['interrupted-import-description'], /enigiets wat sedertdien bygevoeg is/);
+  assert.match(locale['interrupted-import-counts'], /__swimlanes__ swembane/);
+  assert.match(locale['interrupted-import-discard-confirm'], /permanent verwyder/);
+  assert.match(locale['interrupted-import-keep-confirm'], /Niks word verwyder nie/);
+  assert.match(locale['interrupted-import-foreign-board'], /dus nie verander nie/);
+  assert.match(locale['interrupted-import-truncated'], /50 oudste/);
+  assert.match(locale['interrupted-import-scrum-busy'], /word nog geskryf of herstel/);
+}

@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Afrikaans interrupted board imports — 2026-10-08
+
+Translate 25 English import recovery messages in each Afrikaans catalog (50
+values). Preserve variables and established terminology. Check permanent deletion
+including later additions, retaining partial data, foreign-board protection,
+Scrum recovery and the oldest-50 limit. No browser or screen-reader session was
+run; remaining translations and broader vocabulary review are unfinished.
+
 ## Afrikaans List Sync recovery — 2026-10-08
 
 Translate 23 English recovery messages in each of af and af_ZA (46 values),
