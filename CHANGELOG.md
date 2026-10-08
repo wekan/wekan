@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5df7256c9997afa8f9e0b6f0b054ce3659dc1016">Correct Tatar role settings and weekdays</a></summary>
+
+- Correct 41 notification-control, role, weekday and task values, preserving
+  administrator rights, read states and linked-card deletion prerequisites.
+- Technical wording remains low confidence pending speaker review.
+- All 108 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c6d2d45ee67819778f415ea0195c54515774adb3">Correct Tatar editor preferences and administration popups</a></summary>
 
 - Correct 17 editor, display and administration values, preserving literal
