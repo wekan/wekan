@@ -1055,6 +1055,18 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bc67a1295e">Translate Yiddish Blockly comparisons and arithmetic</a>. Thanks to xet7.</summary>
+
+Translate 45 English logic and arithmetic messages. Preserve variables and
+mathematical notation; check strict/inclusive comparisons, both/either conditions,
+inclusive bounds and angle units. Four focused translation suites and 21
+human-preference checks pass. Specialized mathematical wording is lower confidence
+and needs native review. No browser or screen-reader session was run.
+Remaining translation work is unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8e6ec95241">Translate Yiddish Blockly list mutation and logic</a>. Thanks to xet7.</summary>
 
 Translate 45 English list and logic messages, preserving variables and index
