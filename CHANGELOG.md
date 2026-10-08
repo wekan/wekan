@@ -670,6 +670,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/efb1c9a7e4">Translate Bambara, Ewe and Fulah sign-in warnings</a>. Thanks to xet7.</summary>
+
+Preserve repeated address variables and ROOT_URL in three warnings. Warning
+coverage includes 192 catalog paths. Warning and placeholder suites and all 21
+preservation checks pass. These translations have lower confidence and need native
+review. There are 15 English warning paths and a wider unfinished translation backlog.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1dbf7a2f2e">Translate Acehnese, Aymara, Guarani and Quechua warnings and correct five labels</a>. Thanks to xet7.</summary>
 
 Preserve repeated address variables and ROOT_URL in four warnings. Remove language
