@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b2a4999678cd91b63cd7b2f34f4ae807a437027c">Correct Tatar job monitoring translations</a></summary>
+
+- Correct 39 wrong-language job and migration setting strings, preserving
+  storage names, resource identifiers, scheduling intervals and batch limits.
+- Technical wording remains low confidence pending speaker review.
+- All 144 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/86ae33675f1d68608077732603c59bd7f1c9b51f">Correct Tatar migration progress translations</a></summary>
 
 - Correct 34 wrong-language migration progress and cleanup strings, preserving
