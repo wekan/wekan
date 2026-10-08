@@ -8669,6 +8669,15 @@ placeholder inventories, and check colour bounds and distinct loop actions.
 Technical wording remains low confidence pending speaker review. Browser checks
 were not run. Further Odia placeholders and the broader language audit remain.
 
+## Odia Blockly loops and conditionals
+
+Filled 20 English placeholders for loop controls, conditional branches and
+iteration help. Preserved indexed placeholders and distinguished true-driven
+while loops from false-driven until loops. The placeholder-only merge retained
+existing translations. Regression coverage checks script, key order, tokens and
+condition polarity. Technical wording remains low confidence pending speaker
+review. Browser checks were not run; further Odia translations remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
