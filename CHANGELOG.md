@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1643efb120">Translate Galician settings and planning controls</a>. Thanks to xet7.</summary>
+
+Translate 40 values across two catalogs for link rules, read-only fields,
+automation, LDAP, provider restrictions and initial Scrum import controls.
+Preserve variables, link syntax and configuration names. Regression checks cover
+access restrictions, import behavior and empty domain settings. Both relevant
+suites and all 21 preservation checks pass. Remaining translations, language
+auditing and browser review are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f28e0ee74d">Translate remaining Galician import instructions</a>. Thanks to xet7.</summary>
 
 Translate 14 values across two catalogs for Quire, Wrike, Teamwork.com,
