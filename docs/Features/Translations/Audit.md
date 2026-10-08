@@ -7478,6 +7478,19 @@ explicit null handling, distinct delivery states and non-recreation guidance.
 Technical wording remains low confidence pending speaker review. Browser checks were
 not run; remaining recovery strings and the broader language audit continue.
 
+### Bhojpuri final recovery controls and inventory check
+
+Filled six remaining ordinary English placeholders for notification cancellation,
+stale controls and rule-email recovery. Regression checks preserve source tokens and
+the warnings that cancellation cannot resume or recall prior delivery. Existing
+translations are preserved. Technical wording remains low confidence pending speaker
+review; browser checks were not run.
+
+The default Bhojpuri inventory now contains only 11 product names and mathematical
+symbols, intentionally unchanged. None of the 149 pending-Transifex source keys
+remain identical to English in this locale. This does not establish linguistic completeness:
+the full language-quality audit and other locales remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
