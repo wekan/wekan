@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/dee430763a">Fill Ukrainian regional planning and recovery translations</a>. Thanks to xet7.</summary>
+
+Fill 94 English regional values using reviewed Ukrainian translations for board
+settings, automation, LDAP, Scrum planning and recovery. Preserve existing regional
+translations, variables, configuration names and link-rule examples. Regional
+regression checks cover recovery consequences and restrictions. Four relevant
+suites and all 21 preservation checks pass. Browser review and the wider
+translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d2e49f8871">Translate Ukrainian regional outline import instructions</a>. Thanks to xet7.</summary>
 
 Fill the remaining OPML, Org mode and Todoist instructions in uk-UA using the
