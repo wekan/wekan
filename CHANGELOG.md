@@ -1905,6 +1905,19 @@ every board shows.
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c7b3f8d1a76ce7e7a547dad59f9de0f8403644c">Translation tests check links by their parsed host, not as substrings</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+Alerts #551, #552 and #553 (`js/incomplete-url-substring-sanitization`): two
+translation tests checked text with `includes('https://trello.com/app-key')`
+and `includes('example.com')`, which also pass for a link to another host
+that merely contains them. The Trello links are parsed and must have the host
+trello.com and the path /app-key; the example domain must be a whole word.
+`tests/urlSubstringSanitization.test.cjs` keeps this shape out of the tree.
+Test files only, so nothing is logged in Admin Panel -> Problems.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/433e58a618d87e58f8b42b419b2d7829488c47c5">Tests pass shell paths through the environment, not into bash -c scripts</a>. Thanks to GitHub CodeQL and xet7.</summary>
 
 Alerts #549 and #550 (`js/shell-command-injection-from-environment`):
