@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Gebruikersnamen, gescheiden door komma's",
   "feature-pilot-users-unknown": "Opgeslagen. Deze gebruikersnamen zijn niet gevonden:",
   "feature-saved": "Opgeslagen.",
+  "card-field-visibility": "Kaartvelden",
+  "card-field-visibility-desc": "De velden onder Bordinstellingen / Kaart die borden kunnen tonen. Een uitgevinkt veld wordt verborgen op alle kaarten, minikaarten en onder Bordinstellingen / Kaart van alle borden. Kaartgegevens en bordinstellingen veranderen niet. Als het veld opnieuw wordt aangevinkt, wordt elk bord volgens zijn eerdere instellingen weergegeven. Elk bord heeft zijn eigen volgorde van velden.",
   "features-performance": "Prestaties",
   "cards-loading": "Kaarten laden",
   "cards-loading-auto": "Automatisch (lazy alleen voor grote borden)",

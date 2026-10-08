@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Käyttäjätunnukset pilkuilla erotettuina",
   "feature-pilot-users-unknown": "Tallennettu. Näitä käyttäjätunnuksia ei löytynyt:",
   "feature-saved": "Tallennettu.",
+  "card-field-visibility": "Kortin kentät",
+  "card-field-visibility-desc": "Taulun asetukset / Kortti -osion kentät, jotka tauluissa voidaan näyttää. Kenttä, jonka valintaruutua ei ole valittu, piilotetaan kaikkien taulujen kaikista korteista, minikorteista ja Taulun asetukset / Kortti -osiosta. Korttien tiedot ja taulujen asetukset eivät muutu. Kun kenttä valitaan uudelleen, se näkyy kunkin taulun aiempien asetusten mukaisesti. Kenttien järjestys on taulukohtainen.",
   "features-performance": "Suorituskyky",
   "cards-loading": "Korttien lataus",
   "cards-loading-auto": "Automaattinen (laiska vain suurille tauluille)",

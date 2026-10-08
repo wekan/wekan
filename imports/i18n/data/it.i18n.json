@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Nomi utente separati da virgole",
   "feature-pilot-users-unknown": "Salvato. Questi nomi utente non sono stati trovati:",
   "feature-saved": "Salvato.",
+  "card-field-visibility": "Campi delle schede",
+  "card-field-visibility-desc": "I campi in Impostazioni della bacheca / Scheda che le bacheche possono mostrare. Un campo deselezionato viene nascosto in tutte le schede, minischede e in Impostazioni della bacheca / Scheda di tutte le bacheche. I dati delle schede e le impostazioni delle bacheche non cambiano. Selezionando nuovamente il campo, ogni bacheca viene mostrata secondo le impostazioni precedenti. Ogni bacheca mantiene il proprio ordine dei campi.",
   "features-performance": "Prestazioni",
   "cards-loading": "Caricamento schede",
   "cards-loading-auto": "Automatico (lazy solo per bacheche grandi)",

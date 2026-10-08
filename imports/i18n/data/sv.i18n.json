@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Användarnamn, åtskilda med kommatecken",
   "feature-pilot-users-unknown": "Sparat. Följande användarnamn hittades inte:",
   "feature-saved": "Sparat.",
+  "card-field-visibility": "Kortfält",
+  "card-field-visibility-desc": "Fälten under Tavlans inställningar / Kort som tavlor kan visa. Ett avmarkerat fält döljs på alla kort, minikort och under Tavlans inställningar / Kort på alla tavlor. Inga kortdata eller tavleinställningar ändras, och när fältet markeras igen visas varje tavla enligt sina tidigare inställningar. Varje tavla har sin egen fältordning.",
   "features-performance": "Prestanda",
   "cards-loading": "Kortladdning",
   "cards-loading-auto": "Automatiskt (lat endast för stora tavlor)",

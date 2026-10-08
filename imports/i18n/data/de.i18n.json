@@ -2368,6 +2368,8 @@
   "feature-pilot-users-placeholder": "Benutzernamen, durch Kommas getrennt",
   "feature-pilot-users-unknown": "Gespeichert. Diese Benutzernamen wurden nicht gefunden:",
   "feature-saved": "Gespeichert.",
+  "card-field-visibility": "Kartenfelder",
+  "card-field-visibility-desc": "Die Felder unter Board-Einstellungen / Karte, die Boards anzeigen können. Ein abgewähltes Feld wird auf allen Karten, Minikarten und unter Board-Einstellungen / Karte aller Boards ausgeblendet. Kartendaten und Board-Einstellungen bleiben unverändert. Wird das Feld wieder ausgewählt, erscheint jedes Board gemäß seinen bisherigen Einstellungen. Jedes Board hat seine eigene Feldreihenfolge.",
   "features-performance": "Leistung",
   "cards-loading": "Karte wird geladen",
   "cards-loading-auto": "Automatisch (verzögert nur bei großen Boards)",

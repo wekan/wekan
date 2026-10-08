@@ -9968,6 +9968,17 @@ list now retains technical names and notation. This does not complete the older
 catalog's dialect or semantic audit. Technical wording remains low confidence;
 speaker, browser, RTL and screen-reader review remain pending.
 
+## Card-field visibility labels in eight languages
+
+Added the two missing source keys in Finnish, Swedish, German, French, Spanish,
+Portuguese, Italian and Dutch (16 translations). No existing translation was
+overwritten. Source key order and placeholder inventories are checked, alongside
+unchanged card data/settings, re-enabling fields and each board's field order.
+Of 40 checks, 38 passed; two repository-wide checks still fail because other
+locales lack these keys. All 21 human-preference checks passed. Browser checks
+were not run. Menu wording and regional terminology remain open to speaker
+review; the remaining catalogs and broader language audit are unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
