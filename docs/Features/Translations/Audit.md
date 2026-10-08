@@ -8050,6 +8050,16 @@ start/due date differences. Source token inventories and key order remain intact
 Technical wording remains low confidence pending speaker review. Browser checks
 were not run. Further corrections and the broader audit remain unfinished.
 
+### Tatar email templates and permission/import errors
+
+Corrected 34 editing, account-email, invitation and error values. Preserved source
+placeholders, email paragraph structure and JSON/CSV/TSV/WeKan names. Regression
+coverage checks invitation aliases, standalone URL paragraphs, admin/member
+requirements, send/failure distinctions and denied-role wording. Correct nearby
+email labels remain. Technical wording remains low confidence pending speaker
+review. Browser and email-delivery checks were not run. Further wrong-language
+corrections and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
