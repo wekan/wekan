@@ -670,6 +670,27 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5cfd2010f8">Correct Aromanian and Latin sign-in labels</a>. Thanks to xet7.</summary>
+
+Replace French “Connexion” with Aromanian “Intrari” and remove the “Latine:”
+prefix from the Latin label. Record both corrections in the audit ledger.
+The warning and audited-correction suites pass, including token preservation,
+key order and protection of newer translations.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e2c52f5efd">Translate five Romance and Latin sign-in warnings</a>. Thanks to xet7.</summary>
+
+Add Friulian, Romansh, Ladin, Aromanian and Latin warning translations.
+Tests now cover 159 paths, checking repeated variables, address order and ROOT_URL.
+Warning and placeholder suites and all 21 preservation checks pass. These
+translations have lower confidence and need native review. This warning still
+has 48 English catalog paths; browser review and the wider backlog remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/50d9ba91ad">Translate five additional Indic sign-in warnings</a>. Thanks to xet7.</summary>
 
 Add Assamese, Odia, Maithili, Bhojpuri and Konkani warning translations.
