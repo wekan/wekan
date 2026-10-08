@@ -8478,6 +8478,15 @@ and target availability requirements. Technical wording remains low confidence
 pending speaker review. Focused tests cover tokens, key order and executable
 configuration syntax; browser checks were not run.
 
+## Tatar Sandstorm migration-cleanup corrections
+
+Corrected 11 wrong-language migration, disk usage and feature labels. Preserved
+successful migration as the prerequisite for deleting old MongoDB files, the
+FerretDB/filesystem destination and irreversible deletion warnings. Existing valid
+feature descriptions remain. Technical wording remains low confidence pending
+speaker review. Focused tests cover key order, tokens, migration states and cleanup
+prerequisites; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
