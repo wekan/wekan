@@ -13914,3 +13914,12 @@ for (const code of ['hi', 'hi-IN']) {
   assert.notEqual(locale['scrum-history-checkpoint-rollback'], locale['scrum-history-checkpoint-discard']);
   assert.ok(locale['scrum-history-checkpoint-counts'].replace('__total__', '10').replace('__applied__', '3').startsWith("3 cambiamenti nant'à 10"));
 }
+
+{
+  const locale = read('sc');
+  for (const token of ['Ctrl', 'Cmd', 'Mac']) assert.ok(locale['scrum-releases-select-help'].includes(token), `sc: ${token}`);
+  assert.match(locale['sync-planning-hint'], /sa prima sincronizatzione non bogat mai sa pianificatzione/);
+  assert.match(locale['scrum-history-checkpoint-hint'], /non càmbiat perunu registru/);
+  assert.notEqual(locale['scrum-history-checkpoint-rollback'], locale['scrum-history-checkpoint-discard']);
+  assert.ok(locale['scrum-history-checkpoint-counts'].replace('__total__', '10').replace('__applied__', '3').startsWith('3 cambiamentos de 10'));
+}

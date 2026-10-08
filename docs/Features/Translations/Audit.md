@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Sardinian Scrum planning and recovery — 2026-10-08
+
+Translate 31 planning, import and recovery values using existing iteratzione,
+versione and tàula terminology. Preserve exact variables, keyboard names and count
+roles, and distinguish rollback from keeping records. Focused Sardinian, placeholder
+and language-wiring checks pass, as do all 21 preservation checks. The large completion
+suite now reaches an untranslated Sicilian release label. Recovery prose has lower
+confidence and needs native review; browser checks and the wider backlog remain
+unfinished.
+
 ## Corsican Scrum planning and recovery — 2026-10-08
 
 Translate 31 planning, import and recovery values using the existing iterazione,
