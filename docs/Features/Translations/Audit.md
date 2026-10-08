@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Hindi Scrum planning, import and recovery — 2026-10-08
+
+Translate 62 values across both Hindi catalogs. Preserve every placeholder, keyboard
+name, import match result and recovery choice. Keep the first-sync no-removal rule
+explicit. Extend regression coverage for keyboard names, first-sync behavior and
+keeping records unchanged. Focused checks of all 62 values, placeholder and language-
+wiring suites, and all 21 preservation checks pass. The large completion suite now
+reaches an untranslated Bengali release label. Native review, browser checks and
+the wider all-language backlog remain unfinished.
+
 ## Malay and Indonesian Scrum import and recovery — 2026-10-08
 
 Translate 93 values across both Malay catalogs and Indonesian, using each locale’s

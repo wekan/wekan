@@ -13824,3 +13824,12 @@ for (const code of ['cy', 'cy-GB']) {
   assert.match(locale['rule-email-legacy-description'], /WeKan nie wëslë jich sóm/);
   assert.match(locale['rule-email-resolution-resend-uncertain'], /mògła dojsc abò nie dojsc/);
 }
+
+for (const code of ['hi', 'hi-IN']) {
+  const locale = read(code);
+  for (const token of ['Ctrl', 'Cmd', 'Mac']) assert.ok(locale['scrum-releases-select-help'].includes(token), `${code}: ${token}`);
+  assert.ok(locale['scrum-history-checkpoint-counts'].replace('__total__', '10').replace('__applied__', '3').startsWith('10 में से 3'));
+  assert.match(locale['sync-planning-hint'], /पहला समन्वयन कभी योजना नहीं हटाता/);
+  assert.match(locale['scrum-history-checkpoint-hint'], /कोई रिकॉर्ड नहीं बदलता/);
+  assert.notEqual(locale['scrum-history-checkpoint-rollback'], locale['scrum-history-checkpoint-discard']);
+}
