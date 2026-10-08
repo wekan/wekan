@@ -8525,6 +8525,16 @@ including encryption, retention and restore safeguards. Technical wording remain
 low confidence pending speaker review. Focused tests cover tokens, key order,
 formats and mode distinctions; browser checks were not run.
 
+## Tatar cloud credential and console-path corrections
+
+Corrected 22 wrong-language cloud credential descriptions and console paths.
+Restored literal external UI labels, client_email, key1, service names and .csv.
+Preserved optional credential alternatives and blank-to-retain behavior. These
+translations follow the English source instructions; external consoles were not
+revalidated. Technical wording remains low confidence pending speaker review.
+Focused tests cover tokens, key order, UI labels and navigation steps; browser
+checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
