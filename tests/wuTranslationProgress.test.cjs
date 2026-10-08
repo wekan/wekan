@@ -1103,3 +1103,14 @@ assert.match(wu['attachment-move-storage-gcs'], /Google Cloud Storage$/);
 for (const action of ['starting', 'pausing', 'stopping']) assert.match(wu['migration-' + action], /^正在/);
 for (const action of ['start', 'pause', 'stop']) assert.match(wu['migration-' + action + '-failed'], /失败/);
 assert.match(wu['migration-stop-confirm'], /停止全部迁移/);
+
+const storageJobsWu = ["gridfs-move-collectionfs-note", "s3-access-key-description", "s3-bucket", "s3-bucket-description", "s3-connection-failed", "s3-connection-success", "s3-enabled-description", "s3-endpoint", "s3-endpoint-description", "s3-port", "s3-port-description", "s3-region", "s3-region-description", "s3-secret-key", "s3-secret-key-description", "s3-secret-key-placeholder", "s3-secret-key-required", "s3-settings-save-failed", "s3-settings-saved", "s3-ssl-enabled", "s3-ssl-enabled-description", "schedule-board-archive", "schedule-board-backup", "schedule-board-cleanup", "scheduled-board-operations", "writable-path-description", "add-job", "board-migration", "card-show-lists-on-minicard", "comprehensive-board-migration", "comprehensive-board-migration-description", "delete-duplicate-empty-lists-migration-description"];
+for (const key of storageJobsWu) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+for (const literal of ['s3.amazonaws.com', 'minio.example.com']) assert.ok(wu['s3-endpoint-description'].includes(literal), literal);
+assert.ok(wu['s3-region-description'].includes('us-east-1'));
+assert.ok(wu['s3-ssl-enabled-description'].includes('SSL/TLS'));
+assert.match(wu['gridfs-move-collectionfs-note'], /附件搭头像.*CollectionFS.*别个存储/);
+assert.equal(wu['add-job'], '添加任务');
+for (const action of ['archive', 'backup', 'cleanup']) assert.match(wu['schedule-board-' + action], /^安排看板/);
+assert.match(wu['delete-duplicate-empty-lists-migration-description'], /呒没卡片，而且.*同名列表包含卡片，才删脱/);
+assert.match(wu['comprehensive-board-migration-description'], /列表顺序、卡片位置搭泳道结构/);

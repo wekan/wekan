@@ -920,8 +920,8 @@
     "locale": "wuu-Hans",
     "key": "scheduled-board-operations",
     "before": "预定的董事会运作",
-    "after": "预定的看板运作",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "计划看板操作",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -168089,5 +168089,222 @@
     "before": "迁移已成功停止",
     "after": "迁移已经停止成功仔",
     "reason": "2026-10-08: Correct Wu cloud setup and migration status wording; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "gridfs-move-collectionfs-note",
+    "before": "要使附件和头像可见，请将它们从 CollectionFS 移动到任何其他存储。",
+    "after": "要看得见附件搭头像，请拿伊拉从 CollectionFS 移到任意别个存储。",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "s3-access-key-description",
+    "before": "用于身份验证的 AWS S3 访问密钥",
+    "after": "用来验证身份个 AWS S3 访问密钥",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "s3-bucket",
+    "before": "S3桶",
+    "after": "S3 存储桶",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "s3-bucket-description",
+    "before": "用于存储文件的S3存储桶名称",
+    "after": "用来存文件个 S3 存储桶名字",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "s3-connection-failed",
+    "before": "S3连接失败",
+    "after": "S3 连接失败",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "s3-connection-success",
+    "before": "S3连接成功",
+    "after": "S3 连接成功",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "s3-enabled-description",
+    "before": "使用AWS S3或MinIO进行文件存储",
+    "after": "用 AWS S3 或者 MinIO 来存文件",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "s3-endpoint",
+    "before": "S3端点",
+    "after": "S3 端点",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "s3-endpoint-description",
+    "before": "S3 端点 URL（例如 s3.amazonaws.com 或 minio.example.com）",
+    "after": "S3 端点 URL（比方讲 s3.amazonaws.com 或者 minio.example.com）",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "s3-port",
+    "before": "S3端口",
+    "after": "S3 端口",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "s3-port-description",
+    "before": "S3端点端口号",
+    "after": "S3 端点个端口号",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "s3-region",
+    "before": "S3地区",
+    "after": "S3 区域",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "s3-region-description",
+    "before": "AWS S3 区域（例如 us-east-1）",
+    "after": "AWS S3 区域（比方讲 us-east-1）",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "s3-secret-key",
+    "before": "S3密钥",
+    "after": "S3 私密密钥",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "s3-secret-key-description",
+    "before": "用于身份验证的 AWS S3 密钥",
+    "after": "用来验证身份个 AWS S3 私密密钥",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "s3-secret-key-placeholder",
+    "before": "输入S3密钥",
+    "after": "输入 S3 私密密钥",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "s3-secret-key-required",
+    "before": "需要 S3 密钥",
+    "after": "必须提供 S3 私密密钥",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "s3-settings-save-failed",
+    "before": "无法保存 S3 设置",
+    "after": "保存 S3 设置失败仔",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "s3-settings-saved",
+    "before": "S3 设置已成功保存",
+    "after": "S3 设置已经保存成功仔",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "s3-ssl-enabled",
+    "before": "启用 S3 SSL",
+    "after": "S3 SSL 已启用",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "s3-ssl-enabled-description",
+    "before": "使用 SSL/TLS 进行 S3 连接",
+    "after": "S3 连接用 SSL/TLS",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "schedule-board-archive",
+    "before": "日程表存档",
+    "after": "安排看板归档",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "schedule-board-backup",
+    "before": "日程安排板备份",
+    "after": "安排看板备份",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "schedule-board-cleanup",
+    "before": "日程表清理",
+    "after": "安排看板清理",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "writable-path-description",
+    "before": "文件存储的基本目录路径",
+    "after": "文件存储个基础目录路径",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "add-job",
+    "before": "添加职位",
+    "after": "添加任务",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-migration",
+    "before": "板迁移",
+    "after": "看板迁移",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-show-lists-on-minicard",
+    "before": "在迷你卡上显示列表",
+    "after": "勒迷你卡片浪显示列表",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "comprehensive-board-migration",
+    "before": "全面的板迁移",
+    "after": "全面看板迁移",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "comprehensive-board-migration-description",
+    "before": "对板数据完整性进行全面检查和修复，包括列表排序、卡片位置和泳道结构。",
+    "after": "全面检查搭修复看板数据完整性，包括列表顺序、卡片位置搭泳道结构。",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "delete-duplicate-empty-lists-migration-description",
+    "before": "安全删除空的重复列表。仅删除没有卡片且具有包含卡片的相同标题的另一个列表的列表。",
+    "after": "安全删脱重复个空列表。只有搿只列表呒没卡片，而且另外有一只同名列表包含卡片，才删脱伊。",
+    "reason": "2026-10-08: Correct Wu storage labels, scheduled tasks and migration conditions; lower-confidence prose needs native review."
   }
 ]

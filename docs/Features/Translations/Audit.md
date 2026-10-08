@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu storage and task corrections — 2026-10-08
+
+Correct 32 storage, scheduled-task and migration values. Restore task rather than job
+vacancy, board operations and migration scope. Preserve endpoint/region examples,
+SSL/TLS and CollectionFS names, and the conjunction of empty-list and populated
+same-title-list conditions for cleanup. Refresh exact-value audit records. Wu prose
+needs native review; browser tests were not run and all-language work remains unfinished.
+
 ## Wu cloud setup and migration-status corrections — 2026-10-08
 
 Correct 24 cloud and migration values. Preserve console menu labels and product names,
@@ -12896,7 +12904,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **24,013** exact before/after values, including unflagged
+records contain **24,044** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
