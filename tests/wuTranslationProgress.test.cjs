@@ -966,3 +966,13 @@ assert.match(wu['globalSearch-instructions-operator-sort'], /降序.*加 `-`/);
 assert.match(wu['globalSearch-instructions-operator-limit'], /正整数.*每页/);
 assert.match(wu['globalSearch-instructions-notes-4'], /勿区分大小写/);
 assert.match(wu['globalSearch-instructions-notes-5'], /默认勿搜索归档/);
+
+const dependencyMapsWu = ["drag-to-connect", "import-dependencies-placeholder", "import-dependencies-parse-error", "import-dependencies-empty", "import-dependencies-done", "background-too-big", "board-background-delete-pop", "location-open-map", "location-detect-from-map", "location-detect-none", "location-detect-done", "location-open-map-at", "map-provider-saved", "server-error-troubleshooting", "created-at-newest-first", "created-at-oldest-first", "now-activities-of-all-boards-are-hidden"];
+for (const key of dependencyMapsWu) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.deepEqual(wu['background-too-big'].match(/\{\{[^}]+\}\}/g), english['background-too-big'].match(/\{\{[^}]+\}\}/g));
+assert.deepEqual(wu['server-error-troubleshooting'].match(/`[^`]+`/g), english['server-error-troubleshooting'].match(/`[^`]+`/g));
+assert.match(wu['server-error-troubleshooting'], /Snap 安装/);
+assert.doesNotMatch(wu['server-error-troubleshooting'], /快照/);
+assert.match(wu['import-dependencies-done'], /__imported__ 条线.*__unmatched__ 条配勿上/);
+assert.match(wu['import-dependencies-empty'], /一只看板.*至少一条/);
+assert.match(wu['now-activities-of-all-boards-are-hidden'], /所有看板.*全部动态/);

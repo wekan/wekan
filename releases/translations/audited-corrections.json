@@ -166178,5 +166178,124 @@
     "before": "链接到此搜索",
     "after": "搿趟搜索个链接",
     "reason": "2026-10-08: Correct Wu search logic help, preserving OR/AND examples, predicate variables and negation; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "drag-to-connect",
+    "before": "拖动以连接到另一张卡片",
+    "after": "拖动来连接到另外一张卡片",
+    "reason": "2026-10-08: Correct Wu dependency, map and server instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-dependencies-placeholder",
+    "before": "或在此粘贴依赖 JSON / SVG",
+    "after": "或者勒搿搭粘贴依赖关系 JSON / SVG",
+    "reason": "2026-10-08: Correct Wu dependency, map and server instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-dependencies-parse-error",
+    "before": "无法解析依赖文件",
+    "after": "解析勿了依赖关系文件",
+    "reason": "2026-10-08: Correct Wu dependency, map and server instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-dependencies-empty",
+    "before": "请选择一个看板并至少提供一行依赖",
+    "after": "选一只看板，再提供至少一条依赖关系线",
+    "reason": "2026-10-08: Correct Wu dependency, map and server instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-dependencies-done",
+    "before": "已导入 __imported__ 行，__unmatched__ 行未匹配",
+    "after": "已经导入 __imported__ 条线，__unmatched__ 条配勿上",
+    "reason": "2026-10-08: Correct Wu dependency, map and server instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "background-too-big",
+    "before": "背景图片太大（最大 {{size}}）。",
+    "after": "背景图片忒大仔（最大 {{size}}）。",
+    "reason": "2026-10-08: Correct Wu dependency, map and server instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-background-delete-pop",
+    "before": "确定要删除此背景图片吗？",
+    "after": "侬确定要删脱搿张背景图片伐？",
+    "reason": "2026-10-08: Correct Wu dependency, map and server instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "location-open-map",
+    "before": "在地图中打开",
+    "after": "勒地图里向打开",
+    "reason": "2026-10-08: Correct Wu dependency, map and server instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "location-detect-from-map",
+    "before": "从任意地图链接检测位置",
+    "after": "从任意地图链接里向识别位置",
+    "reason": "2026-10-08: Correct Wu dependency, map and server instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "location-detect-none",
+    "before": "无法从此链接检测到位置。",
+    "after": "从搿只链接里向识别勿出位置。",
+    "reason": "2026-10-08: Correct Wu dependency, map and server instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "location-detect-done",
+    "before": "已在下方填入检测到的位置详情。",
+    "after": "识别出来个位置详情已经填勒下头仔。",
+    "reason": "2026-10-08: Correct Wu dependency, map and server instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "location-open-map-at",
+    "before": "在此处打开地图链接",
+    "after": "勒搿搭打开地图链接",
+    "reason": "2026-10-08: Correct Wu dependency, map and server instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "map-provider-saved",
+    "before": "默认地图服务已保存。",
+    "after": "默认地图服务已经保存仔。",
+    "reason": "2026-10-08: Correct Wu dependency, map and server instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "server-error-troubleshooting",
+    "before": "请提交服务器产生的错误。\n对于快照安装，请运行：`sudo snap logs wekan.wekan`\n对于 Docker 安装，请运行：`sudo docker logs wekan-app`",
+    "after": "请提交服务器产生个错误。\n用 Snap 安装个，请运行：`sudo snap logs wekan.wekan`\n用 Docker 安装个，请运行：`sudo docker logs wekan-app`",
+    "reason": "2026-10-08: Correct Wu dependency, map and server instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "created-at-newest-first",
+    "before": "创建于（最新的优先）",
+    "after": "创建时间（最新个排前头）",
+    "reason": "2026-10-08: Correct Wu dependency, map and server instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "created-at-oldest-first",
+    "before": "创建于（最早的在前）",
+    "after": "创建时间（最早个排前头）",
+    "reason": "2026-10-08: Correct Wu dependency, map and server instructions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "now-activities-of-all-boards-are-hidden",
+    "before": "现在所有面板的所有活动都被隐藏",
+    "after": "现在所有看板个全部动态侪隐藏仔",
+    "reason": "2026-10-08: Correct Wu dependency, map and server instructions; lower-confidence prose needs native review."
   }
 ]
