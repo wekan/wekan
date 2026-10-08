@@ -484,6 +484,17 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/26a63bf7c5">Translate Yiddish Sync source and run reports</a>. Thanks to xet7.</summary>
+
+Translate 25 English source-field and run-report messages. Check display and
+retention limits, hidden values, possible partial changes and reports that do
+not resume or undo runs. Three focused translation suites and 21 human-preference
+checks pass. Specialized wording is lower confidence and needs native review.
+No browser or screen-reader session was run. Remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a9527ce88c">Translate Yiddish Sync conflicts and preview</a>. Thanks to xet7.</summary>
 
 Translate 25 English conflict and preview messages. Check retained content,
