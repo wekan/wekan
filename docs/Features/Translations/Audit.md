@@ -9014,6 +9014,16 @@ script, key order and token inventories. Technical wording remains low confidenc
 pending speaker review. Browser and screen-reader checks were not run; further
 Maithili translations and the broader audit remain unfinished.
 
+## Maithili list removal, indexing and sublists
+
+Filled 26 English values for list removal, sublists, search and length. Existing
+translations were retained; filter-excluded short labels were changed directly
+only after verifying equality with English. Preserved index markers, missing-item
+return tokens and distinctions between removal and removal with a returned value.
+Regression coverage checks those details, script, key order and token inventories.
+Technical wording remains low confidence pending speaker review. Browser checks
+were not run; further Maithili translations and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
