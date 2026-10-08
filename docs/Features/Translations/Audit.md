@@ -8426,6 +8426,15 @@ Technical wording remains low confidence pending speaker review. Focused tests
 cover key order, source tokens, units and validation distinctions; browser checks
 were not run.
 
+## Tatar recurrence and checklist-visibility corrections
+
+Corrected 11 wrong-language or misleading import, checklist and recurrence values.
+Restored literal .zip and JSON references and distinguished card recurrence from
+checklist reset. Kept valid interval labels and existing translations. Technical
+wording remains low confidence pending speaker review. Focused tests cover key
+order, tokens, file identifiers and recurrence/visibility distinctions; browser
+checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
