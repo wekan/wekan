@@ -661,8 +661,8 @@
     "locale": "wuu-Hans",
     "key": "act-atUserComment",
     "before": "在卡片 __card__ 上提到了您： __comment__ 在列表 __list__ 在泳道 __swimlane__ 在董事会 __board__",
-    "after": "在卡片 __card__ 上提到了您： __comment__ 在列表 __list__ 在泳道 __swimlane__ 在看板 __board__",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "勒卡片 __card__ 浪提到侬：__comment__；列表是 __list__，泳道是 __swimlane__，看板是 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Correct Wu reminders and card controls, preserving named variables, irreversible deletion and multi-window behavior; lower-confidence prose needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -165191,5 +165191,131 @@
     "before": "当前截止时间 %s 是今天",
     "after": "当前截止时间 %s 是今朝",
     "reason": "2026-10-08: Correct Wu date activities and placement, retaining old/new date roles and source variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-newDue",
+    "before": "__list__/__card__ 有第一个到期提醒 [__board__]",
+    "after": "__list__/__card__ 有第一趟到期提醒 [__board__]",
+    "reason": "2026-10-08: Correct Wu reminders and card controls, preserving named variables, irreversible deletion and multi-window behavior; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-withDue",
+    "before": "__list__/__card__到期提醒[__board__]",
+    "after": "__list__/__card__ 个到期提醒 [__board__]",
+    "reason": "2026-10-08: Correct Wu reminders and card controls, preserving named variables, irreversible deletion and multi-window behavior; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-almostdue",
+    "before": "提醒 __card__ 的当前到期日 (__timeValue__) 即将到来",
+    "after": "提醒 __card__ 个当前截止时间（__timeValue__）快到仔",
+    "reason": "2026-10-08: Correct Wu reminders and card controls, preserving named variables, irreversible deletion and multi-window behavior; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-pastdue",
+    "before": "提醒 __card__ 的当前到期日 (__timeValue__) 已过去",
+    "after": "提醒 __card__ 个当前截止时间（__timeValue__）已经过脱仔",
+    "reason": "2026-10-08: Correct Wu reminders and card controls, preserving named variables, irreversible deletion and multi-window behavior; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-duenow",
+    "before": "正在提醒 __card__ 的当前到期 (__timeValue__) 现在是",
+    "after": "提醒 __card__ 个当前截止时间（__timeValue__）就是现在",
+    "reason": "2026-10-08: Correct Wu reminders and card controls, preserving named variables, irreversible deletion and multi-window behavior; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "delete-user-confirm-popup",
+    "before": "您确定要删除该帐户吗？无法撤消。",
+    "after": "侬确定要删脱搿只账户伐？搿个操作勿能撤销。",
+    "reason": "2026-10-08: Correct Wu reminders and card controls, preserving named variables, irreversible deletion and multi-window behavior; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "delete-team-confirm-popup",
+    "before": "您确定要删除该团队吗？无法撤消。",
+    "after": "侬确定要删脱搿个团队伐？搿个操作勿能撤销。",
+    "reason": "2026-10-08: Correct Wu reminders and card controls, preserving named variables, irreversible deletion and multi-window behavior; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "delete-org-confirm-popup",
+    "before": "您确定要删除该组织吗？无法撤消。",
+    "after": "侬确定要删脱搿个组织伐？搿个操作勿能撤销。",
+    "reason": "2026-10-08: Correct Wu reminders and card controls, preserving named variables, irreversible deletion and multi-window behavior; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "accounts-allowUserDelete",
+    "before": "允许用户自行删除其帐户",
+    "after": "允许用户自家删脱自家个账户",
+    "reason": "2026-10-08: Correct Wu reminders and card controls, preserving named variables, irreversible deletion and multi-window behavior; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "hide-minicard-label-text",
+    "before": "隐藏迷你卡标签文本",
+    "after": "藏起迷你卡片浪个标签文字",
+    "reason": "2026-10-08: Correct Wu reminders and card controls, preserving named variables, irreversible deletion and multi-window behavior; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "same-width-for-all-lists",
+    "before": "所有列表使用相同宽度（整个看板）",
+    "after": "所有列表侪一样宽（整块看板）",
+    "reason": "2026-10-08: Correct Wu reminders and card controls, preserving named variables, irreversible deletion and multi-window behavior; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "open-many-cards-at-once-description",
+    "before": "你点击的每张卡片都会在各自的窗口中保持打开。关闭此项时，点击一张卡片会关闭原先打开的那张。",
+    "after": "侬点开个每张卡片侪勒自家个窗口里向保持打开。关脱搿项个辰光，点开一张卡片就会关脱原来打开个卡片。",
+    "reason": "2026-10-08: Correct Wu reminders and card controls, preserving named variables, irreversible deletion and multi-window behavior; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "assignee",
+    "before": "受让人",
+    "after": "负责人",
+    "reason": "2026-10-08: Correct Wu reminders and card controls, preserving named variables, irreversible deletion and multi-window behavior; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "assignees",
+    "before": "受让人",
+    "after": "负责人",
+    "reason": "2026-10-08: Correct Wu reminders and card controls, preserving named variables, irreversible deletion and multi-window behavior; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "no-assignee",
+    "before": "无受让人",
+    "after": "呒没负责人",
+    "reason": "2026-10-08: Correct Wu reminders and card controls, preserving named variables, irreversible deletion and multi-window behavior; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "no-label",
+    "before": "无标签",
+    "after": "呒没标签",
+    "reason": "2026-10-08: Correct Wu reminders and card controls, preserving named variables, irreversible deletion and multi-window behavior; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cardAssigneesPopup-title",
+    "before": "受让人",
+    "after": "负责人",
+    "reason": "2026-10-08: Correct Wu reminders and card controls, preserving named variables, irreversible deletion and multi-window behavior; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "addmore-detail",
+    "before": "添加更详细的描述",
+    "after": "添加更加详细个描述",
+    "reason": "2026-10-08: Correct Wu reminders and card controls, preserving named variables, irreversible deletion and multi-window behavior; lower-confidence prose needs native review."
   }
 ]

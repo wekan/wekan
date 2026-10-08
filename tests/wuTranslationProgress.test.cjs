@@ -878,3 +878,13 @@ for (const object of ['card', 'swimlane']) {
 assert.match(wu['left-of-list'], /左爿/);
 assert.match(wu['right-of-list'], /右爿/);
 assert.match(wu['swimlane-delete-pop'], /所有操作记录.*勿能恢复.*勿能撤销/);
+
+const remindersControls = ["act-newDue", "act-withDue", "act-almostdue", "act-pastdue", "act-duenow", "act-atUserComment", "delete-user-confirm-popup", "delete-team-confirm-popup", "delete-org-confirm-popup", "accounts-allowUserDelete", "hide-minicard-label-text", "same-width-for-all-lists", "open-many-cards-at-once-description", "assignee", "assignees", "no-assignee", "no-label", "cardAssigneesPopup-title", "addmore-detail"];
+for (const key of remindersControls) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.match(wu['act-almostdue'], /__card__.*__timeValue__.*快到仔/);
+assert.match(wu['act-pastdue'], /__timeValue__.*已经过脱仔/);
+assert.match(wu['act-duenow'], /__timeValue__.*就是现在/);
+assert.match(wu['act-atUserComment'], /卡片 __card__.*提到侬.*__comment__.*列表是 __list__.*泳道是 __swimlane__.*看板是 __board__/);
+for (const entity of ['user', 'team', 'org']) assert.match(wu['delete-' + entity + '-confirm-popup'], /勿能撤销/);
+assert.match(wu['open-many-cards-at-once-description'], /每张卡片.*自家个窗口.*关脱搿项.*关脱原来打开/);
+for (const key of ['assignee', 'assignees', 'cardAssigneesPopup-title']) assert.equal(wu[key], '负责人');
