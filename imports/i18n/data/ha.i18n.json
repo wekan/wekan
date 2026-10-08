@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Akwai asusu da wannan imel tuni kuma ba a ƙirƙire shi da wannan hanyar shiga ba",
   "sign-in-with": "Shiga da %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Ba za a iya kammala shiga ta wani sabis a wannan adireshin ba. An saita WeKan don __expected__, amma an buɗe wannan shafin a __actual__. Buɗe WeKan a __expected__, ko ka nemi mai gudanarwa ya saita ROOT_URL zuwa __actual__.",
   "passwordless-title": "Shiga ba tare da kalmar sirri ba",
   "passwordless-enabled": "Aika lambar shiga ta amfani sau ɗaya ta imel maimakon kalmar sirri",
   "passwordless-hint": "Yana buƙatar imel mai fita (MAIL_URL). Haka kuma PASSWORDLESS_ENABLED.",

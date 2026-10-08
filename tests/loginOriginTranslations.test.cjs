@@ -14,6 +14,7 @@ codes.push('ca', 'ca@valencia', 'gl', 'eu', 'eo', 'th', 'sw', 'tl', 'ca_ES', 'gl
 codes.push('cmn', 'zh', 'zh-GB', 'zh-HK', 'yue_CN');
 codes.push('mn', 'kk', 'ky', 'uz', 'az', 'ka', 'hy', 'uz-LA', 'uz-UZ', 'az-AZ', 'az-LA');
 codes.push('cy', 'ga', 'gd', 'oc', 'co', 'mt', 'lb', 'fy', 'cy-GB', 'fy-NL');
+codes.push('jv', 'ht', 'mg', 'so', 'ha');
 for (const code of codes) {
   const value = read(code)[key];
   assert.notEqual(value, source, code);
@@ -33,7 +34,7 @@ assert.match(read('es')[key], /No se puede completar/);
 assert.match(read('ja')[key], /ログインを完了できません/);
 assert.match(read('zh-CN')[key], /无法在此地址完成/);
 assert.match(read('zh-TW')[key], /無法在此位址完成/);
-console.log('Sign-in origin warning: 107 translations, repeated address roles and literal configuration key pass');
+console.log('Sign-in origin warning: 112 translations, repeated address roles and literal configuration key pass');
 
 assert.match(read('ar')[key], /لا يمكن إكمال تسجيل الدخول/);
 assert.match(read('fa')[key], /تکمیل نمی‌شود/);
@@ -73,3 +74,9 @@ assert.match(read('co')[key], /Ùn si pò compie/);
 assert.match(read('mt')[key], /ma jistax jitlesta/);
 assert.match(read('lb')[key], /net ofgeschloss ginn/);
 assert.match(read('fy')[key], /net foltôge wurde/);
+
+assert.match(read('jv')[key], /ora bisa dirampungake/);
+assert.match(read('ht')[key], /pa ka fini konekte/);
+assert.match(read('mg')[key], /Tsy azo vitaina/);
+assert.match(read('so')[key], /lagama dhammaystiri karo/);
+assert.match(read('ha')[key], /Ba za a iya kammala.*ba/);

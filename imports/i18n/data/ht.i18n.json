@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Gen yon kont ak imèl sa a deja epi li pa t kreye ak metòd koneksyon sa a",
   "sign-in-with": "Konekte ak %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Ou pa ka fini konekte atravè yon lòt sèvis nan adrès sa a. WeKan konfigire pou __expected__, men paj sa a te louvri nan __actual__. Louvri WeKan nan __expected__, oswa mande administratè a mete ROOT_URL sou __actual__.",
   "passwordless-title": "Koneksyon san modpas",
   "passwordless-enabled": "Voye yon kòd koneksyon pou yon sèl fwa pa imèl olye yon modpas",
   "passwordless-hint": "Li bezwen imèl sòtan (MAIL_URL). Epi PASSWORDLESS_ENABLED tou.",

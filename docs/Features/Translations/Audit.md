@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Five further sign-in warning languages — 2026-10-08
+
+Translate the warning in Javanese, Haitian Creole, Malagasy, Somali and Hausa.
+The regression suite now checks 112 catalogs for exact repeated address variables,
+rendering order and ROOT_URL. Warning and placeholder suites and all 21 preservation
+checks pass. Malagasy, Somali and Hausa prose has lower confidence and needs native
+review. Browser review and the wider all-language backlog remain outstanding.
+
 ## Celtic and western European sign-in warnings — 2026-10-08
 
 Translate ten values in Welsh and its British variant, Irish, Scottish Gaelic,
