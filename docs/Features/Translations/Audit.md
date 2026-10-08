@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu flow-report corrections — 2026-10-08
+
+Correct 39 analytics and time-adjustment values, replacing abbreviated fragments
+with complete labels and explanations. Preserve forecast trials/horizon, UTC and
+zero-throughput sampling, uncertainty, missing-history behavior, cycle-date fallbacks
+and the distinction between time corrections and work sessions. Refresh exact-value
+audit records. Statistical terminology has lower confidence and needs native review;
+browser tests were not run and all-language work remains unfinished.
+
 ## Wu import and sync corrections — 2026-10-08
 
 Correct 24 import/export, WIP group and list-sync values. Restore group meanings and
@@ -12945,7 +12954,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **24,171** exact before/after values, including unflagged
+records contain **24,210** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

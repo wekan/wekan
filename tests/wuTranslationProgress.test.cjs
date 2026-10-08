@@ -1174,3 +1174,14 @@ assert.match(wu['list-sync-description'], /每 15 分钟.*立即同步.*马上�
 assert.match(wu['import-parts-instruction'], /只导入打钩个部分.*导出也用同样个选择/);
 assert.equal(wu['wip-limit-group-add'], '添加 ' + wu['wip-limit-groups']);
 assert.equal(wu['wip-limit-group-apply-swimlane'], '应用到泳道');
+
+const flowReportsWu = ["board-view-aging-wip", "board-view-blocker-analysis", "board-view-monte-carlo", "board-view-process-behavior", "board-view-size-cycle-time", "flow-age-days", "flow-p85", "flow-samples", "flow-signal", "flow-unusual", "flow-blocker", "flow-episodes", "flow-active", "flow-blocked-days", "flow-unknown-start", "flow-confidence", "flow-target-count", "flow-finish-days", "flow-finish-date", "flow-target-date", "flow-capacity", "flow-history-days", "flow-beyond-horizon", "flow-mean", "flow-moving-range", "flow-mr-mean", "flow-size-source", "flow-size", "flow-error", "flow-details", "flow-note-agingWip", "flow-note-blockerAnalysis", "flow-note-monteCarlo", "flow-note-processBehavior", "flow-note-sizeCycleTime", "move-reason", "ask-move-reason", "time-adjustments", "time-adjustment-note"];
+for (const key of flowReportsWu) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+for (const literal of ['2,000', 'UTC', '3,650']) assert.ok(wu['flow-note-monteCarlo'].includes(literal), literal);
+assert.match(wu['flow-note-monteCarlo'], /吞吐量为零.*日期是上尾预测，数量是下尾承诺.*勿是保证.*呒没完成记录就呒没预测/);
+assert.match(wu['flow-note-agingWip'], /85.*至少要有五趟.*呒没进入记录.*未知/);
+assert.match(wu['flow-note-blockerAnalysis'], /历史快照.*重叠个原因分别计数/);
+assert.match(wu['flow-note-processBehavior'], /呒没就用创建时间.*呒没就用归档时间.*至少需要两条/);
+assert.match(wu['flow-note-sizeCycleTime'], /缺少估算值搭日期无效个记录跳过/);
+assert.match(wu['time-adjustment-note'], /勿是单独个工作时段.*负数是修正.*归勿到具体个人/);
+assert.match(wu['flow-error'], /检查数值，再试/);

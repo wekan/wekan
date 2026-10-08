@@ -169195,5 +169195,278 @@
     "before": "多个__items__",
     "after": "多只 __items__",
     "reason": "2026-10-08: Correct Wu import, WIP group and sync instructions, preserving examples and variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-view-aging-wip",
+    "before": "卡片老化（淡化旧卡片） — 列表",
+    "after": "在制工作停留时间",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-view-blocker-analysis",
+    "before": "依赖 — 统计",
+    "after": "阻塞分析",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-view-monte-carlo",
+    "before": "Monte Carlo — 吞吐量直方图",
+    "after": "蒙特卡洛预测",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-view-process-behavior",
+    "before": "XmR — 周期辰光",
+    "after": "过程行为（XmR）",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-view-size-cycle-time",
+    "before": "尺寸 / 周期辰光",
+    "after": "工作项目大小搭周期时间个关系",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-age-days",
+    "before": "列表 — 期间 (天)",
+    "after": "勒阶段里向停留个天数",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-p85",
+    "before": "列表 — P85 (天)",
+    "after": "阶段第 85 百分位数（天）",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-samples",
+    "before": "历史 — n",
+    "after": "历史停留记录",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-signal",
+    "before": "限制",
+    "after": "信号",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-unusual",
+    "before": "限制 ⚠",
+    "after": "超出界限",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-blocker",
+    "before": "阻塞",
+    "after": "造成阻塞个卡片",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-episodes",
+    "before": "依赖 — 历史",
+    "after": "阻塞事件",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-active",
+    "before": "依赖 — 结尾 —",
+    "after": "还朆结束个阻塞事件",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-blocked-days",
+    "before": "被阻塞于 (牌 × 天)",
+    "after": "受阻卡片天数",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-unknown-start",
+    "before": "开始 — （未知）",
+    "after": "开始时间未知",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-confidence",
+    "before": "统计 (%)",
+    "after": "置信度",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-target-count",
+    "before": "牌 — 数字",
+    "after": "目标卡片数",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-finish-days",
+    "before": "完全的 (天)",
+    "after": "完成需要个天数",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-finish-date",
+    "before": "完全的 — 日期",
+    "after": "完成日期",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-target-date",
+    "before": "到期的",
+    "after": "目标日期",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-capacity",
+    "before": "牌 ≥",
+    "after": "至少搿能多张卡片",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-history-days",
+    "before": "历史 (天)",
+    "after": "历史天数",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-beyond-horizon",
+    "before": "> 3650 天",
+    "after": "超出模拟时间范围",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-mean",
+    "before": "周期辰光 — x̄",
+    "after": "平均值",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-moving-range",
+    "before": "|Δ 周期辰光|",
+    "after": "移动极差",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-mr-mean",
+    "before": "MR̄",
+    "after": "平均移动极差",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-size-source",
+    "before": "尺寸 — 自定义字段",
+    "after": "大小字段",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-size",
+    "before": "尺寸",
+    "after": "估算值",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-error",
+    "before": "错误 — 统计",
+    "after": "加载勿了报告。检查数值，再试一趟。",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-details",
+    "before": "细节 — 历史",
+    "after": "依据个历史记录",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-note-agingWip",
+    "before": "列表: 开始 → 期间. P85: n ≥ 5. （未知）: —.",
+    "after": "还朆完成个卡片：进入当前阶段以后经过个天数。红条表示超过搿阶段历史第 85 百分位数（至少要有五趟停留记录）。呒没进入记录个，算未知。",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-note-blockerAnalysis",
+    "before": "依赖: 历史 → 开始 / 结尾. 开始 （未知）: —.",
+    "after": "依赖关系历史提供每只阶段个阻塞开始搭结束时间。旧链接个开始时间可能未知。删脱个卡片需要保留下来个历史快照。重叠个原因分别计数。",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-note-monteCarlo",
+    "before": "Monte Carlo: 2000 × 历史. 天: UTC; 0 ✓. 50%, 70%, 85%, 95%. 牌 ≥; 期间 ≤. 限制: 3650 天.",
+    "after": "2,000 趟试验抽取完整个 UTC 日历日，包括吞吐量为零个日脚。日期是上尾预测，数量是下尾承诺。假定将来吞吐量差勿多，勿是保证。最长模拟范围：3,650 天。呒没完成记录就呒没预测。",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-note-processBehavior",
+    "before": "XmR: 周期辰光; 开始 → 完全的. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
+    "after": "周期时间用开始时间，呒没就用创建时间；用结束时间，呒没就用归档时间。XmR 显示单只数值搭相邻差值，以及平均值搭自然过程界限；至少需要两条有效个完成记录。",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "flow-note-sizeCycleTime",
+    "before": "X: 规划扑克 / 数字. Y: 周期辰光 (天). （未知）: —.",
+    "after": "当前规划扑克估算值或者一只数字自定义字段，对照完成个周期天数。缺少估算值搭日期无效个记录跳过。呒没开始时间就用创建时间；呒没结束时间就用归档时间。",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "move-reason",
+    "before": "移动卡 — 描述",
+    "after": "移动原因（可选）",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "ask-move-reason",
+    "before": "移动卡 → 描述?",
+    "after": "移动卡片个辰光询问原因",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "time-adjustments",
+    "before": "小时 — Δ — 用户名",
+    "after": "按修改者分组个时间调整",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "time-adjustment-note",
+    "before": "历史: Δ 小时; 用户名 ≠ 受让人.",
+    "after": "记录小时数个改动，按修改总数个人分组。搿些勿是单独个工作时段。负数是修正。以前呒没记录个时间归勿到具体个人。",
+    "reason": "2026-10-08: Restore complete Wu flow-report labels and explanations; lower-confidence statistical terminology needs native review."
   }
 ]
