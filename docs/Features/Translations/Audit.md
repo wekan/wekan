@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Slovenian import instructions, first group — 2026-10-09
+
+Translate eight instructions in sl and sl_SI (16 values): Planner, MeisterTask,
+Obsidian, Linear, TickTick, ClickUp, Nullboard and Kanri. Preserve commands,
+extensions and variables. Regression checks cover completed-task dates, archived
+cards, first-board selection and swimlane mappings. Import-instruction and
+placeholder suites and all 21 preservation checks pass. Remaining Slovenian
+instructions, browser review and the wider translation backlog remain outstanding.
+
 ## Croatian import instructions and verification refresh — 2026-10-09
 
 Translate all 21 import instructions in hr, preserving commands, columns,
