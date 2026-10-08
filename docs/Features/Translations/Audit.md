@@ -9153,6 +9153,16 @@ Regression coverage checks those details, alias consistency, script, key order
 and token inventories. Technical wording remains low confidence pending speaker
 review. Browser checks were not run; the broader translation audit continues.
 
+## Maithili Scrum settings and sprint labels
+
+Filled 30 English placeholders for Scrum roles, planning settings and sprint
+actions. The placeholder-only merge retained existing translations. Preserved
+numeric-field meaning, distinct completion policies and separate start/close/
+cancel actions. Regression coverage checks those details, repeated labels, script,
+key order and token inventories. Scrum terminology remains low confidence pending
+speaker review. Browser checks were not run; further Maithili translations and
+the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
