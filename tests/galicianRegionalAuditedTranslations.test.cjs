@@ -570,3 +570,23 @@ for (const code of ['gl', 'gl-ES']) {
   assert.doesNotMatch(catalog['cards-loading-all'], /predeterminado/);
   for (const literal of ['.json', 'Trello', '.zip']) assert.ok(catalog['import-trello-zip-no-boards'].includes(literal));
 }
+
+const settingsKeys = ["external-link-rules", "external-link-rules-description", "external-link-identifier-aliases", "read-only-field", "r-moved-forward", "r-moved-back", "r-assignee", "r-add-actinguser-assignee", "r-remove-all-assignees", "ldap-sync-now", "ldap-sync-now-done", "ldap-sync-now-error", "ldap-sync-now-nothing", "oauth-providers-allowed-email-domains", "scrum-release-scope", "scrum-releases-select-help", "scrum-import-into-board", "scrum-import-into-board-hint", "scrum-import-preview", "scrum-import-choose-file"];
+for (const code of ['gl', 'gl-ES']) {
+  const catalog = require('../imports/i18n/data/' + code + '.i18n.json');
+  for (const key of settingsKeys) {
+    assert.ok(catalog[key]?.trim(), key);
+    assert.notEqual(catalog[key], englishLabels[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(catalog[key]), translationTokens(englishLabels[key]), key);
+  }
+  assert.match(catalog['read-only-field'], /só os administradores do taboleiro poden cambialo/);
+  assert.match(catalog['scrum-import-into-board-hint'], /nunca se duplican/);
+  assert.match(catalog['scrum-import-into-board-hint'], /non coinciden.*sen cambios/);
+  assert.match(catalog['r-moved-forward'], /adiante.*posterior/);
+  assert.match(catalog['r-moved-back'], /atrás.*anterior/);
+  assert.match(catalog['oauth-providers-allowed-email-domains'], /en branco permítense todos/);
+  for (const literal of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS', 'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) assert.ok(catalog['ldap-sync-now-nothing'].includes(literal));
+  assert.ok(catalog['external-link-rules-description'].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
+  assert.deepEqual(catalog['external-link-rules-description'].match(/\{[^{}]+\}/g), englishLabels['external-link-rules-description'].match(/\{[^{}]+\}/g));
+  assert.ok(catalog['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+}

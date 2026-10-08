@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Galician settings and planning — 2026-10-09
+
+Translate 20 messages in gl and gl-ES, replacing 40 English values: link rules,
+read-only fields, automation actions, LDAP, provider restrictions and initial
+Scrum import controls. Preserve percent variables, brace tokens, link examples
+and configuration names. Regression checks cover administrator-only edits,
+unchanged unmatched cards, non-duplicating imports, direction and unrestricted
+empty domain settings. Both relevant suites and all 21 preservation checks pass.
+Remaining translations, language auditing and browser review are outstanding.
+
 ## Galician import instructions, final group — 2026-10-09
 
 Translate seven instructions in gl and gl-ES, replacing 14 English values:
