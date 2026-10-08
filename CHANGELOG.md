@@ -442,6 +442,17 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8be1815560">Translate short Marathi, Malayalam and Telugu Blockly labels</a>. Thanks to xet7.</summary>
+
+Translate 31 English labels while preserving indexed input/context arguments,
+conditional and procedure aliases, and distinct pixel states. Four focused Node
+suites and all 21 human-translation preservation checks pass. Composed labels need
+native review; browser and screen-reader validation were not run. Translation
+work across the remaining languages is still unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/09c9ce2915">Translate short Czech, Japanese and Chinese labels</a>. Thanks to xet7.</summary>
 
 Translate 14 values across 12 locale paths. Distinguish Czech rule actors from sort
