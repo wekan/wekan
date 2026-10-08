@@ -31,6 +31,16 @@ if (typeof window !== 'undefined') {
   window.Meteor = Meteor;
 }
 
+// #6752: a ROOT_URL left at the snap's 127.0.0.1 default made every
+// copied link point at 127.0.0.1. When the browser reached WeKan through
+// another address, build absolute links from that address instead
+// (models/lib/browserRootUrl.js says when, and why only then).
+try {
+  const { browserRootUrl } = require('/models/lib/browserRootUrl');
+  const rootUrl = browserRootUrl(Meteor.absoluteUrl.defaultOptions.rootUrl, window.location.href);
+  if (rootUrl) Meteor.absoluteUrl.defaultOptions.rootUrl = rootUrl;
+} catch (_) {}
+
 // Fix bug in jam:offline 0.4.1: s?.message.includes() crashes when s.message is
 // undefined (e.g. during WebSocket reconnect errors that don't carry a .message).
 // Wrap _debug so the optional chain is complete: s?.message?.includes().
