@@ -788,3 +788,14 @@ assert.match(wu['r-w-card-unarchived'], /归档里向恢复/);
 assert.match(wu['r-w-every-day-at'], /每天.*__time__/);
 assert.match(wu['r-export-json'], /JSON/);
 assert.match(wu['r-export-csv'], /CSV/);
+
+const ruleImportSchedule = ["r-import-paste", "r-import", "r-import-done", "r-import-trello-note", "r-board", "r-import-workflow-note", "r-import-unmapped", "r-set-scheduled-triggers", "r-when-scheduled", "r-schedule-once", "r-schedule-weekday", "r-schedule-weekly", "r-schedule-at-time", "r-schedule-on-weekday", "r-schedule-on-day", "r-schedule-on-date", "r-of-cards-in-list", "r-when-due"];
+for (const key of ruleImportSchedule) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.equal(wu['r-import'], '导入');
+assert.equal(wu['r-board'], '看板');
+assert.match(wu['r-import-done'], /导入好 __count__/);
+assert.match(wu['r-import-unmapped'], /__count__.*映射勿到/);
+assert.match(wu['r-import-trello-note'], /呒没 Butler 规则.*支持个部分.*映射勿到.*报告/);
+assert.match(wu['r-import-workflow-note'], /n8n.*Node-RED.*WeKan.*映射勿到个节点.*报告/);
+assert.match(wu['r-schedule-weekday'], /礼拜一到礼拜五/);
+assert.notEqual(wu['r-schedule-once'], wu['r-schedule-weekly']);

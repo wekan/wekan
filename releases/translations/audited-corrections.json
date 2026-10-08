@@ -164239,5 +164239,131 @@
     "before": "将规则导出为 CSV",
     "after": "拿规则导出成 CSV",
     "reason": "2026-10-08: Correct Wu rule triggers and workflow instructions, preserving time variables and opposite events; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-import-paste",
+    "before": "在此粘贴导出的规则（JSON 或 CSV）或 Trello Butler 命令",
+    "after": "拿导出个规则（JSON 或者 CSV）或者 Trello Butler 命令贴到搿搭",
+    "reason": "2026-10-08: Correct Wu rule import and schedule prose, preserving count variables and supported-subset limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-import",
+    "before": "进口",
+    "after": "导入",
+    "reason": "2026-10-08: Correct Wu rule import and schedule prose, preserving count variables and supported-subset limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-import-done",
+    "before": "已导入 __count__ 条规则",
+    "after": "导入好 __count__ 条规则仔",
+    "reason": "2026-10-08: Correct Wu rule import and schedule prose, preserving count variables and supported-subset limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-import-trello-note",
+    "before": "Trello 看板导出不包含 Butler 规则。在此粘贴 Butler 命令文本以映射受支持的子集；未映射的行会被报告。",
+    "after": "Trello 看板导出文件里向呒没 Butler 规则。拿 Butler 命令文本贴到搿搭，映射支持个部分；映射勿到个行会报告出来。",
+    "reason": "2026-10-08: Correct Wu rule import and schedule prose, preserving count variables and supported-subset limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-board",
+    "before": "木板",
+    "after": "看板",
+    "reason": "2026-10-08: Correct Wu rule import and schedule prose, preserving count variables and supported-subset limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-import-workflow-note",
+    "before": "导入从 n8n 或 Node-RED 导出的可视化工作流。已识别的触发器/动作节点会映射为 WeKan 规则；未映射的节点会被报告。",
+    "after": "导入从 n8n 或者 Node-RED 导出个可视化工作流。识别出来个触发器／操作节点会映射成 WeKan 规则；映射勿到个节点会报告出来。",
+    "reason": "2026-10-08: Correct Wu rule import and schedule prose, preserving count variables and supported-subset limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-import-unmapped",
+    "before": "无法映射 __count__ 行",
+    "after": "有 __count__ 行映射勿到",
+    "reason": "2026-10-08: Correct Wu rule import and schedule prose, preserving count variables and supported-subset limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-set-scheduled-triggers",
+    "before": "计划触发器",
+    "after": "定时触发器",
+    "reason": "2026-10-08: Correct Wu rule import and schedule prose, preserving count variables and supported-subset limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-when-scheduled",
+    "before": "按计划",
+    "after": "按设定个时间",
+    "reason": "2026-10-08: Correct Wu rule import and schedule prose, preserving count variables and supported-subset limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-schedule-once",
+    "before": "一次",
+    "after": "一趟",
+    "reason": "2026-10-08: Correct Wu rule import and schedule prose, preserving count variables and supported-subset limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-schedule-weekday",
+    "before": "每个工作日（周一至周五）",
+    "after": "每个工作日（礼拜一到礼拜五）",
+    "reason": "2026-10-08: Correct Wu rule import and schedule prose, preserving count variables and supported-subset limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-schedule-weekly",
+    "before": "每周",
+    "after": "每个礼拜",
+    "reason": "2026-10-08: Correct Wu rule import and schedule prose, preserving count variables and supported-subset limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-schedule-at-time",
+    "before": "于时间",
+    "after": "勒搿个时间",
+    "reason": "2026-10-08: Correct Wu rule import and schedule prose, preserving count variables and supported-subset limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-schedule-on-weekday",
+    "before": "于星期",
+    "after": "勒礼拜几",
+    "reason": "2026-10-08: Correct Wu rule import and schedule prose, preserving count variables and supported-subset limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-schedule-on-day",
+    "before": "于每月的某日",
+    "after": "勒每个月个几号",
+    "reason": "2026-10-08: Correct Wu rule import and schedule prose, preserving count variables and supported-subset limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-schedule-on-date",
+    "before": "于日期",
+    "after": "勒搿个日期",
+    "reason": "2026-10-08: Correct Wu rule import and schedule prose, preserving count variables and supported-subset limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-of-cards-in-list",
+    "before": "针对列表中的卡片",
+    "after": "对搿只列表里向个卡片",
+    "reason": "2026-10-08: Correct Wu rule import and schedule prose, preserving count variables and supported-subset limits; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-when-due",
+    "before": "当卡片的截止日期",
+    "after": "当卡片个截止日期",
+    "reason": "2026-10-08: Correct Wu rule import and schedule prose, preserving count variables and supported-subset limits; lower-confidence prose needs native review."
   }
 ]
