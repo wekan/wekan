@@ -1006,6 +1006,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/be43a70825">Translate Latvian controls and planning</a>. Thanks to xet7.</summary>
+
+Fill 51 messages covering controls, import guidance, LDAP, login settings,
+planning imports and history recovery. Preserve variables, literal examples,
+matching priority, non-duplication and recovery decisions.
+
+Four focused translation suites and 21 human-preference checks pass.
+The current Latvian fill list is empty. No browser or screen-reader session
+was run; other languages and linguistic review remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ef9af80034">Translate Latvian import and synchronization recovery</a>. Thanks to xet7.</summary>
 
 Fill 48 recovery messages, preserving variables, existing translations,
