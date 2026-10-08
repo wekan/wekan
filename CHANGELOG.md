@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/37561e9ff92913f574c980873fb32eda9d10c8d2">Correct Tatar memory and checklist controls</a></summary>
+
+- Correct 24 memory, organization and checklist values, preserving technical
+  identifiers, distinct memory metrics and checklist line mapping.
+- Technical wording remains low confidence pending speaker review.
+- All 121 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b5ce34018f117cdf6060d18d342f32ba78060edc">Correct Tatar team invitations and heap metrics</a></summary>
 
 - Correct 16 invitation and memory-metric values, preserving registration
