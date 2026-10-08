@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## South Asian sign-in address warnings — 2026-10-08
+
+Translate the warning in Hindi and its Indian variant, Bengali, Tamil, Telugu,
+Marathi, Gujarati, Kannada, Malayalam, Nepali, Urdu, Punjabi and Sinhala: 13 new
+values. The warning regression suite now checks 71 catalogs for exact repeated
+address variables, rendering order and the ROOT_URL literal. The targeted warning
+and placeholder suites and all 21 preservation checks pass. Native review,
+complex-script and right-to-left browser rendering, and the wider all-language
+backlog remain outstanding.
+
 ## Sign-in warning regional and additional language coverage — 2026-10-08
 
 Fill the warning in 24 additional regional catalogs using their corresponding

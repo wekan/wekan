@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "ఈ ఇమెయిల్‌తో ఖాతా ఇప్పటికే ఉంది మరియు అది ఈ లాగిన్ పద్ధతితో సృష్టించబడలేదు",
   "sign-in-with": "%s తో లాగిన్ చేయండి",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "ఈ చిరునామాలో మరొక సేవ ద్వారా సైన్ ఇన్ చేయడాన్ని పూర్తి చేయలేరు. WeKanను __expected__ కోసం అమర్చారు, కానీ ఈ పేజీని __actual__ వద్ద తెరిచారు. __expected__ వద్ద WeKanను తెరవండి లేదా ROOT_URLను __actual__గా సెట్ చేయమని నిర్వాహకుడిని అడగండి.",
   "passwordless-title": "పాస్‌వర్డ్ లేని లాగిన్",
   "passwordless-enabled": "పాస్‌వర్డ్‌కు బదులుగా ఇమెయిల్ ద్వారా ఒకసారి వాడే లాగిన్ కోడ్ పంపండి",
   "passwordless-hint": "బయటకు వెళ్లే ఇమెయిల్ అవసరం (MAIL_URL). అలాగే PASSWORDLESS_ENABLED.",

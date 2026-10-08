@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "اس ای میل کے ساتھ اکاؤنٹ پہلے سے موجود ہے اور یہ اس لاگ ان طریقے سے نہیں بنایا گیا تھا",
   "sign-in-with": "%s سے لاگ ان کریں",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "اس پتے پر کسی دوسری سروس کے ذریعے سائن ان مکمل نہیں کیا جا سکتا۔ WeKan کو __expected__ کے لیے ترتیب دیا گیا ہے، لیکن یہ صفحہ __actual__ پر کھولا گیا تھا۔ WeKan کو __expected__ پر کھولیں، یا منتظم سے ROOT_URL کو __actual__ پر مقرر کرنے کو کہیں۔",
   "passwordless-title": "بغیر پاس ورڈ لاگ ان",
   "passwordless-enabled": "پاس ورڈ کے بجائے ای میل کے ذریعے ایک بار استعمال ہونے والا لاگ ان کوڈ بھیجیں",
   "passwordless-hint": "باہر جانے والی ای میل درکار ہے (MAIL_URL)۔ نیز PASSWORDLESS_ENABLED۔",
