@@ -1201,6 +1201,93 @@ test('Notion: a pasted database CSV imports, and a zip without a database is ref
   } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });
 
+// Plane's issue export (Workspace Settings > Exports), import only: a .zip with
+// one file per project, built as Plane's IssueExportSerializer and its JSON and
+// CSV formatters write it (models/lib/planeFormat.js, tests/planeFormat.test.cjs).
+function planeIssue(fields) {
+  return {
+    project_name: 'Plane Website', project_identifier: 'WEB', parent: '', identifier: '', sequence_id: 0, name: '',
+    state_name: 'Todo', priority: 'none', assignees: [], subscribers: [], created_by_name: 'Jane Doe', start_date: null,
+    target_date: null, completed_at: null, created_at: '2026-09-27T14:03:00.123456Z', updated_at: '2026-10-01T09:15:00.000000Z',
+    archived_at: null, estimate: '', labels: [], cycles: [], modules: [], links: [], relations: [], comments: [],
+    sub_issues_count: 0, link_count: 0, attachment_count: 0, is_draft: false, ...fields,
+  };
+}
+function planeExportZip() {
+  const { zipSync, strToU8 } = require('../../../node_modules/fflate');
+  const web = [
+    planeIssue({ identifier: 'WEB-1', sequence_id: 1, name: expected.title, state_name: 'In Progress', priority: 'high',
+      target_date: '2026-09-30', estimate: '3', labels: [expected.label], cycles: ['Sprint 7'],
+      links: [{ url: 'https://example.com/spec', title: 'Spec' }],
+      comments: [{ comment: 'Looks good', created_by: 'John Smith', created_at: '2026-09-28 08:00:00' }] }),
+    planeIssue({ parent: 'WEB-1', identifier: 'WEB-2', sequence_id: 2, name: 'Child issue', state_name: 'Done',
+      completed_at: '2026-10-02T09:00:00Z' }),
+  ];
+  // The second project as CSV: prettified headers, lists as JSON text.
+  const keys = Object.keys(planeIssue({}));
+  const header = keys.map(key => key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())).join(',');
+  const row = planeIssue({ project_name: 'Plane Mobile', project_identifier: 'MOB', identifier: 'MOB-1', sequence_id: 1, name: 'Mobile issue' });
+  const csv = `${header}\r\n${keys.map(key => {
+    const value = row[key];
+    const text = Array.isArray(value) ? JSON.stringify(value) : value === null ? '' : value === false ? 'False' : String(value);
+    return /[",\r\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+  }).join(',')}\r\n`;
+  return Buffer.from(zipSync({ 'acme-p1.json': strToU8(JSON.stringify(web, null, 2)), 'acme-p2.csv': strToU8(csv) }));
+}
+
+test('Plane: an export .zip imports through the page with its states, projects, parent, comment and fields', async ({ loggedInPage: page }) => {
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/plane');
+    await page.locator('.js-import-plane-file').setInputFiles({ name: 'export-acme-abc123-2026-10-08.zip', mimeType: 'application/zip', buffer: planeExportZip() });
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    expect(db.findOne('boards', { _id: boardId }).title).toBe('Imported Plane issues');
+    const cards = db.find('cards', { boardId });
+    expect(cards.map(card => card.title).sort()).toEqual([expected.title, 'Child issue', 'Mobile issue'].sort());
+    const open = cards.find(card => card.title === expected.title);
+    const child = cards.find(card => card.title === 'Child issue');
+    const lists = db.find('lists', { boardId });
+    expect(lists.find(list => list._id === open.listId).title).toBe('In Progress');
+    expect(lists.find(list => list._id === child.listId).title).toBe('Done');
+    const swimlanes = db.find('swimlanes', { boardId });
+    expect(swimlanes.find(lane => lane._id === cards.find(card => card.title === 'Mobile issue').swimlaneId).title).toBe('Plane Mobile');
+    expect(child.parentId).toBe(open._id);
+    expect(open.description).toBe('Links:\n- [Spec](https://example.com/spec)');
+    expect(new Date(open.dueAt).toISOString().slice(0, 10)).toBe('2026-09-30');
+    expect(new Date(child.endAt).toISOString().slice(0, 10)).toBe('2026-10-02');
+    const board = db.findOne('boards', { _id: boardId });
+    expect(open.labelIds.map(id => board.labels.find(l => l._id === id).name)).toEqual([expected.label]);
+    expect(db.find('card_comments', { cardId: open._id }).map(comment => comment.text)).toEqual(['John Smith: Looks good']);
+    const fields = db.find('customFields', { boardIds: boardId }).map(field => field.name).sort();
+    expect(fields).toEqual(['Cycle', 'Estimate', 'Priority']);
+    await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
+
+test('Plane: a pasted JSON export imports, and broken text or a zip without export files is refused', async ({ loggedInPage: page }) => {
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/plane');
+    await page.locator('#import-textarea').fill('[broken');
+    await page.locator('.js-import-without-mapping').click();
+    await expect(page.locator('.warning').first()).toBeVisible();
+    const refused = await page.evaluate(async zipBase64 => {
+      try { await Meteor.callAsync('importBoard', { zipBase64 }, {}, 'plane'); return 'allowed'; }
+      catch (e) { return `${e.error} ${e.reason}`; }
+    }, Buffer.from(require('../../../node_modules/fflate').zipSync({ 'readme.txt': new Uint8Array([104, 105]) })).toString('base64'));
+    expect(refused).toMatch(/^invalid-import-format .*no \.json, \.csv or \.xlsx/);
+    await expect(page).toHaveURL(/\/import\/plane$/);
+    await page.locator('#import-textarea').fill(JSON.stringify([planeIssue({ project_name: 'Pasted Plane', identifier: 'WEB-9', name: expected.title })]));
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    expect(db.findOne('boards', { _id: boardId }).title).toBe('Pasted Plane');
+    expect(db.find('cards', { boardId }).map(card => card.title)).toEqual([expected.title]);
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
+
 // Focalboard's board.jsonl: the group-by property's lists, labels, dates, the
 // card's text, checklist and comments (models/lib/focalboardFormat.js).
 test('Focalboard: a board.jsonl imports with its lists, labels, description, checklist and comments', async ({ loggedInPage: page }) => {

@@ -372,7 +372,8 @@ async function main() {
     assert.equal(EXTERNAL_PARSERS.vikunja, parseVikunjaExport);
     assert.equal(typeof formatters.vikunja, 'function');
     const imp = read('models/import.js');
-    assert.match(imp, /importSource === 'opml' \|\| importSource === 'vikunja' \|\| importSource === 'notion' \? board/);
+    // Later formats parsed before sanitizing (Plane) follow in the same condition.
+    assert.match(imp, /importSource === 'opml' \|\| importSource === 'vikunja'(?: \|\| importSource === '[a-z]+')* \? board/);
     assert.match(imp, /case 'vikunja':[\s\S]*?check\(board, Match\.OneOf\(Object, String\)\);[\s\S]*?readVikunjaImport\(importedBoard\);\s*importedBoard = EXTERNAL_PARSERS\.vikunja\(importedBoard\);[\s\S]*?sanitizeImported\(importedBoard, 'vikunja', this\);\s*creator = new KanboardCreator\(data, 'vikunja'\);/);
     const exp = read('models/export.js');
     assert.match(exp, /if \(format === 'vikunja'\) \{[\s\S]*?writeVikunjaArchive\(vikunjaArchiveFiles\(built\)\);[\s\S]*?'application\/zip'/);

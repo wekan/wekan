@@ -1079,6 +1079,10 @@
     {
       "key": "import-board-instruction-notion",
       "since": "2026-10-08"
+    },
+    {
+      "key": "import-board-instruction-plane",
+      "since": "2026-10-08"
     }
   ]
 }

@@ -34,7 +34,7 @@ that by providing one-click installation on various platforms.
     - Add Board / Import:
       - WeKan JSON/.zip, CSV/TSV, Excel, Markdown, Obsidian Kanban, Leo, OPML, Org mode, todo.txt
       - Trello, Jira, Asana, Zenkit, Focalboard, Todoist, Microsoft Planner, MeisterTask, Linear, TickTick, ClickUp, Nullboard, Kanri, Pivotal Tracker, Redmine, Tasks.org, monday.com,
-        Super Productivity, Taiga, Vikunja, Wrike, Quire, Teamwork.com, Businessmap, Notion
+        Super Productivity, Taiga, Vikunja, Wrike, Quire, Teamwork.com, Businessmap, Notion, Plane
       - Kanboard, Nextcloud Deck, OpenProject, Taskwarrior
       - GitHub, GitLab, Gitea, Forgejo
   - Change Color: Board theme and background image, Swimlane, List, Card

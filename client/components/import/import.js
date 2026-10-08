@@ -260,6 +260,31 @@ Template.import.onCreated(function () {
       await this.finishImport();
       return;
     }
+    // Plane: the issue export .zip (Workspace Settings > Exports) or the .xlsx
+    // inside it, sent as base64 and opened on the server
+    // (server/lib/planeArchive.js), or its JSON or CSV file - chosen as a file
+    // or pasted - sent as text. Plane's people are names, not mapped here.
+    if (dataSource === 'plane') {
+      const el = this.find('.js-import-plane-file');
+      const file = el && el.files && el.files[0];
+      let input;
+      if (file && /\.(zip|xlsx)$/i.test(file.name || '')) {
+        const bytes = new Uint8Array(await file.arrayBuffer());
+        let binary = '';
+        for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+        input = /\.xlsx$/i.test(file.name) ? { xlsxBase64: window.btoa(binary) } : { zipBase64: window.btoa(binary) };
+      } else {
+        input = file ? await file.text() : this.find('.js-import-json').value;
+        if (!input || !input.trim()) {
+          this.setError('error-json-malformed');
+          return;
+        }
+      }
+      this.importedData.set(input);
+      this.membersToMap.set([]);
+      await this.finishImport();
+      return;
+    }
     // Notion: the Markdown & CSV export .zip, sent as base64 and opened on the
     // server (server/lib/notionArchive.js), or one database CSV - chosen as a
     // file or pasted - sent as text. Notion's people are not mapped here
@@ -539,6 +564,7 @@ const IMPORT_SOURCES = [
   { key: 'businessmap', name: 'Businessmap (Kanbanize)' },
   { key: 'quire', name: 'Quire' },
   { key: 'notion', name: 'Notion' },
+  { key: 'plane', name: 'Plane' },
 ];
 
 Template.import.helpers({
@@ -654,6 +680,8 @@ Template.importTextarea.helpers({
   isVikunjaImport() { return Session.get('importSource') === 'vikunja'; },
   // Notion's Markdown & CSV export .zip, or one database CSV, beside the textarea.
   isNotionImport() { return Session.get('importSource') === 'notion'; },
+  // Plane's export .zip, its .xlsx, or its JSON or CSV file, beside the textarea.
+  isPlaneImport() { return Session.get('importSource') === 'plane'; },
   isJiraImport() { return Session.get('importSource') === 'jira'; },
   // The numeric fields the pasted Jira export declares, to pick the estimate.
   jiraEstimateCandidates() { return Template.instance().jiraCandidates.get(); },

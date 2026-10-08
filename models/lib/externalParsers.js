@@ -23,6 +23,7 @@ import { parseWrikeRows } from './wrikeFormat.js';
 import { parseTeamworkSheet } from './teamworkFormat.js';
 import { parseQuireCsv } from './quireCsvFormat.js';
 import { parseNotionExport } from './notionFormat.js';
+import { parsePlaneExport } from './planeFormat.js';
 import { parseOrgMode } from './orgModeFormat.js';
 import {
   gitlabScrumPlanning, openProjectScrumPlanning, asanaScrumPlanning, STORY_POINTS_FIELD,
@@ -1017,6 +1018,8 @@ export const EXTERNAL_PARSERS = {
   quire: parseQuireCsv,
   // Notion's Markdown & CSV export: a database CSV, or what server/lib/notionArchive.js reads from the zip.
   notion: parseNotionExport,
+  // Plane's issue export (JSON, CSV or XLSX), as server/lib/planeArchive.js reads it from the zip.
+  plane: parsePlaneExport,
   orgmode: parseOrgMode,
   jira: parseJira,
 };

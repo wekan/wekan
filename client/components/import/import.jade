@@ -83,6 +83,13 @@ template(name="importTextarea")
       p.import-file-row
         label(for='import-notion-file') {{_ 'import-wekan-file'}}
         input.js-import-notion-file(id='import-notion-file' type="file" accept=".zip,.csv,application/zip,text/csv")
+    if isPlaneImport
+      //- Plane's Workspace Settings > Exports .zip (CSV, JSON or XLSX inside),
+        opened on the server, or one file from it; pasting the JSON or CSV
+        into the textarea works too.
+      p.import-file-row
+        label(for='import-plane-file') {{_ 'import-wekan-file'}}
+        input.js-import-plane-file(id='import-plane-file' type="file" accept=".zip,.json,.csv,.xlsx,application/zip,application/json,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     if isWekanImport
       //- #1173: a WeKan export can be a .json or a .zip - the .zip is the one to
         use when a board's attachments are too large to sit inside one JSON

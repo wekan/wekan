@@ -241,7 +241,7 @@ async function main() {
     assert.equal(EXTERNAL_PARSERS.notion, parseNotionExport);
     assert.equal(formatters.notion, formatNotionCsv);
     const imp = read('models/import.js');
-    assert.match(imp, /importSource === 'vikunja' \|\| importSource === 'notion' \? board/);
+    assert.match(imp, /importSource === 'vikunja'(?: \|\| importSource === '[a-z]+')* \|\| importSource === 'notion'(?: \|\| importSource === '[a-z]+')* \? board/);
     assert.match(imp, /case 'notion':[\s\S]*?check\(board, Match\.OneOf\(Object, String\)\);[\s\S]*?readNotionImport\(importedBoard\);\s*importedBoard = EXTERNAL_PARSERS\.notion\(importedBoard\);[\s\S]*?sanitizeImported\(importedBoard, 'notion', this\);\s*creator = new KanboardCreator\(data, 'notion'\);/);
     assert.match(read('models/export.js'), /notion: 'text\/csv'/);
     const page = read('client/components/import/import.js');

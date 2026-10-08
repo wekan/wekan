@@ -130,7 +130,8 @@ Body &amp; more</t>
     // So is a Vikunja export: its data.json carries HTML inside JSON strings,
     // which sanitizing the raw text as markup would break (tests/vikunjaFormat.test.cjs).
     // And a Notion export, whose zip is opened on the server (tests/notionFormat.test.cjs).
-    assert.match(src, /importSource === 'leo' \|\| importSource === 'opml' \|\| importSource === 'vikunja' \|\| importSource === 'notion' \? board\s*: sanitizeImported\(board, importSource, this\)/);
+    // And a Plane export, whose CSV cells hold JSON (tests/planeFormat.test.cjs).
+    assert.match(src, /importSource === 'leo' \|\| importSource === 'opml' \|\| importSource === 'vikunja' \|\| importSource === 'notion' \|\| importSource === 'plane' \? board\s*: sanitizeImported\(board, importSource, this\)/);
     const leoCase = src.slice(src.indexOf("case 'leo':"), src.indexOf('default:', src.indexOf("case 'leo':")));
     assert.match(leoCase, /check\(board, String\)/);
     assert.match(leoCase, /if \(!Meteor\.isServer\) return undefined;/);

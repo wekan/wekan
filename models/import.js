@@ -106,8 +106,9 @@ Meteor.methods({
     // descriptions sit inside JSON strings: sanitizing that text as markup
     // would break the JSON. It is parsed first as well.
     // So is a Notion export: a .zip whose pages are read on the server, or a
-    // database CSV; the parsed board is sanitized.
-    let importedBoard = importSource === 'leo' || importSource === 'opml' || importSource === 'vikunja' || importSource === 'notion' ? board
+    // database CSV; the parsed board is sanitized. And a Plane export: a zip, a
+    // workbook, or JSON or CSV text whose cells hold JSON.
+    let importedBoard = importSource === 'leo' || importSource === 'opml' || importSource === 'vikunja' || importSource === 'notion' || importSource === 'plane' ? board
       : sanitizeImported(board, importSource, this);
     switch (importSource) {
       case 'trello':
@@ -404,6 +405,23 @@ Meteor.methods({
         }
         importedBoard = sanitizeImported(importedBoard, 'notion', this);
         creator = new KanboardCreator(data, 'notion');
+        break;
+      case 'plane':
+        // Plane's issue export - see models/lib/planeFormat.js. The import
+        // page sends the export .zip as { zipBase64 }, a workbook from it as
+        // { xlsxBase64 }, or the text of its JSON or CSV file;
+        // server/lib/planeArchive.js opens the zip and the workbook under size
+        // limits, and the parsed tasks are sanitized below.
+        check(board, Match.OneOf(Object, String));
+        if (!Meteor.isServer) return undefined;
+        try {
+          importedBoard = await require('/server/lib/planeArchive').readPlaneImport(importedBoard);
+          importedBoard = EXTERNAL_PARSERS.plane(importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        importedBoard = sanitizeImported(importedBoard, 'plane', this);
+        creator = new KanboardCreator(data, 'plane');
         break;
       case 'planner':
         // Microsoft Planner's "Export plan to Excel" workbook - see
