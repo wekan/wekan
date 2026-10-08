@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Papiamento notification recovery — 2026-10-08
+
+Translate 30 notification-recovery and interrupted-Sync messages. Preserve exact
+variables; check missing versus changed activities, retained pending work, distinct
+pause/resume/cancel actions, irreversible cancellation and retained applied changes.
+Specialized wording is lower confidence and needs native review. No browser
+session was run. Other translations remain unfinished.
+
 ## Papiamento Sync outcomes and mail failures — 2026-10-08
 
 Translate 35 Sync outcome, estimate, planning, mail-failure and activity messages.

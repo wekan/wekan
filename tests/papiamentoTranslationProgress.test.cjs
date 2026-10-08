@@ -406,3 +406,20 @@ assert.match(papiamento['sync-remaining-time'], /restante/);
 assert.match(papiamento['sync-planning-hint'], /promé pa su ID.*despues pa nòmber/);
 assert.match(papiamento['sync-planning-hint'], /promé sinkronisashon nunka ta kita/);
 assert.match(papiamento['activity-recovery-description'], /nunka ta krea un aktividat di nobo/);
+
+const notificationRecovery = ["activity-recovery-retry", "activity-recovery-retrying", "activity-recovery-status-pending", "activity-recovery-status-preparing", "activity-recovery-status-processing", "activity-recovery-status-missing", "activity-recovery-status-changed", "activity-recovery-status-invalid", "activity-recovery-status-inconsistent", "activity-recovery-busy", "activity-recovery-denied", "activity-recovery-source-unavailable", "activity-recovery-disabled", "activity-recovery-failed", "activity-recovery-pause", "activity-recovery-resume", "activity-recovery-paused", "activity-recovery-control-conflict", "activity-recovery-control-failed", "activity-recovery-status-cancelled", "activity-recovery-cancel", "activity-recovery-cancel-confirm", "rule-email-recovery-unavailable", "stuck-sync-operation-heading", "stuck-sync-operation-description", "stuck-sync-operation-list", "stuck-sync-operation-progress", "stuck-sync-operation-reason", "stuck-sync-operation-applied", "stuck-sync-operation-reason-scope-changed"];
+for (const key of notificationRecovery) {
+  assert.notEqual(papiamento[key], english[key], key);
+  assert.deepEqual(tokens(papiamento[key]), tokens(english[key]), key);
+}
+assert.match(papiamento['activity-recovery-status-missing'], /ta falta/);
+assert.match(papiamento['activity-recovery-status-changed'], /a kambia/);
+assert.match(papiamento['activity-recovery-source-unavailable'], /No a krea nada di nobo/);
+assert.match(papiamento['activity-recovery-failed'], /Trabou pendiente a keda wardá/);
+assert.equal(new Set(['pause', 'resume', 'cancel'].map(action => papiamento[`activity-recovery-${action}`])).size, 3);
+assert.match(papiamento['activity-recovery-cancel-confirm'], /permanentemente.*No por kontinuá/);
+assert.match(papiamento['activity-recovery-cancel-confirm'], /entregá no ta wordu retirá/);
+assert.match(papiamento['activity-recovery-control-conflict'], /Revisá.*promé ku purba atrobe/);
+assert.match(papiamento['stuck-sync-operation-description'], /kambionan apliká kaba ta keda/);
+assert.match(papiamento['stuck-sync-operation-description'], /restante nunka ta wordu skirbí/);
+assert.match(papiamento['stuck-sync-operation-description'], /kompará e lista ku su fuente atrobe/);
