@@ -245,3 +245,16 @@ assert.match(wu['blockly-SCREENREADER_MODE_DISABLED'], /关脱仔.*%1 打开/);
 assert.match(wu['blockly-SCREENREADER_MODE_ENABLED'], /打开仔.*%1 关脱/);
 assert.match(wu['blockly-SHIFT_KEY'], /Shift/);
 assert.equal(wu['blockly-PROCEDURES_CALL_BEFORE_PARAMS'], wu['blockly-PROCEDURES_BEFORE_PARAMS']);
+
+const shortcuts = ["blockly-SHORTCUTS_DUPLICATE", "blockly-SHORTCUTS_EDITING", "blockly-SHORTCUTS_ESCAPE", "blockly-SHORTCUTS_EXTENDED_INFORMATION", "blockly-SHORTCUTS_FINISH_MOVE", "blockly-SHORTCUTS_FOCUS_TOOLBOX", "blockly-SHORTCUTS_FOCUS_WORKSPACE", "blockly-SHORTCUTS_GENERAL", "blockly-SHORTCUTS_INFORMATION", "blockly-SHORTCUTS_JUMP_BLOCK_END", "blockly-SHORTCUTS_JUMP_BLOCK_START", "blockly-SHORTCUTS_JUMP_BOTTOM_STACK", "blockly-SHORTCUTS_JUMP_FIRST_BLOCK", "blockly-SHORTCUTS_JUMP_LAST_BLOCK", "blockly-SHORTCUTS_JUMP_NEXT_PAGE", "blockly-SHORTCUTS_JUMP_PREVIOUS_PAGE", "blockly-SHORTCUTS_JUMP_TOP_STACK", "blockly-SHORTCUTS_MOVE_DOWN", "blockly-SHORTCUTS_MOVE_LEFT", "blockly-SHORTCUTS_MOVE_RIGHT", "blockly-SHORTCUTS_MOVE_UP", "blockly-SHORTCUTS_NEXT_HEADING", "blockly-SHORTCUTS_NEXT_STACK", "blockly-SHORTCUTS_PERFORM_ACTION", "blockly-SHORTCUTS_PREVIOUS_HEADING", "blockly-SHORTCUTS_PREVIOUS_STACK", "blockly-SHORTCUTS_SCROLL_DOWN", "blockly-SHORTCUTS_SCROLL_LEFT", "blockly-SHORTCUTS_SCROLL_RIGHT", "blockly-SHORTCUTS_SCROLL_UP", "blockly-SHORTCUTS_SHOW_CONTEXT_MENU", "blockly-SHORTCUTS_SHOW_TOOLTIP", "blockly-SHORTCUTS_START_MOVE", "blockly-SHORTCUTS_START_MOVE_STACK", "blockly-SHORTCUTS_TOGGLE_SCREENREADER_MODE", "blockly-SPACE_KEY", "blockly-TAB_KEY"];
+for (const key of shortcuts) {
+  assert.notEqual(wu[key], english[key], key);
+  assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+}
+for (const action of ['MOVE', 'SCROLL']) for (const [direction, word] of Object.entries({ DOWN: '朝下', UP: '朝上', LEFT: '朝左', RIGHT: '朝右' })) assert.ok(wu[`blockly-SHORTCUTS_${action}_${direction}`].includes(word));
+for (const [key, word] of Object.entries({ JUMP_BLOCK_END: '末尾', JUMP_BLOCK_START: '起头', JUMP_BOTTOM_STACK: '底部', JUMP_TOP_STACK: '顶部', JUMP_FIRST_BLOCK: '第一块', JUMP_LAST_BLOCK: '最后一块', JUMP_NEXT_PAGE: '下一页', JUMP_PREVIOUS_PAGE: '上一页', START_MOVE: '开始', FINISH_MOVE: '完成' })) assert.ok(wu[`blockly-SHORTCUTS_${key}`].includes(word));
+assert.match(wu['blockly-SHORTCUTS_FOCUS_TOOLBOX'], /工具箱/);
+assert.match(wu['blockly-SHORTCUTS_FOCUS_WORKSPACE'], /工作区/);
+assert.match(wu['blockly-SHORTCUTS_START_MOVE_STACK'], /积木堆/);
+assert.match(wu['blockly-SPACE_KEY'], /Space/);
+assert.match(wu['blockly-TAB_KEY'], /Tab/);

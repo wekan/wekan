@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu Blockly keyboard shortcuts — 2026-10-08
+
+Translate 37 shortcut and key labels. Preserve source variables and key names;
+check movement/scroll directions, start/end and first/last positions, next/previous
+pages, focus destinations and starting/finishing moves. Wu wording is lower
+confidence and needs native review. No browser or screen-reader session was run.
+Remaining translations and older Mandarin-like passages require work.
+
 ## Wu Blockly procedures and screen-reader modes — 2026-10-08
 
 Translate 30 procedure, variable, accessibility and shortcut messages. Preserve
