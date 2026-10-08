@@ -9692,6 +9692,17 @@ human-preference checks passed. Technical wording remains low confidence
 pending speaker review. Browser checks were not run; further translations
 and the broader audit remain unfinished.
 
+## Turkmen Sync previews and run reports
+
+Filled 29 English placeholders for source omissions, previews and run reports.
+Existing translations were retained. Coverage checks entry/path limits,
+retention, hidden values, no resume/undo and distinct outcomes, plus key order
+and tokens. Of 61 checks, 59 passed; two repository-wide checks still fail
+because other locales lack custom-colors-in-use. All 21 human-preference
+checks passed. Technical wording remains low confidence pending speaker
+review. Browser checks were not run; further translations and the broader
+audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
