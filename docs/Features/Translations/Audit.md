@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Zulu variable and workspace messages — 2026-10-09
+
+Translate 58 values per Zulu catalog (116 values) for variables, workspace
+announcements, search and legacy control labels. Preserve exact variables,
+keyboard shortcuts and leading spaces in joined comment phrases. Tests render
+variable conflicts and joined workspace counts and check consistent conditional
+labels. Both targeted suites and all 21 preservation checks pass. Specialized
+terminology remains low confidence pending speaker review. Browser execution
+and remaining translations are outstanding.
+
 ## Zulu Blockly text operations — 2026-10-09
 
 Translate 55 text-operation values in each Zulu catalog (110 values). Preserve
