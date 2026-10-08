@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Portuguese import formats and stuck Sync recovery — 2026-10-08
+
+Translate 36 more current values in each of four Portuguese catalogs, for
+144 filled values. Preserve Brazilian wording and existing localized values.
+Cover import formats, assignment actions, LDAP, OAuth, release selection and
+stuck Sync recovery. Extend the existing suite to preserve format literals,
+configuration names, retained applied changes, unwritten pending changes,
+and the difference between cannot discard and was not discarded. No browser
+or screen-reader session was run; broader translation work remains open.
+
 ## Portuguese planning and recovery messages — 2026-10-08
 
 Translate 61 current English values in each of four Portuguese catalogs

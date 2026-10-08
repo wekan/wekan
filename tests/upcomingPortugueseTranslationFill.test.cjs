@@ -82,7 +82,43 @@ const currentKeys = [
   "scrum-history-checkpoint-rollback",
   "scrum-history-checkpoint-discard",
   "scrum-history-checkpoint-discard-confirm",
-  "scrum-history-checkpoint-ask-admin"
+  "scrum-history-checkpoint-ask-admin",
+  "import-board-instruction-opml",
+  "import-board-instruction-orgmode",
+  "import-board-instruction-todoist",
+  "r-assignee",
+  "r-add-actinguser-assignee",
+  "r-remove-all-assignees",
+  "ldap-sync-now",
+  "ldap-sync-now-done",
+  "ldap-sync-now-error",
+  "ldap-sync-now-nothing",
+  "oauth-providers-allowed-email-domains",
+  "scrum-release-scope",
+  "scrum-releases-select-help",
+  "stuck-sync-operation-heading",
+  "stuck-sync-operation-description",
+  "stuck-sync-operation-list",
+  "stuck-sync-operation-progress",
+  "stuck-sync-operation-reason",
+  "stuck-sync-operation-applied",
+  "stuck-sync-operation-reason-scope-changed",
+  "stuck-sync-operation-reason-access-denied",
+  "stuck-sync-operation-reason-trigger-unknown",
+  "stuck-sync-operation-reason-intent-missing",
+  "stuck-sync-operation-reason-unknown",
+  "stuck-sync-operation-replayable-now",
+  "stuck-sync-operation-discard",
+  "stuck-sync-operation-discard-confirm",
+  "stuck-sync-operation-refresh",
+  "stuck-sync-operation-empty",
+  "stuck-sync-operation-truncated",
+  "stuck-sync-operation-unavailable",
+  "stuck-sync-operation-missing",
+  "stuck-sync-operation-not-stuck",
+  "stuck-sync-operation-replayable",
+  "stuck-sync-operation-busy",
+  "stuck-sync-operation-failed"
 ];
 
 (async () => {
@@ -130,6 +166,25 @@ const currentKeys = [
       assert.ok(translated['external-link-rules-description'].includes(literal), `${language}: preserve ${literal}`);
     }
     assert.ok(translated['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+    for (const name of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS', 'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) {
+      assert.ok(translated['ldap-sync-now-nothing'].includes(name), `${language}:${name}`);
+    }
+    assert.match(translated['scrum-releases-select-help'], /várias versões/);
+    assert.match(translated['scrum-releases-select-help'], /todas as versões/);
+    assert.match(translated['stuck-sync-operation-description'], /compara novamente a lista com a sua origem/);
+    assert.match(translated['stuck-sync-operation-discard-confirm'], /já aplicadas são mantidas/);
+    assert.match(translated['stuck-sync-operation-discard-confirm'], /nunca são escritas/);
+    assert.match(translated['stuck-sync-operation-replayable-now'], /não pode ser descartada/);
+    assert.match(translated['stuck-sync-operation-replayable'], /não foi descartada/);
+    assert.match(translated['stuck-sync-operation-truncated'], /50 mais antigas/);
+    assert.match(translated['ldap-sync-now'], language === 'pt-BR' ? /usuários/ : /utilizadores/);
+    assert.match(translated['import-board-instruction-orgmode'], language === 'pt-BR' ? /arquivo/ : /ficheiro/);
+    for (const literal of ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED']) {
+      assert.ok(translated['import-board-instruction-orgmode'].includes(literal), `${language}:${literal}`);
+    }
+    for (const literal of ['@labels', 'p1', 'p3', 'CSV']) {
+      assert.ok(translated['import-board-instruction-todoist'].includes(literal), `${language}:${literal}`);
+    }
     assert.match(translated['filter-preset-save'], language === 'pt-BR' ? /Salvar/ : /Guardar/);
     assert.match(translated['r-vars-people-hint'], language === 'pt-BR' ? /usuário.*raias/ : /utilizador.*pistas/);
   }
