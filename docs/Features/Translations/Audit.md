@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Galician regional label corrections — 2026-10-09
+
+Replace 33 Portuguese labels and messages in gl-ES with reviewed Galician wording
+from gl: board/card/swimlane names, archive states, card actions, export labels
+and the password-reset subject. Record the before/after values in the audited
+correction ledger. Regression checks reject the Portuguese wording and compare
+all underscore and percent tokens against English. Three relevant suites and all
+21 preservation checks pass. More mixed-language values remain in both Galician
+catalogs; browser review and the wider translation backlog are outstanding.
+
 ## Galician announcements and initial imports — 2026-10-09
 
 Translate 14 messages in gl and gl-ES, replacing 28 English values: board

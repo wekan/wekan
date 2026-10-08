@@ -352,3 +352,46 @@ for (const example of ["'Field 1' == 'Value 1'", "Field1 == I\\'m", 'F1 == V1 &&
 
 const baseGalician = require('../imports/i18n/data/gl.i18n.json');
 for (const key of ['advanced-filter-description', 'calendar-system-islamic-rgsa', 'calendar-system-islamic-tbla', 'globalSearch-instructions-operator-due', 'globalSearch-instructions-operator-label']) assert.equal(baseGalician[key], data[key]);
+
+const repairedLabels = {
+  "board": "Taboleiro",
+  "card": "Tarxeta",
+  "swimlane": "Carril",
+  "add-existing-card-as-subtask-empty": "Non se atoparon tarxetas coincidentes",
+  "convertChecklistItemToCardPopup-title": "Converter en tarxeta",
+  "and-n-other-card": "E __count__ tarxeta máis",
+  "and-n-other-card_plural": "E __count__ tarxetas máis",
+  "archived-boards": "Taboleiros no Arquivo",
+  "no-archived-boards": "Non hai taboleiros no Arquivo.",
+  "board-not-found": "Non se atopou o taboleiro",
+  "boardChangeTitlePopup-title": "Renomear o taboleiro",
+  "boardMenuPopup-title": "Configuración do taboleiro",
+  "boardChangeViewPopup-title": "Vista do taboleiro",
+  "board-view": "Vista do taboleiro",
+  "card-archived": "Esta tarxeta moveuse ao Arquivo.",
+  "card-settings-linked-card": "Tarxeta ligada",
+  "cardDeletePopup-title": "Eliminar a tarxeta?",
+  "cardArchivePopup-title": "Arquivar a tarxeta?",
+  "cardDetailsActionsPopup-title": "Accións da tarxeta",
+  "bookmarksPopup-title": "Taboleiros favoritos",
+  "cards-count-one": "Tarxeta",
+  "cardType-card": "Tarxeta",
+  "cardType-linkedCard": "Tarxeta ligada",
+  "cardType-linkedBoard": "Taboleiro ligado",
+  "close-board": "Pechar o taboleiro",
+  "close-card": "Pechar a tarxeta",
+  "linkCardPopup-title": "Ligar tarxeta",
+  "copyCardPopup-title": "Copiar a tarxeta",
+  "email-resetPassword-subject": "Restablece o teu contrasinal en __siteName__",
+  "error-board-doesNotExist": "Este taboleiro non existe",
+  "export-card": "Exportar a tarxeta",
+  "export-card-pdf": "Exportar a tarxeta a PDF",
+  "exportCardPopup-title": "Exportar a tarxeta"
+};
+const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
+const englishLabels = require('../imports/i18n/data/en.i18n.json');
+for (const [key, value] of Object.entries(repairedLabels)) {
+  assert.equal(data[key], value, key);
+  assert.deepEqual(translationTokens(data[key]), translationTokens(englishLabels[key]), key);
+  assert.doesNotMatch(data[key], /Cartão|cartão|cartões|Quadro|quadro|senha|Configurações|não|Sem /, key);
+}
