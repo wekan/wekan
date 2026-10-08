@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e0b7ac722b">Correct Wu member search and toggle translations</a>. Thanks to xet7.</summary>
+
+Correct twenty Wu search, font, avatar, toggle and card-aging values. Preserve
+variables, preview digits, opposite actions and three idle-day fading levels.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/034d1aa8d4">Correct Wu planning and card dialog translations</a>. Thanks to xet7.</summary>
 
 Correct nineteen Wu planning, card and account dialog values. Preserve variables,
