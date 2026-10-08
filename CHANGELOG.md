@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/afc09ff58d4b7cf320da4a992950f03b82f38bfe">Correct Tatar common controls and loading guidance</a></summary>
+
+- Correct 23 checklist, announcement, reconnect and archive strings, preserving
+  placeholders and the loading warning about refresh-related data loss.
+- Technical wording remains low confidence pending speaker review.
+- All 75 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2dcf2f2596ad4167ee2a515b52a9fdca7a3e6884">Correct Tatar board selection and layout controls</a></summary>
 
 - Correct 33 board selection and layout strings, preserving placeholders and
