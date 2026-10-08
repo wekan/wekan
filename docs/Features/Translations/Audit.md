@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Yiddish Sync planning and notification diagnostics — 2026-10-08
+
+Translate 30 English Sync, mail-failure and activity-recovery messages. Preserve
+variables, Jira identifiers, SMTP and null. Check missing-versus-null values,
+exact field matching, first-sync planning retention, retry behavior and temporary
+versus permanent failures. Specialized wording is lower confidence and needs native
+review. No browser or screen-reader session was run. Remaining translations are
+unfinished.
+
 ## Yiddish Sync source and run reports — 2026-10-08
 
 Translate 25 English source-field and run-report messages. Preserve variables;

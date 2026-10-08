@@ -695,3 +695,22 @@ assert.match(locales.yi['sync-report-failed'], /טיילווײַזע ענדער�
 assert.match(locales.yi['sync-report-unfinished'], /רעזולטאַט נישט פֿאַרשריבן/);
 assert.equal(locales.yi['sync-preview-unmapped'], locales.yi['sync-source-unmapped']);
 assert.equal(locales.yi['sync-preview-excluded'], locales.yi['sync-source-excluded']);
+
+const yiddishSyncMail = ["sync-report-skipped", "sync-report-review-only", "sync-report-unavailable", "sync-report-empty", "sync-recovery-heading", "sync-recovery-description", "sync-recovery-unavailable", "sync-recovery-all", "sync-estimate-field", "sync-estimate-field-hint", "email-failure-smtp-temporary", "email-failure-smtp-rejected", "email-failure-smtp-authentication", "email-failure-smtp-configuration", "email-failure-recipient-unavailable", "email-failure-delivery-unconfirmed", "email-failure-acknowledgement-failed", "email-failure-delivery-failed", "email-failure-retry-limit", "sync-original-time", "sync-remaining-time", "sync-time-estimate-hint", "sync-planning-sprint", "sync-planning-releases", "sync-planning-fields", "sync-planning-hint", "activity-recovery-heading", "activity-recovery-description", "activity-recovery-empty", "activity-recovery-unavailable"];
+for (const key of yiddishSyncMail) {
+  assert.notEqual(locales.yi[key], english[key], key);
+  assert.match(locales.yi[key], /[\u0590-\u05ff]/, key);
+  assert.deepEqual(translationTokens(locales.yi[key]), translationTokens(english[key]), key);
+}
+for (const key of ['sync-estimate-field-hint', 'sync-time-estimate-hint']) {
+  assert.match(locales.yi[key], /פֿעלנדיקע מקור־ווערטן ווערן איגנאָרירט/);
+  assert.match(locales.yi[key], /null מעקט אויס/);
+  assert.match(locales.yi[key], /Jira/);
+}
+assert.match(locales.yi['sync-time-estimate-hint'], /פּונקט איין פּאַסיקער פֿעלד/);
+assert.match(locales.yi['sync-planning-hint'], /ערשט לויט זײַן מקור־ID, דערנאָך לויטן נאָמען/);
+assert.match(locales.yi['sync-planning-hint'], /ערשטע סינכראָניזאַציע נעמט קיינמאָל נישט אַוועק פּלאַנירונג/);
+assert.match(locales.yi['activity-recovery-description'], /שאַפֿט קיינמאָל נישט ווידער אַן אַקטיוויטעט/);
+assert.match(locales.yi['email-failure-smtp-temporary'], /צײַטווײַליקע SMTP/);
+assert.match(locales.yi['email-failure-smtp-rejected'], /שטענדיקע SMTP/);
+assert.match(locales.yi['sync-recovery-description'], /30 טעג/);
