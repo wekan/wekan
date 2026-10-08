@@ -290,7 +290,17 @@ async function main() {
     };
     const built = formatters.vikunja(collected, new Date(Date.UTC(2026, 9, 8)));
     // The export boundary sees text, not HTML: nothing in it is markup to strip.
-    const bounded = sanitizeTransferValue(built, { direction: 'export', sanitizeHtml: value => value.replace(/<[^>]*>/g, '') });
+    // The stand-in strips to a fixed point (tests/tagStrippingFixedPoint.test.cjs).
+    const stripTags = value => {
+      let text = String(value);
+      let prev;
+      do {
+        prev = text;
+        text = text.replace(/<[^>]*>/g, '');
+      } while (text !== prev);
+      return text;
+    };
+    const bounded = sanitizeTransferValue(built, { direction: 'export', sanitizeHtml: stripTags });
     const files = vikunjaArchiveFiles(bounded.value);
     assert.deepEqual(Object.keys(files).sort(), ['VERSION', 'data.json', 'filters.json']);
     assert.equal(files.VERSION, 'v1.0.0', 'no trailing newline: Vikunja parses the file as it is');
