@@ -975,6 +975,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/fd90691e00">Correct Italian-seeded Aromanian search and organization labels</a>. Thanks to xet7.</summary>
+
+Replace 48 wrong-language search, organization, rule and card labels.
+Preserve result-count variables, reminder variables, predicate syntax,
+shared labels and opposite actions. New wording remains low-confidence
+pending fluent review.
+
+Aromanian, global placeholder and translation audit suites pass. No browser
+or screen-reader session was run. Broader translation work remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/cca57e46b5">Correct Italian-seeded Aromanian rule-builder labels</a>. Thanks to xet7.</summary>
 
 Replace 35 wrong-language conditions, actions and fragments. Preserve
