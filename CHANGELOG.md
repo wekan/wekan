@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/28c73fbedd">Translate first Bulgarian import instructions</a>. Thanks to xet7.</summary>
+
+Translate eight Bulgarian import instructions, preserving commands, extensions and
+variables. Regression checks cover first-board selection, completion dates,
+archived cards and swimlane mappings. Translation, placeholder, completion and
+preservation checks pass; remaining Bulgarian instructions, browser review and the
+wider translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a0310aaa4b">Translate remaining Vietnamese import instructions</a>. Thanks to xet7.</summary>
 
 Translate the remaining 13 instructions in both Vietnamese catalogs, completing
