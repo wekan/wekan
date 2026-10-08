@@ -7800,6 +7800,17 @@ Technical wording remains low confidence pending speaker review. Browser and
 screen-reader checks were not run. Older rule strings still contain wrong-language
 wording; those corrections and the broader language audit remain unfinished.
 
+### Tatar Scrum planning and sprint reports
+
+Filled 61 English placeholders for planning views, roles, estimate sources and
+units, completion policies, sprint lifecycle controls, events and reporting.
+Preserved source placeholders and locale key order. Coverage checks distinct
+sprint states, completed versus incomplete work, scope additions versus removals,
+view aliases, and the warning that unknown estimates are not zero estimates.
+Technical Scrum terminology remains low confidence pending speaker review.
+Browser checks were not run. Further Tatar translations and wrong-language
+corrections, and the broader language audit, remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
