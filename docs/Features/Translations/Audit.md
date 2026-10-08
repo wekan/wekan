@@ -8069,6 +8069,16 @@ uploader versus upload time, subtask aliases and distinct account-name conflicts
 Technical wording remains low confidence pending speaker review. Browser and
 export-runtime checks were not run. Further corrections and the broader audit remain.
 
+### Tatar sorting and filtering corrections
+
+Corrected 34 sorting and filtering values while preserving correct recent date-range
+and list-age guidance. Replaced duplicate sorting abbreviations with distinct Tatar
+initials for time, name and manual order. Source tokens and key order remain intact.
+Regression coverage checks date periods, missing versus overdue dates, creator versus
+assignee, absent-field negation and sorting abbreviations. Technical wording remains
+low confidence pending speaker review. Browser checks were not run. Further
+wrong-language corrections and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
