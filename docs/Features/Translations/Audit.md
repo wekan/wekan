@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Asturian Scrum planning and recovery — 2026-10-08
+
+Translate 31 planning, import and recovery values using existing terminology.
+Preserve variables, keyboard names and count roles, and distinguish rollback from
+keeping records. Focused Asturian, placeholder and language-wiring checks pass,
+as do all 21 preservation checks. The large completion suite now reaches an
+untranslated Occitan release label. Recovery prose has lower confidence and needs native review;
+browser checks and the wider all-language backlog remain unfinished.
+
 ## Aragonese Scrum planning and recovery — 2026-10-08
 
 Translate 31 planning, import and recovery values using existing terminology.
