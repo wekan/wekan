@@ -1550,7 +1550,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Энэ имэйлтэй бүртгэл аль хэдийн байгаа бөгөөд энэ нэвтрэх аргаар үүсгээгүй байна",
   "sign-in-with": "%s-ээр нэвтрэх",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Энэ хаягаар өөр үйлчилгээгээр дамжин нэвтрэх үйлдлийг дуусгах боломжгүй. WeKan-ийг __expected__ хаягт тохируулсан боловч энэ хуудсыг __actual__ хаягаар нээсэн байна. WeKan-ийг __expected__ хаягаар нээнэ үү, эсвэл администратороос ROOT_URL-ийг __actual__ болгон тохируулахыг хүснэ үү.",
   "passwordless-title": "Нууц үггүй нэвтрэх",
   "passwordless-enabled": "Нууц үгийн оронд нэг удаагийн нэвтрэх кодыг имэйлээр илгээх",
   "passwordless-hint": "Гарах имэйл шаардлагатай (MAIL_URL). Мөн PASSWORDLESS_ENABLED.",

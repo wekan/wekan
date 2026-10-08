@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "ამ ელ.ფოსტით ანგარიში უკვე არსებობს და ის ამ შესვლის მეთოდით არ შექმნილა",
   "sign-in-with": "შესვლა %s-ით",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "ამ მისამართზე სხვა სერვისის საშუალებით შესვლის დასრულება შეუძლებელია. WeKan დაყენებულია __expected__ მისამართისთვის, მაგრამ ეს გვერდი გაიხსნა __actual__ მისამართზე. გახსენით WeKan __expected__ მისამართზე ან სთხოვეთ ადმინისტრატორს, ROOT_URL-ის მნიშვნელობად დააყენოს __actual__.",
   "passwordless-title": "შესვლა პაროლის გარეშე",
   "passwordless-enabled": "პაროლის ნაცვლად ელ.ფოსტით ერთჯერადი შესვლის კოდის გაგზავნა",
   "passwordless-hint": "საჭიროებს გამავალ ელ.ფოსტას (MAIL_URL). ასევე PASSWORDLESS_ENABLED.",

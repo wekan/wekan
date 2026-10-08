@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Бул электрондук почта менен аккаунт мурунтан бар жана ал бул кирүү ыкмасы менен түзүлгөн эмес",
   "sign-in-with": "%s аркылуу кирүү",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Бул даректе башка кызмат аркылуу кирүүнү аяктоо мүмкүн эмес. WeKan __expected__ үчүн жөндөлгөн, бирок бул барак __actual__ дарегинде ачылган. WeKan колдонмосун __expected__ дарегинде ачыңыз же администратордон ROOT_URL маанисин __actual__ кылып коюуну сураныңыз.",
   "passwordless-title": "Сырсөзсүз кирүү",
   "passwordless-enabled": "Сырсөздүн ордуна электрондук почта менен бир жолку кирүү кодун жөнөтүү",
   "passwordless-hint": "Чыгуучу почта керек (MAIL_URL). Ошондой эле PASSWORDLESS_ENABLED.",
