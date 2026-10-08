@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/51478845345a7c81003c0f9f4c7c7c319c1fb8c1">Translate Maithili statistical functions</a></summary>
+
+- Fill 24 Maithili placeholders, preserving existing translations, remainder
+  operands and distinctions between statistical functions.
+- Statistical terminology remains low confidence pending speaker review.
+- All 50 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Maithili translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3f3d5e7bb70f874ff2f2c2aa89867a636763cb08">Translate Maithili arithmetic and number properties</a></summary>
 
 - Fill 28 Maithili values, preserving existing translations, numeric constants,
