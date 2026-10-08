@@ -7845,6 +7845,17 @@ wrong-language audit. Older Tatar strings still require wrong-language correctio
 Technical wording remains low confidence pending speaker review. Browser checks
 were not run. The broader language audit remains unfinished.
 
+### Tatar rule editor wrong-language corrections
+
+Corrected 46 older rule-editor values with Turkish-like vocabulary or incorrect
+meaning, including rule names, trigger events, selection, and import/export help.
+Correct existing values such as the required-title message, disabled state and
+import/export labels were retained. Source placeholders and key order remain intact.
+Regression coverage checks Tatar rule vocabulary and rejects characteristic old
+wrong-language terms, alongside event polarity and import/export distinctions.
+Technical wording remains low confidence pending speaker review. Browser checks
+were not run. Further wrong-language corrections and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
