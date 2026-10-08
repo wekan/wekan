@@ -440,6 +440,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/00c07df43e">Correct Wu checklist and member translations</a>. Thanks to xet7.</summary>
+
+Correct eighteen Wu checklist, membership and administrator strings, including
+matching cards, completed addition, list placement and announcement activation.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ee28656601">Correct Wu list width and shortcut settings</a>. Thanks to xet7.</summary>
 
 Correct eleven Wu settings strings, including personal and shared width scope,
