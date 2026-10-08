@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/863ccf49f39a686604bc99d3f0ae092e9de54c85">Translate Odia email failures and notification recovery</a></summary>
+
+- Fill 36 Odia placeholders, preserving existing translations, SMTP identifiers,
+  retry limitations, retained work and irreversible cancellation caveats.
+- Technical wording remains low confidence pending speaker review.
+- All 73 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/13e2c96b79a4b451de8946a538be75e340b9e205">Translate Odia sync diagnostics and estimate mapping</a></summary>
 
 - Fill 12 Odia placeholders, preserving existing translations, report access,
