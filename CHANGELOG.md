@@ -930,6 +930,29 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/478fcc07f0">Translate pending imports and recovery messages in German locales</a>. Thanks to xet7.</summary>
+
+Translate 144 values across four German catalogs, preserving Swiss spelling,
+source variables, import syntax and configuration identifiers. Extend German
+regression coverage for recovery consequences and multiple-release selection.
+Focused German, global placeholder, import literal and audit checks pass,
+along with 21 human-preference checks. No browser session was run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/362a43fa43">Translate new planning messages exposed by regression tests</a>. Thanks to xet7.</summary>
+
+Translate 63 release-selection and Scrum recovery values in Czech, Slovak,
+Hungarian, two Russian catalogs, Ukrainian and Estonian. Six planning suites
+pass again without weakened assertions; global placeholder checks also pass.
+The full 322-suite run exposed ten failures before these repairs. Four other
+Scrum translation suites still need new translations and inventory updates.
+The all-language translation and linguistic review work remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/20cae59763">Translate pending imports and recovery messages in French locales</a>. Thanks to xet7.</summary>
 
 Translate 180 values across the five French catalogs for imports, assignment,
