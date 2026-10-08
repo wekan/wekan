@@ -7789,6 +7789,17 @@ Technical wording remains low confidence pending speaker review. Browser and
 screen-reader checks were not run. Further Tatar corrections and the broader
 language audit remain unfinished.
 
+### Tatar workspace search and block rule controls
+
+Filled 41 English placeholders covering workspace descriptions, search controls,
+block aliases and rule-editor help, validation, permission and saved states.
+Preserved source tokens, keyboard shortcut names, comment-fragment spacing and
+locale key order. Regression coverage checks navigation distinctions, fragment
+spacing, function aliases, search arguments and validation wording.
+Technical wording remains low confidence pending speaker review. Browser and
+screen-reader checks were not run. Older rule strings still contain wrong-language
+wording; those corrections and the broader language audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
