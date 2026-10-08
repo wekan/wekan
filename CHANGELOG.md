@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/787e7f3031d3caa78346c3a5b12cb5d4b0a782a1">Correct Tatar backup scheduling and restore modes</a></summary>
+
+- Correct 15 schedule, restore and cloud-credential values, preserving time
+  formats, the monthly range and distinct restore modes.
+- Technical wording remains low confidence pending speaker review.
+- All 137 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/696bd0eade22cb7d571309c9f4fdea093ff17392">Correct Tatar notification controls and backup scope</a></summary>
 
 - Correct 18 notification and backup values, preserving activity-recording
