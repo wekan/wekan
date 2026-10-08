@@ -1055,6 +1055,18 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/919c0f46ea">Translate Yiddish Blockly functions and trigonometry</a>. Thanks to xet7.</summary>
+
+Translate 45 English function, variable, navigation and trigonometry messages.
+Preserve variables and key names; check angle units, inverse functions, return
+values, disabled definitions and page direction. Four focused translation suites
+and 21 human-preference checks pass. Specialized wording is lower confidence and
+needs native review. No browser or screen-reader session was run. Remaining
+translation work is unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/89421b54b9">Translate Yiddish Blockly statistics and rounding</a>. Thanks to xet7.</summary>
 
 Translate 45 English math messages, preserving variables and notation. Check
