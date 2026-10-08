@@ -1787,6 +1787,19 @@ This release adds the following new features:
 report for what the other tool has no place for.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d332e18edb">Correct Bislama search syntax and report translations</a>. Thanks to xet7.</summary>
+
+- Correct 76 artificial English wrappers and 12 search labels/messages.
+  Use valid one-word query operators, preserve portable abbreviations and
+  verify quoted values, missing fields and invalid input with the real parser.
+  The remaining wrapper queue contains 236 values.
+- Four relevant suites pass, including catalog-wide placeholders and parser
+  execution. Technical compounds remain provisional pending fluent review.
+  Browser and screen-reader sessions were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1eabb367e7">Boards import and export as Todoist project templates (CSV)</a>. Thanks to xet7.</summary>
 
 Sections become lists, tasks cards, indented sub-tasks a checklist and notes
