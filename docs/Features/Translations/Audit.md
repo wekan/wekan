@@ -9074,6 +9074,16 @@ key order and token inventories. Mathematical terminology remains low confidence
 pending speaker review. Browser checks were not run; further Maithili translations
 and the broader audit remain unfinished.
 
+## Maithili trigonometry and variable controls
+
+Filled 26 English placeholders for trigonometry, workspace movement, variable
+creation and paste controls. The placeholder-only merge retained existing
+translations. Preserved degree-versus-radian caveats, distinct variable types and
+parent-block tokens. Regression coverage checks those details, script, key order
+and token inventories. Technical terminology remains low confidence pending
+speaker review. Browser and screen-reader checks were not run; further Maithili
+translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
