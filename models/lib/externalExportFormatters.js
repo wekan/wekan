@@ -30,6 +30,7 @@ import { formatMondaySheets } from './mondayFormat.js';
 import { formatSuperProductivity } from './superProductivityFormat.js';
 import { formatTaiga } from './taigaFormat.js';
 import { formatVikunja } from './vikunjaFormat.js';
+import { formatQuireCsv } from './quireCsvFormat.js';
 import { formatOpml } from './opmlOutlineFormat.js';
 import { formatOrgMode } from './orgModeFormat.js';
 
@@ -353,6 +354,8 @@ export const formatters = {
   // Vikunja's data export: projects that models/export.js writes as the .zip
   // (vikunjaArchiveFiles, server/lib/vikunjaArchive.js); round-trips with parseVikunjaExport.
   vikunja: data => formatVikunja(data),
+  // The CSV Quire's Import CSV reads; round-trips with parseQuireCsv (quireCsvFormat.js).
+  quire: formatQuireCsv,
   // An OPML outline; round-trips with parseOpml (opmlOutline.js, server-only).
   opml: formatOpml,
   // An Org mode outline; round-trips with parseOrgMode (orgModeFormat.js).

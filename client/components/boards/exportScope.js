@@ -256,6 +256,7 @@ const EXPORT_FORMAT_GROUPS = [
       { key: 'monday', icon: 'fa-table', label: 'monday.com', path: 'export/monday', ext: 'xlsx', scopes: BOARD_ONLY },
       { key: 'superproductivity', icon: 'fa-check-circle-o', label: 'Super Productivity', path: 'export/superproductivity', ext: 'json', scopes: BOARD_ONLY },
       { key: 'vikunja', icon: 'fa-file-archive-o', label: 'Vikunja', path: 'export/vikunja', ext: 'zip', scopes: BOARD_ONLY },
+      { key: 'quire', icon: 'fa-sitemap', label: 'Quire', path: 'export/quire', ext: 'csv', scopes: BOARD_ONLY },
       ...[
         ['trello', 'Trello'], ['jira', 'Jira'], ['deck', 'NextCloud Deck'],
         ['openproject', 'OpenProject'], ['github', 'GitHub'], ['gitlab', 'GitLab'],

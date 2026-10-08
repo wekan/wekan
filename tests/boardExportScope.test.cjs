@@ -434,7 +434,7 @@ test('every downloadable format carries the selection, and the server reads it',
     // exports share one handler (serveExternalExport), which does.
     const route = `'/api/boards/:boardId/${p}'`;
     // Kanboard joined the shared handler when its own route was removed.
-    if (!server.includes(route) && !/^export\/(trello|jira|deck|kanboard|openproject|github|gitlab|gitea|forgejo|asana|zenkit|markdown|leo|todotxt|taskwarrior|focalboard|todoist|planner|meistertask|obsidian|linear|ticktick|clickup|nullboard|kanri|pivotal|tasksorg|monday|superproductivity|taiga|vikunja|opml|orgmode)$/.test(p)) {
+    if (!server.includes(route) && !/^export\/(trello|jira|deck|kanboard|openproject|github|gitlab|gitea|forgejo|asana|zenkit|markdown|leo|todotxt|taskwarrior|focalboard|todoist|planner|meistertask|obsidian|linear|ticktick|clickup|nullboard|kanri|pivotal|tasksorg|monday|superproductivity|taiga|vikunja|quire|opml|orgmode)$/.test(p)) {
       return true;
     }
     return false;

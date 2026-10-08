@@ -337,7 +337,7 @@ test('every external export menu link returns text and refuses an unrelated user
   // Include description through the actual shared selection controls.
   const details = page.locator('.js-export-card-details-toggle');
   if (await details.getAttribute('aria-checked') !== 'true') await details.click();
-  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri', 'pivotal', 'tasksorg', 'superproductivity', 'taiga', 'opml', 'orgmode']) {
+  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri', 'pivotal', 'tasksorg', 'superproductivity', 'taiga', 'quire', 'opml', 'orgmode']) {
     await test.step(format, async () => {
       const anchor = page.locator(`.js-pop-over a[href*="/export/${format}?"]`);
       await expect(anchor).toBeVisible();
@@ -688,6 +688,36 @@ test('Linear: a CSV export imports with its statuses, team, labels, priority and
     const board = db.findOne('boards', { _id: boardId });
     expect(open.labelIds.map(id => board.labels.find(l => l._id === id).name).sort()).toEqual([expected.label, 'UI'].sort());
     expect(db.find('swimlanes', { boardId }).map(lane => lane.title)).toContain('Engineering');
+    expect(db.find('customFields', { boardIds: boardId }).map(field => field.name)).toContain('Priority');
+    await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
+
+// A Quire project CSV in the shape of the sample file Quire's guide links:
+// repeated ID columns give the depth, dates are "Jun 2, 2026" (models/lib/quireCsvFormat.js).
+test('Quire: a project CSV imports with its statuses, subtask, tags, dates and priority', async ({ loggedInPage: page }) => {
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/quire');
+    await page.locator('#import-textarea').fill([
+      '"ID","ID",Name,Status,Completed,Priority,Start,Due,Assignee,Tag,Tag,Created,Created by,Description',
+      `#1,,${expected.title},In progress,,High,"Oct 1, 2026","Oct 10, 2026",,${expected.label},UI,"Sep 30, 2026",Peggy,"Two of them, DN50"`,
+      ',#2,Child task,Completed,"Oct 5, 2026",Medium,,,,,,"Sep 30, 2026",Peggy,',
+    ].join('\r\n'));
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    const cards = db.find('cards', { boardId });
+    expect(cards).toHaveLength(2);
+    const open = cards.find(card => card.title === expected.title);
+    const child = cards.find(card => card.title === 'Child task');
+    expect(open.description).toBe('Two of them, DN50');
+    expect(child.parentId).toBe(open._id);
+    expect(new Date(open.dueAt).toISOString()).toBe('2026-10-10T00:00:00.000Z');
+    expect(new Date(child.endAt).toISOString()).toBe('2026-10-05T00:00:00.000Z');
+    const board = db.findOne('boards', { _id: boardId });
+    expect(open.labelIds.map(id => board.labels.find(l => l._id === id).name).sort()).toEqual([expected.label, 'UI'].sort());
+    expect(db.find('lists', { boardId }).map(list => list.title)).toEqual(expect.arrayContaining(['In progress', 'Completed']));
     expect(db.find('customFields', { boardIds: boardId }).map(field => field.name)).toContain('Priority');
     await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
   } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }

@@ -17,6 +17,7 @@ import { parseMondaySheets } from './mondayFormat.js';
 import { parseSuperProductivity } from './superProductivityFormat.js';
 import { parseTaiga } from './taigaFormat.js';
 import { parseVikunjaExport } from './vikunjaFormat.js';
+import { parseQuireCsv } from './quireCsvFormat.js';
 import { parseOrgMode } from './orgModeFormat.js';
 import {
   gitlabScrumPlanning, openProjectScrumPlanning, asanaScrumPlanning, STORY_POINTS_FIELD,
@@ -999,6 +1000,8 @@ export const EXTERNAL_PARSERS = {
   taiga: parseTaiga,
   // Vikunja's data export: data.json, as server/lib/vikunjaArchive.js reads it from the zip.
   vikunja: parseVikunjaExport,
+  // A Quire project CSV, columns matched by name (quireCsvFormat.js).
+  quire: parseQuireCsv,
   orgmode: parseOrgMode,
   jira: parseJira,
 };
