@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Un compte amb aqueste corrièl existís ja e foguèt pas creat amb aqueste metòde de connexion",
   "sign-in-with": "Se connectar amb %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "La connexion per un autre servici se pòt pas acabar a aquesta adreça. WeKan es configurat per __expected__, mas aquesta pagina es estada dobèrta a __actual__. Dobrissètz WeKan a __expected__, o demandatz a l’administrator de definir ROOT_URL a __actual__.",
   "passwordless-title": "Connexion sens mot de Santa-Clara",
   "passwordless-enabled": "Mandar per corrièl un còdi de connexion d’un sol usatge en plaça d’un mot de Santa-Clara",
   "passwordless-hint": "Necessita lo corrièl sortent (MAIL_URL). Tanben PASSWORDLESS_ENABLED.",

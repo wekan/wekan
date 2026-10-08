@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "E Kont mat dëser E-Mail gëtt et schonn, an en ass net mat dëser Umeldungsmethod erstallt ginn",
   "sign-in-with": "Mat %s aloggen",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "D’Umeldung iwwer en aneren Déngscht kann op dëser Adress net ofgeschloss ginn. WeKan ass fir __expected__ konfiguréiert, mee dës Säit gouf op __actual__ opgemaach. Maacht WeKan op __expected__ op, oder frot den Administrateur, ROOT_URL op __actual__ ze setzen.",
   "passwordless-title": "Umeldung ouni Passwuert",
   "passwordless-enabled": "Amplaz vun engem Passwuert en eemolegen Umeldungscode per E-Mail schécken",
   "passwordless-hint": "Brauch erausgoend E-Mail (MAIL_URL). Och PASSWORDLESS_ENABLED.",

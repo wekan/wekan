@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Celtic and western European sign-in warnings — 2026-10-08
+
+Translate ten values in Welsh and its British variant, Irish, Scottish Gaelic,
+Occitan, Corsican, Maltese, Luxembourgish, and Frisian and its Dutch variant.
+The warning suite now checks 107 catalogs for exact repeated address variables,
+rendering order and ROOT_URL. Warning and placeholder suites and all 21
+preservation checks pass. The less familiar regional prose has lower confidence
+and needs native review. Browser review and the all-language backlog remain open.
+
 ## Central Asian and Caucasian sign-in warnings — 2026-10-08
 
 Translate 11 values in Mongolian, Kazakh, Kyrgyz, Uzbek and its Latin/regional

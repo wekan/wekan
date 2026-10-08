@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Mae cyfrif gyda’r ebost hwn yn bodoli eisoes ac ni chafodd ei greu gyda’r dull mewngofnodi hwn",
   "sign-in-with": "Mewngofnodi gyda %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Ni ellir cwblhau mewngofnodi drwy wasanaeth arall yn y cyfeiriad hwn. Mae WeKan wedi’i ffurfweddu ar gyfer __expected__, ond agorwyd y dudalen hon yn __actual__. Agorwch WeKan yn __expected__, neu gofynnwch i’r gweinyddwr osod ROOT_URL i __actual__.",
   "passwordless-title": "Mewngofnodi heb gyfrinair",
   "passwordless-enabled": "Ebostio cod mewngofnodi untro yn lle cyfrinair",
   "passwordless-hint": "Angen ebost allanol (MAIL_URL). Hefyd PASSWORDLESS_ENABLED.",

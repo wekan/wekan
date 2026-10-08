@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Tá cuntas leis an ríomhphost seo ann cheana agus níor cruthaíodh é leis an modh logála isteach seo",
   "sign-in-with": "Logáil isteach le %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Ní féidir logáil isteach trí sheirbhís eile a chríochnú ag an seoladh seo. Tá WeKan cumraithe le haghaidh __expected__, ach osclaíodh an leathanach seo ag __actual__. Oscail WeKan ag __expected__, nó iarr ar an riarthóir ROOT_URL a shocrú go __actual__.",
   "passwordless-title": "Logáil isteach gan phasfhocal",
   "passwordless-enabled": "Seol cód logála isteach aonuaire trí ríomhphost in ionad pasfhocail",
   "passwordless-hint": "Teastaíonn ríomhphost amach (MAIL_URL). Chomh maith le PASSWORDLESS_ENABLED.",
