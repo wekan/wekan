@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/46ea73e57b6c439f3301c4111aa926c857cc301c">Translate Maithili conditions and block editing</a></summary>
+
+- Fill 36 Maithili values, preserving existing translations, conditional branches,
+  true/false loop conditions and indexed deletion tokens.
+- Technical wording remains low confidence pending speaker review.
+- All 42 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Maithili translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/fe596305d1f651d5d4788cc920435a64f00c37c2">Translate Maithili Blockly colours and loop controls</a></summary>
 
 - Fill 31 Maithili placeholders, preserving existing translations, colour bounds,
