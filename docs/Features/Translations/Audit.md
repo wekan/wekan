@@ -9299,6 +9299,15 @@ roles. Regression coverage checks those details, script, key order and tokens.
 Technical wording remains low confidence pending speaker review. Browser checks
 were not run; further Konkani translations and the broader audit remain.
 
+## Konkani keyboard navigation and list creation
+
+Filled 24 English placeholders for navigation, value inputs and list creation.
+The placeholder-only merge retained existing translations. Preserved key-token
+roles, empty-list length, index markers and distinct retrieval actions. Regression
+coverage checks these details, script, key order and token inventories. Technical
+wording remains low confidence pending speaker review. Browser and screen-reader
+checks were not run; further Konkani translations and the broader audit remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
