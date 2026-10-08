@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu Blockly navigation and list retrieval — 2026-10-08
+
+Translate 35 input, keyboard-navigation and list messages. Preserve variables and
+key names; check copy/cut feedback, movement confirmation, empty-list length,
+first/last positions and retrieval with or without removal. Wu wording is lower
+confidence and needs native review. No browser or screen-reader session was run.
+Remaining English strings and older Mandarin-like passages still require work.
+
 ## Wu Blockly input roles — 2026-10-08
 
 Translate 40 input labels. Preserve variables and coordinate names; check start/end
