@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Yiddish Blockly list mutation and logic — 2026-10-08
+
+Translate 45 English list and logic messages, preserving variables and index
+markers. Check insertion versus replacement, operations on copies, missing-item
+results, first/last positions and Boolean values. Specialized programming wording
+is lower confidence and needs native review. No browser or screen-reader session
+was run. Remaining translations are unfinished.
+
 ## Yiddish Blockly navigation and lists — 2026-10-08
 
 Translate 50 English text-input, keyboard-navigation and list messages. Preserve
