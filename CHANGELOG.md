@@ -487,6 +487,17 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5180e1cfb8">Translate Papiamento Blockly trigonometry and workspace</a>. Thanks to xet7.</summary>
+
+Translate 42 English math, variable and workspace messages. Preserve variables,
+key names and bases; check angle units, inverse functions and page directions.
+Four focused translation suites and 21 human-preference checks pass. Specialized
+wording is lower confidence and needs native review. No browser or screen-reader
+session was run. Remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/665c3a17bc">Translate Papiamento Blockly statistics and rounding</a>. Thanks to xet7.</summary>
 
 Translate 32 English math messages. Preserve variables and bases; check random
