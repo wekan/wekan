@@ -53,7 +53,36 @@ const currentKeys = [
   "stuck-sync-operation-not-stuck",
   "stuck-sync-operation-replayable",
   "stuck-sync-operation-busy",
-  "stuck-sync-operation-failed"
+  "stuck-sync-operation-failed",
+  "scrum-release-scope",
+  "scrum-releases-select-help",
+  "scrum-import-into-board",
+  "scrum-import-into-board-hint",
+  "scrum-import-preview",
+  "scrum-import-choose-file",
+  "scrum-import-invalid-file",
+  "scrum-import-preview-sprints",
+  "scrum-import-preview-releases",
+  "scrum-import-preview-cards",
+  "scrum-import-preview-nothing",
+  "scrum-import-into-board-done",
+  "scrum-import-card-not-matched",
+  "scrum-import-card-ambiguous",
+  "scrum-import-card-on-another-board",
+  "scrum-import-record-ambiguous",
+  "scrum-import-record-not-imported",
+  "scrum-import-sprint-finished",
+  "sync-planning-sprint",
+  "sync-planning-releases",
+  "sync-planning-fields",
+  "sync-planning-hint",
+  "scrum-history-checkpoint-stuck",
+  "scrum-history-checkpoint-counts",
+  "scrum-history-checkpoint-hint",
+  "scrum-history-checkpoint-rollback",
+  "scrum-history-checkpoint-discard",
+  "scrum-history-checkpoint-discard-confirm",
+  "scrum-history-checkpoint-ask-admin"
 ];
 
 (async () => {
@@ -63,6 +92,19 @@ const currentKeys = [
   for (const locale of ['ro', 'ro-RO']) {
     const data = read(`imports/i18n/data/${locale}.i18n.json`);
     assert.deepEqual(Object.keys(data), Object.keys(english), locale);
+    assert.match(data['scrum-import-into-board-hint'], /niciodată duplicate/);
+    assert.match(data['scrum-import-into-board-hint'], /ID sau după numărul cardului și titlu/);
+    assert.match(data['scrum-import-card-on-another-board'], /lăsat neschimbat/);
+    assert.match(data['scrum-import-sprint-finished'], /nu a fost mutat/);
+    assert.match(data['sync-planning-hint'], /mai întâi după ID-ul din sursă, apoi după nume/);
+    assert.match(data['sync-planning-hint'], /prima sincronizare nu elimină niciodată/);
+    assert.match(data['scrum-history-checkpoint-hint'], /numai dacă nimeni altcineva nu/);
+    assert.match(data['scrum-history-checkpoint-hint'], /fără a modifica nicio înregistrare/);
+    assert.match(data['scrum-history-checkpoint-discard-confirm'], /deja scrise/);
+    assert.match(data['scrum-releases-select-help'], /mai multor versiuni/);
+    assert.match(data['scrum-releases-select-help'], /toate versiunile/);
+    assert.match(data['scrum-releases-select-help'], /Ctrl.*Cmd/);
+
     for (const key of currentKeys) {
       assert.ok(data[key]?.trim(), key);
       assert.notEqual(data[key], english[key], `${locale}:${key}: translate current prose`);

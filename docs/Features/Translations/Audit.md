@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Romanian planning imports and history recovery — 2026-10-08
+
+Translate 29 messages in each Romanian catalog, for 58 filled values.
+Cover release selection, planning imports, Sync planning and conflicted
+history recovery. Preserve existing localized values. Extend the existing
+suite with matching priority, non-duplication, unchanged cards and history
+recovery choices. No browser or screen-reader session was run; broader
+translation and linguistic review remain open.
+
 ## Romanian controls, import guidance and stuck Sync recovery — 2026-10-08
 
 Translate 44 messages in each Romanian catalog, for 88 filled values.
