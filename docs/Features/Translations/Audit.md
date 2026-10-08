@@ -8435,6 +8435,15 @@ wording remains low confidence pending speaker review. Focused tests cover key
 order, tokens, file identifiers and recurrence/visibility distinctions; browser
 checks were not run.
 
+## Tatar support and login-lockout corrections
+
+Corrected 22 wrong-language support, accessibility and login-lockout values.
+Preserved signed-in-only support access, known/unknown username distinctions,
+wrong-password context, seconds units and separate lockout/failure windows.
+Technical wording remains low confidence pending speaker review. Focused tests
+cover key order, source tokens, access restrictions and units; browser checks
+were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
