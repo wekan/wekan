@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ccd6277314">Translate Zulu Blockly editor and accessibility labels</a>. Thanks to xet7.</summary>
+
+Translate 50 more strings in each Zulu catalog, preserving percent variables.
+Tests cover rendered deletion confirmations, bitmap coordinates and true/false
+loop conditions. Both targeted suites and all 21 preservation checks pass.
+Specialized terminology needs speaker review; browser execution and the wider
+translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0774342c12">Translate Zulu board settings and Blockly controls</a>. Thanks to xet7.</summary>
 
 Fill 52 English strings in each of zu and zu-ZA, preserving variables and LDAP
