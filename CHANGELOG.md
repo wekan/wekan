@@ -1931,26 +1931,18 @@ each for the reason given:
   are offered by the snap and the start scripts, but no code reads them, so
   they do nothing. Implement them or remove them from the platforms - a
   maintainer decision.
-- Header login can now be switched on from Admin Panel / People by a site
-  administrator. It still fails closed without `HEADER_LOGIN_TRUSTED_IPS`, but
-  an administrator who sets both can let a proxy sign in as anyone. Whether
-  header login should stay environment-only is a maintainer decision.
 - `ldap_sync_now` (`packages/wekan-ldap/server/syncUser.js`) is never loaded and
   nothing calls it. Its synchronous `Meteor.user()` was made async on
   2026-10-05 so the whole-tree test holds; wire it to a "Sync now" button or
   remove it.
 
-Maintainer decisions of 2026-10-08, answering all five items above (still to
-be built):
+Maintainer decisions of 2026-10-08 for the items above (header login,
+decided the same day, is built and in Upcoming):
 
 - **Automatic logout: implement it.** `LOGOUT_WITH_TIMER=true` signs a user
   out after `LOGOUT_IN` days, or daily at `LOGOUT_ON_HOURS`:`LOGOUT_ON_MINUTES`,
   and the four become overridable in Admin Panel / People like the other login
   variables.
-- **Header login: environment-only.** Only the environment enables header
-  login and sets `HEADER_LOGIN_TRUSTED_IPS`; Admin Panel / People shows them
-  read-only, so a compromised administrator account cannot turn on signing in
-  as anyone.
 - **LDAP Test connection without a service account: anonymous base search.**
   An anonymous bind and a base-scope search of `LDAP_BASEDN`; success only when
   the directory answered, otherwise its actual error. Verifying it still needs
@@ -1975,8 +1967,28 @@ be built):
 **In short:** Translation filling now protects interpolation variables before
 writing a batch. Locale catalogs include the new card-field settings, with
 more translated help text and refreshed translation audit checks.
+**Header login** is now set by the server environment only.
 
-This release improves translations and their validation:
+This release hardens the login settings:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a7628504f1">Header login is set by the environment only, and shown read-only in the Admin Panel</a>. Thanks to xet7.</summary>
+
+With `HEADER_LOGIN_ID` and `HEADER_LOGIN_TRUSTED_IPS` set, a proxy at a
+trusted address signs in as anyone it names. Since the 2026-10-05 Admin Panel
+work a site administrator could switch that on from People / Header login, so
+a stolen administrator session was enough to open every account. The six
+`HEADER_LOGIN_*` settings now come from the environment only: a value stored
+in the Admin Panel by an earlier version is ignored, the pane shows the values
+in effect read-only with no Save button, and a save sent by hand is refused
+and shown in Admin Panel → Problems as ProxyBleed. Every other login section
+stays overridable. `tests/authConfigCatalog.test.cjs` pins the resolution, the
+refusal and that only this section is environment-only; the Playwright spec
+`admin-login-env-overrides` drives the read-only pane and the refused save.
+
+</details>
+
+and improves translations and their validation:
 
 **Languages updated:** Afrikaans, Akan, Albanian, Amharic, Arabic, Aragonese,
 Armenian, Assamese, Asturian, Azerbaijani, Bashkir, Basque, Belarusian,
