@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4bf0f430d2">Translate Albanian import instructions</a>. Thanks to xet7.</summary>
+
+Translate all 21 newer import instructions, preserving commands, column names,
+extensions, hierarchy markers and variables. Regression checks cover excluded
+data, first-board selection, completion dates and task hierarchy. Import and
+whole-catalog placeholder suites and all 21 preservation checks pass. The current
+Albanian fill list is empty; language auditing, browser review and the wider
+translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/62f3021f5a">Translate remaining Afrikaans import instructions</a>. Thanks to xet7.</summary>
 
 Translate Quire, Wrike, Teamwork.com, Businessmap, Redmine, Notion and Plane
