@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Seven new import instructions in three languages — 2026-10-08
+
+Translate 21 new instructions for Obsidian, Linear, TickTick, ClickUp, Nullboard,
+Kanri and Pivotal Tracker in Wu Chinese, Papiamento and Yiddish. Preserve product menu labels, file
+extensions, raw-note labels, archive behavior and first-board-only imports. Regression
+checks cover those literals and meanings alongside the completed-catalog checks.
+The instruction and placeholder suites pass; the three completed-catalog suites
+now fail only on a concurrently added Tasks.org instruction, which remains to translate.
+Papiamento and Wu wording need native review; browser checks were not run. The broader
+all-language translation backlog remains unfinished.
+
 ## Punjabi, Swahili and Latin-script Uzbek short labels — 2026-10-08
 
 Translate 62 English Blockly labels across five catalogs. Preserve movement input

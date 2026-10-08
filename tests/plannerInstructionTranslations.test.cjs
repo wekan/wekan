@@ -31,3 +31,35 @@ for (const code of ['wuu-Hans', 'pap', 'yi']) {
 assert.match(read('wuu-Hans')[meisterKey], /分段变成列表，任务变成卡片.*保留完成日期.*自家导入格式/);
 assert.match(read('pap')[meisterKey], /tareanan terminá ta warda nan fecha di terminashon/);
 assert.match(read('yi')[meisterKey], /פֿאַרענדיקטע אויפֿגאַבעס האַלטן זייער פֿאַרענדיקונג־דאַטע/);
+
+// Source-product commands and file extensions must remain usable when following
+// a translated import instruction. These are literals, not placeholder variables.
+const importLiterals = {
+  pivotal: ['Pivotal Tracker', 'MORE', 'Export CSV', 'Bulk Actions', 'Estimate'],
+  obsidian: ['Obsidian', 'Markdown', '.md'],
+  linear: ['Linear', 'CSV', 'Settings', 'Import / Export', 'Export data'],
+  ticktick: ['TickTick', 'Settings', 'Account', 'Backup & Import', 'CSV'],
+  clickup: ['ClickUp', 'CSV', 'Settings', 'Imports / Exports', 'Export Items'],
+  nullboard: ['Nullboard', 'Export this board...', '.nbx', 'raw'],
+  kanri: ['Kanri', 'Import & Export', 'Export individual board', 'Export all data', '.json'],
+};
+for (const code of ['wuu-Hans', 'pap', 'yi']) {
+  const locale = read(code);
+  for (const [format, literals] of Object.entries(importLiterals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + format);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), code + ': ' + format);
+    for (const literal of literals) assert.ok(locale[key].includes(literal), code + ': ' + format + ': ' + literal);
+  }
+}
+// Multi-board exports must not promise that every board is imported.
+for (const format of ['nullboard', 'kanri']) {
+  const key = 'import-board-instruction-' + format;
+  assert.match(read('wuu-Hans')[key], /只导入第一只/);
+  assert.match(read('pap')[key], /importá (?:su|e) promé tablero/);
+  assert.match(read('yi')[key], /ערשטע ברעט/);
+}
+assert.match(read('wuu-Hans')['import-board-instruction-obsidian'], /归档区变成归档卡片/);
+assert.match(read('pap')['import-board-instruction-obsidian'], /karchinan archivá/);
+assert.match(read('yi')['import-board-instruction-obsidian'], /אַרכיווירטע קאַרטן/);
+console.log('Seven further import formats: literals, tokens, first-board and archive semantics passed');
