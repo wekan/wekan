@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Yiddish Blockly fields — 2026-10-08
+
+Translate 65 English field, input, keyboard and icon labels. Preserve numbered
+variables, coordinate letters and recognizable key names. Check row/column
+order, opening versus closing, start/end positions and distinct division inputs.
+Specialized programming wording is lower confidence and needs native review.
+No browser or screen-reader session was run. Remaining Yiddish and other-language
+translations are unfinished.
+
 ## Yiddish Blockly controls — 2026-10-08
 
 Translate 65 English Blockly messages, including colors, loops, conditions,

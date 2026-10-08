@@ -396,3 +396,25 @@ assert.match(locales.yi['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL'], /פֿאַ�
 assert.match(locales.yi['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE'], /אמת/);
 assert.notEqual(locales.yi['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL'], locales.yi['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE']);
 assert.match(locales.yi['blockly-CONTROLS_IF_TOOLTIP_4'], /אויב קיין ווערט איז נישט אמת/);
+
+const yiddishBlocklyFields = ["blockly-ENABLE_BLOCK", "blockly-END_KEY", "blockly-ENTER_KEY", "blockly-ESCAPE", "blockly-EXPAND_ALL", "blockly-EXPAND_BLOCK", "blockly-EXTERNAL_INPUTS", "blockly-FIELD_BITMAP_ARIA_VALUE", "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR", "blockly-FIELD_BITMAP_BUTTON_LABEL_RANDOMIZE", "blockly-FIELD_BITMAP_PIXEL_LABEL", "blockly-FIELD_BITMAP_PIXEL_OFF", "blockly-FIELD_LABEL_EDIT_PREFIX", "blockly-FIELD_LABEL_EMPTY", "blockly-FIELD_LABEL_OPTION_INDEX", "blockly-FIELD_LABEL_VARIABLE", "blockly-FIELD_MULTILINEINPUT_FINISH_EDITING", "blockly-FIELD_MULTILINEINPUT_NEW_LINE", "blockly-HELP_PROMPT", "blockly-HOME_KEY", "blockly-ICON_LABEL_COMMENT_CLOSED", "blockly-ICON_LABEL_COMMENT_OPEN", "blockly-ICON_LABEL_DEFAULT", "blockly-ICON_LABEL_MUTATOR_CLOSED", "blockly-ICON_LABEL_MUTATOR_OPEN", "blockly-ICON_LABEL_WARNING_CLOSED", "blockly-ICON_LABEL_WARNING_OPEN", "blockly-INLINE_INPUTS", "blockly-INPUT_LABEL_CONDITION", "blockly-INPUT_LABEL_CONDITION_A", "blockly-INPUT_LABEL_CONDITION_B", "blockly-INPUT_LABEL_EMPTY", "blockly-INPUT_LABEL_END_STATEMENT", "blockly-INPUT_LABEL_INDEX", "blockly-INPUT_LABEL_LISTS_CREATE_WITH_ITEM", "blockly-INPUT_LABEL_LISTS_DELIMITER", "blockly-INPUT_LABEL_LISTS_END_POSITION", "blockly-INPUT_LABEL_LISTS_LIST_FROM_TEXT", "blockly-INPUT_LABEL_LISTS_POSITION", "blockly-INPUT_LABEL_LISTS_REPEAT_ITEM", "blockly-INPUT_LABEL_LISTS_REPEAT_NUM", "blockly-INPUT_LABEL_LISTS_START_POSITION", "blockly-INPUT_LABEL_LISTS_TEXT_FROM_LIST", "blockly-INPUT_LABEL_LISTS_TO_CHANGE", "blockly-INPUT_LABEL_LISTS_TO_CHECK", "blockly-INPUT_LABEL_LISTS_VALUE_TO_SET", "blockly-INPUT_LABEL_LOOP_BY", "blockly-INPUT_LABEL_LOOP_FROM", "blockly-INPUT_LABEL_LOOP_LIST", "blockly-INPUT_LABEL_LOOP_TIMES", "blockly-INPUT_LABEL_LOOP_TO", "blockly-INPUT_LABEL_MATH_CHANGE_BY", "blockly-INPUT_LABEL_MATH_CONSTRAIN_VALUE", "blockly-INPUT_LABEL_MATH_DIVIDEND", "blockly-INPUT_LABEL_MATH_DIVISOR", "blockly-INPUT_LABEL_NUMBER", "blockly-INPUT_LABEL_NUMBER_A", "blockly-INPUT_LABEL_NUMBER_ATAN2_X", "blockly-INPUT_LABEL_NUMBER_ATAN2_Y", "blockly-INPUT_LABEL_NUMBER_B", "blockly-INPUT_LABEL_NUMBER_LIST", "blockly-INPUT_LABEL_NUMBER_MAX", "blockly-INPUT_LABEL_NUMBER_MIN", "blockly-INPUT_LABEL_NUMBER_TO_CHECK", "blockly-INPUT_LABEL_STATEMENT"];
+for (const key of yiddishBlocklyFields) {
+  assert.notEqual(locales.yi[key], english[key], key);
+  assert.match(locales.yi[key], /[\u0590-\u05ff]/, key);
+  assert.deepEqual(translationTokens(locales.yi[key]), translationTokens(english[key]), key);
+}
+for (const [key, name] of [['END_KEY', 'End'], ['HOME_KEY', 'Home'], ['ENTER_KEY', 'Enter'], ['ESCAPE', 'Escape']]) {
+  assert.ok(locales.yi[`blockly-${key}`].includes(name));
+}
+for (const type of ['COMMENT', 'WARNING']) {
+  assert.match(locales.yi[`blockly-ICON_LABEL_${type}_CLOSED`], /עפֿענען/);
+  assert.match(locales.yi[`blockly-ICON_LABEL_${type}_OPEN`], /פֿאַרמאַכן/);
+}
+assert.match(locales.yi['blockly-INPUT_LABEL_LISTS_START_POSITION'], /אָנהייב/);
+assert.match(locales.yi['blockly-INPUT_LABEL_LISTS_END_POSITION'], /סוף/);
+assert.match(locales.yi['blockly-INPUT_LABEL_LOOP_FROM'], /אָנהייב/);
+assert.match(locales.yi['blockly-INPUT_LABEL_LOOP_TO'], /סוף/);
+assert.match(locales.yi['blockly-INPUT_LABEL_NUMBER_ATAN2_X'], /^x/);
+assert.match(locales.yi['blockly-INPUT_LABEL_NUMBER_ATAN2_Y'], /^y/);
+assert.notEqual(locales.yi['blockly-INPUT_LABEL_MATH_DIVIDEND'], locales.yi['blockly-INPUT_LABEL_MATH_DIVISOR']);
+assert.match(locales.yi['blockly-FIELD_BITMAP_PIXEL_LABEL'], /שורה %2, זייַל %3/);
