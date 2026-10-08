@@ -7912,6 +7912,17 @@ polarity. Correct existing nearby translations were retained. Technical wording
 remains low confidence pending speaker review. Browser checks were not run.
 Further wrong-language corrections and the broader audit remain unfinished.
 
+### Tatar movement, import and membership activity corrections
+
+Corrected 27 older activity values for archives, imports, movement and membership.
+Preserved named placeholders and sequential %s argument roles: object, destination,
+and source in the import message, and object, source, destination in movement.
+Regression coverage checks those distinctions, source/destination case endings,
+and add/remove membership and archive/restore differences. Correct adjacent
+activity labels were retained. Technical wording remains low confidence pending
+speaker review. Browser checks were not run. Further wrong-language corrections
+and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
