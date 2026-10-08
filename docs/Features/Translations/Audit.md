@@ -8487,6 +8487,16 @@ feature descriptions remain. Technical wording remains low confidence pending
 speaker review. Focused tests cover key order, tokens, migration states and cleanup
 prerequisites; browser checks were not run.
 
+## Tatar loading-mode and text-rendering corrections
+
+Corrected 12 wrong-language performance and rendering values. Updated the stale
+loading description to match the English automatic-threshold behavior and restored
+both environment-variable names. Preserved lazy-mode limitations, HTML/Markdown
+examples and default-off rendering controls. Existing valid feature descriptions
+remain. Technical wording remains low confidence pending speaker review. Focused
+tests cover tokens, key order and literal configuration syntax; browser checks
+were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
