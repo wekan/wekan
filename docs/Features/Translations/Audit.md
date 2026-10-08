@@ -7688,6 +7688,15 @@ and shared repeat-count labels. Technical wording remains low confidence pending
 speaker review. Browser and screen-reader checks were not run. Further Tatar
 mixed-language corrections and English placeholders remain; the broader audit continues.
 
+### Tatar keyboard navigation and list construction
+
+Filled 29 English placeholders for keyboard navigation, list construction and item
+retrieval. Existing translations and source placeholders are preserved. Regression
+checks cover source order, tokens, move-key references, copy/cut announcements,
+retrieval versus removal and empty-list length. Technical wording remains low
+confidence pending speaker review. Browser and screen-reader checks were not run.
+Further Tatar corrections and the broader language audit continue.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
