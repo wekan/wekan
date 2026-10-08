@@ -7670,6 +7670,15 @@ variable references and count parameters. Technical wording remains low confiden
 pending speaker review. Browser checks were not run. Further Tatar mixed-language
 corrections and English placeholders remain; the broader audit continues.
 
+### Tatar editing and accessibility labels
+
+Filled 37 English placeholders for block editing, bitmap controls, comments, warnings
+and input labels. Existing translations and source tokens are preserved. Regression
+checks cover key order, token inventories, opposite actions, bitmap row/column labels
+and variable references. Technical wording remains low confidence pending speaker
+review. Browser and screen-reader checks were not run. Further Tatar mixed-language
+corrections and English placeholders remain; the broader audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
