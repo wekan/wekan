@@ -1055,6 +1055,18 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c6da6a7fec">Translate Yiddish rule validation and Scrum settings</a>. Thanks to xet7.</summary>
+
+Translate 30 English rule-editor and Scrum labels. Check exact trigger/action
+limits, reload-before-save conflicts, administrator permissions and distinct
+completion policies. Four focused translation suites and 21 human-preference
+checks pass. Specialized Scrum wording is lower confidence and needs native
+review. No browser or screen-reader session was run. Remaining translations
+are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a1265408c6">Translate Yiddish imports and settings messages</a>. Thanks to xet7.</summary>
 
 Translate 23 English board, import, link-rule, LDAP and login messages. Preserve
