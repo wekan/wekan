@@ -9904,6 +9904,19 @@ passed. Technical Darija and Scrum terminology remain low confidence pending
 speaker review. Browser, RTL and screen-reader checks were not run. Remaining
 placeholders and the broader language audit stay open.
 
+## Moroccan Arabic sprint reports and events
+
+Filled 36 placeholders without replacing existing translations. Tests check
+source order, script, tokens, unknown estimates distinct from zero, comparable
+estimate units/policies, unfinished-card destinations, retained membership after
+cancellation, partial-report scope, omitted import references, minute units and
+distinct sprint states and review/retrospective labels. Of 55 checks, 53 passed;
+two repository-wide checks still fail because other locales lack the new
+card-field-visibility keys. All 21 human-preference checks passed. Technical
+Darija and Scrum terminology remain low confidence pending speaker review.
+Browser, RTL and screen-reader checks were not run. Remaining placeholders and
+the broader language audit stay open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
