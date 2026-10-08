@@ -3898,5 +3898,6 @@
   "history-request-forget": "Eñembyesarái chugui",
   "header-login": "Jeike HTTP akã rupive",
   "login-setting-clear-secret": "Eipe’a sãmbyhyhára rendápe oñeñongatúva tepykue",
-  "login-setting-after-restart": "Oñepyrũta omba’apo oñemoñepyrũjey rire WeKan"
+  "login-setting-after-restart": "Oñepyrũta omba’apo oñemoñepyrũjey rire WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

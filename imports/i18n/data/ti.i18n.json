@@ -3898,5 +3898,6 @@
   "history-request-forget": "ርስዓዮ",
   "header-login": "ብኣርእስትታት HTTP ምእታው",
   "login-setting-clear-secret": "ኣብ ናይ ኣመሓዳሪ ሰሌዳ ዝተቐመጠ ዋጋ ኣወግድ",
-  "login-setting-after-restart": "WeKan ዳግም ምስ ተጀመረ ይሰርሕ"
+  "login-setting-after-restart": "WeKan ዳግም ምስ ተጀመረ ይሰርሕ",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

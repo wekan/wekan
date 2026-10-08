@@ -3898,5 +3898,6 @@
   "history-request-forget": "Unut",
   "header-login": "HTTP başlıqları ilə giriş",
   "login-setting-clear-secret": "İdarəetmə panelində saxlanılan dəyəri sil",
-  "login-setting-after-restart": "WeKan yenidən başladıldıqdan sonra qüvvəyə minir"
+  "login-setting-after-restart": "WeKan yenidən başladıldıqdan sonra qüvvəyə minir",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

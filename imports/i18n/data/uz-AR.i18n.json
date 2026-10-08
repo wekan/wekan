@@ -3898,5 +3898,6 @@
   "history-request-forget": "اونوتیش",
   "header-login": "HTTP سرلوحه‌لری ارقلی کیریش",
   "login-setting-clear-secret": "ادمینیستراتور پنلیده سقلنگن قیمَتنی اۉچیریش",
-  "login-setting-after-restart": "WeKan قیته ایشگه توشیرلگندن کیین کُچگه کیرادی"
+  "login-setting-after-restart": "WeKan قیته ایشگه توشیرلگندن کیین کُچگه کیرادی",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

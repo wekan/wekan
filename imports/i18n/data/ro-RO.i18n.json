@@ -3898,5 +3898,6 @@
   "history-request-forget": "Uită cererea",
   "header-login": "Autentificare prin antete HTTP",
   "login-setting-clear-secret": "Elimină valoarea salvată în panoul de administrare",
-  "login-setting-after-restart": "Intră în vigoare după repornirea WeKan"
+  "login-setting-after-restart": "Intră în vigoare după repornirea WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

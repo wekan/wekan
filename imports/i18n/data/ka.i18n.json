@@ -3898,5 +3898,6 @@
   "history-request-forget": "დავიწყება",
   "header-login": "შესვლა HTTP სათაურებით",
   "login-setting-clear-secret": "ადმინის პანელში შენახული მნიშვნელობის წაშლა",
-  "login-setting-after-restart": "ამოქმედდება WeKan-ის ხელახლა გაშვების შემდეგ"
+  "login-setting-after-restart": "ამოქმედდება WeKan-ის ხელახლა გაშვების შემდეგ",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

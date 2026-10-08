@@ -43,6 +43,14 @@ Oracle OIM), **CAS**, **Header login**, **OAuth login providers** and
 `/admin/people/oidc`, `/admin/people/cas`, `/admin/people/header-login`,
 `/admin/people/oauth` and `/admin/people/passwordless`.
 
+**Header login is the exception: it is set by the environment only** (decided
+on 2026-10-08). With `HEADER_LOGIN_ID` and `HEADER_LOGIN_TRUSTED_IPS` set, a
+proxy at a trusted address signs in as anyone it names, so switching it on has
+to take access to the host, not only a site administrator's session. Its
+section shows the values in effect read-only, with no Save button; a value
+stored there by an earlier version is ignored, and a save sent by hand is
+refused and shown in Admin Panel → Problems as ProxyBleed.
+
 Each field is labelled with its environment variable and says which value is in
 effect: the Admin Panel's, the environment variable's, or the default. Leaving
 a field empty, or choosing **Default**, removes the override, and the

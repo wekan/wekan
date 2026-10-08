@@ -3898,5 +3898,6 @@
   "history-request-forget": "Déan dearmad air",
   "header-login": "Logáil isteach trí cheanntásca HTTP",
   "login-setting-clear-secret": "Bain an luach atá sábháilte i bpainéal an riarthóra",
-  "login-setting-after-restart": "Beidh sé i bhfeidhm tar éis WeKan a atosú"
+  "login-setting-after-restart": "Beidh sé i bhfeidhm tar éis WeKan a atosú",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

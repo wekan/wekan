@@ -3898,5 +3898,6 @@
   "history-request-forget": "Glömolöd osi",
   "header-login": "Nunädön oki medü kaps HTTP",
   "login-setting-clear-secret": "Moükön völadi padakipöl in guvanamafenät",
-  "login-setting-after-restart": "Primon vobedön pos dönuprimükam ela WeKan"
+  "login-setting-after-restart": "Primon vobedön pos dönuprimükam ela WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

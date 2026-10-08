@@ -3898,5 +3898,6 @@
   "history-request-forget": "Glöm begäran",
   "header-login": "Inloggning via HTTP-huvuden",
   "login-setting-clear-secret": "Ta bort värdet som lagrats i administrationspanelen",
-  "login-setting-after-restart": "Träder i kraft när WeKan startas om"
+  "login-setting-after-restart": "Träder i kraft när WeKan startas om",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

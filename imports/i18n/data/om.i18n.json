@@ -3898,5 +3898,6 @@
   "history-request-forget": "Irraanfadhu",
   "header-login": "Mata dureewwan HTTP fayyadamuun seenuu",
   "login-setting-clear-secret": "Gatii paanaalii bulchaa keessatti kuufame haqi",
-  "login-setting-after-restart": "WeKan irra deebi'ee erga jalqabamee booda hojii irra oola"
+  "login-setting-after-restart": "WeKan irra deebi'ee erga jalqabamee booda hojii irra oola",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

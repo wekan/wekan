@@ -3898,5 +3898,6 @@
   "history-request-forget": "Ji bîr bike",
   "header-login": "Têketin bi sernavên HTTP",
   "login-setting-clear-secret": "Nirxa ku di panela rêveber de hatiye tomarkirin jê bibe",
-  "login-setting-after-restart": "Piştî ji nû ve destpêkirina WeKan çalak dibe"
+  "login-setting-after-restart": "Piştî ji nû ve destpêkirina WeKan çalak dibe",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

@@ -111,7 +111,7 @@ const PENDING = [
   'CloneBleed', 'CrashBleed', 'DUEBleed', 'ExcelBleed',
   'ExportBleed', 'FieldBleed', 'FollowBleed', 'FrameBleed', 'IdentityBleed',
   'InvisibleBleed', 'LDAPBleed', 'LockoutBleed', 'MegaBleed',
-  'PassBleed', 'PatternBleed', 'ProxyBleed', 'RandomBleed', 'ReactionBleed',
+  'PassBleed', 'PatternBleed', 'RandomBleed', 'ReactionBleed',
   'SnowBleed', 'SocialBleed', 'SortBleed', 'SpliceBleed', 'TokenBleed',
   'TransitBleed', 'UserBleed', 'WebhookBleed', 'WhereBleed', 'ZipBleed',
   'ChecklistWriteBleed', 'CommentWriteBleed', 'RoleBleed',

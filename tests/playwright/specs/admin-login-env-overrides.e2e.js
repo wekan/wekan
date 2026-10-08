@@ -103,3 +103,21 @@ test('DEFAULT_AUTHENTICATION_METHOD chosen in Login overrides the environment, a
       await page.evaluate(() => Meteor.callAsync('saveAuthConfigSettings', 'login', { defaultAuthenticationMethod: '' })).catch(() => {});
     }
   });
+
+// Maintainer decision of 2026-10-08: header login is environment-only, so a
+// site administrator's session alone cannot let a proxy sign in as anyone.
+test('Header login is shown read-only, and a hand-made save is refused', async ({ page, adminUser }) => {
+  await loginWithToken(page, adminUser.id, adminUser.token);
+  await navigateInApp(page, '/admin/people/header-login');
+  const form = page.locator('.js-auth-provider-settings');
+  await expect(form.locator('label', { hasText: 'HEADER_LOGIN_TRUSTED_IPS' })).toBeVisible();
+  await expect(form.locator('#auth-trustedIps')).toHaveAttribute('readonly', '');
+  await expect(form.locator('.js-auth-config-field')).toHaveCount(0);
+  await expect(form.locator('.js-auth-provider-save')).toHaveCount(0);
+  const refused = await page.evaluate(async () => {
+    try { await Meteor.callAsync('saveAuthConfigSettings', 'headerLogin', { id: 'X-Forged', trustedIps: '0.0.0.0/0' }); return 'saved'; }
+    catch (error) { return error.error; }
+  });
+  expect(refused).toBe('login-settings-env-only');
+  expect(db.findOne('settings', {}, { headerLogin: 1 }).headerLogin?.id).toBeUndefined();
+});

@@ -3898,5 +3898,6 @@
   "history-request-forget": "Ŋlɔe be",
   "header-login": "Ge ɖe eme to HTTP ƒe tanyawo dzi",
   "login-setting-clear-secret": "Ɖe asixɔxɔ si wodzra ɖo ɖe dɔdzikpɔla ƒe teƒe la ɖa",
-  "login-setting-after-restart": "Adze dɔ wɔwɔ gɔme ne wogbugbɔ WeKan dze egɔme"
+  "login-setting-after-restart": "Adze dɔ wɔwɔ gɔme ne wogbugbɔ WeKan dze egɔme",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

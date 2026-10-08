@@ -3898,5 +3898,6 @@
   "history-request-forget": "요청 잊기",
   "header-login": "HTTP 헤더를 통한 로그인",
   "login-setting-clear-secret": "관리자 패널에 저장된 값 제거",
-  "login-setting-after-restart": "WeKan을 다시 시작한 후 적용됩니다"
+  "login-setting-after-restart": "WeKan을 다시 시작한 후 적용됩니다",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

@@ -603,6 +603,10 @@
     {
       "key": "card-field-visibility-desc",
       "since": "2026-10-08"
+    },
+    {
+      "key": "login-setting-env-only",
+      "since": "2026-10-08"
     }
   ]
 }

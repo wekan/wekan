@@ -3898,5 +3898,6 @@
   "history-request-forget": "Oblida-ho",
   "header-login": "Inici de sessió mitjançant capçaleres HTTP",
   "login-setting-clear-secret": "Elimina el valor desat al tauler d’administració",
-  "login-setting-after-restart": "Té efecte després de reiniciar el WeKan"
+  "login-setting-after-restart": "Té efecte després de reiniciar el WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

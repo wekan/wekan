@@ -3898,5 +3898,6 @@
   "history-request-forget": "Pozabi",
   "header-login": "Prijava prek glav HTTP",
   "login-setting-clear-secret": "Odstrani vrednost, shranjeno v skrbniški plošči",
-  "login-setting-after-restart": "Začne veljati po ponovnem zagonu WeKan"
+  "login-setting-after-restart": "Začne veljati po ponovnem zagonu WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

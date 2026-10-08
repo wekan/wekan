@@ -9,12 +9,18 @@ template(name="authProviderSettings")
       .warning {{error.get}}
     if loaded.get
       form.js-auth-provider-settings
+        if sectionEnvOnly
+          p.description {{_ 'login-setting-env-only'}}
         ul.setting-detail
           each fields
             li.accounts-form
               label(for="auth-{{key}}")= envVar
               .form-group
-                if booleanField
+                //- Environment-only (Header login): the value in effect,
+                //- read-only, and no js-auth-config-field so nothing is saved.
+                if envOnly
+                  input.wekan-form-control(id="auth-{{key}}" type="text" value="{{effective}}" readonly)
+                else if booleanField
                   select.wekan-form-control.js-auth-config-field(id="auth-{{key}}" data-key="{{key}}" data-boolean="true")
                     option(value="" selected=inherit) {{_ 'default'}} ({{effective}})
                     option(value="true" selected=enabled) {{_ 'yes'}}
@@ -41,8 +47,9 @@ template(name="authProviderSettings")
                   span.ldap-source-badge= sourceLabel
                 if restart
                   .description {{_ 'login-setting-after-restart'}}
-          li
-            button.primary.js-auth-provider-save(type="submit" disabled=busy.get) {{_ 'save'}}
+          unless sectionEnvOnly
+            li
+              button.primary.js-auth-provider-save(type="submit" disabled=busy.get) {{_ 'save'}}
         each urls
           p
             a(href="{{url}}" target="_blank" rel="noopener noreferrer")= url

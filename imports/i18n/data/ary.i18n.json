@@ -3898,5 +3898,6 @@
   "history-request-forget": "نساه",
   "header-login": "الدخول باستعمال ترويسات HTTP",
   "login-setting-clear-secret": "حيد القيمة اللي محفوظة فلوحة التحكم",
-  "login-setting-after-restart": "غادي يتطبق من بعد ما يعاود WeKan يتشعل"
+  "login-setting-after-restart": "غادي يتطبق من بعد ما يعاود WeKan يتشعل",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

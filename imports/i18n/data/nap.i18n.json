@@ -3898,5 +3898,6 @@
   "history-request-forget": "Scuordate",
   "header-login": "Trasuta cu ’e intestazzione HTTP",
   "login-setting-clear-secret": "Leva ’o valore sarvato dint’ ’o pannello ’e ll’amministratore",
-  "login-setting-after-restart": "Fa effetto doppo ’o riavvio ’e WeKan"
+  "login-setting-after-restart": "Fa effetto doppo ’o riavvio ’e WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

@@ -3898,5 +3898,6 @@
   "history-request-forget": "Kyerabire",
   "header-login": "Okuyingira okuyita mu mitwe gya HTTP",
   "login-setting-clear-secret": "Ggyawo omuwendo oguterekeddwa mu kifo ky'abaddukanya",
-  "login-setting-after-restart": "Kitandika okukola nga WeKan etandikiddwa buto"
+  "login-setting-after-restart": "Kitandika okukola nga WeKan etandikiddwa buto",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

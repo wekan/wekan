@@ -3898,5 +3898,6 @@
   "history-request-forget": "لەبیری بکە",
   "header-login": "چوونەژوورەوە بە ڕێگەی سەرپەڕەکانی HTTP",
   "login-setting-clear-secret": "سڕینەوەی ئەو بەهایەی لە پانێڵی بەڕێوەبەر پاشەکەوت کراوە",
-  "login-setting-after-restart": "دوای دەستپێکردنەوەی WeKan کاریگەر دەبێت"
+  "login-setting-after-restart": "دوای دەستپێکردنەوەی WeKan کاریگەر دەبێت",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

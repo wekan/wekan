@@ -3898,5 +3898,6 @@
   "history-request-forget": "Ankounac'haat",
   "header-login": "Kevreañ dre dalbennoù HTTP",
   "login-setting-clear-secret": "Dilemel ar werzh enrollet e bord an ardoer",
-  "login-setting-after-restart": "Talvoudek e vo goude adloc’hañ WeKan"
+  "login-setting-after-restart": "Talvoudek e vo goude adloc’hañ WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

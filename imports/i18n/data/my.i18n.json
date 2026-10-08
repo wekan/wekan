@@ -3898,5 +3898,6 @@
   "history-request-forget": "မေ့ထားလိုက်ရန်",
   "header-login": "HTTP ခေါင်းစီးများမှတစ်ဆင့် ဝင်ရောက်ခြင်း",
   "login-setting-clear-secret": "စီမံခန့်ခွဲမှုအကန့်တွင် သိမ်းထားသော တန်ဖိုးကို ဖယ်ရှားရန်",
-  "login-setting-after-restart": "WeKan ကို ပြန်လည်စတင်ပြီးနောက် အကျိုးသက်ရောက်မည်"
+  "login-setting-after-restart": "WeKan ကို ပြန်လည်စတင်ပြီးနောက် အကျိုးသက်ရောက်မည်",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

@@ -3898,5 +3898,6 @@
   "history-request-forget": "Манас",
   "header-login": "HTTP пуҫламӗсем урлӑ кӗни",
   "login-setting-clear-secret": "Администратор панелӗнче упранӑ пӗлтерӗше кӑларса пӑрахас",
-  "login-setting-after-restart": "WeKan ҫӗнӗрен чӗртсен ӗҫлеме пуҫлать"
+  "login-setting-after-restart": "WeKan ҫӗнӗрен чӗртсен ӗҫлеме пуҫлать",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

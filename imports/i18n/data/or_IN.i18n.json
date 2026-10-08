@@ -3898,5 +3898,6 @@
   "history-request-forget": "ଏହାକୁ ଭୁଲିଯାଆନ୍ତୁ",
   "header-login": "HTTP ହେଡର୍ ମାଧ୍ୟମରେ ଲଗଇନ୍",
   "login-setting-clear-secret": "ଅଡମିନ୍ ପ୍ୟାନେଲ୍‌ରେ ସଂରକ୍ଷିତ ମୂଲ୍ୟ ହଟାନ୍ତୁ",
-  "login-setting-after-restart": "WeKan ପୁନଃଆରମ୍ଭ ହେବା ପରେ କାର୍ଯ୍ୟକାରୀ ହେବ"
+  "login-setting-after-restart": "WeKan ପୁନଃଆରମ୍ଭ ହେବା ପରେ କାର୍ଯ୍ୟକାରୀ ହେବ",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

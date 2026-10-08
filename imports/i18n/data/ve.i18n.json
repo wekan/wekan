@@ -3898,5 +3898,6 @@
   "history-request-forget": "Zwi hangweni",
   "header-login": "U dzhena nga ṱhoho dza HTTP",
   "login-setting-clear-secret": "Bvisani ndeme yo vhulungwaho kha phanele ya mulanguli",
-  "login-setting-after-restart": "Zwi thoma u shuma musi WeKan yo thoma hafhu"
+  "login-setting-after-restart": "Zwi thoma u shuma musi WeKan yo thoma hafhu",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

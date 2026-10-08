@@ -3898,5 +3898,6 @@
   "history-request-forget": "বাদ দিয়ক",
   "header-login": "HTTP হেডাৰৰ জৰিয়তে লগইন",
   "login-setting-clear-secret": "প্ৰশাসক পেনেলত সংৰক্ষণ কৰা মান আঁতৰাওক",
-  "login-setting-after-restart": "WeKan পুনৰ আৰম্ভ কৰাৰ পিছত কাৰ্যকৰী হ’ব"
+  "login-setting-after-restart": "WeKan পুনৰ আৰম্ভ কৰাৰ পিছত কাৰ্যকৰী হ’ব",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

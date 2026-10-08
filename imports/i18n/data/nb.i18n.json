@@ -3898,5 +3898,6 @@
   "history-request-forget": "Glem forespørselen",
   "header-login": "Innlogging via HTTP-hoder",
   "login-setting-clear-secret": "Fjern verdien som er lagret i administrasjonspanelet",
-  "login-setting-after-restart": "Trer i kraft etter at WeKan startes på nytt"
+  "login-setting-after-restart": "Trer i kraft etter at WeKan startes på nytt",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

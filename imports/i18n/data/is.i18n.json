@@ -3898,5 +3898,6 @@
   "history-request-forget": "Gleyma",
   "header-login": "Innskráning með HTTP-hausum",
   "login-setting-clear-secret": "Fjarlægja gildið sem er vistað á stjórnborðinu",
-  "login-setting-after-restart": "Tekur gildi eftir að WeKan er endurræst"
+  "login-setting-after-restart": "Tekur gildi eftir að WeKan er endurræst",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

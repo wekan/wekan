@@ -3898,5 +3898,6 @@
   "history-request-forget": "Agãrseashti",
   "header-login": "Intrari cu capiti HTTP",
   "login-setting-clear-secret": "Scoati valorlu aspus tu panou di administrator",
-  "login-setting-after-restart": "Intrã tu lucru dupã tsi WeKan ahurheaști di nãu"
+  "login-setting-after-restart": "Intrã tu lucru dupã tsi WeKan ahurheaști di nãu",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

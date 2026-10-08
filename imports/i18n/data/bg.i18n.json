@@ -3898,5 +3898,6 @@
   "history-request-forget": "Забравяне на заявката",
   "header-login": "Вход чрез HTTP заглавки",
   "login-setting-clear-secret": "Премахване на стойността, записана в администраторския панел",
-  "login-setting-after-restart": "Влиза в сила след рестартиране на WeKan"
+  "login-setting-after-restart": "Влиза в сила след рестартиране на WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

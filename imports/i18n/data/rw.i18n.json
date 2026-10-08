@@ -3898,5 +3898,6 @@
   "history-request-forget": "Ibyibagirwe",
   "header-login": "Kwinjira ukoresheje imitwe ya HTTP",
   "login-setting-clear-secret": "Kuraho agaciro kabitswe mu buyobozi",
-  "login-setting-after-restart": "Bitangira gukora nyuma yo kongera gutangiza WeKan"
+  "login-setting-after-restart": "Bitangira gukora nyuma yo kongera gutangiza WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

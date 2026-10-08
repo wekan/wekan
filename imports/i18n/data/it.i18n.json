@@ -3898,5 +3898,6 @@
   "history-request-forget": "Dimentica la richiesta",
   "header-login": "Accesso tramite intestazioni HTTP",
   "login-setting-clear-secret": "Rimuovi il valore salvato nel pannello di amministrazione",
-  "login-setting-after-restart": "Ha effetto dopo il riavvio di WeKan"
+  "login-setting-after-restart": "Ha effetto dopo il riavvio di WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

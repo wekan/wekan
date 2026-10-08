@@ -3898,5 +3898,6 @@
   "history-request-forget": "Obliviscere",
   "header-login": "Introitus per capita HTTP",
   "login-setting-clear-secret": "Aufer valorem in tabula administratoris servatum",
-  "login-setting-after-restart": "Valet postquam WeKan denuo incipit"
+  "login-setting-after-restart": "Valet postquam WeKan denuo incipit",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

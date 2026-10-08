@@ -3898,5 +3898,6 @@
   "history-request-forget": "Dìochuimhnich e",
   "header-login": "Clàradh a-steach le bannan-cinn HTTP",
   "login-setting-clear-secret": "Thoir air falbh an luach a chaidh a shàbhaladh sa phanail rianachd",
-  "login-setting-after-restart": "Thig e gu buil às dèidh WeKan ath-thòiseachadh"
+  "login-setting-after-restart": "Thig e gu buil às dèidh WeKan ath-thòiseachadh",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

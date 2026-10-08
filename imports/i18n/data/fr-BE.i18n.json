@@ -3898,5 +3898,6 @@
   "history-request-forget": "Oublier la demande",
   "header-login": "Connexion par en-têtes HTTP",
   "login-setting-clear-secret": "Supprimer la valeur enregistrée dans le panneau d’administration",
-  "login-setting-after-restart": "Prend effet après le redémarrage de WeKan"
+  "login-setting-after-restart": "Prend effet après le redémarrage de WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

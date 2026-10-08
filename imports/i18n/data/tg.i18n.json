@@ -3898,5 +3898,6 @@
   "history-request-forget": "Фаромӯш кардан",
   "header-login": "Воридшавӣ тавассути сарлавҳаҳои HTTP",
   "login-setting-clear-secret": "Нест кардани қимати дар панели маъмур захирашуда",
-  "login-setting-after-restart": "Пас аз аз нав оғоз кардани WeKan эътибор пайдо мекунад"
+  "login-setting-after-restart": "Пас аз аз нав оғоз кардани WeKan эътибор пайдо мекунад",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

@@ -3898,5 +3898,6 @@
   "history-request-forget": "Ɲinɛ o kɔ",
   "header-login": "Donni ni HTTP kunsɛbɛw ye",
   "login-setting-clear-secret": "Sɔngɔ min maralen bɛ ɲɛmɔgɔ ka walan kan, o bɔ yen",
-  "login-setting-after-restart": "A bɛ baara daminɛ WeKan daminɛlen kɔ kura ye"
+  "login-setting-after-restart": "A bɛ baara daminɛ WeKan daminɛlen kɔ kura ye",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

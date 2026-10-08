@@ -3898,5 +3898,6 @@
   "history-request-forget": "Kukhohlwe",
   "header-login": "Kungena ngetihloko te-HTTP",
   "login-setting-clear-secret": "Susa linani leligcinwe kuphaneli yemlawuli",
-  "login-setting-after-restart": "Kucala kusebenta ngemuva kwekutsi i-WeKan icaliswe kabusha"
+  "login-setting-after-restart": "Kucala kusebenta ngemuva kwekutsi i-WeKan icaliswe kabusha",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

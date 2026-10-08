@@ -3898,5 +3898,6 @@
   "history-request-forget": "Ferjit it",
   "header-login": "Oanmelde fia HTTP-koppen",
   "login-setting-clear-secret": "Ferwiderje de wearde dy’t yn it adminpaniel bewarre is",
-  "login-setting-after-restart": "Wurdt aktyf nei it opnij starten fan WeKan"
+  "login-setting-after-restart": "Wurdt aktyf nei it opnij starten fan WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

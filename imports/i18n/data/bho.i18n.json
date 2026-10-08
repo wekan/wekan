@@ -3898,5 +3898,6 @@
   "history-request-forget": "एकरा के भुला दीं",
   "header-login": "HTTP हेडर से लॉग इन",
   "login-setting-clear-secret": "प्रशासक पैनल में सहेजल मान हटाईं",
-  "login-setting-after-restart": "WeKan फेर शुरू भइला के बाद लागू होई"
+  "login-setting-after-restart": "WeKan फेर शुरू भइला के बाद लागू होई",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

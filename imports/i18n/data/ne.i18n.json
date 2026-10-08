@@ -3898,5 +3898,6 @@
   "history-request-forget": "बिर्सनुहोस्",
   "header-login": "HTTP हेडरमार्फत लगइन",
   "login-setting-clear-secret": "प्रशासक प्यानलमा सुरक्षित गरिएको मान हटाउनुहोस्",
-  "login-setting-after-restart": "WeKan पुनः सुरु भएपछि लागू हुन्छ"
+  "login-setting-after-restart": "WeKan पुनः सुरु भएपछि लागू हुन्छ",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

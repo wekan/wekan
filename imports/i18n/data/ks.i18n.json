@@ -3898,5 +3898,6 @@
   "history-request-forget": "یہِ مۄشِراوِو",
   "header-login": "HTTP ہیڈرن ہِنٛد ذریعہٕ لاگ اِن",
   "login-setting-clear-secret": "منتظم پینلس منٛز محفوظ کرنہٕ آمُت قدر ہٹٲویو",
-  "login-setting-after-restart": "WeKan دوبارٕ چلاونہٕ پتہٕ گژھِ لاگو"
+  "login-setting-after-restart": "WeKan دوبارٕ چلاونہٕ پتہٕ گژھِ لاگو",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

@@ -150,8 +150,14 @@ const SECTIONS = {
       ['mergeExistingUsers', 'CAS_MERGE_EXISTING_USERS', 'boolean', { defaultValue: false }],
     ],
   },
+  // Environment-only (maintainer decision of 2026-10-08): with HEADER_LOGIN_ID
+  // and HEADER_LOGIN_TRUSTED_IPS set, a proxy at a trusted address signs in as
+  // anyone it names, so turning that on must take access to the host, not only
+  // a site administrator's session. The Admin Panel shows these read-only; a
+  // value stored there before this change is ignored, and a save is refused.
   headerLogin: {
     storage: 'headerLogin',
+    envOnly: true,
     fields: [
       ['id', 'HEADER_LOGIN_ID', 'text'],
       ['email', 'HEADER_LOGIN_EMAIL', 'text'],
@@ -175,9 +181,10 @@ const SECTIONS = {
 
 const AUTH_CONFIG_SECTIONS = {};
 const BY_ENV_VAR = {};
-for (const [section, { storage, fields }] of Object.entries(SECTIONS)) {
+for (const [section, { storage, envOnly = false, fields }] of Object.entries(SECTIONS)) {
   AUTH_CONFIG_SECTIONS[section] = {
     storage,
+    envOnly,
     fields: fields.map(([key, envVar, type, options = {}]) => {
       const field = {
         key, envVar, type, section, storage,
@@ -192,6 +199,7 @@ for (const [section, { storage, fields }] of Object.entries(SECTIONS)) {
         aliases: options.aliases || [],
         defaultValue: options.defaultValue === undefined ? null : options.defaultValue,
         restart: options.restart === true,
+        envOnly,
       };
       for (const name of [envVar, ...field.aliases]) BY_ENV_VAR[name] = field;
       return field;
@@ -210,6 +218,7 @@ function isUnset(value) {
 // The value the Admin Panel stored for one field, or undefined when it has
 // none. `docs` is the Settings document (or the subset holding the sections).
 function adminValue(field, doc) {
+  if (field.envOnly) return undefined;
   const stored = doc && doc[field.storage];
   if (!stored || typeof stored !== 'object') return undefined;
   const value = stored[field.key];
@@ -330,6 +339,9 @@ function cleanAuthConfigInput(section, input) {
   if (!spec) throw new TypeError(`Unknown login settings section: ${section}`);
   if (!input || typeof input !== 'object' || Array.isArray(input)) {
     throw new TypeError('Login settings must be an object');
+  }
+  if (spec.envOnly) {
+    throw new TypeError(`${section} settings can only be set in the environment`);
   }
   const clearSecrets = input.clearSecrets === undefined ? [] : input.clearSecrets;
   if (!Array.isArray(clearSecrets)) throw new TypeError('clearSecrets must be a list');

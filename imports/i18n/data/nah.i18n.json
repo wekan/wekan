@@ -3898,5 +3898,6 @@
   "history-request-forget": "Xiquilcahua",
   "header-login": "Calaquiliztli ica HTTP itzontecon",
   "login-setting-clear-secret": "Xicquixti in ipatiuh tlen ipan tepachoani ihuapal mopia",
-  "login-setting-after-restart": "Tequitiz ihcuac WeKan occepa pehuaz"
+  "login-setting-after-restart": "Tequitiz ihcuac WeKan occepa pehuaz",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

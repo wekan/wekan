@@ -3898,5 +3898,6 @@
   "history-request-forget": "Uk armasim",
   "header-login": "HTTP p’iqinakap tuqi mantaña",
   "login-setting-clear-secret": "Apnaqirin pankapan imat chani apsuña",
-  "login-setting-after-restart": "WeKan wasitat qalltkipanwa irnaqani"
+  "login-setting-after-restart": "WeKan wasitat qalltkipanwa irnaqani",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

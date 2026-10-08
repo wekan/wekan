@@ -3898,5 +3898,6 @@
   "history-request-forget": "Lalekake",
   "header-login": "Mlebu liwat irah-irahan HTTP",
   "login-setting-clear-secret": "Busak nilai sing disimpen ing panel admin",
-  "login-setting-after-restart": "Ditrapake sawise WeKan diwiwiti maneh"
+  "login-setting-after-restart": "Ditrapake sawise WeKan diwiwiti maneh",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

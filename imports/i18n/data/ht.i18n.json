@@ -3898,5 +3898,6 @@
   "history-request-forget": "Bliye li",
   "header-login": "Koneksyon atravè antèt HTTP",
   "login-setting-clear-secret": "Retire valè ki anrejistre nan panèl administratè a",
-  "login-setting-after-restart": "Pran efè apre WeKan rekòmanse"
+  "login-setting-after-restart": "Pran efè apre WeKan rekòmanse",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

@@ -3898,5 +3898,6 @@
   "history-request-forget": "അത് മറക്കുക",
   "header-login": "HTTP ഹെഡറുകൾ വഴിയുള്ള പ്രവേശനം",
   "login-setting-clear-secret": "അഡ്മിൻ പാനലിൽ സൂക്ഷിച്ച മൂല്യം നീക്കം ചെയ്യുക",
-  "login-setting-after-restart": "WeKan പുനരാരംഭിച്ചതിന് ശേഷം പ്രാബല്യത്തിൽ വരും"
+  "login-setting-after-restart": "WeKan പുനരാരംഭിച്ചതിന് ശേഷം പ്രാബല്യത്തിൽ വരും",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

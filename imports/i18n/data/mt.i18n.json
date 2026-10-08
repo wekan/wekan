@@ -3898,5 +3898,6 @@
   "history-request-forget": "Insieha",
   "header-login": "Dħul permezz ta’ headers HTTP",
   "login-setting-clear-secret": "Neħħi l-valur maħżun fil-panel tal-amministratur",
-  "login-setting-after-restart": "Jidħol fis-seħħ wara li jerġa’ jinbeda WeKan"
+  "login-setting-after-restart": "Jidħol fis-seħħ wara li jerġa’ jinbeda WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

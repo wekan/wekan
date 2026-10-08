@@ -3898,5 +3898,6 @@
   "history-request-forget": "Kanganwa nezvazvo",
   "header-login": "Kupinda kuburikidza nemisoro yeHTTP",
   "login-setting-clear-secret": "Bvisa kukosha kwakachengetwa mupeneri yevatariri",
-  "login-setting-after-restart": "Zvichatanga kushanda mushure mekunge WeKan yatangwazve"
+  "login-setting-after-restart": "Zvichatanga kushanda mushure mekunge WeKan yatangwazve",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

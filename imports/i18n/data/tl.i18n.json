@@ -3898,5 +3898,6 @@
   "history-request-forget": "Kalimutan ito",
   "header-login": "Pag-login gamit ang mga HTTP header",
   "login-setting-clear-secret": "Alisin ang halagang nakaimbak sa panel ng admin",
-  "login-setting-after-restart": "Magkakabisa pagkatapos i-restart ang WeKan"
+  "login-setting-after-restart": "Magkakabisa pagkatapos i-restart ang WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

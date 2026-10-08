@@ -3898,5 +3898,6 @@
   "history-request-forget": "Lupakan",
   "header-login": "Log masuk melalui pengepala HTTP",
   "login-setting-clear-secret": "Alih keluar nilai yang disimpan dalam panel pentadbir",
-  "login-setting-after-restart": "Berkuat kuasa selepas WeKan dimulakan semula"
+  "login-setting-after-restart": "Berkuat kuasa selepas WeKan dimulakan semula",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

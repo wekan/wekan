@@ -3898,5 +3898,6 @@
   "history-request-forget": "దాన్ని మర్చిపోండి",
   "header-login": "HTTP హెడర్‌ల ద్వారా లాగిన్",
   "login-setting-clear-secret": "అడ్మిన్ ప్యానెల్‌లో నిల్వ చేసిన విలువను తొలగించండి",
-  "login-setting-after-restart": "WeKan పునఃప్రారంభమైన తర్వాత అమలులోకి వస్తుంది"
+  "login-setting-after-restart": "WeKan పునఃప్రారంభమైన తర్వాత అమలులోకి వస్తుంది",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

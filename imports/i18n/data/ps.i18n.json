@@ -3898,5 +3898,6 @@
   "history-request-forget": "هېر یې کړئ",
   "header-login": "د HTTP سرلیکونو له لارې ننوتل",
   "login-setting-clear-secret": "په اداري پینل کې خوندي شوی ارزښت لرې کړئ",
-  "login-setting-after-restart": "د WeKan له بیا پیلولو وروسته نافذېږي"
+  "login-setting-after-restart": "د WeKan له بیا پیلولو وروسته نافذېږي",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

@@ -3898,5 +3898,6 @@
   "history-request-forget": "បំភ្លេចវា",
   "header-login": "ចូលតាមរយៈក្បាល HTTP",
   "login-setting-clear-secret": "លុបតម្លៃដែលបានរក្សាទុកក្នុងផ្ទាំងគ្រប់គ្រង",
-  "login-setting-after-restart": "មានប្រសិទ្ធភាពបន្ទាប់ពីចាប់ផ្ដើម WeKan ឡើងវិញ"
+  "login-setting-after-restart": "មានប្រសិទ្ធភាពបន្ទាប់ពីចាប់ផ្ដើម WeKan ឡើងវិញ",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

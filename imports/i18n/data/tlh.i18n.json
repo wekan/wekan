@@ -3898,5 +3898,6 @@
   "history-request-forget": "yIlIj",
   "header-login": "HTTP nach De' lo'taHvIS 'elmeH Qu'",
   "login-setting-clear-secret": "che'wI' leQmeyDaq polta'bogh De' yIteq",
-  "login-setting-after-restart": "taghqa'DI' WeKan, vumchoH"
+  "login-setting-after-restart": "taghqa'DI' WeKan, vumchoH",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

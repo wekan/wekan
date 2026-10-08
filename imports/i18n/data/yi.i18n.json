@@ -3898,5 +3898,6 @@
   "history-request-forget": "פֿאַרגעסט עס",
   "header-login": "אַרײַנלאָגירן דורך HTTP־קעפּלעך",
   "login-setting-clear-secret": "אַראָפּנעמען דעם ווערט וואָס איז געהיט אינעם אַדמין־פּאַנעל",
-  "login-setting-after-restart": "ווערט אַקטיוו נאָכן ווידער אָנהייבן WeKan"
+  "login-setting-after-restart": "ווערט אַקטיוו נאָכן ווידער אָנהייבן WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

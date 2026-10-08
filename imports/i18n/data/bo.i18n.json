@@ -3898,5 +3898,6 @@
   "history-request-forget": "དེ་བརྗེད་པར་བྱེད།",
   "header-login": "HTTP མགོ་ཡིག་བརྒྱུད་ནས་ནང་འཛུལ།",
   "login-setting-clear-secret": "དོ་དམ་པའི་པང་ལེབ་ཏུ་ཉར་བའི་གྲངས་ཐང་སུབ།",
-  "login-setting-after-restart": "WeKan བསྐྱར་དུ་འགོ་སློང་བྱས་རྗེས་ནུས་པ་ཐོན།"
+  "login-setting-after-restart": "WeKan བསྐྱར་དུ་འགོ་སློང་བྱས་རྗེས་ནུས་པ་ཐོན།",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

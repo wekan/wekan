@@ -3898,5 +3898,6 @@
   "history-request-forget": "Aizmirst",
   "header-login": "Pieteikšanās ar HTTP galvenēm",
   "login-setting-clear-secret": "Noņemt administrēšanas panelī saglabāto vērtību",
-  "login-setting-after-restart": "Stājas spēkā pēc WeKan restartēšanas"
+  "login-setting-after-restart": "Stājas spēkā pēc WeKan restartēšanas",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

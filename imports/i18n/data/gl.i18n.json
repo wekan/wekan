@@ -3898,5 +3898,6 @@
   "history-request-forget": "Esquecer a solicitude",
   "header-login": "Inicio de sesión mediante cabeceiras HTTP",
   "login-setting-clear-secret": "Eliminar o valor gardado no panel de administración",
-  "login-setting-after-restart": "Entra en vigor despois de reiniciar WeKan"
+  "login-setting-after-restart": "Entra en vigor despois de reiniciar WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

@@ -3898,5 +3898,6 @@
   "history-request-forget": "Escaecelo",
   "header-login": "Aniciu de sesión per cabeceres HTTP",
   "login-setting-clear-secret": "Desaniciar el valor guardáu nel panel del administrador",
-  "login-setting-after-restart": "Tien efeutu dempués de reaniciar WeKan"
+  "login-setting-after-restart": "Tien efeutu dempués de reaniciar WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

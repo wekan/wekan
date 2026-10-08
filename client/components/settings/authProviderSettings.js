@@ -26,6 +26,8 @@ Template.authProviderSettings.helpers({
   loaded() { return Template.instance().loaded; },
   busy() { return Template.instance().busy; },
   error() { return Template.instance().error; },
+  // A section only the environment sets (models/lib/authConfigCatalog.js).
+  sectionEnvOnly() { return (this.fields || []).some(field => field.envOnly); },
   fields() {
     const { overrides = {}, sources = {} } = Template.instance().config.get();
     return this.fields.map(field => {

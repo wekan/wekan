@@ -3898,5 +3898,6 @@
   "history-request-forget": "Forgesi ĝin",
   "header-login": "Ensaluto per HTTP-kapoj",
   "login-setting-clear-secret": "Forigi la valoron konservitan en la administra panelo",
-  "login-setting-after-restart": "Efikas post restartigo de WeKan"
+  "login-setting-after-restart": "Efikas post restartigo de WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

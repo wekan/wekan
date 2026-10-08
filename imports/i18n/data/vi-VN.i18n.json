@@ -3898,5 +3898,6 @@
   "history-request-forget": "Bỏ qua",
   "header-login": "Đăng nhập qua tiêu đề HTTP",
   "login-setting-clear-secret": "Xóa giá trị đã lưu trong bảng quản trị",
-  "login-setting-after-restart": "Có hiệu lực sau khi WeKan khởi động lại"
+  "login-setting-after-restart": "Có hiệu lực sau khi WeKan khởi động lại",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

@@ -3898,5 +3898,6 @@
   "history-request-forget": "Forget it",
   "header-login": "Header login",
   "login-setting-clear-secret": "Remove the value stored in the Admin Panel",
-  "login-setting-after-restart": "Takes effect after WeKan restarts"
+  "login-setting-after-restart": "Takes effect after WeKan restarts",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

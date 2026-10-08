@@ -3898,5 +3898,6 @@
   "history-request-forget": "Забыть запрос",
   "header-login": "Вход с помощью HTTP-заголовков",
   "login-setting-clear-secret": "Удалить значение, сохранённое в панели администратора",
-  "login-setting-after-restart": "Вступает в силу после перезапуска WeKan"
+  "login-setting-after-restart": "Вступает в силу после перезапуска WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

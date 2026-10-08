@@ -3898,5 +3898,6 @@
   "history-request-forget": "ભૂલી જાઓ",
   "header-login": "HTTP હેડર દ્વારા લૉગિન",
   "login-setting-clear-secret": "એડમિન પેનલમાં સાચવેલું મૂલ્ય દૂર કરો",
-  "login-setting-after-restart": "WeKan ફરી શરૂ થયા પછી અમલમાં આવશે"
+  "login-setting-after-restart": "WeKan ફરી શરૂ થયા પછી અમલમાં આવશે",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

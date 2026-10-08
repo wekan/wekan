@@ -3898,5 +3898,6 @@
   "history-request-forget": "Унутуу",
   "header-login": "HTTP баш аттары аркылуу кирүү",
   "login-setting-clear-secret": "Администратор панелинде сакталган маанини өчүрүү",
-  "login-setting-after-restart": "WeKan кайра иштетилгенден кийин күчүнө кирет"
+  "login-setting-after-restart": "WeKan кайра иштетилгенден кийин күчүнө кирет",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

@@ -3898,5 +3898,6 @@
   "history-request-forget": "Zabyć",
   "header-login": "Přizjewjenje přez HTTP-hłowy",
   "login-setting-clear-secret": "Hódnotu, kotraž je w administratorskim panelu składowana, wotstronić",
-  "login-setting-after-restart": "Budźe po nowym startowanju WeKan skutkować"
+  "login-setting-after-restart": "Budźe po nowym startowanju WeKan skutkować",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

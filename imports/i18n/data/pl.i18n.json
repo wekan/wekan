@@ -3898,5 +3898,6 @@
   "history-request-forget": "Zapomnij żądanie",
   "header-login": "Logowanie za pomocą nagłówków HTTP",
   "login-setting-clear-secret": "Usuń wartość zapisaną w panelu administratora",
-  "login-setting-after-restart": "Zacznie obowiązywać po ponownym uruchomieniu WeKan"
+  "login-setting-after-restart": "Zacznie obowiązywać po ponownym uruchomieniu WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

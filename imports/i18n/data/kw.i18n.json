@@ -3898,5 +3898,6 @@
   "history-request-forget": "Ankevi henna",
   "header-login": "Omgelmi dre bennrewyow HTTP",
   "login-setting-clear-secret": "Dilea an dalgh gwithys yn panel an menystrer",
-  "login-setting-after-restart": "Devedh a wra yn fyw wosa dasdalleth WeKan"
+  "login-setting-after-restart": "Devedh a wra yn fyw wosa dasdalleth WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

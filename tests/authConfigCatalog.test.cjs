@@ -97,8 +97,47 @@ test('resolution: older spellings still win where the code used to read them fir
   assert.equal(resolveAuthEnv('HEADER_LOGIN_TRUSTED_IPS', {}, {HEADER_LOGIN_TRUSTED_IPS: '10.0.0.2'}), '10.0.0.2');
   assert.equal(resolveAuthEnv('CAS_VALIDATE_URL', {}, {CASE_VALIDATE_URL: 'https://old'}), 'https://old');
   assert.equal(resolveAuthEnv('CAS_VALIDATE_URL', {}, {CAS_VALIDATE_URL: 'https://new'}), 'https://new');
-  assert.equal(resolveAuthEnv('HEADER_LOGIN_TRUSTED_IPS', {headerLogin: {trustedIps: '10.9.9.9'}}, {HEADER_LOGIN_TRUSTED_IP: '10.0.0.1'}), '10.9.9.9',
+  assert.equal(resolveAuthEnv('CAS_VALIDATE_URL', {cas: {validateUrl: 'https://admin'}}, {CASE_VALIDATE_URL: 'https://old'}), 'https://admin',
     'and the Admin Panel still wins over both');
+});
+
+// Maintainer decision of 2026-10-08: header login is environment-only. With
+// HEADER_LOGIN_ID and HEADER_LOGIN_TRUSTED_IPS set, a proxy signs in as anyone
+// it names, so enabling it must take access to the host, not only a site
+// administrator's session.
+test('header login: the environment decides, a stored Admin Panel value is ignored', () => {
+  const stored = {headerLogin: {id: 'X-Evil', trustedIps: '0.0.0.0/0', trustedProxies: '10.0.0.1', email: 'X-Mail'}};
+  assert.equal(resolveAuthEnv('HEADER_LOGIN_ID', stored, {}), undefined, 'a stored id does not switch header login on');
+  assert.equal(resolveAuthEnv('HEADER_LOGIN_TRUSTED_IPS', stored, {}), undefined);
+  assert.equal(resolveAuthEnv('HEADER_LOGIN_TRUSTED_IPS', stored, {HEADER_LOGIN_TRUSTED_IP: '10.0.0.1'}), '10.0.0.1');
+  assert.equal(resolveAuthEnv('HEADER_LOGIN_ID', stored, {HEADER_LOGIN_ID: 'X-User'}), 'X-User');
+  const shown = authConfigSources('headerLogin', stored, {HEADER_LOGIN_ID: 'X-User'});
+  assert.deepEqual(shown.overrides, {}, 'nothing is reported as an override');
+  assert.deepEqual(shown.sources.id, {source: 'env', value: 'X-User'});
+  assert.equal(shown.sources.trustedIps.source, 'default');
+});
+
+test('negative: no header login setting can be saved from the Admin Panel', () => {
+  assert.equal(AUTH_CONFIG_SECTIONS.headerLogin.envOnly, true);
+  for (const field of AUTH_CONFIG_SECTIONS.headerLogin.fields) {
+    assert.equal(field.envOnly, true, field.envVar);
+    assert.throws(() => cleanAuthConfigInput('headerLogin', {[field.key]: 'x'}), /only be set in the environment/, field.envVar);
+  }
+  assert.throws(() => cleanAuthConfigInput('headerLogin', {}), /only be set in the environment/, 'not even an empty save');
+  // Every other section stays overridable: env-only is header login's alone.
+  for (const [section, spec] of Object.entries(AUTH_CONFIG_SECTIONS)) {
+    if (section !== 'headerLogin') assert.equal(spec.envOnly, false, section);
+  }
+  // The server refuses before validating and records the attempt; the form
+  // draws the section read-only with no Save button.
+  const server = read('server/lib/authConfig.js');
+  const save = server.slice(server.indexOf('async saveAuthConfigSettings'));
+  assert.ok(save.indexOf('.envOnly') !== -1 && save.indexOf('.envOnly') < save.indexOf('cleanAuthConfigInput('));
+  assert.match(save, /key: 'authn\.header-login-env-only', action: 'blocked'/);
+  assert.match(save, /catch \(e\) \{ \/\* logging must never break the guard \*\/ \}/);
+  const jade = read('client/components/settings/authProviderSettings.jade');
+  assert.match(jade, /if envOnly\n\s+input\.wekan-form-control\(id="auth-\{\{key\}\}" type="text" value="\{\{effective\}\}" readonly\)/);
+  assert.match(jade, /unless sectionEnvOnly\n\s+li\n\s+button\.primary\.js-auth-provider-save/);
 });
 
 test('secrets never leave the server, from either source', () => {

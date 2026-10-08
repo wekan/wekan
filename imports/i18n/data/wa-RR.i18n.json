@@ -3898,5 +3898,6 @@
   "history-request-forget": "Hikalimti ini",
   "header-login": "Pagsulod pinaagi han mga ulohan han HTTP",
   "login-setting-clear-secret": "Kuhaa an kantidad nga gintipigan ha panel han administrador",
-  "login-setting-after-restart": "Magtitikang pag-epekto katapos utro nga tikangan an WeKan"
+  "login-setting-after-restart": "Magtitikang pag-epekto katapos utro nga tikangan an WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

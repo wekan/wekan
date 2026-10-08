@@ -3898,5 +3898,6 @@
   "history-request-forget": "Dismentee",
   "header-login": "Jentrade cun intestazions HTTP",
   "login-setting-clear-secret": "Gjave il valôr salvât tal panel di aministratôr",
-  "login-setting-after-restart": "Al à efet dopo vê tornât a inviâ WeKan"
+  "login-setting-after-restart": "Al à efet dopo vê tornât a inviâ WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

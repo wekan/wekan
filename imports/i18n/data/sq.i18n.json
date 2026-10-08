@@ -3898,5 +3898,6 @@
   "history-request-forget": "Harroje",
   "header-login": "Hyrje përmes titujve HTTP",
   "login-setting-clear-secret": "Hiq vlerën e ruajtur në panelin e administratorit",
-  "login-setting-after-restart": "Hyn në fuqi pas rinisjes së WeKan"
+  "login-setting-after-restart": "Hyn në fuqi pas rinisjes së WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

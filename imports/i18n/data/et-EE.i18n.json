@@ -3898,5 +3898,6 @@
   "history-request-forget": "Unusta see",
   "header-login": "Sisselogimine HTTP-päiste abil",
   "login-setting-clear-secret": "Eemalda halduspaneelile salvestatud väärtus",
-  "login-setting-after-restart": "Jõustub pärast WeKani taaskäivitamist"
+  "login-setting-after-restart": "Jõustub pärast WeKani taaskäivitamist",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

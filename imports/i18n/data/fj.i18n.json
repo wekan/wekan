@@ -3898,5 +3898,6 @@
   "history-request-forget": "Guilecava",
   "header-login": "Curu ena ulutaga ni HTTP",
   "login-setting-clear-secret": "Kauta tani na iwiliwili e maroroi ena tabana ni dauniveiliutaki",
-  "login-setting-after-restart": "E na tekivu cakacaka ni sa tekivu tale na WeKan"
+  "login-setting-after-restart": "E na tekivu cakacaka ni sa tekivu tale na WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

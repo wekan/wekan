@@ -3898,5 +3898,6 @@
   "history-request-forget": "Fàtte ko",
   "header-login": "Dugg jaarale ko ci bopp yi ci HTTP",
   "login-setting-clear-secret": "Far lim bi ñu denc ci paneelu admin bi",
-  "login-setting-after-restart": "Dina tàmbali dox gannaaw bu ñu tàmbaliwaat WeKan"
+  "login-setting-after-restart": "Dina tàmbali dox gannaaw bu ñu tàmbaliwaat WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

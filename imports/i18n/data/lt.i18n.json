@@ -3898,5 +3898,6 @@
   "history-request-forget": "Pamiršti",
   "header-login": "Prisijungimas naudojant HTTP antraštes",
   "login-setting-clear-secret": "Pašalinti administravimo skydelyje išsaugotą reikšmę",
-  "login-setting-after-restart": "Įsigalioja iš naujo paleidus WeKan"
+  "login-setting-after-restart": "Įsigalioja iš naujo paleidus WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

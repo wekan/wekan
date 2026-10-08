@@ -3898,5 +3898,6 @@
   "history-request-forget": "ርሳዕ",
   "header-login": "በሄደር HTTP መእተዪ",
   "login-setting-clear-secret": "እት ፓነል ምምሕዳር ለተዐቀበ ቂመት ምሳሕ",
-  "login-setting-after-restart": "WeKan ደጊሙ ሓቆ አምበተ ግልሸቄቱ"
+  "login-setting-after-restart": "WeKan ደጊሙ ሓቆ አምበተ ግልሸቄቱ",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

@@ -3898,5 +3898,6 @@
   "history-request-forget": "Kérés elfelejtése",
   "header-login": "Bejelentkezés HTTP-fejlécekkel",
   "login-setting-clear-secret": "Az adminisztrációs panelen tárolt érték eltávolítása",
-  "login-setting-after-restart": "A WeKan újraindítása után lép érvénybe"
+  "login-setting-after-restart": "A WeKan újraindítása után lép érvénybe",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

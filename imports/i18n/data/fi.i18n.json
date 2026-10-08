@@ -3898,5 +3898,6 @@
   "history-request-forget": "Unohda pyyntö",
   "header-login": "Kirjautuminen HTTP-otsakkeilla",
   "login-setting-clear-secret": "Poista hallintapaneeliin tallennettu arvo",
-  "login-setting-after-restart": "Tulee voimaan WeKanin uudelleenkäynnistyksen jälkeen"
+  "login-setting-after-restart": "Tulee voimaan WeKanin uudelleenkäynnistyksen jälkeen",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

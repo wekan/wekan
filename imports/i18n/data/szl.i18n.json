@@ -3898,5 +3898,6 @@
   "history-request-forget": "Zapōmnij",
   "header-login": "Logowanie bez nagłōwki HTTP",
   "login-setting-clear-secret": "Wyciepnōńć wartość spamiyntanõ we panelu administratora",
-  "login-setting-after-restart": "Zacznie działać po zaś włōnczyniu WeKan"
+  "login-setting-after-restart": "Zacznie działać po zaś włōnczyniu WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

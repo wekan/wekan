@@ -3898,5 +3898,6 @@
   "history-request-forget": "Rouvyî çoula",
   "header-login": "S' elodjî avou des tiestires HTTP",
   "login-setting-clear-secret": "Oister li valixhance schapêye e panel administratife",
-  "login-setting-after-restart": "Prind efect après aveur renondé WeKan"
+  "login-setting-after-restart": "Prind efect après aveur renondé WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

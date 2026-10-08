@@ -3898,5 +3898,6 @@
   "history-request-forget": "Онытырга",
   "header-login": "HTTP башлыклары аша керү",
   "login-setting-clear-secret": "Идарәче панелендә сакланган кыйммәтне бетерү",
-  "login-setting-after-restart": "WeKan яңадан эшләтелгәннән соң гамәлгә керә"
+  "login-setting-after-restart": "WeKan яңадан эшләтелгәннән соң гамәлгә керә",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

@@ -3898,5 +3898,6 @@
   "history-request-forget": "एकरा बिसरू",
   "header-login": "HTTP हेडर सँ प्रवेश",
   "login-setting-clear-secret": "प्रशासक पैनलमे सुरक्षित कयल मान हटाउ",
-  "login-setting-after-restart": "WeKan फेर शुरू भेला बाद लागू होयत"
+  "login-setting-after-restart": "WeKan फेर शुरू भेला बाद लागू होयत",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

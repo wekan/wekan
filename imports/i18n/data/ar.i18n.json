@@ -3898,5 +3898,6 @@
   "history-request-forget": "تجاهل الطلب",
   "header-login": "تسجيل الدخول عبر ترويسات HTTP",
   "login-setting-clear-secret": "إزالة القيمة المحفوظة في لوحة التحكم",
-  "login-setting-after-restart": "يسري بعد إعادة تشغيل WeKan"
+  "login-setting-after-restart": "يسري بعد إعادة تشغيل WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

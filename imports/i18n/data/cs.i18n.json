@@ -3898,5 +3898,6 @@
   "history-request-forget": "Zapomenout požadavek",
   "header-login": "Přihlášení pomocí HTTP hlaviček",
   "login-setting-clear-secret": "Odstranit hodnotu uloženou v panelu správce",
-  "login-setting-after-restart": "Projeví se po restartování WeKan"
+  "login-setting-after-restart": "Projeví se po restartování WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

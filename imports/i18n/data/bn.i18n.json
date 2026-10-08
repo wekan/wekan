@@ -3898,5 +3898,6 @@
   "history-request-forget": "ভুলে যান",
   "header-login": "HTTP হেডারের মাধ্যমে লগইন",
   "login-setting-clear-secret": "প্রশাসক প্যানেলে সংরক্ষিত মান সরান",
-  "login-setting-after-restart": "WeKan পুনরায় চালু হওয়ার পরে কার্যকর হবে"
+  "login-setting-after-restart": "WeKan পুনরায় চালু হওয়ার পরে কার্যকর হবে",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

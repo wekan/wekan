@@ -3898,5 +3898,6 @@
   "history-request-forget": "リクエストを破棄",
   "header-login": "HTTPヘッダーによるログイン",
   "login-setting-clear-secret": "管理パネルに保存された値を削除",
-  "login-setting-after-restart": "WeKanの再起動後に有効になります"
+  "login-setting-after-restart": "WeKanの再起動後に有効になります",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

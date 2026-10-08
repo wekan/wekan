@@ -3898,5 +3898,6 @@
   "history-request-forget": "שכח מזה",
   "header-login": "כניסה באמצעות כותרות HTTP",
   "login-setting-clear-secret": "הסרת הערך השמור בלוח הניהול",
-  "login-setting-after-restart": "ייכנס לתוקף לאחר הפעלה מחדש של WeKan"
+  "login-setting-after-restart": "ייכנס לתוקף לאחר הפעלה מחדש של WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

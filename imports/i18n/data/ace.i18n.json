@@ -3898,5 +3898,6 @@
   "history-request-forget": "Tuwo keu nyan",
   "header-login": "Tamong meulalu header HTTP",
   "login-setting-clear-secret": "Sampôh nilai nyang ka keusimpan bak Panel Admin",
-  "login-setting-after-restart": "Mulai meufungsi lheueh WeKan dimula lom"
+  "login-setting-after-restart": "Mulai meufungsi lheueh WeKan dimula lom",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

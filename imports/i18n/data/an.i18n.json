@@ -3898,5 +3898,6 @@
   "history-request-forget": "Xuplidar-lo",
   "header-login": "Inicio de sesión por cabeceras HTTP",
   "login-setting-clear-secret": "Eliminar a valor alzada en o panel d’administrador",
-  "login-setting-after-restart": "Tiene efecto dimpués de reiniciar WeKan"
+  "login-setting-after-restart": "Tiene efecto dimpués de reiniciar WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

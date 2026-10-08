@@ -3898,5 +3898,6 @@
   "history-request-forget": "Ma wo werɛ mfi",
   "header-login": "Hyɛn mu fa HTTP nsɛmti so",
   "login-setting-clear-secret": "Yi botaeɛ a wɔde asie wɔ sohwɛfoɔ paanel no mu no",
-  "login-setting-after-restart": "Ɛbɛyɛ adwuma bere a wɔasan afi WeKan ase"
+  "login-setting-after-restart": "Ɛbɛyɛ adwuma bere a wɔasan afi WeKan ase",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

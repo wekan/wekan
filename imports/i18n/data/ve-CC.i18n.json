@@ -3898,5 +3898,6 @@
   "history-request-forget": "Desmenteghete",
   "header-login": "Aceso tramite intestasion HTTP",
   "login-setting-clear-secret": "Cava el vałor salvà inte el paneło de aministrasion",
-  "login-setting-after-restart": "El ga efeto dopo aver invià da novo WeKan"
+  "login-setting-after-restart": "El ga efeto dopo aver invià da novo WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

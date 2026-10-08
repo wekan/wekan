@@ -3898,5 +3898,6 @@
   "history-request-forget": "فراموشش کن",
   "header-login": "ورود از طریق سرآیندهای HTTP",
   "login-setting-clear-secret": "حذف مقدار ذخیره‌شده در پنل مدیریت",
-  "login-setting-after-restart": "پس از راه‌اندازی مجدد WeKan اعمال می‌شود"
+  "login-setting-after-restart": "پس از راه‌اندازی مجدد WeKan اعمال می‌شود",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

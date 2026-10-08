@@ -3898,5 +3898,6 @@
   "history-request-forget": "Olvidar la solicitud",
   "header-login": "Inicio de sesión mediante cabeceras HTTP",
   "login-setting-clear-secret": "Eliminar el valor guardado en el panel del administrador",
-  "login-setting-after-restart": "Se aplica después de reiniciar WeKan"
+  "login-setting-after-restart": "Se aplica después de reiniciar WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

@@ -3898,5 +3898,6 @@
   "history-request-forget": "Scurdà lu",
   "header-login": "Cunnessione cù l’intestazioni HTTP",
   "login-setting-clear-secret": "Caccià u valore arregistratu in u pannellu d’amministratore",
-  "login-setting-after-restart": "Hà effettu dopu à u riavviu di WeKan"
+  "login-setting-after-restart": "Hà effettu dopu à u riavviu di WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

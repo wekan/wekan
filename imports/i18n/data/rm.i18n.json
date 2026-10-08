@@ -3898,5 +3898,6 @@
   "history-request-forget": "Emblidar quai",
   "header-login": "Access cun chaus HTTP",
   "login-setting-clear-secret": "Allontanar la valur memorisada en il panel d’administraziun",
-  "login-setting-after-restart": "Daventa activ suenter avair reavià WeKan"
+  "login-setting-after-restart": "Daventa activ suenter avair reavià WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

@@ -40,10 +40,10 @@ async function issueLoginTokenCookies(userId, req, res) {
   }
 }
 
-// Header login is configured by HEADER_LOGIN_* or by Admin Panel / People /
-// Header login, which can switch it on and off while WeKan runs - so the
-// middleware is always installed and decides per request whether header login
-// is on. Before, it was installed only when HEADER_LOGIN_ID was set at start.
+// Header login is configured by HEADER_LOGIN_* only: Admin Panel / People /
+// Header login shows them read-only (environment-only since 2026-10-08, see
+// models/lib/authConfigCatalog.js). The middleware is still always installed
+// and decides per request whether header login is on.
 function applyHeaderLoginSettings() {
   const idHeader = authEnv('HEADER_LOGIN_ID');
   Meteor.settings.public.headerLoginId = idHeader;

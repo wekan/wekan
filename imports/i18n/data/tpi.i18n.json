@@ -3898,5 +3898,6 @@
   "history-request-forget": "Lusim tingting long en",
   "header-login": "Go insait long ol heda bilong HTTP",
   "login-setting-clear-secret": "Rausim mak ol i seivim long panel bilong admin",
-  "login-setting-after-restart": "Em i wok bihain long WeKan i stat gen"
+  "login-setting-after-restart": "Em i wok bihain long WeKan i stat gen",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

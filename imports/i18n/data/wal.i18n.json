@@ -3898,5 +3898,6 @@
   "history-request-forget": "Doga",
   "header-login": "HTTP huuphe sunttatu baggara geliyooga",
   "login-setting-clear-secret": "Alaafiyaa sohuwaan naagettida gatiyaa digga",
-  "login-setting-after-restart": "WeKan zaari doommidoogaappe guye oothanaw doommees"
+  "login-setting-after-restart": "WeKan zaari doommidoogaappe guye oothanaw doommees",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

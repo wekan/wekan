@@ -3898,5 +3898,6 @@
   "history-request-forget": "E lebale",
   "header-login": "Ho kena ka lihlooho tsa HTTP",
   "login-setting-clear-secret": "Tlosa boleng bo bolokiloeng phaneleng ea motsamaisi",
-  "login-setting-after-restart": "E sebetsa ka mor’a hore WeKan e qaloe hape"
+  "login-setting-after-restart": "E sebetsa ka mor’a hore WeKan e qaloe hape",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

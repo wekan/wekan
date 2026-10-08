@@ -13,6 +13,9 @@ const CATALOG = {
   'authz.board-copy-overrides': { category: 'authz', bleed: 'CopyIdentityBleed', severity: 'high', cwe: 'CWE-915' },
   'authz.admin-only-field': { category: 'authz', bleed: 'AdminFieldBleed', severity: 'high', cwe: 'CWE-863' },
   'authn.saml-replay': { category: 'authn', bleed: 'SamlReplayBleed', severity: 'high', cwe: 'CWE-294' },
+  // ProxyBleed hardening: header login settings are environment-only, so a
+  // site administrator's session alone cannot make a proxy sign in as anyone.
+  'authn.header-login-env-only': { category: 'authn', bleed: 'ProxyBleed', severity: 'high', cwe: 'CWE-290' },
   'authn.ldap-empty': { category: 'authn', bleed: 'LdapBindBleed', severity: 'critical', cwe: 'CWE-287' },
   'authn.ldap-group': { category: 'authn', bleed: 'DirectoryGroupBleed', severity: 'high', cwe: 'CWE-863' },
   'authn.cas-group': { category: 'authn', bleed: 'DirectoryGroupBleed', severity: 'high', cwe: 'CWE-863' },

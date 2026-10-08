@@ -3898,5 +3898,6 @@
   "history-request-forget": "Swi rivale",
   "header-login": "Ku nghena hi tinhlokomhaka ta HTTP",
   "login-setting-clear-secret": "Susa nkoka lowu hlayisiweke eka phanele ya valawuri",
-  "login-setting-after-restart": "Swi sungula ku tirha endzhaku ka loko WeKan yi sunguriwile nakambe"
+  "login-setting-after-restart": "Swi sungula ku tirha endzhaku ka loko WeKan yi sunguriwile nakambe",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

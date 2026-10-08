@@ -90,7 +90,7 @@ function getRequestIp(req) {
 }
 
 function isTrustedHeaderLoginSource(req) {
-  // Admin Panel / People / Header login, else HEADER_LOGIN_TRUSTED_IP(S).
+  // HEADER_LOGIN_TRUSTED_IP(S), from the environment only.
   const trustedIps = parseIpList(authEnv('HEADER_LOGIN_TRUSTED_IPS'));
 
   // SECURITY (GHSA-jggc-qvfc-jr6x): fail CLOSED. With no configured allowlist

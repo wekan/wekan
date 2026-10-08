@@ -3898,5 +3898,6 @@
   "history-request-forget": "وساري ڇڏيو",
   "header-login": "HTTP هيڊرن ذريعي لاگ ان",
   "login-setting-clear-secret": "ايڊمن پينل ۾ محفوظ ڪيل قدر هٽايو",
-  "login-setting-after-restart": "WeKan ٻيهر شروع ٿيڻ کان پوءِ لاڳو ٿيندو"
+  "login-setting-after-restart": "WeKan ٻيهر شروع ٿيڻ کان پوءِ لاڳو ٿيندو",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

@@ -116,8 +116,21 @@ Meteor.methods({
   async saveAuthConfigSettings(section, input) {
     check(section, String);
     check(input, Object);
-    await requireSiteAdmin();
+    const user = await requireSiteAdmin();
     if (!AUTH_CONFIG_SECTIONS[section]) throw new Meteor.Error('unknown-login-settings-section');
+    if (AUTH_CONFIG_SECTIONS[section].envOnly) {
+      // The Admin Panel draws an environment-only section read-only, with no
+      // Save button, so a save here was sent by hand: an attempt to switch on
+      // header login without access to the host.
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'authn.header-login-env-only', action: 'blocked',
+          source: `saveAuthConfigSettings:${section}`, userId: user._id,
+          detail: `A site administrator tried to store ${section} settings, which only the environment sets.`,
+        });
+      } catch (e) { /* logging must never break the guard */ }
+      throw new Meteor.Error('login-settings-env-only', section);
+    }
     let clean;
     try {
       clean = cleanAuthConfigInput(section, input);

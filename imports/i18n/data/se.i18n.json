@@ -3898,5 +3898,6 @@
   "history-request-forget": "Vajálduhte",
   "header-login": "Sisaloggema HTTP-bajilčállagiiguin",
   "login-setting-clear-secret": "Sihko árvvu mii lea vurkejuvvon hálddašeaddjipanelii",
-  "login-setting-after-restart": "Šaddá doaibmái go WeKan álggahuvvo ođđasit"
+  "login-setting-after-restart": "Šaddá doaibmái go WeKan álggahuvvo ođđasit",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

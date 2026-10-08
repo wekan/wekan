@@ -3898,5 +3898,6 @@
   "history-request-forget": "Умун",
   "header-login": "HTTP баһылыктарынан киирии",
   "login-setting-clear-secret": "Салайааччы панелыгар хараллыбыт суолтаны сот",
-  "login-setting-after-restart": "WeKan хат ыытыллыбытын кэннэ үлэлиир"
+  "login-setting-after-restart": "WeKan хат ыытыллыбытын кэннэ үлэлиир",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

@@ -3898,5 +3898,6 @@
   "history-request-forget": "بھول جائیں",
   "header-login": "HTTP ہیڈرز کے ذریعے لاگ ان",
   "login-setting-clear-secret": "منتظم پینل میں محفوظ کردہ قدر ہٹائیں",
-  "login-setting-after-restart": "WeKan دوبارہ شروع ہونے کے بعد مؤثر ہوگا"
+  "login-setting-after-restart": "WeKan دوبارہ شروع ہونے کے بعد مؤثر ہوگا",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

@@ -3898,5 +3898,6 @@
   "history-request-forget": "Vergeet dit",
   "header-login": "Aanmelding via HTTP-kopskrifte",
   "login-setting-clear-secret": "Verwyder die waarde wat in die administrasiepaneel gestoor is",
-  "login-setting-after-restart": "Tree in werking nadat WeKan herbegin is"
+  "login-setting-after-restart": "Tree in werking nadat WeKan herbegin is",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

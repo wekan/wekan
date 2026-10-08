@@ -3898,5 +3898,6 @@
   "history-request-forget": "Iwalani izi",
   "header-login": "Kulowa kudzera m'mitu ya HTTP",
   "login-setting-clear-secret": "Chotsani mtengo wosungidwa m'gulu la oyang'anira",
-  "login-setting-after-restart": "Zimayamba kugwira ntchito WeKan ikayambiranso"
+  "login-setting-after-restart": "Zimayamba kugwira ntchito WeKan ikayambiranso",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

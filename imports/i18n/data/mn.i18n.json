@@ -3898,5 +3898,6 @@
   "history-request-forget": "Мартах",
   "header-login": "HTTP толгойгоор нэвтрэх",
   "login-setting-clear-secret": "Админ самбарт хадгалсан утгыг устгах",
-  "login-setting-after-restart": "WeKan-ийг дахин эхлүүлсний дараа хүчинтэй болно"
+  "login-setting-after-restart": "WeKan-ийг дахин эхлүүлсний дараа хүчинтэй болно",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

@@ -3898,5 +3898,6 @@
   "history-request-forget": "E poina i kēia",
   "header-login": "ʻEʻe ma o nā poʻomanaʻo HTTP",
   "login-setting-clear-secret": "Wehe i ka waiwai i mālama ʻia ma ka papa hoʻomalu",
-  "login-setting-after-restart": "Hoʻomaka ka hopena ma hope o ka hoʻomaka hou ʻana o WeKan"
+  "login-setting-after-restart": "Hoʻomaka ka hopena ma hope o ka hoʻomaka hou ʻana o WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

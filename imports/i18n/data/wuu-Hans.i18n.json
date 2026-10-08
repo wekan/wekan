@@ -3898,5 +3898,6 @@
   "history-request-forget": "忘脱伊",
   "header-login": "用 HTTP 标头登录",
   "login-setting-clear-secret": "删脱管理面板里向保存个值",
-  "login-setting-after-restart": "WeKan 重新启动以后生效"
+  "login-setting-after-restart": "WeKan 重新启动以后生效",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

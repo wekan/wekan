@@ -3898,5 +3898,6 @@
   "history-request-forget": "Gloym tað",
   "header-login": "Innritan við HTTP-høvdum",
   "login-setting-clear-secret": "Strika virðið, sum er goymt á umsitaraborðinum",
-  "login-setting-after-restart": "Fær gildi, tá ið WeKan verður byrjað av nýggjum"
+  "login-setting-after-restart": "Fær gildi, tá ið WeKan verður byrjað av nýggjum",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

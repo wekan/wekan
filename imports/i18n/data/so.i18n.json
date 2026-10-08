@@ -3898,5 +3898,6 @@
   "history-request-forget": "Iska ilow",
   "header-login": "Gelitaan iyada oo loo marayo madaxyada HTTP",
   "login-setting-clear-secret": "Ka saar qiimaha ku kaydsan guddiga maamulka",
-  "login-setting-after-restart": "Wuxuu dhaqan galayaa marka WeKan dib loo bilaabo"
+  "login-setting-after-restart": "Wuxuu dhaqan galayaa marka WeKan dib loo bilaabo",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

@@ -3898,5 +3898,6 @@
   "history-request-forget": "ಇದನ್ನು ಮರೆತುಬಿಡಿ",
   "header-login": "HTTP ಹೆಡರ್‌ಗಳ ಮೂಲಕ ಲಾಗಿನ್",
   "login-setting-clear-secret": "ನಿರ್ವಾಹಕ ಫಲಕದಲ್ಲಿ ಸಂಗ್ರಹಿಸಿದ ಮೌಲ್ಯವನ್ನು ತೆಗೆದುಹಾಕಿ",
-  "login-setting-after-restart": "WeKan ಮರುಪ್ರಾರಂಭವಾದ ನಂತರ ಜಾರಿಗೆ ಬರುತ್ತದೆ"
+  "login-setting-after-restart": "WeKan ಮರುಪ್ರಾರಂಭವಾದ ನಂತರ ಜಾರಿಗೆ ಬರುತ್ತದೆ",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

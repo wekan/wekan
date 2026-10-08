@@ -3898,5 +3898,6 @@
   "history-request-forget": "Ýatdan çykar",
   "header-login": "HTTP sözbaşylary arkaly giriş",
   "login-setting-clear-secret": "Dolandyryş panelinde saklanan bahany aýyryň",
-  "login-setting-after-restart": "WeKan täzeden başladylandan soň güýje girýär"
+  "login-setting-after-restart": "WeKan täzeden başladylandan soň güýje girýär",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

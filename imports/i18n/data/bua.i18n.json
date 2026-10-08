@@ -3898,5 +3898,6 @@
   "history-request-forget": "Мартаха",
   "header-login": "HTTP гаршагуудаар нэбтэрхэ",
   "login-setting-clear-secret": "Хүтэлбэрилэгшын самбарта хадагалагдаһан удхые усадхаха",
-  "login-setting-after-restart": "WeKan дахин эхилүүлһэнэй һүүлээр хүсэндөө орохо"
+  "login-setting-after-restart": "WeKan дахин эхилүүлһэнэй һүүлээр хүсэндөө орохо",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

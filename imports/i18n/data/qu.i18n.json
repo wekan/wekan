@@ -3898,5 +3898,6 @@
   "history-request-forget": "Chayta qunqay",
   "header-login": "HTTP umalliqninkunawan yaykuy",
   "login-setting-clear-secret": "Kamachiqpa panelninpi waqaychasqa chaninta qichuy",
-  "login-setting-after-restart": "WeKan wakmanta qallariqtinmi llamk’ayta qallarin"
+  "login-setting-after-restart": "WeKan wakmanta qallariqtinmi llamk’ayta qallarin",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

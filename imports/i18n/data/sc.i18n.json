@@ -3898,5 +3898,6 @@
   "history-request-forget": "Iscaressi-lu",
   "header-login": "Atzessu cun intestatziones HTTP",
   "login-setting-clear-secret": "Boga su valore sarvadu in su pannellu de s’amministradore",
-  "login-setting-after-restart": "Tenet efetu a pustis de torrare a aviare WeKan"
+  "login-setting-after-restart": "Tenet efetu a pustis de torrare a aviare WeKan",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

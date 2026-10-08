@@ -3898,5 +3898,6 @@
   "history-request-forget": "Lisahau",
   "header-login": "Kuingia kupitia vichwa vya HTTP",
   "login-setting-clear-secret": "Ondoa thamani iliyohifadhiwa kwenye paneli ya msimamizi",
-  "login-setting-after-restart": "Itaanza kutumika baada ya WeKan kuanzishwa upya"
+  "login-setting-after-restart": "Itaanza kutumika baada ya WeKan kuanzishwa upya",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

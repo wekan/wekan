@@ -3898,5 +3898,6 @@
   "history-request-forget": "Unohta",
   "header-login": "Tulend HTTP-päiden abul",
   "login-setting-clear-secret": "Heitä administratoran panelis kaičetud arv",
-  "login-setting-after-restart": "Algab rata, konz WeKan kävutadas uzin"
+  "login-setting-after-restart": "Algab rata, konz WeKan kävutadas uzin",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }

@@ -3898,5 +3898,6 @@
   "history-request-forget": "Puigoruk",
   "header-login": "HTTP-mi qulequttat aqqutigalugit iserneq",
   "login-setting-clear-secret": "Nalinga aqutsisup iserfiani toqqorneqarsimasoq peeruk",
-  "login-setting-after-restart": "WeKan aallartiteqqinneqarpat atuutilissaaq"
+  "login-setting-after-restart": "WeKan aallartiteqqinneqarpat atuutilissaaq",
+  "login-setting-env-only": "Only the server environment sets these. They are shown here read-only."
 }
