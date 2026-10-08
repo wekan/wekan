@@ -65,8 +65,18 @@ test('Multi-Selection applies a custom light yellow to every editable selected c
       await expect(minicard).toHaveCSS('color', 'rgb(0, 0, 0)');
     }
 
-    // The color now sits beside the palette for the next cards.
-    await boardPage.locator('.board-sidebar .js-selection-color').click();
+    // The color now sits beside the palette for the next cards. The sidebar
+    // re-renders while the cards' new colors arrive, so the button can be
+    // replaced mid-click under load: click until the popup is really open.
+    for (let attempt = 0; ; attempt++) {
+      try {
+        await boardPage.locator('.board-sidebar .js-selection-color').click({ timeout: 5000 });
+        await popup.locator('input.js-selection-color-wheel').waitFor({ state: 'visible', timeout: 5000 });
+        break;
+      } catch (error) {
+        if (attempt === 2) throw error;
+      }
+    }
     await expect(popup.locator(`.js-custom-palette-color[data-color="${LIGHT_YELLOW}"]`)).toBeVisible();
 
     // A crafted color sent straight to the server is refused by the schema.
