@@ -7697,6 +7697,15 @@ retrieval versus removal and empty-list length. Technical wording remains low
 confidence pending speaker review. Browser and screen-reader checks were not run.
 Further Tatar corrections and the broader language audit continue.
 
+### Tatar list removal and editing
+
+Filled 32 English placeholders for list removal, sublists, indexing, repetition,
+reversal and insertion. Existing translations and source tokens are preserved.
+Regression checks cover key order, placeholders, removal without return, copy semantics,
+first/last positions and insertion versus replacement. Technical wording remains low
+confidence pending speaker review. Browser checks were not run. Further Tatar
+mixed-language corrections and the broader translation audit continue.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
