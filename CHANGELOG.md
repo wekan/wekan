@@ -975,6 +975,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f06dd84b40">Translate Ukrainian Scrum import and Sync planning messages</a>. Thanks to xet7.</summary>
+
+Translate 20 messages and restore the Ukrainian planning suite. Preserve
+counters, matching priority, non-duplication, unchanged foreign-board cards
+and first-sync protection of existing planning.
+
+Ukrainian, global placeholder and translation audit suites pass. Eight
+failures from the latest broad run still need repair. No browser or
+screen-reader session was run; the all-language work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/27fe2c86ed">Translate Estonian Scrum import and Sync planning messages</a>. Thanks to xet7.</summary>
 
 Translate 20 messages and restore the Estonian planning suite. Preserve
