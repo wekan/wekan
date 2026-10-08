@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/06adc11de7cb2a720e99722804183a406b42cd94">Correct Tatar movement import and membership activities</a></summary>
+
+- Correct 27 activity strings, preserving named source/destination placeholders
+  and the meanings of sequential import and movement arguments.
+- Technical wording remains low confidence pending speaker review.
+- All 71 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/01b12e1f4c348649aff27303f110cab4d8ebb4b6">Correct Tatar activity messages and title argument order</a></summary>
 
 - Correct 31 activity and comment-control strings, including the new-title and
