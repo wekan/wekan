@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b688f5acf17071fc3551eb581927a87eaaf63aa0">Correct Tatar reminders and account deletion messages</a></summary>
+
+- Correct 33 reminder, positioning and deletion values, preserving date and
+  mention placeholders, reminder distinctions and irreversible deletion warnings.
+- Technical wording remains low confidence pending speaker review.
+- All 106 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a520d411f02106a9bc9faee63cb9e7a7d7a1393a">Correct Tatar branding and authentication labels</a></summary>
 
 - Correct 32 branding, authentication and administration values, preserving
