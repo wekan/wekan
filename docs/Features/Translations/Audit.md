@@ -9575,6 +9575,16 @@ and tokens. Mathematical terminology remains low confidence pending speaker
 review. Browser checks were not run; further Turkmen translations and the
 broader audit remain unfinished.
 
+## Turkmen statistics and rounding
+
+Filled 29 English placeholders for statistical aggregates, random numbers,
+rounding and initial function labels. The placeholder-only merge retained
+existing translations. Coverage checks distinct aggregates, the mode's list
+result, inclusive/exclusive random bounds, rounding directions and logarithm
+bases, plus key order and tokens. Mathematical terminology remains low
+confidence pending speaker review. Browser checks were not run; further
+Turkmen translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
