@@ -8696,6 +8696,15 @@ merge. Regression coverage checks these distinctions alongside script, key order
 and token inventories. Technical wording remains low confidence pending speaker
 review. Browser checks were not run; further Odia translations remain.
 
+## Odia mathematical and text input labels
+
+Filled 29 English placeholders for numerical, loop and text input labels.
+Preserved coordinate names, indexed placeholders and distinctions between
+dividend/divisor, minimum/maximum and start/end positions. The placeholder-only
+merge retained existing translations. Regression coverage checks these roles,
+script, key order and token inventories. Technical wording remains low confidence
+pending speaker review. Browser checks were not run; further translations remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
