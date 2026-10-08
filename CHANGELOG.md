@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0da6bfb61b">Correct Wu board visibility and membership translations</a>. Thanks to xet7.</summary>
+
+Correct twenty Wu board, assignment, visibility and view strings. Preserve HTML
+and variables, and distinguish current-card assignments from all-card assignments.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c5c1884f3c">Correct Wu archive and attachment translations</a>. Thanks to xet7.</summary>
 
 Correct thirty Wu archive, attachment, loading and board-setting values. Preserve
