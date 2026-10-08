@@ -1055,6 +1055,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f4e758ede0">Translate Croatian List Sync recovery messages</a>. Thanks to xet7.</summary>
+
+Translate 23 English recovery messages into Croatian. Preserve counters and
+explain retained changes, discarded pending changes, revoked access, replayable
+operations and the oldest-50 limit, with regression coverage for each distinction.
+
+Four focused translation suites and 21 human-preference checks pass.
+No browser or screen-reader session was run. Further vocabulary review
+and remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/fb9b6e442e">Correct Croatian monitoring and flow explanations</a>. Thanks to xet7.</summary>
 
 Correct 66 Cyrillic-containing values in jobs, monitoring, flow explanations
