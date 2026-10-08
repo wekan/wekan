@@ -631,6 +631,8 @@ assignee.
 
 </details>
 
+- [A rule can fire when a card moves forward to a later list or back to an earlier one](https://github.com/wekan/wekan/commit/eac524380f). Thanks to rlach and xet7.
+
 **Scrum** - planning a card across releases.
 
 <details>
