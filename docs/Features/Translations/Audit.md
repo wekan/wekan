@@ -9366,6 +9366,15 @@ script, key order and tokens. Statistical terminology remains low confidence
 pending speaker review. Browser checks were not run; further Konkani translations
 and the broader audit remain unfinished.
 
+## Konkani powers, logarithms and trigonometry
+
+Filled 29 English placeholders for mathematical functions and spoken operators.
+The placeholder-only merge retained existing translations. Preserved e/base-10
+notation, sign reversal and degree-versus-radian caveats. Regression coverage
+checks those details, script, key order and tokens. Mathematical terminology
+remains low confidence pending speaker review. Browser checks were not run;
+further Konkani translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
