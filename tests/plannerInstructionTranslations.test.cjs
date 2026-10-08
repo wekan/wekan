@@ -809,3 +809,21 @@ for (const code of ['ms', 'ms-MY']) {
   assert.match(locale['import-board-instruction-obsidian'], /arkib menjadi kad yang diarkibkan/);
   assert.match(locale['import-board-instruction-ticktick'], /senarai TickTick menjadi aliran renang/);
 }
+
+for (const code of ['ms', 'ms-MY']) {
+  const locale = read(code);
+  const literals = {...newerImportLiterals, ...Object.fromEntries(['pivotal', 'tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja'].map(format => [format, importLiterals[format]]))};
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), code + ': ' + key);
+    for (const value of values) assert.ok(locale[key].includes(value), code + ': ' + value);
+  }
+  for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /Lampiran tidak diimport/);
+  assert.match(locale['import-board-instruction-notion'], /Hubungan, imej dan lampiran tidak diimport/);
+  assert.match(locale['import-board-instruction-plane'], /tidak mengandungi keterangan atau lampiran.*tidak diimport/);
+  assert.match(locale['import-board-instruction-businessmap'], /tukar dahulu nama pada baris pengepala kepada bahasa Inggeris/);
+  assert.match(locale['import-board-instruction-redmine'], /sebelum mengeksport.*English dalam My account/);
+  assert.match(locale['import-board-instruction-teamwork'], /satu aras lebih dalam/);
+  assert.match(locale['import-board-instruction-superproductivity'], /tugasan yang diarkibkan menjadi kad yang diarkibkan/);
+}
