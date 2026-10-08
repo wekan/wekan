@@ -8543,6 +8543,14 @@ credential state, connection/save outcomes and pause/stop distinctions. Technica
 wording remains low confidence pending speaker review. Focused tests cover tokens,
 key order, provider names and opposing states; browser checks were not run.
 
+## Tatar migration outcomes and S3-control corrections
+
+Corrected 22 wrong-language migration and S3 values. Restored literal AWS, S3,
+MinIO, GridFS and CollectionFS names; preserved start/stop/pause outcomes and
+attachment/avatar migration guidance. Technical wording remains low confidence
+pending speaker review. Focused tests cover tokens, key order, service identifiers
+and outcome distinctions; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
