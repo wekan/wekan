@@ -8561,6 +8561,16 @@ English key order and placeholder inventories. Technical wording remains low
 confidence pending speaker review. Browser checks were not run. The broader
 wrong-language audit continues.
 
+## Tatar board migration corrections
+
+Corrected 45 wrong-language storage, migration and recovery strings. Preserved
+swimlaneId/listId, URL and ID identifiers, the empty duplicate deletion conditions,
+the non-archived recovery restriction, administrator access and the warning that
+restoring all archived items is difficult to undo. Regression checks cover these
+restrictions alongside key order and placeholder inventories. Technical wording
+remains low confidence pending speaker review. Browser checks were not run.
+The broader language audit remains ongoing.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
