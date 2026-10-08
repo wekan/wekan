@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bd8a1df6d630b2f4d0e74db866a31f06cdffca18">Correct Tatar import progress and member mapping</a></summary>
+
+- Correct 23 import-progress and mapping strings, preserving source tokens,
+  cancellation distinctions and the current-user mapping fallback.
+- Technical wording remains low confidence pending speaker review.
+- All 91 focused checks and 21 human-preference checks pass. Browser and import
+  runtime checks were not run. Further corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d017b1cbe4b6daf11b0ffb48baa1594c33f1b944">Correct Tatar Trello import options and errors</a></summary>
 
 - Correct 28 import and workspace strings, restoring file extensions and
