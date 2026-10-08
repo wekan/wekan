@@ -790,6 +790,7 @@
   "import-board-instruction-focalboard": "解压 .boardarchive 文件并粘贴看板的 board.jsonl 内容，可以包含或省略版本行。看板视图的分组属性转换为列表，其他选择属性转换为标签，文本和复选框区块转换为描述和检查清单，评论会保留。图片和附件不会导入。",
   "import-board-instruction-todoist": "In Todoist, open the project menu and choose Export as a template, then paste the CSV file. Sections become lists, tasks become cards, sub-tasks become a checklist, notes become comments, and @labels and priorities p1 to p3 become labels.",
   "import-board-instruction-planner": "In Microsoft Planner, open the plan's menu and choose Export plan to Excel, then choose that .xlsx file. Buckets become lists and tasks become cards, with their assignees, dates, labels, checklist and description; Progress, Priority and Completed By become custom fields.",
+  "import-board-instruction-meistertask": "In MeisterTask, click the project name, choose Export project and export the CSV, then paste it. Sections become lists and tasks become cards, with their notes, due date, assignee and tags; completed tasks keep their completion date. A CSV written for MeisterTask's own import works too.",
   "import-board-instruction-trello": "在你的Trello看板中，点击“菜单”，然后选择“更多”，“打印与导出”，“导出为 JSON” 并拷贝结果文本",
   "import-board-instruction-csv": "粘贴逗号分隔值（CSV）/制表符分隔值（TSV）。",
   "import-board-instruction-jira": "粘贴来自 Jira Cloud REST API issue 搜索（GET /rest/api/2/search）的 JSON，或等效的 { \"issues\": [...] } 对象。Jira 状态成为列表，issues 成为卡片。可选地包含 \"automationRules\" 数组以导入规则。",

@@ -17,6 +17,7 @@ import { formatTaskwarrior } from './taskwarriorFormat.js';
 import { formatFocalboard } from './focalboardFormat.js';
 import { formatTodoistCsv } from './todoistCsvFormat.js';
 import { formatPlannerRows } from './plannerFormat.js';
+import { formatMeisterTaskCsv } from './meistertaskCsvFormat.js';
 import { formatOpml } from './opmlOutlineFormat.js';
 import { formatOrgMode } from './orgModeFormat.js';
 
@@ -311,6 +312,8 @@ export const formatters = {
   // Microsoft Planner's Excel export: rows that models/export.js writes as .xlsx
   // (server/lib/plannerWorkbook.js); round-trips with parsePlannerRows.
   planner: formatPlannerRows,
+  // MeisterTask's CSV import shape; round-trips with parseMeisterTaskCsv.
+  meistertask: formatMeisterTaskCsv,
   // An OPML outline; round-trips with parseOpml (opmlOutline.js, server-only).
   opml: formatOpml,
   // An Org mode outline; round-trips with parseOrgMode (orgModeFormat.js).

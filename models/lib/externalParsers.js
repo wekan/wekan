@@ -4,6 +4,7 @@ import { parseTaskwarrior } from './taskwarriorFormat.js';
 import { parseFocalboard } from './focalboardFormat.js';
 import { parseTodoistCsv } from './todoistCsvFormat.js';
 import { parsePlannerRows } from './plannerFormat.js';
+import { parseMeisterTaskCsv } from './meistertaskCsvFormat.js';
 import { parseOrgMode } from './orgModeFormat.js';
 import {
   gitlabScrumPlanning, openProjectScrumPlanning, asanaScrumPlanning, STORY_POINTS_FIELD,
@@ -959,6 +960,8 @@ export const EXTERNAL_PARSERS = {
   todoist: parseTodoistCsv,
   // Microsoft Planner's Excel export, as rows of cells (server/lib/plannerWorkbook.js).
   planner: parsePlannerRows,
+  // MeisterTask's project CSV, its import or export shape (meistertaskCsvFormat.js).
+  meistertask: parseMeisterTaskCsv,
   orgmode: parseOrgMode,
   jira: parseJira,
 };

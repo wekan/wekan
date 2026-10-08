@@ -337,7 +337,7 @@ test('every external export menu link returns text and refuses an unrelated user
   // Include description through the actual shared selection controls.
   const details = page.locator('.js-export-card-details-toggle');
   if (await details.getAttribute('aria-checked') !== 'true') await details.click();
-  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'opml', 'orgmode']) {
+  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'opml', 'orgmode']) {
     await test.step(format, async () => {
       const anchor = page.locator(`.js-pop-over a[href*="/export/${format}?"]`);
       await expect(anchor).toBeVisible();
@@ -351,6 +351,33 @@ test('every external export menu link returns text and refuses an unrelated user
       expect([401, 403]).toContain(refused.status());
     });
   }
+});
+
+// MeisterTask's own import sample shape: sections, notes, due date, status and tags.
+test('MeisterTask: a project CSV imports with its sections, notes, due date and tags', async ({ loggedInPage: page }) => {
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/meistertask');
+    await page.locator('#import-textarea').fill([
+      'project,section,name,notes,due_date,status,tags',
+      `From MeisterTask,Doing,${expected.title},"Two of them, DN50",2026-10-10T08:00:00+00:00,1,${expected.label}; urgent`,
+      'From MeisterTask,Done,Finished task,,,2,',
+    ].join('\r\n'));
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    expect(db.findOne('boards', { _id: boardId }).title).toBe('From MeisterTask');
+    const cards = db.find('cards', { boardId });
+    expect(cards).toHaveLength(2);
+    const open = cards.find(card => card.title === expected.title);
+    const board = db.findOne('boards', { _id: boardId });
+    expect(open.labelIds.map(id => board.labels.find(l => l._id === id).name).sort()).toEqual([expected.label, 'urgent'].sort());
+    expect(open.description).toBe('Two of them, DN50');
+    expect(new Date(open.dueAt).toISOString()).toBe('2026-10-10T08:00:00.000Z');
+    const lists = db.find('lists', { boardId });
+    expect(lists.find(list => list._id === open.listId).title).toBe('Doing');
+    await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });
 
 // Microsoft Planner's export is an Excel workbook, not text: its own case.

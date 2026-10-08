@@ -186,6 +186,16 @@ Meteor.methods({
         }
         creator = new KanboardCreator(data, 'todoist');
         break;
+      case 'meistertask':
+        // A MeisterTask project CSV - see models/lib/meistertaskCsvFormat.js.
+        check(board, String);
+        try {
+          importedBoard = EXTERNAL_PARSERS.meistertask(importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        creator = new KanboardCreator(data, 'meistertask');
+        break;
       case 'planner':
         // Microsoft Planner's "Export plan to Excel" workbook - see
         // models/lib/plannerFormat.js. It arrives like the Excel import, as

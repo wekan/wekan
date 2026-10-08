@@ -244,6 +244,7 @@ const EXPORT_FORMAT_GROUPS = [
       { key: 'focalboard', icon: 'fa-th-large', label: 'Focalboard', path: 'export/focalboard', ext: 'jsonl', scopes: BOARD_ONLY },
       { key: 'todoist', icon: 'fa-check-square-o', label: 'Todoist', path: 'export/todoist', ext: 'csv', scopes: BOARD_ONLY },
       { key: 'planner', icon: 'fa-th-list', label: 'Microsoft Planner', path: 'export/planner', ext: 'xlsx', scopes: BOARD_ONLY },
+      { key: 'meistertask', icon: 'fa-tasks', label: 'MeisterTask', path: 'export/meistertask', ext: 'csv', scopes: BOARD_ONLY },
       ...[
         ['trello', 'Trello'], ['jira', 'Jira'], ['deck', 'NextCloud Deck'],
         ['openproject', 'OpenProject'], ['github', 'GitHub'], ['gitlab', 'GitLab'],

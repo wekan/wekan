@@ -36,7 +36,8 @@ const NO_SECTION = 'No section';
 const LABEL = /(^|\s)@([^\s@]+)/g;
 
 // RFC 4180: quoted fields may hold commas, line breaks and doubled quotes.
-export function readCsv(text) {
+// `name` is the format named in its errors; MeisterTask's CSV reuses this.
+export function readCsv(text, name = 'Todoist') {
   const source = String(text == null ? '' : text).replace(/^﻿/, '');
   const rows = [];
   let row = [];
@@ -54,9 +55,9 @@ export function readCsv(text) {
       if (ch === '\r' && source[i + 1] === '\n') i += 1;
       row.push(field); rows.push(row); row = []; field = '';
     } else field += ch;
-    if (rows.length > MAX_TODOIST_ROWS) throw new Error(`Todoist CSV has more than ${MAX_TODOIST_ROWS} rows`);
+    if (rows.length > MAX_TODOIST_ROWS) throw new Error(`${name} CSV has more than ${MAX_TODOIST_ROWS} rows`);
   }
-  if (quoted) throw new Error('Todoist CSV has an unclosed quote');
+  if (quoted) throw new Error(`${name} CSV has an unclosed quote`);
   if (field !== '' || row.length) { row.push(field); rows.push(row); }
   return rows.filter(cells => cells.some(cell => cell.trim() !== ''));
 }
