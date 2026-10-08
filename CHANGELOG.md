@@ -1785,6 +1785,18 @@ implemented.
 This release hardens the login settings:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e882ed8901">Correct 120 Bislama entries containing English wrappers</a>. Thanks to xet7.</summary>
+
+- Replace artificial English wrappers in board, font, color, voting and filter
+  labels. Restore numeric choices, date formats and compact sort labels exactly.
+  The older wrapper queue falls from 653 to 533 values, outside the fill report.
+- Three relevant suites pass, including the catalog-wide placeholder inventory.
+  Fine color descriptions and software compounds remain provisional pending
+  fluent review. Browser and screen-reader sessions were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d787085c30">Translate remaining reported Bislama messages and short controls</a>. Thanks to xet7.</summary>
 
 - Translate 224 workspace, Scrum, Sync and notification-recovery messages
