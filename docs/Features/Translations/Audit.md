@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Zulu mail failures and notification recovery — 2026-10-09
+
+Translate 25 messages per Zulu catalog (50 values), covering mail failures,
+time and planning synchronization, and pending notification recovery. Tests
+retain review-before-retry warnings, exactly-one-field requirements, null
+semantics, source-ID precedence and no-activity-recreation guarantees. Both
+targeted suites and all 21 preservation checks pass. Specialized terminology
+remains low confidence pending speaker review. Browser execution and remaining
+translations are outstanding.
+
 ## Zulu sync reports and diagnostics — 2026-10-09
 
 Translate 30 messages per Zulu catalog (60 values), covering source omissions,

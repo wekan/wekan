@@ -765,6 +765,33 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
   "email-failure-smtp-temporary",
   "email-failure-smtp-rejected"
 ]);
+  keys.push(...[
+  "email-failure-smtp-authentication",
+  "email-failure-smtp-configuration",
+  "email-failure-recipient-unavailable",
+  "email-failure-delivery-unconfirmed",
+  "email-failure-acknowledgement-failed",
+  "email-failure-delivery-failed",
+  "email-failure-retry-limit",
+  "sync-original-time",
+  "sync-remaining-time",
+  "sync-time-estimate-hint",
+  "sync-planning-sprint",
+  "sync-planning-releases",
+  "sync-planning-fields",
+  "sync-planning-hint",
+  "activity-recovery-heading",
+  "activity-recovery-description",
+  "activity-recovery-empty",
+  "activity-recovery-unavailable",
+  "activity-recovery-retry",
+  "activity-recovery-retrying",
+  "activity-recovery-status-pending",
+  "activity-recovery-status-preparing",
+  "activity-recovery-status-processing",
+  "activity-recovery-status-missing",
+  "activity-recovery-status-changed"
+]);
   for (const language of ['zu', 'zu-ZA']) {
     const locale = read(language);
     for (const key of keys) {
@@ -927,6 +954,13 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
     assert.match(locale['sync-estimate-field-hint'], /angekho awanakwa.*null.*lisula/);
     assert.match(locale['email-failure-smtp-temporary'], /kwesikhashana.*SMTP/);
     assert.match(locale['email-failure-smtp-rejected'], /unomphela.*SMTP/);
+    assert.match(locale['email-failure-delivery-unconfirmed'], /buyekeza ngaphambi kokuzama futhi/);
+    assert.match(locale['sync-time-estimate-hint'], /eyodwa kuphela.*angekho awanakwa.*null.*lisula/);
+    assert.match(locale['sync-planning-hint'], /kuphela uma i-Scrum ivuliwe/);
+    assert.match(locale['sync-planning-hint'], /kuqala nge-ID yomthombo, bese kuba ngegama/);
+    assert.match(locale['sync-planning-hint'], /kokuqala akukaze kususe ukuhlela/);
+    assert.match(locale['activity-recovery-description'], /akukaze kudale kabusha umsebenzi/);
+    assert.notStrictEqual(locale['activity-recovery-status-missing'], locale['activity-recovery-status-changed']);
     const failure = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
     assert.ok(failure.includes('E_LDAP'));
     assert.ok(!failure.includes('%s'));
