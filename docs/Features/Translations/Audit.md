@@ -9832,6 +9832,18 @@ passed. Technical Darija wording remains low confidence pending speaker review.
 Browser, RTL and screen-reader checks were not run. Remaining placeholders and
 the broader language audit stay open.
 
+## Moroccan Arabic procedures and accessibility controls
+
+Filled 39 placeholders without replacing existing translations. Tests check
+source order, script, tokens, functions with/without results, disabled definitions,
+duplicate parameters, function-only return blocks, true-condition returns,
+screen-reader state/toggle direction, rename-all scope and cancelled movement.
+Of 48 checks, 46 passed; two repository-wide checks still fail because other
+locales lack the new card-field-visibility keys. All 21 human-preference checks
+passed. Technical Darija wording remains low confidence pending speaker review.
+Browser, RTL and screen-reader checks were not run. Remaining placeholders and
+the broader language audit stay open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
