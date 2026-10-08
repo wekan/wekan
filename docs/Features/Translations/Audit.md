@@ -8975,6 +8975,16 @@ checks script, key order, token inventories and loop-control distinctions.
 Technical terminology remains low confidence pending speaker review. Browser
 checks were not run; further Maithili strings and the broader audit remain.
 
+## Maithili conditions and block editing
+
+Filled 36 English values for conditional branches, repetition and block editing.
+Short labels excluded by the fill filter were changed directly only after checking
+that they still matched English. Preserved indexed tokens, deletion counts,
+true/false loop conditions and final fallback branches. Regression coverage checks
+script, key order, token inventories and these semantic distinctions. Technical
+wording remains low confidence pending speaker review. Browser checks were not
+run; further Maithili translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
