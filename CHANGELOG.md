@@ -1055,6 +1055,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/83510c32db">Correct Croatian search predicates and report translations</a>. Thanks to xet7.</summary>
+
+Correct 65 Serbian values in search predicates, pagination, reports, sorting
+and wait indicators. Restore the Arial font literal, preserve Cc and variables,
+and check searchable tokens and distinctions between states and actions.
+
+Four focused translation suites and 21 human-preference checks pass.
+No browser or screen-reader session was run. Further wrong-language review
+and remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/97d0483ca8">Correct Croatian search and notification translations</a>. Thanks to xet7.</summary>
 
 Replace 80 Serbian values with Croatian. Cover search, notifications, weekdays,
