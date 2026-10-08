@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/dca5008ba9">Translate Catalan and Valencian settings and planning</a>. Thanks to xet7.</summary>
+
+Translate 75 values across three catalogs for board settings, link rules,
+automation, LDAP, provider restrictions and initial Scrum import controls.
+Preserve variables, link syntax and configuration names. Regression checks cover
+access restrictions, import behavior and empty domain settings. Four relevant
+suites and all 21 preservation checks pass. Browser review and the wider
+translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/72f614759f">Translate Catalan and Valencian outline imports</a>. Thanks to xet7.</summary>
 
 Translate OPML, Org mode and Todoist instructions in three catalogs, replacing
