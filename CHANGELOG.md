@@ -736,6 +736,7 @@ avatar always wins, and the initials come back when the image does not load.
 - [Accounts created by an OAuth2/OIDC login can join a default organization, OAUTH2_DEFAULT_ORGANIZATION](https://github.com/wekan/wekan/commit/dfcd115ff3). Thanks to vasyugan and xet7.
 - [A card moved or copied to another board brings its labels, created there when the mover is that board's admin](https://github.com/wekan/wekan/commit/125e0960eb). Thanks to d3dbit and xet7.
 - [A board view chosen on a board stays on that board instead of changing every board](https://github.com/wekan/wekan/commit/80fb317fda). Thanks to DimDz, Meeques and xet7.
+- [A list can colour the cards that have no colour of their own, so cards change colour as they move](https://github.com/wekan/wekan/commit/998a9cc336). Thanks to C0rn3j and xet7.
 - [Lists can be archived and restored through the REST API](https://github.com/wekan/wekan/commit/0a80496acf). Thanks to stevekiss and xet7.
 
 and hardens the login settings:
