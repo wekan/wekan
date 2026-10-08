@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Slovenian interrupted imports and core nouns — 2026-10-08
+
+Translate 25 interrupted-import messages in each Slovenian catalog and replace
+the Serbian board and swimlane labels with Slovenian, for 54 corrected values.
+Preserve source variables and existing correct-language translations. Extend
+the Slovenian suite with native labels, recovery choices and token checks.
+No browser or screen-reader session was run; further wrong-language review and
+remaining translations are unfinished.
+
 ## Bulgarian controls and planning — 2026-10-08
 
 Translate 51 messages for controls, import guidance, LDAP, login settings, planning

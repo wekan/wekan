@@ -2,6 +2,21 @@
 const assert = require('node:assert/strict');
 for (const locale of ['sl', 'sl_SI']) {
   const data = require(`../imports/i18n/data/${locale}.i18n.json`);
+  const english = require('../imports/i18n/data/en.i18n.json');
+  const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
+  assert.equal(data.board, 'Tabla');
+  assert.equal(data.swimlane, 'Plavalna steza');
+  for (const key of Object.keys(english).filter(key => key.startsWith('interrupted-import-'))) {
+    assert.notEqual(data[key], english[key], `${locale}:${key}`);
+    assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), `${locale}:${key}`);
+    assert.doesNotMatch(data[key], /[\u0400-\u04ff]/, `${locale}:${key}`);
+  }
+  assert.match(data['interrupted-import-description'], /ni mogoče nadaljevati/);
+  assert.match(data['interrupted-import-description'], /vključno z vsem, kar je bilo dodano pozneje/);
+  assert.match(data['interrupted-import-keep-confirm'], /Nič se ne odstrani/);
+  assert.match(data['interrupted-import-discard-confirm'], /trajno odstranita/);
+  assert.match(data['interrupted-import-foreign-board'], /ni bila spremenjena/);
+  assert.match(data['interrupted-import-truncated'], /50 najstarejših/);
   for (const key of ['Cube-Grid', 'Double-Bounce', 'MongoDB_storage_engine', 'Node_heap_does_zap_garbage', 'Node_heap_heap_size_limit', 'Node_heap_malloced_memory', 'Node_heap_number_of_detached_contexts', 'Node_heap_number_of_native_contexts']) assert.doesNotMatch(data[key], /[А-Яа-яЁё]/);
   assert.match(data['Double-Bounce'], /dvojnim odskakovanjem/);
   assert.doesNotMatch(data['Double-Bounce'], /tri pike/);
