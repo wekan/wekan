@@ -7451,6 +7451,15 @@ and administrator and single-trigger restrictions. Technical wording remains low
 confidence pending speaker review. Browser and screen-reader checks were not run;
 Scrum and other feature translations remain unfinished.
 
+### Bhojpuri Scrum planning and sprint controls
+
+Filled 74 English placeholders for Scrum settings, roles, work estimates, sprint
+lifecycle controls, events and reports. Existing translations and source tokens are
+preserved. Regression coverage checks key order, placeholder inventories, distinct
+sprint states, shared navigation labels, minute units and unknown-versus-zero estimate
+wording. Scrum terminology remains low confidence pending speaker review. Browser
+checks were not run; remaining feature strings and the broader audit are unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
