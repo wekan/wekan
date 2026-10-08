@@ -8444,6 +8444,15 @@ Technical wording remains low confidence pending speaker review. Focused tests
 cover key order, source tokens, access restrictions and units; browser checks
 were not run.
 
+## Tatar unlock and user-activation corrections
+
+Corrected 20 wrong-language lockout, people-filter and scheduled-job labels.
+Preserved single-user versus all-user unlock scope, active/inactive filters and
+opposite activation actions. Existing correct-language presence and team labels
+remain. Technical wording remains low confidence pending speaker review. Focused
+tests cover tokens, key order, unlock scope and activation distinctions; browser
+checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
