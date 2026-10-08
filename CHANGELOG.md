@@ -1021,6 +1021,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/46c4274729">Correct Croatian workspace and board controls</a>. Thanks to xet7.</summary>
+
+Replace 70 Serbian values with Croatian. Cover activity messages, workspaces,
+board controls, visibility, voting, colors and comment permissions. Preserve
+variables, HTML emphasis and the numeric zoom range.
+
+Four focused translation suites and 21 human-preference checks pass.
+No browser or screen-reader session was run. Further wrong-language review
+and remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b42a35dc2c">Translate Croatian import recovery and correct core labels</a>. Thanks to xet7.</summary>
 
 Fill 25 interrupted-import messages and replace Serbian board and swimlane
