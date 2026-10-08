@@ -579,3 +579,20 @@ assert.match(locales.yi['blockly-WORKSPACE_CONTENTS_BLOCKS_ZERO'], /^קיין ב
 assert.match(locales.yi['blockly-WORKSPACE_CONTENTS_BLOCKS_ONE'], /^איין בלאָקן־שטאַפּל%2/);
 assert.match(locales.yi['blockly-WORKSPACE_CONTENTS_COMMENTS_ONE'], /^ און איין/);
 assert.match(locales.yi['blockly-WORKSPACE_CONTENTS_COMMENTS_MANY'], /^ און %1/);
+
+const yiddishBlocklySearch = ["blockly-WORKSPACE_SEARCH_CLOSE", "blockly-WORKSPACE_SEARCH_FIND_NEXT", "blockly-WORKSPACE_SEARCH_FIND_PREVIOUS", "blockly-WORKSPACE_SEARCH_INPUT_LABEL", "blockly-WORKSPACE_SEARCH_MATCH", "blockly-WORKSPACE_SEARCH_NO_MATCHES", "blockly-WORKSPACE_SEARCH_PLACEHOLDER", "blockly-ZOOM_TO_FIT_ARIA_LABEL", "blockly-CONTROLS_IF_ELSEIF_TITLE_ELSEIF", "blockly-CONTROLS_IF_ELSE_TITLE_ELSE", "blockly-LISTS_CREATE_WITH_ITEM_TITLE", "blockly-LISTS_GET_INDEX_INPUT_IN_LIST", "blockly-LISTS_GET_SUBLIST_INPUT_IN_LIST", "blockly-LISTS_INDEX_OF_INPUT_IN_LIST", "blockly-LISTS_SET_INDEX_INPUT_IN_LIST", "blockly-MATH_CHANGE_TITLE_ITEM", "blockly-PROCEDURES_DEFRETURN_COMMENT", "blockly-PROCEDURES_DEFRETURN_PROCEDURE", "blockly-TEXT_APPEND_VARIABLE", "blockly-TEXT_CREATE_JOIN_ITEM_TITLE_ITEM"];
+for (const key of yiddishBlocklySearch) {
+  assert.notEqual(locales.yi[key], english[key], key);
+  assert.match(locales.yi[key], /[\u0590-\u05ff]/, key);
+  assert.deepEqual(translationTokens(locales.yi[key]), translationTokens(english[key]), key);
+}
+assert.match(locales.yi['blockly-WORKSPACE_SEARCH_INPUT_LABEL'], /Enter פֿאַרן קומענדיקן.*Shift\+Enter פֿאַרן פֿריִערדיקן.*Escape/);
+assert.match(locales.yi['blockly-WORKSPACE_SEARCH_FIND_NEXT'], /קומענדיקן/);
+assert.match(locales.yi['blockly-WORKSPACE_SEARCH_FIND_PREVIOUS'], /פֿריִערדיקן/);
+assert.match(locales.yi['blockly-WORKSPACE_SEARCH_NO_MATCHES'], /^קיין/);
+for (const [alias, original] of Object.entries({ CONTROLS_IF_ELSEIF_TITLE_ELSEIF: 'CONTROLS_IF_MSG_ELSEIF', CONTROLS_IF_ELSE_TITLE_ELSE: 'CONTROLS_IF_MSG_ELSE', PROCEDURES_DEFRETURN_COMMENT: 'PROCEDURES_DEFNORETURN_COMMENT', PROCEDURES_DEFRETURN_PROCEDURE: 'PROCEDURES_DEFNORETURN_PROCEDURE', TEXT_APPEND_VARIABLE: 'VARIABLES_DEFAULT_NAME' })) {
+  assert.equal(locales.yi[`blockly-${alias}`], locales.yi[`blockly-${original}`]);
+}
+const yiddishRemaining = spawnSync(process.execPath, [fillScript, '--list', 'yi'], { cwd: root, encoding: 'utf8' });
+assert.equal(yiddishRemaining.status, 0, yiddishRemaining.stderr);
+assert.deepEqual(Object.keys(JSON.parse(yiddishRemaining.stdout)).filter(key => key.startsWith('blockly-')), []);

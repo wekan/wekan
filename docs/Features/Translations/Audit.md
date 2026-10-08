@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Yiddish remaining Blockly search and aliases — 2026-10-08
+
+Translate the last 20 English Blockly fill-list entries: search controls, counters
+and legacy labels. Preserve variables and keyboard shortcuts; check previous/next
+navigation, no matches and consistency with corresponding modern labels. The full
+Yiddish fill list now contains no Blockly entries; other entries remain.
+Specialized wording remains lower confidence and needs native review. No browser
+or screen-reader session was run. The overall translation work is unfinished.
+
 ## Yiddish Blockly text values and workspace counts — 2026-10-08
 
 Translate 45 English text, variable and workspace messages. Preserve variables
