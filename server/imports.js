@@ -405,6 +405,8 @@ import '/server/methods/loginOffices';
 // Presence for Admin Panel > People (#3678, #3734): last-active timestamp set on
 // login and refreshed by an open client session's heartbeat.
 import '/server/lastActiveOnLogin';
+// Automatic logout: LOGOUT_WITH_TIMER and the LOGOUT_* settings.
+import '/server/logoutTimer';
 import '/server/methods/lastActiveHeartbeat';
 import '/server/importedUserReconciliation';
 

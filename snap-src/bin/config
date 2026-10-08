@@ -722,19 +722,19 @@ DESCRIPTION_HEADER_LOGIN_TRUSTED_PROXIES="Optional. If WeKan is behind multiple 
 DEFAULT_HEADER_LOGIN_TRUSTED_PROXIES=""
 KEY_HEADER_LOGIN_TRUSTED_PROXIES="header-login-trusted-proxies"
 
-DESCRIPTION_LOGOUT_WITH_TIMER="Enables or not the option logout with timer"
+DESCRIPTION_LOGOUT_WITH_TIMER="Sign users out automatically: true or false. Needs logout-in and/or logout-on-hours."
 DEFAULT_LOGOUT_WITH_TIMER="false"
 KEY_LOGOUT_WITH_TIMER="logout-with-timer"
 
-DESCRIPTION_LOGOUT_IN="The number of days"
+DESCRIPTION_LOGOUT_IN="Days after signing in that a login ends. With logout-on-hours, the login ends on that day at that time."
 DEFAULT_LOGOUT_IN=""
 KEY_LOGOUT_IN="logout-in"
 
-DESCRIPTION_LOGOUT_ON_HOURS="The number of hours"
+DESCRIPTION_LOGOUT_ON_HOURS="Hour of the day, 0-23 in server time, at which logins end"
 DEFAULT_LOGOUT_ON_HOURS=""
 KEY_LOGOUT_ON_HOURS="logout-on-hours"
 
-DESCRIPTION_LOGOUT_ON_MINUTES="The number of minutes"
+DESCRIPTION_LOGOUT_ON_MINUTES="Minute of that hour, 0-59"
 DEFAULT_LOGOUT_ON_MINUTES=""
 KEY_LOGOUT_ON_MINUTES="logout-on-minutes"
 

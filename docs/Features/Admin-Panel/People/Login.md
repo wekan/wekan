@@ -88,6 +88,24 @@ scheduled run waits for that run instead of starting a second one. The list of v
 `models/lib/authConfigCatalog.js`; SAML's is `models/lib/samlConfig.js` and the
 OAuth login providers' is `models/lib/oauthProviders.js`.
 
+## Automatic logout
+
+`LOGOUT_WITH_TIMER=true` signs users out automatically; Admin Panel / People /
+Login overrides it and the three settings below like any other login setting.
+A login ends at a deadline counted from when it was made:
+
+| Settings | A login ends |
+| --- | --- |
+| `LOGOUT_IN=2` | two days after it was made |
+| `LOGOUT_ON_HOURS=3` | at the next 03:00 |
+| `LOGOUT_IN=1`, `LOGOUT_ON_HOURS=9`, `LOGOUT_ON_MINUTES=55` | at 09:55 on the day after the day it was made |
+
+Times are the server's local time. Once a minute the server removes every login
+that has passed its deadline, and the browsers using it are signed out. An
+unusable combination (an hour over 23, minutes without an hour, neither
+`LOGOUT_IN` nor `LOGOUT_ON_HOURS`) signs nobody out, and the server log says
+why. The deadline arithmetic is `models/lib/logoutTimer.js`.
+
 ## Related
 
 - [Login / Authentication methods](../../../README.md#LoginAuth)

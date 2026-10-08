@@ -175,6 +175,11 @@ const SECTIONS = {
       // the variable decides, as it always did (#5879).
       ['defaultAuthenticationMethod', 'DEFAULT_AUTHENTICATION_METHOD', 'choice', { choices: AUTHENTICATION_METHODS, defaultValue: 'password' }],
       ['loginExpirationInDays', 'ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS', 'number', { defaultValue: 90, restart: true }],
+      // Automatic logout (models/lib/logoutTimer.js, server/logoutTimer.js).
+      ['logoutWithTimer', 'LOGOUT_WITH_TIMER', 'boolean', { defaultValue: false }],
+      ['logoutIn', 'LOGOUT_IN', 'number', { max: 3650 }],
+      ['logoutOnHours', 'LOGOUT_ON_HOURS', 'number', { max: 23 }],
+      ['logoutOnMinutes', 'LOGOUT_ON_MINUTES', 'number', { max: 59 }],
     ],
   },
 };
@@ -199,6 +204,7 @@ for (const [section, { storage, envOnly = false, fields }] of Object.entries(SEC
         aliases: options.aliases || [],
         defaultValue: options.defaultValue === undefined ? null : options.defaultValue,
         restart: options.restart === true,
+        max: options.max === undefined ? null : options.max,
         envOnly,
       };
       for (const name of [envVar, ...field.aliases]) BY_ENV_VAR[name] = field;
@@ -382,6 +388,9 @@ function cleanValue(field, raw) {
     case 'number': {
       const number = typeof raw === 'number' ? raw : Number(String(raw).trim());
       if (!Number.isFinite(number) || number < 0) throw new TypeError(`Invalid ${field.envVar}`);
+      if (field.max !== null && (number > field.max || !Number.isInteger(number))) {
+        throw new TypeError(`Invalid ${field.envVar}`);
+      }
       return number;
     }
     case 'choice':

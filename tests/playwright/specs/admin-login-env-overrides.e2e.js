@@ -137,3 +137,35 @@ test('LDAP Sync now answers in the pane, and ordinary users are refused', async 
   });
   expect(refused).toBe('error-notAuthorized');
 });
+
+// Automatic logout (maintainer decision of 2026-10-08): LOGOUT_WITH_TIMER and
+// LOGOUT_IN set in Admin Panel / People / Login remove the login tokens that
+// are past their deadline, and keep the ones that are not.
+test('LOGOUT_WITH_TIMER signs out logins past LOGOUT_IN and keeps newer ones', async ({ page, adminUser, user }) => {
+  const DAY = 24 * 60 * 60 * 1000;
+  const marker = `e2e-logout-${Date.now()}`;
+  db.updateOne('users', { _id: user.id }, { $push: { 'services.resume.loginTokens': {
+    when: new Date(Date.now() - 3 * DAY), hashedToken: `${marker}-old` } } });
+  db.updateOne('users', { _id: user.id }, { $push: { 'services.resume.loginTokens': {
+    when: new Date(Date.now() - 1000), hashedToken: `${marker}-new` } } });
+  const tokens = () => (db.findOne('users', { _id: user.id }, { 'services.resume.loginTokens': 1 })
+    .services.resume.loginTokens || []).map(token => token.hashedToken).filter(hash => hash.startsWith(marker));
+  await loginWithToken(page, adminUser.id, adminUser.token);
+  try {
+    await navigateInApp(page, '/admin/people/login');
+    await expect(page.locator('.js-auth-provider-settings label', { hasText: 'LOGOUT_WITH_TIMER' })).toBeVisible();
+    await page.locator('#auth-logoutWithTimer').selectOption('true');
+    await page.locator('#auth-logoutIn').fill('2');
+    await page.locator('.js-auth-provider-save').click();
+    await expect.poll(tokens, { timeout: 15000 }).toEqual([`${marker}-new`]);
+    // An hour that does not exist is refused on the server.
+    const refused = await page.evaluate(async () => {
+      try { await Meteor.callAsync('saveAuthConfigSettings', 'login', { logoutOnHours: 24 }); return 'saved'; }
+      catch (error) { return error.error; }
+    });
+    expect(refused).toBe('invalid-login-settings');
+  } finally {
+    await page.evaluate(() => Meteor.callAsync('saveAuthConfigSettings', 'login', { logoutWithTimer: '', logoutIn: '' })).catch(() => {});
+    db.updateOne('users', { _id: user.id }, { $pull: { 'services.resume.loginTokens': { hashedToken: { $regex: `^${marker}` } } } });
+  }
+});
