@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Hungarian interrupted import recovery — 2026-10-08
+
+Translate 25 current Hungarian interrupted-import messages, preserving existing
+localized values. Retain the inability to resume without the source file,
+permanent removal including later additions, retention without deletion,
+the separate Scrum recovery checkpoint and protection of unrelated boards.
+Extend the existing Hungarian suite with per-key prose and recovery-decision
+checks; the full token inventory remains checked. No browser or screen-reader
+session was run; other translations and linguistic review remain open.
+
 ## Slovak controls, import guidance and stuck Sync recovery — 2026-10-08
 
 Translate 43 further current Slovak values for board controls, link rules,

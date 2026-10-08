@@ -64,5 +64,16 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
     { cwd: path.resolve(__dirname, '..'), encoding: 'utf8' });
   assert.equal(inventory.status, 0, inventory.stderr);
   assert.deepEqual(JSON.parse(inventory.stdout), {});
+  for (const key of Object.keys(en).filter(key => key.startsWith('interrupted-import-'))) {
+    assert.ok(hu[key]?.trim(), key);
+    assert.notEqual(hu[key], en[key], `${key}: translate import recovery`);
+  }
+  assert.match(hu['interrupted-import-description'], /nem folytatható/);
+  assert.match(hu['interrupted-import-description'], /beleértve az azóta hozzáadott elemeket is/);
+  assert.match(hu['interrupted-import-keep-confirm'], /Semmi sem törlődik/);
+  assert.match(hu['interrupted-import-discard-confirm'], /véglegesen törlődik/);
+  assert.match(hu['interrupted-import-truncated'], /50 legrégebbi/);
+  assert.match(hu['interrupted-import-foreign-board'], /nem módosult/);
+  assert.match(hu['interrupted-import-state-discarding'], /törölje újra/);
   console.log('Hungarian source keys, tokens, planning and recovery warning meanings verified');
 })().catch(error => { console.error(error); process.exitCode = 1; });
