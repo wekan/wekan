@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b7e59a922dc9f7cd4cdab951a7c05181ffb86a28">Translate Konkani constants and number properties</a></summary>
+
+- Fill 21 Konkani values, preserving existing translations, mathematical constants,
+  inclusive limits and remainder operands.
+- Mathematical terminology remains low confidence pending speaker review.
+- All 51 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Konkani translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f1a4f2d7a1613b545cbc38ce0b2fe2c1875b9fe0">Translate Konkani logic and arithmetic controls</a></summary>
 
 - Fill 22 Konkani values, preserving existing translations, Boolean conditions,
