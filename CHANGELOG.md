@@ -2011,6 +2011,22 @@ report with seven assignees and asserts no avatar overlaps the comment.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b18b2531aab54d180e006083b600bc6fcada2772">Translate Moroccan Arabic Scrum settings and sprint controls</a></summary>
+
+- Fill 31 placeholders, retaining existing translations. Check completion
+  policies, sprint actions, unfinished-work scope, estimate sources and matching
+  board-view labels, together with script, source order and placeholders.
+- Validation: 52 translation checks and 21 human-preference checks pass. Two
+  repository-wide checks fail on new card-field-visibility keys missing from
+  other locales. Browser, RTL and screen-reader checks were not run.
+- Technical Darija and Scrum terminology remain low confidence pending speaker
+  review; remaining placeholders and the broader language audit stay open.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9dcb964c1a1b4b70b6f552206bf5437999b3761c">Translate Moroccan Arabic rule editor and Scrum labels</a></summary>
 
 - Fill 31 placeholders, retaining existing translations. Check rule validation,
