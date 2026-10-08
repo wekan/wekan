@@ -9820,6 +9820,18 @@ passed. Technical Darija wording remains low confidence pending speaker review.
 Browser, RTL and screen-reader checks were not run. Remaining placeholders and
 the broader language audit stay open.
 
+## Moroccan Arabic math functions and workspace controls
+
+Filled 43 placeholders without replacing existing translations. Tests check
+source order, script, tokens, rounding direction, exponential/logarithm bases,
+negation, direct/inverse trigonometric functions, degrees versus radians,
+minimap navigation, absent parent blocks and colour/number/text variable types.
+Of 47 checks, 45 passed; two repository-wide checks still fail because other
+locales lack the new card-field-visibility keys. All 21 human-preference checks
+passed. Technical Darija wording remains low confidence pending speaker review.
+Browser, RTL and screen-reader checks were not run. Remaining placeholders and
+the broader language audit stay open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
