@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/712b45a103">Translate remaining Korean import instructions</a>. Thanks to xet7.</summary>
+
+Translate the remaining 13 instructions in both Korean catalogs, completing all
+21 import instructions there. Preserve commands, columns, variables and import
+limitations. Regression checks cover excluded data, English headers, hierarchy
+and archived tasks. Translation, placeholder and preservation checks pass; browser
+review and the wider translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8673bef810">Translate first Korean import instructions</a>. Thanks to xet7.</summary>
 
 Translate eight import instructions in both Korean catalogs, preserving commands,
