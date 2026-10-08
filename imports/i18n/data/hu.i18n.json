@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Csak ezek az e-mail-tartományok jelentkezhetnek be ezekkel a szolgáltatókkal (vesszővel elválasztva; üresen mind engedélyezett)",
   "oauth-account-conflict": "Ezzel az e-mail-címmel már létezik fiók, és nem ezzel a bejelentkezési módszerrel jött létre",
   "sign-in-with": "Bejelentkezés ezzel: %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "A másik szolgáltatáson keresztüli bejelentkezés ezen a címen nem fejezhető be. A WeKan a(z) __expected__ címre van beállítva, de ezt az oldalt a(z) __actual__ címen nyitották meg. Nyissa meg a WeKant a(z) __expected__ címen, vagy kérje meg a rendszergazdát, hogy állítsa a ROOT_URL értékét erre: __actual__.",
   "passwordless-title": "Jelszó nélküli bejelentkezés",
   "passwordless-enabled": "Jelszó helyett egyszer használatos bejelentkezési kód küldése e-mailben",
   "passwordless-hint": "Kimenő e-mail szükséges (MAIL_URL). Továbbá PASSWORDLESS_ENABLED.",

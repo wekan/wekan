@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "이 이메일로 된 계정이 이미 있으며 이 로그인 방식으로 만들어지지 않았습니다",
   "sign-in-with": "%s(으)로 로그인",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "이 주소에서는 다른 서비스를 통한 로그인을 완료할 수 없습니다. WeKan은 __expected__ 주소로 설정되어 있지만 이 페이지는 __actual__ 주소에서 열렸습니다. __expected__ 주소에서 WeKan을 열거나 관리자에게 ROOT_URL을 __actual__ 주소로 설정해 달라고 요청하세요.",
   "passwordless-title": "비밀번호 없는 로그인",
   "passwordless-enabled": "암호 대신 일회용 로그인 코드를 이메일로 보내기",
   "passwordless-hint": "발신 이메일(MAIL_URL)이 필요합니다. PASSWORDLESS_ENABLED도 필요합니다.",

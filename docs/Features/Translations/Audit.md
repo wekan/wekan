@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Sign-in address warning in 26 locales — 2026-10-08
+
+Translate the origin mismatch warning in German (including Austrian and Swiss),
+French (including Canadian), Spanish (including Argentine), Italian, Portuguese,
+Brazilian Portuguese, Dutch, Swedish, Danish, Norwegian Bokmål, Polish, Czech,
+Slovak, Romanian, Hungarian, Indonesian, Malay, Vietnamese, Japanese, Korean,
+Simplified Chinese and Traditional Chinese. Tests preserve ROOT_URL and both
+occurrences of each address variable in their configured/opened/corrective roles.
+The targeted warning and placeholder suites and all 21 preservation checks pass.
+Native and browser review and the wider all-language backlog remain outstanding.
+
 ## Remaining Finnish import and sign-in prose — 2026-10-08
 
 Translate 13 remaining import instructions and the sign-in origin mismatch

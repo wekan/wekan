@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Kun disse e-maildomæner må logge ind med disse udbydere (kommasepareret; tomt tillader alle)",
   "oauth-account-conflict": "Der findes allerede en konto med denne e-postadresse, og den blev ikke oprettet med denne loginmetode",
   "sign-in-with": "Log ind med %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Login via en anden tjeneste kan ikke fuldføres på denne adresse. WeKan er konfigureret til __expected__, men denne side blev åbnet på __actual__. Åbn WeKan på __expected__, eller bed administratoren om at sætte ROOT_URL til __actual__.",
   "passwordless-title": "Login uden kodeord",
   "passwordless-enabled": "Send en engangskode til login via e-post i stedet for et kodeord",
   "passwordless-hint": "Kræver udgående e-post (MAIL_URL). Også PASSWORDLESS_ENABLED.",
