@@ -9251,6 +9251,15 @@ consistency, distinct actor/sort labels, script, key order and tokens. Fragment
 word order remains low confidence pending speaker review in the assembled UI.
 Browser checks were not run; the broader translation audit remains unfinished.
 
+## Konkani Blockly colours and block controls
+
+Filled 20 English placeholders for Blockly colour selection and block controls.
+The placeholder-only merge retained existing translations. Preserved colour bounds
+and indexed variable/function roles. Regression coverage checks those details,
+script, key order and token inventories. Technical terminology remains low
+confidence pending speaker review. Browser checks were not run; further Konkani
+translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
