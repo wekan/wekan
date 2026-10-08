@@ -487,6 +487,16 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ea7eaa769d">Translate Wu Blockly text values and variables</a>. Thanks to xet7.</summary>
+
+Translate 35 text and variable messages, preserving placeholders and checking
+replacement order, whitespace and variable types. Four focused translation suites
+and 21 human-preference checks pass. Wu wording is lower confidence and needs
+native review. No browser or screen-reader session was run. Work is unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/889c5d84a9">Translate Wu Blockly text positions</a>. Thanks to xet7.</summary>
 
 Translate 30 text messages, preserving variables and checking letter case, copied
