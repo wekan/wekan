@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d0883d9463bf581165b2910ffcea49aa9ea40c7d">Translate Maithili trigonometry and variable controls</a></summary>
+
+- Fill 26 Maithili placeholders, preserving existing translations, angle units,
+  distinct variable types and parent-block tokens.
+- Technical terminology remains low confidence pending speaker review.
+- All 52 focused checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/63c0ad6116e53d8ed0fe1c3dd6a6ad616f829260">Translate Maithili rounding and random numbers</a></summary>
 
 - Fill 24 Maithili placeholders, preserving existing translations, random bounds,
