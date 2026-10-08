@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "I-akhawunti enale imeyili isivele ikhona futhi ayenziwanga ngale ndlela yokungena",
   "sign-in-with": "Ngena nge-%s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Ukungena ngemvume ngenye isevisi akukwazi ukuqedwa kuleli kheli. I-WeKan ilungiselelwe i-__expected__, kodwa leli khasi livulwe ku-__actual__. Vula i-WeKan ku-__expected__, noma ucele umlawuli ukuthi asethe i-ROOT_URL ibe ngu-__actual__.",
   "passwordless-title": "Ukungena ngaphandle kwephasiwedi",
   "passwordless-enabled": "Thumela nge-imeyili ikhodi yokungena yesikhathi esisodwa esikhundleni sephasiwedi",
   "passwordless-hint": "Kudinga i-imeyili ephumayo (MAIL_URL). Kanye ne-PASSWORDLESS_ENABLED.",

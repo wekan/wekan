@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Further African sign-in warnings — 2026-10-08
+
+Translate six values for Yoruba, Igbo, Shona, Zulu and its South African variant,
+and Xhosa. Warning coverage now includes 134 catalog paths, with exact repeated
+address variables, rendering order and ROOT_URL checked. Warning and placeholder
+suites and all 21 preservation checks pass. These translations have lower
+confidence and need native review. Browser review and the wider all-language
+backlog remain outstanding.
+
 ## Tatar, Bashkir, Tajik and Turkmen sign-in warnings — 2026-10-08
 
 Translate four warning values, preserving the locale scripts, both occurrences
