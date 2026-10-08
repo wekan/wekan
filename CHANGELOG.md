@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/efcdceb0b2">Translate southern African warnings and correct the Venda sign-in label</a>. Thanks to xet7.</summary>
+
+Add Northern Sotho, Ndebele, Swati, Tsonga and Venda warnings. Replace the Zulu
+login label in Venda and preserve the distinct Venetian and Veps catalogs.
+Warning tests now cover 169 paths. Warning, placeholder and audited-correction
+suites and all 21 preservation checks pass. The prose has lower confidence and
+needs native review. This warning still has 38 English paths; browser review
+and the wider all-language backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ab218dc5ce">Translate five Pacific sign-in warnings</a>. Thanks to xet7.</summary>
 
 Add Māori, Hawaiian, Samoan, Tongan and Fijian warning translations.
