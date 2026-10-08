@@ -671,6 +671,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7a5dfe1e3d">Translate Zulu link rules and planning settings</a>. Thanks to xet7.</summary>
+
+Fill 38 application messages per Zulu catalog. Tests preserve brace variables,
+URL examples, permissions, conflict instructions and sprint-action distinctions.
+Both targeted suites and all 21 preservation checks pass. Specialized terminology
+needs speaker review; browser execution and remaining translations are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/45bc8254f0">Translate Zulu statistics and trigonometry messages</a>. Thanks to xet7.</summary>
 
 Fill 27 mathematical messages per Zulu catalog. Tests preserve function symbols,
