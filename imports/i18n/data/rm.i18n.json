@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "In conto cun quest e-mail exista gia e n’è betg vegnì creà cun questa metoda d’annunzia",
   "sign-in-with": "S’annunziar cun %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "L’annunzia sur in auter servetsch na po betg vegnir terminada a questa adressa. WeKan è configurà per __expected__, ma questa pagina è vegnida averta a __actual__. Avri WeKan a __expected__, u dumonda l’administratur da metter ROOT_URL sin __actual__.",
   "passwordless-title": "Annunzia senza pled-clav",
   "passwordless-enabled": "Trametter per e-mail in code d’annunzia d’ina giada empè d’in pled-clav",
   "passwordless-hint": "Dovra e-mail sortent (MAIL_URL). Er PASSWORDLESS_ENABLED.",

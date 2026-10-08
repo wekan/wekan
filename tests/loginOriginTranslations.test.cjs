@@ -23,6 +23,7 @@ codes.push('rw', 'rn', 'ny', 'st', 'tn');
 codes.push('an', 'ast-ES', 'sc', 'scn', 'nap');
 codes.push('br', 'csb', 'hsb', 'szl', 'fo');
 codes.push('as', 'or_IN', 'mai', 'bho', 'kok');
+codes.push('fur', 'rm', 'lld', 'rup', 'la');
 for (const code of codes) {
   const value = read(code)[key];
   assert.notEqual(value, source, code);
@@ -42,7 +43,7 @@ assert.match(read('es')[key], /No se puede completar/);
 assert.match(read('ja')[key], /ログインを完了できません/);
 assert.match(read('zh-CN')[key], /无法在此地址完成/);
 assert.match(read('zh-TW')[key], /無法在此位址完成/);
-console.log('Sign-in origin warning: 154 catalog paths, repeated address roles and literal configuration key pass');
+console.log('Sign-in origin warning: 159 catalog paths, repeated address roles and literal configuration key pass');
 
 assert.match(read('ar')[key], /لا يمكن إكمال تسجيل الدخول/);
 assert.match(read('fa')[key], /تکمیل نمی‌شود/);
@@ -136,3 +137,9 @@ assert.match(read('or_IN')[key], /ସମ୍ପୂର୍ଣ୍ଣ କରିହେ
 assert.match(read('mai')[key], /पूरा नहि भऽ सकैत अछि/);
 assert.match(read('bho')[key], /पूरा ना हो सकेला/);
 assert.match(read('kok')[key], /पुराय करप शक्य ना/);
+
+assert.match(read('fur')[key], /No si pues completâ/);
+assert.match(read('rm')[key], /na po betg vegnir terminada/);
+assert.match(read('lld')[key], /ne possa nia unì stlut ju/);
+assert.match(read('rup')[key], /nu s-poati bitisi/);
+assert.match(read('la')[key], /perfici non potest/);

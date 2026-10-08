@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Mash adresili di aesti domenii di postã electronicã potu s-intrã cu aesti furnizori (dispartsiti cu virguli; golu permiti tuti)",
   "oauth-account-conflict": "Un cont cu aestu e-mail easti ghini shi nu fu faptu cu aestã metodã di intrari",
   "sign-in-with": "Intrã cu %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Intrarea prinu un altu serviciu nu s-poati bitisi la aestã adresã. WeKan easti configurat ti __expected__, ma aestã paginã fu dishcljisã la __actual__. Dishcljidi WeKan la __expected__, icã aroagã administratorlu s-bagã ROOT_URL la __actual__.",
   "passwordless-title": "Intrari fãrã zbor di intrari",
   "passwordless-enabled": "Pitreatsi pi e-mail un cod di intrari ti unã singurã oarã tu loc di zbor di intrari",
   "passwordless-hint": "Ari ananghi di e-mail tsi easi (MAIL_URL). Shi PASSWORDLESS_ENABLED.",
