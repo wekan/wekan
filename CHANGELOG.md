@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bebeec9b39">Translate first Malay import instructions</a>. Thanks to xet7.</summary>
+
+Translate eight import instructions in both Malay catalogs, preserving commands,
+extensions and variables. Regression checks cover first-board selection, completion
+dates, archived cards and swimlane mappings. Translation, placeholder and
+preservation checks pass; remaining Malay instructions, browser review and the
+wider translation backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/42d5d92611">Translate remaining Indonesian import instructions</a>. Thanks to xet7.</summary>
 
 Translate the remaining 13 Indonesian instructions, completing all 21 import
