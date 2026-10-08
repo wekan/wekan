@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f105370d32c66d019afa02d2a00f7381675c5fc6">Correct Tatar API recovery and waiting animations</a></summary>
+
+- Correct 25 API, recovery and animation values, preserving runtime identifiers,
+  call ordering and automatic continuation after recovery.
+- Technical wording remains low confidence pending speaker review.
+- All 118 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/63c592bd9481143bcc05c1f8954788129d939685">Correct Tatar report and office activity labels</a></summary>
 
 - Correct 28 report, office and API values, preserving protocol identifiers,
