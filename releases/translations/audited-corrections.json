@@ -165317,5 +165317,96 @@
     "before": "添加更详细的描述",
     "after": "添加更加详细个描述",
     "reason": "2026-10-08: Correct Wu reminders and card controls, preserving named variables, irreversible deletion and multi-window behavior; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "show-on-card",
+    "before": "显示在卡上",
+    "after": "勒卡片浪显示",
+    "reason": "2026-10-08: Correct Wu notification controls and role descriptions, retaining global-admin exception and unsaved preview semantics; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "show-on-minicard",
+    "before": "显示在迷你卡上",
+    "after": "勒迷你卡片浪显示",
+    "reason": "2026-10-08: Correct Wu notification controls and role descriptions, retaining global-admin exception and unsaved preview semantics; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "show-on-public-board",
+    "before": "公开看板上显示",
+    "after": "勒公开看板浪显示",
+    "reason": "2026-10-08: Correct Wu notification controls and role descriptions, retaining global-admin exception and unsaved preview semantics; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "show-on-private-board",
+    "before": "私有看板上显示",
+    "after": "勒私有看板浪显示",
+    "reason": "2026-10-08: Correct Wu notification controls and role descriptions, retaining global-admin exception and unsaved preview semantics; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "filter-by-unread",
+    "before": "按未读过滤",
+    "after": "按还朆看过个通知筛选",
+    "reason": "2026-10-08: Correct Wu notification controls and role descriptions, retaining global-admin exception and unsaved preview semantics; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "mark-all-as-read",
+    "before": "全部标记为已读",
+    "after": "全部标记成看过仔",
+    "reason": "2026-10-08: Correct Wu notification controls and role descriptions, retaining global-admin exception and unsaved preview semantics; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "mark-all-as-unread",
+    "before": "全部标记为未读",
+    "after": "全部标记成还朆看过",
+    "reason": "2026-10-08: Correct Wu notification controls and role descriptions, retaining global-admin exception and unsaved preview semantics; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "remove-all-read",
+    "before": "删除所有已读内容",
+    "after": "移脱所有看过个通知",
+    "reason": "2026-10-08: Correct Wu notification controls and role descriptions, retaining global-admin exception and unsaved preview semantics; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "roles-info",
+    "before": "选择允许执行每项操作的看板角色。管理面板用户（全局管理员）始终拥有所有权限，无法在此处受到限制。",
+    "after": "选择每项操作允许哪些看板角色来做。管理面板用户（全局管理员）一直有所有权限，搿搭勿能限制伊拉。",
+    "reason": "2026-10-08: Correct Wu notification controls and role descriptions, retaining global-admin exception and unsaved preview semantics; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "roles-status-desc",
+    "before": "每个看板角色可以做什么。只读：此表跟随上方的复选框，因此在保存前即可看到你的选择。",
+    "after": "每个看板角色可以做啥。搿张表只读，按上头个复选框显示，所以还朆保存也看得见侬选个设置。",
+    "reason": "2026-10-08: Correct Wu notification controls and role descriptions, retaining global-admin exception and unsaved preview semantics; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "roles-status-sees-assigned",
+    "before": "仅指派的",
+    "after": "只看分配畀自家个卡片",
+    "reason": "2026-10-08: Correct Wu notification controls and role descriptions, retaining global-admin exception and unsaved preview semantics; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "roles-status-empty",
+    "before": "没有看板角色。",
+    "after": "呒没看板角色。",
+    "reason": "2026-10-08: Correct Wu notification controls and role descriptions, retaining global-admin exception and unsaved preview semantics; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "start-day-of-week",
+    "before": "设置一周中的哪一天开始",
+    "after": "设置每个礼拜从哪一天开始",
+    "reason": "2026-10-08: Correct Wu notification controls and role descriptions, retaining global-admin exception and unsaved preview semantics; lower-confidence prose needs native review."
   }
 ]

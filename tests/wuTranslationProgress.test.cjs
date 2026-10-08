@@ -888,3 +888,14 @@ assert.match(wu['act-atUserComment'], /卡片 __card__.*提到侬.*__comment__.*
 for (const entity of ['user', 'team', 'org']) assert.match(wu['delete-' + entity + '-confirm-popup'], /勿能撤销/);
 assert.match(wu['open-many-cards-at-once-description'], /每张卡片.*自家个窗口.*关脱搿项.*关脱原来打开/);
 for (const key of ['assignee', 'assignees', 'cardAssigneesPopup-title']) assert.equal(wu[key], '负责人');
+
+const notificationsRoles = ["show-on-card", "show-on-minicard", "show-on-public-board", "show-on-private-board", "filter-by-unread", "mark-all-as-read", "mark-all-as-unread", "remove-all-read", "roles-info", "roles-status-desc", "roles-status-sees-assigned", "roles-status-empty", "start-day-of-week"];
+for (const key of notificationsRoles) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.match(wu['mark-all-as-read'], /全部标记成看过仔/);
+assert.match(wu['mark-all-as-unread'], /全部标记成还朆看过/);
+assert.match(wu['remove-all-read'], /所有看过个通知/);
+assert.match(wu['roles-info'], /全局管理员.*所有权限.*勿能限制/);
+assert.match(wu['roles-status-desc'], /只读.*复选框.*还朆保存.*看得见/);
+assert.match(wu['roles-status-sees-assigned'], /只看分配畀自家个卡片/);
+assert.match(wu['show-on-public-board'], /公开看板/);
+assert.match(wu['show-on-private-board'], /私有看板/);

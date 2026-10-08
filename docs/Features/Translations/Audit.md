@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu notification controls and role corrections — 2026-10-08
+
+Correct 13 display, notification and role values. Preserve opposite read/unread actions,
+assigned-card scope, the global-admin exception and preview of unsaved role choices.
+Retain existing Wu reminder thresholds and notification-precedence explanations.
+Refresh exact-value audit records and check source tokens. Wu prose needs native review;
+browser tests were not run and all-language work remains unfinished.
+
 ## Wu reminders and card-control corrections — 2026-10-08
 
 Correct 19 reminder, deletion and card-control values. Preserve named reminder and
@@ -12748,7 +12756,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,617** exact before/after values, including unflagged
+records contain **23,630** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
