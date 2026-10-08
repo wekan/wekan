@@ -4,6 +4,24 @@ const fs = require('node:fs');
 const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/hr.i18n.json'), 'utf8'));
+const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
+const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
+assert.equal(data.board, 'Ploča');
+assert.equal(data.swimlane, 'Traka');
+assert.deepEqual(Object.keys(data), Object.keys(english));
+for (const key of Object.keys(english)) {
+  assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), key);
+  if (key.startsWith('interrupted-import-')) {
+    assert.notEqual(data[key], english[key], key);
+    assert.doesNotMatch(data[key], /[\p{Script=Cyrillic}]/u, key);
+  }
+}
+assert.match(data['interrupted-import-description'], /ne može nastaviti/);
+assert.match(data['interrupted-import-description'], /uključujući sve što je dodano nakon toga/);
+assert.match(data['interrupted-import-keep-confirm'], /Ništa se ne uklanja/);
+assert.match(data['interrupted-import-discard-confirm'], /trajno se uklanjaju/);
+assert.match(data['interrupted-import-foreign-board'], /nije izmijenjena/);
+assert.match(data['interrupted-import-truncated'], /50 najstarijih/);
 const corrections = JSON.parse(fs.readFileSync(path.join(root, 'releases/translations/audited-corrections.json'), 'utf8')).filter(row => row.locale === 'hr');
 assert.ok(corrections.length >= 18);
 for (const row of corrections) assert.doesNotMatch(data[row.key], /[\p{Script=Cyrillic}]/u);
@@ -155,7 +173,6 @@ assert.doesNotMatch(data['vote-public'], /rezultate/);
 assert.match(data['wipLimitErrorPopup-dialog-pt1'], /veći je od WIP ograničenja/);
 assert.match(data['calendar-system-islamic-rgsa'], /opažanje Mjeseca/);
 assert.match(data['calendar-system-islamic-tbla'], /tablični, astronomska epoha/);
-const english = require('../imports/i18n/data/en.i18n.json');
 for (const example of ['== != <= >= && || ( )', 'Field1 == Value1', "'Field 1' == 'Value 1'", 'F1 == V1 || F1 == V2', 'F1 == V1 && ( F2 == V2 || F2 == V3 )', 'F1 == /Tes.*/i']) {
   assert.ok(data['advanced-filter-description'].includes(example), example);
 }

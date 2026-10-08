@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Croatian interrupted imports and core labels — 2026-10-08
+
+Translate 25 interrupted-import messages and replace Serbian board and swimlane
+labels with Croatian, for 27 corrected values. Preserve variables and existing
+correct-language values. Extend Croatian checks with source order, full variable
+inventories, native labels and recovery-decision meanings.
+No browser or screen-reader session was run; further wrong-language review and
+remaining translations are unfinished.
+
 ## Slovenian controls and planning — 2026-10-08
 
 Translate 51 messages in each Slovenian catalog, for 102 filled values.
