@@ -9094,6 +9094,16 @@ coverage checks these details, script, key order and token inventories. Technica
 wording remains low confidence pending speaker review. Browser checks were not
 run; further Maithili translations and the broader audit remain unfinished.
 
+## Maithili screen-reader and shortcut labels
+
+Filled 29 English placeholders for screen-reader mode and keyboard navigation.
+The placeholder-only merge retained existing translations. Preserved toggle-key
+tokens and distinct enabled/disabled, start/end, previous/next and directional
+actions. Regression coverage checks those details, script, key order and tokens.
+Technical wording remains low confidence pending speaker review. Browser and
+screen-reader checks were not run; further Maithili translations and the broader
+audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
