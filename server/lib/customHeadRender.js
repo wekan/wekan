@@ -1,6 +1,7 @@
 import { WebApp } from 'meteor/webapp';
 import { WebAppInternals } from 'meteor/webapp';
 import Settings from '/models/settings';
+const { safeMetaTags } = require('/models/lib/customHeadMetaTags');
 
 // Cache the setting since the boilerplate callback is synchronous
 let cachedSetting = null;
@@ -47,6 +48,11 @@ Meteor.startup(async () => {
       }
 
       let injection = '';
+      // #4042: the custom meta tags - <meta> elements only, see
+      // models/lib/customHeadMetaTags.js.
+      for (const tag of safeMetaTags(setting.customHeadMetaTags)) {
+        injection += `  ${tag}\n`;
+      }
       // Add custom link tags (except manifest if custom manifest is enabled)
       if (setting.customHeadLinkTags && setting.customHeadLinkTags.trim()) {
         let linkTags = setting.customHeadLinkTags;
