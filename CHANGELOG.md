@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d2e92c0d4018caccec49ac5499017c4d776eaef9">Correct Tatar Sandstorm migration cleanup</a></summary>
+
+- Correct 11 migration-cleanup and feature values, preserving successful
+  migration prerequisites and irreversible deletion warnings.
+- Technical wording remains low confidence pending speaker review.
+- All 133 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/48b4163afce327967958be3d5ca8a02851a9ba99">Correct Tatar cloud storage and migration guidance</a></summary>
 
 - Correct 22 cloud-storage and migration values, restoring service names,
