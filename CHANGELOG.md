@@ -670,6 +670,18 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f28e0ee74d">Translate remaining Galician import instructions</a>. Thanks to xet7.</summary>
+
+Translate 14 values across two catalogs for Quire, Wrike, Teamwork.com,
+Businessmap, Redmine, Notion and Plane, completing the newer group of 21 imports.
+Preserve commands, columns, extensions, hierarchy markers and variables. Regression
+checks cover excluded data, English headers and task hierarchy. Three relevant
+suites and all 21 preservation checks pass. Remaining translations, language
+auditing and browser review are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/37efcb8f8b">Translate six further Galician import instructions</a>. Thanks to xet7.</summary>
 
 Translate 12 values across two catalogs for Pivotal Tracker, Tasks.org, monday.com,
