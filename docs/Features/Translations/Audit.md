@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu date and placement corrections — 2026-10-08
+
+Correct 22 copying, deletion, date-activity and placement values. Preserve named old/new
+date variables, card identifiers and percent placeholders. Replace the childbirth due-date
+mistranslation and distinguish approaching, past and today. Retain opposite placement
+and irreversible swimlane deletion. Refresh exact-value audit records. Wu prose needs
+native review; browser tests were not run and all-language work remains unfinished.
+
 ## Wu login and configuration-literal corrections — 2026-10-08
 
 Correct 16 login and configuration values. Restore CAS as a protocol name, preserve
@@ -12731,7 +12739,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,577** exact before/after values, including unflagged
+records contain **23,599** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

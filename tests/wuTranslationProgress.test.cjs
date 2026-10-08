@@ -862,3 +862,19 @@ for (const literal of ['MAIL_URL', 'PASSWORDLESS_ENABLED']) assert.ok(wu['passwo
 assert.match(wu['add-custom-html-after-body-start'], /<body>.*后头.*HTML/);
 assert.match(wu['add-custom-html-before-body-end'], /<\/body>.*前头.*HTML/);
 assert.equal(wu['duplicate-board'], '复制看板');
+
+const datesPlacement = ["duplicate-board-confirm", "clone-board-without-cards", "swimlaneDeletePopup-title", "swimlane-delete-pop", "loading", "act-a-dueAt", "act-a-endAt", "act-a-startAt", "act-a-receivedAt", "a-dueAt", "a-endAt", "a-startAt", "a-receivedAt", "above-selected-card", "above-selected-swimlane", "below-selected-card", "below-selected-swimlane", "left-of-list", "right-of-list", "almostdue", "pastdue", "duenow"];
+for (const key of datesPlacement) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+for (const kind of ['endAt', 'startAt', 'receivedAt']) assert.match(wu['act-a-' + kind], /从（__timeOldValue__）改成 __timeValue__/);
+assert.match(wu['act-a-dueAt'], /时间：__timeValue__.*卡片：__card__.*原来.*__timeOldValue__/s);
+assert.match(wu.almostdue, /截止时间 %s 快到仔/);
+assert.doesNotMatch(wu.almostdue, /预产期/);
+assert.match(wu.pastdue, /%s 已经过脱仔/);
+assert.match(wu.duenow, /%s 是今朝/);
+for (const object of ['card', 'swimlane']) {
+  assert.match(wu['above-selected-' + object], /上头/);
+  assert.match(wu['below-selected-' + object], /下头/);
+}
+assert.match(wu['left-of-list'], /左爿/);
+assert.match(wu['right-of-list'], /右爿/);
+assert.match(wu['swimlane-delete-pop'], /所有操作记录.*勿能恢复.*勿能撤销/);

@@ -165037,5 +165037,159 @@
     "before": "重复板",
     "after": "复制看板",
     "reason": "2026-10-08: Correct Wu login/configuration prose; restore CAS protocol name and preserve placeholders, environment names and HTML tags. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "duplicate-board-confirm",
+    "before": "您确定要复制此板吗？",
+    "after": "侬确定要复制搿块看板伐？",
+    "reason": "2026-10-08: Correct Wu date activities and placement, retaining old/new date roles and source variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "clone-board-without-cards",
+    "before": "呒不卡片",
+    "after": "勿包含卡片",
+    "reason": "2026-10-08: Correct Wu date activities and placement, retaining old/new date roles and source variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "swimlaneDeletePopup-title",
+    "before": "删除泳道？",
+    "after": "要删脱泳道伐？",
+    "reason": "2026-10-08: Correct Wu date activities and placement, retaining old/new date roles and source variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "swimlane-delete-pop",
+    "before": "所有操作都将从活动源中删除，并且您将无法恢复泳道。无法撤消。",
+    "after": "所有操作记录侪会从活动记录里向删脱，侬也勿能恢复搿条泳道。搿个操作勿能撤销。",
+    "reason": "2026-10-08: Correct Wu date activities and placement, retaining old/new date roles and source variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "loading",
+    "before": "正在加载，请稍候。",
+    "after": "勒加载，请等一歇。",
+    "reason": "2026-10-08: Correct Wu date activities and placement, retaining old/new date roles and source variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-a-dueAt",
+    "before": "修改截止时间为 \n时间：__timeValue__\n其中：__card__\n 上一次到期是__timeOldValue__",
+    "after": "拿截止时间改成\n时间：__timeValue__\n卡片：__card__\n原来个截止时间是 __timeOldValue__",
+    "reason": "2026-10-08: Correct Wu date activities and placement, retaining old/new date roles and source variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-a-endAt",
+    "before": "将结束时间从 (__timeOldValue__) 修改为 __timeValue__",
+    "after": "拿结束时间从（__timeOldValue__）改成 __timeValue__",
+    "reason": "2026-10-08: Correct Wu date activities and placement, retaining old/new date roles and source variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-a-startAt",
+    "before": "将开始时间从 (__timeOldValue__) 修改为 __timeValue__",
+    "after": "拿开始时间从（__timeOldValue__）改成 __timeValue__",
+    "reason": "2026-10-08: Correct Wu date activities and placement, retaining old/new date roles and source variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-a-receivedAt",
+    "before": "将接收时间从 (__timeOldValue__) 修改为 __timeValue__",
+    "after": "拿接收时间从（__timeOldValue__）改成 __timeValue__",
+    "reason": "2026-10-08: Correct Wu date activities and placement, retaining old/new date roles and source variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "a-dueAt",
+    "before": "修改截止时间为",
+    "after": "拿截止时间改成",
+    "reason": "2026-10-08: Correct Wu date activities and placement, retaining old/new date roles and source variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "a-endAt",
+    "before": "修改结束时间为",
+    "after": "拿结束时间改成",
+    "reason": "2026-10-08: Correct Wu date activities and placement, retaining old/new date roles and source variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "a-startAt",
+    "before": "修改开始时间为",
+    "after": "拿开始时间改成",
+    "reason": "2026-10-08: Correct Wu date activities and placement, retaining old/new date roles and source variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "a-receivedAt",
+    "before": "修改接收时间为",
+    "after": "拿接收时间改成",
+    "reason": "2026-10-08: Correct Wu date activities and placement, retaining old/new date roles and source variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "above-selected-card",
+    "before": "以上所选卡",
+    "after": "勒选中个卡片上头",
+    "reason": "2026-10-08: Correct Wu date activities and placement, retaining old/new date roles and source variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "above-selected-swimlane",
+    "before": "以上所选泳道",
+    "after": "勒选中个泳道上头",
+    "reason": "2026-10-08: Correct Wu date activities and placement, retaining old/new date roles and source variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "below-selected-card",
+    "before": "下面选择的卡",
+    "after": "勒选中个卡片下头",
+    "reason": "2026-10-08: Correct Wu date activities and placement, retaining old/new date roles and source variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "below-selected-swimlane",
+    "before": "在选定的泳道下方",
+    "after": "勒选中个泳道下头",
+    "reason": "2026-10-08: Correct Wu date activities and placement, retaining old/new date roles and source variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "left-of-list",
+    "before": "选定列表的左侧",
+    "after": "勒选中个列表左爿",
+    "reason": "2026-10-08: Correct Wu date activities and placement, retaining old/new date roles and source variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "right-of-list",
+    "before": "所选列表的右侧",
+    "after": "勒选中个列表右爿",
+    "reason": "2026-10-08: Correct Wu date activities and placement, retaining old/new date roles and source variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "almostdue",
+    "before": "目前的预产期%s即将到来",
+    "after": "当前截止时间 %s 快到仔",
+    "reason": "2026-10-08: Correct Wu date activities and placement, retaining old/new date roles and source variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "pastdue",
+    "before": "当前截止时间%s 已过去",
+    "after": "当前截止时间 %s 已经过脱仔",
+    "reason": "2026-10-08: Correct Wu date activities and placement, retaining old/new date roles and source variables; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "duenow",
+    "before": "当前截止时间 %s 是今天",
+    "after": "当前截止时间 %s 是今朝",
+    "reason": "2026-10-08: Correct Wu date activities and placement, retaining old/new date roles and source variables; lower-confidence prose needs native review."
   }
 ]
