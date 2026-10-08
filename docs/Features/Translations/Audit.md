@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Zulu interrupted board imports — 2026-10-09
+
+Translate 25 messages per Zulu catalog (50 values) for stuck-sync outcomes and
+interrupted board imports. Preserve reference, stage and count variables.
+Tests render all six object counts and retain oldest-50 limits, replayability,
+kept applied changes, unavailable source files and deletion of later additions.
+Both targeted suites and all 21 preservation checks pass. Specialized terminology
+remains low confidence pending speaker review. Browser execution and remaining
+translations are outstanding.
+
 ## Zulu notification controls and stuck sync operations — 2026-10-09
 
 Translate 25 recovery messages per Zulu catalog (50 values), preserving applied

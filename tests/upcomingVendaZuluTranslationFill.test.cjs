@@ -819,6 +819,33 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
   "stuck-sync-operation-reason-access-denied",
   "stuck-sync-operation-reason-trigger-unknown"
 ]);
+  keys.push(...[
+  "stuck-sync-operation-reason-intent-missing",
+  "stuck-sync-operation-reason-unknown",
+  "stuck-sync-operation-replayable-now",
+  "stuck-sync-operation-discard",
+  "stuck-sync-operation-discard-confirm",
+  "stuck-sync-operation-refresh",
+  "stuck-sync-operation-empty",
+  "stuck-sync-operation-truncated",
+  "stuck-sync-operation-unavailable",
+  "stuck-sync-operation-missing",
+  "stuck-sync-operation-not-stuck",
+  "stuck-sync-operation-replayable",
+  "stuck-sync-operation-busy",
+  "stuck-sync-operation-failed",
+  "interrupted-import-heading",
+  "interrupted-import-description",
+  "interrupted-import-board",
+  "interrupted-import-progress",
+  "interrupted-import-created",
+  "interrupted-import-source",
+  "interrupted-import-state-stopped",
+  "interrupted-import-state-failed",
+  "interrupted-import-state-discarding",
+  "interrupted-import-scrum",
+  "interrupted-import-counts"
+]);
   for (const language of ['zu', 'zu-ZA']) {
     const locale = read(language);
     for (const key of keys) {
@@ -996,6 +1023,15 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
     const applied = locale['stuck-sync-operation-applied'].replace('__applied__', '2').replace('__total__', '5');
     assert.match(applied, /2.*5/);
     assert.doesNotMatch(applied, /__\w+__/);
+    assert.match(locale['stuck-sync-operation-discard-confirm'], /esezisetshenzisiwe ziyahlala.*azibhalwa nhlobo/);
+    assert.match(locale['stuck-sync-operation-truncated'], /emidala kakhulu engu-50/);
+    assert.match(locale['stuck-sync-operation-replayable'], /awulahlwanga/);
+    assert.match(locale['interrupted-import-description'], /akukwazi ukuqhutshwa.*ifayela lomthombo aligcinwa/);
+    assert.match(locale['interrupted-import-description'], /kufaka noma yini eyengezwe kulo/);
+    let counts = locale['interrupted-import-counts'];
+    ['swimlanes', 'lists', 'cards', 'checklists', 'comments', 'attachments'].forEach((name, index) => { counts = counts.replace('__' + name + '__', String(index + 1)); });
+    assert.match(counts, /1.*2.*3.*4.*5.*6/);
+    assert.doesNotMatch(counts, /__\w+__/);
     const failure = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
     assert.ok(failure.includes('E_LDAP'));
     assert.ok(!failure.includes('%s'));
