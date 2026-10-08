@@ -487,6 +487,16 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9e7b39e89a">Translate Wu Blockly logic and arithmetic</a>. Thanks to xet7.</summary>
+
+Translate 30 logic, arithmetic and constant messages, preserving variables and
+mathematical literals and checking negation and bounds. Four focused suites and
+21 human-preference checks pass. Wu wording is lower confidence and needs native
+review. No browser or screen-reader session was run. Work remains unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5fe338f83d">Translate Wu Blockly sorting and logic</a>. Thanks to xet7.</summary>
 
 Translate 30 list and comparison messages, preserving variables and checking sort
