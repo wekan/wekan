@@ -13869,3 +13869,12 @@ for (const code of ['hi', 'hi-IN']) {
   assert.notEqual(locale['scrum-history-checkpoint-rollback'], locale['scrum-history-checkpoint-discard']);
   assert.ok(locale['scrum-history-checkpoint-counts'].replace('__total__', '10').replace('__applied__', '3').startsWith('10 تبدیلیوں میں سے 3'));
 }
+
+{
+  const locale = read('th');
+  for (const token of ['Ctrl', 'Cmd', 'Mac']) assert.ok(locale['scrum-releases-select-help'].includes(token), `th: ${token}`);
+  assert.match(locale['sync-planning-hint'], /การซิงค์ครั้งแรกจะไม่ลบแผนออก/);
+  assert.match(locale['scrum-history-checkpoint-hint'], /ไม่เปลี่ยนแปลงรายการใด/);
+  assert.notEqual(locale['scrum-history-checkpoint-rollback'], locale['scrum-history-checkpoint-discard']);
+  assert.ok(locale['scrum-history-checkpoint-counts'].replace('__total__', '10').replace('__applied__', '3').includes('3 จาก 10'));
+}

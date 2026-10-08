@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Thai Scrum planning and recovery — 2026-10-08
+
+Translate 31 planning, import and recovery values using existing sprint/release
+terminology. Preserve exact placeholders, keyboard names and count roles, and keep
+rollback distinct from preserving records. Focused Thai, placeholder and language-
+wiring checks pass, as do all 21 preservation checks. The large completion suite
+now reaches an untranslated Gujarati release label. Native review, browser checks
+and the wider all-language backlog remain unfinished.
+
 ## Urdu Scrum planning and recovery — 2026-10-08
 
 Translate 31 planning, import and recovery values using existing sprint/release
