@@ -469,22 +469,6 @@ used.
 
 # Upcoming WeKan ® release
 
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/bffc32f899">Translate pending Finnish import and Sync recovery messages</a>. Thanks to xet7.</summary>
-
-Translate 36 pending messages for imports, assignment rules, LDAP, login,
-release selection and stuck List Sync operations. Preserve variables,
-configuration names and import syntax. Recovery warnings retain applied
-changes and explain that remaining saved changes are never written.
-
-The Finnish regression suite, catalog-wide placeholder and import literal
-checks, translation audit suite and 21 human-preference checks pass.
-No browser or screen-reader session was run. Translation work for other
-languages and review of older linguistic defects continue.
-
-</details>
-
 **In short:** The login settings left open in October are finished:
 **header login** is environment-only, **automatic logout** works again,
 **LDAP** gets an honest Test connection and Sync now, and **secrets from
@@ -926,6 +910,21 @@ Serbian, Sicilian, Sindhi, Sinhala, Slovak, Slovenian, Somali, Sorani Kurdish,
 Spanish, Swahili, Tagalog, Tajik, Tamil, Tatar, Telugu, Thai, Tok Pisin,
 Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bffc32f899">Translate pending Finnish import and Sync recovery messages</a>. Thanks to xet7.</summary>
+
+Translate 36 pending messages for imports, assignment rules, LDAP, login,
+release selection and stuck List Sync operations. Preserve variables,
+configuration names and import syntax. Recovery warnings retain applied
+changes and explain that remaining saved changes are never written.
+
+The Finnish regression suite, catalog-wide placeholder and import literal
+checks, translation audit suite and 21 human-preference checks pass.
+No browser or screen-reader session was run. Translation work for other
+languages and review of older linguistic defects continue.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5e00df9be7">Correct Bislama display, weekday and report translations</a>. Thanks to xet7.</summary>
