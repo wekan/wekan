@@ -2221,6 +2221,20 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ec526a4d375104d48f66f80e7e761ee9a59e107b">Translate Moroccan Arabic Blockly colours and controls</a></summary>
+
+- Fill 20 Blockly placeholders and two new card-field labels, preserving
+  existing translations, colour ranges and deletion restrictions.
+- Technical wording remains low confidence pending speaker review.
+- 38 checks and 21 human-preference checks pass. Two repository-wide checks
+  fail because other locales lack the new card-field-visibility source keys.
+  Browser and RTL checks were not run. The broader audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a2bec960086f30e3bc6536f8ebd3781fb8e9cfe0">Translate Turkmen short labels and keyboard names</a></summary>
 
 - Fill 38 English-identical labels, preserving existing translations, key
