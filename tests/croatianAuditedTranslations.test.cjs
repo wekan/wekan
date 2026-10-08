@@ -147,6 +147,23 @@ assert.match(data['maximize-card'], /Povećaj/);
 assert.match(data['minimize-card'], /Smanji/);
 assert.match(data['next-page'], /Sljedeća/);
 assert.match(data['previous-page'], /Prethodna/);
+const correctedAdminControls = ["tickets", "ticket-number", "open", "pending", "closed", "resolved", "cancelled", "history", "request", "requests", "help-request", "cardDetailsPopup-title", "add-teams", "confirm-btn", "add-organizations", "legalNotice", "copied", "moveChecklist", "moveChecklistPopup-title", "newLineNewItem", "originOrder", "copyChecklist", "copyChecklistPopup-title", "copyChecklistFromTemplate", "copyChecklistFromTemplatePopup-title", "card-show-lists", "attachment-move", "move-progress-pause", "path", "version-name", "size", "storage", "action", "board-title", "uploading", "remaining_time", "speed", "progress", "password-again", "register", "forgot-password", "minicardDetailsActionsPopup-title", "Mongo_sessions_count", "allowed-avatar-filetypes", "drag-board", "newTranslationPopup-title", "editTranslationPopup-title", "translation", "translation-text", "collapse", "uncollapse", "support", "supportPopup-title", "support-title", "support-content", "accessibility-title", "accessibility-content", "accounts-lockout-locked-users", "accounts-lockout-failed-attempts", "accounts-lockout-remaining-time", "accounts-lockout-user-locked", "accounts-lockout-status", "admin-people-filter-show", "admin-people-filter-active", "admin-people-active-status", "accounts-lockout-unlock-all", "add-cron-job", "attachments-path", "board-operations", "cron-jobs", "cron-error-severity", "cron-error-message", "cron-error-details", "cron-retry-failed", "complete"];
+for (const key of correctedAdminControls) {
+  assert.doesNotMatch(data[key], /[\p{Script=Cyrillic}]/u, key);
+  assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), key);
+}
+assert.equal(data['pending'], 'Na čekanju');
+assert.equal(data['resolved'], 'Riješeno');
+assert.equal(data['cancelled'], 'Otkazano');
+assert.match(data['moveChecklist'], /Premjesti/);
+assert.match(data['copyChecklist'], /Kopiraj/);
+assert.match(data['copyChecklistFromTemplate'], /iz predloška/);
+assert.equal(data['collapse'], 'Sažmi');
+assert.equal(data['uncollapse'], 'Proširi');
+assert.match(data['accounts-lockout-locked-users'], /Zaključani/);
+assert.match(data['accounts-lockout-unlock-all'], /Otključaj sve/);
+assert.match(data['cron-retry-failed'], /neuspjele migracije/);
+assert.match(data['Mongo_sessions_count'], /Mongo/);
 assert.equal(data.board, 'Ploča');
 assert.equal(data.swimlane, 'Traka');
 assert.deepEqual(Object.keys(data), Object.keys(english));

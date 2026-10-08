@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Croatian administration and support — 2026-10-08
+
+Replace 75 Serbian values with Croatian, covering request states, checklists,
+attachments, accounts, support, accessibility and scheduled jobs. Preserve source
+variables and Mongo. Check move/copy, collapse/expand, lock/unlock, request outcomes
+and failed migration retries. No browser or screen-reader session was run;
+further wrong-language review and remaining translations are unfinished.
+
 ## Croatian search predicates and reports — 2026-10-08
 
 Replace 65 Serbian values with Croatian or the required technical literal,
