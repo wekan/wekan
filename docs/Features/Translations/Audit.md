@@ -8469,6 +8469,15 @@ opposing filesystem states. Retained the valid time label. Technical wording rem
 low confidence pending speaker review. Focused tests cover tokens, key order and
 status/action distinctions; browser checks were not run.
 
+## Tatar cloud storage and migration-guidance corrections
+
+Corrected 22 wrong-language cloud-storage and migration values, including four
+literal service labels. Restored provider names, database URLs, environment
+variables, Snap commands and Sandstorm directory paths. Preserved migration scope
+and target availability requirements. Technical wording remains low confidence
+pending speaker review. Focused tests cover tokens, key order and executable
+configuration syntax; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
