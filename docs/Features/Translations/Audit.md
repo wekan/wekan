@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Zulu import instructions, final group — 2026-10-09
+
+Translate seven instructions per Zulu catalog (14 values): Quire, Wrike,
+Teamwork.com, Businessmap, Redmine, Notion and Plane. Preserve column names,
+commands, formats, hierarchy markers and variables. Tests retain English-header
+requirements and excluded-data warnings. All three targeted suites and 21
+preservation checks pass. Specialized terminology remains low confidence pending
+speaker review. Browser execution and remaining translations are outstanding.
+
 ## Zulu import instructions, middle group — 2026-10-09
 
 Translate nine instructions per Zulu catalog (18 values): ClickUp, Nullboard,

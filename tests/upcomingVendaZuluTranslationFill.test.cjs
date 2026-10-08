@@ -891,6 +891,15 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
   "import-board-instruction-taiga",
   "import-board-instruction-vikunja"
 ]);
+  keys.push(...[
+  "import-board-instruction-quire",
+  "import-board-instruction-wrike",
+  "import-board-instruction-teamwork",
+  "import-board-instruction-businessmap",
+  "import-board-instruction-redmine",
+  "import-board-instruction-notion",
+  "import-board-instruction-plane"
+]);
   for (const language of ['zu', 'zu-ZA']) {
     const locale = read(language);
     for (const key of keys) {
@@ -1118,6 +1127,21 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
     assert.match(locale['import-board-instruction-kanri'], /kungeniswa ibhodi lokuqala/);
     for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /Okunamathiselwe akungeniswa/);
     assert.match(locale['import-board-instruction-superproductivity'], /efakwe kungobo yomlando iba amakhadi afakwe kungobo yomlando/);
+    const finalImportCommands = {
+      quire: ['Export CSV', 'CSV'], wrike: ['Excel', '.xlsx', 'Status', 'Key', 'Priority', 'Duration'],
+      teamwork: ['Tasklist', 'Task', 'Description', 'Assign to', 'Start date', 'Due date', 'Priority', 'Estimated time', 'Tags', 'Status', 'Complete', '.xlsx', '-', '#', '>', '--', '##', '>>'],
+      businessmap: ['Advanced Search', 'Configure results', 'Title', 'Column', 'Lane', 'Owner', 'Deadline', 'Priority', 'Size', 'Type', '.xlsx'],
+      redmine: ['Issues', 'Also available in: CSV', 'All columns', 'Description', 'My account', 'English', '% Done'],
+      notion: ['•••', 'Export', 'Markdown & CSV', '.zip', 'Status'],
+      plane: ['Workspace Settings', 'Exports', 'JSON', 'CSV', 'Excel', '.zip'],
+    };
+    for (const [format, values] of Object.entries(finalImportCommands)) for (const literal of values) assert.ok(locale['import-board-instruction-' + format].includes(literal));
+    assert.match(locale['import-board-instruction-quire'], /Amazwana nokunamathiselwe akukho/);
+    assert.match(locale['import-board-instruction-notion'], /Ubudlelwano, izithombe nokunamathiselwe akungeniswa/);
+    assert.match(locale['import-board-instruction-plane'], /akunazo izincazelo noma okunamathiselwe/);
+    assert.match(locale['import-board-instruction-businessmap'], /qala ngokuqamba kabusha.*ngesiNgisi/);
+    assert.match(locale['import-board-instruction-redmine'], /English ku-My account ngaphambi kokukhipha/);
+    assert.match(locale['import-board-instruction-teamwork'], /izinga elilodwa elijulile/);
     const failure = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
     assert.ok(failure.includes('E_LDAP'));
     assert.ok(!failure.includes('%s'));
