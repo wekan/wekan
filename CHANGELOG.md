@@ -2199,6 +2199,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a2bec960086f30e3bc6536f8ebd3781fb8e9cfe0">Translate Turkmen short labels and keyboard names</a></summary>
+
+- Fill 38 English-identical labels, preserving existing translations, key
+  markings, ordinal roles, on/off states and consistent control clauses.
+- Technical wording remains low confidence pending speaker review.
+- All 65 translation checks and 21 human-preference checks pass. Browser and
+  screen-reader checks were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/da438435d6a735bf36e9060ef6cd99f5b0e3ded9">Translate Turkmen notification recovery controls</a></summary>
 
 - Fill 27 Turkmen placeholders, preserving existing translations, retry
