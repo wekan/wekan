@@ -773,7 +773,7 @@
   "import-board": "fa bɔɔd bra mu",
   "import-board-c": "Fa bra bɔɔd",
   "import-board-instruction-kanboard": "Fa Kanboard JSON a wɔayi no bata ha: ade a ɛwɔ \"columns\" (anaa adwuma a ɛwɔ column_name) ne \"tasks\" din a wɔahyehyɛ (title, description, column_name, swimlane_name, date_due, owner, tags). Columns no bɛyɛ din a wɔahyehyɛ, na tasks no bɛyɛ kaad.",
-  "import-board-instruction-deck": "Paste a NextCloud Deck bɔɔd JSON (a bɔɔd ne \"stacks\", each stack carrying its \"kaads\"). Stacks become nhyehyɛes ne kaads become kaads.",
+  "import-board-instruction-deck": "Paste a NextCloud Deck bɔɔd JSON (a bɔɔd ne \"stacks\", each stack carrying its \"cards\"). Stacks become nhyehyɛes ne kaads become kaads.",
   "import-board-instruction-openproject": "Fa OpenProject work-packages kuw JSON (GET /api/v3/work_packages) bɔ ha. Tebea ahorow no bɛyɛ din a wɔahyehyɛ, na adwuma akuw no bɛyɛ kaad.",
   "import-board-instruction-issues": "Paste a __sourceName__ issues JSON array (__endpoint__). Issues become kaads grouped kɔ Bue / To mud nhyehyɛes.",
   "import-board-instruction-asana": "Fa Asana adwuma JSON a wɔayi no bata ha ({ \"data\": [...] } a efi Asana nsɛm a wɔayi anaa GET /tasks mu). Wɔkyekyɛ adwuma no mu afã (memberships); adwuma a wɔawie no kɔ Done.",

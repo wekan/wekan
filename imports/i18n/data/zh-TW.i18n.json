@@ -773,7 +773,7 @@
   "import-board": "匯入看板",
   "import-board-c": "匯入看板",
   "import-board-instruction-kanboard": "貼上 Kanboard 匯出的 JSON 檔案：該物件應包含「columns」欄位（或攜帶 column_name 的任務），以及一個「tasks」陣列（內容包含 title、description、column_name、swimlane_name、date_due、owner、tags）。其中，columns 會轉為清單，而 tasks 則會轉為卡片。",
-  "import-board-instruction-deck": "貼上 NextCloud Deck 看板的 JSON 檔案（該看板包含「堆疊」，每個堆疊內含其「卡片」）。堆疊將轉為清單，卡片則維持為卡片。",
+  "import-board-instruction-deck": "貼上 NextCloud Deck 看板的 JSON 檔案（該看板包含「stacks」，每個堆疊內含其「cards」）。堆疊將轉為清單，卡片則維持為卡片。",
   "import-board-instruction-openproject": "貼上 OpenProject 工作包集合的 JSON 檔案（GET /api/v3/work_packages）。狀態將轉為清單，工作包則轉為卡片。",
   "import-board-instruction-issues": "貼上包含 __sourceName__ 問題的 JSON 陣列 (__endpoint__)。這些問題將轉為卡片，並歸類至「已開啟」與「已關閉」清單中。",
   "import-board-instruction-asana": "貼上從 Asana 匯出或透過 GET /tasks 取得的 Asana 任務 JSON 檔案（格式為 { \"data\": [...] }）。任務會依區塊（成員群組）進行分組；已完成的任務會移至「已完成」區塊。",

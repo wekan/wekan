@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Import code examples across locales — 2026-10-08
+
+Repair 73 import messages in 25 real locale files for Kanboard, NextCloud Deck,
+ZenKit and Jira. Restore case-sensitive JSON properties, array-field examples
+and API endpoints. Preserve surrounding prose and valid quotation styles.
+The initial 103 candidate rows included harmless typographic differences;
+a broader field-by-field check found additional damaged identifiers missed by
+that first scan. Changes are restricted to those literals, not a claim that
+all surrounding prose is in the correct language.
+
+The new catalog-wide regression suite verifies every locale path for these four
+formats. It accepts localized quotation marks while rejecting case changes,
+translated endpoints and identifiers embedded inside different names. Positive
+and negative fixtures exercise that distinction. Existing interpolation-token
+checks remain in place. Other formats and mixed-language prose still require
+review; no browser session was run.
+
 ## Bislama import prose and literal examples — 2026-10-08
 
 Correct 13 mixed-language import instructions and translate the two new OPML
