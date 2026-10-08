@@ -8884,6 +8884,16 @@ alongside script, key order and token inventories. Technical wording remains low
 confidence pending speaker review. Browser checks were not run; further Odia
 Scrum translations remain.
 
+## Odia sprint reports and events
+
+Filled 30 English placeholders for sprint goals, events, report categories and
+state labels. Preserved report placeholders, minute units and the distinction
+between unknown and zero estimates. Existing translations were retained by the
+placeholder-only merge. Regression coverage checks report caveats and event/state
+distinctions alongside script, key order and token inventories. Technical wording
+remains low confidence pending speaker review. Browser checks were not run; further
+Odia translations remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
