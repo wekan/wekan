@@ -8620,6 +8620,16 @@ button translation. Regression coverage checks these details alongside key order
 and placeholder inventories. Technical wording remains low confidence pending
 speaker review. Browser checks were not run; the broader audit continues.
 
+## Tatar event and scoped import corrections
+
+Corrected 21 wrong-language event, export and import values, retaining nine
+correct neighboring strings. Restored IP/IPv4/IPv6 labels, .json/.zip extensions
+and the Jira name. Corrected the card-number search alias to a single Tatar word
+and preserved its example placeholder. Regression coverage checks identifiers,
+formats and selection restrictions alongside key order and placeholder inventories.
+Technical wording remains low confidence pending speaker review. Browser checks
+were not run; the broader language audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
