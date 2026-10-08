@@ -8874,6 +8874,16 @@ alongside script, key order and token inventories. Technical wording remains low
 confidence pending speaker review. Browser checks were not run; further Odia
 feature translations remain.
 
+## Odia Scrum planning settings
+
+Filled 28 English placeholders for Scrum roles, planning settings, completion
+policies and sprint actions. Preserved distinct estimate source/unit labels and
+start/close/cancel actions. Existing translations were retained by the placeholder-only
+merge. Regression coverage checks shared label consistency and semantic distinctions,
+alongside script, key order and token inventories. Technical wording remains low
+confidence pending speaker review. Browser checks were not run; further Odia
+Scrum translations remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
