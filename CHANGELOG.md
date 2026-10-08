@@ -1055,6 +1055,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5ff83bf51d">Translate Macedonian interrupted import recovery messages</a>. Thanks to xet7.</summary>
+
+Translate 25 English import recovery messages into Macedonian. Preserve variables
+and existing terminology; check deletion of later additions, retaining a partial
+board, foreign-board protection, Scrum recovery and the oldest-50 limit.
+
+Three focused translation suites and 21 human-preference checks pass.
+No browser or screen-reader session was run. Further vocabulary review
+and remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a86e699ad8">Translate Bosnian planning and settings messages</a>. Thanks to xet7.</summary>
 
 Translate 51 English messages for planning, imports, link rules, settings and
