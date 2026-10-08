@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/015aa9a3d96c0281ef60c9cdfed7b4e3eff913c1">Correct Tatar colors and comment permission text</a></summary>
+
+- Correct 36 color and permission strings and restore the blank comment
+  placeholder, preserving source tokens and permission distinctions.
+- Specialized color wording remains low confidence pending speaker review.
+- All 83 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2a862f73645381e1dba30897cf86afdef04114fd">Correct Tatar navigation and card aging text</a></summary>
 
 - Correct 31 navigation, starring and aging strings, preserving source tokens,
