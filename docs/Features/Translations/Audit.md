@@ -9736,6 +9736,17 @@ human-preference checks pass. Technical wording remains low confidence pending
 speaker review. Browser and screen-reader checks were not run; the broader
 language and fluency audit remains unfinished.
 
+## Moroccan Arabic Blockly colours and controls
+
+Filled 20 Blockly placeholders and two concurrently added card-field visibility
+labels. Existing translations were retained. Coverage checks colour ranges,
+deletion restrictions, variable/function roles, script, key order and tokens.
+Of 40 checks, 38 passed; two repository-wide checks fail because other locales
+lack the new card-field-visibility keys. All 21 human-preference checks passed.
+Technical wording remains low confidence pending speaker review. The older
+catalog also needs dialect review. Browser and RTL checks were not run;
+further translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
