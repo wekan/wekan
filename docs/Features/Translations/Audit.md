@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Bislama workspace, Scrum, Sync and recovery — 2026-10-08
+
+Translate the remaining 224 reported values and 10 skipped short labels for Bislama: Blockly workspace
+announcements, rule editing, Scrum planning/reports, Sync conflicts/diagnostics,
+and notification delivery recovery. Preserve composed announcement spacing,
+numbered and named placeholders, unknown-versus-zero estimates, daily observation
+limits, local-only conflict handling, missing-versus-null values, and permanent
+cancellation versus temporary pause. Regression checks cover these distinctions.
+
+The ordinary fill report now has no Bislama entries. This is a mechanical
+milestone, not a claim of complete language quality: the broad short-string
+exemption is checked separately for if/do/as/to/or/on labels, while other
+skipped values and older artificial wrappers still need review. Technical compounds
+and complete prose remain provisional pending fluent Bislama review; vocabulary
+follows the existing catalog and dictionary references below. Existing non-English
+values were preserved. Browser and screen-reader sessions were not run.
+
 ## Bislama functions and accessible navigation — 2026-10-08
 
 Translate 175 remaining Blockly messages for mathematics, functions, variables,
