@@ -96,6 +96,25 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.equal(data['migration-complete'], 'Končano');
   assert.equal(data['step-restore-cards'], 'Obnovi kartice');
   assert.match(data['mongodb-gridfs-storage'], /MongoDB GridFS/);
+  const correctedMonitoring = ["cleanup-old-jobs", "converting-board", "cpu-cores", "cpu-usage", "current-action", "database-migrations", "days-old", "duration", "errors", "every-1-day", "every-1-hour", "every-1-minute", "every-10-minutes", "every-30-minutes", "every-5-minutes", "every-6-hours", "export-monitoring", "filesystem-attachments", "filesystem-storage", "force-board-scan", "gridfs-size", "idle-migration", "job-description", "job-details", "job-name", "job-queue", "last-run", "max-concurrent", "memory-usage", "migration-batch-size", "migration-delay-ms", "migration-detector", "migration-log", "migration-markers", "migration-resumed", "migration-steps", "next", "next-run", "operation-type", "overall-progress", "page", "pause-migration", "previous", "refresh", "resume-migration", "run-once", "s3-size", "scanning-status", "schedule", "showing", "start-test-operation", "start-time", "step-progress", "stop-migration", "storage-distribution", "system-resources", "total-operations", "total-size", "unmigrated-boards", "weight", "cron", "current-step", "confirm", "problems-status-title", "wip-limit-group-select-swimlane", "wip-limit-group-apply-swimlane", "board-view-aging-wip", "board-view-size-cycle-time", "flow-age-days", "flow-p85", "flow-samples", "flow-episodes", "flow-history-days", "flow-size-source", "flow-size", "flow-details", "flow-note-agingWip", "flow-note-blockerAnalysis", "flow-note-monteCarlo", "flow-note-sizeCycleTime", "time-adjustment-note"];
+  for (const key of correctedMonitoring) {
+    assert.doesNotMatch(data[key], /[\u0400-\u04ff]/, `${locale}:${key}`);
+    assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), `${locale}:${key}`);
+  }
+  assert.equal(data['memory-usage'], 'Poraba pomnilnika');
+  assert.match(data['migration-delay-ms'], /\(ms\)/);
+  assert.equal(data['resume-migration'], 'Nadaljuj migracijo');
+  assert.equal(data['stop-migration'], 'Ustavi migracijo');
+  assert.match(data['flow-note-agingWip'], /85.*vsaj pet/);
+  assert.match(data['flow-note-agingWip'], /čas neznan/);
+  assert.match(data['flow-note-blockerAnalysis'], /Prekrivajoči se vzroki se štejejo ločeno/);
+  assert.match(data['flow-note-monteCarlo'], /2\.000.*UTC.*brez dokončanih/);
+  assert.match(data['flow-note-monteCarlo'], /ni jamstvo.*3\.650/);
+  assert.match(data['flow-note-monteCarlo'], /Brez dokončanih postavk ni napovedi/);
+  assert.match(data['flow-note-sizeCycleTime'], /Manjkajoče ocene in neveljavni datumi se izpustijo/);
+  assert.match(data['flow-note-sizeCycleTime'], /začetek manjka.*ustvarjanja.*konec manjka.*arhiviranja/);
+  assert.match(data['time-adjustment-note'], /niso posamezne delovne seje/);
+  assert.match(data['time-adjustment-note'], /Negativne vrednosti so popravki/);
   assert.equal(data.board, 'Tabla');
   assert.equal(data.swimlane, 'Plavalna steza');
   for (const key of Object.keys(english).filter(key => key.startsWith('interrupted-import-'))) {

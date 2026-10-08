@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Slovenian monitoring and flow explanations — 2026-10-08
+
+Replace 81 Serbian values in each Slovenian catalog, for 162 corrections.
+Cover monitoring, migration controls and flow-analysis explanations. Preserve
+variables, time units, numeric limits and warnings about unknown history and
+forecast uncertainty. Extend native-vocabulary and semantic regression checks.
+No browser or screen-reader session was run. Removing Cyrillic seed text does
+not establish full linguistic correctness; remaining translations and review
+of text written in the Latin alphabet are unfinished.
+
 ## Slovenian administration and migrations — 2026-10-08
 
 Replace 80 Serbian values in each Slovenian catalog, for 160 corrections.
