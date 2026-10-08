@@ -801,8 +801,8 @@
     "locale": "wuu-Hans",
     "key": "card-members-title",
     "before": "从卡中添加或删除董事会成员。",
-    "after": "从卡中添加或删除看板成员。",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "拿看板成员加到卡片浪，或者从卡片浪移脱。",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Correct Wu archive and voting meanings, preserving variables and member scope; lower-confidence prose needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -161131,5 +161131,117 @@
     "before": "您稍后可以从“板设置”中的“存档”恢复该列表。",
     "after": "侬以后可以从看板设置个归档里向恢复搿只列表。",
     "reason": "2026-10-08: Correct Wu timeline, calendar and card lifecycle meanings, preserving variables and ISO identifier; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "listArchivePopup-title",
+    "before": "存档列表？",
+    "after": "要拿列表归档伐？",
+    "reason": "2026-10-08: Correct Wu archive and voting meanings, preserving variables and member scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "swimlane-archive-pop",
+    "before": "存档后，泳道在板上将不可见。",
+    "after": "泳道归档以后，勒看板浪就看勿见伊仔。",
+    "reason": "2026-10-08: Correct Wu archive and voting meanings, preserving variables and member scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "swimlane-archive-suggest",
+    "before": "您稍后可以从“板设置”中的存档恢复泳道。",
+    "after": "侬以后可以从看板设置个归档里向恢复泳道。",
+    "reason": "2026-10-08: Correct Wu archive and voting meanings, preserving variables and member scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "swimlaneArchivePopup-title",
+    "before": "存档泳道？",
+    "after": "要拿泳道归档伐？",
+    "reason": "2026-10-08: Correct Wu archive and voting meanings, preserving variables and member scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-due",
+    "before": "到期的",
+    "after": "到期",
+    "reason": "2026-10-08: Correct Wu archive and voting meanings, preserving variables and member scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "due-days-overdue",
+    "before": "过期 %s 天",
+    "after": "逾期 %s 天",
+    "reason": "2026-10-08: Correct Wu archive and voting meanings, preserving variables and member scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-spent",
+    "before": "花费的时间",
+    "after": "花脱个辰光",
+    "reason": "2026-10-08: Correct Wu archive and voting meanings, preserving variables and member scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-labels-title",
+    "before": "更改卡片的标签。",
+    "after": "修改搿张卡片个标签。",
+    "reason": "2026-10-08: Correct Wu archive and voting meanings, preserving variables and member scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cardAttachmentsPopup-title",
+    "before": "附加自",
+    "after": "附件来源",
+    "reason": "2026-10-08: Correct Wu archive and voting meanings, preserving variables and member scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "negativeVoteMembersPopup-title",
+    "before": "对手",
+    "after": "反对者",
+    "reason": "2026-10-08: Correct Wu archive and voting meanings, preserving variables and member scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "vote-public",
+    "before": "显示谁投票了什么",
+    "after": "显示啥人投仔啥选项",
+    "reason": "2026-10-08: Correct Wu archive and voting meanings, preserving variables and member scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "vote-for-it",
+    "before": "为了它",
+    "after": "赞成",
+    "reason": "2026-10-08: Correct Wu archive and voting meanings, preserving variables and member scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "deleteVotePopup-title",
+    "before": "删除投票？",
+    "after": "要删脱投票伐？",
+    "reason": "2026-10-08: Correct Wu archive and voting meanings, preserving variables and member scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "vote-delete-pop",
+    "before": "删除是永久性的。您将失去与此投票相关的所有操作。",
+    "after": "删脱就是永久删脱。侬会失去搭搿次投票有关个所有操作记录。",
+    "reason": "2026-10-08: Correct Wu archive and voting meanings, preserving variables and member scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cardStartPlanningPokerPopup-title",
+    "before": "开始计划扑克",
+    "after": "开始规划扑克",
+    "reason": "2026-10-08: Correct Wu archive and voting meanings, preserving variables and member scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "editPokerEndDatePopup-title",
+    "before": "更改计划扑克投票结束日期",
+    "after": "修改规划扑克投票结束日期",
+    "reason": "2026-10-08: Correct Wu archive and voting meanings, preserving variables and member scope; lower-confidence prose needs native review."
   }
 ]

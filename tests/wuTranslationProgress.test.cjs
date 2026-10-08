@@ -496,3 +496,16 @@ assert.match(wu['card-delete-suggest-archive'], /归档.*保留活动记录/);
 assert.match(wu['card-archive-suggest-cancel'], /以后.*恢复卡片/);
 assert.match(wu['list-archive-suggest'], /看板设置.*归档.*恢复.*列表/);
 assert.match(wu['card-has-unread-comments'], /还朆看过/);
+
+const votingArchive = ["listArchivePopup-title", "swimlane-archive-pop", "swimlane-archive-suggest", "swimlaneArchivePopup-title", "card-due", "due-days-overdue", "card-spent", "card-labels-title", "card-members-title", "cardAttachmentsPopup-title", "negativeVoteMembersPopup-title", "vote-public", "vote-for-it", "deleteVotePopup-title", "vote-delete-pop", "cardStartPlanningPokerPopup-title", "editPokerEndDatePopup-title"];
+for (const key of votingArchive) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.match(wu['swimlane-archive-suggest'], /以后.*看板设置.*归档.*恢复泳道/);
+assert.match(wu['swimlane-archive-pop'], /看勿见/);
+assert.doesNotMatch(wu['swimlane-archive-pop'], /永久删脱/);
+assert.match(wu['card-members-title'], /看板成员加到卡片浪.*从卡片浪移脱/);
+assert.equal(wu['negativeVoteMembersPopup-title'], '反对者');
+assert.equal(wu['vote-for-it'], '赞成');
+assert.notEqual(wu['vote-for-it'], wu['vote-against']);
+assert.match(wu['vote-public'], /啥人.*啥选项/);
+assert.match(wu['vote-delete-pop'], /永久删脱.*投票.*所有操作记录/);
+for (const key of ['cardStartPlanningPokerPopup-title', 'editPokerEndDatePopup-title', 'card-edit-planning-poker', 'poker-question']) assert.match(wu[key], /规划扑克/);

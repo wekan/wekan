@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu voting and archive corrections — 2026-10-08
+
+Correct 17 archive, card and voting values. Preserve overdue-day variables,
+recoverable swimlane archiving and permanent vote deletion. Clarify card membership
+scope, affirmative votes and opposing voters; align Planning Poker terminology.
+Refresh exact-value audit records. Wu prose needs native review; browser tests were
+not run and the all-language work remains unfinished.
+
 ## Wu timeline and card lifecycle corrections — 2026-10-08
 
 Correct 22 timeline, calendar and card lifecycle values. Preserve the comment
@@ -12515,7 +12523,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,019** exact before/after values, including unflagged
+records contain **23,035** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
