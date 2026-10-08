@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/62761d0b72">Translate Danish import instructions</a>. Thanks to xet7.</summary>
+
+Translate 21 Danish import instructions, preserving literal commands, column names,
+variables and import limitations. Regression checks cover first-board selection,
+excluded data, English headers, completion dates and archived tasks. Translation,
+placeholder and preservation checks pass; browser review and the wider translation
+backlog remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c701c44abf">Translate Swedish import instructions</a>. Thanks to xet7.</summary>
 
 Translate 21 Swedish import instructions while preserving commands, column names,
