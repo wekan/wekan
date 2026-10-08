@@ -9241,6 +9241,16 @@ coverage checks those details, script, key order and tokens. Keyboard
 transliterations remain low confidence pending speaker review. Browser and
 screen-reader checks were not run; the broader translation audit remains unfinished.
 
+## Maithili short rule and count fragments
+
+Filled seven English-identical fragments omitted by the missing-string filter.
+Inspected rule sorting, actor inputs, email recipient placeholders and count
+labels before selecting wording. Direct edits verified equality with English and
+retained existing translations. Regression coverage checks recipient/count alias
+consistency, distinct actor/sort labels, script, key order and tokens. Fragment
+word order remains low confidence pending speaker review in the assembled UI.
+Browser checks were not run; the broader translation audit remains unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
