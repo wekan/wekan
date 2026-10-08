@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/fe596305d1f651d5d4788cc920435a64f00c37c2">Translate Maithili Blockly colours and loop controls</a></summary>
+
+- Fill 31 Maithili placeholders, preserving existing translations, colour bounds,
+  indexed tokens and loop-control distinctions.
+- Technical terminology remains low confidence pending speaker review.
+- All 41 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Maithili translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/28b48d42d237b4e80875e0d90f0662a2e489dc62">Translate Odia short labels and keyboard announcements</a></summary>
 
 - Fill 37 Odia labels, including 19 English values excluded by the usual
