@@ -7611,6 +7611,15 @@ shared navigation labels, distinct sprint actions and single-trigger restriction
 Technical wording remains low confidence pending speaker review. Browser and
 right-to-left layout checks were not run. The broader translation audit continues.
 
+### Central Kurdish sprint reports and daily observations
+
+Filled 44 English placeholders for sprint events, states, reports, import status and
+daily observations. Existing translations and source placeholders are preserved.
+Regression coverage checks source order, script, token inventories, UTC references,
+the 366-observation limit, unknown-versus-zero wording and distinct sprint states.
+Technical wording remains low confidence pending speaker review. Browser and
+right-to-left layout checks were not run. The broader translation audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
