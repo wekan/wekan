@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6eb52f9385371d55cc6efb64e68a92f89be22c4b">Translate Tatar Scrum planning and sprint reports</a></summary>
+
+- Fill 61 planning, sprint lifecycle and reporting placeholders, preserving
+  source tokens and distinctions between completion policies and estimate states.
+- Technical terminology remains low confidence pending speaker review.
+- All 58 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Tatar corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b991dcc9e9dc3064bafeab041b014864532dff32">Translate Tatar workspace search and block rule controls</a></summary>
 
 - Fill 41 workspace, search, block alias and rule-editor placeholders,
