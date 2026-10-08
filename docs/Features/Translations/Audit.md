@@ -7528,6 +7528,15 @@ versus removal wording, first/last occurrences and empty-list length. Technical 
 remains low confidence pending speaker review. Browser, screen-reader and right-to-left
 layout checks were not run. Remaining strings and the broader audit continue.
 
+### Central Kurdish list editing and comparisons
+
+Filled 37 English placeholders for list repetition, insertion, replacement, sorting,
+text/list conversion and initial Boolean comparisons. Existing translations and source
+tokens are preserved. Regression checks cover key order, script and token inventories,
+insertion versus replacement, copy semantics, sort direction and inclusive comparisons.
+Technical wording remains low confidence pending speaker review. Browser, screen-reader
+and right-to-left layout checks were not run. The broader translation audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
