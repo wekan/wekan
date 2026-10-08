@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Planning regressions exposed by new source keys — 2026-10-08
+
+A full 322-suite translation run found ten failing suites after new release
+selection and Scrum recovery messages were added. Translate those nine messages
+in Czech, Slovak, Hungarian, two Russian catalogs, Ukrainian and Estonian
+(63 values). Existing planning coverage passes again in these six language
+suites without relaxing the assertions. Source-token checks cover the four
+recovery counters. Four remaining Scrum suites (Māori, Northern Sotho, Somali
+and Tok Pisin) still need the new translations and inventory-count updates;
+the full run is not yet green.
+
 ## Pending German messages — 2026-10-08
 
 Translate 36 pending messages in each of four German catalogs (144 values),
