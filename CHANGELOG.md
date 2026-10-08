@@ -487,6 +487,16 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2ecc9ea6fe">Translate Wu Blockly list positions and removal</a>. Thanks to xet7.</summary>
+
+Translate 30 list messages, preserving variables and checking removal return
+behavior, indexing and copying semantics. Four focused translation suites and
+21 human-preference checks pass. Wu wording is lower confidence and needs native
+review. No browser or screen-reader session was run. Work remains unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5cae76ce91">Translate Wu Blockly navigation and list retrieval</a>. Thanks to xet7.</summary>
 
 Translate 35 input, keyboard-navigation and list messages, preserving variables
