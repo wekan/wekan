@@ -13989,3 +13989,13 @@ for (const code of ['hi', 'hi-IN']) {
   assert.notEqual(locale['scrum-history-checkpoint-rollback'], locale['scrum-history-checkpoint-discard']);
   assert.ok(locale['scrum-history-checkpoint-counts'].replace('__total__', '10').replace('__applied__', '3').startsWith('10 aldaketatik 3'));
 }
+
+for (const code of ['cy', 'cy-GB']) {
+  const locale = read(code);
+  for (const token of ['Ctrl', 'Cmd', 'Mac']) assert.ok(locale['scrum-releases-select-help'].includes(token), `${code}: ${token}`);
+  assert.match(locale['sync-planning-hint'], /nid yw’r cysoniad cyntaf byth yn dileu cynllunio/);
+  assert.match(locale['scrum-history-checkpoint-hint'], /nid yw’n newid unrhyw gofnodion/);
+  assert.match(locale['scrum-history-checkpoint-hint'], /nad oes neb arall wedi newid/);
+  assert.notEqual(locale['scrum-history-checkpoint-rollback'], locale['scrum-history-checkpoint-discard']);
+  assert.ok(locale['scrum-history-checkpoint-counts'].replace('__total__', '10').replace('__applied__', '3').includes('3 o 10'));
+}

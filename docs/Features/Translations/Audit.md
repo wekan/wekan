@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Welsh Scrum planning and recovery — 2026-10-08
+
+Translate 62 values across Welsh and British Welsh using existing terminology.
+Preserve exact variables, keyboard names and count roles. Focused assertions for
+both catalogs, placeholder and language wiring suites, and all 21 preservation
+checks pass. The completion suite now reaches an untranslated Scottish Gaelic
+release label. Native review, browser checks and the all-language backlog remain open.
+
 ## Basque Scrum planning and recovery — 2026-10-08
 
 Translate 31 planning, import and recovery values using existing terminology.
