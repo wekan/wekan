@@ -2,6 +2,19 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Bislama display, weekdays and report labels — 2026-10-08
+
+Correct 76 artificial English wrappers in display settings, weekdays,
+roles, locations, dependencies and reports. Restore literal separators, font
+names, URL and recognized region names. Preserve named import counts and the
+`%{value}` template token. The wrapper queue falls from 388 to 312.
+Search operator and predicate labels still need a separate parser-aware review.
+
+Regression coverage checks exact template tokens, distinct weekday names,
+show/hide actions, incomplete status and literal syntax. Vocabulary follows
+the existing Bislama catalog and dictionary references below; software compounds
+remain provisional pending fluent review. No browser session was run.
+
 ## Bislama login, notifications and system labels — 2026-10-08
 
 Correct 145 more artificial English wrappers in navigation, subscriptions,
