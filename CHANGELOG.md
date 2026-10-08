@@ -487,6 +487,16 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/31b86d4178">Translate Wu Blockly fields and accessibility</a>. Thanks to xet7.</summary>
+
+Translate 30 field, key, icon and input messages, preserving variables and key
+names and checking bitmap roles and opposite actions. Four focused suites and
+21 human-preference checks pass. Wu wording is lower confidence and needs native
+review. No browser or screen-reader session was run. Work remains unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e13249115e">Translate Wu Blockly loops and editing</a>. Thanks to xet7.</summary>
 
 Translate 35 loop, condition, copy, deletion and enable/disable messages, preserving
