@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Hiragana import instructions, first group — 2026-10-09
+
+Translate eight instructions in ja-HI: Planner, MeisterTask, Obsidian, Linear,
+TickTick, ClickUp, Nullboard and Kanri. Preserve commands, extensions and variables
+while writing the prose in Hiragana. Regression checks reject Kanji and Katakana
+in this batch and cover first-board selection, completion dates and archived cards.
+Import-instruction and placeholder suites and all 21 preservation checks pass.
+Remaining Hiragana instructions, browser review and the wider translation backlog
+remain outstanding.
+
 ## Japanese import instructions, remaining group — 2026-10-09
 
 Translate the remaining 13 instructions in ja and ja-JP (26 values), completing
