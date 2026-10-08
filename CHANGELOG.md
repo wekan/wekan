@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/19b1c2d879">Translate Galician synchronization recovery</a>. Thanks to xet7.</summary>
+
+Translate 42 values across two catalogs for stalled-sync explanations, reasons,
+counters and controls. Preserve exact variables. Regression checks cover retained
+applied changes, unwritten pending changes, access loss and discard restrictions.
+Both relevant suites and all 21 preservation checks pass. Remaining translations,
+language auditing and browser review are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2e922f7828">Translate Galician planning results</a>. Thanks to xet7.</summary>
 
 Translate 34 values across two catalogs for Scrum import results, reference
