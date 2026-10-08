@@ -8229,6 +8229,15 @@ correct-language parent-card labels were retained. Technical wording remains low
 confidence pending speaker review. Focused tests check tokens, key order, counter
 notation and rendered argument roles; browser checks were not run.
 
+## Tatar branding and authentication-label corrections
+
+Corrected 32 branding, authentication-label, layout and administration values,
+including four literal protocol/URL labels. Restored assetlinks.json and HTML tag
+names, preserved JSON markers and opening/closing body boundaries, and retained
+existing correct-language OAuth/passwordless translations. Technical wording
+remains low confidence pending speaker review. Focused tests cover key order,
+source tokens and literal configuration syntax; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
