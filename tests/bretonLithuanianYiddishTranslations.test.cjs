@@ -742,3 +742,19 @@ assert.match(locales.yi['stuck-sync-operation-replayable-now'], /נישט אַו
 assert.match(locales.yi['stuck-sync-operation-not-stuck'], /נישט אַוועקוואַרפֿן/);
 assert.match(locales.yi['stuck-sync-operation-replayable'], /נישט אַוועקגעוואָרפֿן/);
 assert.match(locales.yi['stuck-sync-operation-truncated'], /עלטסטע 50/);
+
+const yiddishFinalRecovery = ["interrupted-import-heading", "interrupted-import-description", "interrupted-import-board", "interrupted-import-progress", "interrupted-import-created", "interrupted-import-source", "interrupted-import-state-stopped", "interrupted-import-state-failed", "interrupted-import-state-discarding", "interrupted-import-scrum", "interrupted-import-counts", "interrupted-import-no-board", "interrupted-import-keep", "interrupted-import-discard", "interrupted-import-keep-confirm", "interrupted-import-discard-confirm", "interrupted-import-refresh", "interrupted-import-empty", "interrupted-import-truncated", "interrupted-import-unavailable", "interrupted-import-missing", "interrupted-import-not-interrupted", "interrupted-import-foreign-board", "interrupted-import-scrum-busy", "interrupted-import-failed", "scrum-history-checkpoint-stuck", "scrum-history-checkpoint-counts", "scrum-history-checkpoint-hint", "scrum-history-checkpoint-rollback", "scrum-history-checkpoint-discard", "scrum-history-checkpoint-discard-confirm", "scrum-history-checkpoint-ask-admin", "login-setting-env-only"];
+for (const key of yiddishFinalRecovery) {
+  assert.notEqual(locales.yi[key], english[key], key);
+  assert.deepEqual(translationTokens(locales.yi[key]), translationTokens(english[key]), key);
+}
+assert.match(locales.yi['interrupted-import-description'], /מקור־טעקע ווערט נישט געהיט/);
+assert.match(locales.yi['interrupted-import-description'], /אַרײַנגערעכנט אַלץ וואָס איז זינט דעמאָלט צוגעגעבן/);
+assert.match(locales.yi['interrupted-import-discard-confirm'], /פּערמאַנענט אַוועקגענומען/);
+assert.match(locales.yi['interrupted-import-keep-confirm'], /גאָרנישט ווערט אַוועקגענומען/);
+assert.match(locales.yi['interrupted-import-foreign-board'], /נישט אָנגערירט/);
+assert.match(locales.yi['interrupted-import-truncated'], /עלטסטע 50/);
+assert.match(locales.yi['scrum-history-checkpoint-hint'], /קיינער אַנדערש האָט נישט געענדערט/);
+assert.match(locales.yi['scrum-history-checkpoint-hint'], /ענדערט נישט קיין רעקאָרדן/);
+assert.match(locales.yi['login-setting-env-only'], /נאָר צום לייענען/);
+assert.deepEqual(JSON.parse(yiddishRemaining.stdout), {});

@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Yiddish remaining import and history recovery — 2026-10-08
+
+Translate 33 remaining English fill-list entries. Preserve counters; check
+permanent deletion including later additions, retained partial boards, foreign
+board protection, rollback conflicts and read-only settings. The current full
+Yiddish fill list is empty. Specialized wording is lower confidence and needs
+native review. No browser or screen-reader session was run. Broader vocabulary
+review and translations in other languages remain unfinished.
+
 ## Yiddish List Sync recovery — 2026-10-08
 
 Translate 23 English recovery messages. Preserve counters; check retained applied
