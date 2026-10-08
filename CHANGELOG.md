@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bd3133c6fd30635461db1da61abb982d064ab8cb">Translate Maithili mathematical and text input labels</a></summary>
+
+- Fill 32 Maithili placeholders, preserving existing translations, coordinate axes,
+  operand roles, indexed values and start/end positions.
+- Technical wording remains low confidence pending speaker review.
+- All 44 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Maithili translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/32c0635c52d7272f113c2d64dbcbbecf0d21f501">Translate Maithili input and accessibility labels</a></summary>
 
 - Fill 34 Maithili values, preserving existing translations, coordinate roles,
