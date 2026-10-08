@@ -91,7 +91,9 @@ previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
   report counts **32,567 untranslated locale/string values in 46 languages**.
-  It excludes **250 source keys tracked separately as pending Transifex**.
+  It excludes **261 source keys tracked separately as pending Transifex**.
+  A separate short-prose audit flags 1,751 candidates across 185 locales;
+  shared native words may equal English, so these require individual review.
   Exact Blockly OS brands and compact math/code symbols no longer inflate
   the prose backlog. Counts are a snapshot; they do not establish the quality
   or language of other values.
@@ -440,6 +442,17 @@ used.
 </details>
 
 # Upcoming WeKan ® release
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/464ae965ed">Translate Tasks.org and monday.com imports in three languages</a>. Thanks to xet7.</summary>
+
+Translate six instructions in Wu Chinese, Papiamento and Yiddish, retaining menu
+commands, file extensions, completion dates and import field mappings. All five
+affected Node suites and 21 human-translation preservation checks pass. Broader
+Node verification is still running. Native review, browser validation and the
+remaining all-language translation backlog are unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/77002d3ef6">Translate seven import formats in Wu, Papiamento and Yiddish</a>. Thanks to xet7.</summary>
