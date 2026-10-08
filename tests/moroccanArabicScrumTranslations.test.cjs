@@ -4,7 +4,7 @@ const assert=require('node:assert/strict');
 const english=require('../imports/i18n/data/en.i18n.json');
 const locale=require('../imports/i18n/data/ary.i18n.json');
 const {translationTokens}=require('../releases/translations/placeholder-tokens.mjs');
-const keys=["scrum-working-days", "scrum-enabled", "scrum-product-goal", "scrum-definition-of-done", "scrum-estimate-source", "scrum-estimate-unit", "scrum-completion-policy", "scrum-source-poker", "scrum-source-customField", "scrum-policy-dueComplete", "scrum-policy-doneLists", "scrum-sprints", "scrum-sprint", "scrum-start-sprint", "scrum-close-sprint", "scrum-cancel-sprint", "scrum-rollover-sprint", "scrum-cancel-reason", "scrum-product-backlog", "scrum-edit-sprint", "scrum-sprint-goal", "scrum-capacity", "scrum-new-sprint", "scrum-releases", "scrum-release", "scrum-select-sprint", "scrum-backlog", "scrum-backlog-help", "scrum-estimate", "scrum-backlog-rank", "scrum-issue-type", "scrum-acceptance-criteria", "scrum-events", "scrum-event-kind", "scrum-timebox", "scrum-notes", "scrum-event-planning", "scrum-event-daily", "scrum-event-review", "scrum-event-retrospective", "scrum-committed", "scrum-completed", "scrum-added", "scrum-removed", "scrum-incomplete", "scrum-no-closed-sprints", "scrum-report-help", "scrum-total", "scrum-state-planned", "scrum-state-active", "scrum-state-closed", "scrum-state-cancelled", "scrum-unknown-estimate", "scrum-confirm-close", "scrum-confirm-cancel", "scrum-past-sprints", "scrum-list-category", "scrum-swimlane-purpose", "scrum-category-backlog", "scrum-category-todo", "scrum-category-doing", "scrum-category-done", "scrum-partial-report", "scrum-state-released", "scrum-released-at", "scrum-follow-up-cards", "scrum-import-reference-omitted"];
+const keys=["scrum-working-days", "scrum-enabled", "scrum-product-goal", "scrum-definition-of-done", "scrum-estimate-source", "scrum-estimate-unit", "scrum-completion-policy", "scrum-source-poker", "scrum-source-customField", "scrum-policy-dueComplete", "scrum-policy-doneLists", "scrum-sprints", "scrum-sprint", "scrum-start-sprint", "scrum-close-sprint", "scrum-cancel-sprint", "scrum-rollover-sprint", "scrum-cancel-reason", "scrum-product-backlog", "scrum-edit-sprint", "scrum-sprint-goal", "scrum-capacity", "scrum-new-sprint", "scrum-releases", "scrum-release", "scrum-select-sprint", "scrum-backlog", "scrum-backlog-help", "scrum-estimate", "scrum-backlog-rank", "scrum-issue-type", "scrum-acceptance-criteria", "scrum-events", "scrum-event-kind", "scrum-timebox", "scrum-notes", "scrum-event-planning", "scrum-event-daily", "scrum-event-review", "scrum-event-retrospective", "scrum-committed", "scrum-completed", "scrum-added", "scrum-removed", "scrum-incomplete", "scrum-no-closed-sprints", "scrum-report-help", "scrum-total", "scrum-state-planned", "scrum-state-active", "scrum-state-closed", "scrum-state-cancelled", "scrum-unknown-estimate", "scrum-confirm-close", "scrum-confirm-cancel", "scrum-past-sprints", "scrum-list-category", "scrum-swimlane-purpose", "scrum-category-backlog", "scrum-category-todo", "scrum-category-doing", "scrum-category-done", "scrum-partial-report", "scrum-state-released", "scrum-released-at", "scrum-follow-up-cards", "scrum-import-reference-omitted", "scrum-partial-snapshot", "scrum-resume-close", "scrum-daily-observations", "scrum-daily-observations-help", "scrum-daily-truncated", "scrum-daily-empty", "scrum-observed-scope", "scrum-daily-observations-export-help", "scrum-import-pending", "sync-conflict-heading", "sync-conflict-hint", "sync-conflict-local", "sync-conflict-keep-local", "sync-conflict-use-source", "sync-conflict-refresh", "sync-conflict-review-complete", "sync-conflict-duplicate", "sync-conflict-keep-mapping", "sync-conflict-detach", "sync-conflict-detach-hint", "sync-conflict-archive", "sync-conflict-archive-hint", "sync-conflict-keep-card-local", "sync-conflict-creation", "sync-conflict-creation-hint", "sync-conflict-create-replacement", "sync-preview-button", "sync-preview-heading", "sync-preview-saved", "sync-preview-unavailable", "sync-preview-blocked", "sync-preview-create", "sync-preview-update", "sync-preview-archive", "sync-preview-baseline", "sync-preview-truncated"];
 test('Moroccan Arabic Scrum labels preserve source order, script and tokens',()=>{
  assert.deepEqual(Object.keys(locale),Object.keys(english));
  for(const key of keys){
@@ -38,4 +38,21 @@ test('Moroccan Arabic sprint reports preserve unknown estimates and cancellation
  assert.match(locale['scrum-timebox'],/بالدقائق/);
  assert.equal(new Set(['planned','active','closed','cancelled','released'].map(k=>locale['scrum-state-'+k])).size,5);
  assert.notEqual(locale['scrum-event-review'],locale['scrum-event-retrospective']);
+});
+
+test('Moroccan Arabic observations and Sync warnings preserve data limitations',()=>{
+ for(const key of ['scrum-daily-observations-help','scrum-daily-observations-export-help']){
+  assert.match(locale[key],/أول ملاحظة.*UTC/);
+  assert.match(locale[key],/ما كتسجّلش كل تغيير/);
+  assert.match(locale[key],/ما معروفاش ماشي صفر/);
+ }
+ assert.match(locale['scrum-daily-truncated'],/آخر 366/);
+ assert.match(locale['scrum-import-pending'],/ما كملش.*ما متاحينش/);
+ assert.match(locale['sync-conflict-hint'],/ما كيتصيفط والو لنظام المصدر/);
+ assert.match(locale['sync-conflict-review-complete'],/القائمة كاملة ما تشغّلاتش/);
+ assert.match(locale['sync-conflict-detach-hint'],/غير ربط المزامنة.*المحتوى ديالها كيبقى/);
+ assert.match(locale['sync-conflict-archive-hint'],/البطاقات الفرعية ما كتتبدّلش/);
+ assert.match(locale['sync-conflict-creation-hint'],/البطاقة السابقة كيف ما هي.*كتعاود تستعمل البطاقة البديلة/);
+ assert.match(locale['sync-preview-truncated'],/أول 100/);
+ assert.match(locale['sync-preview-saved'],/الإعدادات المحفوظة.*من جديد/);
 });

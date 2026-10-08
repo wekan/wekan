@@ -9917,6 +9917,19 @@ Darija and Scrum terminology remain low confidence pending speaker review.
 Browser, RTL and screen-reader checks were not run. Remaining placeholders and
 the broader language audit stay open.
 
+## Moroccan Arabic daily observations and Sync conflicts
+
+Filled 36 placeholders without replacing existing translations. Tests check
+source order, script, tokens, first UTC-day observations, missing changes and
+unknown estimates, 366-observation bounds, incomplete import restrictions,
+no writes to source, partial review scope, mapping removal with content retained,
+unchanged subcards, reused replacement cards and 100-entry preview limits.
+Of 56 checks, 54 passed; two repository-wide checks still fail because other
+locales lack the new card-field-visibility keys. All 21 human-preference checks
+passed. Technical Darija wording remains low confidence pending speaker review.
+Browser, RTL and screen-reader checks were not run. Remaining placeholders and
+the broader language audit stay open.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
