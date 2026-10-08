@@ -671,6 +671,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/abe868f48b">Translate Zulu variable and workspace messages</a>. Thanks to xet7.</summary>
+
+Fill 58 strings per Zulu catalog. Preserve variables, shortcuts and joined-phrase
+spacing. Tests render variable conflicts and workspace counts and check consistent
+conditional labels. Both targeted suites and all 21 preservation checks pass.
+Specialized terminology needs speaker review; browser execution and remaining
+translations are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bc86e817ef">Translate Zulu Blockly text operations</a>. Thanks to xet7.</summary>
 
 Fill 55 strings per Zulu catalog. Preserve variables and grammar suffixes.
