@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Pending German messages — 2026-10-08
+
+Translate 36 pending messages in each of four German catalogs (144 values),
+covering imports, assignment, LDAP, login, release selection and stuck List
+Sync recovery. Swiss German uses ss instead of ß in the new prose. Preserve
+source variables, configuration names and import syntax. Extend the German
+suite for regional spelling, retained applied changes, unwritten remaining
+changes, replay eligibility, oldest-50 ordering and multiple-release selection.
+No browser or screen-reader session was run. Other translation work and the
+broader linguistic audit remain open.
+
 ## Pending French messages — 2026-10-08
 
 Translate 36 pending messages in each of the five French catalogs (180 values),
