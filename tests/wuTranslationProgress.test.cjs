@@ -762,3 +762,14 @@ assert.equal(wu['card-settings'], wu['boardCardSettingsPopup-title']);
 assert.equal(wu['minicard-settings'], wu['boardMinicardSettingsPopup-title']);
 assert.match(wu['deposit-subtasks-board'], /子任务.*看板/);
 assert.match(wu['deposit-subtasks-list'], /子任务.*列表/);
+
+const parentActivities = ["cover-attachment-on-minicard", "badge-attachment-on-minicard", "card-sorting-by-number-on-minicard", "checklist-count-on-minicard", "prefix-with-full-path", "prefix-with-parent", "subtext-with-full-path", "subtext-with-parent", "change-card-parent", "parent-card", "source-board", "no-parent", "activity-added-label", "activity-removed-label", "activity-delete-attach", "activity-added-label-card", "activity-removed-label-card", "activity-delete-attach-card", "activity-set-customfield", "activity-unset-customfield", "r-no-rules", "r-delete-selected"];
+for (const key of parentActivities) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.equal(wu['parent-card'], '父卡片');
+assert.doesNotMatch(wu['subtext-with-parent'], /父母|潜台词/);
+assert.match(wu['checklist-count-on-minicard'], /0\/0/);
+const fillWuActivity = (key, values) => { let index = 0; return wu[key].replace(/%s/g, () => values[index++]); };
+assert.match(fillWuActivity('activity-removed-label', ['LABEL', 'CARD']), /标签“LABEL”.*从 CARD/);
+assert.match(fillWuActivity('activity-set-customfield', ['FIELD', 'VALUE', 'CARD']), /字段“FIELD”设成“VALUE”.*所属项目是 CARD/);
+assert.match(fillWuActivity('activity-unset-customfield', ['FIELD', 'CARD']), /字段“FIELD”个设置.*所属项目是 CARD/);
+assert.match(fillWuActivity('activity-added-label', ['LABEL', 'CARD']), /标签“LABEL”.*加到 CARD/);

@@ -163938,5 +163938,159 @@
     "before": "迷你卡说明",
     "after": "迷你卡片浪个描述",
     "reason": "2026-10-08: Correct Wu organization scope, deletion warnings and subtask destinations; preserve variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "cover-attachment-on-minicard",
+    "before": "迷你卡上的封面图片",
+    "after": "迷你卡片浪个封面图片",
+    "reason": "2026-10-08: Correct Wu parent/minicard meanings and restore positional label/field/value/owner roles; preserve source tokens. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "badge-attachment-on-minicard",
+    "before": "迷你卡上的附件计数",
+    "after": "迷你卡片浪个附件数量",
+    "reason": "2026-10-08: Correct Wu parent/minicard meanings and restore positional label/field/value/owner roles; preserve source tokens. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-sorting-by-number-on-minicard",
+    "before": "按迷你卡上的编号对卡片进行分类",
+    "after": "迷你卡片浪按编号排序",
+    "reason": "2026-10-08: Correct Wu parent/minicard meanings and restore positional label/field/value/owner roles; preserve source tokens. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "checklist-count-on-minicard",
+    "before": "迷你卡片上显示清单项数量（0/0）",
+    "after": "迷你卡片浪个清单项目数量（0/0）",
+    "reason": "2026-10-08: Correct Wu parent/minicard meanings and restore positional label/field/value/owner roles; preserve source tokens. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "prefix-with-full-path",
+    "before": "带完整路径的前缀",
+    "after": "拿完整路径放勒前头",
+    "reason": "2026-10-08: Correct Wu parent/minicard meanings and restore positional label/field/value/owner roles; preserve source tokens. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "prefix-with-parent",
+    "before": "带有父级的前缀",
+    "after": "拿父项放勒前头",
+    "reason": "2026-10-08: Correct Wu parent/minicard meanings and restore positional label/field/value/owner roles; preserve source tokens. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "subtext-with-full-path",
+    "before": "带有完整路径的副文本",
+    "after": "副文本里向显示完整路径",
+    "reason": "2026-10-08: Correct Wu parent/minicard meanings and restore positional label/field/value/owner roles; preserve source tokens. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "subtext-with-parent",
+    "before": "与父母的潜台词",
+    "after": "副文本里向显示父项",
+    "reason": "2026-10-08: Correct Wu parent/minicard meanings and restore positional label/field/value/owner roles; preserve source tokens. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "change-card-parent",
+    "before": "更改卡的父卡",
+    "after": "修改卡片个父卡片",
+    "reason": "2026-10-08: Correct Wu parent/minicard meanings and restore positional label/field/value/owner roles; preserve source tokens. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "parent-card",
+    "before": "家长卡",
+    "after": "父卡片",
+    "reason": "2026-10-08: Correct Wu parent/minicard meanings and restore positional label/field/value/owner roles; preserve source tokens. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "source-board",
+    "before": "源板",
+    "after": "来源看板",
+    "reason": "2026-10-08: Correct Wu parent/minicard meanings and restore positional label/field/value/owner roles; preserve source tokens. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "no-parent",
+    "before": "不显示家长",
+    "after": "勿显示父项",
+    "reason": "2026-10-08: Correct Wu parent/minicard meanings and restore positional label/field/value/owner roles; preserve source tokens. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-added-label",
+    "before": "将标签“%s”添加到%s",
+    "after": "加仔标签“%s”，加到 %s 浪",
+    "reason": "2026-10-08: Correct Wu parent/minicard meanings and restore positional label/field/value/owner roles; preserve source tokens. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-removed-label",
+    "before": "从 %s 中删除了标签“%s”",
+    "after": "移脱仔标签“%s”，从 %s 浪移脱",
+    "reason": "2026-10-08: Correct Wu parent/minicard meanings and restore positional label/field/value/owner roles; preserve source tokens. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-delete-attach",
+    "before": "删除了 %s 的附件",
+    "after": "从 %s 浪删脱一只附件仔",
+    "reason": "2026-10-08: Correct Wu parent/minicard meanings and restore positional label/field/value/owner roles; preserve source tokens. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-added-label-card",
+    "before": "添加标签“%s”",
+    "after": "加仔标签“%s”",
+    "reason": "2026-10-08: Correct Wu parent/minicard meanings and restore positional label/field/value/owner roles; preserve source tokens. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-removed-label-card",
+    "before": "删除标签“%s”",
+    "after": "移脱仔标签“%s”",
+    "reason": "2026-10-08: Correct Wu parent/minicard meanings and restore positional label/field/value/owner roles; preserve source tokens. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-delete-attach-card",
+    "before": "删除了一个附件",
+    "after": "删脱一只附件仔",
+    "reason": "2026-10-08: Correct Wu parent/minicard meanings and restore positional label/field/value/owner roles; preserve source tokens. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-set-customfield",
+    "before": "将 %s 中的自定义字段“%s”设置为“%s”",
+    "after": "拿自定义字段“%s”设成“%s”，所属项目是 %s",
+    "reason": "2026-10-08: Correct Wu parent/minicard meanings and restore positional label/field/value/owner roles; preserve source tokens. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-unset-customfield",
+    "before": "取消设置 %s 中的自定义字段“%s”",
+    "after": "清除自定义字段“%s”个设置，所属项目是 %s",
+    "reason": "2026-10-08: Correct Wu parent/minicard meanings and restore positional label/field/value/owner roles; preserve source tokens. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-no-rules",
+    "before": "没有规则",
+    "after": "呒没规则",
+    "reason": "2026-10-08: Correct Wu parent/minicard meanings and restore positional label/field/value/owner roles; preserve source tokens. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-delete-selected",
+    "before": "删除所选",
+    "after": "删脱选中个规则",
+    "reason": "2026-10-08: Correct Wu parent/minicard meanings and restore positional label/field/value/owner roles; preserve source tokens. Lower-confidence prose needs native review."
   }
 ]
