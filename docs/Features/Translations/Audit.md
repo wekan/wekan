@@ -2,6 +2,20 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Short source-prose audit — 2026-10-08
+
+Add `node releases/translations/audit-short-prose.mjs`, a read-only report for English
+short words hidden by the fill tool's under-three-letter invariant exemption. It finds
+1,907 candidates in 198 locale files in the current working catalog; Wu has none.
+The report preserves indexed arguments and excludes units, product names, symbols,
+English variants and already-different translations. These are review candidates,
+not confirmed untranslated values: shared native words must not be overwritten.
+
+Two regression tests pass for candidate detection, variable preservation, technical
+exclusions and non-mutation. The ordinary fill tool is unchanged, so this supplemental
+report must be included in remaining-language review. The broader translation goal
+remains unfinished. Pending Planner locale edits remain separate from this tool.
+
 ## Wu catalog review checkpoint — 2026-10-08
 
 Run `node tests/run-node-suites.cjs Translation translation`: 299 suites selected,
