@@ -7760,6 +7760,15 @@ named invocations and function-only return restrictions. Technical wording remai
 low confidence pending speaker review. Browser and screen-reader checks were not run.
 Further Tatar corrections and the broader language audit continue.
 
+### Tatar navigation shortcuts and screen-reader controls
+
+Filled 40 English placeholders for editing, focus, movement, scrolling and navigation
+shortcuts, including the screen-reader enabled state. Existing translations and source
+tokens are preserved. Regression checks cover source order, placeholders, distinct
+directions, next/previous targets and screen-reader states. Technical wording remains
+low confidence pending speaker review. Browser and screen-reader checks were not run.
+Further Tatar corrections and the broader language audit continue.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
