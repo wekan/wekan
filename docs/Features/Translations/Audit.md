@@ -8651,6 +8651,15 @@ key order and placeholder inventories. Statistical terminology remains low
 confidence pending speaker review. Browser checks were not run; the broader
 language audit remains unfinished.
 
+## Tatar ZenKit instruction correction
+
+A follow-up wrong-language vocabulary scan found a missed ZenKit import
+instruction. Corrected its prose and restored the literal title, stages and items
+JSON fields. Added regression coverage for the full JSON example and product
+name alongside placeholder and key-order checks. Technical wording remains low
+confidence pending speaker review. Browser checks were not run. Vocabulary scans
+are not proof of complete language correctness; the broader audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
