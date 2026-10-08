@@ -671,6 +671,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3305076c3b">Translate first Zulu import instruction group</a>. Thanks to xet7.</summary>
+
+Fill eight import instructions per Zulu catalog, preserving commands and formats.
+Tests cover completion dates, archived cards and swimlane mapping. All three
+targeted suites and 21 preservation checks pass. Specialized terminology needs
+speaker review; browser execution and remaining translations are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/dbb9c5e5b1">Translate Zulu recovery decisions and history checkpoints</a>. Thanks to xet7.</summary>
 
 Fill 22 messages per Zulu catalog. Tests preserve checkpoint variables, deletion
