@@ -165667,5 +165667,194 @@
     "before": "未找到到期卡",
     "after": "呒没寻着到期卡片",
     "reason": "2026-10-08: Correct Wu shared-template and card-view prose, preserving permission and member/assignee scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "dueCards-noResults-description",
+    "before": "您目前没有任何有到期日的卡片。",
+    "after": "侬现在呒没设仔到期日期个卡片。",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-title-not-found",
+    "before": "未找到主板“%s”。",
+    "after": "呒没寻着看板“%s”。",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "swimlane-title-not-found",
+    "before": "未找到泳道“%s”。",
+    "after": "呒没寻着泳道“%s”。",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "list-title-not-found",
+    "before": "未找到列表“%s”。",
+    "after": "呒没寻着列表“%s”。",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "label-not-found",
+    "before": "未找到标签“%s”。",
+    "after": "呒没寻着标签“%s”。",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "label-color-not-found",
+    "before": "未找到标签颜色%s。",
+    "after": "呒没寻着标签颜色 %s。",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "user-username-not-found",
+    "before": "未找到用户名“%s”。",
+    "after": "呒没寻着用户名“%s”。",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "comment-not-found",
+    "before": "未找到带有包含文本“%s”的注释的卡片。",
+    "after": "呒没寻着评论里向包含文本“%s”个卡片。",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "org-name-not-found",
+    "before": "未找到组织“%s”。",
+    "after": "呒没寻着组织“%s”。",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "team-name-not-found",
+    "before": "未找到团队“%s”。",
+    "after": "呒没寻着团队“%s”。",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "globalSearch-title",
+    "before": "搜索所有主板",
+    "after": "搜索所有看板",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "no-cards-found",
+    "before": "未找到卡片",
+    "after": "呒没寻着卡片",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "one-card-found",
+    "before": "找到一张卡",
+    "after": "寻着一张卡片",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "n-cards-found",
+    "before": "%s 找到卡片",
+    "after": "寻着 %s 张卡片",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "n-n-of-n-cards-found",
+    "before": "找到 __start__-__end__ 的 __total__ 卡",
+    "after": "寻着 __total__ 张卡片，显示第 __start__-__end__ 张",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "operator-board",
+    "before": "木板",
+    "after": "看板",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "operator-board-abbrev",
+    "before": "乙",
+    "after": "b",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "operator-swimlane-abbrev",
+    "before": "泳",
+    "after": "s",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "operator-list-abbrev",
+    "before": "我",
+    "after": "l",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "operator-member-abbrev",
+    "before": "米",
+    "after": "m",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "operator-assignee",
+    "before": "受让人",
+    "after": "负责人",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "operator-assignee-abbrev",
+    "before": "一个",
+    "after": "a",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "operator-creator",
+    "before": "创造者",
+    "after": "创建者",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "operator-status",
+    "before": "地位",
+    "after": "状态",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "operator-due",
+    "before": "到期的",
+    "after": "到期",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "operator-sort",
+    "before": "种类",
+    "after": "排序",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "operator-attachment-text",
+    "before": "依恋",
+    "after": "附件",
+    "reason": "2026-10-08: Correct Wu search results and operator meanings; restore source abbreviations and preserve count variables. Lower-confidence prose needs native review."
   }
 ]

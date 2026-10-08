@@ -920,3 +920,13 @@ assert.match(wu['dueCardsViewChange-choice-all-description'], /有权限查看.*
 assert.match(wu['globalSearchViewChange-choice-all-description'], /有权限.*我个卡片.*成员或者负责人/);
 assert.equal(wu['globalSearchViewChange-choice-me'], wu['my-cards']);
 assert.equal(wu['dueCardsViewChange-title'], wu['dueCardsViewChangePopup-title']);
+
+const searchResultsWu = ["dueCards-noResults-description", "board-title-not-found", "swimlane-title-not-found", "list-title-not-found", "label-not-found", "label-color-not-found", "user-username-not-found", "comment-not-found", "org-name-not-found", "team-name-not-found", "globalSearch-title", "no-cards-found", "one-card-found", "n-cards-found", "n-n-of-n-cards-found", "operator-board", "operator-board-abbrev", "operator-swimlane-abbrev", "operator-list-abbrev", "operator-member-abbrev", "operator-assignee", "operator-assignee-abbrev", "operator-creator", "operator-status", "operator-due", "operator-sort", "operator-attachment-text"];
+for (const key of searchResultsWu) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+for (const entity of ['board', 'swimlane', 'list', 'member', 'assignee']) assert.equal(wu['operator-' + entity + '-abbrev'], english['operator-' + entity + '-abbrev']);
+assert.match(wu['n-n-of-n-cards-found'], /__total__ 张卡片.*第 __start__-__end__ 张/);
+assert.match(wu['comment-not-found'], /评论里向包含文本“%s”个卡片/);
+assert.equal(wu['operator-board'], '看板');
+assert.equal(wu['operator-sort'], '排序');
+assert.equal(wu['operator-attachment-text'], '附件');
+assert.match(wu['n-cards-found'], /寻着 %s 张卡片/);
