@@ -7491,6 +7491,15 @@ symbols, intentionally unchanged. None of the 149 pending-Transifex source keys
 remain identical to English in this locale. This does not establish linguistic completeness:
 the full language-quality audit and other locales remain unfinished.
 
+### Central Kurdish Blockly colours and flow controls
+
+Filled 39 English placeholders in Sorani for colour operations, block controls,
+loops and conditional statements. Existing translations and source placeholders are
+preserved. Regression coverage checks key order, script, tokens, colour bounds and
+loop-control distinctions. Script checks do not establish fluency; technical wording
+remains low confidence pending speaker review. Browser and right-to-left layout checks
+were not run. Remaining Central Kurdish strings and the broader audit continue.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
