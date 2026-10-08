@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Galician announcements and initial imports — 2026-10-09
+
+Translate 14 messages in gl and gl-ES, replacing 28 English values: board
+announcements and list colors, outline imports and the first eight newer import
+instructions. Preserve commands, format keywords, extensions and variables.
+Regression checks cover hierarchy, comments, completion, first-board selection,
+archives and swimlane mappings. Three relevant suites and all 21 preservation
+checks pass. Existing Portuguese labels in gl-ES, including board/card/swimlane,
+still require correction; remaining imports, browser review and the wider
+translation backlog are outstanding.
+
 ## Catalan and Valencian recovery results — 2026-10-09
 
 Translate 28 messages in ca, ca_ES and ca@valencia, replacing 84 English values:

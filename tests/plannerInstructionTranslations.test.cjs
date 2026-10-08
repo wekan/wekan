@@ -1324,3 +1324,35 @@ for (const code of ['ca', 'ca_ES', 'ca@valencia']) {
   assert.doesNotMatch(locale['import-board-instruction-todoist'], /les subtasques esdevenen fitxes/);
   assert.match(locale['import-board-instruction-todoist'], /les notes esdevenen comentaris/);
 }
+
+for (const code of ['gl', 'gl-ES']) {
+  const locale = read(code);
+  const literals = {
+    opml: ['OPML', 'Workflowy', 'Dynalist', 'OmniOutliner', 'Logseq'],
+    orgmode: ['Org mode', 'Emacs', 'Orgzly', 'Beorg', 'TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED'],
+    todoist: ['Todoist', 'Export as a template', 'CSV', '@labels', 'p1', 'p3'],
+    planner: ['Microsoft Planner', 'Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+    meistertask: ['MeisterTask', 'Export project', 'CSV'],
+    ...Object.fromEntries(['obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri'].map(format => [format, importLiterals[format]])),
+  };
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+    for (const value of values) assert.ok(locale[key].includes(value), key + ': ' + value);
+  }
+  for (const key of ['board-announcement', 'board-announcement-enabled', 'cards-use-list-color']) {
+    assert.notEqual(locale[key], read('en')[key], key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), key);
+  }
+  for (const format of ['nullboard', 'kanri']) {
+    assert.match(locale['import-board-instruction-' + format], /só se importa o primeiro taboleiro/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /impórtanse todos os taboleiros/);
+  }
+  assert.match(locale['import-board-instruction-opml'], /completados impórtanse como feitos/);
+  assert.match(locale['import-board-instruction-orgmode'], /segundo nivel en tarxetas/);
+  assert.match(locale['import-board-instruction-todoist'], /subtarefas nunha lista de verificación.*notas en comentarios/);
+  assert.match(locale['import-board-instruction-meistertask'], /tarefas completadas conservan a data de finalización/);
+  assert.match(locale['import-board-instruction-obsidian'], /arquivo convértese en tarxetas arquivadas/);
+  assert.match(locale['import-board-instruction-ticktick'], /lista de TickTick convértese nun carril/);
+}
