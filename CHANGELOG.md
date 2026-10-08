@@ -1055,6 +1055,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7e629bbf57">Correct Croatian rule actions and triggers</a>. Thanks to xet7.</summary>
+
+Replace 80 Serbian values with Croatian. Cover rule triggers, actions,
+checklists, dates and layout controls. Preserve variables and comma-separated
+examples, with regression checks for opposite actions and date meanings.
+
+Four focused translation suites and 21 human-preference checks pass.
+No browser or screen-reader session was run. Further wrong-language review
+and remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9dee3f53da">Correct Croatian card settings and rule translations</a>. Thanks to xet7.</summary>
 
 Replace 70 Serbian values with Croatian. Cover system labels, card settings,
