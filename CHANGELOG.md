@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1c0e2b0138">Translate Celtic and western European sign-in warnings</a>. Thanks to xet7.</summary>
+
+Add ten warning translations. Regression tests now check 107 catalogs for exact
+repeated address variables, rendering order and ROOT_URL. Warning and placeholder
+suites and all 21 preservation checks pass. Regional prose has lower confidence
+and needs native review. Browser review and the wider all-language backlog
+remain outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/09991df86c">Translate Central Asian and Caucasian sign-in warnings</a>. Thanks to xet7.</summary>
 
 Add 11 warning translations in Mongolian, Kazakh, Kyrgyz, Uzbek, Azerbaijani,
