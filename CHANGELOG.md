@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a76cdf9ffdc5e57b2ec3ba68f0125d1010f4d097">Translate Konkani Scrum planning and roles</a></summary>
+
+- Fill 48 Konkani placeholders, preserving existing translations, completion
+  policy distinctions, sprint actions, estimate units and planning events.
+- Technical wording remains low confidence pending speaker review.
+- All 62 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Konkani translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4cb8d596b8e0926f9e72e46aecacf1a220dd0ff7">Translate Konkani workspace announcements and rule editor</a></summary>
 
 - Fill 40 Konkani placeholders, preserving existing translations, composed
