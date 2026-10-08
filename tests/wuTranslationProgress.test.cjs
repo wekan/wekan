@@ -824,3 +824,18 @@ assert.match(wu['r-add-actinguser-member'], /触发搿条规则个用户.*成员
 assert.match(wu['r-remove-all'], /卡片.*所有成员/);
 assert.doesNotMatch(wu['r-remove-all'], /删脱卡片/);
 assert.match(wu['r-unarchive'], /从归档.*恢复/);
+
+const ruleCheckActions = ["r-remove-all-labels", "r-set-color", "r-check-all", "r-check", "r-uncheck", "r-item", "r-of-checklist", "r-of", "r-rule-any-trigger-help", "r-d-move-to-top-gen", "r-d-move-to-top-spec", "r-d-move-to-bottom-gen", "r-d-move-to-bottom-spec", "r-d-archive", "r-d-unarchive", "r-d-remove-label", "r-create-card", "r-in-list"];
+for (const key of ruleCheckActions) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.equal(wu['r-check'], '勾选');
+assert.equal(wu['r-uncheck'], '取消勾选');
+assert.match(wu['r-check-all'], /全部勾选/);
+assert.match(wu['r-remove-all-labels'], /所有标签/);
+assert.match(wu['r-rule-any-trigger-help'], /任意一只触发条件.*按次序执行/);
+for (const position of ['top', 'bottom']) {
+  assert.match(wu['r-d-move-to-' + position + '-gen'], /伊所属列表/);
+  assert.match(wu['r-d-move-to-' + position + '-spec'], /搿只列表/);
+}
+assert.match(wu['r-d-move-to-top-gen'], /顶浪/);
+assert.match(wu['r-d-move-to-bottom-gen'], /底下/);
+for (const key of ['r-email-vars-hint', 'r-trigger-vars-hint', 'r-vars-people-hint']) assert.deepEqual(wu[key].match(/\{[^}]+\}/g), english[key].match(/\{[^}]+\}/g));

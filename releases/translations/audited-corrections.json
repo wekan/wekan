@@ -164659,5 +164659,131 @@
     "before": "从卡中删除所有成员",
     "after": "从卡片浪移脱所有成员",
     "reason": "2026-10-08: Correct Wu rule conditions, preserving set-or-change alternatives and opposite checklist actions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-remove-all-labels",
+    "before": "从卡中删除所有标签",
+    "after": "从卡片浪移脱所有标签",
+    "reason": "2026-10-08: Correct Wu rule checking and movement actions, preserving current-versus-selected list scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-set-color",
+    "before": "将颜色设置为",
+    "after": "拿颜色设成",
+    "reason": "2026-10-08: Correct Wu rule checking and movement actions, preserving current-versus-selected list scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-check-all",
+    "before": "检查全部",
+    "after": "全部勾选",
+    "reason": "2026-10-08: Correct Wu rule checking and movement actions, preserving current-versus-selected list scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-check",
+    "before": "查看",
+    "after": "勾选",
+    "reason": "2026-10-08: Correct Wu rule checking and movement actions, preserving current-versus-selected list scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-uncheck",
+    "before": "取消选中",
+    "after": "取消勾选",
+    "reason": "2026-10-08: Correct Wu rule checking and movement actions, preserving current-versus-selected list scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-item",
+    "before": "物品",
+    "after": "项目",
+    "reason": "2026-10-08: Correct Wu rule checking and movement actions, preserving current-versus-selected list scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-of-checklist",
+    "before": "清单的",
+    "after": "清单个",
+    "reason": "2026-10-08: Correct Wu rule checking and movement actions, preserving current-versus-selected list scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-of",
+    "before": "的",
+    "after": "个",
+    "reason": "2026-10-08: Correct Wu rule checking and movement actions, preserving current-versus-selected list scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-rule-any-trigger-help",
+    "before": "只要有一个触发条件发生，规则就会运行。伊个操作会照次序做。",
+    "after": "只要任意一只触发条件发生，规则就会运行。伊个操作会按次序执行。",
+    "reason": "2026-10-08: Correct Wu rule checking and movement actions, preserving current-versus-selected list scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-d-move-to-top-gen",
+    "before": "将卡移至列表顶部",
+    "after": "拿卡片移到伊所属列表个顶浪",
+    "reason": "2026-10-08: Correct Wu rule checking and movement actions, preserving current-versus-selected list scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-d-move-to-top-spec",
+    "before": "将卡移至列表顶部",
+    "after": "拿卡片移到搿只列表个顶浪",
+    "reason": "2026-10-08: Correct Wu rule checking and movement actions, preserving current-versus-selected list scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "将卡移至列表底部",
+    "after": "拿卡片移到伊所属列表个底下",
+    "reason": "2026-10-08: Correct Wu rule checking and movement actions, preserving current-versus-selected list scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "将卡片移至列表底部",
+    "after": "拿卡片移到搿只列表个底下",
+    "reason": "2026-10-08: Correct Wu rule checking and movement actions, preserving current-versus-selected list scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-d-archive",
+    "before": "将卡移至存档",
+    "after": "拿卡片移到归档里向",
+    "reason": "2026-10-08: Correct Wu rule checking and movement actions, preserving current-versus-selected list scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-d-unarchive",
+    "before": "从存档中恢复卡",
+    "after": "从归档里向恢复卡片",
+    "reason": "2026-10-08: Correct Wu rule checking and movement actions, preserving current-versus-selected list scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-d-remove-label",
+    "before": "去除标签",
+    "after": "移脱标签",
+    "reason": "2026-10-08: Correct Wu rule checking and movement actions, preserving current-versus-selected list scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-create-card",
+    "before": "创建新卡",
+    "after": "创建新卡片",
+    "reason": "2026-10-08: Correct Wu rule checking and movement actions, preserving current-versus-selected list scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-in-list",
+    "before": "在列表中",
+    "after": "勒列表里向",
+    "reason": "2026-10-08: Correct Wu rule checking and movement actions, preserving current-versus-selected list scope; lower-confidence prose needs native review."
   }
 ]

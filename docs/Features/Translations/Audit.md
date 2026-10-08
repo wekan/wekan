@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu checklist and movement-action corrections — 2026-10-08
+
+Correct 18 rule-action fragments. Restore checkbox actions rather than inspection,
+and distinguish a card's own list from a selected list for top/bottom moves. Preserve
+any-trigger semantics, ordered actions and source variables. Retain existing brace
+variable hints. Refresh exact-value audit records. Wu prose needs native review;
+browser tests were not run and all-language work remains unfinished.
+
 ## Wu rule-condition corrections — 2026-10-08
 
 Correct 24 rule-condition and action fragments. Restore date-set as well as date-change
@@ -12707,7 +12715,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,523** exact before/after values, including unflagged
+records contain **23,541** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
