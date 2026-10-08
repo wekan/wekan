@@ -7971,6 +7971,16 @@ Tatar statistics vocabulary. Technical wording remains low confidence pending
 speaker review. Browser checks were not run. Further corrections and the broader
 audit remain unfinished.
 
+### Tatar card archival, deletion and editing guidance
+
+Corrected 29 calendar-navigation and card-control values. Replaced wrong-language
+archive/delete explanations and corrected overdue wording that previously implied
+postponement. Preserved correct adjacent translations and source token inventories.
+Regression coverage checks archive invisibility and later restoration, permanent
+deletion, overdue meaning, date distinctions and editing targets. Technical wording
+remains low confidence pending speaker review. Browser checks were not run.
+Further wrong-language corrections and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
