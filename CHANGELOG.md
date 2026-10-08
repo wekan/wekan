@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3a35c59529">Correct Wu organization and deletion translations</a>. Thanks to xet7.</summary>
+
+Correct twenty-two Wu organization, deletion and subtask-setting values. Preserve
+variables, administrator limits, duplicate-list conditions and deletion warnings.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ff8985d1bd">Correct Wu administration and field-scope translations</a>. Thanks to xet7.</summary>
 
 Correct nineteen Wu administration, custom-field and organization values. Preserve
