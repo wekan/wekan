@@ -484,6 +484,18 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3eb64a2c19">Translate remaining Yiddish import and history recovery messages</a>. Thanks to xet7.</summary>
+
+Translate 33 remaining English fill-list entries. Check deletion scope, retained
+boards, rollback conflicts and read-only settings. The current full Yiddish fill
+list is empty. Three focused translation suites and 21 human-preference checks
+pass. Specialized wording is lower confidence and needs native review. No browser
+or screen-reader session was run. Broader vocabulary review and translations in
+other languages remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c18527c022">Translate Yiddish List Sync recovery messages</a>. Thanks to xet7.</summary>
 
 Translate 23 English recovery messages. Preserve counters; check retained applied
