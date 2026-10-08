@@ -671,6 +671,16 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e31f01a785">Translate Zulu sync reports and diagnostics</a>. Thanks to xet7.</summary>
+
+Fill 30 messages per Zulu catalog. Tests retain report limits, incomplete-run
+warnings, permissions, missing-versus-null semantics and SMTP categories. Both
+targeted suites and all 21 preservation checks pass. Specialized terminology
+needs speaker review; browser execution and remaining translations are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/cd36346f35">Translate Zulu sync recovery and previews</a>. Thanks to xet7.</summary>
 
 Fill 25 messages per Zulu catalog. Tests cover content preservation, unchanged
