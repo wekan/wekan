@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Marathi, Malayalam and Telugu short Blockly labels — 2026-10-08
+
+Translate 31 short English labels across three catalogs. Match existing conditional
+and execution terminology, preserve movement context/input argument roles, and keep
+procedure aliases consistent. Pixel-on states remain distinct from pixel-off states.
+Composed block labels have lower confidence and need native review; screen-reader and
+browser validation were not run. Wider translation work remains unfinished.
+
 ## Czech, Japanese and Chinese short labels — 2026-10-08
 
 Translate 14 English values across 12 locale paths. Distinguish Czech sort-criterion
