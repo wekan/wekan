@@ -53,6 +53,30 @@ for (const key of ['email-address', 'webhook-title', 'server-error']) {
   assert.doesNotMatch(locales.br[key], /Adresse de courriel|Nom du|Erreur serveur/);
 }
 assert.equal(locales.lt['select-none'], 'Nieko nepasirinkti');
+const lt = locales.lt;
+const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
+for (const key of Object.keys(english).filter(key => /^(interrupted-import-|stuck-sync-operation-)/.test(key))) {
+  assert.notEqual(lt[key], english[key], key);
+  assert.ok(lt[key].trim(), key);
+}
+assert.match(lt['interrupted-import-description'], /tęsti negalima/);
+assert.match(lt['interrupted-import-description'], /įskaitant viską, kas pridėta vėliau/);
+assert.match(lt['interrupted-import-keep-confirm'], /Niekas nepašalinama/);
+assert.match(lt['interrupted-import-discard-confirm'], /pašalinti visam laikui/);
+assert.match(lt['interrupted-import-foreign-board'], /ji nebuvo pakeista/);
+assert.match(lt['interrupted-import-truncated'], /50 seniausių/);
+assert.match(lt['stuck-sync-operation-description'], /jau pritaikyti pakeitimai išlieka/);
+assert.match(lt['stuck-sync-operation-description'], /niekada neįrašomi/);
+assert.match(lt['stuck-sync-operation-replayable-now'], /atmesti negalima/);
+assert.match(lt['stuck-sync-operation-replayable'], /nebuvo atmesta/);
+(async () => {
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  assert.deepEqual(Object.keys(lt), Object.keys(english));
+  for (const key of Object.keys(english)) {
+    assert.deepEqual(translationTokens(lt[key]), translationTokens(english[key]), key);
+  }
+  console.log('Lithuanian recovery decisions, source order and variable inventory pass');
+})().catch(error => { console.error(error); process.exitCode = 1; });
 assert.equal(locales.yi['select-none'], 'גאָרנישט אויסקלייבן');
 assert.match(locales.yi['office-logins'], /^[\u0590-\u05ff]+$/);
 

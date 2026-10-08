@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Lithuanian import and synchronization recovery — 2026-10-08
+
+Translate 48 messages for interrupted imports and stalled synchronization.
+Preserve existing localized values and every source variable. Extend the existing
+suite with Lithuanian recovery decisions, source order and token inventories.
+Cover permanent deletion, retained applied changes and unrelated boards.
+No browser or screen-reader session was run; remaining Lithuanian messages,
+other languages and broader linguistic review remain unfinished.
+
 ## Latvian controls and planning — 2026-10-08
 
 Translate 51 messages for controls, import guidance, LDAP, login settings, planning
