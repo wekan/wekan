@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Gujarati Scrum planning and recovery — 2026-10-08
+
+Translate 31 planning, import and recovery values using existing terminology.
+Preserve every placeholder, keyboard name and reordered count role; keep rollback
+distinct from preserving records and retain the first-sync no-removal rule. Focused
+Gujarati, placeholder and language-wiring checks pass, as do all 21 preservation
+checks. The large completion suite now reaches an untranslated Kannada planning label.
+Native review, browser checks and the wider all-language backlog remain unfinished.
+
 ## Thai Scrum planning and recovery — 2026-10-08
 
 Translate 31 planning, import and recovery values using existing sprint/release

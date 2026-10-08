@@ -13878,3 +13878,12 @@ for (const code of ['hi', 'hi-IN']) {
   assert.notEqual(locale['scrum-history-checkpoint-rollback'], locale['scrum-history-checkpoint-discard']);
   assert.ok(locale['scrum-history-checkpoint-counts'].replace('__total__', '10').replace('__applied__', '3').includes('3 จาก 10'));
 }
+
+{
+  const locale = read('gu-IN');
+  for (const token of ['Ctrl', 'Cmd', 'Mac']) assert.ok(locale['scrum-releases-select-help'].includes(token), `gu-IN: ${token}`);
+  assert.match(locale['sync-planning-hint'], /પ્રથમ સમન્વય ક્યારેય આયોજન દૂર કરતો નથી/);
+  assert.match(locale['scrum-history-checkpoint-hint'], /કોઈ રેકોર્ડ બદલાતો નથી/);
+  assert.notEqual(locale['scrum-history-checkpoint-rollback'], locale['scrum-history-checkpoint-discard']);
+  assert.ok(locale['scrum-history-checkpoint-counts'].replace('__total__', '10').replace('__applied__', '3').startsWith('10 ફેરફારોમાંથી 3'));
+}
