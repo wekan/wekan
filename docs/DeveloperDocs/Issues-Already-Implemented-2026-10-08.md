@@ -108,3 +108,10 @@ Boards on All Boards are reordered by drag and drop into each user's own order
 (client/components/boards/boardsList.js, models/lib/boardSortReorder.js,
 sortBoardsForUser), boards have colours (boardChangeColorPopup), and the All
 Boards table view lists boards as rows.
+
+## [#4223](https://github.com/wekan/wekan/issues/4223) Master dashboard like
+Kanboard's Bigboard plugin
+
+The Bigboard board view shows several boards on one page
+(client/components/boards/bigboardView.*, docs/Features/Board/Bigboard.md), and
+cards can be dragged between boards in it.
