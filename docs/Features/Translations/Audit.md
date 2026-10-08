@@ -9515,6 +9515,16 @@ and token inventories. Technical wording remains low confidence pending
 speaker review. Browser checks were not run; further Turkmen translations
 and the broader audit remain unfinished.
 
+## Turkmen editing and input labels
+
+Filled 44 English placeholders for bitmap editing, accessibility actions and
+input labels. The placeholder-only merge retained existing translations.
+Coverage checks bitmap dimensions and coordinates, open/close actions,
+condition and position distinctions, list/text roles and keyboard hints,
+plus key order and tokens. Technical wording remains low confidence pending
+speaker review. Browser and screen-reader checks were not run; further
+Turkmen translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
