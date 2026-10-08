@@ -483,6 +483,17 @@ This release adds the following new features:
 report for what the other tool has no place for.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ee0806b4c0">Translate Manx release and stuck Sync recovery messages</a>. Thanks to xet7.</summary>
+
+- Translate 25 pending messages, preserving release selection, applied/total
+  counters, discard consequences and oldest-first limits. Manx now has no
+  reported placeholders; older language defects still require review.
+- Three relevant suites pass. Complete wording remains low-confidence pending
+  fluent review. Browser and screen-reader sessions were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8378a4c706">Translate remaining reported Manx controls and guidance</a>. Thanks to xet7.</summary>
 
 - Translate 47 messages, preserving import syntax, environment names, report
