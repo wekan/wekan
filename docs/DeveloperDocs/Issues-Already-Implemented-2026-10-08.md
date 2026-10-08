@@ -45,3 +45,11 @@ Global Search (/global-search, config/router.js) matches free text in titles,
 descriptions, comments, custom fields, checklists and attachments
 (server/publications/cards.js), and finds archived cards with `status:archived`
 / `status:all` (config/search-const.js).
+
+## [#1921](https://github.com/wekan/wekan/issues/1921) Resend verification or
+change the verified flag
+
+An administrator can mark an email address verified in Admin Panel / People /
+edit user (client/components/settings/peopleBody.jade, setEmailVerified in
+server/models/users.js), and the verify-email and resend-verification routes
+exist (config/accounts.js).
