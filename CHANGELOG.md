@@ -444,6 +444,17 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2f31971c4b">Translate short Mongolian Blockly labels</a>. Thanks to xet7.</summary>
+
+Translate 14 short English control, list, procedure and pixel-state labels. Keep
+indexed movement roles, list position markers and equivalent block labels intact.
+Four focused Node suites and all 21 human-translation preservation checks pass.
+Composed labels need native review; browser/screen-reader validation and the wider
+all-language translation backlog remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/464ae965ed">Translate Tasks.org and monday.com imports in three languages</a>. Thanks to xet7.</summary>
 
 Translate six instructions in Wu Chinese, Papiamento and Yiddish, retaining menu
