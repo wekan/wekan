@@ -1924,6 +1924,33 @@ each for the reason given:
   2026-10-05 so the whole-tree test holds; wire it to a "Sync now" button or
   remove it.
 
+Maintainer decisions of 2026-10-08, answering all five items above (still to
+be built):
+
+- **Automatic logout: implement it.** `LOGOUT_WITH_TIMER=true` signs a user
+  out after `LOGOUT_IN` days, or daily at `LOGOUT_ON_HOURS`:`LOGOUT_ON_MINUTES`,
+  and the four become overridable in Admin Panel / People like the other login
+  variables.
+- **Header login: environment-only.** Only the environment enables header
+  login and sets `HEADER_LOGIN_TRUSTED_IPS`; Admin Panel / People shows them
+  read-only, so a compromised administrator account cannot turn on signing in
+  as anyone.
+- **LDAP Test connection without a service account: anonymous base search.**
+  An anonymous bind and a base-scope search of `LDAP_BASEDN`; success only when
+  the directory answered, otherwise its actual error. Verifying it still needs
+  a directory.
+- **`ldap_sync_now`: wire it to a "Sync now" button** in Admin Panel / People /
+  LDAP, loaded and restricted to administrators, with its English string
+  pending Transifex.
+- **[#5724](https://github.com/wekan/wekan/issues/5724) secrets from files:**
+  `MONGO_PASSWORD_FILE` is replaced by `MONGO_URL_FILE`, which the launchers
+  (start scripts, snap, Docker entrypoint) read and pass only to the node
+  process, because Meteor connects before application code runs.
+  `MAIL_SERVICE_PASSWORD_FILE` and `S3_SECRET_FILE` are replaced by
+  `MAIL_URL_FILE` and `S3_SECRET_KEY_FILE`, read through the same `*_FILE`
+  helper as LDAP and OAuth2; the dead names are removed from every platform
+  and `secrets/README.md`.
+
 </details>
 </details>
 
