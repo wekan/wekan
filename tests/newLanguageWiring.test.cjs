@@ -128,9 +128,10 @@ test('the README\'s language count is the count', () => {
   // A number in the README is a claim, and this one had been 154 since before
   // ninety more languages were added. It is checked against the files rather
   // than remembered: the count of non-English data files, and how many of them
-  // are essentially complete.
+  // have non-English text for over 90% of source keys. This is a mechanical
+  // coverage metric, not proof of correct-language wording or fluency.
   const readme = read('README.md');
-  const m = readme.match(/translated\]\([^)]*\) to (\d+) languages,\s*\n\s*(\d+) of them essentially complete/);
+  const m = readme.match(/translated\]\([^)]*\) into (\d+) locale catalogs;\s*\n\s*(\d+) have non-English text for over 90% of source keys/);
   assert.ok(m, 'the README states both numbers in one sentence');
 
   const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
@@ -150,7 +151,9 @@ test('the README\'s language count is the count', () => {
   assert.strictEqual(Number(m[1]), langs.length,
     `README says ${m[1]} languages, there are ${langs.length}`);
   assert.strictEqual(Number(m[2]), complete,
-    `README says ${m[2]} essentially complete, there are ${complete}`);
+    `README says ${m[2]} exceed 90% non-English text coverage, there are ${complete}`);
+  assert.match(readme, /not translation quality; language review and remaining translations are ongoing/,
+    'the numeric coverage claim does not certify translation quality');
 });
 
 console.log(`\nnewLanguageWiring: ${passed} tests passed`);
