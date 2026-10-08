@@ -8995,6 +8995,15 @@ script, key order, token inventories and those distinctions. Technical wording
 remains low confidence pending speaker review. Browser and screen-reader checks
 were not run; further Maithili translations and the broader audit remain.
 
+## Maithili mathematical and text input labels
+
+Filled 32 English placeholders for list, loop, mathematical and text inputs.
+The placeholder-only merge preserved existing translations. Preserved coordinate
+axes, indexed value tokens and distinctions between dividend/divisor, minimum/
+maximum and start/end positions. Regression coverage checks these details, script,
+key order and token inventories. Technical wording remains low confidence pending
+speaker review. Browser checks were not run; the broader audit remains unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
