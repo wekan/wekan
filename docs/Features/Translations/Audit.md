@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Amharic, Burmese, Khmer and Pacific sign-in warnings — 2026-10-08
+
+Translate six physical catalog values for Amharic, Burmese, Khmer, Bislama and
+Tok Pisin. The Khmer regional symlink exposes the same value under a seventh
+catalog path and is preserved. Warning coverage now includes 119 paths, checking
+repeated variables, address order, ROOT_URL and the shared Khmer value. Warning
+and placeholder suites and all 21 preservation checks pass. Amharic and Pacific
+prose has lower confidence and needs native review. Browser checks and the wider
+all-language backlog remain open.
+
 ## Five further sign-in warning languages — 2026-10-08
 
 Translate the warning in Javanese, Haitian Creole, Malagasy, Somali and Hausa.

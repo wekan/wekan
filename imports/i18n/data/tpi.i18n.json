@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Wanpela akaun wantaim dispela imel i stap pinis na ol i no bin wokim wantaim dispela rot bilong go insait",
   "sign-in-with": "Go insait wantaim %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Yu no inap pinisim go insait long narapela sevis long dispela adres. Ol i bin setim WeKan bilong __expected__, tasol dispela pes i op long __actual__. Opim WeKan long __expected__, o askim admin long setim ROOT_URL i go long __actual__.",
   "passwordless-title": "Go insait i no gat paswot",
   "passwordless-enabled": "Salim wanpela kod bilong go insait bilong wanpela taim tasol long imel, no paswot",
   "passwordless-hint": "I nidim imel i go aut (MAIL_URL). Na tu PASSWORDLESS_ENABLED.",
