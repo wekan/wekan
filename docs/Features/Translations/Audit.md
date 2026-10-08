@@ -8551,6 +8551,16 @@ attachment/avatar migration guidance. Technical wording remains low confidence
 pending speaker review. Focused tests cover tokens, key order, service identifiers
 and outcome distinctions; browser checks were not run.
 
+## Tatar S3 connection and scheduled operation corrections
+
+Corrected 22 wrong-language values for S3 connection settings, secret keys,
+scheduled board operations and migration controls. Preserved example hostnames,
+AWS region identifiers, S3/MinIO and SSL/TLS. Regression coverage checks literal
+connection examples and distinct outcomes and scheduling actions, alongside
+English key order and placeholder inventories. Technical wording remains low
+confidence pending speaker review. Browser checks were not run. The broader
+wrong-language audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
