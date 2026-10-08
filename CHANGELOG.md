@@ -1055,6 +1055,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/da560a776e">Translate Belarusian List Sync recovery messages</a>. Thanks to xet7.</summary>
+
+Translate 23 English recovery messages into Belarusian. Preserve counters and
+existing terminology, with checks for retained changes, unwritten changes,
+revoked access, replayable operations and the oldest-50 display limit.
+
+Three focused translation suites and 21 human-preference checks pass.
+No browser or screen-reader session was run. Further vocabulary review
+and remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bda123a348">Recognize native Upper Sorbian minimum labels</a>. Thanks to xet7.</summary>
 
 Recognize the existing minimum labels for numeric bounds and the list operator
