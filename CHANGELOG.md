@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/539f75d92179676ffdb9104263a977c3139c3751">Correct Tatar field controls and date notation</a></summary>
+
+- Correct 22 field and editing strings and restore three date-format labels,
+  preserving source tokens and distinct field options.
+- Technical wording remains low confidence pending speaker review.
+- All 85 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/67f7566e819540791b4a35fdeeee1c691cd1f418">Correct Tatar copying and restricted role controls</a></summary>
 
 - Correct 30 copying, permission and custom-field strings, preserving source
