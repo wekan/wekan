@@ -386,7 +386,7 @@ Status checked on 2026-10-08. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **35,319 untranslated locale/string values in 54 languages**.
+  report counts **35,144 untranslated locale/string values in 54 languages**.
   It excludes **156 source keys tracked separately as pending Transifex**.
   Exact Blockly OS brands and compact math/code symbols no longer inflate
   the prose backlog. Counts are a snapshot; they do not establish the quality
@@ -1911,6 +1911,19 @@ connection** reports success only when the directory answered, and **LDAP Sync
 now** runs the background sync on demand.
 
 This release hardens the login settings:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/74e4048f32">Translate Bislama functions, navigation and text operations</a>. Thanks to xet7.</summary>
+
+- Translate 175 Blockly messages for mathematical operations, functions,
+  variables, keyboard navigation, screen-reader controls and text operations.
+  Preserve result behavior, angle units, opposite states, replacement scope,
+  whitespace rules and numbered substitutions.
+- Three relevant suites pass, including the catalog-wide placeholder check.
+  Browser and screen-reader sessions were not run. Mathematical loanwords
+  and complete software phrases remain provisional pending fluent review.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5501cf17ae">Translate Bislama lists, logic and mathematics</a>. Thanks to xet7.</summary>
