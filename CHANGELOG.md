@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6b8beeca6ab1add014271ef7e7ded0f8cf7695b3">Correct Tatar board migration and recovery translations</a></summary>
+
+- Correct 45 wrong-language storage and migration strings, preserving technical
+  identifiers, administrator restrictions, deletion conditions and recovery warnings.
+- Technical wording remains low confidence pending speaker review.
+- All 142 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/53803532fa98097a50bd0a10d25ebef4af0dc48c">Correct Tatar S3 connection and scheduling translations</a></summary>
 
 - Correct 22 wrong-language values for S3 settings, scheduled board operations
