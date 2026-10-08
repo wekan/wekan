@@ -78,6 +78,24 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.equal(data.Mongo_sessions_count, 'Število sej Mongo');
   assert.match(data.Bounce, /odskakovanjem/);
   assert.match(data.Wave, /valovanjem/);
+  const correctedAdmin = ["support", "supportPopup-title", "support-title", "support-content", "accessibility-title", "accessibility-content", "accounts-lockout-locked-users", "accounts-lockout-failed-attempts", "accounts-lockout-remaining-time", "accounts-lockout-user-locked", "accounts-lockout-status", "admin-people-filter-show", "admin-people-active-status", "accounts-lockout-unlock-all", "add-cron-job", "attachments-path", "board-operations", "cron-jobs", "cron-error-severity", "cron-error-message", "cron-error-details", "cron-retry-failed", "complete", "idle", "sandstorm-storage-item", "anonymized-user", "features-notifications", "all-migrations", "select-migration", "pause", "stop", "migration-progress", "migration-status", "mongodb-gridfs-storage", "pause-all-migrations", "s3-access-key", "s3-connection-failed", "s3-endpoint", "s3-minio-storage", "s3-port-description", "s3-secret-key", "s3-secret-key-placeholder", "s3-secret-key-required", "s3-settings-saved", "save-s3-settings", "schedule-board-archive", "schedule-board-cleanup", "start-all-migrations", "stop-all-migrations", "test-s3-connection", "writable-path", "add-job", "attachment-settings", "automatic-migration", "back-to-settings", "board-migration", "card-show-lists-on-minicard", "comprehensive-board-migration", "lost-cards", "lost-cards-list", "migration-needed", "migration-complete", "migration-running", "migration-failed", "migrations", "no-issues-found", "run-migration", "migration-progress-overall", "migration-progress-status", "migration-progress-details", "steps", "view", "has-swimlanes", "step-analyze-board-structure", "step-validate-migration", "step-analyze-lists", "step-update-cards", "step-finalize", "step-restore-cards", "cleanup"];
+  for (const key of correctedAdmin) {
+    assert.doesNotMatch(data[key], /[\u0400-\u04ff]/, `${locale}:${key}`);
+    assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), `${locale}:${key}`);
+  }
+  assert.equal(data.support, 'Podpora');
+  assert.match(data['accounts-lockout-user-locked'], /je zaklenjen/);
+  assert.equal(data['accounts-lockout-unlock-all'], 'Odkleni vse');
+  assert.equal(data['s3-access-key'], 'Dostopni ključ S3');
+  assert.equal(data['s3-secret-key'], 'Skrivni ključ S3');
+  assert.match(data['s3-port-description'], /Številka vrat/);
+  assert.equal(data['pause-all-migrations'], 'Začasno ustavi vse migracije');
+  assert.equal(data['start-all-migrations'], 'Zaženi vse migracije');
+  assert.equal(data['stop-all-migrations'], 'Ustavi vse migracije');
+  assert.equal(data['migration-failed'], 'Migracija ni uspela');
+  assert.equal(data['migration-complete'], 'Končano');
+  assert.equal(data['step-restore-cards'], 'Obnovi kartice');
+  assert.match(data['mongodb-gridfs-storage'], /MongoDB GridFS/);
   assert.equal(data.board, 'Tabla');
   assert.equal(data.swimlane, 'Plavalna steza');
   for (const key of Object.keys(english).filter(key => key.startsWith('interrupted-import-'))) {

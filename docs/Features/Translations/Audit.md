@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Slovenian administration and migrations — 2026-10-08
+
+Replace 80 Serbian values in each Slovenian catalog, for 160 corrections.
+Cover support, account locks, storage, scheduled jobs and migrations. Preserve
+source tokens and technology names. Extend regression checks for Slovenian
+vocabulary, credential distinctions and pause/start/stop actions.
+No browser or screen-reader session was run; further wrong-language review and
+remaining translations are unfinished.
+
 ## Slovenian card details and uploads — 2026-10-08
 
 Replace 70 Serbian values in each Slovenian catalog, for 140 corrections.
