@@ -2,6 +2,20 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Manx Scrum planning labels — 2026-10-08
+
+Translate 71 Scrum labels and short messages for planning, estimates, sprint
+states, events and report navigation. Preserve unknown estimates as distinct
+from completed work, closing versus cancellation, minutes, and named tokens.
+The existing Manx suite now uses the shared source-token scanner, including
+numbered Blockly tokens, and checks consistent board/Scrum names and states.
+
+Vocabulary follows the existing catalog and
+[Phil Kelly's English–Manx dictionary, January 2026](https://www.learnmanx.com/media/PDFs/PDF%20resources%202022%20onwards/English%20to%20Manx%20dictionary%20compiled%20by%20Phil%20Kelly%20Jan%202026.pdf),
+linked by Culture Vannin. Dictionary words support the drafting, but the Scrum
+compounds and grammar remain low-confidence pending fluent review. Existing
+non-English translations were preserved. No browser session was run.
+
 ## Additional import literals and grammatical boundaries — 2026-10-08
 
 Repair 16 Asana and OpenProject messages in 11 locale files: restore the data

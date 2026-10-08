@@ -17,7 +17,7 @@ assert.equal(Object.keys(remaining).length, 0);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const manx = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/gv.i18n.json'), 'utf8'));
-const tokens = (value) => [...value.matchAll(/__[A-Za-z0-9_]+__|%[A-Za-z]|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g)].map(([token]) => token).sort();
+const { translationTokens: tokens } = require('../releases/translations/placeholder-tokens.mjs');
 const tags = (value) => [...value.matchAll(/<\/?[A-Za-z][^>]*>/g)].map(([tag]) => tag).sort();
 
 for (const [key, value] of Object.entries(manx)) {
@@ -28,3 +28,18 @@ for (const [key, value] of Object.entries(manx)) {
 assert.equal(manx.accept, 'Gow');
 assert.match(manx['act-createBoard'], /boayrd/i);
 assert.match(manx['act-createCard'], /kaart/i);
+
+const scrumBatch = ["board-view-product-backlog", "board-view-sprints", "board-view-sprint-report", "board-view-velocity", "scrum-settings", "scrum-product-owner", "scrum-master", "scrum-developers", "scrum-working-days", "scrum-enabled", "scrum-product-goal", "scrum-definition-of-done", "scrum-estimate-source", "scrum-estimate-unit", "scrum-completion-policy", "scrum-source-poker", "scrum-source-customField", "scrum-policy-dueComplete", "scrum-policy-doneLists", "scrum-sprints", "scrum-sprint", "scrum-start-sprint", "scrum-close-sprint", "scrum-cancel-sprint", "scrum-rollover-sprint", "scrum-cancel-reason", "scrum-product-backlog", "scrum-edit-sprint", "scrum-sprint-goal", "scrum-capacity", "scrum-new-sprint", "scrum-releases", "scrum-release", "scrum-select-sprint", "scrum-backlog", "scrum-backlog-help", "scrum-estimate", "scrum-backlog-rank", "scrum-issue-type", "scrum-acceptance-criteria", "scrum-events", "scrum-event-kind", "scrum-timebox", "scrum-notes", "scrum-event-planning", "scrum-event-daily", "scrum-event-review", "scrum-event-retrospective", "scrum-committed", "scrum-completed", "scrum-added", "scrum-removed", "scrum-incomplete", "scrum-no-closed-sprints", "scrum-total", "scrum-state-planned", "scrum-state-active", "scrum-state-closed", "scrum-state-cancelled", "scrum-unknown-estimate", "scrum-past-sprints", "scrum-list-category", "scrum-swimlane-purpose", "scrum-category-backlog", "scrum-category-todo", "scrum-category-doing", "scrum-category-done", "scrum-state-released", "scrum-released-at", "scrum-follow-up-cards", "scrum-import-reference-omitted"];
+for (const key of scrumBatch) {
+  assert.ok(manx[key]?.trim(), key);
+  assert.notEqual(manx[key], english[key], key);
+}
+assert.deepEqual(Object.keys(manx), Object.keys(english));
+assert.deepEqual(tokens(manx['scrum-total']), ['__count__', '__estimate__', '__unknown__']);
+assert.deepEqual(tokens(manx['scrum-import-reference-omitted']), ['__reference__']);
+assert.notEqual(manx['scrum-close-sprint'], manx['scrum-cancel-sprint']);
+assert.notEqual(manx['scrum-completed'], manx['scrum-incomplete']);
+assert.match(manx['scrum-timebox'], /mynnidyn/);
+assert.equal(manx['scrum-product-backlog'], manx['board-view-product-backlog']);
+assert.equal(manx['scrum-sprints'], manx['board-view-sprints']);
+assert.equal(new Set(['planned', 'active', 'closed', 'cancelled'].map(state => manx['scrum-state-' + state])).size, 4);
