@@ -7638,6 +7638,18 @@ tokens, retention and path limits, explicit null handling and delivery distincti
 Technical wording remains low confidence pending speaker review. Browser and
 right-to-left layout checks were not run. The broader translation audit continues.
 
+### Central Kurdish recovery controls
+
+Filled 25 English placeholders for notification retry, pause, cancellation and
+recovery states. Existing translations and source tokens are preserved. Regression
+checks cover key order, script, placeholders, distinct delivery states and permanent
+cancellation warnings. Technical wording remains low confidence pending speaker review.
+Browser and right-to-left layout checks were not run. The broader audit continues.
+
+The Central Kurdish default inventory now retains only 11 product names and mathematical
+symbols. None of the 149 pending-Transifex source keys remain identical to English.
+These counts do not establish fluency or completion of the broader language audit.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
