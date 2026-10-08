@@ -2,6 +2,18 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Moroccan Arabic, Hiragana, Walloon, Waray and Venetian warnings — 2026-10-08
+
+Translate five warning values according to their registered languages, including
+legacy identifiers ja-HI (Hiragana), wa-RR (Waray) and ve-CC (Venetian).
+Check repeated address roles, ROOT_URL and Hiragana script. Warning coverage now
+includes 174 paths. Warning and placeholder suites and all 21 preservation checks
+pass. Walloon page terminology was checked against [Walon usage](https://aberteke.walon.org/haurdeyes.html)
+and Venetian address terminology against [Wikisionario usage](https://vec.wiktionary.org/wiki/Discusion_Utensa:GatoSelvadego).
+These direct translations have lower confidence and need native review. This warning
+still has 33 English catalog paths; browser review and the wider all-language
+backlog remain outstanding.
+
 ## Southern African warnings and Venda label — 2026-10-08
 
 Translate five warnings in Northern Sotho, Ndebele, Swati, Tsonga and Venda.

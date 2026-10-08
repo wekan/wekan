@@ -26,6 +26,7 @@ codes.push('as', 'or_IN', 'mai', 'bho', 'kok');
 codes.push('fur', 'rm', 'lld', 'rup', 'la');
 codes.push('mi', 'haw', 'sm', 'to', 'fj');
 codes.push('nso', 'nd', 'ss', 'ts', 've');
+codes.push('ary', 'ja-HI', 'wa', 'wa-RR', 've-CC');
 for (const code of codes) {
   const value = read(code)[key];
   assert.notEqual(value, source, code);
@@ -45,7 +46,7 @@ assert.match(read('es')[key], /No se puede completar/);
 assert.match(read('ja')[key], /ログインを完了できません/);
 assert.match(read('zh-CN')[key], /无法在此地址完成/);
 assert.match(read('zh-TW')[key], /無法在此位址完成/);
-console.log('Sign-in origin warning: 169 catalog paths, repeated address roles and literal configuration key pass');
+console.log('Sign-in origin warning: 174 catalog paths, repeated address roles and literal configuration key pass');
 
 assert.match(read('ar')[key], /لا يمكن إكمال تسجيل الدخول/);
 assert.match(read('fa')[key], /تکمیل نمی‌شود/);
@@ -167,3 +168,10 @@ assert.doesNotMatch(read('ve').login, /Ngena ngemvume/);
 // These historical identifiers name other languages in the registry.
 assert.equal(read('ve-CC')['admin-panel'], 'Paneło de aministrasion');
 assert.equal(read('ve-PP').login, 'Tule');
+
+assert.match(read('ary')[key], /ما يمكنش يكمل/);
+assert.match(read('ja-HI')[key], /かんりょうできません/);
+assert.match(read('wa')[key], /ni s’ pout nén fini/);
+assert.match(read('wa-RR')[key], /Diri matatapos/);
+assert.match(read('ve-CC')[key], /No se pol conpletar/);
+assert.doesNotMatch(read('ja-HI')[key], /[\p{Script=Han}\p{Script=Katakana}]/u);

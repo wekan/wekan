@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "May-ada na account nga may hini nga email ngan waray ini himoa pinaagi hini nga paagi han pag-log in",
   "sign-in-with": "Pag-log in pinaagi han %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Diri matatapos an pagsulod pinaagi hin iba nga serbisyo hini nga adres. An WeKan gin-andam para ha __expected__, pero ini nga pakli gin-abri ha __actual__. Abrihi an WeKan ha __expected__, o hangyoa an administrador nga himoon nga __actual__ an ROOT_URL.",
   "passwordless-title": "Pag-log in nga waray sekreto nga pulong",
   "passwordless-enabled": "Magpadara pinaagi han email hin kodigo han pag-log in nga magagamit hin makausa la imbes hin password",
   "passwordless-hint": "Kinahanglan an pagpadara hin email (MAIL_URL). Kinahanglan liwat an PASSWORDLESS_ENABLED.",

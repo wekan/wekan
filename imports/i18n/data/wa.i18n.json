@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "On conte avou cist emile ci egzistêye dedja et n’ a nén stî ahivé avou cisse metôde di raloyaedje ci",
   "sign-in-with": "S’ elodjî avou %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Li raloyaedje avou on ôte siervice ni s’ pout nén fini a ciste adresse. WeKan est apontyî po __expected__, mins cisse pådje a stî drovowe a __actual__. Droviez WeKan a __expected__, ou dmandez a l’ administrateu d’ apontyî ROOT_URL a __actual__.",
   "passwordless-title": "Raloyaedje sins sicret",
   "passwordless-enabled": "Evoyî pa emile on côde d’ elodjaedje a on seu côp el plaece d’ on sicret",
   "passwordless-hint": "I fåt des emiles e rexhowe (MAIL_URL). Et PASSWORDLESS_ENABLED eto.",
