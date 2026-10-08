@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Māori, Hawaiian, Samoan, Tongan and Fijian warnings — 2026-10-08
+
+Translate five warning values with exact variables. Māori sign-in terminology
+was checked against the [Māori Language Commission](https://www.tetaurawhiri.govt.nz/kupu-hou-te-rorohiko).
+Warning coverage now includes 164 paths; warning and placeholder suites and all
+21 preservation checks pass. Hawaiian, Samoan, Tongan and Fijian prose has lower
+confidence and needs native review. This warning still has 43 English catalog
+paths; browser review and the wider all-language backlog remain outstanding.
+
 ## Friulian, Romansh, Ladin, Aromanian and Latin warnings — 2026-10-08
 
 Translate five warning values. Terminology was checked against the existing

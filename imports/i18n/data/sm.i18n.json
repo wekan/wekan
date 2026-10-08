@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Ua iai se teugatupe ma lenei imeli ma e leʻi faia i lenei auala ulufale",
   "sign-in-with": "Ulufale i le %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "E lē mafai ona faamaeʻa le ulufale e ala i se isi auaunaga i lenei tuatusi. Ua faatulaga WeKan mo __expected__, ae na tatalaina lenei itulau i __actual__. Tatala WeKan i __expected__, pe talosaga i le pule e faatulaga ROOT_URL i __actual__.",
   "passwordless-title": "Ulufale e aunoa ma se upu faataga",
   "passwordless-enabled": "Lafo i le imeli se numera ulufale faʻatasi nai lo se upu faataga",
   "passwordless-hint": "E manaʻomia imeli alu i fafo (MAIL_URL). Faʻapea foi PASSWORDLESS_ENABLED.",

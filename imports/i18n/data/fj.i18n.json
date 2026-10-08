@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Sa tiko e dua na akaude ena imeli oqo ka sega ni buli ena ivakarau ni curu oqo",
   "sign-in-with": "Curu ena %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "E sega ni rawa ni vakacavari na curu ena dua tale na veiqaravi ena itikotiko oqo. Sa vakarautaki na WeKan me baleta na __expected__, ia e a dolavi na tabana oqo ena __actual__. Dolava na WeKan ena __expected__, se kerea na dauniveiliutaki me biuta na ROOT_URL ki na __actual__.",
   "passwordless-title": "Curu vakasega ni vosa ni curu",
   "passwordless-enabled": "Vakauta ena imeli e dua na kodi ni curu vakadua me sosomitaka na vosa ni curu",
   "passwordless-hint": "E gadrevi na imeli lako yani (MAIL_URL). Kei na PASSWORDLESS_ENABLED tale ga.",
