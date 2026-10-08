@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Ye onca ce tlapohualli ica inin tlahcuilolli ihuan ahmo omochiuh ica inin tlacalaquiliztli ohtli",
   "sign-in-with": "Xicalaqui ica %s",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Amo hueli motlamia in calaquiliztli ica occe tequitl ipan inin direccion. WeKan omochihchih ipampa __expected__, zan inin amatl omotlapoh ipan __actual__. Xictlapo WeKan ipan __expected__, noso xictlatlauhti in tepachoani ma quipatla ROOT_URL ica __actual__.",
   "passwordless-title": "Tlacalaquiliztli ahmo ica ichtaca tlahtolli",
   "passwordless-enabled": "Xictitlani ica tlahcuilolli ce tlacalaquiliztli tlamachiotl zan ceppa ipan ichtaca tlahtolli",
   "passwordless-hint": "Monequi tlahcuilolli quizani (MAIL_URL). Noihqui PASSWORDLESS_ENABLED.",

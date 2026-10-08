@@ -2,6 +2,18 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Greenlandic and Nahuatl warnings; broad regression run — 2026-10-08
+
+Translate two warnings with exact repeated address variables and ROOT_URL.
+Warning coverage includes 202 paths. The focused warning and placeholder suites
+and all 21 preservation checks pass. A broader run using Translation, Placeholder,
+Language, translation, placeholder, language and Completion filters passed all
+333 selected Node suites in 126 seconds. This verifies those suites, not completion
+or native quality of all catalogs. The two new translations have lower confidence
+and need native review. The warning still has five English paths: Cherokee,
+Inuktitut, Tigre, Wolaytta and Tamazight. Browser review and the broader translation
+backlog remain outstanding.
+
 ## Veps, Volapük and Klingon warnings — 2026-10-08
 
 Translate three warnings with exact repeated address variables and ROOT_URL.
