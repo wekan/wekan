@@ -850,8 +850,8 @@
     "locale": "wuu-Hans",
     "key": "import-members-map",
     "before": "您导入的董事会有一些成员。请将您要导入的成员映射到您的用户",
-    "after": "您导入的看板有一些成员。请将您要导入的成员映射到您的用户",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "侬导入个看板有一眼成员。请拿要导入个成员映射到侬个用户。",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -864,8 +864,8 @@
     "locale": "wuu-Hans",
     "key": "leaveBoardPopup-title",
     "before": "离开董事会？",
-    "after": "离开看板？",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "要退出看板伐？",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -162685,5 +162685,173 @@
     "before": "删除已导入的看板",
     "after": "删脱已经导入个看板",
     "reason": "2026-10-08: Correct Wu Trello import prose, retaining file formats, credential requirements and cancellation scope; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-map-members",
+    "before": "地图成员",
+    "after": "映射成员",
+    "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-members-map-note",
+    "before": "注意：未映射的成员将分配给当前用户。",
+    "after": "注意：还朆映射个成员会分配畀当前用户。",
+    "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-user-select",
+    "before": "选择您想要用作此成员的现有用户",
+    "after": "选一只现有用户来对应搿位成员",
+    "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "importMapMembersAddPopup-title",
+    "before": "选择会员",
+    "after": "选择成员",
+    "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "version-check-failed",
+    "before": "无法检查版本号。",
+    "after": "检查勿到版本号。",
+    "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "invalid-year",
+    "before": "年份无效。请输入完整的四位数字，例如 2026。",
+    "after": "年份无效。请拿四位数字输全，比方讲 2026。",
+    "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "just-invited",
+    "before": "您刚刚被邀请加入此论坛",
+    "after": "侬刚刚畀人邀请加入搿块看板",
+    "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "label-delete-pop",
+    "before": "无法撤消。这将从所有卡片上删除此标签并销毁其历史记录。",
+    "after": "搿个操作勿能撤销。会从所有卡片浪删脱搿只标签，连伊个历史记录也一淘删脱。",
+    "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "last-admin-desc",
+    "before": "您无法更改角色，因为必须至少有一名管理员。",
+    "after": "侬勿能修改角色，因为至少要有一位管理员。",
+    "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "leave-board-pop",
+    "before": "您确定要离开__boardTitle__吗？您将从该板上的所有卡牌中删除。",
+    "after": "侬确定要退出 __boardTitle__ 伐？侬会从搿块看板浪所有卡片个成员里向移脱。",
+    "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "link-card",
+    "before": "这张卡的链接",
+    "after": "搿张卡片个链接",
+    "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "linkCardToBoardPopup-title",
+    "before": "链接到该木板",
+    "after": "关联到看板",
+    "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "linkCardToNewBoard",
+    "before": "创建板 (卡片)",
+    "after": "从搿张卡片创建看板",
+    "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "list-archive-cards",
+    "before": "将此列表中的所有卡片移至存档",
+    "after": "拿搿只列表里向所有卡片归档",
+    "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "list-archive-cards-pop",
+    "before": "这将从板上删除此列表中的所有卡片。要查看存档中的卡片并将其带回看板，请单击“菜单”>“存档”。",
+    "after": "搿个操作会拿搿只列表里向所有卡片从看板浪移脱。要看归档里向个卡片，再拿伊拉恢复到看板浪，请点“菜单” > “归档”。",
+    "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "list-move-cards",
+    "before": "移动此列表中的所有卡",
+    "after": "移动搿只列表里向所有卡片",
+    "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "list-select-cards",
+    "before": "选择此列表中的所有卡",
+    "after": "选中搿只列表里向所有卡片",
+    "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "listActionPopup-title",
+    "before": "列出操作",
+    "after": "列表操作",
+    "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "swimlaneActionPopup-title",
+    "before": "泳道动作",
+    "after": "泳道操作",
+    "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "swimlaneAddPopup-title",
+    "before": "在下面添加一个泳道",
+    "after": "勒下头添加一条泳道",
+    "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "listImportCardPopup-title",
+    "before": "导入 Trello 卡",
+    "after": "导入一张 Trello 卡片",
+    "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "listMorePopup-title",
+    "before": "更多的",
+    "after": "更多",
+    "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "list-delete-pop",
+    "before": "所有操作都将从活动源中删除，并且您将无法恢复该列表。无法撤消。",
+    "after": "所有操作记录侪会从活动记录里向删脱，侬也勿能恢复搿只列表。搿个操作勿能撤销。",
+    "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "list-delete-suggest-archive",
+    "before": "您可以将列表移至存档以将其从看板中删除并保留活动。",
+    "after": "侬可以拿列表移到归档里向，让伊从看板浪移脱，同时保留活动记录。",
+    "reason": "2026-10-08: Correct Wu member mapping and list operations, retaining board variables and deletion/archive distinctions; lower-confidence prose needs native review."
   }
 ]

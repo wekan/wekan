@@ -662,3 +662,16 @@ assert.match(wu['trello-api-credentials-required'], /API key.*token 两样侪/);
 assert.match(wu['trello-api-credentials-saved'], /保存好仔.*勿用重新输入/);
 assert.match(wu['trello-select-boards'], /至少选一块/);
 assert.match(wu['trello-cancel-delete-confirm'], /搿趟任务已经导入个看板.*勿能撤销/);
+
+const memberLists = ["import-map-members", "import-members-map", "import-members-map-note", "import-user-select", "importMapMembersAddPopup-title", "version-check-failed", "invalid-year", "just-invited", "label-delete-pop", "last-admin-desc", "leave-board-pop", "leaveBoardPopup-title", "link-card", "linkCardToBoardPopup-title", "linkCardToNewBoard", "list-archive-cards", "list-archive-cards-pop", "list-move-cards", "list-select-cards", "listActionPopup-title", "swimlaneActionPopup-title", "swimlaneAddPopup-title", "listImportCardPopup-title", "listMorePopup-title", "list-delete-pop", "list-delete-suggest-archive"];
+for (const key of memberLists) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.match(wu['import-members-map-note'], /还朆映射.*当前用户/);
+assert.match(wu['invalid-year'], /四位数字.*2026/);
+assert.match(wu['last-admin-desc'], /勿能修改角色.*至少.*管理员/);
+assert.match(wu['leave-board-pop'], /__boardTitle__.*所有卡片个成员.*移脱/);
+assert.doesNotMatch(wu['leave-board-pop'], /删脱/);
+assert.match(wu['label-delete-pop'], /勿能撤销.*所有卡片.*标签.*历史记录/);
+assert.match(wu['list-delete-pop'], /所有操作记录.*勿能恢复.*勿能撤销/);
+assert.match(wu['list-delete-suggest-archive'], /归档.*保留活动记录/);
+assert.match(wu['list-archive-cards-pop'], /所有卡片.*恢复到看板.*菜单.*归档/);
+for (const key of ['list-move-cards', 'list-select-cards']) assert.match(wu[key], /列表里向所有卡片/);

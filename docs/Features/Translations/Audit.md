@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu member and list-operation corrections — 2026-10-08
+
+Correct 26 member-mapping, role and list-operation values. Preserve board-title
+variables, four-digit year guidance and the last-administrator restriction. Distinguish
+leaving card membership from deleting cards, and recoverable archiving from permanent
+list/history deletion. Refresh exact-value audit records. Wu prose needs native review;
+browser tests were not run and the all-language work remains unfinished.
+
 ## Wu Trello import corrections — 2026-10-08
 
 Correct 25 Trello import, archive-error and cancellation values. Preserve file
@@ -12601,7 +12609,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,241** exact before/after values, including unflagged
+records contain **23,265** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
