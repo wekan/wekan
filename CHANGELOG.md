@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1aedd9578e1f7b9cf12a2bcddd7948e65adce031">Correct Tatar checklist activities and workspace controls</a></summary>
+
+- Correct 35 checklist activity, date activity and workspace strings, preserving
+  source placeholders and argument roles confirmed against the activity template.
+- Technical wording remains low confidence pending speaker review.
+- All 72 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/06adc11de7cb2a720e99722804183a406b42cd94">Correct Tatar movement import and membership activities</a></summary>
 
 - Correct 27 activity strings, preserving named source/destination placeholders
