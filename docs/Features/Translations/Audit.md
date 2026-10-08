@@ -8453,6 +8453,14 @@ remain. Technical wording remains low confidence pending speaker review. Focused
 tests cover tokens, key order, unlock scope and activation distinctions; browser
 checks were not run.
 
+## Tatar scheduled-job and storage-path corrections
+
+Corrected 24 wrong-language job and storage-path messages. Preserved distinct
+archive/backup/cleanup scheduling outcomes, pause/resume/delete actions and the
+coming-soon qualification. Technical wording remains low confidence pending
+speaker review. Focused tests cover tokens, key order, outcome distinctions and
+separate attachment/avatar paths; browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
