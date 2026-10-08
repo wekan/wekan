@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d8b8afd73f">Correct Wu job controls and migration ranges</a>. Thanks to xet7.</summary>
+
+Correct 26 Wu values, restoring task and board meanings. Preserve batch, CPU and delay
+ranges, their units and background migration behavior when the browser closes.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/92c494d492">Correct Wu monitoring and repeat interval labels</a>. Thanks to xet7.</summary>
 
 Correct 30 Wu values, restoring elapsed-day, completion and monitoring meanings.
