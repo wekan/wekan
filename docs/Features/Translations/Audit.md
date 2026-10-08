@@ -9414,6 +9414,16 @@ plus script, key order and tokens. Technical wording remains low confidence
 pending speaker review. Browser and screen-reader checks were not run;
 further Konkani translations and the broader audit remain unfinished.
 
+## Konkani Scrum planning
+
+Filled 48 English placeholders for Scrum roles, planning, completion policies,
+estimates and events. The placeholder-only merge retained existing translations.
+Regression coverage checks policy distinctions, sprint actions, event labels,
+estimate sources versus units, timebox units and planned/active assignment,
+plus script, key order and tokens. Technical wording remains low confidence
+pending speaker review. Browser checks were not run; further Konkani
+translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
