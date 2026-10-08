@@ -911,6 +911,21 @@ cases where nothing is shown.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/88d3285f29">Caddy sends each WeKan container and Sandstorm the visitor's real address</a>. Thanks to xet7.</summary>
+
+Behind CloudFlare, the production Caddyfile of the Meteor 3 Docker docs left
+the forwarded headers to Caddy's defaults, so WeKan saw one shared address for
+everybody: all users shared the login cookie refresh limit, which signed them
+out at busy times and sent a Google login back to the sign-in page. Caddy now
+trusts only CloudFlare's own ranges for CF-Connecting-IP, every WeKan site
+sends X-Forwarded-Proto https and the visitor's address through one shared
+snippet, the container template sets HTTP_FORWARDED_COUNT=1, and Sandstorm
+gets X-Real-IP set rather than passed through. Validated with caddy adapt and
+a live Caddy.
+
+</details>
+
 **People and teams** - who belongs where after a login.
 
 <details>
