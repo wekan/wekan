@@ -8772,6 +8772,15 @@ existing translations. Regression coverage checks those details alongside script
 key order and token inventories. Statistical wording remains low confidence pending
 speaker review. Browser checks were not run; further Odia translations remain.
 
+## Odia rounding and mathematical functions
+
+Filled 23 English placeholders for integer generation, rounding and mathematical
+functions. Preserved inclusive bounds, indexed tokens and exponential/logarithmic
+bases. Existing translations were retained by the placeholder-only merge.
+Regression coverage checks rounding directions and function distinctions alongside
+script, key order and token inventories. Technical wording remains low confidence
+pending speaker review. Browser checks were not run; further translations remain.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
