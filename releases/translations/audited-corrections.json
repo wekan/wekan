@@ -780,8 +780,8 @@
     "locale": "wuu-Hans",
     "key": "boardDeletePopup-title",
     "before": "删除董事会？",
-    "after": "删除看板？",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "要删脱看板伐？",
+    "reason": "Use kanban board terminology instead of corporate board of directors. 2026-10-08: Correct Wu organization scope, deletion warnings and subtask destinations; preserve variables. Lower-confidence prose needs native review."
   },
   {
     "locale": "wuu-Hans",
@@ -163791,5 +163791,152 @@
     "before": "该组织所使用的主机名，用逗号分隔，例如 a.example.com、kanban.example.org。对其中任一域名的请求即视为该组织的请求，下面的品牌设置将替代实例的品牌设置。仅在服务器以 MULTITENANCY=true 启动时生效。若该组织不是租户，请留空。",
     "after": "搿个组织提供服务用个主机名，用逗号分隔，比方讲 a.example.com、kanban.example.org。访问其中任何一只域名个请求，侪算搿个组织个请求，下头个品牌设置会替换实例个品牌设置。只有服务器用 MULTITENANCY=true 启动个辰光才生效。搿个组织假使勿是租户，就留空。",
     "reason": "2026-10-08: Correct Wu administration and field scope, preserving product names and multitenancy literals; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "error-org-domain-taken",
+    "before": "该域名已属于另一个组织：",
+    "after": "搿个域名已经属于另外一只组织：",
+    "reason": "2026-10-08: Correct Wu organization scope, deletion warnings and subtask destinations; preserve variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "org-admins-description",
+    "before": "本组织中可以管理它的成员：只能管理该组织的人员和备份，其他一概不能。他们永远不能授予站点级管理员权限，也不能管理站点管理员。",
+    "after": "搿个组织里向可以管理伊个成员：只可以管理搿个组织个人员搭备份，别个侪勿能管。伊拉绝勿能授予全站管理员权限，也勿能管理网站管理员。",
+    "reason": "2026-10-08: Correct Wu organization scope, deletion warnings and subtask destinations; preserve variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "team-propagate-members-to-boards",
+    "before": "将成员传播到看板",
+    "after": "拿成员同步到看板",
+    "reason": "2026-10-08: Correct Wu organization scope, deletion warnings and subtask destinations; preserve variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "active-person",
+    "before": "积极的人",
+    "after": "启用人员",
+    "reason": "2026-10-08: Correct Wu organization scope, deletion warnings and subtask destinations; preserve variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-end",
+    "before": "结尾",
+    "after": "结束",
+    "reason": "2026-10-08: Correct Wu organization scope, deletion warnings and subtask destinations; preserve variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "setSelectionColorPopup-title",
+    "before": "设置选择颜色",
+    "after": "设置选中项目个颜色",
+    "reason": "2026-10-08: Correct Wu organization scope, deletion warnings and subtask destinations; preserve variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-sorting-by-number",
+    "before": "卡片按编号分类",
+    "after": "卡片按编号排序",
+    "reason": "2026-10-08: Correct Wu organization scope, deletion warnings and subtask destinations; preserve variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-delete-notice",
+    "before": "删除是永久性的。您将丢失与该图板相关的所有列表、卡片和操作。",
+    "after": "删脱就是永久删脱。侬会失去搭搿块看板有关个所有列表、卡片搭操作记录。",
+    "reason": "2026-10-08: Correct Wu organization scope, deletion warnings and subtask destinations; preserve variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "delete-board-confirm-popup",
+    "before": "所有列表、卡片、标签和活动都将被删除，并且您将无法恢复看板内容。无法撤消。",
+    "after": "所有列表、卡片、标签搭活动记录侪会删脱，侬勿能恢复看板内容。搿个操作勿能撤销。",
+    "reason": "2026-10-08: Correct Wu organization scope, deletion warnings and subtask destinations; preserve variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "delete-board",
+    "before": "删除板",
+    "after": "删脱看板",
+    "reason": "2026-10-08: Correct Wu organization scope, deletion warnings and subtask destinations; preserve variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "delete-all-notifications-confirm",
+    "before": "您确定要删除所有通知吗？此操作无法撤消。",
+    "after": "侬确定要删脱所有通知伐？搿个操作勿能撤销。",
+    "reason": "2026-10-08: Correct Wu organization scope, deletion warnings and subtask destinations; preserve variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "delete-duplicate-lists-confirm",
+    "before": "你确定吗？这将删除所有具有相同名称且不包含卡片的重复列表。",
+    "after": "侬确定伐？搿个操作会删脱所有名字相同而且呒没卡片个重复列表。",
+    "reason": "2026-10-08: Correct Wu organization scope, deletion warnings and subtask destinations; preserve variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "default-subtasks-board",
+    "before": "__board__ 板的子任务",
+    "after": "__board__ 看板个子任务",
+    "reason": "2026-10-08: Correct Wu organization scope, deletion warnings and subtask destinations; preserve variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-settings",
+    "before": "卡设置",
+    "after": "卡片设置",
+    "reason": "2026-10-08: Correct Wu organization scope, deletion warnings and subtask destinations; preserve variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "minicard-settings",
+    "before": "迷你卡设置",
+    "after": "迷你卡片设置",
+    "reason": "2026-10-08: Correct Wu organization scope, deletion warnings and subtask destinations; preserve variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "boardCardSettingsPopup-title",
+    "before": "卡设置",
+    "after": "卡片设置",
+    "reason": "2026-10-08: Correct Wu organization scope, deletion warnings and subtask destinations; preserve variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "boardMinicardSettingsPopup-title",
+    "before": "迷你卡设置",
+    "after": "迷你卡片设置",
+    "reason": "2026-10-08: Correct Wu organization scope, deletion warnings and subtask destinations; preserve variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "deposit-subtasks-board",
+    "before": "将子任务存入该板：",
+    "after": "拿子任务放到搿块看板：",
+    "reason": "2026-10-08: Correct Wu organization scope, deletion warnings and subtask destinations; preserve variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "deposit-subtasks-list",
+    "before": "存放在这里的子任务的登陆列表：",
+    "after": "放到搿搭个子任务要进个列表：",
+    "reason": "2026-10-08: Correct Wu organization scope, deletion warnings and subtask destinations; preserve variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "show-parent-in-minicard",
+    "before": "在迷你卡中显示父项：",
+    "after": "勒迷你卡片浪显示父项：",
+    "reason": "2026-10-08: Correct Wu organization scope, deletion warnings and subtask destinations; preserve variables. Lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "description-on-minicard",
+    "before": "迷你卡说明",
+    "after": "迷你卡片浪个描述",
+    "reason": "2026-10-08: Correct Wu organization scope, deletion warnings and subtask destinations; preserve variables. Lower-confidence prose needs native review."
   }
 ]

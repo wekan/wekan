@@ -750,3 +750,15 @@ assert.match(wu['admin-only-field'], /只有看板管理员看得见/);
 assert.match(wu['tableVisibilityMode-allowPrivateOnly'], /只允许私有看板/);
 for (const literal of ['a.example.com', 'kanban.example.org', 'MULTITENANCY=true']) assert.ok(wu['org-domains-description'].includes(literal));
 assert.match(wu['org-domains-description'], /只有服务器.*才生效.*勿是租户.*留空/);
+
+const orgDeletion = ["error-org-domain-taken", "org-admins-description", "team-propagate-members-to-boards", "active-person", "card-end", "setSelectionColorPopup-title", "card-sorting-by-number", "board-delete-notice", "delete-board-confirm-popup", "boardDeletePopup-title", "delete-board", "delete-all-notifications-confirm", "delete-duplicate-lists-confirm", "default-subtasks-board", "card-settings", "minicard-settings", "boardCardSettingsPopup-title", "boardMinicardSettingsPopup-title", "deposit-subtasks-board", "deposit-subtasks-list", "show-parent-in-minicard", "description-on-minicard"];
+for (const key of orgDeletion) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.match(wu['org-admins-description'], /只可以管理.*人员搭备份.*绝勿能授予全站管理员权限.*勿能管理网站管理员/);
+assert.match(wu['board-delete-notice'], /永久删脱.*所有列表、卡片搭操作记录/);
+assert.match(wu['delete-board-confirm-popup'], /列表、卡片、标签搭活动记录.*勿能恢复.*勿能撤销/);
+assert.match(wu['delete-duplicate-lists-confirm'], /名字相同而且呒没卡片/);
+assert.match(wu['delete-all-notifications-confirm'], /所有通知.*勿能撤销/);
+assert.equal(wu['card-settings'], wu['boardCardSettingsPopup-title']);
+assert.equal(wu['minicard-settings'], wu['boardMinicardSettingsPopup-title']);
+assert.match(wu['deposit-subtasks-board'], /子任务.*看板/);
+assert.match(wu['deposit-subtasks-list'], /子任务.*列表/);
