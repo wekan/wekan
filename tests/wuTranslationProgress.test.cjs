@@ -427,3 +427,16 @@ assert.match(wu['set-selected-starred'], /加星标/);
 assert.match(wu['set-selected-unstarred'], /星标取消/);
 assert.equal(wu['home-board-badge'], wu['set-selected-home'].replace('设成', ''));
 for (const key of ['activity-dueDate', 'activity-endDate']) assert.match(wu[key], /日期改成 %s.*所属项目是 %s/);
+
+const widthSettings = ["add-card-to-top-of-list", "add-card-to-bottom-of-list", "list-width-shared-note", "list-width-personal-note", "personal-list-width-description", "fixed-list-width", "click-to-enable-fixed-list-width", "click-to-disable-fixed-list-width", "fixed-list-width-note", "keyboard-shortcuts-enabled", "keyboard-shortcuts-disabled"];
+for (const key of widthSettings) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.match(wu['list-width-shared-note'], /所有人共用/);
+assert.match(wu['list-width-personal-note'], /只对侬生效/);
+assert.match(wu['personal-list-width-description'], /打开.*自家.*关脱.*所有人共用/);
+assert.match(wu['fixed-list-width-note'], /改一只.*所有列表侪改掉.*只对侬生效/);
+assert.match(wu['click-to-enable-fixed-list-width'], /关脱仔.*打开/);
+assert.match(wu['click-to-disable-fixed-list-width'], /打开仔.*关脱/);
+assert.match(wu['keyboard-shortcuts-enabled'], /打开仔.*关脱/);
+assert.match(wu['keyboard-shortcuts-disabled'], /关脱仔.*打开/);
+assert.match(wu['add-card-to-top-of-list'], /顶浪/);
+assert.match(wu['add-card-to-bottom-of-list'], /底下/);

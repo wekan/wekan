@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu width and shortcut setting corrections — 2026-10-08
+
+Correct 11 list-placement, width and shortcut messages to Wu. Preserve source
+tokens and check shared/personal scope, resizing every list and opposite toggle
+actions. Retain the existing correct Wu minimum-width validation. Refresh exact-value
+audit records. Prose is lower confidence and needs native review. No browser
+session was run. The broader language audit remains unfinished.
+
 ## Wu workspace and home-board corrections — 2026-10-08
 
 Correct 15 workspace, selection, home-board and date messages. Restore the missing
@@ -12465,7 +12473,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,919** exact before/after values, including unflagged
+records contain **22,930** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

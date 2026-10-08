@@ -160431,5 +160431,82 @@
     "before": "将结束日期编辑为 %s 的 %s",
     "after": "结束日期改成 %s 仔，所属项目是 %s",
     "reason": "2026-10-08: Correct Wu workspace wording, single-board restriction and positional date roles; preserve exact tokens. Wu prose is lower confidence and needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "add-card-to-top-of-list",
+    "before": "将卡添加到列表顶部",
+    "after": "拿卡片加到列表个顶浪",
+    "reason": "2026-10-08: Replace Mandarin-like width and shortcut instructions with Wu wording; preserve shared/personal scope and opposite toggle actions. Low-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "add-card-to-bottom-of-list",
+    "before": "将卡添加到列表底部",
+    "after": "拿卡片加到列表个底下",
+    "reason": "2026-10-08: Replace Mandarin-like width and shortcut instructions with Wu wording; preserve shared/personal scope and opposite toggle actions. Low-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "list-width-shared-note",
+    "before": "此宽度对本看板上的所有人共享。",
+    "after": "搿个宽度畀搿块看板浪所有人共用。",
+    "reason": "2026-10-08: Replace Mandarin-like width and shortcut instructions with Wu wording; preserve shared/personal scope and opposite toggle actions. Low-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "list-width-personal-note",
+    "before": "此宽度仅对你生效。",
+    "after": "搿个宽度只对侬生效。",
+    "reason": "2026-10-08: Replace Mandarin-like width and shortcut instructions with Wu wording; preserve shared/personal scope and opposite toggle actions. Low-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "personal-list-width-description",
+    "before": "开启时，每个用户保留自己的列表宽度。关闭时，列表宽度对看板上的所有人共享。",
+    "after": "打开个辰光，每个用户保留自家个列表宽度。关脱个辰光，列表宽度畀看板浪所有人共用。",
+    "reason": "2026-10-08: Replace Mandarin-like width and shortcut instructions with Wu wording; preserve shared/personal scope and opposite toggle actions. Low-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "fixed-list-width",
+    "before": "所有列表使用相同宽度",
+    "after": "所有列表侪用一样个宽度",
+    "reason": "2026-10-08: Replace Mandarin-like width and shortcut instructions with Wu wording; preserve shared/personal scope and opposite toggle actions. Low-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "click-to-enable-fixed-list-width",
+    "before": "所有列表相同宽度已禁用。点击以启用。",
+    "after": "所有列表一样宽度关脱仔。点一下打开。",
+    "reason": "2026-10-08: Replace Mandarin-like width and shortcut instructions with Wu wording; preserve shared/personal scope and opposite toggle actions. Low-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "click-to-disable-fixed-list-width",
+    "before": "所有列表相同宽度已启用。点击以禁用。",
+    "after": "所有列表一样宽度打开仔。点一下关脱。",
+    "reason": "2026-10-08: Replace Mandarin-like width and shortcut instructions with Wu wording; preserve shared/personal scope and opposite toggle actions. Low-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "fixed-list-width-note",
+    "before": "开启时，所有列表宽度相同，调整一个列表的宽度会同时调整所有列表。此设置仅对你生效。",
+    "after": "打开个辰光，所有列表侪一样宽，改一只列表个宽度就会拿所有列表侪改掉。搿个设置只对侬生效。",
+    "reason": "2026-10-08: Replace Mandarin-like width and shortcut instructions with Wu wording; preserve shared/personal scope and opposite toggle actions. Low-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "keyboard-shortcuts-enabled",
+    "before": "键盘快捷键已启用。单击以禁用。",
+    "after": "键盘快捷键打开仔。点一下关脱。",
+    "reason": "2026-10-08: Replace Mandarin-like width and shortcut instructions with Wu wording; preserve shared/personal scope and opposite toggle actions. Low-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "keyboard-shortcuts-disabled",
+    "before": "键盘快捷键已禁用。单击以启用。",
+    "after": "键盘快捷键关脱仔。点一下打开。",
+    "reason": "2026-10-08: Replace Mandarin-like width and shortcut instructions with Wu wording; preserve shared/personal scope and opposite toggle actions. Low-confidence prose needs native review."
   }
 ]
