@@ -170924,5 +170924,26 @@
     "before": "Administrator paneli",
     "after": "اداره‌چی پنلی",
     "reason": "Use Arabic-script Uzbek in the explicitly Arabic-script locale."
+  },
+  {
+    "locale": "wal",
+    "key": "login",
+    "before": "Wolayttatto: Login",
+    "after": "Geliyoogaa",
+    "reason": "Replace English labels hidden behind a Wolaytta language-name prefix."
+  },
+  {
+    "locale": "wal",
+    "key": "open",
+    "before": "Wolayttatto: Open",
+    "after": "Dooya",
+    "reason": "Replace English labels hidden behind a Wolaytta language-name prefix."
+  },
+  {
+    "locale": "wal",
+    "key": "page",
+    "before": "Wolayttatto: Page",
+    "after": "Sinttaa",
+    "reason": "Replace English labels hidden behind a Wolaytta language-name prefix."
   }
 ]

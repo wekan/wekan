@@ -2,6 +2,17 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Tigre and Wolaytta warnings and labels — 2026-10-08
+
+Translate two warnings with exact repeated address variables and ROOT_URL.
+Replace three prefixed English Wolaytta labels and record them in the ledger.
+Warning coverage includes 204 paths; warning, placeholder and correction-ledger
+suites and all 21 preservation checks pass. Wolaytta entry/opening terminology
+was checked against [published Wolaytta text](https://www.bible.com/bible/3205/REV.3.WOB).
+These direct translations have low confidence and need native review. Three
+English warning paths remain: Cherokee, Inuktitut and Tamazight. Browser review
+and the wider translation backlog remain outstanding.
+
 ## Greenlandic and Nahuatl warnings; broad regression run — 2026-10-08
 
 Translate two warnings with exact repeated address variables and ROOT_URL.
