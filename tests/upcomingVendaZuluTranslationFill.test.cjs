@@ -880,6 +880,17 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
   "import-board-instruction-linear",
   "import-board-instruction-ticktick"
 ]);
+  keys.push(...[
+  "import-board-instruction-clickup",
+  "import-board-instruction-nullboard",
+  "import-board-instruction-kanri",
+  "import-board-instruction-pivotal",
+  "import-board-instruction-tasksorg",
+  "import-board-instruction-monday",
+  "import-board-instruction-superproductivity",
+  "import-board-instruction-taiga",
+  "import-board-instruction-vikunja"
+]);
   for (const language of ['zu', 'zu-ZA']) {
     const locale = read(language);
     for (const key of keys) {
@@ -1091,6 +1102,22 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
     assert.match(locale['import-board-instruction-meistertask'], /eqediwe igcina usuku lwayo lokuqedwa/);
     assert.match(locale['import-board-instruction-obsidian'], /amakhadi afakwe kungobo yomlando/);
     assert.match(locale['import-board-instruction-ticktick'], /ngalunye lwe-TickTick luba umzila/);
+    const middleImportCommands = {
+      clickup: ['Settings', 'Imports / Exports', 'Export Items', 'CSV'],
+      nullboard: ['Export this board...', '.nbx', 'raw'],
+      kanri: ['Import & Export', 'Export individual board', 'Export all data', '.json'],
+      pivotal: ['MORE', 'Export CSV', 'Bulk Actions', 'Estimate', 'Story points'],
+      tasksorg: ['Settings', 'Backups', 'Export tasks', '.json'],
+      monday: ['More actions', 'Export board to Excel', '.xlsx', 'Status'],
+      superproductivity: ['Settings', 'Sync & Backup', 'Export Data', 'sp-backup', '.json', 'To Do', 'In Progress', 'Backlog', 'Done'],
+      taiga: ['Admin > Project > Export', '.json.gz', 'JSON'],
+      vikunja: ['Settings', 'Data Export', '.zip', 'data.json'],
+    };
+    for (const [format, values] of Object.entries(middleImportCommands)) for (const literal of values) assert.ok(locale['import-board-instruction-' + format].includes(literal));
+    assert.match(locale['import-board-instruction-nullboard'], /ibhodi lalo lokuqala/);
+    assert.match(locale['import-board-instruction-kanri'], /kungeniswa ibhodi lokuqala/);
+    for (const format of ['taiga', 'vikunja']) assert.match(locale['import-board-instruction-' + format], /Okunamathiselwe akungeniswa/);
+    assert.match(locale['import-board-instruction-superproductivity'], /efakwe kungobo yomlando iba amakhadi afakwe kungobo yomlando/);
     const failure = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
     assert.ok(failure.includes('E_LDAP'));
     assert.ok(!failure.includes('%s'));

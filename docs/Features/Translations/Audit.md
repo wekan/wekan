@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Zulu import instructions, middle group — 2026-10-09
+
+Translate nine instructions per Zulu catalog (18 values): ClickUp, Nullboard,
+Kanri, Pivotal Tracker, Tasks.org, monday.com, Super Productivity, Taiga and
+Vikunja. Preserve commands, formats and variables. Tests retain first-board
+selection, archive handling and attachment exclusions. All three targeted
+suites and 21 preservation checks pass. Specialized terminology remains low
+confidence pending speaker review. Browser execution and remaining translations
+are outstanding.
+
 ## Zulu import instructions, first group — 2026-10-09
 
 Translate eight instructions per Zulu catalog (16 values): OPML, Org mode,
