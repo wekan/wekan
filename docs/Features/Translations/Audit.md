@@ -7866,6 +7866,19 @@ completion polarity and workflow import names, alongside full token inventories.
 Technical wording remains low confidence pending speaker review. Browser checks
 were not run. Further wrong-language corrections and the broader audit remain.
 
+### Tatar trigger events and date-change corrections
+
+Corrected 37 older trigger, movement, attachment and checklist values, including
+date events that previously omitted setting a date and conflated due/end dates.
+Retained correct month, board, list and card labels and the title/description
+condition. Inspected the trigger-template references for short fragments; composed
+sentences still require browser and speaker review. Regression coverage checks
+Tatar attachment vocabulary, four distinct date kinds with set-or-change meaning,
+movement direction, archive polarity and equivalent attachment event labels.
+Source placeholder inventories and key order remain intact. Technical wording is
+low confidence pending speaker review. Browser checks were not run. Further
+wrong-language corrections and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
