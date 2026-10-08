@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a520d411f02106a9bc9faee63cb9e7a7d7a1393a">Correct Tatar branding and authentication labels</a></summary>
+
+- Correct 32 branding, authentication and administration values, preserving
+  protocol names, assetlinks.json, HTML boundaries and JSON markers.
+- Technical wording remains low confidence pending speaker review.
+- All 105 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/26c37ae023db7cae73c82e2a6a6b95c757a332a1">Correct Tatar minicards and label activity</a></summary>
 
 - Correct 23 minicard and activity values, preserving checklist counters and
