@@ -1998,6 +1998,22 @@ report with seven assignees and asserts no avatar overlaps the comment.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1a902b438d5e0d5fe902da203aa269fc447620fd">Translate Moroccan Arabic numeric inputs and keyboard hints</a></summary>
+
+- Fill 52 placeholders, retaining existing translations. Check numeric operand
+  roles, bounds, coordinates, keyboard arguments, empty-list length and indexing
+  direction, together with script, key order and source placeholders.
+- Validation: 41 translation checks and 21 human-preference checks pass. Two
+  repository-wide checks fail on new card-field-visibility keys missing from
+  other locales. Browser, RTL and screen-reader checks were not run.
+- Technical Darija wording remains low confidence pending speaker review;
+  remaining placeholders and the broader dialect and semantic audit stay open.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b742f218f0b9a1314c49a7150bd82565ecd12b92">Translate Moroccan Arabic workspace and input labels</a></summary>
 
 - Fill 55 placeholders, including the short bitmap-on label, preserving existing
