@@ -344,3 +344,19 @@ assert.match(wu['stuck-sync-operation-replayable-now'], /勿好丢弃/);
 assert.match(wu['stuck-sync-operation-replayable'], /呒没丢弃/);
 assert.match(wu['stuck-sync-operation-not-stuck'], /还朆确定.*勿好丢弃/);
 assert.match(wu['stuck-sync-operation-truncated'], /最早个 50/);
+
+const finalRecovery = ["interrupted-import-heading", "interrupted-import-description", "interrupted-import-board", "interrupted-import-progress", "interrupted-import-created", "interrupted-import-source", "interrupted-import-state-stopped", "interrupted-import-state-failed", "interrupted-import-state-discarding", "interrupted-import-scrum", "interrupted-import-counts", "interrupted-import-no-board", "interrupted-import-keep", "interrupted-import-discard", "interrupted-import-keep-confirm", "interrupted-import-discard-confirm", "interrupted-import-refresh", "interrupted-import-empty", "interrupted-import-truncated", "interrupted-import-unavailable", "interrupted-import-missing", "interrupted-import-not-interrupted", "interrupted-import-foreign-board", "interrupted-import-scrum-busy", "interrupted-import-failed", "scrum-history-checkpoint-stuck", "scrum-history-checkpoint-counts", "scrum-history-checkpoint-hint", "scrum-history-checkpoint-rollback", "scrum-history-checkpoint-discard", "scrum-history-checkpoint-discard-confirm", "scrum-history-checkpoint-ask-admin", "login-setting-env-only"];
+for (const key of finalRecovery) {
+  assert.notEqual(wu[key], english[key], key);
+  assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+}
+assert.match(wu['interrupted-import-description'], /来源文件呒没保存.*继续勿了/);
+assert.match(wu['interrupted-import-description'], /包括后来加进去个内容/);
+assert.match(wu['interrupted-import-keep-confirm'], /啥内容侪勿删/);
+assert.match(wu['interrupted-import-discard-confirm'], /永久删脱/);
+assert.match(wu['interrupted-import-foreign-board'], /呒没碰伊/);
+assert.match(wu['interrupted-import-truncated'], /最早个 50/);
+assert.match(wu['scrum-history-checkpoint-hint'], /呒没别个人改过.*才好回滚/);
+assert.match(wu['scrum-history-checkpoint-hint'], /勿改任何记录/);
+assert.match(wu['login-setting-env-only'], /只好由服务器环境.*勿好改/);
+assert.deepEqual(JSON.parse(remainingWu.stdout), {}, 'the full current Wu fill list is empty');

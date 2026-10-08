@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu current fill list completed — 2026-10-08
+
+Translate the final 33 interrupted-import, history and environment-setting strings.
+The full current Wu fill list is empty. Preserve exact variables; check permanent
+removal, preserved boards, untouched foreign boards, rollback conditions and read-only
+settings. Wu wording is lower confidence and needs native review. No browser session
+was run. Older Mandarin-like passages and other languages remain unfinished.
+
 ## Wu Sync planning and interrupted operations — 2026-10-08
 
 Translate 25 planning and interrupted-Sync messages. Preserve exact variables and
