@@ -1897,7 +1897,8 @@ each for the reason given:
 
 **In short:** Two **GitHub CodeQL** code-scanning alerts in the test suite are
 fixed: tests no longer build `bash -c` scripts from absolute paths, and a guard
-keeps that shape out of every test.
+keeps that shape out of every test. **Multi-Selection** can set a custom
+card color.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
@@ -1913,6 +1914,31 @@ path in an environment variable now, and `tests/testShellPathsFromEnv.test.cjs`
 fails on any test that sources an interpolated value. These are test files, so
 no attempt against a running WeKan is possible and nothing is logged in Admin
 Panel -> Problems.
+
+</details>
+
+and adds the following new features:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fdfa94321278b7d46eacec54340c7845d7efbd1e">Multi-Selection can put a custom color on all selected cards, and offers the board's custom colors</a>. Thanks to xet7.</summary>
+
+Reported by email: Multi-Selection offered only the ready-made card colors, so
+a lighter yellow that keeps card text readable had to be set card by card. One
+card's color popup already had a color wheel (#5514) storing a `#rrggbb` hex in
+`card.color`; the Multi-Selection color popup now has the same wheel and writes
+the same field through the same `Card.setColor` and server allow rule, so no
+second color model exists. Both popups also show the custom colors already used
+on the board's cards beside the palette, so a color picked once is one click
+away for the next cards. Cards the user may not edit are skipped, and one
+refused card no longer stops the rest of the selection. The Cards schema checks
+`color` with one shared rule - empty, a palette name or a strict `#rrggbb` -
+so values such as `red;background:url(...)`, `</style>` or `javascript:` are
+refused on the server and never shown as swatches. Such a value is not logged
+in Admin Panel -> Problems: it was never renderable, and no published
+vulnerability stands behind it. `tests/multiSelectionCustomColor.test.cjs` pins
+the rule, the swatch list and the wiring;
+`tests/playwright/specs/multiselection-custom-color.e2e.js` colors two cards
+light yellow and checks a comment-only linked card stays unchanged.
 
 </details>
 
