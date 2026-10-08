@@ -7565,6 +7565,15 @@ rather than radian units. Technical wording remains low confidence pending speak
 review. Browser, screen-reader and right-to-left layout checks were not run. The
 broader translation audit continues.
 
+### Central Kurdish function and variable controls
+
+Filled 37 English placeholders for functions, variables, backpack actions and
+screen-reader controls. Existing translations and source tokens are preserved.
+Regression checks cover key order, script, placeholder inventories, functions with
+and without return values, named invocations and function-only return restrictions.
+Technical wording remains low confidence pending speaker review. Browser, screen-reader
+and right-to-left layout checks were not run. The broader translation audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
