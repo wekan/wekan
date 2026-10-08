@@ -975,6 +975,19 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1918d37067">Translate Norwegian Bokmal planning imports and recovery messages</a>. Thanks to xet7.</summary>
+
+Fill 61 messages for board controls, link rules, planning imports, Sync and
+import/history recovery. Preserve source variables, literal examples,
+matching priority and permanent-removal warnings.
+
+Bokmal, global placeholder and translation audit suites pass, together with
+21 human-preference checks. No browser or screen-reader session was run.
+Other translations and broader linguistic review remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/28d3785914">Translate Norwegian Bokmal import guidance and stuck Sync recovery</a>. Thanks to xet7.</summary>
 
 Fill 36 messages for import formats, assignment actions, LDAP, OAuth,
