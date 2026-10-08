@@ -441,6 +441,16 @@ used.
 # Upcoming WeKan ® release
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c3c45288a7">Correct Wu account and scheduled-job wording</a>. Thanks to xet7.</summary>
+
+Correct 43 Wu values, clarifying account enablement and scheduled board operations.
+Distinguish absent paused migrations from an inability to resume them.
+Three focused suites and all 21 human-preference checks pass. Wu wording needs
+native review; browser tests were not run and the wider translation work continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bf69929f30">Correct Wu Markdown, recurrence and lockout wording</a>. Thanks to xet7.</summary>
 
 Correct 28 Wu values, preserving format names and distinguishing card recurrence from
