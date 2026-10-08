@@ -487,6 +487,17 @@ a live Caddy.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a0b3406e13">Translate Papiamento Blockly fields and icons</a>. Thanks to xet7.</summary>
+
+Translate 35 English field, input, keyboard and icon messages. Preserve numbered
+variables and key names; check opposite actions, pixel states, row/column order
+and input roles. Four focused translation suites and 21 human-preference checks
+pass. Specialized wording is lower confidence and needs native review. No browser
+or screen-reader session was run. Remaining translations are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/04f20bc654">Translate Papiamento Blockly loops and deletion</a>. Thanks to xet7.</summary>
 
 Translate 35 English loop, condition and editing messages. Preserve numbered
