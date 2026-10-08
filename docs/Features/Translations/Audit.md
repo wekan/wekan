@@ -8399,6 +8399,15 @@ new-upload destination semantics and distinct repair/save states. Technical word
 remains low confidence pending speaker review. Focused tests cover tokens, key
 order, identifiers and state distinctions; browser checks were not run.
 
+## Tatar storage statistics and compaction corrections
+
+Corrected 19 wrong-language storage statistics, identifiers and compaction values,
+including two literal product labels. Preserved the requirement to finish bulk
+moves first, the blocking-operation warning and replica-node ordering described
+by the source text. Technical wording remains low confidence pending speaker
+review. Focused checks cover key order, tokens, identifiers and prerequisites;
+browser checks were not run.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
