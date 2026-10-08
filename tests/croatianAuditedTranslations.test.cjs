@@ -6,6 +6,23 @@ const root = path.resolve(__dirname, '..');
 const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/hr.i18n.json'), 'utf8'));
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const { translationTokens } = require('../releases/translations/placeholder-tokens.mjs');
+const correctedControls = ["activity-moved", "activity-checklist-uncompleted-card", "allboards.starred", "allboards.remaining", "allboards.workspaces", "allboards.add-workspace", "allboards.add-workspace-prompt", "allboards.add-subworkspace", "allboards.add-subworkspace-prompt", "allboards.edit-workspace-name", "addWorkspacePopup-title", "add-template", "add-card-to-top-of-list", "add-card-to-bottom-of-list", "convertChecklistItemToCardPopup-title", "add-cover", "add-after-list", "memberPopup-title", "and-n-other-card", "and-n-other-card_plural", "template-container", "board-change-background-image", "board-background-image-url", "remove-background-image", "board_members", "board-private-info", "board-public-info", "boardChangeColorPopup-title", "allBoardsChangeBackgroundImagePopup-title", "boardChangeViewPopup-title", "board-view", "zoom-level", "enter-zoom-level", "board-view-collapse", "board-view-gantt", "board-view-table", "calendar-previous-month-label", "calendar-next-month-label", "due-today", "positiveVoteMembersPopup-title", "negativeVoteMembersPopup-title", "vote-question", "card-edit-planning-poker", "poker-question", "poker-finish", "poker-result-votes", "poker-result-who", "poker-replay", "set-estimation", "cardArchivePopup-title", "cardDetailsActionsPopup-title", "cardAssigneePopup-title", "deleteAvatarPopup-title", "close-card", "color-indigo", "color-lime", "color-magenta", "color-mistyrose", "color-orange", "color-paleturquoise", "color-peachpuff", "color-plum", "color-saddlebrown", "color-sky", "color-slateblue", "unset-color", "comments", "comment-only", "comment-only-desc", "comment-assigned-only"];
+for (const key of correctedControls) {
+  assert.doesNotMatch(data[key], /[\p{Script=Cyrillic}]/u, key);
+  assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), key);
+}
+assert.equal(data['allboards.workspaces'], 'Radni prostori');
+assert.match(data['activity-checklist-uncompleted-card'], /nedovršenu/);
+assert.match(data['add-card-to-top-of-list'], /vrh popisa/);
+assert.match(data['add-card-to-bottom-of-list'], /dno popisa/);
+assert.match(data['board-private-info'], /<strong>privatna<\/strong>/);
+assert.match(data['board-public-info'], /<strong>javna<\/strong>/);
+assert.match(data['enter-zoom-level'], /50-300%/);
+assert.equal(data['board-view-table'], 'Tablica');
+assert.equal(data['poker-result-who'], 'Tko');
+assert.equal(data['calendar-previous-month-label'], 'Prethodni mjesec');
+assert.equal(data['calendar-next-month-label'], 'Sljedeći mjesec');
+assert.match(data['comment-only-desc'], /samo komentirati/);
 assert.equal(data.board, 'Ploča');
 assert.equal(data.swimlane, 'Traka');
 assert.deepEqual(Object.keys(data), Object.keys(english));

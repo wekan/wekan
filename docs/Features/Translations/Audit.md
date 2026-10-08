@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Croatian workspace and board controls — 2026-10-08
+
+Replace 70 Serbian values with Croatian, covering activity messages, workspaces,
+board controls, visibility, voting, colors and comment permissions. Preserve source
+variables, HTML emphasis and the zoom range. Extend regression checks with native
+vocabulary and opposite action meanings, in addition to script checks.
+No browser or screen-reader session was run; further wrong-language review and
+remaining translations are unfinished.
+
 ## Croatian interrupted imports and core labels — 2026-10-08
 
 Translate 25 interrupted-import messages and replace Serbian board and swimlane
