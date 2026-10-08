@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7287a1e98becfbf7b03170a0d8a7cda596a3b78d">Correct Tatar settings and transfer limits</a></summary>
+
+- Correct 33 settings, watching, welcome and transfer-limit values, preserving
+  defaults, WIP identifiers, transfer directions and autolink disabling behavior.
+- Technical wording remains low confidence pending speaker review.
+- All 99 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further wrong-language corrections and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e86baf78ff008a9148db7b829db3bd621730b53">Correct Tatar tracking and upload controls</a></summary>
 
 - Correct 18 tracking, upload, shortcut and logo settings values, preserving
