@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Sir ayaa la dejiyay",
   "oauth-providers-login-style": "Qaabka galitaanka",
   "oauth-providers-merge-existing-users": "Ku dar akoon jira oo leh iimayl isku mid ah",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Akoon leh iimaylkan ayaa horey u jiray, laguma abuurin habkan galitaanka",
   "sign-in-with": "Ku gal %s",
   "passwordless-title": "Galitaan aan furaha sirta lahayn",

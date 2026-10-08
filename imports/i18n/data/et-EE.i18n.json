@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Saladus on määratud",
   "oauth-providers-login-style": "Sisselogimise stiil",
   "oauth-providers-merge-existing-users": "Ühenda olemasoleva sama e-postiga kontoga",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Selle e-postiga konto on juba olemas ja seda ei loodud selle sisselogimisviisiga",
   "sign-in-with": "Logi sisse teenusega %s",
   "passwordless-title": "Paroolita sisselogimine",

@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "May nakatakda nga sekreto",
   "oauth-providers-login-style": "Estilo han pag-log in",
   "oauth-providers-merge-existing-users": "Iusa ha aada na nga account nga may pariho nga email",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "May-ada na account nga may hini nga email ngan waray ini himoa pinaagi hini nga paagi han pag-log in",
   "sign-in-with": "Pag-log in pinaagi han %s",
   "passwordless-title": "Pag-log in nga waray sekreto nga pulong",

@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Нюуса түлхюур табигданхай",
   "oauth-providers-login-style": "Нэбтэрхэ маяг",
   "oauth-providers-merge-existing-users": "Адли сахим захидалтай байгаа бүридхэлтэй нэгэдхэхэ",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Энэ сахим захидалтай бүридхэл хэзээнэй байна, энэ нэбтэрхэ аргаар бүтээгдээгүй",
   "sign-in-with": "%s-ээр нэбтэрхэ",
   "passwordless-title": "Нюуса үгэгүй нэбтэрхэ",

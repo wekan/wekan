@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Wan sikret i stap",
   "oauth-providers-login-style": "Stael blong login",
   "oauth-providers-merge-existing-users": "Joenem wetem wan akaon we i stap finis mo i gat sem imel",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Wan akaon wetem imel ia i stap finis mo oli no mekem hem wetem login rod ia",
   "sign-in-with": "Login wetem %s",
   "passwordless-title": "Login we i no nidim paswod",

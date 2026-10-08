@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Kua tautuhia tētahi muna",
   "oauth-providers-login-style": "Kāhua takiuru",
   "oauth-providers-merge-existing-users": "Hanumi ki tētahi pūkete kei te tū kē he īmēra ōrite",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Kei te tū kē tētahi pūkete mō tēnei īmēra, ā, kāore i hangaia mā tēnei tikanga takiuru",
   "sign-in-with": "Takiuru mā %s",
   "passwordless-title": "Takiuru kupuhipa-kore",

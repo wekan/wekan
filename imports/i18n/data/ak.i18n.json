@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Wɔde ahintasɛm bi asi hɔ",
   "oauth-providers-login-style": "Ɔkwan a wɔfa so kɔ mu",
   "oauth-providers-merge-existing-users": "Fa ka akawnt a ɛwɔ hɔ dedaw a ɛwɔ email koro no ara ho",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Akawnt a ɛwɔ saa email yi wɔ hɔ dedaw na wɔamfa saa ɔkwan yi so anyɛ",
   "sign-in-with": "Fa %s kɔ mu",
   "passwordless-title": "Kɔ mu a ahintasɛm nnim",

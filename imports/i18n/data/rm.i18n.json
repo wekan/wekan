@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "In secret è definì",
   "oauth-providers-login-style": "Stil d’annunzia",
   "oauth-providers-merge-existing-users": "Fusiunar cun in conto existent che ha il medem e-mail",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "In conto cun quest e-mail exista gia e n’è betg vegnì creà cun questa metoda d’annunzia",
   "sign-in-with": "S’annunziar cun %s",
   "passwordless-title": "Annunzia senza pled-clav",

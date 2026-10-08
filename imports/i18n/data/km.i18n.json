@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "បានកំណត់សម្ងាត់រួចហើយ",
   "oauth-providers-login-style": "រចនាប័ទ្មចូល",
   "oauth-providers-merge-existing-users": "បញ្ចូលគ្នាជាមួយគណនីដែលមានស្រាប់ដែលមានអ៊ីមែលដូចគ្នា",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "គណនីដែលមានអ៊ីមែលនេះមានរួចហើយ ហើយមិនត្រូវបានបង្កើតដោយវិធីចូលនេះទេ",
   "sign-in-with": "ចូលដោយ %s",
   "passwordless-title": "ចូលដោយគ្មានពាក្យសម្ងាត់",

@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Сир гузошта шудааст",
   "oauth-providers-login-style": "Услуби вуруд",
   "oauth-providers-merge-existing-users": "Муттаҳид кардан бо ҳисоби мавҷуда, ки ҳамон почтаи электронӣ дорад",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Ҳисоб бо ин почтаи электронӣ аллакай вуҷуд дорад ва бо ин усули вуруд сохта нашудааст",
   "sign-in-with": "Ворид шудан тавассути %s",
   "passwordless-title": "Вуруд бидуни рамз",

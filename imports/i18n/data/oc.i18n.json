@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Un secret es definit",
   "oauth-providers-login-style": "Estil de connexion",
   "oauth-providers-merge-existing-users": "Fusionar amb un compte existent qu’a lo meteis corrièl",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Un compte amb aqueste corrièl existís ja e foguèt pas creat amb aqueste metòde de connexion",
   "sign-in-with": "Se connectar amb %s",
   "passwordless-title": "Connexion sens mot de Santa-Clara",

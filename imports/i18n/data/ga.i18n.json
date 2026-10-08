@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Tá rún socraithe",
   "oauth-providers-login-style": "Stíl logála isteach",
   "oauth-providers-merge-existing-users": "Cumaisc le cuntas atá ann cheana a bhfuil an ríomhphost céanna aige",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Tá cuntas leis an ríomhphost seo ann cheana agus níor cruthaíodh é leis an modh logála isteach seo",
   "sign-in-with": "Logáil isteach le %s",
   "passwordless-title": "Logáil isteach gan phasfhocal",

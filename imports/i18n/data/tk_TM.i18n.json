@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Gizlin açar bellenen",
   "oauth-providers-login-style": "Giriş stili",
   "oauth-providers-merge-existing-users": "Şol bir e-poçtaly bar bolan hasap bilen birleşdir",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Bu e-poçtaly hasap eýýäm bar we ol bu giriş usuly bilen döredilmedik",
   "sign-in-with": "%s bilen gir",
   "passwordless-title": "Parolsyz giriş",

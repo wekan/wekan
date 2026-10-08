@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Xihundla xi vekiwile",
   "oauth-providers-login-style": "Xitayela xa ku nghena",
   "oauth-providers-merge-existing-users": "Hlanganisa na akhawunti leyi nga kona leyi nga na imeyili leyi fanaka",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Akhawunti leyi nga na imeyili leyi yi kona ana naswona a yi endliwanga hi ndlela leyi ya ku nghena",
   "sign-in-with": "Nghena hi %s",
   "passwordless-title": "Ku nghena handle ka xiletelo xa xihundla",

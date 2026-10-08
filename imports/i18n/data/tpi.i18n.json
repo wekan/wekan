@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Wanpela sikret i stap",
   "oauth-providers-login-style": "Stail bilong go insait",
   "oauth-providers-merge-existing-users": "Bungim wantaim wanpela akaun i stap pinis na i gat wankain imel",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Wanpela akaun wantaim dispela imel i stap pinis na ol i no bin wokim wantaim dispela rot bilong go insait",
   "sign-in-with": "Go insait wantaim %s",
   "passwordless-title": "Go insait i no gat paswot",

@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "ഒരു രഹസ്യം സജ്ജമാക്കിയിട്ടുണ്ട്",
   "oauth-providers-login-style": "ലോഗിൻ ശൈലി",
   "oauth-providers-merge-existing-users": "ഇതേ ഇമെയിലുള്ള നിലവിലുള്ള അക്കൗണ്ടുമായി ലയിപ്പിക്കുക",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "ഈ ഇമെയിലുള്ള അക്കൗണ്ട് ഇതിനകം നിലവിലുണ്ട്, അത് ഈ ലോഗിൻ രീതി ഉപയോഗിച്ച് സൃഷ്ടിച്ചതല്ല",
   "sign-in-with": "%s ഉപയോഗിച്ച് ലോഗിൻ ചെയ്യുക",
   "passwordless-title": "പാസ്‌വേഡ് ഇല്ലാത്ത ലോഗിൻ",

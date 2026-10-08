@@ -169,3 +169,23 @@ test('LOGOUT_WITH_TIMER signs out logins past LOGOUT_IN and keeps newer ones', a
     db.updateOne('users', { _id: user.id }, { $pull: { 'services.resume.loginTokens': { hashedToken: { $regex: `^${marker}` } } } });
   }
 });
+
+// #1904: OAuth login providers can be restricted to email domains, saved from
+// the shared provider settings and refused when the list is not domain names.
+test('OAuth provider email domains are saved, and a malformed list is refused', async ({ page, adminUser }) => {
+  await loginWithToken(page, adminUser.id, adminUser.token);
+  try {
+    await navigateInApp(page, '/admin/people/oauth');
+    await page.locator('#oauth-providers-allowed-email-domains').fill(' Example.com , example.org ');
+    await page.locator('.js-oauth-shared-save').click();
+    await expect.poll(() => db.findOne('settings', {}, { oauthProvidersAllowedEmailDomains: 1 }).oauthProvidersAllowedEmailDomains)
+      .toBe('example.com,example.org');
+    const refused = await page.evaluate(async () => {
+      try { await Meteor.callAsync('saveOauthProviderSettings', 'google', { enabled: false, id: '', allowedEmailDomains: 'not a domain' }); return 'saved'; }
+      catch (error) { return error.error; }
+    });
+    expect(refused).toBe('invalid-email-domains');
+  } finally {
+    db.updateOne('settings', {}, { $unset: { oauthProvidersAllowedEmailDomains: '' } });
+  }
+});

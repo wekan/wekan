@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "ರಹಸ್ಯವನ್ನು ಹೊಂದಿಸಲಾಗಿದೆ",
   "oauth-providers-login-style": "ಲಾಗಿನ್ ಶೈಲಿ",
   "oauth-providers-merge-existing-users": "ಅದೇ ಇಮೇಲ್ ಹೊಂದಿರುವ ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಖಾತೆಯೊಂದಿಗೆ ವಿಲೀನಗೊಳಿಸಿ",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "ಈ ಇಮೇಲ್ ಹೊಂದಿರುವ ಖಾತೆ ಈಗಾಗಲೇ ಇದೆ ಮತ್ತು ಅದನ್ನು ಈ ಲಾಗಿನ್ ವಿಧಾನದಿಂದ ರಚಿಸಲಾಗಿಲ್ಲ",
   "sign-in-with": "%s ಮೂಲಕ ಲಾಗಿನ್ ಮಾಡಿ",
   "passwordless-title": "ಪಾಸ್‌ವರ್ಡ್ ರಹಿತ ಲಾಗಿನ್",

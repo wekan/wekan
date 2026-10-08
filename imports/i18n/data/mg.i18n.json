@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Misy tsiambaratelo napetraka",
   "oauth-providers-login-style": "Fomba fidirana",
   "oauth-providers-merge-existing-users": "Ampifangaroy amin'ny kaonty efa misy manana mailaka mitovy",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Efa misy kaonty manana io mailaka io ary tsy noforonina tamin'ity fomba fidirana ity",
   "sign-in-with": "Midira amin'ny %s",
   "passwordless-title": "Fidirana tsy misy teny miafina",

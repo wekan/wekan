@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Secretum positum est",
   "oauth-providers-login-style": "Modus intrandi",
   "oauth-providers-merge-existing-users": "Cum ratione exsistente eisdem litteris electronicis coniungere",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Ratio his litteris electronicis iam exstat neque hoc modo intrandi creata est",
   "sign-in-with": "Intra per %s",
   "passwordless-title": "Intrare sine tessera",

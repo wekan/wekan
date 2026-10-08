@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "May nakatakdang lihim",
   "oauth-providers-login-style": "Estilo ng pag-login",
   "oauth-providers-merge-existing-users": "Pagsamahin sa umiiral na account na may parehong e-liham",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Mayroon nang account na may e-liham na ito at hindi ito ginawa gamit ang paraan ng pag-login na ito",
   "sign-in-with": "Mag-sign in gamit ang %s",
   "passwordless-title": "Pag-login na walang password",

@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "En hemlighet är angiven",
   "oauth-providers-login-style": "Inloggningsstil",
   "oauth-providers-merge-existing-users": "Slå ihop med ett befintligt konto som har samma e-post",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Ett konto med denna e-post finns redan och skapades inte med denna inloggningsmetod",
   "sign-in-with": "Logga in med %s",
   "passwordless-title": "Lösenordsfri inloggning",

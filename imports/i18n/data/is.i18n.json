@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Leyndarmál er stillt",
   "oauth-providers-login-style": "Innskráningarstíll",
   "oauth-providers-merge-existing-users": "Sameina við reikning sem er til með sama netfangi",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Reikningur með þessu netfangi er þegar til og var ekki stofnaður með þessari innskráningaraðferð",
   "sign-in-with": "Skrá inn með %s",
   "passwordless-title": "Innskráning án lykilorðs",

@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "A ti ṣètò àṣírí kan",
   "oauth-providers-login-style": "Ọ̀nà ìwọlé",
   "oauth-providers-merge-existing-users": "Ṣe àpapọ̀ pẹ̀lú àkọọ́lẹ̀ tí ó wà tẹ́lẹ̀ tí ó ní imeeli kan náà",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Àkọọ́lẹ̀ tí ó ní imeeli yìí ti wà tẹ́lẹ̀, a kò sì ṣẹ̀dá rẹ̀ pẹ̀lú ọ̀nà ìwọlé yìí",
   "sign-in-with": "Wọlé pẹ̀lú %s",
   "passwordless-title": "Ìwọlé láìsí ọ̀rọ̀ìgbaniwọlé",

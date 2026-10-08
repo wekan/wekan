@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "نهێنییەک دانراوە",
   "oauth-providers-login-style": "شێوازی چوونەژوورەوە",
   "oauth-providers-merge-existing-users": "یەکخستن لەگەڵ هەژمارێکی هەبوو کە هەمان ئیمەیلی هەیە",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "هەژمارێک بەم ئیمەیلە پێشتر هەیە و بەم شێوازی چوونەژوورەوەیە دروست نەکراوە",
   "sign-in-with": "چوونەژوورەوە بە %s",
   "passwordless-title": "چوونەژوورەوە بەبێ وشەی نهێنی",

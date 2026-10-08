@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Ur sekred zo lakaet",
   "oauth-providers-login-style": "Stil kennaskañ",
   "oauth-providers-merge-existing-users": "Kendeuziñ gant ur gont a zo dija hag he deus an hevelep e-mail",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Ur gont gant an e-mail-mañ a zo dija ha n’eo ket bet krouet gant an doare kennaskañ-mañ",
   "sign-in-with": "Kennaskañ gant %s",
   "passwordless-title": "Kennaskañ hep ger-tremen",

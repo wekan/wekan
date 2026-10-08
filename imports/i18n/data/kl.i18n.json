@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Isertugaq aalajangersarneqarsimavoq",
   "oauth-providers-login-style": "Iserneq qanoq ittoq",
   "oauth-providers-merge-existing-users": "Konto pioreersoq e-mail assingusoq atorlugu kattuffigineqassaaq",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "E-mail una atorlugu konto pioreersoq, isernermullu periaaseq una atorlugu pilersinneqarsimanngilaq",
   "sign-in-with": "%s atorlugu iserit",
   "passwordless-title": "Isissutissaqanngitsumik iserneq",

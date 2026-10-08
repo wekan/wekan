@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Un segreto è impostato",
   "oauth-providers-login-style": "Stile di accesso",
   "oauth-providers-merge-existing-users": "Unisci a un account esistente con la stessa posta elettronica",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Esiste già un account con questa posta elettronica e non è stato creato con questo metodo di accesso",
   "sign-in-with": "Accedi con %s",
   "passwordless-title": "Accesso senza parola d’accesso",

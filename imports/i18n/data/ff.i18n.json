@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Sirru ina woodi",
   "oauth-providers-login-style": "Mbaydi seŋagol",
   "oauth-providers-merge-existing-users": "Jokkondir e konte woodnde nde iimeel gooto",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Konte nde iimeel ndee ina woodi kadi nde sosaaka e laawol seŋagol ngol",
   "sign-in-with": "Seŋo e %s",
   "passwordless-title": "Seŋagol tawa finnde alaa",

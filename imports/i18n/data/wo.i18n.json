@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Am na kumpa bu ñu def",
   "oauth-providers-login-style": "Melokaanu connexion",
   "oauth-providers-merge-existing-users": "Boole ak benn kont bu am ba pare bu am menn e-mail bi",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Am na kont bu am e-mail bii ba pare te sosuñu ko ak melokaanu connexion bii",
   "sign-in-with": "Connexion ak %s",
   "passwordless-title": "Connexion bu amul mot de passe",

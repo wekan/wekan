@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "הוגדר סוד",
   "oauth-providers-login-style": "סגנון כניסה",
   "oauth-providers-merge-existing-users": "מיזוג עם חשבון קיים בעל אותה כתובת דוא״ל",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "כבר קיים חשבון עם כתובת דוא״ל זו והוא לא נוצר בשיטת כניסה זו",
   "sign-in-with": "כניסה באמצעות %s",
   "passwordless-title": "כניסה ללא ססמה",

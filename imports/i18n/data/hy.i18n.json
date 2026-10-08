@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Գաղտնիք է սահմանված",
   "oauth-providers-login-style": "Մուտքի ոճ",
   "oauth-providers-merge-existing-users": "Միավորել նույն էլ. փոստով գոյություն ունեցող հաշվի հետ",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Այս էլ. փոստով հաշիվ արդեն կա, և այն այս մուտքի եղանակով չի ստեղծվել",
   "sign-in-with": "Մուտք գործել %s-ով",
   "passwordless-title": "Մուտք առանց գաղտնաբառի",

@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "’n Geheim is gestel",
   "oauth-providers-login-style": "Aanmeldstyl",
   "oauth-providers-merge-existing-users": "Smelt saam met ’n bestaande rekening met dieselfde e-pos",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "’n Rekening met hierdie e-pos bestaan reeds en is nie met hierdie aanmeldmetode geskep nie",
   "sign-in-with": "Meld aan met %s",
   "passwordless-title": "Aanmelding sonder wagwoord",

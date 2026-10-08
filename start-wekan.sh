@@ -868,6 +868,9 @@
       # account with the same email. Default: false = the login is refused, not merged,
       # like OAUTH2_MERGE_EXISTING_USERS. Enable only if you trust the provider's emails.
       #export OAUTH_PROVIDERS_MERGE_EXISTING_USERS=false
+      # OAUTH_PROVIDERS_ALLOWED_EMAIL_DOMAINS : only these email domains may sign in with
+      # the providers above, comma separated, like OAUTH2_ALLOWED_EMAIL_DOMAINS. Empty: all.
+      #export OAUTH_PROVIDERS_ALLOWED_EMAIL_DOMAINS=example.com
       # PASSWORDLESS_ENABLED : email a one-time sign-in code instead of asking a
       # password. Needs MAIL_URL. Also switchable in Admin Panel / People / Login.
       #export PASSWORDLESS_ENABLED=true

@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Тајна је постављена",
   "oauth-providers-login-style": "Стил пријаве",
   "oauth-providers-merge-existing-users": "Споји са постојећим налогом који има исту е-пошту",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Налог са овом е-поштом већ постоји и није направљен овим начином пријаве",
   "sign-in-with": "Пријави се преко %s",
   "passwordless-title": "Пријава без лозинке",

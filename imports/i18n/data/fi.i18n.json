@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Salaisuus on asetettu",
   "oauth-providers-login-style": "Kirjautumistyyli",
   "oauth-providers-merge-existing-users": "Yhdistä olemassa olevaan tiliin, jolla on sama sähköposti",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Tili tällä sähköpostilla on jo olemassa eikä sitä luotu tällä kirjautumistavalla",
   "sign-in-with": "Kirjaudu palvelulla %s",
   "passwordless-title": "Salasanaton kirjautuminen",

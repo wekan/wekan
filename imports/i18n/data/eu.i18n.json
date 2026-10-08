@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Sekretu bat ezarrita dago",
   "oauth-providers-login-style": "Saio-hasiera estiloa",
   "oauth-providers-merge-existing-users": "Bateratu e-posta bera duen lehendik dagoen kontuarekin",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Badago e-posta hau duen kontu bat eta ez zen saio-hasiera metodo honekin sortu",
   "sign-in-with": "Hasi saioa %s bidez",
   "passwordless-title": "Pasahitzik gabeko saio-hasiera",

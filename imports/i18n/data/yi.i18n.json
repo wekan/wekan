@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "אַ סוד איז געשטעלט",
   "oauth-providers-login-style": "אַרײַנלאָגירן־סטיל",
   "oauth-providers-merge-existing-users": "צונויפֿגיסן מיט אַן עקזיסטירנדיקן קאָנטע וואָס האָט די זעלבע בליצפּאָסט",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "אַ קאָנטע מיט דער בליצפּאָסט עקזיסטירט שוין און איז נישט געשאַפֿן געוואָרן מיט דער אַרײַנלאָגירן־מעטאָד",
   "sign-in-with": "אַרײַנלאָגירן מיט %s",
   "passwordless-title": "אַרײַנלאָגירן אָן שפּריכוואָרט",

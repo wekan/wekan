@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "اکھ سیکریٹ چھُ سیٹ",
   "oauth-providers-login-style": "لاگ اِن انداز",
   "oauth-providers-merge-existing-users": "ہیوے ای میلٕچ موجودہ اکاؤنٹس سٟتؠ رلٲیو",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "یَتھ ای میلٕچ اکاؤنٹ چھُ پہلےٕ موجود تہٕ سُہ آو نہٕ یَتھ لاگ اِن طریقہٕ سٟتؠ بناونہٕ",
   "sign-in-with": "%s سٟتؠ لاگ اِن کریو",
   "passwordless-title": "پاس ورڈ بغٲر لاگ اِن",

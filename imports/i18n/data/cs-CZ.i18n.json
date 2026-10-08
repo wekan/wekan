@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Tajný klíč je nastaven",
   "oauth-providers-login-style": "Styl přihlášení",
   "oauth-providers-merge-existing-users": "Sloučit s existujícím účtem se stejným e-mailem",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Účet s tímto e-mailem již existuje a nebyl vytvořen touto metodou přihlášení",
   "sign-in-with": "Přihlásit přes %s",
   "passwordless-title": "Přihlášení bez hesla",

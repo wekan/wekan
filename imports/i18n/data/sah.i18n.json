@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Кистэлэҥ туруоруллубут",
   "oauth-providers-login-style": "Киирии стилэ",
   "oauth-providers-merge-existing-users": "Ити электроннай почталаах баар аккаунты кытта холбоо",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Бу электроннай почталаах аккаунт номнуо баар уонна бу киирии ньыматынан оҥоһуллубатах",
   "sign-in-with": "%s нөҥүө киир",
   "passwordless-title": "Кистэлэҥ тыла суох киирии",

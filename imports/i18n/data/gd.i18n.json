@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Chaidh rùn a shuidheachadh",
   "oauth-providers-login-style": "Stoidhle a’ chlàraidh a-steach",
   "oauth-providers-merge-existing-users": "Co-aonaich le cunntas a tha ann mu thràth aig a bheil an aon phost-d",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Tha cunntas leis a’ phost-d seo ann mu thràth is cha deach a chruthachadh leis an dòigh clàraidh a-steach seo",
   "sign-in-with": "Clàraich a-steach le %s",
   "passwordless-title": "Clàradh a-steach gun fhacal-faire",

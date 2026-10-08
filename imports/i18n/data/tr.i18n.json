@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Bir gizli anahtar ayarlı",
   "oauth-providers-login-style": "Oturum açma stili",
   "oauth-providers-merge-existing-users": "Aynı e-postaya sahip mevcut bir hesapla birleştir",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Bu e-postaya sahip bir hesap zaten var ve bu oturum açma yöntemiyle oluşturulmamış",
   "sign-in-with": "%s ile oturum aç",
   "passwordless-title": "Parolasız oturum açma",

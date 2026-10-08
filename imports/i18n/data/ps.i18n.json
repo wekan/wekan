@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "پټ کیلي ټاکل شوې ده",
   "oauth-providers-login-style": "د ننوتلو بڼه",
   "oauth-providers-merge-existing-users": "د ورته برېښنالیک لرونکي شته حساب سره یوځای کول",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "د دې برېښنالیک حساب لا دمخه شته او د دې ننوتلو طریقې سره نه دی جوړ شوی",
   "sign-in-with": "د %s له لارې ننوتل",
   "passwordless-title": "بې پټنومه ننوتل",

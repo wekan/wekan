@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Geemay wottettiis",
   "oauth-providers-login-style": "Gelidi hanotaa",
   "oauth-providers-merge-existing-users": "Issi iimeeliyaa de'iya kase de'iya akkawuntiyaara gattite",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Ha iimeeliyaara akkawuntee kase de'ees, qassi ha gelidi ogiyan medhettibeenna",
   "sign-in-with": "%s-n gelite",
   "passwordless-title": "Geeman qaali baynna gelidi",

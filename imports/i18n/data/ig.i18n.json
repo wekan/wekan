@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "E debere ihe nzuzo",
   "oauth-providers-login-style": "Ụdị nbanye",
   "oauth-providers-merge-existing-users": "Jikọta ya na akaụntụ dị adị nke nwere otu ozi-e ahụ",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Akaụntụ nwere ozi-e a adịlarị ma e jighị usoro nbanye a mepụta ya",
   "sign-in-with": "Banye site na %s",
   "passwordless-title": "Nbanye na-enweghị okwuntughe",

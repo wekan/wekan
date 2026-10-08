@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Tshiphiri tsho vhewa",
   "oauth-providers-login-style": "Tshitaela tsha u dzhena",
   "oauth-providers-merge-existing-users": "Ṱanganyisani na akhaunthu i re hone i re na imeyili i fanaho",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Akhaunthu i re na iyi imeyili i hone kale nahone a yo ngo itwa nga iyi nḓila ya u dzhena",
   "sign-in-with": "Dzhenani nga %s",
   "passwordless-title": "U dzhena hu si na phasiwedi",

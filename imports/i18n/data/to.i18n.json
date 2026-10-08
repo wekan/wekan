@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Kuo fokotuʻu ha meʻa fufū",
   "oauth-providers-login-style": "Sitaila hū",
   "oauth-providers-merge-existing-users": "Fakataha mo ha ʻakauni ʻoku ʻosi ʻi ai ʻoku tatau hono ʻīmeili",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "ʻOku ʻosi ʻi ai ha ʻakauni mo e ʻīmeili ko ʻení pea naʻe ʻikai fokotuʻu ʻaki ʻa e founga hū ko ʻení",
   "sign-in-with": "Hū ʻaki ʻa e %s",
   "passwordless-title": "Hū taʻe lea fufū",

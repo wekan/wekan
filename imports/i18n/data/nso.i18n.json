@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Sephiri se beilwe",
   "oauth-providers-login-style": "Setaele sa go tsena",
   "oauth-providers-merge-existing-users": "Kopanya le akhaonto yeo e lego gona yeo e nago le imeile ye e swanago",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Akhaonto ya imeile ye e šetše e le gona gomme ga se ya hlongwa ka mokgwa wo wa go tsena",
   "sign-in-with": "Tsena ka %s",
   "passwordless-title": "Go tsena ka ntle le lentšu la sephiri",

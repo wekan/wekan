@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Sekret pasetöl",
   "oauth-providers-login-style": "Nunädastil",
   "oauth-providers-merge-existing-users": "Balön ko kal dabinöl labü pot elektronik ot",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Kal labü pot elektronik at ya dabinon e no pejafon me nunädamod at",
   "sign-in-with": "Nunädön me %s",
   "passwordless-title": "Nunäd nen pasvöd",

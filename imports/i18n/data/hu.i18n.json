@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Van beállított titok",
   "oauth-providers-login-style": "Bejelentkezési stílus",
   "oauth-providers-merge-existing-users": "Összevonás egy meglévő, azonos e-mail-című fiókkal",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Ezzel az e-mail-címmel már létezik fiók, és nem ezzel a bejelentkezési módszerrel jött létre",
   "sign-in-with": "Bejelentkezés ezzel: %s",
   "passwordless-title": "Jelszó nélküli bejelentkezés",

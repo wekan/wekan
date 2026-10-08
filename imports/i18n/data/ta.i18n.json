@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "ஒரு ரகசியம் அமைக்கப்பட்டுள்ளது",
   "oauth-providers-login-style": "உள்நுழைவு பாணி",
   "oauth-providers-merge-existing-users": "அதே மின் அஞ்சல் கொண்ட ஏற்கனவே உள்ள கணக்குடன் இணைக்கவும்",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "இந்த மின் அஞ்சலுடன் ஒரு கணக்கு ஏற்கனவே உள்ளது, அது இந்த உள்நுழைவு முறையால் உருவாக்கப்படவில்லை",
   "sign-in-with": "%s மூலம் உள்நுழை",
   "passwordless-title": "கடவுச்சொல் இல்லாத உள்நுழைவு",

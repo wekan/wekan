@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Секрет задано",
   "oauth-providers-login-style": "Стиль входу",
   "oauth-providers-merge-existing-users": "Об’єднати з наявним обліковим записом із тією самою електронною поштою",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Обліковий запис із цією електронною поштою вже існує і був створений не цим способом входу",
   "sign-in-with": "Увійти через %s",
   "passwordless-title": "Вхід без пароля",

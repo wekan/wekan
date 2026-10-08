@@ -922,6 +922,9 @@ REM # OAUTH_PROVIDERS_MERGE_EXISTING_USERS : link a provider login to an existin
 REM # account with the same email. Default: false = the login is refused, not merged,
 REM # like OAUTH2_MERGE_EXISTING_USERS. Enable only if you trust the provider's emails.
 REM SET OAUTH_PROVIDERS_MERGE_EXISTING_USERS=false
+REM # OAUTH_PROVIDERS_ALLOWED_EMAIL_DOMAINS : only these email domains may sign in with
+REM # the providers above, comma separated, like OAUTH2_ALLOWED_EMAIL_DOMAINS. Empty: all.
+REM SET OAUTH_PROVIDERS_ALLOWED_EMAIL_DOMAINS=example.com
 REM # PASSWORDLESS_ENABLED : email a one-time sign-in code instead of asking a
 REM # password. Needs MAIL_URL. Also switchable in Admin Panel / People / Login.
 REM SET PASSWORDLESS_ENABLED=true

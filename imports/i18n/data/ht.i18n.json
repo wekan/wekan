@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Gen yon sekrè ki defini",
   "oauth-providers-login-style": "Estil koneksyon",
   "oauth-providers-merge-existing-users": "Fizyone ak yon kont ki egziste deja ki gen menm imèl la",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Gen yon kont ak imèl sa a deja epi li pa t kreye ak metòd koneksyon sa a",
   "sign-in-with": "Konekte ak %s",
   "passwordless-title": "Koneksyon san modpas",

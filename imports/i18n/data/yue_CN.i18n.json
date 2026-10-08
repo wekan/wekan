@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "已經設定密鑰",
   "oauth-providers-login-style": "登入樣式",
   "oauth-providers-merge-existing-users": "同使用相同電子郵件嘅現有帳號合併",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "使用呢個電子郵件嘅帳號已經存在，而且唔係用呢種登入方式建立嘅",
   "sign-in-with": "用 %s 登入",
   "passwordless-title": "免密碼登入",

@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "An saita sirri",
   "oauth-providers-login-style": "Salon shiga",
   "oauth-providers-merge-existing-users": "Haɗa da asusun da ke akwai mai imel iri ɗaya",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Akwai asusu da wannan imel tuni kuma ba a ƙirƙire shi da wannan hanyar shiga ba",
   "sign-in-with": "Shiga da %s",
   "passwordless-title": "Shiga ba tare da kalmar sirri ba",

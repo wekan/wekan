@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Đã đặt khóa bí mật",
   "oauth-providers-login-style": "Kiểu đăng nhập",
   "oauth-providers-merge-existing-users": "Gộp với tài khoản hiện có dùng cùng email",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Đã có tài khoản với email này và tài khoản đó không được tạo bằng phương thức đăng nhập này",
   "sign-in-with": "Đăng nhập bằng %s",
   "passwordless-title": "Đăng nhập không cần mật khẩu",

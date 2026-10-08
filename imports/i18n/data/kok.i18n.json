@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "एक गुपीत थारायलां",
   "oauth-providers-login-style": "लॉगिन शैली",
   "oauth-providers-merge-existing-users": "तोच ईमेल आशिल्ल्या सद्याच्या खात्या वांगडा एकठांय करात",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "ह्या ईमेलाचें खातें पयलींच आसा आनी तें ह्या लॉगिन पद्धतीन तयार केल्लें ना",
   "sign-in-with": "%s वरवीं प्रवेश करात",
   "passwordless-title": "पासवर्ड नाशिल्लें लॉगिन",

@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "مەخپىي ئاچقۇچ تەڭشەلگەن",
   "oauth-providers-login-style": "كىرىش ئۇسلۇبى",
   "oauth-providers-merge-existing-users": "ئوخشاش ئېلخەتلىك مەۋجۇت ھېسابات بىلەن بىرلەشتۈرۈش",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "بۇ ئېلخەتلىك ھېسابات ئاللىقاچان مەۋجۇت ۋە ئۇ بۇ كىرىش ئۇسۇلى بىلەن قۇرۇلمىغان",
   "sign-in-with": "%s ئارقىلىق كىرىش",
   "passwordless-title": "پارولسىز كىرىش",

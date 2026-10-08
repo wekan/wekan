@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "pegh 'ang'a'",
   "oauth-providers-login-style": "'el mIw",
   "oauth-providers-merge-existing-users": "QIn pat rap ghajbogh qun tu'lu'bogh tay'moH",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "QIn pat rap ghajbogh qun tu'lu'ta'; 'el mIwvammo' chenmoHlu'be'",
   "sign-in-with": "%s lo'taHvIS yI'el",
   "passwordless-title": "mu'wIj pegh Hutlh 'el",

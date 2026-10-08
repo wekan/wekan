@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Hemm sigriet stabbilit",
   "oauth-providers-login-style": "Stil tal-login",
   "oauth-providers-merge-existing-users": "Għaqqad ma’ kont eżistenti li għandu l-istess email",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Diġà jeżisti kont b’din l-email u ma nħoloqx b’dan il-metodu tal-login",
   "sign-in-with": "Idħol b’%s",
   "passwordless-title": "Login mingħajr password",

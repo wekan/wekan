@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Sephiri se behiloe",
   "oauth-providers-login-style": "Mokhoa oa ho kena",
   "oauth-providers-merge-existing-users": "Kopanya le akhaonto e teng e nang le imeile e tšoanang",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Akhaonto e nang le imeile ena e se e le teng mme ha ea etsoa ka mokhoa ona oa ho kena",
   "sign-in-with": "Kena ka %s",
   "passwordless-title": "Ho kena ntle le phasewete",

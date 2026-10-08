@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "රහසක් සකසා ඇත",
   "oauth-providers-login-style": "පිවිසුම් ශෛලිය",
   "oauth-providers-merge-existing-users": "එකම විද්‍යුත් තැපෑල ඇති පවතින ගිණුම සමඟ ඒකාබද්ධ කරන්න",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "මෙම විද්‍යුත් තැපෑල සහිත ගිණුමක් දැනටමත් පවතින අතර එය මෙම පිවිසුම් ක්‍රමයෙන් සාදා නැත",
   "sign-in-with": "%s මගින් පිවිසෙන්න",
   "passwordless-title": "මුරපදය රහිත පිවිසුම",

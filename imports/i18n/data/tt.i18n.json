@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Сер куелган",
   "oauth-providers-login-style": "Керү стиле",
   "oauth-providers-merge-existing-users": "Шул ук электрон почталы булган хисап язмасы белән берләштерергә",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Бу электрон почталы хисап язмасы инде бар һәм ул бу керү ысулы белән ясалмаган",
   "sign-in-with": "%s аша керергә",
   "passwordless-title": "Серсүзсез керү",

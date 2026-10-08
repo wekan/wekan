@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "ਇੱਕ ਸੀਕਰੇਟ ਸੈੱਟ ਹੈ",
   "oauth-providers-login-style": "ਲਾਗਿਨ ਸ਼ੈਲੀ",
   "oauth-providers-merge-existing-users": "ਉਸੇ ਈਮੇਲ ਵਾਲੇ ਮੌਜੂਦਾ ਖਾਤੇ ਨਾਲ ਮਿਲਾਓ",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "ਇਸ ਈਮੇਲ ਵਾਲਾ ਖਾਤਾ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ ਅਤੇ ਇਹ ਇਸ ਲਾਗਿਨ ਢੰਗ ਨਾਲ ਨਹੀਂ ਬਣਾਇਆ ਗਿਆ ਸੀ",
   "sign-in-with": "%s ਨਾਲ ਲਾਗਿਨ ਕਰੋ",
   "passwordless-title": "ਪਾਸਵਰਡ ਰਹਿਤ ਲਾਗਿਨ",

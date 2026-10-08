@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Gizli açar təyin edilib",
   "oauth-providers-login-style": "Giriş üslubu",
   "oauth-providers-merge-existing-users": "Eyni e-poçta malik mövcud hesabla birləşdir",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Bu e-poçt ilə hesab artıq mövcuddur və bu giriş üsulu ilə yaradılmayıb",
   "sign-in-with": "%s ilə daxil ol",
   "passwordless-title": "Parolsuz giriş",

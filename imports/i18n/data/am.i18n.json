@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "ሚስጥር ተቀምጧል",
   "oauth-providers-login-style": "የመግቢያ ዘይቤ",
   "oauth-providers-merge-existing-users": "ተመሳሳይ ኢሜይል ካለው ነባር መለያ ጋር አዋህድ",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "በዚህ ኢሜይል መለያ አስቀድሞ አለ እና በዚህ የመግቢያ ዘዴ አልተፈጠረም",
   "sign-in-with": "በ%s ግባ",
   "passwordless-title": "ያለ የይለፍ ቃል መግቢያ",

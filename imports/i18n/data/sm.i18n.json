@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Ua faʻatulaga se mea lilo",
   "oauth-providers-login-style": "Sitaili ulufale",
   "oauth-providers-merge-existing-users": "Tuʻufaʻatasi ma se teugatupe o iai ma le imeli tutusa",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Ua iai se teugatupe ma lenei imeli ma e leʻi faia i lenei auala ulufale",
   "sign-in-with": "Ulufale i le %s",
   "passwordless-title": "Ulufale e aunoa ma se upu faataga",

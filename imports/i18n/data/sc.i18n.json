@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Unu segretu est postu",
   "oauth-providers-login-style": "Istile de intrada",
   "oauth-providers-merge-existing-users": "Uni cun unu contu chi esistit giai e chi tenet sa matessi posta elettronica",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Unu contu cun custa posta elettronica esistit giai e no est istadu creadu cun custu mètodu de intrada",
   "sign-in-with": "Intra cun %s",
   "passwordless-title": "Intrada sena crae",

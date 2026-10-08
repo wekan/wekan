@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Er is een geheim ingesteld",
   "oauth-providers-login-style": "Aanmeldstijl",
   "oauth-providers-merge-existing-users": "Samenvoegen met een bestaande account met hetzelfde e-mailadres",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Er bestaat al een account met dit e-mailadres die niet met deze aanmeldmethode aangemaakt is",
   "sign-in-with": "Inloggen met %s",
   "passwordless-title": "Inloggen zonder wachtwoord",

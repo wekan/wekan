@@ -647,6 +647,10 @@
     {
       "key": "r-remove-all-assignees",
       "since": "2026-10-08"
+    },
+    {
+      "key": "oauth-providers-allowed-email-domains",
+      "since": "2026-10-08"
     }
   ]
 }

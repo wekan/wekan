@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Вӑрттӑнлӑх лартнӑ",
   "oauth-providers-login-style": "Кӗмелли стиль",
   "oauth-providers-merge-existing-users": "Ҫав электронлӑ почтӑллӑ пур аккаунтпа пӗрлештер",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Ку электронлӑ почтӑллӑ аккаунт пур ӗнтӗ, ӑна ку кӗмелли меслетпе туман",
   "sign-in-with": "%s урлӑ кӗр",
   "passwordless-title": "Вӑрттӑн сӑмахсӑр кӗни",

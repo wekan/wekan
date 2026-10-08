@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "एक सीक्रेट सेट केले आहे",
   "oauth-providers-login-style": "लॉगिन शैली",
   "oauth-providers-merge-existing-users": "समान ईमेल असलेल्या विद्यमान खात्यासोबत विलीन करा",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "या ईमेलसह खाते आधीपासून अस्तित्वात आहे आणि ते या लॉगिन पद्धतीने तयार केलेले नव्हते",
   "sign-in-with": "%s ने लॉग इन करा",
   "passwordless-title": "पासवर्डविरहित लॉगिन",

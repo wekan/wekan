@@ -153,6 +153,12 @@ template(name="general")
           .materialCheckBox(class="{{#if currentSetting.oauthProvidersMergeExistingUsers}}is-checked{{/if}}")
           span {{_ 'oauth-providers-merge-existing-users'}}
           span.ldap-source-badge  ({{oauthSharedSourceLabel 'mergeExistingUsers'}})
+      //- #1904: restrict provider logins to email domains.
+      li.accounts-form
+        label(for="oauth-providers-allowed-email-domains") {{_ 'oauth-providers-allowed-email-domains'}}
+        .form-group
+          input.wekan-form-control#oauth-providers-allowed-email-domains(type="text" value="{{currentSetting.oauthProvidersAllowedEmailDomains}}" placeholder="example.com, example.org")
+          span.ldap-source-badge  ({{oauthSharedSourceLabel 'allowedEmailDomains'}})
       li.accounts-form
         button.js-oauth-shared-save.primary {{_ 'save'}}
 

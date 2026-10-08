@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Chakavanzika chakaiswa",
   "oauth-providers-login-style": "Maitiro ekupinda",
   "oauth-providers-merge-existing-users": "Batanidza neakaunti iripo ine email yakafanana",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Akaunti ine email iyi yatovepo uye haina kugadzirwa nenzira iyi yekupinda",
   "sign-in-with": "Pinda ne%s",
   "passwordless-title": "Kupinda pasina pasiwedhi",

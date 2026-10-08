@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Нууц түлхүүр тохируулагдсан",
   "oauth-providers-login-style": "Нэвтрэх хэв маяг",
   "oauth-providers-merge-existing-users": "Ижил имэйлтэй одоо байгаа бүртгэлтэй нэгтгэх",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Энэ имэйлтэй бүртгэл аль хэдийн байгаа бөгөөд энэ нэвтрэх аргаар үүсгээгүй байна",
   "sign-in-with": "%s-ээр нэвтрэх",
   "passwordless-title": "Нууц үггүй нэвтрэх",

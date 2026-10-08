@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Сер ҡуйылған",
   "oauth-providers-login-style": "Инеү стиле",
   "oauth-providers-merge-existing-users": "Шул уҡ электрон почталы булған иҫәп яҙмаһы менән берләштерергә",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Был электрон почталы иҫәп яҙмаһы инде бар һәм ул был инеү ысулы менән булдырылмаған",
   "sign-in-with": "%s аша инергә",
   "passwordless-title": "Серһүҙһеҙ инеү",

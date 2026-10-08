@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "یک رمز محرمانه تنظیم شده است",
   "oauth-providers-login-style": "سبک ورود",
   "oauth-providers-merge-existing-users": "ادغام با حساب موجودی که همین پست الکترونیک را دارد",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "حسابی با این پست الکترونیک از قبل وجود دارد و با این روش ورود ساخته نشده است",
   "sign-in-with": "ورود با %s",
   "passwordless-title": "ورود بدون کلمه عبور",

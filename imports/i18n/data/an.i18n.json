@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Bi ha un secreto definiu",
   "oauth-providers-login-style": "Estilo d’inicio de sesión",
   "oauth-providers-merge-existing-users": "Fusionar con una cuenta existent que tienga o mesmo correu electronico",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Ya existe una cuenta con iste correu electronico y no se creyó con iste metodo d’inicio de sesión",
   "sign-in-with": "Iniciar sesión con %s",
   "passwordless-title": "Inicio de sesión sin clau de paso",

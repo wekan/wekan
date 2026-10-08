@@ -30,7 +30,19 @@ const {
   decideAccountConflict,
   isPasswordlessEnabled,
   deriveUsername,
+  allowedProviderEmailDomains,
 } = require('/models/lib/oauthProviders');
+const { isEmailDomainAllowed } = require('/models/lib/emailDomainPolicy');
+
+// #1904: the email domains provider logins are restricted to, if any.
+async function providerEmailDomains() {
+  try {
+    return allowedProviderEmailDomains((await Settings.findOneAsync({}))?.oauthProvidersAllowedEmailDomains, process.env);
+  } catch (e) {
+    return allowedProviderEmailDomains(undefined, process.env);
+  }
+}
+const domainRefused = () => new Meteor.Error('oauth-email-domain-not-allowed', 'Login forbidden');
 
 // The Admin Panel sub-document, `{ [providerKey]: { enabled, id, secret,
 // loginStyle, mergeExistingUsers } }`. Its schema belongs to models/settings.js;
@@ -182,6 +194,9 @@ export async function onCreateProviderUser(options, user, provider) {
   if (username.includes('/') || email.includes('/')) {
     throw new Meteor.Error('oauth-invalid-identity', 'Invalid username or email from the provider');
   }
+  // #1904: before any account is created or merged. A provider that sends no
+  // email cannot prove its domain, so it is refused while a restriction is set.
+  if (!isEmailDomainAllowed(email, await providerEmailDomains())) throw domainRefused();
 
   user.username = username;
   user.emails = email ? [{ address: email, verified: true }] : [];
@@ -296,6 +311,14 @@ Meteor.startup(async () => {
     const provider = providerByService(options.type);
     if (provider && !(await enabledOauthProviders()).includes(provider.key)) {
       throw new Meteor.Error('oauth-provider-disabled', 'This login method is not enabled');
+    }
+    // #1904: every provider login, not only the first, so tightening the
+    // domains also applies to accounts that already exist.
+    if (provider && options.user) {
+      const data = options.user.services?.[provider.service] || {};
+      if (!isEmailDomainAllowed(serviceEmail(provider.service, data).toLowerCase(), await providerEmailDomains())) {
+        throw domainRefused();
+      }
     }
     return true;
   });

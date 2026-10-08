@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Chinsinsi chaikidwa",
   "oauth-providers-login-style": "Kalowedwe",
   "oauth-providers-merge-existing-users": "Phatikizani ndi akaunti yomwe ilipo yomwe ili ndi imelo yofanana",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Akaunti ya imelo iyi ilipo kale ndipo sinapangidwe ndi njira yolowera iyi",
   "sign-in-with": "Lowani ndi %s",
   "passwordless-title": "Kulowa popanda mawu achinsinsi",

@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Eitt loyndarmál er sett",
   "oauth-providers-login-style": "Innritanarstílur",
   "oauth-providers-merge-existing-users": "Flætta saman við verandi konto við sama telduposti",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Ein konta við hesum teldupostinum finst longu og varð ikki stovnað við hesum innritanarhátti",
   "sign-in-with": "Rita inn við %s",
   "passwordless-title": "Innritan uttan loyniorð",

@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Rahasia sudah diatur",
   "oauth-providers-login-style": "Gaya login",
   "oauth-providers-merge-existing-users": "Gabungkan dengan akun yang sudah ada dengan email yang sama",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Akun dengan email ini sudah ada dan tidak dibuat dengan metode login ini",
   "sign-in-with": "Masuk dengan %s",
   "passwordless-title": "Login tanpa kata sandi",

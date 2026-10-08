@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "هڪ ڳجهي ڪنجي مقرر ٿيل آهي",
   "oauth-providers-login-style": "لاگ ان جو انداز",
   "oauth-providers-merge-existing-users": "ساڳي اي ميل واري موجوده اڪائونٽ سان ملايو",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "هن اي ميل سان اڪائونٽ اڳ ۾ ئي موجود آهي ۽ اهو هن لاگ ان طريقي سان نه ٺاهيو ويو هو",
   "sign-in-with": "%s سان لاگ ان ٿيو",
   "passwordless-title": "پاسورڊ کان سواءِ لاگ ان",

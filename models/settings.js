@@ -547,6 +547,12 @@ Settings.attachSchema(
       type: Boolean,
       optional: true,
     },
+    // OAUTH_PROVIDERS_ALLOWED_EMAIL_DOMAINS (#1904): comma-separated domains
+    // provider logins are restricted to; empty or unset allows every domain.
+    oauthProvidersAllowedEmailDomains: {
+      type: String,
+      optional: true,
+    },
     // PASSWORDLESS_ENABLED: Meteor's accounts-passwordless one-time email code.
     passwordlessEnabled: {
       type: Boolean,

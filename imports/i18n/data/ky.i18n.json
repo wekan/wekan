@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Сыр коюлган",
   "oauth-providers-login-style": "Кирүү стили",
   "oauth-providers-merge-existing-users": "Ошол эле электрондук почтасы бар учурдагы аккаунт менен бириктирүү",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Бул электрондук почта менен аккаунт мурунтан бар жана ал бул кирүү ыкмасы менен түзүлгөн эмес",
   "sign-in-with": "%s аркылуу кирүү",
   "passwordless-title": "Сырсөзсүз кирүү",

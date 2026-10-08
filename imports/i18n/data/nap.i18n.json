@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Nu segreto è mpustato",
   "oauth-providers-login-style": "Stile d’accesso",
   "oauth-providers-merge-existing-users": "Aunisce cu nu cunto ca già ce sta e ca tene ’a stessa posta elettronica",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Nu cunto cu sta posta elettronica già ce sta e nun è stato criato cu stu metodo d’accesso",
   "sign-in-with": "Trase cu %s",
   "passwordless-title": "Accesso senza parola d’ordine",

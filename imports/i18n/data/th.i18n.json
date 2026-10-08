@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "ตั้งค่าความลับแล้ว",
   "oauth-providers-login-style": "รูปแบบการเข้าสู่ระบบ",
   "oauth-providers-merge-existing-users": "รวมกับบัญชีที่มีอยู่ซึ่งใช้อีเมล์เดียวกัน",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "มีบัญชีที่ใช้อีเมล์นี้อยู่แล้ว และไม่ได้สร้างด้วยวิธีเข้าสู่ระบบนี้",
   "sign-in-with": "เข้าสู่ระบบด้วย %s",
   "passwordless-title": "เข้าสู่ระบบโดยไม่ใช้รหัสผ่าน",

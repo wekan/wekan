@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Sekret je nastawiōny",
   "oauth-providers-login-style": "Sztyl logowaniŏ",
   "oauth-providers-merge-existing-users": "Połōncz ze istniejōncym kōntym z tym samym mejlym",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Kōnto z tym mejlym już istnieje i niy było stworzōne tōm metodōm logowaniŏ",
   "sign-in-with": "Zaloguj bez %s",
   "passwordless-title": "Logowanie bez hasła",

@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Έχει οριστεί μυστικό",
   "oauth-providers-login-style": "Στυλ σύνδεσης",
   "oauth-providers-merge-existing-users": "Συγχώνευση με υπάρχοντα λογαριασμό που έχει το ίδιο ηλεκτρονικό ταχυδρομείο",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Υπάρχει ήδη λογαριασμός με αυτό το ηλεκτρονικό ταχυδρομείο και δεν δημιουργήθηκε με αυτή τη μέθοδο σύνδεσης",
   "sign-in-with": "Σύνδεση με %s",
   "passwordless-title": "Σύνδεση χωρίς κωδικό",

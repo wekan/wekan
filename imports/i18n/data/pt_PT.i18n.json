@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Está definido um segredo",
   "oauth-providers-login-style": "Estilo de início de sessão",
   "oauth-providers-merge-existing-users": "Juntar a uma conta existente com o mesmo e-mail",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Já existe uma conta com este e-mail e não foi criada com este método de início de sessão",
   "sign-in-with": "Entrar com %s",
   "passwordless-title": "Início de sessão sem senha",

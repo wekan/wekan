@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "ᐃᔨᖅᓯᒪᔪᖅ ᐋᖅᑭᒃᑕᐅᓯᒪᔪᖅ",
   "oauth-providers-login-style": "ᐃᓯᕐᓂᕐᒧᑦ ᐊᑐᕐᓂᖓ",
   "oauth-providers-merge-existing-users": "ᑲᑎᑎᑦᑎᓗᒍ ᐊᑐᖅᑕᐅᓯᒪᔪᒥᒃ ᖃᕆᑕᐅᔭᒃᑯᑦ ᑎᑎᖅᑲᖅ ᐊᔾᔨᒌᒃᑐᒥᒃ",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "ᐊᑐᖅᑕᐅᓯᒪᔪᖅ ᖃᕆᑕᐅᔭᒃᑯᑦ ᑎᑎᖅᑲᖅ ᑖᓐᓇ ᐱᑕᖃᓕᕇᖅᑐᖅ ᐅᓇ ᐃᓯᕐᓂᕐᒧᑦ ᐊᑐᕐᓂᖓ ᓴᓇᔭᐅᓚᐅᖏᑦᑐᖅ",
   "sign-in-with": "%s ᐊᑐᕐᓗᒍ ᐃᓯᕐᓗᑎᑦ",
   "passwordless-title": "ᐃᓯᕐᕕᒃᓴᖃᖏᑦᑐᖅ ᐃᓯᕐᓂᖅ",

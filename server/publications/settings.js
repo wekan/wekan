@@ -175,6 +175,7 @@ const SETTING_FIELDS = {
   'oauthProviders.meetup.secretSet': 1,
   oauthProvidersLoginStyle: 1,
   oauthProvidersMergeExistingUsers: 1,
+  oauthProvidersAllowedEmailDomains: 1,
   passwordlessEnabled: 1,
 };
 

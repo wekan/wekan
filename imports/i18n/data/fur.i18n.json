@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Un segret al è stabilît",
   "oauth-providers-login-style": "Stîl di jentrade",
   "oauth-providers-merge-existing-users": "Unìs cuntun account esistent che al à la stesse e-mail",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Un account cun cheste e-mail al esist za e nol è stât creât cun chest metodi di jentrade",
   "sign-in-with": "Jentre cun %s",
   "passwordless-title": "Jentrade cence peraule di ordin",

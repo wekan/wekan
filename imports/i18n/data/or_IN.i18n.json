@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "ଏକ ଗୋପନ କି ସେଟ୍ ହୋଇଛି",
   "oauth-providers-login-style": "ଲଗଇନ୍ ଶୈଳୀ",
   "oauth-providers-merge-existing-users": "ସମାନ ଇମେଲ ଥିବା ବର୍ତ୍ତମାନର ଖାତା ସହିତ ମିଶାନ୍ତୁ",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "ଏହି ଇମେଲ ସହିତ ଖାତା ପୂର୍ବରୁ ଅଛି ଏବଂ ଏହା ଏହି ଲଗଇନ୍ ପଦ୍ଧତିରେ ତିଆରି ହୋଇନଥିଲା",
   "sign-in-with": "%s ଦ୍ୱାରା ଲଗ୍ ଇନ୍ କରନ୍ତୁ",
   "passwordless-title": "ପାସୱାର୍ଡ ବିନା ଲଗଇନ୍",

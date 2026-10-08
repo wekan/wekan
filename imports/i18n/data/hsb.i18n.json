@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Potajnstwo je nastajene",
   "oauth-providers-login-style": "Stil přizjewjenja",
   "oauth-providers-merge-existing-users": "Z eksistowacym kontom ze samsnym e-mejlom zjednoćić",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Konto z tutym e-mejlom hižo eksistuje a njeje so z tutej přizjewjenskej metodu wutworiło",
   "sign-in-with": "Z %s přizjewić",
   "passwordless-title": "Přizjewjenje bjez hesła",

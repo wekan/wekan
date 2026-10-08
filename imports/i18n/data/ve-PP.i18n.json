@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Peitsana om pandud",
   "oauth-providers-login-style": "Sättmižen mahtvuz",
   "oauth-providers-merge-existing-users": "Ühtenzoitta olijan kontanke, kudambal om mugoine-žo elektronine počt",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Konto necen elektronižen počtanke jo om, i se ei ole tehtud necil sättmižen tabal",
   "sign-in-with": "Sättkat %s-l",
   "passwordless-title": "Sättmine peitsanata",

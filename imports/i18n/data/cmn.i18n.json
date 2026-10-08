@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "已设置密钥",
   "oauth-providers-login-style": "登录样式",
   "oauth-providers-merge-existing-users": "与使用相同邮箱的现有账户合并",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "使用此邮箱的账户已存在，且不是通过此登录方式创建的",
   "sign-in-with": "使用 %s 登录",
   "passwordless-title": "免密码登录",

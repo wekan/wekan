@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "এটা গোপন চাবি নিৰ্ধাৰিত আছে",
   "oauth-providers-login-style": "লগইন শৈলী",
   "oauth-providers-merge-existing-users": "একে ইমেইল থকা বৰ্তমানৰ একাউণ্টৰ সৈতে একত্ৰিত কৰক",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "এই ইমেইলৰ সৈতে এটা একাউণ্ট ইতিমধ্যে আছে আৰু সেইটো এই লগইন পদ্ধতিৰে সৃষ্টি কৰা হোৱা নাছিল",
   "sign-in-with": "%s ৰ দ্বাৰা লগ ইন কৰক",
   "passwordless-title": "পাছৱৰ্ডবিহীন লগইন",

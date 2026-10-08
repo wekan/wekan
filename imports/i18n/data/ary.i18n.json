@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "تم تعيين سر",
   "oauth-providers-login-style": "نمط تسجيل الدخول",
   "oauth-providers-merge-existing-users": "الدمج مع حساب موجود له البريد الإلكتروني نفسه",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "يوجد حساب بهذا البريد الإلكتروني بالفعل ولم يُنشأ بطريقة تسجيل الدخول هذه",
   "sign-in-with": "تسجيل الدخول عبر %s",
   "passwordless-title": "تسجيل الدخول بدون كلمة مرور",

@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Hai un secretu definíu",
   "oauth-providers-login-style": "Estilu d’aniciu de sesión",
   "oauth-providers-merge-existing-users": "Fusionar con una cuenta esistente que tenga’l mesmu correo electrónico",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Yá esiste una cuenta con esti correo electrónico y nun se creó con esti métodu d’aniciu de sesión",
   "sign-in-with": "Iniciar sesión con %s",
   "passwordless-title": "Aniciu de sesión ensin contraseña",

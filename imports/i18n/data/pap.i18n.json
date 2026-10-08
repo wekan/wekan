@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Un sekreto ta definí",
   "oauth-providers-login-style": "Estilo di login",
   "oauth-providers-merge-existing-users": "Kombiná ku un kuenta eksistente ku tin e mesun e-mail",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Ya tin un kuenta ku e e-mail aki i e no a wòrdu kreá ku e método di login aki",
   "sign-in-with": "Drenta ku %s",
   "passwordless-title": "Login sin kontraseña",

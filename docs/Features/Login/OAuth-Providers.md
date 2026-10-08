@@ -76,6 +76,7 @@ And three settings that apply to all of them at once:
 | --- | --- |
 | `OAUTH_PROVIDERS_LOGIN_STYLE` | `popup` (default) opens the provider in a popup window; `redirect` leaves the page and comes back. Use `redirect` where popups are blocked, for example inside an iframe or on some phones. |
 | `OAUTH_PROVIDERS_MERGE_EXISTING_USERS` | Default `false`: a provider login whose email already belongs to a WeKan account made another way (password, LDAP, OAuth2, ...) is refused. `true` links the provider to that account instead. This is the same rule as `OAUTH2_MERGE_EXISTING_USERS`: only enable it when you trust every enabled provider to have verified the email, or an attacker who controls an account at one provider with your user's email gets your user's boards. |
+| `OAUTH_PROVIDERS_ALLOWED_EMAIL_DOMAINS` | Comma-separated email domains, for example `example.com,example.org`: only a provider login whose email is in one of them may sign in, on its first login and every later one, so narrowing it also applies to existing accounts. A provider that sends no email (GitHub with a private address) is refused while it is set. Empty allows every domain. The same rule as `OAUTH2_ALLOWED_EMAIL_DOMAINS` for OAuth2/OIDC; also in Admin Panel / People / OAuth login providers (#1904). |
 | `PASSWORDLESS_ENABLED` | Not a provider, but the other Meteor accounts login: a one-time code by email. See [Passwordless](Passwordless.md). |
 
 They are commented out, with these explanations, in every place WeKan is

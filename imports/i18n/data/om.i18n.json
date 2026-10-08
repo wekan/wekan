@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Icciitiin kaa'ameera",
   "oauth-providers-login-style": "Akkaataa seensaa",
   "oauth-providers-merge-existing-users": "Herrega duraan jiru kan imeelii walfakkaataa qabu waliin walitti makuu",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Herregni imeelii kanaan duraan jira, mala seensa kanaan hin uumamne",
   "sign-in-with": "%s tiin seeni",
   "passwordless-title": "Seensa jecha darbii malee",

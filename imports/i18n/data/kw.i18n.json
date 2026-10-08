@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Kevrin yw settys",
   "oauth-providers-login-style": "Gis omgelmi",
   "oauth-providers-merge-existing-users": "Kesunya gans akont a vew seulabrys hag a'n keth ebost",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Yma akont gans an ebost ma seulabrys ha ny veu gwrys gans an fordh omgelmi ma",
   "sign-in-with": "Omgelmi gans %s",
   "passwordless-title": "Omgelmi heb ger-tremena",

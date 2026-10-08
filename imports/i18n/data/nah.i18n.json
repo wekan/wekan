@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Ce ichtaca omotlali",
   "oauth-providers-login-style": "Tlacalaquiliztli iyeliz",
   "oauth-providers-merge-existing-users": "Xicnechico ica ce tlapohualli ye onca in quipiya in zan ye tlahcuilolli",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Ye onca ce tlapohualli ica inin tlahcuilolli ihuan ahmo omochiuh ica inin tlacalaquiliztli ohtli",
   "sign-in-with": "Xicalaqui ica %s",
   "passwordless-title": "Tlacalaquiliztli ahmo ica ichtaca tlahtolli",

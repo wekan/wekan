@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Skrivnost je nastavljena",
   "oauth-providers-login-style": "Slog prijave",
   "oauth-providers-merge-existing-users": "Združi z obstoječim računom z isto e-pošto",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Račun s to e-pošto že obstaja in ni bil ustvarjen s tem načinom prijave",
   "sign-in-with": "Prijava z %s",
   "passwordless-title": "Prijava brez gesla",

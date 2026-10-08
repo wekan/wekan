@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Maxfiy kalit o‘rnatilgan",
   "oauth-providers-login-style": "Kirish uslubi",
   "oauth-providers-merge-existing-users": "Xuddi shu elektron pochtaga ega mavjud hisob bilan birlashtirish",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Bu elektron pochta bilan hisob allaqachon mavjud va u bu kirish usuli bilan yaratilmagan",
   "sign-in-with": "%s orqali kirish",
   "passwordless-title": "Parolsiz kirish",

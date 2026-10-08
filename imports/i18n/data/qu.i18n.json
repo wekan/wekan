@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Huk pakasqa churasqa kachkan",
   "oauth-providers-login-style": "Yaykuy kaynin",
   "oauth-providers-merge-existing-users": "Kaqlla chaskiyuq kachkaq cuentawan huñuy",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Kay chaskiyuq cuentaqa kachkanñam, manataqmi kay yaykuy ñanwan rurasqachu karqa",
   "sign-in-with": "%s-wan yaykuy",
   "passwordless-title": "Mana pakasqa rimaywan yaykuy",

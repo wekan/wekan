@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Imfihlo ibekiwe",
   "oauth-providers-login-style": "Isitayela sokungena",
   "oauth-providers-merge-existing-users": "Hlanganisa le-akhawunti esikhona ele-imeyili efanayo",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "I-akhawunti ele-imeyili le isivele ikhona njalo kayenziwanga ngale ndlela yokungena",
   "sign-in-with": "Ngena nge-%s",
   "passwordless-title": "Ukungena ngaphandle kwephasiwedi",

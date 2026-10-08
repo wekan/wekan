@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Un secretu hè definitu",
   "oauth-providers-login-style": "Stile di cunnessione",
   "oauth-providers-merge-existing-users": "Unisce cù un contu esistente chì hà a listessa posta elettronica",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Un contu cù sta posta elettronica esiste dighjà è ùn hè statu creatu cù stu metudu di cunnessione",
   "sign-in-with": "Accedi cù %s",
   "passwordless-title": "Cunnessione senza parolla d’intrata",

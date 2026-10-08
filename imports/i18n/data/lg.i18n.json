@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Ekyama kitegekeddwa",
   "oauth-providers-login-style": "Engeri y'okuyingira",
   "oauth-providers-merge-existing-users": "Gatta n'akawunti eriwo nga erina imeyilo y'emu",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Akawunti erina imeyilo eno emaze okubaawo era teyatondebwa n'enkola y'okuyingira eno",
   "sign-in-with": "Yingira ne %s",
   "passwordless-title": "Okuyingira awatali kigambo ekyekusifu",

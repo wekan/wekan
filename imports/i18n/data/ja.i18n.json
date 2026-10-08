@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "シークレットが設定されています",
   "oauth-providers-login-style": "ログインスタイル",
   "oauth-providers-merge-existing-users": "同じメールアドレスを持つ既存のアカウントと統合する",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "このメールアドレスのアカウントはすでに存在し、このログイン方法で作成されたものではありません",
   "sign-in-with": "%s でログイン",
   "passwordless-title": "パスワードなしログイン",

@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Është vendosur një sekret",
   "oauth-providers-login-style": "Stili i hyrjes",
   "oauth-providers-merge-existing-users": "Bashko me një llogari ekzistuese që ka të njëjtin email",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Një llogari me këtë email ekziston tashmë dhe nuk është krijuar me këtë metodë hyrjeje",
   "sign-in-with": "Hyr me %s",
   "passwordless-title": "Hyrje pa fjalëkalim",

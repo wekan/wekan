@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Noslēpums ir iestatīts",
   "oauth-providers-login-style": "Pierakstīšanās stils",
   "oauth-providers-merge-existing-users": "Apvienot ar esošu kontu, kuram ir tas pats e-pasts",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Konts ar šo e-pastu jau pastāv, un tas netika izveidots ar šo pierakstīšanās metodi",
   "sign-in-with": "Pierakstīties ar %s",
   "passwordless-title": "Pierakstīšanās bez paroles",

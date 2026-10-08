@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "ምስጢር ተቐሚጡ ኣሎ",
   "oauth-providers-login-style": "ኣገባብ መእተዊ",
   "oauth-providers-merge-existing-users": "ምስ ተመሳሳሊ ኢመይል ዘለዎ ዘሎ ሕሳብ ኣጣምር",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "ብዚ ኢመይል እዚ ሕሳብ ድሮ ኣሎ እሞ ብዚ ኣገባብ መእተዊ እዚ ኣይተፈጥረን",
   "sign-in-with": "ብ%s እቶ",
   "passwordless-title": "ብዘይ መሕለፊ ቃል መእተዊ",

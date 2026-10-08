@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Mä imantata uskutawa",
   "oauth-providers-login-style": "Mantañ kasta",
   "oauth-providers-merge-existing-users": "Uka pachpa aruskipäwini utjiri cuentampi mayacht'aña",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Aka aruskipäwini cuentax utjxiwa ukat janiw aka mantañ thakhimpi lurataskiti",
   "sign-in-with": "%s ukampi mantaña",
   "passwordless-title": "Jan imantat arumpi mantaña",

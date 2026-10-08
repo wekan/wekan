@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Sa biu e dua na ivuni",
   "oauth-providers-login-style": "Ivakarau ni curu",
   "oauth-providers-merge-existing-users": "Cokovata kei na akaude tu oti e tautauvata na imeli",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Sa tiko e dua na akaude ena imeli oqo ka sega ni buli ena ivakarau ni curu oqo",
   "sign-in-with": "Curu ena %s",
   "passwordless-title": "Curu vakasega ni vosa ni curu",

@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Čiegusvuohta lea biddjojuvvon",
   "oauth-providers-login-style": "Sisačáliheami stiila",
   "oauth-providers-merge-existing-users": "Ovttastahte dálá kontuin mas lea seamma e-boasta",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Kontu dáinna e-boasttain gávdno juo ii ge leat ráhkaduvvon dáinna sisačáliheami vugiin",
   "sign-in-with": "Čális sisa %s bokte",
   "passwordless-title": "Sisačáliheapmi beassansáni haga",

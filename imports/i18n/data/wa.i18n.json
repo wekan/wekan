@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "On sicret est defini",
   "oauth-providers-login-style": "Stîle di raloyaedje",
   "oauth-providers-merge-existing-users": "Mete eshonne avou on conte k’ egzistêye dedja et k’ a l’ minme emile",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "On conte avou cist emile ci egzistêye dedja et n’ a nén stî ahivé avou cisse metôde di raloyaedje ci",
   "sign-in-with": "S’ elodjî avou %s",
   "passwordless-title": "Raloyaedje sins sicret",

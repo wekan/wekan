@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "N secret ie metù",
   "oauth-providers-login-style": "Stil de acess",
   "oauth-providers-merge-existing-users": "Unì cun n cont che ie bele y che à la medema posta elettronica",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "N cont cun chësta posta elettronica ie bele y ne ie nia unì fat cun chësc metodo de acess",
   "sign-in-with": "Jë te ite cun %s",
   "passwordless-title": "Acess zënza parola de acess",

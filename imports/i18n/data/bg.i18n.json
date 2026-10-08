@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Зададена е тайна",
   "oauth-providers-login-style": "Стил на вход",
   "oauth-providers-merge-existing-users": "Обединяване със съществуващ профил със същия имейл",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Профил с този имейл вече съществува и не е създаден с този метод за вход",
   "sign-in-with": "Вход с %s",
   "passwordless-title": "Вход без парола",

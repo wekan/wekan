@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "En hemmelighet er satt",
   "oauth-providers-login-style": "Innloggingsstil",
   "oauth-providers-merge-existing-users": "Slå sammen med en eksisterende konto med samme e-post",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "En konto med denne e-posten finnes allerede og ble ikke opprettet med denne innloggingsmetoden",
   "sign-in-with": "Logg inn med %s",
   "passwordless-title": "Passordløs innlogging",

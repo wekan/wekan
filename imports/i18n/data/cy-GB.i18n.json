@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Mae cyfrinach wedi’i gosod",
   "oauth-providers-login-style": "Arddull mewngofnodi",
   "oauth-providers-merge-existing-users": "Uno â chyfrif presennol sydd â’r un ebost",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Mae cyfrif gyda’r ebost hwn yn bodoli eisoes ac ni chafodd ei greu gyda’r dull mewngofnodi hwn",
   "sign-in-with": "Mewngofnodi gyda %s",
   "passwordless-title": "Mewngofnodi heb gyfrinair",

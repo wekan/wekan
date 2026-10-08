@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Un secret easti bãgat",
   "oauth-providers-login-style": "Stil di intrari",
   "oauth-providers-merge-existing-users": "Adunã cu unã cont tsi easti shi ari idyiul e-mail",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Un cont cu aestu e-mail easti ghini shi nu fu faptu cu aestã metodã di intrari",
   "sign-in-with": "Intrã cu %s",
   "passwordless-title": "Intrari fãrã zbor di intrari",

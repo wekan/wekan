@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Siri imewekwa",
   "oauth-providers-login-style": "Mtindo wa kuingia",
   "oauth-providers-merge-existing-users": "Unganisha na akaunti iliyopo yenye barua pepe sawa",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Akaunti yenye barua pepe hii tayari ipo na haikuundwa kwa njia hii ya kuingia",
   "sign-in-with": "Ingia kwa %s",
   "passwordless-title": "Kuingia bila nenosiri",

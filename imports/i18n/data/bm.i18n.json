@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Gundo dɔ sigira",
   "oauth-providers-login-style": "Donni cogo",
   "oauth-providers-merge-existing-users": "A fara jatebɔ kɔrɔ kan min imɛli ye kelen ye",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Jatebɔ dɔ bɛ yen ka ban ni nin imɛli ye, a ma dilan ni nin donni cogo ye",
   "sign-in-with": "Don ni %s ye",
   "passwordless-title": "Donni ni gundo daɲɛ tɛ",

@@ -480,6 +480,15 @@ Meteor.methods({
     if (input.mergeExistingUsers !== undefined) {
       set.oauthProvidersMergeExistingUsers = input.mergeExistingUsers === true;
     }
+    if (input.allowedEmailDomains !== undefined) {
+      const domains = String(input.allowedEmailDomains || '').split(',').map(d => d.trim().toLowerCase()).filter(Boolean).join(',');
+      // A malformed list would refuse every provider login; say so instead.
+      const { isEmailDomainAllowed } = require('/models/lib/emailDomainPolicy');
+      if (domains && !domains.split(',').some(d => isEmailDomainAllowed(`check@${d}`, domains))) {
+        throw new Meteor.Error('invalid-email-domains', 'Allowed email domains must be domain names, separated by commas');
+      }
+      set.oauthProvidersAllowedEmailDomains = domains;
+    }
     await Settings.updateAsync(setting._id, { $set: set });
     reconfigureOauthProvidersNow();
     return true;
@@ -534,6 +543,11 @@ Meteor.methods({
       setting?.oauthProvidersMergeExistingUsers,
     );
     result.mergeExistingUsers = { source: merge.source, value: merge.value };
+    const domains = resolveConfigValue(
+      'OAUTH_PROVIDERS_ALLOWED_EMAIL_DOMAINS',
+      setting?.oauthProvidersAllowedEmailDomains,
+    );
+    result.allowedEmailDomains = { source: domains.source, value: domains.value };
     const passwordless = resolveConfigValue(
       'PASSWORDLESS_ENABLED',
       setting?.passwordlessEnabled,

@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Un segreto el xe inpostà",
   "oauth-providers-login-style": "Stile de aceso",
   "oauth-providers-merge-existing-users": "Unisi co un conto che ghe xe za e che el ga la stesa posta eletronica",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Un conto co sta posta eletronica el ghe xe za e no'l xe stà creà co sto metodo de aceso",
   "sign-in-with": "Entra co %s",
   "passwordless-title": "Aceso sensa parola d'ordine",

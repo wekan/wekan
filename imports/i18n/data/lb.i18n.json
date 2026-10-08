@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "E Geheimnis ass gesat",
   "oauth-providers-login-style": "Umeldungsstil",
   "oauth-providers-merge-existing-users": "Mat engem bestehende Kont mat der selwechter E-Mail zesummeleeën",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "E Kont mat dëser E-Mail gëtt et schonn, an en ass net mat dëser Umeldungsmethod erstallt ginn",
   "sign-in-with": "Mat %s aloggen",
   "passwordless-title": "Umeldung ouni Passwuert",

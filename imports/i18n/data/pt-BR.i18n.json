@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Um segredo está definido",
   "oauth-providers-login-style": "Estilo de login",
   "oauth-providers-merge-existing-users": "Mesclar com uma conta existente que tenha o mesmo e-mail",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Já existe uma conta com este e-mail e ela não foi criada com este método de login",
   "sign-in-with": "Entrar com %s",
   "passwordless-title": "Login sem senha",

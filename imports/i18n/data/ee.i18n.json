@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Woɖo ɣaɣlanya aɖe",
   "oauth-providers-login-style": "Gemenɔnɔ ƒe nɔnɔme",
   "oauth-providers-merge-existing-users": "Tsɔe kpe ɖe akɔnta si li xoxo si ƒe e-mail sɔ la ŋu",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Akɔnta si ƒe e-mail nye esia li xoxo eye womewɔe kple gemenɔnɔ mɔ sia o",
   "sign-in-with": "Ge ɖe eme kple %s",
   "passwordless-title": "Gemenɔnɔ ɣaɣlanya manɔmee",

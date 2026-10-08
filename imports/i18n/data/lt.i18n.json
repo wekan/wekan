@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Paslaptis nustatyta",
   "oauth-providers-login-style": "Prisijungimo stilius",
   "oauth-providers-merge-existing-users": "Sujungti su esama paskyra, turinčia tą patį el. paštą",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Paskyra su šiuo el. paštu jau yra ir ji nebuvo sukurta šiuo prisijungimo būdu",
   "sign-in-with": "Prisijungti per %s",
   "passwordless-title": "Prisijungimas be slaptažodžio",

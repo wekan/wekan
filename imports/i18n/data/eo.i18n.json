@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Sekreto estas agordita",
   "oauth-providers-login-style": "Ensaluta stilo",
   "oauth-providers-merge-existing-users": "Kunfandi kun ekzistanta konto kun la sama retpoŝtadreso",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Konto kun ĉi tiu retpoŝtadreso jam ekzistas kaj ne estis kreita per ĉi tiu ensaluta metodo",
   "sign-in-with": "Ensaluti per %s",
   "passwordless-title": "Senpasvorta ensaluto",

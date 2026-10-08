@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Құпия орнатылған",
   "oauth-providers-login-style": "Кіру стилі",
   "oauth-providers-merge-existing-users": "Электрондық поштасы бірдей бар тіркелгімен біріктіру",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Бұл электрондық поштамен тіркелгі бұрыннан бар және ол осы кіру әдісімен жасалмаған",
   "sign-in-with": "%s арқылы кіру",
   "passwordless-title": "Құпия сөзсіз кіру",

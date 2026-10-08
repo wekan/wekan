@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Nihêniyek hatiye danîn",
   "oauth-providers-login-style": "Şêwaza têketinê",
   "oauth-providers-merge-existing-users": "Bi hesabekî heyî yê ku heman e-name heye re bike yek",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Hesabek bi vê e-nameyê jixwe heye û bi vê rêbaza têketinê nehatiye çêkirin",
   "sign-in-with": "Bi %s têkeve",
   "passwordless-title": "Têketina bê şîfre",

@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "Ibanga ryashyizweho",
   "oauth-providers-login-style": "Uburyo bwo kwinjira",
   "oauth-providers-merge-existing-users": "Huza na konti isanzwe ifite imeyili imwe",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "Konti ifite iyi imeyili isanzwe ihari kandi ntiyakozwe n'ubu buryo bwo kwinjira",
   "sign-in-with": "Injira ukoresheje %s",
   "passwordless-title": "Kwinjira nta jambobanga",

@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "ఒక రహస్యం సెట్ చేయబడింది",
   "oauth-providers-login-style": "లాగిన్ శైలి",
   "oauth-providers-merge-existing-users": "అదే ఇమెయిల్ ఉన్న ప్రస్తుత ఖాతాతో విలీనం చేయండి",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "ఈ ఇమెయిల్‌తో ఖాతా ఇప్పటికే ఉంది మరియు అది ఈ లాగిన్ పద్ధతితో సృష్టించబడలేదు",
   "sign-in-with": "%s తో లాగిన్ చేయండి",
   "passwordless-title": "పాస్‌వర్డ్ లేని లాగిన్",

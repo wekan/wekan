@@ -1446,6 +1446,7 @@ function oauthProviderCatalog() {
 const OAUTH_SHARED_ENV_VARS = {
   loginStyle: 'OAUTH_PROVIDERS_LOGIN_STYLE',
   mergeExistingUsers: 'OAUTH_PROVIDERS_MERGE_EXISTING_USERS',
+  allowedEmailDomains: 'OAUTH_PROVIDERS_ALLOWED_EMAIL_DOMAINS',
   passwordless: 'PASSWORDLESS_ENABLED',
 };
 // Badge text, as ldapSourceLabelFor: 'Admin Panel', the env var name, or
@@ -1555,6 +1556,7 @@ Template.general.events({
       id: providers[key]?.id || '',
       globalLoginStyle: $('#oauth-providers-login-style').val() || '',
       mergeExistingUsers: setting?.oauthProvidersMergeExistingUsers === true,
+      allowedEmailDomains: $('#oauth-providers-allowed-email-domains').val() || '',
     };
     Meteor.call('saveOauthProviderSettings', key, input, (err) => {
       if (!err) tpl.refreshOauthSources();

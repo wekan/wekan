@@ -1518,6 +1518,7 @@
   "oauth-provider-secret-set": "비밀 키가 설정되어 있습니다",
   "oauth-providers-login-style": "로그인 스타일",
   "oauth-providers-merge-existing-users": "같은 이메일을 가진 기존 계정과 병합",
+  "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "이 이메일로 된 계정이 이미 있으며 이 로그인 방식으로 만들어지지 않았습니다",
   "sign-in-with": "%s(으)로 로그인",
   "passwordless-title": "비밀번호 없는 로그인",
