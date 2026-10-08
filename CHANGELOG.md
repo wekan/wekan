@@ -2173,6 +2173,19 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0e8feb9aab550b0c3f28521508d4df556f73d4a9">Translate Odia screen-reader and shortcut commands</a></summary>
+
+- Fill 21 Odia accessibility and shortcut placeholders, preserving existing
+  translations, variable references and screen-reader state/action distinctions.
+- Technical wording remains low confidence pending speaker review.
+- All 55 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. Further Odia translations and the broader audit continue.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d3f1bb708b7b2dc56b729231d58304727609f4c0">Translate Odia procedure definitions and calls</a></summary>
 
 - Fill 22 Odia procedure and paste-action placeholders, preserving existing
