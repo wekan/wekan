@@ -1021,6 +1021,18 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1603813d9d">Translate Slovenian stalled synchronization recovery</a>. Thanks to xet7.</summary>
+
+Fill 23 messages in each Slovenian catalog, for 46 values. Preserve variables,
+retained applied changes, unwritten pending changes and recovery choices.
+
+Four focused translation suites and 21 human-preference checks pass.
+No browser or screen-reader session was run. Remaining translations and
+broader linguistic review are unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/552c154307">Correct Slovenian monitoring and flow translations</a>. Thanks to xet7.</summary>
 
 Replace 81 Serbian values in each Slovenian catalog, for 162 corrections.
