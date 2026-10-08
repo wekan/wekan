@@ -85,14 +85,41 @@ Template.authProviderSettings.events({
 Template.ldapTestConnection.onCreated(function () {
   this.result = new ReactiveVar('');
   this.success = new ReactiveVar(true);
+  this.syncing = new ReactiveVar(false);
+  this.syncResult = new ReactiveVar('');
+  this.syncSuccess = new ReactiveVar(true);
 });
 Template.ldapTestConnection.helpers({
   result() { return Template.instance().result; },
+  syncing() { return Template.instance().syncing; },
+  syncResult() { return Template.instance().syncResult; },
+  syncResultClass() {
+    return Template.instance().syncSuccess.get() ? 'ldap-test-success' : 'ldap-test-error';
+  },
   resultClass() {
     return Template.instance().success.get() ? 'ldap-test-success' : 'ldap-test-error';
   },
 });
 Template.ldapTestConnection.events({
+  // The admin-only ldap_sync_now method (packages/wekan-ldap/server/syncUser.js):
+  // the background sync, once, now.
+  'click button.js-ldap-sync-now'(event, tpl) {
+    event.preventDefault();
+    if (tpl.syncing.get()) return;
+    tpl.syncing.set(true);
+    tpl.syncResult.set('...');
+    Meteor.call('ldap_sync_now', (err) => {
+      tpl.syncing.set(false);
+      tpl.syncSuccess.set(!err);
+      if (!err) tpl.syncResult.set(TAPi18n.__('ldap-sync-now-done'));
+      else if (err.error === 'LDAP_sync_nothing_to_do') tpl.syncResult.set(TAPi18n.__('ldap-sync-now-nothing'));
+      else {
+        tpl.syncResult.set(TAPi18n.__('ldap-sync-now-error', {
+          sprintf: [err.reason || err.error || err.message || ''],
+        }));
+      }
+    });
+  },
   // "It should be possible to test at admin panel, does for example LDAP login
   // work": the admin-gated ldap_test_connection method
   // (packages/wekan-ldap/server/testConnection.js) against whichever value is

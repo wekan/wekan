@@ -121,3 +121,19 @@ test('Header login is shown read-only, and a hand-made save is refused', async (
   expect(refused).toBe('login-settings-env-only');
   expect(db.findOne('settings', {}, { headerLogin: 1 }).headerLogin?.id).toBeUndefined();
 });
+
+// Admin Panel / People / LDAP / Sync now (maintainer decision of 2026-10-08):
+// the method is loaded and admin-only, and the pane reports its answer. The
+// test server has no directory, so LDAP is off and the answer is a refusal.
+test('LDAP Sync now answers in the pane, and ordinary users are refused', async ({ page, adminUser, user }) => {
+  await loginWithToken(page, adminUser.id, adminUser.token);
+  await navigateInApp(page, '/admin/people/ldap');
+  await page.locator('.js-ldap-sync-now').click();
+  await expect(page.locator('.js-ldap-sync-result')).toHaveClass(/ldap-test-error/);
+  await expect(page.locator('.js-ldap-sync-result')).toContainText('LDAP_disabled');
+  await loginWithToken(page, user.id, user.token);
+  const refused = await page.evaluate(async () => {
+    try { await Meteor.callAsync('ldap_sync_now'); return 'allowed'; } catch (error) { return error.error; }
+  });
+  expect(refused).toBe('error-notAuthorized');
+});

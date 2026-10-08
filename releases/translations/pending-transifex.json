@@ -607,6 +607,22 @@
     {
       "key": "login-setting-env-only",
       "since": "2026-10-08"
+    },
+    {
+      "key": "ldap-sync-now",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "ldap-sync-now-done",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "ldap-sync-now-error",
+      "since": "2026-10-08"
+    },
+    {
+      "key": "ldap-sync-now-nothing",
+      "since": "2026-10-08"
     }
   ]
 }

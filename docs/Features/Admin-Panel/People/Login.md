@@ -76,7 +76,15 @@ effect. With a service account (`LDAP_AUTHENTIFICATION`) it binds with it;
 without one it does an anonymous base-scope search of `LDAP_BASEDN`, reading
 no attributes. Either way it reports success only when the directory answered,
 and otherwise shows the directory's own error; without a service account and
-without `LDAP_BASEDN` it says that nothing could be tested. The list of variables per section is
+without `LDAP_BASEDN` it says that nothing could be tested.
+
+**Sync LDAP users now** runs the LDAP background sync once, immediately, with
+the settings in effect: `LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS` imports
+directory users not in WeKan yet, and
+`LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED` refreshes the ones that
+are. `LDAP_BACKGROUND_SYNC` (the schedule) does not have to be on, but with
+neither of the other two it says there is nothing to sync. A click during a
+scheduled run waits for that run instead of starting a second one. The list of variables per section is
 `models/lib/authConfigCatalog.js`; SAML's is `models/lib/samlConfig.js` and the
 OAuth login providers' is `models/lib/oauthProviders.js`.
 

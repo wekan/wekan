@@ -66,3 +66,10 @@ template(name="ldapTestConnection")
     if result.get
       li.accounts-form
         span(class="{{resultClass}}")= result.get
+    //- Sync now: runs the LDAP background sync once (ldap_sync_now), with the
+    //- import/update settings in effect.
+    li.accounts-form
+      button.js-ldap-sync-now.primary(disabled=syncing.get) {{_ 'ldap-sync-now'}}
+    if syncResult.get
+      li.accounts-form
+        span.js-ldap-sync-result(class="{{syncResultClass}}")= syncResult.get

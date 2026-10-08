@@ -652,6 +652,18 @@ async function sync() {
   return true;
 }
 
+// One sync at a time: Admin Panel / People / LDAP / Sync now and the background
+// job both run through here, so a click during a scheduled run (or a second
+// click) waits for the run already going instead of starting another one
+// against the same users.
+let runningSync = null;
+export function runLdapSync() {
+  if (!runningSync) {
+    runningSync = sync().finally(() => { runningSync = null; });
+  }
+  return runningSync;
+}
+
 const jobName = 'LDAP_Sync';
 
 function debounce(fn, wait) {
@@ -683,7 +695,7 @@ const addCronJob = debounce(function addCronJobDebounced() {
        return parser.recur().on(0).minute();
     }},
     job: async function() {
-      await sync();
+      await runLdapSync();
     },
   });
   sc.start();

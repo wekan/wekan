@@ -32,6 +32,7 @@ const BUTTONS = [
   ['client/components/lists/listHeader.jade', 'js-list-sync-now', 'List "Sync now"'],
   // Moved with the LDAP section to the catalog form's own template.
   ['client/components/settings/authProviderSettings.jade', 'js-ldap-test-connection', 'Admin Panel "Test LDAP Connection"'],
+  ['client/components/settings/authProviderSettings.jade', 'js-ldap-sync-now', 'Admin Panel "Sync LDAP users now"'],
 ];
 
 console.log('actionButtonsUseThemeClass:');
