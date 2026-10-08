@@ -386,8 +386,8 @@ Status checked on 2026-10-08. Translation work has resumed, including keys
 previously held for Transifex. Completed work is recorded in Upcoming.
 
 - The current `node releases/translations/fill-translations.mjs --missing`
-  report counts **35,470 untranslated locale/string values in 54 languages**.
-  It excludes **151 source keys tracked separately as pending Transifex**.
+  report counts **35,319 untranslated locale/string values in 54 languages**.
+  It excludes **156 source keys tracked separately as pending Transifex**.
   Exact Blockly OS brands and compact math/code symbols no longer inflate
   the prose backlog. Counts are a snapshot; they do not establish the quality
   or language of other values.
@@ -1916,6 +1916,18 @@ more translated help text and refreshed translation audit checks.
 connection** reports success only when the directory answered.
 
 This release hardens the login settings:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5501cf17ae">Translate Bislama lists, logic and mathematics</a>. Thanks to xet7.</summary>
+
+- Translate 156 labels and messages, including four LDAP notices and the
+  short OR label. Preserve exact source tokens and environment identifiers,
+  list copy/removal semantics, logical conditions and random-number bounds.
+- Five relevant regression suites pass, including the catalog-wide token
+  inventory. Browser and screen-reader sessions were not run. Statistical
+  terminology and complete Bislama software phrases remain provisional.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/59e67383ec">Translate Bislama controls and read-only login guidance</a>. Thanks to xet7.</summary>
