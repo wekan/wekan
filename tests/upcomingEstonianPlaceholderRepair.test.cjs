@@ -82,3 +82,8 @@ for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', '
   assert.ok(translated['import-board-instruction-todotxt'].includes(token), `preserve todo.txt ${token}`);
 }
 console.log('upcomingEstonianPlaceholderRepair: placeholders, recovery, filters, Scrum, Sync and rule syntax passed');
+
+assert.match(translated['scrum-import-into-board-hint'], /ei dubleerita kunagi/);
+assert.match(translated['scrum-import-card-on-another-board'], /jäeti muutmata/);
+assert.match(translated['sync-planning-hint'], /esmalt allika ID, seejärel nime/);
+assert.match(translated['sync-planning-hint'], /Esimene sünkroonimine ei eemalda kunagi planeerimisandmeid/);

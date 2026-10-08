@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Estonian planning import regressions — 2026-10-08
+
+Translate 20 new Scrum import and Sync planning messages. Preserve counters,
+reference variables, non-duplication, unchanged foreign-board cards, source-ID
+matching priority and first-sync protection of existing planning. Extend the
+existing Estonian suite for these consequences. No browser or screen-reader
+session was run; nine failures from the latest broad run remain to repair.
+
 ## Hungarian planning import regressions — 2026-10-08
 
 Translate 20 new Scrum import and Sync planning messages. Preserve all
