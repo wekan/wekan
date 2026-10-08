@@ -670,6 +670,17 @@ and improves translations:
 **Translations** - continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/877eca8186">Correct shared mixed-language Galician terminology</a>. Thanks to xet7.</summary>
+
+Correct 106 values across both Galician catalogs for activity, Home, card actions,
+Trello, automation and loading. Record audited corrections and preserve variables.
+Restore the single-board Home limit and remove an unsupported loading-default
+claim. Three relevant suites and all 21 preservation checks pass. Further language
+auditing, remaining translations and browser review are outstanding.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3e3209d27f">Correct further Portuguese terminology in Galician regional strings</a>. Thanks to xet7.</summary>
 
 Replace 93 Portuguese values with reviewed Galician wording for board/card
