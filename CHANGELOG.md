@@ -1055,6 +1055,18 @@ Turkish, Turkmen, Ukrainian, Urdu, Uyghur, Uzbek, Vietnamese, Waray, Welsh,
 West Frisian, Wu Chinese, Yiddish, Yoruba.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c1e46548b2">Translate Yiddish Blockly field and input labels</a>. Thanks to xet7.</summary>
+
+Translate 65 English field, input, keyboard and icon labels. Preserve variables,
+coordinate letters and key names; check row/column order, start/end positions
+and opening/closing actions. Four focused translation suites and 21
+human-preference checks pass. Specialized programming wording is lower confidence
+and needs native review. No browser or screen-reader session was run.
+Remaining translation work is unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c3e393860a">Translate Yiddish Blockly control messages</a>. Thanks to xet7.</summary>
 
 Translate 65 English Blockly messages for colors, loops, conditions, keyboard
