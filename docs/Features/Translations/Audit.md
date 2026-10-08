@@ -9495,6 +9495,16 @@ script and tokens. Assembled sentence order and technical wording remain
 low confidence pending speaker review. Browser checks were not run; the
 broader language and fluency audit remains unfinished.
 
+## Turkmen Blockly colours and initial controls
+
+Filled 24 English placeholders for block controls, colours and loop exits.
+The placeholder-only merge retained existing translations. Coverage checks
+colour bounds, variable/function token roles, deletion restrictions, warnings
+and break-versus-continue behavior, plus key order and token inventories.
+Technical wording remains low confidence pending speaker review. Browser
+checks were not run. Further Turkmen translations and the wider fluency
+audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
