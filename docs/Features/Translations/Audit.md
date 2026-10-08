@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Additional import literals and grammatical boundaries — 2026-10-08
+
+Repair 16 Asana and OpenProject messages in 11 locale files: restore the data
+property, GET /tasks and GET /api/v3/work_packages. Keep surrounding prose and
+translated explanations of section membership. The parenthetical membership
+explanation is not a code example and is not forced back to English.
+
+Extend catalog-wide literal regression coverage from four to ten formats,
+including Taskwarrior, Focalboard, Org mode and todo.txt. Tests accept valid
+non-Latin grammatical affixes and Shona prefixes adjoining literal filenames,
+while still rejecting translated identifiers, changed case and malformed paths.
+No valid human wording was changed to satisfy English word-boundary assumptions.
+This is a structural audit; mixed-language prose and pending translations remain.
+No browser session was run.
+
 ## Import code examples across locales — 2026-10-08
 
 Repair 73 import messages in 25 real locale files for Kanboard, NextCloud Deck,

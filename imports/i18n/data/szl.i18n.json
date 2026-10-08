@@ -776,7 +776,7 @@
   "import-board-instruction-deck": "Wklej JSON tabule NextCloud Deck (tabula ze \"stacks\", gdzie każdy stos zawiera swoje \"cards\"). Stosy stają sie listami, a karty kartami.",
   "import-board-instruction-openproject": "Wklej JSON kolekcji pakietów roboczych OpenProject (GET /api/v3/work_packages). Statusy stają sie listami, a pakiety robocze kartami.",
   "import-board-instruction-issues": "Wklej tabula JSON zgłoszeń __sourceName__ (__endpoint__). Zgłoszenia stają sie kartami pogrupowanymi we listy Otwarte / Zamknięte.",
-  "import-board-instruction-asana": "Wklej eksport JSON zadań Asana ({ \"datum\": [...] } z eksportu Asana abo GET /tasks). Zadania sōm grupowane we sekcje (memberships); ukończone zadania trafiają do Zakończone.",
+  "import-board-instruction-asana": "Wklej eksport JSON zadań Asana ({ \"data\": [...] } z eksportu Asana abo GET /tasks). Zadania sōm grupowane we sekcje (memberships); ukończone zadania trafiają do Zakończone.",
   "import-board-instruction-zenkit": "Wklej eksport JSON listy ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Etapy stają sie listami, a elementy kartami.",
   "import-board-instruction-markdown": "Wraź lista zadań we markdown (kōnwyncyjo, kero używajōm noczynia markdown-kanban jak Obsidian Kanban): nogōwki \"## Miano listy\", z elymyntami \"- [ ]\"/\"- [x]\" niżyj. Nogōwki stowajōm sie listami, a elymynty kartami.",
   "import-board-instruction-leo": "Wraź kōnspekt Leo (plik .leo). Wōnzły nŏjwyższego poziōmu stŏwajōm sie listami, jejich dziecka kartami z treściōm wōnzła jako ôpisym, a głymbsze wōnzły listami kōntrolnymi. Ôznaczōne wōnzły sōm importowane jako dokończōne.",

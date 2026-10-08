@@ -774,7 +774,7 @@
   "import-board-c": "Importar un tabla",
   "import-board-instruction-kanboard": "Pega un HSON di eksportashon di Kanboard: un obheto ku \"columns\" (òf tareas ku column_name) i un array \"tasks\" (title, description, column_name, swimlane_name, date_due, owner, tags). E columnas se conbierten den listas i e tareas den karchinan.",
   "import-board-instruction-deck": "Pega un HSON di tabla di NextCloud Deck (un tabla ku \"stacks\", kada stack ku su \"cards\"). E stacks se conbierten den listas i e cards den karchinan.",
-  "import-board-instruction-openproject": "Pega un HSON di colecshon di work-packages di OpenProhect (GET /api/b3/work_packages). E estados se conbierten den listas i e work packages den karchinan.",
+  "import-board-instruction-openproject": "Pega un HSON di colecshon di work-packages di OpenProhect (GET /api/v3/work_packages). E estados se conbierten den listas i e work packages den karchinan.",
   "import-board-instruction-issues": "Pega un array HSON di issues di __sourceName__ (__endpoint__). E issues se conbierten den karchinan agrupadas den listas Abiertos / serrados.",
   "import-board-instruction-asana": "Pega un HSON di eksportashon di tareas di Asana ({ \"data\": [...] } di e eksportashon di Asana òf GET /tasks). E tareas se agrupan den secshonnan (memberships); e tareas kompletás ban na Hecho.",
   "import-board-instruction-zenkit": "Pega un HSON di eksportashon di lista di ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). E stages se conbierten den listas i e items den karchinan.",
