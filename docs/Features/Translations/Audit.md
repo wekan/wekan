@@ -9104,6 +9104,16 @@ Technical wording remains low confidence pending speaker review. Browser and
 screen-reader checks were not run; further Maithili translations and the broader
 audit remain unfinished.
 
+## Maithili shortcuts and text case
+
+Filled 24 English placeholders for navigation shortcuts, text appending, letter
+case and character selection. The placeholder-only merge retained existing
+translations. Preserved indexed append roles, character index markers, copy
+semantics and distinct letter-case operations. Regression coverage checks those
+details, script, key order and token inventories. Technical wording remains low
+confidence pending speaker review. Browser and screen-reader checks were not run;
+further Maithili translations and the broader audit remain unfinished.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
