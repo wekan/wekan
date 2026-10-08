@@ -8571,6 +8571,16 @@ restrictions alongside key order and placeholder inventories. Technical wording
 remains low confidence pending speaker review. Browser checks were not run.
 The broader language audit remains ongoing.
 
+## Tatar migration progress corrections
+
+Corrected 34 wrong-language migration progress, recovery step and cleanup
+values. Retained the correct existing translation of steps. Preserved URL and
+ID labels, distinct recovery targets, the named lost-card swimlane, and the
+one-time conversion notice allowing continued board use. Regression coverage
+checks those semantics alongside key order and placeholder inventories. Technical
+wording remains low confidence pending speaker review. Browser checks were not
+run; the broader wrong-language audit continues.
+
 ## Original flagged inventory
 
 | Status | Flagged keys |
