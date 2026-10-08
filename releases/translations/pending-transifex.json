@@ -1067,6 +1067,10 @@
     {
       "key": "import-board-instruction-teamwork",
       "since": "2026-10-08"
+    },
+    {
+      "key": "import-board-instruction-businessmap",
+      "since": "2026-10-08"
     }
   ]
 }

@@ -258,6 +258,7 @@ const EXPORT_FORMAT_GROUPS = [
       { key: 'vikunja', icon: 'fa-file-archive-o', label: 'Vikunja', path: 'export/vikunja', ext: 'zip', scopes: BOARD_ONLY },
       { key: 'wrike', icon: 'fa-table', label: 'Wrike', path: 'export/wrike', ext: 'xlsx', scopes: BOARD_ONLY },
       { key: 'teamwork', icon: 'fa-table', label: 'Teamwork.com', path: 'export/teamwork', ext: 'xlsx', scopes: BOARD_ONLY },
+      { key: 'businessmap', icon: 'fa-table', label: 'Businessmap (Kanbanize)', path: 'export/businessmap', ext: 'xlsx', scopes: BOARD_ONLY },
       { key: 'quire', icon: 'fa-sitemap', label: 'Quire', path: 'export/quire', ext: 'csv', scopes: BOARD_ONLY },
       ...[
         ['trello', 'Trello'], ['jira', 'Jira'], ['deck', 'NextCloud Deck'],

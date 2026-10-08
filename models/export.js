@@ -393,6 +393,13 @@ if (Meteor.isServer) {
         res.end(workbook);
         return;
       }
+      // Businessmap's import file is an Excel workbook (models/lib/businessmapFormat.js).
+      if (format === 'businessmap') {
+        const workbook = await require('/server/lib/businessmapWorkbook').writeBusinessmapWorkbook(built);
+        res.writeHead(200, { 'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        res.end(workbook);
+        return;
+      }
       // Microsoft Planner's export is an Excel workbook (models/lib/plannerFormat.js).
       if (format === 'planner') {
         const workbook = await require('/server/lib/plannerWorkbook').writePlannerWorkbook(built);

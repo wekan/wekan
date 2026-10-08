@@ -27,6 +27,7 @@ import { formatKanri } from './kanriFormat.js';
 import { formatPivotalCsv } from './pivotalCsvFormat.js';
 import { formatTasksOrgBackup } from './tasksorgFormat.js';
 import { formatMondaySheets } from './mondayFormat.js';
+import { formatBusinessmapSheets } from './businessmapFormat.js';
 import { formatSuperProductivity } from './superProductivityFormat.js';
 import { formatTaiga } from './taigaFormat.js';
 import { formatVikunja } from './vikunjaFormat.js';
@@ -348,6 +349,9 @@ export const formatters = {
   // monday.com's Excel import table: sheets models/export.js writes as .xlsx
   // (server/lib/mondayWorkbook.js); round-trips with parseMondaySheets.
   monday: formatMondaySheets,
+  // Businessmap's Excel import columns: sheets models/export.js writes as .xlsx
+  // (server/lib/businessmapWorkbook.js); round-trips with parseBusinessmapSheets.
+  businessmap: formatBusinessmapSheets,
   // A Super Productivity backup its "Import from File" reads; round-trips
   // with parseSuperProductivity.
   superproductivity: collected => formatSuperProductivity(collected),

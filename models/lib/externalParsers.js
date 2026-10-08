@@ -14,6 +14,7 @@ import { parseKanri } from './kanriFormat.js';
 import { parsePivotalCsv } from './pivotalCsvFormat.js';
 import { parseTasksOrgBackup } from './tasksorgFormat.js';
 import { parseMondaySheets } from './mondayFormat.js';
+import { parseBusinessmapSheets } from './businessmapFormat.js';
 import { parseSuperProductivity } from './superProductivityFormat.js';
 import { parseTaiga } from './taigaFormat.js';
 import { parseVikunjaExport } from './vikunjaFormat.js';
@@ -996,6 +997,8 @@ export const EXTERNAL_PARSERS = {
   tasksorg: parseTasksOrgBackup,
   // monday.com's Excel export, as sheets of rows (server/lib/mondayWorkbook.js).
   monday: parseMondaySheets,
+  // A Businessmap (Kanbanize) Excel workbook, as sheets of rows (server/lib/businessmapWorkbook.js).
+  businessmap: parseBusinessmapSheets,
   // A Super Productivity backup, as JSON text (superProductivityFormat.js).
   superproductivity: parseSuperProductivity,
   // A Taiga project dump (JSON), see taigaFormat.js.

@@ -220,7 +220,7 @@ Template.import.onCreated(function () {
     // can be mapped later), so we read the file to base64 and import directly.
     // Microsoft Planner's "Export plan to Excel" file, monday.com's board
     // export and Wrike's import template are read the same way.
-    if (dataSource === 'excel' || dataSource === 'planner' || dataSource === 'monday' || dataSource === 'wrike' || dataSource === 'teamwork') {
+    if (dataSource === 'excel' || dataSource === 'planner' || dataSource === 'monday' || dataSource === 'wrike' || dataSource === 'teamwork' || dataSource === 'businessmap') {
       const el = this.find('.js-import-excel-file');
       if (!el || !el.files || !el.files[0]) {
         this.setError('error-json-malformed');
@@ -510,6 +510,7 @@ const IMPORT_SOURCES = [
   { key: 'vikunja', name: 'Vikunja' },
   { key: 'wrike', name: 'Wrike' },
   { key: 'teamwork', name: 'Teamwork.com' },
+  { key: 'businessmap', name: 'Businessmap (Kanbanize)' },
   { key: 'quire', name: 'Quire' },
 ];
 
@@ -620,7 +621,7 @@ Template.importTextarea.helpers({
     return Session.get('importSource') === 'wekan';
   },
   isExcelImport() {
-    return ['excel', 'planner', 'monday', 'wrike', 'teamwork'].includes(Session.get('importSource'));
+    return ['excel', 'planner', 'monday', 'wrike', 'teamwork', 'businessmap'].includes(Session.get('importSource'));
   },
   // Vikunja's export .zip, or its data.json, beside the textarea.
   isVikunjaImport() { return Session.get('importSource') === 'vikunja'; },
