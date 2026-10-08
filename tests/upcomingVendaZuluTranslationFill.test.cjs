@@ -82,6 +82,58 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
   "blockly-CONTROLS_IF_TOOLTIP_2",
   "blockly-CONTROLS_IF_TOOLTIP_3"
 ];
+  keys.push(...[
+  "blockly-CONTROLS_IF_MSG_IF",
+  "blockly-CONTROLS_IF_TOOLTIP_4",
+  "blockly-CONTROLS_REPEAT_INPUT_DO",
+  "blockly-CONTROLS_REPEAT_TITLE",
+  "blockly-CONTROLS_REPEAT_TOOLTIP",
+  "blockly-CONTROLS_WHILEUNTIL_OPERATOR_UNTIL",
+  "blockly-CONTROLS_WHILEUNTIL_OPERATOR_WHILE",
+  "blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL",
+  "blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE",
+  "blockly-COPY_ALL_TO_BACKPACK",
+  "blockly-COPY_SHORTCUT",
+  "blockly-COPY_TO_BACKPACK",
+  "blockly-CURRENT_BLOCK_ANNOUNCEMENT",
+  "blockly-CUT_SHORTCUT",
+  "blockly-DELETE_ALL_BLOCKS",
+  "blockly-DELETE_BLOCK",
+  "blockly-DELETE_VARIABLE",
+  "blockly-DELETE_VARIABLE_CONFIRMATION",
+  "blockly-DELETE_X_BLOCKS",
+  "blockly-DIALOG_OK",
+  "blockly-DISABLE_BLOCK",
+  "blockly-DUPLICATE_BLOCK",
+  "blockly-DUPLICATE_COMMENT",
+  "blockly-EDIT_BLOCK_CONTENTS",
+  "blockly-EMPTY_BACKPACK",
+  "blockly-ENABLE_BLOCK",
+  "blockly-EXPAND_ALL",
+  "blockly-EXPAND_BLOCK",
+  "blockly-EXTERNAL_INPUTS",
+  "blockly-FIELD_BITMAP_ARIA_VALUE",
+  "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR",
+  "blockly-FIELD_BITMAP_BUTTON_LABEL_RANDOMIZE",
+  "blockly-FIELD_BITMAP_PIXEL_LABEL",
+  "blockly-FIELD_BITMAP_PIXEL_OFF",
+  "blockly-FIELD_BITMAP_PIXEL_ON",
+  "blockly-FIELD_LABEL_EDIT_PREFIX",
+  "blockly-FIELD_LABEL_EMPTY",
+  "blockly-FIELD_LABEL_OPTION_INDEX",
+  "blockly-FIELD_LABEL_VARIABLE",
+  "blockly-FIELD_MULTILINEINPUT_FINISH_EDITING",
+  "blockly-FIELD_MULTILINEINPUT_NEW_LINE",
+  "blockly-HELP_PROMPT",
+  "blockly-ICON_LABEL_COMMENT_CLOSED",
+  "blockly-ICON_LABEL_COMMENT_OPEN",
+  "blockly-ICON_LABEL_DEFAULT",
+  "blockly-ICON_LABEL_MUTATOR_CLOSED",
+  "blockly-ICON_LABEL_MUTATOR_OPEN",
+  "blockly-ICON_LABEL_WARNING_CLOSED",
+  "blockly-ICON_LABEL_WARNING_OPEN",
+  "blockly-INLINE_INPUTS"
+]);
   for (const language of ['zu', 'zu-ZA']) {
     const locale = read(language);
     for (const key of keys) {
@@ -94,6 +146,14 @@ console.log('upcomingVendaZuluTranslationFill: 18 tests passed');
     assert.match(locale['blockly-COLOUR_RGB_TOOLTIP'], /phakathi kuka-0 no-100/);
     assert.match(locale['ldap-sync-now-nothing'], /LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS/);
     assert.match(locale['ldap-sync-now-nothing'], /LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED/);
+    assert.match(locale['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL'], /inani lingamanga/);
+    assert.match(locale['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE'], /inani liyiqiniso/);
+    assert.notStrictEqual(locale['blockly-FIELD_BITMAP_PIXEL_OFF'], locale['blockly-FIELD_BITMAP_PIXEL_ON']);
+    const deletion = locale['blockly-DELETE_VARIABLE_CONFIRMATION'].replace('%1', '3').replace('%2', 'counter');
+    assert.match(deletion, /3.*'counter'/);
+    assert.doesNotMatch(deletion, /%[12]/);
+    const pixel = locale['blockly-FIELD_BITMAP_PIXEL_LABEL'].replace('%1', 'kuvuliwe').replace('%2', '4').replace('%3', '7');
+    assert.match(pixel, /kuvuliwe.*umugqa 4.*ikholomu 7/);
     const failure = locale['ldap-sync-now-error'].replace('%s', 'E_LDAP');
     assert.ok(failure.includes('E_LDAP'));
     assert.ok(!failure.includes('%s'));

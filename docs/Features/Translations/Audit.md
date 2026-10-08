@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Zulu Blockly editor and accessibility labels — 2026-10-09
+
+Fill 50 more English values in each Zulu catalog (zu and zu-ZA): editor actions,
+loop conditions, deletion confirmations, bitmap labels, keyboard help and icon
+labels. Preserve every percent variable. Extend the existing regression suite
+with true/false loop distinctions and rendered deletion and pixel-coordinate
+examples. Both targeted suites and all 21 preservation checks pass. Specialized
+programming vocabulary remains low confidence pending speaker review. Browser
+execution and remaining translations are still outstanding.
+
 ## Zulu board settings and Blockly controls — 2026-10-09
 
 Translate 52 English placeholders in each of zu and zu-ZA (104 values): board
