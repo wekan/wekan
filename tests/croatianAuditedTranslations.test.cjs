@@ -23,6 +23,24 @@ assert.equal(data['poker-result-who'], 'Tko');
 assert.equal(data['calendar-previous-month-label'], 'Prethodni mjesec');
 assert.equal(data['calendar-next-month-label'], 'Sljedeći mjesec');
 assert.match(data['comment-only-desc'], /samo komentirati/);
+const correctedPermissions = ["deleteCommentPopup-title", "read-only", "read-assigned-only", "worker", "worker-desc", "computer", "confirm-subtask-delete-popup", "copy-card-link-to-clipboard", "copy-text-to-clipboard", "linkCardPopup-title", "copyManyCardsPopup-title", "current", "custom-field-currency-option", "custom-field-dropdown-none", "date-format", "date-format-yyyy-mm-dd", "date-format-dd-mm-yyyy", "date-format-mm-dd-yyyy", "deleteCustomFieldPopup-title", "deleteLabelPopup-title", "done", "edit-wip-limit", "soft-wip-limit", "addReactionPopup-title", "editCardSpentTimePopup-title", "editNotificationPopup-title", "email", "email-address", "email-enrollAccount-subject", "email-fail", "email-fail-text", "email-invalid", "email-invite", "email-invite-subject", "push-invite-title", "enable-wip-limit", "error-board-doesNotExist", "error-board-notAdmin", "error-board-notAMember", "error-json-malformed", "error-json-schema", "error-list-doesNotExist", "error-user-doesNotExist", "error-user-notAllowSelf", "error-user-notCreated", "error-username-taken", "error-email-taken", "export-board", "export-card", "export-card-attachment-size", "exportBoardPopup-title", "exportCardPopup-title", "sort", "sorted", "remove-sort", "list-label-modifiedAt", "list-label-title", "list-label-sort", "list-label-short-modifiedAt", "list-label-short-title", "list-label-short-sort", "filter", "filter-cards", "filter-dates-label", "filter-no-due-date"];
+for (const key of correctedPermissions) {
+  assert.doesNotMatch(data[key], /[\p{Script=Cyrillic}]/u, key);
+  assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), key);
+}
+for (const key of ['date-format-yyyy-mm-dd', 'date-format-dd-mm-yyyy', 'date-format-mm-dd-yyyy']) {
+  assert.equal(data[key], english[key], 'literal date format: ' + key);
+}
+assert.match(data['worker-desc'], /samo premještati.*dodijeliti sebe.*komentirati/);
+assert.equal(data['read-only'], 'Samo za čitanje');
+assert.equal(data.computer, 'Računalo');
+assert.match(data['error-board-notAdmin'], /administrator/);
+assert.match(data['error-board-notAMember'], /član/);
+assert.match(data['error-user-notAllowSelf'], /Ne možete pozvati sami sebe/);
+assert.match(data['email-fail'], /nije uspjelo/);
+assert.match(data['error-json-malformed'], /JSON/);
+assert.match(data['list-label-modifiedAt'], /posljednjeg pristupa/);
+assert.equal(data['filter-no-due-date'], 'Bez roka');
 assert.equal(data.board, 'Ploča');
 assert.equal(data.swimlane, 'Traka');
 assert.deepEqual(Object.keys(data), Object.keys(english));

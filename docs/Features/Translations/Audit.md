@@ -2,6 +2,15 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Croatian permissions, email and exports — 2026-10-08
+
+Replace 65 Serbian values with Croatian, covering permissions, email, errors,
+exports, sorting and date filters. Restore literal date-format patterns and
+preserve source variables. Extend regression checks for technical literals,
+native vocabulary, restricted permissions and failure messages.
+No browser or screen-reader session was run; further wrong-language review and
+remaining translations are unfinished.
+
 ## Croatian workspace and board controls — 2026-10-08
 
 Replace 70 Serbian values with Croatian, covering activity messages, workspaces,
