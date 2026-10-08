@@ -165408,5 +165408,110 @@
     "before": "设置一周中的哪一天开始",
     "after": "设置每个礼拜从哪一天开始",
     "reason": "2026-10-08: Correct Wu notification controls and role descriptions, retaining global-admin exception and unsaved preview semantics; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "monday",
+    "before": "周一",
+    "after": "礼拜一",
+    "reason": "2026-10-08: Correct Wu weekday, status and domain prose, preserving linked-card prerequisites and domain examples; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "tuesday",
+    "before": "周二",
+    "after": "礼拜二",
+    "reason": "2026-10-08: Correct Wu weekday, status and domain prose, preserving linked-card prerequisites and domain examples; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "wednesday",
+    "before": "周三",
+    "after": "礼拜三",
+    "reason": "2026-10-08: Correct Wu weekday, status and domain prose, preserving linked-card prerequisites and domain examples; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "thursday",
+    "before": "周四",
+    "after": "礼拜四",
+    "reason": "2026-10-08: Correct Wu weekday, status and domain prose, preserving linked-card prerequisites and domain examples; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "friday",
+    "before": "星期五",
+    "after": "礼拜五",
+    "reason": "2026-10-08: Correct Wu weekday, status and domain prose, preserving linked-card prerequisites and domain examples; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "saturday",
+    "before": "周六",
+    "after": "礼拜六",
+    "reason": "2026-10-08: Correct Wu weekday, status and domain prose, preserving linked-card prerequisites and domain examples; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "sunday",
+    "before": "星期日",
+    "after": "礼拜日",
+    "reason": "2026-10-08: Correct Wu weekday, status and domain prose, preserving linked-card prerequisites and domain examples; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "status",
+    "before": "地位",
+    "after": "状态",
+    "reason": "2026-10-08: Correct Wu weekday, status and domain prose, preserving linked-card prerequisites and domain examples; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "delete-linked-cards-before-this-list",
+    "before": "在首先删除指向此列表中的卡片的链接卡片之前，您无法删除此列表",
+    "after": "要先删脱指向搿只列表里向卡片个关联卡片，才可以删脱搿只列表",
+    "reason": "2026-10-08: Correct Wu weekday, status and domain prose, preserving linked-card prerequisites and domain examples; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "hide-checked-items",
+    "before": "隐藏选中的项目",
+    "after": "藏起勾选好个项目",
+    "reason": "2026-10-08: Correct Wu weekday, status and domain prose, preserving linked-card prerequisites and domain examples; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "hide-finished-checklist",
+    "before": "隐藏已完成的清单",
+    "after": "藏起完成好个清单",
+    "reason": "2026-10-08: Correct Wu weekday, status and domain prose, preserving linked-card prerequisites and domain examples; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "share-template-with",
+    "before": "共享模板给",
+    "after": "拿模板共享畀",
+    "reason": "2026-10-08: Correct Wu weekday, status and domain prose, preserving linked-card prerequisites and domain examples; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "drag-template-here-to-share",
+    "before": "将模板看板拖到此处以共享",
+    "after": "拿模板看板拖到搿搭来共享",
+    "reason": "2026-10-08: Correct Wu weekday, status and domain prose, preserving linked-card prerequisites and domain examples; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "remove-domain-from-board",
+    "before": "确定要从此看板移除此域吗？",
+    "after": "侬确定要从搿块看板浪移脱搿个域名伐？",
+    "reason": "2026-10-08: Correct Wu weekday, status and domain prose, preserving linked-card prerequisites and domain examples; lower-confidence prose needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "invalid-domain",
+    "before": "无效的域。请使用 example.com 之类的域（不含 @ 或空格）。",
+    "after": "域名无效。请用 example.com 搿能个域名（勿要有 @ 或者空格）。",
+    "reason": "2026-10-08: Correct Wu weekday, status and domain prose, preserving linked-card prerequisites and domain examples; lower-confidence prose needs native review."
   }
 ]

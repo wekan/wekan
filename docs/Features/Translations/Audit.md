@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu calendar and domain corrections — 2026-10-08
+
+Correct 15 weekday, status, checklist and domain values. Preserve linked-card deletion
+prerequisites and the example.com example with its prohibition on @ and spaces.
+Distinguish checked checklist items from selection. Refresh exact-value audit records
+and check source tokens. Wu prose needs native review; browser tests were not run and
+all-language work remains unfinished.
+
 ## Wu notification controls and role corrections — 2026-10-08
 
 Correct 13 display, notification and role values. Preserve opposite read/unread actions,
@@ -12756,7 +12764,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **23,630** exact before/after values, including unflagged
+records contain **23,645** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

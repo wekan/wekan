@@ -899,3 +899,13 @@ assert.match(wu['roles-status-desc'], /只读.*复选框.*还朆保存.*看得�
 assert.match(wu['roles-status-sees-assigned'], /只看分配畀自家个卡片/);
 assert.match(wu['show-on-public-board'], /公开看板/);
 assert.match(wu['show-on-private-board'], /私有看板/);
+
+const calendarDomains = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday", "status", "delete-linked-cards-before-this-list", "hide-checked-items", "hide-finished-checklist", "share-template-with", "drag-template-here-to-share", "remove-domain-from-board", "invalid-domain"];
+for (const key of calendarDomains) assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+assert.deepEqual(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map(key => wu[key]), ['礼拜一', '礼拜二', '礼拜三', '礼拜四', '礼拜五', '礼拜六', '礼拜日']);
+assert.equal(wu.status, '状态');
+assert.match(wu['delete-linked-cards-before-this-list'], /先删脱指向.*关联卡片.*才可以删脱.*列表/);
+assert.match(wu['hide-checked-items'], /勾选好/);
+assert.match(wu['hide-finished-checklist'], /完成好/);
+assert.match(wu['invalid-domain'], /example\.com.*勿要有 @ 或者空格/);
+assert.match(wu['remove-domain-from-board'], /从搿块看板.*移脱.*域名/);
