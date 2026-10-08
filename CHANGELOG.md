@@ -1998,6 +1998,22 @@ report with seven assignees and asserts no avatar overlaps the comment.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1c75103101298595a42586425d5baa81994465a6">Translate Moroccan Arabic Blockly loops and conditions</a></summary>
+
+- Fill 24 placeholders while retaining existing translations. Check break versus
+  continue, loop restrictions, true/false conditions, final else branches, count
+  argument ordering, Arabic script and source placeholders.
+- Validation: 39 translation checks and 21 human-preference checks pass. Two
+  repository-wide checks fail on new card-field-visibility keys missing from
+  other locales. Browser, RTL and screen-reader checks were not run.
+- Technical Darija wording remains low confidence pending speaker review;
+  remaining placeholders and the broader language audit are unfinished.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ec526a4d375104d48f66f80e7e761ee9a59e107b">Translate Moroccan Arabic Blockly colours and controls</a></summary>
 
 - Fill 20 Blockly placeholders and two new card-field labels, preserving
