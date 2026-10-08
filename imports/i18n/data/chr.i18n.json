@@ -1551,7 +1551,7 @@
   "oauth-providers-allowed-email-domains": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
   "oauth-account-conflict": "ᎠᏓᏃᎮᏗ ᎯᎠ ᏗᎦᎵᏦᏙᏗ ᎤᏍᏛ ᎡᎭ ᎠᎴ ᎥᏝ ᎯᎠ ᎤᏴᏍᏗ ᎢᏳᏍᏗ ᎬᏗ ᏱᎪᏢᏁ",
   "sign-in-with": "%s ᎬᏗ ᎤᏴᏍᏗ",
-  "login-origin-mismatch": "Signing in through another service cannot finish at this address. WeKan is set up for __expected__, but this page was opened at __actual__. Open WeKan at __expected__, or ask the administrator to set ROOT_URL to __actual__.",
+  "login-origin-mismatch": "Ꮭ ᏰᎵ ᏱᎩ ᎠᏍᏆᏛᏗ ᎠᏴᎯᎲ ᏄᏓᎴ ᎠᏍᏕᎵᏍᎩ ᎬᏗ ᎯᎠ ᎠᏕᏗ ᎦᏙᎯ. WeKan __expected__ ᎠᏕᏗ ᎦᏙᎯ ᎬᏙᏗ ᎠᏛᏅᎢᏍᏔᏃᏅᎢ, ᎠᏎᏃ ᎯᎠ ᎤᏆᏓᏛ __actual__ ᎤᏍᏚᎢᏍᏔᏅᎢ. WeKan __expected__ ᎯᏍᏚᎢᏍᏓ, ᎠᎴᏱᎩ ᎠᏓᏘᏂᏙᎯ ᎯᏛᏓᏍᏗ ROOT_URL __actual__ ᎢᏯᏛᏁᏗ.",
   "passwordless-title": "ᎦᎵᏍᎦᏂ ᎧᏁᏬᏍᏗ ᏄᏠᏱᎾ ᎤᏴᏍᏗ",
   "passwordless-enabled": "ᎦᎵᏍᎦᏂ ᎧᏁᏬᏍᏗ ᎠᏓᏁᏟᏴᏍᏗ ᏌᏊ ᎢᏳᏓᎵ ᎤᏴᏍᏗ ᎠᏍᏓᏩᏛᏍᏗ ᏗᎦᎵᏦᏙᏗ ᎬᏗ ᎠᏓᏅᏗ",
   "passwordless-hint": "ᏗᎦᎵᏦᏙᏗ ᎤᏄᎪᏨ ᎤᏚᎳᏗ (MAIL_URL). ᎾᏍᏉ PASSWORDLESS_ENABLED.",

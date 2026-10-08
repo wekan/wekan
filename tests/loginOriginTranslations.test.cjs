@@ -6,40 +6,17 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const key = 'login-origin-mismatch';
 const source = read('en')[key];
-const codes = ['de', 'de-AT', 'de-CH', 'fr', 'fr-CA', 'es', 'es-AR', 'it', 'pt', 'pt-BR', 'nl', 'sv', 'da', 'nb', 'pl', 'cs', 'sk', 'ro', 'hu', 'id', 'ms', 'vi', 'ja', 'ko', 'zh-CN', 'zh-TW'];
-codes.push('de_DE', 'fr-BE', 'fr-CH', 'fr-FR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'cs-CZ', 'ja-JP', 'ko-KR', 'ms-MY', 'nl-NL', 'pl-PL', 'pt-PT', 'pt_PT', 'ro-RO', 'vi-VN', 'zh-Hans', 'zh-Hant', 'zh_SG');
-codes.push('ar', 'fa', 'he', 'uk-UA', 'ar-DZ', 'ar-EG', 'fa-IR', 'he-IL');
-codes.push('hi', 'bn', 'ta', 'te-IN', 'mr', 'gu-IN', 'kn', 'ml', 'ne', 'ur', 'pa', 'si', 'hi-IN');
-codes.push('ca', 'ca@valencia', 'gl', 'eu', 'eo', 'th', 'sw', 'tl', 'ca_ES', 'gl-ES');
-codes.push('cmn', 'zh', 'zh-GB', 'zh-HK', 'yue_CN');
-codes.push('mn', 'kk', 'ky', 'uz', 'az', 'ka', 'hy', 'uz-LA', 'uz-UZ', 'az-AZ', 'az-LA');
-codes.push('cy', 'ga', 'gd', 'oc', 'co', 'mt', 'lb', 'fy', 'cy-GB', 'fy-NL');
-codes.push('jv', 'ht', 'mg', 'so', 'ha');
-codes.push('am', 'my', 'km', 'km-KH', 'km_KH', 'bi', 'tpi');
-codes.push('sd', 'ps', 'ku', 'ckb', 'ug');
-codes.push('tt', 'ba', 'tg', 'tk_TM');
-codes.push('yo', 'ig', 'sn', 'zu', 'xh', 'zu-ZA');
-codes.push('rw', 'rn', 'ny', 'st', 'tn');
-codes.push('an', 'ast-ES', 'sc', 'scn', 'nap');
-codes.push('br', 'csb', 'hsb', 'szl', 'fo');
-codes.push('as', 'or_IN', 'mai', 'bho', 'kok');
-codes.push('fur', 'rm', 'lld', 'rup', 'la');
-codes.push('mi', 'haw', 'sm', 'to', 'fj');
-codes.push('nso', 'nd', 'ss', 'ts', 've');
-codes.push('ary', 'ja-HI', 'wa', 'wa-RR', 've-CC');
-codes.push('vl-SS', 'se', 'gv', 'kw');
-codes.push('om', 'lg', 'wo', 'ak');
-codes.push('bua', 'cv', 'sah');
-codes.push('ace', 'ay', 'gn', 'qu');
-codes.push('bm', 'ee', 'ff');
-codes.push('bo', 'dz', 'ti');
-codes.push('uz-AR', 'ks');
-codes.push('ve-PP', 'vo', 'tlh');
-codes.push('kl', 'nah');
-codes.push('tig', 'wal');
-codes.push('zgh', 'iu');
+// Discover every catalog so future locales cannot silently escape this regression.
+const codes = fs.readdirSync(path.join(__dirname, '../imports/i18n/data'))
+  .filter(name => name.endsWith('.i18n.json'))
+  .map(name => name.slice(0, -'.i18n.json'.length))
+  .filter(code => !/^en(?:[-_]|$)/.test(code))
+  .sort();
+assert.ok(codes.includes('chr') && codes.includes('fi'), 'include both newly and previously translated catalogs');
 for (const code of codes) {
   const value = read(code)[key];
+  assert.equal(typeof value, 'string', code);
+  assert.ok(value.trim(), code);
   assert.notEqual(value, source, code);
   assert.deepEqual(translationTokens(value), translationTokens(source), code);
   assert.equal((value.match(/ROOT_URL/g) || []).length, 1, code);
@@ -57,7 +34,7 @@ assert.match(read('es')[key], /No se puede completar/);
 assert.match(read('ja')[key], /ログインを完了できません/);
 assert.match(read('zh-CN')[key], /无法在此地址完成/);
 assert.match(read('zh-TW')[key], /無法在此位址完成/);
-console.log('Sign-in origin warning: 206 catalog paths, repeated address roles and literal configuration key pass');
+console.log(`Sign-in origin warning: ${codes.length} catalog paths, repeated address roles and literal configuration key pass`);
 
 assert.match(read('ar')[key], /لا يمكن إكمال تسجيل الدخول/);
 assert.match(read('fa')[key], /تکمیل نمی‌شود/);
@@ -252,3 +229,8 @@ for (const [code, script] of [['zgh', /\p{Script=Tifinagh}/u], ['iu', /\p{Script
   assert.match(prose, script, code);
   assert.doesNotMatch(prose, /[A-Za-z]/, code);
 }
+
+assert.match(read('chr')[key], /Ꮭ ᏰᎵ ᏱᎩ/);
+const cherokeeProse = read('chr')[key].replaceAll('WeKan', '').replaceAll('ROOT_URL', '').replace(/__(?:expected|actual)__/g, '');
+assert.match(cherokeeProse, /\p{Script=Cherokee}/u);
+assert.doesNotMatch(cherokeeProse, /[A-Za-z]/);

@@ -2,6 +2,19 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Cherokee warning and complete warning inventory — 2026-10-08
+
+Translate the Cherokee warning, preserving variables and ROOT_URL. Replace the
+accumulated batch list in the warning test with discovery of every non-English
+catalog; explicitly reject missing and empty values. All 234 non-English catalog
+paths now differ from English for this warning and pass exact-token, address-role,
+configuration-name and substitution checks. The placeholder suite and all 21
+preservation checks also pass. Cherokee vocabulary follows existing address labels
+and the [Cherokee localization style guide](https://device.report/m/ec97d073ab6cbd68782ca40920086dfc88494072dd04c880442803a81c119438.pdf).
+The Cherokee prose has low confidence and needs native review. This completes the
+warning's inventory coverage only; browser review, translation quality review and
+the wider all-language backlog remain outstanding.
+
 ## Tamazight and Inuktitut warnings — 2026-10-08
 
 Translate two warnings with exact repeated address variables and ROOT_URL.
