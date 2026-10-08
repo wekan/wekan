@@ -827,3 +827,25 @@ for (const code of ['ms', 'ms-MY']) {
   assert.match(locale['import-board-instruction-teamwork'], /satu aras lebih dalam/);
   assert.match(locale['import-board-instruction-superproductivity'], /tugasan yang diarkibkan menjadi kad yang diarkibkan/);
 }
+
+for (const code of ['vi', 'vi-VN']) {
+  const locale = read(code);
+  const literals = {
+    planner: ['Microsoft Planner', 'Export plan to Excel', '.xlsx', 'Progress', 'Priority', 'Completed By'],
+    meistertask: ['MeisterTask', 'Export project', 'CSV'],
+    ...Object.fromEntries(['obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri'].map(format => [format, importLiterals[format]])),
+  };
+  for (const [format, values] of Object.entries(literals)) {
+    const key = 'import-board-instruction-' + format;
+    assert.notEqual(locale[key], read('en')[key], code + ': ' + key);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(read('en')[key]), code + ': ' + key);
+    for (const value of values) assert.ok(locale[key].includes(value), code + ': ' + value);
+  }
+  for (const format of ['nullboard', 'kanri']) {
+    assert.match(locale['import-board-instruction-' + format], /chỉ bảng đầu tiên được nhập/);
+    assert.doesNotMatch(locale['import-board-instruction-' + format], /tất cả các bảng được nhập/);
+  }
+  assert.match(locale['import-board-instruction-meistertask'], /nhiệm vụ đã hoàn thành giữ nguyên ngày hoàn thành/);
+  assert.match(locale['import-board-instruction-obsidian'], /phần lưu trữ trở thành các thẻ đã lưu trữ/);
+  assert.match(locale['import-board-instruction-ticktick'], /danh sách TickTick trở thành một làn ngang/);
+}

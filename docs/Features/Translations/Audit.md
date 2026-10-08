@@ -2,6 +2,16 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-09**.
 
+## Vietnamese import instructions, first group — 2026-10-09
+
+Translate eight instructions in vi and vi-VN (16 values): Planner, MeisterTask,
+Obsidian, Linear, TickTick, ClickUp, Nullboard and Kanri. Preserve commands,
+extensions and variables. Regression checks cover completed-task dates, archived
+cards, first-board selection and swimlane mappings. Import-instruction, placeholder
+and Vietnamese/Bulgarian completion suites and all 21 preservation checks pass.
+Remaining Vietnamese instructions, browser review and the wider translation
+backlog remain outstanding.
+
 ## Malay import instructions, remaining group — 2026-10-09
 
 Translate the remaining 13 instructions in ms and ms-MY (26 values), completing
