@@ -2173,6 +2173,20 @@ uses the same word as `checklist` itself.
 **Translations** — continued language coverage and corrections.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f033222baf7a7ef7d1ad796f2f398b20a3c2b589">Translate Bhojpuri final recovery controls</a></summary>
+
+- Fill six recovery strings, preserving existing translations and placeholders.
+  The default inventory now retains only product names and mathematical symbols;
+  none of the 149 pending-Transifex keys remain identical to English in Bhojpuri.
+- Technical wording remains low confidence pending speaker review.
+- All 61 focused checks and 21 human-preference checks pass. Browser checks
+  were not run. The broader translation audit continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3a09261d220f7d4c7908ae2caaa22f0635d368ff">Translate Bhojpuri Sync diagnostics and notification recovery</a></summary>
 
 - Fill 49 Sync diagnostic, mail failure and notification recovery strings,
