@@ -2,6 +2,14 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-08**.
 
+## Wu activity-summary argument order — 2026-10-08
+
+Correct 25 activity summaries to Wu wording. Repair reversed positional `%s` roles
+in import, exclusion, removal and checklist messages; inventory equality alone
+cannot detect swapped arguments. Preserve source counts and check the surrounding
+role wording. Update exact-value audit records. Wording is lower confidence and
+needs native review. No browser session was run. The broader audit is unfinished.
+
 ## Wu board activity corrections — 2026-10-08
 
 Replace 24 Mandarin-like or malformed comment, creation, archive, import, movement
@@ -12441,7 +12449,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,871** exact before/after values, including unflagged
+records contain **22,896** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

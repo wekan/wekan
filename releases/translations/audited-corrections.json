@@ -160095,5 +160095,180 @@
     "before": "恢复卡__card__以列出__list__在泳道__swimlane__在板__board__",
     "after": "拿卡片 __card__ 恢复到列表 __list__ 仔，勒泳道 __swimlane__、看板 __board__ 里向",
     "reason": "2026-10-08: Replace Mandarin-like or malformed activity prose with Wu wording; preserve action, location and exact source tokens. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-added",
+    "before": "将%s 添加到%s",
+    "after": "拿 %s 加到 %s 仔",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-archived",
+    "before": "%s 移至存档",
+    "after": "%s 移到归档里向仔",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-attached",
+    "before": "将 %s 附加到 %s",
+    "after": "拿 %s 附加到 %s 仔",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-created",
+    "before": "创建了%s",
+    "after": "建立 %s 仔",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-changedListTitle",
+    "before": "将列表重命名为%s",
+    "after": "拿列表改名叫 %s 仔",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-customfield-created",
+    "before": "创建自定义字段%s",
+    "after": "建立自定义字段 %s 仔",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-excluded",
+    "before": "从%s 中排除%s",
+    "after": "排除 %s 仔，原来勒 %s 里向",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-imported",
+    "before": "从%s 将%s 导入到%s",
+    "after": "导入 %s 仔，目标是 %s，来源是 %s",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-imported-board",
+    "before": "从%s 导入%s",
+    "after": "导入 %s 仔，来源是 %s",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-joined",
+    "before": "加入%s",
+    "after": "加入 %s 仔",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-moved",
+    "before": "将%s 从%s 移至%s",
+    "after": "拿 %s 从 %s 移到 %s 仔",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-on",
+    "before": "在%s",
+    "after": "勒 %s 浪",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-removed",
+    "before": "从%s 中删除了%s",
+    "after": "移脱 %s 仔，原来勒 %s 里向",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-sent",
+    "before": "发送%s至%s",
+    "after": "拿 %s 发畀 %s 仔",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-unjoined",
+    "before": "未加入%s",
+    "after": "退出 %s 仔",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-subtask-added",
+    "before": "将子任务添加到%s",
+    "after": "畀 %s 加子任务仔",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-checked-item",
+    "before": "在%s 的清单%s 中检查了%s",
+    "after": "勾选 %s 仔，勒检查清单 %s 里向，所属卡片是 %s",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-unchecked-item",
+    "before": "%s 清单 %s 中未选中 %s",
+    "after": "取消 %s 个勾选仔，勒检查清单 %s 里向，所属卡片是 %s",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-checklist-added",
+    "before": "将清单添加到%s",
+    "after": "畀 %s 加检查清单仔",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-checklist-removed",
+    "before": "从%s 中删除了清单",
+    "after": "从 %s 移脱一份检查清单仔",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-checklist-completed",
+    "before": "已完成%s 的清单%s",
+    "after": "完成检查清单 %s 仔，所属卡片是 %s",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-checklist-uncompleted",
+    "before": "未完成%s的清单%s",
+    "after": "拿检查清单 %s 改回还朆完成仔，所属卡片是 %s",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-checklist-item-added",
+    "before": "将清单项添加到%s 中的“%s”",
+    "after": "畀 '%s' 加清单项目仔，勒 %s 里向",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-checklist-item-removed",
+    "before": "从 %s 中的“%s”中删除了清单项目",
+    "after": "从 '%s' 移脱清单项目仔，勒 %s 里向",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "activity-checked-item-card",
+    "before": "在清单%s中检查了%s",
+    "after": "勾选 %s 仔，勒检查清单 %s 里向",
+    "reason": "2026-10-08: Correct Mandarin-like activity summary to Wu and preserve positional percent-token roles in English order. Low-confidence wording needs native review."
   }
 ]

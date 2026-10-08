@@ -390,3 +390,18 @@ assert.match(wu['act-moveCardToOtherBoard'], /从看板 __oldBoard__.*移到看�
 assert.match(wu['act-joinMember'], /加到卡片/);
 assert.match(wu['act-unjoinMember'], /移脱成员/);
 assert.match(wu['act-restoredCard'], /恢复到列表/);
+
+const activitySummaries = ["activity-added", "activity-archived", "activity-attached", "activity-created", "activity-changedListTitle", "activity-customfield-created", "activity-excluded", "activity-imported", "activity-imported-board", "activity-joined", "activity-moved", "activity-on", "activity-removed", "activity-sent", "activity-unjoined", "activity-subtask-added", "activity-checked-item", "activity-unchecked-item", "activity-checklist-added", "activity-checklist-removed", "activity-checklist-completed", "activity-checklist-uncompleted", "activity-checklist-item-added", "activity-checklist-item-removed", "activity-checked-item-card"];
+for (const key of activitySummaries) {
+  assert.deepEqual(translationTokens(wu[key]), translationTokens(english[key]), key);
+  assert.match(wu[key], /仔|勒/, `${key}: Wu activity wording`);
+}
+assert.match(wu['activity-imported'], /导入 %s.*目标是 %s.*来源是 %s/);
+assert.match(wu['activity-imported-board'], /导入 %s.*来源是 %s/);
+assert.match(wu['activity-excluded'], /排除 %s.*原来勒 %s/);
+assert.match(wu['activity-removed'], /移脱 %s.*原来勒 %s/);
+assert.match(wu['activity-checked-item'], /勾选 %s.*检查清单 %s.*所属卡片是 %s/);
+assert.match(wu['activity-unchecked-item'], /取消 %s.*检查清单 %s.*所属卡片是 %s/);
+assert.match(wu['activity-checklist-completed'], /检查清单 %s.*所属卡片是 %s/);
+assert.match(wu['activity-checklist-uncompleted'], /还朆完成/);
+assert.match(wu['activity-unjoined'], /退出/);
